@@ -13,7 +13,10 @@
       : (window.RBH_FALLBACK || { branches: [], brandGroups: {}, hostMap: {} });
 
     var BR = {};
-    (data.branches || []).forEach(function (b) { if (b && b.id) BR[b.id] = b; });
+    (data.branches || []).forEach(function (b) {
+      if (b && b.id) BR[b.id] = b;
+    });
+
     var HM = data.hostMap || {};
 
     function pickBranch() {
@@ -27,9 +30,10 @@
         if (mapped.length) return mapped[0];
       }
 
-      // fallback by keyword
       var surface = host + " " + (location.pathname || "").toLowerCase();
-      var best = null, bestScore = 0;
+      var best = null;
+      var bestScore = 0;
+
       Object.keys(BR).forEach(function (k) {
         var b = BR[k];
         var kws = (b.keywords || [])
@@ -37,12 +41,19 @@
           .map(function (x) { return String(x).toLowerCase(); });
 
         var score = 0;
-        kws.forEach(function (kw) { if (kw && surface.includes(kw)) score++; });
-        if (score > bestScore) { best = b; bestScore = score; }
+        kws.forEach(function (kw) {
+          if (kw && surface.includes(kw)) score++;
+        });
+
+        if (score > bestScore) {
+          best = b;
+          bestScore = score;
+        }
       });
 
       if (best) return best;
       if (BR.rbh_head_office_aintree) return BR.rbh_head_office_aintree;
+
       var first = Object.keys(BR)[0];
       return first ? BR[first] : null;
     }
@@ -50,16 +61,29 @@
     var branch = pickBranch();
     if (!branch) return;
 
-    // ----- render dynamic branch content -----
-    var locality = branch.addressLocality || "your area";
     var branchName = branch.branchName || branch.brandLabel || "your local pharmacy";
+    var locality = branch.addressLocality || "your area";
     var fullAddress = [branch.streetAddress, branch.addressLocality, branch.postalCode].filter(Boolean).join(", ");
     var website = "https://" + (location.hostname || "");
     var phone = branch.phone || "";
     var email = branch.email || "";
 
+    function setText(id, value) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function setHref(id, value) {
+      var el = document.getElementById(id);
+      if (el) el.setAttribute("href", value);
+    }
+
+    function hideEl(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    }
+
     setText("sw-pill-locality", "Your local independent pharmacy in " + locality);
-    setText("sw-hero-locality", locality);
     setText("sw-hero-branch", branchName);
     setText("sw-contact-branch", branchName);
     setText("sw-contact-address", fullAddress || "Address available on request");
@@ -70,6 +94,13 @@
     if (phone) {
       setHref("sw-phone-link", "tel:" + phone.replace(/\s+/g, ""));
       setText("sw-phone-link", phone);
+
+      var callBtn = document.getElementById("sw-call-btn");
+      if (callBtn) {
+        callBtn.href = "tel:" + phone.replace(/\s+/g, "");
+        var t = callBtn.querySelector(".sw-call-text");
+        if (t) t.textContent = "Call " + phone;
+      }
     } else {
       hideEl("sw-phone-row");
       hideEl("sw-call-btn");
@@ -87,7 +118,6 @@
       map.src = "https://www.google.com/maps?q=" + encodeURIComponent(fullAddress) + "&output=embed";
     }
 
-    // ----- form -----
     var form = document.getElementById("switch-form");
     var msg = document.getElementById("switch-msg");
     var thankyou = document.getElementById("switch-thankyou");
@@ -95,7 +125,6 @@
     var waBtn = document.getElementById("switch-wa");
     var waHeroBtn = document.getElementById("switch-wa-hero");
     var callbackBtn = document.getElementById("switch-callback-btn");
-    var callBtn = document.getElementById("sw-call-btn");
 
     if (!form) return;
 
@@ -103,26 +132,6 @@
     if (form.elements["website_url"]) form.elements["website_url"].value = window.location.href;
     if (form.elements["destination"]) form.elements["destination"].value = "rishi@rbhealth.co.uk";
     if (form.elements["source"]) form.elements["source"].value = "Switch Page - " + branchName;
-
-    if (callBtn && phone) {
-      callBtn.href = "tel:" + phone.replace(/\s+/g, "");
-      callBtn.querySelector(".sw-call-text").textContent = "Call " + phone;
-    }
-
-    function setText(id, value) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
-
-    function setHref(id, value) {
-      var el = document.getElementById(id);
-      if (el) el.setAttribute("href", value);
-    }
-
-    function hideEl(id) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    }
 
     function clearErrors() {
       form.querySelectorAll("input").forEach(function (field) {
@@ -324,7 +333,6 @@
       });
     }
 
-    // JSON-LD
     try {
       var schema = {
         "@context": "https://schema.org",
@@ -342,6 +350,7 @@
           "addressCountry": branch.addressCountry || "GB"
         }
       };
+
       var ld = document.createElement("script");
       ld.type = "application/ld+json";
       ld.text = JSON.stringify(schema);
@@ -349,6 +358,9 @@
     } catch (e) {}
   }
 
-  if (window.RBH_DATA) initSwitch();
-  else document.addEventListener("RBH_DataReady", initSwitch, { once: true });
+  if (window.RBH_DATA) {
+    initSwitch();
+  } else {
+    document.addEventListener("RBH_DataReady", initSwitch, { once: true });
+  }
 })();
