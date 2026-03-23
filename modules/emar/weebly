@@ -1,1 +1,154 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/emar/emar.css?v=20260323-1">
+<script src="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/core/site-data.js?v=20260323-1" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/emar/emar.js?v=20260323-1" defer></script>
 
+<div id="rbhem-root" aria-label="RB Healthcare eMAR section">
+  <div class="rbhem-wrap" id="emar">
+
+    <section class="rbhem-hero" aria-label="eMAR hero">
+      <div class="rbhem-hero-inner">
+        <span class="rbhem-pill">Electronic Medicines Administration (eMAR)</span>
+        <h1 class="rbhem-h1">Safer medication rounds for care homes in <span id="rbhem-hero-town">your area</span></h1>
+        <p class="rbhem-sub" id="rbhem-hero-sub">
+          Practical, unbiased guidance from pharmacists with 10+ years' eMAR experience.
+          Supporting care homes in and around <strong>your area</strong>.
+        </p>
+        <div class="rbhem-cta-row">
+          <a href="#rbhem-contact" class="rbhem-btn rbhem-btn-primary">Book a no obligation chat</a>
+          <a href="#rbhem-faq" class="rbhem-btn rbhem-btn-ghost">Read the myth-busting FAQ</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="rbhem-tiles">
+      <div class="rbhem-tile"><h3>Safe</h3><p>Reduce errors, clear audit trails, and faster inspections.</p></div>
+      <div class="rbhem-tile"><h3>Simple</h3><p>Touch-friendly rounds, teams confident in weeks.</p></div>
+      <div class="rbhem-tile"><h3>Compliant</h3><p>Aligns with CQC digital records and good governance.</p></div>
+    </div>
+
+    <div id="rbhem-branch-strip" class="rbhem-branches"></div>
+    <div id="rbhem-network-slot"></div>
+    <div id="rbhem-extra-top"></div>
+
+    <section class="rbhem-grid">
+      <div>
+        <div class="rbhem-card rbhem-pad" style="margin-bottom:16px;">
+          <div style="position:relative;overflow:hidden;aspect-ratio:1920/1080;border-radius:12px;">
+            <iframe
+              src="https://share.synthesia.io/embeds/videos/99e208f1-958b-484c-84b9-010d1eb9e559"
+              loading="lazy"
+              title="Transforming Care with eMAR"
+              allowfullscreen
+              allow="encrypted-media; fullscreen; microphone;"
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="rbhem-card rbhem-pad rbhem-assurance">
+          <div class="rbhem-badge">We are pharmacists, not salespeople</div>
+          <p><strong>We are here to improve safety and medication supply, not to sell software.</strong> We work with eMAR daily and can show what we pay. We do not make a penny on recommendations.</p>
+          <p>With <strong>10+ years of experience</strong> and <strong>over 500 beds supplied each month</strong>, we offer practical and unbiased advice.</p>
+          <p class="rbhem-muted">Prefer a quick demo? <a href="#rbhem-contact">Use the form</a>, genuinely no obligation.</p>
+        </div>
+
+        <div id="rbhem-faq" class="rbhem-card rbhem-pad rbhem-faq" style="margin-top:16px;">
+          <div class="rbhem-badge">eMAR Myths & FAQs</div>
+          <h2 class="rbhem-h2">Myth-busting: what care homes ask us most</h2>
+
+          <details><summary>"It is hard to implement - our staff will struggle."</summary><div class="rbhem-ans">Most teams are confident within weeks. Short training and phased rollout keep adoption smooth.</div></details>
+          <details><summary>"We have older staff who cannot use computers."</summary><div class="rbhem-ans">Modern eMAR uses simple touch workflows and clear prompts.</div></details>
+          <details><summary>"It is expensive."</summary><div class="rbhem-ans">Over a year, time saved and fewer errors often offset costs. We are transparent on pricing.</div></details>
+          <details><summary>"What if internet breaks?"</summary><div class="rbhem-ans">Choose systems with offline mode and proper sync when connection returns.</div></details>
+          <details><summary>"We already manage fine on paper."</summary><div class="rbhem-ans">eMAR improves auditability, traceability, and round efficiency.</div></details>
+        </div>
+      </div>
+
+      <div id="rbhem-contact">
+        <div class="rbhem-card rbhem-pad">
+          <div class="rbhem-badge">No hard sell - ever</div>
+          <h2 class="rbhem-h2">Ask us anything or book a no obligation demo</h2>
+          <p style="color:#374151 !important;">We respond personally. No sales targets, no chasing.</p>
+
+          <div class="rbhem-form-shell">
+            <iframe name="rbhem-post" id="rbhem-post" style="display:none;"></iframe>
+
+            <form
+              id="rbhem-form"
+              method="post"
+              action="https://script.google.com/macros/s/AKfycbxQqA5Lc71OM_7vlz1ibdD5Dbs77oPuzr62_cEhy7y7GS_MxDSGY5-5goKzysOoSd8/exec"
+              target="rbhem-post"
+              novalidate>
+              <h2>Book a quick eMAR chat</h2>
+              <p class="rbhem-form-sub">Tell us a few details and we will get back to you fast.</p>
+
+              <div class="rbhem-form-grid">
+                <label class="rbhem-label">Your name *
+                  <input class="rbhem-input" type="text" name="name" autocomplete="name" required>
+                </label>
+
+                <label class="rbhem-label">Email *
+                  <input class="rbhem-input" type="email" name="email" autocomplete="email" required>
+                </label>
+
+                <label class="rbhem-label">Phone (optional)
+                  <input class="rbhem-input" type="tel" name="phone" autocomplete="tel" placeholder="+44...">
+                </label>
+
+                <label class="rbhem-label">Organisation (optional)
+                  <input class="rbhem-input" type="text" name="org" placeholder="Care home / clinic">
+                </label>
+
+                <label class="rbhem-label">Topic
+                  <select class="rbhem-input" name="topic">
+                    <option value="eMAR" selected>eMAR</option>
+                    <option value="Pharmacy First">Pharmacy First</option>
+                    <option value="Weight management">Weight management</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+
+                <label class="rbhem-label">Preferred date
+                  <input class="rbhem-input" type="date" name="date">
+                </label>
+
+                <label class="rbhem-label">Preferred time
+                  <input class="rbhem-input" type="time" name="time">
+                </label>
+
+                <label class="rbhem-label rbhem-col-span">Anything specific? (optional)
+                  <textarea class="rbhem-input" name="notes" rows="3" placeholder="Current MAR process, number of residents, timelines"></textarea>
+                </label>
+              </div>
+
+              <input type="hidden" name="pretty" value="">
+              <input type="hidden" name="destination" value="rishi@rbhealth.co.uk">
+              <input type="hidden" name="source" value="RBH website form">
+              <input type="hidden" name="website_url" value="">
+
+              <input type="text" name="company" class="rbhem-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <input type="text" name="website" class="rbhem-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+              <div class="rbhem-actions">
+                <button type="submit" class="rbhem-submit">Submit now</button>
+                <a id="rbhem-wa" class="rbhem-submit rbhem-ghost" href="#" rel="nofollow noopener">Prefer WhatsApp - send now</a>
+              </div>
+
+              <p class="rbhem-privacy">We use your details only to arrange your chat.</p>
+              <div id="rbhem-msg" class="rbhem-msg" aria-live="polite"></div>
+              <p id="rbhem-mailto-wrap" style="display:none;margin-top:.25rem;">Having trouble? <a href="#" id="rbhem-mailto-link">Email us instead</a>.</p>
+            </form>
+
+            <div id="rbhem-thankyou" class="rbhem-thankyou" style="display:none;">
+              <h2>Thank you</h2>
+              <p>We have received your enquiry and will get back to you shortly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="rbhem-extra-bottom"></div>
+  </div>
+</div>
