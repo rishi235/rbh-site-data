@@ -1,17 +1,17 @@
 (function () {
   "use strict";
 
-  // Update this when you want a cache-bust on @main
+  // Bump this value whenever you want to force-refresh @main caches
   var DATA_VERSION = "2026-03-23-1";
 
-  // Use @main while iterating; move to @v1.0.0 for stable releases
+  // Keep @main while building; later switch to @v1.0.0 (or newer tag)
   var DATA_URL =
     "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/branches.json?v=" +
     encodeURIComponent(DATA_VERSION);
 
   var TIMEOUT_MS = 10000;
 
-  // Conservative fallback (only HQ) if remote fetch fails
+  // Conservative fallback if remote fetch fails
   var FALLBACK = {
     lastUpdated: "2026-03-23",
     brandGroups: {
@@ -94,10 +94,7 @@
   }
 
   function loadData() {
-    return withTimeout(
-      fetch(DATA_URL, { cache: "no-store" }),
-      TIMEOUT_MS
-    )
+    return withTimeout(fetch(DATA_URL, { cache: "no-store" }), TIMEOUT_MS)
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
@@ -109,14 +106,14 @@
       })
       .catch(function (err) {
         console.warn("RBH site-data fetch failed:", err.message);
-        var cleanFallback = normalize(FALLBACK);
-        publish(cleanFallback, "fallback");
+        var fallbackData = normalize(FALLBACK);
+        publish(fallbackData, "fallback");
         publishError(err.message);
-        return cleanFallback;
+        return fallbackData;
       });
   }
 
-  // Optional helper for modules that prefer a promise
+  // Optional helper for modules that want a promise
   window.RBH_getData = function () {
     if (window.RBH_DATA && Array.isArray(window.RBH_DATA.branches)) {
       return Promise.resolve(window.RBH_DATA);
