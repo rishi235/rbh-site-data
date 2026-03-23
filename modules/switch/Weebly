@@ -1,1 +1,126 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.css?v=20260323-3">
+<script src="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/core/site-data.js?v=20260323-3" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.js?v=20260323-3" defer></script>
 
+<div id="rbhsw-root">
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-help-row">Need help deciding?</div>
+          <span class="pill" id="sw-pill-locality">Your local independent pharmacy</span>
+
+          <h1>Switch your prescriptions to <span id="sw-hero-branch">your local pharmacy</span> in under 30 seconds</h1>
+          <p class="hero-proof">We contact your GP. We handle everything. You do nothing.</p>
+
+          <ul class="hero-points">
+            <li>We handle the full switch for you</li>
+            <li>No interruption to your medication</li>
+            <li>Local pharmacy support, not a call centre</li>
+            <li>Speak to a pharmacist when you need help</li>
+          </ul>
+
+          <div class="hero-actions-stack">
+            <a href="#switch-form-card" class="btn-pill btn-primary">Start your switch</a>
+            <a id="sw-call-btn" href="#" class="btn-pill btn-white"><span class="sw-call-text">Call us</span></a>
+            <a href="#switch-form-card" id="switch-callback-btn" class="btn-pill btn-white">Request a callback</a>
+            <a id="switch-wa-hero" href="#" class="btn-pill btn-wa" rel="nofollow noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+
+        <div id="switch-form-card" class="form-card hero-form pad">
+          <iframe name="switch-post" id="switch-post" style="display:none;"></iframe>
+
+          <form id="switch-form" method="post" target="switch-post" novalidate>
+            <h2 class="form-title" id="switch-form-title">Start your switch</h2>
+            <p class="form-sub" id="switch-form-sub">This takes about 30 seconds. Our team will review the request and guide the next step.</p>
+
+            <div class="form-grid">
+              <label>First name *<input type="text" name="first_name" autocomplete="given-name" required></label>
+              <label>Last name *<input type="text" name="last_name" autocomplete="family-name" required></label>
+              <label class="field-dob">Date of birth *<input type="date" name="dob" required></label>
+              <label><span class="mobile-label-text">Mobile (optional)</span><input type="tel" name="mobile" autocomplete="tel" placeholder="07..."></label>
+              <label class="full">Email (optional)<input type="email" name="email" autocomplete="email" placeholder="name@example.com"></label>
+            </div>
+
+            <input type="hidden" name="destination" value="">
+            <input type="hidden" name="source" value="">
+            <input type="hidden" name="website_url" value="">
+            <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <p id="switch-form-mode-link" style="display:none; margin:0 0 14px; font-size:14px;">
+              <a href="#" id="switch-switch-mode">Or start your prescription switch instead</a>
+            </p>
+
+            <div class="actions">
+              <button type="submit" class="btn submit-btn"><span id="switch-submit-text">Submit switch request</span></button>
+              <a id="switch-wa" class="btn wa-btn" href="#" rel="nofollow noopener">Send via WhatsApp instead</a>
+            </div>
+
+            <p class="privacy">We will only use your details to help process your switch request.</p>
+            <div id="switch-msg" class="msg" aria-live="polite"></div>
+          </form>
+
+          <div id="switch-thankyou" class="thankyou">
+            <h3>Thank you</h3>
+            <p>We have received your request and the team will contact you shortly.</p>
+          </div>
+
+          <div class="right-stack">
+            <div class="app-card">
+              <div class="app-head">
+                <strong>Download our app</strong>
+              </div>
+              <p class="app-copy">Manage your prescriptions more easily through the RB Healthcare Pharmacy app.</p>
+              <div class="store-grid">
+                <a class="store-btn" href="https://apps.apple.com/gb/app/rb-healthcare-pharmacy/id6757514364" target="_blank" rel="noopener"><span class="txt">App Store</span></a>
+                <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.rbhealthcare.pharmacy.app&pcampaignid=web_share" target="_blank" rel="noopener"><span class="txt">Google Play</span></a>
+              </div>
+            </div>
+
+            <div class="google-review-card">
+              <div class="google-review-inner">
+                <div class="google-copy">
+                  <strong>Google reviews</strong>
+                  <p>See what local patients say about this pharmacy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-bar">
+      <div class="trust-item"><strong>NHS pharmacy</strong><span>Registered local healthcare provider</span></div>
+      <div class="trust-item"><strong>Local team</strong><span>Real people, not a call centre</span></div>
+      <div class="trust-item"><strong>Simple switching</strong><span>We help handle the transfer process</span></div>
+      <div class="trust-item"><strong>Easy to contact</strong><span>Phone and WhatsApp available</span></div>
+    </div>
+
+    <section class="section">
+      <div class="main-grid">
+        <div>
+          <div class="faq-card pad">
+            <h2 class="h2">Questions people usually ask</h2>
+            <details><summary>Is switching pharmacy a hassle?</summary><div class="answer">Usually no. Most people delay it because they assume it will be awkward, but in many cases it is much simpler than expected.</div></details>
+            <details><summary>Do I need to contact my GP myself?</summary><div class="answer">Not always. We help guide the process and handle what we can from our side.</div></details>
+            <details><summary>What if I am not ready yet?</summary><div class="answer">Call us, request a callback, or use WhatsApp instead.</div></details>
+          </div>
+        </div>
+        <div>
+          <div class="contact-card pad">
+            <h2 class="h2">Contact</h2>
+            <p><strong id="sw-contact-branch">Your local pharmacy</strong></p>
+            <p id="sw-contact-address">Address</p>
+            <p id="sw-phone-row"><strong>Phone:</strong> <a id="sw-phone-link" href="#">Call</a></p>
+            <p id="sw-email-row"><strong>Email:</strong> <a id="sw-email-link" href="#">Email</a></p>
+            <p><strong>Website:</strong> <a id="sw-website-link" href="#" target="_blank" rel="noopener">Website</a></p>
+            <iframe id="sw-map" class="map" src="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
