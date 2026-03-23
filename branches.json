@@ -1,0 +1,34 @@
+{
+  "lastUpdated": "2026-03-23",
+  "branches": [
+    {
+      "id": "rbh_head_office_aintree",
+      "brandKey": "rbhealth",
+      "brandLabel": "RB Healthcare Ltd",
+      "branchName": "RB Healthcare Ltd Head Office",
+      "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
+      "addressLocality": "Liverpool",
+      "postalCode": "L9 7AS",
+      "addressRegion": "Merseyside",
+      "addressCountry": "GB",
+      "keywords": ["rbhealth", "rb-health", "aintree", "brookfield", "l9 7as", "l9"],
+      "serviceAreaList": ["Aintree", "Fazakerley", "Maghull", "Walton", "Bootle", "North Liverpool"]
+    },
+    {
+      "id": "clearchemist_aintree",
+      "brandKey": "clearchemist",
+      "brandLabel": "Clear Chemist",
+      "branchName": "Clear Chemist",
+      "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
+      "addressLocality": "Liverpool",
+      "postalCode": "L9 7AS",
+      "addressRegion": "Merseyside",
+      "addressCountry": "GB",
+      "keywords": ["clearchemist", "clear-chemist", "aintree", "brookfield", "l9 7as", "l9"],
+      "serviceAreaList": ["Aintree", "Fazakerley", "Walton", "Bootle", "North Liverpool"]
+    }
+  ],
+  "brandGroups": {
+    "rbhealth": ["rbh_head_office_aintree"]
+  }
+}
