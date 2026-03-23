@@ -2,7 +2,7 @@
   "use strict";
 
   // Bump this value whenever you want to force-refresh @main caches
-  var DATA_VERSION = "2026-03-23-1";
+  var DATA_VERSION = "2026-03-23-2";
 
   // Keep @main while building; later switch to @v1.0.0 (or newer tag)
   var DATA_URL =
@@ -16,6 +16,10 @@
     lastUpdated: "2026-03-23",
     brandGroups: {
       rbhealth: ["rbh_head_office_aintree"]
+    },
+    hostMap: {
+      "rbhealth.co.uk": ["rbh_head_office_aintree"],
+      "www.rbhealth.co.uk": ["rbh_head_office_aintree"]
     },
     branches: [
       {
@@ -70,6 +74,7 @@
     return {
       lastUpdated: data.lastUpdated || "",
       brandGroups: data.brandGroups || {},
+      hostMap: data.hostMap || {},
       branches: data.branches
     };
   }
