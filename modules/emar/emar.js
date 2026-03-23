@@ -1,28 +1,40 @@
-(function(){
+(function () {
   "use strict";
 
-  function initRBHEMAR(){
+  function initRBHEMAR() {
     var root = document.getElementById("rbhem-root");
     if (!root) return;
 
     var data = (window.RBH_DATA && Array.isArray(window.RBH_DATA.branches))
       ? window.RBH_DATA
-      : (window.RBH_FALLBACK || { branches: [], brandGroups: {} });
+      : (window.RBH_FALLBACK || { branches: [], brandGroups: {}, hostMap: {} });
 
     var BR = {};
-    (data.branches || []).forEach(function(b){ if (b && b.id) BR[b.id] = b; });
+    (data.branches || []).forEach(function (b) {
+      if (b && b.id) BR[b.id] = b;
+    });
+
     var GR = data.brandGroups || {};
+    var HM = data.hostMap || {};
 
-    function byGroup(g){ return (GR[g] || []).map(function(k){ return BR[k]; }).filter(Boolean); }
+    function byGroup(g) {
+      return (GR[g] || []).map(function (k) { return BR[k]; }).filter(Boolean);
+    }
 
-    function estateAreas(limit){
-      var areas = Array.from(new Set(
-        Object.keys(BR).flatMap(function(k){ return BR[k].serviceAreaList || []; })
-      )).filter(Boolean);
+    function byIds(ids) {
+      return (ids || []).map(function (id) { return BR[id]; }).filter(Boolean);
+    }
+
+    function estateAreas(limit) {
+      var areas = Array.from(
+        new Set(
+          Object.keys(BR).flatMap(function (k) { return BR[k].serviceAreaList || []; })
+        )
+      ).filter(Boolean);
       return typeof limit === "number" ? areas.slice(0, limit) : areas;
     }
 
-    function pickLocations(){
+    function pickLocations() {
       var forced = (window.RBH_EMAR_OVERRIDE || "").toLowerCase().trim();
       if (forced) {
         if (BR[forced]) return [BR[forced]];
@@ -33,41 +45,39 @@
       var path = (location.pathname || "").toLowerCase();
       var surface = host + " " + path;
 
-      // Explicit host routing
-      if (host.includes("rbhealth.co.uk")) {
-        var rbh = byGroup("rbhealth");
-        if (rbh.length) return rbh;
+      // 1) Host map from JSON
+      if (HM[host]) {
+        var mapped = byIds(HM[host]);
+        if (mapped.length) return mapped;
       }
 
-      if (host.includes("clearchemist.co.uk") && BR.clearchemist_aintree) {
-        return [BR.clearchemist_aintree];
-      }
-
-      // Multi-site group matching
-      var groupKeys = Object.keys(GR).filter(function(k){ return k !== "rbhealth"; });
-      for (var i=0; i<groupKeys.length; i++){
+      // 2) Multi-site brand matching
+      var groupKeys = Object.keys(GR).filter(function (k) { return k !== "rbhealth"; });
+      for (var i = 0; i < groupKeys.length; i++) {
         var g = groupKeys[i];
-        if (surface.match(new RegExp(g.replace(/s$/,''), "i")) || surface.includes(g)) {
+        if (surface.match(new RegExp(g.replace(/s$/, ""), "i")) || surface.includes(g)) {
           var locs = byGroup(g);
           if (locs.length) return locs;
         }
       }
 
-      // Common spellings
+      // 3) Common spellings
       if (/scorah/.test(surface) && GR.scorahs) return byGroup("scorahs");
       if (/mccann/.test(surface) && GR.mccanns) return byGroup("mccanns");
       if (/fishlock/.test(surface) && GR.fishlocks) return byGroup("fishlocks");
 
-      // Best keyword match
+      // 4) Best keyword match
       var best = null, bestScore = 0;
-      Object.keys(BR).forEach(function(k){
+      Object.keys(BR).forEach(function (k) {
         var b = BR[k];
         var kws = (b.keywords || [])
           .concat([b.addressLocality || "", b.postalCode || "", b.brandLabel || "", b.branchName || ""])
-          .map(function(x){ return String(x).toLowerCase(); });
+          .map(function (x) { return String(x).toLowerCase(); });
 
         var score = 0;
-        kws.forEach(function(kw){ if (kw && surface.includes(kw)) score++; });
+        kws.forEach(function (kw) {
+          if (kw && surface.includes(kw)) score++;
+        });
 
         if (score > bestScore) {
           best = b;
@@ -77,6 +87,8 @@
 
       if (best) return [best];
 
+      // 5) Final fallback to HO, then first branch
+      if (BR.rbh_head_office_aintree) return [BR.rbh_head_office_aintree];
       var first = Object.keys(BR)[0];
       return first ? [BR[first]] : [];
     }
@@ -91,8 +103,7 @@
     var L = Array.isArray(C.locations) ? C.locations : [];
     if (!L.length) return;
 
-    // Hero town
-    var towns = Array.from(new Set(L.map(function(x){ return x.addressLocality; }))).filter(Boolean);
+    var towns = Array.from(new Set(L.map(function (x) { return x.addressLocality; }))).filter(Boolean);
     var heroTown = towns.length === 1 ? towns[0] : towns.slice(0, 2).join(" & ");
 
     var townEl = document.getElementById("rbhem-hero-town");
@@ -100,37 +111,44 @@
 
     var subEl = document.getElementById("rbhem-hero-sub");
     if (subEl) {
-      var isRBH = (location.hostname || "").toLowerCase().includes("rbhealth.co.uk");
-      var localAreas = Array.from(new Set(L.flatMap(function(x){ return x.serviceAreaList || []; }))).slice(0, 8);
+      var hostNow = (location.hostname || "").toLowerCase();
+      var isRBH = hostNow.includes("rbhealth.co.uk");
+      var localAreas = Array.from(new Set(L.flatMap(function (x) { return x.serviceAreaList || []; }))).slice(0, 8);
       var allAreas = C.estateAreas(18);
 
       if (isRBH && allAreas.length) {
-        subEl.innerHTML = "Practical, unbiased guidance from pharmacists with 10+ years' eMAR experience. We support care homes locally from <strong>"
-          + heroTown
-          + "</strong> and across our wider pharmacy estate, including <strong>"
-          + allAreas.join(", ")
-          + "</strong>.";
+        subEl.innerHTML =
+          "Practical, unbiased guidance from pharmacists with 10+ years' eMAR experience. We support care homes locally from <strong>" +
+          heroTown +
+          "</strong> and across our wider pharmacy estate, including <strong>" +
+          allAreas.join(", ") +
+          "</strong>.";
       } else {
-        subEl.innerHTML = "Practical, unbiased guidance from pharmacists with 10+ years' eMAR experience. Supporting care homes in and around <strong>"
-          + heroTown
-          + (localAreas.length ? (" (" + localAreas.join(", ") + ")") : "")
-          + "</strong>.";
+        subEl.innerHTML =
+          "Practical, unbiased guidance from pharmacists with 10+ years' eMAR experience. Supporting care homes in and around <strong>" +
+          heroTown +
+          (localAreas.length ? " (" + localAreas.join(", ") + ")" : "") +
+          "</strong>.";
       }
     }
 
-    // Branch strip
     var strip = document.getElementById("rbhem-branch-strip");
     if (strip) {
-      strip.innerHTML = L.map(function(x){
+      strip.innerHTML = L.map(function (x) {
         var addr = [x.streetAddress, x.addressLocality, x.postalCode].filter(Boolean).join(", ");
         var areas = (x.serviceAreaList || []).join(", ");
-        return '<div class="rbhem-branch"><h3>' + (x.branchName || "Pharmacy") + '</h3><p>' + addr + '</p>'
-          + (areas ? '<p class="rbhem-areas"><strong>Serving:</strong> ' + areas + '</p>' : "")
-          + '</div>';
+        return (
+          '<div class="rbhem-branch"><h3>' +
+          (x.branchName || "Pharmacy") +
+          "</h3><p>" +
+          addr +
+          "</p>" +
+          (areas ? '<p class="rbhem-areas"><strong>Serving:</strong> ' + areas + "</p>" : "") +
+          "</div>"
+        );
       }).join("");
     }
 
-    // Optional estate section on rbhealth.co.uk
     var networkSlot = document.getElementById("rbhem-network-slot");
     if (networkSlot) {
       var isMain = (location.hostname || "").toLowerCase().includes("rbhealth.co.uk");
@@ -138,40 +156,34 @@
         var a = C.estateAreas(24);
         networkSlot.innerHTML =
           '<div class="rbhem-card rbhem-pad" style="margin-top:16px;">' +
-            '<div class="rbhem-badge">Our pharmacy network</div>' +
-            '<h2 class="rbhem-h2">Supporting care homes across the North West</h2>' +
-            '<p style="margin:0;color:#1f2937 !important;">Alongside our head office team in Aintree, RB Healthcare supports care homes through our wider pharmacy estate across <strong>'
-            + (a.length ? a.join(", ") : "Liverpool, Sefton, Greater Manchester and Cheshire") +
-            '</strong>.</p>' +
-          '</div>';
+          '<div class="rbhem-badge">Our pharmacy network</div>' +
+          '<h2 class="rbhem-h2">Supporting care homes across the North West</h2>' +
+          '<p style="margin:0;color:#1f2937 !important;">Alongside our head office team in Aintree, RB Healthcare supports care homes through our wider pharmacy estate across <strong>' +
+          (a.length ? a.join(", ") : "Liverpool, Sefton, Greater Manchester and Cheshire") +
+          "</strong>.</p>" +
+          "</div>";
       } else {
         networkSlot.innerHTML = "";
       }
     }
 
-    // Optional placeholder hooks for future injected blocks
-    var extraTop = document.getElementById("rbhem-extra-top");
-    if (extraTop && !extraTop.innerHTML.trim()) extraTop.innerHTML = "";
-    var extraBottom = document.getElementById("rbhem-extra-bottom");
-    if (extraBottom && !extraBottom.innerHTML.trim()) extraBottom.innerHTML = "";
-
     // JSON-LD
     try {
-      var graph = L.map(function(x){
+      var graph = L.map(function (x) {
         return {
-          "@type":"Pharmacy",
+          "@type": "Pharmacy",
           "@id": (x.branchName || "").toLowerCase().replace(/\s+/g, "-") + "#org",
           "name": x.branchName,
-          "address":{
-            "@type":"PostalAddress",
+          "address": {
+            "@type": "PostalAddress",
             "streetAddress": x.streetAddress,
             "addressLocality": x.addressLocality,
             "postalCode": x.postalCode,
             "addressRegion": x.addressRegion,
             "addressCountry": x.addressCountry || "GB"
           },
-          "areaServed": (x.serviceAreaList || []).map(function(a){
-            return { "@type":"AdministrativeArea", "name":a };
+          "areaServed": (x.serviceAreaList || []).map(function (a) {
+            return { "@type": "AdministrativeArea", "name": a };
           }),
           "url": window.location.href,
           "telephone": C.primaryPhone || undefined,
@@ -181,9 +193,9 @@
 
       var ld = document.createElement("script");
       ld.type = "application/ld+json";
-      ld.text = JSON.stringify({ "@context":"https://schema.org", "@graph": graph });
+      ld.text = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
       document.head.appendChild(ld);
-    } catch(e){}
+    } catch (e) {}
 
     // Form logic
     var WHATSAPP_E164 = "447988911911";
@@ -201,27 +213,27 @@
     if (form.elements.website_url) form.elements.website_url.value = window.location.href;
 
     if (wa) {
-      wa.addEventListener("click", function(e){
+      wa.addEventListener("click", function (e) {
         e.preventDefault();
         var p = readForm();
         window.open(buildWhatsApp(p), "_blank", "noopener");
       });
     }
 
-    function clearErrors(){
-      form.querySelectorAll(".rbhem-input.rbhem-error").forEach(function(i){
+    function clearErrors() {
+      form.querySelectorAll(".rbhem-input.rbhem-error").forEach(function (i) {
         i.classList.remove("rbhem-error");
       });
     }
 
-    function markErrors(fields){
-      fields.forEach(function(n){
+    function markErrors(fields) {
+      fields.forEach(function (n) {
         var f = form.elements[n];
         if (f) f.classList.add("rbhem-error");
       });
     }
 
-    function setErr(t){
+    function setErr(t) {
       if (msg) {
         msg.textContent = t;
         msg.className = "rbhem-msg err";
@@ -229,14 +241,14 @@
       if (mailWrap) mailWrap.style.display = "block";
     }
 
-    function setInfo(t){
+    function setInfo(t) {
       if (msg) {
         msg.textContent = t;
         msg.className = "rbhem-msg";
       }
     }
 
-    form.addEventListener("submit", function(e){
+    form.addEventListener("submit", function (e) {
       clearErrors();
 
       if (form.elements.company.value.trim() !== "" || form.elements.website.value.trim() !== "") {
@@ -246,8 +258,7 @@
 
       var required = ["name", "email"];
       var missing = [];
-
-      required.forEach(function(f){
+      required.forEach(function (f) {
         if (!form.elements[f].value.trim()) missing.push(f);
       });
 
@@ -270,14 +281,14 @@
     });
 
     if (iframe) {
-      iframe.addEventListener("load", function(){
+      iframe.addEventListener("load", function () {
         if (!form.classList.contains("rbhem-working")) return;
         form.style.display = "none";
         if (thankyou) thankyou.style.display = "block";
       });
     }
 
-    function readForm(){
+    function readForm() {
       var f = form.elements;
       var pretty = prettyUK(f.date.value, f.time.value);
       return {
@@ -291,45 +302,50 @@
       };
     }
 
-    function buildWhatsApp(p){
+    function buildWhatsApp(p) {
       var lines = [
         "New enquiry via website",
         "",
         "Topic: " + p.topic,
         "Preferred: " + p.pretty,
-        p.notes ? ("Notes: " + p.notes) : null,
+        p.notes ? "Notes: " + p.notes : null,
         "",
         "From: " + p.name,
         "Email: " + p.email,
-        p.phone ? ("Phone: " + p.phone) : null,
-        p.org ? ("Organisation: " + p.org) : null
+        p.phone ? "Phone: " + p.phone : null,
+        p.org ? "Organisation: " + p.org : null
       ].filter(Boolean).join("\n");
 
       return "https://wa.me/" + WHATSAPP_E164 + "?text=" + encodeURIComponent(lines);
     }
 
-    function buildMailto(p){
+    function buildMailto(p) {
       var subject = "eMAR chat request " + p.pretty;
       var body = [
         "Please arrange a quick " + p.topic + " chat.",
         "",
         "Preferred: " + p.pretty,
-        p.notes ? ("Notes: " + p.notes) : null,
+        p.notes ? "Notes: " + p.notes : null,
         "",
         "Name: " + p.name,
         "Email: " + p.email,
-        p.phone ? ("Phone: " + p.phone) : null,
-        p.org ? ("Organisation: " + p.org) : null,
+        p.phone ? "Phone: " + p.phone : null,
+        p.org ? "Organisation: " + p.org : null,
         "",
         "Source: RBH website form"
       ].filter(Boolean).join("\n");
 
-      return "mailto:" + encodeURIComponent(EMAIL_TO)
-        + "?subject=" + encodeURIComponent(subject)
-        + "&body=" + encodeURIComponent(body);
+      return (
+        "mailto:" +
+        encodeURIComponent(EMAIL_TO) +
+        "?subject=" +
+        encodeURIComponent(subject) +
+        "&body=" +
+        encodeURIComponent(body)
+      );
     }
 
-    function prettyUK(dateStr, hhmm){
+    function prettyUK(dateStr, hhmm) {
       if (!dateStr || !hhmm) return (dateStr || "") + (dateStr && hhmm ? " " : "") + (hhmm || "");
       var p = dateStr.split("-").map(Number);
       var Y = p[0], M = p[1], D = p[2];
