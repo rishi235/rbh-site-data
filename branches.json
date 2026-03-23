@@ -6,6 +6,30 @@
     "fishlocks": ["fishlocks_ainsdale", "fishlocks_eccleston"],
     "rbhealth": ["rbh_head_office_aintree"]
   },
+  "hostMap": {
+    "rbhealth.co.uk": ["rbh_head_office_aintree"],
+    "www.rbhealth.co.uk": ["rbh_head_office_aintree"],
+    "clearchemist.co.uk": ["clearchemist_aintree"],
+    "www.clearchemist.co.uk": ["clearchemist_aintree"],
+    "riddingspharmacy.co.uk": ["riddings_timperley"],
+    "www.riddingspharmacy.co.uk": ["riddings_timperley"],
+    "smarttschemist.co.uk": ["smartts_bootle"],
+    "www.smarttschemist.co.uk": ["smartts_bootle"],
+    "hirshmanschemist.co.uk": ["hirshmans_ainsdale"],
+    "www.hirshmanschemist.co.uk": ["hirshmans_ainsdale"],
+    "skchemists.co.uk": ["skchemists_bootle"],
+    "www.skchemists.co.uk": ["skchemists_bootle"],
+    "colemanandleigh.co.uk": ["colemanleigh_liverpool"],
+    "www.colemanandleigh.co.uk": ["colemanleigh_liverpool"],
+    "gordonshorts.co.uk": ["gordonshorts_crosby"],
+    "www.gordonshorts.co.uk": ["gordonshorts_crosby"],
+    "cherrylanepharmacy.co.uk": ["cherrylane_liverpool"],
+    "www.cherrylanepharmacy.co.uk": ["cherrylane_liverpool"],
+    "wilmslowpharmacy.co.uk": ["wilmslow_wilmslow"],
+    "www.wilmslowpharmacy.co.uk": ["wilmslow_wilmslow"],
+    "tiffenbergs.co.uk": ["tiffenbergs_longmoor"],
+    "www.tiffenbergs.co.uk": ["tiffenbergs_longmoor"]
+  },
   "branches": [
     {
       "id": "scorah_bramhall",
