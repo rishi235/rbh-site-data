@@ -33,6 +33,7 @@
       var path = (location.pathname || "").toLowerCase();
       var surface = host + " " + path;
 
+      // Explicit host routing
       if (host.includes("rbhealth.co.uk")) {
         var rbh = byGroup("rbhealth");
         if (rbh.length) return rbh;
@@ -42,6 +43,7 @@
         return [BR.clearchemist_aintree];
       }
 
+      // Multi-site group matching
       var groupKeys = Object.keys(GR).filter(function(k){ return k !== "rbhealth"; });
       for (var i=0; i<groupKeys.length; i++){
         var g = groupKeys[i];
@@ -51,10 +53,12 @@
         }
       }
 
+      // Common spellings
       if (/scorah/.test(surface) && GR.scorahs) return byGroup("scorahs");
       if (/mccann/.test(surface) && GR.mccanns) return byGroup("mccanns");
       if (/fishlock/.test(surface) && GR.fishlocks) return byGroup("fishlocks");
 
+      // Best keyword match
       var best = null, bestScore = 0;
       Object.keys(BR).forEach(function(k){
         var b = BR[k];
@@ -87,6 +91,7 @@
     var L = Array.isArray(C.locations) ? C.locations : [];
     if (!L.length) return;
 
+    // Hero town
     var towns = Array.from(new Set(L.map(function(x){ return x.addressLocality; }))).filter(Boolean);
     var heroTown = towns.length === 1 ? towns[0] : towns.slice(0, 2).join(" & ");
 
@@ -113,6 +118,7 @@
       }
     }
 
+    // Branch strip
     var strip = document.getElementById("rbhem-branch-strip");
     if (strip) {
       strip.innerHTML = L.map(function(x){
@@ -124,6 +130,7 @@
       }).join("");
     }
 
+    // Optional estate section on rbhealth.co.uk
     var networkSlot = document.getElementById("rbhem-network-slot");
     if (networkSlot) {
       var isMain = (location.hostname || "").toLowerCase().includes("rbhealth.co.uk");
@@ -142,6 +149,13 @@
       }
     }
 
+    // Optional placeholder hooks for future injected blocks
+    var extraTop = document.getElementById("rbhem-extra-top");
+    if (extraTop && !extraTop.innerHTML.trim()) extraTop.innerHTML = "";
+    var extraBottom = document.getElementById("rbhem-extra-bottom");
+    if (extraBottom && !extraBottom.innerHTML.trim()) extraBottom.innerHTML = "";
+
+    // JSON-LD
     try {
       var graph = L.map(function(x){
         return {
@@ -171,7 +185,7 @@
       document.head.appendChild(ld);
     } catch(e){}
 
-    // Form handling
+    // Form logic
     var WHATSAPP_E164 = "447988911911";
     var EMAIL_TO = "rishi@rbhealth.co.uk";
     var form = document.getElementById("rbhem-form");
@@ -184,7 +198,7 @@
     var iframe = document.getElementById("rbhem-post");
     var thankyou = document.getElementById("rbhem-thankyou");
 
-    form.elements.website_url.value = window.location.href;
+    if (form.elements.website_url) form.elements.website_url.value = window.location.href;
 
     if (wa) {
       wa.addEventListener("click", function(e){
@@ -312,4 +326,22 @@
 
       return "mailto:" + encodeURIComponent(EMAIL_TO)
         + "?subject=" + encodeURIComponent(subject)
-        + "&body=" + encodeURIComponent(body
+        + "&body=" + encodeURIComponent(body);
+    }
+
+    function prettyUK(dateStr, hhmm){
+      if (!dateStr || !hhmm) return (dateStr || "") + (dateStr && hhmm ? " " : "") + (hhmm || "");
+      var p = dateStr.split("-").map(Number);
+      var Y = p[0], M = p[1], D = p[2];
+      var dt = new Date(Y, M - 1, D);
+      var mon = dt.toLocaleString("en-GB", { month: "short" });
+      return String(D).padStart(2, "0") + " " + mon + " " + Y + ", " + hhmm;
+    }
+  }
+
+  if (window.RBH_DATA) {
+    initRBHEMAR();
+  } else {
+    document.addEventListener("RBH_DataReady", initRBHEMAR, { once: true });
+  }
+})();
