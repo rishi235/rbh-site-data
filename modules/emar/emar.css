@@ -1,1 +1,164 @@
+#rbhem-root, #rbhem-root * {
+  box-sizing: border-box !important;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
 
+#rbhem-root {
+  --rbhem-blue:#005eb8;
+  --rbhem-blue2:#0072ce;
+  --rbhem-ink:#111827;
+  --rbhem-muted:#6b7280;
+  --rbhem-line:#e9eef6;
+  --rbhem-radius:16px;
+  --rbhem-shadow:0 12px 30px rgba(0,0,0,.06);
+  color: var(--rbhem-ink);
+}
+
+#rbhem-root .rbhem-wrap { max-width:1100px; margin:0 auto; padding:24px; }
+
+#rbhem-root .rbhem-hero{
+  min-height:400px;
+  border-radius:var(--rbhem-radius);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  background:linear-gradient(135deg,var(--rbhem-blue) 0%,var(--rbhem-blue2) 50%,#f0f9ff 100%) !important;
+  box-shadow:var(--rbhem-shadow);
+}
+#rbhem-root .rbhem-hero-inner{ width:100%; padding:40px 22px; }
+#rbhem-root .rbhem-pill{
+  display:inline-block; background:#fff; color:var(--rbhem-blue); border:2px solid var(--rbhem-blue);
+  border-radius:999px; padding:6px 12px; font-weight:600; font-size:14px;
+}
+#rbhem-root .rbhem-h1{
+  margin:10px 0 6px; font-size:clamp(28px,4.5vw,44px); line-height:1.15; font-weight:800;
+  color:#0b1220 !important; -webkit-text-fill-color:#0b1220 !important;
+}
+#rbhem-root .rbhem-sub{
+  margin:0; max-width:900px; font-size:clamp(15px,2.2vw,18px); line-height:1.6; font-weight:600;
+  color:#0f172a !important; -webkit-text-fill-color:#0f172a !important;
+}
+#rbhem-root .rbhem-sub strong{ color:#0b3b7e !important; -webkit-text-fill-color:#0b3b7e !important; }
+
+#rbhem-root .rbhem-cta-row{ display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; }
+#rbhem-root .rbhem-btn{
+  display:inline-block; padding:12px 16px; border-radius:12px; border:2px solid transparent;
+  min-height:44px; font-weight:700; cursor:pointer;
+}
+#rbhem-root .rbhem-btn-primary{ background:var(--rbhem-blue); color:#fff !important; }
+#rbhem-root .rbhem-btn-ghost{ background:#fff !important; color:#004a93 !important; border-color:#004a93 !important; }
+
+#rbhem-root .rbhem-tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:14px 0 6px; }
+@media (max-width:900px){ #rbhem-root .rbhem-tiles{ grid-template-columns:1fr; } }
+#rbhem-root .rbhem-tile{
+  background:#0091d9 !important; border:2px solid #fff; border-radius:12px; padding:14px 16px;
+  color:#fff !important; box-shadow:var(--rbhem-shadow);
+}
+#rbhem-root .rbhem-tile h3{ margin:0 0 4px; font-size:18px; font-weight:800; color:#fff !important; }
+#rbhem-root .rbhem-tile p{ margin:0; font-size:14px; font-weight:500; color:#fff !important; }
+
+#rbhem-root .rbhem-branches{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0 0; }
+@media (max-width:900px){ #rbhem-root .rbhem-branches{ grid-template-columns:1fr; } }
+#rbhem-root .rbhem-branch{
+  background:#fff; border:1px solid #dbe7ff; border-left:4px solid var(--rbhem-blue); border-radius:12px; padding:12px 14px;
+  box-shadow:0 6px 18px rgba(0,0,0,.04);
+}
+#rbhem-root .rbhem-branch h3{ margin:0 0 4px; font-size:16px; font-weight:800; color:#111827 !important; }
+#rbhem-root .rbhem-branch p{ margin:0; font-size:14px; color:#1f2937 !important; }
+#rbhem-root .rbhem-areas{ margin-top:6px; font-size:13px; color:#1f2937 !important; }
+#rbhem-root .rbhem-areas strong{ color:#0b3b7e !important; }
+
+#rbhem-root .rbhem-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:22px; }
+@media (max-width:980px){ #rbhem-root .rbhem-grid{ grid-template-columns:1fr; } }
+
+#rbhem-root .rbhem-card{ background:#fff; border:1px solid var(--rbhem-line); border-radius:var(--rbhem-radius); box-shadow:var(--rbhem-shadow); }
+#rbhem-root .rbhem-pad{ padding:22px; }
+#rbhem-root .rbhem-badge{
+  display:inline-flex; align-items:center; gap:8px; background:#eef5ff; border:1px solid #dbe7ff; color:#0b3b7e !important;
+  border-radius:999px; padding:6px 10px; font-size:13px; font-weight:700;
+}
+#rbhem-root .rbhem-h2{ margin:6px 0 12px; font-size:22px; font-weight:800; color:#111827 !important; }
+#rbhem-root .rbhem-muted{ color:var(--rbhem-muted) !important; }
+
+#rbhem-root .rbhem-assurance{ background:linear-gradient(0deg,#f8fbff,#fff); border:1px solid #e6eefc; }
+#rbhem-root .rbhem-assurance p{ margin:8px 0; color:#1f2937 !important; }
+#rbhem-root .rbhem-assurance strong{ color:#0b3b7e !important; }
+
+#rbhem-root .rbhem-faq details{ border:1px solid #e8edf7; border-radius:12px; padding:14px 16px; background:#fff; }
+#rbhem-root .rbhem-faq details + details{ margin-top:10px; }
+#rbhem-root .rbhem-faq summary{ list-style:none; cursor:pointer; font-weight:700; color:#111827 !important; }
+#rbhem-root .rbhem-faq summary::-webkit-details-marker{ display:none; }
+#rbhem-root .rbhem-faq summary:after{ content:"+"; float:right; color:var(--rbhem-blue); font-weight:800; }
+#rbhem-root .rbhem-faq details[open] summary:after{ content:"-"; }
+#rbhem-root .rbhem-faq .rbhem-ans{ margin-top:10px; color:#1f2937 !important; line-height:1.6; }
+
+#rbhem-root .rbhem-form-shell{
+  margin:1.5rem auto 0;
+  padding:1.25rem;
+  border:2px solid var(--rbhem-blue);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.06);
+  position:relative;
+}
+#rbhem-root .rbhem-form-shell::before{
+  content:""; position:absolute; left:12px; right:12px; top:10px; height:4px; border-radius:999px; background:var(--rbhem-blue); opacity:.9;
+}
+
+#rbhem-root #rbhem-form h2{ margin:0 0 .25rem; font-size:clamp(34px,3vw,40px); line-height:1.15; }
+#rbhem-root .rbhem-form-sub{ margin:.25rem 0 1rem; color:#555 !important; }
+#rbhem-root .rbhem-form-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+@media (max-width:640px){ #rbhem-root .rbhem-form-grid{ grid-template-columns:1fr; } }
+#rbhem-root .rbhem-col-span{ grid-column:1/-1; }
+#rbhem-root .rbhem-label{ display:flex; flex-direction:column; gap:.35rem; font-weight:600; color:#111827 !important; }
+#rbhem-root .rbhem-input{
+  appearance:none; border:1px solid #c8d1da; border-radius:10px; padding:.65rem .75rem; font:inherit; background:#fff;
+}
+#rbhem-root .rbhem-input:focus{ outline:3px solid rgba(0,94,184,.18); border-color:var(--rbhem-blue); }
+#rbhem-root .rbhem-input.rbhem-error{ border-color:#dc2626; background:#fef2f2; }
+
+#rbhem-root .rbhem-actions{ display:flex; gap:.6rem; align-items:center; margin-top:.75rem; flex-wrap:wrap; }
+#rbhem-root .rbhem-submit{
+  display:inline-block; min-height:44px; padding:.75rem 1rem; border-radius:999px; border:2px solid transparent; font-weight:700; cursor:pointer;
+  background:var(--rbhem-blue); color:#fff !important;
+}
+#rbhem-root .rbhem-submit.rbhem-ghost{ background:#fff !important; color:#004a93 !important; border-color:#004a93 !important; }
+
+#rbhem-root .rbhem-privacy{ font-size:.9rem; color:#666 !important; margin:.5rem 0 0; }
+#rbhem-root .rbhem-msg{ margin-top:.75rem; font-weight:600; }
+#rbhem-root .rbhem-msg.ok{ color:#1d7f2e !important; }
+#rbhem-root .rbhem-msg.err{ color:#b20 !important; }
+#rbhem-root .rbhem-thankyou{ text-align:center; padding:2rem; }
+#rbhem-root .rbhem-thankyou h2{ color:#1d7f2e !important; margin-bottom:1rem; }
+#rbhem-root .rbhem-thankyou p{ color:#555 !important; margin-bottom:.5rem; }
+#rbhem-root .rbhem-hp{ position:absolute; left:-9999px; opacity:0 !important; pointer-events:none; }
+#rbhem-root .rbhem-working{ opacity:.65 !important; pointer-events:none; }
+
+#rbhem-root #rbhem-contact > .rbhem-card > .rbhem-h2{
+  font-size: clamp(30px, 3vw, 40px) !important;
+  line-height: 1.15 !important;
+  margin: 8px 0 10px !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+#rbhem-root #rbhem-contact > .rbhem-card > p{
+  margin:0 0 14px !important;
+  line-height:1.5 !important;
+}
+
+#rbhem-root a:focus-visible,
+#rbhem-root button:focus-visible,
+#rbhem-root input:focus-visible,
+#rbhem-root textarea:focus-visible,
+#rbhem-root select:focus-visible{
+  outline:3px solid #ffbf47 !important;
+  outline-offset:2px !important;
+}
