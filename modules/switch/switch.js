@@ -185,4 +185,170 @@
 
     function openWhatsApp(d, isCallback) {
       var url = buildWhatsAppText(d || {}, isCallback);
-      var w = window.open(url, "_blank", "
+      var w = window.open(url, "_blank", "noopener");
+      if (!w) window.location.href = url;
+    }
+
+    function setCallbackMode(on) {
+      var titleEl = document.getElementById("switch-form-title");
+      var subEl = document.getElementById("switch-form-sub");
+      var submitText = document.getElementById("switch-submit-text");
+      var modeLink = document.getElementById("switch-form-mode-link");
+      var mobileLabel = form.querySelector(".mobile-label-text");
+      var dobInput = form.elements["dob"];
+
+      if (on) {
+        form.classList.add("form-mode-callback");
+        form.setAttribute("data-mode", "callback");
+        if (form.elements["source"]) form.elements["source"].value = "Callback request - " + branchName;
+        if (dobInput) dobInput.removeAttribute("required");
+        if (form.elements["mobile"]) form.elements["mobile"].setAttribute("required", "required");
+        if (mobileLabel) mobileLabel.textContent = "Mobile *";
+        if (titleEl) titleEl.textContent = "Request a callback";
+        if (subEl) subEl.textContent = "We'll call you back. Just your name and phone number needed.";
+        if (submitText) submitText.textContent = "Request callback";
+        if (modeLink) modeLink.style.display = "block";
+      } else {
+        form.classList.remove("form-mode-callback");
+        form.removeAttribute("data-mode");
+        if (form.elements["source"]) form.elements["source"].value = "Switch Page - " + branchName;
+        if (dobInput) dobInput.setAttribute("required", "required");
+        if (form.elements["mobile"]) form.elements["mobile"].removeAttribute("required");
+        if (mobileLabel) mobileLabel.textContent = "Mobile (optional)";
+        if (titleEl) titleEl.textContent = "Start your switch";
+        if (subEl) subEl.textContent = "This takes about 30 seconds. Our team will review the request and guide the next step.";
+        if (submitText) submitText.textContent = "Submit switch request";
+        if (modeLink) modeLink.style.display = "none";
+      }
+    }
+
+    if (waBtn) {
+      waBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        clearErrors();
+
+        var d = readForm();
+        var missing = [];
+        var isCallback = form.getAttribute("data-mode") === "callback";
+
+        if (isCallback) {
+          if (!d.first_name) missing.push("first_name");
+          if (!d.last_name) missing.push("last_name");
+          if (!d.mobile) missing.push("mobile");
+          if (d.email && !validEmail(d.email)) missing.push("email");
+        } else {
+          if (!d.first_name) missing.push("first_name");
+          if (!d.last_name) missing.push("last_name");
+          if (!d.dob) missing.push("dob");
+          if (d.email && !validEmail(d.email)) missing.push("email");
+        }
+
+        if (missing.length) {
+          markErrors(missing);
+          setMessage(isCallback ? "Please enter your name and phone number first." : "Please complete the required fields first.", "err");
+          return;
+        }
+
+        openWhatsApp(d, isCallback);
+      });
+    }
+
+    if (waHeroBtn) {
+      waHeroBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        openWhatsApp(readForm(), false);
+      });
+    }
+
+    if (callbackBtn) {
+      callbackBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        setCallbackMode(true);
+        var card = document.getElementById("switch-form-card");
+        if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    var switchModeLink = document.getElementById("switch-switch-mode");
+    if (switchModeLink) {
+      switchModeLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        setCallbackMode(false);
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      clearErrors();
+      setMessage("");
+
+      var hp = form.elements["company"];
+      if (hp && (hp.value || "").trim() !== "") {
+        e.preventDefault();
+        return;
+      }
+
+      var d = readForm();
+      var missing = [];
+      var isCallback = form.getAttribute("data-mode") === "callback";
+
+      if (isCallback) {
+        if (!d.first_name) missing.push("first_name");
+        if (!d.last_name) missing.push("last_name");
+        if (!d.mobile) missing.push("mobile");
+        if (d.email && !validEmail(d.email)) missing.push("email");
+      } else {
+        if (!d.first_name) missing.push("first_name");
+        if (!d.last_name) missing.push("last_name");
+        if (!d.dob) missing.push("dob");
+        if (d.email && !validEmail(d.email)) missing.push("email");
+      }
+
+      if (missing.length) {
+        e.preventDefault();
+        markErrors(missing);
+        setMessage(isCallback ? "Please enter your name and phone number." : "Please complete the required fields.", "err");
+        return;
+      }
+
+      setMessage("Submitting...");
+      form.setAttribute("data-submitted", "true");
+    });
+
+    if (iframe) {
+      iframe.addEventListener("load", function () {
+        if (form.getAttribute("data-submitted") !== "true") return;
+        form.style.display = "none";
+        if (thankyou) thankyou.style.display = "block";
+        setMessage("");
+        form.removeAttribute("data-submitted");
+      });
+    }
+
+    // JSON-LD
+    try {
+      var schema = {
+        "@context": "https://schema.org",
+        "@type": "Pharmacy",
+        "name": branchName,
+        "url": window.location.href,
+        "telephone": phone || undefined,
+        "email": email || undefined,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": branch.streetAddress,
+          "addressLocality": branch.addressLocality,
+          "postalCode": branch.postalCode,
+          "addressRegion": branch.addressRegion,
+          "addressCountry": branch.addressCountry || "GB"
+        }
+      };
+      var ld = document.createElement("script");
+      ld.type = "application/ld+json";
+      ld.text = JSON.stringify(schema);
+      document.head.appendChild(ld);
+    } catch (e) {}
+  }
+
+  if (window.RBH_DATA) initSwitch();
+  else document.addEventListener("RBH_DataReady", initSwitch, { once: true });
+})();
