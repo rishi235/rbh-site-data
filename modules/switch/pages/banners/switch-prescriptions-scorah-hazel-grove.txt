@@ -1,0 +1,48 @@
+<!-- RBH switch banner. Paste into Weebly: Settings > SEO > Header Code (site-wide).
+     Only the two CONFIG lines below change per site. Auto-hides on the switch page. -->
+<style>
+  :root { --flu-h: 0px; }
+  .flu-header-banner{ display:none; position:fixed; top:0; left:0; right:0; z-index:10000; background:#ED8B00; color:#fff; text-align:center; width:100%; box-sizing:border-box; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-size:16px; padding:10px 15px; }
+  .flu-header-banner span{ margin-right:12px; font-weight:500; display:inline-block; }
+  .flu-header-banner .flu-header-btn{ display:inline-block; background:#fff; color:#ED8B00; padding:6px 12px; border-radius:4px; font-weight:600; text-decoration:none; transition:background .2s,color .2s; white-space:nowrap; }
+  .flu-header-banner .flu-header-btn:hover{ background:#333; color:#fff; }
+  .flu-header-banner .flu-header-close{ background:none; border:none; color:#fff; font-size:20px; font-weight:bold; line-height:1; position:absolute; right:12px; top:6px; cursor:pointer; }
+  body.flu-banner-active .edison-header, body.flu-banner-active .nav.mobile-nav, body.flu-banner-active .wsite-menu-default, body.flu-banner-active .site-nav, body.flu-banner-active .wsite-com-header-cart{ top: var(--flu-h) !important; }
+  body.flu-banner-active.flu-has-banner .banner-wrap{ padding-top: var(--flu-h) !important; }
+  body.flu-banner-active.flu-has-banner.banner-overlay-on .banner-wrap{ padding-top: calc(var(--flu-h) + 16px) !important; }
+  body.flu-banner-active.flu-noheader .content-wrap{ margin-top: var(--flu-h) !important; }
+  body.flu-banner-active{ scroll-padding-top: calc(var(--flu-h) + 10px); }
+  @media (max-width:767px){ .flu-header-banner{ font-size:14px; padding:8px 12px; } }
+</style>
+<script>
+(function(){
+  /* ===== CONFIG — change these two lines per site ===== */
+  var SWITCH_URL = "/switch-prescriptions-scorah-hazel-grove.html";
+  var BRAND = "Scorah Chemists";
+  /* =================================================== */
+  var DISMISS_KEY = "rbhSwitchBannerClosed";
+  var store = window.sessionStorage;
+  function onReady(fn){ if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",fn,{once:true});}else{fn();} }
+  onReady(function(){
+    if ((location.pathname||"").toLowerCase().indexOf("/switch-prescriptions")===0){
+      document.body.classList.remove("flu-banner-active","flu-noheader","flu-has-banner");
+      document.documentElement.style.setProperty("--flu-h","0px");
+      var stray=document.getElementById("fluBanner"); if(stray) stray.remove(); return;
+    }
+    var existing=document.getElementById("fluBanner"); if(existing) existing.remove();
+    var hasBannerWrap=!!document.querySelector(".banner-wrap");
+    document.body.classList.toggle("flu-has-banner",hasBannerWrap);
+    document.body.classList.toggle("flu-noheader",!hasBannerWrap);
+    if (store.getItem(DISMISS_KEY)==="1"){ document.body.classList.remove("flu-banner-active"); document.documentElement.style.setProperty("--flu-h","0px"); return; }
+    var b=document.createElement("div");
+    b.className="flu-header-banner"; b.id="fluBanner";
+    b.innerHTML="<span>Change to "+BRAND+" in 30 seconds.</span> <a class='flu-header-btn' href='"+SWITCH_URL+"'>Switch now</a> <button class='flu-header-close' aria-label='Close'>×</button>";
+    document.body.prepend(b);
+    b.style.display="block";
+    document.body.classList.add("flu-banner-active");
+    var setHeight=function(){ var h=Math.ceil(b.getBoundingClientRect().height); document.documentElement.style.setProperty("--flu-h",h+"px"); };
+    setHeight(); window.addEventListener("resize",setHeight); setTimeout(setHeight,100); window.addEventListener("load",setHeight);
+    b.querySelector(".flu-header-close").addEventListener("click",function(){ store.setItem(DISMISS_KEY,"1"); b.remove(); document.body.classList.remove("flu-banner-active"); document.documentElement.style.setProperty("--flu-h","0px"); });
+  });
+})();
+</script>
