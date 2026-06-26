@@ -35,6 +35,9 @@
       "postalCode": "SK7 3LQ",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "phone": "0161 439 3744",
+      "email": "Bramhall@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CZdA75DAMigGEAE/review",
       "hasApp": false,
       "keywords": ["scorah", "bramhall", "north-park-road", "sk7", "sk7 3lq"],
       "serviceAreaList": ["Bramhall", "Cheadle Hulme", "Hazel Grove", "Handforth", "Poynton"]
@@ -49,6 +52,9 @@
       "postalCode": "SK7 6BG",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "phone": "01625 872267",
+      "email": "Hazel@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CZbFKrky9BUsEAE/review",
       "hasApp": false,
       "keywords": ["scorah", "hazel", "hazel-grove", "macclesfield-road", "sk7", "sk7 6bg"],
       "serviceAreaList": ["Hazel Grove", "Bramhall", "Offerton", "Great Moor", "Poynton"]
@@ -63,6 +69,9 @@
       "postalCode": "L17 7BP",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 727 3185",
+      "email": "Aigburth@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CdDj9KyelDVyEAE/review",
       "hasApp": false,
       "keywords": ["mccann", "mccanns", "aigburth", "l17 7bp", "aigburth-road", "l17"],
       "serviceAreaList": ["Aigburth", "Sefton Park", "Mossley Hill", "Grassendale"]
@@ -77,6 +86,9 @@
       "postalCode": "L17 4JP",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 727 3076",
+      "email": "Sandringham@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CbMDr1qOLqnrEAE/review",
       "hasApp": false,
       "keywords": ["mccann", "mccanns", "sandringham", "l17 4jp", "aigburth-road", "l17"],
       "serviceAreaList": ["Aigburth", "St Michael's", "Lark Lane", "Dingle"]
@@ -91,6 +103,9 @@
       "postalCode": "PR8 3HN",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "01704 575478",
+      "email": "Ainsdale@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/Cfl0iMf3cgGaEAE/review",
       "hasApp": true,
       "keywords": ["fishlock", "fishlocks", "ainsdale", "pr8 3hn", "station-road", "pr8"],
       "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
@@ -105,6 +120,9 @@
       "postalCode": "PR7 5SZ",
       "addressRegion": "Chorley",
       "addressCountry": "GB",
+      "phone": "01257 451251",
+      "email": "Eccleston@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CYyjtWbSXqEkEAE/review",
       "hasApp": true,
       "keywords": ["fishlock", "fishlocks", "eccleston", "pr7 5sz", "carrington", "new-mill", "pr7", "chorley"],
       "serviceAreaList": ["Eccleston", "Charnock Richard", "Coppull"]
@@ -133,6 +151,8 @@
       "postalCode": "L9 7AS",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 203 8365",
+      "email": "admin@clearchemist.co.uk",
       "hasApp": true,
       "keywords": ["clearchemist", "clear-chemist", "aintree", "brookfield", "l9 7as", "l9"],
       "serviceAreaList": ["Aintree", "Fazakerley", "Walton", "Bootle", "North Liverpool"]
@@ -148,6 +168,7 @@
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
       "phone": "0151 922 4984",
+      "email": "Smartts@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CVzJUbDqQwReEBM/review",
       "hasApp": true,
       "keywords": ["smartts", "fernhill", "bootle", "l20 9hh", "l20"],
@@ -163,6 +184,9 @@
       "postalCode": "PR8 3HW",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "01704 577376",
+      "email": "Hirshmans@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CUagKTNTXwMYEAE/review",
       "hasApp": false,
       "keywords": ["hirshman", "hirshmans", "ainsdale", "pr8 3hw", "station-road", "pr8"],
       "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
@@ -177,6 +201,9 @@
       "postalCode": "L20 5DW",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 944 1013",
+      "email": "SK@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CeAIYeqSjIYBEAE/review",
       "hasApp": false,
       "keywords": ["sk-chemists", "skchemists", "stanley-road", "bootle", "l20 5dw", "l20"],
       "serviceAreaList": ["Bootle", "Sefton", "Liverpool"]
@@ -191,6 +218,9 @@
       "postalCode": "L4 6TH",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 525 3522",
+      "email": "Colemans@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CVRiXrQr74lLEAE/review",
       "hasApp": false,
       "keywords": ["coleman", "leigh", "walton", "walton-village", "l4 6th", "l4"],
       "serviceAreaList": ["Walton", "Liverpool", "Sefton"]
@@ -205,6 +235,9 @@
       "postalCode": "WA15 6BP",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "phone": "0161 973 2951",
+      "email": "Riddings@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CRtdZliseNZGEAE/review",
       "hasApp": false,
       "keywords": ["riddings", "timperley", "altrincham", "wa15 6bp", "wa15"],
       "serviceAreaList": ["Timperley", "Altrincham", "Trafford"]
@@ -219,6 +252,9 @@
       "postalCode": "L23 3AT",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 924 3449",
+      "email": "Shorts@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CZcVDM6emi6OEAE/review",
       "hasApp": false,
       "keywords": ["gordon", "shorts", "college-road", "l23 3at", "crosby", "l23"],
       "serviceAreaList": ["Crosby", "Waterloo", "Sefton"]
@@ -233,6 +269,9 @@
       "postalCode": "L4 8SG",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 226 2051",
+      "email": "Cherry@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CRF-ODLpmvUAEAE/review",
       "hasApp": false,
       "keywords": ["cherry-lane", "l4 8sg", "l4", "cherry lane"],
       "serviceAreaList": ["Liverpool", "Walton", "Everton"]
@@ -247,6 +286,9 @@
       "postalCode": "SK9 2TA",
       "addressRegion": "Cheshire",
       "addressCountry": "GB",
+      "phone": "01625 523414",
+      "email": "Wilmslow@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CaWCNYx46icAEAE/review",
       "hasApp": false,
       "keywords": ["wilmslow", "sk9 2ta", "summerfields", "summerfields-village", "sk9"],
       "serviceAreaList": ["Wilmslow", "Handforth", "Cheshire East"]
@@ -261,6 +303,9 @@
       "postalCode": "L9 9DB",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 525 3462",
+      "email": "Tiffenberg@rbhealth.co.uk",
+      "googleReviewUrl": "https://g.page/r/CdfQf2a16Bn4EAE/review",
       "hasApp": false,
       "keywords": ["tiffenbergs", "longmoor", "l9 9db", "l9"],
       "serviceAreaList": ["Aintree", "Fazakerley", "Liverpool"]
