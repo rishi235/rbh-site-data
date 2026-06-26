@@ -56,9 +56,21 @@ Only these branches have `hasApp: true` (the app-download card is hidden everywh
 3. Commit. jsDelivr serves `@main` within minutes; bump the `?v=` cache version to force
    an immediate refresh.
 
-## Cache busting
+## Pushing changes live (cache busting)
 
-Assets are loaded with a `?v=YYYYMMDD-N` query string in the embed, and
-`DATA_VERSION` in `core/site-data.js` does the same for `branches.json`.
-**When you change CSS/JS, bump the `?v=` in the embed; when you change data, bump
-`DATA_VERSION`.** Keep them in step (current: `20260626-1`).
+The sites load code from jsDelivr pinned to `@main`. jsDelivr caches `@main` files for up
+to **12 hours**, and a `?v=` query string on the URL does **not** force a refresh. So after
+you push to GitHub, do one of these to make the change appear immediately:
+
+1. **Purge the CDN (recommended).** Open these URLs in a browser once (they return JSON
+   `"status": "finished"`):
+   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/branches.json
+   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/core/site-data.js
+   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.js
+   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.css
+   - (add the matching `modules/emar/...` URLs when you change eMAR)
+2. **Or just wait** up to ~12 hours for the cache to expire on its own.
+
+The `?v=YYYYMMDD-N` in the embed and `DATA_VERSION` in `core/site-data.js` are still useful:
+they bust the **visitor's browser cache**, so anyone who loaded the page before still gets
+the new version. Bump them when you change CSS/JS/data (current: `20260626-1`).
