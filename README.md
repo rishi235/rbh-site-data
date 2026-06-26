@@ -56,21 +56,28 @@ Only these branches have `hasApp: true` (the app-download card is hidden everywh
 3. Commit. jsDelivr serves `@main` within minutes; bump the `?v=` cache version to force
    an immediate refresh.
 
-## Pushing changes live (cache busting)
+## Switch pages are SEO-first
 
-The sites load code from jsDelivr pinned to `@main`. jsDelivr caches `@main` files for up
-to **12 hours**, and a `?v=` query string on the URL does **not** force a refresh. So after
-you push to GitHub, do one of these to make the change appear immediately:
+The switch landing pages keep their **content in the Weebly page HTML** (see
+`modules/switch/pages/`) so search engines can read the headings, copy, FAQ and address.
+Only the **styling (`switch.css`)** and **form logic (`switch.js`)** load from the CDN.
+`switch.js` does not build the page — it just wires the form (validation, WhatsApp,
+callback, submit). One page per site, each with its own town/brand baked into the H1.
 
-1. **Purge the CDN (recommended).** Open these URLs in a browser once (they return JSON
-   `"status": "finished"`):
-   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/branches.json
-   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/core/site-data.js
-   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.js
-   - https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/modules/switch/switch.css
-   - (add the matching `modules/emar/...` URLs when you change eMAR)
-2. **Or just wait** up to ~12 hours for the cache to expire on its own.
+When you publish a switch page, also set the Weebly **page SEO title + meta description**
+(per page) — those are the strongest local-search signals. Example for Smartts:
+- Title: `Switch Your Prescriptions - Smartts Chemist Bootle`
+- Description: `Switch your prescriptions to Smartts Chemist in Bootle in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`
 
-The `?v=YYYYMMDD-N` in the embed and `DATA_VERSION` in `core/site-data.js` are still useful:
-they bust the **visitor's browser cache**, so anyone who loaded the page before still gets
-the new version. Bump them when you change CSS/JS/data (current: `20260626-1`).
+## Pushing CSS/JS changes live (commit pinning)
+
+The switch pages pin `switch.css` / `switch.js` to a **commit hash**, e.g.
+`@c83a2f2/modules/switch/switch.js`, not `@main`. This is deliberate:
+- jsDelivr's `@main` mirror can lag up to ~12h and ignores `?v=` query strings, so `@main`
+  updates are slow and unpredictable.
+- A hash is immutable: it loads instantly and a stray push can never change a live site.
+
+So to roll out a CSS/JS change: push it, then update the hash in each page's two `<link>` /
+`<script>` lines and re-paste. (Content edits don't need this — they're just the Weebly HTML.)
+The `branches.json` data layer still uses `@main`; purge it after edits via
+https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@main/branches.json
