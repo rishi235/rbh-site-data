@@ -259,18 +259,37 @@ function page(id){
 const outDir = path.join(__dirname, "..", "modules", "switch", "pages");
 fs.mkdirSync(outDir, { recursive: true });
 
+function keywords(c, b){
+  const outward = (b.postalCode||"").split(" ")[0];
+  return [
+    c.brand,
+    `${c.brand} ${c.town}`,
+    `switch prescriptions ${c.town}`,
+    "switch pharmacy",
+    "prescription transfer",
+    "repeat prescriptions",
+    `pharmacy ${c.town}`,
+    `NHS pharmacy ${c.town}`,
+    `chemist ${c.town}`,
+    outward
+  ].filter(Boolean).join(", ");
+}
+
 const manifest = [];
 Object.keys(CONFIG).forEach(id => {
   const c = CONFIG[id];
+  const b = byId[id];
   const slug = `switch-prescriptions-${c.brandSlug}-${c.townSlug}.html`;
   fs.writeFileSync(path.join(outDir, slug), page(id));
   manifest.push({
     branch: c.brand + " — " + c.town,
     file: slug,
+    permalink: slug.replace(/\.html$/,""),
     liveUrl: `${c.site}/${slug}`,
     seoTitle: `Switch Your Prescriptions - ${c.brand} ${c.town}`,
     seoDesc: `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`,
-    hasApp: !!byId[id].hasApp
+    keywords: keywords(c, b),
+    hasApp: !!b.hasApp
   });
 });
 
@@ -283,6 +302,17 @@ manifest.forEach(m => {
   md += `- **SEO description:** ${m.seoDesc}\n\n`;
 });
 fs.writeFileSync(path.join(outDir, "INDEX.md"), md);
+
+// Write the per-page Weebly SEO Settings sheet (Title / Permalink / Description / Keywords)
+let seo = "# Weebly SEO Settings — per page\n\nFor each page, paste these into Weebly > Pages > (page) > SEO Settings.\nMeta keywords are ignored by Google/Bing (kept for completeness only).\n\n";
+manifest.forEach(m => {
+  seo += `## ${m.branch}${m.hasApp ? "  *(app member)*" : ""}\n`;
+  seo += `- **Page Title:** ${m.seoTitle}\n`;
+  seo += `- **Page Permalink:** ${m.permalink}\n`;
+  seo += `- **Page Description:** ${m.seoDesc}\n`;
+  seo += `- **Meta Keywords:** ${m.keywords}\n\n`;
+});
+fs.writeFileSync(path.join(outDir, "SEO.md"), seo);
 
 console.log("Generated " + manifest.length + " pages into modules/switch/pages/");
 manifest.forEach(m => console.log("  " + (m.hasApp?"[APP] ":"      ") + m.file));
