@@ -1,9 +1,6 @@
 (function () {
   "use strict";
 
-  var root = document.getElementById("rbhsw-root");
-  if (!root) return;
-
   var FORM_ACTION = "https://script.google.com/macros/s/AKfycbwoudCOSQWOgFVPmlFNhASBBlyB0TEB6Ba4uaUCB3fhPN7jMXnD_8T1oLN2Ua8ZevA/exec";
   var WHATSAPP_E164 = "447521775631";
   var DESTINATION = "rishi@rbhealth.co.uk";
@@ -122,9 +119,6 @@
     '    </div>' +
     '  </section>' +
     '</div>';
-
-  // Render the layout into the (otherwise empty) Weebly container.
-  root.innerHTML = TEMPLATE;
 
   // ---- small DOM helpers ----------------------------------------------------
   function byId(id) { return document.getElementById(id); }
@@ -487,9 +481,40 @@
     } catch (e) {}
   }
 
-  if (window.RBH_DATA) {
-    initSwitch();
+  // ---- boot ---------------------------------------------------------------
+  // Render the layout into #rbhsw-root, then populate once data is ready.
+  // Some site builders (e.g. Weebly) inject this script before the container
+  // exists, so we don't bail if it's missing — we wait for it to appear.
+  var started = false;
+
+  function render() {
+    if (started) return true;
+    var root = document.getElementById("rbhsw-root");
+    if (!root) return false;
+    started = true;
+    root.innerHTML = TEMPLATE;
+
+    if (window.RBH_DATA && Array.isArray(window.RBH_DATA.branches)) {
+      initSwitch();
+    } else if (typeof window.RBH_getData === "function") {
+      window.RBH_getData().then(initSwitch)["catch"](initSwitch);
+    } else {
+      document.addEventListener("RBH_DataReady", initSwitch, { once: true });
+    }
+    return true;
+  }
+
+  function boot() {
+    if (render()) return;
+    var tries = 0;
+    var iv = setInterval(function () {
+      if (render() || ++tries > 100) clearInterval(iv); // poll up to ~5s
+    }, 50);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
   } else {
-    document.addEventListener("RBH_DataReady", initSwitch, { once: true });
+    boot();
   }
 })();
