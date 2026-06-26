@@ -162,6 +162,22 @@
 
 #rbhsw-root .map { width:100%; min-height:300px; border:0; border-radius:14px; }
 
+#rbhsw-root .label-row { display:inline-flex; align-items:center; gap:7px; }
+#rbhsw-root .label-row .icon { width:15px; height:15px; flex:0 0 15px; color:#5b6574; }
+
+#rbhsw-root .contact-line { display:flex; align-items:flex-start; gap:10px; }
+#rbhsw-root .contact-line .icon { width:17px; height:17px; flex:0 0 17px; margin-top:3px; color:var(--blue); }
+#rbhsw-root .contact-line p { margin:0 0 10px; line-height:1.6; color:#374151; }
+
+#rbhsw-root .video-frame { position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:14px; background:#eaf5fa; }
+#rbhsw-root .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+#rbhsw-root .service-item strong { display:block; font-size:17px; margin-bottom:8px; color:#fff; }
+#rbhsw-root .service-item span { display:block; font-size:13px; font-weight:500; color:#fff; }
+#rbhsw-root .service-item em { display:inline-block; margin-top:10px; font-style:normal; font-size:12px; font-weight:700; color:rgba(255,255,255,.95); text-decoration:underline; }
+#rbhsw-root .btn-red { background:var(--red); color:#fff; }
+#rbhsw-root .btn-red:hover { background:var(--red-dark); }
+
 #rbhsw-root .service-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px; }
 #rbhsw-root .service-item { display:block; border-radius:14px; padding:18px 16px; text-align:center; font-weight:700; line-height:1.3; text-decoration:none; color:#fff; transition:.2s ease; min-height:120px; box-shadow:0 8px 20px rgba(0,0,0,.06); }
 #rbhsw-root .service-item:hover { transform:translateY(-2px); filter:brightness(.98); }
