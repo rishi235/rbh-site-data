@@ -2,7 +2,7 @@
   "use strict";
 
   // Bump this value whenever you want to force-refresh @main caches
-  var DATA_VERSION = "2026-03-23-2";
+  var DATA_VERSION = "20260626-1";
 
   // Keep @main while building; later switch to @v1.0.0 (or newer tag)
   var DATA_URL =

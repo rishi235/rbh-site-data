@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-23",
+  "lastUpdated": "2026-06-26",
   "brandGroups": {
     "scorahs": ["scorah_bramhall", "scorah_hazel"],
     "mccanns": ["mccanns_aigburth", "mccanns_sandringham"],
@@ -35,6 +35,7 @@
       "postalCode": "SK7 3LQ",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["scorah", "bramhall", "north-park-road", "sk7", "sk7 3lq"],
       "serviceAreaList": ["Bramhall", "Cheadle Hulme", "Hazel Grove", "Handforth", "Poynton"]
     },
@@ -48,6 +49,7 @@
       "postalCode": "SK7 6BG",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["scorah", "hazel", "hazel-grove", "macclesfield-road", "sk7", "sk7 6bg"],
       "serviceAreaList": ["Hazel Grove", "Bramhall", "Offerton", "Great Moor", "Poynton"]
     },
@@ -61,6 +63,7 @@
       "postalCode": "L17 7BP",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["mccann", "mccanns", "aigburth", "l17 7bp", "aigburth-road", "l17"],
       "serviceAreaList": ["Aigburth", "Sefton Park", "Mossley Hill", "Grassendale"]
     },
@@ -74,6 +77,7 @@
       "postalCode": "L17 4JP",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["mccann", "mccanns", "sandringham", "l17 4jp", "aigburth-road", "l17"],
       "serviceAreaList": ["Aigburth", "St Michael's", "Lark Lane", "Dingle"]
     },
@@ -87,6 +91,7 @@
       "postalCode": "PR8 3HN",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": true,
       "keywords": ["fishlock", "fishlocks", "ainsdale", "pr8 3hn", "station-road", "pr8"],
       "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
     },
@@ -100,6 +105,7 @@
       "postalCode": "PR7 5SZ",
       "addressRegion": "Chorley",
       "addressCountry": "GB",
+      "hasApp": true,
       "keywords": ["fishlock", "fishlocks", "eccleston", "pr7 5sz", "carrington", "new-mill", "pr7", "chorley"],
       "serviceAreaList": ["Eccleston", "Charnock Richard", "Coppull"]
     },
@@ -113,6 +119,7 @@
       "postalCode": "L9 7AS",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["rbhealth", "rb-health", "rb healthcare", "head office", "head-office", "aintree", "brookfield", "l9 7as", "l9"],
       "serviceAreaList": ["Aintree", "Fazakerley", "Maghull", "Walton", "Bootle", "North Liverpool"]
     },
@@ -126,6 +133,7 @@
       "postalCode": "L9 7AS",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": true,
       "keywords": ["clearchemist", "clear-chemist", "aintree", "brookfield", "l9 7as", "l9"],
       "serviceAreaList": ["Aintree", "Fazakerley", "Walton", "Bootle", "North Liverpool"]
     },
@@ -139,6 +147,9 @@
       "postalCode": "L20 9HH",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "phone": "0151 922 4984",
+      "googleReviewUrl": "https://g.page/r/CVzJUbDqQwReEBM/review",
+      "hasApp": true,
       "keywords": ["smartts", "fernhill", "bootle", "l20 9hh", "l20"],
       "serviceAreaList": ["Bootle", "Sefton", "Liverpool"]
     },
@@ -152,6 +163,7 @@
       "postalCode": "PR8 3HW",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["hirshman", "hirshmans", "ainsdale", "pr8 3hw", "station-road", "pr8"],
       "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
     },
@@ -165,6 +177,7 @@
       "postalCode": "L20 5DW",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["sk-chemists", "skchemists", "stanley-road", "bootle", "l20 5dw", "l20"],
       "serviceAreaList": ["Bootle", "Sefton", "Liverpool"]
     },
@@ -178,6 +191,7 @@
       "postalCode": "L4 6TH",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["coleman", "leigh", "walton", "walton-village", "l4 6th", "l4"],
       "serviceAreaList": ["Walton", "Liverpool", "Sefton"]
     },
@@ -191,6 +205,7 @@
       "postalCode": "WA15 6BP",
       "addressRegion": "Greater Manchester",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["riddings", "timperley", "altrincham", "wa15 6bp", "wa15"],
       "serviceAreaList": ["Timperley", "Altrincham", "Trafford"]
     },
@@ -204,6 +219,7 @@
       "postalCode": "L23 3AT",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["gordon", "shorts", "college-road", "l23 3at", "crosby", "l23"],
       "serviceAreaList": ["Crosby", "Waterloo", "Sefton"]
     },
@@ -217,6 +233,7 @@
       "postalCode": "L4 8SG",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["cherry-lane", "l4 8sg", "l4", "cherry lane"],
       "serviceAreaList": ["Liverpool", "Walton", "Everton"]
     },
@@ -230,6 +247,7 @@
       "postalCode": "SK9 2TA",
       "addressRegion": "Cheshire",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["wilmslow", "sk9 2ta", "summerfields", "summerfields-village", "sk9"],
       "serviceAreaList": ["Wilmslow", "Handforth", "Cheshire East"]
     },
@@ -243,6 +261,7 @@
       "postalCode": "L9 9DB",
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
+      "hasApp": false,
       "keywords": ["tiffenbergs", "longmoor", "l9 9db", "l9"],
       "serviceAreaList": ["Aintree", "Fazakerley", "Liverpool"]
     }

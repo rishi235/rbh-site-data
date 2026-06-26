@@ -6,6 +6,14 @@
 
   var FORM_ACTION = "https://script.google.com/macros/s/AKfycbwoudCOSQWOgFVPmlFNhASBBlyB0TEB6Ba4uaUCB3fhPN7jMXnD_8T1oLN2Ua8ZevA/exec";
   var WHATSAPP_E164 = "447521775631";
+  var DESTINATION = "rishi@rbhealth.co.uk";
+
+  // ---- small DOM helpers ----------------------------------------------------
+  function byId(id) { return document.getElementById(id); }
+  function setText(id, value) { var el = byId(id); if (el) el.textContent = value; }
+  function setHref(id, value) { var el = byId(id); if (el) el.setAttribute("href", value); }
+  function showEl(id) { var el = byId(id); if (el) el.style.display = ""; }
+  function hideEl(id) { var el = byId(id); if (el) el.style.display = "none"; }
 
   function initSwitch() {
     var data = (window.RBH_DATA && Array.isArray(window.RBH_DATA.branches))
@@ -19,6 +27,7 @@
 
     var HM = data.hostMap || {};
 
+    // ---- branch selection ---------------------------------------------------
     function pickBranch() {
       var forced = (window.RBH_SWITCH_OVERRIDE || "").toLowerCase().trim();
       if (forced && BR[forced]) return BR[forced];
@@ -68,21 +77,7 @@
     var phone = branch.phone || "";
     var email = branch.email || "";
 
-    function setText(id, value) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
-
-    function setHref(id, value) {
-      var el = document.getElementById(id);
-      if (el) el.setAttribute("href", value);
-    }
-
-    function hideEl(id) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    }
-
+    // ---- populate static copy ----------------------------------------------
     setText("sw-pill-locality", "Your local independent pharmacy in " + locality);
     setText("sw-hero-branch", branchName);
     setText("sw-contact-branch", branchName);
@@ -92,12 +87,13 @@
     setText("sw-website-link", (location.hostname || "").replace(/^www\./, ""));
 
     if (phone) {
-      setHref("sw-phone-link", "tel:" + phone.replace(/\s+/g, ""));
+      var telHref = "tel:" + phone.replace(/\s+/g, "");
+      setHref("sw-phone-link", telHref);
       setText("sw-phone-link", phone);
 
-      var callBtn = document.getElementById("sw-call-btn");
+      var callBtn = byId("sw-call-btn");
       if (callBtn) {
-        callBtn.href = "tel:" + phone.replace(/\s+/g, "");
+        callBtn.href = telHref;
         var t = callBtn.querySelector(".sw-call-text");
         if (t) t.textContent = "Call " + phone;
       }
@@ -113,24 +109,40 @@
       hideEl("sw-email-row");
     }
 
-    var map = document.getElementById("sw-map");
+    var map = byId("sw-map");
     if (map && fullAddress) {
       map.src = "https://www.google.com/maps?q=" + encodeURIComponent(fullAddress) + "&output=embed";
     }
 
-    var form = document.getElementById("switch-form");
-    var msg = document.getElementById("switch-msg");
-    var thankyou = document.getElementById("switch-thankyou");
-    var iframe = document.getElementById("switch-post");
-    var waBtn = document.getElementById("switch-wa");
-    var waHeroBtn = document.getElementById("switch-wa-hero");
-    var callbackBtn = document.getElementById("switch-callback-btn");
+    // ---- app card: only for branches signed up to the RBH app --------------
+    if (branch.hasApp) {
+      showEl("sw-app-card");
+    } else {
+      hideEl("sw-app-card");
+    }
+
+    // ---- Google reviews: only when we have a review link -------------------
+    if (branch.googleReviewUrl) {
+      setHref("sw-review-link", branch.googleReviewUrl);
+      showEl("sw-review-card");
+    } else {
+      hideEl("sw-review-card");
+    }
+
+    // ---- form ---------------------------------------------------------------
+    var form = byId("switch-form");
+    var msg = byId("switch-msg");
+    var thankyou = byId("switch-thankyou");
+    var iframe = byId("switch-post");
+    var waBtn = byId("switch-wa");
+    var waHeroBtn = byId("switch-wa-hero");
+    var callbackBtn = byId("switch-callback-btn");
 
     if (!form) return;
 
     form.setAttribute("action", FORM_ACTION);
     if (form.elements["website_url"]) form.elements["website_url"].value = window.location.href;
-    if (form.elements["destination"]) form.elements["destination"].value = "rishi@rbhealth.co.uk";
+    if (form.elements["destination"]) form.elements["destination"].value = DESTINATION;
     if (form.elements["source"]) form.elements["source"].value = "Switch Page - " + branchName;
 
     function clearErrors() {
@@ -154,13 +166,34 @@
     }
 
     function readForm() {
+      function val(name) {
+        return form.elements[name] ? (form.elements[name].value || "").trim() : "";
+      }
       return {
-        first_name: (form.elements["first_name"] ? form.elements["first_name"].value : "").trim(),
-        last_name: (form.elements["last_name"] ? form.elements["last_name"].value : "").trim(),
-        dob: (form.elements["dob"] ? form.elements["dob"].value : "").trim(),
-        mobile: (form.elements["mobile"] ? form.elements["mobile"].value : "").trim(),
-        email: (form.elements["email"] ? form.elements["email"].value : "").trim()
+        first_name: val("first_name"),
+        last_name: val("last_name"),
+        dob: val("dob"),
+        mobile: val("mobile"),
+        email: val("email")
       };
+    }
+
+    function isCallbackMode() {
+      return form.getAttribute("data-mode") === "callback";
+    }
+
+    // Single source of truth for which fields are required in each mode.
+    function getMissing(d, isCallback) {
+      var missing = [];
+      if (!d.first_name) missing.push("first_name");
+      if (!d.last_name) missing.push("last_name");
+      if (isCallback) {
+        if (!d.mobile) missing.push("mobile");
+      } else {
+        if (!d.dob) missing.push("dob");
+      }
+      if (d.email && !validEmail(d.email)) missing.push("email");
+      return missing;
     }
 
     function markErrors(missing) {
@@ -199,10 +232,10 @@
     }
 
     function setCallbackMode(on) {
-      var titleEl = document.getElementById("switch-form-title");
-      var subEl = document.getElementById("switch-form-sub");
-      var submitText = document.getElementById("switch-submit-text");
-      var modeLink = document.getElementById("switch-form-mode-link");
+      var titleEl = byId("switch-form-title");
+      var subEl = byId("switch-form-sub");
+      var submitText = byId("switch-submit-text");
+      var modeLink = byId("switch-form-mode-link");
       var mobileLabel = form.querySelector(".mobile-label-text");
       var dobInput = form.elements["dob"];
 
@@ -237,20 +270,8 @@
         clearErrors();
 
         var d = readForm();
-        var missing = [];
-        var isCallback = form.getAttribute("data-mode") === "callback";
-
-        if (isCallback) {
-          if (!d.first_name) missing.push("first_name");
-          if (!d.last_name) missing.push("last_name");
-          if (!d.mobile) missing.push("mobile");
-          if (d.email && !validEmail(d.email)) missing.push("email");
-        } else {
-          if (!d.first_name) missing.push("first_name");
-          if (!d.last_name) missing.push("last_name");
-          if (!d.dob) missing.push("dob");
-          if (d.email && !validEmail(d.email)) missing.push("email");
-        }
+        var isCallback = isCallbackMode();
+        var missing = getMissing(d, isCallback);
 
         if (missing.length) {
           markErrors(missing);
@@ -273,12 +294,12 @@
       callbackBtn.addEventListener("click", function (e) {
         e.preventDefault();
         setCallbackMode(true);
-        var card = document.getElementById("switch-form-card");
+        var card = byId("switch-form-card");
         if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     }
 
-    var switchModeLink = document.getElementById("switch-switch-mode");
+    var switchModeLink = byId("switch-switch-mode");
     if (switchModeLink) {
       switchModeLink.addEventListener("click", function (e) {
         e.preventDefault();
@@ -290,6 +311,7 @@
       clearErrors();
       setMessage("");
 
+      // Honeypot: silently drop bot submissions.
       var hp = form.elements["company"];
       if (hp && (hp.value || "").trim() !== "") {
         e.preventDefault();
@@ -297,20 +319,8 @@
       }
 
       var d = readForm();
-      var missing = [];
-      var isCallback = form.getAttribute("data-mode") === "callback";
-
-      if (isCallback) {
-        if (!d.first_name) missing.push("first_name");
-        if (!d.last_name) missing.push("last_name");
-        if (!d.mobile) missing.push("mobile");
-        if (d.email && !validEmail(d.email)) missing.push("email");
-      } else {
-        if (!d.first_name) missing.push("first_name");
-        if (!d.last_name) missing.push("last_name");
-        if (!d.dob) missing.push("dob");
-        if (d.email && !validEmail(d.email)) missing.push("email");
-      }
+      var isCallback = isCallbackMode();
+      var missing = getMissing(d, isCallback);
 
       if (missing.length) {
         e.preventDefault();
@@ -333,6 +343,7 @@
       });
     }
 
+    // ---- structured data ----------------------------------------------------
     try {
       var schema = {
         "@context": "https://schema.org",
