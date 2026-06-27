@@ -27,7 +27,7 @@ const CONFIG = {
   colemanleigh_liverpool:{ brand: "Coleman & Leigh Pharmacy", brandSlug: "coleman-leigh", town: "Walton", townSlug: "walton", site: "https://www.colemanandleighspharmacy.co.uk" },
   fishlocks_ainsdale:    { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.fishlockpharmacy.co.uk" },
   fishlocks_eccleston:   { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Eccleston", townSlug: "eccleston", site: "https://www.fishlockpharmacy.co.uk" },
-  gordonshorts_crosby:   { brand: "Gordon Shorts Chemist", brandSlug: "gordon-shorts", town: "Crosby", townSlug: "crosby", site: "https://www.gordonshortchemist.co.uk" },
+  gordonshorts_crosby:   { brand: "Gordon Short Chemist", brandSlug: "gordon-short", town: "Crosby", townSlug: "crosby", site: "https://www.gordonshortchemist.co.uk" },
   hirshmans_ainsdale:    { brand: "Hirshmans Chemist", brandSlug: "hirshmans", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.hirshmanspharmacy.co.uk" },
   mccanns_aigburth:      { brand: "McCanns Chemist", brandSlug: "mccanns", town: "Aigburth", townSlug: "aigburth", site: "https://www.mccannspharmacy.co.uk" },
   mccanns_sandringham:   { brand: "McCanns Chemist", brandSlug: "mccanns", town: "Sandringham", townSlug: "sandringham", site: "https://www.mccannspharmacy.co.uk" },

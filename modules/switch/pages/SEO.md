@@ -27,11 +27,11 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Description:** Switch your prescriptions to Fishlocks Chemist in Eccleston in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 - **Meta Keywords:** Fishlocks Chemist, Fishlocks Chemist Eccleston, switch prescriptions Eccleston, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Eccleston, NHS pharmacy Eccleston, chemist Eccleston, PR7
 
-## Gordon Shorts Chemist — Crosby
-- **Page Title:** Switch Your Prescriptions - Gordon Shorts Chemist Crosby
-- **Page Permalink:** switch-prescriptions-gordon-shorts-crosby
-- **Page Description:** Switch your prescriptions to Gordon Shorts Chemist in Crosby in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
-- **Meta Keywords:** Gordon Shorts Chemist, Gordon Shorts Chemist Crosby, switch prescriptions Crosby, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Crosby, NHS pharmacy Crosby, chemist Crosby, L23
+## Gordon Short Chemist — Crosby
+- **Page Title:** Switch Your Prescriptions - Gordon Short Chemist Crosby
+- **Page Permalink:** switch-prescriptions-gordon-short-crosby
+- **Page Description:** Switch your prescriptions to Gordon Short Chemist in Crosby in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
+- **Meta Keywords:** Gordon Short Chemist, Gordon Short Chemist Crosby, switch prescriptions Crosby, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Crosby, NHS pharmacy Crosby, chemist Crosby, L23
 
 ## Hirshmans Chemist — Ainsdale
 - **Page Title:** Switch Your Prescriptions - Hirshmans Chemist Ainsdale

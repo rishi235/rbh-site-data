@@ -22,10 +22,10 @@ Each page below is in this folder. Paste the file's contents into a Weebly Embed
 - **SEO title:** Switch Your Prescriptions - Fishlocks Chemist Eccleston
 - **SEO description:** Switch your prescriptions to Fishlocks Chemist in Eccleston in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 
-## Gordon Shorts Chemist — Crosby
-- **Page slug / URL:** `switch-prescriptions-gordon-shorts-crosby.html` → https://www.gordonshortchemist.co.uk/switch-prescriptions-gordon-shorts-crosby.html
-- **SEO title:** Switch Your Prescriptions - Gordon Shorts Chemist Crosby
-- **SEO description:** Switch your prescriptions to Gordon Shorts Chemist in Crosby in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
+## Gordon Short Chemist — Crosby
+- **Page slug / URL:** `switch-prescriptions-gordon-short-crosby.html` → https://www.gordonshortchemist.co.uk/switch-prescriptions-gordon-short-crosby.html
+- **SEO title:** Switch Your Prescriptions - Gordon Short Chemist Crosby
+- **SEO description:** Switch your prescriptions to Gordon Short Chemist in Crosby in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 
 ## Hirshmans Chemist — Ainsdale
 - **Page slug / URL:** `switch-prescriptions-hirshmans-ainsdale.html` → https://www.hirshmanspharmacy.co.uk/switch-prescriptions-hirshmans-ainsdale.html

@@ -17,8 +17,8 @@
 <script>
 (function(){
   /* ===== CONFIG — change these two lines per site ===== */
-  var SWITCH_URL = "/switch-prescriptions-gordon-shorts-crosby.html";
-  var BRAND = "Gordon Shorts Chemist";
+  var SWITCH_URL = "/switch-prescriptions-gordon-short-crosby.html";
+  var BRAND = "Gordon Short Chemist";
   /* =================================================== */
   var DISMISS_KEY = "rbhSwitchBannerClosed";
   var store = window.sessionStorage;
