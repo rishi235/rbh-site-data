@@ -28,18 +28,22 @@ const PIN = "main";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 const WHATSAPP = "447521775631";
 
+// Appointedd SDK is identical for every store/service; only the widgetId changes.
+const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
+
 // ---------------------------------------------------------------------------
 // STORES — per-store presentation + booking config. Data (phone/address) is
 // pulled from branches.json by id. `widgets.pharmacyFirst` is the store's
-// Appointedd "Pharmacy 1st" embed (raw HTML snippet or iframe). null = not yet
-// pulled; page shows the call/callback fallback.
+// Appointedd "Pharmacy 1st" widget ID (from the widget's embed snippet in
+// Appointedd > Booking Tools > Booking Widgets > Get embed code). null = not
+// yet pulled; page shows the call/callback fallback.
 // ---------------------------------------------------------------------------
 const STORES = {
   cherrylane_liverpool: {
     brand: "Cherry Lane Pharmacy", brandSlug: "cherry-lane",
     town: "Walton", townSlug: "walton",
     site: "https://www.cherrylanepharmacy.co.uk",
-    widgets: { pharmacyFirst: null }
+    widgets: { pharmacyFirst: "66b20ae6609c16953de3e0cf" }
   }
 };
 
@@ -140,11 +144,17 @@ function headLinks() {
 }
 
 function bookingCard(store, b, serviceLabel) {
-  var embed = store.widgets && store.widgets.pharmacyFirst;
-  var inner = embed
-    ? '<div class="booking-widget">' + embed + '</div>'
+  var widgetId = store.widgets && store.widgets.pharmacyFirst;
+  var inner = widgetId
+    ? '<div class="booking-widget">\n' +
+      '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
+      '            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>\n' +
+      '            <script type="text/javascript">\n' +
+      '              Appointedd.renderWidget("rbhsv-booking", { widgetId: "' + widgetId + '", enableLanguageSelector: false });\n' +
+      '            </script>\n' +
+      '          </div>'
     : '<div class="booking-placeholder">\n' +
-      '            <!-- APPOINTEDD: paste the ' + esc(store.brand) + ' "Pharmacy 1st" widget embed here, then delete this fallback. -->\n' +
+      '            <!-- APPOINTEDD: add the ' + esc(store.brand) + ' "Pharmacy 1st" widget ID to STORES[...].widgets, then re-run the generator. -->\n' +
       '            <strong>Book your free NHS appointment</strong>\n' +
       '            <p>Call <a href="tel:' + tel(b) + '">' + esc(b.phone) + '</a> to book, or request a callback below and we will arrange a time.</p>\n' +
       '          </div>';
