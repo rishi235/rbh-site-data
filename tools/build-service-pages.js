@@ -645,16 +645,20 @@ BUILD.forEach(function (storeId) {
 
   // Overview
   var ovSlug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
-  fs.writeFileSync(path.join(outDir, ovSlug), overviewPage(storeId));
+  var ovHtml = overviewPage(storeId);
+  fs.writeFileSync(path.join(outDir, ovSlug), ovHtml);
   manifest.push({
     store: store.brand + " — " + store.town,
+    storeSlug: store.brandSlug + "-" + store.townSlug,
+    name: "Pharmacy First",
     type: "Overview",
     file: ovSlug,
     permalink: ovSlug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + ovSlug,
     seoTitle: "Pharmacy First at " + store.brand + ", " + store.town,
     seoDesc: "Pharmacy First at " + store.brand + " in " + store.town + ". Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.",
-    keywords: ["Pharmacy First " + store.town, "NHS Pharmacy First", store.brand, "pharmacy " + store.town, (b_outward(storeId))].filter(Boolean).join(", ")
+    keywords: ["Pharmacy First " + store.town, "NHS Pharmacy First", store.brand, "pharmacy " + store.town, (b_outward(storeId))].filter(Boolean).join(", "),
+    html: ovHtml
   });
 
   // Condition pages (ready only)
@@ -662,16 +666,20 @@ BUILD.forEach(function (storeId) {
     var c = CONDITIONS[key];
     if (!c.ready) return;
     var slug = c.slug + "-treatment-" + store.brandSlug + "-" + store.townSlug + ".html";
-    fs.writeFileSync(path.join(outDir, slug), conditionPage(storeId, key));
+    var condHtml = conditionPage(storeId, key);
+    fs.writeFileSync(path.join(outDir, slug), condHtml);
     manifest.push({
       store: store.brand + " — " + store.town,
+      storeSlug: store.brandSlug + "-" + store.townSlug,
+      name: c.name,
       type: c.name,
       file: slug,
       permalink: slug.replace(/\.html$/, ""),
       liveUrl: store.site + "/" + slug,
       seoTitle: c.metaCondition + " in " + store.town + " - " + store.brand,
       seoDesc: c.name + " treatment at " + store.brand + " in " + store.town + ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.",
-      keywords: [c.name + " " + store.town, c.name + " treatment " + store.town, "Pharmacy First " + store.town, "pharmacy " + store.town, b_outward(storeId)].filter(Boolean).join(", ")
+      keywords: [c.name + " " + store.town, c.name + " treatment " + store.town, "Pharmacy First " + store.town, "pharmacy " + store.town, b_outward(storeId)].filter(Boolean).join(", "),
+      html: condHtml
     });
   });
 });
@@ -701,5 +709,31 @@ manifest.forEach(function (m) {
 });
 fs.writeFileSync(path.join(outDir, "SEO.md"), seo);
 
+// --- PASTE PACK: one copy-paste doc per store (for manual Weebly entry) -------
+// For each page: page name, the 4 SEO fields, then the full HTML in a fenced block.
+var packDir = "C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK";
+fs.mkdirSync(packDir, { recursive: true });
+var byStore = {};
+manifest.forEach(function (m) { (byStore[m.storeSlug] = byStore[m.storeSlug] || []).push(m); });
+var packIndex = "# PASTE PACK — RBH Pharmacy First pages\n\nOne file per store. For each page in a store file:\n1. Weebly: Pages > + > Standard Page. Set **Header Type = No Header**.\n2. Set the 4 SEO fields (Page Title / Permalink / Description / Meta Keywords) from the doc.\n3. Build > drag an **Embed Code** element on > Click to set custom HTML > Edit Custom HTML > paste the HTML block.\n4. Save, then Publish.\nStructure: keep each site's existing Pharmacy First page; the new overview is the parent and the 7 condition pages nest under it.\n\n## Files\n";
+Object.keys(byStore).forEach(function (ss) {
+  var pages = byStore[ss];
+  var store = pages[0].store;
+  packIndex += "- `" + ss + ".md` — " + store + " (" + pages.length + " pages)\n";
+  var doc = "# PASTE PACK — " + store + "\n\n" + pages.length + " pages. Per page: create a Standard Page, set Header Type = No Header, set the 4 SEO fields, drop an Embed Code element, paste the HTML block.\n\n";
+  pages.forEach(function (m, i) {
+    doc += "\n---\n\n## " + (i + 1) + ". " + m.name + (m.type === "Overview" ? " (overview)" : "") + "\n\n";
+    doc += "**Page name:** " + m.name + "\n\n";
+    doc += "**SEO Title:** " + m.seoTitle + "\n\n";
+    doc += "**Permalink:** " + m.permalink + "\n\n";
+    doc += "**SEO Description:** " + m.seoDesc + "\n\n";
+    doc += "**Meta Keywords:** " + m.keywords + "\n\n";
+    doc += "**HTML to paste into the Embed Code block:**\n\n";
+    doc += "```html\n" + m.html.replace(/```/g, "``​`") + "\n```\n";
+  });
+  fs.writeFileSync(path.join(packDir, ss + ".md"), doc);
+});
+fs.writeFileSync(path.join(packDir, "INDEX.md"), packIndex);
+
 console.log("Generated " + manifest.length + " service pages into modules/service/pages/");
-manifest.forEach(function (m) { console.log("  " + m.file); });
+console.log("Paste packs: " + Object.keys(byStore).length + " store files in " + packDir);
