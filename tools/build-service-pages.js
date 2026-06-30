@@ -338,9 +338,7 @@ const CONDITIONS = {
 // Order conditions appear on the overview.
 const CONDITION_ORDER = ["uti", "sore-throat", "sinusitis", "earache", "impetigo", "shingles", "insect-bite"];
 
-// PRIORITY SCOPE (pass 1): only build + link the proven-demand conditions (UTI + sore throat).
-// The rest stay listed on the overview as "coming soon" (no broken links) and are built in pass 2.
-["sinusitis", "earache", "impetigo", "shingles", "insect-bite"].forEach(function (k) { CONDITIONS[k].ready = false; });
+// FULL SCOPE: all 7 conditions live on every store (8 pages/store).
 
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8"));
 const byId = {};
