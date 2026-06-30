@@ -187,7 +187,10 @@
       "website": "https://www.mccannspharmacy.co.uk",
       "seoTown": "Aigburth",
       "townSlug": "aigburth",
-      "brandSlug": "mccanns"
+      "brandSlug": "mccanns",
+      "widgets": {
+        "pharmacyFirst": "66b47e5dcad218d342bbecca"
+      }
     },
     {
       "id": "mccanns_sandringham",
@@ -227,7 +230,10 @@
       "website": "https://www.mccannspharmacy.co.uk",
       "seoTown": "Sandringham",
       "townSlug": "sandringham",
-      "brandSlug": "mccanns"
+      "brandSlug": "mccanns",
+      "widgets": {
+        "pharmacyFirst": "66b47e5dcad218d342bbecca"
+      }
     },
     {
       "id": "fishlocks_ainsdale",
@@ -266,7 +272,10 @@
       "website": "https://www.fishlockpharmacy.co.uk",
       "seoTown": "Ainsdale",
       "townSlug": "ainsdale",
-      "brandSlug": "fishlocks"
+      "brandSlug": "fishlocks",
+      "widgets": {
+        "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
+      }
     },
     {
       "id": "fishlocks_eccleston",
@@ -307,7 +316,10 @@
       "website": "https://www.fishlockpharmacy.co.uk",
       "seoTown": "Eccleston",
       "townSlug": "eccleston",
-      "brandSlug": "fishlocks"
+      "brandSlug": "fishlocks",
+      "widgets": {
+        "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
+      }
     },
     {
       "id": "rbh_head_office_aintree",
@@ -419,7 +431,10 @@
       "website": "https://www.smarttschemist.co.uk",
       "seoTown": "Bootle",
       "townSlug": "bootle",
-      "brandSlug": "smartts"
+      "brandSlug": "smartts",
+      "widgets": {
+        "pharmacyFirst": "66b9ea9004f4c06db8fdbf9c"
+      }
     },
     {
       "id": "hirshmans_ainsdale",
@@ -497,7 +512,10 @@
       "website": "https://www.skchemist.co.uk",
       "seoTown": "Bootle",
       "townSlug": "bootle",
-      "brandSlug": "sk-chemists"
+      "brandSlug": "sk-chemists",
+      "widgets": {
+        "pharmacyFirst": "66b20a8e609c16953de3e0c5"
+      }
     },
     {
       "id": "colemanleigh_liverpool",
@@ -536,7 +554,10 @@
       "website": "https://www.colemanandleighspharmacy.co.uk",
       "seoTown": "Walton",
       "townSlug": "walton",
-      "brandSlug": "coleman-leigh"
+      "brandSlug": "coleman-leigh",
+      "widgets": {
+        "pharmacyFirst": "66b9dba20712ffe0d87e12f2"
+      }
     },
     {
       "id": "riddings_timperley",
@@ -613,7 +634,10 @@
       "website": "https://www.gordonshortchemist.co.uk",
       "seoTown": "Crosby",
       "townSlug": "crosby",
-      "brandSlug": "gordon-short"
+      "brandSlug": "gordon-short",
+      "widgets": {
+        "pharmacyFirst": "66b20c7a1a0469a9f6b3b3a4"
+      }
     },
     {
       "id": "cherrylane_liverpool",
@@ -729,7 +753,10 @@
       "website": "https://www.tiffenbergschemist.co.uk",
       "seoTown": "Aintree",
       "townSlug": "aintree",
-      "brandSlug": "tiffenbergs"
+      "brandSlug": "tiffenbergs",
+      "widgets": {
+        "pharmacyFirst": "66b9da6d121338480dd72783"
+      }
     }
   ],
   "schemaNote": "Enriched 2026-06-27 with shortCode, branchNumber, odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl from RBH master branch spreadsheet. SMA nhsReviewUrl corrected from XFH575 (SK) to XFQN70 (Smartts). Scorah Bramhall street normalised to 61-63 North Park Road. Added 2026-06-30: website, seoTown, townSlug, brandSlug per branch (service-layer SEO fields), and widgets (Appointedd booking widget IDs; Cherry Lane pharmacyFirst populated). seoTown is the catchment town used in page titles/H1 and may differ from postal addressLocality (e.g. Cherry Lane = Walton, not Liverpool)."

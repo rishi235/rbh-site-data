@@ -47,4 +47,18 @@ commit listed under "Revert".
 - **By:** Claude Code
 - **Verified:** JSON valid; Cherry Lane overview re-rendered in a real browser with the live booking widget after the refactor.
 
+### 2026-06-30 — Author all 7 conditions + generate full set (112 pages, 14 stores)
+- **Surface:** GitHub (branch `service-module-phase1` — NOT live)
+- **What:**
+  - Authored the remaining 6 Pharmacy First conditions (sore throat, sinusitis, earache/otitis media, impetigo, shingles, infected insect bite) to the same standard as UTI — symptoms, eligibility, hero copy. Age ranges verified against NHS England / NHSBSA. Shared STD_STEPS + stdFaq helpers added.
+  - Pulled all stores' Appointedd "Pharmacy 1st" widget IDs from the browser and added them to branches.json `widgets.pharmacyFirst` (10 branches; Fishlocks and McCanns each share one widget across their two branches).
+  - Expanded BUILD to all 14 active stores (excludes head office, Clear Chemist, disposed Wilmslow). Generated 112 pages (1 overview + 7 conditions x 14 stores), plus INDEX.md / SEO.md.
+- **Booking widget coverage:** 10 branches use their live Appointedd PF widget. 4 branches have NO PF widget in Appointedd and use the call/callback fallback: Hirshmans (Ainsdale), Riddings (Timperley), Scorah Bramhall, Scorah Hazel. Create those widgets in Appointedd to switch them from fallback to live booking.
+- **Before:** only UTI authored; only Cherry Lane built (10 pages); 1 branch with widget.
+- **After:** 7 conditions authored; 112 pages for 14 stores; 10 branches with widgets.
+- **Revert:** revert the commit; or set conditions back to ready:false / shrink BUILD and re-run.
+- **Pending before live (unchanged):** superintendent pharmacist signs off clinical wording; pin pages to commit hash; merge to main + CDN purge; paste into Weebly + set SEO per INDEX.md/SEO.md.
+- **By:** Claude Code
+- **Verified:** generator ran clean (112 files); Cherry Lane overview, UTI and shingles pages re-rendered in a real browser with the live booking widget.
+
 <!-- New entries above this line, newest first. -->

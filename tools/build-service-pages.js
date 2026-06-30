@@ -41,7 +41,22 @@ const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-book
 // > open "<Store> - Pharmacy 1st" > Get embed code > copy the widgetId into that
 // branch's `widgets.pharmacyFirst` in branches.json.
 // ---------------------------------------------------------------------------
-const BUILD = ["cherrylane_liverpool"];
+const BUILD = [
+  "cherrylane_liverpool",
+  "colemanleigh_liverpool",
+  "fishlocks_ainsdale",
+  "fishlocks_eccleston",
+  "gordonshorts_crosby",
+  "hirshmans_ainsdale",
+  "mccanns_aigburth",
+  "mccanns_sandringham",
+  "riddings_timperley",
+  "scorah_bramhall",
+  "scorah_hazel",
+  "skchemists_bootle",
+  "smartts_bootle",
+  "tiffenbergs_longmoor"
+];
 
 function storeOf(id) {
   const b = byId[id];
@@ -65,7 +80,28 @@ function storeOf(id) {
 // condition page and links the overview tile to it. `ready:false` still lists
 // the condition on the overview (as plain text) but does not build a page yet.
 // ageNote text is the NHS Pharmacy First clinical pathway age range.
+//
+// Clinical wording is NHS Pharmacy First standard (age ranges verified against
+// NHS England / NHSBSA clinical pathways). The superintendent pharmacist signs
+// off final wording before any page is published.
 // ---------------------------------------------------------------------------
+
+// The process is the same for every condition, so steps/core FAQs are shared.
+const STD_STEPS = [
+  ["Book or call in", "Book a Pharmacy First appointment online, or call us. You can often be seen the same day."],
+  ["Speak to the pharmacist", "You are seen in private. The pharmacist asks about your symptoms and checks whether this service is right for you."],
+  ["Get the right outcome", "If treatment is appropriate, the pharmacist supplies it. If not, they advise the best next step. This is an NHS assessment, so treatment is only given when clinically appropriate."]
+];
+
+function stdFaq(condLower) {
+  return [
+    ["Do I need to see my GP first?", "No. You can come straight to the pharmacy. For " + condLower + ", a pharmacist can assess you and, where appropriate, supply treatment without a GP appointment."],
+    ["Is it free?", "The Pharmacy First consultation is a free NHS service. If you are supplied a medicine, the usual NHS prescription charge applies unless you are exempt."],
+    ["Will I definitely be given medicine?", "Not necessarily. The pharmacist assesses your symptoms and only supplies treatment if it is clinically appropriate. If it is not, they will explain the best next step."],
+    ["Do I need an appointment?", "You can book online for a set time, or call in. Booking ahead means you are seen quickly and in private."]
+  ];
+}
+
 const CONDITIONS = {
   uti: {
     name: "UTI", longName: "Urinary tract infection (UTI)", slug: "uti",
@@ -115,15 +151,188 @@ const CONDITIONS = {
     ]
   },
 
-  // The remaining six conditions are listed on the overview now and become their
-  // own pages as clinical copy is cleared for build (ready:true). Order matters:
-  // overview lists them in this order.
-  "sore-throat": { name: "Sore throat", longName: "Sore throat (acute pharyngitis)", slug: "sore-throat", ready: false, ageNote: "Age 5 and over", blurb: "A painful throat that is not getting better on its own." },
-  sinusitis: { name: "Sinusitis", longName: "Sinusitis", slug: "sinusitis", ready: false, ageNote: "Age 12 and over", blurb: "Blocked or painful sinuses, facial pressure or congestion." },
-  "earache": { name: "Earache", longName: "Acute otitis media (earache)", slug: "earache", ready: false, ageNote: "Age 1 to 17", blurb: "Ear pain in children, often with a cold or temperature." },
-  impetigo: { name: "Impetigo", longName: "Impetigo", slug: "impetigo", ready: false, ageNote: "Age 1 and over", blurb: "Red sores or blisters that crust over, often around the nose and mouth." },
-  shingles: { name: "Shingles", longName: "Shingles", slug: "shingles", ready: false, ageNote: "Age 18 and over", blurb: "A painful rash, usually on one side of the body." },
-  "insect-bite": { name: "Infected insect bite", longName: "Infected insect bite", slug: "insect-bite", ready: false, ageNote: "Age 1 and over", blurb: "A bite that has become red, swollen, hot or painful." }
+  "sore-throat": {
+    name: "Sore throat", longName: "Sore throat (acute pharyngitis)", slug: "sore-throat",
+    ready: true, ageNote: "Age 5 and over",
+    blurb: "A painful throat that is not getting better on its own.",
+    metaCondition: "Sore throat treatment",
+    h1: function (town) { return "Sore throat treatment in " + town; },
+    heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for acute sore throat in " + town +
+        ". A pharmacist can assess your symptoms using a recognised scoring system and, where treatment is right for you, supply it without a GP appointment.";
+    },
+    symptoms: [
+      "A painful or scratchy throat",
+      "Pain when swallowing",
+      "Swollen tonsils or glands in your neck",
+      "A high temperature",
+      "Bad breath or a hoarse voice"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Anyone aged 5 and over",
+      "Symptoms of an acute sore throat",
+      "No GP appointment or referral needed, just book or call in"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "Children under 5 should see a GP",
+      "If you have a weakened immune system, the pharmacist will guide you to the right care",
+      "Difficulty breathing, drooling or a muffled voice need urgent help, call 999 or go to A&E"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("a sore throat")
+  },
+
+  sinusitis: {
+    name: "Sinusitis", longName: "Acute sinusitis", slug: "sinusitis",
+    ready: true, ageNote: "Age 12 and over",
+    blurb: "Blocked or painful sinuses, facial pressure or congestion.",
+    metaCondition: "Sinusitis treatment",
+    h1: function (town) { return "Sinusitis treatment in " + town; },
+    heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for acute sinusitis in " + town +
+        ". A pharmacist can assess your symptoms and, where treatment is right for you, supply it without a GP appointment.";
+    },
+    symptoms: [
+      "Pain, swelling or tenderness around your cheeks, eyes or forehead",
+      "A blocked or runny nose",
+      "A reduced sense of smell",
+      "Green or yellow mucus from your nose",
+      "A high temperature or feeling generally unwell"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Anyone aged 12 and over",
+      "Symptoms of acute sinusitis",
+      "No GP appointment or referral needed, just book or call in"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "Children under 12 should see a GP",
+      "Symptoms lasting more than a few weeks may need a GP review",
+      "A severe headache, swelling around the eyes or confusion need urgent help, call 999 or NHS 111"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("sinusitis")
+  },
+
+  earache: {
+    name: "Earache", longName: "Acute otitis media (earache)", slug: "earache",
+    ready: true, ageNote: "Age 1 to 17",
+    blurb: "Ear pain in children, often alongside a cold or temperature.",
+    metaCondition: "Earache treatment",
+    h1: function (town) { return "Earache treatment for children in " + town; },
+    heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for acute ear infections (otitis media) in children and young people in " + town +
+        ". A pharmacist can assess your child and, where treatment is right, supply it without a GP appointment.";
+    },
+    symptoms: [
+      "Ear pain",
+      "Tugging or rubbing at the ear in younger children",
+      "A high temperature",
+      "Irritability, restlessness or trouble sleeping",
+      "Reduced hearing or fluid coming from the ear"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Children and young people aged 1 to 17",
+      "Symptoms of an acute ear infection",
+      "A parent or carer can attend with the child"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "Babies under 1 should see a GP",
+      "Adults aged 18 and over are not covered by this pathway",
+      "A very unwell child, a stiff neck or a rash that does not fade need urgent help, call 999 or NHS 111"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("an ear infection")
+  },
+
+  impetigo: {
+    name: "Impetigo", longName: "Impetigo", slug: "impetigo",
+    ready: true, ageNote: "Age 1 and over",
+    blurb: "Red sores or blisters that crust over, often around the nose and mouth.",
+    metaCondition: "Impetigo treatment",
+    h1: function (town) { return "Impetigo treatment in " + town; },
+    heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for impetigo in " + town +
+        ". A pharmacist can assess your skin and, where treatment is right for you, supply it without a GP appointment.";
+    },
+    symptoms: [
+      "Red sores or blisters, often around the nose and mouth",
+      "Sores that burst and leave golden-brown crusts",
+      "Itchy skin around the sores",
+      "Sores that spread to other areas of the body"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Anyone aged 1 and over",
+      "Localised, non-bullous impetigo",
+      "No GP appointment or referral needed, just book or call in"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "Babies under 1 should see a GP",
+      "Widespread, bullous or recurrent impetigo may need a GP",
+      "If you have a weakened immune system, the pharmacist will guide you to the right care"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("impetigo")
+  },
+
+  shingles: {
+    name: "Shingles", longName: "Shingles", slug: "shingles",
+    ready: true, ageNote: "Age 18 and over",
+    blurb: "A painful rash, usually on one side of the body. Best seen early.",
+    metaCondition: "Shingles treatment",
+    h1: function (town) { return "Shingles treatment in " + town; },
+    heroProof: "Be seen quickly by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for shingles in " + town +
+        ". Shingles is best treated early, so see a pharmacist as soon as the rash appears. Where treatment is right for you, they can supply it without a GP appointment.";
+    },
+    symptoms: [
+      "A painful, tingling or burning feeling in one area of skin",
+      "A rash, usually on one side of the body",
+      "Fluid-filled blisters that scab over",
+      "Feeling generally unwell"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Adults aged 18 and over",
+      "A new shingles rash",
+      "Seen as soon as possible, ideally within 3 days of the rash starting"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "A rash near or affecting the eye needs urgent help, contact your GP or NHS 111 the same day",
+      "If you are pregnant or have a weakened immune system, the pharmacist will guide you to the right care",
+      "Children and young people under 18 should see a GP"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("shingles")
+  },
+
+  "insect-bite": {
+    name: "Infected insect bite", longName: "Infected insect bite", slug: "insect-bite",
+    ready: true, ageNote: "Age 1 and over",
+    blurb: "A bite or sting that has become red, swollen, hot or painful.",
+    metaCondition: "Infected insect bite treatment",
+    h1: function (town) { return "Infected insect bite treatment in " + town; },
+    heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
+    heroSub: function (brand, town) {
+      return brand + " offers the NHS Pharmacy First service for infected insect bites and stings in " + town +
+        ". A pharmacist can assess the bite and, where treatment is right for you, supply it without a GP appointment.";
+    },
+    symptoms: [
+      "Redness or swelling that is spreading or getting worse",
+      "The area feels hot or painful",
+      "Pus or fluid coming from the bite",
+      "Feeling generally unwell"
+    ],
+    eligibleYes: { title: "Who this NHS service is for", points: [
+      "Anyone aged 1 and over",
+      "A bite or sting that looks infected",
+      "No GP appointment or referral needed, just book or call in"
+    ] },
+    eligibleNo: { title: "When to get different help", points: [
+      "Babies under 1 should see a GP",
+      "Swelling of the face, lips or throat, or difficulty breathing, is a serious allergic reaction, call 999 now",
+      "Spreading redness with a high temperature or feeling very unwell needs urgent help, call NHS 111"
+    ] },
+    steps: STD_STEPS, faq: stdFaq("an infected insect bite")
+  }
 };
 
 // Order conditions appear on the overview.
