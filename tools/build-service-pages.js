@@ -24,7 +24,7 @@ const path = require("path");
 
 // Commit hash the pages pin service.css / service.js to. "main" is fine for local
 // preview; set to the real hash on rollout (see note above).
-const PIN = "main";
+const PIN = "76221ba";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 const WHATSAPP = "447521775631";
 
