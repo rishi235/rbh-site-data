@@ -11,7 +11,7 @@
   // ---------------------------------------------------------------------------
   var FORM_ACTION = "https://script.google.com/macros/s/AKfycbwoudCOSQWOgFVPmlFNhASBBlyB0TEB6Ba4uaUCB3fhPN7jMXnD_8T1oLN2Ua8ZevA/exec";
   var DEFAULT_WHATSAPP = "447521775631";
-  var DESTINATION = "rishi@rbhealth.co.uk";
+  var DESTINATION = "helpdesk@rbhealth.co.uk";
 
   function byId(id) { return document.getElementById(id); }
 
