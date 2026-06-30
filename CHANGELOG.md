@@ -61,4 +61,12 @@ commit listed under "Revert".
 - **By:** Claude Code
 - **Verified:** generator ran clean (112 files); Cherry Lane overview, UTI and shingles pages re-rendered in a real browser with the live booking widget.
 
+### 2026-06-30 — Add the last 4 PF widgets (Rishi created them) — all 14 stores now live-booking
+- **Surface:** GitHub (branch `service-module-phase1`) + Appointedd (Rishi created the widgets)
+- **What:** Rishi created "Pharmacy 1st" widgets in Appointedd for the 4 stores that previously had none. Pulled their IDs and added to branches.json: hirshmans_ainsdale=6a439f268babccc7d30915ea, riddings_timperley=6a439f7b1916ef7a9401cc8f, scorah_bramhall=scorah_hazel=6a439fa31916ef7a9401cc92 (one shared Scorah widget across both branches). Regenerated all 112 pages.
+- **Before:** 10 branches with widgets; 4 on call/callback fallback.
+- **After:** all 14 active branches have a live Appointedd PF widget; 0 fallback placeholders remain.
+- **Verified:** Scorah Bramhall overview re-rendered in a real browser — the new widget loads the bookable services correctly.
+- **By:** Claude Code
+
 <!-- New entries above this line, newest first. -->

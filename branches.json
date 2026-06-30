@@ -106,7 +106,10 @@
       "website": "https://www.scorah-chemists.co.uk",
       "seoTown": "Bramhall",
       "townSlug": "bramhall",
-      "brandSlug": "scorah"
+      "brandSlug": "scorah",
+      "widgets": {
+        "pharmacyFirst": "6a439fa31916ef7a9401cc92"
+      }
     },
     {
       "id": "scorah_hazel",
@@ -147,7 +150,10 @@
       "website": "https://www.scorah-chemists.co.uk",
       "seoTown": "Hazel Grove",
       "townSlug": "hazel-grove",
-      "brandSlug": "scorah"
+      "brandSlug": "scorah",
+      "widgets": {
+        "pharmacyFirst": "6a439fa31916ef7a9401cc92"
+      }
     },
     {
       "id": "mccanns_aigburth",
@@ -473,7 +479,10 @@
       "website": "https://www.hirshmanspharmacy.co.uk",
       "seoTown": "Ainsdale",
       "townSlug": "ainsdale",
-      "brandSlug": "hirshmans"
+      "brandSlug": "hirshmans",
+      "widgets": {
+        "pharmacyFirst": "6a439f268babccc7d30915ea"
+      }
     },
     {
       "id": "skchemists_bootle",
@@ -595,7 +604,10 @@
       "website": "https://www.riddingspharmacy.co.uk",
       "seoTown": "Timperley",
       "townSlug": "timperley",
-      "brandSlug": "riddings"
+      "brandSlug": "riddings",
+      "widgets": {
+        "pharmacyFirst": "6a439f7b1916ef7a9401cc8f"
+      }
     },
     {
       "id": "gordonshorts_crosby",

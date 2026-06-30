@@ -36,10 +36,12 @@
           <div class="booking-card pad" id="book">
           <h2 class="booking-head">Book your Pharmacy First appointment</h2>
           <p class="booking-sub">Free NHS Pharmacy First service at Riddings Pharmacy. Choose a time that suits you.</p>
-          <div class="booking-placeholder">
-            <!-- APPOINTEDD: add the Riddings Pharmacy "Pharmacy 1st" widget ID to STORES[...].widgets, then re-run the generator. -->
-            <strong>Book your free NHS appointment</strong>
-            <p>Call <a href="tel:01619732951">0161 973 2951</a> to book, or request a callback below and we will arrange a time.</p>
+          <div class="booking-widget">
+            <script src="https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js"></script>
+            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>
+            <script type="text/javascript">
+              Appointedd.renderWidget("rbhsv-booking", { widgetId: "6a439f7b1916ef7a9401cc8f", enableLanguageSelector: false });
+            </script>
           </div>
         </div>
         </div>

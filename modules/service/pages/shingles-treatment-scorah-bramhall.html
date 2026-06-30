@@ -30,10 +30,12 @@
           <div class="booking-card pad" id="book">
           <h2 class="booking-head">Book your Shingles appointment</h2>
           <p class="booking-sub">Free NHS Pharmacy First service at Scorah Chemists. Choose a time that suits you.</p>
-          <div class="booking-placeholder">
-            <!-- APPOINTEDD: add the Scorah Chemists "Pharmacy 1st" widget ID to STORES[...].widgets, then re-run the generator. -->
-            <strong>Book your free NHS appointment</strong>
-            <p>Call <a href="tel:01614393744">0161 439 3744</a> to book, or request a callback below and we will arrange a time.</p>
+          <div class="booking-widget">
+            <script src="https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js"></script>
+            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>
+            <script type="text/javascript">
+              Appointedd.renderWidget("rbhsv-booking", { widgetId: "6a439fa31916ef7a9401cc92", enableLanguageSelector: false });
+            </script>
           </div>
         </div>
         </div>
