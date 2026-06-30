@@ -34,4 +34,17 @@ commit listed under "Revert".
 - **Revert:** set the widget ID back to `null` and re-run the generator, or revert the commit.
 - **By:** Claude Code
 
+### 2026-06-30 — Sync branches.json to enriched master + add service-layer fields
+- **Surface:** GitHub (branch `service-module-phase1` — NOT yet on `main`, so the live CDN @main still serves the old data until merged)
+- **What:**
+  - **Caught that the repo's branches.json was a full enrichment behind.** Committed repo version was `lastUpdated 2026-06-26` with ZERO of the 2026-06-27 enrichment (no odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl, shortCode, branchNumber on any branch). Synced it to the enriched "commit-ready" master (the version that had only ever lived in the cowork output folder).
+  - **Added service-layer fields** to every branch: `website`, `seoTown` (catchment town for SEO — may differ from postal addressLocality, e.g. Cherry Lane = Walton not Liverpool), `townSlug`, `brandSlug`, and a `widgets` object (Appointedd booking widget IDs). Cherry Lane `widgets.pharmacyFirst` = `66b20ae6609c16953de3e0cf`; other stores' widgets to be added as built.
+  - **Refactored `tools/build-service-pages.js`** to read brand/slug/town/site/widgets from branches.json (via a BUILD id-list + storeOf resolver) instead of a duplicate STORES config. branches.json is now the single source of truth for the service module. Regenerated pages are byte-identical to before (verified).
+- **Before:** repo branches.json = 2026-06-26, no enrichment, no service fields. Generator held its own per-store config.
+- **After:** repo branches.json = 2026-06-27 enrichment + service fields (66 fields added across 17 branches). Generator reads from branches.json.
+- **Revert:** `git revert` the commit, or `git checkout main -- branches.json` to restore the pre-sync file. Adding fields is runtime-safe (core/site-data.js ignores unknown fields).
+- **Note for go-live:** merging to main + purging the CDN will push the enriched branches.json live for all sites. It is additive/safe, but is a real data-layer change — sanity-check before the merge.
+- **By:** Claude Code
+- **Verified:** JSON valid; Cherry Lane overview re-rendered in a real browser with the live booking widget after the refactor.
+
 <!-- New entries above this line, newest first. -->

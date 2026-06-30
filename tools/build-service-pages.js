@@ -32,20 +32,33 @@ const WHATSAPP = "447521775631";
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
 
 // ---------------------------------------------------------------------------
-// STORES — per-store presentation + booking config. Data (phone/address) is
-// pulled from branches.json by id. `widgets.pharmacyFirst` is the store's
-// Appointedd "Pharmacy 1st" widget ID (from the widget's embed snippet in
-// Appointedd > Booking Tools > Booking Widgets > Get embed code). null = not
-// yet pulled; page shows the call/callback fallback.
+// Which stores to build, by branches.json id. Add an id here as each store is
+// brought online. Everything the page needs is read from branches.json: brand
+// (brandLabel), brandSlug, seoTown/townSlug, website, phone/address, and the
+// Appointedd widget IDs (widgets.pharmacyFirst). branches.json is the single
+// source of truth — there is no duplicate per-store config here.
+// To add a store's booking widget: Appointedd > Booking Tools > Booking Widgets
+// > open "<Store> - Pharmacy 1st" > Get embed code > copy the widgetId into that
+// branch's `widgets.pharmacyFirst` in branches.json.
 // ---------------------------------------------------------------------------
-const STORES = {
-  cherrylane_liverpool: {
-    brand: "Cherry Lane Pharmacy", brandSlug: "cherry-lane",
-    town: "Walton", townSlug: "walton",
-    site: "https://www.cherrylanepharmacy.co.uk",
-    widgets: { pharmacyFirst: "66b20ae6609c16953de3e0cf" }
+const BUILD = ["cherrylane_liverpool"];
+
+function storeOf(id) {
+  const b = byId[id];
+  if (!b) throw new Error("Unknown branch id in BUILD: " + id);
+  if (!b.brandSlug || !b.seoTown || !b.townSlug || !b.website) {
+    throw new Error("Branch " + id + " is missing service-layer fields (brandSlug/seoTown/townSlug/website) in branches.json");
   }
-};
+  return {
+    id: id,
+    brand: b.brandLabel,
+    brandSlug: b.brandSlug,
+    town: b.seoTown,
+    townSlug: b.townSlug,
+    site: b.website,
+    widgets: b.widgets || {}
+  };
+}
 
 // ---------------------------------------------------------------------------
 // CONDITIONS — clinical copy written once. `ready:true` generates a live
@@ -247,7 +260,7 @@ function pharmacySchema(store, b, url) {
 // --- overview page ----------------------------------------------------------
 
 function overviewPage(storeId) {
-  var store = STORES[storeId];
+  var store = storeOf(storeId);
   var b = byId[storeId];
   var slug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
@@ -328,7 +341,7 @@ function overviewPage(storeId) {
 // --- condition page ---------------------------------------------------------
 
 function conditionPage(storeId, key) {
-  var store = STORES[storeId];
+  var store = storeOf(storeId);
   var b = byId[storeId];
   var c = CONDITIONS[key];
   var slug = c.slug + "-treatment-" + store.brandSlug + "-" + store.townSlug + ".html";
@@ -416,8 +429,8 @@ fs.mkdirSync(outDir, { recursive: true });
 
 var manifest = [];
 
-Object.keys(STORES).forEach(function (storeId) {
-  var store = STORES[storeId];
+BUILD.forEach(function (storeId) {
+  var store = storeOf(storeId);
 
   // Overview
   var ovSlug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
