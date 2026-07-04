@@ -179,38 +179,69 @@
   function injectPFExtras() {
     var root = byId("rbhsv-root");
     if (!root || root.getAttribute("data-service") !== "Pharmacy First") return;
-    if (byId("rbh-selfrefer")) return;
     var wrap = root.querySelector(".wrap") || root;
 
-    var banner = document.createElement("div");
-    banner.id = "rbh-selfrefer";
-    banner.style.cssText = "font-family:Poppins,Arial,sans-serif;margin:0 0 6px;";
-    banner.innerHTML =
-      "<div style='background:#009639;color:#fff;text-align:center;font-weight:600;" +
-      "font-size:16px;line-height:1.45;padding:12px 18px;border-radius:12px;'>" +
-      "&#10003; You can refer yourself &mdash; just book below or walk in. " +
-      "No GP appointment or referral needed.</div>";
-    wrap.insertBefore(banner, wrap.firstChild);
+    // 1) Friendly self-refer banner at the very top (all PF pages).
+    if (!byId("rbh-selfrefer")) {
+      var banner = document.createElement("div");
+      banner.id = "rbh-selfrefer";
+      banner.style.cssText = "font-family:Poppins,Arial,sans-serif;margin:0 0 6px;";
+      banner.innerHTML =
+        "<div style='background:#009639;color:#fff;text-align:center;font-weight:600;" +
+        "font-size:16px;line-height:1.45;padding:12px 18px;border-radius:12px;'>" +
+        "&#10003; You can refer yourself &mdash; just book below or walk in. " +
+        "No GP appointment or referral needed.</div>";
+      wrap.insertBefore(banner, wrap.firstChild);
+    }
 
-    // Explainer video on overview pages only (URL starts /pharmacy-first-...).
-    if (location.pathname.indexOf("/pharmacy-first-") === 0) {
-      var hero = wrap.querySelector(".hero");
+    // 2) Make the "Book or call in" step actionable: book -> #book, call -> tel:.
+    var telEl = root.querySelector("a[href^='tel:']");
+    var telHref = telEl ? telEl.getAttribute("href") : null;
+    var stepPs = root.querySelectorAll(".step p");
+    for (var i = 0; i < stepPs.length; i++) {
+      var p = stepPs[i];
+      if (p.getAttribute("data-rbh-linked")) continue;
+      var h = p.innerHTML;
+      if (/Book an appointment/i.test(h)) {
+        h = h.replace(/Book an appointment/i,
+          "<a href='#book' style='color:#0b7bc1;font-weight:700;'>Book an appointment</a>");
+        if (telHref) h = h.replace(/\bcall us\b/i,
+          "<a href='" + telHref + "' style='color:#0b7bc1;font-weight:700;'>call us</a>");
+        p.innerHTML = h;
+        p.setAttribute("data-rbh-linked", "1");
+      }
+    }
+
+    // 3) Explainer video as a distinct tile, placed UNDER "How Pharmacy First works"
+    //    (overview pages only). Mobile-friendly: fluid card + responsive 16:9 embed.
+    if (location.pathname.indexOf("/pharmacy-first-") === 0 && !byId("rbh-video")) {
+      var stepsEl = wrap.querySelector(".steps");
+      var stepsSection = stepsEl && stepsEl.closest ? stepsEl.closest("section") : null;
       var vid = document.createElement("section");
-      vid.style.cssText = "font-family:Poppins,Arial,sans-serif;text-align:center;padding:34px 16px 4px;";
+      vid.id = "rbh-video";
+      vid.style.cssText = "font-family:Poppins,Arial,sans-serif;padding:6px 16px 0;box-sizing:border-box;";
       vid.innerHTML =
-        "<h2 style='font-size:24px;font-weight:800;color:#0b2a4a;margin:0 0 6px;'>" +
+        "<div style='max-width:760px;margin:0 auto;background:#eaf6ff;border:1px solid #cfe8fb;" +
+        "border-radius:18px;padding:26px 20px;text-align:center;box-sizing:border-box;'>" +
+        "<span style='display:inline-block;background:#009639;color:#fff;font-size:12px;" +
+        "font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 13px;" +
+        "border-radius:999px;margin-bottom:12px;'>&#9654; Watch</span>" +
+        "<h2 style='font-size:22px;font-weight:800;color:#0b2a4a;margin:0 0 6px;'>" +
         "New to Pharmacy First?</h2>" +
         "<p style='font-size:15px;color:#4b5563;margin:0 auto 18px;max-width:520px;'>" +
-        "Watch how the free NHS service works &mdash; no GP appointment or referral needed.</p>" +
-        "<div style='max-width:620px;margin:0 auto;'>" +
+        "See how the free NHS service works &mdash; no GP appointment or referral needed.</p>" +
+        "<div style='max-width:600px;margin:0 auto;'>" +
         "<div style='position:relative;padding-bottom:56.25%;height:0;border-radius:14px;" +
         "overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);'>" +
         "<iframe src='" + PF_VIDEO + "' title='Pharmacy First' loading='lazy' " +
         "style='position:absolute;top:0;left:0;width:100%;height:100%;border:0;' " +
         "allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;" +
-        "picture-in-picture;web-share' allowfullscreen></iframe></div></div>";
-      if (hero && hero.parentNode) hero.parentNode.insertBefore(vid, hero.nextSibling);
-      else wrap.appendChild(vid);
+        "picture-in-picture;web-share' allowfullscreen></iframe></div></div></div>";
+      if (stepsSection && stepsSection.parentNode) {
+        stepsSection.parentNode.insertBefore(vid, stepsSection.nextSibling);
+      } else {
+        wrap.appendChild(vid);
+      }
     }
   }
 
