@@ -22,9 +22,15 @@
 const fs = require("fs");
 const path = require("path");
 
-// Commit hash the pages pin service.css / service.js to. "main" is fine for local
-// preview; set to the real hash on rollout (see note above).
-const PIN = "76221ba";
+// Ref the pages load service.css / service.js from.
+// - "service-module-phase1" (branch, MUTABLE) = one git push updates every page that
+//   uses this ref — the "change once in GitHub, live everywhere" model. jsDelivr caches
+//   a branch ref (~up to 12h) so purge after a push: https://purge.jsdelivr.net/gh/rishi235/rbh-site-data@service-module-phase1/modules/service/service.js
+// - Or a commit SHA (e.g. "cf8fa0f") = IMMUTABLE + no jsDelivr lag, but every module
+//   change then needs pages re-pinned to the new SHA.
+// Live pages built before 2026-07-04 pin the old SHA "76221ba" (pre-self-refer-banner);
+// re-point them to this ref to pick up the banner + video (commit cf8fa0f onward).
+const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 const WHATSAPP = "447521775631";
 
