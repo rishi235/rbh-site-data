@@ -244,6 +244,38 @@
         wrap.appendChild(vid);
       }
     }
+
+    // 4) "Prefer to walk in?" helper card in the hero's left column (overview pages
+    //    only). Fills the blank space left by the tall 7-condition booking widget and
+    //    reinforces the self-refer / walk-in message. Single-condition pages have a
+    //    short booking list so the columns balance -> no card needed there.
+    if (location.pathname.indexOf("/pharmacy-first-") === 0 && !byId("rbh-walkin")) {
+      var stack = wrap.querySelector(".hero-actions-stack");
+      if (stack && stack.parentNode) {
+        var phoneCall = telHref
+          ? "Call <a href='" + telHref + "' style='color:#fff;font-weight:700;" +
+            "text-decoration:underline;'>" + (telEl ? telEl.textContent.replace(/^\s*call\s*/i, "").trim() : "us") + "</a>"
+          : "call us";
+        var card = document.createElement("div");
+        card.id = "rbh-walkin";
+        card.style.cssText = "font-family:Poppins,Arial,sans-serif;margin-top:4px;" +
+          "background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.20);" +
+          "border-radius:12px;padding:18px 18px 16px;box-sizing:border-box;";
+        card.innerHTML =
+          "<div style='display:flex;align-items:center;gap:9px;margin-bottom:8px;'>" +
+          "<svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#7ee0a6' " +
+          "stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>" +
+          "<path d='M13 4m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0'/><path d='M7 21l3 -4'/>" +
+          "<path d='M16 21l-2 -4l-3 -3l1 -6'/><path d='M6 12l2 -3l4 -1l3 3l3 1'/></svg>" +
+          "<span style='font-size:17px;font-weight:700;color:#fff;'>Prefer to walk in?</span></div>" +
+          "<p style='font-size:14px;line-height:1.55;margin:0 0 10px;color:#dbe8ff;'>" +
+          "Just pop in and ask about Pharmacy First &mdash; no appointment or GP referral needed.</p>" +
+          "<p style='font-size:14px;line-height:1.55;margin:0;color:#dbe8ff;'>" +
+          "Not sure which of the conditions fits? " + phoneCall +
+          " and we&rsquo;ll help you book the right one.</p>";
+        stack.parentNode.insertBefore(card, stack.nextSibling);
+      }
+    }
   }
 
   function boot() {
