@@ -169,9 +169,54 @@
     }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init, { once: true });
-  } else {
+  // ---------------------------------------------------------------------------
+  // Pharmacy First extras — friendly self-refer banner (all PF pages) + explainer
+  // video (overview pages only). Injected here so one module change covers every
+  // PF page. Only runs on #rbhsv-root[data-service="Pharmacy First"]; leaves
+  // Contraception and old non-module pages untouched. Idempotent.
+  // ---------------------------------------------------------------------------
+  var PF_VIDEO = "https://www.youtube.com/embed/ec-43uOnzPY";
+  function injectPFExtras() {
+    var root = byId("rbhsv-root");
+    if (!root || root.getAttribute("data-service") !== "Pharmacy First") return;
+    if (byId("rbh-selfrefer")) return;
+    var wrap = root.querySelector(".wrap") || root;
+
+    var banner = document.createElement("div");
+    banner.id = "rbh-selfrefer";
+    banner.style.cssText = "font-family:Poppins,Arial,sans-serif;margin:0 0 6px;";
+    banner.innerHTML =
+      "<div style='background:#009639;color:#fff;text-align:center;font-weight:600;" +
+      "font-size:16px;line-height:1.45;padding:12px 18px;border-radius:12px;'>" +
+      "&#10003; You can refer yourself &mdash; just book below or walk in. " +
+      "No GP appointment or referral needed.</div>";
+    wrap.insertBefore(banner, wrap.firstChild);
+
+    // Explainer video on overview pages only (URL starts /pharmacy-first-...).
+    if (location.pathname.indexOf("/pharmacy-first-") === 0) {
+      var hero = wrap.querySelector(".hero");
+      var vid = document.createElement("div");
+      vid.style.cssText = "max-width:620px;margin:26px auto;";
+      vid.innerHTML =
+        "<div style='position:relative;padding-bottom:56.25%;height:0;border-radius:14px;" +
+        "overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);'>" +
+        "<iframe src='" + PF_VIDEO + "' title='Pharmacy First' loading='lazy' " +
+        "style='position:absolute;top:0;left:0;width:100%;height:100%;border:0;' " +
+        "allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;" +
+        "picture-in-picture;web-share' allowfullscreen></iframe></div>";
+      if (hero && hero.parentNode) hero.parentNode.insertBefore(vid, hero.nextSibling);
+      else wrap.appendChild(vid);
+    }
+  }
+
+  function boot() {
     init();
+    try { injectPFExtras(); } catch (e) { /* never block the form on a banner error */ }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
   }
 })();
