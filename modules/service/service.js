@@ -195,15 +195,20 @@
     // Explainer video on overview pages only (URL starts /pharmacy-first-...).
     if (location.pathname.indexOf("/pharmacy-first-") === 0) {
       var hero = wrap.querySelector(".hero");
-      var vid = document.createElement("div");
-      vid.style.cssText = "max-width:620px;margin:26px auto;";
+      var vid = document.createElement("section");
+      vid.style.cssText = "font-family:Poppins,Arial,sans-serif;text-align:center;padding:34px 16px 4px;";
       vid.innerHTML =
+        "<h2 style='font-size:24px;font-weight:800;color:#0b2a4a;margin:0 0 6px;'>" +
+        "New to Pharmacy First?</h2>" +
+        "<p style='font-size:15px;color:#4b5563;margin:0 auto 18px;max-width:520px;'>" +
+        "Watch how the free NHS service works &mdash; no GP appointment or referral needed.</p>" +
+        "<div style='max-width:620px;margin:0 auto;'>" +
         "<div style='position:relative;padding-bottom:56.25%;height:0;border-radius:14px;" +
         "overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);'>" +
         "<iframe src='" + PF_VIDEO + "' title='Pharmacy First' loading='lazy' " +
         "style='position:absolute;top:0;left:0;width:100%;height:100%;border:0;' " +
         "allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;" +
-        "picture-in-picture;web-share' allowfullscreen></iframe></div>";
+        "picture-in-picture;web-share' allowfullscreen></iframe></div></div>";
       if (hero && hero.parentNode) hero.parentNode.insertBefore(vid, hero.nextSibling);
       else wrap.appendChild(vid);
     }
