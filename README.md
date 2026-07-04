@@ -16,6 +16,8 @@ modules/
     switch.js          Picks the branch, fills the page, handles the form
     switch.css         Styles (scoped to #rbhsw-root)
   emar/                eMAR for care homes (same pattern)
+  hey-ai/              GEO module: injects schema.org Pharmacy JSON-LD + optional
+                       visible "Pharmacy information" facts card (#rbhai-root)
 ```
 
 ## How it works
