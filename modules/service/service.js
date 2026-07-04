@@ -219,10 +219,11 @@
       var stepsSection = stepsEl && stepsEl.closest ? stepsEl.closest("section") : null;
       var vid = document.createElement("section");
       vid.id = "rbh-video";
-      vid.style.cssText = "font-family:Poppins,Arial,sans-serif;padding:6px 16px 0;box-sizing:border-box;";
+      vid.className = "section"; // match the module's content width (aligns with the steps row)
+      vid.style.cssText = "font-family:Poppins,Arial,sans-serif;";
       vid.innerHTML =
-        "<div style='max-width:760px;margin:0 auto;background:#eaf6ff;border:1px solid #cfe8fb;" +
-        "border-radius:18px;padding:26px 20px;text-align:center;box-sizing:border-box;'>" +
+        "<div style='background:#eaf6ff;border:1px solid #cfe8fb;" +
+        "border-radius:18px;padding:28px 22px;text-align:center;box-sizing:border-box;'>" +
         "<span style='display:inline-block;background:#009639;color:#fff;font-size:12px;" +
         "font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 13px;" +
         "border-radius:999px;margin-bottom:12px;'>&#9654; Watch</span>" +
