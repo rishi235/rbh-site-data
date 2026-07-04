@@ -69,6 +69,18 @@ When you publish a switch page, also set the Weebly **page SEO title + meta desc
 - Title: `Switch Your Prescriptions - Smartts Chemist Bootle`
 - Description: `Switch your prescriptions to Smartts Chemist in Bootle in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`
 
+## data/tasks.json — daily Asana feed for the data portal
+
+`data/tasks.json` is a machine-generated feed of Rishi's open Asana tasks (workspace
+rbhealth.co.uk), refreshed daily by a scheduled Claude session via Composio. Do not edit
+it by hand — changes are overwritten on the next refresh.
+
+Schema: `generated_at` (UTC), `counts` (`total` / `overdue` / `due_next_7_days` /
+`no_due_date`), and `tasks[]` sorted overdue-first then by due date, each with `gid`,
+`name`, `due_on`, `overdue`, `projects[]` and an Asana permalink `url`. The portal fetches
+it like any other static JSON in this repo (jsDelivr `@main` once merged; raw
+`raw.githubusercontent.com` URL works for any branch and re-caches within ~5 minutes).
+
 ## Pushing CSS/JS changes live (commit pinning)
 
 The switch pages pin `switch.css` / `switch.js` to a **commit hash**, e.g.
