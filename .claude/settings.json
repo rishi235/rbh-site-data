@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Composio",
+      "mcp__67d0ddd2-374b-4ffb-bfaa-1304ddb99a8c",
+      "mcp__Asana__get_my_tasks",
+      "mcp__d5c0a107-37bd-4be1-bd81-869712d41853__get_my_tasks"
+    ]
+  }
+}
