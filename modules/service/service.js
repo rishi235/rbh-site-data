@@ -251,16 +251,16 @@
     //    short booking list so the columns balance -> no card needed there.
     if (location.pathname.indexOf("/pharmacy-first-") === 0 && !byId("rbh-walkin")) {
       var stack = wrap.querySelector(".hero-actions-stack");
-      if (stack && stack.parentNode) {
+      if (stack) {
         var phoneCall = telHref
           ? "Call <a href='" + telHref + "' style='color:#fff;font-weight:700;" +
             "text-decoration:underline;'>" + (telEl ? telEl.textContent.replace(/^\s*call\s*/i, "").trim() : "us") + "</a>"
           : "call us";
         var card = document.createElement("div");
         card.id = "rbh-walkin";
-        card.style.cssText = "font-family:Poppins,Arial,sans-serif;margin-top:4px;" +
-          "background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.20);" +
-          "border-radius:12px;padding:18px 18px 16px;box-sizing:border-box;";
+        card.style.cssText = "font-family:Poppins,Arial,sans-serif;" +
+          "background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);" +
+          "border-radius:18px;padding:18px 20px;box-sizing:border-box;";
         card.innerHTML =
           "<div style='display:flex;align-items:center;gap:9px;margin-bottom:8px;'>" +
           "<svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#7ee0a6' " +
@@ -273,7 +273,7 @@
           "<p style='font-size:14px;line-height:1.55;margin:0;color:#dbe8ff;'>" +
           "Not sure which of the conditions fits? " + phoneCall +
           " and we&rsquo;ll help you book the right one.</p>";
-        stack.parentNode.insertBefore(card, stack.nextSibling);
+        stack.appendChild(card);
       }
     }
 
