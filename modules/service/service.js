@@ -276,6 +276,40 @@
         stack.parentNode.insertBefore(card, stack.nextSibling);
       }
     }
+
+    // 5) Re-link stale "Page coming soon" condition tiles (overview pages only).
+    //    Tiles are static HTML baked into the page; some were pasted while a
+    //    condition was still ready:false, so they show a dead "Page coming soon"
+    //    label even though that condition page is now live. Convert those to real
+    //    links, deriving the URL the same way the generator does:
+    //    <conditionSlug>-treatment-<brand>-<town>.html (brand-town from this path).
+    if (location.pathname.indexOf("/pharmacy-first-") === 0) {
+      var mm = location.pathname.match(/\/pharmacy-first-(.+?)\.html/);
+      var brandTown = mm ? mm[1] : null;
+      var SLUGS = {
+        "uti": "uti", "sore throat": "sore-throat", "sinusitis": "sinusitis",
+        "earache": "earache", "impetigo": "impetigo", "shingles": "shingles",
+        "infected insect bite": "insect-bite", "insect bite": "insect-bite"
+      };
+      if (brandTown) {
+        var tiles = wrap.querySelectorAll("div.condition-card");
+        for (var k = 0; k < tiles.length; k++) {
+          var tile = tiles[k];
+          if (tile.getAttribute("data-rbh-linked")) continue;
+          if (!/Page coming soon/i.test(tile.textContent)) continue;
+          var strong = tile.querySelector("strong");
+          var cslug = strong ? SLUGS[strong.textContent.trim().toLowerCase()] : null;
+          if (!cslug) continue;
+          var a = document.createElement("a");
+          a.className = "condition-card";
+          a.setAttribute("href", cslug + "-treatment-" + brandTown + ".html");
+          a.setAttribute("data-rbh-linked", "1");
+          a.innerHTML = tile.innerHTML.replace(
+            /<em[^>]*>\s*Page coming soon\s*<\/em>/i, "<em>Learn more</em>");
+          tile.parentNode.replaceChild(a, tile);
+        }
+      }
+    }
   }
 
   function boot() {
