@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-06T07:20:07Z",
+  "generated_at": "2026-07-07T06:09:05Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 22,
-    "overdue": 0,
-    "due_next_7_days": 13,
+    "overdue": 1,
+    "due_next_7_days": 12,
     "no_due_date": 2
   },
   "tasks": [
@@ -14,7 +14,7 @@
       "gid": "1216071371852141",
       "name": "Chase Nprendra in respect of shared routes",
       "due_on": "2026-07-06",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
