@@ -1,29 +1,84 @@
 {
-  "lastUpdated": "2026-06-26",
+  "lastUpdated": "2026-07-04",
   "brandGroups": {
-    "scorahs": ["scorah_bramhall", "scorah_hazel"],
-    "mccanns": ["mccanns_aigburth", "mccanns_sandringham"],
-    "fishlocks": ["fishlocks_ainsdale", "fishlocks_eccleston"],
-    "rbhealth": ["rbh_head_office_aintree"]
+    "scorahs": [
+      "scorah_bramhall",
+      "scorah_hazel"
+    ],
+    "mccanns": [
+      "mccanns_aigburth",
+      "mccanns_sandringham"
+    ],
+    "fishlocks": [
+      "fishlocks_ainsdale",
+      "fishlocks_eccleston"
+    ],
+    "rbhealth": [
+      "rbh_head_office_aintree"
+    ]
   },
   "hostMap": {
-    "rbhealth.co.uk": ["rbh_head_office_aintree"],
-    "www.rbhealth.co.uk": ["rbh_head_office_aintree"],
-
-    "www.colemanandleighspharmacy.co.uk": ["colemanleigh_liverpool"],
-    "www.fishlockpharmacy.co.uk": ["fishlocks_ainsdale", "fishlocks_eccleston"],
-    "www.gordonshortchemist.co.uk": ["gordonshorts_crosby"],
-    "www.hirshmanspharmacy.co.uk": ["hirshmans_ainsdale"],
-    "www.mccannspharmacy.co.uk": ["mccanns_aigburth", "mccanns_sandringham"],
-    "www.riddingspharmacy.co.uk": ["riddings_timperley"],
-    "www.skchemist.co.uk": ["skchemists_bootle"],
-    "www.smarttschemist.co.uk": ["smartts_bootle"],
-    "www.tiffenbergschemist.co.uk": ["tiffenbergs_longmoor"],
-    "www.scorah-chemists.co.uk": ["scorah_bramhall", "scorah_hazel"],
-    "www.wilmslow-pharmacy.co.uk": ["wilmslow_wilmslow"],
-    "www.cherrylanepharmacy.co.uk": ["cherrylane_liverpool"],
-    "www.clearchemist.co.uk": ["clearchemist_aintree"]
+    "rbhealth.co.uk": [
+      "rbh_head_office_aintree"
+    ],
+    "www.rbhealth.co.uk": [
+      "rbh_head_office_aintree"
+    ],
+    "www.colemanandleighspharmacy.co.uk": [
+      "colemanleigh_liverpool"
+    ],
+    "www.fishlockpharmacy.co.uk": [
+      "fishlocks_ainsdale",
+      "fishlocks_eccleston"
+    ],
+    "www.gordonshortchemist.co.uk": [
+      "gordonshorts_crosby"
+    ],
+    "www.hirshmanspharmacy.co.uk": [
+      "hirshmans_ainsdale"
+    ],
+    "www.mccannspharmacy.co.uk": [
+      "mccanns_aigburth",
+      "mccanns_sandringham"
+    ],
+    "www.riddingspharmacy.co.uk": [
+      "riddings_timperley"
+    ],
+    "www.skchemist.co.uk": [
+      "skchemists_bootle"
+    ],
+    "www.smarttschemist.co.uk": [
+      "smartts_bootle"
+    ],
+    "www.tiffenbergschemist.co.uk": [
+      "tiffenbergs_longmoor"
+    ],
+    "www.scorah-chemists.co.uk": [
+      "scorah_bramhall",
+      "scorah_hazel"
+    ],
+    "www.wilmslow-pharmacy.co.uk": [
+      "wilmslow_wilmslow"
+    ],
+    "www.cherrylanepharmacy.co.uk": [
+      "cherrylane_liverpool"
+    ],
+    "www.clearchemist.co.uk": [
+      "clearchemist_aintree"
+    ]
   },
+  "standardServices": [
+    "NHS prescription dispensing",
+    "Repeat prescription ordering and collection",
+    "NHS Pharmacy First (minor illness consultations)",
+    "New Medicine Service (NMS)",
+    "NHS blood pressure checks",
+    "Flu vaccinations",
+    "NHS contraception service",
+    "Discharge Medicines Service",
+    "Prescription delivery",
+    "Healthy living and medicines advice"
+  ],
   "branches": [
     {
       "id": "scorah_bramhall",
@@ -39,8 +94,23 @@
       "email": "Bramhall@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CZdA75DAMigGEAE/review",
       "hasApp": false,
-      "keywords": ["scorah", "bramhall", "north-park-road", "sk7", "sk7 3lq"],
-      "serviceAreaList": ["Bramhall", "Cheadle Hulme", "Hazel Grove", "Handforth", "Poynton"]
+      "keywords": [
+        "scorah",
+        "bramhall",
+        "north-park-road",
+        "sk7",
+        "sk7 3lq"
+      ],
+      "serviceAreaList": [
+        "Bramhall",
+        "Cheadle Hulme",
+        "Hazel Grove",
+        "Handforth",
+        "Poynton"
+      ],
+      "gphcNumber": "1029774",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "scorah_hazel",
@@ -56,8 +126,24 @@
       "email": "Hazel@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CZbFKrky9BUsEAE/review",
       "hasApp": false,
-      "keywords": ["scorah", "hazel", "hazel-grove", "macclesfield-road", "sk7", "sk7 6bg"],
-      "serviceAreaList": ["Hazel Grove", "Bramhall", "Offerton", "Great Moor", "Poynton"]
+      "keywords": [
+        "scorah",
+        "hazel",
+        "hazel-grove",
+        "macclesfield-road",
+        "sk7",
+        "sk7 6bg"
+      ],
+      "serviceAreaList": [
+        "Hazel Grove",
+        "Bramhall",
+        "Offerton",
+        "Great Moor",
+        "Poynton"
+      ],
+      "gphcNumber": "1029772",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "mccanns_aigburth",
@@ -73,8 +159,23 @@
       "email": "Aigburth@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CdDj9KyelDVyEAE/review",
       "hasApp": false,
-      "keywords": ["mccann", "mccanns", "aigburth", "l17 7bp", "aigburth-road", "l17"],
-      "serviceAreaList": ["Aigburth", "Sefton Park", "Mossley Hill", "Grassendale"]
+      "keywords": [
+        "mccann",
+        "mccanns",
+        "aigburth",
+        "l17 7bp",
+        "aigburth-road",
+        "l17"
+      ],
+      "serviceAreaList": [
+        "Aigburth",
+        "Sefton Park",
+        "Mossley Hill",
+        "Grassendale"
+      ],
+      "gphcNumber": "1034417",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "mccanns_sandringham",
@@ -90,8 +191,23 @@
       "email": "Sandringham@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CbMDr1qOLqnrEAE/review",
       "hasApp": false,
-      "keywords": ["mccann", "mccanns", "sandringham", "l17 4jp", "aigburth-road", "l17"],
-      "serviceAreaList": ["Aigburth", "St Michael's", "Lark Lane", "Dingle"]
+      "keywords": [
+        "mccann",
+        "mccanns",
+        "sandringham",
+        "l17 4jp",
+        "aigburth-road",
+        "l17"
+      ],
+      "serviceAreaList": [
+        "Aigburth",
+        "St Michael's",
+        "Lark Lane",
+        "Dingle"
+      ],
+      "gphcNumber": "1124749",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "fishlocks_ainsdale",
@@ -107,8 +223,22 @@
       "email": "Ainsdale@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/Cfl0iMf3cgGaEAE/review",
       "hasApp": true,
-      "keywords": ["fishlock", "fishlocks", "ainsdale", "pr8 3hn", "station-road", "pr8"],
-      "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
+      "keywords": [
+        "fishlock",
+        "fishlocks",
+        "ainsdale",
+        "pr8 3hn",
+        "station-road",
+        "pr8"
+      ],
+      "serviceAreaList": [
+        "Ainsdale",
+        "Birkdale",
+        "Southport"
+      ],
+      "gphcNumber": "1034673",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "fishlocks_eccleston",
@@ -124,8 +254,24 @@
       "email": "Eccleston@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CYyjtWbSXqEkEAE/review",
       "hasApp": true,
-      "keywords": ["fishlock", "fishlocks", "eccleston", "pr7 5sz", "carrington", "new-mill", "pr7", "chorley"],
-      "serviceAreaList": ["Eccleston", "Charnock Richard", "Coppull"]
+      "keywords": [
+        "fishlock",
+        "fishlocks",
+        "eccleston",
+        "pr7 5sz",
+        "carrington",
+        "new-mill",
+        "pr7",
+        "chorley"
+      ],
+      "serviceAreaList": [
+        "Eccleston",
+        "Charnock Richard",
+        "Coppull"
+      ],
+      "gphcNumber": "1121085",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "rbh_head_office_aintree",
@@ -138,8 +284,28 @@
       "addressRegion": "Merseyside",
       "addressCountry": "GB",
       "hasApp": false,
-      "keywords": ["rbhealth", "rb-health", "rb healthcare", "head office", "head-office", "aintree", "brookfield", "l9 7as", "l9"],
-      "serviceAreaList": ["Aintree", "Fazakerley", "Maghull", "Walton", "Bootle", "North Liverpool"]
+      "keywords": [
+        "rbhealth",
+        "rb-health",
+        "rb healthcare",
+        "head office",
+        "head-office",
+        "aintree",
+        "brookfield",
+        "l9 7as",
+        "l9"
+      ],
+      "serviceAreaList": [
+        "Aintree",
+        "Fazakerley",
+        "Maghull",
+        "Walton",
+        "Bootle",
+        "North Liverpool"
+      ],
+      "gphcNumber": null,
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "clearchemist_aintree",
@@ -155,8 +321,24 @@
       "email": "admin@clearchemist.co.uk",
       "googleReviewUrl": "https://g.page/r/CYTJCk0EpvxFEAE/review",
       "hasApp": true,
-      "keywords": ["clearchemist", "clear-chemist", "aintree", "brookfield", "l9 7as", "l9"],
-      "serviceAreaList": ["Aintree", "Fazakerley", "Walton", "Bootle", "North Liverpool"]
+      "keywords": [
+        "clearchemist",
+        "clear-chemist",
+        "aintree",
+        "brookfield",
+        "l9 7as",
+        "l9"
+      ],
+      "serviceAreaList": [
+        "Aintree",
+        "Fazakerley",
+        "Walton",
+        "Bootle",
+        "North Liverpool"
+      ],
+      "gphcNumber": "1123405",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "smartts_bootle",
@@ -172,8 +354,21 @@
       "email": "Smartts@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CVzJUbDqQwReEBM/review",
       "hasApp": true,
-      "keywords": ["smartts", "fernhill", "bootle", "l20 9hh", "l20"],
-      "serviceAreaList": ["Bootle", "Sefton", "Liverpool"]
+      "keywords": [
+        "smartts",
+        "fernhill",
+        "bootle",
+        "l20 9hh",
+        "l20"
+      ],
+      "serviceAreaList": [
+        "Bootle",
+        "Sefton",
+        "Liverpool"
+      ],
+      "gphcNumber": "1034394",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "hirshmans_ainsdale",
@@ -189,8 +384,22 @@
       "email": "Hirshmans@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CUagKTNTXwMYEAE/review",
       "hasApp": false,
-      "keywords": ["hirshman", "hirshmans", "ainsdale", "pr8 3hw", "station-road", "pr8"],
-      "serviceAreaList": ["Ainsdale", "Birkdale", "Southport"]
+      "keywords": [
+        "hirshman",
+        "hirshmans",
+        "ainsdale",
+        "pr8 3hw",
+        "station-road",
+        "pr8"
+      ],
+      "serviceAreaList": [
+        "Ainsdale",
+        "Birkdale",
+        "Southport"
+      ],
+      "gphcNumber": "1034672",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "skchemists_bootle",
@@ -206,8 +415,22 @@
       "email": "SK@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CeAIYeqSjIYBEAE/review",
       "hasApp": false,
-      "keywords": ["sk-chemists", "skchemists", "stanley-road", "bootle", "l20 5dw", "l20"],
-      "serviceAreaList": ["Bootle", "Sefton", "Liverpool"]
+      "keywords": [
+        "sk-chemists",
+        "skchemists",
+        "stanley-road",
+        "bootle",
+        "l20 5dw",
+        "l20"
+      ],
+      "serviceAreaList": [
+        "Bootle",
+        "Sefton",
+        "Liverpool"
+      ],
+      "gphcNumber": "1034404",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "colemanleigh_liverpool",
@@ -223,8 +446,22 @@
       "email": "Colemans@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CVRiXrQr74lLEAE/review",
       "hasApp": false,
-      "keywords": ["coleman", "leigh", "walton", "walton-village", "l4 6th", "l4"],
-      "serviceAreaList": ["Walton", "Liverpool", "Sefton"]
+      "keywords": [
+        "coleman",
+        "leigh",
+        "walton",
+        "walton-village",
+        "l4 6th",
+        "l4"
+      ],
+      "serviceAreaList": [
+        "Walton",
+        "Liverpool",
+        "Sefton"
+      ],
+      "gphcNumber": "1034617",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "riddings_timperley",
@@ -240,8 +477,21 @@
       "email": "Riddings@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CRtdZliseNZGEAE/review",
       "hasApp": false,
-      "keywords": ["riddings", "timperley", "altrincham", "wa15 6bp", "wa15"],
-      "serviceAreaList": ["Timperley", "Altrincham", "Trafford"]
+      "keywords": [
+        "riddings",
+        "timperley",
+        "altrincham",
+        "wa15 6bp",
+        "wa15"
+      ],
+      "serviceAreaList": [
+        "Timperley",
+        "Altrincham",
+        "Trafford"
+      ],
+      "gphcNumber": "1029520",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "gordonshorts_crosby",
@@ -257,8 +507,22 @@
       "email": "Shorts@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CZcVDM6emi6OEAE/review",
       "hasApp": false,
-      "keywords": ["gordon", "shorts", "college-road", "l23 3at", "crosby", "l23"],
-      "serviceAreaList": ["Crosby", "Waterloo", "Sefton"]
+      "keywords": [
+        "gordon",
+        "shorts",
+        "college-road",
+        "l23 3at",
+        "crosby",
+        "l23"
+      ],
+      "serviceAreaList": [
+        "Crosby",
+        "Waterloo",
+        "Sefton"
+      ],
+      "gphcNumber": "1034450",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "cherrylane_liverpool",
@@ -274,8 +538,20 @@
       "email": "Cherry@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CRF-ODLpmvUAEAE/review",
       "hasApp": false,
-      "keywords": ["cherry-lane", "l4 8sg", "l4", "cherry lane"],
-      "serviceAreaList": ["Liverpool", "Walton", "Everton"]
+      "keywords": [
+        "cherry-lane",
+        "l4 8sg",
+        "l4",
+        "cherry lane"
+      ],
+      "serviceAreaList": [
+        "Liverpool",
+        "Walton",
+        "Everton"
+      ],
+      "gphcNumber": "1034441",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "wilmslow_wilmslow",
@@ -291,8 +567,21 @@
       "email": "Wilmslow@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CaWCNYx46icAEAE/review",
       "hasApp": false,
-      "keywords": ["wilmslow", "sk9 2ta", "summerfields", "summerfields-village", "sk9"],
-      "serviceAreaList": ["Wilmslow", "Handforth", "Cheshire East"]
+      "keywords": [
+        "wilmslow",
+        "sk9 2ta",
+        "summerfields",
+        "summerfields-village",
+        "sk9"
+      ],
+      "serviceAreaList": [
+        "Wilmslow",
+        "Handforth",
+        "Cheshire East"
+      ],
+      "gphcNumber": "1029878",
+      "yearEstablished": null,
+      "extraServices": []
     },
     {
       "id": "tiffenbergs_longmoor",
@@ -308,8 +597,20 @@
       "email": "Tiffenberg@rbhealth.co.uk",
       "googleReviewUrl": "https://g.page/r/CdfQf2a16Bn4EAE/review",
       "hasApp": false,
-      "keywords": ["tiffenbergs", "longmoor", "l9 9db", "l9"],
-      "serviceAreaList": ["Aintree", "Fazakerley", "Liverpool"]
+      "keywords": [
+        "tiffenbergs",
+        "longmoor",
+        "l9 9db",
+        "l9"
+      ],
+      "serviceAreaList": [
+        "Aintree",
+        "Fazakerley",
+        "Liverpool"
+      ],
+      "gphcNumber": "1099487",
+      "yearEstablished": null,
+      "extraServices": []
     }
   ]
 }
