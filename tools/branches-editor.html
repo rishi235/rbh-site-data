@@ -1,5 +1,184 @@
-{
-  "lastUpdated": "2026-07-13",
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>RBH branches.json - review and edit</title>
+<style>
+:root{
+  --bg:#f6f6f4; --card:#fff; --line:#e2e0dc; --line2:#f0efec;
+  --ink:#1f1e1c; --mut:#6f6b64; --faint:#9a958c;
+  --acc:#1c5f4a; --acc-bg:#e8f1ee;
+  --warn:#8a5a00; --warn-bg:#fdf3e0;
+  --bad:#94332b; --bad-bg:#fbeceb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+header{background:var(--card);border-bottom:1px solid var(--line);
+  padding:14px 20px;position:sticky;top:0;z-index:20;}
+.hrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+h1{font-size:16px;margin:0;font-weight:700;letter-spacing:-.01em}
+.meta{font-size:12px;color:var(--mut)}
+.spacer{flex:1}
+button{font:inherit;font-size:13px;padding:7px 13px;border-radius:6px;
+  border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+button:hover{background:var(--line2)}
+button.primary{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+button.primary:hover{filter:brightness(1.12)}
+button.ghost{border-color:transparent;color:var(--mut)}
+input,select,textarea{font:inherit;font-size:13px;padding:7px 9px;border:1px solid var(--line);
+  border-radius:6px;background:#fff;color:var(--ink);width:100%}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--acc-bg);border-color:var(--acc)}
+main{padding:20px;max-width:1500px;margin:0 auto}
+
+/* toolbar */
+.tools{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.tools input[type=search]{max-width:280px}
+.tools select{max-width:190px}
+.pill{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--card);
+  border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+
+/* issues */
+#issues{margin-bottom:14px}
+.iss{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--warn);
+  border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:13px}
+.iss.err{border-left-color:var(--bad)}
+.iss b{font-weight:700}
+.iss .tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;margin-right:8px;background:var(--warn-bg);color:var(--warn)}
+.iss.err .tag{background:var(--bad-bg);color:var(--bad)}
+.ok{background:var(--acc-bg);border:1px solid #cfe3dc;border-radius:6px;padding:10px 14px;
+  font-size:13px;color:var(--acc);font-weight:600}
+
+/* table */
+.wrap{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);
+  text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:700;
+  background:var(--card);position:sticky;top:57px;z-index:5;cursor:pointer;white-space:nowrap}
+th:hover{color:var(--ink)}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--line2)}
+.code{font-family:ui-monospace,"SF Mono",Consolas,monospace;font-size:12px;
+  background:var(--line2);padding:2px 6px;border-radius:4px;color:var(--mut)}
+.nm{font-weight:600}
+.sub{font-size:11.5px;color:var(--mut)}
+.bar{width:56px;height:5px;background:var(--line);border-radius:3px;overflow:hidden;display:inline-block;
+  vertical-align:middle;margin-right:7px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.bar.w i{background:var(--warn)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.yes{background:var(--acc)} .no{background:var(--line)}
+.disp{opacity:.5}
+.badge{font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:4px;
+  background:var(--bad-bg);color:var(--bad);margin-left:6px}
+
+/* drawer */
+#veil{display:none;position:fixed;inset:0;background:rgba(31,30,28,.35);z-index:40}
+#drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:min(620px,100%);
+  background:var(--card);z-index:50;overflow-y:auto;box-shadow:-6px 0 30px rgba(0,0,0,.12)}
+#drawer.on,#veil.on{display:block}
+.dhead{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);
+  padding:16px 22px;display:flex;align-items:center;gap:10px;z-index:2}
+.dhead h2{font-size:15px;margin:0;flex:1;font-weight:700}
+.dbody{padding:20px 22px 90px}
+fieldset{border:none;padding:0;margin:0 0 22px}
+legend{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);
+  font-weight:700;padding:0 0 9px;width:100%;border-bottom:1px solid var(--line2);margin-bottom:12px}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:11.5px;color:var(--mut);margin-bottom:4px;font-weight:600}
+.f .hint{font-size:11px;color:var(--faint);margin-top:3px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.chk{display:flex;align-items:center;gap:8px;font-size:13px;padding:7px 0}
+.chk input{width:auto}
+textarea{resize:vertical;min-height:64px;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.dfoot{position:fixed;bottom:0;right:0;width:min(620px,100%);background:var(--card);
+  border-top:1px solid var(--line);padding:14px 22px;display:flex;gap:10px;align-items:center}
+.req{color:var(--bad)}
+.miss{border-color:#e6b8b3;background:#fffafa}
+footer{margin-top:20px;font-size:11.5px;color:var(--faint);line-height:1.7}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <h1>branches.json</h1>
+    <span class="meta" id="src">embedded snapshot</span>
+    <span class="pill" id="cnt">-</span>
+    <span class="pill" id="upd">-</span>
+    <div class="spacer"></div>
+    <button id="load">Load a branches.json</button>
+    <input type="file" id="file" accept=".json,application/json" hidden>
+    <button id="add">Add branch</button>
+    <button class="primary" id="save">Download branches.json</button>
+  </div>
+</header>
+
+<main>
+  <div id="issues"></div>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Search name, town, postcode, ODS, phone...">
+    <select id="fb"><option value="">All brands</option></select>
+    <select id="fs">
+      <option value="">All branches</option>
+      <option value="incomplete">Incomplete only</option>
+      <option value="pf">Pharmacy First booking on</option>
+      <option value="nopf">No PF booking</option>
+      <option value="app">Has app</option>
+    </select>
+    <div class="spacer"></div>
+    <span class="pill" id="shown">-</span>
+  </div>
+
+  <div class="wrap">
+    <table>
+      <thead><tr>
+        <th data-k="shortCode">Code</th>
+        <th data-k="branchName">Branch</th>
+        <th data-k="brandLabel">Brand</th>
+        <th data-k="seoTown">SEO town</th>
+        <th data-k="phone">Phone</th>
+        <th data-k="odsCode">ODS</th>
+        <th data-k="pfBooking">PF</th>
+        <th data-k="hasApp">App</th>
+        <th data-k="_pct">Complete</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    Canonical file: <b>Weebly\seo\rbh-site-data\branches.json</b> &nbsp;|&nbsp; repo: rishi235/rbh-site-data<br>
+    Editing here does not touch the file on disk. Make your changes, hit <b>Download branches.json</b>,
+    then replace the file in the repo folder and commit. Nothing is saved automatically, by design.<br>
+    Do not confuse this with the Data_Publish portal branches.json. Different schema, different purpose.
+  </footer>
+</main>
+
+<div id="veil"></div>
+<aside id="drawer">
+  <div class="dhead">
+    <h2 id="dtitle">Branch</h2>
+    <button class="ghost" id="del">Delete</button>
+    <button class="ghost" id="close">Close</button>
+  </div>
+  <div class="dbody" id="dbody"></div>
+  <div class="dfoot">
+    <button class="primary" id="apply">Apply changes</button>
+    <button id="cancel">Cancel</button>
+    <span class="meta" id="dmsg"></span>
+  </div>
+</aside>
+
+<script>
+/* ---------- data ---------- */
+const DATA = {
+  "lastUpdated": "2026-06-30",
   "brandGroups": {
     "scorahs": [
       "scorah_bramhall",
@@ -109,33 +288,6 @@
       "brandSlug": "scorah",
       "widgets": {
         "pharmacyFirst": "6a439fa31916ef7a9401cc92"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          }
-        ]
       }
     },
     {
@@ -180,28 +332,6 @@
       "brandSlug": "scorah",
       "widgets": {
         "pharmacyFirst": "6a439fa31916ef7a9401cc92"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "note": "Saturday trading ceased 24 June 2026. Previously open Sat 09:00-13:00.",
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -245,51 +375,6 @@
       "brandSlug": "mccanns",
       "widgets": {
         "pharmacyFirst": "66b47e5dcad218d342bbecca"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:00"
-          }
-        ]
       }
     },
     {
@@ -333,38 +418,6 @@
       "brandSlug": "mccanns",
       "widgets": {
         "pharmacyFirst": "66b47e5dcad218d342bbecca"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -407,27 +460,6 @@
       "brandSlug": "fishlocks",
       "widgets": {
         "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "08:45",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -472,33 +504,6 @@
       "brandSlug": "fishlocks",
       "widgets": {
         "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "12:00"
-          }
-        ]
       }
     },
     {
@@ -614,38 +619,6 @@
       "brandSlug": "smartts",
       "widgets": {
         "pharmacyFirst": "66b9ea9004f4c06db8fdbf9c"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -688,51 +661,6 @@
       "brandSlug": "hirshmans",
       "widgets": {
         "pharmacyFirst": "6a439f268babccc7d30915ea"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "08:30",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:30"
-          }
-        ]
       }
     },
     {
@@ -775,27 +703,6 @@
       "brandSlug": "sk-chemists",
       "widgets": {
         "pharmacyFirst": "66b20a8e609c16953de3e0c5"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -838,38 +745,6 @@
       "brandSlug": "coleman-leigh",
       "widgets": {
         "pharmacyFirst": "66b9dba20712ffe0d87e12f2"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -911,27 +786,6 @@
       "brandSlug": "riddings",
       "widgets": {
         "pharmacyFirst": "6a439f7b1916ef7a9401cc8f"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
       }
     },
     {
@@ -974,51 +828,6 @@
       "brandSlug": "gordon-short",
       "widgets": {
         "pharmacyFirst": "66b20c7a1a0469a9f6b3b3a4"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:00"
-          }
-        ]
       }
     },
     {
@@ -1059,33 +868,6 @@
       "brandSlug": "cherry-lane",
       "widgets": {
         "pharmacyFirst": "66b20ae6609c16953de3e0cf"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:30"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "17:00"
-          }
-        ]
       }
     },
     {
@@ -1165,40 +947,251 @@
       "brandSlug": "tiffenbergs",
       "widgets": {
         "pharmacyFirst": "66b9da6d121338480dd72783"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
       }
     }
   ],
-  "schemaNote": "Enriched 2026-06-27 with shortCode, branchNumber, odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl from RBH master branch spreadsheet. SMA nhsReviewUrl corrected from XFH575 (SK) to XFQN70 (Smartts). Scorah Bramhall street normalised to 61-63 North Park Road. Added 2026-06-30: website, seoTown, townSlug, brandSlug per branch (service-layer SEO fields), and widgets (Appointedd booking widget IDs; Cherry Lane pharmacyFirst populated). seoTown is the catchment town used in page titles/H1 and may differ from postal addressLocality (e.g. Cherry Lane = Walton, not Liverpool). Added 2026-07-13: openingHours per trading branch (schema.org openingHoursSpecification shape), sourced from NHS pharmacy profiles, all last confirmed by NHS on 2026-06-24. Hazel Grove ceased Saturday trading 24 June 2026. Head office, Clear Chemist and the disposed Wilmslow site have no openingHours (no public NHS profile hours applicable)."
+  "schemaNote": "Enriched 2026-06-27 with shortCode, branchNumber, odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl from RBH master branch spreadsheet. SMA nhsReviewUrl corrected from XFH575 (SK) to XFQN70 (Smartts). Scorah Bramhall street normalised to 61-63 North Park Road. Added 2026-06-30: website, seoTown, townSlug, brandSlug per branch (service-layer SEO fields), and widgets (Appointedd booking widget IDs; Cherry Lane pharmacyFirst populated). seoTown is the catchment town used in page titles/H1 and may differ from postal addressLocality (e.g. Cherry Lane = Walton, not Liverpool)."
+};
+let doc = JSON.parse(JSON.stringify(DATA));
+let sortK = "branchNumber", sortAsc = true, editing = null;
+
+/* fields that a full trading branch should have */
+const NEEDED = ["shortCode","branchNumber","branchName","brandKey","brandLabel","streetAddress",
+  "addressLocality","postalCode","phone","email","odsCode","nhsEmail","website","seoTown",
+  "townSlug","brandSlug","googleReviewUrl","nhsReviewUrl"];
+
+const isHO = b => b.id === "rbh_head_office_aintree";
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function pct(b){
+  if(isHO(b)) return 100;
+  const have = NEEDED.filter(k=>{const v=b[k];return v!==undefined&&v!==null&&v!=="";}).length;
+  return Math.round(have/NEEDED.length*100);
 }
+function missing(b){
+  if(isHO(b)) return [];
+  return NEEDED.filter(k=>{const v=b[k];return v===undefined||v===null||v==="";});
+}
+
+/* ---------- validation ---------- */
+function validate(){
+  const out=[], bs=doc.branches;
+  const dup=(key,label)=>{
+    const seen={};
+    bs.forEach(b=>{const v=b[key]; if(!v)return; (seen[v]=seen[v]||[]).push(b.branchName||b.id);});
+    Object.entries(seen).filter(([,v])=>v.length>1)
+      .forEach(([v,names])=>out.push({err:1,t:"Duplicate",m:`<b>${label} "${esc(v)}"</b> used by ${names.length} branches: ${esc(names.join(", "))}`}));
+  };
+  dup("id","id"); dup("shortCode","shortCode"); dup("odsCode","ODS code"); dup("branchNumber","branchNumber");
+
+  bs.forEach(b=>{
+    const m=missing(b);
+    if(m.length) out.push({err:0,t:"Incomplete",m:`<b>${esc(b.branchName||b.id)}</b> missing: ${esc(m.join(", "))}`});
+    if(b.odsCode && b.nhsEmail && !b.nhsEmail.toLowerCase().includes(b.odsCode.toLowerCase()))
+      out.push({err:0,t:"Mismatch",m:`<b>${esc(b.branchName)}</b> nhsEmail <span class="code">${esc(b.nhsEmail)}</span> does not contain its ODS code <span class="code">${esc(b.odsCode)}</span>`});
+    if(b.odsCode && b.nhsReviewUrl && !b.nhsReviewUrl.toUpperCase().includes(b.odsCode.toUpperCase()))
+      out.push({err:0,t:"Mismatch",m:`<b>${esc(b.branchName)}</b> nhsReviewUrl does not contain its ODS code <span class="code">${esc(b.odsCode)}</span>`});
+    if(b.pfBooking && !b.pfLink)
+      out.push({err:0,t:"Check",m:`<b>${esc(b.branchName)}</b> has pfBooking = true but no pfLink`});
+    if(b.brandKey && doc.brandGroups && Object.keys(doc.brandGroups).length){
+      if(doc.brandGroups[b.brandKey] && !doc.brandGroups[b.brandKey].includes(b.id))
+        out.push({err:1,t:"Orphan",m:`<b>${esc(b.branchName)}</b> has brandKey <span class="code">${esc(b.brandKey)}</span> but is not listed in that brandGroup`});
+    }
+  });
+
+  const box=document.getElementById("issues");
+  if(!out.length){ box.innerHTML='<div class="ok">No problems found. '+doc.branches.length+' branches, all consistent.</div>'; return; }
+  out.sort((a,b)=>b.err-a.err);
+  box.innerHTML = out.map(o=>`<div class="iss ${o.err?"err":""}"><span class="tag">${o.t}</span>${o.m}</div>`).join("");
+}
+
+/* ---------- table ---------- */
+function view(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const fb=document.getElementById("fb").value;
+  const fs=document.getElementById("fs").value;
+  let bs=doc.branches.slice();
+  if(q) bs=bs.filter(b=>JSON.stringify(b).toLowerCase().includes(q));
+  if(fb) bs=bs.filter(b=>b.brandKey===fb);
+  if(fs==="incomplete") bs=bs.filter(b=>missing(b).length);
+  if(fs==="pf") bs=bs.filter(b=>b.pfBooking===true);
+  if(fs==="nopf") bs=bs.filter(b=>!b.pfBooking);
+  if(fs==="app") bs=bs.filter(b=>b.hasApp===true);
+  bs.sort((a,b)=>{
+    let x = sortK==="_pct" ? pct(a) : a[sortK], y = sortK==="_pct" ? pct(b) : b[sortK];
+    x = x===undefined||x===null?"":x; y = y===undefined||y===null?"":y;
+    if(typeof x==="boolean") {x=x?1:0; y=y?1:0;}
+    const r = typeof x==="number"&&typeof y==="number" ? x-y : String(x).localeCompare(String(y));
+    return sortAsc ? r : -r;
+  });
+  return bs;
+}
+function render(){
+  const bs=view();
+  document.getElementById("rows").innerHTML = bs.map(b=>{
+    const p=pct(b), m=missing(b).length;
+    return `<tr data-id="${esc(b.id)}" class="${b.disposed?"disp":""}">
+      <td><span class="code">${esc(b.shortCode||"--")}</span></td>
+      <td><div class="nm">${esc(b.branchName||b.id)}${b.disposed?'<span class="badge">DISPOSED</span>':""}</div>
+          <div class="sub">${esc([b.streetAddress,b.postalCode].filter(Boolean).join(", "))||"&mdash;"}</div></td>
+      <td class="sub">${esc(b.brandLabel||"")}</td>
+      <td class="sub">${esc(b.seoTown||"&mdash;")}</td>
+      <td class="sub">${esc(b.phone||"&mdash;")}</td>
+      <td><span class="code">${esc(b.odsCode||"--")}</span></td>
+      <td><span class="dot ${b.pfBooking?"yes":"no"}"></span></td>
+      <td><span class="dot ${b.hasApp?"yes":"no"}"></span></td>
+      <td><span class="bar ${m?"w":""}"><i style="width:${p}%"></i></span><span class="sub">${p}%</span></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="9" style="padding:32px;text-align:center;color:var(--faint)">No branches match.</td></tr>`;
+  document.getElementById("shown").textContent = bs.length+" of "+doc.branches.length+" shown";
+  document.getElementById("cnt").textContent = doc.branches.length+" branches";
+  document.getElementById("upd").textContent = "lastUpdated "+(doc.lastUpdated||"?");
+  document.querySelectorAll("#rows tr[data-id]").forEach(tr=>tr.onclick=()=>open(tr.dataset.id));
+  validate();
+}
+
+/* ---------- drawer ---------- */
+const TXT=[["shortCode","Short code","e.g. BRA",1],["branchNumber","Branch number","",1],
+  ["id","id (slug, do not change casually)","",1],["branchName","Branch name","",1],
+  ["brandKey","brandKey","e.g. scorahs",1],["brandLabel","Brand label","",1],
+  ["brandSlug","brandSlug","e.g. scorah",1]];
+const ADDR=[["streetAddress","Street address","",1],["addressLocality","Postal town","",1],
+  ["postalCode","Postcode","",1],["addressRegion","Region","",0],["addressCountry","Country","GB",0]];
+const CONT=[["phone","Phone","",1],["email","Email","",1],["nhsEmail","NHS email","pharmacy.XXXXX@nhs.net",1],
+  ["odsCode","ODS code","",1],["website","Website","",1]];
+const SEO=[["seoTown","SEO town","catchment town for titles/H1",1],["townSlug","townSlug","",1],
+  ["googleReviewUrl","Google review URL","",1],["nhsReviewUrl","NHS review URL","",1],
+  ["pfLink","Pharmacy First page URL","",0]];
+
+function fld([k,label,hint,req],b){
+  const v=b[k]===undefined?"":b[k];
+  const bad = req && (v===""||v===null);
+  return `<div class="f"><label>${esc(label)}${req?' <span class="req">*</span>':""}</label>
+    <input data-k="${k}" value="${esc(v)}" class="${bad?"miss":""}">
+    ${hint?`<div class="hint">${esc(hint)}</div>`:""}</div>`;
+}
+function open(id){
+  const b=doc.branches.find(x=>x.id===id); if(!b) return;
+  editing=id;
+  document.getElementById("dtitle").textContent = b.branchName||b.id;
+  document.getElementById("dbody").innerHTML = `
+    <fieldset><legend>Identity</legend>${TXT.map(f=>fld(f,b)).join("")}</fieldset>
+    <fieldset><legend>Address</legend>${ADDR.map(f=>fld(f,b)).join("")}</fieldset>
+    <fieldset><legend>Contact and NHS</legend>${CONT.map(f=>fld(f,b)).join("")}</fieldset>
+    <fieldset><legend>SEO and links</legend>${SEO.map(f=>fld(f,b)).join("")}</fieldset>
+    <fieldset><legend>Flags</legend>
+      <label class="chk"><input type="checkbox" data-b="pfBooking" ${b.pfBooking?"checked":""}> Pharmacy First booking enabled</label>
+      <label class="chk"><input type="checkbox" data-b="hasApp" ${b.hasApp?"checked":""}> Has patient app</label>
+      <label class="chk"><input type="checkbox" data-b="disposed" ${b.disposed?"checked":""}> Disposed / no longer trading</label>
+    </fieldset>
+    <fieldset><legend>Lists</legend>
+      <div class="f"><label>Keywords (one per line)</label>
+        <textarea data-l="keywords">${esc((b.keywords||[]).join("\n"))}</textarea></div>
+      <div class="f"><label>Service areas (one per line)</label>
+        <textarea data-l="serviceAreaList">${esc((b.serviceAreaList||[]).join("\n"))}</textarea></div>
+    </fieldset>
+    <fieldset><legend>Widgets (Appointedd IDs)</legend>
+      <div class="f"><label>JSON object</label>
+        <textarea data-j="widgets">${esc(JSON.stringify(b.widgets||{},null,2))}</textarea>
+        <div class="hint">e.g. {"pharmacyFirst": "6a439fa31916ef7a9401cc92"}</div></div>
+    </fieldset>`;
+  document.getElementById("dmsg").textContent="";
+  document.getElementById("drawer").classList.add("on");
+  document.getElementById("veil").classList.add("on");
+}
+function shut(){editing=null;document.getElementById("drawer").classList.remove("on");
+  document.getElementById("veil").classList.remove("on");}
+
+document.getElementById("apply").onclick=()=>{
+  const b=doc.branches.find(x=>x.id===editing); if(!b) return shut();
+  const body=document.getElementById("dbody");
+  body.querySelectorAll("input[data-k]").forEach(i=>{
+    const k=i.dataset.k; let v=i.value.trim();
+    if(k==="branchNumber"&&v!==""){const n=Number(v); if(!isNaN(n)) v=n;}
+    if(v==="") delete b[k]; else b[k]=v;
+  });
+  body.querySelectorAll("input[data-b]").forEach(i=>{
+    const k=i.dataset.b;
+    if(k==="disposed"&&!i.checked) delete b[k]; else b[k]=i.checked;
+  });
+  body.querySelectorAll("textarea[data-l]").forEach(t=>{
+    const arr=t.value.split("\n").map(s=>s.trim()).filter(Boolean);
+    if(arr.length) b[t.dataset.l]=arr; else delete b[t.dataset.l];
+  });
+  const w=body.querySelector("textarea[data-j]");
+  try{
+    const o=JSON.parse(w.value||"{}");
+    if(Object.keys(o).length) b.widgets=o; else delete b.widgets;
+  }catch(e){ document.getElementById("dmsg").textContent="Widgets JSON is invalid. Not saved."; return; }
+  shut(); render();
+};
+document.getElementById("cancel").onclick=shut;
+document.getElementById("close").onclick=shut;
+document.getElementById("veil").onclick=shut;
+document.getElementById("del").onclick=()=>{
+  const b=doc.branches.find(x=>x.id===editing); if(!b) return;
+  if(!confirm("Remove "+(b.branchName||b.id)+" from branches.json?\n\nIf the site is disposed but still needs a page, tick 'Disposed' instead.")) return;
+  doc.branches=doc.branches.filter(x=>x.id!==editing);
+  Object.keys(doc.brandGroups||{}).forEach(k=>{doc.brandGroups[k]=doc.brandGroups[k].filter(x=>x!==editing);});
+  Object.keys(doc.hostMap||{}).forEach(h=>{doc.hostMap[h]=doc.hostMap[h].filter(x=>x!==editing);
+    if(!doc.hostMap[h].length) delete doc.hostMap[h];});
+  shut(); render();
+};
+
+/* ---------- add ---------- */
+document.getElementById("add").onclick=()=>{
+  const n=(prompt("Branch name?")||"").trim(); if(!n) return;
+  const id=n.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+  if(doc.branches.some(b=>b.id===id)) return alert("A branch with id '"+id+"' already exists.");
+  const max=Math.max(0,...doc.branches.map(b=>Number(b.branchNumber)||0));
+  doc.branches.push({id,branchName:n,branchNumber:max+1,addressCountry:"GB",hasApp:false,pfBooking:false});
+  render(); open(id);
+};
+
+/* ---------- load / save ---------- */
+document.getElementById("load").onclick=()=>document.getElementById("file").click();
+document.getElementById("file").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const j=JSON.parse(r.result);
+      if(!Array.isArray(j.branches)) throw new Error("No branches[] array. Is this the right file? The Data_Publish portal file has a different schema.");
+      doc=j; document.getElementById("src").textContent="loaded from "+f.name;
+      buildBrands(); render();
+    }catch(err){ alert("Could not read that file.\n\n"+err.message); }
+  };
+  r.readAsText(f);
+};
+document.getElementById("save").onclick=()=>{
+  doc.lastUpdated=new Date().toISOString().slice(0,10);
+  doc.branches.sort((a,b)=>(Number(a.branchNumber)||999)-(Number(b.branchNumber)||999));
+  const blob=new Blob([JSON.stringify(doc,null,2)+"\n"],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="branches.json"; a.click();
+  URL.revokeObjectURL(a.href);
+  render();
+};
+
+/* ---------- init ---------- */
+function buildBrands(){
+  const s=document.getElementById("fb");
+  const keys=[...new Set(doc.branches.map(b=>b.brandKey).filter(Boolean))].sort();
+  s.innerHTML='<option value="">All brands</option>'+keys.map(k=>{
+    const lbl=(doc.branches.find(b=>b.brandKey===k)||{}).brandLabel||k;
+    return `<option value="${esc(k)}">${esc(lbl)}</option>`;}).join("");
+}
+document.getElementById("q").oninput=render;
+document.getElementById("fb").onchange=render;
+document.getElementById("fs").onchange=render;
+document.querySelectorAll("th[data-k]").forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;
+  if(sortK===k) sortAsc=!sortAsc; else {sortK=k;sortAsc=true;}
+  render();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")shut();});
+buildBrands(); render();
+</script>
+</body>
+</html>
+                                                                                                                               
