@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-10T06:15:12Z",
+  "generated_at": "2026-07-14T06:08:33Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 23,
-    "overdue": 2,
-    "due_next_7_days": 12,
+    "overdue": 14,
+    "due_next_7_days": 1,
     "no_due_date": 2
   },
   "tasks": [
@@ -34,7 +34,7 @@
       "gid": "1214702406654082",
       "name": "RB Health x Adele Curran - Ordering Compliance & Margin Analysis Meeting",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -44,7 +44,7 @@
       "gid": "1213369640834405",
       "name": "Extend out Branches Budget  - look at description 1st",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -54,7 +54,7 @@
       "gid": "1213866662637735",
       "name": "GEO: Reviews strategy — QR code cards for dispensing counters across estate",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -64,7 +64,7 @@
       "gid": "1213866418984106",
       "name": "GEO: Collate branch data for hey-ai.js rollout (GPhC numbers, emails, dates)",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -74,7 +74,7 @@
       "gid": "1213866662587471",
       "name": "GEO: Update branches.json and commission hey-ai.js module build",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -84,7 +84,7 @@
       "gid": "1214159488367240",
       "name": "[RISHI + DANE] Decide on leaflet drop campaign for Eccleston, SK, possibly Riddings",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -94,7 +94,7 @@
       "gid": "1214136817964486",
       "name": "Call Chris Law - Amberbanks mortgage (10 months remaining)",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -104,7 +104,7 @@
       "gid": "1214136868225238",
       "name": "Chase Townsend Lane planning update",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -114,7 +114,7 @@
       "gid": "1214136800189546",
       "name": "Chase Chris Jaap - Hartington Road finder's fee",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -124,7 +124,7 @@
       "gid": "1214151808324250",
       "name": "KEOS / Barton House - pursue £4,200 arrears",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1214151808324250"
     },
@@ -132,7 +132,7 @@
       "gid": "1214136972182247",
       "name": "Blackpool Properties — CPM Resolution",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -142,7 +142,7 @@
       "gid": "1216411298609060",
       "name": "Consider updating your project progress",
       "due_on": "2026-07-10",
-      "overdue": false,
+      "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1216411298609060"
     },
