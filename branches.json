@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-13",
+  "lastUpdated": "2026-07-17",
   "brandGroups": {
     "scorahs": [
       "scorah_bramhall",
@@ -108,6 +108,8 @@
       "townSlug": "bramhall",
       "brandSlug": "scorah",
       "widgets": {
+        "bloodPressure": "66b9d3e9d71f677c6d5e6015",
+        "contraception": "6a4797ca61e4b9e09738d082",
         "pharmacyFirst": "6a439fa31916ef7a9401cc92"
       },
       "openingHours": {
@@ -179,7 +181,9 @@
       "townSlug": "hazel-grove",
       "brandSlug": "scorah",
       "widgets": {
-        "pharmacyFirst": "6a439fa31916ef7a9401cc92"
+        "bloodPressure": "6a4797d261e4b9e09738d087",
+        "contraception": "6a4797dba73ee8f2ca31fc17",
+        "pharmacyFirst": "6a4798e8f7e44e6923bcb237"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -244,7 +248,9 @@
       "townSlug": "aigburth",
       "brandSlug": "mccanns",
       "widgets": {
-        "pharmacyFirst": "66b47e5dcad218d342bbecca"
+        "bloodPressure": "66b61bcabea374dfa684f189",
+        "contraception": "6a4790dae25e32949a70c14b",
+        "pharmacyFirst": "66b61b8583640d066a95622e"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -332,7 +338,9 @@
       "townSlug": "sandringham",
       "brandSlug": "mccanns",
       "widgets": {
-        "pharmacyFirst": "66b47e5dcad218d342bbecca"
+        "bloodPressure": "6a478f9f51c51dd528f210d7",
+        "contraception": "6a4791ca51c51dd528f210fd",
+        "pharmacyFirst": "6a478fae4065a96ce45e4dbf"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -406,6 +414,8 @@
       "townSlug": "ainsdale",
       "brandSlug": "fishlocks",
       "widgets": {
+        "bloodPressure": "6a47893f37e5ff141a4219ac",
+        "contraception": "6a478ac5b4a3250ce920c081",
         "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
       },
       "openingHours": {
@@ -471,7 +481,9 @@
       "townSlug": "eccleston",
       "brandSlug": "fishlocks",
       "widgets": {
-        "pharmacyFirst": "66b1f5b59c1e2182b14fac3a"
+        "bloodPressure": "6a478bd8207a049d89a9a34b",
+        "contraception": "6a478be0a73ee8f2ca31fbe0",
+        "pharmacyFirst": "6a478beb207a049d89a9a350"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -613,6 +625,8 @@
       "townSlug": "bootle",
       "brandSlug": "smartts",
       "widgets": {
+        "bloodPressure": "66b9ea5b04f4c06db8fdbf92",
+        "contraception": "6a479719a73ee8f2ca31fc08",
         "pharmacyFirst": "66b9ea9004f4c06db8fdbf9c"
       },
       "openingHours": {
@@ -687,6 +701,8 @@
       "townSlug": "ainsdale",
       "brandSlug": "hirshmans",
       "widgets": {
+        "bloodPressure": "66b9cefa0712ffe0d87e12d8",
+        "contraception": "6a478e3afb612bf3ee54d836",
         "pharmacyFirst": "6a439f268babccc7d30915ea"
       },
       "openingHours": {
@@ -774,7 +790,9 @@
       "townSlug": "bootle",
       "brandSlug": "sk-chemists",
       "widgets": {
-        "pharmacyFirst": "66b20a8e609c16953de3e0c5"
+        "bloodPressure": "66b9d6088ed9220fea0a206d",
+        "contraception": "6a47976aa73ee8f2ca31fc0d",
+        "pharmacyFirst": "66b9d657d71f677c6d5e602b"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -837,6 +855,8 @@
       "townSlug": "walton",
       "brandSlug": "coleman-leigh",
       "widgets": {
+        "bloodPressure": "66b9db8a121338480dd72787",
+        "contraception": "6a478893da29d60a80c8131c",
         "pharmacyFirst": "66b9dba20712ffe0d87e12f2"
       },
       "openingHours": {
@@ -910,6 +930,8 @@
       "townSlug": "timperley",
       "brandSlug": "riddings",
       "widgets": {
+        "bloodPressure": "66b9c5450712ffe0d87e12c5",
+        "contraception": "6a47934d55326b3f7e5be42a",
         "pharmacyFirst": "6a439f7b1916ef7a9401cc8f"
       },
       "openingHours": {
@@ -973,7 +995,9 @@
       "townSlug": "crosby",
       "brandSlug": "gordon-short",
       "widgets": {
-        "pharmacyFirst": "66b20c7a1a0469a9f6b3b3a4"
+        "bloodPressure": "66b9e9e8a1aa58f7426edab6",
+        "contraception": "6a4799554065a96ce45e4dcd",
+        "pharmacyFirst": "66b9ea0304f4c06db8fdbf8f"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -1058,7 +1082,16 @@
       "townSlug": "walton",
       "brandSlug": "cherry-lane",
       "widgets": {
-        "pharmacyFirst": "66b20ae6609c16953de3e0cf"
+        "bloodPressure": "66b47e5dcad218d342bbecca",
+        "contraception": "6a4783d77658d72e988c07ca",
+        "earache": "6a479c06fb612bf3ee54d85b",
+        "impetigo": "6a479bdbef6fe2adc49b25e7",
+        "insectBite": "6a479baffb612bf3ee54d856",
+        "pharmacyFirst": "66b20ae6609c16953de3e0cf",
+        "shingles": "6a479b7b4065a96ce45e4ddf",
+        "sinusitis": "6a479b43f7e44e6923bcb252",
+        "soreThroat": "6a479b104065a96ce45e4dd6",
+        "uti": "6a479ab5b4a3250ce920c0b7"
       },
       "openingHours": {
         "source": "NHS pharmacy profile",
@@ -1164,6 +1197,8 @@
       "townSlug": "aintree",
       "brandSlug": "tiffenbergs",
       "widgets": {
+        "bloodPressure": "66b9da17d71f677c6d5e602f",
+        "contraception": "6a4793b74065a96ce45e4dc6",
         "pharmacyFirst": "66b9da6d121338480dd72783"
       },
       "openingHours": {

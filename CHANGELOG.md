@@ -10,6 +10,15 @@ commit listed under "Revert".
 
 ---
 
+### 2026-07-17 — Widget correction patch: fix 6 wrong pharmacyFirst IDs, add bloodPressure + contraception IDs (all 14 branches)
+- **Surface:** GitHub `main` (branches.json only — live pages hard-code their widget IDs, so nothing changes live until service.js injects from the data layer)
+- **What:** Applied WIDGET_CORRECTION_PATCH (source: Dane's "Website - Service Widget Library" sheet, 3 Jul 2026) to the `widgets` object of all 14 trading branches: corrected 6 wrong `pharmacyFirst` IDs, added `bloodPressure` + `contraception` for all 14, added Cherry Lane's 7 condition-specific widgets.
+- **Verification (17 Jul):** every one of the 51 widget IDs was resolved against Appointedd's production widget config (the same GraphQL data the public booking iframe loads — read via booking-tools.appointedd.com per-ID; no API key involved). All 51 patch IDs match the library exactly. The 6 IDs previously in branches.json were identified as: McCanns both branches → "Cherry Lane - Blood Pressure"; SK Chemist → "Cherry Lane - Medical Cannabis"; Gordon Short → "Cherry Lane - FLU"; Scorah Hazel → "Scorah Bramhall - Pharmacy First"; Fishlocks Eccleston → "Fishlocks Ainsdale - Pharmacy First".
+- **Before:** `widgets` held only `pharmacyFirst`; 6 of 14 IDs wrong (dual-branch brands shared one ID; McCanns/SK/Gordon carried Cherry Lane widgets for other services).
+- **After:** all 14 branches carry verified bloodPressure/contraception/pharmacyFirst (+ Cherry Lane conditions). lastUpdated → 2026-07-17.
+- **Revert:** `git revert` this commit.
+- **By:** Claude Code
+
 ### 2026-06-30 — Add `service` (Pharmacy First) module + Cherry Lane pilot pages
 - **Surface:** GitHub (repo only — nothing live yet; committed to branch `service-module-phase1`, not `main`)
 - **What:**
