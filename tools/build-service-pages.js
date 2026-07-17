@@ -374,17 +374,19 @@ function headLinks() {
 }
 
 function bookingCard(store, b, serviceLabel) {
-  var widgetId = store.widgets && store.widgets.pharmacyFirst;
-  var inner = widgetId
+  // The widgetId is NOT stamped into the page. service.js reads the branch's
+  // widget ID from branches.json (data layer) at runtime and renders the widget
+  // into #rbhsv-booking — so a wrong/changed ID is fixed once in branches.json.
+  // Never hard-code a widgetId here (six stamped IDs were live-wrong, 2026-07-17).
+  var hasWidgets = store.widgets && store.widgets.pharmacyFirst;
+  var inner = hasWidgets
     ? '<div class="booking-widget">\n' +
       '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
       '            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>\n' +
-      '            <script type="text/javascript">\n' +
-      '              Appointedd.renderWidget("rbhsv-booking", { widgetId: "' + widgetId + '", enableLanguageSelector: false });\n' +
-      '            </script>\n' +
+      '            <!-- widget rendered by service.js from branches.json - do not hard-code a widgetId -->\n' +
       '          </div>'
     : '<div class="booking-placeholder">\n' +
-      '            <!-- APPOINTEDD: add the ' + esc(store.brand) + ' "Pharmacy 1st" widget ID to STORES[...].widgets, then re-run the generator. -->\n' +
+      '            <!-- APPOINTEDD: add the ' + esc(store.brand) + ' "Pharmacy 1st" widget ID to that branch\'s widgets in branches.json, then re-run the generator. -->\n' +
       '            <strong>Book your free NHS appointment</strong>\n' +
       '            <p>Call <a href="tel:' + tel(b) + '">' + esc(b.phone) + '</a> to book, or request a callback below and we will arrange a time.</p>\n' +
       '          </div>';

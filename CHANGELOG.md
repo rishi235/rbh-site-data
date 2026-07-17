@@ -10,6 +10,12 @@ commit listed under "Revert".
 
 ---
 
+### 2026-07-17 — Generators no longer stamp widget IDs into pages; contraception generator re-pinned to the mutable branch ref
+- **Surface:** GitHub `main` + `service-module-phase1` (repo pages only — live Weebly embeds unchanged until repasted)
+- **What:** `tools/build-service-pages.js` and `tools/build-contraception-pages.js` now emit only the Appointedd SDK + `#rbhsv-booking` mount; service.js renders the widget from branches.json at runtime. Contraception generator's CDN pin moved from immutable SHA `76221ba` to `service-module-phase1`. All 126 pages regenerated (the only content change is the removal of the inline `Appointedd.renderWidget` stamp).
+- **Revert:** `git revert` the commit.
+- **By:** Claude Code
+
 ### 2026-07-17 — service.js: booking widget now injected from branches.json (data layer), overriding hard-coded page IDs
 - **Surface:** GitHub `main` AND branch `service-module-phase1` (live service pages load service.js from the CDN @service-module-phase1, so this change goes LIVE on every deployed service page at CDN purge)
 - **What:** Added `injectBookingWidget()` to `modules/service/service.js`. On every service page it derives branch + service from the URL (`[service]-[brandSlug]-[townSlug].html`), fetches branches.json @main from the CDN, and if the page's rendered Appointedd widget differs from the data layer's ID for that branch+service, re-renders the widget with the correct ID (loading the SDK itself if the page lacks it). Condition pages use the branch's condition-specific widget when present (Cherry Lane only today), falling back to `pharmacyFirst`. Pages already showing the correct widget are left untouched; unknown URLs / fetch failures leave the page as-is.

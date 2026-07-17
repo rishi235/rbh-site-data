@@ -14,7 +14,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const PIN = "76221ba";
+// MUTABLE branch ref — one push + CDN purge updates every deployed page.
+// (Was the immutable SHA "76221ba", which froze pages out of module fixes.)
+const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 const WHATSAPP = "447521775631";
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
@@ -51,14 +53,15 @@ function headLinks() {
 }
 
 function bookingCard(store, b) {
-  var widgetId = store.widgets && store.widgets.pharmacyFirst;
-  var inner = widgetId
+  // widgetId injected at runtime by service.js from branches.json (data layer).
+  // Contraception pages get the branch's `contraception` widget automatically
+  // (service.js falls back to pharmacyFirst only if it is missing).
+  var hasWidgets = store.widgets && (store.widgets.contraception || store.widgets.pharmacyFirst);
+  var inner = hasWidgets
     ? '<div class="booking-widget">\n' +
       '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
       '            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>\n' +
-      '            <script type="text/javascript">\n' +
-      '              Appointedd.renderWidget("rbhsv-booking", { widgetId: "' + widgetId + '", enableLanguageSelector: false });\n' +
-      '            </script>\n' +
+      '            <!-- widget rendered by service.js from branches.json - do not hard-code a widgetId -->\n' +
       '          </div>'
     : '<div class="booking-placeholder">\n' +
       '            <strong>Book your free NHS appointment</strong>\n' +
