@@ -312,9 +312,93 @@
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // Booking widget from the data layer (branches.json), NOT the page.
+  //
+  // Generated pages used to hard-code an Appointedd widgetId per page; six of
+  // those IDs were wrong (verified 2026-07-17), sending bookings into the wrong
+  // branch's diary. The data layer is now the single source of truth: this reads
+  // the widget ID from branches.json (CDN @main) for the page's branch + service
+  // and re-renders the widget if the page rendered a different one. A wrong ID
+  // is now fixed in ONE place (branches.json) and propagates everywhere.
+  //
+  // Branch + service are derived from the page URL, which the generator builds
+  // as [service-slug]-[brandSlug]-[townSlug].html from the same branches.json,
+  // so the mapping is exact. Unknown URLs (e.g. old non-generator slugs) match
+  // no branch and are left untouched. Condition pages fall back to the branch's
+  // pharmacyFirst widget when it has no condition-specific widget (all branches
+  // except Cherry Lane today).
+  // ---------------------------------------------------------------------------
+  var BRANCHES_JSON_URL = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/branches.json";
+  var APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
+  var SERVICE_WIDGET_KEYS = {
+    "pharmacy-first": "pharmacyFirst",
+    "uti-treatment": "uti",
+    "sore-throat-treatment": "soreThroat",
+    "sinusitis-treatment": "sinusitis",
+    "earache-treatment": "earache",
+    "impetigo-treatment": "impetigo",
+    "shingles-treatment": "shingles",
+    "insect-bite-treatment": "insectBite",
+    "contraception": "contraception"
+  };
+
+  function renderBookingWidget(mount, widgetId) {
+    function doRender() {
+      try {
+        mount.innerHTML = "";
+        window.Appointedd.renderWidget("rbhsv-booking", {
+          widgetId: widgetId,
+          enableLanguageSelector: false
+        });
+      } catch (e) { /* leave whatever the page rendered */ }
+    }
+    if (window.Appointedd && window.Appointedd.renderWidget) { doRender(); return; }
+    var s = document.createElement("script");
+    s.src = APPOINTEDD_SDK;
+    s.onload = doRender;
+    document.head.appendChild(s);
+  }
+
+  function injectBookingWidget() {
+    var mount = byId("rbhsv-booking");
+    if (!mount) return;
+
+    var m = location.pathname.match(
+      /^\/(pharmacy-first|uti-treatment|sore-throat-treatment|sinusitis-treatment|earache-treatment|impetigo-treatment|shingles-treatment|insect-bite-treatment|contraception)-([a-z0-9-]+?)(?:\.html?)?\/?$/
+    );
+    if (!m) return;
+    var serviceKey = SERVICE_WIDGET_KEYS[m[1]];
+    var brandTown = m[2];
+
+    fetch(BRANCHES_JSON_URL)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data.branches) return;
+        var branch = null;
+        for (var i = 0; i < data.branches.length; i++) {
+          var b = data.branches[i];
+          if (b.brandSlug && b.townSlug && b.brandSlug + "-" + b.townSlug === brandTown) {
+            branch = b;
+            break;
+          }
+        }
+        if (!branch || !branch.widgets) return;
+        var wanted = branch.widgets[serviceKey] || branch.widgets.pharmacyFirst;
+        if (!wanted) return;
+
+        // Already showing the right widget (page hard-coded it correctly)? Leave it.
+        var iframe = mount.querySelector("iframe");
+        if (iframe && (iframe.src || "").indexOf(wanted) !== -1) return;
+        renderBookingWidget(mount, wanted);
+      })
+      .catch(function () { /* network failure: keep the page's own widget */ });
+  }
+
   function boot() {
     init();
     try { injectPFExtras(); } catch (e) { /* never block the form on a banner error */ }
+    try { injectBookingWidget(); } catch (e) { /* never break the page on widget errors */ }
   }
 
   if (document.readyState === "loading") {

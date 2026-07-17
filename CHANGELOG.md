@@ -10,6 +10,15 @@ commit listed under "Revert".
 
 ---
 
+### 2026-07-17 — service.js: booking widget now injected from branches.json (data layer), overriding hard-coded page IDs
+- **Surface:** GitHub `main` AND branch `service-module-phase1` (live service pages load service.js from the CDN @service-module-phase1, so this change goes LIVE on every deployed service page at CDN purge)
+- **What:** Added `injectBookingWidget()` to `modules/service/service.js`. On every service page it derives branch + service from the URL (`[service]-[brandSlug]-[townSlug].html`), fetches branches.json @main from the CDN, and if the page's rendered Appointedd widget differs from the data layer's ID for that branch+service, re-renders the widget with the correct ID (loading the SDK itself if the page lacks it). Condition pages use the branch's condition-specific widget when present (Cherry Lane only today), falling back to `pharmacyFirst`. Pages already showing the correct widget are left untouched; unknown URLs / fetch failures leave the page as-is.
+- **Why:** six live branches were booking into the WRONG diary (McCanns both → Cherry Lane Blood Pressure; SK → Cherry Lane Medical Cannabis; Gordon Short → Cherry Lane FLU; Scorah Hazel → Bramhall; Fishlocks Eccleston → Ainsdale). With this change plus the corrected branches.json, a wrong ID is fixed once in the data layer and propagates to every page.
+- **Limit:** Gordon Short and Coleman & Leigh live pages pin the CDN at commit `@76221ba` (immutable), so this fix cannot reach them via the CDN — their Weebly embeds must be repasted. Coleman's widget was already correct; GORDON SHORT REMAINS BROKEN LIVE until its Weebly page is updated.
+- **Verified:** locally served copies of the live McCanns Aigburth PF page (hard-coded Cherry Lane BP ID) and Cherry Lane UTI page against the new service.js — McCanns re-rendered to its correct PF widget, Cherry Lane UTI upgraded to its UTI-specific widget.
+- **Revert:** `git revert` the commit on main and force `service-module-phase1` back to `a97c2c3`.
+- **By:** Claude Code
+
 ### 2026-07-17 — Widget correction patch: fix 6 wrong pharmacyFirst IDs, add bloodPressure + contraception IDs (all 14 branches)
 - **Surface:** GitHub `main` (branches.json only — live pages hard-code their widget IDs, so nothing changes live until service.js injects from the data layer)
 - **What:** Applied WIDGET_CORRECTION_PATCH (source: Dane's "Website - Service Widget Library" sheet, 3 Jul 2026) to the `widgets` object of all 14 trading branches: corrected 6 wrong `pharmacyFirst` IDs, added `bloodPressure` + `contraception` for all 14, added Cherry Lane's 7 condition-specific widgets.
