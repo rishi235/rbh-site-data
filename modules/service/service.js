@@ -340,8 +340,15 @@
     "impetigo-treatment": "impetigo",
     "shingles-treatment": "shingles",
     "insect-bite-treatment": "insectBite",
-    "contraception": "contraception"
+    "contraception": "contraception",
+    "weight-loss-clinic": "weightLoss",
+    "travel-clinic": "travelClinic"
   };
+  // Weight Loss and Travel Clinic are distinct paid services with their own Appointedd
+  // diaries — falling back to the branch's Pharmacy First widget here would book a
+  // customer into the wrong clinic/service, so (unlike the NHS condition pages) these
+  // two never fall back.
+  var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true };
 
   function renderBookingWidget(mount, widgetId) {
     function doRender() {
@@ -365,7 +372,7 @@
     if (!mount) return;
 
     var m = location.pathname.match(
-      /^\/(pharmacy-first|uti-treatment|sore-throat-treatment|sinusitis-treatment|earache-treatment|impetigo-treatment|shingles-treatment|insect-bite-treatment|contraception)-([a-z0-9-]+?)(?:\.html?)?\/?$/
+      /^\/(pharmacy-first|uti-treatment|sore-throat-treatment|sinusitis-treatment|earache-treatment|impetigo-treatment|shingles-treatment|insect-bite-treatment|contraception|weight-loss-clinic|travel-clinic)-([a-z0-9-]+?)(?:\.html?)?\/?$/
     );
     if (!m) return;
     var serviceKey = SERVICE_WIDGET_KEYS[m[1]];
@@ -384,7 +391,8 @@
           }
         }
         if (!branch || !branch.widgets) return;
-        var wanted = branch.widgets[serviceKey] || branch.widgets.pharmacyFirst;
+        var wanted = branch.widgets[serviceKey];
+        if (!wanted && !NO_FALLBACK_SERVICE_KEYS[serviceKey]) wanted = branch.widgets.pharmacyFirst;
         if (!wanted) return;
 
         // Already showing the right widget (page hard-coded it correctly)? Leave it.
