@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-20T06:09:48Z",
+  "generated_at": "2026-07-21T06:09:42Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 24,
-    "overdue": 15,
-    "due_next_7_days": 1,
+    "overdue": 16,
+    "due_next_7_days": 0,
     "no_due_date": 2
   },
   "tasks": [
@@ -158,7 +158,7 @@
       "gid": "1214137297345240",
       "name": "Quarterly - Full Founder Context Master review with Claude",
       "due_on": "2026-07-20",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
