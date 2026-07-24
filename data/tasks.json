@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-23T06:10:35Z",
+  "generated_at": "2026-07-24T06:09:46Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 24,
     "overdue": 16,
-    "due_next_7_days": 0,
+    "due_next_7_days": 3,
     "no_due_date": 2
   },
   "tasks": [
