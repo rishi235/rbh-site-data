@@ -14,6 +14,45 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 - Item 2.2: Fishlocks shared-domain split (hourly agent run)
+Answers check: no "Portal feedback" / "AUDIT ANSWER" emails in Outlook.
+Q2, Q3 and Q4 remain open on the portal answer form.
+
+Built the branch landing pages that give Ainsdale and Eccleston their own
+local target page on the shared fishlockpharmacy.co.uk domain (Master Plan
+v2 section 3: a shared domain cannot rank twice for the same term, so each
+branch leans on its own GBP listing plus a branch-specific landing page).
+
+What was built:
+- New generator tools/build-branch-landing-pages.js, same model as the other
+  generators: layout once, pages stamped from branches.json. BUILD list holds
+  fishlocks_ainsdale and fishlocks_eccleston now; add McCanns and Scorah ids
+  when their turn comes in the brand-by-brand rollout.
+- Output modules/branch/pages/: pharmacy-fishlocks-ainsdale.html and
+  pharmacy-fishlocks-eccleston.html plus INDEX.md and SEO.md. Slug pattern
+  pharmacy-<brandSlug>-<townSlug>.html, titles "Pharmacy in <seoTown>,
+  <region> - <brandLabel>" targeting the generic "pharmacy in <town>" terms.
+- Each page: hero with town words, opening hours (from the NHS-confirmed
+  block in branches.json), services grid linking the branch's own PF, switch,
+  weight loss, travel and contraception pages, sister-branch cross-link to
+  disambiguate the shared domain, FAQ, NAP card with Google and NHS review
+  links, map embed. Static crawlable text; loads service.css only, no JS and
+  no booking widget, so nothing to resolve at runtime.
+- JSON-LD carries openingHoursSpecification and areaServed - the first pages
+  to do so (the 2.1 audit deferred hours schema on the 171 existing pages to
+  Phase 3; new pages get it from day one).
+- tools/check-nap.js now scans modules/branch/pages too. Verified: 173 pages,
+  0 mismatches, exit 0.
+Notes: weight loss copy names no medicines and makes no claims; Pharmacy
+First wording stays on the NHS service description. Weebly cannot 301, so
+the old shared pages stay live with their "Choose your branch" links; what
+finally happens to them rides on Q3. Pages reach Weebly by paste (Rishi or
+Dane) per INDEX.md; suggest navigation entries "Ainsdale branch" and
+"Eccleston branch".
+Files changed: tools/build-branch-landing-pages.js (new), tools/check-nap.js,
+modules/branch/pages/* (new), AGENT_WORKLIST.md (2.2 ticked), this log.
+Commit: see git.
+
 ## 2026-08-04 - Items 4.2 and 4.3: Cherry Lane and Hirshmans GBP packs
 Run by Claude in the Cowork session, continuing Phase 4 while logins are
 sorted. gbp-packs/cherry-lane-walton.md and gbp-packs/hirshmans-ainsdale.md

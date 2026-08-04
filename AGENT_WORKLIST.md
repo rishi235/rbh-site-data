@@ -32,8 +32,14 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       AGENT_LOG.md (JSON-LD opening hours deferred to Phase 3 regeneration,
       old shared PF page still the one ranking, CDN pin note). In-repo fix:
       stale pfLink corrected for both Fishlocks branches.
-- [ ] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
-      Ainsdale and Eccleston each have their own local target page.
+- [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
+      Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
+      New tools/build-branch-landing-pages.js generates modules/branch/pages/
+      pharmacy-fishlocks-ainsdale.html and pharmacy-fishlocks-eccleston.html
+      from branches.json (NAP, opening hours, service links, sister-branch
+      cross-link, hours schema in JSON-LD). check-nap extended to cover the
+      new folder; 173 pages, 0 mismatches. Weebly paste by Rishi or Dane per
+      modules/branch/pages/INDEX.md and SEO.md.
 - [ ] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO.
 

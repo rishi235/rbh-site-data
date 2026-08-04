@@ -13,7 +13,8 @@
     - contact card address line "street, locality, postcode"
     - every tel: link and visible phone number
     - Google Maps embed query
-  Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html
+  Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
+  modules/branch/pages/*.html
 */
 "use strict";
 const fs = require("fs");
@@ -26,6 +27,7 @@ const branches = data.branches;
 const PAGE_DIRS = [
   path.join(ROOT, "modules", "service", "pages"),
   path.join(ROOT, "modules", "switch", "pages"),
+  path.join(ROOT, "modules", "branch", "pages"),
 ];
 
 const digits = (s) => String(s || "").replace(/\D/g, "");
