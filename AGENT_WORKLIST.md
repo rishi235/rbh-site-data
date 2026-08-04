@@ -40,8 +40,16 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       cross-link, hours schema in JSON-LD). check-nap extended to cover the
       new folder; 173 pages, 0 mismatches. Weebly paste by Rishi or Dane per
       modules/branch/pages/INDEX.md and SEO.md.
-- [ ] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
-      (services, Pharmacy First, switch, weight loss, travel) with local SEO.
+- [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
+      (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
+      Verified: full 12-page set exists in repo AND is live on
+      cherrylanepharmacy.co.uk with all pages in the site navigation. Titles,
+      H1s and meta carry Walton per SEO.md; widgets fully populated in
+      branches.json; no POM names in new pages; check-nap clean. In-repo fix:
+      stale pfLink corrected to the new overview page. Gaps logged: live PF
+      overview embed is a stale paste (shows five conditions as coming soon
+      although all seven pages are live) - needs a repaste; old weight loss
+      page still live with POM names and efficacy claims - new Q5.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

@@ -58,5 +58,20 @@
     "status": "open",
     "answer": null,
     "note": "Found 2026-08-04 while in the GBP manager. Needs Rishi logged into GBP on the Cowork PC before any of it can be pasted. The other 15 descriptions have not been checked yet - the audit of those can be drafted without GBP access if answered yes."
+  },
+  {
+    "id": "Q5",
+    "date": "2026-08-04",
+    "item": "2.3",
+    "question": "The old Cherry Lane weight loss page (weight-loss-clinic-walton.html) is still live and still in the main navigation alongside the new compliant page. It names Wegovy, Mounjaro and Orlistat with product images, claims 'lose up to 22.5% of your body weight', and its contact details and prices render blank. Advertising POMs to the public is not permitted, so this is the same exposure class as Q4 but on the public website. The old Pharmacy First page (pharmacy-first-service-walton.html, still the target Google ranks) now renders empty. Both need Weebly access to change. What should happen to the two old pages?",
+    "options": [
+      "Delete both old pages and repoint navigation to the new pages - removes the POM exposure immediately, accepts losing whatever rank the old URLs hold until Google picks up the new ones",
+      "Strip the POM content from the old weight loss page and keep both URLs live pointing visitors at the new pages - keeps the rank, removes the exposure, needs a hand edit per page",
+      "Leave both as they are until the wider Q3 go-live decision - accepts the POM exposure staying public in the meantime"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "The new compliant weight loss and Pharmacy First pages are already live at the cherry-lane-walton slugs. Navigation currently shows two Weight Loss Clinic entries, old and new. Weebly cannot 301 redirect, which is why option 1 costs the old URLs' rank."
   }
 ]

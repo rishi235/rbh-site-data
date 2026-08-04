@@ -6,13 +6,72 @@ Format: date, time, item worked, what changed, commit hash, open questions.
 Open: Q2 (Wilmslow web presence), Q3 (how tonight's fixes go live: merge to
 main first or pin to branch commit), Q4 (rewrite the 16 GBP descriptions -
 McCanns Sandringham currently carries Hirshmans text naming two POM weight
-loss medicines). All in QUESTIONS.json and on the portal answer form.
+loss medicines), Q5 (old Cherry Lane weight loss page still live naming
+Wegovy, Mounjaro and Orlistat with an efficacy claim - strip, delete or
+leave). All in QUESTIONS.json and on the portal answer form.
 
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-04 (evening) - Item 2.3: Cherry Lane build-from-near-zero (hourly agent run)
+Lock note: found .agent-lock aged 3h 0m at start of run - 4 seconds past the
+staleness threshold, treated as stale per procedure and replaced.
+Answers check: no "Portal feedback" / "AUDIT ANSWER" emails in Outlook.
+Q2, Q3 and Q4 remain open.
+
+The "build" turned out to be a verification job: the full Cherry Lane page
+set already exists in the repo AND is already live on cherrylanepharmacy.co.uk.
+Audit scope: all 12 repo pages for cherrylane_liverpool (11 service module
+pages, 1 switch page, plus banner) against Build Pack v2 Blocks 1 and 5, and
+live checks on the domain.
+
+PASSES:
+- Page set complete in repo: PF overview + 7 condition pages + contraception
+  + weight loss clinic + travel clinic + switch. All 12 live at the
+  cherry-lane-walton slugs and all present in the live site navigation.
+- H1s and SEO.md titles/descriptions all carry service + Walton (seoTown
+  correctly used, not the postal town Liverpool). Meta keywords include L4.
+- NAP clean (check-nap re-run: 173 pages, 0 mismatches). Phones in tel:
+  links. No template bleed from other branches. No personal rishi@ address.
+- No hard-coded widget IDs; widgets resolve from branches.json, and Cherry
+  Lane is the best-populated branch in the file - all 12 service widget IDs
+  present including per-condition ones.
+- New live weight loss page is compliant: no medicine names, no efficacy
+  claims, private-service framing, eligibility and safety caveats present.
+- Live PF overview and weight loss pages carry correct NAP, hours matching
+  branches.json (NHS-confirmed 2026-06-24), Google review link, map embed.
+
+IN-REPO FIX APPLIED:
+- branches.json pfLink for cherrylane_liverpool pointed at the OLD page
+  (pharmacy-first-service-walton.html), which now renders empty. Corrected
+  to the live overview page (pharmacy-first-cherry-lane-walton.html). Same
+  class of fix as the Fishlocks pfLink correction in 2.1. No generator
+  consumes pfLink, so no regeneration needed; check-nap re-run clean.
+
+GAPS (outside agent reach, logged for action):
+1. The LIVE PF overview embed is a stale paste: it shows five of the seven
+   conditions as "Page coming soon" although all seven condition pages are
+   live and in the navigation. The repo version links all seven. Needs a
+   repaste of pharmacy-first-cherry-lane-walton.html by Rishi or Dane (the
+   toolbar paste route proven in the 4.1 session works). Rides on Q3 for
+   whether to paste from branch or main.
+2. REGULATORY: the old weight loss page (weight-loss-clinic-walton.html) is
+   still live, still first in the navigation, names Wegovy, Mounjaro and
+   Orlistat with product images, claims "lose up to 22.5% of your body
+   weight", and its phone/price/hours fields render blank. POM advertising
+   exposure on the public site, same class as Q4. Raised as Q5 with options
+   and a recommendation (strip the POM content, keep the URL).
+3. Navigation shows TWO weight loss entries (old and new) - confusing and
+   splits clicks. Resolution folds into the Q5 answer.
+4. Coleman and Leighs pfLink in branches.json also points at an old-style
+   pharmacy-first-service-walton.html URL on their domain - not checked this
+   run (out of scope), flag for the 3.9 Coleman and Leighs run.
+Files changed: branches.json (pfLink), QUESTIONS.json (Q5 added),
+AGENT_WORKLIST.md (2.3 ticked), this log.
+Commit: see git.
 
 ## 2026-08-04 - Item 2.2: Fishlocks shared-domain split (hourly agent run)
 Answers check: no "Portal feedback" / "AUDIT ANSWER" emails in Outlook.
