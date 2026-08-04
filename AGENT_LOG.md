@@ -3,8 +3,9 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-- None open.
-- ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
+(none open)
+
+ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
@@ -26,6 +27,48 @@ address updated to 61-63 North Park Road (branches.json already correct, page
 was stale).
 Reminder: live Weebly copy for Coleman and Leighs still mixes four name
 variants and needs the CDN embeds repasted before the corrected pages go live.
+
+## 2026-08-04 - Item 1.4: NAP check, every branch page vs branches.json
+Answers check: no "AGENT ANSWER" emails in the last 7 days. The item 1.1
+Coleman naming question was answered directly by Rishi in a Cowork session
+that ran alongside this run (entry above); nothing further to apply here.
+Built tools/check-nap.js, a read-only checker that verifies every generated
+page (modules/service/pages and modules/switch/pages, 171 pages) against
+branches.json: data-branch attribute, contact card address line, Google
+Maps embed query, every tel: link and visible phone number, and the full
+JSON-LD block (name, telephone, street, locality, postcode, region,
+country). Names accept either brandLabel or the town-qualified branchName.
+Findings and fixes:
+- Scorah Bramhall switch page carried the pre-normalisation address
+  "61 North Park Road" in the contact line, maps embed and JSON-LD.
+  branches.json was normalised to "61-63 North Park Road" on 27 June
+  (schemaNote) after the switch pages were last generated. Fixed by
+  regeneration. The eleven Scorah Bramhall service pages were already
+  correct.
+- switch-prescriptions-wilmslow-wilmslow.html (plus its banner) still
+  existed for the disposed Wilmslow branch. build-switch-pages.js had no
+  disposed handling; added a skip that also removes stale output for
+  disposed branches, and regenerated. Page and banner deleted.
+- Everything else clean: all 14 trading branches' service pages and the
+  remaining switch pages match branches.json exactly on name, address
+  and phone. Final checker run: 171 pages, 0 mismatches.
+Timing note: this run and Rishi's Cowork session worked the repo at the
+same time (the .agent-lock only guards hourly runs against each other).
+This run made the generator disposed-skip fix and first regenerated the
+switch pages; the Cowork session's rename commit 497fcb0 then swept those
+fixes in with its own regeneration, which is why its message credits them
+as "catch-ups". No harm done - same source data, same generators, and the
+worklist item is complete either way. Committed by this run: tools/
+check-nap.js (new checker), the item 1.4 worklist tick, this log entry and
+the rebuilt status page. Final state verified after both sessions' changes:
+checker clean, 171 pages, 0 mismatches.
+Action note for Rishi or Dane (not a blocker): repaste the Scorah Bramhall
+switch page embed into Weebly so the 61-63 address fix goes live. And if
+the old wilmslow-pharmacy.co.uk switch page is still live anywhere, take
+it down - RBH should not be inviting prescription switches to a branch it
+no longer owns.
+
+---
 
 ## 2026-08-04 - Item 1.3: McCanns Sandringham postcode sweep (CH49 1SX)
 Answers check: no "AGENT ANSWER" emails in the last 7 days. Coleman & Leigh

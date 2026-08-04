@@ -16,8 +16,12 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
 - UK English. No em dashes. No emojis. Plain English.
 
 ## Phase 1 - Data accuracy (quick wins)
-- [ ] 1.4 Check every branch page's NAP (name, address, phone) against
-      branches.json; fix mismatches at source and regenerate.
+- [x] 1.4 Check every branch page's NAP (name, address, phone) against
+      branches.json; fix mismatches at source and regenerate. Done 2026-08-04.
+      New tools/check-nap.js verifies all 171 generated pages; Scorah
+      Bramhall switch page address corrected (61-63 North Park Road),
+      disposed Wilmslow switch page removed, generator now skips
+      disposed branches. Checker passes clean.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [ ] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
