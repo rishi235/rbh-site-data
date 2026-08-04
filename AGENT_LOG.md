@@ -112,6 +112,20 @@ Files changed: tools/build-branch-landing-pages.js (new), tools/check-nap.js,
 modules/branch/pages/* (new), AGENT_WORKLIST.md (2.2 ticked), this log.
 Commit: see git.
 
+## 2026-08-04 (evening) - GBP McCanns Sandringham fixed; Coleman pastes still blocked
+Cowork session update. Rishi said "go": GBP was reachable on the Cowork PC,
+so the McCanns Sandringham management record is FIXED - address now 1B
+Aigburth Road, Aigburth, Liverpool L17 4JP (was Dingle / CH49 1SX), and the
+Hirshmans copy-paste description replaced with McCanns text naming no
+medicines (pending Google's standard review). Logged in the cowork CHANGELOG.
+The Build Pack 4.2 action note on the CH49 1SX error can be considered
+closed once the description clears review.
+The Coleman re-paste run remains BLOCKED: the Cowork PC Chrome still holds
+the rbhealth Weebly session, not rishi@rishibhatia.co.uk. Runbook is staged
+(cowork\COLEMAN_REPASTE_RUNBOOK.md); it runs the moment that login lands.
+Hirshmans contact-us cosmetic fix (postcode missing) attempted but the
+editor viewport went unstable - no changes made, still queued.
+
 ## 2026-08-04 - Items 4.2 and 4.3: Cherry Lane and Hirshmans GBP packs
 Run by Claude in the Cowork session, continuing Phase 4 while logins are
 sorted. gbp-packs/cherry-lane-walton.md and gbp-packs/hirshmans-ainsdale.md
