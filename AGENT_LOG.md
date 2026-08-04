@@ -15,6 +15,26 @@ Format: date, time, item worked, what changed, commit hash, open questions.
 
 ---
 
+## 2026-08-04 - Item 1.2: Hirshmans address sweep
+Answers check: no "AGENT ANSWER" emails in the last 7 days. Coleman & Leigh
+question from item 1.1 remains open.
+Verified "56-62 Sherwood House, Station Road, Ainsdale" everywhere:
+- Repo: branches.json (line 688) correct, and git history shows it has been
+  correct since the initial seed. All 13 generated Hirshmans pages (11
+  service, 1 switch, 1 travel/weight loss set) carry the correct address in
+  the contact line, the Google Maps embed URL and the JSON-LD schema
+  streetAddress. tools/branches-editor.html snapshot correct. Swept for
+  wrong variants (missing "Sherwood House", 56/62, 56 - 62, en dash,
+  "62 Station Road", "56 Station") - zero hits. Every "PR8 3HW" occurrence
+  sits alongside the correct street address.
+- Live site (checked 2026-08-04): homepage footer contact block, sitewide
+  CDN footer bar and contact-us page all correct.
+No repo changes needed. Commit this run: worklist/log/status page only.
+Note for Rishi or Dane (not a blocker): on the live contact-us page the
+left-hand address block wraps "Station Road" across a line break mid-word
+pair and omits the PR8 3HW postcode. Correct address, scruffy presentation.
+Hand edit in Weebly when convenient - outside what this agent can reach.
+
 ## 2026-08-04 - Item 1.1: Standardise brand-name spelling
 Established canonical forms from branches.json and the live sites:
 - Fishlocks Chemist: repo already consistent. "fishlock" (singular) remains
