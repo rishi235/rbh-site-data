@@ -11,6 +11,7 @@ const { execSync } = require('child_process');
 const REPO = 'C:/Dev/rbh-site-data';
 const WORKLIST = path.join(REPO, 'AGENT_WORKLIST.md');
 const LOGFILE = path.join(REPO, 'AGENT_LOG.md');
+const QFILE = path.join(REPO, 'QUESTIONS.json');
 const PORTAL = 'rishi235/rbh-data-portal';
 const DEST = 'reports/digital/Digital_Audit_Status.html';
 
@@ -60,12 +61,11 @@ for (const line of wlLines) {
   } else lastItem = null;
 }
 
-// ---------- questions and recent activity ----------
-const logTxt = fs.readFileSync(LOGFILE, 'utf8');
-const qm = logTxt.match(/## Questions for Rishi\r?\n([\s\S]*?)(?:\r?\n---|\r?\n## |$)/);
-let questions = qm ? qm[1].trim() : '';
-if (/^\(none/i.test(questions) || questions === '') questions = '';
-// Also collect GBP/manual action notes flagged in log entries.
+// ---------- questions (structured) and recent activity ----------
+let allQuestions = [];
+try { allQuestions = JSON.parse(fs.readFileSync(QFILE, 'utf8')); } catch (e) {}
+const openQs = allQuestions.filter(q => q.status === 'open');
+const answeredQs = allQuestions.filter(q => q.status === 'answered');
 let commits = [];
 try {
   commits = sh('git log agents/audit-backlog --date=format:"%d %b %H:%M" ' +
@@ -108,13 +108,64 @@ const phaseHtml = phases.map(p => {
     '<ul>' + rows + '</ul></section>';
 }).join('\n');
 
-const questionsHtml = questions
-  ? '<section class="bg-red-50 border border-red-200 rounded-xl p-5 mb-4">' +
-    '<h2 class="font-semibold text-red-900 mb-2">Questions waiting on Rishi</h2>' +
-    '<pre class="whitespace-pre-wrap text-sm text-red-900 font-sans">' + esc(questions) + '</pre></section>'
+function questionCard(q) {
+  const opts = q.options.map((o, i) => {
+    const rec = i === q.recommended;
+    return '<label class="flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition ' +
+      (rec ? 'border-amber-400 bg-amber-50' : 'border-gray-200 bg-white hover:bg-gray-50') + '">' +
+      '<input type="radio" name="' + esc(q.id) + '" value="' + esc(o) + '"' +
+      (rec ? ' checked' : '') + ' class="mt-1 accent-amber-600">' +
+      '<span class="text-sm text-gray-800">' + esc(o) +
+      (rec ? ' <span class="ml-1 text-xs font-semibold text-amber-700">Recommended</span>' : '') +
+      '</span></label>';
+  }).join('\n');
+  return '<div class="border border-gray-200 rounded-xl p-4 mb-3 bg-gray-50" data-qid="' + esc(q.id) + '">' +
+    '<p class="text-xs text-gray-500 mb-1">' + esc(q.date) + ' - worklist item ' + esc(q.item) + '</p>' +
+    '<p class="text-sm font-medium text-gray-900 mb-3">' + esc(q.question) + '</p>' +
+    '<div class="space-y-2">' + opts +
+    '<label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 bg-white cursor-pointer">' +
+    '<input type="radio" name="' + esc(q.id) + '" value="__other__" class="mt-1 accent-amber-600">' +
+    '<span class="text-sm text-gray-800 grow">Other:' +
+    '<input type="text" data-other-for="' + esc(q.id) + '" placeholder="Type your answer" ' +
+    'class="mt-1 w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm"></span></label></div>' +
+    (q.note ? '<p class="text-xs text-gray-500 mt-3">' + esc(q.note) + '</p>' : '') +
+    '<div class="flex items-center gap-3 mt-3">' +
+    '<button data-submit="' + esc(q.id) + '" class="bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gray-700">Send answer</button>' +
+    '<span class="text-xs text-gray-500" data-status-for="' + esc(q.id) + '"></span></div></div>';
+}
+const answeredHtml = answeredQs.length
+  ? '<details class="mt-2"><summary class="text-xs text-gray-500 cursor-pointer">Answered questions (' +
+    answeredQs.length + ')</summary>' + answeredQs.map(q =>
+      '<p class="text-xs text-gray-500 mt-2"><span class="font-semibold">' + esc(q.id) + '</span> ' +
+      esc(q.question.slice(0, 120)) + ' <span class="text-green-700 font-semibold">Answered:</span> ' +
+      esc(q.answer || '') + '</p>').join('') + '</details>'
+  : '';
+const questionsHtml = openQs.length
+  ? '<section class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 border-red-400">' +
+    '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi (' + openQs.length + ')</h2>' +
+    '<p class="text-xs text-gray-500 mb-3">Pick an answer and press Send. The agents pick it up on their next hourly run.</p>' +
+    openQs.map(questionCard).join('\n') + answeredHtml + '</section>'
   : '<section class="bg-white rounded-xl shadow-sm p-5 mb-4">' +
     '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi</h2>' +
-    '<p class="text-sm text-gray-500">None at the moment.</p></section>';
+    '<p class="text-sm text-gray-500">None at the moment.</p>' + answeredHtml + '</section>';
+const answerScript = '<script>' +
+  'document.querySelectorAll("[data-submit]").forEach(function(btn){' +
+  'btn.addEventListener("click", async function(){' +
+  'var qid = btn.getAttribute("data-submit");' +
+  'var sel = document.querySelector("input[name=\\"" + qid + "\\"]:checked");' +
+  'var status = document.querySelector("[data-status-for=\\"" + qid + "\\"]");' +
+  'var val = sel ? sel.value : "";' +
+  'if (val === "__other__") { val = (document.querySelector("[data-other-for=\\"" + qid + "\\"]").value || "").trim(); }' +
+  'if (!val) { status.textContent = "Pick an option or type an answer first."; return; }' +
+  'btn.disabled = true; status.textContent = "Sending...";' +
+  'try {' +
+  'var r = await fetch("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" },' +
+  'body: JSON.stringify({ type: "Feedback", area: "Audit answer " + qid, message: "AUDIT ANSWER " + qid + " | " + val }) });' +
+  'if (r.ok) { status.textContent = "Answer sent. The agents will apply it within the hour."; }' +
+  'else { status.textContent = "Send failed (" + r.status + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
+  '} catch (e) { status.textContent = "Send failed. Try again or answer in Claude chat."; btn.disabled = false; }' +
+  '});});' +
+  '</scr' + 'ipt>';
 const commitsHtml = commits.length
   ? commits.map(c => '<li class="py-1.5 border-b border-gray-100 last:border-0 text-sm">' +
       '<span class="text-gray-400 mr-2">' + esc(c.when) + '</span>' +
@@ -149,7 +200,7 @@ const html = '<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8">' +
   '<h2 class="font-semibold mb-2">Recent agent activity</h2><ul>' + commitsHtml + '</ul>' +
   '<p class="text-xs text-gray-400 mt-3">Review and merge: github.com/rishi235/rbh-site-data, branch agents/audit-backlog. ' +
   'Full detail in AGENT_LOG.md on that branch.</p></section>' +
-  '</div></body></html>';
+  '</div>' + answerScript + '</body></html>';
 
 // ---------- publish to the portal via GitHub API ----------
 const b64 = Buffer.from(html, 'utf8').toString('base64');

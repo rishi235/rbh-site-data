@@ -1,0 +1,17 @@
+[
+  {
+    "id": "Q1",
+    "date": "2026-08-04",
+    "item": "1.1",
+    "question": "Coleman & Leigh vs Leighs: which is the correct trading name? The repo uses 'Coleman & Leigh Pharmacy' consistently, but the domain is colemanandleighspharmacy.co.uk, the NHS profile slug is coleman-and-leighs-pharmacy, and the live Weebly site mixes four spellings.",
+    "options": [
+      "Coleman & Leighs Pharmacy - matches the domain and NHS profile",
+      "Coleman & Leigh Pharmacy - keep the repo as it is",
+      "Leighs Pharmacy - short form everywhere"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Whatever the answer, the live Weebly copy needs a hand tidy-up afterwards - outside agent reach. Repo left on 'Coleman & Leigh Pharmacy' pending the decision."
+  }
+]
