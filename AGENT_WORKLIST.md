@@ -24,8 +24,14 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       disposed branches. Checker passes clean.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
-- [ ] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
-      list gaps in AGENT_LOG.md, then fix what can be fixed in-repo.
+- [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
+      list gaps in AGENT_LOG.md, then fix what can be fixed in-repo. Done 2026-08-04.
+      Full audit of all 13 repo pages plus the live site: page set complete and
+      live, titles/H1s carry town + service, NAP and tel: links clean, widgets
+      data-driven, helpdesk email destinations correct. Gaps logged in
+      AGENT_LOG.md (JSON-LD opening hours deferred to Phase 3 regeneration,
+      old shared PF page still the one ranking, CDN pin note). In-repo fix:
+      stale pfLink corrected for both Fishlocks branches.
 - [ ] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page.
 - [ ] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set

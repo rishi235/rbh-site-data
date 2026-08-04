@@ -3,13 +3,76 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-(none open)
+Open: Q2 (Wilmslow web presence after the 1 June disposal) - see QUESTIONS.json
+and the portal status page answer form.
 
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-04 - Item 2.1: Fishlocks Ainsdale audit vs Build Pack v2
+Answers check: no "Portal feedback" / "AUDIT ANSWER" emails found. Q1 was
+answered by Rishi directly in a Cowork session (see entry below), so this run
+recorded that answer into QUESTIONS.json (status now "answered") to keep the
+portal honest. Q2 (Wilmslow) remains open.
+
+Audit scope: all 13 repo pages for fishlocks_ainsdale (11 service module
+pages, 1 switch page, 1 switch banner) checked against Build Pack v2 Blocks
+1 and 5, plus live-site spot checks on fishlockpharmacy.co.uk.
+
+PASSES (no action needed):
+- Page set complete: PF overview + all 7 condition pages + contraception +
+  weight loss clinic + travel clinic + switch. All live on the domain and
+  linked in the site navigation. Live overview page matches repo output.
+- Titles, meta descriptions and H1s all carry service + Ainsdale (Block 1.4
+  already satisfied for the module pages; Phase 3 remains for legacy pages).
+- NAP clean (check-nap: 171 pages, 0 mismatches, re-run this session). Every
+  phone number is in a tel: link. No template copy bleed from other branches.
+- No hard-coded Appointedd widget IDs; service.js resolves widgets from
+  branches.json@main by URL slug, with correct no-fallback handling for
+  weight loss and travel clinic. Ainsdale widgets fully populated in
+  branches.json (pharmacyFirst, weightLoss, travelClinic, contraception,
+  bloodPressure).
+- Enquiry/callback destination is helpdesk@rbhealth.co.uk in BOTH the
+  service and switch modules (Build Pack 5.6 done). No rishi@ anywhere.
+- Content is real crawlable text; opening hours on the live contact blocks
+  match branches.json (NHS-confirmed 2026-06-24).
+
+GAPS (logged, with disposition):
+1. JSON-LD has no openingHoursSpecification, though branches.json carries
+   confirmed hours. All five generators duplicate their own pharmacySchema()
+   block, and live embeds are static HTML, so fixing now would regenerate
+   171 pages and demand a full Weebly repaste for a nice-to-have. DEFERRED:
+   fold into Phase 3 item 3.1 (pattern definition) so every page is
+   regenerated and repasted once, not twice. Same for adding "geo".
+2. Google still ranks the OLD shared PF page
+   (pharmacy-first-service-eccleston-ainsdale.html); the new per-branch
+   pages are live but not yet the ranking targets. The old page does now
+   carry "Choose your branch" links to both overviews. The proper split
+   (and what to do with the old shared pages - Weebly cannot 301) is item
+   2.2, next in the worklist.
+3. CDN pin drift risk: service pages load module CSS/JS pinned to
+   @service-module-phase1 and switch pages to commit @6a275e1, while
+   service.js fetches branches.json from @main. Pins are currently in sync
+   with main (verified: only DRAFT files differ), and commit pins are
+   arguably deliberate (jsDelivr caches immutably). No change made; when
+   embeds are next repasted (Phase 3), standardise the module refs.
+4. branches.json pfLink for both Fishlocks branches pointed at the old
+   shared PF page. FIXED this run: Ainsdale ->
+   pharmacy-first-fishlocks-ainsdale.html, Eccleston ->
+   pharmacy-first-fishlocks-eccleston.html (both verified live), in
+   branches.json and the branches-editor.html snapshot. pfLink is not
+   consumed by generators, so no regeneration needed.
+5. Cosmetic, Weebly-side (hand fixes, not blockers): og:image is the blank
+   Weebly placeholder sitewide; the legacy footer on the old PF page spells
+   the brand "Fishlock Pharmacy" while the CDN footer says "Fishlocks
+   Chemist" - the Q1-style naming question does not arise here (branches.json
+   brandLabel "Fishlocks Chemist" matches the NHS profile).
+
+Files changed: branches.json, tools/branches-editor.html, QUESTIONS.json,
+AGENT_WORKLIST.md (2.1 ticked), this log, status page. Commit: see git.
 
 ## 2026-08-04 - Coleman and Leighs rename (answer to item 1.1 question)
 Run by Claude in the Cowork session, not the hourly agent. Rishi confirmed

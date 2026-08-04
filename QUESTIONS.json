@@ -10,9 +10,9 @@
       "Leighs Pharmacy - short form everywhere"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Whatever the answer, the live Weebly copy needs a hand tidy-up afterwards - outside agent reach. Repo left on 'Coleman & Leigh Pharmacy' pending the decision."
+    "status": "answered",
+    "answer": "Coleman and Leighs Pharmacy ('and' spelled out, Leighs with s, no apostrophe). Answered by Rishi directly in a Cowork session on 2026-08-04; repo renamed and regenerated the same day (commit 1ec8f7b and follow-ups). Recorded here 2026-08-04 by the audit worker so the portal stops showing this as open.",
+    "note": "Live Weebly copy for Coleman and Leighs still mixes four name variants and needs the CDN embeds repasted - hand tidy-up outside agent reach."
   },
   {
     "id": "Q2",
