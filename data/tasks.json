@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-03T06:11:13Z",
+  "generated_at": "2026-08-04T06:11:42Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 32,
-    "overdue": 19,
-    "due_next_7_days": 2,
+    "total": 33,
+    "overdue": 21,
+    "due_next_7_days": 1,
     "no_due_date": 8
   },
   "tasks": [
@@ -31,56 +31,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214137425104345"
     },
     {
-      "gid": "1214702406654082",
-      "name": "RB Health x Adele Curran - Ordering Compliance & Margin Analysis Meeting",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1214702406654082"
-    },
-    {
-      "gid": "1213369640834405",
-      "name": "Extend out Branches Budget  - look at description 1st",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1213369640834405"
-    },
-    {
-      "gid": "1213866662637735",
-      "name": "GEO: Reviews strategy — QR code cards for dispensing counters across estate",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866662637735"
-    },
-    {
-      "gid": "1213866418984106",
-      "name": "GEO: Collate branch data for hey-ai.js rollout (GPhC numbers, emails, dates)",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866418984106"
-    },
-    {
-      "gid": "1213866662587471",
-      "name": "GEO: Update branches.json and commission hey-ai.js module build",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866662587471"
-    },
-    {
       "gid": "1214159488367240",
       "name": "[RISHI + DANE] Decide on leaflet drop campaign for Eccleston, SK, possibly Riddings",
       "due_on": "2026-07-10",
@@ -89,44 +39,6 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1214159488367240"
-    },
-    {
-      "gid": "1214136817964486",
-      "name": "Call Chris Law - Amberbanks mortgage (10 months remaining)",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136817964486"
-    },
-    {
-      "gid": "1214136868225238",
-      "name": "Chase Townsend Lane planning update",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136868225238"
-    },
-    {
-      "gid": "1214136800189546",
-      "name": "Chase Chris Jaap - Hartington Road finder's fee",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136800189546"
-    },
-    {
-      "gid": "1214151808324250",
-      "name": "KEOS / Barton House - pursue £4,200 arrears",
-      "due_on": "2026-07-10",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1214151808324250"
     },
     {
       "gid": "1214136972182247",
@@ -139,12 +51,100 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136972182247"
     },
     {
+      "gid": "1214136817964486",
+      "name": "Call Chris Law - Amberbanks mortgage (10 months remaining)",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136817964486"
+    },
+    {
+      "gid": "1214136800189546",
+      "name": "Chase Chris Jaap - Hartington Road finder's fee",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136800189546"
+    },
+    {
+      "gid": "1214136868225238",
+      "name": "Chase Townsend Lane planning update",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136868225238"
+    },
+    {
       "gid": "1216411298609060",
       "name": "Consider updating your project progress",
       "due_on": "2026-07-10",
       "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1216411298609060"
+    },
+    {
+      "gid": "1213369640834405",
+      "name": "Extend out Branches Budget  - look at description 1st",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1213369640834405"
+    },
+    {
+      "gid": "1213866418984106",
+      "name": "GEO: Collate branch data for hey-ai.js rollout (GPhC numbers, emails, dates)",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866418984106"
+    },
+    {
+      "gid": "1213866662637735",
+      "name": "GEO: Reviews strategy — QR code cards for dispensing counters across estate",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866662637735"
+    },
+    {
+      "gid": "1213866662587471",
+      "name": "GEO: Update branches.json and commission hey-ai.js module build",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213866662587471"
+    },
+    {
+      "gid": "1214151808324250",
+      "name": "KEOS / Barton House - pursue £4,200 arrears",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1214151808324250"
+    },
+    {
+      "gid": "1214702406654082",
+      "name": "RB Health x Adele Curran - Ordering Compliance & Margin Analysis Meeting",
+      "due_on": "2026-07-10",
+      "overdue": true,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1214702406654082"
     },
     {
       "gid": "1216615868704967",
@@ -165,16 +165,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214137297345240"
     },
     {
-      "gid": "1213890713036788",
-      "name": "Build branch dashboard system - Looker Studio / Google Sheets",
-      "due_on": "2026-07-31",
-      "overdue": true,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213890713036788"
-    },
-    {
       "gid": "1214024499273467",
       "name": "Branch Display Screens: Explore ambient pharmacy dashboard concept",
       "due_on": "2026-07-31",
@@ -183,6 +173,16 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1214024499273467"
+    },
+    {
+      "gid": "1213890713036788",
+      "name": "Build branch dashboard system - Looker Studio / Google Sheets",
+      "due_on": "2026-07-31",
+      "overdue": true,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1213890713036788"
     },
     {
       "gid": "1214030423831928",
@@ -198,7 +198,7 @@
       "gid": "1217054151431497",
       "name": "Check the first locum feed run under the new branch-tab logic",
       "due_on": "2026-08-03",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
@@ -208,11 +208,21 @@
       "gid": "1217054151431433",
       "name": "Rotate exposed GitHub token and consolidate the two secrets folders",
       "due_on": "2026-08-03",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217054151431433"
+    },
+    {
+      "gid": "1217113772351270",
+      "name": "Sort out private services price sheet (Google Sheet)",
+      "due_on": "2026-08-10",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217113772351270"
     },
     {
       "gid": "1214965820200598",
@@ -243,32 +253,6 @@
       "url": "https://app.asana.com/1/768589943956440/task/1214228582175827"
     },
     {
-      "gid": "1208715130577136",
-      "name": "Phone records",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1208715130577136"
-    },
-    {
-      "gid": "1214964403873130",
-      "name": "Saturday viability of all stores",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1214964403873130"
-    },
-    {
-      "gid": "1217053950383140",
-      "name": "rbh-data-portal: install pdf-parse so board pack PDFs get indexed",
-      "due_on": null,
-      "overdue": false,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217053950383140"
-    },
-    {
       "gid": "1217053901526543",
       "name": "Bring atl_epos_export under version control",
       "due_on": null,
@@ -277,16 +261,6 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217053901526543"
-    },
-    {
-      "gid": "1217054151431369",
-      "name": "Locum workbook tidy: Wilmslow row, claude_rota tab, duplicate skill file",
-      "due_on": null,
-      "overdue": false,
-      "projects": [
-        "Mission Control"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217054151431369"
     },
     {
       "gid": "1217052318316046",
@@ -299,14 +273,32 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217052318316046"
     },
     {
-      "gid": "1217052318049522",
-      "name": "Review Google Apps Script code, starting with vacancies/",
+      "gid": "1217054151431369",
+      "name": "Locum workbook tidy: Wilmslow row, claude_rota tab, duplicate skill file",
       "due_on": null,
       "overdue": false,
       "projects": [
         "Mission Control"
       ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217052318049522"
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217054151431369"
+    },
+    {
+      "gid": "1208715130577136",
+      "name": "Phone records",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1208715130577136"
+    },
+    {
+      "gid": "1217053950383140",
+      "name": "rbh-data-portal: install pdf-parse so board pack PDFs get indexed",
+      "due_on": null,
+      "overdue": false,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217053950383140"
     },
     {
       "gid": "1217052318241973",
@@ -317,6 +309,24 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217052318241973"
+    },
+    {
+      "gid": "1217052318049522",
+      "name": "Review Google Apps Script code, starting with vacancies/",
+      "due_on": null,
+      "overdue": false,
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217052318049522"
+    },
+    {
+      "gid": "1214964403873130",
+      "name": "Saturday viability of all stores",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1214964403873130"
     }
   ]
 }
