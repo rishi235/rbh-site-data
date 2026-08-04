@@ -14,10 +14,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-weight-
 - **SEO title:** Weight Loss Clinic at Clear Chemist, Aintree
 - **SEO description:** Private, pharmacist-led weight loss clinic at Clear Chemist in Aintree. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 
-## Coleman & Leigh Pharmacy — Walton — Overview
+## Coleman and Leighs Pharmacy — Walton — Overview
 - **Page slug / URL:** `weight-loss-clinic-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/weight-loss-clinic-coleman-leigh-walton.html
-- **SEO title:** Weight Loss Clinic at Coleman & Leigh Pharmacy, Walton
-- **SEO description:** Private, pharmacist-led weight loss clinic at Coleman & Leigh Pharmacy in Walton. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
+- **SEO title:** Weight Loss Clinic at Coleman and Leighs Pharmacy, Walton
+- **SEO description:** Private, pharmacist-led weight loss clinic at Coleman and Leighs Pharmacy in Walton. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 
 ## Fishlocks Chemist — Ainsdale — Overview
 - **Page slug / URL:** `weight-loss-clinic-fishlocks-ainsdale.html` -> https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-ainsdale.html

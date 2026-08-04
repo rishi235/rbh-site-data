@@ -3,17 +3,29 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-- 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. The repo uses
-  "Coleman & Leigh Pharmacy" consistently (branches.json and all generators).
-  But the domain is colemanandleighspharmacy.co.uk, the NHS profile slug is
-  coleman-and-leighs-pharmacy, and the live Weebly site is mixed: it shows
-  "Coleman & Leigh's", "Coleman & Leighs", "Coleman and Leighs" and
-  "Coleman & Leigh" in different places. Which is the correct trading name?
-  Repo left on "Coleman & Leigh Pharmacy" pending your decision. Whatever
-  the answer, the live Weebly copy needs a tidy-up by hand - that is outside
-  what this agent can reach.
+- None open.
+- ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
+  the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
+  regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-04 - Coleman and Leighs rename (answer to item 1.1 question)
+Run by Claude in the Cowork session, not the hourly agent. Rishi confirmed
+the correct trading name: "Coleman and Leighs Pharmacy" ("and" spelled out,
+Leighs with s, no apostrophe - matches the domain and NHS profile slug).
+Changed brandLabel and branchName in branches.json, the embedded snapshot in
+tools/branches-editor.html and the brand string in tools/build-switch-pages.js,
+then regenerated via build-service-pages.js, build-contraception-pages.js,
+build-weight-loss-pages.js, build-travel-clinic-pages.js and
+build-switch-pages.js. Verified: git grep "Coleman & Leigh" returns nothing
+outside this log, the worklist and CHANGELOG history.
+Regeneration also picked up two unrelated catch-ups: stale Wilmslow switch
+pages removed (disposal completed 1 June) and the Scorah Bramhall switch page
+address updated to 61-63 North Park Road (branches.json already correct, page
+was stale).
+Reminder: live Weebly copy for Coleman and Leighs still mixes four name
+variants and needs the CDN embeds repasted before the corrected pages go live.
 
 ## 2026-08-04 - Item 1.3: McCanns Sandringham postcode sweep (CH49 1SX)
 Answers check: no "AGENT ANSWER" emails in the last 7 days. Coleman & Leigh

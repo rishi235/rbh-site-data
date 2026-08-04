@@ -14,10 +14,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-travel-
 - **SEO title:** Travel Clinic at Clear Chemist, Aintree
 - **SEO description:** Private travel health clinic at Clear Chemist in Aintree. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 
-## Coleman & Leigh Pharmacy — Walton — Overview
+## Coleman and Leighs Pharmacy — Walton — Overview
 - **Page slug / URL:** `travel-clinic-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/travel-clinic-coleman-leigh-walton.html
-- **SEO title:** Travel Clinic at Coleman & Leigh Pharmacy, Walton
-- **SEO description:** Private travel health clinic at Coleman & Leigh Pharmacy in Walton. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
+- **SEO title:** Travel Clinic at Coleman and Leighs Pharmacy, Walton
+- **SEO description:** Private travel health clinic at Coleman and Leighs Pharmacy in Walton. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 
 ## Fishlocks Chemist — Ainsdale — Overview
 - **Page slug / URL:** `travel-clinic-fishlocks-ainsdale.html` -> https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-ainsdale.html

@@ -9,11 +9,11 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Description:** Switch your prescriptions to Smartts Chemist in Bootle in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 - **Meta Keywords:** Smartts Chemist, Smartts Chemist Bootle, switch prescriptions Bootle, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Bootle, NHS pharmacy Bootle, chemist Bootle, L20
 
-## Coleman & Leigh Pharmacy — Walton
-- **Page Title:** Switch Your Prescriptions - Coleman & Leigh Pharmacy Walton
+## Coleman and Leighs Pharmacy — Walton
+- **Page Title:** Switch Your Prescriptions - Coleman and Leighs Pharmacy Walton
 - **Page Permalink:** switch-prescriptions-coleman-leigh-walton
-- **Page Description:** Switch your prescriptions to Coleman & Leigh Pharmacy in Walton in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
-- **Meta Keywords:** Coleman & Leigh Pharmacy, Coleman & Leigh Pharmacy Walton, switch prescriptions Walton, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Walton, NHS pharmacy Walton, chemist Walton, L4
+- **Page Description:** Switch your prescriptions to Coleman and Leighs Pharmacy in Walton in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
+- **Meta Keywords:** Coleman and Leighs Pharmacy, Coleman and Leighs Pharmacy Walton, switch prescriptions Walton, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Walton, NHS pharmacy Walton, chemist Walton, L4
 
 ## Fishlocks Chemist — Ainsdale  *(app member)*
 - **Page Title:** Switch Your Prescriptions - Fishlocks Chemist Ainsdale
@@ -80,12 +80,6 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Permalink:** switch-prescriptions-scorah-hazel-grove
 - **Page Description:** Switch your prescriptions to Scorah Chemists in Hazel Grove in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 - **Meta Keywords:** Scorah Chemists, Scorah Chemists Hazel Grove, switch prescriptions Hazel Grove, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Hazel Grove, NHS pharmacy Hazel Grove, chemist Hazel Grove, SK7
-
-## Wilmslow Pharmacy — Wilmslow
-- **Page Title:** Switch Your Prescriptions - Wilmslow Pharmacy Wilmslow
-- **Page Permalink:** switch-prescriptions-wilmslow-wilmslow
-- **Page Description:** Switch your prescriptions to Wilmslow Pharmacy in Wilmslow in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
-- **Meta Keywords:** Wilmslow Pharmacy, Wilmslow Pharmacy Wilmslow, switch prescriptions Wilmslow, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Wilmslow, NHS pharmacy Wilmslow, chemist Wilmslow, SK9
 
 ## Cherry Lane Pharmacy — Walton
 - **Page Title:** Switch Your Prescriptions - Cherry Lane Pharmacy Walton

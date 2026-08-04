@@ -24,7 +24,7 @@ const CONFIG = {
       ["service-orange","Travel Clinic","Advice and vaccines before travel.","https://www.smarttschemist.co.uk/vaccinations.html"],
       ["service-purple","Medical Cannabis","Book a free consultation to discuss eligibility.","https://www.smarttschemist.co.uk/medical-cannabis.html"]
     ] },
-  colemanleigh_liverpool:{ brand: "Coleman & Leigh Pharmacy", brandSlug: "coleman-leigh", town: "Walton", townSlug: "walton", site: "https://www.colemanandleighspharmacy.co.uk" },
+  colemanleigh_liverpool:{ brand: "Coleman and Leighs Pharmacy", brandSlug: "coleman-leigh", town: "Walton", townSlug: "walton", site: "https://www.colemanandleighspharmacy.co.uk" },
   fishlocks_ainsdale:    { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.fishlockpharmacy.co.uk" },
   fishlocks_eccleston:   { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Eccleston", townSlug: "eccleston", site: "https://www.fishlockpharmacy.co.uk" },
   gordonshorts_crosby:   { brand: "Gordon Short Chemist", brandSlug: "gordon-short", town: "Crosby", townSlug: "crosby", site: "https://www.gordonshortchemist.co.uk" },
@@ -336,6 +336,12 @@ Object.keys(CONFIG).forEach(id => {
   const c = CONFIG[id];
   const b = byId[id];
   const slug = `switch-prescriptions-${c.brandSlug}-${c.townSlug}.html`;
+  if (!b || b.disposed) {
+    // Disposed (or removed) branch: no switch page. Remove stale output.
+    [path.join(outDir, slug), path.join(bannerDir, slug.replace(/\.html$/, ".txt"))]
+      .forEach(f => { if (fs.existsSync(f)) { fs.unlinkSync(f); console.log("  removed stale " + path.basename(f)); } });
+    return;
+  }
   fs.writeFileSync(path.join(outDir, slug), page(id));
   fs.writeFileSync(path.join(bannerDir, slug.replace(/\.html$/, ".txt")), banner(c));
   manifest.push({

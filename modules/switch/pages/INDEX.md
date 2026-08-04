@@ -7,10 +7,10 @@ Each page below is in this folder. Paste the file's contents into a Weebly Embed
 - **SEO title:** Switch Your Prescriptions - Smartts Chemist Bootle
 - **SEO description:** Switch your prescriptions to Smartts Chemist in Bootle in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 
-## Coleman & Leigh Pharmacy — Walton
+## Coleman and Leighs Pharmacy — Walton
 - **Page slug / URL:** `switch-prescriptions-coleman-leigh-walton.html` → https://www.colemanandleighspharmacy.co.uk/switch-prescriptions-coleman-leigh-walton.html
-- **SEO title:** Switch Your Prescriptions - Coleman & Leigh Pharmacy Walton
-- **SEO description:** Switch your prescriptions to Coleman & Leigh Pharmacy in Walton in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
+- **SEO title:** Switch Your Prescriptions - Coleman and Leighs Pharmacy Walton
+- **SEO description:** Switch your prescriptions to Coleman and Leighs Pharmacy in Walton in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 
 ## Fishlocks Chemist — Ainsdale  *(app member)*
 - **Page slug / URL:** `switch-prescriptions-fishlocks-ainsdale.html` → https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-ainsdale.html
@@ -66,11 +66,6 @@ Each page below is in this folder. Paste the file's contents into a Weebly Embed
 - **Page slug / URL:** `switch-prescriptions-scorah-hazel-grove.html` → https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-hazel-grove.html
 - **SEO title:** Switch Your Prescriptions - Scorah Chemists Hazel Grove
 - **SEO description:** Switch your prescriptions to Scorah Chemists in Hazel Grove in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
-
-## Wilmslow Pharmacy — Wilmslow
-- **Page slug / URL:** `switch-prescriptions-wilmslow-wilmslow.html` → https://www.wilmslow-pharmacy.co.uk/switch-prescriptions-wilmslow-wilmslow.html
-- **SEO title:** Switch Your Prescriptions - Wilmslow Pharmacy Wilmslow
-- **SEO description:** Switch your prescriptions to Wilmslow Pharmacy in Wilmslow in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.
 
 ## Cherry Lane Pharmacy — Walton
 - **Page slug / URL:** `switch-prescriptions-cherry-lane-walton.html` → https://www.cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html

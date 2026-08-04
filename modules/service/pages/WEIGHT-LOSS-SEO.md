@@ -14,11 +14,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private, pharmacist-led weight loss clinic at Clear Chemist in Aintree. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 - **Meta Keywords:** weight loss clinic Aintree, medicated weight loss Aintree, Clear Chemist, pharmacy Aintree
 
-## Coleman & Leigh Pharmacy — Walton
-- **Page Title:** Weight Loss Clinic at Coleman & Leigh Pharmacy, Walton
+## Coleman and Leighs Pharmacy — Walton
+- **Page Title:** Weight Loss Clinic at Coleman and Leighs Pharmacy, Walton
 - **Page Permalink:** weight-loss-clinic-coleman-leigh-walton
-- **Page Description:** Private, pharmacist-led weight loss clinic at Coleman & Leigh Pharmacy in Walton. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
-- **Meta Keywords:** weight loss clinic Walton, medicated weight loss Walton, Coleman & Leigh Pharmacy, pharmacy Walton
+- **Page Description:** Private, pharmacist-led weight loss clinic at Coleman and Leighs Pharmacy in Walton. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
+- **Meta Keywords:** weight loss clinic Walton, medicated weight loss Walton, Coleman and Leighs Pharmacy, pharmacy Walton
 
 ## Fishlocks Chemist — Ainsdale
 - **Page Title:** Weight Loss Clinic at Fishlocks Chemist, Ainsdale

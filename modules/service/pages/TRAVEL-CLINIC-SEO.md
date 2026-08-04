@@ -14,11 +14,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private travel health clinic at Clear Chemist in Aintree. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 - **Meta Keywords:** travel clinic Aintree, travel vaccinations Aintree, Clear Chemist, pharmacy Aintree
 
-## Coleman & Leigh Pharmacy — Walton
-- **Page Title:** Travel Clinic at Coleman & Leigh Pharmacy, Walton
+## Coleman and Leighs Pharmacy — Walton
+- **Page Title:** Travel Clinic at Coleman and Leighs Pharmacy, Walton
 - **Page Permalink:** travel-clinic-coleman-leigh-walton
-- **Page Description:** Private travel health clinic at Coleman & Leigh Pharmacy in Walton. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
-- **Meta Keywords:** travel clinic Walton, travel vaccinations Walton, Coleman & Leigh Pharmacy, pharmacy Walton
+- **Page Description:** Private travel health clinic at Coleman and Leighs Pharmacy in Walton. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
+- **Meta Keywords:** travel clinic Walton, travel vaccinations Walton, Coleman and Leighs Pharmacy, pharmacy Walton
 
 ## Fishlocks Chemist — Ainsdale
 - **Page Title:** Travel Clinic at Fishlocks Chemist, Ainsdale
