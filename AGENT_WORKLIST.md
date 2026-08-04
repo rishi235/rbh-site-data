@@ -116,7 +116,14 @@ Pharmacy First wording to the NHS service description.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
-- [ ] 4.4 through 4.14 One pack per remaining branch in branches.json order,
+- [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
+      scorah-bramhall.md. Facts from branches.json; services drawn from the
+      branch widget set (BP checks, contraception, PF, weight loss, travel).
+      Scorah's travel and weight loss pages are private paid services, so no
+      "free assessment" wording; hasApp false, so no app mention. Post A uses
+      the shared Hazel Grove / Bramhall PF page per pfLink, with a paster
+      note to swap to the branch page once live.
+- [ ] 4.5 through 4.14 One pack per remaining branch in branches.json order,
       one per run. Split into individual ticks in this file as they are done.
 
 ## Done

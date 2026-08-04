@@ -16,6 +16,35 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 (scheduled run) - Item 4.4: Scorah Chemists Bramhall GBP pack
+Answers check: no emails with subject starting "AGENT ANSWER" in the last
+7 days (search ran clean; the only hit was an unrelated supplier spend
+report). Q2, Q3, Q4, Q5 remain open.
+
+What was done:
+- New gbp-packs/scorah-bramhall.md, next branch in branches.json order after
+  the three packs already done. Format follows TEMPLATE.md and the
+  fishlocks-ainsdale.md model.
+- Facts from branches.json only: address, phone, hours (NHS confirmed
+  2026-06-24, Sat 9-1), review link, service areas. Services drawn from the
+  branch widget set: BP checks, contraception, Pharmacy First, weight loss,
+  travel.
+- Deliberate differences from the Fishlocks pack, checked against the
+  generated Scorah pages: no free delivery, collection or blister pack
+  claims (the Scorah switch page makes none); travel and weight loss are
+  written as private paid services with "subject to availability and
+  clinical suitability" wording (matching the live page copy) rather than
+  Fishlocks' "free assessment"; no app mention (hasApp false); weight loss
+  post names no medicines and makes no efficacy claims.
+- Post A links the shared Hazel Grove / Bramhall PF page per pfLink, with a
+  paster note to swap to pharmacy-first-scorah-bramhall.html once that page
+  is confirmed live. Paster note also flags checking the Post B switch URL
+  resolves before posting.
+
+Files changed: gbp-packs/scorah-bramhall.md (new), AGENT_WORKLIST.md (4.4
+ticked, remainder renumbered 4.5-4.14), AGENT_LOG.md, status/index.html.
+Questions: none new.
+
 ## 2026-08-04 (late evening, second entry) - Items 3.2 to 3.13: Phase 3 rollout completed (supervised session)
 Rishi asked to continue ahead of schedule in the same Cowork session, so the
 one-item-per-run rule was set aside on his instruction. Lock held throughout.
