@@ -14,6 +14,15 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 - Items 4.2 and 4.3: Cherry Lane and Hirshmans GBP packs
+Run by Claude in the Cowork session, continuing Phase 4 while logins are
+sorted. gbp-packs/cherry-lane-walton.md and gbp-packs/hirshmans-ainsdale.md
+written to the TEMPLATE.md format, facts from branches.json. Cherry Lane
+posts B, C and D carry a "check the page is live first" flag because the 2.3
+build has not run yet. Hirshmans pack cross-references Q4 (medicine names in
+live GBP descriptions). Both weight loss posts name no medicines and make no
+efficacy claims. Ticked 4.2 and 4.3.
+
 ## 2026-08-04 - Item 4.1: GBP pack template + Fishlocks Ainsdale pack
 Run by Claude in the Cowork session, not the hourly agent. Rishi asked for
 open work to continue while Weebly and GBP logins are sorted tonight.

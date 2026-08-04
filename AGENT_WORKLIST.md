@@ -73,8 +73,12 @@ Pharmacy First wording to the NHS service description.
       TEMPLATE.md sets the format and the advertising rules; gbp-packs/
       fishlocks-ainsdale.md is the first pack, facts from branches.json,
       weight loss post drafted with no medicine names and no efficacy claims.
-- [ ] 4.2 Cherry Lane pack.
-- [ ] 4.3 Hirshmans pack.
+- [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
+      cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
+      live before posting - Cherry Lane build (2.3) is still pending.
+- [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
+      hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
+      description for POM medicine names when pasting (see Q4).
 - [ ] 4.4 through 4.14 One pack per remaining branch in branches.json order,
       one per run. Split into individual ticks in this file as they are done.
 
