@@ -190,7 +190,7 @@ function weightLossPage(storeId) {
   var slug = "weight-loss-clinic-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
   var title = pat.brandTitle("Weight Loss Clinic", store);
-  var meta = "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.";
+  var meta = "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Clinical assessment first; treatment only where appropriate.";
 
   return headComment(store, title, meta, slug) + "\n" +
     headLinks() + "\n\n" +
@@ -298,7 +298,7 @@ BUILD.forEach(function (storeId) {
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + slug,
     seoTitle: pat.brandTitle("Weight Loss Clinic", store),
-    seoDesc: "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.",
+    seoDesc: "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Clinical assessment first; treatment only where appropriate.",
     keywords: ["weight loss clinic " + store.town, "medicated weight loss " + store.town, store.brand, "pharmacy " + store.town].filter(Boolean).join(", "),
     html: html
   });

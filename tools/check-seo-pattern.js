@@ -6,6 +6,12 @@
   the page <h1> must equal what the pattern functions produce for that
   branch and page type, and both must carry the branch seoTown.
 
+  Also checks the head-comment "Weebly page SEO description" line against
+  the meta rule (seo-pattern checkMeta: must carry the seoTown, at least
+  one service word for the page type, and be 80 to 165 characters).
+  Added 2026-08-05 during the quality pass on the Phase 3 rollout - the
+  meta leg of Phase 3 was previously unverified.
+
   Run:  node tools/check-seo-pattern.js
   Exits 1 on any mismatch. Reports per brand so the Phase 3 worklist items
   (one brand each) can be verified individually.
@@ -45,31 +51,31 @@ function expectationsFor(file) {
 
   if ((m = /^pharmacy-first-(.+\.html)$/.exec(file))) {
     var b1 = branchOf(m[1]);
-    return b1 && { b: b1, title: pat.brandTitle("Pharmacy First", b1), h1: pat.brandH1("Pharmacy First", b1) };
+    return b1 && { b: b1, title: pat.brandTitle("Pharmacy First", b1), h1: pat.brandH1("Pharmacy First", b1), sw: ["pharmacy first"] };
   }
   if ((m = /^(uti|sore-throat|sinusitis|earache|impetigo|shingles|insect-bite)-treatment-(.+\.html)$/.exec(file))) {
     var c = CONDITIONS[m[1]], b2 = branchOf(m[2]);
-    return b2 && { b: b2, title: pat.searchTitle(c.title, b2), h1: pat.searchH1(c.h1, b2) };
+    return b2 && { b: b2, title: pat.searchTitle(c.title, b2), h1: pat.searchH1(c.h1, b2), sw: [m[1].replace(/-/g, " "), "treatment"] };
   }
   if ((m = /^contraception-(.+\.html)$/.exec(file))) {
     var b3 = branchOf(m[1]);
-    return b3 && { b: b3, title: pat.searchTitle("NHS contraception service", b3), h1: pat.searchH1("NHS contraception service", b3) };
+    return b3 && { b: b3, title: pat.searchTitle("NHS contraception service", b3), h1: pat.searchH1("NHS contraception service", b3), sw: ["contraception", "contraceptive"] };
   }
   if ((m = /^weight-loss-clinic-(.+\.html)$/.exec(file))) {
     var b4 = branchOf(m[1]);
-    return b4 && { b: b4, title: pat.brandTitle("Weight Loss Clinic", b4), h1: pat.brandH1("Weight Loss Clinic", b4) };
+    return b4 && { b: b4, title: pat.brandTitle("Weight Loss Clinic", b4), h1: pat.brandH1("Weight Loss Clinic", b4), sw: ["weight loss"] };
   }
   if ((m = /^travel-clinic-(.+\.html)$/.exec(file))) {
     var b5 = branchOf(m[1]);
-    return b5 && { b: b5, title: pat.brandTitle("Travel Clinic", b5), h1: pat.brandH1("Travel Clinic", b5) };
+    return b5 && { b: b5, title: pat.brandTitle("Travel Clinic", b5), h1: pat.brandH1("Travel Clinic", b5), sw: ["travel"] };
   }
   if ((m = /^switch-prescriptions-(.+\.html)$/.exec(file))) {
     var b6 = branchOf(m[1]);
-    return b6 && { b: b6, title: pat.switchTitle(b6), h1: pat.switchH1(b6) };
+    return b6 && { b: b6, title: pat.switchTitle(b6), h1: pat.switchH1(b6), sw: ["prescription"] };
   }
   if ((m = /^pharmacy-(.+\.html)$/.exec(file))) {
     var b7 = branchOf(m[1]);
-    return b7 && { b: b7, title: pat.landingTitle(b7), h1: pat.landingH1(b7) };
+    return b7 && { b: b7, title: pat.landingTitle(b7), h1: pat.landingH1(b7), sw: ["pharmacy"] };
   }
   return null;
 }
@@ -106,6 +112,17 @@ DIRS.forEach(function (dir) {
     pat.checkTitle(gotTitle, exp.b).forEach(function (p) {
       if (p.indexOf("WARN") !== 0) { perBrand[brand].fails.push(file + ": " + p); fails++; }
     });
+
+    var dm = /Weebly page SEO description:\s*(.+?)\s*$/m.exec(html);
+    if (!dm) {
+      perBrand[brand].fails.push(file + ": no SEO description line");
+      fails++;
+    } else {
+      pat.checkMeta(dm[1].trim(), exp.b, exp.sw).forEach(function (p) {
+        perBrand[brand].fails.push(file + ": " + p);
+        fails++;
+      });
+    }
   });
 });
 

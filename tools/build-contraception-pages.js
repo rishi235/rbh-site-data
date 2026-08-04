@@ -141,7 +141,7 @@ function contraceptionPage(storeId) {
   var slug = "contraception-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
   var title = pat.searchTitle("NHS contraception service", store);
-  var meta = "Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start, restart or continue the pill with no GP appointment needed. Free and confidential.";
+  var meta = "Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start or continue the pill with no GP appointment needed. Free and confidential.";
   return "<!--\n  " + store.brand.toUpperCase() + " — " + title + " (SEO-first, NHS Pharmacy Contraception Service).\n" +
     "  Weebly page SEO title:       " + title + "\n  Weebly page SEO description:  " + meta + "\n" +
     "  NOTE: NHS Pharmacy Contraception Service standard wording. Superintendent pharmacist signs off before publish.\n-->\n" +
@@ -218,7 +218,7 @@ BUILD.forEach(function (storeId) {
     "- **Page name:** Contraception\n" +
     "- **Page Title:** " + pat.searchTitle("NHS contraception service", store) + "\n" +
     "- **Permalink:** " + permalink + "\n" +
-    "- **Description:** Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start, restart or continue the pill with no GP appointment needed. Free and confidential.\n" +
+    "- **Description:** Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start or continue the pill with no GP appointment needed. Free and confidential.\n" +
     "- **Meta Keywords:** contraceptive pill " + store.town + ", NHS contraception " + store.town + ", pill without prescription " + store.town + ", pharmacy " + store.town + ", " + outward(byId[storeId]) + "\n" +
     "- **HTML URL:** " + RAW + slug + "\n\n";
 });

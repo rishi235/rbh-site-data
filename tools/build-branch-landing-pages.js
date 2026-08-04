@@ -224,7 +224,7 @@ function landingPage(id) {
   var slug = landingSlug(b);
   var url = b.website + "/" + slug;
   var title = pat.landingTitle(b);
-  var meta = b.branchName + ", " + fullAddr(b) + ". NHS prescriptions, Pharmacy First, weight loss and travel clinics. Serving " + joinTowns(b.serviceAreaList) + ".";
+  var meta = b.branchName + ", " + b.seoTown + " " + b.postalCode + ". NHS prescriptions, Pharmacy First and private clinics. Serving " + joinTowns(b.serviceAreaList) + ".";
   var mapQ = encodeURIComponent(fullAddr(b));
   var directions = "https://www.google.com/maps/dir/?api=1&destination=" + mapQ;
 
@@ -305,7 +305,7 @@ BUILD.forEach(function (id) {
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: b.website + "/" + slug,
     seoTitle: pat.landingTitle(b),
-    seoDesc: b.branchName + ", " + fullAddr(b) + ". NHS prescriptions, Pharmacy First, weight loss and travel clinics. Serving " + joinTowns(b.serviceAreaList) + ".",
+    seoDesc: b.branchName + ", " + b.seoTown + " " + b.postalCode + ". NHS prescriptions, Pharmacy First and private clinics. Serving " + joinTowns(b.serviceAreaList) + ".",
     keywords: ["pharmacy " + b.seoTown, "chemist " + b.seoTown, b.brandLabel, b.postalCode.split(" ")[0]].join(", ")
   });
 });

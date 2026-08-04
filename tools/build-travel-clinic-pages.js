@@ -156,7 +156,7 @@ function travelClinicPage(storeId) {
   var slug = "travel-clinic-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
   var title = pat.brandTitle("Travel Clinic", store);
-  var meta = "Private travel health clinic at " + store.brand + " in " + store.town + ". Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.";
+  var meta = "Private travel clinic at " + store.brand + " in " + store.town + ". Travel vaccinations and malaria prevention advice, subject to clinical suitability.";
 
   return headComment(store, title, meta, slug) + "\n" +
     headLinks() + "\n\n" +
@@ -286,7 +286,7 @@ BUILD.forEach(function (storeId) {
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + slug,
     seoTitle: pat.brandTitle("Travel Clinic", store),
-    seoDesc: "Private travel health clinic at " + store.brand + " in " + store.town + ". Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.",
+    seoDesc: "Private travel clinic at " + store.brand + " in " + store.town + ". Travel vaccinations and malaria prevention advice, subject to clinical suitability.",
     keywords: ["travel clinic " + store.town, "travel vaccinations " + store.town, store.brand, "pharmacy " + store.town].filter(Boolean).join(", "),
     html: html
   });

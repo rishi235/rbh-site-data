@@ -16,6 +16,51 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 - Quality pass on the Phase 3 rollout: meta descriptions verified and brought inside the rule
+Worklist has no unchecked items and no Outlook answers were waiting (Q2 to
+Q5 still open), so this run was a quality pass per the standing rules.
+Item re-verified: the Phase 3 rollout (3.1 to 3.13). Its checker only
+covered titles and H1s; the meta description leg of "title, meta
+description and H1" was never verified against the meta rule documented
+in tools/seo-pattern.js (seoTown + a service word, 80 to 165 chars).
+
+Findings when the meta check was first run: 47 failures across 173 pages,
+all generator-level, none branch-specific. (1) Travel clinic metas 170+
+chars on every branch. (2) Weight loss clinic metas about 185 chars on
+every branch. (3) The two Fishlocks landing page metas up to 199 chars.
+(4) Contraception metas tipped over 165 only for the longest brand name
+(Coleman and Leighs). A fifth group ("meta missing contraception") was a
+checker false positive - the copy says "contraceptive pill", which
+carries the service - fixed in the checker word list, not the pages.
+
+Fixes, all at generator level then regenerated (no hand edits to output):
+- tools/check-seo-pattern.js: now also checks the "Weebly page SEO
+  description" line of every page via seo-pattern checkMeta, with service
+  words per page type. This closes the verification gap permanently.
+- tools/build-travel-clinic-pages.js: meta trimmed to "Private travel
+  clinic at <brand> in <town>. Travel vaccinations and malaria prevention
+  advice, subject to clinical suitability." Caution wording kept.
+- tools/build-weight-loss-pages.js: meta trimmed to "Private,
+  pharmacist-led weight loss clinic at <brand> in <town>. Clinical
+  assessment first; treatment only where appropriate." Still no medicine
+  names and no efficacy claims; the generic POM-medication sentence went
+  in the trim, which if anything lowers the advertising exposure.
+- tools/build-contraception-pages.js: "Start, restart or continue"
+  shortened to "Start or continue" so the longest brand fits.
+- tools/build-branch-landing-pages.js: meta now uses seoTown + postcode
+  instead of the full street address (full NAP remains in the page body
+  and JSON-LD); service list wording shortened. Serving towns kept.
+
+Result: check-seo-pattern now verifies 173 pages for title, H1 AND meta,
+0 failures. check-nap 173 pages, 0 mismatches. seo-pattern self-test
+passes. 46 regenerated pages changed only their SEO description line.
+NOTE FOR PASTING: the SEO description is a Weebly page setting, so the
+new shorter metas take effect at the next Weebly paste run (Q3 decision)
+- pasting the embed block alone does not update it.
+Commit: see this commit on agents/audit-backlog.
+
+---
+
 ## 2026-08-04 (night) - Items 4.6 to 4.15: remaining ten GBP packs drafted in parallel (supervised session)
 Rishi asked for the remaining packs to be split across parallel subagents
 to move faster. Six subagents each drafted one or two packs simultaneously,
