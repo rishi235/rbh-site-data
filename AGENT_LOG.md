@@ -16,6 +16,34 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 (scheduled run) - Item 4.5: Scorah Chemists Hazel Grove GBP pack
+Answers check: searched Outlook for subject "Portal feedback" with body
+"AUDIT ANSWER" - no matches in the last week. Q2, Q3, Q4, Q5 remain open.
+
+What was done:
+- New gbp-packs/scorah-hazel-grove.md, next branch in branches.json order
+  (scorah_hazel, index 1; Bramhall, Fishlocks Ainsdale, Hirshmans and
+  Cherry Lane already have packs). Format follows TEMPLATE.md and the
+  scorah-bramhall.md sibling pack.
+- Facts from branches.json only: 87 Macclesfield Road, Hazel Grove,
+  Stockport SK7 6BG; 01625 872267; hours Mon-Fri 9-6, closed Sat and Sun
+  (Saturday trading ceased 24 June 2026 per branches.json openingHours
+  note). Description 685 chars, under the 750 limit, verified by script.
+- Same service set as Bramhall (widget-driven: BP checks, contraception,
+  PF, weight loss, travel), same private-paid wording for travel and
+  weight loss, no app mention (hasApp false), weight loss post names no
+  medicines and makes no efficacy claims.
+- Post links checked against the generated pages in modules/: switch,
+  weight loss and travel posts use the branch-specific slugs
+  (switch-prescriptions-scorah-hazel-grove.html etc.); Post A uses the
+  shared Hazel Grove / Bramhall PF page per pfLink with the usual swap
+  note. Paster notes flag the Saturday closure check on GBP hours and the
+  Q3 (live copy may lag repo) and Q4 (description audit) checks.
+- Worklist: 4.5 ticked in place; remainder renumbered as 4.6 through 4.14.
+Files changed: gbp-packs/scorah-hazel-grove.md (new), AGENT_WORKLIST.md,
+AGENT_LOG.md. Commit hash: recorded in the commit itself.
+Questions: none new this run.
+
 ## 2026-08-04 (scheduled run) - Item 4.4: Scorah Chemists Bramhall GBP pack
 Answers check: no emails with subject starting "AGENT ANSWER" in the last
 7 days (search ran clean; the only hit was an unrelated supplier spend

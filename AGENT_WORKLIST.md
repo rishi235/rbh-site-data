@@ -123,7 +123,14 @@ Pharmacy First wording to the NHS service description.
       "free assessment" wording; hasApp false, so no app mention. Post A uses
       the shared Hazel Grove / Bramhall PF page per pfLink, with a paster
       note to swap to the branch page once live.
-- [ ] 4.5 through 4.14 One pack per remaining branch in branches.json order,
+- [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
+      scorah-hazel-grove.md. Facts from branches.json; same service set as
+      Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
+      notes flag the 24 June Saturday closure (check GBP hours), the shared
+      PF page link, and the Q3/Q4 checks before pasting. No app mention
+      (hasApp false); weight loss post has no medicine names or efficacy
+      claims.
+- [ ] 4.6 through 4.14 One pack per remaining branch in branches.json order,
       one per run. Split into individual ticks in this file as they are done.
 
 ## Done
