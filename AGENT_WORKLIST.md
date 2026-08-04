@@ -38,18 +38,21 @@ description and H1 via the generators, following the pattern in Build Pack v2.
 - [ ] 3.1 Define the title/H1 pattern once, in the generator, with per-branch
       town words sourced from branches.json. Document the pattern in
       AGENT_LOG.md before rolling out.
-- [ ] 3.2 Apply to brand 1 in branches.json order, regenerate, verify.
-- [ ] 3.3 Apply to brand 2, regenerate, verify.
-- [ ] 3.4 Apply to brand 3, regenerate, verify.
-- [ ] 3.5 Apply to brand 4, regenerate, verify.
-- [ ] 3.6 Apply to brand 5, regenerate, verify.
-- [ ] 3.7 Apply to brand 6, regenerate, verify.
-- [ ] 3.8 Apply to brand 7, regenerate, verify.
-- [ ] 3.9 Apply to brand 8, regenerate, verify.
-- [ ] 3.10 Apply to brand 9, regenerate, verify.
-- [ ] 3.11 Apply to brand 10, regenerate, verify.
-- [ ] 3.12 Apply to brand 11, regenerate, verify.
-- [ ] 3.13 Apply to brand 12, regenerate, verify.
+- [ ] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
+      service words into every page title, description and heading,
+      regenerate, check the result.
+- [ ] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment.
+- [ ] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment.
+- [ ] 3.5 Hirshmans Chemist (Ainsdale): same treatment.
+- [ ] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment.
+- [ ] 3.7 Smartts Chemist (Bootle): same treatment.
+- [ ] 3.8 SK Chemists (Bootle): same treatment.
+- [ ] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Wait for
+      the trading name answer (Q1) before this one if still open.
+- [ ] 3.10 Riddings Pharmacy (Timperley): same treatment.
+- [ ] 3.11 Gordon Short Chemist (Liverpool): same treatment.
+- [ ] 3.12 Tiffenbergs Chemist (Liverpool): same treatment.
+- [ ] 3.13 Clear Chemist (Liverpool): same treatment.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

@@ -13,5 +13,20 @@
     "status": "open",
     "answer": null,
     "note": "Whatever the answer, the live Weebly copy needs a hand tidy-up afterwards - outside agent reach. Repo left on 'Coleman & Leigh Pharmacy' pending the decision."
+  },
+  {
+    "id": "Q2",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "Wilmslow Pharmacy is still in branches.json and still has pages, but the disposal completed on 1 June. The Master Plan says the profile and site should be removed or transferred on completion. What should happen to Wilmslow's web presence?",
+    "options": [
+      "Remove Wilmslow from branches.json and take its pages down",
+      "Keep it live for now - transfer to the buyer is still being arranged",
+      "Redirect Wilmslow pages to the nearest RBH branch"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "If there is a handover agreement with the buyer covering the website or Google profile, that decides it - the agents cannot see the sale terms."
   }
 ]
