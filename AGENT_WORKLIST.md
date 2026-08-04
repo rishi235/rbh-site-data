@@ -55,9 +55,13 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta
 description and H1 via the generators, following the pattern in Build Pack v2.
-- [ ] 3.1 Define the title/H1 pattern once, in the generator, with per-branch
+- [x] 3.1 Define the title/H1 pattern once, in the generator, with per-branch
       town words sourced from branches.json. Document the pattern in
-      AGENT_LOG.md before rolling out.
+      AGENT_LOG.md before rolling out. Done 2026-08-04. New tools/
+      seo-pattern.js is the single pattern definition (family A search-phrase
+      pages, family B brand-led service pages, canonical switch form, meta
+      rule), matching current generator output so rollout wiring causes no
+      unintended churn. Self-test passes for all 16 buildable branches.
 - [ ] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result.

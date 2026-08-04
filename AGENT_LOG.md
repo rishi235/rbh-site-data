@@ -16,6 +16,53 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 (late evening) - Item 3.1: title/H1 pattern defined once in the generator layer (hourly agent run)
+Lock: none found; created and removed normally.
+Answers check: no "Portal feedback" / "AUDIT ANSWER" emails in Outlook.
+Q2, Q3, Q4 and Q5 remain open.
+
+New file tools/seo-pattern.js - the single definition of the page title, H1
+and meta description pattern for every generated page type, sourced from
+branches.json seoTown/brandLabel (never addressLocality), per Build Pack v2
+sections 1.4 and 5.1.
+
+THE PATTERN (documented here before rollout, as 3.1 requires):
+- Family A, search-phrase pages (PF condition pages, contraception, branch
+  landing): title "<Phrase> in <seoTown> - <brandLabel>", H1 "<Phrase> in
+  <seoTown>". Landing pages keep the brand in the H1 and append the county
+  to the title when it differs from the town (e.g. "Pharmacy in Bramhall,
+  Greater Manchester - Scorah Chemists").
+- Family B, brand-led service pages (PF overview, Weight Loss Clinic,
+  Travel Clinic): title "<Service> at <brandLabel>, <seoTown>", H1
+  "<Service> at <brandLabel> in <seoTown>". This is the shape Build Pack v2
+  section 5.4 itself prescribes for the PF overview.
+- Switch pages: canonical form "Switch Your Prescriptions to <brandLabel>,
+  <seoTown>" (title) / "... in <seoTown>" (H1). Current generator output
+  ("Switch Your Prescriptions - <brand> <town>") is the one deviation from
+  the family shapes; the switch generator adopts the canonical form during
+  its brand rollout runs.
+- Meta description: must contain seoTown and a service word, 80-165 chars
+  (checkMeta() enforces).
+
+Key design choice: families A and B were codified to match the CURRENT
+output of the five service/landing/contraception generators exactly, so
+wiring them to the module in items 3.2-3.13 produces no unintended page
+churn - those rollout runs are then about verification and fixing per-brand
+anomalies, not mass regeneration. Only switch pages will actually change.
+
+Verified: node tools/seo-pattern.js self-test passes - all 16 buildable
+branches (head office and disposed Wilmslow excluded), 7 page types each,
+titles all carry seoTown, no hard failures, no length warnings (longest
+titles are the Coleman and Leighs contraception/switch forms at 64-65
+chars, within the 65-char warn threshold).
+
+Files changed: tools/seo-pattern.js (new), AGENT_WORKLIST.md (3.1 ticked),
+AGENT_LOG.md. No pages regenerated this run by design - rollout is 3.2+.
+Commit: see git log for this entry's hash.
+Questions: none new.
+
+---
+
 ## 2026-08-04 (evening) - Item 2.3: Cherry Lane build-from-near-zero (hourly agent run)
 Lock note: found .agent-lock aged 3h 0m at start of run - 4 seconds past the
 staleness threshold, treated as stale per procedure and replaced.
