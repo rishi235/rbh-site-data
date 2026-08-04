@@ -16,10 +16,6 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
 - UK English. No em dashes. No emojis. Plain English.
 
 ## Phase 1 - Data accuracy (quick wins)
-- [ ] 1.1 Standardise brand-name spelling across all site data and pages
-      (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
-      Shorts). Establish the correct form from branches.json and live sites,
-      then apply consistently.
 - [ ] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site (commit ab2d525 fixed some of it;
       sweep for stragglers including schema markup and footers).
@@ -72,6 +68,11 @@ Pharmacy First wording to the NHS service description.
 
 ## Done
 (Move completed items here with the date.)
+- [x] 1.1 Standardise brand-name spelling across all site data and pages
+      (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
+      Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
+      "Gordon Short Chemist"; Fishlocks already consistent; Coleman & Leigh
+      question logged for Rishi in AGENT_LOG.md.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
