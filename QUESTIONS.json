@@ -28,5 +28,35 @@
     "status": "open",
     "answer": null,
     "note": "If there is a handover agreement with the buyer covering the website or Google profile, that decides it - the agents cannot see the sale terms."
+  },
+  {
+    "id": "Q3",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "The Coleman and Leighs rename (and today's other page fixes) sit on the agents/audit-backlog branch, unreviewed. The live Weebly re-paste run planned for tonight will paste page HTML from this branch, and the CDN-driven banner and footer bars only pick up the fix when their pins move. How should the fixes go live?",
+    "options": [
+      "Review and merge agents/audit-backlog to main tonight, then paste and repoint pins to main - one clean state everywhere",
+      "Paste from the branch and pin CDN references to commit 497fcb0 now, merge to main later",
+      "Paste the page HTML tonight but leave all CDN pins alone until a separate review"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Page pastes are safe either way - each page's HTML is self-contained. The pin choice only affects the sitewide banner, footer bar and shared CSS/JS."
+  },
+  {
+    "id": "Q4",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "The live GBP description for McCanns Sandringham is a copy of the Hirshmans text (wrong branch name) and names two prescription-only weight loss medicines. Advertising POMs to the public is not permitted, so the medicine names are a regulatory exposure wherever they appear. Rewrite all 16 GBP business descriptions using the Phase 4 pack format, with no medicine brand names?",
+    "options": [
+      "Yes - rewrite all 16 descriptions from the packs as they are drafted, medicine names removed",
+      "Only fix McCanns Sandringham now, leave the rest until the packs are done",
+      "Leave descriptions as they are - accept the risk"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found 2026-08-04 while in the GBP manager. Needs Rishi logged into GBP on the Cowork PC before any of it can be pasted. The other 15 descriptions have not been checked yet - the audit of those can be drafted without GBP access if answered yes."
   }
 ]

@@ -3,14 +3,33 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-Open: Q2 (Wilmslow web presence after the 1 June disposal) - see QUESTIONS.json
-and the portal status page answer form.
+Open: Q2 (Wilmslow web presence), Q3 (how tonight's fixes go live: merge to
+main first or pin to branch commit), Q4 (rewrite the 16 GBP descriptions -
+McCanns Sandringham currently carries Hirshmans text naming two POM weight
+loss medicines). All in QUESTIONS.json and on the portal answer form.
 
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-04 - Item 4.1: GBP pack template + Fishlocks Ainsdale pack
+Run by Claude in the Cowork session, not the hourly agent. Rishi asked for
+open work to continue while Weebly and GBP logins are sorted tonight.
+Created gbp-packs/TEMPLATE.md (pack format plus the advertising rules) and
+gbp-packs/fishlocks-ainsdale.md (description under the 750 char GBP limit,
+categories, services list, photo shot list, four post drafts). Facts from
+branches.json. The weight loss post names no medicines and makes no efficacy
+claims. Ticked 4.1 in the worklist.
+Added Q3 and Q4 to QUESTIONS.json (see above). Also done outside the repo
+today, logged in the cowork CHANGELOG: Coleman and Leighs native Weebly copy
+fixed and published; Scorah Bramhall switch embed re-pasted and published
+(61-63 North Park Road now live in the page; a site-wide JSON-LD block
+outside the page embeds still carries the old 61 - follow-up under Q3); the
+July Cherry Lane pin-swap confirmed unnecessary (branch ref caught up).
+Note for the hourly agents: embed re-pastes ARE automatable now - the Edit
+Custom HTML toolbar opened fine and Ctrl+V pasted from the system clipboard.
 
 ## 2026-08-04 - Item 2.1: Fishlocks Ainsdale audit vs Build Pack v2
 Answers check: no "Portal feedback" / "AUDIT ANSWER" emails found. Q1 was

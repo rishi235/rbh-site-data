@@ -68,7 +68,11 @@ weight loss, travel clinic). Use branches.json for facts. Ready for Rishi or
 Dane to paste in. Advertising rules apply: no medicine brand names in weight
 loss posts (POM advertising is not permitted), no efficacy claims, keep
 Pharmacy First wording to the NHS service description.
-- [ ] 4.1 Create the pack template plus the first pack (Fishlocks Ainsdale).
+- [x] 4.1 Create the pack template plus the first pack (Fishlocks Ainsdale).
+      Done 2026-08-04 (Cowork session, not the hourly agent). gbp-packs/
+      TEMPLATE.md sets the format and the advertising rules; gbp-packs/
+      fishlocks-ainsdale.md is the first pack, facts from branches.json,
+      weight loss post drafted with no medicine names and no efficacy claims.
 - [ ] 4.2 Cherry Lane pack.
 - [ ] 4.3 Hirshmans pack.
 - [ ] 4.4 through 4.14 One pack per remaining branch in branches.json order,
