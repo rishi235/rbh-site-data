@@ -16,8 +16,6 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
 - UK English. No em dashes. No emojis. Plain English.
 
 ## Phase 1 - Data accuracy (quick wins)
-- [ ] 1.3 Sweep all pages for the McCanns Sandringham postcode error
-      (CH49 1SX appearing anywhere; correct is L17 4JP).
 - [ ] 1.4 Check every branch page's NAP (name, address, phone) against
       branches.json; fix mismatches at source and regenerate.
 
@@ -65,6 +63,12 @@ Pharmacy First wording to the NHS service description.
 
 ## Done
 (Move completed items here with the date.)
+- [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
+      (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
+      Repo, repo history and live site all clean; correct L17 4JP throughout.
+      Per Master Plan v2 and Build Pack v2 section 4.2 the CH49 1SX sits in
+      the GBP management record, which this agent cannot reach - action note
+      for Rishi or Dane logged in AGENT_LOG.md.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

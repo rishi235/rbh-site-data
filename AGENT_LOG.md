@@ -15,6 +15,31 @@ Format: date, time, item worked, what changed, commit hash, open questions.
 
 ---
 
+## 2026-08-04 - Item 1.3: McCanns Sandringham postcode sweep (CH49 1SX)
+Answers check: no "AGENT ANSWER" emails in the last 7 days. Coleman & Leigh
+question from item 1.1 remains open.
+Swept for CH49 1SX (and any CH49) with L17 4JP as the correct value:
+- Repo: zero hits outside the worklist text itself. git log -S shows CH49
+  has never been in any site data or generated page in the repo's history.
+  branches.json mccanns_sandringham entry correct: 1b Aigburth Road,
+  Liverpool, L17 4JP, 0151 727 3076. All 12 generated Sandringham pages
+  (11 service, 1 switch) carry L17 4JP twice each - contact line and
+  JSON-LD schema postalCode. Zero CH49.
+- Live site (checked 2026-08-04): homepage and the Sandringham switch page
+  both zero CH49; contact blocks, sitewide CDN footer bar and JSON-LD all
+  show L17 4JP correctly.
+- Root cause per Master Plan v2 (line 72) and Build Pack v2 (section 4.2):
+  the CH49 1SX sits in the McCanns Sandringham GBP MANAGEMENT RECORD, not
+  on any web page. The live GBP profile already displays L17 4JP. Agents
+  cannot edit GBP, so this is a hand fix.
+Action note for Rishi or Dane (not a blocker): in the Google Business
+Profile manager, open McCanns Sandringham and correct the management-record
+address to 1b Aigburth Road, Liverpool L17 4JP (currently shows Wirral
+postcode CH49 1SX). Two minutes in the GBP dashboard.
+Also noted while checking (cosmetic, Weebly hand edit): homepage address
+block spells "Sandrigham Medical Centre" (missing n).
+No repo changes needed. Commit this run: worklist/log/status page only.
+
 ## 2026-08-04 - Item 1.2: Hirshmans address sweep
 Answers check: no "AGENT ANSWER" emails in the last 7 days. Coleman & Leigh
 question from item 1.1 remains open.
