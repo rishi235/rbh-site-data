@@ -130,8 +130,33 @@ Pharmacy First wording to the NHS service description.
       PF page link, and the Q3/Q4 checks before pasting. No app mention
       (hasApp false); weight loss post has no medicine names or efficacy
       claims.
-- [ ] 4.6 through 4.14 One pack per remaining branch in branches.json order,
-      one per run. Split into individual ticks in this file as they are done.
+(4.6 to 4.15: numbering runs one past the original estimate because ten
+branches remained, not nine. All ten drafted in parallel by six subagents
+in a supervised Cowork session on 2026-08-04, then compliance-swept
+centrally: no medicine names, no em dashes, no emojis, descriptions under
+750 chars, facts spot-checked against branches.json.)
+- [x] 4.6 McCanns Chemist Aigburth pack. Done 2026-08-04.
+- [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
+      NOTE FOR PASTING that its description replaces the faulty live
+      Hirshmans-copied text naming two POMs (Q4) in full.
+- [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
+      Eccleston facts; profile website set to the new branch landing page.
+- [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
+      branches.json so the pack says do not paste hours until confirmed
+      and added; no Pharmacy First at Clear (no pfLink or widget), so
+      Post A is a local team post instead.
+- [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
+      framed as free eligibility consultation only, no claims.
+- [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
+      distinct from Smartts so the two Bootle profiles do not duplicate.
+- [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
+      Confirmed trading name used throughout; paste note to correct the
+      live GBP name and any old spellings.
+- [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
+- [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
+      lunch-closure hours flagged for correct GBP entry.
+- [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
+      Aintree per seoTown; lunch-closure hours flagged for GBP entry.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

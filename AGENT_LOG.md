@@ -16,6 +16,46 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 (night) - Items 4.6 to 4.15: remaining ten GBP packs drafted in parallel (supervised session)
+Rishi asked for the remaining packs to be split across parallel subagents
+to move faster. Six subagents each drafted one or two packs simultaneously,
+all from TEMPLATE.md, the scorah-bramhall.md house style, and branches.json
+facts only. All ten written to gbp-packs/: mccanns-aigburth, mccanns-
+sandringham, fishlocks-eccleston, clear-aintree, smartts-bootle,
+sk-chemists-bootle, coleman-leigh-walton, riddings-timperley,
+gordon-short-crosby, tiffenbergs-aintree. Every branch now has a pack.
+
+Central compliance sweep after the subagents finished (not relying on
+their self-checks): scan of all 15 packs for POM names (Wegovy, Mounjaro,
+Ozempic, Saxenda, Orlistat, generics), efficacy phrases, em dashes and
+emojis - all clean; the only "guaranteed" match is TEMPLATE.md's own rule
+text. Descriptions all under 750 chars (633 to 735). Facts spot-checked
+against branches.json (McCanns Sandringham verified line by line: L17 4JP,
+0151 727 3076, split lunch hours).
+
+Notable pack decisions:
+- McCanns Sandringham opens with a NOTE FOR PASTING: its description
+  replaces the faulty live Hirshmans-copied text (Q4) in full.
+- Clear Chemist: no hours in branches.json, so the pack forbids pasting
+  hours until confirmed; no Pharmacy First service at Clear, so Post A is
+  a local team post.
+- Coleman and Leighs: confirmed trading name throughout, plus a paste note
+  to correct the live GBP name and old spellings.
+- Both Bootle packs deliberately worded distinctly to avoid duplicate
+  text across the two profiles.
+- Lunch-closure branches flagged so GBP hours get entered as two ranges.
+
+Phase 4 is now complete. ACTION FOR RISHI OR DANE: paste the packs into
+GBP branch by branch (descriptions, categories, services, then start the
+post rotation). Q4 can arguably be closed by pasting the new descriptions,
+but it stays open until Rishi confirms the approach.
+
+Files changed: 10 new gbp-packs/*.md, AGENT_WORKLIST.md (4.6-4.15 ticked,
+numbering note), AGENT_LOG.md.
+Questions: none new. Q2, Q3, Q4, Q5 remain open.
+
+---
+
 ## 2026-08-04 (scheduled run) - Item 4.5: Scorah Chemists Hazel Grove GBP pack
 Answers check: searched Outlook for subject "Portal feedback" with body
 "AUDIT ANSWER" - no matches in the last week. Q2, Q3, Q4, Q5 remain open.
