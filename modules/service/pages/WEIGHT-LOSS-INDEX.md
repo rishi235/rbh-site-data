@@ -29,10 +29,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-weight-
 - **SEO title:** Weight Loss Clinic at Fishlocks Chemist, Eccleston
 - **SEO description:** Private, pharmacist-led weight loss clinic at Fishlocks Chemist in Eccleston. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 
-## Gordon Shorts Chemist — Crosby — Overview
+## Gordon Short Chemist — Crosby — Overview
 - **Page slug / URL:** `weight-loss-clinic-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/weight-loss-clinic-gordon-short-crosby.html
-- **SEO title:** Weight Loss Clinic at Gordon Shorts Chemist, Crosby
-- **SEO description:** Private, pharmacist-led weight loss clinic at Gordon Shorts Chemist in Crosby. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
+- **SEO title:** Weight Loss Clinic at Gordon Short Chemist, Crosby
+- **SEO description:** Private, pharmacist-led weight loss clinic at Gordon Short Chemist in Crosby. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 
 ## Hirshmans Chemist — Ainsdale — Overview
 - **Page slug / URL:** `weight-loss-clinic-hirshmans-ainsdale.html` -> https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-hirshmans-ainsdale.html

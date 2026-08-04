@@ -29,10 +29,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-travel-
 - **SEO title:** Travel Clinic at Fishlocks Chemist, Eccleston
 - **SEO description:** Private travel health clinic at Fishlocks Chemist in Eccleston. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 
-## Gordon Shorts Chemist — Crosby — Overview
+## Gordon Short Chemist — Crosby — Overview
 - **Page slug / URL:** `travel-clinic-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/travel-clinic-gordon-short-crosby.html
-- **SEO title:** Travel Clinic at Gordon Shorts Chemist, Crosby
-- **SEO description:** Private travel health clinic at Gordon Shorts Chemist in Crosby. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
+- **SEO title:** Travel Clinic at Gordon Short Chemist, Crosby
+- **SEO description:** Private travel health clinic at Gordon Short Chemist in Crosby. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 
 ## Hirshmans Chemist — Ainsdale — Overview
 - **Page slug / URL:** `travel-clinic-hirshmans-ainsdale.html` -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html

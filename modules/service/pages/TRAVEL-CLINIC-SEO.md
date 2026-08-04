@@ -32,11 +32,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private travel health clinic at Fishlocks Chemist in Eccleston. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
 - **Meta Keywords:** travel clinic Eccleston, travel vaccinations Eccleston, Fishlocks Chemist, pharmacy Eccleston
 
-## Gordon Shorts Chemist — Crosby
-- **Page Title:** Travel Clinic at Gordon Shorts Chemist, Crosby
+## Gordon Short Chemist — Crosby
+- **Page Title:** Travel Clinic at Gordon Short Chemist, Crosby
 - **Page Permalink:** travel-clinic-gordon-short-crosby
-- **Page Description:** Private travel health clinic at Gordon Shorts Chemist in Crosby. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
-- **Meta Keywords:** travel clinic Crosby, travel vaccinations Crosby, Gordon Shorts Chemist, pharmacy Crosby
+- **Page Description:** Private travel health clinic at Gordon Short Chemist in Crosby. Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.
+- **Meta Keywords:** travel clinic Crosby, travel vaccinations Crosby, Gordon Short Chemist, pharmacy Crosby
 
 ## Hirshmans Chemist — Ainsdale
 - **Page Title:** Travel Clinic at Hirshmans Chemist, Ainsdale

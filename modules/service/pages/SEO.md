@@ -195,52 +195,52 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Description:** Infected insect bite treatment at Fishlocks Chemist in Eccleston. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Infected insect bite Eccleston, Infected insect bite treatment Eccleston, Pharmacy First Eccleston, pharmacy Eccleston, PR7
 
-## Gordon Shorts Chemist — Crosby — Overview
-- **Page Title:** Pharmacy First at Gordon Shorts Chemist, Crosby
+## Gordon Short Chemist — Crosby — Overview
+- **Page Title:** Pharmacy First at Gordon Short Chemist, Crosby
 - **Page Permalink:** pharmacy-first-gordon-short-crosby
-- **Page Description:** Pharmacy First at Gordon Shorts Chemist in Crosby. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
-- **Meta Keywords:** Pharmacy First Crosby, NHS Pharmacy First, Gordon Shorts Chemist, pharmacy Crosby, L23
+- **Page Description:** Pharmacy First at Gordon Short Chemist in Crosby. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
+- **Meta Keywords:** Pharmacy First Crosby, NHS Pharmacy First, Gordon Short Chemist, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — UTI
-- **Page Title:** UTI treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — UTI
+- **Page Title:** UTI treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** uti-treatment-gordon-short-crosby
-- **Page Description:** UTI treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** UTI treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** UTI Crosby, UTI treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Sore throat
-- **Page Title:** Sore throat treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Sore throat
+- **Page Title:** Sore throat treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** sore-throat-treatment-gordon-short-crosby
-- **Page Description:** Sore throat treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Sore throat treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Sore throat Crosby, Sore throat treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Sinusitis
-- **Page Title:** Sinusitis treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Sinusitis
+- **Page Title:** Sinusitis treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** sinusitis-treatment-gordon-short-crosby
-- **Page Description:** Sinusitis treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Sinusitis treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Sinusitis Crosby, Sinusitis treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Earache
-- **Page Title:** Earache treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Earache
+- **Page Title:** Earache treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** earache-treatment-gordon-short-crosby
-- **Page Description:** Earache treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Earache treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Earache Crosby, Earache treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Impetigo
-- **Page Title:** Impetigo treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Impetigo
+- **Page Title:** Impetigo treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** impetigo-treatment-gordon-short-crosby
-- **Page Description:** Impetigo treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Impetigo treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Impetigo Crosby, Impetigo treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Shingles
-- **Page Title:** Shingles treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Shingles
+- **Page Title:** Shingles treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** shingles-treatment-gordon-short-crosby
-- **Page Description:** Shingles treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Shingles treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Shingles Crosby, Shingles treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
-## Gordon Shorts Chemist — Crosby — Infected insect bite
-- **Page Title:** Infected insect bite treatment in Crosby - Gordon Shorts Chemist
+## Gordon Short Chemist — Crosby — Infected insect bite
+- **Page Title:** Infected insect bite treatment in Crosby - Gordon Short Chemist
 - **Page Permalink:** insect-bite-treatment-gordon-short-crosby
-- **Page Description:** Infected insect bite treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Page Description:** Infected insect bite treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Infected insect bite Crosby, Infected insect bite treatment Crosby, Pharmacy First Crosby, pharmacy Crosby, L23
 
 ## Hirshmans Chemist — Ainsdale — Overview

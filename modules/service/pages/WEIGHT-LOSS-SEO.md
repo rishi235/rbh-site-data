@@ -32,11 +32,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private, pharmacist-led weight loss clinic at Fishlocks Chemist in Eccleston. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
 - **Meta Keywords:** weight loss clinic Eccleston, medicated weight loss Eccleston, Fishlocks Chemist, pharmacy Eccleston
 
-## Gordon Shorts Chemist — Crosby
-- **Page Title:** Weight Loss Clinic at Gordon Shorts Chemist, Crosby
+## Gordon Short Chemist — Crosby
+- **Page Title:** Weight Loss Clinic at Gordon Short Chemist, Crosby
 - **Page Permalink:** weight-loss-clinic-gordon-short-crosby
-- **Page Description:** Private, pharmacist-led weight loss clinic at Gordon Shorts Chemist in Crosby. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
-- **Meta Keywords:** weight loss clinic Crosby, medicated weight loss Crosby, Gordon Shorts Chemist, pharmacy Crosby
+- **Page Description:** Private, pharmacist-led weight loss clinic at Gordon Short Chemist in Crosby. Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.
+- **Meta Keywords:** weight loss clinic Crosby, medicated weight loss Crosby, Gordon Short Chemist, pharmacy Crosby
 
 ## Hirshmans Chemist — Ainsdale
 - **Page Title:** Weight Loss Clinic at Hirshmans Chemist, Ainsdale
