@@ -13,6 +13,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 // MUTABLE branch ref — one push + CDN purge updates every deployed page.
 // (Was the immutable SHA "76221ba", which froze pages out of module fixes.)
@@ -139,7 +140,7 @@ function contraceptionPage(storeId) {
   var store = storeOf(storeId), b = byId[storeId];
   var slug = "contraception-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
-  var title = "NHS contraception service in " + store.town + " - " + store.brand;
+  var title = pat.searchTitle("NHS contraception service", store);
   var meta = "Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start, restart or continue the pill with no GP appointment needed. Free and confidential.";
   return "<!--\n  " + store.brand.toUpperCase() + " — " + title + " (SEO-first, NHS Pharmacy Contraception Service).\n" +
     "  Weebly page SEO title:       " + title + "\n  Weebly page SEO description:  " + meta + "\n" +
@@ -150,7 +151,7 @@ function contraceptionPage(storeId) {
     '    <section class="hero">\n      <div class="hero-grid">\n        <div>\n' +
     '          <div class="hero-help-row">NHS Pharmacy Contraception Service</div>\n' +
     '          <span class="pill">Free NHS service in ' + esc(store.town) + '</span>\n' +
-    '          <h1>NHS contraception service in ' + esc(store.town) + '</h1>\n' +
+    '          <h1>' + esc(pat.searchH1("NHS contraception service", store)) + '</h1>\n' +
     '          <p class="hero-proof">Start, restart or continue the contraceptive pill, with no GP appointment needed.</p>\n' +
     '          <p class="hero-sub">' + esc(store.brand) + ' offers the NHS Pharmacy Contraception Service in ' + esc(store.town) + '. A pharmacist can start you on the contraceptive pill, restart it after a break, or provide your ongoing supply, in a private consultation with no GP appointment or referral needed.</p>\n' +
     '          <ul class="hero-points">\n' +
@@ -215,7 +216,7 @@ BUILD.forEach(function (storeId) {
   var permalink = slug.replace(/\.html$/, "");
   seoMd += "## " + store.brand + " — " + store.town + "\n" +
     "- **Page name:** Contraception\n" +
-    "- **Page Title:** NHS contraception service in " + store.town + " - " + store.brand + "\n" +
+    "- **Page Title:** " + pat.searchTitle("NHS contraception service", store) + "\n" +
     "- **Permalink:** " + permalink + "\n" +
     "- **Description:** Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start, restart or continue the pill with no GP appointment needed. Free and confidential.\n" +
     "- **Meta Keywords:** contraceptive pill " + store.town + ", NHS contraception " + store.town + ", pill without prescription " + store.town + ", pharmacy " + store.town + ", " + outward(byId[storeId]) + "\n" +

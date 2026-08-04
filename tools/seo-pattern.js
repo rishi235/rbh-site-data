@@ -35,9 +35,12 @@
       H1:    "<Service> at <brandLabel> in <seoTown>"
   Used by: Pharmacy First overview, Weight Loss Clinic, Travel Clinic.
 
-  Switch pages currently use "Switch Your Prescriptions - <brand> <town>".
-  The canonical Phase 3 form is switchTitle/switchH1 below; the switch
-  generator adopts it during that brand's rollout run.
+  Switch pages: the live H1 ("Switch your prescriptions to <brand> in
+  <town> in under 30 seconds") already carries service + brand + town and
+  is deliberately kept as the canonical H1 - it is stronger conversion
+  copy than the bare family shapes. Only the TITLE was the outlier
+  ("Switch Your Prescriptions - <brand> <town>"); the canonical title is
+  switchTitle below.
 
   Meta description rule: must contain the seoTown and at least one service
   word, 80 to 165 characters. checkMeta() enforces it.
@@ -111,7 +114,7 @@ function switchTitle(b) {
 }
 function switchH1(b) {
   var s = pick(b);
-  return "Switch Your Prescriptions to " + s.brand + " in " + s.town;
+  return "Switch your prescriptions to " + s.brand + " in " + s.town + " in under 30 seconds";
 }
 
 // ---------------------------------------------------------------------------

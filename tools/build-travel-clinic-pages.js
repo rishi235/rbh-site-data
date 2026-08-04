@@ -14,6 +14,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
@@ -154,7 +155,7 @@ function travelClinicPage(storeId) {
   var b = byId[storeId];
   var slug = "travel-clinic-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
-  var title = "Travel Clinic at " + store.brand + ", " + store.town;
+  var title = pat.brandTitle("Travel Clinic", store);
   var meta = "Private travel health clinic at " + store.brand + " in " + store.town + ". Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.";
 
   return headComment(store, title, meta, slug) + "\n" +
@@ -166,7 +167,7 @@ function travelClinicPage(storeId) {
     '        <div>\n' +
     '          <div class="hero-help-row">Travel Clinic</div>\n' +
     '          <span class="pill">Private travel health service at your local ' + esc(store.town) + ' pharmacy</span>\n' +
-    '          <h1>Travel Clinic at ' + esc(store.brand) + ' in ' + esc(store.town) + '</h1>\n' +
+    '          <h1>' + esc(pat.brandH1("Travel Clinic", store)) + '</h1>\n' +
     '          <p class="hero-proof">Personalised travel health advice and vaccinations before you go.</p>\n' +
     '          <p class="hero-sub">' + esc(store.brand) + ' offers a private travel health consultation service in ' + esc(store.town) + '. A qualified travel health advisor or pharmacist reviews your destination, itinerary and medical history, then recommends the vaccinations and malaria prevention that are right for your trip. This is a private, paid service, not an NHS-funded appointment, though some individual vaccines may be available on the NHS depending on your circumstances, the pharmacist will advise.</p>\n' +
     '          <ul class="hero-points">\n' +
@@ -284,7 +285,7 @@ BUILD.forEach(function (storeId) {
     file: slug,
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + slug,
-    seoTitle: "Travel Clinic at " + store.brand + ", " + store.town,
+    seoTitle: pat.brandTitle("Travel Clinic", store),
     seoDesc: "Private travel health clinic at " + store.brand + " in " + store.town + ". Personalised travel vaccination and malaria prevention advice, subject to availability and clinical suitability.",
     keywords: ["travel clinic " + store.town, "travel vaccinations " + store.town, store.brand, "pharmacy " + store.town].filter(Boolean).join(", "),
     html: html

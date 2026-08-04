@@ -5,6 +5,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 // Commit hash the pages pin switch.css / switch.js to (immutable = no jsDelivr lag).
 const PIN = "6a275e1";
@@ -56,7 +57,7 @@ function page(id){
   const fullAddress = [b.streetAddress, b.addressLocality, b.postalCode].filter(Boolean).join(", ");
   const mapQ = encodeURIComponent(fullAddress);
   const siteHost = c.site.replace(/^https?:\/\//,"");
-  const title = `Switch Your Prescriptions - ${c.brand} ${c.town}`;
+  const title = pat.switchTitle(c);
   const meta = `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`;
 
   const appCard = b.hasApp ? `
@@ -128,7 +129,7 @@ function page(id){
           <div class="hero-help-row">Need help deciding?</div>
           <span class="pill">Your local independent pharmacy in ${esc(c.town)}</span>
 
-          <h1>Switch your prescriptions to ${esc(c.brand)} in ${esc(c.town)} in under 30 seconds</h1>
+          <h1>${esc(pat.switchH1(c))}</h1>
           <p class="hero-proof">We contact your GP. We handle everything. You do nothing.</p>
 
           <p class="hero-sub">${esc(c.brand)} is a local NHS pharmacy in ${esc(c.town)}. Switching your prescriptions to us is quick, free, and means your medication comes to a pharmacy team you can actually speak to.</p>
@@ -349,7 +350,7 @@ Object.keys(CONFIG).forEach(id => {
     file: slug,
     permalink: slug.replace(/\.html$/,""),
     liveUrl: `${c.site}/${slug}`,
-    seoTitle: `Switch Your Prescriptions - ${c.brand} ${c.town}`,
+    seoTitle: pat.switchTitle(c),
     seoDesc: `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`,
     keywords: keywords(c, b),
     hasApp: !!b.hasApp

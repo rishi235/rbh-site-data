@@ -15,6 +15,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
@@ -188,7 +189,7 @@ function weightLossPage(storeId) {
   var b = byId[storeId];
   var slug = "weight-loss-clinic-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
-  var title = "Weight Loss Clinic at " + store.brand + ", " + store.town;
+  var title = pat.brandTitle("Weight Loss Clinic", store);
   var meta = "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.";
 
   return headComment(store, title, meta, slug) + "\n" +
@@ -200,7 +201,7 @@ function weightLossPage(storeId) {
     '        <div>\n' +
     '          <div class="hero-help-row">Private Weight Loss Clinic</div>\n' +
     '          <span class="pill">Private service &middot; not funded by the NHS &middot; ' + esc(store.town) + '</span>\n' +
-    '          <h1>Weight Loss Clinic at ' + esc(store.brand) + ' in ' + esc(store.town) + '</h1>\n' +
+    '          <h1>' + esc(pat.brandH1("Weight Loss Clinic", store)) + '</h1>\n' +
     '          <p class="hero-proof">Medically-supported weight loss, assessed and supervised by a pharmacist.</p>\n' +
     '          <p class="hero-sub">' + esc(store.brand) + ' offers a private weight loss consultation service in ' + esc(store.town) + '. A qualified pharmacist or clinician will review your health history and, where it is clinically appropriate, prescription-only weight-loss medication can be supplied as part of a supervised plan alongside diet and lifestyle changes. This is a paid private service, not an NHS treatment, and it is not right for everyone &ndash; see below.</p>\n' +
     '          <ul class="hero-points">\n' +
@@ -296,7 +297,7 @@ BUILD.forEach(function (storeId) {
     file: slug,
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + slug,
-    seoTitle: "Weight Loss Clinic at " + store.brand + ", " + store.town,
+    seoTitle: pat.brandTitle("Weight Loss Clinic", store),
     seoDesc: "Private, pharmacist-led weight loss clinic at " + store.brand + " in " + store.town + ". Full clinical assessment; prescription-only weight-loss medication supplied only where clinically appropriate.",
     keywords: ["weight loss clinic " + store.town, "medicated weight loss " + store.town, store.brand, "pharmacy " + store.town].filter(Boolean).join(", "),
     html: html

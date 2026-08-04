@@ -26,6 +26,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 // Same ref as the service pages: service.css only (see note above).
 const PIN = "service-module-phase1";
@@ -222,8 +223,7 @@ function landingPage(id) {
 
   var slug = landingSlug(b);
   var url = b.website + "/" + slug;
-  var regionTag = (b.seoTown === b.addressRegion || !b.addressRegion) ? "" : ", " + b.addressRegion;
-  var title = "Pharmacy in " + b.seoTown + regionTag + " - " + b.brandLabel;
+  var title = pat.landingTitle(b);
   var meta = b.branchName + ", " + fullAddr(b) + ". NHS prescriptions, Pharmacy First, weight loss and travel clinics. Serving " + joinTowns(b.serviceAreaList) + ".";
   var mapQ = encodeURIComponent(fullAddr(b));
   var directions = "https://www.google.com/maps/dir/?api=1&destination=" + mapQ;
@@ -244,7 +244,7 @@ function landingPage(id) {
     '        <div>\n' +
     '          <div class="hero-help-row">' + esc(b.brandLabel) + '</div>\n' +
     '          <span class="pill">Your local pharmacy in ' + esc(b.seoTown) + '</span>\n' +
-    '          <h1>Pharmacy in ' + esc(b.seoTown) + ' - ' + esc(b.brandLabel) + '</h1>\n' +
+    '          <h1>' + esc(pat.landingH1(b)) + '</h1>\n' +
     '          <p class="hero-proof">NHS and private pharmacy services at ' + esc(b.streetAddress) + '.</p>\n' +
     '          <p class="hero-sub">' + esc(b.branchName) + ' serves ' + esc(joinTowns(b.serviceAreaList)) + ' with NHS prescriptions, the free NHS Pharmacy First service, and private weight loss and travel clinics. Call in, phone us or book online.</p>\n' +
     '          <ul class="hero-points">\n' +
@@ -299,13 +299,12 @@ BUILD.forEach(function (id) {
   var slug = landingSlug(b);
   var html = landingPage(id);
   fs.writeFileSync(path.join(outDir, slug), html);
-  var regionTag = (b.seoTown === b.addressRegion || !b.addressRegion) ? "" : ", " + b.addressRegion;
   manifest.push({
     branch: b.branchName,
     file: slug,
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: b.website + "/" + slug,
-    seoTitle: "Pharmacy in " + b.seoTown + regionTag + " - " + b.brandLabel,
+    seoTitle: pat.landingTitle(b),
     seoDesc: b.branchName + ", " + fullAddr(b) + ". NHS prescriptions, Pharmacy First, weight loss and travel clinics. Serving " + joinTowns(b.serviceAreaList) + ".",
     keywords: ["pharmacy " + b.seoTown, "chemist " + b.seoTown, b.brandLabel, b.postalCode.split(" ")[0]].join(", ")
   });

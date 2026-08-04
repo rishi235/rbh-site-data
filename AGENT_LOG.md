@@ -16,6 +16,51 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-04 (late evening, second entry) - Items 3.2 to 3.13: Phase 3 rollout completed (supervised session)
+Rishi asked to continue ahead of schedule in the same Cowork session, so the
+one-item-per-run rule was set aside on his instruction. Lock held throughout.
+
+What was done:
+- All six generators (service, contraception, weight loss, travel, branch
+  landing, switch) now import tools/seo-pattern.js and build every title and
+  H1 through it. No build script composes a title or H1 by hand any more.
+  Condition pages now declare an h1Phrase (e.g. "Earache treatment for
+  children") consumed by searchH1() instead of a local h1 function.
+- switchH1 in seo-pattern.js corrected before rollout: the live switch H1
+  ("Switch your prescriptions to <brand> in <town> in under 30 seconds")
+  already carries service + brand + town and is stronger conversion copy,
+  so it is the canonical form. Only the switch TITLE was the outlier.
+- All 173 pages regenerated. Result exactly as designed in 3.1: every
+  service, contraception, weight loss, travel and landing page came out
+  byte-identical; the only content change is the 15 switch page SEO titles
+  ("Switch Your Prescriptions - Scorah Chemists Bramhall" becomes "Switch
+  Your Prescriptions to Scorah Chemists, Bramhall") plus the switch
+  INDEX.md / SEO.md manifests.
+- New tools/check-seo-pattern.js verifies every generated page's SEO title
+  line and <h1> against the pattern module, reported per brand. Run result:
+  12 brands, 173 pages, 0 mismatches, 0 skipped. check-nap.js also re-run
+  clean (173 pages, 0 mismatches).
+
+Incident, caught and fixed in-session: a PowerShell bulk edit of three
+build scripts mangled UTF-8 (em dashes became mojibake) and the corruption
+propagated into regenerated pages. The diff review caught it before any
+commit; the three generators and all generated output were reverted to HEAD
+and the edits re-applied with an encoding-safe editor. Nothing corrupted
+was committed. Lesson recorded: do not bulk-edit these files with default
+Windows PowerShell 5.1 text round-trips.
+
+ACTION FOR RISHI OR DANE: the 15 live switch pages on Weebly still carry
+the old SEO title in Pages > SEO Settings. Update them from the new
+modules/switch/pages/SEO.md at the next paste run (ties into open Q3).
+The page HTML itself is unchanged, so no embed re-paste is needed for this.
+
+Files changed: 6 build scripts, tools/seo-pattern.js (switchH1 + doc),
+tools/check-seo-pattern.js (new), 15 switch pages, switch INDEX.md/SEO.md,
+AGENT_WORKLIST.md (3.2-3.13 ticked), AGENT_LOG.md.
+Questions: none new. Q2, Q3, Q4, Q5 remain open.
+
+---
+
 ## 2026-08-04 (late evening) - Item 3.1: title/H1 pattern defined once in the generator layer (hourly agent run)
 Lock: none found; created and removed normally.
 Answers check: no "Portal feedback" / "AUDIT ANSWER" emails in Outlook.
