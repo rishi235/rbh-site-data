@@ -62,7 +62,8 @@ Pharmacy First wording to the NHS service description.
       one per run. Split into individual ticks in this file as they are done.
 
 ## Done
-(Move completed items here with the date.)
+Completed items stay in place above, ticked [x] with the completion date
+appended to the line. Do not move them; the status page reads them in place.
 - [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
       (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
       Repo, repo history and live site all clean; correct L17 4JP throughout.
