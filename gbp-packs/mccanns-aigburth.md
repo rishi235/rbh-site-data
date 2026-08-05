@@ -14,17 +14,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.mccannspharmacy.co.uk
 - Review link: https://g.page/r/CdDj9KyelDVyEAE/review
 
-## 1. Business description (max 750 chars - this is 714)
-McCanns Chemist Aigburth is your local independent NHS pharmacy at 112
-Aigburth Road in Liverpool, serving Aigburth, Sefton Park, Mossley Hill and
-Grassendale. We dispense NHS prescriptions, offer free NHS blood pressure
-checks for adults aged 40 and over, and provide the NHS contraception
-service. Through the free NHS Pharmacy First service our pharmacists can
-assess and treat seven common conditions without a GP appointment. We also
-run private clinics: a travel health clinic with personalised vaccination
-and malaria prevention advice, and a pharmacist-led weight loss clinic. Our
-sister McCanns branch at Sandringham is also on Aigburth Road. Pop in and
-speak to the team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 703)
+McCanns Chemist at 112 Aigburth Road serves Aigburth, Sefton Park, Mossley
+Hill and Grassendale as an independent NHS pharmacy. As well as dispensing
+NHS prescriptions, the team provides free NHS blood pressure checks for
+adults aged 40 and over, the NHS contraception service, and NHS Pharmacy
+First, a free NHS service where a pharmacist can see you for seven common
+conditions and treat them where appropriate, no GP appointment required.
+Private services include a travel health clinic, with vaccination and
+malaria prevention advice tailored to your trip, and a pharmacist-led
+weight loss clinic. There is a second McCanns branch at Sandringham,
+further along Aigburth Road. Drop in and talk to us.
 
 ## 2. Categories
 - Primary: Pharmacy

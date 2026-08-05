@@ -13,6 +13,46 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run) - Quality pass follow-up: seven duplicate GBP pack descriptions rewritten
+
+No unchecked worklist items and no open questions, so quality pass per
+the standing rules. Item taken: the FINDING left by the 4.12 to 4.15
+pass below - seven earlier pack descriptions were near-duplicates of
+each other (13 pack pairs at 65 per cent or more on shared six-word
+runs, same-brand pairs worst: Scorah Bramhall v Hazel Grove 77,
+McCanns Aigburth v Sandringham 73, Cherry Lane v Hirshmans 80).
+
+Done this run: rewrote the business description in seven packs so each
+is distinct in structure and phrasing - scorah-bramhall (now 742
+chars), scorah-hazel-grove (712), mccanns-aigburth (703),
+mccanns-sandringham (713), cherry-lane-walton (637),
+hirshmans-ainsdale (650), fishlocks-eccleston (730). Facts unchanged
+in all seven: same addresses, streets, service areas, service sets,
+sister-branch mentions, app or no-app position, free-assessment
+wording only where it already applied (Cherry Lane, Hirshmans), and
+six-days-a-week only where true. Fishlocks Ainsdale kept as the
+anchor; only the other side of its high pairs changed. Headers updated
+to the new paste-form counts.
+
+Whole-folder check after the edits, all 15 packs: claimed v actual
+description length exact, all under 750, no POM or generic medicine
+names, no efficacy phrases, no em dashes, no emojis. Pairwise
+six-word-run overlap now worst at 30 per cent (Coleman and Leighs v
+Gordon Short, both from the earlier supervised rewrite) - well under
+the 65 per cent finding threshold; every pair named in the finding now
+sits far below it. Minor observation only, no action needed.
+
+Files changed: gbp-packs/scorah-bramhall.md,
+gbp-packs/scorah-hazel-grove.md, gbp-packs/mccanns-aigburth.md,
+gbp-packs/mccanns-sandringham.md, gbp-packs/cherry-lane-walton.md,
+gbp-packs/hirshmans-ainsdale.md, gbp-packs/fishlocks-eccleston.md,
+AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open. Paste order guidance unchanged:
+McCanns Sandringham first (Q4 POM exposure on the live description).
+
+---
+
 ## 2026-08-05 (supervised run) - Quality pass on items 4.12 to 4.15: the last four GBP packs verified, plus a duplicate-description fix
 
 Run continued at Rishi's request in the same Cowork session as the 4.10

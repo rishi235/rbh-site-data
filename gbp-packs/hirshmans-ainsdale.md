@@ -18,16 +18,16 @@ Profile basics (for checking, not pasting):
 - Website: https://www.hirshmanspharmacy.co.uk
 - Review link: https://g.page/r/CUagKTNTXwMYEAE/review
 
-## 1. Business description (max 750 chars - this is 655)
-Hirshmans Chemist is your local independent NHS pharmacy in Sherwood House
-on Station Road, Ainsdale, serving Ainsdale, Birkdale and Southport. We
-dispense NHS prescriptions with free collection from your GP surgery and
-free home delivery, and offer blister packs to make daily medication
-simpler. Through the free NHS Pharmacy First service our pharmacists can
-assess and treat seven common conditions without a GP appointment. We also
-run private clinics: travel vaccinations with a free assessment, a
-pharmacist-led weight loss clinic, blood testing and vaccinations. Open six
-days a week. Pop in and speak to the team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 650)
+Hirshmans Chemist is Ainsdale's independent pharmacy, found in Sherwood
+House on Station Road and open six days a week for Ainsdale, Birkdale and
+Southport. Free prescription collection from your GP surgery and free home
+delivery take the legwork out of repeat medication, and blister packs are
+available to keep doses organised. Under the free NHS Pharmacy First
+service a pharmacist can assess and, where appropriate, treat seven common
+conditions without a GP appointment. Privately we offer travel vaccinations
+with a free assessment, blood testing, vaccinations and a pharmacist-led
+weight loss clinic. Call in and the team will be glad to help.
 
 ## 2. Categories
 - Primary: Pharmacy

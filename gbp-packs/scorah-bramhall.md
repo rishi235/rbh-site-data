@@ -13,17 +13,18 @@ Profile basics (for checking, not pasting):
 - Website: https://www.scorah-chemists.co.uk
 - Review link: https://g.page/r/CZdA75DAMigGEAE/review
 
-## 1. Business description (max 750 chars - this is 687)
-Scorah Chemists is your local independent NHS pharmacy on North Park Road in
-Bramhall, serving Bramhall, Cheadle Hulme, Hazel Grove, Handforth and
-Poynton. We dispense NHS prescriptions, offer free NHS blood pressure checks
-for adults aged 40 and over, and provide the NHS contraception service.
-Through the free NHS Pharmacy First service our pharmacists can assess and
-treat seven common conditions without a GP appointment. We also run private
-clinics: a travel health clinic with personalised vaccination and malaria
-prevention advice, and a pharmacist-led weight loss clinic. Our sister
-branch in Hazel Grove is nearby. Pop in and speak to the team - real
-people, not a call centre.
+## 1. Business description (max 750 chars - this is 742)
+Scorah Chemists on North Park Road is Bramhall's independent NHS pharmacy.
+Prescriptions are dispensed by a team that knows its regulars, and adults
+aged 40 and over can have a free NHS blood pressure check without an
+appointment. We provide the NHS contraception service, and under NHS
+Pharmacy First our pharmacists assess and treat seven common conditions
+free of charge, no GP appointment needed. Privately, we offer a travel
+health clinic covering vaccinations and malaria prevention for your trip,
+and a pharmacist-led weight loss clinic with a full clinical assessment.
+Patients come to us from Bramhall, Cheadle Hulme, Hazel Grove, Handforth
+and Poynton, and our sister branch in Hazel Grove is close by. Call in any
+time we are open.
 
 ## 2. Categories
 - Primary: Pharmacy

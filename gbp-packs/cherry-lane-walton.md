@@ -23,16 +23,16 @@ Profile basics (for checking, not pasting):
 - Website: https://www.cherrylanepharmacy.co.uk
 - Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
 
-## 1. Business description (max 750 chars - this is 642)
-Cherry Lane Pharmacy is your local independent NHS pharmacy on Cherry Lane
-in Walton, serving Walton, Everton and north Liverpool. We dispense NHS
-prescriptions with free collection from your GP surgery and free home
-delivery, and offer blister packs to make daily medication simpler. Through
-the free NHS Pharmacy First service our pharmacists can assess and treat
-seven common conditions without a GP appointment. We also run private
-clinics: travel vaccinations with a free assessment, a pharmacist-led weight
-loss clinic, blood testing and vaccinations. Open six days a week. Pop in
-and speak to the team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 637)
+Cherry Lane Pharmacy serves Walton, Everton and north Liverpool from its
+home on Cherry Lane, open six days a week. We collect prescriptions from
+your GP surgery free of charge, deliver medicines to your door at no cost,
+and can prepare blister packs to keep daily medication simple. Our
+pharmacists offer NHS Pharmacy First, a free service covering seven common
+conditions with no GP appointment needed. On the private side we provide
+travel vaccinations with a free assessment, blood testing, a vaccination
+service and a pharmacist-led weight loss clinic. An independent local
+pharmacy run by people who know the area. Come and see us.
 
 ## 2. Categories
 - Primary: Pharmacy

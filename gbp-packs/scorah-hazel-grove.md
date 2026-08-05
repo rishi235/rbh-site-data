@@ -14,17 +14,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.scorah-chemists.co.uk
 - Review link: https://g.page/r/CZbFKrky9BUsEAE/review
 
-## 1. Business description (max 750 chars - this is 685)
-Scorah Chemists is your local independent NHS pharmacy on Macclesfield Road
-in Hazel Grove, serving Hazel Grove, Bramhall, Offerton, Great Moor and
-Poynton. We dispense NHS prescriptions, offer free NHS blood pressure checks
-for adults aged 40 and over, and provide the NHS contraception service.
-Through the free NHS Pharmacy First service our pharmacists can assess and
-treat seven common conditions without a GP appointment. We also run private
-clinics: a travel health clinic with personalised vaccination and malaria
-prevention advice, and a pharmacist-led weight loss clinic. Our sister
-branch in Bramhall is nearby. Pop in and speak to the team - real people,
-not a call centre.
+## 1. Business description (max 750 chars - this is 712)
+An independent NHS pharmacy on Macclesfield Road, Scorah Chemists Hazel
+Grove looks after patients from Hazel Grove, Bramhall, Offerton, Great Moor
+and Poynton. Alongside NHS prescription dispensing we offer three free NHS
+services: blood pressure checks for adults aged 40 and over, the
+contraception service, and Pharmacy First, where a pharmacist can assess
+and treat seven common conditions with no GP appointment. For travellers we
+run a private travel health clinic with advice on vaccinations and malaria
+prevention, and our pharmacist-led weight loss clinic provides private
+consultations with ongoing support. Our sister branch is in Bramhall. The
+team is here Monday to Friday and always happy to help.
 
 ## 2. Categories
 - Primary: Pharmacy

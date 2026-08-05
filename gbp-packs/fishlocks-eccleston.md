@@ -20,18 +20,18 @@ Profile basics (for checking, not pasting):
   the profile stays local to Eccleston. Check it resolves before pasting.)
 - Review link: https://g.page/r/CYyjtWbSXqEkEAE/review
 
-## 1. Business description (max 750 chars - this is 724)
-Fishlocks Chemist is your local independent NHS pharmacy at Unit 3 The
-Carrington Centre on New Mill Street in Eccleston, near Chorley, serving
-Eccleston, Charnock Richard and Coppull. We dispense NHS prescriptions,
-offer free NHS blood pressure checks for adults aged 40 and over, and
-provide the NHS contraception service. Through the free NHS Pharmacy First
-service our pharmacists can assess and treat seven common conditions
-without a GP appointment. We also run private clinics: a travel health
-clinic with personalised vaccination and malaria prevention advice, and a
-pharmacist-led weight loss clinic. You can order repeat prescriptions
-through our app. Pop in and speak to the team - real people, not a call
-centre.
+## 1. Business description (max 750 chars - this is 730)
+Fishlocks Chemist trades from Unit 3 The Carrington Centre on New Mill
+Street in Eccleston, near Chorley, and is the local independent NHS
+pharmacy for Eccleston, Charnock Richard and Coppull. Repeat prescriptions
+can be ordered through our app and collected when ready. In branch, we
+dispense NHS prescriptions and provide free NHS blood pressure checks for
+adults aged 40 and over, plus the NHS contraception service. Through
+Pharmacy First, a free NHS service, our pharmacists can advise on and treat
+seven common conditions with no GP appointment. Two private clinics
+complete the picture: travel health, with vaccination and malaria
+prevention advice, and a pharmacist-led weight loss clinic. New patients
+are always welcome.
 
 ## 2. Categories
 - Primary: Pharmacy

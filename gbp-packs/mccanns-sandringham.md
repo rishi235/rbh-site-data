@@ -19,17 +19,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.mccannspharmacy.co.uk
 - Review link: https://g.page/r/CbMDr1qOLqnrEAE/review
 
-## 1. Business description (max 750 chars - this is 700)
-McCanns Chemist Sandringham is your local independent NHS pharmacy at 1b
-Aigburth Road in Liverpool, serving Aigburth, St Michael's, Lark Lane and
-Dingle. We dispense NHS prescriptions, offer free NHS blood pressure checks
-for adults aged 40 and over, and provide the NHS contraception service.
-Through the free NHS Pharmacy First service our pharmacists can assess and
-treat seven common conditions without a GP appointment. We also run private
-clinics: a travel health clinic with personalised vaccination and malaria
-prevention advice, and a pharmacist-led weight loss clinic. Our sister
-McCanns branch is further along Aigburth Road. Pop in and speak to the
-team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 713)
+At 1b Aigburth Road, McCanns Chemist Sandringham is an independent pharmacy
+providing NHS services to Aigburth, St Michael's, Lark Lane and Dingle. NHS
+prescriptions are dispensed on site, free NHS blood pressure checks are
+available to adults aged 40 and over, and the NHS contraception service
+means you can start or continue oral contraception at the pharmacy.
+Pharmacy First, free on the NHS, allows our pharmacists to assess and treat
+seven common conditions with no need for a GP appointment. We also offer
+two private clinics: travel health, including vaccinations and malaria
+prevention advice, and pharmacist-led weight loss. Our sister McCanns
+branch is further along Aigburth Road. Everyone is welcome.
 
 ## 2. Categories
 - Primary: Pharmacy
