@@ -149,9 +149,24 @@ const questionsHtml = openQs.length
     '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi</h2>' +
     '<p class="text-sm text-gray-500">None at the moment.</p>' + answeredHtml + '</section>';
 const answerScript = '<script>' +
+  'function markSent(card, saved){' +
+  'card.querySelectorAll("label,[data-submit]").forEach(function(el){ el.style.display = "none"; });' +
+  'var note = card.querySelector("[data-sent-note]");' +
+  'if (!note) { note = document.createElement("div");' +
+  'note.setAttribute("data-sent-note", "1");' +
+  'note.className = "mt-2 p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-900";' +
+  'card.appendChild(note); }' +
+  'note.textContent = "Your answer (" + saved.at + "): " + saved.val + ". The agents record it on their next run; this card disappears once it is applied.";' +
+  '}' +
+  'document.querySelectorAll("[data-qid]").forEach(function(card){' +
+  'var qid = card.getAttribute("data-qid"); var saved = null;' +
+  'try { saved = JSON.parse(localStorage.getItem("auditAnswer:" + qid)); } catch (e) {}' +
+  'if (saved) { markSent(card, saved); }' +
+  '});' +
   'document.querySelectorAll("[data-submit]").forEach(function(btn){' +
   'btn.addEventListener("click", async function(){' +
   'var qid = btn.getAttribute("data-submit");' +
+  'var card = document.querySelector("[data-qid=\\"" + qid + "\\"]");' +
   'var sel = document.querySelector("input[name=\\"" + qid + "\\"]:checked");' +
   'var status = document.querySelector("[data-status-for=\\"" + qid + "\\"]");' +
   'var val = sel ? sel.value : "";' +
@@ -161,8 +176,11 @@ const answerScript = '<script>' +
   'try {' +
   'var r = await fetch("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" },' +
   'body: JSON.stringify({ type: "Feedback", area: "Audit answer " + qid, message: "AUDIT ANSWER " + qid + " | " + val }) });' +
-  'if (r.ok) { status.textContent = "Answer sent. The agents will apply it within the hour."; }' +
-  'else { status.textContent = "Send failed (" + r.status + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
+  'if (r.ok) {' +
+  'var saved = { val: val, at: new Date().toLocaleString("en-GB", { hour12: false }) };' +
+  'try { localStorage.setItem("auditAnswer:" + qid, JSON.stringify(saved)); } catch (e) {}' +
+  'markSent(card, saved);' +
+  '} else { status.textContent = "Send failed (" + r.status + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
   '} catch (e) { status.textContent = "Send failed. Try again or answer in Claude chat."; btn.disabled = false; }' +
   '});});' +
   '</scr' + 'ipt>';
