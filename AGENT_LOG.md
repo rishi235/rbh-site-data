@@ -13,6 +13,61 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.9: Clear Chemist Aintree GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.9, the Clear Chemist Aintree pack - next
+in paste order as flagged in the previous entry.
+
+Verified clean against the current branches.json:
+- Profile facts all match: name, Unit 20 Brookfield Trade Centre,
+  Brookfield Drive, Aintree, Liverpool L9 7AS, 0151 203 8365, website
+  https://www.clearchemist.co.uk, review link, service areas (Aintree,
+  Fazakerley, Walton, Bootle, North Liverpool). hasApp true and the
+  pack mentions the app correctly.
+- Hours handling correct: branches.json has no opening hours for this
+  branch and the pack says do not paste or invent hours - confirm and
+  add to branches.json first. That instruction stands.
+- Description header claimed 669 characters; actual paste-form count is
+  exactly 669. No correction needed.
+- No-Pharmacy-First handling correct: branches.json has no pfLink,
+  pfBooking false and no PF, blood pressure or contraception widgets,
+  and the pack neither lists those services nor drafts a PF post.
+  Post A is the local team post as agreed at 4.9 drafting.
+- Posts B, C and D carry the exact generated page slugs
+  (switch-prescriptions-clear-aintree.html,
+  weight-loss-clinic-clear-aintree.html,
+  travel-clinic-clear-aintree.html), all verified present in modules/.
+  Post A uses the homepage, correct for a team post. No placeholder
+  links. Post lengths 407, 360, 515 and 449 characters, all well under
+  the 1,500 limit.
+- Local-not-online framing intact throughout, per the pack's own rule
+  that the profile must read as a physical pharmacy.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gap found and fixed in the pack:
+- Shot list extended from 6 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle showing the Brookfield Trade Centre approach
+  and parking, shop floor and collection counter, hours notice) plus
+  the pending-Google-updates paster note. The hours shot for this
+  branch doubles as the source for the missing branches.json hours:
+  photograph the door notice, confirm the hours, add them to
+  branches.json, then set them on GBP.
+
+Note: 6 packs still carry the older shot list (coleman-leigh-walton,
+gordon-short-crosby, riddings-timperley, sk-chemists-bootle,
+smartts-bootle, tiffenbergs-aintree). Next in paste order:
+4.10 Smartts Bootle.
+
+Files changed: gbp-packs/clear-aintree.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.8: Fishlocks Eccleston GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions

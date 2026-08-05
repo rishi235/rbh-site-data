@@ -53,15 +53,27 @@ widgets for those services). Do not add them to GBP unless branches.json
 is updated first.
 
 ## 4. Photo shot list
+(Build Pack 4.1 asks for at least 10 photos. While in the profile,
+action any pending Google updates.)
+- New vinyl storefront as the lead shot, where fitted; otherwise the
+  unit frontage shot below leads.
 - Unit frontage at Brookfield Trade Centre with the Clear Chemist
   signage legible.
-- Entrance showing access and parking from Brookfield Drive.
+- Street-context angle showing the Brookfield Trade Centre approach
+  and parking from Brookfield Drive, so visitors recognise the estate.
+- Entrance showing access from the parking area, including step-free
+  access if available.
+- Shop floor and collection counter - show there is a real counter to
+  walk up to, not just a warehouse.
 - Dispensary and counter with a team member serving (consent from staff
   and no customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo - real people behind the online name.
 - Pharmacist at work checking prescriptions, to show this is a working
   pharmacy, not just a website.
+- Door hours notice, legible. Hours are not recorded in branches.json,
+  so also use this photo to confirm the branch hours, add them to
+  branches.json, and only then set hours on GBP.
 
 ## 5. Post drafts
 
