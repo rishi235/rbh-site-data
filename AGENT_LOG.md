@@ -13,6 +13,55 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.7: McCanns Sandringham GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.7, the McCanns Sandringham pack, because
+the Q4 answer makes it the first pack to be pasted (its live GBP
+description names two POMs) and it was drafted against the 2026-08-04
+branches.json, before the Wilmslow removal bumped the file.
+
+Verified clean:
+- Profile facts (name, address 1b Aigburth Road L17 4JP, phone 0151 727
+  3076, hours Mon-Fri 9-1 and 2-6 closed Sat-Sun, website, review link,
+  service areas, hasApp false) all match the current branches.json
+  (lastUpdated 2026-08-05).
+- Business description is exactly 700 characters as the pack claims,
+  under the 750 limit.
+- Compliance sweep: no POM or generic medicine names, no efficacy
+  phrases, no em dashes, no emojis, UK English throughout.
+- Post B, C and D target pages all exist in the repo (switch, weight
+  loss clinic, travel clinic for mccanns-sandringham). The branch
+  Pharmacy First page exists too, ready for the link swap the paster
+  note describes.
+- Post A pfLink (shared pharmacy-first-service-aigburth.html) is a
+  live-site-only page, not repo-generated - consistent with the paster
+  note. Both McCanns branches share it per branches.json.
+- Sister-branch claim checked: Aigburth branch is at 112 Aigburth Road,
+  so "further along Aigburth Road" is accurate.
+- Live URL resolution could not be checked from this run (no web access
+  to the live site from the worker); the pack already tells the paster
+  to check the URLs before posting.
+
+Gap found against Build Pack v2 section 4.1 and fixed:
+- Spec asks for 10+ photos including the new vinyl storefront, and for
+  pending Google updates to be actioned. The pack's shot list had 6
+  shots and covered neither point. Extended the shot list to 10 (vinyl
+  storefront lead shot where fitted, shop floor, hours notice, street
+  context) and added a paster note to action pending Google updates.
+- TEMPLATE.md section 4 updated to carry both requirements so future
+  packs inherit them. The other 14 packs share the same 6-shot gap;
+  left for a later pass or the paster - flagged here, not silently
+  rolled out, to keep this run to one item.
+
+Files changed: gbp-packs/mccanns-sandringham.md, gbp-packs/TEMPLATE.md,
+AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Recovery: verify and commit the Cowork session's Q2 to Q5 answer applications
 
 Found on arrival: a stale .agent-lock (3.2 hours old, deleted per the

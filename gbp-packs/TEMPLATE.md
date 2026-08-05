@@ -32,7 +32,10 @@ sentence plain-English description. NHS services first, then private.)
 
 ## 4. Photo shot list
 (What to photograph so the profile looks real and local. Front, inside,
-team, consultation room. Note anything branch-specific worth showing.)
+team, consultation room. Note anything branch-specific worth showing.
+Build Pack 4.1 asks for at least 10 photos, including the new vinyl
+storefront where fitted, so list 10 shots. Also remind the paster to
+action any pending Google updates while in the profile.)
 
 ## 5. Post drafts (four)
 ### Post A - Pharmacy First

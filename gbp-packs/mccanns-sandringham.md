@@ -64,6 +64,15 @@ Private services:
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Close-up of the storefront signage; if the new vinyl has been fitted at
+  this branch, make it the lead exterior shot (Build Pack 4.1 asks for the
+  vinyl storefront in the photo set).
+- Shop floor and retail shelves, tidy and stocked.
+- Opening hours notice on the door, current and legible.
+- Street view along Aigburth Road showing the shopfront in context, so
+  customers can recognise the branch on approach.
+Build Pack 4.1 asks for at least 10 photos on the profile; the shots above
+give 10 without staging anything that is not really there.
 
 ## 5. Post drafts
 
@@ -123,3 +132,6 @@ Notes for the paster:
   pick the closest match.
 - No app mention anywhere in this pack: branches.json has hasApp false for
   this branch.
+- While in the profile, action any pending Google updates (Build Pack 4.1):
+  review and accept or reject Google's suggested edits so they do not apply
+  silently.
