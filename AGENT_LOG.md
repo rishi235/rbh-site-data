@@ -13,6 +13,66 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.10: Smartts Chemist Bootle GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.10, the Smartts Bootle pack - next in
+paste order as flagged in the previous entry.
+
+Verified clean against the current branches.json:
+- Profile facts all match: name, 42 Fernhill Road, Bootle L20 9HH,
+  0151 922 4984, website https://www.smarttschemist.co.uk, review link,
+  service areas (Bootle, Sefton, Liverpool). hasApp true and the pack
+  mentions the app correctly.
+- Hours correct throughout: Mon-Fri 9:00am-1:00pm and 2:00pm-6:00pm
+  (NHS confirmed 2026-06-24), Saturday and Sunday closed. The
+  description's "closed 1pm to 2pm for lunch" matches the split hours
+  in branches.json.
+- Description header claimed 710 characters; actual paste-form count is
+  exactly 710. No correction needed.
+- Post A URL matches pfLink exactly (the shared
+  pharmacy-first-service-bootle.html live page), and the paster note
+  correctly flags the swap to the branch-specific
+  pharmacy-first-smartts-bootle.html once confirmed live - that page is
+  verified present in modules/service/pages/.
+- Posts B, C and D carry the exact generated page slugs
+  (switch-prescriptions-smartts-bootle.html,
+  weight-loss-clinic-smartts-bootle.html,
+  travel-clinic-smartts-bootle.html), all verified present in modules/.
+  No placeholder links. Post lengths 461, 324, 516 and 420 characters,
+  all well under the 1,500 limit.
+- Widget coverage correct: branches.json has bloodPressure,
+  contraception, pharmacyFirst, weightLoss and travelClinic widgets and
+  the services section lists all five. Blood tests, vaccinations and
+  medical cannabis are live site pages rather than widgets, and the
+  paster note to check those pages before pasting stands.
+- Medical cannabis wording stays within "book a free consultation to
+  discuss eligibility" - no availability or benefit claims.
+- Bootle deduplication note intact: description deliberately worded
+  differently from the SK Chemists pack.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gap found and fixed in the pack:
+- Shot list extended from 7 to 11 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle along Fernhill Road, shop floor, hours notice)
+  plus the pending-Google-updates paster note. The hours shot for this
+  branch specifically asks for the weekday lunch closure (1:00pm to
+  2:00pm) and the weekend closure to be legible. Blood pressure and
+  app shots kept.
+
+Note: 5 packs still carry the older shot list (coleman-leigh-walton,
+gordon-short-crosby, riddings-timperley, sk-chemists-bootle,
+tiffenbergs-aintree). Next in paste order: 4.11 SK Chemists Bootle.
+
+Files changed: gbp-packs/smartts-bootle.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.9: Clear Chemist Aintree GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions
