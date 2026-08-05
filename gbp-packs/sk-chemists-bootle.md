@@ -52,14 +52,23 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
 - Shopfront from Stanley Road with the SK Chemists signage legible.
+- Street-context angle along Stanley Road so the location is recognisable
+  on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours notice on the door, close enough that the 9am to 6pm weekday
+  hours and the Saturday and Sunday closure are legible.
 
 ## 5. Post drafts
 
