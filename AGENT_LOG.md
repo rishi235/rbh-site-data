@@ -15,6 +15,54 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run) - Quality pass on item 2.1: Fishlocks Ainsdale audit re-verified against Build Pack v2 and current data; clean, no new findings
+
+No unchecked worklist items at run start. Q6 open, so the Outlook
+answer search ran first: no "Portal feedback" emails with an AUDIT
+ANSWER line found, so Q6 stays open and this run is a quality pass
+per the standing rules. Item taken: 2.1 (Fishlocks Ainsdale audit),
+the last Phase 2 item without a re-verification pass - 2.2 and 2.3
+were covered by the two previous passes.
+
+Verified clean:
+- Full page set present in the repo: eleven service pages
+  (contraception, earache, impetigo, insect bite, Pharmacy First,
+  shingles, sinusitis, sore throat, travel clinic, UTI, weight loss)
+  plus the switch page, its banner text file, and the 2.2 branch
+  landing page. 13 HTML pages carry the fishlocks-ainsdale slug.
+- check-nap passes: 173 pages against 16 branches.json entries,
+  0 mismatches. check-seo-pattern passes: 173 pages, 0 failures,
+  all 26 Fishlocks pages included.
+- The 2.1 in-repo fix holds: pfLink for BOTH Fishlocks branches
+  points at the branch-specific Pharmacy First page
+  (pharmacy-first-fishlocks-ainsdale.html / -eccleston.html), both
+  pages present in modules/service/pages/.
+- tel: links correct and space-stripped (tel:01704575478 matches the
+  branches.json phone). Helpdesk email appears on the branch landing
+  page only, matching Ainsdale@rbhealth.co.uk; service pages are
+  tel-only by design.
+- branches.json entry coherent: seoTown Ainsdale, townSlug ainsdale,
+  website fishlockpharmacy.co.uk, five widget groups (bloodPressure,
+  contraception, pharmacyFirst, weightLoss, travelClinic).
+- Regeneration is byte-identical: re-ran all six build scripts
+  against current branches.json, git status clean after.
+- Compliance sweep on all 13 pages plus the banner file: no POM or
+  generic medicine names, no efficacy claims, no emojis. The single
+  "guaranteed" hit is the travel page head-comment note stating no
+  vaccine is claimed guaranteed in stock (same as Cherry Lane).
+
+No new findings. The em dashes found on these pages (head comments,
+the switch page's visible lead paragraph and its Weebly SEO
+description line, one banner CSS comment) are the same template-level
+Finding 1 already logged by the 2.3 pass - repo-wide, deferred to a
+dedicated generator run timed with the Q3 go-live. Nothing new to add.
+
+Files changed: AGENT_LOG.md only.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q6 still open (no answer email found this run). No others.
+
+---
+
 ## 2026-08-05 (unattended run) - Quality pass on item 2.3: Cherry Lane build verified against Build Pack v2 and current data; two findings, one new question (Q6)
 
 No unchecked worklist items and no open questions at run start, so
