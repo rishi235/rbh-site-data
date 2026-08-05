@@ -13,16 +13,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.tiffenbergschemist.co.uk
 - Review link: https://g.page/r/CdfQf2a16Bn4EAE/review
 
-## 1. Business description (max 750 chars - this is 633)
-Tiffenbergs Chemist is your local independent NHS pharmacy on Longmoor
-Lane in Aintree, serving Aintree, Fazakerley and the wider Liverpool area.
-We dispense NHS prescriptions, offer free NHS blood pressure checks for
-adults aged 40 and over, and provide the NHS contraception service.
-Through the free NHS Pharmacy First service our pharmacists can assess and
-treat seven common conditions without a GP appointment. We also run
-private clinics: a travel health clinic with personalised vaccination and
-malaria prevention advice, and a pharmacist-led weight loss clinic. Pop in
-and speak to the team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 650)
+Tiffenbergs Chemist is an independent NHS pharmacy on Longmoor Lane,
+looking after patients in Aintree, Fazakerley and across north
+Liverpool. We dispense NHS prescriptions and offer Pharmacy First, the
+free NHS service under which a pharmacist can assess and, where
+appropriate, treat seven common conditions with no GP appointment
+needed. Adults aged 40 and over can have a free NHS blood pressure
+check, and the NHS contraception service is available at the pharmacy.
+Private clinics include travel health, with vaccination and malaria
+prevention advice, and a pharmacist-led weight loss clinic. Open Monday
+to Friday, closed 1pm to 2pm for lunch.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -49,15 +50,23 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
-- Shopfront from Longmoor Lane with the Tiffenbergs Chemist signage
-  legible.
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
+- Shopfront on Longmoor Lane with the Tiffenbergs Chemist signage legible.
+- Street-context angle along Longmoor Lane so the parade is recognisable
+  on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours notice on the door, close enough that the weekday lunch closure
+  (1:00pm to 2:00pm) and the Saturday and Sunday closure are legible.
 
 ## 5. Post drafts
 

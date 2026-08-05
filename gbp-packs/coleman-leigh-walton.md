@@ -19,16 +19,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.colemanandleighspharmacy.co.uk
 - Review link: https://g.page/r/CVRiXrQr74lLEAE/review
 
-## 1. Business description (max 750 chars - this is 636)
-Coleman and Leighs Pharmacy is your local independent NHS pharmacy on Walton
-Village in Walton (Liverpool L4), serving Walton, Liverpool and Sefton. We
-dispense NHS prescriptions, offer free NHS blood pressure checks for adults
-aged 40 and over, and provide the NHS contraception service. Through the
-free NHS Pharmacy First service our pharmacists can assess and treat seven
-common conditions without a GP appointment. We also run private clinics: a
-travel health clinic with personalised vaccination and malaria prevention
-advice, and a pharmacist-led weight loss clinic. Pop in and speak to the
-team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 631)
+Coleman and Leighs Pharmacy has served Walton Village and the
+surrounding streets of north Liverpool for years as an independent NHS
+pharmacy. We dispense NHS prescriptions and take part in Pharmacy First,
+the free NHS service where a pharmacist can assess and, where
+appropriate, treat seven common conditions with no GP appointment
+needed. Free NHS blood pressure checks are available to anyone aged 40
+and over, and we provide the NHS contraception service. Privately we run
+a travel health clinic and a pharmacist-led weight loss clinic. Open
+Monday to Friday, closed 1pm to 2pm for lunch. Serving Walton, Liverpool
+and Sefton.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -55,15 +56,24 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
-- Shopfront from Walton Village with the Coleman and Leighs Pharmacy
-  signage legible (check the signage spelling matches the confirmed name).
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
+- Shopfront on Walton Village with the Coleman and Leighs Pharmacy signage
+  legible.
+- Street-context angle along Walton Village so the parade and the pharmacy
+  position are recognisable on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours notice on the door, close enough that the weekday lunch closure
+  (1:00pm to 2:00pm) and the Saturday and Sunday closure are legible.
 
 ## 5. Post drafts
 

@@ -13,16 +13,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.gordonshortchemist.co.uk
 - Review link: https://g.page/r/CZcVDM6emi6OEAE/review
 
-## 1. Business description (max 750 chars - this is 636)
-Gordon Short Chemist is your local independent NHS pharmacy on College Road
-in Crosby, serving Crosby, Waterloo and Sefton. We dispense NHS
-prescriptions, offer free NHS blood pressure checks for adults aged 40 and
-over, and provide the NHS contraception service. Through the free NHS
-Pharmacy First service our pharmacists can assess and treat seven common
-conditions without a GP appointment. We also run private clinics: a travel
-health clinic with personalised vaccination and malaria prevention advice,
-and a pharmacist-led weight loss clinic. Open Monday to Saturday. Pop in
-and speak to the team - real people, not a call centre.
+## 1. Business description (max 750 chars - this is 652)
+Gordon Short Chemist is an independent NHS pharmacy on College Road in
+Crosby, serving Crosby, Waterloo and the wider Sefton area, and open six
+days a week. We dispense NHS prescriptions and take part in Pharmacy
+First, the free NHS service where a pharmacist can assess and, where
+appropriate, treat seven common conditions without a GP appointment.
+Free NHS blood pressure checks are offered to adults aged 40 and over,
+and we provide the NHS contraception service. Private clinics cover
+travel health, with vaccination and malaria prevention advice, and
+pharmacist-led weight loss consultations. Open Monday to Saturday,
+closed 1pm to 2pm for lunch.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -49,14 +50,23 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
-- Shopfront from College Road with the Gordon Short Chemist signage legible.
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
+- Shopfront on College Road with the Gordon Short Chemist signage legible.
+- Street-context angle along College Road so the parade and nearby parking
+  are recognisable on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours notice on the door, close enough that the Monday to Saturday lunch
+  closure (1:00pm to 2:00pm) and the 5:00pm Saturday finish are legible.
 
 ## 5. Post drafts
 

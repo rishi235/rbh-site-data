@@ -13,6 +13,91 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (supervised run) - Quality pass on items 4.12 to 4.15: the last four GBP packs verified, plus a duplicate-description fix
+
+Run continued at Rishi's request in the same Cowork session as the 4.10
+and 4.11 passes. All four remaining packs on the older shot list taken
+together: 4.12 Coleman and Leighs Walton, 4.13 Riddings Timperley,
+4.14 Gordon Short Crosby, 4.15 Tiffenbergs Aintree.
+
+Verified clean against the current branches.json for all four:
+- Profile facts all match: names, addresses (241 Walton Village L4 6TH;
+  38 Riddings Road, Timperley, Altrincham WA15 6BP; 159 College Road
+  L23 3AT; 388 Longmoor Lane L9 9DB), phones, websites, review links
+  and service area lists.
+- Hours correct in every pack, including the awkward ones: Coleman and
+  Leighs and Tiffenbergs both Mon-Fri 9:00-1:00 and 2:00-6:00 with the
+  lunch closure spelled out; Gordon Short Mon-Sat with the lunch
+  closure and the 5:00pm Saturday finish; Riddings straight 9:00-6:00
+  Mon-Fri. All NHS confirmed 2026-06-24. Paster notes on the split-hours
+  branches correctly tell the paster to enter two ranges per day in GBP.
+- Post A URLs match pfLink exactly in all four, and the branch-specific
+  Pharmacy First pages (pharmacy-first-coleman-leigh-walton.html,
+  pharmacy-first-riddings-timperley.html,
+  pharmacy-first-gordon-short-crosby.html,
+  pharmacy-first-tiffenbergs-aintree.html) are all verified present in
+  modules/service/pages/ for the later link swap.
+- Posts B, C and D carry the exact generated page slugs in all four,
+  every one verified present in modules/. No placeholder links. Post
+  lengths range 280 to 528 characters, all well under the 1,500 limit.
+- Widget coverage correct: all four have the same five widgets
+  (bloodPressure, contraception, pharmacyFirst, weightLoss,
+  travelClinic) and each services section lists those five, nothing
+  extra.
+- No-app handling correct in all four: hasApp false, and the only
+  occurrence of "app" in each pack is the paster note saying not to
+  add one.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gaps found and fixed:
+1. Shot lists extended from 6 to 10 shots in all four per Build Pack
+   4.1 and the updated TEMPLATE.md, plus the pending-Google-updates
+   paster note. Each hours shot is branch-specific: Coleman and Leighs
+   and Tiffenbergs ask for the lunch closure to be legible, Gordon
+   Short for the lunch closure and the 5:00pm Saturday finish,
+   Riddings for the straight 9am to 6pm weekday hours. Street-context
+   shots named per road (Walton Village, Riddings Road, College Road,
+   Longmoor Lane).
+2. Duplicate descriptions. Three of the four descriptions were
+   word-for-word identical apart from the branch name, street, town and
+   service areas, and the fourth differed only by one sentence. Google
+   treating four profile descriptions as the same text undercuts the
+   point of the exercise. All four rewritten to be distinct in
+   structure and phrasing while keeping every fact from branches.json,
+   the same service coverage and the same compliance position. New
+   counts: Coleman and Leighs 631, Gordon Short 652, Riddings 657,
+   Tiffenbergs 650, all under the 750 limit and all headers corrected.
+   The four now share no meaningful phrasing with each other or with
+   any other pack.
+
+Whole-folder check run after the edits: all 15 packs pass on claimed
+versus actual description length, the 750-character limit, the 10-shot
+minimum and the compliance sweep.
+
+FINDING for a future run (not fixed here, outside this item's scope):
+the same duplicate-description problem affects seven of the earlier
+packs. Measured on shared six-word runs, 13 pack pairs sit at 65 per
+cent or higher. The two that matter most are the same-brand pairs,
+where the profiles are closest geographically and Google is most
+likely to collapse them: Scorah Bramhall versus Scorah Hazel Grove at
+77 per cent, and McCanns Aigburth versus McCanns Sandringham at 73 per
+cent. Also high: Cherry Lane versus Hirshmans at 80 per cent,
+Fishlocks Ainsdale versus Hirshmans at 77 per cent, Cherry Lane versus
+Fishlocks Ainsdale at 71 per cent, and Fishlocks Eccleston against the
+McCanns and Scorah packs at 65 to 67 per cent. Recommend a single run
+that rewrites the seven affected descriptions, taking the same-brand
+pairs first. Facts and compliance position stay as they are; only the
+phrasing and structure change.
+
+Files changed: gbp-packs/coleman-leigh-walton.md,
+gbp-packs/gordon-short-crosby.md, gbp-packs/riddings-timperley.md,
+gbp-packs/tiffenbergs-aintree.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (supervised run) - Quality pass on item 4.11: SK Chemists Bootle GBP pack verified against Build Pack v2 and current data
 
 Run continued at Rishi's request in the same Cowork session as the 4.10
