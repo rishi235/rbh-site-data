@@ -85,8 +85,8 @@
       "Skip the blocks - do the Weebly hand edit directly from the new compliant pages' content"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "If the paste to Weebly has already been done, say so in the answer and the blocks only need recreating for the record. Until the paste happens the old weight loss page still names POMs and carries the efficacy claim, so the Q5 exposure stands."
+    "status": "answered",
+    "answer": "Fix it and log it - Rishi, Cowork session 2026-08-05. Both replacement blocks recreated in the repo at modules/service/weebly-paste/ (cherry-lane-old-weight-loss-replacement.html and cherry-lane-old-pharmacy-first-replacement.html), version-controlled, no medicine names, no claims. The Weebly paste itself remains outstanding and needs someone logged into the Weebly editor.",
+    "note": "Until the paste happens the old weight loss page still names POMs publicly. Paste both blocks, then delete the duplicate Weight Loss Clinic navigation entry."
   }
 ]
