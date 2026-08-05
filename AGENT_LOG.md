@@ -13,6 +13,55 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.2: Cherry Lane GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.2, the Cherry Lane pack - next in the Q4
+paste order after Sandringham and Fishlocks Ainsdale, and the pack most
+in need of an update: it was drafted while the 2.3 build was still
+pending, so its warnings no longer matched reality.
+
+Verified clean against the current branches.json (lastUpdated 2026-08-05):
+- Profile facts all match: name, 202 Cherry Lane Liverpool L4 8SG,
+  0151 226 2051, hours Mon-Fri 9:00-6:30 Sat 9:00-5:00 closed Sunday
+  (NHS confirmed 2026-06-24), website, review link, service areas
+  Walton, Everton and north Liverpool. hasApp false and the
+  description correctly makes no app mention.
+- Post A URL matches pfLink and the generated page; Post B URL matches
+  the generated switch page slug.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gaps found and fixed in the pack:
+- The IMPORTANT header still said the 2.3 build was pending and posts
+  B, C and D needed live checks. 2.3 completed 2026-08-04 with all 12
+  pages verified live, so the header now says all four posts are
+  usable, and carries the two remaining live-site caveats instead: the
+  stale PF overview embed (repaste needed) and the old POM weight loss
+  page pending the Q5 hand edit, with a warning not to link the old
+  page from Post C.
+- Post C and D buttons pointed at the bare domain with placeholder
+  text. Both now carry the exact generated page URLs
+  (weight-loss-clinic-cherry-lane-walton.html and
+  travel-clinic-cherry-lane-walton.html).
+- "(check page is live first)" removed from the three post headings.
+- Shot list extended from 7 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle, shop floor, hours notice) plus the
+  pending-Google-updates paster note.
+- Description header claimed 636 characters; actual count is 642.
+  Header corrected (still well under 750).
+
+Note: 12 packs still carry the 6-shot list and older notes. Continuing
+one per quality pass in paste order, per the one-item rule.
+
+Files changed: gbp-packs/cherry-lane-walton.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.1: Fishlocks Ainsdale GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions

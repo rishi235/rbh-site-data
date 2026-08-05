@@ -4,11 +4,15 @@ Branch id: cherrylane_liverpool (branches.json). Drafted 2026-08-04.
 Facts checked against branches.json (hours confirmed by NHS 2026-06-24).
 Ready for Rishi or Dane to paste into GBP.
 
-IMPORTANT before posting: Cherry Lane is the build-from-near-zero site
-(worklist item 2.3, not yet done). The Pharmacy First overview and all 7
-condition pages are live and verified; check the switch, weight loss and
-travel pages return 200 before using Posts B, C and D. Do not post a link
-to a page that is not live.
+IMPORTANT before posting: the Cherry Lane build (worklist item 2.3) is
+done - the full 12-page set is in the repo and verified live on
+cherrylanepharmacy.co.uk (2026-08-04), so Posts A to D can all be used.
+Two live-site caveats remain: the Pharmacy First overview embed is a stale
+paste (shows five conditions as coming soon although all seven are live) -
+repaste it when convenient; and the OLD weight loss page
+(weight-loss-clinic-walton.html) is still live with POM content pending
+the Q5 hand edit - Post C links only the new compliant page, do not link
+the old one.
 
 Profile basics (for checking, not pasting):
 - Name on GBP: Cherry Lane Pharmacy
@@ -19,7 +23,7 @@ Profile basics (for checking, not pasting):
 - Website: https://www.cherrylanepharmacy.co.uk
 - Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
 
-## 1. Business description (max 750 chars - this is 636)
+## 1. Business description (max 750 chars - this is 642)
 Cherry Lane Pharmacy is your local independent NHS pharmacy on Cherry Lane
 in Walton, serving Walton, Everton and north Liverpool. We dispense NHS
 prescriptions with free collection from your GP surgery and free home
@@ -56,8 +60,12 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
-- Shopfront from Cherry Lane with signage legible.
+(Build Pack 4.1: at least 10 photos, vinyl storefront included where fitted.)
+- New vinyl storefront, straight on, signage legible - lead shot where
+  fitted; otherwise shopfront from Cherry Lane with signage legible.
+- Street-context angle showing the shop in its parade on Cherry Lane.
 - Entrance showing step-free access.
+- Shop floor from the door, tidy shelves.
 - Dispensary counter with a team member serving (staff consent, no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
@@ -65,6 +73,9 @@ Private services:
 - Blister pack close-up (no patient details visible).
 - Saturday opening sign or hours board - six-day opening is a local
   differentiator worth showing.
+- Hours notice by the door, current and legible.
+Paster note: while in the profile, action any pending Google updates
+(suggested edits) before adding photos.
 
 ## 5. Post drafts
 
@@ -78,7 +89,7 @@ needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
 Button: Learn more -> https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
 
-### Post B - Switch your prescriptions (check page is live first)
+### Post B - Switch your prescriptions
 Switching your prescriptions to Cherry Lane Pharmacy takes about 30 seconds.
 Tell us your name, date of birth and GP surgery - we contact the surgery and
 handle everything else. Free collection from your GP and free home delivery
@@ -86,22 +97,22 @@ across Walton and north Liverpool, plus blister packs if you want your
 medicines organised by day. Open Saturdays too.
 Button: Learn more -> https://www.cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
 
-### Post C - Weight loss clinic (check page is live first)
+### Post C - Weight loss clinic
 Thinking about losing weight with proper support? Our pharmacist-led weight
 loss clinic at Cherry Lane Pharmacy in Walton starts with a private, no
 pressure consultation. We talk through your health, your goals and the
 options available, and we support you at every step with regular check-ins.
 Confidential, judgement-free and led by professionals who know your
 medicines. Book your consultation today.
-Button: Book -> https://www.cherrylanepharmacy.co.uk (weight loss clinic page)
+Button: Book -> https://www.cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-lane-walton.html
 
-### Post D - Travel clinic (check page is live first)
+### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
 Cherry Lane Pharmacy in Walton offers a free assessment of your destination,
 trip length and vaccination needs, with vaccines and antimalarials supplied
 privately. Convenient appointments including Saturdays, no GP visit needed.
 Book your free travel assessment today.
-Button: Book -> https://www.cherrylanepharmacy.co.uk (travel clinic page)
+Button: Book -> https://www.cherrylanepharmacy.co.uk/travel-clinic-cherry-lane-walton.html
 
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
