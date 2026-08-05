@@ -13,6 +13,54 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.4: Scorah Bramhall GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.4, the Scorah Bramhall pack - next in
+line after Sandringham, Fishlocks Ainsdale, Cherry Lane and Hirshmans,
+continuing one pack per quality pass in paste order.
+
+Verified clean against the current branches.json (lastUpdated 2026-08-05):
+- Profile facts all match: name, 61-63 North Park Road, Bramhall SK7
+  3LQ, 0161 439 3744, hours Mon-Fri 9:00-6:00 and Sat 9:00-1:00 with no
+  lunch closure, closed Sunday (NHS confirmed 2026-06-24), website,
+  review link, service areas Bramhall, Cheadle Hulme, Hazel Grove,
+  Handforth and Poynton. hasApp false and the description correctly
+  makes no app mention.
+- Description header claimed 687 characters; actual paste-form count is
+  exactly 687. No correction needed - first pack in this pass series
+  where the count was already right.
+- Post A URL matches pfLink exactly (shared Hazel Grove / Bramhall PF
+  page, with the existing paster note to swap to the branch page once
+  live). Post B URL matches the generated switch page slug.
+- Private paid services correctly framed: no "free assessment" wording
+  on travel or weight loss, and Post C states plainly it is a private,
+  paid service.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gaps found and fixed in the pack:
+- Post C and D buttons pointed at the bare domain with placeholder
+  text. Both now carry the exact generated page URLs
+  (weight-loss-clinic-scorah-bramhall.html and
+  travel-clinic-scorah-bramhall.html), verified present in
+  modules/service/pages/.
+- Shot list extended from 6 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle, shop floor, hours notice) plus the
+  pending-Google-updates paster note. The branch-specific blood
+  pressure shot kept.
+
+Note: 10 packs still carry the older shot list and, in some,
+placeholder post links. Next in paste order: 4.5 Scorah Hazel Grove.
+
+Files changed: gbp-packs/scorah-bramhall.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.3: Hirshmans GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions

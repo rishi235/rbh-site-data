@@ -51,14 +51,22 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
 - Shopfront from North Park Road with the Scorah Chemists signage legible.
+- Street-context angle showing North Park Road around the shop, so the
+  location is recognisable on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours board or Saturday opening sign, current hours legible.
 
 ## 5. Post drafts
 
@@ -89,7 +97,7 @@ step as part of a supervised plan alongside diet and lifestyle changes.
 This is a private, paid service and it is not right for everyone - the
 pharmacist will advise. Confidential and judgement-free. Book your
 consultation today.
-Button: Book -> https://www.scorah-chemists.co.uk (weight loss clinic page)
+Button: Book -> https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-bramhall.html
 
 ### Post D - Travel clinic
 Going somewhere? Get your travel health sorted before you go. The travel
@@ -98,7 +106,7 @@ covering your destination, itinerary and medical history, with the
 vaccinations and malaria prevention that are right for your trip, subject
 to availability and clinical suitability. Convenient appointments on North
 Park Road, no GP visit needed. Book your travel consultation today.
-Button: Book -> https://www.scorah-chemists.co.uk (travel clinic page)
+Button: Book -> https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html
 
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
