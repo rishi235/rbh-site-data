@@ -13,6 +13,59 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.8: Fishlocks Eccleston GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.8, the Fishlocks Eccleston pack - next in
+paste order as flagged in the previous entry (4.7 Sandringham already
+passed).
+
+Verified clean against the current branches.json:
+- Profile facts all match: name, Unit 3 The Carrington Centre, New Mill
+  Street, Eccleston, Chorley PR7 5SZ, 01257 451251, hours Mon-Fri
+  9:00-6:00, Saturday 9:00-12:00, Sunday closed (NHS confirmed
+  2026-06-24), review link, service areas (Eccleston, Charnock Richard,
+  Coppull). hasApp true and the pack correctly mentions the app.
+- Description header claimed 724 characters; actual paste-form count is
+  exactly 724. No correction needed.
+- Post A URL matches pfLink exactly, and pfLink is already
+  branch-specific (pharmacy-first-fishlocks-eccleston.html) - no swap
+  note needed for this branch, unlike the shared-page branches.
+- Posts B, C and D carry the exact generated page slugs
+  (switch-prescriptions-fishlocks-eccleston.html,
+  weight-loss-clinic-fishlocks-eccleston.html,
+  travel-clinic-fishlocks-eccleston.html), all verified present in
+  modules/. The profile website landing page
+  (pharmacy-fishlocks-eccleston.html, from item 2.2) is confirmed
+  present in modules/branch/pages/. No placeholder links. Post lengths
+  463, 348, 521 and 433 characters, all well under the 1,500 limit.
+- Shared-domain handling correct throughout: profile website points at
+  the Eccleston landing page, not the shared fishlockpharmacy.co.uk
+  homepage, and the paster notes repeat the warning.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gap found and fixed in the pack:
+- Shot list extended from 6 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle showing the Carrington Centre parade and
+  parking, shop floor, hours notice) plus the pending-Google-updates
+  paster note. The hours shot for this branch specifically asks for
+  the Saturday morning-only opening (9:00am to 12:00pm) to be legible.
+  Blood pressure shot kept.
+
+Note: 7 packs still carry the older shot list (clear-aintree,
+coleman-leigh-walton, gordon-short-crosby, riddings-timperley,
+sk-chemists-bootle, smartts-bootle, tiffenbergs-aintree). Next in
+paste order: 4.9 Clear Chemist Aintree.
+
+Files changed: gbp-packs/fishlocks-eccleston.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.6: McCanns Aigburth GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions

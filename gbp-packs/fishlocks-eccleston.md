@@ -61,16 +61,26 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
 - Shopfront at The Carrington Centre with the Fishlocks Chemist signage
   legible.
+- Street-context angle showing the Carrington Centre parade and parking,
+  so the location is recognisable on approach.
 - Entrance showing access from New Mill Street and the Carrington Centre
   parking.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and
   no customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours board or door sign, current hours legible, with the Saturday
+  morning-only opening (9:00am to 12:00pm) clearly shown so customers
+  are not caught out.
 
 ## 5. Post drafts
 
