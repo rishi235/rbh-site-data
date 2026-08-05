@@ -73,5 +73,20 @@
     "status": "answered",
     "answer": "Sort properly - strip the POM content and correct the content on both old pages, keeping the URLs live and pointing visitors at the new pages (option 2 as listed, the recommended one). Answered by Rishi directly in a Cowork session on 2026-08-05. Paste-ready replacement blocks for both old URLs created same day in cowork/cherry-lane-old-page-replacements/ - Weebly hand edit needed to paste them and to remove the duplicate Weight Loss Clinic navigation entry.",
     "note": "Replacement blocks carry no medicine names, no efficacy claims and no prices; each links prominently to the new compliant page at the cherry-lane-walton slug."
+  },
+  {
+    "id": "Q6",
+    "date": "2026-08-05",
+    "item": "2.3",
+    "question": "The Q5 fix depends on the paste-ready replacement blocks for the two old Cherry Lane pages, recorded as saved in cowork/cherry-lane-old-page-replacements/. That folder is not in the repo, not in the OneDrive cowork folder the generators write to, and a full search of the rishi profile finds no folder of that name anywhere on this machine. Unless the Weebly paste has already been done, there is nothing to paste from. How should the blocks be restored?",
+    "options": [
+      "Agent recreates both replacement blocks in the repo on the next run (no medicine names, no efficacy claims, no prices, prominent links to the new compliant pages) so they are version-controlled and visible on the status page",
+      "Rishi locates the originals from the 2026-08-05 Cowork session and commits them to the repo",
+      "Skip the blocks - do the Weebly hand edit directly from the new compliant pages' content"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "If the paste to Weebly has already been done, say so in the answer and the blocks only need recreating for the record. Until the paste happens the old weight loss page still names POMs and carries the efficacy claim, so the Q5 exposure stands."
   }
 ]

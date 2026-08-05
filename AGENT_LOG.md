@@ -3,13 +3,71 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-Open: none. Q1 to Q5 are all answered. Q2 to Q5 were answered by Rishi
+Open: Q6 (Cherry Lane Q5 replacement blocks missing from this machine -
+see QUESTIONS.json and the 2026-08-05 quality pass entry on item 2.3
+below). Q1 to Q5 are all answered. Q2 to Q5 were answered by Rishi
 directly in a Cowork session on 2026-08-05 and are recorded in
 QUESTIONS.json (committed by the recovery run below).
 
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-05 (unattended run) - Quality pass on item 2.3: Cherry Lane build verified against Build Pack v2 and current data; two findings, one new question (Q6)
+
+No unchecked worklist items and no open questions at run start, so
+quality pass per the standing rules. Item taken: 2.3 (Cherry Lane
+build-from-near-zero), the next Phase 2 item after the 2.2 pass.
+
+Verified clean:
+- Full 12-page set present in the repo: eleven service pages
+  (contraception, earache, impetigo, insect bite, Pharmacy First,
+  shingles, sinusitis, sore throat, travel clinic, UTI, weight loss)
+  plus the switch page and its banner text file.
+- check-nap passes: 173 pages against 16 branches.json entries,
+  0 mismatches. check-seo-pattern passes: 173 pages, 0 failures,
+  Cherry Lane's 12 included.
+- Regeneration is byte-identical: re-ran all six build scripts against
+  current branches.json, git status clean after.
+- Compliance sweep on all 12 Cherry Lane pages: no POM or generic
+  medicine names, no efficacy claims. The single "guaranteed" hit is a
+  head-comment note on the travel page stating that no vaccine is
+  claimed guaranteed in stock.
+- branches.json entry complete and coherent: NAP (202 Cherry Lane,
+  Liverpool L4 8SG, 0151 226 2051), ODS FA226, seoTown Walton, widget
+  IDs for all twelve services, hours NHS-confirmed 2026-06-24 (Mon-Fri
+  9:00-18:30, Sat 9:00-17:00, closed Sunday), pfLink pointing at the
+  branch-specific Pharmacy First page, which is verified present.
+
+FINDING 1 (logged, not fixed): em dashes in generated output. The
+switch page carries an em dash in visible body copy (the lead
+paragraph) and in the "Weebly page SEO description" line that gets
+pasted into the page SEO fields; all 12 Cherry Lane head comments and
+the banner CSS comment carry one too. Repo-wide the character appears
+209 times across generated HTML, so this is template-level in the
+generators, not a Cherry Lane defect. Copy standard is no em dashes.
+Not fixed this run: a generator fix would regenerate up to 173 pages,
+and the 2.2 pass precedent is to avoid churning pages that may already
+be pasted or queued for the Q3 merge and paste run. Recommend one
+dedicated run that strips em dashes at generator level (visible copy
+and SEO description lines at minimum), timed with the Q3 go-live so
+the churn lands in the same paste.
+
+FINDING 2, now Q6 (open): the Q5 paste-ready replacement blocks for
+the two old Cherry Lane pages cannot be found on this machine. Q5
+records them in cowork/cherry-lane-old-page-replacements/, but that
+folder is not in the repo, not in the OneDrive cowork folder the
+generators write to, and a full search of C:\Users\rishi finds no
+folder of that name. Unless the Weebly paste has already been done,
+there is nothing to paste from and the Q5 POM exposure on the old
+weight loss page stands. Question Q6 appended to QUESTIONS.json with
+options and a recommendation (recreate in-repo).
+
+Files changed: QUESTIONS.json, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q6 new and open. No others open.
 
 ---
 
