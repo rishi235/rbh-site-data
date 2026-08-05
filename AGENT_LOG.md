@@ -15,6 +15,55 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run, second) - Quality pass on item 4.7: McCanns Sandringham GBP pack verified against TEMPLATE.md rules and branches.json; clean, one finding logged
+
+No unchecked worklist items at run start. Q6 open, so the Outlook
+answer search ran first: no "Portal feedback" emails carrying an
+AUDIT ANSWER line, so Q6 stays open and this run is a quality pass
+per the standing rules. Item taken: 4.7 (McCanns Sandringham pack),
+first Phase 4 pack to get a re-verification pass, chosen because its
+description is the Q4 replacement for the live text naming two POMs.
+
+Verified clean:
+- Facts match branches.json exactly: name McCanns Chemist
+  Sandringham, 1b Aigburth Road, Liverpool L17 4JP, 0151 727 3076,
+  hours Mon-Fri 9:00-13:00 and 14:00-18:00 with Sat and Sun closed
+  (NHS-confirmed 2026-06-24), website, review link, service areas
+  (Aigburth, St Michael's, Lark Lane, Dingle), hasApp false and no
+  app mention anywhere in the pack.
+- Compliance: no POM or generic medicine names (checked against a
+  twelve-name list including the generics), no efficacy claim
+  phrases, no em or en dashes, no emojis or stray non-ASCII.
+- Description is 713 characters as the pack states, under the 750
+  GBP limit. All four posts well under 1,500 characters (298-518).
+- Post B, C and D URLs resolve to real generated pages in the repo
+  (switch, weight loss, travel, all present as mccanns-sandringham
+  pages). The Q4 delete-and-replace paster instruction is present
+  twice, top note and paster notes.
+- Corroborating sweep across all 16 pack files in gbp-packs/: no em
+  dashes, no medicine names, no stray non-ASCII in any pack, which
+  matches the worklist's central compliance-sweep claim for 4.6-4.15.
+
+FINDING (logged, not fixed): Post A links the shared legacy page
+pharmacy-first-service-aigburth.html, which is the pfLink in
+branches.json for BOTH McCanns branches but is not a repo-generated
+page (live Weebly legacy only). The branch-specific
+pharmacy-first-mccanns-sandringham.html exists in the repo. The pack
+already carries the right paster note (swap once the branch page is
+confirmed live). The Fishlocks precedent (item 2.1) was to repoint
+pfLink at the branch-specific pages, so the McCanns pfLinks look due
+the same treatment - but changing pfLink regenerates pages queued
+for the Q3 merge-and-paste, so per the 2.3-pass churn precedent this
+is deferred to the Q3 go-live run alongside the em dash generator
+fix. Recommend both McCanns pfLinks are repointed in that run.
+
+Files changed: AGENT_LOG.md only.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q6 still open (no answer email found this run). No new
+questions.
+
+---
+
 ## 2026-08-05 (unattended run) - Quality pass on item 2.1: Fishlocks Ainsdale audit re-verified against Build Pack v2 and current data; clean, no new findings
 
 No unchecked worklist items at run start. Q6 open, so the Outlook
