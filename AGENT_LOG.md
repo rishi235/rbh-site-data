@@ -3,9 +3,13 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-Open: Q6 (Cherry Lane Q5 replacement blocks missing from this machine -
-see QUESTIONS.json and the 2026-08-05 quality pass entry on item 2.3
-below). Q1 to Q5 are all answered. Q2 to Q5 were answered by Rishi
+Open: none. Q6 answered by Rishi in a Cowork session on 2026-08-05:
+both replacement blocks recreated in modules/service/weebly-paste/,
+version-controlled. Weebly paste of both blocks still outstanding -
+needs Weebly editor login. Also that session: agents/audit-backlog
+merged to main (d520487..aa950e0, no force) per the Q3 answer,
+checkers clean beforehand (173 pages, 0 failures).
+Q1 to Q5 are all answered. Q2 to Q5 were answered by Rishi
 directly in a Cowork session on 2026-08-05 and are recorded in
 QUESTIONS.json (committed by the recovery run below).
 
