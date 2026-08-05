@@ -13,6 +13,57 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.6: McCanns Aigburth GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.6, the McCanns Aigburth pack - next in
+paste order after Scorah Hazel Grove, as flagged in the previous entry.
+
+Verified clean against the current branches.json:
+- Profile facts all match: name, 112 Aigburth Road, Liverpool L17 7BP,
+  0151 727 3185, hours Mon-Fri 9:00-1:00 and 2:00-6:00, Saturday
+  9:00-1:00 and 2:00-5:00, Sunday closed (NHS confirmed 2026-06-24),
+  website, review link, service areas (Aigburth, Sefton Park, Mossley
+  Hill, Grassendale). hasApp false and the pack correctly makes no app
+  mention.
+- Description header claimed 714 characters; actual paste-form count is
+  exactly 714. No correction needed.
+- Post A URL matches pfLink exactly (shared Aigburth PF page), and the
+  branch-specific page pharmacy-first-mccanns-aigburth.html is confirmed
+  present in modules/service/pages/ - existing paster note to swap once
+  live still stands.
+- Posts B, C and D carry the exact generated page slugs
+  (switch-prescriptions-mccanns-aigburth.html,
+  weight-loss-clinic-mccanns-aigburth.html,
+  travel-clinic-mccanns-aigburth.html), all verified present in
+  modules/. No placeholder links. Post lengths 446, 306, 518 and 426
+  characters, all well under the 1,500 limit.
+- Sister-branch line in the description (Sandringham also on Aigburth
+  Road) checked against branches.json - correct.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gap found and fixed in the pack:
+- Shot list extended from 6 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle, shop floor, hours notice) plus the
+  pending-Google-updates paster note. The hours shot for this branch
+  specifically asks for the weekday and Saturday lunch closure
+  (1:00pm to 2:00pm) to be legible. Blood pressure shot kept.
+
+Note: 8 packs still carry the older shot list (clear-aintree,
+coleman-leigh-walton, fishlocks-eccleston, gordon-short-crosby,
+riddings-timperley, sk-chemists-bootle, smartts-bootle,
+tiffenbergs-aintree). Next in paste order: 4.8 Fishlocks Eccleston
+(4.7 Sandringham already passed).
+
+Files changed: gbp-packs/mccanns-aigburth.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.5: Scorah Hazel Grove GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions

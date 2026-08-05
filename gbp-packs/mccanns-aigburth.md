@@ -51,14 +51,24 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
 - Shopfront from Aigburth Road with the McCanns Chemist signage legible.
+- Street-context angle showing Aigburth Road around the shop, so the
+  location is recognisable on approach.
 - Entrance showing access from the street.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blood pressure check in progress (staff member as the patient, no real
   patient) to support the NHS health checks message.
+- Hours board or door sign, current hours legible, with the weekday and
+  Saturday lunch closure (1:00pm to 2:00pm) clearly shown so customers are
+  not caught out.
 
 ## 5. Post drafts
 
