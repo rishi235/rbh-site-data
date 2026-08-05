@@ -19,6 +19,60 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run, fifth) - Quality pass on item 1.1: brand-name spelling re-verified after the rename; one defect found and fixed (stale embedded snapshot in branches-editor.html)
+
+No unchecked worklist items and no open questions at run start
+(Q1 to Q6 all answered in QUESTIONS.json), so quality pass per the
+standing rules. Item taken: 1.1 (brand-name spelling), the least
+recently verified completed item - all Phase 2, 3 and 4 items have
+had re-verification passes; the Phase 1 items have not, and 1.1 is
+the one whose ground truth changed after completion (the Coleman
+and Leighs rename landed the same day it was ticked).
+
+Sweep method: pattern scan of every file in the repo outside .git
+(AGENT_LOG.md, AGENT_WORKLIST.md and QUESTIONS.json excluded as
+historical records) for the variant spellings named in the item
+plus apostrophe forms: Coleman & Leigh, Coleman and Leigh without
+the s, Leigh's, Fishlock singular, Fishlock's, Gordon Shorts,
+Short's, McCann's, Smartt's, Tiffenberg's, Hirshman's, Scorah's,
+Ridding's.
+
+Spelling result: clean. No variant spelling in branches.json,
+generated pages, gbp-packs or tools. The only hits are deliberate
+or external: the "fishlock" singular entries in branches.json are
+keywords (search terms, kept on purpose); the NHS review URLs
+carry NHS's own slugs (fishlock-chemists, coleman-and-leighs-
+pharmacy) which are external and correct as they stand; one
+"Coleman & Leigh" in CHANGELOG.md is a historical entry describing
+the old CDN pin and stays as a record; emar.js matches on
+/fishlock/ which covers both forms by design.
+
+DEFECT (found and fixed): tools/branches-editor.html carried an
+embedded DATA snapshot dated 2026-06-30 - seventeen branches
+including the disposed Wilmslow branch and its hostMap entry,
+plus stale pfLinks and the old widget sets. The editor opens on
+that snapshot by default ("embedded snapshot" in the header), so
+an edit made without first loading the current file would export
+a branches.json that resurrects Wilmslow (removed 2026-08-05 per
+the Q2 answer) and rolls back the 2.1/2.3 pfLink fixes. That is
+the stale-copy failure CLAUDE.md warns about, inside our own
+tool. Fixed: snapshot refreshed from the canonical branches.json
+(lastUpdated 2026-08-05, 16 branches, 14 hostMap entries, no
+Wilmslow), replacement done by script and the embedded JSON
+parse-verified after the write. No other part of the editor
+changed. Suggestion for a later run if wanted: have the editor
+fetch branches.json instead of embedding a copy, so this cannot
+drift again.
+
+No generated pages touched; branches.json untouched. check-nap:
+173 pages, 0 mismatches. check-seo-pattern: 173 pages, 0 failures.
+
+Files changed: tools/branches-editor.html, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none open, none new.
+
+---
+
 ## 2026-08-05 (unattended run, fourth) - Quality pass on item 4.1: Fishlocks Ainsdale pack plus the recommended cross-pack "free assessment" sweep; two packs fixed (Fishlocks Ainsdale, Hirshmans)
 
 No unchecked worklist items and no open questions at run start
