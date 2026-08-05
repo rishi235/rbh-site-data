@@ -13,6 +13,64 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run) - Quality pass on item 2.2: Fishlocks branch landing pages verified against Build Pack v2 and current data
+
+No unchecked worklist items and no open questions, so quality pass per
+the standing rules. Item taken: 2.2 (Fishlocks shared-domain split),
+the first Phase 2 item to get a re-verification pass - all Phase 4
+packs and the Phase 3 meta descriptions were covered by earlier passes.
+
+Verified clean, both pages (pharmacy-fishlocks-ainsdale.html and
+pharmacy-fishlocks-eccleston.html in modules/branch/pages/):
+- NAP exact against current branches.json: names, street addresses
+  (17 Station Road PR8 3HN; Unit 3 The Carrington Centre, New Mill
+  Street PR7 5SZ), phones (01704 575478 / 01257 451251), emails,
+  Google review and NHS review links all match, tel: links correctly
+  stripped of spaces.
+- Opening hours correct in both the visible hours card and the JSON-LD
+  openingHoursSpecification: Ainsdale Mon-Fri 8.45am to 6pm, closed
+  weekends; Eccleston Mon-Fri 9am to 6pm plus Saturday 9am to 12pm,
+  closed Sunday. Both match branches.json (NHS confirmed 2026-06-24)
+  and both carry the NHS-profile source note.
+- JSON-LD Pharmacy schema complete: address block, telephone, email,
+  areaServed listing the three catchment towns each, hours as above.
+- Every linked service page exists: pharmacy-first-, weight-loss-
+  clinic-, travel-clinic-, contraception- (modules/service/pages/) and
+  switch-prescriptions- (modules/switch/pages/) for both branch slugs.
+  Sister-branch cross-links point at each other correctly, satisfying
+  the Master Plan v2 shared-domain design (second branch leans on its
+  own GBP listing plus its own landing page).
+- Titles and H1s follow tools/seo-pattern.js (landingTitle/landingH1);
+  check-seo-pattern passes 26 Fishlocks pages including these two.
+- Regeneration is byte-identical: re-ran tools/build-branch-landing-
+  pages.js against current branches.json, git status clean after.
+  check-nap also clean (173 pages, 0 mismatches).
+- Compliance sweep on both pages plus INDEX.md and SEO.md: no POM or
+  generic medicine names, no efficacy claims, no em dashes, no emojis.
+  Weight loss tile wording is consultation-only. Pharmacy First
+  wording sticks to the NHS service description (seven conditions,
+  no GP appointment needed).
+- INDEX.md and SEO.md paste manifests match the generated pages'
+  head-comment titles and descriptions; meta descriptions around
+  140-150 characters, inside the meta rule.
+
+Observations only, no action taken:
+1. Sister-link text reads "Fishlocks Chemist Eccleston in Eccleston"
+   (town stated twice, as the branch name already ends with the town).
+   Cosmetic. A generator tweak would regenerate both pages; left alone
+   to avoid churning pages that may already be pasted or queued for
+   the Q3 go-live paste run.
+2. Eccleston addressRegion is "Chorley" (borough, not county) in
+   branches.json, which also feeds the SEO title "Pharmacy in
+   Eccleston, Chorley". Likely deliberate as the local search
+   qualifier; flagged only in case it was not.
+
+Files changed: AGENT_LOG.md only.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (unattended run) - Quality pass follow-up: seven duplicate GBP pack descriptions rewritten
 
 No unchecked worklist items and no open questions, so quality pass per
