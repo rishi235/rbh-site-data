@@ -54,6 +54,7 @@ Notes for Rishi:
 
 Files changed: QUESTIONS.json and branches.json (from the Cowork
 session, verified this run), AGENT_LOG.md.
+Commit: b240c32 (hash appended in a follow-up commit after push).
 Questions: none new. None open.
 
 ---
