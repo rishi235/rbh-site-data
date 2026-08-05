@@ -3,16 +3,58 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-Open: Q2 (Wilmslow web presence), Q3 (how tonight's fixes go live: merge to
-main first or pin to branch commit), Q4 (rewrite the 16 GBP descriptions -
-McCanns Sandringham currently carries Hirshmans text naming two POM weight
-loss medicines), Q5 (old Cherry Lane weight loss page still live naming
-Wegovy, Mounjaro and Orlistat with an efficacy claim - strip, delete or
-leave). All in QUESTIONS.json and on the portal answer form.
+Open: none. Q1 to Q5 are all answered. Q2 to Q5 were answered by Rishi
+directly in a Cowork session on 2026-08-05 and are recorded in
+QUESTIONS.json (committed by the recovery run below).
 
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-05 (scheduled run) - Recovery: verify and commit the Cowork session's Q2 to Q5 answer applications
+
+Found on arrival: a stale .agent-lock (3.2 hours old, deleted per the
+standing rules) and uncommitted changes to QUESTIONS.json and
+branches.json, left by the 2026-08-05 Cowork session in which Rishi
+answered Q2 to Q5 directly. That session applied the Q2 decision
+(Wilmslow branch entry and hostMap entry removed from branches.json,
+lastUpdated bumped to 2026-08-05) and recorded all four answers, but
+was interrupted before committing.
+
+This run verified the leftover state rather than taking it on trust:
+- All six generators re-run against the edited branches.json: output
+  byte-identical, no further file changes.
+- check-nap: 173 pages against 16 branches.json entries, 0 mismatches.
+- check-seo-pattern: 173 pages, 0 failures (title, H1 and meta).
+- seo-pattern self-test passes for all 16 buildable branches.
+- Outlook answer search (subject "Portal feedback", body "AUDIT ANSWER"):
+  no matches. The answers came via the Cowork session, not the portal.
+
+All five questions are now answered; none open. The worklist has no
+unchecked items, so no new scope was taken - committing the verified
+recovery was this run's work item.
+
+Notes for Rishi:
+- The Q5 answer says paste-ready replacement blocks were created in
+  cowork/cherry-lane-old-page-replacements/. That folder is not in this
+  repo, so it presumably lives in the Cowork session's own workspace.
+  If the blocks should be kept in the repo, copy them in during a
+  supervised session.
+- Remaining "wilmslow" references in the repo are historical or inert:
+  CHANGELOG.md and the branches.json schemaNote (history),
+  scripts/add-weightloss-travel-widgets.js (one-off script wording),
+  tools/build-switch-pages.js (hard-coded map entry no branch matches
+  any more; generator output unchanged), status/index.html (regenerated
+  by the status build).
+- tools/branches-editor.html embeds a stale snapshot of branches.json
+  data that still includes the Wilmslow entry. Per CLAUDE.md, copies of
+  branches.json get flagged, not merged or edited: flagged here.
+
+Files changed: QUESTIONS.json and branches.json (from the Cowork
+session, verified this run), AGENT_LOG.md.
+Questions: none new. None open.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-04",
+  "lastUpdated": "2026-08-05",
   "brandGroups": {
     "scorahs": [
       "scorah_bramhall",
@@ -56,9 +56,6 @@
     "www.scorah-chemists.co.uk": [
       "scorah_bramhall",
       "scorah_hazel"
-    ],
-    "www.wilmslow-pharmacy.co.uk": [
-      "wilmslow_wilmslow"
     ],
     "www.cherrylanepharmacy.co.uk": [
       "cherrylane_liverpool"
@@ -1150,45 +1147,6 @@
           }
         ]
       }
-    },
-    {
-      "id": "wilmslow_wilmslow",
-      "brandKey": "wilmslowpharmacy",
-      "brandLabel": "Wilmslow Pharmacy",
-      "branchName": "Wilmslow Pharmacy",
-      "streetAddress": "Unit 2 Summerfields Village, Summerfields Village Centre",
-      "addressLocality": "Wilmslow",
-      "postalCode": "SK9 2TA",
-      "addressRegion": "Cheshire",
-      "addressCountry": "GB",
-      "phone": "01625 523414",
-      "email": "Wilmslow@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CaWCNYx46icAEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "wilmslow",
-        "sk9 2ta",
-        "summerfields",
-        "summerfields-village",
-        "sk9"
-      ],
-      "serviceAreaList": [
-        "Wilmslow",
-        "Handforth",
-        "Cheshire East"
-      ],
-      "shortCode": "WIL",
-      "branchNumber": 16,
-      "odsCode": "FE469",
-      "nhsEmail": "pharmacy.FE469@nhs.net",
-      "pfLink": "https://www.wilmslow-pharmacy.co.uk/pharmacy-first-service-wilmslow.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/wilmslow-pharmacy/XFE469/leave-a-review",
-      "disposed": true,
-      "website": "https://www.wilmslow-pharmacy.co.uk",
-      "seoTown": "Wilmslow",
-      "townSlug": "wilmslow",
-      "brandSlug": "wilmslow"
     },
     {
       "id": "tiffenbergs_longmoor",

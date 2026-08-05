@@ -25,9 +25,9 @@
       "Redirect Wilmslow pages to the nearest RBH branch"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "If there is a handover agreement with the buyer covering the website or Google profile, that decides it - the agents cannot see the sale terms."
+    "status": "answered",
+    "answer": "Remove Wilmslow's web presence - the domain went with the sale. Answered by Rishi directly in a Cowork session on 2026-08-05. Applied same day: Wilmslow branch entry and hostMap entry removed from branches.json (pages were already gone from earlier runs); 173 pages, all checkers clean.",
+    "note": "The wilmslow-pharmacy.co.uk domain transferred with the sale, so no redirect or takedown is needed on our side. The Google Business Profile for Wilmslow, if still under RBH control, needs transferring or closing by hand - agents cannot reach GBP."
   },
   {
     "id": "Q3",
@@ -40,9 +40,9 @@
       "Paste the page HTML tonight but leave all CDN pins alone until a separate review"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Page pastes are safe either way - each page's HTML is self-contained. The pin choice only affects the sitewide banner, footer bar and shared CSS/JS."
+    "status": "answered",
+    "answer": "Go with the recommended option: review and merge agents/audit-backlog to main, then paste and repoint CDN pins to main - one clean state everywhere. Answered by Rishi directly in a Cowork session on 2026-08-05. The merge itself must be done by Rishi (or a supervised session) - the unattended agent is barred from touching main.",
+    "note": "Once the merge to main is done, repoint the jsdelivr pins from the branch/commit refs to main at the same paste run, and update the Weebly page SEO fields for switch pages plus the new shorter meta descriptions from the 2026-08-05 quality pass."
   },
   {
     "id": "Q4",
@@ -55,9 +55,9 @@
       "Leave descriptions as they are - accept the risk"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Found 2026-08-04 while in the GBP manager. Needs Rishi logged into GBP on the Cowork PC before any of it can be pasted. The other 15 descriptions have not been checked yet - the audit of those can be drafted without GBP access if answered yes."
+    "status": "answered",
+    "answer": "Rewrite all 16 GBP business descriptions from the Phase 4 packs, medicine names removed. Answered by Rishi directly in a Cowork session on 2026-08-05. All 16 pack descriptions are already drafted and compliance-swept in gbp-packs/ - the remaining work is pasting them into GBP, which needs Rishi logged in. McCanns Sandringham first: its live description names two POMs.",
+    "note": "Paste order suggestion: McCanns Sandringham (POM exposure) first, then the rest. Each pack carries its own paster notes."
   },
   {
     "id": "Q5",
@@ -70,8 +70,8 @@
       "Leave both as they are until the wider Q3 go-live decision - accepts the POM exposure staying public in the meantime"
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "The new compliant weight loss and Pharmacy First pages are already live at the cherry-lane-walton slugs. Navigation currently shows two Weight Loss Clinic entries, old and new. Weebly cannot 301 redirect, which is why option 1 costs the old URLs' rank."
+    "status": "answered",
+    "answer": "Sort properly - strip the POM content and correct the content on both old pages, keeping the URLs live and pointing visitors at the new pages (option 2 as listed, the recommended one). Answered by Rishi directly in a Cowork session on 2026-08-05. Paste-ready replacement blocks for both old URLs created same day in cowork/cherry-lane-old-page-replacements/ - Weebly hand edit needed to paste them and to remove the duplicate Weight Loss Clinic navigation entry.",
+    "note": "Replacement blocks carry no medicine names, no efficacy claims and no prices; each links prominently to the new compliant page at the cherry-lane-walton slug."
   }
 ]
