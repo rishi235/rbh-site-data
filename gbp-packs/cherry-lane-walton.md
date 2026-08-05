@@ -23,16 +23,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.cherrylanepharmacy.co.uk
 - Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
 
-## 1. Business description (max 750 chars - this is 637)
+## 1. Business description (max 750 chars - this is 660)
 Cherry Lane Pharmacy serves Walton, Everton and north Liverpool from its
 home on Cherry Lane, open six days a week. We collect prescriptions from
 your GP surgery free of charge, deliver medicines to your door at no cost,
 and can prepare blister packs to keep daily medication simple. Our
 pharmacists offer NHS Pharmacy First, a free service covering seven common
 conditions with no GP appointment needed. On the private side we provide
-travel vaccinations with a free assessment, blood testing, a vaccination
-service and a pharmacist-led weight loss clinic. An independent local
-pharmacy run by people who know the area. Come and see us.
+a travel clinic with destination-specific advice and vaccinations, blood
+testing, a vaccination service and a pharmacist-led weight loss clinic.
+An independent local pharmacy run by people who know the area. Come and
+see us.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -52,7 +53,7 @@ NHS services first:
 - Blister packs: weekly packs that organise your medicines by day and time.
 - NHS vaccinations: seasonal vaccination services as commissioned.
 Private services:
-- Travel clinic: free assessment of your destination and vaccination needs,
+- Travel clinic: destination-specific advice on your vaccination needs,
   with vaccines and antimalarials supplied privately.
 - Weight loss clinic: pharmacist-led private consultations and ongoing
   support as part of a structured weight management service.
@@ -108,10 +109,10 @@ Button: Book -> https://www.cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-l
 
 ### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
-Cherry Lane Pharmacy in Walton offers a free assessment of your destination,
-trip length and vaccination needs, with vaccines and antimalarials supplied
-privately. Convenient appointments including Saturdays, no GP visit needed.
-Book your free travel assessment today.
+Cherry Lane Pharmacy in Walton covers your destination, trip length and
+vaccination needs, with vaccines and antimalarials supplied privately.
+Convenient appointments including Saturdays, no GP visit needed. Book your
+travel consultation today.
 Button: Book -> https://www.cherrylanepharmacy.co.uk/travel-clinic-cherry-lane-walton.html
 
 Notes for the paster:
@@ -119,3 +120,6 @@ Notes for the paster:
   advertising rules). Do not add medicine names when posting.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker offers on the day.
+- No "free assessment" wording for the travel clinic: the Cherry Lane
+  travel consultation is a private, paid service per the branch's own
+  travel page FAQ (corrected 2026-08-05 quality pass).

@@ -15,6 +15,55 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run, third) - Quality pass on item 4.2: Cherry Lane GBP pack; one finding, fixed in the pack ("free assessment" travel wording removed)
+
+No unchecked worklist items at run start. Q6 open, so the Outlook
+answer search ran first: no "Portal feedback" emails carrying an
+AUDIT ANSWER line, so Q6 stays open and this run is a quality pass
+per the standing rules. Item taken: 4.2 (Cherry Lane pack), chosen
+because its paster flags referenced the 2.3 build and Cherry Lane is
+the live Q5/Q6 exposure area.
+
+Verified clean:
+- Top note already current: correctly states the 2.3 build is done
+  and live, and warns against linking the old weight loss page.
+- Facts match branches.json exactly: 202 Cherry Lane, Liverpool
+  L4 8SG, 0151 226 2051, hours Mon-Fri 9:00-18:30, Sat 9:00-17:00,
+  Sun closed (NHS-confirmed 2026-06-24), website, review link,
+  service areas (Walton, Everton, Liverpool), hasApp false and no
+  app mention anywhere.
+- All four post URLs resolve to real generated pages in the repo,
+  including the Pharmacy First link matching the corrected pfLink.
+- Compliance: no POM or generic medicine names (twelve-name list),
+  no efficacy claim phrases, no em or en dashes, no emojis or stray
+  non-ASCII. Posts 318-449 chars, all well under 1,500.
+- check-nap: 173 pages, 0 mismatches. check-seo-pattern: 173 pages,
+  0 failures.
+
+FINDING (fixed): the pack claimed a "free assessment" for the travel
+clinic in three places (description, services section, Post D), but
+Cherry Lane's own generated travel page FAQ states the travel
+consultation is a private, paid service. Same distinction the Scorah
+packs (4.4, 4.5) deliberately drew. branches.json carries no free-
+assessment fact, so the claim fails the packs' facts-from-
+branches.json rule and would have gone into GBP wrong at the Q4
+paste. Fixed in the pack: description now reads "a travel clinic
+with destination-specific advice and vaccinations" (660 chars,
+still under 750, count line updated), services line reworded, Post D
+now ends "Book your travel consultation today", and a paster note
+records why. No generated pages touched.
+
+Recommend a follow-up sweep of the other packs for the same "free
+assessment" travel wording where the branch's travel page says paid
+(next quality pass candidate).
+
+Files changed: gbp-packs/cherry-lane-walton.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q6 still open (no answer email found this run). No new
+questions.
+
+---
+
 ## 2026-08-05 (unattended run, second) - Quality pass on item 4.7: McCanns Sandringham GBP pack verified against TEMPLATE.md rules and branches.json; clean, one finding logged
 
 No unchecked worklist items at run start. Q6 open, so the Outlook
