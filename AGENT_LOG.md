@@ -19,6 +19,66 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (unattended run, fourth) - Quality pass on item 4.1: Fishlocks Ainsdale pack plus the recommended cross-pack "free assessment" sweep; two packs fixed (Fishlocks Ainsdale, Hirshmans)
+
+No unchecked worklist items and no open questions at run start
+(Q6 answered by Rishi in a Cowork session, recorded in
+QUESTIONS.json), so this run is a quality pass per the standing
+rules. Item taken: 4.1 (TEMPLATE.md plus the Fishlocks Ainsdale
+pack), the least recently verified Phase 4 item, combined with the
+cross-pack "free assessment" travel wording sweep the third run
+recommended.
+
+Sweep result: of all 16 packs, only fishlocks-ainsdale.md and
+hirshmans-ainsdale.md carried the travel "free assessment" claim
+(description, services line and Post D in each). Both branches'
+generated travel pages state "private, paid service", and
+branches.json carries no free-assessment fact, so the claim fails
+the packs' facts-from-branches.json rule - the same defect fixed in
+the Cherry Lane pack last run. Cherry Lane's own fix verified still
+in place; Scorah packs already worded correctly; Smartts "free
+consultation" is the deliberate medical cannabis eligibility
+wording, left alone.
+
+Fixed in both packs: description reworded to "a private travel
+clinic" / "a travel clinic" (counts updated, 746 and 743, both
+under 750), services travel line now matches the Eccleston pack's
+compliant model (private consultation, vaccines and antimalarials
+supplied privately), Post D ends "Book your travel consultation
+today", paster note records why.
+
+Second finding, also fixed: both Ainsdale packs omitted the NHS
+blood pressure check and NHS contraception service lines although
+both branches carry the bloodPressure and contraception widgets in
+branches.json - every other pack with those widgets lists both
+services (the 4.4 convention). Both lines added to both packs in
+the standard wording, and both descriptions now mention the two NHS
+services. Fishlocks description trimmed (app sentence shortened) to
+stay under the GBP limit.
+
+Item 4.1 verification otherwise clean: TEMPLATE.md rules all
+present and correct; Fishlocks facts match branches.json exactly
+(17 Station Road PR8 3HN, 01704 575478, Mon-Fri 8:45-18:00,
+website, review link, service areas); hasApp true so the app
+mention is right (and Hirshmans hasApp false, no app mention); all
+four post URLs resolve to real generated repo pages; no medicine
+names (twelve-name list), no em or en dashes, no emojis, no stray
+non-ASCII in either pack.
+
+No generated pages touched. check-nap: 173 pages, 0 mismatches.
+check-seo-pattern: 173 pages, 0 failures.
+
+Files changed: gbp-packs/fishlocks-ainsdale.md,
+gbp-packs/hirshmans-ainsdale.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none open, none new. Reminder for the pasters: the two
+corrected descriptions replace whatever is live on the Fishlocks
+Ainsdale and Hirshmans GBP profiles, and the Hirshmans live
+description should be checked for medicine names when pasting (Q4
+note in that pack).
+
+---
+
 ## 2026-08-05 (unattended run, third) - Quality pass on item 4.2: Cherry Lane GBP pack; one finding, fixed in the pack ("free assessment" travel wording removed)
 
 No unchecked worklist items at run start. Q6 open, so the Outlook

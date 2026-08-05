@@ -12,17 +12,18 @@ Profile basics (for checking, not pasting):
 - Website: https://www.fishlockpharmacy.co.uk
 - Review link: https://g.page/r/Cfl0iMf3cgGaEAE/review
 
-## 1. Business description (max 750 chars - this is 680)
+## 1. Business description (max 750 chars - this is 746)
 Fishlocks Chemist is your local independent NHS pharmacy on Station Road in
 Ainsdale, serving Ainsdale, Birkdale and Southport. We dispense NHS
 prescriptions with free collection from your GP surgery and free home
 delivery, and offer blister packs to make daily medication simpler. Through
 the free NHS Pharmacy First service our pharmacists can assess and treat
-seven common conditions without a GP appointment. We also run private
-clinics: travel vaccinations with a free assessment, a pharmacist-led weight
-loss clinic, blood testing and vaccinations. Prefer to manage things from
-your phone? Ask us about our app. Pop in and speak to the team - real people,
-not a call centre.
+seven common conditions without a GP appointment. Free NHS blood pressure
+checks are available for adults aged 40 and over, and we provide the NHS
+contraception service. We also run a private travel clinic, a pharmacist-led
+weight loss clinic, blood testing and vaccinations. You can also manage
+repeats through our app. Pop in and speak to the team - real people, not a
+call centre.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -36,11 +37,16 @@ NHS services first:
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
+- NHS blood pressure check: free blood pressure checks for adults aged 40
+  and over, no appointment needed.
+- NHS contraception service: start or continue oral contraception at the
+  pharmacy without a GP appointment.
 - Blister packs: weekly packs that organise your medicines by day and time.
 - NHS vaccinations: seasonal vaccination services as commissioned.
 Private services:
-- Travel clinic: free assessment of your destination and vaccination needs,
-  with vaccines and antimalarials supplied privately.
+- Travel clinic: private travel health consultation covering your
+  destination, itinerary and medical history, with vaccines and
+  antimalarials supplied privately.
 - Weight loss clinic: pharmacist-led private consultations and ongoing
   support as part of a structured weight management service.
 - Blood testing: private blood tests with fast results.
@@ -98,10 +104,10 @@ Button: Book -> https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-
 
 ### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
-Fishlocks Chemist in Ainsdale offers a free assessment of your destination,
-trip length and vaccination needs, with vaccines and antimalarials supplied
-privately. Convenient appointments on Station Road, no GP visit needed.
-Book your free travel assessment today.
+Fishlocks Chemist in Ainsdale covers your destination, trip length and
+vaccination needs, with vaccines and antimalarials supplied privately.
+Convenient appointments on Station Road, no GP visit needed. Book your
+travel consultation today.
 Button: Book -> https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-ainsdale.html
 
 Notes for the paster:
@@ -110,3 +116,10 @@ Notes for the paster:
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check the four category names against what GBP's picker actually offers on
   the day; pick the closest match.
+- No "free assessment" wording for the travel clinic: the Fishlocks Ainsdale
+  travel page states the travel consultation is a private, paid service, and
+  branches.json carries no free-assessment fact (corrected at the 2026-08-05
+  quality pass, same fix as Cherry Lane).
+- NHS blood pressure check and NHS contraception service lines added at the
+  same pass: both widgets exist in branches.json for this branch but the
+  original pack omitted them.
