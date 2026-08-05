@@ -21,6 +21,7 @@
 */
 const fs = require("fs");
 const path = require("path");
+const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 // Ref the pages load service.css / service.js from.
 // - "service-module-phase1" (branch, MUTABLE) = one git push updates every page that
@@ -115,7 +116,7 @@ const CONDITIONS = {
     ageNote: "Women aged 16 to 64",
     blurb: "Burning when you wee, needing to go more often, or lower tummy pain.",
     metaCondition: "UTI treatment",
-    h1: function (town) { return "UTI treatment in " + town; },
+    h1Phrase: "UTI treatment",
     heroProof: "Be seen by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for uncomplicated urinary tract infections in " + town +
@@ -162,7 +163,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 5 and over",
     blurb: "A painful throat that is not getting better on its own.",
     metaCondition: "Sore throat treatment",
-    h1: function (town) { return "Sore throat treatment in " + town; },
+    h1Phrase: "Sore throat treatment",
     heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for acute sore throat in " + town +
@@ -193,7 +194,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 12 and over",
     blurb: "Blocked or painful sinuses, facial pressure or congestion.",
     metaCondition: "Sinusitis treatment",
-    h1: function (town) { return "Sinusitis treatment in " + town; },
+    h1Phrase: "Sinusitis treatment",
     heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for acute sinusitis in " + town +
@@ -224,7 +225,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 1 to 17",
     blurb: "Ear pain in children, often alongside a cold or temperature.",
     metaCondition: "Earache treatment",
-    h1: function (town) { return "Earache treatment for children in " + town; },
+    h1Phrase: "Earache treatment for children",
     heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for acute ear infections (otitis media) in children and young people in " + town +
@@ -255,7 +256,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 1 and over",
     blurb: "Red sores or blisters that crust over, often around the nose and mouth.",
     metaCondition: "Impetigo treatment",
-    h1: function (town) { return "Impetigo treatment in " + town; },
+    h1Phrase: "Impetigo treatment",
     heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for impetigo in " + town +
@@ -285,7 +286,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 18 and over",
     blurb: "A painful rash, usually on one side of the body. Best seen early.",
     metaCondition: "Shingles treatment",
-    h1: function (town) { return "Shingles treatment in " + town; },
+    h1Phrase: "Shingles treatment",
     heroProof: "Be seen quickly by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for shingles in " + town +
@@ -315,7 +316,7 @@ const CONDITIONS = {
     ready: true, ageNote: "Age 1 and over",
     blurb: "A bite or sting that has become red, swollen, hot or painful.",
     metaCondition: "Infected insect bite treatment",
-    h1: function (town) { return "Infected insect bite treatment in " + town; },
+    h1Phrase: "Infected insect bite treatment",
     heroProof: "Be assessed by a pharmacist, with no GP appointment needed.",
     heroSub: function (brand, town) {
       return brand + " offers the NHS Pharmacy First service for infected insect bites and stings in " + town +
@@ -483,7 +484,7 @@ function overviewPage(storeId) {
   var b = byId[storeId];
   var slug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
-  var title = "Pharmacy First at " + store.brand + ", " + store.town;
+  var title = pat.brandTitle("Pharmacy First", store);
   var meta = "Pharmacy First at " + store.brand + " in " + store.town + ". Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.";
 
   var tiles = CONDITION_ORDER.map(function (key) {
@@ -507,7 +508,7 @@ function overviewPage(storeId) {
     '        <div>\n' +
     '          <div class="hero-help-row">NHS Pharmacy First</div>\n' +
     '          <span class="pill">Free NHS service at your local ' + esc(store.town) + ' pharmacy</span>\n' +
-    '          <h1>Pharmacy First at ' + esc(store.brand) + ' in ' + esc(store.town) + '</h1>\n' +
+    '          <h1>' + esc(pat.brandH1("Pharmacy First", store)) + '</h1>\n' +
     '          <p class="hero-proof">Get treated for common conditions without a GP appointment.</p>\n' +
     '          <p class="hero-sub">Pharmacy First is a free NHS service. A pharmacist at ' + esc(store.brand) + ' can assess and, where appropriate, treat seven common conditions, so you can be seen quickly without waiting for a GP.</p>\n' +
     '          <ul class="hero-points">\n' +
@@ -566,7 +567,7 @@ function conditionPage(storeId, key) {
   var slug = c.slug + "-treatment-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
   var overviewSlug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
-  var title = c.metaCondition + " in " + store.town + " - " + store.brand;
+  var title = pat.searchTitle(c.metaCondition, store);
   var meta = c.name + " treatment at " + store.brand + " in " + store.town +
     ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.";
 
@@ -589,7 +590,7 @@ function conditionPage(storeId, key) {
     '        <div>\n' +
     '          <div class="hero-help-row">NHS Pharmacy First</div>\n' +
     '          <span class="pill">' + esc(c.ageNote) + ' &middot; Free NHS service in ' + esc(store.town) + '</span>\n' +
-    '          <h1>' + esc(c.h1(store.town)) + '</h1>\n' +
+    '          <h1>' + esc(pat.searchH1(c.h1Phrase, store)) + '</h1>\n' +
     '          <p class="hero-proof">' + esc(c.heroProof) + '</p>\n' +
     '          <p class="hero-sub">' + esc(c.heroSub(store.brand, store.town)) + '</p>\n' +
     '          <div class="hero-actions-stack">\n' +
@@ -663,7 +664,7 @@ BUILD.forEach(function (storeId) {
     file: ovSlug,
     permalink: ovSlug.replace(/\.html$/, ""),
     liveUrl: store.site + "/" + ovSlug,
-    seoTitle: "Pharmacy First at " + store.brand + ", " + store.town,
+    seoTitle: pat.brandTitle("Pharmacy First", store),
     seoDesc: "Pharmacy First at " + store.brand + " in " + store.town + ". Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.",
     keywords: ["Pharmacy First " + store.town, "NHS Pharmacy First", store.brand, "pharmacy " + store.town, (b_outward(storeId))].filter(Boolean).join(", "),
     html: ovHtml
@@ -684,7 +685,7 @@ BUILD.forEach(function (storeId) {
       file: slug,
       permalink: slug.replace(/\.html$/, ""),
       liveUrl: store.site + "/" + slug,
-      seoTitle: c.metaCondition + " in " + store.town + " - " + store.brand,
+      seoTitle: pat.searchTitle(c.metaCondition, store),
       seoDesc: c.name + " treatment at " + store.brand + " in " + store.town + ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.",
       keywords: [c.name + " " + store.town, c.name + " treatment " + store.town, "Pharmacy First " + store.town, "pharmacy " + store.town, b_outward(storeId)].filter(Boolean).join(", "),
       html: condHtml

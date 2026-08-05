@@ -44,45 +44,45 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 - **SEO title:** Infected insect bite treatment in Walton - Cherry Lane Pharmacy
 - **SEO description:** Infected insect bite treatment at Cherry Lane Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Overview
+## Coleman and Leighs Pharmacy — Walton — Overview
 - **Page slug / URL:** `pharmacy-first-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/pharmacy-first-coleman-leigh-walton.html
-- **SEO title:** Pharmacy First at Coleman & Leigh Pharmacy, Walton
-- **SEO description:** Pharmacy First at Coleman & Leigh Pharmacy in Walton. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
+- **SEO title:** Pharmacy First at Coleman and Leighs Pharmacy, Walton
+- **SEO description:** Pharmacy First at Coleman and Leighs Pharmacy in Walton. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — UTI
+## Coleman and Leighs Pharmacy — Walton — UTI
 - **Page slug / URL:** `uti-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/uti-treatment-coleman-leigh-walton.html
-- **SEO title:** UTI treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** UTI treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** UTI treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** UTI treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Sore throat
+## Coleman and Leighs Pharmacy — Walton — Sore throat
 - **Page slug / URL:** `sore-throat-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/sore-throat-treatment-coleman-leigh-walton.html
-- **SEO title:** Sore throat treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Sore throat treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Sore throat treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Sore throat treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Sinusitis
+## Coleman and Leighs Pharmacy — Walton — Sinusitis
 - **Page slug / URL:** `sinusitis-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/sinusitis-treatment-coleman-leigh-walton.html
-- **SEO title:** Sinusitis treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Sinusitis treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Sinusitis treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Sinusitis treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Earache
+## Coleman and Leighs Pharmacy — Walton — Earache
 - **Page slug / URL:** `earache-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/earache-treatment-coleman-leigh-walton.html
-- **SEO title:** Earache treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Earache treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Earache treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Earache treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Impetigo
+## Coleman and Leighs Pharmacy — Walton — Impetigo
 - **Page slug / URL:** `impetigo-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/impetigo-treatment-coleman-leigh-walton.html
-- **SEO title:** Impetigo treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Impetigo treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Impetigo treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Impetigo treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Shingles
+## Coleman and Leighs Pharmacy — Walton — Shingles
 - **Page slug / URL:** `shingles-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/shingles-treatment-coleman-leigh-walton.html
-- **SEO title:** Shingles treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Shingles treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Shingles treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Shingles treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Coleman & Leigh Pharmacy — Walton — Infected insect bite
+## Coleman and Leighs Pharmacy — Walton — Infected insect bite
 - **Page slug / URL:** `insect-bite-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
-- **SEO title:** Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy
-- **SEO description:** Infected insect bite treatment at Coleman & Leigh Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO description:** Infected insect bite treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
 ## Fishlocks Chemist — Ainsdale — Overview
 - **Page slug / URL:** `pharmacy-first-fishlocks-ainsdale.html` -> https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html
@@ -164,45 +164,45 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 - **SEO title:** Infected insect bite treatment in Eccleston - Fishlocks Chemist
 - **SEO description:** Infected insect bite treatment at Fishlocks Chemist in Eccleston. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Overview
+## Gordon Short Chemist — Crosby — Overview
 - **Page slug / URL:** `pharmacy-first-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
-- **SEO title:** Pharmacy First at Gordon Shorts Chemist, Crosby
-- **SEO description:** Pharmacy First at Gordon Shorts Chemist in Crosby. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
+- **SEO title:** Pharmacy First at Gordon Short Chemist, Crosby
+- **SEO description:** Pharmacy First at Gordon Short Chemist in Crosby. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — UTI
+## Gordon Short Chemist — Crosby — UTI
 - **Page slug / URL:** `uti-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/uti-treatment-gordon-short-crosby.html
-- **SEO title:** UTI treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** UTI treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** UTI treatment in Crosby - Gordon Short Chemist
+- **SEO description:** UTI treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Sore throat
+## Gordon Short Chemist — Crosby — Sore throat
 - **Page slug / URL:** `sore-throat-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/sore-throat-treatment-gordon-short-crosby.html
-- **SEO title:** Sore throat treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Sore throat treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Sore throat treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Sore throat treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Sinusitis
+## Gordon Short Chemist — Crosby — Sinusitis
 - **Page slug / URL:** `sinusitis-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/sinusitis-treatment-gordon-short-crosby.html
-- **SEO title:** Sinusitis treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Sinusitis treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Sinusitis treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Sinusitis treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Earache
+## Gordon Short Chemist — Crosby — Earache
 - **Page slug / URL:** `earache-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/earache-treatment-gordon-short-crosby.html
-- **SEO title:** Earache treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Earache treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Earache treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Earache treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Impetigo
+## Gordon Short Chemist — Crosby — Impetigo
 - **Page slug / URL:** `impetigo-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/impetigo-treatment-gordon-short-crosby.html
-- **SEO title:** Impetigo treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Impetigo treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Impetigo treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Impetigo treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Shingles
+## Gordon Short Chemist — Crosby — Shingles
 - **Page slug / URL:** `shingles-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/shingles-treatment-gordon-short-crosby.html
-- **SEO title:** Shingles treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Shingles treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Shingles treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Shingles treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
-## Gordon Shorts Chemist — Crosby — Infected insect bite
+## Gordon Short Chemist — Crosby — Infected insect bite
 - **Page slug / URL:** `insect-bite-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/insect-bite-treatment-gordon-short-crosby.html
-- **SEO title:** Infected insect bite treatment in Crosby - Gordon Shorts Chemist
-- **SEO description:** Infected insect bite treatment at Gordon Shorts Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO title:** Infected insect bite treatment in Crosby - Gordon Short Chemist
+- **SEO description:** Infected insect bite treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
 ## Hirshmans Chemist — Ainsdale — Overview
 - **Page slug / URL:** `pharmacy-first-hirshmans-ainsdale.html` -> https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html

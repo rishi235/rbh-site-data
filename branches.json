@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-17",
+  "lastUpdated": "2026-08-05",
   "brandGroups": {
     "scorahs": [
       "scorah_bramhall",
@@ -56,9 +56,6 @@
     "www.scorah-chemists.co.uk": [
       "scorah_bramhall",
       "scorah_hazel"
-    ],
-    "www.wilmslow-pharmacy.co.uk": [
-      "wilmslow_wilmslow"
     ],
     "www.cherrylanepharmacy.co.uk": [
       "cherrylane_liverpool"
@@ -414,7 +411,7 @@
       "branchNumber": 3,
       "odsCode": "FK848",
       "nhsEmail": "pharmacy.FK848@nhs.net",
-      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-service-eccleston-ainsdale.html",
+      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html",
       "pfBooking": true,
       "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlock-chemists/XFK848/leave-a-review",
       "website": "https://www.fishlockpharmacy.co.uk",
@@ -483,7 +480,7 @@
       "branchNumber": 4,
       "odsCode": "FKJ81",
       "nhsEmail": "pharmacy.FKJ81@nhs.net",
-      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-service-eccleston-ainsdale.html",
+      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html",
       "pfBooking": true,
       "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlocks-pharmacy/XFKJ81/leave-a-review",
       "website": "https://www.fishlockpharmacy.co.uk",
@@ -841,8 +838,8 @@
     {
       "id": "colemanleigh_liverpool",
       "brandKey": "colemanandleigh",
-      "brandLabel": "Coleman & Leigh Pharmacy",
-      "branchName": "Coleman & Leigh Pharmacy",
+      "brandLabel": "Coleman and Leighs Pharmacy",
+      "branchName": "Coleman and Leighs Pharmacy",
       "streetAddress": "241 Walton Village",
       "addressLocality": "Liverpool",
       "postalCode": "L4 6TH",
@@ -985,8 +982,8 @@
     {
       "id": "gordonshorts_crosby",
       "brandKey": "gordonshorts",
-      "brandLabel": "Gordon Shorts Chemist",
-      "branchName": "Gordon Shorts Chemist",
+      "brandLabel": "Gordon Short Chemist",
+      "branchName": "Gordon Short Chemist",
       "streetAddress": "159 College Road",
       "addressLocality": "Liverpool",
       "postalCode": "L23 3AT",
@@ -1102,7 +1099,7 @@
       "branchNumber": 17,
       "odsCode": "FA226",
       "nhsEmail": "pharmacy.FA226@nhs.net",
-      "pfLink": "https://www.cherrylanepharmacy.co.uk/pharmacy-first-service-walton.html",
+      "pfLink": "https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html",
       "pfBooking": true,
       "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226/leave-a-review",
       "website": "https://www.cherrylanepharmacy.co.uk",
@@ -1150,45 +1147,6 @@
           }
         ]
       }
-    },
-    {
-      "id": "wilmslow_wilmslow",
-      "brandKey": "wilmslowpharmacy",
-      "brandLabel": "Wilmslow Pharmacy",
-      "branchName": "Wilmslow Pharmacy",
-      "streetAddress": "Unit 2 Summerfields Village, Summerfields Village Centre",
-      "addressLocality": "Wilmslow",
-      "postalCode": "SK9 2TA",
-      "addressRegion": "Cheshire",
-      "addressCountry": "GB",
-      "phone": "01625 523414",
-      "email": "Wilmslow@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CaWCNYx46icAEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "wilmslow",
-        "sk9 2ta",
-        "summerfields",
-        "summerfields-village",
-        "sk9"
-      ],
-      "serviceAreaList": [
-        "Wilmslow",
-        "Handforth",
-        "Cheshire East"
-      ],
-      "shortCode": "WIL",
-      "branchNumber": 16,
-      "odsCode": "FE469",
-      "nhsEmail": "pharmacy.FE469@nhs.net",
-      "pfLink": "https://www.wilmslow-pharmacy.co.uk/pharmacy-first-service-wilmslow.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/wilmslow-pharmacy/XFE469/leave-a-review",
-      "disposed": true,
-      "website": "https://www.wilmslow-pharmacy.co.uk",
-      "seoTown": "Wilmslow",
-      "townSlug": "wilmslow",
-      "brandSlug": "wilmslow"
     },
     {
       "id": "tiffenbergs_longmoor",

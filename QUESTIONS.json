@@ -1,0 +1,92 @@
+[
+  {
+    "id": "Q1",
+    "date": "2026-08-04",
+    "item": "1.1",
+    "question": "Coleman & Leigh vs Leighs: which is the correct trading name? The repo uses 'Coleman & Leigh Pharmacy' consistently, but the domain is colemanandleighspharmacy.co.uk, the NHS profile slug is coleman-and-leighs-pharmacy, and the live Weebly site mixes four spellings.",
+    "options": [
+      "Coleman & Leighs Pharmacy - matches the domain and NHS profile",
+      "Coleman & Leigh Pharmacy - keep the repo as it is",
+      "Leighs Pharmacy - short form everywhere"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "Coleman and Leighs Pharmacy ('and' spelled out, Leighs with s, no apostrophe). Answered by Rishi directly in a Cowork session on 2026-08-04; repo renamed and regenerated the same day (commit 1ec8f7b and follow-ups). Recorded here 2026-08-04 by the audit worker so the portal stops showing this as open.",
+    "note": "Live Weebly copy for Coleman and Leighs still mixes four name variants and needs the CDN embeds repasted - hand tidy-up outside agent reach."
+  },
+  {
+    "id": "Q2",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "Wilmslow Pharmacy is still in branches.json and still has pages, but the disposal completed on 1 June. The Master Plan says the profile and site should be removed or transferred on completion. What should happen to Wilmslow's web presence?",
+    "options": [
+      "Remove Wilmslow from branches.json and take its pages down",
+      "Keep it live for now - transfer to the buyer is still being arranged",
+      "Redirect Wilmslow pages to the nearest RBH branch"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "Remove Wilmslow's web presence - the domain went with the sale. Answered by Rishi directly in a Cowork session on 2026-08-05. Applied same day: Wilmslow branch entry and hostMap entry removed from branches.json (pages were already gone from earlier runs); 173 pages, all checkers clean.",
+    "note": "The wilmslow-pharmacy.co.uk domain transferred with the sale, so no redirect or takedown is needed on our side. The Google Business Profile for Wilmslow, if still under RBH control, needs transferring or closing by hand - agents cannot reach GBP."
+  },
+  {
+    "id": "Q3",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "The Coleman and Leighs rename (and today's other page fixes) sit on the agents/audit-backlog branch, unreviewed. The live Weebly re-paste run planned for tonight will paste page HTML from this branch, and the CDN-driven banner and footer bars only pick up the fix when their pins move. How should the fixes go live?",
+    "options": [
+      "Review and merge agents/audit-backlog to main tonight, then paste and repoint pins to main - one clean state everywhere",
+      "Paste from the branch and pin CDN references to commit 497fcb0 now, merge to main later",
+      "Paste the page HTML tonight but leave all CDN pins alone until a separate review"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "Go with the recommended option: review and merge agents/audit-backlog to main, then paste and repoint CDN pins to main - one clean state everywhere. Answered by Rishi directly in a Cowork session on 2026-08-05. The merge itself must be done by Rishi (or a supervised session) - the unattended agent is barred from touching main.",
+    "note": "Once the merge to main is done, repoint the jsdelivr pins from the branch/commit refs to main at the same paste run, and update the Weebly page SEO fields for switch pages plus the new shorter meta descriptions from the 2026-08-05 quality pass."
+  },
+  {
+    "id": "Q4",
+    "date": "2026-08-04",
+    "item": "general",
+    "question": "The live GBP description for McCanns Sandringham is a copy of the Hirshmans text (wrong branch name) and names two prescription-only weight loss medicines. Advertising POMs to the public is not permitted, so the medicine names are a regulatory exposure wherever they appear. Rewrite all 16 GBP business descriptions using the Phase 4 pack format, with no medicine brand names?",
+    "options": [
+      "Yes - rewrite all 16 descriptions from the packs as they are drafted, medicine names removed",
+      "Only fix McCanns Sandringham now, leave the rest until the packs are done",
+      "Leave descriptions as they are - accept the risk"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "Rewrite all 16 GBP business descriptions from the Phase 4 packs, medicine names removed. Answered by Rishi directly in a Cowork session on 2026-08-05. All 16 pack descriptions are already drafted and compliance-swept in gbp-packs/ - the remaining work is pasting them into GBP, which needs Rishi logged in. McCanns Sandringham first: its live description names two POMs.",
+    "note": "Paste order suggestion: McCanns Sandringham (POM exposure) first, then the rest. Each pack carries its own paster notes."
+  },
+  {
+    "id": "Q5",
+    "date": "2026-08-04",
+    "item": "2.3",
+    "question": "The old Cherry Lane weight loss page (weight-loss-clinic-walton.html) is still live and still in the main navigation alongside the new compliant page. It names Wegovy, Mounjaro and Orlistat with product images, claims 'lose up to 22.5% of your body weight', and its contact details and prices render blank. Advertising POMs to the public is not permitted, so this is the same exposure class as Q4 but on the public website. The old Pharmacy First page (pharmacy-first-service-walton.html, still the target Google ranks) now renders empty. Both need Weebly access to change. What should happen to the two old pages?",
+    "options": [
+      "Delete both old pages and repoint navigation to the new pages - removes the POM exposure immediately, accepts losing whatever rank the old URLs hold until Google picks up the new ones",
+      "Strip the POM content from the old weight loss page and keep both URLs live pointing visitors at the new pages - keeps the rank, removes the exposure, needs a hand edit per page",
+      "Leave both as they are until the wider Q3 go-live decision - accepts the POM exposure staying public in the meantime"
+    ],
+    "recommended": 1,
+    "status": "answered",
+    "answer": "Sort properly - strip the POM content and correct the content on both old pages, keeping the URLs live and pointing visitors at the new pages (option 2 as listed, the recommended one). Answered by Rishi directly in a Cowork session on 2026-08-05. Paste-ready replacement blocks for both old URLs created same day in cowork/cherry-lane-old-page-replacements/ - Weebly hand edit needed to paste them and to remove the duplicate Weight Loss Clinic navigation entry.",
+    "note": "Replacement blocks carry no medicine names, no efficacy claims and no prices; each links prominently to the new compliant page at the cherry-lane-walton slug."
+  },
+  {
+    "id": "Q6",
+    "date": "2026-08-05",
+    "item": "2.3",
+    "question": "The Q5 fix depends on the paste-ready replacement blocks for the two old Cherry Lane pages, recorded as saved in cowork/cherry-lane-old-page-replacements/. That folder is not in the repo, not in the OneDrive cowork folder the generators write to, and a full search of the rishi profile finds no folder of that name anywhere on this machine. Unless the Weebly paste has already been done, there is nothing to paste from. How should the blocks be restored?",
+    "options": [
+      "Agent recreates both replacement blocks in the repo on the next run (no medicine names, no efficacy claims, no prices, prominent links to the new compliant pages) so they are version-controlled and visible on the status page",
+      "Rishi locates the originals from the 2026-08-05 Cowork session and commits them to the repo",
+      "Skip the blocks - do the Weebly hand edit directly from the new compliant pages' content"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "If the paste to Weebly has already been done, say so in the answer and the blocks only need recreating for the record. Until the paste happens the old weight loss page still names POMs and carries the efficacy claim, so the Q5 exposure stands."
+  }
+]

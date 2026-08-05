@@ -18,7 +18,7 @@
 (function(){
   /* ===== CONFIG — change these two lines per site ===== */
   var SWITCH_URL = "/switch-prescriptions-coleman-leigh-walton.html";
-  var BRAND = "Coleman & Leigh Pharmacy";
+  var BRAND = "Coleman and Leighs Pharmacy";
   /* =================================================== */
   var DISMISS_KEY = "rbhSwitchBannerClosed";
   var store = window.sessionStorage;
