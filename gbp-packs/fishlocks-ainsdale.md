@@ -12,7 +12,7 @@ Profile basics (for checking, not pasting):
 - Website: https://www.fishlockpharmacy.co.uk
 - Review link: https://g.page/r/Cfl0iMf3cgGaEAE/review
 
-## 1. Business description (max 750 chars - this is 664)
+## 1. Business description (max 750 chars - this is 680)
 Fishlocks Chemist is your local independent NHS pharmacy on Station Road in
 Ainsdale, serving Ainsdale, Birkdale and Southport. We dispense NHS
 prescriptions with free collection from your GP surgery and free home
@@ -47,15 +47,24 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
-- Shopfront from Station Road with the Fishlocks signage legible.
+Build Pack 4.1 asks for at least 10 photos, including the new vinyl
+storefront where fitted.
+- New vinyl storefront from Station Road, straight on, signage legible
+  (lead shot if the vinyl is fitted; otherwise the current shopfront).
+- Shopfront from Station Road at an angle showing the street context.
 - Entrance showing step-free access.
 - Dispensary counter with a team member serving (consent from staff and no
   customers identifiable).
+- Shop floor and retail area, tidy, shelves stocked.
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
+- Opening hours notice on the door, current and readable.
 - Blister pack close-up (no patient details visible).
 - Delivery driver or bagged prescriptions ready for delivery (no names
   visible) to support the free delivery message.
+While in the profile: action any pending Google updates (suggested edits
+Google is holding) before adding photos, so rejected suggestions do not
+overwrite the new content.
 
 ## 5. Post drafts
 
@@ -85,7 +94,7 @@ pressure consultation. We talk through your health, your goals and the
 options available, and we support you at every step with regular check-ins.
 Confidential, judgement-free and led by professionals who know your
 medicines. Book your consultation today.
-Button: Book -> https://www.fishlockpharmacy.co.uk (weight loss clinic page)
+Button: Book -> https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-ainsdale.html
 
 ### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
@@ -93,7 +102,7 @@ Fishlocks Chemist in Ainsdale offers a free assessment of your destination,
 trip length and vaccination needs, with vaccines and antimalarials supplied
 privately. Convenient appointments on Station Road, no GP visit needed.
 Book your free travel assessment today.
-Button: Book -> https://www.fishlockpharmacy.co.uk (travel clinic page)
+Button: Book -> https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-ainsdale.html
 
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM

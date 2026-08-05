@@ -13,6 +13,52 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.1: Fishlocks Ainsdale GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.1, the Fishlocks Ainsdale pack - the
+first pack drafted, so it predates the two Build Pack 4.1 requirements
+added to TEMPLATE.md by the 4.7 quality pass (10+ photos including the
+vinyl storefront; action pending Google updates), and it is next in
+line after Sandringham in the Q4 paste order.
+
+Verified clean against the current branches.json (lastUpdated 2026-08-05):
+- Profile facts all match: name, 17 Station Road Ainsdale PR8 3HN,
+  01704 575478, hours Mon-Fri 8:45-6:00 closed Sat-Sun (NHS confirmed
+  2026-06-24), website, review link, service areas Ainsdale, Birkdale
+  and Southport. hasApp true, and the description mentions the app.
+- Post A pfLink matches branches.json (branch-specific Pharmacy First
+  page); Post B switch URL matches the generated page slug.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+- Description within limit, but the header claimed 664 characters and
+  the actual paste-form count is 680. Header corrected to 680 (still
+  well under 750).
+
+Gaps found against Build Pack v2 section 4.1 and the updated TEMPLATE.md,
+fixed in the pack:
+- Shot list had 7 shots and did not mention the vinyl storefront or
+  pending Google updates. Extended to 10 shots (vinyl storefront lead
+  shot where fitted, street-context angle, shop floor, hours notice)
+  and added the pending-updates paster note, matching the Sandringham
+  pack format.
+- Post C and Post D buttons pointed at the bare domain with a "(weight
+  loss clinic page)" placeholder. Both now carry the exact generated
+  page URLs (weight-loss-clinic-fishlocks-ainsdale.html and
+  travel-clinic-fishlocks-ainsdale.html), consistent with Posts A and B
+  and with the later packs.
+
+Note: 13 packs still carry the 6-shot list and, in some, placeholder
+post links. Working through them one per quality pass in paste order
+rather than bulk-editing, per the one-item rule.
+
+Files changed: gbp-packs/fishlocks-ainsdale.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.7: McCanns Sandringham GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions
