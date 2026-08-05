@@ -18,7 +18,7 @@ Profile basics (for checking, not pasting):
 - Website: https://www.hirshmanspharmacy.co.uk
 - Review link: https://g.page/r/CUagKTNTXwMYEAE/review
 
-## 1. Business description (max 750 chars - this is 646)
+## 1. Business description (max 750 chars - this is 655)
 Hirshmans Chemist is your local independent NHS pharmacy in Sherwood House
 on Station Road, Ainsdale, serving Ainsdale, Birkdale and Southport. We
 dispense NHS prescriptions with free collection from your GP surgery and
@@ -55,14 +55,21 @@ Private services:
 - Private consultation room: confidential advice on your medicines.
 
 ## 4. Photo shot list
+(Build Pack 4.1: at least 10 photos. While in the profile, also action any
+pending Google updates.)
+- Vinyl storefront lead shot where fitted; otherwise the best straight-on
+  frontage shot.
 - Shopfront on Station Road with the Sherwood House frontage and signage.
+- Street-context angle showing the parade around Sherwood House, so the
+  location is recognisable on approach.
 - Entrance showing step-free access.
+- Shop floor, tidy, shelves faced up.
 - Dispensary counter with a team member serving (staff consent, no
   customers identifiable).
 - Private consultation room, door open, clean and tidy.
 - Team photo behind the counter.
 - Blister pack close-up (no patient details visible).
-- Saturday opening sign or hours board.
+- Hours board or Saturday opening sign, current hours legible.
 
 ## 5. Post drafts
 
@@ -92,7 +99,7 @@ pressure consultation. We talk through your health, your goals and the
 options available, and we support you at every step with regular check-ins.
 Confidential, judgement-free and led by professionals who know your
 medicines. Book your consultation today.
-Button: Book -> https://www.hirshmanspharmacy.co.uk (weight loss clinic page)
+Button: Book -> https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-hirshmans-ainsdale.html
 
 ### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
@@ -100,7 +107,7 @@ Hirshmans Chemist in Ainsdale offers a free assessment of your destination,
 trip length and vaccination needs, with vaccines and antimalarials supplied
 privately. Convenient appointments including Saturdays, no GP visit needed.
 Book your free travel assessment today.
-Button: Book -> https://www.hirshmanspharmacy.co.uk (travel clinic page)
+Button: Book -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html
 
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM

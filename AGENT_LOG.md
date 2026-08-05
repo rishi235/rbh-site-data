@@ -13,6 +13,53 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.3: Hirshmans GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.3, the Hirshmans pack - next in the Q4
+paste order after Sandringham, Fishlocks Ainsdale and Cherry Lane, and
+directly tied to Q4: the faulty live Sandringham description was copied
+from Hirshmans text naming two POMs, so this pack's own live-description
+replacement matters as much as Sandringham's.
+
+Verified clean against the current branches.json (lastUpdated 2026-08-05):
+- Profile facts all match: name, 56-62 Sherwood House, Station Road,
+  Ainsdale PR8 3HW, 01704 577376, hours Mon-Fri 8:30-6:00 and Sat
+  9:00-5:30 both with the 1:00-2:00 lunch closure, closed Sunday
+  (NHS confirmed 2026-06-24), website, review link, service areas
+  Ainsdale, Birkdale and Southport. hasApp false and the description
+  correctly makes no app mention.
+- Post A URL matches pfLink exactly; Post B URL matches the generated
+  switch page slug.
+- The Q4 header note (check the live Hirshmans description for medicine
+  names when pasting, replace with the pack description) is still
+  accurate and stays.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gaps found and fixed in the pack:
+- Description header claimed 646 characters; actual paste-form count is
+  655. Header corrected (still well under 750).
+- Post C and D buttons pointed at the bare domain with placeholder
+  text. Both now carry the exact generated page URLs
+  (weight-loss-clinic-hirshmans-ainsdale.html and
+  travel-clinic-hirshmans-ainsdale.html).
+- Shot list extended from 7 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle, shop floor, hours notice) plus the
+  pending-Google-updates paster note.
+
+Note: 11 packs still carry the older shot list and, in some,
+placeholder post links. Continuing one per quality pass in paste
+order, per the one-item rule.
+
+Files changed: gbp-packs/hirshmans-ainsdale.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.2: Cherry Lane GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions
