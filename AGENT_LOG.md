@@ -13,6 +13,55 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-05 (scheduled run) - Quality pass on item 4.5: Scorah Hazel Grove GBP pack verified against Build Pack v2 and current data
+
+Worklist has no unchecked items and QUESTIONS.json has no open questions
+(no Outlook search needed), so this run was a quality pass per the
+standing rules. Item chosen: 4.5, the Scorah Hazel Grove pack - next in
+paste order after Sandringham, Fishlocks Ainsdale, Cherry Lane,
+Hirshmans and Scorah Bramhall, as flagged in the previous entry.
+
+Verified clean against the current branches.json (lastUpdated 2026-08-05):
+- Profile facts all match: name, 87 Macclesfield Road, Hazel Grove SK7
+  6BG, 01625 872267, hours Mon-Fri 9:00-6:00, Saturday and Sunday
+  closed (NHS confirmed 2026-06-24), with the pack's warning about the
+  24 June Saturday cessation still accurate and prominent. Website,
+  review link and service areas (Hazel Grove, Bramhall, Offerton,
+  Great Moor, Poynton) all match. hasApp false and the description
+  correctly makes no app mention.
+- Description header claimed 685 characters; actual paste-form count is
+  exactly 685. No correction needed.
+- Post A URL matches pfLink exactly (shared Hazel Grove / Bramhall PF
+  page, with the existing paster note to swap to the branch-specific
+  page once live - that page is confirmed present in the repo).
+- Posts B, C and D already carry the exact generated page slugs
+  (switch-prescriptions-scorah-hazel-grove.html,
+  weight-loss-clinic-scorah-hazel-grove.html,
+  travel-clinic-scorah-hazel-grove.html), all verified present in
+  modules/. First pack in this pass series with no placeholder links
+  to fix. All four posts well under the 1,500 character limit.
+- Private paid services correctly framed: no "free assessment" wording,
+  and Post C states plainly it is a private, paid service.
+- Compliance sweep by script: no POM or generic medicine names, no
+  efficacy phrases, no em dashes, no emojis, UK English.
+
+Gap found and fixed in the pack:
+- Shot list extended from 6 to 10 shots per Build Pack 4.1 and the
+  updated TEMPLATE.md (vinyl storefront lead shot where fitted,
+  street-context angle, shop floor, hours notice) plus the
+  pending-Google-updates paster note. The hours shot for this branch
+  specifically asks for the sign showing no Saturday opening, given
+  the 24 June cessation. The branch-specific blood pressure shot kept.
+
+Note: 9 packs still carry the older shot list. Next in paste order:
+4.6 McCanns Aigburth.
+
+Files changed: gbp-packs/scorah-hazel-grove.md, AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none new. None open.
+
+---
+
 ## 2026-08-05 (scheduled run) - Quality pass on item 4.4: Scorah Bramhall GBP pack verified against Build Pack v2 and current data
 
 Worklist has no unchecked items and QUESTIONS.json has no open questions
