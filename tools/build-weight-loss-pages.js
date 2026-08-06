@@ -52,6 +52,12 @@ function storeOf(id) {
   if (!b.brandSlug || !b.seoTown || !b.townSlug || !b.website) {
     throw new Error("Branch " + id + " is missing service-layer fields (brandSlug/seoTown/townSlug/website) in branches.json");
   }
+  // A disposed branch must not get pages. This generator is driven by the
+  // BUILD list above rather than by scanning branches.json, so setting
+  // disposed there is not enough on its own: without this guard the pages
+  // are still written and only check-nap.js notices, after the fact.
+  // Same convention as build-branch-landing-pages.js.
+  if (b.disposed) throw new Error("Branch " + id + " is disposed; remove it from BUILD and delete its generated pages.");
   return {
     id: id,
     brand: b.brandLabel,

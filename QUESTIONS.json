@@ -88,5 +88,20 @@
     "status": "answered",
     "answer": "Fix it and log it - Rishi, Cowork session 2026-08-05. Both replacement blocks recreated in the repo at modules/service/weebly-paste/ (cherry-lane-old-weight-loss-replacement.html and cherry-lane-old-pharmacy-first-replacement.html), version-controlled, no medicine names, no claims. The Weebly paste itself remains outstanding and needs someone logged into the Weebly editor.",
     "note": "Until the paste happens the old weight loss page still names POMs publicly. Paste both blocks, then delete the duplicate Weight Loss Clinic navigation entry."
+  },
+  {
+    "id": "Q7",
+    "date": "2026-08-06",
+    "item": "quality pass on 1.4 (finding, does not block any item)",
+    "question": "The house rule is no em dashes, standard hyphens only. Checking all 173 generated pages found em dashes in two strings that reach the public, both from tools/build-switch-pages.js: the visible body sentence on all 15 switch pages ('it usually is not - we make the first step quick...') and the meta description used as the Weebly SEO description ('Local NHS pharmacy - we contact your GP and handle everything'), which becomes the search result snippet. Everything else found is in HTML build comments and internal paste sheets that no customer sees. How should the two public strings be handled?",
+    "options": [
+      "Rewrite both strings in the generator so no em dash reaches the public, splitting each sentence at a full stop rather than swapping in a hyphen, then regenerate the 15 switch pages - the Weebly SEO description field then needs repasting at the next paste run",
+      "Fix only the meta description, since that is the string Google shows, and leave the body sentence as it is - smaller change, no visible page copy edited",
+      "Leave both as they are - treat the no-em-dash rule as applying to written comms rather than to generated website copy"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead."
   }
 ]
