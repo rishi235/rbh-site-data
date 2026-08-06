@@ -19,6 +19,97 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-06 (unattended run, sixth) - Quality pass on item 3.1: the SEO title/H1 pattern and its two checkers; two defects found and fixed (git line-ending config was breaking the regeneration check, self-test was under-sampling)
+
+No unchecked worklist items and no open questions at run start (Q1 to
+Q6 all answered in QUESTIONS.json), so quality pass per the standing
+rules. The portal answer fetch was skipped: it only runs when a
+question is open, and none are.
+
+Item taken: 3.1 (the one definition of the title/H1/meta pattern in
+tools/seo-pattern.js). Phase 3 is the largest block never given a
+re-verification pass, and 3.1 is the item the other twelve depend on:
+if the pattern module or its checker is wrong, every Phase 3 tick is
+worth less than it looks. Passes so far have covered 1.1, 2.1, 2.2,
+2.3, 4.1, 4.2 and 4.7.
+
+Verified clean:
+- All six build scripts import tools/seo-pattern.js. Nothing composes
+  a title or H1 by hand, so the PAGE_TYPES rollout contract holds.
+- The CONDITIONS map in check-seo-pattern.js still mirrors the one in
+  build-service-pages.js exactly, all seven conditions, title from
+  metaCondition and H1 from h1Phrase, with earache the only one where
+  the two differ ("Earache treatment" against "Earache treatment for
+  children"). The duplication is a drift risk but is currently correct.
+- Checker coverage is real, not partial: 173 pages checked, 0 skipped.
+  The three page directories hold exactly 173 HTML files, so nothing
+  is silently missed. The 6 other HTML files in the repo are drafts,
+  the two Weebly paste blocks, the switch template and the status
+  page, none of which are pattern pages.
+- The checker is not vacuous. Negative test: the H1 on
+  uti-treatment-fishlocks-ainsdale.html was changed to drop the town,
+  the checker reported the mismatch by name and exited 1, and the file
+  was restored with git checkout. It catches generator drift.
+- check-nap: 173 pages, 0 mismatches. check-seo-pattern: 173 pages,
+  0 failures.
+
+DEFECT 1 (found and fixed): the "regeneration is byte-identical, git
+status clean afterwards" test that every quality pass relies on was
+not working. Re-running the six build scripts left 89 files reported
+as modified. They were not modified: git diff showed no hunks, git
+diff --numstat showed no content changes, and a byte comparison of the
+worktree file against the committed blob matched exactly, same length,
+same 169 LF line endings, no CR anywhere. The cause is this clone
+having core.autocrlf=true with no .gitattributes. Git expects the
+working tree to hold CRLF, the build scripts write LF, so git flags
+every generated page as pending conversion and prints a "LF will be
+replaced by CRLF" warning for each. The practical cost is that the
+check meant to prove the committed pages still match the generators
+was returning 89 false positives, so genuine drift would have been
+indistinguishable from the noise, and the warnings buried the real
+git output. Fixed by adding .gitattributes declaring the three
+generated directories as LF. Deliberately narrow: at the time of
+writing all 198 files in those directories are LF only, while 47 files
+elsewhere in the repo hold CRLF and are left untouched by the rule.
+After git add --renormalize the phantom modifications cleared with
+zero staged content changes, and a fresh regeneration now leaves the
+status genuinely clean. No page bytes changed at any point.
+
+DEFECT 2 (found and fixed): the seo-pattern.js self-test described
+itself as validating every pattern for every buildable branch, but for
+condition pages it only ever sampled "UTI treatment", the shortest of
+the seven phrases. The result was that the TITLE_WARN_LEN check never
+fired: the self-test reported "passed" with no warnings while a real
+generated page ran to 70 characters. Measured across all 173 pages,
+the longest title is "Infected insect bite treatment in Walton -
+Coleman and Leighs Pharmacy" at 70 characters, one page over the
+65-character threshold, with NHS contraception service at Coleman and
+Leighs exactly on 65. Fixed by adding the longest condition phrase as
+a second sampled row, so the worst case is covered. The self-test now
+reports "passed with 1 length warning(s)" and still exits 0, which
+matches the measured page set. Only the self-test block changed; the
+exported functions are untouched, and regeneration afterwards changed
+zero generated pages, confirmed by git status.
+
+On the 70-character title itself: no change recommended. The pattern
+puts the brand last precisely so that truncation in the search results
+costs the brand rather than the town or the service words, which is
+what Build Pack v2 section 1.4 asks for. It is a warning, not a fault.
+Noted here so a later run does not treat it as new.
+
+Files changed: .gitattributes (new), tools/seo-pattern.js,
+AGENT_LOG.md.
+Commit: see this commit on agents/audit-backlog.
+Questions: none open, none new.
+
+Note for a later run if wanted, not done here to avoid scope creep:
+have check-seo-pattern.js import CONDITIONS from build-service-pages.js
+rather than keeping its own copy, so the two cannot drift. It would
+need build-service-pages.js to export the map. Same class of fix as
+the branches-editor snapshot problem in the previous run.
+
+---
+
 ## 2026-08-05 (unattended run, fifth) - Quality pass on item 1.1: brand-name spelling re-verified after the rename; one defect found and fixed (stale embedded snapshot in branches-editor.html)
 
 No unchecked worklist items and no open questions at run start

@@ -199,6 +199,11 @@ if (require.main === module) {
       ["landing      ", landingTitle(b), landingH1(b)],
       ["pfOverview   ", brandTitle("Pharmacy First", b), brandH1("Pharmacy First", b)],
       ["pfCondition  ", searchTitle("UTI treatment", b), searchH1("UTI treatment", b)],
+      // Longest condition phrase in build-service-pages.js CONDITIONS. Sampled
+      // as well as the shortest so the length check sees the worst case: with
+      // UTI alone the self-test never reached TITLE_WARN_LEN and reported no
+      // warnings even though a real generated page ran to 70 characters.
+      ["pfConditionMax", searchTitle("Infected insect bite treatment", b), searchH1("Infected insect bite treatment", b)],
       ["contraception", searchTitle("NHS contraception service", b), searchH1("NHS contraception service", b)],
       ["weightLoss   ", brandTitle("Weight Loss Clinic", b), brandH1("Weight Loss Clinic", b)],
       ["travelClinic ", brandTitle("Travel Clinic", b), brandH1("Travel Clinic", b)],
