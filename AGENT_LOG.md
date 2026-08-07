@@ -3,6 +3,11 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+NOTE ON ANSWER PICKUP: the portal answer fetch has now failed two runs
+running, both times because two Chrome browsers are connected to the account
+and the browser tools will not act until a human picks one, which an
+unattended run cannot do. Any answers left on the portal for Q7 or Q8 are
+sitting there unread. Disconnecting the spare Chrome would restore the route.
 Open: Q8 (raised 2026-08-07, eighth run) - the Pharmacy First button in
 Post A of 11 of the 15 GBP packs points at an old live-only page rather
 than at the new branch page this repo generates. Only Fishlocks and Cherry
@@ -27,6 +32,126 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-07 (unattended run, ninth) - Quality pass on item 1.3: the McCanns Sandringham postcode sweep re-verified and made permanent. New tools/check-postcodes.js covers the whole repo, including the Weebly paste blocks that no checker reached. All five rules negative-tested. No defects found
+
+Run start state. No .agent-lock present, so nothing to clear. Worktree clean,
+branch already level with origin. No unchecked worklist items, so quality
+pass per the standing rules.
+
+Portal answer pickup: NOT AVAILABLE this run, for the second run running and
+for the same reason. Q7 and Q8 are both open so the fetch was due, but two
+Chrome browsers are connected to the account and the browser tools refuse to
+act until a human picks one. That choice cannot be made unattended, and the
+standing rule bars any other route, so pickup was skipped and logged. Q7 and
+Q8 remain open here. If either was answered on the portal it will be picked
+up by the next run that sees a single browser. This is now a recurring block
+rather than a one-off: worth disconnecting the spare Chrome if the portal
+answer route is meant to work unattended.
+
+Item taken: 1.3 (sweep all pages for the McCanns Sandringham postcode error,
+CH49 1SX, where the correct value is L17 4JP). Passes so far covered 1.1,
+1.4, 2.1, 2.2, 2.3, 3.1, 4.1, 4.2, 4.3 and 4.7, and the Phase 3 rollout and
+Phase 4 packs are now covered continuously by check-seo-pattern and
+check-gbp-packs. That left 1.2 and 1.3 as the only completed items never
+looked at again. 1.3 was taken first because a wrong postcode is the error
+that sends a patient to the wrong building, and because the item was closed
+on a one-off manual sweep with nothing stopping the error class returning.
+Passes now cover 1.1, 1.3, 1.4, 2.1, 2.2, 2.3, 3.1, 4.1, 4.2, 4.3 and 4.7.
+
+VERIFIED, and the item stands. CH49 1SX appears in exactly three files:
+AGENT_WORKLIST.md, AGENT_LOG.md and status/index.html, which renders the
+worklist. All three are the audit describing its own finding, which is
+correct and should stay. It appears in no generated page, no GBP pack and no
+paste block. Every one of the 16 branch postcodes in branches.json occurs in
+the repo, so no branch has silently lost its address.
+
+Coverage of the existing checker measured rather than assumed, because a
+checker that fires on only some pages reports a pass it has not earned. All
+173 generated pages carry all five elements check-nap inspects: data-branch,
+contact-line, map query, JSON-LD with a postalCode, and a tel: link. Not one
+page slips through on a missing element, so the standing "173 pages, 0
+mismatches" result is real coverage.
+
+Cross-attribution tested separately: no generated page carries any postcode
+or phone number belonging to a different branch. That is the McCanns
+Sandringham failure shape exactly, a real and valid postcode sitting on the
+wrong branch, and the estate is clean of it.
+
+GAP FOUND (and closed): the two Weebly paste blocks in
+modules/service/weebly-paste, recreated on 2026-08-05 under Q6, were checked
+by nothing. check-nap reads three page directories and that is not one of
+them. These two blocks are not internal notes; they are the copy that gets
+pasted onto the two old live Cherry Lane URLs, so an error in them lands
+straight on the public site, and they are on the critical path for the Q5
+POM exposure. Both were verified by hand this run and are correct: phone
+0151 226 2051 and postcode L4 8SG both match branches.json, both internal
+links point at pages this repo actually generates
+(pharmacy-first-cherry-lane-walton.html and
+weight-loss-clinic-cherry-lane-walton.html), no medicine names, no efficacy
+claims, no em dashes, no emojis, no smart quotes. One cosmetic divergence
+worth knowing, not a defect: both blocks write the address as "202 Cherry
+Lane, Walton, Liverpool L4 8SG", inserting the seoTown, where generated
+pages use the canonical "street, locality, postcode" form. It is factually
+right, since Walton is the catchment inside Liverpool, but it is a second
+address format in public copy.
+
+New tool: tools/check-postcodes.js, in the same convention as check-nap.js,
+check-seo-pattern.js and check-gbp-packs.js. Read-only, exit 1 on failure,
+--verbose lists every postcode and its file count. It turns item 1.3 from a
+one-off sweep into a standing one, and it is the first checker to look at
+the whole repo rather than a fixed list of page directories, so the paste
+blocks, the packs, the module index and SEO sheets and the status page are
+all now in scope. Five rules: UNKNOWN, any postcode not in branches.json,
+with a narrow allowlist for the files that document the historical error;
+MISSING, a live branch postcode that appears nowhere; FOREIGN, a file owned
+by one branch carrying another branch's postcode; DISPOSED, a disposed
+branch's postcode still in generated output; and UNOWNED, a warning naming
+any file whose owning branch could not be worked out, so the tool states
+what it did not check instead of passing over it quietly.
+
+RESULT: 251 text files scanned, 16 distinct postcodes, 16 live branches,
+0 failures, 2 warnings. Both warnings are correct and expected:
+modules/branch/pages/INDEX.md and SEO.md are multi-branch sheets covering
+both Fishlocks branches, so they carry two postcodes and have no single
+owner. They are reported, not failed.
+
+Negative test, all five rules, because a checker that never fires proves
+nothing. CH49 1SX was injected into the McCanns Sandringham Pharmacy First
+page, Hirshmans' postcode onto a Smartts page, Scorah Bramhall's postcode
+into the Cherry Lane paste block, and a foreign postcode into the Riddings
+pack: six failures, correctly typed and correctly attributed, including the
+paste block that nothing could see before. Setting Smartts to disposed in
+branches.json produced 13 DISPOSED failures across its 12 pages and its
+pack. Changing the Riddings postcode to a value used nowhere produced 14
+failures: 13 FOREIGN on the files still carrying the old value, plus the
+MISSING for the new one. Every file was restored with git checkout after
+each test and the checker re-run clean at exit 0. git status confirms no
+page, pack, paste block or branches.json byte changed.
+
+One implementation note recorded so a later reader is not confused: Clear
+Chemist Aintree and head office share the postcode L9 7AS, both being at
+Unit 20 Brookfield. The checker prefers a live trading branch over head
+office when reporting who owns a postcode, so verbose output names Clear
+Chemist. Nothing about that tie affects the pass or fail rules.
+
+Files changed: tools/check-postcodes.js (new), AGENT_LOG.md. No page,
+generator, pack, paste block or branches.json bytes changed. AGENT_WORKLIST
+deliberately untouched, matching how the previous quality passes recorded
+themselves: 1.3 was already ticked and its completion claim still holds.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q7 and Q8 open, neither raised by this run. Q1 to Q6 answered.
+
+Note for a later run, not done here to avoid scope creep: item 1.2 is now
+the only completed item never re-verified, and it is the natural next pass.
+Separately, the two paste blocks would be worth folding into check-nap's
+scope properly, so their phone and address are checked against branches.json
+the way page NAP is, rather than only their postcodes as now. And the wider
+point from the previous two runs still stands unchanged: four generators are
+driven by hardcoded BUILD lists rather than by scanning branches.json, which
+remains the largest structural weakness in the build.
 
 ---
 
