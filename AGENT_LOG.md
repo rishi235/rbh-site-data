@@ -184,6 +184,25 @@ No repo files were changed by the website or GBP work itself; the repo
 already held the correct replacement text. This log entry and the new
 question are the repo-side record.
 
+CONCURRENCY HAZARD, worth fixing before the next run. This supervised
+session was working in C:\Dev\rbh-site-data at the same time as a scheduled
+unattended run. The sequence: a run started 2026-08-07 13:04 and died
+without committing, leaving a lock and two untracked files. A second run
+started at 16:32, correctly treated the 13:04 lock as stale, and created its
+own. This session then committed at 17:10 and 17:18 while that 16:32 run was
+still live (its node processes were still up), and briefly deleted its lock
+before restoring it with the original timestamp. No damage: HEAD and
+origin/agents/audit-backlog match at c69676f and the 16:32 run had committed
+nothing. But nothing except luck prevented two agents pushing the same
+branch at once. The lock protects unattended runs from each other; it does
+not protect them from a supervised session. Worth either pausing the
+schedule during supervised work, or having supervised sessions respect the
+same lock.
+
+Untracked files left in the worktree by the crashed 13:04 run, not mine and
+not deleted in case they are wanted: tmp-analyse.js and
+tools/check-page-coverage.js.
+
 ---
 
 ## 2026-08-07 (unattended run, tenth) - Quality pass on item 1.2: the Hirshmans address re-verified across the whole repo, and the Weebly paste blocks folded into check-nap so their phone, address, branch identity and link targets are checked against branches.json. Eleven rules negative-tested. No defects found
