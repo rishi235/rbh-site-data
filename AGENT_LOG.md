@@ -3,6 +3,10 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+Open: Q11 (raised 2026-08-07, twelfth run) - McCanns and Scorah each have two
+branches sharing one website, the same problem item 2.2 solved for Fishlocks,
+and neither pair has branch landing pages. Four branches with no local target
+page. Nothing blocked; recommendation is to build all four.
 Open: Q10 (raised 2026-08-07, supervised session) - a shared marketing
 template naming Mounjaro and Wegovy is live on the branch GBP descriptions.
 Three found and fixed this session; eleven profiles not yet opened. This is
@@ -11,14 +15,18 @@ Open: Q9 (raised 2026-08-07, supervised session) - the old Cherry Lane
 Pharmacy First page is NOT empty as Q5 and Q6 assumed. It has a working
 booking widget and a video, so the bridge block was not pasted.
 
-NOTE ON ANSWER PICKUP: this should now be FIXED. The blocker was that two
-Chrome browsers were connected to the account and the browser tools would
-not act until a human picked one. In the 2026-08-07 supervised session Rishi
-picked and named them through the switch_browser confirmation screen, so
-they now report as "prodesk" and "Surface" rather than "Browser 1" and
-"Browser 2". The next unattended run should be able to select the prodesk
-browser by deviceId and complete the portal answer fetch. If it still fails,
-say so plainly rather than retrying.
+NOTE ON ANSWER PICKUP: STILL BROKEN, and the 2026-08-07 fix did not hold.
+The supervised session named the two browsers "prodesk" and "Surface" through
+the switch_browser confirmation screen and expected the next unattended run to
+select prodesk by deviceId. Checked again on the twelfth run: both browsers are
+still connected and both still report as "Browser 1" and "Browser 2". The names
+did not persist, and the tooling still refuses to act until a human picks one,
+which an unattended run cannot do. That is four runs in a row with no pickup.
+Q7 and Q8 have now been open and unanswerable through the portal since 6 and 7
+August. The only fix that will actually work is disconnecting the spare Chrome
+from the account, or signing the Surface out. Naming them is not enough.
+Until then the portal answer forms are write-only: answering there reaches
+nothing. Answering in a Cowork session still works, as it did for Q1 to Q6.
 
 HISTORIC (for context): the portal answer fetch failed three runs
 running, every time because two Chrome browsers are connected to the account
@@ -53,6 +61,101 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-07 (unattended run, twelfth) - Recovered the crashed eleventh run's unfinished coverage checker and completed it. tools/check-page-coverage.js is the first checker that reads what SHOULD exist from branches.json rather than inspecting whatever happens to be on disk. It found a real stale entry in the switch generator, now removed. Fifteen rules negative-tested. New Q11
+
+Run start state. A .agent-lock was present and 3.49 hours old, so treated as
+stale per the standing rules and cleared. No .git\index.lock and no git process
+running. The worktree carried four untracked scratch files from the crashed
+run: .agent-tmp-git.ps1, .agent-tmp-lock.ps1, tmp-analyse.js and a half-written
+tools/check-page-coverage.js, 207 lines, ending mid-file with no orphan check,
+no report and no exit code. Branch already level with origin. No unchecked
+worklist items, so quality pass per the standing rules.
+
+Portal answer pickup: NOT AVAILABLE, fourth run running. Both Chrome browsers
+are still connected and still report as "Browser 1" and "Browser 2" despite
+being named in the supervised session, so the tooling still demands a human
+choice. Nothing else was tried, per the standing rules. See the revised note
+above: naming the browsers did not fix it and will not; one of them has to go.
+
+WHAT WAS TAKEN, AND WHY. Every completed item has had a quality pass, so the
+tenth run's note offered two routes: go round again from the oldest, or address
+the structural weakness carried in this log for five runs now - the generators
+are driven by hardcoded lists rather than by branches.json, so adding or
+disposing of a branch needs a code edit in several places and nothing fails if
+one is missed. The crashed run had started on exactly that, so this run
+recovered its work rather than starting a third thing. Framed as a quality pass
+on the Phase 3 rollout claim that all pages are generated from branches.json:
+the claim was true of the pages that exist, and silent about the ones that
+do not.
+
+THE GAP THIS CLOSES. check-nap, check-postcodes, check-seo-pattern and
+check-gbp-packs all inspect the files on disk. If a branch is added to
+branches.json and nobody adds its id to a generator list, no page is written,
+so there is nothing for those checkers to find and all four report a clean
+pass. The branch is simply absent and the estate looks healthy.
+tools/check-page-coverage.js derives the expected page set from branches.json
+alone, then compares it to the generators' driving lists and to the files on
+disk. It reports 173 pages across three folders, which matches the figure this
+log has cited since the Phase 3 rollout.
+
+DEFECT FOUND AND FIXED. tools/build-switch-pages.js still carried a
+wilmslow_wilmslow entry in its CONFIG object. Wilmslow was removed from
+branches.json entirely under the Q2 answer on 5 August, so the entry pointed at
+a branch that no longer exists and at a domain that transferred with the sale.
+No page was being generated from it, because the disposed-branch guard added
+under item 1.4 caught it, but the entry was live code one data change away from
+resurrecting a sold branch's page. Removed. All six generators re-run
+afterwards: every page regenerated byte-identical, git status shows no page,
+pack, paste block or branches.json change, only the generator source. All five
+checkers pass at exit 0.
+
+FINDING RAISED AS Q11, NOT ACTED ON. The new checker derives the branch
+landing page rule from the data rather than from the built list: any branch
+sharing its website with another trading branch has no page of its own to rank
+locally, which is precisely why item 2.2 built the Fishlocks pair. Two more
+pairs are in the same position and have nothing - McCanns Aigburth and
+Sandringham on mccannspharmacy.co.uk, Scorah Bramhall and Hazel Grove on
+scorah-chemists.co.uk. Four branches, four towns, no local target page.
+Building them is a decision rather than a defect, so they are reported as
+warnings, the checker still exits 0, and the question is Q11. Recommendation
+is to build all four from the existing generator.
+
+NEGATIVE TESTS. Fifteen in total, every rule proved to fire and the harness
+itself checked. NOT_BUILT (both the BUILD-list path and the switch CONFIG
+path), STALE_ID, DISPOSED_LISTED, NOT_EARNED, PAGE_MISSING, ORPHAN_PAGE,
+LIST_UNREADABLE (both the BUILD-list path and the CONFIG path),
+GENERATOR_MISSING, DIR_MISSING, LANDING_NOT_BUILT, LANDING_NOT_SHARED. Two
+harness defects were caught and corrected rather than glossed over. First, the
+NOT_BUILT test passed on a substring match against LANDING_NOT_BUILT, so it
+proved nothing; re-run with an exact code match, plus a silent-when-clean test
+so a rule that always fires cannot masquerade as a pass. Second, the harness
+reverts each mutation with git checkout, which silently reverted the
+wilmslow fix made earlier in the run; caught on the next git status, re-applied
+and re-verified. One cosmetic defect in the checker itself was found by the
+tests and fixed: the switch generator's NOT_BUILT message called its CONFIG
+object a BUILD list, which would have sent a reader to the wrong place.
+
+Live site NOT checked this run. The work is entirely repo-side and the browser
+tools are blocked for the same reason as the answer pickup.
+
+Files changed: tools/check-page-coverage.js (new, completed),
+tools/build-switch-pages.js (stale CONFIG entry removed), QUESTIONS.json (Q11),
+AGENT_LOG.md. No page, pack, paste block or branches.json bytes changed. Six
+untracked scratch files removed, four of them left by earlier runs.
+AGENT_WORKLIST deliberately untouched, matching every previous quality pass.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q7, Q8, Q9, Q10 open and unchanged. Q11 raised by this run.
+
+Note for a later run: the structural weakness is now visible rather than fixed.
+The checker will fail loudly the moment a branch is added to branches.json and
+missed in a generator list, which is the dangerous case, but the lists are
+still hand-maintained in six places. Driving the generators from branches.json
+directly is the real fix and is a bigger job than one run; it should be taken
+deliberately, with the checker as the safety net that proves the change built
+the same 173 pages.
 
 ---
 

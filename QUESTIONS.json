@@ -148,5 +148,20 @@
     "status": "open",
     "answer": null,
     "note": "Advertising prescription-only medicines to the public is not permitted, so every profile still carrying the template is a live exposure until it is changed. GBP edits sometimes queue for review for up to ten minutes rather than applying instantly, and there is no undo, so the before text for each one needs logging as it is changed. Separately and not acted on: every branch profile is named '<brand> - Travel Vaccination and Simple Weight Loss Clinic', which matches no pack, and Coleman's reads 'Coleman & Leighs' rather than the confirmed 'Coleman and Leighs Pharmacy'. Changing a GBP business name can trigger re-verification, so that needs a separate decision."
+  },
+  {
+    "id": "Q11",
+    "date": "2026-08-07",
+    "item": "quality pass on 2.2 (finding, does not block any item)",
+    "question": "Item 2.2 built branch landing pages for Fishlocks Ainsdale and Eccleston because the two branches share one website, fishlockpharmacy.co.uk, so neither had a page of its own to rank for its own town. The new coverage checker shows two more pairs in exactly the same position and neither has landing pages: McCanns Aigburth and Sandringham both sit on mccannspharmacy.co.uk, and Scorah Bramhall and Hazel Grove both sit on scorah-chemists.co.uk. That is four branches with no local target page, in four separate towns. Should the same treatment be rolled out to them?",
+    "options": [
+      "Build all four now from the existing generator, so every shared-domain branch has its own local page. Same code, same pattern, no new design decisions, and it closes the gap the Fishlocks work was meant to close",
+      "Build the McCanns pair only. Aigburth and Sandringham are further apart and compete for different search terms, whereas Bramhall and Hazel Grove are close enough that one page may be serving both adequately",
+      "Leave all four as they are. The Fishlocks split was a pilot and the wider rollout has not been agreed, so the shared pages stay until there is evidence the split actually earns the rank"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked by this and nothing was built. The checker reports all four as warnings on every future run, so the gap stays visible either way. If the answer is option 3, say so and the warning can be turned off for those branches rather than nagging every hour. Whatever is built still needs a Weebly paste to go live, same as the Fishlocks pair."
   }
 ]

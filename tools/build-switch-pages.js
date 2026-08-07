@@ -37,7 +37,6 @@ const CONFIG = {
   tiffenbergs_longmoor:  { brand: "Tiffenbergs Chemist", brandSlug: "tiffenbergs", town: "Aintree", townSlug: "aintree", site: "https://www.tiffenbergschemist.co.uk" },
   scorah_bramhall:       { brand: "Scorah Chemists", brandSlug: "scorah", town: "Bramhall", townSlug: "bramhall", site: "https://www.scorah-chemists.co.uk" },
   scorah_hazel:          { brand: "Scorah Chemists", brandSlug: "scorah", town: "Hazel Grove", townSlug: "hazel-grove", site: "https://www.scorah-chemists.co.uk" },
-  wilmslow_wilmslow:     { brand: "Wilmslow Pharmacy", brandSlug: "wilmslow", town: "Wilmslow", townSlug: "wilmslow", site: "https://www.wilmslow-pharmacy.co.uk" },
   cherrylane_liverpool:  { brand: "Cherry Lane Pharmacy", brandSlug: "cherry-lane", town: "Walton", townSlug: "walton", site: "https://www.cherrylanepharmacy.co.uk" },
   clearchemist_aintree:  { brand: "Clear Chemist", brandSlug: "clear", town: "Aintree", townSlug: "aintree", site: "https://www.clearchemist.co.uk" }
 };
