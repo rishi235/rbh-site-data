@@ -2,7 +2,8 @@
 
 NOTE FOR PASTING: the live GBP description for this branch currently carries
 copied Hirshmans text naming two prescription-only weight loss medicines
-(open question Q4). The new description in section 1 REPLACES that live
+(Q4, answered 2026-08-05: rewrite all 16 descriptions, medicine names
+removed, and do this branch first). The new description in section 1 REPLACES that live
 description entirely. Delete the live text in full and paste section 1 in
 its place. Do not merge, append or keep any part of the old description.
 
@@ -117,7 +118,7 @@ Button: Book -> https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandring
 Notes for the paster:
 - Repeat of the top note: the section 1 description REPLACES the faulty
   live description (copied Hirshmans text naming two prescription-only
-  medicines, open question Q4). Full delete and replace, no merging.
+  medicines, Q4, answered 2026-08-05). Full delete and replace, no merging.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the pfLink from branches.json, which is the shared Aigburth

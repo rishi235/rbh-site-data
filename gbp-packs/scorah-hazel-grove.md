@@ -126,6 +126,7 @@ Notes for the paster:
   pick the closest match.
 - No app mention anywhere in this pack: branches.json has hasApp false for
   this branch.
-- Q4 (open): GBP business descriptions across the estate may carry wrong-
+- Q4 (answered 2026-08-05: rewrite all 16 descriptions from these packs,
+  medicine names removed): GBP business descriptions across the estate may carry wrong-
   branch text or POM medicine names. When pasting this description, check
   what is currently on the Hazel Grove profile and note anything odd.

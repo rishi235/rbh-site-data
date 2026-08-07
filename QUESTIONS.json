@@ -103,5 +103,20 @@
     "status": "open",
     "answer": null,
     "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead."
+  },
+  {
+    "id": "Q8",
+    "date": "2026-08-07",
+    "item": "quality pass on 4.3 (finding, does not block any item)",
+    "question": "The Pharmacy First button in Post A of 11 of the 15 GBP packs points at an old live-only page (pharmacy-first-service-<town>.html) rather than at the new branch Pharmacy First page this repo generates. Only Fishlocks (both branches) and Cherry Lane were ever migrated, as part of items 2.1 and 2.3. Nothing on the website links to the old pages and no generator reads the pfLink field, so the exposure is limited to the GBP posts, which have not been posted yet. It matters because at Cherry Lane the equivalent old page was found rendering empty, so a GBP post could send patients to a blank page. How should the 11 links be handled?",
+    "options": [
+      "Repoint all 11 Post A links to the new generated Pharmacy First pages, and paste those pages to Weebly in the same run so the links are live before any GBP post goes out - one clean state, no dead links, but it puts the Weebly paste on the critical path",
+      "Leave the links on the old pages and check each old page renders before its GBP post goes out - no repo change and no Weebly dependency, but it keeps sending GBP traffic to pages of unknown state and leaves two conventions running side by side",
+      "Repoint only the branches whose new Pharmacy First pages are already confirmed live, and leave the rest until their own paste run - lowest risk per branch, but the estate stays in a split state for longer and needs tracking"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Related small defect found in the same sweep, not fixed because it carries the same live-page uncertainty: the Tiffenbergs pfLink in branches.json has no .html ending (pharmacy-first-service-aintree), unlike all twelve other pfLink values. If that URL is wrong it is a dead Post A button for Tiffenbergs whichever option you pick. Worth checking in the browser and correcting at source. The new tools/check-gbp-packs.js reports all of this as warnings on every future run."
   }
 ]
