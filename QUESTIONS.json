@@ -118,5 +118,35 @@
     "status": "open",
     "answer": null,
     "note": "Related small defect found in the same sweep, not fixed because it carries the same live-page uncertainty: the Tiffenbergs pfLink in branches.json has no .html ending (pharmacy-first-service-aintree), unlike all twelve other pfLink values. If that URL is wrong it is a dead Post A button for Tiffenbergs whichever option you pick. Worth checking in the browser and correcting at source. The new tools/check-gbp-packs.js reports all of this as warnings on every future run."
+  },
+  {
+    "id": "Q9",
+    "date": "2026-08-07",
+    "item": "2.3 / Q5 / Q6 follow-up (blocks the second half of the Q5 fix)",
+    "question": "The paste-ready bridge block for the old Cherry Lane Pharmacy First page was written on the basis that pharmacy-first-service-walton.html renders empty. It does not. Checked in the Weebly editor and on the live site this session, the page carries a heading, the self-referral banner, a Community Pharmacy England video and a working Appointedd booking widget listing all seven conditions. Pasting the bridge block over it would replace a working booking widget and a video with three paragraphs of signposting, on the page Google actually ranks. The block was therefore not pasted and both the repo block and the live page are untouched. What should happen to that page?",
+    "options": [
+      "Leave the old page as it is. It works, it books appointments and it ranks. Retire the bridge block, or keep it only as a fallback if the page ever does break",
+      "Add a short signpost paragraph and a button to the new Pharmacy First page at the top of the old page, keeping the existing video and booking widget underneath. Best of both, but it is a hand edit rather than a whole-page paste",
+      "Paste the bridge block as originally planned, accepting the loss of the booking widget and video, on the basis that the new page carries the better content and the old URL should just funnel traffic"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked while this sits open. The regulatory half of Q5, the weight loss page, is done and live. This is the non-urgent half. Option 2 is recommended because it keeps the booking route and the rank while still pointing people at the fuller new page."
+  },
+  {
+    "id": "Q10",
+    "date": "2026-08-07",
+    "item": "GBP business descriptions (supersedes the premise of Q4)",
+    "question": "Q4 said the POM exposure was on the McCanns Sandringham GBP description. It is not: that profile is already clean and correct. The real problem is a shared marketing template sitting on the branch profiles that reads 'Whether you need a flu jab, private blood tests, or guidance on Mounjaro and Wegovy...'. Three profiles were found carrying it this session (Cherry Lane, Coleman & Leighs, Fishlock Eccleston) and all three were replaced with their compliance-swept pack descriptions. Eleven profiles have not been opened yet and three of three template profiles so far were affected, so more are likely. How should the remaining eleven be handled?",
+    "options": [
+      "Work through all eleven now and replace any carrying medicine names with the pack description, leaving compliant ones alone. Fastest route to removing the live exposure, and the pack text is already drafted and checked",
+      "Replace all eleven with the pack descriptions regardless of what they currently say, so the whole estate is consistent and known-good in one pass",
+      "Check all eleven read-only first, report which are affected, and decide branch by branch before editing anything further"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Advertising prescription-only medicines to the public is not permitted, so every profile still carrying the template is a live exposure until it is changed. GBP edits sometimes queue for review for up to ten minutes rather than applying instantly, and there is no undo, so the before text for each one needs logging as it is changed. Separately and not acted on: every branch profile is named '<brand> - Travel Vaccination and Simple Weight Loss Clinic', which matches no pack, and Coleman's reads 'Coleman & Leighs' rather than the confirmed 'Coleman and Leighs Pharmacy'. Changing a GBP business name can trigger re-verification, so that needs a separate decision."
   }
 ]

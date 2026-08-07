@@ -3,7 +3,24 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-NOTE ON ANSWER PICKUP: the portal answer fetch has now failed three runs
+Open: Q10 (raised 2026-08-07, supervised session) - a shared marketing
+template naming Mounjaro and Wegovy is live on the branch GBP descriptions.
+Three found and fixed this session; eleven profiles not yet opened. This is
+the highest priority open item: live, public and regulatory.
+Open: Q9 (raised 2026-08-07, supervised session) - the old Cherry Lane
+Pharmacy First page is NOT empty as Q5 and Q6 assumed. It has a working
+booking widget and a video, so the bridge block was not pasted.
+
+NOTE ON ANSWER PICKUP: this should now be FIXED. The blocker was that two
+Chrome browsers were connected to the account and the browser tools would
+not act until a human picked one. In the 2026-08-07 supervised session Rishi
+picked and named them through the switch_browser confirmation screen, so
+they now report as "prodesk" and "Surface" rather than "Browser 1" and
+"Browser 2". The next unattended run should be able to select the prodesk
+browser by deviceId and complete the portal answer fetch. If it still fails,
+say so plainly rather than retrying.
+
+HISTORIC (for context): the portal answer fetch failed three runs
 running, every time because two Chrome browsers are connected to the account
 and the browser tools will not act until a human picks one, which an
 unattended run cannot do. Any answers left on the portal for Q7 or Q8 are
@@ -36,6 +53,127 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-07 (supervised Cowork session, Rishi present at start) - LIVE CHANGES: POM advertising removed from the Cherry Lane website and from three GBP business descriptions. Two long-standing premises found to be stale. Neither Weebly nor GBP has version history, so this entry is the only record of the before state
+
+Rishi opened Weebly and GBP and asked the session to proceed with the
+outstanding pastes. Browser: the "prodesk" Chrome, chosen through the
+switch_browser confirmation screen. Note for future runs: the two-Chrome
+ambiguity that has blocked the unattended answer pickup for three runs was
+resolved this session by naming the browsers, so the browsers now appear as
+"prodesk" and "Surface" rather than "Browser 1" and "Browser 2".
+
+WEBSITE - Cherry Lane, weight-loss-clinic-walton.html (Q5, published)
+
+BEFORE (captured from the live page, no byte-exact HTML backup was possible
+because the raw-HTML extraction was blocked by a content guard and the
+Weebly editor iframe is sandboxed from scripting - this is a known gap):
+the page was headed "Access medicated weight loss treatment", carried a
+"Real Results with Mounjaro" section stating Mounjaro "can help you lose up
+to 22.5% of your body weight over 72 weeks", ran an interactive slider
+projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
+and Orlistat as "Explore treatments" with product images, and priced the
+service "From £39.99". Editor config worth keeping: brand #0d6efd, hero
+image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
+(in-store) and 68710670f341060bc6a09451 (online).
+
+That is POM advertising to the public plus efficacy claims, live on a public
+pharmacy website. It was materially worse than the log had recorded.
+
+AFTER: the embed block was replaced in full with the version-controlled
+block at modules/service/weebly-paste/cherry-lane-old-weight-loss-
+replacement.html (flattened to one line to avoid the code editor's
+auto-indent). No medicine names, no efficacy claims, no prices. Verified
+live after publishing.
+
+ALSO FOUND AND FIXED on the same page, not previously recorded anywhere:
+the page's own Weebly SEO fields still named the medicines, so the Google
+snippet carried them even with the body clean.
+  - Page description BEFORE: "Discover effective weight loss services at
+    Cherry Lane Pharmacy in Walton L4, Liverpool. Offering options like
+    Wegovy, Mounjaro weekly injections, and weight loss tablets..."
+  - Meta keywords BEFORE: "...Wegovy injections, Mounjaro injections,
+    weight loss tablets, appetite control, metabolism boost..."
+  - Page title BEFORE: "Weight Loss Clinic at Cherry Lane Pharmacy | Walton
+    L4, Liverpool" (identical to the new page, a duplicate-title clash)
+All three rewritten clean. Permalink deliberately unchanged, so the URL and
+whatever rank it holds stay live, per the Q5 answer.
+
+The duplicate "Weight Loss Clinic" navigation entry was removed by ticking
+Hide in Navigation rather than Delete, so the menu is tidy but the URL still
+resolves. Verified: the live nav now shows only "Weight Loss Clinic
+(Walton)". The button target /weight-loss-clinic-cherry-lane-walton.html was
+confirmed to resolve and to be free of medicine names and claims.
+
+STALE PREMISE 1 - the old Cherry Lane Pharmacy First page is NOT empty
+Q5 and Q6 both record that pharmacy-first-service-walton.html "renders
+empty", and the paste-ready bridge block was written on that basis. Checked
+this session in both the editor and the live site: the page has a heading,
+the self-referral banner, a Community Pharmacy England video and a working
+Appointedd booking widget listing all seven conditions. It is thin, not
+empty. Pasting the bridge block over it would have stripped a working
+booking widget and a video from the page Google actually ranks, in exchange
+for three paragraphs. NOT DONE. The block is untouched in the repo and the
+live page is untouched. This needs Rishi's decision (see new question).
+The old page is already hidden from navigation and sits under Clinic
+Services; its SEO description and keywords are clean.
+
+GBP - the real POM exposure was not where Q4 said it was
+
+STALE PREMISE 2 - McCanns Sandringham is already clean. Q4 records its live
+description as opening "At Hirshmans Pharmacy..." and naming two POMs. It
+does not. It currently reads "At McCanns Pharmacy Sandringham on Aigburth
+Road, we are a trusted NHS pharmacy providing essential healthcare services,
+including prescription dispensing, Pharmacy First consultations and blood
+pressure checks..." - correct branch, no medicine names. Someone fixed it
+between 4 August and now. NO CHANGE MADE. The management-record address also
+now reads 1B Aigburth Road, Aigburth, Liverpool L17 4JP, so the CH49 1SX
+issue from item 1.3 appears resolved as well.
+
+WHAT IS ACTUALLY WRONG: a shared marketing template is sitting on multiple
+branch profiles and it names two prescription-only medicines. The pattern is
+"At <branch>, we're a trusted NHS pharmacy providing essential healthcare
+services... Whether you need a flu jab, private blood tests, or guidance on
+Mounjaro and Wegovy, our pharmacists provide expert, in-person care..."
+
+Three found and replaced this session with the compliance-swept pack
+descriptions from gbp-packs/, character counts matching the packs exactly:
+  - Cherry Lane (was: template with Mounjaro and Wegovy) -> pack text,
+    660/750. Google showed "edit pending, up to 10 minutes to be reviewed",
+    so confirm it went live.
+  - Coleman & Leighs (same template) -> pack text, 631/750. Saved clean.
+  - Fishlock Eccleston (same template, and it opened "At Fishlocks
+    Pharmacy", the Ainsdale name, on the Eccleston profile) -> pack text,
+    730/750. Saved clean.
+
+Verified clean, no change made: McCanns Sandringham, Clear Chemist
+("Clear Chemist is a family run business...", thin but compliant).
+
+NOT YET CHECKED (11): Fishlocks Ainsdale, Gordon Short, Hirshmans, McCanns
+Aigburth, R B Healthcare Ltd head office, Riddings, Scorah Bramhall, Scorah
+Hazel Grove, SK Chemists, Smartts, Tiffenbergs. Three of the three
+"trusted NHS pharmacy" template profiles opened so far carried the medicine
+names, so assume the rest do until each is checked. This is the highest
+priority remaining item in the whole backlog: it is live, public and
+regulatory, and it is not what Q4 described.
+
+Other GBP observations, not acted on because a GBP name change can trigger
+re-verification: every branch profile is named "<brand> - Travel Vaccination
+and Simple Weight Loss Clinic", which does not match the pack names, and
+Coleman's profile reads "Coleman & Leighs" rather than the confirmed
+"Coleman and Leighs Pharmacy" from Q1.
+
+Unrelated defect noticed on the Cherry Lane site footer, on every page:
+the contact email reads "pharmacy.FA226@mhs.net". That looks like nhs.net
+mistyped, which would mean patient email to that address is going nowhere.
+Not fixed, because it is a footer edit repeated across pages and worth
+confirming the correct address first.
+
+No repo files were changed by the website or GBP work itself; the repo
+already held the correct replacement text. This log entry and the new
+question are the repo-side record.
 
 ---
 
