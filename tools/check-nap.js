@@ -15,6 +15,22 @@
     - Google Maps embed query
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
   modules/branch/pages/*.html
+
+  Also checked, from 2026-08-07: the Weebly paste blocks in
+  modules/service/weebly-paste. Those are not generated pages. They are prose
+  fragments pasted straight onto live pages this repo does not build, so a
+  wrong phone number or address in one lands on the public site with nothing
+  in between. They carry no data-branch, no JSON-LD and no contact-line, so
+  the structured checks above cannot read them at all; before this they were
+  checked for postcodes only, by check-postcodes.js, and for nothing else.
+  They are checked below on the facts they do carry:
+    - the PASTE TARGET host matches the branch the filename claims
+    - the block names its own branch and no other branch
+    - every phone number matches the branch phone
+    - every postcode matches the branch postcode, and carries the street
+      address in front of it, so an address cannot lose its street
+    - every internal link resolves to a page this repo generates (warning
+      only: a live-only target is possible but worth stating)
 */
 "use strict";
 const fs = require("fs");
@@ -28,6 +44,12 @@ const PAGE_DIRS = [
   path.join(ROOT, "modules", "service", "pages"),
   path.join(ROOT, "modules", "switch", "pages"),
   path.join(ROOT, "modules", "branch", "pages"),
+];
+
+// Paste blocks live here. Kept separate from PAGE_DIRS because nothing in
+// them is generated and none of the structured page checks apply.
+const PASTE_DIRS = [
+  path.join(ROOT, "modules", "service", "weebly-paste"),
 ];
 
 const digits = (s) => String(s || "").replace(/\D/g, "");
@@ -75,11 +97,18 @@ function extract(html) {
 
 let problems = 0;
 let pages = 0;
+let pasteBlocks = 0;
 const seenBranches = new Set();
+const generatedFiles = new Set();
+const warnings = [];
 
 function bad(file, msg) {
   problems++;
   console.log("MISMATCH " + file + ": " + msg);
+}
+
+function warn(file, msg) {
+  warnings.push("WARN " + file + ": " + msg);
 }
 
 for (const dir of PAGE_DIRS) {
@@ -87,6 +116,7 @@ for (const dir of PAGE_DIRS) {
     if (!file.endsWith(".html")) continue;
     const html = fs.readFileSync(path.join(dir, file), "utf8");
     const rel = path.relative(ROOT, path.join(dir, file));
+    generatedFiles.add(file);
     const b = findBranchForFile(file);
     if (!b) { bad(rel, "no branches.json entry matches the filename"); continue; }
     pages++;
@@ -129,11 +159,126 @@ for (const dir of PAGE_DIRS) {
   }
 }
 
+// ---------------------------------------------------------------------
+// Weebly paste blocks
+// ---------------------------------------------------------------------
+// A phone number written for a human: 0151 226 2051, 01704 577376.
+const PHONE_RE = /\b0\d[\d ]{7,13}\d\b/g;
+// A UK postcode as it appears in copy, always upper case.
+const PC_RE = /\b[A-Z]{1,2}[0-9][A-Z0-9]?\s?[0-9][A-Z]{2}\b/g;
+
+// hostMap keys carry the www; PASTE TARGET comments usually do not.
+const hostOwners = {};
+for (const host of Object.keys(data.hostMap || {}))
+  hostOwners[host.replace(/^www\./i, "").toLowerCase()] = data.hostMap[host];
+
+// Paste block names read "<brandSlug>-old-..." rather than the page form
+// "...-<brandSlug>-<townSlug>", so match on the brandSlug prefix. Longest
+// slug wins, so a short slug cannot claim another brand's file.
+function pasteOwner(file) {
+  const stem = file.replace(/\.html$/, "");
+  let best = null;
+  for (const b of branches) {
+    if (!b.brandSlug) continue;
+    if (stem.startsWith(b.brandSlug + "-") &&
+      (!best || b.brandSlug.length > best.key.length)) best = { b, key: b.brandSlug };
+  }
+  return best ? best.b : null;
+}
+
+for (const dir of PASTE_DIRS) {
+  if (!fs.existsSync(dir)) continue;
+  for (const file of fs.readdirSync(dir).sort()) {
+    if (!file.endsWith(".html")) continue;
+    const html = fs.readFileSync(path.join(dir, file), "utf8");
+    const rel = path.relative(ROOT, path.join(dir, file));
+    const b = pasteOwner(file);
+    if (!b) { bad(rel, "no branches.json entry matches the paste block filename"); continue; }
+    pasteBlocks++;
+    if (b.disposed) bad(rel, "paste block exists for disposed branch " + b.id);
+    const text = unesc(html);
+
+    // The PASTE TARGET comment names the live page the block replaces. If it
+    // disagrees with the filename, the block is aimed at the wrong site.
+    const target = html.match(/PASTE TARGET:\s*(\S+)/);
+    if (!target) {
+      bad(rel, "no PASTE TARGET comment, so the live page it replaces is unstated");
+    } else {
+      const host = target[1].replace(/^https?:\/\//i, "").split("/")[0]
+        .replace(/^www\./i, "").toLowerCase();
+      const ids = hostOwners[host];
+      if (!ids)
+        bad(rel, 'PASTE TARGET host "' + host + '" is not in the branches.json hostMap');
+      else if (ids.indexOf(b.id) === -1)
+        bad(rel, 'PASTE TARGET host "' + host + '" belongs to ' + ids.join(", ") +
+          ' but the filename claims ' + b.id);
+    }
+
+    // The block must name its own branch, and must not name another. This is
+    // the McCanns Sandringham failure shape: one branch's copy on another.
+    if (!text.includes(b.brandLabel))
+      bad(rel, 'does not name its own branch "' + b.brandLabel + '"');
+    for (const other of branches) {
+      if (other.brandLabel === b.brandLabel) continue;
+      if (text.includes(other.brandLabel))
+        bad(rel, 'names another branch "' + other.brandLabel + '" (owner is ' +
+          b.brandLabel + ')');
+    }
+
+    let m;
+    let sawPhone = false;
+    PHONE_RE.lastIndex = 0;
+    while ((m = PHONE_RE.exec(text)) !== null) {
+      if (digits(m[0]).length < 10) continue;
+      sawPhone = true;
+      if (digits(m[0]) !== digits(b.phone))
+        bad(rel, 'phone "' + m[0].trim() + '" vs "' + b.phone + '" for ' + b.id);
+    }
+
+    let sawPostcode = false;
+    PC_RE.lastIndex = 0;
+    while ((m = PC_RE.exec(text)) !== null) {
+      sawPostcode = true;
+      if (m[0].replace(/\s+/g, " ") !== b.postalCode.replace(/\s+/g, " ")) {
+        bad(rel, 'postcode "' + m[0] + '" vs "' + b.postalCode + '" for ' + b.id);
+        continue;
+      }
+      // A postcode ends an address, so the street must be in front of it.
+      // Without this an address can lose its street and still read as valid.
+      const before = text.slice(Math.max(0, m.index - 90), m.index);
+      if (!before.replace(/\s+/g, " ").includes(b.streetAddress))
+        bad(rel, 'postcode "' + m[0] + '" is not preceded by the street address "' +
+          b.streetAddress + '"');
+    }
+
+    if (!sawPhone && !sawPostcode)
+      warn(rel, "carries neither a phone number nor a postcode, so nothing here " +
+        "was checked against branches.json");
+
+    // Link targets. A block that points at a page nobody builds is a live
+    // button of unknown state, which is what Q8 is about. Reported, not
+    // failed: a live-only target can be deliberate.
+    const hrefRe = /href="([^"]+)"/g;
+    while ((m = hrefRe.exec(html)) !== null) {
+      const url = m[1];
+      if (/^(tel:|mailto:|#|https?:|\/\/)/i.test(url)) continue;
+      const leaf = url.split("/").pop().split("?")[0].split("#")[0];
+      if (!leaf) continue;
+      if (!generatedFiles.has(leaf))
+        warn(rel, 'link target "' + leaf + '" is not a page this repo generates, ' +
+          "so it is a live-only page no checker here can keep correct");
+    }
+  }
+}
+
 const missing = branches.filter((b) =>
   !b.disposed && b.id !== "rbh_head_office_aintree" && !seenBranches.has(b.id));
 for (const b of missing)
   console.log("NOTE no generated pages found for " + b.id + " (" + b.branchName + ")");
 
-console.log("Checked " + pages + " pages against " + branches.length +
-  " branches.json entries: " + problems + " mismatch(es).");
+for (const w of warnings) console.log(w);
+
+console.log("Checked " + pages + " pages and " + pasteBlocks +
+  " paste block(s) against " + branches.length + " branches.json entries: " +
+  problems + " mismatch(es), " + warnings.length + " warning(s).");
 process.exit(problems ? 1 : 0);

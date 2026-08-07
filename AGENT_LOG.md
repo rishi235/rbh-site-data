@@ -3,11 +3,15 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-NOTE ON ANSWER PICKUP: the portal answer fetch has now failed two runs
-running, both times because two Chrome browsers are connected to the account
+NOTE ON ANSWER PICKUP: the portal answer fetch has now failed three runs
+running, every time because two Chrome browsers are connected to the account
 and the browser tools will not act until a human picks one, which an
 unattended run cannot do. Any answers left on the portal for Q7 or Q8 are
-sitting there unread. Disconnecting the spare Chrome would restore the route.
+sitting there unread, and have been for three runs. Disconnecting the spare
+Chrome, or naming one as the default, would restore the route. Until that
+happens the portal answer forms are effectively write-only: answering there
+reaches nothing. Answering in a Cowork session still works, as it did for
+Q1 to Q6.
 Open: Q8 (raised 2026-08-07, eighth run) - the Pharmacy First button in
 Post A of 11 of the 15 GBP packs points at an old live-only page rather
 than at the new branch page this repo generates. Only Fishlocks and Cherry
@@ -32,6 +36,151 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-07 (unattended run, tenth) - Quality pass on item 1.2: the Hirshmans address re-verified across the whole repo, and the Weebly paste blocks folded into check-nap so their phone, address, branch identity and link targets are checked against branches.json. Eleven rules negative-tested. No defects found
+
+Run start state. No .agent-lock present, so nothing to clear. No stale
+.git\index.lock. Worktree clean, branch already level with
+origin/agents/audit-backlog. No unchecked worklist items, so quality pass
+per the standing rules.
+
+Portal answer pickup: NOT AVAILABLE this run, for the third run running and
+for the same reason every time. Q7 and Q8 are both open so the fetch was
+due, but two Chrome browsers are connected to the account and the browser
+tools refuse to act until a human picks one. That choice cannot be made
+unattended, the standing rule bars any other route, so pickup was skipped
+and logged. Q7 and Q8 remain open here. Three failures in a row is a
+standing block, not bad luck: as things are, answering on the portal reaches
+nothing. Worth either disconnecting the spare Chrome or answering in a
+Cowork session instead, which is how Q1 to Q6 were actually answered.
+
+Item taken: 1.2 (verify the Hirshmans address reads "56-62 Sherwood House,
+Station Road, Ainsdale" everywhere). It was the last completed item never
+re-verified, and the previous run named it as the natural next pass. It is
+also worth a second look on its own merits: it was closed on a one-off
+manual sweep that found nothing to change, and an item closed with no
+change and no checker behind it is the easiest kind to be wrong about.
+Passes now cover 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 3.1, 4.1, 4.2, 4.3
+and 4.7, so every completed item has now been re-verified at least once.
+
+VERIFIED, and the item stands. branches.json holds streetAddress
+"56-62 Sherwood House, Station Road", addressLocality "Ainsdale",
+postalCode "PR8 3HW". All 12 generated Hirshmans pages carry that exact
+string in all three slots check-nap reads: the contact-line, the Google
+Maps embed query and the JSON-LD streetAddress. The GBP pack agrees.
+Nothing in the repo carries a broken variant: a sweep for "56/62",
+"56 - 62", the en dash and em dash forms, "Sherwood Hse", "Sherwood Court",
+"58-62", "56-60", "56 Station Road" and "62 Station Road" returned hits in
+one file only, AGENT_LOG.md, and those are the previous sweep listing the
+variants it searched for. That is the audit describing itself and is
+correct where it is.
+
+Cross-attribution checked as well, because the failure that matters is not
+a typo but the right address on the wrong branch. Hirshmans and Fishlocks
+Ainsdale sit on the same street in the same town with adjacent postcodes,
+PR8 3HW and PR8 3HN, which is exactly the setup that produces a silent
+swap. No Hirshmans file carries PR8 3HN and no Fishlocks file carries
+PR8 3HW. check-postcodes confirms this repo-wide: 0 FOREIGN failures.
+
+GAP FOUND (and closed): the two Weebly paste blocks in
+modules/service/weebly-paste were still only half covered. The previous run
+brought them into check-postcodes, so their postcodes are checked, and
+recorded that folding them into check-nap properly was the next step. Until
+now their phone number, street address and branch name were checked by
+nothing at all. That matters more for these two files than for any
+generated page: they are pasted straight onto live pages this repo does not
+build, so there is no generator, no regeneration and no other checker
+between an error and the public site, and they are on the critical path for
+the Q5 POM exposure at Cherry Lane.
+
+check-nap.js now has a second pass over modules/service/weebly-paste. The
+paste blocks carry no data-branch, no JSON-LD and no contact-line, so the
+structured page checks cannot read them; the new pass works on the facts
+they do carry. Six rules:
+  - the PASTE TARGET comment must name a host in the branches.json hostMap,
+    and that host must belong to the branch the filename claims, so a block
+    cannot be aimed at another branch's site
+  - the block must name its own branch and must not name another. This is
+    the McCanns Sandringham failure shape from Q4, one branch's copy sitting
+    on another branch's page
+  - every phone number of ten digits or more must match the branch phone
+  - every postcode must match the branch postcode
+  - every postcode must have the branch street address in front of it, so an
+    address cannot quietly lose its street and still read as valid
+  - every internal link must resolve to a page this repo generates. Warning,
+    not failure, because a live-only target can be deliberate, but it is the
+    Q8 failure shape and should be stated rather than assumed
+Owner resolution uses the brandSlug prefix, matching check-postcodes.js,
+because paste blocks are named "cherry-lane-old-..." rather than in the
+page form "...-cherry-lane-walton". Longest slug wins, so a short slug
+cannot claim another brand's file. A block whose filename matches no branch
+fails rather than being skipped.
+
+RESULT: 173 pages and 2 paste blocks, 0 mismatches, 0 warnings. Both blocks
+are correct: phone 0151 226 2051, postcode L4 8SG and street "202 Cherry
+Lane" all match branches.json, both PASTE TARGET hosts resolve to
+cherrylane_liverpool, both name Cherry Lane Pharmacy and no other branch,
+and both internal links resolve to pages this repo actually generates
+(pharmacy-first-cherry-lane-walton.html and
+weight-loss-clinic-cherry-lane-walton.html). The other three checkers were
+re-run and are unchanged: check-postcodes 0 failures and 2 known warnings,
+check-seo-pattern 173 pages 0 failures, check-gbp-packs 0 failures.
+
+Negative test, all eleven rules including the pre-existing ones the new pass
+reuses, because a checker that never fires proves nothing. Wrong phone,
+wrong postcode, street address stripped from in front of the postcode,
+another branch's name inserted, the branch's own name removed, PASTE TARGET
+pointed at another branch's host, PASTE TARGET pointed at a host not in the
+hostMap, the PASTE TARGET comment removed altogether, a link repointed at a
+live-only page, a paste block whose filename matches no branch, and the
+owning branch marked disposed in branches.json. Every one fired, with the
+right message and the right file, and only the link case correctly produced
+a warning rather than a failure. One test was rerun after the harness, not
+the checker, got it wrong: the "own branch not named" case replaced only the
+first of two occurrences, so the checker was right to stay silent; with all
+occurrences replaced it fired as expected. Every file was restored with git
+checkout after each test and the checker re-run clean at exit 0. git status
+confirms no page, pack, paste block or branches.json byte changed.
+
+Live site NOT re-verified this run. Item 1.2 was originally closed on both a
+repo check and a live check, and the standing rules allow read-only browser
+use for verifying live pages during a quality pass, but the browser tools
+are blocked for the same two-Chrome reason as the answer pickup. So the repo
+half of 1.2 is re-verified and the live half is not. The cosmetic note
+recorded when 1.2 was closed still stands unchecked: the Hirshmans contact-us
+page on Weebly splits "Station Road" across a line break and omits the
+PR8 3HW postcode. Correct address, scruffy presentation, hand edit when
+someone is next in the editor.
+
+Observation, not a defect: the Hirshmans GBP pack writes the address as
+"56-62 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW", adding
+the postal town Southport, where generated pages use the canonical "street,
+locality, postcode". Factually right, since Ainsdale posts through
+Southport, and the same shape as the Cherry Lane paste blocks inserting the
+seoTown. It is now the second place a second address format appears in
+public copy. Worth a deliberate decision one day on whether the postal town
+belongs in GBP copy; not worth a question on its own.
+
+Files changed: tools/check-nap.js, AGENT_LOG.md. No page, generator, pack,
+paste block or branches.json bytes changed. AGENT_WORKLIST deliberately
+untouched, matching how the previous quality passes recorded themselves:
+1.2 was already ticked and its completion claim still holds.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q7 and Q8 open, neither raised by this run, neither answerable
+through the portal until the browser problem is sorted. No new question
+raised.
+
+Note for a later run, not done here to avoid scope creep: every completed
+item has now had one quality pass, so future passes should go round again
+starting with the oldest, or move to the structural weakness that has been
+carried in this log for four runs now and never addressed - four generators
+are driven by hardcoded BUILD lists rather than by scanning branches.json,
+which means adding or disposing of a branch needs a code edit in four
+places and nothing fails if one is missed. That is the largest remaining
+weakness in the build and it is the kind that stays invisible until it
+bites.
 
 ---
 
