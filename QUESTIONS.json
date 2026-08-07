@@ -138,11 +138,11 @@
     "id": "Q10",
     "date": "2026-08-07",
     "item": "GBP business descriptions (supersedes the premise of Q4)",
-    "question": "Q4 said the POM exposure was on the McCanns Sandringham GBP description. It is not: that profile is already clean and correct. The real problem is a shared marketing template sitting on the branch profiles that reads 'Whether you need a flu jab, private blood tests, or guidance on Mounjaro and Wegovy...'. Three profiles were found carrying it this session (Cherry Lane, Coleman & Leighs, Fishlock Eccleston) and all three were replaced with their compliance-swept pack descriptions. Eleven profiles have not been opened yet and three of three template profiles so far were affected, so more are likely. How should the remaining eleven be handled?",
+    "question": "Q4 said the POM exposure was on the McCanns Sandringham GBP description. It is not: that profile is already clean and correct. The real problem is a shared marketing template sitting on the branch profiles that reads 'Whether you need a flu jab, private blood tests, or guidance on Mounjaro and Wegovy...'. Four profiles were found carrying it this session (Cherry Lane, Coleman & Leighs, Fishlock Eccleston, Fishlocks Ainsdale) and all four were replaced with their compliance-swept pack descriptions. Ten profiles have not been opened yet and four of four template profiles so far were affected, so more are likely. How should the remaining ten be handled?",
     "options": [
-      "Work through all eleven now and replace any carrying medicine names with the pack description, leaving compliant ones alone. Fastest route to removing the live exposure, and the pack text is already drafted and checked",
-      "Replace all eleven with the pack descriptions regardless of what they currently say, so the whole estate is consistent and known-good in one pass",
-      "Check all eleven read-only first, report which are affected, and decide branch by branch before editing anything further"
+      "Work through all ten now and replace any carrying medicine names with the pack description, leaving compliant ones alone. Fastest route to removing the live exposure, and the pack text is already drafted and checked",
+      "Replace all ten with the pack descriptions regardless of what they currently say, so the whole estate is consistent and known-good in one pass",
+      "Check all ten read-only first, report which are affected, and decide branch by branch before editing anything further"
     ],
     "recommended": 0,
     "status": "open",

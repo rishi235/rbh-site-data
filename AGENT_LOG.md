@@ -138,7 +138,7 @@ branch profiles and it names two prescription-only medicines. The pattern is
 services... Whether you need a flu jab, private blood tests, or guidance on
 Mounjaro and Wegovy, our pharmacists provide expert, in-person care..."
 
-Three found and replaced this session with the compliance-swept pack
+Four found and replaced this session with the compliance-swept pack
 descriptions from gbp-packs/, character counts matching the packs exactly:
   - Cherry Lane (was: template with Mounjaro and Wegovy) -> pack text,
     660/750. Google showed "edit pending, up to 10 minutes to be reviewed",
@@ -147,15 +147,24 @@ descriptions from gbp-packs/, character counts matching the packs exactly:
   - Fishlock Eccleston (same template, and it opened "At Fishlocks
     Pharmacy", the Ainsdale name, on the Eccleston profile) -> pack text,
     730/750. Saved clean.
+  - Fishlocks Ainsdale (same template) -> pack text, 746/750. Saved clean.
 
 Verified clean, no change made: McCanns Sandringham, Clear Chemist
 ("Clear Chemist is a family run business...", thin but compliant).
 
-NOT YET CHECKED (11): Fishlocks Ainsdale, Gordon Short, Hirshmans, McCanns
-Aigburth, R B Healthcare Ltd head office, Riddings, Scorah Bramhall, Scorah
-Hazel Grove, SK Chemists, Smartts, Tiffenbergs. Three of the three
+NOT YET CHECKED (10): Gordon Short, Hirshmans, McCanns Aigburth,
+R B Healthcare Ltd head office, Riddings, Scorah Bramhall, Scorah
+Hazel Grove, SK Chemists, Smartts, Tiffenbergs. Four of the four
 "trusted NHS pharmacy" template profiles opened so far carried the medicine
-names, so assume the rest do until each is checked. This is the highest
+names, so assume the rest do until each is checked.
+
+Session stopped here rather than pushing on through the remaining ten. The
+GBP dialog had begun freezing repeatedly (the screenshot channel timing out
+on almost every save), and these are irreversible live edits to public
+listings with no undo. Grinding on through an unresponsive interface is how
+the wrong profile gets overwritten. The pattern, the pack text and the
+method are all recorded above, so the remaining ten are a short job once
+the interface behaves. This is the highest
 priority remaining item in the whole backlog: it is live, public and
 regulatory, and it is not what Q4 described.
 
