@@ -145,8 +145,8 @@
       "Check all ten read-only first, report which are affected, and decide branch by branch before editing anything further"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
+    "status": "answered",
+    "answer": "Rishi chose the recommended option in the same session on 2026-08-07 and the work was completed there and then. All 16 profiles were checked. Eleven carried the medicine names and were replaced with their pack descriptions (Cherry Lane, Coleman & Leighs, Fishlock Eccleston, Fishlocks Ainsdale, Gordon Short, McCanns Aigburth, Riddings, Scorah Bramhall, Scorah Hazel Grove, SK Chemists, Smartts). Two had no description at all and the pack text was added (Hirshmans, Tiffenbergs). Three needed no change (McCanns Sandringham, Clear Chemist, and the R B Healthcare head office record, which has no description and no pack). The POM exposure across the GBP estate is closed, subject to confirming the Cherry Lane edit cleared Google's review queue.",
     "note": "Advertising prescription-only medicines to the public is not permitted, so every profile still carrying the template is a live exposure until it is changed. GBP edits sometimes queue for review for up to ten minutes rather than applying instantly, and there is no undo, so the before text for each one needs logging as it is changed. Separately and not acted on: every branch profile is named '<brand> - Travel Vaccination and Simple Weight Loss Clinic', which matches no pack, and Coleman's reads 'Coleman & Leighs' rather than the confirmed 'Coleman and Leighs Pharmacy'. Changing a GBP business name can trigger re-verification, so that needs a separate decision."
   },
   {

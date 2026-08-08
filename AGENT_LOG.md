@@ -241,35 +241,50 @@ branch profiles and it names two prescription-only medicines. The pattern is
 services... Whether you need a flu jab, private blood tests, or guidance on
 Mounjaro and Wegovy, our pharmacists provide expert, in-person care..."
 
-Four found and replaced this session with the compliance-swept pack
-descriptions from gbp-packs/, character counts matching the packs exactly:
-  - Cherry Lane (was: template with Mounjaro and Wegovy) -> pack text,
-    660/750. Google showed "edit pending, up to 10 minutes to be reviewed",
-    so confirm it went live.
-  - Coleman & Leighs (same template) -> pack text, 631/750. Saved clean.
-  - Fishlock Eccleston (same template, and it opened "At Fishlocks
-    Pharmacy", the Ainsdale name, on the Eccleston profile) -> pack text,
-    730/750. Saved clean.
-  - Fishlocks Ainsdale (same template) -> pack text, 746/750. Saved clean.
+ALL 16 PROFILES HAVE NOW BEEN CHECKED. ELEVEN CARRIED THE MEDICINE NAMES.
 
-Verified clean, no change made: McCanns Sandringham, Clear Chemist
-("Clear Chemist is a family run business...", thin but compliant).
+Replaced with the compliance-swept pack descriptions from gbp-packs/,
+character counts matching the packs exactly in every case:
+  - Cherry Lane -> 660/750. Queued as "edit pending, up to 10 minutes to
+    be reviewed", so confirm this one went live.
+  - Coleman & Leighs -> 631/750. Saved clean.
+  - Fishlock Eccleston -> 730/750. Its text opened "At Fishlocks Pharmacy",
+    the Ainsdale name, on the Eccleston profile.
+  - Fishlocks Ainsdale -> 746/750.
+  - Gordon Short -> 652/750. Its text called the branch "Gordon Shorts
+    Chemist", the spelling item 1.1 corrected in the repo back in August.
+  - McCanns Aigburth -> 703/750.
+  - Riddings -> 657/750.
+  - Scorah Bramhall -> 742/750.
+  - Scorah Hazel Grove -> 712/750.
+  - SK Chemists -> 735/750. Its text called the branch "SK Pharmacy".
+  - Smartts -> 710/750. Its text called the branch "Smartts Pharmacy".
 
-NOT YET CHECKED (10): Gordon Short, Hirshmans, McCanns Aigburth,
-R B Healthcare Ltd head office, Riddings, Scorah Bramhall, Scorah
-Hazel Grove, SK Chemists, Smartts, Tiffenbergs. Four of the four
-"trusted NHS pharmacy" template profiles opened so far carried the medicine
-names, so assume the rest do until each is checked.
+Had no description at all, pack text added (additive, nothing overwritten):
+  - Hirshmans -> 743/750. Note this contradicts Q4, which described the
+    Hirshmans text as the source that was copied onto McCanns Sandringham.
+    Whatever was there has since been removed.
+  - Tiffenbergs -> 650/750.
 
-Session stopped here rather than pushing on through the remaining ten. The
-GBP dialog had begun freezing repeatedly (the screenshot channel timing out
-on almost every save), and these are irreversible live edits to public
-listings with no undo. Grinding on through an unresponsive interface is how
-the wrong profile gets overwritten. The pattern, the pack text and the
-method are all recorded above, so the remaining ten are a short job once
-the interface behaves. This is the highest
-priority remaining item in the whole backlog: it is live, public and
-regulatory, and it is not what Q4 described.
+Verified clean, no change made:
+  - McCanns Sandringham (correct branch name, no medicine names)
+  - Clear Chemist ("Clear Chemist is a family run business...", thin but
+    compliant)
+  - R B Healthcare Ltd head office. No description and no pack exists for
+    it, so nothing was invented. It is categorised as "Pharmacy" although
+    it is the head office at Unit 20 Brookfield, which is worth a look.
+
+The POM advertising exposure across the GBP estate is now closed, subject
+to confirming the Cherry Lane edit cleared review.
+
+Further defects noticed while working through the profiles, none acted on:
+  - McCanns Aigburth lists two phone numbers, 0151 727 3185 (primary) and
+    0151 727 3076. The second is Sandringham's number per its pack, so
+    Aigburth's profile may be routing calls to the wrong branch.
+  - The Hirshmans GBP address reads "64 Station Road, Southport PR8 3HW".
+    branches.json, the website and item 1.2 all say "56-62 Sherwood House,
+    Station Road, Ainsdale". Same postcode, different street number and
+    town, so one of the two is wrong and it is not the repo.
 
 Other GBP observations, not acted on because a GBP name change can trigger
 re-verification: every branch profile is named "<brand> - Travel Vaccination
