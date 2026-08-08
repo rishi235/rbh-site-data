@@ -301,11 +301,50 @@ profile directly and checking whether there are duplicate listings to merge.
 No further edit was made, because changing the same field again while an
 edit is pending is how you end up with two competing pending edits.
 
-Also unresolved from yesterday and not touched: McCanns Aigburth carries
-Sandringham's phone number as a second number, and the Hirshmans GBP address
-reads "64 Station Road, Southport" against "56-62 Sherwood House, Station
-Road, Ainsdale" everywhere else. Both need Rishi to say which value is right
-before anything is changed.
+BOTH DATA ERRORS NOW RESOLVED AND FIXED. Rishi asked for them to be settled
+against branches.json or the NHS profile rather than by asking him, so both
+were checked against independent sources first.
+
+McCanns Aigburth phone. branches.json: Aigburth 0151 727 3185, Sandringham
+0151 727 3076. Independent confirmation from the practice website, Cylex,
+locatepharmacy and merseyside.com, all giving 0151 727 3185 for 112 Aigburth
+Road. Google's own public panels already showed the correct primary number
+for each branch, so the 3076 on Aigburth was a stray additional number, not
+the one being advertised. Removed. Aigburth now carries 0151 727 3185 only.
+Worth noting the removal appeared not to save on the first attempt: the
+manager redisplayed both numbers immediately afterwards. Reopening the
+profile in a fresh tab showed only 3185, so the first save had in fact
+worked and the manager was rendering stale state. Anyone verifying a GBP
+edit should reload rather than trust the panel it returns you to.
+
+Hirshmans address. The sources split, but not evenly:
+  - "Sherwood House, 56-62 Station Rd, Ainsdale" appears in the NHSBSA
+    pharmacy contractor register (the official dispensing contract record,
+    ODS code FHW57) across five separate monthly files, and on
+    nhs.uk/pharmacy/hirshman-s-chemist. It also matches branches.json and
+    the website.
+  - "64 Station Road" appears only on an older nhs.uk service-directory
+    page and on a GP surgery page that had copied from it.
+Google's own address autocomplete offered "56-62 Station Road, Ainsdale,
+Southport" as a real address, which is independent confirmation again.
+Corrected: street address changed from "64 Station Road" to "56-62 Station
+Road", post town Southport and postcode PR8 3HW both unchanged, map pin
+moved to Station Road in Ainsdale. Google queued it as pending review and
+did NOT trigger re-verification, which was the risk Rishi weighed before
+approving. Confirm in a few hours that it cleared and that the listing is
+still Verified.
+
+One deliberate omission: the building name "Sherwood House" was not added to
+the GBP. The canonical Google address is "56-62 Station Road" and selecting
+it is what fixed the geocoding. Google's optional extra address line renders
+after the street rather than before it, so adding the building name there
+would read "56-62 Station Road, Sherwood House", which is wrong for a UK
+address. The building name remains on the website and the NHS record where
+it belongs. Note the sources themselves disagree on ordering: NHSBSA has
+"SHERWOOD HOUSE, 56-62 STATION RD" and branches.json has "56-62 Sherwood
+House, Station Road". branches.json is arguably the odd one out and could be
+tidied to match the NHS form, but it is cosmetic and check-nap enforces
+consistency with whatever it says, so it was left alone.
 
 ---
 
