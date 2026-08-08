@@ -35,7 +35,7 @@ branch is further along Aigburth Road. Everyone is welcome.
 ## 2. Categories
 - Primary: Pharmacy
 - Add if not present (nearest GBP picker name): Travel clinic,
-  Weight loss service
+  Weight loss service, Vaccination centre
 
 ## 3. Services section content
 NHS services first:

@@ -20,6 +20,8 @@
     - Phone and postcode match branches.json; no other branch's phone or
       postcode appears in the pack
     - The five template sections and the four posts are all present
+    - The Categories section sets Pharmacy as primary and lists every
+      secondary category the branch's services earn (Build Pack v2 4.1)
 */
 "use strict";
 const fs = require("fs");
@@ -167,6 +169,32 @@ for (const file of packFiles) {
   REQUIRED_POSTS.forEach((re, i) => {
     if (!re.test(text)) fail(file, `missing Post ${"ABCD"[i]}`);
   });
+
+  // --- categories against the services the branch actually offers -------
+  // Build Pack v2 section 4.1 asks for the secondary categories that apply:
+  // Travel clinic, Vaccination centre and Weight loss service. The pack is
+  // the paster's instruction sheet, so a category missing here is a category
+  // that never gets added in GBP, and the profile stays out of those map
+  // results. Which ones apply is read from the branch's widget set in
+  // branches.json rather than from the pack, so the two cannot drift.
+  // Vaccination centre follows the travel clinic: a travel clinic is where
+  // the branch gives travel vaccinations, which is what the category names.
+  const catSec = (text.match(/^##\s*2\.\s*Categories[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1] || "";
+  if (!/primary:\s*pharmacy/i.test(catSec)) {
+    fail(file, "Categories section does not set Pharmacy as the primary category");
+  }
+  const widgets = b.widgets || {};
+  const CATEGORY_RULES = [
+    { earned: !!widgets.travelClinic, name: "Travel clinic", because: "the branch has a travel clinic" },
+    { earned: !!widgets.travelClinic, name: "Vaccination centre", because: "the branch's travel clinic gives vaccinations" },
+    { earned: !!widgets.weightLoss, name: "Weight loss service", because: "the branch has a weight loss clinic" },
+  ];
+  for (const rule of CATEGORY_RULES) {
+    if (!rule.earned) continue;
+    if (!catSec.toLowerCase().includes(rule.name.toLowerCase())) {
+      fail(file, `Categories section does not list "${rule.name}", but ${rule.because} per branches.json (Build Pack v2 section 4.1)`);
+    }
+  }
 
   // --- business description length ------------------------------------
   const desc = descriptionOf(text);

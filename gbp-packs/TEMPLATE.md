@@ -23,8 +23,11 @@ clinics as services not products, service area towns, invitation to visit.)
 ## 2. Categories
 - Primary: Pharmacy
 - Additional to add if not present (use the nearest name GBP's picker offers):
-  (list per branch - typically Travel clinic, Weight loss service,
-  Vaccination centre where offered)
+  (list per branch - Travel clinic and Vaccination centre wherever the branch
+  has a travel clinic, Weight loss service wherever it has a weight loss
+  clinic, per Build Pack v2 section 4.1. Which ones apply is decided by the
+  branch's widget set in branches.json, and tools/check-gbp-packs.js fails
+  any pack that leaves one out.)
 
 ## 3. Services section content
 (One line per service as GBP "Services" entries: service name plus a one

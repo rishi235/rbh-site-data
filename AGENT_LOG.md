@@ -15,7 +15,15 @@ Open: Q9 (raised 2026-08-07, supervised session) - the old Cherry Lane
 Pharmacy First page is NOT empty as Q5 and Q6 assumed. It has a working
 booking widget and a video, so the bridge block was not pasted.
 
-NOTE ON ANSWER PICKUP: STILL BROKEN, and the 2026-08-07 fix did not hold.
+NOTE ON ANSWER PICKUP: STILL BROKEN on 2026-08-08, five runs running. Checked
+again on the thirteenth run: both Chrome browsers are still connected, still
+report as "Browser 1" and "Browser 2", and the tooling still refuses to act
+until a human picks one. Q7, Q8, Q9 and Q11 have now been open and unanswerable
+through the portal since 6, 7, 7 and 7 August. Nothing else was tried, per the
+standing rules. The fix is to disconnect the spare Chrome from the account or
+sign the Surface out. Answering in a Cowork session still works.
+
+EARLIER NOTE ON ANSWER PICKUP: the 2026-08-07 fix did not hold.
 The supervised session named the two browsers "prodesk" and "Surface" through
 the switch_browser confirmation screen and expected the next unattended run to
 select prodesk by deviceId. Checked again on the twelfth run: both browsers are
@@ -63,6 +71,97 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-08 (unattended run, thirteenth) - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack. The pack itself verified clean against branches.json and TEMPLATE.md, but the cross-check found an estate-wide defect against Build Pack v2 section 4.1: 11 of the 15 packs omit the Vaccination centre secondary category their travel clinics earn. Fixed in all 11 and made permanent with three new rules in check-gbp-packs.js
+
+Run start state. A .agent-lock was present and 3.02 hours old, marginally over
+the three hour threshold, so treated as stale per the standing rules and
+cleared. No .git\index.lock. Worktree clean, branch level with origin at
+e32f3b0. No unchecked worklist items, so a quality pass per the standing rules.
+
+Portal answer pickup: NOT AVAILABLE, fifth run running, same cause. See the
+revised note at the top of this file. Q7, Q8, Q9 and Q11 remain open and
+unreachable through the portal.
+
+WHICH ITEM, AND WHY. Least recently verified completed item. Reading the pass
+history in this log, every 2026-08-05 GBP pack pass sits at the bottom of that
+day's block, and the oldest of them is item 4.4, Scorah Chemists Bramhall,
+passed once on 2026-08-05 and not looked at since. Everything else has had a
+more recent pass. It is also a live-consequence item now: the Q10 work on
+7 August pasted the pack descriptions into 11 GBP profiles, so the packs are no
+longer drafts sitting in a folder, they are the source of what is public.
+
+WHAT WAS VERIFIED ON 4.4, AND WHAT PASSED. Every fact in the pack was checked
+against the branches.json entry for scorah_bramhall: address 61-63 North Park
+Road, Bramhall SK7 3LQ, phone 0161 439 3744, website, Google review link,
+service area towns, and the opening hours including the Saturday 9:00 to 1:00
+close, all correct and all matching the NHS-confirmed 2026-06-24 hours record.
+The business description is 742 characters when the wrapped lines are joined,
+exactly as its own heading claims, and inside the 750 GBP limit. All four posts
+are far inside the 1,500 limit (446, 348, 518, 424). No medicine names, no
+efficacy claims, no em dashes, no emojis. Ten photo shots listed as Build Pack
+4.1 asks. The three post link targets all exist as pages this repo generates
+(switch-prescriptions, weight-loss-clinic and travel-clinic for scorah-bramhall),
+and the paster note's claim that a branch-specific Pharmacy First page exists in
+the repo is true: modules/service/pages/pharmacy-first-scorah-bramhall.html. The
+WhatsApp line in Post B was checked rather than assumed, because TEMPLATE.md
+bars invented claims: the branch's own switch page offers WhatsApp in four
+places, so the claim is grounded. Post C correctly frames weight loss as a
+private paid service with no free assessment wording, which is the point item
+4.4 was flagged on when it was first drafted.
+
+DEFECT FOUND, AND ITS SIZE. Build Pack v2 section 4.1 asks for the secondary
+categories that apply: Travel clinic, Vaccination centre and Weight loss
+service. The Scorah Bramhall pack lists only Travel clinic and Weight loss
+service. Checking the other 14 packs showed this is not a Bramhall slip: only
+four packs (Cherry Lane, Fishlocks Ainsdale, Hirshmans, Smartts) list
+Vaccination centre and 11 do not, although branches.json gives every one of the
+15 packable branches a travelClinic widget, and every one of the 11 packs
+describes a travel clinic offering vaccinations in its own services section and
+Post D. So 11 profiles were set to be pasted without the category that puts a
+pharmacy into the vaccination and travel-jab map results, on a service the group
+actually sells. Categories are also one of the strongest local ranking signals
+Google offers, and unlike the description they cost nothing to add.
+
+WHAT WAS CHANGED. Vaccination centre added to the Categories section of the 11
+packs that lacked it: clear-aintree, coleman-leigh-walton, fishlocks-eccleston,
+gordon-short-crosby, mccanns-aigburth, mccanns-sandringham, riddings-timperley,
+scorah-bramhall, scorah-hazel-grove, sk-chemists-bootle, tiffenbergs-aintree.
+One line changed per file, no other text touched. Clear Chemist was included
+after checking its pack: it has a travelClinic widget and its services section
+describes travel vaccinations, the same basis as the rest, even though it has no
+NHS Pharmacy First. Packs are hand-drafted markdown, not generated output, so a
+direct edit is the correct route here; no generator writes to gbp-packs.
+
+MADE PERMANENT. tools/check-gbp-packs.js gains a categories block that reads
+which secondary categories a pack must list from the branch's widget set in
+branches.json rather than from the pack, so the two cannot drift: Travel clinic
+and Vaccination centre wherever travelClinic is set, Weight loss service
+wherever weightLoss is set, plus a check that Pharmacy is the primary category.
+All four rules negative-tested by breaking the Bramhall pack four ways in turn
+and confirming each fires with the right message and exit code 1, then
+restoring. One trap worth recording for future runs: restoring a file with
+PowerShell Set-Content -Encoding UTF8 writes a byte order mark and shows up as a
+spurious first-line diff. The file was restored with git checkout and the edit
+reapplied through node instead. TEMPLATE.md section 2 rewritten to state the
+rule plainly so the next pack drafted does not repeat the omission.
+
+VERIFICATION. All six generators re-run afterwards: every page regenerated
+byte-identical, git status shows no page or branches.json change, only the 11
+packs, the checker and the template. All five checkers pass at exit 0:
+check-nap 173 pages 0 mismatches, check-postcodes 0 failures, check-seo-pattern
+173 pages 0 failures, check-gbp-packs 0 failures, check-page-coverage 173 pages
+accounted for. The pre-existing warnings are unchanged and all belong to open
+questions: the 10 GBP link warnings are Q8, the 4 landing page warnings are Q11,
+the 2 postcode warnings are the known unowned INDEX.md and SEO.md files.
+
+NO NEW QUESTIONS. The category fix follows the spec and four sibling packs, so
+it was a defect to fix rather than a decision to ask about. Nothing was raised.
+
+STILL OUTSTANDING FOR A HUMAN, unchanged by this run: paste the two Cherry Lane
+Weebly blocks from modules/service/weebly-paste/; update the Weebly SEO fields
+for the switch pages; add the Vaccination centre category to the 11 GBP profiles
+when next in them, alongside the pack descriptions already pasted.
 
 ## 2026-08-07 (unattended run, twelfth) - Recovered the crashed eleventh run's unfinished coverage checker and completed it. tools/check-page-coverage.js is the first checker that reads what SHOULD exist from branches.json rather than inspecting whatever happens to be on disk. It found a real stale entry in the switch generator, now removed. Fifteen rules negative-tested. New Q11
 
