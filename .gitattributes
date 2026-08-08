@@ -1,0 +1,24 @@
+# Line endings for generated output
+#
+# The build scripts in tools/ write their output with LF line endings.
+# This clone has core.autocrlf=true, which tells git the working tree
+# should hold CRLF. With no .gitattributes, git therefore treats every
+# freshly generated page as "modified" even when the bytes are identical
+# to the committed blob, and prints a "LF will be replaced by CRLF"
+# warning for each one.
+#
+# That broke a check the audit runs depend on: every quality pass
+# re-runs the six build scripts and treats a clean "git status" as proof
+# that the committed pages still match what the generators produce. With
+# 89 false positives in the way, real drift could not be told from noise.
+#
+# Declaring the generated directories as LF makes git stop trying to
+# convert them, so the status check means something again. The rest of
+# the repo is left alone: at the time of writing 47 files outside these
+# directories hold CRLF and are untouched by this rule.
+#
+# Added 2026-08-06 during the quality pass on worklist item 3.1.
+
+modules/service/pages/** text eol=lf
+modules/switch/pages/**  text eol=lf
+modules/branch/pages/**  text eol=lf

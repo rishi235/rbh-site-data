@@ -18,16 +18,18 @@ Profile basics (for checking, not pasting):
 - Website: https://www.hirshmanspharmacy.co.uk
 - Review link: https://g.page/r/CUagKTNTXwMYEAE/review
 
-## 1. Business description (max 750 chars - this is 650)
+## 1. Business description (max 750 chars - this is 743)
 Hirshmans Chemist is Ainsdale's independent pharmacy, found in Sherwood
 House on Station Road and open six days a week for Ainsdale, Birkdale and
 Southport. Free prescription collection from your GP surgery and free home
 delivery take the legwork out of repeat medication, and blister packs are
 available to keep doses organised. Under the free NHS Pharmacy First
 service a pharmacist can assess and, where appropriate, treat seven common
-conditions without a GP appointment. Privately we offer travel vaccinations
-with a free assessment, blood testing, vaccinations and a pharmacist-led
-weight loss clinic. Call in and the team will be glad to help.
+conditions without a GP appointment. Free NHS blood pressure checks are
+available for adults aged 40 and over, and we provide the NHS contraception
+service. Privately we offer a travel clinic, blood testing, vaccinations
+and a pharmacist-led weight loss clinic. Call in and the team will be glad
+to help.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -44,11 +46,16 @@ NHS services first:
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
+- NHS blood pressure check: free blood pressure checks for adults aged 40
+  and over, no appointment needed.
+- NHS contraception service: start or continue oral contraception at the
+  pharmacy without a GP appointment.
 - Blister packs: weekly packs that organise your medicines by day and time.
 - NHS vaccinations: seasonal vaccination services as commissioned.
 Private services:
-- Travel clinic: free assessment of your destination and vaccination needs,
-  with vaccines and antimalarials supplied privately.
+- Travel clinic: private travel health consultation covering your
+  destination, itinerary and medical history, with vaccines and
+  antimalarials supplied privately.
 - Weight loss clinic: pharmacist-led private consultations and ongoing
   support as part of a structured weight management service.
 - Blood testing: private blood tests with fast results.
@@ -103,10 +110,10 @@ Button: Book -> https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-hirshmans
 
 ### Post D - Travel clinic
 Going somewhere? Get your jabs sorted before you go. The travel clinic at
-Hirshmans Chemist in Ainsdale offers a free assessment of your destination,
-trip length and vaccination needs, with vaccines and antimalarials supplied
-privately. Convenient appointments including Saturdays, no GP visit needed.
-Book your free travel assessment today.
+Hirshmans Chemist in Ainsdale covers your destination, trip length and
+vaccination needs, with vaccines and antimalarials supplied privately.
+Convenient appointments including Saturdays, no GP visit needed. Book your
+travel consultation today.
 Button: Book -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html
 
 Notes for the paster:
@@ -114,3 +121,10 @@ Notes for the paster:
   advertising rules). Do not add medicine names when posting.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker offers on the day.
+- No "free assessment" wording for the travel clinic: the Hirshmans travel
+  page states the travel consultation is a private, paid service, and
+  branches.json carries no free-assessment fact (corrected at the 2026-08-05
+  quality pass, same fix as Cherry Lane).
+- NHS blood pressure check and NHS contraception service lines added at the
+  same pass: both widgets exist in branches.json for this branch but the
+  original pack omitted them.

@@ -44,6 +44,10 @@ function storeOf(id) {
   const b = byId[id];
   if (!b) throw new Error("Unknown branch id: " + id);
   if (!b.brandSlug || !b.seoTown || !b.townSlug || !b.website) throw new Error("Missing service fields: " + id);
+  // Disposed branches must not get pages. BUILD is a hardcoded list, so the
+  // disposed flag in branches.json has no effect here without this guard.
+  // Same convention as build-branch-landing-pages.js.
+  if (b.disposed) throw new Error("Branch " + id + " is disposed; remove it from BUILD and delete its generated pages.");
   return { id: id, brand: b.brandLabel, brandSlug: b.brandSlug, town: b.seoTown, townSlug: b.townSlug, site: b.website, widgets: b.widgets || {} };
 }
 

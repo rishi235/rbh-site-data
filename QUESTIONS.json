@@ -85,8 +85,83 @@
       "Skip the blocks - do the Weebly hand edit directly from the new compliant pages' content"
     ],
     "recommended": 0,
+    "status": "answered",
+    "answer": "Fix it and log it - Rishi, Cowork session 2026-08-05. Both replacement blocks recreated in the repo at modules/service/weebly-paste/ (cherry-lane-old-weight-loss-replacement.html and cherry-lane-old-pharmacy-first-replacement.html), version-controlled, no medicine names, no claims. The Weebly paste itself remains outstanding and needs someone logged into the Weebly editor.",
+    "note": "Until the paste happens the old weight loss page still names POMs publicly. Paste both blocks, then delete the duplicate Weight Loss Clinic navigation entry."
+  },
+  {
+    "id": "Q7",
+    "date": "2026-08-06",
+    "item": "quality pass on 1.4 (finding, does not block any item)",
+    "question": "The house rule is no em dashes, standard hyphens only. Checking all 173 generated pages found em dashes in two strings that reach the public, both from tools/build-switch-pages.js: the visible body sentence on all 15 switch pages ('it usually is not - we make the first step quick...') and the meta description used as the Weebly SEO description ('Local NHS pharmacy - we contact your GP and handle everything'), which becomes the search result snippet. Everything else found is in HTML build comments and internal paste sheets that no customer sees. How should the two public strings be handled?",
+    "options": [
+      "Rewrite both strings in the generator so no em dash reaches the public, splitting each sentence at a full stop rather than swapping in a hyphen, then regenerate the 15 switch pages - the Weebly SEO description field then needs repasting at the next paste run",
+      "Fix only the meta description, since that is the string Google shows, and leave the body sentence as it is - smaller change, no visible page copy edited",
+      "Leave both as they are - treat the no-em-dash rule as applying to written comms rather than to generated website copy"
+    ],
+    "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "If the paste to Weebly has already been done, say so in the answer and the blocks only need recreating for the record. Until the paste happens the old weight loss page still names POMs and carries the efficacy claim, so the Q5 exposure stands."
+    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead."
+  },
+  {
+    "id": "Q8",
+    "date": "2026-08-07",
+    "item": "quality pass on 4.3 (finding, does not block any item)",
+    "question": "The Pharmacy First button in Post A of 11 of the 15 GBP packs points at an old live-only page (pharmacy-first-service-<town>.html) rather than at the new branch Pharmacy First page this repo generates. Only Fishlocks (both branches) and Cherry Lane were ever migrated, as part of items 2.1 and 2.3. Nothing on the website links to the old pages and no generator reads the pfLink field, so the exposure is limited to the GBP posts, which have not been posted yet. It matters because at Cherry Lane the equivalent old page was found rendering empty, so a GBP post could send patients to a blank page. How should the 11 links be handled?",
+    "options": [
+      "Repoint all 11 Post A links to the new generated Pharmacy First pages, and paste those pages to Weebly in the same run so the links are live before any GBP post goes out - one clean state, no dead links, but it puts the Weebly paste on the critical path",
+      "Leave the links on the old pages and check each old page renders before its GBP post goes out - no repo change and no Weebly dependency, but it keeps sending GBP traffic to pages of unknown state and leaves two conventions running side by side",
+      "Repoint only the branches whose new Pharmacy First pages are already confirmed live, and leave the rest until their own paste run - lowest risk per branch, but the estate stays in a split state for longer and needs tracking"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Related small defect found in the same sweep, not fixed because it carries the same live-page uncertainty: the Tiffenbergs pfLink in branches.json has no .html ending (pharmacy-first-service-aintree), unlike all twelve other pfLink values. If that URL is wrong it is a dead Post A button for Tiffenbergs whichever option you pick. Worth checking in the browser and correcting at source. The new tools/check-gbp-packs.js reports all of this as warnings on every future run."
+  },
+  {
+    "id": "Q9",
+    "date": "2026-08-07",
+    "item": "2.3 / Q5 / Q6 follow-up (blocks the second half of the Q5 fix)",
+    "question": "The paste-ready bridge block for the old Cherry Lane Pharmacy First page was written on the basis that pharmacy-first-service-walton.html renders empty. It does not. Checked in the Weebly editor and on the live site this session, the page carries a heading, the self-referral banner, a Community Pharmacy England video and a working Appointedd booking widget listing all seven conditions. Pasting the bridge block over it would replace a working booking widget and a video with three paragraphs of signposting, on the page Google actually ranks. The block was therefore not pasted and both the repo block and the live page are untouched. What should happen to that page?",
+    "options": [
+      "Leave the old page as it is. It works, it books appointments and it ranks. Retire the bridge block, or keep it only as a fallback if the page ever does break",
+      "Add a short signpost paragraph and a button to the new Pharmacy First page at the top of the old page, keeping the existing video and booking widget underneath. Best of both, but it is a hand edit rather than a whole-page paste",
+      "Paste the bridge block as originally planned, accepting the loss of the booking widget and video, on the basis that the new page carries the better content and the old URL should just funnel traffic"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked while this sits open. The regulatory half of Q5, the weight loss page, is done and live. This is the non-urgent half. Option 2 is recommended because it keeps the booking route and the rank while still pointing people at the fuller new page."
+  },
+  {
+    "id": "Q10",
+    "date": "2026-08-07",
+    "item": "GBP business descriptions (supersedes the premise of Q4)",
+    "question": "Q4 said the POM exposure was on the McCanns Sandringham GBP description. It is not: that profile is already clean and correct. The real problem is a shared marketing template sitting on the branch profiles that reads 'Whether you need a flu jab, private blood tests, or guidance on Mounjaro and Wegovy...'. Four profiles were found carrying it this session (Cherry Lane, Coleman & Leighs, Fishlock Eccleston, Fishlocks Ainsdale) and all four were replaced with their compliance-swept pack descriptions. Ten profiles have not been opened yet and four of four template profiles so far were affected, so more are likely. How should the remaining ten be handled?",
+    "options": [
+      "Work through all ten now and replace any carrying medicine names with the pack description, leaving compliant ones alone. Fastest route to removing the live exposure, and the pack text is already drafted and checked",
+      "Replace all ten with the pack descriptions regardless of what they currently say, so the whole estate is consistent and known-good in one pass",
+      "Check all ten read-only first, report which are affected, and decide branch by branch before editing anything further"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "Rishi chose the recommended option in the same session on 2026-08-07 and the work was completed there and then. All 16 profiles were checked. Eleven carried the medicine names and were replaced with their pack descriptions (Cherry Lane, Coleman & Leighs, Fishlock Eccleston, Fishlocks Ainsdale, Gordon Short, McCanns Aigburth, Riddings, Scorah Bramhall, Scorah Hazel Grove, SK Chemists, Smartts). Two had no description at all and the pack text was added (Hirshmans, Tiffenbergs). Three needed no change (McCanns Sandringham, Clear Chemist, and the R B Healthcare head office record, which has no description and no pack). The POM exposure across the GBP estate is closed, subject to confirming the Cherry Lane edit cleared Google's review queue.",
+    "note": "Advertising prescription-only medicines to the public is not permitted, so every profile still carrying the template is a live exposure until it is changed. GBP edits sometimes queue for review for up to ten minutes rather than applying instantly, and there is no undo, so the before text for each one needs logging as it is changed. Separately and not acted on: every branch profile is named '<brand> - Travel Vaccination and Simple Weight Loss Clinic', which matches no pack, and Coleman's reads 'Coleman & Leighs' rather than the confirmed 'Coleman and Leighs Pharmacy'. Changing a GBP business name can trigger re-verification, so that needs a separate decision."
+  },
+  {
+    "id": "Q11",
+    "date": "2026-08-07",
+    "item": "quality pass on 2.2 (finding, does not block any item)",
+    "question": "Item 2.2 built branch landing pages for Fishlocks Ainsdale and Eccleston because the two branches share one website, fishlockpharmacy.co.uk, so neither had a page of its own to rank for its own town. The new coverage checker shows two more pairs in exactly the same position and neither has landing pages: McCanns Aigburth and Sandringham both sit on mccannspharmacy.co.uk, and Scorah Bramhall and Hazel Grove both sit on scorah-chemists.co.uk. That is four branches with no local target page, in four separate towns. Should the same treatment be rolled out to them?",
+    "options": [
+      "Build all four now from the existing generator, so every shared-domain branch has its own local page. Same code, same pattern, no new design decisions, and it closes the gap the Fishlocks work was meant to close",
+      "Build the McCanns pair only. Aigburth and Sandringham are further apart and compete for different search terms, whereas Bramhall and Hazel Grove are close enough that one page may be serving both adequately",
+      "Leave all four as they are. The Fishlocks split was a pilot and the wider rollout has not been agreed, so the shared pages stay until there is evidence the split actually earns the rank"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked by this and nothing was built. The checker reports all four as warnings on every future run, so the gap stays visible either way. If the answer is option 3, say so and the warning can be turned off for those branches rather than nagging every hour. Whatever is built still needs a Weebly paste to go live, same as the Fishlocks pair."
   }
 ]
