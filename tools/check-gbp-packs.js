@@ -22,6 +22,9 @@
     - The five template sections and the four posts are all present
     - The Categories section sets Pharmacy as primary and lists every
       secondary category the branch's services earn (Build Pack v2 4.1)
+    - The Services section lists every service the branch's widget set in
+      branches.json says it offers, and the description mentions them
+      too where the 750 characters allow (Build Pack v2 4.1)
 */
 "use strict";
 const fs = require("fs");
@@ -193,6 +196,34 @@ for (const file of packFiles) {
     if (!rule.earned) continue;
     if (!catSec.toLowerCase().includes(rule.name.toLowerCase())) {
       fail(file, `Categories section does not list "${rule.name}", but ${rule.because} per branches.json (Build Pack v2 section 4.1)`);
+    }
+  }
+
+  // --- services section against the services the branch actually offers --
+  // Build Pack v2 section 4.1 asks for the services section to be filled.
+  // A service the branch genuinely runs but the pack does not list is a
+  // service that never reaches the profile, so it never shows in the map
+  // results for that search. As with categories, which services apply is
+  // read from the branch's widget set in branches.json, not from the pack,
+  // so the two cannot drift. Whitespace is flattened first because packs
+  // wrap their lines, and a wrapped "Pharmacy\nFirst" would otherwise read
+  // as missing.
+  const SERVICE_RULES = [
+    { key: "pharmacyFirst", name: "Pharmacy First", re: /pharmacy first/i },
+    { key: "bloodPressure", name: "NHS blood pressure check", re: /blood pressure/i },
+    { key: "contraception", name: "NHS contraception service", re: /contracept/i },
+    { key: "weightLoss", name: "Weight loss clinic", re: /weight loss|weight management/i },
+    { key: "travelClinic", name: "Travel clinic", re: /travel/i },
+  ];
+  const svcSec = norm((text.match(/^##\s*3\.\s*Services section content[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1]);
+  const descFlat = norm((text.match(/^##\s*1\.\s*Business description[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1]);
+  for (const rule of SERVICE_RULES) {
+    if (!widgets[rule.key]) continue;
+    if (!rule.re.test(svcSec)) {
+      fail(file, `Services section does not list "${rule.name}", but branches.json gives this branch a ${rule.key} widget (Build Pack v2 section 4.1)`);
+    }
+    if (!rule.re.test(descFlat)) {
+      warn(file, `business description does not mention "${rule.name}", which branches.json says the branch offers - worth including if the 750 characters allow`);
     }
   }
 

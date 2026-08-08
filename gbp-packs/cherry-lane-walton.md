@@ -23,17 +23,17 @@ Profile basics (for checking, not pasting):
 - Website: https://www.cherrylanepharmacy.co.uk
 - Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
 
-## 1. Business description (max 750 chars - this is 660)
+## 1. Business description (max 750 chars - this is 736)
 Cherry Lane Pharmacy serves Walton, Everton and north Liverpool from its
 home on Cherry Lane, open six days a week. We collect prescriptions from
 your GP surgery free of charge, deliver medicines to your door at no cost,
-and can prepare blister packs to keep daily medication simple. Our
-pharmacists offer NHS Pharmacy First, a free service covering seven common
-conditions with no GP appointment needed. On the private side we provide
-a travel clinic with destination-specific advice and vaccinations, blood
-testing, a vaccination service and a pharmacist-led weight loss clinic.
-An independent local pharmacy run by people who know the area. Come and
-see us.
+and can prepare blister packs to keep daily medication simple. We offer
+three free NHS services: Pharmacy First, where a pharmacist can assess and
+treat seven common conditions with no GP appointment, blood pressure checks
+for adults aged 40 and over, and the contraception service. On the private
+side we provide a travel clinic with destination-specific advice and
+vaccinations, blood testing and a pharmacist-led weight loss clinic. An
+independent local pharmacy run by people who know the area. Come and see us.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -50,6 +50,10 @@ NHS services first:
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
+- NHS blood pressure check: free blood pressure checks for adults aged 40
+  and over, no appointment needed.
+- NHS contraception service: start or continue oral contraception at the
+  pharmacy without a GP appointment.
 - Blister packs: weekly packs that organise your medicines by day and time.
 - NHS vaccinations: seasonal vaccination services as commissioned.
 Private services:

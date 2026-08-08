@@ -15,8 +15,8 @@ Open: Q9 (raised 2026-08-07, supervised session) - the old Cherry Lane
 Pharmacy First page is NOT empty as Q5 and Q6 assumed. It has a working
 booking widget and a video, so the bridge block was not pasted.
 
-NOTE ON ANSWER PICKUP: STILL BROKEN on 2026-08-08, five runs running. Checked
-again on the thirteenth run: both Chrome browsers are still connected, still
+NOTE ON ANSWER PICKUP: STILL BROKEN on 2026-08-09, six runs running. Checked
+again on the fourteenth run: both Chrome browsers are still connected, still
 report as "Browser 1" and "Browser 2", and the tooling still refuses to act
 until a human picks one. Q7, Q8, Q9 and Q11 have now been open and unanswerable
 through the portal since 6, 7, 7 and 7 August. Nothing else was tried, per the
@@ -71,6 +71,117 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-09 (unattended run, fourteenth) - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack. The pack verified clean on every fact and rule. The cross-check found one real defect elsewhere: the Cherry Lane pack omits two free NHS services the branch actually offers from both its description and its services section. Fixed, and made permanent with a services rule in check-gbp-packs.js
+
+Run start state. A .agent-lock was present and 3 hours 29 minutes old, over the
+three hour threshold, so treated as stale per the standing rules and cleared.
+No .git\index.lock. Worktree clean, branch level with origin at 08bc483. No
+unchecked worklist items, so a quality pass per the standing rules.
+
+Portal answer pickup: NOT AVAILABLE, sixth run running, same cause. Two Chrome
+browsers are still connected, both still report as "Browser 1" and "Browser 2",
+and the tooling still requires a human to pick one before any browser action.
+An unattended run cannot do that, so nothing was tried beyond the check, per
+the standing rules. Q7, Q8, Q9 and Q11 remain open and unreachable through the
+portal. See the note at the top of this file.
+
+WHICH ITEM, AND WHY. Least recently verified completed item. Reading the pass
+history in this log, item 4.4 was passed on 2026-08-08, and 4.1, 4.2, 4.3 and
+4.7 have all had passes later than their original 2026-08-05 scheduled ones.
+The oldest remaining single pass is item 4.5, Scorah Chemists Hazel Grove,
+passed once on 2026-08-05 and not looked at since. It is also live-consequence
+work now: the Q10 session on 7 August pasted the pack descriptions into 11 GBP
+profiles, so the packs are the source of what is public, not drafts in a folder.
+
+WHAT WAS VERIFIED ON 4.5, AND WHAT PASSED. Every fact checked against the
+branches.json entry for scorah_hazel: address 87 Macclesfield Road, Hazel Grove
+SK7 6BG, phone 01625 872267, website, Google review link, the five service area
+towns, and the opening hours including the Saturday closure, all correct and
+matching the NHS-confirmed 2026-06-24 hours record. The business description is
+712 characters when the wrapped lines are joined, exactly as its heading claims,
+inside the 750 limit. The four posts are 449, 349, 521 and 429 characters, all
+far inside the 1,500 limit. No medicine names, no efficacy claims, no em dashes,
+no non-ASCII characters anywhere in the file. Ten photo shots as Build Pack 4.1
+asks. Categories now carry Vaccination centre from last run's estate fix. The
+three branch-specific post link targets all exist as pages this repo generates,
+and the branch-specific Pharmacy First page named in the paster note is real at
+modules/service/pages/pharmacy-first-scorah-hazel-grove.html. The WhatsApp claim
+in Post B was checked rather than assumed, as TEMPLATE.md bars invented claims:
+the branch's own switch page offers WhatsApp in four places, so it is grounded.
+Nothing in the pack itself needed changing.
+
+CROSS-CHECK ACROSS ALL 15 PACKS. Four Build Pack 4.1 facts the checker did not
+yet cover were surveyed estate-wide: photo shot counts, review links, addresses
+and service area towns are correct in all 15. Opening hours were surveyed
+against branches.json in detail after an early survey appeared to show seven
+mismatches; every one turned out to be an artefact of the survey regex stopping
+at a wrapped line, and all 15 packs state hours that match branches.json exactly,
+including the lunch closures at Gordon Short, McCanns Aigburth, Tiffenbergs,
+Smartts, Coleman and Leighs and McCanns Sandringham. Recording that here because
+the same wrapping trap produced two more false positives before it was caught,
+and the fix in the checker guards against it.
+
+DEFECT FOUND, AND ITS SIZE. Comparing each pack's services section against the
+branch's widget set in branches.json found one genuine gap. Cherry Lane has
+bloodPressure and contraception widgets, and the repo generates a contraception
+page for it, but the Cherry Lane pack lists neither service in its services
+section and mentions neither in its business description. Both are free NHS
+services, both are the kind of search that brings local patients to a profile,
+and Cherry Lane is the branch item 2.3 built from near zero, so its profile is
+the one with the least existing presence to fall back on. Every other pack with
+those widgets lists both. Clear Chemist looked like a second case in the raw
+survey but is correct: it has neither widget and its pack carries an explicit
+note not to add those services to GBP unless branches.json is updated first.
+
+WHAT WAS CHANGED. Two edits to gbp-packs/cherry-lane-walton.md. The services
+section gains an NHS blood pressure check line and an NHS contraception service
+line, worded as in the other 14 packs. The business description was rewritten to
+name all three free NHS services in one sentence, in the same "three free NHS
+services" shape the Hazel Grove pack uses, and is now 736 characters against the
+750 limit, with the stated count in the heading updated to match. The rewrite
+also drops "a vaccination service" from the private list, which was double
+counting the travel clinic vaccinations named in the same sentence; the NHS
+vaccinations line in the services section is untouched. Packs are hand-drafted
+markdown, not generated output, so a direct edit is the correct route; no
+generator writes to gbp-packs.
+
+MADE PERMANENT. tools/check-gbp-packs.js gains a services block that reads which
+services a pack must list from the branch's widget set in branches.json rather
+than from the pack, so the two cannot drift: Pharmacy First, blood pressure,
+contraception, weight loss and travel clinic each fail the run if the branch has
+the widget and the services section does not name the service, and warn if the
+business description leaves it out. Whitespace is flattened before matching,
+which is the specific trap that made the manual survey report false positives.
+All four rules negative-tested by breaking the Cherry Lane pack four ways in
+turn and confirming each fires with the right message and exit code 1, then
+restoring byte-identical. TEMPLATE.md section 3 rewritten to state the rule.
+
+ONE TRAP WORTH RECORDING. The first negative-test harness restored the file with
+git checkout, which silently reverted the uncommitted Cherry Lane fix along with
+the deliberate break. The fix had to be reapplied. Restore from an in-memory
+copy, not from git, when the work under test is not committed yet. This sits
+alongside the BOM trap recorded on the thirteenth run: both are ways a restore
+step can quietly undo the run's actual work.
+
+VERIFICATION. All six generators re-run afterwards: every page regenerated
+byte-identical, git status shows no page and no branches.json change, only the
+Cherry Lane pack, the checker and the template. All five checkers pass at exit
+0: check-nap 173 pages 0 mismatches, check-postcodes 0 failures, check-seo-
+pattern 173 pages 0 failures, check-gbp-packs 0 failures, check-page-coverage
+173 pages accounted for. The new description rule raises no warnings, so all 15
+descriptions now name every service their branch offers. Pre-existing warnings
+unchanged and all belong to open questions: the 10 GBP link warnings and the
+Tiffenbergs missing .html are Q8, the 4 landing page warnings are Q11, the 2
+postcode warnings are the known unowned INDEX.md and SEO.md files.
+
+NO WORKLIST CHANGE. Every worklist item is already complete and this was a
+quality pass on 4.5, so nothing was ticked, in line with the previous quality-
+pass runs. The record of the pass is this entry.
+
+NO NEW QUESTIONS. The Cherry Lane omission is a drafting gap against the spec
+and against all 14 sibling packs, so it was a defect to fix rather than a
+decision to ask about. Nothing was raised.
 
 ## 2026-08-08 (unattended run, thirteenth) - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack. The pack itself verified clean against branches.json and TEMPLATE.md, but the cross-check found an estate-wide defect against Build Pack v2 section 4.1: 11 of the 15 packs omit the Vaccination centre secondary category their travel clinics earn. Fixed in all 11 and made permanent with three new rules in check-gbp-packs.js
 

@@ -31,7 +31,11 @@ clinics as services not products, service area towns, invitation to visit.)
 
 ## 3. Services section content
 (One line per service as GBP "Services" entries: service name plus a one
-sentence plain-English description. NHS services first, then private.)
+sentence plain-English description. NHS services first, then private.
+List every service the branch's widget set in branches.json gives it -
+Pharmacy First, blood pressure, contraception, weight loss, travel clinic -
+and do not list one it has no widget for. tools/check-gbp-packs.js fails any
+pack that omits one, and warns where the business description leaves one out.)
 
 ## 4. Photo shot list
 (What to photograph so the profile looks real and local. Front, inside,
