@@ -258,6 +258,57 @@ the same 173 pages.
 
 ---
 
+## 2026-08-08 (supervised Cowork session) - Merged to main at Rishi's instruction. Cherry Lane's PUBLIC Google profile is showing a LloydsPharmacy description, which is neither the old text nor the new one
+
+MERGE DONE. agents/audit-backlog merged to main as 3da863d, no force, no
+rebase, aa950e0..3da863d. Merged in a supervised session per the Q3 answer,
+which bars the unattended agent from touching main. Before merging: all five
+checkers run on the branch, all exit 0. Diff reviewed: 30 files, docs, GBP
+packs, checkers, generators, the two Weebly paste blocks and .gitattributes.
+No generated page HTML in the diff, consistent with every quality pass
+reporting the pages as byte-identical. After merging: all five checkers run
+again on main, all exit 0 (173 pages, 0 mismatches, 0 failures). Then pushed.
+The five checkers are now on main rather than only on the working branch,
+which was the point.
+
+Concurrency, again: while this session was on main doing the merge, an
+unattended run committed a1a9591 to agents/audit-backlog (quality pass on
+item 4.4, adding the Vaccination centre category to 11 GBP packs plus three
+new rules in check-gbp-packs.js). That commit was already on the branch when
+the merge ran, so it went into main without this session having reviewed it
+specifically. The post-merge checkers cover it and it passes, but the point
+stands: work is being merged that no human and no single agent has read end
+to end. Third collision in two days. The schedule should be paused during
+supervised sessions.
+
+CHERRY LANE PUBLIC PROFILE - NEEDS A HUMAN LOOK
+The Cherry Lane GBP description was replaced in the manager yesterday and
+Google queued it as "edit pending". Checking the public profile today, the
+description Google actually shows the public is:
+  "LloydsPharmacy is a leading community pharmacy and healthcare provider in
+   the UK, that endeavours to manage, prevent, treat and support your health
+   and chronic conditions. We partner with the NHS and local healthcare
+   providers to develop and deliver..."
+That is neither the Mounjaro and Wegovy text that was in the manager
+yesterday nor the pack text that replaced it. It is a different company's
+boilerplate, presumably left over from when the site traded as a Lloyds
+branch. Three possible explanations and this session cannot tell them apart
+from the outside: the edit is still propagating, Google is serving a stale
+cache, or there is a second Google listing for this address that RBH does
+not manage and that is the one ranking. The manager row for Cherry Lane is
+also one of the few with no shop code set. Worth someone opening the public
+profile directly and checking whether there are duplicate listings to merge.
+No further edit was made, because changing the same field again while an
+edit is pending is how you end up with two competing pending edits.
+
+Also unresolved from yesterday and not touched: McCanns Aigburth carries
+Sandringham's phone number as a second number, and the Hirshmans GBP address
+reads "64 Station Road, Southport" against "56-62 Sherwood House, Station
+Road, Ainsdale" everywhere else. Both need Rishi to say which value is right
+before anything is changed.
+
+---
+
 ## 2026-08-07 (supervised Cowork session, Rishi present at start) - LIVE CHANGES: POM advertising removed from the Cherry Lane website and from three GBP business descriptions. Two long-standing premises found to be stale. Neither Weebly nor GBP has version history, so this entry is the only record of the before state
 
 Rishi opened Weebly and GBP and asked the session to proceed with the
