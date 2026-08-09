@@ -13,6 +13,15 @@ Rules for every pack (from Master Plan v2 / Build Pack v2 and advertising law):
 - Pharmacy First wording stays close to the NHS service description: free NHS
   service, seven conditions, no GP appointment needed, age ranges apply.
 - UK English. No em dashes. No emojis. Plain English.
+- Profile website on a shared domain: Fishlocks, McCanns and Scorah each run
+  two branches on one website. Those branches point the GBP profile website
+  at their own branch landing page (pharmacy-<brandSlug>-<townSlug>.html),
+  not at the shared homepage, so the two profiles do not hand Google the
+  same page (Master Plan v2 section 3). A branch that owns its domain
+  outright points at the homepage as normal. tools/check-gbp-packs.js fails
+  any shared-domain pack that points at the homepage once the landing page
+  exists in the repo. The landing page must be pasted to Weebly, with the
+  branch's service pages, before the profile website is changed.
 - Business description: GBP limit is 750 characters. Stay under it.
 - Posts: keep each under 1,500 characters; first sentence carries the message.
 

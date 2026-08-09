@@ -99,6 +99,128 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-09 (unattended run, seventeenth) - Quality pass on item 4.1, the GBP pack template and the Fishlocks Ainsdale pack. The pack verified clean on every fact and rule. The pass found one real defect it shares with four other packs: five of the six shared-domain branches still point their GBP profile website at the shared homepage, so two listings would hand Google the same page. Fixed in all five, and made permanent with a rule in check-gbp-packs.js
+
+Run start state. No .agent-lock and no .git\index.lock. Worktree clean.
+Branch agents/audit-backlog level with origin at e3de812.
+
+Portal answer pickup: not attempted. QUESTIONS.json has no question with
+status "open" (Q1 to Q11 all answered), so the step 3 condition was not met.
+The two-Chrome problem in the notes above is still untested and still needs
+the spare Chrome disconnecting before any future question can be answered
+through the portal.
+
+WHY A QUALITY PASS, AND WHY 4.1. Every numbered worklist item is ticked
+except 5.3 and 5.4, and both are [BLOCKED] because they need someone logged
+into the Weebly editor. So there was no unblocked item to take and the
+standing rule points at a quality pass. The previous run nominated 4.1 as the
+least recently verified item, and that holds: 4.1 was last passed on
+2026-08-05 and has not been looked at since, while 4.3, 4.4 and 4.5 have all
+had later passes.
+
+WHAT WAS VERIFIED ON 4.1, AND WHAT PASSED. Every fact in
+gbp-packs/fishlocks-ainsdale.md checked against branches.json: branch name,
+17 Station Road / Ainsdale / PR8 3HN, phone 01704 575478, Monday to Friday
+8:45am to 6:00pm with Saturday and Sunday closed, the review link, and the
+app mention which is correct because hasApp is true. The service area list
+(Ainsdale, Birkdale, Southport) matches. All five widgets in branches.json
+(pharmacyFirst, bloodPressure, contraception, weightLoss, travelClinic) are
+carried in both the description and the services section, and the categories
+section lists Travel clinic, Vaccination centre and Weight loss service as
+the widget set earns. Post A's button uses the branch pfLink from
+branches.json. Advertising rules hold: no medicine names anywhere, no
+efficacy claims, Pharmacy First wording stays on the NHS service
+description. All 15 packs were also swept for em and en dashes and none
+carries one. TEMPLATE.md still matches what the packs actually do.
+
+THE DEFECT, AND WHY IT MATTERS. The pack's "Profile basics" told the paster
+to set the GBP profile website to https://www.fishlockpharmacy.co.uk, the
+shared homepage. Fishlocks runs two branches on that one domain, and McCanns
+and Scorah do the same on theirs. Master Plan v2 section 3 is explicit about
+this: two branches on one website cannot rank twice in the same map, so the
+second branch "leans on its own GBP listing and on branch-specific landing
+pages". Pointing both profiles at the same homepage throws that away. It
+gives Google one page for two listings, and neither profile carries a page
+that is local to its own town. It is also the exact thing items 2.2 and 5.2
+built the six landing pages to fix, so the packs were undoing the work.
+
+Only gbp-packs/fishlocks-eccleston.md had it right; that pack was written
+after the Fishlocks landing pages existed and points the profile at
+pharmacy-fishlocks-eccleston.html. The other five packs predate their landing
+pages: Ainsdale's was built under item 2.2 and the McCanns and Scorah pair
+were built yesterday under item 5.2, and no one went back to the packs.
+
+WHAT WAS FIXED. Five packs now point the profile website at the branch's own
+landing page, in the same wording fishlocks-eccleston.md already used, with
+the shared domain named underneath so the paster can see why:
+  fishlocks-ainsdale.md    -> pharmacy-fishlocks-ainsdale.html
+  mccanns-aigburth.md      -> pharmacy-mccanns-aigburth.html
+  mccanns-sandringham.md   -> pharmacy-mccanns-sandringham.html
+  scorah-bramhall.md       -> pharmacy-scorah-bramhall.html
+  scorah-hazel-grove.md    -> pharmacy-scorah-hazel-grove.html
+Each also gains a note in "Notes for the paster" naming the sister branch on
+the domain and saying plainly that the landing page has to be pasted to
+Weebly, with that branch's service pages, BEFORE the profile website is
+changed. That ordering matters: none of the six landing pages is live yet, so
+setting the profile website today would point a Google listing at a 404,
+which is worse than the homepage. The note is the guard against that.
+
+MADE PERMANENT SO IT CANNOT COME BACK. tools/check-gbp-packs.js gains a
+shared-domain rule. It counts how many live branches sit on each website host
+in branches.json, derives the landing page slug the same way
+build-branch-landing-pages.js does (pharmacy-<brandSlug>-<townSlug>.html), and
+fails any pack whose branch shares a host and whose profile website does not
+name that landing page. It only fires where the landing page actually exists
+in modules/branch/pages, so a branch with nothing to point at yet cannot fail
+on it. Both TEMPLATE.md and the checker's header comment now carry the rule,
+so the next pack written from the template starts correct.
+
+The rule was negative-tested rather than assumed. Reverting scorah-bramhall.md
+to the shared homepage made the checker exit 1 and name the file, the missing
+landing page and the host that carries two branches; restoring the file made
+it exit 0 again, and git status confirmed the restore was byte-identical.
+
+CHECKERS AFTER THE CHANGE. All six pass. check-nap: 177 pages and 2 paste
+blocks against 16 branches, 0 mismatches. check-seo-pattern: 177 pages across
+12 brands, 0 failures. check-postcodes: 257 files, 16 postcodes, 0 failures,
+the 2 standing UNOWNED warnings on the branch INDEX.md and SEO.md.
+check-page-coverage: clean, 177 pages accounted for, no LANDING_NOT_BUILT
+warnings left. check-gbp-packs: 15 packs, 0 failures, the same 11 standing
+Pharmacy First link warnings that are Q8 and unchanged by this run.
+check-em-dashes: 183 files, clean.
+
+NO GENERATED PAGES MOVED. This run touched packs, one checker and the
+template only. No generator ran, so no page HTML is in the diff, which is
+what every previous quality pass has looked like.
+
+AGENT_WORKLIST.md deliberately untouched. Nothing was completed that is not
+already ticked, and a quality pass does not tick anything. Same as every
+previous pass.
+
+NO NEW QUESTIONS. The fix follows a decision Rishi has already made (Q11,
+build the four landing pages) to its logical end, so nothing here needs a
+new answer.
+
+WHAT THIS ADDS TO THE OUTSTANDING WEEBLY LIST. Nothing new in kind, but it
+sharpens the order. When the paste session happens, for each of the six
+shared-domain branches: paste the branch's service pages, paste the branch
+landing page, confirm both resolve, and only then change the GBP profile
+website to the landing page. Doing the GBP change first points a live listing
+at a 404.
+
+NEXT RUN. Still no unblocked worklist item, so another quality pass. The
+oldest remaining passes are the 2026-08-05 batch; item 2.1 (Fishlocks
+Ainsdale audit) is the earliest of them, with 2.2, 2.3 and the 4.2 to 4.15
+packs behind it in the same batch.
+
+Files changed: gbp-packs/fishlocks-ainsdale.md, gbp-packs/mccanns-aigburth.md,
+gbp-packs/mccanns-sandringham.md, gbp-packs/scorah-bramhall.md,
+gbp-packs/scorah-hazel-grove.md, gbp-packs/TEMPLATE.md,
+tools/check-gbp-packs.js, AGENT_LOG.md.
+Questions raised: none.
+
+---
+
 ## 2026-08-09 (unattended run, sixteenth) - Item 5.2 done: the four remaining shared-domain branches now have their own landing pages. Building them exposed a real defect in the generator's meta description, which ran over the 165-character limit for both Scorah branches, so the description is now built once by a length-aware helper instead of being composed twice by hand
 
 Run start state. No .agent-lock and no .git\index.lock. Worktree clean.

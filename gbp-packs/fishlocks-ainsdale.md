@@ -9,7 +9,10 @@ Profile basics (for checking, not pasting):
 - Address: 17 Station Road, Ainsdale, Southport PR8 3HN
 - Phone: 01704 575478
 - Hours: Monday to Friday 8:45am to 6:00pm, Saturday and Sunday closed
-- Website: https://www.fishlockpharmacy.co.uk
+- Website for the profile: https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+  (branch landing page - branches.json lists the shared domain
+  https://www.fishlockpharmacy.co.uk as the site; use the landing page so
+  the profile stays local to Ainsdale. Check it resolves before pasting.)
 - Review link: https://g.page/r/Cfl0iMf3cgGaEAE/review
 
 ## 1. Business description (max 750 chars - this is 746)
@@ -111,6 +114,13 @@ travel consultation today.
 Button: Book -> https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-ainsdale.html
 
 Notes for the paster:
+- The fishlockpharmacy.co.uk domain is shared with Eccleston. Set the
+  profile website to the Ainsdale landing page
+  (pharmacy-fishlocks-ainsdale.html), not the shared homepage, so the two
+  Fishlocks profiles do not point at the same page. Paste that landing page
+  to Weebly first, along with this branch's service pages, or the profile
+  website and the page's own links will 404. See modules/branch/pages/
+  INDEX.md and SEO.md.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.

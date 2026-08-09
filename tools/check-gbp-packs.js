@@ -25,6 +25,12 @@
     - The Services section lists every service the branch's widget set in
       branches.json says it offers, and the description mentions them
       too where the 750 characters allow (Build Pack v2 4.1)
+    - Shared-domain branches point the GBP profile website at their own
+      branch landing page, not at the shared homepage. Master Plan v2
+      section 3: two branches on one website cannot rank twice in the same
+      map, so the second branch "leans on its own GBP listing and on
+      branch-specific landing pages". Two profiles pointing at one homepage
+      throws that away.
 */
 "use strict";
 const fs = require("fs");
@@ -93,6 +99,21 @@ for (const d of ["service", "switch", "branch"]) {
 
 const byId = new Map(branches.map((b) => [b.id, b]));
 const seenIds = new Map();
+
+// Branch landing pages, as built by tools/build-branch-landing-pages.js.
+// Same slug rule, read from branches.json, so the two cannot drift.
+const landingSlug = (b) =>
+  b.brandSlug && b.townSlug ? `pharmacy-${b.brandSlug}-${b.townSlug}.html` : null;
+
+// Which website hosts carry more than one live branch. A branch on a shared
+// host needs its GBP profile pointed at its own landing page; a branch that
+// owns its domain outright is correct to point at the homepage.
+const hostCount = new Map();
+for (const b of branches) {
+  if (b.disposed || !b.website) continue;
+  const h = String(b.website).replace(/^https?:\/\//, "").replace(/\/$/, "").toLowerCase();
+  hostCount.set(h, (hostCount.get(h) || 0) + 1);
+}
 
 // Section headings the template requires, in order.
 const REQUIRED_SECTIONS = [
@@ -172,6 +193,28 @@ for (const file of packFiles) {
   REQUIRED_POSTS.forEach((re, i) => {
     if (!re.test(text)) fail(file, `missing Post ${"ABCD"[i]}`);
   });
+
+  // --- the GBP profile website on a shared domain -----------------------
+  // Master Plan v2 section 3: Fishlocks, McCanns and Scorah each run two
+  // branches on one website, so the second branch "leans on its own GBP
+  // listing and on branch-specific landing pages". If both profiles point
+  // at the same homepage, Google gets one page for two listings and neither
+  // profile carries a local target, which is the whole reason the landing
+  // pages were built (items 2.2 and 5.2). Only enforced where the landing
+  // page actually exists in the repo, so this cannot fail for a branch that
+  // has nothing to point at yet.
+  const ownHostForSite = String(b.website || "")
+    .replace(/^https?:\/\//, "").replace(/\/$/, "").toLowerCase();
+  const slug = landingSlug(b);
+  const sharesHost = (hostCount.get(ownHostForSite) || 0) > 1;
+  if (sharesHost && slug && GENERATED.has(slug)) {
+    const siteLine = (text.match(/^-\s*Website[^\n]*(?:\n\s{2,}[^\n]*)*/m) || [])[0] || "";
+    if (!siteLine) {
+      fail(file, `no "- Website" line in the profile basics, so the paster has nothing telling them to use the ${slug} landing page`);
+    } else if (!siteLine.toLowerCase().includes(slug)) {
+      fail(file, `profile website does not point at this branch's landing page ${slug}. ${ownHostForSite} carries ${hostCount.get(ownHostForSite)} live branches, so pointing the profile at the shared homepage gives both listings the same page (Master Plan v2 section 3)`);
+    }
+  }
 
   // --- categories against the services the branch actually offers -------
   // Build Pack v2 section 4.1 asks for the secondary categories that apply:

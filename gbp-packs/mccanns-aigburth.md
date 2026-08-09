@@ -11,7 +11,10 @@ Profile basics (for checking, not pasting):
 - Hours: Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm (closed
   1:00pm to 2:00pm), Saturday 9:00am to 1:00pm and 2:00pm to 5:00pm,
   Sunday closed
-- Website: https://www.mccannspharmacy.co.uk
+- Website for the profile: https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html
+  (branch landing page - branches.json lists the shared domain
+  https://www.mccannspharmacy.co.uk as the site; use the landing page so
+  the profile stays local to Aigburth. Check it resolves before pasting.)
 - Review link: https://g.page/r/CdDj9KyelDVyEAE/review
 
 ## 1. Business description (max 750 chars - this is 703)
@@ -111,6 +114,13 @@ Aigburth Road, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html
 
 Notes for the paster:
+- The mccannspharmacy.co.uk domain is shared with Sandringham. Set the
+  profile website to the Aigburth landing page
+  (pharmacy-mccanns-aigburth.html), not the shared homepage, so the two
+  McCanns profiles do not point at the same page. Paste that landing page to
+  Weebly first, along with this branch's service pages, or the profile
+  website and the page's own links will 404. See modules/branch/pages/
+  INDEX.md and SEO.md.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the pfLink from branches.json, which is the shared Aigburth

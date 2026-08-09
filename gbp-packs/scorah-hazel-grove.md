@@ -11,7 +11,10 @@ Profile basics (for checking, not pasting):
 - Hours: Monday to Friday 9:00am to 6:00pm, Saturday closed, Sunday closed.
   IMPORTANT: Saturday trading ceased 24 June 2026 (previously Sat 9:00am to
   1:00pm). Check GBP still does not show Saturday hours and correct if it does.
-- Website: https://www.scorah-chemists.co.uk
+- Website for the profile: https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+  (branch landing page - branches.json lists the shared domain
+  https://www.scorah-chemists.co.uk as the site; use the landing page so
+  the profile stays local to Hazel Grove. Check it resolves before pasting.)
 - Review link: https://g.page/r/CZbFKrky9BUsEAE/review
 
 ## 1. Business description (max 750 chars - this is 712)
@@ -111,6 +114,13 @@ Macclesfield Road, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.scorah-chemists.co.uk/travel-clinic-scorah-hazel-grove.html
 
 Notes for the paster:
+- The scorah-chemists.co.uk domain is shared with Bramhall. Set the profile
+  website to the Hazel Grove landing page
+  (pharmacy-scorah-hazel-grove.html), not the shared homepage, so the two
+  Scorah profiles do not point at the same page. Paste that landing page to
+  Weebly first, along with this branch's service pages, or the profile
+  website and the page's own links will 404. See modules/branch/pages/
+  INDEX.md and SEO.md.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the shared Hazel Grove / Bramhall Pharmacy First page from
