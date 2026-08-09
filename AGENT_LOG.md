@@ -177,7 +177,8 @@ FILES CHANGED
   modules/branch/pages/INDEX.md        regenerated
   modules/branch/pages/SEO.md          regenerated
   AGENT_WORKLIST.md, AGENT_LOG.md
-Commit 3957135 on agents/audit-backlog.
+Commit 7f75e6e on agents/audit-backlog (this hash line was corrected by the
+follow-up commit that carries it; the work itself is all in 7f75e6e).
 
 OUTSTANDING ON THE LIVE SIDE (repo work is finished)
 These four pages are repo output. Nothing is live until someone pastes them.
