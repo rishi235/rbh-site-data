@@ -53,6 +53,15 @@ WHAT THE FOUR ANSWERS AUTHORISE:
 Note on how these were answered: through the Cowork session directly, not
 the portal. The portal route is still broken, see below.
 
+ANSWER PICKUP: LIKELY FIXED 2026-08-09 EVENING. In a supervised session the
+browser picker was resolved with switch_browser and the chosen Chrome is now
+named "prodesk". Both registrations reported isLocal true, so the diagnosis
+below (a spare Chrome on the Surface needing sign-out) was WRONG: it is two
+Chrome profiles or a stale registration on the ProDesk itself. The next
+unattended run that has an open question should try the portal fetch normally
+and record whether the name persisted. Everything below this line is the
+historic account and is kept only for context.
+
 NOTE ON ANSWER PICKUP: STILL BROKEN on 2026-08-09, six runs running. Checked
 again on the fourteenth run: both Chrome browsers are still connected, still
 report as "Browser 1" and "Browser 2", and the tooling still refuses to act
@@ -489,6 +498,99 @@ tools/check-gbp-packs.js, AGENT_LOG.md.
 Commit: 1aefa88 (this line added by the follow-up commit, as the hash cannot
 be known before the commit exists).
 Questions raised: none.
+
+---
+
+## 2026-08-09 (supervised Cowork session, evening) - GBP live check. The two jobs we went in for were already done. Found instead that Google has silently replaced the website on at least one profile with an NHS.uk page. One reverted, fourteen still to check
+
+WHY THIS SESSION HAPPENED. Rishi was at the machine and asked what to do next.
+The recommendation was to clear the two live regulatory items before any SEO
+paste work, on the grounds that POM advertising exposure outranks ranking cost.
+Both turned out to be closed already.
+
+BROWSER NOTE. The two-Chrome problem did NOT need the spare disconnecting.
+Both entries reported isLocal true, so the long-standing theory in this log
+that a spare Chrome on the Surface needed signing out is wrong. Rishi
+confirmed only one Chrome window was open after a reboot, which points at
+either two Chrome profiles on the ProDesk or a stale registration that had not
+expired. switch_browser resolved it in one step and the browser is now named
+"prodesk", so future runs should be able to select it by name.
+
+CHECKED, NO CHANGE NEEDED (both previously believed outstanding)
+  - McCanns Sandringham GBP description. Live text carries NO medicine names
+    and is not the copied Hirshmans text. The Q4 exposure on this listing is
+    closed. It is not the pack text from gbp-packs/mccanns-sandringham.md
+    either, so pasting the pack version is now an improvement, not a fix.
+    Live text recorded below for the record.
+  - McCanns Sandringham address. Reads "1B Aigburth Road, Aigburth, Liverpool
+    L17 4JP". No CH49 1SX and no Dingle anywhere in the record. The note in
+    the weebly-navigation skill and Build Pack 4.2 is STALE and should be
+    retired so it stops being re-raised.
+  - McCanns Aigburth. Description IS the pack text from
+    gbp-packs/mccanns-aigburth.md, so the Phase 4 packs have been partly
+    pasted already by Rishi or Dane. Website field is on the right domain.
+
+CHANGE MADE (one, authorised by Rishi in session)
+  McCanns Sandringham (shop code P-6d4XW5AEypC5), Website field.
+    BEFORE: https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/FAP24
+            carrying a Google notice reading "Your website was updated by
+            Google."
+    AFTER:  https://www.mccannspharmacy.co.uk   (the website value in
+            branches.json for mccanns_sandringham)
+    STATUS at time of writing: pending Google review, up to 10 minutes.
+    Nothing else on the profile was touched. The "OK" button on Google's
+    notice and the "Confirm" button on the review banner were both left
+    alone deliberately, since accepting either could lock in Google's version.
+
+WHY IT MATTERS. The website button on the Google listing is the entry point
+for every funnel this audit has been building: switch prescriptions, Pharmacy
+First, the branch landing pages from item 5.2. Pointing it at NHS.uk hands
+that traffic to the NHS directory instead of the branch site. It is worth more
+than the ranking work currently queued.
+
+STILL TO CHECK - 14 PROFILES. Only McCanns Aigburth and McCanns Sandringham
+were inspected. Every one of the sixteen pencil icons in the group list
+carries a red dot, and the Aigburth record showed a banner reading "Review and
+edit your business information to improve your presence on Google. Scroll down
+to confirm", so Google is pushing changes across the estate. Remaining:
+Cherry Lane, Clear, Coleman and Leighs, Fishlocks Ainsdale, Fishlocks
+Eccleston, Gordon Short, Hirshmans, RB Healthcare head office, Riddings,
+Scorah Bramhall, Scorah Hazel Grove, SK Chemists, Smartts, Tiffenbergs.
+Method that works: group dropdown to "RB Healthcare Ltd", pencil on the row,
+Contact tab, drag the dialog's inner scrollbar down to Website.
+
+TWO FINDINGS NOT ACTIONED, BOTH NEED A DECISION FROM RISHI
+  1. All 16 profiles are named in the pattern "<Brand> - <Branch> - Travel
+     Vaccination and Simple Weight Loss Clinic". Google's naming guidance is
+     that the field holds the real-world business name only; descriptors and
+     keywords in it put a verified listing at risk of suspension. It also
+     advertises Simple Weight Loss, a brand formally parked for 90 days.
+  2. Website targets are inconsistent where they are correct. McCanns
+     Aigburth points at http://www.mccannspharmacy.co.uk/contact-us.html:
+     right domain, but http rather than https and a contact page rather than
+     a landing page. Worth a single decision on what these should point at
+     across the estate, ideally the branch landing pages once pasted.
+
+LIVE DESCRIPTION RECORDED BEFORE ANY FUTURE EDIT (McCanns Sandringham):
+"At McCanns Pharmacy Sandringham on Aigburth Road, we are a trusted NHS
+pharmacy providing essential healthcare services, including prescription
+dispensing, Pharmacy First consultations and blood pressure checks. Our team
+also offers travel vaccinations, private blood testing and a pharmacist-led
+weight loss clinic, with expert, in-person care. Visit us for professional
+advice and personalised healthcare, all in a friendly, community-focused
+setting."
+Note: it advertises private blood testing, which is not a service in
+branches.json for this branch, and omits the NHS contraception service, which
+is. Worth checking which is right before the pack text replaces it.
+
+NOT REACHED THIS SESSION. The Cherry Lane Weebly job (old weight loss page
+still naming three medicines and claiming up to 22.5 percent body weight
+loss) was not started. It remains the highest-value Weebly item. The
+replacement block at modules/service/weebly-paste/
+cherry-lane-old-weight-loss-replacement.html was reviewed and IS safe to
+paste as it stands. The Pharmacy First one in the same folder is still NOT
+safe: it replaces the whole page and would remove the video and booking
+widget that Rishi's Q9 answer said to keep.
 
 ---
 
