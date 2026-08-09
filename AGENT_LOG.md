@@ -548,8 +548,23 @@ First, the branch landing pages from item 5.2. Pointing it at NHS.uk hands
 that traffic to the NHS directory instead of the branch site. It is worth more
 than the ranking work currently queued.
 
-STILL TO CHECK - 14 PROFILES. Only McCanns Aigburth and McCanns Sandringham
-were inspected. Every one of the sixteen pencil icons in the group list
+UPDATE, LATER THE SAME SESSION: THE SWEEP WAS COMPLETED. All 16 profiles have
+now been checked one by one. Result: ONE substitution in sixteen, the McCanns
+Sandringham one already recorded above. Every other website field points at
+the correct branch domain. Full table, plus the working method and the traps,
+are written up in the new GBP_MANUAL.md at the repo root. Findings that need
+a decision from Rishi are in section 6 of that file: keyword-stuffed profile
+names on 15 of 16 (suspension risk on verified listings, and they advertise
+the parked Simple Weight Loss brand), nine profiles still on http, both
+Fishlocks and both Scorah branches pointing at the same shared root URL, two
+descriptions not carrying the pack text, and head office categorised as a
+Pharmacy. The "0 Google updates" button label and the "Google updates (16)"
+filter confirm what the red dot means: every listing has a Google update
+awaiting review, in three flavours (website changed, social profile changed,
+or a prompt to confirm). Nothing was accepted or confirmed.
+
+ORIGINAL NOTE AT THE TIME OF WRITING - 14 PROFILES OUTSTANDING. Only McCanns
+Aigburth and McCanns Sandringham had been inspected. Every one of the sixteen pencil icons in the group list
 carries a red dot, and the Aigburth record showed a banner reading "Review and
 edit your business information to improve your presence on Google. Scroll down
 to confirm", so Google is pushing changes across the estate. Remaining:
