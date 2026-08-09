@@ -217,6 +217,8 @@ Files changed: gbp-packs/fishlocks-ainsdale.md, gbp-packs/mccanns-aigburth.md,
 gbp-packs/mccanns-sandringham.md, gbp-packs/scorah-bramhall.md,
 gbp-packs/scorah-hazel-grove.md, gbp-packs/TEMPLATE.md,
 tools/check-gbp-packs.js, AGENT_LOG.md.
+Commit: 1aefa88 (this line added by the follow-up commit, as the hash cannot
+be known before the commit exists).
 Questions raised: none.
 
 ---
