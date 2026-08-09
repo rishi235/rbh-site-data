@@ -168,5 +168,20 @@
     "answer": "Build all four landing pages now from the existing generator, so every shared-domain branch has its own local target page: McCanns Aigburth, McCanns Sandringham, Scorah Bramhall, Scorah Hazel Grove. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option). Same code and same pattern as the Fishlocks pair built under item 2.2.",
     "note": "Nothing is blocked by this and nothing was built. The checker reports all four as warnings on every future run, so the gap stays visible either way. If the answer is option 3, say so and the warning can be turned off for those branches rather than nagging every hour. Whatever is built still needs a Weebly paste to go live, same as the Fishlocks pair.",
     "answeredDate": "2026-08-08"
+  },
+  {
+    "id": "Q12",
+    "date": "2026-08-09",
+    "item": "quality pass on 3.3 (finding, does not block any item)",
+    "question": "tools/branches-editor.html, the tool CLAUDE.md tells everyone to use for editing branches.json, carries a full embedded copy of branches.json inside itself as a starting snapshot. If someone opens the editor, changes one branch and hits Download without first hitting Load a branches.json, they get the snapshot plus their one change, not the current file, and every edit made since the snapshot was taken is silently reverted. The download also stamps today's date into lastUpdated, so the stale export looks like the newest file. The snapshot was one edit behind when this run found it and has been refreshed by hand to match, but hand-refreshing it after every edit is a treadmill rather than a fix. How should the editor be made safe?",
+    "options": [
+      "Make the editor refuse to download until a branches.json has been loaded in that session, so an export can never be built on the snapshot. Smallest change, removes the failure mode entirely, and the snapshot stays useful for read-only browsing",
+      "Strip the embedded snapshot out and have the editor open empty with a Load prompt. Removes the stale copy altogether, but the editor stops being a quick way to look at the data without a file to hand",
+      "Leave the behaviour alone and keep refreshing the snapshot by hand whenever branches.json changes. No code change, but it depends on every future editor remembering, and the failure is silent when they forget"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked by this and nothing about the current data is wrong: the snapshot has been brought level with branches.json as part of this run. It is raised because it is the one route by which a single careless click could undo the whole audit backlog's data work on the single source of truth, and because CLAUDE.md's own rule is that stale copies of branches.json are a hazard. Option 1 is recommended because it is a few lines in one file and it makes the safe path the only path."
   }
 ]

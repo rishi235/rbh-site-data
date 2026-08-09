@@ -232,7 +232,15 @@ function sisterNote(b) {
   if (!sisters.length) return "";
   var links = sisters.map(function (sid) {
     var s = byId[sid];
-    return '<a href="' + landingSlug(s) + '">' + esc(s.branchName) + ' in ' + esc(s.seoTown) + '</a>';
+    // Most branch names already end with their town ("Fishlocks Chemist
+    // Eccleston"), so appending " in <town>" reads "Eccleston in Eccleston".
+    // Only add the town when the name does not already carry it.
+    var name = esc(s.branchName);
+    var town = esc(s.seoTown);
+    var label = new RegExp("\\b" + town.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$", "i").test(s.branchName)
+      ? name
+      : name + " in " + town;
+    return '<a href="' + landingSlug(s) + '">' + label + '</a>';
   }).join(", ");
   return '' +
     '<section class="section">\n' +

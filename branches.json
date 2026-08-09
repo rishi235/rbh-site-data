@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-05",
+  "lastUpdated": "2026-08-09",
   "brandGroups": {
     "scorahs": [
       "scorah_bramhall",
@@ -455,7 +455,8 @@
       "streetAddress": "Unit 3 The Carrington Centre, New Mill Street",
       "addressLocality": "Eccleston",
       "postalCode": "PR7 5SZ",
-      "addressRegion": "Chorley",
+      "addressRegion": "Lancashire",
+      "seoRegion": "Chorley",
       "addressCountry": "GB",
       "phone": "01257 451251",
       "email": "Eccleston@rbhealth.co.uk",

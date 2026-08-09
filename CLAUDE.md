@@ -30,7 +30,7 @@ Top level: lastUpdated, brandGroups, hostMap, branches[], schemaNote
 Each branch in branches[] uses these keys:
 
     id, brandKey, brandLabel, branchName,
-    streetAddress, addressLocality, postalCode, addressRegion, addressCountry,
+    streetAddress, addressLocality, postalCode, addressRegion, seoRegion, addressCountry,
     phone, email, googleReviewUrl, hasApp, keywords[], serviceAreaList[],
     shortCode, branchNumber, odsCode, nhsEmail,
     pfLink, pfBooking, nhsReviewUrl,
@@ -39,6 +39,15 @@ Each branch in branches[] uses these keys:
 Notes:
 - seoTown is the catchment town used in page titles and H1. It may differ from
   the postal addressLocality (Cherry Lane = Walton, not Liverpool).
+- addressRegion is the SCHEMA field and must be the county (Merseyside,
+  Greater Manchester, Lancashire, Cheshire). It goes into schema.org
+  PostalAddress, which Google reads. Never put a borough, district or town
+  in it. tools/check-address-region.js enforces this.
+- seoRegion is OPTIONAL and is the SEARCH qualifier appended to a branch
+  landing page title. Set it only where the borough beats the county as the
+  local word: Fishlocks Eccleston is "Eccleston, Chorley" in the title, which
+  separates it from Eccleston in St Helens, while its addressRegion stays
+  Lancashire. If unset, the title falls back to addressRegion.
 - Head office (rbh_head_office_aintree) has no phone, email, odsCode or
   nhsEmail. That is correct, not missing data.
 - Bump lastUpdated on every edit.

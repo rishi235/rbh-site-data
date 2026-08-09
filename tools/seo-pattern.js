@@ -64,7 +64,16 @@ function pick(b) {
   return {
     brand: b.brandLabel || b.brand,
     town: b.seoTown || b.town,
-    region: b.addressRegion || b.region || ""
+    // Title qualifier. addressRegion is the SCHEMA field and must hold the
+    // county (Lancashire, Merseyside, Greater Manchester), because that is
+    // what schema.org PostalAddress.addressRegion means and what Google
+    // reads. seoRegion is the optional SEARCH qualifier for the landing
+    // title, used where the borough is the stronger local word than the
+    // county: Eccleston sits in Chorley borough, Lancashire, and "Eccleston,
+    // Chorley" is what distinguishes it from Eccleston, St Helens. Only set
+    // seoRegion where it genuinely differs; everywhere else the county is
+    // both the schema value and the qualifier.
+    region: b.seoRegion || b.addressRegion || b.region || ""
   };
 }
 

@@ -3,7 +3,18 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-NOTHING IS OPEN. Q1 to Q11 are all answered as of 2026-08-09. Q7, Q8, Q9 and
+OPEN: Q12 (raised 2026-08-09, nineteenth run) - tools/branches-editor.html,
+the tool CLAUDE.md points people at for editing branches.json, carries a full
+embedded copy of branches.json inside itself. Edit and download without
+loading the real file first and you export that snapshot plus your one
+change, silently reverting everything done since, with today's date stamped
+on it so it looks newest. Nothing is broken right now: the snapshot has been
+brought level with branches.json this run and a new checker fails on any
+future drift. The question is whether the editor should refuse to export
+until a file has been loaded (recommended), drop the snapshot altogether, or
+carry on being refreshed by hand. Nothing is blocked by it.
+
+Q1 to Q11 are all answered as of 2026-08-09. Q7, Q8, Q9 and
 Q11 were answered by Rishi in a Cowork session, all four taking the
 recommended option. Q10 was answered and completed on 2026-08-08.
 
@@ -96,6 +107,132 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+---
+
+## 2026-08-09 (unattended run, nineteenth) - Quality pass on item 3.3, Fishlocks Chemist Ainsdale and Eccleston. The 26 Fishlocks pages verified clean on title, H1, meta and slug uniqueness across the shared domain. Two real defects found and fixed at source: Eccleston's schema addressRegion held a borough, not a county, on all 13 of its pages, and the sister-branch link on all six landing pages read "Eccleston in Eccleston". Both were fixed without changing a single page title. A third finding, the stale editable copy of branches.json embedded in branches-editor.html, is raised as Q12
+
+Run start state. No .agent-lock and no .git\index.lock. Worktree clean.
+Branch agents/audit-backlog level with origin at 28a16a3.
+
+Portal answer pickup: not attempted, condition not met. QUESTIONS.json had no
+question with status "open" at the start of the run (Q1 to Q11 all answered).
+Q12 is raised by this run, so the next run will have a reason to try.
+
+WHY A QUALITY PASS, AND WHY 3.3. Every numbered item is ticked except 5.3 and
+5.4, both [BLOCKED] on someone being logged into the Weebly editor, so there
+was no unblocked item to take. On the least-recently-verified rule 3.3 is the
+oldest: the eighteenth run took 3.2 as the first of the block of items 3.2 to
+3.13 that had never had an individual pass, so 3.3 is next in that block.
+
+WHAT WAS VERIFIED ON 3.3, AND WHAT PASSED. All 26 Fishlocks pages (12
+Ainsdale, 12 Eccleston, plus the two landing pages from item 2.2) checked
+against the Build Pack v2 rule that town and service words belong in the
+title, description and heading:
+  - check-seo-pattern: 26 Fishlocks pages, 0 mismatches. Every SEO title and
+    every H1 equals what tools/seo-pattern.js produces.
+  - check-seo-sheets: every page agrees with the paste sheet a human types
+    into Weebly, which is the check the eighteenth run added and the only one
+    that sees the strings that actually reach Google.
+  - Town words come from seoTown. Both branches have seoTown equal to their
+    addressLocality, so there is no Cherry Lane style divergence to get wrong.
+  - Slug uniqueness on the shared domain. Both branches sit on
+    fishlockpharmacy.co.uk, so a slug collision would put one branch's page
+    on top of the other's URL. All 26 slugs carry the branch (-fishlocks-
+    ainsdale / -fishlocks-eccleston); no collision. This is the specific risk
+    the shared-domain rule in Master Plan v2 section 3 exists to catch, and
+    no checker was covering it, so it was checked by hand this run.
+  - Cross-town check: no Ainsdale page carries Eccleston in its title, H1 or
+    description, and none the other way.
+  - The pages are Weebly embed fragments and carry no <title> tag by design;
+    the SEO title lives in the paste sheet. That is correct, not a gap.
+
+DEFECT 1, AND WHY IT MATTERED. branches.json gave Fishlocks Eccleston an
+addressRegion of "Chorley". Chorley is a borough. Every other one of the 16
+branches carries a county (Merseyside, Greater Manchester). addressRegion is
+the schema.org PostalAddress field, so this put a borough where Google reads
+the county, on all 13 Eccleston pages plus the landing page. No checker could
+see it: check-nap proves every page AGREES with branches.json, which stays
+green when branches.json itself is wrong.
+
+It had been spotted before. The 2.2 quality pass on 2026-08-05 recorded it as
+"Observations only, no action taken ... Likely deliberate as the local search
+qualifier; flagged only in case it was not". That was prose in this log, which
+the standing rules say not to do for anything needing a decision, so it never
+reached Rishi and sat unresolved for four days. Noting that so the pattern is
+not repeated: a finding that needs a decision goes in QUESTIONS.json.
+
+The 2026-08-05 run's instinct was right, though, which is why the fix is not a
+straight overwrite. "Eccleston, Chorley" IS the better search qualifier: it
+separates this branch from Eccleston in St Helens and Eccleston near Chester,
+which "Eccleston, Lancashire" does less sharply. One field was doing two
+different jobs. They are now two fields:
+  - addressRegion = "Lancashire". The county. Schema truth.
+  - seoRegion = "Chorley". Optional, new, used only by landingTitle() in
+    tools/seo-pattern.js, falling back to addressRegion when unset.
+Net effect on public copy: NONE. The Eccleston landing title still reads
+"Pharmacy in Eccleston, Chorley - Fishlocks Chemist", byte-identical. The only
+output change is the JSON-LD region on 13 pages, from wrong to right. No
+Weebly repaste is created by this fix.
+
+DEFECT 2. The sister-branch link on all six branch landing pages read
+"Fishlocks Chemist Eccleston in Eccleston", "McCanns Chemist Sandringham in
+Sandringham", "Scorah Chemists Bramhall in Bramhall" and so on. The generator
+appended " in <seoTown>" to a branch name that already ends with the town.
+Public copy, on every shared-domain landing page. Also flagged as prose by the
+2026-08-05 pass and also left. tools/build-branch-landing-pages.js now only
+appends the town when the branch name does not already end with it, so it
+still works for any future branch named otherwise. Six pages regenerated.
+None of the six is live yet, so again no repaste burden.
+
+NEW CHECKERS, BOTH TESTED AGAINST A REAL REGRESSION.
+  - tools/check-address-region.js: fails if any trading branch's addressRegion
+    is not one of the four counties this group trades in, is empty, or equals
+    its own addressLocality; warns if seoRegion is set but redundant. Verified
+    by putting "Chorley" back: exit 1 with the branch and the reason named.
+  - tools/check-editor-snapshot.js: compares the embedded snapshot inside
+    tools/branches-editor.html against branches.json field by field and fails
+    on any drift. Verified on a temp copy with seoRegion deleted: exit 1
+    naming fishlocks_eccleston.seoRegion.
+
+FINDING RAISED AS Q12. tools/branches-editor.html, the tool CLAUDE.md tells
+people to use for editing branches.json, embeds a whole copy of branches.json
+as its starting snapshot, and its download button stamps today's date into
+lastUpdated. Anyone who edits and downloads without first loading the real
+file exports the snapshot plus their change, silently reverting every edit
+made since, in a file that then looks like the newest one. That is the single
+click that could undo the whole backlog's data work. The snapshot was one edit
+behind when found; it has been refreshed to match exactly (verified identical)
+and the new checker now fails on drift, so nothing is broken today. Whether to
+make the editor refuse to export until a file is loaded is Rishi's call, so it
+is Q12 with a recommendation rather than a change made unattended. Nothing is
+blocked by it.
+
+ALSO DONE. CLAUDE.md's schema section now documents both fields, states that
+addressRegion must be the county and never a borough, and explains when
+seoRegion is appropriate, so the distinction survives this log entry.
+
+CHECKER RUN, AFTER: all nine pass. check-address-region clean (16 branches),
+check-editor-snapshot clean, check-nap 177 pages 0 mismatches,
+check-postcodes 0 failures (2 standing INDEX/SEO warnings), check-seo-pattern
+177 pages 0 failures, check-page-coverage clean 177 pages, check-em-dashes
+clean, check-seo-sheets clean, check-gbp-packs 0 failures (the standing Q8
+link warnings).
+
+WHAT IS STILL OUTSTANDING, UNCHANGED BY THIS RUN. All three remaining jobs
+need someone logged into Weebly: the switch page SEO descriptions repaste
+(Q7), the six landing pages and their branch service pages paste (item 2.2
+and 5.2), and items 5.3 and 5.4.
+
+Files changed: branches.json, tools/seo-pattern.js,
+tools/build-branch-landing-pages.js, tools/branches-editor.html,
+tools/check-address-region.js (new), tools/check-editor-snapshot.js (new),
+CLAUDE.md, QUESTIONS.json, AGENT_LOG.md, and 19 regenerated pages (13
+Eccleston service/switch pages, 6 branch landing pages). AGENT_WORKLIST.md is
+deliberately unchanged: this was a quality pass, so there was no item to tick,
+and Q12 blocks nothing.
+Commit: see this commit on agents/audit-backlog.
+Questions: Q12 raised, open. No item blocked by it.
 
 ---
 
