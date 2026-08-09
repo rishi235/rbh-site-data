@@ -99,6 +99,137 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
 
 ---
 
+## 2026-08-09 (unattended run, eighteenth) - Quality pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove. The 26 Scorah pages verified clean on title, H1 and meta. The pass found a real gap the existing checkers could not see: nothing ever compared a page against the paste sheet a human actually types into Weebly, and on that comparison all 14 contraception pages had no paste sheet in the repo at all. New tools/check-seo-sheets.js closes the gap and the contraception generator now writes its sheet into the repo like every other generator
+
+Run start state. No .agent-lock and no .git\index.lock. Worktree clean.
+Branch agents/audit-backlog level with origin at b98984f.
+
+Portal answer pickup: not attempted, condition not met. QUESTIONS.json has
+no question with status "open" (Q1 to Q11 all answered).
+
+Answer pickup route, checked again anyway because a quality pass may raise a
+question: STILL BROKEN, eighth run running. list_connected_browsers returns
+two browsers, both on Windows, both still called "Browser 1" and "Browser 2",
+and the tooling still refuses to act until a human picks one. An unattended
+run cannot pick. The fix remains the same: disconnect the spare Chrome from
+the account, or sign the Surface out. Answering in a Cowork session works.
+This also means the live-site leg of a quality pass cannot be done unattended,
+so everything below is repo-side verification.
+
+WHY A QUALITY PASS, AND WHY 3.2. Every numbered item is ticked except 5.3
+and 5.4, both [BLOCKED] on someone being logged into the Weebly editor, so
+there was no unblocked item to take. On the least-recently-verified rule, 3.2
+is the oldest: items 3.2 to 3.13 have never had an individual pass, their only
+verification being the Phase 3 rollout pass of 2026-08-05, which is the oldest
+entry in this log for any completed item. 3.1 was passed on 2026-08-06 and
+every Phase 4 pack has had at least one later pass. 3.2 is the first of the
+never-individually-passed block.
+
+WHAT WAS VERIFIED ON 3.2, AND WHAT PASSED. All 26 Scorah pages (12 Bramhall,
+12 Hazel Grove, plus the two branch landing pages built under item 5.2) were
+checked against the Build Pack v2 rule that the town and service words belong
+in the title, description and heading:
+  - check-seo-pattern: 26 Scorah pages, 0 mismatches. Every SEO title and
+    every H1 equals what tools/seo-pattern.js produces for that branch and
+    page type.
+  - Town words come from seoTown, not addressLocality, per Build Pack v2
+    section 5.1. Bramhall and Hazel Grove both have seoTown equal to their
+    addressLocality, so there is no Cherry Lane style divergence to get wrong.
+  - Cross-town check: no Bramhall page carries Hazel Grove in its title, H1
+    or description, and none the other way, with one deliberate exception.
+    Both landing page descriptions name the sister town because it is a real
+    entry in that branch's serviceAreaList in branches.json (Bramhall serves
+    Hazel Grove and vice versa). Factually right and left alone. Changing it
+    would mean editing branches.json service areas, which is out of scope for
+    a quality pass and would move other pages.
+  - Meta lengths: all 26 sit between 135 and 160 characters, inside the 80 to
+    165 rule, with the two landing pages at the top of the range at 158 and
+    160 after the length-aware landingMeta() helper added in the sixteenth run.
+  - Landing titles correctly append the county ("Pharmacy in Bramhall,
+    Greater Manchester - Scorah Chemists"), which is what disambiguates
+    Bramhall from anywhere else with that name.
+  - Both branches share scorah-chemists.co.uk, so the shared-domain rule in
+    Master Plan v2 section 3 applies. Both now have their own landing page
+    (item 5.2) and both GBP packs point at their own page (item 4.1 pass).
+    That leg holds.
+
+THE GAP, AND WHY IT MATTERS. Item 3.2 is worded "title, description and
+heading". Titles and H1s are verified by check-seo-pattern, and so is the
+description written into each page's head comment. But the head comment is
+not what reaches Google. The strings that reach Google are the ones a human
+types into Weebly > Pages > SEO Settings, and those are read off the paste
+sheets in modules/*/pages/SEO.md. Nothing had ever compared the two. That
+matters because a generator composing the same description twice is a defect
+this project has already hit twice: the fifteenth run found the switch page
+meta composed once for the page tag and once for the paste sheet, and the
+sixteenth found the same in the branch landing generator. Both were fixed by
+routing sheet and page through one helper. Neither fix left a guard behind.
+
+WHAT THE NEW CHECKER FOUND. tools/check-seo-sheets.js matches every generated
+page to its paste sheet entry by permalink and fails on a title mismatch, a
+description mismatch, a page with no sheet entry, a sheet entry with no page,
+or a permalink listed in two sheets. On its first run: 163 sheet entries
+against 177 pages, and 14 failures. No drift anywhere, which is the good news
+and confirms the fifteenth and sixteenth run fixes held. The 14 failures were
+all one thing: every contraception page, including both Scorah ones, had no
+paste sheet entry anywhere in the repo. There was nothing for a paster to
+copy the SEO title and description from.
+
+WHY. tools/build-contraception-pages.js did build a sheet, but wrote it only
+to a hard-coded absolute path, C:/Users/rishi/OneDrive - RB Healthcare Ltd/
+Downloads/cowork/CONTRACEPTION_SEO.md. Three consequences. The sheet was not
+version-controlled, so it never reached the status page and no checker could
+read it. The generator would throw on any machine without that exact folder,
+which is every machine except this one. And the sheet's description was a
+second hand-written literal, separate from the one written into the page head
+comment: identical today by luck, and exactly the drift the other two
+generators had already been caught doing. The sheet also used "Permalink" and
+"Description" where the other four sheets use "Page Permalink" and
+"Page Description", so even in the right place it would not have parsed.
+
+WHAT CHANGED.
+  tools/build-contraception-pages.js
+    - New contraceptionMeta(store) helper. The page head comment and the
+      paste sheet now both call it, so the two cannot drift. Same shape as
+      switchMeta() and landingMeta().
+    - The sheet is now written to modules/service/pages/CONTRACEPTION-SEO.md,
+      in the repo, beside the pages it describes, like the other four.
+    - Field names changed to Page Title / Page Permalink / Page Description
+      to match the other sheets so the checker can read them.
+    - The OneDrive drop is kept, because it is where the existing paste
+      workflow looks, but it is now best effort: written only if the folder
+      already exists, wrapped so a failure cannot break the build.
+    - Header comment updated to describe the new outputs.
+  tools/check-seo-sheets.js - new checker, described above.
+  modules/service/pages/CONTRACEPTION-SEO.md - new, generated, 14 entries.
+
+VERIFICATION. The 14 contraception pages regenerated byte-identical (git
+status shows no page changes), which proves the contraceptionMeta refactor
+changed no output. check-seo-sheets then reports 177 sheet entries against
+177 pages, clean. The checker was negative-tested: editing one string in the
+new sheet produced 14 description-drift failures and exit 1, and regenerating
+restored it exactly and returned exit 0, so it is not passing vacuously.
+Full suite after the change, all exit 0: check-seo-pattern 177 pages 0
+failures, check-seo-sheets clean, check-nap 177 pages 0 mismatches,
+check-page-coverage 177 pages clean, check-postcodes 0 failures 2 warnings
+(the two pre-existing UNOWNED INDEX/SEO warnings), check-em-dashes clean,
+check-gbp-packs 0 failures with the known Q8 link warnings.
+
+NOT DONE, AND WHY. The live-site leg of the pass was not possible, see the
+answer pickup note above. Contraception pages still have no INDEX.md entry
+the way the other service page types do; the new sheet carries the page name,
+permalink and raw URL, which is the same information, so this was left rather
+than widening the run. No question raised: nothing here needed a decision.
+
+OUTSTANDING ON THE LIVE SIDE, unchanged by this run and all needing the
+Weebly editor: repaste the SEO description field for the 15 switch pages,
+paste the four new landing pages plus their branch service pages, item 5.3
+(Q8) and item 5.4 (Q9). The contraception SEO fields can now be pasted too,
+from modules/service/pages/CONTRACEPTION-SEO.md.
+
+Commit: see below.
+Questions raised this run: none.
+
 ## 2026-08-09 (unattended run, seventeenth) - Quality pass on item 4.1, the GBP pack template and the Fishlocks Ainsdale pack. The pack verified clean on every fact and rule. The pass found one real defect it shares with four other packs: five of the six shared-domain branches still point their GBP profile website at the shared homepage, so two listings would hand Google the same page. Fixed in all five, and made permanent with a rule in check-gbp-packs.js
 
 Run start state. No .agent-lock and no .git\index.lock. Worktree clean.

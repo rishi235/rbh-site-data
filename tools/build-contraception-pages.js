@@ -5,7 +5,10 @@
 
   Run:  node tools/build-contraception-pages.js
   Out:  modules/service/pages/contraception-<brandSlug>-<townSlug>.html
-        + cowork CONTRACEPTION_SEO.md (per-store SEO + raw URL)
+        + modules/service/pages/CONTRACEPTION-SEO.md (per-store SEO + raw URL)
+        + a best-effort copy of that sheet into the OneDrive cowork folder,
+          only if the folder already exists (it is a convenience drop, not
+          the canonical sheet, and its absence must not fail the build)
 
   Clinical wording is NHS Pharmacy Contraception Service standard (NHS England /
   NHS.uk). No NHS-set age range -> neutral "Free NHS service" badge; under-16s
@@ -39,6 +42,17 @@ function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").repla
 function tel(b) { return (b.phone || "").replace(/\s+/g, ""); }
 function fullAddr(b) { return [b.streetAddress, b.addressLocality, b.postalCode].filter(Boolean).join(", "); }
 function outward(b) { return ((b || {}).postalCode || "").split(" ")[0]; }
+
+// The ONE definition of this page type's meta description. Used by the page
+// head comment AND by the paste sheet, so the two cannot drift. Added
+// 2026-08-09 during the quality pass on item 3.2: the description was being
+// composed twice from two separate literals, the same defect class already
+// fixed in build-switch-pages.js (switchMeta) and
+// build-branch-landing-pages.js (landingMeta).
+function contraceptionMeta(store) {
+  return "Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town +
+    ". Start or continue the pill with no GP appointment needed. Free and confidential.";
+}
 
 function storeOf(id) {
   const b = byId[id];
@@ -145,7 +159,7 @@ function contraceptionPage(storeId) {
   var slug = "contraception-" + store.brandSlug + "-" + store.townSlug + ".html";
   var url = store.site + "/" + slug;
   var title = pat.searchTitle("NHS contraception service", store);
-  var meta = "Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start or continue the pill with no GP appointment needed. Free and confidential.";
+  var meta = contraceptionMeta(store);
   return "<!--\n  " + store.brand.toUpperCase() + " — " + title + " (SEO-first, NHS Pharmacy Contraception Service).\n" +
     "  Weebly page SEO title:       " + title + "\n  Weebly page SEO description:  " + meta + "\n" +
     "  NOTE: NHS Pharmacy Contraception Service standard wording. Superintendent pharmacist signs off before publish.\n-->\n" +
@@ -218,14 +232,38 @@ BUILD.forEach(function (storeId) {
   var slug = "contraception-" + store.brandSlug + "-" + store.townSlug + ".html";
   fs.writeFileSync(path.join(outDir, slug), contraceptionPage(storeId));
   var permalink = slug.replace(/\.html$/, "");
+  // Field names match the other four paste sheets (Page Title / Page
+  // Permalink / Page Description) so tools/check-seo-sheets.js can read this
+  // sheet and prove it agrees with the page it describes.
   seoMd += "## " + store.brand + " — " + store.town + "\n" +
     "- **Page name:** Contraception\n" +
     "- **Page Title:** " + pat.searchTitle("NHS contraception service", store) + "\n" +
-    "- **Permalink:** " + permalink + "\n" +
-    "- **Description:** Get the contraceptive pill on the NHS at " + store.brand + " in " + store.town + ". Start or continue the pill with no GP appointment needed. Free and confidential.\n" +
+    "- **Page Permalink:** " + permalink + "\n" +
+    "- **Page Description:** " + contraceptionMeta(store) + "\n" +
     "- **Meta Keywords:** contraceptive pill " + store.town + ", NHS contraception " + store.town + ", pill without prescription " + store.town + ", pharmacy " + store.town + ", " + outward(byId[storeId]) + "\n" +
     "- **HTML URL:** " + RAW + slug + "\n\n";
 });
-fs.writeFileSync("C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/CONTRACEPTION_SEO.md", seoMd);
+
+// Canonical sheet lives in the repo alongside the pages it describes, the
+// same as the other four. It used to be written ONLY to a hard-coded OneDrive
+// path, which meant the contraception SEO fields had no version-controlled
+// paste sheet, never reached the status page, and could not be checked.
+var seoPath = path.join(outDir, "CONTRACEPTION-SEO.md");
+fs.writeFileSync(seoPath, seoMd);
 console.log("Generated " + BUILD.length + " contraception pages into modules/service/pages/");
-console.log("Build sheet: cowork/CONTRACEPTION_SEO.md");
+console.log("Build sheet: modules/service/pages/CONTRACEPTION-SEO.md");
+
+// Convenience copy for the existing paste workflow. Best effort only: if the
+// folder is not there (any machine that is not Rishi's ProDesk) the build
+// must still succeed.
+var coworkDir = "C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork";
+try {
+  if (fs.existsSync(coworkDir)) {
+    fs.writeFileSync(path.join(coworkDir, "CONTRACEPTION_SEO.md"), seoMd);
+    console.log("Copy also written to cowork/CONTRACEPTION_SEO.md");
+  } else {
+    console.log("cowork folder not present on this machine; repo sheet only.");
+  }
+} catch (e) {
+  console.log("cowork copy skipped: " + e.message);
+}
