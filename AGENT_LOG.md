@@ -3,7 +3,13 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-NOTHING IS OPEN. Q1 to Q12 are all answered as of 2026-08-09.
+OPEN: Q13 (raised 2026-08-09, twentieth run) - both jsDelivr CDN pins have
+gone stale, so live pages serve code this repo no longer says. The live switch
+pages still send switch requests to rishi@rbhealth.co.uk because their pinned
+commit predates the change to helpdesk@rbhealth.co.uk. Recommendation is to
+fast-forward service-module-phase1 to main (no repaste needed) and re-pin the
+switch pages at the next paste run. Nothing is blocked by it.
+Q1 to Q12 are all answered as of 2026-08-09.
 
 ## Standing authorisation - autonomous window, 2026-08-09 23:14 BST to 2026-08-10 23:14 BST
 Rishi is offline for the next 24 hours and does not want to be asked
@@ -123,6 +129,132 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-09 23:34 (unattended run, twentieth) - Quality pass on item 3.4, Cherry Lane Pharmacy. All 12 Cherry Lane pages verified clean, including the seoTown/addressLocality divergence that makes this branch the one most likely to get the town wrong. The pass then found a defect no checker could see: both CDN pins have gone stale, and the live switch pages are still sending prescription switch requests to rishi@rbhealth.co.uk rather than the helpdesk. New tools/check-cdn-pins.js makes it visible; the fix needs a supervised session and is raised as Q13
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at e32e451.
+
+Portal answer pickup: not attempted, condition not met. Every question in
+QUESTIONS.json had status "answered" at the start of the run (Q1 to Q12), so
+there was nothing to pick up. Q13 is raised by this run, so the next run has a
+reason to try the portal again and record whether the "prodesk" browser name
+persisted.
+
+WHY A QUALITY PASS, AND WHY 3.4. Every numbered item is ticked except 5.3 and
+5.4, both [BLOCKED] on someone being logged into the Weebly editor, so there
+was no unblocked item to take. On the least-recently-verified rule, items 3.4
+to 3.13 have never had an individual pass; the eighteenth and nineteenth runs
+took 3.2 and 3.3, so 3.4 is next in that block.
+
+WHAT WAS VERIFIED ON 3.4, AND WHAT PASSED. All 12 Cherry Lane pages (11
+service, 1 switch) checked against the Build Pack v2 rule that town and service
+words belong in the title, description and heading:
+  - check-seo-pattern and check-seo-sheets both clean. Every H1 equals what
+    tools/seo-pattern.js produces, and every page agrees with the paste sheet
+    a human types into Weebly, which is where the strings that reach Google
+    actually live.
+  - The town divergence, which is the specific risk here. Cherry Lane is the
+    branch CLAUDE.md names as the example: postally Liverpool, seoTown Walton.
+    Get it backwards and the pages target the wrong catchment. All 12 pages use
+    Walton in the title, H1, description and slug, and Liverpool only inside
+    schema.org addressLocality, which is postal truth. addressRegion is
+    Merseyside on all 12. That is the right way round on every page.
+  - Meta descriptions: all 12 between 140 and 157 characters, inside the 80 to
+    165 rule, each carrying Walton plus a service word.
+  - Titles: longest is 63 characters (infected insect bite), inside the 65
+    warn threshold, so nothing truncates in the SERP.
+  - pfLink in branches.json points at pharmacy-first-cherry-lane-walton.html,
+    which is a page this repo generates. That was a fix made under item 2.3 and
+    it has held.
+  - No landing page for Cherry Lane, correctly: it has its own domain, so the
+    shared-domain treatment from item 2.2 does not apply.
+
+VERIFIED OBSERVATION, NO CHANGE MADE. Cherry Lane and Coleman and Leighs both
+carry seoTown "Walton", so two RBH branches target the same town words. Three
+other pairs do the same: Fishlocks and Hirshmans on Ainsdale, Smartts and SK on
+Bootle, Clear and Tiffenbergs on Aintree. This is not the shared-domain slug
+collision that item 2.2 exists to prevent - each of these sits on its own
+domain, and every title carries its own brand, so no URL is at risk and there
+is no duplicate content. They are genuinely different pharmacies in the same
+town. Recording it as checked and deliberately left alone, rather than as a
+defect, so a later pass does not spend a run rediscovering it. Whether the
+group wants two of its own branches competing for "pharmacy Walton" is a
+marketing judgement, not a repo defect, and changing it would rewrite public
+titles on 24 pages.
+
+THE DEFECT, AND WHY NOTHING COULD SEE IT. Every generated page loads its CSS
+and JS from jsDelivr against a pinned ref. Nine checkers verify the repo. None
+of them looked at what the pin actually serves, so the repo can be entirely
+green while live runs old code.
+  - The 15 switch pages pin the immutable commit 6a275e1, dated 26 June. Its
+    modules/switch/switch.js sets DESTINATION to rishi@rbhealth.co.uk. main has
+    said helpdesk@rbhealth.co.uk since. So every prescription switch request
+    submitted from a live switch page has been going to Rishi's own inbox, not
+    the helpdesk. Item 2.1 recorded "helpdesk email destinations correct" on
+    2026-08-04, and that was true of the repo; it was not true of the pin.
+    Confirmed from git, not inferred: the pinned blob and main's blob differ by
+    exactly that one line.
+  - The other 318 page references pin the mutable branch service-module-phase1,
+    which is 63 commits behind main and 0 ahead. Its service.css and service.js
+    are byte-identical to main today, so nothing is broken there. But the
+    reason CHANGELOG.md moved that generator off an immutable SHA on 17 July
+    was so one push updates every live page without a repaste, and while the
+    branch sits behind main that mechanism is inert.
+Neither pinning model is wrong; README sets both out deliberately. What was
+missing was anything checking that a pin still holds current code.
+
+WHAT WAS FIXED IN-REPO. tools/check-cdn-pins.js, new. It reads every jsDelivr
+pin out of all 177 generated pages, and fails if a page pins something its own
+generator does not declare (hand-edited page, or a generator changed without
+regenerating), if a pinned ref no longer resolves in git (a deleted branch
+would take the stylesheet and script off every live page using it), or if a
+pinned asset's content differs from main. Accepted drift goes in a KNOWN_DRIFT
+list that requires a reason and a question id, so it cannot become a place to
+hide defects. A mutable branch ref sitting behind main is a warning. It keys
+the expected pin on the ASSET's module folder rather than the page's, because
+branch landing pages live in modules/branch/pages but correctly load
+modules/service assets.
+Tested against two real regressions, both caught, both restored afterwards:
+repointing one Cherry Lane page to a nonexistent ref gave two failures naming
+the page and the dead ref; emptying KNOWN_DRIFT gave a hard failure on
+switch.js. CLAUDE.md now documents both pinning models, the trap, and the rule
+that a pin is never written into a page by hand.
+
+WHY Q13 WAS RAISED RATHER THAN ACTIONED, INSIDE THE AUTONOMOUS WINDOW. The
+window says take the recommended option instead of blocking. It could not
+apply here, and not because a decision was dodged: the recommended fix is to
+fast-forward service-module-phase1 to main, which means pushing a branch other
+than agents/audit-backlog, and to re-pin the switch pages, which only reaches
+live through a Weebly paste. Both are outside this run's authorisation. So the
+half that is in scope was done in full, and the half that needs push rights and
+the Weebly editor is Q13 with a recommendation. Nothing is blocked by it.
+Worth doing soon on timing alone: the service assets are identical between the
+branch and main right now, so the fast-forward is a no-op for live pages today.
+Once they diverge it stops being free.
+
+NO PUBLIC COPY CHANGED. All six generators re-run and all 177 pages regenerated
+byte-identical, so this run creates no Weebly repaste burden of its own.
+
+CHECKER RUN, AFTER: all ten pass. check-cdn-pins clean with 1 warning
+(service-module-phase1 behind main) and 1 known issue (switch.js, Q13);
+check-nap 177 pages 0 mismatches; check-postcodes 0 failures (2 standing
+INDEX/SEO warnings); check-seo-pattern 177 pages 0 failures;
+check-page-coverage clean; check-em-dashes clean; check-seo-sheets clean;
+check-gbp-packs 0 failures (standing Q8 link warnings); check-address-region
+clean; check-editor-snapshot clean.
+
+WHAT IS STILL OUTSTANDING, UNCHANGED BY THIS RUN. All of it needs someone
+logged into Weebly: the switch page SEO descriptions repaste (Q7), the six
+landing pages and their branch service pages (items 2.2 and 5.2), and items 5.3
+and 5.4. Q13 adds the switch page re-pin to that same paste run.
+
+Files changed: tools/check-cdn-pins.js (new), CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. No generated page changed. AGENT_WORKLIST.md is deliberately
+unchanged: this was a quality pass, so there was no item to tick, and Q13
+blocks nothing.
+
+---
 
 ## 2026-08-09 23:14 (supervised Cowork session, Rishi present) - Q12 answered and implemented; 24-hour autonomous window opened
 

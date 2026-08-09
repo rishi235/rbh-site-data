@@ -57,3 +57,29 @@ Notes:
 Use tools\branches-editor.html to review and edit. It loads branches.json,
 validates, and exports a replacement file. Always commit and push after an edit,
 so the GitHub copy and the local copy never drift.
+
+## CDN pins - what live pages actually load
+
+Every generated page loads its CSS and JS from jsDelivr against a pinned ref.
+The ref is declared ONCE per generator, as `const PIN`. Never write a pin into
+a page by hand; change PIN and regenerate.
+
+Two pinning models, both deliberate (see README, "Pushing CSS/JS changes live"):
+
+- MUTABLE branch ref, currently `service-module-phase1`, used by the five
+  service-family generators. One push to that branch updates every live page
+  with no Weebly repaste. Purge after a push.
+- IMMUTABLE commit ref, currently `6a275e1`, used by the switch generator,
+  because jsDelivr can lag ~12h on a branch ref and ignores `?v=`.
+
+The trap this creates: the repo can be entirely green while live serves old
+code, because no other checker looks past the repo. A commit pin is frozen
+forever, and a branch pin only helps while somebody keeps that branch level
+with main. tools\check-cdn-pins.js exists to make that visible. It fails if a
+page pins something its generator does not declare, if a pinned ref no longer
+resolves, or if a pinned asset's content differs from main. Run it after any
+change to a generator PIN, to modules\*\*.css / .js, or before a paste run.
+
+If a pinned asset legitimately differs from main while a decision is pending,
+add it to KNOWN_DRIFT in that checker with a reason and a question id. Do not
+widen the checker to make it pass.

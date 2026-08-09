@@ -183,5 +183,20 @@
     "status": "answered",
     "answer": "Recommended option (1): the editor now refuses to Download until a real branches.json has been loaded that session. Answered and implemented directly by Rishi in a Cowork session on 2026-08-09 rather than left for a worker run, since Rishi is stepping away for the next 24 hours and wanted it closed out immediately. Download now checks a loadedFromFile flag, set only by a successful Load; Save shows an explanatory alert and returns early if it is false, instead of silently exporting the bundled snapshot. All five checkers re-run clean afterwards (177 pages, 262 text files, 16 branches, 0 failures).",
     "note": "Nothing is blocked by this and nothing about the current data is wrong: the snapshot has been brought level with branches.json as part of this run. It is raised because it is the one route by which a single careless click could undo the whole audit backlog's data work on the single source of truth, and because CLAUDE.md's own rule is that stale copies of branches.json are a hazard. Option 1 is recommended because it is a few lines in one file and it makes the safe path the only path."
+  },
+  {
+    "id": "Q13",
+    "date": "2026-08-09",
+    "item": "quality pass on 3.4 (finding, does not block any item)",
+    "question": "Every generated page loads its CSS and JS from jsDelivr against a pinned ref, and both pinned refs have gone stale, so live pages are serving code this repo no longer says. The 15 switch pages pin the immutable commit 6a275e1 from 26 June, whose switch.js still sets DESTINATION to rishi@rbhealth.co.uk; main has said helpdesk@rbhealth.co.uk since. That means switch requests submitted from every live switch page are landing in Rishi's own inbox rather than the helpdesk, and item 2.1 recorded the destinations as correct because it checked the repo rather than the pin. Separately, the other 318 page references pin the mutable branch service-module-phase1, which is 63 commits behind main and 0 ahead. Its service.css and service.js happen to be identical to main today, so nothing is broken there yet, but the whole point of pinning a branch is that one push updates live without a repaste, and while it sits behind main that no longer works. How should the pins be brought back into line?",
+    "options": [
+      "Fast-forward service-module-phase1 to main, which needs no page change and no repaste, and re-pin the switch pages to a current commit at the next Weebly paste run. Smallest action: 318 of the 348 references correct themselves the moment the branch moves, and the switch fix rides along with paste work already queued",
+      "Move every generator to @main and drop commit pinning. One ref to reason about and nothing to keep level, but it accepts jsDelivr's up-to-12h lag on every CSS or JS change and needs all 177 pages repasted to take effect",
+      "Move every generator to an immutable commit pin, refreshed deliberately at each paste run. Most predictable, live never changes underneath anyone, but every module change then needs all pages re-pinned and repasted"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised rather than actioned under the 24-hour autonomous window because the recommended fix is outside this run's authorisation, not because a decision was dodged: fast-forwarding service-module-phase1 means pushing a branch other than agents/audit-backlog, and re-pinning the switch pages only reaches live through a Weebly paste. Both need a supervised session. Timing point in favour of doing option 1 soon: the service assets are byte-identical between the branch and main right now, so fast-forwarding is a no-op for live pages today. Once those files diverge it stops being free and starts being a change to 318 live page references. New tools/check-cdn-pins.js makes all of this visible from now on and is tested against both regressions; the switch.js drift is recorded in its KNOWN_DRIFT list against this question, so the checker reports it every run without going permanently red, and turns hard red the moment anything else drifts. Remove that entry when the fix lands."
   }
 ]
