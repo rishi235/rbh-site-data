@@ -1604,6 +1604,7 @@ document.getElementById("add").onclick=()=>{
 };
 
 /* ---------- load / save ---------- */
+let loadedFromFile=false; // Q12 fix: true only once a real branches.json has been loaded this session
 document.getElementById("load").onclick=()=>document.getElementById("file").click();
 document.getElementById("file").onchange=e=>{
   const f=e.target.files[0]; if(!f) return;
@@ -1612,13 +1613,18 @@ document.getElementById("file").onchange=e=>{
     try{
       const j=JSON.parse(r.result);
       if(!Array.isArray(j.branches)) throw new Error("No branches[] array. Is this the right file? The Data_Publish portal file has a different schema.");
-      doc=j; document.getElementById("src").textContent="loaded from "+f.name;
+      doc=j; loadedFromFile=true;
+      document.getElementById("src").textContent="loaded from "+f.name;
       buildBrands(); render();
     }catch(err){ alert("Could not read that file.\n\n"+err.message); }
   };
   r.readAsText(f);
 };
 document.getElementById("save").onclick=()=>{
+  if(!loadedFromFile){
+    alert("This editor opened with a bundled snapshot, not the live file.\n\nClick Load and choose the real branches.json first - otherwise Download exports the old snapshot plus your change and silently reverts everything done since.");
+    return;
+  }
   doc.lastUpdated=new Date().toISOString().slice(0,10);
   doc.branches.sort((a,b)=>(Number(a.branchNumber)||999)-(Number(b.branchNumber)||999));
   const blob=new Blob([JSON.stringify(doc,null,2)+"\n"],{type:"application/json"});

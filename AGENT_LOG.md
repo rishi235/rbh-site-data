@@ -3,16 +3,23 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-OPEN: Q12 (raised 2026-08-09, nineteenth run) - tools/branches-editor.html,
-the tool CLAUDE.md points people at for editing branches.json, carries a full
-embedded copy of branches.json inside itself. Edit and download without
-loading the real file first and you export that snapshot plus your one
-change, silently reverting everything done since, with today's date stamped
-on it so it looks newest. Nothing is broken right now: the snapshot has been
-brought level with branches.json this run and a new checker fails on any
-future drift. The question is whether the editor should refuse to export
-until a file has been loaded (recommended), drop the snapshot altogether, or
-carry on being refreshed by hand. Nothing is blocked by it.
+NOTHING IS OPEN. Q1 to Q12 are all answered as of 2026-08-09.
+
+## Standing authorisation - autonomous window, 2026-08-09 23:14 BST to 2026-08-10 23:14 BST
+Rishi is offline for the next 24 hours and does not want to be asked
+anything in this window. For that period only, if a run would otherwise
+raise a new question and mark an item [BLOCKED], take the recommended
+option instead, implement it, and log the decision clearly at the top of
+this file under an "AUTONOMOUS DECISION" heading so it is easy to find
+and review in the morning. This does not relax any other rule: still
+never touch main, never force-push, never touch Weebly or GBP beyond
+read-only verification, still stop and log rather than guess on anything
+involving money, legal risk, or a live patient-facing regulatory claim
+(medicine names, efficacy claims) - raise those as a normal [BLOCKED]
+question even in this window, since a wrong autonomous call there is
+worse than a delay. This authorisation expires at 2026-08-10 23:14 BST;
+after that, resume the normal behaviour of raising questions and
+waiting for an answer.
 
 Q1 to Q11 are all answered as of 2026-08-09. Q7, Q8, Q9 and
 Q11 were answered by Rishi in a Cowork session, all four taking the
@@ -116,6 +123,36 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-09 23:14 (supervised Cowork session, Rishi present) - Q12 answered and implemented; 24-hour autonomous window opened
+
+Rishi is stepping away until roughly 2026-08-10 23:14 BST and asked for the
+backlog to keep moving without needing him to answer anything in that
+window. Two things done directly in this session rather than left for the
+next unattended run:
+
+1. Q12 answered (recommended option) and implemented: tools/branches-
+   editor.html now has a loadedFromFile flag, false until a real
+   branches.json is loaded via Load. Download checks the flag and shows
+   an explanatory alert instead of exporting if it is false, so the
+   editor can no longer silently export the bundled snapshot over a real
+   edit. All five checkers re-run clean after the change: 177 pages, 262
+   text files, 16 branches, 0 failures.
+2. The "## Standing authorisation" section above added, expiring
+   2026-08-10 23:14 BST. Runs inside that window should take the
+   recommended option on any new question rather than raising it and
+   waiting, log it clearly as an AUTONOMOUS DECISION, and keep going -
+   except anything touching money, legal risk, or a live regulatory claim,
+   which still gets raised and left [BLOCKED] as normal regardless of the
+   window, because a wrong unattended call there is worse than a delay.
+
+ALSO: two orphaned .agent-lock files were found and cleared tonight (one
+from the earlier machine reboot, a second from a run that appears to have
+died mid-work around 20:34 without reaching its own cleanup step - cause
+not established). Both times the repo was verified clean and no git
+process was running before clearing. This is the second unexplained lock
+today; if it recurs, the fix is to shorten the 3-hour staleness window in
+the scheduled task prompt itself, not to keep clearing by hand.
 
 ---
 
