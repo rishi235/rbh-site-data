@@ -227,7 +227,8 @@ paste the four new landing pages plus their branch service pages, item 5.3
 (Q8) and item 5.4 (Q9). The contraception SEO fields can now be pasted too,
 from modules/service/pages/CONTRACEPTION-SEO.md.
 
-Commit: see below.
+Commit: 446d239. This hash line is recorded by the follow-up commit that
+immediately succeeds it, the same convention as earlier runs.
 Questions raised this run: none.
 
 ## 2026-08-09 (unattended run, seventeenth) - Quality pass on item 4.1, the GBP pack template and the Fishlocks Ainsdale pack. The pack verified clean on every fact and rule. The pass found one real defect it shares with four other packs: five of the six shared-domain branches still point their GBP profile website at the shared homepage, so two listings would hand Google the same page. Fixed in all five, and made permanent with a rule in check-gbp-packs.js
