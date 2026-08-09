@@ -100,9 +100,10 @@
       "Leave both as they are - treat the no-em-dash rule as applying to written comms rather than to generated website copy"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead."
+    "status": "answered",
+    "answer": "Rewrite both strings in the generator so no em dash reaches the public, splitting each sentence at a full stop rather than swapping in a hyphen, then regenerate the 15 switch pages. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option). The Weebly SEO description field for the 15 switch pages still needs repasting at the next paste run once the generator change lands.",
+    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead.",
+    "answeredDate": "2026-08-08"
   },
   {
     "id": "Q8",
@@ -115,9 +116,10 @@
       "Repoint only the branches whose new Pharmacy First pages are already confirmed live, and leave the rest until their own paste run - lowest risk per branch, but the estate stays in a split state for longer and needs tracking"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Related small defect found in the same sweep, not fixed because it carries the same live-page uncertainty: the Tiffenbergs pfLink in branches.json has no .html ending (pharmacy-first-service-aintree), unlike all twelve other pfLink values. If that URL is wrong it is a dead Post A button for Tiffenbergs whichever option you pick. Worth checking in the browser and correcting at source. The new tools/check-gbp-packs.js reports all of this as warnings on every future run."
+    "status": "answered",
+    "answer": "Repoint all 11 Post A links to the new generated Pharmacy First pages, and paste those pages to Weebly in the same run so the links are live before any GBP post goes out. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option). This deliberately puts the Weebly paste on the critical path.",
+    "note": "Related small defect found in the same sweep, not fixed because it carries the same live-page uncertainty: the Tiffenbergs pfLink in branches.json has no .html ending (pharmacy-first-service-aintree), unlike all twelve other pfLink values. If that URL is wrong it is a dead Post A button for Tiffenbergs whichever option you pick. Worth checking in the browser and correcting at source. The new tools/check-gbp-packs.js reports all of this as warnings on every future run.",
+    "answeredDate": "2026-08-08"
   },
   {
     "id": "Q9",
@@ -130,9 +132,10 @@
       "Paste the bridge block as originally planned, accepting the loss of the booking widget and video, on the basis that the new page carries the better content and the old URL should just funnel traffic"
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Nothing is blocked while this sits open. The regulatory half of Q5, the weight loss page, is done and live. This is the non-urgent half. Option 2 is recommended because it keeps the booking route and the rank while still pointing people at the fuller new page."
+    "status": "answered",
+    "answer": "Add a short signpost paragraph and a button to the new Pharmacy First page at the top of the old page, keeping the existing video and booking widget underneath. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option, index 1). This is a hand edit in the Weebly editor, not a whole-page paste. The bridge block at modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html must NOT be pasted as-is; it should either be rewritten as a signpost-only fragment or retired.",
+    "note": "Nothing is blocked while this sits open. The regulatory half of Q5, the weight loss page, is done and live. This is the non-urgent half. Option 2 is recommended because it keeps the booking route and the rank while still pointing people at the fuller new page.",
+    "answeredDate": "2026-08-08"
   },
   {
     "id": "Q10",
@@ -160,8 +163,9 @@
       "Leave all four as they are. The Fishlocks split was a pilot and the wider rollout has not been agreed, so the shared pages stay until there is evidence the split actually earns the rank"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Nothing is blocked by this and nothing was built. The checker reports all four as warnings on every future run, so the gap stays visible either way. If the answer is option 3, say so and the warning can be turned off for those branches rather than nagging every hour. Whatever is built still needs a Weebly paste to go live, same as the Fishlocks pair."
+    "status": "answered",
+    "answer": "Build all four landing pages now from the existing generator, so every shared-domain branch has its own local target page: McCanns Aigburth, McCanns Sandringham, Scorah Bramhall, Scorah Hazel Grove. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option). Same code and same pattern as the Fishlocks pair built under item 2.2.",
+    "note": "Nothing is blocked by this and nothing was built. The checker reports all four as warnings on every future run, so the gap stays visible either way. If the answer is option 3, say so and the warning can be turned off for those branches rather than nagging every hour. Whatever is built still needs a Weebly paste to go live, same as the Fishlocks pair.",
+    "answeredDate": "2026-08-08"
   }
 ]

@@ -3,17 +3,35 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
-Open: Q11 (raised 2026-08-07, twelfth run) - McCanns and Scorah each have two
-branches sharing one website, the same problem item 2.2 solved for Fishlocks,
-and neither pair has branch landing pages. Four branches with no local target
-page. Nothing blocked; recommendation is to build all four.
-Open: Q10 (raised 2026-08-07, supervised session) - a shared marketing
-template naming Mounjaro and Wegovy is live on the branch GBP descriptions.
-Three found and fixed this session; eleven profiles not yet opened. This is
-the highest priority open item: live, public and regulatory.
-Open: Q9 (raised 2026-08-07, supervised session) - the old Cherry Lane
-Pharmacy First page is NOT empty as Q5 and Q6 assumed. It has a working
-booking widget and a video, so the bridge block was not pasted.
+NOTHING IS OPEN. Q1 to Q11 are all answered as of 2026-08-09. Q7, Q8, Q9 and
+Q11 were answered by Rishi in a Cowork session, all four taking the
+recommended option. Q10 was answered and completed on 2026-08-08.
+
+WHAT THE FOUR ANSWERS AUTHORISE. None of this is done yet, and it is the
+whole of the outstanding work:
+  - Q7 (repo only, an unattended run can do it): rewrite the two em dash
+    strings in tools/build-switch-pages.js by splitting each sentence at a
+    full stop rather than swapping in a hyphen, then regenerate the 15 switch
+    pages. The Weebly SEO description field then needs repasting at the next
+    paste run.
+  - Q11 (repo only, an unattended run can do it): build landing pages for
+    McCanns Aigburth, McCanns Sandringham, Scorah Bramhall and Scorah Hazel
+    Grove from the existing generator, same pattern as the Fishlocks pair
+    built under item 2.2.
+  - Q8 (needs the Weebly editor): repoint all 11 Post A Pharmacy First links
+    in the GBP packs to the new generated pages, AND paste those pages to
+    Weebly in the same run. Rishi accepted that this puts the Weebly paste on
+    the critical path.
+  - Q9 (needs the Weebly editor, hand edit): add a signpost paragraph and a
+    button to the new Pharmacy First page at the TOP of the old Cherry Lane
+    Pharmacy First page, keeping the existing video and booking widget
+    underneath. The bridge block at modules/service/weebly-paste/
+    cherry-lane-old-pharmacy-first-replacement.html must NOT be pasted as it
+    stands, because it would remove that widget. Rewrite it as a
+    signpost-only fragment or retire it.
+
+Note on how these were answered: through the Cowork session directly, not
+the portal. The portal route is still broken, see below.
 
 NOTE ON ANSWER PICKUP: STILL BROKEN on 2026-08-09, six runs running. Checked
 again on the fourteenth run: both Chrome browsers are still connected, still
