@@ -178,5 +178,28 @@ appended to the line. Do not move them; the status page reads them in place.
       "Gordon Short Chemist"; Fishlocks already consistent; Coleman & Leigh
       question logged for Rishi in AGENT_LOG.md.
 
+## Answered decisions, applied in the repo
+These are not worklist items. They are decisions Rishi answered that carried
+repo work an unattended run could do. Recorded here so the outstanding half
+of each one stays visible.
+- [x] Q7 em dashes in public switch page copy. Done 2026-08-09. Both strings
+      rewritten in tools/build-switch-pages.js by splitting the sentence at a
+      full stop; the meta description now comes from one switchMeta() helper
+      so the page tag and the paste sheet cannot drift; 15 switch pages
+      regenerated; new tools/check-em-dashes.js guards it. OUTSTANDING: the
+      Weebly SEO description field for those 15 pages needs repasting from
+      modules/switch/pages/SEO.md, or the live Google snippet keeps the old
+      em dash.
+- [ ] Q11 branch landing pages for McCanns Aigburth, McCanns Sandringham,
+      Scorah Bramhall and Scorah Hazel Grove, from the existing generator.
+      Repo-only work, authorised, not started. Next run should take this.
+- [ ] [BLOCKED] Q8 repoint the 11 Post A Pharmacy First links in the GBP
+      packs, and paste those pages to Weebly in the same run. Blocked because
+      Rishi's answer ties the repo change to the Weebly paste, which an
+      unattended run cannot do. Needs a supervised session.
+- [ ] [BLOCKED] Q9 signpost paragraph and button at the top of the old Cherry
+      Lane Pharmacy First page, keeping the existing video and booking widget
+      underneath. Blocked because it is a hand edit in the Weebly editor.
+
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

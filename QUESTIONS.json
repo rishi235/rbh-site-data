@@ -102,8 +102,9 @@
     "recommended": 0,
     "status": "answered",
     "answer": "Rewrite both strings in the generator so no em dash reaches the public, splitting each sentence at a full stop rather than swapping in a hyphen, then regenerate the 15 switch pages. Answered by Rishi in a Cowork session on 2026-08-08 (recommended option). The Weebly SEO description field for the 15 switch pages still needs repasting at the next paste run once the generator change lands.",
-    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead.",
-    "answeredDate": "2026-08-08"
+    "note": "No worklist item is blocked by this; it is raised so the decision reaches you rather than sitting in the log. The fix is small and confined to one generator. A hyphen swap would read awkwardly in both sentences, which is why the recommended option splits them instead. APPLIED IN THE REPO 2026-08-09 (fifteenth unattended run): both strings rewritten in tools/build-switch-pages.js, the meta description now defined once in a switchMeta() helper so the page tag and the Weebly paste sheet cannot drift apart, and all 15 switch pages regenerated. New tools/check-em-dashes.js fails any future run that puts an em or en dash back into public copy. STILL OUTSTANDING: the Weebly SEO description field for the 15 switch pages needs repasting from modules/switch/pages/SEO.md at the next paste run, otherwise the live Google snippet keeps the old em dash.",
+    "answeredDate": "2026-08-08",
+    "appliedDate": "2026-08-09"
   },
   {
     "id": "Q8",

@@ -7,13 +7,18 @@ NOTHING IS OPEN. Q1 to Q11 are all answered as of 2026-08-09. Q7, Q8, Q9 and
 Q11 were answered by Rishi in a Cowork session, all four taking the
 recommended option. Q10 was answered and completed on 2026-08-08.
 
-WHAT THE FOUR ANSWERS AUTHORISE. None of this is done yet, and it is the
-whole of the outstanding work:
-  - Q7 (repo only, an unattended run can do it): rewrite the two em dash
-    strings in tools/build-switch-pages.js by splitting each sentence at a
-    full stop rather than swapping in a hyphen, then regenerate the 15 switch
-    pages. The Weebly SEO description field then needs repasting at the next
-    paste run.
+Q7 IS NOW DONE IN THE REPO (2026-08-09, fifteenth run). What is left of it is
+the Weebly repaste of the SEO description field for the 15 switch pages.
+The three remaining authorised jobs are Q11 (repo only, next run should take
+it) and Q8 and Q9 (both need the Weebly editor, so both are marked [BLOCKED]
+in AGENT_WORKLIST.md rather than nagging every unattended run).
+
+WHAT THE FOUR ANSWERS AUTHORISE:
+  - Q7 (repo only, an unattended run can do it): DONE 2026-08-09. Rewrite the
+    two em dash strings in tools/build-switch-pages.js by splitting each
+    sentence at a full stop rather than swapping in a hyphen, then regenerate
+    the 15 switch pages. The Weebly SEO description field STILL needs
+    repasting at the next paste run.
   - Q11 (repo only, an unattended run can do it): build landing pages for
     McCanns Aigburth, McCanns Sandringham, Scorah Bramhall and Scorah Hazel
     Grove from the existing generator, same pattern as the Fishlocks pair
@@ -89,6 +94,106 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   regenerated same day (see entry below). Do not re-raise this question.
 
 ---
+
+## 2026-08-09 (unattended run, fifteenth) - Applied the Q7 decision: the two em dash strings that reached the public on all 15 switch pages are rewritten at source and regenerated. The meta description is now defined once instead of twice, and a new checker fails any future run that puts a dash back into public copy
+
+Run start state. No .agent-lock and no .git\index.lock. Worktree clean apart
+from this run's own temporary scripts. Branch agents/audit-backlog level with
+origin at 02cdef8.
+
+Portal answer pickup: not attempted this run. QUESTIONS.json has no question
+with status "open" - Q1 to Q11 are all answered - so the step 3 condition for
+fetching was not met. The two-Chrome problem described in the notes above is
+therefore not blocking anything today. It will matter again the moment a new
+question is raised, and the fix is still to disconnect the spare Chrome from
+the account or sign the Surface out.
+
+WHICH WORK, AND WHY THIS RATHER THAN A QUALITY PASS. Every worklist item is
+ticked, so the standing rule points at a quality pass. A quality pass was not
+the right call this run. Four of Rishi's answers carry work that was recorded
+but never done, and the note at the top of this log says so plainly: "None of
+this is done yet, and it is the whole of the outstanding work." Two of those
+four are repo-only and need no Weebly access. Doing a fresh verification pass
+on a pack that already passed, while an authorised fix to public-facing copy
+sat undone for a second day, would have been the wrong order. Q7 was taken
+first because it is the one with a live consequence: the em dash is in the
+meta description that becomes the Google search snippet for all 15 switch
+pages, so it is visible to anyone searching, not just to a visitor on the page.
+
+WHAT CHANGED IN THE GENERATOR. tools/build-switch-pages.js, three edits.
+The body sentence on every switch page read "With <brand> in <town>, it
+usually is not - we make the first step quick and easy", with an em dash. It
+now reads "...it usually is not. We make the first step quick and easy." The
+meta description read "Local NHS pharmacy - we contact your GP and handle
+everything", again with an em dash, and now reads "Local NHS pharmacy. We
+contact your GP and handle everything." Both were split at a full stop rather
+than having the dash swapped for a hyphen, which is what Rishi's answer asked
+for and which reads better in both sentences.
+
+ONE THING WORTH FLAGGING THAT WAS NOT IN THE QUESTION. That meta description
+was written out twice in the file, once for the page's own meta tag and once
+for the seoDesc field in the Weebly paste sheet, as two separate copies of the
+same literal. Fixing only one would have left the page and the paste sheet
+disagreeing, and nothing in the repo would have caught it. Both now call a
+single switchMeta() helper, so the string exists in one place and the two
+cannot drift apart again. That is a small change and it is the reason the fix
+is safe to leave unattended.
+
+REGENERATION AND WHAT ACTUALLY MOVED. node tools/build-switch-pages.js
+regenerated all 15 pages. The diff is exactly what it should be: 17 files, 60
+insertions and 60 deletions, two changed lines per page (the SEO description
+line in the build header comment and the body sentence), plus the Page
+Description lines in INDEX.md and SEO.md. No other page in the repo moved, and
+no other generator was touched.
+
+CHECKERS. All existing checkers were run after regeneration and all pass.
+check-nap: 173 pages and 2 paste blocks against 16 branches, 0 mismatches,
+0 warnings. check-seo-pattern: 173 pages across 12 brands, 0 failures.
+check-postcodes: 256 files, 16 postcodes, 0 failures, the 2 standing UNOWNED
+warnings on the branch INDEX.md and SEO.md. check-page-coverage: clean, 173
+pages accounted for, the 4 standing LANDING_NOT_BUILT warnings that are Q11.
+check-gbp-packs: 15 packs, 0 failures, the 11 standing Pharmacy First link
+warnings that are Q8.
+
+NEW CHECKER, SO THIS CANNOT COME BACK. tools/check-em-dashes.js. It scans all
+173 generated pages and the paste sheets. It fails the run on an em dash or an
+en dash in copy that reaches the public, meaning anywhere in a generated page
+once HTML comments are blanked out, and in the Page Title, Page Description
+and Meta Keywords lines of the paste sheets, which are the values someone
+types into Weebly. It reports, without failing, the dashes that sit inside
+HTML build comments and in paste sheet headings, because no customer sees
+either. Current state: 173 pages plus paste sheets scanned, clean, with 186
+dashes in build comments and 482 in paster headings reported for honesty. The
+checker was negative-tested rather than assumed: a throwaway page carrying an
+em dash was dropped into the switch pages folder, the checker failed with exit
+code 1 and named the file and line, and passed again with exit code 0 once the
+file was removed.
+
+WHAT IS STILL OUTSTANDING ON Q7, AND IT DOES MATTER. The repo half is done.
+The live half is not. The Weebly SEO description field for the 15 switch pages
+still holds the old text with the em dash, and that is the string Google shows.
+It needs repasting from modules/switch/pages/SEO.md at the next paste run.
+Until that happens the fix is invisible to anyone searching.
+
+HOUSEKEEPING ON THE WORKLIST. Because all numbered items are ticked, there was
+nowhere obvious to record decision-driven work, and the last two runs have had
+to reason from scratch about what is outstanding. AGENT_WORKLIST.md now has a
+short section, "Answered decisions, applied in the repo", holding the four
+authorised jobs with their state. Q7 is ticked there. Q11 is left unchecked so
+the next unattended run picks it up as the first unchecked item. Q8 and Q9 are
+marked [BLOCKED] because both need someone logged into the Weebly editor, so
+an unattended run should skip them rather than fail on them every hour.
+
+NEXT RUN SHOULD TAKE Q11: build branch landing pages for McCanns Aigburth,
+McCanns Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
+the BUILD list in tools/build-branch-landing-pages.js, same pattern as the
+Fishlocks pair from item 2.2. That clears the four standing LANDING_NOT_BUILT
+warnings in check-page-coverage.
+
+Files changed: tools/build-switch-pages.js, tools/check-em-dashes.js (new),
+the 15 modules/switch/pages/*.html, modules/switch/pages/INDEX.md,
+modules/switch/pages/SEO.md, QUESTIONS.json, AGENT_WORKLIST.md, AGENT_LOG.md.
+Questions raised: none.
 
 ## 2026-08-09 (unattended run, fourteenth) - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack. The pack verified clean on every fact and rule. The cross-check found one real defect elsewhere: the Cherry Lane pack omits two free NHS services the branch actually offers from both its description and its services section. Fixed, and made permanent with a services rule in check-gbp-packs.js
 

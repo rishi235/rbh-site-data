@@ -47,6 +47,14 @@ data.branches.forEach(b => { byId[b.id] = b; });
 
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
+// Single definition of the switch page meta description (item Q7, 2026-08-09).
+// Used for the page <meta name="description"> and for the Weebly SEO description
+// in the paste sheet, so the two can never drift apart. House rule: no em dashes,
+// so the sentence is split at a full stop rather than joined with a dash.
+function switchMeta(c){
+  return `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.`;
+}
+
 function page(id){
   const c = CONFIG[id];
   const b = byId[id];
@@ -57,7 +65,7 @@ function page(id){
   const mapQ = encodeURIComponent(fullAddress);
   const siteHost = c.site.replace(/^https?:\/\//,"");
   const title = pat.switchTitle(c);
-  const meta = `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`;
+  const meta = switchMeta(c);
 
   const appCard = b.hasApp ? `
             <div class="app-card">
@@ -201,7 +209,7 @@ function page(id){
 
     <section class="section">
       <h2 class="h2">How switching to ${esc(c.brand)} works</h2>
-      <p class="lead">Most people put off switching pharmacy because they assume it will be a hassle. With ${esc(c.brand)} in ${esc(c.town)}, it usually is not — we make the first step quick and easy.</p>
+      <p class="lead">Most people put off switching pharmacy because they assume it will be a hassle. With ${esc(c.brand)} in ${esc(c.town)}, it usually is not. We make the first step quick and easy.</p>
       <div class="steps">
         <div class="step"><div class="step-no">1</div><h3>Fill in the form</h3><p>Enter your first name, last name and date of birth. Mobile and email are optional.</p></div>
         <div class="step"><div class="step-no">2</div><h3>We review your request</h3><p>Our ${esc(c.town)} team checks your details and guides the next step to move your prescriptions across.</p></div>
@@ -350,7 +358,7 @@ Object.keys(CONFIG).forEach(id => {
     permalink: slug.replace(/\.html$/,""),
     liveUrl: `${c.site}/${slug}`,
     seoTitle: pat.switchTitle(c),
-    seoDesc: `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy — we contact your GP and handle everything.`,
+    seoDesc: switchMeta(c),
     keywords: keywords(c, b),
     hasApp: !!b.hasApp
   });
