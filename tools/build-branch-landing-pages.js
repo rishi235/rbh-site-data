@@ -11,8 +11,10 @@
 
   Model (same as the other generators): layout written once here; per-branch
   pages are stamped from branches.json (NAP, opening hours, service links).
-  Scope now: Fishlocks Ainsdale + Eccleston (the pilot pair's shared domain).
-  Add the McCanns and Scorah ids to BUILD when their turn comes.
+  Scope: all six branches on the three shared domains. Fishlocks Ainsdale and
+  Eccleston (the pilot pair, item 2.2), then McCanns Aigburth and Sandringham
+  and Scorah Bramhall and Hazel Grove (item 5.2, authorised by Rishi's answer
+  to Q11).
 
   Notes:
   - Pages are static crawlable text. They load service.css for styling but
@@ -33,9 +35,17 @@ const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 
 // Which branches get a landing page, by branches.json id.
+// Every live branch that shares a website host with another live branch
+// belongs here; check-page-coverage.js warns (LANDING_NOT_BUILT) for any that
+// does not. Three shared domains today: fishlockpharmacy.co.uk,
+// mccannspharmacy.co.uk and scorah-chemists.co.uk.
 const BUILD = [
   "fishlocks_ainsdale",
-  "fishlocks_eccleston"
+  "fishlocks_eccleston",
+  "mccanns_aigburth",
+  "mccanns_sandringham",
+  "scorah_bramhall",
+  "scorah_hazel"
 ];
 
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8"));
@@ -90,6 +100,26 @@ function joinTowns(list) {
 }
 
 function landingSlug(b) { return "pharmacy-" + b.brandSlug + "-" + b.townSlug + ".html"; }
+
+// One definition of the meta description, used for the page's SEO tag AND for
+// the paste sheets, so the two can never drift apart (same rule as switchMeta
+// in build-switch-pages.js). The serving list is trimmed a town at a time
+// until the whole line fits the 165-character rule in tools/seo-pattern.js.
+// Scorah lists five service areas, which pushed the Bramhall and Hazel Grove
+// descriptions past the limit; over 165 characters Google truncates the
+// snippet mid-sentence and the towns at the end are the part it drops.
+var META_MAX = 165;
+function landingMeta(b) {
+  var head = b.branchName + ", " + b.seoTown + " " + b.postalCode +
+    ". NHS prescriptions, Pharmacy First and private clinics.";
+  var towns = (b.serviceAreaList || []).slice();
+  while (towns.length) {
+    var full = head + " Serving " + joinTowns(towns) + ".";
+    if (full.length <= META_MAX) return full;
+    towns.pop();
+  }
+  return head;
+}
 
 function servicesOf(b) {
   var ss = b.brandSlug + "-" + b.townSlug;
@@ -224,7 +254,7 @@ function landingPage(id) {
   var slug = landingSlug(b);
   var url = b.website + "/" + slug;
   var title = pat.landingTitle(b);
-  var meta = b.branchName + ", " + b.seoTown + " " + b.postalCode + ". NHS prescriptions, Pharmacy First and private clinics. Serving " + joinTowns(b.serviceAreaList) + ".";
+  var meta = landingMeta(b);
   var mapQ = encodeURIComponent(fullAddr(b));
   var directions = "https://www.google.com/maps/dir/?api=1&destination=" + mapQ;
 
@@ -305,7 +335,7 @@ BUILD.forEach(function (id) {
     permalink: slug.replace(/\.html$/, ""),
     liveUrl: b.website + "/" + slug,
     seoTitle: pat.landingTitle(b),
-    seoDesc: b.branchName + ", " + b.seoTown + " " + b.postalCode + ". NHS prescriptions, Pharmacy First and private clinics. Serving " + joinTowns(b.serviceAreaList) + ".",
+    seoDesc: landingMeta(b),
     keywords: ["pharmacy " + b.seoTown, "chemist " + b.seoTown, b.brandLabel, b.postalCode.split(" ")[0]].join(", ")
   });
 });
@@ -316,7 +346,12 @@ var md = "# Branch landing pages - paste manifest\n\n" +
   "local landing page. Paste each file into a Weebly Embed Code element on the\n" +
   "matching URL and set the Weebly page SEO title and description.\n\n" +
   "Suggested Weebly placement: top-level pages, one per branch, linked from the\n" +
-  "site navigation (e.g. \"Ainsdale branch\" / \"Eccleston branch\").\n\n";
+  "site navigation (e.g. \"Ainsdale branch\" / \"Eccleston branch\").\n\n" +
+  "Before pasting: each landing page links to that branch's own service pages\n" +
+  "(pharmacy-first-, switch-prescriptions-, weight-loss-clinic-, travel-clinic-,\n" +
+  "contraception-). Those pages exist in this repo but are not live on every\n" +
+  "site yet. Paste the branch's service pages first, or paste them in the same\n" +
+  "session, so the landing page does not link to pages that return a 404.\n\n";
 manifest.forEach(function (m) {
   md += "## " + m.branch + "\n";
   md += "- **Page slug / URL:** `" + m.file + "` -> " + m.liveUrl + "\n";
