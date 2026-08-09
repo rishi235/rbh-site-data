@@ -175,14 +175,25 @@ still holds the old text with the em dash, and that is the string Google shows.
 It needs repasting from modules/switch/pages/SEO.md at the next paste run.
 Until that happens the fix is invisible to anyone searching.
 
-HOUSEKEEPING ON THE WORKLIST. Because all numbered items are ticked, there was
-nowhere obvious to record decision-driven work, and the last two runs have had
-to reason from scratch about what is outstanding. AGENT_WORKLIST.md now has a
-short section, "Answered decisions, applied in the repo", holding the four
-authorised jobs with their state. Q7 is ticked there. Q11 is left unchecked so
-the next unattended run picks it up as the first unchecked item. Q8 and Q9 are
-marked [BLOCKED] because both need someone logged into the Weebly editor, so
-an unattended run should skip them rather than fail on them every hour.
+HOUSEKEEPING ON THE WORKLIST, AND A STATUS PAGE PROBLEM WORTH KNOWING ABOUT.
+Because every numbered item was ticked, there was nowhere to record the work
+Rishi's answers authorised, and the last two runs each had to reason from
+scratch about what was outstanding. Worse, the status page was reporting
+35 of 35 done, 100 per cent, while three authorised jobs had not been started.
+That is not an honest page for Rishi to look at.
+
+The first attempt at a fix, a plain section headed "Answered decisions", did
+not work: tools/build-audit-status.js only recognises items numbered "N.M"
+underneath a heading of the exact form "## Phase N - name", so the new items
+were silently invisible and the page still read 100 per cent. Checked rather
+than assumed, by reading the parser. The section is therefore now a proper
+"## Phase 5 - Work authorised by Rishi's answers", with items 5.1 to 5.4, so
+the existing parser picks them up with no code change. 5.1 (Q7) is ticked.
+5.2 (Q11) is unchecked, which makes it the first unchecked item and therefore
+the next unattended run's work. 5.3 (Q8) and 5.4 (Q9) are marked [BLOCKED]
+because both need someone logged into the Weebly editor, so unattended runs
+will skip them instead of failing on them every hour, and the status page
+shows them as needing Rishi.
 
 NEXT RUN SHOULD TAKE Q11: build branch landing pages for McCanns Aigburth,
 McCanns Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
