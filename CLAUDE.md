@@ -442,3 +442,38 @@ byte-identical state between `origin/main` and the pinned ref
 so that half belongs in a supervised session alongside Q13 and Q17.
 
 Found on the item 3.13 quality pass, 2026-08-10.
+
+
+## Weight loss copy - the rule book is outside this repo
+
+The house reference for anything weight loss is
+
+    AI\RBH_WeightLoss_Advertising_Standards.md   (compiled 19 July 2026)
+
+It is not in this repo and must not be copied into it. Read it before writing,
+editing or judging any weight loss copy, live or generated.
+
+The one thing to carry in your head, because getting it wrong costs a patient
+information and fixes nothing: there are TWO regimes, not one. In advertising -
+leaflets, press, posters, paid search, paid and organic social, influencer and
+affiliate content, and the landing page an ad points at - almost any reference
+to a prescription-only medicine breaches CAP rule 12.12, named or not. On the
+INNER pages of our own website there is a limited exemption: a page about the
+condition, which the consumer chooses to access, may carry non-promotional
+information on named medicines in a fair overview of the options, provided it
+is clear the customer is being offered a consultation that may or may not lead
+to a prescription. The homepage is not an inner page, and neither is a page an
+ad links straight to.
+
+So "it names Mounjaro" is not the finding. The finding is a superlative, a
+results heading, an outcome slider, a lead price above the fold, or a picker
+that lets the patient choose the medicine. That distinction is the whole of
+`compliance\WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md`, written on the Q16 answer,
+which records what was read live at Smartts and Riddings on 2026-08-10,
+element by element, with the rule each one is measured against and a verdict.
+
+Note what this means for the generated pages: they are clean and stay clean
+because they name no medicine at all, which is the safe side of a line they do
+not need to walk. `tools\check-service-links.js` enforces the no-claims half in
+public copy. Nothing in this repo can see a live-only Weebly page, which is why
+the five pages in Q16 and Q22 sat unseen for the whole audit.

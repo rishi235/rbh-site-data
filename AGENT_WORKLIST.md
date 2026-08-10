@@ -274,6 +274,25 @@ so tools/build-audit-status.js picks them up like any other item.
       keyword fields for the 13 pages need repasting from
       modules/service/pages/SEO.md, modules/switch/pages/SEO.md and
       modules/branch/pages/SEO.md, or the live listings keep the old word.
+- [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
+      weight loss pages and the estate-wide homepage claim. Rishi's answer to
+      Q16 was an instruction to verify the finding against
+      AI\RBH_WeightLoss_Advertising_Standards.md rather than a choice of fix.
+      Verified 2026-08-10 and written up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md: the finding holds, on
+      firmer grounds than Q16 stated, and it is wider. The breaches on the five
+      inner pages are the superlative Mounjaro claim, the Real Results heading,
+      the outcome slider, the lead price and the treatment picker, NOT the fact
+      that the medicines are named, which an inner page may do in a balanced
+      overview. The homepage line "Innovative solutions that deliver results.
+      Tried the rest? Now try the best." was found on every homepage read,
+      including a branch with no old page, so it is a shared template across
+      the estate and it sits in the stricter advertising regime. Blocked on the
+      choice of fix and order, re-asked as Q22, and on Weebly access in any
+      case: all of it is live-only copy no generator owns. The one repo-side
+      part, the "Support that delivers results" tile on the Smartts switch
+      page, stays in KNOWN_CLAIM in tools/check-service-links.js until the
+      decision lands.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

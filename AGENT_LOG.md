@@ -2,6 +2,128 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 16:35 BST - thirty-third run - Rishi's answer to Q16 picked up and applied. He did not choose a fix; he told the run to check the finding was a real issue against the house advertising standards. It is, on firmer grounds than Q16 stated and with two corrections to how Q16 put it, and verifying it turned up the harder half of the exposure sitting on every branch homepage. Written up as compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, the decision re-asked as Q22, and a new [BLOCKED] item 5.8 opened so the status page stops showing this backlog as finished. No public copy changed
+
+ANSWER PICKUP: ONE ANSWER, AND IT SHOULD HAVE ARRIVED LAST RUN. The portal
+returned an answer to Q16, posted 2026-08-10 16:16 BST. The thirty-second run
+read the portal at about 16:30 and reported nothing new, so either the read
+landed before the entry or it missed it; worth watching, because a missed
+answer costs a whole run. Q17, Q18, Q19, Q20 and Q21 remain open with no answer
+posted. Q16 is now marked answered with answeredDate 2026-08-10, and the
+decision it was raised to settle is carried forward to Q22 rather than being
+treated as closed, so nothing goes green early.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10 23:14),
+so it has about six hours left. It was not used and could not have been. Every
+part of this run's subject is patient-facing regulatory copy naming medicines
+and making efficacy claims, which is the window's own carve-out, reserved for
+Rishi even inside it. Note for the record that the "Standing authorisation"
+section is at line 381 of this file rather than at the top, where the task
+description says to look for it; it has been read and honoured by every run
+since, but it should be moved up.
+
+WHAT RISHI'S ANSWER ACTUALLY SAID. Not one of the four options. The message was
+the path to AI\RBH_WeightLoss_Advertising_Standards.md and "CHECK YOU ISSUES IS
+A REAL ISSUE AGAINST HERE". So the work of this run was the verification, not
+the fix, which is also the only reading consistent with the carve-out.
+
+WHAT WAS READ. Read live and read only, between 16:40 and 16:55: the Smartts
+Bootle and Riddings Timperley weight loss pages, the Smartts and Riddings
+homepages, and the SK Chemists homepage as a control. The two weight loss pages
+are the same template word for word, differing only in town, phone and the
+opening hours line, which confirms Q16's claim that one template is live at
+five branches.
+
+THE VERDICT: THE FINDING HOLDS, AND TWO CORRECTIONS TO IT. The reference splits
+the position in two and the split decides everything. In advertising, almost
+any POM reference breaches CAP 12.12. On the inner pages of our own website
+there is a limited exemption: named medicines are permitted in a
+non-promotional, balanced overview of the options, provided it is clear the
+customer is offered a consultation that may or may not lead to a prescription.
+Measured against that, five elements fail: "Mounjaro (tirzepatide) is one of
+the most effective weight loss treatments available", which is exactly the
+superlative form the reference gives as its worked example of what an inner
+page may not say; the section heading "Real Results with Mounjaro"; the slider
+returning a personalised "you could lose up to 26kg (22.5% of your body
+weight)", which is the rule 13.9 shape; the "From 39.99" lead price in the hero
+above any eligibility wording, which is not the factual price list the
+reference permits; and the "Explore treatments" picker plus the How it works
+step telling the visitor to "Choose a treatment", which undercuts the
+consultation condition the exemption turns on.
+
+So correction one: Q16 said advertising prescription-only medicines to the
+public is not permitted, full stop. That is the advertising regime, not this
+one. Naming Wegovy, Mounjaro and Orlistat on an inner page is not itself the
+breach, and this matters practically rather than academically, because the
+obvious fix is to delete the medicine names, and that fix would leave the
+superlative, the slider and the price standing while stripping information a
+patient is entitled to see. Correction two is below and is larger.
+
+THE HOMEPAGE, WHICH Q16 DID NOT HAVE. Every homepage read carries this line in
+its services list: "Weight Loss Clinic: Innovative solutions that deliver
+results. Tried the rest? Now try the best." Verified identical at Smartts,
+Riddings and SK Chemists. SK was chosen as the control precisely because it is
+NOT one of the five and has no old weight loss page, so this is a shared
+homepage template and the line is estate-wide rather than a symptom of the old
+page. It matters more than anything on the inner pages for three reasons. It is
+a results claim and a superlative claim about a service whose outcome is a POM
+prescription. It sits on the homepage, which the reference puts outside the
+inner-page exemption and names as where MHRA enforcement actually focuses. And
+the homepage's own "BOOK NOW WEIGHT LOSS CLINIC" call to action lands, at the
+five branches, on the page headed "Real Results with Mounjaro", which is the
+Chequp pattern the ASA ruled against twice in 2025: a consultation call to
+action whose linked landing page implies the outcome is a POM. It also weakens
+the inner-page defence for the five, because a page reached from a headline
+call to action is closer to a proactively linked landing page than to one the
+consumer chose to access.
+
+WHAT WAS PRODUCED. compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, a new folder
+and a new file, taking the ten elements one at a time with the rule each is
+measured against and a verdict of BREACH, CONDITIONAL or CLEAR. It deliberately
+records what is CLEAR as well as what is not: the "weekly injection" dosing
+lines and the "medicated weight loss treatment" hero are ruled POM references
+in an ad and are permitted factual information on an inner page, and the page
+title and URL name no medicine and need no change. That half exists so the fix
+does not over-correct. CLAUDE.md gained a short section pointing at the external
+reference, stating the two-regime split in one paragraph, and explaining why
+the generated pages are clean by construction: they name no medicine at all.
+
+A NON-REGULATORY DEFECT ON THE SAME VISIT, WIDER THAN Q16 RECORDED. branches.json
+holds two sessions a day for Smartts, 09:00 to 13:00 and 14:00 to 18:00, from
+the NHS profile confirmed 2026-06-24. Q16 recorded the live weight loss page
+omitting the lunch closure. It is not confined to that page: the Smartts
+homepage sidebar prints 9:00am to 6:00pm for all five weekdays and the site
+footer on every page reads "Open Mon-Fri 9am-6pm", so the whole live Smartts
+site tells a patient the pharmacy is open through the hour it is shut. Riddings
+was checked as a control and is correct, because it holds a single session.
+Nine other branches hold more than one session a day and were not read.
+
+WHAT WAS NOT CHANGED, AND WHY. The one part of Q16 sitting in this repo is the
+Weight Loss Clinic tile on the Smartts switch page, "Support that delivers
+results", hardcoded in the CONFIG block of tools/build-switch-pages.js. The
+assessment confirms it is a real issue rather than only a house-style one: it
+is a results claim for a service whose outcome is a POM. It was still not
+changed, because it is patient-facing regulatory copy inside the carve-out and
+because the wording is part of the decision Q22 asks for. It stays in
+KNOWN_CLAIM in tools/check-service-links.js, so the checker keeps reporting it
+without going red and fails the run the moment it stops applying.
+
+ONE FACT THIS RUN COULD NOT ESTABLISH. Whether any paid search, paid social or
+organic social post currently links to these pages. If one does, the landing
+page falls under the advertising regime and the position is materially worse.
+Nothing in this repo records ad spend or campaign destinations, so it is in Q22
+as a question for Rishi rather than an assumption either way.
+
+Files changed: compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (new),
+CLAUDE.md, QUESTIONS.json (Q16 answered, Q22 added), AGENT_WORKLIST.md (new
+[BLOCKED] item 5.8), AGENT_LOG.md. No generator, no data file and no page was
+touched. All 18 checkers re-run clean, 177 pages, 0 failures.
+
+Run start state. No .agent-lock and no .git\index.lock. Worktree clean, branch
+agents/audit-backlog level with origin. Nothing was ticked complete: 5.3, 5.4,
+5.5 and now 5.8 are the unchecked items, all four [BLOCKED] and all four
+needing a supervised session.
+
 ## 2026-08-10 16:34 BST - thirty-second run - Quality pass on item 5.1, the Q7 em dash fix on the 15 switch pages. The repo half verified clean and deterministic. The pass then found that the approved-copy source the weight loss generator names in its own header still carried the two &ndash; entities the item 3.9 pass stripped out of the generated pages, because check-em-dashes only ever read the three generated-page folders. Fixed at source and the checker widened to cover non-generated public copy. A live read also corrected item 5.1's own outstanding note: the switch page body, not just the SEO field, is still the pre-Q7 paste
 
 ANSWER PICKUP. The portal was read and returned nothing new. The newest entry
