@@ -160,7 +160,7 @@ found is not in those pages: one of the six generators has been declaring a
 different schema.org business type from the other five, so all 15 weight loss
 pages told Google the branch was a MedicalBusiness while its other 162 pages
 said Pharmacy. Fixed at source, 15 pages regenerated, new tools/check-jsonld.js
-makes it permanent. No question raised.
+makes it permanent. No question raised, commit 9eae2e5.
 
 WHAT WAS VERIFIED ON RIDDINGS ITSELF. All 12 pages (11 service plus the switch
 page) carry 38 Riddings Road, WA15 6BP and 0161 973 2951 on every occurrence,
