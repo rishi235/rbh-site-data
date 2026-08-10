@@ -298,6 +298,40 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       the old page and does not follow the paste across. Done 2026-08-10.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
+      Quality pass 2026-08-10: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it
+      is wrong. Address 159 College Road, Liverpool L23 3AT, phone
+      0151 924 3449, website and review link all match; the hours line
+      carries both sessions on all six trading days, Monday to Friday
+      9:00am to 1:00pm and 2:00pm to 6:00pm and Saturday 9:00am to 1:00pm
+      and 2:00pm to 5:00pm, which is exactly what the split-hours rule the
+      4.10 pass added requires, and the Saturday 5:00pm finish is carried
+      through to the photo shot list; catchment reads Crosby, Waterloo and
+      Sefton in all three places, leading with its own seoTown; categories
+      and services match the five-widget set exactly; the description is
+      652 characters, exactly what its heading claims, and every post is
+      well inside the 1,500 limit; Post A's seven conditions and the UTI
+      16 to 64 range match the generated Pharmacy First page and match the
+      wording used by all fifteen packs; Post C names no medicine and makes
+      no efficacy claim; no em dash, no en dash, no emoji and no non-ASCII
+      character anywhere in the file; hasApp is false and nothing in the
+      pack mentions an app. check-gbp-packs.js passes with no failures.
+      All four post links resolve, so unlike 4.12 and 4.13 there is no dead
+      button here. The defects are on the far side of the pack. Both
+      Pharmacy First pages are live at once: the old pharmacy-first-service
+      -crosby.html that Post A points at, which is correct in content and
+      hours but is absent from the branch sitemap, and the generated
+      pharmacy-first-gordon-short-crosby.html, which is in the sitemap.
+      The generated one is a pre-item-1.1 paste and calls the pharmacy
+      "Gordon Shorts Chemist" in its H1, its title and its body, so
+      repointing Post A to it today would send patients to a page using the
+      wrong trading name. Hard stop added to the paster notes recording the
+      confirmed-live state and holding the swap until the repaste. Logged
+      as Q32 and taken as an autonomous decision under the standing window.
+      The same stale-paste name appears in the live travel clinic page
+      title, so this is a branch-wide paste-age problem and not one page;
+      recorded against 1.1, which is correct in the repo and has simply
+      never reached this branch's live pages. Done 2026-08-10.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
 
@@ -320,6 +354,17 @@ appended to the line. Do not move them; the status page reads them in place.
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
       "Gordon Short Chemist"; Fishlocks already consistent; Coleman & Leigh
       question logged for Rishi in AGENT_LOG.md.
+      Live-side note 2026-08-10, from the 4.14 quality pass: this item is
+      complete and correct in the repo, where a full-tree search finds no
+      "Gordon Shorts" outside this log, but it has never reached the live
+      Gordon Short pages. The generated Pharmacy First page carries "Gordon
+      Shorts Chemist" in its H1, its title and its body, and the travel
+      clinic page carries it in its title, because both were pasted before
+      commit 1ec8f7b. The live switch page is correct, so this is paste age
+      rather than a bad generator. Nothing to fix here; it is a repaste,
+      and it is the same repaste Q32 and item 5.3 both wait on. The 4.12
+      pass found the identical pattern at Coleman and Leighs, so at least
+      two branches are publishing pre-1.1 names.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
@@ -384,6 +429,18 @@ so tools/build-audit-status.js picks them up like any other item.
       one shared and live, one already replaced. The item is being held as a
       block of eleven when it is really eleven separate states, and the ones
       needing no paste could be done unattended if the item were split.
+      A fourth state 2026-08-10, from the 4.14 quality pass, and it is the
+      awkward one: at Gordon Short Crosby both pages are live at the same
+      time. The old pharmacy-first-service-crosby.html that Post A points at
+      works and reads correctly but is not in the branch sitemap, and the
+      generated pharmacy-first-gordon-short-crosby.html is in the sitemap
+      but is a pre-item-1.1 paste that calls the pharmacy "Gordon Shorts
+      Chemist" throughout. So this branch needs a repaste before its repoint,
+      not instead of one, and the repoint is not free here the way it is at
+      Riddings. Four of the eleven are now known and no two are alike: one
+      dead, one shared and live, one already replaced, one duplicated with a
+      stale replacement. Any split of this item needs to check the target
+      page reads correctly, not only that it resolves.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

@@ -2,6 +2,96 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 22:40 BST - forty-third run [commit PENDING] - Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, drafted 2026-08-04 and never verified since. The pack is clean and, for the first time in these passes, all four post buttons resolve. The fault is a different shape: this branch is publishing two live Pharmacy First pages at once, and the newer one, the one item 5.3 would repoint Post A to, calls the pharmacy "Gordon Shorts Chemist" throughout because it was pasted before item 1.1 fixed the name. So the page that reads right is the one being retired and the page that is winning is the one reading wrong. Hard stop added, Post A link deliberately left alone and explicitly cleared for posting today
+
+AUTONOMOUS DECISION. The standing window runs to 23:14 tonight and this run
+is inside it. Q32 was implemented rather than left open and is recorded as
+answered, marked as an autonomous decision rather than Rishi's. It passes the
+carve-out tests: the text added is paster guidance in an internal checklist,
+not public copy, it commits no money, it carries no legal risk and it makes
+no regulatory claim. The wording follows the Q31 stop from the 4.13 pass.
+
+WHY THIS ITEM. All four unchecked worklist items are [BLOCKED] and each was
+re-read this run to confirm the block still holds: 5.3 and 5.4 wait on Weebly
+work, 5.5 waits on pushing a branch other than this one, 5.8 waits on Rishi's
+regulatory decision at Q22. So the rule sends the run to a quality pass on the
+least recently verified completed item. The forty-first run named 4.13, 4.14
+and 4.15 as the three still standing on their original 2026-08-05 verification
+and the forty-second took 4.13. This is 4.14. Only 4.15 now remains.
+
+ANSWER PICKUP. The portal read succeeded. Eight answers are posted there,
+all of them already recorded against Q2, Q3, Q4, Q5, Q13, Q14, Q15 and Q16.
+None of the nine open questions has an answer yet, so nothing was unblocked.
+
+WHAT THE PACK GOT RIGHT, WHICH IS ALL OF IT. Read against branches.json and
+TEMPLATE.md. Address 159 College Road, Liverpool L23 3AT, phone 0151 924 3449,
+website and Google review link all match, and the live site agrees on every
+one of them. The hours are the interesting part, because this is a split-hours
+branch and the 4.10 pass made that rule compulsory: the pack carries both
+sessions on all six trading days, Monday to Friday 9:00am to 1:00pm and 2:00pm
+to 6:00pm and Saturday 9:00am to 1:00pm and 2:00pm to 5:00pm, matching the NHS
+profile confirmed 2026-06-24 exactly, and it carries the rule through into the
+photo shot list by asking for the door notice to be shot close enough that both
+the lunch closure and the Saturday 5:00pm finish are legible. The description
+is 652 characters, exactly what its own heading claims, against a 750 limit,
+and every post sits well inside the 1,500 limit. Catchment reads Crosby,
+Waterloo and Sefton in all three places, leading with its own seoTown.
+Categories and services match the five-widget set exactly. Post A's seven
+conditions and the UTI 16 to 64 range match the generated Pharmacy First page,
+and a sweep of all fifteen packs confirms Gordon Short uses the same Post A
+wording as thirteen of the others, so it is not an outlier. Post C names no
+medicine and makes no efficacy claim. No em dash, no en dash, no emoji and no
+non-ASCII character anywhere in the file. hasApp is false and nothing in the
+pack mentions an app. check-gbp-packs.js and check-service-links.js both pass.
+
+ALL FOUR BUTTONS WORK, WHICH IS NEW. The 4.12 pass found a dead Post A and the
+4.13 pass found a dead Post B. Here every link was fetched and every one loads.
+The branch sitemap was read in the same pass and confirms the switch, weight
+loss and travel clinic pages all sit at the new permalinks the pack names, so
+this branch's paste is not behind in the way Riddings' is. The live switch page
+is fully current: its H1 carries "in Crosby", its bullet reads "Local Crosby
+pharmacy support", and the post-Q7 sentence is there. Post B is sound.
+
+THE ACTUAL FAULT: TWO PHARMACY FIRST PAGES, AND THE WRONG ONE READS BETTER.
+The old pharmacy-first-service-crosby.html that Post A points at was fetched
+and is correct on every fact, including the seven conditions with NHS age
+ranges and the split hours with the lunch closure stated on all six days. It
+is not in the branch sitemap. The generated pharmacy-first-gordon-short-crosby
+.html is in the sitemap and is live, so on the 4.13 logic this looked like
+another free repoint for item 5.3. It is not. The live copy calls the pharmacy
+"Gordon Shorts Chemist" in its H1, its browser title and its body text. Item
+1.1 settled the canonical name as Gordon Short Chemist, singular, on 2026-08-04
+in commit 1ec8f7b, and the repo copy of that page has said so ever since: a
+full-tree search finds eleven occurrences of the correct form in the file and
+no occurrence of "Gordon Shorts" anywhere in the repo outside this log. The
+live page is simply an older paste. Repointing Post A to it today would take a
+patient who clicked a GBP post and land them on a page calling the pharmacy by
+a name the group corrected six days ago. So the stop tells the paster to
+repaste first, check the heading, then swap and retire or signpost the old
+page. The Post A link is unchanged and is explicitly cleared for posting today.
+
+IT IS NOT ONE PAGE. The live travel clinic page title also reads "Travel Clinic
+at Gordon Shorts Chemist, Crosby", while the live switch page is correct, so
+this branch has pages of two different ages sitting side by side, the same
+split the 4.13 pass found at Riddings but falling on different pages. The 4.12
+pass found the identical pre-1.1 name at Coleman and Leighs. Two branches are
+therefore publishing a name the repo fixed a week ago, and the fix for both is
+the repaste queue, not a code change. Recorded against item 1.1, which stays
+ticked because it is complete and correct in the repo.
+
+A FOURTH STATE FOR ITEM 5.3. Four of the eleven Post A links are now known and
+no two are alike: Coleman and Leighs dead, Scorah shared and live, Riddings
+already replaced and free to repoint, Gordon Short duplicated with a stale
+replacement. The lesson for whoever splits 5.3 is that "does the target page
+resolve" is not a sufficient test; this one resolves and still should not be
+used yet. Recorded against 5.3.
+
+FILES CHANGED. gbp-packs/gordon-short-crosby.md (hard stop and two paster
+notes added), AGENT_WORKLIST.md (4.14 quality pass recorded in place, notes
+appended to 1.1 and 5.3), QUESTIONS.json (Q32 added, answered autonomously),
+AGENT_LOG.md (this entry). No generated page was touched and no generator was
+changed, because nothing in the repo is wrong.
+
 ## 2026-08-10 22:05 BST - forty-second run [commit e2338fa] - Quality pass on item 4.13, the Riddings Pharmacy Timperley GBP pack, drafted 2026-08-04 and last verified the following day. The pack is clean, fact by fact and rule by rule, and the checker agrees. The faults are all on the far side of it, and the worst is Post B: the switch button returns a 404 today, because the switch block was pasted to this branch at the old permalink. A patient who has decided to move their prescriptions to us lands on an error page at the exact moment they decided. Hard stop added, canonical URL deliberately left alone. The same live read found the opposite of the 4.12 result on Pharmacy First: this branch's replacement page is already live and in its own sitemap, so one of the eleven links item 5.3 is holding needs no paste at all
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight and this

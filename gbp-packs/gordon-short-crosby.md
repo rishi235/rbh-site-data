@@ -110,9 +110,24 @@ Button: Book -> https://www.gordonshortchemist.co.uk/travel-clinic-gordon-short-
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the live Pharmacy First page from branches.json (pfLink). A
-  branch-specific page (pharmacy-first-gordon-short-crosby.html) exists in
-  the repo; swap the link once that page is confirmed live on Weebly.
+- Post A uses the live Pharmacy First page from branches.json (pfLink). Post
+  A as written is safe to post today: pharmacy-first-service-crosby.html was
+  fetched on 2026-08-10, it loads, and its seven conditions, age ranges,
+  address, phone and split hours are all correct.
+- STOP before swapping the Post A link. Checked 2026-08-10: this branch has
+  TWO live Pharmacy First pages at once. The branch-specific page
+  pharmacy-first-gordon-short-crosby.html is confirmed live and is the one in
+  the branch sitemap, but the live copy is an old paste and calls the
+  pharmacy "Gordon Shorts Chemist" in its heading, its browser title and its
+  body text. The correct name is Gordon Short Chemist, singular, and the repo
+  copy of the page has said so since 2026-08-04. Do not repoint Post A to it
+  until that page has been repasted from the repo. Repaste first, check the
+  heading reads Gordon Short Chemist, then swap the link. Once the swap is
+  done the old pharmacy-first-service-crosby.html should be retired or
+  signposted so the branch is not publishing two pages for one service.
+- The same old-paste name is on the live travel clinic page title. Post D
+  still points at the right URL and the page loads, so the post is fine, but
+  the page wants the same repaste.
 - Posts B, C and D use the regenerated branch page slugs; check each URL
   resolves before posting, as the live Weebly copy may lag the repo.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
