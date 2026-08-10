@@ -131,6 +131,30 @@ if the JSON-LD sessions do not match the data exactly, if a day is in
 after it opens. Run it after any change to a branch's hours or to a generator
 that prints them.
 
+## Where a page sends people, and what it promises them
+
+`tools\check-service-links.js` covers the two things a title checker cannot see:
+the target of a link and the promise in a tile.
+
+- A generated page must not link to a page on one of our own branch domains
+  that this repo does not generate. Either the repo owns the page and the link
+  should use the generated slug, or the page is live-only and nothing here can
+  keep it correct.
+- Public copy must carry no efficacy or results claims.
+
+It exists because the Smartts switch page is the only generated page in the
+estate with a hand-written services grid, hardcoded in the `CONFIG` block of
+`tools\build-switch-pages.js`. Its Weight Loss Clinic tile was found pointing
+at `weight-loss-clinic-bootle.html`, an old live-only page naming three
+prescription-only medicines and claiming a percentage weight loss, while this
+repo has generated a compliant replacement since Phase 3. The same tile called
+the clinic "Support that delivers results". Found on the item 3.7 quality pass,
+2026-08-10, and raised as Q16.
+
+Exceptions go in `KNOWN` (link targets) or `KNOWN_CLAIM` (wording) with a
+reason and a question id, and an entry that no longer applies fails the check,
+so neither list can rot. Do not widen the patterns to make a run pass.
+
 ## seoTown - the word the pages claim as the catchment
 
 `seoTown` drives the title, the description, the H1 and the permalink for every

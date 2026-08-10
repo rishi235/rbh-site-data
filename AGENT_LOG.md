@@ -3,6 +3,16 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+OPEN: Q16 (raised 2026-08-10, twenty-third run) - READ THIS ONE FIRST. Q5 found
+one old weight loss page still live at Cherry Lane naming prescription-only
+medicines and it was treated as a one-off. Checking all 15 branch sites this
+run found the same template still live at FIVE more branches: Smartts Bootle,
+Gordon Short Crosby, Tiffenbergs Aintree, Riddings Timperley and Coleman and
+Leighs Walton. Each names Wegovy, Mounjaro and Orlistat, carries a slider
+promising "up to 26kg (22.5% of your body weight)", and advertises a price.
+Recommendation is to strip the offending elements in place and keep the booking
+routes, which is what Q5 and Q9 together point at. Nothing in the repo is
+blocked by it, because all five are live-only pages no generator owns.
 OPEN: Q15 (raised 2026-08-10, twenty-second run) - all 12 McCanns Sandringham
 pages aim at the word "Sandringham", which is the branch name rather than a
 place. It is the only branch in the estate whose seoTown is missing from its
@@ -142,6 +152,94 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 11:04 (unattended run, twenty-third) - Quality pass on item 3.7,
+Smartts Chemist Bootle. All 12 Smartts pages verified clean on title, H1,
+description, NAP, postcode, opening hours, schema and paste sheets, and the
+GBP pack verified clean on every fact including the lunch closure. The pass
+then followed the one thing that made this branch different from the six
+before it, and found the most serious live exposure this backlog has turned
+up. Raised as Q16. No public copy was changed.
+
+WHAT MADE SMARTTS DIFFERENT. It is the only branch whose switch page carries a
+hand-written services grid: six tiles with hardcoded URLs and hardcoded sales
+copy, sitting in the CONFIG block of tools/build-switch-pages.js since the page
+was first built, and never touched by the Phase 3 rollout because no generator
+composes them. Checking where those six tiles actually point found the Weight
+Loss Clinic tile aiming at weight-loss-clinic-bootle.html, which is not the
+page this repo generates for that branch.
+
+WHAT THAT PAGE TURNED OUT TO BE. Read live, it is the same old template Q5
+found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
+a slider telling the visitor "you could lose up to 26kg (22.5% of your body
+weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
+the most effective weight loss treatments available", and a price of "From
+£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+Checking the equivalent URL on all 15 branch sites found the same page still
+live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
+Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
+return 404 and Cherry Lane was fixed under Q5. Advertising prescription-only
+medicines to the public is not permitted, so that is five live pages of
+regulatory exposure that no checker in this repo could ever have seen, because
+all five are live-only Weebly pages that no generator owns.
+
+A SIXTH DEFECT ON THE SAME PAGE. The Smartts one also prints its opening hours
+as "Mon-Fri 9am-6pm" in three places, omitting the 1pm to 2pm lunch closure
+branches.json records, so it tells patients the pharmacy is open when it is
+shut. That is the same locked-door class as the 3.6 defect, but live and
+outside the repo's reach. Gordon Short and Tiffenbergs both state their lunch
+closure correctly, so it is specific to the Smartts page.
+
+WHY NOTHING WAS CHANGED. The autonomous window was live at the time of this run
+(expires 23:14 tonight), but its own carve-out reserves money, legal risk and
+patient-facing regulatory claims - medicine names and efficacy claims by name -
+for Rishi even inside the window. Every part of this finding is exactly that,
+so it was raised rather than actioned, on the same reading as Q13, Q14 and Q15.
+That includes the one part sitting in the repo rather than live: the Weight
+Loss Clinic tile describes the clinic as "Support that delivers results", which
+is an efficacy claim and the only one of its kind in the estate. Suggested
+replacement wording, taken from the compliance-swept Smartts GBP pack, is
+"Pharmacist-led consultations and ongoing support". It was not applied.
+
+WHAT WAS DONE. New tools/check-service-links.js, which closes the gap that let
+all of this sit unseen. Two rules: a generated page must not link to a page on
+one of our own branch domains that this repo does not generate, and public copy
+must carry no efficacy or results wording. Four rules negative-tested (claim
+injected, stale link injected, generated link accepted, stale KNOWN key
+detected). The Smartts tile and the five live-only link targets are recorded in
+its KNOWN and KNOWN_CLAIM lists against Q16, so it reports every run without
+going permanently red, and an entry that stops applying fails the run so the
+lists cannot rot. Documented in CLAUDE.md.
+
+A SMALLER FINDING, NOT ACTED ON. The same grid points its Travel Clinic tile at
+vaccinations.html, the same URL as its Vaccinations tile, although this repo
+generates travel-clinic-smartts-bootle.html. Folded into Q16 rather than fixed
+separately, because the whole grid needs one decision.
+
+CHECKED AND CLEAN, so recorded rather than raised: all 15 GBP packs state their
+opening hours correctly against branches.json, including all seven lunch-closure
+branches, which was the first thing checked after the 3.6 defect. Smartts and SK
+Chemists share the town of Bootle and their titles and descriptions are
+identical except for the brand name, which is the Phase 3 pattern working as
+designed rather than a defect; the permalinks carry the brand slug, so nothing
+collides. Nothing was ticked in AGENT_WORKLIST.md: this was a quality pass, and
+5.3 and 5.4 remain the only unchecked items, both [BLOCKED] on Weebly access.
+
+Files changed: tools/check-service-links.js (new), CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. All 13 checkers re-run clean (177 pages, 0 failures); switch and
+service generators re-run and output byte-identical.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 9c564e4.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, different blocker from the last
+two runs. Q13, Q14 and Q15 were open at the start, so the condition was met,
+and this time the browser tooling did open a tab and reach the URL. The portal
+returned the Cloudflare Access sign-in page for data.rbhealth.co.uk rather than
+the feedback JSON, meaning Rishi's Chrome does not currently hold a signed-in
+Access session. Per the scheduled task rules no login was attempted and no
+other route was tried. Any answers left on the portal for Q13, Q14 or Q15 are
+therefore still unread by an unattended run.
 
 ## 2026-08-10 10:34 (unattended run, twenty-second) - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham. All 26 McCanns pages verified clean on title, H1, description, NAP, links and compliance, and then the pass found the first defect in this backlog that could send a patient to a locked door: both McCanns landing pages printed opening hours starting at 2pm for branches that open at 9am, because a day with a lunch closure carries two sessions and the generator kept only the second. Fixed at source, both pages regenerated, and new tools/check-opening-hours.js makes it permanent. A second finding, that the Sandringham pages target a word that is not a place, is raised as Q15
 
