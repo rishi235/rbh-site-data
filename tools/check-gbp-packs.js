@@ -25,6 +25,9 @@
     - The Services section lists every service the branch's widget set in
       branches.json says it offers, and the description mentions them
       too where the 750 characters allow (Build Pack v2 4.1)
+    - No pasted copy reads a branch name as if it were a place ("at
+      Sandringham"), where that word is in no branch's seoTown and in no
+      serviceAreaList. The branch and its town both get named instead
     - The catchment list in the pack leads with the branch's own seoTown,
       the word every page the branch owns leads with, so the profile and
       the site target the same town
@@ -46,6 +49,7 @@ const branches = data.branches;
 
 const digits = (s) => String(s || "").replace(/\D/g, "");
 const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
+const escapeRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // Medicine names must not appear in public-facing pharmacy marketing.
 // Brand names and INNs for the weight loss and related POM classes.
@@ -81,6 +85,12 @@ const EMOJI = /\p{Extended_Pictographic}/u;
 // KNOWN_SEO_TOWN in check-address-region.js and KNOWN in check-seo-lengths.js.
 const KNOWN_AREA_ORDER = {};
 const seenAreaKnown = {};
+
+// Accepted exceptions to the branch-name-as-place rule, keyed
+// "<branch id>::branchWordAsPlace::<word>". Same anti-rot convention: a key
+// that no longer matches a real breach fails the run.
+const KNOWN_BRANCH_WORD = {};
+const seenBranchWordKnown = {};
 
 const fails = [];
 const warns = [];
@@ -124,6 +134,30 @@ for (const b of branches) {
   const h = String(b.website).replace(/^https?:\/\//, "").replace(/\/$/, "").toLowerCase();
   hostCount.set(h, (hostCount.get(h) || 0) + 1);
 }
+
+// Every word the estate treats as a place, read from branches.json: every
+// branch's seoTown plus every entry in every serviceAreaList. Nothing is
+// hardcoded, so a town added to a catchment list becomes a recognised place
+// on the next run without anyone editing this file.
+const PLACE_WORDS = new Set();
+for (const b of branches) {
+  if (b.seoTown) PLACE_WORDS.add(String(b.seoTown).toLowerCase());
+  for (const t of b.serviceAreaList || []) PLACE_WORDS.add(String(t).toLowerCase());
+}
+
+// Branch names that are not places. brandLabel is the trading brand
+// ("McCanns Chemist"), so what is left of branchName is the word that tells
+// two branches of one brand apart ("Sandringham"). Usually that word is also
+// the town, and those are dropped here: only the ones that name no place
+// survive, and only those can be misread as a location.
+const BRANCH_WORDS = branches
+  .filter((b) => isPackable(b) && b.branchName && b.brandLabel)
+  .map((b) => ({
+    word: b.branchName.replace(b.brandLabel, "").trim(),
+    branchName: b.branchName,
+    seoTown: b.seoTown || "",
+  }))
+  .filter((x) => x.word && !PLACE_WORDS.has(x.word.toLowerCase()));
 
 // Section headings the template requires, in order.
 const REQUIRED_SECTIONS = [
@@ -304,9 +338,8 @@ for (const file of packFiles) {
   // name is an address, not a catchment claim.
   const areaList = (b.serviceAreaList || []).filter(Boolean);
   if (b.seoTown && areaList.length >= 3) {
-    const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     // Longest first, so "North Liverpool" wins over "Liverpool".
-    const alt = areaList.slice().sort((x, y) => y.length - x.length).map(escRe).join("|");
+    const alt = areaList.slice().sort((x, y) => y.length - x.length).map(escapeRe).join("|");
     const runRe = new RegExp(`(?:${alt})(?:\\s*,\\s*(?:${alt}))+(?:\\s*,?\\s+and\\s+(?:${alt}))?`, "g");
     const flat = text.replace(/\s*\n\s*/g, " ");
     const key = `${id}::areaOrder`;
@@ -321,6 +354,49 @@ for (const file of packFiles) {
       } else {
         fail(file, `catchment list leads with "${towns[0]}", but this branch's seoTown in branches.json is "${b.seoTown}", which is the word every page it owns leads with. The profile and the site would target different towns. Found: "${run}"`);
       }
+    }
+  }
+
+  // --- a branch name used as if it were a place -------------------------
+  // Some branches are named after something that is not a town: McCanns
+  // Chemist Sandringham is named after the parade it stands on, not a place
+  // anybody searches for. Item 5.7 settled that on Rishi's Q15 answer by
+  // moving that branch's seoTown to St Michael's, and every page the branch
+  // owns now leads with St Michael's, including the sister cross-link on the
+  // Aigburth landing page, which reads "McCanns Chemist Sandringham in
+  // St Michael's".
+  //
+  // A pack that writes "in Sandringham" or "at Sandringham" therefore puts a
+  // word on the Google profile that the estate's own data does not treat as
+  // a place: it is in no branch's seoTown and in no branch's
+  // serviceAreaList. Google reads the profile and the site together, so the
+  // profile would name a location none of the pages claim, which adds no
+  // local signal and contradicts the site. Where two branches share a road
+  // and a domain, as the two McCanns do, the sister-branch sentence is also
+  // the one line that tells a reader which shop is which, so getting the
+  // other branch's town into it is the point of the sentence.
+  //
+  // Which words count as places is read from branches.json, never hardcoded,
+  // so adding a town to a catchment list retires the rule for that word by
+  // itself. Only "in/at/near/around <word>" counts: a bare branch name is a
+  // name, which is correct usage and must not be flagged.
+  //
+  // The paster notes are excluded. They are instructions to a human, not
+  // copy that gets pasted into GBP, and they need to be able to quote the
+  // wrong form in order to warn against it. Same treatment postsOf gives
+  // them.
+  const pasteable = text.split(/^Notes for the paster:/m)[0].replace(/\s*\n\s*/g, " ");
+  for (const bw of BRANCH_WORDS) {
+    const re = new RegExp(`\\b(?:in|at|near|around)\\s+${escapeRe(bw.word)}\\b`, "gi");
+    const hits = pasteable.match(re) || [];
+    if (!hits.length) continue;
+    const key = `${id}::branchWordAsPlace::${bw.word}`;
+    const known = KNOWN_BRANCH_WORD[key];
+    if (known) {
+      seenBranchWordKnown[key] = true;
+      warn(file, `KNOWN "${hits[0]}" reads "${bw.word}" as a place. ${known.question}: ${known.reason}`);
+    } else {
+      fail(file, `"${hits[0]}" reads "${bw.word}" as a place, but "${bw.word}" is the branch name of ${bw.branchName} and is not a place in branches.json: it is no branch's seoTown and appears in no serviceAreaList. That branch's local word is "${bw.seoTown}", which is what all of its pages lead with. Name the branch and its town, as the landing pages do: "${bw.branchName} in ${bw.seoTown}".`);
     }
   }
 
@@ -430,6 +506,11 @@ for (const file of packFiles) {
 for (const key of Object.keys(KNOWN_AREA_ORDER)) {
   if (!seenAreaKnown[key]) {
     fails.push(`stale exception: KNOWN_AREA_ORDER["${key}"] no longer matches a pack that breaks the catchment-order rule. Remove it (${KNOWN_AREA_ORDER[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_BRANCH_WORD)) {
+  if (!seenBranchWordKnown[key]) {
+    fails.push(`stale exception: KNOWN_BRANCH_WORD["${key}"] no longer matches a pack that reads a branch name as a place. Remove it (${KNOWN_BRANCH_WORD[key].question}).`);
   }
 }
 

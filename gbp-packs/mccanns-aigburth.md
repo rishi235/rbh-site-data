@@ -17,7 +17,7 @@ Profile basics (for checking, not pasting):
   the profile stays local to Aigburth. Check it resolves before pasting.)
 - Review link: https://g.page/r/CdDj9KyelDVyEAE/review
 
-## 1. Business description (max 750 chars - this is 703)
+## 1. Business description (max 750 chars - this is 725)
 McCanns Chemist at 112 Aigburth Road serves Aigburth, Sefton Park, Mossley
 Hill and Grassendale as an independent NHS pharmacy. As well as dispensing
 NHS prescriptions, the team provides free NHS blood pressure checks for
@@ -26,8 +26,9 @@ First, a free NHS service where a pharmacist can see you for seven common
 conditions and treat them where appropriate, no GP appointment required.
 Private services include a travel health clinic, with vaccination and
 malaria prevention advice tailored to your trip, and a pharmacist-led
-weight loss clinic. There is a second McCanns branch at Sandringham,
-further along Aigburth Road. Drop in and talk to us.
+weight loss clinic. There is a second branch, McCanns Chemist
+Sandringham, in St Michael's further along Aigburth Road. Drop in and
+talk to us.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -121,6 +122,13 @@ Notes for the paster:
   Weebly first, along with this branch's service pages, or the profile
   website and the page's own links will 404. See modules/branch/pages/
   INDEX.md and SEO.md.
+- The sister-branch sentence names the other branch as "McCanns Chemist
+  Sandringham, in St Michael's". Sandringham is the branch name, not a
+  place: it is in neither branch's catchment list in branches.json, and
+  since item 5.7 that branch's local word is St Michael's on all 13 pages
+  it owns. Naming both is what lets someone reading this profile tell the
+  two McCanns shops on Aigburth Road apart. Do not shorten it back to "at
+  Sandringham" when pasting.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the pfLink from branches.json, which is the shared Aigburth

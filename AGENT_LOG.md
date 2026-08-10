@@ -2,6 +2,148 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 19:04 BST - thirty-seventh run [commit ba19c4c] - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack, drafted on 2026-08-04 and last verified the following day, which made it the least recently verified completed item in the backlog. Every fact in it checks out against branches.json. The defect is a single sentence of profile copy: the pack still told the paster that the second McCanns branch is "at Sandringham", a word the estate stopped treating as a place when item 5.7 landed. Sentence rewritten to the landing page's own form, and check-gbp-packs.js given a rule that reads which words are places out of branches.json so no pack can do it again
+
+AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The
+sentence rewrite was taken under it and recorded as Q26, status answered,
+marked clearly as an autonomous decision rather than Rishi's. It is a search
+and copy-wording call with no money, no legal risk and no patient-facing
+regulatory claim in it, so it sits outside the window's carve-out. As with
+Q25 last run, it applies a decision Rishi has already made, Q15, to an
+artefact that decision missed, rather than making a new one. Reversing it is
+editing one sentence in one file.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. Walking the log's own history of passes, items 4.6, 4.8, 4.9, 4.10 and
+4.12 to 4.15 were all last verified on 2026-08-05 and never since, and 4.6
+sat earliest of them. It was also the right one to take on its merits: the
+last two runs both found defects in its sister branch's artefacts, and a
+sister branch is exactly where a change to one branch's data leaks.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 19:06. The newest
+entry is still the Q16 answer of 15:16, applied by the thirty-third run.
+Q17, Q18, Q19, Q20, Q21, Q22 and Q24 are all still open with no answer
+posted.
+
+BASELINE. All six generators were run before any edit and produced zero
+diff, and all 18 checkers passed, so everything below is attributable to
+this run. check-gbp-packs' 11 standing warnings were recorded first and are
+unchanged at the end: they are all the Pharmacy First link warnings Q8
+already covers, plus the Tiffenbergs link with no .html ending.
+
+WHAT WAS VERIFIED, AND WHAT PASSED. The pack was read against branches.json
+fact by fact and against the pack rules in gbp-packs/TEMPLATE.md:
+
+- Address 112 Aigburth Road, Liverpool L17 7BP, phone 0151 727 3185 and the
+  Google review link all match branches.json exactly, and no other branch's
+  phone or postcode appears anywhere in the pack. Its sister at 1b Aigburth
+  Road shares the road and the domain, so this is the pack where a stray
+  digit would be hardest to spot.
+- The hours in the profile basics match the NHS-confirmed specification,
+  including both lunch closures: Monday to Friday 9 to 1 and 2 to 6,
+  Saturday 9 to 1 and 2 to 5, Sunday closed. The photo shot list asks for
+  the hours board with the 1pm to 2pm closure legible, which is the one
+  thing that catches customers out on a split day.
+- The catchment list reads "Aigburth, Sefton Park, Mossley Hill and
+  Grassendale" in both places it appears, leading with the branch's own
+  seoTown, so this pack already satisfied the rule the last run added.
+- The profile website is set to the branch's own landing page,
+  pharmacy-mccanns-aigburth.html, not the shared homepage, which is what
+  stops the two McCanns profiles pointing Google at one page.
+- Categories and services match the branch's widget set: Pharmacy primary,
+  Travel clinic, Vaccination centre and Weight loss service secondary, and
+  all five services the widgets earn are listed and mentioned in the
+  description.
+- Description 703 characters before the fix and 725 after, both inside the
+  750 limit, and the four posts at 446, 306, 518 and 426 are all far inside
+  the 1,500 limit. No medicine name, no efficacy claim, no em dash, no
+  emoji. Post C names no medicine and says in terms that the service is
+  private, paid and not right for everyone.
+- Post A keeps to the NHS Pharmacy First service description and the seven
+  conditions, with the NHS age ranges flagged rather than glossed.
+- Every page URL in the pack exists in the repo except
+  pharmacy-first-service-aigburth.html, which is the shared live-only page
+  the branch's pfLink still points at. That is Q8's territory, already
+  raised, and the pack already carries a paster note about swapping it.
+
+THE DEFECT. The business description's closing sentence read "There is a
+second McCanns branch at Sandringham, further along Aigburth Road."
+Sandringham is the branch's name, not a place. It appears in neither
+McCanns branch's serviceAreaList, and item 5.7, on Rishi's Q15 answer,
+moved that branch's local word to St Michael's across all 13 pages it owns.
+The sister cross-link on this very branch's landing page already reads
+"McCanns Chemist Sandringham in St Michael's". So the Aigburth Google
+profile was the last artefact in the estate still calling Sandringham a
+location.
+
+WHY IT MATTERS. The GBP business description is the highest-leverage local
+text a branch has, and Google reads the profile and the site together. This
+sentence would have signposted a town that no page in the estate claims,
+which is a local signal thrown away, and it would have contradicted the
+site on the one point the two McCanns branches most need to be clear about.
+They stand on the same road at 1b and 112 Aigburth Road and share one
+website, which is the exact overlap items 2.2, 5.2 and 5.7 exist to remove.
+The sister-branch sentence is the one line in the whole profile that tells
+a reader which shop is which, so it is the wrong line to leave vague.
+
+THE FIX, AT SOURCE. The sentence now reads "There is a second branch,
+McCanns Chemist Sandringham, in St Michael's further along Aigburth Road."
+It names the branch and its town, word for word as the landing page does,
+so profile and site agree. The description goes from 703 to 725 characters
+against a 750 limit, and the count the pack states about itself was updated
+to match, which check-gbp-packs independently confirms. A paster note was
+added explaining that Sandringham is the branch name and not a place, and
+asking that it not be shortened back, because the pack is pasted by hand
+and "at Sandringham" reads perfectly natural to anyone who knows the shop.
+The whole pack remains plain ASCII: the apostrophe in St Michael's is
+U+0027 in the description and in the note, never a typographic one, so
+nothing needs escaping and only one spelling of the town can exist.
+
+THE RULE, SO IT CANNOT DRIFT AGAIN. check-gbp-packs.js now fails any pack
+whose pasted copy reads a branch name as a place. It builds the set of
+recognised place words from branches.json, every seoTown plus every
+serviceAreaList entry, then takes each live branch's name minus its brand
+label and keeps only the ones that name no place. Today that is exactly one
+word, Sandringham. It fires on "in", "at", "near" or "around" followed by
+that word, never on a bare branch name, because naming the branch is
+correct usage and the packs do it constantly. The paster notes are excluded
+from the scan for the same reason postsOf already excludes them: they are
+instructions to a human, not pasted copy, and a note has to be able to
+quote the wrong form in order to warn against it. The usual anti-rot
+exception list, KNOWN_BRANCH_WORD, is present and empty, and a key in it
+that stops matching fails the run. While in the file, the local escRe
+helper duplicated inside the catchment block was replaced with the one
+top-level escapeRe, since a second private copy of an escaping function is
+the same duplication these passes keep having to unpick.
+
+NEGATIVE-TESTED FOUR WAYS. Reverting the description to "at Sandringham"
+fails with the full explanation and the suggested wording. Putting "in
+Sandringham" inside Post B, a different preposition in a different section,
+also fails, so the rule is not pinned to one sentence. Adding Sandringham
+to that branch's serviceAreaList while leaving the broken sentence in place
+makes the rule go silent, which proves it reads branches.json rather than
+carrying a hardcoded word. And a KNOWN_BRANCH_WORD key that matches nothing
+fails as a stale exception. Every mutation was made against a backup and
+restored, and branches.json is byte-identical to HEAD.
+
+RESULT. All 15 packs pass the new rule; Aigburth was the only breach in the
+estate. All six generators regenerated every page byte-identical, all 18
+checkers pass, and only two files changed in the repo plus the worklist,
+log and question record.
+
+OUTSTANDING ON THE LIVE SIDE. Nothing here reaches the public by itself.
+The pack is a paste sheet, so the corrected sentence only takes effect when
+Rishi or Dane next paste the McCanns Aigburth Google profile. That paste is
+already queued behind the profile website change to the landing page, which
+in turn needs the landing page live on Weebly first.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after
+that raises questions rather than deciding. On the current history the
+least recently verified completed items are 4.8, 4.9, 4.10 and 4.12 to
+4.15, all last verified on 2026-08-05, with 4.8 Fishlocks Eccleston the
+next in line.
+
 ## 2026-08-10 18:41 BST - thirty-sixth run - Quality pass on item 5.7, the Q15 move of McCanns Sandringham's local word to St Michael's, which landed this afternoon and had never been verified. The generated half is clean end to end. The defect is outside it: the branch's GBP content pack still tells the paster to lead the Google profile with Aigburth, the sister branch's own target town on the same road, because the pack was drafted from the old catchment order and nothing read a pack against its own seoTown. Pack fixed and check-gbp-packs.js given a rule so it cannot drift again
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The pack

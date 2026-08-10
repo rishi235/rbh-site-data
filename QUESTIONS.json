@@ -385,5 +385,20 @@
     "status": "answered",
     "answer": "AUTONOMOUS DECISION, not Rishi's. Option 0 taken and implemented on 2026-08-10 under the standing autonomous window opened 2026-08-09 23:14 and expiring 2026-08-10 23:14. It is a search and copy-ordering decision with no money, legal risk or patient-facing regulatory claim in it, so it sits outside the window's carve-out. Recorded as answered so the status page does not show it as waiting on Rishi, but it is a decision he should review before the pack is pasted, and it is trivially reversible: swap the two town names back in the three sentences in gbp-packs/mccanns-sandringham.md.",
     "note": "Worth knowing when reviewing it. Nothing generated moved: a full run of all six generators after the change produced a byte-identical estate, and the only files touched were the pack, check-gbp-packs.js and a stale sentence in the check-address-region.js header comment that still described the pack in the present tense. The new rule only fires on a real catchment run of three or more serviceAreaList towns joined by commas and \"and\", not on any mention of a town, because this branch sits at 1b Aigburth Road and a street name is an address rather than a catchment claim. All fourteen other packs in the estate already led with their own seoTown and none of them moved, so the rule encodes a convention the packs already keep. It was negative-tested three ways in a throwaway tree outside the repo: the old ordering restored (fails, naming all three sentences), the old ordering with a matching KNOWN_AREA_ORDER entry (warns, exit 0), and the fixed pack with a stale KNOWN entry left behind (fails as stale). A paster note was added to the pack explaining why the order reads as it does, so nobody helpfully corrects it back."
+  },
+  {
+    "id": "Q26",
+    "date": "2026-08-10",
+    "item": "quality pass on 4.6 (finding, does not block any item)",
+    "question": "The McCanns Chemist Aigburth GBP pack told the paster to write \"There is a second McCanns branch at Sandringham\" in the Google business description. Sandringham is the branch's name, not a place: it is in neither McCanns branch's catchment list in branches.json, and item 5.7 moved that branch's local word to St Michael's on all 13 pages it owns, including the sister cross-link on Aigburth's own landing page. The Aigburth profile was the last artefact in the estate still calling it a location, so Google would have read a profile naming a town none of the pages claim. I rewrote the sentence to name the branch and its town, \"McCanns Chemist Sandringham, in St Michael's\", which is the same form the landing page uses, and added a checker rule so no pack can read a branch name as a place again.",
+    "options": [
+      "Keep the fix as made: name the branch and its town, \"McCanns Chemist Sandringham, in St Michael's\". Matches the landing page word for word, helps a reader tell the two McCanns shops on Aigburth Road apart, and costs 22 characters of a 750 character budget",
+      "Name the branch only, \"our second branch, McCanns Chemist Sandringham, further along Aigburth Road\". Shortest and safest, but the Aigburth profile then gives no hint which town the other shop serves",
+      "Revert to \"at Sandringham\" and leave it. No work, but the profile keeps naming a place the estate targets nowhere else"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "AUTONOMOUS DECISION taken on 2026-08-10 under the standing authorisation window (opened 2026-08-09 23:14, expires 2026-08-10 23:14). Option 1 implemented. It is a search and copy-wording call with no money, no legal risk and no patient-facing regulatory claim in it, so it sits outside the window's carve-out, and it applies a decision Rishi has already made in Q15 to an artefact that decision missed rather than making a new one. Reversing it is editing one sentence in one file. Flagged here for review.",
+    "note": "Nothing is live: the pack is a paste sheet, so this only takes effect when Rishi or Dane next paste the Aigburth Google profile. The other 14 packs were checked by the same rule and none of them breaks it."
   }
 ]

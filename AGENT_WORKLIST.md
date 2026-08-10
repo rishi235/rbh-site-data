@@ -136,6 +136,27 @@ in a supervised Cowork session on 2026-08-04, then compliance-swept
 centrally: no medicine names, no em dashes, no emojis, descriptions under
 750 chars, facts spot-checked against branches.json.)
 - [x] 4.6 McCanns Chemist Aigburth pack. Done 2026-08-04.
+      Quality pass 2026-08-10: the pack verified fact by fact against
+      branches.json and found correct on address, postcode, phone, hours
+      including both lunch closures, review link, catchment order, profile
+      website pointed at its own landing page, categories and services
+      earned by the widget set, description length, all four post lengths,
+      house style and POM advertising. One real defect found and fixed at
+      source: the business description told the paster to write "There is a
+      second McCanns branch at Sandringham", which reads Sandringham as a
+      place. Since item 5.7 it is not one: it is in neither McCanns branch's
+      serviceAreaList and that branch's local word is St Michael's on all 13
+      pages it owns, including the sister cross-link on this branch's own
+      landing page. The Aigburth Google profile was the last artefact in the
+      estate still naming it, so the profile would have signposted a location
+      none of the pages claim. Now reads "McCanns Chemist Sandringham, in
+      St Michael's", matching the landing page, 725 characters against the
+      750 limit, with a paster note against shortening it back.
+      check-gbp-packs.js given a branch-name-as-place rule that reads the
+      recognised place words out of branches.json rather than hardcoding any,
+      negative-tested four ways. It was the only breach in the 15 packs.
+      Logged as Q26, taken as an autonomous decision under the standing
+      window.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
