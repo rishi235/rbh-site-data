@@ -288,3 +288,53 @@ service added to the generators and forgotten in service.js fails here instead
 of shipping as an empty booking box. Exceptions go in `KNOWN`, keyed
 `<subject>::<rule>`, with a reason and a question id, and a key that no longer
 breaks its rule fails the run.
+
+
+## Which pharmacy does a page say it is
+
+`branches.json` holds two names per branch and they are not the same field.
+`brandLabel` is the brand ("Scorah Chemists"). `branchName` is this shop
+("Scorah Chemists Hazel Grove"). For ten of the sixteen branches the two
+strings are identical, so nothing turns on the choice. For six of them they
+are not, and those six are exactly the branches that share a brand AND a
+website with a sister shop: Fishlocks Ainsdale and Eccleston, McCanns
+Aigburth and Sandringham, Scorah Bramhall and Hazel Grove.
+
+Two machine-readable places on every page consume the name, and neither is
+visible copy, which is why no other checker reads them for this:
+
+- The JSON-LD `name`. This is what Google reads to decide whether two
+  addresses are one business or two. The same Pharmacy name at two postcodes
+  on one domain is the entity-resolution problem item 2.2 was created to fix,
+  and the same class as the `@type` divergence fixed on the 3.10 pass.
+- `data-branch` on `#rbhsv-root` / `#rbhsw-root`. `service.js` and
+  `switch.js` read it to label an enquiry, a callback request and a WhatsApp
+  message. On the switch pages it is worse than inert: the page bakes a
+  town-specific `source` value, and `switch.js` OVERWRITES it with
+  `"Callback request - " + data-branch` as soon as a visitor toggles callback
+  mode, so a correct label is replaced by an ambiguous one.
+
+Found on the item 3.12 quality pass, 2026-08-10. Five generators
+(`build-service-pages`, `build-switch-pages`, `build-weight-loss-pages`,
+`build-travel-clinic-pages`, `build-contraception-pages`) map
+`brand: b.brandLabel` and use it for both fields. The sixth,
+`build-branch-landing-pages`, uses `b.branchName`. So each of the six shares
+a brand across 12 pages and names its own shop on the 13th. Raised as Q18 and
+not changed, because moving the JSON-LD name is a search decision and it puts
+72 pages into the repaste queue.
+
+`tools\check-branch-identity.js` guards it. Per page: the filename resolves to
+exactly one branch; a page with a module root carries a non-empty
+`data-branch`; `data-branch` and the JSON-LD `name` are that branch's
+`branchName` or `brandLabel` and never another branch's name; and where a
+brandLabel is carried by more than one trading branch, both fields must be the
+`branchName`, because the bare brandLabel names two shops. Estate-wide: two
+branches on one website host never publish the same JSON-LD `name`, and one
+branch never declares two different names across its own pages. In
+`branches.json` itself: `branchName` starts with `brandLabel`, and a branch
+sharing a brandLabel does not have that bare brandLabel as its branchName.
+
+Expected values are composed from `branches.json`; nothing is imported from
+the generators, so a generator reaching for the wrong field fails here.
+Exceptions go in `KNOWN`, keyed `<subject>::<rule>`, with a reason and a
+question id, and a key that no longer breaks its rule fails the run.

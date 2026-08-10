@@ -3,6 +3,18 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+OPEN: Q18 (raised 2026-08-10, twenty-eighth run) - the six branches that share
+a brand and a website with a sister shop (Fishlocks, McCanns, Scorah) identify
+themselves on 12 of their 13 pages by the brand, not the shop. Five generators
+use brandLabel for the JSON-LD name Google reads and for the data-branch
+attribute that labels every enquiry; the landing page generator uses
+branchName. So each shared domain hands Google two Pharmacy records with one
+name and two postcodes, and an enquiry arrives labelled with a name that fits
+both shops. Recommendation is to move the five generators onto branchName for
+those two machine-readable fields only, leaving all visible copy as it reads.
+That changes 72 pages, all of them already in the paste queue. Nothing is
+blocked by it and no enquiry is actually lost, because the hidden website_url
+field still carries the page URL.
 OPEN: Q17 (raised 2026-08-10, twenty-seventh run) - the booking widget on every
 service page is resolved at run time from the live URL, and service.js bars
 weight loss and travel clinic from falling back to the Pharmacy First diary
@@ -162,6 +174,168 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 13:34 (unattended run, twenty-eighth) - Quality pass on item
+3.12, Tiffenbergs Chemist Aintree. All 12 Tiffenbergs pages verified clean on
+title, description, H1, NAP, tel: link, review link, schema, links, clinical
+age ranges and weight loss compliance. The gap this run found is not in
+Tiffenbergs and not in any single page: on the six branches that share a brand
+with a sister shop, the pages identify themselves by the BRAND rather than by
+the shop, in the two machine-readable fields that decide how Google resolves
+the business and how an enquiry is labelled. New
+tools/check-branch-identity.js closes it. Not fixed on the spot, for the
+reason given below, and raised as Q18. Commit COMMIT_HASH.
+
+WHAT WAS VERIFIED ON TIFFENBERGS ITSELF. All 12 pages (11 service plus the
+switch page) carry 388 Longmoor Lane, Liverpool, L9 9DB and 0151 525 3462 on
+every occurrence, visible, in the tel: link and in the JSON-LD, and every page
+carries Tiffenbergs' own Google review link and no other branch's. No page
+carries another branch's phone or postcode. Titles, descriptions, H1s and
+permalinks all lead with Aintree, which is the branch's seoTown and the first
+entry in its own serviceAreaList, so the word the pages claim is a place the
+branch itself says it serves. Clear Chemist also sits in Aintree, but on its
+own domain and with its own brandSlug, so no title, description or permalink
+collides. The Pharmacy First overview links all seven condition pages and each
+condition page links back. The weight loss page names no prescription-only
+medicine, makes no efficacy claim, carries the estate's single CONSULT_FEE
+price string and repeats the individual-results disclaimer twice.
+
+THE CLINICAL CHECK, DONE BY HAND BECAUSE NO CHECKER OWNS IT. The seven
+condition cards on the Pharmacy First overview state an NHS age range each,
+and the condition page repeats it in its hero pill and again in its
+eligibility list. All seven agree with the NHS Pharmacy First clinical
+pathways: UTI women aged 16 to 64, sore throat 5 and over, sinusitis 12 and
+over, earache 1 to 17, impetigo 1 and over, shingles 18 and over, infected
+insect bite 1 and over. Earache is the one that matters most, because it is
+the only bounded range, and the page states the upper bound in both places
+and adds "Adults aged 18 and over are not covered by this pathway" rather
+than leaving it implied.
+
+TWO THINGS ABOUT TIFFENBERGS WORTH RECORDING RATHER THAN FIXING. Its pfLink
+is the one link field in branches.json with no .html ending, already recorded
+as KNOWN in check-branch-links against Q8 and moving with the other ten under
+item 5.3. And its branch email is Tiffenberg@rbhealth.co.uk, singular, where
+the trading name is plural. That is a mailbox name, not site copy, and it
+reaches no page; it is the same shape as the Shorts@ note from the 3.11 pass.
+
+THE GAP, AND WHY NO CHECKER SAW IT. branches.json carries two names per
+branch: brandLabel, the brand, and branchName, this shop. For ten of the
+sixteen branches the two strings are identical, so the choice between them is
+invisible. For six of them they are not, and those six are exactly the
+branches that share a brand AND a website with a sister shop: Fishlocks
+Ainsdale and Eccleston, McCanns Aigburth and Sandringham, Scorah Bramhall and
+Hazel Grove. Five of the six generators map brand: b.brandLabel and use it in
+two places on every page: the JSON-LD "name", and the data-branch attribute on
+the module root. The sixth, build-branch-landing-pages, written later for
+exactly this shared-domain problem, uses b.branchName. So each of those six
+branches has 12 pages that name the brand and one that names the shop.
+Nothing caught it because both existing readers were written to tolerate
+either field: check-booking-routes rule 4 accepts data-branch equal to
+branchName OR brandLabel, and check-jsonld accepts the same for the name. That
+tolerance is correct for the ten branches where the two are the same string
+and is precisely the hole for the six where they are not. Neither field is
+visible copy, so no text scan could ever have seen it, which is the same class
+of silent fault as the map iframe and the booking chain.
+
+WHAT IT ACTUALLY COSTS. Two things, and they are different in kind. On the
+search side, each of the three shared domains hands Google twelve pages
+declaring a Pharmacy called "Fishlocks Chemist" at PR8 3HN and twelve
+declaring a Pharmacy of the same name at PR7 5SZ, plus one landing page each
+that does name the shop. That is the entity-resolution problem item 2.2 was
+built to fix, arriving through a field item 2.2 never touched. On the enquiry
+side, service.js and switch.js read data-branch to label an enquiry, a
+callback request and a WhatsApp message, so a request from Hazel Grove reaches
+the helpdesk labelled "Scorah Chemists". The switch pages are the sharper
+case: the page bakes a town-specific source value ("Fishlocks Chemist Ainsdale
+Switch Page"), and switch.js overwrites it with "Callback request - " plus
+data-branch the moment a visitor toggles callback mode, so a correct label is
+actively replaced by an ambiguous one, on the journey where the town decides
+which shop sets the patient up. Nothing is lost outright: the hidden
+website_url field carries the page URL on every submission, so the town can
+always be recovered by reading it. The fault is in the label a human reads
+first, not in the data.
+
+WHY IT WAS RAISED RATHER THAN FIXED. The fix is one field name in five
+generators, and it is unusually contained: because branchName equals
+brandLabel for the other ten branches, only the six shared-brand branches
+change and the other 105 pages regenerate byte-identical. It was not taken
+because the JSON-LD name is what Google uses to decide whether two addresses
+are one business or two, so changing it on 66 pages is a search decision
+rather than a correction, and because it puts 72 pages into a Weebly repaste
+queue that is already the bottleneck on items 5.1, 5.2 and 5.3. Splitting it,
+fixing data-branch now and the schema name later, would cost two regenerations
+and two pastes of the same 72 pages, so the two halves are kept together in
+one question. Same reading of the autonomous window as Q13 to Q17: the window
+converts a decision that BLOCKS a worklist item into an autonomous one, and
+this blocks nothing.
+
+WHAT THE NEW CHECKER DOES. Per page: the filename resolves to exactly one
+trading branch; a page carrying a module root carries a non-empty data-branch;
+data-branch and the JSON-LD name are that branch's branchName or brandLabel
+and never another branch's name, which is reported by naming the branch the
+string actually belongs to; and where a brandLabel is carried by more than one
+trading branch, both fields must be the branchName. Estate-wide: two branches
+on one website host never publish the same JSON-LD name, and one branch never
+declares two different names across its own pages, so a half-finished
+migration fails rather than shipping. In branches.json itself: branchName
+starts with brandLabel, so a branch name is always the brand plus a qualifier
+and never a divergent spelling, and a branch sharing a brandLabel does not
+have that bare brandLabel as its branchName. The last two rules guard the data
+the fix would rely on. Expected values are composed from branches.json and
+nothing is imported from the generators, so a generator reaching for the wrong
+field fails here. The six branches are recorded in KNOWN against Q18.
+
+NEGATIVE TESTS. Eleven, and all eleven fired: a missing data-branch on a page
+with a module root, a data-branch naming another pharmacy, a JSON-LD name
+naming another pharmacy, a JSON-LD block with no usable name, a page filename
+matching no branch, a branchName that does not start with its brandLabel, a
+shared brandLabel used as a branchName, one branch declaring two different
+data-branch values across its pages, two branches on one host publishing one
+JSON-LD name, a KNOWN key that no longer breaks its rule, and finally the
+positive case: applying the proposed fix to all 13 Scorah Hazel Grove pages
+makes that branch's KNOWN entry go stale and fails the run, which proves the
+entry is tied to the defect rather than to a name. Every mutated file was
+restored and confirmed byte-clean against git afterwards.
+
+WHAT ELSE THE PASS SWEPT AND FOUND CLEAN. Estate-wide rather than Tiffenbergs
+only. The enquiry form itself, which nothing had read: service.js needs
+svc-form, the svc-post hidden iframe, svc-wa, svc-msg, svc-thankyou and the
+fields first_name, last_name, mobile, email, message, the company honeypot and
+the hidden destination, source and website_url. All 127 pages that carry a
+form carry the complete set, with no page missing a field and no field
+appearing on only some pages. The 35 pages with no service form are the 14
+Pharmacy First overview pages, the 15 travel clinic pages and the 6 landing
+pages, and that split is per generator rather than per branch, so it is a
+design choice and not drift; the 15 switch pages carry their own switch-form
+instead, with the same hidden fields. The destination input is empty in every
+page carrying one, which matters
+because switch.js only fills it when it is empty: a page-baked value would
+silently beat the module and survive the Q13 fix. WhatsApp numbers: one
+central number on all 171 pages that carry the attribute, no per-branch
+variation to drift. No generated page carries an unreplaced {{TEMPLATE}}
+placeholder; the only files that do are the two DRAFT copy templates, which no
+generator publishes.
+
+Files changed: tools/check-branch-identity.js (new), CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. No generated page changed and no generator changed, so no
+regeneration was needed and nothing new joins the Weebly paste queue. All 17
+checkers re-run clean afterwards (177 pages, 0 failures) with the same warning
+and KNOWN profile as before, plus the six new KNOWN entries against Q18.
+Nothing ticked in AGENT_WORKLIST.md: this was a quality pass, and 5.3 and 5.4
+remain the only unchecked items, both [BLOCKED] on Weebly access.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process
+running. Worktree clean, branch agents/audit-backlog level with origin at
+dedb156.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, seven runs in a row now. Q13 to
+Q17 were all open at the start, so the condition was met. The browser tooling
+reached https://data.rbhealth.co.uk/api/feedback and Cloudflare Access
+returned its sign-in page rather than the feedback JSON, so Rishi's Chrome
+does not hold a signed-in Access session. Per the scheduled task rules no
+login was attempted and no other route was tried. Any answers left on the
+portal for Q13 to Q18 remain unread by an unattended run. If those answers
+matter, they need a supervised session or a signed-in Chrome.
 
 ## 2026-08-10 13:04 (unattended run, twenty-seventh) - Quality pass on item
 3.11, Gordon Short Chemist Crosby. All 12 Gordon Short pages verified clean on
