@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-10 23:16 BST - forty-fifth run [commit PENDING] - Quality pass on item 4.11, the SK Chemists Bootle GBP pack, last verified on 2026-08-05 and the oldest verification left in the estate. The pack is clean on every fact and every rule, and all four post buttons load, so for the third run running there is no dead link. The defect is which page Post A points at: the target loads but is missing from the branch sitemap and its own heading misspells the town as "Bottle", while the generated replacement is live, indexed and correctly spelled. Hard stop added to the paster notes; the repoint itself belongs to item 5.3 and is asked as Q34
+## 2026-08-10 23:16 BST - forty-fifth run [commit bc8ec42] - Quality pass on item 4.11, the SK Chemists Bootle GBP pack, last verified on 2026-08-05 and the oldest verification left in the estate. The pack is clean on every fact and every rule, and all four post buttons load, so for the third run running there is no dead link. The defect is which page Post A points at: the target loads but is missing from the branch sitemap and its own heading misspells the town as "Bottle", while the generated replacement is live, indexed and correctly spelled. Hard stop added to the paster notes; the repoint itself belongs to item 5.3 and is asked as Q34
 
 NO AUTONOMOUS DECISION WAS TAKEN, AND THE TIMING IS THE REASON. The standing
 window ran to 23:14 tonight. This run started at 23:05, so it began inside the
