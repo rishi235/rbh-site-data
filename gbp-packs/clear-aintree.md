@@ -9,10 +9,25 @@ local, not online-only.
 Profile basics (for checking, not pasting):
 - Name on GBP: Clear Chemist
 - Address: Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree,
-  Liverpool L9 7AS
-- Phone: 0151 203 8365
+  Liverpool L9 7AS. Confirmed against the branch's own live contact page
+  on 2026-08-10, which gives the same unit and the same postcode.
+- Phone: 0151 203 8365 in branches.json. DO NOT PASTE THIS NUMBER YET.
+  The branch's own website publishes 0151 203 6535 as its only telephone
+  number, twice on its own contact page at www.clearchemist.co.uk/
+  contact-us (read 2026-08-10), and not 0151 203 8365 anywhere this pass
+  could find. One of the two is wrong and only the branch can say which.
+  Confirm with Clear, correct branches.json if it is the one at fault,
+  and only then set the number on the profile. See question Q28.
 - Hours: not recorded in branches.json. Do not paste or invent hours -
-  confirm with the branch and add to branches.json first.
+  confirm with the branch and add to branches.json first. The branch's
+  live contact page does publish hours, so the answer is obtainable:
+  it reads "Non-NHS Services - Monday - Friday 8am-4.30pm", "NHS
+  Services - Monday - Thursday 8am - 6pm" and "not open on bank
+  holidays and weekends" (read 2026-08-10). Those are two different
+  weeks for two different counters and the NHS line stops on Thursday,
+  which GBP cannot express as one set of opening times, so they are
+  recorded here as a starting point for the conversation with the
+  branch and NOT as hours to paste.
 - Website: https://www.clearchemist.co.uk
 - Review link: https://g.page/r/CYTJCk0EpvxFEAE/review
 
@@ -125,10 +140,19 @@ Notes for the paster:
 - Opening hours are not in branches.json for this branch. Confirm hours
   with the branch, add them to branches.json, then set them on GBP. Do
   not guess.
-- Check the Post B, C and D URLs resolve before posting; the
-  clear-aintree page slugs follow the standard pattern but the live site
-  may lag the repo. If a page is missing, use
-  https://www.clearchemist.co.uk with the same button.
+- Post A quotes 0151 203 8365. Hold that number back until Q28 is
+  settled, for the reason in the profile basics above: the branch's own
+  website publishes a different one. Either confirm the number first, or
+  post A without the telephone sentence and add it afterwards.
+- The Post B, C and D URLs were checked live on 2026-08-10 and ALL THREE
+  RETURN 404. This is not a lag to wait out. Clear is the one branch in
+  the estate whose website is not Weebly: clearchemist.co.uk is the
+  e-commerce store, so the three pages this repo generates for Clear have
+  no paste route of the kind every other branch uses, and nobody has
+  decided how they reach the public. Until that is settled, use
+  https://www.clearchemist.co.uk with the same button on all three posts.
+  Do not post a button to a page that 404s: a Google post pointing at an
+  error page is worse than no button.
 - Post buttons: if GBP only offers "Learn more", use it with the same
   links.
 - Check category names against what GBP's picker actually offers on the

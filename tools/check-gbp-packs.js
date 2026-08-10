@@ -560,6 +560,86 @@ for (const file of packFiles) {
     const other = branches.find((x) => norm(x.postalCode).toUpperCase().replace(/\s+/g, "") === pc);
     if (other) fail(file, `postcode ${pc} belongs to ${other.branchName}, not ${b.branchName}`);
   }
+
+  // --- opening hours on the profile --------------------------------------
+  // TEMPLATE.md's first rule names three things that must come from
+  // branches.json and nowhere else: "No invented hours, phones or claims."
+  // Phones were guarded above, both directions, and postcodes with them.
+  // Hours were not read at all until the item 4.9 quality pass on
+  // 2026-08-10, although they are the one fact on a Google profile that
+  // sends a patient to a locked door, and the profile is where most people
+  // read them: tools/check-opening-hours.js guards the generated pages and
+  // stops at the repo boundary.
+  //
+  // Two rules, and which one applies is decided by branches.json.
+  //
+  // A branch WITH hours: every clock time the pack states must be a time
+  // the branch's own openingHours specification contains, and every time in
+  // the specification must appear in the pack. A drifted closing time is
+  // otherwise invisible, because no other checker reads a pack for it.
+  //
+  // A branch WITHOUT hours: Clear Chemist Aintree is the only one, and its
+  // pack is the model. The rule is a PRESENCE check, that the hours line
+  // tells the paster the data is missing and not to paste or guess. It is
+  // deliberately not an absence check on clock times, because that would
+  // fail the one pack that handles this best: clear-aintree.md quotes the
+  // times the branch's own website publishes, as evidence for the question
+  // that closes the gap, and quoting evidence is the opposite of inventing
+  // hours. Same trap the item 4.8 pass had to design around.
+  // The bullet plus every indented line that wraps it. Deliberately NOT a
+  // /m regex. These files are CRLF, and under /m JavaScript treats a bare \r
+  // as a line terminator, so both /^/ and /$/ fire at every CRLF: a /m
+  // lookahead ends the match at the first line break and the rule silently
+  // reads one line of a four-line bullet while looking like it read all of
+  // it. Every pack wraps its hours at about 70 characters, so under /m this
+  // rule would have checked Monday to Friday and never seen Saturday. Same
+  // under-reading fault the item 4.8 pass had to design around in the bullet
+  // reader above. Without /m, ^ and $ mean start and end of file, which is
+  // what the alternation below wants.
+  const hoursLine = (text.match(/(?:^|\n)-[ \t]*Hours:[\s\S]*?(?=\r?\n-[ \t]|\r?\n[ \t]*\r?\n|\r?\n##[ \t]|$)/) || [])[0] || "";
+  const toMinutes = (h, m, ap) => {
+    let hh = Number(h);
+    if (ap === "pm" && hh !== 12) hh += 12;
+    if (ap === "am" && hh === 12) hh = 0;
+    return `${String(hh).padStart(2, "0")}:${m || "00"}`;
+  };
+  // Two kinds of time in an hours line are not a claim about when the shop
+  // is open, and reading them as one would fail the two packs that do this
+  // best. A parenthetical marked as history: scorah-hazel-grove.md records
+  // "(previously Sat 9:00am to 1:00pm)" so the paster knows to check GBP is
+  // not still showing a Saturday that ceased on 24 June 2026, which is the
+  // opposite of stating hours. And a quoted span: clear-aintree.md quotes
+  // the times the branch's own website publishes as evidence for the
+  // question that closes its missing-hours gap. A genuine lunch closure
+  // stays in scope, because "(closed 1:00pm to 2:00pm)" carries no history
+  // word, and its times are in the specification anyway.
+  const hoursClaim = hoursLine
+    .replace(/\([^)]*\b(?:previously|formerly|ceased|used to|was)\b[^)]*\)/gi, " ")
+    .replace(/"[^"]*"/g, " ");
+  const packTimes = new Set();
+  for (const m of hoursClaim.matchAll(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/gi)) {
+    packTimes.add(toMinutes(m[1], m[2], m[3].toLowerCase()));
+  }
+  const spec = (b.openingHours && b.openingHours.specification) || null;
+  if (!hoursLine) {
+    fail(file, 'no "- Hours:" line in the profile basics, so the paster has nothing telling them what to set on the profile');
+  } else if (spec && spec.length) {
+    const dataTimes = new Set();
+    for (const s of spec) { dataTimes.add(s.opens); dataTimes.add(s.closes); }
+    for (const t of packTimes) {
+      if (!dataTimes.has(t)) {
+        fail(file, `hours line states ${t}, which is not an opening or closing time in this branch's openingHours in branches.json (${[...dataTimes].sort().join(", ")}). GBP hours send patients to the door, so the pack and the data must agree`);
+      }
+    }
+    for (const t of dataTimes) {
+      if (!packTimes.has(t)) {
+        fail(file, `branches.json has this branch opening or closing at ${t}, but that time does not appear in the pack's hours line, so the profile would be set from an incomplete picture`);
+      }
+    }
+  } else if (!/not recorded in branches\.json/i.test(hoursLine) ||
+             !/do not (paste|invent|guess)/i.test(hoursLine)) {
+    fail(file, "branches.json holds no openingHours for this branch, so the hours line must say the data is not recorded and tell the paster not to paste, invent or guess hours. It does not");
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------

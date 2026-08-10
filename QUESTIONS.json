@@ -416,5 +416,36 @@
     "status": "answered",
     "answer": "AUTONOMOUS DECISION taken on 2026-08-10 under the standing authorisation window (opened 2026-08-09 23:14, expires 2026-08-10 23:14). Option 1 implemented. It changes no public copy and no branch data: it is repo tooling widening an existing rule to the direction TEMPLATE.md already states, so it sits well outside the window's carve-out for money, legal risk and patient-facing regulatory claims. Reversing it is deleting two loops from one file. Flagged here for review, and option 2 left open as the next step if Rishi wants the description covered too.",
     "note": "Nothing changed in any pack, so nothing changes on any Google profile. The value is preventive: from now on a pack that claims a service branches.json does not give the branch fails the run instead of reaching a paster. The item 4.8 pass found no defect in the Eccleston pack itself, which is the first clean pack in six passes."
+  },
+  {
+    "id": "Q28",
+    "date": "2026-08-10",
+    "item": "quality pass on 4.9 (finding, does not block any item)",
+    "question": "branches.json holds 0151 203 8365 as Clear Chemist Aintree's phone, and the three pages this repo generates for that branch all print it. Reading the branch's own live website on 2026-08-10 found a different number: its contact page gives 0151 203 6535 as the only telephone number, once as \"Customer Services Telephone\" and again in the complaints footer as \"(t): 0151 203 6535\", and 0151 203 8365 appears nowhere this pass could find on the branch's site. Nothing in the repo could ever have caught this, because check-nap compares the generated pages to branches.json and both carry 8365, and no checker reads a live page. One of the two numbers is wrong and only the branch can say which. The GBP pack was about to publish 8365 to Google, and the pack now holds it back until this is settled. Which number is the pharmacy's?",
+    "options": [
+      "0151 203 8365 is correct and the website is out of date. Change nothing in branches.json, and have the branch correct its own contact page. Cheapest if true, but it leaves the website contradicting Google until somebody edits the store",
+      "0151 203 6535 is correct. Change branches.json, regenerate the three Clear pages and repaste them, and paste 6535 to the Google profile. One edit at source fixes the pack, the pages and the profile together",
+      "Both are real: 6535 is the e-commerce customer services line and 8365 is the pharmacy counter. Keep branches.json as it is, and add a note to the pack and the contact page saying which line does what, so a patient ringing about a prescription is not sent to the shop line",
+      "Neither is confirmed. Ring the branch and settle it before anything is pasted or changed"
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Option 3 is recommended only because it is the likeliest explanation, not because it is verified: the live page labels 6535 \"Customer Services\" and gives a separate pharmacy mailbox, pharmacy@clearchemist.co.uk, which reads like a business that runs two lines. It is a guess until the branch confirms, which is why this was not decided under the autonomous window: a wrong telephone number on a pharmacy's Google profile is patient-facing, and no option here can be implemented without a fact only the branch holds. Related, found in the same read and belonging to Q21: Clear advertises its own WhatsApp number, 07512 330 076, on the same contact page and promises a reply within the hour, while all three of its generated pages carry the estate-wide hardcoded 447521775631. So the estate default is already demonstrably wrong for at least one branch, which is the concrete case Q21 was missing."
+  },
+  {
+    "id": "Q29",
+    "date": "2026-08-10",
+    "item": "quality pass on 4.9 (finding, does not block any item)",
+    "question": "The Clear Chemist pack's Posts B, C and D carry buttons to switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-aintree.html and travel-clinic-clear-aintree.html. All three were fetched live on 2026-08-10 and all three return 404. This is not the usual paste backlog. Every other branch in the estate publishes through Weebly, and a page reaches the public when Rishi or Dane paste it; clearchemist.co.uk is not a Weebly site, it is the e-commerce store, so the three pages this repo generates for Clear have no paste route of the kind the other 14 branches use and nobody has decided how they would reach the public. The pack now tells the paster to use the homepage button on all three posts rather than link an error page, so nothing is broken today, but three generated pages are sitting in the repo with no way out of it. How should Clear's pages be handled?",
+    "options": [
+      "Publish them on the store. Get whoever maintains clearchemist.co.uk to add the three pages at the slugs the repo already uses, so the pack's buttons, the switch page and both booking widgets work as they do everywhere else. Most value, and it is the only option that gives Clear a local landing page for Aintree searches, but it needs store development time nobody has costed",
+      "Point the pack and the estate at the store's own equivalent pages instead, wherever they exist, and stop generating the three Clear pages. Removes the dead weight and the 404s permanently, but Clear then has no page targeting Aintree and drops out of the local search work the whole audit is about",
+      "Leave the three pages generated and unpublished, keep the homepage buttons, and revisit when the store is next worked on. No cost now, but the repo keeps building and checking pages that reach nobody, and the next pass finds the same thing"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Not decided under the autonomous window because every option costs money or scope: option 1 is store development time and option 2 removes a branch from the local search work Rishi commissioned. The pack is safe either way in the meantime. Worth knowing when deciding: Clear is the only branch with no Pharmacy First, no blood pressure and no contraception service, so its three pages are the whole of its local web presence, and the item 3.13 pass already noted that a third of it, the travel clinic page, offers a visitor no callback form and no WhatsApp button, which is Q20."
   }
 ]

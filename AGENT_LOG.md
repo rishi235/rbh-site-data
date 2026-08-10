@@ -2,6 +2,195 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 20:04 BST - thirty-ninth run - Quality pass on item 4.9, the Clear Chemist Aintree GBP pack, drafted on 2026-08-04 and last verified the following day. Nothing in the pack is wrong: it verifies fact by fact against branches.json and rule by rule against TEMPLATE.md, the second clean pack in seven passes. The defects are outside it, and they only appeared because this pass read the branch's own live website, which nothing in this repo can do. branches.json gives Clear's phone as 0151 203 8365; the branch's own contact page publishes 0151 203 6535 twice and 8365 nowhere. All three of the pack's post links return 404, and not as a paste backlog: Clear's site is the e-commerce store, not Weebly, so its three generated pages have no paste route at all. Pack made safe on both counts, Q28 and Q29 raised, and check-gbp-packs.js given the hours rule TEMPLATE.md has always stated and nothing has ever enforced
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. After the thirty-eighth run took 4.8, the items still sitting on a
+2026-08-05 verification and never since were 4.9, 4.10 and 4.12 to 4.15, and
+4.9 sat earliest. The thirty-eighth run named it as next and said to take it
+carefully rather than quickly, for reasons that turned out to be the right
+ones: Clear is the one branch with a genuinely short widget set, no hours in
+branches.json, and a pack that has to be read as prose rather than as a list.
+
+TWO QUESTIONS RAISED, NEITHER DECIDED, AND WHY NOT UNDER THE WINDOW. The
+standing authorisation window is open until 23:14 tonight, so the default
+this run was to take the recommended option rather than block. Both findings
+were left open on purpose.
+
+Q28, the phone, cannot be decided by anyone here because it is a fact, not a
+preference: one of the two numbers is wrong and only the branch knows which.
+Choosing one and editing branches.json would be a guess printed on a
+pharmacy's Google profile and on three live-bound pages, which is
+patient-facing in the plainest way. What was implementable, and is done, is
+the safe hold: the pack now tells the paster not to set the number until it
+is confirmed, and Post A's telephone sentence carries the same hold.
+
+Q29, how Clear's three pages reach the public, is a money and scope decision.
+Option 1 is store development time nobody has costed and option 2 drops a
+branch out of the local search work the audit exists to do. That is squarely
+inside the window's carve-out. The pack is safe meanwhile: it now says use
+the homepage button on all three posts rather than link an error page.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 20:12. The newest
+entry is still the Q16 answer of 15:16, applied by the thirty-third run.
+Q17, Q18, Q19, Q20, Q21, Q22 and Q24 are all still open with no answer
+posted, and Q28 and Q29 join them.
+
+BASELINE. All six generators were run before any edit and produced zero diff,
+and all 18 checkers passed, so everything below is attributable to this run.
+check-gbp-packs' 11 standing warnings were recorded first: the 10 Pharmacy
+First link warnings Q8 already covers, plus the Tiffenbergs link with no
+.html ending. They are unchanged at the end. There are 12 warnings now, not
+11: the new one is clear-aintree.md carrying 0151 203 6535, which is the
+finding itself surfacing through the checker's existing "phone-like number
+that is not this branch's" rule, and is wanted rather than noise.
+
+WHAT WAS VERIFIED IN THE PACK, AND WHAT PASSED. Read against branches.json
+fact by fact and against gbp-packs/TEMPLATE.md rule by rule:
+
+- Address Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree,
+  Liverpool L9 7AS, and the Google review link, match branches.json exactly.
+  The address was also confirmed against the branch's own live contact page,
+  which gives the same unit and the same postcode.
+- The catchment reads "Aintree, Fazakerley, Walton, Bootle and North
+  Liverpool" in all three places it appears, in branches.json order, leading
+  with the branch's own seoTown, so it satisfies the rule the 5.7 pass added.
+- Categories and services match the widget set exactly. Clear holds only
+  weightLoss and travelClinic, so the pack earns Travel clinic, Vaccination
+  centre and Weight loss service and claims nothing else. Its prose note that
+  Pharmacy First, blood pressure and contraception are NOT offered is correct
+  and is the note the 4.8 pass had to design the bullet reader around.
+- Profile website is the homepage, which is right: clearchemist.co.uk carries
+  one branch, so the shared-domain landing page rule does not apply.
+- Business description 669 characters against the 750 limit, matching its own
+  stated count exactly. Posts 460, 453, 600 and 529 against the 1,500 limit.
+- Post C names no medicine and makes no efficacy claim. Judged as advertising
+  rather than as an inner page, which is the stricter of the two regimes in
+  AI\RBH_WeightLoss_Advertising_Standards.md and the right test for a Google
+  post, it carries none of the five things
+  compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md identified on the live
+  pages: no superlative, no results heading, no outcome figure, no lead price
+  and no treatment picker.
+- Ten photo shots as Build Pack 4.1 asks, including the vinyl storefront and
+  the reminder to action pending Google updates.
+- No em dash, no emoji, not one non-ASCII character in the file, and no other
+  branch's phone, postcode, review link or brand name anywhere in it. The one
+  apparent leak is not one: head office shares Clear's address and postcode
+  because RB Healthcare Ltd is registered at the same unit.
+- No hours anywhere in the three generated Clear pages either, so the pack's
+  refusal to state hours is consistent with the site rather than an omission.
+
+THE PHONE. branches.json holds 0151 203 8365, and all three generated Clear
+pages print it. The branch's own contact page, read at 20:31, gives 0151 203
+6535 as its only telephone number, once as "Customer Services Telephone" and
+again in the complaints footer as "(t): 0151 203 6535". 8365 appears nowhere
+on the branch's site that this pass could find, including the homepage.
+
+Nothing in this repo could ever have caught it. check-nap compares the
+generated pages to branches.json and both carry 8365, so the repo is
+internally consistent and externally contradicted, which is the same silent
+shape as the map iframe in check-jsonld and the switch-page CONFIG in Q19:
+every visible line reads correctly and the fact underneath is still wrong.
+
+The likeliest reading is that both numbers are real and 6535 is the
+e-commerce customer services line, because the same page lists a separate
+pharmacy mailbox, pharmacy@clearchemist.co.uk. That is a guess, so it is
+Q28's recommended option and not an edit. branches.json was not touched.
+
+THE 404s. All three post links were fetched live and all three return 404:
+switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-aintree.html
+and travel-clinic-clear-aintree.html. The pack anticipated a lag and told the
+paster to check first, but this is not a lag. clearchemist.co.uk is the
+e-commerce store, with a product search and a My Account link on its own 404
+page. It is not a Weebly site, and Weebly paste is how every other branch in
+the estate publishes, so Clear's three pages have no route to the public at
+all and nobody has decided what one would look like. The pack now states this
+as fact with the date, and instructs the homepage button on all three posts.
+
+THE WHATSAPP NUMBER, WHICH BELONGS TO Q21. The same contact page advertises
+Clear's own WhatsApp line, 07512 330 076, promising a reply within the hour.
+All three of Clear's generated pages carry data-wa 447521775631, the number
+hardcoded in seven places across the estate. So a visitor on a Clear page who
+taps "Send via WhatsApp instead" messages a number that is not the WhatsApp
+line the branch advertises and staffs. Q21 asked where the number should
+live and noted that seven copies agreeing look like one source of truth; this
+is the concrete case it was missing, and it shows the single estate default
+is already wrong for at least one branch. Recorded in Q28's note rather than
+raised again, and nothing was changed: CLAUDE.md is explicit that the seven
+copies move together or not at all, and touching the two module defaults
+would end the byte-identical state that makes Q13's fast-forward free.
+
+THE IN-REPO FIX. check-gbp-packs.js now reads the "- Hours:" line.
+TEMPLATE.md's first rule has always named three facts that come from
+branches.json and nowhere else, "No invented hours, phones or claims".
+Phones were guarded in both directions and postcodes with them. Hours had
+never been read at all, although hours are the one fact on a Google profile
+that sends a patient to a locked door, and the profile is where most people
+read them rather than the website. check-opening-hours.js guards the
+generated pages and stops at the repo boundary.
+
+Two rules, and branches.json decides which applies. A branch with hours:
+every clock time on the line must be an opening or closing time in that
+branch's specification, and every time in the specification must appear on
+the line. A branch without hours, which is Clear alone: the line must say the
+data is not recorded and tell the paster not to paste, invent or guess.
+
+Two deliberate details. Times inside a parenthetical marked as history, or
+inside quotation marks, are read as evidence rather than as a claim, so
+scorah-hazel-grove.md can record the Saturday that ceased on 24 June 2026 and
+clear-aintree.md can quote the hours its own website publishes without either
+being read as stating them. And the bullet reader does not use a /m regex.
+These files are CRLF, and under /m JavaScript treats a bare \r as a line
+terminator, so both ^ and $ fire at every line break. The first version of
+this rule did use /m and read one line of a three-line bullet, which is why
+it reported four failures that were not real: it had checked Monday to Friday
+and never seen Saturday. That is the same under-reading fault the 4.8 pass
+had to design around in the same file, and it is now written down in
+CLAUDE.md so the next person does not walk into it.
+
+EVIDENCE THE RULE IS A CONVENTION, NOT AN INVENTION. All 15 packs were read
+against branches.json before the rule was written. Every one of the 14 with
+hours already stated them correctly, including the four with lunch closures
+and the two with split Saturdays, and Clear already handled the missing-hours
+case the way the rule requires. No pack changed. The gap was latent.
+
+NEGATIVE-TESTED FIVE WAYS, in a throwaway tree outside the repo so nothing in
+it could be committed by accident, with an unmodified control run before and
+after:
+1. A closing time drifted by 30 minutes at Cherry Lane. Exit 1, failing in
+   both directions and naming the branch's real times.
+2. Gordon Short's Saturday closing changed from 5pm to 6pm. Exit 1 on the
+   17:00 the data holds and the pack no longer states.
+3. Clear's hours line stripped of its do-not-paste instruction. Exit 1 on the
+   no-hours presence rule.
+4. Riddings' hours line removed entirely. Exit 1 on the missing line.
+5. Scorah Hazel Grove's "(previously Sat 9:00am to 1:00pm)" reworded to read
+   as a live claim. Exit 1, which is the proof that the history exception is
+   narrow: it turns off the moment the copy stops being marked as history.
+Both control runs: exit 0, no failures.
+
+FILES CHANGED. gbp-packs/clear-aintree.md (phone hold, verified address note,
+live hours recorded as evidence for the question, hard 404 note replacing the
+soft check-the-links note, Post A phone hold). tools/check-gbp-packs.js (the
+hours rule). gbp-packs/TEMPLATE.md (the hours rule stated where packs are
+written). CLAUDE.md (the rule and the two traps in it). QUESTIONS.json (Q28,
+Q29). AGENT_WORKLIST.md and this file.
+
+VERIFICATION AFTER THE CHANGES. All six generators re-run: zero diff, so no
+generated page moved. All 18 checkers pass. check-gbp-packs reports 15 packs,
+12 warnings, 0 failures.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after that
+raises questions rather than deciding. On the least-recently-verified rule the
+next candidates are 4.10 and 4.12 to 4.15, all still on their 2026-08-05
+verification, with 4.10 Smartts Bootle next in line. Smartts is worth taking
+carefully for the same reason Clear was: it is the branch whose switch page
+carries the estate's only hand-written services grid and the KNOWN_CLAIM
+entry that is waiting on Q22, so its pack sits closest to the live weight loss
+exposure.
+
+
 ## 2026-08-10 19:34 BST - thirty-eighth run [commit 2099a49] - Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json and every rule against TEMPLATE.md, and it is the first pack in six passes with nothing wrong in it. The defect this run found is in the checker instead. TEMPLATE.md says a pack must not list a service the branch has no widget for, and check-gbp-packs.js only ever enforced that rule one way round, on omissions, so a pack could advertise a service the shop does not run and the repo would stay green. Both reverse rules added and negative tested four ways
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The

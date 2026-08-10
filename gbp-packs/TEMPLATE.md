@@ -22,6 +22,17 @@ Rules for every pack (from Master Plan v2 / Build Pack v2 and advertising law):
   any shared-domain pack that points at the homepage once the landing page
   exists in the repo. The landing page must be pasted to Weebly, with the
   branch's service pages, before the profile website is changed.
+- Opening hours: the "- Hours:" line in the profile basics is what the paster
+  sets on the profile, and it is the one fact on a Google profile that sends
+  a patient to a locked door. Every clock time on that line must be an
+  opening or closing time in the branch's own openingHours in branches.json,
+  and every time in branches.json must appear on the line, so a wrapped
+  Saturday session cannot be left off. Where branches.json holds no hours at
+  all, the line must say so and tell the paster not to paste, invent or guess
+  them. tools/check-gbp-packs.js enforces both. Times inside a parenthetical
+  marked as history ("previously", "ceased") or inside quotation marks are
+  read as evidence rather than as a claim, which is how a ceased Saturday and
+  a quoted source can be recorded without stating them as hours.
 - Business description: GBP limit is 750 characters. Stay under it.
 - Posts: keep each under 1,500 characters; first sentence carries the message.
 

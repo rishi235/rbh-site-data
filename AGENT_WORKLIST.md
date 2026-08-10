@@ -194,6 +194,37 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
       Post A is a local team post instead.
+      Quality pass 2026-08-10: every fact in the pack verified against
+      branches.json and every rule against TEMPLATE.md, and nothing in it
+      is wrong. Address, postcode L9 7AS, phone, website and review link
+      match; catchment leads with its own seoTown; categories and services
+      match the widget set exactly and the prose note that Pharmacy First,
+      blood pressure and contraception are NOT offered is correct; the
+      description is 669 characters, exactly what its own heading claims,
+      and the posts are 460, 453, 600 and 529, all inside the 1,500 limit;
+      no medicine name, no efficacy claim, no em dash, no emoji,
+      no non-ASCII character, and no other branch's facts anywhere in it.
+      The defects are outside the pack and were found by reading the
+      branch's own live site, which nothing in this repo can do. First,
+      the phone: branches.json and all three generated Clear pages carry
+      0151 203 8365, while the branch's own contact page publishes 0151
+      203 6535 twice and 8365 nowhere. check-nap cannot see this, because
+      it compares the pages to branches.json and both agree. Raised as
+      Q28, and the pack now holds the number back from the profile until
+      it is settled. Second, all three post links return 404 live, and not
+      as a paste backlog: clearchemist.co.uk is the e-commerce store, not
+      Weebly, so Clear's three generated pages have no paste route at all.
+      Raised as Q29; the pack now tells the paster to use the homepage
+      button on all three rather than link an error page. Third, Clear
+      advertises its own WhatsApp number, 07512 330 076, while its pages
+      carry the estate-wide hardcoded 447521775631, which is the concrete
+      case Q21 was missing. One in-repo fix made: check-gbp-packs.js now
+      reads the pack's "- Hours:" line against branches.json in both
+      directions, and requires a branch with no hours recorded to say so
+      and tell the paster not to guess. TEMPLATE.md named hours in the
+      same sentence as phones and claims from the start; only hours had
+      never been enforced. Negative-tested five ways. No pack breaches it
+      today, so the gap was latent. Done 2026-08-10.
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately

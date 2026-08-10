@@ -183,6 +183,28 @@ if the JSON-LD sessions do not match the data exactly, if a day is in
 after it opens. Run it after any change to a branch's hours or to a generator
 that prints them.
 
+Hours reach the public in one more place, and it is the place most people
+read: the Google Business Profile. `check-opening-hours` stops at the repo
+boundary, and until the item 4.9 pass on 2026-08-10 nothing read the `- Hours:`
+line in a GBP pack at all, although `gbp-packs\TEMPLATE.md`'s first rule names
+hours alongside phones and claims as facts that come from branches.json only.
+`check-gbp-packs.js` now reads it: every clock time on the line must be an
+opening or closing time in that branch's `openingHours`, every time in the data
+must appear on the line, and a branch with no hours in branches.json must have
+a line saying so and telling the paster not to paste, invent or guess. Clear
+Chemist Aintree is the only branch in that position.
+
+Two things in that rule are deliberate and worth not undoing. Times inside a
+parenthetical marked as history, or inside quotation marks, are read as
+evidence rather than as a claim, so `scorah-hazel-grove.md` can record the
+Saturday that ceased on 24 June 2026 and `clear-aintree.md` can quote the hours
+its own website publishes without either being read as stating them. And the
+bullet reader does not use a `/m` regex: these files are CRLF, and under `/m`
+JavaScript treats a bare `\r` as a line terminator, so `^` and `$` both fire at
+every line break and the rule would have read the first line of a three-line
+bullet, checking Monday to Friday and never seeing Saturday. That is the same
+under-reading fault the item 4.8 pass had to design around in the same file.
+
 ## Where a page sends people, and what it promises them
 
 `tools\check-service-links.js` covers the two things a title checker cannot see:
