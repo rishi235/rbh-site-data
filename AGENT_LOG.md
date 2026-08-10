@@ -2,6 +2,108 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 18:29 BST - thirty-fifth run - Quality pass on item 5.6, the Q14 length-aware title rule, which had never been verified since it landed this morning. The rule itself is sound and was proved end to end. The pass then found that the guard behind it was sampling a hardcoded phrase rather than the actual longest condition, so a longer condition added later would have slipped past it, and fixed that at source. A second finding, that the rule can only rescue three of the fourteen trading brands and two titles now sit one character from the wall, is raised as Q24
+
+NO AUTONOMOUS DECISION THIS RUN. The standing window is still open until
+23:14 tonight, but it only applies where a run would otherwise raise a
+question AND mark an item [BLOCKED]. Q24 blocks nothing, so it is left open
+for Rishi in the normal way, which is how Q17 to Q22 were handled inside the
+same window. Nothing this run needed a decision Rishi has not already made.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. After yesterday's 5.2 pass, 5.6 and 5.7 were the only completed items
+that had never had one, and 5.6 is the older of the two. It was also the more
+worthwhile of the pair, because 5.6 is the only item in the backlog that
+changed a rule rather than a value, and a rule that fires on one page today
+fires on every page that meets its condition tomorrow.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 18:31. The newest entry
+is still the Q16 answer of 15:16, applied by the thirty-third run. Q17, Q18,
+Q19, Q20, Q21 and Q22 are all still open with no answer posted, which is what
+the offline window predicts.
+
+BASELINE. All six generators were run before any edit and produced zero diff,
+and all 17 checkers passed, so everything below is attributable to this run.
+
+WHAT WAS VERIFIED, AND WHAT PASSED. The Q14 fix was checked against the Build
+Pack v2 title rule, the seo-pattern source and the artefacts a human actually
+uses, on the things no checker reads end to end:
+
+- The one title the rule exists for reads "Infected insect bite treatment in
+  Walton - Coleman and Leighs" at 61 characters, and it reads that in all
+  three places it is written: the page build comment, the paste sheet at
+  modules/service/pages/SEO.md and modules/service/pages/INDEX.md.
+- The 70-character version appears nowhere in the repo outside this log and
+  the question record, so there is no stale copy for anyone to paste.
+- Only the SERP title shortened. The H1 is "Infected insect bite treatment in
+  Walton" with no brand at all, data-branch reads "Coleman and Leighs
+  Pharmacy", the hero sentence names the pharmacy in full, and the JSON-LD
+  name is the full trading name Q1 settled, which check-branch-identity
+  independently confirms.
+- The rule is genuinely conditional. It fires only above 65 characters and
+  only where the brand ends in " Pharmacy", and a full regeneration of all
+  six generators after the edit moved no page in any folder.
+- TITLE_WARN_LEN is declared once and used by both the composer and the
+  checker, so the limit the title is fitted to and the limit it is judged
+  against cannot drift apart.
+- All six generators route every title through seo-pattern. Nothing composes
+  a title by hand any more, which is the item 3.1 contract still holding.
+
+THE DEFECT. The self-test in tools/seo-pattern.js sampled the longest
+condition as the literal string "Infected insect bite treatment". That was
+correct on the day it was written and it is still the longest of the seven
+conditions today, which is exactly why it would not have been noticed. The
+fault is that the sample is a copy of a value that lives somewhere else: add
+a longer condition to CONDITIONS in build-service-pages.js and the self-test
+keeps testing yesterday's worst case and keeps reporting no length warnings,
+while the generator writes a longer title into 14 real pages. It is the same
+under-sampling fault the item 3.1 quality pass already had to fix once, when
+the test sampled only "UTI treatment" and reported clean while a real page ran
+to 70 characters.
+
+THE FIX. The self-test now reads build-service-pages.js as data under test,
+extracts every metaCondition value, and samples the longest one it finds. It
+prints which phrase it derived and how many it read, so the coverage is
+visible rather than assumed, and it exits 1 if the generator declares none, so
+a generator that stops declaring metaCondition fails here instead of quietly
+narrowing what the test covers. That is the same convention check-booking-
+routes and check-whatsapp-route already use for service.js and the WhatsApp
+constants: read the thing under test, do not import it and do not copy it.
+
+NEGATIVE-TESTED THREE WAYS, in a throwaway tree outside the repo so nothing
+in it could be committed by accident:
+1. A stub generator declaring no metaCondition. The self-test failed with the
+   intended message and exit 1, so the guard cannot go silent.
+2. A generator declaring a longer condition, "Infected insect bite and sting
+   treatment" at 40 characters. The self-test derived it and raised length
+   warnings on branch after branch, which the old literal would have missed
+   entirely. Worth noting what those warnings showed: even after the Q14 rule
+   fires, titles of 70 to 74 characters survive on both shortenable and
+   unshortenable brands, so one retry is not a general remedy. That is the
+   substance of Q24.
+3. An unchanged copy of the real generator. Derived "Infected insect bite
+   treatment", 7 condition entries read, self-test passed, matching the live
+   run exactly, so the change is a no-op on today's data.
+
+AFTER THE FIX. All six generators re-run and all 17 checkers re-run: clean.
+check-seo-lengths reports titles 36 to 65 and descriptions 129 to 164 with no
+exceptions. The only file in the diff is tools/seo-pattern.js. No generated
+page, no paste sheet and no permalink moved, so this run adds nothing to the
+Weebly paste queue.
+
+NEW QUESTION: Q24 (see below). No item is blocked by it.
+
+WORKLIST. Item 5.6 stays ticked and now carries the quality pass note in
+place, matching how the 5.2 pass recorded itself. Nothing else was ticked:
+this was a quality pass, and 5.3, 5.4, 5.5 and 5.8 remain the only unticked
+items, all four [BLOCKED] on a supervised session or Weebly access.
+
+NEXT RUN. Item 5.7 is now the only completed item that has never had a
+quality pass, so it is the obvious candidate. It is worth doing carefully:
+5.7 is what pushed the McCanns Sandringham title to 64 characters, and the
+5.2 pass has already found one thing it moved and one thing it left behind.
+
 ## 2026-08-10 17:05 BST - thirty-fourth run - Quality pass on item 5.2, the four branch landing pages built on 2026-08-09 and never verified since. Five of the six pages verified clean. The sixth, McCanns Sandringham, was found still leading with its sister branch's town on the one page whose entire purpose is to stop those two branches competing, because item 5.7 moved the local word but not the list underneath it. Fixed at source under the autonomous window and logged as Q23 for review
 
 AUTONOMOUS DECISION. The one change this run makes is a decision Rishi has not
@@ -542,6 +644,19 @@ worklist items rather than silently carried in prose.
     inbox rather than the helpdesk.
 
 ## Questions for Rishi
+OPEN: Q24 (raised 2026-08-10, thirty-fifth run) - the Q14 title-shortening rule
+works, but it can only rescue three of the fourteen trading brands. It drops a
+trailing " Pharmacy", and eleven brands end in Chemist or Chemists, so if one
+of their titles ever passes 65 characters nothing can shorten it, the checker
+fails, and the wording decision lands on somebody by hand at that moment. Not
+hypothetical any more: item 5.7 lengthened the McCanns Sandringham local word
+by one character and its longest title now sits at 64 of 65 with no remedy.
+The Coleman and Leighs contraception title sits at exactly 65. Recommendation
+is to widen the rule to drop a trailing " Chemist" or " Chemists" as well,
+which fires on nothing today and so regenerates byte-identical. A related
+side effect worth deciding alongside Q18: Coleman and Leighs now ends one
+title "- Coleman and Leighs" and another "- Coleman and Leighs Pharmacy",
+because only the first overran. Nothing is blocked by it.
 OPEN: Q19 (raised 2026-08-10, thirtieth run) - branches.json is not actually the
 single source of truth for the 15 switch pages. tools/build-switch-pages.js
 holds its own hardcoded CONFIG copy of brand, brandSlug, town, townSlug and

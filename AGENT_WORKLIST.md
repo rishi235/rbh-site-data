@@ -261,6 +261,22 @@ so tools/build-audit-status.js picks them up like any other item.
       OUTSTANDING on the live side: the Weebly SEO title field for that one
       page needs repasting from modules/service/pages/SEO.md, or the live
       Google result keeps the truncated title.
+      Quality pass 2026-08-10: the Q14 rule verified end to end and found
+      sound. The title is 61 characters in the page, the paste sheet and the
+      index, the 70-character version is gone from every file in the repo,
+      the H1, the JSON-LD name, data-branch and every visible line of copy
+      still carry the full trading name, and a full regeneration of all six
+      generators moved no page. One real defect found and fixed in the
+      tooling: the pattern self-test hardcoded "Infected insect bite
+      treatment" as the longest condition, so adding a longer condition to
+      build-service-pages.js would have left the worst-case sample testing a
+      phrase that was no longer the worst case, which is the same
+      under-sampling fault the item 3.1 pass had to fix once already. The
+      self-test now derives the longest condition by reading the generator as
+      data under test and fails if it declares none. Negative-tested three
+      ways. A second finding, that the shortening rule can only rescue three
+      of the fourteen trading brands and the estate is one character from the
+      wall on two titles, is raised as Q24 and blocks nothing.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a

@@ -255,6 +255,30 @@ if (require.main === module) {
   var hardFail = false;
   var warnings = 0;
 
+  // The longest condition phrase is READ FROM build-service-pages.js rather
+  // than written here as a literal. It used to be the literal "Infected
+  // insect bite treatment", which was the longest condition on the day the
+  // Q14 rule landed (item 5.6). A literal is the same under-sampling fault
+  // the item 3.1 pass already had to fix once: add a longer condition to
+  // CONDITIONS and the self-test would keep testing the old worst case and
+  // keep reporting no length warnings, while the generator wrote a longer
+  // title into 14 real pages. The generator is read as DATA UNDER TEST, the
+  // same convention as check-whatsapp-route and check-booking-routes, so a
+  // generator that stops declaring metaCondition fails here instead of
+  // quietly narrowing what this test covers.
+  var fs = require("fs");
+  var builderSrc = fs.readFileSync(path.join(__dirname, "build-service-pages.js"), "utf8");
+  var conditions = (builderSrc.match(/metaCondition:\s*"[^"]+"/g) || []).map(function (m) {
+    return m.replace(/^metaCondition:\s*"/, "").replace(/"$/, "");
+  });
+  if (!conditions.length) {
+    console.error("FAIL build-service-pages.js declares no metaCondition values, so the longest-condition sample cannot be derived");
+    process.exit(1);
+  }
+  var longestCondition = conditions.slice().sort(function (a, b) { return b.length - a.length; })[0];
+  console.log("Longest condition phrase read from build-service-pages.js: \"" + longestCondition +
+    "\" (" + longestCondition.length + " chars, " + conditions.length + " condition entries read)\n");
+
   data.branches.forEach(function (b) {
     if (b.disposed) return;
     if (b.id === "rbh_head_office_aintree") return; // head office: no pages
@@ -268,11 +292,12 @@ if (require.main === module) {
       ["landing      ", landingTitle(b), landingH1(b)],
       ["pfOverview   ", brandTitle("Pharmacy First", b), brandH1("Pharmacy First", b)],
       ["pfCondition  ", searchTitle("UTI treatment", b), searchH1("UTI treatment", b)],
-      // Longest condition phrase in build-service-pages.js CONDITIONS. Sampled
-      // as well as the shortest so the length check sees the worst case: with
-      // UTI alone the self-test never reached TITLE_WARN_LEN and reported no
-      // warnings even though a real generated page ran to 70 characters.
-      ["pfConditionMax", searchTitle("Infected insect bite treatment", b), searchH1("Infected insect bite treatment", b)],
+      // Longest condition phrase in build-service-pages.js CONDITIONS, derived
+      // above rather than hardcoded. Sampled as well as the shortest so the
+      // length check sees the worst case: with UTI alone the self-test never
+      // reached TITLE_WARN_LEN and reported no warnings even though a real
+      // generated page ran to 70 characters.
+      ["pfConditionMax", searchTitle(longestCondition, b), searchH1(longestCondition, b)],
       ["contraception", searchTitle("NHS contraception service", b), searchH1("NHS contraception service", b)],
       ["weightLoss   ", brandTitle("Weight Loss Clinic", b), brandH1("Weight Loss Clinic", b)],
       ["travelClinic ", brandTitle("Travel Clinic", b), brandH1("Travel Clinic", b)],
