@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-10 19:34 BST - thirty-eighth run - Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json and every rule against TEMPLATE.md, and it is the first pack in six passes with nothing wrong in it. The defect this run found is in the checker instead. TEMPLATE.md says a pack must not list a service the branch has no widget for, and check-gbp-packs.js only ever enforced that rule one way round, on omissions, so a pack could advertise a service the shop does not run and the repo would stay green. Both reverse rules added and negative tested four ways
+## 2026-08-10 19:34 BST - thirty-eighth run [commit 2099a49] - Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json and every rule against TEMPLATE.md, and it is the first pack in six passes with nothing wrong in it. The defect this run found is in the checker instead. TEMPLATE.md says a pack must not list a service the branch has no widget for, and check-gbp-packs.js only ever enforced that rule one way round, on omissions, so a pack could advertise a service the shop does not run and the repo would stay green. Both reverse rules added and negative tested four ways
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The
 checker hardening was taken under it and recorded as Q27, status answered,
