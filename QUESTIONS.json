@@ -198,5 +198,20 @@
     "status": "open",
     "answer": null,
     "note": "Raised rather than actioned under the 24-hour autonomous window because the recommended fix is outside this run's authorisation, not because a decision was dodged: fast-forwarding service-module-phase1 means pushing a branch other than agents/audit-backlog, and re-pinning the switch pages only reaches live through a Weebly paste. Both need a supervised session. Timing point in favour of doing option 1 soon: the service assets are byte-identical between the branch and main right now, so fast-forwarding is a no-op for live pages today. Once those files diverge it stops being free and starts being a change to 318 live page references. New tools/check-cdn-pins.js makes all of this visible from now on and is tested against both regressions; the switch.js drift is recorded in its KNOWN_DRIFT list against this question, so the checker reports it every run without going permanently red, and turns hard red the moment anything else drifts. Remove that entry when the fix lands."
+  },
+  {
+    "id": "Q14",
+    "date": "2026-08-10",
+    "item": "quality pass on 3.5 (finding on 3.9, does not block any item)",
+    "question": "One page title in the whole estate is too long for Google. The Coleman and Leighs infected insect bite page carries 'Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy', 70 characters against a 65 limit, because the longest NHS condition name has landed on the longest trading name. Google truncates it and the brand is the part that disappears, so the result currently reads as an unbranded condition page. Every other title in the estate is 62 characters or fewer. Shortening it means editing public copy one way or the other, and the two ways out pull against different earlier decisions.",
+    "options": [
+      "Drop 'Pharmacy' from the title suffix on that one page, giving 'Infected insect bite treatment in Walton - Coleman and Leighs' at 61 characters. Keeps the NHS condition wording exactly and ends the brand cleanly instead of mid-word, but the title then differs from the trading name Q1 settled",
+      "Drop 'Infected' from the title, giving 'Insect bite treatment in Walton - Coleman and Leighs Pharmacy' at 61 characters. Keeps the full trading name and matches what people actually search, but the title then describes a broader service than Pharmacy First covers, while the H1 and description keep the NHS wording",
+      "Leave the title as it is and accept the truncation. No copy change and no repaste, but the Walton listing keeps losing its brand in the results, in a town where RBH runs a second pharmacy (Cherry Lane) competing for the same words"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked by this. It was raised rather than decided under the 24-hour autonomous window because both fixes change public copy on a patient-facing clinical page: option 2 narrows or broadens how an NHS service is described, and option 1 overrides the trading name Rishi personally settled in Q1. Option 1 is recommended because the brand is what Google is already cutting, so ending it cleanly costs nothing that is not already lost, and it leaves the NHS condition wording untouched. Whichever is chosen, the fix belongs in tools/seo-pattern.js as a length-aware rule rather than a hand edit, and the one page then needs its Weebly SEO title repasting. New tools/check-seo-lengths.js enforces the limits and uniqueness from now on and records this title in its KNOWN list against this question, so it reports every run without going permanently red. Remove that entry when the fix lands."
   }
 ]

@@ -3,6 +3,12 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+OPEN: Q14 (raised 2026-08-10, twenty-first run) - one page title in the whole
+estate is over Google's length limit: the Coleman and Leighs infected insect
+bite page runs to 70 characters, so the brand is truncated away in the result.
+Both ways of shortening it edit public copy on a clinical page, which is why
+the autonomous window did not cover it. Recommendation is to drop "Pharmacy"
+from that one title suffix. Nothing is blocked by it.
 OPEN: Q13 (raised 2026-08-09, twentieth run) - both jsDelivr CDN pins have
 gone stale, so live pages serve code this repo no longer says. The live switch
 pages still send switch requests to rishi@rbhealth.co.uk because their pinned
@@ -129,6 +135,159 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 10:04 (unattended run, twenty-first) - Quality pass on item 3.5, Hirshmans Chemist Ainsdale. All 12 Hirshmans pages verified clean on title, description, H1, NAP, schema, internal links and weight loss compliance. The pass then found the first real defect of its kind by widening the check to the whole estate: nothing anywhere enforced that an SEO title or description fits what Google shows, or that two pages do not share one. One title is over the limit and is raised as Q14; new tools/check-seo-lengths.js makes both rules permanent
+
+Run start state. A stale .agent-lock was present, written 2026-08-10 09:05:43,
+58.6 minutes old and so past the 45-minute threshold in the scheduled task
+prompt. Cleared as stale, which is the third orphaned lock in two days. No
+.git\index.lock and no git process running. Worktree clean, branch
+agents/audit-backlog level with origin at f0d7a61.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE. Q13 was open at the start of the
+run, so the condition was met. The browser tooling still lists the two Chrome
+registrations as "Browser 1" and "Browser 2", both reporting isLocal true, so
+the "prodesk" name recorded on 2026-08-09 evening did NOT persist. The tooling
+requires a human to pick between the two before any tab can be opened, and
+there is no human in an unattended run, so the fetch could not be made. Per the
+scheduled task rules no other route was tried. Recording the answer plainly for
+whoever fixes this: the rename did not survive, and the blocker is the picker,
+not the Cloudflare Access session. A direct HTTP fetch of the live site was
+also refused by the tooling, so the live-site leg of a quality pass remains
+unavailable to unattended runs; everything below is verified against the repo.
+
+AUTONOMOUS WINDOW: ACTIVE at the time of this run (opened 2026-08-09 23:14,
+expires 2026-08-10 23:14). It did not change what this run did. See the Q14
+section below for why the one decision this run surfaced falls inside the
+window's own carve-out rather than being taken autonomously.
+
+WHY A QUALITY PASS, AND WHY 3.5. Every numbered item is ticked except 5.3 and
+5.4, both [BLOCKED] on someone being logged into the Weebly editor, so there
+was no unblocked item to take. On the least-recently-verified rule the
+eighteenth, nineteenth and twentieth runs took 3.2, 3.3 and 3.4, so 3.5 is
+next in that block.
+
+WHAT WAS VERIFIED ON 3.5, AND WHAT PASSED. All 12 Hirshmans pages (11 service,
+1 switch) checked against the Build Pack v2 rule that town and service words
+belong in the title, description and heading:
+  - check-seo-pattern and check-seo-sheets both clean. Every H1 equals what
+    tools/seo-pattern.js produces, and every page agrees with the paste sheet
+    a human types into Weebly.
+  - Town words. seoTown and addressLocality are both Ainsdale here, so unlike
+    Cherry Lane there is no divergence to get backwards. All 12 titles, H1s,
+    descriptions and slugs carry Ainsdale; schema addressLocality is Ainsdale
+    and addressRegion is Merseyside on all 12.
+  - Titles 44 to 62 characters, descriptions 137 to 156. Inside the limits,
+    and each carries Ainsdale plus a service word.
+  - NAP. Street reads "56-62 Sherwood House, Station Road" and postcode
+    PR8 3HW on all 12, matching branches.json and the 1.2 verification. One
+    tel: link per page, 01704577376, correct on all 12.
+  - Internal links. Every href on every Hirshmans page resolves: the Pharmacy
+    First page links all seven condition pages, each condition page links back,
+    and the only external targets are the font, the CDN asset and the Google
+    review URL. No dead or malformed link.
+  - Compliance. No prescription medicine name and no efficacy claim on the
+    weight loss page or anywhere else in the set. hasApp is false and no page
+    mentions an app.
+  - No landing page for Hirshmans, correctly: it has its own domain, so the
+    shared-domain treatment from item 2.2 does not apply.
+
+VERIFIED OBSERVATIONS, NO CHANGE MADE. Two things were checked, found to be
+deliberate rather than broken, and are recorded so a later pass does not spend
+a run rediscovering them:
+  - openingHoursSpecification appears on only 6 of 177 pages, the branch
+    landing pages. branches.json carries a full NHS-sourced hours block for
+    Hirshmans, confirmed 2026-06-24, including the 13:00 to 14:00 lunch
+    closure. Item 2.1 recorded hours schema as "deferred to Phase 3
+    regeneration" and Phase 3 turned out to be about titles, so it was never
+    picked up. Deliberately NOT actioned: Build Pack v2 section 5.1 says the
+    hours block "is available for schema markup and contact blocks", which
+    makes it an option, not a requirement, and adding it would change 171
+    generated pages and put all 171 on the Weebly repaste list for something
+    the spec does not ask for. That is new scope, not a defect, so it is
+    logged rather than built. Same reasoning applies to areaServed, which is
+    also on the 6 landing pages only although serviceAreaList is populated for
+    all 16 branches. No page displays opening hours as visible copy outside
+    those 6, so there is no risk of a page showing wrong times.
+  - 15 of the 16 branch emails have a capitalised local part
+    (Hirshmans@rbhealth.co.uk, Ainsdale@rbhealth.co.uk and so on). Left alone:
+    local parts are treated case-insensitively by every mail provider in use,
+    the strings are consistent with each other, and changing 15 data fields to
+    fix nothing is churn.
+
+THE DEFECT, AND WHY NOTHING COULD SEE IT. Three checkers already cover the SEO
+strings and none of them looks at what Google does to them. check-seo-pattern
+proves a title matches the pattern; check-seo-sheets proves the page and the
+paste sheet agree; check-em-dashes proves no dash reaches public copy. A title
+can pass all three and still be too long to display, and two branches in the
+same town can pass all three with byte-identical descriptions. Every quality
+pass so far has measured lengths by hand, one brand at a time, which is a habit
+rather than a rule. Measured across all 177 paste-sheet entries this run:
+  - Titles run 36 to 70 characters. Exactly one is over 65:
+    insect-bite-treatment-coleman-leigh-walton, at 70. The longest NHS
+    condition name has landed on the longest trading name. Every other title
+    in the estate is 62 or fewer.
+  - Descriptions run 129 to 164 characters. All 177 sit inside the 80 to 165
+    window, so nothing is cut mid-sentence and nothing is too thin.
+  - Uniqueness is clean: no two pages share a title, a description or a
+    permalink. This was the bigger worry going in, because RBH has four town
+    pairs where two of its own branches target the same words (Ainsdale,
+    Bootle, Walton, Aintree), and Hirshmans is half of the Ainsdale pair.
+    Confirmed genuinely distinct, not near-distinct.
+
+WHAT WAS FIXED IN-REPO. tools/check-seo-lengths.js, new. It reads all 177
+paste-sheet entries and enforces three rules: title 65 characters or fewer,
+description between 80 and 165, and no two pages sharing a title, description
+or permalink. Accepted exceptions go in a KNOWN list that requires a reason and
+a question id, the same convention as KNOWN_DRIFT in check-cdn-pins.js, and the
+checker fails on a KNOWN key that no longer matches any page so the list cannot
+go stale. It reads the paste sheets rather than the page tags on purpose: the
+sheets hold the strings a human actually types into Weebly, which is where the
+text that reaches Google lives.
+All five rules negative-tested, each caught, each restored afterwards: emptying
+KNOWN turned the Coleman title from a known issue into a hard failure; a
+duplicated description across two Hirshmans pages was named with both slugs; a
+26-character description failed the floor; an 84-character title failed the
+ceiling; and a KNOWN key pointing at no page failed as stale. CLAUDE.md now
+documents all four SEO checkers, what each one is for, and the rule that the
+thresholds are not to be widened to make a run pass.
+
+WHY Q14 WAS RAISED RATHER THAN ACTIONED, INSIDE THE AUTONOMOUS WINDOW. The one
+over-length title cannot be fixed without editing public copy on a
+patient-facing clinical page, and the two ways of doing it pull against
+different earlier decisions: dropping "Infected" changes how an NHS service is
+described, and dropping "Pharmacy" overrides the trading name Rishi settled
+personally in Q1. The window's own carve-out reserves live patient-facing
+service wording for a supervised decision, so it goes to Rishi with a
+recommendation (drop "Pharmacy", since the brand is the part Google is already
+truncating away) rather than being taken here. The title is recorded in the new
+checker's KNOWN list against Q14, so it reports every run without going
+permanently red and turns hard red the moment any other string breaks a rule.
+Nothing is blocked by it.
+
+NO PUBLIC COPY CHANGED. No generator was touched and no page was regenerated,
+so this run adds nothing to the Weebly repaste list.
+
+CHECKER RUN, AFTER: all eleven pass. check-seo-lengths clean with 1 known issue
+(Q14); check-cdn-pins clean with 1 warning (service-module-phase1 behind main)
+and 1 known issue (switch.js, Q13); check-nap 177 pages 0 mismatches;
+check-postcodes 0 failures (2 standing INDEX/SEO warnings); check-seo-pattern
+177 pages 0 failures; check-seo-sheets clean; check-page-coverage clean;
+check-em-dashes clean; check-gbp-packs 0 failures (standing Q8 link warnings);
+check-address-region clean; check-editor-snapshot clean.
+
+WHAT IS STILL OUTSTANDING, UNCHANGED BY THIS RUN. All of it needs someone
+logged into Weebly: the switch page SEO descriptions repaste (Q7), the six
+landing pages and their branch service pages (items 2.2 and 5.2), items 5.3 and
+5.4, and the switch page re-pin (Q13). Q14 adds one title repaste to that list
+once it is answered.
+
+Files changed: tools/check-seo-lengths.js (new), CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. No generated page changed. AGENT_WORKLIST.md is deliberately
+unchanged: this was a quality pass, so there was no item to tick, and Q14
+blocks nothing.
+
+---
 
 ## 2026-08-09 23:34 (unattended run, twentieth) - Quality pass on item 3.4, Cherry Lane Pharmacy. All 12 Cherry Lane pages verified clean, including the seoTown/addressLocality divergence that makes this branch the one most likely to get the town wrong. The pass then found a defect no checker could see: both CDN pins have gone stale, and the live switch pages are still sending prescription switch requests to rishi@rbhealth.co.uk rather than the helpdesk. New tools/check-cdn-pins.js makes it visible; the fix needs a supervised session and is raised as Q13
 

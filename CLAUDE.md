@@ -83,3 +83,31 @@ change to a generator PIN, to modules\*\*.css / .js, or before a paste run.
 If a pinned asset legitimately differs from main while a decision is pending,
 add it to KNOWN_DRIFT in that checker with a reason and a question id. Do not
 widen the checker to make it pass.
+
+## SEO strings - what Google actually shows
+
+The title and description that reach Google are the ones a human types into
+Weebly > Pages > SEO Settings, read off the paste sheets (`*SEO.md`), not the
+page body. Four checkers guard them and they do different jobs:
+
+- `tools\check-seo-pattern.js` - the title and H1 match the pattern defined
+  once in `tools\seo-pattern.js`.
+- `tools\check-seo-sheets.js` - the page and its paste sheet carry the same
+  strings, so a generator composing a description twice cannot let the two
+  drift.
+- `tools\check-em-dashes.js` - no em or en dash reaches public copy.
+- `tools\check-seo-lengths.js` - the strings fit the SERP and are unique:
+  title 65 characters or fewer, description between 80 and 165, and no two
+  pages sharing a title, description or permalink.
+
+Lengths and uniqueness matter for the same reason Phase 3 of the audit exists.
+An overlong title is truncated and the brand is the part that disappears. Two
+branches in the same town sharing a description compete with each other instead
+of ranking for their own catchment, and RBH has four town pairs where that is
+possible: Ainsdale, Bootle, Walton and Aintree.
+
+If a string legitimately breaks a rule while a decision is pending, add it to
+KNOWN in `check-seo-lengths.js` with a reason and a question id, the same
+convention as KNOWN_DRIFT in `check-cdn-pins.js`. Do not widen the thresholds
+to make a run pass, and remove the entry once the question is answered and
+applied - the checker fails on a stale KNOWN key.
