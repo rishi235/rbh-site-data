@@ -80,7 +80,15 @@ modules/branch/pages/SEO.md at the next paste run, or the live listings keep
 aiming at Sandringham. The permalinks are unchanged, so no page needs moving
 and no redirect is needed.
 
+COMMIT. d4a64f5 on agents/audit-backlog.
+
 NEW QUESTION: Q19 (see below). No item is blocked by it.
+
+HOUSEKEEPING NOTE FOR RISHI. The "Standing authorisation - autonomous window"
+section is no longer near the top of this file, because thirty run entries now
+sit above it. It expires tonight at 23:14 anyway, so nothing turns on it this
+time, but if a future window is opened it wants to go above the newest run
+entry, or an unattended run reading "the top of AGENT_LOG.md" may not see it.
 
 ## ANSWERS RECEIVED - 2026-08-10, twenty-ninth run
 Three answers came back through the portal and were picked up this run.
