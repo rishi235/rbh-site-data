@@ -2,6 +2,99 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 17:05 BST - thirty-fourth run - Quality pass on item 5.2, the four branch landing pages built on 2026-08-09 and never verified since. Five of the six pages verified clean. The sixth, McCanns Sandringham, was found still leading with its sister branch's town on the one page whose entire purpose is to stop those two branches competing, because item 5.7 moved the local word but not the list underneath it. Fixed at source under the autonomous window and logged as Q23 for review
+
+AUTONOMOUS DECISION. The one change this run makes is a decision Rishi has not
+seen. Taken under the standing window opened 2026-08-09 23:14 and expiring
+tonight at 23:14, and taken rather than deferred because it is a search and
+data decision, which is outside the window's carve-out for money, legal risk
+and live patient-facing regulatory claims. It is recorded in QUESTIONS.json as
+Q23 with status answered and an answer field saying plainly that the run took
+it, not Rishi. It is one swap of two strings and is reversible in a minute.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. Items 5.2, 5.6 and 5.7 have never had one; 5.2 is the oldest of the
+three, done on 2026-08-09. It is also the one most likely to have been
+disturbed since, because item 5.7 changed McCanns Sandringham's seoTown the
+same day and the landing pages are the only pages that read a branch's
+serviceAreaList into visible copy.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 17:05. The newest entry
+is still the Q16 answer of 16:16, already applied by the thirty-third run.
+Q17, Q18, Q19, Q20, Q21 and Q22 are all still open with no answer posted, which
+is expected: Rishi is inside his own offline window until 23:14.
+
+WHAT WAS VERIFIED, AND WHAT PASSED. A baseline rebuild of all six generators
+before any edit produced zero diff, so everything below is attributable to this
+run. All six landing pages were then checked against the Build Pack v2 spec and
+branches.json on the things no checker reads:
+
+- Every internal link on every landing page resolves to a page this repo
+  actually generates. 
+- The six service tiles are hardcoded for every branch, so a branch that did
+  not offer one of them would ship a tile to nowhere. All six landing-page
+  branches hold all five widgets plus blood pressure, so the fixed tile set is
+  correct for every page built. Worth re-checking if a landing page is ever
+  added for a branch with a thinner service set.
+- Titles run 50 to 61 characters and descriptions 142 to 160, all inside the
+  rule, including the two Scorah descriptions that trim Poynton off the serving
+  list to fit, which is the length-aware landingMeta() helper doing its job.
+- No page carries a single non-ASCII character, so the apostrophe in
+  "St Michael's" is a straight quote throughout and nothing depends on the
+  Weebly editor preserving an encoding.
+- The sister cross-link reads correctly in both directions for all three
+  pairs, including the awkward case: Sandringham's branch name does not end in
+  its own seoTown, so the Aigburth page correctly renders "McCanns Chemist
+  Sandringham in St Michael's" rather than repeating the town.
+
+THE DEFECT. McCanns Sandringham's serviceAreaList still read Aigburth,
+St Michael's, Lark Lane, Dingle. Item 5.7 moved the branch's local word to
+St Michael's on Rishi's Q15 answer and left the list alone. The landing page is
+the only page in the estate that prints that list, and it prints it four times:
+the meta description, the hero sentence, the delivery answer in the FAQ, and
+the areaServed block in the JSON-LD. So the page whose entire purpose under
+item 5.2 is to stop the two McCanns branches competing on one shared domain was
+telling both Google and the patient that its first catchment is Aigburth, which
+is the sister branch's own target town and the word the Aigburth landing page
+leads with too. Both halves of a pair built to be told apart were leading with
+the same place.
+
+check-address-region had been reporting the shape of this since the 5.7 run, as
+a warning worded "harmless today, but the first entry is the one the copy leads
+with". This pass is what establishes it was not harmless today: the copy that
+leads with it is the meta description of the branch's own local target page.
+
+WHAT WAS CHANGED. "St Michael's" now leads the list, the other three towns keep
+their order. One swap in branches.json and the same swap in the embedded
+snapshot in tools/branches-editor.html, which check-editor-snapshot correctly
+failed the run over until it was refreshed. Regenerating touched exactly one
+page, pharmacy-mccanns-sandringham.html, plus INDEX.md and SEO.md. Nothing else
+in the estate moved: the twelve other Sandringham pages do not carry areaServed,
+so the blast radius is one page rather than thirteen.
+
+No title, no H1, no permalink and no live URL changed, so this adds nothing to
+the paste queue that item 5.7 had not already put there for this branch.
+
+THE ARGUMENT AGAINST IT, RECORDED HONESTLY. Rishi's Q15 answer described
+St Michael's as "the next place in the branch's own catchment list after
+Aigburth". He had the ordering in front of him when he answered and did not ask
+for it to change. That is the strongest case for having left it, and it is why
+Q23 exists and is flagged for review rather than filed as settled.
+
+WHAT WAS DELIBERATELY NOT CHANGED. Cherry Lane carries the same shape of
+warning, seoTown Walton with Liverpool first in its list. It was left alone:
+CLAUDE.md records that one as intended, and Cherry Lane shares its domain with
+nobody, so there is no sister branch for it to compete with. The warning is
+doing its job by staying visible.
+
+Files changed: branches.json, tools/branches-editor.html,
+modules/branch/pages/pharmacy-mccanns-sandringham.html,
+modules/branch/pages/INDEX.md, modules/branch/pages/SEO.md, QUESTIONS.json
+(Q23 added, answered), AGENT_WORKLIST.md (5.2 annotated), AGENT_LOG.md.
+All 18 checkers clean afterwards, 177 pages, 0 failures, and the
+check-address-region warning count drops from three to two.
+
 ## 2026-08-10 16:35 BST - thirty-third run - Rishi's answer to Q16 picked up and applied. He did not choose a fix; he told the run to check the finding was a real issue against the house advertising standards. It is, on firmer grounds than Q16 stated and with two corrections to how Q16 put it, and verifying it turned up the harder half of the exposure sitting on every branch homepage. Written up as compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, the decision re-asked as Q22, and a new [BLOCKED] item 5.8 opened so the status page stops showing this backlog as finished. No public copy changed
 
 ANSWER PICKUP: ONE ANSWER, AND IT SHOULD HAVE ARRIVED LAST RUN. The portal

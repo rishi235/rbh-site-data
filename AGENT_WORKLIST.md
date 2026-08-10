@@ -210,6 +210,18 @@ so tools/build-audit-status.js picks them up like any other item.
       pasted to Weebly, and each branch's service pages must be pasted first
       or in the same session, or the landing page links will 404. See
       modules/branch/pages/INDEX.md and SEO.md.
+      Quality pass 2026-08-10: all six landing pages verified against the
+      Build Pack v2 spec, branches.json and the six service tiles they link
+      to. Every internal link resolves to a page this repo generates, all six
+      branches genuinely hold all six services, every title and description
+      fits the SERP rule, and no page carries a non-ASCII character. One real
+      defect found and fixed at source: McCanns Sandringham's serviceAreaList
+      still led with Aigburth after item 5.7 moved its local word to
+      St Michael's, so the landing page led with the sister branch's own
+      target town in its meta description, its hero sentence, its FAQ delivery
+      answer and its areaServed schema. St Michael's now leads the list. Taken
+      as an autonomous decision under the standing window and recorded as Q23
+      for review.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
