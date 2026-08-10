@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-10 23:43 BST - forty-sixth run [commit PENDING] - Quality pass on item 2.2, the Fishlocks shared-domain split, now the least recently verified item in the estate. The repo half is clean, byte-stable, and better than it was: both observations the 2026-08-05 pass left behind have since been fixed by other work. The finding is on the live half, which no pass on this item had ever read. Both Fishlocks landing pages return a 404, and so do the four built under item 5.2, so an item ticked since 2026-08-04 and verified clean three times has delivered nothing to a visitor or to Google, while the combined pages it exists to replace are still the live targets. Recorded in INDEX.md through the generator and asked as Q35
+## 2026-08-10 23:43 BST - forty-sixth run [commit 9e191f0] - Quality pass on item 2.2, the Fishlocks shared-domain split, now the least recently verified item in the estate. The repo half is clean, byte-stable, and better than it was: both observations the 2026-08-05 pass left behind have since been fixed by other work. The finding is on the live half, which no pass on this item had ever read. Both Fishlocks landing pages return a 404, and so do the four built under item 5.2, so an item ticked since 2026-08-04 and verified clean three times has delivered nothing to a visitor or to Google, while the combined pages it exists to replace are still the live targets. Recorded in INDEX.md through the generator and asked as Q35
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window opened on 2026-08-09
 expired at 23:14 tonight, twenty-nine minutes before this run started, and no
