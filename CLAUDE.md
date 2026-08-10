@@ -194,6 +194,27 @@ must appear on the line, and a branch with no hours in branches.json must have
 a line saying so and telling the paster not to paste, invent or guess. Clear
 Chemist Aintree is the only branch in that position.
 
+Proving the pack's hours line is right is not the whole journey to the public,
+and the item 4.10 pass on 2026-08-10 found the rest of it. Seven branches close
+for lunch, so a weekday appears twice in `specification`. Google's hours editor
+offers ONE time range per day first, so a paster working from a perfectly
+correct pack can still publish a single 9 to 6 range and state that the
+pharmacy is open through the hour it is shut - the same locked-door fault,
+arriving through the paster rather than through the data. Only two packs said
+so. `check-gbp-packs.js` now fails any pack whose branch has a split day and
+does not tell the paster the profile needs two ranges for it. The wording came
+from `tiffenbergs-aintree.md` and `gordon-short-crosby.md` rather than being
+composed fresh, and the match runs against whitespace-collapsed text because
+that guidance wraps mid-sentence.
+
+The reason it is not hypothetical is worth carrying: every live page on
+`smarttschemist.co.uk`, and the site footer, already print 9:00am to 6:00pm for
+a branch whose NHS-confirmed hours close 1:00pm to 2:00pm. The habit exists on
+our own website (found on the item 3.7 pass and wider than the page Q16
+recorded), so the pack is the last thing standing between it and the profile.
+`smartts-bootle.md` now warns the paster that the two disagree. Correcting the
+website itself needs a Weebly session.
+
 Two things in that rule are deliberate and worth not undoing. Times inside a
 parenthetical marked as history, or inside quotation marks, are read as
 evidence rather than as a claim, so `scorah-hazel-grove.md` can record the

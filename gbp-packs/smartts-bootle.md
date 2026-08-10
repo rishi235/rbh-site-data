@@ -121,6 +121,17 @@ visit needed. Book your travel consultation today.
 Button: Book -> https://www.smarttschemist.co.uk/travel-clinic-smartts-bootle.html
 
 Notes for the paster:
+- GBP hours need two time ranges per weekday (9:00am to 1:00pm and 2:00pm
+  to 6:00pm) to show the lunch closure. Google offers one range per day
+  first, and entering 9 to 6 straight through publishes the pharmacy as
+  open through the hour it is shut. Saturday and Sunday closed.
+- Before setting the hours, know that the branch's own website disagrees
+  with this pack. Every page on smarttschemist.co.uk prints "9:00am -
+  6:00pm" for all five weekdays and the site footer repeats it, with no
+  lunch closure anywhere. branches.json follows the NHS pharmacy profile
+  confirmed 2026-06-24 and is what this pack states. Set the profile from
+  this pack, and get the website corrected too, or Google and the website
+  will publish different hours for the same shop.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Medical cannabis wording is deliberately limited to "book a free

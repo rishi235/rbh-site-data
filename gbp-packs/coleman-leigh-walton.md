@@ -116,6 +116,10 @@ on Walton Village, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.colemanandleighspharmacy.co.uk/travel-clinic-coleman-leigh-walton.html
 
 Notes for the paster:
+- GBP hours need two time ranges per weekday (9:00am to 1:00pm and 2:00pm
+  to 6:00pm) to show the lunch closure. Google offers one range per day
+  first, and a single range publishes the pharmacy as open through the hour
+  it is shut. Saturday and Sunday closed.
 - Correct the live GBP name and any old spellings to "Coleman and Leighs
   Pharmacy" before pasting anything else (see note at the top).
 - Post C deliberately names no medicines and makes no efficacy claims (POM

@@ -227,6 +227,35 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       today, so the gap was latent. Done 2026-08-10.
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
+      Quality pass 2026-08-10: every fact verified against branches.json and
+      every rule against TEMPLATE.md, and nothing in the pack is wrong.
+      Address 42 Fernhill Road L20 9HH, phone 0151 922 4984, website and
+      review link all match, and the live site agrees on every one of them,
+      unlike Clear. Hours line matches the NHS-confirmed specification
+      including both sessions; description is 710 characters, exactly what
+      its heading claims; posts are 461, 324, 516 and 420, all inside the
+      1,500 limit; catchment leads with its own seoTown; the widget set is
+      fully covered; no medicine name, no efficacy claim, no em dash, no
+      emoji, no non-ASCII character, and the only other branch named is SK
+      Chemists in the note explaining why the wording differs. All four post
+      links resolve live, including the Pharmacy First link. The defect is a
+      gap between a correct pack and what actually reaches Google: Smartts
+      closes 1:00pm to 2:00pm, Google's hours editor offers one time range
+      per day first, and nothing told the paster to add the second. Seven
+      branches close for lunch and only two packs, Tiffenbergs Aintree and
+      Gordon Short Crosby, said so. The other five, this one included, said
+      nothing. Not hypothetical: every live page on smarttschemist.co.uk
+      already prints 9:00am to 6:00pm with no lunch closure, so the habit
+      exists on the estate's own website and the pack was the last thing
+      standing between it and the profile. Guidance added to all five packs
+      in the wording the two correct packs already use, and
+      check-gbp-packs.js now fails any split-day pack that omits it.
+      Negative-tested four ways. Raised as Q30, answered as an autonomous
+      decision under the standing window. The live website hours are a
+      separate, wider defect already recorded on the item 3.7 pass; this
+      pack now warns the paster about the contradiction rather than leaving
+      Google and the website to publish different hours for the same shop.
+      Done 2026-08-10.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.

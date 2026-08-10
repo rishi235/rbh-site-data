@@ -117,6 +117,11 @@ travel consultation today.
 Button: Book -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html
 
 Notes for the paster:
+- GBP hours need two time ranges on every open day to show the lunch
+  closure: Monday to Friday 8:30am to 1:00pm and 2:00pm to 6:00pm,
+  Saturday 9:00am to 1:00pm and 2:00pm to 5:30pm. Google offers one range
+  per day first, and a single range publishes the pharmacy as open through
+  the hour it is shut. Sunday closed.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.

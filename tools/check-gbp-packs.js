@@ -640,6 +640,58 @@ for (const file of packFiles) {
              !/do not (paste|invent|guess)/i.test(hoursLine)) {
     fail(file, "branches.json holds no openingHours for this branch, so the hours line must say the data is not recorded and tell the paster not to paste, invent or guess hours. It does not");
   }
+
+  // --- a lunch closure must tell the paster to enter TWO ranges -----------
+  // Seven of the sixteen branches close for lunch, so a weekday appears
+  // twice in openingHours.specification. The rule above proves the pack's
+  // hours LINE is right and stops there, and that is not the whole journey.
+  // A pack can state "9:00am to 1:00pm and 2:00pm to 6:00pm" perfectly and
+  // still reach Google as a single 9 to 6 range, because one range per day
+  // is what Google's hours editor offers first and adding the second is a
+  // step the paster has to know to take. What the profile then says is that
+  // the pharmacy is open through the hour it is shut: the same locked-door
+  // fault the hours rule exists to stop, arriving through the paster rather
+  // than through the data, at the one place most patients actually read.
+  //
+  // Not hypothetical. Every live page on smarttschemist.co.uk prints
+  // 9:00am to 6:00pm for all five weekdays, and the site footer repeats it,
+  // for a branch whose NHS-confirmed hours close 1:00pm to 2:00pm (found on
+  // the item 3.7 pass, 2026-08-10, and wider than the page Q16 recorded).
+  // The habit already exists on the estate's own website. The pack is the
+  // last thing standing between it and the profile.
+  //
+  // Two packs already carry the instruction, so this enforces house
+  // practice rather than inventing it: tiffenbergs-aintree.md ("GBP hours
+  // need two time ranges per weekday") and gordon-short-crosby.md ("enter
+  // split hours in GBP, not 9 to 6 straight through"). Found on the item
+  // 4.10 quality pass, 2026-08-10, when the other five split-day packs
+  // turned out to say nothing.
+  //
+  // Whitespace is collapsed before matching, for the CRLF reason set out
+  // above and one more: the guidance wraps mid-sentence in
+  // gordon-short-crosby.md, so any line-bounded read would miss it and
+  // report a pack that does this correctly as a pack that does not.
+  const splitDay = (() => {
+    if (!spec) return null;
+    const seen = {};
+    for (const s of spec) {
+      for (const d of (s.dayOfWeek || [])) {
+        seen[d] = (seen[d] || 0) + 1;
+        if (seen[d] > 1) return d;
+      }
+    }
+    return null;
+  })();
+  if (splitDay) {
+    const flat = text.replace(/\s+/g, " ");
+    const RANGES = "two (?:separate )?(?:time )?ranges|split hours";
+    const tellsPaster =
+      new RegExp(`(?:gbp|google|profile)[^.]{0,140}?(?:${RANGES})`, "i").test(flat) ||
+      new RegExp(`(?:${RANGES})[^.]{0,140}?(?:gbp|google|profile)`, "i").test(flat);
+    if (!tellsPaster) {
+      fail(file, `this branch closes for lunch (${splitDay} appears twice in openingHours), so the pack must tell the paster the profile needs two time ranges for that day rather than one. Google's hours editor offers a single range first, and a single range publishes the pharmacy as open through the hour it is shut`);
+    }
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------

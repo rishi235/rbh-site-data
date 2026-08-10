@@ -119,6 +119,10 @@ Aigburth Road, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandringham.html
 
 Notes for the paster:
+- GBP hours need two time ranges per weekday (9:00am to 1:00pm and 2:00pm
+  to 6:00pm) to show the lunch closure. Google offers one range per day
+  first, and a single range publishes the pharmacy as open through the hour
+  it is shut. Saturday and Sunday closed.
 - The mccannspharmacy.co.uk domain is shared with Aigburth. Set the profile
   website to the Sandringham landing page
   (pharmacy-mccanns-sandringham.html), not the shared homepage, so the two

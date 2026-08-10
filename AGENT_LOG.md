@@ -2,6 +2,108 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 20:34 BST - fortieth run - Quality pass on item 4.10, the Smartts Chemist Bootle GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json, every rule against TEMPLATE.md, and this time the live site agrees too, so the phone and address faults that made Clear a mess are absent here and all four post links resolve. The defect is the gap between a correct pack and what actually reaches Google. Smartts closes 1:00pm to 2:00pm; Google's hours editor offers one time range per day first; nothing in the pack told the paster to add the second. Seven branches close for lunch and only two packs said so. Guidance added to the five that did not, in the wording the two correct ones already use, and check-gbp-packs.js now fails any split-day pack that omits it. Negative-tested four ways. Raised as Q30 and taken under the window
+
+AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. Q30 was
+implemented rather than left open and is recorded as answered, marked clearly
+as an autonomous decision rather than Rishi's. It is inside the window on every
+test that matters: the text added is paster guidance in an internal checklist,
+not public copy, it costs nothing, it commits no money, and it makes no
+regulatory claim. The wording was copied from the two packs that already carry
+it rather than composed fresh, so nothing new was written.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the rule
+points at a quality pass on the least recently verified completed item. After
+the thirty-ninth run took 4.9, the items still on a 2026-08-05 verification
+were 4.10 and 4.12 to 4.15, and the last run named 4.10 as next in line.
+
+WHAT THE PACK GOT RIGHT, WHICH IS ALL OF IT. Read fact by fact against
+branches.json and rule by rule against TEMPLATE.md. Address 42 Fernhill Road
+L20 9HH, phone 0151 922 4984, website and Google review link all match. The
+hours line carries both sessions, 9:00am to 1:00pm and 2:00pm to 6:00pm, and
+matches the NHS profile confirmed 2026-06-24. The description is 710
+characters, exactly what its own heading claims, against a 750 limit. The four
+posts are 461, 324, 516 and 420 characters, all well inside 1,500. The
+catchment reads Bootle, Sefton and Liverpool, leading with its own seoTown.
+Categories and services cover the widget set. No medicine name, no efficacy
+claim, no em dash, no emoji, no non-ASCII character anywhere in the file. The
+only other branch named is SK Chemists, in the note that exists to explain why
+the two Bootle profiles are worded differently, which is correct rather than a
+leak.
+
+WHAT THE LIVE READ ADDED. All four post links resolve, including the Pharmacy
+First link, so Smartts is not in Clear's position of pointing a profile at
+three 404s. Phone, address and email on the live site match branches.json
+exactly, so the Clear phone contradiction is not an estate-wide pattern. Two
+known items were confirmed still live and deliberately not re-raised: the
+"Support that delivers results" tile on the switch page, which sits in
+KNOWN_CLAIM under Q22, and the homepage weight loss line Q22 also covers.
+
+THE FINDING, AND WHY A CORRECT PACK WAS NOT ENOUGH. The hours rule added on
+the 4.9 pass proves the pack's hours LINE is right and stops there. Google's
+hours editor offers ONE time range per day first, and adding the second is a
+step the paster has to know to take. So a pack can state both sessions
+perfectly and still reach the public as a single 9 to 6 range, which tells
+patients the pharmacy is open through the hour it is shut. That is the same
+locked-door fault the hours rule exists to stop, arriving through the paster
+instead of through the data, at the one place most patients read hours.
+
+It is not a hypothetical at this branch. Every live page on
+smarttschemist.co.uk prints 9:00am to 6:00pm for all five weekdays and the
+site footer repeats it, with no lunch closure anywhere. That was found on the
+item 3.7 pass and recorded then as wider than the single page Q16 named. The
+habit already exists on our own website, so the pack was the last thing
+standing between it and the Google profile, and it said nothing.
+
+Seven of the sixteen branches close for lunch: McCanns Aigburth, McCanns
+Sandringham, Smartts Bootle, Hirshmans Ainsdale, Coleman and Leighs Walton,
+Gordon Short Crosby and Tiffenbergs Aintree. Two packs already told the paster
+to enter two ranges. The other five, this one included, did not.
+
+WHAT WAS CHANGED. Guidance added to smartts-bootle.md, hirshmans-ainsdale.md,
+mccanns-aigburth.md, mccanns-sandringham.md and coleman-leigh-walton.md, each
+naming that branch's own two ranges. smartts-bootle.md carries a second note,
+because it is the branch where the contradiction is already published: it now
+tells the paster the branch's own website disagrees with the pack, that
+branches.json follows the NHS profile, and to get the website corrected too,
+rather than leaving Google and the website publishing different hours for the
+same shop. check-gbp-packs.js gained the rule: a branch with a day appearing
+twice in openingHours must have a pack telling the paster the profile needs two
+ranges for it. CLAUDE.md's opening hours section records both halves.
+
+NEGATIVE TESTED FOUR WAYS, each by mutating a pack on disk, running the
+checker and restoring the file: guidance deleted fails; the phrase "two time
+ranges" with no GBP, Google or profile anchor fails; the alternative
+"split hours in GBP" wording that gordon-short-crosby.md uses passes; and
+guidance wrapped across a CRLF mid-sentence is still read, which the
+whitespace-collapsing match exists for and a line-bounded read would have got
+wrong in the pack that does it correctly.
+
+BASELINE AND VERIFICATION. All six generators were run before any edit and
+produced zero diff, and all 18 checkers passed, so everything above is
+attributable to this run. The new rule was confirmed to fire on exactly the
+five packs expected and on neither of the two that already complied. After the
+fix, generators re-run to zero diff and all 18 checkers pass again.
+check-gbp-packs' standing warnings are unchanged at 12: the 10 Pharmacy First
+live-only link warnings Q8 covers, the Tiffenbergs link with no .html ending,
+and the Clear phone warning Q28 raised last run. Only six files changed:
+five packs, the checker, plus AGENT_WORKLIST.md, QUESTIONS.json, CLAUDE.md and
+this log.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 20:37. The newest entry
+is still the Q16 answer of 15:16, applied by the thirty-third run. Q17, Q18,
+Q19, Q20, Q21, Q22, Q24, Q28 and Q29 are all still open with no answer posted.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after that
+raises questions rather than deciding. On the least-recently-verified rule the
+next candidates are 4.12 to 4.15, all still on their 2026-08-05 verification,
+with 4.12 Coleman and Leighs Walton next in line. Worth knowing before starting
+it: 4.12 is one of the five packs this run edited, so its paster notes have
+moved, and Coleman and Leighs is both a Q16 branch with a live weight loss page
+and the branch whose trading name Q1 settled and whose title Q14 shortened, so
+it carries more prior decisions than most.
+
+
 ## 2026-08-10 20:04 BST - thirty-ninth run [commit fb02445] - Quality pass on item 4.9, the Clear Chemist Aintree GBP pack, drafted on 2026-08-04 and last verified the following day. Nothing in the pack is wrong: it verifies fact by fact against branches.json and rule by rule against TEMPLATE.md, the second clean pack in seven passes. The defects are outside it, and they only appeared because this pass read the branch's own live website, which nothing in this repo can do. branches.json gives Clear's phone as 0151 203 8365; the branch's own contact page publishes 0151 203 6535 twice and 8365 nowhere. All three of the pack's post links return 404, and not as a paste backlog: Clear's site is the e-commerce store, not Weebly, so its three generated pages have no paste route at all. Pack made safe on both counts, Q28 and Q29 raised, and check-gbp-packs.js given the hours rule TEMPLATE.md has always stated and nothing has ever enforced
 
 WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the

@@ -447,5 +447,20 @@
     "status": "open",
     "answer": null,
     "note": "Not decided under the autonomous window because every option costs money or scope: option 1 is store development time and option 2 removes a branch from the local search work Rishi commissioned. The pack is safe either way in the meantime. Worth knowing when deciding: Clear is the only branch with no Pharmacy First, no blood pressure and no contraception service, so its three pages are the whole of its local web presence, and the item 3.13 pass already noted that a third of it, the travel clinic page, offers a visitor no callback form and no WhatsApp button, which is Q20."
+  },
+  {
+    "id": "Q30",
+    "date": "2026-08-10",
+    "item": "quality pass on 4.10 (finding, does not block any item)",
+    "question": "Seven of the sixteen branches close for lunch, so a weekday appears twice in their opening hours. The hours rule added on the 4.9 pass proves a pack's own hours line is right and stops there, which is not the whole journey to the public: Google's hours editor offers one time range per day first, so a paster working from a correct pack can still publish a single 9 to 6 range and tell patients the pharmacy is open through the hour it is shut. Two packs already warned about this, Tiffenbergs Aintree and Gordon Short Crosby. The other five, Smartts Bootle included, said nothing. It is not hypothetical at Smartts: every live page on smarttschemist.co.uk and the site footer already print 9:00am to 6:00pm with no lunch closure, against NHS-confirmed hours that close 1:00pm to 2:00pm, so the habit exists on our own website and the pack was the last thing standing between it and the Google profile. Should the paster instruction be required in every split-day pack and enforced by the checker?",
+    "options": [
+      "Add the instruction to the five packs missing it, in the wording the two correct packs already use, and make check-gbp-packs.js fail any split-day pack that omits it. Costs nothing, changes no public copy, and closes the gap for the seven branches at once",
+      "Add the instruction to the five packs but do not enforce it in the checker. Fixes today and leaves the next pack free to forget it",
+      "Change nothing in the packs and instead fix the hours in Google directly at paste time from branches.json. Relies on the paster remembering, which is the thing that failed"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "AUTONOMOUS DECISION taken under the standing authorisation window (2026-08-09 23:14 to 2026-08-10 23:14). Option 1 implemented. This is paster guidance inside an internal checklist, not public copy, not money and not a regulatory claim, so it falls outside the window carve-out. The wording was copied from tiffenbergs-aintree.md and gordon-short-crosby.md rather than composed fresh, so it enforces house practice rather than inventing it. Rule negative-tested four ways: guidance deleted fails, the phrase without a GBP anchor fails, the alternative \"split hours in GBP\" wording passes, and guidance wrapped across a CRLF is still read.",
+    "note": "The live Smartts website hours are a separate and wider defect, already recorded on the item 3.7 pass on 2026-08-10 and not re-raised here: the homepage sidebar and the estate footer both print 9am to 6pm. smartts-bootle.md now warns the paster about the contradiction so Google and the website do not publish different hours for the same shop, but correcting the website itself needs a Weebly session. Nine branches hold more than one session a day; seven of those are trading branches whose packs are now covered."
   }
 ]
