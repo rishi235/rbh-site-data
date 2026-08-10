@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-10 19:04 BST - thirty-seventh run [commit ba19c4c] - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack, drafted on 2026-08-04 and last verified the following day, which made it the least recently verified completed item in the backlog. Every fact in it checks out against branches.json. The defect is a single sentence of profile copy: the pack still told the paster that the second McCanns branch is "at Sandringham", a word the estate stopped treating as a place when item 5.7 landed. Sentence rewritten to the landing page's own form, and check-gbp-packs.js given a rule that reads which words are places out of branches.json so no pack can do it again
+## 2026-08-10 19:04 BST - thirty-seventh run [commit 9e576fe] - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack, drafted on 2026-08-04 and last verified the following day, which made it the least recently verified completed item in the backlog. Every fact in it checks out against branches.json. The defect is a single sentence of profile copy: the pack still told the paster that the second McCanns branch is "at Sandringham", a word the estate stopped treating as a place when item 5.7 landed. Sentence rewritten to the landing page's own form, and check-gbp-packs.js given a rule that reads which words are places out of branches.json so no pack can do it again
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The
 sentence rewrite was taken under it and recorded as Q26, status answered,
