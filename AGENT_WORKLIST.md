@@ -260,7 +260,12 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       distinct from Smartts so the two Bootle profiles do not duplicate.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
-      live GBP name and any old spellings.
+      live GBP name and any old spellings. Quality pass 2026-08-10: the
+      pack itself is clean against branches.json and TEMPLATE.md, but the
+      live read found the Post A link returning a 404 and the three live
+      pages still publishing the pre-correction trading name and em dash.
+      Paster notes now stop Post A and call for the repaste. Done
+      2026-08-10.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
@@ -334,7 +339,13 @@ so tools/build-audit-status.js picks them up like any other item.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
-      which an unattended run cannot do. Needs a supervised session.
+      which an unattended run cannot do. Needs a supervised session. New
+      evidence 2026-08-10, from the 4.12 quality pass: Q8 described the old
+      pages as being of unknown state. One is now confirmed dead. The
+      Coleman and Leighs pfLink returns a 404, while the Scorah shared page
+      was fetched in the same pass and is live and correct. So the eleven
+      are not one problem in one state, and at least one branch cannot post
+      Post A at all until this item runs. Worth pulling forward.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

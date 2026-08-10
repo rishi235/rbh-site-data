@@ -2,6 +2,83 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 21:05 BST - forty-first run [commit PENDING] - Quality pass on item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack, drafted 2026-08-04 and never verified since. The pack is clean, fact by fact and rule by rule, and the checker agrees. The faults are all on the far side of it. Post A's button points at a URL that returns a 404 today, so the one post about Pharmacy First would send a patient looking to be seen to an error page. The three pages Posts B, C and D point at do resolve, but they are a paste taken before two corrections this repo already made: every one of them still trades as "Coleman & Leigh Pharmacy" in its title and body, and the switch page still carries the em dash item 5.1 removed at source. Paster notes rewritten to stop Post A and to call for the repaste. No new question: every finding lands on a decision Rishi has already made
+
+NO NEW QUESTION, AND THAT IS THE POINT. Nothing found here needs deciding.
+The 404 belongs to Q8, answered on 2026-08-08 and sitting as blocked item
+5.3. The trading name was settled by Q1 and fixed in the repo by item 1.1.
+The em dash was settled by Q7 and fixed in the repo by item 5.1. All three
+are already right in this repository and wrong in public, and every one of
+them reaches the public only through a Weebly paste an unattended run cannot
+perform. The finding is not a decision, it is evidence about how long the
+paste backlog has been carrying real defects.
+
+WHY THIS ITEM. Every worklist item is ticked or [BLOCKED], so the rule sends
+this run to a quality pass on the least recently verified completed item.
+After the fortieth run took 4.10, the items still standing on their original
+2026-08-05 verification were 4.12 to 4.15, and 4.12 is first.
+
+WHAT THE PACK GOT RIGHT, WHICH IS ALL OF IT. Read against branches.json and
+TEMPLATE.md. Address 241 Walton Village, Liverpool L4 6TH, phone
+0151 525 3522, website and Google review link all match. The hours line
+carries both sessions, 9:00am to 1:00pm and 2:00pm to 6:00pm, matching the
+NHS profile confirmed 2026-06-24, and the split-hours guidance the fortieth
+run added is present and names this branch's own two ranges. The description
+is 631 characters, exactly what its heading claims, against a 750 limit. The
+four posts are 456, 321, 528 and 433 characters against a 1,500 limit. The
+catchment reads Walton, Liverpool and Sefton, leading with its own seoTown.
+Services match the widget set exactly, five widgets and five services, with
+nothing claimed the branch cannot deliver. No medicine name, no efficacy
+claim, no em dash, no emoji, no non-ASCII character anywhere in the file. No
+app mention, correct for hasApp false. check-gbp-packs.js and
+check-branch-links.js both pass with no failures.
+
+THE 404, AND WHY IT IS WORSE THAN Q8 ASSUMED. Q8 described the eleven old
+Pharmacy First pages as being of unknown state and worried that one might
+render empty, as Cherry Lane's did. This branch's is not empty. It is not
+there. https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-
+walton.html was fetched during this run and returns Weebly's 404 page. The Scorah
+shared page was fetched in the same pass and is live and correct, with a
+proper H1, so the eleven are not one problem in one state and cannot be
+reasoned about as a block. Pharmacy First is the service where the patient
+is unwell now, which makes it the worst of the four posts to break, and the
+replacement page has been sitting finished in this repo at
+modules/service/pages/pharmacy-first-coleman-leigh-walton.html the whole
+time. Recorded against item 5.3 as evidence for pulling it forward.
+
+THE STALE PASTE, CONFIRMED RATHER THAN SUSPECTED. The live switch, weight
+loss and travel pages read "Coleman & Leigh Pharmacy" in their page titles
+and throughout their body copy, while their own address block and footer
+read "Coleman and Leighs Pharmacy". The repo was checked before drawing any
+conclusion: a full search of every html, js, json and md file found the
+ampersand form only in log and question files, never in a generated page,
+and the generated switch page uses "Coleman and Leighs" fifteen times and
+the wrong form not once, with no em dash and no en dash. So the repo is
+right and the live pages are simply old. A patient arriving from a GBP post
+written in one name lands on a page branded in another.
+
+WHAT WAS CHANGED. gbp-packs/coleman-leigh-walton.md only. A live-check note
+dated today at the head. Post A's soft "swap the link once that page is
+confirmed live" replaced with a hard stop that names the 404, names the
+replacement page and points at item 5.3. A note recording that Posts B, C
+and D were fetched and resolve. A note telling the paster the branch's own
+website disagrees with the pack on the trading name, that the repo is the
+correct side of that disagreement, and that one repaste fixes both the name
+and the em dash. Nothing else touched: the pack's own copy needed no
+correction.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10
+23:14), but not used. No decision was taken under it because no decision
+arose.
+
+ANSWER PICKUP. The portal was read successfully. The newest entries are the
+Q16 answer of 15:16 and the Q13, Q14 and Q15 answers of this morning, all
+already recorded. Nothing new for the nine open questions.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after
+that must raise questions rather than decide. Least recently verified
+completed items are now 4.13, 4.14 and 4.15, in that order.
+
 ## 2026-08-10 20:34 BST - fortieth run [commit 20e9678] - Quality pass on item 4.10, the Smartts Chemist Bootle GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json, every rule against TEMPLATE.md, and this time the live site agrees too, so the phone and address faults that made Clear a mess are absent here and all four post links resolve. The defect is the gap between a correct pack and what actually reaches Google. Smartts closes 1:00pm to 2:00pm; Google's hours editor offers one time range per day first; nothing in the pack told the paster to add the second. Seven branches close for lunch and only two packs said so. Guidance added to the five that did not, in the wording the two correct ones already use, and check-gbp-packs.js now fails any split-day pack that omits it. Negative-tested four ways. Raised as Q30 and taken under the window
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. Q30 was

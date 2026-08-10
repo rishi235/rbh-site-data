@@ -10,6 +10,13 @@ Branch id: colemanleigh_liverpool (branches.json). Drafted 2026-08-04.
 Facts checked against branches.json (address, phone, hours confirmed by NHS
 2026-06-24). Ready for Rishi or Dane to paste into GBP.
 
+Live checked 2026-08-10. The Post B, C and D pages all resolve, and the
+address, phone, email and opening hours they print match branches.json,
+lunch closure included. Two faults were found and neither is in this pack:
+the Post A link returns a 404, and the three live pages are a paste taken
+before the trading name and em dash corrections, so they still publish the
+old name. Both are covered in the paster notes at the foot of this pack.
+
 Profile basics (for checking, not pasting):
 - Name on GBP: Coleman and Leighs Pharmacy
 - Address: 241 Walton Village, Liverpool L4 6TH
@@ -124,10 +131,26 @@ Notes for the paster:
   Pharmacy" before pasting anything else (see note at the top).
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json. A branch-specific page
-  (pharmacy-first-coleman-leigh-walton.html) exists in the repo; swap the
-  link once that page is confirmed live on Weebly.
-- Check the Post B, C and D URLs resolve on the live site before posting.
+- DO NOT POST POST A AS IT STANDS. Its button carries the pfLink from
+  branches.json, and that URL was fetched on 2026-08-10 and returned a 404
+  error page, not a Pharmacy First page. Posting it sends a patient looking
+  for Pharmacy First to a dead end at the moment they are trying to get
+  seen. The replacement already exists in this repo at
+  modules/service/pages/pharmacy-first-coleman-leigh-walton.html. Paste that
+  page to Weebly first, then point the button at it. This is worklist item
+  5.3 under Q8, which needs a supervised session because the repo change and
+  the Weebly paste have to happen together.
+- Post B, C and D were fetched on 2026-08-10 and all three resolve. Check
+  again on the day, because they are live pages this repo cannot police.
+- The branch's own website disagrees with this pack on the trading name.
+  Every page on colemanandleighspharmacy.co.uk reads "Coleman & Leigh
+  Pharmacy" in its title and its body copy, while its address block and this
+  pack read "Coleman and Leighs Pharmacy", which is the name Q1 confirmed.
+  The live pages are a paste taken before that correction, and the switch
+  page still carries the em dash item 5.1 removed at source. The repo pages
+  are right on both counts, so one repaste fixes both. Get the website put
+  right as well as GBP, rather than leaving Google and the branch's own site
+  publishing two different names for the same shop.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker actually offers on the
   day; pick the closest match.
