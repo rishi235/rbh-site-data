@@ -2,6 +2,86 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 16:34 BST - thirty-second run - Quality pass on item 5.1, the Q7 em dash fix on the 15 switch pages. The repo half verified clean and deterministic. The pass then found that the approved-copy source the weight loss generator names in its own header still carried the two &ndash; entities the item 3.9 pass stripped out of the generated pages, because check-em-dashes only ever read the three generated-page folders. Fixed at source and the checker widened to cover non-generated public copy. A live read also corrected item 5.1's own outstanding note: the switch page body, not just the SEO field, is still the pre-Q7 paste
+
+ANSWER PICKUP. The portal was read and returned nothing new. The newest entry
+is still the Q15 answer from two runs before last, already recorded. Q16, Q17,
+Q18, Q19, Q20 and Q21 remain open with no answer posted.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10 23:14),
+so it expires late this evening. It was not needed. The one finding below was
+fixed rather than raised, because it needed no decision from Rishi: the
+wording it restores is the wording Q7 already settled and the weight loss
+generator already ships, copied across word for word rather than composed
+fresh. No new copy was written, so the weight loss regulatory carve-out in the
+window's own terms is not engaged.
+
+WHY A QUALITY PASS, AND WHY 5.1. Every numbered item is ticked except 5.3, 5.4
+and 5.5, all three [BLOCKED] and all three needing a supervised session, so the
+standing rule points at a quality pass on the least recently verified completed
+item. Four items have never had one at all: 5.1, 5.2, 5.6 and 5.7. 5.1 is the
+oldest of the four, completed on the fifteenth run on 2026-08-09.
+
+THE ITEM ITSELF: CLEAN, AND DETERMINISTIC. Both halves of the Q7 fix hold.
+switchMeta() is defined once at line 56 of tools/build-switch-pages.js and
+called twice, at line 70 for the page's own meta tag and at line 363 for the
+paste sheet, so the two strings cannot drift by construction rather than by
+anybody remembering to keep them level. Re-running the switch generator
+produced all 15 pages byte-identical, and re-running all six generators
+produced all 177 pages byte-identical, so nothing about the fix depends on the
+order somebody happens to build in. check-em-dashes, check-seo-sheets and
+check-seo-lengths all read the switch pages and their paste sheet clean. All 18
+checkers pass.
+
+THE FINDING. tools/build-weight-loss-pages.js says in its own header that it is
+built from "modules/service/DRAFT-weight-loss-copy.html's approved copy". That
+draft still carried &ndash; in two sentences of body copy, at lines 52 and 89,
+outside any build comment. They are the same two sentences the item 3.9 pass
+rewrote in the generator when it found 30 en dash entities across the 15
+generated weight loss pages. The output was fixed; the source it cites was not.
+
+It survived because check-em-dashes only ever read three folders, all of them
+holding generated pages. Every file that reaches the public without being
+generated sat outside the rule: the two hand-pasted weebly-paste blocks,
+modules/switch/weebly.html, and both DRAFT-*.html templates. So the repo could
+be green while the document the repo itself calls the approved copy told the
+next person to write the sentence the house rule forbids. That is the same
+shape as the WhatsApp number last run and the switch-page CONFIG in Q19: not a
+wrong page today, but a second copy of something with nothing keeping it level,
+where the failure arrives silently later.
+
+WHAT CHANGED. Both sentences in the draft now read as the generator already
+ships them, word for word: "and it is not right for everyone. See below." and
+"at consultation. Nothing below is a guarantee of treatment, a specific
+medicine, or a specific outcome." No wording was invented and no clinical or
+eligibility content moved; the only change is where the sentence breaks.
+check-em-dashes gained an EXTRA_HTML list covering all five non-generated
+public copy files, blanking build comments first exactly as it does for a page,
+so the governance notes at the top of both drafts stay reportable rather than
+failing. A file listed there that no longer exists now fails the run, the same
+anti-rot convention as the KNOWN lists in the other checkers. The extension was
+tested by putting the entity back and confirming the run fails with both lines
+named, then reverting. The other four files were already clean, so widening the
+rule cost nothing today, which is the point of doing it today.
+
+THE LIVE READ, AND A CORRECTION TO ITEM 5.1'S OWN NOTE. The switch page for
+Cherry Lane was read live. It still renders "it usually is not - we make the
+first step quick and easy" with an em dash, in the page body. Item 5.1 recorded
+the outstanding live work as the Weebly SEO description field for 15 pages.
+That understates it: the body block is a hand paste too, and it is still the
+pre-Q7 paste, so the em dash Q7 was raised about is on the live page a patient
+reads, not only in the Google snippet. The worklist line has been corrected to
+say the whole block needs repasting, not just the SEO field. Nothing in the
+repo is wrong; the estimate of what the paste run has to cover was.
+
+STILL OUTSTANDING ON LIVE, RE-CONFIRMED TODAY, NOT NEW. The Cherry Lane site
+footer still reads "e: pharmacy.FA226@mhs.net". branches.json holds
+pharmacy.FA226@nhs.net and check-branch-links passes, so the repo is right and
+this is a hand-maintained Weebly footer. It was first logged on an earlier run
+(AGENT_LOG.md line 2910 as it now stands) and is still there, so any patient
+emailing the address on the page is emailing nothing. It is a one-character
+Weebly edit for Rishi or Dane and needs no decision.
+
 ## 2026-08-10 15:06 BST - thirty-first run - Quality pass on item 3.13, Clear Chemist Aintree. All three Clear pages verified clean. The pass then found that the WhatsApp number behind every enquiry button in the estate lives in seven hardcoded places and in no data file, with nothing ever reading it. New tools/check-whatsapp-route.js makes all seven agree or fail. A second finding, that the 15 travel clinic pages are the only leaf service pages with no contact route behind the booking widget, is raised as Q20
 
 ANSWER PICKUP. The portal was read and returned nothing new. The newest entry

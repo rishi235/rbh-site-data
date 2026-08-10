@@ -188,9 +188,14 @@ so tools/build-audit-status.js picks them up like any other item.
       Both sentences split at a full stop rather than hyphenated; the meta
       description now comes from one switchMeta() helper so the page tag and
       the paste sheet cannot drift; new tools/check-em-dashes.js guards it.
-      OUTSTANDING on the live side: the Weebly SEO description field for
-      those 15 pages needs repasting from modules/switch/pages/SEO.md, or
-      the Google snippet keeps the old em dash.
+      OUTSTANDING on the live side: the whole switch block for those 15 pages
+      needs repasting, not only the SEO field. Corrected on the 5.1 quality
+      pass, 2026-08-10, after reading the Cherry Lane switch page live: the
+      body still renders "it usually is not - we make the first step quick and
+      easy" with an em dash, so the pre-Q7 paste is what a patient reads, not
+      only what Google shows. Repaste the page body from
+      modules/switch/pages/ and the SEO description from
+      modules/switch/pages/SEO.md in the same session.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

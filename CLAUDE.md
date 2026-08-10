@@ -134,6 +134,37 @@ for the same words. Found on the item 3.5 quality pass, raised as Q14, and
 answered by Rishi on 2026-08-10: shorten the brand, not the NHS wording.
 
 
+## The copy that reaches the public without being generated
+
+Almost every rule in this repo is enforced against `modules\*\pages\`, because
+that is where the 177 generated pages live. Five files carry public copy and
+are not in there, so a checker scoped to those folders does not see them:
+
+- `modules\service\weebly-paste\*.html` and `modules\switch\weebly.html`, which
+  a human pastes into a Weebly embed element, so they are as public as any
+  generated page the moment somebody pastes them
+- `modules\service\DRAFT-weight-loss-copy.html` and
+  `DRAFT-travel-clinic-copy.html`, which are pasted nowhere but ARE the approved
+  copy that `build-weight-loss-pages.js` and `build-travel-clinic-pages.js`
+  name in their own headers as the source they were built from
+
+The second pair is the trap. The item 3.9 pass stripped 30 `&ndash;` entities
+out of the generated weight loss pages by fixing the generator. The draft the
+generator cites as its approved copy kept them, in the same two sentences,
+until the item 5.1 pass on 2026-08-10. Output clean, stated source not, and
+the repo green throughout, because `check-em-dashes` read three folders and
+none of them was this one.
+
+So: when a copy rule changes, change the generator AND the draft it cites, and
+check that whatever enforces the rule reads both. `check-em-dashes` now covers
+all five files through its `EXTRA_HTML` list, blanking build comments first so
+governance notes at the top of a draft stay reportable rather than failing, and
+failing if a listed file has gone. Note that `check-jsonld` and
+`check-whatsapp-route` deliberately exclude `DRAFT-*` by name, which is correct
+for them: a template has no branch to resolve against. Exclusion by structure
+is fine. Exclusion by nobody having thought about it is what this section is
+here to stop.
+
 ## Opening hours - the copy that sends someone to a locked door
 
 A day in `openingHours.specification` can carry MORE THAN ONE session, because

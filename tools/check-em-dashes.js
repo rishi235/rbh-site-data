@@ -17,6 +17,11 @@
     - an em dash or en dash, literal or entity, in a pasteable value in the
       paste sheets, meaning the Page Title, Page Description or Meta Keywords
       lines that get typed into the Weebly SEO fields
+    - the same, in the non-generated public copy listed in EXTRA_HTML: the
+      hand-pasted Weebly blocks, and the DRAFT-*.html templates the weight loss
+      and travel clinic generators name as their approved-copy source
+    - a file listed in EXTRA_HTML that no longer exists, so the list cannot
+      quietly stop covering anything
 
   Why the entity rule exists. The original checker matched literal characters
   only, and passed clean while all 15 generated weight loss pages carried two
@@ -67,6 +72,35 @@ const PAGE_DIRS = [
   path.join(REPO, "modules", "switch", "pages"),
   path.join(REPO, "modules", "service", "pages"),
   path.join(REPO, "modules", "branch", "pages")
+];
+
+// Copy that reaches the public WITHOUT being a generated page, so nothing in
+// PAGE_DIRS reads it. Two kinds, and both had to be added:
+//
+//   - the weebly-paste blocks and modules/switch/weebly.html, which are pasted
+//     into a Weebly embed element by hand, so they are as public as any
+//     generated page the moment somebody pastes them
+//   - the DRAFT-*.html copy templates, which are not pasted anywhere, but ARE
+//     the approved copy the weight loss and travel clinic generators name in
+//     their own headers as the source they were built from
+//
+// The second one is why this list exists. The item 3.9 pass fixed 30 &ndash;
+// entities in the generated weight loss pages, and the item 5.1 pass found the
+// same two sentences still carrying &ndash; in the approved-copy draft those
+// pages cite. The output was clean and its stated source was not, so the next
+// person composing copy from the approved source would have reintroduced it
+// and this checker would have passed. Found on the item 5.1 quality pass,
+// 2026-08-10, and fixed at source by splitting both sentences at a full stop,
+// which is what Q7 settled and what the generator already ships.
+//
+// Build comments are blanked before the check, exactly as for a page, so a
+// dash in a governance note at the top of a draft is still not a failure.
+const EXTRA_HTML = [
+  path.join(REPO, "modules", "switch", "weebly.html"),
+  path.join(REPO, "modules", "service", "DRAFT-weight-loss-copy.html"),
+  path.join(REPO, "modules", "service", "DRAFT-travel-clinic-copy.html"),
+  path.join(REPO, "modules", "service", "weebly-paste", "cherry-lane-old-pharmacy-first-replacement.html"),
+  path.join(REPO, "modules", "service", "weebly-paste", "cherry-lane-old-weight-loss-replacement.html")
 ];
 
 // Lines in the paste sheets whose value is typed straight into Weebly.
@@ -139,7 +173,26 @@ PAGE_DIRS.forEach(function(dir){
   checkPasteSheet(path.join(dir, "SEO.md"));
 });
 
-console.log("check-em-dashes: " + pageCount + " generated pages plus paste sheets ("
+// The non-generated public copy. A listed file that no longer exists fails the
+// run rather than being skipped quietly, the same convention as the KNOWN lists
+// in the other checkers: a list nobody notices going stale is not a rule.
+let extraCount = 0;
+EXTRA_HTML.forEach(function(file){
+  if (!fs.existsSync(file)) {
+    failures.push({
+      file: rel(file),
+      line: 0,
+      kind: "missing file",
+      text: "listed in EXTRA_HTML but not present. Remove the entry or restore the file."
+    });
+    return;
+  }
+  checkHtmlFile(file);
+  extraCount++;
+});
+
+console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
+  + " non-generated copy file(s), plus paste sheets ("
   + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside HTML build comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
