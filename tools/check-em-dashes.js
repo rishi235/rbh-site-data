@@ -11,9 +11,21 @@
   What FAILS the run:
     - an em dash (U+2014) or en dash (U+2013) in visible page copy, meaning
       anywhere in a generated .html once HTML comments are stripped out
-    - an em dash or en dash in a pasteable value in the paste sheets, meaning
-      the Page Title, Page Description or Meta Keywords lines that get typed
-      into the Weebly SEO fields
+    - the SAME dashes written as HTML entities, which render identically in a
+      browser but are invisible to a literal character search: &mdash; &ndash;
+      &#8212; &#8211; and their hex forms &#x2014; &#x2013;
+    - an em dash or en dash, literal or entity, in a pasteable value in the
+      paste sheets, meaning the Page Title, Page Description or Meta Keywords
+      lines that get typed into the Weebly SEO fields
+
+  Why the entity rule exists. The original checker matched literal characters
+  only, and passed clean while all 15 generated weight loss pages carried two
+  &ndash; each, 30 en dashes of public copy on the most compliance-sensitive
+  page family in the estate. A source file can hold a dash in either form and
+  a reader cannot tell them apart on the rendered page, so a rule that reads
+  only one form is not a rule. Found on the item 3.9 quality pass, 2026-08-10,
+  and fixed at source in tools/build-weight-loss-pages.js by splitting both
+  sentences at a full stop, which is what Q7 settled for the literal case.
 
   What is only REPORTED, not failed:
     - dashes inside <!-- HTML build comments -->, which no visitor sees
@@ -27,7 +39,28 @@ const path = require("path");
 const REPO = path.join(__dirname, "..");
 const EM = "—";
 const EN = "–";
-const DASH_RE = /[–—]/;
+
+// The entity spellings of the same two characters. A browser renders these
+// identically to the literal form, so anything that reaches the public has to
+// be checked for both. Kept as one source of truth for the test and the count.
+const EM_ENTITY = /&(?:mdash|#8212|#[xX]2014);/g;
+const EN_ENTITY = /&(?:ndash|#8211|#[xX]2013);/g;
+const ENTITY_RE = /&(?:mdash|ndash|#8212|#8211|#[xX]2014|#[xX]2013);/g;
+
+const LITERAL_RE = /[–—]/;
+// One test used by every call site: does this line carry a dash in ANY form.
+function hasDash(line){
+  ENTITY_RE.lastIndex = 0;
+  return LITERAL_RE.test(line) || ENTITY_RE.test(line);
+}
+// Report em vs en, and literal vs entity, so a failure says what to look for.
+function dashKind(line){
+  if (line.indexOf(EM) !== -1) return "em dash";
+  if (line.indexOf(EN) !== -1) return "en dash";
+  EM_ENTITY.lastIndex = 0;
+  if (EM_ENTITY.test(line)) return "em dash (HTML entity)";
+  return "en dash (HTML entity)";
+}
 
 // Folders holding generated pages that get pasted onto the live sites.
 const PAGE_DIRS = [
@@ -53,8 +86,10 @@ function blankComments(text){
 }
 
 function countDashes(text){
-  const m = text.match(/[–—]/g);
-  return m ? m.length : 0;
+  const lit = text.match(/[–—]/g);
+  ENTITY_RE.lastIndex = 0;
+  const ent = text.match(ENTITY_RE);
+  return (lit ? lit.length : 0) + (ent ? ent.length : 0);
 }
 
 function checkHtmlFile(file){
@@ -63,11 +98,11 @@ function checkHtmlFile(file){
   const visible = blankComments(raw);
   notes.commentDashes += countDashes(raw) - countDashes(visible);
   visible.split(/\r?\n/).forEach(function(line, i){
-    if (DASH_RE.test(line)) {
+    if (hasDash(line)) {
       failures.push({
         file: rel(file),
         line: i + 1,
-        kind: line.indexOf(EM) !== -1 ? "em dash" : "en dash",
+        kind: dashKind(line),
         text: line.trim().slice(0, 140)
       });
     }
@@ -79,12 +114,12 @@ function checkPasteSheet(file){
   const raw = fs.readFileSync(file, "utf8");
   notes.filesScanned++;
   raw.split(/\r?\n/).forEach(function(line, i){
-    if (!DASH_RE.test(line)) return;
+    if (!hasDash(line)) return;
     if (PASTEABLE_LINE.test(line)) {
       failures.push({
         file: rel(file),
         line: i + 1,
-        kind: line.indexOf(EM) !== -1 ? "em dash" : "en dash",
+        kind: dashKind(line),
         text: line.trim().slice(0, 140)
       });
     } else {
@@ -122,4 +157,4 @@ if (failures.length) {
 }
 
 console.log("");
-console.log("check-em-dashes: clean, no em or en dashes in public copy.");
+console.log("check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.");

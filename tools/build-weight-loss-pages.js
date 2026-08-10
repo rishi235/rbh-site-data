@@ -209,7 +209,7 @@ function weightLossPage(storeId) {
     '          <span class="pill">Private service &middot; not funded by the NHS &middot; ' + esc(store.town) + '</span>\n' +
     '          <h1>' + esc(pat.brandH1("Weight Loss Clinic", store)) + '</h1>\n' +
     '          <p class="hero-proof">Medically-supported weight loss, assessed and supervised by a pharmacist.</p>\n' +
-    '          <p class="hero-sub">' + esc(store.brand) + ' offers a private weight loss consultation service in ' + esc(store.town) + '. A qualified pharmacist or clinician will review your health history and, where it is clinically appropriate, prescription-only weight-loss medication can be supplied as part of a supervised plan alongside diet and lifestyle changes. This is a paid private service, not an NHS treatment, and it is not right for everyone &ndash; see below.</p>\n' +
+    '          <p class="hero-sub">' + esc(store.brand) + ' offers a private weight loss consultation service in ' + esc(store.town) + '. A qualified pharmacist or clinician will review your health history and, where it is clinically appropriate, prescription-only weight-loss medication can be supplied as part of a supervised plan alongside diet and lifestyle changes. This is a paid private service, not an NHS treatment, and it is not right for everyone. See below.</p>\n' +
     '          <ul class="hero-points">\n' +
     '            <li>Private, paid consultation with a qualified pharmacist or clinician</li>\n' +
     '            <li>A full health and eligibility check before anything is prescribed</li>\n' +
@@ -227,7 +227,7 @@ function weightLossPage(storeId) {
     '    ' + trustBar(store) + '\n\n' +
     '    <section class="section">\n' +
     '      <h2 class="h2">Is this service right for you?</h2>\n' +
-    '      <p class="lead">This is a clinical service. A pharmacist or clinician will assess your suitability at consultation &ndash; nothing below is a guarantee of treatment, a specific medicine, or a specific outcome. Individual results vary.</p>\n' +
+    '      <p class="lead">This is a clinical service. A pharmacist or clinician will assess your suitability at consultation. Nothing below is a guarantee of treatment, a specific medicine, or a specific outcome. Individual results vary.</p>\n' +
     '      <div class="eligibility">\n' +
     '        <div class="elig-box elig-yes">\n' +
     '          <h3>Who this service may suit</h3>\n' +
