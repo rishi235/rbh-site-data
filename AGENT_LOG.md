@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-10 22:40 BST - forty-third run [commit PENDING] - Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, drafted 2026-08-04 and never verified since. The pack is clean and, for the first time in these passes, all four post buttons resolve. The fault is a different shape: this branch is publishing two live Pharmacy First pages at once, and the newer one, the one item 5.3 would repoint Post A to, calls the pharmacy "Gordon Shorts Chemist" throughout because it was pasted before item 1.1 fixed the name. So the page that reads right is the one being retired and the page that is winning is the one reading wrong. Hard stop added, Post A link deliberately left alone and explicitly cleared for posting today
+## 2026-08-10 22:40 BST - forty-third run [commit 04d0d14] - Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, drafted 2026-08-04 and never verified since. The pack is clean and, for the first time in these passes, all four post buttons resolve. The fault is a different shape: this branch is publishing two live Pharmacy First pages at once, and the newer one, the one item 5.3 would repoint Post A to, calls the pharmacy "Gordon Shorts Chemist" throughout because it was pasted before item 1.1 fixed the name. So the page that reads right is the one being retired and the page that is winning is the one reading wrong. Hard stop added, Post A link deliberately left alone and explicitly cleared for posting today
 
 AUTONOMOUS DECISION. The standing window runs to 23:14 tonight and this run
 is inside it. Q32 was implemented rather than left open and is recorded as
