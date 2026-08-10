@@ -62,6 +62,29 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       overview embed is a stale paste (shows five conditions as coming soon
       although all seven pages are live) - needs a repaste; old weight loss
       page still live with POM names and efficacy claims - new Q5.
+      Quality pass 2026-08-11: the repo half is clean and byte-stable. All six
+      generators rebuilt to a zero diff, all 18 checkers pass, and the branch
+      owns exactly the 12 pages the repo generates, correctly with no branch
+      landing page. The live half is the best result any build item in this
+      backlog has returned: the sitemap lists all 12 generated pages and each
+      one is reachable, so unlike items 2.2 and 5.2 this build has actually
+      reached the public in full. Both gaps the 2026-08-05 pass left open are
+      now closed, neither by this run. The Pharmacy First overview has been
+      repasted and all seven conditions now render with working links, and the
+      old weight loss page has been stripped to a short signpost naming no
+      medicine and making no claim, with both URLs live, which is Q5 applied
+      exactly as Rishi answered it. Q5 can be treated as closed on the
+      evidence. Two live findings, neither in copy this repo owns. The switch
+      page SEO title field still carries the pre-Phase-3 string "Switch Your
+      Prescriptions - Cherry Lane Pharmacy Walton" against the paste sheet's
+      "Switch Your Prescriptions to Cherry Lane Pharmacy, Walton", which
+      confirms with evidence what items 3.1, 5.1 and Q3 had only assumed. And
+      the Weebly-native site footer publishes the branch NHS mailbox as
+      pharmacy.FA226@mhs.net rather than nhs.net, a one-letter typo that
+      bounces, found for the third time and now raised as Q36. Smartts was
+      read in the same pass and publishes its mailbox correctly, so the fault
+      looks site-specific rather than an estate-wide template. No in-repo
+      defect found, so nothing was changed in the repo. Done 2026-08-11.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

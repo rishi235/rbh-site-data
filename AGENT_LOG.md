@@ -2,6 +2,107 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 00:05 BST - forty-seventh run - Quality pass on item 2.3, the Cherry Lane build-from-near-zero, last verified on 2026-08-05 and the oldest verification left standing. This is the first pass in several runs where the live side is in better shape than the repo half predicted, not worse. All 12 pages are live, all 12 sit in the branch sitemap, and both gaps the 2026-08-05 pass left open have since been closed by other work. The findings are a stale Weebly SEO title on the switch page and a misspelled NHS mailbox in the site footer, the second asked as Q36
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
+2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
+present at the top of this log, so step 7 applies as written and Q36 was left
+open in the normal way. That is the right outcome here in any case: the fix is
+a hand edit in the Weebly footer that no unattended run can make.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 00:03. The newest entry
+is still the Q16 answer of 16:16 on 2026-08-10, already applied by the
+thirty-third run and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29, Q34 and Q35
+are all still open with no answer posted against any of them.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED] and each
+was re-read to confirm it: 5.3 and 5.4 wait on Weebly work, 5.5 waits on
+pushing a branch other than this one, 5.8 waits on Rishi's regulatory decision
+at Q22. So the rule sends the run to a quality pass on the least recently
+verified completed item. The ageing order was re-derived from scratch by
+reading every run heading in this log rather than trusting the previous run's
+summary, and it agrees with the forty-sixth run: 2.2 was taken last night, so
+2.3 at 2026-08-05 is now the oldest still standing. Taken this run. The
+remaining order is unchanged: 2.1, 4.7, 4.2, then 1.1.
+
+THE REPO HALF, WHICH IS CLEAN AND BYTE-STABLE. All six generators were run
+before any edit and produced zero diff, so the committed pages match current
+data exactly and nothing below is an artefact of this run. All 18 checkers pass
+with no failure. Cherry Lane owns 12 pages and the repo generates exactly those
+12: the Pharmacy First overview, the seven Pharmacy First condition pages,
+contraception, weight loss, travel clinic and the switch page. It correctly has
+no branch landing page, because those are built only for the six branches that
+share a brand and a domain with a sister shop, and Cherry Lane shares neither.
+Every page leads with Walton, which is the branch seoTown and is the deliberate
+divergence from the postal addressLocality of Liverpool that
+check-address-region reports as a warning rather than a failure. Hours in
+branches.json are NHS-confirmed to 2026-06-24 at Monday to Friday 9:00am to
+6:30pm and Saturday 9:00am to 5:00pm, with no split day, so the lunchtime
+closure trap does not arise at this branch.
+
+THE LIVE HALF, WHICH IS THE GOOD NEWS. The sitemap was read on 2026-08-11 and
+lists 28 URLs. All 12 generated pages are in it, and each was reachable. That
+is a different picture from the six branch landing pages the forty-sixth run
+found 404ing, and it is worth stating plainly: item 2.3 is the one build item
+in this backlog that has actually reached the public in full.
+
+Both gaps the 2026-08-05 pass recorded against this item are now closed, and
+neither was closed by this run. First, the Pharmacy First overview was a stale
+paste showing five of the seven conditions as coming soon. It was fetched this
+pass and all seven conditions render with a working Learn more link, so the
+repaste happened, most likely in the supervised session of 2026-08-07 that the
+sitemap timestamps all point to. Second, the old weight loss page still carried
+prescription-only medicine names and efficacy claims, which was Q5. Rishi's Q5
+answer was to strip the POM content and keep both URLs live pointing visitors
+at the new page. That is exactly what is live now: weight-loss-clinic-walton
+.html carries one short paragraph saying the clinic has moved, a link to the
+new page, the phone number and the address, and names no medicine and makes no
+claim. Q5 is applied and can be treated as closed on the evidence.
+
+THE FIRST FINDING, WHICH IS A STALE SEO TITLE AND IS EVIDENCE FOR AN EXISTING
+NOTE RATHER THAN A NEW PROBLEM. The switch page paste sheet at
+modules/switch/pages/SEO.md gives the title as "Switch Your Prescriptions to
+Cherry Lane Pharmacy, Walton". The live page returns "Switch Your Prescriptions
+- Cherry Lane Pharmacy Walton", which is the pre-Phase-3 string. So the Weebly
+SEO title field has never been updated from the Phase 3 rollout at this branch.
+That is precisely what item 3.1 and Q3 record as outstanding, and what item 5.1
+repeats, but until now it had been assumed rather than read. It is confirmed
+live at Cherry Lane. Not raised as a new question, because the decision already
+exists and the action is already queued; recorded so the queue has evidence
+behind it. The same page still renders the pre-Q7 em dash in "it usually is not
+- we make the first step quick and easy", which the thirty-second run read at
+this same branch on 2026-08-10, so that is unchanged rather than new.
+
+THE SECOND FINDING, WHICH IS NEW AS A QUESTION AND OLD AS AN OBSERVATION. The
+Weebly-native site footer on every Cherry Lane page publishes the branch NHS
+mailbox as "pharmacy.FA226@mhs.net". The correct address is
+pharmacy.FA226@nhs.net, which is what branches.json holds and what
+check-branch-links enforces for every branch, so the repo is right and only the
+footer is wrong. It is one transposed letter and mhs.net is not a domain RBH
+controls, so a patient copying it out gets a bounce. No generated page prints
+an NHS mailbox at all, and no checker here can read a Weebly-native footer, so
+nothing in this repo will ever catch it. It has now been recorded in this log
+three times, on 2026-08-07 and twice since, and survived every one. The
+hypothesis that it might be an estate-wide footer template fault was tested
+rather than assumed: smarttschemist.co.uk was read in the same pass and
+publishes pharmacy.FQN70@nhs.net correctly, so it looks like one site's typo.
+Two of fourteen sites have been read, which is why Q36 asks whether to sweep
+the rest rather than simply asserting it is isolated.
+
+TWO THINGS CONFIRMED IN PASSING, NEITHER NEW. The switch banner close button
+still renders as mojibake at both Cherry Lane and Smartts, which is Q33 and is
+already fixed in the repo awaiting a Header Code repaste; that is now three
+sites confirmed. And smarttschemist.co.uk still publishes 9:00am to 6:00pm with
+no lunch closure on its contact page, its hours block and its footer strip,
+against branches.json closing 1:00pm to 2:00pm, which the item 3.7 pass found
+and the 4.10 pass warned the GBP paster about.
+
+NOTHING WAS CHANGED IN THE REPO. This is the first quality pass in this series
+to find no in-repo defect at all, which is the honest result rather than a
+reason to manufacture one: the generators are byte-stable, all 18 checkers
+pass, and both live findings are in copy no generator owns. Files changed this
+run are AGENT_WORKLIST.md, AGENT_LOG.md and QUESTIONS.json only.
+
 ## 2026-08-10 23:43 BST - forty-sixth run [commit 9e191f0] - Quality pass on item 2.2, the Fishlocks shared-domain split, now the least recently verified item in the estate. The repo half is clean, byte-stable, and better than it was: both observations the 2026-08-05 pass left behind have since been fixed by other work. The finding is on the live half, which no pass on this item had ever read. Both Fishlocks landing pages return a 404, and so do the four built under item 5.2, so an item ticked since 2026-08-04 and verified clean three times has delivered nothing to a visitor or to Google, while the combined pages it exists to replace are still the live targets. Recorded in INDEX.md through the generator and asked as Q35
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window opened on 2026-08-09

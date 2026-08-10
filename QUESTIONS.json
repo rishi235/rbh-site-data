@@ -541,5 +541,20 @@
     "status": "open",
     "answer": null,
     "note": "A finding, not a blocker: no worklist item waits on this and nothing is broken for a patient today. It is recorded because the item has been ticked and verified three times while delivering nothing live, which is the gap a repo-only check cannot see. Option 3 is the free interim if the Weebly session slips, but it costs a second round of profile edits later and points a general profile click at a single-service page, so it is worse than option 1 unless the session is weeks away. No paster can publish a dead profile website by accident in the meantime: all six packs already carry a note telling them to confirm the landing page resolves first."
+  },
+  {
+    "id": "Q36",
+    "date": "2026-08-11",
+    "item": "quality pass on 2.3 (finding, does not block any item)",
+    "question": "Every page on cherrylanepharmacy.co.uk carries a site footer, native to Weebly and owned by no generator here, which publishes the branch NHS mailbox as \"pharmacy.FA226@mhs.net\". The correct address is pharmacy.FA226@nhs.net: that is what branches.json holds, and tools/check-branch-links.js enforces the pattern pharmacy.<odsCode>@nhs.net for every branch, so the repo is right and only the live footer is wrong. It is one transposed letter, m for n, and mhs.net is not a domain RBH controls, so a patient who copies it out of the footer gets a bounce with no clue where the message went. The same footer was read on smarttschemist.co.uk in the same pass and publishes pharmacy.FQN70@nhs.net correctly, so this is one site's typo rather than an estate-wide template fault, but only two of the fourteen sites have been read. Nothing in this repo can reach a Weebly-native footer, and no generated page prints an NHS mailbox at all, so no checker here will ever see it. This run is the third time it has been recorded in AGENT_LOG.md and the first time it has been given a question id. How should it be handled?",
+    "options": [
+      "Fix the Cherry Lane footer in the next Weebly session and read the footer on the other twelve unchecked branch sites in the same session, so a one-letter typo is not sitting unread on any of them",
+      "Fix the Cherry Lane footer only, on the evidence that Smartts is correct and the fault therefore looks isolated, and leave the other twelve until a pass happens to read them",
+      "Add the branch footer to the routine live-read checklist a quality pass already runs, so all fourteen get read over the coming passes at no extra cost, and fix whatever that turns up in one batch rather than opening a Weebly session now"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "A finding, not a blocker: no worklist item waits on it and every other route to the pharmacy on the page is correct, including the phone number, the Cherry@rbhealth.co.uk address in the footer strip and the generated contact card, which prints no email at all. The reason it is worth a decision rather than another line of prose is that it has now been found three times, on 2026-08-07 and twice since, and has survived every one of them, and the cost of checking the other twelve sites is a page fetch each. Note for whoever fixes it that the NHS mailbox is the one patients are told to use for prescription queries, so a bounce here is not cosmetic."
   }
 ]
