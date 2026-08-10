@@ -2,6 +2,142 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 18:41 BST - thirty-sixth run - Quality pass on item 5.7, the Q15 move of McCanns Sandringham's local word to St Michael's, which landed this afternoon and had never been verified. The generated half is clean end to end. The defect is outside it: the branch's GBP content pack still tells the paster to lead the Google profile with Aigburth, the sister branch's own target town on the same road, because the pack was drafted from the old catchment order and nothing read a pack against its own seoTown. Pack fixed and check-gbp-packs.js given a rule so it cannot drift again
+
+AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The pack
+fix was taken under it and recorded as Q25, status answered, marked clearly as
+an autonomous decision rather than Rishi's. It is a search and copy-ordering
+call with no money, no legal risk and no patient-facing regulatory claim in it,
+so it sits outside the window's carve-out. It is also applying a decision Rishi
+has already made, Q15, to an artefact that was missed, rather than making a new
+one. Reversing it is swapping two town names back in three sentences.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. After the thirty-fourth and thirty-fifth runs verified 5.2 and 5.6, item
+5.7 was the only completed item in the backlog that had never had one. It was
+also the one most worth doing, because 5.7 changed a value that fourteen
+different files read, and a change like that is only as good as the places it
+did not reach.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 18:43. The newest entry
+is still the Q16 answer of 15:16, applied by the thirty-third run. Q17, Q18,
+Q19, Q20, Q21, Q22 and Q24 are all still open with no answer posted.
+
+BASELINE. All six generators were run before any edit and produced zero diff,
+and all 18 checkers passed, so everything below is attributable to this run.
+
+WHAT WAS VERIFIED, AND WHAT PASSED. The repo half of 5.7 was checked against
+Rishi's Q15 answer, branches.json and the artefacts a human actually pastes:
+
+- All 13 pages the branch owns lead with St Michael's: 11 service pages, the
+  switch page and the branch landing page. Title, meta description, H1 and
+  meta keywords all carry it in the page and in the matching paste sheet, and
+  check-seo-sheets confirms the two agree.
+- No permalink moved. Every one still reads mccanns-sandringham, which is what
+  Rishi's answer asked for and what stops any live URL breaking.
+- The apostrophe is a plain ASCII U+0027 in all 13 pages and in every paste
+  sheet, never a typographic U+2019 and never an HTML entity, so nothing needs
+  escaping and no two spellings of the town can exist. The only non-ASCII
+  character in those pages is the em dash inside the build comment, which
+  check-em-dashes blanks by design, and a pound sign on the weight loss page.
+- The JSON-LD areaServed block lists St Michael's first, Aigburth second, so
+  the machine-readable claim and the visible copy agree.
+- The sister cross-link on the Aigburth landing page reads "McCanns Chemist
+  Sandringham in St Michael's", which is the line that stops the two branches
+  reading as one.
+- build-switch-pages.js was updated with the branch, with a comment recording
+  the deliberate townSlug hold. That generator keeping its own hardcoded copy
+  of the town is the duplication Q19 already covers, so it is noted, not
+  re-raised.
+
+THE DEFECT. gbp-packs/mccanns-sandringham.md still read "Aigburth,
+St Michael's, Lark Lane and Dingle" in three places: the business description
+in section 1, the NHS prescription dispensing line in section 3, and Post B.
+The pack was drafted on 2026-08-04 and it copied the serviceAreaList order
+faithfully as it stood that day, so it was correct when it was written. Item
+5.7 changed what that order means and the item 5.2 pass reordered the list
+itself, and the pack was revisited by neither. Nothing could see it, because
+check-gbp-packs read phone, postcode, widgets and website out of branches.json
+but never seoTown, and check-address-region reads branches.json but never a
+pack.
+
+WHY IT MATTERS MORE THAN A WORD ORDER. The GBP business description is the
+highest-leverage local text a branch has, and Google reads the profile and the
+site together. The profile would have claimed Aigburth while all 13 pages
+claim St Michael's. Worse, the two McCanns branches sit on the same road at 1b
+and 112 Aigburth Road and share one website, which is the exact situation the
+branch landing pages were built for under items 2.2 and 5.2. Leading this
+profile with Aigburth points it at the town the sister branch already targets,
+which is the overlap the whole exercise exists to remove.
+
+THE FIX, AT SOURCE. The three sentences now lead with St Michael's. The swap
+is length-neutral, so the description is still 713 characters and the count the
+pack states about itself is still true, which check-gbp-packs independently
+confirms. A paster note was added explaining why the order reads as it does and
+that it is not a typo to correct, because the pack is pasted by hand and the
+old order looks natural on a shop that stands on Aigburth Road.
+
+THE GUARD. check-gbp-packs.js gained a catchment-order rule: a pack must lead
+its catchment list with the branch's own seoTown. It matches a genuine
+catchment run, three or more serviceAreaList towns joined by nothing but commas
+and "and", rather than any mention of a town, because this branch's street
+address contains Aigburth and an address is not a catchment claim. Exceptions
+go in KNOWN_AREA_ORDER with a reason and a question id, and a key that no
+longer matches a real breach fails the run, the same anti-rot convention as
+KNOWN_SEO_TOWN, KNOWN_DRIFT and KNOWN_CLAIM.
+
+EVIDENCE THE RULE IS A CONVENTION, NOT AN INVENTION. All 15 packs were scanned
+before the rule was written. Fourteen already led with their own seoTown.
+McCanns Sandringham was the only one that did not, and it is the only branch
+whose seoTown has ever been moved. None of the other fourteen packs changed.
+
+NEGATIVE-TESTED THREE WAYS, in a throwaway tree outside the repo so nothing in
+it could be committed by accident:
+1. The old ordering restored. The checker failed with exit 1 and named all
+   three sentences individually, quoting the offending run in each.
+2. The old ordering plus a matching KNOWN_AREA_ORDER entry. Exit 0 with three
+   KNOWN warnings, so a genuine exception can be recorded without widening the
+   rule.
+3. The fixed pack with the KNOWN entry left behind. Exit 1 on the stale key, so
+   the exception list cannot rot.
+
+A SECOND FINDING, WHICH BLOCKS NOTHING AND NEEDS NO DECISION. branches.json
+still carries "sandringham" in this branch's keywords[] array and not
+St Michael's. It does not reach a page: no generator reads b.keywords, and
+every meta keywords string in the paste sheets is composed from seoTown by the
+generator itself, which is why the sheets are already correct. The field is
+read only by tools/branches-editor.html, whose embedded snapshot
+check-editor-snapshot guards. Changing it would churn that snapshot for no
+output gain, so it is left alone and recorded here so the next person who reads
+that array knows it is inert rather than wrong.
+
+ONE STALE SENTENCE CORRECTED. The header comment in check-address-region.js
+said the branch's service area list and its GBP pack "both say Aigburth,
+St Michael's, Lark Lane and Dingle" in the present tense. That stopped being
+true for the list on the item 5.2 pass and for the pack on this one, so it now
+reads in the past tense and names where each was fixed.
+
+FILES CHANGED: gbp-packs/mccanns-sandringham.md, tools/check-gbp-packs.js,
+tools/check-address-region.js, QUESTIONS.json (Q25), AGENT_WORKLIST.md,
+AGENT_LOG.md. No generated page moved: all six generators were run again after
+the edits and produced zero diff across all 177 pages.
+
+AFTER THE CHANGE: all 18 checkers clean.
+
+OUTSTANDING ON THE LIVE SIDE, unchanged by this run. The 13 Sandringham pages
+still need their Weebly SEO fields repasting before any of this reaches Google,
+and the GBP pack still needs pasting into the profile by hand. The pack fix
+matters at the moment somebody pastes it, not before.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after that
+raises questions in the normal way instead of deciding. Every worklist item is
+ticked or [BLOCKED] and every completed item has now had at least one quality
+pass, so the next run picks the oldest pass rather than an unverified item.
+Items 5.3, 5.4, 5.5 and 5.8 all need a supervised session, not an unattended
+run; 5.5 in particular is only free while service.js stays byte-identical
+between the pinned branch and main.
+
 ## 2026-08-10 18:29 BST - thirty-fifth run - Quality pass on item 5.6, the Q14 length-aware title rule, which had never been verified since it landed this morning. The rule itself is sound and was proved end to end. The pass then found that the guard behind it was sampling a hardcoded phrase rather than the actual longest condition, so a longer condition added later would have slipped past it, and fixed that at source. A second finding, that the rule can only rescue three of the fourteen trading brands and two titles now sit one character from the wall, is raised as Q24
 
 NO AUTONOMOUS DECISION THIS RUN. The standing window is still open until

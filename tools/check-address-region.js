@@ -101,8 +101,11 @@ data.branches.forEach(function (b) {
   geography: serviceAreaList is the list of places a branch says it serves,
   and for 15 of the 16 branches the seoTown is the first entry in it. The
   exception was McCanns Sandringham, whose pages said "in Sandringham" while its
-  own service area list and its GBP pack both say Aigburth, St Michael's,
-  Lark Lane and Dingle, and never Sandringham. Raised as Q15, answered by Rishi
+  own service area list and its GBP pack both said Aigburth, St Michael's,
+  Lark Lane and Dingle, and never Sandringham. Both now lead with St Michael's:
+  the list on the item 5.2 pass, the pack on the item 5.7 pass, which also gave
+  check-gbp-packs.js a rule so a pack and its seoTown cannot drift again.
+  Raised as Q15, answered by Rishi
   on 2026-08-10 and applied as worklist item 5.7: the local word moved to
   St Michael's, the next place in the branch's own list, and townSlug was held
   at "sandringham" on purpose so no live permalink breaks and no redirects are

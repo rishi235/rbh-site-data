@@ -25,6 +25,9 @@
     - The Services section lists every service the branch's widget set in
       branches.json says it offers, and the description mentions them
       too where the 750 characters allow (Build Pack v2 4.1)
+    - The catchment list in the pack leads with the branch's own seoTown,
+      the word every page the branch owns leads with, so the profile and
+      the site target the same town
     - Shared-domain branches point the GBP profile website at their own
       branch landing page, not at the shared homepage. Master Plan v2
       section 3: two branches on one website cannot rank twice in the same
@@ -71,6 +74,13 @@ const EFFICACY_WARN = [
 
 const EM_DASH = /[—–―]/;
 const EMOJI = /\p{Extended_Pictographic}/u;
+
+// Accepted exceptions to the catchment-order rule, keyed "<branch id>::areaOrder".
+// Each needs a reason and a question id, and the check fails on a key that no
+// longer breaks its rule, so the list cannot go stale. Same convention as
+// KNOWN_SEO_TOWN in check-address-region.js and KNOWN in check-seo-lengths.js.
+const KNOWN_AREA_ORDER = {};
+const seenAreaKnown = {};
 
 const fails = [];
 const warns = [];
@@ -270,6 +280,50 @@ for (const file of packFiles) {
     }
   }
 
+  // --- catchment order: the profile must lead with the branch's own town --
+  // seoTown is the word every page this branch owns leads with: its title,
+  // its description, its H1 and its areaServed schema. The catchment list in
+  // the pack is the same claim made on the GBP profile, and Google reads the
+  // profile and the site together. A pack that leads with a different town
+  // aims the profile at a town the pages do not target, and where two
+  // branches share a domain that is usually the sister branch's own town,
+  // which is the overlap the branch landing pages exist to stop.
+  //
+  // Added by the item 5.7 quality pass on 2026-08-10. Item 5.7 moved McCanns
+  // Sandringham's seoTown from Sandringham to St Michael's and regenerated
+  // every page the branch owns, but the pack had been drafted on 2026-08-04
+  // from the old serviceAreaList order and nothing read the two against each
+  // other, so the profile copy still led with Aigburth: the town its sister
+  // branch further along the same road already targets. Every other pack in
+  // the estate already led with its own seoTown, so this encodes a convention
+  // the packs keep rather than inventing one.
+  //
+  // Only a genuine catchment RUN counts: three or more serviceAreaList towns
+  // joined by nothing but commas and "and". Any mention of a town would not
+  // do, because McCanns Sandringham sits at 1b Aigburth Road and a street
+  // name is an address, not a catchment claim.
+  const areaList = (b.serviceAreaList || []).filter(Boolean);
+  if (b.seoTown && areaList.length >= 3) {
+    const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    // Longest first, so "North Liverpool" wins over "Liverpool".
+    const alt = areaList.slice().sort((x, y) => y.length - x.length).map(escRe).join("|");
+    const runRe = new RegExp(`(?:${alt})(?:\\s*,\\s*(?:${alt}))+(?:\\s*,?\\s+and\\s+(?:${alt}))?`, "g");
+    const flat = text.replace(/\s*\n\s*/g, " ");
+    const key = `${id}::areaOrder`;
+    for (const run of flat.match(runRe) || []) {
+      const towns = run.split(/\s*,\s*|\s+and\s+/).map((t) => t.trim()).filter(Boolean);
+      if (towns.length < 3) continue;
+      if (towns[0] === b.seoTown) continue;
+      const known = KNOWN_AREA_ORDER[key];
+      if (known) {
+        seenAreaKnown[key] = true;
+        warn(file, `KNOWN catchment list leads with "${towns[0]}", not this branch's seoTown "${b.seoTown}". ${known.question}: ${known.reason}`);
+      } else {
+        fail(file, `catchment list leads with "${towns[0]}", but this branch's seoTown in branches.json is "${b.seoTown}", which is the word every page it owns leads with. The profile and the site would target different towns. Found: "${run}"`);
+      }
+    }
+  }
+
   // --- business description length ------------------------------------
   const desc = descriptionOf(text);
   if (desc === null) {
@@ -366,6 +420,16 @@ for (const file of packFiles) {
     if (pc === ownPc) continue;
     const other = branches.find((x) => norm(x.postalCode).toUpperCase().replace(/\s+/g, "") === pc);
     if (other) fail(file, `postcode ${pc} belongs to ${other.branchName}, not ${b.branchName}`);
+  }
+}
+
+// --- the exception list cannot rot ---------------------------------------
+// A KNOWN_AREA_ORDER key that no longer describes a real breach is a note
+// nobody will delete and a rule quietly narrowed, so it fails the run. Same
+// anti-rot convention as KNOWN_SEO_TOWN, KNOWN_DRIFT and KNOWN_CLAIM.
+for (const key of Object.keys(KNOWN_AREA_ORDER)) {
+  if (!seenAreaKnown[key]) {
+    fails.push(`stale exception: KNOWN_AREA_ORDER["${key}"] no longer matches a pack that breaks the catchment-order rule. Remove it (${KNOWN_AREA_ORDER[key].question}).`);
   }
 }
 

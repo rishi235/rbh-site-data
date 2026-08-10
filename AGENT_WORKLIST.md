@@ -302,6 +302,25 @@ so tools/build-audit-status.js picks them up like any other item.
       keyword fields for the 13 pages need repasting from
       modules/service/pages/SEO.md, modules/switch/pages/SEO.md and
       modules/branch/pages/SEO.md, or the live listings keep the old word.
+      Quality pass 2026-08-10: the repo half of 5.7 verified clean end to
+      end. Every page the branch owns leads with St Michael's in its title,
+      description, H1, meta keywords, hero sentence and areaServed schema;
+      no permalink moved; the apostrophe is a plain ASCII one in all 13
+      pages and every paste sheet, so nothing needs escaping; the sister
+      cross-link on the Aigburth landing page names St Michael's; and the
+      hardcoded town in build-switch-pages.js was updated with it, which is
+      the duplication Q19 already covers. One real defect found outside the
+      generated pages and fixed at source: the branch's GBP content pack
+      still told the paster to lead the Google profile with "Aigburth,
+      St Michael's, Lark Lane and Dingle" in three places, because the pack
+      was drafted on 2026-08-04 from the old catchment order and no checker
+      read a pack against its own seoTown. Aigburth is the sister branch's
+      target town on the same road, so the profile would have claimed one
+      town while every page claimed another. Pack reordered, paster note
+      added, and check-gbp-packs.js given a catchment-order rule with the
+      usual anti-rot exception list, negative-tested three ways. All 14
+      other packs already complied and none moved. Logged as Q25, taken as
+      an autonomous decision under the standing window.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against
