@@ -359,3 +359,55 @@ Expected values are composed from `branches.json`; nothing is imported from
 the generators, so a generator reaching for the wrong field fails here.
 Exceptions go in `KNOWN`, keyed `<subject>::<rule>`, with a reason and a
 question id, and a key that no longer breaks its rule fails the run.
+
+
+## The WhatsApp number, and the seven places it lives
+
+Every other contact detail on a generated page comes from `branches.json` and
+has a checker behind it: the phone in `check-nap`, the review link and the NHS
+mailbox in `check-branch-links`, the booking diary in `check-booking-routes`.
+The WhatsApp number is not in `branches.json` at all.
+
+It is hardcoded SEVEN times. Once as `const WHATSAPP` in each of the five
+service-family generators, and once as `var DEFAULT_WHATSAPP` in each of
+`modules\service\service.js` and `modules\switch\switch.js`. It reaches a page
+as `data-wa` on the module root, and `service.js` / `switch.js` read that
+attribute to build the `wa.me` link behind "Send via WhatsApp instead". A page
+with no `data-wa` falls back to the runtime default silently.
+
+All seven agree on `447521775631` today, and that is the whole problem: seven
+copies that agree are indistinguishable from one source of truth right up to
+the moment somebody edits one. Then some pages send patient enquiries to a
+number nobody is watching, while every visible line on the page still reads
+correctly. Same silent class as the switch pages found still posting
+prescription switch requests to a personal inbox, and the same shape as the
+duplicated switch-page `CONFIG` raised as Q19.
+
+`tools\check-whatsapp-route.js` guards it. Six rules fail the run: two
+generators declaring different numbers; a generator that emits a module root
+but declares no constant; a runtime default that disagrees with the generators;
+any declared or emitted value that is not a UK mobile in E.164 without the plus;
+a page whose `data-wa` disagrees; a generated page still carrying a `{{TOKEN}}`
+placeholder; and a page with a WhatsApp button but no `data-wa`, which would
+fall back to the runtime default instead of the value the generator meant to
+set. The generators and the module JS are read as DATA UNDER TEST rather than
+required in, so a generator that stops declaring the constant fails here.
+
+Reported, not failed: pages carrying `data-wa` with no button and no callback
+form, so the attribute is inert. 29 pages are in that position today, 15 travel
+clinic and 14 Pharmacy First overview, which is the substance of Q20.
+
+`modules\emar\emar.js` deliberately carries a different number. It drives the
+Borough Care eMAR screens, a separate function answering on its own line, not
+the public site. It sits in `KNOWN` so the divergence stays deliberate rather
+than becoming a copy somebody forgot. Exceptions go in `KNOWN` with a reason
+and a question id, and a key that no longer fires fails the run.
+
+Until Q21 settles where the number should live, do not change one copy on its
+own. Change all five generators, then both module defaults, then regenerate,
+in the same commit. Note that touching the two module defaults ends the
+byte-identical state between `origin/main` and the pinned ref
+`service-module-phase1`, which is the only reason Q13's fast-forward is free,
+so that half belongs in a supervised session alongside Q13 and Q17.
+
+Found on the item 3.13 quality pass, 2026-08-10.

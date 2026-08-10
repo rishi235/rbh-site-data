@@ -1,6 +1,137 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
-Format: date, time, item worked, what changed, commit hash, open questions.
+Format: date, time, item worked, what changed, commit hash, any questions.
+
+## 2026-08-10 15:06 BST - thirty-first run - Quality pass on item 3.13, Clear Chemist Aintree. All three Clear pages verified clean. The pass then found that the WhatsApp number behind every enquiry button in the estate lives in seven hardcoded places and in no data file, with nothing ever reading it. New tools/check-whatsapp-route.js makes all seven agree or fail. A second finding, that the 15 travel clinic pages are the only leaf service pages with no contact route behind the booking widget, is raised as Q20
+
+ANSWER PICKUP. The portal was read and returned nothing new. The newest entry
+is still the Q15 answer picked up two runs ago, already recorded. Q16, Q17,
+Q18 and Q19 remain open with no answer posted.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10 23:14),
+and it expires this evening. It was not needed again. Both findings below block
+no worklist item, so on the same reading as Q16 to Q19 they are raised rather
+than taken: the window converts a decision that BLOCKS an item into an
+autonomous one, and neither of these does.
+
+WHY A QUALITY PASS, AND WHY 3.13. Every numbered item is ticked except 5.3,
+5.4 and 5.5, all three [BLOCKED] and all three needing a supervised session, so
+the standing rule points at a quality pass on the least recently verified
+completed item. 3.13 has never had one. It is also the last unvisited item in
+the Phase 3 round, which has run 3.1 through 3.12 over the last eleven runs.
+
+THE BRANCH ITSELF: CLEAN. Clear Chemist publishes three pages, not the twelve
+or thirteen the other branches carry, because it holds no Pharmacy First and no
+contraception widget and has no landing page. All three were checked line by
+line against Build Pack v2 and branches.json: titles and descriptions on the
+paste sheets, H1s, the NAP block, the tel: link, the Google review link, the
+JSON-LD block including the URL-encoded map query, the booking mount and its
+routing key, data-branch, data-service, and weight loss compliance. Nothing
+wrong. The weight loss page names no prescription-only medicine, makes no
+efficacy claim, carries the eligibility split, the pricing caveat and the
+"individual results vary" line, and states plainly that a prescription is a
+clinical judgement and not automatic. The travel page makes no stock promise
+and flags the NHS-funded exceptions as a question for the pharmacist rather
+than a blanket claim.
+
+Two things about Clear that read as gaps and are not. It is the only trading
+branch with no nhsReviewUrl, already a standing warning in check-branch-links
+and already accepted. It is also the only trading branch with no openingHours
+in branches.json, which matters less than it looks because Clear has no landing
+page and none of its three pages prints opening times, so nothing tells a
+patient a wrong hour. Worth adding when convenient; not a defect today.
+
+THE FINDING THAT MATTERS. Every contact route on a generated page is derived
+from branches.json and guarded by a checker: the phone by check-nap, the review
+link and the NHS mailbox by check-branch-links, the booking diary by
+check-booking-routes. The WhatsApp number is not in branches.json at all. It is
+hardcoded seven times, once as a WHATSAPP constant in each of the five
+service-family generators and once as a DEFAULT_WHATSAPP fallback in each of
+modules/service/service.js and modules/switch/switch.js, and it reaches a page
+as the data-wa attribute that both module scripts read to build the wa.me link.
+Nothing had ever read any of it.
+
+All seven agree on 447521775631 today, which is exactly why it is worth saying
+out loud now. Seven copies that agree are indistinguishable from one source of
+truth until somebody edits one of them, and the failure is silent: some pages
+would send patient enquiries to a number nobody watches while every visible
+line on the page still reads correctly. That is the same shape as the switch
+pages found still posting prescription switch requests to Rishi's own inbox
+under Q13, and the same duplication problem as the switch-page CONFIG raised as
+Q19 last run. Where the number should live is raised as Q21, recommending a
+whatsapp field in branches.json read by the five generators. The recommendation
+deliberately stops short of the two module defaults, because changing those
+ends the byte-identical state between origin/main and the pinned ref
+service-module-phase1, which is the only reason Q13's fast-forward is free.
+
+THE SECOND FINDING. Behind the booking widget, a service page normally offers
+three ways to make contact: a callback form, a WhatsApp button and the phone.
+Fifteen pages offer one. The travel clinic pages carry the widget and the phone
+only, with no form and no button, while still carrying the data-wa attribute
+those buttons would read, so the attribute sits there inert. Travel clinic is
+therefore the only end-of-journey service page in the estate where a visitor
+who cannot use the Appointedd widget has the phone and nothing else. It showed
+up here because Clear publishes three pages, so travel clinic is a third of
+that branch's entire web presence and there is no landing page or Pharmacy
+First page to catch the visitor anywhere else. The 14 Pharmacy First overview
+pages are in the same position but are defensible, since each links to seven
+condition pages that all carry a form. Raised as Q20, recommending that the
+travel generator emit the same block the weight loss generator already emits.
+No new copy has to be written or approved; the cost is a repaste of 15 pages.
+
+THE CHECKER. tools/check-whatsapp-route.js fails the run on six rules: two
+generators declaring different numbers; a generator that emits a module root
+but declares no constant at all; a runtime default disagreeing with the
+generators; any value that is not a UK mobile in E.164 without the plus; a page
+whose data-wa disagrees; a generated page still carrying a {{TOKEN}}
+placeholder; and a page with a WhatsApp button but no data-wa, which would fall
+back to the runtime default rather than the value the generator meant to set.
+The generators and the module JS are read as data under test rather than
+required in, so a generator that quietly stops declaring the constant fails
+here instead of shipping a page that falls back. modules/emar/emar.js carries a
+different number on purpose, 447988911911, because it drives the Borough Care
+eMAR screens rather than the public site; it is recorded in KNOWN so the
+divergence stays deliberate, and a KNOWN key that stops firing fails the run.
+
+Nine negative tests, all nine fired. The tests found one real defect in the
+checker itself: it originally matched only digits between the quotes, so a
+malformed value such as "+447521775631" did not match at all and the constant
+was reported as ABSENT rather than as malformed. It went blind at exactly the
+point it needed to be loud. Both the generator and the runtime patterns now
+capture whatever is between the quotes and judge it afterwards, and both format
+rules fire. A second, smaller fix came out of the same testing: when the
+generators disagree there is no agreed number to compare anything against, so
+every KNOWN entry looked stale and the run reported a misleading stale-key
+failure on top of the real one. The stale-key judgement is now only made when
+the generators agree.
+
+VERIFICATION. A baseline rebuild of all six generators before any edit produced
+zero diff, so everything below is attributable to this run. After the work, a
+second full rebuild also produced zero diff: the only change in the working
+tree is the new checker, no generated page moved, and nothing needs repasting
+because of this run. All 18 checkers pass: 177 pages, 0 failures. The negative
+tests mutate files in place and restore them with git checkout; the working
+tree was confirmed clean after each round, and service.js and switch.js are
+byte-identical to their committed state, so Q13's fast-forward is untouched.
+
+FILES CHANGED. tools/check-whatsapp-route.js (new); CLAUDE.md; QUESTIONS.json;
+AGENT_LOG.md. No generated page changed. AGENT_WORKLIST.md deliberately
+untouched, matching every previous quality pass: there is no item to tick and
+neither new question blocks one.
+
+NOTHING TICKED. This was a quality pass, so there was no item to tick, and
+neither Q20 nor Q21 blocks anything. 5.3, 5.4 and 5.5 remain the only unchecked
+items and all three still need a supervised session.
+
+OUTSTANDING ON THE LIVE SIDE. Nothing new from this run. The standing paste
+queue is unchanged: the 15 switch page SEO descriptions (Q7), the four landing
+pages plus their branch service pages (Q11), the one shortened Coleman and
+Leighs title (Q14), and the 13 McCanns Sandringham pages (Q15).
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after that
+returns to raising questions and waiting. Every Phase 3 item has now had a
+quality pass, so the next pass should go round again from the least recently
+verified: 4.6 and 4.8 have never had one, then 5.1, 5.2, 5.6 and 5.7.
 
 ## 2026-08-10 14:35 BST - thirtieth run - item 5.7 done (Q15 applied)
 
