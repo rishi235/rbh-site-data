@@ -25,6 +25,10 @@
     - The Services section lists every service the branch's widget set in
       branches.json says it offers, and the description mentions them
       too where the 750 characters allow (Build Pack v2 4.1)
+    - And the reverse: no category or service bullet claims something the
+      branch's widget set does not give it, so a profile cannot advertise a
+      service the shop does not run. Bullets only, so a pack may still say
+      in prose that a service is NOT offered, as clear-aintree.md does
     - No pasted copy reads a branch name as if it were a place ("at
       Sandringham"), where that word is in no branch's seoTown and in no
       serviceAreaList. The branch and its town both get named instead
@@ -91,6 +95,15 @@ const seenAreaKnown = {};
 // that no longer matches a real breach fails the run.
 const KNOWN_BRANCH_WORD = {};
 const seenBranchWordKnown = {};
+
+// Accepted exceptions to the two "the branch does not offer this" rules, keyed
+// "<branch id>::serviceNotOffered::<widget key>" or
+// "<branch id>::categoryNotEarned::<category name>". Use one only where the
+// branch genuinely runs a service that branches.json does not model yet, and
+// say so with a question id. Same anti-rot convention as the maps above: a key
+// that no longer matches a real breach fails the run, so the list cannot rot.
+const KNOWN_NOT_OFFERED = {};
+const seenNotOfferedKnown = {};
 
 const fails = [];
 const warns = [];
@@ -285,6 +298,45 @@ for (const file of packFiles) {
       fail(file, `Categories section does not list "${rule.name}", but ${rule.because} per branches.json (Build Pack v2 section 4.1)`);
     }
   }
+  // The same rule the other way round. TEMPLATE.md says a pack must not list
+  // a service the branch has no widget for, and until the item 4.8 pass
+  // nothing enforced that half: the loops above only ever fired on an
+  // OMISSION. A category the branch has not earned is the more expensive
+  // direction of the two. An omission costs RBH a listing in one map search.
+  // A category or service the branch does not run puts the branch in a search
+  // it cannot serve, so somebody travels to the shop for a service that is
+  // not there, and Google measures the profile against what patients find.
+  // Only the pack's own BULLET LINES are read, not the section prose, because
+  // a correct pack may say in a note that a service is NOT offered:
+  // clear-aintree.md does exactly that, and reading the whole section would
+  // fail the one pack that handles this best.
+  // A bullet is a line opening with "- " PLUS the indented lines that wrap it,
+  // because every pack wraps at about 70 characters and a category list often
+  // runs "- ...: Travel clinic,\n  Weight loss service, Vaccination centre".
+  // Reading only the "- " lines would miss the wrapped half and the rule would
+  // silently cover a third of what it claims to. Any line that starts back at
+  // column 0 without a "- " closes the list, which is what keeps a prose note
+  // like clear-aintree.md's "Note: branches.json shows no Pharmacy First..."
+  // out of the claim text.
+  const bulletsOf = (section) => {
+    const out = [];
+    let inBullet = false;
+    for (const line of String(section || "").split("\n")) {
+      if (/^\s*-\s+/.test(line)) { inBullet = true; out.push(line.trim()); continue; }
+      if (inBullet && /^\s+\S/.test(line)) { out.push(line.trim()); continue; }
+      inBullet = false;
+    }
+    return out.join(" ");
+  };
+  const catBullets = bulletsOf(catSec);
+  for (const rule of CATEGORY_RULES) {
+    if (rule.earned) continue;
+    if (catBullets.toLowerCase().includes(rule.name.toLowerCase())) {
+      const key = `${b.id}::categoryNotEarned::${rule.name}`;
+      if (KNOWN_NOT_OFFERED[key]) { seenNotOfferedKnown[key] = true; continue; }
+      fail(file, `Categories section lists "${rule.name}", but branches.json does not give this branch the widget that earns it, so the profile would enter map searches for a service the branch does not run. Remove it, or add the service to branches.json first`);
+    }
+  }
 
   // --- services section against the services the branch actually offers --
   // Build Pack v2 section 4.1 asks for the services section to be filled.
@@ -312,6 +364,17 @@ for (const file of packFiles) {
     if (!rule.re.test(descFlat)) {
       warn(file, `business description does not mention "${rule.name}", which branches.json says the branch offers - worth including if the 750 characters allow`);
     }
+  }
+  // And the reverse, on the service bullets only, for the reason given above
+  // the category version: a Services entry for something the branch does not
+  // run is a promise made to a patient who then makes a journey for it.
+  const svcBullets = norm(bulletsOf((text.match(/^##\s*3\.\s*Services section content[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1]));
+  for (const rule of SERVICE_RULES) {
+    if (widgets[rule.key]) continue;
+    if (!rule.re.test(svcBullets)) continue;
+    const key = `${b.id}::serviceNotOffered::${rule.key}`;
+    if (KNOWN_NOT_OFFERED[key]) { seenNotOfferedKnown[key] = true; continue; }
+    fail(file, `Services section lists "${rule.name}", but branches.json gives this branch no ${rule.key} widget, so the profile would advertise a service the branch does not run. Remove it, or add the service to branches.json first`);
   }
 
   // --- catchment order: the profile must lead with the branch's own town --
@@ -511,6 +574,11 @@ for (const key of Object.keys(KNOWN_AREA_ORDER)) {
 for (const key of Object.keys(KNOWN_BRANCH_WORD)) {
   if (!seenBranchWordKnown[key]) {
     fails.push(`stale exception: KNOWN_BRANCH_WORD["${key}"] no longer matches a pack that reads a branch name as a place. Remove it (${KNOWN_BRANCH_WORD[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
+  if (!seenNotOfferedKnown[key]) {
+    fails.push(`stale exception: KNOWN_NOT_OFFERED["${key}"] no longer matches a pack claiming a service or category the branch does not have. Remove it (${KNOWN_NOT_OFFERED[key].question}).`);
   }
 }
 

@@ -162,6 +162,34 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Hirshmans-copied text naming two POMs (Q4) in full.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
+      Quality pass 2026-08-10: no defect found in the pack. Verified fact by
+      fact against branches.json and rule by rule against TEMPLATE.md.
+      Address, postcode PR7 5SZ, phone 01257 451251 and the review link all
+      match, and no other branch's phone or postcode appears anywhere; hours
+      match the NHS-confirmed spec including the Saturday 9 to 12 and match
+      the landing page's own rows; catchment reads "Eccleston, Charnock
+      Richard and Coppull" in all three places, leading with its own
+      seoTown; the profile website already pointed at
+      pharmacy-fishlocks-eccleston.html, which is why the 2026-08-09 pass
+      that repointed the other five shared-domain packs did not need to
+      touch this one; all four post links resolve to pages this repo
+      generates and sit on the branch's own host; description 730 characters
+      as the pack claims, posts 463, 348, 521 and 433, all inside the
+      limits; Post A's seven conditions and age ranges match the generated
+      Pharmacy First page, "earache in children" included; Post C names no
+      medicine and makes no efficacy claim; no em dash, no emoji, and none
+      of the Ainsdale sister-branch facts have leaked in.
+      One in-repo defect found and fixed, in the checker rather than the
+      pack: TEMPLATE.md says a pack must not list a service the branch has
+      no widget for, and check-gbp-packs.js only ever enforced that rule in
+      the omission direction. A pack could advertise a service the shop does
+      not run and the repo would stay green. Reverse rules added for both
+      categories and service bullets, reading a bullet plus its wrapped
+      continuation lines so a note in prose that a service is NOT offered
+      still passes, which is what clear-aintree.md relies on. Negative
+      tested four ways. No pack in the estate breaches it today, so the gap
+      was latent, not live. Logged as Q27, taken as an autonomous decision
+      under the standing window.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

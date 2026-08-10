@@ -400,5 +400,21 @@
     "status": "answered",
     "answer": "AUTONOMOUS DECISION taken on 2026-08-10 under the standing authorisation window (opened 2026-08-09 23:14, expires 2026-08-10 23:14). Option 1 implemented. It is a search and copy-wording call with no money, no legal risk and no patient-facing regulatory claim in it, so it sits outside the window's carve-out, and it applies a decision Rishi has already made in Q15 to an artefact that decision missed rather than making a new one. Reversing it is editing one sentence in one file. Flagged here for review.",
     "note": "Nothing is live: the pack is a paste sheet, so this only takes effect when Rishi or Dane next paste the Aigburth Google profile. The other 14 packs were checked by the same rule and none of them breaks it."
+  },
+  {
+    "id": "Q27",
+    "date": "2026-08-10",
+    "item": "quality pass on 4.8 (finding, does not block any item)",
+    "question": "The Fishlocks Chemist Eccleston pack itself is clean, so this is about the checker behind all 15 packs. gbp-packs/TEMPLATE.md states the services rule both ways round: list every service the branch's widget set gives it, and do not list one it has no widget for. check-gbp-packs.js only ever enforced the first half, because both its category loop and its service loop skipped any service the branch does not have. So a pack could tell the paster to advertise a service the shop does not run and the repo would stay green, which is the more expensive direction of the two: a missing category costs us one map listing, while a category we have not earned puts the profile into searches it cannot serve and sends somebody to the shop for a service that is not there. I added both reverse rules and negative tested them four ways. No pack in the estate breaches the new rules today, so the gap was latent rather than live. The rules read the pack's bullet lines plus their wrapped continuation lines, not the whole section, because clear-aintree.md correctly states in prose that Pharmacy First, blood pressure and contraception are NOT offered there, and a rule reading whole sections would have failed the one pack that handles this best. The open choice is whether to push the same rule into the business description prose too.",
+    "options": [
+      "Keep it as made: reverse rules on the category and service bullets only, description prose left alone. Enforces exactly what TEMPLATE.md says without needing to tell a claim from a disclaimer, and no pack in the estate fails it today",
+      "Extend the reverse rule to the business description as well, failing a description that names a service the branch has no widget for. Catches more, but a description is prose, so it needs a way to read \"we do not offer X\" as a disclaimer or it will fail correct copy",
+      "Make the reverse rules warnings rather than failures, so a pack can claim a service ahead of branches.json catching up. Least friction, but it puts the rule back to being advisory, which is how this gap survived in the first place",
+      "Revert the reverse rules and leave the checker enforcing omissions only. No work, but the second half of a rule TEMPLATE.md already states stays unenforced"
+    ],
+    "recommended": 0,
+    "status": "answered",
+    "answer": "AUTONOMOUS DECISION taken on 2026-08-10 under the standing authorisation window (opened 2026-08-09 23:14, expires 2026-08-10 23:14). Option 1 implemented. It changes no public copy and no branch data: it is repo tooling widening an existing rule to the direction TEMPLATE.md already states, so it sits well outside the window's carve-out for money, legal risk and patient-facing regulatory claims. Reversing it is deleting two loops from one file. Flagged here for review, and option 2 left open as the next step if Rishi wants the description covered too.",
+    "note": "Nothing changed in any pack, so nothing changes on any Google profile. The value is preventive: from now on a pack that claims a service branches.json does not give the branch fails the run instead of reaching a paster. The item 4.8 pass found no defect in the Eccleston pack itself, which is the first clean pack in six passes."
   }
 ]

@@ -2,6 +2,163 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 19:34 BST - thirty-eighth run - Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, drafted on 2026-08-04 and last verified the following day. The pack is clean: every fact checks out against branches.json and every rule against TEMPLATE.md, and it is the first pack in six passes with nothing wrong in it. The defect this run found is in the checker instead. TEMPLATE.md says a pack must not list a service the branch has no widget for, and check-gbp-packs.js only ever enforced that rule one way round, on omissions, so a pack could advertise a service the shop does not run and the repo would stay green. Both reverse rules added and negative tested four ways
+
+AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The
+checker hardening was taken under it and recorded as Q27, status answered,
+marked clearly as an autonomous decision rather than Rishi's. It changes no
+public copy and no branch data: it is repo tooling that widens an existing
+rule to the direction TEMPLATE.md already stated, so it sits well outside
+the window's carve-out for money, legal risk and patient-facing regulatory
+claims. Reversing it is deleting two loops from one file.
+
+WHY THIS ITEM. Every worklist item is either ticked or [BLOCKED], so the
+procedure calls for a quality pass on the least recently verified completed
+item. After the thirty-seventh run took 4.6, the items still sitting on a
+2026-08-05 verification and never since were 4.8, 4.9, 4.10 and 4.12 to
+4.15, and 4.8 sat earliest. It was also the right one on its merits: 4.8 is
+the sister of the pack the 2026-08-09 pass repointed, so it is exactly where
+a fix applied to five packs and not the sixth would show.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 19:36. The newest
+entry is still the Q16 answer of 15:16, applied by the thirty-third run.
+Q17, Q18, Q19, Q20, Q21, Q22 and Q24 are all still open with no answer
+posted.
+
+BASELINE. All six generators were run before any edit and produced zero
+diff, and all 18 checkers passed, so everything below is attributable to
+this run. check-gbp-packs' 11 standing warnings were recorded first and are
+unchanged at the end: the 10 Pharmacy First link warnings Q8 already covers,
+plus the Tiffenbergs link with no .html ending.
+
+WHAT WAS VERIFIED, AND WHAT PASSED. The pack was read against branches.json
+fact by fact and against the pack rules in gbp-packs/TEMPLATE.md:
+
+- Address Unit 3 The Carrington Centre, New Mill Street, Eccleston, Chorley
+  PR7 5SZ, phone 01257 451251 and the Google review link all match
+  branches.json exactly, and a scan of all 15 other branches found none of
+  their phones, postcodes or review links anywhere in the pack. The address
+  uses the Royal Mail form, locality then post town then postcode, which is
+  what the other five shared-domain and split-town packs do, so it is the
+  house convention rather than a stray "Chorley".
+- Hours match the NHS-confirmed specification (confirmed 2026-06-24 in
+  branches.json): Monday to Friday 9 to 6, Saturday 9 to 12, Sunday closed.
+  They also match the landing page's own visible rows, checked because the
+  item 3.6 pass found two landing pages printing the wrong opening time.
+  No lunch closure at this branch, so the split-session trap does not apply.
+- The catchment reads "Eccleston, Charnock Richard and Coppull" in all three
+  places it appears, leading with the branch's own seoTown, so the pack
+  already satisfied the rule the 3.5 pass added, and it matches the
+  catchment sentence on the landing page.
+- The profile website was already set to pharmacy-fishlocks-eccleston.html
+  rather than the shared homepage. That is why commit 1aefa88 on 2026-08-09,
+  which repointed the shared-domain packs, touched five files and not this
+  one: it had nothing to fix here. Confirmed rather than assumed by reading
+  that commit's own file list.
+- All four post links and the profile landing page exist as generated pages
+  in this repo and all sit on the branch's own host. Post A uses the branch
+  pfLink from branches.json unchanged, which is also why this pack is not
+  one of the 10 packs carrying the Q8 Pharmacy First link warning.
+- Categories and services match the widget set: Pharmacy primary, Travel
+  clinic, Weight loss service and Vaccination centre secondary, and all five
+  services the widgets earn are listed and mentioned in the description.
+  The landing page's own service tiles list the same six things.
+- Description 730 characters against the 750 limit, exactly the count the
+  pack states about itself, and the four posts are 463, 348, 521 and 433
+  against the 1,500 limit. No medicine name, no efficacy claim, no em dash,
+  no emoji.
+- Post A's seven Pharmacy First conditions and age ranges were read against
+  the generated Pharmacy First page: "earache in children", "women aged 16
+  to 64" and "age ranges set by the NHS apply" all match the page's own
+  tiles. Post B's "about 30 seconds" and "we contact the surgery" match the
+  switch page's own wording rather than overpromising past it.
+- The "free assessment" travel wording corrected in the Ainsdale and
+  Hirshmans packs on 2026-08-05 was checked for here and is absent: this
+  pack already says "private travel health consultation ... subject to
+  availability and clinical suitability". The NHS blood pressure and
+  contraception lines added to Ainsdale at that same pass are both present
+  here too. So neither half of that fix was missed on this branch.
+- The landing page's sister cross-link names "Fishlocks Chemist Ainsdale"
+  and points at pharmacy-fishlocks-ainsdale.html, and neither Fishlocks pack
+  signposts its sister in the GBP description. That is consistent across the
+  pair, so the asymmetry the 4.6 pass found at McCanns does not exist here.
+
+THE DEFECT, AND WHY IT MATTERS MORE THAN THE OMISSION IT MIRRORS.
+gbp-packs/TEMPLATE.md states the rule in both directions: list every service
+the branch's widget set gives it, and "do not list one it has no widget for".
+check-gbp-packs.js implemented only the first. Both its category loop and its
+service loop opened with a guard that skipped any service the branch does not
+have, so the second half of the rule had nothing behind it.
+
+The direction that was missing is the more expensive one. A missing category
+costs RBH a listing in one map search. A category or service the branch does
+not run puts the profile into searches it cannot serve, so a patient makes a
+journey to Brookfield Drive or the Carrington Centre for a service that is
+not there, and Google measures a profile against what patients actually find.
+It is the same shape as the faults the 3.10 and 3.13 passes found: a rule
+everybody believed was enforced, green in the repo, with one side of it never
+executed.
+
+WHAT WAS CHANGED. Reverse rules added to check-gbp-packs.js for categories
+and for service bullets, both keyed off the same widget set and the same
+CATEGORY_RULES and SERVICE_RULES tables the forward rules use, so the two
+directions cannot drift apart. Exceptions go in a new KNOWN_NOT_OFFERED map
+with the house anti-rot convention, so a key that no longer describes a real
+breach fails the run. The header comment block now states both directions.
+
+The one design decision worth recording is what the rules READ. They read the
+pack's bullet lines plus the indented lines that wrap them, not the whole
+section, because a correct pack may state in prose that a service is NOT
+offered. clear-aintree.md does exactly that, and does it well: it carries an
+explicit note that branches.json shows no Pharmacy First, blood pressure or
+contraception for that branch and that they must not be added to GBP unless
+branches.json is updated first. A rule reading the whole section would have
+failed the one pack in the estate that handles this best. The first version
+written this run read only the "- " lines and missed wrapped continuations,
+which silently let a category list past, because packs wrap at about 70
+characters and clear-aintree's secondary categories run onto a second line.
+Caught by the negative test, not by reasoning, and fixed before commit.
+
+NEGATIVE TESTED FOUR WAYS, each reverted immediately afterwards and the tree
+confirmed clean:
+1. A Pharmacy First service bullet added to clear-aintree.md, which has no
+   pharmacyFirst widget: fails, exit 1.
+2. The travelClinic widget removed from clearchemist_aintree in a scratch
+   copy of branches.json: three failures, the Travel clinic category, the
+   Vaccination centre category that rides on it, and the Travel clinic
+   service bullet. This is the test that caught the wrapped-line miss, since
+   Vaccination centre only appeared once continuations were read.
+3. The estate as it stands, with clear-aintree's prose note naming all three
+   services it does not offer: 0 failures. The note is not read as a claim.
+4. A KNOWN_NOT_OFFERED key that no longer matches a real breach: fails as a
+   stale exception, so the new list cannot rot.
+
+VERIFICATION. All six generators re-run after the change: zero diff, so no
+generated page moved. All 18 checkers re-run: all pass, and the warning
+counts are identical to the baseline taken before any edit, 11 for
+check-gbp-packs and the same 2, 1, 1 and 2 elsewhere. branches.json was
+touched only inside negative test 2 and restored from a backup taken first;
+it parses and still holds 16 branches. The scratch probe script written to
+survey all 15 packs for the reverse rule was deleted before commit.
+
+WORKLIST. Item 4.8 stays ticked and now carries the quality pass note in
+place, matching how the 4.6 and 5.6 passes recorded themselves. Nothing else
+was ticked: 5.3, 5.4, 5.5 and 5.8 remain the only unticked items, all four
+[BLOCKED] on a supervised session or Weebly access.
+
+NEW QUESTION: Q27, status answered as an autonomous decision. No item is
+blocked by it. The residual choice it records for Rishi is whether the same
+reverse rule should also cover the business description prose, which would
+need a way to tell a claim from a disclaimer and is why it was left at
+bullets for now.
+
+NEXT RUN. On the same least-recently-verified rule the next candidate is
+item 4.9, the Clear Chemist Aintree pack, and it is worth taking carefully
+rather than quickly. Clear is the one branch in the estate whose widget set
+is genuinely short, it has no opening hours in branches.json at all, and its
+pack is the only artefact that depends on being read as prose rather than as
+a list, which this run has now made load-bearing.
+
 ## 2026-08-10 19:04 BST - thirty-seventh run [commit 9e576fe] - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack, drafted on 2026-08-04 and last verified the following day, which made it the least recently verified completed item in the backlog. Every fact in it checks out against branches.json. The defect is a single sentence of profile copy: the pack still told the paster that the second McCanns branch is "at Sandringham", a word the estate stopped treating as a place when item 5.7 landed. Sentence rewritten to the landing page's own form, and check-gbp-packs.js given a rule that reads which words are places out of branches.json so no pack can do it again
 
 AUTONOMOUS DECISION. The standing window is open until 23:14 tonight. The
