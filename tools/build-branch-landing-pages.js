@@ -373,7 +373,22 @@ var md = "# Branch landing pages - paste manifest\n\n" +
   "(pharmacy-first-, switch-prescriptions-, weight-loss-clinic-, travel-clinic-,\n" +
   "contraception-). Those pages exist in this repo but are not live on every\n" +
   "site yet. Paste the branch's service pages first, or paste them in the same\n" +
-  "session, so the landing page does not link to pages that return a 404.\n\n";
+  "session, so the landing page does not link to pages that return a 404.\n\n" +
+  "LIVE STATE, READ 2026-08-10: not one of these pages is live. All six URLs\n" +
+  "below were fetched that day and all six returned a 404. The\n" +
+  "fishlockpharmacy.co.uk sitemap was read in the same pass: it lists 40 live\n" +
+  "pages, including every one of that branch pair's service pages, and neither\n" +
+  "landing page. The shared-domain split therefore exists in this repo\n" +
+  "and nowhere else: it has reached neither a visitor nor Google, although the\n" +
+  "work has been ticked since 2026-08-04 and verified clean three times. Two\n" +
+  "things follow. The Fishlocks pair's service pages ARE live and indexed, so\n" +
+  "for that pair the prerequisite in the paragraph above is already met and the\n" +
+  "two landing pages can be pasted on their own; the McCanns and Scorah service\n" +
+  "pages were not checked in this pass, so check them before assuming the same.\n" +
+  "And the six packs in gbp-packs/ each set the Google\n" +
+  "profile website to the matching URL below, so six Google Business Profiles\n" +
+  "are waiting on this paste and no other. Re-read this before trusting it: it\n" +
+  "records one reading on one day, not a standing fact.\n\n";
 manifest.forEach(function (m) {
   md += "## " + m.branch + "\n";
   md += "- **Page slug / URL:** `" + m.file + "` -> " + m.liveUrl + "\n";

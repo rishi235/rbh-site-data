@@ -40,6 +40,18 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       cross-link, hours schema in JSON-LD). check-nap extended to cover the
       new folder; 173 pages, 0 mismatches. Weebly paste by Rishi or Dane per
       modules/branch/pages/INDEX.md and SEO.md.
+      Quality pass 2026-08-10: the repo half is clean and byte-stable. A
+      rebuild produced zero diff, all 18 checkers pass, both pages match
+      branches.json on NAP, hours, JSON-LD and links, and the two
+      observations left by the 2026-08-05 pass are both resolved (the sister
+      link no longer repeats the town, and Eccleston's addressRegion is now
+      Lancashire with Chorley moved to seoRegion). The app sentence is
+      correctly gated on hasApp and appears on these two pages only. The
+      finding is on the live half, which no pass had ever read: both pages
+      return a 404, as do the four from item 5.2, so the shared-domain split
+      has never reached a visitor or Google. The old combined pages it exists
+      to replace are still the live targets. Recorded in INDEX.md via the
+      generator and asked as Q35.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on

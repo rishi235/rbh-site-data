@@ -525,5 +525,21 @@
     "status": "open",
     "answer": null,
     "note": "Raised on the 4.11 quality pass rather than decided. The standing autonomous window ran to 23:14 tonight and this run reached the decision at 23:13, a minute from expiry and with you due back, so it was left open on purpose rather than taken on the last minute of the clock. Nothing here is urgent: Post A at every one of the eleven branches loads today, so no button is broken. What is at stake is which page Google is pointed at."
+  },
+  {
+    "id": "Q35",
+    "date": "2026-08-10",
+    "item": "quality pass on 2.2 (finding, does not block any item)",
+    "question": "Item 2.2 built branch-specific landing pages so the two Fishlocks branches would stop sharing one target page on a shared domain, and item 5.2 added four more for McCanns and Scorah. All six were fetched live on 2026-08-10 and all six return a 404, and the fishlockpharmacy.co.uk sitemap read the same day lists 40 live pages with neither landing page among them. So the shared-domain split has been ticked since 2026-08-04, verified clean three times including this pass, and has never reached a visitor or Google. The old combined pages it exists to replace, such as pharmacy-first-service-eccleston-ainsdale.html, are still the live targets. It also holds up more than itself: each of the six GBP packs sets the Google profile website to the matching landing page URL and tells the paster to paste the page first, so six Google Business Profiles are waiting on this one paste and nothing else. The Fishlocks pair's own service pages are already live and indexed, so those two landing pages can be pasted on their own without waiting for any other work. How should this be handled?",
+    "options": [
+      "Paste the six landing pages as their own Weebly job in the next session, ahead of the other paste work, because it is the only thing blocking six Google profiles and the pages have been verified clean three times",
+      "Leave them in the general Q3 go-live paste queue to land with everything else, accepting that six Google profiles keep pointing at a shared homepage until that session happens",
+      "Point the six GBP profile websites at each branch's own live Pharmacy First page instead, which separates the two profiles on each shared domain today at no cost, and paste the landing pages later",
+      "Drop the landing pages: set the six profiles to the shared homepage and accept that two branches on one domain share one target page"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "A finding, not a blocker: no worklist item waits on this and nothing is broken for a patient today. It is recorded because the item has been ticked and verified three times while delivering nothing live, which is the gap a repo-only check cannot see. Option 3 is the free interim if the Weebly session slips, but it costs a second round of profile edits later and points a general profile click at a single-service page, so it is worse than option 1 unless the session is weeks away. No paster can publish a dead profile website by accident in the meantime: all six packs already carry a note telling them to confirm the landing page resolves first."
   }
 ]

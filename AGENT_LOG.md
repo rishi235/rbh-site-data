@@ -2,6 +2,114 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 23:43 BST - forty-sixth run [commit PENDING] - Quality pass on item 2.2, the Fishlocks shared-domain split, now the least recently verified item in the estate. The repo half is clean, byte-stable, and better than it was: both observations the 2026-08-05 pass left behind have since been fixed by other work. The finding is on the live half, which no pass on this item had ever read. Both Fishlocks landing pages return a 404, and so do the four built under item 5.2, so an item ticked since 2026-08-04 and verified clean three times has delivered nothing to a visitor or to Google, while the combined pages it exists to replace are still the live targets. Recorded in INDEX.md through the generator and asked as Q35
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window opened on 2026-08-09
+expired at 23:14 tonight, twenty-nine minutes before this run started, and no
+new authorisation section is present at the top of this log. So step 7 applies
+as written and Q35 was left open in the normal way. That is the right outcome
+here regardless of the clock: the question is a sequencing call on Weebly work
+only Rishi or Dane can do, so deciding it unattended would have changed nothing
+on any site tonight.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 23:38. The newest entry
+is still the Q16 answer of 16:16, already applied by the thirty-third run and
+re-asked as Q22. Q17 to Q21, Q22, Q24, Q28, Q29 and Q34 are all still open with
+no answer posted against any of them.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED] and each
+was re-read to confirm it: 5.3 and 5.4 wait on Weebly work, 5.5 waits on
+pushing a branch other than this one, 5.8 waits on Rishi's regulatory decision
+at Q22. So the rule sends the run to a quality pass on the least recently
+verified completed item. The forty-fifth run corrected the ageing list and left
+the order as 2.2, 2.3, 2.1, 4.7, 4.2, then 1.1. That order was re-derived from
+scratch this run by reading every "Quality pass on item" heading in this log
+rather than trusting the previous run's summary, and it holds: 2.2 was last
+verified on 2026-08-05 and is the oldest still standing. Taken this run. The
+remaining order is unchanged: 2.3, 2.1, 4.7, 4.2, then 1.1.
+
+THE REPO HALF, WHICH IS CLEAN AND HAS IMPROVED. A rebuild of
+build-branch-landing-pages.js before any edit produced zero diff, so the
+committed pages match current data exactly and everything below is attributable
+to this run. All 18 checkers pass with no failure and no warning. Both pages
+match branches.json field for field on names, street addresses (17 Station Road
+PR8 3HN; Unit 3 The Carrington Centre, New Mill Street PR7 5SZ), phones,
+emails, Google review links and NHS review links, with tel: links correctly
+stripped of spaces. Hours are right in both the visible card and the JSON-LD:
+Ainsdale Monday to Friday 8.45am to 6pm with both weekend days closed,
+Eccleston Monday to Friday 9am to 6pm plus Saturday 9am to 12pm. Neither branch
+has a split day, so the lunchtime-closure trap does not arise here. Every
+linked service page exists in the repo. Both files are pure ASCII, so no em
+dash, no en dash and no emoji.
+
+Two things are better than at the last pass, and neither was fixed by this
+item. The sister cross-link no longer reads "Fishlocks Chemist Eccleston in
+Eccleston": it now names the sister branch once and stops, which the item 5.2
+work settled when it handled the harder McCanns case. And Eccleston's
+addressRegion, flagged in 2026-08-05 as carrying the borough "Chorley", is now
+"Lancashire", with Chorley moved to the seoRegion field that exists precisely
+to be the search qualifier in a title. Both observations from the last pass are
+therefore closed, and neither needed anything from this run.
+
+One thing was checked because it could have been wrong and was not. Both
+Fishlocks pages carry the sentence "Manage everything in the free RB Healthcare
+app". Only two of the six branches with a landing page hold hasApp true, and
+they are exactly these two, so the generator is gating the claim on the data
+rather than hardcoding it, and the other four landing pages carry no app
+sentence at all. Had it been hardcoded, four pages would have promised patients
+an app their branch does not have.
+
+THE FINDING, WHICH IS THAT NONE OF THIS IS LIVE. Every quality pass on a
+landing page so far, including the item 5.2 pass on 2026-08-10, has verified
+the repo and stopped at the repo boundary. This run fetched the pages. All six
+branch landing page URLs were requested on 2026-08-10 and all six returned a
+404: both Fishlocks, both McCanns and both Scorah. The fishlockpharmacy.co.uk
+sitemap was read in the same pass and lists 40 live pages, including every one
+of that pair's service and condition pages, and neither landing page. What it
+does still list is weight-loss-services-eccleston-ainsdale.html,
+pharmacy-first-service-eccleston-ainsdale.html and
+nhs-free-blood-pressure-check-eccleston-pr7-ainsdale-pr8.html, which are the
+combined two-town pages the shared-domain split was created to replace. So the
+split has been ticked for six days, verified clean three times, and the thing
+it was meant to stop is still exactly what Google sees.
+
+The cost is not limited to this item. All six GBP packs set the Google profile
+website to the matching landing page URL, so six Google Business Profiles are
+waiting on this one paste and on nothing else. That half is at least safe: all
+six packs already carry a note telling the paster to confirm the landing page
+resolves first, and the Fishlocks Ainsdale, both McCanns and both Scorah packs
+spell out that the page must be pasted first or the profile website will 404.
+Nobody can publish a dead profile website by following a pack. They simply
+cannot finish the pack.
+
+Worth recording for whoever schedules the paste: the prerequisite the manifest
+warns about is already satisfied for Fishlocks. Every service page the two
+Fishlocks landing pages link to is live and in the sitemap, and
+pharmacy-first-fishlocks-eccleston.html was opened and read in full this pass
+to confirm it, so those two landing pages can be pasted on their own without
+waiting for any other page work. The McCanns and Scorah service pages were not
+checked this run.
+
+WHAT CHANGED IN THE REPO. Nothing about the pages themselves, because nothing
+about them is wrong. The live state was written into the INDEX.md paste
+manifest through the generator rather than by hand, per the repo rule that
+generated files are not hand-edited, so a regeneration cannot silently drop it.
+The note states what was read, on what date, and says plainly that it records
+one reading rather than a standing fact, so it invites re-checking instead of
+ageing into a false claim. It also carries the two facts a paster needs: that
+the Fishlocks prerequisite is met, and that the McCanns and Scorah service
+pages were not checked.
+
+Files changed: tools/build-branch-landing-pages.js (INDEX.md text),
+modules/branch/pages/INDEX.md (regenerated), AGENT_WORKLIST.md (2.2 pass note),
+QUESTIONS.json (Q35), AGENT_LOG.md.
+Questions: Q35 raised, on whether the six landing pages get their own Weebly
+session ahead of the general paste queue. Recommended yes, because it is the
+only thing blocking six Google profiles and the pages are verified. Q17 to Q22,
+Q24, Q28, Q29 and Q34 remain open.
+
+---
+
 ## 2026-08-10 23:16 BST - forty-fifth run [commit bc8ec42] - Quality pass on item 4.11, the SK Chemists Bootle GBP pack, last verified on 2026-08-05 and the oldest verification left in the estate. The pack is clean on every fact and every rule, and all four post buttons load, so for the third run running there is no dead link. The defect is which page Post A points at: the target loads but is missing from the branch sitemap and its own heading misspells the town as "Bottle", while the generated replacement is live, indexed and correctly spelled. Hard stop added to the paster notes; the repoint itself belongs to item 5.3 and is asked as Q34
 
 NO AUTONOMOUS DECISION WAS TAKEN, AND THE TIMING IS THE REASON. The standing
