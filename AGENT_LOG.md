@@ -153,6 +153,105 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
+## 2026-08-10 11:34 (unattended run, twenty-fourth) - Quality pass on item 3.8,
+SK Chemists Bootle. All 12 SK pages verified clean on title, H1, description,
+NAP, postcode, links and compliance, and the pass then found the defect by
+looking at the one place no checker had ever read: the link fields inside
+branches.json. Gordon Short Crosby's NHS review link stops one segment short of
+the review form. Fixed at source, and new tools/check-branch-links.js makes it
+permanent. No question raised and no public copy changed.
+
+WHAT WAS VERIFIED ON SK ITSELF. All 12 pages (11 service plus the switch page)
+carry 516 Stanley Road, L20 5DW and 0151 944 1013 on every occurrence, visible
+and in tel: links. Every internal link on those pages points at a page this
+repo generates. Every one carries SK's own Google review link and no other
+branch's. The switch page has no app card, which is correct because SK is the
+only Bootle branch with hasApp false, and no hand-written services grid, so the
+3.7 finding is confined to Smartts as recorded. SK and Smartts share Bootle and
+their titles and descriptions differ only by brand name, which is the Phase 3
+pattern working as designed; the permalinks carry the brand slug, so nothing
+collides.
+
+WHAT THE PASS WENT LOOKING FOR NEXT. SK and Smartts are 1.5 miles apart, both
+in Bootle, both L20, so this branch is the estate's best test of whether any
+per-branch identifier can land on the wrong shop. Three were swept across all
+177 pages: booking widget ids, Google review links, and the NHS fields.
+
+  - Booking widget ids never reach a page at all. The 73 ids in branches.json
+    appear only in branches.json, branches-editor.html, CHANGELOG.md and one
+    script; the widgets are placed in Weebly directly and pages carry a #book
+    anchor. So there is no page-level route for a booking to reach the wrong
+    branch. Recorded rather than raised, and no checker written, because there
+    is nothing on a page to check.
+  - Google review links are clean estate-wide. All 177 generated pages carry
+    exactly their own branch's link, 15 distinct links across 15 trading
+    branches, none shared. Head office has none, which is correct.
+  - The NHS fields were not clean.
+
+THE DEFECT. Thirteen of the fourteen branches with an ODS code end their
+nhsReviewUrl at /leave-a-review, which is the NHS form that actually takes a
+review. Gordon Short Crosby's stops at the ODS code:
+https://www.nhs.uk/services/pharmacy/gordon-short-chemist/XFPD45. That lands
+the patient on the profile page instead of the review form, so a patient sent
+there to leave a review has to find the form themselves. Fixed by appending
+/leave-a-review, in branches.json and in the editor's embedded snapshot, with
+lastUpdated bumped to 2026-08-10 in both.
+
+WHY IT HAD NOT SHOWN UP YET, AND WHY IT WOULD HAVE. nhsReviewUrl reaches a page
+through tools/build-branch-landing-pages.js, and only six landing pages exist so
+far. Gordon Short is not one of them. Item 5.2 built four more under Q11 and the
+remaining branches are queued, so the broken link was sitting in the data
+waiting for the run that would print it. All six generators were re-run after
+the fix and every page came out byte-identical, which confirms nothing public
+changed today.
+
+WHY IT WAS FIXED RATHER THAN ASKED. A malformed URL against a 13-of-14 pattern
+is a defect with one correct answer, not a decision, so it did not need a
+question even outside the autonomous window. The window was live at the time of
+this run in any case (expires 23:14 tonight), and this falls nowhere near its
+money, legal or patient-facing-regulatory-claim carve-out: no public copy
+changed and no clinical wording was touched.
+
+WHAT WAS DONE TO MAKE IT PERMANENT. New tools/check-branch-links.js, the first
+checker in this repo to read branches.json's own link fields rather than pages.
+Six rules: odsCode unique; nhsEmail exactly pharmacy.<odsCode>@nhs.net;
+nhsReviewUrl matching .../X<odsCode>/leave-a-review; googleReviewUrl matching
+the g.page shape and not shared by two branches; website a bare https host with
+no trailing slash or path; pfLink on the branch's own host and ending .html.
+Nine negative tests run and all passed (baseline clean, missing
+/leave-a-review, another branch's ODS in the URL, mismatched nhsEmail, shared
+Google review link, duplicate odsCode, pfLink on another branch's domain,
+trailing slash on website, and a stale KNOWN key failing the run).
+branches.json was restored byte-identical afterwards. Documented in CLAUDE.md.
+
+TWO THINGS RECORDED, NOT RAISED. Clear Chemist Aintree is the only trading
+branch with an ODS code and no nhsReviewUrl at all. It was already treated as
+deliberately different on the 4.9 quality pass (no opening hours either), so
+the checker reports it as a warning rather than a failure. Separately, the
+pfLink sweep found exactly the 11 branches whose Post A Pharmacy First link
+points at a live-only page this repo does not generate, which is precisely the
+scope of item 5.3 and Q8, so it confirms that item rather than adding to it.
+Tiffenbergs is in KNOWN against Q8 because its pfLink also lacks .html.
+
+Files changed: branches.json, tools/branches-editor.html,
+tools/check-branch-links.js (new), CLAUDE.md, AGENT_LOG.md. All 14 checkers
+re-run clean (177 pages, 0 failures); all six generators re-run and output
+byte-identical. Nothing ticked in AGENT_WORKLIST.md: this was a quality pass,
+and 5.3 and 5.4 remain the only unchecked items, both [BLOCKED] on Weebly
+access. QUESTIONS.json unchanged, Q13 to Q16 still open.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 139304a.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, same blocker as the previous run.
+Q13, Q14, Q15 and Q16 were all open at the start, so the condition was met. The
+browser tooling opened a tab and reached https://data.rbhealth.co.uk/api/feedback,
+and the portal returned the Cloudflare Access sign-in page rather than the
+feedback JSON, meaning Rishi's Chrome still does not hold a signed-in Access
+session. Per the scheduled task rules no login was attempted and no other route
+was tried. Any answers left on the portal for Q13 to Q16 remain unread by an
+unattended run, and that is now three runs in a row.
+
 ## 2026-08-10 11:04 (unattended run, twenty-third) - Quality pass on item 3.7,
 Smartts Chemist Bootle. All 12 Smartts pages verified clean on title, H1,
 description, NAP, postcode, opening hours, schema and paste sheets, and the

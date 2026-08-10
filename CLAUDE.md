@@ -155,6 +155,32 @@ Exceptions go in `KNOWN` (link targets) or `KNOWN_CLAIM` (wording) with a
 reason and a question id, and an entry that no longer applies fails the check,
 so neither list can rot. Do not widen the patterns to make a run pass.
 
+## The link fields inside branches.json
+
+Every other link checker here reads pages. `tools\check-branch-links.js` reads
+the link fields in `branches.json` itself, because those fields are what the
+landing pages and the GBP packs copy from, so a malformed one is invisible
+until it has already been printed somewhere.
+
+It checks, per branch: `odsCode` is unique; `nhsEmail` is exactly
+`pharmacy.<odsCode>@nhs.net`; `nhsReviewUrl` is
+`https://www.nhs.uk/services/pharmacy/<slug>/X<odsCode>/leave-a-review`;
+`googleReviewUrl` matches `https://g.page/r/<id>/review` and is not shared by
+two branches; `website` is a bare https host with no trailing slash and no
+path; and `pfLink` sits on the branch's own host and ends `.html`.
+
+Found on the item 3.8 quality pass, 2026-08-10. Thirteen of the fourteen
+trading branches ended their `nhsReviewUrl` at `/leave-a-review`, the NHS form
+that actually takes a review. Gordon Short Crosby stopped one segment short, at
+the ODS code, which lands the patient on the profile page instead. It had not
+reached a page only because Gordon Short has no landing page yet. Fixed at
+source the same run.
+
+A trading branch with an `odsCode` but no `nhsReviewUrl` is a warning, not a
+failure: Clear Chemist Aintree is deliberately different. Exceptions go in
+`KNOWN` with a reason and a question id, and a key that no longer breaks a rule
+fails the check, so the list cannot rot.
+
 ## seoTown - the word the pages claim as the catchment
 
 `seoTown` drives the title, the description, the H1 and the permalink for every
