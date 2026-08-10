@@ -3,6 +3,13 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+OPEN: Q15 (raised 2026-08-10, twenty-second run) - all 12 McCanns Sandringham
+pages aim at the word "Sandringham", which is the branch name rather than a
+place. It is the only branch in the estate whose seoTown is missing from its
+own serviceAreaList, and its GBP pack calls it a branch name throughout. The
+sister branch 700 metres up the same road already holds Aigburth, so the
+recommendation is to move the 12 pages onto St Michael's, keeping the existing
+permalinks so no live URL breaks. Nothing is blocked by it.
 OPEN: Q14 (raised 2026-08-10, twenty-first run) - one page title in the whole
 estate is over Google's length limit: the Coleman and Leighs infected insect
 bite page runs to 70 characters, so the brand is truncated away in the result.
@@ -135,6 +142,164 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 10:34 (unattended run, twenty-second) - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham. All 26 McCanns pages verified clean on title, H1, description, NAP, links and compliance, and then the pass found the first defect in this backlog that could send a patient to a locked door: both McCanns landing pages printed opening hours starting at 2pm for branches that open at 9am, because a day with a lunch closure carries two sessions and the generator kept only the second. Fixed at source, both pages regenerated, and new tools/check-opening-hours.js makes it permanent. A second finding, that the Sandringham pages target a word that is not a place, is raised as Q15
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 90a0cc0.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, same blocker as the previous run.
+Q13 and Q14 were open at the start, so the condition was met. The browser
+tooling still lists two Chrome registrations as "Browser 1" and "Browser 2",
+both isLocal true, and it refuses to open a tab until a human picks between
+them. There is no human in an unattended run, so no fetch could be made. Per
+the scheduled task rules no other route was tried. This is now the second run
+in a row blocked the same way and the third day it has cost an answer pickup:
+the fix is to remove or rename one of the two registrations so only one
+remains, which needs a supervised session. It also means the live-site leg of
+a quality pass stays unavailable, so everything below is verified against the
+repo.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10 23:14).
+No autonomous decision was taken and none was needed. The defect fixed below
+had a single correct answer sitting in branches.json, so it was a repair, not a
+choice. The one real choice this run surfaced is recorded under Q15 for the
+same reason Q13 and Q14 were: the window converts a decision that BLOCKS a
+worklist item into an autonomous one, and this blocks nothing while changing
+the local search word on 12 patient-facing pages.
+
+WHY A QUALITY PASS, AND WHY 3.6. Every numbered item is ticked except 5.3 and
+5.4, both [BLOCKED] on someone being logged into the Weebly editor, so there
+was no unblocked item to take. On the least-recently-verified rule the
+eighteenth to twenty-first runs took 3.2, 3.3, 3.4 and 3.5, so 3.6 is next in
+that block. It is also the largest untouched set left: 26 pages across two
+branches on one shared domain.
+
+WHAT WAS VERIFIED ON 3.6, AND WHAT PASSED. All 26 McCanns pages (22 service,
+2 switch, 2 branch landing) checked against the Build Pack v2 rule that town
+and service words belong in the title, description and heading:
+  - check-seo-pattern and check-seo-sheets both clean across the 26. Every H1
+    equals what tools/seo-pattern.js produces and every page agrees with the
+    paste sheet a human types into Weebly.
+  - NAP. Aigburth reads 112 Aigburth Road, L17 7BP, 0151 727 3185; Sandringham
+    reads 1b Aigburth Road, L17 4JP, 0151 727 3076. Correct on all 26, one tel:
+    link per page, and the L17 4JP that item 1.3 was raised over is right
+    everywhere.
+  - Schema. addressLocality Liverpool and addressRegion Merseyside on all 26,
+    which is correct: both branches post to Liverpool while the pages target
+    the catchment towns.
+  - Internal links. Every href on every page resolves to a page this repo
+    generates. The only external targets are the font, the CDN asset, the
+    Google review link and, on the landing pages, the NHS review link. No dead
+    or malformed link, and the sister-branch cross-link reads correctly in both
+    directions (the "Eccleston in Eccleston" fault found on the 3.3 pass does
+    not repeat here).
+  - Compliance. No prescription medicine name and no efficacy claim anywhere in
+    the 26, including both weight loss pages. hasApp is false for both branches
+    and no page mentions an app.
+
+THE DEFECT, AND WHY NOTHING COULD SEE IT. The two landing pages printed:
+    Monday: 2pm to 6pm ... Friday: 2pm to 6pm, Saturday: 2pm to 5pm
+branches.json says both branches open 09:00 to 13:00 and again 14:00 to 18:00
+on weekdays, confirmed against the NHS pharmacy profile on 2026-06-24. The
+morning session was simply gone. A patient reading the Aigburth page would
+believe the pharmacy is shut until 2pm on every day of the week, when it opens
+at 9am. Sandringham had the same fault on its five weekdays.
+
+Cause, in tools/build-branch-landing-pages.js: hoursRows() wrote each session
+into map[day], so where a day carried two sessions the afternoon overwrote the
+morning. Seven of the sixteen branches close for lunch and so carry split days
+(McCanns Aigburth and Sandringham, Smartts, Hirshmans, Coleman and Leighs,
+Gordon Short, Tiffenbergs). Only the two McCanns have landing pages today, so
+only two pages were wrong, but the other five would have been wrong the moment
+their landing pages were built.
+
+No checker could see it for a specific reason worth recording. check-nap proves
+a page agrees with branches.json on name, address and phone, and hours are not
+in its remit. Every other checker works on titles, descriptions, slugs, pins or
+packs. Nothing had ever compared rendered opening hours with the data, and the
+JSON-LD on the same page was correct throughout, so the page contradicted its
+own structured data and stayed green.
+
+WHAT WAS FIXED IN-REPO.
+  - tools/build-branch-landing-pages.js: hoursRows() now collects every session
+    for a day, sorts them by opening time and joins them, so a lunch closure
+    reads "9am to 1pm, 2pm to 6pm". Regenerated all six landing pages: the two
+    McCanns pages changed, the four others came out byte-identical, which is
+    the expected result since only McCanns have split days.
+  - tools/check-opening-hours.js, new. It composes the expected strings from
+    branches.json itself rather than calling the generator, on the principle
+    that a checker which calls the code it is checking proves nothing. Five
+    rules: every day has exactly one visible row; each row equals the data
+    including every session on a split day; the JSON-LD sessions match the data
+    exactly; a day cannot be in closedDays and in specification at once; and a
+    session must close after it opens. It also names the branches carrying
+    split days, so the case that caused this is visible on every future run.
+  - All eight negative tests caught and each restored afterwards: an altered
+    visible row, a deleted day row, a duplicated day row, an altered JSON-LD
+    opens value, a deliberately unparseable JSON-LD block, a closedDays clash,
+    a session closing before it opens, and a misspelt day name. One real bug in
+    the checker was found by its own negative tests and fixed before commit: a
+    lazy regex over the JSON-LD block stopped at the first inner "]" and
+    reported every page as having no hours at all, so the block is now parsed
+    as JSON properly.
+
+THE SECOND FINDING, RAISED AS Q15. Every branch in the estate takes its seoTown
+off the front of its own serviceAreaList. McCanns Sandringham does not: its
+pages say "in Sandringham" on all 12, while its serviceAreaList, its schema
+areaServed and its GBP pack all say Aigburth, St Michael's, Lark Lane and
+Dingle and never mention Sandringham at all. The GBP pack calls it a branch
+name from top to bottom. So 12 pages are aimed at a word the rest of the
+branch's own data does not treat as a place, and the sister branch 700 metres
+up the same road already holds Aigburth. Recommended answer is to move the 12
+pages onto St Michael's while keeping the existing permalinks, so no live URL
+breaks and no redirect is needed. What is explicitly not on the table is
+setting it to Aigburth, which would give two branches on one shared domain
+identical titles and identical permalinks.
+tools/check-address-region.js gains four rules to hold this: seoTown must
+appear in the branch's own serviceAreaList, townSlug must be its slug, two
+branches sharing a domain must not share a seoTown, and being in the list but
+not first is a warning only (Cherry Lane leads with Liverpool and targets
+Walton on purpose). Sandringham sits in a KNOWN_SEO_TOWN list against Q15, the
+same convention as KNOWN_DRIFT and KNOWN elsewhere, so it reports every run
+without going permanently red and the entry fails once it is stale. All five
+rules negative-tested, each caught, each restored.
+
+VERIFIED OBSERVATION, NO CHANGE MADE. Both McCanns branches share one pfLink
+pointing at pharmacy-first-service-aigburth.html, a live-only page. That is
+already inside Q8 (answered: repoint all 11 Post A links and paste the new
+pages in the same run) and check-gbp-packs already warns on both packs every
+run, so nothing new was raised and nothing was changed.
+
+PUBLIC COPY CHANGED, DELIBERATELY. Twelve rows of opening hours across the two
+McCanns landing pages. Neither page is live yet - the six landing pages have
+been waiting on a Weebly paste since items 2.2 and 5.2 - so this corrects them
+before anyone sees them rather than adding to the repaste list.
+
+CHECKER RUN, AFTER: all twelve pass. check-opening-hours clean (6 landing pages
+checked, 7 split-day branches named); check-address-region clean with 2
+warnings (Sandringham KNOWN against Q15, Cherry Lane seoTown not first);
+check-seo-lengths clean with 1 known issue (Q14); check-cdn-pins clean with 1
+warning and 1 known issue (Q13); check-nap 177 pages 0 mismatches;
+check-postcodes 0 failures (2 standing INDEX/SEO warnings); check-seo-pattern
+177 pages 0 failures; check-seo-sheets clean; check-page-coverage clean;
+check-em-dashes clean; check-gbp-packs 0 failures (standing Q8 link warnings);
+check-editor-snapshot clean.
+
+WHAT IS STILL OUTSTANDING, UNCHANGED BY THIS RUN. All of it needs someone
+logged into Weebly: the switch page SEO descriptions repaste (Q7), the six
+landing pages and their branch service pages (items 2.2 and 5.2, now carrying
+the corrected hours), items 5.3 and 5.4, and the switch page re-pin (Q13). Q14
+adds one title repaste to that list once answered, and Q15 would add twelve.
+
+Files changed: tools/build-branch-landing-pages.js,
+modules/branch/pages/pharmacy-mccanns-aigburth.html,
+modules/branch/pages/pharmacy-mccanns-sandringham.html,
+tools/check-opening-hours.js (new), tools/check-address-region.js, CLAUDE.md,
+QUESTIONS.json, AGENT_LOG.md. AGENT_WORKLIST.md is deliberately unchanged: this
+was a quality pass, so there was no item to tick, and Q15 blocks nothing.
+
+---
 
 ## 2026-08-10 10:04 (unattended run, twenty-first) - Quality pass on item 3.5, Hirshmans Chemist Ainsdale. All 12 Hirshmans pages verified clean on title, description, H1, NAP, schema, internal links and weight loss compliance. The pass then found the first real defect of its kind by widening the check to the whole estate: nothing anywhere enforced that an SEO title or description fits what Google shows, or that two pages do not share one. One title is over the limit and is raised as Q14; new tools/check-seo-lengths.js makes both rules permanent
 

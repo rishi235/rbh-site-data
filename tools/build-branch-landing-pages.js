@@ -80,14 +80,28 @@ function fmtTime(t) {
   return h12 + (m === "00" ? "" : "." + m) + ap;
 }
 
+// A day can carry more than one session in branches.json. McCanns close for
+// lunch, so their weekdays are two entries (09:00-13:00 and 14:00-18:00), and
+// an earlier version of this function overwrote the first with the second, so
+// the page told patients the pharmacy opened at 2pm when it opens at 9am.
+// Sessions are therefore collected per day, sorted by opening time and joined.
 function hoursRows(b) {
   var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  var map = {};
+  var sessions = {};
   var oh = b.openingHours || {};
   (oh.specification || []).forEach(function (spec) {
     spec.dayOfWeek.forEach(function (d) {
-      map[d] = fmtTime(spec.opens) + " to " + fmtTime(spec.closes);
+      if (!sessions[d]) sessions[d] = [];
+      sessions[d].push({ opens: spec.opens, closes: spec.closes });
     });
+  });
+  var map = {};
+  Object.keys(sessions).forEach(function (d) {
+    map[d] = sessions[d]
+      .slice()
+      .sort(function (x, y) { return x.opens < y.opens ? -1 : x.opens > y.opens ? 1 : 0; })
+      .map(function (s) { return fmtTime(s.opens) + " to " + fmtTime(s.closes); })
+      .join(", ");
   });
   (oh.closedDays || []).forEach(function (d) { map[d] = "Closed"; });
   return days.map(function (d) { return [d, map[d] || "Closed"]; });

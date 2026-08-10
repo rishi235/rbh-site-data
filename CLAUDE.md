@@ -111,3 +111,35 @@ KNOWN in `check-seo-lengths.js` with a reason and a question id, the same
 convention as KNOWN_DRIFT in `check-cdn-pins.js`. Do not widen the thresholds
 to make a run pass, and remove the entry once the question is answered and
 applied - the checker fails on a stale KNOWN key.
+
+
+## Opening hours - the copy that sends someone to a locked door
+
+A day in `openingHours.specification` can carry MORE THAN ONE session, because
+seven branches close for lunch. Anything that renders hours must collect every
+session for a day and join them, not write each one into the same slot. An
+earlier version of `tools\build-branch-landing-pages.js` did the latter, so
+both McCanns landing pages told patients the pharmacy opened at 2pm when it
+opens at 9am, while the JSON-LD on the same page was right. Found and fixed on
+the item 3.6 quality pass, 2026-08-10.
+
+`tools\check-opening-hours.js` guards both halves. It composes the expected
+strings from branches.json itself rather than calling the generator, and it
+fails if a visible row disagrees with the data, if a day is missing or doubled,
+if the JSON-LD sessions do not match the data exactly, if a day is in
+`closedDays` and in `specification` at once, or if a session does not close
+after it opens. Run it after any change to a branch's hours or to a generator
+that prints them.
+
+## seoTown - the word the pages claim as the catchment
+
+`seoTown` drives the title, the description, the H1 and the permalink for every
+page a branch owns, so it has to be a place, not a branch nickname.
+`tools\check-address-region.js` now checks it against the branch's own
+`serviceAreaList`: the seoTown must appear in that list, `townSlug` must be its
+slug, and two branches sharing a domain must not share a seoTown, or their
+titles and permalinks collide. Being in the list but not first is a warning
+only (Cherry Lane leads with Liverpool and targets Walton, which is deliberate).
+
+Exceptions go in `KNOWN_SEO_TOWN` with a reason and a question id, and a key
+that no longer breaks the rule fails the check, so the list cannot rot.

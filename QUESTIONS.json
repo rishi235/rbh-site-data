@@ -213,5 +213,20 @@
     "status": "open",
     "answer": null,
     "note": "Nothing is blocked by this. It was raised rather than decided under the 24-hour autonomous window because both fixes change public copy on a patient-facing clinical page: option 2 narrows or broadens how an NHS service is described, and option 1 overrides the trading name Rishi personally settled in Q1. Option 1 is recommended because the brand is what Google is already cutting, so ending it cleanly costs nothing that is not already lost, and it leaves the NHS condition wording untouched. Whichever is chosen, the fix belongs in tools/seo-pattern.js as a length-aware rule rather than a hand edit, and the one page then needs its Weebly SEO title repasting. New tools/check-seo-lengths.js enforces the limits and uniqueness from now on and records this title in its KNOWN list against this question, so it reports every run without going permanently red. Remove that entry when the fix lands."
+  },
+  {
+    "id": "Q15",
+    "date": "2026-08-10",
+    "item": "quality pass on 3.6 (finding, does not block any item)",
+    "question": "All 12 McCanns Sandringham pages aim at the word Sandringham. It is the only branch in the estate whose seoTown is not a place in its own serviceAreaList: the branch says it serves Aigburth, St Michael's, Lark Lane and Dingle, its schema claims exactly those four, and its GBP pack calls Sandringham a branch name from top to bottom and never a place. Every other branch takes its seoTown straight off the front of its own catchment list. So 12 pages carry a local word that the rest of the branch's own data does not treat as local, while the sister branch 700 metres up the same road already holds Aigburth. What should the 12 pages target?",
+    "options": [
+      "Move the local word to St Michael's, the next place in the branch's own catchment list after Aigburth. Titles, descriptions, H1s and meta keywords change on 12 pages; the permalinks keep sandringham, so no live URL breaks and no redirects are needed. Costs a Weebly repaste of pages the branch is already queued for",
+      "Leave the pages as they are and make the data agree by putting Sandringham at the front of the branch's serviceAreaList. No copy change, no repaste, nothing to go wrong, but the branch keeps aiming 12 pages at a word its own GBP pack never treats as a place",
+      "Leave both as they are and record the mismatch as accepted, on the basis that Sandringham is how local people know the shop and the sister branch owns the Aigburth searches anyway"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is blocked by this and nothing about the branch's facts is wrong: address, phone, postcode and schema are all correct and were verified clean this run. The choice of replacement word is yours rather than mine - St Michael's is suggested only because it is the next entry in the branch's own list, and Lark Lane or Dingle would do the same job if either pulls better locally. Option 1 was deliberately not recommended because it fixes the report rather than the position. Note what is NOT on the table: setting the word to Aigburth, which would give the two McCanns branches identical titles and identical permalinks on one shared domain. If option 0 is taken, townSlug stays sandringham on purpose and that branch then needs a KNOWN entry in check-address-region.js, because the new rule expects townSlug to be the slug of seoTown. Raised rather than decided under the autonomous window on the same reading as Q13 and Q14: the window converts a decision that BLOCKS a worklist item into an autonomous one, and this blocks nothing while changing the local search word on 12 patient-facing pages. New rules in tools/check-address-region.js record this branch in a KNOWN list so it reports every run without going permanently red, and turn hard red if any other branch drifts. Remove that entry when the fix lands."
   }
 ]

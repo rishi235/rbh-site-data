@@ -88,9 +88,126 @@ data.branches.forEach(function (b) {
   }
 });
 
+/*
+  SECOND PASS: seoTown, the word every page title claims as the catchment.
+
+  Added by the item 3.6 quality pass on 2026-08-10. seoTown drives the title,
+  the description, the H1 and the permalink on every page a branch owns, so a
+  seoTown that is not really a place is 12 pages aimed at a word nobody
+  searches. Nothing could see that, because check-seo-pattern only proves the
+  pages agree with seoTown, not that seoTown is sound.
+
+  The test used here is the estate's own data rather than an opinion about
+  geography: serviceAreaList is the list of places a branch says it serves,
+  and for 15 of the 16 branches the seoTown is the first entry in it. The
+  exception is McCanns Sandringham, whose pages say "in Sandringham" while its
+  own service area list and its GBP pack both say Aigburth, St Michael's,
+  Lark Lane and Dingle, and never Sandringham. Raised as Q15.
+*/
+
+// Accepted exceptions. Each needs a reason and a question id, and the check
+// fails on a key that no longer matches a branch, so the list cannot go stale.
+var KNOWN_SEO_TOWN = {
+  "mccanns_sandringham": {
+    question: "Q15",
+    reason: "seoTown 'Sandringham' is the branch name, not a place in its own " +
+      "serviceAreaList. Changing it moves the local word on 12 pages, and the " +
+      "obvious replacement (Aigburth) is already held by the sister branch, so " +
+      "it is Rishi's call, not a silent fix."
+  }
+};
+
+function slugify(s) {
+  return String(s).toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function normalise(s) {
+  return String(s).toLowerCase().replace(/['’]/g, "").replace(/\s+/g, " ").trim();
+}
+
+var seenKnown = {};
+var byDomain = {};
+
+data.branches.forEach(function (b) {
+  if (b.disposed) return;
+  if (!b.seoTown) return; // head office has no seoTown, which is correct
+
+  var areas = (b.serviceAreaList || []).map(normalise);
+  var town = normalise(b.seoTown);
+  var known = KNOWN_SEO_TOWN[b.id];
+
+  if (areas.indexOf(town) === -1) {
+    if (known) {
+      seenKnown[b.id] = true;
+      warnings.push(
+        "KNOWN " + b.id + ': seoTown "' + b.seoTown + '" is not in its own ' +
+        "serviceAreaList [" + (b.serviceAreaList || []).join(", ") + "]. " +
+        known.question + ": " + known.reason
+      );
+    } else {
+      failures.push(
+        b.id + ': seoTown "' + b.seoTown + '" does not appear in its own ' +
+        "serviceAreaList [" + (b.serviceAreaList || []).join(", ") + "]. " +
+        "Every page for this branch claims that word in its title, H1 and " +
+        "permalink, so either the word is wrong or the service area list is."
+      );
+    }
+  } else if (areas[0] !== town) {
+    warnings.push(
+      b.id + ': seoTown "' + b.seoTown + '" is in serviceAreaList but not ' +
+      'first ("' + (b.serviceAreaList || [])[0] + '" is). Harmless today, but ' +
+      "the first entry is the one the copy leads with."
+    );
+  }
+
+  if (b.townSlug && b.townSlug !== slugify(b.seoTown)) {
+    failures.push(
+      b.id + ': townSlug "' + b.townSlug + '" is not the slug of seoTown "' +
+      b.seoTown + '" (expected "' + slugify(b.seoTown) + '"). Permalinks and ' +
+      "titles would then name different places."
+    );
+  }
+
+  if (b.website) {
+    var host = b.website.replace(/^https?:\/\//, "").replace(/\/.*$/, "").toLowerCase();
+    byDomain[host] = byDomain[host] || [];
+    byDomain[host].push({ id: b.id, town: town, label: b.seoTown });
+  }
+});
+
+// Branches sharing a domain must not share a seoTown, or their titles and
+// permalinks collide and the two listings compete with each other.
+Object.keys(byDomain).forEach(function (host) {
+  var group = byDomain[host];
+  if (group.length < 2) return;
+  group.forEach(function (a, i) {
+    group.slice(i + 1).forEach(function (c) {
+      if (a.town === c.town) {
+        failures.push(
+          a.id + " and " + c.id + ' share the domain ' + host + ' and both use ' +
+          'seoTown "' + a.label + '", so their page titles and permalinks collide.'
+        );
+      }
+    });
+  });
+});
+
+Object.keys(KNOWN_SEO_TOWN).forEach(function (id) {
+  if (!seenKnown[id]) {
+    failures.push(
+      "KNOWN_SEO_TOWN carries " + id + " but that branch no longer breaks the " +
+      "rule. Remove the entry rather than leaving it to rot."
+    );
+  }
+});
+
 console.log("check-address-region");
 console.log("  " + checked + " trading branches checked against " +
-  COUNTIES.length + " permitted counties");
+  COUNTIES.length + " permitted counties, and their seoTown against their " +
+  "own serviceAreaList");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });
 failures.forEach(function (f) { console.log("  FAIL  " + f); });
