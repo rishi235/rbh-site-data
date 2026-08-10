@@ -3,6 +3,16 @@ Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
 ## Questions for Rishi
+OPEN: Q17 (raised 2026-08-10, twenty-seventh run) - the booking widget on every
+service page is resolved at run time from the live URL, and service.js bars
+weight loss and travel clinic from falling back to the Pharmacy First diary
+because they are separate services. Contraception has its own diary at all 14
+branches too, and is not barred. It is latent, because a contraception page is
+only generated where the branch already holds the widget. Raised rather than
+fixed because service.js is a CDN-pinned asset that is byte-identical between
+main and the pinned ref today, which is the only reason Q13's fast-forward is
+free. Recommendation is to add the bar in the same session that answers Q13.
+Nothing is blocked by it.
 OPEN: Q16 (raised 2026-08-10, twenty-third run) - READ THIS ONE FIRST. Q5 found
 one old weight loss page still live at Cherry Lane naming prescription-only
 medicines and it was treated as a one-off. Checking all 15 branch sites this
@@ -152,6 +162,140 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 13:04 (unattended run, twenty-seventh) - Quality pass on item
+3.11, Gordon Short Chemist Crosby. All 12 Gordon Short pages verified clean on
+title, description, H1, NAP, tel: link, review link, schema, links and
+compliance. The gap this run found is not in those pages and not in any page:
+the chain that decides which Appointedd diary a patient books into had never
+been checked past its first link. New tools/check-booking-routes.js closes it
+end to end, and the first thing it found is that one of the three separate
+services is missing from the guard that stops a booking landing in the wrong
+diary. Not fixed on the spot, for a reason given below, and raised as Q17.
+Commit PLACEHOLDER_COMMIT.
+
+WHAT WAS VERIFIED ON GORDON SHORT ITSELF. All 12 pages (11 service plus the
+switch page) carry 159 College Road, L23 3AT and 0151 924 3449 on every
+occurrence, visible, in the tel: link and in the JSON-LD, and every page carries
+Gordon Short's own Google review link and no other branch's. No page carries any
+other branch's phone or postcode. Titles, descriptions, H1s and permalinks all
+lead with Crosby, which is the branch's seoTown and the first entry in its own
+serviceAreaList, so the word the pages claim is a place the branch itself says
+it serves. Every title is 63 characters or fewer and every description sits
+between 138 and 157. The Pharmacy First overview links all seven condition
+pages and each condition page links back. The weight loss page names no
+prescription-only medicine and makes no efficacy claim. The only two words that
+looked like claims are in HTML build comments, not public copy: the travel
+clinic page's "no vaccine is claimed guaranteed in stock" note to the paster.
+
+TWO THINGS ABOUT GORDON SHORT WORTH RECORDING RATHER THAN FIXING. It is one of
+the seven branches with a lunch closure, and its Saturday is split too (09:00
+to 13:00 and 14:00 to 17:00), which is the shape that caused the 2pm defect on
+the McCanns landing pages. No Gordon Short page prints opening hours, because
+it is one of the nine branches with no landing page, so nothing here is
+exposed to it. And its branch email is still Shorts@rbhealth.co.uk, the old
+brand spelling that item 1.1 retired from the trading name. That is a mailbox
+name, not site copy, and it reaches no page.
+
+THE GAP, AND WHY NO CHECKER SAW IT. A generated service page does not carry its
+Appointedd widget id at all. It ships an empty mount and a comment telling the
+next person not to hard-code one. modules/service/service.js then reads the LIVE
+URL, splits it into a service slug and a brandSlug-townSlug key, looks that key
+up in branches.json and renders the id it finds. That was a deliberate fix: six
+pages once hard-coded the wrong id and sent bookings into another branch's diary
+(verified 2026-07-17). The cost of the design is a chain nothing checked:
+branches.json to filename to paste-sheet permalink to live URL to service.js's
+routing table to the widget id. check-seo-sheets ties the filename to the
+permalink. Everything after that was unguarded, and a break there does not show
+up as a wrong word on a page. It shows up as an empty white booking box, or as a
+patient booked into the wrong diary, while every visible line still reads
+correctly. That is the same class of silent fault as the map iframe.
+
+WHAT THE NEW CHECKER DOES. Per page carrying a booking mount: the filename
+parses under service.js's OWN routing regex; the brandSlug-townSlug key resolves
+to exactly one trading branch; that branch holds a usable widget id under
+service.js's own fallback rules; data-branch on #rbhsv-root names the branch the
+URL resolves to, because that attribute is what labels the enquiry email and the
+WhatsApp message, so a wrong one misfiles a real enquiry; and data-service is
+present and worded identically on every page of that service, so one service
+cannot reach the helpdesk under two names. Estate-wide it also checks that no
+two branches share a routing key, and that no two services at one branch share
+an Appointedd id. Sister branches sharing one weight loss and one travel diary
+across a pair (Scorah, McCanns, Fishlocks) is normal and is reported, not
+failed. service.js's routing regex and its SERVICE_WIDGET_KEYS map are read as
+DATA UNDER TEST rather than imported, and are checked against each other and
+against the pages the repo actually generates, so a service added to the
+generators and forgotten in service.js fails here instead of shipping as an
+empty booking box. 156 pages carry a booking mount and all 156 resolve today.
+
+THE FINDING. service.js lets a page fall back to the branch's Pharmacy First
+diary when it has no widget of its own, and bars weight loss and travel clinic
+from doing so, with a comment saying that falling back there "would book a
+customer into the wrong clinic/service". The NHS Pharmacy Contraception Service
+sits in exactly that category and is not barred. It has its own diary at all 14
+branches that offer it, it is never the same id as Pharmacy First anywhere, and
+no branch's Pharmacy First overview page links to it. The checker does not
+hardcode which services are Pharmacy First conditions: it reads them off the
+overview pages themselves, which link exactly the seven conditions and none of
+the three separate services, so the rule derives itself from the site rather
+than from an opinion in a checker.
+
+WHY IT WAS RAISED RATHER THAN FIXED. The fix is two words in service.js, and
+the autonomous window would normally cover it: it is routing logic, not public
+copy, no medicine name, claim or price. It was not taken because of what
+service.js is. It is a CDN-pinned asset, and today modules/service/service.js is
+byte-identical between origin/main and the pinned ref service-module-phase1.
+Q13's recommended fix, fast-forwarding that pinned branch to main, is free
+precisely because nothing has diverged. Editing service.js now would end that
+and turn an unanswered question about a LIVE defect (switch requests still going
+to Rishi's own inbox) into a more expensive one. The contraception fault is
+latent in the meantime: check-page-coverage only earns a contraception page
+where the branch already holds a contraception widget, so the fallback cannot
+fire today. Cheaper and safer to let the fix ride along with Q13, which is what
+Q17 recommends.
+
+NEGATIVE TESTS. Fifteen, one per rule, and all fifteen fired: an unparseable
+filename, a routing key matching no branch, a no-fallback service with no widget
+id, a data-branch naming another pharmacy, a missing data-branch, a missing
+data-service, one page describing the service differently from its siblings, two
+branches sharing a routing key, two services at one branch sharing an Appointedd
+id, a slug in the routing regex but not in the map, a slug in the map but not in
+the regex, a Pharmacy First condition wrongly barred from falling back, a
+separate service missing from the bar, a stale KNOWN entry, and a change to the
+shape of service.js that stops the checker reading its routing table. Every
+mutated file was restored and confirmed byte-clean against git afterwards.
+
+WHAT ELSE THE PASS SWEPT AND FOUND CLEAN. Estate-wide rather than Gordon Short
+only, on the same reasoning as the previous runs. Google review links on all
+177 pages: every page carries its owner branch's link and no other's. Internal
+links between generated pages: 244 checked, and the only cross-branch links are
+the six deliberate sister-branch links on the landing pages, each between two
+branches on one shared domain. Pharmacy First link graph across all 14
+branches: every overview links all seven conditions and every condition page
+links back to its own branch's overview. Price strings in public copy: one,
+"from £39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+generator rather than written out per page, and no travel clinic page carries a
+price at all.
+
+Files changed: tools/check-booking-routes.js (new), CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. No generated page changed and no generator changed, so no
+regeneration was needed and nothing new joins the Weebly paste queue. All 16
+checkers re-run clean afterwards (177 pages, 0 failures) with the same warning
+and KNOWN profile as before, plus the one new KNOWN entry against Q17. Nothing
+ticked in AGENT_WORKLIST.md: this was a quality pass, and 5.3 and 5.4 remain
+the only unchecked items, both [BLOCKED] on Weebly access.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 0ec492e.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, six runs in a row now. Q13 to Q16
+were all open at the start, so the condition was met. The browser tooling
+reached https://data.rbhealth.co.uk/api/feedback and Cloudflare Access returned
+its sign-in page rather than the feedback JSON, so Rishi's Chrome does not hold
+a signed-in Access session. Per the scheduled task rules no login was attempted
+and no other route was tried. Any answers left on the portal for Q13 to Q17
+remain unread by an unattended run. If those answers matter, they need a
+supervised session or a signed-in Chrome.
 
 ## 2026-08-10 12:34 (unattended run, twenty-sixth) - Quality pass on item 3.10,
 Riddings Pharmacy Timperley. All 12 Riddings pages verified clean on title,

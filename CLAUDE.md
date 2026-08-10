@@ -228,3 +228,63 @@ only (Cherry Lane leads with Liverpool and targets Walton, which is deliberate).
 
 Exceptions go in `KNOWN_SEO_TOWN` with a reason and a question id, and a key
 that no longer breaks the rule fails the check, so the list cannot rot.
+
+
+## The booking chain - filename to diary
+
+A generated service page does not carry its Appointedd widget id. It ships an
+empty mount and `modules\service\service.js` reads the LIVE URL, splits it into
+a service slug and a `brandSlug-townSlug` key, looks that key up in
+branches.json and renders the widget id it finds. That was deliberate: six
+pages once hard-coded the wrong id and sent bookings into another branch's
+diary (verified 2026-07-17), so the data layer became the single source of
+truth and a wrong id is now fixed in one place.
+
+The cost is a chain that nothing checked past its first link:
+
+    branches.json (brandSlug + townSlug + widgets)
+      -> generated filename
+      -> paste-sheet permalink      (check-seo-sheets guards this one)
+      -> live URL
+      -> service.js routing table
+      -> Appointedd widget id
+
+A break anywhere after the permalink does not show up as a wrong word on a
+page. It shows up as an empty white booking box, or as a patient booked into
+the wrong diary, while every visible line on the page still reads correctly.
+Same class of silent fault as the map iframe in `check-jsonld.js`.
+
+`tools\check-booking-routes.js` closes it. Per page carrying a booking mount:
+the filename parses under service.js's OWN routing regex; the key resolves to
+exactly one trading branch; that branch holds a usable widget under service.js's
+own fallback rules; `data-branch` names the branch the URL resolves to, because
+that attribute labels the enquiry email and the WhatsApp message; and
+`data-service` is present and worded the same on every page of that service.
+Estate-wide: no two branches share a routing key, and no two services at one
+branch share an Appointedd id. Sister branches sharing one weight loss or
+travel diary across a pair (Scorah, McCanns, Fishlocks) is normal and reported,
+not failed.
+
+The rule that matters is the fallback rule. service.js lets a page fall back to
+the branch's Pharmacy First diary when it has no widget of its own. That is
+right for the seven Pharmacy First conditions, because Pharmacy First is the
+service that covers them, and wrong for a separate service with its own diary.
+Which is which is NOT hardcoded in the checker: a service counts as a Pharmacy
+First condition if and only if the branch's own Pharmacy First overview page
+links to it. Anything else must appear in `NO_FALLBACK_SERVICE_KEYS`.
+
+That rule found the asymmetry on the item 3.11 quality pass, 2026-08-10:
+weight loss and travel clinic are barred from falling back, contraception is
+not, although the NHS Pharmacy Contraception Service has its own diary at all
+14 branches that offer it and no Pharmacy First overview links to it. It is
+latent, because `check-page-coverage` only earns a contraception page where the
+branch already holds a contraception widget. It was not fixed on the spot
+because `service.js` is a CDN-pinned asset and is currently byte-identical
+between main and the pinned ref, which is the only reason Q13's fast-forward is
+free. Raised as Q17 and recorded in the checker's KNOWN list.
+
+service.js's two tables are read as DATA UNDER TEST rather than imported, so a
+service added to the generators and forgotten in service.js fails here instead
+of shipping as an empty booking box. Exceptions go in `KNOWN`, keyed
+`<subject>::<rule>`, with a reason and a question id, and a key that no longer
+breaks its rule fails the run.
