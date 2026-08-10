@@ -184,7 +184,7 @@ with a sister shop, the pages identify themselves by the BRAND rather than by
 the shop, in the two machine-readable fields that decide how Google resolves
 the business and how an enquiry is labelled. New
 tools/check-branch-identity.js closes it. Not fixed on the spot, for the
-reason given below, and raised as Q18. Commit COMMIT_HASH.
+reason given below, and raised as Q18. Commit 49cebbd.
 
 WHAT WAS VERIFIED ON TIFFENBERGS ITSELF. All 12 pages (11 service plus the
 switch page) carry 388 Longmoor Lane, Liverpool, L9 9DB and 0151 525 3462 on
