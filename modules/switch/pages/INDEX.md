@@ -37,10 +37,10 @@ Each page below is in this folder. Paste the file's contents into a Weebly Embed
 - **SEO title:** Switch Your Prescriptions to McCanns Chemist, Aigburth
 - **SEO description:** Switch your prescriptions to McCanns Chemist in Aigburth in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
 
-## McCanns Chemist — Sandringham
+## McCanns Chemist — St Michael's
 - **Page slug / URL:** `switch-prescriptions-mccanns-sandringham.html` → https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html
-- **SEO title:** Switch Your Prescriptions to McCanns Chemist, Sandringham
-- **SEO description:** Switch your prescriptions to McCanns Chemist in Sandringham in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
+- **SEO title:** Switch Your Prescriptions to McCanns Chemist, St Michael's
+- **SEO description:** Switch your prescriptions to McCanns Chemist in St Michael's in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
 
 ## Riddings Pharmacy — Timperley
 - **Page slug / URL:** `switch-prescriptions-riddings-timperley.html` → https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html

@@ -22,10 +22,10 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Meta Keywords:** pharmacy Aigburth, chemist Aigburth, McCanns Chemist, L17
 
 ## McCanns Chemist Sandringham
-- **Page Title:** Pharmacy in Sandringham, Merseyside - McCanns Chemist
+- **Page Title:** Pharmacy in St Michael's, Merseyside - McCanns Chemist
 - **Page Permalink:** pharmacy-mccanns-sandringham
-- **Page Description:** McCanns Chemist Sandringham, Sandringham L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving Aigburth, St Michael's, Lark Lane and Dingle.
-- **Meta Keywords:** pharmacy Sandringham, chemist Sandringham, McCanns Chemist, L17
+- **Page Description:** McCanns Chemist Sandringham, St Michael's L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving Aigburth, St Michael's, Lark Lane and Dingle.
+- **Meta Keywords:** pharmacy St Michael's, chemist St Michael's, McCanns Chemist, L17
 
 ## Scorah Chemists Bramhall
 - **Page Title:** Pharmacy in Bramhall, Greater Manchester - Scorah Chemists

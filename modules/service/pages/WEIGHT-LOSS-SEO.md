@@ -50,11 +50,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in Aigburth. Clinical assessment first; treatment only where appropriate.
 - **Meta Keywords:** weight loss clinic Aigburth, medicated weight loss Aigburth, McCanns Chemist, pharmacy Aigburth
 
-## McCanns Chemist — Sandringham
-- **Page Title:** Weight Loss Clinic at McCanns Chemist, Sandringham
+## McCanns Chemist — St Michael's
+- **Page Title:** Weight Loss Clinic at McCanns Chemist, St Michael's
 - **Page Permalink:** weight-loss-clinic-mccanns-sandringham
-- **Page Description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in Sandringham. Clinical assessment first; treatment only where appropriate.
-- **Meta Keywords:** weight loss clinic Sandringham, medicated weight loss Sandringham, McCanns Chemist, pharmacy Sandringham
+- **Page Description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in St Michael's. Clinical assessment first; treatment only where appropriate.
+- **Meta Keywords:** weight loss clinic St Michael's, medicated weight loss St Michael's, McCanns Chemist, pharmacy St Michael's
 
 ## Riddings Pharmacy — Timperley
 - **Page Title:** Weight Loss Clinic at Riddings Pharmacy, Timperley

@@ -2,6 +2,86 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
+## 2026-08-10 14:35 BST - thirtieth run - item 5.7 done (Q15 applied)
+
+ANSWER PICKUP. The portal was read and returned nothing new. The newest
+entries are still the Q13, Q14 and Q15 answers picked up last run, all already
+recorded. Q16, Q17 and Q18 remain open with no answer posted.
+
+AUTONOMOUS WINDOW: ACTIVE (opened 2026-08-09 23:14, expires 2026-08-10 23:14).
+It was not needed. Item 5.7 was already answered by Rishi, so nothing had to be
+decided autonomously, and the one new finding below blocks no item, so it is
+raised as a question on the same reading as Q13 to Q18 rather than taken.
+
+WHAT WAS DONE. Item 5.7, applying Rishi's Q15 answer. seoTown for
+mccanns_sandringham moved from "Sandringham" to "St Michael's", the next place
+in the branch's own serviceAreaList, and townSlug deliberately held at
+"sandringham" so no live permalink moves and no redirects are needed. Verified
+after regeneration: not one permalink changed in any paste sheet.
+
+Thirteen pages moved, one more than the twelve the item predicted. The twelve
+the branch owns (seven Pharmacy First condition pages, the Pharmacy First
+overview, contraception, weight loss, travel clinic and the switch page), plus
+the sister cross-link line on the McCanns Aigburth landing page, which now
+reads "see McCanns Chemist Sandringham in St Michael's". Titles, descriptions,
+H1s, meta keywords and the visible local wording all carry the new word; the
+branchName, the JSON-LD name, data-branch, the address, the postcode and the
+phone are untouched.
+
+THE DEFECT THIS TURNED UP, AND WHY IT MATTERS MORE THAN THE ITEM. The first
+regeneration moved twelve pages and left the switch page saying Sandringham.
+tools/build-switch-pages.js does not read brand, brandSlug, town, townSlug or
+site from branches.json at all. It holds its own hardcoded CONFIG copy of all
+five for all 15 branches. So the single source of truth is not the single
+source of truth for 15 live switch pages, and the only reason this run saw it
+is that check-seo-pattern compares the page to branches.json rather than to the
+generator that built it. The value was corrected at source in CONFIG with a
+comment recording why town and townSlug deliberately differ for this branch,
+and the page regenerated correctly. The duplication itself is raised as Q19,
+with the recommendation to rewire those five fields to branches.json and leave
+only the genuinely presentation-only extras in CONFIG. Checked while raising
+it: all 15 CONFIG keys resolve to real branch ids and, apart from the one just
+fixed, all 75 values already matched branches.json exactly, so the rewire
+should be a provable no-op today and stops being one the moment anybody edits
+one of those fields.
+
+CHECKER WORK. check-address-region needed rework rather than a new entry.
+Its KNOWN_SEO_TOWN list was keyed by branch id and served one rule, the
+seoTown-in-serviceAreaList test. After the change the branch passes that test,
+so the old entry went stale and the stale-key guard correctly failed the run,
+while the townSlug rule started failing because the slug is now deliberately
+held. The list is now keyed "<branch id>::<rule>" like the KNOWN lists in the
+other checkers, carries one entry for mccanns_sandringham::townSlug with the
+Q15 reference, and the townSlug rule reports it as a warning instead of a
+failure. Both rules still fail hard for any branch not on the list, and a key
+that stops applying still fails the run. tools/branches-editor.html embedded
+snapshot refreshed in the same run, caught by check-editor-snapshot.
+
+VERIFICATION. A baseline rebuild of all six generators before any edit produced
+zero diff, so every change below is attributable to this run. All 17 checkers
+run clean afterwards: 177 pages, 0 failures. tools/seo-pattern.js self-test
+passes and now reports the branch as "McCanns Chemist, St Michael's". The
+apostrophe in the new word was checked specifically, since it is the first
+seoTown in the estate to carry one: every one of its 110 occurrences across the
+14 affected pages sits in body text, a double-quoted attribute or a JSON-LD
+string, all 14 JSON-LD blocks still parse, and check-jsonld, check-nap and
+check-seo-lengths are clean, so no title overran the 65-character limit on the
+longer word.
+
+FILES CHANGED. branches.json; tools/build-switch-pages.js;
+tools/check-address-region.js; tools/branches-editor.html; 13 generated pages;
+7 paste sheets and index files across modules/service, modules/switch and
+modules/branch; AGENT_WORKLIST.md; QUESTIONS.json; AGENT_LOG.md.
+
+OUTSTANDING ON THE LIVE SIDE. Nothing here is live. The Weebly SEO title,
+description and keyword fields for the 13 pages need repasting from
+modules/service/pages/SEO.md, modules/switch/pages/SEO.md and
+modules/branch/pages/SEO.md at the next paste run, or the live listings keep
+aiming at Sandringham. The permalinks are unchanged, so no page needs moving
+and no redirect is needed.
+
+NEW QUESTION: Q19 (see below). No item is blocked by it.
+
 ## ANSWERS RECEIVED - 2026-08-10, twenty-ninth run
 Three answers came back through the portal and were picked up this run.
 Q13, Q14 and Q15 are now recorded as answered in QUESTIONS.json, so the
@@ -24,6 +104,17 @@ worklist items rather than silently carried in prose.
     inbox rather than the helpdesk.
 
 ## Questions for Rishi
+OPEN: Q19 (raised 2026-08-10, thirtieth run) - branches.json is not actually the
+single source of truth for the 15 switch pages. tools/build-switch-pages.js
+holds its own hardcoded CONFIG copy of brand, brandSlug, town, townSlug and
+site for every branch, so item 5.7's seoTown change moved 12 pages and silently
+left the switch page saying the old word. The value was corrected at source this
+run and all 17 checkers pass, but the next edit to any of those five fields will
+miss the switch page the same way. Recommendation is to rewire those five fields
+to branches.json and leave only the Smartts videoId and services grid in CONFIG;
+all 15 keys resolve and all 75 values already match, so it should regenerate
+byte-identical and that can be proven before committing. Nothing is blocked by
+it.
 OPEN: Q18 (raised 2026-08-10, twenty-eighth run) - the six branches that share
 a brand and a website with a sister shop (Fishlocks, McCanns, Scorah) identify
 themselves on 12 of their 13 pages by the brand, not the shop. Five generators

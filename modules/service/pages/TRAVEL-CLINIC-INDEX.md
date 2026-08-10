@@ -44,10 +44,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-travel-
 - **SEO title:** Travel Clinic at McCanns Chemist, Aigburth
 - **SEO description:** Private travel clinic at McCanns Chemist in Aigburth. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
 
-## McCanns Chemist — Sandringham — Overview
+## McCanns Chemist — St Michael's — Overview
 - **Page slug / URL:** `travel-clinic-mccanns-sandringham.html` -> https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandringham.html
-- **SEO title:** Travel Clinic at McCanns Chemist, Sandringham
-- **SEO description:** Private travel clinic at McCanns Chemist in Sandringham. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
+- **SEO title:** Travel Clinic at McCanns Chemist, St Michael's
+- **SEO description:** Private travel clinic at McCanns Chemist in St Michael's. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
 
 ## Riddings Pharmacy — Timperley — Overview
 - **Page slug / URL:** `travel-clinic-riddings-timperley.html` -> https://www.riddingspharmacy.co.uk/travel-clinic-riddings-timperley.html

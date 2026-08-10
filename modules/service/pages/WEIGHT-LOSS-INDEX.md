@@ -44,10 +44,10 @@ Before publishing: superintendent pharmacist signs off wording per DRAFT-weight-
 - **SEO title:** Weight Loss Clinic at McCanns Chemist, Aigburth
 - **SEO description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in Aigburth. Clinical assessment first; treatment only where appropriate.
 
-## McCanns Chemist — Sandringham — Overview
+## McCanns Chemist — St Michael's — Overview
 - **Page slug / URL:** `weight-loss-clinic-mccanns-sandringham.html` -> https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-sandringham.html
-- **SEO title:** Weight Loss Clinic at McCanns Chemist, Sandringham
-- **SEO description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in Sandringham. Clinical assessment first; treatment only where appropriate.
+- **SEO title:** Weight Loss Clinic at McCanns Chemist, St Michael's
+- **SEO description:** Private, pharmacist-led weight loss clinic at McCanns Chemist in St Michael's. Clinical assessment first; treatment only where appropriate.
 
 ## Riddings Pharmacy — Timperley — Overview
 - **Page slug / URL:** `weight-loss-clinic-riddings-timperley.html` -> https://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html

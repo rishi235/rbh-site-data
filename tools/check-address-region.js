@@ -100,20 +100,25 @@ data.branches.forEach(function (b) {
   The test used here is the estate's own data rather than an opinion about
   geography: serviceAreaList is the list of places a branch says it serves,
   and for 15 of the 16 branches the seoTown is the first entry in it. The
-  exception is McCanns Sandringham, whose pages say "in Sandringham" while its
+  exception was McCanns Sandringham, whose pages said "in Sandringham" while its
   own service area list and its GBP pack both say Aigburth, St Michael's,
-  Lark Lane and Dingle, and never Sandringham. Raised as Q15.
+  Lark Lane and Dingle, and never Sandringham. Raised as Q15, answered by Rishi
+  on 2026-08-10 and applied as worklist item 5.7: the local word moved to
+  St Michael's, the next place in the branch's own list, and townSlug was held
+  at "sandringham" on purpose so no live permalink breaks and no redirects are
+  needed. That deliberate hold is the one exception carried below.
 */
 
-// Accepted exceptions. Each needs a reason and a question id, and the check
-// fails on a key that no longer matches a branch, so the list cannot go stale.
+// Accepted exceptions, keyed "<branch id>::<rule>". Each needs a reason and a
+// question id, and the check fails on a key that no longer breaks its rule, so
+// the list cannot go stale.
 var KNOWN_SEO_TOWN = {
-  "mccanns_sandringham": {
+  "mccanns_sandringham::townSlug": {
     question: "Q15",
-    reason: "seoTown 'Sandringham' is the branch name, not a place in its own " +
-      "serviceAreaList. Changing it moves the local word on 12 pages, and the " +
-      "obvious replacement (Aigburth) is already held by the sister branch, so " +
-      "it is Rishi's call, not a silent fix."
+    reason: "townSlug is deliberately held at 'sandringham' while seoTown reads " +
+      "'St Michael's'. Rishi's answer moved the local word in the copy but kept " +
+      "the permalinks, so no live URL breaks and no redirects are needed. The " +
+      "title and the URL naming different places is the accepted cost."
   }
 };
 
@@ -137,11 +142,11 @@ data.branches.forEach(function (b) {
 
   var areas = (b.serviceAreaList || []).map(normalise);
   var town = normalise(b.seoTown);
-  var known = KNOWN_SEO_TOWN[b.id];
+  var known = KNOWN_SEO_TOWN[b.id + "::seoTownInList"];
 
   if (areas.indexOf(town) === -1) {
     if (known) {
-      seenKnown[b.id] = true;
+      seenKnown[b.id + "::seoTownInList"] = true;
       warnings.push(
         "KNOWN " + b.id + ': seoTown "' + b.seoTown + '" is not in its own ' +
         "serviceAreaList [" + (b.serviceAreaList || []).join(", ") + "]. " +
@@ -164,11 +169,21 @@ data.branches.forEach(function (b) {
   }
 
   if (b.townSlug && b.townSlug !== slugify(b.seoTown)) {
-    failures.push(
-      b.id + ': townSlug "' + b.townSlug + '" is not the slug of seoTown "' +
-      b.seoTown + '" (expected "' + slugify(b.seoTown) + '"). Permalinks and ' +
-      "titles would then name different places."
-    );
+    var knownSlug = KNOWN_SEO_TOWN[b.id + "::townSlug"];
+    if (knownSlug) {
+      seenKnown[b.id + "::townSlug"] = true;
+      warnings.push(
+        "KNOWN " + b.id + ': townSlug "' + b.townSlug + '" is not the slug of ' +
+        'seoTown "' + b.seoTown + '" (would be "' + slugify(b.seoTown) + '"). ' +
+        knownSlug.question + ": " + knownSlug.reason
+      );
+    } else {
+      failures.push(
+        b.id + ': townSlug "' + b.townSlug + '" is not the slug of seoTown "' +
+        b.seoTown + '" (expected "' + slugify(b.seoTown) + '"). Permalinks and ' +
+        "titles would then name different places."
+      );
+    }
   }
 
   if (b.website) {
@@ -195,10 +210,10 @@ Object.keys(byDomain).forEach(function (host) {
   });
 });
 
-Object.keys(KNOWN_SEO_TOWN).forEach(function (id) {
-  if (!seenKnown[id]) {
+Object.keys(KNOWN_SEO_TOWN).forEach(function (key) {
+  if (!seenKnown[key]) {
     failures.push(
-      "KNOWN_SEO_TOWN carries " + id + " but that branch no longer breaks the " +
+      "KNOWN_SEO_TOWN carries " + key + " but that branch no longer breaks the " +
       "rule. Remove the entry rather than leaving it to rot."
     );
   }

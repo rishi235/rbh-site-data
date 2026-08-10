@@ -339,53 +339,53 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Description:** Infected insect bite treatment at McCanns Chemist in Aigburth. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Infected insect bite Aigburth, Infected insect bite treatment Aigburth, Pharmacy First Aigburth, pharmacy Aigburth, L17
 
-## McCanns Chemist — Sandringham — Overview
-- **Page Title:** Pharmacy First at McCanns Chemist, Sandringham
+## McCanns Chemist — St Michael's — Overview
+- **Page Title:** Pharmacy First at McCanns Chemist, St Michael's
 - **Page Permalink:** pharmacy-first-mccanns-sandringham
-- **Page Description:** Pharmacy First at McCanns Chemist in Sandringham. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
-- **Meta Keywords:** Pharmacy First Sandringham, NHS Pharmacy First, McCanns Chemist, pharmacy Sandringham, L17
+- **Page Description:** Pharmacy First at McCanns Chemist in St Michael's. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
+- **Meta Keywords:** Pharmacy First St Michael's, NHS Pharmacy First, McCanns Chemist, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — UTI
-- **Page Title:** UTI treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — UTI
+- **Page Title:** UTI treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** uti-treatment-mccanns-sandringham
-- **Page Description:** UTI treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** UTI Sandringham, UTI treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** UTI treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** UTI St Michael's, UTI treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Sore throat
-- **Page Title:** Sore throat treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Sore throat
+- **Page Title:** Sore throat treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** sore-throat-treatment-mccanns-sandringham
-- **Page Description:** Sore throat treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Sore throat Sandringham, Sore throat treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Sore throat treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Sore throat St Michael's, Sore throat treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Sinusitis
-- **Page Title:** Sinusitis treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Sinusitis
+- **Page Title:** Sinusitis treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** sinusitis-treatment-mccanns-sandringham
-- **Page Description:** Sinusitis treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Sinusitis Sandringham, Sinusitis treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Sinusitis treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Sinusitis St Michael's, Sinusitis treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Earache
-- **Page Title:** Earache treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Earache
+- **Page Title:** Earache treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** earache-treatment-mccanns-sandringham
-- **Page Description:** Earache treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Earache Sandringham, Earache treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Earache treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Earache St Michael's, Earache treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Impetigo
-- **Page Title:** Impetigo treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Impetigo
+- **Page Title:** Impetigo treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** impetigo-treatment-mccanns-sandringham
-- **Page Description:** Impetigo treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Impetigo Sandringham, Impetigo treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Impetigo treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Impetigo St Michael's, Impetigo treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Shingles
-- **Page Title:** Shingles treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Shingles
+- **Page Title:** Shingles treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** shingles-treatment-mccanns-sandringham
-- **Page Description:** Shingles treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Shingles Sandringham, Shingles treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Shingles treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Shingles St Michael's, Shingles treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
-## McCanns Chemist — Sandringham — Infected insect bite
-- **Page Title:** Infected insect bite treatment in Sandringham - McCanns Chemist
+## McCanns Chemist — St Michael's — Infected insect bite
+- **Page Title:** Infected insect bite treatment in St Michael's - McCanns Chemist
 - **Page Permalink:** insect-bite-treatment-mccanns-sandringham
-- **Page Description:** Infected insect bite treatment at McCanns Chemist in Sandringham. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
-- **Meta Keywords:** Infected insect bite Sandringham, Infected insect bite treatment Sandringham, Pharmacy First Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Infected insect bite treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **Meta Keywords:** Infected insect bite St Michael's, Infected insect bite treatment St Michael's, Pharmacy First St Michael's, pharmacy St Michael's, L17
 
 ## Riddings Pharmacy — Timperley — Overview
 - **Page Title:** Pharmacy First at Riddings Pharmacy, Timperley

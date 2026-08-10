@@ -31,7 +31,9 @@ const CONFIG = {
   gordonshorts_crosby:   { brand: "Gordon Short Chemist", brandSlug: "gordon-short", town: "Crosby", townSlug: "crosby", site: "https://www.gordonshortchemist.co.uk" },
   hirshmans_ainsdale:    { brand: "Hirshmans Chemist", brandSlug: "hirshmans", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.hirshmanspharmacy.co.uk" },
   mccanns_aigburth:      { brand: "McCanns Chemist", brandSlug: "mccanns", town: "Aigburth", townSlug: "aigburth", site: "https://www.mccannspharmacy.co.uk" },
-  mccanns_sandringham:   { brand: "McCanns Chemist", brandSlug: "mccanns", town: "Sandringham", townSlug: "sandringham", site: "https://www.mccannspharmacy.co.uk" },
+  // town is deliberately NOT the townSlug here: Q15 moved the local word to
+  // St Michael's while holding the permalink at sandringham so no live URL breaks.
+  mccanns_sandringham:   { brand: "McCanns Chemist", brandSlug: "mccanns", town: "St Michael's", townSlug: "sandringham", site: "https://www.mccannspharmacy.co.uk" },
   riddings_timperley:    { brand: "Riddings Pharmacy", brandSlug: "riddings", town: "Timperley", townSlug: "timperley", site: "https://www.riddingspharmacy.co.uk" },
   skchemists_bootle:     { brand: "SK Chemists", brandSlug: "sk-chemists", town: "Bootle", townSlug: "bootle", site: "https://www.skchemist.co.uk" },
   tiffenbergs_longmoor:  { brand: "Tiffenbergs Chemist", brandSlug: "tiffenbergs", town: "Aintree", townSlug: "aintree", site: "https://www.tiffenbergschemist.co.uk" },

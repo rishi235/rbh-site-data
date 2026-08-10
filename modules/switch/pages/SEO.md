@@ -45,11 +45,11 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Page Description:** Switch your prescriptions to McCanns Chemist in Aigburth in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
 - **Meta Keywords:** McCanns Chemist, McCanns Chemist Aigburth, switch prescriptions Aigburth, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aigburth, NHS pharmacy Aigburth, chemist Aigburth, L17
 
-## McCanns Chemist — Sandringham
-- **Page Title:** Switch Your Prescriptions to McCanns Chemist, Sandringham
+## McCanns Chemist — St Michael's
+- **Page Title:** Switch Your Prescriptions to McCanns Chemist, St Michael's
 - **Page Permalink:** switch-prescriptions-mccanns-sandringham
-- **Page Description:** Switch your prescriptions to McCanns Chemist in Sandringham in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
-- **Meta Keywords:** McCanns Chemist, McCanns Chemist Sandringham, switch prescriptions Sandringham, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Sandringham, NHS pharmacy Sandringham, chemist Sandringham, L17
+- **Page Description:** Switch your prescriptions to McCanns Chemist in St Michael's in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.
+- **Meta Keywords:** McCanns Chemist, McCanns Chemist St Michael's, switch prescriptions St Michael's, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy St Michael's, NHS pharmacy St Michael's, chemist St Michael's, L17
 
 ## Riddings Pharmacy — Timperley
 - **Page Title:** Switch Your Prescriptions to Riddings Pharmacy, Timperley

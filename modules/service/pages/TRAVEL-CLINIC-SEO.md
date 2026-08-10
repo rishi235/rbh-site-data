@@ -50,11 +50,11 @@ For each page, paste these into Weebly > Pages > (page) > SEO Settings.
 - **Page Description:** Private travel clinic at McCanns Chemist in Aigburth. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
 - **Meta Keywords:** travel clinic Aigburth, travel vaccinations Aigburth, McCanns Chemist, pharmacy Aigburth
 
-## McCanns Chemist — Sandringham
-- **Page Title:** Travel Clinic at McCanns Chemist, Sandringham
+## McCanns Chemist — St Michael's
+- **Page Title:** Travel Clinic at McCanns Chemist, St Michael's
 - **Page Permalink:** travel-clinic-mccanns-sandringham
-- **Page Description:** Private travel clinic at McCanns Chemist in Sandringham. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
-- **Meta Keywords:** travel clinic Sandringham, travel vaccinations Sandringham, McCanns Chemist, pharmacy Sandringham
+- **Page Description:** Private travel clinic at McCanns Chemist in St Michael's. Travel vaccinations and malaria prevention advice, subject to clinical suitability.
+- **Meta Keywords:** travel clinic St Michael's, travel vaccinations St Michael's, McCanns Chemist, pharmacy St Michael's
 
 ## Riddings Pharmacy — Timperley
 - **Page Title:** Travel Clinic at Riddings Pharmacy, Timperley

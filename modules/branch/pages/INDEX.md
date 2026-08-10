@@ -30,8 +30,8 @@ session, so the landing page does not link to pages that return a 404.
 
 ## McCanns Chemist Sandringham
 - **Page slug / URL:** `pharmacy-mccanns-sandringham.html` -> https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
-- **SEO title:** Pharmacy in Sandringham, Merseyside - McCanns Chemist
-- **SEO description:** McCanns Chemist Sandringham, Sandringham L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving Aigburth, St Michael's, Lark Lane and Dingle.
+- **SEO title:** Pharmacy in St Michael's, Merseyside - McCanns Chemist
+- **SEO description:** McCanns Chemist Sandringham, St Michael's L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving Aigburth, St Michael's, Lark Lane and Dingle.
 
 ## Scorah Chemists Bramhall
 - **Page slug / URL:** `pharmacy-scorah-bramhall.html` -> https://www.scorah-chemists.co.uk/pharmacy-scorah-bramhall.html

@@ -244,7 +244,7 @@ so tools/build-audit-status.js picks them up like any other item.
       OUTSTANDING on the live side: the Weebly SEO title field for that one
       page needs repasting from modules/service/pages/SEO.md, or the live
       Google result keeps the truncated title.
-- [ ] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
+- [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
       word the rest of the branch's own data does not treat as local. Set
@@ -254,6 +254,21 @@ so tools/build-audit-status.js picks them up like any other item.
       tools/check-address-region.js, because that checker expects townSlug to
       be the slug of seoTown. Answered by Rishi 2026-08-10; repo-only work,
       so an unattended run can do it. The 12 pages then need a Weebly repaste.
+      Done 2026-08-10. seoTown set to "St Michael's", townSlug held at
+      "sandringham", 13 pages regenerated (the 12 the branch owns plus the
+      sister cross-link line on the Aigburth landing page). No permalink
+      moved, so no live URL breaks. KNOWN_SEO_TOWN in check-address-region.js
+      was rekeyed to "<branch id>::<rule>" and now carries the deliberate
+      townSlug hold instead of the old mismatch, so the stale-key guard still
+      bites. All 17 checkers clean. One real defect found and fixed while
+      doing it: the switch page did not move, because
+      tools/build-switch-pages.js keeps its own hardcoded copy of brand,
+      town, townSlug and site for all 15 branches rather than reading
+      branches.json. Raised as Q19.
+      OUTSTANDING on the live side: the Weebly SEO title, description and
+      keyword fields for the 13 pages need repasting from
+      modules/service/pages/SEO.md, modules/switch/pages/SEO.md and
+      modules/branch/pages/SEO.md, or the live listings keep the old word.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

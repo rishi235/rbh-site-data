@@ -58,12 +58,12 @@ One standalone page per store. Header Type = No Header. Visible in nav (label 'C
 - **Meta Keywords:** contraceptive pill Aigburth, NHS contraception Aigburth, pill without prescription Aigburth, pharmacy Aigburth, L17
 - **HTML URL:** https://raw.githubusercontent.com/rishi235/rbh-site-data/service-module-phase1/modules/service/pages/contraception-mccanns-aigburth.html
 
-## McCanns Chemist — Sandringham
+## McCanns Chemist — St Michael's
 - **Page name:** Contraception
-- **Page Title:** NHS contraception service in Sandringham - McCanns Chemist
+- **Page Title:** NHS contraception service in St Michael's - McCanns Chemist
 - **Page Permalink:** contraception-mccanns-sandringham
-- **Page Description:** Get the contraceptive pill on the NHS at McCanns Chemist in Sandringham. Start or continue the pill with no GP appointment needed. Free and confidential.
-- **Meta Keywords:** contraceptive pill Sandringham, NHS contraception Sandringham, pill without prescription Sandringham, pharmacy Sandringham, L17
+- **Page Description:** Get the contraceptive pill on the NHS at McCanns Chemist in St Michael's. Start or continue the pill with no GP appointment needed. Free and confidential.
+- **Meta Keywords:** contraceptive pill St Michael's, NHS contraception St Michael's, pill without prescription St Michael's, pharmacy St Michael's, L17
 - **HTML URL:** https://raw.githubusercontent.com/rishi235/rbh-site-data/service-module-phase1/modules/service/pages/contraception-mccanns-sandringham.html
 
 ## Riddings Pharmacy — Timperley
