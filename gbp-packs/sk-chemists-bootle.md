@@ -113,12 +113,22 @@ Button: Book -> https://www.skchemist.co.uk/travel-clinic-sk-chemists-bootle.htm
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the Pharmacy First link from branches.json (pfLink). A
-  branch-specific page (pharmacy-first-sk-chemists-bootle.html) follows
-  the same pattern as the other branch pages; swap the link once that page
-  is confirmed live on Weebly.
-- Check the Post B, C and D URLs resolve before posting; the live Weebly
-  copy may lag the repo.
+- Post A uses the pfLink from branches.json. That link was fetched on
+  2026-08-10 and it loads, so Post A can be posted as it stands.
+- STOP before treating that page as the right long-term target. Checked
+  2026-08-10: pharmacy-first-service-bootle.html is live but it is NOT in
+  the branch sitemap, and its heading reads "Pharmacy First Service in
+  Bottle, Liverpool". The town is misspelled. The branch-specific
+  replacement is the better page on every count and is now CONFIRMED LIVE,
+  at https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html,
+  and it IS in the branch sitemap, spells Bootle correctly, carries the
+  correct trading name and lists the same seven conditions and age ranges.
+  So for this branch the swap needs no Weebly paste at all. The swap
+  itself belongs to worklist item 5.3, which repoints all 11 Post A links
+  together, so it is deliberately not made here. Do not hand-edit it in.
+  If the misspelled page is kept live after the swap, retire or signpost
+  it so the branch is not publishing two pages for one service.
+- Posts B, C and D were fetched on 2026-08-10 and all three resolve.
 - Post buttons: if GBP only offers "Learn more", use it with the same
   links.
 - Check category names against what GBP's picker actually offers on the

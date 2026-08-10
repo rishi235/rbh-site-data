@@ -258,6 +258,37 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Done 2026-08-10.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
+      Quality pass 2026-08-10: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it
+      is wrong. Address 516 Stanley Road, Bootle L20 5DW, phone
+      0151 944 1013, website and Google review link all match, and the live
+      site agrees on every one of them including the NHS email. Hours are a
+      single Monday to Friday session 9:00am to 6:00pm with Saturday and
+      Sunday closed, so the split-hours rule the 4.10 pass added does not
+      apply here; catchment reads Bootle, Sefton and Liverpool in all three
+      places, leading with its own seoTown; categories and services match
+      the five-widget set exactly; the description is 735 characters,
+      exactly what its heading claims, against a 750 limit, and the posts
+      are 466, 305, 530 and 380 against a 1,500 limit; the shot list runs
+      to the full 10; Post A's seven conditions and the UTI 16 to 64 range
+      match the generated Pharmacy First page; Post C names no medicine and
+      makes no efficacy claim; the file is pure ASCII; hasApp is false and
+      nothing in the pack mentions an app. All 18 checkers pass.
+      The defect is outside the pack and it is the clearest case yet of the
+      thing item 5.3 exists to fix. All four post links were fetched and all
+      four load, but Post A's target, pharmacy-first-service-bootle.html, is
+      absent from the branch sitemap and its heading reads "Pharmacy First
+      Service in Bottle, Liverpool", misspelling the town the whole page is
+      meant to rank for. The generated replacement,
+      pharmacy-first-sk-chemists-bootle.html, was fetched the same pass and
+      is confirmed live, is in the sitemap, spells Bootle correctly, carries
+      the correct trading name and lists the same seven conditions and age
+      ranges. So this branch's half of item 5.3 is a one-line repo change
+      with no Weebly paste attached, the same condition as Riddings. Hard
+      stop added to the paster notes recording both facts, with the
+      canonical link left untouched because the repoint belongs to 5.3.
+      Raised as Q34, which asks whether 5.3 should be split so the
+      no-paste repoints can run unattended. Done 2026-08-10.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
@@ -477,6 +508,20 @@ so tools/build-audit-status.js picks them up like any other item.
       dead, one shared and live, one already replaced, one duplicated with a
       stale replacement. Any split of this item needs to check the target
       page reads correctly, not only that it resolves.
+      A fifth state 2026-08-10, from the 4.11 quality pass, and it is the
+      one that argues hardest for pulling the item forward: at SK Chemists
+      Bootle the current Post A target loads but is absent from the branch
+      sitemap and misspells the town in its own heading, reading "Pharmacy
+      First Service in Bottle, Liverpool", while the generated replacement
+      pharmacy-first-sk-chemists-bootle.html is confirmed live, is in the
+      sitemap, spells Bootle correctly and carries the correct trading name.
+      So the repoint here is free in the Riddings sense, needs no paste, and
+      unlike Riddings it also stops the branch pointing Google at a page
+      that misspells the word it is trying to rank for. Five of the eleven
+      are now known and still no two are alike. Two of the five, Riddings
+      and SK, need no Weebly paste at all, which is the condition Rishi's
+      Q8 answer tied the work to. Whether to split the item on that line is
+      asked as Q34.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

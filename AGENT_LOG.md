@@ -2,6 +2,126 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 23:16 BST - forty-fifth run [commit PENDING] - Quality pass on item 4.11, the SK Chemists Bootle GBP pack, last verified on 2026-08-05 and the oldest verification left in the estate. The pack is clean on every fact and every rule, and all four post buttons load, so for the third run running there is no dead link. The defect is which page Post A points at: the target loads but is missing from the branch sitemap and its own heading misspells the town as "Bottle", while the generated replacement is live, indexed and correctly spelled. Hard stop added to the paster notes; the repoint itself belongs to item 5.3 and is asked as Q34
+
+NO AUTONOMOUS DECISION WAS TAKEN, AND THE TIMING IS THE REASON. The standing
+window ran to 23:14 tonight. This run started at 23:05, so it began inside the
+window, but it reached the decision at 23:13, one minute from expiry and with
+Rishi due back. Taking a call on the last minute of a clock that exists because
+he was away is the wrong reading of why the window was opened, so Q34 was left
+open in the normal way. Nothing is lost by waiting: Post A loads at all eleven
+branches today, so no button is broken. What is at stake is which page Google
+is pointed at, and that keeps until morning.
+
+WHY THIS ITEM, AND A CORRECTION TO THE LAST FOUR RUNS. The four unchecked
+worklist items are all still [BLOCKED] and each was re-read to confirm it: 5.3
+and 5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one,
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The forty-first run
+said the items still standing on their original 2026-08-05 verification were
+4.12 to 4.15, and runs forty-one to forty-four took them in order. That list was
+short. Reading every "Quality pass on item" heading in this log in order shows
+seven more items whose most recent verification is also 2026-08-05, and four of
+them are OLDER in the file than the 4.12 to 4.15 pass that the last four runs
+worked from: 4.11 (oldest of all), 2.2, 2.3, 2.1, 4.7, 4.2 and 1.1. So the
+backlog of unverified items was not four items long, it is eight, and 4.11 is
+the true oldest. Taken this run. The remaining order by age is 2.2, 2.3, 2.1,
+4.7, 4.2, then 1.1.
+
+THE PACK, WHICH IS CLEAN. Read against branches.json and TEMPLATE.md. Address
+516 Stanley Road, Bootle L20 5DW, phone 0151 944 1013, website and Google review
+link all match, and the live site agrees on every one of them, including the NHS
+mailbox pharmacy.FH575@nhs.net. Hours are a single Monday to Friday session,
+9:00am to 6:00pm with Saturday and Sunday closed, so the split-hours rule the
+4.10 pass made compulsory does not apply here and correctly does not appear. The
+description is 735 characters, exactly what its own heading claims, against a
+750 limit, and the four posts are 466, 305, 530 and 380 against 1,500. The shot
+list runs to the full 10 required by Build Pack 4.1. Catchment reads Bootle,
+Sefton and Liverpool in all three places, leading with its own seoTown.
+Categories and services match the five-widget set exactly. Post A's seven
+conditions and the UTI 16 to 64 range match the generated Pharmacy First page.
+Post C names no medicine and makes no efficacy claim. The file is pure ASCII, so
+no em dash, no en dash and no emoji. hasApp is false and nothing in the pack
+mentions an app. The Bootle deduplication note against the Smartts pack is
+intact. All 18 checkers pass, with the pack raising no failure and no warning of
+its own.
+
+THE ACTUAL DEFECT, AND IT IS ABOUT WHICH PAGE GOOGLE IS SENT TO. All four post
+links were fetched live on 2026-08-10 and all four load. Post A points at
+pharmacy-first-service-bootle.html, which is the pfLink in branches.json, so the
+pack is right to mirror it. That page is live, its address, phone and hours are
+correct, and its seven conditions are right. Two things are wrong with it and
+neither is visible to any checker here. It is absent from the branch sitemap,
+which was read this pass and lists 30 URLs. And its heading reads "Pharmacy
+First Service in Bottle, Liverpool". The town is misspelled, on the page whose
+entire purpose is to rank for that town. The generated replacement,
+pharmacy-first-sk-chemists-bootle.html, was fetched in the same pass: it is
+live, it IS in the sitemap, it spells Bootle correctly, it carries the correct
+trading name, and it lists the same seven conditions with the same NHS age
+ranges. So the better page is already published and indexed, and the pack is
+still pointing at the worse one.
+
+WHAT WAS CHANGED, AND WHAT DELIBERATELY WAS NOT. The paster notes now carry a
+hard stop recording both facts, in the shape the 4.13 and 4.14 passes used, and
+the confirmation that Posts B, C and D were all fetched and all resolve. The
+canonical link was NOT changed. Repointing Post A is item 5.3, which moves all
+eleven together, and Rishi's Q8 answer tied that work to a Weebly paste. What
+this pass adds is that at SK, as at Riddings, there is no paste to tie it to.
+That is now five of the eleven read live and no two alike: one dead, one shared
+and live, one already replaced, one duplicated with a stale replacement, and one
+replaced but still pointed past. Two of the five need no paste at all. Whether
+5.3 should be split on that line is Q34, recommending the split with the repoint
+allowed only where the replacement has been fetched and confirmed live, in the
+sitemap, correctly named and correctly spelled.
+
+THREE ESTATE-WIDE CONFIRMATIONS, NONE OF THEM NEW. First, the switch banner
+close button renders as mojibake on skchemist.co.uk, which is a fourth site
+confirming the fault the forty-fourth run fixed at source last night. The repo
+is right and the paste is old. Second, the live switch page still reads "it
+usually is not" followed by an em dash, the pre-Q7 wording that item 5.1 fixed
+at source on 2026-08-09, and here it is not merely an em dash but a mangled one,
+so a patient reads three stray characters mid-sentence. Third, the SK homepage
+carries the Q22 line, "Weight Loss Clinic: Discover innovative solutions that
+deliver results. Tried the rest? Now try the best." SK has no old weight loss
+page, which is the point Q22 already makes: the line is a shared template, not a
+leftover. The same homepage also still offers a "free assessment" for travel
+vaccinations, the wording swept out of the GBP packs on 2026-08-05 but never off
+the websites. All four reach the public only through Weebly and none can be
+touched from here.
+
+ONE LATENT GAP RECORDED RATHER THAN CLOSED. check-gbp-packs.js checks every
+full URL in a pack against the pages this repo generates, and warns where a
+target is live-only. It does not read a BARE filename written in prose, and the
+paster notes are full of them. A pass writing the wrong slug into a note would
+send the paster looking for a page that does not exist, and nothing would fail.
+Scanned all 15 packs this run: 17 bare filenames, 14 resolve to generated pages
+and 3 do not, and all 3 are correct as written because they name live-only pages
+as evidence in a hard stop (cherry-lane-walton naming the old weight loss page,
+gordon-short-crosby naming the old Pharmacy First page, riddings-timperley
+naming the interim switch URL). So the rule cannot simply fail on an unknown
+filename; it needs the evidence-versus-claim distinction the hours rule already
+has for quoted and historical times. That is a design job, not a one-line
+addition, and it was left for a run with the room to negative-test it properly
+rather than half-built at the end of this one. No pack breaches it today.
+
+FILES CHANGED. gbp-packs/sk-chemists-bootle.md (Post A hard stop and the
+B, C, D confirmation), AGENT_WORKLIST.md (4.11 quality pass recorded in place,
+fifth state added to item 5.3), QUESTIONS.json (Q34), AGENT_LOG.md.
+Questions: one new, Q34, open. Nine were already open and the portal read found
+no answer for any of them.
+
+ANSWER PICKUP. The portal read succeeded. Eleven entries are posted there,
+covering Q2, Q3, Q4, Q5, Q13, Q14, Q15 and Q16, and every one is already
+recorded against its question. None of the nine open questions has an answer, so
+nothing was unblocked.
+
+NEXT RUN. The autonomous window has now expired, so a run after this one raises
+questions in the normal way and takes no decisions. Every worklist item is
+ticked or blocked, so the next run is another quality pass, and the oldest
+unverified item is 2.2, the Fishlocks shared-domain landing pages.
+
+---
+
 ## 2026-08-10 22:43 BST - forty-fourth run [commit 63f199a] - Quality pass on item 4.15, the Tiffenbergs Chemist Aintree GBP pack, the last item still standing on its original 2026-08-05 verification. The pack is clean on every fact and every rule, and all four post buttons load, so for the second run running there is no dead link. The defect is somewhere no checker has ever looked and it is on every page of every branch site: the switch banner writes its close button as a literal multiplication sign, Weebly's site-wide Header Code field mangles non-ASCII, and the button has been rendering as mojibake. Fixed at source, all 15 banners regenerated pure ASCII, banners folder brought under check-em-dashes.js with an ASCII-only rule
 
 AUTONOMOUS DECISION. The standing window runs to 23:14 tonight and this run

@@ -509,5 +509,21 @@
     "status": "answered",
     "answer": "Option 1, taken as an autonomous decision during the standing window ending 2026-08-10 23:14, not a decision by Rishi. It is a rendering defect with one correct fix rather than a matter of preference, it commits no money, carries no legal risk and makes no regulatory claim, so it sits outside the window's carve-out. Implemented in tools/build-switch-pages.js, all 15 banners regenerated pure ASCII, no page moved, and check-em-dashes.js given an ASCII-only banner rule negative-tested four ways.",
     "note": "The repo side is done but the live side is not: every site is still running the old pasted banner, so the mojibake stays on screen until the banner is repasted into Header Code at all 15 sites. The instruction is now at the top of modules/switch/pages/INDEX.md. Worth doing in the same session as the item 5.1 switch page repaste, since both are Weebly paste work on the same 15 sites."
+  },
+  {
+    "id": "Q34",
+    "date": "2026-08-10",
+    "item": "5.3 (raised on the quality pass of 4.11)",
+    "question": "Item 5.3 repoints the eleven Post A Pharmacy First links in the GBP packs, and it is blocked because your Q8 answer deliberately tied the repo change to a Weebly paste an unattended run cannot do. Five of the eleven branches have now been read live on separate passes and no two are in the same state: Coleman and Leighs points at a page that 404s, Scorah's page is shared and live, Gordon Short has both pages live at once with the replacement carrying a pre-1.1 trading name so it needs a repaste before its repoint, and Riddings and SK Chemists both already have their branch-specific replacement live and in the branch sitemap. Those last two need no paste at all, which is the condition your answer attached the work to, so for them the repoint is a one-line change to a link in a markdown file. SK is the strongest case: the page Post A points at today is missing from the branch sitemap and its own heading misspells the town as 'Bottle', while the replacement is live, indexed, correctly spelled and carries the correct trading name. Held as one block of eleven, the two free ones wait on the nine that are not. Should the item be split?",
+    "options": [
+      "Split 5.3 into the branches that need a paste and the branches that do not, and let an unattended run repoint only where the replacement page has been fetched and confirmed live, in the branch sitemap, correctly named and correctly spelled. Riddings and SK move now at no cost and with no paste; the other nine stay blocked and unchanged. Each repoint is one link in one markdown file and is reversible in a line",
+      "Split it, but repoint SK only. SK is the one branch where leaving Post A as it is actively points Google at a page misspelling the town, so it is the only case where waiting has a cost rather than just a delay. Smallest possible move, and it leaves the split rule untested on a second branch",
+      "Leave 5.3 whole and do all eleven in one supervised session, as your Q8 answer intended. One sitting, one consistent state, and every target page gets read by a person before it is used, at the cost of the two free ones continuing to wait on the paste queue, which has been the bottleneck for six days",
+      "Leave 5.3 whole and, in the meantime, correct the misspelled live SK page in Weebly so Post A stops pointing at a page that reads Bottle. Fixes the one live harm without touching the repo or the item, but it is a Weebly hand edit and it keeps a page alive that the repoint would retire anyway"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised on the 4.11 quality pass rather than decided. The standing autonomous window ran to 23:14 tonight and this run reached the decision at 23:13, a minute from expiry and with you due back, so it was left open on purpose rather than taken on the last minute of the clock. Nothing here is urgent: Post A at every one of the eleven branches loads today, so no button is broken. What is at stake is which page Google is pointed at."
   }
 ]
