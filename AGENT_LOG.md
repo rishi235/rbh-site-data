@@ -2,6 +2,115 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 22:05 BST - forty-second run [commit PENDING] - Quality pass on item 4.13, the Riddings Pharmacy Timperley GBP pack, drafted 2026-08-04 and last verified the following day. The pack is clean, fact by fact and rule by rule, and the checker agrees. The faults are all on the far side of it, and the worst is Post B: the switch button returns a 404 today, because the switch block was pasted to this branch at the old permalink. A patient who has decided to move their prescriptions to us lands on an error page at the exact moment they decided. Hard stop added, canonical URL deliberately left alone. The same live read found the opposite of the 4.12 result on Pharmacy First: this branch's replacement page is already live and in its own sitemap, so one of the eleven links item 5.3 is holding needs no paste at all
+
+AUTONOMOUS DECISION. The standing window is open until 23:14 tonight and this
+run is inside it. Q31 was implemented rather than left open and is recorded as
+answered, marked clearly as an autonomous decision rather than Rishi's. It
+passes every test that matters: the text added is paster guidance in an
+internal checklist, not public copy, it commits no money, it carries no legal
+risk and it makes no regulatory claim. The wording follows the Coleman and
+Leighs Post A stop written on the 4.12 pass rather than being composed fresh.
+
+WHY THIS ITEM. Every worklist item is ticked or [BLOCKED], so the rule sends
+this run to a quality pass on the least recently verified completed item. The
+forty-first run took 4.12 and named 4.13, 4.14 and 4.15 as the remaining items
+still standing on their original 2026-08-05 verification. 4.13 is first.
+
+WHAT THE PACK GOT RIGHT, WHICH IS ALL OF IT. Read against branches.json and
+TEMPLATE.md. Address 38 Riddings Road, Timperley, Altrincham WA15 6BP, phone
+0161 973 2951, website and Google review link all match, and the live site
+agrees on every one of them. The hours line reads Monday to Friday 9:00am to
+6:00pm with Saturday and Sunday closed, matching the NHS profile confirmed
+2026-06-24. This branch holds a single session a day, so the split-hours
+guidance the 4.10 pass made compulsory does not apply and its absence is
+correct rather than an omission. The description is 657 characters, exactly
+what its own heading claims, against a 750 limit. The four posts are 449, 319,
+521 and 425 characters against a 1,500 limit. The catchment reads Timperley,
+Altrincham and Trafford in all three places, leading with its own seoTown.
+Categories and services match the five-widget set exactly, with nothing
+claimed the branch cannot deliver. Post A's seven conditions and age ranges
+match the generated Pharmacy First page, earache at 1 to 17 and UTI at 16 to
+64 included. Post C names no medicine and makes no efficacy claim. No em dash,
+no en dash, no emoji, no non-ASCII character anywhere in the file. hasApp is
+false and nothing in the pack mentions an app. check-gbp-packs.js passes with
+no failures.
+
+THE 404, AND WHY IT IS NOT THE SAME FAULT AS COLEMAN'S. Post B pointed at
+switch-prescriptions-riddings-timperley.html, which was fetched during this
+run and returns Weebly's 404 page. The branch's own sitemap was read in the
+same pass and shows the live switch page sitting at switch-prescriptions.html,
+the old permalink. So unlike the Coleman and Leighs case, where a page had
+simply gone, here the page exists and the pack is pointing at the address it
+has not been moved to yet. All 15 packs were checked in one sweep and every
+one names the new-permalink form, which is exactly what
+modules/switch/pages/INDEX.md declares for each branch. The pack is right and
+the paste is behind, so the canonical URL was deliberately left untouched:
+changing it would break the one pattern all 15 packs hold and would need
+undoing the day the paste happens. The hard stop tells the paster to paste the
+switch block to the new permalink first and post the button unchanged, and
+names switch-prescriptions.html only as a fallback if they must post today.
+
+THE LIVE SWITCH PAGE IS OLDER THAN IT LOOKS. Its H1 reads "Switch your
+prescriptions to Riddings Pharmacy in under 30 seconds", with no town words,
+against the repo copy item 3.10 generated, which carries "in Timperley". Its
+hero sub-paragraph is missing and its bullet reads "Local pharmacy support"
+where the repo reads "Local Timperley pharmacy support". So the static block
+is a pre-Phase-3 paste. The JS-driven copy on the same page is current,
+including the post-Q7 sentence "Most people put this off because they assume
+it will be a hassle. Usually it is not.", because that text comes from
+switch.js off the CDN rather than from the pasted block. One page, two ages.
+
+PHARMACY FIRST, AND THE CASE FOR SPLITTING ITEM 5.3. Post A's link resolves
+and the page is correct, so Post A can be posted as it stands. More usefully,
+the branch-specific replacement page is confirmed live at
+pharmacy-first-riddings-timperley.html and sits in the branch's own sitemap.
+Q8 assumed the eleven old pages were of unknown state; the 4.12 pass found one
+dead; this one is already superseded. Three of the eleven are now known and no
+two are in the same state. Rishi's answer to Q8 tied the repo change to a
+Weebly paste, which is why 5.3 is blocked, but for this branch there is no
+paste to tie it to. The link was still not repointed here, because repointing
+Post A links is precisely what 5.3 owns and doing one of them inside a 4.13
+pass would be doing blocked work by the back door. Recorded against 5.3
+instead, with the observation that the item is being held as a block of eleven
+when it is really eleven separate states.
+
+THE APP BLOCK. The live switch page carries a "Download our app" section with
+App Store and Google Play buttons, although branches.json records hasApp false
+for Riddings and INDEX.md marks only Smartts and the two Fishlocks branches as
+app members. modules/switch/switch.js was read and contains no app code at
+all, so the block is a Weebly-native element on the old page rather than
+anything this repo emits. It therefore does not follow the paste across, and
+the pack now tells the paster not to copy it over. No repo defect here, but a
+live one that would have been inherited by hand if nobody had said so.
+
+ONE THING CHECKED AND FOUND NOT TO BE A DEFECT. Every generated page carries
+one or two em dashes. They are all inside the HTML build comments at the head
+of each paste block, which check-em-dashes.js reports and deliberately does
+not fail, because no visitor sees them. The checker was read to confirm the
+exemption is intentional rather than a gap, and it is: it also fails entity
+forms and paste-sheet values, and the weight loss generator's &ndash; problem
+was already fixed at source on the 3.9 pass. The en dash a reader sees on the
+live weight loss page is therefore a stale paste, not a repo fault.
+
+WHAT WAS CHANGED. gbp-packs/riddings-timperley.md only. A live-check note
+dated today at the head. A hard stop under Post B naming the 404, the interim
+URL and the preferred order of work. The Post A note rewritten from a
+conditional swap into a record that the condition is met and that the swap
+belongs to 5.3. Notes that Posts C and D were fetched and resolve, that the
+app block must not be copied across, and that the live contact block reads
+Cheshire where branches.json records Greater Manchester. The pack's own copy
+needed no correction and none was made. AGENT_WORKLIST.md 4.13 and 5.3
+annotated. QUESTIONS.json gains Q31, answered under the window.
+
+ANSWER PICKUP. The portal was read successfully. The newest entries are the
+Q16 answer of 15:16 and the Q13, Q14 and Q15 answers of this morning, all
+already recorded. Nothing new for the nine open questions.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so any run after
+that must raise questions rather than decide. Least recently verified
+completed items are now 4.14 and 4.15, in that order.
+
 ## 2026-08-10 21:05 BST - forty-first run [commit bc5a470] - Quality pass on item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack, drafted 2026-08-04 and never verified since. The pack is clean, fact by fact and rule by rule, and the checker agrees. The faults are all on the far side of it. Post A's button points at a URL that returns a 404 today, so the one post about Pharmacy First would send a patient looking to be seen to an error page. The three pages Posts B, C and D point at do resolve, but they are a paste taken before two corrections this repo already made: every one of them still trades as "Coleman & Leigh Pharmacy" in its title and body, and the switch page still carries the em dash item 5.1 removed at source. Paster notes rewritten to stop Post A and to call for the repaste. No new question: every finding lands on a decision Rishi has already made
 
 NO NEW QUESTION, AND THAT IS THE POINT. Nothing found here needs deciding.

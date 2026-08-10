@@ -267,6 +267,35 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Paster notes now stop Post A and call for the repaste. Done
       2026-08-10.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
+      Quality pass 2026-08-10: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it
+      is wrong. Address 38 Riddings Road WA15 6BP, phone 0161 973 2951,
+      website and review link all match; hours are a single Monday to Friday
+      session 9:00am to 6:00pm with Saturday and Sunday closed, so the
+      split-hours rule the 4.10 pass added does not apply here; catchment
+      reads Timperley, Altrincham and Trafford in all three places, leading
+      with its own seoTown; categories and services match the five-widget set
+      exactly; the description is 657 characters, exactly what its heading
+      claims, and the posts are 449, 319, 521 and 425 against a 1,500 limit;
+      Post A's seven conditions and age ranges match the generated Pharmacy
+      First page; Post C names no medicine and makes no efficacy claim; no
+      em dash, no en dash, no emoji and no non-ASCII character anywhere in
+      the file; hasApp is false and nothing in the pack mentions an app.
+      The defects are all on the far side of the pack and were found by
+      reading the live site and its sitemap. Post B returns a 404: the
+      switch block was pasted to this branch at the old permalink, so the
+      working page is switch-prescriptions.html while the pack, correctly
+      and in line with all 15 packs and modules/switch/pages/INDEX.md, names
+      switch-prescriptions-riddings-timperley.html. Hard stop added to Post B
+      naming the 404 and the interim URL, with the canonical link left
+      untouched so nothing needs undoing after the paste. Logged as Q31 and
+      taken as an autonomous decision under the standing window. Two further
+      live-only findings recorded rather than decided: the branch-specific
+      Pharmacy First page is CONFIRMED LIVE and in the sitemap, so item 5.3
+      can repoint this one of the eleven Post A links with no paste at all,
+      and the live switch page carries a Download our app block although
+      branches.json has hasApp false, which is a Weebly-native element on
+      the old page and does not follow the paste across. Done 2026-08-10.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
@@ -346,6 +375,15 @@ so tools/build-audit-status.js picks them up like any other item.
       was fetched in the same pass and is live and correct. So the eleven
       are not one problem in one state, and at least one branch cannot post
       Post A at all until this item runs. Worth pulling forward.
+      Further evidence 2026-08-10, from the 4.13 quality pass, and it cuts
+      the other way: Riddings Timperley's replacement page is already live
+      at pharmacy-first-riddings-timperley.html and sits in the branch's own
+      sitemap. So this branch's half of the item is a one-line repo change
+      with no Weebly paste attached at all, which is the condition Rishi's
+      answer tied the work to. Three of the eleven are now known: one dead,
+      one shared and live, one already replaced. The item is being held as a
+      block of eleven when it is really eleven separate states, and the ones
+      needing no paste could be done unattended if the item were split.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

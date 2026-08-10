@@ -4,6 +4,12 @@ Branch id: riddings_timperley (branches.json). Drafted 2026-08-04.
 Facts checked against branches.json (address, phone, hours confirmed by NHS
 2026-06-24). Ready for Rishi or Dane to paste into GBP.
 
+LIVE CHECK 2026-08-10. All four post links were fetched on the live site.
+Post A, C and D resolve and are correct. POST B RETURNS A 404 AND MUST NOT
+BE POSTED AS IT STANDS - see the hard stop on Post B below. The branch's
+own sitemap was read in the same pass and confirms the branch-specific
+Pharmacy First page is already live, which the Post A note now records.
+
 Profile basics (for checking, not pasting):
 - Name on GBP: Riddings Pharmacy
 - Address: 38 Riddings Road, Timperley, Altrincham WA15 6BP
@@ -87,6 +93,23 @@ can actually speak to, in person or on 0161 973 2951. Serving Timperley,
 Altrincham and Trafford.
 Button: Learn more -> https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
 
+STOP - DO NOT POST THIS BUTTON AS IT STANDS (checked live 2026-08-10).
+That URL returns a 404 today. The switch block has been pasted to this
+branch at the old permalink instead, and the live page is
+https://www.riddingspharmacy.co.uk/switch-prescriptions.html
+The URL above is correct and is deliberately left as it is: it matches the
+permalink modules/switch/pages/INDEX.md declares for this branch, and all
+15 packs use the same pattern. It is the live site that is behind.
+Preferred: paste the switch block from
+modules/switch/pages/switch-prescriptions-riddings-timperley.html to the
+new permalink first, then post this button unchanged. That paste is queued
+anyway, because the live page is a pre-Phase-3 paste whose H1 still reads
+"Switch your prescriptions to Riddings Pharmacy in under 30 seconds" with
+no town words, which item 3.10 put into the repo copy.
+Only if you are posting today and cannot paste first: use
+switch-prescriptions.html for the button, and change it back when the new
+page goes live. Never post the 404.
+
 ### Post C - Weight loss clinic
 Thinking about losing weight with proper support? The pharmacist-led weight
 loss clinic at Riddings Pharmacy in Timperley starts with a private
@@ -110,12 +133,26 @@ Button: Book -> https://www.riddingspharmacy.co.uk/travel-clinic-riddings-timper
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json. A branch-specific page
-  (pharmacy-first-riddings-timperley.html) exists in the repo; swap the
-  link once that page is confirmed live on Weebly.
-- Check the Post B, C and D URLs resolve on the live site before posting.
+- Post A uses the pfLink from branches.json. That link was fetched on
+  2026-08-10 and is live, so Post A can be posted as it stands. The
+  branch-specific replacement page is now CONFIRMED LIVE as well, at
+  https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
+  and it is in the branch's sitemap, so the swap this note used to make
+  conditional needs no Weebly paste at all for this branch. The swap
+  itself belongs to worklist item 5.3, which repoints all 11 Post A links
+  together, so it is deliberately not made here. Do not hand-edit it in.
+- Post B: see the hard stop under the post itself. Do not post that URL.
+- Posts C and D were fetched on 2026-08-10 and both resolve.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker actually offers on the
   day; pick the closest match.
 - No app mention anywhere in this pack: branches.json has hasApp false for
-  this branch.
+  this branch. Note for whoever does the switch page paste: the live
+  switch-prescriptions.html carries a "Download our app" block with App
+  Store and Google Play buttons. It is not ours to inherit. It is a
+  Weebly-native element on that old page, not part of the block this repo
+  generates and not produced by modules/switch/switch.js, so pasting to
+  the new permalink leaves it behind. Do not copy it across.
+- The live contact block on that page reads "Timperley, Cheshire" where
+  branches.json records addressRegion "Greater Manchester". Live-only, and
+  a hand edit in Weebly, but worth correcting in the same session.
