@@ -2,6 +2,10 @@
 
 Each page below is in this folder. Paste the file's contents into a Weebly Embed Code element on the matching URL, and set the Weebly page SEO title + description.
 
+## Banners: repaste needed at all 15 sites
+
+The switch banner in `banners/` goes into Weebly > Settings > SEO > Header Code, site-wide, one file per site. Every site is currently running a banner pasted before 2026-08-10, and the close button on it renders as mojibake rather than a cross on every page carrying the banner. Confirmed live at Tiffenbergs Aintree, Riddings Timperley and Smartts Bootle on 2026-08-10; it is the same pasted code everywhere, so treat all 15 as affected until each is redone. The file in this repo is fixed and is now pure ASCII. Repaste the whole banner file for each site, replacing what is in Header Code rather than editing round it.
+
 ## Smartts Chemist — Bootle  *(app member)*
 - **Page slug / URL:** `switch-prescriptions-smartts-bootle.html` → https://www.smarttschemist.co.uk/switch-prescriptions-smartts-bootle.html
 - **SEO title:** Switch Your Prescriptions to Smartts Chemist, Bootle

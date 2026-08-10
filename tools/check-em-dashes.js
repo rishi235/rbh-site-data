@@ -22,6 +22,23 @@
       and travel clinic generators name as their approved-copy source
     - a file listed in EXTRA_HTML that no longer exists, so the list cannot
       quietly stop covering anything
+    - ANY non-ASCII character at all in a switch banner paste file under
+      modules/switch/pages/banners/, which is a stricter rule than the rest of
+      this checker applies and is explained below
+    - an empty or missing banners folder, so the stricter rule cannot quietly
+      stop covering anything either
+
+  Why the banners get an ASCII-only rule rather than a dash rule. A banner is
+  not pasted into a page. It goes into Weebly > Settings > SEO > Header Code,
+  site-wide, and whatever encoding that field applies is not the one the page
+  body gets. Found on the item 4.15 quality pass, 2026-08-10: the close button
+  was written as a literal multiplication sign and every branch site rendered
+  it as mojibake, on every page carrying the banner, while an en dash in the
+  page footer of the very same page rendered correctly. So the fault was not
+  the character being non-ASCII in principle, it was the character being
+  non-ASCII in THAT field. There is no way to test a paste field's encoding
+  from here, so the rule is simply that a banner must be pure ASCII and any
+  symbol must be written as an HTML entity, which innerHTML resolves anyway.
 
   Why the entity rule exists. The original checker matched literal characters
   only, and passed clean while all 15 generated weight loss pages carried two
@@ -106,6 +123,11 @@ const EXTRA_HTML = [
 // Lines in the paste sheets whose value is typed straight into Weebly.
 const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords):\*\*/;
 
+// The switch banner paste files. Pasted into Weebly's site-wide Header Code
+// field, which mangles non-ASCII characters, so these are held to ASCII only.
+const BANNER_DIR = path.join(REPO, "modules", "switch", "pages", "banners");
+const NON_ASCII_RE = /[^\x00-\x7F]/g;
+
 const failures = [];
 const notes = { commentDashes: 0, headingDashes: 0, filesScanned: 0 };
 
@@ -162,6 +184,52 @@ function checkPasteSheet(file){
   });
 }
 
+// A banner fails on ANY non-ASCII character, in a comment or not. Unlike a
+// page, nothing here is invisible to the paste: the whole file is typed into
+// one field, and a character that field cannot carry is a rendering fault
+// wherever in the file it sits.
+function checkBannerFile(file){
+  const raw = fs.readFileSync(file, "utf8");
+  notes.filesScanned++;
+  raw.split(/\r?\n/).forEach(function(line, i){
+    NON_ASCII_RE.lastIndex = 0;
+    const found = line.match(NON_ASCII_RE);
+    if (!found) return;
+    const codes = found.map(function(ch){
+      return "U+" + ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0");
+    }).join(" ");
+    failures.push({
+      file: rel(file),
+      line: i + 1,
+      kind: "non-ASCII in banner paste (" + codes + ")",
+      text: line.trim().slice(0, 140)
+    });
+  });
+}
+
+let bannerCount = 0;
+if (!fs.existsSync(BANNER_DIR)) {
+  failures.push({
+    file: rel(BANNER_DIR),
+    line: 0,
+    kind: "missing folder",
+    text: "the switch banner folder is gone, so the ASCII-only banner rule covers nothing."
+  });
+} else {
+  fs.readdirSync(BANNER_DIR).filter(function(f){ return f.endsWith(".txt"); }).forEach(function(f){
+    checkBannerFile(path.join(BANNER_DIR, f));
+    bannerCount++;
+  });
+  if (bannerCount === 0) {
+    failures.push({
+      file: rel(BANNER_DIR),
+      line: 0,
+      kind: "empty folder",
+      text: "no banner files found, so the ASCII-only banner rule covers nothing. Run tools/build-switch-pages.js."
+    });
+  }
+}
+
 let pageCount = 0;
 PAGE_DIRS.forEach(function(dir){
   if (!fs.existsSync(dir)) return;
@@ -192,14 +260,15 @@ EXTRA_HTML.forEach(function(file){
 });
 
 console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
-  + " non-generated copy file(s), plus paste sheets ("
+  + " non-generated copy file(s), " + bannerCount
+  + " switch banner(s) held to ASCII only, plus paste sheets ("
   + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside HTML build comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
 
 if (failures.length) {
   console.log("");
-  console.log("FAILURES (" + failures.length + ") - dashes in copy that reaches the public:");
+  console.log("FAILURES (" + failures.length + ") - dashes, or banner characters, in copy that reaches the public:");
   failures.forEach(function(f){
     console.log("  FAIL  " + f.file + " line " + f.line + " (" + f.kind + "): " + f.text);
   });

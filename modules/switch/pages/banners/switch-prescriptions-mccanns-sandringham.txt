@@ -16,7 +16,7 @@
 </style>
 <script>
 (function(){
-  /* ===== CONFIG — change these two lines per site ===== */
+  /* ===== CONFIG - change these two lines per site ===== */
   var SWITCH_URL = "/switch-prescriptions-mccanns-sandringham.html";
   var BRAND = "McCanns Chemist";
   /* =================================================== */
@@ -36,7 +36,7 @@
     if (store.getItem(DISMISS_KEY)==="1"){ document.body.classList.remove("flu-banner-active"); document.documentElement.style.setProperty("--flu-h","0px"); return; }
     var b=document.createElement("div");
     b.className="flu-header-banner"; b.id="fluBanner";
-    b.innerHTML="<span>Change to "+BRAND+" in 30 seconds.</span> <a class='flu-header-btn' href='"+SWITCH_URL+"'>Switch now</a> <button class='flu-header-close' aria-label='Close'>×</button>";
+    b.innerHTML="<span>Change to "+BRAND+" in 30 seconds.</span> <a class='flu-header-btn' href='"+SWITCH_URL+"'>Switch now</a> <button class='flu-header-close' aria-label='Close'>&times;</button>";
     document.body.prepend(b);
     b.style.display="block";
     document.body.classList.add("flu-banner-active");

@@ -334,6 +334,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       never reached this branch's live pages. Done 2026-08-10.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
+      Quality pass 2026-08-10: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it is
+      wrong. Address 388 Longmoor Lane, Liverpool L9 9DB, phone 0151 525 3462,
+      website and review link all match, and the live site agrees on every one
+      of them. The hours line carries both weekday sessions, 9:00am to 1:00pm
+      and 2:00pm to 6:00pm with Saturday and Sunday closed, which is what the
+      split-hours rule the 4.10 pass added requires, and the lunch closure is
+      carried through to the photo shot list. Catchment reads Aintree,
+      Fazakerley and Liverpool in all three places, leading with its own
+      seoTown; categories and services match the five-widget set exactly; the
+      description is 650 characters, exactly what its heading claims, and the
+      posts are 449, 329, 521 and 447 against a 1,500 limit; Post A's seven
+      conditions and the UTI 16 to 64 range match the generated Pharmacy First
+      page; Post C names no medicine and makes no efficacy claim; the file is
+      pure ASCII; hasApp is false and nothing mentions an app. All four post
+      links were fetched and all four load, the second pack running in a row
+      with no dead button. The one checker warning, that the Post A link has no
+      .html ending, was tested live and is not a defect: Weebly serves the
+      extensionless URL and redirects to the .html page, and the link is the
+      pfLink from branches.json, so the pack is right to mirror it.
+      The defect this pass found is outside the pack and is estate-wide. The
+      switch banner, which is pasted into Weebly's site-wide Header Code and so
+      appears on every page of every branch site, wrote its close button as a
+      literal multiplication sign. That field mangles non-ASCII characters, so
+      the button renders as mojibake rather than a cross. Confirmed live at
+      Tiffenbergs Aintree, Riddings Timperley and Smartts Bootle, on pages
+      whose own footers render an en dash correctly, so the fault is the
+      Header Code field and not the page. Fixed at source in
+      tools/build-switch-pages.js by writing the symbol as the HTML entity
+      &times;, which innerHTML resolves anyway, and by replacing the em dash in
+      the banner's config comment with a hyphen. All 15 banners regenerated and
+      are now pure ASCII; no page moved. check-em-dashes.js given an ASCII-only
+      rule for the banners folder, which no checker had ever read, plus the
+      usual missing-and-empty guard, negative-tested four ways. INDEX.md now
+      carries the repaste instruction. Logged as Q33 and taken as an autonomous
+      decision under the standing window. Done 2026-08-10.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

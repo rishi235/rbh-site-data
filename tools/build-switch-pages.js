@@ -293,7 +293,7 @@ function banner(c){
 </style>
 <script>
 (function(){
-  /* ===== CONFIG — change these two lines per site ===== */
+  /* ===== CONFIG - change these two lines per site ===== */
   var SWITCH_URL = "${href}";
   var BRAND = "${brandEsc}";
   /* =================================================== */
@@ -313,7 +313,7 @@ function banner(c){
     if (store.getItem(DISMISS_KEY)==="1"){ document.body.classList.remove("flu-banner-active"); document.documentElement.style.setProperty("--flu-h","0px"); return; }
     var b=document.createElement("div");
     b.className="flu-header-banner"; b.id="fluBanner";
-    b.innerHTML="<span>Change to "+BRAND+" in 30 seconds.</span> <a class='flu-header-btn' href='"+SWITCH_URL+"'>Switch now</a> <button class='flu-header-close' aria-label='Close'>×</button>";
+    b.innerHTML="<span>Change to "+BRAND+" in 30 seconds.</span> <a class='flu-header-btn' href='"+SWITCH_URL+"'>Switch now</a> <button class='flu-header-close' aria-label='Close'>&times;</button>";
     document.body.prepend(b);
     b.style.display="block";
     document.body.classList.add("flu-banner-active");
@@ -367,7 +367,9 @@ Object.keys(CONFIG).forEach(id => {
 });
 
 // Write a human-readable index/manifest
-let md = "# Switch pages — paste manifest\n\nEach page below is in this folder. Paste the file's contents into a Weebly Embed Code element on the matching URL, and set the Weebly page SEO title + description.\n\n";
+let md = "# Switch pages — paste manifest\n\nEach page below is in this folder. Paste the file's contents into a Weebly Embed Code element on the matching URL, and set the Weebly page SEO title + description.\n\n"
+  + "## Banners: repaste needed at all 15 sites\n\n"
+  + "The switch banner in `banners/` goes into Weebly > Settings > SEO > Header Code, site-wide, one file per site. Every site is currently running a banner pasted before 2026-08-10, and the close button on it renders as mojibake rather than a cross on every page carrying the banner. Confirmed live at Tiffenbergs Aintree, Riddings Timperley and Smartts Bootle on 2026-08-10; it is the same pasted code everywhere, so treat all 15 as affected until each is redone. The file in this repo is fixed and is now pure ASCII. Repaste the whole banner file for each site, replacing what is in Header Code rather than editing round it.\n\n";
 manifest.forEach(m => {
   md += `## ${m.branch}${m.hasApp ? "  *(app member)*" : ""}\n`;
   md += `- **Page slug / URL:** \`${m.file}\` → ${m.liveUrl}\n`;

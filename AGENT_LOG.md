@@ -2,6 +2,97 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-10 22:43 BST - forty-fourth run [commit PENDING] - Quality pass on item 4.15, the Tiffenbergs Chemist Aintree GBP pack, the last item still standing on its original 2026-08-05 verification. The pack is clean on every fact and every rule, and all four post buttons load, so for the second run running there is no dead link. The defect is somewhere no checker has ever looked and it is on every page of every branch site: the switch banner writes its close button as a literal multiplication sign, Weebly's site-wide Header Code field mangles non-ASCII, and the button has been rendering as mojibake. Fixed at source, all 15 banners regenerated pure ASCII, banners folder brought under check-em-dashes.js with an ASCII-only rule
+
+AUTONOMOUS DECISION. The standing window runs to 23:14 tonight and this run
+is inside it. Q33 was implemented rather than left open and is recorded as
+answered, marked as an autonomous decision rather than Rishi's. It passes the
+carve-out tests: it is a rendering fault with one correct fix rather than a
+matter of preference, it commits no money, it carries no legal risk and it
+makes no claim of any kind, regulatory or otherwise. The button still renders
+as a cross, exactly as it was always meant to.
+
+WHY THIS ITEM. All four unchecked worklist items are [BLOCKED] and each was
+re-read this run to confirm the block still holds: 5.3 and 5.4 wait on Weebly
+work, 5.5 waits on pushing a branch other than this one, 5.8 waits on Rishi's
+regulatory decision at Q22. So the rule sends the run to a quality pass on the
+least recently verified completed item. The forty-first run named 4.13, 4.14
+and 4.15 as the three still on their original 2026-08-05 verification, and the
+forty-second and forty-third took the first two. This is the last of them.
+
+ANSWER PICKUP. The portal read succeeded. Eight answers are posted there, all
+of them already recorded against Q2, Q3, Q4, Q5, Q13, Q14, Q15 and Q16. None
+of the nine open questions has an answer yet, so nothing was unblocked.
+
+THE PACK, WHICH IS CLEAN. Read against branches.json and TEMPLATE.md. Address
+388 Longmoor Lane, Liverpool L9 9DB, phone 0151 525 3462, website and Google
+review link all match, and the live site agrees on every one of them. This is a
+split-hours branch, so the rule the 4.10 pass made compulsory applies: the pack
+carries both weekday sessions, 9:00am to 1:00pm and 2:00pm to 6:00pm with
+Saturday and Sunday closed, and it carries the rule through to the photo shot
+list by asking for the door notice to be shot close enough that the lunch
+closure is legible. The description is 650 characters, exactly what its own
+heading claims, against a 750 limit, and the four posts are 449, 329, 521 and
+447 against 1,500. Catchment reads Aintree, Fazakerley and Liverpool in all
+three places, leading with its own seoTown. Categories and services match the
+five-widget set exactly. Post A's seven conditions and the UTI 16 to 64 range
+match the generated Pharmacy First page. Post C names no medicine and makes no
+efficacy claim. The file is pure ASCII, so no em dash, no en dash and no emoji.
+hasApp is false and nothing in the pack mentions an app. All 18 checkers pass.
+
+THE ONE WARNING, TESTED AND DISMISSED. check-gbp-packs.js flags the Post A link
+for having no .html ending. It was fetched: Weebly serves the extensionless URL
+and redirects to the .html page, so the button works. The link is the pfLink
+from branches.json and the pack is right to mirror it rather than invent a
+variant. Left alone, and the warning is correct to keep raising it, because on
+a different site the same shape could be a dead link.
+
+THE ACTUAL DEFECT, AND IT IS ON EVERY PAGE OF EVERY SITE. The switch banner is
+not pasted into a page. It goes into Weebly > Settings > SEO > Header Code,
+site-wide, one banner file per site, and it renders a bar at the top of every
+page that is not the switch page. Its close button was written as a literal
+multiplication sign, U+00D7. That field does not carry the character: all three
+sites read this run render the button as mojibake instead of a cross. The
+diagnostic is clean, because the same pages render an en dash correctly in
+their own footers, so the difference is not the site or the browser, it is
+which Weebly field the character was pasted into. Confirmed at Tiffenbergs
+Aintree, Riddings Timperley and Smartts Bootle, which are three different
+brands on three different domains running the same pasted code, so all 15
+should be treated as affected.
+
+FIXED AT SOURCE, NOT IN THE OUTPUT. tools/build-switch-pages.js now writes the
+symbol as the HTML entity &times;, which innerHTML resolves to the same cross,
+and the em dash in the banner's own config comment is now a hyphen. All 15
+banners regenerated and every one is pure ASCII. No generated page moved, which
+is the point: the fault was only ever in the banner files, and a full run of
+the switch generator changed the 15 banners, INDEX.md and nothing else.
+
+THE GAP THAT LET IT SIT THERE. modules/switch/pages/banners/ has never been
+read by any checker. check-em-dashes.js covers the generated pages, the paste
+sheets and a named list of hand-pasted copy, and the banners are hand-pasted
+copy as public as any of it. They now have their own rule, and it is stricter
+than the dash rule the rest of the file applies: a banner fails on ANY
+non-ASCII character, anywhere in the file, comment or not, because the whole
+file goes into one field and nothing in it is invisible to that paste. A
+missing or empty banners folder fails too, on the same anti-rot convention the
+other checkers use. Negative-tested four ways, all four bite: the multiplication
+sign put back, an em dash in the config comment, an en dash in the banner
+sentence, and the folder removed. Restoring the file returns it to clean.
+
+OUTSTANDING ON THE LIVE SIDE. The repo is fixed and the live sites are not.
+Every site is still running the banner pasted before today, so the mojibake
+stays on screen until the banner file is repasted into Header Code at each of
+the 15 sites. The instruction is now at the top of modules/switch/pages/
+INDEX.md rather than only in this log. Worth doing in the same session as the
+item 5.1 switch page repaste, since that is Weebly paste work on the same 15
+sites and the pages and the banner would otherwise be redone twice.
+
+NEXT RUN. The autonomous window expires at 23:14 tonight, so a run after that
+raises questions and waits rather than deciding. Every item is now ticked or
+[BLOCKED] and every completed item has had a quality pass since 2026-08-09,
+so the next pass starts the cycle again on the earliest-verified item. On the
+dates in this worklist that is item 5.1, verified earliest of the second round.
+
 ## 2026-08-10 22:40 BST - forty-third run [commit 04d0d14] - Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, drafted 2026-08-04 and never verified since. The pack is clean and, for the first time in these passes, all four post buttons resolve. The fault is a different shape: this branch is publishing two live Pharmacy First pages at once, and the newer one, the one item 5.3 would repoint Post A to, calls the pharmacy "Gordon Shorts Chemist" throughout because it was pasted before item 1.1 fixed the name. So the page that reads right is the one being retired and the page that is winning is the one reading wrong. Hard stop added, Post A link deliberately left alone and explicitly cleared for posting today
 
 AUTONOMOUS DECISION. The standing window runs to 23:14 tonight and this run
