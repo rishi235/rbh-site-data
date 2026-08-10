@@ -32,6 +32,38 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       AGENT_LOG.md (JSON-LD opening hours deferred to Phase 3 regeneration,
       old shared PF page still the one ranking, CDN pin note). In-repo fix:
       stale pfLink corrected for both Fishlocks branches.
+      Quality pass 2026-08-11: the repo half is clean and byte-stable and no
+      in-repo defect was found. All six generators rebuilt to a zero diff, all
+      18 checkers pass, the branch owns exactly the 13 pages the repo
+      generates, and the four things the original audit claimed all hold:
+      titles and H1s carry town and service, NAP matches branches.json field
+      for field, no widget id is hardcoded anywhere, and both module
+      destinations read helpdesk@rbhealth.co.uk as Build Pack v2 section 5.6
+      requires. A full-tree scan for the singular brand forms returns zero
+      hits outside this log, so item 1.1 is genuinely clean here in the repo.
+      Of the item's three original gaps, one has closed on its own and two
+      have not. The old shared page pharmacy-first-service-eccleston-ainsdale
+      .html now carries a "Choose your branch" block linking to both branch
+      pages, so the page that still ranks is no longer a dead end; it remains
+      in the sitemap alongside both branch pages, and it is US-spelled and
+      prints both phone numbers unspaced, neither of which any generator
+      owns. The JSON-LD opening hours gap was deferred to the Phase 3
+      regeneration, Phase 3 completed the same night and the hours never
+      arrived: 6 of the 177 generated pages carry an openingHoursSpecification
+      and they are exactly the six branch landing pages, so all 171 service
+      and switch pages declare a Pharmacy with no hours. Asked as Q38 rather
+      than deferred a second time. The live half is stale rather than wrong.
+      All 40 sitemap URLs share a lastmod of 2026-07-18T23:03:23, so this site
+      has had no publish for three weeks, which explains in one fact the
+      landing page 404 under Q35, the pre-Q7 em dash still in the switch page
+      body and the pre-Phase-3 switch SEO title. Both of those last two were
+      first seen at Cherry Lane and are now confirmed at a second brand on a
+      second site, so they are estate-wide rather than one branch. The new
+      finding is the site's Weebly-native contact block and legal footer,
+      which name the business "Fishlock Pharmacy" twice and "Fishlock Chemist"
+      once, none of them the trading name, and abbreviate the Ainsdale street
+      to "17 Station Rd". Same class as Q36 and unreachable by any paste of a
+      generated page. Raised as Q37. Done 2026-08-11.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

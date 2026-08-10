@@ -556,5 +556,37 @@
     "status": "open",
     "answer": null,
     "note": "A finding, not a blocker: no worklist item waits on it and every other route to the pharmacy on the page is correct, including the phone number, the Cherry@rbhealth.co.uk address in the footer strip and the generated contact card, which prints no email at all. The reason it is worth a decision rather than another line of prose is that it has now been found three times, on 2026-08-07 and twice since, and has survived every one of them, and the cost of checking the other twelve sites is a page fetch each. Note for whoever fixes it that the NHS mailbox is the one patients are told to use for prescription queries, so a bounce here is not cosmetic."
+  },
+  {
+    "id": "Q37",
+    "date": "2026-08-11",
+    "item": "quality pass on 2.1 (finding, does not block any item)",
+    "question": "Every page on fishlockpharmacy.co.uk carries a contact block and a legal footer that are native to Weebly and owned by no generator here, and between them they name the business three ways, none of which is the trading name. The contact block heads its two columns \"Fishlock Pharmacy, Ainsdale, Southport\" and \"Fishlock Pharmacy, Eccleston, Chorley\", and the legal line below reads \"Fishlock Chemist (GPHC no. 1121085 and 1034673)\". branches.json holds \"Fishlocks Chemist\" for both branches and every one of the 26 pages this repo generates for them carries it, in the H1, the JSON-LD name and the data-branch attribute, so the repo is right and only the live furniture is wrong. Item 1.1 standardised brand spelling on 2026-08-04 and its worklist line records Fishlocks as already consistent, which was true of the repo and has never been true of this site. The same block also prints the Ainsdale street as \"17 Station Rd\" against branches.json's \"17 Station Road\", so the NAP on every page of the site abbreviates a word Google matches on. This is the third live brand-name fault found, after Gordon Short and Coleman and Leighs on the 4.14 and 4.12 passes, but it is different in kind from both: those two are stale pastes of generated pages and a repaste clears them, whereas this is site furniture that no paste of any generated page can reach. It is the same class as Q36's Cherry Lane footer typo and could be cleared in the same Weebly session. How should it be handled?",
+    "options": [
+      "Fix the Weebly furniture on fishlockpharmacy.co.uk in the next supervised session, correcting all three names to Fishlocks Chemist and expanding Rd to Road, and clear Q36's Cherry Lane mailbox typo in the same sitting - two sites, one visit, and it is the only route that reaches either fault",
+      "Fix the brand names now and leave the Rd abbreviation, on the grounds that Google tolerates the abbreviation while a wrong business name is an entity-resolution problem - smaller edit, but it leaves a known NAP mismatch standing on every page of the site",
+      "Read the Weebly-native footer on all fourteen sites first and fix the whole estate in one pass, because only three of fourteen have been read and two of those three are wrong - more thorough, but it delays both known fixes by at least a run",
+      "Leave it: the domain itself is fishlockpharmacy.co.uk, so the singular form is arguably established for this brand and changing the footer alone would leave the URL disagreeing with it - cheapest, but it means our own site publishes a name our own data says is wrong"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing in this repo can see or fix any of it. No generated page carries these strings, no checker reads a live page, and the repo scan for the singular forms returns zero hits outside this log. Recommending option 0 rather than option 2 because Q36 has now been open a run and the two known faults are on two different sites, so a fix-when-known rule clears them faster than a survey-first rule; the estate-wide read is worth doing but belongs behind the two confirmed fixes, not in front of them."
+  },
+  {
+    "id": "Q38",
+    "date": "2026-08-11",
+    "item": "2.1 (the item's own deferred gap, does not block any item)",
+    "question": "When item 2.1 was done on 2026-08-04 it logged a gap and deferred it: the generated service pages carry no opening hours in their JSON-LD, and the fix was to ride along with the Phase 3 regeneration. Phase 3 completed the same night and the hours never arrived. Counted this run, 6 of the 177 generated pages carry an openingHoursSpecification and they are exactly the six branch landing pages built later by item 2.2 and item 5.2. The other 171, which is every service page and every switch page in the estate, declare a Pharmacy with a name, address, phone and url and no hours at all. The data is there and is guarded: branches.json holds NHS-confirmed hours for every trading branch, tools/check-opening-hours.js already composes the expected strings from it and already proves the landing pages right including the seven branches that close for lunch, so the generator work is a lift of code that exists rather than anything new. The reason this is a question and not a two-line change is that it puts 171 pages into the Weebly repaste queue, on top of the queue items 5.1, 5.3, 5.7 and Q35 have already filled, and hours are the one fact where a stale paste sends somebody to a locked door rather than merely showing Google an old word. What should be done?",
+    "options": [
+      "Add openingHoursSpecification to all five service-family generators now, regenerate the 171 pages and let them join the existing repaste queue - closes the gap in the repo this run, and the pages are already queued for repaste for other reasons so the marginal cost is near zero",
+      "Add it to the Pharmacy First overview and switch pages only, 29 pages, because those are the two page types a visitor reaches when deciding whether to come in today - much smaller repaste, but it leaves the estate declaring hours on some of its own pages and not others",
+      "Leave the hours on the branch landing pages only and close the gap as a deliberate decision, on the grounds that the landing page is the page Google should resolve to the business entity and repeating hours on 171 pages adds nothing - no repaste at all, but it depends on six landing pages that are all still 404 live under Q35",
+      "Defer again until the current repaste queue is cleared, then do it as one batch - avoids adding to a queue that has not moved since 18 July, but this is the second deferral of the same gap and the first one lost three weeks"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Recommending option 0 because the repaste cost is the argument against it and that cost is already being paid: every one of the 171 pages is in the queue for item 5.1, 5.3 or 5.7 anyway, so hours would ship with a paste that has to happen regardless. Option 2 is the honest alternative and would be right if the landing pages were live, but they are not. If option 0 is taken, check-opening-hours.js should be widened to the service and switch folders in the same commit, or the estate gains 171 pages of hours that nothing reads."
   }
 ]

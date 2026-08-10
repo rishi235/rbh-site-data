@@ -2,7 +2,134 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 00:05 BST - forty-seventh run - Quality pass on item 2.3, the Cherry Lane build-from-near-zero, last verified on 2026-08-05 and the oldest verification left standing. This is the first pass in several runs where the live side is in better shape than the repo half predicted, not worse. All 12 pages are live, all 12 sit in the branch sitemap, and both gaps the 2026-08-05 pass left open have since been closed by other work. The findings are a stale Weebly SEO title on the switch page and a misspelled NHS mailbox in the site footer, the second asked as Q36
+## 2026-08-11 00:35 BST - forty-eighth run - Quality pass on item 2.1, the Fishlocks Ainsdale audit against Build Pack v2, last verified on 2026-08-05 and now the oldest verification standing. The repo half is clean, byte-stable and holds no defect this pass could find, which is the first time a pass has ended with nothing to fix in the repo two runs running. Every finding is on the live side, and one fact explains most of them: this site has not been published since 18 July. Two new questions, Q37 and Q38
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
+2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
+present at the top of this log, so step 7 applies as written and Q37 and Q38
+were both left open in the normal way.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 00:37. The newest entry
+is still the Q16 answer of 16:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29, Q34, Q35 and Q36 are all still
+open with no answer posted against any of them. Q37 and Q38 join them.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived from scratch by reading every run heading in this log rather
+than trusting the previous run's summary. Four items still stand at a
+2026-08-05 verification and no later one: within that day the runs went 2.2,
+2.3, 2.1, 4.7, 4.2, 4.1, 1.1, and 2.2, 2.3 and 4.1 have all been re-verified
+since. So 2.1 is the oldest. Taken this run. The remaining order is 4.7, then
+4.2, then 1.1, and after that the 2026-08-06 pair, 1.4 and 3.1.
+
+THE REPO HALF, WHICH IS CLEAN AND HOLDS NO DEFECT. All six generators were run
+before any edit and produced zero diff, so the committed pages match current
+data exactly. All 18 checkers pass. Fishlocks Ainsdale owns 13 pages and the
+repo generates exactly those 13: the Pharmacy First overview, the seven
+Pharmacy First condition pages, contraception, weight loss, travel clinic, the
+switch page and the branch landing page. All four claims the original
+2026-08-04 audit made were re-tested rather than assumed and all four hold.
+Titles and H1s carry Ainsdale and the service word. NAP matches branches.json
+field for field, including the 08:45 open that only this branch has. No widget
+id appears in any page; the five widgets sit in branches.json and reach the
+page through service.js as designed. Both module destinations read
+helpdesk@rbhealth.co.uk, which is what Build Pack v2 section 5.6 asks for, and
+the only rishi@ address left in the repo is ANSWER_EMAIL in
+tools/build-status-page.js, which is the internal status page and is correct.
+A full-tree scan for the singular brand forms, "Fishlock Pharmacy",
+"Fishlocks Pharmacy" and "Fishlock Chemist", returns zero hits outside this
+log, so item 1.1 is genuinely clean in the repo for this brand.
+
+Two checks were run looking for a latent gap of the kind the recent passes have
+been finding, and neither found one. The one non-ASCII character in the
+Pharmacy First page is an em dash inside the build comment, which
+check-em-dashes blanks on purpose, so that is a decision rather than an
+oversight. And the fifteen GBP packs, which are public copy pasted straight
+into Google and which eleven separate quality passes have each checked by hand
+for dashes and emojis, turn out to be guarded after all: check-gbp-packs.js
+already tests every line for both. The packs are pure ASCII today and the rule
+that keeps them so exists. Nothing to add.
+
+THE FIRST OF THE ITEM'S OWN GAPS HAS CLOSED, AND NOT BY THIS RUN. The
+2026-08-04 audit recorded that the old shared page,
+pharmacy-first-service-eccleston-ainsdale.html, was still the page ranking for
+both branches. It was read live this pass and it now carries a "Choose your
+branch" block with links to the Ainsdale and Eccleston pages, so the page that
+ranks is no longer a dead end and hands the visitor to the right branch. It is
+still in the sitemap alongside both branch pages, so the duplication item 2.2
+exists to end is still there, but the harm is much reduced. Two faults in that
+page's own copy, both live-only and owned by no generator: it is US-spelled
+throughout, "recognizing", "characterized", "authorized", on a UK NHS page, and
+it prints both phone numbers unspaced as 01704575478 and 01257451251 against
+the spaced forms in branches.json, which is a NAP mismatch on the one page
+Google currently ranks. Both NHS mailboxes on it are correct.
+
+THE SECOND GAP HAS NOT CLOSED AND IS NOW ASKED RATHER THAN DEFERRED AGAIN. The
+same audit logged that the generated pages carry no opening hours in their
+JSON-LD and deferred the fix to the Phase 3 regeneration. Phase 3 completed the
+same night and the hours never arrived. Counted this run: 6 of the 177
+generated pages carry an openingHoursSpecification and they are exactly the six
+branch landing pages, built later by items 2.2 and 5.2. The other 171, every
+service page and every switch page in the estate, declare a Pharmacy with a
+name, an address, a phone and a url and no hours at all. The data exists and is
+already guarded, because check-opening-hours.js composes the expected strings
+from branches.json and already proves the six landing pages right including the
+seven branches that close for lunch, so this is a lift of code that exists
+rather than anything new. It is a question rather than a change because it puts
+171 pages into a repaste queue that four other items have already filled.
+Raised as Q38, recommending it be done now on the grounds that every one of
+those 171 pages is queued for repaste anyway.
+
+THE LIVE HALF IS STALE RATHER THAN WRONG, AND ONE FACT EXPLAINS MOST OF IT. The
+sitemap was read on 2026-08-11 and lists 40 URLs. Every one of them carries the
+same lastmod, 2026-07-18T23:03:23. So fishlockpharmacy.co.uk has had no publish
+at all for three weeks, and that single fact accounts for three separate
+findings that have been recorded as if they were three problems. The branch
+landing page returns a 404 and is absent from the sitemap, which is Q35, and
+the reason is not that the paste is queued behind something, it is that nothing
+has been pasted to this site since before the page existed. The switch page
+body still reads "it usually is not - we make the first step quick and easy"
+with an em dash, which is the pre-Q7 copy item 5.1 fixed at source on
+2026-08-09. And the switch page's live SEO title is still
+"Switch Your Prescriptions - Fishlocks Chemist Ainsdale" against the paste
+sheet's "Switch Your Prescriptions to Fishlocks Chemist, Ainsdale", which is
+the pre-Phase-3 form. The last two matter beyond this branch: both were first
+confirmed at Cherry Lane on the forty-seventh run, and finding them again at a
+different brand on a different site moves them from one branch's paste age to
+an estate-wide state. Items 5.1 and Q3 should be read as covering all 15 switch
+pages, not a sample. The other twelve generated pages are all live, all in the
+sitemap and all correct, and the Pharmacy First overview renders all seven
+conditions with working Learn more links. The Download our app block on the
+switch page is correct here, because hasApp is true for both Fishlocks
+branches, unlike the Riddings case the 4.13 pass found.
+
+THE NEW FINDING, RAISED AS Q37. The site's contact block and legal footer are
+native to Weebly, appear on every page including the generated ones, and are
+owned by no generator here. Between them they name the business three ways and
+none of them is the trading name: "Fishlock Pharmacy, Ainsdale, Southport",
+"Fishlock Pharmacy, Eccleston, Chorley" and "Fishlock Chemist (GPHC no.
+1121085 and 1034673)". branches.json holds "Fishlocks Chemist" and all 26
+generated Fishlocks pages carry it in the H1, the JSON-LD name and the
+data-branch attribute. The same block prints the Ainsdale street as "17 Station
+Rd" against branches.json's "17 Station Road", so the NAP on every page of the
+site abbreviates a word Google matches on. This is the third live brand-name
+fault in the estate after Gordon Short and Coleman and Leighs, but it is
+different in kind from both: those two are stale pastes of generated pages that
+a repaste clears, whereas this is site furniture that no paste of any generated
+page can reach. It is the same class as Q36's Cherry Lane footer typo and the
+recommendation is to clear both in one Weebly session. Three of fourteen sites
+have now had their Weebly-native footer read and two of the three are wrong,
+which is worth carrying into the next passes.
+
+FILES CHANGED: AGENT_WORKLIST.md (2.1 quality-pass record appended in place),
+QUESTIONS.json (Q37 and Q38 appended), AGENT_LOG.md (this entry). No generated
+page moved and no generator or checker was changed, because no in-repo defect
+was found. Commit hash recorded by the next run.
+
+## 2026-08-11 00:05 BST - forty-seventh run [commit b443b11] - Quality pass on item 2.3, the Cherry Lane build-from-near-zero, last verified on 2026-08-05 and the oldest verification left standing. This is the first pass in several runs where the live side is in better shape than the repo half predicted, not worse. All 12 pages are live, all 12 sit in the branch sitemap, and both gaps the 2026-08-05 pass left open have since been closed by other work. The findings are a stale Weebly SEO title on the switch page and a misspelled NHS mailbox in the site footer, the second asked as Q36
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
 2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
