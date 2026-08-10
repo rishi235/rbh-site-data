@@ -59,13 +59,14 @@ var SHEETS = [
 ];
 
 // Accepted, decision pending. slug -> { field, reason, question }
-var KNOWN = {
-  "insect-bite-treatment-coleman-leigh-walton": {
-    field: "title",
-    reason: "70 characters. The longest condition name meets the longest brand name, so Google truncates and the brand is what is lost. Both ways out change public copy: shorten the NHS condition wording, or shorten the trading name Q1 settled.",
-    question: "Q14"
-  }
-};
+//
+// Empty as of 2026-08-10. The single entry here was the Coleman and Leighs
+// infected insect bite title at 70 characters, held open as Q14. Rishi
+// answered on 2026-08-10 (drop "Pharmacy" from the title suffix rather than
+// shorten the NHS condition wording) and the fix landed the same day as a
+// length-aware rule in tools/seo-pattern.js, so the title is now 61
+// characters and the exception was removed rather than left to rot.
+var KNOWN = {};
 
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }
 function norm(s) { return (s || "").replace(/\s+/g, " ").trim(); }

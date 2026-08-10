@@ -113,6 +113,27 @@ to make a run pass, and remove the entry once the question is answered and
 applied - the checker fails on a stale KNOWN key.
 
 
+The title limit is not only checked, it is fitted to. `tools\seo-pattern.js`
+composes every title through `fitTitle()`: if the composed string runs past 65
+characters it is retried once with " Pharmacy" dropped from the end of the
+brand, because the brand sits at the end of a family A title and is therefore
+the part Google truncates. It fires ONLY on an overrun and ONLY where the
+brand ends in that word, so it is invisible everywhere else and a regeneration
+produces byte-identical output for every page that already fits.
+
+Only the SERP title shortens. The H1, the JSON-LD `name`, the `data-branch`
+attribute and every visible line of copy keep the full trading name. Do not
+"fix" a long title by hand-editing a generated page or a paste sheet: the next
+regeneration overwrites it. Change the rule, or shorten the phrase at source.
+
+It exists because one title in the estate ran to 70 characters - the longest
+NHS condition name ("Infected insect bite treatment") on the longest trading
+name ("Coleman and Leighs Pharmacy") - so the Walton listing rendered as an
+unbranded condition page in a town where RBH runs a second pharmacy competing
+for the same words. Found on the item 3.5 quality pass, raised as Q14, and
+answered by Rishi on 2026-08-10: shorten the brand, not the NHS wording.
+
+
 ## Opening hours - the copy that sends someone to a locked door
 
 A day in `openingHours.specification` can carry MORE THAN ONE session, because

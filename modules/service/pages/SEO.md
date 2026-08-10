@@ -94,7 +94,7 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 - **Meta Keywords:** Shingles Walton, Shingles treatment Walton, Pharmacy First Walton, pharmacy Walton, L4
 
 ## Coleman and Leighs Pharmacy — Walton — Infected insect bite
-- **Page Title:** Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy
+- **Page Title:** Infected insect bite treatment in Walton - Coleman and Leighs
 - **Page Permalink:** insect-bite-treatment-coleman-leigh-walton
 - **Page Description:** Infected insect bite treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 - **Meta Keywords:** Infected insect bite Walton, Infected insect bite treatment Walton, Pharmacy First Walton, pharmacy Walton, L4

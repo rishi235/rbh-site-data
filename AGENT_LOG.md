@@ -2,6 +2,27 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, open questions.
 
+## ANSWERS RECEIVED - 2026-08-10, twenty-ninth run
+Three answers came back through the portal and were picked up this run.
+Q13, Q14 and Q15 are now recorded as answered in QUESTIONS.json, so the
+open list is down to Q16, Q17 and Q18. Each answer took the recommended
+option. Q14 was implemented in full this run; the other two are tracked as
+worklist items rather than silently carried in prose.
+  - Q14 (repo only) DONE this run as item 5.6. See the run entry below.
+  - Q15 (repo only) queued as item 5.7, the next item an unattended run
+    will pick up. Move the McCanns Sandringham local word to St Michael's,
+    hold townSlug at sandringham so no live URL breaks, regenerate the 12
+    pages, add the branch to KNOWN_SEO_TOWN in check-address-region.js.
+  - Q13 (NOT repo only) queued as item 5.5 and marked [BLOCKED]. Both
+    halves are outside an unattended run's authorisation: fast-forwarding
+    service-module-phase1 means pushing a branch other than
+    agents/audit-backlog, and re-pinning the switch pages only reaches live
+    through a Weebly paste. NEEDS A SUPERVISED SESSION, and worth doing
+    soon: service.css and service.js are still byte-identical between the
+    branch and main, which is the only reason the fast-forward is free.
+    Until it happens, live switch requests keep landing in Rishi's own
+    inbox rather than the helpdesk.
+
 ## Questions for Rishi
 OPEN: Q18 (raised 2026-08-10, twenty-eighth run) - the six branches that share
 a brand and a website with a sister shop (Fishlocks, McCanns, Scorah) identify
@@ -35,25 +56,14 @@ promising "up to 26kg (22.5% of your body weight)", and advertises a price.
 Recommendation is to strip the offending elements in place and keep the booking
 routes, which is what Q5 and Q9 together point at. Nothing in the repo is
 blocked by it, because all five are live-only pages no generator owns.
-OPEN: Q15 (raised 2026-08-10, twenty-second run) - all 12 McCanns Sandringham
-pages aim at the word "Sandringham", which is the branch name rather than a
-place. It is the only branch in the estate whose seoTown is missing from its
-own serviceAreaList, and its GBP pack calls it a branch name throughout. The
-sister branch 700 metres up the same road already holds Aigburth, so the
-recommendation is to move the 12 pages onto St Michael's, keeping the existing
-permalinks so no live URL breaks. Nothing is blocked by it.
-OPEN: Q14 (raised 2026-08-10, twenty-first run) - one page title in the whole
-estate is over Google's length limit: the Coleman and Leighs infected insect
-bite page runs to 70 characters, so the brand is truncated away in the result.
-Both ways of shortening it edit public copy on a clinical page, which is why
-the autonomous window did not cover it. Recommendation is to drop "Pharmacy"
-from that one title suffix. Nothing is blocked by it.
-OPEN: Q13 (raised 2026-08-09, twentieth run) - both jsDelivr CDN pins have
-gone stale, so live pages serve code this repo no longer says. The live switch
-pages still send switch requests to rishi@rbhealth.co.uk because their pinned
-commit predates the change to helpdesk@rbhealth.co.uk. Recommendation is to
-fast-forward service-module-phase1 to main (no repaste needed) and re-pin the
-switch pages at the next paste run. Nothing is blocked by it.
+ANSWERED 2026-08-10 through the portal, all three taking the recommended
+option: Q13, Q14 and Q15. Q14 is DONE in the repo as of this run (item 5.6).
+Q15 is queued as item 5.7 and is the next item an unattended run will pick
+up. Q13 is queued as item 5.5 and marked [BLOCKED] because it needs a
+supervised session: fast-forwarding service-module-phase1 means pushing a
+branch other than agents/audit-backlog, and the switch page re-pin only
+reaches live through a Weebly paste. Full detail in the ANSWERS RECEIVED
+block at the top of this file.
 Q1 to Q12 are all answered as of 2026-08-09.
 
 ## Standing authorisation - autonomous window, 2026-08-09 23:14 BST to 2026-08-10 23:14 BST
@@ -174,6 +184,81 @@ QUESTIONS.json (committed by the recovery run below).
 ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
+
+## 2026-08-10 14:04 (unattended run, twenty-ninth) - Answer pickup, then
+worklist item 5.6: the Q14 title length fix.
+
+ANSWER PICKUP WORKED. The portal route returned three answers, all taking the
+recommended option: Q13 (2026-08-10 10:10Z), Q14 (10:10Z) and Q15 (11:08Z).
+All three are now recorded in QUESTIONS.json with status "answered" and an
+answeredDate. The open list is down to Q16, Q17 and Q18. Each answer was
+turned into a numbered Phase 5 worklist item rather than left as prose, so
+the status page shows what is actually outstanding:
+  - 5.5 (Q13) [BLOCKED] - needs a supervised session, see below.
+  - 5.6 (Q14) - DONE this run.
+  - 5.7 (Q15) - queued, and the next item an unattended run will take.
+
+ITEM 5.6 DONE. One page title in the estate was over Google's 65-character
+limit: "Infected insect bite treatment in Walton - Coleman and Leighs
+Pharmacy", 70 characters, the longest NHS condition name landing on the
+longest trading name. Google truncates from the right, so the brand was the
+part being lost and the Walton listing rendered as an unbranded condition
+page, in a town where RBH runs a second pharmacy (Cherry Lane) competing for
+the same words. Rishi's answer: drop "Pharmacy" from the title suffix rather
+than shorten the NHS condition wording.
+
+Implemented as a RULE in tools/seo-pattern.js, not a hand edit, because a
+hand-edited title would be overwritten by the next regeneration. New
+fitTitle() composes a title, and if it runs over TITLE_WARN_LEN retries once
+with " Pharmacy" dropped from the end of the brand via new shortenBrand().
+All three title composers (searchTitle, landingTitle, brandTitle) now go
+through it. TITLE_WARN_LEN was moved above the composers and the duplicate
+declaration removed, so the length the composer fits to and the length the
+checker warns at are one constant and cannot drift.
+
+The rule fires only on an overrun AND only where the brand ends in
+" Pharmacy", which is why the blast radius is one page. Negative-tested
+before regenerating: the long title on a "Pharmacy" brand shortens 70 to 61;
+the same brand on a short title keeps the full name (53); a long phrase on a
+"Chemists" brand is untouched; shortenBrand returns null for a non-Pharmacy
+brand. Then all six generators were re-run: git reports exactly one changed
+page plus its two paste sheets, so all 176 other pages regenerated
+byte-identical, as intended.
+
+Only the SERP title changed. The H1, the JSON-LD name, the data-branch
+attribute and every visible line of copy still carry "Coleman and Leighs
+Pharmacy", the trading name Rishi settled in Q1.
+
+The KNOWN entry for this title was REMOVED from tools/check-seo-lengths.js,
+which is what that checker requires once a fix lands, since it fails on a
+stale KNOWN key. That checker now reports "clean, every title and description
+fits and is unique" with no exceptions at all, titles 36 to 65 characters
+across 177 paste-sheet entries. The seo-pattern self-test passes with zero
+length warnings for the first time since it started sampling the worst case.
+
+Checkers: all 17 run clean before the change and all 17 clean after. CLAUDE.md
+gained a section on the rule under "SEO strings", including the instruction
+not to hand-edit a long title on a generated page or paste sheet.
+
+OUTSTANDING on the live side: the Weebly SEO title field for
+insect-bite-treatment-coleman-leigh-walton needs repasting from
+modules/service/pages/SEO.md, or the live Google result keeps the old
+70-character title. It joins the existing paste queue.
+
+NO AUTONOMOUS DECISION WAS NEEDED THIS RUN. The window (to 2026-08-10 23:14
+BST) was active and checked, but no new question was raised and nothing was
+blocked that the window would have unblocked. Q13 is blocked by an
+authorisation limit the window explicitly does not relax, not by a missing
+decision: Rishi has answered it, and applying it means pushing a branch other
+than agents/audit-backlog plus a Weebly paste. Left for a supervised session.
+
+FOR THE SUPERVISED SESSION, IN PRIORITY ORDER: Q13 first and soon, because
+service.css and service.js are still byte-identical between
+service-module-phase1 and main, which is the only reason the fast-forward is
+free, and because until it happens every live switch request lands in Rishi's
+own inbox rather than the helpdesk. Then Q16, still open and still the one
+with live regulatory exposure: five branch sites carry an old weight loss
+page naming prescription-only medicines with efficacy claims and a price.
 
 ## 2026-08-10 13:34 (unattended run, twenty-eighth) - Quality pass on item
 3.12, Tiffenbergs Chemist Aintree. All 12 Tiffenbergs pages verified clean on

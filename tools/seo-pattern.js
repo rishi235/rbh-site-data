@@ -45,6 +45,12 @@
   Meta description rule: must contain the seoTown and at least one service
   word, 80 to 165 characters. checkMeta() enforces it.
 
+  Title length rule (Q14, answered 2026-08-10): a composed title over 65
+  characters is retried once with " Pharmacy" dropped from the end of the
+  brand, because the brand is the part Google truncates. See fitTitle below.
+  It changes the SERP title only; H1s, JSON-LD names and visible copy keep
+  the full trading name.
+
   Data rules:
   - Town ALWAYS comes from branches.json seoTown (catchment town), never
     addressLocality. Cherry Lane is postally Liverpool, seoTown Walton.
@@ -78,11 +84,58 @@ function pick(b) {
 }
 
 // ---------------------------------------------------------------------------
+// Length-aware brand suffix (Q14, answered by Rishi 2026-08-10)
+// ---------------------------------------------------------------------------
+// Google truncates a title past TITLE_WARN_LEN characters, and the brand sits
+// at the end of a family A title, so the brand is the part that disappears.
+// One title in the whole estate ran over: the longest NHS condition name
+// ("Infected insect bite treatment") landing on the longest trading name
+// ("Coleman and Leighs Pharmacy"), 70 characters, which made the Walton
+// listing read as an unbranded condition page in a town where RBH runs a
+// second pharmacy competing for the same words.
+//
+// Rishi's answer: drop "Pharmacy" from the title suffix rather than shorten
+// the NHS condition wording. The brand is what Google is already cutting, so
+// ending it cleanly costs nothing that is not already lost, and the clinical
+// wording stays exactly as the NHS describes the service.
+//
+// It is a rule here rather than a hand edit for two reasons: a hand-edited
+// title would be overwritten by the next regeneration, and any future long
+// condition name gets handled the same way instead of quietly overrunning.
+//
+// It fires ONLY when a composed title is over the limit AND the brand ends in
+// " Pharmacy", so every other title in the estate is untouched and every other
+// page regenerates byte-identical. Nothing else shortens: the H1, the JSON-LD
+// name, the data-branch attribute and every visible line of copy keep the full
+// trading name Q1 settled. Only the SERP title loses the word.
+var TITLE_WARN_LEN = 65;
+
+// The only permitted shortening. Returns null if the brand does not end in
+// " Pharmacy", in which case the title is left long and checkTitle warns.
+function shortenBrand(brand) {
+  return /\sPharmacy$/.test(brand) ? brand.replace(/\sPharmacy$/, "") : null;
+}
+
+// Compose a title with `compose(brand)`, retrying once with the shortened
+// brand if the first attempt overruns. Never returns a longer string than the
+// full-brand version.
+function fitTitle(compose, brand) {
+  var full = compose(brand);
+  if (full.length <= TITLE_WARN_LEN) return full;
+  var shorter = shortenBrand(brand);
+  if (!shorter) return full;
+  var retry = compose(shorter);
+  return retry.length < full.length ? retry : full;
+}
+
+// ---------------------------------------------------------------------------
 // FAMILY A - search-phrase pages
 // ---------------------------------------------------------------------------
 function searchTitle(phrase, b) {
   var s = pick(b);
-  return phrase + " in " + s.town + " - " + s.brand;
+  return fitTitle(function (brand) {
+    return phrase + " in " + s.town + " - " + brand;
+  }, s.brand);
 }
 function searchH1(phrase, b) {
   var s = pick(b);
@@ -95,7 +148,9 @@ function searchH1(phrase, b) {
 function landingTitle(b) {
   var s = pick(b);
   var tag = (!s.region || s.region === s.town) ? "" : ", " + s.region;
-  return "Pharmacy in " + s.town + tag + " - " + s.brand;
+  return fitTitle(function (brand) {
+    return "Pharmacy in " + s.town + tag + " - " + brand;
+  }, s.brand);
 }
 function landingH1(b) {
   var s = pick(b);
@@ -107,7 +162,9 @@ function landingH1(b) {
 // ---------------------------------------------------------------------------
 function brandTitle(service, b) {
   var s = pick(b);
-  return service + " at " + s.brand + ", " + s.town;
+  return fitTitle(function (brand) {
+    return service + " at " + brand + ", " + s.town;
+  }, s.brand);
 }
 function brandH1(service, b) {
   var s = pick(b);
@@ -129,10 +186,11 @@ function switchH1(b) {
 // ---------------------------------------------------------------------------
 // Validation helpers (used by the self-test and by rollout runs)
 // ---------------------------------------------------------------------------
-// A title is fine up to 65 chars; longer only trims the trailing brand in
-// the SERP, so overruns WARN rather than fail.
-var TITLE_WARN_LEN = 65;
-
+// TITLE_WARN_LEN is declared once, above fitTitle, so the limit the composer
+// fits to and the limit the checker warns at cannot drift apart. Since the
+// Q14 rule landed, an overrun that survives fitTitle means a brand that does
+// not end in " Pharmacy" and cannot be shortened, so the warning still stands
+// rather than being made unreachable.
 function checkTitle(title, b) {
   var s = pick(b);
   var problems = [];
@@ -180,6 +238,8 @@ module.exports = {
   switchH1: switchH1,
   checkTitle: checkTitle,
   checkMeta: checkMeta,
+  shortenBrand: shortenBrand,
+  fitTitle: fitTitle,
   TITLE_WARN_LEN: TITLE_WARN_LEN,
   PAGE_TYPES: PAGE_TYPES
 };

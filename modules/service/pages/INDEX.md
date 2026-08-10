@@ -81,7 +81,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 
 ## Coleman and Leighs Pharmacy — Walton — Infected insect bite
 - **Page slug / URL:** `insect-bite-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
-- **SEO title:** Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy
+- **SEO title:** Infected insect bite treatment in Walton - Coleman and Leighs
 - **SEO description:** Infected insect bite treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
 
 ## Fishlocks Chemist — Ainsdale — Overview
