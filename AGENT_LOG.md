@@ -153,6 +153,126 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
+## 2026-08-10 12:34 (unattended run, twenty-sixth) - Quality pass on item 3.10,
+Riddings Pharmacy Timperley. All 12 Riddings pages verified clean on title,
+description, H1, NAP, schema, map, links and compliance. The defect this run
+found is not in those pages: one of the six generators has been declaring a
+different schema.org business type from the other five, so all 15 weight loss
+pages told Google the branch was a MedicalBusiness while its other 162 pages
+said Pharmacy. Fixed at source, 15 pages regenerated, new tools/check-jsonld.js
+makes it permanent. No question raised.
+
+WHAT WAS VERIFIED ON RIDDINGS ITSELF. All 12 pages (11 service plus the switch
+page) carry 38 Riddings Road, WA15 6BP and 0161 973 2951 on every occurrence,
+visible, in the tel: link and in the JSON-LD, and the PostalAddress matches
+branches.json field for field including Greater Manchester as the county. Every
+page carries Riddings' own Google review link and no other branch's. Titles,
+descriptions, H1s and permalinks all lead with Timperley, which is the branch's
+seoTown and the first entry in its own serviceAreaList, so the word the pages
+claim is a place the branch itself says it serves. The Pharmacy First overview
+links to all seven condition pages and each condition page links back. The
+weight loss page names no prescription-only medicine, makes no efficacy claim
+and carries the full limitation paragraph.
+
+Two things about Riddings worth recording rather than fixing. Its
+addressLocality is the only two-part locality in the estate, "Timperley,
+Altrincham", which is correct for the postal address and reads correctly
+everywhere it prints. And Riddings is one of the nine branches with no landing
+page, so its contraception, travel, weight loss and switch pages have no
+inbound link from any other generated page. That is the standing consequence of
+landing pages existing for six branches only, not a Riddings defect: the six
+that have one are the six whose pages are linked.
+
+THE DEFECT, AND WHY NO CHECKER SAW IT. Six generators write a JSON-LD block.
+Five of them call a function named pharmacySchema that declares
+"@type": "Pharmacy". tools/build-weight-loss-pages.js calls one named
+medicalBusinessSchema that declares "@type": "MedicalBusiness". The two
+functions were otherwise character-for-character identical, same name, same
+url, same telephone, same PostalAddress, which is what makes this a copy
+divergence rather than a decision. Nothing in the repo had ever read a JSON-LD
+block end to end. check-nap reads visible text, check-opening-hours reads only
+the openingHoursSpecification on the six landing pages, and check-seo-pattern
+reads titles and H1s. The block that is written for a machine rather than a
+person was the one part of the page no rule covered.
+
+WHY IT MATTERS AND WHY IT WAS SAFE TO FIX. schema.org Pharmacy is a subtype of
+MedicalBusiness, so nothing on those 15 pages was untrue. The cost is entity
+resolution: a business that describes itself two ways across its own pages
+gives Google two weaker signals instead of one strong one, and the page family
+typed vaguely is the private paid service where the local pack listing is worth
+most. The fix moves to the MORE specific and more conservative type, matches
+the travel clinic generator that builds the sister private service, and changes
+one line per page. No title, description, H1 or visible word moved: the diff is
+15 files, 15 insertions, 15 deletions, one line each.
+
+WHY IT WAS FIXED RATHER THAN ASKED, ON A WEIGHT LOSS PAGE. The autonomous
+window reserves patient-facing regulatory copy for Rishi, so the carve-out was
+considered directly, as on the previous run. It does not apply: this is
+structured data, not public copy. No medicine name, efficacy claim, price or
+clinical statement was touched, nothing a patient reads changed, and the change
+is towards the narrower description of the business rather than a broader one.
+
+WHAT WAS DONE TO MAKE IT PERMANENT. New tools/check-jsonld.js reads all 177
+generated pages and checks, per page: exactly one JSON-LD block and it parses;
+"@type" is Pharmacy; "@context" is https://schema.org; "name" is the branch's
+branchName or brandLabel; "url" is the branch website plus the page's own
+filename; PostalAddress matches branches.json field for field including
+addressRegion and addressCountry; "telephone" matches exactly, spacing
+included; and where present "email" matches and areaServed is exactly
+serviceAreaList, in order. Expected values are composed from branches.json
+rather than imported from the generators, on the same reasoning as
+check-opening-hours: a checker that calls the code it is checking proves
+nothing. Seventeen negative tests run and all fired, one per rule plus a
+deliberate parse break, a second JSON-LD block, an areaServed reordering, and a
+stale KNOWN entry. Every mutated file was restored and confirmed byte-clean
+against git afterwards.
+
+THE SECOND GAP THE SAME CHECKER CLOSES. Every page's contact card carries a
+Google Maps iframe whose query is the branch address URL-ENCODED. check-nap
+scans for the address as plain text, so it cannot see that query at all. That
+is the one element on a page that can send a patient to another building while
+every visible line still reads correctly. All 177 map queries were decoded and
+compared to branches.json this run and all 177 match exactly, so this found no
+defect, but it was an unguarded route to the worst kind of error on the site
+and it is now a rule. Two negative tests fired on it, a wrong postcode and a
+missing iframe.
+
+WHAT ELSE THE PASS SWEPT AND FOUND CLEAN. Estate-wide rather than Riddings
+only, on the same reasoning as the previous two runs. Every branch email and
+nhsEmail: nhsEmail is pharmacy.<odsCode>@nhs.net for all 14 trading branches
+with an ODS code, and the only branch emails printed on any page are the six
+landing pages, each its own. Booking widget ids in branches.json: no id is
+reused by two services at one branch, and the only ids shared between branches
+are the weight loss and travel pairs at Scorah, McCanns and Fishlocks, which
+are the three shared-domain sister pairs, so a booking cannot land in an
+unrelated branch's diary. JSON-LD parse: all 177 blocks parse as JSON.
+
+Files changed: tools/build-weight-loss-pages.js, tools/check-jsonld.js (new),
+CLAUDE.md, the 15 weight-loss-clinic-*.html pages, AGENT_LOG.md. All 15
+checkers re-run clean afterwards (177 pages, 0 failures) with the same warning
+and KNOWN profile as before the change, so nothing else moved. Nothing ticked
+in AGENT_WORKLIST.md: this was a quality pass, and 5.3 and 5.4 remain the only
+unchecked items, both [BLOCKED] on Weebly access. QUESTIONS.json unchanged,
+Q13 to Q16 still open.
+
+OUTSTANDING ON THE LIVE SIDE. The 15 weight loss pages now differ from what is
+live, so they join the queued paste work. They were already in that queue from
+the previous run's en dash fix, so this adds no new paste. No SEO field changed,
+so nothing extra needs repasting in Weebly > Pages > SEO Settings.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 5bb30b5.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, same blocker as the previous
+three runs. Q13, Q14, Q15 and Q16 were all open at the start, so the condition
+was met. The browser tooling reached https://data.rbhealth.co.uk/api/feedback
+and the portal returned the Cloudflare Access sign-in page rather than the
+feedback JSON, so Rishi's Chrome still does not hold a signed-in Access
+session. Per the scheduled task rules no login was attempted and no other route
+was tried. Any answers left on the portal for Q13 to Q16 remain unread by an
+unattended run, and that is now five runs in a row. If those four answers
+matter, they need a supervised session or a signed-in Chrome.
+
 ## 2026-08-10 12:04 (unattended run, twenty-fifth) - Quality pass on item 3.9,
 Coleman and Leighs Pharmacy Walton. All 12 Coleman pages verified clean on
 title, H1, NAP, postcode, schema, links and compliance. The defect this run

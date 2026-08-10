@@ -181,6 +181,41 @@ failure: Clear Chemist Aintree is deliberately different. Exceptions go in
 `KNOWN` with a reason and a question id, and a key that no longer breaks a rule
 fails the check, so the list cannot rot.
 
+## The JSON-LD block, and the address no text search can read
+
+`tools\check-jsonld.js` reads the one part of every generated page that is
+written for a machine rather than a person. Nothing had ever read it end to
+end, because `check-nap` scans visible text and the two things below are
+invisible to a text scan.
+
+It found that five of the six generators declared `"@type": "Pharmacy"` and one,
+`build-weight-loss-pages.js`, declared `"@type": "MedicalBusiness"`, on all 15
+weight loss pages. Same premises, same name, same phone, same address. Pharmacy
+is a subtype of MedicalBusiness, so nothing was untrue, but a business that
+describes itself two ways across its own pages is harder for Google to resolve
+to one entity. The two schema functions were otherwise character-for-character
+identical, so it was a copy divergence, not a decision. Found and fixed on the
+item 3.10 quality pass, 2026-08-10. Every page now declares Pharmacy.
+
+The second gap it closes: the contact card's Google Maps iframe carries the
+branch address URL-ENCODED, so a wrong address there is invisible to `check-nap`
+while every visible line on the page still reads correctly. That is the one
+element on the page that can point a patient at another building silently.
+
+Per page it checks: exactly one JSON-LD block and it parses; `@type` is
+Pharmacy; `@context` is `https://schema.org`; `name` is the branch's
+`branchName` or `brandLabel`; `url` is the branch `website` plus the page's own
+filename; `PostalAddress` matches branches.json field for field including
+`addressRegion` and `addressCountry`; `telephone` matches exactly, spacing
+included; and where present `email` matches and `areaServed` is exactly
+`serviceAreaList`, in order. Then it decodes the map query and compares it to
+`streetAddress, addressLocality, postalCode`.
+
+Expected values are composed from branches.json rather than imported from the
+generators, on purpose. Exceptions go in `KNOWN` keyed
+`<filename>::<rule>` with a reason and a question id, and a key that no longer
+breaks a rule fails the check, so the list cannot rot.
+
 ## seoTown - the word the pages claim as the catchment
 
 `seoTown` drives the title, the description, the H1 and the permalink for every

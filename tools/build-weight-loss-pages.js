@@ -171,11 +171,17 @@ function contactCard(store, b) {
     '          </div>';
 }
 
-function medicalBusinessSchema(store, b, url) {
+// The business this page describes is the pharmacy itself: the name, phone and
+// address below all come from the branch record. schema.org Pharmacy is a
+// subtype of MedicalBusiness, so it says the same thing more precisely, and it
+// is what the other five generators emit for the same premises. Typing one
+// page family more vaguely than the rest splits the entity Google is trying to
+// resolve. Corrected on the item 3.10 quality pass, 2026-08-10.
+function pharmacySchema(store, b, url) {
   return '<script type="application/ld+json">\n' +
     JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "MedicalBusiness",
+      "@type": "Pharmacy",
       "name": store.brand,
       "url": url,
       "telephone": b.phone || "",
@@ -280,7 +286,7 @@ function weightLossPage(storeId) {
     '    </section>\n\n' +
     '  </div>\n' +
     '</div>\n\n' +
-    medicalBusinessSchema(store, b, url) + "\n";
+    pharmacySchema(store, b, url) + "\n";
 }
 
 // --- write ------------------------------------------------------------------
