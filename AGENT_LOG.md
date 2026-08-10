@@ -260,6 +260,12 @@ own inbox rather than the helpdesk. Then Q16, still open and still the one
 with live regulatory exposure: five branch sites carry an old weight loss
 page naming prescription-only medicines with efficacy claims and a price.
 
+Commit d98dc08. Files changed: tools/seo-pattern.js (fitTitle, shortenBrand,
+single TITLE_WARN_LEN), tools/check-seo-lengths.js (KNOWN emptied),
+modules/service/pages/insect-bite-treatment-coleman-leigh-walton.html,
+modules/service/pages/SEO.md, modules/service/pages/INDEX.md, CLAUDE.md,
+QUESTIONS.json, AGENT_WORKLIST.md, AGENT_LOG.md.
+
 ## 2026-08-10 13:34 (unattended run, twenty-eighth) - Quality pass on item
 3.12, Tiffenbergs Chemist Aintree. All 12 Tiffenbergs pages verified clean on
 title, description, H1, NAP, tel: link, review link, schema, links, clinical
