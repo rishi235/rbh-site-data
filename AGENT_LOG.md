@@ -172,7 +172,7 @@ been checked past its first link. New tools/check-booking-routes.js closes it
 end to end, and the first thing it found is that one of the three separate
 services is missing from the guard that stops a booking landing in the wrong
 diary. Not fixed on the spot, for a reason given below, and raised as Q17.
-Commit PLACEHOLDER_COMMIT.
+Commit 110ed2f.
 
 WHAT WAS VERIFIED ON GORDON SHORT ITSELF. All 12 pages (11 service plus the
 switch page) carry 159 College Road, L23 3AT and 0151 924 3449 on every
