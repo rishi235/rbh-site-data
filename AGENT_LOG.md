@@ -153,6 +153,116 @@ ANSWERED 2026-08-04 (item 1.1): Coleman & Leigh vs Leighs. Rishi confirmed
   the correct trading name is "Coleman and Leighs Pharmacy". Repo updated and
   regenerated same day (see entry below). Do not re-raise this question.
 
+## 2026-08-10 12:04 (unattended run, twenty-fifth) - Quality pass on item 3.9,
+Coleman and Leighs Pharmacy Walton. All 12 Coleman pages verified clean on
+title, H1, NAP, postcode, schema, links and compliance. The defect this run
+found is not in those pages: the house no-dash rule was only ever half
+enforced, so every weight loss page in the estate has been carrying en dashes
+in public copy while the checker reported clean. Fixed at source, 15 pages
+regenerated, checker widened. No question raised, commit a797b1a.
+
+WHAT WAS VERIFIED ON COLEMAN ITSELF. All 12 pages (11 service plus the switch
+page) carry 241 Walton Village, L4 6TH and 0151 525 3522 on every occurrence,
+visible and in tel: links, and the JSON-LD PostalAddress matches branches.json
+field for field including Merseyside as the county. Every page carries
+Coleman's own Google review link and no other branch's. The trading name reads
+"Coleman and Leighs Pharmacy" in every visible string across all 12 pages,
+which is the form Q1 settled: no "&", no "Leigh" singular, no apostrophe. That
+was the thing most worth checking here, because this is the branch the estate
+renamed, and the rename held. The brand slug in the filenames stays
+coleman-leigh, which is a permalink and deliberately not renamed.
+
+THE DEFECT, AND WHY NO CHECKER SAW IT. tools/check-em-dashes.js was written on
+2026-08-09 as the permanent half of the Q7 fix, and its rule is one character
+class: /[--]/. That matches an en or em dash typed as a literal character. It
+does not match the same two characters written as HTML entities, and a browser
+renders the two forms identically. All 15 generated weight loss pages carried
+&ndash; twice each, 30 en dashes of public copy, and the checker had been
+reporting "clean, no em or en dashes in public copy" over every run since it
+was written. A rule that reads only one of the two spellings of the same
+character is not a rule, it is a rule-shaped gap.
+
+WHERE THEY WERE. Both came from tools/build-weight-loss-pages.js, lines 212 and
+230, so they landed on all 15 pages identically:
+  - the hero paragraph: "...not right for everyone &ndash; see below."
+  - the eligibility lead: "...assess your suitability at consultation &ndash;
+    nothing below is a guarantee of treatment, a specific medicine, or a
+    specific outcome."
+Both are now split at a full stop ("...not right for everyone. See below." and
+"...at consultation. Nothing below is a guarantee...") rather than swapping in
+a hyphen, which is exactly what Rishi's Q7 answer directed for the literal
+case. The meaning of both sentences is unchanged, and the second one is the
+compliance sentence on the weight loss pages, so it was rewritten to say the
+same thing in the same order rather than reworded.
+
+WHY IT WAS FIXED RATHER THAN ASKED, ON A WEIGHT LOSS PAGE. The autonomous
+window reserves patient-facing regulatory copy for Rishi, and these are weight
+loss pages, so the carve-out was considered directly. It does not apply: no
+medicine name, efficacy claim, price or clinical statement was touched, and the
+change is typographic. More to the point, Q7 already settled this exact
+question and chose this exact remedy. This is not a new decision, it is the
+answered Q7 decision reaching instances the checker could not see. Nothing was
+weakened: the words "guarantee", "not an NHS treatment" and "individual results
+vary" all survive verbatim.
+
+WHAT WAS DONE TO MAKE IT PERMANENT. check-em-dashes.js now tests literal and
+entity forms through one hasDash() helper used by all three call sites, covers
+&mdash; &ndash; &#8212; &#8211; &#x2014; &#x2013; in both cases, and reports
+which form it found so a failure says what to search for. The comment-exemption
+and paste-sheet-heading exemption are unchanged and now count entity dashes
+too. Six negative tests run and all passed: entity en, entity em, numeric en,
+hex em, plus both literal forms re-tested so the original rule cannot regress.
+A seventh confirmed an entity dash on a pasteable Page Title line in a paste
+sheet fails, and an eighth confirmed one in a sheet heading still does not.
+Every temporary file and the edited sheet were restored and verified byte-clean
+afterwards.
+
+WHAT ELSE THE PASS SWEPT AND FOUND CLEAN. Three things were checked across all
+177 pages rather than just Coleman's 12, on the same reasoning as the previous
+run. Template placeholders: the only {{...}} left anywhere are in the two
+DRAFT-*.html copy templates, which are inputs, not output, so no generated page
+ships an unreplaced placeholder. WhatsApp destination: one number, 447521775631,
+on all 171 pages that carry the enquiry form, declared once per generator and
+matching the DEFAULT in both service.js and switch.js, so no branch page sends
+an enquiry to a different number than the script would use. Weight loss and
+travel copy estate-wide: every occurrence of "guarantee", "results", "safe" and
+"effective" reads as a limitation or a caveat, not a promise, and the only
+efficacy claim in the estate remains the single Smartts tile already held under
+Q16.
+
+ONE THING RECORDED, NOT RAISED. No service or switch page carries opening hours
+in visible copy or in JSON-LD; only the six branch landing pages do. That is
+consistent across all 177 pages and all 15 branches, so it is a design choice
+rather than a Coleman defect, and it means the seven lunch-closure branches
+(Coleman among them) cannot state hours wrongly on a service page because they
+do not state them at all. Worth knowing if landing pages are ever built for the
+remaining branches, since that is the page type where the 3.6 defect lived.
+
+Files changed: tools/build-weight-loss-pages.js, tools/check-em-dashes.js,
+the 15 weight-loss-clinic-*.html pages, AGENT_LOG.md. All 13 checkers re-run
+clean afterwards (177 pages, 0 failures) with the same warning and KNOWN
+profile as before the change, so nothing else moved. Nothing ticked in
+AGENT_WORKLIST.md: this was a quality pass, and 5.3 and 5.4 remain the only
+unchecked items, both [BLOCKED] on Weebly access. QUESTIONS.json unchanged,
+Q13 to Q16 still open.
+
+OUTSTANDING ON THE LIVE SIDE. The 15 weight loss pages now differ from what is
+live, so they need pasting to Weebly like the rest of the queued paste work.
+The SEO title and description for these pages are unchanged, so no SEO field
+needs repasting for this fix.
+
+Run start state. No .agent-lock and no .git\index.lock, no git process running.
+Worktree clean, branch agents/audit-backlog level with origin at 0718f40.
+
+Portal answer pickup: ATTEMPTED, UNAVAILABLE, same blocker as the previous two
+runs. Q13, Q14, Q15 and Q16 were all open at the start, so the condition was
+met. The browser tooling reached https://data.rbhealth.co.uk/api/feedback and
+the portal returned the Cloudflare Access sign-in page rather than the feedback
+JSON, so Rishi's Chrome still does not hold a signed-in Access session. Per the
+scheduled task rules no login was attempted and no other route was tried. Any
+answers left on the portal for Q13 to Q16 remain unread by an unattended run,
+and that is now four runs in a row.
+
 ## 2026-08-10 11:34 (unattended run, twenty-fourth) - Quality pass on item 3.8,
 SK Chemists Bootle. All 12 SK pages verified clean on title, H1, description,
 NAP, postcode, links and compliance, and the pass then found the defect by
