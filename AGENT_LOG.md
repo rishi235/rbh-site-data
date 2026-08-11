@@ -2,6 +2,95 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 02:55 BST - fifty-second run [commit PENDING] - Quality pass on item 3.1, the title and H1 pattern defined once in the generator layer, last verified on 2026-08-06 as the sixth run and therefore the oldest verification standing by five days. The pattern itself is clean and byte-stable. The defect is in the verifier: tools/check-seo-pattern.js held a hand-copied mirror of the seven Pharmacy First condition slugs and phrases, and those slugs also composed its filename regex, so an eighth condition would have gone untyped and passed. Conditions are now read from the generator as data under test, and an untyped file fails instead of being skipped. No new question
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09
+expired at 23:14 on 2026-08-10 and no new authorisation section is present at
+the top of this log, so step 7 applies as written. Nothing this run needed a
+decision in any case: the defect had one obvious fix and it was implementable
+in the repo.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 02:38. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29 and Q34 to Q40 are all still
+open with no answer posted against any of them. Sixteen, unchanged.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived by reading every run heading in this log rather than trusting
+the previous run's summary. Item 3.1 was verified as the sixth run of
+2026-08-06 and never since, which makes it the oldest by a clear margin now
+that 1.1 has moved to 2026-08-11. Taken this run. The next oldest is 1.4, the
+seventh run of the same day, then the 2026-08-07 group: 4.3, 1.3 and 1.2.
+
+THE PATTERN VERIFIED CLEAN ON EVERY LEG IT OWNS. The self-test passes for all
+16 buildable branches with no length warning, which matters more than it used
+to because the longest condition phrase is now read out of the generator rather
+than written into the test as a literal. All six generators still require
+./seo-pattern and compose through it; none has drifted back to composing a
+title or an H1 by hand. All 177 pages were regenerated from all six generators
+and git reported no change to a single generated file, so the pattern is stable
+and the wiring is real rather than nominal. All 19 checkers in tools pass.
+
+THE DEFECT IS IN THE VERIFIER, AND IT IS THE SAME FAULT THE SELF-TEST ALREADY
+HAD TO FIX ONCE. tools/check-seo-pattern.js carried its own copy of the seven
+condition slugs and phrases, under a comment saying it mirrored CONDITIONS in
+build-service-pages.js. A copy that agrees with its source is indistinguishable
+from a derived value right up to the moment the source changes, which is the
+same reasoning that took the longest-condition sample in seo-pattern.js off a
+literal on the item 5.6 pass. This copy had the worse half of it. The slugs did
+not only supply the expected phrases, they also composed the regex that decides
+whether a filename is a condition page at all. Change a phrase in the generator
+and the checker fails loudly, which is fine. Add an eighth condition and the
+checker fails silently: its 14 or more new pages stop being typed, drop into
+the skipped count, and the run still exits 0 with nothing having verified their
+title, their H1 or their description. The estate has 14 branches offering
+Pharmacy First, so the smallest version of that miss is 14 unverified live
+pages, and the NHS adds conditions to Pharmacy First rather than removing them.
+
+The second half is the skipped count itself. It read as reassurance, printed as
+"0 skipped as non-pattern files" on a clean run, but nothing failed when it was
+not zero. An unchecked page and a passing page looked the same in the summary
+line. That is the same shape as the gaps this audit keeps finding: the repo
+green while something real goes unread.
+
+WHAT CHANGED. tools/check-seo-pattern.js now reads build-service-pages.js as
+data under test, the same convention as check-whatsapp-route, check-booking-
+routes and the seo-pattern self-test. readConditions finds the CONDITIONS
+block, walks its top-level entries, takes slug, metaCondition and h1Phrase from
+each entry marked ready:true, and skips ready:false entries because those list
+on the overview without building a page. The filename regex is composed from
+the slugs it read. Four things hard-fail rather than narrowing the check: no
+CONDITIONS block, no closing brace at column 0, a ready:true condition missing
+any of the three fields, and no ready conditions read at all. An untyped file
+is now a failure with a named reason, excusable only through KNOWN_NON_PAGE
+with a reason and a question id, and a stale key there fails the run so the
+list cannot rot. That list is empty today because all 177 files are typed. The
+summary line now prints the conditions it read and the untyped count.
+
+HOW IT WAS TESTED, FIVE WAYS, ALL FIVE BEHAVING. An untyped page copied into
+modules/service/pages failed the run and named the file. Changing a
+metaCondition in the generator failed 14 pages across the estate, which proves
+the phrases are read live rather than copied. Deleting an h1Phrase from a
+ready:true condition hard-failed with that condition named. Renaming the
+CONDITIONS block hard-failed on the block being absent. Adding an eighth
+ready:true condition made the checker report eight conditions and widen its
+regex on its own, which is the case the old literal could not have covered.
+The generator was restored with git checkout after every test and the working
+tree confirmed clean each time; the only modified file at the end was the
+checker.
+
+FILES CHANGED. tools/check-seo-pattern.js (conditions derived, untyped files
+fail, KNOWN_NON_PAGE added, head comment rewritten), CLAUDE.md (the SEO strings
+section now records both rules and why they exist), AGENT_WORKLIST.md (quality
+pass note under item 3.1). No generated page changed, no data changed, and
+nothing here needs a Weebly paste.
+
+NO NEW QUESTION. The fix needed no decision from Rishi: it removes a copy and
+replaces it with a read, it changes no public copy, and it leaves the pattern
+and every generated page byte-identical.
 ## 2026-08-11 02:05 BST - fifty-first run [commit b3f3912] - Quality pass on item 1.1, the brand-name standardisation, last verified on 2026-08-05 as the fifth run of that day, which makes it the oldest verification standing by six days. The repo is clean and has stayed clean. The finding is not a wrong word anywhere; it is that item 1.1 was the only completed item with no checker behind it, so its verification was a hand sweep retyped on every pass. New tools/check-brand-spelling.js now holds the rule. No new question
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09

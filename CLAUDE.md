@@ -91,7 +91,17 @@ Weebly > Pages > SEO Settings, read off the paste sheets (`*SEO.md`), not the
 page body. Four checkers guard them and they do different jobs:
 
 - `tools\check-seo-pattern.js` - the title and H1 match the pattern defined
-  once in `tools\seo-pattern.js`.
+  once in `tools\seo-pattern.js`. It types every file by name first, and two
+  rules keep that typing honest. The seven Pharmacy First condition slugs and
+  phrases are READ from `build-service-pages.js` rather than mirrored into a
+  literal, because those slugs also compose the filename regex: an eighth
+  condition added to the generator used to fall outside it, so its 14 pages
+  would have gone untyped and the run would still have exited 0. And a file
+  the checker cannot type is a FAILURE, not a skip - an unchecked page and a
+  passing page used to look the same in the summary line. A legitimately
+  non-page file goes in `KNOWN_NON_PAGE` with a reason and a question id, and
+  a stale key fails the run. Found and fixed on the item 3.1 quality pass,
+  2026-08-11.
 - `tools\check-seo-sheets.js` - the page and its paste sheet carry the same
   strings, so a generator composing a description twice cannot let the two
   drift.

@@ -12,6 +12,15 @@
   Added 2026-08-05 during the quality pass on the Phase 3 rollout - the
   meta leg of Phase 3 was previously unverified.
 
+  Two things this checker now refuses to do quietly, both added on the item
+  3.1 quality pass, 2026-08-11:
+
+  - The seven condition phrases and slugs are READ from build-service-pages.js
+    rather than mirrored into a literal here. See readConditions below for why
+    the mirror was the more dangerous half of the copy.
+  - A file it cannot type is a FAILURE, not a skip. An unchecked page and a
+    passing page used to look the same in the summary line.
+
   Run:  node tools/check-seo-pattern.js
   Exits 1 on any mismatch. Reports per brand so the Phase 3 worklist items
   (one brand each) can be verified individually.
@@ -31,16 +40,86 @@ data.branches.forEach(function (b) {
   bySlug[b.brandSlug + "-" + b.townSlug] = b;
 });
 
-// Condition slug -> phrases (mirrors CONDITIONS in build-service-pages.js;
-// title uses metaCondition, H1 uses h1Phrase - only earache differs).
-var CONDITIONS = {
-  "uti":         { title: "UTI treatment",                  h1: "UTI treatment" },
-  "sore-throat": { title: "Sore throat treatment",          h1: "Sore throat treatment" },
-  "sinusitis":   { title: "Sinusitis treatment",            h1: "Sinusitis treatment" },
-  "earache":     { title: "Earache treatment",              h1: "Earache treatment for children" },
-  "impetigo":    { title: "Impetigo treatment",             h1: "Impetigo treatment" },
-  "shingles":    { title: "Shingles treatment",             h1: "Shingles treatment" },
-  "insect-bite": { title: "Infected insect bite treatment", h1: "Infected insect bite treatment" }
+function fail(msg) {
+  console.error("check-seo-pattern FAIL: " + msg);
+  process.exit(1);
+}
+
+// ---------------------------------------------------------------------------
+// Condition slug -> phrases, DERIVED from build-service-pages.js
+// ---------------------------------------------------------------------------
+// This used to be a literal, copied out of the generator with a comment saying
+// it mirrored it. A copy that agrees with its source is indistinguishable from
+// a derived value right up to the moment the source changes, and this copy had
+// the worse half of that fault. The condition slugs also composed the filename
+// regex below, so an eighth condition added to the generator would not have
+// failed this checker. Its pages would simply have stopped being TYPED: counted
+// as non-pattern files, reported in the skipped total, and the run would still
+// have exited 0 while 14 or more real pages went unverified.
+//
+// Same convention as the seo-pattern self-test, check-whatsapp-route and
+// check-booking-routes: the generator is read as DATA UNDER TEST, so a
+// generator that stops declaring these fields fails here instead of quietly
+// narrowing what this checker covers. Title comes from metaCondition, H1 from
+// h1Phrase, which is the same pair the generator itself writes; only earache
+// differs between the two today.
+function readConditions() {
+  var src = fs.readFileSync(path.join(__dirname, "build-service-pages.js"), "utf8");
+  var lines = src.split(/\r?\n/);
+
+  var start = -1, end = -1, i;
+  for (i = 0; i < lines.length; i++) {
+    if (/^const CONDITIONS\s*=\s*\{/.test(lines[i])) { start = i; break; }
+  }
+  if (start === -1) fail("build-service-pages.js declares no 'const CONDITIONS = {' block, so the condition phrases cannot be derived");
+  for (i = start + 1; i < lines.length; i++) {
+    if (/^\};/.test(lines[i])) { end = i; break; }
+  }
+  if (end === -1) fail("the CONDITIONS block in build-service-pages.js has no closing '};' at column 0, so its entries cannot be read");
+
+  var out = {}, count = 0, key = null, body = [];
+  function flush() {
+    if (key === null) return;
+    var text = body.join("\n");
+    var wasKey = key;
+    key = null;
+    // ready:false still lists the condition on the overview but builds no page,
+    // so there is nothing for this checker to type.
+    if (!/(^|[\s,{])ready:\s*true\b/.test(text)) return;
+    var slug = /(^|[\s,{])slug:\s*"([^"]+)"/.exec(text);
+    var meta = /(^|[\s,{])metaCondition:\s*"([^"]+)"/.exec(text);
+    var h1 = /(^|[\s,{])h1Phrase:\s*"([^"]+)"/.exec(text);
+    if (!slug || !meta || !h1) {
+      fail("condition '" + wasKey + "' in build-service-pages.js is ready:true but does not declare slug, metaCondition and h1Phrase, so its pages cannot be typed");
+    }
+    out[slug[2]] = { title: meta[2], h1: h1[2] };
+    count++;
+  }
+  for (i = start + 1; i < end; i++) {
+    var m = /^ {2}(?:"([^"]+)"|([A-Za-z0-9_$]+))\s*:\s*\{/.exec(lines[i]);
+    if (m) { flush(); key = m[1] || m[2]; body = []; continue; }
+    if (key !== null) body.push(lines[i]);
+  }
+  flush();
+  if (!count) fail("no ready:true conditions could be read from build-service-pages.js");
+  return out;
+}
+
+var CONDITIONS = readConditions();
+var CONDITION_SLUGS = Object.keys(CONDITIONS);
+var CONDITION_RE = new RegExp("^(" + CONDITION_SLUGS.map(function (s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}).join("|") + ")-treatment-(.+\\.html)$");
+
+// Every .html file in the three page directories below must be a page this
+// checker knows how to type. A file it cannot type is not "skipped", it is
+// UNCHECKED: nothing verifies its title, its H1 or its description, and the
+// run still exits 0. A legitimately non-page file goes in KNOWN_NON_PAGE with
+// a reason and a question id, the same convention as KNOWN_DRIFT in
+// check-cdn-pins.js, and a key that is no longer there fails the run so the
+// list cannot rot. It is empty today: all 177 files are typed.
+var KNOWN_NON_PAGE = {
+  // "example.html": "why this file carries no pattern (Qnn)"
 };
 
 // filename -> { branch, expected title, expected h1 } or null if not a page
@@ -53,7 +132,7 @@ function expectationsFor(file) {
     var b1 = branchOf(m[1]);
     return b1 && { b: b1, title: pat.brandTitle("Pharmacy First", b1), h1: pat.brandH1("Pharmacy First", b1), sw: ["pharmacy first"] };
   }
-  if ((m = /^(uti|sore-throat|sinusitis|earache|impetigo|shingles|insect-bite)-treatment-(.+\.html)$/.exec(file))) {
+  if ((m = CONDITION_RE.exec(file))) {
     var c = CONDITIONS[m[1]], b2 = branchOf(m[2]);
     return b2 && { b: b2, title: pat.searchTitle(c.title, b2), h1: pat.searchH1(c.h1, b2), sw: [m[1].replace(/-/g, " "), "treatment"] };
   }
@@ -87,14 +166,15 @@ var DIRS = [
 ];
 
 var perBrand = {}; // brandLabel -> { pages: n, fails: [] }
-var checked = 0, skipped = 0, fails = 0;
+var checked = 0, fails = 0;
+var untyped = [];  // files this checker could not type: unchecked, not skipped
 
 DIRS.forEach(function (dir) {
   if (!fs.existsSync(dir)) return;
   fs.readdirSync(dir).forEach(function (file) {
     if (!/\.html$/.test(file)) return;
     var exp = expectationsFor(file);
-    if (!exp) { skipped++; return; }
+    if (!exp) { untyped.push(file); return; }
     var html = fs.readFileSync(path.join(dir, file), "utf8");
 
     var tm = /Weebly page SEO title:\s*(.+?)\s*$/m.exec(html);
@@ -131,5 +211,22 @@ Object.keys(perBrand).sort().forEach(function (brand) {
   console.log((r.fails.length ? "FAIL " : "OK   ") + brand + " - " + r.pages + " pages" + (r.fails.length ? ", " + r.fails.length + " mismatches" : ""));
   r.fails.forEach(function (f) { console.log("       " + f); });
 });
-console.log("\n" + checked + " pages checked (" + skipped + " skipped as non-pattern files), " + fails + " failures.");
+// Untyped files, and the KNOWN_NON_PAGE list that excuses them.
+var excused = [];
+untyped.forEach(function (file) {
+  if (Object.prototype.hasOwnProperty.call(KNOWN_NON_PAGE, file)) { excused.push(file); return; }
+  console.log("FAIL untyped file - " + file + ": this checker cannot type it, so nothing verifies its");
+  console.log("       title, H1 or description. Add the page type to expectationsFor(), or list the");
+  console.log("       file in KNOWN_NON_PAGE with a reason and a question id.");
+  fails++;
+});
+Object.keys(KNOWN_NON_PAGE).forEach(function (file) {
+  if (excused.indexOf(file) === -1) {
+    console.log("FAIL stale KNOWN_NON_PAGE key - " + file + " is no longer an untyped file. Remove it.");
+    fails++;
+  }
+});
+
+console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-service-pages.js: " + CONDITION_SLUGS.join(", "));
+console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");
 process.exit(fails ? 1 : 0);
