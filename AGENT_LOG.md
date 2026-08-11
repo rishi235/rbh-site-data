@@ -2,6 +2,62 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 19:45 BST - eighty-first run - Quality pass on item 4.9, the
+Clear Chemist Aintree GBP pack, last verified 2026-08-10 20:04 as the
+thirty-ninth run and the oldest verification standing after run 80
+refreshed 4.8. Pack verified clean second time running, no in-repo
+defect found, no copy changed, no question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired
+(since 23:14 on 2026-08-10) and nothing has renewed it. Nothing in this
+run needed it: verification only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on
+Q22, 6.1 on Q52), so the run is a quality pass. Ageing order: run 80
+refreshed 4.8 (run 38), leaving 4.9 (run 39) as the oldest standing
+verification.
+
+REPO HALF, ALL HOLDING. Every profile-basics fact re-verified against
+branches.json: name, address, postcode L9 7AS, phone 0151 203 8365
+still correctly held back per Q28, website, review link, hasApp true.
+Catchment leads with seoTown Aintree and matches serviceAreaList order
+in the description and the services section. Services match the widget
+set exactly (weightLoss and travelClinic only) and the pack's negative
+claim, no Pharmacy First, blood pressure or contraception, is still
+true against branches.json. Description measured with CRLF normalised:
+669 characters, exactly what its heading claims. Post bodies 407, 360,
+515 and 449, all far inside 1,500. No medicine name, no claim, no em
+dash, no non-ASCII. All 29 checkers green (the one clear-aintree WARN
+is the deliberate Q28 note quoting the live 6535 number), all six
+generators byte-identical, worktree clean.
+
+LIVE HALF, NOTHING CHANGED OUT THERE. Plain GETs with a User-Agent, no
+browser session, nothing clicked or typed. Homepage 200. All three
+post-target pages still 404, so the Q29 state is unchanged and the
+pack's homepage-button guard remains the right instruction. The
+contact page still publishes 0151 203 6535 as the only telephone
+number, now 5 occurrences in the source against the 2 in-body mentions
+recorded on 2026-08-10, so it has spread into page furniture, and 8365
+still appears nowhere, so Q28's wording remains accurate. Clear's own
+WhatsApp number 07512 330 076 is still live on the page, Q21's
+concrete case. One observation recorded for future checker authors:
+the store's edge drops the connection on 404 paths when fetched via
+.NET but serves a clean 404 via curl.
+
+FILES CHANGED. audits/clear-aintree-gbp-pack-check-2026-08-11.txt
+(new), AGENT_WORKLIST.md (second quality pass note under 4.9),
+AGENT_LOG.md (this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 19:09 BST - eightieth run - Quality pass on item 4.8, the
 Fishlocks Chemist Eccleston GBP pack, last verified 2026-08-10 as the
 thirty-eighth run and the oldest verification standing after run 79

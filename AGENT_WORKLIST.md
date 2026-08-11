@@ -583,6 +583,16 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       same sentence as phones and claims from the start; only hours had
       never been enforced. Negative-tested five ways. No pack breaches it
       today, so the gap was latent. Done 2026-08-10.
+      Quality pass 2026-08-11 (second): pack verified clean again, fact by
+      fact against branches.json and rule by rule via check-gbp-packs.
+      Description re-measured at its claimed 669 characters, all 29
+      checkers green, all six generators byte-identical. Live re-read by
+      plain GET: the three post-target pages still 404 (Q29 unchanged,
+      homepage-button guard still correct), the contact page still
+      publishes 0151 203 6535 only and 8365 nowhere (Q28 unchanged), and
+      Clear's own WhatsApp number is still live (Q21's concrete case).
+      No in-repo defect found, no question raised. Evidence:
+      audits/clear-aintree-gbp-pack-check-2026-08-11.txt.
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
