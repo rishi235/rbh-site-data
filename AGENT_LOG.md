@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 04:40 BST - fifty-sixth run - Quality pass on item 1.2, the Hirshmans address sweep, last verified on 2026-08-07 as the tenth run, which made it the oldest verification standing. The live half of the item, which the tenth run could not do, was done this run and the address is correct on every live surface. Two defects found away from the address itself: the published email was checked by nothing, now a rule in check-nap with seven negative tests, and status/index.html had been stale in the repo since 2026-08-04 because one of the seven generators was never in the regenerate-and-compare step. New questions Q41 and Q42
+## 2026-08-11 04:40 BST - fifty-sixth run [commit 641c0a4] - Quality pass on item 1.2, the Hirshmans address sweep, last verified on 2026-08-07 as the tenth run, which made it the oldest verification standing. The live half of the item, which the tenth run could not do, was done this run and the address is correct on every live surface. Two defects found away from the address itself: the published email was checked by nothing, now a rule in check-nap with seven negative tests, and status/index.html had been stale in the repo since 2026-08-04 because one of the seven generators was never in the regenerate-and-compare step. New questions Q41 and Q42
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
