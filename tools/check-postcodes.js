@@ -19,11 +19,12 @@
   Rules
   -----
   1. UNKNOWN    every postcode in the repo must belong to a branches.json
-                entry. The only exception is the narrative allowlist below:
-                files that document the historical error and must be free to
-                quote it.
-  2. MISSING    every live branch postcode must appear somewhere in the repo,
-                so a branch cannot silently lose its address.
+                entry. The only exception is a NAMED historical value quoted
+                in one of the narrative files that document the audit, and a
+                named value that has left the repo fails as a stale exemption.
+  2. MISSING    every live branch postcode must appear in a file that is NOT
+                one of those narrative files, so a branch cannot silently lose
+                its address and have the audit's own prose cover for it.
   3. FOREIGN    a file that belongs to one branch must not carry another
                 branch's postcode. This is the McCanns Sandringham failure
                 shape exactly: a real, valid postcode on the wrong branch.
@@ -46,19 +47,52 @@ var VERBOSE = process.argv.indexOf("--verbose") !== -1;
 var data = JSON.parse(fs.readFileSync(path.join(ROOT, "branches.json"), "utf8"));
 var branches = data.branches;
 
-// Files allowed to quote a postcode that is not in branches.json. These
-// record the audit itself: the worklist item names the wrong postcode, the
-// log explains it, the status page renders both, and this checker carries it
-// as the historical example in the comment above.
-var NARRATIVE = [
+// Two separate ideas, kept separate on purpose.
+//
+// NARRATIVE_FILES are the surfaces allowed to QUOTE a postcode that is not in
+// branches.json, because they record the audit itself: the worklist item names
+// the wrong postcode, the log explains it, the status page renders both, and
+// this checker carries it as the historical example in the comment above. A
+// file listed here that quotes nothing today is fine; it is a documentation
+// surface, not a claim. A file listed here that has gone is a failure, the
+// same convention as EXTRA_HTML in check-em-dashes.js.
+//
+// NARRATIVE_POSTCODES are the specific historical values those files may
+// quote. Until the item 1.3 quality pass on 2026-08-11 there was no such list.
+// The exemption was whole-file, so ANY postcode typed into any of the listed
+// files passed rule 1 in silence - including a wrong one written into
+// status/index.html, which is the page a human reads to see where the audit
+// has got to, and into QUESTIONS.json, which is where a question quotes a
+// value back to Rishi for a decision. The exemption now names the value it
+// excuses, and a named value that appears nowhere in the repo FAILS as a stale
+// exemption, the same convention as KNOWN in check-seo-lengths.js and
+// KNOWN_DRIFT in check-cdn-pins.js, so the list cannot rot.
+var NARRATIVE_FILES = [
   "AGENT_LOG.md",
   "AGENT_WORKLIST.md",
   "QUESTIONS.json",
   "CHANGELOG.md",
   "README.md",
+  "CLAUDE.md",
   "status/index.html",
   "tools/check-postcodes.js"
 ];
+
+var NARRATIVE_POSTCODES = {
+  "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed."
+};
+
+// Files that DECLARE or DOCUMENT a postcode rather than USE it. This
+// distinction is what makes rules 1 and 2 mean anything, and getting it wrong
+// was caught while writing them: branches.json is the source of every
+// postcode, so counting it as an appearance let rule 2 pass for a branch whose
+// address had left every page and pack; and this file is itself scanned and is
+// itself a narrative file, so writing a value into NARRATIVE_POSTCODES made
+// that value appear in the repo and the stale-exemption rule could never fire.
+// A postcode has to turn up somewhere a patient could read it before either
+// rule is satisfied.
+var SELF = "tools/check-postcodes.js";
+var DECLARING = ["branches.json", SELF];
 
 // Directories whose files are owned by a single branch, so rule 3 applies.
 var OWNED_DIRS = [
@@ -110,7 +144,9 @@ function ownerOf(relPath) {
 
 var failures = [];
 var warnings = [];
-var seenPostcodes = {};   // postcode -> [files]
+var seenPostcodes = {};      // postcode -> [every file carrying it]
+var seenAsUse = {};          // postcode -> [files that USE it: pages, packs, paste blocks]
+var narrativeQuotes = {};    // postcode -> [narrative files quoting it, excluding this file]
 var filesScanned = 0;
 
 function fail(m) { failures.push(m); }
@@ -136,7 +172,7 @@ function checkFile(p) {
   filesScanned++;
   if (!list.length) return;
 
-  var isNarrative = NARRATIVE.indexOf(r) !== -1;
+  var isNarrative = NARRATIVE_FILES.indexOf(r) !== -1;
   var ownedDir = OWNED_DIRS.filter(function (d) { return r.indexOf(d + "/") === 0; })[0];
   var owner = ownedDir ? ownerOf(r) : null;
 
@@ -144,10 +180,17 @@ function checkFile(p) {
 
   list.forEach(function (pc) {
     (seenPostcodes[pc] = seenPostcodes[pc] || []).push(r);
+    if (!isNarrative && DECLARING.indexOf(r) === -1) (seenAsUse[pc] = seenAsUse[pc] || []).push(r);
+    if (isNarrative && r !== SELF) (narrativeQuotes[pc] = narrativeQuotes[pc] || []).push(r);
     var b = byPostcode[pc];
 
     if (!b) {
-      if (isNarrative) return;   // documenting the historical error is allowed
+      if (isNarrative && NARRATIVE_POSTCODES[pc]) return;
+      if (isNarrative) {
+        fail("UNKNOWN  " + r + ": postcode " + pc + " is in no branches.json entry and is not a named historical value. " +
+             "If the audit legitimately quotes it, add it to NARRATIVE_POSTCODES with a reason; otherwise correct it.");
+        return;
+      }
       fail("UNKNOWN  " + r + ": postcode " + pc + " is in no branches.json entry");
       return;
     }
@@ -163,12 +206,43 @@ function checkFile(p) {
 
 scan(ROOT);
 
-// Rule 2: every live branch postcode must appear somewhere.
+// Rule 2: every live branch postcode must be USED somewhere - on a page, in a
+// pack, in a paste block. Declaring it in branches.json and narrating it in
+// AGENT_LOG.md is not an address anybody can be sent to.
 branches.forEach(function (b) {
   if (b.disposed) return;
   var pc = norm(b.postalCode);
   if (!pc) { warn("NO POSTCODE in branches.json for " + b.id); return; }
-  if (!seenPostcodes[pc]) fail("MISSING  postcode " + pc + " (" + b.id + ") appears nowhere in the repo");
+  if (!seenPostcodes[pc]) {
+    fail("MISSING  postcode " + pc + " (" + b.id + ") appears nowhere in the repo");
+    return;
+  }
+  if (!seenAsUse[pc]) {
+    fail("MISSING  postcode " + pc + " (" + b.id + ") is only declared or narrated (" +
+      seenPostcodes[pc].join(", ") + "): no page, pack or paste block carries this branch's address");
+  }
+});
+
+// Rule 1, second half: the exemption list cannot rot. A named historical value
+// that has left the repo has done its job and the entry must go, and a
+// narrative file that has been deleted or renamed must not sit here unnoticed.
+// Measured against the narrative files ONLY, and never against this file, or
+// the entry would keep itself alive just by being written down here.
+Object.keys(NARRATIVE_POSTCODES).forEach(function (pc) {
+  if (!narrativeQuotes[pc]) {
+    fail("STALE    NARRATIVE_POSTCODES names " + pc + " but no narrative file quotes it. Remove the entry.");
+    return;
+  }
+  if (byPostcode[pc]) {
+    fail("STALE    NARRATIVE_POSTCODES names " + pc + ", which is now a real branches.json postcode (" +
+      byPostcode[pc].id + "). Remove the entry: it is excusing a value that no longer needs excusing.");
+  }
+});
+
+NARRATIVE_FILES.forEach(function (f) {
+  if (!fs.existsSync(path.join(ROOT, f))) {
+    fail("STALE    NARRATIVE_FILES names " + f + ", which is not in the repo. Remove the entry or restore the file.");
+  }
 });
 
 if (VERBOSE) {

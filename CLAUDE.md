@@ -534,6 +534,49 @@ Exceptions go in `KNOWN_PHONE` or `KNOWN_SURFACE` with a reason and a question
 id, and a key that no longer fires fails the run.
 
 
+## The postcode, and the difference between using a fact and talking about one
+
+`tools\check-postcodes.js` is the only checker that reads the whole repo rather
+than a fixed list of page directories, so it is the one that sees the GBP packs,
+the Weebly paste blocks, the module sheets and the status page. That breadth is
+what makes its exemption list dangerous, and the item 1.3 quality pass on
+2026-08-11 found it had been written the wrong way round.
+
+The allowlist excused FILES, not VALUES. Seven files were free to carry any
+postcode that is not in `branches.json`, so a wrong one typed into any of them
+passed rule 1 in silence. Two of the seven matter: `status\index.html` is the
+page a human opens to see where the audit has got to, and `QUESTIONS.json` is
+where a question quotes a value back to Rishi for a decision. The list also had
+no staleness rule, alone among the KNOWN lists in this repo, so three of the
+seven entries were excusing nothing and nothing would ever have said so.
+
+It now names the value. `NARRATIVE_POSTCODES` carries `CH49 1SX` with the
+reason it exists - the Wirral postcode found on McCanns Sandringham, whose
+correct value is L17 4JP - and any other unknown postcode fails wherever it is
+written. An entry no narrative file quotes fails as stale, an entry that has
+become a real branch postcode fails as stale, and a `NARRATIVE_FILES` entry
+whose file has gone fails, the same convention as `EXTRA_HTML` in
+`check-em-dashes.js`.
+
+The rule worth carrying beyond this checker is the one that broke both new
+rules on their first negative test. A file that DECLARES a postcode and a file
+that USES one are not the same evidence:
+
+- `branches.json` is the source of every postcode, so counting it as an
+  appearance let rule 2 pass for a branch whose address had left every page,
+  pack and paste block. Rule 2 now requires a live branch postcode to be USED
+  somewhere a patient could read it. Declaring it and narrating it is not an
+  address anybody can be sent to.
+- `check-postcodes.js` is itself scanned and is itself on the narrative list,
+  so writing a value into `NARRATIVE_POSTCODES` made that value appear in the
+  repo, and the stale-exemption rule could never fire. Staleness is now
+  measured against the narrative files EXCLUDING this one.
+
+Both are the same fault as the map iframe in `check-jsonld.js` and the "Call us
+on" phone in `check-nap.js`: the checker was reading, and what it read did not
+mean what the rule assumed. When a rule asks whether a fact is present, decide
+first which files are allowed to count as an answer.
+
 ## Weight loss copy - the rule book is outside this repo
 
 The house reference for anything weight loss is

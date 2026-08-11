@@ -2,6 +2,127 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 04:35 BST - fifty-fifth run - Quality pass on item 1.3, the McCanns Sandringham postcode sweep, last verified on 2026-08-07 as the ninth run, which made it the oldest verification standing. The data is clean: CH49 1SX appears in exactly four files, all of them the audit recording its own finding, and in no page, pack or paste block; all 16 live postcodes are present and correctly attributed; all six generators rebuilt to zero diff and all 19 checkers pass. The defect is in the verifier again, and this time in the exemption rather than in the reading. check-postcodes.js excused FILES rather than VALUES, so any wrong postcode typed into any of the seven audit files passed rule 1 in silence, including status/index.html. The exemption now names the one value it excuses and fails when it goes stale, and rule 2 now requires a branch postcode to be USED rather than merely declared. Both new rules failed their own first negative test and were fixed before commit. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision in any case: the gap was in a checker, the
+fix was implementable in the repo, and it changed no public copy and no data.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 04:12. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Sixteen questions remain open, unchanged: Q17 to Q22, Q24,
+Q28, Q29 and Q34 to Q40.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived by reading every run heading in this log rather than trusting the
+previous run's summary, and it agrees with it: the fifty-fourth run took 4.3,
+which was the eighth run of 2026-08-07, leaving the ninth run's item 1.3 as the
+oldest verification standing, then 1.2 from the tenth run of the same day, then
+4.4 on 2026-08-08. Item 1.3 taken this run.
+
+THE ITEM VERIFIED CLEAN. CH49 1SX, the Wirral postcode found on McCanns
+Sandringham where the correct value is L17 4JP, appears in AGENT_LOG.md,
+AGENT_WORKLIST.md, status/index.html and the comment at the top of
+check-postcodes.js itself. All four are the audit describing its own finding and
+all four should stay. It appears in no generated page, no GBP pack, no paste
+block and no branches.json entry. Every one of the 16 live branch postcodes
+occurs in the repo, between 10 and 22 files each, and no file owned by one
+branch carries another branch's postcode. All six generators were re-run and git
+reported no change to a single generated file. All 19 checkers pass.
+
+READING COVERAGE MEASURED, NOT ASSUMED. The checker's postcode regex is case
+sensitive and allows at most one whitespace character between the outward and
+inward code, so a postcode in lower case, wrapped across a CRLF line break,
+URL-encoded with %20 or a plus, split by an HTML tag, or written with a
+non-breaking space would be invisible to it. Each of those nine shapes was
+searched for, for each of the 16 real postcodes, across all 273 text files. Not
+one is present today, so the blindness is latent rather than live and it was
+left alone rather than widened speculatively. Recorded here so a later run does
+not have to re-derive it.
+
+THE DEFECT, AND IT IS IN THE EXEMPTION. Rule 1 says every postcode in the repo
+must belong to a branches.json entry, with an allowlist for the files that
+document the historical error. The allowlist named FILES. Seven of them were
+free to carry ANY postcode not in branches.json, forever, with nothing checking
+which. Two of the seven are not private notes: status/index.html is the page a
+human opens to see where the audit has got to, and QUESTIONS.json is where a
+question quotes a value back to Rishi for a decision. A wrong postcode written
+into either passed the only checker in the repo that reads them.
+
+It was also the one KNOWN-style list here with no staleness rule, against a
+convention CLAUDE.md states four separate times: an entry that no longer breaks
+a rule fails the check, so the list cannot rot. Measured rather than assumed:
+three of the seven entries, QUESTIONS.json, CHANGELOG.md and README.md, excuse
+nothing at all today, and nothing would ever have said so.
+
+WHAT CHANGED. The exemption now names the value. NARRATIVE_POSTCODES carries
+CH49 1SX with the reason it exists; any other unknown postcode fails wherever it
+is written, and the failure message says how to record it if the audit
+legitimately quotes it. Three staleness rules were added: an entry no narrative
+file quotes fails, an entry that has become a real branches.json postcode fails,
+and a NARRATIVE_FILES entry whose file has gone fails, which is the same
+convention as EXTRA_HTML in check-em-dashes.js. CLAUDE.md was added to
+NARRATIVE_FILES in the same change, because the new section written into it
+documents the historical postcode, so the tightened rule failed on the repo's
+own rule book until it was listed. That is the rule working, not a problem with
+it, and it is the fourth time this run that the change caught its own author.
+
+Rule 2 was tightened in the same pass because it had the same shape of hole. It
+required a live branch postcode to appear "somewhere in the repo", which the
+audit's own prose satisfies. A branch could have lost its address from every
+page, pack and paste block and still passed because AGENT_LOG.md mentions it. It
+now requires the postcode to be USED: present in a file that is neither the
+audit narrating itself nor branches.json declaring it.
+
+BOTH NEW RULES FAILED THEIR OWN FIRST NEGATIVE TEST, which is the part worth
+recording. The stale-exemption rule could never fire, because check-postcodes.js
+is itself scanned and is itself on the narrative list, so writing a value into
+NARRATIVE_POSTCODES put that value in the repo and kept the entry alive by
+self-reference. And the tightened rule 2 passed a branch whose address existed
+only in branches.json, because the file that declares a postcode was counted as
+a file that uses one. Same fault in miniature as the map iframe in
+check-jsonld.js and the "Call us on" phone in check-nap.js: the checker was
+reading, and what it read did not mean what the rule assumed. Both were fixed
+before commit by separating declaring files from using files, and the lesson is
+written into CLAUDE.md rather than left in this log.
+
+NEGATIVE TESTED SIX WAYS, all against the finished checker, every file restored
+with git checkout afterwards and the run re-verified clean at exit 0. An unknown
+postcode written into README.md, a narrative file, now fails as UNKNOWN naming
+the file; before this change it passed. An exemption naming a value no narrative
+file quotes fails as STALE. A NARRATIVE_FILES entry pointing at a file that is
+not in the repo fails as STALE. Setting a branch's postcode to CH49 1SX produced
+both the STALE for an exemption that is now a real postcode and the MISSING for
+a branch whose address is only declared and narrated, 18 failures in total,
+correctly typed. The three original rules were re-proved at the same time: an
+unknown postcode in a GBP pack fails, Hirshmans' postcode written onto a McCanns
+Sandringham page fails as FOREIGN naming both branches, and marking Smartts
+disposed produced DISPOSED failures across its pages and its pack. git status
+confirms no page, pack, paste block or branches.json byte changed.
+
+Files changed: tools/check-postcodes.js, CLAUDE.md (new section, "The postcode,
+and the difference between using a fact and talking about one"),
+AGENT_WORKLIST.md (item 1.3 quality pass note, added in place), AGENT_LOG.md. No
+page, generator, pack, paste block or branches.json bytes changed.
+Questions: none raised. Sixteen remain open, unchanged.
+
+Note for a later run, not done here to avoid scope creep. The item 1.3 entry
+from the ninth run left two suggestions and one is now closed: the two Weebly
+paste blocks in modules/service/weebly-paste have their postcodes checked here
+and their phone and address checked by check-nap since the 1.4 pass. The other
+stands: four generators are driven by hardcoded BUILD lists rather than by
+scanning branches.json, which remains the largest structural weakness in the
+build. Separately, the case and separator blindness measured above is worth
+closing the next time this checker is opened for another reason, but it is not
+worth a run of its own while nothing in the repo is hiding in those shapes.
+
+---
+
 ## 2026-08-11 04:05 BST - fifty-fourth run [commit 2958ee1] - Quality pass on item 4.3, the Hirshmans Chemist Ainsdale GBP pack, drafted on 2026-08-04 and last verified on 2026-08-07 as the eighth run, which made it the oldest verification standing by four days. The pack is clean on every leg it owns: every fact matches branches.json, the description is the 743 characters it claims, the four posts run 448, 408, 402 and 317 against a 1,500 limit, Post A's seven conditions and its UTI 16 to 64 range match the generated Pharmacy First page condition for condition, all six generators rebuilt to zero diff and all 19 checkers pass. The defect is in the verifier. check-gbp-packs.js read the photo shot list for its heading and nothing else, so a pack could have carried an empty section 4 and passed. Three rules added and negative-tested three ways, and they caught a real breach in mccanns-sandringham.md. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
@@ -3421,7 +3542,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from £39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -3795,7 +3916,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -5443,7 +5564,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From £39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 

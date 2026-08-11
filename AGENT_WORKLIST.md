@@ -601,6 +601,25 @@ appended to the line. Do not move them; the status page reads them in place.
       Per Master Plan v2 and Build Pack v2 section 4.2 the CH49 1SX sits in
       the GBP management record, which this agent cannot reach - action note
       for Rishi or Dane logged in AGENT_LOG.md.
+      Quality pass 2026-08-11: the postcode data verified clean and the
+      checker holding this item hardened twice. CH49 1SX still appears in
+      exactly four files, all of them the audit recording its own finding,
+      and in no page, pack or paste block. All 16 live postcodes are present
+      and correctly attributed, no file carries another branch's postcode,
+      all six generators regenerated every page byte-identical, and all 19
+      checkers pass. The defect was in check-postcodes.js. Its allowlist was
+      whole-file, so ANY wrong postcode typed into any of the seven audit
+      files passed rule 1 in silence, including status/index.html, the page
+      a human reads to see where the audit has got to. The exemption now
+      names the one value it excuses and fails when that value goes stale.
+      Rule 2 was tightened at the same time: a branch postcode must now be
+      USED on a page, in a pack or in a paste block, because declaring it in
+      branches.json and narrating it in AGENT_LOG.md is not an address
+      anybody can be sent to. Both new rules failed their first negative
+      test by counting the file that merely declares a postcode as evidence
+      it is used, which is the same under-reading fault in miniature; fixed
+      before commit and re-tested. Six rules negative-tested, all fire.
+      Done 2026-08-11.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
