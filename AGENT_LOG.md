@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 15:55 BST - seventy-third run [commit c4cd95f] - Item 6.1, the
+## 2026-08-11 15:55 BST - seventy-third run [commit a9ee078] - Item 6.1, the
 sitemap duplication finding from this morning's Ahrefs sweep. Investigated,
 premise disproven, evidence gathered from the live estate, blocked on Q52.
 No generator and no page output changed.
