@@ -178,6 +178,24 @@ as data under test, and an untyped file is a failure rather than a skip.
       injection on both the description and the H1 leg. No new question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
+      Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
+      12 Eccleston, 2 landing) and clean. Every title, description and H1
+      carries the branch's own town, no page names the sister town, both
+      2026-08-09 fixes still stand (Eccleston addressRegion Lancashire with
+      seoRegion Chorley, and no "Eccleston in Eccleston" link), all six
+      generators regenerate every page byte-identical, and all 19 checkers
+      pass. The gap was in the rules again, and one town over. No rule in
+      the repo had ever compared one H1 to another: check-seo-lengths reads
+      the paste sheets, which carry the title, description and permalink but
+      not the H1, and check-seo-pattern proves each H1 equals the pattern,
+      which is a per-page rule. A family A H1 carries no brand, so
+      Fishlocks Ainsdale and Hirshmans Ainsdale publish eight identical
+      headings, and so do the Bootle and Walton pairs: 48 pages competing
+      with a page of ours while every checker stayed green. New rule 4 in
+      check-seo-lengths.js reads the H1 off the pages and classifies pairs
+      rather than groups, proved to bite on four injections. The 48 are
+      reported against Q44, which asks whether the heading should carry the
+      brand, because that is a search decision and a repaste.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.

@@ -108,7 +108,10 @@ page body. Four checkers guard them and they do different jobs:
 - `tools\check-em-dashes.js` - no em or en dash reaches public copy.
 - `tools\check-seo-lengths.js` - the strings fit the SERP and are unique:
   title 65 characters or fewer, description between 80 and 165, and no two
-  pages sharing a title, description or permalink.
+  pages sharing a title, description or permalink. Since the item 3.3 pass on
+  2026-08-11 it also reads the H1 off the PAGES, because the H1 is on no paste
+  sheet and rule 3 therefore could not see it. See "The heading nothing
+  compared" below.
 
 Lengths and uniqueness matter for the same reason Phase 3 of the audit exists.
 An overlong title is truncated and the brand is the part that disappears. Two
@@ -152,6 +155,53 @@ and it is not theoretical, because seoTown MOVES: item 5.7 changed McCanns
 Sandringham's from Sandringham to St Michael's on 2026-08-10, which is how a
 town word ends up on the wrong page. Added on the item 3.2 quality pass,
 2026-08-11, replacing a hand check made on 2026-08-09 that no rule preserved.
+
+
+### The heading nothing compared
+
+The four checkers above read the paste sheets, because the sheets hold the
+strings a human types into Weebly. The H1 is not on a sheet. It is on the page.
+So `check-seo-lengths` rule 3 - no two pages share a title, a description or a
+permalink - could never reach it, and `check-seo-pattern` reads every H1 but
+only to prove it EQUALS what `seo-pattern.js` composes for that page, which is
+a per-page rule and says nothing about any other page. Between them, no rule in
+this repo had ever compared one H1 to another.
+
+What that let through is the fault Phase 3 exists to stop, arriving through the
+one string nobody was comparing. A family A page puts the brand in the title
+and leaves it out of the heading: the title is "Shingles treatment in Ainsdale -
+Fishlocks Chemist", the H1 on the same page is "Shingles treatment in
+Ainsdale". That is correct at the twelve branches that are the only RBH shop in
+their town. At the three towns where we run two, the two shops publish eight
+headings that are byte-identical - Fishlocks Ainsdale against Hirshmans
+Ainsdale, SK Chemists Bootle against Smartts Bootle, Cherry Lane Walton against
+Coleman and Leighs Walton - so 48 pages compete with a page of ours instead of
+owning a catchment, while every checker stayed green. Found on the item 3.3
+quality pass, 2026-08-11, and raised as Q44.
+
+Rule 4 in `check-seo-lengths.js` now reads it, and it classifies PAIRS rather
+than groups. That distinction is not cosmetic: the first version read each
+group of matching H1s as one verdict, and injection proved that a third page on
+another host downgraded a genuine same-host collision to a warning. A group is
+not one verdict. Three legs:
+
+- one branch repeating an H1 on two of its own pages FAILS, because a branch
+  declaring one heading twice is never right
+- two branches on one website host sharing an H1 FAILS, which is the
+  shared-domain self-competition on the Scorah, Fishlocks and McCanns pairs.
+  Clean today only because every H1 carries its own town
+- two branches on different hosts sharing an H1 is REPORTED against Q44,
+  because whether the heading should carry the brand is a search decision and
+  it queues pages for a repaste
+
+A page with no H1, and a page whose filename resolves to no live branch, both
+FAIL rather than being skipped, the same convention as `KNOWN_NON_PAGE` in
+`check-seo-pattern.js`: an unchecked page and a passing page must not look the
+same in the summary line.
+
+The general rule worth carrying: when a uniqueness rule passes, ask WHICH FILE
+it read. Rule 3 read the sheets and was right about everything on them. The
+strongest heading on the page was not on them.
 
 
 The title limit is not only checked, it is fitted to. `tools\seo-pattern.js`

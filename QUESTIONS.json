@@ -665,5 +665,20 @@
     "status": "open",
     "answer": null,
     "note": "Two other things were read live on scorah-chemists.co.uk in the same pass and neither is new. The branch landing page pharmacy-scorah-bramhall.html that the pack tells the paster to set as the profile website returns a 404, which is what the pack's own paster note anticipates, so the Scorah Bramhall profile cannot yet be moved off the shared homepage. The switch page still carries the em dash that item 5.1 removed from the repo on 2026-08-09, and it is rendering as the mojibake \"a EUR\" sequence rather than as a dash; the thirty-second run read the same thing at this branch on 2026-08-10, so it is unchanged rather than new evidence. Both are paste lag, not repo defects. The pack itself verified clean on every fact."
+  },
+  {
+    "id": "Q44",
+    "date": "2026-08-11",
+    "item": "quality pass on 3.3 (finding, does not block any item)",
+    "question": "Forty-eight generated pages carry an H1 that is byte-identical to a page at a different RBH pharmacy in the same town, and nothing in the repo had ever compared one H1 to another. The pattern is deliberate: a family A page puts the brand in the SEO title (\"Shingles treatment in Ainsdale - Fishlocks Chemist\") and leaves it out of the heading on the page (\"Shingles treatment in Ainsdale\"). That is fine at the twelve branches that are the only RBH pharmacy in their town. It is not fine at the three towns where we run two shops, because Fishlocks Ainsdale and Hirshmans Ainsdale, SK Chemists Bootle and Smartts Bootle, and Cherry Lane Walton and Coleman and Leighs Walton each publish the same eight headings word for word, so the strongest heading on the page tells Google nothing that separates one of our shops from the other. check-seo-lengths reads the paste sheets, which is why its uniqueness rule covers the title, the description and the permalink but not the H1, and check-seo-pattern only proves each H1 equals what the pattern composes for that page, which is a per-page rule. The rule is now in check-seo-lengths and reports these 48 pages as warnings against this question. Deciding whether the heading should carry the brand is a search decision and it puts pages into the Weebly repaste queue, so it is yours.",
+    "options": [
+      "Put the brand into the family A H1 only where another live branch shares this branch's seoTown, computed in tools/seo-pattern.js from branches.json. Changes 48 pages in Ainsdale, Bootle and Walton, leaves the other 64 family A pages byte-identical, and a future same-town pair or a seoTown move picks the rule up on its own with no further decision.",
+      "Put the brand into every family A H1 across the estate, all 112 pages. One rule with no condition attached, which is simpler to hold in your head, but it rewrites the visible heading on 112 pages and queues every one of them for a Weebly repaste to fix a fault that exists in three towns.",
+      "Leave the headings alone and record the decision. Costs nothing and queues no repaste, and the title and the description already carry the brand on every one of these pages, so the SERP entry is differentiated even though the heading is not. The 48 warnings stay in check-seo-lengths as a standing note rather than a defect."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Two things worth knowing before you pick. The 48 pages are already in a repaste queue for other reasons, because every branch running a switch page or a landing page is queued behind Q3, Q8, Q9 and Q13, so option 1 is not a new session so much as more work inside a session that has to happen anyway. And the Aintree pair does not appear in the 48 only because Clear Chemist Aintree has no Pharmacy First or contraception pages yet; the moment it gets them, Aintree joins Ainsdale, Bootle and Walton, which is the argument for option 1 over a hand-picked list of three towns."
   }
 ]

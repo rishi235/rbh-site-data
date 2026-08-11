@@ -2,6 +2,144 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 - sixty-first run - Quality pass on item 3.3, Fishlocks Chemist Ainsdale and Eccleston, last verified on 2026-08-09 as the nineteenth run, which made it the oldest verification standing. All 26 pages verified clean and both of the nineteenth run's fixes still stand. The gap was in the rules again and it was one town over: no rule in this repo had ever compared one H1 to another, because check-seo-lengths reads the paste sheets and the H1 is not on one. A family A H1 carries no brand, so Fishlocks Ainsdale and Hirshmans Ainsdale publish eight byte-identical headings, and so do the Bootle and Walton pairs. 48 pages. New rule 4 in check-seo-lengths.js, and Q44 raised for the copy decision
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+That is why the 48 pages were not changed on the spot: putting the brand into a
+family A heading is a search decision and a repaste, so it went to Q44.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. The newest entry is still the Q16 answer
+of 15:16 on 2026-08-10, which the thirty-third run already recorded. Nineteen
+questions were open before this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q43,
+and none has been answered. Twenty are open now, because this run raised Q44.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running,
+worktree clean, branch agents/audit-backlog level with origin at a3bc973. All 19
+checkers green before any change was made, so nothing below is a pre-existing
+failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this one,
+and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run
+to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The fifty-ninth run took 4.1 and the
+sixtieth took 3.2, both 2026-08-09 items from the seventeenth and eighteenth
+runs; item 3.3 is the nineteenth run's item of the same day and nothing has
+touched it since, so it is next.
+
+WHAT VERIFIED CLEAN. All 26 Fishlocks pages were re-read from source rather
+than from the nineteenth run's account of them: 12 Ainsdale, 12 Eccleston, and
+the two branch landing pages built under item 2.2.
+  - check-seo-pattern: every SEO title and every H1 equals what
+    tools/seo-pattern.js composes for that branch and page type, and every
+    description carries the branch seoTown with a length inside the window.
+  - Every one of the 26 H1s was printed out and read by eye as well as by
+    checker. Each carries its own town and no other, and no page carries the
+    wrong brand.
+  - The cross-town absence rule the item 3.2 pass added on 2026-08-11 now
+    covers this pair as data rather than by hand. Neither branch lists the
+    other in its serviceAreaList, so neither has an excuse, and the rule
+    passes: no Ainsdale page names Eccleston in a title, H1 or description,
+    and none the other way.
+  - Both of the nineteenth run's fixes still stand. Eccleston carries
+    addressRegion Lancashire with seoRegion Chorley, so the schema field holds
+    the county and the search qualifier holds the borough, and the landing
+    page prints one of each. The sister-branch link now reads "Fishlocks
+    Chemist Eccleston" rather than "Eccleston in Eccleston".
+  - All six generators were run. Every one of the 177 pages regenerated
+    byte-identical, so nothing in the estate depends on a hand edit.
+  - All 19 checkers pass, before and after this run's change.
+
+THE GAP, WHICH IS THE H1 AND WHICH IS NOT ABOUT FISHLOCKS ECCLESTON. The
+shared-domain half of item 3.3 is now well covered. The half that was not
+covered at all is the OTHER pair Fishlocks Ainsdale sits in.
+
+Ainsdale has two RBH pharmacies: Fishlocks Ainsdale and Hirshmans Ainsdale, on
+different domains, both on Station Road. Bootle has SK Chemists and Smartts.
+Walton has Cherry Lane and Coleman and Leighs. CLAUDE.md names all four town
+pairs, Aintree included, as the reason the uniqueness rule exists.
+
+A family A page deliberately puts the brand in the SEO title and leaves it out
+of the heading. The title is "Shingles treatment in Ainsdale - Fishlocks
+Chemist"; the H1 on the same page is "Shingles treatment in Ainsdale". At the
+twelve branches that are the only RBH shop in their town that is correct and
+costs nothing. At the three towns where we run two, the two shops publish the
+same eight headings word for word: earache, impetigo, infected insect bite,
+shingles, sinusitis, sore throat, UTI and NHS contraception. 24 groups, 48
+pages, byte-identical, two of our own pharmacies competing on the strongest
+heading on the page.
+
+Nothing could see it, and the reason is worth carrying. check-seo-lengths owns
+uniqueness, and it reads the PASTE SHEETS, because the sheets hold the strings
+a human types into Weebly. The sheets carry the title, the permalink and the
+description. They do not carry the H1. check-seo-pattern does read every H1,
+but only to prove it equals what the pattern composes for that page, which is a
+per-page rule and says nothing about any other page. So the rule that asks
+whether two pages are the same never saw the heading, and the rule that saw the
+heading never asked about two pages. Same shape as the map iframe in
+check-jsonld and the "Call us on" phone in check-nap: the checker was reading,
+and what it read did not include the thing the rule was for.
+
+Measured before it was ruled on: 112 of the 177 pages carry a brandless H1, 8
+page types at 14 branches. 48 of those 112 are in the three shared towns. The
+Aintree pair does not appear only because Clear Chemist Aintree has no Pharmacy
+First or contraception pages yet, which makes it a fourth town waiting rather
+than an exception.
+
+WHAT LANDED. Rule 4 in tools/check-seo-lengths.js reads the H1 off the pages,
+resolves each filename to its owning live branch through branches.json, and
+classifies PAIRS rather than groups:
+  - one branch repeating an H1 on two of its own pages FAILS
+  - two branches on one website host sharing an H1 FAILS, which is the
+    shared-domain case on the Scorah, Fishlocks and McCanns pairs, clean today
+    only because every H1 carries its own town
+  - two branches on different hosts sharing an H1 is REPORTED against Q44
+  - a page with no H1 FAILS, and a page whose filename resolves to no live
+    branch FAILS, rather than either being skipped
+
+THE MISTAKE IN THE FIRST VERSION, RECORDED BECAUSE IT IS THE SAME CLASS OF
+FAULT THE RULE EXISTS TO CATCH. The rule was written to read each group of
+matching H1s as one verdict: same branch, else same host, else warn. Injection
+killed it. Setting Fishlocks Eccleston's shingles H1 to "Shingles treatment in
+Ainsdale" makes a group of three - two Fishlocks pages on one host and one
+Hirshmans page on another - and the group then held two distinct hosts, so a
+genuine same-domain collision was downgraded to a warning and the run exited 0.
+A group is not one verdict. The rule now enumerates pairs and classifies each
+one, and the same injection fails as it should. All four legs were then proved
+to bite: same-branch duplicate, same-host collision inside a mixed group,
+same-host collision on its own, and a page whose filename resolves to nothing.
+The repo was restored with git checkout after each test and the only file
+changed by this run's testing is the checker itself.
+
+WHY THE 48 PAGES WERE NOT FIXED. Putting the brand into a family A heading
+changes visible copy and queues the pages for a Weebly repaste, and choosing
+between doing it estate-wide and doing it only where a town is shared is a
+search decision. Q44 asks it, with three concrete options and a recommendation:
+compute the condition in tools/seo-pattern.js from branches.json so the brand
+appears only where another live branch shares this branch's seoTown. That
+touches 48 pages, leaves the other 64 byte-identical, and picks up a future
+same-town pair or seoTown move with no further decision. Not applied, because
+this is not an autonomous window and a checker warning does not expire.
+
+ONE OBSERVATION, NOT A DEFECT. The Fishlocks landing pages link to each other
+by branchName, so "Fishlocks Chemist Eccleston" appears in body copy on the
+Ainsdale page and Eccleston is not in Ainsdale's serviceAreaList. That does not
+break the absence rule and should not: the rule is scoped to the title, the H1
+and the description, which are the three strings that compete in a result set,
+and a navigational link naming the sister shop by its full trading name is a
+fact about the group rather than a catchment claim. Recorded so a later pass
+does not read it as an escape.
+
+FILES CHANGED. tools/check-seo-lengths.js (rule 4, plus the header comment),
+CLAUDE.md (new section "The heading nothing compared", and the
+check-seo-lengths bullet), QUESTIONS.json (Q44), AGENT_WORKLIST.md (item 3.3
+quality pass note), AGENT_LOG.md (this entry). No generated page changed and no
+branch data changed.
+
 ## 2026-08-11 06:34 BST - sixtieth run [commit a3bc973] - Quality pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified on 2026-08-09 as the eighteenth run, which made it the oldest verification standing. All 26 pages verified clean. The gap found was in the rules rather than the pages: every SEO rule in the repo was a presence rule and none was an absence rule, so a page naming its own town AND its sister branch's town passed all 19 checkers. check-seo-pattern.js now carries the cross-town rule. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

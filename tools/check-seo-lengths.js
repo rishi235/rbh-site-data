@@ -31,6 +31,15 @@
        nothing; longer is cut mid-sentence.
     3. No two pages share a title, a description or a permalink.
 
+  And on the PAGES, because the H1 is not on any paste sheet and rule 3
+  therefore cannot see it:
+
+    4. No two pages share an H1. Fails for one branch repeating its own
+       heading and for two branches on one website host; reported against a
+       question id where the two branches sit on different hosts, because
+       the family A H1 deliberately carries no brand and changing that is a
+       search decision. Added on the item 3.3 quality pass, 2026-08-11.
+
   Accepted exceptions live in KNOWN below. Each one needs a reason and a
   question id, so the list cannot quietly become a place to hide defects.
   Remove an entry the moment its question is answered and applied.
@@ -48,6 +57,13 @@ var ROOT = path.join(__dirname, "..");
 var TITLE_MAX = 65;
 var DESC_MIN = 80;
 var DESC_MAX = 165;
+
+// Rule 4 reads the pages themselves, because the H1 is not on a paste sheet.
+var PAGE_DIRS = [
+  path.join(ROOT, "modules", "branch", "pages"),
+  path.join(ROOT, "modules", "service", "pages"),
+  path.join(ROOT, "modules", "switch", "pages")
+];
 
 var SHEETS = [
   path.join(ROOT, "modules", "branch", "pages", "SEO.md"),
@@ -77,6 +93,7 @@ function norm(s) { return (s || "").replace(/\s+/g, " ").trim(); }
 var entries = [];
 var failures = [];
 var known = [];
+var warnings = [];
 var missingSheet = 0;
 
 SHEETS.forEach(function (sheetPath) {
@@ -168,6 +185,119 @@ duplicates("desc", "description");
 duplicates("permalink", "permalink");
 
 // ---------------------------------------------------------------------------
+// Rule 4: the H1, which is on the page and not on any paste sheet.
+//
+// Rule 3 above reads the sheets, so it covers the title, the description and
+// the permalink. It cannot see the H1, and no other checker compares one H1
+// to another: check-seo-pattern proves each H1 EQUALS what seo-pattern.js
+// composes for that branch and page type, which is a per-page rule.
+//
+// That matters because a family A H1 deliberately carries no brand. The title
+// is "Shingles treatment in Ainsdale - Fishlocks Chemist"; the H1 on the same
+// page is "Shingles treatment in Ainsdale". Two RBH pharmacies share a town in
+// four places (Ainsdale, Bootle, Walton, Aintree), so on those pages the
+// strongest on-page heading is byte-identical between two of our own shops.
+//
+// Three legs, because the same string means different things in different
+// places:
+//   4a FAIL  one branch using the same H1 on two of its own pages. A branch
+//            declaring one heading twice is never right.
+//   4b FAIL  two branches on the SAME website host sharing an H1. That is the
+//            shared-domain self-competition items 2.2 and 3.2 exist to stop,
+//            on the three pairs that share a domain (Scorah, Fishlocks,
+//            McCanns). Clean today because every H1 carries its own town.
+//   4c WARN  two branches on different hosts sharing an H1. Real exposure,
+//            but whether the H1 should carry the brand is a search decision
+//            about 96 family A pages, so it is reported against a question id
+//            rather than failed. See Q44.
+// ---------------------------------------------------------------------------
+var liveBranches = JSON.parse(fs.readFileSync(path.join(ROOT, "branches.json"), "utf8"))
+  .branches.filter(function (b) { return !b.disposed && b.brandSlug && b.townSlug; });
+
+function ownerOf(file) {
+  var base = file.replace(/\.html$/, "");
+  var hit = null;
+  liveBranches.forEach(function (b) {
+    var suffix = "-" + b.brandSlug + "-" + b.townSlug;
+    if (base.length > suffix.length && base.slice(-suffix.length) === suffix) {
+      // longest match wins, so a townSlug that is a suffix of another cannot win
+      if (!hit || suffix.length > hit.suffix.length) hit = { branch: b, suffix: suffix };
+    }
+  });
+  return hit ? hit.branch : null;
+}
+
+var h1Pages = [];
+PAGE_DIRS.forEach(function (dir) {
+  if (!fs.existsSync(dir)) {
+    failures.push("missing page directory " + rel(dir));
+    return;
+  }
+  fs.readdirSync(dir).forEach(function (file) {
+    if (!/\.html$/.test(file)) return;
+    var body = fs.readFileSync(path.join(dir, file), "utf8");
+    var m = /<h1[^>]*>([\s\S]*?)<\/h1>/i.exec(body);
+    if (!m) {
+      failures.push(file + " (" + rel(dir) + "): no H1 on the page, so rule 4 cannot read it");
+      return;
+    }
+    var owner = ownerOf(file);
+    if (!owner) {
+      failures.push(file + " (" + rel(dir) + "): filename resolves to no live branch, so its H1 goes unchecked");
+      return;
+    }
+    h1Pages.push({
+      file: file,
+      h1: norm(m[1].replace(/<[^>]+>/g, "")),
+      branchId: owner.id,
+      host: (owner.website || "").replace(/^https?:\/\//, "").replace(/\/$/, "")
+    });
+  });
+});
+
+var byH1 = {};
+h1Pages.forEach(function (p) {
+  if (!byH1[p.h1]) byH1[p.h1] = [];
+  byH1[p.h1].push(p);
+});
+
+// Classify PAIRS, not groups. A group is not one verdict: three pages can hold
+// a same-host collision and a cross-host overlap at once, and reading the group
+// as a unit downgraded the collision to a warning. Found by injection when this
+// rule was written, which is why the pairing is explicit.
+var h1Shared = {};
+Object.keys(byH1).forEach(function (h1) {
+  var group = byH1[h1];
+  if (group.length < 2) return;
+  var sameBranch = [];
+  var sameHost = [];
+  var crossHost = [];
+
+  for (var i = 0; i < group.length; i++) {
+    for (var j = i + 1; j < group.length; j++) {
+      var a = group[i], b = group[j];
+      var pair = a.file + " and " + b.file;
+      if (a.branchId === b.branchId) sameBranch.push(a.branchId + ": " + pair);
+      else if (a.host === b.host) sameHost.push(a.host + ": " + pair);
+      else { crossHost.push(pair); h1Shared[a.file] = true; h1Shared[b.file] = true; }
+    }
+  }
+
+  sameBranch.forEach(function (p) {
+    failures.push("one branch uses the same H1 on two of its own pages - " + p + "\n         " + h1);
+  });
+  sameHost.forEach(function (p) {
+    failures.push("two branches on one website host share an H1, so they compete on one domain - " +
+      p + "\n         " + h1);
+  });
+  if (crossHost.length) {
+    warnings.push("H1 shared across pharmacies on different hosts (Q44) - " +
+      crossHost.join("; ") + "\n         " + h1);
+  }
+});
+h1Shared = Object.keys(h1Shared).length;
+
+// ---------------------------------------------------------------------------
 // A KNOWN entry that no longer matches anything is stale. Say so, so the
 // list gets cleaned out once a question is answered and applied.
 // ---------------------------------------------------------------------------
@@ -191,8 +321,10 @@ if (entries.length) {
   console.log("  titles       " + lens[0] + " to " + lens[lens.length - 1] + " characters (limit " + TITLE_MAX + ")");
   console.log("  descriptions " + dlens[0] + " to " + dlens[dlens.length - 1] + " characters (window " + DESC_MIN + " to " + DESC_MAX + ")");
 }
+console.log("  " + h1Pages.length + " page H1s read, " + h1Shared + " sharing an H1 with a page at another pharmacy");
 
 known.forEach(function (k) { console.log("  KNOWN " + k); });
+warnings.forEach(function (w) { console.log("  WARN " + w); });
 
 if (failures.length) {
   console.log("");
@@ -202,5 +334,6 @@ if (failures.length) {
 }
 console.log("");
 console.log("check-seo-lengths: clean" +
-  (known.length ? ", " + known.length + " known issue(s) awaiting a decision." : ", every title and description fits and is unique."));
+  (known.length ? ", " + known.length + " known issue(s) awaiting a decision." : ", every title and description fits and is unique.") +
+  (warnings.length ? " " + warnings.length + " warning(s)." : ""));
 process.exit(0);
