@@ -2,6 +2,146 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 - sixty-third run [commit PENDING] - Quality pass on item 3.5, Hirshmans Chemist Ainsdale, last verified on 2026-08-10 as the twenty-first run, which made it the oldest verification standing. All 12 Hirshmans pages verified clean and every one of the twenty-first run's findings still holds. The gap was in what nothing checked at all. Every Pharmacy First condition page tells a patient who the NHS service is for, and says it TWICE, from ageNote and from eligibleYes[0] in one generator, across 98 live pages, and no checker read either string. All seven cohorts are correct against the NHS specification, so nothing was wrong; it was simply unpinned, which is the same shape of defect that already bit this repo twice on SEO strings. New tools/check-pharmacy-first-eligibility.js, 8 rules, 8 negative tests, one of which caught a real fault in the rule before commit. Q46 raised
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Q46 was therefore left open rather than decided, which is the right side of the
+line twice over: it is a search decision AND it touches how a patient-facing
+NHS eligibility restriction is advertised.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. The newest entry is still the Q16 answer
+of 15:16 on 2026-08-10, which the thirty-third run already recorded. Twenty-one
+questions were open before this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q45,
+and none has been answered. Twenty-two are open now, because this run raised
+Q46.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin at ab2aa6d. All 19 checkers green before
+any change was made, so nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The sixty-second run was right that it
+cleared the last 2026-08-09 verification, so the oldest standing verification is
+now the twenty-first run's, item 3.5 at 2026-08-10 10:04. Items 3.6 to 3.13 and
+5.1 follow it in that same block, runs 22 to 32, and everything else has been
+verified on 2026-08-10 17:05 or later.
+
+WHAT VERIFIED CLEAN. All 12 Hirshmans pages were re-read from source rather
+than from the twenty-first run's account of them: 11 service and 1 switch.
+  - Town words. seoTown and addressLocality are both Ainsdale, so unlike Cherry
+    Lane there is no divergence to get backwards. All 12 titles, descriptions,
+    H1s and slugs carry Ainsdale; schema addressLocality is Ainsdale and
+    addressRegion is Merseyside on all 12.
+  - Lengths. Titles 44 to 62 characters, descriptions 137 to 156, inside the
+    limits check-seo-lengths sets, and one H1 per page.
+  - NAP. Street reads "56-62 Sherwood House, Station Road" and postcode PR8 3HW
+    on all 12, matching branches.json and the 1.2 verification. One tel: link
+    per page, 01704577376, correct on all 12.
+  - All six generators rebuilt every one of the 177 pages byte-identical, and
+    all 19 existing checkers passed before any change was made.
+  - pfLink still points at pharmacy-first-service-ainsdale.html, a live-only
+    page this repo does not generate. That is one of the eleven the Q8 answer
+    and worklist item 5.3 already cover, so it is a re-confirmation of a known
+    blocked item, not a new finding.
+
+THE GAP, AND WHY IT IS THE ONE WORTH TAKING. Nine quality passes have now read
+the Pharmacy First eligibility copy by hand, one brand at a time, and confirmed
+it correct. Nothing had made it a rule. Every condition page states the cohort
+twice:
+
+    hero pill        CONDITIONS[cond].ageNote                "Age 18 and over"
+    eligibility list CONDITIONS[cond].eligibleYes.points[0]  "Adults aged 18 and over"
+
+Two independently authored strings carrying one clinical fact, composed in one
+file, rendered onto 98 live pages, read by no checker. That is precisely the
+shape that has already bitten this repo twice: the switch pages on 2026-08-09
+and the branch landing pages on the sixteenth run both had a generator
+composing one string twice and the two drifted, and both were made permanent by
+check-seo-sheets. The eligibility wording is a higher-stakes claim than any SEO
+string here. It tells a patient whether an NHS service covers them.
+
+WHAT WAS VERIFIED BEFORE ANY RULE WAS WRITTEN. All seven cohorts were checked
+against the NHS Pharmacy First service specification and are correct, and the
+two strings agree with each other on every one:
+
+    UTI            women aged 16 to 64
+    sore throat    aged 5 and over
+    sinusitis      aged 12 and over
+    earache        children and young people aged 1 to 17
+    impetigo       aged 1 and over
+    shingles       adults aged 18 and over
+    infected bite  aged 1 and over
+
+All 98 pages carry the full eligibility block, identical across all 14
+branches. So nothing was wrong. The defect was the absence of a rule, not a
+wrong page, and the fix is a checker rather than a copy change.
+
+NEW CHECKER. tools/check-pharmacy-first-eligibility.js, 8 rules. On the
+generator: both strings exist, their age numbers agree with each other, both
+agree with the pinned NHS criteria, and the cohort word is present where NHS
+restricts by more than age (UTI women, earache children, shingles adults). On
+the pages, because a generator can be right and a page still stale: the
+eligibility heading and cohort line appear verbatim, the ageNote appears
+verbatim, no page states an age outside the pinned set for its condition, and
+the safety redirect naming the excluded cohort is present where NHS defines
+one.
+
+Rule 7 needed care. The earache page correctly says "Adults aged 18 and over
+are not covered by this pathway" while its cohort is 1 to 17, so a flat "no
+other number" rule reports 14 false failures. Rather than whitelist 18, the
+rule allows a number one either side of the pinned range ONLY inside wording
+that redirects the reader elsewhere. It is derived from the range, so it cannot
+be used to smuggle a wrong number past: "aged 25 and over are not covered"
+still fails, and so does a bare "aged 18 and over" with no redirect.
+
+ONE NEGATIVE TEST CAUGHT A REAL FAULT IN THE RULE, which is the part worth
+recording. The first version of rule 7 bounded the redirect check to a
+sentence, splitting on full stops. The eligibility copy is a bullet list and
+carries almost no full stops, so the "sentence" ran from one bullet into the
+next and a redirect in a NEIGHBOURING bullet excused an age its own bullet
+never justified. The test that proved it: rewrite the earache page to read
+"Adults aged 18 and over are welcome too", the exact inversion of the clinical
+fact, and the checker passed it because the bullet above still said "should see
+a GP". Rule 7 now bounds at block elements instead, and the same test fails as
+it should.
+
+TESTED RATHER THAN ASSUMED. Eight negative tests were run against temporary
+mutations of the generator and three Hirshmans pages, every file restored
+byte-identical afterwards, which git confirms. Rule 2: ageNote drifted away
+from eligibleYes, fails. Rule 3: both strings moved together to a wrong age, so
+they still agree with each other, fails against the pinned NHS criteria. Rule
+4: UTI cohort changed from "Women" to "Anyone", fails. Rule 5: cohort line
+stripped from a page, fails. Rule 6: ageNote stripped, fails. Rule 7: shingles
+page drifted to "aged 16 and over", fails. Rule 7 boundary: the earache
+inversion above, fails. Rule 8: the "Men with UTI symptoms should speak to a
+GP" redirect removed, fails. All 20 checkers pass with the new rule in, and all
+177 pages still rebuild byte-identical.
+
+QUESTION RAISED. Q46. Earache is the only pathway NHS restricts at both ends,
+1 to 17. The body says so and the H1 says "Earache treatment for children in
+<town>", but the SEO title and description say only "Earache treatment in
+<town>", so the words Google shows a searcher carry no hint that adults are not
+covered. Nothing is factually wrong on the page, which is why this is a
+question about the snippet rather than a defect. Measured rather than guessed:
+adding "for children" to the title fits inside 65 characters on 13 of the 14
+branches, and only Coleman and Leighs breaches at 70, the same title Q14 was
+already spent on once. Recommended option is the description only, which has
+165 characters rather than 65, carries the whole cohort rather than a
+compressed "for children", and does not reopen that title. The other six
+conditions restrict by age too, so the answer needs to say whether it applies
+to earache alone or to all seven.
+
+FILES CHANGED. tools/check-pharmacy-first-eligibility.js (new),
+AGENT_WORKLIST.md (quality pass note under item 3.5), QUESTIONS.json (Q46),
+AGENT_LOG.md (this entry). No generated page changed, no branch data changed.
+
 ## 2026-08-11 - sixty-second run [commit 7a0c1a5] - Quality pass on item 3.4, Cherry Lane Pharmacy, last verified on 2026-08-09 as the twentieth run, which made it the oldest verification standing. All 12 Cherry Lane pages verified clean and every one of the twentieth run's findings still holds. The gap was in the checker that run built. check-cdn-pins.js exists to see PAST the repo boundary and still only read the 177 generated pages, so it could not see the shared switch paste template pinning @main while its generator pins 6a275e1, and it could not see that service.js and site-data.js fetch branches.json from @main AT RUN TIME. That second one is a hop the booking chain diagram stops short of. Checker widened, four negative tests, Q45 raised
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

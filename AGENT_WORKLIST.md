@@ -200,6 +200,23 @@ as data under test, and an untyped file is a failure rather than a skip.
       12 pages, 0 mismatches.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
+Titles 44 to 62 characters, descriptions 137 to 156, one H1 each, Ainsdale in
+every title, description, H1 and slug, seoTown and addressLocality both
+Ainsdale so there is no divergence to get backwards, street "56-62 Sherwood
+House, Station Road" and PR8 3HW on all 12, one tel: 01704577376 per page,
+schema present with addressRegion Merseyside. All six generators rebuilt every
+page byte-identical and all 19 existing checkers passed before any change.
+The gap was in what nothing checked. Every Pharmacy First condition page states
+who the NHS service is for, and states it twice, from ageNote and from
+eligibleYes[0] in build-service-pages.js. Two independently authored strings
+carrying one clinical fact across 98 live pages, and no checker read either.
+That is the shape of defect that already bit this repo twice on SEO strings.
+All seven cohorts verified correct against the NHS specification and identical
+across all 14 branches, so nothing was wrong; it was simply unpinned. New
+tools/check-pharmacy-first-eligibility.js makes it a rule, 8 rules over the
+generator and the pages, proven by 8 negative tests. Q46 raised on whether the
+earache title should carry the cohort the H1 already carries.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
