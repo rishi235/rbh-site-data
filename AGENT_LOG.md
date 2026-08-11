@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 06:34 BST - sixtieth run [commit PENDING] - Quality pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified on 2026-08-09 as the eighteenth run, which made it the oldest verification standing. All 26 pages verified clean. The gap found was in the rules rather than the pages: every SEO rule in the repo was a presence rule and none was an absence rule, so a page naming its own town AND its sister branch's town passed all 19 checkers. check-seo-pattern.js now carries the cross-town rule. No new question
+## 2026-08-11 06:34 BST - sixtieth run [commit a3bc973] - Quality pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified on 2026-08-09 as the eighteenth run, which made it the oldest verification standing. All 26 pages verified clean. The gap found was in the rules rather than the pages: every SEO rule in the repo was a presence rule and none was an absence rule, so a page naming its own town AND its sister branch's town passed all 19 checkers. check-seo-pattern.js now carries the cross-town rule. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
