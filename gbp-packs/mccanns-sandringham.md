@@ -91,7 +91,7 @@ throat, earache in children, impetigo, shingles, infected insect bites and
 uncomplicated water infections in women aged 16 to 64. No GP appointment or
 referral needed - book or just walk in. Age ranges set by the NHS apply to
 each condition.
-Button: Learn more -> https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html
+Button: Learn more -> https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to McCanns Chemist Sandringham takes about 30
@@ -138,10 +138,18 @@ Notes for the paster:
   medicines, Q4, answered 2026-08-05). Full delete and replace, no merging.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json, which is the shared Aigburth
-  Pharmacy First page used by both McCanns branches. A branch-specific page
-  (pharmacy-first-mccanns-sandringham.html) exists in the repo; swap the
-  link once that page is confirmed live on Weebly.
+- Post A points at this branch's own Pharmacy First page
+  (pharmacy-first-mccanns-sandringham.html). Confirmed live (200) and
+  present in the branch sitemap on 2026-08-12. The pack previously used
+  the shared Aigburth pfLink from branches.json with an instruction to
+  swap once the branch page was confirmed live on Weebly; that condition
+  is now met, so the swap is done. This changes only what the next GBP
+  paste publishes; repointing the link on the LIVE profile is item 5.3's
+  business and is not done by this file. The page's Weebly SEO title
+  field is still unpasted (it serves the default "Pharmacy First at
+  McCanns Chemist, Sandringham" construction), which the queued SEO
+  repaste corrects; the page content itself is NHS-accurate and was
+  verified condition by condition on 2026-08-11.
 - Check the Post B, C and D page URLs resolve before posting; the live
   Weebly copy may lag the repo. If a page is not live yet, use
   https://www.mccannspharmacy.co.uk until it is.

@@ -1,0 +1,61 @@
+Quality pass on item 4.7 - McCanns Chemist Sandringham GBP pack
+Date: 2026-08-12, second pass (first pass 2026-08-11, forty-ninth run).
+Live reads were plain read-only GETs; nothing clicked, typed or submitted.
+
+REPO HALF
+- All six generators rebuilt to a zero diff before any edit.
+- All 29 checkers pass before and after the edit below.
+- Pack verified fact by fact against branches.json: name McCanns Chemist
+  Sandringham; address 1b Aigburth Road, Liverpool L17 4JP; phone
+  0151 727 3076; review link CbMDr1qOLqnrEAE; hours 9:00am to 1:00pm and
+  2:00pm to 6:00pm weekdays with the split-day paster guidance present,
+  Saturday and Sunday closed, matching the NHS-confirmed specification;
+  catchment "St Michael's, Aigburth, Lark Lane and Dingle" in
+  serviceAreaList order leading with the seoTown in all three places;
+  services and categories match the five-widget set exactly; hasApp false
+  and no app mention; file pure ASCII; Post C names no medicine and makes
+  no efficacy claim.
+
+LIVE HALF (read-only GETs)
+[404] pharmacy-mccanns-sandringham.html - profile website target still
+      down and absent from the branch sitemap. Known state, confirms Q35
+      at this brand; the pack already holds the paster back for it.
+[200] pharmacy-first-service-aigburth.html - old Post A target, live.
+[200] switch-prescriptions-mccanns-sandringham.html - Post B, live, in
+      sitemap.
+[200] weight-loss-clinic-mccanns-sandringham.html - Post C, live, in
+      sitemap.
+[200] travel-clinic-mccanns-sandringham.html - Post D, live, in sitemap.
+[200] pharmacy-first-mccanns-sandringham.html - the branch's own
+      generated Pharmacy First page, live AND present in the branch
+      sitemap (sitemap.xml fetched and read this run).
+- Live titles still carry the unpasted-SEO-field construction recorded
+  by run 78 (old word Sandringham, " - MCCANNS PHARMACY" suffix). Known,
+  covered by the queued SEO repaste. Not re-raised.
+
+THE FINDING AND THE FIX
+The pack's own paster note said: Post A uses the shared Aigburth pfLink;
+a branch-specific page exists in the repo; "swap the link once that page
+is confirmed live on Weebly". Both halves of that condition are now
+verified met: the page returns 200 and sits in the branch sitemap. The
+run 42 precedent (Riddings) treated a live, in-sitemap branch page as
+removing the need for any wait. check-gbp-packs.js line 769-772 names a
+branch's own generated page as the only other correct Post A target
+besides pfLink, so the swap keeps the repo green by the checker's own
+rule. The stale instruction was therefore an in-repo defect: the pack
+told the paster to publish the shared page although its own recorded
+condition for switching had been met.
+
+Fix applied: Post A button now points at
+pharmacy-first-mccanns-sandringham.html and the paster note records the
+swap, the date, the evidence, and that repointing the LIVE profile link
+remains item 5.3's business. No other file changed. branches.json pfLink
+deliberately NOT touched: it feeds generated pages estate-wide and any
+change there belongs to item 5.3 (Q8/Q34), not to this pack.
+
+QUESTIONS
+None raised. The one decision this pass touched was already recorded in
+the pack's own note with an explicit trigger condition; this run only
+verified the condition and executed the recorded instruction. Q39 (the
+Weebly furniture question this item raised last pass) remains open and
+unchanged with Rishi.

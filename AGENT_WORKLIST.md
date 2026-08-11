@@ -548,6 +548,20 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       raised as Q39 as an estate-wide question rather than a fourth per-site
       one. The branch's own Saturday and weekday hours in that block match
       branches.json, so there is no locked-door fault here. Done 2026-08-11.
+      Quality pass 2026-08-12: second pass. Pack verified fact by fact against
+      branches.json and every checker rule again; repo half clean, zero diff,
+      all 29 checkers pass. One in-repo defect found and fixed in the pack
+      itself: its own paster note instructed a Post A swap to the branch's
+      generated Pharmacy First page "once that page is confirmed live on
+      Weebly", and this pass verified the condition met (200 and present in
+      the branch sitemap, both read this run), so the swap was executed and
+      the note rewritten to record it. The live GBP link repoint remains item
+      5.3's business and branches.json pfLink was deliberately not touched.
+      Live half otherwise re-confirms known states: the landing page still
+      404s (Q35), the live SEO titles still carry the unpasted default
+      construction (run 78), and the Weebly furniture faults remain with Q39,
+      still open. No new question.
+      Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-12.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

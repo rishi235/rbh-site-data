@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 00:39 BST - ninety-first run - Quality pass on item 4.7, the
+McCanns Chemist Sandringham GBP pack, last verified 2026-08-11 01:05 as the
+forty-ninth run and the oldest verification standing after runs 50 onwards
+cleared everything later. Second pass on this item. Repo half clean; one
+in-repo defect found and fixed in the pack itself; no new question.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing was decided
+autonomously this run: the one change made executes an instruction the
+pack itself already recorded, with its trigger condition verified met.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only; none of the open questions (Q17 onwards) has an answer. One tab
+navigated, nothing clicked, typed or submitted. Open questions 33 before,
+33 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 6eb8650, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass, and 4.7 held the oldest
+standing verification.
+
+REPO HALF. All six generators rebuilt to zero diff before any edit; all
+29 checkers pass before and after. The pack verified fact by fact against
+branches.json: name, 1b Aigburth Road, L17 4JP, 0151 727 3076, review
+link, split-day hours with the paster guidance, catchment leading with
+St Michael's in serviceAreaList order, five-widget service and category
+match, hasApp false, pure ASCII, Post C naming no medicine.
+
+THE FINDING AND THE FIX. The pack's paster note held a swap instruction
+with an explicit trigger: Post A was using the shared Aigburth pfLink,
+and the note said to swap to the branch's own generated page "once that
+page is confirmed live on Weebly". This pass verified the trigger met
+on both halves: pharmacy-first-mccanns-sandringham.html returns 200 and
+sits in the branch sitemap, both read this run. Leaving the pack telling
+the paster to publish the shared page after its own switch condition had
+been met is an in-repo defect, so the swap was executed: Post A now
+points at the branch page and the note records the evidence and date.
+check-gbp-packs.js itself names a branch's own generated page as the
+only other correct Post A target besides pfLink, so the repo stays green
+by the checker's own rule, and the run 42 Riddings precedent already
+treats a live, in-sitemap branch page as ending the wait. Two boundaries
+deliberately not crossed: branches.json pfLink is untouched, because it
+feeds generated pages estate-wide and belongs to item 5.3 (Q8/Q34), and
+the LIVE profile link is untouched, because this repo pastes nothing.
+
+LIVE HALF, READ-ONLY GETs. Known states re-confirmed, none re-raised:
+the profile website target pharmacy-mccanns-sandringham.html still 404s
+and is absent from the sitemap (Q35, pack already holds the paster
+back), the old and new Post A targets and Posts B, C and D all return
+200, and the live titles still carry the unpasted-SEO-field default
+construction run 78 recorded. Q39, this item's furniture question from
+the previous pass, remains open with Rishi.
+
+Files changed: gbp-packs/mccanns-sandringham.md, AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/mccanns-sandringham-gbp-pack-check-2026-08-12.txt.
+No new question raised.
+
 ## 2026-08-12 00:11 BST - ninetieth run - Quality pass on item 2.1, Fishlocks
 Ainsdale, the oldest verification standing (run 48, 2026-08-11 00:35) after
 run 89 refreshed 2.3. Third pass on this item. Repo half clean, no in-repo
