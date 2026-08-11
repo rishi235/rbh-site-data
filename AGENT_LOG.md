@@ -2,6 +2,55 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 (evening) - seventy-ninth run - Quality pass on item 4.6,
+the McCanns Chemist Aigburth GBP pack, last verified 2026-08-10 19:04 as
+the thirty-seventh run and the oldest verification standing after run 78
+refreshed 5.7 (run 36). Both halves clean, no new defect, no question
+raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked, typed
+or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: runs 76, 77 and
+78 refreshed 5.2, 5.6 and 5.7 (runs 34, 35, 36), so the oldest standing
+verification is 4.6 at run 37, one ahead of 4.8 (run 38).
+
+REPO HALF, ALL HOLDING. Pack facts verified against branches.json a
+second time: name, address, postcode, phone, hours with both lunch
+closures, review link, catchment order, hasApp false with no app mention,
+Post A on the pfLink. The run 37 fix holds: the sister branch reads
+"McCanns Chemist Sandringham, in St Michael's" with the paster note
+against shortening it, 725 characters against the 750 limit, and the
+branch-name-as-place rule in check-gbp-packs.js is green. All 29 checkers
+green, all six generators byte-identical, worktree clean.
+
+LIVE HALF, ALL KNOWN. Read-only Chrome, nothing clicked, typed or
+submitted. All four post button URLs return 200 with correct content; the
+Post A page's Aigburth hours block matches branches.json exactly. The
+profile-website landing page still 404s awaiting the queued paste run
+(run 78 recorded the same; the pack's paster notes already cover the
+ordering). Two known findings re-observed and left with their existing
+records: the Weebly default " - MCCANNS PHARMACY" title suffix (run 78,
+repaste covers it) and the site-furniture faults ("Sandrigham" typo,
+"McCann's Pharmacy" naming), already held by the open furniture question
+that followed Q36 and Q37. No new question.
+
+FILES CHANGED. audits/mccanns-aigburth-gbp-pack-check-2026-08-11.txt
+(new), AGENT_WORKLIST.md (quality pass note under 4.6), AGENT_LOG.md
+(this entry), status page regenerated.
+
 ## 2026-08-11 18:10 BST - seventy-eighth run [commit 5456472, hash
 recorded in a follow-up commit] - Quality pass on item 5.7, the McCanns Sandringham
 local word move, last verified 2026-08-10 as the thirty-sixth run and the

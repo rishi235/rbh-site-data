@@ -1,0 +1,52 @@
+McCanns Chemist Aigburth GBP pack (item 4.6) - quality pass evidence
+Date: 2026-08-11, seventy-ninth run (unattended)
+Pack: gbp-packs/mccanns-aigburth.md
+Last previous verification: 2026-08-10 19:04, thirty-seventh run
+
+REPO HALF
+- Pack facts vs branches.json (mccanns_aigburth), all match:
+  name McCanns Chemist Aigburth; address 112 Aigburth Road, Liverpool
+  L17 7BP; phone 0151 727 3185; hours Mon-Fri 09:00-13:00 and 14:00-18:00,
+  Sat 09:00-13:00 and 14:00-17:00, Sunday closed (both lunch closures in
+  the pack and in the paster note); review link
+  https://g.page/r/CdDj9KyelDVyEAE/review; catchment order Aigburth,
+  Sefton Park, Mossley Hill, Grassendale in the description, Post B and
+  the services section; hasApp false and no app mention anywhere; Post A
+  button is the pfLink from branches.json.
+- Sister-branch wording holds as the run 37 fix left it: "McCanns Chemist
+  Sandringham, in St Michael's", with the paster note against shortening
+  it. Description 725 characters against the 750 limit.
+- check-gbp-packs.js green, including its branch-name-as-place rule.
+- Full suite: all 29 checkers green. All six generators re-run,
+  worktree clean afterwards (byte-stable), so no generated page moved.
+
+LIVE HALF (read-only, Chrome tab, nothing clicked, typed or submitted)
+- Post A https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html
+  200. Shared Aigburth Pharmacy First page. Conditions and age ranges
+  match the NHS specification (otitis media 1-17, impetigo 1+, infected
+  insect bites 1+, shingles 18+, sinusitis 12+, sore throat 5+,
+  uncomplicated UTI women 16-64). Aigburth hours block matches
+  branches.json exactly, including both lunch closures.
+- Post B https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-aigburth.html
+  200, correct switch page content, correct NAP.
+- Post C https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html
+  200, correct weight loss inner page, no medicine names, no outcome
+  claims, consultation-first wording intact. Not edited this run.
+- Post D https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html
+  200, correct travel clinic content.
+- Profile website https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html
+  404. KNOWN: the McCanns landing pages await the queued Weebly paste run
+  (run 78 recorded the same). The pack's paster notes already instruct
+  checking it resolves and pasting it first, so the pack needs no change.
+
+KNOWN FINDINGS RE-OBSERVED, NO NEW QUESTION RAISED
+- Live titles on all pages checked end " - MCCANNS PHARMACY", Weebly's
+  default page-name-plus-site-title construction (run 78 finding). The
+  queued repaste of SEO fields covers it.
+- Site-wide Weebly contact block spells "Sandrigham Medical Centre"
+  (missing n) and uses "McCann's Pharmacy" against the trading name.
+  Already held by the open site-furniture question raised after the
+  Cherry Lane (Q36) and Fishlocks (Q37) reads. Not repo-reachable, no
+  generator owns that furniture.
+
+VERDICT: pack clean on both halves. No in-repo defect. No new question.

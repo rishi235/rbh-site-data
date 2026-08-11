@@ -442,6 +442,21 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       negative-tested four ways. It was the only breach in the 15 packs.
       Logged as Q26, taken as an autonomous decision under the standing
       window.
+      Quality pass 2026-08-11 (seventy-ninth run): the pack verified fact
+      by fact against branches.json a second time and is clean on name,
+      address, postcode, phone, hours including both lunch closures, review
+      link, catchment order, hasApp, pfLink and the St Michael's
+      sister-branch wording the run 37 fix introduced. Repo half clean and
+      byte-stable, all 29 checkers green. Live half: all four post button
+      URLs return 200 with correct content and the Post A page's hours
+      block matches branches.json. The profile-website landing page
+      (pharmacy-mccanns-aigburth.html) still 404s awaiting the queued
+      paste run, already recorded, and the pack's own paster notes already
+      cover it. The live titles carry Weebly's default " - MCCANNS
+      PHARMACY" suffix (run 78 finding, repaste covers it) and the
+      site-furniture "Sandrigham" typo seen in the footer is already held
+      by the open furniture question. No new defect, no new question.
+      Evidence: audits/mccanns-aigburth-gbp-pack-check-2026-08-11.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
