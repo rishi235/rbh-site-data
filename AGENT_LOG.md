@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 10:12 BST - sixty-seventh run - Quality pass on item 3.9, Coleman
+## 2026-08-11 10:12 BST - sixty-seventh run [commit ac607a8] - Quality pass on item 3.9, Coleman
 and Leighs Pharmacy Walton, last verified on 2026-08-10 12:04 as the
 twenty-fifth run, which made it the oldest verification standing. All 12
 Coleman pages verified clean. The gap was the last piece of branch data that
