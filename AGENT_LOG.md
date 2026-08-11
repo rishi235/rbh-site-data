@@ -2,6 +2,108 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 06:04 BST - fifty-ninth run - Quality pass on item 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified on 2026-08-09 as the seventeenth run, which made it the oldest verification standing. Both halves verified clean. One real gap closed: the hours rule read clock TIMES and never read DAYS, although a Google profile is set day by day, so a pack could publish a Saturday opening for a shop the data holds as closed and pass every check. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision: the gap found was a checker and template
+defect and was fixed in place rather than raised.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 06:06. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10. Nineteen questions were open
+before this run and none has been answered: Q17 to Q22, Q24, Q28, Q29 and Q34
+to Q43. Nineteen remain open.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary, and it agrees with it: the fifty-eighth run took 4.5,
+which leaves the seventeenth run's item 4.1 of 2026-08-09 as the oldest
+verification standing, then 3.2, 3.3 and 3.4, all also 2026-08-09 but later in
+that day. Item 4.1 taken this run. It is the only worklist item that owns two
+files, TEMPLATE.md and the first pack drafted from it, and both were read.
+
+THE PACK VERIFIED CLEAN. Every fact re-checked against the fishlocks_ainsdale
+entry in branches.json rather than against the seventeenth run's account of it:
+branchName Fishlocks Chemist Ainsdale, 17 Station Road, locality Ainsdale,
+postcode PR8 3HN, phone 01704 575478, the Google review link, the catchment
+towns Ainsdale, Birkdale and Southport in the order branches.json holds them,
+hasApp true and the description carrying the app line it earns, and the hours
+line matching the Monday to Friday 08:45 to 18:00 specification with Saturday
+and Sunday closed. The profile website points at the branch's own landing page
+rather than the shared fishlockpharmacy.co.uk homepage, which is the
+shared-domain rule for the two Fishlocks branches. The category set earns
+Travel clinic, Vaccination centre and Weight loss service from the branch's
+five widgets, and the services section lists all five and nothing else. The
+description is 746 characters, exactly the count it claims about itself, and
+the four posts are 448, 385, 402 and 313 against a 1,500 limit. Post A carries
+the branch's own pfLink. No em dash, no emoji, no medicine name, no efficacy
+claim. The post town convention on the address line (Southport, where
+branches.json holds Merseyside as the region) is the same house convention
+cleared on the fifty-eighth run across all fifteen packs. All 19 checkers pass.
+
+THE GAP, WHICH IS IN THE TEMPLATE AS MUCH AS THE CHECKER. The hours rule built
+on the item 4.9 pass reads every clock time in the "- Hours:" line, both
+directions, against the branch's openingHours. It reads nothing else. Days are
+never read, by it or by anything else in the file, and a Google profile is set
+day by day.
+
+The two units come apart cleanly on this very pack. Change its line to "Monday
+to Saturday 8:45am to 6:00pm, Sunday closed" and it still states only 08:45 and
+18:00, both in the specification, and every time in the specification still
+appears on the line. Both directions of the clock-time rule are satisfied, all
+19 checkers stay green, and the pack tells the paster to publish a Saturday
+opening for a shop branches.json holds as closed. That is the locked-door fault
+the hours rule exists to stop, arriving through the day rather than the time.
+It runs the other way too: "Monday to Thursday" drops Friday from the profile
+without changing a single character of any time, because Friday's times are the
+same as every other weekday's and a time-based rule cannot tell a missing day
+from a shared one.
+
+WHAT WAS BUILT. Three rules in check-gbp-packs.js, all composed from
+branches.json so nothing is hardcoded. A day stated as open must be open in the
+specification; every day the specification opens must be stated; and every
+closed day must be stated as closed, because GBP keeps whatever the profile
+already shows for a day the paster is not told about, which is how a ceased
+Saturday survives a repaste. Parentheticals are stripped before the day reading,
+because in this estate a parenthetical is always a lunch closure or a history
+note and never a day claim: without that, "(closed 1:00pm to 2:00pm)" would read
+Monday to Friday as closed on hirshmans-ainsdale.md and "(previously Sat 9:00am
+to 1:00pm)" would read a ceased Saturday as a live one. The reading then stops
+at the first full stop that starts a new sentence, so the paster instructions
+below the line are not read as hours: scorah-hazel-grove.md names Saturday twice
+more in prose telling the paster to check GBP is not still showing it.
+Whitespace is collapsed first, the same CRLF under-reading trap the item 4.8 and
+4.10 passes had to design around, because every pack wraps this line and a
+line-bounded read would see Monday to Friday and never reach the Saturday and
+Sunday after it. Exceptions go in KNOWN_HOURS_DAYS keyed
+<branch id>::hoursDays with a reason and a question id, and a stale key fails
+the run, the same anti-rot convention as the six KNOWN maps already in the file.
+
+TESTED BY BREAKING IT SIX WAYS, each mutation applied to a copy, run, and
+reverted. Monday to Saturday: fails on the Saturday the data holds closed.
+Monday to Thursday: fails on the Friday the data opens and the line does not
+state. Closed days dropped from the line entirely: two failures, one per day.
+Abbreviated days (Mon to Fri, Sat and Sun closed): passes, so the rule does not
+force one house spelling. Hyphen instead of "to" in the day range: passes. A
+KNOWN_HOURS_DAYS key with no breach to match: fails as a stale exception. All
+15 packs pass unchanged and the warning count is unchanged at 13.
+
+TEMPLATE.md UPDATED TOO, and that is the half of this that matters most. The
+template's hours rule was written entirely in clock times, and every pack in the
+estate was drafted from it. A checker nobody reads while drafting only catches
+the fault after it is written, so the rule now states the day requirement, the
+parenthetical convention and the sentence boundary in the same place the drafter
+is already looking. CLAUDE.md carries the general lesson: when a check passes,
+ask what unit it read and what unit the thing it protects is actually set in.
+
+FILES CHANGED: tools/check-gbp-packs.js, gbp-packs/TEMPLATE.md,
+AGENT_WORKLIST.md, CLAUDE.md, AGENT_LOG.md. No pack content changed, no
+generator input changed, so no page was regenerated and none needed to be.
+
 ## 2026-08-11 05:35 BST - fifty-eighth run [commit 2ef8792] - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack, last verified on 2026-08-09 as the fourteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time. One in-repo gap closed and made permanent: nothing read the one fact in a pack that is about ANOTHER branch, the sister-branch claim, although two packs carry it inside the description that is pasted verbatim into a public Google profile. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

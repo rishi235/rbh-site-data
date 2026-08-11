@@ -200,6 +200,27 @@ Pharmacy First wording to the NHS service description.
       TEMPLATE.md sets the format and the advertising rules; gbp-packs/
       fishlocks-ainsdale.md is the first pack, facts from branches.json,
       weight loss post drafted with no medicine names and no efficacy claims.
+      Quality pass 2026-08-11: both halves of the item re-read from source.
+      The pack verified clean fact by fact against the fishlocks_ainsdale
+      entry in branches.json: name, 17 Station Road, Ainsdale PR8 3HN with
+      Southport as the post town on the house convention, phone 01704 575478,
+      review link, hours, catchment order Ainsdale, Birkdale, Southport, the
+      app mention it earns on hasApp true, the profile website pointed at its
+      own landing page rather than the shared Fishlocks homepage, the
+      categories and services earned by its five widgets, a 746-character
+      description that is exactly what its heading claims, four posts at 448,
+      385, 402 and 313 against a 1,500 limit, Post A on the branch's own
+      pfLink, and no em dash, emoji, medicine name or efficacy claim. All 19
+      checkers pass. One real gap closed, in TEMPLATE.md and the checker
+      rather than in the pack: the hours rule read clock TIMES only and never
+      read DAYS, although a Google profile is set day by day, so "Monday to
+      Saturday 8:45am to 6:00pm" on this very pack would have passed every
+      check while publishing a Saturday opening for a shop branches.json
+      holds as closed. check-gbp-packs.js now requires every day stated open
+      to be open in branches.json, every open day to be stated, and every
+      closed day to be stated as closed, all composed from branches.json.
+      TEMPLATE.md's hours rule says so too, since every future pack is
+      drafted from it. Six negative tests fire; all 15 packs pass unchanged.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

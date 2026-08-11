@@ -99,6 +99,14 @@ const EFFICACY_WARN = [
 const EM_DASH = /[—–―]/;
 const EMOJI = /\p{Extended_Pictographic}/u;
 
+// Day names in week order, plus a token that reads every abbreviation the
+// packs use. Read by the hours-days rule below. The token is a source string
+// rather than a RegExp so it can be built into both a standalone scan and a
+// day-range scan without carrying a stale lastIndex between them.
+const DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const DAY_SRC = "\\b(mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:r|rs|rsday)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?)\\b";
+const dayIndexOf = (w) => DAY_NAMES.findIndex((d) => d.slice(0, 3).toLowerCase() === w.slice(0, 3).toLowerCase());
+
 // Accepted exceptions to the catchment-order rule, keyed "<branch id>::areaOrder".
 // Each needs a reason and a question id, and the check fails on a key that no
 // longer breaks its rule, so the list cannot go stale. Same convention as
@@ -142,6 +150,13 @@ const seenPhotosKnown = {};
 // fails the run.
 const KNOWN_SISTER = {};
 const seenSisterKnown = {};
+
+// Accepted exceptions to the hours-days rule, keyed "<branch id>::hoursDays".
+// Use one only where a pack deliberately states a day the branch's own
+// openingHours does not support, and say so with a question id. Same anti-rot
+// convention: a key that no longer matches a real breach fails the run.
+const KNOWN_HOURS_DAYS = {};
+const seenHoursDaysKnown = {};
 
 const fails = [];
 const warns = [];
@@ -991,6 +1006,96 @@ for (const file of packFiles) {
     fail(file, "branches.json holds no openingHours for this branch, so the hours line must say the data is not recorded and tell the paster not to paste, invent or guess hours. It does not");
   }
 
+  // --- the hours line names the right DAYS, not just the right times -----
+  // The rule above reads clock times and nothing else. Days are never read,
+  // by it or by anything else in this file, and a Google profile is set day
+  // by day. So the estate's loudest hours fault passes every check it has:
+  // "Monday to SATURDAY 8:45am to 6:00pm" on the Fishlocks Ainsdale pack
+  // states only 08:45 and 18:00, both of which are in that branch's own
+  // specification, and every time in the specification appears on the line,
+  // so the clock-time rule is satisfied in both directions and the pack
+  // publishes a Saturday opening for a shop branches.json holds as closed.
+  // That is the locked-door fault the hours rule exists to stop, arriving
+  // through the day rather than through the time. It runs the other way
+  // too: "Monday to Thursday" drops Friday from the profile silently,
+  // because Friday's times are the same as every other weekday's and the
+  // clock-time rule cannot tell a missing day from a shared one.
+  //
+  // Three checks, all composed from branches.json so nothing is hardcoded.
+  // A day stated as open must be open in the specification; every day the
+  // specification opens must be stated; and a day branches.json holds as
+  // closed must be stated as closed, because GBP keeps whatever the profile
+  // already says for a day the paster is not told about, which is how a
+  // ceased Saturday survives a repaste (scorah-hazel-grove.md exists to
+  // stop exactly that, and states both closed days explicitly).
+  //
+  // Parentheticals are removed before reading, because in this estate a
+  // parenthetical is always a lunch closure or a history note and never a
+  // day claim: "(closed 1:00pm to 2:00pm)" would otherwise read Monday to
+  // Friday as closed on hirshmans-ainsdale.md, and "(previously Sat 9:00am
+  // to 1:00pm)" would read a ceased Saturday as a live one. The claim then
+  // ends at the first full stop that starts a new sentence, so the paster
+  // instructions after it are not read as hours: scorah-hazel-grove.md
+  // names Saturday twice more in prose telling the paster to check GBP is
+  // not still showing it.
+  //
+  // Whitespace is collapsed first, for the CRLF reason set out above: every
+  // pack wraps this line, and a line-bounded read would see Monday to
+  // Friday and never reach the Saturday and Sunday that follow it.
+  if (hoursLine && spec && spec.length) {
+    const daysClaim = (hoursLine
+      .replace(/\([^)]*\)/g, " ")
+      .replace(/"[^"]*"/g, " ")
+      .replace(/\s+/g, " ")
+      .split(/\.\s+(?=[A-Z])|\.\s*$/)[0] || "");
+    const expandRanges = (s) =>
+      s.replace(new RegExp(`${DAY_SRC}\\s*(?:to|-|through|thru|until)\\s*${DAY_SRC}`, "gi"), (m, a, z) => {
+        const from = dayIndexOf(a);
+        const to = dayIndexOf(z);
+        if (from < 0 || to < 0 || to < from) return m;
+        return ` ${DAY_NAMES.slice(from, to + 1).join(" ")} `;
+      });
+    const claimedOpen = new Set();
+    const claimedClosed = new Set();
+    for (const seg of daysClaim.split(/[,;]/)) {
+      const bucket = /\bclosed\b/i.test(seg) ? claimedClosed : claimedOpen;
+      for (const m of expandRanges(seg).matchAll(new RegExp(DAY_SRC, "gi"))) {
+        const i = dayIndexOf(m[1]);
+        if (i >= 0) bucket.add(DAY_NAMES[i]);
+      }
+    }
+    const dataOpen = new Set();
+    for (const s of spec) for (const d of (s.dayOfWeek || [])) dataOpen.add(d);
+    const dataClosed = new Set(
+      (b.openingHours && b.openingHours.closedDays && b.openingHours.closedDays.length)
+        ? b.openingHours.closedDays
+        : DAY_NAMES.filter((d) => !dataOpen.has(d))
+    );
+    const openList = DAY_NAMES.filter((d) => dataOpen.has(d)).join(", ") || "none";
+    const breaches = [];
+    for (const d of DAY_NAMES) {
+      if (claimedOpen.has(d) && !dataOpen.has(d)) {
+        breaches.push(`the hours line states the branch is open on ${d}, but branches.json opens it only on ${openList}. A profile that publishes a day the shop is shut sends patients to a locked door`);
+      } else if (dataOpen.has(d) && !claimedOpen.has(d)) {
+        breaches.push(`branches.json opens this branch on ${d}, but the hours line does not state ${d} as an open day, so the profile would be set from an incomplete picture and that day would be published wrong or left as Google has it`);
+      } else if (dataClosed.has(d) && !claimedClosed.has(d) && !claimedOpen.has(d)) {
+        breaches.push(`branches.json holds ${d} as a closed day, but the hours line does not state ${d} as closed. GBP keeps whatever the profile already shows for a day the paster is not told about, so a closure the group has made never reaches the listing`);
+      }
+    }
+    if (breaches.length) {
+      const key = `${b.id}::hoursDays`;
+      const known = KNOWN_HOURS_DAYS[key];
+      if (known) {
+        seenHoursDaysKnown[key] = true;
+        breaches.forEach((br) => warn(file, `KNOWN ${br}. ${known.question}: ${known.reason}`));
+      } else {
+        breaches.forEach((br) => fail(file, br));
+      }
+    } else if (KNOWN_HOURS_DAYS[`${b.id}::hoursDays`]) {
+      seenHoursDaysKnown[`${b.id}::hoursDays`] = false;
+    }
+  }
+
   // --- a lunch closure must tell the paster to enter TWO ranges -----------
   // Seven of the sixteen branches close for lunch, so a weekday appears
   // twice in openingHours.specification. The rule above proves the pack's
@@ -1138,6 +1243,11 @@ for (const key of Object.keys(KNOWN_PHOTOS)) {
 for (const key of Object.keys(KNOWN_SISTER)) {
   if (!seenSisterKnown[key]) {
     fails.push(`stale exception: KNOWN_SISTER["${key}"] no longer matches a pack claiming a sister branch that is not a live branch on the same brand. Remove it (${KNOWN_SISTER[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_HOURS_DAYS)) {
+  if (!seenHoursDaysKnown[key]) {
+    fails.push(`stale exception: KNOWN_HOURS_DAYS["${key}"] no longer matches a pack whose hours line names days the branch's openingHours does not support. Remove it (${KNOWN_HOURS_DAYS[key].question}).`);
   }
 }
 

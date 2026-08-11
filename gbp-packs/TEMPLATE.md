@@ -27,12 +27,25 @@ Rules for every pack (from Master Plan v2 / Build Pack v2 and advertising law):
   a patient to a locked door. Every clock time on that line must be an
   opening or closing time in the branch's own openingHours in branches.json,
   and every time in branches.json must appear on the line, so a wrapped
-  Saturday session cannot be left off. Where branches.json holds no hours at
-  all, the line must say so and tell the paster not to paste, invent or guess
-  them. tools/check-gbp-packs.js enforces both. Times inside a parenthetical
+  Saturday session cannot be left off. The line must also name the right
+  DAYS, because a Google profile is set day by day and the times alone cannot
+  show a day is wrong: "Monday to Saturday 8:45am to 6:00pm" states only
+  times the data already holds, so it passes on times while publishing a
+  Saturday opening for a shop that is shut, and "Monday to Thursday" drops
+  Friday from the profile without changing a single time. So every day
+  stated as open must be open in branches.json, every day branches.json
+  opens must be stated, and every closed day must be stated as closed,
+  because GBP keeps whatever the profile already shows for a day the paster
+  is not told about. Where branches.json holds no hours at all, the line
+  must say so and tell the paster not to paste, invent or guess them.
+  tools/check-gbp-packs.js enforces all of it. Times inside a parenthetical
   marked as history ("previously", "ceased") or inside quotation marks are
   read as evidence rather than as a claim, which is how a ceased Saturday and
-  a quoted source can be recorded without stating them as hours.
+  a quoted source can be recorded without stating them as hours. Days inside
+  a parenthetical are read the same way, as a lunch closure or a history
+  note and never as a day claim, and the day reading stops at the first full
+  stop that starts a new sentence, so paster instructions written below the
+  line are not read as hours.
 - Business description: GBP limit is 750 characters. Stay under it.
 - Posts: keep each under 1,500 characters; first sentence carries the message.
 

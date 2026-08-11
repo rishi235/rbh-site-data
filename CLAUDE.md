@@ -612,6 +612,46 @@ public copy. Nothing in this repo can see a live-only Weebly page, which is why
 the five pages in Q16 and Q22 sat unseen for the whole audit.
 
 
+## A right answer in the wrong unit: hours are times, a profile is days
+
+The GBP hours rule was built on the item 4.9 pass because opening hours are the
+one fact on a Google profile that sends a patient to a locked door. It reads
+every clock time in the pack's `- Hours:` line, both directions, against the
+branch's own `openingHours` in `branches.json`. It was correct and it was not
+enough, and the item 4.1 pass on 2026-08-11 found why: it read TIMES, and a
+Google profile is set DAYS.
+
+The two units come apart cleanly. Change the Fishlocks Ainsdale line to
+"Monday to Saturday 8:45am to 6:00pm" and it still states only 08:45 and 18:00,
+both of which are in that branch's specification, and every time in the
+specification still appears on the line. Both directions of the clock-time rule
+are satisfied, every other checker stays green, and the pack publishes a
+Saturday opening for a shop `branches.json` holds as closed. It runs the other
+way too: "Monday to Thursday" drops Friday from the profile without changing a
+single character of any time, because Friday's times are the same as every
+other weekday's and a time-based rule cannot tell a missing day from a shared
+one.
+
+`check-gbp-packs.js` now holds three day rules, all composed from
+`branches.json`: a day stated as open must be open in the specification, every
+day the specification opens must be stated, and every closed day must be stated
+as closed. The third matters because GBP keeps whatever the profile already
+shows for a day the paster is not told about, which is how a ceased Saturday
+survives a repaste. `scorah-hazel-grove.md` exists to stop exactly that and
+states both closed days explicitly. Parentheticals are stripped before the day
+reading, because in this estate a parenthetical is always a lunch closure or a
+history note and never a day claim, and the reading stops at the first full
+stop that starts a new sentence so paster instructions are not read as hours.
+Exceptions go in `KNOWN_HOURS_DAYS` keyed `<branch id>::hoursDays`, and a key
+that no longer fires fails the run. `TEMPLATE.md` carries the rule as well,
+because every future pack is drafted from it and a checker nobody reads while
+drafting only catches the fault later.
+
+The general rule worth carrying: when a check passes, ask what UNIT it read and
+what unit the thing it protects is actually set in. A rule that reads the right
+field in the wrong unit passes loudly and protects nothing, and it is harder to
+spot than a missing rule because the green tick is real.
+
 ## The one fact in a pack that is about another branch
 
 Every fact in a GBP pack's profile basics is composed from `branches.json` and
