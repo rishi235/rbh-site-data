@@ -815,6 +815,20 @@ so tools/build-audit-status.js picks them up like any other item.
       only what Google shows. Repaste the page body from
       modules/switch/pages/ and the SEO description from
       modules/switch/pages/SEO.md in the same session.
+      Quality pass 2026-08-11: the repo half verified clean and byte-stable
+      again. The pass then found the Q7 breach still live somewhere no rule
+      had ever looked. modules/service/service.js writes three sentences into
+      the page with innerHTML at run time and all three carried &mdash;: the
+      green self-refer banner, the explainer video card and the "Prefer to
+      walk in?" card, all three on the 14 Pharmacy First overview pages, one
+      per branch. Every dash rule in this repo read a file format, .html, .md
+      or .txt, and copy a browser assembles from a .js string at run time
+      matched none of them. All three rewritten at
+      source the way Q7 settled, split at a full stop, and check-em-dashes.js
+      now reads the live module code under modules/ and core/ with comments
+      blanked. OUTSTANDING on the live side: 156 generated pages load
+      service.js from the service-module-phase1 pin, so the three sentences
+      stay live until item 5.5 fast-forwards that branch.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
@@ -941,6 +955,14 @@ so tools/build-audit-status.js picks them up like any other item.
       supervised session, and sooner rather than later: service.css and
       service.js are still byte-identical between the branch and main, which
       is the only reason the fast-forward is free.
+      Raised in priority 2026-08-11 by the item 5.1 quality pass. This is no
+      longer only tidiness. service.js on the pinned branch is the copy that
+      puts three em dashes on the 14 live Pharmacy First overview pages,
+      against the house rule Q7 settled on 2026-08-09. The fix is committed on
+      agents/audit-backlog and reaches a patient only when that work is on
+      main and service-module-phase1 is fast-forwarded to it. service.js and
+      service.css are still byte-identical across phase1 and main today,
+      re-checked on 2026-08-11, so the fast-forward itself is still free.
 - [x] 5.6 Q14 shorten the one over-length page title in the estate: the
       Coleman and Leighs infected insect bite title ran to 70 characters
       against Google's 65, so the brand was the part being truncated away.

@@ -24,6 +24,13 @@
       quietly stop covering anything
     - a pages folder that yields no paste sheet at all, so the sheet half of
       the rule cannot quietly stop covering anything either
+    - an em dash or en dash, literal or entity, in the LIVE MODULE CODE under
+      modules/ and core/, meaning the .js and .css every generated page loads
+      from jsDelivr, with comments blanked. Three of those files write
+      sentences into the page with innerHTML at run time, so that copy is as
+      public as a page and is in no .html file in this repo
+    - a live code folder that yields no .js or .css at all, so the module-code
+      rule cannot quietly stop covering anything
     - ANY non-ASCII character at all in a switch banner paste file under
       modules/switch/pages/banners/, which is a stricter rule than the rest of
       this checker applies and is explained below
@@ -74,8 +81,21 @@
   only looked inside it; this one named its files and the estate outgrew the
   names.
 
+  The fifth time is the module-code rule below, and it is the worst of the
+  five, because it was not latent. Every rule here read a FILE FORMAT: .html
+  for a page, .md for a sheet, .txt for a banner. Public copy that a browser
+  assembles from a .js string at run time matched none of those, so three
+  &mdash; entities sat on the 14 live Pharmacy First overview pages, one per
+  branch, two days after Q7 settled that they must not, while this checker
+  reported clean, and they are still there today because the pages pin an
+  older branch of this repo for their code. Found on the
+  item 5.1 quality pass, 2026-08-11. Ask which files a checker reads, and then
+  ask whether the copy is in a file at all.
+
   What is only REPORTED, not failed:
     - dashes inside <!-- HTML build comments -->, which no visitor sees
+    - dashes inside block comments and whole-line // comments in the module
+      code, which no visitor sees either
     - dashes in paste sheet headings, which are labels for whoever is pasting
 
   Run:  node tools/check-em-dashes.js
@@ -137,8 +157,14 @@ const PAGE_DIRS = [
 //
 // Build comments are blanked before the check, exactly as for a page, so a
 // dash in a governance note at the top of a draft is still not a failure.
+//
+// modules/emar/weebly carries no file extension, which is why it sat outside
+// every scan in this checker until the item 5.1 quality pass on 2026-08-11.
+// It is a hand-pasted Weebly block like modules/switch/weebly.html and is as
+// public as one.
 const EXTRA_HTML = [
   path.join(REPO, "modules", "switch", "weebly.html"),
+  path.join(REPO, "modules", "emar", "weebly"),
   path.join(REPO, "modules", "service", "DRAFT-weight-loss-copy.html"),
   path.join(REPO, "modules", "service", "DRAFT-travel-clinic-copy.html"),
   path.join(REPO, "modules", "service", "weebly-paste", "cherry-lane-old-pharmacy-first-replacement.html"),
@@ -152,6 +178,26 @@ const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords):
 // field, which mangles non-ASCII characters, so these are held to ASCII only.
 const BANNER_DIR = path.join(REPO, "modules", "switch", "pages", "banners");
 const NON_ASCII_RE = /[^\x00-\x7F]/g;
+
+// The live module code. Every generated page loads modules/<name>/<name>.js
+// and .css, plus core/site-data.js, from jsDelivr, and three of those files
+// build sentences with innerHTML at run time. That copy is on the page a
+// patient reads and it is in no .html file anywhere in this repo, so until the
+// item 5.1 quality pass on 2026-08-11 nothing here had ever read it.
+//
+// It was not a latent hole. modules/service/service.js was writing three
+// &mdash; entities onto all 14 Pharmacy First overview pages, one per branch:
+// the green self-refer banner, the explainer video card and the "Prefer to
+// walk in?" card. That is the exact breach Q7 was raised about and item 5.1
+// fixed on the switch pages on 2026-08-09, and it was still on those 14 pages
+// two days later, because the rule was written to read pages and this copy is
+// not on one. Fixed at source the same way Q7 settled: split at a full stop.
+//
+// Discovered by scanning rather than named, for the reason the sheets are.
+// A folder yielding no code file fails, so the rule cannot quietly stop
+// covering anything.
+const CODE_DIRS = [path.join(REPO, "modules"), path.join(REPO, "core")];
+const CODE_EXT = /\.(?:js|css)$/i;
 
 const failures = [];
 const notes = { commentDashes: 0, headingDashes: 0, filesScanned: 0 };
@@ -231,6 +277,75 @@ function checkBannerFile(file){
   });
 }
 
+// A code file is checked with its comments blanked, because a dash in a note
+// to the next developer reaches nobody. Two shapes are blanked and only two:
+// /* ... */ blocks, and lines that are a // comment from the first non-space
+// character. A trailing // comment after live code is deliberately NOT
+// blanked, because the only safe way to find one is to blank from the first
+// "//" on the line, and that would also blank every https:// URL and any
+// string literal following it. Erring towards a failure that a human reads is
+// right for a checker; erring towards silence is what put the three &mdash;
+// on 14 live pages in the first place.
+function blankCodeComments(text){
+  const noBlocks = text.replace(/\/\*[\s\S]*?\*\//g, function(block){
+    return block.replace(/[^\n]/g, " ");
+  });
+  return noBlocks.split("\n").map(function(line){
+    return /^\s*\/\//.test(line) ? line.replace(/[^\n]/g, " ") : line;
+  }).join("\n");
+}
+
+function checkCodeFile(file){
+  const raw = fs.readFileSync(file, "utf8");
+  notes.filesScanned++;
+  const visible = blankCodeComments(raw);
+  notes.commentDashes += countDashes(raw) - countDashes(visible);
+  visible.split(/\r?\n/).forEach(function(line, i){
+    if (hasDash(line)) {
+      failures.push({
+        file: rel(file),
+        line: i + 1,
+        kind: dashKind(line) + " in live module code",
+        text: line.trim().slice(0, 140)
+      });
+    }
+  });
+}
+
+function walkCode(dir, out){
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function(entry){
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkCode(full, out);
+    else if (CODE_EXT.test(entry.name)) out.push(full);
+  });
+  return out;
+}
+
+let codeCount = 0;
+CODE_DIRS.forEach(function(dir){
+  if (!fs.existsSync(dir)) {
+    failures.push({
+      file: rel(dir),
+      line: 0,
+      kind: "missing folder",
+      text: "a live code folder is gone, so the module-code rule covers nothing there."
+    });
+    return;
+  }
+  walkCode(dir, []).sort().forEach(function(file){
+    checkCodeFile(file);
+    codeCount++;
+  });
+});
+if (codeCount === 0) {
+  failures.push({
+    file: "modules, core",
+    line: 0,
+    kind: "no code files",
+    text: "no .js or .css found in the live module folders, so the module-code rule covers nothing."
+  });
+}
+
 let bannerCount = 0;
 if (!fs.existsSync(BANNER_DIR)) {
   failures.push({
@@ -299,10 +414,11 @@ EXTRA_HTML.forEach(function(file){
 });
 
 console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
-  + " non-generated copy file(s), " + bannerCount
+  + " non-generated copy file(s), " + codeCount
+  + " live module code file(s), " + bannerCount
   + " switch banner(s) held to ASCII only, " + sheetCount
   + " paste sheet(s) discovered (" + notes.filesScanned + " files scanned)");
-console.log("  " + notes.commentDashes + " dash(es) inside HTML build comments - not public, not a failure");
+console.log("  " + notes.commentDashes + " dash(es) inside build or code comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
 
 if (failures.length) {

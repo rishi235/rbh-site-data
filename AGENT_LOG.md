@@ -2,6 +2,143 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 14:04 BST - seventy-second run - Quality pass on item 5.1, the
+Q7 em dash fix, last verified on 2026-08-10 16:34 as the thirty-second run,
+which made it the oldest verification standing. The repo half verified clean
+and byte-stable again. The finding is a live breach, not a latent hole: the Q7
+em dash that item 5.1 exists to remove is still being written onto the 14
+Pharmacy First overview pages today, by modules/service/service.js, at run
+time, in three separate sentences. Every dash rule in this repo reads a file
+format and this copy is in no file a browser ever downloads as copy. Fixed at
+source, and check-em-dashes.js now reads the live module code. Nine negative
+tests. No new question raised.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one at line 5221 as the file now stands.
+It is not at the top of the file and it expired at 23:14 on 2026-08-10.
+Nothing has renewed it, so step 7 applies as written. Nothing in this run
+needed it: the copy change below applies a rule Rishi already settled at Q7
+and reuses wording the estate already ships, so it is not a decision.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed, no clicks and no typing. Eleven entries
+returned and the newest is still the Q16 answer of 15:16 on 2026-08-10, which
+the thirty-third run already recorded. Twenty-seven questions were open before
+this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q51, and twenty-seven are open
+after it. This run raised none.
+
+RUN START STATE. A .agent-lock was present and 59 minutes old, so it was stale
+under the 45 minute rule and was deleted before a fresh one was written. No
+.git\index.lock. Worktree clean, branch agents/audit-backlog level with origin
+at 0066bfe. All 28 checkers green before any change was made, so nothing below
+is a pre-existing failure. All seven generators reproduced every page
+byte-identical except status/index.html, which is expected: that page renders
+this log and a timestamp, so it necessarily differs the moment a run appends.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. Runs 51 to 71 cleared phases 1, 2, 3 and 4
+during today, which leaves the thirty-second run's pass on item 5.1, 2026-08-10
+16:34, as the oldest standing verification. Items 5.2, 5.6 and 5.7 follow it,
+runs 34, 35 and 36, all later the same evening.
+
+THE ITEM ITSELF: STILL CLEAN, STILL DETERMINISTIC. Both halves of the Q7 fix
+hold. switchMeta() is defined once in tools/build-switch-pages.js and called
+twice, for the page's own meta tag and for the paste sheet, so the two strings
+cannot drift by construction. Re-running all six page generators produced all
+177 pages byte-identical. The thirty-second run's own fix holds too: the two
+&ndash; entities it took out of modules/service/DRAFT-weight-loss-copy.html are
+still out, and the EXTRA_HTML list it added still covers the files it named.
+
+THE FINDING, AND IT IS ON LIVE PAGES TODAY. modules/service/service.js does not
+only wire up a form. On a Pharmacy First page it builds three blocks of copy
+with innerHTML at run time, and all three carried an &mdash;:
+
+  1. the green self-refer banner at the top of the page: "You can refer
+     yourself &mdash; just book below or walk in."
+  2. the explainer video card: "See how the free NHS service works &mdash; no
+     GP appointment or referral needed."
+  3. the "Prefer to walk in?" card in the hero: "Just pop in and ask about
+     Pharmacy First &mdash; no appointment or GP referral needed."
+
+That is the exact character Q7 was raised about on 2026-08-09 and the exact
+fix item 5.1 applied to the switch pages the same day. It has been on the live
+Pharmacy First pages the whole time since, through every quality pass this
+backlog has run, with all 28 checkers reporting clean each time.
+
+WHY NOTHING CAUGHT IT. Every rule in check-em-dashes read a FILE FORMAT. A
+page is .html, a paste sheet is .md, a banner is .txt. Copy that a browser
+assembles from a string inside a .js file at run time is in none of those, and
+in no .html file anywhere in this repo, so there was nothing for the rule to
+open. This is the fifth time this repo has hit the same shape, after
+check-seo-lengths and the H1, check-nap and the third phone shape,
+check-cdn-pins looking past the repo and not doing it, and this checker's own
+named sheet list. The first four were latent. This one was not: it was a
+public breach of a settled rule, running, on every branch.
+
+HOW MANY PAGES, CHECKED RATHER THAN ASSUMED. 156 generated pages load
+service.js from the CDN. Only 14 of them carry data-service="Pharmacy First",
+which is what gates the banner, and those same 14 are the Pharmacy First
+overview pages the two card blocks are gated to by pathname. So the three
+sentences render on 14 pages, one per branch, not on the 98 condition pages.
+The first draft of this entry said 98 and the count was run rather than
+carried over.
+
+WHAT CHANGED. All three sentences were split at a full stop, which is what Q7
+settled and what the switch generator and the weight loss draft already ship:
+"You can refer yourself. Just book below or walk in.", "See how the free NHS
+service works. No GP appointment or referral needed." and "Just pop in and ask
+about Pharmacy First. No appointment or GP referral needed." No word was
+invented, no NHS service description was touched, and nothing about
+eligibility, booking or clinical content moved. git diff is three lines in,
+three lines out.
+
+check-em-dashes.js gained the rule that would have caught it. It now scans
+modules/ and core/ for .js and .css and applies the same literal-and-entity
+dash test to them, with comments blanked. Two comment shapes are blanked and
+only two: block comments, and lines that are a // comment from the first
+non-space character. A trailing // comment after live code is deliberately not
+blanked, because the only way to find one is to blank from the first "//" on
+the line, which would also blank every https:// URL and any string after it.
+Erring towards a failure a human reads is right for a checker; erring towards
+silence is what put these three on live pages. A code folder that yields no
+.js or .css now fails, the same anti-rot convention as the sheet scan.
+
+modules/emar/weebly was added to EXTRA_HTML in the same change. It is a
+hand-pasted Weebly block like modules/switch/weebly.html, it carries no file
+extension, and that alone is why every scan in this checker had missed it. It
+is clean today.
+
+NEGATIVE TESTS, NINE, ALL PASSED. Written outside the repo at
+C:\Dev\_agent-tmp\negtest-em-dashes.js so nothing test-shaped gets committed,
+each case breaking one file, running the real checker, then restoring it:
+entity em dash in a service.js innerHTML string fails; literal em dash in a
+service.js innerHTML string fails; entity en dash in a switch.js string fails;
+em dash in a whole-line // comment stays reported and does not fail; em dash
+inside a block comment stays reported and does not fail; em dash in a CSS
+content string fails; entity em dash in modules/emar/weebly fails; deleting
+modules/emar/weebly fails and names it; and pointing the code scan at an empty
+folder fails instead of reporting clean on nothing. The worktree was verified
+back to exactly the three intended files afterwards.
+
+STILL OUTSTANDING ON LIVE, AND IT NOW MATTERS MORE. The fix does not reach a
+patient from this branch. All 156 pages pin service.js to the
+service-module-phase1 branch, and that branch is what item 5.5 (Q13, answered
+by Rishi on 2026-08-10) exists to fast-forward. An unattended run may not push
+a branch other than agents/audit-backlog, so 5.5 stays [BLOCKED]. Its worklist
+line has been updated to say what is now waiting on it rather than leaving it
+as tidiness. service.js and service.css are still byte-identical across
+service-module-phase1 and main today, re-checked this run, so the fast-forward
+is still free. No new question was raised, because the decision was already
+made and the only thing missing is a supervised session to carry it out.
+
+FILES CHANGED. modules/service/service.js (3 lines), tools/check-em-dashes.js
+(module-code rule, EXTRA_HTML entry, header notes), AGENT_WORKLIST.md (items
+5.1 and 5.5 notes), AGENT_LOG.md, status/index.html (regenerated).
+
 ## 2026-08-11 12:47 BST - seventy-first run - Quality pass on item 3.13, Clear
 Chemist Aintree, last verified on 2026-08-10 15:06 as the thirty-first run,
 which made it the oldest verification standing. All three Clear pages verified
