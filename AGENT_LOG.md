@@ -2,6 +2,65 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 19:09 BST - eightieth run - Quality pass on item 4.8, the
+Fishlocks Chemist Eccleston GBP pack, last verified 2026-08-10 as the
+thirty-eighth run and the oldest verification standing after run 79
+refreshed 4.6. Repo half clean, no defect. Live half produced one real
+finding, another instance of the run 78 unpasted-title pattern, already
+covered by queued work. No question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked, typed
+or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: run 79 refreshed
+4.6 (run 37), leaving 4.8 (run 38) as the oldest standing verification.
+
+REPO HALF, ALL HOLDING. Pack facts verified against branches.json a
+second time: name, address, postcode PR7 5SZ, phone 01257 451251, hours
+with the Saturday 9 to 12, review link, pfLink on Post A, catchment
+"Eccleston, Charnock Richard and Coppull" leading with seoTown in all
+three places, hasApp true. Character counts measured with CRLF
+normalised: description 730, posts 463, 348, 521, 433, exactly as the
+pack claims. Post C names no medicine and makes no claim. The profile
+website still points at pharmacy-fishlocks-eccleston.html, the pack that
+was always right on the shared-domain rule. Every advertised service has
+a widget, both directions of the run 38 checker rule green. All 29
+checkers green (13 pre-existing WARNs, none on this pack), all six
+generators byte-identical, worktree clean.
+
+LIVE HALF, ONE REAL FINDING. Plain GETs with a User-Agent, no browser
+session, nothing clicked or typed. All four post button URLs return 200
+with Eccleston-correct content; the Pharmacy First page carries the
+seven conditions including earache. The landing page 404 is the known
+queued-paste state, guarded by the pack's own paster ordering note. The
+finding: the live switch page title reads "Switch Your Prescriptions -
+Fishlocks Chemist Eccleston" while SEO.md specifies "Switch Your
+Prescriptions to Fishlocks Chemist, Eccleston". That is the run 78
+mechanism, an unpasted SEO title field served as Weebly's default
+construction, and it slightly widens run 78's picture: Fishlocks
+Ainsdale was pasted, but at least one Eccleston page on the same domain
+was not. The other three live titles match SEO.md verbatim. The fix is
+the recorded one, repaste from SEO.md, and the 5.3/5.4 Weebly session
+already repastes every SEO field, so no decision is needed and no
+question raised.
+
+FILES CHANGED. audits/fishlocks-eccleston-gbp-pack-check-2026-08-11.txt
+(new), AGENT_WORKLIST.md (quality pass note under 4.8), AGENT_LOG.md
+(this entry), status page regenerated. Commit hash recorded in the
+commit itself.
+
 ## 2026-08-11 (evening) - seventy-ninth run - Quality pass on item 4.6,
 the McCanns Chemist Aigburth GBP pack, last verified 2026-08-10 19:04 as
 the thirty-seventh run and the oldest verification standing after run 78

@@ -1,0 +1,51 @@
+Quality pass - item 4.8, Fishlocks Chemist Eccleston GBP pack
+Date: 2026-08-11 19:09 BST (eightieth run, unattended)
+Previous verification: 2026-08-10 (thirty-eighth run)
+
+REPO HALF - ALL HOLDING
+- Pack facts re-verified against branches.json (fishlocks_eccleston):
+  name, address (Unit 3 The Carrington Centre, New Mill Street,
+  Eccleston, Chorley PR7 5SZ), phone 01257 451251, review link,
+  pfLink on Post A, hasApp true with app mentions permitted.
+- Hours match the NHS-confirmed spec (2026-06-24): Mon-Fri 9:00 to
+  6:00, Saturday 9:00 to 12:00, Sunday closed. Photo shot list still
+  calls out the Saturday morning-only opening.
+- Catchment reads "Eccleston, Charnock Richard and Coppull" in the
+  description, dispensing bullet and Post B, leading with seoTown and
+  matching serviceAreaList order.
+- Character counts measured (CRLF normalised): description 730 of
+  750, posts 463, 348, 521, 433 - all exactly as the pack claims,
+  all inside limits.
+- Post C names no medicine and makes no efficacy claim. No em dash,
+  no emoji. The four Ainsdale mentions are all the deliberate
+  do-not-mix warnings.
+- Profile website points at pharmacy-fishlocks-eccleston.html (the
+  branch landing page), which the 2026-08-09 shared-domain pass
+  confirmed this pack always had right.
+- Every advertised service has a widget in branches.json (both
+  directions of the run 38 checker rule).
+- All 29 checkers green (13 pre-existing WARNs, none touching this
+  pack). All six generators re-run: worktree clean, every page
+  byte-identical.
+
+LIVE HALF - READ-ONLY, PLAIN GETS WITH USER-AGENT
+- All four post button URLs return 200 with Eccleston-correct
+  content. The Pharmacy First page carries the seven conditions
+  including earache.
+- pharmacy-fishlocks-eccleston.html returns 404. Known state, not a
+  defect: none of the six shared-domain landing pages is live yet
+  (awaits the queued Weebly paste run) and the pack's paster notes
+  already order the paste before the profile website change.
+- ONE NEW FINDING. The live switch page title reads "Switch Your
+  Prescriptions - Fishlocks Chemist Eccleston" while
+  modules\switch\pages\SEO.md specifies "Switch Your Prescriptions
+  to Fishlocks Chemist, Eccleston". This is the run 78 pattern: an
+  unpasted SEO title field falling back to Weebly's default
+  construction. The other three live titles match their SEO.md
+  values verbatim with no suffix. Fix is the recorded one - repaste
+  from SEO.md - and the [BLOCKED] 5.3/5.4 Weebly session already
+  repastes every SEO field, so no decision is needed and no
+  question raised.
+
+RESULT: no in-repo defect. One live divergence recorded, covered by
+already-queued work. No new question.
