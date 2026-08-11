@@ -1,0 +1,63 @@
+Item 2.3 second quality pass - Cherry Lane Pharmacy build-from-near-zero
+Run: 2026-08-11 23:42 BST (eighty-ninth run). First pass of this item as a
+quality pass was the forty-seventh run, 2026-08-11 00:05.
+
+REPO HALF - CLEAN, NO DEFECT
+- All seven generators rebuilt before any edit: the six page generators
+  produced zero diff (byte-stable); build-status-page.js showed only the
+  expected one-run lag (last built 22:36, before run 88's 23:08 log entry).
+- All 29 checkers pass.
+- All 12 Cherry Lane pages verified field by field against branches.json:
+  branch name Cherry Lane Pharmacy, 202 Cherry Lane, Liverpool L4 8SG,
+  Merseyside in JSON-LD, phone 0151 226 2051 as display text and as tel:
+  link with spaces stripped, Walton (seoTown) in every H1, JSON-LD parses
+  on every page carrying it, no medicine name (word-boundary sweep over
+  all five POM groups), no app sentence (hasApp false), no other branch's
+  postcode or phone, no em or en dash in visible copy, pure ASCII outside
+  build comments.
+- One thing checked and explained rather than assumed: every generated
+  page in the estate carries one em dash inside its paste-block header
+  comment (165 pages), and the paste sheets carry them in headings.
+  check-em-dashes.js documents both as deliberate report-only exemptions
+  ("dashes inside HTML build comments, which no visitor sees"), so this is
+  a considered position, not a latent gap. Not a defect.
+
+LIVE HALF - READ-ONLY GETs, THREE STATE CHANGES OF NOTE
+- sitemap.xml: 200, same 28 URLs as the forty-seventh run, every lastmod
+  2026-08-07. All 12 generated pages still live and in the sitemap.
+- Old weight loss page weight-loss-clinic-walton.html: still the Q5 state.
+  No mounjaro, wegovy or orlistat; moved notice and link to the new page
+  present. Q5 holds as closed.
+- FINDING 1 (state change): the Q36 footer typo is GONE. index.html and
+  contact-us.html no longer publish pharmacy.FA226@mhs.net - or any FA226
+  address at all. The only email in the footer is Cherry@rbhealth.co.uk.
+  So the Cherry Lane instance has been hand-fixed live since 00:05 today,
+  by REMOVING the NHS mailbox rather than correcting it: the footer now
+  publishes no NHS mailbox at all. Q36 note updated; the question's sweep
+  half (twelve sites still unread) stands, status left open.
+- FINDING 2 (method): every sitemap lastmod stayed 2026-08-07 while the
+  footer demonstrably changed. So Weebly lastmod tracks page content, not
+  site furniture, and "sitemap still dated X, so the site has not been
+  republished" is NOT a safe inference for footer or banner state. Earlier
+  passes have used that inference; their page-content conclusions hold,
+  but their furniture conclusions should be re-read as "unknown since X".
+- FINDING 3 (sharper statement of a known fault): the switch page body
+  still carries the pre-Q7 sentence, and what a patient actually sees is
+  not an em dash but three mojibake characters: "it usually is not
+  [U+00D4 U+00C7 U+00F6] we make the first step quick and easy" - the
+  UTF-8 em dash bytes E2 80 94 stored as CP850 characters OCircumflex,
+  CCedilla, oDiaeresis. Visible garbage in patient-facing copy, worse
+  than the tidy em dash earlier entries recorded. Same page: the og:/meta
+  description (Weebly SEO field) carries a CLEAN pre-Q7 em dash ("Local
+  NHS pharmacy - we contact your GP and handle everything", with a real
+  em dash), and the SEO title is still the pre-Phase-3 string. Two
+  encodings on one page: SEO fields typed clean, body paste mangled.
+  All of it is live-only copy cleared by the already-queued repaste; no
+  new decision needed, evidence recorded so the queue keeps its priority.
+
+NOTHING CHANGED IN PUBLIC COPY THIS RUN. Files changed: this audit file,
+AGENT_WORKLIST.md (second-pass note under 2.3), AGENT_LOG.md (run entry),
+QUESTIONS.json (Q36 note updated, status unchanged), status/index.html
+(regenerated). No question raised: every finding lands on a decision that
+already exists (Q36, Q3/repaste queue) or is method guidance for future
+passes.

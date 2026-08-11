@@ -139,6 +139,21 @@ template that must carry no branch fact at all. Negative-tested eleven ways.
       read in the same pass and publishes its mailbox correctly, so the fault
       looks site-specific rather than an estate-wide template. No in-repo
       defect found, so nothing was changed in the repo. Done 2026-08-11.
+      Second quality pass 2026-08-11 (eighty-ninth run): repo half clean
+      again, byte-stable, all 29 checkers green, all 12 pages verified
+      field by field against branches.json; the estate-wide em dash in
+      every page's build comment was checked and is a documented
+      report-only exemption in check-em-dashes.js, not a defect. Live:
+      all 12 pages still live in the 28-URL sitemap. Three state notes:
+      the Q36 footer typo is gone (footer now publishes no NHS mailbox at
+      all, only Cherry@rbhealth.co.uk - hand-fixed live since 00:05
+      today); sitemap lastmod stayed 2026-08-07 through that change, so
+      lastmod is not a safe republish indicator for site furniture; and
+      the switch body's pre-Q7 sentence actually renders as mojibake
+      ("OCircumflex CCedilla oDiaeresis" for the em dash), visible
+      garbage a patient reads, cleared by the already-queued repaste. No
+      in-repo defect, no copy changed, no new question. Evidence:
+      audits/cherry-lane-build-check-2026-08-11-second.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

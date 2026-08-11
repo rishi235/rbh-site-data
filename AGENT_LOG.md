@@ -2,6 +2,80 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 23:42 BST - eighty-ninth run - Quality pass on item 2.3, the
+Cherry Lane build-from-near-zero, the oldest verification standing (run 47,
+2026-08-11 00:05) after run 88 refreshed 2.2. Second full pass on this item.
+Repo half clean, no in-repo defect, no copy changed, no new question raised.
+Live half found three state notes, one of them a real change since 00:05.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one, expired 23:14 on 2026-08-10, and
+nothing has renewed it. Nothing this run needed it: verification and
+note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all recorded long ago; none of the 32 open questions (Q17 onwards)
+has an answer. One tab opened and closed, nothing clicked, typed or
+submitted. Open questions 32 before, 32 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Runs 76 to 88 refreshed 5.2,
+5.6, 5.7, 4.6, 4.8 to 4.15, 4.11 and 2.2, leaving 2.3 (run 47, 00:05 on
+2026-08-11) as the oldest standing verification, ahead of 2.1 (run 48,
+00:35).
+
+REPO HALF, ALL HOLDING. All six page generators rebuilt to zero diff before
+any edit; build-status-page.js showed only the expected one-run lag (built
+22:36, before run 88's 23:08 entry) and was rebuilt at the end of this run.
+All 29 checkers pass. All 12 Cherry Lane pages verified field by field
+against branches.json: name, 202 Cherry Lane, Liverpool L4 8SG, Merseyside
+in JSON-LD, phone 0151 226 2051 as text and as tel: link with spaces
+stripped, Walton in every H1, JSON-LD parsing on every page carrying it,
+no medicine name from any of the five POM groups, no app sentence (hasApp
+false), no other branch's postcode or phone, no dash and no non-ASCII in
+visible copy. One thing checked and explained rather than left as a scare:
+every generated page in the estate (165 of them) carries one em dash inside
+its paste-block build comment, and the paste sheets carry them in headings.
+check-em-dashes.js documents both as deliberate report-only exemptions, so
+that is a considered position, not a latent gap. Not a defect.
+
+LIVE HALF, READ-ONLY GETs, THREE STATE NOTES. The sitemap still lists the
+same 28 URLs with every lastmod 2026-08-07, and all 12 generated pages are
+still live, so item 2.3 remains the one build item that has fully reached
+the public. The old weight loss page still holds the Q5 state: no POM name,
+moved notice and link to the new page present. First, a REAL CHANGE: the
+Q36 footer typo is gone. index.html and contact-us.html no longer publish
+pharmacy.FA226@mhs.net, or any FA226 address at all; the only footer email
+is Cherry@rbhealth.co.uk. So the Cherry Lane instance was hand-fixed live
+some time after 00:05 today, by removing the NHS mailbox rather than
+correcting it, which fixes the bounce but leaves no NHS mailbox in the
+footer at all. Q36's note is updated; its sweep half (twelve sites unread)
+stands and the question stays open. Second, METHOD: every sitemap lastmod
+stayed 2026-08-07 while the footer demonstrably changed, so Weebly lastmod
+tracks page content, not site furniture, and "sitemap still dated X, so
+the site has not been republished" is not a safe inference for footer or
+banner state. Earlier passes' page-content conclusions hold; their
+furniture conclusions should be read as "unknown since X". Third, a
+SHARPER STATEMENT of a known fault: the switch page body still carries the
+pre-Q7 sentence, and what a patient sees is not an em dash but mojibake -
+the UTF-8 em dash bytes stored as the three CP850 characters OCircumflex,
+CCedilla, oDiaeresis - visible garbage in patient-facing copy. The same
+page's Weebly SEO description field carries a clean pre-Q7 em dash and the
+SEO title is still pre-Phase-3, so the SEO fields were typed clean and
+never repasted while the body paste was mangled in transit. All of it is
+live-only copy cleared by the already-queued repaste; no new decision
+needed, evidence recorded so the queue keeps its priority.
+
+FILES CHANGED. audits/cherry-lane-build-check-2026-08-11-second.txt (new),
+AGENT_WORKLIST.md (second-pass note under 2.3), QUESTIONS.json (Q36 note
+updated, status unchanged), status/index.html (regenerated), AGENT_LOG.md
+(this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 23:08 BST - eighty-eighth run - Quality pass on item 2.2, the
 Fishlocks shared-domain split, the oldest verification standing (run 46,
 2026-08-10 23:43) after run 87 refreshed 4.11. Second full pass on this
