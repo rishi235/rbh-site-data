@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 17:37 BST - seventy-seventh run [commit recorded in a
-follow-up commit] - Quality pass on item 5.6, the Q14 length-aware title
+## 2026-08-11 17:37 BST - seventy-seventh run [commit a4dea46, hash
+recorded in a follow-up commit] - Quality pass on item 5.6, the Q14 length-aware title
 rule, last verified 2026-08-10 as the thirty-fifth run and now the oldest
 verification standing after run 76 refreshed 5.2. Repo half clean, no
 defect found. Live half produced one real finding: the live title on the
