@@ -457,19 +457,12 @@ if (leadValues.length > 1) {
 // DISEASE is service description and is required: "Yellow fever", "Typhoid",
 // "Malaria prevention". Naming the PRODUCT is advertising a POM to the public.
 // ---------------------------------------------------------------------------
-var MEDICINE_NAMES = [
-  // travel vaccine brands
-  "stamaril", "havrix", "avaxim", "vaqta", "twinrix", "ambirix", "engerix",
-  "fendrix", "hbvaxpro", "typhim", "typherix", "vivotif", "viatim",
-  "rabipur", "verorab", "ixiaro", "encepur", "ticovac", "dukoral",
-  "revaxis", "boostrix", "repevax", "diftavax", "nimenrix", "menveo",
-  "menquadfi", "menitorix", "priorix", "mmrvaxpro", "varivax", "varilrix",
-  "zostavax", "shingrix", "qdenga", "jespect", "rabavert",
-  // antimalarials and other POMs a travel page could drift into naming
-  "malarone", "maloff", "lariam", "mefloquine", "atovaquone", "proguanil",
-  "doxycycline", "chloroquine", "primaquine", "tafenoquine", "arakoda",
-  "riamet", "artemether", "azithromycin", "ciprofloxacin"
-];
+// The names moved into tools/pom-names.js on the item 3.13 quality pass,
+// 2026-08-11, because by then the same class of list had been typed out in
+// three separate checkers and a fourth was about to be written. Membership is
+// unchanged: the travel vaccine brands and the antimalarials, in that order.
+var pomNames = require("./pom-names.js");
+var MEDICINE_NAMES = pomNames.union(pomNames.TRAVEL_VACCINES, pomNames.ANTIMALARIALS);
 
 pages.forEach(function (p) {
   var name = rel(p.file);

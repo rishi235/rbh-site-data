@@ -2,6 +2,150 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 12:47 BST - seventy-first run - Quality pass on item 3.13, Clear
+Chemist Aintree, last verified on 2026-08-10 15:06 as the thirty-first run,
+which made it the oldest verification standing. All three Clear pages verified
+clean. The gap was the body copy of the fifteen weight loss pages, the last
+generator in the estate with no copy rule behind it and the only page family
+with a live regulatory question already open against it. New
+tools/check-weight-loss-copy.js, 10 rules, 20 negative tests, all 20 caught
+their break. The copy is clean. A second, older defect was fixed at the same
+time: the same class of medicine-name list had been typed out in three
+separate checkers and this run was about to write a fourth, so the names now
+live once in tools/pom-names.js. One finding raised as Q51. No public copy
+changed.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one, it is not at the top of the file and
+it expired at 23:14 on 2026-08-10. Nothing has renewed it, so step 7 applies as
+written. Q51 would have been raised rather than decided even under a window,
+because it turns on a live patient-facing advertising judgement, which is
+inside the carve-out.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-six questions were open before this run, Q17 to Q22, Q24, Q28,
+Q29 and Q34 to Q50. Twenty-seven are open now: this run raised Q51.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running,
+worktree clean, branch agents/audit-backlog level with origin. All 27 existing
+checkers green before any change was made, so nothing below is a pre-existing
+failure. All seven generators reproduced every page byte-identical except
+status/index.html, which is expected and is not a defect: that page renders
+this log and a timestamp, so it necessarily differs the moment a run appends an
+entry.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. Runs 51 to 70 cleared phases 1, 2 and 4
+and items 3.1 to 3.12 during today, which leaves the thirty-first run's pass on
+item 3.13, 2026-08-10 15:06, as the oldest standing verification. Items 5.1,
+5.2, 5.6 and 5.7 follow it, runs 32, 34, 35 and 36, all later the same evening.
+
+WHAT VERIFIED CLEAN ON CLEAR. Clear publishes three pages, not twelve, because
+it has no Pharmacy First, no contraception and no landing page: weight loss,
+travel clinic and switch. All three were re-read from source rather than from
+the thirty-first run's account of them. Every page carries Unit 20 Brookfield
+Trade Centre, Brookfield Drive, Aintree, L9 7AS and 0151 203 8365, visible and
+in the tel: link with the phone unspaced in the link, and none carries the
+0151 203 6535 the branch's own live site publishes, which is Q28 and is
+unchanged. The JSON-LD parses on all three and matches branches.json field for
+field, including Merseyside as addressRegion and Liverpool as the postal
+addressLocality against Aintree as the seoTown. Every page carries Clear's own
+Google review link and no other branch's, and no page carries any other live
+branch's phone, postcode or review URL. data-branch is Clear Chemist on all
+three. The SEO title, permalink and description on both service pages name
+Clear Chemist and Aintree and no other town, which matters here more than
+anywhere: Tiffenbergs also targets Aintree, on its own domain. The two service
+pages pin service-module-phase1 and the switch page pins 6a275e1, which is what
+their generators declare. The weight loss page names no prescription-only
+medicine and makes no claim. The encoding is clean: the only non-ASCII bytes on
+the page are three correctly formed pound signs and an em dash inside the HTML
+paste comment, which is a build note and not public copy.
+
+HOW THE GAP WAS FOUND. Clear has only two service pages, and one of them is the
+travel clinic page the sixty-ninth run had just written a copy checker for. Put
+next to each other, the question asks itself: why does the travel clinic page
+have a rule behind its sentences and the weight loss page next to it not. Five
+generators compose body copy. Four of them now have a copy checker, written on
+four consecutive runs, and each time the finding was the same, that the copy
+was correct and had simply never been read. Weight loss was the fifth and the
+one left.
+
+It is also the one that should have been first. compliance/
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, written on the thirty-third run against
+the house reference, measures the OLD live-only weight loss pages and finds
+breaches of exactly the kind this generator exists to avoid: a results heading,
+a superlative claim about a named medicine, a slider returning a percentage of
+body weight, and a lead price above the fold. Item 5.8 and Q22 are open on
+that. The generated pages are the compliant replacement, and until this run the
+only thing keeping them compliant was that nobody had edited them.
+
+WHAT THE NEW CHECKER HOLDS. tools/check-weight-loss-copy.js, 10 rules over the
+15 pages. Coverage, reading the BUILD list and the fee out of the generator
+rather than mirroring either. 21 pinned sentences of service copy. The seven
+FAQ pairs, including the one that keeps the page selling a consultation rather
+than a prescription, whose answer must still begin No. The private and paid
+framing in all four places it is stated, and no free offer. Eligibility
+integrity: 18 and over, the under-18 exclusion, pregnancy and breastfeeding,
+the four screened conditions, the interaction warning and the safety net to GP,
+NHS 111 and 999, plus a rule that fails a NUMERIC BMI threshold, because a
+number lets a visitor decide their own eligibility before speaking to anyone
+and the generator deliberately states BMI as a range a clinician confirms.
+Four no-guarantee sentences. Price discipline. No medicine named. No efficacy
+claim, from the existing tools/claim-patterns.js rather than a second copy of
+it. And rule 10, which checks the page still ships the governance note in its
+own paste comment, because that note is the promise the other nine rules
+enforce and it is what a paster reads at the one moment a human is looking.
+
+Twenty negative tests, one per rule and several per rule where a rule has more
+than one way to break. All twenty caught their break and the clean state
+re-ran green afterwards. One test initially read as a miss and was not: the
+medicine rule fired correctly and named wegovy where the test expected
+mounjaro, because both had been pasted in. The rule now reports every medicine
+named rather than the first, since a page that has drifted has usually drifted
+more than once.
+
+THE OLDER DEFECT, FIXED. Writing rule 8 meant writing a list of medicine names,
+and that list already existed three times: in check-gbp-packs.js since
+2026-08-07, in check-travel-clinic-copy.js since the sixty-ninth run and in
+check-switch-copy.js since the seventieth. A fourth copy is the defect this
+repo has already found twice, once in the seven hardcoded WhatsApp numbers and
+once in the claim patterns, and CLAUDE.md records the argument: two copies of a
+rule that agree are indistinguishable from one rule right up to the moment
+somebody edits one. So the names now live once in tools/pom-names.js, grouped
+by the clinical class that puts them on a page, and all four checkers require
+it. Membership is byte-identical for the GBP packs and for the travel clinic.
+It is deliberately WIDER for the switch pages, by twelve weight loss names:
+there was never a reason a switch page could name Rybelsus but not Wegovy, and
+the difference was an accident of which day each list was typed. All three
+migrated checkers still pass.
+
+WHAT WAS NOT DECIDED. The fee appears three times on every weight loss page and
+the first of the three is in the booking card at the top, above the eligibility
+section. Element 5 of the compliance assessment marked the old pages' hero
+price a conditional breach on the reasoning that a lead price above the fold,
+before any eligibility wording, encourages entry on price. The generated pages
+carry none of the rest of that combination, so the question is whether the
+position alone still carries the objection. That is a live patient-facing
+advertising judgement and it costs a repaste of 15 pages if the answer is
+anything other than leave it, so it is raised as Q51 with a recommendation and
+left open. Rule 7 pins what exists today so it cannot quietly get worse while
+the question is open, and deliberately does not judge where on the page the
+price should sit, because that is not a checker's call.
+
+FILES CHANGED. New tools/check-weight-loss-copy.js and tools/pom-names.js.
+Edited tools/check-gbp-packs.js, tools/check-switch-copy.js and
+tools/check-travel-clinic-copy.js, each replacing its literal medicine list
+with the shared module. QUESTIONS.json gains Q51. status/index.html
+regenerated. AGENT_WORKLIST.md unchanged: item 3.13 was already ticked on
+2026-08-04 and this was a verification of it, not new work. All 28 checkers
+green at the end of the run, all seven generators byte-stable.
+
 ## 2026-08-11 11:34 BST - seventieth run - Quality pass on item 3.12, Tiffenbergs
 Chemist Aintree, last verified on 2026-08-10 13:34 as the twenty-eighth run,
 which made it the oldest verification standing. All 12 Tiffenbergs pages

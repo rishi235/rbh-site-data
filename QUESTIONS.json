@@ -776,5 +776,21 @@
     "status": "open",
     "answer": null,
     "note": "This is flagged, not advised. I am not a lawyer and no legal advice has been taken on it. The finding is factual: the form takes a name, a date of birth and contact details, and the block pasted into Weebly carries one sentence of notice and no link. What is NOT known is what the rest of each Weebly page says, which is exactly why option 0 is recommended over jumping to a fix. Rule 10 of the new tools/check-switch-copy.js holds what exists today, that a purpose statement is present, on every page, and inside the form rather than lost in a footer, so this cannot quietly get worse while the question is open. It does not judge whether one sentence is enough, because that is not a checker's call. If the answer is option 1 or 2, note that it means a Weebly repaste of all fifteen pages, so it should ride along with whatever paste run Q49 triggers."
+  },
+  {
+    "id": "Q51",
+    "date": "2026-08-11",
+    "item": "quality pass on 3.13 (finding, does not block any item)",
+    "question": "The 15 generated weight loss pages state the consultation fee three times, and the first of the three sits in the booking card at the top of the page, above the eligibility section: \"Private consultation at <branch>, from £39.99. Choose a time that suits you.\" Element 5 of compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md measured the OLD live-only pages against the house reference and marked their hero price a conditional breach, on the reasoning that a single lead price above the fold, before any eligibility wording, encourages entry on price, and it recorded \"treatments start from ...\" as a ruled breach in advertising. The generated pages are not the old pages: they carry no medicine name, no superlative and no results claim, and the price is for the consultation rather than for a medicine, with a separate FAQ saying medication is charged separately. So the question is whether the POSITION alone still carries the objection once everything else around it has gone. Only Rishi can settle it, because it is a live patient-facing advertising judgement and the answer costs a Weebly repaste of 15 pages if it is anything other than leave it.",
+    "options": [
+      "Leave it as it is. The reference's objection was to the combination, and none of the rest of that combination exists on these pages. Costs nothing and changes no live page.",
+      "Keep the price in the booking card but qualify it there, so it reads \"Private consultation at <branch>, from £39.99, subject to a clinical assessment.\" One string in the generator, and it answers the specific objection, which is a price standing without eligibility framing beside it. Costs a regeneration and a repaste of 15 pages.",
+      "Move the price out of the booking card entirely, leaving it in step 1 of how it works and in the cost FAQ, both of which sit below the eligibility section. Puts the price where the reference describes a factual price list as safe, at the cost of a booking card that no longer says what booking costs.",
+      "Drop the price from the generated pages altogether and quote it at consultation. Safest reading, but it removes a figure RBH already publishes on rbhealth.co.uk and that a visitor reasonably wants before booking."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Raised rather than decided, and it would have been raised even under an autonomous window: it is a live patient-facing advertising claim, which is inside the carve-out. Nothing on any page was changed. RULE 7 of the new tools/check-weight-loss-copy.js pins what exists today, one fee string, identical on all 15 pages, from-qualified, in exactly the three places the generator writes it, with the indicative-pricing sentence beside it and no offer or discount wording, so the position cannot quietly get worse while this is open. It deliberately does not judge where on the page the price should sit, because that is not a checker's call. If the answer is option 1, 2 or 3 it means a Weebly repaste of all 15 weight loss pages, so it should ride along with whatever paste run Q49 and Q22 trigger rather than on its own."
   }
 ]

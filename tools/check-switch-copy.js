@@ -509,10 +509,16 @@ if (figures.length > 1) {
 // advertising, and the moment it claims an outcome it becomes a clinical
 // claim, on a page that is not a clinical service page at all.
 // ---------------------------------------------------------------------------
-var POM = ["semaglutide", "liraglutide", "tirzepatide", "orlistat", "wegovy",
-  "ozempic", "saxenda", "mounjaro", "xenical", "nitrofurantoin", "amoxicillin",
-  "phenoxymethylpenicillin", "clarithromycin", "aciclovir", "fusidic",
-  "flucloxacillin", "hydrocortisone", "levonorgestrel", "desogestrel"];
+// The names moved into tools/pom-names.js on the item 3.13 quality pass,
+// 2026-08-11, because by then the same class of list had been typed out in
+// three separate checkers and a fourth was about to be written. The three
+// groups below are the three services a switch page could drift into naming a
+// medicine from. The weight loss group is WIDER than the nine names this
+// checker used to hold: there was never a reason a switch page could name
+// Rybelsus but not Wegovy, and the difference was an accident of which day
+// each list was typed.
+var pom = require("./pom-names.js");
+var POM = pom.union(pom.WEIGHT_LOSS, pom.PHARMACY_FIRST, pom.CONTRACEPTION);
 var CLINICAL = [
   { re: /\b(?:cure|cures|guaranteed results|clinically proven|proven to)\b/i, what: "an outcome claim" },
   { re: /\bbetter (?:health|outcomes) (?:if|when) you switch\b/i, what: "a health outcome tied to switching" }

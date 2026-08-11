@@ -72,13 +72,11 @@ const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
 const escapeRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // Medicine names must not appear in public-facing pharmacy marketing.
-// Brand names and INNs for the weight loss and related POM classes.
-const MEDICINE_NAMES = [
-  "wegovy", "ozempic", "saxenda", "victoza", "rybelsus", "mounjaro",
-  "zepbound", "xenical", "orlistat", "alli", "mysimba", "contrave",
-  "semaglutide", "tirzepatide", "liraglutide", "phentermine", "duromine",
-  "naltrexone", "bupropion", "setmelanotide", "metreleptin",
-];
+// Brand names and INNs for the weight loss and related POM classes. The list
+// moved into tools/pom-names.js on the item 3.13 quality pass, 2026-08-11,
+// because by then the same class of list had been typed out in three separate
+// checkers and a fourth was about to be written. Membership is unchanged.
+const MEDICINE_NAMES = require("./pom-names.js").WEIGHT_LOSS;
 
 // Hard efficacy claims. Anything here is a failure, not a style note.
 const EFFICACY_FAIL = [
