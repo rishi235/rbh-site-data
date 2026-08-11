@@ -619,5 +619,35 @@
     "status": "open",
     "answer": null,
     "note": "Two things to be straight about. The live listing name is taken from the pack's own 2026-08-04 record, not from a reading today: a read-only search was run this pass and Google's knowledge panel did not come back in the page text, so this needs eyes on the profile before anyone edits it. And the same search showed the Weebly homepage titles the site \"Cherry Lane Pharmacy & Travel Clinic\", a third version of the name again, which is Weebly-native furniture and belongs to the estate-wide sweep in Q39 rather than being asked twice here. Option 1 is recommended because it is the same one edit as option 0 but loses nothing: the pack already tells the paster to set those categories and services, so the words move to the fields Google reads for them instead of being dropped. Nothing here is urgent, and nothing here blocks a worklist item."
+  },
+  {
+    "id": "Q41",
+    "date": "2026-08-11",
+    "item": "quality pass on 1.2 (finding, does not block any item)",
+    "question": "The live Hirshmans contact-us page publishes two different email addresses as ways to reach the branch. The contact block at the top of the page gives pharmacy.FW378@nhs.net, the NHSmail account, while the footer block this repo generates gives Hirshmans@rbhealth.co.uk, which is the address branches.json names as the branch email and which every generated page and the GBP pack use. So a patient reading the page is offered the clinical NHSmail inbox and the general inbox side by side, with nothing saying which is for what, and the live page disagrees with the single source of truth. Which address should be the published one.",
+    "options": [
+      "Leave both as they are. No edit and no risk of breaking anything, but the page keeps offering two routes and patients will keep splitting between them, and the repo and the live page stay out of step.",
+      "Replace the nhs.net address in the top contact block with Hirshmans@rbhealth.co.uk, so the page publishes one route and it is the one branches.json already names. One Weebly hand edit. The NHSmail address stays in branches.json for NHS use and simply stops being advertised to patients.",
+      "Go the other way and make pharmacy.FW378@nhs.net the single published address, changing the footer and branches.json to match, on the basis that NHSmail is the secure route for anything clinical. One Weebly hand edit plus a data change, and the same decision then has to be taken for the other 15 branches."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Two smaller things on the same block, both hand edits for whoever is next in the Weebly editor, neither worth a question of its own. The top contact block still splits \"56-62 Sherwood House, Station Road\" across a line break and still omits the PR8 3HW postcode, which is the cosmetic note recorded when item 1.2 was first closed on 2026-08-04 and confirmed still live today. And it writes the phone as 01704577376 with no space, where the footer, the GBP pack and branches.json all write 01704 577376. The digits are right so the number dials, but the same page shows the number two ways, and consistent NAP formatting is the whole point of the item. The address itself is correct everywhere on the live page, which is what item 1.2 was actually about, and the repo half verified clean this run. Nothing here blocks a worklist item."
+  },
+  {
+    "id": "Q42",
+    "date": "2026-08-11",
+    "item": "quality pass on 1.2 (finding on the status page, does not block any item)",
+    "question": "There are two audit status pages and only one of them is being kept up to date. The portal page at data.rbhealth.co.uk, built by build-audit-status.js, is rebuilt and published every run and is where you answer questions. status/index.html in the repo, built by build-status-page.js, had not been rebuilt since 2026-08-04 and was still claiming 1 item to do and 24 done against a real 0 to do and 39 done. It has been regenerated this run so its counts are true, but its question section reads from an old \"Questions for Rishi\" heading in AGENT_LOG.md that stopped being used when QUESTIONS.json took over, so it now reports no open questions when 17 are open. It also offers its own answer-by-email buttons, which is a second answer channel that the unattended runs do not read. What should happen to it.",
+    "options": [
+      "Retire status/index.html and build-status-page.js. The portal page does everything it does and more, is published every run, and is the only channel the runs actually read. Removes the second answer route and the risk of an answer being sent somewhere nothing looks.",
+      "Keep the page but make it honest: point its question section at QUESTIONS.json for the count and remove the answer-by-email buttons, so it links to the portal instead of competing with it. Keeps a repo-local view for anyone without portal access.",
+      "Keep it exactly as it is and simply add build-status-page.js to the regenerate step every run, so the counts stay current and the missing question section is accepted as a known limitation."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "The reason this surfaced now is worth recording on its own. The standing rule is to regenerate with the established build scripts and verify before committing, and recent runs have been regenerating six of the seven build scripts and reporting zero diff. build-status-page.js was simply never in that set, so nothing was broken and nothing was flagged for 51 runs. It has been run and committed this run either way, so whichever option you pick, the counts on that page are correct as of now. Nothing here blocks a worklist item and nothing here is urgent."
   }
 ]

@@ -23,6 +23,17 @@
       FAQ body copy ("Call us on 0151 226 2051") that sat outside the
       visible-phone reader, because it wants digits straight after "Call".
       Correct today, and unread today, which are not the same thing.
+    - every mailto: link belongs to the owning branch, and its visible text
+      matches the address it links to. Added on the item 1.2 quality pass,
+      2026-08-11. The email is the fourth published contact fact and it sits
+      on the same contact card as the three this file already checks, but
+      nothing read it: check-branch-links only proves nhsEmail matches the
+      ODS code inside branches.json, and check-jsonld only reads the email
+      if a page puts one in its JSON-LD. The six branch landing pages carry
+      a visible mailto that no rule touched, so one branch's inbox on
+      another branch's page would have published silently. That is the same
+      failure shape as a foreign phone number or a foreign postcode, both of
+      which have had a rule for weeks. Correct on all six today.
   Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
   question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
@@ -126,6 +137,14 @@ function extract(html) {
   out.contactAddress = cl ? cl[1].trim() : null;
   const map = html.match(/maps\?q=([^"&]+)/);
   out.mapQuery = map ? decodeURIComponent(map[1]) : null;
+  // Every mailto, with the text the reader actually sees. Anchor text is
+  // captured because a link whose text and href disagree is the shape that
+  // survives a copy-paste rename: the visible address is corrected and the
+  // href is not, so the page reads right and the mail goes elsewhere.
+  out.mailLinks = [];
+  const mailRe = /<a[^>]*href="mailto:([^"?]+)[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
+  while ((m = mailRe.exec(html)) !== null)
+    out.mailLinks.push({ href: m[1].trim(), text: m[2].replace(/<[^>]*>/g, "").trim() });
   return out;
 }
 
@@ -172,6 +191,31 @@ for (const dir of PAGE_DIRS) {
     for (const v of x.visiblePhones)
       if (digits(v) !== digits(b.phone))
         bad(rel, 'visible phone "' + v + '" vs "' + b.phone + '"');
+
+    // --- THE PUBLISHED EMAIL -------------------------------------------
+    // Two rules, matching the phone: the address must be one this branch
+    // owns, and the link must go where it says it goes. Both branches.json
+    // addresses are allowed because they are both legitimately public: the
+    // rbhealth.co.uk inbox is the general route and the nhs.net one is the
+    // secure clinical route. Which of the two BELONGS on a public page is a
+    // separate judgement and is not decided here.
+    const ownEmails = [b.email, b.nhsEmail].filter(Boolean);
+    for (const ml of x.mailLinks) {
+      const owns = ownEmails.some((e) => e.toLowerCase() === ml.href.toLowerCase());
+      if (!owns) {
+        const other = branches.find((o) =>
+          [o.email, o.nhsEmail].filter(Boolean)
+            .some((e) => e.toLowerCase() === ml.href.toLowerCase()));
+        bad(rel, 'mailto "' + ml.href + '" is not an address of ' + b.id +
+          (other ? ', it belongs to ' + other.id : ', and belongs to no branch') +
+          '. Expected one of: ' + ownEmails.join(", "));
+      }
+      // Anchor text only has to agree when it is itself an address. A link
+      // reading "email the pharmacy" is fine and is left alone.
+      if (/@/.test(ml.text) && ml.text.toLowerCase() !== ml.href.toLowerCase())
+        bad(rel, 'mailto link text "' + ml.text + '" does not match its href "' +
+          ml.href + '", so the page shows one address and sends to another');
+    }
 
     if (x.ldError) bad(rel, "JSON-LD does not parse: " + x.ldError);
     if (x.ld) {

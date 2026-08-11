@@ -2,6 +2,135 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 04:40 BST - fifty-sixth run - Quality pass on item 1.2, the Hirshmans address sweep, last verified on 2026-08-07 as the tenth run, which made it the oldest verification standing. The live half of the item, which the tenth run could not do, was done this run and the address is correct on every live surface. Two defects found away from the address itself: the published email was checked by nothing, now a rule in check-nap with seven negative tests, and status/index.html had been stale in the repo since 2026-08-04 because one of the seven generators was never in the regenerate-and-compare step. New questions Q41 and Q42
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written
+and Q41 and Q42 were left open rather than decided here.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 04:36. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10. Sixteen questions were open
+before this run and none has been answered: Q17 to Q22, Q24, Q28, Q29 and Q34
+to Q40. Q41 and Q42 make eighteen.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary, and it agrees with it: the fifty-fifth run took 1.3,
+which was the ninth run of 2026-08-07, leaving the tenth run's item 1.2 as the
+oldest verification standing, then 4.4 on 2026-08-08, then 4.5 on 2026-08-09.
+Item 1.2 taken this run.
+
+THE ITEM VERIFIED CLEAN, IN THE REPO AND, FOR THE FIRST TIME SINCE IT WAS
+CLOSED, LIVE. branches.json holds streetAddress "56-62 Sherwood House, Station
+Road", addressLocality "Ainsdale", postalCode "PR8 3HW". The canonical string
+appears in 12 module files, the GBP pack, branches.json, status/index.html and
+the three audit files, and nowhere else. Fifteen broken variants were searched
+for across all 269 text files, including "56/62", "56 - 62", the en dash and em
+dash forms, "Sherwood Hse", "Sherwood Court", "58-62", "56-60", "56 Station
+Road" and "62 Station Road": every hit is in AGENT_LOG.md and is the previous
+sweep listing what it searched for, which is the audit describing itself and is
+correct where it is. Cross-attribution was measured rather than assumed, since
+Hirshmans and Fishlocks Ainsdale sit on the same street in the same town with
+adjacent postcodes: no page carries another branch's street address, 0 hits
+across 177 pages, and check-postcodes still reports 0 foreign postcodes. All
+seven generators rebuilt and all 19 checkers pass.
+
+THE LIVE HALF, WHICH HAS BEEN OUTSTANDING SINCE 2026-08-07. The tenth run
+recorded that it could not re-verify the live site because two Chrome browsers
+were connected and the browser tools would not act unattended. That is fixed and
+the read went through, so the outstanding half of item 1.2 is now closed. The
+Hirshmans contact-us page carries the address three times and all three are
+right: the top contact block, the second block below it and the footer this repo
+generates all read 56-62 Sherwood House, Station Road, Ainsdale, and the second
+block and the footer both carry PR8 3HW. The item stands.
+
+WHAT THE LIVE READ FOUND INSTEAD, ALL ON THE SAME BLOCK. The top contact block
+publishes pharmacy.FW378@nhs.net as the way to email the branch, while the
+footer publishes Hirshmans@rbhealth.co.uk, which is what branches.json names as
+the branch email and what every generated page and the GBP pack use. So the page
+offers the clinical NHSmail inbox and the general inbox side by side with nothing
+saying which is for what. That is a decision, not a defect to fix here, because
+publishing the secure address is a defensible choice and reversing it would be
+an estate-wide change, so it is Q41 with the swap to the rbhealth address
+recommended. Two smaller things ride along in the note rather than as questions
+of their own: the same block still splits "Station Road" across a line break and
+still omits the postcode, which is the cosmetic note recorded when 1.2 was first
+closed and is confirmed still live, and it writes the phone as 01704577376 with
+no space where the footer, the pack and branches.json all write 01704 577376.
+Right digits, two formats on one page, and consistent NAP formatting is the
+point of the item.
+
+DEFECT ONE, AND IT IS THE FOURTH CONTACT FACT. check-nap checks the name, the
+address and the phone. It did not check the email, and neither did anything
+else. check-branch-links only proves nhsEmail matches the ODS code inside
+branches.json, which is a data rule that never reads a page. check-jsonld
+compares a JSON-LD email against branches.json but only when a page puts one
+there. Six branch landing pages carry a visible mailto link, generated from
+b.email and pasted onto live sites, and no rule touched it, so one branch's
+inbox on another branch's page would have published in silence. That is the same
+failure shape as a foreign phone number or a foreign postcode and both of those
+have had a rule for weeks. Measured before writing anything: 6 of 177 pages
+carry a mailto, 0 of them wrong today, so this was latent rather than live.
+
+Two rules added, matching the phone. Every mailto on a generated page must be an
+address the owning branch owns, and where the anchor text is itself an address it
+must equal the href, which is the shape that survives a copy-paste rename when
+the visible address is corrected and the link is not. Both branches.json
+addresses are accepted because both are legitimately public, and the reader
+strips any ?subject= query so a foreign address cannot hide behind one. Which of
+the two belongs on a public page is Q41 and is deliberately not decided by the
+checker.
+
+Seven negative tests, because a checker that never fires proves nothing. A
+foreign email, an email belonging to no branch, and text and href disagreeing:
+all three fired, each naming the right file, the right value and the branch the
+value actually belongs to. Four cases that must NOT fire: the branch's own
+nhs.net address, a mailto carrying ?subject=, and anchor text that is not an
+address at all ("Email the pharmacy") all passed at exit 0, and a foreign address
+hidden behind a ?subject= with innocent anchor text correctly failed. Every file
+was restored with git checkout after each test and the checker re-run clean.
+
+DEFECT TWO, FOUND BY DOING THE STEP PROPERLY. The standing rule is to regenerate
+with the established build scripts and verify the output before committing. There
+are seven build scripts other than build-audit-status.js. Recent runs have
+regenerated six and reported zero diff. build-status-page.js was not among them,
+and its output, status/index.html, had not been rebuilt in the repo since
+2026-08-04 22:18 UTC. It was claiming "To do 1, Blocked 0, Done 24" against a
+real state of "To do 0, Blocked 4, Done 39", and its most recent run entry was
+item 4.4 on 2026-08-04, 51 runs ago. Nothing was wrong with the generator; it
+simply was never run. Regenerated and committed this run, and all 19 checkers
+re-run clean afterwards, including the check-postcodes exemption the fifty-fifth
+run made staleness-proof, which still holds against the rebuilt page.
+
+Rebuilding it exposed a second thing about the same page, which is Q42. Its
+question section reads from an old "Questions for Rishi" heading in AGENT_LOG.md
+that stopped being used when QUESTIONS.json took over, so the rebuilt page
+reports no open questions while 18 are open, and it carries its own
+answer-by-email buttons, which is a second answer channel no unattended run
+reads. The counts are now true either way and the empty question section at
+least invites nobody down the dead channel, but a repo page that says there is
+nothing to answer is not something to leave decided by default. Retiring the
+page in favour of the portal is recommended, since the portal does everything it
+does, is published every run and is the only channel step 3 reads.
+
+MEASURED AND LEFT ALONE, RECORDED SO A LATER RUN DOES NOT RE-DERIVE IT. The
+readers for the contact-line address and the map query take the first match only,
+with no /g, where the phone readers take every match. A page with two contact
+cards or two map embeds would have its second one unread, and the
+surfaces-must-be-present rule cannot catch it because one is enough to satisfy
+it. Measured across all 177 pages: 0 have more than one of either, so the
+blindness is latent, and widening it was left rather than done speculatively.
+
+Files changed: tools/check-nap.js, QUESTIONS.json, status/index.html,
+AGENT_LOG.md. No page, generator, pack, paste block or branches.json byte
+changed. AGENT_WORKLIST deliberately untouched, matching every previous quality
+pass: 1.2 was already ticked and its completion claim still holds, now on both
+halves rather than one.
+
 ## 2026-08-11 04:35 BST - fifty-fifth run [commit ae117d9] - Quality pass on item 1.3, the McCanns Sandringham postcode sweep, last verified on 2026-08-07 as the ninth run, which made it the oldest verification standing. The data is clean: CH49 1SX appears in exactly four files, all of them the audit recording its own finding, and in no page, pack or paste block; all 16 live postcodes are present and correctly attributed; all six generators rebuilt to zero diff and all 19 checkers pass. The defect is in the verifier again, and this time in the exemption rather than in the reading. check-postcodes.js excused FILES rather than VALUES, so any wrong postcode typed into any of the seven audit files passed rule 1 in silence, including status/index.html. The exemption now names the one value it excuses and fails when it goes stale, and rule 2 now requires a branch postcode to be USED rather than merely declared. Both new rules failed their own first negative test and were fixed before commit. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
