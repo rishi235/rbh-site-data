@@ -2,6 +2,153 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 11:34 BST - seventieth run - Quality pass on item 3.12, Tiffenbergs
+Chemist Aintree, last verified on 2026-08-10 13:34 as the twenty-eighth run,
+which made it the oldest verification standing. All 12 Tiffenbergs pages
+verified clean. The gap was the body copy of the fifteen switch pages, the
+highest-commitment pages in the estate, read by no checker in the repo. New
+tools/check-switch-copy.js, 10 rules, 26 negative tests, all 26 caught their
+break. Unlike the previous three copy passes, the copy was NOT clean: the page
+answers the same question twice and differently. Raised as Q49, and a second
+finding on the form's collection notice raised as Q50. No public copy changed.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one, it is not at the top of the file and
+it expired at 23:14 on 2026-08-10. Nothing has renewed it, so step 7 applies as
+written. Both findings would sit inside the carve-out even if a window were
+open: Q49 turns on a live public advertising claim and on an operational fact
+about how the switch is actually run, and Q50 is a data protection matter. Both
+were raised and left open rather than decided, and no string of public copy was
+touched.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-four questions were open before this run, Q17 to Q22, Q24,
+Q28, Q29 and Q34 to Q48. Twenty-six are open now: this run raised Q49 and Q50.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin. All 26 existing checkers green before
+any change was made, so nothing below is a pre-existing failure. All seven
+generators reproduced every page byte-identical except status/index.html, which
+is expected and is not a defect: that page renders this log and a timestamp, so
+it necessarily differs the moment a run appends an entry. It has been in the
+regenerate step since the fifty-sixth run for exactly that reason.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. Runs 51 to 69 cleared everything in phases
+1 to 4 and item 3.1 to 3.11 during today, which leaves the twenty-eighth run's
+pass on item 3.12, 2026-08-10 13:34, as the oldest standing verification. Items
+3.13, 5.1, 5.2, 5.6 and 5.7 follow it, runs 31, 32, 34, 35 and 36. The
+twenty-seventh and twenty-eighth run headings are truncated in this file and
+were resolved the way earlier runs resolved them, through the questions they
+raised: Q17 names 3.11 and Q18 names 3.12, so neither hides an older pass.
+
+WHAT VERIFIED CLEAN ON TIFFENBERGS. All 12 pages re-read from source rather
+than from the twenty-eighth run's account of them: 11 service pages plus the
+switch page. Every page carries 388 Longmoor Lane, L9 9DB and 0151 525 3462,
+visible and in the tel: link with the phone unspaced in the link. The JSON-LD
+parses on all 12 and matches branches.json field for field, including
+Merseyside as addressRegion and Liverpool as the postal addressLocality against
+Aintree as the seoTown, and a self-referencing url on the branch's own domain.
+Every page carries Tiffenbergs' own Google review link and no other branch's,
+and no page carries any other live branch's phone, postcode or review URL. The
+SEO title, the H1 and the SEO description all name Aintree and none names
+another branch's town. data-branch is branchName on all 12. The Pharmacy First
+overview links all seven condition pages and every condition page links back.
+The weight loss page names no prescription-only medicine and no brand. Clear
+Chemist also trades in Aintree but on its own domain with its own brandSlug, so
+nothing collides.
+
+The two things the twenty-eighth run recorded rather than fixed both still
+stand: the pfLink is the one link field in branches.json with no .html ending,
+already KNOWN in check-branch-links against Q8 and moving with the other ten
+under item 5.3, and the branch email is Tiffenberg@rbhealth.co.uk, singular
+where the trading name is plural, which is a mailbox name and reaches no page.
+Same shape as the Shorts@ note from the 3.11 pass.
+
+HOW THE GAP WAS FOUND. Tiffenbergs has a switch page like every branch, so the
+pass read it rather than only the eleven service pages. The switch page is
+covered thirteen ways and every one of them reads the frame: coverage, title
+and H1, the four Weebly fields, the address, the phone in three shapes
+including the FAQ's "Call us on", the schema, the map, the review link,
+data-branch, the WhatsApp button, the two CDN pins, the characters. None reads
+the sentences. That is the same gap the sixty-third, sixty-eighth and
+sixty-ninth runs closed for Pharmacy First eligibility, contraception and the
+travel clinic. Each of those three found copy that was correct and unpinned.
+This one is the first that found copy that is not correct.
+
+THE FINDING. The page tells a patient two different things about who deals
+with their GP. Unconditional, at the top: "We contact your GP. We handle
+everything. You do nothing." in the hero, "We handle the full switch for you"
+as the first bullet, and "We contact your GP and handle everything." as the
+Weebly SEO description. Hedged, further down the same page: "We help handle the
+transfer process" in the trust bar, "guides the next step to move your
+prescriptions across" in step 2, and the FAQ answering "Do I need to contact my
+GP myself?" with "Not always. We help guide the process and handle what we can
+from our side. If anything extra is needed, we will tell you clearly."
+
+Three against three, on all fifteen pages, defined once in the generator so
+they went live together. The hedged wording reads as though somebody wrote it
+deliberately, which is the reason to think it is the accurate one. The
+unconditional wording is what a patient reads first, and because it is the meta
+description it is also what Google shows to everyone who never reaches the page
+and never opens the FAQ. "No interruption to your medication" sits in the same
+bullet list and is the same class of claim, since continuity across a transfer
+depends on where the patient is in their cycle and on the practice acting.
+
+Not fixed on the spot. Which version is true is an operational fact about how
+the switch is actually run, which this repo cannot see, and which version goes
+on a public page is an advertising decision. Both are pinned in KNOWN against
+Q49, so the checker is green today and fails the moment the copy is settled and
+the entry is left behind, the same convention as KNOWN_DRIFT in check-cdn-pins.
+
+THE SECOND FINDING, Q50. The form takes first name, last name and date of birth
+as required fields plus optional mobile and email, for a health purpose, and
+the only notice at the point of collection is one sentence inside the form: "We
+will only use your details to help process your switch request." It states a
+purpose and nothing else, and links to nothing. What the surrounding Weebly
+page carries is outside this repo and has not been checked on any of the
+fifteen sites, which is why the recommended answer is to read them first rather
+than to jump to a fix. Rule 10 holds what exists today so it cannot quietly get
+worse. Flagged, not advised.
+
+WHAT THE CHECKER HOLDS. Ten rules. The copy and the CONFIG are read out of the
+generator so a new line or a new branch comes under test without anyone editing
+the checker, and the claim rules are absolute so rewording cannot make them
+pass by agreeing with themselves. Rule 1 source, rule 2 pages both ways, rule 3
+verbatim with branch values resolved, rule 4 the GP contradiction, rule 5
+continuity, rule 6 the seconds figure one per page and the same on all fifteen,
+rule 7 no prescription-only medicine and no clinical claim on a logistics page,
+rule 8 town in the pill, the trust bar and step 2 with genuinely shared towns
+exempt, rule 9 the form's real inputs against the sentence in step 1 that
+describes them, rule 10 the collection notice.
+
+Two decisions inside it worth recording. The four conditional sections, the
+video, the app card, the review card and the services grid, are checked BOTH
+ways rather than dropped: present where the branch's gate is set, absent where
+it is not. Dropping them the way check-travel-clinic-copy drops its frame would
+have left four blocks of public copy unread, and an unearned block is how a
+page ends up advertising something the data says the branch does not have. And
+rule 9 reads the real input elements rather than a list typed in the checker,
+because the form and the sentence describing it are thirty lines apart in the
+same file and are easy to change apart.
+
+NEGATIVE TESTS. Twenty-six, one per rule direction, each applied to the
+generator or to a page, run, then restored. All twenty-six failed the run and
+the repo was green again afterwards. Two of them exist to prove the KNOWN
+entries cannot rot: fixing the GP contradiction, or hedging the continuity
+promise, without removing the matching KNOWN entry fails the run.
+
+FILES CHANGED. tools/check-switch-copy.js new. CLAUDE.md, one new section.
+QUESTIONS.json, Q49 and Q50 appended, 32 insertions and no deletions.
+AGENT_LOG.md, this entry. status/index.html, regenerated. No generator, no
+page, no branches.json and no public copy touched.
+
 ## 2026-08-11 11:15 BST - sixty-ninth run [commit f322203] - Quality pass on item 3.11,
 Gordon Short Chemist Crosby, last verified on 2026-08-10 13:04 as the
 twenty-seventh run, which made it the oldest verification standing. All 12

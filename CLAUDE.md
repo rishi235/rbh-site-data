@@ -1067,3 +1067,93 @@ it is a different statement about a different traveller.
 Written on the item 3.11 quality pass, 2026-08-11. The fifteen pages were clean
 when it landed, and the checker was tested by breaking it seventeen ways, one
 per rule direction. All seventeen fail the run.
+
+## The page that asks for the most, and the two answers it gives
+
+`tools\build-switch-pages.js` writes the fifteen highest-commitment pages in
+the estate. Every other page asks somebody to book, to read or to call. This
+one asks them to change where their medication comes from, and then takes a
+name, a date of birth and a way of contacting them in order to start it.
+
+Until 2026-08-11 nothing in this repo read a word of what it says.
+
+The switch pages were not unchecked by oversight. They are covered the same
+ways every generated page is: `check-page-coverage` earns the page,
+`check-seo-pattern` holds the title and H1, `check-seo-sheets`,
+`check-seo-lengths` and `check-seo-keywords` hold the four Weebly fields,
+`check-nap` holds the address and the phone in all three of its shapes,
+`check-jsonld` holds the schema, `check-map-embeds` holds the map,
+`check-branch-links` holds the review link, `check-branch-identity` holds
+`data-branch`, `check-whatsapp-route` holds the chat button, `check-cdn-pins`
+holds the two pinned assets, `check-em-dashes` holds the characters. Every one
+of those reads the frame. None reads what the page promises inside it.
+
+That is the fourth time the same gap has been found, after
+`check-pharmacy-first-eligibility`, `check-contraception-copy` and
+`check-travel-clinic-copy`. The first three found copy that was correct and
+simply had no rule behind it. This one did not.
+
+### The page answers the same question twice, differently
+
+    hero-proof       "We contact your GP. We handle everything. You do nothing."
+    hero-points[0]   "We handle the full switch for you"
+    SEO description  "We contact your GP and handle everything."
+
+    trust bar        "We help handle the transfer process"
+    step 2           "guides the next step to move your prescriptions across"
+    FAQ              "Do I need to contact my GP myself?"
+                     "Not always. We help guide the process and handle what we
+                      can from our side. If anything extra is needed, we will
+                      tell you clearly."
+
+The FAQ answers in the negative the exact question the hero answers in the
+absolute, and the unconditional version is the one in the meta description, so
+it is what Google shows to people who never reach the page and never see the
+FAQ. "No interruption to your medication" sits in the same bullet list and is
+the same class of claim: continuity across a transfer depends on where the
+patient is in their cycle and on the practice acting.
+
+Which version is true is an operational fact, and which version goes on a
+public page is an advertising decision. Neither is a checker's to settle, and
+neither is an agent's. Both are pinned in `KNOWN` in
+`tools\check-switch-copy.js` against Q49, so the run stays green while the
+decision is open and fails the moment the copy is settled and the entry is
+left behind. Do not resolve this by editing the copy to agree with itself.
+
+### What the checker holds
+
+Ten rules. The copy and the branch CONFIG are read OUT of the generator, so
+adding a line or a branch puts it under test without anyone editing the
+checker; the claim rules are absolute, so rewording cannot make them pass by
+agreeing with themselves.
+
+Two things in it are worth knowing before changing the generator.
+
+The four conditional sections - the video, the app card, the review card and
+the services grid - are checked BOTH ways: present on the branches whose gate
+is set, absent on the branches whose gate is not. Dropping them, which is what
+`check-travel-clinic-copy` does with its frame, would have left four blocks of
+public copy unread, and an unearned block is exactly how a page ends up
+advertising something the data says the branch does not have. The gates are
+parsed from `const <name> = <b|c>.<field> ? \`...\` : "";`. Write a conditional
+section a different way and rule 3 fails rather than skipping it.
+
+Rule 9 reads the real `<input>` elements in the form and holds step 1's
+sentence to them. Step 1 tells the patient which details are wanted and which
+are optional, and the form is thirty lines away in the same file, so the two
+are easy to change apart. Add a field and the run fails until the copy says so.
+
+### The notice on the form, which is a separate question
+
+Rule 10 holds that a collection notice exists, on every page, inside the form
+rather than lost in a footer, and that it says what the details are used for.
+It does not judge whether one sentence is enough. Today that sentence is "We
+will only use your details to help process your switch request", and it names
+no controller, no lawful basis, no retention period and no rights, and links to
+nothing. What the surrounding Weebly page carries is outside this repo and has
+not been checked on any of the fifteen sites. Asked as Q50, recommended answer
+being to read the fifteen live sites before changing any copy.
+
+Written on the item 3.12 quality pass, 2026-08-11. The checker was tested by
+breaking it twenty-six ways, one per rule direction. All twenty-six fail the
+run.
