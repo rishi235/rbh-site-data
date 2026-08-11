@@ -77,18 +77,12 @@ const KNOWN_CLAIM = {
 };
 
 // Results and efficacy wording. Deliberately narrow: it targets promises about
-// outcome, not ordinary service description.
-const CLAIM_PATTERNS = [
-  [/delivers results/i, "promises results"],
-  [/proven results/i, "promises results"],
-  [/guaranteed results|results guaranteed/i, "guarantees results"],
-  [/real results/i, "promises results"],
-  [/lose up to/i, "quantified weight loss claim"],
-  [/\d+(\.\d+)?\s*%\s*of your body/i, "quantified weight loss claim"],
-  [/most effective (weight loss|treatment)/i, "comparative efficacy claim"],
-  [/rapid weight loss|fast weight loss/i, "efficacy claim"],
-  [/that actually works|treatment that works/i, "efficacy claim"]
-];
+// outcome, not ordinary service description. The list moved into
+// tools/claim-patterns.js on the item 3.6 quality pass, 2026-08-11, so that
+// this checker (which reads the 177 generated pages) and
+// check-seo-keywords.js (which reads the Meta Keywords lines on the paste
+// sheets) apply one list rather than two copies of it.
+const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
 
 function rel(p) { return path.relative(REPO, p).replace(/\\/g, "/"); }
 

@@ -139,7 +139,7 @@ still only looked inside it.
 
 The title and description that reach Google are the ones a human types into
 Weebly > Pages > SEO Settings, read off the paste sheets (`*SEO.md`), not the
-page body. Four checkers guard them and they do different jobs:
+page body. Five checkers guard them and they do different jobs:
 
 - `tools\check-seo-pattern.js` - the title and H1 match the pattern defined
   once in `tools\seo-pattern.js`. It types every file by name first, and two
@@ -156,7 +156,11 @@ page body. Four checkers guard them and they do different jobs:
 - `tools\check-seo-sheets.js` - the page and its paste sheet carry the same
   strings, so a generator composing a description twice cannot let the two
   drift.
-- `tools\check-em-dashes.js` - no em or en dash reaches public copy.
+- `tools\check-em-dashes.js` - no em or en dash reaches public copy. It
+  DISCOVERS the paste sheets by scanning each pages folder for `*.md` rather
+  than naming them; see "The fourth SEO field" below for why.
+- `tools\check-seo-keywords.js` - the Meta Keywords line says the right thing.
+  See "The fourth SEO field" below.
 - `tools\check-seo-lengths.js` - the strings fit the SERP and are unique:
   title 65 characters or fewer, description between 80 and 165, and no two
   pages sharing a title, description or permalink. Since the item 3.3 pass on
@@ -274,6 +278,59 @@ name ("Coleman and Leighs Pharmacy") - so the Walton listing rendered as an
 unbranded condition page in a town where RBH runs a second pharmacy competing
 for the same words. Found on the item 3.5 quality pass, raised as Q14, and
 answered by Rishi on 2026-08-10: shorten the brand, not the NHS wording.
+
+
+### The fourth SEO field, and the sheets nothing opened
+
+Weebly's SEO Settings panel has FOUR fields a human types by hand: Page Title,
+Page Permalink, Page Description and Meta Keywords. Until the item 3.6 quality
+pass on 2026-08-11, three of the four had a rule behind their CONTENT and the
+fourth had none. `check-seo-sheets` parses only title, permalink and
+description. `check-seo-lengths` and `check-seo-pattern` never open the
+keywords line. `check-em-dashes` read the line, but only ever asked whether it
+held a dash.
+
+That left 177 strings of public copy, one per generated page, composed six
+different ways by six generators out of three values that all MOVE: `seoTown`,
+`brandLabel` and the outward half of `postalCode`. Every one of the three has
+moved during this audit - item 5.7 moved McCanns Sandringham's seoTown to
+St Michael's, item 1.1 renamed Coleman and Leighs, item 1.3 corrected the
+McCanns Sandringham postcode - and each time the keywords were regenerated
+correctly with nothing able to say so. Nine quality passes have now read
+keyword strings by hand.
+
+`tools\check-seo-keywords.js` holds it. Seven rules per entry: a block with a
+permalink carries a non-empty Meta Keywords value; the permalink resolves to
+exactly one live branch under `<brandSlug>-<townSlug>` and names a page this
+repo generates; the keywords carry the branch's OWN seoTown; they do not carry
+another live branch's seoTown unless it is in this branch's `serviceAreaList`
+(the same presence/absence pair, and the same excuse, as `check-seo-pattern`);
+they do not name another branch's `brandLabel`; any outward-code-shaped token
+is this branch's own; and no efficacy or results wording appears. A run that
+reads no keywords at all FAILS rather than passing while covering nothing.
+Expected values are composed from `branches.json`, nothing is imported from the
+generators, and exceptions go in `KNOWN` keyed `<permalink>::<rule>` with a
+reason and a question id, a stale key failing the run.
+
+The claim patterns now live once in `tools\claim-patterns.js`, required by both
+`check-service-links.js` (which reads the 177 pages) and `check-seo-keywords.js`
+(which reads the sheets). Two copies of a rule that agree are indistinguishable
+from one rule until somebody edits one, which is the argument already recorded
+against the seven hardcoded WhatsApp numbers.
+
+The second half of the same finding was in `check-em-dashes.js`, and it is the
+FOURTH time this repo has hit the shape: when a checker passes, ask WHICH FILES
+it read. It called `checkPasteSheet` on exactly two filenames per pages folder,
+`INDEX.md` and `SEO.md`, and returned silently when a named file was absent.
+Six generators write ELEVEN sheets and five are named after their service, so
+`CONTRACEPTION-SEO.md`, `TRAVEL-CLINIC-SEO.md`, `WEIGHT-LOSS-SEO.md`,
+`TRAVEL-CLINIC-INDEX.md` and `WEIGHT-LOSS-INDEX.md` had never been opened at
+all. Three of those five hold the Weebly strings for weight loss and travel
+clinic, so the least-watched sheets belonged to the most compliance-sensitive
+copy in the estate - the same family where the 3.9 pass found 30 entity en
+dashes on the page side. They were clean, so the hole was latent, not a live
+breach. Both checkers now DISCOVER sheets by scanning each pages folder for
+`*.md`, and a folder yielding no sheet fails.
 
 
 ## The copy that reaches the public without being generated

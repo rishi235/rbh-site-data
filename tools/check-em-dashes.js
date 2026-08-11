@@ -22,6 +22,8 @@
       and travel clinic generators name as their approved-copy source
     - a file listed in EXTRA_HTML that no longer exists, so the list cannot
       quietly stop covering anything
+    - a pages folder that yields no paste sheet at all, so the sheet half of
+      the rule cannot quietly stop covering anything either
     - ANY non-ASCII character at all in a switch banner paste file under
       modules/switch/pages/banners/, which is a stricter rule than the rest of
       this checker applies and is explained below
@@ -48,6 +50,29 @@
   only one form is not a rule. Found on the item 3.9 quality pass, 2026-08-10,
   and fixed at source in tools/build-weight-loss-pages.js by splitting both
   sentences at a full stop, which is what Q7 settled for the literal case.
+
+  Why the sheets are DISCOVERED rather than named. Until the item 3.6 quality
+  pass on 2026-08-11 this checker read exactly two filenames per pages folder,
+  "INDEX.md" and "SEO.md", and skipped a named file that did not exist without
+  a word. Six generators write eleven paste sheets between them and five of
+  them are named after their service, so five sheets had never been read at
+  all: CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md,
+  TRAVEL-CLINIC-INDEX.md and WEIGHT-LOSS-INDEX.md. Three of those five carry
+  the Weebly SEO strings for the weight loss and travel clinic families, which
+  is where the entity-dash fault of the 3.9 pass lived on the page side, so
+  the least-watched sheets were the ones belonging to the most
+  compliance-sensitive copy in the estate. They are clean today, which is the
+  only reason this is a latent hole rather than a live breach. The folder is
+  now scanned for *.md, so a sheet a future generator adds is covered the day
+  it is written rather than the day somebody remembers to list it, and a
+  folder yielding no sheet fails instead of passing quietly.
+
+  This is the fourth time this repo has found the same shape of fault: when a
+  checker passes, ask WHICH FILES it read. check-seo-lengths rule 3 read the
+  sheets and the H1 was not on one; check-nap read two phone shapes and the
+  FAQ used a third; check-cdn-pins was built to look past the repo and still
+  only looked inside it; this one named its files and the estate outgrew the
+  names.
 
   What is only REPORTED, not failed:
     - dashes inside <!-- HTML build comments -->, which no visitor sees
@@ -166,7 +191,6 @@ function checkHtmlFile(file){
 }
 
 function checkPasteSheet(file){
-  if (!fs.existsSync(file)) return;
   const raw = fs.readFileSync(file, "utf8");
   notes.filesScanned++;
   raw.split(/\r?\n/).forEach(function(line, i){
@@ -231,14 +255,29 @@ if (!fs.existsSync(BANNER_DIR)) {
 }
 
 let pageCount = 0;
+let sheetCount = 0;
 PAGE_DIRS.forEach(function(dir){
   if (!fs.existsSync(dir)) return;
   fs.readdirSync(dir).filter(function(f){ return f.endsWith(".html"); }).forEach(function(f){
     checkHtmlFile(path.join(dir, f));
     pageCount++;
   });
-  checkPasteSheet(path.join(dir, "INDEX.md"));
-  checkPasteSheet(path.join(dir, "SEO.md"));
+  // Every .md a generator writes into a pages folder is a paste sheet. Scan
+  // rather than name, so a sheet added by a future generator is covered from
+  // the day it is written. See "Why the sheets are DISCOVERED" above.
+  const sheets = fs.readdirSync(dir).filter(function(f){ return f.endsWith(".md"); }).sort();
+  if (!sheets.length) {
+    failures.push({
+      file: rel(dir),
+      line: 0,
+      kind: "no paste sheet",
+      text: "this pages folder holds no .md paste sheet, so the sheet half of the rule covers nothing here. Re-run the generator that writes it."
+    });
+  }
+  sheets.forEach(function(f){
+    checkPasteSheet(path.join(dir, f));
+    sheetCount++;
+  });
 });
 
 // The non-generated public copy. A listed file that no longer exists fails the
@@ -261,8 +300,8 @@ EXTRA_HTML.forEach(function(file){
 
 console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
   + " non-generated copy file(s), " + bannerCount
-  + " switch banner(s) held to ASCII only, plus paste sheets ("
-  + notes.filesScanned + " files scanned)");
+  + " switch banner(s) held to ASCII only, " + sheetCount
+  + " paste sheet(s) discovered (" + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside HTML build comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
 

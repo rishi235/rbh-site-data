@@ -2,6 +2,192 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 - sixty-fourth run - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham, last verified on 2026-08-10 as the twenty-second run, which made it the oldest verification standing. All 26 McCanns pages verified clean, including the seoTown move item 5.7 made after that verification. The gap was the fourth Weebly SEO field: Meta Keywords, 177 strings of public copy, read by nothing. New tools/check-seo-keywords.js, 7 rules, plus a second defect fixed in check-em-dashes.js, which had never opened 5 of the 11 paste sheets. No question raised
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed it: both findings had a single correct answer sitting
+in branches.json or in the repo's own conventions, so both were repairs rather
+than choices. No question was raised and none was needed.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. The newest entry is still the Q16 answer
+of 15:16 on 2026-08-10, which the thirty-third run already recorded. Twenty-two
+questions were open before this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q46,
+and none has been answered. Twenty-two are open now, unchanged, because this
+run raised none.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin at 1e84c12. All 20 checkers green and
+all six generators reproducing all 177 pages byte-identical before any change
+was made, so nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary, including resolving the two truncated
+headings, and it confirms the sixty-third run cleared 3.5 at 2026-08-10 10:04.
+The oldest standing verification is now the twenty-second run's, item 3.6 at
+2026-08-10 10:34. Items 3.7 to 3.13 and 5.1 follow it in that same block, runs
+23 to 32, and everything else has been verified on 2026-08-10 17:05 or later.
+
+3.6 was also the right one to take on merit rather than only on age, because it
+is the item most changed since it was last verified: item 5.7 applied the Q15
+answer to these exact 26 pages on 2026-08-10, moving Sandringham's seoTown from
+Sandringham to St Michael's, and item 5.6 changed the title rule. A verification
+made before both of those had gone stale in a way no other item's had.
+
+WHAT VERIFIED CLEAN. All 26 McCanns pages were re-read from source rather than
+from the twenty-second run's account of them: 22 service, 2 switch, 2 landing.
+  - The Q15 move landed correctly and completely. Sandringham's seoTown is
+    St Michael's, its serviceAreaList now LEADS with St Michael's, and townSlug
+    stays "sandringham" so no live URL breaks, which is exactly what Rishi's
+    answer specified. All 12 Sandringham pages carry St Michael's in title,
+    description, H1 and meta keywords, and the permalinks are untouched.
+  - Town words both ways. Aigburth pages carry Aigburth; Sandringham pages
+    carry St Michael's and name Aigburth only where serviceAreaList excuses it,
+    which it does, since Sandringham genuinely serves Aigburth. The absence
+    rule added on the 3.2 pass holds across all 26.
+  - NAP. Aigburth reads 112 Aigburth Road, L17 7BP, 0151 727 3185; Sandringham
+    reads 1b Aigburth Road, L17 4JP, 0151 727 3076. Correct on all 26, one tel:
+    link per page. Schema addressLocality Liverpool and addressRegion
+    Merseyside on all 26, correct because both branches post to Liverpool while
+    the pages target their catchment towns.
+  - Opening hours. The split-day fix the twenty-second run made at source still
+    holds on both landing pages, and check-opening-hours confirms it against
+    branches.json rather than against the generator.
+  - All six generators rebuilt every one of the 177 pages byte-identical, and
+    all 20 existing checkers passed before any change was made.
+  - Both branches still share one pfLink pointing at
+    pharmacy-first-service-aigburth.html, a live-only page this repo does not
+    generate. That is already inside Q8 and worklist item 5.3, so it is a
+    re-confirmation of a known blocked item, not a new finding.
+
+THE GAP, AND WHY IT IS THE ONE WORTH TAKING. Weebly's SEO Settings panel has
+FOUR fields a human types by hand. Three had a rule behind their CONTENT. The
+fourth had none:
+
+    Page Title        check-seo-sheets, check-seo-lengths, check-seo-pattern
+    Page Permalink    check-seo-sheets, check-seo-lengths
+    Page Description  check-seo-sheets, check-seo-lengths, check-seo-pattern
+    Meta Keywords     nothing
+
+check-em-dashes reads the Meta Keywords LINE, but only ever asked whether it
+contained a dash. So 177 strings of public copy, one per generated page, had
+never been read for what they SAY. They are composed six different ways by six
+generators out of three values that all MOVE: seoTown, brandLabel and the
+outward half of postalCode. Every one of the three has moved during this audit.
+Item 5.7 moved a seoTown on 2026-08-10, item 1.1 renamed Coleman and Leighs,
+item 1.3 corrected the McCanns Sandringham postcode. Each time the keywords
+were regenerated correctly and nothing could have said so if they had not been.
+This is the same shape as the SEO strings that bit the repo twice before: nine
+quality passes have now hand-read keyword strings and none of them left a rule
+behind.
+
+WHAT WAS FIXED IN-REPO.
+  - tools/check-seo-keywords.js, new. Seven rules per sheet entry: a block with
+    a Page Permalink carries a non-empty Meta Keywords value; the permalink
+    resolves to exactly one live branch under brandSlug-townSlug AND names a
+    page this repo generates; the keywords carry the branch's OWN seoTown; they
+    do not carry another live branch's seoTown unless it is in this branch's
+    serviceAreaList; they do not name another branch's brandLabel; any
+    outward-code-shaped token is this branch's own; and no efficacy or results
+    wording appears. All expected values are composed from branches.json and
+    nothing is imported from the generators, so a generator reaching for the
+    wrong field fails here rather than agreeing with itself. A run that reads
+    no keywords at all FAILS instead of passing while covering nothing, and a
+    stale KNOWN key fails, keyed permalink::rule like the other checkers.
+    Result on the estate today: 177 keyword lines across 11 sheets, 15 live
+    branches, 11 seoTowns, 12 brand names, clean.
+  - tools/claim-patterns.js, new. The nine efficacy and results patterns moved
+    out of check-service-links.js and are now required by both it and the new
+    checker. check-service-links reads the 177 pages; check-seo-keywords reads
+    the sheets; a keyword line is exactly where "rapid weight loss Bootle"
+    would be written, and duplicating the list would have been a seventh
+    hardcoded WhatsApp number. The rewire is proved rather than assumed: the
+    Q16 KNOWN CLAIM entry on the Smartts switch page still fires, and if the
+    shared module had failed to load that entry would have gone unhit and
+    failed the run as stale.
+  - tools/check-em-dashes.js, second defect, found by asking which files the
+    passing checker read. It called checkPasteSheet on exactly two filenames
+    per pages folder, "INDEX.md" and "SEO.md", and returned SILENTLY when a
+    named file was absent. Six generators write ELEVEN paste sheets and five
+    are named after their service, so CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md,
+    WEIGHT-LOSS-SEO.md, TRAVEL-CLINIC-INDEX.md and WEIGHT-LOSS-INDEX.md had
+    never been opened at all. Three of those five hold the Weebly strings for
+    weight loss and travel clinic, so the five least-watched sheets in the repo
+    belonged to the most compliance-sensitive copy in the estate, and that is
+    the same page family where the 3.9 pass found 30 entity en dashes on the
+    page side. Both checkers now DISCOVER sheets by scanning each pages folder
+    for *.md, so a sheet a future generator adds is covered the day it is
+    written, and a folder yielding no sheet FAILS. Sheets read went from 6 to
+    11 with no change in verdict.
+
+IS IT LATENT OR LIVE. Latent, on both halves, and that was checked rather than
+assumed. The five unread sheets hold zero em dashes and zero dash entities
+today, and all 177 keyword lines pass all seven new rules on the first run.
+Nothing public changes as a result of this run: no generated page, no paste
+sheet and no branches.json field was edited. This is entirely the pinning of
+behaviour that was already correct, which is the safe half of the work and the
+half that stops being true the moment nobody is looking.
+
+NEGATIVE TESTS, ALL CAUGHT, ALL RESTORED. Thirteen in total, each planted in a
+real sheet, run, and the file byte-restored afterwards with git status confirmed
+clean between rounds.
+  - check-seo-keywords, one per rule: a Meta Keywords value emptied (pairing);
+    a permalink pointed at a branch that does not exist (resolution); the
+    branch's own seoTown removed (presence); Bramhall inserted into a McCanns
+    Aigburth line (absence); Riddings Pharmacy inserted into a McCanns line
+    (brand); L17 changed to SK7 (postcode); "medicated weight loss" changed to
+    "rapid weight loss" (claim). Plus the coverage guard, tested by moving every
+    paste sheet out of all three folders, and a deliberately stale KNOWN key.
+  - check-em-dashes, on the sheets it could not previously see: a literal em
+    dash in a WEIGHT-LOSS-SEO.md Meta Keywords line, an &ndash; entity in a
+    CONTRACEPTION-SEO.md Meta Keywords line, an em dash in a
+    TRAVEL-CLINIC-INDEX.md HEADING (correctly REPORTED and not failed, since a
+    heading is a paster's label and not a pasted value), and a pages folder
+    emptied of sheets. The first two both landed on McCanns lines, which is
+    fitting for a 3.6 pass, and neither would have been seen by the old code
+    because the old code never opened either file.
+  - One honest correction worth recording: the first run of the harness
+    reported three of the seven as MISSED. That was a fault in the throwaway
+    harness, which matched on the rule NAME rather than on the failure text,
+    not in the checker. All seven had in fact fired with the correct message
+    and exit code 1. The harness was fixed and re-run rather than the result
+    being talked around.
+
+CHECKER RUN, AFTER: 21 checkers, all pass. check-seo-keywords clean (177
+keyword lines, 11 sheets); check-em-dashes clean (177 pages, 5 non-generated
+copy files, 15 banners, 11 paste sheets discovered, up from 6 read);
+check-service-links clean with 6 known issues awaiting a decision (Q8, Q16);
+check-address-region clean with 2 warnings; check-seo-lengths clean with 1
+known issue (Q14); check-cdn-pins clean with 1 warning and 1 known issue (Q13);
+check-nap 177 pages 0 mismatches; check-postcodes 0 failures; check-seo-pattern
+177 pages 0 failures; check-seo-sheets clean; check-page-coverage clean;
+check-opening-hours clean; check-booking-routes clean; check-branch-identity
+clean; check-branch-links clean; check-brand-spelling clean; check-jsonld
+clean; check-gbp-packs 0 failures; check-whatsapp-route clean;
+check-pharmacy-first-eligibility clean; check-editor-snapshot clean. All six
+generators re-run after the changes and all 177 pages came out byte-identical.
+
+WHAT IS STILL OUTSTANDING, UNCHANGED BY THIS RUN. Everything needing a Weebly
+session: the switch page SEO descriptions repaste (Q7), the six landing pages
+and their branch service pages (items 2.2 and 5.2), items 5.3 and 5.4, the
+switch page re-pin (Q13), the Q14 title repaste and the twelve Q15 pages. Item
+5.5 still needs a push to service-module-phase1, which this run is not
+permitted to make. Twenty-two questions remain open.
+
+Files changed: tools/check-seo-keywords.js (new), tools/claim-patterns.js
+(new), tools/check-em-dashes.js, tools/check-service-links.js, CLAUDE.md,
+AGENT_LOG.md. AGENT_WORKLIST.md is deliberately unchanged: this was a quality
+pass, so there is no item to tick. QUESTIONS.json is deliberately unchanged: no
+question was raised.
+
+---
+
 ## 2026-08-11 - sixty-third run [commit 1e1f736] - Quality pass on item 3.5, Hirshmans Chemist Ainsdale, last verified on 2026-08-10 as the twenty-first run, which made it the oldest verification standing. All 12 Hirshmans pages verified clean and every one of the twenty-first run's findings still holds. The gap was in what nothing checked at all. Every Pharmacy First condition page tells a patient who the NHS service is for, and says it TWICE, from ageNote and from eligibleYes[0] in one generator, across 98 live pages, and no checker read either string. All seven cohorts are correct against the NHS specification, so nothing was wrong; it was simply unpinned, which is the same shape of defect that already bit this repo twice on SEO strings. New tools/check-pharmacy-first-eligibility.js, 8 rules, 8 negative tests, one of which caught a real fault in the rule before commit. Q46 raised
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
