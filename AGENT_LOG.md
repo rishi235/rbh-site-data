@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 10:44 BST - sixty-eighth run - Quality pass on item 3.10, Riddings
+## 2026-08-11 10:44 BST - sixty-eighth run [commit 17df498] - Quality pass on item 3.10, Riddings
 Pharmacy Timperley, last verified on 2026-08-10 12:34 as the twenty-sixth run,
 which made it the oldest verification standing. All 12 Riddings pages verified
 clean. The gap was the whole body of the NHS contraception page: what the
