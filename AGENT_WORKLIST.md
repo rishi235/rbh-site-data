@@ -227,6 +227,56 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
+      Quality pass 2026-08-11: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it is
+      wrong. Address 1b Aigburth Road, Liverpool L17 4JP, phone 0151 727 3076,
+      website and review link all match; the hours line carries both weekday
+      sessions, 9:00am to 1:00pm and 2:00pm to 6:00pm with Saturday and Sunday
+      closed, and the paster notes carry the split-day guidance the 4.10 pass
+      made compulsory; the catchment reads "St Michael's, Aigburth, Lark Lane
+      and Dingle" in all three places, leading with the seoTown item 5.7 moved
+      it to, which is the Q25 correction holding; categories and services match
+      the five-widget set exactly; the description is 713 characters, exactly
+      what its heading claims, and the posts are 463, 298, 518 and 425 against
+      a 1,500 limit; Post A's seven conditions and the UTI 16 to 64 range match
+      the generated Pharmacy First page; Post C names no medicine and makes no
+      efficacy claim; the file is pure ASCII; hasApp is false and nothing
+      mentions an app. The description's sister-branch sentence reads "Our
+      sister McCanns branch is further along Aigburth Road", which names no
+      place and so does not repeat the fault the 4.6 pass fixed on the other
+      side of the pair. All six generators rebuilt to a zero diff and all 18
+      checkers pass.
+      One in-repo defect found and fixed, in the checker rather than the pack.
+      TEMPLATE.md requires every fact in a pack to come from branches.json, and
+      check-gbp-packs.js guarded the phone and the postcode in both directions
+      but had never read two other fields at all: the street address and the
+      Google review link. Both are the silent class. A pack that quoted the
+      sister's street but its own postcode passed every rule in the repo, and
+      McCanns is the concrete case, because both shops sit on one road at 1b
+      and 112 Aigburth Road, so a swapped house number puts the profile pin on
+      the wrong building while every other line reads correctly. The review
+      link is worse: every branch's is https://g.page/r/<opaque id>/review, so
+      two of them differ only in a string nobody proof-reads, and pasting the
+      sister's sends this shop's review requests to the sister's profile.
+      Rules added in both directions for both fields, with a KNOWN_IDENTITY
+      exception map on the same anti-rot convention as the other three.
+      Negative-tested five ways, including a case that proves the
+      whitespace-collapse works: one copy of the address wraps mid-phrase as
+      "1b" then "Aigburth Road" on the next line, and the rule correctly reads
+      it as present. All 15 packs already comply, so the gap was latent.
+      The live findings are outside the pack. The branch landing page the pack
+      sets as the profile website, pharmacy-mccanns-sandringham.html, was
+      fetched and returns a 404 and is absent from the sitemap, which confirms
+      Q35 at a third brand; the pack already holds the paster back for it. The
+      site's Weebly-native contact block and legal footer name the business
+      "McCann's Pharmacy" throughout, against "McCanns Chemist" in
+      branches.json and on all 26 generated pages, abbreviate the sister's
+      street to "112 Aigburth Rd", and misspell the medical centre as
+      "Sandrigham". That is the same class as Q36 at Cherry Lane and Q37 at
+      Fishlocks, and it makes three faulty sites out of three read, so it is
+      raised as Q39 as an estate-wide question rather than a fourth per-site
+      one. The branch's own Saturday and weekday hours in that block match
+      branches.json, so there is no locked-door fault here. Done 2026-08-11.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
@@ -589,6 +639,25 @@ so tools/build-audit-status.js picks them up like any other item.
       and SK, need no Weebly paste at all, which is the condition Rishi's
       Q8 answer tied the work to. Whether to split the item on that line is
       asked as Q34.
+      A sixth and a seventh state 2026-08-11, from the 4.7 quality pass, and
+      both are free. The two McCanns branches share one pfLink, the old
+      pharmacy-first-service-aigburth.html, so the pair sit together inside
+      the eleven. The mccannspharmacy.co.uk sitemap was read and it lists
+      BOTH generated replacements as live,
+      pharmacy-first-mccanns-sandringham.html and
+      pharmacy-first-mccanns-aigburth.html. The Sandringham one was then
+      fetched and read in full rather than assumed, which is what the 4.14
+      pass taught: it carries the correct trading name McCanns Chemist in its
+      title, heading and body, the correct address and phone, and the same
+      seven conditions and age ranges as the pack, so it does not repeat the
+      Gordon Short trap of a replacement that resolves but reads wrong. Its
+      one staleness is that it was pasted on 18 July and still uses the local
+      word Sandringham rather than the St Michael's that item 5.7 moved the
+      branch to on 2026-08-10. That is a word behind rather than wrong, since
+      the shop is still named Sandringham, and it is the same three-week
+      paste age the Fishlocks pass found. So four of the eleven, Riddings, SK
+      and both McCanns, now need no Weebly paste at all, which is more than a
+      third of the item and strengthens the case Q34 puts for splitting it.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

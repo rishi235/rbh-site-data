@@ -2,6 +2,140 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 01:05 BST - forty-ninth run - Quality pass on item 4.7, the McCanns Chemist Sandringham GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the second run of that day, which makes it the oldest verification standing. The pack itself is clean and nothing in it is wrong. One in-repo defect found and fixed in the checker: two fields that appear in every pack had never been read by anything. One new question, Q39
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
+2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
+present at the top of this log, so step 7 applies as written and Q39 was left
+open in the normal way.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 01:07. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29 and Q34 to Q38 are all still
+open with no answer posted against any of them. Q39 joins them, making fifteen.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived from scratch by reading every run heading in this log rather
+than trusting the previous run's summary, and it agrees with it. Three items
+still stand at a 2026-08-05 verification and no later one, and within that day
+the numbered runs went 4.7 second, 4.2 third, 4.1 fourth and 1.1 fifth, with
+4.1 re-verified on 2026-08-09. So 4.7 is the oldest. Taken this run. The
+remaining order is 4.2, then 1.1, and after that the 2026-08-06 pair, 1.4 and
+3.1.
+
+THE PACK IS CLEAN, AND IT IS THE FOURTH IN A ROW WITH NOTHING WRONG IN IT.
+Verified fact by fact against branches.json and rule by rule against
+TEMPLATE.md. The address, phone, website and review link all match. The hours
+line carries both weekday sessions and the paster notes carry the split-day
+guidance the 4.10 pass made compulsory, which matters here because this branch
+closes 1:00pm to 2:00pm. The catchment reads "St Michael's, Aigburth, Lark Lane
+and Dingle" in all three places, leading with the seoTown item 5.7 moved it to,
+so the Q25 correction is holding. Categories and services match the five-widget
+set exactly. The description is 713 characters, exactly what its own heading
+claims, and the posts are 463, 298, 518 and 425 against a 1,500 limit. Post A's
+seven conditions and the UTI 16 to 64 range match the generated Pharmacy First
+page. Post C names no medicine and makes no efficacy claim. The file is pure
+ASCII, hasApp is false and nothing mentions an app.
+
+One thing was checked specifically because the sister pack failed it. The 4.6
+pass found the Aigburth description telling the paster to write "There is a
+second McCanns branch at Sandringham", which reads a branch name as a place.
+The reciprocal sentence here reads "Our sister McCanns branch is further along
+Aigburth Road", which names no place at all, so the fault does not run both
+ways.
+
+All six generators were rebuilt before any edit and produced zero diff, and all
+18 checkers pass both before and after the change.
+
+THE DEFECT, WHICH IS IN THE CHECKER AND IS THE SILENT KIND. TEMPLATE.md's first
+rule is that every fact in a pack comes from branches.json and nowhere else.
+check-gbp-packs.js guards the phone in both directions and the postcode with
+it, and since the 4.9 pass the hours as well. It had never read two other
+fields at all: the street address and the Google review link. Both appear in
+every one of the 15 packs, both are pure copy in a markdown file, and neither
+is reachable by anything else here, because check-nap and check-jsonld read
+generated pages and check-branch-links reads the fields in branches.json rather
+than anything that quotes them.
+
+The street address is the line that puts the pin on Google Maps, and this is
+the branch that shows why the postcode rule is not enough. Both McCanns shops
+sit on ONE road, at 1b Aigburth Road and 112 Aigburth Road, with different
+postcodes. A pack that quoted the sister's street but its own postcode passed
+every rule in the repo, and the profile would have put the pin on the wrong
+building while every other line on the page read correctly. Same class as the
+map iframe that check-jsonld was written for.
+
+The review link is the worse of the two. Every branch's is
+https://g.page/r/<opaque id>/review, so two of them differ only in a string no
+human proof-reads. Paste the sister's and this shop's review requests land on
+the sister's profile: one profile's rating grows on another shop's custom and
+nothing anywhere reports it. check-branch-links already proves the field in
+branches.json is well formed and unique per branch, which is precisely why the
+remaining risk had moved into the copying.
+
+Rules added in both directions for both fields, with a KNOWN_IDENTITY exception
+map on the same anti-rot convention as the three maps already in the file, so a
+key that no longer describes a real breach fails the run. The foreign-street
+rule skips any other branch whose address string is identical to this one's,
+because Clear Chemist Aintree and the head office genuinely share Unit 20
+Brookfield Trade Centre and that is not a foreign address at all.
+
+Negative-tested five ways: own street removed, own review link removed, the
+sister's street pasted in, the sister's review link pasted in, and the
+unmodified pack still passing. The first test failed twice before it was
+right, and the reason is worth keeping. One copy of the address in this pack
+wraps mid-phrase, as "1b" at the end of a line and "Aigburth Road" at the start
+of the next, so two attempts to remove the address left that copy standing and
+the rule correctly stayed silent. The whitespace-collapse is doing its job, and
+this is the third time in this repo that a CRLF line wrap has been the thing a
+pack rule had to be designed around, after the 4.8 and 4.10 passes. All 15
+packs already comply with both new rules, so the gap was latent, not live.
+
+THE LIVE HALF, WHICH IS WHERE EVERYTHING ELSE THIS PASS FOUND SITS. The
+mccannspharmacy.co.uk sitemap and two pages were read.
+
+First, Q35 is confirmed at a third brand. The branch landing page this pack
+sets as the Google profile website, pharmacy-mccanns-sandringham.html, returns
+a 404 and is absent from the sitemap. The pack already holds the paster back
+from setting the profile website until it is live, so nothing is broken today.
+
+Second, and this is the useful one, item 5.3 gained two states and both are
+free. The two McCanns branches share one pfLink, so they sit together inside
+the eleven Post A links. The sitemap lists BOTH generated replacements as live.
+The Sandringham one was then fetched and read in full rather than assumed,
+which is the lesson the 4.14 pass paid for: it carries the correct trading name
+McCanns Chemist in its title, heading and body, the correct address and phone,
+and the same seven conditions and age ranges as the pack. Its only staleness is
+that it was pasted on 18 July and still uses the local word Sandringham rather
+than the St Michael's item 5.7 moved the branch to, which is a word behind
+rather than wrong, since the shop is still named Sandringham. So four of the
+eleven, Riddings, SK and both McCanns, now need no Weebly paste at all. That is
+more than a third of the item sitting free behind a block, and it is the
+strongest evidence yet for the split Q34 asks about.
+
+Third, the new question. The site's Weebly-native contact block and legal
+footer name the business "McCann's Pharmacy" throughout, against "McCanns
+Chemist" in branches.json and on all 26 generated pages, abbreviate the sister
+street to "112 Aigburth Rd", and misspell the medical centre as "Sandrigham".
+That is the same class as Q36 at Cherry Lane and Q37 at Fishlocks. Three sites
+have now been read line by line and all three are faulty, with eleven still
+unread, and the faults are the same three kinds every time: the trading name,
+an abbreviated street, and a mistyped address or mailbox. Raised as Q39, which
+asks the estate-wide question rather than becoming a fourth per-site one, and
+recommends one Weebly furniture sweep working from a per-site checklist this
+repo can generate from branches.json without any Weebly access. Worth noting
+what was NOT wrong: the branch's own weekday and Saturday hours in that block
+match branches.json exactly, so there is no locked-door fault here, unlike
+Smartts.
+
+FILES CHANGED: tools/check-gbp-packs.js (the two new rules, the KNOWN_IDENTITY
+map and its stale-key guard), AGENT_WORKLIST.md (the 4.7 quality pass record
+and the sixth and seventh states under 5.3), QUESTIONS.json (Q39). No pack was
+edited, because no pack was wrong. No generated page moved.
+
 ## 2026-08-11 00:35 BST - forty-eighth run - Quality pass on item 2.1, the Fishlocks Ainsdale audit against Build Pack v2, last verified on 2026-08-05 and now the oldest verification standing. The repo half is clean, byte-stable and holds no defect this pass could find, which is the first time a pass has ended with nothing to fix in the repo two runs running. Every finding is on the live side, and one fact explains most of them: this site has not been published since 18 July. Two new questions, Q37 and Q38
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on

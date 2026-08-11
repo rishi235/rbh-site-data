@@ -105,6 +105,12 @@ const seenBranchWordKnown = {};
 const KNOWN_NOT_OFFERED = {};
 const seenNotOfferedKnown = {};
 
+// Accepted exceptions to the street-address and review-link rules, keyed
+// "<branch id>::streetAddress" or "<branch id>::reviewLink". Same anti-rot
+// convention: a key that no longer matches a real breach fails the run.
+const KNOWN_IDENTITY = {};
+const seenIdentityKnown = {};
+
 const fails = [];
 const warns = [];
 const stats = [];
@@ -561,6 +567,88 @@ for (const file of packFiles) {
     if (other) fail(file, `postcode ${pc} belongs to ${other.branchName}, not ${b.branchName}`);
   }
 
+  // --- the street address and the review link ----------------------------
+  // Two fields no checker had ever read in a pack, found on the item 4.7
+  // quality pass, 2026-08-11. Both are pure copy in a markdown file, so the
+  // repo's other guards cannot see them: check-nap and check-jsonld read
+  // generated pages, and check-branch-links reads the fields in
+  // branches.json rather than anything that quotes them.
+  //
+  // Both are the same silent class as the map iframe in check-jsonld and the
+  // booking chain in check-booking-routes: a wrong value here reads perfectly
+  // well, breaks no rule anything else enforces, and only shows up in the
+  // world.
+  //
+  // The street address is the line that puts a pin on Google Maps. It is not
+  // hypothetical that a sister branch's number could be pasted into the wrong
+  // pack: three brands run two shops each, and McCanns runs both of its shops
+  // on ONE road, at 1b Aigburth Road and 112 Aigburth Road. The postcode rule
+  // above would not catch a swapped house number, because a pack that quoted
+  // the sister's street but its own postcode passes every existing rule.
+  //
+  // The review link is the line the whole profile is judged on. Every branch's
+  // link is https://g.page/r/<opaque id>/review, so two of them differ only in
+  // a string no human proof-reads. Paste the sister's and this shop's review
+  // requests land on the sister's profile: one profile's rating grows on
+  // another's custom, and nothing anywhere reports it. check-branch-links
+  // already proves the field in branches.json is well formed and unique per
+  // branch, which is exactly why the remaining risk is in the copying.
+  const flatText = norm(text).toLowerCase();
+  const ownStreet = norm(b.streetAddress || "");
+  if (ownStreet && flatText.indexOf(ownStreet.toLowerCase()) === -1) {
+    const key = `${b.id}::streetAddress`;
+    const known = KNOWN_IDENTITY[key];
+    if (known) {
+      seenIdentityKnown[key] = true;
+      warn(file, `KNOWN branch street address "${b.streetAddress}" does not appear in the pack. ${known.question}: ${known.reason}`);
+    } else {
+      fail(file, `branch street address "${b.streetAddress}" does not appear anywhere in the pack, so the paster has nothing to set the profile address from`);
+    }
+  }
+  for (const other of branches) {
+    if (other.id === b.id) continue;
+    const s = norm(other.streetAddress || "");
+    // Two entries genuinely share premises (Clear Chemist Aintree and the head
+    // office are both Unit 20 Brookfield Trade Centre), so an identical string
+    // is not a foreign address at all.
+    if (!s || s.toLowerCase() === ownStreet.toLowerCase()) continue;
+    if (flatText.indexOf(s.toLowerCase()) === -1) continue;
+    const key = `${b.id}::streetAddress`;
+    const known = KNOWN_IDENTITY[key];
+    if (known) {
+      seenIdentityKnown[key] = true;
+      warn(file, `KNOWN pack carries ${other.branchName}'s street address. ${known.question}: ${known.reason}`);
+    } else {
+      fail(file, `street address "${other.streetAddress}" belongs to ${other.branchName}, not ${b.branchName}, so the profile would put the pin on another branch`);
+    }
+  }
+
+  const ownReview = norm(b.googleReviewUrl || "");
+  if (ownReview && flatText.indexOf(ownReview.toLowerCase()) === -1) {
+    const key = `${b.id}::reviewLink`;
+    const known = KNOWN_IDENTITY[key];
+    if (known) {
+      seenIdentityKnown[key] = true;
+      warn(file, `KNOWN branch review link does not appear in the pack. ${known.question}: ${known.reason}`);
+    } else {
+      fail(file, `branch review link ${b.googleReviewUrl} does not appear anywhere in the pack, so the paster has no way to check the profile points at this branch's reviews`);
+    }
+  }
+  for (const other of branches) {
+    if (other.id === b.id) continue;
+    const r = norm(other.googleReviewUrl || "");
+    if (!r || r.toLowerCase() === ownReview.toLowerCase()) continue;
+    if (flatText.indexOf(r.toLowerCase()) === -1) continue;
+    const key = `${b.id}::reviewLink`;
+    const known = KNOWN_IDENTITY[key];
+    if (known) {
+      seenIdentityKnown[key] = true;
+      warn(file, `KNOWN pack carries ${other.branchName}'s review link. ${known.question}: ${known.reason}`);
+    } else {
+      fail(file, `review link ${other.googleReviewUrl} belongs to ${other.branchName}, not ${b.branchName}, so this branch's review requests would land on another branch's profile`);
+    }
+  }
+
   // --- opening hours on the profile --------------------------------------
   // TEMPLATE.md's first rule names three things that must come from
   // branches.json and nowhere else: "No invented hours, phones or claims."
@@ -711,6 +799,11 @@ for (const key of Object.keys(KNOWN_BRANCH_WORD)) {
 for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
   if (!seenNotOfferedKnown[key]) {
     fails.push(`stale exception: KNOWN_NOT_OFFERED["${key}"] no longer matches a pack claiming a service or category the branch does not have. Remove it (${KNOWN_NOT_OFFERED[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_IDENTITY)) {
+  if (!seenIdentityKnown[key]) {
+    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a missing or foreign street address or review link. Remove it (${KNOWN_IDENTITY[key].question}).`);
   }
 }
 

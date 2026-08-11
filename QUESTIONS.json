@@ -588,5 +588,21 @@
     "status": "open",
     "answer": null,
     "note": "Recommending option 0 because the repaste cost is the argument against it and that cost is already being paid: every one of the 171 pages is in the queue for item 5.1, 5.3 or 5.7 anyway, so hours would ship with a paste that has to happen regardless. Option 2 is the honest alternative and would be right if the landing pages were live, but they are not. If option 0 is taken, check-opening-hours.js should be widened to the service and switch folders in the same commit, or the estate gains 171 pages of hours that nothing reads."
+  },
+  {
+    "id": "Q39",
+    "date": "2026-08-11",
+    "item": "quality pass on 4.7 (finding, does not block any item)",
+    "question": "Three branch websites have now been read line by line on quality passes, and all three publish a fault in the Weebly-native site furniture, meaning the contact block and legal footer that sit on every page of a site and that no generator here owns. Cherry Lane prints the branch NHS mailbox as pharmacy.FA226@mhs.net, one transposed letter from nhs.net, so a patient who copies it gets a bounce (Q36). Fishlocks names the business \"Fishlock Pharmacy\" twice and \"Fishlock Chemist\" once, none of them the trading name, and abbreviates the Ainsdale street to \"17 Station Rd\" (Q37). McCanns, read this pass, names the business \"McCann's Pharmacy\" throughout against \"McCanns Chemist\" in branches.json and on all 26 generated pages, abbreviates the sister street to \"112 Aigburth Rd\", and misspells the medical centre as \"Sandrigham\". Three sites read, three faulty, and eleven sites still unread. In every case the repo already holds the correct value, no paste of any generated page can reach this furniture because it is site-wide Weebly chrome, and no checker here will ever see it. The faults are the same three kinds each time: the trading name, an abbreviated street, and a mistyped address or mailbox. Continuing to raise one question per site will produce eleven more of them. How should this be handled?",
+    "options": [
+      "One Weebly furniture sweep across all 14 sites in a single supervised session, working from a per-site correction checklist this repo generates from branches.json. The faults are three repeating kinds, the correct values are already held here, and a checklist means the session is mechanical rather than investigative.",
+      "Generate the per-site checklist now but decide the sweep separately, so the corrections are written down and ready whenever somebody next opens each site for the paste work items 5.1, 5.3, 5.7, Q35 and Q38 already require.",
+      "Carry on per site, fixing the furniture on whichever site a quality pass happens to read next and raising a question each time. Smallest single session, but eleven sites are still unread and the Cherry Lane mailbox goes on bouncing meanwhile.",
+      "Leave the furniture until the wider Weebly repaste queue is cleared, then correct it in the same visits. One trip per site, at the cost of leaving a bouncing patient mailbox and three wrong trading names live for as long as that queue takes."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "The checklist in options 1 and 2 is work an unattended run can do, because it is a repo file composed from branches.json and needs no Weebly access. Say the word and a later run can build it. Nothing here is urgent except the Cherry Lane mailbox, which is the only one of the three that loses a patient message rather than showing Google a wrong word."
   }
 ]
