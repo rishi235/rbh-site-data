@@ -1,0 +1,55 @@
+Riddings Pharmacy Timperley GBP pack - second quality pass
+Date: 2026-08-11 21:10 BST (eighty-fourth run)
+Item: 4.13. First verified 2026-08-05, first quality pass 2026-08-10 22:05
+(forty-second run). Result this pass: clean both halves, no in-repo defect,
+no live state change, no copy changed, no question raised.
+
+REPO HALF
+Every fact in gbp-packs/riddings-timperley.md re-verified against
+branches.json: name Riddings Pharmacy, address 38 Riddings Road, Timperley,
+Altrincham WA15 6BP, phone 0161 973 2951, website, review link, hasApp
+false with no app mention in the pack. Hours are the single Monday to
+Friday session 9:00am to 6:00pm with Saturday and Sunday closed, matching
+the NHS-confirmed specification; one session a day, so the split-day
+guidance the fortieth run made compulsory correctly does not apply.
+Catchment reads Timperley, Altrincham and Trafford in all three places,
+leading with seoTown Timperley. Measured with CRLF normalised: description
+657 characters, exactly what its heading claims, against the 750 limit;
+posts 449, 319, 521 and 425 against 1,500. No medicine name, no efficacy
+claim in Post C, no em dash, no en dash, no non-ASCII character anywhere
+in the file. Post A's button is the pfLink from branches.json. All 29
+checkers green before and after this pass. All six page generators
+rebuilt to zero diff; only status/index.html moved, by its timestamp.
+
+LIVE HALF (read-only page loads, nothing clicked, typed or submitted)
+Post A resolves at pharmacy-first-service-timperley.html with the seven
+conditions and age ranges correct, earache 1 to 17 and UTI in women 16 to
+64 included. Post B's canonical URL
+switch-prescriptions-riddings-timperley.html still returns Weebly's 404
+and the live switch page still sits at the old permalink
+switch-prescriptions.html, so the forty-second run's hard stop stands
+unchanged. Posts C and D resolve with correct headings. The replacement
+pharmacy-first-riddings-timperley.html remains live and in the branch
+sitemap, so the 5.3 no-paste repoint recorded on the first pass still
+holds. Homepage NAP correct: phone 0161 973 2951, address and postcode
+present. The sitemap is dated 2026-07-18 on every entry, so the site has
+not been republished since 18 July; every known live-side fault
+accordingly still stands, including the pre-Phase-3 switch page paste
+(H1 without town words, bullet reading "Local pharmacy support", the
+Download our app block that is not ours to inherit) and the banner close
+button mojibake the forty-fourth run fixed at source, which stays on the
+live pages until the queued repaste.
+
+NEW LIVE-ONLY OBSERVATION
+Every page of the site carries a footer line reading, with en dashes,
+"Open Mon-Fri 9am-6pm, Sat & Sun closed" plus middot separators and a
+second Superintendent line. The string exists in no file on
+agents/audit-backlog and not on origin/main either (checked with git
+grep, no checkout), so it is a Weebly site-wide hand paste, not repo
+copy. Outside repo scope; recorded in the pack's paster notes so it is
+retyped with standard hyphens in the Weebly session already queued for
+the switch paste. Not raised as a question: no decision needed, the fix
+rides along with queued work.
+
+VERDICT
+Pack clean second time running. No in-repo defect this pass could find.

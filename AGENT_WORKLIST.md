@@ -732,6 +732,20 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       and the live switch page carries a Download our app block although
       branches.json has hasApp false, which is a Weebly-native element on
       the old page and does not follow the paste across. Done 2026-08-10.
+      Second quality pass 2026-08-11: pack verified clean again, fact by
+      fact against branches.json and rule by rule against TEMPLATE.md, all
+      29 checkers green and all six page generators byte-stable. Live
+      recheck found no state change: Post B's canonical URL still returns
+      a 404, the live switch page still sits at the old permalink and is
+      still the pre-Phase-3 paste, Posts A, C and D still resolve, the
+      replacement Pharmacy First page is still live and in the sitemap,
+      homepage NAP correct, and the sitemap is still dated 2026-07-18
+      throughout, so the site has not been republished since 18 July. One
+      live-only observation recorded in the pack's paster notes: the
+      site-wide footer line sets its day and time ranges with en dashes
+      and exists in no repo branch, so it is a Weebly hand paste to retype
+      in the queued session, not repo copy. No in-repo defect found, no
+      question raised.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

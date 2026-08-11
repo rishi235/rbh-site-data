@@ -2,6 +2,66 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 21:10 BST - eighty-fourth run - Quality pass on item 4.13, the
+Riddings Pharmacy Timperley GBP pack, last verified 2026-08-10 22:05 as the
+forty-second run and the oldest verification standing after run 83 refreshed
+4.12. Pack verified clean second time running, no in-repo defect found, no
+copy changed, no live state change, no question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification and note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: runs 76 to 83
+refreshed 5.2, 5.6, 5.7, 4.6, 4.8, 4.9, 4.10 and 4.12, leaving 4.13
+(run 42, 22:05 on 2026-08-10) as the oldest standing verification.
+
+REPO HALF, ALL HOLDING. Every fact re-verified against branches.json:
+name, address 38 Riddings Road WA15 6BP, phone 0161 973 2951, website,
+review link, hasApp false with no app mention. Hours match the single
+Monday to Friday 9:00am to 6:00pm session with both weekend days closed;
+one session a day, so the split-day guidance correctly does not apply.
+Catchment leads with seoTown Timperley and matches serviceAreaList order
+in all three places. Measured with CRLF normalised: description 657
+characters, exactly what its heading claims; posts 449, 319, 521 and
+425, all far inside 1,500. No medicine name, no efficacy claim, no em
+dash, no non-ASCII. All 29 checkers green and all six page generators
+byte-stable, only the status page timestamp moving.
+
+LIVE HALF, NO STATE CHANGE. Read-only page loads, nothing clicked, typed
+or submitted. Post A resolves with all seven conditions and age ranges
+correct. Post B's canonical URL still 404s and the live switch page
+still sits at switch-prescriptions.html as the pre-Phase-3 paste, so the
+forty-second run's hard stop stands. Posts C and D resolve. The
+replacement Pharmacy First page remains live and in the sitemap, so the
+5.3 no-paste repoint still holds. Homepage NAP correct. The sitemap is
+dated 2026-07-18 on every entry: the site has not been republished since
+18 July, which is why every known live fault, including the banner
+mojibake run 44 fixed at source, is still visible. One new live-only
+observation: the site-wide footer line sets its ranges with en dashes
+and exists in no repo branch (checked against origin/main by git grep,
+no checkout), so it is a Weebly hand paste; recorded in the pack's
+paster notes for the queued session, not asked as a question because no
+decision is needed. The homepage weight loss sentence remains as known
+and stays covered by [BLOCKED] item 5.8 and Q22.
+
+FILES CHANGED. audits/riddings-timperley-gbp-pack-check-2026-08-11.txt
+(new), gbp-packs/riddings-timperley.md (live recheck note and one paster
+note added, no pasted copy changed), AGENT_WORKLIST.md (second quality
+pass note under 4.13), status/index.html (regenerated), AGENT_LOG.md
+(this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 20:41 BST - eighty-third run - Quality pass on item 4.12, the
 Coleman and Leighs Pharmacy Walton GBP pack, last verified 2026-08-10 21:05
 as the forty-first run and the oldest verification standing after run 82

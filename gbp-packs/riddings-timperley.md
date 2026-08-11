@@ -10,6 +10,13 @@ BE POSTED AS IT STANDS - see the hard stop on Post B below. The branch's
 own sitemap was read in the same pass and confirms the branch-specific
 Pharmacy First page is already live, which the Post A note now records.
 
+LIVE RECHECK 2026-08-11. Same result on every point: Posts A, C and D
+resolve, Post B's URL still returns a 404, the live switch page still
+sits at switch-prescriptions.html, and the branch-specific Pharmacy First
+page remains live and in the sitemap. The sitemap is dated 2026-07-18 on
+every entry, so the site has not been republished since the first check.
+Nothing in this note has changed.
+
 Profile basics (for checking, not pasting):
 - Name on GBP: Riddings Pharmacy
 - Address: 38 Riddings Road, Timperley, Altrincham WA15 6BP
@@ -156,3 +163,9 @@ Notes for the paster:
 - The live contact block on that page reads "Timperley, Cheshire" where
   branches.json records addressRegion "Greater Manchester". Live-only, and
   a hand edit in Weebly, but worth correcting in the same session.
+- Live-only, seen 2026-08-11: every page of the site carries a hand-pasted
+  footer line reading "Open Mon-Fri 9am-6pm, Sat & Sun closed" in which
+  the day and time ranges are set with en dashes, plus middot separators.
+  The string exists in no repo branch, so it is Weebly's site-wide footer,
+  not our copy. While in Weebly for the switch paste anyway, retype the
+  ranges with standard hyphens. Do not open a session just for this.
