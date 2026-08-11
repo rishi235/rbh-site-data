@@ -45,6 +45,11 @@
       homepage, not a page inside the site
     - The "Name on GBP" line states this branch's trading name from
       branches.json, and not a sister branch's
+    - The Photo shot list actually lists at least 10 shots, names the vinyl
+      storefront, and tells the paster to action any pending Google updates
+      while they are in the profile (Build Pack v2 4.1, TEMPLATE.md
+      section 4). Until the item 4.3 quality pass this section was only ever
+      checked for its heading
 */
 "use strict";
 const fs = require("fs");
@@ -115,6 +120,13 @@ const seenNotOfferedKnown = {};
 // convention: a key that no longer matches a real breach fails the run.
 const KNOWN_IDENTITY = {};
 const seenIdentityKnown = {};
+
+// Accepted exceptions to the photo shot list rules, keyed
+// "<branch id>::photoCount", "<branch id>::photoVinyl" or
+// "<branch id>::photoGoogleUpdates". Same anti-rot convention: a key that no
+// longer matches a real breach fails the run.
+const KNOWN_PHOTOS = {};
+const seenPhotosKnown = {};
 
 const fails = [];
 const warns = [];
@@ -430,6 +442,56 @@ for (const file of packFiles) {
     const key = `${b.id}::serviceNotOffered::${rule.key}`;
     if (KNOWN_NOT_OFFERED[key]) { seenNotOfferedKnown[key] = true; continue; }
     fail(file, `Services section lists "${rule.name}", but branches.json gives this branch no ${rule.key} widget, so the profile would advertise a service the branch does not run. Remove it, or add the service to branches.json first`);
+  }
+
+  // --- the photo shot list ------------------------------------------------
+  // Until the item 4.3 quality pass on 2026-08-11, section 4 was read for its
+  // heading and nothing else: REQUIRED_SECTIONS proved the "## 4. Photo shot
+  // list" line existed, and a pack could have carried an empty section under
+  // it and passed. Every other section of the pack has a rule behind it, and
+  // this is the section Build Pack v2 puts a number on.
+  //
+  // Three things the section owes the paster, all from Build Pack v2 4.1 and
+  // TEMPLATE.md section 4.
+  //
+  // The count. Build Pack v2 asks for "10+ photos", and TEMPLATE.md turns
+  // that into "list 10 shots". Every pack in the estate sits exactly on 10,
+  // one on 11, so there is no headroom at all: delete a single bullet while
+  // editing a pack and the profile it builds drops under the requirement with
+  // nothing to notice. Photo count is one of the few GBP inputs Google
+  // measures directly, so a short set costs the profile map ranking, and the
+  // pack is the only place the paster is told how many to take.
+  //
+  // The vinyl. The new storefront vinyl is the one shot that has to be on the
+  // profile the day it is fitted, because it is what makes the listing look
+  // current, and it is the shot nobody thinks of unless the sheet says so.
+  //
+  // The pending Google updates. Google queues its own suggested edits against
+  // a profile - hours, categories, an address someone "corrected" - and they
+  // publish if nobody acts on them. The 2026-08-09 supervised check found
+  // Google had silently replaced the website on at least one profile. The
+  // paster is already inside the profile when they load the photos, which is
+  // the one moment those queued edits are free to clear, so TEMPLATE.md puts
+  // the reminder here. mccanns-sandringham.md was missing it, found by this
+  // rule and fixed at the same pass.
+  const photoSecRaw = (text.match(/^##\s*4\.\s*Photo shot list[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1] || "";
+  const photoSec = norm(photoSecRaw);
+  const photoBullets = photoSecRaw.split("\n").filter((l) => /^-\s+\S/.test(l)).length;
+  const photoFail = (suffix, msg) => {
+    const key = `${b.id}::${suffix}`;
+    const known = KNOWN_PHOTOS[key];
+    if (known) { seenPhotosKnown[key] = true; warn(file, `KNOWN ${msg} ${known.question}: ${known.reason}`); }
+    else fail(file, msg);
+  };
+  const PHOTO_MIN = 10;
+  if (photoBullets < PHOTO_MIN) {
+    photoFail("photoCount", `Photo shot list names ${photoBullets} shot${photoBullets === 1 ? "" : "s"}, and Build Pack v2 4.1 asks for at least ${PHOTO_MIN}. The pack is the only sheet telling the paster how many photos to take, so a short list is a short profile`);
+  }
+  if (!/vinyl/i.test(photoSec)) {
+    photoFail("photoVinyl", "Photo shot list does not mention the vinyl storefront, which Build Pack v2 4.1 asks for in the photo set and TEMPLATE.md section 4 repeats. It is the shot that makes the listing look current and the one nobody takes unless the sheet says so");
+  }
+  if (!/pending google update|google updates/i.test(photoSec)) {
+    photoFail("photoGoogleUpdates", 'Photo shot list does not remind the paster to action any pending Google updates while they are in the profile (TEMPLATE.md section 4). Google\'s own suggested edits to hours, categories and the address publish themselves if nobody clears them, and loading the photos is the one visit where clearing them is free');
   }
 
   // --- catchment order: the profile must lead with the branch's own town --
@@ -902,6 +964,11 @@ for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
 for (const key of Object.keys(KNOWN_IDENTITY)) {
   if (!seenIdentityKnown[key]) {
     fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_PHOTOS)) {
+  if (!seenPhotosKnown[key]) {
+    fails.push(`stale exception: KNOWN_PHOTOS["${key}"] no longer matches a pack with a short photo shot list, no vinyl storefront shot or no pending-Google-updates reminder. Remove it (${KNOWN_PHOTOS[key].question}).`);
   }
 }
 

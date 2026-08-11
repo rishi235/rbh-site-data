@@ -229,6 +229,33 @@ Pharmacy First wording to the NHS service description.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
+      Quality pass 2026-08-11: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it
+      is wrong. Address 56-62 Sherwood House, Station Road, Ainsdale,
+      Southport PR8 3HW, phone 01704 577376, website and review link all
+      match; hours read Monday to Friday 8:30am to 6:00pm and Saturday
+      9:00am to 5:30pm with both lunch closures, which is the whole of this
+      branch's openingHours and no more, and the paster note spells out the
+      two time ranges GBP needs per open day. Description is 743 characters,
+      exactly what its heading claims, and the four posts are 448, 408, 402
+      and 317 against a 1,500 limit. Post A's seven conditions and its UTI
+      16 to 64 range match the generated Pharmacy First page condition for
+      condition, Post C names no medicine and makes no efficacy claim, and
+      the switch, weight loss and travel links all point at pages this repo
+      generates. Catchment leads with Ainsdale, the branch owns its domain
+      so the profile website is correctly the homepage, and all five widget
+      services are listed. All six generators rebuilt to zero diff and all
+      19 checkers pass. One defect found, in the verifier rather than the
+      pack. check-gbp-packs.js read section 4, the photo shot list, for its
+      heading and nothing else, so a pack could carry an empty section and
+      pass. Build Pack v2 4.1 asks for 10 or more photos, the vinyl
+      storefront shot and a reminder to clear pending Google updates while
+      in the profile, and every pack in the estate sits exactly on 10 shots
+      with no headroom at all. Three rules added, negative-tested three
+      ways, and they caught a real breach: mccanns-sandringham.md was the
+      one pack with no pending-Google-updates reminder, so its paster would
+      have left Google's own queued edits to hours, categories and the
+      address to publish themselves. Reminder added to that pack.
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

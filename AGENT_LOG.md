@@ -2,6 +2,114 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 04:05 BST - fifty-fourth run [commit PENDING] - Quality pass on item 4.3, the Hirshmans Chemist Ainsdale GBP pack, drafted on 2026-08-04 and last verified on 2026-08-07 as the eighth run, which made it the oldest verification standing by four days. The pack is clean on every leg it owns: every fact matches branches.json, the description is the 743 characters it claims, the four posts run 448, 408, 402 and 317 against a 1,500 limit, Post A's seven conditions and its UTI 16 to 64 range match the generated Pharmacy First page condition for condition, all six generators rebuilt to zero diff and all 19 checkers pass. The defect is in the verifier. check-gbp-packs.js read the photo shot list for its heading and nothing else, so a pack could have carried an empty section 4 and passed. Three rules added and negative-tested three ways, and they caught a real breach in mccanns-sandringham.md. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision in any case: the gap had one obvious fix, it
+was implementable in the repo, and the one copy change it forced adds a paster
+instruction that TEMPLATE.md already requires.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 03:52. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Sixteen questions remain open, unchanged: Q17 to Q22, Q24,
+Q28, Q29 and Q34 to Q40.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary. Item 1.4 was taken by the fifty-third run, which leaves
+the 2026-08-07 group as the oldest: item 4.3 as the eighth run, then 1.3 as the
+ninth and 1.2 as the tenth. Item 4.3 taken this run. The next oldest are 1.3 and
+1.2, both 2026-08-07, followed by 4.4 on 2026-08-08.
+
+THE ITEM VERIFIED CLEAN ON EVERY LEG IT OWNS. Checked fact by fact against
+branches.json and rule by rule against TEMPLATE.md. Address 56-62 Sherwood
+House, Station Road, Ainsdale, Southport PR8 3HW, phone 01704 577376, website
+https://www.hirshmanspharmacy.co.uk and the g.page review link all match the
+data, and the "Ainsdale, Southport" post-town form is the same one
+fishlocks-ainsdale.md uses for the neighbouring branch, so it is house style
+rather than drift. Hours read Monday to Friday 8:30am to 6:00pm and Saturday
+9:00am to 5:30pm with both 1:00pm to 2:00pm closures, which is exactly the four
+entries in this branch's openingHours specification and no more, and the paster
+note spells out the two time ranges GBP needs on every open day. The description
+is 743 characters against a 750 limit, which is what its own heading claims. The
+four posts are 448, 408, 402 and 317 characters against a 1,500 limit. Post A
+lists the same seven conditions the generated pharmacy-first-hirshmans-ainsdale
+page lists, with the same women aged 16 to 64 range on the UTI, so the profile
+and the page cannot tell a patient two different things. Post C names no
+medicine and makes no efficacy claim. The switch, weight loss and travel links
+all point at pages this repo generates; the Pharmacy First link is the live-only
+legacy page named in the branch's own pfLink, which the checker already warns
+about on eight packs and which is a data question, not a pack fault. The
+catchment leads with Ainsdale, the branch owns hirshmanspharmacy.co.uk outright
+so the profile website is correctly the homepage, and all five services its
+widget set earns are listed. All six generators were re-run and git reported no
+change to a single generated file. All 19 checkers pass.
+
+THE DEFECT, AND IT IS IN THE VERIFIER AGAIN. Section 4 of every pack, the photo
+shot list, was covered by one line of check-gbp-packs.js: REQUIRED_SECTIONS
+proved the "## 4. Photo shot list" heading existed. Nothing read a word beneath
+it. A pack could have carried an empty section and exited 0. Every other section
+of the pack has a rule behind it, and this is the one section Build Pack v2 puts
+a number on.
+
+Three things the section owes the paster, all of them in Build Pack v2 4.1 and
+repeated in TEMPLATE.md section 4, and all three now enforced.
+
+The count. Build Pack v2 asks for "10+ photos" and TEMPLATE.md turns that into
+"list 10 shots". Fourteen of the fifteen packs sit exactly on 10 and one on 11,
+so the estate has no headroom whatsoever: delete a single bullet while editing a
+pack and the profile built from it drops under the requirement with nothing to
+notice. Photo count is one of the few GBP inputs Google measures directly.
+
+The vinyl. The new storefront vinyl is the shot that makes a listing look
+current, and it is the one nobody takes unless the sheet names it.
+
+The pending Google updates. Google queues its own suggested edits against a
+profile, to hours, to categories, to an address somebody "corrected", and they
+publish if nobody clears them. The supervised GBP check on 2026-08-09 found
+Google had silently replaced the website on at least one profile. The paster is
+already inside the profile when they load the photos, which is the one visit
+where clearing those queued edits is free, so TEMPLATE.md puts the reminder
+here.
+
+Negative-tested three ways against hirshmans-ainsdale.md, each mutation applied
+to a copy and reverted: delete one photo bullet and the checker fails naming 9
+shots; replace the vinyl line with two ordinary frontage shots, keeping the
+count at 10, and it fails on the missing vinyl; strip the Google updates
+sentence and it fails on that. All three exited 1, and the baseline and the
+post-restore run both exited 0. KNOWN_PHOTOS carries the same anti-rot
+convention as the four exception maps already in the file: a key that no longer
+matches a real breach fails the run.
+
+THE RULE CAUGHT A REAL BREACH ON ITS FIRST RUN. mccanns-sandringham.md was the
+only pack in the estate with no pending-Google-updates reminder. It has 10 shots
+and it names the vinyl, but it puts its Build Pack note at the foot of the
+section rather than under the heading, and the reminder was dropped when it was
+written. That branch's paster would have loaded the photos and left Google's
+queued edits to publish themselves, on the one profile in the group that has
+already been through a forced identity change: item 5.7 moved its local word
+from Sandringham to St Michael's on 2026-08-10, so an unattended Google edit to
+its address or categories is exactly the fault that would undo that work
+quietly. The reminder is added to that pack in its own trailing-prose shape
+rather than by reformatting the section, so the pack keeps the structure its
+paster already knows.
+
+FILES CHANGED. tools/check-gbp-packs.js (three photo shot list rules, the
+KNOWN_PHOTOS exception map and its stale-key guard, header comment updated),
+gbp-packs/mccanns-sandringham.md (pending-Google-updates reminder added),
+AGENT_WORKLIST.md (item 4.3 quality-pass note, ticked in place), AGENT_LOG.md
+(this entry).
+
+NO NEW QUESTION. Nothing in this run needed a decision. The rules come straight
+from Build Pack v2 4.1 and TEMPLATE.md, the copy added to mccanns-sandringham.md
+is a paster instruction the template already requires and makes no public claim,
+and no generated page changed.
+
 ## 2026-08-11 03:30 BST - fifty-third run [commit 725c473] - Quality pass on item 1.4, the NAP check across every generated page, last verified on 2026-08-06 as the seventh run and therefore the oldest verification standing by five days. The data is clean: 177 pages, 0 mismatches, byte-stable across a full regeneration, all 19 checkers pass, and the disposed-branch guard still fires in all four hardcoded-list generators. The defect is in the verifier again, and this one had a live page behind it. check-nap read a phone number in only two shapes, and all 15 switch pages carry one in a third: the FAQ answer reads "Call us on <number>". Swapping that number for another branch's, the previous checker exited 0 reporting 0 mismatches. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

@@ -76,7 +76,10 @@ Private services:
 - Street view along Aigburth Road showing the shopfront in context, so
   customers can recognise the branch on approach.
 Build Pack 4.1 asks for at least 10 photos on the profile; the shots above
-give 10 without staging anything that is not really there.
+give 10 without staging anything that is not really there. While in the
+profile, also action any pending Google updates: Google's own suggested
+edits to hours, categories and the address publish themselves if nobody
+clears them.
 
 ## 5. Post drafts
 
