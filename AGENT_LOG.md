@@ -2,6 +2,150 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 01:35 BST - fiftieth run [commit PENDING] - Quality pass on item 4.2, the Cherry Lane Pharmacy GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the third run of that day, which makes it the oldest verification standing. The pack is clean and nothing in it is wrong. Two in-repo defects found and fixed, both in checkers: two of the six profile-basics lines had never been read by anything, and the branch-name-as-place rule could not see the one construction that was actually breaking it. One copy correction. One new question, Q40
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
+2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
+present at the top of this log, so step 7 applies as written and Q40 was left
+open in the normal way.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 01:36. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29 and Q34 to Q39 are all still
+open with no answer posted against any of them. Q40 joins them, making sixteen.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived from scratch by reading every run heading in this log rather
+than trusting the previous run's summary, and it agrees with it. Item 4.2 was
+verified as the third run of 2026-08-05 and never since, and item 1.1, the only
+other item still on that date, was the fifth run of the same day, so 4.2 is
+older. Taken this run. The remaining order is 1.1, then the 2026-08-06 pair,
+3.1 and 1.4.
+
+THE PACK IS CLEAN, AND IT IS THE FIFTH IN A ROW WITH NOTHING WRONG IN IT.
+Verified fact by fact against branches.json and rule by rule against
+TEMPLATE.md. Address 202 Cherry Lane, Liverpool L4 8SG, phone 0151 226 2051,
+website and Google review link all match. The hours line reads Monday to Friday
+9:00am to 6:30pm, Saturday 9:00am to 5:00pm, Sunday closed, which is the whole
+of this branch's openingHours specification and nothing that is not in it: this
+branch does not close for lunch, so the split-day instruction the 4.10 pass
+made compulsory does not apply here. The catchment reads "Walton, Everton and
+north Liverpool", leading with the seoTown as it must. Categories and services
+match the five-widget set exactly: Pharmacy First, blood pressure,
+contraception, weight loss and travel clinic, with Travel clinic, Vaccination
+centre and Weight loss service as the secondary categories. The description is
+736 characters, exactly what its own heading claims, and the four posts are
+449, 348, 403 and 318 against a 1,500 limit. Post A's seven conditions and its
+UTI 16 to 64 range match the generated Pharmacy First page word for word. Post
+C names no medicine and makes no efficacy claim. All four post links point at
+pages this repo actually generates. The file is pure ASCII with no em dashes.
+
+ONE FLAG IN THE PACK IS NOW SPENT AND CAN BE READ AS CLEARED. The worklist
+line for 4.2 has carried "check those pages are live before posting - Cherry
+Lane build (2.3) is still pending" since the pack was drafted. Item 2.3 was
+completed later the same day and its pages have since been verified live, so
+Posts B, C and D have somewhere to point. The pack's own header already says
+so. Noted on the worklist line rather than deleted, because the pack still
+carries two genuine live-site caveats above it that have not been cleared: the
+stale Pharmacy First embed, and the old weight loss page still serving POM
+content pending the Q5 hand edit.
+
+THE FIRST DEFECT, WHICH IS IN THE CHECKER AND IS THE SILENT KIND. The profile
+basics block at the top of every pack is the paster's instruction sheet for the
+Google listing, and it has six lines: name, address, phone, hours, website and
+review link. Four of them are now guarded. Phone and postcode have been checked
+both ways for a long time, hours since the 4.9 pass, and the street address and
+review link since the 4.7 pass last run. That left two, and this pass is what
+found them.
+
+The GBP listing name had never been read at all. It is the field the entire
+listing is identified by, and it is the field Google acts on unilaterally:
+Google's rule is that a listing carries the real-world name of the business, so
+a name with extra words in it is one Google can shorten or suspend without
+asking. Three brands in this estate run two shops each, and each pair differs
+by a single word, so a pack carrying the sister's name renames the wrong shop
+on Google. That is the same class of fault the street-address rule was added
+for last run, and it was sitting in the line directly above it. The rule now
+requires the line to be present and to state this branch's branchName from
+branches.json exactly, with the sister-branch case reported by name because
+that is the one somebody would otherwise stare straight past.
+
+The website line had been read for six of the fifteen packs only. TEMPLATE.md
+states the rule in both directions: a shared-domain branch points the profile
+at its own landing page, and a branch that owns its domain outright points at
+the homepage. Only the first half existed, so for the nine branches that own
+their domain the line was never read. Two faults it can carry, both silent. It
+can be missing, and the pack then tells the paster everything about the profile
+except where to send its traffic. Or it can point at a page inside the site,
+and every visitor Google sends from the profile then lands on one service page
+instead of the shop's front door. The foreign-domain case is already covered,
+by the link rule further down, because every website in branches.json carries
+"pharmacy", "chemist" or "rbhealth" in its host and that rule reads all of
+them, which was checked rather than assumed. This is the field with live form:
+the supervised GBP check on 2026-08-09 found Google had silently swapped the
+website on a profile for an NHS page, and the pack is what it gets restored
+from.
+
+Both rules take a KNOWN_IDENTITY exception keyed to the branch, on the same
+anti-rot convention as the rest of this file: a key that no longer matches a
+real breach fails the run, so an exception cannot quietly become permanent.
+
+THE SECOND DEFECT, WHICH IS A LIVE ONE RATHER THAN A LATENT ONE. The
+branch-name-as-place rule exists because "Sandringham" is a parade, not a town:
+it is no branch's seoTown and appears in no serviceAreaList, so a pack that
+aims a Google profile at it aims at a word the estate's own data does not treat
+as a place. Item 5.7 moved that branch's local word to St Michael's on
+2026-08-10 on Rishi's Q15 answer, and every generated page followed. The rule
+matched "in", "at", "near" and "around", and mccanns-sandringham.md tells the
+paster to use the landing page "so the profile stays local to Sandringham".
+"Local to" was not in the list. So the single sentence in that pack which names
+the town the profile is being aimed at was the one construction the rule could
+not see, and it survived both the 5.7 pass that changed the town and the 4.7
+pass that read the whole pack last run. "Local to" added, the rule then failed
+that pack, and the copy is corrected to St Michael's. That order is deliberate:
+the rule was proved against the real breach before the breach was fixed.
+
+NEGATIVE-TESTED SEVEN WAYS, all reverted, repo byte-identical afterwards. A
+sister branch's trading name in the name line fails and names the sister. A
+keyword-stuffed name fails. A missing name line fails. A deep-linked website
+fails and quotes the offending URL. A missing website line fails. A
+KNOWN_IDENTITY key turns a real breach into a warning. The same key with the
+pack correct fails as stale. All 15 packs already comply with both new rules,
+so both gaps were latent, and the "local to" gap was not.
+
+All six generators were rebuilt before any edit and produced zero diff, and all
+18 checkers pass both before and after the changes.
+
+THE QUESTION. Q40 asks what the Cherry Lane Google listing should actually be
+called. The pack records the live listing as "Cherry Lane Pharmacy - Travel
+Vaccination and Simple Weight Loss Clinic" and then says in as many words that
+the name is a separate decision it does not touch. Nobody has taken that
+decision in the week since. branches.json, all 12 generated pages and the NHS
+and GPhC register entries all say "Cherry Lane Pharmacy", so the listing is the
+only place the business answers to something else, and the listing name is the
+field Google edits on its own. It also puts a parked brand in front of the
+public. The recommendation is to rename the listing to the trading name and let
+the travel and weight loss words work through the categories and services the
+pack already tells the paster to set, which is where Google reads them, so the
+single edit costs nothing.
+
+One honesty note carried into Q40 itself: the live listing name is taken from
+the pack's 2026-08-04 record, not from a reading today. A read-only search was
+run this pass and Google's knowledge panel did not come back in the page text,
+so the profile needs eyes on it before anyone edits. That search did show the
+Weebly homepage titling the site "Cherry Lane Pharmacy & Travel Clinic", a
+third version of the name again, which is Weebly-native furniture and belongs
+to the estate-wide sweep already asked as Q39 rather than being asked twice.
+
+FILES CHANGED: tools/check-gbp-packs.js (two profile-basics rules added, "local
+to" added to the branch-name-as-place prepositions, header docblock and the
+stale-exception message updated), gbp-packs/mccanns-sandringham.md (one word,
+Sandringham to St Michael's), AGENT_WORKLIST.md (quality pass recorded under
+item 4.2), QUESTIONS.json (Q40).
+
 ## 2026-08-11 01:05 BST - forty-ninth run [commit 33f8e1a] - Quality pass on item 4.7, the McCanns Chemist Sandringham GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the second run of that day, which makes it the oldest verification standing. The pack itself is clean and nothing in it is wrong. One in-repo defect found and fixed in the checker: two fields that appear in every pack had never been read by anything. One new question, Q39
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on

@@ -604,5 +604,20 @@
     "status": "open",
     "answer": null,
     "note": "The checklist in options 1 and 2 is work an unattended run can do, because it is a repo file composed from branches.json and needs no Weebly access. Say the word and a later run can build it. Nothing here is urgent except the Cherry Lane mailbox, which is the only one of the three that loses a patient message rather than showing Google a wrong word."
+  },
+  {
+    "id": "Q40",
+    "date": "2026-08-11",
+    "item": "quality pass on 4.2 (finding, does not block any item)",
+    "question": "The Cherry Lane GBP pack records that the live Google listing is called \"Cherry Lane Pharmacy - Travel Vaccination and Simple Weight Loss Clinic\", and then says in as many words that changing the listing name is a separate decision the pack does not touch. That decision has never actually been put to you, so it has sat since the pack was drafted on 2026-08-04. Three things now hang on it. Google's own rule for a business listing is that the name is the real-world name of the business, so a name carrying extra service words is one Google can shorten or suspend on its own without asking, and this estate has already seen Google act unilaterally on a profile: the supervised check on 2026-08-09 found it had silently swapped the website on a profile for an NHS page. Second, branches.json and all 12 generated pages for this branch say \"Cherry Lane Pharmacy\", as do the NHS and GPhC register entries, so the listing is the only place the business answers to a different name. Third, the listing name puts \"Simple Weight Loss\" in front of the public on a Google profile, which is a brand decision rather than a web one. What should the listing be called?",
+    "options": [
+      "Rename the listing to \"Cherry Lane Pharmacy\", the trading name in branches.json, on every generated page and on the NHS and GPhC registers. One name everywhere, inside Google's naming rule, and it takes the parked brand off a public listing. Costs one GBP edit and gives up whatever the extra words currently win in map searches.",
+      "Rename to \"Cherry Lane Pharmacy\" and put the travel and weight loss words back through the categories and services instead, which the pack already lists (Travel clinic, Vaccination centre, Weight loss service) and which is where Google expects a shop to declare what it does. Same single edit as option 0, but nothing is actually lost, because the words keep working in the fields built for them.",
+      "Leave the listing name as it is and record it here as a deliberate exception, which a later run would enter in check-gbp-packs.js so the profile-basics rule reports it as known rather than unread. No work and no change in the map results, at the cost of leaving a name Google can edit without notice and a parked brand live on a public profile."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Two things to be straight about. The live listing name is taken from the pack's own 2026-08-04 record, not from a reading today: a read-only search was run this pass and Google's knowledge panel did not come back in the page text, so this needs eyes on the profile before anyone edits it. And the same search showed the Weebly homepage titles the site \"Cherry Lane Pharmacy & Travel Clinic\", a third version of the name again, which is Weebly-native furniture and belongs to the estate-wide sweep in Q39 rather than being asked twice here. Option 1 is recommended because it is the same one edit as option 0 but loses nothing: the pack already tells the paster to set those categories and services, so the words move to the fields Google reads for them instead of being dropped. Nothing here is urgent, and nothing here blocks a worklist item."
   }
 ]

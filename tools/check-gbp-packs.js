@@ -40,7 +40,11 @@
       section 3: two branches on one website cannot rank twice in the same
       map, so the second branch "leans on its own GBP listing and on
       branch-specific landing pages". Two profiles pointing at one homepage
-      throws that away.
+      throws that away. And the other direction: a branch that owns its
+      domain outright must carry a Website line and it must be that
+      homepage, not a page inside the site
+    - The "Name on GBP" line states this branch's trading name from
+      branches.json, and not a sister branch's
 */
 "use strict";
 const fs = require("fs");
@@ -105,8 +109,9 @@ const seenBranchWordKnown = {};
 const KNOWN_NOT_OFFERED = {};
 const seenNotOfferedKnown = {};
 
-// Accepted exceptions to the street-address and review-link rules, keyed
-// "<branch id>::streetAddress" or "<branch id>::reviewLink". Same anti-rot
+// Accepted exceptions to the profile-basics rules, keyed
+// "<branch id>::gbpName", "<branch id>::streetAddress",
+// "<branch id>::reviewLink" or "<branch id>::profileWebsite". Same anti-rot
 // convention: a key that no longer matches a real breach fails the run.
 const KNOWN_IDENTITY = {};
 const seenIdentityKnown = {};
@@ -276,6 +281,50 @@ for (const file of packFiles) {
       fail(file, `no "- Website" line in the profile basics, so the paster has nothing telling them to use the ${slug} landing page`);
     } else if (!siteLine.toLowerCase().includes(slug)) {
       fail(file, `profile website does not point at this branch's landing page ${slug}. ${ownHostForSite} carries ${hostCount.get(ownHostForSite)} live branches, so pointing the profile at the shared homepage gives both listings the same page (Master Plan v2 section 3)`);
+    }
+  } else if (!sharesHost && b.website) {
+    // The other half of the same rule, and until the item 4.2 quality pass on
+    // 2026-08-11 it did not exist. TEMPLATE.md states both directions: a
+    // shared-domain branch points the profile at its own landing page, and
+    // "a branch that owns its domain outright points at the homepage as
+    // normal". Only the first half was enforced, so for the nine branches
+    // that own their domain the Website line was never read at all.
+    //
+    // Two faults that line can carry, both silent. It can be missing, and
+    // then the pack tells the paster everything about the profile except
+    // where to send the traffic. Or it can point at a deep page, and then
+    // every visitor Google sends from the profile lands on one service page
+    // instead of the shop's front door: the branch's own homepage stops
+    // collecting the profile's traffic and its other services stop being
+    // one click away. Neither breaks any rule already here. The foreign-host
+    // case is already caught, by the link rule further down, because every
+    // website in branches.json carries "pharmacy", "chemist" or "rbhealth"
+    // in its host, so that rule reads them all.
+    //
+    // This is not hypothetical for the website field in particular. The
+    // supervised GBP check on 2026-08-09 found Google had silently replaced
+    // the website on at least one profile with an NHS page. The pack is what
+    // the paster restores the correct value from, so it has to be right and
+    // it has to be there.
+    const siteLine = (text.match(/^-\s*Website[^\n]*(?:\n\s{2,}[^\n]*)*/m) || [])[0] || "";
+    const key = `${b.id}::profileWebsite`;
+    const known = KNOWN_IDENTITY[key];
+    const identityFail = (msg) => {
+      if (known) { seenIdentityKnown[key] = true; warn(file, `KNOWN ${msg} ${known.question}: ${known.reason}`); }
+      else fail(file, msg);
+    };
+    const onOwnHost = (siteLine.match(/https?:\/\/[^\s)"'<>]+/g) || [])
+      .map((u) => u.replace(/[.,]$/, ""))
+      .filter((u) => u.replace(/^https?:\/\//, "").split("/")[0].toLowerCase() === ownHostForSite);
+    if (!siteLine) {
+      identityFail(`no "- Website" line in the profile basics, so the pack tells the paster everything about the profile except where to send its traffic. This branch owns ${ownHostForSite} outright, so the line should carry that homepage (TEMPLATE.md)`);
+    } else if (!onOwnHost.length) {
+      identityFail(`the "- Website" line carries no address on ${ownHostForSite}, which is this branch's own website in branches.json, so the paster has nothing to set the profile website from.`);
+    } else {
+      const deep = onOwnHost.filter((u) => u.replace(/^https?:\/\//, "").replace(/\/$/, "").includes("/"));
+      if (deep.length) {
+        identityFail(`profile website points at "${deep[0]}", a page inside the site rather than the homepage. This branch owns ${ownHostForSite} outright, so TEMPLATE.md sends the profile to the homepage: a deep link hands every visitor Google sends from the profile a single service page instead of the shop's front door. The landing-page rule above is for shared domains only, and ${ownHostForSite} carries one live branch.`);
+      }
     }
   }
 
@@ -456,7 +505,16 @@ for (const file of packFiles) {
   // them.
   const pasteable = text.split(/^Notes for the paster:/m)[0].replace(/\s*\n\s*/g, " ");
   for (const bw of BRANCH_WORDS) {
-    const re = new RegExp(`\\b(?:in|at|near|around)\\s+${escapeRe(bw.word)}\\b`, "gi");
+    // "local to" joined the prepositions on the item 4.2 quality pass,
+    // 2026-08-11, because a real breach had been sitting behind it since
+    // item 5.7 landed. mccanns-sandringham.md told the paster to use the
+    // landing page "so the profile stays local to Sandringham", written on
+    // 2026-08-04 when Sandringham was still that branch's seoTown. Q15 moved
+    // the local word to St Michael's and every generated page followed, but
+    // this line did not, and the rule read only in/at/near/around, so the one
+    // sentence in the pack that names the town the profile is being aimed at
+    // was the one construction it could not see.
+    const re = new RegExp(`\\b(?:in|at|near|around|local to)\\s+${escapeRe(bw.word)}\\b`, "gi");
     const hits = pasteable.match(re) || [];
     if (!hits.length) continue;
     const key = `${id}::branchWordAsPlace::${bw.word}`;
@@ -594,6 +652,46 @@ for (const file of packFiles) {
   // already proves the field in branches.json is well formed and unique per
   // branch, which is exactly why the remaining risk is in the copying.
   const flatText = norm(text).toLowerCase();
+
+  // The name the paster sets on the profile. Added by the item 4.2 quality
+  // pass, 2026-08-11, for the same reason as the two fields below: it is a
+  // profile-basics line that nothing had ever read.
+  //
+  // It is the field the whole listing is identified by, and it is the one
+  // Google acts on by itself. Its own rule is that the name must be the
+  // real-world name of the business, so a name carrying extra service words
+  // is a name Google can edit or suspend without asking, and the pack is
+  // what the profile gets restored from when it does. Three brands run two
+  // shops each, and those pairs differ by a single word, so a pack that
+  // states the sister's name renames the wrong shop on Google: exactly the
+  // class of fault the street-address rule below was added for.
+  //
+  // Exact match against branchName in branches.json, the trading name every
+  // generated page in the estate already leads with, so the profile and the
+  // site cannot claim to be two businesses. Where a listing genuinely needs
+  // a different name, KNOWN_IDENTITY takes it with a question id rather than
+  // the rule being loosened. Note this reads the pack's INSTRUCTION, not
+  // what Google currently shows: cherry-lane-walton.md records in prose that
+  // the live listing reads "Cherry Lane Pharmacy - Travel Vaccination and
+  // Simple Weight Loss Clinic" and that changing it is a separate decision,
+  // which is a pack correctly reporting a divergence, not claiming it.
+  const nameLine = (text.match(/^-\s*Name on GBP:[^\n]*(?:\n\s{2,}[^\n]*)*/m) || [])[0] || "";
+  const statedName = norm(nameLine.replace(/^-\s*Name on GBP:/, ""));
+  const nameKey = `${b.id}::gbpName`;
+  const nameKnown = KNOWN_IDENTITY[nameKey];
+  const nameFail = (msg) => {
+    if (nameKnown) { seenIdentityKnown[nameKey] = true; warn(file, `KNOWN ${msg} ${nameKnown.question}: ${nameKnown.reason}`); }
+    else fail(file, msg);
+  };
+  if (!nameLine) {
+    nameFail(`no "- Name on GBP:" line in the profile basics, so the pack does not say what the listing should be called. The trading name in branches.json is "${b.branchName}".`);
+  } else if (statedName !== norm(b.branchName)) {
+    const other = branches.find((x) => x.id !== b.id && norm(x.branchName) === statedName);
+    nameFail(other
+      ? `the "- Name on GBP:" line reads "${statedName}", which is ${other.branchName}'s trading name in branches.json, not this branch's "${b.branchName}", so the paster would rename the wrong shop on Google.`
+      : `the "- Name on GBP:" line reads "${statedName}", but branches.json gives this branch the trading name "${b.branchName}", which is the name every generated page it owns leads with. Google's own rule is that a listing carries the real-world business name, so the profile and the site must not claim to be two businesses.`);
+  }
+
   const ownStreet = norm(b.streetAddress || "");
   if (ownStreet && flatText.indexOf(ownStreet.toLowerCase()) === -1) {
     const key = `${b.id}::streetAddress`;
@@ -803,7 +901,7 @@ for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
 }
 for (const key of Object.keys(KNOWN_IDENTITY)) {
   if (!seenIdentityKnown[key]) {
-    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a missing or foreign street address or review link. Remove it (${KNOWN_IDENTITY[key].question}).`);
+    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
   }
 }
 

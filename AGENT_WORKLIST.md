@@ -180,6 +180,29 @@ Pharmacy First wording to the NHS service description.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
+      Quality pass 2026-08-11: the pack verified fact by fact against
+      branches.json and rule by rule against TEMPLATE.md, and nothing in it is
+      wrong. Address 202 Cherry Lane, Liverpool L4 8SG, phone 0151 226 2051,
+      website and review link all match; hours read Monday to Friday 9:00am to
+      6:30pm, Saturday 9:00am to 5:00pm, Sunday closed, which is the whole of
+      this branch's openingHours and no more; description is 736 characters,
+      exactly what its heading claims, and the four posts are 449, 348, 403
+      and 318 against a 1,500 limit. Post A's seven conditions and its UTI 16
+      to 64 range match the generated Pharmacy First page, Post C names no
+      medicine and makes no efficacy claim, and all four post links point at
+      pages this repo generates. The flag above is now spent: 2.3 is done, so
+      Posts B, C and D have live pages. All six generators rebuilt to zero
+      diff and all 18 checkers pass. Two defects found, both outside the pack.
+      check-gbp-packs.js had never read two of the six profile-basics lines,
+      the GBP listing name and, for the nine branches that own their domain,
+      the website; both are now guarded, negative-tested seven ways, and all
+      15 packs already comply. The branch-name-as-place rule read only
+      in/at/near/around, so it could not see mccanns-sandringham.md telling
+      the paster the profile "stays local to Sandringham", a word item 5.7
+      moved off that branch on 2026-08-10; "local to" added to the rule, then
+      caught it, and the copy corrected to St Michael's. Q40 asks what the
+      Cherry Lane Google listing should actually be called, a decision the
+      pack itself deferred on 2026-08-04 and nobody has taken since.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

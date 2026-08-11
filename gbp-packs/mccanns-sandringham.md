@@ -20,7 +20,7 @@ Profile basics (for checking, not pasting):
 - Website for the profile: https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
   (branch landing page - branches.json lists the shared domain
   https://www.mccannspharmacy.co.uk as the site; use the landing page so
-  the profile stays local to Sandringham. Check it resolves before pasting.)
+  the profile stays local to St Michael's. Check it resolves before pasting.)
 - Review link: https://g.page/r/CbMDr1qOLqnrEAE/review
 
 ## 1. Business description (max 750 chars - this is 713)
