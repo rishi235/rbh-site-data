@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 14:04 BST - seventy-second run - Quality pass on item 5.1, the
+## 2026-08-11 14:04 BST - seventy-second run [commit abcf0f5] - Quality pass on item 5.1, the
 Q7 em dash fix, last verified on 2026-08-10 16:34 as the thirty-second run,
 which made it the oldest verification standing. The repo half verified clean
 and byte-stable again. The finding is a live breach, not a latent hole: the Q7
