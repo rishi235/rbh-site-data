@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 05:20 BST - fifty-seventh run - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack, last verified on 2026-08-08 as the thirteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time, and for the first time its four post buttons were fetched live. One in-repo gap closed and made permanent: nothing checked WHICH page a post button pointed at, so on a shared domain a button carrying the sister branch's page would have passed clean. New question Q43
+## 2026-08-11 05:20 BST - fifty-seventh run [commit 071bfcf] - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack, last verified on 2026-08-08 as the thirteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time, and for the first time its four post buttons were fetched live. One in-repo gap closed and made permanent: nothing checked WHICH page a post button pointed at, so on a shared domain a button carrying the sister branch's page would have passed clean. New question Q43
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
