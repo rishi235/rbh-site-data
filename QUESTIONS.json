@@ -680,5 +680,21 @@
     "status": "open",
     "answer": null,
     "note": "Two things worth knowing before you pick. The 48 pages are already in a repaste queue for other reasons, because every branch running a switch page or a landing page is queued behind Q3, Q8, Q9 and Q13, so option 1 is not a new session so much as more work inside a session that has to happen anyway. And the Aintree pair does not appear in the 48 only because Clear Chemist Aintree has no Pharmacy First or contraception pages yet; the moment it gets them, Aintree joins Ainsdale, Bootle and Walton, which is the argument for option 1 over a hand-picked list of three towns."
+  },
+  {
+    "id": "Q45",
+    "date": "2026-08-11",
+    "item": "quality pass on 3.4 (finding, does not block any item)",
+    "question": "The CDN pin checker only ever read the 177 generated pages, so two things it was built to catch were invisible to it. First, the shared switch paste template modules/switch/weebly.html loads switch.css, switch.js and site-data.js from @main, while build-switch-pages.js pins the immutable 6a275e1. The stylesheet is identical at both refs, but switch.js is not: main sends prescription switch requests to helpdesk@rbhealth.co.uk and 6a275e1 sends them to your own inbox, so the same module has been running two destinations in public at once, split by whether a branch got the pasted embed or the generated page. The pasted half is the half that is already correct, and Q13 covers the generated half. Second, and larger: both modules/service/service.js and core/site-data.js fetch branches.json from @main at run time, so live resolves widget ids, phones, addresses and opening hours from main while every checker here validates this branch. The checker now reads all of it and the repo is green. The decision is what to do about that second hop.",
+    "options": [
+      "Merge agents/audit-backlog to main, which closes the data hop and the Q13 code hop together, because live already reads branches.json from main and the corrected switch.js would come with it. Needs your review of the branch, and a Weebly repaste only for pages already queued",
+      "Leave the runtime fetch on main and merge on the normal cycle, accepting that live renders main data until then. No work now, but every data correction this branch has made stays invisible to patients and the checker keeps warning",
+      "Repoint service.js and site-data.js at a dedicated stable data ref rather than main, so data releases become deliberate rather than a side effect of merging. Cleanest long term, but it ends the byte-identical state between main and service-module-phase1 that makes the Q13 fast-forward free, so it belongs in a supervised session",
+      "Change modules/switch/weebly.html to pin 6a275e1 so the pasted embed matches the generated pages. Consistent, but it would move the pasted branches off the correct helpdesk destination and onto the stale one, so it makes things worse until Q13 lands"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing in the repo is broken and all 19 checkers pass. The switch.css half is latent. The switch.js half is Q13 with a second side now visible, and the visible side is the one that is already right. The branches.json hop is the part worth a decision, because it is the reason merging this branch is not only tidiness: a wrong widget id or phone number corrected here does not reach a patient until main moves. Option 4 is listed only to be ruled out."
   }
 ]

@@ -84,6 +84,57 @@ If a pinned asset legitimately differs from main while a decision is pending,
 add it to KNOWN_DRIFT in that checker with a reason and a question id. Do not
 widen the checker to make it pass.
 
+### The pin checker only read the pages, and the chain has a second hop
+
+`check-cdn-pins.js` was written to see PAST the repo boundary, and until the
+item 3.4 quality pass on 2026-08-11 it still only read the 177 generated
+pages. Two kinds of file carry a pin and are not in `modules\*\pages\`, so the
+one checker whose whole job is what live actually loads could not see either.
+
+The first is public copy. `modules\switch\weebly.html` is the shared paste
+template, pasted into a Weebly embed on every branch running a switch page
+this repo does not generate. It loads switch.css, switch.js and site-data.js
+from `@main`, while `build-switch-pages.js` pins the immutable `6a275e1`. The
+stylesheet is byte-identical at both refs, so that half is latent. The script
+is not, and it sharpens Q13 rather than repeating it: main's `switch.js` sends
+prescription switch requests to `helpdesk@rbhealth.co.uk` and `6a275e1` sends
+them to `rishi@rbhealth.co.uk`, so the same module has been running TWO
+destinations in public at once, split by whether a branch got the pasted embed
+or the generated page. The pasted half is the half that is already correct.
+Q13 fixes the generated half; nothing had ever read the other one.
+
+The second is the one that matters more, because it is data rather than code.
+Both `modules\service\service.js` and `core\site-data.js` fetch
+`branches.json` from `@main` AT RUN TIME. So the booking chain has a hop the
+diagram above stops short of:
+
+    page pins service.js @service-module-phase1
+      -> service.js fetches branches.json @main
+        -> widget id, phone, address, hours
+
+Every checker in this repo validates `branches.json` on the CHECKED-OUT
+branch. Live resolves it from main. While the two differ, a live page can
+render a widget id, a phone number, an address or a set of opening hours this
+repo has already corrected, with all 19 checks green. That is the Q13 fault
+one layer down: Q13 is stale CODE behind a pin, this is stale DATA behind a
+pin, and it is the reason merging this branch is not only tidiness.
+
+The checker now reads both groups. `EXTRA_PASTE` holds the five public-copy
+files, `EXTRA_RUNTIME` holds the three served assets, a listed file that has
+gone FAILS the run (same convention as `EXTRA_HTML` in `check-em-dashes.js`),
+a paste file pinning a ref its own module's generator does not declare FAILS
+unless it is in `KNOWN_PIN_REF` with a reason and a question id, a stale
+`KNOWN_PIN_REF` entry FAILS, and a runtime data fetch that resolves to
+something other than the checked-out branch WARNS. A `core\` asset is reported
+rather than failed, because no generator declares a PIN for one and there is
+therefore nothing to compose an expected ref from.
+
+The rule worth carrying, and this is the third time this repo has found it:
+when a checker passes, ask WHICH FILES it read. `check-seo-lengths` rule 3 read
+the sheets and the H1 was not on one. `check-nap` read two phone shapes and the
+FAQ used a third. This one was built specifically to look past the repo and
+still only looked inside it.
+
 ## SEO strings - what Google actually shows
 
 The title and description that reach Google are the ones a human types into

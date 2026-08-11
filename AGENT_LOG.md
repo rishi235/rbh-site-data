@@ -2,6 +2,161 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 - sixty-second run - Quality pass on item 3.4, Cherry Lane Pharmacy, last verified on 2026-08-09 as the twentieth run, which made it the oldest verification standing. All 12 Cherry Lane pages verified clean and every one of the twentieth run's findings still holds. The gap was in the checker that run built. check-cdn-pins.js exists to see PAST the repo boundary and still only read the 177 generated pages, so it could not see the shared switch paste template pinning @main while its generator pins 6a275e1, and it could not see that service.js and site-data.js fetch branches.json from @main AT RUN TIME. That second one is a hop the booking chain diagram stops short of. Checker widened, four negative tests, Q45 raised
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+That is why the runtime data ref was not repointed on the spot: it changes what
+live pages load and it ends the byte-identical state that makes Q13's
+fast-forward free, so it went to Q45 with a recommendation.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. The newest entry is still the Q16 answer
+of 15:16 on 2026-08-10, which the thirty-third run already recorded. Twenty
+questions were open before this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q44,
+and none has been answered. Twenty-one are open now, because this run raised
+Q45.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running,
+worktree clean, branch agents/audit-backlog level with origin at 3c533f3. All
+19 checkers green before any change was made, so nothing below is a
+pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. Runs 59, 60 and 61 took 4.1, 3.2 and 3.3,
+the three items still standing on their 2026-08-09 verifications from runs 17,
+18 and 19. Item 3.4 is the twentieth run's item, verified 2026-08-09 23:34, and
+nothing has touched it since. Every other completed item has been verified on
+2026-08-10 or later. So 3.4 is next, and it is the last item still carrying a
+2026-08-09 verification.
+
+WHAT VERIFIED CLEAN. All 12 Cherry Lane pages were re-read from source rather
+than from the twentieth run's account of them: 11 service and 1 switch.
+  - The town divergence, which is the specific risk at this branch and the one
+    CLAUDE.md names as the worked example. Cherry Lane is postally Liverpool
+    and its seoTown is Walton. All 12 pages carry Walton in the H1 and the
+    slug, and Liverpool only inside schema.org addressLocality, which is postal
+    truth. addressRegion is Merseyside on all 12. Still the right way round on
+    every page.
+  - check-seo-pattern, check-seo-sheets, check-seo-lengths, check-jsonld,
+    check-nap, check-branch-identity, check-booking-routes, check-opening-hours
+    and check-brand-spelling all clean across the estate, including these 12.
+  - pfLink still points at pharmacy-first-cherry-lane-walton.html, which this
+    repo generates. Checked properly this time rather than by eye: the pfLink
+    leaf of every live branch was compared against the filename its brandSlug
+    and townSlug compose. Three branches point at a generated page (both
+    Fishlocks and Cherry Lane), Clear Chemist has no pfLink, and the other
+    eleven point at live-only pages. Those eleven are exactly the set Q8 and
+    worklist item 5.3 already cover, so this is a re-confirmation of a known
+    blocked item, not a new finding.
+  - The Walton pair is unchanged and still deliberate. Cherry Lane and Coleman
+    and Leighs both target Walton on separate domains, which the twentieth run
+    recorded as checked and left alone. The H1 half of it is now data rather
+    than a note, because the item 3.3 pass added rule 4 to check-seo-lengths on
+    2026-08-11 and these pages are among the 48 it reports against Q44.
+  - All six generators were run. Every one of the 177 pages regenerated
+    byte-identical, so this run creates no Weebly repaste burden of its own.
+
+THE GAP, AND IT IS IN THE CHECKER THE TWENTIETH RUN BUILT. That run wrote
+check-cdn-pins.js precisely because nothing looked past the repo at what the
+CDN actually serves. The checker has been green ever since. It reads the 177
+generated pages, and only those, so two kinds of file carrying a jsDelivr pin
+were invisible to the one checker whose whole job is what live loads.
+
+  1. PUBLIC PASTE COPY. modules/switch/weebly.html is the shared template a
+     human pastes into a Weebly embed on every branch running a switch page
+     this repo does not generate. It loads switch.css, switch.js AND
+     core/site-data.js from @main, while build-switch-pages.js declares
+     const PIN = "6a275e1". CLAUDE.md already lists this file under "the copy
+     that reaches the public without being generated", and check-em-dashes,
+     check-nap and check-brand-spelling were all widened to read it. The pin
+     checker never was.
+     - switch.css is byte-identical at both refs, so that half is latent.
+     - switch.js is NOT, and this sharpens Q13 rather than repeating it. main's
+       switch.js sends prescription switch requests to helpdesk@rbhealth.co.uk.
+       6a275e1 sends them to rishi@rbhealth.co.uk. So the same module has been
+       running TWO destinations in public at once, split by whether a branch
+       got the pasted embed or one of the 15 generated pages, and the pasted
+       half is the half that is already correct. Q13 fixes the generated half.
+       Nobody had ever read the other half.
+
+  2. THE SECOND HOP, WHICH IS THE ONE THAT MATTERS. Both
+     modules/service/service.js and core/site-data.js fetch branches.json from
+     @main at RUN TIME. The booking chain in CLAUDE.md stops at "service.js
+     routing table -> Appointedd widget id" and does not say where service.js
+     gets branches.json from. It gets it from main.
+
+         page pins service.js @service-module-phase1
+           -> service.js fetches branches.json @main
+             -> widget id, phone, address, hours
+
+     Every checker in this repo validates branches.json on the checked-out
+     branch. Live resolves it from main. While the two differ, and they differ
+     today, a live page can render a widget id, a phone number, an address or a
+     set of opening hours this repo has already corrected, with all 19 checks
+     green. That is the Q13 fault one layer down: Q13 is stale CODE behind a
+     pin, this is stale DATA behind a pin. It is also the concrete reason
+     merging this branch is not merely tidiness, which is worth having written
+     down next to Q3.
+
+WHAT WAS FIXED IN-REPO. check-cdn-pins.js now reads both groups.
+  - EXTRA_PASTE lists the five public-copy files, EXTRA_RUNTIME the three
+    served assets. A listed file that has gone FAILS the run, the same
+    convention as EXTRA_HTML in check-em-dashes.js, so neither list can rot.
+  - Rule 5: a paste file pinning a ref its own module's generator does not
+    declare FAILS, unless the exact file+asset+ref is in KNOWN_PIN_REF with a
+    reason and a question id. A KNOWN_PIN_REF entry that no longer fires FAILS.
+  - Rule 6: a runtime fetch of branches.json is resolved and compared against
+    the CHECKED-OUT branch, not against main. Comparing it to main would have
+    passed trivially and protected nothing, which is the "right answer in the
+    wrong unit" fault this repo has already recorded twice.
+  - A core/ asset is reported rather than failed, because no generator declares
+    a PIN for one, so there is no expected ref to compose.
+  - Two KNOWN_PIN_REF entries added against Q45 for the switch.css and
+    switch.js mismatches, so the run stays green while the decision is pending.
+
+TESTED BY BREAKING IT, FOUR WAYS, ALL RESTORED AFTERWARDS.
+  - A file listed in EXTRA_PASTE that is not in the repo: FAIL, naming it.
+  - KNOWN_PIN_REF emptied: 2 FAILs, one for switch.css and one for switch.js,
+    each naming the generator's ref.
+  - A KNOWN_PIN_REF entry pointed at an asset that is not pinned: FAIL as a
+    stale entry, plus the real mismatch it stopped covering.
+  - A runtime fetch repointed at a ref that does not exist: FAIL, naming the
+    file and the dead ref.
+
+ONE INCIDENTAL FIX, WORTH KNOWING ABOUT. The committed check-cdn-pins.js
+contained a literal NUL byte, used as the separator in seen[r.ref + "\0" +
+r.file]. That is why git has treated this file as BINARY since the twentieth
+run created it: "Binary files differ" instead of a reviewable diff. It is now a
+space, which is safe because no git ref contains one. This commit still shows
+as binary because the old side of the diff carries the NUL; from the next
+change onwards the file diffs as text. A checker whose diff nobody can read is
+a checker nobody reviews.
+
+NO PUBLIC COPY CHANGED. No generated page, no paste sheet and no GBP pack was
+touched. branches.json is unchanged. All 177 pages regenerated byte-identical
+after the change, and all 19 checkers pass, before and after.
+
+WHY Q45 RATHER THAN A FIX. Repointing the runtime data fetch is not something
+an unattended run should decide. CLAUDE.md already records that touching the
+module defaults ends the byte-identical state between origin/main and
+service-module-phase1, which is the only reason Q13's fast-forward is free, and
+the recommended answer here is the merge itself, which needs Rishi's review.
+The fourth option in Q45 is listed only to be ruled out: pinning weebly.html to
+6a275e1 would move the pasted branches OFF the correct helpdesk destination and
+onto the stale one.
+
+Files changed: tools/check-cdn-pins.js, CLAUDE.md, QUESTIONS.json,
+AGENT_LOG.md. AGENT_WORKLIST.md deliberately unchanged: this was a quality
+pass, so there was no item to tick, and Q45 blocks nothing.
+
+---
+
 ## 2026-08-11 - sixty-first run - Quality pass on item 3.3, Fishlocks Chemist Ainsdale and Eccleston, last verified on 2026-08-09 as the nineteenth run, which made it the oldest verification standing. All 26 pages verified clean and both of the nineteenth run's fixes still stand. The gap was in the rules again and it was one town over: no rule in this repo had ever compared one H1 to another, because check-seo-lengths reads the paste sheets and the H1 is not on one. A family A H1 carries no brand, so Fishlocks Ainsdale and Hirshmans Ainsdale publish eight byte-identical headings, and so do the Bootle and Walton pairs. 48 pages. New rule 4 in check-seo-lengths.js, and Q44 raised for the copy decision
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
