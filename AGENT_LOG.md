@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 18:10 BST - seventy-eighth run [commit hash recorded in a
-follow-up commit] - Quality pass on item 5.7, the McCanns Sandringham
+## 2026-08-11 18:10 BST - seventy-eighth run [commit 5456472, hash
+recorded in a follow-up commit] - Quality pass on item 5.7, the McCanns Sandringham
 local word move, last verified 2026-08-10 as the thirty-sixth run and the
 oldest verification standing after runs 76 and 77 refreshed 5.2 and 5.6.
 Repo half clean, no defect found. Live half produced one real finding
