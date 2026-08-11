@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 01:35 BST - fiftieth run [commit PENDING] - Quality pass on item 4.2, the Cherry Lane Pharmacy GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the third run of that day, which makes it the oldest verification standing. The pack is clean and nothing in it is wrong. Two in-repo defects found and fixed, both in checkers: two of the six profile-basics lines had never been read by anything, and the branch-name-as-place rule could not see the one construction that was actually breaking it. One copy correction. One new question, Q40
+## 2026-08-11 01:35 BST - fiftieth run [commit 1b862ba] - Quality pass on item 4.2, the Cherry Lane Pharmacy GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the third run of that day, which makes it the oldest verification standing. The pack is clean and nothing in it is wrong. Two in-repo defects found and fixed, both in checkers: two of the six profile-basics lines had never been read by anything, and the branch-name-as-place rule could not see the one construction that was actually breaking it. One copy correction. One new question, Q40
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
 2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
