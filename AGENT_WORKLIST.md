@@ -163,6 +163,19 @@ as data under test, and an untyped file is a failure rather than a skip.
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
       24 pages, 0 mismatches.
+      Quality pass 2026-08-11: all 26 Scorah pages re-read (12 Bramhall, 12
+      Hazel Grove, 2 landing). Title, H1 and description verified clean
+      against the pattern, exactly one H1 per page across the whole estate
+      of 177, and the sister town appears in only the two landing
+      descriptions where branches.json puts it in the branch's own
+      serviceAreaList. All 19 checkers pass. The gap found was not in the
+      pages but in the rules: every SEO rule in the repo was a PRESENCE rule
+      (the right town must be there) and none was an ABSENCE rule, so a page
+      naming its own town AND its sister branch's town passed everything.
+      The 2026-08-09 pass had proved that absent by hand and nothing
+      preserved it. check-seo-pattern.js now carries the cross-town rule,
+      excused only by the branch's own serviceAreaList, proved to bite by
+      injection on both the description and the H1 leg. No new question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.

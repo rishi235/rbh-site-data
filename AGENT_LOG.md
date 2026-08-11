@@ -2,6 +2,107 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 06:34 BST - sixtieth run [commit PENDING] - Quality pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified on 2026-08-09 as the eighteenth run, which made it the oldest verification standing. All 26 pages verified clean. The gap found was in the rules rather than the pages: every SEO rule in the repo was a presence rule and none was an absence rule, so a page naming its own town AND its sister branch's town passed all 19 checkers. check-seo-pattern.js now carries the cross-town rule. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision: the gap found was a checker defect and was
+fixed in place rather than raised.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 06:36 through the
+browser tools, read only. The newest entry is still the Q16 answer of 15:16 on
+2026-08-10, which the thirty-third run already recorded. Nineteen questions were
+open before this run and none has been answered: Q17 to Q22, Q24, Q28, Q29 and
+Q34 to Q43. Nineteen remain open.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin at 06c13e0. All 19 checkers green before
+any change was made, so nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary. The fifty-ninth run took 4.1, which was the seventeenth
+run's item of 2026-08-09; the next oldest is the eighteenth run's item 3.2 of
+the same day. Every completed item has now had at least one individual pass, so
+the order is a true ageing order rather than a backlog of never-verified items.
+
+WHAT VERIFIED CLEAN. All 26 Scorah pages were re-read from source rather than
+from the eighteenth run's account of them: 12 Bramhall, 12 Hazel Grove, and the
+two branch landing pages built under item 5.2.
+  - check-seo-pattern: 26 Scorah pages, 0 mismatches. Every SEO title and every
+    H1 equals what tools/seo-pattern.js produces for that branch and page type,
+    and every description carries the branch seoTown, a service word for the
+    page type and a length between 80 and 165.
+  - Exactly one H1 per page, checked across all 177 generated pages in the
+    estate rather than the 26, because the H1 regex in the checker reads only
+    the first one. Zero anomalies, so nothing is hiding behind a second H1.
+  - No generated page carries a rel=canonical, which is correct: these are
+    embed blocks pasted into Weebly pages and Weebly emits the canonical.
+  - Cross-town: the sister town appears in exactly two places, the two landing
+    descriptions, and branches.json puts Hazel Grove in Bramhall's own
+    serviceAreaList and Bramhall in Hazel Grove's, so both are facts about the
+    branch rather than leaks. No condition, overview, weight loss, travel or
+    switch page names the sister town anywhere.
+  - Data hygiene behind the rule: no two live seoTowns are substrings of each
+    other, and no live brandLabel contains another branch's seoTown, so a
+    word-boundary rule cannot fire on a coincidence today.
+
+THE GAP, WHICH IS IN THE RULES RATHER THAN THE PAGES. Every SEO rule this repo
+owns is a PRESENCE rule. checkTitle says the title must carry the branch's own
+seoTown. checkMeta says the description must carry it too. check-seo-lengths
+says no two pages may share a string. Not one of them is an ABSENCE rule, and
+the fault Phase 3 exists to prevent is a page carrying somebody ELSE'S town.
+
+The two units come apart cleanly on this very brand. A Scorah Bramhall
+description reading "Scorah Chemists Bramhall and Hazel Grove" carries
+Bramhall, so checkMeta passes; it is unique, so check-seo-lengths passes; the
+title and H1 are untouched, so the pattern comparison passes. All 19 checkers
+stay green and the two pages on one shared domain now compete for both towns
+instead of each owning its catchment. That is the whole point of item 3.2,
+arriving through the town that should not be there rather than the one that
+should.
+
+It is not theoretical for two reasons. Three brands put two branches on one
+domain: Scorah, Fishlocks and McCanns. And seoTown is a value that MOVES -
+item 5.7 changed McCanns Sandringham's from Sandringham to St Michael's on
+2026-08-10, which is exactly how a town word ends up on a page it does not
+belong on. The eighteenth run proved the absence by hand on 2026-08-09. A hand
+check that no rule replaces holds until the next regeneration and no longer.
+
+THE FIX. tools/check-seo-pattern.js now runs the absence rule over the same
+three strings it already reads for every typed page: a page must not name
+another live branch's seoTown in its title, H1 or description unless that town
+is in this branch's own serviceAreaList. It reads what the page ACTUALLY
+carries rather than what the pattern would produce, because the fault it looks
+for is drift. Matching is word-boundary rather than substring, which nothing
+rests on today but keeps the rule honest if a future town name sits inside
+another.
+
+serviceAreaList is the excuse rather than a hand-written exception list,
+because it is the branch's own catchment in the single source of truth. Five
+entries carry it today: Scorah both ways, McCanns Sandringham to Aigburth, and
+Clear Chemist to Walton and Bootle. If a branch stops serving a town, the fix
+is to remove it from branches.json and let this rule fail the pages that still
+say it. The checker fails rather than warns, and it has no KNOWN list.
+
+PROVED TO BITE. A rule that passes on clean data is indistinguishable from a
+rule that does nothing, so both legs were tested by injection and reverted:
+"Timperley" added to the uti-treatment-scorah-bramhall description failed with
+the branch that owns the town named in the message, and "Crosby" added to the
+pharmacy-first-scorah-hazel-grove H1 failed the same way. git checkout reverted
+both and git status confirmed the worktree carried nothing but the checker
+change afterwards.
+
+STATE AT THE END. All 19 checkers pass and the seo-pattern self-test passes.
+No generated page changed, so nothing enters the Weebly paste queue and no
+regeneration was needed. Files changed: tools/check-seo-pattern.js, CLAUDE.md,
+AGENT_WORKLIST.md, AGENT_LOG.md. No new question, so QUESTIONS.json is
+unchanged and nineteen questions remain open for Rishi.
+
 ## 2026-08-11 06:04 BST - fifty-ninth run [commit 400bcaa] - Quality pass on item 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified on 2026-08-09 as the seventeenth run, which made it the oldest verification standing. Both halves verified clean. One real gap closed: the hours rule read clock TIMES and never read DAYS, although a Google profile is set day by day, so a pack could publish a Saturday opening for a shop the data holds as closed and pass every check. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

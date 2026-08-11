@@ -123,6 +123,37 @@ to make a run pass, and remove the entry once the question is answered and
 applied - the checker fails on a stale KNOWN key.
 
 
+### The town rules are a pair: presence AND absence
+
+Every SEO rule above is a PRESENCE rule - the page's own seoTown has to be in
+the title and in the description. Presence rules cannot see the fault Phase 3
+was written against, which is a page carrying somebody ELSE'S town. A
+description reading "Scorah Chemists Bramhall and Hazel Grove" satisfies the
+seoTown rule for both Scorah branches at once, and the two pages then compete
+for both towns on one shared domain instead of each owning its catchment.
+
+So `check-seo-pattern.js` also runs an ABSENCE rule over the same three
+strings it already reads (title, H1, description): a page must not name
+another live branch's seoTown unless that town is in this branch's own
+`serviceAreaList`. Matching is word-boundary, not substring.
+
+`serviceAreaList` is the excuse, and it is the right one rather than a hole,
+because it is the branch's own catchment in the single source of truth.
+Bramhall genuinely serves Hazel Grove and says so in branches.json, so its
+landing description naming Hazel Grove is a fact about the branch. Five
+entries carry that excuse today: Scorah both ways, McCanns Sandringham to
+Aigburth, and Clear Chemist to Walton and Bootle. If a branch stops serving a
+town, remove it from `serviceAreaList` and let the rule fail the pages that
+still say it. Do not add an exception list to the checker.
+
+It matters most on the three shared-domain pairs - Scorah (Bramhall / Hazel
+Grove), Fishlocks (Ainsdale / Eccleston), McCanns (Aigburth / St Michael's) -
+and it is not theoretical, because seoTown MOVES: item 5.7 changed McCanns
+Sandringham's from Sandringham to St Michael's on 2026-08-10, which is how a
+town word ends up on the wrong page. Added on the item 3.2 quality pass,
+2026-08-11, replacing a hand check made on 2026-08-09 that no rule preserved.
+
+
 The title limit is not only checked, it is fitted to. `tools\seo-pattern.js`
 composes every title through `fitTitle()`: if the composed string runs past 65
 characters it is retried once with " Pharmacy" dropped from the end of the

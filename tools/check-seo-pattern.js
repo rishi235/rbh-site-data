@@ -21,6 +21,14 @@
   - A file it cannot type is a FAILURE, not a skip. An unchecked page and a
     passing page used to look the same in the summary line.
 
+  Third thing it refuses to do quietly, added on the item 3.2 quality pass,
+  2026-08-11: a page must not carry ANOTHER live branch's seoTown in its
+  title, H1 or description unless that town is in this branch's own
+  serviceAreaList. See CROSS-TOWN below. Until this landed, every rule here
+  was a PRESENCE rule - the right town has to be there - and nothing was an
+  ABSENCE rule, so a page could name its own town and its sister branch's
+  town and pass everything.
+
   Run:  node tools/check-seo-pattern.js
   Exits 1 on any mismatch. Reports per brand so the Phase 3 worklist items
   (one brand each) can be verified individually.
@@ -43,6 +51,73 @@ data.branches.forEach(function (b) {
 function fail(msg) {
   console.error("check-seo-pattern FAIL: " + msg);
   process.exit(1);
+}
+
+// ---------------------------------------------------------------------------
+// CROSS-TOWN - the absence rule (item 3.2 quality pass, 2026-08-11)
+// ---------------------------------------------------------------------------
+// Everything above this line is a PRESENCE rule: the title must carry the
+// branch's own seoTown, the description must carry it too. Presence rules
+// cannot see the fault Phase 3 exists to prevent, which is a page carrying
+// SOMEBODY ELSE'S town. A description reading "Scorah Chemists Bramhall and
+// Hazel Grove" satisfies the seoTown rule for both Scorah branches at once,
+// and both pages then compete for both towns on one shared domain instead of
+// each owning its own catchment. That is the exact failure Build Pack v2
+// section 1.4 is written against, and on 2026-08-09 the item 3.2 pass proved
+// it absent BY HAND. Nothing preserved that. A hand check that no rule
+// replaces is a check that holds until the next regeneration.
+//
+// Three shared-domain pairs make it live rather than theoretical: Scorah
+// (Bramhall / Hazel Grove), Fishlocks (Ainsdale / Eccleston) and McCanns
+// (Aigburth / St Michael's). Item 5.7 also proved seoTown is a value that
+// MOVES: McCanns Sandringham's went from Sandringham to St Michael's on
+// 2026-08-10, which is how a town word ends up on the wrong page in the
+// first place.
+//
+// The excuse is serviceAreaList, and it is the right excuse rather than a
+// hole, because that list is the branch's own catchment in the single source
+// of truth. Bramhall genuinely serves Hazel Grove and says so in
+// branches.json, so its landing description naming Hazel Grove is a fact
+// about the branch, not a leak. Five entries carry that excuse today
+// (Scorah both ways, McCanns Sandringham -> Aigburth, Clear Chemist ->
+// Walton and Bootle). If a branch stops serving a town, the fix is to remove
+// it from serviceAreaList and let this rule fail the pages that still say it.
+//
+// Matching is word-boundary rather than substring so a town cannot be found
+// inside a longer word. No two live seoTowns are substrings of each other
+// today and no live brandLabel contains another branch's seoTown, both
+// checked on the pass, so nothing rests on that - it is here so the rule
+// stays honest if a future town name is added that does.
+var townOwners = {};   // seoTown -> [branch id]
+data.branches.forEach(function (b) {
+  if (b.disposed || b.id === "rbh_head_office_aintree" || !b.seoTown) return;
+  (townOwners[b.seoTown] = townOwners[b.seoTown] || []).push(b.id);
+});
+var OTHER_TOWNS = Object.keys(townOwners);
+if (!OTHER_TOWNS.length) fail("branches.json yields no live seoTown, so the cross-town rule would check nothing");
+
+function townRe(town) {
+  var esc = town.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp("(^|[^a-z0-9])" + esc + "([^a-z0-9]|$)", "i");
+}
+var TOWN_RE = {};
+OTHER_TOWNS.forEach(function (t) { TOWN_RE[t] = townRe(t); });
+
+// Returns a list of problem strings for one page's three public strings.
+function checkCrossTown(b, fields) {
+  var problems = [];
+  var areas = (b.serviceAreaList || []).map(function (s) { return String(s).toLowerCase(); });
+  Object.keys(fields).forEach(function (fieldName) {
+    var value = fields[fieldName] || "";
+    OTHER_TOWNS.forEach(function (t) {
+      if (t === b.seoTown) return;
+      if (!TOWN_RE[t].test(value)) return;
+      if (areas.indexOf(t.toLowerCase()) !== -1) return; // in this branch's own catchment
+      problems.push(fieldName + " names '" + t + "', the seoTown of " +
+        townOwners[t].join(" and ") + ", and '" + t + "' is not in this branch's serviceAreaList");
+    });
+  });
+  return problems;
 }
 
 // ---------------------------------------------------------------------------
@@ -166,7 +241,7 @@ var DIRS = [
 ];
 
 var perBrand = {}; // brandLabel -> { pages: n, fails: [] }
-var checked = 0, fails = 0;
+var checked = 0, fails = 0, crossTownChecked = 0;
 var untyped = [];  // files this checker could not type: unchecked, not skipped
 
 DIRS.forEach(function (dir) {
@@ -194,15 +269,25 @@ DIRS.forEach(function (dir) {
     });
 
     var dm = /Weebly page SEO description:\s*(.+?)\s*$/m.exec(html);
+    var gotDesc = null;
     if (!dm) {
       perBrand[brand].fails.push(file + ": no SEO description line");
       fails++;
     } else {
-      pat.checkMeta(dm[1].trim(), exp.b, exp.sw).forEach(function (p) {
+      gotDesc = dm[1].trim();
+      pat.checkMeta(gotDesc, exp.b, exp.sw).forEach(function (p) {
         perBrand[brand].fails.push(file + ": " + p);
         fails++;
       });
     }
+
+    // The absence rule. Runs on what the page ACTUALLY carries, not on what
+    // the pattern would produce, because the fault it looks for is drift.
+    crossTownChecked++;
+    checkCrossTown(exp.b, { title: gotTitle, h1: gotH1, description: gotDesc || "" }).forEach(function (p) {
+      perBrand[brand].fails.push(file + ": " + p);
+      fails++;
+    });
   });
 });
 
@@ -228,5 +313,7 @@ Object.keys(KNOWN_NON_PAGE).forEach(function (file) {
 });
 
 console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-service-pages.js: " + CONDITION_SLUGS.join(", "));
+console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
+  " live seoTowns (" + OTHER_TOWNS.join(", ") + "), serviceAreaList excusing the branch's own catchment.");
 console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");
 process.exit(fails ? 1 : 0);
