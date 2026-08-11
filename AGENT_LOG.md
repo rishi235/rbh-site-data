@@ -2,6 +2,76 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 17:10 BST - seventy-sixth run [commit hash recorded in a
+follow-up commit] - Quality pass on item 5.2, the six branch landing pages,
+last verified 2026-08-10 17:05 as the thirty-fourth run, which after runs 51
+to 72 cleared phases 1 to 4 and item 5.1 made it the oldest verification
+standing. Repo half verified clean. The pass closed the live-side unknown
+INDEX.md has carried since 2026-08-10: all thirty service pages the six
+landing pages link to are now confirmed live, so the paste order constraint
+has dissolved for all three pairs. No defect found in any generated page. The
+one in-repo fix is the stale live-state note, refreshed at source in the
+generator. No new question raised.
+
+CLOCK NOTE. This machine reads 17:10 BST now, which is earlier than the
+seventy-fifth run's own 17:40 BST header written before it. One of the two
+timestamps is wrong; entry order in this file is the reliable sequence.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run needed
+it: no decision was taken, only verification and a dated factual note.
+
+ANSWER PICKUP UNAVAILABLE. The portal fetch returned the Cloudflare Access
+login page, so Chrome held no live Access session at run time. No login
+attempted, one tab opened and closed, nothing clicked or typed. Open
+questions were 31 before the run and 31 after; none raised, none answered.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 28 checkers green
+before any change, and all six page generators reproduced every page
+byte-identical, so the item's repo half is attributable and clean.
+
+WHY THIS ITEM. All five unchecked worklist items are [BLOCKED]: 5.3 and 5.4
+wait on a Weebly session, 5.5 waits on pushing a branch other than this one,
+5.8 waits on Rishi at Q22, and 6.1 waits on Rishi at Q52. So the rule sends
+the run to a quality pass. The ageing order was re-derived from the run
+headings: runs 73 to 75 were real items (6.1 to 6.3), so no verification has
+aged past run 34's pass on 5.2, and 5.2 is older than 5.6 and 5.7 (runs 35
+and 36) and 5.1 (run 72).
+
+REPO HALF, ALL HOLDING. The run 34 fix holds: McCanns Sandringham leads with
+St Michael's in the hero sentence and areaServed, not the sister branch's
+Aigburth. Sister cross-links are reciprocal in all three pairs. All six pages
+are pure ASCII. Titles, descriptions, hours and link targets are covered by
+the standing checkers (check-seo-lengths, check-opening-hours,
+check-branch-links, check-page-coverage among the 28), all green.
+
+LIVE HALF, THE POINT OF THIS PASS. INDEX.md's live-state note recorded one
+reading on 2026-08-10: all six landing URLs 404, Fishlocks service pages
+live, McCanns and Scorah service pages explicitly NOT checked. Re-read today
+by plain GET, 42 fetches, no clicks, no login: all six landing URLs still
+404, and every service page linked from every landing page returns 200,
+thirty distinct URLs across fishlockpharmacy.co.uk, mccannspharmacy.co.uk and
+scorah-chemists.co.uk. So the "paste service pages first or the landing page
+links 404" constraint is satisfied everywhere, and the six pastes can happen
+in any order, singly or together. The six GBP packs still point their website
+field at these six URLs, so the packs and the shared-domain split are both
+waiting on the same six pastes and nothing else. Evidence:
+audits/landing-live-check-2026-08-11.txt.
+
+WHAT CHANGED. The LIVE STATE paragraph INDEX.md carries is hardcoded in
+tools/build-branch-landing-pages.js, so it was rewritten there and INDEX.md
+was regenerated from it rather than hand-edited; the regenerated file matches
+the generator exactly and all six landing pages reproduced byte-identical.
+All 28 checkers re-run green after the change. No question raised: the paste
+itself is a Weebly session task already recorded against this item and 5.3
+and 5.4, and needs no new decision from Rishi.
+
+FILES CHANGED. tools/build-branch-landing-pages.js (live-state note),
+modules/branch/pages/INDEX.md (regenerated), audits/
+landing-live-check-2026-08-11.txt (new), AGENT_WORKLIST.md (quality pass note
+under 5.2), AGENT_LOG.md (this entry), status/index.html (regenerated).
+
 ## 2026-08-11 17:40 BST - seventy-fifth run [commit d9c5829, hash recorded in a follow-up commit] - Item 6.3, opening
 hours on the live estate vs branches.json. All 14 trading branches
 checked, 13 match, the one mismatch is the known Smartts case,

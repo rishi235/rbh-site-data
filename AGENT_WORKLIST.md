@@ -855,6 +855,15 @@ so tools/build-audit-status.js picks them up like any other item.
       answer and its areaServed schema. St Michael's now leads the list. Taken
       as an autonomous decision under the standing window and recorded as Q23
       for review.
+      Quality pass 2026-08-11: repo half clean and byte-stable, all 28
+      checkers green, sister links reciprocal in all three pairs, Sandringham
+      still leads St Michael's, all six pages pure ASCII. Live half re-read:
+      all six landing URLs still 404, unchanged since 2026-08-10, but all
+      thirty service pages they link to now return 200 across the three
+      domains, so the paste prerequisite is met for every pair and the six
+      pages can be pasted in any order with no 404 risk. INDEX.md live-state
+      note refreshed at source in the generator. Evidence:
+      audits/landing-live-check-2026-08-11.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

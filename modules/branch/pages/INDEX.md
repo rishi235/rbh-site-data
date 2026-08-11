@@ -13,20 +13,20 @@ contraception-). Those pages exist in this repo but are not live on every
 site yet. Paste the branch's service pages first, or paste them in the same
 session, so the landing page does not link to pages that return a 404.
 
-LIVE STATE, READ 2026-08-10: not one of these pages is live. All six URLs
-below were fetched that day and all six returned a 404. The
-fishlockpharmacy.co.uk sitemap was read in the same pass: it lists 40 live
-pages, including every one of that branch pair's service pages, and neither
-landing page. The shared-domain split therefore exists in this repo
-and nowhere else: it has reached neither a visitor nor Google, although the
-work has been ticked since 2026-08-04 and verified clean three times. Two
-things follow. The Fishlocks pair's service pages ARE live and indexed, so
-for that pair the prerequisite in the paragraph above is already met and the
-two landing pages can be pasted on their own; the McCanns and Scorah service
-pages were not checked in this pass, so check them before assuming the same.
-And the six packs in gbp-packs/ each set the Google
-profile website to the matching URL below, so six Google Business Profiles
-are waiting on this paste and no other. Re-read this before trusting it: it
+LIVE STATE, READ 2026-08-11: not one of these pages is live. All six URLs
+below were fetched again that day and all six still returned a 404, unchanged
+from the 2026-08-10 reading. But the prerequisite question the previous
+reading left open is now closed: every service page these six pages link to
+was fetched in the same pass, thirty URLs across the three domains (five per
+branch: pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,
+travel-clinic-, contraception-), and all thirty returned 200. The paste
+order constraint in the paragraph above is therefore already satisfied for
+ALL THREE pairs, not just Fishlocks: each of the six landing pages can be
+pasted on its own, in any order, and no link on it will 404. The only thing
+between the shared-domain split and a visitor or Google is the six Weebly
+pastes themselves. The six packs in gbp-packs/ each set the Google profile
+website to the matching URL below, so six Google Business Profiles are
+waiting on this paste and no other. Re-read this before trusting it: it
 records one reading on one day, not a standing fact.
 
 ## Fishlocks Chemist Ainsdale
