@@ -612,6 +612,42 @@ public copy. Nothing in this repo can see a live-only Weebly page, which is why
 the five pages in Q16 and Q22 sat unseen for the whole audit.
 
 
+## The one fact in a pack that is about another branch
+
+Every fact in a GBP pack's profile basics is composed from `branches.json` and
+guarded: the name, the street address, the phone, the postcode, the review
+link, the profile website, the hours, and since the item 4.4 pass the target of
+every post button. One fact in a pack is not about this branch at all, and it
+was read by nothing until the item 4.5 pass on 2026-08-11.
+
+Two packs tell a reader that the shop has a SISTER branch and name the town it
+is in, and both do it inside the business description, which is pasted verbatim
+into a public Google profile: `scorah-hazel-grove.md` says "Our sister branch is
+in Bramhall" and `scorah-bramhall.md` says "our sister branch in Hazel Grove is
+close by". `mccanns-sandringham.md` carries a third in a paster note.
+
+The fault this lets through is not hypothetical for this group. Wilmslow was
+disposed on 1 June 2026, which is why the generators had to learn to skip a
+disposed branch at item 1.4. A disposal removes a branch from the live set and
+from every generated page automatically, and it would leave the sentence
+standing on a public profile, sending patients to a pharmacy the group no
+longer owns. A rename does the same thing more quietly: change a `seoTown` and
+every page the sister owns moves, while the sentence naming it keeps the old
+word and every other check stays green.
+
+`check-gbp-packs.js` now holds two rules, both composed from `branches.json` so
+nothing is hardcoded: a pack may claim a sister only if another live branch
+carries the same `brandLabel`, and the sentence must name that sister's own
+`seoTown`. Reading is sentence-bounded on whitespace-collapsed text, because
+both live examples wrap mid-sentence and these files are CRLF. Exceptions go in
+`KNOWN_SISTER` keyed `<branch id>::sisterBranch` with a reason and a question
+id, and a key that no longer fires fails the run.
+
+The general rule worth carrying: when a pack states a fact, ask which file owns
+it. A fact about THIS branch has a source in `branches.json` and somebody has
+usually already guarded it. A fact about another branch, another site or the
+world outside the repo has no owner by default, and that is the one that rots.
+
 ## The trading name, and the rename that no checker would notice
 
 Item 1.1 settled the trading names on 2026-08-04: Fishlocks not Fishlock,

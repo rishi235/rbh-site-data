@@ -2,6 +2,102 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 05:35 BST - fifty-eighth run - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack, last verified on 2026-08-09 as the fourteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time. One in-repo gap closed and made permanent: nothing read the one fact in a pack that is about ANOTHER branch, the sister-branch claim, although two packs carry it inside the description that is pasted verbatim into a public Google profile. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision: the gap found was a checker defect and was
+fixed in place rather than raised.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 05:34. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10. Nineteen questions were open
+before this run and none has been answered: Q17 to Q22, Q24, Q28, Q29 and Q34
+to Q43. Nineteen remain open.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary. It agrees: the fifty-seventh run took 4.4, which leaves
+the fourteenth run's item 4.5 of 2026-08-09 as the oldest verification standing,
+then 4.1, 3.2, 3.3 and 3.4, all also 2026-08-09. Item 4.5 taken this run.
+
+THE PACK VERIFIED CLEAN, FOR THE SECOND TIME. Every fact re-checked against the
+branches.json entry for scorah_hazel rather than against the fourteenth run's
+account of it: branchName Scorah Chemists Hazel Grove, street address 87
+Macclesfield Road, locality Hazel Grove, postcode SK7 6BG, phone 01625 872267,
+the Google review link, the five catchment towns in the order branches.json
+holds them, hasApp false and no app mention anywhere, and the hours line
+including the Saturday closure that took effect on 24 June 2026. The
+description is 712 characters, exactly the count it claims about itself, and
+all four posts are inside 1,500. The category set still earns Travel clinic,
+Vaccination centre and Weight loss service from the branch's widget set, and
+the contraception and blood pressure claims are both held in widgets. All four
+post buttons resolve under the derived brandSlug-townSlug rule, and Post A
+carries the branch's own pfLink. No em dash, no emoji, no medicine name, no
+efficacy claim, no near-miss on the trading name.
+
+One thing checked and cleared rather than reported as a finding. The pack
+writes the address with a post town, "Hazel Grove, Stockport SK7 6BG", where
+branches.json holds Hazel Grove as the locality and Greater Manchester as the
+region. Read across all fifteen packs before judging it: Southport, Altrincham,
+Stockport and Liverpool all appear the same way, including on the sister pack,
+so it is the house convention for a postal address and not a drift on this one
+pack.
+
+THE GAP, WHICH IS IN THE CHECKER RATHER THAN THE PACK. check-gbp-packs.js
+composes every fact in the profile basics from branches.json and guards it: the
+name, the address, the phone, the postcode, the review link, the profile
+website, the hours, and since the fifty-seventh run the target of every post
+button. One fact in a pack is not about this branch at all. Two packs tell a
+reader the shop has a SISTER branch and name the town it is in, and both do it
+INSIDE the business description, which is pasted verbatim into a public Google
+profile: this pack says "Our sister branch is in Bramhall" and scorah-bramhall
+says "our sister branch in Hazel Grove is close by". A third sits in a paster
+note on mccanns-sandringham. Nothing had ever read any of them.
+
+WHY IT MATTERS HERE RATHER THAN IN THE ABSTRACT. Wilmslow was disposed on 1
+June 2026, and item 1.4 exists because the generators had to learn to skip a
+disposed branch. A disposal takes a branch out of the live set and out of every
+generated page automatically, and it would leave this sentence standing on a
+public profile, sending patients to a pharmacy the group no longer owns, with
+every other check green. A rename does the same more quietly: change a seoTown
+and every page the sister owns moves, while the sentence keeps the old word.
+
+WHAT WAS BUILT. Two rules in check-gbp-packs.js, both composed from
+branches.json so nothing is hardcoded. A pack may claim a sister only if
+another live branch carries the same brandLabel, and the sentence must name
+that sister's own seoTown. Reading is sentence-bounded on whitespace-collapsed
+text, because both live examples wrap mid-sentence and these files are CRLF,
+which is the same under-reading trap the item 4.8 and 4.10 passes had to design
+around in the hours reader. Exceptions go in KNOWN_SISTER keyed
+<branch id>::sisterBranch with a reason and a question id, and a stale key
+fails the run, the same anti-rot convention as the five KNOWN maps already in
+the file.
+
+TESTED BY BREAKING IT FOUR WAYS, each mutation applied to a copy, run, and
+reverted, with the revert verified: mark scorah_bramhall disposed, and this
+pack fails because no live branch carries the brand; rename the sister's
+seoTown to Cheadle Hulme, and it fails because the sentence names a town that
+is no longer a sister's; change the sentence to name Poynton, a town in this
+branch's own catchment but not a sister's, and it fails; add a KNOWN_SISTER
+entry while the rule is clean, and the run fails as stale. The unmodified repo
+passes both before and after.
+
+VERIFICATION. All 19 checkers pass. All seven build scripts were run and
+reproduced every one of the 177 pages byte-identical; the only diff is the
+build timestamp on status/index.html, which is expected. Note that
+build-status-page.js still reports "0 questions" against a real 19, which is
+the defect Q42 records and is not touched here.
+
+FILES CHANGED. tools/check-gbp-packs.js (the new rule, its KNOWN map, its
+stale sweep and the header comment), CLAUDE.md (a new section, "The one fact in
+a pack that is about another branch"), AGENT_WORKLIST.md (4.5 ticked in place
+with the pass recorded), status/index.html (regenerated), AGENT_LOG.md (this
+entry). QUESTIONS.json unchanged: no decision was needed.
+
 ## 2026-08-11 05:20 BST - fifty-seventh run [commit 071bfcf] - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack, last verified on 2026-08-08 as the thirteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time, and for the first time its four post buttons were fetched live. One in-repo gap closed and made permanent: nothing checked WHICH page a post button pointed at, so on a shared domain a button carrying the sister branch's page would have passed clean. New question Q43
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

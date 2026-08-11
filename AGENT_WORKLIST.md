@@ -285,6 +285,20 @@ the two Weebly-native address faults found live on scorah-chemists.co.uk.
       PF page link, and the Q3/Q4 checks before pasting. No app mention
       (hasApp false); weight loss post has no medicine names or efficacy
       claims.
+Quality pass 2026-08-11: the pack verified fact by fact against branches.json
+for the second time and found correct on name, street address, post town,
+postcode, phone, hours including the 24 June Saturday closure, review link,
+catchment order, profile website pointed at its own landing page, categories
+and services earned by the widget set, the 712-character description, all four
+post lengths, all four post button targets, brand spelling, house style and POM
+advertising. All 19 checkers pass and all seven generators reproduce every page
+byte-identical. One real gap closed, in the checker rather than the pack: a pack
+that names a SISTER branch was read by nothing, although two packs carry that
+claim inside the business description, which is pasted verbatim into a public
+Google profile. check-gbp-packs.js now requires a claimed sister to be a live
+branch on the same brandLabel and requires the sentence to name that sister's
+own seoTown, both composed from branches.json. Four negative tests fire:
+sister disposed, sister renamed, wrong town named, stale KNOWN entry.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

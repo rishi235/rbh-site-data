@@ -50,6 +50,13 @@
       while they are in the profile (Build Pack v2 4.1, TEMPLATE.md
       section 4). Until the item 4.3 quality pass this section was only ever
       checked for its heading
+    - A sister branch named in a pack is a real, live branch on the same
+      brand, and the sentence names that sister's own seoTown. Two packs
+      carry the claim inside the business description, which is pasted
+      verbatim into a public Google profile, and it is the one fact in a
+      pack that is about ANOTHER branch. A disposal or a rename would leave
+      the sentence standing and correct-looking. Found on the item 4.5
+      quality pass, 2026-08-11
 */
 "use strict";
 const fs = require("fs");
@@ -127,6 +134,14 @@ const seenIdentityKnown = {};
 // longer matches a real breach fails the run.
 const KNOWN_PHOTOS = {};
 const seenPhotosKnown = {};
+
+// Accepted exceptions to the sister-branch rule, keyed
+// "<branch id>::sisterBranch". Use one only where a pack deliberately names
+// a sister the estate no longer models as one, and say so with a question
+// id. Same anti-rot convention: a key that no longer matches a real breach
+// fails the run.
+const KNOWN_SISTER = {};
+const seenSisterKnown = {};
 
 const fails = [];
 const warns = [];
@@ -1027,6 +1042,68 @@ for (const file of packFiles) {
       fail(file, `this branch closes for lunch (${splitDay} appears twice in openingHours), so the pack must tell the paster the profile needs two time ranges for that day rather than one. Google's hours editor offers a single range first, and a single range publishes the pharmacy as open through the hour it is shut`);
     }
   }
+
+  // --- a sister branch named in prose must be a real, live sister --------
+  // Three packs tell a reader that this shop has a sister branch and name
+  // the town it is in. scorah-hazel-grove.md says "Our sister branch is in
+  // Bramhall", scorah-bramhall.md says "our sister branch in Hazel Grove is
+  // close by", and both of those sentences sit INSIDE the business
+  // description, which is pasted verbatim into a public Google profile.
+  // mccanns-sandringham.md carries the third in a paster note.
+  //
+  // Nothing read them. Every other fact in the profile basics is composed
+  // from branches.json and guarded - the name, the address, the phone, the
+  // postcode, the review link, the profile website, the hours, and since
+  // the item 4.4 pass the target of every post button. A sister claim is
+  // the one fact in a pack that is about ANOTHER branch, and it was typed
+  // by hand and agreed with nothing.
+  //
+  // The fault it lets through is not hypothetical for this group. Wilmslow
+  // was disposed on 1 June 2026, which is why the generators had to learn
+  // to skip a disposed branch at item 1.4. A disposal takes a branch out of
+  // branches.json's live set and out of every generated page automatically,
+  // and it would leave this sentence standing, on a public profile, sending
+  // patients to a pharmacy the group no longer owns. A rename does the same
+  // thing more quietly: change a seoTown and the sister's own pages all
+  // move, while the sentence naming it keeps the old word.
+  //
+  // Two rules, both composed from branches.json so nothing is hardcoded:
+  // a pack may only claim a sister if this branch really has one, meaning
+  // another live branch carrying the same brandLabel; and the sentence must
+  // name that sister's seoTown. Reading is sentence-bounded and whitespace
+  // is collapsed first, for the CRLF reason set out above and because both
+  // live examples wrap mid-sentence.
+  const flatForSister = text.replace(/\s+/g, " ");
+  const sisterSentences = (flatForSister.match(/[^.]*\bsister branch(?:es)?\b[^.]*\./gi) || []);
+  if (sisterSentences.length) {
+    const sisters = branches.filter(
+      (o) => isPackable(o) && o.id !== b.id && o.brandLabel && o.brandLabel === b.brandLabel
+    );
+    const key = `${b.id}::sisterBranch`;
+    const known = KNOWN_SISTER[key];
+    const towns = sisters.map((o) => o.seoTown).filter(Boolean);
+    const named = sisterSentences.filter((s) =>
+      towns.some((t) => new RegExp(`\\b${escapeRe(t)}\\b`, "i").test(s))
+    );
+    let breach = null;
+    if (!sisters.length) {
+      breach = `the pack claims a sister branch, but no other live branch in branches.json carries the brand ${b.brandLabel}. A pack description is pasted verbatim into a public Google profile, so this would send patients to a pharmacy the group does not have`;
+    } else if (!named.length) {
+      breach = `the pack claims a sister branch but names no town belonging to one. This branch's live sisters are ${sisters.map((o) => `${o.branchName} (${o.seoTown})`).join(", ")}, and the sentence reads "${sisterSentences[0].trim()}"`;
+    }
+    if (breach) {
+      if (known) {
+        seenSisterKnown[key] = true;
+        warn(file, `KNOWN ${breach}. ${known.question}: ${known.reason}`);
+      } else {
+        fail(file, breach);
+      }
+    } else if (known) {
+      // Recorded here rather than silently ignored: the anti-rot sweep
+      // below turns an exception that stopped applying into a failure.
+      seenSisterKnown[key] = false;
+    }
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------
@@ -1056,6 +1133,11 @@ for (const key of Object.keys(KNOWN_IDENTITY)) {
 for (const key of Object.keys(KNOWN_PHOTOS)) {
   if (!seenPhotosKnown[key]) {
     fails.push(`stale exception: KNOWN_PHOTOS["${key}"] no longer matches a pack with a short photo shot list, no vinyl storefront shot or no pending-Google-updates reminder. Remove it (${KNOWN_PHOTOS[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_SISTER)) {
+  if (!seenSisterKnown[key]) {
+    fails.push(`stale exception: KNOWN_SISTER["${key}"] no longer matches a pack claiming a sister branch that is not a live branch on the same brand. Remove it (${KNOWN_SISTER[key].question}).`);
   }
 }
 
