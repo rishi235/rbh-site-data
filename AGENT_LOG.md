@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 06:04 BST - fifty-ninth run - Quality pass on item 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified on 2026-08-09 as the seventeenth run, which made it the oldest verification standing. Both halves verified clean. One real gap closed: the hours rule read clock TIMES and never read DAYS, although a Google profile is set day by day, so a pack could publish a Saturday opening for a shop the data holds as closed and pass every check. No new question
+## 2026-08-11 06:04 BST - fifty-ninth run [commit 400bcaa] - Quality pass on item 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified on 2026-08-09 as the seventeenth run, which made it the oldest verification standing. Both halves verified clean. One real gap closed: the hours rule read clock TIMES and never read DAYS, although a Google profile is set day by day, so a pack could publish a Saturday opening for a shop the data holds as closed and pass every check. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
