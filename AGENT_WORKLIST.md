@@ -1063,6 +1063,24 @@ so tools/build-audit-status.js picks them up like any other item.
       usual anti-rot exception list, negative-tested three ways. All 14
       other packs already complied and none moved. Logged as Q25, taken as
       an autonomous decision under the standing window.
+      Quality pass 2026-08-11: repo half verified clean again end to end,
+      29 checkers green and all six generators byte-identical. Live half
+      read by plain GET: the branch landing page still 404s (waits on the
+      queued paste run) and all nine content pages return 200 with titles
+      and H1s still leading with Sandringham, so the recorded repaste
+      stands. New observation: every live title on mccannspharmacy.co.uk
+      carries a trailing " - MCCANNS PHARMACY". Cross-domain comparison
+      shows this is Weebly's default title, built as page name plus site
+      title, served only where the SEO title field was never pasted:
+      Fishlocks Ainsdale, which was pasted, serves its SEO.md title
+      verbatim with no suffix, while Scorah Bramhall shows the same
+      default construction as McCanns. So the queued repaste fixes the
+      old word, the over-length titles and the suffix in one action and
+      no new decision is needed. It also reframes the 2026-08-11 Coleman
+      and Leighs finding: that live title is plausibly the same default
+      construction rather than a hand-typed SEO field; the recorded fix
+      is unchanged. Evidence:
+      audits/sandringham-town-live-check-2026-08-11.txt.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against

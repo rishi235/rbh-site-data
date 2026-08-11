@@ -1,0 +1,46 @@
+﻿Quality pass on item 5.7 - live check of the McCanns Sandringham pages
+Date: 2026-08-11, plain GET only, no browser session, nothing clicked,
+typed or submitted. User-Agent header required: the first fetch batch
+without one saw connection errors on this host.
+
+Branch pages (10 permalinks from the paste sheets):
+[404] https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+[200] https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
+      TITLE: Pharmacy First at McCanns Chemist, Sandringham - MCCANNS PHARMACY
+[200] https://www.mccannspharmacy.co.uk/uti-treatment-mccanns-sandringham.html
+      TITLE: UTI treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY
+[200] https://www.mccannspharmacy.co.uk/sore-throat-treatment-mccanns-sandringham.html
+      TITLE: Sore throat treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Sore throat treatment in Sandringham
+[200] https://www.mccannspharmacy.co.uk/sinusitis-treatment-mccanns-sandringham.html
+      TITLE: Sinusitis treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Sinusitis treatment in Sandringham
+[200] https://www.mccannspharmacy.co.uk/earache-treatment-mccanns-sandringham.html
+      TITLE: Earache treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Earache treatment for children in Sandringham
+[200] https://www.mccannspharmacy.co.uk/impetigo-treatment-mccanns-sandringham.html
+      TITLE: Impetigo treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Impetigo treatment in Sandringham
+[200] https://www.mccannspharmacy.co.uk/shingles-treatment-mccanns-sandringham.html
+      TITLE: Shingles treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Shingles treatment in Sandringham
+[200] https://www.mccannspharmacy.co.uk/insect-bite-treatment-mccanns-sandringham.html
+      TITLE: Infected insect bite treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1: Infected insect bite treatment in Sandringham
+[200] https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html
+      TITLE: Switch Your Prescriptions - McCanns Chemist Sandringham - MCCANNS PHARMACY | H1: Switch your prescriptions to McCanns Chemist in Sandringham in under 30 seconds
+
+Cross-domain comparison for the suffix finding:
+[200] https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html
+      TITLE: Pharmacy First at McCanns Chemist, Aigburth - MCCANNS PHARMACY
+[200] https://www.scorah-chemists.co.uk/pharmacy-first-scorah-bramhall.html
+      TITLE: Pharmacy First at Scorah Chemists, Bramhall - Scorah Chemists
+[200] https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html
+      TITLE: Pharmacy First at Fishlocks Chemist, Ainsdale
+      (matches modules/service/pages/SEO.md verbatim, no suffix)
+
+Reading. The trailing " - MCCANNS PHARMACY" and " - Scorah Chemists" are
+Weebly default titles, built as "<page name> - <site title>", served only
+where the SEO title field was never pasted. Where the paste landed
+(Fishlocks Ainsdale) the SEO.md title is served verbatim with no suffix.
+So the Sandringham pages still carry the old word because their SEO title
+fields are unpasted, and the queued repaste from the three SEO.md sheets
+fixes the old word, the over-length titles and the suffix in one action.
+No new decision needed. Side observation: this default construction also
+plausibly explains the Coleman and Leighs live title recorded on
+2026-08-11 (page name plus site title), rather than a hand-typed SEO
+field; the recorded fix, repaste from SEO.md, is unchanged either way.

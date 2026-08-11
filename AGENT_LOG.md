@@ -2,6 +2,68 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 18:10 BST - seventy-eighth run [commit hash recorded in a
+follow-up commit] - Quality pass on item 5.7, the McCanns Sandringham
+local word move, last verified 2026-08-10 as the thirty-sixth run and the
+oldest verification standing after runs 76 and 77 refreshed 5.2 and 5.6.
+Repo half clean, no defect found. Live half produced one real finding
+that explains, and softens, run 77's Coleman and Leighs conclusion.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification only, no decision taken, no question raised.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked, typed
+or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: run 76 refreshed
+5.2, run 77 refreshed 5.6, so the oldest standing verification is 5.7
+(run 36, 2026-08-10).
+
+REPO HALF, ALL HOLDING. All 29 checkers green, all six generators
+reproduced every page byte-identical, worktree clean after regeneration.
+branches.json carries seoTown "St Michael's" with townSlug held at
+"sandringham"; the KNOWN_SEO_TOWN entry in check-address-region.js is
+intact with its Q15 reason; the hand-fixed town in build-switch-pages.js
+CONFIG still reads St Michael's (the Q19 duplication stays open); the
+paste sheets in modules/branch, modules/service and modules/switch all
+lead with St Michael's; the GBP pack catchment order from the run 36 fix
+holds under check-gbp-packs.js.
+
+LIVE HALF, ONE REAL FINDING. Plain GETs only, no browser session. The
+branch landing page still 404s (waits on the queued paste run). All nine
+content pages return 200 with titles and H1s still leading with
+Sandringham, so the recorded repaste stands, nothing new there. The
+finding: every live title on mccannspharmacy.co.uk ends " - MCCANNS
+PHARMACY". Cross-domain comparison shows this is Weebly's default title,
+built as page name plus site title, served only where the SEO title
+field was never pasted. Fishlocks Ainsdale, which was pasted, serves its
+SEO.md title verbatim with no suffix; Scorah Bramhall shows the same
+default construction as McCanns. Three consequences. First, the queued
+Sandringham repaste fixes the old word, the over-length titles and the
+suffix in one action, so no decision is needed and no question raised.
+Second, run 77's conclusion that the Coleman and Leighs live title was
+hand-typed is plausibly wrong: page name "Infected insect bite treatment
+in Walton" plus site title "Coleman & Leigh Pharmacy" produces exactly
+the observed title with nobody typing an SEO field. The recorded fix,
+repaste from SEO.md, is unchanged either way. Third, the Scorah service
+pages' SEO fields look unpasted too, which the 5.3/5.4 Weebly session
+already covers since it repastes every SEO field. A fetch note: this
+host refuses connections without a User-Agent header; the first batch of
+GETs errored until one was sent.
+
+FILES CHANGED. audits/sandringham-town-live-check-2026-08-11.txt (new),
+AGENT_WORKLIST.md (quality pass note under 5.7), AGENT_LOG.md (this
+entry), status page regenerated.
+
 ## 2026-08-11 17:37 BST - seventy-seventh run [commit a4dea46, hash
 recorded in a follow-up commit] - Quality pass on item 5.6, the Q14 length-aware title
 rule, last verified 2026-08-10 as the thirty-fifth run and now the oldest
