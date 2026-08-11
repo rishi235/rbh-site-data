@@ -1013,3 +1013,57 @@ Written on the item 1.1 quality pass, 2026-08-11. The repo was clean when it
 landed, and the checker was tested by breaking it three ways: a variant typed
 into a generated page, a rename inside `branches.json`, and a stale brand in
 the switch `CONFIG` table. All three fail the run.
+
+
+## The paid service, and the three instructions nothing enforced
+
+`tools\build-travel-clinic-pages.js` states its own governance in its file
+header, and repeats it in the paste comment at the top of every one of the
+fifteen pages it writes: this is a PRIVATE, PAID service, not NHS Pharmacy
+First; NHS-funded exceptions are flagged as "ask the pharmacist", never a
+blanket promise; no vaccine is claimed to be guaranteed in stock. Three
+standing instructions from the superintendent pharmacist, written down twice,
+and until 2026-08-11 enforced nowhere.
+
+The travel clinic pages were covered the same eight ways every leaf service
+page is - coverage, title and H1 pattern, both paste sheets, meta keywords,
+NAP, JSON-LD, map, booking route, characters - and every one of those reads
+the frame. None read the service description inside it. That is the third and
+last time the same gap has been found: `check-pharmacy-first-eligibility` on
+2026-08-11 for the seven NHS condition pages, `check-contraception-copy` the
+same day for the fourteen contraception pages, and now this one.
+
+`tools\check-travel-clinic-copy.js` holds eleven rules. Three of them read the
+copy OUT of the generator so that adding a bullet puts it under test without
+touching the checker: the parser must still be able to see the copy, every
+page the BUILD list names must exist, and every static line must appear on
+every page word for word with branch values resolved. The other eight are
+absolute, so editing the generator cannot make them pass by agreeing with
+itself: private and paid, said in the hero and not only in an FAQ; every NHS
+funding statement hedged, questions exempt because a question is not a promise;
+no stock guarantee and the availability hedge present; one book-ahead window
+per page and the same window on all fifteen; no vaccine or antimalarial named
+by brand or drug name; the four safety cohorts named; the trust bar carrying
+this branch's own `seoTown`; and yellow fever.
+
+Yellow fever is the one finding. All fifteen pages advertise it and
+`branches.json` says nothing about which branches hold the registration that
+vaccine requires, so nothing in the estate can tell whether that line is true
+at a given shop. The rule asks `branches.json` for a `yellowFeverCentre` field
+rather than guessing, and the silence is pinned in `KNOWN` against Q48. When
+the answer lands and the field is set, the `KNOWN` entry goes stale and fails
+the run until it is removed, which is the same convention as `KNOWN_DRIFT` in
+`check-cdn-pins.js`.
+
+Two things in it are deliberate. The contact card, booking card and schema
+block are dropped from the copy extraction before rule 3 runs: they are frame,
+already held by `check-nap`, `check-jsonld`, `check-map-embeds` and
+`check-booking-routes`, and the contact card's review line is conditional on a
+branch field, which would make rule 3 report a missing line on any branch
+without a review URL. And the lead-time rule only compares week ranges attached
+to booking ahead, so "travelling within the next 1 to 2 weeks" is left alone -
+it is a different statement about a different traveller.
+
+Written on the item 3.11 quality pass, 2026-08-11. The fifteen pages were clean
+when it landed, and the checker was tested by breaking it seventeen ways, one
+per rule direction. All seventeen fail the run.

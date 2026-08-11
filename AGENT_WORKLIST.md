@@ -261,6 +261,22 @@ travelClinic id dropped into a sister's weightLoss slot). No question raised.
       12 pages, 0 mismatches.
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+      Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
+      source and clean: address, postcode and phone on every occurrence
+      including the tel: link, own Google review link and no other branch's,
+      JSON-LD parsing and matching branches.json field for field with a
+      self-referencing url, Crosby in every H1, no prescription-only medicine
+      on the weight loss page, and no non-ASCII in any body except the pound
+      sign in the weight loss price.
+      The gap was the whole body of the private travel clinic page, on 15 live
+      pages, read by no checker. The generator states its own governance twice,
+      in its header and in the paste comment of every page it writes: private
+      and paid, not NHS Pharmacy First, NHS-funded exceptions flagged as "ask
+      the pharmacist" and never a blanket promise, and no vaccine claimed
+      guaranteed in stock. Three standing instructions, written down twice,
+      enforced nowhere. New tools/check-travel-clinic-copy.js, 10 rules, 16
+      negative tests, all 16 caught their break. Nothing on those pages is
+      wrong. One question raised on yellow fever, Q48.
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.

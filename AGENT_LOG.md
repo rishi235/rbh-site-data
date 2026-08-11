@@ -2,6 +2,153 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 11:15 BST - sixty-ninth run [commit 5de8882] - Quality pass on item 3.11,
+Gordon Short Chemist Crosby, last verified on 2026-08-10 13:04 as the
+twenty-seventh run, which made it the oldest verification standing. All 12
+Gordon Short pages verified clean. The gap was the whole body of the private
+travel clinic page: what the service is, that it is paid and not NHS, what it
+does not promise about stock, and who must speak up before being vaccinated, on
+15 live pages, read by no checker in the repo. New
+tools/check-travel-clinic-copy.js, 11 rules, 17 negative tests, all 17 caught
+their break. Nothing on those pages is wrong. One absence found and raised as
+Q48.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one, it is not at the top of the file and
+it expired at 23:14 on 2026-08-10. Nothing has renewed it, so step 7 applies as
+written. That is why Q48 was raised and left open rather than decided: whether
+a branch holds a yellow fever registration is a regulatory fact about the
+business, which is inside the carve-out even when a window is open, and it is
+not something to infer.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-three questions were open before this run, Q17 to Q22, Q24,
+Q28, Q29 and Q34 to Q47. Twenty-four are open now: this run raised Q48.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin. All 25 existing checkers green and all
+six page generators reproducing every page byte-identical before any change was
+made, so nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The sixty-eighth run cleared 3.10 at 10:44
+this morning, which leaves the twenty-seventh run's pass on item 3.11,
+2026-08-10 13:04, as the oldest standing verification. Items 3.12, 3.13 and 5.1
+follow it, runs 28, 31 and 32. The twenty-seventh and twenty-eighth run
+headings are truncated in this file, and the questions they raised name the
+items, Q17 naming 3.11 and Q18 naming 3.12, so neither hides an older pass.
+
+WHAT VERIFIED CLEAN ON GORDON SHORT. All 12 pages re-read from source rather
+than from the twenty-seventh run's account of them: 11 service pages plus the
+switch page. Every page carries 159 College Road, L23 3AT and 0151 924 3449,
+visible and in the tel: link, with the phone in the tel: link as unspaced
+digits. The JSON-LD parses on all 12 and matches branches.json field for field,
+including Merseyside as addressRegion and Liverpool as the postal
+addressLocality against Crosby as the seoTown, Pharmacy as the type on every
+one, and a self-referencing url on the branch's own domain naming its own file.
+Every H1 carries Crosby, the seoTown, which is also the first entry in the
+branch's own serviceAreaList. Every page carries Gordon Short's own Google
+review link and no other branch's, and no page carries any other trading
+branch's phone, postcode or review link. data-branch reads Gordon Short Chemist
+on every page and data-wa the estate WhatsApp number. The weight loss page
+names no prescription-only medicine. The only non-ASCII characters on any of
+the 12 are em dashes inside the paste header comments, which check-em-dashes.js
+blanks on purpose because no visitor sees them, and the pound signs in the
+weight loss price, which are correct. The two things the twenty-seventh run
+recorded rather than fixed both still stand: the branch is one of the seven
+with a lunch closure and has a split Saturday too, which reaches no page
+because it has no landing page, and its branch email is still
+Shorts@rbhealth.co.uk, a mailbox name rather than site copy.
+
+HOW THE GAP WAS FOUND. The travel clinic page is covered the same eight ways
+every leaf service page is, and every one of them reads the frame:
+check-page-coverage earns the page, check-seo-pattern holds the title and H1,
+check-seo-sheets and check-seo-keywords hold the four Weebly fields, check-nap
+and check-jsonld hold the address block, check-map-embeds holds the map,
+check-booking-routes and check-widget-diaries hold the diary the booking lands
+in, check-em-dashes holds the characters. Nothing read the service description
+sitting between them. That is the third time this exact gap has been found: the
+sixty-third run closed Pharmacy First eligibility, the sixty-eighth closed
+contraception, and travel clinic was the last of the three separate services
+left. check-service-links already reads visible copy estate-wide, but only for
+the weight loss claim patterns in tools/claim-patterns.js, which are about
+outcomes and say nothing about a paid service or a vaccine.
+
+WHAT MAKES THIS ONE WORSE THAN AN UNCHECKED SEO STRING. The generator states
+its own governance in its header AND repeats it in the paste comment at the top
+of every page it writes: private and paid, not NHS Pharmacy First, NHS-funded
+exceptions flagged as "ask the pharmacist" and never a blanket promise, and no
+vaccine claimed guaranteed in stock. Three standing instructions from the
+superintendent pharmacist, written down twice, enforced nowhere. Each one
+breaks under a plausible edit that changes no title: drop "private, paid
+service" from the hero and the page reads as a free NHS clinic while we take
+payment at the counter; flatten "some individual vaccines may be available on
+the NHS depending on your circumstances" into "available on the NHS" and the
+page is wrong about the NHS rather than about us; turn "subject to
+availability" into a promise and the page guarantees stock of a medicine.
+
+WHAT THE NEW CHECKER DOES. Three rules read the copy OUT of the generator so
+that adding a bullet puts it under test without touching the checker: the
+parser must still see the copy it exists to guard, every branch in the
+generator's own BUILD list must have its page on disk, and every static line of
+service copy must appear on every page word for word with branch values
+resolved, so a page cannot borrow another branch's town inside a sentence. The
+other eight are absolute, because a rule that only agrees with the generator
+passes the moment somebody edits the generator: private and paid said in the
+hero and not only in an FAQ four screens down; every NHS funding statement
+carrying a hedge, with questions exempt because a question is not a promise; no
+stock guarantee and the availability hedge present; one book-ahead window per
+page and the same window on all 15; no vaccine or antimalarial named by brand
+or drug name, 51 of them barred; the four safety cohorts named on every page,
+which is the travel counterpart of the Pharmacy First eligibility rule; and the
+trust bar naming this branch's own seoTown. 59 lines of copy are pinned across
+15 pages and all 15 pass today.
+
+THE FINDING. All 15 pages lead the vaccine grid with a Yellow fever card. Yellow
+fever is not an ordinary travel vaccine: it may only be given, and the
+international certificate only issued, by a centre registered to do it, and
+that registration is held per premises. branches.json says nothing about which
+branches hold it, so nothing in the repo can tell whether that card is true at
+a given shop. Rule 11 asks branches.json for a yellowFeverCentre field rather
+than guessing, and today no branch carries one, so the silence is pinned as the
+single KNOWN entry naming Q48. When the field lands the entry goes stale and
+fails the run until it is removed, the same convention as KNOWN_DRIFT in
+check-cdn-pins.js. No copy was changed and no registration status was checked
+or assumed either way.
+
+TWO DELIBERATE CHOICES IN THE CHECKER. The contact card, booking card and
+schema block are dropped from the copy extraction before the verbatim rule
+runs: they are frame, already held by four other checkers, and the contact
+card's review line is conditional on a branch field, so leaving it in would
+report a missing line on any branch without a review URL. And the lead-time
+rule only compares week ranges attached to booking ahead, so "travelling within
+the next 1 to 2 weeks" is left alone, because it is a different statement about
+a different traveller.
+
+NEGATIVE TESTS. Seventeen, one per rule direction, and all seventeen fired: a
+dropped helper function that would have left the parser reading address lines
+as copy, the <li> copy hidden from the parser, a generated page missing from
+disk, one word changed on a page, the private-and-paid statement removed from
+the hero, a page calling itself an NHS service, the hedge stripped off the NHS
+funding sentence, a page promising every vaccine is in stock, the availability
+hedge removed, two book-ahead windows on one page, one page moved to its own
+window, the window stated only once, an antimalarial named in the vaccine grid,
+the pregnancy cohort removed, the trust bar carrying the sister town, a KNOWN
+entry nothing breaches, and a branch declaring itself unregistered for yellow
+fever. Every mutated file was restored and the checker re-ran green afterwards,
+with git reporting no change to any tracked file.
+
+FILES CHANGED. tools/check-travel-clinic-copy.js (new, 11 rules), CLAUDE.md,
+AGENT_WORKLIST.md, QUESTIONS.json, AGENT_LOG.md. No generated page changed and
+no generator changed, so all six page generators still reproduce every page
+byte-identical, and all 26 checkers pass.
+
 ## 2026-08-11 10:44 BST - sixty-eighth run [commit 17df498] - Quality pass on item 3.10, Riddings
 Pharmacy Timperley, last verified on 2026-08-10 12:34 as the twenty-sixth run,
 which made it the oldest verification standing. All 12 Riddings pages verified
