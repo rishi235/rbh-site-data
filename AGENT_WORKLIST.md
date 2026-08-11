@@ -833,6 +833,20 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       usual missing-and-empty guard, negative-tested four ways. INDEX.md now
       carries the repaste instruction. Logged as Q33 and taken as an autonomous
       decision under the standing window. Done 2026-08-10.
+      Quality pass 2026-08-11 (second re-verification): pack verified clean
+      again, fact by fact against branches.json and rule by rule, file
+      unchanged since before the first pass. All 29 checkers green, all
+      seven generators byte-stable. All four post buttons resolve and read
+      correctly, third clean run. New for item 5.3: the generated
+      replacement pharmacy-first-tiffenbergs-aintree.html is confirmed
+      live, in the branch sitemap, and reads correctly throughout, so the
+      Tiffenbergs repoint needs no Weebly paste. Site not republished
+      since 2026-07-19; the stale banner mojibake and footer en dashes
+      recorded in the pack's paster notes for the queued repaste. One new
+      question, Q56: the live pages publish tiffenbergs@rbhealth.co.uk
+      while branches.json holds Tiffenberg@rbhealth.co.uk, so one spelling
+      is wrong where a patient can see it. Evidence in
+      audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
@@ -1058,6 +1072,21 @@ so tools/build-audit-status.js picks them up like any other item.
       states have now changed at least once since Q8 was asked, which is
       itself evidence for Q34: the item's facts move faster than the block
       of eleven does.
+      A ninth state 2026-08-11, from the 4.15 second quality pass, and it
+      is free. At Tiffenbergs Aintree the generated replacement
+      pharmacy-first-tiffenbergs-aintree.html is CONFIRMED LIVE, sits in
+      the branch's own sitemap, and was read in full rather than assumed:
+      correct trading name throughout, correct NAP, correct seven
+      conditions and age ranges, correct split hours. Its one staleness is
+      a pre-Q7 em dash in the self-referral line from the 2026-07-19
+      paste, a style breach the committed source fix removes at the next
+      repaste, not a wrong fact. So the Tiffenbergs repoint needs no
+      Weebly paste. That makes five of the eleven free (Riddings, SK,
+      both McCanns, Tiffenbergs), nearly half the item, and strengthens
+      the Q34 case for splitting it further. The old target,
+      pharmacy-first-service-aintree.html, still loads and reads
+      correctly but remains absent from the branch sitemap, the SK shape
+      without the misspelling.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

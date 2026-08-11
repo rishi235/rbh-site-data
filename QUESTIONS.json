@@ -852,5 +852,20 @@
     "status": "open",
     "answer": null,
     "note": "branches.json hours were NHS-sourced and confirmed 2026-06-24, so option 1 is recommended unless the branch's real-world lunch practice has changed since."
+  },
+  {
+    "id": "Q56",
+    "date": "2026-08-11",
+    "item": "4.15 Tiffenbergs Chemist Aintree pack (quality pass)",
+    "question": "The live Tiffenbergs site publishes the branch email as tiffenbergs@rbhealth.co.uk, plural, in the contact block and the site footer on every page read this pass, while branches.json holds the mailbox as Tiffenberg@rbhealth.co.uk, singular. Two earlier passes recorded the singular mailbox as a curiosity that reached no page, but the live contact block does publish the plural form, so one of the two is wrong somewhere a patient can see it: either the live pages publish an address that does not exist and patient emails bounce, or the mailbox really is plural and branches.json (and anything built from it) carries the wrong address. Which mailbox is real cannot be checked from this repo.",
+    "options": [
+      "Confirm the real mailbox is Tiffenberg@ singular and correct the live pages to it at the queued Weebly repaste - right fix if the plural address bounces",
+      "Confirm the real mailbox is tiffenbergs@ plural and update branches.json (email field only, no page changes needed since no generated page prints it) - right fix if the singular entry was the typo",
+      "Add an alias so both spellings deliver, then align branches.json and the live pages to one spelling at leisure - cheapest way to stop any patient email bouncing today, works whichever spelling is currently real"
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Same shape as Q36 (misspelled NHS mailbox in a site footer) and Q41 (published email unchecked). One minute in the Microsoft 365 admin centre answers which mailbox exists. The Shorts@ singular note from the 3.11 pass may be worth checking in the same minute."
   }
 ]

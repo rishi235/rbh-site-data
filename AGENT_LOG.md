@@ -2,6 +2,82 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 23:15 BST - eighty-sixth run - Quality pass on item 4.15, the
+Tiffenbergs Chemist Aintree GBP pack, last verified 2026-08-10 22:43 as the
+forty-fourth run and the oldest verification standing after run 85 refreshed
+4.14. Pack verified clean second time running, no in-repo defect found, no
+copy changed, no live state change. One new question raised (Q56) and one
+item 5.3 state advance recorded.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Q56 is raised as a normal
+open question accordingly.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all recorded long ago; none of the 31 open questions had an answer.
+One tab opened and closed, nothing clicked, typed or submitted. Open
+questions 31 before, 32 after (Q56 raised this run).
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Runs 76 to 85 refreshed 5.2,
+5.6, 5.7, 4.6, 4.8, 4.9, 4.10, 4.12, 4.13 and 4.14, leaving 4.15 (run 44,
+22:43 on 2026-08-10) as the oldest standing verification.
+
+REPO HALF, ALL HOLDING. Every fact re-verified against branches.json:
+name, address 388 Longmoor Lane L9 9DB, phone 0151 525 3462, website,
+review link, hasApp false with no app mention. Hours carry both weekday
+sessions with Saturday and Sunday closed, what the split-day rule
+requires, and the lunch closure is carried through to the photo shot list
+and the paster hours note. Catchment leads with seoTown Aintree and
+matches serviceAreaList order in all three places. Measured with CRLF
+normalised: description 650 characters, exactly what its heading claims;
+posts 449, 329, 521 and 425, all far inside 1,500 (run 44 recorded Post D
+as 447; git log shows the file unchanged since before that run, so the
+gap is a measurement-method difference, not a copy change). Pure ASCII,
+no medicine name, no efficacy claim, no em dash. All 29 checkers green
+and all seven generators byte-stable.
+
+LIVE HALF, NO STATE CHANGE MADE. Read-only page loads, nothing clicked,
+typed or submitted. All four post buttons resolve and read correctly,
+third clean run for the links. Post A's target carries the correct seven
+conditions and age ranges, correct NAP and correct split hours in both
+the hours block and the footer strip. The finding that advances item 5.3:
+the generated replacement pharmacy-first-tiffenbergs-aintree.html is
+CONFIRMED LIVE, sits in the branch's own sitemap, and was read in full
+rather than assumed - correct trading name, NAP, conditions and ages
+throughout. So the Tiffenbergs repoint needs no Weebly paste, the ninth
+state recorded against item 5.3 and the fifth free one (Riddings, SK,
+both McCanns, Tiffenbergs). Recorded in the 5.3 item narrative. The
+sitemap is dated 2026-07-19 on every entry, so this site has not been
+republished since 19 July, which explains the stale observations: the
+switch banner close button still renders as mojibake (run 44's source fix
+awaits the repaste), the replacement page still renders a pre-Q7 em dash,
+and the site-wide footer sets its hour ranges with en dashes and exists
+in no repo branch, the same hand-paste shape runs 84 and 85 recorded on
+the Riddings and Gordon Short sites. All recorded in the pack's paster
+notes for the queued repaste.
+
+NEW QUESTION Q56. The live contact block and footer publish
+tiffenbergs@rbhealth.co.uk, plural, while branches.json holds the mailbox
+Tiffenberg@rbhealth.co.uk, singular. Two earlier passes recorded the
+singular mailbox as reaching no page; the live pages do publish the
+plural form, so one of the two is wrong where a patient can see it, the
+Q36/Q41 shape. Recommended option: add an alias so both spellings
+deliver, then align at leisure. Not decidable from this repo.
+
+FILES CHANGED. audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt
+(new), gbp-packs/tiffenbergs-aintree.md (Post A note updated to confirmed
+live, live recheck and paster notes added, no pasted copy changed),
+QUESTIONS.json (Q56 added), AGENT_WORKLIST.md (second quality pass note
+under 4.15, ninth state added to the 5.3 narrative), status/index.html
+(regenerated), AGENT_LOG.md (this entry). Commit hash recorded in the
+commit itself.
+
 ## 2026-08-11 22:15 BST - eighty-fifth run - Quality pass on item 4.14, the
 Gordon Short Chemist Crosby GBP pack, last verified 2026-08-10 22:40 as the
 forty-third run and the oldest verification standing after run 84 refreshed

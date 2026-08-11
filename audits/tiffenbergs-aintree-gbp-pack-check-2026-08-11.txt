@@ -1,0 +1,76 @@
+Quality pass evidence - item 4.15, Tiffenbergs Chemist Aintree GBP pack
+Date: 2026-08-11 (eighty-sixth run). Previous verification: 2026-08-10 22:43
+(forty-fourth run). Pack file unchanged since commit a1a9591, which predates
+that verification, so this is the second clean re-verification of the same
+bytes.
+
+REPO HALF - all verified against branches.json (tiffenbergs_longmoor):
+- Name: Tiffenbergs Chemist. Matches brandLabel and branchName.
+- Address: 388 Longmoor Lane, Liverpool L9 9DB. Matches.
+- Phone: 0151 525 3462. Matches.
+- Website: https://www.tiffenbergschemist.co.uk. Matches.
+- Review link: https://g.page/r/CdfQf2a16Bn4EAE/review. Matches.
+- Hours: Mon-Fri 9:00am to 1:00pm and 2:00pm to 6:00pm, Sat and Sun closed.
+  Matches both openingHours specification blocks and closedDays. Both weekday
+  sessions carried, satisfying the split-day rule the 4.10 pass added, and
+  the lunch closure is carried through to the photo shot list and the paster
+  hours note.
+- Catchment: Aintree, Fazakerley, Liverpool, leading with seoTown Aintree,
+  in the description, the dispensing service line and Post B. Matches
+  serviceAreaList order.
+- Services and categories: match the five-widget set (bloodPressure,
+  contraception, pharmacyFirst, weightLoss, travelClinic); Travel clinic,
+  Weight loss service and Vaccination centre categories present.
+- hasApp false and no app mention anywhere in the pack.
+
+MEASUREMENTS (CRLF normalised):
+- File is pure ASCII, no em dash, no medicine name, no efficacy claim.
+- Description: 650 characters, exactly what its heading claims.
+- Posts A to D: 449, 329, 521 and 425 characters, all far inside 1,500.
+  Note: the forty-fourth run recorded Post D as 447. The file has not
+  changed since before that run (git log confirms), so the 22-character
+  gap is a measurement-method difference between runs, not a copy change.
+- Post A's seven conditions and age ranges (earache 1-17, impetigo 1+,
+  insect bites 1+, shingles 18+, sinusitis 12+, sore throat 5+, UTI women
+  16-64) match the live Pharmacy First pages condition for condition.
+
+CHECKERS AND GENERATORS:
+- All 29 tools/check-*.js exit 0.
+- All seven generators re-run: byte-stable except status/index.html, whose
+  only diff is its own Updated timestamp line.
+
+LIVE HALF (read-only page loads, nothing clicked, typed or submitted):
+- All four post buttons resolve, third clean run for these links. The
+  extensionless Post A pfLink redirects to the .html page as before.
+- Post A target (pharmacy-first-service-aintree.html): correct name, NAP,
+  seven conditions and ages, split hours with the lunch closure in both the
+  hours block and the footer strip. Still absent from the branch sitemap.
+- NEW STATE FOR ITEM 5.3: the generated replacement,
+  pharmacy-first-tiffenbergs-aintree.html, is CONFIRMED LIVE, sits in the
+  branch's own sitemap, and was read in full rather than assumed: correct
+  trading name throughout, correct NAP, correct conditions and ages. The
+  repoint here needs no Weebly paste - the Riddings and SK shape. Its one
+  staleness: pasted 2026-07-19, so it still renders a pre-Q7 em dash in the
+  self-referral line; a repaste would refresh style but is not needed for a
+  safe repoint.
+- Sitemap: every entry dated 2026-07-19T11:02:59, so the site has not been
+  republished since 19 July. Explains the stale observations below.
+
+LIVE-ONLY OBSERVATIONS (no repo defect, recorded in the pack's paster notes):
+1. The switch banner close button still renders as mojibake on every page
+   read. The run-44 source fix is committed; the repaste has not happened.
+2. The site-wide footer writes its hour ranges with en dashes and exists in
+   no repo branch - the same live-only Weebly footer shape recorded on the
+   Riddings and Gordon Short sites by runs 84 and 85.
+3. The live contact block and footer publish tiffenbergs@rbhealth.co.uk,
+   plural, while branches.json holds the mailbox Tiffenberg@rbhealth.co.uk,
+   singular. Earlier passes recorded the singular mailbox as reaching no
+   page; the live pages do publish the plural form, so one of the two is
+   wrong where a patient can see it. Raised as Q56.
+4. The old weight loss page (weight-loss-clinic-aintree.html) is still live
+   and in the sitemap alongside the generated inner page. Known exposure,
+   held under item 5.8 / Q22. Not touched this pass.
+
+RESULT: pack verified clean, second clean re-verification. No in-repo
+defect found, no copy changed, no live state change. One new question
+(Q56), one item 5.3 state advance recorded.

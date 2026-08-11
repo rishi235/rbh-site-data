@@ -112,9 +112,12 @@ Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the Pharmacy First link from branches.json (pfLink,
-  pharmacy-first-service-aintree). A branch-specific page
-  (pharmacy-first-tiffenbergs-aintree.html) exists in the repo; swap the
-  link once that page is confirmed live on Weebly.
+  pharmacy-first-service-aintree). The branch-specific replacement
+  (pharmacy-first-tiffenbergs-aintree.html) was CONFIRMED LIVE on
+  2026-08-11: in the branch sitemap, read in full, correct trading name,
+  NAP, conditions and ages. The repoint needs no Weebly paste, but the
+  swap itself is held under item 5.3 with the other ten links; do not
+  repoint from this pack alone. Post A as written is safe to post today.
 - Check the Post B, C and D URLs resolve before posting; the branch pages
   were regenerated in Phase 3 and the live Weebly copy may lag the repo.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
@@ -124,3 +127,18 @@ Notes for the paster:
   this branch.
 - GBP hours need two time ranges per weekday (9:00am to 1:00pm and 2:00pm
   to 6:00pm) to show the lunch closure. Saturday and Sunday closed.
+
+Live recheck 2026-08-11 (second clean re-verification; evidence in
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt): all four post
+buttons resolve and read correctly, third clean run for the links. Site
+not republished since 2026-07-19 (sitemap dates). For the queued repaste,
+three live-only observations, none blocking a post:
+- The switch banner close button renders as mojibake on every page (the
+  run-44 source fix is committed and awaits this repaste).
+- The site-wide footer writes its hour ranges with en dashes and exists in
+  no repo branch, the same hand-paste shape as the Riddings and Gordon
+  Short sites.
+- The contact block and footer publish tiffenbergs@rbhealth.co.uk, plural,
+  while branches.json holds Tiffenberg@rbhealth.co.uk, singular. Which
+  mailbox is real is asked as Q56; fix the losing spelling while the site
+  is open.
