@@ -1,0 +1,59 @@
+Fishlocks Ainsdale (item 2.1) quality pass - 2026-08-12 00:00-00:11 BST
+Third pass on this item. Previous: original audit 2026-08-04, pass 2026-08-11
+(run 48). All live reads were read-only HTTP GETs. Nothing clicked, typed,
+submitted or logged in anywhere.
+
+REPO HALF - CLEAN
+- All six page generators rebuilt (branch landing, contraception, service,
+  switch, travel clinic, weight loss): zero git diff after rebuild.
+- All 29 checkers pass.
+- All 13 fishlocks-ainsdale pages verified field by field against
+  branches.json (id fishlocks_ainsdale):
+  * Ainsdale present in every H1 (13 of 13).
+  * Phone 01704 575478 present as text and as tel:01704575478 link on all 13.
+  * Every JSON-LD block parses; every PostalAddress carries 17 Station Road,
+    PR8 3HN and Merseyside.
+  * No POM name in visible copy on any page.
+  * No other branch's postcode or phone on any page.
+  * No em dash and no mojibake in visible copy. The only non-ASCII character
+    is a legitimate pound sign on the weight loss clinic page
+    ("from" pricing in a booking sub-line, not a headline).
+  * hasApp is true and the app sentence is present; branch email
+    Ainsdale@rbhealth.co.uk present on the landing page.
+  * Titles live in the Weebly SEO fields per the paste sheets, so the
+    fragments correctly carry no <title> tag.
+
+LIVE HALF - 12 OF 13 LIVE AND CLEAN, ONE KNOWN 404, ONE NEW FINDING
+- fishlockpharmacy.co.uk sitemap: 40 URLs, every lastmod still
+  2026-07-18T23:03:23, so a fourth week with no publish (lastmod is not a
+  safe proxy for furniture state per the run-89 method note, but the page
+  set itself is unchanged).
+- 12 of the 13 pages return 200, each with Ainsdale in the H1, the branch
+  phone, no POM name in body copy and no mojibake marker.
+- pharmacy-fishlocks-ainsdale.html still returns 404 and is absent from the
+  sitemap: the known Q35 state, the branch landing page awaiting its queued
+  Weebly paste. Not a new defect. The Q35 note that its prerequisite
+  service pages are all live still holds.
+
+NEW FINDING - SIXTH INSTANCE OF THE Q16 WEIGHT LOSS TEMPLATE (raised as Q57)
+- weight-loss-services-eccleston-ainsdale.html is live (200), still in the
+  sitemap, and linked from the fishlockpharmacy.co.uk homepage alongside
+  the two new clinic pages.
+- It carries the same breach elements the 2026-08-10 assessment flagged on
+  the five known pages: the "Real Results" heading, the outcome slider
+  under "How much weight could you lose?", an "Explore treatments" picker,
+  and H1 "Access medicated weight loss treatment".
+- Its meta keywords name six POMs: Mounjaro, tirzepatide, Wegovy,
+  semaglutide, Ozempic, Orlistat.
+- Because the homepage links to it proactively, it sits in the stricter
+  advertising regime; the inner-page exemption does not apply. It is absent
+  from the Q16/Q22 five-page list (Smartts Bootle, Gordon Short Crosby,
+  Tiffenbergs Aintree, Riddings Timperley, Coleman and Leighs Walton),
+  presumably because its URL names two towns and no single branch.
+- The homepage also still carries the estate-wide "Tried the rest? Now try
+  the best" tagline, already inside Q22's scope; recorded here as
+  confirmation, not as a new item.
+- No decision taken: live patient-facing regulatory copy, so this is Q57
+  for Rishi even though a recommendation is made there. No repo file owns
+  any of this copy; nothing was changed for it beyond the question, the
+  worklist cross-reference and this evidence file.

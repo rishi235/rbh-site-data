@@ -78,6 +78,21 @@ template that must carry no branch fact at all. Negative-tested eleven ways.
       once, none of them the trading name, and abbreviate the Ainsdale street
       to "17 Station Rd". Same class as Q36 and unreachable by any paste of a
       generated page. Raised as Q37. Done 2026-08-11.
+      Quality pass 2026-08-12: repo half clean, no in-repo defect. All six
+      generators rebuilt to a zero diff, all 29 checkers pass, all 13 pages
+      verified field by field against branches.json (H1 town, NAP, phone as
+      text and tel: link, JSON-LD parse and address, no POM names, no
+      foreign postcode or phone, no em dash or mojibake, app sentence
+      correctly gated on hasApp). Live half: 12 of 13 pages return 200 with
+      clean copy; the branch landing page still 404s awaiting the Q35 paste,
+      and all 40 sitemap lastmods still read 2026-07-18, a fourth week
+      without a publish. New finding: the old shared page
+      weight-loss-services-eccleston-ainsdale.html is a sixth live instance
+      of the Q16 weight loss template (Real Results heading, outcome slider,
+      treatment picker, six POM names in meta keywords), homepage-linked so
+      outside the inner-page exemption, and absent from the Q16/Q22
+      five-page list. Raised as Q57. Evidence:
+      audits/fishlocks-ainsdale-build-check-2026-08-12.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
@@ -1276,7 +1291,10 @@ so tools/build-audit-status.js picks them up like any other item.
       case: all of it is live-only copy no generator owns. The one repo-side
       part, the "Support that delivers results" tile on the Smartts switch
       page, stays in KNOWN_CLAIM in tools/check-service-links.js until the
-      decision lands.
+      decision lands. Q57 (2026-08-12) records a sixth live instance of the
+      same template at fishlockpharmacy.co.uk/weight-loss-services-eccleston
+      -ainsdale.html, homepage-linked; whatever fix Q22 chooses should cover
+      it too.
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

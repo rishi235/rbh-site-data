@@ -2,6 +2,73 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 00:11 BST - ninetieth run - Quality pass on item 2.1, Fishlocks
+Ainsdale, the oldest verification standing (run 48, 2026-08-11 00:35) after
+run 89 refreshed 2.3. Third pass on this item. Repo half clean, no in-repo
+defect, no copy changed. Live half found one genuinely new thing, raised as
+Q57.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing was decided
+autonomously; the one decision this run surfaced is weight loss regulatory
+copy, which sits inside the carve-out in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only; none of the open questions (Q17 onwards) has an answer. One tab
+opened and closed, nothing clicked, typed or submitted. Open questions 32
+before, 33 after (Q57 raised this run).
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass, and 2.1 held the oldest standing
+verification.
+
+REPO HALF, ALL HOLDING. All six generators rebuilt to zero diff before any
+edit; all 29 checkers pass. All 13 Fishlocks Ainsdale pages verified field
+by field against branches.json: Ainsdale in every H1, 01704 575478 as text
+and as tel: link with spaces stripped, every JSON-LD block parsing and
+every PostalAddress carrying 17 Station Road, PR8 3HN and Merseyside, no
+POM name in visible copy, no other branch's postcode or phone, no em dash
+and no mojibake, the app sentence present and correctly gated on hasApp
+true, Ainsdale@rbhealth.co.uk on the landing page. The one non-ASCII
+character in the set is a legitimate pound sign in a booking sub-line on
+the weight loss clinic page, not a headline price. The paste fragments
+correctly carry no title tag, titles living in the Weebly SEO fields.
+
+LIVE HALF, READ-ONLY GETs. 12 of the 13 pages return 200 with clean copy.
+Two known states re-confirmed, not re-raised: the branch landing page
+pharmacy-fishlocks-ainsdale.html still 404s awaiting the Q35 paste (its
+prerequisite service pages all remain live), and every one of the 40
+sitemap lastmods still reads 2026-07-18T23:03:23, now a fourth week
+without a publish, remembering the run-89 method note that lastmod says
+nothing about site furniture anyway.
+
+THE NEW FINDING, Q57. The old shared page
+weight-loss-services-eccleston-ainsdale.html, which item 2.2's split was
+built to replace, is not merely stale: it is a sixth live instance of the
+Q16 weight loss template. It carries the Real Results heading, the outcome
+slider under "How much weight could you lose?", a treatment picker, and
+six POM names in its meta keywords (Mounjaro, tirzepatide, Wegovy,
+semaglutide, Ozempic, Orlistat), and the fishlockpharmacy.co.uk homepage
+links to it proactively, which puts it in the stricter advertising regime
+where the inner-page exemption does not apply. It is absent from the
+Q16/Q22 five-page list, presumably because its URL names two towns rather
+than one branch. Per the two-regime rule nothing was stripped or flattened;
+the question of fix and order is Rishi's, raised as Q57 with a
+recommendation to fold it into 5.8 so the Q22 decision covers six pages
+rather than five. A cross-reference now sits under 5.8. The homepage also
+still carries the estate-wide "Tried the rest? Now try the best" tagline,
+already inside Q22's scope, recorded as confirmation only.
+
+FILES CHANGED. audits/fishlocks-ainsdale-build-check-2026-08-12.txt (new),
+AGENT_WORKLIST.md (third-pass note under 2.1, Q57 cross-reference under
+5.8), QUESTIONS.json (Q57 raised), status/index.html (regenerated),
+AGENT_LOG.md (this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 23:42 BST - eighty-ninth run - Quality pass on item 2.3, the
 Cherry Lane build-from-near-zero, the oldest verification standing (run 47,
 2026-08-11 00:05) after run 88 refreshed 2.2. Second full pass on this item.

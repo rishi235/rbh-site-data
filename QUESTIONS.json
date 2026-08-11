@@ -867,5 +867,20 @@
     "status": "open",
     "answer": null,
     "note": "Same shape as Q36 (misspelled NHS mailbox in a site footer) and Q41 (published email unchecked). One minute in the Microsoft 365 admin centre answers which mailbox exists. The Shorts@ singular note from the 3.11 pass may be worth checking in the same minute."
+  },
+  {
+    "id": "Q57",
+    "date": "2026-08-12",
+    "item": "2.1 Fishlocks Ainsdale quality pass, feeds 5.8 weight loss advertising exposure",
+    "question": "The quality pass on Fishlocks Ainsdale found a sixth live instance of the weight loss template that Q16 and Q22 cover at five branches. fishlockpharmacy.co.uk/weight-loss-services-eccleston-ainsdale.html is live, still in the sitemap, linked from the fishlockpharmacy.co.uk homepage, and serves both Fishlocks branches from one URL, which is presumably why the five-branch list missed it. It carries the same elements the 2026-08-10 assessment identified as the actual breaches on the known five: the Real Results heading, the outcome slider under How much weight could you lose, and a treatment picker, and its meta keywords name six prescription-only medicines (Mounjaro, tirzepatide, Wegovy, semaglutide, Ozempic, Orlistat). Because the homepage links to it proactively it sits in the stricter advertising regime, where the inner-page exemption for balanced overviews does not apply. The two replacement clinic pages for Ainsdale and Eccleston are already live and also homepage-linked. How should this sixth page be handled?",
+    "options": [
+      "Fold it into item 5.8 so the fix chosen under Q22 covers six pages rather than five. One decision, one Weebly session, and the same reasoning applies to all six instances of the template",
+      "Fix this one ahead of Q22 at the next supervised Weebly session, removing the homepage link and the breach elements, on the grounds that it is the only instance serving two branches and its replacements are already live",
+      "Take the page down entirely at the next Weebly session, since both replacement clinic pages are live and homepage-linked, accepting the loss of whatever rank the old URL holds and of the redirect-free path Q5 chose at Cherry Lane"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "No decision was taken this run: live patient-facing regulatory copy sits inside the carve-out even during an autonomous window, and none was active. Nothing repo-side owns this copy, so nothing was changed for it beyond this question, a cross-reference under item 5.8, the 2.1 pass note and the evidence file audits/fishlocks-ainsdale-build-check-2026-08-12.txt. The homepage also still carries the estate-wide Tried the rest tagline, which is already inside Q22 scope and is recorded as confirmation only."
   }
 ]
