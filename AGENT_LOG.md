@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 16:25 BST - seventy-fourth run [commit 9b32bbb] - Item 6.2, the
+estate-wide broken internal link sweep. Sweep built and run, 15 broken
+targets found, zero generator-owned defects, item complete, Q53 and Q54
+raised as the live-only follow-ups the item calls for. 6.2 is NOT marked
+blocked: the questions are follow-ups, not blockers, matching the item's
+own wording ("log any live-only fixes needed as a question").
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired since
+23:14 on 2026-08-10 and nothing has renewed it. It would not have applied
+anyway: both questions need hands the worker does not have (Weebly edits,
+Ahrefs UI, Cloudflare), so there was nothing to decide autonomously.
+
+ANSWER PICKUP UNAVAILABLE. The portal fetch returned the Cloudflare Access
+login page again, so Chrome held no live Access session at run time. Logged
+and carried on, no login attempted, tab closed. Open questions were 28
+before the run, 30 after (Q53, Q54 added).
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+THE SWEEP. New tool tools/sweep-broken-links.js: reads hostMap from
+branches.json, fetches each www host's sitemap.xml, crawls every sitemap
+page, extracts every estate-internal link (cross-site links included),
+then status-checks each unique target with HEAD falling back to GET.
+Read-only network use, GET and HEAD only. Scope was the 12 branch-site
+www hosts; www.clearchemist.co.uk excluded (27,000+ URLs, does not fit a
+single run) and noted in the report. 449 pages fetched, 403 unique targets
+checked. Results: audits/broken-links-sweep-2026-08-11.json (raw, with
+per-page sources) and audits/broken-links-sweep-2026-08-11.md (summary).
+The audits/ directory is new this run; chosen over status/ because
+status/index.html is generated output and over compliance/ because this
+is survey evidence, not a compliance assessment.
+
+WHAT THE 15 BREAK DOWN TO. Twelve are one artefact: Cloudflare's Email
+Address Obfuscation rewrites every mailto into /cdn-cgi/l/email-protection,
+404 to any crawler, fine for real visitors, present in the footer of nearly
+every page on every site. That is almost certainly the estate-wide "Page
+has links to broken page" top issue that created item 6.2, which means the
+Ahrefs headline is mostly noise. Silencing decision raised as Q54
+(recommended: add /cdn-cgi/ to the Ahrefs project ignore patterns, no live
+change). The three real dead links are: every Riddings page linking the
+canonical switch permalink that is 404 live because the live page still
+sits at the old permalink (the Q31 permalink, now confirmed to be breaking
+patient-facing links, not just the GBP pack); Tiffenbergs the only site
+without book-now.html while its nav links it site-wide; and eight sites'
+service-price-list.html pages cross-linking a nonexistent
+riddingspharmacy.co.uk/clinic-prices instead of service-price-list.html.
+All three are live-only Weebly fixes, raised together as Q53 with the
+recommended option being the three edits done in one Weebly session.
+
+GENERATOR-OWNED DEFECTS: none. clinic-prices and book-now appear nowhere
+in the repo, and the generated Riddings pages link the canonical (correct)
+switch target; the defect is the live permalink, so no generator or page
+output was changed and nothing was regenerated.
+
+FILES CHANGED. tools/sweep-broken-links.js (new),
+audits/broken-links-sweep-2026-08-11.json (new),
+audits/broken-links-sweep-2026-08-11.md (new), QUESTIONS.json (Q53, Q54
+appended, file re-parsed clean, 54 questions total, 30 open),
+AGENT_WORKLIST.md (6.2 ticked in place), AGENT_LOG.md (this entry).
+
 ## 2026-08-11 15:55 BST - seventy-third run [commit a9ee078] - Item 6.1, the
 sitemap duplication finding from this morning's Ahrefs sweep. Investigated,
 premise disproven, evidence gathered from the live estate, blocked on Q52.

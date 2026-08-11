@@ -1072,7 +1072,7 @@ so tools/build-audit-status.js picks them up like any other item.
       spot-check 2 to 3 of the affected sites' live sitemap.xml. Not a
       ranking risk on its own but worth clearing before it masks a real
       issue in a future audit.
-- [ ] 6.2 Broken internal links: "Page has links to broken page" is the
+- [x] 6.2 Broken internal links: "Page has links to broken page" is the Done 2026-08-11
       single most common top issue across nearly every branch site in Site
       Audit. Run a full estate-wide broken-internal-link sweep (Site Audit
       internal pages report per project, or a repo-side crawl if faster),

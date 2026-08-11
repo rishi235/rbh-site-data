@@ -807,5 +807,35 @@
     "status": "open",
     "answer": null,
     "note": "One oddity worth recording while it is fresh: Weebly answers HTTP 200 with an empty body at /sitemap.xml.gz and /1/sitemap.xml on Scorah, while unknown paths get a proper 404. An empty file cannot put a page in two sitemaps, so it is not the cause, but if Ahrefs probes common sitemap locations those 200s may register as extra empty sitemaps and are worth a glance in the same issue detail. Nothing repo-side changed for this item beyond the worklist marking and this question."
+  },
+  {
+    "id": "Q53",
+    "date": "2026-08-11",
+    "item": "6.2 broken internal links: estate-wide sweep",
+    "question": "The estate-wide sweep (449 sitemap pages across 12 sites, 403 unique internal targets checked) found three real dead links, all live-only Weebly fixes. First, every Riddings page links its switch page at the canonical permalink switch-prescriptions-riddings-timperley.html, which is 404 because the live page still sits at the old permalink switch-prescriptions.html; every other branch site already serves its switch page at the canonical pattern, so Riddings is the odd one out (the same permalink Q31 worked around inside the GBP pack). Second, Tiffenbergs is the only site with no book-now.html; the other ten sites serve one, and the site-wide nav on every Tiffenbergs page links to it, so every page on that site carries a dead link. Third, the service-price-list.html pages on eight sites link to riddingspharmacy.co.uk/clinic-prices, which does not exist; Riddings' actual price page is service-price-list.html. None of these can be fixed from the repo: the first needs a permalink rename plus a banner link retarget in Weebly, the second a page publish, the third an href edit on eight Weebly pages.",
+    "options": [
+      "Rishi or Dane makes the three Weebly fixes: rename the Riddings switch page permalink to switch-prescriptions-riddings-timperley.html and retarget the site-wide banner link in the same session, publish book-now.html on Tiffenbergs from the same template as the other ten sites, and repoint the eight clinic-prices hrefs to https://www.riddingspharmacy.co.uk/service-price-list.html. Restores every dead link and puts Riddings on the estate pattern.",
+      "Keep the Riddings old permalink and instead repoint the switch links in the Riddings service pages via a generator override, re-pasting those pages, and make only the Tiffenbergs and clinic-prices fixes live. Avoids one permalink rename but leaves Riddings off-pattern and is far more paste work.",
+      "Leave all three as they are. The Ahrefs flag stays, and the book-now and switch links are patient-facing dead ends, so this loses real bookings."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Full target list with per-page sources is in audits/broken-links-sweep-2026-08-11.json. The Riddings fix has two parts because the site-wide switch banner on Riddings links the old permalink, so a rename without the banner retarget would break the banner on every page."
+  },
+  {
+    "id": "Q54",
+    "date": "2026-08-11",
+    "item": "6.2 broken internal links: estate-wide sweep",
+    "question": "Twelve of the fifteen broken targets the sweep found are the same URL on each site: /cdn-cgi/l/email-protection. That is Cloudflare's Email Address Obfuscation rewriting every mailto link into a script-decoded link that returns 404 to any crawler. It sits on nearly every page of every site because the footers carry email links, which is almost certainly why 'Page has links to broken page' shows as the most common top issue in the Ahrefs Site Audit sweep. Real visitors are unaffected because the browser script restores the email address. The question is whether to silence this noise and how.",
+    "options": [
+      "Add /cdn-cgi/ to the ignore or exclude patterns in each affected Ahrefs Site Audit project. Keeps the obfuscation protection, clears the noise so real broken links stand out, changes nothing live. Ahrefs UI only, so Rishi or Dane.",
+      "Turn off Email Address Obfuscation in the Cloudflare zones for the branch sites. Removes the 404s at source but publishes the branch email addresses in plain text to scrapers.",
+      "Leave it and read around the noise in future audits. Costs nothing now but keeps the top-issue list dominated by a non-issue."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Neither question blocks item 6.2 itself: the sweep, the report and the generator-owned check are done. These are the live-only follow-ups the item asked to be logged, same as 5.8."
   }
 ]
