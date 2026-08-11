@@ -2,6 +2,106 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 02:05 BST - fifty-first run [commit COMMITHASH] - Quality pass on item 1.1, the brand-name standardisation, last verified on 2026-08-05 as the fifth run of that day, which makes it the oldest verification standing by six days. The repo is clean and has stayed clean. The finding is not a wrong word anywhere; it is that item 1.1 was the only completed item with no checker behind it, so its verification was a hand sweep retyped on every pass. New tools/check-brand-spelling.js now holds the rule. No new question
+
+NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09
+expired at 23:14 on 2026-08-10 and no new authorisation section is present at
+the top of this log, so step 7 applies as written. Nothing this run needed a
+decision in any case.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 02:06. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Q17 to Q22, Q24, Q28, Q29 and Q34 to Q40 are all still
+open with no answer posted against any of them. Sixteen, unchanged.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived from scratch by reading every run heading in this log rather
+than trusting the previous run's summary, and it agrees with it. Item 1.1 was
+verified as the fifth run of 2026-08-05 and never since. Taken this run. The
+remaining order is the 2026-08-06 pair, 3.1 and then 1.4.
+
+THE SWEEP IS CLEAN, WHICH IS THE THIRD TIME IN A ROW FOR THIS ITEM. Every file
+in the repo outside .git was scanned for the variant spellings named in the
+item plus apostrophe and ampersand forms: Fishlock singular and Fishlock's,
+Coleman & Leigh, Coleman and Leigh without the s, Leigh's, Gordon Shorts,
+Short's, McCann's, MacCann, Smartt's, Tiffenberg's, Tiffenburg, Hirshman's,
+Hirshman singular, Hirschman, Scorah's, Ridding's, Ridding singular and
+S K Chemists. Nothing wrong in branches.json, in the 177 generated pages, in
+the generators, in the paste blocks or in the GBP packs. The only capitalised
+hits are the ones that are supposed to be there: CHANGELOG.md recording the old
+CDN pin, GBP_MANUAL.md naming what the live listing says, and the two GBP packs
+that quote the wrong live name on purpose so the paster knows the website and
+the profile disagree and which of the two is right. The lowercase hits are all
+domains, ids and slugs, which is why the sweep is case-sensitive.
+
+THE DEFECT IS THE ABSENCE OF A CHECKER, AND IT IS BIGGER THAN IT LOOKS. Every
+one of the eighteen checkers composes what it expects from branches.json. That
+is the right design and it is also a hole with this item's shape: a rename
+inside branches.json reaches all 177 pages with every checker still green,
+because they all agree with the new spelling. Item 1.1 is precisely the item
+whose ground truth is a decision rather than a fact, and it was the only
+completed item with nothing standing behind it. The hand sweep was doing the
+work, once per pass, for six days.
+
+WHAT LANDED. tools/check-brand-spelling.js, 353 lines, three rules.
+
+  CANON    every trading branch's brandLabel is exactly its pinned canonical
+           form, held in a CANONICAL map INSIDE the checker and therefore
+           outside branches.json, and branchName is that brand alone or that
+           brand plus a qualifier. A branch missing from the pin list fails
+           and a pinned id that is no longer trading fails, so the list cannot
+           rot in either direction. Renaming a branch stays possible and
+           becomes deliberate: both files change in one commit and the diff
+           says a name changed.
+  VARIANT  no near-miss spelling in public copy. The near misses are DERIVED
+           from the canonical form rather than listed - a trailing s added or
+           dropped on any word, an apostrophe-s form, and "and" written as an
+           ampersand - so "Fishlock Chemist", "Fishlock's Chemist", "Gordon
+           Shorts Chemist" and "Coleman & Leigh Pharmacy" are all findings
+           without anyone having listed them. 209 files in scope: the three
+           generated page folders and their INDEX and SEO sheets, the Weebly
+           paste blocks, the two DRAFT copy files CLAUDE.md names as public
+           copy no folder scan reaches, and the GBP packs.
+  CONFIG   the brand strings hardcoded in the CONFIG table of
+           build-switch-pages.js match branches.json. That table is the one
+           place in the repo where a brand is typed rather than read, and the
+           string it holds becomes the H1, the body copy, the data-branch and
+           the JSON-LD name on 15 switch pages.
+
+TWO DESIGN CHOICES WORTH NOT UNDOING. Whitespace is collapsed before a match is
+compared to the canonical form, because a trading name wraps across a line in
+markdown and across a tag boundary in HTML; without it the checker reported
+"SK Chemists" as a misspelling of "SK Chemists" twice in its first run. This
+checker tests the spelling only, and check-em-dashes and the SEO checkers own
+the punctuation and the layout. And a variant inside double quotation marks is
+read as evidence rather than as a claim, in MARKDOWN ONLY. Several GBP packs
+record what a branch's live pages currently say; gordon-short-crosby.md and
+coleman-leigh-walton.md both do it today and both now report as evidence rather
+than failing. The exemption stops at markdown because in HTML every attribute
+is quoted, so the same rule there would blank data-branch and the JSON-LD name,
+which is most of what the check is for. Same evidence-not-claim precedent as
+the quoted times in check-gbp-packs.js.
+
+TESTED BY BREAKING IT, THREE WAYS, EACH REVERTED. A variant typed into
+pharmacy-first-gordon-short-crosby.html: caught on every line it appeared on. A
+rename of Fishlocks Chemist to Fishlock Chemist inside branches.json: caught
+six times, twice as a canon failure, twice as a branchName that no longer
+agrees with its own brand, and twice as a switch CONFIG table that now
+disagrees with the data, which is the third rule firing from the other
+direction. The tree was confirmed clean after the reverts before anything was
+committed.
+
+Files changed: tools/check-brand-spelling.js (new), CLAUDE.md (new section
+documenting the checker and the two design choices), AGENT_WORKLIST.md,
+AGENT_LOG.md.
+All 19 checkers run green, including the new one.
+Questions: none new. Sixteen open, unchanged.
+
+---
+
 ## 2026-08-11 01:35 BST - fiftieth run [commit 1b862ba] - Quality pass on item 4.2, the Cherry Lane Pharmacy GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the third run of that day, which makes it the oldest verification standing. The pack is clean and nothing in it is wrong. Two in-repo defects found and fixed, both in checkers: two of the six profile-basics lines had never been read by anything, and the branch-name-as-place rule could not see the one construction that was actually breaking it. One copy correction. One new question, Q40
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on

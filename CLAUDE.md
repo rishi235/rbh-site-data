@@ -520,3 +520,58 @@ because they name no medicine at all, which is the safe side of a line they do
 not need to walk. `tools\check-service-links.js` enforces the no-claims half in
 public copy. Nothing in this repo can see a live-only Weebly page, which is why
 the five pages in Q16 and Q22 sat unseen for the whole audit.
+
+
+## The trading name, and the rename that no checker would notice
+
+Item 1.1 settled the trading names on 2026-08-04: Fishlocks not Fishlock,
+Coleman and Leighs not Coleman & Leigh, Gordon Short not Gordon Shorts. It has
+been re-verified on every quality pass since by hand, with a fresh pattern
+sweep typed out each time, because nothing in the repo held the rule. The rule
+lived in whoever was running the sweep.
+
+`tools\check-brand-spelling.js` now holds it, and it closes two gaps of very
+different sizes.
+
+The small one is hand-written copy. Almost every visible brand mention on a
+generated page is composed from the same string that lands in `data-branch` and
+the JSON-LD `name`, so `check-nap` and `check-branch-identity` catch a wrong
+one as a side effect. Copy that is typed rather than composed gets no such
+protection: the GBP packs, the Weebly paste blocks, the two `DRAFT-*` files,
+and any prose a generator carries inline.
+
+The large one is `branches.json` itself. Every checker here composes what it
+expects from that file, which is correct and is also the hole: a rename inside
+it propagates to 177 pages with every other check still green, because they all
+agree with the new spelling. So the canonical forms are pinned in `CANONICAL`
+inside the checker, outside `branches.json`. A `brandLabel` that no longer
+matches its pin fails, a branch missing from the list fails, and a pinned id
+that is no longer a trading branch fails. Renaming a branch stays possible and
+becomes deliberate: change both files in one commit, and the diff says a name
+changed instead of hiding it.
+
+Near misses are derived from the canonical form, not listed, so nobody has to
+think of them in advance: a trailing `s` added or dropped on any word, an
+apostrophe-s form, and `and` written as `&`. That is what makes
+"Fishlock Chemist", "Fishlock's Chemist", "Gordon Shorts Chemist" and
+"Coleman & Leigh Pharmacy" all findings without a hand-written list. Third
+rule: the `brand:` strings hardcoded in the `CONFIG` table of
+`tools\build-switch-pages.js`, the one place a brand is typed rather than read,
+must match `branches.json`.
+
+Two things in it are deliberate. Whitespace is collapsed before a match is
+compared to the canonical form, because a trading name wraps across a line in
+markdown and across a tag boundary in HTML, and this checker tests the spelling
+only - `check-em-dashes` and the SEO checkers own the punctuation and the
+layout. And a variant inside double quotation marks is read as evidence rather
+than as a claim, in markdown only: several GBP packs record what a branch's
+LIVE pages currently say so the paster knows the website and the profile
+disagree, and `gordon-short-crosby.md` and `coleman-leigh-walton.md` both do
+exactly that today. The exemption is markdown-only because in HTML every
+attribute is quoted, so the same rule there would blank `data-branch` and the
+JSON-LD `name`, which is most of what the check is for.
+
+Written on the item 1.1 quality pass, 2026-08-11. The repo was clean when it
+landed, and the checker was tested by breaking it three ways: a variant typed
+into a generated page, a rename inside `branches.json`, and a stale brand in
+the switch `CONFIG` table. All three fail the run.

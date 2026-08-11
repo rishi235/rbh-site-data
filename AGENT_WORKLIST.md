@@ -572,6 +572,16 @@ appended to the line. Do not move them; the status page reads them in place.
       and it is the same repaste Q32 and item 5.3 both wait on. The 4.12
       pass found the identical pattern at Coleman and Leighs, so at least
       two branches are publishing pre-1.1 names.
+      Verified again 2026-08-11 and the rule is now held by the repo rather
+      than by the sweep. Repo clean: no variant spelling in branches.json,
+      the generated pages, the paste blocks, the drafts or the GBP packs.
+      The only near misses are the two GBP packs that deliberately quote
+      what the live Gordon Short and Coleman and Leighs pages say. New
+      tools/check-brand-spelling.js pins the canonical names OUTSIDE
+      branches.json, sweeps 209 files of public copy for near misses derived
+      from the canonical form, and checks the hardcoded brand table in
+      build-switch-pages.js. Tested by breaking it three ways; all three
+      fail the run. Done 2026-08-11.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
