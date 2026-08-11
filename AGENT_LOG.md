@@ -2,6 +2,36 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 (Rishi, manual, not a scheduled run) - Ahrefs sweep findings and
+worker instruction update. Rishi asked for a full Ahrefs Site Audit sweep
+across all 16 projects (Health Score, Errors, Warnings, Notices, What's New)
+plus a GSC Insights pull, after a weekly Ahrefs digest showed Scorah-chemists
+at Health Score 42. Findings and actions from that sweep:
+
+1. No evidence the compliance edits have hurt SEO or traffic. Site Explorer
+   90-day and GSC 90-day data across all 16 projects show no estate-wide
+   decline; the "Organic traffic dropped [New]" alert firing on nearly every
+   project in Site Audit's What's New panel is Ahrefs' own oversensitive
+   week-over-week alerting on tiny-traffic local sites, not a real trend.
+2. Two genuine cross-site technical issues found and added to the worklist
+   as Phase 6: sitemap duplication (new "Page in multiple sitemaps" issue on
+   8+ projects, one shared root cause suspected) as 6.1, and broken internal
+   links (the single most common top issue on nearly every project) as 6.2.
+3. Opening hours defect widened from a single-site finding to a worklist
+   item: Smartts confirmed wrong against branches.json, Riddings confirmed
+   correct as control, remaining branches not yet checked, added as 6.3.
+4. audit-backlog-worker's SKILL.md updated (via update_scheduled_task, not a
+   repo commit) to replace the blanket "must not name prescription-only
+   medicines" rule with the Regime 1 / Regime 2 distinction from
+   RBH_WeightLoss_Advertising_Standards.md, referencing
+   compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md. The worker had already
+   worked this out for itself in that assessment file and in Q22; the
+   instruction file was out of date with the worker's own findings.
+5. Q22 (the live weight loss homepage and inner page exposure) remains OPEN.
+   It was surfaced to Rishi directly in chat alongside this log entry, not
+   decided here. No autonomous window covers it in any case (step 4's
+   regulatory carve-out excludes it even when a window is open).
+
 ## 2026-08-11 14:04 BST - seventy-second run [commit abcf0f5] - Quality pass on item 5.1, the
 Q7 em dash fix, last verified on 2026-08-10 16:34 as the thirty-second run,
 which made it the oldest verification standing. The repo half verified clean

@@ -1061,5 +1061,33 @@ so tools/build-audit-status.js picks them up like any other item.
       page, stays in KNOWN_CLAIM in tools/check-service-links.js until the
       decision lands.
 
+## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
+
+- [ ] 6.1 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
+      sitemaps" as a new issue on at least 8 of the 16 projects, all newly
+      appearing since the estate-wide page regeneration. Find the shared
+      root cause in the sitemap generator (likely tools/build-sitemap.js or
+      equivalent, check for a page being emitted into both a branch sitemap
+      and a shared/index sitemap) and fix at source, then regenerate and
+      spot-check 2 to 3 of the affected sites' live sitemap.xml. Not a
+      ranking risk on its own but worth clearing before it masks a real
+      issue in a future audit.
+- [ ] 6.2 Broken internal links: "Page has links to broken page" is the
+      single most common top issue across nearly every branch site in Site
+      Audit. Run a full estate-wide broken-internal-link sweep (Site Audit
+      internal pages report per project, or a repo-side crawl if faster),
+      list every broken target found, and fix the ones that are
+      generator-owned (dead cross-links, stale switch-page targets, moved
+      permalinks). Log any live-only fixes needed as a question, same as
+      5.8.
+- [ ] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
+      sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
+      9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
+      14:00-18:00 (confirmed 2026-06-24); Riddings was checked as a control
+      and is correct. Check the remaining branches not yet verified against
+      the live site, starting with Coleman & Leigh, Gordon Shorts and
+      Tiffenbergs, then the rest of the 14. Log a question per branch with a
+      mismatch rather than fixing silently, since the fix is live-only copy.
+
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
