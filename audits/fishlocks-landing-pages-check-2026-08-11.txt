@@ -1,0 +1,65 @@
+Item 2.2 quality pass - Fishlocks shared-domain split
+Date: 2026-08-11 23:08 BST (eighty-eighth run)
+Previous verification: 2026-08-10 23:43 (forty-sixth run, commit 9e191f0)
+
+REPO HALF - CLEAN
+
+Rebuild: node tools/build-branch-landing-pages.js produced zero diff
+(6 pages regenerated, git status clean), so the committed pages match
+current branches.json exactly.
+
+Checkers: all 29 tools/check-*.js pass with exit code 0, no failures.
+(Run 46 recorded 18 checkers; the estate has since grown to 29.)
+
+Field-for-field against branches.json, both pages:
+- Ainsdale: 17 Station Road, Ainsdale PR8 3HN; phone 01704 575478 with
+  tel:01704575478 correctly stripped of the space; Ainsdale@rbhealth.co.uk;
+  Google review link Cfl0iMf3cgGaEAE; NHS review link XFK848. Hours
+  Mon-Fri 8.45am to 6pm in the visible card and 08:45-18:00 in the
+  JSON-LD, weekend closed, matching the branch record.
+- Eccleston: Unit 3 The Carrington Centre, New Mill Street PR7 5SZ;
+  phone 01257 451251 with tel:01257451251 stripped; Eccleston@rbhealth.co.uk;
+  Google review link CYyjtWbSXqEkEAE; NHS review link XFKJ81. Hours
+  Mon-Fri 9am to 6pm plus Saturday 9am to 12pm in both the visible card
+  and the JSON-LD, Sunday closed, matching the branch record. Neither
+  branch has a split day, so the lunch-closure trap does not arise.
+- JSON-LD: one block per page, PostalAddress correct on both,
+  addressRegion Merseyside (Ainsdale) and Lancashire (Eccleston) with
+  Chorley held in seoRegion, the state the 3.3 fix settled.
+- Links: 6 internal html links per page, every target exists in the repo.
+- Both files pure ASCII: no em dash, no en dash, no emoji, no mojibake.
+
+One difference from run 46's record, checked and explained: run 46
+recorded the app sentence as "Manage everything in the free RB
+Healthcare app". The pages now read "free RB Healthcare Pharmacy app".
+This is commit dade388 (2026-08-11, item 3.8 quality pass: "hasApp had
+no checker, and the app was named two ways"), which standardised the
+app name across the estate. A deliberate later fix, not a defect. The
+gating still holds: the sentence appears on exactly the two landing
+pages whose branch holds hasApp true (both Fishlocks) and on none of
+the other four (clearchemist_aintree and smartts_bootle also hold
+hasApp true but have no landing page in this module).
+
+LIVE HALF - READ ONLY, STATE UNCHANGED SINCE RUN 46
+
+- pharmacy-fishlocks-ainsdale.html: 404 - Page Not Found.
+- pharmacy-fishlocks-eccleston.html: 404 - Page Not Found.
+- sitemap.xml: 40 URLs, every lastmod 2026-07-18T23:03:23, so the site
+  has not been republished since 18 July. Neither landing page listed.
+  The three combined two-town pages the split exists to replace are
+  still listed and still the live targets:
+  weight-loss-services-eccleston-ainsdale.html,
+  pharmacy-first-service-eccleston-ainsdale.html,
+  nhs-free-blood-pressure-check-eccleston-pr7-ainsdale-pr8.html.
+
+Nothing clicked, typed or submitted. One tab opened and closed.
+
+CONCLUSION
+
+The repo half is correct and byte-stable; the pages are ready to paste
+the moment the Weebly session happens. The paste prerequisite run 46
+recorded remains satisfied (the 5.2 pass of 2026-08-11, commit b40a54f,
+re-confirmed all linked service pages live). The blocker is unchanged:
+the Weebly paste itself, asked as Q35, still open, only Rishi or Dane
+can do it. No in-repo defect found, no copy changed, no new question
+raised.

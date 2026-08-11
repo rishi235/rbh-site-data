@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 23:08 BST - eighty-eighth run - Quality pass on item 2.2, the
+Fishlocks shared-domain split, the oldest verification standing (run 46,
+2026-08-10 23:43) after run 87 refreshed 4.11. Second full pass on this
+item, clean again. No in-repo defect found, no copy changed, no live
+state change, no new question raised.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log is the 2026-08-09 one, expired 23:14 on
+2026-08-10, and nothing has renewed it. Nothing this run needed it:
+verification and note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 32 open questions
+(Q17 onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 32 before, 32 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Runs 76 to 87 refreshed 5.2,
+5.6, 5.7, 4.6, 4.8 to 4.15 and 4.11, leaving 2.2 (run 46, 23:43 on
+2026-08-10) as the oldest standing verification, per run 87's own ageing
+note ("just ahead of 2.2").
+
+REPO HALF, ALL HOLDING. Rebuild of build-branch-landing-pages.js before
+any edit produced zero diff, so the committed pages match current data
+exactly. All 29 checkers pass (run 46 had 18; the estate has grown).
+Both pages verified field for field against branches.json: names, street
+addresses (17 Station Road PR8 3HN; Unit 3 The Carrington Centre, New
+Mill Street PR7 5SZ), phones with tel: links stripped of spaces, emails,
+Google and NHS review links. Hours right in the visible card and the
+JSON-LD: Ainsdale Mon-Fri 8.45am to 6pm, weekend closed; Eccleston
+Mon-Fri 9am to 6pm plus Saturday 9am to 12pm. Neither branch has a split
+day, so the lunch-closure trap does not arise. Every linked page exists
+in the repo. Both files pure ASCII. One difference from run 46's record,
+checked and explained rather than assumed: the app sentence now reads
+"free RB Healthcare Pharmacy app", not "free RB Healthcare app". That is
+commit dade388 (item 3.8 pass, 2026-08-11), which standardised the app
+name estate-wide. Deliberate later fix, not a defect. The gating holds:
+the sentence appears on exactly the two landing pages whose branch holds
+hasApp true and on none of the other four.
+
+LIVE HALF, NO STATE CHANGE MADE, NOTHING HAS MOVED. Read-only page
+loads, nothing clicked, typed or submitted. Both landing pages still
+return a 404. The sitemap still lists 40 pages, every lastmod
+2026-07-18, so the site has not been republished since 18 July, and it
+still lists the three combined two-town pages the split exists to
+replace. So the finding run 46 made stands exactly: the split is ticked,
+verified clean, and has still delivered nothing to a visitor or Google.
+The paste prerequisite remains satisfied (the 2026-08-11 5.2 pass,
+commit b40a54f, re-confirmed all linked service pages live), so the two pages
+can be pasted on their own the moment a Weebly session happens. Q35
+remains open and remains the only outstanding step; nothing new to ask.
+
+FILES CHANGED. audits/fishlocks-landing-pages-check-2026-08-11.txt
+(new), AGENT_WORKLIST.md (second quality pass note under 2.2),
+AGENT_LOG.md (this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 22:40 BST - eighty-seventh run - Quality pass on item 4.11, the
 SK Chemists Bootle GBP pack, last verified 2026-08-10 23:16 as the
 forty-fifth run and the oldest verification standing after run 86

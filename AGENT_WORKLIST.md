@@ -98,6 +98,14 @@ template that must carry no branch fact at all. Negative-tested eleven ways.
       has never reached a visitor or Google. The old combined pages it exists
       to replace are still the live targets. Recorded in INDEX.md via the
       generator and asked as Q35.
+      Quality pass 2026-08-11: second full pass, clean again. Rebuild zero
+      diff, all 29 checkers pass, both pages match branches.json field for
+      field on NAP, hours, JSON-LD and links; pure ASCII. The app sentence
+      now reads "RB Healthcare Pharmacy app" via the item 3.8 rename
+      (dade388), still correctly gated on hasApp. Live half unchanged: both
+      pages still 404, sitemap still dated 2026-07-18 with the three
+      combined two-town pages still the live targets, so the paste asked
+      as Q35 remains the only outstanding step. No defect, no copy change.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
