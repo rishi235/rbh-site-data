@@ -233,6 +233,25 @@ function postsOf(text) {
   });
 }
 
+// The "Button:" line of each post, which postsOf deliberately strips out of
+// the body so it cannot inflate a character count. Read separately here
+// because the button is the only clickable thing on a GBP post, so it is the
+// one line on the post that decides where a click actually lands.
+function buttonsOf(text) {
+  const sec = text.match(/^##\s*5\.\s*Post drafts[^\n]*\n([\s\S]*)$/m);
+  if (!sec) return [];
+  const parts = sec[1].split(/^###\s*/m).slice(1);
+  return parts.map((p) => {
+    const nl = p.indexOf("\n");
+    const label = nl === -1 ? p.trim() : p.slice(0, nl).trim();
+    const rest = (nl === -1 ? "" : p.slice(nl + 1)).split(/^Notes for the paster:/m)[0];
+    const line = (rest.match(/^Button:.*$/m) || [""])[0].trim();
+    const url = (line.match(/https?:\/\/[^\s)"'<>]+/) || [""])[0].replace(/[.,]$/, "");
+    const letter = (label.match(/^Post\s+([A-Z])\b/) || [])[1] || "";
+    return { label, letter, line, url };
+  });
+}
+
 // Case-insensitive whole-word search that reports the line it was found on.
 function findTerms(text, terms) {
   const hits = [];
@@ -672,6 +691,74 @@ for (const file of packFiles) {
     }
     if (!GENERATED.has(seg.toLowerCase())) {
       warn(file, `link target "${seg}" is not a page this repo generates, so it is a live-only page no checker here can keep correct`);
+    }
+  }
+
+  // --- post buttons point at this branch's own page ----------------------
+  // The link rule above proves every link in the pack is on the right host
+  // and that the page exists. It cannot see WHICH page a given post should
+  // carry, so a Post D pointing at the weight loss page, or at the SISTER
+  // branch's travel page on the same shared host, passes it clean. That
+  // matters more than it reads: the button is the only clickable thing on a
+  // Google post, Fishlocks, McCanns and Scorah each run two branches on one
+  // domain, so on those six packs the wrong leaf is not a 404 that anyone
+  // would notice, it is a working page for the wrong pharmacy, and the Q10
+  // work on 2026-08-07 pasted these packs into live profiles.
+  //
+  // The correct page is DERIVED from branches.json rather than listed here,
+  // using the same <type>-<brandSlug>-<townSlug>.html rule the generators
+  // build with (tools/build-switch-pages.js) and the same rule landingSlug
+  // uses above, so a branch renamed in branches.json moves its expected
+  // buttons with it and the two cannot drift.
+  const pageFor = (kind) =>
+    b.brandSlug && b.townSlug ? `${kind}-${b.brandSlug}-${b.townSlug}.html` : null;
+  const BUTTON_PAGE = {
+    B: { kind: "switch-prescriptions", what: "switch page" },
+    C: { kind: "weight-loss-clinic", what: "weight loss clinic page" },
+    D: { kind: "travel-clinic", what: "travel clinic page" },
+  };
+  for (const p of buttonsOf(text)) {
+    if (!p.letter) continue;
+    if (!p.line) {
+      fail(file, `${p.label} has no "Button:" line, so the post would publish with nothing to click and no way through to the page it is about`);
+      continue;
+    }
+    if (!p.url) {
+      fail(file, `${p.label} has a "Button:" line carrying no link: ${p.line}`);
+      continue;
+    }
+    const leaf = p.url.split("/").pop().toLowerCase();
+
+    if (p.letter === "A") {
+      // Pharmacy First. Two destinations are correct and which one applies is
+      // worklist item 5.3's business: the live pfLink in branches.json today,
+      // or this branch's own generated page once 5.3 repoints those links.
+      // A branch with no pfLink and no pharmacyFirst widget runs no Pharmacy
+      // First service at all, so its Post A is a different post (Clear Chemist
+      // labels its own "replaces Pharmacy First") and the rule does not apply.
+      if (!b.pfLink && !(b.widgets || {}).pharmacyFirst) continue;
+      const own = pageFor("pharmacy-first");
+      const okPf = !!b.pfLink && p.url === b.pfLink;
+      const okOwn = !!own && leaf === own.toLowerCase() && GENERATED.has(own.toLowerCase());
+      if (!okPf && !okOwn) {
+        fail(file, `${p.label} button goes to "${leaf}", but this branch's Pharmacy First destination in branches.json is ${b.pfLink || "(pfLink not set)"}, and the only other correct target is its own generated page ${own || "(no brandSlug or townSlug)"}`);
+      }
+      continue;
+    }
+
+    const rule = BUTTON_PAGE[p.letter];
+    if (!rule) continue;
+    const want = pageFor(rule.kind);
+    if (!want) {
+      fail(file, `branches.json gives this branch no brandSlug or townSlug, so the ${rule.what} ${p.label} should link to cannot be worked out`);
+      continue;
+    }
+    if (leaf !== want.toLowerCase()) {
+      fail(file, `${p.label} button goes to "${leaf}", but this branch's ${rule.what} is "${want}", built as <type>-<brandSlug>-<townSlug>.html from branches.json. On a shared domain a wrong leaf is the sister branch's page, which loads fine and sends the click to the wrong pharmacy`);
+      continue;
+    }
+    if (!GENERATED.has(want.toLowerCase())) {
+      fail(file, `${p.label} button goes to "${want}", which is the right name for this branch's ${rule.what} but is not a page this repo generates, so the post would publish a button onto a page nothing here builds`);
     }
   }
 

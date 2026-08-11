@@ -2,6 +2,112 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 05:20 BST - fifty-seventh run - Quality pass on item 4.4, the Scorah Chemists Bramhall GBP pack, last verified on 2026-08-08 as the thirteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time, and for the first time its four post buttons were fetched live. One in-repo gap closed and made permanent: nothing checked WHICH page a post button pointed at, so on a shared domain a button carrying the sister branch's page would have passed clean. New question Q43
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written
+and Q43 was left open rather than decided here.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 05:08. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10. Eighteen questions were open
+before this run and none has been answered: Q17 to Q22, Q24, Q28, Q29 and Q34
+to Q42. Q43 makes nineteen.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary. It agrees: the fifty-sixth run took 1.2, the tenth run's
+item, which leaves the thirteenth run's item 4.4 of 2026-08-08 as the oldest
+verification standing, then 4.5 and 4.1 on 2026-08-09, then 3.2, 3.3 and 3.4.
+Item 4.4 taken this run. Two truncated headings, the twenty-seventh and
+twenty-eighth runs, were resolved rather than guessed: the questions they raised,
+Q17 and Q18, name items 3.11 and 3.12, so neither is an older 4.x pass hiding in
+the order.
+
+THE PACK VERIFIED CLEAN, FOR THE SECOND TIME. Every fact re-checked against the
+branches.json entry for scorah_bramhall rather than against the thirteenth run's
+account of it: street address 61-63 North Park Road, locality Bramhall, postcode
+SK7 3LQ, phone 0161 439 3744, the Google review link, the five catchment towns
+in the order branches.json holds them, hasApp false and no app mention anywhere,
+and the hours line including the Saturday 9:00 to 1:00 close, all correct. The
+description is inside 750 characters and the four posts inside 1,500. The
+category set still earns Travel clinic, Vaccination centre and Weight loss
+service from the branch's widget set, which is the estate-wide defect the
+thirteenth run found and fixed, and it has held. All 19 checkers pass, and all
+seven generators were run and reproduced every page byte-identical apart from
+the build timestamp on status/index.html.
+
+THE DEFECT, WHICH IS IN THE CHECKER RATHER THAN THE PACK. check-gbp-packs.js
+already proves that every link in a pack sits on the branch's own host and that
+the page exists. It cannot see which page a given post should carry. So a Post D
+pointing at the weight loss page, or at the SISTER branch's travel page, passed
+clean. That is not a theoretical gap on this pack: Fishlocks, McCanns and Scorah
+each run two branches on one domain, so across six of the fifteen packs the
+wrong leaf is not a 404 anybody would notice, it is a working page for the wrong
+pharmacy, and the Q10 work of 2026-08-07 pasted these packs into live profiles.
+The button is the only clickable thing on a Google post.
+
+WHAT WAS BUILT. A new buttonsOf() reader, because postsOf() deliberately strips
+the Button line out of the body so it cannot inflate a character count, and four
+rules. Posts B, C and D must point at switch-prescriptions, weight-loss-clinic
+and travel-clinic for this branch, and the correct filename is DERIVED from
+branches.json using the same <type>-<brandSlug>-<townSlug>.html rule the
+generators build with and the same rule landingSlug already uses, so a branch
+renamed in branches.json moves its expected buttons with it and the two cannot
+drift. Post A is held to either the branch's pfLink or its own generated
+Pharmacy First page, which is deliberate: item 5.3 will repoint those eleven
+links, and a rule locked to pfLink alone would have to be unpicked to let 5.3
+land. A branch with no pfLink and no pharmacyFirst widget is skipped, which is
+Clear Chemist, whose Post A is labelled in the pack as replacing Pharmacy First.
+Missing Button lines and Button lines with no link fail too.
+
+TESTED RATHER THAN ASSUMED. Four negative tests were run against a temporary
+copy of the Bramhall pack and the file restored byte-identical afterwards, which
+git confirms. Post D repointed at travel-clinic-scorah-hazel-grove.html, the
+exact shared-domain fault the rule exists for, fails. Post C repointed at the
+travel page fails. Post B repointed at a plausible but unbuilt filename fails.
+Post A repointed at the McCanns Pharmacy First page, on the correct host so the
+existing host rule cannot see it, fails. All fifteen packs pass with the rules
+in, and the run's 13 warnings are the same 13 as before.
+
+WHAT THE LIVE READ FOUND, AND WHY IT IS A QUESTION RATHER THAN A FIX. The three
+service pages the pack's buttons point at were fetched and read: the switch,
+weight loss and travel clinic pages for Bramhall all resolve, name the branch
+correctly and carry the right address and phone. The fourth live target, the
+branch landing page the pack sets as the profile website, returns a 404. That is
+what the pack's own paster note anticipates, so it is the pack being right
+rather than wrong, but it does mean the Scorah Bramhall profile cannot yet move
+off the shared homepage. What was not expected sits in the Weebly furniture that
+wraps every page on the domain, including the pages this repo generates. The
+site-wide strip publishes "Bramhall: 61 North Park Road, Bramhall, SK7 3LQ",
+with the house number truncated. That is the pre-normalisation address item 1.4
+found inside this repo on 2026-08-04 and fixed by regeneration, so the version
+the repo corrected a week ago is still the one the public sees, sitting on the
+same page as the corrected one. The Weebly contact block above it reads
+"61-63 North Park Road, Bramhall, Cheshire SK7 3LQ", right number, wrong county:
+branches.json records Greater Manchester and the JSON-LD on that same page
+prints Greater Manchester. The identical Cheshire fault was recorded at Riddings
+Timperley on 2026-08-10, so this is the second site, which is what turns it from
+a typo into a likely pattern. None of it is reachable from this repo, so it is
+Q43 with the fix-both-and-sweep-the-estate option recommended.
+
+WHAT WAS NOT RAISED AGAIN. The Scorah Bramhall switch page live still carries
+the em dash item 5.1 removed from the repo on 2026-08-09, rendering as mojibake
+rather than as a dash. The thirty-second run read the same sentence at the same
+branch on 2026-08-10, so it is unchanged rather than new, and it is logged here
+as paste lag, not raised as a question.
+
+FILES CHANGED. tools/check-gbp-packs.js, the new rules. AGENT_WORKLIST.md, the
+4.4 quality-pass note in place. QUESTIONS.json, Q43. status/index.html, the
+build timestamp from the regenerate step. gbp-packs/scorah-bramhall.md needed no
+correction and none was made.
+
+NEXT RUN. Least recently verified completed items are now 4.5 and 4.1, both
+2026-08-09, in that order, then 3.2, 3.3 and 3.4.
+
 ## 2026-08-11 04:40 BST - fifty-sixth run [commit 641c0a4] - Quality pass on item 1.2, the Hirshmans address sweep, last verified on 2026-08-07 as the tenth run, which made it the oldest verification standing. The live half of the item, which the tenth run could not do, was done this run and the address is correct on every live surface. Two defects found away from the address itself: the published email was checked by nothing, now a rule in check-nap with seven negative tests, and status/index.html had been stale in the repo since 2026-08-04 because one of the seven generators was never in the regenerate-and-compare step. New questions Q41 and Q42
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

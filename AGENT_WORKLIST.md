@@ -263,6 +263,21 @@ Pharmacy First wording to the NHS service description.
       "free assessment" wording; hasApp false, so no app mention. Post A uses
       the shared Hazel Grove / Bramhall PF page per pfLink, with a paster
       note to swap to the branch page once live.
+Quality pass 2026-08-11: the pack verified clean against branches.json and
+TEMPLATE.md on every fact for the second time, and for the first time its four
+post buttons were fetched live. Three of the four resolve and read correctly.
+The fourth, the profile website the pack sets, is the branch landing page
+pharmacy-scorah-bramhall.html and it returns a 404, which the pack's own paster
+note anticipates, so the profile cannot yet move off the shared homepage. One
+in-repo gap closed: nothing checked WHICH page a post button pointed at, only
+that the link sat on the right host and that the page existed, so a Post D
+carrying the sister branch's travel page on the same shared domain would have
+passed clean and sent every click to the wrong pharmacy. tools/check-gbp-packs.js
+now derives the correct target for Posts B, C and D from branches.json using the
+same brandSlug-townSlug rule the generators build with, and holds Post A to
+either the branch's pfLink or its own generated page so item 5.3 can still
+repoint it. Four negative tests fire; all 15 packs pass. New question Q43, on
+the two Weebly-native address faults found live on scorah-chemists.co.uk.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

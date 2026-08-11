@@ -649,5 +649,21 @@
     "status": "open",
     "answer": null,
     "note": "The reason this surfaced now is worth recording on its own. The standing rule is to regenerate with the established build scripts and verify before committing, and recent runs have been regenerating six of the seven build scripts and reporting zero diff. build-status-page.js was simply never in that set, so nothing was broken and nothing was flagged for 51 runs. It has been run and committed this run either way, so whichever option you pick, the counts on that page are correct as of now. Nothing here blocks a worklist item and nothing here is urgent."
+  },
+  {
+    "id": "Q43",
+    "date": "2026-08-11",
+    "item": "quality pass on 4.4 (finding, does not block any item)",
+    "question": "scorah-chemists.co.uk publishes the Bramhall address two different wrong ways in Weebly furniture that no generator owns, on every page of the site including the pages this repo builds. The site-wide strip at the foot of every page reads \"Bramhall: 61 North Park Road, Bramhall, SK7 3LQ\", with the house number truncated: this is the pre-normalisation address that item 1.4 found in the repo on 2026-08-04 and fixed by regeneration, so the version the repo corrected a week ago is still the one the public sees. The Weebly contact block above it reads \"61-63 North Park Road, Bramhall, Cheshire SK7 3LQ\", which has the house number right but names the wrong county: branches.json records Greater Manchester, and the schema block on the very same page prints Greater Manchester, so Google is handed both counties on one page. The same Cheshire fault was recorded at Riddings Timperley on 2026-08-10, so this is the second site it has been found on. Item 4.4's pack feeds the Scorah Bramhall Google profile, and a profile whose address is contradicted by the website it points at is exactly the signal that weakens a local listing. All of it is hand-edited Weebly furniture, so no checker here can reach it and no unattended run can fix it. How should it be handled.",
+    "options": [
+      "Fix both on scorah-chemists.co.uk at the next supervised Weebly session, and check the same two things on the other 13 sites while in there. The truncated house number is a NAP mismatch against the Google profile and against every generated page on the same domain, and Cheshire has now been found twice, so it is likely a pattern rather than one typo.",
+      "Fix only the truncated house number now and leave Cheshire alone. The number is a genuine address mismatch a patient or Google can act on; Cheshire is the historic county for Bramhall SK7 and many local businesses still use it, so it is arguably a presentational choice rather than an error.",
+      "Fold both into the existing Weebly paste backlog and do nothing separately. Items 5.3, 5.4 and 5.8 already need a supervised Weebly session, the Scorah Bramhall landing page and switch page repaste is queued behind them, and the footer edits can ride along with that work rather than pulling a session forward on their own.",
+      "Leave both as they are and record the decision. Neither stops a patient reaching the shop, the postcode is correct in both places, and the estate has larger live-copy problems open at Q22."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Two other things were read live on scorah-chemists.co.uk in the same pass and neither is new. The branch landing page pharmacy-scorah-bramhall.html that the pack tells the paster to set as the profile website returns a 404, which is what the pack's own paster note anticipates, so the Scorah Bramhall profile cannot yet be moved off the shared homepage. The switch page still carries the em dash that item 5.1 removed from the repo on 2026-08-09, and it is rendering as the mojibake \"a EUR\" sequence rather than as a dash; the thirty-second run read the same thing at this branch on 2026-08-10, so it is unchanged rather than new evidence. Both are paste lag, not repo defects. The pack itself verified clean on every fact."
   }
 ]
