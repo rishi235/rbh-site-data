@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 05:35 BST - fifty-eighth run - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack, last verified on 2026-08-09 as the fourteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time. One in-repo gap closed and made permanent: nothing read the one fact in a pack that is about ANOTHER branch, the sister-branch claim, although two packs carry it inside the description that is pasted verbatim into a public Google profile. No new question
+## 2026-08-11 05:35 BST - fifty-eighth run [commit 2ef8792] - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack, last verified on 2026-08-09 as the fourteenth run, which made it the oldest verification standing. The pack verified clean on every fact for the second time. One in-repo gap closed and made permanent: nothing read the one fact in a pack that is about ANOTHER branch, the sister-branch claim, although two packs carry it inside the description that is pasted verbatim into a public Google profile. No new question
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
