@@ -13,6 +13,18 @@
     - contact card address line "street, locality, postcode"
     - every tel: link and visible phone number
     - Google Maps embed query
+    - all four of those surfaces are PRESENT. Each check above only fires
+      when its surface is found, so a page that lost its contact card or
+      its map used to pass every rule and still count towards the "checked
+      N pages" line. An unchecked page and a correct page read the same.
+    - EVERY phone-shaped number on the page, not only the two shapes the
+      readers above recognise, matches the branch phone. Added on the item
+      1.4 quality pass, 2026-08-11: all 15 switch pages carry a number in
+      FAQ body copy ("Call us on 0151 226 2051") that sat outside the
+      visible-phone reader, because it wants digits straight after "Call".
+      Correct today, and unread today, which are not the same thing.
+  Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
+  question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
   modules/branch/pages/*.html
 
@@ -53,6 +65,28 @@ const PASTE_DIRS = [
 ];
 
 const digits = (s) => String(s || "").replace(/\D/g, "");
+
+// A phone number written for a human: 0151 226 2051, 01704 577376.
+// Declared here rather than beside the paste-block section because the
+// generated-page sweep below uses it too. See PHONE SWEEP.
+const PHONE_RE = /\b0\d[\d ]{7,13}\d\b/g;
+// A UK postcode as it appears in copy, always upper case.
+const PC_RE = /\b[A-Z]{1,2}[0-9][A-Z0-9]?\s?[0-9][A-Z]{2}\b/g;
+
+// Build comments carry the generator name, the run date and the CDN pin.
+// Blank them before any sweep so generator bookkeeping is never read as a
+// public claim. Same convention as check-em-dashes.js.
+const stripComments = (s) => String(s).replace(/<!--[\s\S]*?-->/g, " ");
+
+// A number written in a phone shape that is not a phone number. Keyed
+// "<filename>::<the number as written>", with a reason and a question id.
+// A key that no longer matches anything fails the run, so the list cannot rot.
+const KNOWN_PHONE = {};
+
+// A generated page that legitimately does not carry one of the four NAP
+// surfaces. Keyed "<filename>::<surface>", with a reason and a question id.
+// A key that no longer matches anything fails the run.
+const KNOWN_SURFACE = {};
 
 // Pages HTML-escape text and attribute values; decode before comparing.
 const unesc = (s) => s === null || s === undefined ? s : String(s)
@@ -101,6 +135,8 @@ let pasteBlocks = 0;
 const seenBranches = new Set();
 const generatedFiles = new Set();
 const warnings = [];
+const usedKnownPhone = new Set();
+const usedKnownSurface = new Set();
 
 function bad(file, msg) {
   problems++;
@@ -156,17 +192,72 @@ for (const dir of PAGE_DIRS) {
     } else if (!x.ldError) {
       bad(rel, "no JSON-LD block found");
     }
+
+    // --- THE FOUR SURFACES MUST BE THERE -------------------------------
+    // Every check above is conditional: a page with no contact card, no map
+    // and no tel: link passes all of them and still counts towards the
+    // "checked N pages" line, so an unchecked page and a correct page read
+    // the same. Absence is now a failure, with KNOWN_SURFACE for a page
+    // that legitimately has none.
+    const surfaces = [
+      ["contact-line address", x.contactAddress !== null],
+      ["map query", x.mapQuery !== null],
+      ["tel: link", x.telLinks.length > 0],
+      ["visible phone", x.visiblePhones.length > 0],
+    ];
+    for (const [what, present] of surfaces) {
+      if (present) continue;
+      const key = file + "::" + what;
+      if (KNOWN_SURFACE[key]) {
+        usedKnownSurface.add(key);
+        warn(rel, "KNOWN no " + what + ". " + KNOWN_SURFACE[key].question + ": " +
+          KNOWN_SURFACE[key].reason);
+      } else {
+        bad(rel, "carries no " + what + ", so nothing on this page was checked " +
+          "for it against branches.json");
+      }
+    }
+
+    // --- PHONE SWEEP ---------------------------------------------------
+    // The readers above only see a phone in the two shapes they know: a
+    // tel: href, and a number written straight after "Call" or after the
+    // contact card's "Phone:" label. Every other phone-like number on the
+    // page was invisible to this checker, which is the one thing in the
+    // repo that reads a phone against branches.json at all. All 15 switch
+    // pages carry one: the FAQ answer reads "Call us on 0151 226 2051",
+    // and the two words between "Call" and the number put it outside the
+    // reader. Correct today, and unread today, which are not the same
+    // thing. Sweep every phone-shaped number instead, the way the paste
+    // block half of this file already does.
+    const swept = stripComments(unesc(html));
+    PHONE_RE.lastIndex = 0;
+    let pm;
+    while ((pm = PHONE_RE.exec(swept)) !== null) {
+      const raw = pm[0].trim().replace(/\s+/g, " ");
+      const d = digits(raw);
+      if (d.length < 10 || d.length > 11) continue;
+      if (d === digits(b.phone)) continue;
+      const key = file + "::" + raw;
+      if (KNOWN_PHONE[key]) {
+        usedKnownPhone.add(key);
+        warn(rel, 'KNOWN number "' + raw + '". ' + KNOWN_PHONE[key].question + ": " +
+          KNOWN_PHONE[key].reason);
+        continue;
+      }
+      const other = branches.find((x2) => x2.phone && digits(x2.phone) === d);
+      if (other)
+        bad(rel, 'phone "' + raw + '" belongs to ' + other.branchName + ", not " +
+          b.branchName);
+      else
+        bad(rel, 'phone-like number "' + raw + '" is not ' + b.branchName +
+          "'s number in branches.json");
+    }
   }
 }
 
 // ---------------------------------------------------------------------
 // Weebly paste blocks
 // ---------------------------------------------------------------------
-// A phone number written for a human: 0151 226 2051, 01704 577376.
-const PHONE_RE = /\b0\d[\d ]{7,13}\d\b/g;
-// A UK postcode as it appears in copy, always upper case.
-const PC_RE = /\b[A-Z]{1,2}[0-9][A-Z0-9]?\s?[0-9][A-Z]{2}\b/g;
-
 // hostMap keys carry the www; PASTE TARGET comments usually do not.
 const hostOwners = {};
 for (const host of Object.keys(data.hostMap || {}))
@@ -270,6 +361,71 @@ for (const dir of PASTE_DIRS) {
     }
   }
 }
+
+// ---------------------------------------------------------------------
+// Shared paste templates
+// ---------------------------------------------------------------------
+// modules/switch/weebly.html is pasted into a Weebly embed on EVERY branch
+// that runs a switch page this repo does not generate. It belongs to no
+// branch, so the block above cannot read it: pasteOwner() matches on a
+// brandSlug prefix and this file has none, and until now it was simply not
+// in any list. That is the exclusion-by-nobody-thinking-about-it case
+// CLAUDE.md names. The rule that fits a shared template is the opposite of
+// the per-branch one: it must carry NO branch fact at all, because a phone
+// number, a postcode or a branch name typed into it is published on every
+// branch at once.
+const SHARED_PASTE_FILES = [
+  path.join(ROOT, "modules", "switch", "weebly.html"),
+];
+
+for (const abs of SHARED_PASTE_FILES) {
+  const rel = path.relative(ROOT, abs);
+  if (!fs.existsSync(abs)) {
+    bad(rel, "listed as a shared paste template but the file is gone");
+    continue;
+  }
+  pasteBlocks++;
+  const text = stripComments(unesc(fs.readFileSync(abs, "utf8")));
+  let m;
+  PHONE_RE.lastIndex = 0;
+  while ((m = PHONE_RE.exec(text)) !== null) {
+    if (digits(m[0]).length < 10) continue;
+    const owner = branches.find((b) => b.phone && digits(b.phone) === digits(m[0]));
+    bad(rel, 'shared template carries phone "' + m[0].trim() + '"' +
+      (owner ? " (" + owner.branchName + ")" : "") +
+      ", which would publish one branch's number on every branch that pastes it");
+  }
+  PC_RE.lastIndex = 0;
+  while ((m = PC_RE.exec(text)) !== null) {
+    const owner = branches.find((b) =>
+      b.postalCode.replace(/\s+/g, "") === m[0].replace(/\s+/g, ""));
+    bad(rel, 'shared template carries postcode "' + m[0] + '"' +
+      (owner ? " (" + owner.branchName + ")" : "") +
+      ", which would publish one branch's address on every branch that pastes it");
+  }
+  for (const b of branches) {
+    if (b.disposed) continue;
+    for (const name of [b.branchName, b.brandLabel]) {
+      if (name && text.includes(name))
+        bad(rel, 'shared template names "' + name + '", so it is not shared: ' +
+          "every other branch pasting it would publish that branch's name");
+    }
+  }
+}
+
+// ---------------------------------------------------------------------
+// Stale exceptions
+// ---------------------------------------------------------------------
+// A KNOWN key that no longer matches anything is a rule somebody stopped
+// breaking and nobody removed. Fail on it so neither list can rot.
+for (const key of Object.keys(KNOWN_PHONE))
+  if (!usedKnownPhone.has(key))
+    bad("KNOWN_PHONE", 'stale exception "' + key + '" no longer matches a ' +
+      "number on that page. Remove it (" + KNOWN_PHONE[key].question + ").");
+for (const key of Object.keys(KNOWN_SURFACE))
+  if (!usedKnownSurface.has(key))
+    bad("KNOWN_SURFACE", 'stale exception "' + key + '" no longer matches a ' +
+      "missing surface. Remove it (" + KNOWN_SURFACE[key].question + ").");
 
 const missing = branches.filter((b) =>
   !b.disposed && b.id !== "rbh_head_office_aintree" && !seenBranches.has(b.id));

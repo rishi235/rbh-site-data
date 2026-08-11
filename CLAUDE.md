@@ -497,6 +497,43 @@ so that half belongs in a supervised session alongside Q13 and Q17.
 Found on the item 3.13 quality pass, 2026-08-10.
 
 
+## The phone number, and the two shapes a checker was willing to read
+
+`tools\check-nap.js` is the only thing in this repo that reads a phone number
+against `branches.json`. Until the item 1.4 quality pass on 2026-08-11 it read
+one in exactly two shapes: a `tel:` href, and digits written straight after
+the word "Call" or after the contact card's `Phone:` label. Every other
+phone-shaped number on a page was invisible to it.
+
+All 15 switch pages carry one. The FAQ answer reads "Call us on 0151 226
+2051", and the two words between "Call" and the number put it outside the
+reader. Swapping that number for another branch's on one page, the previous
+checker exited 0 and reported "177 pages ... 0 mismatches". The numbers are
+correct today because `build-switch-pages.js` interpolates `b.phone` there,
+but correct and read are not the same thing, and the switch page is where a
+patient who has decided to move their prescriptions picks up the telephone.
+
+It now sweeps EVERY phone-shaped number on a page and requires it to be that
+branch's, naming the branch it does belong to, which is what the paste-block
+half of the same file already did. Build comments are blanked first, the same
+convention as `check-em-dashes`.
+
+Two further rules landed with it. The four NAP surfaces (contact-line address,
+map query, `tel:` link, visible phone) must be PRESENT: every check was
+conditional on finding its surface, so a page that lost its contact card
+passed every rule and still counted towards the "checked N pages" line. And
+`modules\switch\weebly.html` is now read as a SHARED paste template. It is
+pasted into a Weebly embed on every branch running a switch page this repo
+does not generate, it belongs to no branch, and `pasteOwner()` matches on a
+brandSlug prefix, so nothing had ever read it. The rule for a shared template
+is the inverse of the per-branch one: it must carry no phone, no postcode and
+no branch name at all, because one branch's fact typed into it is published on
+every branch at once.
+
+Exceptions go in `KNOWN_PHONE` or `KNOWN_SURFACE` with a reason and a question
+id, and a key that no longer fires fails the run.
+
+
 ## Weight loss copy - the rule book is outside this repo
 
 The house reference for anything weight loss is

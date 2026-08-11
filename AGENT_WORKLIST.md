@@ -22,6 +22,20 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
       Bramhall switch page address corrected (61-63 North Park Road),
       disposed Wilmslow switch page removed, generator now skips
       disposed branches. Checker passes clean.
+Quality pass 2026-08-11: the NAP data verified clean. check-nap reports 177
+pages and 0 mismatches, check-page-coverage reconciles the whole 177, all six
+generators regenerated every page byte-identical, the disposed-branch guard
+still fires in all four hardcoded-list generators, and all 19 checkers pass.
+One defect found and fixed in the verifier rather than the data. check-nap
+read a phone number in only two shapes, a tel: href and digits written
+straight after "Call" or the contact card's "Phone:" label, and ignored every
+other phone-shaped number on the page. All 15 switch pages carry one it could
+not see: the FAQ answer reads "Call us on <number>", and the two words in
+between put it outside the reader. Proved by swapping that number for another
+branch's on one page: the previous checker exited 0 reporting 0 mismatches.
+It now sweeps every phone-shaped number, the four NAP surfaces must be present
+rather than optional, and modules/switch/weebly.html is read as a shared paste
+template that must carry no branch fact at all. Negative-tested eleven ways.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;

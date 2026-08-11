@@ -2,6 +2,115 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 03:30 BST - fifty-third run [commit PENDING] - Quality pass on item 1.4, the NAP check across every generated page, last verified on 2026-08-06 as the seventh run and therefore the oldest verification standing by five days. The data is clean: 177 pages, 0 mismatches, byte-stable across a full regeneration, all 19 checkers pass, and the disposed-branch guard still fires in all four hardcoded-list generators. The defect is in the verifier again, and this one had a live page behind it. check-nap read a phone number in only two shapes, and all 15 switch pages carry one in a third: the FAQ answer reads "Call us on <number>". Swapping that number for another branch's, the previous checker exited 0 reporting 0 mismatches. No new question
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed a decision in any case: the defect had one obvious fix,
+it was implementable in the repo, and it changed no public copy.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly at 03:12. The newest entry
+is still the Q16 answer of 15:16 on 2026-08-10, applied by the thirty-third run
+and re-asked as Q22. Sixteen questions remain open, unchanged: Q17 to Q22, Q24,
+Q28, Q29 and Q34 to Q40.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on Weebly work, 5.5 waits on pushing a branch other than this one, and
+5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run to a
+quality pass on the least recently verified completed item. The ageing order
+was re-derived by reading every run heading in this log rather than trusting the
+previous run's summary, and it agrees with it: item 1.4 was verified as the
+seventh run of 2026-08-06 and never since. Taken this run. The next oldest is
+the 2026-08-07 group, 4.3 then 1.3 then 1.2, followed by 4.4 on 2026-08-08.
+
+THE ITEM VERIFIED CLEAN ON EVERY LEG IT OWNS. check-nap reports 177 pages and
+2 paste blocks against 16 branches.json entries with 0 mismatches and 0
+warnings, at run start and again after this run's change, where the paste
+block count reads 3. check-page-coverage reconciles the whole set independently: 16
+branches, 16 trading, 0 disposed, and every service list holds exactly the
+branches its widget ids earn, 177 pages expected and 177 found. All six
+generators were re-run and git reported no change to a single generated file,
+so the pages on disk are what the generators produce today rather than a state
+somebody edited by hand. All 19 checkers pass. The disposed-branch half of the
+item, which is what the 2026-08-06 pass was about, still holds: all four
+hardcoded-BUILD generators carry the guard, the two others handle it by design,
+and check-page-coverage now fails independently if a BUILD list names a
+disposed branch, which it did not do when that pass was written.
+
+THE DEFECT. tools/check-nap.js is the only thing in this repo that reads a
+phone number against branches.json. Every other contact detail has a checker
+of its own. It read a phone in exactly two shapes: a tel: href, and digits
+written straight after the word "Call" or after the contact card's "Phone:"
+label. A number written any other way was invisible to it.
+
+Every one of the 15 switch pages writes one in a third shape. The FAQ answer
+reads "Call us on 0151 226 2051, request a callback, or send a WhatsApp message
+instead", and the two words between "Call" and the number put it outside the
+reader. A sweep of all 177 pages found 15 phone occurrences in visible copy
+that no reader in the checker covered, and those 15 were all of them.
+
+Proved rather than argued. The FAQ number on the Cherry Lane switch page was
+swapped for McCanns Aigburth's, and the previous checker, taken out of git
+rather than reconstructed, exited 0 and printed "Checked 177 pages ... 0
+mismatch(es), 0 warning(s)". The page would have told a Walton patient to
+telephone a pharmacy in Aigburth and the repo would have stayed green.
+
+The numbers are correct today. build-switch-pages.js interpolates b.phone at
+line 230, so nothing can currently diverge, and this is a coverage fault rather
+than a wrong number on a live page. It matters because check-nap is the backstop
+for exactly the case the generator cannot cover: a hand-edited page, or a
+generator that starts composing that sentence from somewhere else. And of all
+the pages to leave a phone number unread on, the switch page is the one a
+patient reads at the moment they have decided to move their prescriptions.
+
+WHAT CHANGED, all in tools/check-nap.js.
+1. PHONE SWEEP. Every phone-shaped number on a generated page must be that
+   branch's, and the failure names the branch it does belong to. This is what
+   the paste-block half of the same file has always done; the generated-page
+   half now does it too. Build comments are blanked first, the same convention
+   as check-em-dashes, so generator bookkeeping is never read as a claim.
+2. THE FOUR SURFACES MUST BE THERE. Every existing check fired only if it found
+   its surface, so a page with no contact card, no map and no tel: link passed
+   all of them and still counted towards the "checked N pages" line. Absence is
+   now a failure. All 177 pages carry all four today, so this is latent, and it
+   is the same shape as the skipped-equals-passing fault the item 3.1 pass fixed
+   in check-seo-pattern the run before.
+3. SHARED PASTE TEMPLATES. modules/switch/weebly.html is pasted into a Weebly
+   embed on every branch running a switch page this repo does not generate. It
+   belongs to no branch, pasteOwner() matches on a brandSlug prefix, and it was
+   in no list, so nothing had ever read it. It is now read under the inverse
+   rule: a shared template must carry no phone, no postcode and no branch name
+   at all, because one branch's fact typed into it is published on every branch
+   at once. Paste block count is now 3.
+4. KNOWN_PHONE and KNOWN_SURFACE, both empty, both with the standing anti-rot
+   rule: a key that no longer fires fails the run.
+
+NEGATIVE TESTED ELEVEN WAYS, because a guard that never fires proves nothing.
+Another branch's number in the FAQ body copy fails and names that branch. A
+number no branch owns fails. The same mutation against the previous checker
+passes, which is the proof above. Removing the contact-line address fails.
+Removing the map embed fails. A phone, a postcode and a branch name typed into
+the shared template each fail with the "published on every branch" wording. A
+listed shared template that has gone fails. A stale KNOWN_PHONE key fails. A
+stale KNOWN_SURFACE key fails. Every mutation was reverted and the baseline
+re-run clean afterwards.
+
+NO PASTE NEEDED. Not one generated page changed, so nothing enters the Weebly
+queue and no live URL moves.
+
+Files changed: tools/check-nap.js, CLAUDE.md, AGENT_WORKLIST.md, AGENT_LOG.md.
+No new question. Sixteen still open.
+
+Note for a later run, not done here to avoid scope creep: the same coverage
+question applies to the ADDRESS. check-nap reads the contact-line address and
+the JSON-LD block, and check-postcodes sweeps postcodes repo-wide, so a stray
+postcode is caught, but a street line written into body copy without its
+postcode is read by nothing. No page carries one today. Same class as the fault
+fixed here, and worth a pass of its own.
+
+---
+
 ## 2026-08-11 02:55 BST - fifty-second run [commit f129088] - Quality pass on item 3.1, the title and H1 pattern defined once in the generator layer, last verified on 2026-08-06 as the sixth run and therefore the oldest verification standing by five days. The pattern itself is clean and byte-stable. The defect is in the verifier: tools/check-seo-pattern.js held a hand-copied mirror of the seven Pharmacy First condition slugs and phrases, and those slugs also composed its filename regex, so an eighth condition would have gone untyped and passed. Conditions are now read from the generator as data under test, and an untyped file fails instead of being skipped. No new question
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09
