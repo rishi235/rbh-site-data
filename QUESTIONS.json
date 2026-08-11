@@ -837,5 +837,20 @@
     "status": "open",
     "answer": null,
     "note": "Neither question blocks item 6.2 itself: the sweep, the report and the generator-owned check are done. These are the live-only follow-ups the item asked to be logged, same as 5.8."
+  },
+  {
+    "id": "Q55",
+    "date": "2026-08-11",
+    "item": "6.3 opening hours vs branches.json across the live estate",
+    "question": "The 6.3 live-hours sweep checked all 14 trading branches' live pages against branches.json (evidence in audits/live-hours-check-2026-08-11.json). Thirteen match, including the shared-domain pairs (the Scorah contact page cards read correctly once the heading-before-hours layout is followed: Bramhall Sat 9am-1pm, Hazel Grove Sat closed). The one mismatch is the known Smartts one, reconfirmed today: smarttschemist.co.uk (homepage hours card, contact page and site footer) says Mon-Fri 9am-6pm straight through, while branches.json carries the NHS-sourced lunch closure 09:00-13:00 and 14:00-18:00. The three other lunch-closure branches (Coleman and Leigh, Gordon Shorts, Tiffenbergs) all show it live as \"9:00am - 6:00pm (closed 1-2pm)\", so Smartts is the odd one out. A patient reading the live site would arrive at a locked door between 1pm and 2pm. The fix is live-only Weebly copy, which this worker does not touch.",
+    "options": [
+      "Edit the live Smartts pages (hours card, contact page, footer) to the same \"9:00am - 6:00pm (closed 1-2pm)\" wording the other three lunch-closure sites use - right fix if the branch does close for lunch, one short Weebly session",
+      "If Smartts in fact stays open through lunch, correct branches.json (and the NHS profile) to 09:00-18:00 instead and regenerate - only right if the door really is open 1-2pm",
+      "Leave as-is - keeps a live claim that contradicts the NHS-sourced hours, not recommended"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "branches.json hours were NHS-sourced and confirmed 2026-06-24, so option 1 is recommended unless the branch's real-world lunch practice has changed since."
   }
 ]

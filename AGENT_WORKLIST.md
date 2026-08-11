@@ -1080,7 +1080,7 @@ so tools/build-audit-status.js picks them up like any other item.
       generator-owned (dead cross-links, stale switch-page targets, moved
       permalinks). Log any live-only fixes needed as a question, same as
       5.8.
-- [ ] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
+- [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
       14:00-18:00 (confirmed 2026-06-24); Riddings was checked as a control
@@ -1088,6 +1088,7 @@ so tools/build-audit-status.js picks them up like any other item.
       the live site, starting with Coleman & Leigh, Gordon Shorts and
       Tiffenbergs, then the rest of the 14. Log a question per branch with a
       mismatch rather than fixing silently, since the fix is live-only copy.
+      Done 2026-08-11
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

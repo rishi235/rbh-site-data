@@ -2,6 +2,62 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 17:40 BST - seventy-fifth run [commit pending, hash in worklist commit] - Item 6.3, opening
+hours on the live estate vs branches.json. All 14 trading branches
+checked, 13 match, the one mismatch is the known Smartts case,
+reconfirmed live today and raised as Q55. Item complete.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired
+(since 23:14 on 2026-08-10); nothing has renewed it. It would not have
+applied to Q55 anyway: the fix is a live Weebly edit this worker does
+not make, and the alternative touches NHS-profile-sourced data.
+
+ANSWER PICKUP UNAVAILABLE. The portal fetch returned the Cloudflare
+Access login page again, so Chrome held no live Access session at run
+time. Logged and carried on, no login attempted, tab closed. Open
+questions were 30 before the run, 31 after (Q55 added).
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+THE CHECK. New tool tools/check-live-hours.js, same conduct as the 6.2
+sweep: GET only, sitemap-guided (homepage plus contact/opening/find-us
+style pages, capped at 8 per host), one fetch pass per host shared
+across shared-domain branches. It strips each page to text and records
+every snippet around a weekday mention next to the expected rows
+composed from branches.json. It deliberately does NOT issue verdicts:
+free-text Weebly hours vary too much for a regex verdict to be trusted
+on copy that can send a patient to a locked door. Verdicts were made by
+reading the snippets. Evidence: audits/live-hours-check-2026-08-11.json.
+
+VERDICTS, ALL 14. Matches: Scorah Bramhall, Scorah Hazel Grove, McCanns
+Aigburth, McCanns Sandringham, Fishlocks Ainsdale, Fishlocks Eccleston,
+Hirshmans, SK Chemists, Coleman and Leigh, Riddings (control, still
+correct), Gordon Shorts, Cherry Lane, Tiffenbergs. The three
+lunch-closure branches besides Smartts all phrase the split day live as
+"9:00am - 6:00pm (closed 1-2pm)", which is the same hours as
+branches.json's two sessions and was counted as a match. Shared-domain
+label check was done against the raw page HTML, not just snippets: the
+Scorah contact page puts each branch heading BEFORE its hours card, so
+Bramhall reads Sat 9am-1pm and Hazel Grove reads Sat closed, both
+correct - a naive snippet reading suggests the Saturdays are swapped,
+and it took the raw-order check to rule that out. McCanns' two cards
+are explicitly labelled and both correct. Fishlocks' two cards were
+tied to branches by the adjacent street addresses, both correct.
+
+MISMATCH: Smartts only. Homepage hours card, contact page ("Weekdays /
+09:00 - 18:00") and site footer all say Mon-Fri 9am-6pm straight
+through against the NHS-sourced 09:00-13:00 / 14:00-18:00. Raised as
+Q55 with the recommended option being the live Weebly edit to the same
+"(closed 1-2pm)" wording the other three lunch-closure sites use. Item
+6.3 is NOT marked blocked: per its own wording the question is the
+deliverable, same treatment as 6.2 last run.
+
+FILES CHANGED. tools/check-live-hours.js (new),
+audits/live-hours-check-2026-08-11.json (new), QUESTIONS.json (Q55),
+AGENT_WORKLIST.md (6.3 ticked), this log. No generated pages touched,
+so nothing was regenerated.
+
 ## 2026-08-11 16:25 BST - seventy-fourth run [commit 271721f, hash corrected in a follow-up commit after the amend changed it] - Item 6.2, the
 estate-wide broken internal link sweep. Sweep built and run, 15 broken
 targets found, zero generator-owned defects, item complete, Q53 and Q54
