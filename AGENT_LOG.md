@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 17:40 BST - seventy-fifth run [commit pending, hash in worklist commit] - Item 6.3, opening
+## 2026-08-11 17:40 BST - seventy-fifth run [commit d9c5829, hash recorded in a follow-up commit] - Item 6.3, opening
 hours on the live estate vs branches.json. All 14 trading branches
 checked, 13 match, the one mismatch is the known Smartts case,
 reconfirmed live today and raised as Q55. Item complete.
