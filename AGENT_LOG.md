@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 01:05 BST - forty-ninth run - Quality pass on item 4.7, the McCanns Chemist Sandringham GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the second run of that day, which makes it the oldest verification standing. The pack itself is clean and nothing in it is wrong. One in-repo defect found and fixed in the checker: two fields that appear in every pack had never been read by anything. One new question, Q39
+## 2026-08-11 01:05 BST - forty-ninth run [commit 33f8e1a] - Quality pass on item 4.7, the McCanns Chemist Sandringham GBP pack, drafted on 2026-08-04 and last verified on 2026-08-05 as the second run of that day, which makes it the oldest verification standing. The pack itself is clean and nothing in it is wrong. One in-repo defect found and fixed in the checker: two fields that appear in every pack had never been read by anything. One new question, Q39
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The standing window that opened on
 2026-08-09 expired at 23:14 on 2026-08-10 and no new authorisation section is
