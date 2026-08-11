@@ -2,6 +2,69 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 22:15 BST - eighty-fifth run - Quality pass on item 4.14, the
+Gordon Short Chemist Crosby GBP pack, last verified 2026-08-10 22:40 as the
+forty-third run and the oldest verification standing after run 84 refreshed
+4.13. Pack verified clean second time running, no in-repo defect found, no
+copy changed, no live state change, no question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification and note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Runs 76 to 84 refreshed 5.2,
+5.6, 5.7, 4.6, 4.8, 4.9, 4.10, 4.12 and 4.13, leaving 4.14 (run 43,
+22:40 on 2026-08-10) as the oldest standing verification.
+
+REPO HALF, ALL HOLDING. Every fact re-verified against branches.json:
+name, address 159 College Road L23 3AT, phone 0151 924 3449, website,
+review link, hasApp false with no app mention. Hours carry both sessions
+on all six trading days including the Saturday 5:00pm finish, exactly
+what the split-day rule requires, and the finish is carried through to
+the photo shot list. Catchment leads with seoTown Crosby and matches
+serviceAreaList order in all three places. Measured with CRLF
+normalised: description 652 characters, exactly what its heading claims;
+posts 449, 280, 521 and 424, all far inside 1,500. No medicine name, no
+efficacy claim, no em dash, no non-ASCII. All 29 checkers green and all
+six page generators byte-stable.
+
+LIVE HALF, NO STATE CHANGE. Read-only page loads, nothing clicked, typed
+or submitted. All four post buttons resolve, third clean run for the
+links. Post A's target is correct on all seven conditions, age ranges,
+NAP and split hours, and is still absent from the branch sitemap; Post A
+as written remains safe to post. The forty-third run's hard stop STANDS:
+pharmacy-first-gordon-short-crosby.html is still live as the pre-item-1.1
+"Gordon Shorts Chemist" paste in title, H1 and body. The sitemap is dated
+2026-07-19 on every entry, so this site has not been republished since 19
+July, which explains every stale finding including the banner mojibake
+run 44 fixed at source. Three live-only observations recorded in the
+pack's paster notes for the queued repaste, none needing a decision: the
+switch page body renders a pre-5.1 em dash as mojibake in its "How
+switching works" step; the weight loss and travel clinic pages carry the
+stale "Gordon Shorts" name through their H1s, body text and contact
+blocks, extending run 43's title-only finding (the weight loss copy
+content itself matches the approved generated copy, so no compliance
+change); and the site-wide footer sets its hour ranges with en dashes and
+exists in no repo branch, the same Weebly hand-paste shape run 84
+recorded on the Riddings site.
+
+FILES CHANGED. audits/gordon-short-crosby-gbp-pack-check-2026-08-11.txt
+(new), gbp-packs/gordon-short-crosby.md (live recheck note and paster
+notes added, no pasted copy changed), AGENT_WORKLIST.md (second quality
+pass note under 4.14), status/index.html (regenerated), AGENT_LOG.md
+(this entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 21:10 BST - eighty-fourth run - Quality pass on item 4.13, the
 Riddings Pharmacy Timperley GBP pack, last verified 2026-08-10 22:05 as the
 forty-second run and the oldest verification standing after run 83 refreshed

@@ -1,0 +1,62 @@
+Quality pass - item 4.14 - Gordon Short Chemist Crosby GBP pack
+Date: 2026-08-11 (evening run). Second verification; first was the
+forty-third run, 2026-08-10 22:40.
+
+REPO HALF - CLEAN, SECOND TIME RUNNING
+- Every profile fact matches branches.json: name Gordon Short Chemist,
+  address 159 College Road, Liverpool L23 3AT, phone 0151 924 3449,
+  website, review link, hasApp false and no app mention anywhere.
+- Hours line carries both sessions on all six trading days: Monday to
+  Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, Saturday 9:00am to
+  1:00pm and 2:00pm to 5:00pm, Sunday closed. Matches the four-session
+  specification exactly; split-day guidance present as the 4.10 rule
+  requires, and the Saturday 5:00pm finish is carried through to the
+  photo shot list.
+- Catchment reads Crosby, Waterloo and Sefton in all three places,
+  leading with seoTown Crosby.
+- Measured with CRLF normalised: description 652 characters, exactly
+  what its heading claims. Posts 449, 280, 521 and 424 characters, all
+  far inside 1,500.
+- Post C names no medicine and makes no efficacy claim. No em dash, no
+  en dash, no non-ASCII character anywhere in the file.
+- Post A's seven conditions and the UTI 16 to 64 range match the
+  generated Pharmacy First page condition for condition.
+- All 29 checkers pass. All six page generators byte-stable (zero diff
+  on regeneration).
+
+LIVE HALF - READ ONLY, NO STATE CHANGE
+All four post buttons fetched read-only; all four resolve. Nothing
+clicked, typed or submitted.
+- Post A target pharmacy-first-service-crosby.html: loads, all seven
+  conditions and age ranges correct (earache 1-17, impetigo 1+, insect
+  bites 1+, shingles 18+, sinusitis 12+, sore throat 5+, UTI women
+  16-64), address, phone and split hours correct. Still absent from the
+  branch sitemap. Post A as written remains safe to post.
+- Generated page pharmacy-first-gordon-short-crosby.html: still live,
+  still in the sitemap, and still the pre-item-1.1 paste reading
+  "Gordon Shorts Chemist" in its browser title, H1 and body. The
+  forty-third run's hard stop on repointing Post A STANDS.
+- Post B target switch page: resolves with the correct trading name,
+  but the live body is a pre-item-5.1 paste: the "How switching works"
+  paragraph renders an em dash as mojibake ("...it usually is not
+  [OCo] we make the first step quick and easy"). Repo copy is clean;
+  wants the queued repaste. New live-only observation this pass.
+- Post C target weight loss page: resolves, but live copy is the same
+  stale-name paste, "Gordon Shorts Chemist" in title, H1, body and
+  contact block. Copy content itself matches the approved generated
+  copy (no medicine names, consultation-not-guarantee wording intact).
+  Live body also carries pre-cleanup en dashes. Extends the
+  forty-third run's branch-wide paste-age finding to this page.
+- Post D target travel clinic page: resolves; stale name now confirmed
+  in H1, body and contact block, not just the title run 43 recorded.
+- Sitemap: every entry dated 2026-07-19. The site has not been
+  republished since 19 July, which explains every stale-paste finding,
+  including the banner close-button mojibake run 44 fixed at source.
+- Site-wide footer sets its hour ranges with en dashes and exists in no
+  repo branch; same Weebly hand-paste shape run 84 recorded on the
+  Riddings site. Recorded in the pack's paster notes.
+
+CONCLUSION
+Pack clean twice running; no in-repo defect found; no copy changed; no
+live state change; no question raised. Every live finding lands on the
+already-queued Weebly repaste session for this branch.

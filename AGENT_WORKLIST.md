@@ -782,6 +782,19 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       title, so this is a branch-wide paste-age problem and not one page;
       recorded against 1.1, which is correct in the repo and has simply
       never reached this branch's live pages. Done 2026-08-10.
+      Second quality pass 2026-08-11: pack verified clean again, fact by
+      fact against branches.json and rule by rule; description 652
+      characters exactly, posts 449, 280, 521 and 424; all 29 checkers
+      green and all six generators byte-stable. All four post links still
+      resolve and Post A remains safe to post as written. The hard stop
+      stands: the branch-specific Pharmacy First page is still the old
+      "Gordon Shorts Chemist" paste and the sitemap shows nothing
+      republished since 2026-07-19. New live-only observations, recorded
+      in the pack's paster notes for the queued repaste: the switch page
+      body renders a pre-5.1 em dash as mojibake, the weight loss and
+      travel pages carry the stale name in body text not just titles, and
+      the site-wide footer hand paste uses en dashes. No in-repo defect,
+      no copy changed, no question raised.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

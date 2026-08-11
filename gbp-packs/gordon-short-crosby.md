@@ -137,3 +137,17 @@ Notes for the paster:
   this branch.
 - The pharmacy closes for lunch 1:00pm to 2:00pm Monday to Saturday; enter
   split hours in GBP, not 9 to 6 straight through.
+- Live recheck 2026-08-11: all four post links still resolve and Post A as
+  written remains safe to post. The STOP above still applies: the
+  branch-specific Pharmacy First page is still live as the old "Gordon
+  Shorts Chemist" paste. The sitemap is dated 2026-07-19 on every entry,
+  so nothing on this site has been republished since 19 July.
+- For the queued repaste session, three more pages on this site are stale
+  pastes wanting the same refresh: the switch page body renders an em dash
+  as mojibake in its "How switching works" step, and the weight loss and
+  travel clinic pages carry the old "Gordon Shorts Chemist" name in their
+  headings and body text, not just their titles. All three repo copies are
+  correct; paste from the repo.
+- Also for that session: the site-wide footer line writes its hour ranges
+  with en dashes and exists in no repo branch, so it is a Weebly hand
+  paste. Retype the footer hours with plain hyphens while in the editor.
