@@ -1,0 +1,63 @@
+Smartts Chemist Bootle GBP pack - second quality pass
+Date: 2026-08-11
+Item: 4.10 (gbp-packs/smartts-bootle.md)
+Previous verification: 2026-08-10 20:34 BST (fortieth run)
+
+REPO HALF - CLEAN
+- Every profile-basics fact re-verified against branches.json:
+  name Smartts Chemist, address 42 Fernhill Road, Bootle L20 9HH,
+  phone 0151 922 4984, website https://www.smarttschemist.co.uk,
+  review link https://g.page/r/CVzJUbDqQwReEBM/review, hasApp true
+  (app mentions permitted and present).
+- Hours line matches the NHS-confirmed specification (2026-06-24):
+  Mon-Fri 9:00am to 1:00pm and 2:00pm to 6:00pm, Sat and Sun closed.
+  The split-day paster guidance the fortieth run made compulsory is
+  present in the wording that rule requires.
+- Catchment reads "Bootle, Sefton and Liverpool" in the description
+  and the services section, leading with seoTown Bootle and matching
+  serviceAreaList order.
+- Description measured with CRLF normalised: 710 characters, exactly
+  what its heading claims. Post bodies 461, 324, 516 and 420, all far
+  inside 1,500.
+- No medicine name, no efficacy claim, no em dash, no non-ASCII
+  character anywhere in the pack.
+- Post A pfLink matches branches.json. Services section covers the
+  five-widget set; the non-widget entries (blood tests, vaccinations,
+  medical cannabis consultation) are covered by the pack's own
+  check-before-pasting note. Medical cannabis wording still limited
+  to the free eligibility consultation, no claims.
+- All 29 checkers green. The one smartts WARN in check-gbp-packs is
+  the known live-only pharmacy-first-service-bootle.html target the
+  pack's own note already covers.
+- All seven generators rebuilt: six page generators byte-identical,
+  status/index.html refreshed (it embeds the recent-runs log, which
+  had moved on since the last rebuild; expected, not a defect).
+
+LIVE HALF - NOTHING CHANGED OUT THERE, TWO KNOWN PATTERNS CONFIRMED
+Plain GETs with a User-Agent via curl, no browser session, nothing
+clicked, typed or submitted.
+- All four post-target URLs return 200: pharmacy-first-service-bootle,
+  switch-prescriptions-smartts-bootle, weight-loss-clinic-smartts-bootle,
+  travel-clinic-smartts-bootle. Same as the fortieth run: no dead link.
+- Homepage NAP correct: 0151 922 4984 (5 occurrences, no other 0151
+  number anywhere on the page), 42 Fernhill Road and L20 9HH present.
+- Hours: every check of the homepage still shows "9:00am - 6:00pm"
+  straight through with no lunch closure, so the contradiction the
+  fortieth run recorded (and WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+  section 10 widened) still stands. The pack's paster note remains the
+  right instruction: set the profile from the pack, get the site fixed.
+- Switch page live title is "Switch Your Prescriptions - Smartts
+  Chemist Bootle" against the sheet's "Switch Your Prescriptions to
+  Smartts Chemist, Bootle". Third instance of the unpasted-title
+  pattern (seventy-seventh run: Coleman and Leighs insect bite;
+  eightieth run: Fishlocks Eccleston). Covered by the queued repaste
+  work; no separate action raised.
+- Live switch page body still carries &ndash; entities, the pre-Q7
+  paste that item 5.1's outstanding note records. Known, queued.
+- Post C points at the NEW generated weight loss page, whose live
+  title matches the WEIGHT-LOSS-SEO sheet exactly. The OLD
+  weight-loss-clinic-bootle.html exposure page is item 5.8's business
+  ([BLOCKED] on Q22) and was not touched or re-read by this pass.
+
+RESULT: pack verified clean second time running. No in-repo defect
+found, no copy changed, no new question raised.

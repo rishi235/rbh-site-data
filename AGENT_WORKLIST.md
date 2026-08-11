@@ -624,6 +624,19 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       pack now warns the paster about the contradiction rather than leaving
       Google and the website to publish different hours for the same shop.
       Done 2026-08-10.
+      Second quality pass 2026-08-11: pack verified clean second time
+      running. Every fact re-verified against branches.json; description
+      still exactly the 710 characters it claims; posts 461, 324, 516 and
+      420; pure ASCII, no medicine name, no em dash; split-day paster
+      guidance present as the first pass's rule requires. All 29 checkers
+      green, six page generators byte-identical. Live: all four post links
+      still resolve, homepage NAP correct (phone 0151 922 4984 only, 42
+      Fernhill Road, L20 9HH), but the site still prints 9:00am to 6:00pm
+      with no lunch closure, so the recorded website-hours contradiction
+      stands. Switch page live title is a hand-typed variant of the sheet
+      title, the third instance of the unpasted-title pattern (runs 77 and
+      80), covered by queued repaste work. No in-repo defect, no copy
+      changed, no new question.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

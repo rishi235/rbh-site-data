@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 20:26 BST - eighty-second run - Quality pass on item 4.10, the
+Smartts Chemist Bootle GBP pack, last verified 2026-08-10 20:34 as the
+fortieth run and the oldest verification standing after run 81 refreshed
+4.9. Pack verified clean second time running, no in-repo defect found, no
+copy changed, no question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: run 81 refreshed
+4.9 (run 39), leaving 4.10 (run 40, 20:34 on 2026-08-10) as the oldest
+standing verification.
+
+REPO HALF, ALL HOLDING. Every profile-basics fact re-verified against
+branches.json: name, address 42 Fernhill Road L20 9HH, phone
+0151 922 4984, website, review link, hasApp true. Hours line matches the
+NHS-confirmed two-session specification and the split-day paster
+guidance the fortieth run made compulsory is present in the required
+wording. Catchment leads with seoTown Bootle and matches serviceAreaList
+order in both places. Description measured with CRLF normalised: 710
+characters, exactly what its heading claims. Post bodies 461, 324, 516
+and 420, all far inside 1,500. No medicine name, no claim, no em dash,
+no non-ASCII. All 29 checkers green (the one smartts WARN is the known
+live-only pharmacy-first-service-bootle.html link the pack's own note
+covers), six page generators byte-identical, status/index.html refreshed
+because it embeds the recent-runs log, worktree otherwise clean.
+
+LIVE HALF, NOTHING CHANGED OUT THERE. Plain GETs with a User-Agent via
+curl, no browser session, nothing clicked or typed. All four post-target
+URLs 200, so for the third pass running this pack has no dead link.
+Homepage NAP correct: 0151 922 4984 five times and no other 0151 number,
+address and postcode present. The site still prints 9:00am to 6:00pm
+straight through with no lunch closure, so the fortieth run's recorded
+website-hours contradiction stands and the pack's paster note remains
+the right instruction. One real finding, already covered by queued work:
+the live switch page title reads "Switch Your Prescriptions - Smartts
+Chemist Bootle" against the sheet's "Switch Your Prescriptions to
+Smartts Chemist, Bootle", the third instance of the run 78 unpasted-title
+pattern (runs 77 and 80 found the others), and the same page's body
+still carries the pre-Q7 &ndash; paste item 5.1's note records. Post C
+points at the new generated weight loss page, live with a sheet-matching
+title; the old weight-loss-clinic-bootle.html exposure page is item
+5.8's business and was left alone.
+
+FILES CHANGED. audits/smartts-bootle-gbp-pack-check-2026-08-11.txt
+(new), AGENT_WORKLIST.md (second quality pass note under 4.10),
+status/index.html (regenerated), AGENT_LOG.md (this entry). Commit hash
+recorded in the commit itself.
+
 ## 2026-08-11 19:45 BST - eighty-first run - Quality pass on item 4.9, the
 Clear Chemist Aintree GBP pack, last verified 2026-08-10 20:04 as the
 thirty-ninth run and the oldest verification standing after run 80
