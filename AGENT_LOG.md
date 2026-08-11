@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 02:55 BST - fifty-second run [commit PENDING] - Quality pass on item 3.1, the title and H1 pattern defined once in the generator layer, last verified on 2026-08-06 as the sixth run and therefore the oldest verification standing by five days. The pattern itself is clean and byte-stable. The defect is in the verifier: tools/check-seo-pattern.js held a hand-copied mirror of the seven Pharmacy First condition slugs and phrases, and those slugs also composed its filename regex, so an eighth condition would have gone untyped and passed. Conditions are now read from the generator as data under test, and an untyped file fails instead of being skipped. No new question
+## 2026-08-11 02:55 BST - fifty-second run [commit f129088] - Quality pass on item 3.1, the title and H1 pattern defined once in the generator layer, last verified on 2026-08-06 as the sixth run and therefore the oldest verification standing by five days. The pattern itself is clean and byte-stable. The defect is in the verifier: tools/check-seo-pattern.js held a hand-copied mirror of the seven Pharmacy First condition slugs and phrases, and those slugs also composed its filename regex, so an eighth condition would have gone untyped and passed. Conditions are now read from the generator as data under test, and an untyped file fails instead of being skipped. No new question
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09
 expired at 23:14 on 2026-08-10 and no new authorisation section is present at
