@@ -10,12 +10,15 @@ Branch id: colemanleigh_liverpool (branches.json). Drafted 2026-08-04.
 Facts checked against branches.json (address, phone, hours confirmed by NHS
 2026-06-24). Ready for Rishi or Dane to paste into GBP.
 
-Live checked 2026-08-10. The Post B, C and D pages all resolve, and the
-address, phone, email and opening hours they print match branches.json,
-lunch closure included. Two faults were found and neither is in this pack:
-the Post A link returns a 404, and the three live pages are a paste taken
-before the trading name and em dash corrections, so they still publish the
-old name. Both are covered in the paster notes at the foot of this pack.
+Live checked 2026-08-10, re-checked 2026-08-11. The Post B, C and D pages
+all resolve, and the address, phone, email and opening hours they print
+match branches.json, lunch closure included. Two faults were found and
+neither is in this pack: the Post A link returns a 404 (still true
+2026-08-11), and the live pages are a paste taken before the trading name
+and em dash corrections, so they still publish the old name. One change
+since the first check: the replacement Pharmacy First page is now live but
+is itself a stale-name paste. All covered in the paster notes at the foot
+of this pack.
 
 Profile basics (for checking, not pasting):
 - Name on GBP: Coleman and Leighs Pharmacy
@@ -132,16 +135,22 @@ Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - DO NOT POST POST A AS IT STANDS. Its button carries the pfLink from
-  branches.json, and that URL was fetched on 2026-08-10 and returned a 404
-  error page, not a Pharmacy First page. Posting it sends a patient looking
-  for Pharmacy First to a dead end at the moment they are trying to get
-  seen. The replacement already exists in this repo at
-  modules/service/pages/pharmacy-first-coleman-leigh-walton.html. Paste that
-  page to Weebly first, then point the button at it. This is worklist item
-  5.3 under Q8, which needs a supervised session because the repo change and
-  the Weebly paste have to happen together.
-- Post B, C and D were fetched on 2026-08-10 and all three resolve. Check
-  again on the day, because they are live pages this repo cannot police.
+  branches.json, and that URL was fetched again on 2026-08-11 and still
+  returns a 404 error page, not a Pharmacy First page. Posting it sends a
+  patient looking for Pharmacy First to a dead end at the moment they are
+  trying to get seen. The replacement page is now live at
+  pharmacy-first-coleman-leigh-walton.html, in the site navigation and the
+  sitemap, BUT the live copy is a paste taken before the trading name
+  correction: it reads "Coleman & Leigh" throughout where the repo page at
+  modules/service/pages/pharmacy-first-coleman-leigh-walton.html carries the
+  confirmed "Coleman and Leighs". Repaste that page from the repo first,
+  then point the button at it. Do not point the button at the stale copy:
+  it resolves but reads the wrong name. This is worklist item 5.3 under Q8,
+  which needs a supervised session because the repo change and the Weebly
+  paste have to happen together.
+- Post B, C and D were fetched on 2026-08-10 and again on 2026-08-11 and
+  all three resolve. Check again on the day, because they are live pages
+  this repo cannot police.
 - The branch's own website disagrees with this pack on the trading name.
   Every page on colemanandleighspharmacy.co.uk reads "Coleman & Leigh
   Pharmacy" in its title and its body copy, while its address block and this

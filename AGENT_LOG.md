@@ -2,6 +2,70 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 20:41 BST - eighty-third run - Quality pass on item 4.12, the
+Coleman and Leighs Pharmacy Walton GBP pack, last verified 2026-08-10 21:05
+as the forty-first run and the oldest verification standing after run 82
+refreshed 4.10. Pack verified clean second time running, no in-repo defect
+found, no copy changed. One live state change recorded: the replacement
+Pharmacy First page has gone live since the first pass, but as a stale-name
+paste. No question raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
+23:14 on 2026-08-10) and nothing has renewed it. Nothing in this run
+needed it: verification and note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 31 open questions (Q17
+onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 31 before, 31 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order: run 82 refreshed
+4.10 (run 40), leaving 4.12 (run 41, 21:05 on 2026-08-10) as the oldest
+standing verification. Runs 42 onward refreshed everything else more
+recently.
+
+REPO HALF, ALL HOLDING. Every profile-basics fact re-verified against
+branches.json: name, address 241 Walton Village L4 6TH, phone
+0151 525 3522, website, review link, hasApp false with no app mention.
+Hours match the NHS-confirmed two-session specification and the split-day
+paster guidance the fortieth run made compulsory is present. Catchment
+leads with seoTown Walton and matches serviceAreaList order in all three
+places. Description measured with CRLF normalised: 631 characters,
+exactly what its heading claims. Post bodies 456, 321, 528 and 433, all
+far inside 1,500. No medicine name, no efficacy claim, no em dash, no
+non-ASCII. All 29 checkers green before the run's edits and re-run green
+after them.
+
+LIVE HALF, ONE STATE CHANGE. Plain GETs with a User-Agent via curl, no
+browser session, nothing clicked or typed. Post A's pfLink still returns
+a 404, so the forty-first run's hard stop stands. Posts B, C and D all
+resolve. Homepage NAP correct: 0151 525 3522 five times and no other
+0151 number, address and postcode present. The change: the generated
+replacement pharmacy-first-coleman-leigh-walton.html is now CONFIRMED
+LIVE, in the site navigation and in the branch sitemap, neither of which
+was true when the forty-first run looked. Fetched and read in full
+rather than assumed, per the 4.14 lesson: it is a pre-item-1.1 paste
+reading "Coleman & Leigh" 21 times where the repo page carries the
+confirmed name throughout. So Coleman moves from 5.3's dead column to
+the Gordon Short column: repaste before repoint, not a free repoint.
+Recorded as the eighth state under 5.3. Standing findings hold: all four
+inner pages still publish the pre-correction name and the switch page
+still carries the og:description em dash, all covered by queued repaste
+work.
+
+FILES CHANGED. audits/coleman-leigh-walton-gbp-pack-check-2026-08-11.txt
+(new), gbp-packs/coleman-leigh-walton.md (live-check note and paster
+notes updated to the 2026-08-11 state, no pasted copy changed),
+AGENT_WORKLIST.md (second quality pass note under 4.12, eighth-state
+evidence under 5.3), status/index.html (regenerated), AGENT_LOG.md (this
+entry). Commit hash recorded in the commit itself.
+
 ## 2026-08-11 20:26 BST - eighty-second run - Quality pass on item 4.10, the
 Smartts Chemist Bootle GBP pack, last verified 2026-08-10 20:34 as the
 fortieth run and the oldest verification standing after run 81 refreshed

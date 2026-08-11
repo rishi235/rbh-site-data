@@ -678,6 +678,30 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       pages still publishing the pre-correction trading name and em dash.
       Paster notes now stop Post A and call for the repaste. Done
       2026-08-10.
+      Second quality pass 2026-08-11: pack verified clean second time
+      running. Every fact re-verified against branches.json: name, address
+      241 Walton Village L4 6TH, phone 0151 525 3522, website, review
+      link, hasApp false with no app mention; hours match the NHS-confirmed
+      two-session specification and the pack carries the split-day paster
+      guidance; catchment reads Walton, Liverpool and Sefton in all three
+      places, leading with its own seoTown. Description still exactly the
+      631 characters it claims; posts 456, 321, 528 and 433; pure ASCII,
+      no medicine name, no efficacy claim, no em dash. All 29 checkers
+      green. Live: Post A's pfLink still returns a 404, so the first
+      pass's hard stop stands; Posts B, C and D all resolve; homepage NAP
+      correct (0151 525 3522 five times and no other 0151 number, address
+      and postcode present). One state change since the first pass: the
+      replacement page pharmacy-first-coleman-leigh-walton.html is now
+      CONFIRMED LIVE, in the site navigation and in the sitemap, but the
+      live copy is a paste taken before the item 1.1 name correction and
+      reads "Coleman & Leigh" 21 times where the repo page reads the
+      confirmed name, the same shape as the Gordon Short 4.14 finding. So
+      the Coleman leg of 5.3 no longer needs a first paste, it needs the
+      corrected repaste before the button repoint. Paster note updated to
+      match; all four inner pages still publish the pre-correction name
+      and the switch page still carries the og:description em dash, all
+      covered by the queued repaste. No new question: every finding lands
+      on a decision already made.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
@@ -993,6 +1017,20 @@ so tools/build-audit-status.js picks them up like any other item.
       paste age the Fishlocks pass found. So four of the eleven, Riddings, SK
       and both McCanns, now need no Weebly paste at all, which is more than a
       third of the item and strengthens the case Q34 puts for splitting it.
+      An eighth state 2026-08-11, from the 4.12 second quality pass, and it
+      moves Coleman and Leighs from the dead column into the Gordon Short
+      column. The generated replacement
+      pharmacy-first-coleman-leigh-walton.html is now CONFIRMED LIVE, in
+      the site navigation and in the branch's own sitemap, while the old
+      pfLink target still returns a 404. But the live copy was fetched and
+      read rather than assumed, as the 4.14 pass taught, and it is a
+      pre-item-1.1 paste: it reads "Coleman & Leigh" 21 times in title and
+      body where the repo page carries the confirmed "Coleman and Leighs"
+      throughout. So this branch needs a repaste before its repoint, the
+      Gordon Short shape, not the free Riddings shape. Five of the eleven
+      states have now changed at least once since Q8 was asked, which is
+      itself evidence for Q34: the item's facts move faster than the block
+      of eleven does.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

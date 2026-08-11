@@ -1,0 +1,62 @@
+Coleman and Leighs Pharmacy Walton GBP pack - second quality pass
+Date: 2026-08-11. Run: eighty-third. Item: 4.12 (first verified run 41,
+2026-08-10 21:05, then the oldest verification standing).
+
+REPO HALF - pack verified clean, second time running.
+
+Facts against branches.json (colemanleigh_liverpool):
+- Name: Coleman and Leighs Pharmacy - matches brandLabel and branchName.
+- Address: 241 Walton Village, Liverpool L4 6TH - matches.
+- Phone: 0151 525 3522 - matches.
+- Website and review link - match website and googleReviewUrl.
+- hasApp false - no app mention anywhere in the pack.
+- Hours: Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, Saturday
+  and Sunday closed - matches the NHS-confirmed (2026-06-24) two-session
+  specification. Split-day paster guidance present in the required wording.
+- Catchment: "Walton, Liverpool and Sefton" appears in the description,
+  the dispensing service line and Post B, leading with seoTown Walton and
+  matching serviceAreaList order.
+
+Copy measurements (CRLF normalised):
+- Description: heading claims 631 characters, measured 631 exactly.
+- Post bodies: A 456, B 321, C 528, D 433, all far inside 1,500.
+- No medicine name, no efficacy claim, no em or en dash, pure ASCII.
+  (The word "best" appears once, in the photo shot list as an instruction
+  to the photographer, not in public copy.)
+
+Checkers: all 29 check-*.js green, exit 0 throughout, including
+check-gbp-packs.js re-run after the paster note edits below.
+
+LIVE HALF - plain GETs with a User-Agent via curl, no browser session,
+nothing clicked, typed or submitted.
+
+- Post A pfLink pharmacy-first-service-walton.html: 404, still dead.
+  Run 41's hard stop stands and remains correct.
+- Post B switch-prescriptions-coleman-leigh-walton.html: 200.
+- Post C weight-loss-clinic-coleman-leigh-walton.html: 200.
+- Post D travel-clinic-coleman-leigh-walton.html: 200.
+- Homepage NAP: 0151 525 3522 five times, no other 0151 number, 241
+  Walton Village and L4 6TH both present. Clean.
+
+STATE CHANGE since run 41: pharmacy-first-coleman-leigh-walton.html, the
+generated replacement page, is now CONFIRMED LIVE (200), in the site
+navigation and in the branch sitemap. Read in full rather than assumed:
+it is a pre-item-1.1 paste reading "Coleman & Leigh" 21 times in title
+("Pharmacy First at Coleman & Leigh Pharmacy, Walton") and body, where
+the repo page carries the confirmed "Coleman and Leighs" throughout (11
+instances, zero old-name). Same shape as the Gordon Short 4.14 finding:
+resolves but reads wrong. So the Coleman leg of item 5.3 needs a repaste
+before its repoint, not the free Riddings-style repoint. Recorded as the
+eighth state under 5.3 and in the pack's paster notes.
+
+Standing findings that still hold, all covered by queued repaste work:
+- All four inner pages publish the pre-correction "Coleman & Leigh" name
+  (switch 26, weight loss 19, travel 18, pharmacy first 21 instances).
+- The switch page og:description still carries the em dash item 5.1
+  removed at source (one instance; the meta description shows "--").
+
+IN-REPO CHANGES: pack header live-check note and Post A / Post B-C-D
+paster notes updated to the 2026-08-11 state; AGENT_WORKLIST.md second
+quality pass note under 4.12 and eighth-state evidence under 5.3. No
+generated page changed, no generator changed, no copy decision taken.
+No new question: every finding lands on a decision already made.
