@@ -1,0 +1,85 @@
+Quality pass evidence - item 4.11, SK Chemists Bootle GBP pack
+Date: 2026-08-11 (eighty-seventh run). Previous verification: 2026-08-10
+23:16 (forty-fifth run, commit bc8ec42, which added the Post A hard stop
+to the paster notes). The pack file is unchanged since that commit, so
+this is the first re-verification of the current bytes and the second
+full quality pass on the item.
+
+REPO HALF - all verified against branches.json (skchemists_bootle):
+- Name: SK Chemists. Matches brandLabel and branchName.
+- Address: 516 Stanley Road, Bootle L20 5DW. Matches.
+- Phone: 0151 944 1013. Matches.
+- Website: https://www.skchemist.co.uk. Matches.
+- Review link: https://g.page/r/CeAIYeqSjIYBEAE/review. Matches.
+- Hours: Mon-Fri 9:00am to 6:00pm, Sat and Sun closed. Matches the single
+  openingHours specification block and closedDays. No lunch closure, so
+  the split-day rule the 4.10 pass added does not apply, and the shot
+  list's hours-notice line carries the weekday hours and both closed days.
+- Catchment: Bootle, Sefton, Liverpool, leading with seoTown Bootle, in
+  the description, the dispensing service line and Post B. Matches
+  serviceAreaList order in all three places.
+- Services and categories: match the five-widget set (bloodPressure,
+  contraception, pharmacyFirst, weightLoss, travelClinic); Travel clinic,
+  Weight loss service and Vaccination centre categories present.
+- hasApp false and no app mention anywhere in the pack.
+- Post A button uses the pfLink from branches.json
+  (pharmacy-first-service-bootle.html). Unchanged.
+
+MEASUREMENTS (CRLF normalised):
+- File is pure ASCII, no em dash, no en dash, no medicine name, no
+  efficacy claim.
+- Description: 735 characters, exactly what its heading claims, against
+  the 750 limit.
+- Posts A to D: 466, 305, 530 and 380 characters, all far inside 1,500,
+  identical to the forty-fifth run's figures.
+- Post A's seven conditions and age ranges (sinusitis 12+, sore throat 5+,
+  earache 1-17, impetigo 1+, shingles 18+, infected insect bites 1+, UTI
+  women 16-64) match the generated Pharmacy First page condition for
+  condition.
+
+CHECKERS AND GENERATORS:
+- All 29 tools/check-*.js exit 0.
+- All seven generators re-run: byte-stable except status/index.html, whose
+  only diff is its own Updated timestamp line.
+
+LIVE HALF (read-only page loads, nothing clicked, typed or submitted):
+- All four post buttons resolve, fourth clean run for these links.
+- Post A target (pharmacy-first-service-bootle.html): loads, correct NAP,
+  correct seven conditions and ages, correct hours. Its heading still
+  reads "Pharmacy First Service in Bottle, Liverpool", the misspelling the
+  forty-fifth run found, and the page is still absent from the branch
+  sitemap. Both facts unchanged; the hard stop in the paster notes stands.
+- The generated replacement (pharmacy-first-sk-chemists-bootle.html) was
+  read in full rather than assumed: CONFIRMED still live, still in the
+  branch's own sitemap, correct trading name throughout, correct NAP,
+  correct conditions and ages. SK remains a no-paste repoint for item 5.3,
+  the state the forty-fifth run recorded. Its one staleness: pasted before
+  the Q7 fix, so it renders pre-Q7 em dashes in the self-referral and
+  video lines; a repaste would refresh style but is not needed for a safe
+  repoint.
+- Posts B, C, D targets: all resolve with correct NAP and hours. The
+  switch page body is still the pre-Q7 paste and renders its em dash as
+  three-character mojibake, the same stale-paste shape recorded on other
+  sites.
+- Sitemap: every entry dated 2026-07-18T23:46:35, so this site has not
+  been republished since 18 July. Explains the stale observations below.
+
+LIVE-ONLY OBSERVATIONS (no repo defect, recorded in the pack's paster
+notes):
+1. The switch banner close button still renders as mojibake on every page
+   read. The run-44 source fix is committed; the repaste has not happened.
+2. The site-wide footer strip writes its hour ranges with en dashes and
+   middot separators and exists in no repo branch - the same live-only
+   Weebly footer shape recorded on the Riddings, Gordon Short and
+   Tiffenbergs sites by runs 84 to 86.
+3. The live contact block publishes sk@rbhealth.co.uk lower case while
+   branches.json and the footer strip carry SK@rbhealth.co.uk. Same
+   spelling, case difference only, so this is NOT the Q36/Q41/Q56 shape
+   (those are different spellings); no question raised.
+4. The old weight loss page (weight-loss-clinic.html) is still live and in
+   the sitemap alongside the generated inner page. Known exposure, held
+   under item 5.8 / Q22. Not touched this pass.
+
+RESULT: pack verified clean, second full quality pass, first
+re-verification of the post-hard-stop bytes. No in-repo defect found, no
+copy changed, no live state change, no new question raised.

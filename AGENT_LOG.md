@@ -2,6 +2,77 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 22:40 BST - eighty-seventh run - Quality pass on item 4.11, the
+SK Chemists Bootle GBP pack, last verified 2026-08-10 23:16 as the
+forty-fifth run and the oldest verification standing after run 86
+refreshed 4.15. Pack verified clean second full pass, first
+re-verification of the post-hard-stop bytes. No in-repo defect found, no
+copy changed, no live state change, no new question raised. (Timestamp
+note: this run's machine clock read 22:40 at write time, earlier than the
+run-86 header below; the entries are in true run order, the run-86 header
+time appears to have been ahead of the clock.)
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log is the 2026-08-09 one, expired 23:14 on
+2026-08-10, and nothing has renewed it. Nothing in this run needed it:
+verification and note-keeping only, no decision taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all recorded long ago; none of the 32 open questions
+(Q17 onwards) has an answer. One tab opened and closed, nothing clicked,
+typed or submitted. Open questions 32 before, 32 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Runs 76 to 86 refreshed 5.2,
+5.6, 5.7, 4.6, 4.8, 4.9, 4.10, 4.12, 4.13, 4.14 and 4.15, leaving 4.11
+(run 45, 23:16 on 2026-08-10) as the oldest standing verification, just
+ahead of 2.2 (run 46, 23:43).
+
+REPO HALF, ALL HOLDING. Every fact re-verified against branches.json:
+name, address 516 Stanley Road, Bootle L20 5DW, phone 0151 944 1013,
+website, review link, hasApp false with no app mention. Hours a single
+Mon-Fri 9:00am to 6:00pm session with Saturday and Sunday closed, so the
+split-day rule does not apply. Catchment leads with seoTown Bootle and
+matches serviceAreaList order in all three places. Measured with CRLF
+normalised: description 735 characters, exactly what its heading claims;
+posts 466, 305, 530 and 380, identical to the forty-fifth run's figures.
+Pure ASCII, no medicine name, no efficacy claim, no em dash. All 29
+checkers green and all seven generators byte-stable.
+
+LIVE HALF, NO STATE CHANGE MADE. Read-only page loads, nothing clicked,
+typed or submitted. All four post buttons resolve, fourth clean run for
+the links. Post A's target still misspells its own heading as "Bottle"
+and is still absent from the branch sitemap, both unchanged since run 45,
+so the hard stop stands. The generated replacement
+pharmacy-first-sk-chemists-bootle.html was read in full rather than
+assumed: still live, still in the branch sitemap, correct trading name,
+NAP, conditions and ages throughout, so SK remains a no-paste repoint for
+item 5.3, the state run 45 recorded. The sitemap is dated 2026-07-18 on
+every entry, so this site has not been republished since 18 July, which
+explains the stale observations: the switch banner close button still
+renders as mojibake (run 44's source fix awaits the repaste), the switch
+page body still carries the pre-Q7 paste, the replacement page renders
+pre-Q7 em dashes, and the site-wide footer strip sets its hour ranges
+with en dashes and exists in no repo branch, the same hand-paste shape
+runs 84 to 86 recorded on Riddings, Gordon Short and Tiffenbergs. All
+recorded in the pack's paster notes for the queued repaste. One near-miss
+checked and dismissed: the live contact block publishes sk@rbhealth.co.uk
+lower case against SK@rbhealth.co.uk in branches.json, same spelling and
+case only, so NOT the Q36/Q41/Q56 different-spelling shape; no question
+raised.
+
+FILES CHANGED. audits/sk-chemists-bootle-gbp-pack-check-2026-08-11.txt
+(new), gbp-packs/sk-chemists-bootle.md (paster notes updated with the
+2026-08-11 re-check dates and the republish state, no pasted copy
+changed), AGENT_WORKLIST.md (second quality pass note under 4.11),
+status/index.html (regenerated), AGENT_LOG.md (this entry). Commit hash
+recorded in the commit itself.
+
 ## 2026-08-11 23:15 BST - eighty-sixth run - Quality pass on item 4.15, the
 Tiffenbergs Chemist Aintree GBP pack, last verified 2026-08-10 22:43 as the
 forty-fourth run and the oldest verification standing after run 85 refreshed

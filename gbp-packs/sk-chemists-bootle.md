@@ -114,9 +114,11 @@ Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the pfLink from branches.json. That link was fetched on
-  2026-08-10 and it loads, so Post A can be posted as it stands.
+  2026-08-10 and again on 2026-08-11 and it loads, so Post A can be posted
+  as it stands.
 - STOP before treating that page as the right long-term target. Checked
-  2026-08-10: pharmacy-first-service-bootle.html is live but it is NOT in
+  2026-08-10, re-checked 2026-08-11 with no change:
+  pharmacy-first-service-bootle.html is live but it is NOT in
   the branch sitemap, and its heading reads "Pharmacy First Service in
   Bottle, Liverpool". The town is misspelled. The branch-specific
   replacement is the better page on every count and is now CONFIRMED LIVE,
@@ -128,7 +130,15 @@ Notes for the paster:
   together, so it is deliberately not made here. Do not hand-edit it in.
   If the misspelled page is kept live after the swap, retire or signpost
   it so the branch is not publishing two pages for one service.
-- Posts B, C and D were fetched on 2026-08-10 and all three resolve.
+- Posts B, C and D were fetched on 2026-08-10 and again on 2026-08-11 and
+  all three resolve.
+- Site republish state, checked 2026-08-11: every sitemap entry is dated
+  2026-07-18, so this site has not been republished since 18 July. Until
+  the queued repaste happens, the switch banner close button renders as
+  mojibake (source fix already committed), the switch page body still
+  carries the pre-Q7 paste, and the site-wide footer strip (en dashes,
+  middot separators) exists in no repo branch. None of this blocks
+  posting; it is the repaste backlog.
 - Post buttons: if GBP only offers "Learn more", use it with the same
   links.
 - Check category names against what GBP's picker actually offers on the

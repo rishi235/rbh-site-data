@@ -670,6 +670,20 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       canonical link left untouched because the repoint belongs to 5.3.
       Raised as Q34, which asks whether 5.3 should be split so the
       no-paste repoints can run unattended. Done 2026-08-10.
+      Second quality pass 2026-08-11: pack re-verified clean fact by fact
+      against branches.json, first re-verification of the post-hard-stop
+      bytes. Description 735 and posts 466, 305, 530, 380, identical to the
+      first pass. All 29 checkers green, all seven generators byte-stable.
+      Live: all four post buttons resolve, fourth clean run. Post A's
+      target still misspells "Bottle" and is still absent from the
+      sitemap; the generated replacement is still live, in the sitemap and
+      correct throughout, so SK remains a no-paste repoint for 5.3. Every
+      sitemap entry is dated 2026-07-18, so the site has not been
+      republished since 18 July, which explains the stale banner mojibake,
+      the pre-Q7 switch body and the live-only footer strip. Paster notes
+      updated with the re-check dates and the republish state; no pasted
+      copy changed, no new question. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-08-11.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
