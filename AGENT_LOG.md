@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 16:25 BST - seventy-fourth run [commit 9b32bbb] - Item 6.2, the
+## 2026-08-11 16:25 BST - seventy-fourth run [commit 271721f, hash corrected in a follow-up commit after the amend changed it] - Item 6.2, the
 estate-wide broken internal link sweep. Sweep built and run, 15 broken
 targets found, zero generator-owned defects, item complete, Q53 and Q54
 raised as the live-only follow-ups the item calls for. 6.2 is NOT marked
