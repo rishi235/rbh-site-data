@@ -2,6 +2,123 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 10:12 BST - sixty-seventh run - Quality pass on item 3.9, Coleman
+and Leighs Pharmacy Walton, last verified on 2026-08-10 12:04 as the
+twenty-fifth run, which made it the oldest verification standing. All 12
+Coleman pages verified clean. The gap was the last piece of branch data that
+reaches a patient and was read by nothing: the Google Maps embed at the bottom
+of all 177 generated pages, and the "Get directions" button on the six landing
+pages. New tools/check-map-embeds.js, 6 rules, 10 negative tests. Nothing was
+wrong. No question raised.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed it: the run raised no question and took no decision. No
+clinical, regulatory or weight loss wording was touched, and no public copy
+changed at all.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-two questions were open before this run, Q17 to Q22, Q24, Q28,
+Q29 and Q34 to Q46, and none has been answered. Twenty-two are open now,
+unchanged, because this run raised none.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running,
+worktree clean, branch agents/audit-backlog level with origin. All 23 existing
+checkers green and all six page generators reproducing every page
+byte-identical before any change was made, so nothing below is a pre-existing
+failure. status/index.html regenerated to a one-line timestamp difference only,
+which is what that generator does, and it was reverted before the work began so
+the pass started from a clean tree.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary, and the two truncated headings for the
+twenty-seventh and twenty-eighth runs were resolved the same way the
+fifty-seventh run resolved them, through the questions they raised: Q17 names
+3.11 and Q18 names 3.12, so neither hides an older pass. The sixty-sixth run
+cleared 3.8 at 09:34 this morning, which leaves the twenty-fifth run's pass on
+item 3.9, 2026-08-10 12:04, as the oldest standing verification. Items 3.10 to
+3.13 and 5.1 follow it in the same block, runs 26 to 32.
+
+WHAT VERIFIED CLEAN. All 12 Coleman pages re-read from source rather than from
+the twenty-fifth run's account of them: 11 service pages plus the switch page.
+Every page carries 241 Walton Village, L4 6TH and 0151 525 3522, visible and in
+the tel: link, and Coleman's own Google review link and no other branch's. The
+JSON-LD parses on all 12 and matches branches.json field for field, including
+Merseyside as addressRegion and a self-referencing url that names its own file
+under the branch's own domain. Every H1 carries Walton, the seoTown, which is
+the thing worth checking on this branch because its postal locality is
+Liverpool and the two words are not the same. The trading name reads "Coleman
+and Leighs Pharmacy" everywhere, the form Q1 settled: no "&", no singular
+"Leigh", no apostrophe. No page carries any other trading branch's phone,
+postcode or review link. The brand slug in the filenames stays coleman-leigh,
+which is a permalink and deliberately not renamed.
+
+THE GAP, AND WHY NO CHECKER SAW IT. Every generated page ends on a contact card
+and the last thing in that card is an iframe holding a Google Maps query built
+from the branch's address. On the six branch landing pages there is a second
+copy of the same string in the "Get directions" button at the top of the page,
+which opens Google Maps navigation. That button is the only surface this repo
+owns that does not merely tell a patient where the shop is, it drives them
+there. Nothing in 23 checkers read either string. check-nap reads visible text,
+check-jsonld reads the schema block, check-postcodes reads postcode values, and
+a percent-encoded address inside an iframe src is invisible to all three.
+
+NOTHING WAS WRONG, WHICH IS THE POINT. Six generators compose the query the
+same way, joining streetAddress, addressLocality and postalCode and passing the
+result through encodeURIComponent, and all 177 pages agree with branches.json
+today. The string was correct by coincidence of six independent copies agreeing
+rather than by rule. That is the same shape of defect as the meta keywords on
+the 3.6 pass and hasApp on the 3.8 pass: not wrong data, unpinned data. Change
+the composition in one generator, or let one page keep a stale encoded address
+after a move, and 177 pages of visible copy still read correctly, the schema
+still matches, check-nap still reports 0 mismatches, and the map underneath
+quietly points somewhere else.
+
+Coleman is the branch that argues for checking the map against the visible
+words rather than against the town. Its addressLocality is Liverpool and its
+seoTown is Walton, so the address a map needs and the town the page sells are
+different words, and a rule that read only the town would not notice.
+
+WHAT WAS BUILT. tools/check-map-embeds.js, 6 rules. Rule 1, the generators: all
+six still build the query from the three address fields, still encode it, and
+carry no address in their own source, so a literal typed into one is caught
+where it starts rather than 177 pages later. Rule 2, coverage, both directions:
+exactly one map per page, because a page with two has had one pasted in by
+hand, and a page with none has lost it silently. Rule 3, the value: the decoded
+query equals the owning branch's address. Rule 4, agreement: it also equals the
+address the same page prints in its contact card, so the map and the words
+above it cannot drift apart. Rule 5, encoding and shape: on www.google.com,
+keeps output=embed, and is the encodeURIComponent form of its own value. Rule
+6, directions: a destination equals the map query on its own page. Value and
+encoding are separate rules because they fail differently. A wrong address
+sends a patient to the wrong shop. A right address with a raw space or comma in
+it breaks the iframe, and a broken map is silent: the page still renders, the
+card still has its heading, and the space where the map should be is empty. An
+untypable page fails rather than being skipped, the same convention the 3.8
+pass used, because a page nothing can match to a branch and a page that passes
+used to look identical.
+
+NEGATIVE TESTS. Ten, all of which failed the checker as intended: a map pointed
+at another branch's address; a contact card drifted one character in its
+postcode while the map stayed right; a raw space in the query; output=embed
+dropped; the map removed; a second map pasted in; a directions button routed to
+another branch; a generator's three-field join reduced to two; a generator's
+composition replaced by a literal string; and an address hardcoded inside a
+maps URL in generator source. The working tree was restored with git checkout
+after each and verified clean.
+
+FILES CHANGED. tools/check-map-embeds.js (new), CLAUDE.md (the rule written
+down), AGENT_LOG.md, status/index.html (regenerated by the status page
+builder). No page changed and no public copy changed: all six page generators
+reproduce every page byte-identical after the run, and all 24 checkers pass.
+
 ## 2026-08-11 09:34 BST - sixty-sixth run - Quality pass on item 3.8, SK
 Chemists Bootle, last verified on 2026-08-10 11:34 as the twenty-fourth run,
 which made it the oldest verification standing. All 12 SK pages verified clean.

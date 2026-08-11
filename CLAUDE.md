@@ -521,6 +521,43 @@ in the store consoles, not in this repo, and no rule here can fix it.
 deliberately not covered. Unlike `hasApp`, no generator reads them, so they
 reach no page and there is nothing public to guard.
 
+## The map at the bottom of every page, and the button that drives to it
+
+Every generated page ends on a contact card, and the last thing in that card is
+a Google Maps iframe whose query is the branch's own address. On the six branch
+landing pages the same string appears a second time, in the "Get directions"
+button at the top, which opens Google Maps navigation. That button is the only
+surface in this repo that does not merely tell a patient where a shop is, it
+drives them there. Until the item 3.9 quality pass on 2026-08-11, nothing read
+either.
+
+`tools\check-map-embeds.js` now holds them. Six rules: every generator that
+emits a maps URL still builds the query from `streetAddress`,
+`addressLocality` and `postalCode` and still passes it through
+`encodeURIComponent`, and carries no address in its own source; every page in
+the three page families carries exactly one map embed, no more and no fewer;
+the decoded query equals the owning branch's address; it also equals the
+address the same page prints in its contact card; the URL is on
+`www.google.com`, keeps `output=embed` and is properly percent-encoded; and a
+directions destination equals the map query on its own page.
+
+The value and the encoding are separate rules because they fail in different
+ways. A wrong address sends a patient to the wrong shop. A right address with a
+raw space or a raw comma in it breaks the iframe, and a broken map is silent:
+the page still renders, the card still has its heading, and the space where the
+map should be is simply empty.
+
+Coleman and Leighs is the branch that shows why the map and the visible words
+have to be checked against each other rather than separately. Its
+`addressLocality` is Liverpool and its `seoTown` is Walton, so the address a
+map needs and the town the page sells are different words. A rule that read
+only the town would not see the map go wrong.
+
+Nothing was wrong when the rule was written: six generators compose the query
+independently and all six agree. That is the point. The string was correct by
+coincidence of six copies agreeing, not by rule, which is the same shape as the
+meta keywords found on the 3.6 pass and `hasApp` on the 3.8 pass.
+
 ## The JSON-LD block, and the address no text search can read
 
 `tools\check-jsonld.js` reads the one part of every generated page that is
