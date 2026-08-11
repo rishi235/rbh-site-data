@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 17:10 BST - seventy-sixth run [commit hash recorded in a
-follow-up commit] - Quality pass on item 5.2, the six branch landing pages,
+## 2026-08-11 17:10 BST - seventy-sixth run [commit b40a54f, hash recorded
+in a follow-up commit] - Quality pass on item 5.2, the six branch landing pages,
 last verified 2026-08-10 17:05 as the thirty-fourth run, which after runs 51
 to 72 cleared phases 1 to 4 and item 5.1 made it the oldest verification
 standing. Repo half verified clean. The pass closed the live-side unknown
