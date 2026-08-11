@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 - sixty-fourth run - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham, last verified on 2026-08-10 as the twenty-second run, which made it the oldest verification standing. All 26 McCanns pages verified clean, including the seoTown move item 5.7 made after that verification. The gap was the fourth Weebly SEO field: Meta Keywords, 177 strings of public copy, read by nothing. New tools/check-seo-keywords.js, 7 rules, plus a second defect fixed in check-em-dashes.js, which had never opened 5 of the 11 paste sheets. No question raised
+## 2026-08-11 - sixty-fourth run [commit 299ac10] - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham, last verified on 2026-08-10 as the twenty-second run, which made it the oldest verification standing. All 26 McCanns pages verified clean, including the seoTown move item 5.7 made after that verification. The gap was the fourth Weebly SEO field: Meta Keywords, 177 strings of public copy, read by nothing. New tools/check-seo-keywords.js, 7 rules, plus a second defect fixed in check-em-dashes.js, which had never opened 5 of the 11 paste sheets. No question raised
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
 is present at the top of this log. The window that opened on 2026-08-09 expired
