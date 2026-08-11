@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-11 02:05 BST - fifty-first run [commit COMMITHASH] - Quality pass on item 1.1, the brand-name standardisation, last verified on 2026-08-05 as the fifth run of that day, which makes it the oldest verification standing by six days. The repo is clean and has stayed clean. The finding is not a wrong word anywhere; it is that item 1.1 was the only completed item with no checker behind it, so its verification was a hand sweep retyped on every pass. New tools/check-brand-spelling.js now holds the rule. No new question
+## 2026-08-11 02:05 BST - fifty-first run [commit b3f3912] - Quality pass on item 1.1, the brand-name standardisation, last verified on 2026-08-05 as the fifth run of that day, which makes it the oldest verification standing by six days. The repo is clean and has stayed clean. The finding is not a wrong word anywhere; it is that item 1.1 was the only completed item with no checker behind it, so its verification was a hand sweep retyped on every pass. New tools/check-brand-spelling.js now holds the rule. No new question
 
 NO AUTONOMOUS DECISION WAS AVAILABLE. The window that opened on 2026-08-09
 expired at 23:14 on 2026-08-10 and no new authorisation section is present at
