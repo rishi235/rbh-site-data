@@ -2,6 +2,169 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 09:04 BST - sixty-fifth run - Quality pass on item 3.7, Smartts
+Chemist Bootle, last verified on 2026-08-10 11:04 as the twenty-third run,
+which made it the oldest verification standing. All 12 Smartts pages verified
+clean. The gap was one layer below the pages: 79 Appointedd widget ids in
+branches.json decide which diary a booking lands in, and sharing BETWEEN
+branches was counted and reported as expected rather than tested. New
+tools/check-widget-diaries.js, 4 rules, 4 negative tests. A second live-only
+defect on the Smartts Pharmacy First page recorded against item 5.3. No
+question raised.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09
+expired at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as
+written. Nothing this run needed it. The one finding that could have wanted a
+decision did not: the correct opening hours are already in branches.json,
+confirmed from the NHS pharmacy profile on 2026-06-24, so it is a repair for a
+Weebly session rather than a choice for Rishi.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. The newest entry is still the Q16 answer
+of 15:16 on 2026-08-10, which the thirty-third run already recorded. Twenty-two
+questions were open before this run, Q17 to Q22, Q24, Q28, Q29 and Q34 to Q46,
+and none has been answered. Twenty-two are open now, unchanged, because this
+run raised none.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin at cb094b8. All 21 checkers green and
+all six generators reproducing all 177 pages byte-identical before any change
+was made, so nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The sixty-fourth run cleared 3.6 this
+morning, which leaves the twenty-third run's pass on item 3.7, 2026-08-10
+11:04, as the oldest standing verification. Items 3.8 to 3.13 and 5.1 follow it
+in the same block, runs 24 to 32, and everything else has been verified on
+2026-08-10 17:05 or later.
+
+WHAT VERIFIED CLEAN. All 12 Smartts pages re-read from source rather than from
+the twenty-third run's account of them: 10 service, 1 weight loss, 1 switch.
+  - NAP. 42 Fernhill Road, L20 9HH, 0151 922 4984 on all 12, exactly one tel:
+    link per page, one street form and one postcode form throughout.
+  - Town. seoTown and addressLocality are both Bootle, so unlike McCanns
+    Sandringham there is no divergence here to get backwards. Bootle appears
+    in every H1, every permalink and every paste-sheet block.
+  - Paste sheets. All eight Pharmacy First blocks, plus contraception, travel
+    clinic, weight loss and switch, match the estate pattern exactly, keywords
+    included: "<Condition> Bootle, <Condition> treatment Bootle, Pharmacy
+    First Bootle, pharmacy Bootle, L20". The Meta Keywords field the
+    sixty-fourth run first put a rule behind is correct on all 12.
+  - Pins. The 11 service-family pages pin service-module-phase1 and the switch
+    page pins 6a275e1, which is what their generators declare.
+  - Opening hours do not appear on any Smartts service or switch page, so
+    check-opening-hours reading only the four branch landing pages is correct
+    scope in the repo rather than a gap. The live pages are a different matter,
+    below.
+
+TWO SUSPICIONS CLOSED RATHER THAN OPENED. Worth recording because both looked
+like findings and neither was.
+  - "Which files did the checker read" is closed at file level. This repo has
+    been bitten three times by a checker that passed while never opening the
+    file that mattered. Rather than ask it again by hand, all 21 checkers were
+    run with fs.readFileSync instrumented and the union of what they opened was
+    diffed against the whole file tree. 280 of 284 files are read by at least
+    one checker, and the four that are not are the temporary scratch files this
+    run created. No content file in the repo is unread. That does not make the
+    RULES complete, and the finding below is a rule-level gap, but the file
+    level version of this fault is now measured rather than assumed.
+  - The Tiffenbergs pfLink is not broken. It is the only one of the 16 written
+    without a .html extension, which looked like a live 404 waiting to happen.
+    Fetched read only, it resolves through a Weebly redirect to the .html page
+    and serves correctly. Recorded so a later pass does not raise it again.
+
+THE GAP: WHO OWNS A DIARY. An Appointedd widget id decides which diary a real
+patient's booking lands in. No generated page carries one - service.js resolves
+it at run time from branches.json - so a wrong id is invisible on the page and
+surfaces only as a patient sitting in the wrong pharmacy's waiting room. This
+repo has had that fault once already, on 2026-07-17, when six pages hard-coded
+the wrong id, and check-booking-routes.js was written in response. It is a good
+checker and it guards that chain well, but it guards it in ONE direction. Its
+rule 7 asks whether two services inside a SINGLE branch share an id. Sharing
+BETWEEN branches it does not test at all: it counts them and prints "6 widget
+id(s) shared between sister branches (one diary per pair, expected)". All six
+are legitimate today, so that line reads correctly. It would read exactly as
+correctly if a seventh appeared, whatever it was and wherever it came from.
+
+WHAT THE DATA ACTUALLY SAYS. Read across all 16 branches, the estate's diary
+policy is unanimous and nowhere written down:
+    weightLoss, travelClinic    shared across a brand's sites, one private
+                                clinic diary per brand. 3 multi-site brands
+                                of 3.
+    pharmacyFirst, contraception,
+    bloodPressure               per site at every brand. 3 of 3.
+    single-site brands          all ids unique estate-wide, 0 cross-brand
+                                shares in 79 instances, 73 distinct.
+That is a real rule holding a patient-safety fact, and nothing asserted it.
+
+WHY IT LANDS ON SMARTTS. Smartts is a single-site brand, so all five of its
+ids must be unique, and it sits in branches.json directly above SK Chemists
+Bootle: a different brand, the same town, the same five services, adjacent
+records. A copy-paste between those two neighbours sends NHS Pharmacy First
+bookings made on one Bootle pharmacy's page into the other Bootle pharmacy's
+diary, and every one of the 21 existing checkers stays green while it happens.
+
+WHAT WAS DONE. New tools/check-widget-diaries.js. Four rules, and which
+service keys are private and which are per site is DERIVED from how the three
+multi-site brands actually treat them rather than hardcoded, so the day a
+fourth brand gains a second site the rule reads that brand too.
+    RULE 1 format         an id that is not 24 lowercase hex characters.
+    RULE 2 crossbrand     one id held by more than one brandKey. Never
+                          legitimate, at any service.
+    RULE 3 consistent     one service key treated two ways across the
+                          multi-site brands. This is the rule that catches an
+                          NHS diary being shared, because pharmacyFirst,
+                          contraception and bloodPressure are per site at all
+                          three brands today.
+    RULE 4 sharedservice  a shared id held under different service keys by its
+                          holders. Rule 2 misses it because the brand is the
+                          same, rule 3 misses it because both keys are still
+                          shared at that brand, and check-booking-routes rule 7
+                          misses it because the collision is across two
+                          branches rather than inside one.
+All four negative-tested against a mutated copy of branches.json: a truncated
+Smartts id, the Smartts pharmacyFirst id pasted onto SK Chemists Bootle, the
+Scorah pharmacyFirst diary shared across its two sites, and the Bramhall
+travelClinic id dropped into Hazel Grove's weightLoss slot. Each fired its own
+rule with its own message and branches.json was restored byte-identical after
+each, verified against git. KNOWN is empty and a stale KNOWN key fails the run,
+the same convention as check-booking-routes and check-seo-keywords.
+
+A SECOND LIVE-ONLY DEFECT, RECORDED AGAINST 5.3. The Smartts pfLink target,
+pharmacy-first-service-bootle.html, was read live as part of verifying the
+branch. It is live and correct on address, phone and services, but it states
+its opening hours as "Monday 9:00am - 6:00pm" in the hours block and "Open
+Mon-Fri 9am-6pm" in the footer strip, omitting the 1pm to 2pm lunch closure
+branches.json records from the NHS pharmacy profile, confirmed 2026-06-24. So
+it tells patients the pharmacy is open when it is shut. Tiffenbergs' equivalent
+page, read in the same pass, states "(closed 1-2pm)" correctly in both places,
+which makes this a per-page hand-written error rather than a shared module
+fault. It is the same locked-door class the twenty-third run found on the
+Smartts weight loss page under Q16, now confirmed on a second Smartts page -
+and this is the page eleven GBP profiles are about to be pointed at under item
+5.3. It cannot be fixed here: the page is live-only Weebly that no generator
+owns. Recorded on item 5.3 so the Weebly session fixes the hours while it is in
+there repointing the link. Also noted on the same page, the footer strip writes
+the email as Smartts@rbhealth.co.uk while the address block writes
+smartts@rbhealth.co.uk.
+
+WHY NO QUESTION. Step 7 raises a question when an item needs Rishi's decision.
+Neither finding does. The widget-diary policy was read off the data and is
+unanimous, so pinning it is a repair. The Smartts opening hours are already
+recorded correctly in branches.json against a dated NHS source, so correcting
+the live page is a repair too. Twenty-two questions are open and none of them
+needs a twenty-third that has only one possible answer.
+
+FILES CHANGED. tools/check-widget-diaries.js (new), AGENT_WORKLIST.md (3.7
+quality pass note, 5.3 further evidence), AGENT_LOG.md (this entry).
+All 22 checkers green and all six generators reproduce all 177 pages
+byte-identical after the change. No public copy was changed.
+
 ## 2026-08-11 - sixty-fourth run [commit 299ac10] - Quality pass on item 3.6, McCanns Chemist Aigburth and Sandringham, last verified on 2026-08-10 as the twenty-second run, which made it the oldest verification standing. All 26 McCanns pages verified clean, including the seoTown move item 5.7 made after that verification. The gap was the fourth Weebly SEO field: Meta Keywords, 177 strings of public copy, read by nothing. New tools/check-seo-keywords.js, 7 rules, plus a second defect fixed in check-em-dashes.js, which had never opened 5 of the 11 paste sheets. No question raised
 
 NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section

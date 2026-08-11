@@ -221,6 +221,37 @@ earache title should carry the cohort the H1 already carries.
       2026-08-04. 24 pages, 0 mismatches.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
+NAP "42 Fernhill Road", L20 9HH and 0151 922 4984 on all 12, one tel: link
+each, seoTown and addressLocality both Bootle so there is no divergence to get
+backwards, Bootle in every H1, permalink and paste-sheet entry, all eight
+Pharmacy First sheet blocks matching the estate pattern exactly, service pages
+pinned to service-module-phase1 and the switch page to 6a275e1 as their
+generators declare. All six generators rebuilt every page byte-identical and
+all 21 existing checkers passed before any change was made. Two verifications
+that closed suspicions rather than opening them: every content file in the
+repo is opened by at least one checker, tested by instrumenting fs reads
+across all 21 and diffing against the file tree, so the "which files did it
+read" fault that bit this repo three times is closed at file level; and the
+Tiffenbergs pfLink, the only one of the 16 written without a .html extension,
+resolves live through a Weebly redirect and is not broken.
+The gap was one layer below the pages. An Appointedd widget id decides which
+diary a booking lands in, no generated page carries one, and 79 of them sit in
+branches.json. check-booking-routes guards that chain in one direction only:
+its rule 7 asks whether two services inside a single branch share an id, while
+sharing BETWEEN branches it counts and prints as expected. Six ids are shared
+today and all six are right. A seventh would print just as calmly. The estate
+policy turns out to be unanimous and undeclared - weightLoss and travelClinic
+shared across a brand's sites at 3 brands of 3, pharmacyFirst, contraception
+and bloodPressure per site at 3 of 3, every single-site brand unique - and
+Smartts is a single-site brand sitting directly above SK Chemists Bootle, a
+different brand in the same town with the same five services. A copy-paste
+between those two neighbours would send NHS bookings made on one Bootle
+pharmacy's page into the other's diary with all 21 checkers green. Nothing was
+wrong; the policy was unpinned. New tools/check-widget-diaries.js, 4 rules
+derived from the data rather than hardcoded, all 4 proven by negative tests
+(truncated id, cross-brand paste, an NHS diary shared at one brand only, and a
+travelClinic id dropped into a sister's weightLoss slot). No question raised.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
@@ -804,6 +835,25 @@ so tools/build-audit-status.js picks them up like any other item.
       was fetched in the same pass and is live and correct. So the eleven
       are not one problem in one state, and at least one branch cannot post
       Post A at all until this item runs. Worth pulling forward.
+      Further evidence 2026-08-11, from the 3.7 quality pass, and it adds a
+      second job to the same Weebly visit. The Smartts pfLink target,
+      pharmacy-first-service-bootle.html, is live but states its opening
+      hours as "Monday 9:00am - 6:00pm" in the hours block and "Open Mon-Fri
+      9am-6pm" in the footer strip, omitting the 1pm to 2pm lunch closure
+      branches.json records from the NHS pharmacy profile, confirmed
+      2026-06-24. Tiffenbergs' equivalent page, read in the same pass, states
+      "(closed 1-2pm)" correctly in both places, so this is a per-page hand
+      written error rather than a shared module fault. It is the same locked
+      door defect the 3.7 pass first found on the Smartts weight loss page
+      under Q16, now confirmed on a second Smartts page - and this is the
+      page eleven GBP profiles are about to be pointed at. No question is
+      raised because there is no decision to take: the correct hours are in
+      branches.json. Fix the hours while in Weebly repointing the link. Also
+      cosmetic on the same page, the footer strip writes the email as
+      Smartts@rbhealth.co.uk while the address block above it writes
+      smartts@rbhealth.co.uk. Not worth a separate visit, worth one edit
+      while the page is open. Neither is fixable in this repo: the page is
+      live-only Weebly that no generator owns.
       Further evidence 2026-08-10, from the 4.13 quality pass, and it cuts
       the other way: Riddings Timperley's replacement page is already live
       at pharmacy-first-riddings-timperley.html and sits in the branch's own
