@@ -1,0 +1,29 @@
+Quality pass on item 5.6 - live title check, 2026-08-11 17:37 BST
+Method: single plain GET, Invoke-WebRequest -UseBasicParsing, no browser
+session, nothing clicked, typed or submitted.
+
+URL: https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+HTTP status: 200
+Live <title>: Infected insect bite treatment in Walton - Coleman &amp; Leigh Pharmacy
+Decoded: Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy
+Decoded length: 68 characters
+
+Repo paste-sheet title (modules/service/pages/SEO.md):
+Infected insect bite treatment in Walton - Coleman and Leighs
+Length: 61 characters
+
+Findings:
+1. The Q14 repaste is still outstanding, as the worklist records: the live
+   title remains over the 65-character line and will keep truncating in
+   Google until the Weebly SEO title field is repasted from SEO.md.
+2. New finding: the live title does not match ANY version the repo ever
+   shipped. The old repo title was "... - Coleman and Leighs Pharmacy"
+   (70 characters). The live page reads "... - Coleman & Leigh Pharmacy":
+   ampersand for "and", singular "Leigh". So the Weebly SEO title field on
+   this page was set by hand at some point, not from a repo paste sheet.
+   The already-recorded repaste from SEO.md corrects both the length and
+   the brand spelling in one action, so no new decision is needed and no
+   question is raised. Whether other pages on this domain carry the same
+   hand-typed brand spelling in their Weebly SEO fields was NOT checked -
+   that is beyond this item's scope and would belong to the 5.3/5.4 Weebly
+   session work where every SEO field gets repasted anyway.

@@ -1006,6 +1006,19 @@ so tools/build-audit-status.js picks them up like any other item.
       ways. A second finding, that the shortening rule can only rescue three
       of the fourteen trading brands and the estate is one character from the
       wall on two titles, is raised as Q24 and blocks nothing.
+      Quality pass 2026-08-11: repo half verified clean end to end a second
+      time. All 29 checkers green, all six generators reproduced every page
+      byte-identical, the 61-character title stands in the page, the paste
+      sheet and the index, the H1 and every visible line keep the full
+      trading name, KNOWN in check-seo-lengths.js is still empty, and the
+      self-test still derives the longest condition from
+      build-service-pages.js. Live half checked by one plain GET: the page
+      is 200 but its live title reads "Coleman & Leigh Pharmacy" (ampersand,
+      singular Leigh, 68 characters), which matches no version the repo
+      ever shipped - the Weebly SEO title on this page was hand-typed, not
+      pasted. The already-outstanding repaste from SEO.md fixes length and
+      brand spelling in one action, so no new question. Evidence:
+      audits/insect-bite-title-live-check-2026-08-11.txt.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
