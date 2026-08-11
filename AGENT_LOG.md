@@ -2,6 +2,71 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 15:55 BST - seventy-third run [commit c4cd95f] - Item 6.1, the
+sitemap duplication finding from this morning's Ahrefs sweep. Investigated,
+premise disproven, evidence gathered from the live estate, blocked on Q52.
+No generator and no page output changed.
+
+NO AUTONOMOUS WINDOW. The only standing authorisation section in this log
+remains the 2026-08-09 one and it expired at 23:14 on 2026-08-10. Nothing has
+renewed it, so step 7 applied as written. It would not have mattered here:
+Q52 is a how-to-get-evidence question, not a decision the window covers, and
+it was raised rather than decided in any case.
+
+ANSWER PICKUP UNAVAILABLE. The portal fetch returned the Cloudflare Access
+login page instead of the feedback JSON, so Rishi's Chrome did not hold a live
+Access session at run time. As instructed the run logged it and carried on: no
+login attempted, no other route tried, tab closed. Open questions were 27
+before the run (Q17 to Q22, Q24, Q28, Q29, Q34 to Q51) and are 28 after it,
+Q52 having been added below.
+
+RUN START STATE. A .agent-lock 60 minutes old was stale under the 45 minute
+rule and was deleted, then a fresh one written. No .git\index.lock. Branch
+agents/audit-backlog level with origin at 1131514, worktree clean.
+
+THE ITEM. 6.1 was written against a premise that does not hold. There is no
+tools/build-sitemap.js and no sitemap generator, sitemap file or sitemap
+string anywhere in this repo beyond one comment in
+tools/build-branch-landing-pages.js. Every live sitemap is platform-made:
+Weebly writes them for the branch sites and the shop platform writes
+clearchemist.co.uk's. So there is nothing repo-side to fix at source, and the
+question became where the duplication Ahrefs sees actually lives.
+
+WHAT THE LIVE ESTATE SHOWS. Browser read only, page reads and same-origin
+GETs, no clicks and no typing. The item itself asked for live sitemap
+spot-checks, which is read-only page verification, so this was treated as
+inside the browser rule; flagging the interpretation here rather than leaving
+it implicit. Findings: Scorah, Smartts and McCanns each carry exactly one
+Sitemap line in robots.txt, pointing at one flat urlset sitemap.xml (44, 30
+and 43 URLs) with zero duplicate entries. The bare scorah-chemists.co.uk
+redirects to www rather than serving a second copy. Clear Chemist is a
+two-part sitemap index (19,179 and 8,083 page URLs) whose parts share zero
+URLs. Nothing in the live files can put one page in two sitemaps. One oddity
+recorded in Q52's note: Weebly answers HTTP 200 with an empty body at
+/sitemap.xml.gz and /1/sitemap.xml on Scorah while unknown paths get a real
+404. Empty files cannot cause the flag but may register as extra sitemaps if
+Ahrefs probes common locations.
+
+WHERE THAT LEAVES THE FLAG. Most likely inside each affected Ahrefs project's
+own sitemap source list in Site Audit crawl settings, for example a manually
+added sitemap URL held alongside the robots-discovered one and counted as a
+second file. That list is only visible in the Ahrefs web UI. The API route
+was tried first and the current plan refuses Site Audit calls (Insufficient
+plan), and the worker's browser permission does not extend to the Ahrefs UI.
+Q52 raised with three options, recommended option: Rishi opens the issue
+detail on one affected project and posts the sitemap file names it lists to
+the portal, and the next run takes it from there. 6.1 marked [BLOCKED] Q52 in
+place.
+
+WHY 6.2 WAS NOT STARTED. Step 8 sends the run to the next item, but 6.2 is a
+full estate-wide broken-link sweep and this run's 30 to 45 minute budget had
+gone on the 6.1 investigation. Starting a sweep of that size at the end of a
+run would do it loosely, against the one-item-done-well rule, so it is left
+first in line for the next hourly run.
+
+FILES CHANGED. QUESTIONS.json (Q52 appended, file re-parsed clean),
+AGENT_WORKLIST.md (6.1 marked [BLOCKED] Q52), AGENT_LOG.md (this entry).
+
 ## 2026-08-11 (Rishi, manual, not a scheduled run) - Ahrefs sweep findings and
 worker instruction update. Rishi asked for a full Ahrefs Site Audit sweep
 across all 16 projects (Health Score, Errors, Warnings, Notices, What's New)

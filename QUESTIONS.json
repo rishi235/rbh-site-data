@@ -792,5 +792,20 @@
     "status": "open",
     "answer": null,
     "note": "Raised rather than decided, and it would have been raised even under an autonomous window: it is a live patient-facing advertising claim, which is inside the carve-out. Nothing on any page was changed. RULE 7 of the new tools/check-weight-loss-copy.js pins what exists today, one fee string, identical on all 15 pages, from-qualified, in exactly the three places the generator writes it, with the indicative-pricing sentence beside it and no offer or discount wording, so the position cannot quietly get worse while this is open. It deliberately does not judge where on the page the price should sit, because that is not a checker's call. If the answer is option 1, 2 or 3 it means a Weebly repaste of all 15 weight loss pages, so it should ride along with whatever paste run Q49 and Q22 trigger rather than on its own."
+  },
+  {
+    "id": "Q52",
+    "date": "2026-08-11",
+    "item": "6.1 sitemap duplication (Page in multiple sitemaps, 8+ Ahrefs projects)",
+    "question": "Item 6.1 asks for a fix in the repo's sitemap generator, but the repo has no sitemap generator and holds no sitemap files: every live sitemap is platform-generated, by Weebly on the branch sites and by the shop platform on clearchemist.co.uk. The live sitemap layer was spot-checked this run and is clean. Scorah, Smartts and McCanns each have exactly one Sitemap line in robots.txt pointing at one flat sitemap.xml with no duplicate entries, and the bare domain redirects to www rather than serving a second copy. Clear Chemist has a two-part sitemap index whose parts share zero URLs. So the same page cannot be reached twice through anything the live files declare, and the duplication Ahrefs reports most likely sits in each affected project's own sitemap source list in Site Audit's crawl settings, for example a manually added sitemap URL held alongside the robots-discovered one and counted as a second file. That list is only visible in the Ahrefs web interface. The API rejects Site Audit calls on the current plan (Insufficient plan) and the worker's browser permission does not extend to the Ahrefs UI, so the run cannot see which sitemap files the issue actually names. How should this be pinned down?",
+    "options": [
+      "Open the issue detail yourself in Ahrefs Site Audit on one affected project such as Scorah, click Page in multiple sitemaps, and post to the portal the sitemap URLs it lists for any one affected page. Two minutes in the UI, gives the worker the exact file names, and the next run takes it from there",
+      "Add a standing note authorising the worker to read the Ahrefs web UI, browser read-only, so it can open the same issue detail itself next run. Saves you the two minutes but widens the worker's browser scope, which has so far been kept to the portal fetch and live page checks",
+      "Close 6.1 as no action needed, treating the flag as an Ahrefs configuration artefact on the evidence that the live sitemap files are clean. Costs nothing now, but if a project really does hold two sitemap sources the flag stays on every crawl and masks a real sitemap issue later, which is the reason 6.1 was raised"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "One oddity worth recording while it is fresh: Weebly answers HTTP 200 with an empty body at /sitemap.xml.gz and /1/sitemap.xml on Scorah, while unknown paths get a proper 404. An empty file cannot put a page in two sitemaps, so it is not the cause, but if Ahrefs probes common sitemap locations those 200s may register as extra empty sitemaps and are worth a glance in the same issue detail. Nothing repo-side changed for this item beyond the worklist marking and this question."
   }
 ]

@@ -1063,7 +1063,7 @@ so tools/build-audit-status.js picks them up like any other item.
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
-- [ ] 6.1 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
+- [ ] [BLOCKED] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
       sitemaps" as a new issue on at least 8 of the 16 projects, all newly
       appearing since the estate-wide page regeneration. Find the shared
       root cause in the sitemap generator (likely tools/build-sitemap.js or
