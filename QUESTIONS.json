@@ -712,5 +712,21 @@
     "status": "open",
     "answer": null,
     "note": "No page is wrong today. All seven cohorts were verified correct against the NHS Pharmacy First specification and identical across all 14 branches, and they are now pinned by tools/check-pharmacy-first-eligibility.js so they cannot drift unnoticed. This question is only about what the search snippet says. Option 3 is recommended over option 1 because the description is where the qualifying belongs: it has 165 characters to play with rather than 65, it carries the whole cohort rather than a compressed \"for children\", and it avoids reopening the Coleman and Leighs title that Q14 has already been spent on once. The six other conditions all restrict by age too (sore throat 5 and over, sinusitis 12 and over, shingles 18 and over, impetigo and infected bite 1 and over, UTI women 16 to 64), so whichever way this goes, say whether it applies to earache alone or to all seven."
+  },
+  {
+    "id": "Q47",
+    "date": "2026-08-11",
+    "item": "quality pass on 3.10 (finding, does not block any item)",
+    "question": "The generator that builds the 14 NHS contraception pages states in its own header that under-16s carry a safeguarding step, but no page carries any under-16 or safeguarding wording at all. The service has no NHS-set age floor, so a 15 year old can and does read these pages, and today they are told only that the pharmacist will refer them on if the pill is not suitable. Nothing tells them, or their parent, how the pharmacy handles a request from someone under 16, and nothing tells a reader that a consultation with an under-16 follows a safeguarding assessment. This is clinical and safeguarding wording, so it is not an agent edit. Which way should it go?",
+    "options": [
+      "Add a short under-16 paragraph to all 14 pages, written and signed off by the superintendent pharmacist, saying an under-16 can be seen and that the consultation includes a safeguarding assessment. Matches what the generator already claims and what a young person actually needs to read, but it is new clinical copy on 14 live pages and needs a repaste of every one",
+      "Add a single neutral line to the eligibility box on all 14 pages pointing under-16s to speak to the pharmacist or a sexual health service before booking. Smallest change that stops the page being silent, no clinical assessment wording to sign off, but it reads as a soft deflection and may put off a young person the service is allowed to see",
+      "Leave the pages as they are and delete the safeguarding sentence from the generator header, so the repo stops claiming something the pages do not do. Costs nothing and no repaste, but it settles the question by lowering the claim rather than by deciding what an under-16 should read",
+      "Hold until the superintendent pharmacist reviews the whole contraception page against the NHS service specification, and decide the under-16 wording as part of that. Slowest, but this is the only page family in the estate carrying an NHS clinical service with no age wording at all, and the sign-off note on the build sheet says these pages need superintendent approval before publish anyway"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing on the live pages is wrong today. Everything the 14 pages say was verified word for word this run and is now pinned by tools/check-contraception-copy.js, including the free-of-charge claim, the consent sentence and the rule that a coil or implant is signposted rather than offered. The gap is an absence, not an error. The safeguarding gap is recorded as a KNOWN entry in that checker naming this question, so whichever option is chosen, the entry goes stale and fails the run until the pages and the generator header agree again. Option 1 is recommended because the header already commits us to it and because an under-16 reading a contraception page is the one reader on these pages where silence carries the most risk. Option 4 is the right answer instead if the superintendent review is close, since it would only be redone."
   }
 ]

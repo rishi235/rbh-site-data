@@ -2,6 +2,119 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 10:44 BST - sixty-eighth run - Quality pass on item 3.10, Riddings
+Pharmacy Timperley, last verified on 2026-08-10 12:34 as the twenty-sixth run,
+which made it the oldest verification standing. All 12 Riddings pages verified
+clean. The gap was the whole body of the NHS contraception page: what the
+service is, who it is for, that it is free and who gets told, on 14 live pages,
+read by no checker in the repo. New tools/check-contraception-copy.js, 9 rules,
+12 negative tests, all 12 caught their break. Nothing on those pages is wrong.
+One absence found and raised as Q47.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is the 2026-08-09 one, it is not at the top of the file and
+it expired at 23:14 on 2026-08-10. Nothing has renewed it, so step 7 applies as
+written. That is why Q47 was raised and left open rather than decided: it is
+clinical and safeguarding wording on a live patient-facing page, which is
+inside the carve-out even when a window is open.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-two questions were open before this run, Q17 to Q22, Q24, Q28,
+Q29 and Q34 to Q46. Twenty-three are open now: this run raised Q47.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running,
+worktree clean, branch agents/audit-backlog level with origin. All 24 existing
+checkers green and all six page generators reproducing every page
+byte-identical before any change was made, so nothing below is a pre-existing
+failure. status/index.html regenerated to a one-line timestamp difference only,
+which is what that generator does, and it was reverted before the work began.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this
+one, and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the
+run to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The sixty-seventh run cleared 3.9 at 10:12
+this morning, which leaves the twenty-sixth run's pass on item 3.10, 2026-08-10
+12:34, as the oldest standing verification. Items 3.11, 3.12, 3.13 and 5.1
+follow it, runs 27, 28, 31 and 32; 3.11 and 3.12 were resolved from the
+questions those two truncated headings raised, Q17 naming 3.11 and Q18 naming
+3.12, the same way the fifty-seventh and sixty-seventh runs resolved them.
+
+WHAT VERIFIED CLEAN ON RIDDINGS. All 12 pages re-read from source rather than
+from the twenty-sixth run's account of them: 11 service pages plus the switch
+page. Every page carries 38 Riddings Road, WA15 6BP and 0161 973 2951, visible
+and in the tel: link, with the phone in the tel: link as unspaced digits. The
+JSON-LD parses on all 12 and matches branches.json field for field, including
+Greater Manchester as addressRegion, the two-part "Timperley, Altrincham"
+locality that is unique to this branch in the estate, Pharmacy as the type on
+every one, and a self-referencing url on the branch's own domain naming its own
+file. Every H1 carries Timperley, the seoTown, which is also the first entry in
+the branch's own serviceAreaList. Every page carries Riddings' own Google
+review link and no other branch's, and no page carries any other trading
+branch's phone, postcode or review link. The weight loss page names no
+prescription-only medicine. The only non-ASCII characters on any of the 12 are
+em dashes inside the paste header comments, which check-em-dashes.js blanks on
+purpose because no visitor sees them, and the pound signs in the weight loss
+price, which are correct.
+
+HOW THE GAP WAS FOUND, AND WHAT WAS RULED OUT FIRST. The obvious candidates
+were checked and closed. Three fields in branches.json are still read by no
+checker, shortCode, branchNumber and pfBooking, and the sixty-sixth run already
+established that no generator reads them either, so they reach no page.
+Opening hours are published in the JSON-LD on exactly six pages and those six
+are the landing pages check-opening-hours already reads. The chain from
+filename to paste-sheet permalink to JSON-LD url is closed end to end by
+check-seo-sheets and rule 4 of check-jsonld. The head-comment SEO title and
+description are read by check-seo-pattern and tied to the paste sheets by
+check-seo-sheets. data-branch, data-service and data-wa are all held. What was
+left was the copy itself, and one page family had none of it under rule.
+
+THE GAP. The contraception page is covered eight ways and every one of them
+reads the frame rather than the contents: check-page-coverage earns the page,
+check-seo-pattern holds the title and H1, check-seo-sheets and check-seo-keywords
+hold the four Weebly fields, check-nap and check-jsonld hold the address block,
+check-map-embeds holds the map, check-widget-diaries holds the booking diary.
+Nothing read the service description sitting between them. That is 22 lines of
+copy on 14 live pages telling a patient what the NHS Pharmacy Contraception
+Service is, that a pharmacist can start, restart or continue the pill, that it
+is free with no prescription charge, that no GP appointment or referral is
+needed, and that their GP is told only with their consent. The sixty-third run
+closed the same gap for Pharmacy First and its checker deliberately covers the
+seven PF pathways only. Contraception is the estate's other NHS clinical
+service, on its own generator, and it fell between the two.
+
+WHAT THE CHECKER DOES. tools/check-contraception-copy.js reads the copy OUT of
+build-contraception-pages.js rather than mirroring it, which is the fifty-second
+run's lesson: a hand-copied list in a checker goes stale in silence and a new
+bullet never gets typed into it. Add a bullet to the generator and it is under
+test on the next run. Rule 1 guards the parser itself, so a refactor that moves
+the copy out of its sight fails the run instead of leaving the other eight rules
+reading nothing. Rule 3 compares every static line verbatim on every page, and
+resolves the lines that splice in the brand or the town per branch, so a page
+cannot borrow another branch's town inside a sentence. Rules 5 to 8 are the
+claims a plausible edit breaks: no price or fee anywhere on a free NHS service,
+the consent sentence tested in both directions so a reversal is caught and not
+just a deletion, no offer to fit or insert a coil, implant or injection where
+the page must only signpost, and no contraceptive named by brand or drug name in
+public advertising copy.
+
+THE ABSENCE, RAISED AS Q47. The generator's own header states that under-16s
+carry a safeguarding step. No page carries any under-16 or safeguarding wording.
+The service has no NHS-set age floor, so a 15 year old can read these pages, and
+today they are told only that the pharmacist will refer them on if the pill is
+not suitable. The Build Pack v2 says nothing about it either way, so the claim
+exists only in the generator header. Writing that wording is a clinical and
+safeguarding decision for the superintendent pharmacist, so rule 9 pins the gap
+instead of filling it: the breach is recorded as a KNOWN entry naming Q47, and
+because a stale KNOWN key fails the run, the entry cannot outlive the answer.
+
+FILES CHANGED. tools/check-contraception-copy.js (new, 9 rules). QUESTIONS.json
+(Q47 appended). No page changed, no generator changed, no public copy changed.
+All six generators rebuilt to zero diff after the work and all 25 checkers pass.
+
 ## 2026-08-11 10:12 BST - sixty-seventh run [commit ac607a8] - Quality pass on item 3.9, Coleman
 and Leighs Pharmacy Walton, last verified on 2026-08-10 12:04 as the
 twenty-fifth run, which made it the oldest verification standing. All 12
