@@ -141,7 +141,7 @@ function servicesOf(b) {
     { name: "NHS Pharmacy First", href: "pharmacy-first-" + ss + ".html",
       blurb: "Free NHS treatment for seven common conditions, with no GP appointment needed." },
     { name: "NHS repeat prescriptions", href: "switch-prescriptions-" + ss + ".html",
-      blurb: "Order your NHS repeat prescriptions with us, with collection or delivery." + (b.hasApp ? " Manage everything in the free RB Healthcare app." : "") },
+      blurb: "Order your NHS repeat prescriptions with us, with collection or delivery." + (b.hasApp ? " Manage everything in the free RB Healthcare Pharmacy app." : "") },
     { name: "Weight loss clinic", href: "weight-loss-clinic-" + ss + ".html",
       blurb: "Private weight loss support with our pharmacy team. Book a consultation to find out more." },
     { name: "Travel clinic", href: "travel-clinic-" + ss + ".html",

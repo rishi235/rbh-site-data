@@ -2,6 +2,170 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-11 09:34 BST - sixty-sixth run - Quality pass on item 3.8, SK
+Chemists Bootle, last verified on 2026-08-10 11:34 as the twenty-fourth run,
+which made it the oldest verification standing. All 12 SK pages verified clean.
+The gap was one field wide: hasApp is the only key in branches.json that
+reaches public copy and no checker had ever opened it. New
+tools/check-app-membership.js, 7 rules, 11 negative tests. It found a second
+fault on its first run: the estate has been naming its own app two ways. Fixed
+at source. No question raised.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log. The window that opened on 2026-08-09 expired
+at 23:14 on 2026-08-10 and has not been renewed, so step 7 applies as written.
+Nothing this run needed it. Neither finding was a decision: a field with no rule
+behind it is a gap with one correct answer, and an app named two ways in the
+same estate is a defect rather than a choice, settled against the store listings
+rather than against taste. No clinical or regulatory wording was touched.
+
+ANSWER PICKUP: NOTHING NEW. The portal read cleanly through the browser tools,
+read only, one tab opened and closed. Eleven entries returned and the newest is
+still the Q16 answer of 15:16 on 2026-08-10, which the thirty-third run already
+recorded. Twenty-two questions were open before this run, Q17 to Q22, Q24, Q28,
+Q29 and Q34 to Q46, and none has been answered. Twenty-two are open now,
+unchanged, because this run raised none.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, worktree clean, branch
+agents/audit-backlog level with origin. All 22 checkers green and all six
+generators reproducing every page byte-identical before any change was made, so
+nothing below is a pre-existing failure.
+
+WHY THIS ITEM. All four unchecked worklist items are still [BLOCKED]: 5.3 and
+5.4 wait on a Weebly session, 5.5 waits on pushing a branch other than this one,
+and 5.8 waits on Rishi's regulatory decision at Q22. So the rule sends the run
+to a quality pass on the least recently verified completed item. The ageing
+order was re-derived by reading every run heading in this log rather than
+trusting the previous run's summary. The sixty-fifth run cleared 3.7 at 09:04
+this morning, which leaves the twenty-fourth run's pass on item 3.8,
+2026-08-10 11:34, as the oldest standing verification. Items 3.9 to 3.13 and 5.1
+follow it in the same block, runs 25 to 32.
+
+WHAT VERIFIED CLEAN. All 12 SK pages re-read from source rather than from the
+twenty-fourth run's account of them: 10 service, 1 weight loss, 1 switch.
+  - NAP. 516 Stanley Road, L20 5DW, 0151 944 1013 on all 12, exactly two tel:
+    links per page, and no other branch's phone number anywhere on any of them.
+  - Reviews. Every page carries SK's own Google review link and no other, one
+    distinct link across all 12.
+  - Town. seoTown and addressLocality are both Bootle, so as with Smartts there
+    is no divergence to get backwards.
+  - The twenty-fourth run's own fix still stands: Gordon Short Crosby's
+    nhsReviewUrl still ends /leave-a-review and check-branch-links still holds
+    it.
+
+THE GAP: THE FIELD NOTHING READ. The twenty-fourth run asked which per-branch
+identifiers could land on the wrong shop and swept three of them. This run asked
+the same question one level up and asked it exhaustively: for every key that
+appears on a branch record, which checkers read it. Twenty-nine keys, twenty-two
+checkers, measured rather than assumed.
+
+Four keys are read by nothing at all: hasApp, shortCode, branchNumber and
+pfBooking. Three of those four are safe to leave, and saying why matters as much
+as the finding. No generator reads shortCode, branchNumber or pfBooking, so they
+reach no page and there is nothing public to guard; they are internal
+identifiers that live only in branches-editor.html. hasApp is different. It is
+read by build-switch-pages.js and by build-branch-landing-pages.js, and it
+reaches public copy in two places: the "Download our app" card with two live
+store buttons on a switch page, and the sentence on a landing page telling a
+patient they can manage repeat prescriptions in the app.
+
+WHY IT LANDS ON SK. Four branches of sixteen are app members: Fishlocks
+Ainsdale, Fishlocks Eccleston, Clear Chemist Aintree and Smartts Bootle. SK is
+not one of them, and SK sits 1.5 miles from Smartts, in the same town, on the
+same postcode prefix, and directly beside it in branches.json. Flip that one
+boolean by a copy-paste between two adjacent records and SK publishes an app
+card for a service it does not run while Smartts silently loses the one it does.
+Every visible line on both pages still reads correctly, and all 22 other
+checkers stay green, because none of them opens the field. That is the same
+shape as the widget diaries the 3.7 pass found yesterday and the NHS review link
+the first 3.8 pass found the day before: not wrong data, unpinned data.
+
+THE STATE TODAY IS CORRECT. All 21 pages in the two families that render hasApp
+were checked by hand before the rule was written: 15 switch pages and 6 landing
+pages, 6 of them carrying the app, and all 21 agree with branches.json. So this
+is a rule closing an open door rather than a repair.
+
+THE SECOND FAULT, WHICH THE RULE FOUND ON ITS FIRST RUN. The estate named its
+own app two ways. build-switch-pages.js writes "the RB Healthcare Pharmacy app"
+on the four switch pages carrying the card. build-branch-landing-pages.js wrote
+"the free RB Healthcare app", without Pharmacy, on the two live Fishlocks
+landing pages. Settled against the stores rather than against preference, read
+only: the App Store listing is "RB Healthcare Pharmacy" by RB Healthcare Ltd,
+and the app's own store description on BOTH stores calls it "RB Healthcare
+Pharmacy APP". The landing generator was the odd one out, and it was fixed to
+match. Two pages changed, one line each.
+
+RECORDED, NOT RAISED. The Google Play listing is titled "RB Healthcare" and its
+developer is APPANDTAP LIMITED, while the App Store listing is "RB Healthcare
+Pharmacy" by RB Healthcare Ltd. A patient sent from a page that says "RB
+Healthcare Pharmacy app" arrives at a Play listing with a different name under a
+developer that does not say RB Healthcare. Both links resolve, so nothing is
+broken, and the fix is in the Play console rather than in this repo, so no rule
+here can hold it. It is written into CLAUDE.md so the next pass does not raise
+it as new, and it is not a blocked worklist item, so it is not asked as a
+question.
+
+WHAT WAS DONE TO MAKE IT PERMANENT. New tools/check-app-membership.js.
+    RULE 1 field present    hasApp missing, or present but not a real boolean.
+                            A missing field is falsey, so without this it fails
+                            closed and in silence.
+    RULE 2 switch pages     the app card present if and only if the branch is a
+                            member. Both directions: a presence rule alone
+                            cannot see a card on the wrong shop.
+    RULE 3 landing pages    the same test on the landing page sentence.
+    RULE 4 absence          any other generated page mentioning the app or
+                            carrying a store URL. No service, weight loss,
+                            travel clinic or contraception page is meant to.
+    RULE 5 one name         public copy naming the app must use the canonical
+                            name. This is the rule that caught the fault above.
+    RULE 6 store urls       a page carrying a store URL the generator does not
+                            declare, or the generator ceasing to declare two.
+    RULE 7 paste markers    the *(app member)* marker in the switch INDEX.md and
+                            SEO.md naming exactly the member branches. A correct
+                            page with a wrong marker still produces a wrong
+                            paste.
+
+The canonical name and both store URLs are READ out of build-switch-pages.js,
+the generator that owns the store buttons, rather than mirrored into a literal
+in the checker. That is the third time this repo has applied that lesson, after
+the condition slugs in check-seo-pattern and the number in check-whatsapp-route:
+a checker holding its own copy of the string it is checking cannot see the copy
+drift. An untypable page is a FAILURE rather than a skip, same convention. KNOWN
+is empty today and a stale key fails the run.
+
+ELEVEN NEGATIVE TESTS, TWO OF WHICH FAILED FIRST. SK flipped to a member,
+hasApp deleted, hasApp as the string "false", an app mention injected into a
+service page, a non-canonical name on a switch page, an undeclared store URL,
+the app card silently renamed out of a member's page, the *(app member)* marker
+stripped from INDEX.md, the marker moved onto a non-member brand, the landing
+generator ungated, and a stale KNOWN key.
+
+The first failure was in the TEST. The service page injection reported MISSED
+because it appended after </body>, and a generated page in this repo is a Weebly
+embed block with no </body> in it, so the mutation never landed. Corrected.
+
+The second failure was in the RULE, and it is the more useful of the two. The
+marker test moved *(app member)* from the Smartts heading onto a Hirshmans one
+and the checker stayed green, because rule 7 read the TOWN out of the heading
+and never the brand. Both Bootle branches are in that sheet, one a member and
+one not, which is the exact adjacency this whole item is about, so the rule had
+the same blind spot as the fault it was written to catch. Rule 7 now matches on
+brandLabel and seoTown together. All eleven pass.
+
+Worth writing down because it is the same class of error this backlog keeps
+finding: a test that passes without touching the thing it thinks it touched, and
+a rule that reads one half of the pair it is meant to tell apart.
+
+Files changed: tools/check-app-membership.js (new),
+tools/build-branch-landing-pages.js, modules/branch/pages/
+pharmacy-fishlocks-ainsdale.html, modules/branch/pages/
+pharmacy-fishlocks-eccleston.html, CLAUDE.md, status/index.html, AGENT_LOG.md.
+All 23 checkers re-run clean after the change; all six generators re-run and
+every page byte-identical apart from the two landing pages that carry the
+corrected name. Nothing ticked in AGENT_WORKLIST.md: this was a quality pass,
+and 5.3, 5.4, 5.5 and 5.8 remain the only unchecked items, all four [BLOCKED].
+QUESTIONS.json unchanged, 22 open.
+
 ## 2026-08-11 09:04 BST - sixty-fifth run - Quality pass on item 3.7, Smartts
 Chemist Bootle, last verified on 2026-08-10 11:04 as the twenty-third run,
 which made it the oldest verification standing. All 12 Smartts pages verified

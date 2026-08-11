@@ -475,6 +475,52 @@ failure: Clear Chemist Aintree is deliberately different. Exceptions go in
 `KNOWN` with a reason and a question id, and a key that no longer breaks a rule
 fails the check, so the list cannot rot.
 
+## The one boolean that reaches a page, and the app named two ways
+
+`hasApp` decides whether a branch's switch page carries the "Download our app"
+card with two live store buttons, and whether its landing page tells a patient
+they can manage repeat prescriptions in the app. It is the only field in
+`branches.json` that reaches public copy and, until the item 3.8 quality pass
+on 2026-08-11, it was read by no checker.
+
+`tools\check-app-membership.js` now holds it. Seven rules: `hasApp` is present
+and a real boolean on every branch; a switch page carries the app card if and
+only if its branch is a member; a landing page carries the app sentence on the
+same condition; no page in any other family mentions the app or carries a store
+URL; every public mention uses one name; a page carries only the two store URLs
+the generator declares; and the `*(app member)*` marker in the switch
+`INDEX.md` and `SEO.md` names exactly the member branches, because a correct
+page with a wrong marker still produces a wrong paste.
+
+Both directions matter, for the reason item 3.8 exists. Four branches of
+sixteen are members: Fishlocks Ainsdale, Fishlocks Eccleston, Clear Chemist
+Aintree and Smartts Bootle. SK Chemists Bootle is not, and it sits 1.5 miles
+from Smartts, in the same town, on the same postcode prefix, and directly
+beside it in `branches.json`. A copy-paste between two adjacent records
+publishes an app card on the shop that does not run the app and removes it from
+the one that does, with every visible line on both pages still correct.
+
+The canonical app name and the two store URLs are READ out of
+`build-switch-pages.js`, which is the generator that owns the store buttons,
+rather than mirrored into the checker. Same reason as the condition slugs in
+`check-seo-pattern.js`: a checker holding its own copy of the string it is
+checking cannot see the copy drift.
+
+That rule found the second fault the same run. The estate named the app two
+ways. The switch pages said "the RB Healthcare Pharmacy app", which is the App
+Store listing name and the name in the app's own store description on both
+stores. `build-branch-landing-pages.js` said "the free RB Healthcare app",
+dropping Pharmacy, on the two live Fishlocks landing pages. Fixed at source.
+
+Note for anyone reading the stores: the Google Play listing is titled
+"RB Healthcare" and its developer is APPANDTAP LIMITED, while the App Store
+listing is "RB Healthcare Pharmacy" by RB Healthcare Ltd. That divergence lives
+in the store consoles, not in this repo, and no rule here can fix it.
+
+`shortCode`, `branchNumber` and `pfBooking` are also read by no checker and are
+deliberately not covered. Unlike `hasApp`, no generator reads them, so they
+reach no page and there is nothing public to guard.
+
 ## The JSON-LD block, and the address no text search can read
 
 `tools\check-jsonld.js` reads the one part of every generated page that is
