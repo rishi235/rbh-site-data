@@ -903,6 +903,28 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Clear's own WhatsApp number is still live (Q21's concrete case).
       No in-repo defect found, no question raised. Evidence:
       audits/clear-aintree-gbp-pack-check-2026-08-11.txt.
+      Quality pass 2026-08-12 (third): repo half clean, no defect and no
+      change. Every fact re-verified against branches.json (name, address
+      Unit 20 Brookfield Trade Centre, L9 7AS, phone, website, review
+      link, all five catchment towns leading with seoTown); widget set
+      and services agree both ways and the no-Pharmacy-First note is
+      still correct against pfLink absent and pfBooking false;
+      description re-measured at its claimed 669 and the posts at 460,
+      453, 600 and 529, identical to both earlier passes; no medicine
+      name, no efficacy claim, no em dash, no emoji, no non-ASCII. The
+      only apparent other-branch facts are head office's, which is
+      co-located at the same unit, so not a leak. All 28 static checkers
+      exit 0 (52 estate-wide WARNs, the same 52 as run 121); the one
+      WARN naming this pack is it deliberately quoting the disputed live
+      number to document Q28. All six generators re-run and the worktree
+      stayed byte-stable. LIVE HALF NOT PERFORMED: the sandboxed fetch
+      refused the URLs as out of provenance and the permitted browser
+      route needs a browser chosen from two connected instances, which
+      needs the user. So this pass makes no fresh live claim; Q28, Q29
+      and Q21's concrete case stand as last verified 2026-08-11 and are
+      unaffected. Re-read the live half on the next pass with a live
+      route. Evidence:
+      audits/clear-aintree-gbp-pack-check-2026-08-12.txt. Done 2026-08-12
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

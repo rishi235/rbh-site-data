@@ -2,6 +2,84 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 16:12 BST - hundred-and-twenty-second run - Quality pass on
+item 4.9, the Clear Chemist Aintree GBP pack, last verified 2026-08-11
+19:45 as the seventy-eighth run and the oldest verification standing
+after run 121 refreshed 4.8. Third pass on this item. Repo half clean,
+no defect and no change. Live half not performed, for tooling reasons
+set out below, so this run makes no fresh claim about the live site.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP NOT AVAILABLE THIS RUN. The portal fetch could not be
+attempted. Two Chrome instances are connected and the browser tooling
+requires the user to choose which one to drive before any browser
+action; on an unattended run there is nobody to choose, so no tab was
+opened. This is the step 3 "pickup unavailable" case and it was logged
+rather than worked around: no other route was tried and nothing was
+clicked, typed or submitted anywhere. 33 questions open before and
+after (Q17-Q22, Q24, Q28, Q29, Q34-Q57). Worth knowing that runs 120
+and 121 both completed the pickup normally, so this looks like a
+second browser having connected rather than a session having lapsed.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so a
+quality pass on the oldest standing verification. Selection was made
+from the log headings rather than the worklist notes, because the
+worklist's own annotations are not a complete record: items 3.12 and
+3.13 carry no pass note in the worklist at all despite runs 112 and
+113 passing them. On the log, 4.9 at 2026-08-11 19:45 was oldest.
+
+REPO HALF, CLEAN, THIRD PASS RUNNING. Every fact re-verified against
+the clearchemist_aintree entry: name, address Unit 20 Brookfield Trade
+Centre, Brookfield Drive, Aintree, Liverpool L9 7AS, phone, website,
+review link, and all five catchment towns present with seoTown leading.
+Widgets and services agree in both directions (weightLoss and
+travelClinic only), and the pack's note that Pharmacy First, blood
+pressure and contraception are not offered is still correct against
+pfLink absent and pfBooking false. hasApp true, so the app mentions are
+permitted. Counts CRLF-normalised: description 669, exactly what its
+heading claims, and posts 460, 453, 600 and 529 measured as body plus
+Button line, identical to the 2026-08-10 and 2026-08-11 passes. No
+medicine name, no efficacy claim, no em dash, no emoji, no non-ASCII.
+The automated other-branch sweep returns two hits, both head office,
+which is co-located at the same unit and shares the address by fact,
+so not a leak. All 28 static checkers exit 0 with the same 52
+estate-wide WARNs run 121 measured; the one WARN naming this pack is
+check-gbp-packs seeing the pack deliberately quote the disputed live
+number 0151 203 6535 in order to document Q28, which is the checker
+working rather than a defect. All six generators re-run, all exit 0,
+worktree byte-stable.
+
+LIVE HALF NOT PERFORMED, AND NOT PAPERED OVER. The sandboxed web fetch
+refused all four Clear URLs as outside its provenance set. The browser
+route, which is the permitted read-only route for verifying live pages
+on a quality pass, was unavailable for the same reason the answer
+pickup was. No other route was attempted, by design. So the three live
+findings from the earlier passes are NOT restated as current: Q28 (the
+contact page publishing 0151 203 6535 and not 8365), Q29 (the three
+post-target pages 404 because clearchemist.co.uk is the e-commerce
+store with no Weebly paste route) and Q21's concrete case (Clear's own
+WhatsApp 07512 330 076 against the hardcoded 447521775631) all stand as
+last verified 2026-08-11. All three remain open and unaffected, and the
+pack's guards against them are unchanged and still correct on the
+evidence standing. The live half should be re-read on the next pass
+that has a live route.
+
+ONE OBSERVATION, NO QUESTION RAISED. check-branch-links WARNs that
+clearchemist_aintree is a trading branch with an ODS code but no
+nhsReviewUrl, so nothing can point patients at its NHS reviews. That is
+a branches.json data gap rather than a pack defect and sits outside
+item 4.9. A standing checker surfaces it every run, which is the right
+home for it, so it is recorded here rather than raised as a question.
+
+FILES CHANGED. audits/clear-aintree-gbp-pack-check-2026-08-12.txt
+(new), AGENT_WORKLIST.md (quality pass note under 4.9), AGENT_LOG.md
+(this entry). No question raised, none answered.
+
 ## 2026-08-12 15:40 BST - hundred-and-twenty-first run - Quality pass on
 item 4.8, the Fishlocks Chemist Eccleston GBP pack, last verified
 2026-08-11 19:09 as the eightieth run and the oldest verification

@@ -1,0 +1,102 @@
+Quality pass on item 4.9 - Clear Chemist Aintree GBP pack
+Run 122 (unattended), 2026-08-12. Third pass on this item.
+Previous passes: 2026-08-10 (run 27 era) and 2026-08-11 19:45 (run 78 era).
+
+SCOPE THIS RUN
+Repo half verified in full. Live half NOT performed - see LIVE HALF below.
+No in-repo defect found. No change made to the pack.
+
+1. FACTS vs branches.json (clearchemist_aintree), all PRESENT and equal
+   branchName        Clear Chemist
+   streetAddress     Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree
+   addressLocality   Liverpool
+   postalCode        L9 7AS
+   phone             0151 203 8365
+   website           https://www.clearchemist.co.uk
+   googleReviewUrl   https://g.page/r/CYTJCk0EpvxFEAE/review
+   seoTown           Aintree
+   serviceAreaList   Aintree, Fazakerley, Walton, Bootle, North Liverpool
+                     all five present, catchment leads with seoTown
+
+2. SERVICE / WIDGET AGREEMENT, both directions
+   widgets in branches.json: weightLoss, travelClinic - both in the pack.
+   pfLink absent, pfBooking false, no PF/BP/contraception widget, and the
+   pack says so in as many words and tells the paster not to add them
+   until branches.json is updated. hasApp true, so the pack's app
+   mentions are permitted. Correct.
+
+3. CHARACTER COUNTS (CRLF-normalised to LF)
+   description  669  - exactly what the pack's own heading claims, limit 750
+   post A       460  } body plus the Button: line, which is how the
+   post B       453  } 2026-08-10 and 2026-08-11 passes measured them.
+   post C       600  } All four identical to both earlier passes and
+   post D       529  } all well inside the 1,500 limit.
+   Body-only counts, for the record: 407, 360, 515, 449.
+
+4. COPY RULES
+   em dashes and en dashes: none
+   non-ASCII characters:    none
+   emoji:                   none
+   medicine names in the weight loss post C: none
+   efficacy claims in post C: none. It sells a consultation and a
+   clinical assessment, says it is a private paid service, says it is
+   not right for everyone and that the pharmacist will advise.
+   No Pharmacy First post for this branch, correctly, and Post A is a
+   local team post in its place.
+
+5. NO OTHER BRANCH'S FACTS
+   An automated sweep of every other branch's postcode, phone and street
+   address against the pack text returns two apparent hits, both on
+   rbh_head_office_aintree (L9 7AS and Unit 20 Brookfield Trade Centre).
+   These are not leaks: head office is co-located with Clear Chemist at
+   the same unit and shares the address by fact. No other branch appears.
+
+6. CHECKERS
+   All 28 static checkers exit 0. 52 WARNs estate-wide, the same 52
+   standing at run 121 and none of them a failure.
+   The two WARNs that name this branch:
+   - check-gbp-packs: "clear-aintree.md: phone-like number 0151 203 6535
+     is not Clear Chemist's number in branches.json". This is the pack
+     deliberately quoting the disputed live number in order to document
+     Q28. The WARN is the checker working, not a pack defect.
+   - check-branch-links: "clearchemist_aintree.nhsReviewUrl: trading
+     branch with an ODS code but no NHS review link". A branches.json
+     data gap, not a pack defect, and outside the scope of item 4.9. It
+     is surfaced by a standing checker on every run, which is the right
+     home for it, so no question is raised here.
+
+7. GENERATORS
+   All six re-run, all exit 0, worktree byte-stable afterwards:
+   build-branch-landing-pages, build-contraception-pages,
+   build-service-pages, build-switch-pages, build-travel-clinic-pages,
+   build-weight-loss-pages.
+
+LIVE HALF - NOT PERFORMED THIS RUN
+The live re-read that the 2026-08-10 and 2026-08-11 passes carried out
+could not be repeated on this run, for tooling reasons only:
+- the sandboxed web fetch refused all four URLs as outside its
+  provenance set, so no page could be retrieved that way;
+- the browser route, which is the permitted read-only route for
+  verifying live pages on a quality pass, needs a browser to be chosen
+  from the two Chrome instances currently connected, and that choice
+  requires the user, who is not present on an unattended run.
+No other route was attempted, by design.
+
+Consequently this pass makes NO fresh claim about the live site. The
+three live findings recorded on 2026-08-10 and re-confirmed on
+2026-08-11 stand as last verified on 2026-08-11 and are NOT restated
+here as current:
+- Q28, the contact page publishing 0151 203 6535 and not 0151 203 8365;
+- Q29, the three post-target pages returning 404 because clearchemist.
+  co.uk is the e-commerce store and has no Weebly paste route;
+- Q21's concrete case, Clear's own WhatsApp number 07512 330 076
+  against the estate-wide hardcoded 447521775631.
+All three remain open questions and none is affected by this run. The
+pack's own guards against all three (hold the phone back, use the
+homepage button on all three posts) are unchanged and still correct on
+the evidence standing.
+
+VERDICT
+Repo half clean, third pass running, no defect and no change. Live half
+outstanding and should be re-read on the next pass that has a live
+route.
