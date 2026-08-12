@@ -376,6 +376,21 @@ Pharmacy First wording to the NHS service description.
       closed day to be stated as closed, all composed from branches.json.
       TEMPLATE.md's hours rule says so too, since every future pack is
       drafted from it. Six negative tests fire; all 15 packs pass unchanged.
+      Quality pass 2026-08-12 (third): repo half still clean. Every fact
+      re-verified against the fishlocks_ainsdale entry in branches.json, all
+      seven generators rebuilt to zero diff (status/index.html timestamp
+      only) and all 29 checkers pass. The live half was read for the first
+      time on this item: all four post button targets fetched 2026-08-12 and
+      all resolve and read correctly for Ainsdale (right phone, address,
+      conditions and age ranges on Post A's page; Post C's target is the
+      compliant generated weight loss page, no medicine names, no efficacy
+      claims). The one live fault is the profile website target: the Ainsdale
+      landing page pharmacy-fishlocks-ainsdale.html still returns 404, the
+      known Q35 state. In-repo fix this pass: the pack's first paster note
+      still said to paste the landing page "along with this branch's service
+      pages", which is stale now the service pages are live; rewritten to
+      the observed 2026-08-12 state so the paster is told the posts are
+      clear to publish and only the landing page paste is outstanding.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

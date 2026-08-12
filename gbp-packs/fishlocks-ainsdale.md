@@ -117,10 +117,12 @@ Notes for the paster:
 - The fishlockpharmacy.co.uk domain is shared with Eccleston. Set the
   profile website to the Ainsdale landing page
   (pharmacy-fishlocks-ainsdale.html), not the shared homepage, so the two
-  Fishlocks profiles do not point at the same page. Paste that landing page
-  to Weebly first, along with this branch's service pages, or the profile
-  website and the page's own links will 404. See modules/branch/pages/
-  INDEX.md and SEO.md.
+  Fishlocks profiles do not point at the same page. Live state 2026-08-12:
+  the landing page still returns 404 (unpasted, waiting on Q35), so do NOT
+  set the profile website until it resolves. The four post button targets
+  were all fetched 2026-08-12 and resolve correctly for Ainsdale, so the
+  posts themselves need no paste and are clear to publish. Only the landing
+  page paste is outstanding. See modules/branch/pages/INDEX.md and SEO.md.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.

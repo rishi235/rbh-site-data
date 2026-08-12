@@ -2,6 +2,84 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 05:42 BST - hundred-and-first run - Quality pass on item 4.1,
+the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified
+2026-08-11 06:04 as the fifty-ninth run and the oldest verification standing
+after runs 92 to 100 refreshed 4.2 and everything later. Third pass on this
+item. Repo half clean on every fact; the live half was read for the first
+time on any 4.1 pass and produced one stale paster note, fixed in the pack.
+No new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired (23:14 on 2026-08-10, not renewed). Nothing this
+run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus five GETs on
+fishlockpharmacy.co.uk, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification. The ageing order was re-derived
+from every run heading in this log rather than trusted from run 100's
+summary: runs 92 to 100 covered 4.2, 1.1, 3.1, 1.4, 4.3, 1.3, 1.2, 4.4
+and 4.5, runs 76 to 91 covered 5.2, 5.6, 5.7 and the phase 2 and 4 items,
+which leaves run 59's item 4.1 of 2026-08-11 06:04 as the oldest, ahead
+of 3.2 (run 60) and 3.3 (run 61).
+
+REPO HALF CLEAN. gbp-packs/fishlocks-ainsdale.md verified fact by fact
+against the fishlocks_ainsdale entry in branches.json rather than against
+run 59's account of it: branchName, 17 Station Road, Ainsdale, PR8 3HN
+with Southport as the post town on the house convention, phone
+01704 575478, review link, hours line matching the Monday to Friday 08:45
+to 18:00 specification with Saturday and Sunday stated closed (the day
+rule run 59 built), catchment order Ainsdale, Birkdale, Southport, hasApp
+true with the app line it earns, profile website pointed at the branch's
+own landing page per the shared-domain rule, categories and services
+earned by the five widgets and nothing else, Post A on the branch's own
+pfLink. All 29 checkers pass, twice: once at run start and again after
+the pack edit below. All seven generators rebuilt byte-identical
+(status/index.html timestamp only).
+
+LIVE HALF, FIVE READ-ONLY GETS, FIRST EVER ON THIS ITEM. Runs 17 and 59
+were both repo-only passes, so the pack's five public URLs had never been
+fetched under item 4.1. All four post button targets resolve and read
+correctly for Ainsdale: Post A's Pharmacy First page carries the right
+phone, address, and all seven conditions with age ranges matching the
+pack word for word (UTI women 16 to 64, earache 1 to 17, and so on);
+Post B's switch page reads correctly with both booking routes; Post C's
+target is the compliant generated weight loss page, which names no
+medicines, makes no efficacy claims, states plainly that consultation is
+not a guarantee of treatment, and carries no Buy Now route; Post D's
+travel page reads correctly and keeps the private-paid wording the
+2026-08-05 pass required. The one live fault is the fifth URL: the
+profile website target pharmacy-fishlocks-ainsdale.html still returns
+404, which is the known Q35 state (both Fishlocks landing pages unpasted)
+and needs no new question.
+
+THE FIX, A STALE PASTER NOTE. The pack's first paster note still told the
+paster to paste the landing page "along with this branch's service pages,
+or the profile website and the page's own links will 404". The second
+half of that instruction is spent: the service pages have been live since
+the run 76 confirmation and this run's GETs prove all four post targets
+resolve. A paster following the note as written would think the whole
+paste job is outstanding and hold the posts back, when the posts are
+clear to publish today and only the landing page paste (Q35) is
+outstanding. Note rewritten to the observed 2026-08-12 live state: do not
+set the profile website until the landing page resolves, the four posts
+are clear. This is the same shape of fix as run 92's spent live-site
+caveat on the Cherry Lane pack.
+
+FILES CHANGED: gbp-packs/fishlocks-ainsdale.md, AGENT_WORKLIST.md (third
+quality pass note under item 4.1), AGENT_LOG.md. No generator input
+changed; regeneration confirmed zero diff before and after. TEMPLATE.md
+re-read and needed no change: its hours, day, category, services and
+photo rules all held against Build Pack v2 section 4.1 and the pack.
+
 ## 2026-08-12 05:10 BST - hundredth run - Quality pass on item 4.5, the
 Scorah Chemists Hazel Grove GBP pack, last verified 2026-08-11 as the
 fifty-seventh run and the oldest verification standing after run 99
