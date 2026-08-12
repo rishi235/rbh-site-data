@@ -97,8 +97,7 @@ FILES CHANGED. tools/check-branch-links.js (the new rule plus its header
 note), audits/fishlocks-ainsdale-quality-pass-2026-08-12b.txt (new),
 AGENT_WORKLIST.md (fourth-pass note under 2.1), AGENT_LOG.md (this entry),
 status/index.html (regenerated). branches.json and tools/branches-editor.html
-were touched only by the injections and restored. Commit hash recorded in the
-commit itself.
+were touched only by the injections and restored. Commit 2b6d700.
 
 ## 2026-08-12 20:04 BST - hundred-and-thirtieth run - Quality pass on item 2.3,
 the Cherry Lane build-from-near-zero, the oldest verification standing among
