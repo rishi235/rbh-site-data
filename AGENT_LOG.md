@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 23:47 BST - hundred-and-thirty-third run - Quality pass on item
+## 2026-08-12 23:47 BST - hundred-and-thirty-third run [commit df5541f, hash
+recorded in this follow-up commit] - Quality pass on item
 4.2, the Cherry Lane Pharmacy GBP pack, the oldest verification standing among
 completed items. Third pass on this item. REPO HALF ONLY: the live half could
 not be run and is not claimed. The pack is clean for the third consecutive
