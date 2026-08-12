@@ -1,0 +1,56 @@
+McCanns Aigburth GBP pack quality check - 2026-08-12 (run 120)
+Read-only live checks: plain GETs only. Nothing clicked, typed or
+submitted anywhere.
+
+REPO HALF
+Pack gbp-packs/mccanns-aigburth.md verified fact by fact against
+branches.json (mccanns_aigburth):
+- Name: McCanns Chemist Aigburth - matches branchName.
+- Address: 112 Aigburth Road, Liverpool L17 7BP - matches.
+- Phone: 0151 727 3185 - matches.
+- Hours: Mon-Fri 9:00am-1:00pm and 2:00pm-6:00pm, Sat 9:00am-1:00pm and
+  2:00pm-5:00pm, Sunday closed - matches openingHours specification
+  including both lunch closures.
+- Review link matches googleReviewUrl.
+- Catchment order Aigburth, Sefton Park, Mossley Hill, Grassendale -
+  matches serviceAreaList order in description and Post B.
+- Post A button matches pfLink exactly.
+- hasApp false - no app mention anywhere in the pack.
+- Services earned by the widget set (bloodPressure, contraception,
+  pharmacyFirst, weightLoss, travelClinic) - all present, none extra.
+- Sister-branch wording still "McCanns Chemist Sandringham, in
+  St Michael's" (run 37 fix) with the paster note against shortening it.
+- Post C names no medicines, no efficacy claims (POM rules).
+- Description within the 750 limit; all four posts well under limits.
+All 28 static checkers green, including check-gbp-packs.js with its
+branch-name-as-place rule. Worktree byte-stable, nothing regenerated.
+
+LIVE HALF (plain GETs, 2026-08-12 afternoon)
+- pharmacy-first-service-aigburth.html -> 200. Footer contact block for
+  Aigburth reads Monday to Friday 9am - 1pm, 2pm - 6pm, Saturday
+  9am - 1pm, 2pm - 5pm, Sunday Closed, address 112 Aigburth Rd L17 7BP,
+  T: 0151 727 3185. All match branches.json.
+- switch-prescriptions-mccanns-aigburth.html -> 200, H1 "Switch your
+  prescriptions to McCanns Chemist in Aigburth in under 30 seconds".
+- weight-loss-clinic-mccanns-aigburth.html -> 200, H1 "Weight Loss
+  Clinic at McCanns Chemist in Aigburth".
+- travel-clinic-mccanns-aigburth.html -> 200, H1 "Travel Clinic at
+  McCanns Chemist in Aigburth".
+- pharmacy-mccanns-aigburth.html (profile website target) -> 404, still
+  awaiting the queued Weebly paste run. Already recorded; the pack's own
+  paster note covers it ("Check it resolves before pasting").
+
+KNOWN, UNCHANGED, NOT RE-RAISED
+- Live titles still carry Weebly's default " - MCCANNS PHARMACY" suffix
+  (run 78 finding; the queued repaste of SEO title fields covers it).
+- Site furniture uses "McCann's Pharmacy" apostrophe branding in the
+  footer; site furniture is outside the generated page set and already
+  held by the open furniture question.
+
+VERDICT
+No defect in either half. Verdicts identical to run 79
+(audits/mccanns-aigburth-gbp-pack-check-2026-08-11.txt). One correction
+to method, not to the site: this run's first automated hours probe
+matched the wrong text format ("9:00am to 1:00pm") and reported false;
+the page carries the hours in "9am - 1pm" format and they are correct.
+Recorded so a future run does not mistake the probe for the page.

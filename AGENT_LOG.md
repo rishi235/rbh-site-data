@@ -2,6 +2,56 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 15:08 BST - hundred-and-twentieth run - Quality pass on
+item 4.6, the McCanns Chemist Aigburth GBP pack, last verified 2026-08-11
+evening as the seventy-ninth run and the oldest verification standing
+after run 119 refreshed 5.7. Third pass on this item. No defect found in
+either half; verdicts identical to run 79.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the 33 open questions
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33
+after. Browser use read-only throughout: one tab opened for the pickup
+and closed after; nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so
+quality pass on the oldest standing verification.
+
+REPO HALF, CLEAN. The pack verified fact by fact against branches.json
+a third time: name, address 112 Aigburth Road L17 7BP, phone
+0151 727 3185, hours with both lunch closures (Mon-Fri 9-1 and 2-6,
+Sat 9-1 and 2-5, Sunday closed), review link, catchment order Aigburth,
+Sefton Park, Mossley Hill, Grassendale in description and Post B,
+Post A button equal to pfLink, hasApp false honoured, services matching
+the five widgets exactly, the St Michael's sister-branch wording from
+the run 37 fix intact with its paster note, Post C naming no medicines.
+All 28 static checkers green including check-gbp-packs.js. Worktree
+byte-stable, nothing regenerated.
+
+LIVE HALF, READ-ONLY, VERDICTS UNCHANGED. All four post button URLs
+fetched by plain GET return 200 with correct H1s. The Post A page's
+Aigburth footer block reads Mon-Fri 9am - 1pm, 2pm - 6pm, Saturday
+9am - 1pm, 2pm - 5pm, Sunday Closed, plus address and phone, all
+matching branches.json. The profile-website landing page
+(pharmacy-mccanns-aigburth.html) still 404s awaiting the queued paste
+run, already recorded and covered by the pack's own paster note. Live
+titles still carry Weebly's default " - MCCANNS PHARMACY" suffix (run
+78 finding, repaste covers it). One method note recorded in the
+evidence file: this run's first automated hours probe searched the
+wrong text format and reported false; the page format is "9am - 1pm"
+and the hours are correct, so the miss was the probe's, not the page's.
+
+FILES CHANGED. audits/mccanns-aigburth-gbp-pack-check-2026-08-12.txt
+(new), AGENT_WORKLIST.md (quality pass note under 4.6), AGENT_LOG.md
+(this entry). No question raised, none answered.
+
 ## 2026-08-12 14:50 BST - hundred-and-nineteenth run - Quality pass on
 item 5.7, the McCanns Sandringham local word move to St Michael's, last
 verified 2026-08-11 18:10 as the seventy-eighth run and the oldest

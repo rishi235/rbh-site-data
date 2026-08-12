@@ -733,6 +733,16 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       site-furniture "Sandrigham" typo seen in the footer is already held
       by the open furniture question. No new defect, no new question.
       Evidence: audits/mccanns-aigburth-gbp-pack-check-2026-08-11.txt.
+      Quality pass 2026-08-12 (hundred-and-twentieth run): pack verified
+      fact by fact against branches.json a third time, clean on every
+      field including both lunch closures, catchment order, pfLink,
+      hasApp and the St Michael's sister-branch wording. All 28 checkers
+      green, worktree byte-stable. Live half by plain GET: all four post
+      button URLs 200 with correct H1s, the Post A page's Aigburth footer
+      hours block matches branches.json exactly, the profile-website
+      landing page still 404s awaiting the queued paste run (already
+      recorded). No new defect, no new question. Evidence:
+      audits/mccanns-aigburth-gbp-pack-check-2026-08-12.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
