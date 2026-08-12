@@ -1,0 +1,98 @@
+FISHLOCKS AINSDALE - QUALITY PASS (item 2.1), fourth pass
+Run 131, 2026-08-12. Repo half only. Live half not run: two Chrome extension
+instances are connected, so no browser call was made.
+
+SCOPE
+Item 2.1 held the oldest standing verification among completed items (topmost
+mention run 90, 2026-08-12 00:11). All five unchecked worklist items remain
+[BLOCKED], so this run is a quality pass.
+
+BUILD STATE
+All six generators rebuilt to a zero diff before any edit.
+All 29 checkers pass on the untouched tree.
+
+PAGE SET, 13 PAGES, VERIFIED FIELD BY FIELD AGAINST branches.json
+  modules/branch/pages/pharmacy-fishlocks-ainsdale.html
+  modules/service/pages/{contraception, earache-treatment, impetigo-treatment,
+    insect-bite-treatment, pharmacy-first, shingles-treatment,
+    sinusitis-treatment, sore-throat-treatment, travel-clinic, uti-treatment,
+    weight-loss-clinic}-fishlocks-ainsdale.html
+  modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html
+
+Checked and holding on every page:
+  - "Ainsdale" present in every H1
+  - 01704 575478 as text; every tel: href is tel:01704575478, spaces stripped
+  - every JSON-LD block parses; every PostalAddress carries 17 Station Road,
+    Ainsdale, PR8 3HN, Merseyside
+  - no other branch's phone and no other branch's postcode anywhere in the set
+  - no mojibake
+  - no <title> tag (titles live in the Weebly SEO fields, correct for paste
+    fragments)
+  - Ainsdale@rbhealth.co.uk present on the landing page
+  - app sentence present on the landing page, correct for hasApp true
+
+TWO APPARENT FLAGS, BOTH EXPLAINED, NEITHER A DEFECT
+  1. U+2014 em dash on 12 of the 13 pages. It sits inside the <!-- --> build
+     header ("FISHLOCKS CHEMIST - Pharmacy First at ..."), which no visitor
+     sees. check-em-dashes.js blanks HTML comments before checking and says so
+     at its line 96. Public copy is clean. Not a defect.
+  2. U+00A3 pound sign on the weight loss clinic page. Legitimate currency in
+     the booking sub-line, governed by RULE 7 of check-weight-loss-copy.js,
+     not a headline price. Already recorded on runs 90 and 130.
+
+THE FINDING - A VERIFIER GAP, NOW CLOSED
+Nothing verified that a branch's pfLink names a Pharmacy First page that
+branch actually owns.
+
+check-branch-links.js tested pfLink two ways: that it sits on the branch's own
+website host, and that it ends .html. Both are blind on a shared domain. Three
+hosts serve two branches each:
+    fishlockpharmacy.co.uk  -> fishlocks_ainsdale, fishlocks_eccleston
+    mccannspharmacy.co.uk   -> mccanns_aigburth, mccanns_sandringham
+    scorah-chemists.co.uk   -> scorah_bramhall, scorah_hazel
+so a pfLink pointing at the sister branch passes the host test, ends .html and
+resolves 200. check-branch-identity.js rule 10 does resolve a page name to its
+owning branch, but only for links printed on pages; it never reads a data
+field. pfLink is a data field.
+
+PROVED BY INJECTION, not asserted. fishlocks_ainsdale.pfLink was swapped to
+the Eccleston Pharmacy First page:
+  - first run: caught only by check-editor-snapshot.js, which is a drift
+    tripwire between branches.json and the embedded editor snapshot. It fires
+    on any data edit at all and prescribes refreshing the snapshot.
+  - so the snapshot was refreshed and the pages rebuilt, which is the ordinary
+    workflow after any data edit: ALL 29 CHECKERS THEN PASSED.
+The harm is not cosmetic. pfLink feeds the landing page Pharmacy First route
+and the GBP pack Pharmacy First button (check-gbp-packs.js line 818 makes the
+pack agree with the data, so a wrong value is faithfully reproduced). On a
+shared host the patient is quietly booked into the wrong pharmacy. This is
+also the field item 2.1's original audit found stale for both Fishlocks
+branches, so it has drifted before.
+
+THE FIX
+check-branch-links.js gains a pfLink ownership rule. It resolves the pfLink
+filename to its owning branch by the longest brandSlug-townSlug suffix, the
+same resolution rule 10 uses, and requires that branch to be the branch
+holding the field.
+
+A filename that resolves to no branch is left alone deliberately. Eleven of
+the fourteen live pfLink values are still the legacy
+"pharmacy-first-service-<town>" names that Q8 / item 5.3 owns, including the
+two pre-existing shared-page cases (both Scorahs point at
+pharmacy-first-service-hazel-grove-bramhall, both McCanns at
+pharmacy-first-service-aigburth). Firing on those would duplicate 5.3 and
+break the build over a decision already with Rishi.
+
+TESTING
+  - clean on the untouched tree: ok=3 resolved and correct, 0 mismatched,
+    11 unresolved legacy names skipped
+  - catches the Fishlocks injection that previously passed all 29
+  - generalises: post-5.3-style sister swaps injected on mccanns_aigburth and
+    scorah_bramhall are both caught
+  - all 29 checkers pass with the fix in place and the data reverted
+  - branches.json and tools/branches-editor.html restored; all six generators
+    rebuild to a zero diff, so no page changed
+
+NO COPY, DATA OR PAGE CHANGE. One checker file changed.
+NO NEW QUESTION. The gap was proved and fixed in-repo; nothing needed a
+decision, and nothing here touches money, legal exposure or a regulatory claim.

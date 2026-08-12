@@ -2,6 +2,104 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 22:34 BST - hundred-and-thirty-first run - Quality pass on item
+2.1, Fishlocks Ainsdale, the oldest verification standing among completed
+items. Fourth pass on this item. REPO HALF ONLY: the live half could not be
+run and is not claimed. The data is clean for the fourth consecutive pass; the
+verifier was not. A sister-branch pfLink walked past all 29 checkers, and
+check-branch-links.js gains a pfLink ownership rule to close it. No new
+question.
+
+ANSWER PICKUP NOT AVAILABLE, eleventh consecutive run, 121 to 131. Same cause
+as runs 126 to 130: two Chrome extension instances are connected to this
+account and the browser tooling requires a human choice between them before
+any call is made. An unattended run has nobody to ask and may not pick for
+itself, so no browser call was made at all: nothing fetched, clicked, typed,
+submitted or logged in to, and no other route attempted. 35 questions open
+going in and 35 going out. Q59 already asks how to clear this block, so no
+duplicate was raised. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case: the fix closes a
+proven verifier defect, changes no patient-facing copy, and touches no money,
+no legal exposure and no regulatory claim.
+
+RUN START STATE. A .agent-lock was present and 59.8 minutes old, past the
+45-minute threshold, so it was treated as stale and deleted, and a fresh lock
+written. This is the condition the task file warns about. No .git\index.lock,
+no git process. Branch agents/audit-backlog level with origin.
+
+SELECTION. All five unchecked items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1), so a quality pass. Ageing derived from position in this log, per the
+method recorded under run 128: reading each run heading's declared target item
+and taking the topmost mention of each, the deepest completed item was 2.1, at
+run 90. The rotation is holding.
+
+REPO HALF, THE DATA ALL HOLDING. All six generators rebuilt to a zero diff
+before any edit, and all 29 checkers pass. All 13 Fishlocks Ainsdale pages
+verified field by field against branches.json: Ainsdale in every H1,
+01704 575478 as text and as tel: link with spaces stripped, every JSON-LD
+block parsing and every PostalAddress carrying 17 Station Road, Ainsdale,
+PR8 3HN and Merseyside, no other branch's phone or postcode anywhere in the
+set, no mojibake, no title tag, Ainsdale@rbhealth.co.uk and the app sentence
+both on the landing page and correct for hasApp true.
+
+TWO FLAGS RAISED BY THE PASS AND BOTH EXPLAINED RATHER THAN ASSUMED. An em
+dash appears on 12 of the 13 pages, but inside the <!-- --> build header, and
+check-em-dashes.js blanks HTML comments before checking and documents that at
+its line 96. Public copy is clean. The pound sign on the weight loss clinic
+page is the RULE 7 fee string, legitimate currency in a booking sub-line, as
+recorded on runs 90 and 130. Neither is a defect.
+
+THE FINDING, AND IT IS A VERIFIER FINDING NOT A DATA ONE. Nothing verified
+that a branch's pfLink names a Pharmacy First page that branch actually owns.
+check-branch-links.js tested only that pfLink sits on the branch's own website
+host and ends .html, and both tests are blind on a shared domain. Three hosts
+serve two branches each: fishlockpharmacy.co.uk, mccannspharmacy.co.uk and
+scorah-chemists.co.uk. A pfLink pointing at the sister branch therefore passes
+the host test, ends .html, and resolves 200. Rule 10 of check-branch-identity
+does resolve a page name to its owning branch, but only for links printed on
+pages; it never reads a data field, and pfLink is a data field.
+
+It was proved by injection rather than asserted. fishlocks_ainsdale.pfLink was
+swapped to the Eccleston Pharmacy First page. The first run was caught only by
+check-editor-snapshot.js, which is a drift tripwire between branches.json and
+the embedded editor snapshot: it fires on any data edit at all and prescribes
+refreshing the snapshot. So the snapshot was refreshed and the pages rebuilt,
+which is the ordinary workflow after any data edit, and all 29 checkers then
+passed. The harm is real: pfLink feeds the landing page Pharmacy First route
+and the GBP pack Pharmacy First button, and check-gbp-packs.js makes the pack
+agree with the data, so a wrong value is faithfully reproduced onto the pack.
+On a shared host the patient is quietly booked into the wrong pharmacy. This
+is also the field item 2.1's original audit found stale for both Fishlocks
+branches, so it has drifted once already.
+
+THE FIX. check-branch-links.js gains a pfLink ownership rule: resolve the
+pfLink filename to its owning branch by the longest brandSlug-townSlug suffix,
+the same resolution rule 10 uses, and require that branch to be the one
+holding the field. A filename resolving to no branch is skipped deliberately.
+Eleven of the fourteen live pfLink values are still the legacy
+pharmacy-first-service-<town> names that Q8 / item 5.3 owns, including two
+pre-existing shared-page cases (both Scorahs on the same page, both McCanns on
+the same page). Firing on those would duplicate 5.3 and break the build over a
+decision already sitting with Rishi.
+
+TESTED FOUR WAYS. Clean on the untouched tree, where three pfLink values
+resolve and are correct, none mismatch and eleven legacy names are skipped.
+It catches the Fishlocks injection that had passed all 29. It generalises:
+post-5.3-style sister swaps injected on mccanns_aigburth and scorah_bramhall
+are both caught, so the rule protects the other two shared domains the moment
+5.3 lands. And all 29 checkers pass with the fix in place and the injections
+reverted, with all six generators rebuilding to a zero diff, so no page moved.
+
+FILES CHANGED. tools/check-branch-links.js (the new rule plus its header
+note), audits/fishlocks-ainsdale-quality-pass-2026-08-12b.txt (new),
+AGENT_WORKLIST.md (fourth-pass note under 2.1), AGENT_LOG.md (this entry),
+status/index.html (regenerated). branches.json and tools/branches-editor.html
+were touched only by the injections and restored. Commit hash recorded in the
+commit itself.
+
 ## 2026-08-12 20:04 BST - hundred-and-thirtieth run - Quality pass on item 2.3,
 the Cherry Lane build-from-near-zero, the oldest verification standing among
 completed items. Third pass on this item. REPO HALF ONLY: the live half could

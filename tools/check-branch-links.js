@@ -20,7 +20,21 @@
   - googleReviewUrl is a https://g.page/r/<id>/review link, and no two
     branches share one, or reviews for one shop land on another's listing.
   - website is https, has no trailing slash and no path.
-  - pfLink sits on the branch's own website host and ends .html.
+  - pfLink sits on the branch's own website host, ends .html, and names a
+    Pharmacy First page the branch itself owns.
+
+  That last rule was added by the item 2.1 quality pass on 2026-08-12. The
+  host rule alone is blind on a shared domain: Fishlocks Ainsdale and
+  Fishlocks Eccleston are both on fishlockpharmacy.co.uk, as are the two
+  McCanns branches and the two Scorahs, so a pfLink pointing at the sister
+  branch's page passes the host test, ends .html, and resolves 200. It was
+  proved by injection: with fishlocks_ainsdale.pfLink swapped to the Eccleston
+  page, all 29 checkers passed once the editor snapshot was refreshed, which
+  is the ordinary workflow after any data edit. pfLink is the field item 2.1
+  found stale in the first place, and it feeds both the landing page route and
+  the GBP pack Pharmacy First button, so a silent swap sends a patient to the
+  wrong pharmacy's booking page. check-branch-identity.js rule 10 does this
+  resolution for links printed on pages, but never sees a data field.
 
   A branch with no odsCode (head office) is skipped for the NHS rules. A
   trading branch that has an odsCode but no nhsReviewUrl is a WARNING, not a
@@ -63,6 +77,34 @@ function warn(id, field, msg) {
 
 var odsSeen = {};
 var googleSeen = {};
+
+// A generated service page is "<service>-<brandSlug>-<townSlug>.html", so the
+// branch a page name belongs to is the longest branch key the name ends with.
+// Longest wins because one branch key can end with another. This is the same
+// resolution rule 10 of check-branch-identity.js uses on page hrefs; here it is
+// applied to the pfLink field in the data, which rule 10 never sees.
+var byKey = {};
+data.branches.forEach(function (b) {
+  if (b.disposed) return;
+  if (b.brandSlug && b.townSlug) byKey[b.brandSlug + "-" + b.townSlug] = b;
+});
+
+function branchFromPageName(name) {
+  var best = null;
+  var bestLen = -1;
+  Object.keys(byKey).forEach(function (k) {
+    var suffix = "-" + k;
+    if (name.length > suffix.length &&
+        name.slice(-suffix.length) === suffix &&
+        k.length > bestLen) {
+      bestLen = k.length;
+      best = byKey[k];
+    }
+  });
+  return best;
+}
+
+function hostOf(b) { return b.website || ""; }
 
 data.branches.forEach(function (b) {
   if (b.disposed) return;
@@ -144,6 +186,25 @@ data.branches.forEach(function (b) {
     if (!/\.html$/.test(b.pfLink)) {
       fail(b.id, "pfLink", 'is "' + b.pfLink + '" and does not end .html, ' +
         "which Weebly pages normally need.");
+    }
+
+    // Ownership. The host rule above cannot see a sister-branch link, because
+    // two branches of one brand share a website. Resolve the filename to the
+    // branch that owns it and require it to be this branch. A name that
+    // resolves to nothing is one of the legacy "pharmacy-first-service-<town>"
+    // links Q8 / item 5.3 owns, and is deliberately left alone here.
+    var leaf = b.pfLink.split("/").pop().replace(/\.html$/i, "");
+    var owner = branchFromPageName(leaf);
+    if (owner && owner.id !== b.id) {
+      fail(b.id, "pfLink", 'is "' + b.pfLink + '", a Pharmacy First page ' +
+        'belonging to ' + owner.id + ' ("' + owner.branchName + '"), not to ' +
+        'this branch ("' + b.branchName + '"). ' +
+        (hostOf(owner) === hostOf(b)
+          ? "Both branches are served from " + (hostOf(b) || "no host") +
+            ", so the link resolves and every Pharmacy First route this " +
+            "field feeds - the landing page and the GBP pack button - " +
+            "quietly books the patient into the wrong pharmacy."
+          : "It also sits off this branch's own host."));
     }
   }
 });

@@ -107,6 +107,28 @@ updated.
       outside the inner-page exemption, and absent from the Q16/Q22
       five-page list. Raised as Q57. Evidence:
       audits/fishlocks-ainsdale-build-check-2026-08-12.txt.
+      Quality pass 2026-08-12 (fourth pass, repo half only): all 13 pages
+      verified field by field again and clean, all six generators rebuild to
+      a zero diff, all 29 checkers pass. The em dashes flagged on 12 pages
+      are inside <!-- --> build headers, which check-em-dashes.js blanks by
+      design, and the pound sign on the weight loss page is the RULE 7 fee.
+      The pass found a verifier gap, not a data one: nothing checked that a
+      branch's pfLink names a Pharmacy First page that branch owns. The host
+      test is blind on a shared domain, and Fishlocks, McCanns and Scorah
+      each put two branches on one host, so a sister-branch pfLink passes and
+      resolves 200. Proved by injection: swapping fishlocks_ainsdale.pfLink
+      to the Eccleston page passed all 29 once the editor snapshot was
+      refreshed, which is the normal workflow after a data edit. pfLink feeds
+      the landing page route and the GBP pack button, so the patient is
+      quietly booked into the wrong pharmacy, and this is the same field the
+      original 2.1 audit found stale. check-branch-links.js gains a pfLink
+      ownership rule, resolving the filename to its owning branch by the
+      longest brandSlug-townSlug suffix, as rule 10 does for page links.
+      Legacy pharmacy-first-service-<town> names are skipped deliberately:
+      they are the 11 values Q8 / item 5.3 owns. Clean on the untouched tree,
+      catches the injection, and catches post-5.3-style sister swaps on
+      McCanns and Scorah too. No page, copy or data change. Evidence:
+      audits/fishlocks-ainsdale-quality-pass-2026-08-12b.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
