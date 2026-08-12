@@ -2,6 +2,78 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 12:39 BST - hundred-and-fifteenth run - Quality pass on item
+6.2, the estate-wide broken internal link sweep, completed 2026-08-11 16:25
+as the seventy-fourth run and never re-verified since, making it the oldest
+verification standing after run 114 refreshed 5.1 (next in age: 5.2 from
+run 76 at 2026-08-11 17:10). First pass on this item. One in-repo defect
+found and fixed: the sweep's own summary overstated its scope figure. Live
+half re-checked in full, all 15 broken targets still broken, both controls
+healthy, nothing new to raise.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup was the only browser use this run
+(the live re-check ran as targeted HEAD/GET requests from a script in
+C:\Dev\_agent-tmp, the same read-only network route the sweep itself
+uses); nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification. The ageing order was re-derived from
+the run headings: run 114 refreshed 5.1, runs 76 to 113 cover everything
+verified from 2026-08-11 17:10 onwards, and 6.2 (completed run 74, 16:25,
+never re-verified) sits behind them all. All 29 checkers green before any
+change.
+
+REPO HALF. tools/sweep-broken-links.js read line by line: hostMap scope
+with the two documented exclusions, sitemap crawl, estate-host matching
+with and without www, HEAD with GET fallback on 405/501 and on error,
+25-source cap per target, survey-not-gate exit code, read-only GET/HEAD
+throughout. No code defect found. Known documented limits, not defects:
+quoted href attributes only, and a status-0 network error would count as
+broken (zero such entries in the actual run). Q53 and Q54 re-parsed from
+QUESTIONS.json: both well-formed (options, recommendation, status open).
+Worklist tick and run 74 log entry consistent with the evidence.
+
+THE FINDING, A WRONG NUMBER IN THE EVIDENCE FILE, NOW CORRECTED. The
+summary audits/broken-links-sweep-2026-08-11.md said "449 sitemap pages
+fetched". The raw JSON beside it records 363 sitemap URLs listed, 363
+pages fetched, zero fetch errors across the 12 sites, and 449 appears
+nowhere in the raw data; per-site counts sum cleanly to 363. The 403
+unique targets figure and every finding are unaffected. The md now reads
+363 and carries a dated correction note. Run 74's log entry also repeats
+449; log entries are history and stay as written, corrected here instead.
+This is the survey's evidence file, and a number in it that the raw data
+contradicts is exactly the sort of thing a later reader would quote.
+
+LIVE HALF, READ-ONLY, KNOWN STATES ONLY. All 15 recorded broken targets
+re-checked: the 12 /cdn-cgi/l/email-protection artefact URLs still 404
+(Q54 territory), and the three real ones still 404: the Riddings
+switch-prescriptions-riddings-timperley.html permalink, Tiffenbergs
+book-now.html, and riddingspharmacy.co.uk/clinic-prices (all Q53). Two
+controls confirmed healthy at 200: the Riddings old switch permalink the
+live page actually sits at, and the Riddings service-price-list.html the
+clinic-prices links should point to. Everything sits under open Q53/Q54,
+so nothing was re-raised.
+
+VERIFICATION AFTER THE FIX. All seven generators rebuilt; page outputs
+byte-identical; status/index.html regenerated with expected differences
+only (its own timestamp plus newer log content) and was reverted, matching
+runs 108 to 114. The 29-checker suite re-run green after the md edit.
+
+FILES CHANGED. audits/broken-links-sweep-2026-08-11.md (scope figure
+corrected, correction note added), AGENT_LOG.md (this entry). No
+generator, no page output, no worklist change (quality pass on a
+completed item), QUESTIONS.json untouched at 33 open. Status page
+republished via tools\build-audit-status.js.
+
 ## 2026-08-12 (afternoon) - hundred-and-fourteenth run - Quality pass on item
 5.1, the Q7 em dash fix, last verified 2026-08-11 14:04 as the seventy-second
 run and the oldest verification standing after run 113 refreshed 3.13 (runs

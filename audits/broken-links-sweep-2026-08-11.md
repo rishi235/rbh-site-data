@@ -7,8 +7,14 @@ Raw data with per-page sources: broken-links-sweep-2026-08-11.json.
 
 All 12 www branch-site hosts from branches.json hostMap. Excluded:
 www.clearchemist.co.uk (27,000+ URLs, cannot be swept in one run) and the
-bare rbhealth.co.uk (redirects to www). 449 sitemap pages fetched, 403
+bare rbhealth.co.uk (redirects to www). 363 sitemap pages fetched, 403
 unique estate-internal link targets status-checked. Read-only GET/HEAD.
+
+Correction 2026-08-12 (run 115 quality pass): this summary originally said
+449 pages fetched. The raw JSON records 363 sitemap URLs listed, 363 pages
+fetched, zero fetch errors across the 12 sites; 449 appears nowhere in the
+raw data. The figure was a drafting error in this summary only - scope,
+targets checked and findings are unaffected.
 
 ## Result: 15 broken targets, three real, twelve one artefact
 
