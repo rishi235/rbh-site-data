@@ -2,6 +2,99 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 (afternoon) - hundred-and-fourteenth run - Quality pass on item
+5.1, the Q7 em dash fix, last verified 2026-08-11 14:04 as the seventy-second
+run and the oldest verification standing after run 113 refreshed 3.13 (runs
+74 to 113 cleared everything later in the ageing order; the ageing order was
+re-derived by reading every run heading in this log rather than trusting the
+previous run's summary). Third pass on this item. The item itself holds on
+both halves. One latent hole found in a checker and closed: the GBP pack dash
+rule read only the literal characters and not the entity spellings, on the
+one copy surface that pastes verbatim into a public Google profile. No new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs (the pinned CDN
+service.js and the live Smartts switch page), tabs opened and closed,
+nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification. All 29 checkers green before any
+change. All seven generators rebuilt; page outputs byte-identical;
+status/index.html regenerated with expected differences only (its own
+timestamp plus newer log content than the committed copy embeds) and was
+reverted, matching runs 108 to 113.
+
+THE ITEM ITSELF: STILL CLEAN, STILL DETERMINISTIC. switchMeta() is defined
+once in tools/build-switch-pages.js and called twice, page meta tag and
+paste sheet, so the two strings cannot drift by construction. Run 72's
+service.js fix holds: all three Pharmacy First sentences ("You can refer
+yourself.", "See how the free NHS service works.", "Just pop in and ask
+about Pharmacy First.") are split at full stops with no dash in any form.
+The 3.9-era fix holds: DRAFT-weight-loss-copy.html carries no entity dash.
+check-em-dashes still carries the module-code rule, the EXTRA_HTML list
+including modules/emar/weebly, and the discovered-sheet scan, and it runs
+green.
+
+REPO HALF VERIFIED BY A FRESH ROUTE. An independent sweep written fresh for
+this run, sharing no code with check-em-dashes.js, read EVERY file under
+modules, core, gbp-packs, brand and audits (270 files) for literal
+U+2013/U+2014 and all five entity spellings, with no comment blanking and
+no pasteable-line filter, then a classifier pass bucketed each of the 523
+dash lines found. Every single one sits in an HTML build comment (179), a
+code comment (5), or a paste sheet heading that is a paster label (337),
+plus two in internal audit notes. Zero dash lines in copy that reaches the
+public. The independent route agrees with the checker.
+
+THE FINDING, A LATENT HOLE, NOT A LIVE BREACH. check-gbp-packs.js rule "no
+em dashes" read /[em dash, en dash, horizontal bar]/ as literal characters
+only. Nothing anywhere read the packs for the ENTITY spellings (&mdash;
+&ndash; and the numeric forms). A pack is pasted into Google's plain-text
+profile fields, so an entity would not render as a dash there: it would
+reach the public Google profile as the literal seven characters, junk copy
+on the most public surface the estate has. Pack copy gets drafted from HTML
+sources, which is exactly how an entity walks in. This is the same shape as
+the fault that put 30 &ndash; entities on the generated weight loss pages
+while the literal dash rule reported clean (item 3.9 pass, and the sixth
+time this repo has hit the which-form-does-the-rule-read shape). All 15
+packs are clean today, verified by the independent sweep above, which is
+why this is latent rather than live. ENTITY_DASH rule added to
+check-gbp-packs.js beside EM_DASH, with its own failure message saying what
+actually reaches the profile. Header comment updated.
+
+NEGATIVE TESTS, SIX, ALL PASSED. Written outside the repo at
+C:\Dev\_agent-tmp\negtest-gbp-entity-dash.js, each case breaking the
+Smartts pack description in the working tree, running the real checker,
+then restoring byte-for-byte: baseline clean passes; &mdash; fails;
+&ndash; fails; &#8212; fails; &#x2013; fails; a literal em dash still
+fails. Worktree verified back to exactly the intended change afterwards,
+and the full 29-checker suite re-run green.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATES ONLY. The pinned CDN file
+service-module-phase1/modules/service/service.js still carries all three
+&mdash; sentences run 72 fixed at source, because the fix lives on this
+branch and the pins wait on the item 5.5 fast-forward (Q13, answered,
+needs a supervised session). Re-checked this run: service.js and
+service.css are still byte-identical between origin/service-module-phase1
+and origin/main, so the fast-forward is still free. The live Smartts
+switch page body still carries the pre-Q7 paste (literal em dash in "it
+usually is not - we make the first step quick and easy"), which is the
+known repaste backlog recorded since run 32. Both live findings sit under
+existing decisions, so neither was re-raised.
+
+FILES CHANGED. tools/check-gbp-packs.js (ENTITY_DASH rule, failure line,
+header note), AGENT_LOG.md. No page output changed, no worklist change
+(quality pass on a completed item), QUESTIONS.json untouched at 33 open.
+Status page republished via tools\build-audit-status.js.
+
 ## 2026-08-12 11:40 BST - hundred-and-thirteenth run - Quality pass on item
 3.13, Clear Chemist (Aintree), last verified 2026-08-11 12:47 as the
 seventy-first run and the oldest verification standing after run 112

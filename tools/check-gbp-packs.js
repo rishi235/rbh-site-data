@@ -15,7 +15,11 @@
     - No medicine brand names or INNs anywhere (POM advertising is not
       permitted to the public)
     - No efficacy claims
-    - No em dashes, no emojis (house style)
+    - No em dashes, no emojis (house style). Since the item 5.1 quality pass
+      on 2026-08-12 this reads BOTH spellings: the literal characters and the
+      HTML entity forms (&mdash; &ndash; and numeric), because a pack pastes
+      into Google as plain text and an entity would reach the public profile
+      as literal characters
     - Every post under the 1,500 character limit
     - Phone and postcode match branches.json; no other branch's phone or
       postcode appears in the pack
@@ -95,6 +99,16 @@ const EFFICACY_WARN = [
 ];
 
 const EM_DASH = /[—–―]/;
+// The entity spellings of the same characters. A pack is pasted into Google's
+// plain-text profile fields, so an entity does not render as a dash there: it
+// reaches the public profile as the literal characters "&mdash;". That is
+// broken copy of a different kind, and until the item 5.1 quality pass on
+// 2026-08-12 nothing read the packs for it. Same shape as the fault that put
+// 30 &ndash; entities on the generated weight loss pages while the literal
+// dash rule reported clean (item 3.9 pass): a rule that reads only one
+// spelling of a character is not a rule. check-em-dashes.js has carried both
+// spellings since 2026-08-10; this checker now does too.
+const ENTITY_DASH = /&(?:mdash|ndash|horbar|#8212|#8211|#8213|#[xX]2014|#[xX]2013|#[xX]2015);/;
 const EMOJI = /\p{Extended_Pictographic}/u;
 
 // Day names in week order, plus a token that reads every abbreviation the
@@ -684,6 +698,7 @@ for (const file of packFiles) {
   // --- house style -------------------------------------------------------
   text.split(/\r?\n/).forEach((line, i) => {
     if (EM_DASH.test(line)) fail(file, `line ${i + 1}: em dash, house style is standard hyphens only. Context: ${norm(line).slice(0, 90)}`);
+    if (ENTITY_DASH.test(line)) fail(file, `line ${i + 1}: HTML entity dash. A pack pastes as plain text, so this reaches the public profile as literal characters. Context: ${norm(line).slice(0, 90)}`);
     if (EMOJI.test(line)) fail(file, `line ${i + 1}: emoji, house style is no emojis. Context: ${norm(line).slice(0, 90)}`);
   });
 
