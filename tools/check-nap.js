@@ -23,6 +23,16 @@
       FAQ body copy ("Call us on 0151 226 2051") that sat outside the
       visible-phone reader, because it wants digits straight after "Call".
       Correct today, and unread today, which are not the same thing.
+    - EVERY postcode-shaped string and EVERY email-shaped string on the page
+      matches the branch, the same sweep the phone got. Added on the item 1.4
+      quality pass, 2026-08-12: the paste-block half of this file has swept
+      postcodes since 2026-08-07, but the generated-page half read a postcode
+      in exactly three places (contact line, map query, JSON-LD) and an email
+      only inside a mailto href. A foreign postcode in body copy, or a
+      foreign inbox written as plain text rather than a link, passed unread.
+      Proved by injection on Cherry Lane's contraception page: a Bramhall
+      postcode and a Fishlocks address in visible copy, and the checker
+      exited 0 on both.
     - every mailto: link belongs to the owning branch, and its visible text
       matches the address it links to. Added on the item 1.2 quality pass,
       2026-08-11. The email is the fourth published contact fact and it sits
@@ -83,6 +93,15 @@ const digits = (s) => String(s || "").replace(/\D/g, "");
 const PHONE_RE = /\b0\d[\d ]{7,13}\d\b/g;
 // A UK postcode as it appears in copy, always upper case.
 const PC_RE = /\b[A-Z]{1,2}[0-9][A-Z0-9]?\s?[0-9][A-Z]{2}\b/g;
+// An email address as it appears in copy or inside a mailto href.
+const EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+// RFC 2606 reserves example.com/.net/.org for documentation, so an address
+// there can never be a real inbox and can never be a wrong contact fact.
+// The form placeholder "name@example.com" on 142 pages is the case in point.
+// Real addresses are NOT excluded by where they sit: a branch address in a
+// placeholder attribute would still be swept and would still have to be the
+// branch's own.
+const isReservedEmail = (e) => /@example\.(com|net|org)$/i.test(e);
 
 // Build comments carry the generator name, the run date and the CDN pin.
 // Blank them before any sweep so generator bookkeeping is never read as a
@@ -98,6 +117,13 @@ const KNOWN_PHONE = {};
 // surfaces. Keyed "<filename>::<surface>", with a reason and a question id.
 // A key that no longer matches anything fails the run.
 const KNOWN_SURFACE = {};
+
+// A postcode-shaped string that is not the branch's postcode, and an
+// email-shaped string that belongs to nobody in branches.json, that are
+// legitimate anyway. Same contract as KNOWN_PHONE: keyed
+// "<filename>::<the string as written>", and a stale key fails the run.
+const KNOWN_POSTCODE = {};
+const KNOWN_EMAIL = {};
 
 // Pages HTML-escape text and attribute values; decode before comparing.
 const unesc = (s) => s === null || s === undefined ? s : String(s)
@@ -156,6 +182,8 @@ const generatedFiles = new Set();
 const warnings = [];
 const usedKnownPhone = new Set();
 const usedKnownSurface = new Set();
+const usedKnownPostcode = new Set();
+const usedKnownEmail = new Set();
 
 function bad(file, msg) {
   problems++;
@@ -296,6 +324,65 @@ for (const dir of PAGE_DIRS) {
         bad(rel, 'phone-like number "' + raw + '" is not ' + b.branchName +
           "'s number in branches.json");
     }
+
+    // --- POSTCODE SWEEP ------------------------------------------------
+    // The paste-block half of this file has swept every postcode-shaped
+    // string since 2026-08-07. The generated-page half read a postcode in
+    // exactly three places: the contact line, the map query and the JSON-LD
+    // block. A foreign postcode anywhere else in body copy passed unread,
+    // proved by injection on 2026-08-12. Sweep the whole page the way the
+    // phone sweep does. The map query never trips this: its postcode is
+    // URL-encoded, so PC_RE cannot see it, and it has its own rule above.
+    const normPC = (s) => s.replace(/\s+/g, " ").trim();
+    PC_RE.lastIndex = 0;
+    let pcm;
+    while ((pcm = PC_RE.exec(swept)) !== null) {
+      const raw = normPC(pcm[0]);
+      if (raw === normPC(b.postalCode)) continue;
+      const key = file + "::" + raw;
+      if (KNOWN_POSTCODE[key]) {
+        usedKnownPostcode.add(key);
+        warn(rel, 'KNOWN postcode "' + raw + '". ' + KNOWN_POSTCODE[key].question +
+          ": " + KNOWN_POSTCODE[key].reason);
+        continue;
+      }
+      const other = branches.find((x2) =>
+        x2.postalCode && normPC(x2.postalCode) === raw);
+      if (other)
+        bad(rel, 'postcode "' + raw + '" belongs to ' + other.branchName + ", not " +
+          b.branchName);
+      else
+        bad(rel, 'postcode-shaped string "' + raw + '" is not ' + b.branchName +
+          "'s postcode in branches.json");
+    }
+
+    // --- EMAIL SWEEP ---------------------------------------------------
+    // The mailto rule above only reads an address inside an anchor. An email
+    // written as plain text ("write to x@y any time") was invisible, proved
+    // by injection on 2026-08-12. Sweep every email-shaped string; each must
+    // be one of the branch's own two published addresses.
+    EMAIL_RE.lastIndex = 0;
+    let em;
+    while ((em = EMAIL_RE.exec(swept)) !== null) {
+      const raw = em[0].toLowerCase();
+      if (isReservedEmail(raw)) continue;
+      if (ownEmails.some((e) => e.toLowerCase() === raw)) continue;
+      const key = file + "::" + em[0];
+      if (KNOWN_EMAIL[key]) {
+        usedKnownEmail.add(key);
+        warn(rel, 'KNOWN email "' + em[0] + '". ' + KNOWN_EMAIL[key].question +
+          ": " + KNOWN_EMAIL[key].reason);
+        continue;
+      }
+      const other = branches.find((o) =>
+        [o.email, o.nhsEmail].filter(Boolean)
+          .some((e) => e.toLowerCase() === raw));
+      if (other)
+        bad(rel, 'email "' + em[0] + '" belongs to ' + other.id + ", not " + b.id);
+      else
+        bad(rel, 'email-shaped string "' + em[0] + '" is not an address of ' +
+          b.id + " in branches.json");
+    }
   }
 }
 
@@ -386,6 +473,29 @@ for (const dir of PASTE_DIRS) {
           b.streetAddress + '"');
     }
 
+    // Emails got the generated-page sweep on 2026-08-12; the paste blocks
+    // get the same rule for the same reason. A foreign inbox in a block
+    // lands on the public site with nothing in between.
+    const pasteOwnEmails = [b.email, b.nhsEmail].filter(Boolean);
+    EMAIL_RE.lastIndex = 0;
+    while ((m = EMAIL_RE.exec(text)) !== null) {
+      const raw = m[0].toLowerCase();
+      if (isReservedEmail(raw)) continue;
+      if (pasteOwnEmails.some((e) => e.toLowerCase() === raw)) continue;
+      const key = file + "::" + m[0];
+      if (KNOWN_EMAIL[key]) {
+        usedKnownEmail.add(key);
+        warn(rel, 'KNOWN email "' + m[0] + '". ' + KNOWN_EMAIL[key].question +
+          ": " + KNOWN_EMAIL[key].reason);
+        continue;
+      }
+      const other = branches.find((o) =>
+        [o.email, o.nhsEmail].filter(Boolean)
+          .some((e) => e.toLowerCase() === raw));
+      bad(rel, 'email "' + m[0] + '" is not an address of ' + b.id +
+        (other ? ", it belongs to " + other.id : ", and belongs to no branch"));
+    }
+
     if (!sawPhone && !sawPostcode)
       warn(rel, "carries neither a phone number nor a postcode, so nothing here " +
         "was checked against branches.json");
@@ -455,6 +565,16 @@ for (const abs of SHARED_PASTE_FILES) {
           "every other branch pasting it would publish that branch's name");
     }
   }
+  EMAIL_RE.lastIndex = 0;
+  while ((m = EMAIL_RE.exec(text)) !== null) {
+    if (isReservedEmail(m[0])) continue;
+    const owner = branches.find((b) =>
+      [b.email, b.nhsEmail].filter(Boolean)
+        .some((e) => e.toLowerCase() === m[0].toLowerCase()));
+    bad(rel, 'shared template carries email "' + m[0] + '"' +
+      (owner ? " (" + owner.id + ")" : "") +
+      ", which would publish one branch's inbox on every branch that pastes it");
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -470,6 +590,14 @@ for (const key of Object.keys(KNOWN_SURFACE))
   if (!usedKnownSurface.has(key))
     bad("KNOWN_SURFACE", 'stale exception "' + key + '" no longer matches a ' +
       "missing surface. Remove it (" + KNOWN_SURFACE[key].question + ").");
+for (const key of Object.keys(KNOWN_POSTCODE))
+  if (!usedKnownPostcode.has(key))
+    bad("KNOWN_POSTCODE", 'stale exception "' + key + '" no longer matches a ' +
+      "postcode on that page. Remove it (" + KNOWN_POSTCODE[key].question + ").");
+for (const key of Object.keys(KNOWN_EMAIL))
+  if (!usedKnownEmail.has(key))
+    bad("KNOWN_EMAIL", 'stale exception "' + key + '" no longer matches an ' +
+      "email on that page. Remove it (" + KNOWN_EMAIL[key].question + ").");
 
 const missing = branches.filter((b) =>
   !b.disposed && b.id !== "rbh_head_office_aintree" && !seenBranches.has(b.id));

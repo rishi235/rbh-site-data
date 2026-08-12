@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 02:44 BST - ninety-fifth run - Quality pass on item 1.4, the NAP check,
+last verified 2026-08-11 03:30 as the fifty-third run and the oldest
+verification standing after run 94 refreshed 3.1. Third machine-era pass on
+this item. Data clean; two verifier blind spots found by injection and
+closed, the same shape as the phone one run 53 fixed. One live re-observation
+that narrows Q36. No new question.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing this run needed a
+decision: both fixes close a checker's blind spot against a rule it
+already enforces, and the live finding updates an open question's note.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only; none of the open questions (Q17 onwards) has an answer.
+One tab used for the pickup and reused for the one live read below,
+nothing clicked, typed or submitted. Open questions 33 before, 33 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order from the run
+headings: run 94 refreshed 3.1, leaving run 53 (item 1.4, 03:30 on
+2026-08-11) the oldest standing.
+
+REPO HALF, DATA CLEAN, VERIFIER EXTENDED. check-nap: 177 pages, 3 paste
+blocks, 0 mismatches. The "16 entries, 16 trading, 0 disposed" coverage
+line is correct, not a regression: Wilmslow was removed outright per
+Q2's newest answer, and the 16 include head office and Clear Chemist.
+All six generators byte-identical, all 29 checkers pass. Two blind
+spots proved by injection on Cherry Lane's contraception page against
+the OLD checker: a foreign postcode in body copy (the generated-page
+half read postcodes in only three fixed places, while the paste half
+has swept them since 2026-08-07), and a foreign email as plain text
+(the mailto rule only read inside an anchor). Both injections exited 0.
+check-nap now sweeps every postcode-shaped and email-shaped string on
+every generated page, paste blocks get the email sweep, the shared
+template must carry no email at all, and KNOWN_POSTCODE / KNOWN_EMAIL
+exception maps follow the standard stale-key contract. RFC 2606
+example.com addresses are excluded (the form placeholder sits on 142
+pages and can never be a real inbox); real addresses are not excluded
+by position. Negative-tested six ways, harness deleted after the run.
+Full detail in audits/nap-check-2026-08-12.txt.
+
+LIVE HALF, ONE READ-ONLY GET, Q36 NARROWED. Cherry Lane's contraception
+page serves name, address and phone exactly to branches.json. But its
+footer block still publishes pharmacy.FA226@mhs.net, the Q36 typo,
+alongside the newer footer strip with Cherry@rbhealth.co.uk. The
+2026-08-11 hand fix removed the typo from index.html and contact-us.html
+only, so the footer is not one site-wide element, or an older variant
+persists on service pages. Q36's note updated: the Weebly session
+answering it should sweep every page of cherrylanepharmacy.co.uk.
+
+Files changed: tools/check-nap.js (postcode and email sweeps),
+AGENT_WORKLIST.md (quality pass note under 1.4), QUESTIONS.json (Q36
+note), audits/nap-check-2026-08-12.txt (new), AGENT_LOG.md (this
+entry), status page regenerated.
+No new question raised.
+
 ## 2026-08-12 02:10 BST - ninety-fourth run - Quality pass on item 3.1, the
 title/H1 pattern, last verified 2026-08-11 02:36 as the fifty-second run and
 the oldest verification standing after run 93 refreshed 1.1. Third

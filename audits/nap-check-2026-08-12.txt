@@ -1,0 +1,60 @@
+NAP quality pass evidence - item 1.4 - 2026-08-12 (ninety-fifth run)
+
+REPO HALF
+- check-nap.js: 177 pages, 3 paste blocks, 16 branches.json entries,
+  0 mismatches, 0 warnings, before and after the changes below.
+- check-page-coverage: 177 pages reconciled. 16 entries, 16 trading,
+  0 disposed is CORRECT: Wilmslow was removed outright per Q2's newest
+  answer, and the 16 include head office and Clear Chemist.
+- All six generators regenerated every page byte-identical (git status
+  clean after full rebuild).
+- All 29 checkers exit 0.
+
+BLIND SPOTS FOUND AND CLOSED (both proved by injection on the old
+checker before fixing, on contraception-cherry-lane-walton.html)
+1. Postcode sweep missing on generated pages. The paste-block half has
+   swept every postcode-shaped string since 2026-08-07, but the
+   generated-page half read a postcode in exactly three places: the
+   contact line, the map query and the JSON-LD block. A Bramhall
+   postcode (SK7 1BJ) injected into visible body copy on Cherry Lane's
+   page: old checker exited 0.
+2. Plain-text email invisible. The mailto rule only read an address
+   inside an anchor. A Fishlocks address injected as plain body text
+   ("Write to pharmacy.fishlocks@rbhealth.co.uk"): old checker exited 0.
+
+FIX
+- check-nap.js now sweeps every postcode-shaped string and every
+  email-shaped string on every generated page (comments stripped, HTML
+  entities decoded), mirroring the phone sweep. Foreign values name the
+  owning branch in the failure message.
+- Paste blocks get the same email sweep. The shared template
+  (modules/switch/weebly.html) must carry no email at all, matching its
+  no-phone and no-postcode rules.
+- KNOWN_POSTCODE and KNOWN_EMAIL exception maps added with the standard
+  contract: keyed "<filename>::<string>", stale keys fail the run.
+- RFC 2606 addresses (@example.com/.net/.org) are excluded: the form
+  placeholder name@example.com appears on 142 pages and can never be a
+  real inbox, so it can never be a wrong contact fact. Real addresses
+  are not excluded by position; one in a placeholder attribute would
+  still be swept.
+
+NEGATIVE TESTS (temporary harness, deleted after the run; each
+injection reverted between tests)
+  T1 foreign branch postcode in body copy   -> exit 1 (fails, correct)
+  T2 postcode-shaped string, nobody's        -> exit 1
+  T3 branch's own postcode in body copy      -> exit 0 (passes, correct)
+  T4 plain-text foreign email                -> exit 1
+  T5 unknown-domain email (bob@gmail.com)    -> exit 1
+  T6 someone@example.com                     -> exit 0 (reserved, ignored)
+
+LIVE HALF (read-only)
+- https://www.cherrylanepharmacy.co.uk/contraception-cherry-lane-walton.html
+  Name, address and phone exact against branches.json: Cherry Lane
+  Pharmacy, 202 Cherry Lane, Liverpool, L4 8SG, 0151 226 2051 on the
+  contact card, the footer strip and the body copy.
+- Q36 RE-OBSERVED, PARTIAL FIX ONLY: this page's footer block still
+  publishes pharmacy.FA226@mhs.net (the one-letter typo of the NHS
+  mailbox) alongside the newer footer strip carrying Cherry@rbhealth.co.uk.
+  The 2026-08-11 hand fix removed the typo from index.html and
+  contact-us.html only. Q36's note updated: the Weebly session answering
+  it should sweep every page of cherrylanepharmacy.co.uk.

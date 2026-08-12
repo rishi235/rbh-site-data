@@ -36,6 +36,20 @@ branch's on one page: the previous checker exited 0 reporting 0 mismatches.
 It now sweeps every phone-shaped number, the four NAP surfaces must be present
 rather than optional, and modules/switch/weebly.html is read as a shared paste
 template that must carry no branch fact at all. Negative-tested eleven ways.
+Quality pass 2026-08-12: NAP data clean again. 177 pages, 0 mismatches,
+byte-stable regeneration, all 29 checkers pass. Two verifier blind spots found
+by injection and closed, both the same shape as the phone one from 2026-08-11:
+the generated-page half swept every phone-shaped string but read a postcode in
+only three fixed places and an email only inside a mailto anchor, so a foreign
+postcode in body copy and a foreign inbox written as plain text both passed
+unread. check-nap now sweeps every postcode-shaped and email-shaped string on
+every generated page, paste blocks get the email sweep too, and the shared
+template must carry no email at all. RFC 2606 example.com addresses (the form
+placeholder on 142 pages) are excluded as incapable of being a contact fact.
+Negative-tested six ways. Live half: Cherry Lane contraception page NAP exact
+on name, address and phone, but its footer still publishes the Q36 mhs.net
+typo the 2026-08-11 hand fix removed from index and contact pages; Q36 note
+updated.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
