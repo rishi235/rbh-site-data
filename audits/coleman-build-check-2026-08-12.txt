@@ -1,0 +1,59 @@
+Quality pass evidence - item 3.9 Coleman and Leighs Pharmacy (Walton, Liverpool)
+Run: 2026-08-12 09:39 BST (hundred-and-ninth run)
+Branch record: coleman-leigh / colemanleigh_liverpool, branches.json read as data only.
+
+REPO HALF - independent verification, fresh extraction, no code shared with tools/check-*.js
+Pages read: 12 (11 service including weight loss and travel, 1 switch), all under
+modules/service/pages/ and modules/switch/pages/, filenames *-coleman-leigh-walton.html.
+Check groups run: 240. Flags: 0. Zero false positives this run because the two known
+fragment properties (no <title> tag, no footer email - both live in Weebly, titles in
+the paste sheets) were excluded by design rather than flagged and triaged.
+
+What was checked, per page:
+- Exactly one H1, carrying Walton (seoTown, not the postal locality Liverpool). 12/12.
+- Display phone 0151 525 3522 present; every tel: href resolves to 01515253522; no
+  other branch's phone in spaced or bare-digit form. Cherry Lane L4 8SG (same L4
+  district) appears nowhere, nor any other branch postcode.
+- Street 241 Walton Village and postcode L4 6TH present on every page.
+- JSON-LD parses on all 12; PostalAddress field for field against branches.json
+  (streetAddress, addressLocality Liverpool, postalCode L4 6TH, addressRegion
+  Merseyside, addressCountry GB); telephone digits match; url starts
+  https://www.colemanandleighspharmacy.co.uk and names the page's own file;
+  openingHoursSpecification carries 09:00-13:00 and 14:00-18:00 and names no
+  closed day.
+- Google review link: only Coleman's g.page id on any page; no other branch's
+  review URL anywhere.
+- Trading name in the Q1-settled form everywhere in visible copy: no ampersand,
+  no singular Leigh, no apostrophe, no Colemans shorthand outside the branch
+  email address. The coleman-leigh slug in filenames is a permalink, excused.
+- POM union scan (pom-names.js as data: weight loss, Pharmacy First,
+  contraception, travel vaccines, antimalarials) empty on all 12 pages
+  including the weight loss and travel pages.
+- No em dash outside build comments. No app copy (hasApp false). No 24-hex
+  widget token other than Coleman's own five (none hardcoded, as designed -
+  service.js renders the widget from branches.json).
+- Cross-town scan: no other branch's town in visible copy; Walton, Liverpool
+  and Sefton excused as Coleman's own catchment.
+
+Context checks before the pass: all 29 tools/check-*.js green; all seven
+generators byte-stable (status/index.html timestamp lines only, reverted).
+
+LIVE HALF - two read-only GETs, nothing clicked, typed or submitted
+1. pharmacy-first-service-walton.html (the pfLink and GBP Post A target):
+   still Weebly's 404 page. Known state, first recorded on the 4.12 pack
+   pass as 5.3/Q8 evidence; unchanged; the finished replacement remains at
+   modules/service/pages/pharmacy-first-coleman-leigh-walton.html.
+2. Homepage: NAP correct (241 Walton Village, Liverpool, L4 6TH), hours match
+   branches.json exactly (Mon-Fri 9-6 closed 1-2, Sat Sun closed), email
+   present in lowercase casing. Known stale-paste states persist and are
+   confirmation only: switch banner and footer strip read "Coleman & Leigh
+   Pharmacy" (ampersand, singular - the stale paste already recorded; repo
+   carries the correct form throughout), banner close button mojibake (same
+   artefact recorded at four other sites), and the estate-wide weight loss
+   tagline "Innovative solutions that deliver results. Tried the rest? Now
+   try the best." which is already inside Q22 scope. Address block shows
+   phone spaced "0151 5253522" - live-only formatting from the old paste,
+   same family as the ampersand, will correct at the queued repaste.
+
+CONCLUSION: zero in-repo defects. Nothing new to raise; no question added.
+Temp verification script deleted before commit.

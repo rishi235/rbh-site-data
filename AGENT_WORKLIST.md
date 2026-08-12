@@ -433,6 +433,18 @@ audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
+      Quality pass 2026-08-12 (hundred-and-ninth run). All 12 pages re-read
+      by a fresh extraction, 240 check groups, zero flags: one H1 per page
+      carrying Walton, NAP and every tel: link correct, no other branch's
+      phone, postcode, review link or town, JSON-LD field for field against
+      branches.json including Merseyside and self-referencing urls, trading
+      name in the Q1 form throughout, POM union scan empty, no em dash
+      outside build comments, no app copy, no foreign widget id. Live:
+      pfLink still 404 (known 5.3/Q8 evidence, replacement page ready in
+      repo); homepage NAP, hours and email correct; stale-paste ampersand
+      banner and footer, mojibake close button and the Q22 weight loss
+      tagline all persist, previously recorded, confirmation only.
+      Evidence in audits/coleman-build-check-2026-08-12.txt.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
