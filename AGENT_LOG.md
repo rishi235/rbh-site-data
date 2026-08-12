@@ -2,6 +2,73 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 09:05 BST - hundred-and-sixth run - Quality pass on item 3.6,
+McCanns Chemist (Aigburth and Sandringham), last verified 2026-08-11 as the
+sixty-fourth run and the oldest verification standing after run 105
+refreshed 3.5. Third pass on this item. Clean on both halves, no in-repo
+defect found, no new question. One record-keeping gap closed: 3.6 was the
+only 3.x item with no quality-pass note in AGENT_WORKLIST.md despite two
+logged verifications; this pass's note is now under the item.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+mccannspharmacy.co.uk, nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification, which run 105's ageing order
+left as 3.6 (run 64, 2026-08-11).
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 26 McCanns pages (2
+branch landing added by 5.2, 22 service, 2 switch) re-read by an
+independent extraction written fresh for this run, no code shared with
+the checkers; branches.json, pom-names.js and claim-patterns.js read as
+data only. 572 checks, zero failures. One H1 per page carrying the
+seoTown, Aigburth for Aigburth and St Michael's for Sandringham after
+5.7's move; paste-sheet titles and descriptions found by permalink for
+all 26 (177 sheet entries indexed) with descriptions 135 to 159
+characters; each branch's phone as display string and tel: link with no
+other branch's digits anywhere including the sister's; own postcode only
+(L17 7BP / L17 4JP); cross-town scan clean, Sandringham's catchment
+legitimately excusing Aigburth, which also sits in its street address;
+JSON-LD PostalAddress correct field by field against branches.json;
+no hard-coded widget id (all 79 estate ids scanned); pins as the
+generators declare (service-module-phase1 for service and branch landing,
+6a275e1 for switch); POM union scan and claim-pattern scan clean on all
+26 pages including the two weight loss pages and the sheet strings.
+Widget diary policy spot-checked and holding: weightLoss and travelClinic
+shared across the brand, bloodPressure, contraception and pharmacyFirst
+unique per site. All 29 checkers passed before any change; all seven
+generators rebuilt byte-identical (status/index.html timestamp only,
+discarded before verification).
+
+LIVE HALF, TWO READ-ONLY GETS. uti-treatment-mccanns-sandringham.html
+serves the generated page with correct NAP, phone 0151 727 3076 as
+display and link, and the women 16 to 64 cohort wording. The live SEO
+title and H1 still read Sandringham: the 5.7 St Michael's retitle sits
+in the repo sheets but has not yet been pasted live, the expected state
+since 5.7 rides a queued Weebly repaste. The Weebly footer's "Sandrigham
+Medical Centre" typo and McCann's Pharmacy apostrophe branding are
+already Q39, still open. pharmacy-first-service-aigburth.html, the
+shared pfLink and Post A target for BOTH McCanns branches, still carries
+its known faults (pipe-and-ampersand title, US spellings, old branding)
+and waits on the item 5.3 decision; it does now signpost both generated
+branch Pharmacy First pages via a Choose your branch block, and its
+footer NAP and phones are correct for both branches. Nothing new to
+raise and nothing autonomous to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (first quality-pass note under item
+3.6), AGENT_LOG.md, audits/mccanns-build-check-2026-08-12.txt (new
+evidence file). No generator input changed; regeneration confirmed zero
+diff. Temp verification script deleted before commit.
+
 ## 2026-08-12 07:40 BST - hundred-and-fifth run - Quality pass on item 3.5,
 Hirshmans Chemist (Ainsdale), last verified 2026-08-11 as the sixty-third
 run and the oldest verification standing after run 104 refreshed 3.4. Third

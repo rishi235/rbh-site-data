@@ -338,6 +338,28 @@ A HARD STOP and Q41's note, nothing new to raise. Evidence in
 audits/hirshmans-build-check-2026-08-12-third.txt. No in-repo defect found.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
+Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
+but never noted here - this is the first note under this item, gap now
+closed). All 26 pages (branch landing pages added since by item 5.2)
+re-verified by a fresh independent extraction, no checker code reused.
+572 checks, 0 failures: one H1 per page carrying the seoTown (Aigburth /
+St Michael's after 5.7), paste-sheet titles and descriptions on pattern
+(descriptions 135 to 159 characters), correct phone as display and tel: on
+all 26 with no other branch's digits, own postcode only, cross-town scan
+clean with Sandringham's own catchment excusing Aigburth, JSON-LD address
+correct field by field, no hard-coded widget id (79 estate ids scanned),
+pins as generators declare, POM and claim-pattern scans clean including
+weight loss pages and sheet strings. Widget diary policy holds: weightLoss
+and travelClinic shared across the brand, the three NHS diaries unique per
+site. All 29 checkers pass, all seven generators rebuilt byte-identical.
+Live half, two read-only GETs: the generated Sandringham UTI page serves
+correctly but the 5.7 St Michael's retitle is not yet pasted live (title
+and H1 still read Sandringham - expected, rides the queued repaste); the
+Weebly footer's "Sandrigham" typo and McCann's Pharmacy branding are Q39,
+already open. The shared pfLink page still carries its known faults and
+waits on the 5.3 decision, though it now signposts both generated branch
+Pharmacy First pages. No in-repo defect found. Evidence in
+audits/mccanns-build-check-2026-08-12.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

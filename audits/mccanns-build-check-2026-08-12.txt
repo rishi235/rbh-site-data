@@ -1,0 +1,64 @@
+McCanns Chemist (Aigburth and Sandringham) - item 3.6 quality pass
+Date: 2026-08-12, third verification (previous: run 22 on 2026-08-10,
+run 64 on 2026-08-11). Method: fresh independent extraction written new
+for this run, no checker code reused; branches.json, pom-names.js and
+claim-patterns.js read as data only.
+
+REPO HALF - 26 pages (2 branch landing, 22 service, 2 switch),
+572 checks, 0 failures.
+
+Per page:
+- exactly one H1, and the H1 carries the branch seoTown
+  (Aigburth / St Michael's after item 5.7).
+- paste-sheet title and description found by permalink in the six SEO
+  sheets (177 entries indexed); both carry the seoTown; titles 65
+  characters or under; descriptions 135 to 159 characters.
+- display phone and tel: link present on every page
+  (Aigburth 0151 727 3185, Sandringham 0151 727 3076); no other
+  branch's phone digits anywhere, sister branch included.
+- own postcode present (L17 7BP / L17 4JP); no other branch's postcode.
+- cross-town scan clean: no other branch's seoTown in visible text,
+  excusing each branch's own catchment (Sandringham's list includes
+  Aigburth, which also appears legitimately in its street address).
+- JSON-LD PostalAddress correct field by field against branches.json
+  (streetAddress, addressLocality, postalCode, addressRegion Merseyside,
+  telephone where present).
+- no hard-coded Appointedd widget id on any page (all 79 estate ids
+  scanned for).
+- pins as the generators declare: service and branch landing pages
+  service-module-phase1, switch pages 6a275e1.
+- POM scan (union of all five groups in pom-names.js) and house
+  claim-pattern scan clean on all 26 pages, weight loss pages and
+  paste-sheet strings included.
+
+Widget diary policy spot-check: weightLoss and travelClinic ids shared
+across the brand, bloodPressure, contraception and pharmacyFirst unique
+per site. Matches the estate policy check-widget-diaries.js pins.
+
+All 29 checkers passed before any change. All seven generators rebuilt
+byte-identical (status/index.html timestamp only, discarded).
+
+LIVE HALF - two read-only GETs on mccannspharmacy.co.uk.
+
+1. uti-treatment-mccanns-sandringham.html serves the generated page:
+   correct NAP (1b Aigburth Road, Liverpool, L17 4JP), phone
+   0151 727 3076 as display and link, correct cohort wording
+   (women 16 to 64), booking and callback blocks present.
+   The live SEO title and H1 still read "Sandringham": the item 5.7
+   St Michael's retitle is in the repo sheets but NOT yet pasted live.
+   Expected state - 5.7 noted it rides on a queued Weebly repaste.
+   The Weebly site footer still carries "Sandrigham Medical Centre"
+   (misspelled) and "McCann's Pharmacy" branding - both already
+   recorded under Q39, still open.
+
+2. pharmacy-first-service-aigburth.html, the shared pfLink and GBP
+   Post A target for BOTH branches, still carries its known faults:
+   pipe-and-ampersand title, US spellings (recognizing, characterized),
+   old McCanns Pharmacy branding. Repoint waits on the item 5.3
+   decision. It DOES now carry a "Choose your branch" signpost linking
+   both generated branch Pharmacy First pages, and its footer NAP and
+   phones are correct for both branches. Nothing new to raise.
+
+No in-repo defect found. One record-keeping gap fixed: item 3.6 was
+the only 3.x item carrying no quality-pass note in AGENT_WORKLIST.md
+despite runs 22 and 64; this pass's note now added.
