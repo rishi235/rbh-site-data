@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 18:14 BST - hundred-and-twenty-sixth run - Quality pass on
+## 2026-08-12 18:14 BST - hundred-and-twenty-sixth run [commit 1313d70,
+hash recorded in this follow-up commit] - Quality pass on
 item 4.14, the Gordon Short Chemist Crosby GBP pack, last verified
 2026-08-11 22:15 and the oldest verification standing among completed
 items. Third pass on this item. Repo half performed and found ONE in-repo
