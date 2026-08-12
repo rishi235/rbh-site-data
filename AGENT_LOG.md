@@ -2,6 +2,71 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 01:11 BST - ninety-second run [commit hash recorded in a
+follow-up commit] - Quality pass on item 4.2, the Cherry Lane Pharmacy
+GBP pack, last verified 2026-08-11 01:35 as the fiftieth run and the
+oldest verification standing after runs 51 onwards cleared everything
+later. Second pass on this item. Pack clean fact by fact; one in-repo
+defect found and fixed: a live-site caveat in the pack that live
+evidence shows is now spent. No new question.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing was decided
+autonomously this run: the one change made records a live state that
+executes a decision Rishi already took at Q5, with the evidence read
+this run.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only; none of the open questions (Q17 onwards) has an answer.
+One tab navigated, nothing clicked, typed or submitted. Open questions
+33 before, 33 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. The ageing order was
+re-derived from every run heading in this log: run 50 (4.2, 01:35 on
+2026-08-11) is now the oldest standing after run 90 refreshed 2.1 (run
+48) and run 91 refreshed 4.7 (run 49).
+
+REPO HALF. All six generators rebuilt to zero diff before the edit; all
+29 checkers pass before and after. The pack verified fact by fact
+against branches.json: name, 202 Cherry Lane L4 8SG, 0151 226 2051,
+website, review link, hours (whole specification, no lunch closure so
+the split-day rule does not apply), catchment leading with seoTown
+Walton, five-widget service and category match, hasApp false, Post A on
+the branch pfLink, description exactly 736 characters, posts 449, 348,
+403 and 318, pure ASCII, Post C naming no medicine.
+
+THE FINDING AND THE FIX. The pack's IMPORTANT header said the old
+weight loss page (weight-loss-clinic-walton.html) was "still live with
+POM content pending the Q5 hand edit". Read live this run, that edit
+has been done: the page now serves a short signpost to the new Weight
+Loss Clinic page, names no medicine (checked against the POM name
+list), shows no pricing and no Buy Now, and stays live and in the
+sitemap, which is exactly what Rishi's Q5 answer decided (strip the POM
+content, keep both URLs live, point visitors at the new pages). A pack
+telling the paster a breach exists after it has been fixed is an
+in-repo defect, so the caveat was rewritten to record the cleared state
+with date and evidence. The Pharmacy First stale-embed caveat still
+holds (the live PF page still shows five conditions as coming soon) and
+was kept, as was the instruction that Post C links only the new page.
+This page is Q5 scope, not one of the five Q16/Q22 template pages,
+which sit on other branches, so nothing here touches the 5.8 decision.
+No live copy was changed anywhere; this repo pastes nothing.
+
+LIVE HALF, READ-ONLY GETs. All four post targets return 200 and sit in
+the live sitemap. The old weight loss page returns 200 as above. The
+live PF page still carries the stale embed. Q40, this item's listing
+name question from the previous pass, remains open with Rishi.
+
+Files changed: gbp-packs/cherry-lane-walton.md, AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/cherry-lane-gbp-pack-check-2026-08-12.txt.
+No new question raised.
+
 ## 2026-08-12 00:39 BST - ninety-first run - Quality pass on item 4.7, the
 McCanns Chemist Sandringham GBP pack, last verified 2026-08-11 01:05 as the
 forty-ninth run and the oldest verification standing after runs 50 onwards

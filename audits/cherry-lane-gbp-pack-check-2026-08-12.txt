@@ -1,0 +1,66 @@
+Cherry Lane Pharmacy GBP pack (item 4.2) - second quality pass
+Date: 2026-08-12, unattended run (ninety-second)
+Pack: gbp-packs/cherry-lane-walton.md
+Branch: cherrylane_liverpool
+
+REPO HALF - all clean before the one edit below.
+
+Facts against branches.json, all match:
+- Name on GBP line: Cherry Lane Pharmacy (branchName)
+- Address: 202 Cherry Lane, Liverpool L4 8SG
+- Phone: 0151 226 2051
+- Website: https://www.cherrylanepharmacy.co.uk
+- Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
+- Hours: Monday to Friday 9:00am to 6:30pm, Saturday 9:00am to 5:00pm,
+  Sunday closed. Whole of openingHours specification and nothing more.
+  No lunch closure on this branch, so the split-day instruction does
+  not apply.
+- Catchment "Walton, Everton and north Liverpool" leads with seoTown.
+- Categories and services match the five-widget set (pharmacyFirst,
+  bloodPressure, contraception, weightLoss, travelClinic); secondary
+  categories Travel clinic, Weight loss service, Vaccination centre.
+- hasApp false; the pack claims no app.
+- Post A link is the branch pfLink, the branch's own generated page.
+- All four post links point at pages this repo generates.
+
+Mechanical checks:
+- Description 736 characters, exactly what its heading claims.
+- Posts 449, 348, 403, 318 characters against the 1,500 limit.
+- Pure ASCII, no em dashes.
+- Post C names no medicine and makes no efficacy claim.
+- All six generators rebuilt to zero diff; all 29 checkers pass
+  before and after the edit.
+
+LIVE HALF - read-only GETs, 2026-08-12:
+- All four post targets return 200 and sit in the live sitemap:
+  pharmacy-first-cherry-lane-walton.html
+  switch-prescriptions-cherry-lane-walton.html
+  weight-loss-clinic-cherry-lane-walton.html
+  travel-clinic-cherry-lane-walton.html
+- FINDING, caveat cleared: the old weight loss page
+  weight-loss-clinic-walton.html has had its Q5 hand edit done. It now
+  serves a short signpost ("Our weight loss clinic has moved to a new
+  page...") linking the new Weight Loss Clinic page, with no medicine
+  names (checked against the POM list: Mounjaro, Wegovy, Orlistat,
+  tirzepatide, semaglutide, Saxenda, liraglutide, Ozempic, GLP-1), no
+  pricing, no Buy Now. URL stays live and in the sitemap, which is what
+  Q5 decided (keep the rank, remove the exposure). The pack's caveat
+  saying the page was "still live with POM content pending the Q5 hand
+  edit" was therefore stale - that is the in-repo defect this pass
+  fixed. Note: this page is Q5 scope, not one of the five Q16/Q22
+  template pages, which sit on other branches.
+- CAVEAT STILL HOLDS: the live Pharmacy First page still shows five
+  conditions as "coming soon" (five occurrences in the served HTML)
+  although all seven are live. The stale-embed repaste note stays.
+- Old page title now "Weight Loss Support at Cherry Lane Pharmacy |
+  Walton L4, Liverpool" - support wording, no treatment claim.
+
+CHANGES MADE:
+- gbp-packs/cherry-lane-walton.md: caveat paragraph updated to record
+  the old weight loss page caveat cleared with date and evidence; the
+  Pharmacy First stale-embed caveat and the "Post C links only the new
+  page" instruction kept.
+- AGENT_WORKLIST.md: second quality-pass note appended to item 4.2.
+
+OPEN: Q40 (what the Cherry Lane Google listing should be called)
+remains open with Rishi. No new question raised this pass.

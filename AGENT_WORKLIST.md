@@ -380,6 +380,15 @@ Pharmacy First wording to the NHS service description.
       caught it, and the copy corrected to St Michael's. Q40 asks what the
       Cherry Lane Google listing should actually be called, a decision the
       pack itself deferred on 2026-08-04 and nobody has taken since.
+      Quality pass 2026-08-12 (second): pack still clean fact by fact
+      against branches.json; all six generators rebuild to zero diff and
+      all 29 checkers pass; the four post targets and the sitemap all
+      verified live. One of the two live caveats has cleared: the old
+      weight loss page (weight-loss-clinic-walton.html) has had its Q5
+      hand edit done - now a short signpost to the new page, no medicine
+      names, no pricing - and the pack note records this. The stale
+      Pharmacy First embed caveat still holds (five conditions shown as
+      coming soon on the live page). Q40 remains open.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
