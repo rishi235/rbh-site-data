@@ -1,0 +1,94 @@
+SK Chemists (Bootle) - item 3.8 quality pass evidence
+Run: 2026-08-12 ~09:11 BST (hundred-and-eighth run)
+Method: fresh independent extraction written for this run, no checker code
+reused. branches.json and tools/pom-names.js read as data only. Temp script
+lived outside the repo and was deleted before commit.
+
+SCOPE
+12 pages: pharmacy-first, uti, sore-throat, sinusitis, earache, impetigo,
+insect-bite, shingles, contraception, travel-clinic, weight-loss-clinic
+(modules/service/pages) and switch-prescriptions (modules/switch/pages),
+all -sk-chemists-bootle.html.
+
+RUN START STATE
+No .agent-lock, no .git/index.lock. Branch agents/audit-backlog level with
+origin, worktree clean. All 29 checkers green before any change. All seven
+generators re-run: byte-identical output except status/index.html
+(timestamp lines only, discarded), so nothing below is a pre-existing
+failure.
+
+REPO HALF: 228 CHECKS, 24 FLAGS, ALL 24 EXTRACTION ARTEFACTS, ZERO DEFECTS
+Per page: title presence, H1 count and Bootle in H1, street address,
+postcode, display phone, tel: link with own number, tel: links scanned
+against every other branch's number, candidate phone strings scanned
+against every other branch's number, foreign postcode scan (all other
+branches), foreign Google review URL scan, JSON-LD parse with PostalAddress
+and telephone matched field by field against branches.json, widget id scan
+(every 24-hex token on the page must be one of SK's five ids; all other
+branches' ids searched explicitly), POM union scan (pom-names.js, all
+lists, word-boundary, visible text), em dash outside build comments,
+non-ASCII beyond the pound sign in visible text, footer email, cross-town
+scan (every other branch's seoTown, with Bootle, Sefton and Liverpool
+excused as SK's own serviceAreaList), and paste-sheet lookup by permalink.
+
+Sheet index: 177 entries across the six SEO.md sheets; all 12 SK permalinks
+found with title and description present.
+
+THE 24 FLAGS. Two families, both artefacts of treating a Weebly embed
+fragment as a full HTML document. (1) "missing title" on all 12: the
+fragments carry no <title> tag by design; the title is a Weebly SEO
+setting held in the paste sheets, and all 12 sheet entries exist. The
+build comment in each fragment also restates its SEO title and
+description. (2) "footer email missing" on all 12: the footer is a
+Weebly site-level element, not part of the fragment; the live footer
+serves sk@rbhealth.co.uk and SK@rbhealth.co.uk (both observed on the live
+UTI page this run). Zero real defects.
+
+CLEAN RESULTS OF NOTE
+- One H1 per page, each carrying Bootle.
+- Phone 0151 944 1013 as display string and tel: link on every page; no
+  other branch's digits anywhere in any format tested.
+- Own postcode L20 5DW only. Smartts' L20 9HH (same town, same prefix)
+  appears nowhere.
+- JSON-LD PostalAddress correct field by field on every page that carries
+  it: 516 Stanley Road / Bootle / L20 5DW / Merseyside / GB, telephone
+  correct.
+- Widget ids: only SK's five (bloodPressure 66b9d608..., contraception
+  6a47976a..., pharmacyFirst 66b9d657..., weightLoss 66c86584...,
+  travelClinic 6a5bf248...). No foreign id from the estate's other
+  branches on any page.
+- POM union scan empty on all 12 pages including weight-loss-clinic and
+  its sheet strings.
+- No em dash outside build comments; no non-ASCII beyond the pound sign
+  in visible text.
+- Cross-town scan clean; only Bootle, Sefton, Liverpool present, all SK's
+  own catchment.
+- hasApp false and no app copy present (check-app-membership green, the
+  rule run 66 built for exactly this field).
+
+LIVE HALF: TWO READ-ONLY GETS ON skchemist.co.uk
+1) uti-treatment-sk-chemists-bootle.html serves the generated page:
+   correct H1 ("UTI treatment in Bootle"), women 16 to 64 cohort wording,
+   NAP (516 Stanley Road, Bootle, L20 5DW), phone as display and link,
+   hours matching branches.json (Mon-Fri 9-6, Sat Sun closed, no lunch
+   closure held or needed), footer emails in both casings. Two known
+   states observed, neither new: (a) the served title is "UTI treatment
+   in Bootle - SK Chemists - SK CHEMIST", the run 78 Weebly default
+   construction (page name plus site title), meaning SK's service page
+   SEO title fields await the queued 5.3/5.4 repaste session, the same
+   state recorded at McCanns (run 78) and Scorah; counter-case Fishlocks
+   Ainsdale serves its pasted title verbatim with no suffix. (b) the
+   switch banner close button mojibake persists, the state already
+   recorded for skchemist.co.uk as the fourth confirming site; repo
+   right, paste old.
+2) pharmacy-first-service-bootle.html (the pfLink and GBP Post A target)
+   keeps its known 5.3/Q34 faults unchanged: heading misspells the town
+   as "Bottle", pipe-and-ampersand title, US spellings (characterized,
+   recognizing, authorized). Its seven conditions and cohorts remain
+   correct against the NHS specification (AOM 1-17, impetigo 1+, insect
+   bites 1+, shingles 18+, sinusitis 12+, sore throat 5+, UTI women
+   16-64). NAP and phone correct; contact email is the nhs.net address,
+   matching branches.json nhsEmail. Waits on the item 5.3 / Q34 decision.
+
+Nothing new to raise. No question opened. No autonomous decision taken
+(no window active; none needed).

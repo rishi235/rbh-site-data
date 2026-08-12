@@ -416,6 +416,20 @@ cohorts correct. Nothing new raised. Evidence in
 audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+      Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
+      pass): all 12 SK pages re-verified by a fresh independent extraction,
+      no checker code reused. 228 checks, 24 flags, all 24 extraction
+      artefacts (fragments carry no title tag or footer email by design;
+      titles and descriptions found in the paste sheets by permalink for
+      all 12, footer email confirmed live in both casings). Zero in-repo
+      defects. Live half, two read-only GETs: UTI page serves correct H1,
+      cohort wording, NAP, phone and hours, but its title renders as page
+      name plus site title (run 78 Weebly default), so SK's service page
+      SEO title fields await the queued 5.3/5.4 repaste; switch banner
+      mojibake close button persists (already recorded, fourth site); the
+      pfLink page keeps its known 5.3/Q34 faults with all seven conditions
+      and cohorts still correct against the NHS specification. Evidence in
+      audits/sk-build-check-2026-08-12.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

@@ -2,6 +2,73 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 10:11 BST - hundred-and-eighth run - Quality pass on item 3.8,
+SK Chemists (Bootle), last verified 2026-08-11 09:34 as the sixty-sixth run
+and the oldest verification standing after run 107 refreshed 3.7. Second
+machine-era pass on this item. Clean on both halves, zero in-repo defects,
+no new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on skchemist.co.uk,
+nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification. The ageing order from the run
+headings in this log: run 107 cleared 3.7 at 09:45, leaving the
+sixty-sixth run's pass on 3.8 (2026-08-11 09:34) oldest; runs 67 to 71
+covered 3.9 to 3.13 behind it. All 29 checkers green and all seven
+generators byte-stable before any change (status/index.html timestamp
+lines only, discarded).
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 12 SK pages (10 service,
+1 weight loss, 1 switch) re-read by an independent extraction written
+fresh for this run, no code shared with the checkers; branches.json and
+pom-names.js read as data only. 228 checks, 24 flags, all 24 triaged as
+extraction artefacts, zero real defects. The two flag families are the
+fragment format itself: no <title> tag (titles live in the paste sheets,
+found by permalink for all 12 among 177 indexed entries) and no footer
+email (the footer is a Weebly site element, confirmed live in both
+casings). Clean elsewhere: one H1 per page carrying Bootle; phone 0151
+944 1013 as display and tel: link with no other branch's digits anywhere;
+own postcode L20 5DW only, with Smartts' L20 9HH (same town, same prefix)
+appearing nowhere; JSON-LD PostalAddress and telephone correct field by
+field against branches.json; only SK's five widget ids on any page, no
+foreign estate id; POM union scan empty on all 12 including the weight
+loss page; no em dash outside build comments; cross-town scan clean with
+Bootle, Sefton and Liverpool excused as SK's own catchment; hasApp false
+with no app copy, the field run 66's checker was built for.
+
+LIVE HALF, TWO READ-ONLY GETS. uti-treatment-sk-chemists-bootle.html
+serves the generated page with correct H1, women 16 to 64 cohort wording,
+NAP, phone as display and link, hours matching branches.json and the
+footer email in both casings. Two known states, neither new: the served
+title is page name plus site title (" - SK CHEMIST" suffix), the run 78
+Weebly default construction recorded at McCanns and Scorah, meaning SK's
+service page SEO title fields await the queued 5.3/5.4 repaste session
+(counter-case Fishlocks Ainsdale still serves its pasted title verbatim);
+and the switch banner mojibake close button persists, skchemist.co.uk
+having already been recorded as the fourth confirming site - repo right,
+paste old. pharmacy-first-service-bootle.html, the pfLink and GBP Post A
+target, keeps its known 5.3/Q34 faults unchanged ("Bottle" heading,
+pipe-and-ampersand title, US spellings); its seven conditions and cohorts
+remain correct against the NHS specification and its NAP, phone and
+nhs.net contact email are correct. Nothing new to raise and nothing
+autonomous to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (quality-pass note under item 3.8),
+AGENT_LOG.md, audits/sk-build-check-2026-08-12.txt (new evidence file).
+No generator input changed; regeneration confirmed zero diff
+(status/index.html timestamp only, discarded). Temp verification script
+deleted before commit.
+
 ## 2026-08-12 09:45 BST - hundred-and-seventh run - Quality pass on item 3.7,
 Smartts Chemist (Bootle), last verified 2026-08-11 09:04 as the sixty-fifth
 run and the oldest verification standing after run 106 refreshed 3.6. Third
