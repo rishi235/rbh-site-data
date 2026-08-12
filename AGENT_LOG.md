@@ -2,6 +2,75 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 11:40 BST - hundred-and-thirteenth run - Quality pass on item
+3.13, Clear Chemist (Aintree), last verified 2026-08-11 12:47 as the
+seventy-first run and the oldest verification standing after run 112
+refreshed 3.12. Second machine-era pass on this item. Repo half clean,
+zero in-repo defects, live half reconfirmed two known states, no new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on clearchemist.co.uk,
+one tab opened and closed, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification: run 112 refreshed 3.12, leaving the
+seventy-first run's pass on 3.13 (2026-08-11 12:47) oldest. All 29
+checkers green before any change. All seven generators rebuilt; page
+outputs byte-identical; status/index.html regenerated with expected
+differences only (its own timestamp plus the run 112 log content it
+embeds, which the committed copy predates) and was reverted, matching
+runs 108 to 112.
+
+REPO HALF CLEAN, VERIFIED BY A FRESH ROUTE. All 3 Clear pages (weight
+loss, travel clinic, switch) re-read by an independent extraction written
+fresh for this run, no code shared with the checkers; branches.json and
+pom-names.js read as data only. 183 check groups, three flags, all three
+artefacts of the extraction itself and not of the pages: it looked for a
+title tag inside the paste fragments, which never carry one because the
+SEO title lives in the sheet the paster keys in. The sheets were then read
+directly: WEIGHT-LOSS-SEO.md, TRAVEL-CLINIC-SEO.md and the switch SEO.md
+all carry Clear Chemist and Aintree in title, permalink and description,
+and no other branch's town, which matters here more than anywhere since
+Tiffenbergs also targets Aintree on its own domain. Everything else came
+back zero flags: one H1 per page carrying Aintree, the seoTown; Unit 20
+Brookfield Trade Centre, Brookfield Drive, Aintree, L9 7AS and
+0151 203 8365 visible with every tel: link as the branch's own unspaced
+digits and no other live branch's digits, postcode or review link anywhere,
+spacing stripped before comparison; no foreign widget id across every id
+belonging to another branch; JSON-LD parsing on all 3 and matching
+branches.json field for field including Merseyside as addressRegion,
+Liverpool as addressLocality against Aintree as the seoTown, and
+self-referencing urls on clearchemist.co.uk, with no
+openingHoursSpecification, correctly absent since Clear has no landing
+page; data-branch is Clear Chemist on all 3; POM union scan (21 names from
+pom-names.js) empty on all 3 including the weight loss page; no em dash
+outside build comments; data-wa carries 447521775631 wherever present. The
+two service pages still pin service-module-phase1 and the switch page
+still pins 6a275e1, which is what their generators declare and what Q13's
+answer will move when 5.5 unblocks.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATES ONLY. Both
+weight-loss-clinic-clear-aintree and switch-prescriptions-clear-aintree
+return the store's 404 page. That is Q29, open and unchanged: Clear's site
+is the e-commerce store, not Weebly, so the three generated pages have no
+paste route and have never been live at these slugs. The same 404 page
+publishes 0151 203 6535 as the contact number against branches.json's
+0151 203 8365, which is Q28, open and unchanged. Both live findings sit
+under open questions, so neither was re-raised.
+
+FILES CHANGED. AGENT_LOG.md only. No page output changed, no worklist
+change (quality pass on a completed item), QUESTIONS.json untouched at 33
+open. Status page republished via tools\build-audit-status.js.
+
 ## 2026-08-12 11:12 BST - hundred-and-twelfth run - Quality pass on item
 3.12, Tiffenbergs Chemist (Aintree), last verified 2026-08-11 11:34 as the
 seventieth run and the oldest verification standing after run 111
