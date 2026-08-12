@@ -1067,6 +1067,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       and the switch page still carries the og:description em dash, all
       covered by the queued repaste. No new question: every finding lands
       on a decision already made.
+      Third quality pass 2026-08-12. Both halves performed. Repo half
+      clean for the third run: every fact re-verified against
+      branches.json and the four counts came back byte-identical to both
+      earlier passes (description 631, posts 456, 321, 528 and 433), so
+      the pack is stable across three passes. Zero non-ASCII, zero dash
+      characters, zero dash entities. The medicine-name test was widened
+      this pass: previous runs measured against the 21-name weight loss
+      group, this one measured against the full 82-name union of all five
+      groups in tools/pom-names.js, still zero. All 29 checkers exit 0;
+      the 9 WARNs naming this branch are the two known classes, the
+      live-only pfLink target and the 8 Q44 H1s shared with Cherry Lane,
+      both the checker working rather than a defect. The "Vaccination
+      centre" category was queried and cleared: all 15 packs and
+      TEMPLATE.md carry it, so it is the template position, not an
+      outlier. The 39.99 consultation fee on the generated weight loss
+      page was queried against the weight loss standards and cleared:
+      RULE 7 in
+      check-weight-loss-copy.js fixes it at exactly three placements with
+      the indicative-pricing sentence beside it, and
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md distinguishes that from the old
+      page's above-the-fold lead price, which was the breach. One in-repo
+      defect found and fixed: the pack's own paster note claimed every
+      page on the live site reads "Coleman & Leigh Pharmacy" in title and
+      body copy, and the live read shows that overstates it. The homepage
+      title, H1 and body already read the confirmed name, as does the
+      address block on every page; the header banner, navigation, the
+      four inner service pages and the footer still read the old name.
+      The note now records the mixed state and sizes the repaste
+      accordingly. Live: pfLink still 404 on 2026-08-12 so the hard stop
+      stands; Posts B, C and D all resolve for the third consecutive day;
+      all 12 Coleman pages in the repo carry the confirmed name with zero
+      ampersand versions and zero dashes, so the repo needs no edit, only
+      pasting. The homepage carries the Q22 estate-wide weight loss
+      tagline, making Coleman the fourth branch confirming it after
+      Smartts, Riddings and SK Chemists, and it narrows Q22 usefully:
+      Coleman's BOOK NOW WEIGHT LOSS CLINIC button lands on the clean
+      repo-generated page, not a Mounjaro page, so here the homepage line
+      is the whole of the exposure. No new question: every finding lands
+      on a decision already made. Done 2026-08-12.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

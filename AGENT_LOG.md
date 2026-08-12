@@ -2,6 +2,142 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 17:04 BST - hundred-and-twenty-fourth run - Quality pass on
+item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack, last verified
+2026-08-11 20:41 and the oldest verification standing among completed
+items after run 123 refreshed 4.10. Third pass on this item. Both halves
+performed. Repo half found and fixed one in-repo defect; live half
+performed in full and makes a fresh 2026-08-12 claim.
+
+ANSWER PICKUP WORKED THIS RUN, which is the first time in four runs. Runs
+121, 122 and 123 all logged pickup unavailable because two Chrome
+instances were connected and the browser tooling wanted a choice. This run
+a tab opened against https://data.rbhealth.co.uk/api/feedback first time,
+read-only, nothing clicked, typed or submitted. The endpoint returned
+answers for Q2, Q3, Q4, Q5, Q13, Q14, Q15 and Q16 only, every one of them
+already recorded. No answer exists for any of the 33 open questions, so
+nothing was unblocked and nothing changed. 33 open before and after
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57). Worth knowing that the route is
+working again, so the blockage in runs 121 to 123 was local tooling, not
+the portal.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process.
+Branch level with origin at dced8e9, worktree clean. All five unchecked
+items still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1), so a quality pass.
+
+SELECTION, RE-DERIVED NOT INHERITED. All 161 run headings in this log were
+parsed and each item's most recent verification recorded, then sorted, so
+the ageing order comes from the log rather than from run 123's summary.
+The worklist parses to 46 numbered items, 5 blocked and 41 complete. That
+gives 4.12 at 2026-08-11 20:41 as the oldest standing among completed
+items. Items 5.8 (2026-08-10 16:35) and 6.1 (2026-08-11 15:55) carry older
+stamps but are blocked and incomplete, so neither is a candidate. One
+correction to the bookkeeping: the parse threw up a phantom item "3.49"
+dated 2026-08-07, which is a number in body text and not a worklist item
+at all. The worklist item numbers were listed out in full to confirm it,
+and there is no 3.49. Run 123's count of "37 complete, 5 blocked" also
+does not reconcile with the 46 numbered items the file actually holds;
+this run's figures come from parsing the worklist directly.
+
+REPO HALF. Every fact re-verified against the colemanleigh_liverpool
+entry: name Coleman and Leighs Pharmacy, address 241 Walton Village,
+Liverpool L4 6TH, phone 0151 525 3522, website, review link, catchment
+Walton, Liverpool and Sefton leading with its own seoTown, hasApp false so
+the pack's no-app-mention rule is right, and pfBooking true so Post A's
+"book or just walk in" is allowed. Hours state both sessions (09:00 to
+13:00 and 14:00 to 18:00) and both closed days, matching the NHS-confirmed
+specification including the lunch closure, and the split-day paster
+guidance is present. Counts CRLF-normalised: description 631, exactly what
+its heading claims against a 750 limit, and posts 456, 321, 528 and 433
+body only, identical to both earlier passes, so the pack is byte-stable
+across three passes. Zero non-ASCII, zero dash characters, zero dash
+entities, zero smart quotes. All 29 checkers exit 0.
+
+TWO THINGS QUERIED AND CLEARED RATHER THAN ASSUMED. First, the pack lists
+a "Vaccination centre" GBP category while branches.json holds no
+vaccination widget. Checked across the whole pack set: all 15 packs and
+TEMPLATE.md carry it, so it is the template position and not an outlier
+here. Second, the generated weight loss page carries a 39.99 consultation
+fee, and an above-the-fold lead price of the same number is one of the
+breach elements WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md records against the
+five OLD pages. Read properly, the two are not the same thing: RULE 7 in
+check-weight-loss-copy.js fixes the fee at exactly three placements, the
+booking sub, the how-it-works step and the cost FAQ, requires the
+indicative-pricing sentence beside it, bars price-led wording and bars a
+price against the medicine rather than the consultation. The Coleman page
+has exactly those three, carries the disclaimer, names no medicine and
+makes no outcome claim, and the assessment itself clears the new pages at
+line 248. No defect, and no question raised, because the repo has already
+reasoned this through and written it down.
+
+A MEASUREMENT WIDENED. Earlier runs recorded "zero medicine names against
+all 21 in tools/pom-names.js", which is the WEIGHT_LOSS group alone. That
+file actually exports five groups and a union() helper totalling 82 names.
+A first attempt here to read the module as a flat array returned an empty
+list, which would have made the whole check vacuous and reported a false
+clean. The module was read, the export shape corrected, and the pack
+measured against the full 82-name union using the file's own word-boundary
+findMedicine(). Still zero. Future passes should measure against the union
+rather than the 21.
+
+IN-REPO DEFECT FOUND AND FIXED. The pack's own paster note asserted that
+"Every page on colemanandleighspharmacy.co.uk reads 'Coleman & Leigh
+Pharmacy' in its title and its body copy". The live read shows that
+overstates the problem. The homepage title, H1 and body copy already read
+the confirmed "Coleman and Leighs Pharmacy", and so does the address block
+carried on every page. What still reads the old name is the header banner,
+the top navigation, the titles and headings of the four inner service
+pages, and the one-line footer, so the site publishes both names at once
+and sometimes on the same page. This matters practically: it is the
+difference between a whole-site rename and a repaste of the service pages
+plus the shared header and footer. The note was corrected and now sizes
+the repaste, and a dated name-state paragraph was added near the top of
+the pack. Same class of defect as the run 115 finding, where a sweep's own
+summary overstated its scope.
+
+LIVE HALF, PERFORMED IN FULL, READ ONLY. Six URLs fetched 2026-08-12,
+nothing clicked, typed or submitted. Post A's pfLink
+pharmacy-first-service-walton.html still returns the 404 page, so the
+first pass's hard stop stands into a third day. Posts B, C and D all
+resolve for the third consecutive day. The replacement page
+pharmacy-first-coleman-leigh-walton.html is live, in navigation and still
+the stale-name paste. The switch page still shows the em dash item 5.1
+removed at source, arriving mis-encoded, which is the stale paste showing
+through. Homepage NAP correct: 0151 525 3522, address and postcode all
+present. All 12 Coleman pages in this repo were measured the same day and
+every one carries the confirmed name with zero ampersand versions and zero
+dash characters of any kind, so the repo side needs no edit, only pasting.
+
+Q22 STRENGTHENED AND NARROWED. The Coleman homepage carries the estate-
+wide weight loss line "Weight Loss Clinic: Innovative solutions that
+deliver results. Tried the rest? Now try the best." Q22 had verified it at
+Smartts, Riddings and SK Chemists; Coleman is a fourth branch and the line
+is identical, which further supports Q22's reading that it is a shared
+homepage template rather than a symptom of the old pages. It also narrows
+the exposure usefully. Q22 notes that at the five old-page branches the
+"BOOK NOW WEIGHT LOSS CLINIC" call to action lands on the Mounjaro page.
+Coleman is not one of the five: its button lands on the clean
+repo-generated page, which names no medicine and makes no outcome claim.
+So at Coleman the homepage line is the whole of the exposure, and fixing
+that one shared line fixes this branch outright. No new question, because
+Q22 already holds the decision and this is evidence for it, not a new
+matter. It stays open.
+
+NO NEW QUESTION THIS RUN. Every live finding lands on a decision already
+made: the 404 and the stale pastes on 5.3 under Q8, the homepage tagline
+on Q22, the shared H1s on Q44. 33 questions open, unchanged.
+
+FILES CHANGED. gbp-packs/coleman-leigh-walton.md (paster note corrected,
+dated name-state paragraph added, three live-check dates advanced to
+2026-08-12), AGENT_WORKLIST.md (4.12 third-pass note appended in place),
+AGENT_LOG.md (this entry). All 29 checkers re-run after the edits and all
+still exit 0, with description still measuring 631 and the pack still pure
+ASCII with zero dashes and zero medicine names.
+
 ## 2026-08-12 16:45 BST - hundred-and-twenty-third run [commit 52c260e,
 hash recorded in this follow-up commit] - Quality pass on
 item 4.10, the Smartts Chemist Bootle GBP pack, last verified 2026-08-11
