@@ -2,6 +2,64 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 14:12 BST - hundred-and-eighteenth run - Quality pass on
+item 6.3, opening hours on the live estate vs branches.json, last
+verified 2026-08-11 17:40 as the seventy-fifth run and the oldest
+verification standing after run 117 refreshed 5.6 (next in age: 5.7 from
+run 78 at 18:10). First quality pass on this item since it completed. No
+defect found in either half; verdicts identical to run 75.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the 33 open questions
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33
+after. Browser use read-only throughout: one tab opened for the pickup
+and closed after; nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so
+quality pass on the oldest standing verification.
+
+REPO HALF, CLEAN. All 28 static checkers green before any change
+(check-live-hours.js is the live tool, run separately below). All seven
+generators reproduced every page byte-identical (status/index.html
+regenerated with its own timestamp plus newer log content only and was
+reverted, matching runs 108 to 117). check-opening-hours.js green, so
+the generated pages agree with branches.json; the question is only ever
+the hand-typed Weebly estate.
+
+LIVE HALF, READ-ONLY, VERDICTS UNCHANGED. tools/check-live-hours.js
+re-run as built by run 75: GET only, sitemap-guided, one fetch pass per
+host shared across shared-domain branches, snippets recorded without
+verdicts. Verdicts made by reading the snippets, all 14 trading
+branches. Matches, thirteen: Scorah Bramhall, Scorah Hazel Grove,
+McCanns Aigburth, McCanns Sandringham, Fishlocks Ainsdale, Fishlocks
+Eccleston, Hirshmans, SK Chemists, Coleman and Leigh, Riddings (control,
+still correct), Gordon Shorts, Cherry Lane, Tiffenbergs. The three
+lunch-closure branches besides Smartts still phrase the split day as
+"9:00am - 6:00pm (closed 1-2pm)", counted as a match. Shared-domain
+ambiguity was easier this pass: the Scorah footer carries explicitly
+labelled per-branch lines ("Bramhall opening hours: Mon-Fri 9am-6pm, Sat
+9am-1pm, Sun closed | Hazel Grove ... Sat & Sun closed"), so no
+raw-order check was needed; McCanns and Fishlocks cards tied to branches
+by adjacent addresses, both correct. Mismatch, Smartts only: homepage
+hours card, contact page ("Weekdays / 09:00 - ...") and site footer all
+still say Mon-Fri 9am-6pm straight through against the NHS-sourced
+09:00-13:00 / 14:00-18:00. Q55 stands exactly as raised, still open,
+recommended fix unchanged (live Weebly edit to the same "(closed 1-2pm)"
+wording the other three use). No new question needed. Evidence:
+audits/live-hours-check-2026-08-12.json.
+
+FILES CHANGED. audits/live-hours-check-2026-08-12.json (new),
+AGENT_WORKLIST.md (quality pass note under 6.3), AGENT_LOG.md (this
+entry). QUESTIONS.json untouched at 33 open. Status page republished via
+tools\build-audit-status.js.
+
 ## 2026-08-12 13:38 BST - hundred-and-seventeenth run - Quality pass on
 item 5.6, the Q14 length-aware title rule, last verified 2026-08-11 17:37
 as the seventy-seventh run and the oldest verification standing after run

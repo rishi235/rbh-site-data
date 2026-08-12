@@ -1616,6 +1616,20 @@ so tools/build-audit-status.js picks them up like any other item.
       Tiffenbergs, then the rest of the 14. Log a question per branch with a
       mismatch rather than fixing silently, since the fix is live-only copy.
       Done 2026-08-11
+      Quality pass 2026-08-12: re-ran tools/check-live-hours.js read-only
+      across all 14 trading branches (evidence
+      audits/live-hours-check-2026-08-12.json) and read every snippet
+      against branches.json. Verdicts unchanged from 2026-08-11: thirteen
+      match, Smartts is still the sole mismatch (homepage hours card,
+      contact page and site footer all say Mon-Fri 9am-6pm straight
+      through against the NHS-sourced lunch closure), so Q55 stands as
+      raised and stays open. The Scorah footer carries explicitly
+      labelled per-branch hours lines (Bramhall Sat 9am-1pm, Hazel Grove
+      Sat and Sun closed), read directly this time without needing the
+      raw-order check; the Fishlocks and McCanns cards were tied to
+      branches by their adjacent addresses as before, both correct.
+      check-opening-hours.js green in the repo half. No in-repo defect
+      found.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
