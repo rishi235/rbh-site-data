@@ -1,0 +1,369 @@
+﻿Hirshmans Chemist Ainsdale - item 3.5 quality pass, third verification
+Date: 2026-08-12  Run: hundred-and-fifth
+Method: independent extraction written fresh for this run, no checker code reused.
+branches.json, tools/pom-names.js and tools/claim-patterns.js read as data only.
+
+OK   page count 12 (expect 12: 11 service + 1 switch)
+OK   contraception-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   contraception-hirshmans-ainsdale.html: H1 carries Ainsdale: "NHS contraception service in Ainsdale"
+OK   contraception-hirshmans-ainsdale.html: SEO title carries Ainsdale: "NHS contraception service in Ainsdale - Hirshmans Chemist"
+OK   contraception-hirshmans-ainsdale.html: description 152 chars (120-160)
+OK   contraception-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   contraception-hirshmans-ainsdale.html: tel: link present
+OK   contraception-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   contraception-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   contraception-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   contraception-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   contraception-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   contraception-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   contraception-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   contraception-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   contraception-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   contraception-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   contraception-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   contraception-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   contraception-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   contraception-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   contraception-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   contraception-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   contraception-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   contraception-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   contraception-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   contraception-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   contraception-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   contraception-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   contraception-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   contraception-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   earache-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   earache-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Earache treatment for children in Ainsdale"
+OK   earache-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Earache treatment in Ainsdale - Hirshmans Chemist"
+OK   earache-treatment-hirshmans-ainsdale.html: description 143 chars (120-160)
+OK   earache-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   earache-treatment-hirshmans-ainsdale.html: tel: link present
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   earache-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   earache-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   earache-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   earache-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   earache-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   earache-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   impetigo-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   impetigo-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Impetigo treatment in Ainsdale"
+OK   impetigo-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Impetigo treatment in Ainsdale - Hirshmans Chemist"
+OK   impetigo-treatment-hirshmans-ainsdale.html: description 144 chars (120-160)
+OK   impetigo-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   impetigo-treatment-hirshmans-ainsdale.html: tel: link present
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   impetigo-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   impetigo-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   impetigo-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   impetigo-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   impetigo-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   impetigo-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   insect-bite-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Infected insect bite treatment in Ainsdale"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Infected insect bite treatment in Ainsdale - Hirshmans Chemist"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: description 156 chars (120-160)
+OK   insect-bite-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   insect-bite-treatment-hirshmans-ainsdale.html: tel: link present
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   insect-bite-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   insect-bite-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   insect-bite-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   insect-bite-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   insect-bite-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   pharmacy-first-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   pharmacy-first-hirshmans-ainsdale.html: H1 carries Ainsdale: "Pharmacy First at Hirshmans Chemist in Ainsdale"
+OK   pharmacy-first-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Pharmacy First at Hirshmans Chemist, Ainsdale"
+OK   pharmacy-first-hirshmans-ainsdale.html: description 148 chars (120-160)
+OK   pharmacy-first-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   pharmacy-first-hirshmans-ainsdale.html: tel: link present
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   pharmacy-first-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   pharmacy-first-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   pharmacy-first-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   pharmacy-first-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   pharmacy-first-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   pharmacy-first-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   shingles-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   shingles-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Shingles treatment in Ainsdale"
+OK   shingles-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Shingles treatment in Ainsdale - Hirshmans Chemist"
+OK   shingles-treatment-hirshmans-ainsdale.html: description 144 chars (120-160)
+OK   shingles-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   shingles-treatment-hirshmans-ainsdale.html: tel: link present
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   shingles-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   shingles-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   shingles-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   shingles-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   shingles-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   shingles-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   sinusitis-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Sinusitis treatment in Ainsdale"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Sinusitis treatment in Ainsdale - Hirshmans Chemist"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: description 145 chars (120-160)
+OK   sinusitis-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   sinusitis-treatment-hirshmans-ainsdale.html: tel: link present
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   sinusitis-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   sinusitis-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   sinusitis-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   sinusitis-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   sinusitis-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   sore-throat-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "Sore throat treatment in Ainsdale"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Sore throat treatment in Ainsdale - Hirshmans Chemist"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: description 147 chars (120-160)
+OK   sore-throat-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   sore-throat-treatment-hirshmans-ainsdale.html: tel: link present
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   sore-throat-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   sore-throat-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   sore-throat-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   sore-throat-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   sore-throat-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   travel-clinic-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   travel-clinic-hirshmans-ainsdale.html: H1 carries Ainsdale: "Travel Clinic at Hirshmans Chemist in Ainsdale"
+OK   travel-clinic-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Travel Clinic at Hirshmans Chemist, Ainsdale"
+OK   travel-clinic-hirshmans-ainsdale.html: description 139 chars (120-160)
+OK   travel-clinic-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   travel-clinic-hirshmans-ainsdale.html: tel: link present
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   travel-clinic-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   travel-clinic-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   travel-clinic-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   travel-clinic-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   travel-clinic-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   travel-clinic-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   uti-treatment-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   uti-treatment-hirshmans-ainsdale.html: H1 carries Ainsdale: "UTI treatment in Ainsdale"
+OK   uti-treatment-hirshmans-ainsdale.html: SEO title carries Ainsdale: "UTI treatment in Ainsdale - Hirshmans Chemist"
+OK   uti-treatment-hirshmans-ainsdale.html: description 139 chars (120-160)
+OK   uti-treatment-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   uti-treatment-hirshmans-ainsdale.html: tel: link present
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   uti-treatment-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   uti-treatment-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   uti-treatment-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   uti-treatment-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   uti-treatment-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   uti-treatment-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   weight-loss-clinic-hirshmans-ainsdale.html: H1 carries Ainsdale: "Weight Loss Clinic at Hirshmans Chemist in Ainsdale"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Weight Loss Clinic at Hirshmans Chemist, Ainsdale"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: description 137 chars (120-160)
+OK   weight-loss-clinic-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   weight-loss-clinic-hirshmans-ainsdale.html: tel: link present
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   weight-loss-clinic-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   weight-loss-clinic-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   weight-loss-clinic-hirshmans-ainsdale.html: CDN pin service-module-phase1
+OK   weight-loss-clinic-hirshmans-ainsdale.html: pin is service-module-phase1 (expect service-module-phase1)
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   weight-loss-clinic-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+INFO weight-loss-clinic-hirshmans-ainsdale.html: POM name list size scanned = 82
+OK   switch-prescriptions-hirshmans-ainsdale.html: exactly one H1 (found 1)
+OK   switch-prescriptions-hirshmans-ainsdale.html: H1 carries Ainsdale: "Switch your prescriptions to Hirshmans Chemist in Ainsdale in under 30 seconds"
+OK   switch-prescriptions-hirshmans-ainsdale.html: SEO title carries Ainsdale: "Switch Your Prescriptions to Hirshmans Chemist, Ainsdale"
+OK   switch-prescriptions-hirshmans-ainsdale.html: description 141 chars (120-160)
+OK   switch-prescriptions-hirshmans-ainsdale.html: display phone 01704 577376 present
+OK   switch-prescriptions-hirshmans-ainsdale.html: tel: link present
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone scorah_bramhall
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone scorah_hazel
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone mccanns_aigburth
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone mccanns_sandringham
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone fishlocks_ainsdale
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone fishlocks_eccleston
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone clearchemist_aintree
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone smartts_bootle
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone skchemists_bootle
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone colemanleigh_liverpool
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone riddings_timperley
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone gordonshorts_crosby
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone cherrylane_liverpool
+OK   switch-prescriptions-hirshmans-ainsdale.html: no foreign phone tiffenbergs_longmoor
+OK   switch-prescriptions-hirshmans-ainsdale.html: postcodes PR8 3HW (only PR8 3HW allowed)
+OK   switch-prescriptions-hirshmans-ainsdale.html: no hard-coded widget id (found none)
+OK   switch-prescriptions-hirshmans-ainsdale.html: CDN pin 6a275e1
+OK   switch-prescriptions-hirshmans-ainsdale.html: pin is 6a275e1 (expect 6a275e1)
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD streetAddress "56-62 Sherwood House, Station Road"
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD addressLocality "Ainsdale"
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD postalCode "PR8 3HW"
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD addressRegion "Merseyside"
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD addressCountry "GB"
+OK   switch-prescriptions-hirshmans-ainsdale.html: JSON-LD telephone "01704 577376"
+
+=== SUMMARY: ALL CLEAN ===

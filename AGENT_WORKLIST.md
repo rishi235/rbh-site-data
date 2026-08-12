@@ -319,6 +319,23 @@ across all 14 branches, so nothing was wrong; it was simply unpinned. New
 tools/check-pharmacy-first-eligibility.js makes it a rule, 8 rules over the
 generator and the pages, proven by 8 negative tests. Q46 raised on whether the
 earache title should carry the cohort the H1 already carries.
+Quality pass 2026-08-12 (third): all 12 Hirshmans pages re-verified by an
+independent extraction written fresh for this run, no checker code reused.
+350 checks, zero failures: one H1 per page carrying Ainsdale, titles and
+descriptions on pattern (descriptions 137 to 156 characters), display phone
+01704 577376 and tel: link on all 12 with no other branch's phone digits
+anywhere, PR8 3HW the only postcode, no other branch's town in any page text,
+JSON-LD address correct field by field against branches.json, no hard-coded
+widget id, service pages pinned service-module-phase1 and the switch page
+6a275e1. POM scan (82 names) and claim-pattern scan clean on all 12 including
+the weight loss page. All seven generators rebuilt byte-identical, all 29
+checkers pass. Live half, two read-only GETs: the generated UTI page serves
+the exact pattern title, H1, NAP, hours and the correct FW378 nhs.net footer
+email; the old hand-built pharmacy-first-service-ainsdale.html still carries
+its known faults (017014577376 non-dialling phone, 64 Station Road, Hirshmans
+Pharmacy branding, US spellings), all already recorded in the GBP pack's Post
+A HARD STOP and Q41's note, nothing new to raise. Evidence in
+audits/hirshmans-build-check-2026-08-12-third.txt. No in-repo defect found.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.

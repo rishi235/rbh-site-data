@@ -2,6 +2,66 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 07:40 BST - hundred-and-fifth run - Quality pass on item 3.5,
+Hirshmans Chemist (Ainsdale), last verified 2026-08-11 as the sixty-third
+run and the oldest verification standing after run 104 refreshed 3.4. Third
+pass on this item. Clean on both halves, no in-repo defect found, no new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+hirshmanspharmacy.co.uk, nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification, which run 104's ageing order
+left as 3.5 (run 63, 2026-08-11). Run 92's header named no item in its
+first line; read in full it covered 4.2, so the order stands.
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 12 Hirshmans pages
+(11 service, 1 switch) re-read by an independent extraction written fresh
+for this run, no code shared with the checkers; branches.json,
+pom-names.js and claim-patterns.js read as data only. 350 checks, zero
+failures. Exactly one H1 per page and every title, description and H1
+carries Ainsdale, descriptions 137 to 156 characters, the branch phone
+01704 577376 as both display string and tel: link on all 12 and no other
+branch's phone digits anywhere, postcode PR8 3HW only, whole-page scan
+finds no other branch's town (Ainsdale, Birkdale and Southport excused as
+the branch's own catchment), JSON-LD address correct field by field
+against branches.json on all 12 including telephone, no hard-coded widget
+id on any page, service pages pinned service-module-phase1 and the switch
+page 6a275e1 as their generators declare. The POM scan (82 names) and the
+house claim-pattern scan come back empty on all 12 pages including the
+weight loss clinic page. All 29 checkers pass. All seven generators
+rebuilt byte-identical (status/index.html timestamp only, discarded
+before the extraction ran).
+
+LIVE HALF, TWO READ-ONLY GETS. uti-treatment-hirshmans-ainsdale.html
+serves the exact pattern title and H1, correct NAP (56-62 Sherwood House,
+Station Road, Ainsdale, PR8 3HW), the branch phone as display and link,
+hours matching the branches.json specification to the minute including
+the lunch closure, and the correct pharmacy.FW378@nhs.net footer. The old
+hand-built pharmacy-first-service-ainsdale.html, the current pfLink and
+GBP Post A target, still carries every fault already on record: the
+twelve-digit phone that does not dial (017014577376), 64 Station Road,
+the old Hirshmans Pharmacy branding, the pipe-and-ampersand title and US
+spellings. All of it is already captured in the GBP pack's Post A HARD
+STOP (checked live 2026-08-12), Q41's extended note and the run 96 and 98
+audit files, and the repoint waits on the item 5.3 decision, so nothing
+new to raise and nothing autonomous to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (third quality pass note under item
+3.5), AGENT_LOG.md, audits/hirshmans-build-check-2026-08-12-third.txt
+(new evidence file). No generator input changed; regeneration confirmed
+zero diff. Temp verification script deleted before commit.
+
 ## 2026-08-12 07:11 BST - hundred-and-fourth run - Quality pass on item 3.4,
 Cherry Lane Pharmacy (Walton), last verified 2026-08-11 as the sixty-second
 run and the oldest verification standing after run 103 refreshed 3.3. Third
