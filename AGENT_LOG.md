@@ -99,7 +99,8 @@ instance.
 
 Files changed: tools/check-branch-identity.js, audits/
 cherry-lane-item-2.3-quality-pass-2026-08-12-run130.txt, AGENT_WORKLIST.md,
-AGENT_LOG.md. No page, copy or data change. Commit COMMIT_HASH_PLACEHOLDER.
+AGENT_LOG.md. No page, copy or data change. Commit 937c8c0, with this hash
+recorded in the follow-up commit.
 
 FILENAME NEAR MISS, WORTH RECORDING AS METHOD. This run first wrote its
 evidence to audits/cherry-lane-build-check-2026-08-12-third.txt, the name the
