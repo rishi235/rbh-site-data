@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 01:11 BST - ninety-second run [commit hash recorded in a
-follow-up commit] - Quality pass on item 4.2, the Cherry Lane Pharmacy
+## 2026-08-12 01:11 BST - ninety-second run [commit 36473b9, hash
+recorded in this follow-up commit] - Quality pass on item 4.2, the Cherry Lane Pharmacy
 GBP pack, last verified 2026-08-11 01:35 as the fiftieth run and the
 oldest verification standing after runs 51 onwards cleared everything
 later. Second pass on this item. Pack clean fact by fact; one in-repo
