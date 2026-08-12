@@ -246,3 +246,64 @@ Two corrections to how Q16 put it:
 Nothing in this repo carries any of the copy assessed above except the one
 switch page tile named. All 177 generated weight loss pages remain clean: no
 POM names, no efficacy claims, eligibility split and pricing caveat present.
+
+## CORRECTION 2026-08-12: SK Chemists Bootle is not a control at all
+
+Found on the quality pass of item 4.11, run 127, reading live and read only.
+
+The "What was read, and when" section above lists
+
+    www.skchemist.co.uk (homepage, as a control branch with no old page)
+
+and the count of five branches carrying the old template rests on that. The
+premise is wrong. Only the SK homepage was read on 2026-08-10. The SK sitemap
+was not, and it lists a legacy page that was never opened:
+
+    https://www.skchemist.co.uk/weight-loss-clinic.html
+
+Read on 2026-08-12, that page is the same old template word for word, carrying
+every element assessed above: the "Real Results with Mounjaro" heading
+(element 1), the "one of the most effective weight loss treatments available"
+superlative (element 2), the outcome slider returning "up to 26kg (22.5% of
+your body weight)" from the visitor's own start weight (element 3), the
+72-week trial sentence in the same promotional setting (element 4), "Ready to
+start your transformation?", the Wegovy / Mounjaro / Orlistat treatment picker,
+and the lead price "From £39.99 including your consultation."
+
+So the scope is SEVEN branches, not five: the original Smartts Bootle, Gordon
+Short Crosby, Tiffenbergs Aintree, Riddings Timperley and Coleman and Leighs
+Walton, plus Fishlocks Eccleston and Ainsdale added the same day by Q57, plus
+SK Chemists Bootle added here by Q58.
+
+SK also sits in the stricter regime, more clearly than the others. Read from
+the live SK homepage on 2026-08-12, two homepage links point INTO the legacy
+page:
+
+    top nav   "Weight Loss Clinic"        ->  /weight-loss-clinic.html
+    body tile  (unlabelled link)          ->  /weight-loss-clinic.html
+
+while the compliant branch page sits behind a separate, differently labelled
+nav entry:
+
+    top nav   "Weight Loss Clinic (Bootle)"
+                                          ->  /weight-loss-clinic-sk-chemists-bootle.html
+
+A page a button proactively links to is regime 1, near-total prohibition, where
+naming Mounjaro, Wegovy or Orlistat is not permitted at all. The regime 2
+inner-page exemption does not reach the SK legacy page while the homepage nav
+points at it. On SK, therefore, the regime 1 argument does not depend on
+establishing ad spend, which the section above records as the fact that could
+not be established. The homepage link is enough on its own.
+
+Both SK weight loss pages are in the branch sitemap, so SK is additionally
+publishing two pages for one service.
+
+Nothing was edited on any live page and no weight loss copy was changed. This
+is a live patient-facing regulatory claim involving medicine names and efficacy
+claims, which an unattended run may not decide for itself. Raised as Q58.
+
+Worth re-testing when 5.8 is unblocked: the five original branches were
+assessed the same way SK was, from the inner page and the homepage. If SK's
+old page was missed by not reading the sitemap, the same method may have missed
+old pages, or homepage links into them, at other branches. The estate sweep
+should be driven from each branch sitemap, not from the homepage.

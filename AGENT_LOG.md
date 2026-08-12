@@ -2,6 +2,141 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 19:36 BST - hundred-and-twenty-seventh run [commit hash
+recorded in this run's commit] - Quality pass on item 4.11, the SK
+Chemists Bootle GBP pack, last verified 2026-08-11 22:40 and the oldest
+verification standing among completed items. Third pass on this item.
+BOTH HALVES PERFORMED this run, repo and live. The pack itself is clean
+for the third consecutive pass. One new finding, outside the pack, which
+widens item 5.8 and corrects a premise the 2026-08-10 compliance
+assessment was built on.
+
+ANSWER PICKUP NOT AVAILABLE, but for a different and cleaner reason than
+runs 121 to 126. The browser tooling worked normally this run, a single
+Chrome, no ambiguity. data.rbhealth.co.uk/api/feedback returned the
+Cloudflare Access sign-in page, meaning the portal session is not
+currently signed in. Nothing was clicked, typed, submitted or logged in
+to, and no other route was attempted. 33 questions remained open going
+in; 34 now, with Q58 added below.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. It would have made no difference here in any case: the one
+decision this run surfaced is a live patient-facing regulatory claim
+involving medicine names and efficacy claims, which sits inside the
+carve-out that an autonomous window explicitly does not cover.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process.
+Branch agents/audit-backlog level with origin, worktree clean. All five
+unchecked items still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1), so a quality
+pass.
+
+SELECTION. 167 second-level headings, 156 of them dated and carrying an
+item number. Two parse corrections worth recording, both of which move
+the answer. First, item numbers must be read from the heading itself, not
+from the whole entry body, or a heading that merely discusses another
+item steals its date; reading the body is what put 5.1 at 14:04 on the
+first attempt this run. Second, the phantom "3.49" that run 124 already
+caught is still produced by any unconstrained \d+\.\d+ match, because
+run 108's entry contains the phrase "3.49 hours old". The fix is to
+validate every parsed item number against the 46 real item numbers in
+AGENT_WORKLIST.md rather than trusting the regex. On the constrained
+parse, 4.11 stands oldest at 2026-08-11 22:40, ahead of 2.2 at 23:08,
+4.15 at 23:15 and 2.3 at 23:42. This is consistent with run 126, which
+worked 4.14 at 22:15, the entry immediately before it.
+
+REPO HALF. Every pack fact re-verified against the skchemists_bootle
+entry: name SK Chemists, 516 Stanley Road, Bootle L20 5DW, addressRegion
+Merseyside, seoTown Bootle, phone 0151 944 1013, website, Google review
+link, ods FH575, nhsEmail pharmacy.FH575@nhs.net, hasApp false, pfBooking
+true so Post A's "book or just walk in" is allowed, and pfLink matching
+the URL Post A points at. Hours are the single Monday to Friday session
+09:00 to 18:00 the NHS confirmed on 2026-06-24, with Saturday and Sunday
+named closed, so the split-hours rule does not apply to this branch.
+Catchment reads Bootle, Sefton and Liverpool in all three places. Full
+five-widget set, with sections 2 and 3 carrying all five and claiming
+nothing extra. Counts CRLF-normalised: description 735, exactly what its
+heading claims against a 750 limit, and posts 466, 305, 530 and 380 body
+only, identical to both earlier passes, so the pack is byte-stable across
+three. Zero non-ASCII, zero dashes of any
+kind, zero dash entities, zero smart quotes, zero middots, zero POM
+names. The single "app" token in the file is the paster note recording
+that hasApp is false. Post A's seven conditions and the UTI 16 to 64
+range match the generated Pharmacy First page, whose H1 spells Bootle
+correctly. All 29 checkers exit 0 and all six generators rebuild to zero
+diff.
+
+LIVE HALF, read only, nothing clicked or submitted. All four post targets
+resolve, fifth clean run. Post A's target still reads "Pharmacy First
+Service in Bottle, Liverpool" and is still absent from the branch
+sitemap, while the generated replacement is still live, is in the
+sitemap and is correct throughout, so SK remains a no-paste repoint for
+item 5.3. Every sitemap entry is still dated 2026-07-18T23:46:35, so the
+site has not been republished since 18 July. One thing this pass settled
+that earlier passes only asserted: the en dashes visible on the live
+weight loss page ("not right for everyone - see below", "at consultation
+- nothing below is a guarantee") do NOT exist in the repo source, which
+uses a full stop and contains no dash of any kind. So that divergence is
+paste lag and not an in-repo defect, and it needs no repo change.
+
+NEW FINDING, AND IT CORRECTS THE SCOPE OF ITEM 5.8. The 2026-08-10
+assessment in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md records SK
+Chemists as its control branch, "homepage, as a control branch with no
+old page", and the five-page scope of item 5.8 rests on that. The
+premise is wrong. Only the SK homepage was read that day, not the SK
+sitemap, and the sitemap lists a legacy page that was never opened:
+skchemist.co.uk/weight-loss-clinic.html. Read live this run, it is the
+same old template word for word, carrying every element the assessment
+already ruled on: the results heading, the superlative comparative
+efficacy claim the assessment calls the single clearest breach, the
+slider that returns a personalised weight figure from the visitor's own
+start weight, the 72-week trial sentence in the same promotional setting,
+the three-medicine treatment picker and the lead price. Worse, SK is the
+cleanest strict-regime case in the whole set: its own top nav ("Weight
+Loss Clinic") and a homepage tile both link straight into that legacy
+page, one line above the correctly labelled "Weight Loss Clinic
+(Bootle)" that points at the clean generated page. A page a button
+proactively links to sits in the stricter regime, where naming the
+medicines is not permitted at all, so on SK the strict position does not
+depend on establishing ad spend, which is precisely the fact the
+assessment recorded it could not establish. Both pages are in the
+sitemap, so the branch is also publishing two pages for one service.
+With Q57's Fishlocks find earlier the same day, item 5.8 is seven
+branches, not five.
+
+NOTHING WAS CHANGED ON ANY LIVE PAGE and no weight loss copy was edited.
+Raised as Q58, recommending that SK be split out and handled first,
+because the fix that removes the strict-regime exposure is unlinking the
+legacy page from the nav and the homepage tile, which needs none of the
+wording decision the other six are waiting on Q22 for.
+
+A CHECKER CAUGHT ME, AND WAS LEFT STRICT. The first draft of the
+do-not-substitute warning added to the pack's paster notes named the
+three medicines, to tell the paster exactly what is wrong with the page
+they must not link to. tools/check-gbp-packs.js failed the run for it,
+correctly: a GBP pack is advertising material and may not carry POM names
+anywhere in the file, internal notes included. The checker was NOT
+weakened and no exception was added. The note was rewritten to describe
+the legacy page without naming anything and to point at the compliance
+file for the detail, and all 29 checkers went green again with the pack
+back to pure ASCII and zero POM names. Recording it because the tempting
+move was to add an allowlist for notes, and that would have quietly
+opened the pack files to exactly the copy they exist to keep out.
+
+FILES CHANGED. gbp-packs/sk-chemists-bootle.md (paster notes only, no
+pasteable copy touched: the do-not-substitute warning for Post C's link
+and the republish state re-check). compliance/
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (dated correction section appended,
+recording that SK is not a control, the scope is seven, and that the
+estate sweep must be driven from each branch sitemap rather than each
+homepage, since reading the homepage alone is what missed this).
+AGENT_WORKLIST.md (third quality pass recorded in place under 4.11, and a
+Q58 cross-reference under 5.8). QUESTIONS.json (Q58). New evidence file
+audits/sk-chemists-bootle-gbp-pack-check-2026-08-12.txt. Item 4.11 stays
+ticked; it was already complete and this was a verification pass.
+
+QUESTIONS. Q58 raised. 34 now open (Q17-Q22, Q24, Q28, Q29, Q34-Q58).
+
 ## 2026-08-12 18:14 BST - hundred-and-twenty-sixth run [commit 1313d70,
 hash recorded in this follow-up commit] - Quality pass on
 item 4.14, the Gordon Short Chemist Crosby GBP pack, last verified

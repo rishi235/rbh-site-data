@@ -1035,6 +1035,37 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       updated with the re-check dates and the republish state; no pasted
       copy changed, no new question. Evidence in
       audits/sk-chemists-bootle-gbp-pack-check-2026-08-11.txt.
+      Third quality pass 2026-08-12: the pack is clean again and byte-stable
+      across all three passes. Description 735 and posts 466, 305, 530, 380,
+      identical to both earlier passes; pure ASCII, zero dashes of any kind,
+      zero POM names; every branches.json fact re-matched including ODS
+      FH575, the NHS email, pfBooking true and hasApp false; Post A's seven
+      conditions and the UTI 16 to 64 range still match the generated
+      Pharmacy First page. All 29 checkers exit 0, all six generators
+      rebuild to zero diff. Live, fifth clean run: all four post targets
+      resolve, Post A's target still misspells "Bottle" and is still absent
+      from the sitemap, and the sitemap is still dated 2026-07-18, so SK
+      remains a no-paste repoint for 5.3 and the stale paste remains the
+      repaste backlog. Confirmed this pass that the en dashes on the live
+      weight loss page do not exist in the repo source, so that divergence
+      is paste lag and not an in-repo defect.
+      The one new finding is outside the pack and it widens item 5.8. This
+      branch carries a legacy /weight-loss-clinic.html that the 2026-08-10
+      assessment never opened, because SK was recorded as the control
+      branch with no old page on the strength of reading its homepage only.
+      It is the same old template, it is in the branch sitemap, and the top
+      nav plus a homepage tile link straight into it, which puts it in the
+      stricter advertising regime rather than the inner-page one. With Q57's
+      Fishlocks find the same day, 5.8 is seven branches, not five, and SK is
+      the clearest stricter-regime case of them. Nothing was
+      changed on any live page and no weight loss copy was edited. Raised as
+      Q58, recorded as a dated correction in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, and flagged in the
+      pack's paster notes as a do-not-substitute warning for Post C's link.
+      Also worth keeping: an earlier draft of that warning named the
+      medicines and check-gbp-packs.js failed the run for it. The checker
+      was left strict and the note was reworded instead. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-08-12.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
@@ -1756,7 +1787,19 @@ so tools/build-audit-status.js picks them up like any other item.
       decision lands. Q57 (2026-08-12) records a sixth live instance of the
       same template at fishlockpharmacy.co.uk/weight-loss-services-eccleston
       -ainsdale.html, homepage-linked; whatever fix Q22 chooses should cover
-      it too.
+      it too. Q58 (2026-08-12, found on the 4.11 quality pass) records a
+      SEVENTH at skchemist.co.uk/weight-loss-clinic.html. SK matters beyond
+      the count for two reasons. It was the branch the 2026-08-10 assessment
+      used as its control, "no old page", so the five-page scope was built on
+      a premise now known to be wrong; the page was missed because only the
+      homepage was read and not the branch sitemap, which means the sweep for
+      this item must be driven from each branch sitemap. And SK is the
+      cleanest stricter-regime case in the set: its own top nav and a
+      homepage tile both link straight into the legacy page, so that regime
+      applies without needing to establish ad spend, which is the fact the
+      assessment recorded it could not establish. Corrected in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-08-12
+      heading.
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

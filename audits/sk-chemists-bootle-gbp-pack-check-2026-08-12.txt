@@ -1,0 +1,178 @@
+SK CHEMISTS BOOTLE GBP PACK - QUALITY PASS EVIDENCE
+Item 4.11. Third quality pass. Run 127, unattended, 2026-08-12.
+Pack file: gbp-packs/sk-chemists-bootle.md
+Branch id: skchemists_bootle
+
+REPO HALF
+=========
+
+Facts re-verified against branches.json, all match the pack:
+  branchName        SK Chemists
+  streetAddress     516 Stanley Road
+  addressLocality   Bootle
+  postalCode        L20 5DW
+  addressRegion     Merseyside
+  phone             0151 944 1013
+  website           https://www.skchemist.co.uk
+  googleReviewUrl   https://g.page/r/CeAIYeqSjIYBEAE/review
+  odsCode           FH575
+  nhsEmail          pharmacy.FH575@nhs.net
+  hasApp            false
+  pfBooking         true
+  pfLink            https://www.skchemist.co.uk/pharmacy-first-service-bootle.html
+  serviceAreaList   Bootle, Sefton, Liverpool
+  widgets           all five present (bloodPressure, contraception,
+                    pharmacyFirst, weightLoss, travelClinic)
+
+Opening hours: single Monday to Friday session 09:00 to 18:00, closedDays
+Saturday and Sunday, source NHS pharmacy profile confirmed 2026-06-24.
+Matches the pack's "9:00am to 6:00pm Monday to Friday, Saturday and Sunday
+closed". No split-hours rule applies to this branch.
+
+pfBooking is true, so Post A's "book or just walk in" is permitted.
+hasApp is false. The only "app" token in the whole pack is the paster note
+recording that fact (line 146), so no app claim is pasteable. Correct.
+
+Counts, CRLF-normalised, newlines counted as single spaces:
+  Description   735   (heading claims 735, limit 750)   PASS
+  Post A body   466
+  Post B body   305
+  Post C body   530
+  Post D body   380   (limit 1,500)                     PASS
+Byte-identical to the 2026-08-10 and 2026-08-11 passes. Pack is stable
+across three passes.
+
+Character purity of the pack file:
+  non-ASCII bytes        0
+  em dash U+2014         0
+  en dash U+2013         0
+  smart quotes           0
+  middot U+00B7          0
+  &mdash; / &ndash;      0
+  surrogate/emoji chars  0
+
+POM names in the pack (must be zero, a GBP pack is regime 1 advertising):
+  Mounjaro, Wegovy, Orlistat, Ozempic, Saxenda, tirzepatide, semaglutide,
+  liraglutide - all zero. Post C names no medicine and makes no efficacy
+  claim. Correct.
+
+Post A cross-check against the generated Pharmacy First page
+(modules/service/pages/pharmacy-first-sk-chemists-bootle.html):
+  all seven conditions present, UTI stated as women aged 16 to 64,
+  H1 "Pharmacy First at SK Chemists in Bootle",
+  "Bootle" 10 occurrences, "Bottle" 0. Matches Post A exactly.
+
+Checkers: all 29 tools/check-*.js exit 0.
+Generators: all six build-*.js rebuild to zero diff (git status clean
+apart from this run's scratch scripts, which are not committed).
+
+LIVE HALF
+=========
+
+Read only, via browser, 2026-08-12. Nothing clicked, typed or submitted.
+
+All four post targets resolve, fifth clean run:
+  pharmacy-first-service-bootle.html            200, loads
+  switch-prescriptions-sk-chemists-bootle.html  200, loads
+  weight-loss-clinic-sk-chemists-bootle.html    200, loads
+  travel-clinic-sk-chemists-bootle.html         200, loads
+
+Post A target unchanged from the two previous passes. Its heading still
+reads "Pharmacy First Service in Bottle, Liverpool" and it is still absent
+from the branch sitemap. The generated replacement,
+pharmacy-first-sk-chemists-bootle.html, is still live, IS in the sitemap,
+spells Bootle correctly, carries the correct trading name and lists the
+same seven conditions with the same age ranges. SK remains a no-paste
+repoint for item 5.3. Not changed here, by design.
+
+Sitemap state: every entry is dated 2026-07-18T23:46:35+00:00, so the site
+has still not been republished since 18 July. This continues to explain
+the banner close-button mojibake, the pre-Q7 switch page body and the
+live-only footer strip. Confirmed again that the repo sources are already
+correct and it is the paste that is behind: the live weight loss page
+reads "not right for everyone - see below" and "at consultation - nothing
+below is a guarantee" using en dashes, while the repo source for the same
+page uses a full stop and contains zero dashes of any kind. Repaste
+backlog, not an in-repo defect.
+
+NEW FINDING - SK BOOTLE IS NOT A CONTROL BRANCH AT ALL
+======================================================
+
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, written 2026-08-10,
+records SK Chemists as the control branch, read as
+"www.skchemist.co.uk (homepage, as a control branch with no old page)".
+That premise is wrong. Only the homepage was read on 2026-08-10. The
+branch sitemap was not, and it lists a legacy page:
+
+  https://www.skchemist.co.uk/weight-loss-clinic.html
+
+Read live on 2026-08-12, this page is the same old template, word for
+word, that the assessment found at the other five branches. With Q57's
+Fishlocks Eccleston and Ainsdale find earlier the same day, that makes
+seven branches in scope for item 5.8, not five. Present on it:
+
+  - "Real Results with Mounjaro" section heading
+    (assessment element 1, BREACH)
+  - "Mounjaro (tirzepatide) is one of the most effective weight loss
+    treatments available." (assessment element 2, BREACH, the superlative
+    comparative efficacy claim)
+  - The outcome slider, "How much weight could you lose? ... You could
+    lose up to 26kg (22.5% of your body weight)"
+    (assessment element 3, BREACH, rule 13.9)
+  - "Clinical studies show it can help you lose up to 22.5% of your body
+    weight over 72 weeks" under the Real Results heading
+    (assessment element 4, BREACH as it stands)
+  - "Ready to start your transformation?"
+  - Treatment picker "Explore treatments": Wegovy (semaglutide),
+    Mounjaro (tirzepatide), Orlistat
+  - Lead pricing "From £39.99 including your consultation."
+
+REGIME. This is worse placed than an inner page. The SK homepage links
+into it proactively, twice, read from the live homepage on 2026-08-12:
+
+  top nav   "Weight Loss Clinic"  ->  /weight-loss-clinic.html
+  body tile  (unlabelled link)    ->  /weight-loss-clinic.html
+
+The compliant branch page is a separate, differently labelled nav entry:
+
+  top nav   "Weight Loss Clinic (Bootle)"
+                                  ->  /weight-loss-clinic-sk-chemists-bootle.html
+
+Under the two-regime rule, a page a button proactively links to sits in
+regime 1, near-total prohibition, where naming Mounjaro, Wegovy or
+Orlistat is not permitted at all. The regime 2 inner-page exemption does
+not reach this page while the homepage nav points at it. So SK Bootle is
+not merely one more instance, it is the instance where the regime 1
+argument is most direct, because it does not depend on establishing ad
+spend, which the assessment records as the fact it could not establish.
+
+Both weight loss pages are in the sitemap, so the branch is also
+publishing two pages for one service, the same shape of duplication the
+pack already records for Pharmacy First.
+
+NOT ACTED ON. Item 5.8 is [BLOCKED] on Q16 and this is a live
+patient-facing regulatory claim involving medicine names and efficacy
+claims, which is expressly outside anything an unattended run may decide
+for itself. No autonomous window is active in any case. No weight loss
+copy was edited, no page was changed, nothing was pasted. Raised as Q58
+and recorded as a correction in the assessment file.
+
+CONCLUSION
+==========
+
+The 4.11 pack itself is clean for the third consecutive pass and nothing
+in it needs changing. Every defect found by this pass is outside the pack:
+the Post A misspelling and sitemap absence belong to item 5.3, the stale
+paste belongs to the repaste backlog, and the legacy weight loss page
+belongs to item 5.8, whose scope this pass widens again, to seven branches
+counting Q57's Fishlocks find earlier the same day.
+
+One process note worth keeping. The first draft of the do-not-substitute
+warning added to the pack's paster notes named the three medicines, and
+tools/check-gbp-packs.js failed the run for it, correctly: a GBP pack is
+advertising material and may not carry POM names anywhere in the file,
+notes included. The checker was NOT weakened. The note was rewritten to
+describe the legacy page without naming anything, and the element-by-
+element detail was left in the compliance assessment and in this file,
+which are the right homes for it. All 29 checkers pass after the rewrite
+and the pack is pure ASCII with zero POM names again.

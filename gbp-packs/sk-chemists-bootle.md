@@ -130,10 +130,29 @@ Notes for the paster:
   together, so it is deliberately not made here. Do not hand-edit it in.
   If the misspelled page is kept live after the swap, retire or signpost
   it so the branch is not publishing two pages for one service.
-- Posts B, C and D were fetched on 2026-08-10 and again on 2026-08-11 and
-  all three resolve.
-- Site republish state, checked 2026-08-11: every sitemap entry is dated
-  2026-07-18, so this site has not been republished since 18 July. Until
+- Posts B, C and D were fetched on 2026-08-10, on 2026-08-11 and again on
+  2026-08-12, and all three resolve every time.
+- STOP before pasting Post C, and check the destination. Post C's Book
+  button must point at weight-loss-clinic-sk-chemists-bootle.html, the
+  generated branch page, which is clean and is the link written above. Do
+  NOT let anyone substitute the shorter weight-loss-clinic.html. Found live
+  on 2026-08-12: this branch still carries that legacy page, it is in the
+  branch sitemap, and the site-wide top nav links to it as "Weight Loss
+  Clinic", one line above the correct "Weight Loss Clinic (Bootle)". The
+  legacy page carries named prescription-only medicines, a superlative
+  efficacy claim, an outcome slider and lead pricing, none of which may be
+  advertised. A GBP post is advertising, so pointing any post button at
+  that page would put it in the prohibited regime. The element-by-element
+  detail is in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, under the
+  2026-08-12 correction, and is deliberately not repeated here because a
+  GBP pack may not carry medicine names at all. This belongs to item 5.8,
+  is raised as Q58, and is not fixed here.
+- Site republish state, checked 2026-08-11 and again 2026-08-12: every
+  sitemap entry is still dated 2026-07-18T23:46:35, so this site has not
+  been republished since 18 July. Confirmed on 2026-08-12 that the repo
+  sources are already correct and it is the paste that is behind: the live
+  weight loss page still shows the pre-fix en dashes while the repo source
+  for the same page contains no dash of any kind. Until
   the queued repaste happens, the switch banner close button renders as
   mojibake (source fix already committed), the switch page body still
   carries the pre-Q7 paste, and the site-wide footer strip (en dashes,
