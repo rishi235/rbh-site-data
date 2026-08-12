@@ -973,6 +973,22 @@ appended to the line. Do not move them; the status page reads them in place.
       it is used, which is the same under-reading fault in miniature; fixed
       before commit and re-tested. Six rules negative-tested, all fire.
       Done 2026-08-11.
+      Quality pass 2026-08-12: clean on both halves, nothing to fix. CH49
+      1SX still confined to the audit narrating itself, now five files
+      with the CLAUDE.md section run 55 added; no page, pack, paste block
+      or branches.json entry carries it, and a case-insensitive sweep
+      finds no hidden form. L17 4JP correct in branches.json and on the
+      live Pharmacy First page, contact block and footer. All six
+      generators byte-stable, all 29 checkers pass. The guard was proved
+      rather than assumed: an injected CH49 1SX failed as UNKNOWN, and
+      the checker also flagged the injection script itself for holding
+      the literal value, the value-named quoting rule working as
+      designed. Run 96's audits/-narrative change has not loosened this
+      item. Live blemishes seen (Sandrigham typo, McCann's Pharmacy
+      naming, pre-5.7 local word) are all already held under Q39 and item
+      5.3. GBP management record still out of reach; action note for
+      Rishi or Dane stands. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-08-12.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

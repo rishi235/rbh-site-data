@@ -1,0 +1,61 @@
+Item 1.3 quality pass - McCanns Sandringham postcode sweep
+Run: ninety-seventh, 2026-08-12 03:41 BST
+Previous verification: fifty-fifth run, 2026-08-11 04:35 BST
+
+REPO HALF - CLEAN
+
+1. CH49 1SX (the historical wrong postcode; correct value L17 4JP) appears
+   in exactly five files: AGENT_LOG.md, AGENT_WORKLIST.md, CLAUDE.md,
+   status/index.html and the NARRATIVE_POSTCODES entry in
+   tools/check-postcodes.js itself. Every one is the audit describing its
+   own finding. The fifth (CLAUDE.md) was added by run 55's own change and
+   is expected. A case-insensitive sweep for any CH49 form finds nothing
+   beyond those five files. No page, pack, paste block or branches.json
+   entry carries it.
+
+2. branches.json mccanns_sandringham holds postalCode L17 4JP with
+   streetAddress 1b Aigburth Road, addressLocality Liverpool.
+
+3. All six page generators plus build-status-page were re-run. Every
+   generated page rebuilt byte-identical; status/index.html moved only its
+   Updated timestamp, which the close-out rebuild owns.
+
+4. All 29 checkers pass at exit 0. check-postcodes.js reports 312 text
+   files scanned, 17 distinct postcodes, 16 live branches, 0 failures,
+   2 warnings (both standing report-only notes).
+
+INJECTION TEST - THE GUARD STILL BITES
+
+CH49 1SX was appended to modules/branch/pages/
+pharmacy-mccanns-sandringham.html. check-postcodes.js failed as UNKNOWN
+naming the file, exit 1. The same run also flagged the injection script
+itself for holding the literal value, which is the value-named quoting
+rule working as designed (a non-narrative file may not carry the value
+even to test it). Page restored with git checkout, scratch deleted,
+checker re-run clean at exit 0. Run 96's audits/-narrative change sits in
+this checker and has not loosened the item: quoting rights remain
+value-named, so an unnamed foreign postcode in an audit file still fails.
+
+LIVE HALF - TWO READ-ONLY GETS, POSTCODE CORRECT
+
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
+was fetched and read in full. The Sandringham address reads 1b Aigburth
+Road, Liverpool, L17 4JP in the generated page body, in the Weebly
+contact block and in the legal footer. The Aigburth sister branch reads
+112 Aigburth Road, L17 7BP. No CH49 form appears anywhere on the page.
+
+Two live blemishes were seen and both are already held elsewhere, so no
+new question: the Weebly contact block spells "Sandrigham Medical Centre"
+(missing n) and names the business "McCann's Pharmacy", both site
+furniture already recorded under open Q39; and the page's local word is
+still the pre-item-5.7 Sandringham paste, already noted in item 5.3's
+evidence (a word behind, not wrong).
+
+OUT OF REACH, UNCHANGED
+
+The original CH49 1SX sits in the McCanns Sandringham GBP management
+record, which an unattended run cannot reach. The standing action note
+for Rishi or Dane (two minutes in the GBP dashboard) stands.
+
+VERDICT: item 1.3 stands. No in-repo defect found, nothing changed
+beyond this audit record, the worklist note and the log entry.

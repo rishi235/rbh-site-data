@@ -2,6 +2,72 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 03:41 BST - ninety-seventh run - Quality pass on item 1.3, the
+McCanns Sandringham postcode sweep, last verified 2026-08-11 04:35 as the
+fifty-fifth run and the oldest verification standing after run 96
+refreshed 4.3. Third pass on this item. Clean on both halves, the run 55
+hardening proved still to bite, no in-repo defect found, nothing changed
+beyond the audit record, the worklist note and this entry. No new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired (23:14 on 2026-08-10, not renewed). Nothing this
+run needed a decision in any case: no defect was found and no copy or
+data changed.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the open questions has an
+answer. Open questions 33 before, 33 after (Q17-Q22, Q24, Q28, Q29,
+Q34-Q57). Browser use read-only throughout: the pickup plus one GET on
+mccannspharmacy.co.uk, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22, 6.1 Q52), so quality pass on the
+oldest standing verification: item 1.3 from run 55, ahead of 1.2 (run 56)
+and 4.4 (run 57).
+
+REPO HALF CLEAN. CH49 1SX appears in exactly five files: AGENT_LOG.md,
+AGENT_WORKLIST.md, CLAUDE.md, status/index.html and the
+NARRATIVE_POSTCODES entry in check-postcodes.js itself, every one the
+audit describing its own finding; the fifth, CLAUDE.md, is run 55's own
+documentation section and is expected. A case-insensitive sweep for any
+CH49 form finds nothing beyond those five. No page, pack, paste block or
+branches.json entry carries it, and mccanns_sandringham holds L17 4JP.
+All six generators plus build-status-page rebuilt every generated page
+byte-identical (status/index.html moved only its Updated timestamp,
+owned by this run's close-out rebuild). All 29 checkers pass;
+check-postcodes reports 312 files, 17 distinct postcodes, 16 live
+branches, 0 failures.
+
+THE GUARD PROVED, NOT ASSUMED. CH49 1SX injected into
+pharmacy-mccanns-sandringham.html failed as UNKNOWN naming the file,
+exit 1. The same run flagged the injection script itself for holding the
+literal value, which is the value-named quoting rule doing its job on
+yet another author. Page restored with git checkout, scratch deleted,
+re-run clean at exit 0. Run 96's audits/-narrative change sits inside
+this item's checker and has not loosened it: quoting rights remain
+value-named, an unnamed foreign postcode in an audit file still fails.
+
+LIVE HALF, ONE READ-ONLY GET. The live
+pharmacy-first-mccanns-sandringham.html reads 1b Aigburth Road,
+Liverpool, L17 4JP for Sandringham in the page body, the Weebly contact
+block and the legal footer; Aigburth reads 112 Aigburth Road, L17 7BP;
+no CH49 form anywhere. The two blemishes on the page are both already
+held: the "Sandrigham Medical Centre" missing-n typo and the "McCann's
+Pharmacy" naming are Weebly site furniture recorded under open Q39, and
+the local word is still the pre-item-5.7 Sandringham paste already noted
+in item 5.3's evidence, a word behind rather than wrong. The GBP
+management record, where the original CH49 1SX lives, remains out of an
+unattended run's reach; the standing two-minute action note for Rishi or
+Dane stands.
+
+Files changed: AGENT_WORKLIST.md (1.3 quality pass note, in place),
+AGENT_LOG.md (this entry), status/index.html (regenerated),
+audits/mccanns-sandringham-postcode-check-2026-08-12.txt (new).
+No question raised. 33 remain open.
+
 ## 2026-08-12 03:12 BST - ninety-sixth run - Quality pass on item 4.3, the
 Hirshmans Chemist Ainsdale GBP pack, last verified 2026-08-11 04:05 as the
 fifty-fourth run and the oldest verification standing after run 95
