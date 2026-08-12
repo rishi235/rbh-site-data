@@ -1,0 +1,105 @@
+Item 2.3 third quality pass - Cherry Lane Pharmacy build-from-near-zero
+Run: 2026-08-12 20:04 BST (hundred-and-thirtieth run). Earlier passes of this
+item were the forty-seventh run (2026-08-11 00:05) and the eighty-ninth
+(2026-08-11 23:42).
+
+REPO HALF ONLY. The live half was not run and is not claimed: two Chrome
+extension instances are connected and the browser tooling requires a human
+choice between them before any call is made. An unattended run has nobody to
+ask and may not pick for itself, so no browser call was made at all. Tenth
+consecutive run in that state, tracked by Q59.
+
+DATA AND PAGES - CLEAN, NO DEFECT, THIRD PASS RUNNING
+- All six page generators rebuilt before any edit: zero diff, byte-stable.
+- All 29 checkers pass.
+- All 12 Cherry Lane pages verified field by field against branches.json:
+  branch name Cherry Lane Pharmacy, 202 Cherry Lane, Liverpool L4 8SG,
+  Merseyside in JSON-LD, phone 0151 226 2051 as display text and as a tel:
+  link with spaces stripped, Walton (seoTown) present, JSON-LD parses on
+  every page, no app sentence (hasApp false), no other branch's phone or
+  postcode, no em or en dash in visible copy.
+- Two things checked and explained rather than assumed. The pound sign on the
+  weight loss page is legitimate currency, not a stray non-ASCII character:
+  the "from GBP39.99" fee is governed by RULE 7 of check-weight-loss-copy.js,
+  which requires one fee string identical across all 15 pages, carrying a
+  "from", with the separate-medication-cost answer and the indicative-price
+  disclaimer beside it and no offer or discount wording. It is a considered
+  position, uniform across the estate, not price-led drift. And the Cherry
+  Lane pages carry no opening hours and no ODS code, which is correct: those
+  live on branch landing pages and Cherry Lane rightly has none.
+
+THE FINDING - A VERIFIER GAP, NOW CLOSED
+Twelve foreign facts were injected one at a time and each run past the whole
+29-checker suite, then reverted. A control run on the untouched tree passed
+all 29 first, so the harness was proved able to return a pass.
+
+Eleven of twelve were caught:
+  phone display swapped for the sister's      caught by check-jsonld
+  tel: link swapped                           caught by check-nap
+  postcode swapped for L4 6TH                 caught by check-jsonld
+  street swapped for 241 Walton Village       caught by check-jsonld
+  brand name swapped for the sister's         caught by check-booking-routes
+  domain swapped for the sister's             caught by check-jsonld
+  seoTown Walton swapped for Liverpool        caught by check-seo-pattern
+  weight loss fee 39.99 moved to 29.99        caught by check-weight-loss-copy
+  weight loss page made to name Mounjaro      caught by check-weight-loss-copy
+  Google review link swapped for the sister's caught by check-branch-identity
+
+That last one is worth recording on its own. It is rule 8 OUTBOUND, added
+yesterday on the item 2.2 pass after exactly this injection walked past all 29
+checkers on a Fishlocks page. It fired here on a different brand, a different
+domain and a different page family, so the fix written for Fishlocks
+generalises rather than being fitted to the page that exposed it.
+
+ONE MISS, and it was the sharp one. The Pharmacy First link on a Cherry Lane
+service page was repointed at pharmacy-first-coleman-leigh-walton.html, the
+other Walton branch, and all 29 checkers exited 0. Rule 9 SISTERLINK, also
+added yesterday, covers the branch landing family only and says so in terms:
+its comment reads "so pharmacy-first-fishlocks-ainsdale.html is not mistaken
+for one". Every other page family - pharmacy-first, the six Pharmacy First
+condition pages, uti, contraception, travel clinic, weight loss, switch - was
+unchecked. A patient on the Cherry Lane UTI page clicking through to book
+Pharmacy First could be sent to a different pharmacy, and nothing in the repo
+would say so. Cherry Lane and Coleman and Leighs are both in Walton, both in
+L4, about a mile apart, which is what makes the wrong link plausible rather
+than obviously absurd.
+
+THE FIX. tools/check-branch-identity.js gains rule 10 SERVICELINK: a link to a
+generated service page (<service>-<brandSlug>-<townSlug>.html) must point at
+the page's own branch. The owning branch is read off the filename by longest
+matching brandSlug-townSlug suffix, longest so that one branch key ending
+inside another resolves to the more specific branch. Landing links are skipped
+so rule 9 keeps sole ownership of that family and nothing is reported twice.
+The failure message distinguishes the two harms, because they are not the same
+fault: where the branches share a host the link resolves and the patient is
+quietly booked into the wrong pharmacy, and where they do not it is a relative
+link to another domain, so it 404s and the service route is simply dead.
+
+NEGATIVE TESTED, AND ON THE CASE THAT MATTERS MOST. On the clean tree the
+rule reports nothing and reads 238 service page links across the 177 pages, so
+it has real coverage and no false positives. Re-injected, it catches the
+original Cherry Lane miss. It also catches the same fault on the Fishlocks
+shared domain, where Ainsdale was pointed at Eccleston's Pharmacy First page -
+same website, so the link resolves and the misbooking is silent. That is item
+2.2's whole harm, and until this run nothing tested for it.
+
+The pattern is now the same one recorded three times in CLAUDE.md and twice in
+this log: the checker that owns a field reads only branches.json, and the
+checkers that read pages do not own the field. Rules 8, 9 and 10 have each
+closed one instance of it.
+
+FILENAME NOTE. This file was first written as
+cherry-lane-build-check-2026-08-12-third.txt, which was already taken by the
+quality pass of item 3.4 (another Cherry Lane item, commit b7e70bf earlier
+today). The clash was caught before committing, the original restored from
+HEAD and verified at its original 8054 bytes, and nothing was lost. Audit
+names keyed on brand plus date collide whenever two items touch one brand in
+a day, so this file is keyed on the item and the run number instead.
+
+NOTHING CHANGED IN PUBLIC COPY. All six generators rebuilt to a zero diff
+after the fix and all 29 checkers pass. Files changed: tools/
+check-branch-identity.js (rule 10, its header documentation and the report
+counter), this audit file, AGENT_WORKLIST.md (third-pass note under 2.3),
+AGENT_LOG.md (run entry). No page, no copy and no data changed. No new
+question: the finding was a verifier defect this run was able to fix outright,
+and it touches no money, no legal exposure and no patient-facing claim.

@@ -2,6 +2,119 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 20:04 BST - hundred-and-thirtieth run - Quality pass on item 2.3,
+the Cherry Lane build-from-near-zero, the oldest verification standing among
+completed items. Third pass on this item. REPO HALF ONLY: the live half could
+not be run and is not claimed. The data is clean for the third consecutive
+pass; the verifier was not. One of twelve injections walked past all 29
+checkers, and rule 10 was added to check-branch-identity.js to close it. No
+new question.
+
+ANSWER PICKUP NOT AVAILABLE, tenth consecutive run, 121 to 130. Same cause as
+runs 126 to 129: two Chrome extension instances are connected to this account
+and the browser tooling requires a human choice between them before any call
+is made. An unattended run has nobody to ask and may not pick for itself, so
+no browser call was made at all: nothing fetched, clicked, typed, submitted or
+logged in to, and no other route attempted. 35 questions open going in and 35
+going out. Q59 already asks how to clear this block, so no duplicate was
+raised. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case: the fix closes a
+proven verifier defect, changes no patient-facing copy, and touches no money,
+no legal exposure and no regulatory claim.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+SELECTION. All five unchecked items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1), so a quality pass. Ageing was derived from position in this log, per the
+method recorded under run 128. Reading each run heading's declared target item
+and taking the topmost mention of each, the deepest completed item was 2.3,
+which is what run 129 predicted would come next. The rotation is holding.
+
+REPO HALF, ALL HOLDING. All six generators rebuilt to a zero diff, all 29
+checkers pass, and all 12 Cherry Lane pages verified field by field against
+branches.json: branchName, street, locality, postcode, addressRegion, seoTown,
+phone as text and as a tel: link, JSON-LD parsing, absence of the hasApp
+sentence, and no other branch's phone or postcode. No data defect, no copy
+changed.
+
+TWO THINGS EXPLAINED RATHER THAN ASSUMED. The pound sign on the weight loss
+page is legitimate currency, not stray non-ASCII: the "from GBP39.99" fee is
+governed by RULE 7 of check-weight-loss-copy.js, which requires one fee string
+identical across all 15 pages with the medication-cost answer and the
+indicative-price disclaimer beside it and no offer or discount wording. A
+uniform, checker-enforced position, not price-led drift. And Cherry Lane
+carries no opening hours and no ODS code in-page, which is correct: both live
+on branch landing pages and Cherry Lane rightly has none.
+
+THE FINDING, AND IT IS A VERIFIER FINDING NOT A DATA ONE. Twelve foreign facts
+were injected one at a time and each run past the whole suite, then reverted,
+with a control run on the untouched tree first to prove the harness could
+return a pass. Eleven were caught: phone by check-jsonld, tel: link by
+check-nap, postcode, street and domain by check-jsonld, brand name by
+check-booking-routes, seoTown by check-seo-pattern, the weight loss fee and a
+planted medicine name by check-weight-loss-copy, and the Google review link
+swapped for the sister's by check-branch-identity. That last one is rule 8,
+added yesterday on the 2.2 pass after this exact injection walked past all 29
+checkers on a Fishlocks page. It fired here on a different brand, domain and
+page family, so yesterday's fix generalises rather than being fitted to the
+page that exposed it.
+
+THE MISS, AND WHY IT IS THE SHARP ONE. The Pharmacy First link on a Cherry
+Lane service page was repointed at pharmacy-first-coleman-leigh-walton.html
+and all 29 checkers exited 0. Rule 9 SISTERLINK covers the branch landing
+family only and says so in terms - its comment reads "so
+pharmacy-first-fishlocks-ainsdale.html is not mistaken for one" - leaving
+every other family unchecked: pharmacy-first, the six Pharmacy First condition
+pages, uti, contraception, travel clinic, weight loss and switch. A patient on
+the Cherry Lane UTI page clicking through to book Pharmacy First could land on
+another pharmacy's page with nothing in the repo to say so. Cherry Lane and
+Coleman and Leighs are both in Walton, both in L4 and about a mile apart,
+which is what makes a wrong link plausible rather than obviously absurd.
+
+THE FIX. check-branch-identity.js gains rule 10 SERVICELINK: a link to a
+generated service page must point at the page's own branch. The owning branch
+is read off the filename by longest matching brandSlug-townSlug suffix,
+longest so a branch key ending inside another resolves to the more specific
+branch. Landing links are skipped so rule 9 keeps sole ownership of that
+family and nothing is double-reported. The message separates the two harms,
+because they are not the same fault: on a shared host the link resolves and
+the patient is quietly booked into the wrong pharmacy, and across hosts the
+relative link 404s and the service route is dead.
+
+NEGATIVE TESTED ON THE CASE THAT MATTERS MOST. Clean on the untouched tree,
+reading 238 service page links across the 177 pages, so real coverage and no
+false positives. Re-injected, it catches the Cherry Lane miss. It also catches
+Fishlocks Ainsdale pointed at Eccleston's Pharmacy First page on the shared
+domain, where the link resolves and the misbooking is silent. That is item
+2.2's whole harm, and until this run nothing tested for it.
+
+Same shape as the misses recorded three times in CLAUDE.md and twice in this
+log: the checker owning a field reads only branches.json, and the checkers
+reading pages do not own the field. Rules 8, 9 and 10 have each closed one
+instance.
+
+Files changed: tools/check-branch-identity.js, audits/
+cherry-lane-item-2.3-quality-pass-2026-08-12-run130.txt, AGENT_WORKLIST.md,
+AGENT_LOG.md. No page, copy or data change. Commit COMMIT_HASH_PLACEHOLDER.
+
+FILENAME NEAR MISS, WORTH RECORDING AS METHOD. This run first wrote its
+evidence to audits/cherry-lane-build-check-2026-08-12-third.txt, the name the
+2.3 series implied, and that name was already taken: it belongs to the quality
+pass of item 3.4, another Cherry Lane item, committed earlier today as b7e70bf.
+The overwrite was caught before the commit by reading git status, where the
+file showed staged as a modification rather than an addition, and the original
+was restored from HEAD byte for byte and verified at its original 8054 bytes.
+No evidence was lost. Two lessons for later runs: audit filenames keyed on
+brand plus date collide as soon as two items touch the same brand on the same
+day, so this run's file is keyed on the item and the run number instead; and
+"M" against a file a run believes it has just created is the signal that it has
+landed on top of something, which is worth checking before every commit rather
+than after.
+
 ## 2026-08-12 19:44 BST - hundred-and-twenty-ninth run - Quality pass on item
 2.2, the Fishlocks shared-domain split, the oldest verification standing among
 completed items. Third pass on this item. REPO HALF ONLY: the live half could

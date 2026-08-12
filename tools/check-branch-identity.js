@@ -74,6 +74,25 @@
                   at a branch on another domain is a 404, and the "looking
                   for our other branch?" block is the whole point of item
                   2.2, the shared-domain split.
+   10. SERVICELINK a link to a generated service page
+                  (<service>-<brandSlug>-<townSlug>.html) points at the
+                  page's OWN branch. Rule 9 covers the landing family only
+                  and says so; every other family - pharmacy-first, the six
+                  Pharmacy First conditions, uti, contraception, travel
+                  clinic, weight loss, switch - was unchecked, so a service
+                  page could send a patient to another shop's booking. Where
+                  the two branches share a host the link resolves and books
+                  the wrong pharmacy silently; where they do not it 404s and
+                  the service route is simply dead.
+
+  Rule 10 was added on the 2026-08-12 quality pass of item 2.3, after the
+  Pharmacy First link on a Cherry Lane service page was repointed at Coleman
+  and Leighs, the other Walton branch, and all 29 checkers exited 0. Twelve
+  injections were run that pass and this was the only miss: the phone,
+  tel: link, postcode, street, brand name, domain, town and weight loss fee
+  were all caught, and the swapped Google review link was caught by rule 8,
+  which is that rule doing on Cherry Lane exactly what it was written for on
+  Fishlocks. The gap was the one rule 9 had explicitly carved out.
 
   Rules 8 and 9 were added on the 2026-08-12 quality pass of item 2.2, after
   five injections into a landing page were run past all 29 checkers: a swapped
@@ -213,6 +232,26 @@ branches.forEach(function (b) { if (b.brandSlug) brandSlugs[b.brandSlug] = true;
 
 var reviewLinksRead = 0;
 var landingLinksRead = 0;
+var serviceLinksRead = 0;
+
+// Rule 10: a generated service page is "<service>-<brandSlug>-<townSlug>.html",
+// so the branch is the longest branch key the filename ends with. Longest wins
+// because one branch key can end with another (a short townSlug inside a longer
+// one), and the longer match is the more specific branch.
+function branchFromPageName(name) {
+  var best = null;
+  var bestLen = -1;
+  Object.keys(byKey).forEach(function (k) {
+    var suffix = "-" + k;
+    if (name.length > suffix.length &&
+        name.slice(-suffix.length) === suffix &&
+        k.length > bestLen) {
+      bestLen = k.length;
+      best = byKey[k];
+    }
+  });
+  return best;
+}
 
 // ---------------------------------------------------------------------------
 // Rule 7: the data itself, before any page is read.
@@ -371,6 +410,35 @@ pages.forEach(function (p) {
         "say which pharmacy it sends a review to");
     }
 
+    // Rule 10: a service-family page link belongs to the page's own branch.
+    // Rule 9 owns the landing family, so a landing link is skipped here and
+    // not reported twice.
+    var pm = /^([a-z0-9][a-z0-9-]*)\.html$/.exec(h);
+    if (pm) {
+      var pageName = pm[1];
+      var l9 = /^pharmacy-([a-z0-9]+(?:-[a-z0-9-]+)?)$/.exec(pageName);
+      var isLanding = !!(l9 && brandSlugs[l9[1].split("-")[0]]);
+      if (!isLanding) {
+        var svcOwner = branchFromPageName(pageName);
+        if (svcOwner) {
+          serviceLinksRead++;
+          if (svcOwner.id !== b.id) {
+            fail(slug, "servicelink", rel(p.path) + ': links to "' + h +
+              '", a service page belonging to ' + svcOwner.id + ' ("' +
+              svcOwner.branchName + '"), but the page belongs to ' + b.id +
+              ' ("' + b.branchName + '"). ' +
+              (hostOf(svcOwner) === hostOf(b)
+                ? "Both branches are served from " + (hostOf(b) || "no host") +
+                  ", so the link resolves and the patient is quietly booked " +
+                  "into the wrong pharmacy's service."
+                : svcOwner.id + " is served from " +
+                  (hostOf(svcOwner) || "no host") + " and the link is " +
+                  "relative, so it 404s and the service route is dead."));
+          }
+        }
+      }
+    }
+
     // Rule 9: a link to a sister branch's landing page stays on this website.
     var lm = /^pharmacy-([a-z0-9]+(?:-[a-z0-9-]+)?)\.html$/.exec(h);
     if (!lm) return;
@@ -476,8 +544,9 @@ console.log("  " + counted + " page(s) matched to a branch, " + withRoot +
 console.log("  " + branches.length + " trading branch(es), " +
   Object.keys(byHost).filter(function (h) { return byHost[h].length > 1; }).length +
   " website(s) shared by a pair");
-console.log("  " + reviewLinksRead + " review link(s) and " + landingLinksRead +
-  " branch landing link(s) read on those pages");
+console.log("  " + reviewLinksRead + " review link(s), " + landingLinksRead +
+  " branch landing link(s) and " + serviceLinksRead +
+  " service page link(s) read on those pages");
 console.log("");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });

@@ -210,6 +210,25 @@ updated.
       garbage a patient reads, cleared by the already-queued repaste. No
       in-repo defect, no copy changed, no new question. Evidence:
       audits/cherry-lane-build-check-2026-08-11-second.txt.
+      Third quality pass 2026-08-12 (hundred-and-thirtieth run): repo half
+      only, live half not run (two Chrome instances connected, Q59). Data
+      clean for the third pass running - six generators to a zero diff, all
+      29 checkers green, all 12 pages verified field by field against
+      branches.json. Two things explained rather than assumed: the weight
+      loss pound sign is the RULE 7 fee string, uniform across all 15 pages,
+      not price drift; and Cherry Lane carries no opening hours or ODS code
+      in-page, correct because it has no branch landing page. The finding was
+      in the verifier. Twelve injections, eleven caught, including the Google
+      review swap caught by rule 8 added yesterday for Fishlocks, so that fix
+      generalises. The miss: a service page's Pharmacy First link repointed
+      at Coleman and Leighs, the other Walton branch, passed all 29 checkers,
+      because rule 9 covers the landing family only and explicitly carves out
+      every other family. check-branch-identity.js gains rule 10 SERVICELINK,
+      reading 238 service links across 177 pages, clean on the untouched tree
+      and catching both the Cherry Lane case and the same-host Fishlocks case
+      where the misbooking is silent. No page, copy or data change, no new
+      question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-08-12-run130.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
