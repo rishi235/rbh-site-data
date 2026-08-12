@@ -288,6 +288,18 @@ audits/seo-pattern-check-2026-08-12.txt.
       live here, no doubled-brand default on either side.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
+pages re-read by an independent extraction written fresh for this run: title,
+description and H1 carry Walton on every page, exactly one H1 each,
+descriptions 138 to 157 characters, one phone 0151 226 2051 as display and
+tel: on all 12, postcode L4 8SG only, no foreign town, schema address correct
+field by field against branches.json, no hard-coded widget id, service pages
+pinned service-module-phase1 and the switch page 6a275e1. All 29 checkers
+pass and all seven generators rebuilt byte-identical. Live: UTI and Pharmacy
+First pages both 200 with exact pattern titles and H1s and NHS-correct
+cohorts; the only live fault is the known Q36 footer mailbox typo (mhs.net).
+Evidence in audits/cherry-lane-build-check-2026-08-12-third.txt. No new
+question.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.

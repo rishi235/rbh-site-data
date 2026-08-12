@@ -2,6 +2,60 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 07:11 BST - hundred-and-fourth run - Quality pass on item 3.4,
+Cherry Lane Pharmacy (Walton), last verified 2026-08-11 as the sixty-second
+run and the oldest verification standing after run 103 refreshed 3.3. Third
+pass on this item. Clean on both halves, no in-repo defect found, no new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+cherrylanepharmacy.co.uk, nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification, which run 103's ageing order
+left as 3.4 (run 62, 2026-08-11).
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 12 Cherry Lane pages
+(11 service, 1 switch) re-read by an independent extraction written fresh
+for this run, no code shared with the checkers. Every title, description
+and H1 carries Walton, exactly one H1 per page, descriptions 138 to 157
+characters, the branch phone 0151 226 2051 as both display string and
+tel: link on all 12 and no foreign phone anywhere, postcode L4 8SG only,
+whole-page scan finds no other branch's town (Liverpool excused as the
+branch's own addressLocality), JSON-LD address correct field by field
+against branches.json, no hard-coded widget id on any page, service pages
+pinned service-module-phase1 and the switch page 6a275e1 as their
+generators declare. The extraction's weight loss scan flagged one "best"
+on the clinic page; on inspection it is "advise on the best next step",
+consultation wording, not a treatment claim, and the page names no
+medicine. All 29 checkers pass. All seven generators rebuilt
+byte-identical (status/index.html timestamp only, discarded).
+
+LIVE HALF, TWO READ-ONLY GETS. uti-treatment-cherry-lane-walton.html and
+pharmacy-first-cherry-lane-walton.html both 200 on
+www.cherrylanepharmacy.co.uk, each serving the exact pattern title and
+H1, correct NAP and phone, and all seven Pharmacy First cohorts matching
+the NHS specification. The only live fault seen is the known Q36 Weebly
+footer mailbox typo (pharmacy.FA226@mhs.net), already open, nothing new
+to raise. Build Pack v2 spot-checks met: section 5.4 title patterns,
+5.3 widget ids in branches.json only, 5.6 callback destination
+helpdesk@rbhealth.co.uk in service.js with no personal address in the
+service or switch modules.
+
+FILES CHANGED: AGENT_WORKLIST.md (third quality pass note under item
+3.4), AGENT_LOG.md, audits/cherry-lane-build-check-2026-08-12-third.txt
+(new evidence file). No generator input changed; regeneration confirmed
+zero diff. Temp verification script deleted before commit.
+
 ## 2026-08-12 06:38 BST - hundred-and-third run - Quality pass on item 3.3,
 the Fishlocks Chemist SEO pattern (Ainsdale and Eccleston), last verified
 2026-08-11 as the sixty-first run and the oldest verification standing after
