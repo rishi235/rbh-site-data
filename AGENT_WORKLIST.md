@@ -1332,6 +1332,26 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       while branches.json holds Tiffenberg@rbhealth.co.uk, so one spelling
       is wrong where a patient can see it. Evidence in
       audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt.
+      Quality pass 2026-08-12 (third re-verification, repo half only): pack
+      verified clean again. Unchanged in git since the second pass, and
+      byte-stable with it on every measurement: description 650, posts 449,
+      329, 521 and 425, pure ASCII, no dashes. Every fact re-matched against
+      branches.json including the split weekday hours in all three places,
+      the catchment order, the five-widget set behind the categories, hasApp
+      false and the pfLink Post A mirrors. Post A's seven conditions and the
+      UTI 16 to 64 range re-checked against the generated Pharmacy First page
+      for this branch and match word for word. Post C names no medicine, makes
+      no claim, quotes no price. All 29 checkers green, all six generators
+      byte-stable. The live half was NOT performed: two Chrome instances are
+      connected and the browser tooling needs a human choice between them,
+      which an unattended run cannot give, so no page was fetched. The live
+      state stands on the 2026-08-11 pass. One finding for item 5.8, recorded
+      under it, and one correction written into AGENT_LOG.md: run 86's heading
+      is stamped 23:15 against 22:15, 22:40, 23:08 and 23:42 for runs 85, 87,
+      88 and 89, exactly an hour after run 85 minute for minute and so about
+      an hour ahead of its true time, which made this item look fresher than
+      items verified after it and is why runs 87 to 127 passed over it.
+      Evidence in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-12.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
@@ -1800,6 +1820,20 @@ so tools/build-audit-status.js picks them up like any other item.
       assessment recorded it could not establish. Corrected in
       compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-08-12
       heading.
+      2026-08-12 (evening, run 128, found on the 4.15 quality pass, recorded
+      not decided): one of the seven branch sitemaps has already been read
+      and does not need reading again. Run 86 read the Tiffenbergs Aintree
+      sitemap on 2026-08-11 and recorded, in
+      audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt, that the
+      legacy weight loss page is live and sits in that sitemap alongside the
+      generated inner page, so Tiffenbergs is publishing two pages for one
+      service, the SK shape. What is still unknown for Tiffenbergs is only
+      the link context, whether the homepage or top nav points into the
+      legacy page, which is what decides regime 1 against regime 2. That
+      context is established for two branches only, SK and Fishlocks. The
+      sweep should record both facts per branch, sitemap listing and link
+      context: either one alone settles nothing. Added as an addendum to the
+      assessment. No new question, no live read, nothing touched.
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

@@ -2,6 +2,112 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 19:11 BST - hundred-and-twenty-eighth run - Quality pass on item
+4.15, the Tiffenbergs Chemist Aintree GBP pack, the oldest verification
+standing among completed items. Third pass on this item. REPO HALF ONLY: the
+live half could not be run and is not claimed. The pack is clean for the third
+consecutive pass. Two findings outside the pack, one on the ageing method this
+log has been ordered by since run 87, one narrowing item 5.8. No new question.
+
+STAMP NOTE. This heading is written from the machine clock as read, 19:11, and
+not from the stamp sequence. See the ageing finding below: the stamp on run
+127 is ahead of the true clock, so a stamp later than this one sits above it.
+
+ANSWER PICKUP NOT AVAILABLE, a third distinct reason across runs 121 to 128.
+Not a Cloudflare Access sign-in page this time, and not a failed fetch. Two
+Chrome extension instances are connected to this account, and the browser
+tooling requires a human choice between them before any browser call is made.
+An unattended run has nobody to ask and may not pick one for itself, so no
+browser call was made at all: nothing fetched, clicked, typed, submitted or
+logged in to, and no other route attempted. 34 questions open going in, 34
+going out. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case: both findings are
+recorded facts, not choices.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+SELECTION, AND WHY THE ORDER WAS WRONG. All five unchecked items are still
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1), so a quality pass. The ageing order was
+re-derived twice, once from parsed heading stamps and once from position in
+this log, and the two disagreed. Position is the correct one and stamps are
+not trustworthy, for two separate reasons. First, 64 of the headings carry no
+time at all, only a date or a phrase such as "(afternoon)". A stamp parser
+silently drops those entries, which is what pinned item 5.1 at 2026-08-11
+14:04 in run 127's working and in this run's first attempt: run 114 refreshed
+5.1 but its heading has no time, so the parse kept the run 72 date and made
+5.1 look like the oldest item in the estate when it is nothing of the sort.
+Second, some stamps are simply ahead of the clock. Run 86 is stamped 23:15,
+exactly one hour after run 85 minute for minute, while runs 87, 88 and 89 read
+22:40, 23:08 and 23:42, so its true time sat between 22:15 and 22:40. That one
+error is why item 4.15 has been passed over since: run 127 chose 4.11 at 22:40
+over 4.15 at an apparent 23:15, when 4.15 was in fact the older of the two.
+The same shape is live at the top of this log: run 127 is stamped 19:36 while
+the clock at the start of this run read 19:11 the same evening, in the
+Europe/London zone with daylight saving active, so local time already IS BST
+and no conversion applies. A stamp cannot be in the future. The likely cause
+of both is an hour added to a clock that is already in BST. Correction note
+written in place under run 86's heading; the run 127 heading is left as it
+stands and recorded here rather than edited.
+
+REPO HALF, ALL HOLDING. Every pack fact re-verified against branches.json:
+name Tiffenbergs Chemist, 388 Longmoor Lane, Liverpool L9 9DB, addressRegion
+Merseyside, seoTown Aintree, phone 0151 525 3462, website, Google review link,
+hasApp false with no app mention, pfLink and pfBooking true so Post A's "book
+or just walk in" is allowed and its button mirrors the pfLink. Hours are the
+two weekday sessions, 09:00 to 13:00 and 14:00 to 18:00 with the lunch closure
+between them and Saturday and Sunday named closed, carried in all three places
+the split-hours rule requires, including the photo shot list. Catchment reads
+Aintree, Fazakerley and Liverpool in all three places, leading with seoTown.
+Full five-widget set, with sections 2 and 3 claiming exactly that set and
+nothing extra, Vaccination centre included. Counts CRLF-normalised:
+description 650 against a 750 limit, exactly what its heading claims, and
+posts 449, 329, 521 and 425, identical to run 86 on every count. Pure ASCII,
+zero characters above U+007E, no em dash, no en dash. Post A's seven
+conditions and the UTI age range 16 to 64 re-checked against the generated
+Pharmacy First page for this branch and match word for word. Post C names no
+medicine, makes no claim and quotes no price, which is what regime 1 requires
+of a GBP post. The file is unchanged in git since commit a28ef44, run 86.
+All 29 checkers green, all six page generators re-run with every page output
+byte-identical.
+
+LIVE HALF NOT PERFORMED. Stated plainly because the previous two passes did
+run it: no page was fetched this run, so the live state of this branch stands
+on 2026-08-11 and nothing about it is re-claimed as verified today. The three
+live-only observations in the pack's paster notes are untouched, and Q56, the
+plural against singular Tiffenbergs mailbox, remains open and undisturbed.
+
+FINDING FOR ITEM 5.8, RECORDED NOT DECIDED. The 2026-08-12 correction to
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md closes by saying the estate
+sweep must be driven from each branch sitemap rather than each homepage,
+because reading only the homepage is what missed the SK legacy page. For
+Tiffenbergs that sitemap read has already happened and its result is already
+in this repo: run 86 recorded, in the 2026-08-11 evidence file, that the
+legacy weight loss page is live and sits in the branch sitemap alongside the
+generated inner page. So Tiffenbergs is publishing two pages for one service,
+the shape the assessment records at SK, and the sitemap half of the sweep for
+this branch is done and evidenced. What is still unknown for Tiffenbergs is
+only the link context, whether the homepage or top nav points into the legacy
+page, which is the fact that decides regime 1 against regime 2. That context
+is established for two of the seven branches only, SK and Fishlocks. Written
+up as an addendum to the assessment and under item 5.8, with the practical
+point for whoever runs the sweep: record both facts per branch, because the
+sitemap listing without the link context does not settle which regime applies,
+and the link context without the sitemap listing misses pages. No live read,
+no page touched, no medicine named in any file this run.
+
+FILES CHANGED. audits/tiffenbergs-aintree-gbp-pack-check-2026-08-12.txt (new),
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (2026-08-12 addendum),
+AGENT_WORKLIST.md (third quality pass note under 4.15, sweep-state note under
+5.8), AGENT_LOG.md (this entry plus the correction note under run 86). Status page
+republished via tools\build-audit-status.js (41 of 46 done, 89 per cent); the
+local status/index.html was not touched. No generator, no page output, no pack copy,
+no worklist tick (quality pass on a completed item), QUESTIONS.json untouched
+at 34 open. Commit hash recorded in the commit itself.
+
 ## 2026-08-12 19:36 BST - hundred-and-twenty-seventh run [commit 824f669,
 hash recorded in this follow-up commit] - Quality pass on item 4.11, the SK
 Chemists Bootle GBP pack, last verified 2026-08-11 22:40 and the oldest
@@ -2983,6 +3089,15 @@ forty-fourth run and the oldest verification standing after run 85 refreshed
 4.14. Pack verified clean second time running, no in-repo defect found, no
 copy changed, no live state change. One new question raised (Q56) and one
 item 5.3 state advance recorded.
+
+[CORRECTION added by run 128 on 2026-08-12: this heading's 23:15 stamp is
+wrong and out of sequence. It is exactly one hour after run 85's stamp, minute
+for minute (22:15), while the runs after it read 22:40, 23:08 and 23:42, so
+the true time sat between 22:15 and 22:40 and the stamp is about an hour
+ahead. The effect was not cosmetic: it made item 4.15 look fresher than
+several items verified after it, and runs 87 to 127 passed over it on that
+basis. Derive the ageing order from position in this log, newest at the top,
+rather than from parsed stamps.]
 
 NO AUTONOMOUS WINDOW. The 2026-08-09 authorisation remains expired (since
 23:14 on 2026-08-10) and nothing has renewed it. Q56 is raised as a normal

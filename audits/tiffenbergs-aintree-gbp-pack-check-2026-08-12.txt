@@ -1,0 +1,113 @@
+TIFFENBERGS CHEMIST AINTREE - GBP PACK CHECK
+Item 4.15, third quality pass. Run 128, 2026-08-12 (evening).
+File under test: gbp-packs/tiffenbergs-aintree.md
+Source of truth: branches.json, branch id tiffenbergs_longmoor
+
+SCOPE OF THIS PASS. Repo half only. The live half was not performed. Two
+Chrome extension instances are connected to this account, and the browser
+tooling requires a human choice between them before any browser call. An
+unattended run has nobody to ask, so no browser call was made: no page was
+fetched, nothing was clicked, typed, submitted or logged in to. The live
+half of this item stands on run 86 (2026-08-11), whose findings are
+restated below where they bear on the repo half but are NOT re-claimed as
+verified today.
+
+FILE STATE. Unchanged since commit a28ef44 (run 86). git log shows no
+commit touching gbp-packs/tiffenbergs-aintree.md since that pass.
+
+FACT BY FACT AGAINST branches.json - ALL MATCH:
+- Name on GBP: Tiffenbergs Chemist = brandLabel and branchName.
+- Address: 388 Longmoor Lane, Liverpool L9 9DB = streetAddress,
+  addressLocality, postalCode. addressRegion Merseyside (county, correct
+  field use).
+- Phone: 0151 525 3462 = phone.
+- Website: https://www.tiffenbergschemist.co.uk = website.
+- Review link: https://g.page/r/CdfQf2a16Bn4EAE/review = googleReviewUrl.
+- Hours: Monday to Friday 09:00-13:00 and 14:00-18:00, Saturday and Sunday
+  closed = openingHours.specification (two weekday sessions) and
+  closedDays. Source NHS pharmacy profile, confirmed 2026-06-24. The split
+  is carried in three places in the pack: the profile basics block, the
+  photo shot list (hours notice legible), and the paster note requiring two
+  time ranges per weekday in GBP.
+- Catchment: Aintree, Fazakerley, Liverpool, in that order, in all three
+  places (description, services section, Post B), leading with seoTown
+  Aintree = serviceAreaList order.
+- hasApp false and no app mention anywhere in the pack.
+- Widgets: five present (bloodPressure, contraception, pharmacyFirst,
+  weightLoss, travelClinic). Sections 2 and 3 claim exactly these and
+  nothing more. Categories carry Travel clinic, Weight loss service and
+  Vaccination centre, the set the widgets earn under Build Pack v2 4.1.
+- pfLink and pfBooking true, so Post A's "book or just walk in" is allowed
+  and Post A's button mirrors the pfLink from branches.json.
+
+MEASURED, CRLF NORMALISED:
+- Business description 650 characters against the 750 limit, exactly what
+  its own heading claims.
+- Posts A 449, B 329, C 521, D 425, all far inside the 1,500 limit.
+- Identical to run 86 on every count, so the file is byte-stable across
+  passes as well as unchanged in git.
+- Pure ASCII: zero characters above U+007E. Zero em dashes, zero en dashes.
+
+COPY RULES:
+- Post C (weight loss) names no medicine and makes no efficacy claim. A GBP
+  post is regime 1 under RBH_WeightLoss_Advertising_Standards.md, the
+  near-total prohibition, and the post as written stays inside it: no
+  medicine named, no results claim, no outcome figure, no price, and the
+  button books a consultation rather than a purchase.
+- Post A's seven conditions match the generated Pharmacy First page for
+  this branch (sinusitis, sore throat, earache, impetigo, shingles,
+  infected insect bites, UTI) and the UTI age range 16 to 64 matches the
+  page word for word.
+- Post B, C and D buttons point at pages that exist in the repo:
+  switch-prescriptions-tiffenbergs-aintree.html,
+  weight-loss-clinic-tiffenbergs-aintree.html,
+  travel-clinic-tiffenbergs-aintree.html.
+- Photo shot list carries ten items, the Build Pack v2 4.1 floor.
+
+SUITE:
+- All 29 checkers run, all exit 0.
+- All six page generators re-run; every page output byte-identical
+  (git status clean apart from this run's own new files).
+
+FINDING FOR ITEM 5.8, RECORDED NOT DECIDED. The 2026-08-12 correction in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md closes by saying the estate
+sweep should be driven from each branch sitemap rather than the homepage,
+because reading only the homepage is what missed the SK legacy page. For
+Tiffenbergs that sitemap read has already happened and its result is
+recorded, in this repo, in the run 86 evidence file
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt: the branch
+sitemap lists the legacy weight loss page alongside the generated inner
+page, so Tiffenbergs is publishing two pages for one service, the same
+shape the assessment records at SK. The assessment does not carry that
+fact, so a future sweep would repeat the read. What is still unknown for
+Tiffenbergs is only the link context, whether the homepage or top nav
+points into the legacy page, which is what decides regime 1 against
+regime 2. Recorded under item 5.8 and in the assessment. No new question:
+this narrows existing Q58 rather than asking anything new, and nothing
+live was touched.
+
+FINDING ON THE LOG, CORRECTED IN PLACE. Run 86's own heading is stamped
+2026-08-11 23:15 BST, which is out of sequence with the runs either side
+of it: run 85 at 22:15, run 87 at 22:40, run 88 at 23:08, run 89 at 23:42.
+It is exactly one hour after run 85's stamp, minute for minute, so the true
+time sat between 22:15 and 22:40 and the stamp is about an hour ahead. It
+made item 4.15 look fresher than several items verified after it, which is
+why runs 87 to 127 kept passing over it. A correction note is now written
+under that heading.
+
+The same shape is visible at the top of the log today. Run 127 is stamped
+2026-08-12 19:36 BST. The machine clock at the start of this run read
+19:11 on the same evening, in the Europe/London zone with daylight saving
+active, so local time IS BST and no conversion applies. A stamp cannot be
+in the future, so run 127's is ahead too, and the 82-minute gap it shows
+from run 126 is wrong against a run cadence of roughly 30 minutes
+everywhere else in the log. The likely cause of both is an hour being
+added to a clock that is already in BST. Two consequences for future runs.
+Write the heading stamp from the machine clock as read, with no offset
+applied. And derive the ageing order from position in this log, newest at
+the top, not from parsed stamps: 64 of the headings carry no time at all,
+and the ones that do cannot all be trusted.
+
+RESULT: pack verified clean, third consecutive clean re-verification on
+the repo half. No in-repo defect in the pack. No pasteable copy changed.
+No live state change and no live read.

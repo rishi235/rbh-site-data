@@ -307,3 +307,30 @@ assessed the same way SK was, from the inner page and the homepage. If SK's
 old page was missed by not reading the sitemap, the same method may have missed
 old pages, or homepage links into them, at other branches. The estate sweep
 should be driven from each branch sitemap, not from the homepage.
+
+## Addendum, 2026-08-12 (evening, run 128): one branch sitemap is already read
+
+The correction above closes by saying the estate sweep should be driven from
+each branch sitemap rather than each homepage. For one of the seven branches
+that read has already happened and the result is already in this repo, so the
+sweep should not repeat it.
+
+Tiffenbergs Aintree. Run 86 read the branch sitemap on 2026-08-11 while
+verifying the GBP pack, and recorded the result in
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-11.txt: the legacy weight
+loss page at weight-loss-clinic-aintree.html is live and sits in the sitemap
+alongside the generated inner page. So Tiffenbergs, like SK, is publishing two
+pages for one service, and the sitemap half of the sweep for this branch is
+done and evidenced.
+
+What is still open for Tiffenbergs is only the link context, whether the
+homepage or the top nav points into the legacy page. That is the fact that
+decides regime 1 against regime 2, and it is unrecorded for five of the seven
+branches: established only for SK (top nav and a body tile both point in) and
+for Fishlocks (homepage-linked). Whoever runs the sweep should record, per
+branch, both the sitemap listing and the link context, because the second one
+without the first proves nothing and the first without the second does not
+settle which regime applies.
+
+Nothing was read live for this addendum and no page was touched. It restates
+evidence already in the repo and narrows Q58; it raises no new question.
