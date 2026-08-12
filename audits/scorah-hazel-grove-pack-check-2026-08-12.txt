@@ -1,0 +1,72 @@
+Quality pass audit - item 4.5, Scorah Chemists Hazel Grove GBP pack
+Date: 2026-08-12, hundredth run. Third pass on this item (drafted
+2026-08-04, second pass 2026-08-11 as the fifty-seventh run).
+
+REPO HALF
+gbp-packs/scorah-hazel-grove.md verified fact by fact against
+branches.json entry scorah_hazel: branch name, 87 Macclesfield Road,
+Hazel Grove, SK7 6BG, phone 01625 872267, hours Monday to Friday
+09:00-18:00, Saturday and Sunday closed with the 24 June 2026 Saturday
+closure note (NHS-confirmed 2026-06-24), review link, pfLink for
+Post A (the shared pharmacy-first-service-hazel-grove-bramhall.html),
+catchment order Hazel Grove, Bramhall, Offerton, Great Moor, Poynton,
+profile website pointed at the branch's own landing page
+pharmacy-scorah-hazel-grove.html rather than the shared homepage,
+hasApp false with no app mention, and all five widget services (blood
+pressure, contraception, Pharmacy First, weight loss, travel)
+represented. All correct.
+
+Description count: the heading claims 712 characters and 712 is true
+under the checker's paste convention, wrapped lines joined with a
+single space. A naive count of the raw block reads 721; the
+paste-joined string a paster would actually put into GBP is 712,
+inside the 750 limit. Not a defect.
+
+All 29 checkers pass. All seven generators rebuilt their pages
+byte-identical; status/index.html moved its timestamp only, owned by
+this run's close-out rebuild.
+
+THE GUARD PROVED, NOT ASSUMED
+The run 57 hardening in tools/check-gbp-packs.js that owns this pack's
+sister-branch sentence (a claimed sister must be a live branch on the
+same brandLabel and the sentence must name that sister's own seoTown,
+both composed from branches.json) was negative-tested rather than
+trusted: the description's sentence was changed to "Our sister branch
+is in Poynton", a town in the catchment but not a branch.
+check-gbp-packs failed at exit 1 naming the pack, the live sister
+Scorah Chemists Bramhall (Bramhall) and the wrong sentence verbatim.
+Pack restored with git checkout, re-run clean at exit 0.
+
+LIVE HALF - FIVE READ-ONLY GETS ON scorah-chemists.co.uk
+1. pharmacy-scorah-hazel-grove.html, the profile website the pack
+   sets: 404, exactly what the pack's own paster note anticipates
+   ("Check it resolves before pasting"), so the Hazel Grove profile
+   cannot yet be moved off the shared homepage. Same paste-lag state
+   as the Bramhall landing page. Not a repo defect.
+2. Post A target, the shared Pharmacy First page: resolves, carries
+   NHS service wording for the seven conditions, and both branches'
+   addresses, postcodes and phones are correct in substance. Its own
+   contact section prints the Hazel Grove phone and NHS email unspaced
+   ("Phone:01625872267", "Email:pharmacy.FKD04@nhs.net"), the same
+   hand-edited Weebly furniture family Q43 covers on the Bramhall
+   side. One sentence added to Q43's note.
+3. Post B target, the Hazel Grove switch page: resolves and reads
+   correctly for the branch, but the live copy still carries the
+   pre-5.1 em dash ("it usually is not - we make...") where the repo
+   source modules/switch/pages/switch-prescriptions-scorah-hazel-grove.html
+   reads a plain full stop. Paste lag, the Hazel Grove twin of the
+   Bramhall switch-page lag already in Q43's note. Not a repo defect.
+4. Post C target, the weight loss page: resolves, names no medicines,
+   makes no efficacy claims or guarantees, states the consultation may
+   not lead to a prescription, has no Buy Now button and does not
+   headline pricing. Consistent with the two-regime rule for a genuine
+   inner page.
+5. Post D target, the travel clinic page: resolves and reads correctly
+   for Hazel Grove.
+
+VERDICT
+No in-repo defect found. The pack is clean on every fact, the run 57
+sister guard still bites, and the three live caveats (landing page
+404, unspaced PF contact furniture, switch page em dash lag) are all
+paste lag or hand-edited Weebly furniture already owned by Q43 and the
+queued paste work. Nothing changed in the pack.

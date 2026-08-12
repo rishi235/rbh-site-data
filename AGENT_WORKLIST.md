@@ -497,6 +497,18 @@ Google profile. check-gbp-packs.js now requires a claimed sister to be a live
 branch on the same brandLabel and requires the sentence to name that sister's
 own seoTown, both composed from branches.json. Four negative tests fire:
 sister disposed, sister renamed, wrong town named, stale KNOWN entry.
+Quality pass 2026-08-12 (hundredth run): third pass, clean. Every fact
+re-verified against branches.json; the 712-character description claim
+re-derived under the checker's paste-join convention (naive count 721,
+paste-joined 712, inside 750); the run 57 sister guard negative-tested
+and proved (wrong town named, exit 1 naming the live sister, restored
+clean); all 29 checkers pass; all seven generators byte-identical. Live:
+the landing page still 404s as the paster note anticipates, the shared
+PF page prints the Hazel Grove phone and email unspaced (Q43 family,
+note extended), the switch page live copy still carries the pre-5.1 em
+dash against a repo full stop (paste lag, Q43), the weight loss page
+names no medicines and makes no claims, the travel page reads correctly.
+No in-repo defect. See audits/scorah-hazel-grove-pack-check-2026-08-12.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

@@ -2,6 +2,73 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 05:10 BST - hundredth run - Quality pass on item 4.5, the
+Scorah Chemists Hazel Grove GBP pack, last verified 2026-08-11 as the
+fifty-seventh run and the oldest verification standing after run 99
+refreshed 4.4. Third pass on this item. Clean on both halves, the run
+57 sister-branch guard proved still to bite, no in-repo defect found,
+two findings added to Q43's note. No new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in
+this log and remains expired (23:14 on 2026-08-10, not renewed).
+Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the 33 open questions
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33
+after. Browser use read-only throughout: the pickup plus five GETs on
+scorah-chemists.co.uk, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16, 6.1 Q52), so quality pass on the
+oldest standing verification: item 4.5 from run 57, next in age after
+run 99's refresh of 4.4.
+
+REPO HALF CLEAN. gbp-packs/scorah-hazel-grove.md verified fact by fact
+against branches.json entry scorah_hazel: name, 87 Macclesfield Road,
+SK7 6BG, phone, hours with the 24 June Saturday closure note
+(NHS-confirmed 2026-06-24), review link, pfLink on Post A, catchment
+order, profile website pointed at the branch's own landing page,
+hasApp false with no app mention, all five widget services present.
+The 712-character description claim was re-derived rather than
+trusted: a naive count reads 721, the checker's paste-join convention,
+which is what a paster actually puts into GBP, counts 712, inside the
+750 limit. All 29 checkers pass, re-run after this run's audit file
+was written, run 96's ordering lesson applied. All seven generators
+byte-identical (status/index.html timestamp only).
+
+THE GUARD PROVED, NOT ASSUMED. This pack's own run 57 hardening is the
+sister-branch rule (claimed sister must be a live branch on the same
+brandLabel, sentence must name that sister's seoTown), so that is the
+guard negative-tested this pass: the description's sister sentence was
+pointed at Poynton, a catchment town with no branch, and
+check-gbp-packs failed at exit 1 naming the pack, the live sister
+Scorah Chemists Bramhall (Bramhall) and the wrong sentence verbatim.
+Pack restored with git checkout, re-run clean at exit 0.
+
+LIVE HALF, FIVE READ-ONLY GETS. The profile website
+pharmacy-scorah-hazel-grove.html still 404s, exactly what the pack's
+own paster note anticipates, so the profile stays on the shared
+homepage. Posts A to D all resolve and read correctly for Hazel Grove:
+the shared Pharmacy First page carries NHS service wording and both
+branches' correct postcodes and phones, the weight loss page names no
+medicines and makes no efficacy claims, and the travel page reads
+correctly. Two additions made to Q43's note: the shared Pharmacy First
+page's contact section prints the Hazel Grove phone and NHS email
+unspaced (Phone:01625872267, Email:pharmacy.FKD04@nhs.net), the same
+hand-edited Weebly furniture family Q43 already covers on the Bramhall
+side; and the Hazel Grove switch page's live copy still carries the
+pre-5.1 em dash where the repo source reads a plain full stop, the
+twin of the Bramhall switch-page paste lag already in the note.
+
+Files changed: AGENT_WORKLIST.md (4.5 third-pass note, in place),
+QUESTIONS.json (Q43 note, two sentences), AGENT_LOG.md (this entry),
+status/index.html (regenerated),
+audits/scorah-hazel-grove-pack-check-2026-08-12.txt (new).
+No question raised. 33 remain open.
+
 ## 2026-08-12 04:39 BST - ninety-ninth run - Quality pass on item 4.4, the
 Scorah Chemists Bramhall GBP pack, last verified 2026-08-11 as the
 fifty-seventh run and the oldest verification standing after runs 96, 97
