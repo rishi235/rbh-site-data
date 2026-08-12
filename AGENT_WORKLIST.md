@@ -1565,6 +1565,26 @@ so tools/build-audit-status.js picks them up like any other item.
       construction rather than a hand-typed SEO field; the recorded fix
       is unchanged. Evidence:
       audits/sandringham-town-live-check-2026-08-11.txt.
+      Quality pass 2026-08-12: repo half verified clean a third time. All
+      28 static checkers green, all seven generators byte-stable.
+      branches.json still reads seoTown "St Michael's" with townSlug held
+      at "sandringham" on purpose, serviceAreaList leading St Michael's,
+      and KNOWN_SEO_TOWN in check-address-region.js still carries the
+      deliberate mccanns_sandringham::townSlug hold with its written
+      reason. All 13 pages the branch owns lead with St Michael's in H1
+      and in the paste-sheet title, description and meta keywords, every
+      permalink keeps sandringham, and the apostrophe is plain ASCII
+      throughout. Live half read by plain GET across all 13 URLs: the
+      landing page still 404s, the 12 content pages return 200 with
+      titles and H1s still leading Sandringham and still carrying
+      Weebly's default " - MCCANNS PHARMACY" suffix, and sitemap.xml
+      carries the single lastmod 2026-07-18 throughout, so nothing has
+      been republished and the recorded repaste from the three SEO.md
+      sheets remains the whole fix. Wider live coverage than run 78,
+      which recorded nine content pages; no state change is implied,
+      since the sitemap is unchanged. No in-repo defect, no new
+      question. Evidence:
+      audits/sandringham-town-live-check-2026-08-12.txt.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against

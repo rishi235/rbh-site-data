@@ -2,6 +2,67 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 14:50 BST - hundred-and-nineteenth run - Quality pass on
+item 5.7, the McCanns Sandringham local word move to St Michael's, last
+verified 2026-08-11 18:10 as the seventy-eighth run and the oldest
+verification standing after run 118 refreshed 6.3. No defect found in
+either half; verdicts identical to run 78.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the 33 open questions
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33
+after. Browser use read-only throughout: one tab opened for the pickup
+and closed after; nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin. Three stray redirect logs (fetch.log, co.log, pull.log) from an
+aborted shell session earlier in this same run were deleted before any
+work; worktree otherwise clean. All five unchecked items still
+[BLOCKED] (5.3, 5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly,
+6.1 Q52), so quality pass on the oldest standing verification.
+
+REPO HALF, CLEAN. branches.json still reads seoTown "St Michael's" with
+townSlug held at "sandringham" on purpose, serviceAreaList leading
+St Michael's then Aigburth, Lark Lane, Dingle. All 28 static checkers
+green. All seven generators reproduced every page byte-identical
+(status/index.html regenerated with its own timestamp only and was
+reverted, matching runs 108 to 118). All 13 pages the branch owns lead
+with St Michael's in H1 and in the paste-sheet SEO title, description
+and meta keywords; every permalink keeps sandringham so no live URL
+moves; apostrophes are plain ASCII in every page and sheet.
+KNOWN_SEO_TOWN in check-address-region.js still carries the deliberate
+mccanns_sandringham::townSlug hold with its written reason. One
+non-finding checked to the byte rather than assumed: the paste-header
+comments in the branch's pages carry a UTF-8 em dash (E2 80 94), which
+never renders and sits in the comment text check-em-dashes deliberately
+blanks, and the weight loss booking line carries a pound sign in its
+price, legitimate visible currency. Both present since generation,
+neither changed this run, no rule breached.
+
+LIVE HALF, READ-ONLY, VERDICTS UNCHANGED. All 13 branch URLs fetched by
+plain GET, nothing clicked, typed or submitted. The landing page
+pharmacy-mccanns-sandringham.html still 404s and waits on the queued
+paste run. The 12 content pages all return 200 with titles and H1s
+still leading Sandringham and still carrying Weebly's default
+" - MCCANNS PHARMACY" title suffix run 78 diagnosed, so the SEO title
+fields have still never been pasted. sitemap.xml carries a single
+lastmod, 2026-07-18T22:41:29, across all entries and lists 12
+sandringham URLs, so the site has not been republished since 18 July
+and the recorded repaste of the 13 pages from the three SEO.md sheets
+remains the whole fix. Wider live coverage than run 78, which recorded
+nine content pages; no state change is implied by the difference, since
+the sitemap is unchanged. Evidence:
+audits/sandringham-town-live-check-2026-08-12.txt, commit 3fc3eaa.
+
+FILES CHANGED. audits/sandringham-town-live-check-2026-08-12.txt (new,
+commit 3fc3eaa), AGENT_WORKLIST.md (quality pass note under 5.7),
+AGENT_LOG.md (this entry). No question raised, none answered.
+
 ## 2026-08-12 14:12 BST - hundred-and-eighteenth run - Quality pass on
 item 6.3, opening hours on the live estate vs branches.json, last
 verified 2026-08-11 17:40 as the seventy-fifth run and the oldest
