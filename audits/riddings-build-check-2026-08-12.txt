@@ -1,0 +1,54 @@
+Riddings Pharmacy (Timperley) build check - 2026-08-12 - hundred-and-tenth run
+Item 3.10 quality pass, second machine-era pass. Fresh extraction written for
+this run, no code shared with tools/check-*.js; branches.json and
+tools/pom-names.js read as data only. Script deleted before commit.
+
+REPO HALF - 12 pages (11 service including weight loss and travel, 1 switch):
+  modules/service/pages/*-riddings-timperley.html (11)
+  modules/switch/pages/switch-prescriptions-riddings-timperley.html
+
+Result: 2628 check groups, 0 flags. ALL CLEAN.
+
+Check classes applied to every page:
+- Exactly one H1, carrying Timperley (the seoTown, first entry in the
+  branch's own serviceAreaList).
+- Visible NAP: 38 Riddings Road, WA15 6BP, display phone 0161 973 2951.
+- Every tel: link resolves to the branch's own number as unspaced digits
+  (01619732951); no other branch's digits anywhere, checked against every
+  trading branch with spacing stripped from the page before comparison.
+- No other trading branch's postcode or Google review link on any page.
+- No foreign widget id: every widget id belonging to another branch in
+  branches.json searched on every page, none found.
+- JSON-LD parses on all 12 and matches branches.json field for field:
+  @type Pharmacy, streetAddress, the two-part "Timperley, Altrincham"
+  locality unique to this branch, WA15 6BP, Greater Manchester as
+  addressRegion, GB, telephone digits, self-referencing url on
+  riddingspharmacy.co.uk, and openingHoursSpecification Mon-Fri
+  09:00-18:00 exactly as branches.json records.
+- POM union scan (tools/pom-names.js as data): no prescription-only
+  medicine name on any of the 12, including the weight loss page.
+- No em dash outside build comments; only expected non-ASCII (pound sign,
+  typographic quotes); no app copy, hasApp false.
+
+Fragment properties excluded by design (Weebly-side, recorded on the 3.8
+and 3.9 passes): fragments carry no <title> tag and no footer email.
+
+LIVE HALF - two read-only GETs, nothing clicked, typed or submitted:
+1. /pharmacy-first-service-timperley.html (the pfLink and GBP Post A
+   target): serves correctly, unlike the Coleman and SK pfLinks. Title,
+   H1, NAP, hours matching branches.json exactly, NHS email
+   pharmacy.FDW90@nhs.net in the contact block. All seven conditions
+   carry the correct cohorts against the NHS specification (AOM 1-17,
+   impetigo 1+, infected insect bites 1+, shingles 18+, sinusitis 12+,
+   sore throat 5+, uncomplicated UTI women 16-64).
+2. Homepage: NAP, hours and branch email correct. Known live-only states
+   persist, all previously recorded, confirmation only: the switch banner
+   mojibake close button (same artefact as five other sites); the sidebar
+   contact block reading Cheshire where branches.json records Greater
+   Manchester (recorded on the Riddings GBP pack pass, Q31 era), with the
+   homepage body carrying the same county in its welcome line; and the
+   estate-wide weight loss tagline ("deliver results... try the best")
+   already inside Q22 scope. Repo right, paste old, all queued behind
+   5.3/5.4 and Q22.
+
+No in-repo defect found. No new question raised.

@@ -447,6 +447,22 @@ audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
       Evidence in audits/coleman-build-check-2026-08-12.txt.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
+      Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
+      pass): all 12 Riddings pages re-verified by a fresh independent
+      extraction, no checker code reused. 2628 check groups, zero flags:
+      one H1 per page carrying Timperley, NAP and every tel: link correct
+      as unspaced digits, no other branch's phone, postcode, review link
+      or widget id, JSON-LD field for field against branches.json
+      including Greater Manchester and the two-part "Timperley,
+      Altrincham" locality, POM union scan empty including the weight
+      loss page, no em dash outside build comments, no app copy. Live
+      half, two read-only GETs: the pfLink page serves correctly with all
+      seven cohorts right against the NHS specification; homepage NAP,
+      hours and email correct; known states persist and are confirmation
+      only (switch banner mojibake close button, the Q31-era Cheshire
+      county in the live contact block and homepage body, the Q22
+      estate-wide weight loss tagline). Zero in-repo defects. Evidence in
+      audits/riddings-build-check-2026-08-12.txt.
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

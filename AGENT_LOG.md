@@ -2,6 +2,76 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 10:20 BST - hundred-and-tenth run - Quality pass on item 3.10,
+Riddings Pharmacy (Timperley), last verified 2026-08-11 10:44 as the
+sixty-eighth run and the oldest verification standing after run 109
+refreshed 3.9. Second machine-era pass on this item. Clean on both halves,
+zero in-repo defects, no new question. Heading uses the machine clock per
+run 109's clock note.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+riddingspharmacy.co.uk, one tab opened and closed each time, nothing
+clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification: run 109 refreshed 3.9, leaving the
+sixty-eighth run's pass on 3.10 (2026-08-11 10:44) oldest, with 3.11 to
+3.13 behind it from runs 69 to 71. All 29 checkers green before any change.
+All seven generators rebuilt; page outputs byte-identical; status/index.html
+regenerated with expected differences only (its own timestamp plus the run
+108-109 log and worklist content it embeds, which the committed copy
+predates) and was reverted, matching runs 108 and 109 which also did not
+commit it.
+
+REPO HALF CLEAN, VERIFIED BY A FRESH ROUTE. All 12 Riddings pages (11
+service including weight loss and travel, 1 switch) re-read by an
+independent extraction written fresh for this run, no code shared with the
+checkers; branches.json and pom-names.js read as data only. 2628 check
+groups, zero flags: one H1 per page carrying Timperley, the seoTown and
+first entry in the branch's own serviceAreaList; 38 Riddings Road, WA15
+6BP and 0161 973 2951 visible with every tel: link as the branch's own
+unspaced digits and no other trading branch's digits anywhere, spacing
+stripped before comparison; own postcode and review link only; no foreign
+widget id across every id belonging to another branch; JSON-LD parsing on
+all 12 and matching branches.json field for field including Greater
+Manchester as addressRegion, the two-part "Timperley, Altrincham" locality
+unique to this branch, self-referencing urls on the branch's own domain
+and openingHoursSpecification Mon-Fri 09:00-18:00 exactly; POM union scan
+empty on all 12 including the weight loss page; no em dash outside build
+comments; no app copy, hasApp false. The two known fragment properties (no
+title tag, no footer email, both Weebly-side) were excluded by design as
+on the 3.8 and 3.9 passes.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATES ONLY. The pfLink page
+pharmacy-first-service-timperley.html serves correctly, unlike the Coleman
+and SK pfLinks: title, H1, NAP, hours matching branches.json exactly, NHS
+email in the contact block, and all seven Pharmacy First conditions
+carrying the correct cohorts against the NHS specification. The homepage
+carries correct NAP, hours and the branch email. Persisting live-only
+states, all previously recorded, confirmation only: the switch banner
+mojibake close button (same artefact as five other sites); the sidebar
+contact block reading Cheshire where branches.json records Greater
+Manchester, first recorded on the Riddings GBP pack pass in the Q31 era,
+with the homepage body carrying the same county in its welcome line; and
+the estate-wide weight loss tagline already inside Q22 scope. Repo right,
+paste old, all of it queued behind 5.3/5.4 and Q22. Nothing new to raise
+and nothing to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (quality-pass note under item 3.10),
+AGENT_LOG.md, audits/riddings-build-check-2026-08-12.txt (new evidence
+file). No generator input changed; regeneration confirmed page outputs
+byte-identical (status/index.html expected diff only, reverted). Temp
+verification script deleted before commit.
+
 ## 2026-08-12 09:39 BST - hundred-and-ninth run - Quality pass on item 3.9,
 Coleman and Leighs Pharmacy (Walton), last verified 2026-08-11 10:12 as the
 sixty-seventh run and the oldest verification standing after run 108
