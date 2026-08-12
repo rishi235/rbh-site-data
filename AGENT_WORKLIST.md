@@ -2088,6 +2088,26 @@ so tools/build-audit-status.js picks them up like any other item.
       Check Weebly's own domain/HTTPS settings first (Weebly usually forces
       https by default; if these sites don't, something was changed or
       they're on an older Weebly HTTPS setting).
+
+      CORRECTION 2026-08-13, same day, after testing the live redirects:
+      the redirect is NOT broken. Loading http://www.cherrylanepharmacy.co.uk/,
+      http://www.riddingspharmacy.co.uk/ and http://www.mccannspharmacy.co.uk/
+      in a browser all land correctly on the https:// version. So no visitor
+      is being left on an insecure page and the original framing of this item
+      was overstated. Two things remain genuinely true and worth doing:
+      (a) NO CANONICAL TAG on any page checked (Cherry Lane, Riddings,
+      McCanns homepages all return canonical: NONE; only og:url is present).
+      A self-referencing canonical is the standard way to tell Google which
+      version is authoritative and would speed consolidation onto https.
+      Weebly may or may not expose this; check SEO settings and header code.
+      (b) Google is still holding and serving the legacy http:// URLs in its
+      index, which is why GSC attributes clicks to them (the click is
+      recorded against the URL that appeared in the search result, before
+      the redirect fires). This is a historic index artifact that normally
+      decays on its own; the canonical tag at (a) helps it along. Downgrade
+      from "high priority" to "worth doing, low risk, no urgency". Do NOT
+      change any Weebly domain or SSL setting on the strength of the
+      original wording above; nothing there is misconfigured.
       Repo-side check 2026-08-13 (run 135), so the next run does not repeat
       it: none of the 177 generated pages carries a rel="canonical" tag, and
       no page or branches.json field carries an http:// URL, every one is
