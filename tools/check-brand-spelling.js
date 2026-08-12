@@ -49,6 +49,26 @@
                 tools/build-switch-pages.js match branches.json. That table
                 is the one place a brand is typed rather than read, and it
                 feeds 15 pages.
+    4. MISSPELT no known transliteration misspelling of a trading name
+                appears in public copy. Rule 2 derives its near misses
+                from the canonical form, so it can never see a variant
+                whose letters differ: MacCann, Hirschman, Tiffenburg and
+                the spaced S K Chemists. The hand sweep this checker
+                replaced (fifty-first run) grepped for exactly those, so
+                the checker must hold at least what the sweep held. These
+                are listed, not derived, because a wrong transliteration
+                is knowledge, not arithmetic. The bare surname fails on
+                its own: there is no legitimate use of these strings in
+                public copy.
+
+  The banners are public copy too
+  -------------------------------
+  modules/switch/pages/banners holds 15 .txt files pasted into Weebly's
+  site-wide Header Code. Each one types the brand by hand in a CONFIG line
+  and shows it to every visitor on every page of the branch site. They were
+  outside this scan (the dir walk was non-recursive and .txt was excluded),
+  so a wrong brand in a banner published estate-wide with the repo green.
+  Now scanned.
 
   Quoted text is evidence, not a claim
   ------------------------------------
@@ -179,6 +199,19 @@ Object.keys(CANONICAL).forEach(function (id) {
 });
 
 // ---------------------------------------------------------------------------
+// Rule 4 patterns. Transliteration misspellings rule 2 cannot derive,
+// carried over from the hand sweep this checker replaced. The bare surname
+// fails on its own; these strings have no legitimate use in public copy.
+// Quoted evidence in markdown is masked before this runs, same as rule 2.
+// ---------------------------------------------------------------------------
+var MISSPELT = [
+  { wrong: "MacCann",      right: "McCanns Chemist",     re: /\bMacCann(?:s|'s)?\b/g },
+  { wrong: "Hirschman",    right: "Hirshmans Chemist",   re: /\bHirschman(?:s|'s)?\b/g },
+  { wrong: "Tiffenburg",   right: "Tiffenbergs Chemist", re: /\bTiffenburg(?:s|'s)?\b/g },
+  { wrong: "S K Chemists", right: "SK Chemists",         re: /\bS\s+K\s+Chemists?\b/g }
+];
+
+// ---------------------------------------------------------------------------
 // The copy in scope. Generated pages and their paste sheets, the paste
 // blocks and drafts CLAUDE.md names as public copy that no folder scan
 // reaches, and the GBP packs, which are copy bound for Google.
@@ -186,6 +219,7 @@ Object.keys(CANONICAL).forEach(function (id) {
 var SCAN_DIRS = [
   path.join(ROOT, "modules", "service", "pages"),
   path.join(ROOT, "modules", "switch", "pages"),
+  path.join(ROOT, "modules", "switch", "pages", "banners"),
   path.join(ROOT, "modules", "branch", "pages"),
   path.join(ROOT, "modules", "service", "weebly-paste"),
   path.join(ROOT, "gbp-packs")
@@ -205,7 +239,10 @@ SCAN_DIRS.forEach(function (dir) {
     return;
   }
   fs.readdirSync(dir).forEach(function (f) {
-    if (/\.(html|md)$/i.test(f)) files.push(path.join(dir, f));
+    // .txt is the banners: hand-typed public copy pasted into Weebly's
+    // site-wide Header Code. No other scan dir holds a .txt today, and a
+    // future one in these folders would be public copy too.
+    if (/\.(html|md|txt)$/i.test(f)) files.push(path.join(dir, f));
   });
 });
 SCAN_FILES.forEach(function (f) {
@@ -271,6 +308,28 @@ files.forEach(function (p) {
       }
     }
   });
+
+  MISSPELT.forEach(function (ms) {
+    ms.re.lastIndex = 0;
+    var mm;
+    while ((mm = ms.re.exec(text)) !== null) {
+      fail(rel(p) + "::" + flat(mm[0]),
+        rel(p) + ":" + lineOf(text, mm.index) + ': reads "' + flat(mm[0]) +
+        '", a known misspelling. The trading name is "' + ms.right + '"');
+    }
+    if (isMd) {
+      ms.re.lastIndex = 0;
+      var mq;
+      while ((mq = ms.re.exec(raw)) !== null) {
+        if (text.slice(mq.index, mq.index + mq[0].length).trim() === "") {
+          quotedEvidence++;
+          notes.push(rel(p) + ":" + lineOf(raw, mq.index) + ' records "' +
+            flat(mq[0]) + '" inside quotation marks, read as a note of what a live ' +
+            'page says rather than as this file claiming it');
+        }
+      }
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -331,7 +390,8 @@ console.log("check-brand-spelling");
 console.log("  " + branches.length + " trading branch(es), " +
   brandPatterns.length + " distinct trading name(s) pinned");
 console.log("  " + scanned + " file(s) of public copy scanned for near-miss " +
-  "spellings");
+  "spellings and " + MISSPELT.length + " known misspelling(s), banners " +
+  "included");
 console.log("");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });

@@ -2,6 +2,75 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 01:41 BST - ninety-third run - Quality pass on item 1.1, the
+brand-name standardisation, last verified 2026-08-11 02:05 as the fifty-first
+run and the oldest verification standing after runs 90 to 92 refreshed 2.1,
+4.7 and 4.2. Second machine-era pass on this item. The repo sweep is clean for
+the fourth time running; two gaps found and fixed in the checker run 51 built,
+both in its reach rather than in any copy. No new question.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing this run needed a
+decision: both fixes close a checker's blind spot against the rule it
+already enforces.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only; none of the open questions (Q17 onwards) has an answer. One tab
+navigated for the pickup and one for the live read below, nothing clicked,
+typed or submitted, tab closed after. Open questions 33 before, 33 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 36473b9, worktree clean apart
+from one untracked file: audits/live-hours-check-2026-08-12.json, today's
+regeneration of the tracked 2026-08-11 one, left behind uncommitted by an
+earlier process. check-live-hours.js rewrote it this run and it is
+committed here, so the audits folder carries today's live hours evidence.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. The ageing order was re-derived
+from every run heading in this log: runs 44 to 50 have all been refreshed
+by runs 86 to 92, and runs 76 to 79 refreshed 5.2, 5.6, 5.7 and 4.6, so
+run 51 (item 1.1, 02:05 on 2026-08-11) is the oldest standing. The
+remaining order is 3.1 (run 52) then 1.4 (run 53).
+
+REPO HALF. All six generators rebuilt to zero diff (status/index.html
+moved only by its own timestamp and the run 91/92 log entries, the
+committed copy being one regen stale) and all 29 checkers pass before and
+after the edit. The hand sweep re-run as git grep across all tracked
+files: every variant hit is evidence recording a sweep or a live finding,
+zero hits in public copy. Full detail in
+audits/brand-spelling-check-2026-08-12.txt.
+
+THE TWO FINDINGS AND FIXES, BOTH IN check-brand-spelling.js. First, the
+banners were outside the scan: modules/switch/pages/banners holds 15 .txt
+files pasted into Weebly's site-wide Header Code, each typing the brand by
+hand in a CONFIG line that renders on every page of the branch site, and
+the dir walk was non-recursive with .txt excluded, so a wrong brand in a
+banner published estate-wide with the repo green. run 44 gave the banners
+to check-em-dashes for ASCII; the brand rule never had them. Now scanned,
+209 to 224 files. Second, the checker held less than the hand sweep it
+replaced: rule 2 derives its near misses arithmetically, so a variant
+whose letters differ (MacCann, Hirschman, Tiffenburg, S K Chemists - all
+named by the run-51 sweep) was invisible to it. A "Hirschmans Chemist"
+typed into a pack tomorrow would have passed all 29 checkers. New rule 4
+pins those four, bare surname failing on its own, quoted markdown evidence
+still masked. Negative-tested four ways, every test behaved, all reverted;
+T2 and T3 double as proof the banners are now read by both rules.
+
+LIVE HALF, ONE READ-ONLY GET. The Coleman and Leighs switch page returns
+200 and confirms the known state unchanged: Weebly-native title and body
+still the pre-1.1 "Coleman & Leigh Pharmacy" paste with the em dash
+mojibake (recorded run 41), CDN footer correct. The repaste is already
+decided (Q13) and queued with the Weebly paste work, so nothing new to
+raise.
+
+Files changed: tools/check-brand-spelling.js, status/index.html,
+audits/brand-spelling-check-2026-08-12.txt,
+audits/live-hours-check-2026-08-12.json, AGENT_LOG.md.
+No new question raised.
+
 ## 2026-08-12 01:11 BST - ninety-second run [commit 36473b9, hash
 recorded in this follow-up commit] - Quality pass on item 4.2, the Cherry Lane Pharmacy
 GBP pack, last verified 2026-08-11 01:35 as the fiftieth run and the

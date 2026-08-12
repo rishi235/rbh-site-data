@@ -1,0 +1,60 @@
+Brand spelling quality pass - item 1.1 - 2026-08-12 01:41 BST (ninety-third run)
+
+REPO SWEEP - CLEAN, FOURTH TIME RUNNING
+git grep, case-sensitive, fixed strings, across all tracked files for the
+run-51 hand sweep list plus the transliteration variants: MacCann, Hirschman,
+Tiffenburg, S K Chemists, Scorrah, Fishlock (singular), Fishlock's,
+Coleman & Leigh, Gordon Shorts, McCann's, Smartt's. Every hit is evidence,
+not a claim: AGENT_LOG.md recording its own sweeps, CLAUDE.md and the
+checker's own comments quoting example variants, QUESTIONS.json and
+AGENT_WORKLIST.md recording live findings, audits recording their own
+findings, status/index.html rendering the log. Zero hits in public copy:
+no page, pack, paste sheet or banner.
+
+CHECKER STATE BEFORE THIS PASS
+All six generators rebuilt to zero diff (status/index.html moved only by
+its own timestamp and the run 91/92 log entries, the committed copy being
+one regen stale). All 29 checkers pass.
+
+TWO GAPS FOUND IN check-brand-spelling.js AND FIXED
+1. THE BANNERS WERE OUTSIDE THE SCAN. modules/switch/pages/banners holds
+   15 .txt files pasted into Weebly's site-wide Header Code, each typing
+   the brand by hand in a CONFIG line ("Change to {BRAND} in 30 seconds"
+   is shown on every page of the branch site). The dir walk was
+   non-recursive and .txt was excluded, so a wrong brand in a banner
+   published estate-wide with the repo green. check-em-dashes gained the
+   banners on run 44 for ASCII; the brand rule never had them. Banners dir
+   added to SCAN_DIRS, .txt added to the extension filter. Scan count
+   209 -> 224 files.
+2. THE CHECKER HELD LESS THAN THE HAND SWEEP IT REPLACED. Rule 2 derives
+   near misses arithmetically (s dropped or added, apostrophe-s, "and" as
+   "&"), so it can never see a variant whose letters differ. The run-51
+   hand sweep grepped MacCann, Hirschman, Tiffenburg and S K Chemists
+   explicitly; none was catchable by the checker. New rule 4 (MISSPELT)
+   pins those four, bare surname failing on its own, quoted markdown
+   evidence still masked.
+
+NEGATIVE TESTS, FOUR, ALL BEHAVED, ALL REVERTED
+T1 "Hirschmans Chemist" unquoted in gbp-packs/hirshmans-ainsdale.md
+   -> FAIL exit 1, correct message. Reverted.
+T2 "S K Chemists" in banner sk-chemists-bootle.txt -> FAIL exit 1,
+   proving banners are now read. Reverted.
+T3 "Fishlock Chemist" in banner fishlocks-ainsdale.txt -> FAIL exit 1,
+   proving rule 2 reaches banners. Reverted.
+T4 quoted "MacCanns Chemist" in gbp-packs/mccanns-aigburth.md -> exit 0
+   with evidence NOTE, proving the quote mask holds for rule 4. Reverted.
+After revert: checker clean, all 29 checkers pass.
+
+LIVE HALF, ONE READ-ONLY GET
+https://www.colemanandleighspharmacy.co.uk/switch-prescriptions-coleman-leigh-walton.html
+returns 200. Known state confirmed unchanged, nothing new: the Weebly-native
+title and body still read "Coleman & Leigh Pharmacy" (pre-item-1.1 paste,
+recorded run 41) and the body still shows the em dash mojibake; the CDN
+footer on the same page correctly reads "Coleman and Leighs Pharmacy". The
+repaste executing this is already decided (Q13 answer) and queued with the
+Weebly paste work. No new question raised.
+
+VERDICT
+Item 1.1 stands. Repo clean end to end; the two defects were in the
+checker's reach, not in any copy, and both are closed with the rule now
+holding at least everything the hand sweep held, banners included.
