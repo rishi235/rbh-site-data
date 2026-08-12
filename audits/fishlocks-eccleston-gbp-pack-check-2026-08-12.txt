@@ -1,0 +1,59 @@
+Quality pass evidence - item 4.8, Fishlocks Chemist Eccleston GBP pack
+Run: 2026-08-12 15:40 BST (hundred-and-twenty-first run)
+Previous verification: 2026-08-11 19:09 (eightieth run)
+Verdict: clean on the repo half, live verdicts identical to run 80.
+
+REPO HALF
+Pack facts verified against branches.json (fishlocks_eccleston):
+- Name: Fishlocks Chemist Eccleston = branchName. Match.
+- Address: Unit 3 The Carrington Centre, New Mill Street, Eccleston,
+  Chorley PR7 5SZ. streetAddress, addressLocality, seoRegion and
+  postalCode all match. Match.
+- Phone: 01257 451251. Match. No other branch's phone or postcode
+  appears anywhere in the pack.
+- Hours: Mon-Fri 9:00am-6:00pm, Sat 9:00am-12:00pm, Sunday closed.
+  Matches the NHS-confirmed openingHours spec (confirmed 2026-06-24).
+- Review link: https://g.page/r/CYyjtWbSXqEkEAE/review = googleReviewUrl.
+- Profile website: pharmacy-fishlocks-eccleston.html, the branch landing
+  page, honouring the shared-domain rule. Unchanged.
+- Post A button = pfLink (pharmacy-first-fishlocks-eccleston.html).
+- Catchment: "Eccleston, Charnock Richard and Coppull" in the
+  description, Post B and the dispensing bullet, leading with seoTown,
+  order equal to serviceAreaList.
+- hasApp true honoured: app mentions present and flagged as permitted.
+- Services vs widgets: all five advertised services (blood pressure,
+  contraception, Pharmacy First, weight loss, travel clinic) hold a
+  widget id in branches.json; nothing advertised without one and no
+  widget-backed service omitted. Both directions of the run 38 rule.
+- Post C names no medicine and makes no efficacy claim.
+Character counts, CRLF normalised, button lines excluded:
+- Description 730 (pack claims 730, limit 750).
+- Post A 463, Post B 348, Post C 521, Post D 433. All as claimed by
+  the pack and identical to runs 38 and 80.
+Checkers: all 28 static checkers exit 0. 52 pre-existing WARNs across
+the suite (13 on check-gbp-packs.js), none touching
+fishlocks-eccleston.md.
+Generators: all six ran, exit 0, git worktree byte-stable afterwards.
+
+LIVE HALF (plain GET with a User-Agent, no browser session, nothing
+clicked, typed or submitted)
+- pharmacy-first-fishlocks-eccleston.html: 200. H1 "Pharmacy First at
+  Fishlocks Chemist in Eccleston". All seven conditions present in the
+  page text (sinusitis, sore throat, earache, impetigo, shingles,
+  infected insect bites, UTI - the page uses "UTI" rather than "water
+  infection", which matches the generated copy).
+- switch-prescriptions-fishlocks-eccleston.html: 200,
+  Eccleston-correct H1. Title still reads "Switch Your Prescriptions -
+  Fishlocks Chemist Eccleston" against the SEO.md spec "Switch Your
+  Prescriptions to Fishlocks Chemist, Eccleston". Run 78/80 unpasted
+  SEO title pattern, unchanged, covered by the queued repaste scope.
+- weight-loss-clinic-fishlocks-eccleston.html: 200, correct H1 and
+  title.
+- travel-clinic-fishlocks-eccleston.html: 200, correct H1 and title.
+- pharmacy-fishlocks-eccleston.html (profile website landing page):
+  404. Known queued-paste state, recorded under Q35, guarded by the
+  pack's own paster ordering note.
+
+No in-repo defect found. No copy changed. No question raised, none
+answered (portal pickup returned only the already-recorded Q2-Q5 and
+Q13-Q16 entries; 33 open before, 33 after).

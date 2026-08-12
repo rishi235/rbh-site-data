@@ -848,6 +848,16 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       construction, not the SEO.md title (run 78 pattern, unpasted SEO
       field). Covered by the 5.3/5.4 repaste scope; no question raised.
       See audits/fishlocks-eccleston-gbp-pack-check-2026-08-11.txt.
+      Quality pass 2026-08-12: third pass, clean on both halves, verdicts
+      identical to run 80. Facts, counts (730, 463, 348, 521, 433) and
+      widget coverage re-verified against branches.json; all 28 static
+      checkers green with no WARN on this pack; all six generators
+      byte-identical. Live: all four post URLs 200 and Eccleston-correct
+      with the seven Pharmacy First conditions present; landing page 404
+      remains the known queued-paste state (Q35); switch title still the
+      unpasted Weebly default (run 78 pattern, queued repaste covers it).
+      No question raised.
+      See audits/fishlocks-eccleston-gbp-pack-check-2026-08-12.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
