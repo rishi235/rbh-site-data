@@ -1223,6 +1223,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       travel pages carry the stale name in body text not just titles, and
       the site-wide footer hand paste uses en dashes. No in-repo defect,
       no copy changed, no question raised.
+      Third quality pass 2026-08-12: pack verified clean for the third time,
+      fact by fact against branches.json and rule by rule. Description 652
+      characters exactly, posts 449, 280, 521 and 424, identical to both
+      earlier passes, so the pack is byte-stable across three. Zero
+      non-ASCII, zero dashes of any kind, zero smart quotes. All 29 checkers
+      pass and all six generators rebuild byte-identical. LIVE HALF NOT
+      PERFORMED, so this pass makes no fresh claim about the live pages and
+      the hard stop above stands untouched. One in-repo defect found and
+      fixed, again in a checker rather than in a pack, and the same shape as
+      the previous three passes: check-gbp-packs read the hours line as two
+      independent SETS, one of clock times and one of day names, and nothing
+      bound a time to the day it belongs to. Proved by injection here:
+      swapping this branch's 6:00pm weekday close with its 5:00pm Saturday
+      close leaves the set of times and the set of days both untouched, and
+      the pack passed clean while publishing a pharmacy that shuts an hour
+      early five days a week. Inverting the lunch closure passed the same
+      way. Six of the sixteen branches state a time that differs between
+      days and were exposed: Scorah Bramhall, McCanns Aigburth, Fishlocks
+      Eccleston, Hirshmans Ainsdale, Gordon Short Crosby and Cherry Lane.
+      The checker now rebuilds the line into the ranges it publishes for
+      each day and compares those against that day's own entries, reading
+      both grammars the estate uses for a split day, the two explicit ranges
+      and the envelope-plus-break form Hirshmans carries. Negative-tested
+      fifteen ways across six packs, twelve defects caught and three
+      legitimate rewrites correctly left alone. No pack copy changed, no
+      question raised. Done 2026-08-12.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

@@ -1143,6 +1143,112 @@ for (const file of packFiles) {
     }
   }
 
+  // --- and the right time must be on the right DAY ------------------------
+  // The two rules above are both SET comparisons and neither binds a time to
+  // a day. The clock-time rule asks only whether every time stated appears
+  // somewhere in the specification and every time in the specification
+  // appears somewhere on the line. The day rule asks only which days are
+  // named open and closed. So a pack can carry every correct time, on the
+  // wrong day, and satisfy both rules in both directions.
+  //
+  // Not hypothetical, and found on the item 4.14 quality pass, 2026-08-12,
+  // by injection into gordon-short-crosby.md. That branch closes at 6:00pm
+  // on weekdays and 5:00pm on Saturday. Swapping those two closing times
+  // between the weekday segment and the Saturday segment leaves the set of
+  // stated times identical, leaves every day still named, and the pack
+  // passed clean: it published a pharmacy shutting at 5:00pm five days a
+  // week that is open until 6:00pm, and a Saturday running an hour past the
+  // one the staff work. Inverting a lunch closure the same way ("9:00am to
+  // 2:00pm and 1:00pm to 6:00pm") also passed, because those are the same
+  // four times in the same set. Both are the locked-door fault the hours
+  // rules exist to stop, arriving through the PAIRING rather than through
+  // the time or the day. Six of the sixteen branches state a time that
+  // differs between days and are exposed to it: Scorah Bramhall, McCanns
+  // Aigburth, Fishlocks Eccleston, Hirshmans Ainsdale, Gordon Short Crosby
+  // and Cherry Lane.
+  //
+  // So this rule rebuilds the hours line into the ranges it publishes FOR
+  // EACH DAY and compares those against that day's own entries. It reads
+  // the two grammars the estate actually uses for a split day, because both
+  // are in the packs and both must land on the same pair of ranges:
+  // "9:00am to 1:00pm and 2:00pm to 6:00pm" states the two ranges outright,
+  // while hirshmans-ainsdale.md writes the envelope and the break instead,
+  // "8:30am to 6:00pm (closed 1:00pm to 2:00pm)". A lunch parenthetical is
+  // therefore read here rather than stripped, but only when the segment
+  // states a single range for it to divide; where the ranges are already
+  // explicit the parenthetical is redundant and is ignored, which is what
+  // mccanns-aigburth.md carries. Days named closed are skipped, since the
+  // day rule above owns them, and a branch with no specification is skipped
+  // for the reason given there.
+  if (hoursLine && spec && spec.length) {
+    const TIME_SRC = "(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)";
+    const TO_SRC = "(?:to|until|till)";
+    const claimLine = (hoursClaim.replace(/\s+/g, " ").split(/\.\s+(?=[A-Z])|\.\s*$/)[0] || "");
+    const expandDayRanges = (s) =>
+      s.replace(new RegExp(`${DAY_SRC}\\s*(?:to|-|through|thru|until)\\s*${DAY_SRC}`, "gi"), (m, a, z) => {
+        const from = dayIndexOf(a);
+        const to = dayIndexOf(z);
+        if (from < 0 || to < 0 || to < from) return m;
+        return ` ${DAY_NAMES.slice(from, to + 1).join(" ")} `;
+      });
+    // Split on separators OUTSIDE parentheses, so a lunch note stays with
+    // the day segment it qualifies.
+    const segments = [];
+    let depth = 0;
+    let buf = "";
+    for (const ch of claimLine) {
+      if (ch === "(") depth++;
+      else if (ch === ")") depth = Math.max(0, depth - 1);
+      if ((ch === "," || ch === ";") && depth === 0) { segments.push(buf); buf = ""; }
+      else buf += ch;
+    }
+    segments.push(buf);
+    const rangesOf = (seg) => {
+      const bare = seg.replace(/\([^)]*\)/g, " ");
+      const out = [];
+      for (const m of bare.matchAll(new RegExp(`${TIME_SRC}\\s*${TO_SRC}\\s*${TIME_SRC}`, "gi"))) {
+        out.push([toMinutes(m[1], m[2], m[3].toLowerCase()), toMinutes(m[4], m[5], m[6].toLowerCase())]);
+      }
+      if (out.length === 1) {
+        const br = seg.match(new RegExp(`\\(\\s*closed[^)]*?${TIME_SRC}\\s*${TO_SRC}\\s*${TIME_SRC}[^)]*\\)`, "i"));
+        if (br) {
+          const bs = toMinutes(br[1], br[2], br[3].toLowerCase());
+          const be = toMinutes(br[4], br[5], br[6].toLowerCase());
+          if (bs > out[0][0] && be < out[0][1] && bs < be) return [[out[0][0], bs], [be, out[0][1]]];
+        }
+      }
+      return out;
+    };
+    const claimedRanges = {};
+    for (const seg of segments) {
+      if (/\bclosed\b/i.test(seg.replace(/\([^)]*\)/g, " "))) continue;
+      const days = [];
+      for (const m of expandDayRanges(seg).matchAll(new RegExp(DAY_SRC, "gi"))) {
+        const i = dayIndexOf(m[1]);
+        if (i >= 0) days.push(DAY_NAMES[i]);
+      }
+      const rs = rangesOf(seg);
+      if (!days.length || !rs.length) continue;
+      for (const d of days) {
+        claimedRanges[d] = (claimedRanges[d] || []).concat(rs.map((r) => `${r[0]} to ${r[1]}`));
+      }
+    }
+    const dataRanges = {};
+    for (const s of spec) {
+      for (const d of (s.dayOfWeek || [])) {
+        (dataRanges[d] = dataRanges[d] || []).push(`${s.opens} to ${s.closes}`);
+      }
+    }
+    for (const d of DAY_NAMES) {
+      const want = (dataRanges[d] || []).slice().sort();
+      const got = (claimedRanges[d] || []).slice().sort();
+      if (!want.length || !got.length) continue;
+      if (want.join(" | ") !== got.join(" | ")) {
+        fail(file, `the hours line publishes ${d} as ${got.join(" and ")}, but branches.json holds ${d} as ${want.join(" and ")}. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open`);
+      }
+    }
+  }
+
   // --- a lunch closure must tell the paster to enter TWO ranges -----------
   // Seven of the sixteen branches close for lunch, so a weekday appears
   // twice in openingHours.specification. The rule above proves the pack's

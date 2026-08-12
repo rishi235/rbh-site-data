@@ -2,6 +2,121 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 18:14 BST - hundred-and-twenty-sixth run - Quality pass on
+item 4.14, the Gordon Short Chemist Crosby GBP pack, last verified
+2026-08-11 22:15 and the oldest verification standing among completed
+items. Third pass on this item. Repo half performed and found ONE in-repo
+defect, in the checker rather than in the pack. LIVE HALF NOT PERFORMED,
+see below, so this run makes no fresh live claim about this branch.
+
+ANSWER PICKUP NOT AVAILABLE. Two Chrome instances are connected to the
+browser tooling and it requires a human to choose between them before any
+navigation. This run is unattended, so there is nobody to ask and it is not
+a choice to make on someone's behalf. Nothing was clicked, typed, submitted
+or logged in to anywhere. Same condition that blocked runs 121 to 123 and
+125. 33 questions remain open, unchanged (Q17-Q22, Q24, Q28, Q29, Q34-Q57).
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process. Branch
+level with origin at 6f01082, worktree clean. All five unchecked items still
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1), so a quality pass.
+
+SELECTION. All 166 second-level headings parsed, using the stricter reading
+run 125 settled on: the item a run actually worked, taken as the first item
+number in the heading, dated from the heading's own timestamp. One correction
+to the parse itself, worth recording because it silently favours the wrong
+item: a first attempt read the date with an unanchored match, and headings
+routinely quote the PREVIOUS verification date in their opening sentence
+("last verified 2026-08-11 14:04"), so item 5.1 was dated from the stamp it
+was compared against rather than the run that worked it. Anchoring the date
+to the start of the heading fixes it. On the corrected parse 4.14 stands
+first at 2026-08-11 22:15, ahead of 4.11 at 22:40, 2.2 at 23:08, 4.15 at
+23:15 and 2.3 at 23:42. This agrees with run 125, which recorded 4.13 at
+21:10 as the then-oldest. Items 5.3, 5.4, 5.5, 5.8 and 6.1 carry older
+stamps but are blocked and incomplete, so none is a candidate.
+
+REPO HALF. Every pack fact re-verified against the gordonshorts_crosby
+entry: name Gordon Short Chemist, 159 College Road, Liverpool L23 3AT,
+addressRegion Merseyside with seoRegion unset, seoTown Crosby, phone
+0151 924 3449, website, review link, ods FPD45, hasApp false with no app
+mention anywhere, pfBooking true so Post A's "book or just walk in" is
+allowed, and pfLink matching the URL Post A points at. Hours are the two
+sessions a day the NHS confirmed on 2026-06-24, Monday to Friday 09:00 to
+13:00 and 14:00 to 18:00 and Saturday 09:00 to 13:00 and 14:00 to 17:00
+with Sunday named closed. Catchment reads Crosby, Waterloo and Sefton in
+all three places, leading with its own seoTown. Full five-widget set, with
+sections 2 and 3 carrying all five and claiming nothing extra. Counts
+CRLF-normalised: description 652, exactly what its heading claims against a
+750 limit, and posts 449, 280, 521 and 424 body only, identical to both
+earlier passes, so the pack is byte-stable across three. Zero non-ASCII,
+zero dashes of any kind, zero dash entities, zero smart quotes, zero
+middots. Post A's seven conditions and the UTI 16 to 64 range match the
+generated Pharmacy First page. All 29 checkers exit 0 and all six
+generators rebuild to zero diff.
+
+THE DEFECT, AND IT IS THE FOURTH OF THE SAME SHAPE. check-gbp-packs guards
+the hours line with two rules and both are SET comparisons. The clock-time
+rule asks whether every time stated appears somewhere in the specification
+and every time in the specification appears somewhere on the line. The day
+rule asks which days are named open and closed. Neither binds a time to the
+day it belongs to, and nothing else does either. So a pack carrying every
+correct time on the wrong day satisfies both rules in both directions.
+Proved by injection into this pack, which is one of the branches where it
+bites hardest because its Saturday closes at 17:00 while its weekdays close
+at 18:00: swapping those two closing times between the weekday segment and
+the Saturday segment leaves the stated set of times identical and every day
+still named, and the checker exited 0. What that pack publishes is a
+pharmacy shutting at 5:00pm five days a week that is actually open until
+6:00pm, which is the locked-door fault the hours rules exist to stop,
+arriving through the PAIRING rather than through the time or the day.
+Inverting the lunch closure passed the same way, "9:00am to 2:00pm and
+1:00pm to 6:00pm" being the same four times in the same set. A control
+injection that removed 17:00 from the line altogether was correctly caught
+by the existing rule, so the set rule works within its own scope and the
+gap is precisely the day binding. Six of the sixteen branches state a time
+that differs between days and were exposed: Scorah Bramhall, McCanns
+Aigburth, Fishlocks Eccleston, Hirshmans Ainsdale, Gordon Short Crosby and
+Cherry Lane. The other nine are uniform, and two hold no specification.
+
+THE FIX. The checker now rebuilds the hours line into the ranges it
+publishes FOR EACH DAY and compares those against that day's own entries in
+branches.json. It splits the line on separators outside parentheses so a
+lunch note stays with the day it qualifies, expands day ranges the same way
+the day rule does, and reads both grammars the estate actually uses for a
+split day: the two explicit ranges most packs carry, and the
+envelope-plus-break form hirshmans-ainsdale.md uses, "8:30am to 6:00pm
+(closed 1:00pm to 2:00pm)", which has to land on the same pair. Where the
+ranges are already explicit the parenthetical is redundant and is ignored,
+which is what mccanns-aigburth.md carries. Days named closed are skipped
+because the day rule owns them, and a branch with no specification is
+skipped for the reason that rule already gives. Negative-tested fifteen ways
+across six packs: twelve deliberate defects, all caught, covering the
+weekday and Saturday swap on five different branches, both split-day
+grammars, a moved lunch boundary, a widened break inside a parenthetical and
+a session start shifted by an hour; and three legitimate rewrites that must
+NOT trip it, a rewrapped line, abbreviated day names, and this pack rewritten
+into the envelope-plus-break grammar. All fifteen behaved. All 15 packs pass
+unchanged, so no false positive on the estate as it stands.
+
+LIVE HALF NOT PERFORMED, for the same reason the answer pickup was not: the
+browser tooling cannot be pointed at a tab unattended while two instances
+are connected. So the four post links were NOT refetched this run and the
+hard stop in the pack's paster notes is carried forward unverified rather
+than reconfirmed. It still says what it said: the branch-specific Pharmacy
+First page was live on 2026-08-11 as the old "Gordon Shorts Chemist" paste,
+Post A therefore still points at pharmacy-first-service-crosby.html, and the
+swap waits on the repaste. Nothing in the pack's live-facing copy was
+touched.
+
+Files changed: tools/check-gbp-packs.js (the new day-bound hours rule),
+AGENT_WORKLIST.md (item 4.14 third pass recorded in place), AGENT_LOG.md.
+No pack copy changed. No new question: this was an in-repo defect with an
+unambiguous fix, not a decision for Rishi. Commit hash recorded in the
+follow-up commit.
+
 ## 2026-08-12 17:34 BST - hundred-and-twenty-fifth run [commit dcd770c,
 hash recorded in this follow-up commit] - Quality pass on item 4.13, the Riddings
 Pharmacy Timperley GBP pack, last verified 2026-08-11 21:10 and the oldest
