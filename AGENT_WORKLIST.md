@@ -393,6 +393,27 @@ wrong; the policy was unpinned. New tools/check-widget-diaries.js, 4 rules
 derived from the data rather than hardcoded, all 4 proven by negative tests
 (truncated id, cross-brand paste, an NHS diary shared at one brand only, and a
 travelClinic id dropped into a sister's weightLoss slot). No question raised.
+Quality pass 2026-08-12 (third; runs 23 and 65 before it). All 12 pages
+re-verified by a fresh independent extraction, no checker code reused. 348
+checks, 15 flags, all 15 triaged to documented states, 0 real defects: one H1
+per page carrying Bootle, paste-sheet titles and descriptions on pattern,
+phone as display and tel: on all 12 with no other branch's digits, own
+postcode only (SK's L20 5DW nowhere), cross-town scan clean, JSON-LD address
+and telephone correct field by field, no literal widget id (79 estate ids
+scanned), pins as generators declare, POM and claim scans clean bar the one
+KNOWN_CLAIM already tracked under Q16/5.8. The three flag classes: the em
+dash in the HTML build comment is check-em-dashes' documented exemption
+(estate-wide, 171 pages, no visitor sees it); the travel and weight loss
+keyword lines follow their own estate-wide shape, not the Pharmacy First one;
+the switch tile claim is the recorded Q16 exposure whose exemption fails the
+run if it goes stale. All 29 checkers pass, all seven generators rebuilt
+byte-identical. Live half, two read-only GETs: the generated UTI page serves
+correctly (title, H1, NAP, cohort wording, footer email); live footer hours
+still omit the lunch closure (run 65's known Weebly repair) and the switch
+banner mojibake close button is still the pre-run-44 paste; the old
+pharmacy-first-service-bootle.html pfLink keeps its known 5.3 faults, seven
+cohorts correct. Nothing new raised. Evidence in
+audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1

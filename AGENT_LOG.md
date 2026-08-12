@@ -2,6 +2,83 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 09:45 BST - hundred-and-seventh run - Quality pass on item 3.7,
+Smartts Chemist (Bootle), last verified 2026-08-11 09:04 as the sixty-fifth
+run and the oldest verification standing after run 106 refreshed 3.6. Third
+pass on this item. Clean on both halves, no in-repo defect found, no new
+question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+smarttschemist.co.uk, nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin at 7fa84fb, worktree clean. All five unchecked items still [BLOCKED]
+(5.3, 5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so
+quality pass on the oldest standing verification, which run 106's ageing
+order left as 3.7 (run 65, 2026-08-11 09:04). Runs 76 to 78 were confirmed
+in full to have covered 5.2, 5.6 and 5.7, so nothing older stands.
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 12 Smartts pages (10
+service, 1 weight loss, 1 switch) re-read by an independent extraction
+written fresh for this run, no code shared with the checkers;
+branches.json, pom-names.js and claim-patterns.js read as data only. 348
+checks, 15 flags, all 15 triaged to documented states, zero real defects.
+One H1 per page carrying Bootle; paste-sheet titles and descriptions found
+by permalink for all 12 (177 sheet entries indexed); phone 0151 922 4984
+as display string and tel: link with no other branch's digits anywhere;
+own postcode only, with SK Chemists' L20 5DW (same town, same prefix, 1.5
+miles away) appearing nowhere; cross-town scan clean with Bootle, Sefton
+and Liverpool excused as Smartts' own catchment; JSON-LD PostalAddress and
+telephone correct field by field against branches.json; no literal widget
+id (all 79 estate ids scanned); pins as the generators declare
+(service-module-phase1 for the 11 service-family pages, 6a275e1 for
+switch); POM union scan (82 names) empty on all 12 including the weight
+loss page and its sheet strings. Widget diary policy spot-checked and
+holding: the three NHS diaries unique per branch at 14 of 14, weightLoss
+and travelClinic shared only within the three multi-branch brands.
+
+THE 15 FLAGS, ALL DOCUMENTED STATES, NONE A DEFECT. Twelve are the em dash
+in the first line of each page's HTML build comment, which is estate-wide
+(171 pages) and is check-em-dashes' own documented exemption: comments are
+blanked before scanning because no visitor sees them. Two are the travel
+clinic and weight loss keyword lines lacking "L20", which is not drift:
+those families use their own estate-wide keyword shape and Smartts matches
+it exactly. One is "Support that delivers results." on the switch page's
+Weight Loss Clinic tile, which is the recorded Q16 exposure sitting in
+KNOWN_CLAIM in check-service-links.js awaiting the item 5.8 / Q22
+decision; the checker fails the run if that exemption ever goes stale
+(verified this run, lines 34 and 166-168), so it cannot rot silently.
+Independent rediscovery of a tracked issue is confirmation the extraction
+saw what the checkers see.
+
+LIVE HALF, TWO READ-ONLY GETS. uti-treatment-smartts-bootle.html serves
+the generated page with correct title, H1, NAP (42 Fernhill Road, Bootle,
+L20 9HH), phone as display and link, the women 16 to 64 cohort wording and
+the correct smartts@rbhealth.co.uk footer. Two known live states persist,
+neither new: the footer hours still omit the 1pm-2pm lunch closure that
+branches.json holds (run 65's finding, a Weebly repair already on record),
+and the switch banner close button still renders as mojibake, meaning the
+pre-run-44 paste is still live and the regenerated pure-ASCII banner has
+not yet been repasted. pharmacy-first-service-bootle.html, the pfLink and
+GBP Post A target, still carries its known faults (pipe-and-ampersand
+title, US spellings) and waits on the item 5.3 decision; its seven
+conditions and cohorts are correct against the NHS specification and its
+footer NAP and phone are correct. Nothing new to raise and nothing
+autonomous to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (quality-pass note under item 3.7),
+AGENT_LOG.md, audits/smartts-build-check-2026-08-12.txt (new evidence
+file). No generator input changed; regeneration confirmed zero diff
+(status/index.html timestamp only, discarded). Temp verification script
+deleted before commit.
+
 ## 2026-08-12 09:05 BST - hundred-and-sixth run - Quality pass on item 3.6,
 McCanns Chemist (Aigburth and Sandringham), last verified 2026-08-11 as the
 sixty-fourth run and the oldest verification standing after run 105

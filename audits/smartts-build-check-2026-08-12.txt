@@ -1,0 +1,90 @@
+Quality pass evidence - item 3.7, Smartts Chemist (Bootle) - 2026-08-12
+Run: hundred-and-seventh scheduled run. Third pass on this item (runs 23, 65, this).
+Method: fresh independent extraction written for this run only, no code shared
+with the repo checkers. branches.json, tools/pom-names.js and
+tools/claim-patterns.js read as data only. Script deleted before commit.
+
+SCOPE
+12 pages: 10 service (earache, impetigo, insect bite, pharmacy first, shingles,
+sinusitis, sore throat, UTI, contraception, travel clinic), 1 weight loss
+clinic, 1 switch. 177 paste-sheet entries indexed across 6 sheets. 82 POM
+names and 9 claim patterns loaded as data.
+
+RESULT
+348 checks run. 15 flags raised by the extraction, all 15 triaged to documented
+states. 0 real defects in the repo half.
+
+CHECKS THAT CAME BACK CLEAN OUTRIGHT
+- Exactly one H1 per page, every H1 carrying the seoTown Bootle.
+- Paste-sheet title and description match the page header comment for all 12
+  permalinks; descriptions within Google display bounds.
+- Phone 0151 922 4984 as display string and tel: link on all 12; no other
+  branch's phone digits anywhere on any page (all 15 other branches scanned).
+- Own postcode L20 9HH only; SK Chemists' L20 5DW (same town, same prefix,
+  1.5 miles away) appears nowhere.
+- Cross-town scan clean: no other branch's seoTown on any page. Bootle,
+  Sefton and Liverpool excused as Smartts' own catchment.
+- JSON-LD PostalAddress correct field by field against branches.json,
+  including telephone.
+- No literal Appointedd widget id on any page (79 estate ids scanned).
+- Pins as the generators declare: 11 service-family pages
+  @service-module-phase1, switch page @6a275e1, no @main reference.
+- POM union scan (82 names) empty on all 12 pages including the weight loss
+  clinic page and its sheet strings.
+- Google review link is Smartts' own and no other branch's.
+- nhsEmail: no foreign NHS mailbox on any page.
+- Widget diary policy holds: bloodPressure, contraception and pharmacyFirst
+  unique per branch (14 distinct ids across 14 branches each); weightLoss and
+  travelClinic shared within multi-branch brands only (12 distinct ids across
+  15 branches, the McCanns, Scorah and Fishlocks pairs each sharing one).
+
+THE 15 FLAGS AND WHERE EACH LANDED
+1-12. A literal em dash in the first line of the HTML build comment on all 12
+  pages ("SMARTTS CHEMIST — <page name>"). Estate-wide: 171 generated pages
+  carry the same character in the same place. check-em-dashes.js documents the
+  exemption explicitly: dashes inside HTML build comments are excused because
+  no visitor sees them, and the checker blanks comments before scanning.
+  Deliberate house position, not a defect.
+13-14. The travel clinic and weight loss sheet keyword lines carry no "L20"
+  and no "Pharmacy First Bootle". The extraction's keyword rule was modelled
+  on the Pharmacy First block shape; the travel and weight loss families use
+  a different estate-wide shape ("<service> <town>, <variant> <town>,
+  <brand>, pharmacy <town>") and Smartts matches it exactly, as do all other
+  branches sampled. Not a defect.
+15. "Support that delivers results." on the switch page Weight Loss Clinic
+  tile matched claim pattern "promises results". This is the recorded Q16
+  exposure: it sits in KNOWN_CLAIM in check-service-links.js with the reason
+  attached, waits on the item 5.8 / Q22 decision, and the checker fails the
+  run if the entry ever goes stale. Independent rediscovery of a tracked
+  issue, not a new one.
+
+CHECKER-QUALITY PROBE
+The stale-exemption fault shape that bit check-postcodes (run 55) was checked
+against check-service-links.js: KNOWN and KNOWN_CLAIM entries that no longer
+trigger FAIL the run (lines 34, 166-168), so the Q16 exemption cannot rot
+silently. No gap.
+
+BASELINE
+All 29 checkers passed before any change. All seven generators rebuilt every
+page byte-identical (status/index.html timestamp only, discarded before the
+extraction ran).
+
+LIVE HALF - TWO READ-ONLY GETS
+1. uti-treatment-smartts-bootle.html serves the generated page: correct title
+   and H1, correct NAP (42 Fernhill Road, Bootle, L20 9HH), phone as display
+   and link, the women 16 to 64 cohort wording, correct smartts@rbhealth.co.uk
+   footer. Two known live-side states persist, neither new: the page footer
+   hours omit the 1pm-2pm lunch closure that branches.json holds (run 65's
+   finding, a Weebly repair already on record), and the switch banner close
+   button still renders as mojibake, i.e. the pre-run-44 paste is still live
+   and the regenerated pure-ASCII banner has not yet been repasted.
+2. pharmacy-first-service-bootle.html, the pfLink and GBP Post A target,
+   still carries its known faults (pipe-and-ampersand title, US spellings
+   "recognizing"/"characterized"/"authorized") and waits on the item 5.3
+   decision. Its seven conditions and cohorts are correct against the NHS
+   specification, footer NAP and phone correct. Same state item 5.3 already
+   holds.
+
+Nothing new to raise, nothing autonomous to decide, no question added.
+Browser use read-only throughout: the portal answer fetch plus these two GETs,
+nothing clicked, typed or submitted anywhere.
