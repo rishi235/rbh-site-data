@@ -2018,5 +2018,38 @@ so tools/build-audit-status.js picks them up like any other item.
       check-opening-hours.js green in the repo half. No in-repo defect
       found.
 
+- [ ] 6.4 (low priority, cosmetic) McCanns nav button styling: on
+      mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
+      three weight loss nav entries ("Weight Loss Clinic", "Weight Loss
+      Clinic (Aigburth)", "Weight Loss Clinic (Sandringham)") have Weebly's
+      per-item "show as button" style switched on while every other nav
+      item is plain text, which wraps the desktop nav into four rows.
+      Confirmed live 2026-08-13 by reading the nav DOM: exactly those three
+      links carry a teal background, nothing else does. Not on this repo,
+      Weebly editor only. Depends on the decision at 6.5 below: if the
+      weight loss landing page comes out of the main nav entirely, this
+      may resolve itself by removing two of the three entries rather than
+      restyling them. Check the same three-button pattern on Fishlocks and
+      Scorah, the other shared-domain sites, while in there.
+- [ ] 6.5 Weight loss nav architecture: decide whether the weight loss
+      landing (advertising) page should appear in the main site nav at
+      all, per each branch, or only be reached via ad campaigns and a
+      direct link, with only the inner information page kept in the nav.
+      Keeping the landing page out of primary navigation removes it from
+      the near-total-prohibition regime for organic visitors entirely
+      (RBH_WeightLoss_Advertising_Standards.md: Regime 1 covers "any page a
+      button proactively links to"), and reduces nav clutter at the
+      shared-domain sites. Competitor check 2026-08-13: Superdrug Online
+      Doctor's main nav carries one generic category link, "Weight Loss &
+      Wellbeing", no drug name, with promotional claims kept to a homepage
+      banner ("consultation", a discount code, no named POM or personalised
+      outcome). LloydsPharmacy does not surface weight loss as a top-level
+      nav item at all, it sits inside the "Online Doctor" dropdown; their
+      homepage carousel does carry a precise outcome claim ("up to 22.5% of
+      body weight") next to a discount code, which is the same shape of
+      claim RBH's own standards document treats as high risk, so a
+      competitor doing it is not evidence it is safe, only evidence
+      enforcement is inconsistent. Feeds into the wider decision at Q22.
+
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
