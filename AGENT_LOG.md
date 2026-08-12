@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 00:04 BST - hundred-and-thirty-fourth run - Quality pass on item
+## 2026-08-13 00:04 BST - hundred-and-thirty-fourth run [commit 9bc3cdf, hash
+recorded in this follow-up commit] - Quality pass on item
 1.1, the brand-name standardisation, last verified at run 93 and the oldest
 verification standing after run 133 refreshed 4.2. Third machine-era pass on
 this item. REPO HALF ONLY: the live half could not be run and is not claimed.
