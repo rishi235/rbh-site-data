@@ -2,6 +2,62 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 06:11 BST - hundred-and-second run - Quality pass on item 3.2,
+the Scorah Chemists SEO pattern (Bramhall and Hazel Grove), last verified
+2026-08-11 as the sixtieth run and the oldest verification standing after
+run 101 refreshed 4.1. Second machine pass on this item. Clean on both
+halves, no in-repo defect found, no new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired (23:14 on 2026-08-10, not renewed). Nothing this
+run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded and re-verified against QUESTIONS.json this
+run; none of the 33 open questions (Q17-Q22, Q24, Q28, Q29, Q34-Q57) has
+an answer. 33 open before, 33 after. Browser use read-only throughout:
+the pickup plus two GETs on scorah-chemists.co.uk, nothing clicked, typed
+or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification, which run 101's re-derived
+ageing order left as 3.2 (run 60, 2026-08-11), ahead of 3.3 (run 61).
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. Beyond re-running the
+checkers, all 26 Scorah pages were re-read by an independent extraction
+written fresh for this run (its own regexes over the head-comment SEO
+title and description lines and the page H1s, no code shared with
+check-seo-pattern.js). Result agrees with the checker on every leg:
+every title, description and H1 carries the branch's own town, exactly
+one H1 per page, no sister-town leak anywhere except the two landing
+descriptions, which branches.json excuses because each branch's own
+serviceAreaList carries the sister town (Bramhall's list holds Hazel
+Grove and Hazel Grove's holds Bramhall, re-read from branches.json this
+run rather than trusted from run 60's account). Description lengths all
+inside 80 to 165. All 29 checkers pass. All seven generators rebuilt
+byte-identical (status/index.html timestamp only, discarded).
+
+LIVE HALF, TWO READ-ONLY GETS, THE HAZEL GROVE SIDE. Run 94's 3.1 audit
+had fetched only the Bramhall UTI page for Scorah, so this run took the
+sister leg. uti-treatment-scorah-hazel-grove.html: 200, H1 "UTI treatment
+in Hazel Grove" exact, page copy verbatim against the generated fragment
+(conditions, eligibility, phone 01625 872267, address 87 Macclesfield
+Road), rendered title "UTI treatment in Hazel Grove - Scorah Chemists -
+Scorah Chemists" is Weebly's default doubled-brand construction, which
+extends the run 78 unpasted-SEO-title finding to the Hazel Grove side
+explicitly (previously only observed on Bramhall). Covered by the queued
+5.3/5.4 Weebly session, nothing new. pharmacy-scorah-hazel-grove.html:
+still 404, the known unpasted landing page state already logged on the
+4.4 and 4.5 passes and anticipated by the pack's paster note. No new
+question raised for either.
+
+FILES CHANGED: AGENT_WORKLIST.md (second quality pass note under item
+3.2), AGENT_LOG.md. No generator input changed; regeneration confirmed
+zero diff. Temp verification script deleted before commit.
+
 ## 2026-08-12 05:42 BST - hundred-and-first run - Quality pass on item 4.1,
 the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified
 2026-08-11 06:04 as the fifty-ninth run and the oldest verification standing

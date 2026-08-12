@@ -236,6 +236,20 @@ audits/seo-pattern-check-2026-08-12.txt.
       preserved it. check-seo-pattern.js now carries the cross-town rule,
       excused only by the branch's own serviceAreaList, proved to bite by
       injection on both the description and the H1 leg. No new question.
+      Quality pass 2026-08-12: second machine pass. All 26 Scorah pages
+      re-read by an independent extraction (own regexes, not the checker):
+      title, description and H1 all carry the branch's own town, exactly
+      one H1 per page, the sister town appears only in the two landing
+      descriptions that branches.json excuses via serviceAreaList, and
+      every description sits inside 80 to 165 characters. All 29 checkers
+      pass, cross-town rule included; all seven generators rebuilt
+      byte-identical. Live half, two read-only GETs on the Hazel Grove
+      side: the UTI page serves the pattern's H1 and copy verbatim under
+      Weebly's doubled-brand default title, which extends the run 78
+      unpasted-title finding to Hazel Grove explicitly; the landing page
+      still 404s as the pack's paster note anticipates. Both known and
+      queued under 5.3/5.4 and the paste run. No repo defect. No new
+      question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
