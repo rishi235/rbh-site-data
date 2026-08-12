@@ -2,6 +2,119 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 16:45 BST - hundred-and-twenty-third run - Quality pass on
+item 4.10, the Smartts Chemist Bootle GBP pack, last verified 2026-08-11
+20:26 as the eighty-second run and the oldest verification standing among
+completed items after run 122 refreshed 4.9. Third pass on this item.
+Clean on both halves. The live half WAS performed this run, by a
+different permitted read-only route, so it makes a fresh claim where run
+122 could not.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP NOT AVAILABLE THIS RUN, third run running, same cause. Two
+Chrome instances are connected and the browser tooling requires the user
+to choose one before any browser action; on an unattended run there is
+nobody to choose, so no tab was opened. This is the step 3 "pickup
+unavailable" case: no other route was tried for the pickup and nothing
+was clicked, typed or submitted anywhere. 33 questions open before and
+after (Q17-Q22, Q24, Q28, Q29, Q34-Q57).
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process.
+Branch level with origin, worktree clean. All five unchecked items still
+[BLOCKED] (5.3, 5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1
+Q52), so a quality pass again.
+
+SELECTION, RE-DERIVED NOT INHERITED. Every run heading in this log was
+parsed and each item's most recent verification recorded, then sorted, so
+the ageing order comes from the log rather than from run 122's summary.
+That gives 4.10 at 2026-08-11 20:26 as the oldest standing among
+completed items. Item 6.1 carries an older stamp (2026-08-11 15:55) but
+is blocked and incomplete, so it is not a quality pass candidate. The
+worklist item list was cross-checked against the ageing list to confirm
+no completed item is missing from it: 37 complete, 5 blocked, all 37
+present.
+
+REPO HALF, CLEAN, THIRD PASS RUNNING. Every fact re-verified against the
+smartts_bootle entry: name, address 42 Fernhill Road, Bootle, L20 9HH,
+phone 0151 922 4984, website, review link, catchment Bootle, Sefton and
+Liverpool with seoTown leading, hasApp true so the app mentions are
+permitted, and pfBooking true so "book or just walk in" is allowed. The
+hours line states both sessions (09:00 to 13:00 and 14:00 to 18:00) and
+both closed days, matching the NHS-confirmed specification including the
+lunch closure. Widgets and services agree in both directions across all
+five widgets, and blood tests, vaccinations and medical cannabis are
+correctly described as live website pages rather than branches.json
+widgets. Counts CRLF-normalised: description 710, exactly what its
+heading claims against a 750 limit, and posts 461, 324, 516 and 420 body
+only, identical to the run 40 and run 82 measurements, so the pack is
+byte-stable across three passes. Zero dash characters, zero dash
+entities, zero non-ASCII, zero emoji, and zero medicine names against all
+21 in tools/pom-names.js. The split-day paster guidance run 40 made a
+rule is present. All 29 checkers exit 0. The two WARNs naming this branch
+are both the checker working rather than a defect: check-gbp-packs on the
+pfLink target being a live-only page the repo cannot keep correct, and
+check-seo-lengths on the 8 H1s shared with SK Chemists Bootle across
+different hosts, the open Q44 case. All six generators re-run, all exit
+0, worktree byte-stable.
+
+ONE IN-REPO ITEM RE-CHECKED RATHER THAN ASSUMED. The Weight Loss Clinic
+tile in the CONFIG block of tools/build-switch-pages.js line 23 still
+reads "Support that delivers results." and still links to the old page,
+exactly as compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md records. It is
+still registered in KNOWN_CLAIM in tools/check-service-links.js with its
+Q16 reason, and the key still matches a live line, so the checker does
+not report it stale and the register has not rotted. Deliberately not
+rewritten: patient-facing regulatory copy is Rishi's call and the wording
+is part of the Q16 and Q22 decision.
+
+LIVE HALF PERFORMED, AND HOW. The browser route was unavailable for the
+same reason as the answer pickup. The sandboxed fetch first refused the
+domain as outside its provenance set, the refusal run 122 recorded. A
+WebSearch restricted to smarttschemist.co.uk put the URLs into the
+provenance set and the homepage was then read. Read only throughout:
+nothing clicked, typed, submitted or logged in to. Findings: NAP correct
+live, one phone number only; all four post link targets confirmed live
+from the homepage navigation; and the website-hours contradiction STANDS
+unchanged, with the contact block printing 9:00am to 6:00pm and the
+footer repeating "Open Mon-Fri 9am-6pm", no lunch closure anywhere, so
+the pack's warning to the paster is still correct and still needed. The
+estate-wide homepage weight loss line the compliance assessment flags is
+still live word for word, so nothing has been fixed there since
+2026-08-10 and Q16 and Q22 stand. Both Smartts weight loss pages, the old
+one and the repo one, are live at once and both sit in the homepage
+navigation; that is already covered by the assessment and by blocked item
+5.8, so no new question. The live footer's en dashes are Weebly-owned,
+not repo-owned ("Company No 06223421" appears in no generator, only in
+the live-capture audit JSON), so there is no repo file to fix and
+check-em-dashes correctly stays green.
+
+ONE STATE ADVANCE RECORDED AGAINST ITEM 5.3, NOT ACTED ON.
+pharmacy-first-smartts-bootle.html, the repo's branch-specific Pharmacy
+First page, is now live and carried in the homepage navigation, with a
+homepage tile linking to it. The pack's own note says to swap Post A's
+link "once that page is confirmed live on Weebly", and that condition is
+now met for Smartts. Not done here: the swap is item 5.3's work, 5.3 is
+blocked on Q8, and repointing a GBP link from inside a 4.10 quality pass
+would be inventing scope.
+
+ONE THING DELIBERATELY NOT RESTATED. The compliance assessment records a
+prominent "BOOK NOW WEIGHT LOSS CLINIC" call to action in the homepage
+navigation. Today's text extraction shows "Weight Loss Clinic", "Weight
+Loss Clinic (Bootle)" and a separate "Book Now", not that string. A text
+extraction is not proof a styled call to action has gone, so no claim is
+made either way; it should be re-read on a pass with a real browser
+route.
+
+NO NEW QUESTION. Nothing found needs a decision that is not already
+sitting in an open question.
+
+FILES CHANGED. audits/smartts-bootle-gbp-pack-check-2026-08-12.txt (new),
+AGENT_WORKLIST.md (third quality pass note under 4.10), AGENT_LOG.md
+(this entry). No generator, no page output and no public copy changed.
+
 ## 2026-08-12 16:12 BST - hundred-and-twenty-second run - Quality pass on
 item 4.9, the Clear Chemist Aintree GBP pack, last verified 2026-08-11
 19:45 as the seventy-eighth run and the oldest verification standing

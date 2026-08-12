@@ -1,0 +1,156 @@
+SMARTTS CHEMIST BOOTLE GBP PACK - QUALITY PASS
+Item 4.10. Run 123, 2026-08-12. Third quality pass (runs 40 and 82 precede).
+Pack: gbp-packs/smartts-bootle.md. Branch id: smartts_bootle.
+
+WHY THIS ITEM
+All 37 completed worklist items and the 5 blocked ones were placed in
+ageing order by reading every run heading in AGENT_LOG.md rather than
+trusting the previous run's summary. Item 4.10 was last verified
+2026-08-11 20:26 BST as run 82, the oldest verification standing among
+completed items after run 122 refreshed 4.9. Item 6.1 carries an older
+stamp (2026-08-11 15:55) but is [BLOCKED] and incomplete, so it is not a
+quality pass candidate.
+
+REPO HALF - VERDICT: CLEAN, NO DEFECT, NO CHANGE
+
+Facts re-verified one by one against the smartts_bootle entry:
+  branchName        Smartts Chemist                        MATCH
+  streetAddress     42 Fernhill Road                       MATCH
+  addressLocality   Bootle                                 MATCH
+  postalCode        L20 9HH                                MATCH
+  phone             0151 922 4984                          MATCH
+  website           https://www.smarttschemist.co.uk       MATCH
+  googleReviewUrl   https://g.page/r/CVzJUbDqQwReEBM/review MATCH
+  hasApp            true  -> app mentions permitted        MATCH
+  seoTown           Bootle -> leads the catchment           MATCH
+  serviceAreaList   Bootle, Sefton, Liverpool              MATCH
+  pfLink            pharmacy-first-service-bootle.html     MATCH (Post A)
+  pfBooking         true -> "book or just walk in" allowed MATCH
+
+Opening hours. branches.json specification is Monday to Friday 09:00 to
+13:00 and 14:00 to 18:00, closedDays Saturday and Sunday, source "NHS
+pharmacy profile", confirmed 2026-06-24. The pack states both sessions
+and both closed days. MATCH, including the lunch closure.
+
+Widgets and services agree in BOTH directions. The five widgets
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic)
+each have a services entry, and no widget-backed service is claimed
+without a widget. Blood tests, vaccinations and medical cannabis are
+correctly described in the pack as live website service pages rather
+than branches.json widgets, and the pack tells the paster to confirm
+those pages before pasting.
+
+Counts, CRLF-normalised, measured not assumed:
+  description   710 characters   heading claims 710, limit 750   MATCH
+  Post A        461 body   551 with Button line
+  Post B        324 body   420 with Button line
+  Post C        516 body   604 with Button line
+  Post D        420 body   503 with Button line
+All four posts are inside the 1,500 limit. The four body figures are
+identical to the run 40 and run 82 measurements, so the pack is
+byte-stable across three passes.
+
+Copy standards:
+  em dash and en dash characters          0
+  dash entities (&mdash; &ndash; &#8212;) 0
+  non-ASCII characters                    0
+  emoji                                   0
+  medicine names, all 21 in tools/pom-names.js  0
+No efficacy claim. Medical cannabis is still limited to "book a free
+consultation to discuss eligibility". The split-day paster guidance the
+run 40 pass made a rule is present and unchanged. The only other branch
+named is SK Chemists, in the note explaining why the two Bootle
+descriptions are worded differently.
+
+Checkers: all 29 tools/check-*.js exit 0. Two WARN lines name this
+branch and both are the checker working rather than a defect:
+  check-gbp-packs   pfLink target pharmacy-first-service-bootle.html is
+                    not a page this repo generates, so it is live-only
+                    and no checker here can keep it correct.
+  check-seo-lengths 8 H1s shared with SK Chemists Bootle across
+                    different hosts, the open Q44 case.
+
+Generators: all six page generators re-run, all exit 0, worktree
+byte-stable afterwards (git status clean).
+
+The one in-repo Smartts item recorded in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md was re-checked and is
+unchanged and correctly held: the Weight Loss Clinic tile in the CONFIG
+block of tools/build-switch-pages.js line 23 still reads "Support that
+delivers results." and still links to the old page. It remains
+registered in KNOWN_CLAIM in tools/check-service-links.js with its Q16
+reason. The key still matches a live line, so check-service-links does
+not report it stale and the register has not rotted. Deliberately not
+rewritten: patient-facing regulatory copy is reserved for Rishi and the
+wording is part of the Q16 and Q22 decision.
+
+LIVE HALF - PERFORMED
+
+Route note. The browser route was unavailable for the third run running:
+two Chrome instances are connected and the tooling requires a human to
+choose one before any browser action, which an unattended run cannot do.
+The sandboxed fetch first refused the domain as outside its provenance
+set, the same refusal run 122 recorded. A WebSearch restricted to
+smarttschemist.co.uk put the URLs into the provenance set and the
+homepage was then read. Read only throughout: nothing was clicked,
+typed, submitted or logged in to anywhere.
+
+1. NAP correct live. The page prints "42 Fernhill Road, Bootle, L20 9HH"
+   and "0151 922 4984", one phone number only. Agrees with the pack and
+   with branches.json.
+
+2. Website hours contradiction STANDS, unchanged since run 82. The live
+   contact block prints Monday to Friday 9:00am - 6:00pm and the site
+   footer repeats "Open Mon-Fri 9am-6pm, Sat and Sun closed". No lunch
+   closure anywhere. The pack's warning to the paster is therefore still
+   correct and still needed, and the wider website-hours defect first
+   recorded on the item 3.7 pass is still open.
+
+3. All four post link targets confirmed live, carried in the homepage
+   navigation:
+     Post A  pharmacy-first-service-bootle.html
+     Post B  switch-prescriptions-smartts-bootle.html
+     Post C  weight-loss-clinic-smartts-bootle.html
+     Post D  travel-clinic-smartts-bootle.html
+
+4. STATE ADVANCE recorded against item 5.3 (blocked, Q8). The repo's
+   branch-specific Pharmacy First page, pharmacy-first-smartts-bootle.html,
+   is now live: it is in the homepage navigation and a homepage tile
+   links to it. The pack's own note says to swap Post A's link "once that
+   page is confirmed live on Weebly". That condition is now met for
+   Smartts. NOT acted on here. The swap is item 5.3's work, 5.3 is
+   blocked on Q8, and changing a GBP link target on a blocked item from
+   inside a 4.10 quality pass would be inventing scope.
+
+5. Both Smartts weight loss pages are live at the same time: the old
+   weight-loss-clinic-bootle.html and the repo's
+   weight-loss-clinic-smartts-bootle.html, both in the homepage
+   navigation. Already covered by the compliance assessment and by
+   blocked item 5.8, so no new question is raised.
+
+6. The estate-wide homepage weight loss line the assessment flags as the
+   harder half of the Q16 exposure is still live verbatim: "Weight Loss
+   Clinic: Innovative solutions that deliver results. Tried the rest?
+   Now try the best." Nothing has been fixed since 2026-08-10. Q16 and
+   Q22 stand unchanged.
+
+7. The live footer prints en dashes ("Mon-Fri 9am-6pm" with U+2013).
+   The repo does not own that string: "Company No 06223421" appears in
+   no generator, only in the live-capture audit JSON files, so this is a
+   Weebly-level site footer outside the repo's reach. Recorded, not
+   fixed. check-em-dashes correctly stays green because there is no repo
+   file to change.
+
+ONE THING DELIBERATELY NOT RESTATED
+The compliance assessment records a prominent "BOOK NOW WEIGHT LOSS
+CLINIC" call to action in the homepage navigation. Today's text
+extraction of that navigation shows "Weight Loss Clinic", "Weight Loss
+Clinic (Bootle)" and a separate "Book Now", not that string. A text
+extraction is not proof that a styled call to action has gone, so no
+claim is made in either direction. It should be re-read on a pass that
+has a real browser route.
+
+RESULT
+Item 4.10 clean on both halves for the third time. No in-repo defect
+found, no copy changed, no new question raised. One live state advance
+recorded against item 5.3.

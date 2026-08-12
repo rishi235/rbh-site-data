@@ -969,6 +969,25 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       title, the third instance of the unpasted-title pattern (runs 77 and
       80), covered by queued repaste work. No in-repo defect, no copy
       changed, no new question.
+      Third quality pass 2026-08-12: clean on both halves again. Every
+      fact re-verified against branches.json including both hours
+      sessions; description still exactly 710 characters; posts 461, 324,
+      516 and 420, identical across all three passes; pure ASCII, no
+      medicine name against all 21 in pom-names.js, no dash, no emoji;
+      split-day paster guidance present. All 29 checkers exit 0, six
+      generators byte-stable. The two WARNs naming this branch are the
+      checkers working: check-gbp-packs on the live-only pfLink target and
+      check-seo-lengths on the 8 H1s shared with SK Chemists Bootle under
+      Q44. The build-switch-pages.js weight loss tile is unchanged and
+      still correctly held in KNOWN_CLAIM with its Q16 reason, key not
+      stale. Live half performed via a read-only fetch after the browser
+      route was again unavailable: NAP correct, all four post targets
+      live, and the website-hours contradiction still stands with no lunch
+      closure. One live state advance recorded against item 5.3, not acted
+      on here: pharmacy-first-smartts-bootle.html is now live in the
+      homepage navigation, which is the condition the pack sets for
+      swapping Post A's link. No in-repo defect, no copy changed, no new
+      question. Done 2026-08-12.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
