@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 17:04 BST - hundred-and-twenty-fourth run - Quality pass on
+## 2026-08-12 17:04 BST - hundred-and-twenty-fourth run [commit fb0d4bf,
+hash recorded in this follow-up commit] - Quality pass on
 item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack, last verified
 2026-08-11 20:41 and the oldest verification standing among completed
 items after run 123 refreshed 4.10. Third pass on this item. Both halves
