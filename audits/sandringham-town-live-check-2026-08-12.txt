@@ -1,0 +1,19 @@
+Sandringham town live check - 2026-08-12 (read-only GET, quality pass on item 5.7, run 119)
+Base: https://www.mccannspharmacy.co.uk/
+
+pharmacy-mccanns-sandringham.html | HTTP 404
+pharmacy-first-mccanns-sandringham.html | HTTP 200 | TITLE=Pharmacy First at McCanns Chemist, Sandringham - MCCANNS PHARMACY | H1=Pharmacy First at McCanns Chemist in Sandringham
+uti-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=UTI treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=UTI treatment in Sandringham
+sore-throat-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Sore throat treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Sore throat treatment in Sandringham
+earache-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Earache treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Earache treatment for children in Sandringham
+impetigo-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Impetigo treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Impetigo treatment in Sandringham
+insect-bite-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Infected insect bite treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Infected insect bite treatment in Sandringham
+shingles-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Shingles treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Shingles treatment in Sandringham
+sinusitis-treatment-mccanns-sandringham.html | HTTP 200 | TITLE=Sinusitis treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=Sinusitis treatment in Sandringham
+travel-clinic-mccanns-sandringham.html | HTTP 200 | TITLE=Travel Clinic at McCanns Chemist, Sandringham - MCCANNS PHARMACY | H1=Travel Clinic at McCanns Chemist in Sandringham
+weight-loss-clinic-mccanns-sandringham.html | HTTP 200 | TITLE=Weight Loss Clinic at McCanns Chemist, Sandringham - MCCANNS PHARMACY | H1=Weight Loss Clinic at McCanns Chemist in Sandringham
+contraception-mccanns-sandringham.html | HTTP 200 | TITLE=NHS contraception service in Sandringham - McCanns Chemist - MCCANNS PHARMACY | H1=NHS contraception service in Sandringham
+switch-prescriptions-mccanns-sandringham.html | HTTP 200 | TITLE=Switch Your Prescriptions - McCanns Chemist Sandringham - MCCANNS PHARMACY | H1=Switch your prescriptions to McCanns Chemist in Sandringham in under 30 seconds
+
+sitemap.xml | HTTP 200 | distinct lastmod values: 2026-07-18T22:41:29+00:00
+sitemap contains sandringham URLs: 12
