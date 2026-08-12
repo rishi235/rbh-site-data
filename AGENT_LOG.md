@@ -2,6 +2,66 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 13:38 BST - hundred-and-seventeenth run - Quality pass on
+item 5.6, the Q14 length-aware title rule, last verified 2026-08-11 17:37
+as the seventy-seventh run and the oldest verification standing after run
+116 refreshed 5.2 (next in age: 6.3 from run 75 at 17:40, then 5.7 from
+run 78 at 18:10). Third pass on this item. No defect found in either half.
+No in-repo change beyond the worklist note and this entry; the one
+correction is to run 77's evidence arithmetic, recorded in the new
+evidence file.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: one tab opened for the pickup and closed after;
+the live half ran as a single plain GET from PowerShell, the same
+read-only route runs 77 and 116 used. Nothing clicked, typed or submitted
+anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification.
+
+REPO HALF, CLEAN. All 29 checkers green before any change. All seven
+generators reproduced every page byte-identical (status/index.html
+regenerated with its own timestamp plus newer log content only and was
+reverted, matching runs 108 to 116). The run 35 and run 50 findings all
+hold: the 61-character title "Infected insect bite treatment in Walton -
+Coleman and Leighs" stands in the page, SEO.md and INDEX.md; the
+70-character version survives only inside Q14's own record in
+QUESTIONS.json; the full trading name "Coleman and Leighs Pharmacy" stands
+in every visible line of body copy (the H1 itself carries no brand, the
+family A pattern run 61 documented, so "the H1 keeps the full trading
+name" in earlier entries reads as: the title shortening never leaked into
+the H1 or body); KNOWN in check-seo-lengths.js is still an empty object
+with its stale-entry guard intact; and check-seo-pattern.js still derives
+the condition list from build-service-pages.js as data under test,
+failing loudly if no CONDITIONS block is declared.
+
+LIVE HALF, READ-ONLY, UNCHANGED. One plain GET. The page returns 200 and
+its live title is byte-identical to the run 77 reading: "Infected insect
+bite treatment in Walton - Coleman & Leigh Pharmacy", the hand-typed
+Weebly value with ampersand and singular Leigh. The Q14 repaste from
+SEO.md remains outstanding and remains the whole fix, correcting length
+and brand spelling in one action; no decision needed, no question raised.
+One count correction: the decoded live title is 67 characters, not the 68
+run 77's evidence recorded (40 + 3 + 24). Same string in both readings,
+both over the 65-character line, so nothing turns on it; corrected so the
+arithmetic does not propagate. Evidence:
+audits/insect-bite-title-live-check-2026-08-12.txt.
+
+FILES CHANGED. audits/insect-bite-title-live-check-2026-08-12.txt (new),
+AGENT_WORKLIST.md (quality pass note under 5.6), AGENT_LOG.md (this
+entry). QUESTIONS.json untouched at 33 open. Status page republished via
+tools\build-audit-status.js.
+
 ## 2026-08-12 13:11 BST - hundred-and-sixteenth run - Quality pass on item
 5.2, the six branch landing pages, last verified 2026-08-11 17:10 as the
 seventy-sixth run and the oldest verification standing after run 115

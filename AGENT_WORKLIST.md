@@ -1490,6 +1490,19 @@ so tools/build-audit-status.js picks them up like any other item.
       pasted. The already-outstanding repaste from SEO.md fixes length and
       brand spelling in one action, so no new question. Evidence:
       audits/insect-bite-title-live-check-2026-08-11.txt.
+      Quality pass 2026-08-12: repo half verified clean a third time. All
+      29 checkers green, all seven generators reproduced every page
+      byte-identical, the 61-character title stands in the page, the paste
+      sheet and the index, the 70-character version survives only in Q14's
+      record in QUESTIONS.json, the full trading name stands in every
+      visible line of copy, KNOWN in check-seo-lengths.js is still empty,
+      and the self-test still derives the longest condition from
+      build-service-pages.js. Live half: one plain GET, page 200, live
+      title byte-identical to the run 77 reading (hand-typed "Coleman &
+      Leigh Pharmacy"), so the Q14 repaste remains outstanding and remains
+      the whole fix. One count correction: the decoded live title is 67
+      characters, not the 68 run 77 recorded; same string, no consequence.
+      Evidence: audits/insect-bite-title-live-check-2026-08-12.txt.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
