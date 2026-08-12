@@ -55,10 +55,14 @@ recommended fix unchanged (live Weebly edit to the same "(closed 1-2pm)"
 wording the other three use). No new question needed. Evidence:
 audits/live-hours-check-2026-08-12.json.
 
-FILES CHANGED. audits/live-hours-check-2026-08-12.json (new),
-AGENT_WORKLIST.md (quality pass note under 6.3), AGENT_LOG.md (this
-entry). QUESTIONS.json untouched at 33 open. Status page republished via
-tools\build-audit-status.js.
+FILES CHANGED. AGENT_WORKLIST.md (quality pass note under 6.3),
+AGENT_LOG.md (this entry). One correction to the first writing of this
+entry: audits/live-hours-check-2026-08-12.json is not new - run 93
+(2026-08-12 01:42, commit 730fc09) had already committed a live-hours
+file under today's date, and this run's re-fetch reproduced it
+byte-identical, which is itself evidence the live estate has not changed
+between the 01:42 reading and this afternoon's. QUESTIONS.json untouched
+at 33 open. Status page republished via tools\build-audit-status.js.
 
 ## 2026-08-12 13:38 BST - hundred-and-seventeenth run - Quality pass on
 item 5.6, the Q14 length-aware title rule, last verified 2026-08-11 17:37
