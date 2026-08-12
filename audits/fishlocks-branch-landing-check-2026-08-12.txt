@@ -1,0 +1,84 @@
+ITEM 2.2 QUALITY PASS - Fishlocks shared-domain split
+Date: 2026-08-12 (hundred-and-twenty-ninth run)
+Scope: repo half only. The live half was not run and is not claimed: two
+Chrome extension instances are connected and an unattended run may not choose
+between them, so no browser call was made.
+
+Pages under test
+  modules/branch/pages/pharmacy-fishlocks-ainsdale.html
+  modules/branch/pages/pharmacy-fishlocks-eccleston.html
+
+1. REGENERATION
+   All six generators run: build-branch-landing-pages, build-service-pages,
+   build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+   build-contraception-pages.
+   git status after rebuild: empty. Byte-stable, zero diff.
+
+2. CHECKERS
+   All 29 tools/check-*.js run. 29 pass, 0 fail.
+
+3. FIELD-BY-FIELD, both pages against branches.json
+   fishlocks_ainsdale
+     branchName      Fishlocks Chemist Ainsdale       page H1, JSON-LD name  ok
+     streetAddress   17 Station Road                  hero, contact, FAQ     ok
+     addressLocality Ainsdale                         ok
+     postalCode      PR8 3HN                          ok
+     addressRegion   Merseyside                       JSON-LD only           ok
+     seoTown         Ainsdale                         title, H1, pill        ok
+     phone           01704 575478                     text and tel: link     ok
+     email           Ainsdale@rbhealth.co.uk          mailto                 ok
+     googleReviewUrl Cfl0iMf3cgGaEAE                  ok
+     nhsReviewUrl    XFK848 leave-a-review            ok
+     serviceAreaList Ainsdale, Birkdale, Southport    body and areaServed    ok
+     hasApp true     app sentence present                                    ok
+     openingHours    visible card and JSON-LD both from the same source      ok
+   fishlocks_eccleston: same shape, all fields match, seoRegion Chorley
+   present in the title as intended, addressRegion stays Lancashire.
+
+4. INJECTION PROBES, first pass (before this run's fix)
+   Each probe writes one foreign fact into the Ainsdale page, runs all 29
+   checkers, then regenerates to restore.
+     A  service-area towns swapped for the sister branch's
+        CAUGHT by check-jsonld.js, check-seo-sheets.js
+     B  sister-branch link repointed at pharmacy-mccanns-aigburth.html
+        NOT CAUGHT - all 29 checkers exit 0
+     C  googleReviewUrl swapped for the sister branch's
+        NOT CAUGHT - all 29 checkers exit 0
+     D  nhsReviewUrl swapped for the sister branch's
+        NOT CAUGHT - all 29 checkers exit 0
+     E  directions destination swapped for the sister branch's address
+        CAUGHT by check-map-embeds.js
+
+   B, C and D are the same shape as the misses already recorded in CLAUDE.md.
+   check-branch-links.js owns all three fields but reads only branches.json,
+   never a page. The checkers that read pages did not own the fields. So a
+   generator reaching for the wrong branch's link, or a hand edit, would have
+   shipped: on B the patient lands on a 404 because the link is relative and
+   the target is on another domain, and on C and D the patient leaves a review
+   on the wrong pharmacy's Google or NHS profile, which cannot be moved back.
+
+5. FIX
+   tools/check-branch-identity.js gains rules 8 (OUTBOUND) and 9 (SISTERLINK).
+   That checker was chosen because it already resolves a page to its owning
+   branch and already carries the "never another branch's" rule shape.
+   It now reads 198 review links and 6 branch landing links across the 177
+   generated pages, and reports both counts so a future pass can see what it
+   read. Estate result unchanged: clean, 6 known Q18 entries.
+
+6. INJECTION PROBES, second pass (after the fix)
+     B  sister link to another brand        CAUGHT by check-branch-identity
+     C  google review url swapped           CAUGHT by check-branch-identity
+     D  nhs review url swapped              CAUGHT by check-branch-identity
+     F  sister link points at its own page  CAUGHT by check-branch-identity
+     G  sister link to a landing filename no branch owns
+                                            CAUGHT by check-branch-identity
+     H  review link belonging to no branch  WARN, exit 0, as designed
+     J  control, one word changed in a build comment
+                                            not caught, as expected
+   J is the control: it proves the harness is not simply failing everything.
+   The pharmacy-first-<brand>-<town>.html family was specifically checked not
+   to be mistaken for a landing link; the clean estate run confirms it.
+
+7. RESULT
+   No data defect and no copy change. One verifier defect found and closed.
+   Repo half of item 2.2 holds for the third consecutive pass.

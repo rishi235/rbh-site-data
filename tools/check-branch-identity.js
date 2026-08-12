@@ -60,6 +60,31 @@
                   (branch name = brand plus a qualifier, never a divergent
                   spelling), and a branch sharing a brandLabel has a
                   branchName that is not the bare brandLabel.
+    8. OUTBOUND   a review link printed on a page is the owning branch's own
+                  googleReviewUrl or nhsReviewUrl, never another branch's. A
+                  review link is the one outbound link on a branch page that
+                  changes a third-party record: a patient who follows the
+                  wrong one leaves a review on the wrong shop's Google or NHS
+                  profile, and neither can be moved afterwards. A g.page or
+                  NHS leave-a-review link matching no branch is a warning.
+    9. SISTERLINK a link to another branch's landing page
+                  (pharmacy-<brandSlug>-<townSlug>.html) points at a branch
+                  that shares this branch's website host, and never at the
+                  page's own branch. These links are relative, so one aimed
+                  at a branch on another domain is a 404, and the "looking
+                  for our other branch?" block is the whole point of item
+                  2.2, the shared-domain split.
+
+  Rules 8 and 9 were added on the 2026-08-12 quality pass of item 2.2, after
+  five injections into a landing page were run past all 29 checkers: a swapped
+  service-area town was caught by check-jsonld and check-seo-sheets, and a
+  swapped directions destination by check-map-embeds, but the sister-branch
+  link could be repointed at another brand's page on another domain, and the
+  Google and NHS review links could be swapped for the sister branch's, with
+  every checker still exiting 0. The same shape as the earlier misses recorded
+  in CLAUDE.md: the checkers that owned those fields (check-branch-links) read
+  only branches.json, and the checkers that read the pages did not own the
+  fields.
 
   Rules 5 and 6 are skipped for a branch already reported under rule 4,
   because there they are the same fault seen from another angle and would
@@ -158,6 +183,36 @@ branches.forEach(function (b) {
   allNames[b.branchName] = b.id;
   if (!allNames[b.brandLabel]) allNames[b.brandLabel] = b.id;
 });
+
+// The website a branch's pages are served from. Relative links cannot cross it.
+function hostOf(b) {
+  return b.website
+    ? b.website.replace(/^https?:\/\//, "").replace(/\/+$/, "").toLowerCase()
+    : "";
+}
+
+// Rule 8: every review link in the estate, and the branch it belongs to.
+var reviewOwner = {};
+var reviewField = {};
+branches.forEach(function (b) {
+  if (b.googleReviewUrl) {
+    reviewOwner[b.googleReviewUrl] = b;
+    reviewField[b.googleReviewUrl] = "the Google review link";
+  }
+  if (b.nhsReviewUrl) {
+    reviewOwner[b.nhsReviewUrl] = b;
+    reviewField[b.nhsReviewUrl] = "the NHS review link";
+  }
+});
+
+// Rule 9: a landing page filename is pharmacy-<brandSlug>-<townSlug>.html.
+// The leading token tells a landing link apart from the other page families,
+// so pharmacy-first-fishlocks-ainsdale.html is not mistaken for one.
+var brandSlugs = {};
+branches.forEach(function (b) { if (b.brandSlug) brandSlugs[b.brandSlug] = true; });
+
+var reviewLinksRead = 0;
+var landingLinksRead = 0;
 
 // ---------------------------------------------------------------------------
 // Rule 7: the data itself, before any page is read.
@@ -288,6 +343,61 @@ pages.forEach(function (p) {
         "the two this page is; branchName (\"" + b.branchName + "\") can");
     }
   }
+
+  // Every href on the page, read once for rules 8 and 9.
+  var hrefs = [];
+  var hrefRe = /href="([^"]+)"/g;
+  var hm;
+  while ((hm = hrefRe.exec(p.html)) !== null) hrefs.push(hm[1]);
+
+  hrefs.forEach(function (h) {
+    // Rule 8: a review link belongs to the branch whose page prints it.
+    var owner = reviewOwner[h];
+    if (owner) {
+      reviewLinksRead++;
+      if (owner.id !== b.id) {
+        fail(slug, "outbound", rel(p.path) + ": publishes " + reviewField[h] +
+          ' "' + h + '", which belongs to ' + owner.id + ' ("' +
+          owner.branchName + '"), but the page belongs to ' + b.id + ' ("' +
+          b.branchName + '"). A patient following it rates the wrong shop, ' +
+          "on a third-party profile neither this repo nor a repaste can " +
+          "move the review back off");
+      }
+    } else if (/^https:\/\/g\.page\/r\//.test(h) ||
+               /^https:\/\/www\.nhs\.uk\/services\/pharmacy\/[^"]*leave-a-review/.test(h)) {
+      reviewLinksRead++;
+      warnings.push(rel(p.path) + ": review link " + h + " matches no " +
+        "googleReviewUrl or nhsReviewUrl in branches.json, so nothing can " +
+        "say which pharmacy it sends a review to");
+    }
+
+    // Rule 9: a link to a sister branch's landing page stays on this website.
+    var lm = /^pharmacy-([a-z0-9]+(?:-[a-z0-9-]+)?)\.html$/.exec(h);
+    if (!lm) return;
+    var firstToken = lm[1].split("-")[0];
+    if (!brandSlugs[firstToken]) return;   // another page family, not a landing link
+    landingLinksRead++;
+    var target = byKey[lm[1]];
+    if (!target) {
+      fail(slug, "sisterlink", rel(p.path) + ': links to "' + h + '", a ' +
+        "branch landing page filename that no trading branch in " +
+        "branches.json owns, so the cross-link points at a page this repo " +
+        "cannot account for");
+      return;
+    }
+    if (target.id === b.id) {
+      fail(slug, "sisterlink", rel(p.path) + ': its branch landing link ' +
+        'points back at its own branch ("' + h + '"), so the "looking for ' +
+        'our other branch?" block sends the patient nowhere');
+      return;
+    }
+    if (hostOf(target) !== hostOf(b)) {
+      fail(slug, "sisterlink", rel(p.path) + ': links to "' + h + '", the ' +
+        "landing page of " + target.id + " on " + (hostOf(target) || "no host") +
+        ", but this page is served from " + (hostOf(b) || "no host") +
+        ". The link is relative, so it cannot reach another website and 404s");
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -366,6 +476,8 @@ console.log("  " + counted + " page(s) matched to a branch, " + withRoot +
 console.log("  " + branches.length + " trading branch(es), " +
   Object.keys(byHost).filter(function (h) { return byHost[h].length > 1; }).length +
   " website(s) shared by a pair");
+console.log("  " + reviewLinksRead + " review link(s) and " + landingLinksRead +
+  " branch landing link(s) read on those pages");
 console.log("");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });

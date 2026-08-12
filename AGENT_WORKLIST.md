@@ -135,6 +135,33 @@ updated.
       pages still 404, sitemap still dated 2026-07-18 with the three
       combined two-town pages still the live targets, so the paste asked
       as Q35 remains the only outstanding step. No defect, no copy change.
+      Quality pass 2026-08-12: repo half clean for the third pass, no data
+      defect and no copy change, but one verifier defect found and closed.
+      Rebuild zero diff, all 29 checkers pass, both pages match branches.json
+      field for field on NAP, hours, JSON-LD, review links, service areas and
+      cross-link. Five foreign facts were injected into the Ainsdale page and
+      run past the whole suite: a swapped service-area town was caught by
+      check-jsonld and check-seo-sheets, a swapped directions destination by
+      check-map-embeds, and three were not caught at all. The sister-branch
+      link could be repointed at another brand's page on another domain, and
+      the Google and NHS review links could be swapped for the sister
+      branch's, with all 29 checkers exiting 0. Same shape as the CLAUDE.md
+      misses: check-branch-links owns those three fields but reads only
+      branches.json, and the checkers that read pages did not own the fields.
+      The consequence is not cosmetic - a relative link to another domain is
+      a 404, and a swapped review link puts a patient's review on the wrong
+      pharmacy's Google or NHS profile, where it cannot be moved back.
+      tools/check-branch-identity.js gains rule 8 (OUTBOUND, a review link on
+      a page is the owning branch's own) and rule 9 (SISTERLINK, a branch
+      landing link points at a branch on the same website host and never at
+      its own page). It now reads 198 review links and 6 landing links across
+      the 177 pages and reports both counts. Re-probed seven ways after the
+      fix, including a self-link, an unowned landing filename, a review link
+      belonging to no branch (warns, does not fail, as designed) and a
+      control that correctly stays green. Live half not run and not claimed:
+      two Chrome instances are connected and an unattended run may not choose
+      between them, so no browser call was made. Evidence:
+      audits/fishlocks-branch-landing-check-2026-08-12.txt.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on

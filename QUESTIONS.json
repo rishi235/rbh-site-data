@@ -898,5 +898,20 @@
     "status": "open",
     "answer": null,
     "note": "Two things follow from this beyond SK. First, the estate sweep for 5.8 should be driven from each branch sitemap rather than from each homepage, because reading the homepage alone is exactly what missed this page. The other five branches were assessed the same way, so there may be further old pages, or homepage links into them, that have not been seen. Second, the checker did its job here and is worth keeping strict: an earlier draft of this run put the medicine names into the SK GBP pack's internal paster notes as a warning, and tools/check-gbp-packs.js failed the run for it. The checker was not weakened. The note was rewritten without the names and the element-by-element detail lives in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-08-12 correction, with the full evidence in audits/sk-chemists-bootle-gbp-pack-check-2026-08-12.txt. The 4.11 pack itself is clean for the third consecutive pass and no pasteable copy was changed."
+  },
+  {
+    "id": "Q59",
+    "date": "2026-08-12",
+    "item": "answer pickup (blocks no worklist item, blocks step 3 of every run)",
+    "question": "Step 3 of every run fetches your portal answers by reading https://data.rbhealth.co.uk/api/feedback in your Chrome, and it has now failed on nine consecutive runs, 121 to 129. The last three failures share one cause: two Chrome extension instances are signed in to the same account, and the browser tooling requires a human to choose between them before it will make any call at all. An unattended run has nobody to ask and is not allowed to pick for itself, so no fetch happens, and the same rule also costs the live half of every quality pass. 34 questions are open and none of them can reach the repo until this is cleared, so the backlog is now answer-starved rather than work-starved. Which way do you want it fixed?",
+    "options": [
+      "Sign the spare Chrome extension out, leaving exactly one connected browser (smallest change, fixes both the answer fetch and the live half of quality passes, but it has to stay that way or the block returns the next time a second machine or profile signs in)",
+      "Leave both connected and move answer pickup off the browser onto a route that needs no session, for example a small file or endpoint the runs can read directly (durable, survives any number of browsers, but it is new plumbing and needs somewhere for the portal to write answers that an unattended run can read)",
+      "Leave it as it is and accept that answers only land when you run a session yourself (no work, but on the current evidence that means the 34 open questions keep accumulating and the live half of every quality pass stays unread)"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "This question cannot be delivered through the channel it is about, which is the point of raising it here: it renders on the Digital_Audit_Status.html progress page, which is the one route out of these runs that does not depend on the browser session. The runs have never attempted any workaround, and will not: browser use stays read-only and no run has clicked, typed, submitted or signed in anywhere. Worth knowing if you pick option 1: the fault is not a signed-out session, so signing back in does not address it. Both instances are signed in and reachable, and it is the presence of two that stops the call."
   }
 ]
