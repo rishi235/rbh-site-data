@@ -2,6 +2,99 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 23:47 BST - hundred-and-thirty-third run - Quality pass on item
+4.2, the Cherry Lane Pharmacy GBP pack, the oldest verification standing among
+completed items. Third pass on this item. REPO HALF ONLY: the live half could
+not be run and is not claimed. The pack is clean for the third consecutive
+pass; the verifiers were not. The condition LIST a pack publishes as the NHS
+Pharmacy First service was unguarded, and check-pharmacy-first-eligibility.js
+gains rule 10 to close it. No new question.
+
+ANSWER PICKUP NOT AVAILABLE, thirteenth consecutive run, 121 to 133. Same
+cause as runs 126 to 132: two Chrome extension instances are connected to this
+account and the browser tooling requires a human choice between them before
+any call is made. An unattended run has nobody to ask and may not pick for
+itself, so no browser call was made at all: nothing fetched, clicked, typed,
+submitted or logged in to, and no other route attempted. 35 questions open
+going in and 35 going out. Q59 already asks how to clear this block, so no
+duplicate was raised. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case. The carve-out for
+live patient-facing regulatory claims was considered and not engaged: no
+claim was altered anywhere. The packs already state the correct seven
+pathways, and the change only makes a wrong list impossible to commit
+unnoticed in future.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin and clean.
+
+SELECTION. All five unchecked items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1), so a quality pass. Ageing derived from position in this log, per the
+method recorded under run 128: reading each run heading's declared target item
+and taking the topmost mention of each. All 42 completed items appear in runs
+92 to 132 with 4.7 refreshed twice, and the deepest is 4.2 at run 92. The
+rotation is holding.
+
+REPO HALF, THE PACK ALL HOLDING. All six generators rebuilt to a zero diff
+before any edit, and all 29 checkers pass. The pack verified fact by fact
+against branches.json: name, 202 Cherry Lane, Liverpool L4 8SG, 0151 226 2051,
+own-domain website pointing at the homepage as it should, review link, hours
+reading Monday to Friday 9:00am to 6:30pm, Saturday 9:00am to 5:00pm and
+Sunday stated closed, which is the whole of this branch's openingHours and no
+more. The five-widget category and service match holds, hasApp is false and no
+app is mentioned, and the catchment leads with the branch's own seoTown,
+Walton. The counts the pack claims of itself were measured rather than
+trusted and all five are exact: description 736 against a heading claiming
+736, and posts 449, 348, 403 and 318. Pure ASCII, no em dash. All
+four post links resolve to pages this repo generates. Nothing in the pack was
+edited.
+
+THE FINDING, AND IT IS A VERIFIER FINDING NOT A DATA ONE. Run 132 pinned the
+AGES a GBP pack may state. It stopped one word short: the condition LIST those
+ages sit inside was still free text. Four injections against
+gbp-packs/cherry-lane-walton.md each walked past all 29 checkers clean:
+dropping the UTI pathway and calling the list six, adding conjunctivitis to
+it, changing "seven" to "nine" with the list untouched, and dropping impetigo
+and shingles from the services bullet. Two of those understate a commissioned
+NHS service, so a patient books a GP appointment they did not need. The other
+two are worse, because they advertise an NHS service that does not exist: a
+parent reads the Google profile, brings a child in for the conjunctivitis
+appointment it promised, and is turned away at the counter.
+
+RULE 10, in check-pharmacy-first-eligibility.js where the clinical facts
+already live. On the packs: an enumerating sentence must name all seven
+pathways and must name nothing that is not one of them; any stated count of
+the conditions must be seven; and a branch branches.json gives Pharmacy First
+must enumerate them somewhere, so Post A cannot be softened into prose that
+claims the service without saying what it covers. The count is read separately
+from the list because the two live in different sentences - the business
+description states the number and names no conditions, Post A does both - so a
+number can drift on its own, and injection 5 proved it does not any more. The
+surface table is keyed to the generator's own condition keys and two
+assertions fail if the sets ever drift, so a pathway added to or retired from
+build-service-pages.js cannot leave the rule quietly checking six; both
+directions were tested on a throwaway copy of the checker.
+
+THE FALSE POSITIVE, FOUND BY RUNNING THE BASELINE FIRST. The rule's first run
+failed a pack whose copy is correct. The Cherry Lane pack carries a paster
+note reading "(shows five conditions as coming soon although all seven are
+live)", which reports a stale embed on the live site that needs repasting.
+That is evidence about a defect, not the pack claiming the service covers
+five. Parentheticals are now stripped before rule 10 reads a sentence, which
+is the convention check-gbp-packs.js already uses for parenthesised times and
+days. It cannot be used to hide a breach: a pack whose only enumeration sat
+inside brackets would still fail the coverage rule for never enumerating at
+all, and that was tested too. Worth recording that the first negative suite
+reported all seven injections caught and was wrong - the baseline failure was
+masking them, and three of the substitutions had silently done nothing because
+the target strings span a line wrap in the pack. The suite was rewritten to
+tolerate wrapping and to assert on the specific rule that fired. Final tally:
+twelve injections caught, four legitimate variants pass clean, zero page diff,
+29 checkers pass.
+
 ## 2026-08-12 23:04 BST - hundred-and-thirty-second run [commit 389819b, hash
 recorded in this follow-up commit] - Quality pass on item
 4.7, the McCanns Chemist Sandringham GBP pack, the oldest verification

@@ -83,6 +83,27 @@
        aged 16 to 64") fails too, and the check is sentence-bounded so a
        cohort named in a neighbouring sentence cannot excuse it.
 
+   10. On the GBP packs, every sentence that ENUMERATES the Pharmacy First
+       conditions names all seven of them and names nothing that is not one
+       of them, every sentence that states a COUNT of the conditions says
+       seven, and a branch that runs Pharmacy First enumerates them
+       somewhere in its pack. Rule 9 pinned the ages in a pack and stopped
+       there, so the condition LIST sitting beside those ages was still free
+       text. Proved by injection on 2026-08-12 against
+       gbp-packs/cherry-lane-walton.md, four ways, every one of which walked
+       past all 29 checkers clean: dropping the UTI pathway and calling the
+       list six, adding conjunctivitis to it, changing "seven" to "nine"
+       with the list untouched, and dropping impetigo and shingles from the
+       services bullet. A short list hides an NHS service the pharmacy is
+       commissioned to give, and the patient goes to a GP appointment they
+       did not need. A long list is the worse direction: it advertises an
+       NHS service that does not exist, so a parent reads the profile,
+       brings a child in for the conjunctivitis appointment it promised and
+       is turned away at the counter. The count sentence is checked
+       separately from the list because the two are written in different
+       places - the business description states the number and names no
+       conditions, Post A does both - so a number can drift on its own.
+
   The blood pressure cohort is pinned here because rule 9 needs it and it
   was pinned nowhere else in the repo: it existed only as prose, in
   tools/build-branch-landing-pages.js and in ten of the packs.
@@ -420,12 +441,169 @@ packs.forEach(function (file) {
 });
 
 // ---------------------------------------------------------------------------
+// Rule 10, on the GBP packs: the condition LIST that sits beside those ages.
+// ---------------------------------------------------------------------------
+// The surface wording a pack is allowed to use for each of the seven NHS
+// pathways. The KEYS are the generator's own condition keys, and the two
+// assertions below fail if the two sets ever stop matching, so a pathway added
+// to or retired from build-service-pages.js cannot leave this rule quietly
+// checking six and passing a pack that names six.
+var PACK_CONDITIONS = {
+  "uti":         /\b(?:UTIs?|urinary tract infections?|water infections?)\b/i,
+  "sore-throat": /\bsore throats?\b/i,
+  "sinusitis":   /\bsinusitis\b/i,
+  "earache":     /\bearaches?\b/i,
+  "impetigo":    /\bimpetigo\b/i,
+  "shingles":    /\bshingles\b/i,
+  "insect-bite": /\binsect bites?\b/i
+};
+
+Object.keys(NHS).forEach(function (k) {
+  if (!PACK_CONDITIONS[k]) {
+    failures.push("rule 10 has no pack wording for the pinned condition " + k +
+      ", so a pack could omit it and pass");
+  }
+});
+Object.keys(PACK_CONDITIONS).forEach(function (k) {
+  if (!NHS[k]) {
+    failures.push("rule 10 carries pack wording for " + k +
+      ", which is not a pinned NHS condition");
+  }
+});
+
+// Conditions a drafter could plausibly reach for that the Pharmacy First
+// pathways do NOT cover. This is deliberately a NEAR-MISS list and not a claim
+// to be the whole of medicine. The completeness that matters is carried by the
+// all-seven rule below, which fails a list that is SHORT. This list catches the
+// other direction, a list that is LONG, and the entries are the things an
+// enthusiastic drafter actually reaches for: minor ailments a pharmacy
+// genuinely does help with over the counter, which is precisely why somebody
+// would assume the NHS pathway covers them and write them in.
+var NOT_PHARMACY_FIRST = [
+  /\bconjunctivitis\b/i,
+  /\bathlete'?s foot\b/i,
+  /\bhay ?fever\b/i,
+  /\bthrush\b/i,
+  /\bacne\b/i,
+  /\beczema\b/i,
+  /\btonsillitis\b/i,
+  /\bhead lice\b/i,
+  /\bthreadworms?\b/i,
+  /\bverruca[se]?\b/i,
+  /\bcold sores?\b/i,
+  /\bear ?wax\b/i,
+  /\bchest infections?\b/i
+];
+
+// "seven common conditions" and "seven conditions" are both live grammars.
+// The number is read as a word or a digit because both are writable.
+var COUNT_WORDS = {
+  one: 1, two: 2, three: 3, four: 4, five: 5,
+  six: 6, seven: 7, eight: 8, nine: 9, ten: 10
+};
+var COUNT_CLAIM = /\b(one|two|three|four|five|six|seven|eight|nine|ten|\d{1,2})\s+(?:common\s+)?conditions\b/i;
+
+var PATHWAYS = Object.keys(PACK_CONDITIONS);
+
+// A parenthetical in these packs is never the pack making a claim about the
+// service. It is a note to the paster about something else, usually a defect
+// on the live site, and check-gbp-packs.js already reads parenthesised times
+// and days as evidence rather than as hours for exactly this reason. The
+// Cherry Lane pack proved it on the first run of this rule: "(shows five
+// conditions as coming soon although all seven are live)" is a report of a
+// stale embed that needs repasting, and reading it as a claim failed a pack
+// whose copy is correct. Stripping cannot be used to hide a breach, because a
+// pack whose only enumeration sits inside brackets still fails the coverage
+// rule at the bottom for never enumerating at all.
+function stripParens(s) { return norm(String(s).replace(/\([^)]*\)/g, " ")); }
+
+// Which branch a pack belongs to, by the same <brandSlug>-<townSlug> stem the
+// generated pages are named from. A pack that maps to no branch is a failure
+// rather than a skip, because a silent skip is how a pack stops being checked.
+var packBranches = null;
+try {
+  packBranches = require(path.join(ROOT, "branches.json")).branches || [];
+} catch (e) {
+  failures.push("rule 10 could not read branches.json, so no pack could be matched to a branch");
+  packBranches = [];
+}
+
+packs.forEach(function (file) {
+  var name = rel(file);
+  var stem = path.basename(file).replace(/\.md$/, "");
+  var b = packBranches.filter(function (x) {
+    return (x.brandSlug + "-" + x.townSlug) === stem;
+  })[0];
+
+  if (!b) {
+    if (packBranches.length) {
+      failures.push(name + ": no branch in branches.json has brandSlug-townSlug \"" +
+        stem + "\", so this pack's Pharmacy First copy is checked against nothing (rule 10)");
+    }
+    return;
+  }
+
+  var runsPf = !!b.pfLink || !!((b.widgets || {}).pharmacyFirst);
+  var enumerated = 0;
+
+  packSentences(fs.readFileSync(file, "utf8")).forEach(function (raw) {
+    var seg = stripParens(raw);
+    if (!seg) return;
+    var named = PATHWAYS.filter(function (k) { return PACK_CONDITIONS[k].test(seg); });
+
+    // A count of the conditions is a claim on its own, in a sentence that
+    // often names none of them, so it is read whenever the sentence is about
+    // Pharmacy First at all.
+    if (/pharmacy first/i.test(seg) || named.length >= 2) {
+      var cm = seg.match(COUNT_CLAIM);
+      if (cm) {
+        var stated = COUNT_WORDS[cm[1].toLowerCase()] || Number(cm[1]);
+        if (stated !== PATHWAYS.length) {
+          failures.push(name + ": states \"" + norm(cm[0]) + "\", but NHS Pharmacy First has " +
+            PATHWAYS.length + " clinical pathways (rule 10)\n         " + seg);
+        }
+      }
+    }
+
+    // Two or more of the pathways in one sentence is the pack enumerating the
+    // service. One on its own is prose about a single condition and is not a
+    // list, so it is not held to being a complete one.
+    if (named.length < 2) return;
+    enumerated++;
+
+    var missing = PATHWAYS.filter(function (k) { return named.indexOf(k) === -1; });
+    if (missing.length) {
+      failures.push(name + ": lists the Pharmacy First conditions but omits " +
+        missing.join(", ") + ", so the profile advertises " + named.length +
+        " of the " + PATHWAYS.length + " NHS pathways this branch is commissioned for (rule 10)\n" +
+        "         " + seg);
+    }
+
+    NOT_PHARMACY_FIRST.forEach(function (re) {
+      var hit = seg.match(re);
+      if (!hit) return;
+      failures.push(name + ": names \"" + norm(hit[0]) +
+        "\" in its list of Pharmacy First conditions, which is not one of the " +
+        PATHWAYS.length + " NHS pathways, so the profile advertises an NHS service " +
+        "the pharmacy cannot deliver (rule 10)\n         " + seg);
+    });
+  });
+
+  if (runsPf && !enumerated) {
+    failures.push(name + ": branches.json gives this branch Pharmacy First, but no sentence " +
+      "in the pack names two or more of the " + PATHWAYS.length + " conditions, so the pack " +
+      "claims the service without ever saying what it covers (rule 10)");
+  }
+});
+
+// ---------------------------------------------------------------------------
 // Report.
 // ---------------------------------------------------------------------------
 console.log("check-pharmacy-first-eligibility");
 console.log("  " + checked + " pinned conditions read from " + rel(GENERATOR));
 console.log("  " + pages.length + " condition pages checked against them");
-console.log("  " + packs.length + " GBP packs checked against the pinned cohorts");
+console.log("  " + packs.length + " GBP packs checked against the pinned cohorts and the " +
+  PATHWAYS.length + " pathways");
 
 warnings.forEach(function (w) { console.log("  WARN " + w); });
 
