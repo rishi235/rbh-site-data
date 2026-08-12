@@ -2,6 +2,69 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 13:11 BST - hundred-and-sixteenth run - Quality pass on item
+5.2, the six branch landing pages, last verified 2026-08-11 17:10 as the
+seventy-sixth run and the oldest verification standing after run 115
+refreshed 6.2 (the ageing order re-derived from the run headings: run 114
+refreshed 5.1, runs 76 to 113 cover everything verified from 2026-08-11
+17:10 onwards, and 5.2's run-76 stamp sits behind them all). No defect
+found in either half. The one in-repo change is the dated live-state note
+in the generator, refreshed at source to record today's reading.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: one tab opened for the pickup and closed after;
+the live half ran as HEAD requests with GET fallback from PowerShell, the
+same read-only network route prior runs used. Nothing clicked, typed or
+submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification. All 29 checkers green before any
+change, and all seven generators reproduced every page output
+byte-identical (status/index.html regenerated with its own timestamp plus
+newer log content only and was reverted, matching runs 108 to 115).
+
+REPO HALF, CLEAN. The six pages re-verified against the Build Pack v2
+pattern and branches.json: pure ASCII (zero bytes over 127 in all six),
+sister links reciprocal in all three pairs (Ainsdale-Eccleston,
+Aigburth-Sandringham, Bramhall-Hazel Grove), every internal .html link
+target present in modules\, and all six paste-header SEO pairs within the
+SERP rule (titles 50 to 61 characters, descriptions 142 to 160, all under
+165, the landingMeta() bound item 5.2 fixed at build time). Sandringham
+still leads with St Michael's, not Aigburth, in serviceAreaList and on the
+page (11 St Michael's mentions), holding the Q23 decision from the
+2026-08-10 pass. Titles and descriptions live in the paste-header comment
+by design (Weebly embed fragments carry no title tag); noted so a later
+reader does not mistake the empty title element for a defect.
+
+LIVE HALF, READ-ONLY, UNCHANGED. All 36 URLs fetched fresh: the six
+landing URLs still 404 (nothing pasted since the 2026-08-10 and 2026-08-11
+readings), and all thirty linked service pages still 200 across the three
+domains, so the paste prerequisite holds for every pair and the six pages
+remain paste-ready in any order. Six Google Business Profiles still wait
+on those pastes and no other. Evidence:
+audits/landing-live-check-2026-08-12.txt.
+
+VERIFICATION AFTER THE FIX. build-branch-landing-pages.js re-run: the six
+page outputs byte-identical, INDEX.md carries only the expected note
+change (read date to 2026-08-12, prerequisite wording tightened now the
+2026-08-11 unknown is history). The 29-checker suite re-run green.
+
+FILES CHANGED. tools/build-branch-landing-pages.js (live-state note
+refreshed at source), modules/branch/pages/INDEX.md (regenerated from it),
+audits/landing-live-check-2026-08-12.txt (new evidence), AGENT_LOG.md
+(this entry). No worklist change (quality pass on a completed item,
+matching run 115's convention), QUESTIONS.json untouched at 33 open.
+Status page republished via tools\build-audit-status.js.
+
 ## 2026-08-12 12:39 BST - hundred-and-fifteenth run - Quality pass on item
 6.2, the estate-wide broken internal link sweep, completed 2026-08-11 16:25
 as the seventy-fourth run and never re-verified since, making it the oldest

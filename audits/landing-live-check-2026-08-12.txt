@@ -1,0 +1,41 @@
+Branch landing pages - live check 2026-08-12 (quality pass on item 5.2, run 116)
+Method: HTTPS HEAD request per URL, GET fallback on 405/501, read-only, no redirects followed.
+Result: all six landing URLs 404 (not yet pasted to Weebly, unchanged since 2026-08-10);
+all thirty linked service pages 200 across the three domains. Paste prerequisite satisfied
+for all three pairs.
+404 https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+200 https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html
+200 https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-ainsdale.html
+200 https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-ainsdale.html
+200 https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-ainsdale.html
+200 https://www.fishlockpharmacy.co.uk/contraception-fishlocks-ainsdale.html
+404 https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html
+200 https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html
+200 https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-eccleston.html
+200 https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-eccleston.html
+200 https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-eccleston.html
+200 https://www.fishlockpharmacy.co.uk/contraception-fishlocks-eccleston.html
+404 https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html
+200 https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html
+200 https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-aigburth.html
+200 https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html
+200 https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html
+200 https://www.mccannspharmacy.co.uk/contraception-mccanns-aigburth.html
+404 https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+200 https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
+200 https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html
+200 https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-sandringham.html
+200 https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandringham.html
+200 https://www.mccannspharmacy.co.uk/contraception-mccanns-sandringham.html
+404 https://www.scorah-chemists.co.uk/pharmacy-scorah-bramhall.html
+200 https://www.scorah-chemists.co.uk/pharmacy-first-scorah-bramhall.html
+200 https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-bramhall.html
+200 https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-bramhall.html
+200 https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html
+200 https://www.scorah-chemists.co.uk/contraception-scorah-bramhall.html
+404 https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+200 https://www.scorah-chemists.co.uk/pharmacy-first-scorah-hazel-grove.html
+200 https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-hazel-grove.html
+200 https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-hazel-grove.html
+200 https://www.scorah-chemists.co.uk/travel-clinic-scorah-hazel-grove.html
+200 https://www.scorah-chemists.co.uk/contraception-scorah-hazel-grove.html

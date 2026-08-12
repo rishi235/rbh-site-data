@@ -374,11 +374,11 @@ var md = "# Branch landing pages - paste manifest\n\n" +
   "contraception-). Those pages exist in this repo but are not live on every\n" +
   "site yet. Paste the branch's service pages first, or paste them in the same\n" +
   "session, so the landing page does not link to pages that return a 404.\n\n" +
-  "LIVE STATE, READ 2026-08-11: not one of these pages is live. All six URLs\n" +
+  "LIVE STATE, READ 2026-08-12: not one of these pages is live. All six URLs\n" +
   "below were fetched again that day and all six still returned a 404, unchanged\n" +
-  "from the 2026-08-10 reading. But the prerequisite question the previous\n" +
-  "reading left open is now closed: every service page these six pages link to\n" +
-  "was fetched in the same pass, thirty URLs across the three domains (five per\n" +
+  "from the 2026-08-10 and 2026-08-11 readings. The prerequisite remains\n" +
+  "satisfied: every service page these six pages link to was fetched in the\n" +
+  "same pass, thirty URLs across the three domains (five per\n" +
   "branch: pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,\n" +
   "travel-clinic-, contraception-), and all thirty returned 200. The paste\n" +
   "order constraint in the paragraph above is therefore already satisfied for\n" +

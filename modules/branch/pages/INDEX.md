@@ -13,11 +13,11 @@ contraception-). Those pages exist in this repo but are not live on every
 site yet. Paste the branch's service pages first, or paste them in the same
 session, so the landing page does not link to pages that return a 404.
 
-LIVE STATE, READ 2026-08-11: not one of these pages is live. All six URLs
+LIVE STATE, READ 2026-08-12: not one of these pages is live. All six URLs
 below were fetched again that day and all six still returned a 404, unchanged
-from the 2026-08-10 reading. But the prerequisite question the previous
-reading left open is now closed: every service page these six pages link to
-was fetched in the same pass, thirty URLs across the three domains (five per
+from the 2026-08-10 and 2026-08-11 readings. The prerequisite remains
+satisfied: every service page these six pages link to was fetched in the
+same pass, thirty URLs across the three domains (five per
 branch: pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,
 travel-clinic-, contraception-), and all thirty returned 200. The paste
 order constraint in the paragraph above is therefore already satisfied for
