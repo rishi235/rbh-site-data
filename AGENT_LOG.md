@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 17:34 BST - hundred-and-twenty-fifth run [commit PENDING,
-recorded in a follow-up commit] - Quality pass on item 4.13, the Riddings
+## 2026-08-12 17:34 BST - hundred-and-twenty-fifth run [commit dcd770c,
+hash recorded in this follow-up commit] - Quality pass on item 4.13, the Riddings
 Pharmacy Timperley GBP pack, last verified 2026-08-11 21:10 and the oldest
 verification standing among completed items. Third pass on this item. Repo
 half performed and found ONE in-repo defect, in the checker rather than in
