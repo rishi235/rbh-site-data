@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 19:36 BST - hundred-and-twenty-seventh run [commit hash
-recorded in this run's commit] - Quality pass on item 4.11, the SK
+## 2026-08-12 19:36 BST - hundred-and-twenty-seventh run [commit 824f669,
+hash recorded in this follow-up commit] - Quality pass on item 4.11, the SK
 Chemists Bootle GBP pack, last verified 2026-08-11 22:40 and the oldest
 verification standing among completed items. Third pass on this item.
 BOTH HALVES PERFORMED this run, repo and live. The pack itself is clean
