@@ -2,6 +2,116 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 23:04 BST - hundred-and-thirty-second run - Quality pass on item
+4.7, the McCanns Chemist Sandringham GBP pack, the oldest verification
+standing among completed items. Third pass on this item. REPO HALF ONLY: the
+live half could not be run and is not claimed. The pack is clean for the third
+consecutive pass; the verifiers were not. A wrong NHS age cohort in a
+patient-facing pack walked past all 29 checkers, and
+check-pharmacy-first-eligibility.js gains rule 9 to close it. No new question.
+
+ANSWER PICKUP NOT AVAILABLE, twelfth consecutive run, 121 to 132. Same cause
+as runs 126 to 131: two Chrome extension instances are connected to this
+account and the browser tooling requires a human choice between them before
+any call is made. An unattended run has nobody to ask and may not pick for
+itself, so no browser call was made at all: nothing fetched, clicked, typed,
+submitted or logged in to, and no other route attempted. 35 questions open
+going in and 35 going out. Q59 already asks how to clear this block, so no
+duplicate was raised. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case: the fix closes a
+proven verifier gap and changes no patient-facing copy. It is worth being
+explicit that the carve-out was not engaged either, because the subject
+matter is a regulatory claim: no live claim was altered. The packs already
+state the correct cohorts, and the change only makes a wrong one impossible
+to commit unnoticed in future.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin, and clean apart from 14 untracked .agent-tmp-* scratch files left by
+earlier runs. Those were this agent's own droppings and were deleted, so a
+future run cannot sweep one into a commit.
+
+SELECTION. All five unchecked items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1), so a quality pass. Ageing derived from position in this log, per the
+method recorded under run 128: reading each run heading's declared target item
+and taking the topmost mention of each. All 41 completed items appear in runs
+91 to 131, and the deepest is 4.7 at run 91. The rotation is holding.
+
+REPO HALF, THE PACK ALL HOLDING. All six generators rebuilt to a zero diff
+before any edit, and all 29 checkers pass. The pack verified fact by fact
+against branches.json: name, 1b Aigburth Road, Liverpool L17 4JP, 0151 727
+3076, review link, split-day hours with both weekday sessions and both closed
+days stated, catchment reading "St Michael's, Aigburth, Lark Lane and Dingle"
+in all three places and leading with its own seoTown, the five-widget
+category and service match, hasApp false with no app mentioned. The counts the
+pack claims of itself were measured rather than trusted and all four are
+exact: description 713, posts 463, 298, 518 and 425. Pure ASCII, no em dash.
+Post A's seven conditions and the UTI 16 to 64 range agree with the branch's
+generated Pharmacy First page, and Post C names no medicine, as does the
+weight loss clinic page its Book button links to, so the button does not turn
+that page into advertising that names a POM. Nothing in the pack was edited.
+
+THE FINDING, AND IT IS A VERIFIER FINDING NOT A DATA ONE. Nothing read a GBP
+pack for NHS eligibility. Rules 1 to 8 of check-pharmacy-first-eligibility.js
+guard the generator and the 98 generated condition pages and stop at that
+boundary, and of the five checkers that open gbp-packs at all, none reads an
+age. The packs are public-facing clinical copy in their own right: Post A
+states the UTI cohort and the business description states the blood pressure
+cohort, and both are pasted into a Google Business Profile, which for most
+patients is the first and only page about the pharmacy they read.
+
+It was proved by injection rather than asserted. In the Sandringham pack,
+"women aged 16 to 64" was changed to "16 to 65" and "adults aged 40 and over"
+to "30 and over". All 29 checkers passed clean. Both are wrong NHS eligibility
+published to the public, and 16 to 65 is the worse of the two because it
+invites a woman the pathway excludes to attend for a consultation she cannot
+have. The blood pressure cohort turned out to be pinned nowhere in the repo at
+all: it existed only as prose, in tools/build-branch-landing-pages.js and in
+ten of the fifteen packs.
+
+THE FIX. Rule 9 added to check-pharmacy-first-eligibility.js, which is where
+the clinical numbers already live, so the cohorts are not duplicated into a
+second file that could drift from the first. It reads every pack in gbp-packs/
+sentence by sentence and fails any age that is not part of a pinned NHS
+cohort. Matching is by whole cohort PHRASE rather than by bare number, which
+is the part that matters: a correct number attached to the wrong service, such
+as blood pressure checks offered to "adults aged 16 to 64", fails too, and
+bare-number matching would have missed it. Sentence-bounded, on the same
+reasoning that makes rule 7 block-bounded, so a cohort named next door cannot
+excuse an age here. The NHS blood pressure cohort is now pinned alongside the
+seven Pharmacy First pathways.
+
+TWO FALSE POSITIVES, BOTH RULE DEFECTS, BOTH FIXED IN THE RULE. The first run
+of rule 9 flagged two packs and neither was at fault, so no pack was touched.
+sk-chemists-bootle.md writes "aged 40 or over", a legitimate variant of the
+same cohort, and the phrase now accepts "and over" and "or over".
+riddings-timperley.md quotes a live H1 promising a switch in "under 30
+seconds", which is a duration; a number carrying a unit is no longer read as
+an age, and since ages in these packs are always written "aged N" the guard
+suppresses nothing real.
+
+TESTED SEVEN WAYS. Clean on the untouched tree, 15 packs read. It catches the
+UTI upper bound moved to 65, the blood pressure cohort moved to 30, the right
+number on the wrong service, and the UTI cohort word "women" replaced by
+"people". It generalises: injections on sk-chemists-bootle and
+riddings-timperley are both caught, so the rule protects all fifteen packs and
+not just the one this pass was aimed at. In every negative case the full suite
+went from 0 failures to 1. With the fix in place and all injections reverted,
+all six generators rebuild to a zero diff, so no page moved, and all 29
+checkers pass.
+
+FILES CHANGED. tools/check-pharmacy-first-eligibility.js (rule 9, the pinned
+blood pressure cohort, the unit guard and the header notes),
+audits/mccanns-sandringham-gbp-pack-check-2026-08-12b.txt (new),
+AGENT_WORKLIST.md (third-pass note under 4.7), AGENT_LOG.md (this entry),
+status/index.html (regenerated). gbp-packs/mccanns-sandringham.md,
+gbp-packs/sk-chemists-bootle.md and gbp-packs/riddings-timperley.md were
+touched only by the injections and all three were restored. Q35 and Q39, this
+item's open questions, were not re-raised and remain with Rishi.
+
 ## 2026-08-12 22:34 BST - hundred-and-thirty-first run - Quality pass on item
 2.1, Fishlocks Ainsdale, the oldest verification standing among completed
 items. Fourth pass on this item. REPO HALF ONLY: the live half could not be

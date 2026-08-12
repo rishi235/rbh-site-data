@@ -1,0 +1,107 @@
+McCanns Chemist Sandringham GBP pack - quality pass (item 4.7)
+Run 132, 2026-08-12. Third pass on this item. Repo half only.
+
+SCOPE AND METHOD
+All five unchecked worklist items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1),
+so this run is a quality pass. Ageing taken from position in AGENT_LOG.md by
+the method recorded under run 128: read each run heading's declared target
+item, take the topmost mention of each. All 41 completed items appear in runs
+91 to 131; the deepest is item 4.7 at run 91, so 4.7 held the oldest standing
+verification. Rotation holding.
+
+BASELINE BEFORE ANY EDIT
+All six generators rebuilt to a zero diff. All 29 checkers pass.
+
+THE PACK ITSELF: CLEAN, THIRD CONSECUTIVE PASS
+Verified fact by fact against branches.json (id mccanns_sandringham):
+  branchName          McCanns Chemist Sandringham        matches
+  streetAddress       1b Aigburth Road                   matches
+  addressLocality     Liverpool, postalCode L17 4JP      matches
+  phone               0151 727 3076                      matches
+  googleReviewUrl     g.page/r/CbMDr1qOLqnrEAE/review    matches
+  hasApp              false, and no app mentioned        matches
+  seoTown             St Michael's                       leads the catchment
+  serviceAreaList     St Michael's, Aigburth, Lark Lane, Dingle
+                      reproduced in that order in all three places
+  openingHours        Mon-Fri 09:00-13:00 and 14:00-18:00, Sat and Sun
+                      closed. Both weekday sessions on the profile basics
+                      line, both closed days stated, paster guidance on the
+                      split day present.
+  widgets             five (bloodPressure, contraception, pharmacyFirst,
+                      weightLoss, travelClinic). Categories and the services
+                      section match the set exactly, none missing, none added.
+
+Counts verified rather than trusted, and each matches what the pack claims of
+itself: description 713 characters against the 750 limit; posts A 463, B 298,
+C 518, D 425 against the 1,500 limit. File is pure ASCII (0 non-ASCII bytes)
+and carries no em dash.
+
+Post A's seven conditions and the "16 to 64" UTI range agree with the branch's
+generated Pharmacy First page. Post C names no medicine and makes no efficacy
+claim, and the weight loss clinic page its Book button links to names no
+medicine either, so the button does not turn that page into advertising that
+names a POM. All four post targets and the profile landing page exist in the
+repo as generated pages.
+
+THE FINDING: A VERIFIER GAP, NOT A DATA FAULT
+No checker read the GBP packs for NHS eligibility. Rules 1 to 8 of
+check-pharmacy-first-eligibility.js guard the generator and the 98 generated
+condition pages and stop at that boundary; of the five checkers that open
+gbp-packs at all, none reads an age.
+
+Proved by injection rather than asserted. In gbp-packs/mccanns-sandringham.md,
+"women aged 16 to 64" was changed to "16 to 65" and "adults aged 40 and over"
+to "30 and over". All 29 checkers passed clean.
+
+That is wrong NHS eligibility published to the public. A GBP profile is, for
+most patients, the first and only page about the pharmacy they read, and
+"16 to 65" invites a woman the pathway excludes to attend for a consultation
+she cannot have. The blood pressure cohort was pinned nowhere in the repo: it
+existed only as prose in tools/build-branch-landing-pages.js and in ten packs.
+
+THE FIX
+Rule 9 added to check-pharmacy-first-eligibility.js, which is where the
+clinical numbers already live, so the cohorts are not duplicated into a second
+file. It reads every pack in gbp-packs/ (TEMPLATE.md excluded), sentence by
+sentence, and fails any age that is not part of a pinned NHS cohort. Matching
+is by whole cohort PHRASE, not by bare number, so a correct number attached to
+the wrong service fails too. Sentence-bounded, so a cohort named next door
+cannot excuse an age here. The NHS blood pressure cohort is now pinned
+alongside the seven Pharmacy First pathways.
+
+Two false positives surfaced on the first run of the rule and both were rule
+defects, not data defects, so the rule was corrected and neither pack touched:
+  - sk-chemists-bootle.md writes "aged 40 or over". A legitimate variant of
+    the same cohort; the phrase now accepts "and over" and "or over".
+  - riddings-timperley.md quotes an H1 promising a switch in "under 30
+    seconds". A duration, not an age. A number carrying a unit is no longer
+    read as an age. Ages in these packs are always written "aged N", which
+    the unit guard never suppresses.
+
+TESTED SEVEN WAYS
+  1. Clean on the untouched tree: 15 packs read, no failure.
+  2. UTI upper bound 16 to 65            caught.
+  3. Blood pressure cohort 30 and over   caught.
+  4. Right number, wrong service: the blood pressure sentence given "aged 16
+     to 64"                              caught, by the phrase rule, which is
+                                         the case bare-number matching misses.
+  5. UTI cohort word dropped ("people" for "women")   caught.
+  6. Cross-pack, sk-chemists-bootle "aged 45 or over" caught.
+  7. Cross-pack, riddings-timperley "aged 18 to 64"   caught.
+In every negative case the full 29-checker suite went from 0 failures to 1,
+so the suite as a whole now catches what it previously passed.
+
+AFTER THE FIX
+All six generators rebuild to a zero diff, so no page moved. All 29 checkers
+pass. The only tracked file changed by this run's work is the checker.
+
+NOT DONE, AND WHY
+The live half of the pass was not run and is not claimed. The answer pickup
+and live-page reads both need the browser, and two Chrome extension instances
+are connected to this account: the tooling requires a human choice between
+them before any call is made, and an unattended run may not choose for itself.
+No browser call was made at all. Q59 already asks how to clear this.
+
+Nothing in the pack was edited this run. Q35 (the profile website target
+pharmacy-mccanns-sandringham.html not yet live) and Q39 remain open with
+Rishi; neither was re-raised.

@@ -64,6 +64,29 @@
     8. Every condition page carries the safety redirect that names the
        excluded cohort, where NHS defines one.
 
+    9. On the GBP packs in gbp-packs/, no age is stated that is not a pinned
+       NHS cohort, and no pinned cohort is attached to the wrong service.
+       Rules 1 to 8 guard the generator and the 98 generated pages, and
+       stopped at the repo boundary: nothing read the packs. That mattered
+       because a pack is public-facing clinical copy in its own right. Post A
+       states the UTI cohort and the business description states the blood
+       pressure cohort, and those two sentences are pasted into a Google
+       Business Profile, which for most patients is the first and only page
+       about the pharmacy they ever read. Proved by injection on 2026-08-12
+       against gbp-packs/mccanns-sandringham.md: "women aged 16 to 64"
+       changed to "16 to 65" and "adults aged 40 and over" changed to "30
+       and over" walked past all 29 checkers clean. Both are wrong NHS
+       eligibility published to the public, and 16 to 65 also invites a
+       woman the pathway excludes to attend for a consultation she cannot
+       have. Matching is by whole cohort PHRASE and not by number, so a
+       right number on the wrong service ("blood pressure checks for adults
+       aged 16 to 64") fails too, and the check is sentence-bounded so a
+       cohort named in a neighbouring sentence cannot excuse it.
+
+  The blood pressure cohort is pinned here because rule 9 needs it and it
+  was pinned nowhere else in the repo: it existed only as prose, in
+  tools/build-branch-landing-pages.js and in ten of the packs.
+
   The pinned criteria, from the NHS Pharmacy First service specification
   (seven clinical pathways). Changing a number here is a clinical change,
   not a copy change, and should be made only against the current NHS
@@ -88,6 +111,7 @@ var path = require("path");
 var ROOT = path.join(__dirname, "..");
 var GENERATOR = path.join(ROOT, "tools", "build-service-pages.js");
 var PAGE_DIR = path.join(ROOT, "modules", "service", "pages");
+var PACK_DIR = path.join(ROOT, "gbp-packs");
 
 // ---------------------------------------------------------------------------
 // The pinned NHS criteria. ages is the exact set of age numbers the copy for
@@ -104,6 +128,37 @@ var NHS = {
   "shingles":    { ages: [18],     cohort: "adults",   excluded: /Children and young people under 18 should see a GP/i },
   "insect-bite": { ages: [1],      cohort: null,       excluded: null }
 };
+
+// ---------------------------------------------------------------------------
+// Rule 9's table: the cohort phrases a GBP pack is allowed to state, and the
+// service each one belongs to. A pack is not condition-scoped the way a
+// condition page is - it names all seven pathways in a single sentence - so
+// the pack rule matches whole PHRASES rather than bare numbers, and requires
+// the sentence to name the service the cohort belongs to. That is what stops
+// a right number landing on the wrong service. Add an entry here only when
+// NHS defines a cohort for a service the packs actually advertise.
+// ---------------------------------------------------------------------------
+var PACK_COHORTS = [
+  {
+    re: /\baged\s+16\s+to\s+64\b/i,
+    context: /\bwomen\b/i,
+    what: "the group NHS restricts the UTI pathway to (women)",
+    nhs: "women aged 16 to 64"
+  },
+  {
+    // "and over" and "or over" are both live in the packs and both correct.
+    re: /\baged\s+40\s+(?:and|or)\s+over\b/i,
+    context: /\bblood\s+pressure\b/i,
+    what: "the NHS blood pressure check service",
+    nhs: "adults aged 40 and over"
+  }
+];
+
+// Not every "under 30" is an age. The switch posts promise a transfer takes
+// "under 30 seconds", and the photo section counts shots. A number carrying a
+// unit is a quantity, so it is not read as an age. Ages in these packs are
+// always written "aged N", which this never suppresses.
+var UNIT_AFTER = /^\s*(?:second|minute|hour|day|week|month|year|character|word|photo|shot|mile|metre|meter|item|patient|prescription)s?\b/i;
 
 // A page for condition X may legitimately mention other numbers (3 days for
 // shingles, 999, 111). Only numbers written as an AGE are checked, and only
@@ -305,11 +360,72 @@ pages.forEach(function (p) {
 });
 
 // ---------------------------------------------------------------------------
+// Rule 9, on the GBP packs.
+// ---------------------------------------------------------------------------
+// Sentence-bounded, for the same reason rule 7 is block-bounded: a cohort
+// named in the sentence next door must not excuse an age in this one. Split
+// on a full stop followed by whitespace, which leaves URLs and times intact
+// because neither carries a space after its dots or colons.
+function packSentences(text) {
+  return norm(text)
+    .split(/[.!?]\s+/)
+    .map(norm)
+    .filter(function (s) { return s.length > 0; });
+}
+
+var packs = [];
+if (fs.existsSync(PACK_DIR)) {
+  fs.readdirSync(PACK_DIR).forEach(function (f) {
+    if (!/\.md$/.test(f)) return;
+    if (f === "TEMPLATE.md") return;
+    packs.push(path.join(PACK_DIR, f));
+  });
+}
+
+packs.forEach(function (file) {
+  var name = rel(file);
+  packSentences(fs.readFileSync(file, "utf8")).forEach(function (seg) {
+    var seen = {};
+    var mm;
+    AGE_IN_TEXT.lastIndex = 0;
+    while ((mm = AGE_IN_TEXT.exec(seg)) !== null) {
+      if (UNIT_AFTER.test(seg.slice(mm.index + mm[0].length))) continue;
+      seen[Number(mm[1] || mm[2] || mm[3])] = true;
+    }
+    if (!Object.keys(seen).length) return;
+
+    var accounted = {};
+    PACK_COHORTS.forEach(function (c) {
+      var hit = seg.match(c.re);
+      if (!hit) return;
+      if (!c.context.test(seg)) {
+        failures.push(name + ": states \"" + norm(hit[0]) +
+          "\" in a sentence that never names " + c.what +
+          ", so a pinned cohort is attached to the wrong service (rule 9)\n" +
+          "         NHS pins this cohort as: " + c.nhs + "\n         " + seg);
+        return;
+      }
+      nums(hit[0]).forEach(function (n) { accounted[n] = true; });
+    });
+
+    Object.keys(seen).forEach(function (n) {
+      if (accounted[n]) return;
+      failures.push(name + ": states age " + n +
+        ", which is not part of any NHS cohort a pack may state (rule 9)\n" +
+        "         pinned cohorts: " +
+        PACK_COHORTS.map(function (c) { return c.nhs; }).join("; ") +
+        "\n         " + seg);
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Report.
 // ---------------------------------------------------------------------------
 console.log("check-pharmacy-first-eligibility");
 console.log("  " + checked + " pinned conditions read from " + rel(GENERATOR));
 console.log("  " + pages.length + " condition pages checked against them");
+console.log("  " + packs.length + " GBP packs checked against the pinned cohorts");
 
 warnings.forEach(function (w) { console.log("  WARN " + w); });
 

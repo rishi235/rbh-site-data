@@ -878,6 +878,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       construction (run 78), and the Weebly furniture faults remain with Q39,
       still open. No new question.
       Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-12.txt.
+      Quality pass 2026-08-12b: third pass, repo half only, the live half not
+      run and not claimed (two Chrome extensions connected, an unattended run
+      may not choose between them, Q59). The pack is clean for the third
+      consecutive pass: every fact re-checked against branches.json, the
+      counts it claims of itself verified rather than trusted (description
+      713, posts 463, 298, 518, 425), pure ASCII, no em dash, catchment still
+      leading with St Michael's, and the weight loss page its Post C button
+      links to still names no medicine. Nothing in the pack was edited.
+      One in-repo defect found and fixed, in the checker rather than the pack,
+      and it was the packs' clinical copy that was unguarded. No checker read
+      a GBP pack for NHS eligibility: rules 1 to 8 of
+      check-pharmacy-first-eligibility.js guard the generator and the 98
+      generated condition pages and stop there. Proved by injection, not
+      asserted: "women aged 16 to 64" changed to "16 to 65" and "adults aged
+      40 and over" to "30 and over" walked past all 29 checkers clean. That is
+      wrong NHS eligibility pasted onto a Google profile, which for most
+      patients is the only page about the pharmacy they ever read, and 16 to
+      65 invites a woman the pathway excludes to attend for a consultation she
+      cannot have. Rule 9 added to that checker, where the clinical numbers
+      already live so they are not duplicated, and the NHS blood pressure
+      cohort pinned with them for the first time (it existed only as prose).
+      Matching is by whole cohort phrase, not bare number, so a right number
+      on the wrong service fails too, and it is sentence-bounded. Two false
+      positives on first run were both rule defects and were fixed in the
+      rule, no pack touched: "aged 40 or over" is a legitimate variant, and
+      "under 30 seconds" is a duration, not an age. Negative-tested seven
+      ways including two other packs; every case took the full suite from 0
+      failures to 1. All six generators rebuild to a zero diff and all 29
+      checkers pass. No new question.
+      Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-12b.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
