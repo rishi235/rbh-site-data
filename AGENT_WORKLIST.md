@@ -287,6 +287,24 @@ checkers green, and the pattern re-verified against Build Pack v2 sections
 verbatim; Scorah Bramhall still serves Weebly's default doubled-brand title
 (SEO field unpasted, the run 78 finding, queued under 5.3/5.4). Evidence in
 audits/seo-pattern-check-2026-08-12.txt.
+Quality pass 2026-08-13: the pattern clean for the third consecutive pass,
+one defect found and fixed in the verifier. Self-test passes with no length
+warnings, all six generators reproduce all 177 pages byte-identical, all 29
+checkers green. The defect: seo-pattern.js PAGE_TYPES describes itself as the
+rollout contract for items 3.2 to 3.13, and git grep showed nothing in the
+repo read it. Proved by giving build-travel-clinic-pages.js a hand-composed
+replica of brandTitle: all 15 pages rebuilt to a zero diff and all 29 checkers
+and the self-test passed with the contract broken. Reverted.
+check-seo-pattern.js now reads PAGE_TYPES as data under test, so a listed
+builder that has gone, a builder that drops the require or stops calling its
+named function, a function seo-pattern does not export, a new generator named
+by no entry, an empty contract and a stale KNOWN_NON_PAGE_BUILDER key all
+fail. Negative-tested eight ways, two of them guards against the opposite
+error. Residual limitation stated in the checker and the audit file: the call
+check is file-wide, so inlining one of a builder's two call sites is caught
+late by the output rules rather than here. Evidence in
+audits/seo-pattern-check-2026-08-13.txt. REPO HALF ONLY, the live half was not
+run: browser unavailable, see the log for this run.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
@@ -2018,7 +2036,7 @@ so tools/build-audit-status.js picks them up like any other item.
       check-opening-hours.js green in the repo half. No in-repo defect
       found.
 
-- [ ] 6.4 (low priority, cosmetic) McCanns nav button styling: on
+- [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
       three weight loss nav entries ("Weight Loss Clinic", "Weight Loss
       Clinic (Aigburth)", "Weight Loss Clinic (Sandringham)") have Weebly's
@@ -2031,7 +2049,7 @@ so tools/build-audit-status.js picks them up like any other item.
       may resolve itself by removing two of the three entries rather than
       restyling them. Check the same three-button pattern on Fishlocks and
       Scorah, the other shared-domain sites, while in there.
-- [ ] 6.5 Weight loss nav architecture: decide whether the weight loss
+- [ ] [BLOCKED] Q60 6.5 Weight loss nav architecture: decide whether the weight loss
       landing (advertising) page should appear in the main site nav at
       all, per each branch, or only be reached via ad campaigns and a
       direct link, with only the inner information page kept in the nav.
@@ -2070,6 +2088,17 @@ so tools/build-audit-status.js picks them up like any other item.
       Check Weebly's own domain/HTTPS settings first (Weebly usually forces
       https by default; if these sites don't, something was changed or
       they're on an older Weebly HTTPS setting).
+      Repo-side check 2026-08-13 (run 135), so the next run does not repeat
+      it: none of the 177 generated pages carries a rel="canonical" tag, and
+      no page or branches.json field carries an http:// URL, every one is
+      https. The two "canonical" hits in build-contraception-pages.js are
+      about the canonical paste SHEET, not the tag. So the repo is neither
+      the cause nor the fix: these pages are body embeds pasted into Weebly
+      and a canonical tag belongs in the head, which Weebly owns. This item
+      is Weebly domain and HTTPS settings or DNS. It is NOT blocked on a
+      decision, it is blocked on tooling: live GSC and the Weebly admin both
+      need the browser, which unattended runs have not had since run 121
+      (see Q59). Next run should take this item if the browser is back.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

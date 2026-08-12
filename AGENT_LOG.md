@@ -2,6 +2,146 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-thirty-fifth run [commit hash recorded in the
+follow-up commit] - Quality pass on item 3.1, the canonical title/H1 pattern
+definition, the oldest verification standing after run 134 refreshed 1.1.
+Third machine-era pass on this item. REPO HALF ONLY: the live half could not
+be run and is not claimed. The pattern holds clean for the third consecutive
+pass; its rollout contract was read by nothing. Two new worklist items
+appeared since run 134 and both are now blocked on one new question, Q60.
+
+ANSWER PICKUP NOT AVAILABLE, fifteenth consecutive run, 121 to 135. Same
+cause as runs 126 to 134: two Chrome extension instances are connected to
+this account and the browser tooling requires a human choice between them
+before any call is made. An unattended run has nobody to ask and may not pick
+for itself, so no browser call was made at all: nothing fetched, clicked,
+typed, submitted or logged in to, and no other route attempted. 35 questions
+open going in, 36 going out with Q60 added. Q59 already asks how to clear
+this block, so no duplicate was raised. This also cost the live half of the
+quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Q60 would not have been decided autonomously even inside one: it
+turns on a live patient-facing regulatory position, which is the carve-out.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin and clean.
+
+SELECTION, AND WHY IT ENDED IN A QUALITY PASS. Two unchecked items were NOT
+blocked this run, 6.4 and 6.5, both added since run 134. 6.4 is the McCanns
+nav button styling and 6.5 is the weight loss nav architecture. Neither is
+repo work: both are Weebly editor changes, and 6.4 says in terms that it
+depends on the decision at 6.5. 6.5 is a decision for Rishi that turns on
+which advertising regime the weight loss landing page sits in, so per step 8
+it goes to a question rather than a guess. ONE question covers both, Q60,
+because 6.4's blocker IS the 6.5 decision and a second question would have
+been the same question twice; both items are marked [BLOCKED] Q60 in place.
+Q60 offers three concrete options and recommends taking the landing page out
+of the main nav, which puts it outside Regime 1 for organic visitors and
+removes two of the three McCanns nav entries so 6.4 largely resolves itself.
+
+CORRECTION TO MY OWN SELECTION, RECORDED RATHER THAN TIDIED AWAY. The first
+scan of the worklist this run returned seven unchecked items and I proceeded
+to a quality pass on the basis that blocking 6.4 and 6.5 left nothing
+actionable. That was wrong. A later scan, after my edits, returned EIGHT, the
+extra one being 6.6, the HTTP/HTTPS duplicate indexing item, which is in HEAD
+and was there all along. 6.6 is unchecked, is NOT blocked and says in terms
+that it needs no content sign-off, so on a correct reading it, not a quality
+pass, was the item this run should have taken. I cannot reconstruct why the
+first scan missed it and I am not going to invent a reason. The quality pass
+below was done properly and stands on its own, but the selection that led to
+it was not sound, and 6.6 is the next item.
+
+6.6 could not have been started this run in any case, and this is a tooling
+block rather than a decision, so it gets NO [BLOCKED] tag and no question:
+every route into it needs the browser. The evidence is live Google Search
+Console, and the first fix to check is Weebly's own domain and HTTPS
+settings, which is an admin surface an unattended run may not touch at all.
+Both are shut for the same reason as the answer pickup above.
+
+What CAN be said from the repo, checked this run so the next one does not
+repeat it: not one of the 177 generated pages carries a rel="canonical" tag,
+and no page or branches.json field carries an http:// URL, every one is
+https. The two "canonical" hits in build-contraception-pages.js are about the
+canonical paste SHEET, not the tag. So the repo is not the source of the
+split and cannot be the fix either: these pages are body embeds pasted into
+Weebly, and a canonical tag belongs in the head, which Weebly owns. 6.6 is
+Weebly domain settings or DNS, and the repo-side answer is that there is
+nothing here to correct. Noted on the item itself.
+
+Ageing re-derived from every run heading by the method under run 128:
+with 1.1 refreshed last run the deepest standing is 3.1 at run 94, then 1.4
+at run 95. The rotation is holding.
+
+REPO HALF, THE PATTERN ITSELF ALL HOLDING. All six generators rebuilt to a
+zero diff before any edit and all 29 checkers pass. The self-test passes with
+no length warnings, and the longest condition phrase is still read out of
+build-service-pages.js rather than hardcoded, so the run 94 fix holds.
+check-seo-pattern reads 177 pages, 0 untyped, 0 failures.
+
+THE FINDING, THE CONTRACT NOBODY READ. tools/seo-pattern.js declares
+PAGE_TYPES and its own comment calls it "the rollout contract for items 3.2
+to 3.13 - every build script listed here must produce titles/H1s via the
+named functions, nothing hand-composed". git grep returns three hits for
+PAGE_TYPES across all tracked files: the declaration, the export, and one
+mention in this log. No checker, generator or test read it. This is the same
+shape as the run 134 and run 128 findings, one step further out: there the
+question was which FILES a checker read, here it is that a thing written to
+look like a guard was never wired to anything at all.
+
+PROVED BEFORE FIXING. build-travel-clinic-pages.js was given a hand-composed
+replica of brandTitle at its page-title call site, keeping the fitTitle
+length behaviour so the output was identical. All 15 pages regenerated to a
+zero diff, all 29 checkers exited 0 and the self-test passed, with the
+generator no longer composing through the shared pattern and nothing able to
+say so. Reverted. A first, cruder attempt was rejected as unfaithful: a plain
+literal skipped fitTitle, diverged, and was caught by check-seo-pattern and
+check-seo-sheets. The faithful replica is the realistic drift and it is the
+one that passed.
+
+THE FIX, ALL IN tools/check-seo-pattern.js. PAGE_TYPES is now read as DATA
+UNDER TEST, the same convention as the conditions read out of
+build-service-pages.js. Forward: a listed builder that has gone fails, a
+builder that does not require ./seo-pattern fails, a title or h1 expression
+naming no function fails, a named function seo-pattern does not export fails,
+and a builder that never calls its named function fails. Reverse: every
+tools/build-*.js must be named by a PAGE_TYPES entry or listed in
+KNOWN_NON_PAGE_BUILDER with a reason, and a stale key there fails whether the
+file has gone or has since been brought into the contract. An empty
+PAGE_TYPES fails rather than passing an empty loop. The import alias is read
+off each builder's own require line rather than assumed to be "pat".
+KNOWN_NON_PAGE_BUILDER holds two entries with reasons, build-status-page.js
+and build-audit-status.js, neither of which generates a public branch page.
+
+LIMITATION STATED RATHER THAN PAPERED OVER. The call check is textual and
+file-wide: it asks whether a builder calls the named function anywhere, not
+whether the specific title or H1 leg does. Most builders call it twice, once
+for the page and once for the paste sheet, so inlining one of the two still
+finds the other and passes this rule. That case is late rather than silent,
+because the output rules recompute every expectation from the live pattern
+functions and the next change to seo-pattern.js makes the non-composing half
+fail. What the new rule adds is the half nothing caught at all, contract rot,
+and a failure that names the generator at the moment it stops composing
+instead of surfacing later as an unexplained page mismatch. Written into the
+checker comment as well as the audit file so the next pass does not have to
+rediscover the boundary.
+
+NEGATIVE-TESTED EIGHT WAYS, ALL REVERTED. A missing builder, a function
+seo-pattern does not export, a dropped require, a named function never
+called, an emptied PAGE_TYPES, a new generator outside the contract and a
+stale KNOWN_NON_PAGE_BUILDER key all exit 1. Two guards against the opposite
+error must pass and did: a require rewritten with extra whitespace, and the
+untouched repo. After the fix, 177 pages checked with 0 failures and the
+contract line reads 14 title/H1 legs verified across 6 generators with 2
+non-page builders excused.
+
+Files changed: tools/check-seo-pattern.js,
+audits/seo-pattern-check-2026-08-13.txt, QUESTIONS.json, AGENT_WORKLIST.md,
+AGENT_LOG.md, status/index.html.
+New question raised: Q60 (worklist items 6.4 and 6.5, both marked [BLOCKED]).
+
 ## 2026-08-13 00:04 BST - hundred-and-thirty-fourth run [commit 9bc3cdf, hash
 recorded in this follow-up commit] - Quality pass on item
 1.1, the brand-name standardisation, last verified at run 93 and the oldest

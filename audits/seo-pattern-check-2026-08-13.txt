@@ -1,0 +1,109 @@
+seo-pattern-check-2026-08-13.txt
+Quality pass on worklist item 3.1 (the canonical title/H1 pattern definition).
+Run 135, agents/audit-backlog. Third pass on this item; the previous two were
+2026-08-11 (found the mirrored condition slugs) and 2026-08-12 (clean).
+
+REPO HALF ONLY. The live half of this pass was not run and is not claimed.
+Answer pickup and live verification both need the browser, and two Chrome
+extension instances are connected to this account, which requires a human
+choice before any call is made. An unattended run has nobody to ask and may
+not choose for itself, so no browser call was made at all.
+
+1. THE PATTERN ITSELF - CLEAN, THIRD CONSECUTIVE PASS
+   node tools/seo-pattern.js self-test: passed, 0 length warnings.
+   Longest condition phrase read from build-service-pages.js rather than
+   hardcoded: "Infected insect bite treatment" (30 chars, 7 condition
+   entries read). The run 94 fix is still holding.
+   All six generators still require ./seo-pattern (verified by grep and now
+   by rule, see 3 below).
+   Full regeneration of all six generators produced a ZERO diff across all
+   177 pages before any edit was made.
+   All 29 checkers exit 0.
+   check-seo-pattern: 177 pages checked, 0 untyped, 0 failures.
+
+2. THE DEFECT - THE ROLLOUT CONTRACT WAS READ BY NOTHING
+   tools/seo-pattern.js declares PAGE_TYPES and describes it in its own
+   comment as "the rollout contract for items 3.2 to 3.13 - every build
+   script listed here must produce titles/H1s via the named functions,
+   nothing hand-composed".
+
+   git grep PAGE_TYPES across all tracked files returns three hits: the
+   declaration, the module export, and one mention in AGENT_LOG.md. No
+   checker, generator or test read it. The contract was documentation
+   wearing the clothes of a guard.
+
+   PROVED BEFORE FIXING. build-travel-clinic-pages.js was given a
+   hand-composed replica of brandTitle at its page-title call site, keeping
+   the fitTitle length behaviour so the output was identical:
+     - all 15 travel clinic pages regenerated to a ZERO diff
+     - all 29 checkers exited 0
+     - the seo-pattern self-test passed
+   The generator had stopped composing through the shared pattern and
+   nothing in the repo could say so. Reverted.
+
+   A first, cruder attempt at the same proof was rejected as unfaithful: a
+   plain literal title diverged from brandTitle because it skipped fitTitle,
+   and check-seo-pattern plus check-seo-sheets both caught it. The faithful
+   replica is the one that matters, because it is the realistic drift.
+
+3. THE FIX - ALL IN tools/check-seo-pattern.js
+   PAGE_TYPES is now read as DATA UNDER TEST, the same convention already
+   used for the conditions read out of build-service-pages.js.
+
+   Forward direction, per PAGE_TYPES entry:
+     - a listed builder that does not exist FAILS
+     - a builder that does not require ./seo-pattern FAILS
+     - a title or h1 expression naming no function FAILS
+     - a named function seo-pattern does not export FAILS
+     - a builder that never calls its named function FAILS
+   Reverse direction:
+     - every tools/build-*.js must be named by a PAGE_TYPES entry or listed
+       in KNOWN_NON_PAGE_BUILDER with a reason; an unlisted generator FAILS
+     - a stale KNOWN_NON_PAGE_BUILDER key FAILS, whether the file has gone
+       or has since been brought into the contract
+   And an empty PAGE_TYPES FAILS rather than passing an empty loop.
+
+   KNOWN_NON_PAGE_BUILDER holds two entries, both with reasons:
+     build-status-page.js  - generates status/index.html, the internal
+                             progress board, not a public branch page
+     build-audit-status.js - publishes the audit status page to the data
+                             portal, generates no branch page
+
+   The alias is derived from each builder's own require line rather than
+   assumed to be "pat", so a builder that names the import something else
+   is read correctly instead of failing spuriously.
+
+4. STATED LIMITATION, RECORDED IN THE CHECKER TOO
+   The call check is textual and file-wide: it asks whether the builder
+   calls the named function anywhere, not whether the specific title or H1
+   leg does. Most builders call it twice, once for the page and once for the
+   paste sheet, so inlining ONE of the two still finds the other and passes
+   this rule. That residual case is late rather than silent: the output
+   rules recompute every expectation from the live pattern functions, so the
+   next change to seo-pattern.js makes the non-composing half stop matching
+   and FAIL. What the new rule adds is the half nothing caught at all, which
+   is contract rot, and a failure that names the generator at the moment it
+   stops composing rather than surfacing later as an unexplained mismatch.
+   This is written into the checker comment as well as here, so the next
+   pass does not have to rediscover the boundary.
+
+5. NEGATIVE-TESTED EIGHT WAYS, ALL REVERTED
+   A  PAGE_TYPES names build-gone-pages.js                    exit 1  PASS
+   B  PAGE_TYPES names brandTitleTypo(), not exported          exit 1  PASS
+   C  builder's require("./seo-pattern") removed               exit 1  PASS
+   D  builder never calls pat.brandTitle()                     exit 1  PASS
+   E  PAGE_TYPES emptied                                       exit 1  PASS
+   F  new tools/build-newthing-pages.js outside the contract   exit 1  PASS
+   G  stale KNOWN_NON_PAGE_BUILDER key for a file that has gone exit 1  PASS
+   Two guards against the opposite error, which must PASS:
+   H1 require rewritten with extra whitespace, alias unchanged exit 0  PASS
+   H2 untouched repo                                           exit 0  PASS
+
+6. AFTER THE FIX
+   check-seo-pattern: 177 pages checked, 0 untyped, 0 failures.
+   PAGE_TYPES contract: 14 title/H1 legs verified across 6 generators,
+   2 non-page builders excused.
+   All six generators regenerate every page byte-identical.
+   All 29 checkers exit 0.
+   Reach of this checker went from 177 pages to 177 pages plus 7 contract
+   entries, 6 generator sources and 8 build-*.js files it had never read.

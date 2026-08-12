@@ -913,5 +913,20 @@
     "status": "open",
     "answer": null,
     "note": "This question cannot be delivered through the channel it is about, which is the point of raising it here: it renders on the Digital_Audit_Status.html progress page, which is the one route out of these runs that does not depend on the browser session. The runs have never attempted any workaround, and will not: browser use stays read-only and no run has clicked, typed, submitted or signed in anywhere. Worth knowing if you pick option 1: the fault is not a signed-out session, so signing back in does not address it. Both instances are signed in and reachable, and it is the presence of two that stops the call."
+  },
+  {
+    "id": "Q60",
+    "date": "2026-08-13",
+    "item": "6.5 Weight loss nav architecture (and 6.4 McCanns nav button styling, which depends on it)",
+    "question": "Should the weight loss landing page (the advertising page) stay in the main site navigation on the branch Weebly sites, or come out of the nav so it is reached only from ad campaigns and direct links, with just the inner information page left in the nav? This matters beyond tidiness: under RBH_WeightLoss_Advertising_Standards.md, Regime 1 (near-total prohibition, no medicine named anywhere) covers any page a button proactively links to, so a nav entry pointing at the landing page keeps it in Regime 1 for every organic visitor, while taking it out of the nav leaves the inner page as a page the customer chooses to click into, which is the Regime 2 exemption. It also decides item 6.4: the three weight loss nav entries on mccannspharmacy.co.uk are the only nav items with Weebly's show-as-button style switched on, which wraps the desktop nav onto four rows, and if two of those three entries come out there is nothing left to restyle. I cannot make either change myself, both are Weebly editor work, and I am not deciding it autonomously because it turns on a live patient-facing regulatory position.",
+    "options": [
+      "Take the weight loss LANDING page out of the main nav on every branch site, keep only the inner information page in the nav, and reach the landing page from ads and direct links only. Puts the landing page outside Regime 1 for organic visitors, matches how LloydsPharmacy handles it, and removes two of the three McCanns nav entries so 6.4 largely resolves itself.",
+      "Keep both pages in the nav but replace the three per-branch weight loss entries with ONE generic category entry per site (no branch qualifiers, no medicine name), and turn the show-as-button style off. Closest to Superdrug Online Doctor's structure, fixes the four-row nav, but leaves the landing page inside Regime 1 so its copy must stay under near-total prohibition.",
+      "Leave the nav architecture exactly as it is and treat 6.4 as pure cosmetics: turn off show-as-button on the three McCanns entries, and check Fishlocks and Scorah for the same pattern. Cheapest, no regulatory change either way, but keeps the landing page in Regime 1 and keeps three weight loss entries competing for nav space on a shared-domain site."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Answering this unblocks worklist items 6.4 and 6.5 together. Both are Weebly editor work, not repo work, so an answer tells me what to write into the worklist and the paste instructions rather than something I can push. It also feeds the wider weight loss decision already open at Q22, and interacts with item 5.8, the five live weight loss pages, which stays blocked on Q16. The competitor evidence recorded under 6.5 is mixed and I would not lean on it: Superdrug keeps one generic nav link and no drug name, but LloydsPharmacy's homepage carousel carries a precise outcome claim next to a discount code, which is the shape of claim RBH's own standards treat as high risk, so it is evidence that enforcement is inconsistent rather than evidence it is safe."
   }
 ]

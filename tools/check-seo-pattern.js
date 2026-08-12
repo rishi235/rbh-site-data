@@ -312,7 +312,131 @@ Object.keys(KNOWN_NON_PAGE).forEach(function (file) {
   }
 });
 
+// ---------------------------------------------------------------------------
+// PAGE_TYPES CONTRACT - does each generator still compose THROUGH the pattern?
+// (item 3.1 quality pass, 2026-08-13)
+// ---------------------------------------------------------------------------
+// Everything above this line reads the OUTPUT: 177 generated pages, compared
+// with what the pattern functions produce today. That is the right test for
+// items 3.2 to 3.13, and it is blind to the fault item 3.1 exists to prevent.
+// tools/seo-pattern.js PAGE_TYPES calls itself "the rollout contract - every
+// build script listed here must produce titles/H1s via the named functions,
+// nothing hand-composed", and until this rule landed nothing in the repo read
+// PAGE_TYPES at all. A generator that drops the require and inlines the same
+// composition regenerates every page byte-identical, so no output rule above
+// can see it, and the NEXT change to seo-pattern.js then silently fails to
+// reach that page family. Proved on this pass: build-travel-clinic-pages.js
+// was given a hand-composed copy of brandTitle, all 15 pages rebuilt to a zero
+// diff, all 29 checkers and the self-test passed, and the contract was broken
+// with nothing anywhere to say so. Reverted.
+//
+// So the contract is read as DATA UNDER TEST, the same convention as the
+// conditions read from build-service-pages.js above: a listed builder that has
+// gone FAILS, a named function seo-pattern does not export FAILS, a builder
+// that no longer calls its named function FAILS, and a PAGE_TYPES matching
+// nothing FAILS rather than passing an empty loop. The reverse direction is
+// checked too, because a NEW generator added outside the contract is the same
+// hole from the other end: every tools/build-*.js must be named by a
+// PAGE_TYPES entry or listed in KNOWN_NON_PAGE_BUILDER with a reason, and a
+// stale key there FAILS.
+//
+// WHAT THIS RULE DOES NOT READ, stated plainly because "ask which files it
+// read" is the lesson this repo keeps relearning. The call check is textual
+// and file-wide: it asks whether the builder calls the named function ANYWHERE,
+// not whether the specific title or H1 leg does. Most builders call the same
+// function twice, once for the page and once for its paste sheet, so inlining
+// ONE of the two would still find the other and pass here. That residual case
+// is not silent, it is merely late: the output rules above recompute every
+// expectation from the live pattern functions, so the moment seo-pattern.js
+// changes and the pages are regenerated, the half that stopped composing
+// stops matching and FAILS. What this rule adds is the OTHER half of the
+// problem, which nothing caught at all: the contract itself rotting, and the
+// failure naming the generator that stopped composing at the moment it stops
+// rather than surfacing later as an unexplained page mismatch.
+var KNOWN_NON_PAGE_BUILDER = {
+  "build-status-page.js": "generates status/index.html, the internal progress board. Not a public branch page and carries no SEO pattern.",
+  "build-audit-status.js": "publishes the audit status page to the data portal. Generates no branch page."
+};
+
+var TOOLS_DIR = __dirname;
+var contractChecked = 0;
+var contractBuilders = {};
+
+if (!pat.PAGE_TYPES || !pat.PAGE_TYPES.length) {
+  console.log("FAIL tools/seo-pattern.js exports no PAGE_TYPES entries, so the rollout contract is");
+  console.log("       unverifiable. An empty contract must not pass as a clean one.");
+  fails++;
+}
+
+(pat.PAGE_TYPES || []).forEach(function (t) {
+  contractBuilders[t.builder] = true;
+  var file = path.join(TOOLS_DIR, t.builder);
+  if (!fs.existsSync(file)) {
+    console.log("FAIL PAGE_TYPES '" + t.key + "' names " + t.builder + ", which does not exist.");
+    console.log("       Update the contract in tools/seo-pattern.js.");
+    fails++;
+    return;
+  }
+  var src = fs.readFileSync(file, "utf8");
+  var aliasMatch = /(?:var|const|let)\s+(\w+)\s*=\s*require\(\s*["']\.\/seo-pattern["']\s*\)/.exec(src);
+  if (!aliasMatch) {
+    console.log("FAIL " + t.builder + " (PAGE_TYPES '" + t.key + "') does not require ./seo-pattern,");
+    console.log("       so it cannot be composing through the shared pattern.");
+    fails++;
+    return;
+  }
+  var alias = aliasMatch[1];
+  [["title", t.title], ["h1", t.h1]].forEach(function (pair) {
+    var leg = pair[0];
+    var fnMatch = /^([A-Za-z_$][\w$]*)\s*\(/.exec(String(pair[1] || "").trim());
+    if (!fnMatch) {
+      console.log("FAIL PAGE_TYPES '" + t.key + "' " + leg + " is '" + pair[1] + "', which names no");
+      console.log("       function. The contract must name the pattern function it promises.");
+      fails++;
+      return;
+    }
+    var fn = fnMatch[1];
+    if (typeof pat[fn] !== "function") {
+      console.log("FAIL PAGE_TYPES '" + t.key + "' " + leg + " names " + fn + "(), which");
+      console.log("       tools/seo-pattern.js does not export.");
+      fails++;
+      return;
+    }
+    if (src.indexOf(alias + "." + fn + "(") === -1) {
+      console.log("FAIL " + t.builder + " (PAGE_TYPES '" + t.key + "' " + leg + ") never calls " +
+        alias + "." + fn + "().");
+      console.log("       The string is hand-composed, so a change to tools/seo-pattern.js will not");
+      console.log("       reach these pages even though they match the pattern today.");
+      fails++;
+      return;
+    }
+    contractChecked++;
+  });
+});
+
+fs.readdirSync(TOOLS_DIR).filter(function (f) { return /^build-.*\.js$/.test(f); }).sort().forEach(function (f) {
+  if (contractBuilders[f]) return;
+  if (Object.prototype.hasOwnProperty.call(KNOWN_NON_PAGE_BUILDER, f)) return;
+  console.log("FAIL " + f + " is a generator named by no PAGE_TYPES entry, so nothing checks that it");
+  console.log("       composes through tools/seo-pattern.js. Add it to PAGE_TYPES, or to");
+  console.log("       KNOWN_NON_PAGE_BUILDER with a reason.");
+  fails++;
+});
+Object.keys(KNOWN_NON_PAGE_BUILDER).forEach(function (f) {
+  if (!fs.existsSync(path.join(TOOLS_DIR, f))) {
+    console.log("FAIL stale KNOWN_NON_PAGE_BUILDER key - " + f + " no longer exists. Remove it.");
+    fails++;
+  } else if (contractBuilders[f]) {
+    console.log("FAIL stale KNOWN_NON_PAGE_BUILDER key - " + f + " is now named by a PAGE_TYPES entry.");
+    console.log("       Remove it.");
+    fails++;
+  }
+});
+
 console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-service-pages.js: " + CONDITION_SLUGS.join(", "));
+console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verified across " +
+  Object.keys(contractBuilders).length + " generator(s), " +
+  Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
 console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
   " live seoTowns (" + OTHER_TOWNS.join(", ") + "), serviceAreaList excusing the branch's own catchment.");
 console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");
