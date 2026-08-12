@@ -60,6 +60,35 @@
                 is knowledge, not arithmetic. The bare surname fails on
                 its own: there is no legitimate use of these strings in
                 public copy.
+    5. FALLBACK the hardcoded branch record in core/site-data.js spells the
+                brand the canonical way. Rule 3 pinned the one table where a
+                brand is typed rather than read. There are two, and this is
+                the second.
+
+  The copy a browser assembles at run time
+  ----------------------------------------
+  Rules 2 and 4 read files. Until the hundred-and-thirty-fourth run they read
+  only files whose whole content is copy: .html, .md and .txt. Every generated
+  page also loads modules/<name>/<name>.js and core/site-data.js from
+  jsDelivr, and those files write copy into the page with innerHTML at run
+  time, so a brand typed into a .js string is read by a patient and by nothing
+  in this repo. It was not a latent hole:
+
+    - modules/emar/emar.js types the business name into the visible eMAR
+      paragraph about the head office team in Aintree.
+    - core/site-data.js carries a whole branch record as its offline
+      FALLBACK, brandLabel and branchName included, and that record is what
+      renders whenever the branches.json fetch fails or passes 10 seconds.
+    - modules/emar/weebly is a hand-pasted Weebly block carrying the brand in
+      its root aria-label, and it has no file extension, so it sat outside
+      every scan here twice over.
+
+  All three were proved by injection on 2026-08-13: a near-miss brand typed
+  into each one passed all 29 checkers. This is the same shape as the item
+  5.1 quality pass, where three em dashes lived in service.js strings while
+  every dash rule read a file format. modules/ and core/ are now scanned for
+  .js and .css with comments blanked, exactly as check-em-dashes.js reads
+  them, and modules/emar/weebly is named alongside modules/switch/weebly.html.
 
   The banners are public copy too
   -------------------------------
@@ -224,11 +253,23 @@ var SCAN_DIRS = [
   path.join(ROOT, "modules", "service", "weebly-paste"),
   path.join(ROOT, "gbp-packs")
 ];
+// modules/emar/weebly carries no file extension, so no folder scan and no
+// extension filter in this checker could ever have reached it. It is a
+// hand-pasted Weebly block like modules/switch/weebly.html and is as public
+// as any generated page. Named here for the same reason check-em-dashes.js
+// names it.
 var SCAN_FILES = [
   path.join(ROOT, "modules", "switch", "weebly.html"),
+  path.join(ROOT, "modules", "emar", "weebly"),
   path.join(ROOT, "modules", "service", "DRAFT-weight-loss-copy.html"),
   path.join(ROOT, "modules", "service", "DRAFT-travel-clinic-copy.html")
 ];
+
+// The live module code. Walked rather than listed, so a module added
+// tomorrow is covered the day it lands. A folder yielding no code file fails,
+// so the rule cannot quietly stop covering anything.
+var CODE_DIRS = [path.join(ROOT, "modules"), path.join(ROOT, "core")];
+var CODE_EXT = /\.(?:js|css)$/i;
 
 var files = [];
 SCAN_DIRS.forEach(function (dir) {
@@ -255,6 +296,33 @@ SCAN_FILES.forEach(function (f) {
   files.push(f);
 });
 
+// The run-time code, collected separately because its comments are blanked
+// before the rules read it. Same walk and same extensions as
+// check-em-dashes.js, so the two checkers cannot drift over what "live
+// module code" means.
+var codeFiles = [];
+function walkCode(dir, out) {
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
+    var full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkCode(full, out);
+    else if (CODE_EXT.test(entry.name)) out.push(full);
+  });
+  return out;
+}
+CODE_DIRS.forEach(function (dir) {
+  if (!fs.existsSync(dir)) {
+    failures.push(rel(dir) + " is a live code folder and it is gone, so the " +
+      "run-time copy rule covers nothing there");
+    return;
+  }
+  walkCode(dir, []).sort().forEach(function (f) { codeFiles.push(f); });
+});
+if (!codeFiles.length) {
+  failures.push("no .js or .css found under modules/ or core/, so the " +
+    "run-time copy rule read nothing. Every generated page loads these files " +
+    "from jsDelivr, so an empty read is a finding, not a pass");
+}
+
 // Blank quoted spans so a recorded reading of a live page is evidence, not a
 // claim. Markdown only: in HTML every attribute is quoted, so the same rule
 // there would blank data-branch and the JSON-LD name, which is most of what
@@ -265,6 +333,20 @@ function maskQuotes(text) {
   });
 }
 
+// Blank the contents of code comments, keeping newlines so reported line
+// numbers still match the real file. A brand named in a comment is a note to
+// the next reader, the same way a quoted span in a pack is a note; only what
+// the browser writes into the page is a claim. Same shape as
+// check-em-dashes.js blankCodeComments.
+function blankCodeComments(text) {
+  var noBlocks = text.replace(/\/\*[\s\S]*?\*\//g, function (block) {
+    return block.replace(/[^\n]/g, " ");
+  });
+  return noBlocks.split("\n").map(function (line) {
+    return /^\s*\/\//.test(line) ? line.replace(/[^\n]/g, " ") : line;
+  }).join("\n");
+}
+
 function flat(s) { return s.replace(/\s+/g, " ").trim(); }
 
 function lineOf(text, index) {
@@ -272,13 +354,18 @@ function lineOf(text, index) {
 }
 
 var scanned = 0;
+var codeScanned = 0;
 var quotedEvidence = 0;
 
-files.forEach(function (p) {
+var targets = files.map(function (p) { return { p: p, code: false }; })
+  .concat(codeFiles.map(function (p) { return { p: p, code: true }; }));
+
+targets.forEach(function (t) {
+  var p = t.p;
   var raw = fs.readFileSync(p, "utf8");
-  var isMd = /\.md$/i.test(p);
-  var text = isMd ? maskQuotes(raw) : raw;
-  scanned++;
+  var isMd = !t.code && /\.md$/i.test(p);
+  var text = t.code ? blankCodeComments(raw) : (isMd ? maskQuotes(raw) : raw);
+  if (t.code) codeScanned++; else scanned++;
 
   brandPatterns.forEach(function (bp) {
     bp.re.lastIndex = 0;
@@ -373,6 +460,55 @@ if (!fs.existsSync(switchGen)) {
 }
 
 // ---------------------------------------------------------------------------
+// Rule 5: the SECOND table where a brand is typed rather than read.
+// core/site-data.js carries a whole branch record as its offline FALLBACK,
+// and that record renders whenever the branches.json fetch fails or passes
+// its 10 second timeout. Rule 3 reads a generator, which runs here; this one
+// runs in the patient's browser, so it is the more exposed of the two.
+// ---------------------------------------------------------------------------
+var siteData = path.join(ROOT, "core", "site-data.js");
+
+if (!fs.existsSync(siteData)) {
+  failures.push("core/site-data.js is gone, so the hardcoded FALLBACK branch " +
+    "record this rule exists to guard cannot be read. Every generated page " +
+    "loads that file at run time, so its absence is a finding, not a pass");
+} else {
+  var sd = fs.readFileSync(siteData, "utf8");
+  var idRe = /id:\s*"([^"]+)"[\s\S]{0,400}?brandLabel:\s*"([^"]+)"[\s\S]{0,200}?branchName:\s*"([^"]+)"/g;
+  var sdFound = 0;
+  var m3;
+  while ((m3 = idRe.exec(sd)) !== null) {
+    var sdId = m3[1], sdBrand = m3[2], sdName = m3[3];
+    sdFound++;
+    var sdWant = CANONICAL[sdId];
+    if (!sdWant) {
+      fail(sdId + "::fallback", "core/site-data.js FALLBACK carries a record " +
+        'for "' + sdId + '", which is not a trading branch in branches.json');
+      continue;
+    }
+    if (sdBrand !== sdWant) {
+      fail(sdId + "::fallback", "core/site-data.js FALLBACK types brandLabel " +
+        '"' + sdBrand + '" for ' + sdId + ', but the canonical trading name ' +
+        'is "' + sdWant + '". That record is what every live page renders ' +
+        "when the branches.json fetch fails or times out");
+    }
+    if (sdName !== sdBrand && sdName.indexOf(sdBrand + " ") !== 0) {
+      fail(sdId + "::fallback", "core/site-data.js FALLBACK types branchName " +
+        '"' + sdName + '" for ' + sdId + ', which is neither the brand "' +
+        sdBrand + '" nor that brand followed by a qualifier, so the offline ' +
+        "record spells the business two ways");
+    }
+  }
+  if (!sdFound) {
+    failures.push("core/site-data.js: no FALLBACK branch record matched, so " +
+      "this rule read nothing. The record's shape has changed and the " +
+      "pattern needs updating rather than passing silently");
+  }
+  notes.push(sdFound + " hardcoded FALLBACK branch record(s) in " +
+    "core/site-data.js checked against the canonical trading names");
+}
+
+// ---------------------------------------------------------------------------
 // Stale KNOWN keys.
 // ---------------------------------------------------------------------------
 Object.keys(KNOWN).forEach(function (k) {
@@ -392,6 +528,9 @@ console.log("  " + branches.length + " trading branch(es), " +
 console.log("  " + scanned + " file(s) of public copy scanned for near-miss " +
   "spellings and " + MISSPELT.length + " known misspelling(s), banners " +
   "included");
+console.log("  " + codeScanned + " live module code file(s) under modules/ " +
+  "and core/ scanned for the same, comments blanked - this is the copy a " +
+  "browser writes into the page at run time");
 console.log("");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });

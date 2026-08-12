@@ -1557,6 +1557,28 @@ appended to the line. Do not move them; the status page reads them in place.
       from the canonical form, and checks the hardcoded brand table in
       build-switch-pages.js. Tested by breaking it three ways; all three
       fail the run. Done 2026-08-11.
+      Quality pass 2026-08-13 (repo half only): the rule holds for the fifth
+      consecutive pass. All six generators rebuild to a zero diff, all 29
+      checkers pass, and the hand sweep re-run as git grep finds every
+      remaining variant is either the rule being stated, a quoted reading of a
+      live page in a GBP pack, or the status page rendering this worklist.
+      Zero in public copy. The defect is again the checker's reach, not the
+      copy: three places a brand publishes that no rule here could read.
+      modules/emar/emar.js types the business name into the visible eMAR
+      paragraph; core/site-data.js carries a whole branch record as its
+      offline FALLBACK, brandLabel and branchName included, which is what
+      renders when the branches.json fetch fails or times out, so rule 3's
+      "one place a brand is typed rather than read" was two; and
+      modules/emar/weebly is a hand-pasted Weebly block with no file
+      extension, outside both the folder list and the extension filter. All
+      three proved by injection passing all 29 checkers before the fix. Same
+      shape as the item 5.1 finding in service.js. modules/ and core/ are now
+      walked for .js and .css with comments blanked, exactly as
+      check-em-dashes.js reads them, modules/emar/weebly is named in
+      SCAN_FILES, and new rule 5 pins the FALLBACK record against CANONICAL.
+      Reach 224 to 225 files plus 7 code files plus 1 FALLBACK record.
+      Negative-tested eight ways, all reverted. Evidence:
+      audits/brand-spelling-check-2026-08-13.txt. Done 2026-08-13.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi

@@ -1,0 +1,120 @@
+ITEM 1.1 QUALITY PASS - BRAND-NAME STANDARDISATION
+Run 134, 2026-08-13, branch agents/audit-backlog.
+Third machine-era pass on this item. Last verified run 93 (2026-08-12 01:41),
+the oldest verification standing after run 133 refreshed 4.2.
+REPO HALF ONLY. The live half could not be run this time and is not claimed:
+answer pickup and live reads both need a browser choice between two connected
+Chrome extensions, and an unattended run has nobody to ask.
+
+VERDICT
+The rule holds in the repo for the fifth consecutive pass. No variant spelling
+in any public copy, in branches.json or in either hardcoded brand table.
+One defect found and fixed, and it is again in the checker's reach rather than
+in any copy: three places a brand is published that check-brand-spelling.js
+could not see.
+
+STATE BEFORE ANY EDIT
+- All six generators rebuilt to a zero diff.
+- All 29 checkers pass.
+- Worktree clean, level with origin at b997705.
+
+RULE 1, CANON
+16 trading branches, 13 distinct pinned trading names. Every brandLabel is
+exactly its pinned canonical form and every branchName is that brandLabel
+alone or that brandLabel plus a qualifier. No CANONICAL id has fallen out of
+branches.json and no branch is missing a pin.
+
+RULE 2 AND RULE 4, THE HAND SWEEP RE-RUN
+git grep across all tracked files for the variant forms, excluding
+AGENT_LOG.md, AGENT_WORKLIST.md, QUESTIONS.json and audits/ as the places that
+record findings rather than make claims. Every remaining hit is accounted for
+and none is a claim:
+  CHANGELOG.md:23              records the live CDN pin limitation
+  CLAUDE.md:966, 994, 995      state the rule itself
+  gbp-packs/coleman-leigh-walton.md:28, 168, 172
+  gbp-packs/gordon-short-crosby.md:121, 142, 148
+                               all six inside quotation marks, recording what
+                               the live pages say so the paster knows the
+                               website and the profile disagree. Reported by
+                               the checker as quoted evidence, not failed.
+  status/index.html:15, 16     the generated status page rendering the
+                               worklist item text, which is itself excluded
+                               by design. Inherits the same exclusion.
+  tools/check-brand-spelling.js
+                               the checker's own rule text and MISSPELT table.
+Zero hits in public copy, in the generated pages, in the paste blocks, in the
+banners, in the drafts or in the packs.
+
+THE FINDING: THREE PLACES A BRAND PUBLISHES THAT NO RULE HERE COULD READ
+Rules 2 and 4 read files whose whole content is copy: .html, .md and .txt.
+Every generated page also loads modules/<name>/<name>.js and core/site-data.js
+from jsDelivr, and those files write copy into the page with innerHTML at run
+time. A brand typed into a .js string is read by a patient and by nothing in
+this repo. Not latent, all three carry a brand today:
+
+  1. modules/emar/emar.js line 161 types the business name into the visible
+     eMAR paragraph about the head office team in Aintree.
+  2. core/site-data.js lines 28 and 29 carry a whole branch record as the
+     offline FALLBACK, brandLabel "RB Healthcare Ltd" and branchName
+     "RB Healthcare Ltd Head Office". That record is what renders whenever
+     the branches.json fetch fails or passes its 10 second timeout. Rule 3
+     pinned the one table where a brand is typed rather than read. There were
+     two. This is the second, and it runs in the patient's browser rather
+     than here.
+  3. modules/emar/weebly is a hand-pasted Weebly block carrying the brand in
+     its root aria-label. It has no file extension, so it sat outside this
+     checker twice over: outside the folder list and outside the
+     .html|.md|.txt filter.
+
+Same shape as the item 5.1 quality pass, where three em dashes lived in
+service.js strings while every dash rule read a file format.
+
+PROVED BEFORE FIXING
+Each injected, all 29 checkers run, then reverted:
+  T1  "Scorah Chemist" into the visible emar.js paragraph      ALL 29 PASSED
+  T2  "Fishlock Chemist" into the emar/weebly aria-label       ALL 29 PASSED
+  T3  FALLBACK brandLabel to "RB Healthcares Ltd"              ALL 29 PASSED
+
+THE FIX, ALL IN tools/check-brand-spelling.js
+- modules/emar/weebly named in SCAN_FILES alongside modules/switch/weebly.html,
+  for the same reason check-em-dashes.js names it.
+- modules/ and core/ walked recursively for .js and .css, comments blanked,
+  and rules 2 and 4 applied to what is left. Same walk, same extensions and
+  the same comment-blanking as check-em-dashes.js, so the two checkers cannot
+  drift over what "live module code" means. A code folder yielding no file
+  fails rather than passing silently.
+- New rule 5 pins the hardcoded FALLBACK branch record in core/site-data.js
+  against CANONICAL, exactly as rule 3 pins the build-switch-pages.js CONFIG
+  table. A record whose id is not a trading branch fails, a brandLabel that is
+  not the canonical form fails, a branchName that is neither the brand nor the
+  brand plus a qualifier fails, and a pattern that matches nothing fails.
+
+REACH AFTER THE FIX
+  225 files of public copy (was 224: modules/emar/weebly added)
+  7 live module code files under modules/ and core/ (was 0)
+  15 hardcoded brand strings in build-switch-pages.js CONFIG (unchanged)
+  1 hardcoded FALLBACK branch record in core/site-data.js (was 0)
+
+NEGATIVE TESTS AFTER THE FIX, ALL REVERTED
+  T1  near-miss brand in emar.js visible copy            exit 1, as intended
+  T2  near-miss brand in emar/weebly paste block         exit 1, as intended
+  T3  FALLBACK brandLabel wrong                          exit 1, as intended
+  T4  FALLBACK branchName disagreeing with brandLabel    exit 1, as intended
+  T5  FALLBACK key renamed so the pattern reads nothing  exit 1, as intended
+  T6  two brands named in a code COMMENT                 exit 0, as intended
+  T7  known misspelling "Hirschmans" in code copy        exit 1, as intended
+  T8  the correct canonical name in code copy            exit 0, as intended
+T6 and T8 are the guard against the opposite error: a brand named in a comment
+is a note to the next reader, and the canonical spelling must never fail.
+
+STATE AFTER THE EDIT
+- All six generators rebuild to a zero diff.
+- All 29 checkers pass.
+- tools/check-brand-spelling.js is the only file changed by the fix.
+
+NOT CLAIMED
+The live half. The Coleman and Leighs and Gordon Short live pages were last
+read on 2026-08-12 and still carried the pre-1.1 paste; nothing was read this
+run, so nothing about live is asserted here. The repaste is already decided
+under Q13 and Q32 and queued with the Weebly paste work under item 5.3.
+No new question raised.

@@ -2,6 +2,101 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 00:04 BST - hundred-and-thirty-fourth run - Quality pass on item
+1.1, the brand-name standardisation, last verified at run 93 and the oldest
+verification standing after run 133 refreshed 4.2. Third machine-era pass on
+this item. REPO HALF ONLY: the live half could not be run and is not claimed.
+The rule holds in the copy for the fifth consecutive pass; the checker did
+not. Three places a brand publishes were outside everything
+check-brand-spelling.js could read, and all three carry a brand today. No new
+question.
+
+ANSWER PICKUP NOT AVAILABLE, fourteenth consecutive run, 121 to 134. Same
+cause as runs 126 to 133: two Chrome extension instances are connected to
+this account and the browser tooling requires a human choice between them
+before any call is made. An unattended run has nobody to ask and may not pick
+for itself, so no browser call was made at all: nothing fetched, clicked,
+typed, submitted or logged in to, and no other route attempted. 35 questions
+open going in and 35 going out. Q59 already asks how to clear this block, so
+no duplicate was raised. This also cost the live half of the quality pass.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed a decision in any case. The carve-out for
+live patient-facing regulatory claims was considered and not engaged: no
+claim, medicine name or price was read or altered anywhere. The change makes
+a wrong trading name impossible to commit unnoticed in three places where it
+previously was.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin at b997705 and clean.
+
+SELECTION. All five unchecked items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1), so a quality pass. Ageing re-derived from every run heading in this log
+by the method recorded under run 128, taking the topmost mention of each
+item. All 41 completed items appear in runs 93 to 133, and with 4.2 refreshed
+last run the deepest standing is 1.1 at run 93. The next two are 3.1 (run 94)
+then 1.4 (run 95). The rotation is holding.
+
+REPO HALF, THE COPY ALL HOLDING. All six generators rebuilt to a zero diff
+before any edit and all 29 checkers pass. Rule 1 verified: 16 trading
+branches, 13 distinct pinned trading names, every brandLabel exactly its pin
+and every branchName that brand alone or that brand plus a qualifier. The
+hand sweep re-run as git grep across all tracked files: every remaining
+variant is the rule being stated (CLAUDE.md, the checker's own MISSPELT
+table), a recorded live limitation (CHANGELOG.md), a quoted reading of a live
+page in the Coleman and Leighs and Gordon Short packs, which the checker
+reports as evidence rather than failing, or status/index.html rendering the
+worklist item text, which is itself excluded by design. Zero hits in public
+copy. Full detail in audits/brand-spelling-check-2026-08-13.txt.
+
+THE FINDING, AGAIN THE CHECKER'S REACH AND NOT THE COPY. Rules 2 and 4 read
+files whose whole content is copy: .html, .md and .txt. Every generated page
+also loads modules/<name>/<name>.js and core/site-data.js from jsDelivr, and
+those files write copy into the page with innerHTML at run time, so a brand
+typed into a .js string is read by a patient and by nothing in this repo.
+This is the same shape as the item 5.1 quality pass, where three em dashes
+lived in service.js strings while every dash rule read a file format. Three
+instances, none latent. First, modules/emar/emar.js types the business name
+into the visible eMAR paragraph about the head office team in Aintree.
+Second, and this is the one that matters, core/site-data.js carries a whole
+branch record as its offline FALLBACK with brandLabel and branchName typed
+in, and that record is what renders whenever the branches.json fetch fails or
+passes its 10 second timeout. Rule 3 was written around "the one place a
+brand is typed rather than read". There were two, and the second one runs in
+the patient's browser rather than here. Third, modules/emar/weebly is a
+hand-pasted Weebly block carrying the brand in its root aria-label, and it
+has no file extension, so it sat outside this checker twice over: outside the
+folder list and outside the .html|.md|.txt filter. check-em-dashes.js has
+named that file since the item 5.1 pass; the brand rule never had it.
+
+PROVED BEFORE FIXING. A near-miss brand injected into each of the three, all
+29 checkers run each time, all three passed clean, all reverted.
+
+THE FIX, ALL IN tools/check-brand-spelling.js. modules/emar/weebly named in
+SCAN_FILES alongside modules/switch/weebly.html. modules/ and core/ walked
+recursively for .js and .css with comments blanked, using the same walk, the
+same extensions and the same blanking as check-em-dashes.js so the two
+checkers cannot drift over what "live module code" means; a code folder
+yielding no file fails rather than passing silently. New rule 5 pins the
+hardcoded FALLBACK branch record in core/site-data.js against CANONICAL
+exactly as rule 3 pins the build-switch-pages.js CONFIG table, and a pattern
+that matches nothing fails. Reach went from 224 files to 225, plus 7 live
+code files and 1 FALLBACK record that were previously read by nothing.
+
+NEGATIVE-TESTED EIGHT WAYS, ALL REVERTED. The three injections above now exit
+1. A FALLBACK branchName disagreeing with its brandLabel fails, and renaming
+the FALLBACK key so the pattern reads nothing fails rather than passing. Two
+tests guard the opposite error and must pass: two brands named in a code
+comment, and the correct canonical name written into visible code copy. Every
+test behaved.
+
+Files changed: tools/check-brand-spelling.js,
+audits/brand-spelling-check-2026-08-13.txt, AGENT_WORKLIST.md, AGENT_LOG.md,
+status/index.html.
+No new question raised.
+
 ## 2026-08-12 23:47 BST - hundred-and-thirty-third run [commit df5541f, hash
 recorded in this follow-up commit] - Quality pass on item
 4.2, the Cherry Lane Pharmacy GBP pack, the oldest verification standing among
