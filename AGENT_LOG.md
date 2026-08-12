@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 19:11 BST - hundred-and-twenty-eighth run - Quality pass on item
+## 2026-08-12 19:11 BST - hundred-and-twenty-eighth run [commit 7a36941, hash
+recorded in this follow-up commit] - Quality pass on item
 4.15, the Tiffenbergs Chemist Aintree GBP pack, the oldest verification
 standing among completed items. Third pass on this item. REPO HALF ONLY: the
 live half could not be run and is not claimed. The pack is clean for the third
