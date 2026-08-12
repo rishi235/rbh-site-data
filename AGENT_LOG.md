@@ -101,8 +101,8 @@ it.
 FILES CHANGED. tools/check-branch-identity.js (rules 8 and 9, docstring,
 report line), AGENT_WORKLIST.md (2.2 pass note in place), QUESTIONS.json
 (Q59), audits/fishlocks-branch-landing-check-2026-08-12.txt (new), this log.
-No generated page changed. No branches.json change. Commit hash recorded in
-the follow-up commit.
+No generated page changed. No branches.json change. Commit 7ad7f66, hash
+recorded in this follow-up commit.
 
 ## 2026-08-12 19:11 BST - hundred-and-twenty-eighth run [commit 7a36941, hash
 recorded in this follow-up commit] - Quality pass on item
