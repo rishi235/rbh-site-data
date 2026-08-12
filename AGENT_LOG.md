@@ -2,6 +2,68 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 03:12 BST - ninety-sixth run - Quality pass on item 4.3, the
+Hirshmans Chemist Ainsdale GBP pack, last verified 2026-08-11 04:05 as the
+fifty-fourth run and the oldest verification standing after run 95
+refreshed 1.4. Second machine-era pass on this item. The pack is clean on
+every fact; the run's two real findings were a red checker at HEAD and a
+live page that cannot be phoned.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one and
+remains expired. Nothing needed a decision: the checker fix closes a gap
+in a rule already enforced, the pack change is a hard stop note, and the
+live findings extend an open question's note.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only; none of the open questions has an answer. Open questions
+33 before, 33 after. Browser use read-only throughout: the pickup plus
+five GETs on hirshmanspharmacy.co.uk, nothing clicked, typed or
+submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22, 6.1 Q52), so quality pass on the
+oldest standing verification, item 4.3.
+
+REPO HALF, PACK CLEAN, RED CHECKER AT HEAD FOUND AND FIXED. Every pack
+fact matches branches.json (name, address, phone, split-day hours,
+website, review link), description 743 characters, posts within limits,
+Post A's conditions match the generated page, check-gbp-packs passes.
+But check-postcodes was FAILING at HEAD: run 95 wrote its injection
+value SK7 1BJ into audits/nap-check-2026-08-12.txt after running the
+checkers, so it committed a red state no run had seen. Fix in
+check-postcodes.js: files under audits/ are now narrative surfaces (the
+same rationale as the listed files, they record the audit itself), and
+SK7 1BJ is named in NARRATIVE_POSTCODES with its reason. Quoting rights
+stay value-named: an unnamed foreign postcode in an audit file still
+fails. Negative-tested four ways. The ordering lesson is recorded in the
+audit file and applied: this run re-ran the full suite AFTER writing its
+own audit record, and all 29 checkers pass. Six generators
+byte-identical; status/index.html was one run stale at HEAD because run
+95 built it before appending its log entry, refreshed this run.
+
+LIVE HALF, FIVE READ-ONLY GETS. All four post buttons resolve, no dead
+link. The serious finding is Post A's target, the old hand-built
+pharmacy-first-service-ainsdale.html (the branches.json pfLink): it
+publishes a twelve-digit phone that does not dial (017014577376), the
+wrong street address (64 Station Road, not 56-62 Sherwood House), the
+NHSmail address as body contact, old "Hirshmans Pharmacy" branding and
+US spellings. The generated replacement IS live and correct at
+pharmacy-first-hirshmans-ainsdale.html, so this is one of the item 5.3
+links needing no paste, only the repoint decision (Q8/Q34). HARD STOP
+added to the pack's paster notes; the button link itself left for 5.3.
+Post B's live paste predates the item 5.1 em dash removal (mojibake em
+dash in body copy) and the old mojibake switch banner is still live
+site-wide; both sit in the queued repaste. The footer NHSmail pattern is
+estate-shaped, not contact-us-only, and the Q41 note now says so.
+
+Files changed: tools/check-postcodes.js (audits/ narrative + SK7 1BJ
+named), gbp-packs/hirshmans-ainsdale.md (Post A hard stop),
+QUESTIONS.json (Q41 note extended), status/index.html (regenerated),
+audits/hirshmans-ainsdale-gbp-pack-check-2026-08-12.txt (new).
+No new question raised.
+
 ## 2026-08-12 02:44 BST - ninety-fifth run - Quality pass on item 1.4, the NAP check,
 last verified 2026-08-11 03:30 as the fifty-third run and the oldest
 verification standing after run 94 refreshed 3.1. Third machine-era pass on

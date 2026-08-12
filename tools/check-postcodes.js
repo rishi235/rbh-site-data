@@ -79,7 +79,8 @@ var NARRATIVE_FILES = [
 ];
 
 var NARRATIVE_POSTCODES = {
-  "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed."
+  "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed.",
+  "SK7 1BJ": "Run 95 (item 1.4 quality pass, 2026-08-12): the foreign postcode injected into Cherry Lane's contraception page to prove check-nap's body-copy blind spot. audits/nap-check-2026-08-12.txt quotes it to record the test."
 };
 
 // Files that DECLARE or DOCUMENT a postcode rather than USE it. This
@@ -172,7 +173,15 @@ function checkFile(p) {
   filesScanned++;
   if (!list.length) return;
 
-  var isNarrative = NARRATIVE_FILES.indexOf(r) !== -1;
+  // Any file under audits/ is a narrative surface: it is the audit recording
+  // itself, the same rationale as the listed files above. Found on the item
+  // 4.3 quality pass 2026-08-12: run 95 wrote its injection value (SK7 1BJ)
+  // into audits/nap-check-2026-08-12.txt AFTER running the checkers, so the
+  // committed state was red and no run had seen it. Directory membership only
+  // grants the right to QUOTE; the value must still be named in
+  // NARRATIVE_POSTCODES, so a wrong postcode typed into an audit file still
+  // fails.
+  var isNarrative = NARRATIVE_FILES.indexOf(r) !== -1 || r.indexOf("audits/") === 0;
   var ownedDir = OWNED_DIRS.filter(function (d) { return r.indexOf(d + "/") === 0; })[0];
   var owner = ownedDir ? ownerOf(r) : null;
 

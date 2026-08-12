@@ -117,6 +117,15 @@ travel consultation today.
 Button: Book -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html
 
 Notes for the paster:
+- HARD STOP, Post A: do not post with the current button link. The old
+  hand-built page it points at (pharmacy-first-service-ainsdale.html)
+  publishes a phone number that does not dial (017014577376), the wrong
+  street address (64 Station Road instead of 56-62 Sherwood House) and
+  the old "Hirshmans Pharmacy" branding (checked live 2026-08-12). The
+  generated replacement is already live and correct at
+  https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html
+  so this is one of the item 5.3 links that needs no paste, only the
+  repoint decision (Q8/Q34). Until that lands, Post A stays unposted.
 - GBP hours need two time ranges on every open day to show the lunch
   closure: Monday to Friday 8:30am to 1:00pm and 2:00pm to 6:00pm,
   Saturday 9:00am to 1:00pm and 2:00pm to 5:30pm. Google offers one range

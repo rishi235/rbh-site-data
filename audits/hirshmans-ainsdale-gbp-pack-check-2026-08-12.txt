@@ -1,0 +1,53 @@
+Item 4.3 quality pass - Hirshmans Chemist Ainsdale GBP pack
+Run 96, 2026-08-12. Previous verification: run 54, 2026-08-11 04:05.
+
+REPO HALF
+- Every profile fact re-checked against branches.json: name, address
+  (56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW), phone
+  01704 577376, website, review link, split-day hours (M-F 8:30-1:00 and
+  2:00-6:00, Sat 9:00-1:00 and 2:00-5:30, Sunday closed). All match.
+- Description 743 characters as claimed. Post lengths within the 1,500
+  limit. Post A's seven conditions and the UTI women 16 to 64 range match
+  the generated Pharmacy First page condition for condition.
+- Split-day lunch guidance present (run 82 rule). No sister-branch claim.
+  No medicine names in Post C. check-gbp-packs.js passes.
+- All seven generators rebuilt: six byte-identical, status/index.html one
+  run stale at HEAD because run 95 built it before appending its own log
+  entry (ordering artefact, refreshed this run).
+
+REPO DEFECT FOUND AND FIXED (not in the pack)
+- check-postcodes.js was failing at HEAD: run 95 wrote its injection
+  value SK7 1BJ into audits/nap-check-2026-08-12.txt AFTER running the
+  checkers, so the committed state was red and no run had seen it.
+- Fix: any file under audits/ is now a narrative surface in
+  check-postcodes.js (it records the audit itself), and SK7 1BJ is named
+  in NARRATIVE_POSTCODES with its reason. Directory membership only
+  grants the right to quote; an unnamed value in an audit file still
+  fails. Negative-tested four ways: baseline green, unnamed foreign
+  postcode in an audit file fails, stale exemption fires when the named
+  value is quoted nowhere, baseline green again after restore.
+- Lesson applied this run: full checker suite re-run AFTER this audit
+  file was written, not before.
+
+LIVE HALF (read-only)
+- All four post buttons resolve. No dead link.
+- Post A target is the OLD hand-built page (pharmacy-first-service-
+  ainsdale.html, the branches.json pfLink). It publishes a phone that
+  does not dial (017014577376, twelve digits), the wrong street address
+  (64 Station Road, not 56-62 Sherwood House), the NHSmail address as
+  body contact, old "Hirshmans Pharmacy" branding and US spellings.
+- The generated replacement IS live and correct at
+  pharmacy-first-hirshmans-ainsdale.html, so this is one of the item 5.3
+  links needing no paste, only the repoint decision (Q8/Q34). HARD STOP
+  added to the pack's paster notes; the button link itself is untouched.
+- Post B target (switch page) is a paste that predates the item 5.1 em
+  dash removal: body copy renders the mojibake "O-with-circumflex" em
+  dash sequence. Repaste already queued for this branch.
+- Old mojibake switch banner still live site-wide (run 86 fixed the
+  source; paste pending).
+- Footer on every page read still publishes the NHSmail address next to
+  the generated strip's branch address. Q41 note extended with the
+  estate-wide shape and the dead phone number.
+
+No new question raised. Findings extend Q41 (note updated) and land on
+decisions already held by item 5.3 (Q8/Q34).
