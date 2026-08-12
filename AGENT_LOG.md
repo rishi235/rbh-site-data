@@ -2,6 +2,71 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 11:12 BST - hundred-and-twelfth run - Quality pass on item
+3.12, Tiffenbergs Chemist (Aintree), last verified 2026-08-11 11:34 as the
+seventieth run and the oldest verification standing after run 111
+refreshed 3.11. Third pass on this item. Clean on both halves, zero
+in-repo defects, no new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+tiffenbergschemist.co.uk, tabs opened and closed, nothing clicked, typed
+or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification: run 111 refreshed 3.11, leaving the
+seventieth run's pass on 3.12 (2026-08-11 11:34) oldest, with 3.13 behind
+it from run 71. All 29 checkers green before any change. All seven
+generators rebuilt; page outputs byte-identical; status/index.html
+regenerated with expected differences only (its own timestamp plus the
+run 111 log content it embeds, which the committed copy predates) and was
+reverted, matching runs 108 to 111.
+
+REPO HALF CLEAN, VERIFIED BY A FRESH ROUTE. All 12 Tiffenbergs pages (11
+service including weight loss and travel, 1 switch) re-read by an
+independent extraction written fresh for this run, no code shared with the
+checkers; branches.json and pom-names.js read as data only. 1742 check
+groups, zero flags: one H1 per page carrying Aintree, the seoTown; 388
+Longmoor Lane, L9 9DB and 0151 525 3462 visible with every tel: link as
+the branch's own unspaced digits and no other trading branch's digits,
+postcode or review link anywhere, spacing stripped before comparison; no
+foreign widget id across every id belonging to another branch; JSON-LD
+parsing on all 12 and matching branches.json field for field including
+Merseyside as addressRegion, Liverpool as addressLocality against Aintree
+as the seoTown, and self-referencing urls on the branch's own domain, with
+no openingHoursSpecification, correctly absent per the run 111 note that
+the property lives only on the six item 5.2 landing pages; data-branch is
+branchName on all 12; POM union scan empty on all 12 including the weight
+loss page; no em dash outside build comments; data-wa carries 447521775631
+wherever present; the Pharmacy First overview links all seven condition
+pages and every condition page links back. No title or H1 names another
+branch's town; Clear Chemist also trades in Aintree but on its own domain
+with its own brandSlug, so nothing collides.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATES ONLY. The pfLink page
+pharmacy-first-service-aintree serves correctly: title, NAP and hours
+matching branches.json exactly including the split 1-2pm lunch closure and
+Saturday and Sunday closed, and all seven Pharmacy First conditions
+carrying the correct cohorts including earache 1 to 17 and UTI women 16 to
+64. The live contact block and footer still publish
+tiffenbergs@rbhealth.co.uk, plural, against branches.json's singular
+Tiffenberg@rbhealth.co.uk; that is Q56, open, unchanged, nothing new to
+add. The second GET reconfirmed book-now.html still returns 404, the
+Tiffenbergs-only gap Q53 already records; site-wide nav still links it.
+Both live findings sit under open questions, so neither was re-raised.
+
+FILES CHANGED. AGENT_LOG.md only. No page output changed, no worklist
+change (quality pass on a completed item), QUESTIONS.json untouched at 33
+open. Status page republished via tools\build-audit-status.js.
+
 ## 2026-08-12 10:41 BST - hundred-and-eleventh run - Quality pass on item
 3.11, Gordon Short Chemist (Crosby), last verified 2026-08-11 as the
 sixty-ninth run and the oldest verification standing after run 110
