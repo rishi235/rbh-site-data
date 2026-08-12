@@ -1,0 +1,56 @@
+SEO pattern quality pass evidence - item 3.1 - 2026-08-12 02:10 BST
+Ninety-fourth run. Third machine-era pass on this item. No defect found.
+
+REPO EVIDENCE
+- node tools/seo-pattern.js: self-test passed, no length warnings.
+  Longest condition phrase derived from build-service-pages.js:
+  "Infected insect bite treatment" (30 chars, 7 condition entries read).
+  All 14 buildable branches printed and validated, including the Q15
+  St Michael's town word on mccanns_sandringham and the Q14 shortened
+  title on colemanleigh_liverpool pfConditionMax (61 chars).
+- node tools/check-seo-pattern.js: 177 pages checked, 0 untyped,
+  0 excused, 0 failures. 7 ready conditions read from
+  build-service-pages.js. Cross-town rule ran on all 177 pages against
+  11 live seoTowns.
+- All six generators re-run: zero diff on every generated page
+  (status/index.html moved only by its own timestamp, as every run).
+- All 29 checkers pass.
+- Pattern re-read against Build Pack v2: section 1.4 (town and service
+  in title, URL and H1), section 5.1 line 125 (build from
+  seoTown/townSlug, never addressLocality), section 5.4 line 165
+  (condition + town in URL, title and H1 per condition page). All three
+  satisfied by the family A / family B / switch shapes.
+
+DEFECT PROBES, ALL CLEAN
+- Self-test condition sampling: the self-test regex reads every
+  metaCondition in build-service-pages.js regardless of the ready flag,
+  while check-seo-pattern.js reads ready:true only. All 7 conditions are
+  ready:true today so the two sets are identical; if they ever diverge
+  the self-test over-samples (tests a phrase that builds no page), which
+  errs long, the safe direction for a length rule. Not a defect.
+- No generated fragment carries a <title> or og:title tag (0 hits across
+  all three page dirs), so the head-comment "Weebly page SEO title" line
+  the checker reads is the only title source in the repo. Nothing
+  untested can drift.
+- No generated page carries more than one <h1> (0 multi-h1 files), so
+  the checker's first-h1 read cannot mask a second heading.
+- Em dashes: 171 pages carry exactly one U+2014, all inside the HTML
+  build comment separator, which check-em-dashes deliberately blanks
+  (documented in its header, no visitor sees it). Not a defect.
+- Cross-town invariants re-confirmed: no live seoTown is a substring of
+  another, no live brandLabel contains another branch's seoTown.
+
+LIVE EVIDENCE, TWO READ-ONLY GETS
+- scorah-chemists.co.uk/uti-treatment-scorah-bramhall.html: 200.
+  H1 "UTI treatment in Bramhall" and meta description match the pattern
+  exactly. Rendered title "UTI treatment in Bramhall - Scorah Chemists
+  - Scorah Chemists" is Weebly's default construction (page name plus
+  site title), the run 78 finding re-observed: the SEO title field on
+  the Scorah service pages was never pasted. Covered by the queued
+  5.3/5.4 Weebly session, which repastes every SEO field. Nothing new.
+- fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html: 200.
+  Title "UTI treatment in Ainsdale - Fishlocks Chemist" served verbatim
+  with no suffix, H1 and description exact. Confirms the run 78 model
+  still holds: pasted SEO fields serve the pattern verbatim.
+
+Nothing clicked, typed or submitted. No new question raised.

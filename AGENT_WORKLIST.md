@@ -197,6 +197,14 @@ slugs and phrases, and those slugs also composed its filename regex, so an
 eighth condition added to the generator would have gone untyped, been counted
 as skipped and passed. The conditions are now read from build-service-pages.js
 as data under test, and an untyped file is a failure rather than a skip.
+Quality pass 2026-08-12: clean, no defect found. Self-test passes with no
+length warnings, check-seo-pattern reads 177 pages with 0 failures and 0
+untyped, all six generators reproduce every page byte-identical, all 29
+checkers green, and the pattern re-verified against Build Pack v2 sections
+1.4, 5.1 and 5.4. Live sample: Fishlocks Ainsdale serves the pattern title
+verbatim; Scorah Bramhall still serves Weebly's default doubled-brand title
+(SEO field unpasted, the run 78 finding, queued under 5.3/5.4). Evidence in
+audits/seo-pattern-check-2026-08-12.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

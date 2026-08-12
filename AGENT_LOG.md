@@ -2,6 +2,66 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 02:10 BST - ninety-fourth run - Quality pass on item 3.1, the
+title/H1 pattern, last verified 2026-08-11 02:36 as the fifty-second run and
+the oldest verification standing after run 93 refreshed 1.1. Third
+machine-era pass on this item and the first to find nothing to fix: repo
+half clean on every probe, live half re-observes a known state. No new
+question.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing this run needed a
+decision: verification only, no change beyond the worklist note, this
+entry and the evidence file.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only; none of the open questions (Q17 onwards) has an answer.
+One tab used for the pickup and reused for the two live reads below,
+nothing clicked, typed or submitted. Open questions 33 before, 33 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 730fc09, worktree clean.
+
+WHY THIS ITEM. All five unchecked items remain [BLOCKED] (5.3, 5.4 on a
+Weebly session, 5.5 on pushing a branch other than this one, 5.8 on Q22,
+6.1 on Q52), so the run is a quality pass. Ageing order from the run
+headings: run 93 refreshed 1.1, leaving run 52 (item 3.1, 02:36 on
+2026-08-11) the oldest standing. Next in line is 1.4 (run 53).
+
+REPO HALF, ALL CLEAN. Self-test passes with no length warnings, reading
+the longest condition phrase from build-service-pages.js as data under
+test (30 chars, 7 entries). check-seo-pattern: 177 pages, 0 untyped, 0
+failures, cross-town rule live on all 177 against 11 seoTowns. All six
+generators reproduced every page byte-identical; all 29 checkers pass.
+The pattern re-read against Build Pack v2 sections 1.4, 5.1 and 5.4, all
+three satisfied. Four defect probes, all clean, recorded with the
+evidence: the self-test's condition read includes not-ready conditions
+where the checker reads ready:true only, identical sets today and the
+divergence errs long (the safe direction for a length rule); no fragment
+carries a <title> or og:title tag, so the head-comment line the checker
+reads is the repo's only title source; no page carries a second h1; the
+one em dash per page sits in the build comment check-em-dashes
+deliberately blanks. Cross-town invariants re-confirmed: no live seoTown
+a substring of another, no brandLabel containing another branch's
+seoTown. Full detail in audits/seo-pattern-check-2026-08-12.txt.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATE CONFIRMED. Scorah Bramhall's
+UTI page serves H1 and description exactly to pattern, but the rendered
+title is "UTI treatment in Bramhall - Scorah Chemists - Scorah
+Chemists": Weebly's default construction (page name plus site title),
+the run 78 finding re-observed, meaning the Scorah service page SEO
+title fields were never pasted. The queued 5.3/5.4 Weebly session
+repastes every SEO field, so nothing new to raise. The counter-case
+still holds: Fishlocks Ainsdale's UTI page, which was pasted, serves
+"UTI treatment in Ainsdale - Fishlocks Chemist" verbatim with no suffix,
+H1 and description exact.
+
+Files changed: AGENT_WORKLIST.md (quality pass note under 3.1),
+audits/seo-pattern-check-2026-08-12.txt (new), AGENT_LOG.md (this
+entry), status page regenerated.
+No new question raised.
+
 ## 2026-08-12 01:41 BST - ninety-third run - Quality pass on item 1.1, the
 brand-name standardisation, last verified 2026-08-11 02:05 as the fifty-first
 run and the oldest verification standing after runs 90 to 92 refreshed 2.1,
