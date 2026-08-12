@@ -270,6 +270,22 @@ audits/seo-pattern-check-2026-08-12.txt.
       rather than groups, proved to bite on four injections. The 48 are
       reported against Q44, which asks whether the heading should carry the
       brand, because that is a search decision and a repaste.
+      Quality pass 2026-08-12 (second): clean on both halves, no defect.
+      All 26 pages re-read by a fresh independent extraction (own regexes,
+      no code shared with the checkers): every title, description and H1
+      carries the branch's own town, exactly one H1 per page, descriptions
+      137 to 157 characters, correct phone on every page, no wrong-side
+      phone anywhere. The sister town appears only in the two landing
+      pages' deliberate cross-branch paragraph from the item 2.2
+      shared-domain split (body copy, not title, description or H1). Both
+      2026-08-09 fixes stand: Eccleston addressRegion Lancashire with
+      seoRegion Chorley re-read from branches.json, and "Eccleston in
+      Eccleston" absent from all 26 pages. All 29 checkers pass, rule 4
+      cross-brand H1 check included. All seven generators rebuilt
+      byte-identical (status timestamp only, discarded). Live half, two
+      read-only GETs, one per side: both UTI pages 200 with the exact
+      pattern title and H1, and unlike Scorah the pasted SEO titles are
+      live here, no doubled-brand default on either side.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.

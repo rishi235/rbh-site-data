@@ -2,6 +2,59 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 06:38 BST - hundred-and-third run - Quality pass on item 3.3,
+the Fishlocks Chemist SEO pattern (Ainsdale and Eccleston), last verified
+2026-08-11 as the sixty-first run and the oldest verification standing after
+run 102 refreshed 3.2. Second pass on this item. Clean on both halves, no
+in-repo defect found, no new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup only; the two live checks below went
+over plain GETs, nothing clicked, typed or submitted anywhere.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality
+pass on the oldest standing verification, which run 102's ageing order
+left as 3.3 (run 61, 2026-08-11).
+
+REPO HALF CLEAN, VERIFIED BY A SECOND ROUTE. All 26 Fishlocks pages
+re-read by an independent extraction written fresh for this run (own
+regexes over the head-comment SEO title and description lines and the
+page H1s, no code shared with the checkers). Every title, description
+and H1 carries the branch's own town, exactly one H1 per page,
+descriptions 137 to 157 characters, the correct phone on every page
+(01704 575478 Ainsdale, 01257 451251 Eccleston) and the wrong-side
+phone on none. The extraction's whole-page sister-town scan flagged the
+two landing pages, and on inspection both hits are the deliberate
+cross-branch disambiguation paragraph the item 2.2 shared-domain split
+built ("This page is for our Ainsdale pharmacy... see Fishlocks Chemist
+Eccleston"), body copy only, so run 61's "no page names the sister town"
+holds on the SEO surface it was describing. Both 2026-08-09 fixes stand:
+Eccleston addressRegion Lancashire with seoRegion Chorley re-read from
+branches.json, and "Eccleston in Eccleston" absent from all 26 pages.
+All 29 checkers pass, including run 61's rule 4 cross-brand H1 check.
+All seven generators rebuilt byte-identical (status/index.html timestamp
+only, discarded).
+
+LIVE HALF, TWO READ-ONLY GETS, ONE PER SIDE.
+uti-treatment-fishlocks-ainsdale.html and
+uti-treatment-fishlocks-eccleston.html both 200 on
+www.fishlockpharmacy.co.uk, each serving the exact pattern title ("UTI
+treatment in <town> - Fishlocks Chemist") and H1. Unlike the Scorah
+side checked on run 102, the pasted SEO titles are live here: no
+doubled-brand Weebly default on either side. Nothing new to raise.
+
+FILES CHANGED: AGENT_WORKLIST.md (second quality pass note under item
+3.3), AGENT_LOG.md. No generator input changed; regeneration confirmed
+zero diff. Temp verification script deleted before commit.
+
 ## 2026-08-12 06:11 BST - hundred-and-second run - Quality pass on item 3.2,
 the Scorah Chemists SEO pattern (Bramhall and Hazel Grove), last verified
 2026-08-11 as the sixtieth run and the oldest verification standing after
