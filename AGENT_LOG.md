@@ -2,6 +2,79 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 10:41 BST - hundred-and-eleventh run - Quality pass on item
+3.11, Gordon Short Chemist (Crosby), last verified 2026-08-11 as the
+sixty-ninth run and the oldest verification standing after run 110
+refreshed 3.10. Second machine-era pass on this item. Clean on both
+halves, zero in-repo defects, no new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired. Nothing this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and Q13-Q16
+only, all long since recorded; none of the 33 open questions (Q17-Q22,
+Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser
+use read-only throughout: the pickup plus two GETs on
+gordonshortchemist.co.uk, one tab opened and closed, nothing clicked,
+typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3, 5.4
+Weebly, 5.5 branch push, 5.8 Q16/Q22 and Weebly, 6.1 Q52), so quality pass
+on the oldest standing verification: run 110 refreshed 3.10, leaving the
+sixty-ninth run's pass on 3.11 (2026-08-11) oldest, with 3.12 and 3.13
+behind it from runs 70 and 71. All 29 checkers green before any change.
+All seven generators rebuilt; page outputs byte-identical; status/
+index.html regenerated with expected differences only (its own timestamp
+plus the run 109-110 log and worklist content it embeds, which the
+committed copy predates) and was reverted, matching runs 108 to 110.
+
+REPO HALF CLEAN, VERIFIED BY A FRESH ROUTE. All 12 Gordon Short pages (11
+service including weight loss and travel, 1 switch) re-read by an
+independent extraction written fresh for this run, no code shared with the
+checkers; branches.json and pom-names.js read as data only. 1680 check
+groups, zero flags: one H1 per page carrying Crosby, the seoTown and first
+entry in the branch's own serviceAreaList; 159 College Road, L23 3AT and
+0151 924 3449 visible with every tel: link as the branch's own unspaced
+digits and no other trading branch's digits anywhere, spacing stripped
+before comparison; own postcode and review link only; no foreign widget id
+across every id belonging to another branch; JSON-LD parsing on all 12 and
+matching branches.json field for field including Merseyside as
+addressRegion, Liverpool as addressLocality and self-referencing urls on
+the branch's own domain; POM union scan empty on all 12 including the
+weight loss page; no em dash outside build comments; no non-ASCII outside
+comments except the pound sign on the weight loss price; no app copy,
+hasApp false. One design fact pinned down rather than assumed: service and
+switch page JSON-LD carries no openingHoursSpecification anywhere in the
+estate; that property lives only on the six item 5.2 branch landing pages
+(the shared-domain Fishlocks, McCanns and Scorah pairs), so Gordon Short,
+trading on its own domain, correctly has none and run 110's Riddings
+hours-in-JSON-LD wording should be read against the landing-page family,
+not the service pages.
+
+LIVE HALF, TWO READ-ONLY GETS, KNOWN STATES ONLY. The pfLink page
+pharmacy-first-service-crosby.html serves correctly: title, NAP, hours
+matching branches.json exactly including the split 1-2pm lunch closure and
+the Saturday 5pm close, shorts@rbhealth.co.uk in the contact block, and
+all seven Pharmacy First conditions carrying the correct cohorts against
+the NHS specification (otitis media 1-17, impetigo 1+, insect bites 1+,
+shingles 18+, sinusitis 12+, sore throat 5+, UTI women 16-64). The
+homepage carries correct NAP, hours, email and the standard footer with
+superintendent and company details. Persisting live-only states, all
+previously recorded, confirmation only: the switch banner mojibake close
+button (same artefact as the other sites); the estate-wide weight loss
+tagline already inside Q22 scope; and the sidebar address block's "Great
+Crosby" line, cosmetic and factually accurate, with the footer NAP
+matching branches.json exactly - unlike the Riddings Cheshire case this is
+not a county defect. Repo right, nothing new to raise, nothing to decide.
+
+FILES CHANGED: AGENT_WORKLIST.md (quality-pass note under item 3.11),
+AGENT_LOG.md, audits/gordon-short-build-check-2026-08-12.txt (new evidence
+file). No generator input changed; regeneration confirmed page outputs
+byte-identical (status/index.html expected diff only, reverted). Temp
+verification and runner scripts deleted before commit.
+
 ## 2026-08-12 10:20 BST - hundred-and-tenth run - Quality pass on item 3.10,
 Riddings Pharmacy (Timperley), last verified 2026-08-11 10:44 as the
 sixty-eighth run and the oldest verification standing after run 109

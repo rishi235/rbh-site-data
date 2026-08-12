@@ -481,6 +481,29 @@ audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
       enforced nowhere. New tools/check-travel-clinic-copy.js, 10 rules, 16
       negative tests, all 16 caught their break. Nothing on those pages is
       wrong. One question raised on yellow fever, Q48.
+      Quality pass 2026-08-12 (hundred-and-eleventh run, second machine-era
+      pass): all 12 Gordon Short pages re-verified by a fresh independent
+      extraction, no checker code reused. 1680 check groups, zero flags:
+      one H1 per page carrying Crosby, NAP visible on every page and every
+      tel: link the branch's own unspaced digits, no other trading branch's
+      phone, postcode, review link or widget id, JSON-LD parsing on all 12
+      and matching branches.json field for field including Merseyside as
+      addressRegion and a self-referencing url on the branch's own domain,
+      POM union scan empty including the weight loss page, no em dash
+      outside build comments, no non-ASCII outside comments except the
+      pound sign on the weight loss price, no app copy, hasApp false.
+      openingHoursSpecification is absent from service and switch JSON-LD
+      by generator design estate-wide; it lives only on the six item 5.2
+      branch landing pages, and Gordon Short, on its own domain, correctly
+      has none. Live half, two read-only GETs: the pfLink page serves
+      correctly with all seven Pharmacy First cohorts right against the
+      NHS specification; homepage NAP, hours, email and footer correct.
+      Known states persist, confirmation only: the switch banner mojibake
+      close button, the Q22 estate-wide weight loss tagline, and the
+      live-only "Great Crosby" line in the sidebar address block (footer
+      matches branches.json exactly; cosmetic, not a county defect). Zero
+      in-repo defects. Evidence in
+      audits/gordon-short-build-check-2026-08-12.txt.
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.

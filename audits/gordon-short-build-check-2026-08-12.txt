@@ -1,0 +1,20 @@
+Gordon Short Chemist (Crosby) - item 3.11 quality pass evidence
+Date: 2026-08-12. Fresh independent extraction, no checker code reused.
+Branch: gordonshorts_crosby | 159 College Road, Liverpool, L23 3AT | 0151 924 3449
+Pages checked: 12
+Check groups executed: 1680
+Flags: 0
+
+Per-page summary:
+contraception-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+earache-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+impetigo-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+insect-bite-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+pharmacy-first-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+shingles-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+sinusitis-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+sore-throat-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+travel-clinic-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+uti-treatment-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+weight-loss-clinic-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
+switch-prescriptions-gordon-short-crosby.html: 1 H1, 2 tel link(s), 1 JSON-LD block(s)
