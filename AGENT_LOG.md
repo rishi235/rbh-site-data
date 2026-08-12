@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-12 16:45 BST - hundred-and-twenty-third run - Quality pass on
+## 2026-08-12 16:45 BST - hundred-and-twenty-third run [commit 52c260e,
+hash recorded in this follow-up commit] - Quality pass on
 item 4.10, the Smartts Chemist Bootle GBP pack, last verified 2026-08-11
 20:26 as the eighty-second run and the oldest verification standing among
 completed items after run 122 refreshed 4.9. Third pass on this item.
