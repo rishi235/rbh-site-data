@@ -2,6 +2,69 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 04:39 BST - ninety-ninth run - Quality pass on item 4.4, the
+Scorah Chemists Bramhall GBP pack, last verified 2026-08-11 as the
+fifty-seventh run and the oldest verification standing after runs 96, 97
+and 98 refreshed 4.3, 1.3 and 1.2. Third pass on this item. Clean on
+both halves, the run 57 button-target guard proved still to bite, no
+in-repo defect found, one sentence added to Q43's note. No new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in
+this log and remains expired (23:14 on 2026-08-10, not renewed). Nothing
+this run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded and confirmed answered in
+QUESTIONS.json this run; none of the 33 open questions (Q17-Q22, Q24,
+Q28, Q29, Q34-Q57) has an answer. 33 open before, 33 after. Browser use
+read-only throughout: the pickup plus five GETs on scorah-chemists.co.uk,
+nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22, 6.1 Q52), so quality pass on the
+oldest standing verification: item 4.4 from run 57, ahead of 4.5 (also
+run 57, listed after 4.4) and the run 96-98 refreshes.
+
+REPO HALF CLEAN. gbp-packs/scorah-bramhall.md verified fact by fact
+against branches.json: name, 61-63 North Park Road, SK7 3LQ, phone,
+hours (NHS-confirmed 2026-06-24), review link, pfLink on Post A,
+catchment order, hasApp false with no app mention, all five widget
+services present. The 742-character description claim was re-derived
+rather than trusted: a naive newline count reads 752, but the checker's
+paste-join convention, which is what a paster actually puts into GBP,
+counts 742, inside the 750 limit. All 29 checkers pass, re-run after
+this run's audit file was written, run 96's ordering lesson applied.
+All seven generators byte-identical (status/index.html timestamp only).
+
+THE GUARD PROVED, NOT ASSUMED. Post D's button pointed at the sister
+branch's travel-clinic-scorah-hazel-grove.html (owned by
+scorah_hazel_grove) failed check-gbp-packs at exit 1 naming the file,
+the wrong leaf and the correct leaf, so run 57's derivation rule still
+bites on the exact wrong-pharmacy click it was built to stop. Pack
+restored with git checkout, re-run clean at exit 0.
+
+LIVE HALF, FIVE READ-ONLY GETS. The profile website
+pharmacy-scorah-bramhall.html still 404s, exactly what the pack's own
+paster note anticipates, so the profile stays on the shared homepage.
+Posts A to D all resolve and read correctly for Bramhall: the shared
+Pharmacy First page carries NHS service wording and both branches'
+correct postcodes and phones, the switch page still shows the item 5.1
+em dash as mojibake against a repo source that reads a plain full stop
+(paste lag, already in Q43's note, unchanged since 2026-08-10), the
+weight loss page names no medicines and makes no efficacy claims, and
+the travel page reads correctly. One addition made to Q43's note: the
+shared Pharmacy First page's own contact section prints the truncated
+61 North Park Road and the unspaced phone 01614393744 for Bramhall,
+the same hand-edited Weebly furniture family Q43 already covers.
+
+Files changed: AGENT_WORKLIST.md (4.4 third-pass note, in place),
+QUESTIONS.json (Q43 note, one sentence), AGENT_LOG.md (this entry),
+status/index.html (regenerated),
+audits/scorah-bramhall-pack-check-2026-08-12.txt (new).
+No question raised. 33 remain open.
+
 ## 2026-08-12 04:15 BST - ninety-eighth run - Quality pass on item 1.2, the
 Hirshmans address sweep, last verified 2026-08-11 04:40 as the fifty-sixth
 run and the oldest verification standing after run 96 refreshed 4.3 and

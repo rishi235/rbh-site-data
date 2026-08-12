@@ -1,0 +1,69 @@
+Quality pass audit - item 4.4, Scorah Chemists Bramhall GBP pack
+Date: 2026-08-12, ninety-ninth run. Third pass on this item (drafted
+2026-08-04, second pass 2026-08-11 as the fifty-seventh run).
+
+REPO HALF
+gbp-packs/scorah-bramhall.md verified fact by fact against branches.json
+entry scorah_bramhall: branch name, 61-63 North Park Road, Bramhall,
+SK7 3LQ, phone 0161 439 3744, hours Monday to Friday 09:00-18:00,
+Saturday 09:00-13:00, Sunday closed (NHS-confirmed 2026-06-24), review
+link, pfLink for Post A, catchment order Bramhall, Cheadle Hulme, Hazel
+Grove, Handforth, Poynton, hasApp false with no app mention, and all
+five widget services (blood pressure, contraception, Pharmacy First,
+weight loss, travel) represented. All correct.
+
+Description count: the heading claims 742 characters and 742 is true
+under the checker's paste convention, wrapped lines joined with a
+single space. A naive newline-for-space count reads 752 because ten
+line-break sites carry surrounding whitespace; the paste-joined string
+a paster would actually put into GBP is 742, inside the 750 limit.
+Not a defect.
+
+All 29 checkers pass. All seven generators rebuilt their pages
+byte-identical; status/index.html moved its timestamp only, owned by
+this run's close-out rebuild.
+
+THE GUARD PROVED, NOT ASSUMED
+The run 57 hardening in tools/check-gbp-packs.js, which derives each
+post button's correct target from branches.json by the
+<type>-<brandSlug>-<townSlug>.html rule, was negative-tested rather
+than trusted: Post D's button was pointed at the sister branch's page
+travel-clinic-scorah-hazel-grove.html (owned by scorah_hazel_grove),
+a page that loads fine on the shared domain and would send every
+click to the wrong pharmacy. check-gbp-packs failed at exit 1 naming
+the file, the wrong leaf and the correct leaf. Pack restored with git
+checkout, re-run clean at exit 0.
+
+LIVE HALF - FIVE READ-ONLY GETS ON scorah-chemists.co.uk
+1. pharmacy-scorah-bramhall.html, the profile website the pack sets:
+   still 404, exactly what the pack's own paster note anticipates, so
+   the profile stays on the shared homepage until the landing page is
+   pasted. Unchanged from run 57.
+2. Post A target pharmacy-first-service-hazel-grove-bramhall.html:
+   resolves, NHS service description wording, both branches' details
+   correct on postcode and phone. Weebly-native page no generator owns.
+3. Post B target switch-prescriptions-scorah-bramhall.html: resolves,
+   reads correctly for Bramhall. Still carries the item 5.1 em dash as
+   mojibake; the repo source reads a plain full stop, so this is paste
+   lag already held in Q43's note, unchanged since 2026-08-10.
+4. Post C target weight-loss-clinic-scorah-bramhall.html: resolves,
+   names no medicines, makes no efficacy claims, consultation-first
+   wording with no purchase route, pricing present but not headlined.
+5. Post D target travel-clinic-scorah-bramhall.html: resolves, reads
+   correctly for Bramhall.
+
+FINDINGS
+No in-repo defect. Every live blemish seen this pass is already held
+in open Q43 (truncated 61 North Park Road in the site-wide footer
+strip, Cheshire against Greater Manchester in the Weebly contact
+block, the 404 landing page, the switch page mojibake) except one
+further instance of the known truncation: the shared Pharmacy First
+page's own contact section prints "61 North Park Road" and the
+unspaced phone 01614393744 for the Bramhall branch. Same hand-edited
+Weebly furniture family, added to Q43's note as a sentence rather
+than raised as a new question.
+
+VERDICT
+Item 4.4 stands. The pack is correct on every fact, the checker
+hardening it earned still bites, and the paster notes still describe
+the live estate accurately.

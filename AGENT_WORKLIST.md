@@ -463,6 +463,19 @@ same brandSlug-townSlug rule the generators build with, and holds Post A to
 either the branch's pfLink or its own generated page so item 5.3 can still
 repoint it. Four negative tests fire; all 15 packs pass. New question Q43, on
 the two Weebly-native address faults found live on scorah-chemists.co.uk.
+Quality pass 2026-08-12: third pass, clean. Every fact verified against
+branches.json again; the 742-character description claim is true under the
+checker's paste-join count (a naive newline count reads 752, which is why the
+claim was re-derived rather than trusted). The run 57 button-target guard
+proved by injection, not assumed: Post D pointed at the sister branch's
+travel-clinic-scorah-hazel-grove.html failed check-gbp-packs at exit 1 naming
+both leaves, restored clean. All five URLs fetched live read-only: the profile
+website pharmacy-scorah-bramhall.html still 404s as the paster note
+anticipates, and Posts A to D all resolve and read correctly for Bramhall.
+Everything seen live is already held in Q43; one sentence added there for the
+shared Pharmacy First page's own contact section carrying the truncated
+61 North Park Road and an unspaced phone, the same Weebly furniture family.
+No in-repo defect. audits/scorah-bramhall-pack-check-2026-08-12.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
