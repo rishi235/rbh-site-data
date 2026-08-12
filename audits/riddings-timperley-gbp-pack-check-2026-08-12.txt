@@ -1,0 +1,156 @@
+Riddings Pharmacy Timperley GBP pack - third quality pass
+Date: 2026-08-12 17:34 BST (hundred-and-twenty-fifth run)
+Item: 4.13. Drafted 2026-08-04, first verified 2026-08-05, first quality pass
+2026-08-10 22:05 (forty-second run), second 2026-08-11 21:10 (eighty-fourth
+run). Selected as the oldest verification standing among completed items.
+Result this pass: repo half performed and found ONE in-repo defect, in the
+checker rather than in the pack. Live half NOT performed this run, see below.
+
+SELECTION, RE-DERIVED NOT INHERITED
+All 165 second-level headings in AGENT_LOG.md were parsed, 162 of them dated,
+and each item's most recent verification recorded. The parse was run twice on
+two different definitions of "verified" to make sure the answer did not depend
+on the definition: once counting any worklist item number appearing in a run
+heading, and once counting only the item the run actually worked ("on item X",
+"Item X done"). Both orderings put 4.13 first, at 2026-08-11 21:10 on the
+stricter reading and 2026-08-11 22:15 on the looser one. The looser reading is
+the one that inflates, because runs list the items they refreshed in their
+bookkeeping paragraphs, and those mentions are not verifications. Recorded
+here because run 124 used the looser method: it gives the same answer this
+time but it will not always, so the stricter reading is the better one.
+Items 5.8 and 6.1 carry older stamps but are [BLOCKED] and incomplete, so
+neither is a candidate.
+
+REPO HALF - PACK FACTS, ALL RE-VERIFIED AGAINST branches.json
+Name Riddings Pharmacy, street 38 Riddings Road, locality "Timperley,
+Altrincham", WA15 6BP, addressRegion Greater Manchester (county, correct),
+seoRegion unset so the title falls back to the county, seoTown Timperley,
+phone 0161 973 2951, website riddingspharmacy.co.uk, review link
+g.page/r/CRtdZliseNZGEAE/review, odsCode FDW90. hasApp false and the pack
+mentions no app. pfBooking true, so Post A's "book or just walk in" is
+allowed. Hours are the single Monday to Friday 09:00 to 18:00 session with
+Saturday and Sunday both named closed, matching the NHS-confirmed
+specification (source NHS pharmacy profile, confirmed 2026-06-24) exactly;
+one session a day, so the split-day paster guidance the fortieth run made
+compulsory correctly does not apply here. Catchment reads Timperley,
+Altrincham and Trafford in all three places, leading with its own seoTown.
+Widget set is the full five (bloodPressure, contraception, pharmacyFirst,
+weightLoss, travelClinic) and sections 2 and 3 carry all five with nothing
+claimed that the widget set does not give it.
+
+Counts, CRLF-normalised: description 657, exactly what its heading claims,
+against the 750 limit. Posts 449, 319, 521 and 425 body only, against 1,500.
+Byte-identical to both earlier passes, so the pack is stable across three.
+Character hygiene on the whole file: zero non-ASCII, zero em dashes, zero en
+dashes, zero minus signs, zero dash entities, zero smart quotes, zero
+middots, zero ellipses, zero non-breaking spaces, zero emoji surrogates.
+Post A's seven conditions and both age ranges (earache 1 to 17, UTI in women
+16 to 64) match the generated pharmacy-first-riddings-timperley.html.
+Post C names no medicine and makes no efficacy claim.
+
+All 29 checkers exit 0 before and after the change. All six page generators
+rebuilt to zero diff, so nothing generated moved.
+
+THE DEFECT: check-gbp-packs.js MEASURED THE WRONG STRING FOR POST B
+Found by reading the checker's own --verbose stats rather than the pack. The
+stats line read:
+
+  riddings-timperley.md   desc=657  A=449 B=1354 C=521 D=425
+
+B=1354 against 280 to 408 for the Post B of every other pack in the estate.
+An independent measurement of the posted copy gives 319, and 319 is what both
+earlier passes recorded, so the checker and two human-readable passes had been
+reporting different numbers for the same post without anyone comparing them.
+
+Cause: postsOf() built the measured body by stripping only two things, the
+"Button:" line and everything from "Notes for the paster:" onward. It had no
+notion of a paster instruction block sitting INSIDE a post. Riddings Post B
+carries exactly that - the roughly 1,000-character hard stop the forty-second
+run added when the canonical switch URL was found returning a 404 - so the
+checker was counting a thousand characters of instruction to the paster as
+though it were copy going onto a public Google profile.
+
+Scope: Riddings is the ONLY pack affected. Every pack was checked for the same
+shape; the other five all-caps instruction blocks in the estate (cherry-lane
+line 7, coleman-leigh line 3, hirshmans line 7, mccanns-sandringham line 3,
+clear-aintree line 65) sit in the pack header above section 5, where postsOf
+never reaches them.
+
+Severity, stated honestly: the count only ever ran HIGH, so it could not have
+hidden a genuinely over-length post. This was a false-failure risk, not a
+missed breach. But it was close: 1354 of 1,500 left about 146 characters, so
+any future clarification to that hard stop would have failed the pack on copy
+that is never posted, and the reported headroom was meaningless in the
+meantime. It is the same shape of defect this repo has hit repeatedly - the
+rule was reading a string nobody had checked it was reading.
+
+THE FIX
+tools/check-gbp-packs.js only. Two changes plus the header rule list.
+1. New documented constant POST_INSTRUCTION = /^(?:STOP|DO NOT POST)\b/m, and
+   postsOf now cuts the body at that marker the same way it already cuts at
+   "Notes for the paster:". The stripped text is kept and returned as .note
+   rather than discarded, so a rule can still reason about it. The marker is
+   line-anchored and upper case only, so "we never stop caring" and a
+   lower-case "stop by the pharmacy" are untouched.
+2. A floor under the cut. A maximum-length rule cannot see an empty post, and
+   a marker placed ABOVE the copy instead of below it would empty the body
+   silently, so a body under 40 characters now fails, and where an instruction
+   block was stripped the message names the marker that swallowed the copy.
+
+Riddings Post B now reports 319. Every other pack's numbers are unchanged.
+
+NEGATIVE TESTS - 10, ALL PASSED
+Run against the real POST_INSTRUCTION and the real postsOf extracted from the
+shipped source, not a copy. Script written to TEMP and deleted before commit,
+per the convention the earlier checker work used.
+  1  marker below the copy: body excludes the block
+  2  marker below the copy: the block is captured as .note, not lost
+  3  marker above the copy: body emptied, so the length floor fires
+  4  "DO NOT POST" is cut as well as "STOP"
+  5  regression, a post with no marker is byte-unchanged
+  6  "stop" mid-sentence does not cut (marker is line-anchored)
+  7  lower-case "stop" at line start does not cut (marker is upper case)
+  8  "Notes for the paster:" still ends the last post
+  9  the "Button:" line is still stripped
+ 10  the real Riddings pack's Post B measures exactly 319
+
+Plus one end-to-end test through the real checker, not just the function: the
+STOP marker was temporarily moved above the Post B copy in the pack, the
+checker was run and exited 1 with the intended message naming the misplaced
+marker, then the pack was restored with git checkout and confirmed identical
+byte-for-byte, with the checker back to exit 0 and git status clean for that
+file. That test proves rule 2 fires in the shipped path.
+
+LIVE HALF - NOT PERFORMED THIS RUN
+No live page was fetched and no live claim is made or refreshed. Two Chrome
+instances are connected to the browser tooling, and resolving which one to
+use needs a human choice this unattended run cannot make and must not make
+for itself. Nothing was clicked, typed or submitted anywhere. The same
+condition blocked runs 121 to 123; run 124 got through, so the route works
+when only one instance is connected.
+
+Consequence for the record: every live-side statement about this branch still
+rests on the 2026-08-11 check and is now a day old. Those states are Post B's
+canonical URL returning a 404 with the live switch page still at the old
+permalink switch-prescriptions.html, Posts A, C and D resolving, the
+replacement pharmacy-first-riddings-timperley.html live and in the sitemap
+(the no-paste 5.3 repoint), the "Download our app" block on the old switch
+page that is not ours to inherit, the live contact block reading "Timperley,
+Cheshire" against Greater Manchester in branches.json, the en-dash site-wide
+footer line, and the banner close-button mojibake. None of it was re-checked
+today and none of it is claimed as current. The sitemap was dated 2026-07-18
+throughout on 2026-08-11, so the site had not been republished since 18 July
+and none of these are expected to have changed, but expectation is not
+verification and this pass does not pretend otherwise.
+
+ANSWER PICKUP - NOT AVAILABLE THIS RUN
+Same cause as the live half: the portal answer fetch needs the browser and
+the browser needed a choice between two connected instances. No answer was
+read. 33 questions remain open (Q17-Q22, Q24, Q28, Q29, Q34-Q57), unchanged.
+
+VERDICT
+Pack copy clean for the third consecutive pass and byte-stable across all
+three. The defect this pass found was not in the pack but in the rule that
+measures it, and it is fixed at source with tests. No question raised: the
+fix needed no decision from Rishi. Live half owed and should be the first
+thing the next run with a working browser route does, on this item.

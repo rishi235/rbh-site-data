@@ -20,7 +20,10 @@
       HTML entity forms (&mdash; &ndash; and numeric), because a pack pastes
       into Google as plain text and an entity would reach the public profile
       as literal characters
-    - Every post under the 1,500 character limit
+    - Every post under the 1,500 character limit, and not empty. The body
+      measured is the posted copy only: the "Button:" line and any paster
+      instruction block inside the post (the Riddings Post B hard stop) are
+      cut out first, because neither is ever posted
     - Phone and postcode match branches.json; no other branch's phone or
       postcode appears in the pack
     - The five template sections and the four posts are all present
@@ -259,8 +262,24 @@ function descriptionOf(text) {
   return m ? m[1].trim() : null;
 }
 
+// A post can carry a paster instruction block of its own, after the copy and
+// the "Button:" line. The Riddings Post B hard stop is the first and so far
+// the only one in the estate: the forty-second run added it when the canonical
+// switch URL was found returning a 404, telling the paster not to publish that
+// button as it stands. That block is guidance to the person pasting and is
+// never posted copy, so measuring it as post text is wrong. Before this cut
+// Riddings Post B measured 1354 characters against the 1,500 limit while the
+// copy that actually posts is 319, so a post nobody had lengthened sat about
+// 150 characters of extra clarification away from a false failure. The count
+// only ever ran high, so it could not have hidden a genuinely over-length
+// post, but it made the reported headroom meaningless. Cut at the marker, the
+// same way the body already cuts at "Notes for the paster:", and keep the
+// stripped text so the caller can still reason about it.
+const POST_INSTRUCTION = /^(?:STOP|DO NOT POST)\b/m;
+
 // Split the post drafts section into the individual posts, keeping the
-// post body only (drop the "Button:" line, which is not posted copy).
+// post body only (drop the "Button:" line, which is not posted copy, and any
+// paster instruction block, which is not posted copy either).
 function postsOf(text) {
   const sec = text.match(/^##\s*5\.\s*Post drafts[^\n]*\n([\s\S]*)$/m);
   if (!sec) return [];
@@ -270,8 +289,10 @@ function postsOf(text) {
     const label = nl === -1 ? p.trim() : p.slice(0, nl).trim();
     let body = nl === -1 ? "" : p.slice(nl + 1);
     body = body.split(/^Notes for the paster:/m)[0];
-    body = body.replace(/^Button:.*$/gm, "").trim();
-    return { label, body };
+    const beforeNote = body.split(POST_INSTRUCTION)[0];
+    const note = body.slice(beforeNote.length).trim();
+    body = beforeNote.replace(/^Button:.*$/gm, "").trim();
+    return { label, body, note };
   });
 }
 
@@ -672,11 +693,24 @@ for (const file of packFiles) {
   }
 
   // --- post lengths ----------------------------------------------------
+  // The body measured here has the "Button:" line and any paster instruction
+  // block cut out by postsOf, so it is the copy that actually reaches the
+  // profile and nothing else. The cut needs a floor under it: a marker put
+  // above the copy rather than below it would leave an empty body, and an
+  // empty body would sail through a maximum-length rule while publishing a
+  // post with nothing in it. So an empty or near-empty body fails, and a
+  // stripped instruction block that leaves no copy behind says which marker
+  // swallowed it.
   const postLens = [];
   for (const p of postsOf(text)) {
     const len = p.body.replace(/\s*\n\s*/g, " ").trim().length;
     postLens.push(`${p.label.split(" ")[1] || p.label}=${len}`);
     if (len > 1500) fail(file, `${p.label} is ${len} characters, over the 1,500 limit`);
+    if (len < 40) {
+      fail(file, p.note
+        ? `${p.label} has only ${len} characters of posted copy once its paster instruction block is set aside, so the instruction marker ("${norm(p.note).slice(0, 40)}") sits above the copy instead of below it and the post would publish empty`
+        : `${p.label} has only ${len} characters of body, so there is no post to publish`);
+    }
   }
   stats.push({
     file,

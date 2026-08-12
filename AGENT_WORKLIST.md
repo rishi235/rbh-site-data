@@ -1150,6 +1150,30 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       and exists in no repo branch, so it is a Weebly hand paste to retype
       in the queued session, not repo copy. No in-repo defect found, no
       question raised.
+      Third quality pass 2026-08-12: pack clean again and byte-stable across
+      all three passes (description 657, posts 449, 319, 521, 425), every
+      fact re-verified against branches.json, all 29 checkers green and all
+      six generators rebuilt to zero diff. This pass found its defect in the
+      rule rather than the pack. check-gbp-packs.js measured Post B at 1354
+      characters against the 1,500 limit, because postsOf stripped only the
+      "Button:" line and the paster notes, so the roughly 1,000-character
+      hard stop sitting inside Post B was counted as copy bound for a public
+      Google profile. Riddings is the only pack carrying an in-post
+      instruction block, and the count only ever ran high, so this was a
+      false-failure risk rather than a missed breach, but at 1354 of 1,500 it
+      sat about 146 characters of extra clarification away from failing the
+      pack on copy that is never posted. Fixed at source: postsOf now cuts at
+      a line-anchored upper-case STOP or DO NOT POST marker and keeps the
+      stripped text, and a new floor fails any post left under 40 characters
+      so a marker placed above the copy cannot empty a post silently. Ten
+      negative tests against the shipped functions plus one end-to-end test
+      through the real checker, all passed. Post B now reports 319 and no
+      other pack's numbers moved. Live half NOT performed: two Chrome
+      instances were connected and choosing between them needs a human, so
+      no live page was fetched and every live-side state still rests on the
+      2026-08-11 check. Answer pickup unavailable for the same reason.
+      Evidence: audits/riddings-timperley-gbp-pack-check-2026-08-12.txt.
+      No question raised. Done 2026-08-12.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
