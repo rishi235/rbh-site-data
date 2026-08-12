@@ -2051,5 +2051,25 @@ so tools/build-audit-status.js picks them up like any other item.
       competitor doing it is not evidence it is safe, only evidence
       enforcement is inconsistent. Feeds into the wider decision at Q22.
 
+- [ ] 6.6 (high priority, technical, no sign-off needed) HTTP/HTTPS duplicate
+      indexing: checked live in real Google Search Console (not Ahrefs) on
+      2026-08-13 for Cherry Lane, Riddings and McCanns. All three have BOTH
+      http:// and https:// versions of pages separately indexed and
+      splitting clicks, with no consistent winner: Cherry Lane's insecure
+      http://www.cherrylanepharmacy.co.uk/ homepage took 342 of the
+      domain's 742 clicks in the last 90 days versus only 13 for the
+      https:// homepage; Riddings and McCanns split closer to evenly (151
+      vs 105, and 190 vs 119). This points to a missing or inconsistent
+      http-to-https redirect, and/or no canonical tag, at the Weebly or DNS
+      level, present on at least 3 sites and worth checking estate-wide.
+      Splitting authority and clicks between two URLs for the same page is
+      a plausible driver of the mixed, inconsistent Site Explorer and GSC
+      trends noticed this week, more concrete than a seasonal guess. Fix is
+      a redirect/canonical setup, not patient-facing copy, so this can be
+      actioned without a content sign-off once confirmed estate-wide.
+      Check Weebly's own domain/HTTPS settings first (Weebly usually forces
+      https by default; if these sites don't, something was changed or
+      they're on an older Weebly HTTPS setting).
+
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
