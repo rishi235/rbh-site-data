@@ -2,6 +2,66 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-12 04:15 BST - ninety-eighth run - Quality pass on item 1.2, the
+Hirshmans address sweep, last verified 2026-08-11 04:40 as the fifty-sixth
+run and the oldest verification standing after run 96 refreshed 4.3 and
+run 97 refreshed 1.3 (next in age: 4.4 from run 57). Third pass on this
+item. Clean on both halves, no in-repo defect found, nothing changed
+beyond the audit record, the worklist note, one sentence on Q41's note
+and this entry. No new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only one in this
+log and remains expired (23:14 on 2026-08-10, not renewed). Nothing this
+run needed a decision in any case.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(Chrome held a live Access session). Entries still cover Q2-Q5 and
+Q13-Q16 only, all long since recorded; none of the 33 open questions
+(Q17-Q22, Q24, Q28, Q29, Q34-Q57) has an answer. 33 open before, 33
+after. Browser use read-only throughout: the pickup plus one GET on
+hirshmanspharmacy.co.uk/contact-us.html, nothing clicked, typed or
+submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch level with
+origin, worktree clean. All five unchecked items still [BLOCKED] (5.3,
+5.4 Weebly, 5.5 branch push, 5.8 Q22, 6.1 Q52), so quality pass on the
+oldest standing verification: item 1.2 from run 56.
+
+REPO HALF CLEAN. branches.json holds the canonical 56-62 Sherwood House,
+Station Road, Ainsdale, PR8 3HW, phone 01704 577376. The canonical string
+sits in the 12 Hirshmans module pages (contact block and JSON-LD each),
+the GBP pack, branches.json, branches-editor.html, status/index.html and
+the narrative surfaces, nowhere else. Fourteen broken variants swept
+across 308 tracked text files: every hit is the audit describing itself,
+including the pack's deliberate HARD STOP note quoting the old live
+page's 64 Station Road. Both guards proved by injection rather than
+assumed: a wrong address in a generated page failed check-nap at exit 1
+naming file and both surfaces, and a foreign mailto failed with three
+mismatches naming the owning branch, so run 56's email rules still bite.
+Both restored, re-run clean. All seven generators byte-identical
+(status/index.html timestamp only); all 29 checkers pass, re-run after
+this run's audit file was written, run 96's ordering lesson applied.
+
+LIVE HALF, ONE READ-ONLY GET. contact-us.html carries the address three
+times and all three are right; the middle block and footer carry PR8 3HW;
+opening hours match branches.json exactly including the lunch closure.
+The item stands. Standing cosmetics confirmed still live and already in
+Q41's note (line-break split, missing postcode and unspaced phone in the
+top block). One addition made to Q41's note: the middle address block
+also publishes pharmacy.FW378@nhs.net, so the nhs.net address appears
+twice on the page against the footer's rbhealth address once. One new
+minor note, logged not asked: the live footer strip writes its hours with
+en dashes against the house rule of standard hyphens, and a full-repo
+search finds no tracked source for that strip, so it is live-only
+furniture and a hand edit at the next Weebly visit; run 56's description
+of it as a footer "this repo generates" is corrected accordingly.
+
+Files changed: AGENT_WORKLIST.md (1.2 third-pass note, in place),
+QUESTIONS.json (Q41 note, one sentence), AGENT_LOG.md (this entry),
+status/index.html (regenerated),
+audits/hirshmans-address-check-2026-08-12.txt (new).
+No question raised. 33 remain open.
+
 ## 2026-08-12 03:41 BST - ninety-seventh run - Quality pass on item 1.3, the
 McCanns Sandringham postcode sweep, last verified 2026-08-11 04:35 as the
 fifty-fifth run and the oldest verification standing after run 96

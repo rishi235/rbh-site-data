@@ -1,0 +1,71 @@
+Hirshmans address check - item 1.2 quality pass - 2026-08-12 (ninety-eighth run)
+
+CANONICAL VALUE (branches.json, hirshmans_ainsdale):
+  streetAddress: 56-62 Sherwood House, Station Road
+  addressLocality: Ainsdale
+  postalCode: PR8 3HW
+  phone: 01704 577376
+  email: Hirshmans@rbhealth.co.uk
+  nhsEmail: pharmacy.FW378@nhs.net
+
+REPO HALF - CLEAN.
+Canonical string "56-62 Sherwood House" appears in 23 tracked files: the 12
+generated Hirshmans module pages (11 service pages plus the switch page, two
+hits each: contact block and JSON-LD), branches.json, the GBP pack,
+tools/branches-editor.html, status/index.html, and the narrative surfaces
+(AGENT_LOG.md, AGENT_WORKLIST.md, QUESTIONS.json, three audit files). Nowhere
+else, and nowhere it should not be.
+
+VARIANT SWEEP - 308 tracked text files, 14 broken forms searched: "56/62",
+"56 - 62", the en dash and em dash forms of 56-62, "Sherwood Hse",
+"Sherwood Court", "58-62", "56-60", "56 Station Road", "62 Station Road",
+"64 Station Road", "54-60 Sherwood", "Sherwood Huse", "Sherwod". Every hit is
+a narrative surface describing the audit itself: AGENT_LOG.md for the sweep
+lists, and for "64 Station Road" additionally QUESTIONS.json (Q41 note), run
+96's audit file and the GBP pack's deliberate HARD STOP note quoting the old
+live page's defect. No page, paste block, generator or branches.json entry
+carries any broken form.
+
+GUARDS PROVED, NOT ASSUMED - two injections, both restored.
+1. "64 Station Road" injected into
+   modules/service/pages/pharmacy-first-hirshmans-ainsdale.html: check-nap
+   failed at exit 1 naming the file and both surfaces (contact address and
+   JSON-LD streetAddress). Page restored with git checkout, re-run clean.
+2. Foreign mailto (Smartts@rbhealth.co.uk) injected into
+   modules/branch/pages/pharmacy-fishlocks-ainsdale.html: check-nap failed at
+   exit 1 with three mismatches, naming the owning branch of the foreign
+   address. Run 56's email rules still bite. Restored, re-run clean.
+
+BUILD AND CHECKERS. All seven generators (six page generators plus
+build-status-page) rebuilt byte-identical; status/index.html moved only its
+Updated timestamp. All 29 checkers pass, re-run after this audit file was
+written (run 96's ordering lesson applied).
+
+LIVE HALF - ONE READ-ONLY GET, contact-us.html.
+The address is correct on all three surfaces: top contact block, middle
+address block and the footer strip all read 56-62 Sherwood House, Station
+Road, Ainsdale; the middle block and footer carry PR8 3HW. Opening hours on
+the page match branches.json exactly, including the 1pm-2pm lunch closure on
+every open day and the Saturday 5:30pm close. Item 1.2 stands.
+
+Standing cosmetics confirmed still live, all already recorded in Q41's note:
+the top block still splits "Station Road" across a line break and omits the
+postcode; the top block still writes the phone as 01704577376 with no space.
+One detail extends the Q41 record: the MIDDLE address block also publishes
+pharmacy.FW378@nhs.net, so the nhs.net address appears twice on the page
+against the footer's Hirshmans@rbhealth.co.uk once. Same decision, no new
+question.
+
+NEW MINOR FINDING, logged not asked: the live footer strip writes its hours
+line with en dashes ("Mon-Fri 8:30am-1pm" rendered with U+2013), against the
+house rule of standard hyphens. A full-repo search finds no source for that
+footer strip in any tracked file or generator, so it is live-only furniture
+(or an untracked paste-pack output of an earlier generation), and the fix is
+a hand edit or repaste at the next Weebly visit, alongside the cosmetics
+above. Run 56 described the footer as one "this repo generates"; as of today
+no tracked generator emits it, so that description is corrected here. Correct
+facts throughout, wrong dash only.
+
+Files changed this run: this audit file, AGENT_WORKLIST.md (1.2 note),
+QUESTIONS.json (Q41 note extended), AGENT_LOG.md (run entry),
+status/index.html (regenerated).

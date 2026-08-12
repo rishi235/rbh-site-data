@@ -994,6 +994,17 @@ appended to the line. Do not move them; the status page reads them in place.
       both verified correct; no changes needed. One cosmetic note logged
       (contact-us page left block splits "Station Road" across a line break
       and omits the postcode - hand edit on Weebly when convenient).
+      Third quality pass 2026-08-12 (ninety-eighth run, after runs 10 and
+      56): clean on both halves. branches.json canonical, 14 broken variants swept across 308
+      files with every hit a narrative surface, both check-nap guards (the
+      address rule and run 56's email rules) proved by injection and restored,
+      all 29 checkers pass, generators byte-identical. Live contact-us read
+      once, read-only: address correct on all three surfaces, hours match
+      branches.json. Standing cosmetics still live and already in Q41's note;
+      one addition there (middle block also carries the nhs.net address). New
+      minor note: the live footer strip uses en dashes in its hours line and
+      has no in-repo source, a hand edit for the next Weebly visit. Evidence
+      in audits/hirshmans-address-check-2026-08-12.txt.
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
