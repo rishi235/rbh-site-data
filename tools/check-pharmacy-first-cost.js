@@ -83,6 +83,15 @@
       make no claim and are not held to it, though both are still held to
       rules 4 and 5.
 
+    RULE 7, branch landing pages: the six shared-domain landing pages in
+      modules/branch/pages advertise Pharmacy First four times each and were
+      outside rules 2 to 5 entirely, because those match on the
+      pharmacy-first- filename in modules/service/pages. Added on the item 2.2
+      quality pass, 2026-08-13, after a low-cost qualifier, a stated price and
+      an "affordable" walked past all 32 checkers on a landing page. Held to
+      the free claim and to rules 4 and 5, not to rule 3: see the long note
+      above the rule for why the caveat stops at the service page.
+
   Run:  node tools/check-pharmacy-first-cost.js
   Exits 1 on any failure.
 */
@@ -95,6 +104,8 @@ var ROOT = path.join(__dirname, "..");
 var GENERATOR = path.join(ROOT, "tools", "build-service-pages.js");
 var PAGE_DIR = path.join(ROOT, "modules", "service", "pages");
 var PACK_DIR = path.join(ROOT, "gbp-packs");
+var LANDING_GENERATOR = path.join(ROOT, "tools", "build-branch-landing-pages.js");
+var LANDING_DIR = path.join(ROOT, "modules", "branch", "pages");
 
 // The seven NHS pathway keys, used to recognise a condition page by filename.
 // Kept in step with the generator by the assertion under rule 1.
@@ -215,6 +226,22 @@ if (!CHARGE_CAVEAT.test(genBody)) {
     "prescription-charge sentence, which is the half of the cost claim that " +
     "stops the pages overclaiming. If the wording has been rewritten, update " +
     "CHARGE_CAVEAT here to the new sentence; do not drop the rule.");
+}
+
+// Same floor on the landing generator, which composes the Pharmacy First cost
+// claim a second time and independently (a service tile, a hero bullet, the
+// hero paragraph and an FAQ answer). Rule 7 reads its output, so if this
+// generator stops writing a free claim, rule 7 must fail loudly rather than
+// pass while reading pages whose claim has gone.
+if (!fs.existsSync(LANDING_GENERATOR)) {
+  fail("source", rel(LANDING_GENERATOR) + " not found, so the branch landing " +
+    "pages have either moved or stopped being generated, and rule 7 is " +
+    "checking whatever happens to be left in " + rel(LANDING_DIR) + ".");
+} else if (!FREE_CLAIM.test(fs.readFileSync(LANDING_GENERATOR, "utf8").replace(/^[\s\S]*?\*\//, ""))) {
+  fail("source", rel(LANDING_GENERATOR) + ": composes no free-NHS wording at " +
+    "all, so the branch landing pages no longer tell a patient that Pharmacy " +
+    "First costs nothing to be seen. Fix the generator, or if the wording has " +
+    "been rewritten update FREE_CLAIM here; do not drop rule 7.");
 }
 
 CONDITION_KEYS.forEach(function (k) {
@@ -402,6 +429,104 @@ packs.forEach(function (file) {
 });
 
 // ---------------------------------------------------------------------------
+// RULE 7, on the branch landing pages.
+// ---------------------------------------------------------------------------
+// The shared-domain split (item 2.2, extended to all three shared domains by
+// item 5.2) builds one landing page per branch into modules/branch/pages. All
+// six advertise NHS Pharmacy First and all six price it, four times over: a
+// service tile ("Free NHS treatment for seven common conditions"), a hero
+// bullet ("Free NHS Pharmacy First consultations"), the hero paragraph ("the
+// free NHS Pharmacy First service") and an FAQ answer ("Pharmacy First is a
+// free NHS service"). Nothing read a word of it. Rules 2 to 5 stop at
+// modules/service/pages and match on the pharmacy-first- filename, so every
+// landing page falls outside all four.
+//
+// Proved by injection on 2026-08-13 against
+// modules/branch/pages/pharmacy-fishlocks-ainsdale.html. Each of these walked
+// past all 32 checkers clean, one at a time:
+//   - the tile blurb changed from "Free NHS treatment" to "Low-cost NHS
+//     treatment"
+//   - the hero bullet changed to "Pharmacy First consultations from 25 pounds"
+//   - the FAQ answer changed from "a free NHS service" to "an affordable NHS
+//     service"
+// A control that changed one digit of the phone number was caught by
+// check-nap and check-jsonld, so these pages are read, just never for what
+// they say the service costs. The exposure is the larger half of the estate's
+// Pharmacy First advertising by audience: a landing page is the page a
+// patient reaches from a Google Business Profile, and the six packs in
+// gbp-packs/ each point a profile at one of these six URLs.
+//
+// A landing page is NOT held to rule 3, the prescription-charge caveat. It is
+// a signpost, and its tile links to that branch's own Pharmacy First page,
+// which carries the caveat and is held to it. Requiring the full sentence on
+// a one-line tile would be a copy decision rather than a check. The wording
+// that prompted the thought, "Free NHS treatment", is asked as a question
+// instead of being enforced or quietly rewritten here.
+//
+// Scope is the Pharmacy First copy only, sentence by sentence, using the same
+// namesPharmacyFirst test the packs use. The same page advertises a private
+// weight loss clinic and a private travel clinic, and those are allowed to
+// carry a price, so a whole-page scan would fail correct copy and then get
+// widened until it caught nothing.
+var landings = [];
+if (fs.existsSync(LANDING_DIR)) {
+  fs.readdirSync(LANDING_DIR).forEach(function (f) {
+    if (/\.html$/.test(f)) landings.push(path.join(LANDING_DIR, f));
+  });
+}
+
+// A silent zero again. Three shared domains carry two live branches each, so
+// six pages are expected; the floor sits at four so that disposing of one
+// branch of a pair does not raise a false alarm, while the folder emptying or
+// being renamed still does.
+if (landings.length < 4) {
+  fail("coverage", "found only " + landings.length + " branch landing page(s) " +
+    "in " + rel(LANDING_DIR) + ". Either the pages have moved or the folder " +
+    "has changed, and rule 7 is running on almost nothing.");
+}
+
+var landingsWithPf = 0;
+landings.forEach(function (file) {
+  var name = rel(file);
+  var text = visibleText(fs.readFileSync(file, "utf8"));
+
+  var pfSentences = sentences(text).filter(function (seg) {
+    return namesPharmacyFirst(seg);
+  });
+  if (!pfSentences.length) return;
+  landingsWithPf++;
+
+  var pfText = pfSentences.join(". ");
+  scan(name, pfText);
+
+  if (!FREE_CLAIM.test(pfText)) {
+    fail("free", name + ": advertises NHS Pharmacy First but nowhere on the " +
+      "page calls it free (rule 7). This is the page a Google Business " +
+      "Profile sends a patient to, so it is often the first thing they read " +
+      "about the service, and a patient who assumes it is private does not " +
+      "book and never says why.");
+  }
+});
+
+// The two paste sheets beside the pages carry the SEO description that goes
+// into the Weebly page settings, which is the line Google shows under the
+// result. A qualifier or a price there is read by more people than the page
+// itself, so the description lines are held to rules 4 and 5. Only those
+// lines: the rest of INDEX.md is notes to the paster about live state and
+// paste order, and holding prose written for Rishi and Dane to patient-copy
+// rules would fail the wrong thing.
+["INDEX.md", "SEO.md"].forEach(function (f) {
+  var file = path.join(LANDING_DIR, f);
+  if (!fs.existsSync(file)) return;
+  fs.readFileSync(file, "utf8").split(/\r?\n/).forEach(function (line) {
+    var m = line.match(/^- \*\*(?:SEO description|Page Description):\*\*\s*(.+)$/);
+    if (!m) return;
+    if (!namesPharmacyFirst(m[1])) return;
+    scan(rel(file), m[1]);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Report.
 // ---------------------------------------------------------------------------
 console.log("check-pharmacy-first-cost");
@@ -409,6 +534,9 @@ console.log("  " + pages.length + " Pharmacy First page(s) checked for the free 
   "claim, the prescription-charge caveat, cost qualifiers and prices");
 console.log("  " + packs.length + " GBP pack(s) checked for cost qualifiers, " +
   "prices and the free claim");
+console.log("  " + landings.length + " branch landing page(s) checked, " +
+  landingsWithPf + " of them advertising Pharmacy First and held to the free " +
+  "claim, cost qualifiers and prices");
 
 if (failures.length) {
   console.log("");

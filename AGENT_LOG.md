@@ -2,6 +2,111 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 22:05 BST - hundred-and-seventy-third run [commit hash recorded
+in the follow-up commit]
+- Item 2.2 quality pass, the Fishlocks shared-domain split, fourth pass. ONE
+REAL DEFECT FOUND AND FIXED, in tools/check-pharmacy-first-cost.js, plus one
+wording question raised (Q69). No page, generator, data field, branches.json
+entry, pack copy or piece of patient-facing copy was changed. Six generators
+rebuild to a zero diff and all 32 checkers exit 0 before and after.
+
+ANSWER PICKUP UNAVAILABLE, and for the reason Q59 already records rather than
+a new one. Two Chrome instances are connected, so the browser tooling requires
+a human choice between them before it will read anything, which an unattended
+run cannot give. No fetch was attempted beyond that point and no other route
+was tried. So no answer was applied, no item was unblocked, and 45 questions
+are now open with nothing posted since 2026-08-10.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. Every hit for that phrase is prose
+inside an old entry, not a section, so step 7 applied as written. The one
+judgement this run reached, the tile wording, is a patient-facing regulatory
+claim about cost, which is exactly the class that goes to Rishi rather than
+being decided, so it is Q69 and the copy was left alone.
+
+NO LOCK CONTENTION. No .agent-lock and no git index.lock were present, so the
+lock was taken cleanly at 22:04. audits/live-hours-check-2026-08-13.json again
+shows as modified while git diff returns nothing, line endings only, so it was
+left unstaged as in the last four runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+from scratch, and the first attempt at it was wrong in a way worth recording:
+counting mentions of an item id across each run block put 4.7 oldest, because
+the previous run's own entry names 2.2 and 2.1 in its prose while explaining
+its ordering. Mentions are contaminated by exactly that. Parsing the SUBJECT
+of each run instead, the item the run actually worked, gives 2.2 last worked
+43 run-headings ago, then 2.1 at 41 and 4.7 at 40, which agrees with the
+previous run's own figures once its run is added. 2.2 it is.
+
+THE PAGES THEMSELVES ARE CLEAN. 64 fields compared across the two Fishlocks
+pages against branches.json, 0 mismatches: NAP, phone in both forms, email,
+both review links, seoTown, the whole JSON-LD block including all five address
+fields, areaServed against serviceAreaList and every opening-hours session,
+the sister-branch cross-link, all five service links and the hasApp gating.
+Both pure ASCII, 9190 and 9623 bytes.
+
+THE DEFECT: THE PREVIOUS RUN STOPPED ONE FOLDER SHORT. Run 172 added
+tools/check-pharmacy-first-cost.js because nothing in the repo read the
+Pharmacy First cost claim, and scoped it to modules/service/pages, matched on
+the pharmacy-first- filename. The six branch landing pages in
+modules/branch/pages advertise Pharmacy First four times each, on a service
+tile, a hero bullet, the hero paragraph and an FAQ answer, every one of them
+calling it free, and all six sat outside all four rules. Injected one at a
+time into the Ainsdale page, a "Low-cost NHS treatment" tile, a "Pharmacy
+First consultations from 25 pounds" bullet and an "affordable NHS service" FAQ
+answer each walked past all 32 checkers clean. A control that changed one
+digit of the phone number was caught by check-nap and check-jsonld, so these
+pages are read, just never for what they say the service costs.
+
+The audience is what makes it worth the run. A landing page is not a quieter
+version of a service page: the six packs in gbp-packs/ each set a Google
+Business Profile website field to one of these six URLs, so this is the page
+a patient arrives on from Google, before they have read anything else about
+the pharmacy. A patient who reads that a free NHS service is low-cost, or
+priced at 25 pounds, does not book and never says why, and the pharmacy never
+learns it happened.
+
+THE FIX. Rule 7 holds the landing pages to the free claim and to rules 4 and 5
+(cost qualifiers and prices), scoped sentence by sentence with the same
+namesPharmacyFirst test the packs already use, so the private weight loss and
+travel clinic copy on the same page may still carry a price. Added with it: a
+source floor on tools/build-branch-landing-pages.js so the rule fails loudly
+if the generator stops composing the claim, a coverage floor of four pages so
+the folder cannot empty silently, and the SEO description lines in INDEX.md
+and SEO.md, which are the lines Google shows under the result.
+
+Deliberately NOT held to rule 3, the prescription-charge caveat. The tile is a
+one-line signpost and links to that branch's own Pharmacy First page, which
+carries the caveat in full and is held to it. Requiring the sentence on a
+tile would be a copy decision dressed up as a check.
+
+RE-PROBED EIGHT WAYS. The three original injections now all fail the run.
+Stripping all four free claims fails on rule 7. Two false-positive controls, a
+price on the private weight loss tile and one on the private travel clinic
+tile, are both correctly ignored. A "low-cost Pharmacy First" in SEO.md fails
+as a qualifier. LANDING_DIR pointed at an empty folder fails on coverage. The
+unmodified repo stays green, reporting 112 pages, 16 packs and 6 landing
+pages, 6 of them advertising Pharmacy First.
+
+QUESTION RAISED, Q69. The tile says "Free NHS treatment for seven common
+conditions". The consultation is free; a supplied medicine carries the usual
+NHS prescription charge unless the patient is exempt, and "treatment" reads as
+though the medicine is free too. That is the overclaim direction that ends at
+the counter rather than in a lost booking. Recommended option is "Free NHS
+consultation for seven common conditions", which is what the NHS service
+description supports and what the rest of the estate already says, but it is a
+patient-facing cost claim so it is Rishi's call and the copy was left as it is.
+Nothing is urgent: all six pages still returned a 404 when last read on
+2026-08-12, so no patient has seen the wording, and the fix is one string in
+the generator that regenerates all six pages at once.
+
+FILES CHANGED. tools/check-pharmacy-first-cost.js (rule 7, the source and
+coverage floors, the paste-sheet scan, the header documentation and the report
+line), AGENT_WORKLIST.md (the 2.2 pass note, appended in place), QUESTIONS.json
+(Q69 appended, 16 lines, nothing else reformatted), AGENT_LOG.md (this entry),
+audits/fishlocks-branch-landing-check-2026-08-13.txt (new evidence file).
+
 ## 2026-08-13 22:40 BST - hundred-and-seventy-second run [commit 2d563c4]
 - Item 4.15 quality pass, the Tiffenbergs Chemist Aintree GBP pack, fourth
 pass. ONE REAL DEFECT FOUND AND FIXED, by adding a checker that had never

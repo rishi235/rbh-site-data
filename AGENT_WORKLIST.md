@@ -206,6 +206,42 @@ audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt.
       two Chrome instances are connected and an unattended run may not choose
       between them, so no browser call was made. Evidence:
       audits/fishlocks-branch-landing-check-2026-08-12.txt.
+      Quality pass 2026-08-13: repo half clean for the fourth pass, no data
+      defect and no copy change, but one verifier defect found and closed, and
+      one wording question raised. Rebuild zero diff across all six
+      generators, all 32 checkers exit 0 before and after, and both pages
+      match branches.json field for field on NAP, phone, email, both review
+      links, seoTown, JSON-LD (name, url, telephone, email, all five address
+      fields, areaServed against serviceAreaList and every opening-hours
+      session), the sister-branch cross-link, all five service links and the
+      hasApp gating: 0 mismatches on 64 compared fields, both pages pure
+      ASCII. THE DEFECT IS THE ONE THE PREVIOUS RUN CLOSED ONE STEP SHORT OF.
+      Run 172 added tools/check-pharmacy-first-cost.js because nothing read
+      the Pharmacy First cost claim, and scoped it to modules/service/pages
+      matched on the pharmacy-first- filename. These six landing pages
+      advertise Pharmacy First four times each (a service tile, a hero
+      bullet, the hero paragraph and an FAQ answer, all calling it free) and
+      sat outside every rule of it. Injected into the Ainsdale page one at a
+      time, a "Low-cost NHS treatment" tile, a "Pharmacy First consultations
+      from 25 pounds" bullet and an "affordable NHS service" FAQ answer all
+      walked past all 32 checkers clean, while a control that changed one
+      digit of the phone number was caught by check-nap and check-jsonld. The
+      audience makes it the larger half: the six GBP packs each point a
+      Google Business Profile at one of these six URLs, so this is the page a
+      patient reaches from Google. Rule 7 added, holding the landing pages to
+      the free claim and to the qualifier and price rules, plus a source
+      floor on the landing generator, a coverage floor, and the SEO
+      description lines in INDEX.md and SEO.md. Not held to rule 3, the
+      prescription-charge caveat: the tile is one line and links to the page
+      that carries it. Re-probed eight ways, including two false-positive
+      controls (a price on the private weight loss tile and on the private
+      travel clinic tile, both correctly ignored) and a strip of all four
+      free claims, which correctly fails. The tile wording itself, "Free NHS
+      treatment", is asked as Q69 rather than rewritten: the consultation is
+      free and a supplied medicine is not. Live half not run and not claimed:
+      two Chrome instances are connected and an unattended run may not choose
+      between them. Evidence:
+      audits/fishlocks-branch-landing-check-2026-08-13.txt.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on

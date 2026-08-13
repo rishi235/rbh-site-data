@@ -1055,5 +1055,21 @@
     "status": "open",
     "answer": null,
     "note": "Only Riddings was checked on this pass, and its catchment matches serviceAreaList in all three places. Whether the other fourteen packs would pass a membership rule unchanged has NOT been checked, so that needs establishing before any rule is switched on. Worth reading alongside Q64, the other catchment and address string question still open."
+  },
+  {
+    "id": "Q69",
+    "date": "2026-08-13",
+    "item": "quality pass on 2.2 (wording finding on all six branch landing pages, does not block any item)",
+    "question": "The six branch landing pages describe NHS Pharmacy First on their service tile as \"Free NHS treatment for seven common conditions, with no GP appointment needed.\" The consultation is free, but if a medicine is supplied the patient pays the usual NHS prescription charge unless they are exempt, and calling the treatment itself free is the one direction of overclaim that ends in a complaint at the counter. The service pages carry the caveat sentence in full and are held to it by rule 3 of check-pharmacy-first-cost.js; the landing tile is one line, carries no caveat, and links straight to the page that does. None of the six pages is live yet, so this can be fixed before a patient ever reads it, and the fix is a generator change of a single string in tools/build-branch-landing-pages.js.",
+    "options": [
+      "Change the tile to \"Free NHS consultation for seven common conditions, with no GP appointment needed.\" The consultation is the thing that is unambiguously free, this sticks to the NHS service description, it stays one line, and the tile links to the full page for the charge caveat.",
+      "Keep \"treatment\" and append the caveat: \"Free NHS treatment for seven common conditions. The usual NHS prescription charge applies unless you are exempt.\" Most accurate, but it doubles the length of a tile blurb that sits beside five others.",
+      "Keep \"treatment\" and append a short form: \"Prescription charges may apply.\" Shorter than option 2 and still corrects the overclaim, though it is vaguer than the wording used everywhere else in the estate.",
+      "Leave the wording as it is. The tile links to the branch Pharmacy First page, which states the charge caveat in full, so the claim is corrected one click away."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "No copy was changed on this run and nothing here is urgent: all six pages still return a 404, so no patient has read the wording. What DID change is that the wording is now guarded. Rule 7 was added to tools/check-pharmacy-first-cost.js on this pass, after a low-cost qualifier, a stated price and an \"affordable\" were each injected into a landing page and walked past all 32 checkers clean. Whichever option is chosen, the change belongs in tools/build-branch-landing-pages.js and regenerates all six pages at once. Option 1 would also need FREE_CLAIM in the checker re-read, since it matches \"free NHS\" and \"Free NHS consultation\" still satisfies it."
   }
 ]

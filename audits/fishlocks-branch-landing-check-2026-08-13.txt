@@ -1,0 +1,74 @@
+Item 2.2 quality pass, fourth pass - Fishlocks shared-domain split
+Run 173, 2026-08-13, agents/audit-backlog
+Repo half only. No browser call was made: two Chrome instances are connected
+and an unattended run may not choose between them (Q59).
+
+1. BASELINE
+   32 checkers run, 0 failing.
+   6 generators run (branch-landing, contraception, service, switch,
+   travel-clinic, weight-loss), all exit 0, git diff empty afterwards.
+
+2. FIELD-BY-FIELD, both pages against branches.json
+   pharmacy-fishlocks-ainsdale.html    9190 bytes, pure ASCII
+   pharmacy-fishlocks-eccleston.html   9623 bytes, pure ASCII
+   Compared, per page: streetAddress, addressLocality, postalCode, phone
+   (display and tel: link), email, googleReviewUrl, nhsReviewUrl, seoTown,
+   JSON-LD @type/name/url/telephone/email, JSON-LD address (streetAddress,
+   addressLocality, postalCode, addressRegion, addressCountry), JSON-LD
+   areaServed against serviceAreaList, every openingHoursSpecification
+   session (opens, closes, dayOfWeek), the sister-branch cross-link, all
+   five service links, and the hasApp gating of the app sentence.
+   RESULT: 0 mismatches.
+
+3. THE DEFECT - the cost claim on a landing page was read by nothing
+   Run 172 added tools/check-pharmacy-first-cost.js and scoped it to
+   modules/service/pages, matched on the pharmacy-first- filename. The six
+   branch landing pages advertise NHS Pharmacy First four times each:
+     tile        "Free NHS treatment for seven common conditions"
+     hero bullet "Free NHS Pharmacy First consultations"
+     hero para   "the free NHS Pharmacy First service"
+     FAQ answer  "Pharmacy First is a free NHS service"
+   None of it was inside any rule.
+
+   Injections into pharmacy-fishlocks-ainsdale.html, one at a time, each run
+   past all 32 checkers:
+     PROBE 1  tile "Free NHS treatment" -> "Low-cost NHS treatment"     UNCAUGHT
+     PROBE 2  bullet -> "Pharmacy First consultations from 25 pounds"   UNCAUGHT
+     PROBE 3  FAQ "a free NHS service" -> "an affordable NHS service"   UNCAUGHT
+     CONTROL  phone 01704 575478 -> 01704 575479                        caught by
+              check-nap.js and check-jsonld.js
+   The control confirms the pages are read, just never for what they cost.
+
+4. THE FIX - rule 7 in tools/check-pharmacy-first-cost.js
+   Landing pages held to the free claim and to rules 4 (cost qualifiers) and
+   5 (prices), scoped sentence by sentence with the same namesPharmacyFirst
+   test the packs use, so private weight loss and travel clinic copy on the
+   same page may still carry a price.
+   Also added: a source floor on tools/build-branch-landing-pages.js, a
+   coverage floor of 4 pages, and the SEO description lines in INDEX.md and
+   SEO.md, which are what Google shows under the result.
+   NOT held to rule 3, the prescription-charge caveat. The tile is one line
+   and links to the branch Pharmacy First page, which carries the caveat and
+   is held to it. That wording is asked as Q69 instead.
+
+5. RE-PROBES after the fix
+     RE-PROBE 1  low-cost qualifier on the tile        caught
+     RE-PROBE 2  price on the hero bullet              caught
+     RE-PROBE 3  affordable qualifier in the FAQ       caught
+     RE-PROBE 4  all four free claims stripped         caught (rule 7, free)
+     FALSE-POS A price on the private weight loss tile correctly ignored
+     FALSE-POS B price on the private travel clinic    correctly ignored
+     SHEET       "low-cost Pharmacy First" in SEO.md   caught (qualifier)
+     COVERAGE    LANDING_DIR pointed at an empty dir   caught (coverage)
+   Unmodified repo: check-pharmacy-first-cost exits 0, reporting 112 pages,
+   16 packs and 6 landing pages, 6 of them advertising Pharmacy First.
+
+6. AFTER
+   32 checkers run again, 0 failing. 6 generators re-run, git diff empty, so
+   no page, no data field and no piece of patient-facing copy changed on this
+   run. Checker file is pure ASCII with no em dashes, 550 lines.
+
+7. LIVE HALF - NOT READ, NOT CLAIMED
+   All six landing pages were last read as 404 on 2026-08-12. Nothing on this
+   run re-read them, so that remains the last known state and the six Weebly
+   pastes (Q35) remain the only thing between this work and a visitor.
