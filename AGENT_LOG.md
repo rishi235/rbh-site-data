@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 03:34 BST - hundred-and-forty-first run - Quality pass on item
-4.4, Scorah Chemists Bramhall GBP pack. REPO HALF ONLY: no browser was
+## 2026-08-13 03:34 BST - hundred-and-forty-first run [commit 06ae92f] -
+Quality pass on item 4.4, Scorah Chemists Bramhall GBP pack. REPO HALF ONLY: no browser was
 available, so nothing live was read and nothing live is claimed. The pack is
 clean for the fourth consecutive pass. The gap closed is estate-wide, not
 branch-specific: the reverse rules on pack services and categories were a
