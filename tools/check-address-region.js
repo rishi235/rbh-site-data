@@ -142,18 +142,114 @@ data.branches.forEach(function (b) {
   the "areaLead" rule with a reason and a question id.
 */
 
-// Accepted exceptions, keyed "<branch id>::<rule>". Each needs a reason and a
-// question id, and the check fails on a key that no longer breaks its rule, so
-// the list cannot go stale.
+/*
+  AN EXCEPTION IS GRANTED FOR VALUES, NOT FOR A RULE.
+  Added by the item 5.7 quality pass on 2026-08-13.
+
+  The stale-key guard at the foot of this file proves an exception is still
+  USED. Nothing proved it was still the exception that was GRANTED. The one
+  entry here is the deliberate townSlug hold Rishi answered as Q15, and it was
+  granted for one specific pair of values: townSlug "sandringham" with seoTown
+  "St Michael's". The rule it excuses is "townSlug must be the slug of
+  seoTown", which is broken by EVERY seoTown whose slug is not "sandringham",
+  so the entry licensed not one value but all of them.
+
+  Proved by injection rather than argued. seoTown was moved to "Lark Lane",
+  another town in this branch's own serviceAreaList, and the change was made
+  the way the operator would make it: branches.json, the hardcoded town table
+  in build-switch-pages.js (the Q19 duplication) and the catchment order in
+  gbp-packs/mccanns-sandringham.md, then a full regeneration. Thirty of the
+  thirty-one checkers went green. The thirty-first, check-editor-snapshot,
+  failed only because branches.json had been edited at all, and its own
+  message tells the operator to refresh the snapshot, which clears it.
+  Thirteen pages, three paste sheets, the GBP pack and the areaServed schema
+  then led with a word nobody had approved. Same shape as the pfLink injection
+  on the item 2.1 pass and the areaLead injection on the item 5.2 pass.
+
+  This file printed the contradiction and could not see it:
+    KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of
+    seoTown "Lark Lane" ... Q15: townSlug is deliberately held at
+    'sandringham' while seoTown reads 'St Michael's'.
+  The value it read and the value it was granted for are both in that line.
+
+  The rule: every entry must declare, in "expect", the field values the
+  exception was granted for. The exception applies only while the branch still
+  holds those values. Moving away from them fails, so the next change to this
+  branch's local word goes back to Rishi rather than being absorbed. An entry
+  with no "expect", or with an "expect" naming a field this file does not
+  read, also fails, so the hole cannot be reopened by adding a looser entry.
+*/
+
+// Accepted exceptions, keyed "<branch id>::<rule>". Each needs a reason, a
+// question id and an "expect" block naming the exact values it was granted
+// for. The check fails on a key that no longer breaks its rule, so the list
+// cannot go stale, and fails on a branch that has moved off its expected
+// values, so an exception cannot quietly widen.
+var EXPECTABLE_FIELDS = ["seoTown", "townSlug", "serviceAreaList", "addressLocality"];
+
 var KNOWN_SEO_TOWN = {
   "mccanns_sandringham::townSlug": {
     question: "Q15",
+    expect: { townSlug: "sandringham", seoTown: "St Michael's" },
     reason: "townSlug is deliberately held at 'sandringham' while seoTown reads " +
       "'St Michael's'. Rishi's answer moved the local word in the copy but kept " +
       "the permalinks, so no live URL breaks and no redirects are needed. The " +
       "title and the URL naming different places is the accepted cost."
   }
 };
+
+// Returns the entry only if it is well formed AND the branch still holds the
+// values it was granted for. Anything else is pushed onto failures and the
+// caller is handed nothing, so the ordinary rule applies instead.
+function grantedFor(key, b) {
+  var entry = KNOWN_SEO_TOWN[key];
+  if (!entry) return null;
+  seenKnown[key] = true;
+
+  if (!entry.expect || typeof entry.expect !== "object" ||
+      !Object.keys(entry.expect).length) {
+    failures.push(
+      "KNOWN_SEO_TOWN " + key + " declares no expect block. An exception is " +
+      "granted for values, not for a rule: without it the entry excuses every " +
+      "future value of the field as well as the one that was approved."
+    );
+    return null;
+  }
+
+  var drifted = [];
+  Object.keys(entry.expect).forEach(function (field) {
+    if (EXPECTABLE_FIELDS.indexOf(field) === -1) {
+      failures.push(
+        "KNOWN_SEO_TOWN " + key + ' expects field "' + field + '", which this ' +
+        "check does not read. Name a field this file compares, or the " +
+        "expectation is never tested."
+      );
+      return;
+    }
+    var want = entry.expect[field];
+    var got = b[field];
+    var same = Array.isArray(want)
+      ? Array.isArray(got) && want.length === got.length &&
+        want.every(function (v, i) { return normalise(v) === normalise(got[i]); })
+      : normalise(want) === normalise(got);
+    if (!same) {
+      drifted.push('"' + field + '" is ' + JSON.stringify(got) +
+        " but the exception was granted for " + JSON.stringify(want));
+    }
+  });
+
+  if (drifted.length) {
+    failures.push(
+      b.id + ": the " + entry.question + " exception on this rule no longer " +
+      "applies, because " + drifted.join("; ") + ". " + entry.question +
+      " approved one arrangement, not a standing licence to break the rule " +
+      "any other way. Reason on record: " + entry.reason + " Take the new " +
+      "value back to Rishi, or update the expect block once he has answered."
+    );
+    return null;
+  }
+  return entry;
+}
 
 function slugify(s) {
   return String(s).toLowerCase()
@@ -193,11 +289,11 @@ data.branches.forEach(function (b) {
 
   var areas = (b.serviceAreaList || []).map(normalise);
   var town = normalise(b.seoTown);
-  var known = KNOWN_SEO_TOWN[b.id + "::seoTownInList"];
+  var known = null;
 
   if (areas.indexOf(town) === -1) {
+    known = grantedFor(b.id + "::seoTownInList", b);
     if (known) {
-      seenKnown[b.id + "::seoTownInList"] = true;
       warnings.push(
         "KNOWN " + b.id + ': seoTown "' + b.seoTown + '" is not in its own ' +
         "serviceAreaList [" + (b.serviceAreaList || []).join(", ") + "]. " +
@@ -220,11 +316,10 @@ data.branches.forEach(function (b) {
   // seoTown second stays a warning.
   var firstRaw = (b.serviceAreaList || [])[0];
   if (firstRaw && areas[0] !== town) {
-    var leadKnown = KNOWN_SEO_TOWN[b.id + "::areaLead"];
     var owners = (townOwners[areas[0]] || []).filter(function (o) { return o.id !== b.id; });
+    var leadKnown = owners.length ? grantedFor(b.id + "::areaLead", b) : null;
 
     if (owners.length && leadKnown) {
-      seenKnown[b.id + "::areaLead"] = true;
       warnings.push(
         "KNOWN " + b.id + ': serviceAreaList leads with "' + firstRaw +
         '", which belongs to ' + owners.map(function (o) { return o.id; }).join(" and ") +
@@ -259,9 +354,8 @@ data.branches.forEach(function (b) {
   }
 
   if (b.townSlug && b.townSlug !== slugify(b.seoTown)) {
-    var knownSlug = KNOWN_SEO_TOWN[b.id + "::townSlug"];
+    var knownSlug = grantedFor(b.id + "::townSlug", b);
     if (knownSlug) {
-      seenKnown[b.id + "::townSlug"] = true;
       warnings.push(
         "KNOWN " + b.id + ': townSlug "' + b.townSlug + '" is not the slug of ' +
         'seoTown "' + b.seoTown + '" (would be "' + slugify(b.seoTown) + '"). ' +
@@ -314,6 +408,9 @@ console.log("  " + checked + " trading branches checked against " +
   COUNTIES.length + " permitted counties, their seoTown against their " +
   "own serviceAreaList, and the lead entry of that list against every " +
   "other branch's seoTown");
+console.log("  " + Object.keys(KNOWN_SEO_TOWN).length + " accepted exception(s) " +
+  "checked against the values each one was granted for, so an exception " +
+  "cannot widen to cover a value nobody approved");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });
 failures.forEach(function (f) { console.log("  FAIL  " + f); });

@@ -2,6 +2,111 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-sixty-second run
+- Item 5.7 quality pass, the McCanns Sandringham local word (Q15). ONE REAL
+DEFECT FOUND AND FIXED IN REPO, in tools/check-address-region.js. No page,
+generator, data field, paste sheet, GBP pack or piece of patient-facing copy
+was changed, all 31 checkers pass and every one of the 177 pages regenerates
+byte-identical from all six generators. No new question raised.
+
+REPO HALF ONLY: two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was read
+and nothing live is claimed. The 2026-08-12 live verdicts on this item stand
+as written. Answer pickup (step 3) was unavailable for the same reason, which
+is Q59 and remains the run-level blocker.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. The only real one expired
+2026-08-10 23:14 BST, so step 7 applied as written. Nothing turned on it,
+because this run raised no question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items are
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item to
+take. Fifteen completed items stood level on the oldest date, 2026-08-12, with
+three recorded passes each: 2.1, 2.2, 2.3, 4.2, 4.6 to 4.15 and 5.7. Run 161
+broke its tie on pass count; that no longer separates anything, so this run
+broke it on the run timestamp of each item's most recent pass, read out of this
+log rather than chosen. 5.7 was last verified in the hundred-and-nineteenth run
+at 2026-08-12 14:50 BST, the earliest of the fifteen, with 4.6 (run 120) and
+4.8 (run 121) next.
+
+THE ITEM'S OWN DATA IS CLEAN, FOURTH PASS. 142 checks over the 13 pages the
+branch owns, the sister landing page, three paste sheets, the switch
+generator's hardcoded town table and the exception list, 0 failures. seoTown
+still reads "St Michael's" with a plain ASCII apostrophe, townSlug is still
+held at "sandringham" on purpose so no permalink moves, serviceAreaList still
+leads with St Michael's, every H1 and areaServed leads with it, and all three
+SEO.md sheets are current. Worth recording because the run's own first cut got
+it wrong: the verifier initially reported three failures for the string
+"Sandringham" surviving on the landing page and in two sheet rows. Every one is
+either the branchName "McCanns Chemist Sandringham" or the branch mailbox
+Sandringham@rbhealth.co.uk. Item 5.7 moved the SEO local word, not the shop's
+name or its inbox, so both must survive. The verifier was corrected, not the
+data.
+
+THE DEFECT WAS IN THE EXCEPTION, NOT IN THE DATA. check-address-region.js
+holds one accepted exception, mccanns_sandringham::townSlug. Rishi granted it
+under Q15 for one arrangement: townSlug held at "sandringham" while seoTown
+reads "St Michael's". The rule it excuses is "townSlug must be the slug of
+seoTown", and that rule is broken by EVERY seoTown whose slug is not
+"sandringham". The entry was keyed to the rule, so it absorbed all of them.
+The file's stale-key guard proves an exception is still USED. Nothing proved
+it was still the exception that was GRANTED.
+
+PROVED BY INJECTION, NOT ASSERTED. seoTown was moved to "Lark Lane", another
+town in the branch's own serviceAreaList so no other rule would object, and
+the change was made the way an operator would actually make it: branches.json,
+the hardcoded town table in build-switch-pages.js (the Q19 duplication) and
+the catchment order in gbp-packs/mccanns-sandringham.md, then a full
+regeneration. After the branches.json edit alone, four checkers failed, but two
+of them (seo-pattern, seo-keywords) were reporting the switch generator lagging
+the data rather than the town being wrong. After all three edits, ONE checker
+failed: check-editor-snapshot, which fires on any branches.json edit at all and
+whose own message tells the operator to refresh the snapshot, which clears it.
+Thirteen pages, three paste sheets, the GBP pack and the areaServed schema then
+led with a word nobody had approved, on a green board. Same shape as the pfLink
+injection on the 2.1 pass and the areaLead injection on the 5.2 pass. The file
+printed the contradiction in one line and could not see it: it read seoTown
+"Lark Lane" and quoted an exception that says seoTown reads "St Michael's".
+
+WHY IT MATTERS. seoTown is the word every title, description, H1, meta keyword
+set and areaServed entry on 13 pages leads with, and it is the one field on
+this branch a human decision is on record about. The exception exists because
+this branch is the estate's single deliberate irregularity, which makes it the
+one place a second irregularity is least likely to be noticed.
+
+THE FIX. An exception is granted for VALUES, not for a rule. Every
+KNOWN_SEO_TOWN entry must now declare an "expect" block naming the field values
+it was granted for; the live entry declares townSlug "sandringham" and seoTown
+"St Michael's". A new grantedFor() gates all three consumption sites
+(seoTownInList, areaLead, townSlug) and hands the exception back only while the
+branch still holds those values, otherwise failing and letting the ordinary
+rule apply as well. An entry with no expect block fails, so the hole cannot be
+reopened by adding a looser entry. An expect block naming a field this file
+does not read fails, so an expectation cannot be written that is never tested.
+Comparison goes through the file's existing normalise(), so case and apostrophe
+style are not a false positive, and arrays compare in order. The existing
+stale-key guard is unchanged and still bites.
+
+NEGATIVE TESTED NINE WAYS, six that must fire and three that must not: seoTown
+drift fires, townSlug drift fires, a deleted expect block fires, an expect
+naming an unread field fires, reverting seoTown to Sandringham fires the
+stale-key guard, an array expect reordered fires; and the control, a differently
+written but equal value ("st michaels"), and a matching array expect all stay
+correctly silent.
+
+FILES CHANGED: tools/check-address-region.js and the two records
+(AGENT_WORKLIST.md in place, this log), plus the evidence file
+audits/sandringham-town-item-5.7-quality-pass-2026-08-13-run162.txt.
+
+RESIDUAL LIMITATION, STATED RATHER THAN DROPPED. EXPECTABLE_FIELDS lists the
+four branch fields this checker compares, and pinning anything outside that
+list means widening it first, which the new rule makes a deliberate act. The
+same "granted for values, not for a rule" test has NOT been applied to the
+KNOWN lists in the other thirty checkers. Each holds its own and this run did
+not survey them, so that is a candidate for a future pass, not a claim about
+the estate today.
+
 ## 2026-08-13 - hundred-and-sixty-first run
 - Item 6.3 quality pass, opening hours vs branches.json across the estate. ONE
 REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-opening-hours.js. No page,

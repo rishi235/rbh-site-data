@@ -2473,6 +2473,37 @@ so tools/build-audit-status.js picks them up like any other item.
       since the sitemap is unchanged. No in-repo defect, no new
       question. Evidence:
       audits/sandringham-town-live-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (run 162): repo half clean for the fourth pass
+      running, REPO HALF ONLY (browser unavailable, Q59). 142 checks over the
+      13 owned pages, the sister landing page, three paste sheets, the switch
+      generator's hardcoded town table and the exception list, 0 failures.
+      All 31 checkers green, all six generators byte-identical. seoTown still
+      "St Michael's" with an ASCII apostrophe, townSlug still held at
+      "sandringham", serviceAreaList still leading St Michael's, every
+      permalink unmoved. The two surviving "Sandringham" strings are the
+      branchName and the branch mailbox, which are NAP facts this item never
+      touched; the first cut of the run's own verifier called them defects and
+      was corrected rather than the data. THE DEFECT WAS IN THE EXCEPTION,
+      not the data. The Q15 hold in check-address-region.js was keyed to the
+      RULE it excuses ("townSlug must be the slug of seoTown"), which every
+      seoTown whose slug is not "sandringham" also breaks, so one approved
+      arrangement licensed all of them. The stale-key guard proved the
+      exception was still used and nothing proved it was still the exception
+      Rishi granted. Proved by injection: seoTown moved to "Lark Lane" and the
+      change made the way an operator would make it, in branches.json, the
+      hardcoded table in build-switch-pages.js and the pack's catchment order.
+      Thirty of thirty-one checkers went green; the thirty-first,
+      check-editor-snapshot, fires on any branches.json edit and tells the
+      operator to refresh the snapshot, which clears it. Thirteen pages, three
+      paste sheets, the pack and the areaServed schema then led with a word
+      nobody approved. Fixed in the verifier: every KNOWN_SEO_TOWN entry must
+      now declare an "expect" block of the values it was granted for, a new
+      grantedFor() gates all three consumption sites, an entry with no expect
+      fails, and an expect naming a field this file does not read fails. Nine
+      negative tests, six fire and three are false-positive guards. No page,
+      generator, data field or piece of patient-facing copy changed, no new
+      question. Evidence:
+      audits/sandringham-town-item-5.7-quality-pass-2026-08-13-run162.txt.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against

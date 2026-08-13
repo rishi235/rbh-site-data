@@ -1,0 +1,167 @@
+ITEM 5.7 QUALITY PASS - McCanns Sandringham local word (Q15)
+2026-08-13, hundred-and-sixty-second run, unattended.
+Branch agents/audit-backlog. REPO HALF ONLY.
+
+WHY THIS ITEM
+All eight unchecked worklist items are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6), so there was no item to take and the run did a quality pass.
+Fifteen completed items stood at 2026-08-12 with three recorded passes each:
+2.1, 2.2, 2.3, 4.2, 4.6 to 4.15 and 5.7. The tie was broken on the run
+timestamp of each item's most recent pass, read from AGENT_LOG.md rather than
+from preference. 5.7 was verified in the hundred-and-nineteenth run at
+2026-08-12 14:50 BST, the earliest of the fifteen. The next oldest is 4.6 at
+run 120, then 4.8 at run 121.
+
+LIVE HALF NOT RUN AND NOT CLAIMED
+Two Chrome instances are connected and an unattended run may not choose
+between them, so no browser call was made. Nothing live was read. The
+2026-08-12 live verdicts on this item stand as written: the landing page
+404s, the 12 content pages return 200 still leading with Sandringham and
+still carrying Weebly's default " - MCCANNS PHARMACY" suffix, and the
+recorded repaste from the three SEO.md sheets remains the whole live fix.
+Answer pickup (step 3) was unavailable for the same reason, which is Q59.
+
+PART 1 - THE ITEM'S OWN DATA, FOURTH PASS: CLEAN
+142 checks over the 13 pages the branch owns plus the sister landing page,
+three paste sheets, the switch generator's hardcoded town table and the
+accepted-exception list. 0 failures.
+
+  branches.json mccanns_sandringham
+    seoTown         "St Michael's"   apostrophe is ASCII 39 throughout
+    townSlug        "sandringham"    deliberately held, Q15
+    serviceAreaList St Michael's, Aigburth, Lark Lane, Dingle
+    addressLocality Liverpool        postal town, unchanged and correct
+
+  All 13 owned pages: exactly one H1, H1 carries St Michael's, JSON-LD parses,
+  areaServed leads with St Michael's, no curly apostrophe, filename keeps the
+  held slug "sandringham", and no stale "Sandringham" outside the two places
+  it is a NAP fact rather than a local word.
+
+  The two legitimate survivals, stated because the first cut of this run's
+  verifier called them defects and they are not. branchName is "McCanns
+  Chemist Sandringham" and the branch mailbox is Sandringham@rbhealth.co.uk.
+  Item 5.7 moved the SEO local word, not the shop's name or its inbox. Seven
+  hits on the landing page and two paste-sheet rows are all one or the other.
+  Correcting the verifier rather than the data took the run from 3 apparent
+  failures to 0 real ones.
+
+  Paste sheets: service SEO.md 8 rows, switch SEO.md 1 row, branch SEO.md
+  3 rows, 0 stale.
+  build-switch-pages.js still carries town "St Michael's" with townSlug
+  "sandringham" in its own hardcoded table (the Q19 duplication).
+  check-address-region.js still declares the mccanns_sandringham::townSlug
+  hold with its written reason.
+
+  All 31 checkers pass. All six generators reproduce every one of the 177
+  pages byte-identical.
+
+PART 2 - THE DEFECT: AN EXCEPTION GRANTED FOR VALUES WAS ENFORCED AS A
+LICENCE TO BREAK A RULE
+
+check-address-region.js holds one accepted exception, keyed
+mccanns_sandringham::townSlug. Rishi granted it under Q15 for one specific
+arrangement: townSlug held at "sandringham" while seoTown reads
+"St Michael's", so the copy moves and no live URL breaks.
+
+The rule it excuses is "townSlug must be the slug of seoTown". That rule is
+broken by EVERY seoTown whose slug is not "sandringham", not just by
+St Michael's. The entry was keyed to the rule, so it absorbed all of them.
+The file's stale-key guard proves an exception is still USED; nothing proved
+it was still the exception that was GRANTED.
+
+PROVED BY INJECTION, NOT ASSERTED. seoTown was moved to "Lark Lane", another
+town in this branch's own serviceAreaList, so the seoTownInList rule stays
+satisfied and no other branch owns the word. The change was then made the way
+an operator would actually make it, in three places:
+
+  1. branches.json                        seoTown -> Lark Lane
+  2. tools/build-switch-pages.js          the hardcoded town for this branch
+  3. gbp-packs/mccanns-sandringham.md     the catchment run reordered
+
+then a full regeneration of all 177 pages.
+
+  After step 1 alone:  4 checkers failed - editor-snapshot, gbp-packs,
+                       seo-keywords, seo-pattern. The last two failed only
+                       because the switch generator's hardcoded copy had not
+                       moved with the data, so they were reporting the Q19
+                       duplication rather than the wrong town.
+  After steps 1 to 3:  1 checker failed - check-editor-snapshot, which fires
+                       on any branches.json edit at all and whose own message
+                       tells the operator to refresh the snapshot. Refreshing
+                       it clears the board.
+
+So 13 pages, three paste sheets, the GBP pack and the areaServed schema all
+led with a word nobody had approved, and the board was green. Same shape as
+the pfLink injection on the item 2.1 pass and the areaLead injection on the
+item 5.2 pass: a real fault sitting behind the one checker that reports
+staleness rather than correctness.
+
+check-address-region printed the contradiction and could not see it:
+
+  WARN KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of
+  seoTown "Lark Lane" (would be "lark-lane"). Q15: townSlug is deliberately
+  held at 'sandringham' while seoTown reads 'St Michael's'.
+
+The value it read and the value it was granted for are both in that one line.
+
+WHY IT MATTERS. seoTown is the word every title, description, H1, meta
+keyword set and areaServed entry on 13 pages leads with, and it is the one
+field on this branch that a human decision is on record about. The exception
+existed precisely because this branch is the estate's one deliberate
+irregularity, which makes it the one place a second irregularity would be
+least likely to be noticed.
+
+THE FIX, IN THE VERIFIER, NOT IN THE DATA
+tools/check-address-region.js. No page, generator, data field, paste sheet,
+GBP pack or piece of patient-facing copy was changed.
+
+  - Every KNOWN_SEO_TOWN entry must now declare an "expect" block naming the
+    exact field values the exception was granted for. The one live entry
+    declares townSlug "sandringham" and seoTown "St Michael's".
+  - A new grantedFor() gates all three consumption sites (seoTownInList,
+    areaLead, townSlug). It hands back the exception only while the branch
+    still holds those values; otherwise it fails and the ordinary rule
+    applies, so the operator gets both the drift message and the underlying
+    breach.
+  - An entry with no expect block FAILS, so the hole cannot be reopened by
+    adding a looser entry later.
+  - An expect block naming a field this file does not read FAILS, so an
+    expectation cannot be written that is never tested.
+  - Comparison goes through the file's existing normalise(), so case and
+    apostrophe style are not a false positive. Arrays compare in order.
+  - The existing stale-key guard is unchanged and still bites.
+
+NEGATIVE TESTS - nine, six that must fire and three that must not
+
+  T0  untouched tree                                   exit 0   correct
+  T1  seoTown -> "Lark Lane"                           exit 1   fires
+  T2  townSlug -> "sandringham-road"                   exit 1   fires
+  T3  expect block deleted                             exit 1   fires
+  T4  expect names "phone", a field not read here      exit 1   fires
+  T5  seoTown -> "Sandringham" (rule stops breaking)   exit 1   stale-key
+                                                                guard fires
+  T6  expect written "st michaels", lower case, no
+      apostrophe                                       exit 0   correctly
+                                                                silent
+  T7  expect adds serviceAreaList matching the data    exit 0   correctly
+                                                                silent
+  T8  that same array reordered                        exit 1   fires
+
+T6 and T7 are the false-positive guards: the rule must bite on a changed
+value, not on a differently written one.
+
+AFTER THE FIX
+  31 of 31 checkers pass.
+  All six generators reproduce all 177 pages byte-identical.
+  The only modified file is tools/check-address-region.js.
+  No new question raised.
+
+RESIDUAL LIMITATION, STATED
+EXPECTABLE_FIELDS lists the four branch fields this checker compares
+(seoTown, townSlug, serviceAreaList, addressLocality). An exception that
+needed to pin a field outside that list would have to widen the list first,
+and the T4 rule makes that a deliberate act rather than a silent one. The
+same "granted for values, not for a rule" test has not been applied to the
+KNOWN lists in the other thirty checkers; each holds its own, and this run
+did not survey them. That is a candidate for a future pass rather than a
+claim about the estate today.
