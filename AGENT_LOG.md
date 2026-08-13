@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 05:04 BST - hundred-and-forty-third run - Quality pass on item
+## 2026-08-13 05:04 BST - hundred-and-forty-third run [commit 7a240a2] - Quality pass on item
 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified
 2026-08-12 05:42 as the hundred-and-first run and the oldest verification
 standing. Fourth pass on this item. REPO HALF ONLY: no browser was available,
