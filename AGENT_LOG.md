@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 21:45 BST - hundred-and-seventy-first run
+## 2026-08-13 21:45 BST - hundred-and-seventy-first run [commit ca00478]
 - Item 2.3 quality pass, the Cherry Lane build-from-near-zero, fourth pass.
 ONE REAL DEFECT FOUND AND FIXED IN REPO, in
 tools/check-pharmacy-first-eligibility.js. No page, generator, data field,
