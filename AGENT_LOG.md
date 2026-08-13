@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 08:47 BST - hundred-and-fiftieth run - Quality pass on item 3.8,
+## 2026-08-13 08:47 BST - hundred-and-fiftieth run [commit ecab660, this hash
+line added by a small follow-up commit] - Quality pass on item 3.8,
 SK Chemists (Bootle), last verified 2026-08-12 and the oldest verification
 standing. Third machine-era pass. REPO HALF ONLY: no browser was available, so
 nothing live was read and nothing live is claimed. All 12 pages verified clean,
