@@ -2,9 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 12:05 BST - hundred-and-fifty-seventh run [commit hash added by
-a small follow-up commit, which is why the log is one commit behind the work
-it describes]
+## 2026-08-13 12:05 BST - hundred-and-fifty-seventh run [commit 251eefa, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Quality pass on item 5.2, the stalest completed item. ONE REAL DEFECT FOUND
 AND FIXED IN REPO: the defect this item's OWN earlier pass found had been
 fixed in the data and left unguarded, so check-address-region.js now fails it
