@@ -1,0 +1,119 @@
+SMARTTS CHEMIST (BOOTLE) - QUALITY PASS EVIDENCE
+Item 3.7. Run 149, 2026-08-13. Branch agents/audit-backlog.
+
+SCOPE. Repo half only. No browser was available to this run, so nothing live
+was read and nothing live is claimed anywhere in this file.
+
+WHAT WAS VERIFIED, INDEPENDENTLY
+audits/smartts-independent-2026-08-13.js, written for this pass. It shares no
+code with tools/: its own file discovery, its own regexes, its own reading of
+branches.json. 2,952 checks, 0 failures.
+
+  12 pages found and read
+    11 service pages (pharmacy first, UTI, sore throat, sinusitis, earache,
+       shingles, impetigo, insect bite, contraception, travel clinic,
+       weight loss clinic)
+    1 switch page
+    no branch landing page: Smartts is not on a shared domain
+
+  one H1 per page, every one carrying seoTown Bootle
+  display phone 0151 922 4984 and tel:01519224984 on all 12
+  no other branch's phone in either shape
+  own street 42 Fernhill Road and own postcode L20 9HH only
+  JSON-LD parsed on all 12 and compared field by field:
+    streetAddress, addressLocality Bootle, postalCode L20 9HH,
+    addressRegion Merseyside, addressCountry GB, telephone
+  no hard-coded widget id anywhere, all estate ids scanned, so the diaries
+    resolve at run time as the generators intend
+  CDN pins as the generators declare: service-module-phase1 on the 11
+    service pages, 6a275e1 on the switch page, no page mixing two
+  own ODS FQN70 and own nhs.net address only
+  no other branch's Google review, NHS review or Pharmacy First link
+  no http:// href or src on any page
+  no em or en dash, literal or entity, in visible copy
+  no other brand's label on any page
+  23 paste sheet rows across 9 sheets, descriptions 133 to 152 characters,
+    no dash in any pasteable title or description
+  GBP pack gbp-packs/smartts-bootle.md: own NAP, pure ASCII, no dash entity,
+    no other branch's postcode, phone or brand in the pasteable half
+
+TWO APPARENT FINDINGS THAT WERE FAULTS IN THIS SCRIPT, NOT IN THE REPO
+Both are recorded because a quality pass that only reports its survivors is
+not evidence of anything.
+
+  1. All 12 pages reported as carrying "RB Healthcare Ltd Head Office's tel:
+     link". rbh_head_office_aintree carries an EMPTY phone string, and an
+     empty needle makes includes() true for every page. Guarded in the
+     script rather than skipped quietly.
+
+  2. GBP pack reported as naming another brand, SK Chemists. It does, in the
+     "Notes for the paster:" block, which is instructions to the human and is
+     never pasted into a Google field: SK Chemists (Stanley Road) is the
+     other RBH branch in Bootle and the note explains why the two profile
+     descriptions are deliberately worded differently. The cross-brand scan
+     now runs on the pasteable half only. The ASCII and dash-entity rules
+     still run on the whole file, because a note pasted by mistake is the
+     failure those rules exist for.
+
+ONE DEFECT FOUND, AND IT WAS LIVE-REACHING
+See tools/check-seo-sheets.js for the full reasoning. In short: the estate
+writes each page's two Weebly SEO fields THREE times - into the page's own
+head comment, into a *-SEO.md sheet, and into a *INDEX.md paste manifest.
+check-seo-sheets.js compared the first two. It read a NAMED list of six
+*-SEO.md files, so the five INDEX.md manifests, carrying "SEO title" and
+"SEO description" for 163 of the 177 pages, were compared to nothing.
+
+Proved by injection, not by reading. The service INDEX.md row for
+uti-treatment-smartts-bootle was changed to read "UTI treatment in Aintree -
+Hirshmans Pharmacy": another branch, another brand, another town, on a
+Smartts page. All 30 checkers passed. Whoever pastes works from whichever
+sheet is open in front of them, so that string would have gone into the live
+Weebly SEO title with no checker in between.
+
+FIXED AT SOURCE, WITH THREE NEGATIVE TESTS
+Sheets are now discovered rather than named, and each block is sorted into
+one of two label dialects. Tests, each reverted with git checkout:
+
+  INDEX.md SEO title naming another brand and town   -> FAIL, caught
+  INDEX.md SEO description drifting by two words     -> FAIL, caught
+  INDEX.md row pointing at a page that does not exist -> FAIL, caught
+
+The switch manifest writes a non-ASCII arrow after its backticked slug and
+the service manifest writes "->", so the slug is read from the backticks
+alone: anything reading past the closing backtick covers one sheet and
+silently drops the other. That was the trap in this parse and it is written
+into the file so the next reader does not have to find it again.
+
+All 163 INDEX rows were already correct once the injection was reverted, so
+this closes a latent hole rather than a live breach. No copy was edited on
+any page, sheet, pack or data field.
+
+A THIRD APPARENT FINDING, DISPROVEN AT THE SHELL RATHER THAN IN THE FILE
+A PowerShell pass over this run's own scripts appeared to show that their
+dash-detecting character classes held the wrong characters, which would have
+made every "no dash found" result above worthless. It was the shell, not the
+files: PowerShell read the UTF-8 sources as ANSI, and the same mangling hit
+the test string and the inline test regex together so they matched each
+other. Re-tested inside node, with the dash characters built from their code
+points so no shell touches them, the regex in the file matches a real em
+dash, a real en dash and a &mdash; entity, and does not match a plain hyphen.
+The dash results above stand. This is the same encoding trap the banner rule
+was written for, met from the tooling side.
+
+ESTATE-WIDE PROBE
+audits/seo-comment-vs-sheet-probe-2026-08-13.js, kept so the numbers can be
+re-derived: 177 pages scanned, all 177 carry the two comment SEO strings, 11
+sheets read, 341 rows parsed, 354 comment/sheet pairs compared, 0 uncovered,
+0 disagreements.
+
+STATE AFTER THE RUN
+All 30 checkers pass. All seven generators rebuild every page byte-identical;
+status/index.html changes only its timestamp line, which is the generator
+working rather than a diff.
+
+NOT CLAIMED
+The live site was not opened. gbp-packs/smartts-bootle.md records that every
+page on smarttschemist.co.uk prints 9:00am to 6:00pm for all five weekdays
+while branches.json follows the NHS profile confirmed 2026-06-24 and carries
+a 13:00 to 14:00 lunch closure. That divergence is Q55 and was not re-checked
+this run, because checking it needs the browser.

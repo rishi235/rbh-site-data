@@ -593,7 +593,7 @@ negative tests all fire. All 326 lines were already clean, so a latent hole
 closed, not a live breach. No copy edited anywhere. Evidence in
 audits/mccanns-build-check-2026-08-13.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
-      12 pages, 0 mismatches.
+      12 pages, 0 mismatches. Quality pass 2026-08-13.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
 NAP "42 Fernhill Road", L20 9HH and 0151 922 4984 on all 12, one tel: link
 each, seoTown and addressLocality both Bootle so there is no divergence to get
@@ -646,6 +646,25 @@ banner mojibake close button is still the pre-run-44 paste; the old
 pharmacy-first-service-bootle.html pfLink keeps its known 5.3 faults, seven
 cohorts correct. Nothing new raised. Evidence in
 audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
+Quality pass 2026-08-13 (fourth). REPO HALF ONLY: no browser this run, so
+nothing live was read or claimed. All 12 pages re-verified by a fourth
+independent extraction sharing no code with tools/, 2,952 checks, 0 failures:
+one H1 per page carrying Bootle, phone in both shapes with no other branch's
+digits, own street and postcode only, JSON-LD field by field, no hard-coded
+widget id, pins as the generators declare, own ODS FQN70 only, no other
+branch's review or Pharmacy First link, no http:// on any page, no other
+brand named. 23 sheet rows, descriptions 133 to 152 characters. GBP pack
+clean on the pasteable half. ONE DEFECT FOUND, live-reaching: the estate
+writes each page's two Weebly SEO fields THREE times (page comment, *-SEO.md,
+*INDEX.md) and check-seo-sheets.js read a NAMED list of six *-SEO.md files,
+so the five INDEX manifests, 163 pages' worth, were compared to nothing. An
+INDEX row reading "UTI treatment in Aintree - Hirshmans Pharmacy" on a
+Smartts page passed all 30 checkers. Sheets are now discovered, both label
+dialects parsed, three negative tests all fire. All 163 rows were already
+correct, so a latent hole closed rather than a live breach, and no copy was
+edited anywhere. Two apparent findings were faults in this run's own script
+and are written up rather than dropped. No question raised. Evidence in
+audits/smartts-build-check-2026-08-13.txt.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

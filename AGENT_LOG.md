@@ -2,6 +2,138 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 08:04 BST - hundred-and-forty-ninth run - Quality pass on item
+3.7, Smartts Chemist (Bootle), last verified 2026-08-12 and the oldest
+verification standing. Fourth pass on this item. REPO HALF ONLY: no browser was
+available, so nothing live was read and nothing live is claimed. All 12 pages
+verified clean, 2,952 checks. ONE DEFECT CLASS FOUND, and it reaches the live
+Weebly SEO fields: check-seo-sheets.js was comparing two of the three copies
+the estate keeps of every page's SEO title and description, and the third,
+163 pages' worth in the five INDEX manifests, was compared to nothing. Fixed
+at source, three negative tests, all three fire. No question raised. Nothing
+edited in any page, sheet, pack or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in this log is the 2026-08-09 one,
+which expired 2026-08-10 23:14 BST. This run did not need one. The change is
+to what a checker compares, it edits no copy and no patient-facing claim, and
+it is the kind of in-repo defect fix a quality pass is explicitly told to
+make, so it needed no decision from Rishi and none was invented.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-ninth consecutive run, 121 to 149. Cause
+unchanged and confirmed again this run rather than assumed: the connected
+browsers were enumerated and TWO extension instances are live, so the
+extension side is alive. The tooling requires a human to choose between the
+two before any browser call is made and states explicitly that the agent must
+not pick one itself. An unattended run has nobody to ask. Enumerating the
+extensions is the only thing that happened: NO page was fetched, and nothing
+was clicked, typed, submitted or logged in to, on any site. No other route was
+attempted. 40 questions open going in, 40 going out. Q59 already asks how to
+clear this block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 817ac3a, worktree clean. Unchecked
+items taken first as the procedure requires. 6.6 is still the ONLY unchecked
+item that is not [BLOCKED] and still could not be advanced: re-read in full
+this run rather than taken on the last run's word, and its own corrected text
+says the redirect is not broken and what remains is a canonical tag plus a
+historic index artifact, both of which live in Weebly's head and admin, not in
+this repo, and both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 148. Run 148 handed
+over 3.7. This run re-derived it independently by joining each run heading with
+the next three lines before reading the item number, because several headings
+wrap and carry the number on a continuation line, and by taking the completed
+set from the worklist rather than from the log. Every one of the 41 completed
+items has a recorded pass, and 3.7, deepest in the log at line 4111, was the
+oldest, ahead of 3.8 (4044) and 3.9 (3974). THE NEXT RUN SHOULD TAKE 3.8, then
+3.9, then 3.10.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Smartts pages, 11
+service and 1 switch, re-read by a fourth independent extraction with its own
+file discovery, its own regexes and its own reading of branches.json, sharing
+no code with tools/. 2,952 checks, 0 failures: exactly one H1 per page and
+every one carrying Bootle; display phone 0151 922 4984 and tel:01519224984 on
+all 12 with no other branch's number in either shape; own street 42 Fernhill
+Road and own postcode L20 9HH only; JSON-LD parsed on all 12 and compared
+field by field including addressLocality Bootle and addressRegion Merseyside;
+NO hard-coded widget id anywhere, all estate ids scanned, so the diaries
+resolve at run time as the generators intend; pins consistent per family,
+service on service-module-phase1 and switch on 6a275e1; own ODS FQN70 and own
+nhs.net address only; no other branch's Google or NHS review link and no other
+branch's Pharmacy First link; no http:// href or src on any page; no other
+brand's label. 23 sheet rows, descriptions 133 to 152 characters. All 30
+checkers pass and all seven generators rebuild byte-identical,
+status/index.html changing only its timestamp line, which is the generator
+working rather than a diff.
+
+TWO APPARENT FINDINGS WERE FAULTS IN THIS RUN'S OWN SCRIPT, AND ARE WRITTEN UP
+RATHER THAN DROPPED. A pass that reports only its survivors is not evidence.
+First, all 12 pages were reported as carrying head office's tel: link:
+rbh_head_office_aintree holds an EMPTY phone string and an empty needle makes
+includes() true everywhere. Second, the GBP pack was reported as naming
+another brand, SK Chemists: it does, in the "Notes for the paster:" block,
+which is never pasted into a Google field and which exists to explain why the
+two Bootle profiles are deliberately worded differently. The cross-brand scan
+now runs on the pasteable half only, while the ASCII and dash-entity rules
+still run on the whole file, because a note pasted by mistake is the failure
+those rules exist for.
+
+THE DEFECT: THE ESTATE KEEPS THREE COPIES OF EVERY SEO FIELD AND A CHECKER
+COMPARED TWO. Each page's Weebly SEO title and description are written into
+the page's own head comment, into a *-SEO.md sheet, and into a *INDEX.md paste
+manifest. check-seo-sheets.js existed precisely to stop the first two
+drifting, and did. It read a NAMED list of six *-SEO.md files, so the five
+INDEX manifests, which carry the same two fields under the labels "SEO title"
+and "SEO description" for 163 of the 177 pages, were compared to nothing at
+all. Whoever does the pasting works from whichever sheet is open in front of
+them.
+
+PROVED BY INJECTION RATHER THAN BY READING. The service INDEX.md row for
+uti-treatment-smartts-bootle was changed to "UTI treatment in Aintree -
+Hirshmans Pharmacy": another branch, another brand, another town, on a Smartts
+page. All 30 checkers passed. That string would have gone into the live Weebly
+SEO title with nothing in between. The injection was reverted with git
+checkout before anything else was done.
+
+FIXED AT SOURCE, WITH THREE NEGATIVE TESTS. Sheets are now DISCOVERED rather
+than named, and each block is sorted into one of two label dialects by the
+labels it uses, so a sheet a future generator adds is covered the day it is
+written. Three negative tests:
+  INDEX SEO title naming another brand and town   -> FAIL, caught
+  INDEX SEO description drifting by two words     -> FAIL, caught
+  INDEX row pointing at a page that does not exist -> FAIL, caught
+All three fire, and each was reverted with git checkout. The 14 contraception
+pages have no INDEX row because no CONTRACEPTION-INDEX.md exists and they are
+covered by CONTRACEPTION-SEO.md, so a missing row is counted and reported
+rather than failed, while an INDEX sheet that parses to zero rows now fails.
+All 163 rows were already correct, so this closes a latent hole rather than a
+live breach, and no copy was edited on any page, sheet, pack or data field.
+
+THE TRAP INSIDE THE PARSE, WRITTEN DOWN SO IT IS NOT REDISCOVERED. The switch
+manifest writes a non-ASCII arrow after its backticked slug and the service
+manifest writes "->". A slug regex that reads past the closing backtick covers
+one sheet and silently drops the other: the first version of this run's own
+probe did exactly that and reported 29 uncovered pages when the real number
+was 14. The slug is now read from the backticks alone.
+
+WHY THIS ONE IS WORTH THE WORDS. It is the seventh of a family this file
+records six of, and it moves the question again. The six before it ask which
+FILES a checker reads and, last run, which LINES inside them it is willing to
+call public. This one had the right file, the right line and the right reading
+of it, and still missed, because the field it guards is written three times
+and the checker was built when it was written twice. So the question to carry
+forward is not only which files and which lines, but how many COPIES of the
+same public string exist, and whether a checker that compares two of them
+knows there is a third.
+
+FILES CHANGED. tools/check-seo-sheets.js (rule widened, reasoning written into
+the file header), AGENT_WORKLIST.md (3.7 pass noted in place),
+audits/smartts-independent-2026-08-13.js (new, this run's independent
+extraction), audits/seo-comment-vs-sheet-probe-2026-08-13.js (new,
+estate-wide probe), audits/smartts-build-check-2026-08-13.txt (new, evidence),
+status/index.html (timestamp line only, generator output).
+
 ## 2026-08-13 07:34 BST - hundred-and-forty-eighth run [commit 2432891, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes] - Quality pass on item
