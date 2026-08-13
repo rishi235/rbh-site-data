@@ -2,6 +2,100 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 17:05 BST - hundred-and-sixty-seventh run
+- Item 4.12 quality pass, the Coleman and Leighs Pharmacy Walton GBP pack,
+fourth pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in
+tools/check-gbp-packs.js, and it is estate-wide. No page, generator, data
+field, branches.json entry, paste sheet, GBP pack or piece of
+patient-facing copy was changed. All 31 checkers exit 0 before and after.
+No new question raised.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-12 live verdicts on this
+item stand as written. Answer pickup (step 3) was unavailable for the
+same reason, which is Q59 and remains the run-level blocker. That is now
+fourteen consecutive runs without an answer fetch, and 42 questions are
+open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. Nothing turned on it, because this run raised no
+question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no
+item to take. Ordering was re-derived from this log rather than assumed,
+by parsing every run header and the item each run named, then ranking the
+41 completed items by how long ago each was last verified. Item 4.12 came
+out oldest at 42 runs, last verified at run 124 on 2026-08-12 17:04 BST.
+Fourth pass on this item.
+
+THE PACK ITSELF IS CLEAN AND STABLE ACROSS FOUR PASSES. Every fact
+re-verified against branches.json: name "Coleman and Leighs Pharmacy",
+241 Walton Village, Liverpool L4 6TH, 0151 525 3522, website, review
+link, hasApp false with no app mention anywhere, catchment Walton,
+Liverpool and Sefton. All five character counts came back byte-identical
+to all three earlier passes: description 631 and posts 456, 321, 528 and
+433. Zero non-ASCII, zero dash characters, zero dash entities, and zero
+hits against the full 82-name union in tools/pom-names.js.
+
+EIGHT INJECTIONS, SEVEN CAUGHT. The harness was held outside the repo at
+C:\Dev\rbh-agent-tmp from the start, per run 165's lesson that a checker
+walking the tree will read the agent's own scratch files and report an
+injection as caught when it was not. Caught: a Post B button URL path
+typo, a Post D button URL swapped from .co.uk to .com, one character of
+the review-link token, the postcode, the house number in the profile
+basics, the weekday closing time, and the catchment town in the
+description. Both button-URL injections are worth recording because the
+host-comparison rule at line 998 only compares the host: the path typo is
+caught by a separate rule, so the pair is genuinely guarded rather than
+half guarded, which is what the phone number turned out to be at run 166.
+
+THE REAL DEFECT: A TOLERANCE BAND ROUND A NUMBER MEANT TO BE EXACT.
+The rule that verifies the description heading's stated character count
+read `if (Math.abs(claimed - oneLine.length) > 5)`, directly under a
+comment saying "If it does, it must be true." The code did not do what
+the comment said. An eleven-character window (-5 to +5) sat around the
+figure, so an edit changing the description by up to five characters left
+the heading stating a number that was no longer true with every checker
+green. Found by lengthening "for years" to "for many years", exactly five
+characters, which is not "> 5" and so passed.
+
+WHY THE SLACK WAS INDEFENSIBLE RATHER THAN MERELY LOOSE. descriptionOf()
+and the line-join above it are deterministic, so the measurement has no
+jitter for a tolerance to absorb. All 16 files in gbp-packs were measured
+on this pass and every pack that states a count matches it EXACTLY, not
+one off by even a single character. So no pack had ever used the slack.
+What it did instead was let the one number the paster is told to trust
+drift silently.
+
+SCOPE OF THE HARM, STATED HONESTLY. The hard 750 GBP limit is enforced by
+a separate rule five lines above, and that rule was verified this pass
+against a 771-character injection: CAUGHT. So an over-length description
+could never have reached a public profile through this gap, and this is a
+stale-claim defect, not a truncated-paste defect. It still matters,
+because five packs sit within fifteen characters of the limit
+(fishlocks-ainsdale 746, hirshmans-ainsdale 743, scorah-bramhall 742,
+cherry-lane-walton 736, sk-chemists-bootle 735), and on those a heading
+understating the true length by five is the difference between a paster
+reading headroom that exists and headroom that does not.
+
+THE FIX AND ITS VERIFICATION. The tolerance is removed; the comparison is
+now `claimed !== oneLine.length`. The reasoning is recorded in a comment
+block at the rule so a later run does not reintroduce the slack as a
+convenience. Verified three ways: all 31 checkers still exit 0 with the
+fix in place, so no existing pack is broken by the tightening; the +5
+injection that previously passed is now caught with the message "FAIL
+coleman-leigh-walton.md: description heading claims 631 characters,
+actual is 636"; and a +1 injection, the tightest drift possible, is
+caught too. tools/check-gbp-packs.js was searched for sibling uses of the
+same pattern and this was the only Math.abs tolerance in the file.
+
+FILES CHANGED: tools/check-gbp-packs.js (rule tightened plus comment),
+AGENT_WORKLIST.md (fourth pass appended in place to item 4.12),
+AGENT_LOG.md (this entry).
+
 ## 2026-08-13 16:34 BST - hundred-and-sixty-sixth run [commit e17703d, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]

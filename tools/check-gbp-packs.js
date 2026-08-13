@@ -861,10 +861,35 @@ for (const file of packFiles) {
       fail(file, `business description is ${oneLine.length} characters, over the 750 GBP limit`);
     }
     // The heading usually states its own count. If it does, it must be true.
+    //
+    // This rule carried a Math.abs(...) > 5 tolerance until the fourth
+    // quality pass of item 4.12 on 2026-08-13, and the tolerance is why the
+    // rule did not do what the line above it says. An eleven-character window
+    // (-5 to +5) sat around a number that is meant to be exact, so an edit
+    // that changed the description by up to five characters left the heading
+    // stating a figure that was no longer true and every checker green. The
+    // pass found it by lengthening "for years" to "for many years", exactly
+    // five characters, which is not "> 5" and so passed.
+    //
+    // The tolerance bought nothing. descriptionOf() and the join above are
+    // deterministic, and all fifteen packs plus TEMPLATE.md were measured on
+    // the same pass: every pack that states a count matches it exactly, none
+    // off by even one, so no pack ever needed the slack. What the slack did
+    // instead was let the one number the paster is told to trust drift.
+    //
+    // The hard 750 limit above is separately enforced and was verified
+    // against a 771-character injection on the same pass, so an over-length
+    // description cannot reach a profile through this gap. The exposure here
+    // is a stale claim, not a truncated paste: five packs sit within fifteen
+    // characters of the limit (fishlocks-ainsdale 746, hirshmans-ainsdale
+    // 743, scorah-bramhall 742, cherry-lane-walton 736, sk-chemists-bootle
+    // 735), and on those a heading understating the true length by five is
+    // the difference between a paster reading headroom that exists and
+    // headroom that does not.
     const stated = text.match(/^##\s*1\.\s*Business description[^\n]*?this is (\d+)/mi);
     if (stated) {
       const claimed = Number(stated[1]);
-      if (Math.abs(claimed - oneLine.length) > 5) {
+      if (claimed !== oneLine.length) {
         fail(file, `description heading claims ${claimed} characters, actual is ${oneLine.length}`);
       }
     }

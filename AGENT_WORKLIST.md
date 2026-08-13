@@ -1771,6 +1771,39 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       repo-generated page, not a Mounjaro page, so here the homepage line
       is the whole of the exposure. No new question: every finding lands
       on a decision already made. Done 2026-08-12.
+      Fourth quality pass 2026-08-13. REPO HALF ONLY: two Chrome instances
+      are connected and an unattended run cannot choose between them, so
+      nothing live was read and the 2026-08-12 live verdicts above stand
+      as written. The pack is stable across four passes: every fact
+      re-verified against branches.json (name, 241 Walton Village
+      Liverpool L4 6TH, 0151 525 3522, website, review link, hasApp false
+      with no app mention, catchment Walton, Liverpool and Sefton), and
+      all five character counts came back byte-identical to all three
+      earlier passes (description 631, posts 456, 321, 528 and 433). Zero
+      non-ASCII, zero dash characters, zero dash entities, zero hits
+      against the full 82-name union in tools/pom-names.js. All 31
+      checkers exit 0. Eight injections were run against the pack from a
+      harness held outside the repo; seven were caught, including both
+      button-URL injections (a path typo and a .co.uk to .com swap), the
+      review-link token, the postcode, the house number, the closing time
+      and the catchment town. ONE IN-REPO DEFECT FOUND AND FIXED, in
+      tools/check-gbp-packs.js: the rule that verifies the description
+      heading's stated character count carried a Math.abs(...) > 5
+      tolerance, an eleven-character window around a number meant to be
+      exact, directly contradicting its own comment that the claim "must
+      be true". A five-character edit to the description left the heading
+      stating a figure that was no longer true with every checker green.
+      All 16 packs were measured: every one that states a count matches
+      it exactly, so the slack had never been needed by any pack and only
+      served to let the number the paster is told to trust drift. The
+      tolerance is removed and the comparison is now exact. The hard 750
+      limit is separately enforced and was verified against a
+      771-character injection, so no over-length description could ever
+      have reached a profile through this gap; the exposure was a stale
+      claim, which matters most on the five packs sitting within fifteen
+      characters of the limit. No page, generator, data field,
+      branches.json entry, paste sheet, GBP pack or piece of
+      patient-facing copy was changed. No new question raised.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
