@@ -2338,6 +2338,37 @@ so tools/build-audit-status.js picks them up like any other item.
       the whole fix. One count correction: the decoded live title is 67
       characters, not the 68 run 77 recorded; same string, no consequence.
       Evidence: audits/insect-bite-title-live-check-2026-08-12.txt.
+      Quality pass 2026-08-13: repo half verified clean a fourth time (30
+      checkers green, all six generators byte-identical, the 61-character
+      insect bite title standing in the page, the paste sheet and the index,
+      KNOWN in check-seo-lengths.js still empty, the self-test still deriving
+      the longest condition from build-service-pages.js). REPO HALF ONLY: no
+      browser was available, so the Q14 live repaste is unverified this run
+      and remains outstanding. ONE REAL DEFECT FOUND AND FIXED: the Q14
+      length rule did not reach the switch page family at all. seo-pattern.js
+      has four title composers; searchTitle, landingTitle and brandTitle all
+      compose through fitTitle, and switchTitle concatenated directly, so the
+      one rule item 5.6 exists to enforce was absent from 15 of the 177
+      titles. Measured before fixing: the longest switch title is "Switch
+      Your Prescriptions to Coleman and Leighs Pharmacy, Walton" at 64
+      characters, ONE under the limit, on the longest brand in the estate,
+      which is also the one brand fitTitle can rescue because it ends in
+      " Pharmacy". The fixed 29-character prefix gives this family the least
+      headroom of the four and it was the only one with no rule behind it.
+      Fixed by wiring switchTitle through fitTitle. Negative-tested four
+      ways: real data unchanged, an injected 65-character town correctly not
+      shortened, an injected "Walton Vale" going 69 to 60 where the old code
+      shipped 69, and a brand not ending in " Pharmacy" correctly declined
+      and left long, which is Q24's recorded limitation and not a new
+      question. Output unchanged: all 177 pages and all six paste sheets
+      regenerate byte-identical, the only modified file is the composer.
+      Measured, not fixed, and recorded here rather than raised: the true
+      worst case in the estate is not the insect bite title but "NHS
+      contraception service in Walton - Coleman and Leighs Pharmacy" at
+      exactly 65, which is legal and correctly left alone by fitTitle, and
+      check-seo-lengths.js holds its own TITLE_MAX = 65 rather than importing
+      the exported TITLE_WARN_LEN, which is left as it is on purpose so the
+      checker stays an independent witness to the composer.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a

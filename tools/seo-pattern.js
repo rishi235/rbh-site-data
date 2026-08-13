@@ -174,9 +174,27 @@ function brandH1(service, b) {
 // ---------------------------------------------------------------------------
 // Switch pages - canonical Phase 3 form (generator adopts during rollout)
 // ---------------------------------------------------------------------------
+// Composed through fitTitle like every other title in this file. It was not,
+// until the item 5.6 quality pass on 2026-08-13: switchTitle was the one
+// composer of the four that concatenated directly, so the Q14 length rule -
+// the whole point of item 5.6 - did not reach the switch family at all. That
+// mattered rather than being tidiness, because the longest switch title in the
+// estate is "Switch Your Prescriptions to Coleman and Leighs Pharmacy, Walton"
+// at 64 characters, ONE character under the 65 limit, on the one brand Q14
+// exists to protect and the one brand fitTitle can actually rescue (it is the
+// longest brand in the estate and it ends in " Pharmacy"). The fixed prefix
+// "Switch Your Prescriptions to " is 29 characters, so this family has the
+// least headroom of the four and was the only one with no rule behind it. Any
+// future rename or seoTown change that added one character would have shipped
+// a truncated title with no auto-fix, and check-seo-lengths would have failed
+// the board instead, needing a human to clear what Q14 already decided.
+// Wiring fitTitle in changes no current output: all 15 switch titles are 64
+// characters or fewer, so every switch page regenerates byte-identical.
 function switchTitle(b) {
   var s = pick(b);
-  return "Switch Your Prescriptions to " + s.brand + ", " + s.town;
+  return fitTitle(function (brand) {
+    return "Switch Your Prescriptions to " + brand + ", " + s.town;
+  }, s.brand);
 }
 function switchH1(b) {
   var s = pick(b);

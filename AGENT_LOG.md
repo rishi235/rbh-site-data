@@ -2,6 +2,102 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 12:50 BST - hundred-and-fifty-eighth run
+- Quality pass on item 5.6, the stalest completed item. ONE REAL DEFECT FOUND
+AND FIXED IN REPO: the Q14 title-length rule, which is the whole substance of
+item 5.6, did not reach the switch page family at all. Fixed by composing
+switchTitle through fitTitle like the other three composers. No page, generator,
+data field or piece of patient-facing copy was changed, and no output moved.
+REPO HALF ONLY: no browser was available, so nothing live was read and nothing
+live is claimed.
+
+THE FINDING. tools/seo-pattern.js has four title composers. searchTitle,
+landingTitle and brandTitle each wrap their concatenation in fitTitle, which is
+where the Q14 rule lives: a composed title over 65 characters is retried once
+with " Pharmacy" dropped from the end of the brand. switchTitle concatenated
+directly and returned. So on 15 of the estate's 177 titles the rule item 5.6
+exists to enforce was simply not wired in. Three earlier passes on this item
+(2026-08-10, 08-11, 08-12) verified the insect bite title end to end and found
+the repo half clean each time; none of them looked at whether the rule reached
+every family, because each was checking the fix rather than its reach.
+
+THE HARM MEASURED FIRST, NOT ASSERTED. Every title in all six paste sheets was
+parsed and sorted by length before anything was changed. The longest switch
+title is "Switch Your Prescriptions to Coleman and Leighs Pharmacy, Walton" at
+64 characters. That is ONE character under the limit, on the longest brand in
+the estate, and it is one of only three brands fitTitle can rescue at all,
+because it ends in " Pharmacy". The switch prefix is a fixed 29 characters,
+which leaves 34 for brand plus town and makes this the tightest of the four
+families; it was also the only one with no rule behind it. A rename, or a
+seoTown change of the kind item 5.7 made to McCanns two days ago, adding a
+single character would have shipped a truncated SERP title with no auto-fix,
+and check-seo-lengths would have turned the board red instead, needing a human
+to clear a case Q14 had already decided. Same shape as the last several passes:
+the rule was right, its reach was not.
+
+PROVED TO BITE, AND PROVED NOT TO MOVE ANYTHING. Four cases through the real
+module. Real data unchanged: old and new both give 64, identical. Injected town
+one character longer, giving exactly 65: identical, correctly not shortened,
+because the rule fires above the limit and not at it. Injected "Walton Vale",
+a real neighbouring place: old ships 69 characters truncated, new gives 60 by
+dropping the word, which is exactly the Q14 decision applied automatically.
+Brand not ending in " Pharmacy" with a long town: the rule correctly declines
+and leaves it long at 71, which is Q24's already-recorded limitation and not a
+new question. Then all six generators were re-run: all 177 pages and all six
+paste sheets regenerate byte-identical, the only modified file is the composer,
+all 30 checkers green, self-test passes.
+
+TWO THINGS MEASURED AND DELIBERATELY NOT CHANGED. First, the true worst case in
+the estate is not the insect bite title this item is named after: it is "NHS
+contraception service in Walton - Coleman and Leighs Pharmacy" at exactly 65,
+zero headroom. It is legal and fitTitle correctly leaves it alone, so there is
+nothing to fix and nothing to ask. Second, check-seo-lengths.js holds its own
+TITLE_MAX = 65 while seo-pattern.js exports TITLE_WARN_LEN. That is a duplicated
+constant, but it is left alone on purpose: the checker is meant to be an
+independent witness to the composer, the same reason check-seo-pattern.js
+re-derives its expectations rather than importing them, and a drift here would
+be loud (every title failing) rather than silent.
+
+NO NEW QUESTION RAISED. A composer wiring: no money, no legal exposure, no
+patient-facing regulatory claim, no copy change, no decision for Rishi.
+41 questions open going in, 41 going out. (Run 157 said 42; the file itself
+says 41 of 65, which is the number used here.)
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and every hit
+is prose recording its absence. Nothing to decide either way this run.
+
+ROTATION RE-DERIVED INDEPENDENTLY, and it agrees with run 157. All 178 run
+headings were joined with the following lines and the item number read from
+each, anchored so 3.1 cannot swallow 3.10. Measured runs-back: 5.3 at 71, then
+5.6 at 40, 6.3 at 39, 5.7 at 38. 5.3 is excluded because it is unchecked and
+[BLOCKED] on Q8, and the quality-pass rotation is over COMPLETED items, so 5.6
+is the stalest eligible one. THE NEXT RUN SHOULD TAKE 6.3, THEN 5.7, THEN 4.6.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-sixth consecutive run, 121 to 158. Cause
+unchanged and re-confirmed rather than assumed: two Chrome extension instances
+are connected (Browser 1 and Browser 2, both Windows, both local), and the
+tooling requires a human to choose between them before any browser call and
+states the agent must not pick one itself. An unattended run has nobody to ask.
+Enumerating the extensions is the only thing that happened: NO page was
+fetched, and nothing was clicked, typed, submitted or logged in to, on any
+site. No other route was attempted. Q59 already asks how to clear this, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at d9cb980, tree clean. Unchecked items
+taken first as the procedure requires: 6.6 is still the ONLY unchecked item
+that is not [BLOCKED], and still cannot be advanced, for the reason its own
+corrected text gives - the redirect is not broken, what remains is a canonical
+tag in Weebly's head and a decaying historic index artifact, and both routes
+need the browser. So the run went to a quality pass. All 30 checkers green
+before any change.
+
+- Files changed: tools/seo-pattern.js (switchTitle composed through fitTitle,
+header comment recording the measurement and the injection evidence),
+AGENT_WORKLIST.md (5.6 quality pass recorded in place), AGENT_LOG.md.
+- Commit: see the follow-up hash line added above this entry.
+
 ## 2026-08-13 12:05 BST - hundred-and-fifty-seventh run [commit 251eefa, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]
