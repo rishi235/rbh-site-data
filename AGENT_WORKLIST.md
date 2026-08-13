@@ -2584,6 +2584,40 @@ so tools/build-audit-status.js picks them up like any other item.
       branches by their adjacent addresses as before, both correct.
       check-opening-hours.js green in the repo half. No in-repo defect
       found.
+      Second quality pass 2026-08-13, REPO HALF ONLY: two Chrome instances
+      are connected and an unattended run cannot choose between them, so no
+      browser call was made, nothing live was read and nothing live is
+      re-claimed. The 2026-08-12 verdicts stand as written and Q55 stays
+      open. ONE REAL DEFECT FOUND AND FIXED IN REPO, in the checker rather
+      than in any page or piece of data. tools/check-opening-hours.js is the
+      dedicated guard for this item and it could not see an omitted day.
+      Rules 1 to 3 compare the page against branches.json, and expectedRow()
+      renders a day that is in neither closedDays nor specification as
+      "Closed", which is exactly what the generator writes, so page and data
+      are derived from the same gap and always agree. Rule 4 guarded the
+      contradiction, a day in both lists; nothing guarded the gap, a day in
+      neither. Proved by injection: removing Saturday from mccanns_aigburth
+      without adding it to closedDays made the landing page publish
+      "Saturday: Closed" for a branch that trades 9am to 1pm and 2pm to 5pm,
+      and check-opening-hours still reported clean. The only two checkers
+      that failed were incidental and neither is a guard for this:
+      check-gbp-packs reads the static pack rather than the page, and
+      check-editor-snapshot fires on any branches.json edit at all,
+      legitimate or not. Publishing "Closed" on a trading day is the same
+      fault as publishing the wrong time, pointed the other way: it turns
+      patients away rather than sending them to a locked door. New rule 6
+      added at data level, so it covers the ten branches with no landing
+      page as well, because an unstated day also reaches the GBP packs and
+      the JSON-LD. Negative-tested eight ways: omission caught on a
+      landing-page branch and on a non-landing-page branch, a dropped
+      weekday block caught, a closedDays entry removed and caught, rule 4
+      still firing, no fire on a branch carrying no openingHours, and no
+      fire on a legitimate closure that is properly stated and regenerated.
+      Zero branches breach it on today's data, so the fix is a no-op on the
+      current estate and closes the gap for the next edit. No page, no
+      generator, no data field and no patient-facing copy changed. All 31
+      checkers green and all six generators rebuild byte-identical. No
+      question raised. Done 2026-08-13.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

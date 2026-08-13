@@ -24,6 +24,23 @@
  *      branches.json, no more and no fewer.
  *   4. A day cannot be in closedDays and in specification at the same time.
  *   5. A session must close after it opens.
+ *   6. Every day must be stated, in one list or the other. A day in neither is
+ *      an omission, not a closure.
+ *
+ * The defect that prompted rule 6 (found on the 6.3 quality pass, 2026-08-13):
+ * rules 1 to 3 compare the page against branches.json, and expectedRow() reads
+ * a day that appears in neither closedDays nor specification as "Closed" -
+ * exactly what the generator writes. So an omitted day makes the page and the
+ * data agree perfectly while both are wrong, and this checker reported clean.
+ * Proved by removing Saturday from mccanns_aigburth without adding it to
+ * closedDays: the landing page published "Saturday: Closed" for a branch that
+ * trades 9am to 1pm and 2pm to 5pm, and rules 1 to 5 all passed. Rule 4 guarded
+ * the contradiction, a day in both lists; nothing guarded the gap, a day in
+ * neither. The two checkers that did fail were incidental - check-gbp-packs
+ * reads the static pack, not the page, and check-editor-snapshot fires on any
+ * data edit at all. Publishing "Closed" on a trading day is the same fault as
+ * publishing the wrong time, pointed the other way: it turns patients away
+ * instead of sending them to a locked door.
  *
  * The expected strings are composed here from branches.json rather than
  * imported from the generator, on purpose. A checker that calls the code it
@@ -115,7 +132,9 @@ var branches = data.branches.filter(function (b) { return !b.disposed; });
 
 console.log("check-opening-hours");
 
-// Rules 4 and 5 apply to the data itself, landing page or not.
+// Rules 4, 5 and 6 apply to the data itself, landing page or not. Rule 6 in
+// particular must not be scoped to branches with a landing page: an unstated
+// day also reaches the GBP packs and the JSON-LD.
 branches.forEach(function (b) {
   var oh = b.openingHours;
   if (!oh) return;
@@ -128,6 +147,21 @@ branches.forEach(function (b) {
     (s.dayOfWeek || []).forEach(function (d) {
       if (DAYS.indexOf(d) === -1) fail(b.id + ': "' + d + '" is not a day of the week');
     });
+  });
+
+  // Rule 6. Silence is not a closure. expectedRow() and the generator both
+  // render an unstated day as "Closed", so an omission publishes a positive
+  // claim that the branch is shut and rules 1 to 3 cannot see it, because the
+  // page and the data are derived from the same gap and therefore always agree.
+  var stated = {};
+  (oh.closedDays || []).forEach(function (d) { stated[d] = 1; });
+  (oh.specification || []).forEach(function (s) {
+    (s.dayOfWeek || []).forEach(function (d) { stated[d] = 1; });
+  });
+  DAYS.forEach(function (d) {
+    if (!stated[d]) {
+      fail(b.id + ": " + d + " is in neither closedDays nor specification. An unstated day is published as \"Closed\", which tells patients the branch is shut. State it either way");
+    }
   });
 });
 

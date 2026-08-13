@@ -2,6 +2,99 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-sixty-first run
+- Item 6.3 quality pass, opening hours vs branches.json across the estate. ONE
+REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-opening-hours.js. No page,
+generator, data field or piece of patient-facing copy was changed, all 31
+checkers pass and every page regenerates byte-identical from all six
+generators. No new question raised.
+
+REPO HALF ONLY: two Chrome instances are connected and an unattended run cannot
+choose between them, so no browser call was made, nothing live was read and
+nothing live is claimed. The 2026-08-12 live verdicts on this item stand as
+written and Q55 stays open. Answer pickup was unavailable for the same reason
+(Q59), which remains the run-level blocker.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. The only real one expired
+2026-08-10 23:14 BST, three days ago, so step 7 applied as written. Nothing
+turned on it, because this run raised no question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items are
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item to
+take and the run did a quality pass instead. Selecting the least recently
+verified item needed care, because NEITHER of the two records is complete on
+its own and each is wrong in a different direction. The worklist's in-place
+notes make 3.12 look like the oldest item in the estate, last verified
+2026-08-04 with no pass ever recorded; the log shows 3.12 was in fact passed
+today. The log parsed naively makes 4.14 look like 2026-08-11; its worklist
+block records a third pass on 2026-08-12. Reconciling both gives sixteen items
+tied on the oldest standing date, 2026-08-12: 2.1, 2.2, 2.3, 4.2, 4.6 to 4.15,
+5.7 and 6.3. 6.3 breaks the tie on COUNT and not by a little: one recorded pass
+against three or more for every other item in the tie. Oldest date and fewest
+looks, so it was taken on the record rather than by preference.
+
+THE FINDING: THE CHECKER AND THE PAGE READ THE SAME GAP, SO THEY AGREED WHILE
+BOTH WERE WRONG. check-opening-hours.js is the dedicated in-repo guard for this
+item. Its rules 1 to 3 compare the visible hours card and the JSON-LD against
+branches.json, and expectedRow() renders a day that appears in neither
+closedDays nor specification as "Closed". That is exactly what the generator
+writes for the same day. So an omitted day cannot be caught by comparing page
+to data: both sides are derived from the omission and always match. Rule 4
+guarded the contradiction, a day in both lists at once. Nothing guarded the
+gap, a day in neither.
+
+PROVED BY INJECTION, NOT ASSERTED. Saturday was removed from mccanns_aigburth's
+specification without being added to closedDays, and the landing pages were
+regenerated. The page then published "Saturday: Closed" for a branch that
+trades 9am to 1pm and 2pm to 5pm, and check-opening-hours reported "clean,
+every visible and structured opening time matches branches.json". Two checkers
+did fail, and both are incidental rather than guards for this: check-gbp-packs
+failed because it reads the static pack, which still stated Saturday, so it
+guards the pack and not the page and would go quiet the moment the pack was
+brought into line; check-editor-snapshot failed because it fires on any
+branches.json edit at all, legitimate or not, so it reports staleness rather
+than correctness. Neither would survive the omission being made properly.
+
+WHY IT MATTERS. Hours are the one piece of copy that sends a patient to a
+locked door, which is why this checker exists at all. Publishing "Closed" on a
+trading day is the same fault pointed the other way: it turns patients away
+from a pharmacy that is open, and unlike a wrong time nobody arrives to
+discover it, so it would not be reported.
+
+THE FIX. New rule 6: every day must be stated, in one list or the other. Placed
+in the data-level loop rather than the page loop on purpose, so it also covers
+the ten trading branches that have no landing page, because an unstated day
+reaches the GBP packs and the JSON-LD too. Negative-tested eight ways: omission
+caught on a landing-page branch and on a non-landing-page branch; a dropped
+weekday block caught; a closedDays entry removed and caught; rule 4 still
+firing; correctly silent on a branch carrying no openingHours at all (head
+office and Clear Chemist, which legitimately have none); and correctly silent
+on a legitimate closure that is properly stated and regenerated. One test
+initially read as a false positive and was not accepted as one: closing
+Saturday in the data without rebuilding the page fired rule 2, which is rule 2
+doing its job on a stale page, so the test was rerun with the regeneration a
+real closure would involve and rule 6 stayed silent as intended.
+
+NO DEFECT WAS HIDING IN THE BLIND SPOT ON THE DAY IT WAS CLOSED. All 14
+branches carrying hours state all seven days today, so zero branches breach
+rule 6 and the fix is a no-op on the current estate. The gap was the finding,
+not a live breakage.
+
+ONE HOUSEKEEPING NOTE. tools/check-live-hours.js matches tools/check-*.js and
+so was executed by the all-checkers sweep. It performs live read-only GETs and
+rewrites audits/live-hours-check-<date>.json. Because one sweep ran while the
+injected data was in place, it wrote the injected expectation
+("Saturday": "Closed") into today's audit file. That was caught on the
+post-restore diff and reverted, and the file is byte-identical to HEAD. No live
+verdict is made or changed by this run. Worth knowing for future runs: the
+all-checkers sweep is not side-effect free, and check-live-hours is a survey
+tool that always exits 0 rather than a gate.
+
+- Files changed: tools/check-opening-hours.js (rule 6 plus the header note
+recording why it exists), AGENT_WORKLIST.md (6.3 second pass recorded in
+place), AGENT_LOG.md.
+
 ## 2026-08-13 - hundred-and-sixtieth run
 - Item 4.5 quality pass, Scorah Chemists Hazel Grove GBP pack. ONE REAL DEFECT
 FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. The pack itself is clean
