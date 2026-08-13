@@ -1,0 +1,119 @@
+Item 2.1 Fishlocks Ainsdale - quality pass, fifth pass (repo half only)
+Run 174, 2026-08-13. Branch agents/audit-backlog.
+
+BASELINE BEFORE ANY CHANGE
+  32 checkers, all exit 0.
+  6 generators rebuilt, byte-stable, git status clean apart from the
+  audits/live-hours-check-2026-08-13.json line-ending noise carried since
+  run 169.
+
+THE PAGE SET
+  13 pages own this branch, and the folder split is what the finding turns on:
+    modules/branch/pages   1  pharmacy-fishlocks-ainsdale.html
+    modules/service/pages 11  pharmacy-first, uti, sore-throat, sinusitis,
+                              earache, impetigo, shingles, insect-bite,
+                              contraception, travel-clinic, weight-loss-clinic
+    modules/switch/pages   1  switch-prescriptions-fishlocks-ainsdale.html
+
+THE DEFECT: A REGULATED COPY CHECKER ONE FOLDER SHORT
+  tools/check-weight-loss-copy.js declared PAGE_DIR as modules/service/pages
+  and nothing else. All ten of its rules ran on the 15 weight loss pages and
+  none of them on the six branch landing pages.
+
+  The landing pages advertise the same private clinic three times each, all
+  composed in tools/build-branch-landing-pages.js:
+    line 301  hero paragraph, "... and private weight loss and travel clinics"
+    line 305  hero bullet,    "Private weight loss and travel clinics"
+    line 145  service tile,   "Weight loss clinic" +
+    line 146  tile blurb,     "Private weight loss support with our pharmacy
+                               team. Book a consultation to find out more."
+  plus the tile's href into that branch's weight loss page.
+
+  Two other copy checkers are short in exactly the same way and are NOT closed
+  by this run, recorded here so the next pass has them: check-travel-clinic-
+  copy.js and check-contraception-copy.js both declare
+  modules/service/pages only, and the same landing pages advertise the travel
+  clinic in the same three places. Weight loss was taken first because it is
+  the only one of the three with a live regulatory question open against it.
+
+WHY THIS IS THE STRICTER HALF, NOT THE LOOSER ONE
+  AI\RBH_WeightLoss_Advertising_Standards.md splits by how a page is REACHED,
+  not by how important it looks. The inner-page exemption covers "the inner
+  pages of a clinic or pharmacy's own website, but not the homepage or a
+  proactively linked landing page".
+
+  A branch landing page is a proactively linked landing page by construction:
+  each of the six packs in gbp-packs/ sets a Google Business Profile website
+  field to one of these six URLs. So the 15 weight loss pages, which a
+  consumer chooses to open, sit in the looser regime and were fully checked;
+  the six landing pages sit in the near-total prohibition and were checked by
+  nothing.
+
+RULE 11, ADDED
+  Whole page, comments blanked, RAW rather than visible text, because the
+  standard bars a POM reference in "even hover text and small print":
+    - no name from pom-names.WEIGHT_LOSS (21 names)
+    - no POM class reference: GLP-1, skinny jab, fat jab, obesity treatment
+      jab, weight loss / slimming injections, jabs, pens or shots
+    - no "Buy Now", "Add to Basket", "Buy [product]"
+  Weight loss sentences only, so Pharmacy First and travel clinic copy on the
+  same page is not held to a rule written for another service:
+    - no once-a-week or weekly-injectable dosing reference
+    - no rate-of-loss or body-part claim (CAP rule 13.9)
+    - no offer, discount, half price, Black Friday, money off, free medicine
+    - no efficacy or results claim, from tools/claim-patterns.js
+  Positive floor, anchored on the tile that links into the weight loss page:
+    - that tile must call the service a consultation
+  Floors:
+    - source floor on tools/build-branch-landing-pages.js: if it composes no
+      weight loss wording at all, rule 11 fails rather than passing on nothing
+    - coverage floor of four pages, same figure and reason as rule 7 of
+      check-pharmacy-first-cost.js
+
+  DELIBERATELY NOT BARRED: a plain consultation price. The same standard
+  permits "only indicative prices for a condition ... e.g. consultation price
+  and initial course price" on a homepage-class page. Failing that would be
+  the checker inventing a rule. What is barred is the offer wrapped round the
+  price, which is what the ASA rulings are actually about.
+
+THE FIRST DESIGN OF THE POSITIVE FLOOR WAS WRONG AND PASSED
+  Worth recording because it looked correct. The floor first read the weight
+  loss sentences plus the sentence after each. The hero bullet list carries no
+  full stops, so it collapses into one pseudo-sentence holding both "Free NHS
+  Pharmacy First consultations" and "Private weight loss and travel clinics".
+  Deleting the word consultation from the weight loss tile then left the floor
+  satisfied by Pharmacy First's use of it two services away, and injection 11
+  passed clean. Re-anchored on the tile element itself. A positive rule that
+  can be satisfied by a different service's copy is not a rule.
+
+NEGATIVE TESTING, 17 CASES, ALL AS EXPECTED
+  Each injected one at a time into pharmacy-fishlocks-ainsdale.html, checker
+  run, file restored byte for byte.
+  01 medicine name in visible copy (Mounjaro)              FAIL as expected
+  02 medicine name in a title attribute only (Wegovy)      FAIL as expected
+  03 "weight loss injections"                              FAIL as expected
+  04 "skinny jab"                                          FAIL as expected
+  05 "GLP-1"                                               FAIL as expected
+  06 "Buy now"                                             FAIL as expected
+  07 "20% off your first month"                            FAIL as expected
+  08 "lose 2 stone in 8 weeks"                             FAIL as expected
+  09 "lose belly fat fast"                                 FAIL as expected
+  10 "once a week"                                         FAIL as expected
+  11 consultation removed from the tile                    FAIL as expected
+  11b tile href repointed away from the weight loss page   FAIL as expected
+  12 "a free trial"                                        FAIL as expected
+  13 GUARD plain consultation price on the page            PASS as expected
+  14 GUARD free NHS Pharmacy First beside weight loss      PASS as expected
+  15 GUARD travel clinic price on the same page            PASS as expected
+  16 coverage floor, three of six pages hidden             FAIL as expected
+  Case 02 is the one that justifies reading raw rather than visible text: the
+  medicine sat only in a title attribute, which visible() strips, and it is
+  the exact case the standard names.
+
+AFTER THE CHANGE
+  32 checkers, all exit 0. Six generators rebuilt, byte-stable.
+  git status shows tools/check-weight-loss-copy.js only. No page, no copy, no
+  data field, no branches.json entry and no pack was changed.
+
+NO NEW QUESTION. Rule 11 encodes the house standard as written; it decides
+nothing that was open.

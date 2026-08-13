@@ -2,6 +2,120 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 23:05 BST - hundred-and-seventy-fourth run
+- Item 2.1 quality pass, Fishlocks Ainsdale, fifth pass. ONE REAL DEFECT FOUND
+AND FIXED, in tools/check-weight-loss-copy.js. No page, generator, data field,
+branches.json entry, pack or piece of patient-facing copy was changed. All 32
+checkers exit 0 and all six generators rebuild to a zero diff, before and
+after. No new question.
+
+ANSWER PICKUP UNAVAILABLE, eleventh consecutive run and the same cause Q59
+already records, so no new question is raised for it. Two Chrome instances are
+connected and the browser tooling requires a human to choose between them
+before it will read anything, which an unattended run cannot supply. No fetch
+was attempted past that point and no other route was tried. 45 questions are
+open with nothing posted since 2026-08-10. The concrete unblock, for the
+record, is one action on Rishi's side rather than anything this agent can do:
+leave a single Chrome signed in and disconnect the second extension instance,
+after which step 3 resumes on its own.
+
+NO AUTONOMOUS WINDOW. The top of this log carries no "Standing authorisation -
+autonomous window" section, so step 7 applied as written. Nothing this run
+needed deciding: rule 11 encodes the house standard as written and settles
+nothing that was open.
+
+NO LOCK CONTENTION. No .agent-lock and no git index.lock were present, so the
+lock was taken cleanly at 22:58. audits/live-hours-check-2026-08-13.json again
+shows as modified while git diff returns nothing, line endings only, left
+unstaged as in the last five runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived by
+parsing the SUBJECT of each of the 211 run headings, the method the previous
+run settled on after mention-counting proved contaminated by runs naming other
+items in their prose. Counting back from this run, 2.1 was last worked 42 run
+headings ago, then 4.7 at 41 and 4.2 at 40. 2.1 it is.
+
+THE DEFECT: A REGULATED COPY CHECKER ONE FOLDER SHORT. Exactly the shape run
+172 left in check-pharmacy-first-cost.js and the previous run closed as rule 7.
+tools/check-weight-loss-copy.js declared PAGE_DIR as modules/service/pages and
+nothing else, so all ten of its rules ran on the 15 weight loss pages and none
+of them on the six branch landing pages. Those pages advertise the same
+private clinic three times each, every word of it composed in
+tools/build-branch-landing-pages.js: a hero paragraph, a hero bullet, and a
+service tile whose blurb sells the clinic and links into that branch's weight
+loss page.
+
+WHY THIS IS THE STRICTER HALF, NOT THE LOOSER ONE. This is the part worth
+reading twice, because the instinct is backwards.
+AI\RBH_WeightLoss_Advertising_Standards.md splits the position by how a page is
+REACHED, not by how important it looks, and the inner-page exemption covers
+"the inner pages of a clinic or pharmacy's own website, but not the homepage or
+a proactively linked landing page". A branch landing page is the excluded case
+by construction: each of the six packs in gbp-packs/ sets a Google Business
+Profile website field to one of these six URLs, and each page carries a tile
+that proactively links into the weight loss page. So the 15 weight loss pages,
+which a consumer chooses to open, sit in the exemption and were fully checked,
+while the six pages under near-total prohibition were checked by nothing. The
+copy on them is correct today. The only thing keeping it correct was that
+nobody had edited it.
+
+RULE 11. Read across the whole page, from the raw file with only the paste
+comment blanked rather than from visible text: no name from
+pom-names.WEIGHT_LOSS, no POM class reference (GLP-1, skinny jab, fat jab,
+obesity treatment jab, weight loss or slimming injections, jabs, pens, shots),
+no "Buy Now", "Add to Basket" or "Buy [product]". Read in the weight loss
+sentences only, so the Pharmacy First and travel clinic copy beside it is not
+held to another service's rule: no once-a-week or weekly-injectable dosing
+reference, no rate-of-loss or body-part claim, no offer, discount, half price,
+Black Friday or free medicine, and no efficacy claim from claim-patterns.js.
+Plus a source floor on the generator, a coverage floor of four pages (same
+figure and reason as rule 7 next door), and a positive floor.
+
+READING RAW RATHER THAN VISIBLE TEXT IS THE POINT, not a detail. The standard
+says even hover text and small print must not refer to a specific POM, and
+visible() strips exactly the places that live: attributes, hrefs, alt text.
+Injection 02 put "Wegovy" in a title attribute and nowhere else, and only the
+raw scan sees it.
+
+WHAT RULE 11 DELIBERATELY DOES NOT BAR: a plain consultation price. The same
+standard permits "only indicative prices for a condition ... e.g. consultation
+price and initial course price" on a homepage-class page. Failing that would be
+this checker inventing a rule rather than encoding one. What is barred is the
+offer wrapped round the price, which is what the ASA rulings are about.
+
+THE FIRST DESIGN OF THE POSITIVE FLOOR WAS WRONG AND PASSED. Recording it
+because it looked right. The floor first read the weight loss sentences plus
+the sentence following each. The hero bullet list carries no full stops, so it
+collapses into one pseudo-sentence holding both "Free NHS Pharmacy First
+consultations" and "Private weight loss and travel clinics". Deleting the word
+consultation from the weight loss tile then left the floor satisfied by
+Pharmacy First's use of it two services away, and the injection that should
+have failed passed clean. Re-anchored on the tile element itself, which is also
+the more faithful rule: the standard's concern is a consultation ad that links
+into a treatment page, and the tile is the thing doing the linking.
+
+NEGATIVE TESTED 17 WAYS, all as expected: medicine name in copy, medicine name
+in an attribute only, weight loss injections, skinny jab, GLP-1, Buy now, 20%
+off, lose 2 stone in 8 weeks, lose belly fat, once a week, consultation removed
+from the tile, tile href repointed away from the weight loss page, a free
+trial, and the coverage floor with three of six pages hidden. Three guards
+confirm it does not fail correct copy: a plain consultation price, the free NHS
+Pharmacy First wording sitting in the same sentence as weight loss, and a
+travel clinic price on the same page.
+
+LEFT FOR THE NEXT PASS, deliberately not widened into this run:
+check-travel-clinic-copy.js and check-contraception-copy.js both declare
+modules/service/pages only and are short in exactly the same way, and the same
+six landing pages advertise the travel clinic in the same three places. Weight
+loss was taken first because it is the only one of the three with a live
+regulatory question open against it. This needs no decision from Rishi, so it
+is recorded here rather than raised as a question.
+
+- Files changed: tools/check-weight-loss-copy.js, AGENT_WORKLIST.md,
+AGENT_LOG.md. Evidence:
+audits/fishlocks-ainsdale-quality-pass-2026-08-13.txt.
+
 ## 2026-08-13 22:05 BST - hundred-and-seventy-third run [commit e40dc37, this
 hash line added by a small follow-up commit, which is why the log is one
 commit behind the work it describes]

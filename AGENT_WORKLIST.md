@@ -151,6 +151,33 @@ audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt.
       catches the injection, and catches post-5.3-style sister swaps on
       McCanns and Scorah too. No page, copy or data change. Evidence:
       audits/fishlocks-ainsdale-quality-pass-2026-08-12b.txt.
+      Quality pass 2026-08-13 (fifth pass, repo half only): all 32 checkers
+      pass and all six generators rebuild to a zero diff, before and after.
+      The pass found a regulated copy checker one folder short, the same
+      shape as the defect run 172 left in check-pharmacy-first-cost.js.
+      tools/check-weight-loss-copy.js declared modules/service/pages only, so
+      all ten of its rules ran on the 15 weight loss pages and none on the six
+      branch landing pages, which advertise the same private clinic three
+      times each. That is the stricter half, not the looser one: the house
+      standard splits by how a page is reached, the inner-page exemption
+      explicitly excludes "a proactively linked landing page", and each of the
+      six gbp-packs points a Google Business Profile website field at one of
+      these six URLs. RULE 11 added, holding the landing pages to Regime 1: no
+      medicine name anywhere including hover text and attributes (read raw,
+      not visible text), no POM class reference (GLP-1, skinny jab, weight
+      loss injections and the rest of the ASA-ruled list), no purchase
+      wording, and in the weight loss copy no results, rate-of-loss or
+      body-part claim and no offer or discount, plus a source floor, a
+      coverage floor of four, and a positive floor that the tile linking into
+      the weight loss page must call the service a consultation. A plain
+      consultation price is deliberately still allowed, because the standard
+      permits indicative prices on a homepage-class page. Negative tested 17
+      ways, all as expected, including the attribute-only medicine name that
+      visible text would have missed and a first design of the positive floor
+      that passed when it should have failed. No page, copy or data change.
+      Not closed and left for the next pass: check-travel-clinic-copy.js and
+      check-contraception-copy.js are short in exactly the same way. Evidence:
+      audits/fishlocks-ainsdale-quality-pass-2026-08-13.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

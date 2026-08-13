@@ -82,6 +82,14 @@
     RULE 8  no medicine named, from tools/pom-names.js.
     RULE 9  no efficacy or results claim, from tools/claim-patterns.js.
     RULE 10 the governance promise is still in the page's own paste comment.
+    RULE 11 the six branch landing pages in modules/branch/pages, which are
+            Regime 1 rather than Regime 2 and were read by none of the ten
+            rules above: no medicine name anywhere including attributes and
+            hover text, no POM class reference, no purchase wording, and in
+            the weight loss copy itself no results claim, no rate-of-loss or
+            body-part claim and no offer or discount. Plus the positive
+            floor: the tile that links into the weight loss page must call
+            the service a consultation.
 
   What is only REPORTED, not failed
   ---------------------------------
@@ -604,6 +612,268 @@ pages.forEach(function (p) {
   });
 });
 
+// ---------------------------------------------------------------------------
+// RULE 11, the branch landing pages, which are Regime 1.
+//
+// The ten rules above read modules/service/pages and nothing else. The six
+// branch landing pages in modules/branch/pages advertise the same private
+// clinic in three places each, composed in tools/build-branch-landing-pages
+// .js: a hero paragraph naming "private weight loss and travel clinics", a
+// hero bullet repeating it, and a service tile whose blurb sells the clinic
+// and links to that branch's weight loss page. None of that copy was read by
+// anything. This is the same shape as the defect run 172 left in
+// check-pharmacy-first-cost.js, found on the 2026-08-13 pass of item 2.2 and
+// closed there as rule 7: a checker written for one folder, and a second
+// folder saying the same things to more people.
+//
+// Why the landing pages are the stricter half, not the looser one
+// ---------------------------------------------------------------
+// AI\RBH_WeightLoss_Advertising_Standards.md splits the position in two, and
+// the split is not by page importance, it is by how the page is REACHED. The
+// inner-page exemption covers "the inner pages of a clinic or pharmacy's own
+// website, but not the homepage or a proactively linked landing page". A
+// branch landing page is the second of those by construction: each of the six
+// packs in gbp-packs/ sets a Google Business Profile website field to one of
+// these six URLs, so this is a proactively linked landing page in the literal
+// sense the standard means, and it also carries a button into the weight loss
+// page. So the weight loss pages in modules/service/pages, which nothing
+// links to from a profile and which a consumer chooses to open, sit in the
+// looser regime and are held by rules 1 to 10; the landing pages sit in the
+// near-total prohibition and until this rule were held by nothing.
+//
+// What Regime 1 bars, from the same file
+// --------------------------------------
+//   - "no reference to named POMs including price information", and "even
+//     hover text and small print ... must not refer to specific POMs". So the
+//     medicine scan here reads the RAW page with comments blanked, not the
+//     visible text: an href, a title attribute or an image alt naming a
+//     medicine is the case the standard calls out by name, and visible()
+//     strips exactly those.
+//   - the ASA has ruled a POM is promoted without being named, by the GLP-1
+//     class, "skinny jab", "weight loss injections", "weight loss pen",
+//     "obesity treatment jab" and a once-a-week dosing reference. Those are
+//     listed below rather than in tools/pom-names.js on purpose: pom-names is
+//     a list of NAMES required by five checkers, these are class references
+//     and they are barred in this regime only. If a second Regime 1 family
+//     ever needs them, promote them then, the way pom-names itself was
+//     promoted once three checkers had typed the same list.
+//   - "Buy Now", "Buy [product]" and "Add to Basket" must not be used on a
+//     website offering POM treatments.
+//   - special offers on medicine prices must not be highlighted and free
+//     offers are not permitted for any medicine.
+//   - rule 13.9: no claim to lose a stated amount in a stated period and none
+//     from a specific body part.
+//
+// What it deliberately does NOT bar
+// ---------------------------------
+// A plain consultation price. The same file permits "only indicative prices
+// for a condition ... e.g. consultation price and initial course price" on a
+// homepage-class page, so a landing page quoting the consultation fee is
+// compliant and failing it would be this checker inventing a rule. What is
+// barred is the offer wrapped round a price, which is what the ASA rulings
+// are actually about. This is also why the free-offer pattern below is tied
+// to a medicine word: the hero paragraph names the FREE NHS Pharmacy First
+// service and the private weight loss clinic in one sentence, so a loose
+// "free" test would fail correct copy on all six pages and then get widened
+// until it caught nothing.
+//
+// Scoping follows check-pharmacy-first-cost.js rule 7. The patterns that
+// carry their own subject, a medicine name, "skinny jab", "Add to Basket",
+// are read across the whole page, because they are wrong on this page
+// wherever they sit. The patterns that are only wrong ABOUT weight loss, a
+// results claim, a discount, a once-a-week schedule, are read sentence by
+// sentence and only in sentences that name weight loss, so that the Pharmacy
+// First and travel clinic copy on the same page is not held to a rule written
+// for a different service.
+// ---------------------------------------------------------------------------
+const LANDING_GENERATOR = path.join(REPO, "tools", "build-branch-landing-pages.js");
+const LANDING_DIR = path.join(REPO, "modules", "branch", "pages");
+
+function sentences(text) {
+  return collapse(text).split(/[.!?]\s+/).map(collapse).filter(function (s) {
+    return s.length > 0;
+  });
+}
+
+function namesWeightLoss(seg) {
+  return /weight[\s-]*loss|weight management|slimming/i.test(seg);
+}
+
+// Self-scoping: the phrase names the subject, so it is read across the page.
+const POM_CLASS = [
+  [/\bglp[\s-]?1\b/i, "the GLP-1 class"],
+  [/\bskinny\s+jabs?\b/i, 'the phrase "skinny jab"'],
+  [/\bfat\s+jabs?\b/i, 'the phrase "fat jab"'],
+  [/\bobesity\s+treatment\s+jabs?\b/i, 'the phrase "obesity treatment jab"'],
+  [/\bweight[\s-]*loss\s+(?:injections?|jabs?|pens?|shots?)\b/i,
+    "an injectable weight loss product"],
+  [/\bslimming\s+(?:injections?|jabs?|pens?|shots?)\b/i,
+    "an injectable weight loss product"],
+  [/\b(?:injectable|injection)\s+weight[\s-]*loss\b/i,
+    "an injectable weight loss product"]
+];
+
+const PURCHASE = [
+  [/\bbuy\s+now\b/i, '"Buy Now"'],
+  [/\badd\s+to\s+(?:basket|cart)\b/i, '"Add to Basket"'],
+  [/\bbuy\s+(?:your\s+)?(?:treatment|medication|medicine|prescription)\b/i,
+    'a "Buy [product]" instruction']
+];
+
+// Only wrong about weight loss, so read in weight loss sentences only.
+const POM_CLASS_IN_CONTEXT = [
+  [/\bonce[\s-]a[\s-]week\b/i, "a once-a-week dosing schedule"],
+  [/\bweekly\s+(?:injections?|jabs?|pens?|shots?|doses?)\b/i, "a weekly injectable"]
+];
+
+const RATE_CLAIMS = [
+  [/\b\d+\s*(?:%|per\s?cent)\b[^.]{0,40}\bbody\s*weight\b/i,
+    "a percentage of body weight"],
+  [/\blose\b[^.]{0,60}\b(?:stones?|lbs?|pounds?|kg|kilos?)\b/i,
+    "a stated amount of weight"],
+  [/\b(?:stones?|lbs?|kg|kilos?)\b[^.]{0,40}\bin\s+(?:just\s+)?\d+\s*(?:day|week|month)/i,
+    "an amount of weight within a stated period"],
+  [/\b(?:tummy|belly|thighs?|waist|hips?|arms?)\b[^.]{0,30}\b(?:fat|inches|slimmer)\b/i,
+    "weight loss from a specific body part"]
+];
+
+const OFFERS = [
+  [/\bspecial\s+offers?\b/i, "a special offer"],
+  [/\bdiscount(?:s|ed)?\b/i, "a discount"],
+  [/\b\d+\s*(?:%|per\s?cent)\s*off\b/i, "money off"],
+  [/\bhalf\s+price\b/i, "a price promotion"],
+  [/\bblack\s+friday\b/i, "a seasonal price promotion"],
+  [/\bsave\s+(?:£|&pound;)\s?\d/i, "money off"],
+  [/\bfree\s+(?:treatment|medication|medicine|prescription|trial|pen|injection|jab)\b/i,
+    "a free medicine offer"]
+];
+
+// A silent zero. Three shared domains carry two live branches each, so six
+// pages are expected; the floor sits at four so that disposing of one branch
+// of a pair raises no false alarm, while the folder emptying or being renamed
+// still does. Same floor and same reason as rule 7 of
+// tools/check-pharmacy-first-cost.js.
+if (!fs.existsSync(LANDING_GENERATOR)) {
+  fail("landing", "source::generator-missing",
+    rel(LANDING_GENERATOR) + " not found, so the branch landing pages have no " +
+    "known source and rule 11 would be checking whatever is left in " +
+    rel(LANDING_DIR) + ".");
+} else if (!namesWeightLoss(fs.readFileSync(LANDING_GENERATOR, "utf8").replace(/^[\s\S]*?\*\//, ""))) {
+  fail("landing", "source::no-weight-loss-copy",
+    rel(LANDING_GENERATOR) + " composes no weight loss wording at all, so rule " +
+    "11 has nothing to hold. Either the clinic came off the landing pages, " +
+    "which is a decision to record, or the generator changed and the rule is " +
+    "now passing by reading nothing.");
+}
+
+const landings = fs.existsSync(LANDING_DIR)
+  ? fs.readdirSync(LANDING_DIR).filter(function (f) { return /\.html$/.test(f); })
+  : [];
+
+if (landings.length < 4) {
+  fail("landing", "coverage::" + landings.length,
+    "found only " + landings.length + " branch landing page(s) in " +
+    rel(LANDING_DIR) + ". Either the pages have moved or the folder has " +
+    "changed, and rule 11 is running on almost nothing.");
+}
+
+let landingsWithWeightLoss = 0;
+
+landings.forEach(function (f) {
+  const file = path.join(LANDING_DIR, f);
+  const raw = fs.readFileSync(file, "utf8");
+  const name = rel(file);
+
+  // Regime 1 reads attributes and hover text, so this is the raw page with
+  // only the paste comment blanked, not visible().
+  const whole = collapse(blankComments(raw));
+  const text = visible(raw);
+
+  pom.WEIGHT_LOSS.forEach(function (medicine) {
+    if (pom.findMedicine(whole, [medicine])) {
+      fail("landing", name + "::medicine::" + medicine,
+        name + ' names "' + medicine + '". A branch landing page is the page a ' +
+        "Google Business Profile sends a patient to, so it is Regime 1 under " +
+        "AI\\RBH_WeightLoss_Advertising_Standards.md, where no prescription-only " +
+        "medicine may be named anywhere, hover text and small print included.");
+    }
+  });
+
+  POM_CLASS.concat(PURCHASE).forEach(function (pair) {
+    const m = whole.match(pair[0]);
+    if (m) {
+      fail("landing", name + "::class::" + m[0].toLowerCase(),
+        name + ' carries ' + pair[1] + ' ("' + m[0] + '"). The ASA has ruled ' +
+        "this promotes a prescription-only medicine on a page in Regime 1 even " +
+        "where no medicine is named.");
+    }
+  });
+
+  // The negative rules read only the sentences that name weight loss, so that
+  // a rule written for this service never fails the Pharmacy First or travel
+  // clinic copy sitting beside it. Over-inclusion is the safe direction here:
+  // the hero bullet list carries no full stops, so it collapses into one long
+  // pseudo-sentence and a discount word anywhere in it is caught.
+  const wl = sentences(text).filter(namesWeightLoss);
+  if (!wl.length) return;
+  landingsWithWeightLoss++;
+  const wlText = wl.join(". ");
+
+  POM_CLASS_IN_CONTEXT.concat(RATE_CLAIMS).concat(OFFERS).forEach(function (pair) {
+    const m = wlText.match(pair[0]);
+    if (m) {
+      fail("landing", name + "::wl::" + m[0].toLowerCase(),
+        name + " says " + pair[1] + ' in its weight loss copy ("' + m[0] +
+        '"). This page is Regime 1, where the clinic may be offered as a ' +
+        "consultation and nothing more.");
+    }
+  });
+
+  const hit = claims.findClaim(wlText);
+  if (hit) {
+    const m = wlText.match(hit[0]);
+    fail("landing", name + "::claim::" + (m ? m[0].toLowerCase() : String(hit[0])),
+      name + " makes " + hit[1] + ' in its weight loss copy: "' +
+      (m ? m[0] : String(hit[0])) + '".');
+  }
+
+  // The positive floor, anchored on the service tile rather than on
+  // sentences.
+  //
+  // The standard's compliant formula is that an ad may offer a consultation
+  // and must not indicate the outcome will be a prescription, and it names the
+  // linking element specifically: a consultation ad that links to a treatment
+  // page was still ruled a breach. The tile is that element. It is the only
+  // thing on the page that proactively sends a patient into the weight loss
+  // page, so it is the tile, not the page in general, that has to say
+  // consultation.
+  //
+  // A sentence window was tried first and was wrong in a way worth recording,
+  // because it looked right and passed. The hero bullet list has no full
+  // stops, so "Free NHS Pharmacy First consultations" and "Private weight
+  // loss and travel clinics" land in ONE pseudo-sentence. Deleting the word
+  // consultation from the weight loss tile then left the floor satisfied by
+  // Pharmacy First's use of it two services away, and the injection that
+  // should have failed passed clean. A positive rule that can be satisfied by
+  // a different service's copy is not a rule.
+  const tile = raw.match(
+    /<a\b[^>]*href="[^"]*weight-loss-clinic-[^"]*\.html"[^>]*>([\s\S]*?)<\/a>/i);
+  if (!tile) {
+    fail("landing", name + "::no-weight-loss-link",
+      name + " advertises the private weight loss clinic but links to no " +
+      "weight-loss-clinic page, so the patient is sold a service with no route " +
+      "to the consultation page that carries the eligibility, safety and " +
+      "no-guarantee copy.");
+  } else if (!/\bconsultations?\b/i.test(visible(tile[1]))) {
+    fail("landing", name + "::tile-no-consultation",
+      name + " links to the weight loss page from a tile that never calls the " +
+      "service a consultation. Under AI\\RBH_WeightLoss_Advertising_Standards" +
+      ".md a Regime 1 page may offer a consultation for weight loss and must " +
+      "not indicate that the outcome will be a prescription, and this tile is " +
+      "the element that does the linking.");
+  }
+});
+
 // --- report ------------------------------------------------------------------
 
 const staleKnown = Object.keys(KNOWN).filter(function (k) {
@@ -623,6 +893,10 @@ console.log("  " + pom.WEIGHT_LOSS.length + " medicine name(s) barred from " +
   "tools/claim-patterns.js");
 console.log('  consultation fee: "' + CONSULT_FEE + '", the same on all ' +
   pages.length + " page(s)");
+console.log("  " + landings.length + " branch landing page(s) read as Regime 1, " +
+  landingsWithWeightLoss + " of them advertising the clinic and held to no " +
+  "medicine name, no POM class reference, no purchase wording, no results, " +
+  "rate-of-loss or body-part claim, no offer, and the consultation floor");
 
 const acceptedKeys = Object.keys(knownUsed);
 if (acceptedKeys.length) {
