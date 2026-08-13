@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 03:04 BST - hundred-and-fortieth run [commit hash recorded in
-the follow-up commit] - Quality pass on item 3.11, Gordon Short Chemist
+## 2026-08-13 03:04 BST - hundred-and-fortieth run [commit e593837, hash
+recorded in this follow-up commit] - Quality pass on item 3.11, Gordon Short Chemist
 Crosby. REPO HALF ONLY: no browser was available, so nothing live was read
 and nothing live is claimed. All 12 pages clean for the third consecutive
 pass. The gap closed is estate-wide, not branch-specific: the NHS Pharmacy
