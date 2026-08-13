@@ -239,6 +239,33 @@ const seenLocationTownKnown = {};
 const KNOWN_PUBLISHED_PHONE = {};
 const seenPublishedPhoneKnown = {};
 
+// Branches where Post A must NOT yet be repointed at their own generated
+// Pharmacy First page, keyed by branch id. The Post A rule below treats the
+// pfLink page and the branch's own generated page as equally correct, because
+// worklist item 5.3 will eventually repoint them. That is right in general and
+// wrong for a branch whose generated page is confirmed LIVE as a stale paste:
+// swapping the link there sends patients to a page that loads, looks fine and
+// publishes the wrong trading name. The pack carries this as a prose "STOP"
+// note for the paster, and prose is not a rule: deleting that note left all 31
+// checkers green, and so did making the swap itself.
+//
+// ANTI-ROT WORKS DIFFERENTLY HERE, deliberately. The other maps in this file
+// fail when a key stops matching a real breach, because the repo holds enough
+// to tell. This hold cannot: it is cleared by a Weebly repaste, which no repo
+// file records. So a key here does NOT expire on its own. Clear it by hand in
+// the same session as the repaste, after checking the live page's heading
+// reads the branchName in branches.json.
+const PF_TARGET_HOLD = {
+  gordonshorts_crosby: {
+    reason:
+      "the live pharmacy-first-gordon-short-crosby.html is a pre-item-1.1 paste " +
+      "and calls the pharmacy \"Gordon Shorts Chemist\" in its heading, title and " +
+      "body. Confirmed live 2026-08-10 and rechecked 2026-08-11; the branch " +
+      "sitemap has published nothing since 2026-07-19",
+    question: "Q32",
+  },
+};
+
 const fails = [];
 const warns = [];
 const stats = [];
@@ -1082,6 +1109,13 @@ for (const file of packFiles) {
       const okOwn = !!own && leaf === own.toLowerCase() && GENERATED.has(own.toLowerCase());
       if (!okPf && !okOwn) {
         fail(file, `${p.label} button goes to "${leaf}", but this branch's Pharmacy First destination in branches.json is ${b.pfLink || "(pfLink not set)"}, and the only other correct target is its own generated page ${own || "(no brandSlug or townSlug)"}`);
+      }
+      // The two targets are equally correct in general, but not for a branch
+      // whose generated page is confirmed live as a stale paste. See
+      // PF_TARGET_HOLD at the top of this file.
+      const hold = PF_TARGET_HOLD[id];
+      if (hold && okOwn) {
+        fail(file, `${p.label} button goes to this branch's own generated Pharmacy First page "${leaf}", but that swap is on hold (${hold.question}): ${hold.reason}. The pfLink page ${b.pfLink || "(pfLink not set)"} is the correct target until the generated page has been repasted from this repo and its heading checked against branchName. Repaste first, then clear the ${id} entry from PF_TARGET_HOLD in tools/check-gbp-packs.js in the same session`);
       }
       continue;
     }

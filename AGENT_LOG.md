@@ -2,6 +2,84 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 20:04 BST - hundred-and-sixty-ninth run
+- Item 4.14 quality pass, the Gordon Short Chemist Crosby GBP pack, fourth
+pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js.
+No page, generator, data field, branches.json entry, pack copy or piece of
+patient-facing copy was changed. All 31 checkers exit 0 before and after.
+No question raised.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-10 and 2026-08-11 live
+verdicts on this item stand as written. Answer pickup (step 3) was
+unavailable for the same reason, which is Q59 and remains the run-level
+blocker. That is now sixteen consecutive runs without an answer fetch, and
+44 questions are open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. The fix below was not a decision to take: it encodes a
+decision Rishi has already made and that the pack already carries in prose
+(the Q32 hold), rather than making a new one.
+
+STALE LOCK CLEARED. .agent-lock was present and 59.8 minutes old, past the
+45-minute threshold, so it was treated as stale, deleted and reclaimed. No
+git index.lock was present. audits/live-hours-check-2026-08-13.json again
+shows as modified while git diff returns nothing: it differs by line endings
+only, so it was left unstaged rather than committed as noise, as last run.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item
+to take. Ordering was re-derived from this log rather than assumed, by
+parsing every run header and the item each run named, then ranking the 41
+completed items by how long ago each was last verified. Item 4.14 came out
+oldest at 42 runs, ahead of 4.11 at 41 and 4.15 at 40.
+
+THE PACK ITSELF IS CLEAN AND BYTE-STABLE ACROSS FOUR PASSES. Every fact
+re-verified against branches.json: name "Gordon Short Chemist", 159 College
+Road, Liverpool L23 3AT, 0151 924 3449, website, review link, pfLink against
+Post A, hasApp false with no app claim in the pack, and the catchment Crosby,
+Waterloo and Sefton leading with its own seoTown in all three places. The
+hours line matches openingHours on both sessions of all six trading days and
+on Sunday closed. All five character counts came back identical to all three
+earlier passes: description 652 and posts 449, 280, 521 and 424. Zero
+non-ASCII characters, zero dashes of any kind, zero smart quotes.
+
+THE REAL DEFECT: THE CHECKER ACTIVELY PERMITTED THE ONE SWAP THIS PACK
+FORBIDS. The Post A rule treats two destinations as equally correct, the
+pfLink page in branches.json and the branch's own generated Pharmacy First
+page, because item 5.3 will repoint those links across the estate one day.
+That is right estate-wide. It is wrong for this branch, and this branch is
+precisely the one where it matters: its generated page,
+pharmacy-first-gordon-short-crosby.html, is the confirmed-live pre-item-1.1
+paste that calls the pharmacy "Gordon Shorts Chemist" in its heading, its
+title and its body. The only thing holding that swap was a prose "STOP" note
+in the paster notes, and prose is not a rule. Proved by injection, twice:
+defanging the STOP note to a plain "Note:" left all 31 checkers green, and
+repointing the Post A button at the held page left all 31 checkers green as
+well. Either one publishes a Google post whose only clickable control sends
+a patient to a page that loads, looks right and carries the wrong trading
+name.
+
+THE FIX. Added PF_TARGET_HOLD to tools/check-gbp-packs.js, keyed by branch
+id, each entry carrying the reason and the question id that made the hold
+(Q32). The Post A rule now fails when a held branch's button points at its
+own generated page, while continuing to accept the pfLink page, so the pack
+as written stays green and the unsafe target is closed. Negative-tested
+three ways: an unheld branch (Tiffenbergs) making the same swap still passes,
+so item 5.3 is unaffected everywhere except the one branch on hold; a foreign
+leaf on this branch still raises the original wrong-destination error and
+exactly one failure, so the two rules do not double up; and the untouched
+pack stays green. One deliberate departure from house convention, documented
+at the map: the other exception maps in this file fail when a key stops
+matching a real breach, and this one cannot, because it is cleared by a
+Weebly repaste that no repo file records. It is cleared by hand in the same
+session as the repaste, after checking the live heading reads the branchName
+in branches.json.
+
+FILES CHANGED: tools/check-gbp-packs.js, AGENT_WORKLIST.md, AGENT_LOG.md.
+
 ## 2026-08-13 18:34 BST - hundred-and-sixty-eighth run
 - Item 4.13 quality pass, the Riddings Pharmacy Timperley GBP pack, fourth
 pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/claim-patterns.js,

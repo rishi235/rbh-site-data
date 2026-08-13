@@ -1983,6 +1983,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       fifteen ways across six packs, twelve defects caught and three
       legitimate rewrites correctly left alone. No pack copy changed, no
       question raised. Done 2026-08-12.
+      Fourth quality pass 2026-08-13. REPO HALF ONLY: two Chrome instances are
+      connected and an unattended run cannot choose between them, so no live
+      page was read and this pass makes no fresh live claim. The hard STOP
+      above stands as written on the 2026-08-11 evidence. The pack is clean
+      and byte-stable across four passes: every fact re-verified against
+      branches.json (name, 159 College Road, Liverpool L23 3AT, 0151 924 3449,
+      website, review link, pfLink, hasApp false with no app claim, catchment
+      Crosby, Waterloo and Sefton leading with its own seoTown in all three
+      places), hours matching openingHours on both sessions of all six trading
+      days plus Sunday closed, description 652 characters and posts 449, 280,
+      521 and 424, identical to all three earlier passes, and zero non-ASCII,
+      dash or smart-quote characters. All 31 checkers exit 0 before and after.
+      ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js.
+      The Post A rule accepted two destinations as equally correct, the pfLink
+      page and the branch's own generated page, because item 5.3 will repoint
+      them one day. That is right estate-wide and wrong for this branch, whose
+      generated page is the confirmed-live "Gordon Shorts Chemist" paste. The
+      only thing holding the swap was the prose STOP note, and prose is not a
+      rule: proved by injection here, defanging the note left all 31 checkers
+      green, and so did making the swap itself, which would publish a button
+      sending patients to a page carrying the wrong trading name. Added
+      PF_TARGET_HOLD, keyed by branch id with a reason and question id (Q32),
+      and the Post A rule now fails on the held target while leaving the
+      pfLink target correct. Negative-tested three ways: an unheld branch
+      making the same swap still passes, so 5.3 is unaffected everywhere else;
+      a foreign leaf on this branch still raises the original error and
+      exactly one failure, so the rules do not double up; and the pack as
+      written stays green. The hold does NOT self-expire, unlike the other
+      exception maps in this file, because it is cleared by a Weebly repaste
+      that no repo file records; that departure is documented at the map. No
+      pack copy, page, generator, data field or branches.json entry changed.
+      No question raised. Done 2026-08-13.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
