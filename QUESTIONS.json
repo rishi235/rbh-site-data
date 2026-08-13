@@ -1071,5 +1071,21 @@
     "status": "open",
     "answer": null,
     "note": "No copy was changed on this run and nothing here is urgent: all six pages still return a 404, so no patient has read the wording. What DID change is that the wording is now guarded. Rule 7 was added to tools/check-pharmacy-first-cost.js on this pass, after a low-cost qualifier, a stated price and an \"affordable\" were each injected into a landing page and walked past all 32 checkers clean. Whichever option is chosen, the change belongs in tools/build-branch-landing-pages.js and regenerates all six pages at once. Option 1 would also need FREE_CLAIM in the checker re-read, since it matches \"free NHS\" and \"Free NHS consultation\" still satisfies it."
+  },
+  {
+    "id": "Q70",
+    "date": "2026-08-14",
+    "item": "quality pass on 1.1 (finding, does not block any item)",
+    "question": "Item 1.1 settled the trading names in the repo and the repo has held them for six passes running. This pass added a rule for the half of a trading name nobody had guarded, the shop-type word, and the first thing it surfaced is that Hirshmans Ainsdale publishes a pre-1.1 name on the most public surface the group has. The Google Business Profile listing is named \"Hirshmans Pharmacy - Travel Vaccination and Simple Weight Loss Clinic\" while the trading name is \"Hirshmans Chemist\", and the branch's own domain, hirshmanspharmacy.co.uk, agrees with the listing rather than with the trading name. The GBP pack has carried this as a note since it was written and explicitly parks it as a separate decision, so nothing has ever acted on it. Two other things sit inside that one string: it names Simple Weight Loss, a brand parked for 90 days with the decision still pending, and a GBP name change puts the listing into Google's re-verification queue. How do you want the listing named?",
+    "options": [
+      "Rename the listing to \"Hirshmans Chemist\" alone and drop the service tail (matches the trading name, matches item 1.1, removes the parked Simple Weight Loss brand from a public surface, and Google prefers a bare business name; costs a re-verification and loses whatever the service words currently earn in local search)",
+      "Rename to \"Hirshmans Chemist\" and keep a service tail without the parked brand, for example \"Hirshmans Chemist - Travel Vaccination and Weight Loss Clinic\" (fixes the trading name and drops the parked brand while keeping the search terms; still a re-verification, and Google may flag a keyword tail on a name change)",
+      "Leave the listing alone and change nothing until the Simple Weight Loss decision lands, then take the name in one pass (no re-verification now, no risk of doing it twice; the wrong trading name stays live on the group's most visible surface in the meantime)",
+      "Treat the listing name as correct and the trading name as the thing that is out of date, i.e. reopen whether Hirshmans trades as Chemist or Pharmacy (the domain, the listing and the old live page all say Pharmacy, so this is not a silly reading; it would mean changing CANONICAL, branches.json and every generated page, so it is the largest option by far)"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "No copy was changed this run and no listing was touched; browser use in these runs is read only and a GBP edit is not something a run would do in any case. The finding is recorded from the pack's own note, not from reading Google. Worth knowing before you pick: option 3 is only cheap if the Simple Weight Loss decision is genuinely close, since the 90 day park was logged in CLAUDE.md and the clock is not visible from here. Option 4 is listed because the evidence for it is real, not because it is recommended: the domain and the listing both say Pharmacy, and if that is what patients actually know the branch as, then item 1.1 pinned the wrong half of the estate for this one branch. The checker now fails either way round, so whichever name you settle on, the other becomes a hard error the moment it appears in copy."
   }
 ]

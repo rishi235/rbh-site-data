@@ -1,0 +1,85 @@
+Item 1.1 quality pass, 2026-08-14 (177th run). Repo half only; the live half
+was not read because answer pickup and live verification both depend on the
+Chrome session and two extension instances are connected (Q59).
+
+BASELINE, before any change
+  32 checkers            all exit 0
+  6 generators           all exit 0, git diff empty afterwards
+  check-brand-spelling   clean, 225 files + 7 code files, 6 quoted readings
+
+REACH PROBE 1 - is any public copy outside the scan list?
+  Walked modules, core, brand, gbp-packs, status, compliance, scripts.
+  237 files, 232 covered, 5 uncovered:
+    brand/rbh-logo.png                            image, not copy
+    compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md internal assessment
+    scripts/add-weightloss-travel-widgets.js       one-off migration script
+    scripts/notify-questions.js                    internal
+    status/index.html                              renders this worklist
+  No finding. The file list is still complete.
+
+REACH PROBE 2 - does any other branches.json field carry the brand?
+  Every string value walked against the derived near-miss patterns.
+  Fields containing a brand name: branches[].brandLabel (16),
+  branches[].branchName (16), schemaNote (1). Near misses found: none.
+  No finding. Rule 1's two-field pin is complete for today's data.
+
+REACH PROBE 3 - is a brand typed rather than read anywhere in tools/?
+  44 files, comments blanked. 55 brand mentions in live code.
+  15 are the build-switch-pages.js CONFIG table   pinned by rule 3
+  4  are "RB Healthcare Ltd" in build-contraception, build-service,
+     build-travel-clinic and build-weight-loss                OneDrive paths,
+     not published copy, so no pin is needed
+  1  variant, check-gbp-packs.js:262 "Gordon Shorts Chemist"  quoted evidence
+     inside PF_TARGET_HOLD, documenting the known live defect (Q32)
+  No finding.
+
+THE DEFECT - rule 2 could not see the shop-type word
+  wordForms() derived a trailing s, an apostrophe-s form and "and" as "&".
+  It never varied Chemist / Chemists / Pharmacy / Pharmacies, so a trading
+  name wrong in its second half was invisible everywhere.
+
+  Injection, before the fix (each reverted with git checkout):
+    CONTROL "Hirshman Chemist"   gbp pack prose      exit 1  CAUGHT
+    PROBE 1 "Hirshmans Pharmacy" gbp pack prose      exit 0  INVISIBLE to 32
+    PROBE 2 "Cherry Lane Chemist" gbp pack prose     exit 0  INVISIBLE to 32
+    PROBE 3 "McCanns Pharmacy"   branch landing page exit 0  INVISIBLE to 32
+
+  This is not hypothetical. Hirshmans trades as "Hirshmans Chemist", its own
+  domain is hirshmanspharmacy.co.uk, and gbp-packs/hirshmans-ainsdale.md
+  records "Hirshmans Pharmacy" twice as what the listing and the old live
+  page carry.
+
+THE FIX - tools/check-brand-spelling.js
+  SHOPTYPE added to wordForms(): Chemist, Chemists, Pharmacy, Pharmacies are
+  derived as alternatives for each other, plus their apostrophe forms.
+  Derived, not listed, so a rename is covered the day CANONICAL changes.
+  Case-sensitive as before, so "the Cherry Lane pharmacy team" is untouched.
+  Header doc for rule 2 updated to match the code.
+
+VERIFICATION, after the fix
+    PROBE 1 "Hirshmans Pharmacy"    gbp pack prose        exit 1  CAUGHT
+    PROBE 2 "Cherry Lane Chemist"   gbp pack prose        exit 1  CAUGHT
+    PROBE 3 "McCanns Pharmacy"      branch landing page   exit 1  CAUGHT
+    PROBE 4 "Scorah Pharmacy"       switch banner .txt    exit 1  CAUGHT
+    PROBE 5 "Tiffenbergs Pharmacies" modules/emar/weebly  exit 1  CAUGHT
+    PROBE 6 "Riddings Chemist"      service SEO sheet     exit 1  CAUGHT
+    CONTROL A dropped s             gbp pack prose        exit 1  CAUGHT
+    CONTROL B ampersand             gbp pack prose        exit 1  CAUGHT
+    CONTROL C MacCanns              gbp pack prose        exit 1  CAUGHT
+  All nine reverted. Working tree clean afterwards.
+
+  32 checkers            all exit 0
+  6 generators           all exit 0, git diff shows tools/ only
+  check-brand-spelling   clean, 225 files + 7 code files, 8 quoted readings
+
+  The only behaviour change on real copy is two additional quoted readings,
+  both gbp-packs/hirshmans-ainsdale.md, lines 38 and 124, previously invisible
+  and now correctly read as evidence rather than as a claim. Zero false
+  positives.
+
+FINDING RAISED
+  Q70. The Hirshmans Ainsdale Google Business Profile is named "Hirshmans
+  Pharmacy - Travel Vaccination and Simple Weight Loss Clinic": a pre-item-1.1
+  trading name on the most public surface the group has, which also names a
+  brand parked for 90 days. Recorded from the pack's own note. Nothing live
+  was read or touched. Blocks no worklist item.

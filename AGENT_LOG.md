@@ -2,6 +2,115 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 00:04 BST - hundred-and-seventy-seventh run [commit PENDING]
+- Item 1.1 quality pass, brand-name spelling, sixth pass. ONE REAL DEFECT
+FOUND AND FIXED, in tools/check-brand-spelling.js. No page, no generator, no
+data field, no branches.json entry, no pack and no piece of patient-facing
+copy was changed. All 32 checkers exit 0 before and after, all six generators
+rebuild to a zero diff. One new question, Q70, which blocks nothing.
+
+ANSWER PICKUP UNAVAILABLE, fourteenth consecutive run. Cause has changed back
+to the one Q59 describes: two Chrome extension instances are connected, and
+the tooling requires a human to choose between them before it will make any
+call. An unattended run has nobody to ask and is not allowed to pick for
+itself, so no fetch was attempted, no other route was tried, nothing was
+clicked and no tab was opened. 46 questions are now open with nothing posted
+since 2026-08-10. Unchanged from previous runs: the unblock is one action on
+Rishi's side.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written and the GBP naming
+finding was raised as a question rather than decided.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly at
+00:04. audits/live-hours-check-2026-08-13.json again shows as modified while
+git diff returns nothing, line endings only, left unstaged as in the last
+eight runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+independently rather than inherited, by parsing all 217 run headings in this
+log against the 39 completed numbered items: 1.1 was last worked 42 headings
+ago, then 1.4 at 40 and 4.3 at 39. That agrees with the previous run's
+prediction of 1.1. Note 3.1 is not a completed item and does not appear in
+the worklist, so the previous run's "3.1 at 40" reads as 1.4.
+
+METHOD. Injection, not recitation, and the reach was probed three separate
+ways BEFORE any code was touched, because the last three passes on this item
+all found the hole in what the checker could not read. All three came back
+clean, and that is worth recording as much as the defect:
+
+  1. FILE REACH. Walked modules, core, brand, gbp-packs, status, compliance
+     and scripts. 237 files, 232 covered by the checker's own list, and the
+     five uncovered are a logo, an internal compliance assessment, two
+     internal scripts and status/index.html, which renders this worklist.
+     The scan list is still complete.
+  2. THE DATA. Every string in branches.json walked against the derived
+     patterns. Only brandLabel, branchName and schemaNote carry a brand name
+     at all, and none holds a variant, so rule 1's two-field pin is complete.
+  3. TYPED-NOT-READ. All 44 files in tools/ read with comments blanked. 55
+     brand mentions, of which 15 are the CONFIG table rule 3 already pins.
+     The other four generators each type "RB Healthcare Ltd", which looked
+     like four unpinned copies of rule 3's problem and is not: all four are
+     OneDrive folder paths for the paste-pack copy, never published.
+
+THE DEFECT: THE RULE COULD ONLY SEE THE FIRST HALF OF A NAME. Rule 2 derives
+its near misses instead of listing them, which is right, but it derived only
+three transformations: a trailing s added or dropped, an apostrophe-s form,
+and "and" written as "&". Every one of those acts on the surname half. The
+shop-type word was never varied, so "Hirshmans Pharmacy" for "Hirshmans
+Chemist" was not a near miss the rule could construct, and the regex simply
+did not match the text at all. Not a weakened check on that string, no check.
+
+This is the most likely real-world error in this estate, not an exotic one.
+Twelve of the thirteen distinct trading names end in Chemist or Chemists and
+four end in Pharmacy; the two words are interchangeable in ordinary speech;
+and Hirshmans trades as "Hirshmans Chemist" while publishing from
+hirshmanspharmacy.co.uk. The branch disagrees with itself in public.
+
+PROVED BY INJECTION, before the fix. "Hirshmans Pharmacy" into pack prose,
+"Cherry Lane Chemist" into pack prose and "McCanns Pharmacy" into a generated
+branch landing page each passed ALL 32 CHECKERS. The control, a dropped s in
+the same position of the same file, failed as it should, so the harness and
+the checker were both live on the file under test. Every injection was
+reverted with git checkout and the tree verified clean afterwards.
+
+THE FIX. Chemist, Chemists, Pharmacy and Pharmacies are now derived as
+alternatives for one another inside wordForms(), with their apostrophe forms,
+alongside the existing trailing-s and ampersand rules. Derived rather than
+listed, so a branch renamed tomorrow is covered the day CANONICAL changes,
+and the rule stays case-sensitive, so ordinary prose like "the Cherry Lane
+pharmacy team" is untouched. The rule 2 header doc was rewritten to match.
+
+VERIFIED SIX WAYS AND THREE CONTROLS. All six shop-type probes now fail, on
+six different surfaces: pack prose, a generated landing page, a switch banner
+.txt, the extension-less modules/emar/weebly block, and a service SEO sheet.
+All three pre-existing controls still fail, so nothing was traded away. Zero
+false positives on real copy: the entire behaviour change on a clean run is
+two ADDITIONAL quoted readings, both in gbp-packs/hirshmans-ainsdale.md, up
+from 6 to 8, which the checker correctly reads as evidence of what a live
+page says rather than as the file claiming it. Evidence:
+audits/brand-spelling-check-2026-08-14.txt.
+
+THE LIVE FINDING, AND IT IS THE ONE THAT MATTERS. The new rule surfaced what
+the pack has quietly recorded all along: the Hirshmans Ainsdale Google
+Business Profile is named "Hirshmans Pharmacy - Travel Vaccination and Simple
+Weight Loss Clinic". That is a pre-item-1.1 trading name on the single most
+public surface the group owns, more visible than any page this repo builds,
+and the string also names Simple Weight Loss, a brand parked for 90 days with
+the decision still pending. The pack explicitly parks the listing name as a
+separate decision, which is why nothing has ever acted on it. Raised as Q70
+with four options, recommending the middle one: rename to "Hirshmans Chemist"
+and keep a service tail without the parked brand. Q70 deliberately includes
+the option that item 1.1 pinned the wrong half for this one branch, because
+the domain, the listing and the old live page all say Pharmacy, and that
+reading deserves to be on the page even though it is the largest option.
+Nothing live was read or touched: this comes from the pack's own note.
+
+NOTHING ELSE WAS CHANGED. Files: tools/check-brand-spelling.js,
+AGENT_WORKLIST.md (1.1 appended in place), QUESTIONS.json (Q70),
+audits/brand-spelling-check-2026-08-14.txt, AGENT_LOG.md.
+
 ## 2026-08-13 23:34 BST - hundred-and-seventy-sixth run [commit 9632595]
 - Item 4.2 quality pass, Cherry Lane Pharmacy Walton GBP pack, sixth pass.
 ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js, and it had

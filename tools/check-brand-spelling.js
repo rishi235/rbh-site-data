@@ -41,10 +41,13 @@
     2. VARIANT  no near-miss spelling of any canonical brand appears in
                 public copy. Near misses are derived from the canonical form
                 rather than listed: a trailing s added or dropped on any
-                word, an apostrophe-s form, and "and" written as "&". So
-                "Fishlock Chemist", "Fishlock's Chemist", "Gordon Shorts
-                Chemist" and "Coleman & Leigh Pharmacy" are all caught
-                without anyone having thought of them in advance.
+                word, an apostrophe-s form, "and" written as "&", and the
+                shop-type word swapped for any other (Chemist, Chemists,
+                Pharmacy, Pharmacies). So "Fishlock Chemist", "Fishlock's
+                Chemist", "Gordon Shorts Chemist", "Coleman & Leigh
+                Pharmacy", "Hirshmans Pharmacy" and "Cherry Lane Chemist"
+                are all caught without anyone having thought of them in
+                advance.
     3. CONFIG   the brand strings hardcoded in the CONFIG table of
                 tools/build-switch-pages.js match branches.json. That table
                 is the one place a brand is typed rather than read, and it
@@ -204,6 +207,19 @@ Object.keys(CANONICAL).forEach(function (id) {
 // ---------------------------------------------------------------------------
 // Rule 2 patterns, derived from the canonical forms rather than listed.
 // ---------------------------------------------------------------------------
+// The shop-type word is the other half of a trading name, and it is the half
+// this estate actually gets wrong. Twelve of the sixteen canonical names end
+// in Chemist or Chemists and four end in Pharmacy, the two words mean the same
+// thing in ordinary speech, and at least one branch's own domain disagrees
+// with its own trading name: Hirshmans trades as "Hirshmans Chemist" and
+// publishes from hirshmanspharmacy.co.uk. The Ainsdale pack already records
+// "Hirshmans Pharmacy" as the branding the old live page carried. So a writer
+// reaching for the wrong one of these two words is not a hypothetical.
+// Derived like the trailing s rather than listed, so a branch renamed
+// tomorrow is covered the day CANONICAL changes.
+var SHOPTYPE = ["Chemist", "Chemists", "Pharmacy", "Pharmacies"];
+var SHOPTYPE_LC = SHOPTYPE.map(function (s) { return s.toLowerCase(); });
+
 function wordForms(w) {
   var forms = [w];
   if (/s$/.test(w)) {
@@ -214,6 +230,9 @@ function wordForms(w) {
     forms.push(w + "'s");
   }
   if (w.toLowerCase() === "and") forms.push("&");
+  if (SHOPTYPE_LC.indexOf(w.toLowerCase()) !== -1) {
+    SHOPTYPE.forEach(function (s) { forms.push(s); forms.push(s + "'s"); });
+  }
   return forms;
 }
 

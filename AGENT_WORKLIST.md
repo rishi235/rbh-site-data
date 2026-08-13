@@ -2423,6 +2423,38 @@ appended to the line. Do not move them; the status page reads them in place.
       Reach 224 to 225 files plus 7 code files plus 1 FALLBACK record.
       Negative-tested eight ways, all reverted. Evidence:
       audits/brand-spelling-check-2026-08-13.txt. Done 2026-08-13.
+      Quality pass 2026-08-14 (repo half only): the rule holds for the sixth
+      consecutive pass. All 32 checkers pass, all six generators rebuild to a
+      zero diff, and three separate reach probes came back clean: every file
+      under modules, core, brand, gbp-packs, status, compliance and scripts is
+      either scanned or justifiably not copy (five uncovered, all internal);
+      no field in branches.json other than brandLabel, branchName and the
+      schemaNote carries a brand name, and none of them holds a variant; and
+      the four "RB Healthcare Ltd" strings typed into the other generators are
+      OneDrive folder paths, not published copy, so rule 3's pin of
+      build-switch-pages.js is still the right shape.
+      THE DEFECT WAS IN THE DERIVATION, NOT THE REACH. Rule 2 built its near
+      misses by varying the trailing s, the apostrophe form and "and"/"&", so
+      it could only ever see a brand misspelled in its FIRST half. The
+      shop-type word was unguarded, and that is the half this estate actually
+      gets wrong: Hirshmans trades as "Hirshmans Chemist" and publishes from
+      hirshmanspharmacy.co.uk, and the Ainsdale pack records "Hirshmans
+      Pharmacy" as the branding the old live page carried. Proved by
+      injection: "Hirshmans Pharmacy", "Cherry Lane Chemist" and "McCanns
+      Pharmacy" each passed all 32 checkers, while a dropped s in the same
+      position on the same file failed. Fixed by deriving Chemist, Chemists,
+      Pharmacy and Pharmacies as alternatives for each other, derived rather
+      than listed so a rename is covered the day CANONICAL changes. All six
+      probes now fail across six different surfaces (pack prose, landing page,
+      switch banner, the extension-less emar block, a service SEO sheet) and
+      all three pre-existing controls still fail. Zero false positives on real
+      copy: the only change to the clean run is two more quoted readings of a
+      live page read as evidence, both at Hirshmans Ainsdale, up from 6 to 8.
+      LIVE SIDE, and it is the one that matters: the Hirshmans Ainsdale GBP
+      listing is still named "Hirshmans Pharmacy - Travel Vaccination and
+      Simple Weight Loss Clinic". Pre-1.1 name on the group's most public
+      surface, and it names a parked brand. Raised as Q70, blocks nothing.
+      Done 2026-08-14.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
