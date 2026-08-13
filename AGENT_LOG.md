@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 11:34 BST - hundred-and-fifty-sixth run
+## 2026-08-13 11:34 BST - hundred-and-fifty-sixth run [commit f691e92, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Quality pass on item 6.2, the stalest completed item. ONE REAL DEFECT FOUND
 AND FIXED IN REPO: RULE 1 of check-service-links.js, the only repo-side rule
 guarding the exact class of link item 6.2 is about, read 6 of the 421
