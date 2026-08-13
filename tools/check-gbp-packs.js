@@ -146,9 +146,27 @@ const seenNotOfferedKnown = {};
 
 // Accepted exceptions to the profile-basics rules, keyed
 // "<branch id>::gbpName", "<branch id>::streetAddress",
-// "<branch id>::reviewLink" or "<branch id>::profileWebsite". Same anti-rot
+// "<branch id>::addressPostTown", "<branch id>::reviewLink" or
+// "<branch id>::profileWebsite". Same anti-rot
 // convention: a key that no longer matches a real breach fails the run.
-const KNOWN_IDENTITY = {};
+const POST_TOWN_Q64 = {
+  question: "Q64",
+  reason:
+    "the pack's address carries the Royal Mail post town for the postcode " +
+    "(SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while " +
+    "branches.json holds only the dependent locality, so the two are not in " +
+    "step. Which of the two is the estate standard is the decision Q64 asks, " +
+    "and all five move together once it is answered. Nothing is edited until " +
+    "then, because addressLocality feeds schema.org PostalAddress on all 177 " +
+    "generated pages.",
+};
+const KNOWN_IDENTITY = {
+  "hirshmans_ainsdale::addressPostTown": POST_TOWN_Q64,
+  "fishlocks_ainsdale::addressPostTown": POST_TOWN_Q64,
+  "fishlocks_eccleston::addressPostTown": POST_TOWN_Q64,
+  "scorah_bramhall::addressPostTown": POST_TOWN_Q64,
+  "scorah_hazel::addressPostTown": POST_TOWN_Q64,
+};
 const seenIdentityKnown = {};
 
 // Accepted exceptions to the photo shot list rules, keyed
@@ -1151,6 +1169,44 @@ for (const file of packFiles) {
     }
   }
 
+  // --- the post town, between the street and the postcode ------------------
+  // Added by the item 3.5 quality pass, 2026-08-13, as the estate-wide half of
+  // the rule the item 3.4 pass added to check-nap.js the day before.
+  //
+  // That rule closed the gap for the two Weebly paste blocks: the postcode
+  // rules above prove the postcode is the branch's own and the street rules
+  // prove the street is in the pack, and then both stop, so nothing had ever
+  // read the words BETWEEN them, which is exactly where the post town lives.
+  // check-nap.js reads only modules/service/weebly-paste, so the fifteen GBP
+  // packs, which are the other file class where a human wrote an address as
+  // prose rather than a generator composing it from branches.json, were still
+  // unread. They are the ones that matter most for this fault: a pack is what
+  // a person copies into Google Business Profile, so a divergence here is a
+  // divergence between what Google holds and what all 177 generated pages
+  // publish, which is the citation-consistency fault item 1.4 exists to stop.
+  //
+  // The rule is equality after commas and full stops are dropped from BOTH
+  // sides, so a locality legitimately holding two words (Riddings Timperley
+  // holds "Timperley, Altrincham") is not read as a breach.
+  const addrLine = (text.match(/^-\s*Address:[^\n]*(?:\n\s{2,}[^\n]*)*/m) || [])[0] || "";
+  const flatAddr = norm(addrLine.replace(/^-\s*Address:/, ""));
+  const townKey = `${b.id}::addressPostTown`;
+  const townKnown = KNOWN_IDENTITY[townKey];
+  if (addrLine && ownStreet && b.postalCode) {
+    const at = flatAddr.toLowerCase().lastIndexOf(ownStreet.toLowerCase());
+    const pcAt = flatAddr.toUpperCase().indexOf(b.postalCode.toUpperCase());
+    if (at !== -1 && pcAt > at) {
+      const tidy = (s) => s.replace(/[,.]/g, " ").replace(/\s+/g, " ").trim();
+      const between = tidy(flatAddr.slice(at + ownStreet.length, pcAt));
+      const want = tidy(b.addressLocality || "");
+      if (between !== want) {
+        const msg = `the "- Address:" line reads "${flatAddr}", so the post town between the street and the postcode is "${between}", but branches.json holds addressLocality as "${b.addressLocality}". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates.`;
+        if (townKnown) { seenIdentityKnown[townKey] = true; warn(file, `KNOWN ${msg} ${townKnown.question}: ${townKnown.reason}`); }
+        else fail(file, msg);
+      }
+    }
+  }
+
   const ownReview = norm(b.googleReviewUrl || "");
   if (ownReview && flatText.indexOf(ownReview.toLowerCase()) === -1) {
     const key = `${b.id}::reviewLink`;
@@ -1589,7 +1645,7 @@ for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
 }
 for (const key of Object.keys(KNOWN_IDENTITY)) {
   if (!seenIdentityKnown[key]) {
-    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
+    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, post town, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
   }
 }
 for (const key of Object.keys(KNOWN_PHOTOS)) {

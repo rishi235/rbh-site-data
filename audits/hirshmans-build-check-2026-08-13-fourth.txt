@@ -1,0 +1,97 @@
+HIRSHMANS CHEMIST (AINSDALE) - ITEM 3.5 QUALITY PASS, FOURTH
+Run 147, 2026-08-13, agents/audit-backlog. Repo half only: no browser was
+available this run, so nothing live was read and nothing live is claimed.
+
+1. WHAT WAS VERIFIED, AND HOW
+An extraction written fresh for this run, sharing no code with tools/, read all
+12 Hirshmans pages (11 service, 1 switch) and made 1728 checks. Zero failures.
+Where it agrees with the checkers it does so by arriving separately.
+
+Per page:
+- exactly one H1, and it carries the seoTown Ainsdale
+- display phone 01704 577376 present, tel: link present, and no other live
+  branch's phone digits anywhere in the file
+- PR8 3HW present and no other branch's postcode present
+- street "56-62 Sherwood House, Station Road" present
+- no other live branch's brandLabel or branchName in the visible text
+- no other live branch's seoTown unless it is in this branch's own
+  serviceAreaList (Ainsdale, Birkdale, Southport)
+- every 24-character widget id on the page is one this branch owns
+- CDN pin: service pages pin service-module-phase1, the switch page pins
+  6a275e1
+- JSON-LD address correct field by field against branches.json, including
+  addressLocality Ainsdale and addressRegion Merseyside, and any ld telephone
+  matching the branch phone
+- own ODS only: pharmacy.FW378@nhs.net, and no other branch's ODS code
+- no other branch's googleReviewUrl, nhsReviewUrl or pfLink
+- no http:// href or src anywhere (the estate is https)
+
+All 30 checkers pass. All seven generators rebuild every page byte-identical;
+status/index.html changed only its timestamp line and was reverted.
+
+2. THE DEFECT CLASS FOUND, WHICH IS NOT ON A PAGE
+An estate-wide address-string sweep was run as part of this pass: for every
+live branch, every occurrence of its postcode in every text file in the repo,
+reading the words BETWEEN the street address and the postcode. That is the rule
+the item 3.4 pass added to check-nap.js on 2026-08-12, applied to every file
+rather than to the two Weebly paste blocks that checker reads.
+
+Five GBP packs publish a post town that branches.json does not hold:
+
+  gbp-packs/hirshmans-ainsdale.md   56-62 Sherwood House, Station Road,
+                                    Ainsdale, Southport PR8 3HW
+  gbp-packs/fishlocks-ainsdale.md   17 Station Road, Ainsdale, Southport PR8 3HN
+  gbp-packs/fishlocks-eccleston.md  Unit 3 The Carrington Centre, New Mill
+                                    Street, Eccleston, Chorley PR7 5SZ
+  gbp-packs/scorah-bramhall.md      61-63 North Park Road, Bramhall,
+                                    Stockport SK7 3LQ
+  gbp-packs/scorah-hazel-grove.md   87 Macclesfield Road, Hazel Grove,
+                                    Stockport SK7 6BG
+
+branches.json holds addressLocality as Ainsdale, Ainsdale, Eccleston, Bramhall
+and Hazel Grove respectively, and every generated page and every JSON-LD block
+publishes that shorter string. So five shops each hand the public two different
+address strings out of one repo: one to Google Business Profile, one on every
+page this repo generates. That is the citation-consistency fault item 1.4
+exists to stop.
+
+This is the INVERSE of the Cherry Lane fault the item 3.4 pass fixed. There a
+catchment town had been pushed INTO a postal address and the pack was the
+correct one. Here the packs carry the Royal Mail post town for the postcode
+(SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) and branches.json is
+the shorter of the two. Which of the two the estate should standardise on is a
+data-standard decision that changes schema.org PostalAddress on all 177
+generated pages, so nothing has been edited. Q64 asks it.
+
+Riddings Timperley is a third convention again: its addressLocality already
+holds "Timperley, Altrincham", the dependent locality and the post town
+together, so its pack and its pages already agree. It is not a breach and it is
+not in the exception list. gbp-packs/TEMPLATE.md teaches the pack convention
+using the Southport example, so whichever way Q64 is answered the template
+needs the same edit as the five packs.
+
+3. THE RULE ADDED
+tools/check-gbp-packs.js now reads the words between the street and the
+postcode on a pack's "- Address:" line and requires them to equal the branch's
+addressLocality, commas and full stops aside on both sides so a locality that
+legitimately holds two words is not read as a breach. The five packs above are
+carried in KNOWN_IDENTITY under "<branch id>::addressPostTown" against Q64, and
+a key that stops matching a real breach fails the run, so the list cannot rot.
+
+Proven by five negative tests, each patching one pack, running the checker and
+restoring the file byte for byte. All five fire:
+  1. a foreign post town injected into a clean pack (Sefton into Smartts) FAILS
+  2. the post town removed entirely from a clean pack FAILS
+  3. the seoTown pushed into the address, the item 3.4 fault shape, FAILS
+  4. a KNOWN pack brought into line makes its own exception STALE and FAILS
+  5. a wrong town on a WRAPPED address line FAILS, which proves the
+     continuation line is read and not just the first line
+
+Test 5 had to run on a pack that is not in the exception list, because a breach
+on a KNOWN pack warns rather than fails and the test would have proved nothing.
+The first attempt did exactly that and was rewritten.
+
+4. NOT A FINDING
+CH49 1SX surfaced in the sweep's output and was chased down: it is the historic
+McCanns Sandringham error, confined to narrative files and the checker that
+names it, exactly as item 1.3 records. No page, pack or paste block carries it.

@@ -975,5 +975,21 @@
     "status": "open",
     "answer": null,
     "note": "The repo side is detected and pinned, not fixed: tools/check-switch-copy.js rule 11 now reads the banner files and reports this conflict against this question, and rule 11a fails outright if any banner points at the wrong branch. Nothing live has changed and no banner file was edited. Separate from Q33, the banner mojibake close button, which is fixed in the repo but still awaits a repaste at all 15 sites: whichever option is chosen here needs that same repaste, so the two are worth doing in one pass."
+  },
+  {
+    "id": "Q64",
+    "date": "2026-08-13",
+    "item": "quality pass on 3.5 (estate-wide address-string divergence in five GBP packs, does not block any item)",
+    "question": "Five GBP packs write an address with the Royal Mail post town in it and branches.json does not, so five shops each publish two different address strings out of one repo: Hirshmans and Fishlocks Ainsdale say \"Ainsdale, Southport PR8 3H*\" to Google while every generated page says \"Ainsdale PR8 3H*\", and the same split runs at Fishlocks Eccleston (Chorley), Scorah Bramhall and Scorah Hazel Grove (Stockport). The packs are the postally correct half: SOUTHPORT, CHORLEY and STOCKPORT are the post towns for those postcodes and the local name is the dependent locality. branches.json addressLocality feeds schema.org PostalAddress on all 177 generated pages, which is what Google reads, so the two need to say the same thing. Riddings Timperley is a third convention again, already holding \"Timperley, Altrincham\" in one field. Which way should the estate standardise?",
+    "options": [
+      "Bring branches.json into line with Royal Mail: move the local name into streetAddress (\"56-62 Sherwood House, Station Road, Ainsdale\") and set addressLocality to the post town (\"Southport\"). Pages then publish exactly what the packs and Google already hold, the local word stays visible in the address, seoTown keeps carrying the catchment into titles and H1s, and the schema matches the postal record. Costs a regeneration of all 177 pages and a one-off change to five branches' published address strings.",
+      "Bring the five packs into line with branches.json: delete the post town from the pack address so both halves read \"..., Ainsdale PR8 3HW\". Cheapest, one line per pack, nothing regenerates. But it hands Google an address that is not the Royal Mail address for the postcode, and Google is liable to re-add the post town itself, which puts the divergence straight back with nobody watching.",
+      "Keep both deliberately: add a postTown field to branches.json, used only by the GBP packs, so the pages keep the local town and Google gets the postal one. Honest to both audiences and no page changes, but it is a new field, a new rule and a standing divergence to explain every time somebody reads the two side by side.",
+      "Leave it. The checker warning added this run keeps it visible and nothing changes until the GBP profiles are next edited by hand. No work now, but five branches keep splitting their own citations in the meantime, which is what item 1.4 exists to stop."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Detected and pinned, not fixed. tools/check-gbp-packs.js now reads the words between the street and the postcode on a pack's \"- Address:\" line and requires them to equal addressLocality; the five packs sit in KNOWN_IDENTITY as \"<branch id>::addressPostTown\" against this question, and a stale key fails the run. Five negative tests prove the rule fires. No pack, no page and no branches.json field has been edited. gbp-packs/TEMPLATE.md teaches the convention using the Southport example, so it needs the same edit as the five packs whichever option is chosen. Riddings Timperley already carries both words and is not a breach under any option except 1."
   }
 ]

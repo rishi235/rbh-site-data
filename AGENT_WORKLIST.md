@@ -527,6 +527,29 @@ its known faults (017014577376 non-dialling phone, 64 Station Road, Hirshmans
 Pharmacy branding, US spellings), all already recorded in the GBP pack's Post
 A HARD STOP and Q41's note, nothing new to raise. Evidence in
 audits/hirshmans-build-check-2026-08-12-third.txt. No in-repo defect found.
+Quality pass 2026-08-13 (fourth): all 12 Hirshmans pages re-read by a fresh
+independent extraction, 1728 checks, zero failures. One H1 per page carrying
+Ainsdale, display phone 01704 577376 and its tel: link on all 12 with no other
+branch's phone digits anywhere, PR8 3HW the only postcode, the street string on
+all 12, no other brand or seoTown outside this branch's own serviceAreaList,
+every widget id owned by this branch, service pages pinned service-module-phase1
+and the switch page 6a275e1, JSON-LD address correct field by field, own ODS
+FW378 only, no other branch's review or Pharmacy First link, and no http:// href
+or src on any page. All 30 checkers pass, all seven generators rebuild
+byte-identical. Repo half only, no browser this run.
+The pages were clean; the defect class was in the packs. An estate-wide sweep
+of the words BETWEEN the street and the postcode, the rule the item 3.4 pass
+added to check-nap.js for the two Weebly paste blocks, applied to every file,
+found five GBP packs publishing a post town branches.json does not hold:
+Hirshmans and Fishlocks Ainsdale (Southport), Fishlocks Eccleston (Chorley),
+Scorah Bramhall and Scorah Hazel Grove (Stockport). Five shops each hand the
+public two address strings out of one repo, one to Google and one on every
+generated page, which is the citation fault item 1.4 exists to stop. Inverse of
+the Cherry Lane case: here the PACKS are the postally correct half, so which
+way to standardise changes schema.org on all 177 pages and is Q64's decision.
+Nothing edited. tools/check-gbp-packs.js now enforces the rule with the five
+packs in KNOWN_IDENTITY against Q64, proven by five negative tests. Evidence in
+audits/hirshmans-build-check-2026-08-13-fourth.txt.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

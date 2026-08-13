@@ -2,6 +2,137 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 07:05 BST - hundred-and-forty-seventh run [commit hash appended
+by the same follow-up commit that pushes this entry] - Quality pass on item
+3.5, Hirshmans Chemist (Ainsdale), last verified 2026-08-12 and the oldest
+verification standing. Fourth pass on this item. REPO HALF ONLY: no browser
+was available, so nothing live was read and nothing live is claimed. All 12
+pages verified clean, 1728 checks. ONE DEFECT CLASS FOUND, and it was not on
+a page: five GBP packs publish a post town branches.json does not hold. Rule
+added, five negative tests, all five fire. Q64 raised. Nothing edited in any
+pack, page or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in this log is the 2026-08-09 one,
+which expired 2026-08-10 23:14 BST. This run needed one, and did not have it.
+The finding below changes schema.org PostalAddress on all 177 generated pages
+whichever way it is settled, and it is a public citation change touching
+Google, so it was raised as Q64 and left alone rather than decided.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-seventh consecutive run, 121 to 147. Cause
+unchanged and confirmed again this run rather than assumed: the connected
+browsers were enumerated and TWO extension instances are live, so the
+extension side is alive. The tooling requires a human to choose between the
+two before any browser call is made and states explicitly that the agent must
+not pick one itself. An unattended run has nobody to ask. Enumerating the
+extensions is the only thing that happened: NO page was fetched, and nothing
+was clicked, typed, submitted or logged in to, on any site. No other route was
+attempted. 39 questions open going in, 40 going out with Q64. Q59 already asks
+how to clear this block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 26e0f6f, worktree clean. Unchecked
+items taken first as the procedure requires. 6.6 is still the ONLY unchecked
+item that is not [BLOCKED] and still could not be advanced: its own corrected
+text says the redirect is not broken and what remains is a canonical tag plus
+a historic index artifact, both of which live in Weebly's head and admin, not
+in this repo, and both routes need the browser. So the run went to a quality
+pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 146. Run 146 handed
+over 3.5. This run re-derived it independently by joining each run heading
+with the next three lines before reading the item number, because several
+headings wrap and carry the number on a continuation line. Every completed
+item has a recorded pass and 3.5, deepest in the log at line 4069, was the
+oldest, ahead of 3.6 (4002) and 3.7 (3925). 5.8 and 5.3 sort deeper still but
+are not completed items, so they are not in the rotation. THE NEXT RUN SHOULD
+TAKE 3.6, then 3.7, then 3.8.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Hirshmans pages (11
+service, 1 switch) re-read by a fourth independent extraction with its own
+regexes, sharing no code with tools/, so where it agrees with the checkers it
+does so by arriving separately rather than by calling them. 1728 checks, 0
+failures: exactly one H1 per page and every one carries the seoTown Ainsdale,
+no other branch's brand or town outside this branch's own serviceAreaList,
+display phone 01704 577376 and its tel: link on all 12 with no other branch's
+phone digits anywhere, PR8 3HW the only postcode, the street string present on
+all 12, JSON-LD address correct field by field including addressLocality
+Ainsdale and addressRegion Merseyside, every 24-character widget id owned by
+this branch, service pages pinned service-module-phase1 and the switch page
+6a275e1, own ODS FW378 only with no other branch's nhs.net address, no other
+branch's Google or NHS review link and no other branch's Pharmacy First link,
+and no http:// href or src on any page. All 30 checkers pass and all seven
+generators rebuild byte-identical, status/index.html changing only its
+timestamp line, which was reverted.
+
+THE DEFECT CLASS WAS IN THE PACKS, AND IT IS THE CHERRY LANE FAULT INVERTED.
+The item 3.4 pass added a rule to check-nap.js the day before: the words
+BETWEEN the street address and the postcode must equal the branch's
+addressLocality. check-nap.js reads modules/service/weebly-paste and nothing
+else, so the rule covered two files. This run applied the same reading to
+every text file in the repo, for every live branch, and found five GBP packs
+carrying a post town branches.json does not hold:
+
+    gbp-packs/hirshmans-ainsdale.md    Ainsdale, Southport PR8 3HW
+    gbp-packs/fishlocks-ainsdale.md    Ainsdale, Southport PR8 3HN
+    gbp-packs/fishlocks-eccleston.md   Eccleston, Chorley PR7 5SZ
+    gbp-packs/scorah-bramhall.md       Bramhall, Stockport SK7 3LQ
+    gbp-packs/scorah-hazel-grove.md    Hazel Grove, Stockport SK7 6BG
+
+branches.json holds Ainsdale, Ainsdale, Eccleston, Bramhall and Hazel Grove,
+and every generated page and every JSON-LD block publishes that shorter
+string. So five shops each hand the public two different address strings out
+of one repo, one to Google Business Profile and one on every page this repo
+generates. That is the citation-consistency fault item 1.4 exists to stop, and
+it is the same shape as the Cherry Lane finding with the halves swapped: there
+a catchment town had been pushed INTO a postal address and the pack was right;
+here the packs carry the Royal Mail post town for the postcode (SOUTHPORT for
+PR8, CHORLEY for PR7, STOCKPORT for SK7) and branches.json is the short one.
+
+WHY NOTHING WAS EDITED. addressLocality feeds schema.org PostalAddress on all
+177 generated pages, which is the field Google reads, so correcting either
+half changes what five branches publish to the public. Riddings Timperley is a
+third convention again, already holding "Timperley, Altrincham" in one field,
+so the repo has no single standard to fall back on, and gbp-packs/TEMPLATE.md
+teaches the pack convention using the Southport example, so the template moves
+with whichever answer comes back. Q64 asks the question with four options and
+recommends bringing branches.json into line with Royal Mail: local name into
+streetAddress, post town into addressLocality, which makes the pages match the
+packs, matches the postal record, and loses nothing because seoTown already
+carries the catchment word into titles and H1s.
+
+THE RULE ADDED, AND PROVED. tools/check-gbp-packs.js now reads the "-
+Address:" line of every pack, including its wrapped continuation, and requires
+the words between the street and the postcode to equal addressLocality, commas
+and full stops dropped from both sides so a locality legitimately holding two
+words is not read as a breach. The five packs sit in KNOWN_IDENTITY as
+"<branch id>::addressPostTown" against Q64, and the existing anti-rot check
+fails the run on a key that stops matching a real breach, so the exceptions
+cannot outlive the answer. Five negative tests, each patching one pack,
+running the checker and restoring the file byte for byte: a foreign post town
+in a clean pack fails, a post town removed entirely fails, the seoTown pushed
+into the address fails, bringing a KNOWN pack into line makes its own
+exception stale and fails, and a wrong town on a WRAPPED address line fails,
+which is what proves the continuation is read rather than just the first line.
+The wrap test had to be rewritten: the first version patched Fishlocks
+Eccleston, which is itself in KNOWN_IDENTITY, so the breach warned instead of
+failing and the test passed while proving nothing. It now patches a clean
+pack.
+
+NOT A FINDING. CH49 1SX surfaced in the sweep's own output file and was chased
+down rather than assumed: it is the historic McCanns Sandringham error,
+confined to narrative files and to the checker that names it, exactly as item
+1.3 records. No page, pack or paste block carries it. check-postcodes.js
+briefly failed on the sweep's temporary output file, which is the checker
+working correctly on a file that should not have been in the tree; the temp
+files were removed and it is green.
+
+FILES CHANGED: tools/check-gbp-packs.js (the rule, the five KNOWN entries, the
+stale-exception wording), QUESTIONS.json (Q64), AGENT_WORKLIST.md (the fourth
+pass note under 3.5), AGENT_LOG.md (this entry),
+audits/hirshmans-build-check-2026-08-13-fourth.txt (evidence). No pack, no
+page, no generator and no branches.json field was edited.
+
 ## 2026-08-13 07:12 BST - hundred-and-forty-sixth run [commit 926fcf3, this hash line
 corrected by a small follow-up commit, which is why the log is one commit
 behind the work it describes] - Quality
