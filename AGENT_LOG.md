@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 23:05 BST - hundred-and-seventy-fourth run
+## 2026-08-13 23:05 BST - hundred-and-seventy-fourth run [commit 788bcb9, this
+hash line added by a small follow-up commit, which is why the log is one
+commit behind the work it describes]
 - Item 2.1 quality pass, Fishlocks Ainsdale, fifth pass. ONE REAL DEFECT FOUND
 AND FIXED, in tools/check-weight-loss-copy.js. No page, generator, data field,
 branches.json entry, pack or piece of patient-facing copy was changed. All 32
