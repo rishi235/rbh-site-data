@@ -311,7 +311,11 @@ function buttonsOf(text) {
     const line = (rest.match(/^Button:.*$/m) || [""])[0].trim();
     const url = (line.match(/https?:\/\/[^\s)"'<>]+/) || [""])[0].replace(/[.,]$/, "");
     const letter = (label.match(/^Post\s+([A-Z])\b/) || [])[1] || "";
-    return { label, letter, line, url };
+    // The words ON the button, as distinct from where it points. Added on the
+    // item 4.5 pass because nothing in this file had ever read them: see the
+    // button label rule below for why that mattered.
+    const cta = (line.match(/^Button:\s*(.+?)\s*->\s*https?:/) || [])[1] || "";
+    return { label, letter, line, url, cta };
   });
 }
 
@@ -927,6 +931,115 @@ for (const file of packFiles) {
     }
     if (!GENERATED.has(want.toLowerCase())) {
       fail(file, `${p.label} button goes to "${want}", which is the right name for this branch's ${rule.what} but is not a page this repo generates, so the post would publish a button onto a page nothing here builds`);
+    }
+  }
+
+  // --- post button LABELS, not only their destinations --------------------
+  // The loop above proves every button points at the right page. It reads the
+  // URL out of the "Button:" line and nothing else. The WORDS on the button
+  // were read by no rule in this file, and they could not be picked up
+  // anywhere else either, because postsOf() strips the whole "Button:" line
+  // out of the post body before the POM and efficacy scan runs over it. So
+  // the one line on a Google post that is both public copy AND the only
+  // clickable control sat outside every content rule in the repo. Proved by
+  // injection on the item 4.5 pass, 2026-08-13: a Post C reading
+  // "Button: Buy now -> .../weight-loss-clinic-scorah-hazel-grove.html"
+  // passed all 30 checkers, with the link, the body and the page all correct.
+  //
+  // Why this is the expensive direction and not a cosmetic one. The house
+  // reference (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 6, and
+  // AI\RBH_WeightLoss_Advertising_Standards.md behind it) bars "Buy [product]"
+  // style controls on a prescription-only service, and treats a treatment
+  // picker as the same journey in softer words. A Google post is Regime 1 in
+  // that reference, the proactive advertising regime with the near-total
+  // prohibition, not the inner-page exemption. And "Buy" is not a label
+  // anybody has to invent: it is one of the options in Google's own button
+  // picker, sitting in the dropdown beside "Book", so the wrong choice is one
+  // click away for the person pasting. This pack is the sheet that tells them
+  // which one to choose, which is exactly why the sheet has to be right.
+  //
+  // Allowlist, not blocklist, for the reason the services rule above gives:
+  // a blocklist only catches a wording somebody already thought to name. The
+  // vocabulary below is the complete set in use across all 15 packs on
+  // 2026-08-13, derived by reading their 60 button lines rather than from
+  // memory: "Learn more" on Posts A and B, "Book" on Posts C and D.
+  const RECOGNISED_CTAS = ["Learn more", "Book"].map((s) => s.toLowerCase());
+  // Not the defence. The allowlist above is. These are the transactional
+  // options in Google's own picker, named only so that when one of them turns
+  // up on a POM post the failure says WHY it is barred rather than only that
+  // it is unrecognised.
+  const TRANSACTIONAL_CTAS = [
+    "Buy", "Buy now", "Order online", "Order now", "Shop", "Sign up",
+  ].map((s) => s.toLowerCase());
+  const POM_POSTS = { C: "weight loss", D: "travel vaccination" };
+  for (const p of buttonsOf(text)) {
+    if (!p.letter || !p.line || !p.url) continue;
+    if (!p.cta) {
+      fail(file, `${p.label} has a "Button:" line with no label before the link, so the pack does not tell the paster which button to pick in Google's picker: ${p.line}`);
+      continue;
+    }
+    const cta = p.cta.toLowerCase();
+    if (RECOGNISED_CTAS.includes(cta)) continue;
+    if (TRANSACTIONAL_CTAS.includes(cta) && POM_POSTS[p.letter]) {
+      fail(file, `${p.label} is the ${POM_POSTS[p.letter]} post and its button is labelled "${p.cta}". A transactional call to action on a prescription-only service is the "Buy [product]" control the house standards bar, and a Google post sits in the advertising regime where that prohibition is near-total (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md). Use "Book" or "Learn more"`);
+      continue;
+    }
+    fail(file, `${p.label} button is labelled "${p.cta}", which is not a button label any pack in this repo uses. The button is public copy and the only clickable control on the post, so a new label is a new call to action reaching patients. If it is genuinely wanted, add it to RECOGNISED_CTAS in tools/check-gbp-packs.js deliberately, having checked it against the house advertising standards first`);
+  }
+
+  // --- no lead pricing or offer wording in the posted copy -----------------
+  // Found by the same injection round as the button label rule above, and it
+  // is the other half of the same hole. The POM and efficacy scan reads the
+  // post bodies, so a named medicine or a superlative is caught. Neither is
+  // what the house reference actually rules on hardest in the advertising
+  // regime. Section 5 of compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md turns
+  // on PRICE: a single lead price placed before any eligibility wording
+  // "encourages entry on price", and it records "POM only special offers or
+  // discounted prices" and "treatments start from ..." as ruled breaches in
+  // ads (Phlo, Juniper, Hexpress, 9 July 2025). That is wording, not a
+  // medicine name, so nothing in this repo was looking for it.
+  //
+  // Proved by injection on 2026-08-13: "Weight loss from just 99 pounds a
+  // month." and "Half price for the first month, this week only." both walked
+  // past all 30 checkers inside Post C. A pound sign happened to trip
+  // check-em-dashes.js on its non-ASCII rule, which is luck rather than a
+  // pricing rule, and it disappears the moment the price is written in words.
+  //
+  // Scope is the four post bodies, which are the copy that actually publishes.
+  // The reference permits a factual price LIST on an inner page the customer
+  // chooses to visit; a Google post is not that page, it is Regime 1, the
+  // proactive advertising regime. No pack in the estate carries a price in a
+  // post body today, so this rule asserts nothing new about live copy: it
+  // stops one being added silently.
+  //
+  // "Free" is deliberately NOT a trigger. Every pack says "free NHS services",
+  // "free NHS assessment" and "free blood pressure checks", which is the
+  // correct description of an NHS service and the opposite of a promotion.
+  const PRICE_PATTERNS = [
+    [/£\s?\d/, "a price"],
+    [/\b\d+(?:\.\d{1,2})?\s*(?:pounds|quid|gbp)\b/i, "a price written in words"],
+    [/\bfrom\s+(?:just\s+|only\s+)?\d/i, 'a "from" lead price'],
+  ];
+  const OFFER_PATTERNS = [
+    [/\bspecial offers?\b/i, "a special offer"],
+    [/\bhalf[- ]price\b/i, "a half-price offer"],
+    [/\bdiscount(?:ed|s)?\b/i, "a discount"],
+    [/\b\d+\s*%\s*off\b/i, "a percentage discount"],
+    [/\bthis week only\b|\blimited time\b|\bwhile stocks last\b/i, "a time-limited offer"],
+    [/\bsave\s+£?\s?\d/i, "a saving claim"],
+  ];
+  for (const p of postsOf(text)) {
+    for (const [re, why] of PRICE_PATTERNS) {
+      const hit = p.body.match(re);
+      if (!hit) continue;
+      fail(file, `${p.label} carries ${why} in the posted copy ("${norm(hit[0])}"). A Google post is advertising, not an inner page the customer chose to visit, and the house standards bar lead pricing that encourages entry on price, naming "treatments start from ..." as a ruled breach (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Keep price out of the post and let the consultation page carry it`);
+      break;
+    }
+    for (const [re, why] of OFFER_PATTERNS) {
+      const hit = p.body.match(re);
+      if (!hit) continue;
+      fail(file, `${p.label} carries ${why} in the posted copy ("${norm(hit[0])}"). Highlighted offers and discounts on a pharmacy service are barred in the advertising regime the house standards apply to a Google post (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Note "free NHS ..." is not this: an NHS service being free of charge is a fact, not an offer`);
+      break;
     }
   }
 

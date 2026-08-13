@@ -2,6 +2,168 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 04:20 BST - hundred-and-forty-second run [commit PENDING] -
+Quality pass on item 4.5, Scorah Chemists Hazel Grove GBP pack. REPO HALF ONLY:
+no browser was available, so nothing live was read and nothing live is claimed.
+The pack itself verified clean on 15 of 15 independent assertions. TWO gaps
+found and closed, both in the same place and both about the GBP posts: the
+button LABEL was read by no rule in the repo, and lead pricing or offer wording
+in the posted copy was read by no rule either. 10 negative tests, all 10 fire.
+
+ROTATION RE-DERIVED, AND MY FIRST TWO DERIVATIONS WERE WRONG. Run 141 handed
+over 4.5 as the next item. This run did not take that on trust and re-derived
+it, which is the right instinct, but the first attempt CONTRADICTED run 141 and
+named 5.1. It was wrong, twice over, and both bugs are worth recording because
+the next run will reach for the same method.
+  1. The date regex read the FIRST date anywhere in the heading block. Many
+     headings say "Quality pass on item X, last verified 2026-08-11 14:04 as
+     the seventy-second run", so the run was being stamped with the date of
+     the PREVIOUS pass it was comparing itself against. Every item that had
+     ever been compared to an older pass looked older than it was.
+  2. The display printed the LAST four matching blocks. This log is
+     newest-at-top, so that showed the OLDEST four and hid the recent ones.
+THE RELIABLE ORDER IS THE LOG LINE NUMBER, not a parsed date. Newest is at the
+top by construction, so a larger line number is strictly older, and it needs no
+parsing of "(afternoon)" or of headings that carry no time at all. Sorted that
+way the answer is unambiguous and agrees with run 141: 4.5 at log line 3712 was
+the oldest, last passed by the hundredth run on 2026-08-12 05:10. THE NEXT RUN
+SHOULD TAKE 4.1, at line 3634, then 3.2, 3.3, 3.4 and 3.5. Use the line-number
+method, not the date method.
+
+THE UNCHECKED ITEMS FIRST, AS THE PROCEDURE REQUIRES. 6.6 is still the first
+unchecked item that is not [BLOCKED] and still could not be advanced, for the
+reason runs 135 to 141 recorded and which the item's own text states: the
+redirect is NOT broken, and what remains is a canonical tag plus a historic
+index artifact, both of which live in Weebly's head and admin rather than in
+this repo. Run 135 already proved the repo side. Every remaining route needs
+live Google Search Console or the Weebly admin, and both need the browser. 6.6
+keeps no [BLOCKED] tag because it is blocked on tooling, not on a decision.
+Every other unchecked item is [BLOCKED] on a question, so the run went to a
+quality pass.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-second consecutive run, 121 to 142. Cause
+unchanged. Two Chrome extension instances are connected and both were listed
+this run, so the extension side is alive. The block is that the tooling
+requires a human to choose between the two before any browser call is made and
+states explicitly that the agent must not pick one itself. An unattended run
+has nobody to ask. Enumerating the connected extensions is the only thing that
+happened: NO page was fetched, and nothing was clicked, typed, submitted or
+logged in to, on any site. No other route was attempted. 38 questions open
+going in, 38 going out; this run raised none and answered none. Q59 already
+asks how to clear this block, so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10 23:14
+BST. Nothing this run needed one: no live copy was changed and no commercial,
+legal or regulatory position was decided. Both new rules enforce a standard the
+house reference already sets, and neither alters a word that reaches a patient.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with origin
+and clean. All 30 checkers exited 0 before anything was changed, so nothing
+below is a pre-existing failure. Scratch was kept in C:\Temp\rbh-agent-run142
+throughout, per the rule run 141 added after its own scratch files inside the
+repo poisoned its results.
+
+WHAT VERIFIED CLEAN ON SCORAH HAZEL GROVE. gbp-packs/scorah-hazel-grove.md
+checked field by field against branches.json by a throwaway extractor reusing no
+checker code: 15 assertions, 15 pass, no false flags. Verified: branch name,
+87 Macclesfield Road, Hazel Grove, SK7 6BG, phone 01625 872267, Google review
+link, pfLink on Post A, seoTown Hazel Grove, all five catchment towns in
+branches.json order, description 712 characters under the paste-join convention
+with its own stated count true and inside the 750 limit, profile website set to
+the branch landing page rather than the shared Scorah homepage, no app mention
+with hasApp false, and no other live branch's phone or postcode anywhere in the
+pack. All five private and NHS service claims are earned by a widget in
+branches.json. Zero defects. The four post buttons and the profile website line
+are carried forward unverified against the live profile and should be
+re-fetched when a browser returns.
+
+HOW THE GAPS WERE FOUND. By injection, not by reading, and the first round
+found nothing. Eight value substitutions were tried: closing time, the ceased
+Saturday trading reinstated, another branch's review link, a button URL to a
+page that does not exist, a plausible phone belonging to no branch, the
+Pharmacy First condition count, the blood pressure age threshold and the
+primary category. All eight were caught. That is a well defended pack, and it
+is why the second round changed shape: instead of altering a value, ADD a
+claim, and aim at the two places a pharmacy actually gets into trouble, weight
+loss advertising and invented services. A superlative, a named medicine, an
+invented NHS service bullet, a widened UTI cohort and a brand misspelling were
+all caught too. What was not caught was the button.
+
+GAP ONE, THE BUTTON LABEL. A Post C reading "Button: Buy now -> [the correct
+weight loss page]" passed all 30 checkers, with the link right, the body right
+and the page right. The cause is a clean seam between two rules that each did
+their own job properly. postsOf() strips the whole "Button:" line out of the
+post body before the medicine and efficacy scan runs, correctly, because the
+button is not body copy and was inflating a character count. buttonsOf() then
+reads that line and validates the URL exhaustively, correctly. Neither reads
+the WORDS. So the one line on a Google post that is both public copy and the
+only clickable control sat outside every content rule in the repo.
+  Why it is the expensive direction rather than a cosmetic one. The house
+reference bars "Buy [product]" style controls on a prescription-only service
+and treats a treatment picker as the same journey in softer words. A Google
+post is Regime 1 in that reference, the proactive advertising regime with the
+near-total prohibition, NOT the inner-page exemption. And "Buy" is not a label
+anybody has to invent: it is one of the options in Google's own button picker,
+sitting in the dropdown beside "Book", so the wrong choice is one click away
+for whoever is pasting. The pack is the sheet that tells them which to pick.
+  The fix is an allowlist, not a blocklist, for the reason run 141 gave: a
+blocklist only catches a wording somebody already thought to name. The
+vocabulary was derived by reading all 60 button lines across the 15 packs
+rather than from memory, and it is exactly two labels, "Learn more" on Posts A
+and B and "Book" on Posts C and D. A transactional label is named separately,
+not as the defence but so that when one turns up on the weight loss or travel
+post the failure says WHY it is barred rather than only that it is
+unrecognised.
+
+GAP TWO, PRICE AND OFFER WORDING, WHICH IS THE OTHER HALF OF THE SAME HOLE.
+Chasing gap one turned up a second. The medicine and efficacy scan reads the
+post bodies, so a named medicine or a superlative is caught. Neither is what
+the house reference rules on hardest in the advertising regime. Section 5 of
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md turns on PRICE: a single lead
+price before any eligibility wording encourages entry on price, and it records
+"POM only special offers or discounted prices" and "treatments start from ..."
+as ruled breaches in ads. That is wording, not a medicine name, so nothing was
+looking for it. "Weight loss from just 99 pounds a month." and "Half price for
+the first month, this week only." both walked past all 30 checkers inside Post
+C. A pound SIGN happened to trip check-em-dashes.js on its non-ASCII rule,
+which is luck rather than a pricing rule and disappears the moment the price is
+written in words. Scope of the new rule is the four post bodies, the copy that
+actually publishes. "Free" is deliberately not a trigger: every pack says "free
+NHS services" and "free NHS assessment", which is the correct description of an
+NHS service and the opposite of a promotion.
+
+WHAT THE FIXES DO NOT PROMISE. Neither rule can tell whether a claim is true.
+They guarantee only that a new call to action, a price or an offer cannot enter
+a pack silently: adding one now requires a deliberate edit to
+tools/check-gbp-packs.js, which is where a human decides whether it is allowed.
+That is the same guarantee run 141's service and category allowlist gives, and
+it is the strongest the repo's own data can support.
+
+TESTS. 10 negative tests, all 10 fire for the stated reason and the failure
+message was read each time rather than only the exit code. Button label: "Buy
+now" on Post C and "Order online" on Post D both fail with the
+prescription-only message; "Sign up" on Post A and "Call now" on Post B fail
+with the unrecognised-label message, which is the right split because neither
+is a POM post; a "Button:" line with the label deleted fails on its own rule.
+Case is handled, "BOOK" still passes. Estate-wide coverage was proved rather
+than assumed by injecting "Buy" into a SECOND pack, smartts-bootle.md, which
+fails identically. Price and offers: a price in words, a half-price offer and a
+percentage discount all fail. The false-positive test is the important one and
+it is the full suite itself: with both rules live and all 15 packs untouched,
+all 30 checkers exit 0, and every pack carries "free NHS" wording, so the
+carve-out holds in practice and not only in the comment.
+
+FILES CHANGED. tools/check-gbp-packs.js only. No pack, no generated page, no
+branches.json and no live copy was touched, and git status showed that one file
+throughout. Every probe restored its file byte-for-byte and each probe asserted
+the restore before reporting.
+
+QUESTIONS. None raised. Nothing this run touched was a decision for Rishi: both
+rules enforce a position the house reference already states, and neither changes
+a word any patient reads.
+
 ## 2026-08-13 03:34 BST - hundred-and-forty-first run [commit 06ae92f] -
 Quality pass on item 4.4, Scorah Chemists Bramhall GBP pack. REPO HALF ONLY: no browser was
 available, so nothing live was read and nothing live is claimed. The pack is
