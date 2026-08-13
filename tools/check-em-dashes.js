@@ -15,8 +15,11 @@
       browser but are invisible to a literal character search: &mdash; &ndash;
       &#8212; &#8211; and their hex forms &#x2014; &#x2013;
     - an em dash or en dash, literal or entity, in a pasteable value in the
-      paste sheets, meaning the Page Title, Page Description or Meta Keywords
-      lines that get typed into the Weebly SEO fields
+      paste sheets, meaning the Page Title, Page Description, Meta Keywords,
+      SEO title and SEO description lines that get typed into the Weebly SEO
+      fields. The last two spellings are the INDEX.md sheets' names for the
+      same two Weebly fields the *-SEO.md sheets call the first two, and were
+      being counted as headings rather than values until 2026-08-13
     - the same, in the non-generated public copy listed in EXTRA_HTML: the
       hand-pasted Weebly blocks, and the DRAFT-*.html templates the weight loss
       and travel clinic generators name as their approved-copy source
@@ -217,7 +220,27 @@ const EXTRA_HTML = [
 ];
 
 // Lines in the paste sheets whose value is typed straight into Weebly.
-const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords):\*\*/;
+//
+// Why there are two label spellings. Until the item 3.6 quality pass on
+// 2026-08-13 this pattern read three labels only, and the estate writes the
+// same values under two different names. The six *-SEO.md sheets write
+// "Page Title" and "Page Description"; the five INDEX.md sheets write the same
+// two Weebly fields as "SEO title" and "SEO description". That is 163 lines of
+// each, 326 pasteable values in total, sitting in files this checker already
+// opened and already read line by line. They did not fail, and they did not
+// pass either: they fell to the else branch and were counted as paste sheet
+// HEADINGS, the bucket for paster labels nobody types, so an em dash in one
+// was reported as "dash in a heading - not a pasted value" and the run went
+// green. Proved by injection on 2026-08-13: an em dash put into the real
+// "SEO title" line for the McCanns Aigburth UTI page passed all 30 checkers
+// and moved the heading count from 591 to 592 and nothing else.
+//
+// All 326 lines were clean when this was widened, so this closes a latent hole
+// rather than a live breach. It is the same shape of fault as the five already
+// recorded at the top of this file, with one turn added: those asked which
+// FILES a checker reads, and this one asks which LINES INSIDE a file it counts
+// as copy. A sheet the checker opens is not a sheet the checker reads.
+const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords|SEO title|SEO description):\*\*/i;
 
 // The switch banner paste files. Pasted into Weebly's site-wide Header Code
 // field, which mangles non-ASCII characters, so these are held to ASCII only.

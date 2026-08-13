@@ -1,0 +1,79 @@
+McCanns Chemist (Aigburth + Sandringham) - item 3.6 quality pass, fourth
+Date: 2026-08-13    Run: 148    Branch: agents/audit-backlog
+Scope: REPO HALF ONLY. No browser was available this run (two extension
+instances connected, tooling requires a human to choose, unattended run has
+nobody to ask - see Q59). Nothing live was read and nothing live is claimed.
+
+METHOD
+An independent verifier was written for this pass with its own regexes and its
+own reading of branches.json, sharing no code with tools/. Where it agrees with
+the 30 checkers it does so by arriving separately rather than by calling them.
+6,666 checks across 26 pages, 11 paste sheets and 2 GBP packs. 0 failures.
+
+PAGES: 26 (11 service + 1 switch + 1 branch landing, per branch)
+  Aigburth      seoTown Aigburth      addressLocality Liverpool   L17 7BP
+  Sandringham   seoTown St Michael's  addressLocality Liverpool   L17 4JP
+
+WHAT PASSED, FIELD BY FIELD
+- exactly one H1 per page, every one carrying that branch's own seoTown,
+  including the St Michael's retitle on all 13 Sandringham pages
+- display phone and tel: link correct on all 26; no other branch's number in
+  either shape anywhere
+- own postcode only on all 26; no other branch's postcode
+- own streetAddress present on all 26
+- JSON-LD parsed and compared field by field: name, telephone, and the whole
+  PostalAddress including addressLocality Liverpool and addressRegion
+  Merseyside, plus url rooted on the branch's own website
+- NO hard-coded widget id on any page: all 79 estate ids scanned, none present.
+  The diaries are resolved at run time from branches.json as the generators
+  intend. Widget diary policy holds: weightLoss and travelClinic shared across
+  the brand, the three NHS diaries unique per site
+- CDN pins consistent per family: service and branch landing on
+  service-module-phase1, switch on 6a275e1
+- own ODS only (FA428 / FAP24); no other branch's ODS or nhs.net address
+- no other branch's Google review link, NHS review link or Pharmacy First link
+- no http:// href or src on any of the 26 pages
+- no other brand's label on any page
+- cross-town scan clean. The one same-brand mention is deliberate: the Aigburth
+  landing page signposts "McCanns Chemist Sandringham in St Michael's". That is
+  the brand pointing at its own other branch on the page built to do it, so the
+  rule allows a sister town on a landing page and stays strict everywhere else
+- paste sheets: 50 pasteable rows across both branches, descriptions 135 to 159
+  characters, every title carrying both the branch's seoTown and the brand, no
+  other branch's town in any McCanns title
+- GBP packs (mccanns-aigburth.md, mccanns-sandringham.md): own postcode, phone
+  and street present; no other branch's postcode or phone; every "Town,
+  POSTCODE" pairing uses a post town branches.json actually holds. The post-town
+  rule added by run 147 is satisfied by both McCanns packs
+
+ALL 30 CHECKERS PASS. All seven generators rebuild byte-identical; only
+status/index.html moves, and only to pick up the timestamp and the newest log
+entry, which is the generator working correctly rather than a diff.
+
+DEFECT FOUND - NOT ON A PAGE, IN A CHECKER'S READING OF A LINE
+check-em-dashes.js read three pasteable label spellings, "Page Title", "Page
+Description" and "Meta Keywords". The estate writes the same Weebly SEO values
+under two names: the six *-SEO.md sheets use those three, and the five INDEX.md
+sheets write "SEO title" and "SEO description" - 163 lines of each, 326
+pasteable values in total. Those 326 lines were being read by the checker and
+then dropped into the else branch, which counts paste sheet HEADINGS, the
+bucket for paster labels nobody types. So a dash in one was reported as "not a
+pasted value" and the run went green.
+
+PROVED BY INJECTION, not by reading. An em dash placed in the real "SEO title"
+line for the McCanns Aigburth UTI page passed all 30 checkers and moved the
+heading count from 591 to 592 and nothing else.
+
+FIXED at source by widening PASTEABLE_LINE to the two extra spellings, with the
+reasoning written into the file the way the other five findings there are.
+Three negative tests, all three fire:
+  SEO title, literal em dash                       -> FAIL, INDEX.md line 254
+  SEO description, en dash HTML ENTITY             -> FAIL, INDEX.md line 255
+  Page Title, literal em dash (regression guard)   -> FAIL, CONTRACEPTION-SEO.md line 55
+All 326 lines were already clean, so this closes a latent hole rather than a
+live breach. No copy was edited, on any page, sheet, pack or data field.
+
+This is the sixth of the same family recorded in that file, with one turn
+added. The five before it ask which FILES a checker reads. This one asks which
+LINES INSIDE a file it counts as copy: a sheet the checker opens is not a sheet
+the checker reads.

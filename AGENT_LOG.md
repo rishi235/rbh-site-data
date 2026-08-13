@@ -2,6 +2,125 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 07:34 BST - hundred-and-forty-eighth run - Quality pass on item
+3.6, McCanns Chemist (Aigburth and Sandringham), last verified 2026-08-12 and
+the oldest verification standing. Fourth pass on this item. REPO HALF ONLY: no
+browser was available, so nothing live was read and nothing live is claimed.
+All 26 pages verified clean, 6,666 checks. ONE DEFECT CLASS FOUND, and it was
+not on a page: check-em-dashes.js was reading 326 pasteable SEO values and
+counting them as headings. Rule widened, three negative tests, all three fire.
+No question raised. Nothing edited in any page, sheet, pack or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in this log is the 2026-08-09 one,
+which expired 2026-08-10 23:14 BST. This run did not need one. The single
+change is to a checker's own reading of a line, it edits no copy and no patient
+-facing claim, and it is the kind of in-repo defect fix a quality pass is
+explicitly told to make, so it needed no decision from Rishi and none was
+invented.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-eighth consecutive run, 121 to 148. Cause
+unchanged and confirmed again this run rather than assumed: the connected
+browsers were enumerated and TWO extension instances are live, so the extension
+side is alive. The tooling requires a human to choose between the two before
+any browser call is made and states explicitly that the agent must not pick one
+itself. An unattended run has nobody to ask. Enumerating the extensions is the
+only thing that happened: NO page was fetched, and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted. 40
+questions open going in, 40 going out. Q59 already asks how to clear this
+block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at eb74820, worktree clean. Unchecked
+items taken first as the procedure requires. 6.6 is still the ONLY unchecked
+item that is not [BLOCKED] and still could not be advanced: its own corrected
+text says the redirect is not broken and what remains is a canonical tag plus a
+historic index artifact, both of which live in Weebly's head and admin, not in
+this repo, and both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 147. Run 147 handed
+over 3.6. This run re-derived it independently by joining each run heading with
+the next three lines before reading the item number, because several headings
+wrap and carry the number on a continuation line, and by taking the completed
+set from the worklist rather than from the log. Every one of the 41 completed
+items has a recorded pass, and 3.6, deepest in the log at line 4057, was the
+oldest, ahead of 3.7 (3990) and 3.8 (3923). THE NEXT RUN SHOULD TAKE 3.7, then
+3.8, then 3.9.
+
+THE 26 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 26 McCanns pages (11
+service, 1 switch, 1 branch landing, per branch) re-read by a fourth
+independent extraction with its own regexes and its own reading of
+branches.json, sharing no code with tools/, so where it agrees with the
+checkers it does so by arriving separately rather than by calling them. 6,666
+checks, 0 failures: exactly one H1 per page and every one carrying that
+branch's own seoTown, including the St Michael's retitle on all 13 Sandringham
+pages; display phone and tel: link correct on all 26 with no other branch's
+number in either shape; own postcode and street only; JSON-LD parsed and
+compared field by field including addressLocality Liverpool and addressRegion
+Merseyside; NO hard-coded widget id anywhere, all 79 estate ids scanned, so the
+diaries resolve at run time as the generators intend; pins consistent per
+family, service and branch landing on service-module-phase1 and switch on
+6a275e1; own ODS only, FA428 and FAP24, with no other branch's nhs.net address;
+no other branch's Google or NHS review link and no other branch's Pharmacy
+First link; no http:// href or src on any page; no other brand's label. All 30
+checkers pass and all seven generators rebuild byte-identical, status/index.html
+changing only its timestamp line and the newest log entry, which is the
+generator working rather than a diff.
+
+ONE CROSS-TOWN HIT, AND IT IS CORRECT COPY. The Aigburth landing page names St
+Michael's: "If you are nearer our other branch, see McCanns Chemist Sandringham
+in St Michael's." That is the brand pointing at its own other branch, on the
+page built to do exactly that, so it is right. The rule was tightened rather
+than loosened: a SAME-BRAND sister town is allowed on a branch landing page and
+nowhere else, and service and switch pages stay strict. Both were re-run under
+the tightened rule and both are clean.
+
+THE DEFECT WAS IN A CHECKER'S READING OF A LINE, NOT IN A FILE IT MISSED.
+check-em-dashes.js held a list of three pasteable label spellings: "Page
+Title", "Page Description", "Meta Keywords". The estate writes the same Weebly
+SEO values under two names. The six *-SEO.md sheets use those three. The five
+INDEX.md sheets write "SEO title" and "SEO description", 163 lines of each, 326
+pasteable values in total. Those 326 lines were opened by the checker, read by
+the checker line by line, and then dropped into the else branch, which is the
+bucket for paste sheet HEADINGS: paster labels nobody types into a field. So a
+dash in a real SEO title was reported as "dash in a heading - not a pasted
+value" and the run went green.
+
+PROVED BY INJECTION RATHER THAN BY READING. An em dash was put into the real
+"SEO title" line for the McCanns Aigburth UTI page. All 30 checkers passed. The
+only thing that moved in the whole estate was the heading count, 591 to 592.
+The injection was reverted with git checkout before anything else was done.
+
+FIXED AT SOURCE, WITH THREE NEGATIVE TESTS. PASTEABLE_LINE now reads the two
+extra spellings, case-insensitively, and the reasoning is written into the file
+the way the five findings already recorded there are, including the injection
+result and the counts, so the next reader does not have to rediscover it. The
+header's own "What FAILS the run" list was updated in the same edit so the file
+does not describe a narrower rule than it enforces. Three negative tests:
+  SEO title, literal em dash                     -> FAIL, INDEX.md line 254
+  SEO description, en dash HTML ENTITY           -> FAIL, INDEX.md line 255
+  Page Title, literal em dash, regression guard  -> FAIL, CONTRACEPTION-SEO.md 55
+The third is there so widening the pattern cannot quietly break what it already
+caught. All three fire. All 326 lines were already clean when the rule was
+widened, so this closes a latent hole rather than a live breach, and no copy
+was edited on any page, sheet, pack or data field.
+
+WHY THIS ONE IS WORTH THE WORDS. It is the sixth of a family this file already
+records five of, and it adds a turn to the question. The five before it ask
+which FILES a checker reads: check-seo-lengths read the sheets and the H1 was
+not on one; check-nap read two phone shapes and the FAQ used a third;
+check-cdn-pins was built to look past the repo and still only looked inside it;
+check-em-dashes named its sheet files and the estate outgrew the names; and the
+module-code rule found copy that was in no file at all. This one had the right
+file open, on the right line, and still did not count it as copy. So the
+question to carry forward is not only which files a checker reads, but which
+lines inside them it is willing to call public.
+
+FILES CHANGED: tools/check-em-dashes.js (rule widened, reasoning and header
+list updated), AGENT_WORKLIST.md (item 3.6 note appended in place),
+audits/mccanns-build-check-2026-08-13.txt (new, evidence), AGENT_LOG.md (this
+entry). No page, sheet, pack or branches.json field was touched.
+
 ## 2026-08-13 07:05 BST - hundred-and-forty-seventh run [commit 6b5543a, this
 hash line added by a small follow-up commit, which is why the log is one
 commit behind the work it describes] - Quality pass on item

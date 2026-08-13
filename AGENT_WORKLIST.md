@@ -574,6 +574,24 @@ already open. The shared pfLink page still carries its known faults and
 waits on the 5.3 decision, though it now signposts both generated branch
 Pharmacy First pages. No in-repo defect found. Evidence in
 audits/mccanns-build-check-2026-08-12.txt.
+Quality pass 2026-08-13 (fourth). REPO HALF ONLY: no browser this run, so
+nothing live was read or claimed. All 26 pages re-verified by a fourth
+independent extraction sharing no code with tools/, 6,666 checks, 0 failures:
+one H1 per page carrying its own seoTown including the St Michael's retitle,
+phone in both shapes, own postcode and street only, JSON-LD address field by
+field, no hard-coded widget id (79 estate ids scanned), pins consistent per
+family, own ODS only, no other branch's review or Pharmacy First link, no
+http:// on any page, cross-town clean apart from the deliberate same-brand
+signpost to Sandringham on the Aigburth landing page. 50 sheet rows,
+descriptions 135 to 159 characters. Both GBP packs satisfy run 147's new
+post-town rule. All 30 checkers pass, all seven generators byte-identical.
+ONE DEFECT FOUND, in a checker rather than on a page: check-em-dashes.js read
+three pasteable label spellings and the INDEX.md sheets write two more ("SEO
+title", "SEO description", 326 lines), which were being counted as headings
+rather than pasted values. Proved by injection, fixed at source, three
+negative tests all fire. All 326 lines were already clean, so a latent hole
+closed, not a live breach. No copy edited anywhere. Evidence in
+audits/mccanns-build-check-2026-08-13.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
