@@ -461,6 +461,36 @@ First pages both 200 with exact pattern titles and H1s and NHS-correct
 cohorts; the only live fault is the known Q36 footer mailbox typo (mhs.net).
 Evidence in audits/cherry-lane-build-check-2026-08-12-third.txt. No new
 question.
+Quality pass 2026-08-13 (fourth): ONE REAL DEFECT, and it was not on a page.
+REPO HALF ONLY, no browser was available so nothing live was read or claimed.
+All 12 pages re-verified by a fourth independent extraction written fresh for
+this run, sharing no code with tools/: 817 checks, 0 failures. One H1 per page
+carrying Walton, no sister town or brand, display phone 0151 226 2051 and its
+tel: link on all 12 with no other phone-shaped number anywhere, L4 8SG the only
+postcode, JSON-LD address correct field by field including addressLocality
+Liverpool (the postal town, NOT the seoTown), every 24-character widget id
+owned by this branch, service pages pinned service-module-phase1 and the switch
+page 6a275e1, and no medicine name or claim-shaped phrase on any page including
+weight loss. All 30 checkers pass and all seven generators rebuild
+byte-identical. The defect was in the two Weebly paste blocks, the only two
+files in the repo where a human wrote an address as prose instead of a
+generator composing it from the data, and the only two that had drifted: both
+published "202 Cherry Lane, Walton, Liverpool L4 8SG", putting the seoTown
+inside a postal address, while branches.json, all 177 generated pages and
+gbp-packs/cherry-lane-walton.md all publish Liverpool as the post town. One
+shop, one repo, two address strings for the public, which is the citation
+consistency fault item 1.4 exists to stop. CLAUDE.md gives seoTown one job,
+the catchment word in titles and H1s. Both blocks corrected. The gap that let
+it through was narrow and old: check-nap.js proves the postcode is the
+branch's own and that the street sits in front of it, and never read the words
+BETWEEN them, so "202 Cherry Lane, Bramhall L4 8SG" would have passed every
+rule in the file. New post-town rule added to the paste-block half, equality
+not containment because the fault was an extra true word, proved by five
+negative tests that all fire. Neither block is live, so nothing published
+changed. Recorded not fixed: check-weight-loss-copy.js scopes to
+modules/service/pages only, so the weight loss paste block is weight loss copy
+no weight loss rule reads. It is clean today. Worth a later run. Evidence in
+audits/cherry-lane-build-check-2026-08-13-fourth.txt. No new question.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.

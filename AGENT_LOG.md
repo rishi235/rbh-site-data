@@ -2,6 +2,124 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 07:12 BST - hundred-and-forty-sixth run [commit 08d231e] - Quality
+pass on item 3.4, Cherry Lane Pharmacy (Walton), last verified 2026-08-12 and
+the oldest verification standing. Fourth pass on this item. REPO HALF ONLY: no
+browser was available, so nothing live was read and nothing live is claimed.
+All 12 pages verified clean, 817 checks. ONE REAL DEFECT FOUND, and it was not
+on a page: both Weebly paste blocks published the seoTown inside a postal
+address. Both corrected, one checker rule added, five negative tests, all five
+fire. No new question.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in this log is the 2026-08-09 one,
+which expired 2026-08-10 23:14 BST. Nothing this run needed one. The address
+correction was not an autonomous decision in the sense step 4 carves out: it
+is not money, not legal, and not a regulatory claim. It aligns two prose files
+with branches.json, which CLAUDE.md declares the single source of truth, and
+neither file is live.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-sixth consecutive run, 121 to 146. Cause
+unchanged and confirmed again this run rather than assumed: the connected
+browsers were enumerated and TWO extension instances are live, so the extension
+side is alive. The tooling requires a human to choose between the two before
+any browser call is made and states explicitly that the agent must not pick one
+itself. An unattended run has nobody to ask. Enumerating the extensions is the
+only thing that happened: NO page was fetched, and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted. 39
+questions open going in, 39 going out. Q59 already asks how to clear this
+block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin, worktree clean. Unchecked items taken
+first as the procedure requires. 6.6 is still the ONLY unchecked item that is
+not [BLOCKED] and still could not be advanced: its own corrected text says the
+redirect is not broken and what remains is a canonical tag plus a historic
+index artifact, both of which live in Weebly's head and admin, not in this
+repo, and both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 145. Run 145 handed
+over 3.4. This run re-derived it independently by the line-number method,
+joining each run heading with its next two lines before reading the item
+number, because several headings wrap and carry the number on the continuation
+line. All 41 completed items have a recorded pass, none missing, and 3.4 at log
+line 4009 was the oldest, ahead of 3.5 (3949) and 3.6 (3882). 5.8 sorts deeper
+still but is not a completed item, so it is not in the rotation. THE NEXT RUN
+SHOULD TAKE 3.5, then 3.6, then 3.7.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Cherry Lane pages (11
+service, 1 switch) re-read by a fourth independent extraction with its own
+regexes, sharing no code with tools/, so where it agrees with the checkers it
+does so by arriving separately rather than by calling them. 817 checks, 0
+failures: exactly one H1 per page and every one carries the seoTown Walton, no
+other branch's town or brandLabel anywhere, display phone 0151 226 2051 and its
+tel: link on all 12 with no other phone-shaped number on any page, L4 8SG the
+only postcode and no other branch's postcode present, JSON-LD address correct
+field by field including addressLocality Liverpool, every 24-character widget
+id owned by this branch, service pages pinned service-module-phase1 and the
+switch page 6a275e1, and no medicine name and no claim-shaped phrase on any
+page, weight loss page included. All 30 checkers pass and all seven generators
+rebuild byte-identical, status/index.html changing only its timestamp line.
+
+THE DEFECT WAS IN THE TWO FILES A GENERATOR DOES NOT WRITE. modules/service/
+weebly-paste holds two Cherry Lane blocks, and they are the only place in the
+repo where a human wrote a full address as prose rather than a generator
+composing it from branches.json. Both wrote:
+
+    202 Cherry Lane, Walton, Liverpool L4 8SG
+
+branches.json holds streetAddress "202 Cherry Lane", addressLocality
+"Liverpool", postalCode "L4 8SG". All 177 generated pages publish "202 Cherry
+Lane, Liverpool, L4 8SG" and gbp-packs/cherry-lane-walton.md, which is what a
+human pastes into Google Business Profile, publishes "202 Cherry Lane,
+Liverpool L4 8SG". So one shop was being published to the public with two
+different address strings out of one repo. That is the citation consistency
+fault item 1.4 exists to stop, and it is the seoTown escaping its job:
+CLAUDE.md gives seoTown one, "the catchment town used in page titles and H1",
+and Cherry Lane is the file's own worked example of seoTown differing from the
+postal town. Walton is true. It is simply not part of the address. Both blocks
+corrected. Neither is live (the Pharmacy First one is explicitly held under
+item 5.4), so nothing published changed and no paste is owed.
+
+THE GAP WAS NARROW, OLD, AND EXACTLY BETWEEN TWO EXISTING RULES. The
+paste-block half of check-nap.js has swept postcodes since 2026-08-07 and
+proves two things about each one: that it is the branch's own, and that the
+street address sits within 90 characters in front of it. Nothing had ever read
+the words BETWEEN the street and the postcode, which is precisely where the
+post town lives. So "202 Cherry Lane, Bramhall L4 8SG" carried a correct
+postcode preceded by a correct street and passed every rule in the file. New
+post-town rule added to that half: what sits between the street and the
+postcode must equal the branch's own addressLocality, commas and full stops
+aside. Equality rather than containment on purpose, because the fault found
+here was an EXTRA true word, not a missing or a false one, and a containment
+rule would have passed it.
+
+FIVE NEGATIVE TESTS, ALL FIVE FIRE. Injected into the weight loss block, run,
+reverted: T1 the fault exactly as found (Walton reinserted) caught; T2 a
+foreign post town (Bramhall) caught; T3 the post town removed entirely caught;
+T4 the county appended (Liverpool Merseyside) caught; T5 a sister-brand town
+(Ainsdale, Liverpool) caught. File restored byte-for-byte and check-nap exits
+0 on the corrected repo: 177 pages and 3 paste blocks, 0 mismatches, 0
+warnings.
+
+ONE FINDING RECORDED AND DELIBERATELY NOT FIXED THIS RUN.
+tools/check-weight-loss-copy.js scopes to modules/service/pages only, so
+cherry-lane-old-weight-loss-replacement.html is weight loss copy that no
+weight loss rule reads. Five checkers do read the paste directory (brand
+spelling, cdn pins, em dashes, nap, postcodes) and none of them reads it for
+what it is about. The block was read in full this run and is clean: no
+medicine named, no claim, no price, no Buy Now. Widening that checker's scope
+means reworking its coverage rule and its "identical on all 15 pages" rules,
+which is more than the tail of a run should carry, and half-doing it is worse
+than logging it. Recommended for a future run. No question is raised because
+there is no decision to take, only work.
+
+FILES CHANGED: modules/service/weebly-paste/cherry-lane-old-pharmacy-first-
+replacement.html, modules/service/weebly-paste/cherry-lane-old-weight-loss-
+replacement.html, tools/check-nap.js, AGENT_WORKLIST.md (3.4 note appended in
+place), status/index.html (timestamp), audits/cherry-lane-build-check-2026-08-
+13-fourth.txt (new). QUESTIONS.json unchanged.
+
 ## 2026-08-13 06:05 BST - hundred-and-forty-fifth run [commit d44640f] - Quality
 pass on item 3.3, Fishlocks Chemist Ainsdale and Eccleston, last verified
 2026-08-12 and the oldest verification standing. Third pass on this item.

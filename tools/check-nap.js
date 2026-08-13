@@ -542,6 +542,43 @@ for (const dir of PASTE_DIRS) {
           b.streetAddress + '"');
     }
 
+    // The post town, which is the gap between the two rules above. Added on
+    // the item 3.4 quality pass, 2026-08-13. The postcode sweep proves the
+    // postcode is the branch's own and that the street sits in front of it,
+    // and then stops. Nothing had ever read the words BETWEEN them, which is
+    // exactly where the post town lives, so a block could publish
+    // "202 Cherry Lane, Bramhall L4 8SG" and pass every rule in this file.
+    //
+    // Cherry Lane's own two blocks were the live case, and the fault was an
+    // EXTRA true word rather than a false one. Both wrote "202 Cherry Lane,
+    // Walton, Liverpool L4 8SG", putting the seoTown inside a postal address.
+    // CLAUDE.md gives seoTown one job, "the catchment town used in page titles
+    // and H1", and branches.json, all 177 generated pages and gbp-packs/
+    // cherry-lane-walton.md all publish "202 Cherry Lane, Liverpool L4 8SG".
+    // So one shop was handing the public two different address strings out of
+    // one repo, which is the citation-consistency fault item 1.4 exists to
+    // stop. These two files are the only place in the repo where a human wrote
+    // an address as prose rather than a generator composing it from the data,
+    // and they are the only two that drifted.
+    //
+    // The rule is equality, not containment, because the fault was an extra
+    // word: what sits between the street and the postcode must be the branch's
+    // own addressLocality and nothing else, commas and full stops aside.
+    PC_RE.lastIndex = 0;
+    while ((m = PC_RE.exec(text)) !== null) {
+      const upto = text.slice(0, m.index).replace(/\s+/g, " ");
+      const at = upto.lastIndexOf(b.streetAddress);
+      if (at === -1) continue; // the street rule above has already failed this
+      const between = upto.slice(at + b.streetAddress.length)
+        .replace(/[,.]/g, " ").replace(/\s+/g, " ").trim();
+      if (between !== b.addressLocality)
+        bad(rel, 'the address reads "' + b.streetAddress +
+          (between ? ", " + between : "") + " " + m[0] +
+          '" but branches.json holds the post town as "' + b.addressLocality +
+          '". One shop published with two address strings splits its own ' +
+          "citations, and seoTown belongs in a title, not in an address");
+    }
+
     // Emails got the generated-page sweep on 2026-08-12; the paste blocks
     // get the same rule for the same reason. A foreign inbox in a block
     // lands on the public site with nothing in between.
