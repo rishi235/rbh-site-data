@@ -2,7 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 - hundred-and-thirty-ninth run - Quality pass on item 1.2, the
+## 2026-08-13 - hundred-and-thirty-ninth run [commit 1c8768c, hash recorded
+in this follow-up commit] - Quality pass on item 1.2, the
 Hirshmans address sweep, the oldest verification standing among completed
 items. Fourth pass on this item. REPO HALF ONLY: no browser was available,
 so nothing live was read and nothing live is claimed. Clean for the fourth
