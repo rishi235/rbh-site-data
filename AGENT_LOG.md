@@ -2,8 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 22:05 BST - hundred-and-seventy-third run [commit hash recorded
-in the follow-up commit]
+## 2026-08-13 22:05 BST - hundred-and-seventy-third run [commit e40dc37, this
+hash line added by a small follow-up commit, which is why the log is one
+commit behind the work it describes]
 - Item 2.2 quality pass, the Fishlocks shared-domain split, fourth pass. ONE
 REAL DEFECT FOUND AND FIXED, in tools/check-pharmacy-first-cost.js, plus one
 wording question raised (Q69). No page, generator, data field, branches.json
