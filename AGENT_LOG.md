@@ -7,7 +7,7 @@ Format: date, time, item worked, what changed, commit hash, any questions.
 DEFECT FOUND AND FIXED IN REPO, in tools/check-address-region.js. No page,
 generator, data field, paste sheet, GBP pack or piece of patient-facing copy
 was changed, all 31 checkers pass and every one of the 177 pages regenerates
-byte-identical from all six generators. No new question raised.
+byte-identical from all six generators. No new question raised. Commit 86d610a.
 
 REPO HALF ONLY: two Chrome instances are connected and an unattended run
 cannot choose between them, so no browser call was made, nothing live was read
