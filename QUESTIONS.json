@@ -1023,5 +1023,37 @@
     "status": "open",
     "answer": null,
     "note": "Raised on worklist item 6.6, repo half only. Nothing live was read this run and nothing live was changed: two Chrome instances are connected and an unattended run may not choose between them, which is Q59. The nine values quoted here are the ones GBP_MANUAL.md recorded on 2026-08-09 when the profiles were read one by one, so they should be re-read at the point of editing rather than trusted, and option 0 assumes that re-read happens as part of the fix. Option 0 is recommended because it is reversible, needs no sign-off, and does not wait on Q35: option 1 and option 2 both make part of the work depend on branch landing pages that have been 404 for over four weeks, and a wrong-but-working URL is better left correct-and-working in the meantime than left insecure while a different question is settled. The repo half of item 6.6 is finished and needs nothing from you: no generated page and no branches.json field carries an insecure URL, and tools/check-url-scheme.js now holds that and holds the GBP table against branches.json, so this cannot drift back unnoticed. What still has no route is the canonical tag half, which is a Weebly head edit and needs the browser."
+  },
+  {
+    "id": "Q67",
+    "date": "2026-08-13",
+    "item": "quality pass on 4.13 (finding, does not block any item)",
+    "question": "The Riddings business description ends with the sentence \"Open 9am to 6pm Monday to Friday.\" On this pass that was changed to \"9am to 5pm\" and every checker stayed green, because all the opening-hours rules in check-gbp-packs.js read the \"- Hours:\" line and nothing else. The description is a field that gets pasted into the public Google profile, so a wrong closing time written in the prose would publish with the repo entirely green. Six of the fifteen packs state hours in the description as well as on the Hours line (Coleman and Leighs, Gordon Short, Riddings, SK Chemists, Smartts and Tiffenbergs), so this is not only Riddings. Do you want a rule that reads times out of description prose and compares them with branches.json?",
+    "options": [
+      "Add the rule: any time range found anywhere in the pack, not only on the Hours line, must agree with branches.json. Strongest cover, but prose is looser than the Hours line so it carries some risk of false failures that would need tuning.",
+      "Add a narrower rule: only the closing sentence is parsed and checked. Note the six packs do not share one form of words: Riddings and SK Chemists write \"Open 9am to 6pm Monday to Friday\", while the other four write \"Open Monday to Friday, closed 1pm to 2pm for lunch\", which states a lunch closure rather than opening times. A narrow rule would need to cover both shapes.",
+      "Leave it. The description is written once and rarely edited, and the Hours line is checked, so treat the prose as covered by human review.",
+      "Remove the hours sentence from the description in all six packs, so the pack states its hours in exactly one checked place."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing is wrong in any pack today. Riddings reads 9am to 6pm Monday to Friday in both places and matches branches.json. This is about whether the rule can catch a future edit, not about a current error."
+  },
+  {
+    "id": "Q68",
+    "date": "2026-08-13",
+    "item": "quality pass on 4.13 (finding, does not block any item)",
+    "question": "The Riddings catchment reads \"Timperley, Altrincham and Trafford\" in three places: the description, the services section and Post B. On this pass Trafford was changed to Stockport in all three and nothing failed. The catchment rule only checks that the list LEADS with the branch's own seoTown, so any town after the first is never compared with serviceAreaList. The sister-town rule was right to stay silent because Stockport is not a sister branch's town anywhere in branches.json, so this is an uncovered case rather than a rule bug. Do you want the full catchment list checked against serviceAreaList?",
+    "options": [
+      "Check membership and order: every town named in a catchment list must be in serviceAreaList and in the same order. Strictest, and it would also lock the wording of a sentence that reads naturally today.",
+      "Check membership only: every town named in a catchment list must appear in serviceAreaList, order not enforced. Catches a wrong or invented town while leaving the copy free to read well.",
+      "Leave it. The lead town is the one that matters for local search and it is already checked.",
+      "Check membership only, and additionally fail any town that belongs to no branch and is not in this branch's serviceAreaList, which is the exact shape of the Stockport injection."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Only Riddings was checked on this pass, and its catchment matches serviceAreaList in all three places. Whether the other fourteen packs would pass a membership rule unchanged has NOT been checked, so that needs establishing before any rule is switched on. Worth reading alongside Q64, the other catchment and address string question still open."
   }
 ]

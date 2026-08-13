@@ -32,7 +32,31 @@ const CLAIM_PATTERNS = [
   [/\d+(\.\d+)?\s*%\s*of your body/i, "quantified weight loss claim"],
   [/most effective (weight loss|treatment)/i, "comparative efficacy claim"],
   [/rapid weight loss|fast weight loss/i, "efficacy claim"],
-  [/that actually works|treatment that works/i, "efficacy claim"]
+  [/that actually works|treatment that works/i, "efficacy claim"],
+
+  // Superlatives, added 2026-08-13 on the fourth item 4.13 quality pass.
+  // "most effective" above was the ONLY comparative form the list held, so the
+  // plainest way of writing the same claim went straight through: injected
+  // into Riddings Post C, a weight loss advertisement bound for a public
+  // Google profile, all six of "the best treatment for weight loss", "the
+  // UK's number one weight loss clinic", "the leading weight loss clinic",
+  // "the fastest treatment", "the safest weight loss treatment" and
+  // "best-in-class" passed every checker in this repo. The house reference
+  // names this exact class in its own words: information about medicines must
+  // be balanced and factual, "X is used to treat..." rather than "X, the
+  // best/fastest/strongest treatment for...".
+  //
+  // Deliberately noun-anchored rather than a bare superlative, because "best"
+  // is ordinary English elsewhere in the same files: 11 of the 15 branch packs
+  // say "otherwise the best straight-on frontage shot" in their photo shot
+  // list, which is a direction to a photographer and not a claim about a
+  // medicine, and those same 11 are the only packs using the word at all. A
+  // bare superlative would therefore have failed 11 packs on copy that is
+  // never posted. The superlative only fails where it qualifies the thing
+  // being sold.
+  [/\b(?:the|our|uk'?s|nations?'?s)\s+(?:best|finest|leading|top|safest|strongest|fastest|quickest|number\s*one|no\.?\s*1)\b[^.\n]{0,40}?\b(?:treatment|clinic|service|programme|program|plan|injection|jab|weight\s*loss)\b/i, "superlative comparative claim"],
+  [/\b(?:best|strongest|safest|fastest|quickest)\s+(?:weight\s*loss|slimming)\b/i, "superlative comparative claim"],
+  [/\bbest[- ]in[- ]class\b/i, "superlative comparative claim"]
 ];
 
 // Returns [regexp, reason] for the first pattern this text breaches, or null.

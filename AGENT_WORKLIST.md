@@ -1872,6 +1872,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       2026-08-11 check. Answer pickup unavailable for the same reason.
       Evidence: audits/riddings-timperley-gbp-pack-check-2026-08-12.txt.
       No question raised. Done 2026-08-12.
+      Fourth quality pass 2026-08-13: pack clean and byte-stable across all
+      four passes (description 657, posts 449, 319, 521, 425, zero non-ASCII,
+      zero dash characters), every fact re-verified against branches.json,
+      all 31 checkers green before and after. The defect was again in the
+      rule, and it is estate-wide and a compliance one. tools/claim-patterns.js
+      is the single shared definition of disallowed weight loss wording, used
+      by the 177 generated pages and by all 15 packs, and its only comparative
+      entry was "most effective", so it caught one phrasing and no other.
+      Injected into Post C, which is an advertisement bound for a public
+      Google profile, all seven of "the best weight loss treatment", "the best
+      treatment for weight loss", "the UK's number one weight loss clinic",
+      "the leading weight loss clinic", "the fastest treatment", "the safest
+      weight loss treatment" and "best-in-class" passed every checker. The
+      house reference names this exact class at its line 26: balanced and
+      factual, "X is used to treat...", not "X, the best/fastest/strongest
+      treatment for...". Fixed at the shared source with three noun-anchored
+      patterns, deliberately not a bare superlative because 11 of the 15 packs
+      say "otherwise the best straight-on frontage shot" in their photo shot
+      list, which is a direction to a photographer and not a claim about a
+      medicine, so a bare rule would have failed 11 packs. Tests: 10 benign
+      and 9 claim strings
+      through the shipped findClaim with zero false positives and zero false
+      negatives, all seven injections re-run end to end and now caught, and
+      the full suite re-run across every pack and page with no false failure.
+      15 injections this pass, 13 caught. A medicine name placed inside the
+      Post B hard stop was caught, so the third pass's marker cut did not open
+      a compliance hole. Two misses raised rather than fixed: Q67, opening
+      hours stated in the description prose are never checked against
+      branches.json because every hours rule reads the "- Hours:" line only;
+      and Q68, the catchment list is only checked for its lead town, so a
+      town swapped further down the list passes. Live half NOT performed:
+      two Chrome instances connected, so no live page was read and every
+      live-side state still rests on the 2026-08-11 check. Answer pickup
+      unavailable for the same reason (Q59).
+      Evidence: audits/riddings-timperley-gbp-pack-check-2026-08-13.txt.
+      Done 2026-08-13.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

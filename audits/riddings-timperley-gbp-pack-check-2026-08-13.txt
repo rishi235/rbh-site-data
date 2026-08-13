@@ -1,0 +1,120 @@
+Riddings Pharmacy Timperley GBP pack - fourth quality pass
+Item 4.13. Run 168, 2026-08-13. Branch agents/audit-backlog.
+
+SCOPE. Repo half only. Two Chrome instances are connected and an unattended
+run cannot choose between them, so no live page was fetched and nothing live
+is claimed here. Every live-side statement in the pack still rests on the
+2026-08-11 check. Answer pickup (step 3) was unavailable for the same reason,
+which is Q59.
+
+FACTS RE-VERIFIED AGAINST branches.json (riddings_timperley)
+  branchName        Riddings Pharmacy                     matches pack
+  streetAddress     38 Riddings Road                      matches pack
+  addressLocality   Timperley, Altrincham                 matches pack
+  postalCode        WA15 6BP                              matches pack
+  addressRegion     Greater Manchester                    (pack does not state)
+  seoTown           Timperley                             leads catchment
+  phone             0161 973 2951                         matches pack
+  website           https://www.riddingspharmacy.co.uk    matches pack
+  googleReviewUrl   https://g.page/r/CRtdZliseNZGEAE/review   matches pack
+  pfLink            .../pharmacy-first-service-timperley.html matches Post A
+  hasApp            false                                 no app claim in pack
+  serviceAreaList   Timperley / Altrincham / Trafford     matches all three
+                                                          places in the pack
+  widgets           bloodPressure, contraception,
+                    pharmacyFirst, weightLoss, travelClinic
+                                                          matches the five
+                                                          services and the
+                                                          category list
+
+BYTE STABILITY ACROSS FOUR PASSES. Identical on every pass to date:
+  description 657   Post A 449   Post B 319   Post C 521   Post D 425
+  non-ASCII characters 0, en/em dash characters 0.
+Post B reads 319 rather than the pre-fix 1354 because the third pass taught
+postsOf to cut at the hard-stop marker.
+
+CHECKERS. All 31 exit 0 before the change and all 31 exit 0 after it.
+
+THE DEFECT FOUND THIS PASS: SUPERLATIVE CLAIMS WERE NOT DETECTED AT ALL.
+tools/claim-patterns.js is the single shared definition of the wording the
+house rule on weight loss copy does not allow. It is applied to the 177
+generated pages by check-weight-loss-copy.js and check-service-links.js, and
+to the 15 GBP packs by check-gbp-packs.js. Its only comparative entry was
+  [/most effective (weight loss|treatment)/i, "comparative efficacy claim"]
+so it caught one phrasing of a comparative claim and no other. The plainest
+ways of writing the same claim went through untouched.
+
+Injected one at a time into Riddings Post C, which is weight loss copy bound
+for a public Google Business Profile, and therefore an advertisement:
+
+  "This is the best weight loss treatment available."   MISSED
+  "The best treatment for weight loss."                 MISSED
+  "The UK's number one weight loss clinic."             MISSED
+  "The leading weight loss clinic in Trafford."         MISSED
+  "The fastest treatment we offer."                     MISSED
+  "The safest weight loss treatment available."         MISSED
+  "Our best-in-class weight loss service."              MISSED
+
+Every one of those left all 31 checkers green. For contrast, "The fastest way
+to lose weight" WAS caught, by the literal string "fastest way" in
+EFFICACY_FAIL, which shows how narrow the existing cover was: the claim was
+caught only when it happened to use one exact form of words.
+
+WHY THIS IS THE PROHIBITED CLASS AND NOT A JUDGEMENT CALL. The house
+reference, AI\RBH_WeightLoss_Advertising_Standards.md, names it in its own
+words at line 26: information about medicines must be balanced and factual,
+"X is used to treat..." rather than "X, the best/fastest/strongest treatment
+for...". The list held no rule for best, fastest or strongest.
+
+THE FIX, AT THE SHARED SOURCE. Three noun-anchored patterns added to
+tools/claim-patterns.js, so packs and generated pages gain the cover together
+and there is still exactly one definition:
+  1. an article or possessive, then a superlative
+     (best, finest, leading, top, safest, strongest, fastest, quickest,
+     number one, no. 1), then within 40 characters and without crossing a
+     sentence or line end, one of treatment, clinic, service, programme,
+     program, plan, injection, jab or weight loss
+  2. best, strongest, safest, fastest or quickest directly qualifying
+     weight loss or slimming
+  3. best-in-class
+
+NOUN-ANCHORED ON PURPOSE. A bare superlative would have failed 11 packs on
+ordinary English: 11 of the 15 branch packs say "otherwise the best
+straight-on frontage shot" in their photo shot list, which is a direction to
+a photographer and not a claim about a medicine, and those same 11 are the
+only packs that use the word at all. The superlative only fails where it
+qualifies the thing being sold.
+
+TESTS. 10 benign strings and 9 claim strings through the shipped findClaim():
+0 false positives, 0 false negatives. All 7 injections above re-run through
+the real checker end to end: all 7 now CAUGHT. Full checker suite re-run
+across all 15 branch packs and all 177 generated pages: 31 pass, 0 fail, so
+the widening introduced no false failure anywhere in the estate.
+
+INJECTIONS RUN THIS PASS: 15. CAUGHT 13, MISSED 2 (both recorded below).
+Caught: medicine name inside the Post B hard stop (so the third pass's
+marker cut did not open a compliance hole, which was the specific worry);
+Saturday opening added to the Hours line; a single phone digit changed in
+Post B's published copy; the description heading's stated character count
+moved from 657 to 660, which confirms the exactness fix made on the 4.12
+pass holds here; one character of the review-link token; plus the seven
+superlative claims once the fix was in.
+
+TWO GAPS FOUND AND NOT FIXED, RAISED AS QUESTIONS
+Q67. The business description ends "Open 9am to 6pm Monday to Friday." That
+sentence was changed to "9am to 5pm" and nothing failed. Every opening-hours
+rule in check-gbp-packs.js reads the "- Hours:" line only, so opening hours
+stated in description prose are unchecked against branches.json. The
+description is a published Google profile field, so this would publish a
+wrong closing time with every checker green.
+Q68. The catchment reads "Timperley, Altrincham and Trafford" in three
+places. Trafford was changed to Stockport in all three and nothing failed.
+The catchment rule checks only that the list LEADS with the branch's own
+seoTown; membership beyond the lead is never compared with serviceAreaList.
+Stockport is not a sister branch's town anywhere in branches.json, so the
+sister-town rule was right to stay silent. This is an uncovered case, not a
+rule bug.
+
+NO CHANGE was made to any pack, page, generator, data field, branches.json
+entry, paste sheet or piece of patient-facing copy. The only file changed is
+tools/claim-patterns.js.

@@ -2,6 +2,128 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 18:34 BST - hundred-and-sixty-eighth run
+- Item 4.13 quality pass, the Riddings Pharmacy Timperley GBP pack, fourth
+pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/claim-patterns.js,
+and it is estate-wide and a compliance one. No page, generator, data field,
+branches.json entry, paste sheet, GBP pack or piece of patient-facing copy
+was changed. All 31 checkers exit 0 before and after. Two further gaps found
+and deliberately NOT fixed, raised as Q67 and Q68.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-11 live verdicts on this item
+stand as written. Answer pickup (step 3) was unavailable for the same
+reason, which is Q59 and remains the run-level blocker. That is now fifteen
+consecutive runs without an answer fetch, and 44 questions are open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written: this run raised two questions and left both open rather
+than deciding them. Both would in any case have fallen inside step 4's
+carve-out, being live patient-facing regulatory copy.
+
+STALE LOCK CLEARED. .agent-lock was present and 59.8 minutes old, past the
+45-minute threshold, so it was treated as stale, deleted and reclaimed. No
+git index.lock was present. One working-copy file, audits/live-hours-check-
+2026-08-13.json, shows as modified but git diff returns nothing: it differs
+by line endings only, so it was left unstaged rather than committed as noise.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item
+to take. Ordering was re-derived from this log rather than assumed, by
+parsing every run header and the item each run named, then ranking the 41
+completed items by how long ago each was last verified. Item 4.13 came out
+oldest at 42 runs. Fourth pass on this item.
+
+THE PACK ITSELF IS CLEAN AND BYTE-STABLE ACROSS FOUR PASSES. Every fact
+re-verified against branches.json: name "Riddings Pharmacy", 38 Riddings
+Road, Timperley, Altrincham WA15 6BP, 0161 973 2951, website, review link,
+pfLink against Post A, hasApp false with no app claim in the pack, and the
+catchment Timperley, Altrincham and Trafford leading with its own seoTown in
+all three places. All five character counts came back identical to all three
+earlier passes: description 657 and posts 449, 319, 521 and 425. Zero
+non-ASCII characters and zero dash characters.
+
+THE REAL DEFECT: THE CLAIMS LIST COULD ONLY CATCH ONE PHRASING OF A
+COMPARATIVE CLAIM. tools/claim-patterns.js is the single shared definition of
+the weight loss wording the house rule does not allow, applied to the 177
+generated pages by check-weight-loss-copy.js and check-service-links.js and
+to the 15 packs by check-gbp-packs.js. Its only comparative entry was
+"most effective (weight loss|treatment)". Injected one at a time into
+Riddings Post C, which is weight loss copy bound for a public Google profile
+and therefore an advertisement, all seven of "the best weight loss treatment
+available", "the best treatment for weight loss", "the UK's number one weight
+loss clinic", "the leading weight loss clinic", "the fastest treatment", "the
+safest weight loss treatment" and "our best-in-class weight loss service"
+left all 31 checkers green.
+
+WHY THIS IS THE PROHIBITED CLASS AND NOT A JUDGEMENT CALL. The house
+reference, AI\RBH_WeightLoss_Advertising_Standards.md, names it in its own
+words at line 26: information about medicines must be balanced and factual,
+"X is used to treat..." rather than "X, the best/fastest/strongest treatment
+for...". The list held no rule for best, fastest or strongest. For contrast
+"the fastest way to lose weight" WAS caught, by the literal string "fastest
+way", which shows how narrow the cover was: the claim failed only when it
+happened to use one exact form of words.
+
+FIXED AT THE SHARED SOURCE, NOT IN THE PACK CHECKER. Three patterns added to
+claim-patterns.js so the packs and the generated pages gain the cover
+together and there is still exactly one definition, which is the argument
+that file was created to serve. Noun-anchored on purpose: a bare superlative
+would have failed 11 packs on ordinary English, because 11 of the 15 say
+"otherwise the best straight-on frontage shot" in their photo shot list, and
+those same 11 are the only packs that use the word at all. The superlative
+fails only where it qualifies the thing being sold.
+
+TESTS. 10 benign strings and 9 claim strings through the shipped findClaim():
+zero false positives and zero false negatives. All 7 injections re-run
+through the real checker end to end: all 7 now caught. Full suite re-run
+across all 15 packs and all 177 generated pages: 31 pass, 0 fail, so the
+widening introduced no false failure anywhere in the estate.
+
+FIFTEEN INJECTIONS, THIRTEEN CAUGHT. The harness was held outside the repo at
+C:\Dev\rbh-agent-tmp throughout, per run 165's lesson. Beyond the seven
+above, caught: a medicine name placed INSIDE the Post B hard stop, which was
+the specific worry going in, since the third pass taught postsOf to cut at
+that marker and the question was whether the cut had opened a compliance
+hole. It had not: the advertising and house-style rules read the whole file,
+not the post bodies. Also caught: Saturday opening added to the Hours line,
+one phone digit changed in Post B's published copy, the description heading's
+stated count moved from 657 to 660, which confirms the exactness fix made on
+the 4.12 pass holds here, and one character of the review-link token.
+
+TWO MISSES, RAISED RATHER THAN FIXED.
+Q67. The description ends "Open 9am to 6pm Monday to Friday." Changed to
+"9am to 5pm", nothing failed. Every hours rule in check-gbp-packs.js reads
+the "- Hours:" line and nothing else, so hours stated in description prose
+are never compared with branches.json. The description is a published Google
+field, so a wrong closing time would publish with the repo green. Six of the
+fifteen packs state hours in the description, and they do not share one form
+of words, which is why the rule needs designing rather than guessing.
+Q68. The catchment reads "Timperley, Altrincham and Trafford" in three
+places. Trafford was changed to Stockport in all three and nothing failed.
+The catchment rule checks only that the list LEADS with the branch's own
+seoTown, so membership beyond the lead is never compared with
+serviceAreaList. The sister-town rule was right to stay silent: no branch in
+branches.json has Stockport in any town field, so this is an uncovered case
+and not a rule bug. Whether the other fourteen packs would pass a membership
+rule unchanged has not been checked, and the question says so.
+
+FILES CHANGED: tools/claim-patterns.js (the fix), AGENT_WORKLIST.md (4.13
+ticked in place with the fourth pass recorded), QUESTIONS.json (Q67, Q68),
+audits/riddings-timperley-gbp-pack-check-2026-08-13.txt (new evidence file),
+AGENT_LOG.md (this entry).
+
+A CORRECTION MADE BEFORE COMMITTING, RECORDED BECAUSE IT NEARLY SHIPPED. The
+first draft of the fix comment, the evidence file, the worklist entry and Q67
+all asserted "all 16 packs" and "every photo shot list". Both were wrong.
+There are 15 branch packs and TEMPLATE.md, and the frontage line appears in
+11 of the 15, not all of them, which a first grep missed because the phrase
+wraps across a line break. The figures were checked and corrected everywhere
+before the commit. The lesson is the one run 165 recorded in a different
+form: a count asserted from memory of a file is not a count.
+
 ## 2026-08-13 17:05 BST - hundred-and-sixty-seventh run [commit f12b366, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]
