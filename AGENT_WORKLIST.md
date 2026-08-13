@@ -2114,6 +2114,33 @@ so tools/build-audit-status.js picks them up like any other item.
       pages can be pasted in any order with no 404 risk. INDEX.md live-state
       note refreshed at source in the generator. Evidence:
       audits/landing-live-check-2026-08-11.txt.
+      Quality pass 2026-08-13: repo half only, no browser available, so
+      nothing live was read and nothing live is claimed. All 30 checkers
+      green, all six pages regenerate byte-identical, and coverage was
+      measured rather than assumed by hooking fs.readFileSync on every
+      checker: 16 of the 30 read all six landing pages, and the 14 that read
+      none are the service-family checkers that have no business there.
+      ONE REAL DEFECT FOUND AND FIXED IN REPO, in the guard rather than the
+      data. The defect this item's own 2026-08-10 pass found, McCanns
+      Sandringham leading its serviceAreaList with Aigburth, its sister on
+      the shared domain, was fixed in the data but no rule was ever added, so
+      it could return silently. The only rule that saw list order was a
+      warning in check-address-region.js that called it "harmless today".
+      Proved otherwise by injection: putting Aigburth back at the head and
+      regenerating changed the Weebly SEO description, the SEO.md paste
+      sheet, the hero sentence, the FAQ delivery answer and the order of
+      areaServed in the Pharmacy schema, and 29 of 30 checkers stayed green.
+      The 30th, check-editor-snapshot, failed only because branches.json had
+      been touched at all, and its own message tells the operator to refresh
+      the snapshot, which clears it and leaves the defect in place on a full
+      green board. check-address-region.js now FAILS when serviceAreaList[0]
+      is a town another live branch owns as its seoTown, with sharper wording
+      when that branch is a sister on the same domain, and keeps a warning
+      for ordering that no branch owns (Cherry Lane leads with Liverpool).
+      Proved to bite by two injections, same-domain and cross-domain, both
+      restored with git checkout; nothing injected survives and the six pages
+      are byte-identical to the committed ones. No data, no page and no
+      patient-facing copy was changed. No new question raised.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

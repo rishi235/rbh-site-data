@@ -110,6 +110,36 @@ data.branches.forEach(function (b) {
   St Michael's, the next place in the branch's own list, and townSlug was held
   at "sandringham" on purpose so no live permalink breaks and no redirects are
   needed. That deliberate hold is the one exception carried below.
+
+  THE LEAD ENTRY RULE, added by the item 5.2 quality pass on 2026-08-13.
+  The 2026-08-10 pass on the same item found McCanns Sandringham leading its
+  own serviceAreaList with Aigburth, its SISTER branch's town on the shared
+  mccannspharmacy.co.uk domain, and fixed the data. No rule was added, so the
+  defect could come straight back. Everything below it in this file only ever
+  said "harmless today", and it is not harmless on any branch that has a
+  landing page.
+
+  Proved by injection on 2026-08-13 rather than argued: putting Aigburth back
+  at the head of that list and regenerating changed FIVE things on the live
+  paste artefact - the Weebly SEO description, the paste sheet in SEO.md, the
+  hero sentence, the delivery answer in the FAQ, and the order of areaServed
+  in the Pharmacy schema. Twenty-nine of the thirty checkers stayed green. The
+  thirtieth, check-editor-snapshot, failed only because branches.json had been
+  edited at all, and its own message tells the operator to refresh the
+  snapshot, which clears it and leaves the defect in place with a full green
+  board. Same shape as the pfLink injection on the item 2.1 pass.
+
+  Why the lead entry specifically. tools/build-branch-landing-pages.js trims
+  the serving list from the END, a town at a time, until the description fits
+  165 characters, so the FIRST entry is the one town guaranteed to survive
+  truncation. Handing that position to another branch's town is the one
+  ordering mistake that cannot be absorbed.
+
+  The rule: serviceAreaList[0] must not be a place another live branch claims
+  as its seoTown. Ordinary ordering preferences stay a warning, because
+  Cherry Lane leads with Liverpool, which no branch owns, and that is a
+  judgement call rather than a fault. Exceptions go in KNOWN_SEO_TOWN under
+  the "areaLead" rule with a reason and a question id.
 */
 
 // Accepted exceptions, keyed "<branch id>::<rule>". Each needs a reason and a
@@ -139,6 +169,24 @@ function normalise(s) {
 var seenKnown = {};
 var byDomain = {};
 
+// Which live branches claim each town as their seoTown. A town can have more
+// than one owner across DIFFERENT domains, which is allowed and normal:
+// Ainsdale is claimed by Fishlocks and Hirshmans, Bootle by Smartts and SK,
+// Aintree by Clear Chemist and Tiffenbergs, Walton by Cherry Lane and
+// Coleman and Leighs. Only same-domain collisions are a fault, and the pass
+// further down already catches those.
+var townOwners = {};
+data.branches.forEach(function (b) {
+  if (b.disposed || !b.seoTown) return;
+  var t = normalise(b.seoTown);
+  townOwners[t] = townOwners[t] || [];
+  townOwners[t].push(b);
+});
+
+function hostOf(b) {
+  return String(b.website || "").replace(/^https?:\/\//, "").replace(/\/.*$/, "").toLowerCase();
+}
+
 data.branches.forEach(function (b) {
   if (b.disposed) return;
   if (!b.seoTown) return; // head office has no seoTown, which is correct
@@ -163,12 +211,51 @@ data.branches.forEach(function (b) {
         "permalink, so either the word is wrong or the service area list is."
       );
     }
-  } else if (areas[0] !== town) {
-    warnings.push(
-      b.id + ': seoTown "' + b.seoTown + '" is in serviceAreaList but not ' +
-      'first ("' + (b.serviceAreaList || [])[0] + '" is). Harmless today, but ' +
-      "the first entry is the one the copy leads with."
-    );
+  }
+
+  // ---- the lead entry -----------------------------------------------------
+  // serviceAreaList[0] is the town the landing page copy leads with and the
+  // only one guaranteed to survive the 165-character trim, so it must not be
+  // a town another branch owns. Ordering that merely puts the branch's own
+  // seoTown second stays a warning.
+  var firstRaw = (b.serviceAreaList || [])[0];
+  if (firstRaw && areas[0] !== town) {
+    var leadKnown = KNOWN_SEO_TOWN[b.id + "::areaLead"];
+    var owners = (townOwners[areas[0]] || []).filter(function (o) { return o.id !== b.id; });
+
+    if (owners.length && leadKnown) {
+      seenKnown[b.id + "::areaLead"] = true;
+      warnings.push(
+        "KNOWN " + b.id + ': serviceAreaList leads with "' + firstRaw +
+        '", which belongs to ' + owners.map(function (o) { return o.id; }).join(" and ") +
+        ". " + leadKnown.question + ": " + leadKnown.reason
+      );
+    } else if (owners.length) {
+      var sameDomain = owners.filter(function (o) { return hostOf(o) && hostOf(o) === hostOf(b); });
+      failures.push(
+        b.id + ': serviceAreaList leads with "' + firstRaw + '", which is the ' +
+        "seoTown of " + owners.map(function (o) {
+          return o.id + ' ("' + o.branchName + '")';
+        }).join(" and ") + ', not of this branch ("' + b.seoTown + '"). ' +
+        "The first entry is what the landing page description, the paste " +
+        "sheet, the hero sentence, the FAQ delivery answer and the areaServed " +
+        "schema all lead with, and the description trims from the end, so " +
+        "this is the one town that cannot be trimmed away. " +
+        (sameDomain.length
+          ? "Worse here: " + sameDomain.map(function (o) { return o.id; }).join(" and ") +
+            " shares the domain " + hostOf(b) + ", so this branch would spend " +
+            "its strongest local word advertising its own sister shop. This is " +
+            "the exact fault the item 5.2 pass found on 2026-08-10."
+          : "Put this branch's own town first, or drop the entry.")
+      );
+    } else {
+      warnings.push(
+        b.id + ': seoTown "' + b.seoTown + '" is in serviceAreaList but not ' +
+        'first ("' + firstRaw + '" is). No branch owns "' + firstRaw + '" as ' +
+        "its seoTown, so this is an ordering judgement rather than a fault, " +
+        "but the first entry is the one the copy leads with."
+      );
+    }
   }
 
   if (b.townSlug && b.townSlug !== slugify(b.seoTown)) {
@@ -224,8 +311,9 @@ Object.keys(KNOWN_SEO_TOWN).forEach(function (key) {
 
 console.log("check-address-region");
 console.log("  " + checked + " trading branches checked against " +
-  COUNTIES.length + " permitted counties, and their seoTown against their " +
-  "own serviceAreaList");
+  COUNTIES.length + " permitted counties, their seoTown against their " +
+  "own serviceAreaList, and the lead entry of that list against every " +
+  "other branch's seoTown");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });
 failures.forEach(function (f) { console.log("  FAIL  " + f); });

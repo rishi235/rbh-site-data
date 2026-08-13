@@ -2,6 +2,109 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 12:05 BST - hundred-and-fifty-seventh run [commit hash added by
+a small follow-up commit, which is why the log is one commit behind the work
+it describes]
+- Quality pass on item 5.2, the stalest completed item. ONE REAL DEFECT FOUND
+AND FIXED IN REPO: the defect this item's OWN earlier pass found had been
+fixed in the data and left unguarded, so check-address-region.js now fails it
+instead of calling it harmless. No page, generator, data field or piece of
+patient-facing copy was changed. REPO HALF ONLY: no browser was available, so
+nothing live was read and nothing live is claimed.
+
+THE FINDING. On 2026-08-10 this item found McCanns Sandringham leading its own
+serviceAreaList with Aigburth, its SISTER branch on the shared
+mccannspharmacy.co.uk domain, and moved St Michael's to the front. The data was
+corrected. No rule was added. The only rule in the repo that could see list
+order was a warning in check-address-region.js whose own text read "Harmless
+today", which is the opposite of what this item had just proved. So the exact
+fault could walk back in on the next data edit and every checker would pass.
+
+PROVED, NOT ASSUMED, AND THE HARM MEASURED FIRST. Aigburth was put back at the
+head of the list and the generator re-run before any rule was written. Five
+things moved on the artefact that gets pasted into Weebly: the SEO description,
+the paste sheet line in SEO.md, the hero sentence, the delivery answer in the
+FAQ, and the order of areaServed in the Pharmacy schema. Twenty-nine of the
+thirty checkers stayed green. The thirtieth, check-editor-snapshot, failed only
+because branches.json had been edited at all, and its own failure message tells
+the operator to refresh the snapshot, which is the ordinary workflow after any
+data edit and would have cleared it with the defect still in place. That is the
+same shape as the pfLink injection on the item 2.1 pass: a sync check reading
+as if it were a correctness check.
+
+WHY THE FIRST ENTRY AND NOT THE ORDER GENERALLY. build-branch-landing-pages.js
+trims the serving list from the END, one town at a time, until the description
+fits 165 characters. The first entry is therefore the one town that cannot be
+trimmed away. Handing that position to another branch's town is the single
+ordering mistake with no slack in it, which is why the new rule is narrow.
+
+THE RULE, AND WHAT IT DELIBERATELY DOES NOT DO. It fails when
+serviceAreaList[0] is a town another live branch owns as its seoTown, with
+sharper wording when that branch shares this one's domain. It stays a warning
+when no branch owns the leading town, because Cherry Lane leads with Liverpool
+and that is an ordering judgement, not a fault, and failing it would have
+demanded a decision from Rishi to clear a board that is otherwise green.
+Cross-domain seoTown sharing is left alone as normal: Ainsdale, Bootle, Aintree
+and Walton are each claimed by two branches on two different sites, and a
+branch leading with its own town is never failed for that.
+
+PROVED TO BITE, TWICE, AND THE FALSE POSITIVE PROVED TOO. Injection A,
+Sandringham leading with sister Aigburth, fails with the same-domain wording.
+Injection B, Sandringham leading with Timperley, which Riddings owns on another
+domain, fails with the plainer wording. Both were restored with git checkout.
+The no-owner case needed no injection: Cherry Lane exercises it live and still
+warns on a clean exit. After restore, all 30 checkers green, the six landing
+pages regenerate byte-identical to the committed ones, and the only modified
+file is the checker.
+
+COVERAGE MEASURED RATHER THAN ASSUMED. Before looking for a defect, every
+checker was run under a preload that hooks fs.readFileSync, to see which ones
+actually read the six landing pages this item built. 16 of 30 read all six.
+The 14 that read none are the service-family and data-only checkers, which is
+correct, not a gap. So unlike the last six runs the finding here is not a
+checker that was blind to a file; it is a checker that read the right file and
+called the fault harmless.
+
+NO NEW QUESTION RAISED. A checker widening: no money, no legal exposure, no
+patient-facing regulatory claim, nothing for Rishi to decide. 42 questions open
+going in, 42 going out.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+searched for a "Standing authorisation - autonomous window" section and every
+hit is prose recording its absence. The only real one expired 2026-08-10 23:14
+BST. It did not bite either way, there being nothing to decide.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-fifth consecutive run, 121 to 157. Cause
+confirmed again rather than assumed: TWO Chrome extension instances are
+connected, so the extension side is alive, and the tooling requires a human to
+choose between them before any browser call and states the agent must not pick
+one itself. An unattended run has nobody to ask. Enumerating the extensions is
+the only thing that happened: NO page was fetched, and nothing was clicked,
+typed, submitted or logged in to, on any site. No other route was attempted.
+Q59 already asks how to clear this, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 2744677, tree clean. Unchecked items
+taken first as the procedure requires: 6.6 is still the ONLY unchecked item
+that is not [BLOCKED], and still cannot be advanced, for the reason its own
+corrected text gives - the redirect is not broken, what remains is a canonical
+tag in Weebly's head and a decaying historic index artifact, and both routes
+need the browser. So the run went to a quality pass. All 30 checkers green
+before any change.
+
+ROTATION RE-DERIVED INDEPENDENTLY, and it agrees with run 156. Least recently
+verified measured by when an item was last the SUBJECT of a run, not by where
+its number last appears anywhere in this log: each of the 194 headings was
+joined with the following six lines before the number was read, and the match
+anchored so 3.1 cannot swallow 3.10 or 3.13. 5.2 is stalest at 40 runs back,
+then 5.6 at 39, then 6.3 at 38, then 5.7 at 37. THE NEXT RUN SHOULD TAKE 5.6,
+THEN 6.3, THEN 5.7.
+
+- Files changed: tools/check-address-region.js (lead-entry rule added, header
+comment updated to record the injection evidence and the reason the rule is
+narrow), AGENT_WORKLIST.md (5.2 quality pass recorded in place), AGENT_LOG.md.
+- Commit: see the follow-up hash line added above this entry.
+
 ## 2026-08-13 11:34 BST - hundred-and-fifty-sixth run [commit f691e92, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]
