@@ -2,6 +2,145 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 10:12 BST - hundred-and-fifty-third run [commit PENDING]
+- Quality pass on item 3.12, Tiffenbergs Chemist (Aintree, L9 postal
+Liverpool), the least recently verified completed item. Fourth machine-era
+pass. REPO HALF ONLY: no browser was available, so nothing live was read and
+nothing live is claimed. All 12 pages verified clean, 2,434 checks over 27
+families, 0 failures, plus 420 SEO-pattern checks at 0 failures. NO defect
+found in the estate. Two faults found in this run's own harness and one
+correction to an earlier run's wording, all written up rather than dropped.
+No question raised. Nothing edited in any page, sheet, pack, banner or data
+field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and there is
+none. The only real one ran 2026-08-09 23:14 to 2026-08-10 23:14 BST and
+expired three days ago. This run needed no decision in any case: it edited no
+copy and no patient-facing claim.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-first consecutive run, 121 to 153. Cause
+unchanged and confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states explicitly that the agent must not pick one itself. An
+unattended run has nobody to ask. Enumerating the extensions is the only thing
+that happened: NO page was fetched, and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. 40 questions open
+going in, 40 going out. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at cbd08d8, tracked tree clean.
+Unchecked items taken first as the procedure requires. 6.6 is still the ONLY
+unchecked item that is not [BLOCKED] and still could not be advanced: its own
+corrected text says the redirect is not broken and what remains is a canonical
+tag plus a historic index artifact, both of which live in Weebly's head and
+admin, and both routes need the browser. So the run went to a quality pass.
+All 30 checkers green before any change.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 152. Each of the 193
+run headings was joined with the following six lines before the item number was
+read, because several headings wrap and carry the number on a continuation
+line, and the item match was anchored so 3.1 cannot swallow 3.10. All 41
+completed items have a recorded pass; none has never been verified. 3.12 was
+deepest in the log at line 4269, ahead of 3.13 (4176) and the joint 6.2 / 5.1
+(4041). THE NEXT RUN SHOULD TAKE 3.13, THEN 6.2 / 5.1, THEN 5.2.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Tiffenbergs pages, 11
+service and 1 switch, re-read by a fresh extraction with its own file
+discovery, its own regexes and its own reading of branches.json, importing
+nothing from tools/. 12 pages found out of 182 html files under modules/, which
+is the expected count. 2,434 checks, 0 failures: exactly one H1 per page and
+every one carrying Aintree, the seoTown; display phone 0151 525 3462 present in
+visible copy and all 24 tel: links as unspaced digits with no other branch's
+number in either shape, spacing and punctuation stripped before comparison; own
+postcode L9 9DB present; JSON-LD parsed on all 12 and compared field by field to
+branches.json, including Merseyside as addressRegion and Liverpool as
+addressLocality against Aintree as the seoTown, with the url checked twice,
+against the branch's own host AND its own filename, so a block copied from a
+sister page cannot pass; no other branch's phone, postcode, review link, ODS
+code, NHS mailbox, widget id or website host; no http:// on any page;
+data-branch correct; no en or em dash and no mojibake in visible copy; no app
+copy, which is right because hasApp is false; POM union scan empty on all 12
+including the weight loss and travel pages, 82 names over five clinical groups;
+the Pharmacy First hub links all seven condition pages and every condition page
+links back.
+
+EVERY FAMILY COUNTED SO NONE RAN VACUOUSLY, and 29 of 29 NEGATIVE TESTS FIRED.
+Each family reports the comparisons it actually performed; none scored zero.
+Each family was then deliberately broken on a real page held in memory and had
+to fail, with each mutation confirmed to have actually applied so a no-op edit
+cannot masquerade as a passing test. All 29 caught their break. Several fired a
+second family too, correctly: changing the display phone also trips the JSON-LD
+telephone, a wrong postcode also trips the JSON-LD postcode, and duplicating
+the JSON-LD block trips all nine field comparisons behind it.
+
+ITEM 3.12's OWN CLAIM RE-VERIFIED AGAINST THE SPEC, NOT JUST THE PAGES. Phase 3
+is about town and service words in every title, meta description and H1, so the
+Weebly SEO title and description in each page's build header were read directly
+and checked as data: 420 checks, 0 failures. All 12 titles carry both Aintree
+and Tiffenbergs and sit between 45 and 63 characters; all 12 descriptions carry
+both and sit between 138 and 157; and no title or description names any other
+branch's seoTown. Clear Chemist also trades in Aintree but on its own domain
+with its own brandSlug, so nothing collides.
+
+ALL SIX GENERATORS REBUILD BYTE-IDENTICAL, so the 12 pages on disk are what the
+generators produce from current data today, not a stale artefact. Tree still
+clean after the rebuild.
+
+FINDING A, A FAULT IN THIS RUN'S OWN WORK, AND THE REASSURING HALF THAT GOES
+WITH IT. The first version of this run's foreign-phone scan reported 24 failures,
+two on every page, claiming each page carried the head office's phone. It does
+not. branches.json holds 16 entries and one of them, rbh_head_office_aintree, is
+not a shop and carries no phone field at all. The scan searched for the empty
+string, and indexOf("") returns 0, so every page "contained" it. Fixed by
+guarding the needle and by guarding the postcode scan the same way. The half
+worth recording is that THE REPO'S OWN CHECKERS DO NOT HAVE THIS BUG and were
+checked rather than assumed: check-gbp-packs.js requires !!b.phone and excludes
+the head office by id, and check-nap.js, check-postcodes.js, check-seo-pattern.js
+and check-brand-spelling.js all name that id explicitly. Every other needle used
+against branches.json in the checkers is a postcode, and all 16 entries have one.
+So the guard already exists estate-wide; only this run's fresh harness lacked it.
+A future run writing another fresh extraction should guard the needle first, and
+should not read the head office entry as a defect.
+
+FINDING B, A CORRECTION TO RUN 152's WORDING SO IT DOES NOT MISLEAD A LATER PASS.
+This run checked the Tiffenbergs GBP pack as an adjacent artefact and two of its
+54 tests failed, on addressRegion and on the ODS code. Both were bad tests, not
+defects, and measuring across all 15 packs shows why: NO pack carries an ODS
+code, which is right because an ODS code is an NHS identifier and not a Google
+Business Profile field, and 14 of 15 do not carry the county either.
+gbp-packs/TEMPLATE.md asks for neither. The one apparent exception is Riddings,
+and its "Greater Manchester" is not pack content at all: it sits on line 164
+inside a note ABOUT branches.json. Run 152 recorded that the Riddings pack
+"matches branches.json on street, postcode, phone, town, region, website and
+review link", which is true of that pack but reads as though region were a pack
+requirement. It is not. A later pass applying it as one would raise 14 false
+failures. The Tiffenbergs pack passed the other 52 checks: street, postcode,
+phone, town, website, review link, no other live branch's phone, postcode or ODS
+code, and no dash or mojibake defects.
+
+FINDING C, EVIDENCE FOR OPEN Q56, NO NEW QUESTION. Q56 records that the live
+Tiffenbergs site publishes tiffenbergs@rbhealth.co.uk, plural, while
+branches.json holds Tiffenberg@rbhealth.co.uk, singular. Re-checked from the
+repo side and the earlier finding holds: NEITHER form reaches any of the 182
+generated pages, so nothing this repo builds publishes either address, and the
+pack handles it correctly by recording the discrepancy as a note rather than
+picking a side. Which mailbox is real still cannot be settled from here. Q56
+stays open and unchanged, and was not re-raised.
+
+KNOWN LIVE-ONLY STATES NOT RE-CHECKED, BECAUSE THERE WAS NO BROWSER. Q53's
+Tiffenbergs-only book-now.html 404 and Q49's split switch wording, the second of
+which is visible in this repo as the switch page description reading "We contact
+your GP and handle everything", both remain open and unchanged. Neither was
+re-raised.
+
+FILES CHANGED. AGENT_LOG.md only. No page output changed, no worklist change
+(quality pass on a completed item, so 3.12 stays ticked and was not moved),
+QUESTIONS.json untouched at 40 open. Status page republished via
+tools\build-audit-status.js.
+
 ## 2026-08-13 09:34 BST - hundred-and-fifty-second run [commit 04c1a93]
 - Quality pass on item 3.10, Riddings Pharmacy (Timperley), the least recently
 verified completed item. Third machine-era pass. REPO HALF ONLY: no browser was
