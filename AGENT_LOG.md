@@ -2,6 +2,133 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 06:05 BST - hundred-and-forty-fifth run [commit PENDING] - Quality
+pass on item 3.3, Fishlocks Chemist Ainsdale and Eccleston, last verified
+2026-08-12 and the oldest verification standing. Third pass on this item.
+REPO HALF ONLY: no browser was available, so nothing live was read and nothing
+live is claimed. All 26 pages verified clean. ONE REAL DEFECT FOUND, estate-wide,
+in an artefact no rule had ever read for meaning. One checker changed, six
+negative tests, all six fire. Q63 raised.
+
+NO AUTONOMOUS WINDOW. Re-derived this run rather than trusted: the only
+"Standing authorisation - autonomous window" section in this log is the
+2026-08-09 one, which expired 2026-08-10 23:14 BST. Nothing this run needed one.
+The finding was NOT decided autonomously and would not have been even inside a
+window: which branch a shared banner should point at is live public conversion
+copy, so it is pinned to a question and nothing live was touched.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-fifth consecutive run, 121 to 145. Cause
+unchanged and confirmed again this run, not assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is alive.
+The block is that the tooling requires a human to choose between the two before
+any browser call is made, and states explicitly that the agent must not pick one
+itself. An unattended run has nobody to ask. Enumerating the connected extensions
+is the only thing that happened: NO page was fetched and nothing was clicked,
+typed, submitted or logged in to, on any site. No other route was attempted.
+38 questions open going in, 39 going out, the one new question being Q63 raised
+below. Q59 already asks how to clear this block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin, worktree clean. Unchecked items taken
+first as the procedure requires. 6.6 is still the first unchecked item that is
+not [BLOCKED] and still could not be advanced. Re-read its own text rather than
+trusting runs 135 to 144: the redirect is NOT broken, and what remains is a
+canonical tag plus a historic index artifact, both of which live in Weebly's
+head and admin rather than in this repo. Every remaining route needs live Google
+Search Console or the Weebly admin, and both need the browser. Every other
+unchecked item is [BLOCKED] on a question, so the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 144. Run 144 handed
+over 3.3. This run re-derived it independently by the line-number method,
+joining each run heading with its next two lines before reading the item number,
+because several headings wrap and carry the number on the continuation line.
+Sorted that way all 41 completed items have a recorded pass and 3.3, at log line
+3936, was the oldest, ahead of 3.4 (3882) and 3.5 (3822). THE NEXT RUN SHOULD
+TAKE 3.4, then 3.5, then 3.6.
+
+REPO HALF CLEAN, VERIFIED INDEPENDENTLY. All 26 Fishlocks pages re-read by a
+third independent extraction with its own regexes and its own service-word
+table, sharing no code with tools/, so it agrees with the checkers by arriving
+separately rather than by calling them. Every title, H1 and description carries
+the branch's own town AND a service word, exactly one H1 per page, titles 44 to
+63 characters, descriptions 137 to 157, own phone and postcode present on every
+page with the sister branch's absent, and no other live seoTown anywhere in the
+three public strings. All 30 checkers pass, the seo-pattern self-test passes,
+and all seven generators rebuild byte-identical, status/index.html changing only
+its timestamp line.
+
+RUN 144's NEW RULE TESTED RATHER THAN TRUSTED, AND IT HELD. Run 144 added the
+service-word assertion to checkTitle and the new checkH1. The obvious way for
+that rule to be quietly worthless is vacuity: hasServiceWord reads the WHOLE
+string, and the landing title carries the brand, so a brand like "Cherry Lane
+Pharmacy" or "Riddings Pharmacy" could have been satisfying the "pharmacy"
+service word on its own name while the actual service phrase was free to
+disappear. Three of the fifteen live brands contain the word. Probed properly
+rather than reasoned about: for all 210 branch/type/leg combinations, the brand
+label and its Q14 shortened form were stripped and the same test re-run. 210 of
+210 still pass, 0 vacuous, because the leading "Pharmacy in" supplies the word
+independently of the brand. The hypothesis was wrong and the rule is sound.
+Recorded because a disproved suspicion is worth as much to the next run as a
+confirmed one.
+
+THE DEFECT: 15 BANNERS, 12 SITES. Found by asking the question this repo keeps
+having to relearn, which is not "does the checker pass" but "which files did it
+read". check-seo-pattern reads the three page folders. Nothing read
+modules/switch/pages/banners/ for MEANING: check-em-dashes holds those 15 files
+to ASCII and check-brand-spelling holds the brand string, and that was the whole
+of the cover. Neither asks the one question a banner raises, which is where it
+sends somebody.
+
+The banner goes into Weebly Settings > SEO > Header Code, which is a SINGLE
+SITE-WIDE field, and it hard-codes one SWITCH_URL. The generator's own paster
+note calls this "one file per site". That is true of twelve of the fifteen and
+false of the other three: Fishlocks, McCanns and Scorah each trade two branches
+on ONE domain (fishlockpharmacy.co.uk, mccannspharmacy.co.uk,
+scorah-chemists.co.uk), so two banner files compete for one field and only one
+can ever be pasted. Whichever wins, every page on that domain carries a banner
+pointing at one branch's switch page, including all thirteen pages belonging to
+the sister branch. That is precisely the shared-domain self-competition items
+2.2 and 3.2 exist to stop, arriving through the one artefact neither item looked
+at, and it lands first on Fishlocks, which is this item's own branch pair. Item
+2.2 built the branch landing pages so each branch on a shared domain has
+something of its own to convert on; the banner sits above all of them and sends
+the traffic one way.
+
+FIXED AS FAR AS AN AGENT SHOULD. New rule 11 in tools/check-switch-copy.js, the
+switch module's own checker, now reads the banners. 11a is enforced outright,
+because it needs no decision: a banner whose SWITCH_URL does not match its own
+branch FAILS, as does one with no SWITCH_URL, one resolving to no live branch,
+and a missing or empty banners folder. 11b DETECTS the shared-site conflict and
+pins it to Q63 in KNOWN, one entry per host, because which branch should win, or
+whether the banner should pick its URL from the page path so each side keeps its
+own, is a live conversion decision about public copy and not an agent's to take.
+Nothing live was changed and no banner file was edited.
+
+SIX NEGATIVE TESTS, ALL SIX FIRE. T1 a banner pointed at its sister branch, T2 a
+banner with SWITCH_URL removed, T3 a banner file renamed so it resolves to no
+live branch, T4 the banners folder taken away so the rules would cover nothing,
+T6 everything restored and green again. T5 is the one that matters: it deletes
+11b's OWN KNOWN excuse while the conflict still exists, and the run goes red
+naming fishlockpharmacy.co.uk, which proves 11b actually detects the conflict
+rather than being a no-op masked by its own excuse list. Every mutation was
+restored and git status confirmed the banners folder untouched. The harness is
+kept at audits/banner-rule-negative-tests-2026-08-13.ps1 so the next pass can
+re-run it rather than take this on trust.
+
+FILES CHANGED. tools/check-switch-copy.js (rule 11, three KNOWN entries, summary
+line now reports the banner count and 11 rules), QUESTIONS.json (Q63),
+AGENT_WORKLIST.md (3.3 pass note), status/index.html (regenerated). Three
+read-only audit scripts added under audits/: the independent Fishlocks
+extraction, the service-word vacuity probe and the negative-test harness. No
+generated page moved and no branch data changed.
+
+QUESTION RAISED. Q63, how the switch banner should behave on the three
+shared-domain sites, four concrete options, recommending that the banner choose
+its SWITCH_URL from the page path so each branch keeps its own conversion route.
+Worth doing in one pass with Q33, the banner mojibake close button, which is
+already fixed in the repo but still awaits a repaste at all 15 sites: whichever
+option is chosen here needs that same repaste.
+
 ## 2026-08-13 05:34 BST - hundred-and-forty-fourth run [commit 3615f8c] - Quality
 pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified
 2026-08-12 and the oldest verification standing. Third pass on this item.

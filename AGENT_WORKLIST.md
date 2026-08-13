@@ -417,6 +417,36 @@ run: browser unavailable, see the log for this run.
       read-only GETs, one per side: both UTI pages 200 with the exact
       pattern title and H1, and unlike Scorah the pasted SEO titles are
       live here, no doubled-brand default on either side.
+      Quality pass 2026-08-13 (third): REPO HALF ONLY, no browser available,
+      so nothing live was read and nothing live is claimed. The 26 pages are
+      clean on every leg by a third independent extraction written fresh for
+      this run: own town in title, H1 and description, service words on all
+      three legs, exactly one H1 each, titles 44 to 63 characters,
+      descriptions 137 to 157, own phone and postcode present and the
+      sister branch's absent, and no other live seoTown in any of the three
+      public strings. All 30 checkers, the self-test and all seven
+      generators byte-stable. The run 144 service-word rule was tested
+      rather than trusted: a vacuity probe asked, for all 210 branch/type/leg
+      combinations, whether the service word survives with the brand name
+      removed, because a brand like "Cherry Lane Pharmacy" could have been
+      satisfying the landing rule on its own name. It does not: the leading
+      service phrase supplies the word in all 210, so the rule is sound.
+      THE DEFECT IS OUTSIDE THE PAGES AND IS ESTATE-WIDE. The switch banner
+      is pasted into Weebly Header Code, a SINGLE SITE-WIDE field, and each
+      banner hard-codes one SWITCH_URL. Fishlocks, McCanns and Scorah each
+      trade two branches on one domain, so 15 banner files exist for 12
+      sites and on those three only one banner can ever be pasted: every
+      page on the domain, including the sister branch's thirteen, would
+      carry a banner pointing at one branch's switch page. That is the
+      shared-domain self-competition items 2.2 and 3.2 exist to stop,
+      reaching the estate through the one artefact neither item read. The
+      banners were held only to ASCII (check-em-dashes) and brand spelling
+      (check-brand-spelling); nothing asked where they SEND people. New rule
+      11 in check-switch-copy.js reads them: 11a fails outright if a banner
+      points at another branch, 11b detects the shared-site conflict and
+      pins it to Q63, since which branch should win is a live conversion
+      decision. Six negative tests, all six fire, including one that removes
+      11b's own excuse to prove it is not a no-op. Raised as Q63.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

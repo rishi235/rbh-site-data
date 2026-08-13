@@ -130,7 +130,26 @@ var KNOWN = {
     "all fifteen pages. Continuity across a pharmacy transfer depends on where " +
     "the patient is in their cycle and on the GP practice acting, so this is " +
     "the same class of claim as the GP promise above and is answered by the " +
-    "same decision. Remove this entry when that copy is settled."
+    "same decision. Remove this entry when that copy is settled.",
+
+  // The three shared-domain sites. See RULE 11 below for why the conflict is
+  // pinned rather than failed: which branch a shared banner should point at is
+  // a live conversion decision, not a build defect an agent can settle. One
+  // entry per host so that a site which STOPS being shared, or a fourth which
+  // starts, changes this list rather than passing quietly.
+  "banner-shared-host::www.fishlockpharmacy.co.uk":
+    "Raised as Q63 on 2026-08-13, found on the item 3.3 quality pass. " +
+    "Fishlocks Ainsdale and Fishlocks Eccleston trade on one domain and the " +
+    "generator writes a banner file for each, but Weebly Header Code is a " +
+    "single site-wide field, so only one can be pasted. Whichever is used, the " +
+    "sister branch's thirteen pages all carry a banner pointing at the other " +
+    "branch's switch page. Remove this entry when Q63 is answered and applied.",
+  "banner-shared-host::www.mccannspharmacy.co.uk":
+    "Raised as Q63 on 2026-08-13, same defect, McCanns Aigburth and McCanns " +
+    "St Michael's on one domain. Remove this entry when Q63 is applied.",
+  "banner-shared-host::www.scorah-chemists.co.uk":
+    "Raised as Q63 on 2026-08-13, same defect, Scorah Bramhall and Scorah " +
+    "Hazel Grove on one domain. Remove this entry when Q63 is applied."
 };
 var knownUsed = {};
 
@@ -687,6 +706,100 @@ Object.keys(pages).forEach(function (id) {
 });
 
 // ---------------------------------------------------------------------------
+// RULE 11 - the banner, and the three sites that host two branches.
+// (item 3.3 quality pass, 2026-08-13)
+// ---------------------------------------------------------------------------
+// Everything above this line reads the switch PAGES. The switch module also
+// emits modules/switch/pages/banners/*.txt, one per branch, and nothing read
+// them for MEANING: check-em-dashes holds them to ASCII and check-brand-spelling
+// holds the brand string. That is the whole of the cover. Neither asks the one
+// question a banner raises, which is where it sends somebody.
+//
+// It matters because of what the field is. The banner goes into Weebly >
+// Settings > SEO > Header Code, which is SITE-WIDE, and it hard-codes one
+// SWITCH_URL. The generator's own paster note calls this "one file per site".
+// That is true of twelve of the fifteen and false of the other three:
+// Fishlocks, McCanns and Scorah each trade two branches on ONE domain, so two
+// banner files compete for one Header Code field and only one can be pasted.
+// Whichever wins, every page on that domain carries a banner pointing at one
+// branch's switch page - including all thirteen pages belonging to the sister
+// branch.
+//
+// That is the shared-domain self-competition items 2.2 and 3.2 exist to stop,
+// arriving through the one artefact neither item looked at. Item 2.2 built the
+// branch landing pages precisely so each branch on a shared domain has
+// something of its own to convert on; the banner sits above all of them and
+// sends the traffic one way.
+//
+// Which branch should win, or whether the banner should pick its URL from the
+// page path so each side keeps its own, is a conversion decision about live
+// public copy and not an agent's to take. So 11b is DETECTED and pinned to Q63
+// in KNOWN, while 11a - that a banner points at its own branch - is enforced
+// outright, because that one needs no decision.
+var BANNER_DIR = path.join(PAGE_DIR, "banners");
+var bannerFiles = fs.existsSync(BANNER_DIR)
+  ? fs.readdirSync(BANNER_DIR).filter(function (f) { return f.endsWith(".txt"); })
+  : [];
+var bannerOwner = {};
+
+if (!bannerFiles.length) {
+  // Missing or empty must fail, or the rules below quietly cover nothing -
+  // the same guard check-em-dashes puts on this folder.
+  failures.push("[banner] " + rel(BANNER_DIR) + ": no banner paste files, so the " +
+    "banner rules cover nothing. Run tools/build-switch-pages.js.");
+} else {
+  var liveForBanner = JSON.parse(fs.readFileSync(BRANCHES, "utf8")).branches
+    .filter(function (b) { return !b.disposed && b.brandSlug && b.townSlug && b.website; });
+  var bySlugPair = {};
+  liveForBanner.forEach(function (b) { bySlugPair[b.brandSlug + "-" + b.townSlug] = b; });
+
+  function hostOf(b) {
+    return String(b.website).replace(/^https?:\/\//, "").replace(/\/.*$/, "").toLowerCase();
+  }
+
+  // 11a. Every banner points at its OWN branch's switch page.
+  bannerFiles.forEach(function (f) {
+    var slug = f.replace(/^switch-prescriptions-/, "").replace(/\.txt$/, "");
+    var b = bySlugPair[slug];
+    if (!b) {
+      failures.push("[banner] " + rel(path.join(BANNER_DIR, f)) + ": resolves to no live " +
+        "branch, so nothing maintains it and nothing checks where it sends people.");
+      return;
+    }
+    bannerOwner[f] = b;
+    var src = fs.readFileSync(path.join(BANNER_DIR, f), "utf8");
+    var m = /var\s+SWITCH_URL\s*=\s*"([^"]+)"/.exec(src);
+    if (!m) {
+      failures.push("[banner] " + rel(path.join(BANNER_DIR, f)) + ": declares no SWITCH_URL, " +
+        "so the button in the site-wide header goes nowhere this checker can read.");
+      return;
+    }
+    var want = "/switch-prescriptions-" + slug + ".html";
+    if (m[1] !== want) {
+      failures.push("[banner] " + rel(path.join(BANNER_DIR, f)) + ": SWITCH_URL is '" + m[1] +
+        "' but this banner belongs to " + b.id + ", whose switch page is '" + want + "'. The " +
+        "site-wide header would send every visitor on that site to another branch's page.");
+    }
+  });
+
+  // 11b. Two banners, one Header Code field.
+  var bannersByHost = {};
+  Object.keys(bannerOwner).forEach(function (f) {
+    var h = hostOf(bannerOwner[f]);
+    (bannersByHost[h] = bannersByHost[h] || []).push(f);
+  });
+  Object.keys(bannersByHost).sort().forEach(function (h) {
+    var group = bannersByHost[h].sort();
+    if (group.length < 2) return;
+    fail("banner-shared-host", h,
+      rel(BANNER_DIR) + ": " + group.length + " banner files are written for the single site " +
+      h + " (" + group.join(", ") + "), but Header Code is one site-wide field, so only one " +
+      "can be pasted. Every page on " + h + ", including the sister branch's own pages, would " +
+      "carry a banner pointing at one branch's switch page.");
+  });
+}
+
+// ---------------------------------------------------------------------------
 // A KNOWN entry that no longer breaks its rule has outlived its reason and
 // fails the run, the same convention as KNOWN_DRIFT in check-cdn-pins.js.
 // ---------------------------------------------------------------------------
@@ -707,5 +820,6 @@ if (failures.length) {
 }
 var accepted = Object.keys(KNOWN).length;
 console.log("check-switch-copy: OK - " + Object.keys(pages).length +
-  " switch page(s), " + COPY.length + " line(s) of body copy, 10 rules" +
+  " switch page(s), " + COPY.length + " line(s) of body copy, " +
+  bannerFiles.length + " banner(s) read for where they send people, 11 rules" +
   (accepted ? ", " + accepted + " accepted breach(es) pinned to a question" : "") + ".");

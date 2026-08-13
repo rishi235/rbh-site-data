@@ -959,5 +959,21 @@
     "status": "open",
     "answer": null,
     "note": "Found on the fourth quality pass of item 4.4, 2026-08-13. Not fixed autonomously because option 1 needs a new branches.json field plus an editor snapshot refresh, which is a wider blast radius than one worklist item and is a genuine choice rather than an obvious fix. Nothing is wrong on the four packs today; this is about what holds them right tomorrow."
+  },
+  {
+    "id": "Q63",
+    "date": "2026-08-13",
+    "item": "quality pass on 3.3 (estate-wide switch banner defect on the three shared-domain sites, does not block any item)",
+    "question": "The switch banner is pasted into Weebly Settings > SEO > Header Code, which is a single site-wide field, and each banner file hard-codes one SWITCH_URL. That works for the twelve branches that have a site to themselves, but Fishlocks, McCanns and Scorah each trade two branches on one domain, so two banner files compete for one field and only one can ever be pasted. Whichever is used, every page on that domain carries a banner sending people to one branch's switch page, including all thirteen pages belonging to the sister branch. This is the shared-domain self-competition items 2.2 and 3.2 exist to stop, arriving through the one artefact neither item looked at. How should the banner behave on the three shared sites?",
+    "options": [
+      "Make the banner choose its SWITCH_URL from the page path, so a visitor reading an Eccleston page gets the Eccleston switch page and an Ainsdale reader gets Ainsdale. One banner file per shared site, generated with a small lookup. Keeps each branch's own conversion route and needs no judgement about which branch matters more, but it is the most generator work and the logic runs in the live header.",
+      "Generate one banner per shared SITE pointing at the branch landing page for that domain rather than at either switch page, letting the patient pick their branch first. Simple and even-handed, but it adds a click before the switch form and may cost conversions.",
+      "Pick one branch per shared site as the banner target and accept that the other loses its banner route. Least work, and the switch page is still reachable from the page body, but it deliberately favours one branch on a shared domain.",
+      "Drop the banner from the three shared sites entirely and keep it on the twelve single-branch sites. Removes the wrong-branch risk with no new code, but the three shared sites lose the switch prompt the other twelve get."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "The repo side is detected and pinned, not fixed: tools/check-switch-copy.js rule 11 now reads the banner files and reports this conflict against this question, and rule 11a fails outright if any banner points at the wrong branch. Nothing live has changed and no banner file was edited. Separate from Q33, the banner mojibake close button, which is fixed in the repo but still awaits a repaste at all 15 sites: whichever option is chosen here needs that same repaste, so the two are worth doing in one pass."
   }
 ]
