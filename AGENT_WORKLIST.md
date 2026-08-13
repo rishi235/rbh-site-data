@@ -358,6 +358,29 @@ run: browser unavailable, see the log for this run.
       still 404s as the pack's paster note anticipates. Both known and
       queued under 5.3/5.4 and the paste run. No repo defect. No new
       question.
+      Quality pass 2026-08-13: third machine pass, REPO HALF ONLY (browser
+      unavailable, see the log). All 26 Scorah pages re-read by a third
+      independent extraction and clean on every leg: own town in title, H1
+      and description, exactly one H1, no sister town outside the two
+      landing descriptions branches.json excuses, description length inside
+      80 to 165. All 30 checkers and the self-test pass, all seven
+      generators rebuild byte-identical. THE GAP WAS THE OTHER HALF OF THE
+      ITEM'S OWN SENTENCE. Item 3.2 is "put the town AND SERVICE WORDS into
+      every page title, description and heading", and both earlier passes
+      read only the town half. Service words reached checkMeta alone: the
+      description was guarded, the title was not, and the H1 had no content
+      rule of any kind, only an exact match against the pattern functions,
+      which is pattern-relative and moves with the composer. Proved by
+      injection: brandTitle and brandH1 each made to drop the service word
+      for Travel Clinic alone, 15 pages rebuilt without it, all 30 checkers
+      green both times; an H1 that dropped its town was caught only
+      incidentally by the H1-duplication warning in check-seo-lengths, and
+      only because two branches share the Scorah brand. Fixed in
+      seo-pattern.js (checkTitle now takes serviceWords, new checkH1 asserts
+      town and service word, one shared hasServiceWord helper for all three
+      legs) and check-seo-pattern.js (both wired in, plus a guard failing any
+      page type declared with no service words). Five negative tests, all
+      five fire. No new question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

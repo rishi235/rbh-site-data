@@ -29,6 +29,18 @@
   ABSENCE rule, so a page could name its own town and its sister branch's
   town and pass everything.
 
+  Fourth thing, added on the item 3.2 quality pass, 2026-08-13: the SERVICE
+  WORD half of item 3.2 is now asserted on the title and the H1, not on the
+  description alone. Item 3.2 reads "put the town and service words into
+  every page title, description and heading", and until this landed the
+  service words reached checkMeta only. Title and H1 were guarded by the
+  exact match against the pattern functions, which is pattern-relative: edit
+  a composer to drop its service word, regenerate, and page and expectation
+  move together. Proved by injection - brandTitle and brandH1 each made to
+  drop the service word for Travel Clinic alone, 15 pages rebuilt without
+  it, 30 checkers green both times. The H1 had no content rule of its own at
+  all, so its seoTown is now asserted here too.
+
   Run:  node tools/check-seo-pattern.js
   Exits 1 on any mismatch. Reports per brand so the Phase 3 worklist items
   (one brand each) can be verified individually.
@@ -241,7 +253,7 @@ var DIRS = [
 ];
 
 var perBrand = {}; // brandLabel -> { pages: n, fails: [] }
-var checked = 0, fails = 0, crossTownChecked = 0;
+var checked = 0, fails = 0, crossTownChecked = 0, swChecked = 0;
 var untyped = [];  // files this checker could not type: unchecked, not skipped
 
 DIRS.forEach(function (dir) {
@@ -264,9 +276,27 @@ DIRS.forEach(function (dir) {
 
     if (gotTitle !== exp.title) { perBrand[brand].fails.push(file + ": title '" + gotTitle + "' != '" + exp.title + "'"); fails++; }
     if (gotH1 !== exp.h1) { perBrand[brand].fails.push(file + ": h1 '" + gotH1 + "' != '" + exp.h1 + "'"); fails++; }
-    pat.checkTitle(gotTitle, exp.b).forEach(function (p) {
+    // exp.sw is now passed to the TITLE leg as well as the meta leg, and the
+    // H1 leg is checked at all, both new on the 2026-08-13 item 3.2 pass.
+    // Before this, sw reached checkMeta alone: a pattern function that
+    // dropped its service word regenerated every page without it and stayed
+    // green everywhere. See the note above checkTitle in tools/seo-pattern.js.
+    pat.checkTitle(gotTitle, exp.b, exp.sw).forEach(function (p) {
       if (p.indexOf("WARN") !== 0) { perBrand[brand].fails.push(file + ": " + p); fails++; }
     });
+    pat.checkH1(gotH1, exp.b, exp.sw).forEach(function (p) {
+      perBrand[brand].fails.push(file + ": " + p);
+      fails++;
+    });
+    // A page type typed here but given no service words would pass both new
+    // rules vacuously, which is the "empty contract passes as a clean one"
+    // fault this file already refuses for PAGE_TYPES. Fail it instead.
+    if (!exp.sw || !exp.sw.length) {
+      perBrand[brand].fails.push(file + ": expectationsFor() declares no service words, so the title and h1 service rules assert nothing");
+      fails++;
+    } else {
+      swChecked++;
+    }
 
     var dm = /Weebly page SEO description:\s*(.+?)\s*$/m.exec(html);
     var gotDesc = null;
@@ -437,6 +467,7 @@ console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-s
 console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verified across " +
   Object.keys(contractBuilders).length + " generator(s), " +
   Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
+console.log("service-word rule: " + swChecked + " pages had title, h1 and meta all read against their page type's service words.");
 console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
   " live seoTowns (" + OTHER_TOWNS.join(", ") + "), serviceAreaList excusing the branch's own catchment.");
 console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");

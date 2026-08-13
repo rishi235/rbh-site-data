@@ -2,6 +2,128 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 05:34 BST - hundred-and-forty-fourth run [commit PENDING] - Quality
+pass on item 3.2, Scorah Chemists Bramhall and Hazel Grove, last verified
+2026-08-12 and the oldest verification standing. Third pass on this item.
+REPO HALF ONLY: no browser was available, so nothing live was read and nothing
+live is claimed. All 26 pages verified clean. ONE REAL GAP FOUND AND CLOSED,
+and it was the OTHER HALF OF THE ITEM'S OWN SENTENCE rather than anything
+wrong on a page. Two files changed, five negative tests, all five fire. No new
+question.
+
+NO AUTONOMOUS WINDOW. Re-derived this run rather than trusted: the only
+"Standing authorisation - autonomous window" section in this log is the
+2026-08-09 one, and it expired 2026-08-10 23:14 BST. Nothing this run needed
+one in any case. No live copy changed, no medicine name, efficacy claim or
+price touched, no commercial, legal or regulatory position decided. The two
+files changed are both checkers.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-fourth consecutive run, 121 to 144. Cause
+unchanged and confirmed again this run, not assumed: two Chrome extension
+instances are connected and both were listed, so the extension side is alive.
+The block is that the tooling requires a human to choose between the two
+before any browser call is made and states explicitly that the agent must not
+pick one itself. An unattended run has nobody to ask. Enumerating the
+connected extensions is the only thing that happened: NO page was fetched and
+nothing was clicked, typed, submitted or logged in to, on any site. No other
+route was attempted. 38 questions open going in, 38 going out; this run raised
+none and answered none. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin, worktree clean. Unchecked items taken
+first as the procedure requires. 6.6 is still the first unchecked item that is
+not [BLOCKED] and still could not be advanced, for the reason its own text
+states and runs 135 to 143 recorded: the redirect is NOT broken, and what
+remains is a canonical tag plus a historic index artifact, both of which live
+in Weebly's head and admin rather than in this repo. Every remaining route
+needs live Google Search Console or the Weebly admin, and both need the
+browser. Every other unchecked item is [BLOCKED] on a question, so the run
+went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 143. Run 143 handed
+over 3.2. This run re-derived it independently by the line-number method,
+joining each run heading with its next two lines before reading the item
+number, because several headings wrap and carry the number on the
+continuation line. Sorted that way all 41 completed items have a recorded
+pass and 3.2, at log line 3867, is the oldest, ahead of 3.3 (3814), 3.4
+(3760) and 3.5 (3700). 4.1 is now the most recent at line 5, as run 143 left
+it. THE NEXT RUN SHOULD TAKE 3.3, then 3.4 and 3.5.
+
+REPO HALF CLEAN, VERIFIED INDEPENDENTLY. All 26 Scorah pages re-read by a
+third independent extraction with its own regexes rather than through the
+checker: every title, H1 and description carries the branch's own town,
+exactly one H1 per page, the sister town appears in neither title, H1 nor
+description outside the two landing descriptions branches.json excuses via
+serviceAreaList, and every description sits inside 80 to 165 characters. All
+30 checkers pass and the seo-pattern self-test passes. All seven generators
+rebuild byte-identical, status/index.html changing only its timestamp line.
+
+THE GAP, AND WHY TWO EARLIER PASSES MISSED IT. Item 3.2 reads "put the town
+AND SERVICE WORDS into every page title, description and heading". Both
+earlier passes read the town half hard and never tested the service-word
+half. Of the six legs the sentence promises, only three were guarded: the
+description carried both rules because checkMeta has taken a serviceWords
+list since it was written, the title carried the town rule alone, and the H1
+had NO content rule of any kind. The H1 was covered only by the exact match
+in check-seo-pattern.js against what the pattern functions produce, which is
+pattern-relative: edit the composer, regenerate, and the page and the
+expectation move together. The cross-town rule the 2026-08-11 pass added did
+not cover it either, being an ABSENCE rule, so an H1 that lost its own town
+or its service word tripped neither.
+
+PROVED BY INJECTION BEFORE FIXING, AND THE FIRST ATTEMPT OVERSTATED IT.
+Dropping the service word from brandTitle for BOTH families at once does get
+caught, but only incidentally, by the uniqueness rule in check-seo-lengths,
+because the Weight Loss and Travel Clinic titles then collapse onto each
+other. That is not the realistic regression. Dropping it for ONE family only,
+Travel Clinic, leaves every title unique: 15 pages rebuilt with no service
+word in the title and ALL 30 CHECKERS STAYED GREEN. Same again on the H1 leg,
+15 pages, 30 checkers green. The H1 town leg was caught, but only by the
+H1-duplication warning in check-seo-lengths and only because Bramhall and
+Hazel Grove share the Scorah brand and collide; a single-branch brand would
+not collide and nothing would have fired. Note for the next pass: one
+injection run aborted before its revert because a native stderr write tripped
+ErrorActionPreference, leaving 98 condition pages built from an injected
+pattern. Caught on the next status read and restored from git, then rebuilt
+to a clean tree before any further work. Wrap injection harnesses in
+try/finally.
+
+THE FIX, BOTH FILES. tools/seo-pattern.js: checkTitle now takes serviceWords
+and asserts one is present; a new checkH1 asserts BOTH the seoTown and a
+service word, closing the leg that had nothing; and one shared hasServiceWord
+helper now backs all three legs, including checkMeta, so title, H1 and meta
+cannot drift apart in how they read the same list. Empty or absent
+serviceWords means "not asserted" and passes, which keeps the older
+two-argument checkTitle(title, b) callers working unchanged. The self-test
+gained a fourth column of service words per row and now validates the H1 it
+had previously only printed. tools/check-seo-pattern.js: exp.sw is now passed
+to the title leg as well as the meta leg, checkH1 is called, and a page type
+typed with an EMPTY service-word list now FAILS rather than passing both new
+rules vacuously, which is the same "an empty contract must not pass as a
+clean one" refusal this file already applies to PAGE_TYPES.
+
+FIVE NEGATIVE TESTS, ALL FIVE FIRE. brandTitle dropping the service word for
+Travel Clinic alone: 15 failures, "title missing service words (travel)".
+brandH1 the same: 15 failures, "h1 missing service words (travel)". brandH1
+dropping the town: 15 failures, "h1 missing seoTown". A page type declared
+with sw: []: 15 failures on the vacuous-pass guard. landingTitle dropping
+"Pharmacy": 6 failures across the branch landing pages, which also proves the
+rule reaches a second page family and not just the one it was written
+against. Every injection reverted and the tree confirmed clean afterwards.
+
+WHAT WAS NOT WRONG, RECORDED SO THE NEXT PASS DOES NOT RE-OPEN IT. The pages
+themselves are correct on all six legs and were correct before this change;
+this is an anti-rot rule and a no-op against today's output, which is why the
+177-page run still reports 0 failures. The switch family was checked and its
+title and H1 both carry "prescription", so no page needed a widened word
+list. fitTitle cannot strip a service word or a town: its only permitted
+shortening is the brand, and only when the brand ends in " Pharmacy".
+
+FILES CHANGED: tools/seo-pattern.js, tools/check-seo-pattern.js. Worklist
+item 3.2 annotated in place with the third pass. status/index.html
+regenerated.
+
 ## 2026-08-13 05:04 BST - hundred-and-forty-third run [commit 7a240a2] - Quality pass on item
 4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified
 2026-08-12 05:42 as the hundred-and-first run and the oldest verification

@@ -191,11 +191,52 @@ function switchH1(b) {
 // Q14 rule landed, an overrun that survives fitTitle means a brand that does
 // not end in " Pharmacy" and cannot be shortened, so the warning still stands
 // rather than being made unreachable.
-function checkTitle(title, b) {
+// One service-word test, shared by all three legs, so title, H1 and meta
+// cannot drift apart in how they read the same serviceWords list. Absent or
+// empty serviceWords means "not asserted" and passes, which keeps the older
+// two-argument checkTitle(title, b) callers (the self-test rows below, and
+// any rollout script) working unchanged.
+function hasServiceWord(text, serviceWords) {
+  if (!serviceWords || !serviceWords.length) return true;
+  var low = String(text || "").toLowerCase();
+  return serviceWords.some(function (w) { return low.indexOf(String(w).toLowerCase()) !== -1; });
+}
+
+// SERVICE WORDS, the second half of item 3.2 (added on the 2026-08-13 pass).
+// Item 3.2 is "put the town AND SERVICE WORDS into every page title,
+// description and heading". Until this landed only the DESCRIPTION leg was
+// checked: checkMeta() has taken serviceWords since it was written, while
+// checkTitle() asserted the town alone and there was no H1 check at all.
+// Title and H1 were guarded only by check-seo-pattern.js comparing the page
+// with what these functions produce TODAY, which catches a page that drifts
+// from the pattern but never a PATTERN that drifts from the spec: change the
+// composer, regenerate, and both sides move together. Proved by injection on
+// this pass - brandTitle() and brandH1() were each made to drop the service
+// word for one family (Travel Clinic), 15 pages rebuilt without it, and all
+// 30 checkers stayed green both times. Same class of fault as the 2026-08-11
+// cross-town finding on this item: the pages were right, the rules were not.
+function checkTitle(title, b, serviceWords) {
   var s = pick(b);
   var problems = [];
   if (title.indexOf(s.town) === -1) problems.push("title missing seoTown '" + s.town + "'");
+  if (!hasServiceWord(title, serviceWords)) problems.push("title missing service words (" + (serviceWords || []).join("/") + ")");
   if (title.length > TITLE_WARN_LEN) problems.push("WARN title " + title.length + " chars (brand may truncate in SERP)");
+  return problems;
+}
+
+// The H1 leg. Nothing checked the H1's own content before this: the exact
+// match in check-seo-pattern.js is pattern-relative, and the cross-town rule
+// is an ABSENCE rule, so an H1 that lost its own town or its service word
+// tripped neither. The town half is not purely theoretical cover either -
+// under injection an H1 that dropped its town was caught only incidentally,
+// by the H1-duplication warning in check-seo-lengths, and only because two
+// branches share the Scorah brand. A single-branch brand would not collide
+// and nothing would have fired.
+function checkH1(h1, b, serviceWords) {
+  var s = pick(b);
+  var problems = [];
+  if (String(h1 || "").indexOf(s.town) === -1) problems.push("h1 missing seoTown '" + s.town + "'");
+  if (!hasServiceWord(h1, serviceWords)) problems.push("h1 missing service words (" + (serviceWords || []).join("/") + ")");
   return problems;
 }
 
@@ -204,8 +245,7 @@ function checkMeta(meta, b, serviceWords) {
   var problems = [];
   var low = (meta || "").toLowerCase();
   if (low.indexOf(s.town.toLowerCase()) === -1) problems.push("meta missing seoTown '" + s.town + "'");
-  var hasService = (serviceWords || []).some(function (w) { return low.indexOf(w.toLowerCase()) !== -1; });
-  if (serviceWords && serviceWords.length && !hasService) problems.push("meta missing service words (" + serviceWords.join("/") + ")");
+  if (!hasServiceWord(meta, serviceWords)) problems.push("meta missing service words (" + (serviceWords || []).join("/") + ")");
   if (meta && meta.length < 80) problems.push("meta under 80 chars");
   if (meta && meta.length > 165) problems.push("meta over 165 chars");
   return problems;
@@ -237,7 +277,9 @@ module.exports = {
   switchTitle: switchTitle,
   switchH1: switchH1,
   checkTitle: checkTitle,
+  checkH1: checkH1,
   checkMeta: checkMeta,
+  hasServiceWord: hasServiceWord,
   shortenBrand: shortenBrand,
   fitTitle: fitTitle,
   TITLE_WARN_LEN: TITLE_WARN_LEN,
@@ -288,23 +330,26 @@ if (require.main === module) {
       return;
     }
     console.log("== " + b.id + " (" + b.brandLabel + ", " + b.seoTown + ")");
+    // Fourth column is the service words each row must carry, mirroring the
+    // sw lists check-seo-pattern.js derives per page type. Without it the
+    // self-test printed the H1 and asserted nothing about either leg.
     var rows = [
-      ["landing      ", landingTitle(b), landingH1(b)],
-      ["pfOverview   ", brandTitle("Pharmacy First", b), brandH1("Pharmacy First", b)],
-      ["pfCondition  ", searchTitle("UTI treatment", b), searchH1("UTI treatment", b)],
+      ["landing      ", landingTitle(b), landingH1(b), ["pharmacy"]],
+      ["pfOverview   ", brandTitle("Pharmacy First", b), brandH1("Pharmacy First", b), ["pharmacy first"]],
+      ["pfCondition  ", searchTitle("UTI treatment", b), searchH1("UTI treatment", b), ["uti", "treatment"]],
       // Longest condition phrase in build-service-pages.js CONDITIONS, derived
       // above rather than hardcoded. Sampled as well as the shortest so the
       // length check sees the worst case: with UTI alone the self-test never
       // reached TITLE_WARN_LEN and reported no warnings even though a real
       // generated page ran to 70 characters.
-      ["pfConditionMax", searchTitle(longestCondition, b), searchH1(longestCondition, b)],
-      ["contraception", searchTitle("NHS contraception service", b), searchH1("NHS contraception service", b)],
-      ["weightLoss   ", brandTitle("Weight Loss Clinic", b), brandH1("Weight Loss Clinic", b)],
-      ["travelClinic ", brandTitle("Travel Clinic", b), brandH1("Travel Clinic", b)],
-      ["switch       ", switchTitle(b), switchH1(b)]
+      ["pfConditionMax", searchTitle(longestCondition, b), searchH1(longestCondition, b), ["treatment"]],
+      ["contraception", searchTitle("NHS contraception service", b), searchH1("NHS contraception service", b), ["contraception", "contraceptive"]],
+      ["weightLoss   ", brandTitle("Weight Loss Clinic", b), brandH1("Weight Loss Clinic", b), ["weight loss"]],
+      ["travelClinic ", brandTitle("Travel Clinic", b), brandH1("Travel Clinic", b), ["travel"]],
+      ["switch       ", switchTitle(b), switchH1(b), ["prescription"]]
     ];
     rows.forEach(function (r) {
-      var probs = checkTitle(r[1], b);
+      var probs = checkTitle(r[1], b, r[3]).concat(checkH1(r[2], b, r[3]));
       probs.forEach(function (p) {
         if (p.indexOf("WARN") === 0) { warnings++; console.log("   " + r[0] + " " + p); }
         else { hardFail = true; console.error("   " + r[0] + " FAIL " + p); }
