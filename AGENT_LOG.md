@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 09:05 BST - hundred-and-fifty-first run [commit HASH_PLACEHOLDER]
+## 2026-08-13 09:05 BST - hundred-and-fifty-first run [commit ba77405, this hash line added by a small follow-up commit]
 - Quality pass on item 3.9, Coleman and Leighs Pharmacy (Walton), the least
 recently verified completed item. Third machine-era pass. REPO HALF ONLY: no
 browser was available, so nothing live was read and nothing live is claimed.
