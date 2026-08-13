@@ -2,6 +2,115 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 23:34 BST - hundred-and-seventy-sixth run [commit 9632595]
+- Item 4.2 quality pass, Cherry Lane Pharmacy Walton GBP pack, sixth pass.
+ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js, and it had
+disabled TWO rules rather than one. No page, no generator, no data field, no
+branches.json entry, no pack and no piece of patient-facing copy was
+changed. All 32 checkers exit 0, before and after. No new question.
+
+ANSWER PICKUP UNAVAILABLE, thirteenth consecutive run. Same cause and same
+outcome as the last twelve: the browser read, and what came back was the
+Cloudflare Access sign-in page for data.rbhealth.co.uk with auth_status NONE
+in the token, not the feedback JSON. No login was attempted, no other route
+was tried, the tab was closed. Q59 already records this cause so no new
+question is raised. 45 questions are open with nothing posted since
+2026-08-10. The unblock is still one action on Rishi's side: sign in to the
+portal in the Chrome the extension is attached to and leave that session
+live, after which step 3 resumes on its own.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section at the top of this log, so step 7 applied as written. Nothing this
+run needed deciding: the defect had one correct fix.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly at
+23:34. audits/live-hours-check-2026-08-13.json again shows as modified while
+git diff returns nothing, line endings only, left unstaged as in the last
+seven runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+independently rather than inherited, by parsing all 213 run headings in this
+log: 4.2 was last worked 42 headings ago, then 1.1 at 41 and 3.1 at 40. That
+agrees with the previous run's prediction. 4.2 it is.
+
+METHOD, AND A HARNESS BUG WORTH RECORDING. Injection, not recitation. The
+pack's facts were re-read against branches.json and its self-claimed counts
+measured rather than trusted: name, address, phone, the three hours lines,
+website and review link all match, the description measures 736 against a
+claimed 736 and sits under the 750 limit, zero non-ASCII, zero em dashes,
+and all four Post button URLs exist in the repo, as does the full 12-page
+set the pack says is built. Then 18 injections against the 12 checkers that
+read the packs, each followed by an automatic restore.
+
+The first harness run had to be abandoned and is the lesson: it wrote the
+injected pack, then lost its output when the shell session dropped, leaving
+cherry-lane-walton.md corrupted on disk. It was restored with git checkout,
+not by hand. The rerun wrote its results to a file instead of to a session.
+Second bug, mine: four injections were skipped on anchor mismatch because
+the anchors used a bare newline against a CRLF file.
+
+THE CONFOUND THAT NEARLY SENT THIS THE WRONG WAY. The first diagnostic said
+the catchment rule fired on a control that should have passed. It had not.
+Every one of those probes changed the LENGTH of the description, so what
+fired was the exact character-count rule, not the catchment rule. Re-run
+with every probe padded to an identical length, the picture was clean. Any
+future probe of a pack description must be length-neutral, or the count rule
+will answer for whichever rule is being tested.
+
+THE DEFECT: A QUALIFIER THAT SWITCHES BOTH CATCHMENT RULES OFF. Both
+catchment rules parse a run as elements separated by commas and "and", and
+both short-circuit on fewer than three elements. The order rule composes its
+regex purely from the branch's own town names; the membership rule adds a
+capitalised place shape. Neither can match "north Liverpool", because the
+qualifier is lowercase and is not itself a town. So Cherry Lane's run,
+"serves Walton, Everton and north Liverpool", ends one element early at two
+towns and BOTH rules skip the line.
+
+The effect is not a weakened check, it is no check at all on the one line
+that carries this branch's catchment claim. Proved twice, length-neutrally:
+Everton replaced with Woolton, a town the branch does not serve, walked past
+all 32 checkers; and the lead town swapped to Everton, which is exactly what
+the order rule exists to catch, passed too. The single change of moving the
+qualifier to the tail, "Liverpool north", made the identical bad town fail
+immediately, which is what isolates the cause to the qualifier rather than
+to either rule. That list is pasted verbatim into a public Google profile.
+
+Note this is the same shape as the defect found on the 4.7 pass one run
+earlier, and that pass's own fix could not have caught it: the membership
+rule it added is sound and fires correctly here once the run parses. What
+was wrong sits upstream of both rules, in the element the run is built from.
+
+THE FIX. A shared AREA_QUALIFIER fragment, used by both rules, letting an
+element carry a leading lowercase compass word (north, south, east, west,
+central, greater, upper, lower, inner, outer). asOwnTown() already reads an
+element's trailing words, so "north Liverpool" resolves to the branch's own
+Liverpool and counts towards the two-own-town threshold rather than against
+it. Only lowercase is matched: a capitalised "North Liverpool" is already a
+plain place the existing element handles. Verified in all four directions:
+control still passes, unknown town now fails, sister-branch town now fails,
+and the lead swap now fails through the order rule that had been dead here.
+Full suite 0 failures across all 32 checkers and all 15 packs.
+
+NO LIVE COPY ERROR ANYWHERE. The three packs that use the qualifier were
+read against branches.json. Cherry Lane's run leads with its seoTown Walton
+and names only its own towns. Tiffenbergs' "Aintree, Fazakerley and across
+north Liverpool" leads with its seoTown Aintree and all three are its own.
+Coleman and Leighs' "Walton Village and the surrounding streets of north
+Liverpool" is not a comma run at all. The defect was a dead checker, not
+wrong copy on a profile.
+
+ONE RESIDUE, DELIBERATELY LEFT AND PRECISELY STATED. Tiffenbergs' third
+element is "across north Liverpool", and "across" is a lowercase lead-in
+that is not a compass word, so that run still parses as two elements and
+both catchment rules are still skipped on that one pack. It is latent, not
+live: the copy there is correct today, as recorded above. It was left rather
+than fixed because widening the element to accept arbitrary lowercase
+lead-ins is a materially different change with real false-positive risk
+across all 15 packs, and it deserves its own pass with its own injection
+run rather than being bolted onto the end of this one. The next pass on
+4.15, or on this rule, should take it.
+
 ## 2026-08-13 23:15 BST - hundred-and-seventy-fifth run [commit 380f4de, this
 hash line added by a small follow-up commit, which is why the log is one
 commit behind the work it describes]
