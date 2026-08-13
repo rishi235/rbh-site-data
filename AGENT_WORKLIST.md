@@ -612,6 +612,43 @@ audits/smartts-build-check-2026-08-12.txt. No in-repo defect found.
       matches branches.json exactly; cosmetic, not a county defect). Zero
       in-repo defects. Evidence in
       audits/gordon-short-build-check-2026-08-12.txt.
+      Third quality pass 2026-08-13 (hundred-and-fortieth run). SELECTED IN
+      ERROR: this item was NOT the oldest verification standing. Run 111 had
+      re-verified it on 2026-08-12 and the oldest is item 4.4 (run 99). See
+      the log entry for the corrected derivation. The pass was done and is
+      recorded because the gap it closed is estate-wide rather than specific
+      to this branch, but the next run must take 4.4.
+      REPO HALF ONLY, no browser available, nothing live read or claimed.
+      All 12 pages
+      re-read from source and clean for the third consecutive pass, verified
+      independently of the checkers: street, postcode and spaced phone on
+      every page, the unspaced tel: link, own Google review link on all 12 and
+      no other branch's, no other trading branch's phone or postcode anywhere,
+      JSON-LD parsing on all 12 and matching branches.json field for field
+      (159 College Road / Liverpool / L23 3AT / Merseyside), and Crosby in
+      every H1. All 30 checkers exit 0 and all six generators reproduced every
+      page byte-identical.
+      The gap was the OTHER half of the Pharmacy First eligibility copy. The
+      sixty-third run pinned who the service is FOR (ageNote and eligibleYes).
+      Nothing ever read eligibleNo, the "When to get different help" block,
+      which is the safety net: where an excluded patient should go, and which
+      red-flag symptoms mean get urgent help today. It is composed once in
+      build-service-pages.js and rendered onto 98 live condition pages, and it
+      is the higher-consequence half of the pair. The repo already guards this
+      class of copy on weight loss pages (check-weight-loss-copy "the safety
+      net") and guarded it nowhere on Pharmacy First. New
+      tools/check-pharmacy-first-safety-net.js, 7 rules plus a coverage guard
+      and a stale-exception guard, 9 negative tests, all 9 caught their break
+      and all injections restored byte-identical. Two defects were found in
+      the checker itself by its own negative tests and fixed before commit:
+      it compared against raw page text, so esc()'s "A&amp;E" made all 14 sore
+      throat pages look like they had lost their 999 line, and rule 7 recorded
+      a single owner per point, which silently disabled contamination
+      detection for the shared lines most likely to be miscopied. Nothing on
+      any page is wrong. One question raised, Q61: impetigo is the only one of
+      the seven pathways whose safety net names no urgent route, which is a
+      clinical call on live patient-facing copy and not mine to make, so the
+      checker warns on it rather than failing. Done 2026-08-13
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.

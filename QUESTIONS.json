@@ -928,5 +928,20 @@
     "status": "open",
     "answer": null,
     "note": "Answering this unblocks worklist items 6.4 and 6.5 together. Both are Weebly editor work, not repo work, so an answer tells me what to write into the worklist and the paste instructions rather than something I can push. It also feeds the wider weight loss decision already open at Q22, and interacts with item 5.8, the five live weight loss pages, which stays blocked on Q16. The competitor evidence recorded under 6.5 is mixed and I would not lean on it: Superdrug keeps one generic nav link and no drug name, but LloydsPharmacy's homepage carousel carries a precise outcome claim next to a discount code, which is the shape of claim RBH's own standards treat as high risk, so it is evidence that enforcement is inconsistent rather than evidence it is safe."
+  },
+  {
+    "id": "Q61",
+    "date": "2026-08-13",
+    "item": "quality pass on 3.11 (finding, does not block any item)",
+    "question": "Every NHS Pharmacy First condition page carries a \"When to get different help\" block telling a patient what to do when the pharmacy service is not right for them. Six of the seven conditions name an urgent route in that block: sore throat, sinusitis and earache say call 999 or NHS 111 or go to A&E, insect bite says call 999 now for a swelling face or throat, UTI says contact your GP or call NHS 111 for a possible kidney infection, and shingles says contact your GP or NHS 111 the same day for a rash near the eye. Impetigo is the only one with no urgent route at all: its three lines send babies under 1 to a GP, say widespread or recurrent impetigo may need a GP, and say the pharmacist will guide a patient with a weakened immune system. Nothing on the page is factually wrong and 14 live pages carry it. The question is whether impetigo should also carry a red flag, because impetigo can progress to cellulitis or systemic infection and that is the symptom set a patient would need to act on quickly. This is a clinical call on live patient-facing NHS copy, so I have not made it: the new checker warns on it rather than failing, and will keep warning until you decide.",
+    "options": [
+      "Add a third-line red flag to impetigo in the same shape as the other six, wording to be signed off by the superintendent pharmacist, for example spreading redness, a high temperature or feeling very unwell needs urgent help, call NHS 111. Makes the seven pathways consistent and gives the patient somewhere to escalate.",
+      "Leave the impetigo copy exactly as it is and record the absence as deliberate, on the basis that NHS impetigo guidance does not lead with an emergency red flag and the GP route already covers deterioration. I would then change the checker warning into a recorded exception so it stops asking.",
+      "Ask the superintendent pharmacist to review all seven safety-net blocks together, not just impetigo, and treat the wording as one clinical sign-off. Slower, but it is the only option that checks the other six are right rather than assuming they are because they are consistent."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct."
   }
 ]

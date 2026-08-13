@@ -2,6 +2,179 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 03:04 BST - hundred-and-fortieth run [commit hash recorded in
+the follow-up commit] - Quality pass on item 3.11, Gordon Short Chemist
+Crosby. REPO HALF ONLY: no browser was available, so nothing live was read
+and nothing live is claimed. All 12 pages clean for the third consecutive
+pass. The gap closed is estate-wide, not branch-specific: the NHS Pharmacy
+First SAFETY NET, the "When to get different help" block, on 98 live
+condition pages, read by no checker until now. New
+tools/check-pharmacy-first-safety-net.js, 7 rules plus two coverage guards,
+9 negative tests, all 9 caught their break. Q61 raised on impetigo.
+
+ITEM SELECTED IN ERROR, AND THE ROTATION RULE IS NOW PINNED. 3.11 was NOT
+the oldest verification standing. Run 111 re-verified it on 2026-08-12 at
+10:41. The genuinely oldest is item 4.4, the Scorah Chemists Bramhall GBP
+pack, last verified by run 99 on 2026-08-12 at 04:39, followed by 4.5, 4.1,
+3.2 and 3.3. THE NEXT RUN MUST TAKE 4.4. The cause is worth recording
+because run 139 made the same error by a different route and it will keep
+recurring otherwise: a great many run headings in this file WRAP, so the
+item number sits on the second or third physical line ("Quality pass on
+item\n3.11"). Any derivation that greps single lines for "Quality pass on
+item X.Y" silently misses every wrapped heading. This run's first derivation
+found 39 distinct items and put 3.11 oldest; joining each heading with its
+two following lines finds 142 quality-pass headings across 41 distinct items
+and puts 4.4 oldest. Run 139's method was different but no safer: it
+replayed the run 93-to-98 sequence forward rather than re-deriving, which
+happens to land on 4.4 next too. Method for future runs: read every "## "
+heading JOINED WITH THE NEXT TWO LINES, take the first occurrence of each
+item (the file is newest-first, so first occurrence is most recent), and the
+item whose most recent heading sits furthest DOWN the file is the oldest
+verification standing.
+
+WHY THE PASS WAS KEPT RATHER THAN DISCARDED. The work was finished before
+the error was found, and what it closed is not specific to Gordon Short: the
+new checker guards all 98 Pharmacy First condition pages across the estate,
+so the value does not depend on which branch item triggered it. Discarding
+it would have thrown away a real, tested guard on patient-safety copy to
+satisfy the rotation. The item's worklist note records the misselection in
+place so the record is honest, and 4.4 is named for the next run.
+
+ANSWER PICKUP NOT AVAILABLE, twentieth consecutive run, 121 to 140. Cause
+unchanged. Two Chrome extension instances are connected and both were listed
+this run, so the extension side is alive. The block is that the tooling
+requires a human to choose between the two before any browser call is made
+and states explicitly that the agent must not pick one itself. An unattended
+run has nobody to ask. So NO browser call was made at all: nothing fetched,
+clicked, typed, submitted or logged in to, and no other route was attempted.
+36 questions open going in, 37 going out; this run raised Q61 and answered
+none. Q59 already asks how to clear this block, so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. This mattered this run: Q61 is a clinical question about live
+patient-facing NHS copy, which sits inside the carve-out and would NOT have
+been decided autonomously even had a window been open.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin and clean. All 29 existing checkers exit 0 and all six page
+generators reproduced every page byte-identical before anything was changed,
+so nothing below is a pre-existing failure.
+
+SELECTION OF THE UNCHECKED ITEMS FIRST. 6.6 is still the first unchecked
+item that is not [BLOCKED] and still could not be advanced, for the reason
+runs 135 to 139 recorded: the item's own text now says the redirect is NOT
+broken and the remaining work is a canonical tag plus a historic index
+artifact, both of which live in Weebly's head and admin, not in this repo.
+Run 135 already proved the repo side (none of the 177 generated pages
+carries a rel="canonical", no page or branches.json field carries an http://
+URL). Every route left needs live Google Search Console or the Weebly admin,
+and both need the browser. 6.6 keeps NO [BLOCKED] tag because it is blocked
+on tooling and not on a decision from Rishi. Every other unchecked item is
+[BLOCKED] on a question, so the run went to a quality pass.
+
+WHAT VERIFIED CLEAN ON GORDON SHORT, INDEPENDENTLY OF THE CHECKERS. All 12
+pages re-read from source (11 service pages plus the switch page) by a
+throwaway extractor that reuses no checker code. Every page carries 159
+College Road, L23 3AT and the spaced 0151 924 3449, plus the unspaced tel:
+link. JSON-LD parses on all 12 and matches branches.json field for field
+including Liverpool as the postal addressLocality against Crosby as the
+seoTown, and Merseyside as addressRegion. Every H1 carries Crosby. Every
+page carries Gordon Short's own Google review link and no other branch's,
+and no page carries any other trading branch's phone or postcode. Zero
+defects. All 30 checkers (29 plus the new one) exit 0, and all six
+generators re-ran with every page byte-identical, git reporting no change
+under modules/.
+
+HOW THE GAP WAS FOUND. The field-coverage sweep came back negative, which is
+itself worth recording: every one of the 28 branch fields in branches.json
+is now read by at least one checker, so there is no wholly unread field left
+to find. The gap was one level down, inside a field that IS read. The
+sixty-third run pinned the Pharmacy First eligibility copy, but only the
+half that says who the service is FOR: CONDITIONS[cond].ageNote and
+eligibleYes. The other half, eligibleNo, headed "When to get different
+help", was composed in the same generator, rendered onto the same 98 pages,
+and read by nothing. That is the higher-consequence half. Eligibility copy
+being wrong sends a patient to a service that turns them away. Safety-net
+copy being wrong, or dropped by a careless edit, leaves a patient with a
+possible kidney infection, a shingles rash near the eye, or the swelling
+face of an anaphylactic reaction reading a page that never tells them to
+escalate. The repo already treats this exact class of copy as must-guard on
+ONE service: check-weight-loss-copy.js has required "GP or NHS 111" and "999
+in an emergency" on every weight loss page since the seventy-fourth run. The
+seven Pharmacy First pathways had no equivalent. Same shape of gap as the
+sixty-third, sixty-eighth and sixty-ninth runs found in eligibility,
+contraception and travel clinic copy: the frame around the words checked
+eight ways, the words themselves checked nowhere.
+
+THE NEW CHECKER. tools/check-pharmacy-first-safety-net.js. Rule 1 presence:
+the block exists, is headed "When to get different help", and has at least
+3 points. Rule 2 onward route: the block names a GP, NHS 111 or 999, so no
+patient is told the service excludes them without being told where to go.
+Rule 3 lower boundary: the youngest age NHS covers is named as an exclusion,
+"under N". Rule 4 upper boundary: where the pathway has an upper age it is
+named too, accepting either "over N" or "N+1 and over", because UTI says
+"over 64" and earache says "18 and over" and both are correct. Rule 5
+emergency wording: a point naming 999 must instruct the reader to CALL it,
+since a bare number is not an escalation. Rule 6 verbatim: every condition
+page carries its own heading and every one of its own points, word for word.
+Rule 7 contamination: no page carries a point belonging only to a different
+pathway. Plus two guards that fail the run if the rules covered nothing, and
+a stale-exception guard so the KNOWN list cannot rot.
+
+TWO DEFECTS IN THE CHECKER ITSELF, BOTH CAUGHT BY ITS OWN NEGATIVE TESTS AND
+FIXED BEFORE COMMIT. Worth naming because both would have been invisible in
+a green run. First, the checker compared generator strings against raw page
+text, but the generator's esc() encodes ampersands, so the sore throat red
+flag "call 999 or go to A&E" is stored on all 14 of its pages as "A&amp;E".
+The first run of the checker reported 14 failures that looked exactly like
+14 live pages having lost their 999 line. They had not; the checker was
+wrong. It now decodes the three entities esc() produces before matching.
+Second, and more dangerous, rule 7 recorded a SINGLE owning condition per
+point and discarded the fingerprint as soon as a second condition shared it.
+That silently disabled contamination detection for precisely the lines most
+likely to be miscopied: "Babies under 1 should see a GP" is shared by
+earache, impetigo and insect bite, so pasting it onto the UTI page was not
+caught. The negative test for rule 7 failed against that version, which is
+the whole point of writing the test. It now keeps the full owner set.
+
+NEGATIVE TESTS. Nine injections, one per rule plus the stale-exception
+guard, each applied to the generator or to a real page, each run against the
+checker, each restored immediately. All nine were caught with the expected
+rule named, and both touched files were verified SHA256-identical to their
+committed state afterwards.
+
+QUESTION RAISED, Q61. Six of the seven pathways name an urgent route in
+their safety net: sore throat, sinusitis and earache give 999, NHS 111 or
+A&E; insect bite gives "call 999 now" for a swelling face or throat; UTI
+gives GP or NHS 111 for a possible kidney infection; shingles gives GP or
+NHS 111 the same day for a rash near the eye. Impetigo alone names no urgent
+route, only a GP twice and the pharmacist once. Nothing there is factually
+wrong and 14 live pages carry it, but whether NHS impetigo copy should carry
+a red flag is a clinical judgement on live patient-facing copy, which the
+scheduled task rules put outside what this agent may decide. So no copy was
+touched: the checker WARNS on impetigo against the KNOWN entry and its
+question id, and will keep warning until Rishi answers. Recommended option
+is to add a red flag in the same shape as the other six, signed off by the
+superintendent pharmacist.
+
+ONE OTHER THING NOTED, NOT FIXED. status/index.html was stale in the repo
+again: rebuilding it produced a real content change, because the log and
+questions it renders grew in the previous run's follow-up commit and that
+commit did not rebuild the page. This is the same defect the fifty-sixth run
+found and fixed by adding the generator to the regenerate-and-compare step;
+it recurs whenever a follow-up commit touches AGENT_LOG.md alone. The
+rebuild is included in this commit. No question raised, since it is a
+sequencing habit rather than a decision, but a run that only records a
+commit hash should rebuild the status page too.
+
+FILES CHANGED. tools/check-pharmacy-first-safety-net.js (new),
+QUESTIONS.json (Q61), AGENT_WORKLIST.md (3.11 verification note, recording
+the misselection in place), AGENT_LOG.md (this entry), status/index.html
+(regenerated). No page, no generator and no branch data was edited: the only
+touches to build-service-pages.js and to a page file were the negative-test
+injections, every one reverted and hash-verified.
 ## 2026-08-13 - hundred-and-thirty-ninth run [commit 1c8768c, hash recorded
 in this follow-up commit] - Quality pass on item 1.2, the
 Hirshmans address sweep, the oldest verification standing among completed
