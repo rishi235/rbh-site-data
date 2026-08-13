@@ -85,7 +85,35 @@ const escapeRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 // checkers and a fourth was about to be written. Membership is unchanged.
 const MEDICINE_NAMES = require("./pom-names.js").WEIGHT_LOSS;
 
-// Hard efficacy claims. Anything here is a failure, not a style note.
+// The shared efficacy list, the SAME one check-weight-loss-copy.js rule 9 and
+// check-service-links.js apply to the generated pages. Added on the item 4.5
+// quality pass, 2026-08-13, because the two surfaces were being held to two
+// different standards and the wrong one was looser.
+//
+// The house standard splits weight loss copy in two. A generated inner page is
+// Regime 2: the customer chose to click into it. A GBP post is Regime 1: it is
+// an advertisement pushed onto a public Google profile, which is the STRICTER
+// half. Until this run the page carried the shared 9-pattern list and the pack
+// carried only EFFICACY_FAIL below, and EFFICACY_FAIL is not a superset of it.
+// Five phrasings failed on a page and passed on a post: "fast weight loss"
+// (the list has "rapid" but not "fast"), "delivers results", "real results"
+// (it has "proven results" and "best results" but not these two), "most
+// effective weight loss" and "that actually works". All five were injected
+// into a real pack on this run and check-gbp-packs.js returned exit 0 on every
+// one of them. So the looser rule governed the more exposed surface.
+//
+// Both lists are kept and both are applied, because neither contains the
+// other: EFFICACY_FAIL carries pack-specific wording the shared list has no
+// reason to hold ("miracle", "cure", "no side effects", "before and after",
+// "risk free"), and CLAIM_PATTERNS carries the five above. What is NOT done
+// here is retyping either list into the other file, which is the fault
+// claim-patterns.js was created to stop: two copies of a rule that agree are
+// indistinguishable from one rule until somebody edits one.
+const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
+
+// Hard efficacy claims. Pack-specific, and deliberately NOT merged into
+// tools/claim-patterns.js: that file is the shared page-and-pack list, this one
+// is the extra wording a pasted Google post should not carry. Both run.
 const EFFICACY_FAIL = [
   "guaranteed", "guarantee weight", "best results", "proven results",
   "clinically proven", "miracle", "before and after", "before/after",
@@ -345,6 +373,23 @@ function findTerms(text, terms) {
     const re = new RegExp(`(^|[^a-z])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([^a-z]|$)`, "i");
     lines.forEach((line, i) => {
       if (re.test(line)) hits.push({ term, line: i + 1, text: norm(line).slice(0, 90) });
+    });
+  }
+  return hits;
+}
+
+// The same shape as findTerms, for the shared CLAIM_PATTERNS, which are regular
+// expressions rather than substrings and so cannot go through findTerms' word
+// boundary wrapper. Reports the line number, the wording matched and the
+// plain-English reason the shared list gives, so a failure names the phrase
+// rather than the pattern.
+function findClaims(text, patterns) {
+  const hits = [];
+  const lines = text.split(/\r?\n/);
+  for (const [re, reason] of patterns) {
+    lines.forEach((line, i) => {
+      const m = line.match(re);
+      if (m) hits.push({ term: norm(m[0]), reason, line: i + 1, text: norm(line).slice(0, 90) });
     });
   }
   return hits;
@@ -837,6 +882,11 @@ for (const file of packFiles) {
   }
   for (const h of findTerms(text, EFFICACY_FAIL)) {
     fail(file, `line ${h.line}: efficacy claim "${h.term}". Context: ${h.text}`);
+  }
+  // The shared list, applied to the pack because a GBP post is an advertisement
+  // and a generated page is not. See the CLAIM_PATTERNS comment at the top.
+  for (const h of findClaims(text, CLAIM_PATTERNS)) {
+    fail(file, `line ${h.line}: efficacy claim "${h.term}" (${h.reason}), from the shared tools/claim-patterns.js that check-weight-loss-copy.js applies to the generated pages. A pack is pasted into a public Google profile as an advertisement, so it cannot say what an inner page may not. Context: ${h.text}`);
   }
   for (const h of findTerms(text, EFFICACY_WARN)) {
     warn(file, `line ${h.line}: check wording "${h.term}". Context: ${h.text}`);
@@ -1705,6 +1755,52 @@ if (!fs.existsSync(TEMPLATE_FILE)) {
     if (!re.test(tpl)) {
       fails.push(`TEMPLATE.md no longer shows the ${what}. A pack drafted from this template would reach this checker missing it, and the fact rules here would report it late or, without the branch id, not at all. Restore the skeleton that sits above section 1 (item 4.1 quality pass, 2026-08-13).`);
     }
+  }
+  // The advertising rules, applied to the template as well. The pack loop
+  // excludes TEMPLATE.md by name, so a medicine name or an efficacy claim
+  // written into the template as SPECIMEN COPY is read by nothing, and every
+  // pack drafted from it would inherit the phrasing. The template is the one
+  // file in gbp-packs/ that propagates.
+  //
+  // The rules block is cut out first, and that carve-out is the whole reason
+  // this needed care. The template teaches these rules by QUOTING the wording
+  // it bans - 'No efficacy claims ("works", "guaranteed", "best results"). No
+  // before/after.' - so a flat scan fails the one file whose job is to state
+  // the rule, three times, and the fix a future reader would reach for is to
+  // delete the quotes from the rule. That is the same convention this checker
+  // already applies to opening hours, where a time inside quotation marks or a
+  // "previously/ceased" parenthetical is read as evidence rather than as a
+  // claim, and the same one the run instructions give the log and the worklist
+  // for quoting an insecure URL. A file may name what it forbids.
+  //
+  // The cut is structural, not a word list: from the "Rules for every pack"
+  // heading to the first "## " section heading. Lines are blanked rather than
+  // removed so the reported line numbers still match the file. Everything
+  // below the rules block - the specimen header, the profile basics skeleton
+  // and all five numbered sections - is scanned, because that is what a
+  // drafter copies. Today those sections carry only parenthetical instructions
+  // and no pasteable copy, so this guard fails nothing; it exists for the
+  // first time somebody writes a real example post into section 5.
+  const tplLines = tpl.split(/\r?\n/);
+  let inRules = false;
+  const tplScannable = tplLines
+    .map((line) => {
+      if (/^Rules for every pack\b/.test(line)) { inRules = true; return ""; }
+      if (inRules && /^##\s/.test(line)) inRules = false;
+      return inRules ? "" : line;
+    })
+    .join("\n");
+  for (const h of findTerms(tplScannable, MEDICINE_NAMES)) {
+    fails.push(`TEMPLATE.md line ${h.line}: medicine name "${h.term}". Every pack drafted from this template would copy it onto a public Google profile. Context: ${h.text}`);
+  }
+  for (const h of findClaims(tplScannable, CLAIM_PATTERNS)) {
+    fails.push(`TEMPLATE.md line ${h.line}: efficacy claim "${h.term}" (${h.reason}), from the shared tools/claim-patterns.js. Specimen copy in the template becomes real copy in the next pack. Context: ${h.text}`);
+  }
+  for (const h of findTerms(tplScannable, EFFICACY_FAIL)) {
+    fails.push(`TEMPLATE.md line ${h.line}: efficacy claim "${h.term}". Specimen copy in the template becomes real copy in the next pack. Context: ${h.text}`);
+  }
+  if (!/^Rules for every pack\b/m.test(tpl)) {
+    fails.push('TEMPLATE.md no longer has a "Rules for every pack" heading. That heading is the boundary the advertising scan above uses to tell the block that STATES the rules from the specimen copy a drafter copies, so without it the template\'s own rule statements would be read as claims and fail. Restore the heading, or move the carve-out to whatever replaced it (item 4.5 quality pass, 2026-08-13).');
   }
 }
 

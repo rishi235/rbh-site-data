@@ -2,6 +2,103 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-sixtieth run
+- Item 4.5 quality pass, Scorah Chemists Hazel Grove GBP pack. ONE REAL DEFECT
+FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. The pack itself is clean
+for the fourth pass running. No page, generator, data field or piece of
+patient-facing copy was changed, all 31 checkers pass and every page regenerates
+byte-identical from all six generators. No new question raised. REPO HALF ONLY:
+two Chrome instances are connected and an unattended run cannot choose between
+them, so no browser call was made, nothing live was read and nothing live is
+claimed. Answer pickup was unavailable for the same reason (Q59), which remains
+the run-level blocker.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and every hit
+for that phrase in the file was checked. The only real one is dated 2026-08-09
+23:14 to 2026-08-10 23:14 BST and expired three days ago; every other mention is
+a past run recording its absence. So step 7 applied as written. Nothing turned
+on it, because this run raised no question, but the check was done before the
+work and not after.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. Every unchecked worklist item is
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item to take
+and the run did a quality pass instead. 4.5 was picked on the record rather than
+by preference. Eighteen completed items were parsed for the date of their most
+recent recorded pass: ten sit at 2026-08-12 and are tied on date. 4.5 breaks the
+tie on COUNT - it had had two passes where every one of its ten siblings in the
+same pack family, drafted the same day in the same session, had had three. Same
+age, same family, one fewer look.
+
+THE FINDING: TWO RULES FOR ONE STANDARD, AND THE LOOSER ONE GOVERNED THE MORE
+EXPOSED SURFACE. Efficacy claims were being checked twice over, once per
+surface, by two lists that do not agree. The 177 generated pages carry the
+shared nine-pattern list in tools/claim-patterns.js, applied by
+check-weight-loss-copy.js rule 9 and check-service-links.js. The 15 GBP packs
+carried only EFFICACY_FAIL, a separate list living inside check-gbp-packs.js,
+and EFFICACY_FAIL is not a superset of the shared one. Five phrasings failed on
+a page and passed on a post: "fast weight loss" (EFFICACY_FAIL has "rapid weight
+loss" but not "fast"), "delivers results", "real results" (it has "proven
+results" and "best results" but neither of these), "most effective weight loss"
+and "that actually works".
+
+Not asserted, proved. Each phrase was injected into Post C of the real Hazel
+Grove pack, one at a time with a restore between each, and check-gbp-packs.js
+returned exit 0 on all five while claim-patterns.js findClaim() named a breach
+for all five.
+
+WHY THAT IS THE WRONG WAY ROUND, which is the point of the fix rather than the
+tidiness of having one list. The house standard splits weight loss copy into two
+regimes. A generated inner page is Regime 2: the patient chose to click into it.
+A GBP post is Regime 1: an advertisement pushed onto a public Google profile,
+pasted verbatim, which is the STRICTER half. Post C of all 15 packs is weight
+loss advertising copy. So the surface with the tighter standard was being held
+to the looser automated rule, and had been since the packs were drafted on
+2026-08-04. The three earlier passes on this pack all recorded "POM advertising"
+as verified, and they were right about the pack. What none of them checked was
+whether the RULE reading the pack matched the rule reading the pages.
+
+THE FIX. check-gbp-packs.js now requires tools/claim-patterns.js and applies
+CLAIM_PATTERNS to every pack alongside EFFICACY_FAIL. Both lists are kept and
+both run, because neither contains the other: EFFICACY_FAIL carries wording the
+shared page list has no reason to hold ("miracle", "cure", "no side effects",
+"before and after", "risk free"). Neither list was retyped into the other file,
+which is precisely the fault claim-patterns.js was created to stop - two copies
+of a rule that agree are indistinguishable from one rule until somebody edits
+one. A findClaims() helper mirrors the existing findTerms() for regex patterns,
+reporting the line number, the wording actually matched and the shared list's
+own plain-English reason, so a failure names the phrase rather than a pattern.
+
+EXTENDED TO THE TEMPLATE, WHICH NEEDED A CARVE-OUT AND ALMOST GOT A BAD FIX.
+The pack loop excludes TEMPLATE.md by name, so specimen copy written into the
+template is read by nothing and would be inherited by every pack drafted from
+it. Applying the scan there failed immediately, three times on one line, but the
+failures were false. The template teaches these rules BY QUOTING THE WORDING IT
+BANS: 'No efficacy claims ("works", "guaranteed", "best results"). No
+before/after.' A flat scan fails the one file whose job is to state the rule,
+and the fix a future reader would reach for is to delete the quotes from the
+rule, which would leave the rule unstated. So the scan cuts the rules block
+first, structurally - from the "Rules for every pack" heading to the first "## "
+heading - with lines blanked rather than removed so reported line numbers still
+match the file. That is the convention this checker already applies to opening
+hours, where a time inside quotation marks or a "previously/ceased" parenthetical
+is read as evidence rather than as a claim, and the one the run instructions give
+the log and the worklist for quoting an insecure URL: a file may name what it
+forbids. A guard fails the run if that boundary heading is renamed, so the
+carve-out cannot silently widen into a hole. Everything below the rules block is
+scanned. Those sections carry only parenthetical instructions and no pasteable
+copy today, so the guard fails nothing now; it exists for the first time
+somebody writes a real example post into section 5.
+
+EIGHT NEGATIVE TESTS, ALL FIRING: the five phrases in the pack (each now caught
+and named), specimen post copy in TEMPLATE.md (caught, three failures, line 134,
+confirming the blanking keeps line numbers honest), the boundary heading renamed
+(caught), and the restored tree clean at exit 0.
+
+FILES CHANGED: tools/check-gbp-packs.js (+97 lines, the only tracked code file
+touched), AGENT_WORKLIST.md (pass recorded in place on item 4.5),
+audits/scorah-hazel-grove-pack-check-2026-08-13.txt (new), AGENT_LOG.md.
+
 ## 2026-08-13 - hundred-and-fifty-ninth run
 - Item 6.6, HTTP/HTTPS duplicate indexing. ONE REAL DEFECT FOUND AND FIXED IN
 REPO, in GBP_MANUAL.md, plus a new checker and a new question (Q66). No page,

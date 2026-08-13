@@ -1,0 +1,104 @@
+Item 4.5 quality pass - Scorah Chemists Hazel Grove GBP pack
+Run 160, 2026-08-13. Fourth pass on this pack. Repo half only.
+
+WHY THIS ITEM. Every unchecked worklist item is [BLOCKED], so this run did a
+quality pass instead. 4.5 was chosen on the record rather than by preference:
+its last verification is 2026-08-12, the same date as ten sibling packs, but it
+had had two passes where every sibling had had three. Same age, same family,
+one fewer look.
+
+LIVE HALF NOT DONE. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made. Nothing live was read
+and nothing live is claimed here. Answer pickup was unavailable for the same
+reason (Q59).
+
+PART 1 - THE PACK ITSELF: CLEAN, NO DEFECT FOUND.
+Verified fact by fact against branches.json (id scorah_hazel):
+  name            Scorah Chemists Hazel Grove          matches branchName
+  street          87 Macclesfield Road                 matches streetAddress
+  postcode        SK7 6BG                              matches postalCode
+  phone           01625 872267                         matches phone
+  review link     g.page/r/CZbFKrky9BUsEAE/review      matches googleReviewUrl
+  catchment       Hazel Grove, Bramhall, Offerton,     matches serviceAreaList
+                  Great Moor, Poynton                  in order
+  profile website pharmacy-scorah-hazel-grove.html     correct: shared domain
+                  (not the shared homepage)            with scorah_bramhall
+  sister claim    "Our sister branch is in Bramhall"   scorah_bramhall live,
+                                                       same brandLabel, seoTown
+                                                       Bramhall
+  hasApp          false, and no app mentioned anywhere in the pack
+  widgets         all five services in section 3 earned by the widget set
+  description     712 characters under the checker's paste-join convention
+                  (naive count with newlines 721), inside the 750 limit
+  Saturday        pack states Saturday closed and flags the 24 June 2026
+                  cessation as history, consistent with openingHours
+  advertising     no medicine names, no efficacy claims, no em dashes, no
+                  emojis, UK English
+
+Address post town: the "- Address:" line reads "..., Hazel Grove, Stockport
+SK7 6BG" against addressLocality "Hazel Grove". Already known, already pinned
+as Q64 with this branch in KNOWN_IDENTITY, and not re-raised here.
+
+PART 2 - THE REAL FINDING, IN THE CHECKER RATHER THAN THE PACK.
+Two efficacy rules existed, one per surface, and they did not agree. The
+generated pages carry the shared 9-pattern list in tools/claim-patterns.js, via
+check-weight-loss-copy.js rule 9 and check-service-links.js. The GBP packs
+carried only the local EFFICACY_FAIL list inside check-gbp-packs.js, which is
+not a superset of it.
+
+Proved by injection into this pack, five phrases, one at a time, restoring
+between each. Before the fix, check-gbp-packs.js returned exit 0 on all five
+while tools/claim-patterns.js findClaim() failed all five:
+
+  phrase                                        pack     page
+  "fast weight loss"                            GREEN    FAILS (efficacy claim)
+  "delivers results"                            GREEN    FAILS (promises results)
+  "real results"                                GREEN    FAILS (promises results)
+  "most effective weight loss"                  GREEN    FAILS (comparative)
+  "that actually works"                         GREEN    FAILS (efficacy claim)
+
+EFFICACY_FAIL has "rapid weight loss" but not "fast", and "proven results" and
+"best results" but not "delivers results" or "real results".
+
+Why it matters in this direction. The house standard splits weight loss copy in
+two. A generated inner page is Regime 2, the page a customer chose to click
+into. A GBP post is Regime 1, an advertisement pushed onto a public Google
+profile, which is the stricter half. The looser rule was governing the more
+exposed surface, and Post C of every one of the 15 packs is weight loss
+advertising copy pasted verbatim into that profile.
+
+THE FIX. check-gbp-packs.js now also requires tools/claim-patterns.js and
+applies CLAIM_PATTERNS to every pack, alongside EFFICACY_FAIL. Both lists are
+kept and both run, because neither contains the other: EFFICACY_FAIL holds
+pack-specific wording the shared list has no reason to carry ("miracle",
+"cure", "no side effects", "before and after", "risk free"). Neither list was
+retyped into the other file, which is the fault claim-patterns.js exists to
+stop. A new findClaims() helper mirrors findTerms() for regex patterns and
+reports line number, matched wording and the shared list's plain-English
+reason.
+
+The rule was extended to TEMPLATE.md, which the pack loop excludes by name and
+which is the one file in gbp-packs/ that propagates into future packs. That
+needed a carve-out: the template teaches these rules by quoting the wording it
+bans, so a flat scan failed the file whose job is to state the rule, three
+times on one line. The cut is structural, from the "Rules for every pack"
+heading to the first "## " heading, with lines blanked rather than removed so
+reported line numbers still match the file. This is the same convention the
+checker already applies to opening hours, where a quoted or "previously/ceased"
+time is read as evidence rather than as a claim. A guard on the boundary itself
+fails if that heading is renamed, so the carve-out cannot silently widen.
+
+NEGATIVE TESTS, ALL EIGHT FIRE:
+  five phrases injected into the pack        all five now CAUGHT, each naming
+                                             the phrase and the reason
+  specimen post copy in TEMPLATE.md          CAUGHT, 3 failures, line 134,
+  ("Lose up to 20% of your body weight        line number correct under the
+   with our proven results.")                 blanking approach
+  "Rules for every pack" heading renamed     CAUGHT
+  clean tree restored                        exit 0
+
+RESULT. 31 of 31 checkers pass. All six generators reproduce every page
+byte-identical; git status after a full rebuild shows no change to any
+generated file. One file changed in this run, tools/check-gbp-packs.js. No
+page, no generator, no data field and no patient-facing copy was edited. No
+new question raised.

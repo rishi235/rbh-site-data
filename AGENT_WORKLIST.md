@@ -1176,6 +1176,28 @@ note extended), the switch page live copy still carries the pre-5.1 em
 dash against a repo full stop (paste lag, Q43), the weight loss page
 names no medicines and makes no claims, the travel page reads correctly.
 No in-repo defect. See audits/scorah-hazel-grove-pack-check-2026-08-12.txt.
+Quality pass 2026-08-13 (run 160): fourth pass. The pack itself clean again,
+every fact re-verified against branches.json including the sister-branch
+claim, the catchment order, the 712-character description and the 24 June
+Saturday closure; the post town on the "- Address:" line is Q64 and was not
+re-raised. One real defect found and fixed, in the checker rather than the
+pack: TWO EFFICACY RULES EXISTED, ONE PER SURFACE, AND THEY DID NOT AGREE.
+The generated pages carry the shared list in tools/claim-patterns.js via
+check-weight-loss-copy rule 9; the packs carried only the local EFFICACY_FAIL
+list, which is not a superset of it. Five phrasings failed on a page and
+passed on a post - "fast weight loss" (the list has "rapid" but not "fast"),
+"delivers results", "real results", "most effective weight loss", "that
+actually works" - proved by injecting all five into this pack and getting
+exit 0 every time. A GBP post is Regime 1 advertising pasted onto a public
+Google profile and an inner page is Regime 2, so the looser rule was
+governing the more exposed surface. check-gbp-packs.js now applies
+CLAIM_PATTERNS as well as EFFICACY_FAIL, both kept because neither contains
+the other, and neither list retyped. Extended to TEMPLATE.md, which the pack
+loop excludes by name and which propagates into every future pack, with a
+structural carve-out for the rules block that quotes the wording it bans,
+plus a guard that fails if that boundary heading is renamed. Eight negative
+tests fire. 31 checkers pass, all six generators byte-identical, no page or
+data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-13.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
