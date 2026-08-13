@@ -127,7 +127,8 @@ for Rishi, so neither belongs in QUESTIONS.json.
 
 Files changed: tools/check-gbp-packs.js, AGENT_WORKLIST.md, AGENT_LOG.md,
 audits/clear-aintree-gbp-pack-check-2026-08-13.txt.
-Commit: [hash recorded by a small follow-up commit]
+Commit: 362f084 (this hash line added by a small follow-up commit, which
+is why the log is one commit behind the work it describes).
 
 ## 2026-08-13 - hundred-and-sixty-fourth run
 - Item 4.8 quality pass, the Fishlocks Chemist Eccleston GBP pack. ONE REAL
