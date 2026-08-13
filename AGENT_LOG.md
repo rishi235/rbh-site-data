@@ -7,7 +7,8 @@ Format: date, time, item worked, what changed, commit hash, any questions.
 FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. The pack itself is clean
 for the fourth pass running. No page, generator, data field or piece of
 patient-facing copy was changed, all 31 checkers pass and every page regenerates
-byte-identical from all six generators. No new question raised. REPO HALF ONLY:
+byte-identical from all six generators. No new question raised. Commit 8133464.
+REPO HALF ONLY:
 two Chrome instances are connected and an unattended run cannot choose between
 them, so no browser call was made, nothing live was read and nothing live is
 claimed. Answer pickup was unavailable for the same reason (Q59), which remains
