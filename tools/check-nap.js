@@ -125,6 +125,12 @@ const KNOWN_SURFACE = {};
 const KNOWN_POSTCODE = {};
 const KNOWN_EMAIL = {};
 
+// Another branch's trading name, or another branch's street address, that
+// legitimately appears on this page. Same contract as the lists above:
+// keyed "<filename>::<the string as written>", and a stale key fails the run.
+const KNOWN_NAME = {};
+const KNOWN_STREET = {};
+
 // Pages HTML-escape text and attribute values; decode before comparing.
 const unesc = (s) => s === null || s === undefined ? s : String(s)
   .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
@@ -184,6 +190,8 @@ const usedKnownPhone = new Set();
 const usedKnownSurface = new Set();
 const usedKnownPostcode = new Set();
 const usedKnownEmail = new Set();
+const usedKnownName = new Set();
+const usedKnownStreet = new Set();
 
 function bad(file, msg) {
   problems++;
@@ -382,6 +390,67 @@ for (const dir of PAGE_DIRS) {
       else
         bad(rel, 'email-shaped string "' + em[0] + '" is not an address of ' +
           b.id + " in branches.json");
+    }
+
+    // --- NAME SWEEP ----------------------------------------------------
+    // The N in NAP, and until the item 1.4 quality pass of 2026-08-13 the
+    // one surface this file never swept. The name was read in exactly two
+    // structured fields, data-branch and JSON-LD name, and check-branch-
+    // identity reads the same two plus link targets. Neither reads BODY
+    // COPY, so another pharmacy's trading name written into a sentence on
+    // this page was invisible to all 29 checkers. That is the McCanns
+    // Sandringham failure shape, one branch's copy left on another, and the
+    // paste-block half of this very file has had the rule since 2026-08-07
+    // ("must name its own branch, and must not name another"); the
+    // generated half, which is 177 pages against 3, did not.
+    // Proved by injection on Cherry Lane's contraception page: the visible
+    // sentence "You can also visit Smartts Chemist at 42 Fernhill Road for
+    // this service" published a foreign pharmacy and a foreign street, and
+    // all 29 checkers exited 0.
+    // Branches sharing this brandLabel are skipped: a sister branch on a
+    // shared domain is legitimately named by the item 2.2 "our other
+    // branch" block, and its LINK is already policed by check-branch-
+    // identity rule 9.
+    for (const other of branches) {
+      if (other.brandLabel === b.brandLabel) continue;
+      for (const nm of [other.branchName, other.brandLabel]) {
+        if (!nm || !swept.includes(nm)) continue;
+        const key = file + "::" + nm;
+        if (KNOWN_NAME[key]) {
+          usedKnownName.add(key);
+          warn(rel, 'KNOWN name "' + nm + '". ' + KNOWN_NAME[key].question +
+            ": " + KNOWN_NAME[key].reason);
+          continue;
+        }
+        bad(rel, 'names another pharmacy "' + nm + '" (' + other.id +
+          ") in page copy, but this page belongs to " + b.branchName);
+        break;
+      }
+    }
+
+    // --- STREET SWEEP --------------------------------------------------
+    // The street half of the A in NAP. The postcode sweep added on
+    // 2026-08-12 catches a foreign address only when a postcode is written
+    // beside it; a street line on its own ("42 Fernhill Road") carries no
+    // postcode shape and passed unread. The contact line, map query and
+    // JSON-LD each check a street, but only in their own fixed place, which
+    // is the identical blind spot the phone had in August and the postcode
+    // had yesterday. Branches sharing this street are skipped: Clear
+    // Chemist and RB Healthcare Ltd Head Office are both Unit 20 Brookfield
+    // Trade Centre, so that string is not foreign on either.
+    for (const other of branches) {
+      if (!other.streetAddress || other.streetAddress === b.streetAddress) continue;
+      if (!swept.includes(other.streetAddress)) continue;
+      const key = file + "::" + other.streetAddress;
+      if (KNOWN_STREET[key]) {
+        usedKnownStreet.add(key);
+        warn(rel, 'KNOWN street "' + other.streetAddress + '". ' +
+          KNOWN_STREET[key].question + ": " + KNOWN_STREET[key].reason);
+        continue;
+      }
+      bad(rel, 'carries another branch\'s street address "' +
+        other.streetAddress + '" (' + other.id + '), but this page belongs to ' +
+        b.branchName + ' at "' + b.streetAddress + '"');
     }
   }
 }
@@ -598,6 +667,14 @@ for (const key of Object.keys(KNOWN_EMAIL))
   if (!usedKnownEmail.has(key))
     bad("KNOWN_EMAIL", 'stale exception "' + key + '" no longer matches an ' +
       "email on that page. Remove it (" + KNOWN_EMAIL[key].question + ").");
+for (const key of Object.keys(KNOWN_NAME))
+  if (!usedKnownName.has(key))
+    bad("KNOWN_NAME", 'stale exception "' + key + '" no longer matches a ' +
+      "name on that page. Remove it (" + KNOWN_NAME[key].question + ").");
+for (const key of Object.keys(KNOWN_STREET))
+  if (!usedKnownStreet.has(key))
+    bad("KNOWN_STREET", 'stale exception "' + key + '" no longer matches a ' +
+      "street address on that page. Remove it (" + KNOWN_STREET[key].question + ").");
 
 const missing = branches.filter((b) =>
   !b.disposed && b.id !== "rbh_head_office_aintree" && !seenBranches.has(b.id));

@@ -2,6 +2,132 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 01:04 BST - hundred-and-thirty-sixth run [commit hash recorded
+in the follow-up commit] - Quality pass on item 1.4, the NAP check, the oldest
+verification standing among completed items (last verified at run 95). Third
+machine-era pass on this item. REPO HALF ONLY: the live half could not be run
+and is not claimed. The NAP DATA is clean for the third consecutive pass and
+nothing in branches.json or any generated page was edited. Two more blind
+spots were found in the VERIFIER by injection and closed, and this time they
+were in the two surfaces item 1.4 is actually named after: the N and the
+street half of the A.
+
+ANSWER PICKUP NOT AVAILABLE, sixteenth consecutive run, 121 to 136. Same cause
+as runs 126 to 135: two Chrome extension instances are connected to this
+account and the tooling requires a human choice between them before any call
+is made. An unattended run has nobody to ask and may not pick for itself, so
+NO browser call was made at all: nothing fetched, clicked, typed, submitted or
+logged in to, and no other route attempted. 36 questions open going in, 36
+going out; none raised, none answered. Q59 already asks how to clear this
+block, so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed one: no question was raised.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with origin
+and clean.
+
+SELECTION. 6.6 is the first unchecked item that is not [BLOCKED], and run 135
+was right that it should be next. It could not be advanced. Every remaining
+route into it is live Google Search Console or the Weebly admin, both of which
+need the browser. Before setting it aside I re-verified run 135's repo-side
+findings myself rather than taking them on trust, because run 135 recorded a
+selection error of its own: 184 .html files exist, of which exactly 177 are
+generated pages (156 service + 15 switch + 6 branch), ZERO carry a
+rel="canonical" tag, and no generated page or branches.json field carries an
+http:// URL. The single http:// hit in the tree is status/index.html, which is
+the published status page quoting item 6.6's own text back. Run 135's reading
+stands in full: the repo is neither the cause nor the fix, a canonical tag
+belongs in the head and Weebly owns the head. 6.6 keeps NO [BLOCKED] tag,
+because it is blocked on tooling and not on a decision from Rishi, and it
+remains the next item for the first run that has a browser. Every other
+unchecked item is [BLOCKED] on a question, so this run went to a quality pass.
+
+QUALITY PASS TARGET. The rotation is unambiguous: run 135 took 3.1, run 134
+took 1.1, and the oldest verification still standing was 1.4 at run 95. 1.4 is
+also the one item in the rotation that is entirely repo-side, so the lack of a
+browser cost it nothing.
+
+STATE FOUND, ALL VERIFIED THIS RUN. 29 of 29 checkers exit 0. check-nap
+reports 177 generated pages and 3 paste blocks against 16 branches.json
+entries, 0 mismatches and 0 warnings. check-page-coverage reconciles the same
+177. All six generators were re-run and every generated page came back
+byte-identical, with git reporting no change anywhere under modules/.
+
+THE DEFECT, IN THE VERIFIER AND NOT THE DATA. check-nap read the branch NAME
+in exactly two structured fields, data-branch and the JSON-LD name, and the
+STREET in exactly three fixed places, the contact line, the map query and the
+JSON-LD block. Neither was ever read in body copy. check-branch-identity reads
+the same two name fields plus link targets, so it does not close the gap
+either. This is the identical shape to the phone blind spot closed on
+2026-08-11 and the postcode and email ones closed on 2026-08-12: a fact that
+is correct today and unread today, which are not the same thing. It is also
+an inconsistency inside this one file, because the paste-block half has
+banned naming another branch since 2026-08-07 ("must name its own branch, and
+must not name another") while the generated half, 177 pages against 3, had no
+such rule.
+
+INJECTION PROOF. Into the visible hero paragraph of
+modules/service/pages/contraception-cherry-lane-walton.html, a live
+patient-facing NHS contraception page:
+    "You can also visit Smartts Chemist at 42 Fernhill Road for this service."
+That is another pharmacy's trading name and another pharmacy's street address
+published on Cherry Lane's page. ALL 29 CHECKERS EXITED 0. No postcode, phone
+or email was involved, so none of the three existing sweeps fired. This is the
+McCanns Sandringham failure shape, one branch's copy left on another, which is
+the thing item 1.4 exists to catch.
+
+FIX. Two new sweeps in tools/check-nap.js on generated pages, built to match
+the phone, postcode and email sweeps already there. The NAME sweep fails any
+page carrying another branch's branchName or brandLabel anywhere, skipping
+branches that share this page's brandLabel so the item 2.2 "our other branch"
+block on a shared domain still passes (that link is separately policed by
+check-branch-identity rule 9). The STREET sweep fails any page carrying
+another branch's streetAddress, skipping branches that share this page's
+street so Clear Chemist and RB Healthcare Ltd Head Office, both at Unit 20
+Brookfield Trade Centre, do not flag each other. KNOWN_NAME and KNOWN_STREET
+were added on the same contract as the existing exception lists: a reason, a
+question id, and a key that stops matching fails the run so neither list can
+rot.
+
+NEGATIVE TESTED NINE WAYS, including three false-positive guards, with every
+page restored after each test and git confirming the tree byte-identical under
+modules/ afterwards. Caught as intended: a foreign brandLabel in body copy, a
+foreign branchName in body copy, a foreign street in body copy, a foreign name
+in an alt attribute, and a foreign street written with no postcode beside it
+(the exact case the 2026-08-12 postcode sweep could not reach). Correctly left
+alone: a foreign name inside an HTML comment, since build comments are
+generator bookkeeping and not a public claim; a sister branch named on a
+shared brand, since Fishlocks Eccleston on a Fishlocks Ainsdale page is
+legitimate; and the shared Brookfield street written into Clear Chemist copy,
+since that address is genuinely Clear Chemist's own.
+
+ONE CONSEQUENCE RECORDED RATHER THAN GLOSSED. A tenth test put "RB Healthcare
+Ltd Head Office" into Clear Chemist copy and it now fails. That is the
+intended default, because the head office is a branches.json entry with its
+own address and phone and a different brandLabel, and two names with two
+addresses on one page is exactly the entity-resolution risk item 2.2 exists to
+fix. But it does mean that if a corporate or legal footer line naming the
+operating company is ever added to patient pages, it will fail this rule and
+will need a KNOWN_NAME entry with a reason. No page does this today, which is
+why the estate sits at 0 mismatches rather than needing an exception on day
+one.
+
+AFTER THE FIX. 29 of 29 checkers exit 0 and check-nap still reports 177 pages,
+3 paste blocks, 0 mismatches and 0 warnings. The estate is therefore genuinely
+clean on both new rules, not merely unread by them, which is the distinction
+the last three passes on this item have all turned on.
+
+FILES CHANGED. tools/check-nap.js (two sweeps, two exception lists, two stale
+key guards, and the comment block explaining why). AGENT_WORKLIST.md (item 1.4
+annotated in place, still ticked). New audit artefact
+audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt with the full working.
+audits/live-hours-check-2026-08-13.json is a by-product of running
+check-live-hours and is committed with the rest, matching the convention for
+dated audit output. NO QUESTIONS RAISED.
+
 ## 2026-08-13 - hundred-and-thirty-fifth run [commit hash recorded in the
 follow-up commit] - Quality pass on item 3.1, the canonical title/H1 pattern
 definition, the oldest verification standing after run 134 refreshed 1.1.

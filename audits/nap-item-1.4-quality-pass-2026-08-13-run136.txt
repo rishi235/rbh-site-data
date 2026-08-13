@@ -1,0 +1,85 @@
+Item 1.4 NAP quality pass - 2026-08-13 - run 136
+Third machine-era pass on this item. REPO ONLY: no live half, the browser
+was not available this run (see Q59).
+
+STATE FOUND
+  29 of 29 checkers exit 0.
+  check-nap: 177 generated pages, 3 paste blocks, 16 branches.json entries,
+             0 mismatches, 0 warnings.
+  check-page-coverage: 177 pages accounted for.
+  All six generators re-run: every generated page byte-identical, git
+  reported no change under modules/.
+
+DATA VERDICT
+  The NAP data itself is clean for the third consecutive pass. Nothing in
+  branches.json or in any generated page was edited this run.
+
+DEFECT FOUND IN THE VERIFIER, NOT THE DATA
+  Same shape as the two previous passes. check-nap read the NAME in exactly
+  two structured fields (data-branch, JSON-LD name) and the STREET in three
+  fixed places (contact line, map query, JSON-LD). Body copy was never read
+  for either. check-branch-identity reads the same two name fields plus link
+  targets, so it does not close the gap.
+
+  The paste-block half of check-nap has carried the rule since 2026-08-07:
+  a block "must name its own branch, and must not name another". The
+  generated half, 177 pages against 3, did not.
+
+  INJECTION PROOF. Into the visible hero copy of
+  modules/service/pages/contraception-cherry-lane-walton.html:
+
+      "You can also visit Smartts Chemist at 42 Fernhill Road
+       for this service."
+
+  A foreign pharmacy name and a foreign street address, on a live
+  patient-facing NHS contraception page. ALL 29 CHECKERS EXITED 0.
+  No postcode, phone or email was involved, so the three existing sweeps
+  never fired.
+
+FIX
+  Two new sweeps in tools/check-nap.js, on generated pages, modelled on the
+  phone/postcode/email sweeps already there:
+    NAME SWEEP    no other branch's branchName or brandLabel may appear
+                  anywhere on the page. Branches sharing this page's
+                  brandLabel are skipped, so the item 2.2 "our other branch"
+                  block on a shared domain still passes; that link is
+                  policed by check-branch-identity rule 9.
+    STREET SWEEP  no other branch's streetAddress may appear anywhere on the
+                  page. Branches sharing this page's street are skipped, so
+                  Clear Chemist and RB Healthcare Ltd Head Office, both at
+                  Unit 20 Brookfield Trade Centre, do not flag each other.
+  KNOWN_NAME and KNOWN_STREET added, same contract as the existing lists:
+  keyed "<filename>::<string>", carry a reason and a question id, and a key
+  that stops matching fails the run so neither list can rot.
+
+NEGATIVE TESTED NINE WAYS
+  N1 foreign brandLabel in body copy .................. CAUGHT (expected)
+  N2 foreign branchName in body copy .................. CAUGHT (expected)
+  N3 foreign street in body copy ...................... CAUGHT (expected)
+  N4 foreign name in an alt attribute ................. CAUGHT (expected)
+  N5 foreign name inside an HTML comment .............. passed (expected;
+     build comments are generator bookkeeping, not a public claim)
+  N6 sister branch named on a shared brand ............ passed (expected;
+     Fishlocks Eccleston on a Fishlocks Ainsdale page is legitimate)
+  N7 shared Brookfield street on a Clear Chemist page . passed (expected;
+     the address is genuinely Clear Chemist's own)
+  N8 foreign street with no postcode beside it ........ CAUGHT (expected;
+     this is the case the 2026-08-12 postcode sweep could not reach)
+  N9 "RB Healthcare Ltd Head Office" on a Clear page .. CAUGHT
+  Every page was restored after each test and git confirmed the tree
+  byte-identical under modules/.
+
+NOTE ON N9, RECORDED RATHER THAN GLOSSED
+  The head office is a branches.json entry with its own address and phone,
+  and a different brandLabel from Clear Chemist, so naming it on a patient
+  page now fails. That is the intended default: two names and two addresses
+  on one page is the entity-resolution risk item 2.2 exists to fix. But it
+  does mean that if a corporate or legal footer line naming the operating
+  company is ever added to patient pages, it will fail this rule and will
+  need a KNOWN_NAME entry with a reason. No page does this today, which is
+  why the estate is at 0 mismatches.
+
+AFTER THE FIX
+  29 of 29 checkers exit 0. check-nap still reports 177 pages, 3 paste
+  blocks, 0 mismatches, 0 warnings, so the estate is genuinely clean on both
+  new rules and not merely unread by them.

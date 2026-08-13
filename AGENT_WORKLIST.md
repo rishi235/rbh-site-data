@@ -50,6 +50,28 @@ Negative-tested six ways. Live half: Cherry Lane contraception page NAP exact
 on name, address and phone, but its footer still publishes the Q36 mhs.net
 typo the 2026-08-11 hand fix removed from index and contact pages; Q36 note
 updated.
+Quality pass 2026-08-13 (run 136): NAP data clean for the third pass running.
+177 pages, 3 paste blocks, 0 mismatches, all six generators byte-stable, all
+29 checkers pass. REPO HALF ONLY, no live half: the browser was unavailable
+(Q59). Two more verifier blind spots found by injection and closed, the same
+shape as the phone one and the postcode/email ones before them, and this time
+in the two surfaces the item is actually named after. check-nap read the NAME
+in only two structured fields (data-branch, JSON-LD name) and the STREET in
+only three fixed places (contact line, map query, JSON-LD); neither was read
+in body copy, and check-branch-identity reads the same two name fields, so
+nothing closed it. The paste-block half of check-nap has banned naming another
+branch since 2026-08-07; the generated half, 177 pages against 3, had no such
+rule. Proved by injecting "You can also visit Smartts Chemist at 42 Fernhill
+Road for this service" into the visible hero copy of the Cherry Lane NHS
+contraception page: a foreign pharmacy and a foreign street on a live patient
+page, and all 29 checkers exited 0. check-nap now sweeps every generated page
+for any other branch's branchName, brandLabel or streetAddress, skipping
+branches that share this page's brandLabel (so the item 2.2 "our other branch"
+block still passes) or its street (so Clear Chemist and the head office, both
+at Unit 20 Brookfield, do not flag each other). KNOWN_NAME and KNOWN_STREET
+added on the same stale-key-fails contract as the existing lists. Negative
+tested nine ways, including the three false-positive guards. Full working in
+audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
