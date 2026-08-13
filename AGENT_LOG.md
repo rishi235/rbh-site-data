@@ -6,7 +6,8 @@ Format: date, time, item worked, what changed, commit hash, any questions.
 - Item 4.8 quality pass, the Fishlocks Chemist Eccleston GBP pack. ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,
 generator, data field, paste sheet, GBP pack or piece of patient-facing copy
-was changed. All 31 checkers pass. No new question raised.
+was changed. All 31 checkers pass. No new question raised. Commit 6d70d2d
+(this hash line added by a small follow-up commit).
 
 REPO HALF ONLY. Two Chrome instances are connected and an unattended run
 cannot choose between them, so no browser call was made, nothing live was
