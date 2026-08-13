@@ -2,6 +2,90 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-thirty-ninth run - Quality pass on item 1.2, the
+Hirshmans address sweep, the oldest verification standing among completed
+items. Fourth pass on this item. REPO HALF ONLY: no browser was available,
+so nothing live was read and nothing live is claimed. Clean for the fourth
+consecutive pass; not one character of data was edited and no checker defect
+was found. The contribution this run is coverage, not a fix: two surfaces
+that earlier passes never injected are now proved.
+
+ANSWER PICKUP NOT AVAILABLE, nineteenth consecutive run, 121 to 139. Cause
+unchanged from run 138 and worth restating exactly. Two Chrome extension
+instances are connected and were listed this run, so the extension side is
+alive. The block is that the tooling requires a human to choose between the
+two before any browser call is made, and it states explicitly that the agent
+must not pick one itself. An unattended run has nobody to ask. So NO browser
+call was made at all: nothing fetched, clicked, typed, submitted or logged
+in to, and no other route attempted. 36 questions open going in, 36 going
+out; none raised, none answered. Q59 already asks how to clear this block,
+so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed one: no question was raised.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin and clean.
+
+SELECTION. 6.6 is still the first unchecked item that is not [BLOCKED] and
+still could not be advanced, for the reason runs 135 to 138 recorded: every
+remaining route into it is live Google Search Console or the Weebly admin,
+and both need the browser. 6.6 keeps NO [BLOCKED] tag, because it is blocked
+on tooling and not on a decision from Rishi, and it remains the next item for
+the first run that has a usable browser. Every other unchecked item is
+[BLOCKED] on a question, so this run went to a quality pass. Rotation: run
+137 took 4.3 (run 96's item) and run 138 took 1.3 (run 97's), so the oldest
+verification standing is run 98's, which was 1.2 at 2026-08-12 04:15.
+
+STATE FOUND, ALL VERIFIED THIS RUN. branches.json is canonical for
+hirshmans_ainsdale on every field the item covers: 56-62 Sherwood House,
+Station Road / Ainsdale / PR8 3HW / Merseyside / 01704 577376. Nine broken
+variants were swept across the tree and every hit is accounted for. Three
+deserve naming because they look like defects and are not. The "64 Station
+Road" and twelve-digit "017014577376" hits inside
+gbp-packs\hirshmans-ainsdale.md sit in the Post A HARD STOP note, where they
+correctly record the OLD hand-built live page's defect as a warning to the
+paster; they are not published data. The unspaced "01704577376" across 13
+generated pages is the tel: href only, and its visible text is the correctly
+spaced "Call 01704 577376". All 29 checkers exit 0. check-nap reports 177
+pages and 3 paste blocks against 16 entries with 0 mismatches and 0
+warnings. All six generators re-ran and every page came back byte-identical,
+with git reporting no change under modules/.
+
+GUARDS PROVED, NOT ASSUMED. Five injections, each restored immediately and
+each verified byte-identical to the committed file afterwards. A wrong
+street number and wrong phone digits on the Hirshmans Pharmacy First page
+both fired check-nap across the contact block, the JSON-LD and the
+phone-like-number rule. The injection that carries real weight is the
+neighbouring branch: Fishlocks Ainsdale is 17 Station Road, PR8 3HN and
+Hirshmans is 56-62 Sherwood House, Station Road, PR8 3HW, so both pharmacies
+sit on Station Road in Ainsdale and that is the most plausible real-world
+mix-up anywhere in the estate. It is caught twice over, by check-nap, which
+names fishlocks_ainsdale in the message, and independently by
+check-postcodes, which fires FOREIGN naming both branches.
+
+NEW COVERAGE THIS PASS. Earlier passes proved the generated-page surface
+only. The GBP pack is the other surface that can publish this address, and
+it was injected this run for both street and postcode. check-gbp-packs
+caught both, named Fishlocks, and stated the consequence in business terms:
+"the profile would put the pin on another branch". check-postcodes caught
+the pack postcode too. So the address is now proved guarded on both
+publishing surfaces, on both the street and the postcode, by more than one
+checker each. That is the difference between this pass and the last three.
+
+NO NEW QUESTION. Nothing found needed a decision. The standing live-side
+items for Hirshmans are unchanged and already sit in Q41: the two published
+email addresses, the contact block line break and missing postcode, the
+unspaced phone, and the old Pharmacy First page's undiallable number and 64
+Station Road address, which is the Post A HARD STOP waiting on item 5.3.
+None was re-verified this run because no browser was available, and none is
+claimed as re-verified.
+
+FILES CHANGED. audits/hirshmans-address-check-2026-08-13.txt added,
+AGENT_WORKLIST.md item 1.2 note extended in place, AGENT_LOG.md this entry.
+
 ## 2026-08-13 - hundred-and-thirty-eighth run [commit d2b341c] - Quality
 pass on item 1.3, the McCanns Sandringham
 postcode sweep, the oldest verification standing among completed items.

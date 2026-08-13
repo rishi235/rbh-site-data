@@ -1,0 +1,88 @@
+HIRSHMANS ADDRESS CHECK - item 1.2 quality pass
+Date: 2026-08-13
+Run: hundred-and-thirty-ninth
+Scope: REPO HALF ONLY. No browser was available this run, so nothing live
+was read and nothing live is claimed.
+Fourth pass on this item (previous: runs 10, 56, 98, and the 2026-08-12 pass).
+
+RESULT: CLEAN. No defect found in the data and no defect found in the
+checkers. Not one character of repo data was edited. No new question raised.
+
+1. CANONICAL SOURCE (branches.json, hirshmans_ainsdale)
+   branchName      Hirshmans Chemist
+   streetAddress   56-62 Sherwood House, Station Road
+   addressLocality Ainsdale
+   postalCode      PR8 3HW
+   addressRegion   Merseyside
+   phone           01704 577376
+   email           Hirshmans@rbhealth.co.uk
+   nhsEmail        pharmacy.FW378@nhs.net
+   odsCode         FW378
+   All correct and unchanged.
+
+2. BROKEN-VARIANT SWEEP
+   Nine variants swept across the tree. Every hit accounted for:
+   - "64 Station Road": 7 files, all narrative. The only non-log hit is
+     gbp-packs\hirshmans-ainsdale.md L123, inside the Post A HARD STOP note
+     recording the defect on the OLD hand-built live page. Correct to be
+     there; it is a warning to the paster, not published data.
+   - "017014577376" (12 digits, does not dial): same HARD STOP note, L122.
+     Same conclusion.
+   - "01704577376" (no space): 13 generated pages. Verified as the tel:
+     href only, e.g. <a href="tel:01704577376">Call 01704 577376</a>. The
+     unspaced form is correct inside tel: and the visible text carries the
+     spaced form. Not a defect.
+   - "56-62 Sherwood House" / "PR8 3HW": 26 files each, all correct usage.
+   No broken variant is published anywhere in the repo.
+
+3. CHECKERS
+   All 29 checkers run, all exit 0.
+   check-nap: 177 pages and 3 paste blocks against 16 branches.json
+   entries, 0 mismatches, 0 warnings.
+   check-postcodes: 344 text files, 17 postcodes, 0 failures, 2 warnings
+   (both the known UNOWNED INDEX.md / SEO.md doc files).
+   check-gbp-packs: 0 failures, 13 standing judgement warnings.
+
+4. GENERATORS
+   All six generators re-run. Every generated page came back
+   byte-identical; git reported no change under modules/.
+
+5. GUARDS PROVED BY INJECTION, NOT ASSUMED
+   Five injections, each restored immediately and each verified
+   byte-identical to the committed file afterwards.
+   a) Wrong street number (64 Station Road) onto the live Hirshmans
+      Pharmacy First page -> check-nap exit 1, 2 mismatches, catching both
+      the contact block and the JSON-LD streetAddress.
+   b) REAL neighbouring-branch address (Fishlocks Ainsdale, 17 Station
+      Road + PR8 3HN) onto the same page -> check-nap exit 1, 6 mismatches,
+      and it NAMES the other branch: "carries another branch's street
+      address 17 Station Road (fishlocks_ainsdale), but this page belongs
+      to Hirshmans Chemist". check-postcodes independently fired FOREIGN
+      naming both branches.
+      This injection matters more than a random wrong address: Fishlocks
+      Ainsdale and Hirshmans Ainsdale are both on Station Road, Ainsdale,
+      so this is the single most plausible real-world mix-up in the estate,
+      and it is caught twice over by two independent checkers.
+   c) Wrong phone digits (01704 577999) -> check-nap exit 1, catching
+      visible phone, JSON-LD telephone and the phone-like-number rule.
+   d) Foreign street address into gbp-packs\hirshmans-ainsdale.md ->
+      check-gbp-packs exit 1, naming Fishlocks and stating the
+      consequence: "the profile would put the pin on another branch".
+   e) Foreign postcode into the same pack -> check-gbp-packs exit 1 AND
+      check-postcodes exit 1, both naming Fishlocks.
+   Coverage conclusion: the address is guarded on both surfaces that can
+   publish it, the generated pages and the GBP pack, and on both the
+   street and the postcode, by more than one checker each. Injections d
+   and e are new this pass; earlier passes proved the page surface only.
+
+6. RESTORE
+   Post-run git status shows no modification to any tracked file.
+
+STANDING LIVE-SIDE ITEMS (unchanged, already recorded in Q41, NOT re-verified
+this run because no browser was available):
+   - two published email addresses on the Hirshmans contact-us page
+   - contact block splits "56-62 Sherwood House, Station Road" over a line
+     break and omits the PR8 3HW postcode
+   - contact block writes the phone unspaced as 01704577376
+   - old hand-built Pharmacy First page carries the undiallable number and
+     the 64 Station Road address (Post A HARD STOP, waits on item 5.3)

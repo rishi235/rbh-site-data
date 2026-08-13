@@ -1631,6 +1631,26 @@ appended to the line. Do not move them; the status page reads them in place.
       minor note: the live footer strip uses en dashes in its hours line and
       has no in-repo source, a hand edit for the next Weebly visit. Evidence
       in audits/hirshmans-address-check-2026-08-12.txt.
+      Fourth quality pass 2026-08-13 (hundred-and-thirty-ninth run). REPO
+      HALF ONLY, no browser available, nothing live read or claimed. Clean
+      for the fourth consecutive pass, no data edited, no checker defect
+      found, no new question. branches.json canonical; nine broken variants
+      swept and every hit accounted for (the "64 Station Road" and
+      "017014577376" hits in the GBP pack are the Post A HARD STOP note
+      recording the OLD live page's defect, and the unspaced "01704577376"
+      in 13 generated pages is the tel: href, whose visible text is
+      correctly spaced). All 29 checkers exit 0, generators byte-identical.
+      Guard coverage EXTENDED this pass: five injections, all restored. The
+      one that matters is the real neighbouring-branch address, Fishlocks
+      Ainsdale 17 Station Road PR8 3HN, since both pharmacies sit on Station
+      Road, Ainsdale and that is the estate's most plausible real mix-up. It
+      is caught twice, by check-nap (which names fishlocks_ainsdale) and
+      independently by check-postcodes (FOREIGN). New this pass: the GBP
+      pack surface was injected too, for both street and postcode, and
+      check-gbp-packs caught both and named the consequence ("the profile
+      would put the pin on another branch"). Earlier passes had proved the
+      page surface only. Evidence in
+      audits/hirshmans-address-check-2026-08-13.txt. Done 2026-08-13
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
