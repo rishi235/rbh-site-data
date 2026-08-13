@@ -2,6 +2,103 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-fifty-ninth run
+- Item 6.6, HTTP/HTTPS duplicate indexing. ONE REAL DEFECT FOUND AND FIXED IN
+REPO, in GBP_MANUAL.md, plus a new checker and a new question (Q66). No page,
+generator, data field or piece of patient-facing copy was changed, and all 177
+pages regenerate byte-identical from all six generators. REPO HALF ONLY: two
+Chrome instances are connected and an unattended run may not choose between
+them, so no browser call was made, nothing live was read and nothing live is
+claimed. Answer pickup was unavailable for the same reason (Q59).
+
+WHY THIS ITEM AND NOT THE NEXT ONE. 6.6 was the first unchecked item not marked
+[BLOCKED]. Run 135 had already checked the repo half and left the note "next run
+should take this item if the browser is back". The browser is not back, so the
+question was whether there was anything left to do without it. There was, in a
+surface neither the item nor run 135 had looked at.
+
+THE FINDING, WHICH WAS ALREADY WRITTEN DOWN SOMEWHERE ELSE. Item 6.6 is about
+http:// and https:// versions of the same page being indexed separately and
+splitting clicks. It looked at Weebly, DNS and the repo. Nine of the sixteen
+Google Business Profiles publish an http:// website field where branches.json
+says https:// - Clear Chemist, both Fishlocks, McCanns Aigburth, head office,
+Riddings, both Scorahs, SK Chemists. That is the strongest citation Google holds
+for each shop naming the insecure URL as its home. It was recorded in
+GBP_MANUAL.md section 6 item 2 on 2026-08-09, FOUR DAYS BEFORE item 6.6 was
+raised, and neither document referenced the other: the manual had a finding with
+no worklist item, and the worklist item had a surface it never checked. They are
+now linked from both ends and the live half is asked as Q66.
+
+THE IN-REPO DEFECT, which is the part this run actually fixed. GBP_MANUAL.md
+section 5 is the state table a later sweep reads to decide what still needs
+doing. It marked all nine of those rows "correct". One of them read, in full,
+"correct, http". So the same file recorded the divergence in its prose and
+cleared it in its table, and section 4 of that same file says branches.json is
+the source of truth. A table that clears what the prose flags is worse than no
+table, because the next quarterly sweep trusts it and retires nine known-wrong
+rows by accident. The nine verdicts now name the divergence and cite Q66.
+McCanns Aigburth is recorded as diverging on PATH as well as scheme: it points
+at contact-us.html while its sister branch on the same shared domain points at
+the https root, so the two halves of one site disagree.
+
+A CAUSAL CLAIM TESTED AND DROPPED RATHER THAN ASSERTED. The tempting write-up is
+that the insecure citations cause the click split. They do not, and the item's
+own GSC numbers say so. Of the three branches measured, Cherry Lane is the ONLY
+one whose profile is already correctly https, and it has the worst split by a
+wide margin: 342 clicks on the http home page against 13 on https, where
+Riddings (GBP http) is 151 to 105 and McCanns (GBP http) is 190 to 119. If the
+citation drove the split, Cherry Lane would be the clean one; it is the worst
+one. So Q66 is worth doing because a citation should be right and a redirect hop
+is waste, not because it will move those numbers. Recorded that way in the
+manual, the worklist and Q66 itself, so nobody fixes nine profiles and then
+wonders why nothing moved. The canonical tag, which no page has, remains the
+thing item 6.6 says would move them, and it lives in the Weebly head.
+
+STANDING GUARD ADDED, checker 31. Run 135's repo result was true and NOTHING
+HELD IT: it was a one-off sweep whose answer lived only in prose. One http://
+href pasted into a generator would put an insecure estate URL onto up to 177
+live pages - a fresh crawlable duplicate of exactly the kind 6.6 exists to close
+- and all 30 checkers would have stayed green. tools/check-url-scheme.js fails
+on any insecure URL on a generated page, paste block, GBP pack or branches.json
+URL field, and holds every row of the GBP table against branches.json. XML and
+RDF namespace URIs are allowed by an explicit list, because they are identifiers
+rather than links and are http:// by specification. Narrative surfaces (the log,
+the worklist, the manual, QUESTIONS.json, the status page, audits/) may quote
+insecure URLs, because quoting them is how the finding gets recorded. KNOWN and
+PROFILE_TO_BRANCH both carry the stale-key contract used by check-seo-lengths
+and check-cdn-pins: an exemption that no longer excuses anything fails the run,
+so the list cannot rot once Q66 is answered.
+
+PROVED TO BITE, AND PROVED NOT TO MOVE ANYTHING. Today: 222 published files, 59
+branches.json URL values, 16 table rows, 0 insecure URLs outside narrative
+surfaces, 9 held under KNOWN against Q66. Ten probes, each backed up and
+restored: an insecure href and an insecure CDN script on a generated page both
+fail; an insecure branches.json website fails and is named by FIELD, not by line
+of JSON; a correct row turned insecure fails; a correct row repointed at another
+branch fails; a held row fixed to https fails as a stale exemption; a mapped
+profile removed from the table fails; an unmapped profile added to the table
+fails; an XML namespace URI passes; a trailing-slash-only difference passes,
+because on a homepage the two resolve to the same resource and branches.json
+stores the unslashed form for check-branch-links. Control clean before and
+after, all 31 checkers green, all six generators regenerate every page
+byte-identical. The probes found two defects in my own first draft, both fixed
+before commit: branches.json was being read as text as well as by field,
+reporting the same value twice, and the first probe was a no-op because
+generated pages are Weebly body embeds with no closing body tag, so the
+injection never landed.
+
+FILES CHANGED: tools/check-url-scheme.js (new), GBP_MANUAL.md (nine verdicts
+corrected, a note under the table, section 6 item 2 expanded), QUESTIONS.json
+(Q66 appended, 16 insertions, round-trip verified byte-identical first so the
+file was not reformatted), AGENT_WORKLIST.md (6.6 marked [BLOCKED] on Q66 with
+the run's findings), audits/url-scheme-check-2026-08-13-run159.txt (evidence).
+
+QUESTIONS: Q66 raised, item 6.6 marked [BLOCKED]. There is no repo-side work
+left on 6.6: the GBP edits are writes to live verified Google listings and are
+Rishi's call, and the canonical tag needs the Weebly head and therefore the
+browser (Q59). Q59 remains the run-level blocker: no autonomous window was open,
+so no autonomous decision was taken.
+
 ## 2026-08-13 12:50 BST - hundred-and-fifty-eighth run [commit 4b6371b, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]

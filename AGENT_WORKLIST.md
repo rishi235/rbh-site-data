@@ -2596,7 +2596,8 @@ so tools/build-audit-status.js picks them up like any other item.
       competitor doing it is not evidence it is safe, only evidence
       enforcement is inconsistent. Feeds into the wider decision at Q22.
 
-- [ ] 6.6 (high priority, technical, no sign-off needed) HTTP/HTTPS duplicate
+- [ ] [BLOCKED] 6.6 Q66 (downgraded to low urgency, see the correction below)
+      HTTP/HTTPS duplicate
       indexing: checked live in real Google Search Console (not Ahrefs) on
       2026-08-13 for Cherry Lane, Riddings and McCanns. All three have BOTH
       http:// and https:// versions of pages separately indexed and
@@ -2646,6 +2647,50 @@ so tools/build-audit-status.js picks them up like any other item.
       decision, it is blocked on tooling: live GSC and the Weebly admin both
       need the browser, which unattended runs have not had since run 121
       (see Q59). Next run should take this item if the browser is back.
+      Run 159, 2026-08-13, repo half only, no browser: THE THIRD SURFACE.
+      Run 135 checked the repo and the earlier notes checked Weebly, and
+      between them they missed the one place the estate publishes a URL to
+      Google on purpose. Nine of the sixteen Google Business Profiles carry
+      an http:// website field where branches.json says https:// (Clear,
+      both Fishlocks, McCanns Aigburth, head office, Riddings, both Scorahs,
+      SK Chemists). That was ALREADY WRITTEN DOWN, in GBP_MANUAL.md section
+      6 item 2, on 2026-08-09, four days before this item was raised, and
+      neither document referenced the other. Raised as Q66 and the two are
+      now linked from both ends.
+      THE IN-REPO DEFECT, which is the part this run fixed: GBP_MANUAL.md
+      section 5 is the state table a later sweep reads to decide what is
+      left to do, and it marked all nine of those rows "correct", one of
+      them literally "correct, http", while section 6 of the same file said
+      all nine are wrong. A table that clears what the prose flags is worse
+      than no table. The nine verdicts now name the divergence and cite
+      Q66, and McCanns Aigburth is recorded as diverging on PATH as well as
+      scheme, since it points at contact-us.html while its sister branch on
+      the same domain points at the https root.
+      A CAUSAL CLAIM TESTED AND DROPPED, not asserted. The tempting story
+      is that the insecure citations drive the split. They do not. Of the
+      three branches measured in GSC above, Cherry Lane is the ONLY one
+      whose profile is already correctly https, and it has the worst split
+      by a wide margin, 342 to 13 against Riddings 151 to 105 and McCanns
+      190 to 119. If the citation drove it, Cherry Lane would be the clean
+      one. So Q66 is worth doing on its own terms, a right citation and one
+      less redirect hop, and it should not be expected to move these
+      numbers. The canonical tag at (a) remains the thing that would.
+      STANDING GUARD ADDED. Run 135's result was true and nothing held it,
+      so one http:// href pasted into a generator would put an insecure
+      estate URL onto up to 177 live pages with all 30 checkers green.
+      tools/check-url-scheme.js (checker 31) fails on any insecure URL on a
+      generated page, paste block, GBP pack or branches.json URL field, with
+      XML namespace URIs allowed because they are identifiers and are http
+      by specification, and holds every row of the GBP table against
+      branches.json so a divergence cannot be recorded as correct again.
+      Today: 222 published files, 59 URL fields, 16 table rows, 0 insecure,
+      9 held under KNOWN against Q66. Ten negative tests, control clean
+      before and after. No page, generator, data field or piece of
+      patient-facing copy was changed.
+      WHAT IS LEFT, and why it is blocked rather than done: the GBP edits
+      need Rishi (Q66, a write to live verified listings), and the canonical
+      tag needs the Weebly head and therefore the browser (Q59). There is
+      no repo-side work remaining on this item.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

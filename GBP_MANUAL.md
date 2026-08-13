@@ -88,25 +88,43 @@ Website field, checked one by one.
 | Profile | Website in GBP | Verdict |
 |---|---|---|
 | Cherry Lane | https://www.cherrylanepharmacy.co.uk/ | correct |
-| Clear Chemist | http://www.clearchemist.co.uk/ | correct, http |
+| Clear Chemist | http://www.clearchemist.co.uk/ | WRONG SCHEME, Q66 |
 | Coleman and Leighs | https://www.colemanandleighspharmacy.co.uk/ | correct |
-| Fishlocks Eccleston | http://www.fishlockpharmacy.co.uk/ | correct, shared root |
-| Fishlocks Ainsdale | http://www.fishlockpharmacy.co.uk/ | correct, shared root |
+| Fishlocks Eccleston | http://www.fishlockpharmacy.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
+| Fishlocks Ainsdale | http://www.fishlockpharmacy.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
 | Gordon Short | https://www.gordonshortchemist.co.uk/ | correct |
 | Hirshmans | https://www.hirshmanspharmacy.co.uk/ | correct |
-| McCanns Aigburth | http://www.mccannspharmacy.co.uk/contact-us.html | correct domain, contact subpage |
+| McCanns Aigburth | http://www.mccannspharmacy.co.uk/contact-us.html | WRONG SCHEME AND PATH, Q66; sister branch points at the https root |
 | McCanns Sandringham | https://www.mccannspharmacy.co.uk | FIXED 2026-08-09, was nhs.uk |
-| RB Healthcare head office | http://www.rbhealth.co.uk/ | correct |
-| Riddings | http://www.riddingspharmacy.co.uk/ | correct |
-| Scorah Bramhall | http://www.scorah-chemists.co.uk/ | correct, shared root |
-| Scorah Hazel Grove | http://www.scorah-chemists.co.uk/ | correct, shared root |
-| SK Chemists | http://www.skchemist.co.uk/ | correct |
+| RB Healthcare head office | http://www.rbhealth.co.uk/ | WRONG SCHEME, Q66; also miscategorised, item 5 below |
+| Riddings | http://www.riddingspharmacy.co.uk/ | WRONG SCHEME, Q66 |
+| Scorah Bramhall | http://www.scorah-chemists.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
+| Scorah Hazel Grove | http://www.scorah-chemists.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
+| SK Chemists | http://www.skchemist.co.uk/ | WRONG SCHEME, Q66 |
 | Smartts | https://www.smarttschemist.co.uk/ | correct |
 | Tiffenbergs | https://www.tiffenbergschemist.co.uk/ | correct |
 
 One substitution in sixteen. The base rate is low, but it was on a branch
 whose own site was fine, so it can happen to any of them. Worth a re-check
 each quarter, or whenever the Google updates filter count jumps.
+
+VERDICT COLUMN CORRECTED 2026-08-13, worklist item 6.6. As first written, this
+table marked all nine http rows "correct", one of them literally "correct,
+http", while section 6 item 2 below recorded that those same nine are wrong and
+should all be https. The table and the open-items list contradicted each other,
+and the table is the half a later sweep reads to decide what is left to do, so
+nine known divergences were one glance away from being retired by accident. The
+verdicts now say what section 4 says: branches.json is the source of truth, all
+16 of its website values are https, and a row that differs from it on scheme or
+path is wrong however good the domain is.
+
+A trailing slash is NOT a divergence. branches.json stores the unslashed form
+because tools/check-branch-links.js requires it, and on a homepage the two
+resolve to the same resource.
+
+tools/check-url-scheme.js now holds this table against branches.json row by
+row, so a divergence cannot be recorded as correct again, and a profile added
+here without a mapping fails rather than going unchecked.
 
 ## 6. Open items this sweep surfaced
 
@@ -120,8 +138,24 @@ Decisions for Rishi, none actioned:
    for 90 days. Clear Chemist is the only clean one, named just
    "Clear Chemist". Coleman and Leighs is additionally still shown as
    "Coleman & Leighs", not the confirmed trading name.
-2. HTTP VERSUS HTTPS. Nine profiles point at http, six at https. All should
-   be https.
+2. HTTP VERSUS HTTPS. Nine profiles point at http, six at https, one at the
+   https root after the 2026-08-09 fix. All should be https. Raised as Q66 on
+   2026-08-13 and linked to worklist item 6.6, which is the same subject read
+   from the other end: item 6.6 came from Google Search Console showing http
+   and https versions of the same page indexed separately and splitting
+   clicks. The GBP website field is the strongest citation Google holds for a
+   local business, so nine of them naming the insecure URL is the business
+   telling Google its home page is the http one.
+   IT IS NOT THE CAUSE OF THE SPLIT, and saying so would be wrong. Item 6.6
+   measured three branches in GSC. Cherry Lane is the only one of the three
+   whose GBP is correctly https, and it has by far the worst split: 342 clicks
+   on the http home page against 13 on https, where Riddings (GBP http) is 151
+   to 105 and McCanns (GBP http) is 190 to 119. If the citation drove the
+   split, Cherry Lane would be the clean one; it is the worst one. So fix
+   these nine because a citation should be right and a redirect hop is waste,
+   not because it will move those numbers. What item 6.6 says will move them
+   is a self-referencing canonical tag, which no page currently has and which
+   lives in the Weebly head, not here and not in the repo.
 3. SHARED ROOT URLS. Both Fishlocks branches point at the same root, and both
    Scorah branches point at the same root. This is exactly the problem the
    branch landing pages from worklist item 2.2 and 5.2 exist to solve. Once

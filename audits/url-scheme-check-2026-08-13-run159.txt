@@ -1,0 +1,87 @@
+=== item 6.6 run 159, 2026-08-13: check-url-scheme.js evidence === 
+ 
+--- control and negative tests --- 
+=== control: untouched tree ===
+PASS  control clean, exit 0
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 25 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+
+=== negative tests ===
+PASS  1 insecure href on a generated page  [exit 1, expected nonzero]
+      caught: FAIL  INSECURE modules/service/pages/contraception-cherry-lane-walton.html: published surface carries http://www.cherrylanepharmacy.co.uk/offers.html.
+PASS  1b insecure CDN script on a generated page  [exit 1, expected nonzero]
+      caught: FAIL  INSECURE modules/service/pages/contraception-cherry-lane-walton.html: published surface carries http://cdn.jsdelivr.net/gh/rishi235/rbh-site-dat
+PASS  7 XML namespace URI on a generated page is allowed  [exit 0, expected 0]
+PASS  2 insecure website value in branches.json  [exit 1, expected nonzero]
+      caught: FAIL  INSECURE branches.json smartts_bootle.website = http://www.smarttschemist.co.uk. Every generated page and GBP pack copies this field, so one ins
+PASS  3 a currently-correct GBP row turned insecure  [exit 1, expected nonzero]
+      caught: FAIL  GBPSITE  GBP_MANUAL.md:104: Smartts publishes http://www.smarttschemist.co.uk/ but branches.json smartts_bootle.website is https://www.smarttsch
+PASS  3b a currently-correct GBP row pointed at another branch  [exit 1, expected nonzero]
+      caught: FAIL  GBPSITE  GBP_MANUAL.md:104: Smartts publishes https://www.riddingspharmacy.co.uk/ but branches.json smartts_bootle.website is https://www.smartt
+PASS  4 a held row fixed to https must retire its KNOWN entry  [exit 1, expected nonzero]
+      caught: FAIL  STALE    KNOWN names "SK Chemists" but its GBP website now matches branches.json (https://www.skchemist.co.uk). Remove the entry.
+PASS  5 a mapped profile removed from the table  [exit 1, expected nonzero]
+      caught: FAIL  MAPPED   PROFILE_TO_BRANCH names "Tiffenbergs" but no row of the GBP_MANUAL.md table carries that profile. Remove the entry or restore the row.
+PASS  6 an unmapped profile added to the table  [exit 1, expected nonzero]
+      caught: FAIL  MAPPED   GBP_MANUAL.md:105: profile "Some New Shop" is in the table but not in PROFILE_TO_BRANCH, so its website value is checked by nothing.
+PASS  8 trailing slash alone is not a divergence  [exit 0, expected 0]
+
+=== restored state ===
+PASS  tree restored clean, exit 0
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 29 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+ 
+--- verbose GBP table read --- 
+GBP website table, row by row:
+  ok   Cherry Lane  ->  https://www.cherrylanepharmacy.co.uk
+  held Clear Chemist  ->  https://www.clearchemist.co.uk
+  ok   Coleman and Leighs  ->  https://www.colemanandleighspharmacy.co.uk
+  held Fishlocks Eccleston  ->  https://www.fishlockpharmacy.co.uk
+  held Fishlocks Ainsdale  ->  https://www.fishlockpharmacy.co.uk
+  ok   Gordon Short  ->  https://www.gordonshortchemist.co.uk
+  ok   Hirshmans  ->  https://www.hirshmanspharmacy.co.uk
+  held McCanns Aigburth  ->  https://www.mccannspharmacy.co.uk
+  ok   McCanns Sandringham  ->  https://www.mccannspharmacy.co.uk
+  held RB Healthcare head office  ->  https://www.rbhealth.co.uk
+  held Riddings  ->  https://www.riddingspharmacy.co.uk
+  held Scorah Bramhall  ->  https://www.scorah-chemists.co.uk
+  held Scorah Hazel Grove  ->  https://www.scorah-chemists.co.uk
+  held SK Chemists  ->  https://www.skchemist.co.uk
+  ok   Smartts  ->  https://www.smarttschemist.co.uk
+  ok   Tiffenbergs  ->  https://www.tiffenbergschemist.co.uk
+
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 29 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+ 
+--- all checkers --- 
+PASS  check-address-region.js  (exit 0)
+PASS  check-app-membership.js  (exit 0)
+PASS  check-booking-routes.js  (exit 0)
+PASS  check-branch-identity.js  (exit 0)
+PASS  check-branch-links.js  (exit 0)
+PASS  check-brand-spelling.js  (exit 0)
+PASS  check-cdn-pins.js  (exit 0)
+PASS  check-contraception-copy.js  (exit 0)
+PASS  check-editor-snapshot.js  (exit 0)
+PASS  check-em-dashes.js  (exit 0)
+PASS  check-gbp-packs.js  (exit 0)
+PASS  check-jsonld.js  (exit 0)
+PASS  check-live-hours.js  (exit 0)
+PASS  check-map-embeds.js  (exit 0)
+PASS  check-nap.js  (exit 0)
+PASS  check-opening-hours.js  (exit 0)
+PASS  check-page-coverage.js  (exit 0)
+PASS  check-pharmacy-first-eligibility.js  (exit 0)
+PASS  check-pharmacy-first-safety-net.js  (exit 0)
+PASS  check-postcodes.js  (exit 0)
+PASS  check-seo-keywords.js  (exit 0)
+PASS  check-seo-lengths.js  (exit 0)
+PASS  check-seo-pattern.js  (exit 0)
+PASS  check-seo-sheets.js  (exit 0)
+PASS  check-service-links.js  (exit 0)
+PASS  check-switch-copy.js  (exit 0)
+PASS  check-travel-clinic-copy.js  (exit 0)
+PASS  check-url-scheme.js  (exit 0)
+PASS  check-weight-loss-copy.js  (exit 0)
+PASS  check-whatsapp-route.js  (exit 0)
+PASS  check-widget-diaries.js  (exit 0)
+
+31 checkers, 31 pass, 0 fail
