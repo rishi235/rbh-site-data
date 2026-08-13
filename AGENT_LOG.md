@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 17:05 BST - hundred-and-sixty-seventh run
+## 2026-08-13 17:05 BST - hundred-and-sixty-seventh run [commit f12b366, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Item 4.12 quality pass, the Coleman and Leighs Pharmacy Walton GBP pack,
 fourth pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in
 tools/check-gbp-packs.js, and it is estate-wide. No page, generator, data
