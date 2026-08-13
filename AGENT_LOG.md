@@ -2,6 +2,97 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-sixty-third run
+- Item 4.6 quality pass, the McCanns Chemist Aigburth GBP pack. ONE REAL
+DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,
+generator, data field, paste sheet, GBP pack or piece of patient-facing copy
+was changed. All 31 checkers pass. No new question raised. Commit COMMIT_HASH.
+
+REPO HALF ONLY: two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was read
+and nothing live is claimed. The 2026-08-12 live verdicts on this item stand as
+written. Answer pickup (step 3) was unavailable for the same reason, which is
+Q59 and remains the run-level blocker. That is now ten consecutive runs without
+an answer fetch, and 42 questions are open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. The only real one expired
+2026-08-10 23:14 BST, so step 7 applied as written. Nothing turned on it,
+because this run raised no question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items are
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item to
+take. Run 162 used the run timestamp of each item's most recent pass to break
+the tie between fifteen items level on date, took 5.7 as the earliest, and
+named 4.6 (run 120, 2026-08-12 15:08 BST) as next. That is this run's item. The
+method is unchanged and the ordering was re-read out of this log rather than
+assumed.
+
+THE PACK'S OWN DATA IS CLEAN, FOURTH PASS. Address, postcode, phone, both
+lunch closures, review link, catchment order (leading with the seoTown),
+profile website pointed at its own landing page rather than the shared McCanns
+homepage, categories and services against the five-widget set, description
+length, and all four post button targets all agree with branches.json. Its one
+warning is the known 5.3 pfLink item, which is blocked and was not touched. The
+sister-branch sentence still reads "McCanns Chemist Sandringham, in St
+Michael's", the run 37 fix holding, and both McCanns shops are genuinely on
+Aigburth Road (1b and 112), so "further along Aigburth Road" is supported.
+
+THE DEFECT WAS IN THE CHECKER, NOT IN THE PACK. check-gbp-packs.js read the
+street address twice: a PRESENCE check, that the branch's own address appears
+somewhere in the pack, and a SISTER check, that no other branch's address
+appears. Neither proves that the address strings the pack actually PUBLISHES
+are this branch's, and this pack states its house number four times over.
+
+PROVED BY INJECTION, NOT ASSERTED. Changing the profile-basics "- Address:"
+line alone from 112 to 114 Aigburth Road passed every rule in the file clean:
+the three remaining mentions still read "112 Aigburth Road" and satisfied the
+presence rule, and 114 is no branch's address so was invisible to the sister
+rule. That line is the one the paster sets the Google Maps pin from, so the
+pack would have moved the pin two doors down and reported nothing. The same
+injection passed in the business description, in Post B and in Post D. Pasting
+the SISTER's address (1b) was correctly caught, which is why the gap had stayed
+hidden: the rule that exists works, on the one case it was written for.
+
+A SECOND ORDER EFFECT WORTH RECORDING. A mistyped house number does not only
+publish a wrong pin, it silently DISABLES the post-town rule directly below it,
+because that rule locates the post town by finding the branch's own street
+inside the address line and gives up when it is not there. One wrong digit
+therefore costs two rules.
+
+THE FIX. A new rule proves every house number stated on the branch's own road
+is that branch's own. The number and road are derived from streetAddress in
+branches.json with nothing hardcoded, so a branch that moves takes its rule
+with it. Whitespace is collapsed first because these mentions wrap mid-address
+(Post D writes "at 112\nAigburth Road") and a line-bounded read would miss
+them. Occurrences spelling another branch's full address are skipped so the
+sister rule keeps sole ownership of that fault and it is reported once, and
+exceptions route through the existing KNOWN_IDENTITY convention so the
+stale-key sweep already covers them. It engages for 13 of the 16 branches,
+reading a hyphenated range as one number so Scorah Bramhall (61-63) and
+Hirshmans Ainsdale (56-62) are covered rather than skipped; the three it skips
+open with "Unit", where the digits are a unit designation and not a street
+number, and two of those genuinely share premises.
+
+ESTATE-WIDE, NOT LOCAL. Four packs state their address more than once and were
+exposed the same way: this one, McCanns Sandringham, SK Chemists Bootle and
+Smartts Bootle, all four mentions except Smartts at two. The new rule was
+confirmed to catch a single changed mention in each of the other three, with
+the failure attributed to the new rule rather than an older one. The eleven
+single-mention packs were already covered by the presence rule, which is why
+the two hyphenated branches reported through it when tested.
+
+EVIDENCE. Ten injections against this pack, all caught, none missed: the four
+address cases above, plus hours pairing inverted, weekday and Saturday closing
+times swapped, review link swapped for the sister's, Post D repointed at the
+sister's travel page, profile website dropped to the shared homepage, catchment
+reordered off the seoTown, an em dash, the sister branch reduced to a place, the
+lunch-closure two-range instruction removed, a medicine named in Post C and
+another branch's phone. Baseline stayed at 0 failures across all 16 packs
+throughout, every injected file was restored and verified byte-identical, and
+the temporary harnesses were deleted before committing. Files changed:
+tools/check-gbp-packs.js only, 65 insertions and no deletions.
+
 ## 2026-08-13 - hundred-and-sixty-second run
 - Item 5.7 quality pass, the McCanns Sandringham local word (Q15). ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-address-region.js. No page,

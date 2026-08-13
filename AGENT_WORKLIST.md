@@ -1250,6 +1250,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       landing page still 404s awaiting the queued paste run (already
       recorded). No new defect, no new question. Evidence:
       audits/mccanns-aigburth-gbp-pack-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (hundred-and-sixty-third run): fourth pass.
+      REPO HALF ONLY, no browser this run (two Chrome instances connected,
+      Q59), so the 2026-08-12 live verdicts above stand as written and
+      nothing live is re-claimed. The pack's own data is clean for the
+      fourth time: address, postcode, phone, both lunch closures, review
+      link, catchment order, profile website, categories, services,
+      description length and all four post buttons all agree with
+      branches.json, and its one warning is the known 5.3 pfLink item.
+      ONE REAL DEFECT FOUND AND FIXED, and it was in the checker, not the
+      pack. check-gbp-packs.js read the street address twice, as a PRESENCE
+      check (the branch's own address appears somewhere) and a SISTER check
+      (no other branch's address appears), and neither proves the addresses
+      the pack actually publishes are this branch's. Proved by injection:
+      changing the profile-basics "- Address:" line alone from 112 to 114
+      Aigburth Road passed every rule clean, because the three other
+      mentions still read 112 and satisfied presence, and 114 is nobody's
+      address so was invisible to the sister rule. That is the line the
+      paster sets the Google Maps pin from. The same injection passed in
+      the description, in Post B and in Post D, and a mistyped number also
+      silently DISABLES the post-town rule, which finds the town by locating
+      the street inside the address line. New rule proves every house number
+      stated on the branch's own road is that branch's own, derived from
+      branches.json with nothing hardcoded, engaging for 13 of the 16
+      branches and reading hyphenated ranges. Estate-wide, not local: four
+      packs state their address more than once and so were exposed the same
+      way (this one, McCanns Sandringham, SK Chemists Bootle and Smartts
+      Bootle), and the new rule was confirmed to catch a single changed
+      mention in each of the other three. Ten injections caught, none
+      missed, all 31 checkers green, no page, generator, data field or piece
+      of patient-facing copy changed. No new question.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

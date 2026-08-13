@@ -1219,6 +1219,71 @@ for (const file of packFiles) {
     }
   }
 
+  // --- every house number stated on the branch's own road -----------------
+  // The two rules above are a PRESENCE check and a SISTER check. The first
+  // proves the branch's own street address appears somewhere in the pack. The
+  // second proves no other branch's street address appears. Neither proves
+  // that the address strings the pack actually publishes are this branch's,
+  // and a pack states its house number four times over: the profile-basics
+  // "- Address:" line, the business description, and Posts B and D.
+  //
+  // Found on the item 4.6 quality pass, 2026-08-13, by injection into
+  // mccanns-aigburth.md. Changing the "- Address:" line alone from 112 to
+  // 114 Aigburth Road passed this file clean, because the three remaining
+  // mentions still read "112 Aigburth Road" and satisfied the presence rule,
+  // and because 114 is nobody's address and so was invisible to the sister
+  // rule. That line is the one the paster sets the Google Maps pin from, so
+  // the pack would move the pin two doors down and report nothing. The same
+  // injection passed in the description, in Post B and in Post D.
+  //
+  // Nothing else covers it. The postcode rules pass because the postcode is
+  // untouched, and the post-town rule below is DISABLED by the very same
+  // fault: it locates the post town by finding the branch's own street inside
+  // the address line, and gives up silently when it is not there. So one
+  // mistyped digit both publishes a wrong pin and switches off the next rule.
+  //
+  // The rule engages where the branch's own streetAddress OPENS with a house
+  // number, which is thirteen of the sixteen, and reads a hyphenated range as
+  // one number so Scorah Bramhall ("61-63 North Park Road") and Hirshmans
+  // Ainsdale ("56-62 Sherwood House, Station Road") are covered rather than
+  // skipped. The remaining three open with "Unit" (Fishlocks Eccleston and the
+  // two entries that share Unit 20 Brookfield), where the digits are a unit
+  // designation rather than a street number, so they are left to the rules
+  // above rather than guessed at. Whitespace is collapsed
+  // first because these mentions wrap mid-address in the packs (Post D writes
+  // "at 112\nAigburth Road"), and a line-bounded read would miss them.
+  // Occurrences that spell another branch's full address are skipped, so the
+  // sister rule keeps sole ownership of that fault and it is reported once.
+  const NUMBER_SRC = "\\d+[a-z]?(?:\\s*-\\s*\\d+[a-z]?)?";
+  const simpleStreet = new RegExp(`^(${NUMBER_SRC})\\s+(.+)$`, "i").exec(ownStreet);
+  if (simpleStreet) {
+    const ownNumber = simpleStreet[1];
+    const ownRoad = simpleStreet[2];
+    const otherStreets = branches
+      .filter((x) => x.id !== b.id && x.streetAddress)
+      .map((x) => norm(x.streetAddress).toLowerCase());
+    const numbered = new RegExp(`\\b(${NUMBER_SRC})\\s+${escapeRe(ownRoad)}\\b`, "gi");
+    const sameNumber = (n) => n.toLowerCase().replace(/\s*-\s*/g, "-") === ownNumber.toLowerCase().replace(/\s*-\s*/g, "-");
+    const reported = new Set();
+    for (const m of norm(text).matchAll(numbered)) {
+      if (sameNumber(m[1])) continue;
+      const stated = norm(m[0]);
+      const lower = stated.toLowerCase();
+      if (otherStreets.some((s) => s === lower || s.startsWith(lower + " ") || s.startsWith(lower + ","))) continue;
+      if (reported.has(lower)) continue;
+      reported.add(lower);
+      const key = `${b.id}::streetNumber`;
+      const known = KNOWN_IDENTITY[key];
+      const msg = `the pack states "${stated}", but branches.json puts this branch at "${b.streetAddress}". The branch's own address appears elsewhere in the pack, which is why the presence rule passes, and this number is no branch's address, which is why the sister rule passes. A pack is pasted straight into Google Business Profile, so a wrong house number on the right road moves the map pin to the wrong building`;
+      if (known) {
+        seenIdentityKnown[key] = true;
+        warn(file, `KNOWN ${msg}. ${known.question}: ${known.reason}`);
+      } else {
+        fail(file, msg);
+      }
+    }
+  }
+
   // --- the post town, between the street and the postcode ------------------
   // Added by the item 3.5 quality pass, 2026-08-13, as the estate-wide half of
   // the rule the item 3.4 pass added to check-nap.js the day before.
