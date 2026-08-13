@@ -1700,6 +1700,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       medicines and check-gbp-packs.js failed the run for it. The checker
       was left strict and the note was reworded instead. Evidence in
       audits/sk-chemists-bootle-gbp-pack-check-2026-08-12.txt.
+      Fourth quality pass 2026-08-13: the pack is clean again and
+      byte-stable across all four passes. Description 735 and posts 466,
+      305, 530, 380, identical to all three earlier passes; zero non-ASCII
+      characters, zero dashes of any kind, zero smart quotes, zero POM
+      names. Every branches.json fact re-matched including ODS FH575, the
+      NHS email, pfBooking true, hasApp false, the Monday to Friday 9 to 6
+      hours with Saturday and Sunday closed, and the catchment Bootle,
+      Sefton and Liverpool leading with its own seoTown. All 31 checkers
+      exit 0 and all six generators rebuild to zero diff. Repo half only:
+      two Chrome extensions are connected and an unattended run cannot
+      choose between them, so nothing live was read and the 2026-08-10 to
+      2026-08-12 live verdicts stand as written rather than being restated
+      as re-checked. Six injections were correctly caught, including
+      repointing Post C at the legacy weight-loss-clinic.html, opening the
+      hours line on a day branches.json closes, and moving the UTI cohort
+      off 16 to 64, so this pack's prose STOPs are backed by rules.
+      ONE REAL DEFECT FOUND AND FIXED, in
+      tools/check-pharmacy-first-eligibility.js and nowhere else: deleting
+      "Age ranges set by the NHS apply to each condition." from Post A,
+      and changing nothing else, walked past all 31 checkers clean. A pack
+      prints an age for one pathway out of seven, so that one sentence is
+      the whole qualification on a flat seven-condition advertisement, and
+      without it the six unstated pathways read as open to anyone: a
+      six-month-old brought for the earache pathway that starts at 1, or a
+      sore throat consultation asked for on a four-year-old when the
+      pathway starts at 5. Added as rule 11, held only against packs that
+      enumerate the conditions, which is all 14 that do and none of the two
+      that do not. It pins a convention the estate already keeps, so no
+      pack copy, page, generator, data field or patient-facing wording
+      changed. Re-proved by injection on four packs after the fix. No new
+      question raised. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-08-13.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

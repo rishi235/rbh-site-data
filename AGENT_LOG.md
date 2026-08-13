@@ -2,6 +2,97 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 21:07 BST - hundred-and-seventieth run [commit PENDING]
+- Item 4.11 quality pass, the SK Chemists Bootle GBP pack, fourth pass. ONE
+REAL DEFECT FOUND AND FIXED IN REPO, in
+tools/check-pharmacy-first-eligibility.js. No page, generator, data field,
+branches.json entry, pack copy or piece of patient-facing copy was changed.
+All 31 checkers exit 0 before and after, and all six generators rebuild to
+zero diff. No question raised.
+
+REPO HALF ONLY. Two Chrome extensions are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-10, 2026-08-11 and 2026-08-12
+live verdicts on this item stand as written rather than being restated as
+re-checked. Answer pickup (step 3) was unavailable for the same reason,
+which is Q59 and remains the run-level blocker. That is now seventeen
+consecutive runs without an answer fetch, and 44 questions are open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. The fix below was not a decision to take: it encodes a
+convention all 14 enumerating packs already keep, rather than making a new
+one, and it changes no patient-facing wording.
+
+NO LOCK CONTENTION. No .agent-lock and no git index.lock were present, so
+the lock was taken cleanly. audits/live-hours-check-2026-08-13.json again
+shows as modified while git diff returns nothing: it differs by line endings
+only, so it was left unstaged rather than committed as noise, as last run.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was
+no item to take. Ordering was re-derived from this log by parsing every run
+header and the item each run named, then ranking the completed items by how
+long ago each was last verified. 4.11 came out oldest at 42 runs, ahead of
+4.15 at 41 and 2.2 at 40, which matches what last run predicted when 4.14
+was refreshed ahead of it.
+
+THE PACK IS CLEAN AND BYTE-STABLE ACROSS FOUR PASSES. Description 735 and
+posts 466, 305, 530 and 380, identical to all three earlier passes. Zero
+non-ASCII characters, zero dashes of any kind, zero smart quotes, zero POM
+names from tools/pom-names.js. Every branches.json fact re-matched: 516
+Stanley Road Bootle L20 5DW, 0151 944 1013, website, review link, ODS FH575,
+the NHS email, pfBooking true, hasApp false with no app claim anywhere, the
+Monday to Friday 09:00 to 18:00 hours with Saturday and Sunday closed, the
+catchment Bootle, Sefton and Liverpool leading with its own seoTown in all
+three places, and Post A's button matching pfLink exactly.
+
+SIX INJECTIONS CORRECTLY CAUGHT. Repointing Post C at the legacy
+weight-loss-clinic.html failed check-gbp-packs.js, so this pack's Post C
+do-not-substitute STOP is backed by a rule and is not prose-only, which is
+the thing last run found missing on the Post A side at Gordon Short. Also
+caught: the hours line moved to 08:00 to 22:00; the hours line left correct
+on times but opened on Saturday, a day branches.json closes; the UTI cohort
+moved off 16 to 64; tonsillitis added to Post A's list; and the count word
+moved to "eight" with the list untouched.
+
+THE REAL DEFECT: THE ONE SENTENCE THAT QUALIFIES THE WHOLE ADVERTISEMENT WAS
+UNPINNED. Deleting "Age ranges set by the NHS apply to each condition." from
+Post A, and changing nothing else, walked past all 31 checkers clean. A pack
+prints an age for one pathway out of seven, the UTI cohort in Post A, plus
+the blood pressure cohort in the description. The other six carry NHS limits
+the pack never names: sinusitis 12 and over, sore throat 5 and over, earache
+1 to 17, impetigo 1 and over, shingles 18 and over. Rule 9 pins the ages a
+pack states and rule 10 pins the list it prints, so a pack can satisfy both
+and still publish a flat seven-condition offer with nothing saying who is
+eligible. The consequence is at the counter: a parent brings a six-month-old
+for the earache pathway that starts at 1, or asks for the sore throat
+pathway on a four-year-old when it starts at 5, having read the profile.
+
+THE FIX AND WHY IT IS NOT A DECISION. Added as rule 11 in
+tools/check-pharmacy-first-eligibility.js, held only against a pack that
+enumerates the conditions. That is exactly the 14 packs that enumerate, all
+of which already carry the sentence, and it exempts the two that name no
+conditions and so make no claim to qualify, clear-aintree.md and
+TEMPLATE.md. The rule is tied to enumeration rather than to Post A by name
+because the enumeration is what creates the duty and it is not always Post A
+that carries it, and the matcher is whitespace-insensitive because the packs
+wrap the sentence across a line break and a line-bound match reads a wrapped
+sentence as absent. Re-proved after the fix on four packs:
+sk-chemists-bootle, tiffenbergs-aintree, scorah-bramhall and
+cherry-lane-walton each fail rule 11 with the sentence removed and are green
+with it restored.
+
+STANDING ITEMS RE-READ, NOT RE-VERIFIED LIVE. Post A still points at pfLink,
+whose page three earlier passes recorded live as misspelling the town
+("Bottle") and absent from the branch sitemap while the generated
+replacement was live and correct, so SK remains a no-paste repoint for item
+5.3 and the repoint is deliberately not made here. Post C's
+do-not-substitute warning stands and belongs to item 5.8, raised as Q58.
+
+Files changed: tools/check-pharmacy-first-eligibility.js, AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/sk-chemists-bootle-gbp-pack-check-2026-08-13.txt.
+
 ## 2026-08-13 20:04 BST - hundred-and-sixty-ninth run [commit aff88e5]
 - Item 4.14 quality pass, the Gordon Short Chemist Crosby GBP pack, fourth
 pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js.

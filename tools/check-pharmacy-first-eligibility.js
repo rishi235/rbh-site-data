@@ -104,6 +104,22 @@
        places - the business description states the number and names no
        conditions, Post A does both - so a number can drift on its own.
 
+   11. On the GBP packs, a pack that enumerates the conditions also says the
+       NHS age ranges apply to each of them. Rules 9 and 10 pin the ages a
+       pack states and the list it prints, and a pack can satisfy both and
+       still advertise an unqualified offer, because a pack prints an age for
+       one pathway out of seven. The other six carry NHS limits the pack never
+       names: sinusitis 12 and over, sore throat 5 and over, earache 1 to 17,
+       impetigo 1 and over, shingles 18 and over. One sentence at the end of
+       Post A carries the whole qualification, and every one of the 14 packs
+       that enumerate carries it, so this rule pins a convention the estate
+       already keeps rather than adding a new one. Proved by injection on
+       2026-08-13 against gbp-packs/sk-chemists-bootle.md: deleting "Age
+       ranges set by the NHS apply to each condition." from Post A, and
+       nothing else, walked past all 31 checkers clean. The two packs that
+       name no conditions, clear-aintree.md and TEMPLATE.md, make no claim to
+       qualify and are not held to it.
+
   The blood pressure cohort is pinned here because rule 9 needs it and it
   was pinned nowhere else in the repo: it existed only as prose, in
   tools/build-branch-landing-pages.js and in ten of the packs.
@@ -503,6 +519,17 @@ var COUNT_WORDS = {
 };
 var COUNT_CLAIM = /\b(one|two|three|four|five|six|seven|eight|nine|ten|\d{1,2})\s+(?:common\s+)?conditions\b/i;
 
+// Rule 11. The sentence that qualifies the enumeration. A pack lists the seven
+// conditions as a flat list of names and states an age for only two of them,
+// the UTI cohort in Post A and the blood pressure cohort in the description.
+// The other five carry NHS age limits the pack never prints: sinusitis 12 and
+// over, sore throat 5 and over, earache 1 to 17, impetigo 1 and over, shingles
+// 18 and over. What stops the flat list reading as an open offer to anyone is
+// one sentence at the end of Post A saying the NHS age ranges apply per
+// condition. Written whitespace-insensitively because the packs wrap it across
+// a line break and a line-bound match reads that as absent.
+var PACK_AGE_CAVEAT = /age ranges set by the NHS apply to each condition/i;
+
 var PATHWAYS = Object.keys(PACK_CONDITIONS);
 
 // A parenthetical in these packs is never the pack making a claim about the
@@ -593,6 +620,24 @@ packs.forEach(function (file) {
     failures.push(name + ": branches.json gives this branch Pharmacy First, but no sentence " +
       "in the pack names two or more of the " + PATHWAYS.length + " conditions, so the pack " +
       "claims the service without ever saying what it covers (rule 10)");
+  }
+
+  // Rule 11. Enumerating the conditions obliges the pack to qualify them.
+  // Rule 9 pins the two ages a pack states and rule 10 pins the list itself,
+  // so between them a pack could name all seven conditions correctly, state
+  // both its cohorts correctly, and still publish an unqualified offer to
+  // patients the other five pathways exclude. Only a pack that enumerates is
+  // held to it: the Clear Aintree pack and TEMPLATE.md name no conditions and
+  // so make no claim to qualify. The condition is tied to enumeration rather
+  // than to Post A by name because the enumeration is what creates the duty
+  // and it is not always Post A that carries it.
+  if (enumerated && !PACK_AGE_CAVEAT.test(fs.readFileSync(file, "utf8").replace(/\s+/g, " "))) {
+    failures.push(name + ": lists all " + PATHWAYS.length + " Pharmacy First conditions but " +
+      "nowhere says the NHS age ranges apply to each of them (rule 11). The pack prints an age " +
+      "for the UTI pathway only, so without that sentence the other six read as open to anyone, " +
+      "and a parent brings a six-month-old for the earache pathway that starts at 1 or an " +
+      "adult asks for the sore throat pathway on a four-year-old. Restore \"Age ranges set by " +
+      "the NHS apply to each condition.\" to the post that carries the list");
   }
 });
 

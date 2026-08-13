@@ -1,0 +1,94 @@
+SK Chemists Bootle GBP pack - fourth quality pass
+Item 4.11. Run 170, 2026-08-13. Repo half only, no browser call.
+
+SCOPE AND LIMIT
+Repo-side verification only. Two Chrome extensions are connected and an
+unattended run cannot choose between them, so nothing live was read and
+nothing live is claimed this pass. The live verdicts recorded on
+2026-08-10, 2026-08-11 and 2026-08-12 stand as written and are not
+restated here as if re-checked.
+
+PACK VERIFIED FACT BY FACT AGAINST branches.json (skchemists_bootle)
+  Address        516 Stanley Road, Bootle L20 5DW        match
+  Phone          0151 944 1013                           match
+  Website        https://www.skchemist.co.uk             match
+  Review link    https://g.page/r/CeAIYeqSjIYBEAE/review match
+  Hours          Mon to Fri 09:00 to 18:00, Sat and Sun closed
+                 (openingHours, NHS-confirmed 2026-06-24) match
+  Catchment      Bootle, Sefton, Liverpool, leading with its own
+                 seoTown Bootle, in all three places       match
+  ODS FH575, NHS email, pfBooking true, hasApp false and no app
+  mention anywhere in the pack                            match
+  Post A button  matches pfLink exactly                    match
+
+BYTE-STABLE ACROSS ALL FOUR PASSES
+  Description  735 chars (heading claims 735, limit 750)
+  Post A       466   Post B  305   Post C  530   Post D  380
+  Identical to the 2026-08-10, 2026-08-11 and 2026-08-12 passes.
+  Non-ASCII characters 0. Em dashes 0. En dashes 0. Smart quotes 0.
+  POM names from tools/pom-names.js found in the pack: 0.
+
+ALL 31 CHECKERS EXIT 0, before and after the change below.
+All six page generators rebuild to zero diff.
+
+SIX INJECTIONS THAT WERE CORRECTLY CAUGHT (no defect)
+  1. Post C button repointed to the legacy weight-loss-clinic.html
+     - caught by check-gbp-packs.js, so the pack's prose STOP on Post C
+     is backed by a rule and is not prose-only.
+  2. Hours line changed to Mon to Sat 08:00 to 22:00 - caught, 10 failures.
+  3. Hours line kept at 09:00 to 18:00 but opened on Saturday, a day
+     branches.json closes - caught, named the locked-door consequence.
+  4. UTI cohort 16 to 64 changed to 18 to 65 - caught, rule 9.
+  5. Tonsillitis added to Post A's list - caught, rule 10.
+  6. "seven common conditions" changed to "eight" with the list
+     untouched - caught, rule 10.
+
+THE ONE REAL DEFECT FOUND, AND FIXED IN tools/check-pharmacy-first-eligibility.js
+  Deleting the sentence "Age ranges set by the NHS apply to each
+  condition." from Post A, and changing nothing else, walked past all 31
+  checkers clean.
+
+  Why it matters. A pack prints an age for one pathway out of seven, the
+  UTI cohort in Post A, plus the blood pressure cohort in the business
+  description. The other six pathways carry NHS age limits the pack never
+  names: sinusitis 12 and over, sore throat 5 and over, earache 1 to 17,
+  impetigo 1 and over, shingles 18 and over. Rule 9 pins the ages a pack
+  states and rule 10 pins the list it prints, so a pack could satisfy both
+  and still publish a flat seven-condition offer with nothing saying who
+  is eligible. That is a parent bringing a six-month-old for the earache
+  pathway that starts at 1, or a sore throat consultation asked for on a
+  four-year-old when the pathway starts at 5, and being turned away at the
+  counter after reading the profile.
+
+  Why this was a fix and not a question. It pins a convention the estate
+  already keeps rather than making a new decision. All 14 packs that
+  enumerate the conditions carry the sentence: cherry-lane-walton,
+  coleman-leigh-walton, fishlocks-ainsdale, fishlocks-eccleston,
+  gordon-short-crosby, hirshmans-ainsdale, mccanns-aigburth,
+  mccanns-sandringham, riddings-timperley, scorah-bramhall,
+  scorah-hazel-grove, sk-chemists-bootle, smartts-bootle and
+  tiffenbergs-aintree. The two that name no conditions, clear-aintree.md
+  and TEMPLATE.md, make no claim to qualify and are exempt. No pack copy,
+  no page, no generator, no data field and no patient-facing wording was
+  changed by this fix.
+
+  The rule is tied to enumeration rather than to Post A by name, because
+  the enumeration is what creates the duty to qualify and it is not always
+  Post A that carries it. The matcher is whitespace-insensitive because
+  the packs wrap the sentence across a line break, and a line-bound match
+  reads a wrapped sentence as absent.
+
+  Proved after the fix: deleting the sentence now fails
+  check-pharmacy-first-eligibility.js on sk-chemists-bootle.md,
+  tiffenbergs-aintree.md, scorah-bramhall.md and cherry-lane-walton.md,
+  and all 31 checkers are green again once restored.
+
+STANDING ITEMS RE-READ, NOT RE-VERIFIED LIVE
+  Post A still points at pfLink, whose page was recorded live on three
+  earlier passes as misspelling the town ("Bottle") and absent from the
+  branch sitemap, while the generated replacement was recorded live and
+  correct. SK therefore remains a no-paste repoint for item 5.3 and the
+  repoint is deliberately not made here.
+  Post C's do-not-substitute warning about the legacy weight loss page
+  stands, belongs to item 5.8 and is raised as Q58.
+  No new question raised this pass.
