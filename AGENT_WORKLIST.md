@@ -1589,6 +1589,32 @@ appended to the line. Do not move them; the status page reads them in place.
       5.3. GBP management record still out of reach; action note for
       Rishi or Dane stands. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (fourth pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to six files, all of
+      them the audit narrating itself; L17 4JP correct in branches.json and
+      used across 27 files; all six branch landing postcodes verified by
+      branchName against branches.json. All 29 checkers pass, all six
+      generators byte-identical. Three pre-existing guards proved by
+      injection (UNKNOWN on a live page, FOREIGN with a real other-branch
+      postcode, and the run 55 value-named exemption on status/index.html),
+      all restored. The defect was in the checker again, and it was hiding
+      in plain sight: check-postcodes.js has been printing two UNOWNED
+      warnings for modules/branch/pages/INDEX.md and SEO.md, and three
+      earlier passes read them as noise. Those two files carry SIX branches
+      each, so ownerOf() could match no owner, rule 3 was switched off, and
+      only rule 1 applied - which asks whether a postcode is real, not
+      whether it is on the right branch. A real postcode on the wrong
+      branch is this item's exact failure shape, and both files hold the
+      most confusable pair in the estate (McCanns Aigburth L17 7BP and
+      McCanns Sandringham L17 4JP, same brand, same district, five lines
+      apart) in public SEO copy that is pasted into Weebly. Earlier passes
+      verified that data was right; none noticed nothing was holding it
+      right. New rule 6 MISATTRIB checks line by line, firing only where a
+      line names exactly one branch so a page mentioning a neighbour is
+      never accused. Negative-tested twice, both previously silent passes,
+      both now fail; 341-file clean run confirms no false positive. No new
+      question. Done 2026-08-13. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-08-13.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

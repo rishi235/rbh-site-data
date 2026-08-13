@@ -1,0 +1,113 @@
+McCanns Sandringham postcode check - item 1.3 quality pass
+Date: 2026-08-13 (hundred-and-thirty-eighth run)
+Fourth pass on this item. Prior passes: run 55 (2026-08-11), run 97
+(2026-08-12 03:41), run 137 rotation predecessor.
+
+SCOPE OF THIS PASS
+Repo half only. No browser call was made, so nothing live was read and
+nothing live is claimed here. Two Chrome extension instances are connected
+to the account and the tooling requires a human choice between them before
+any call is made; an unattended run has nobody to ask and may not pick for
+itself. See Q59.
+
+1. DATA - CLEAN, NOTHING EDITED
+CH49 1SX (the Wirral postcode wrongly carried by McCanns Sandringham, whose
+correct value is L17 4JP) appears in exactly six files, every one of them the
+audit recording its own finding:
+    18  AGENT_LOG.md
+     5  AGENT_WORKLIST.md
+     1  CLAUDE.md
+     3  audits/mccanns-sandringham-postcode-check-2026-08-12.txt
+     5  status/index.html
+     2  tools/check-postcodes.js   (named exempt value, with reason)
+No generated page, GBP pack, Weebly paste block or branches.json entry
+carries it. A case-insensitive sweep with optional internal whitespace finds
+no hidden form.
+
+L17 4JP is correct in branches.json and is USED, not merely declared, across
+27 files including the McCanns Sandringham branch landing page, all eleven
+service pages, the switch page and the GBP pack.
+
+All six branch landing postcodes verified against branches.json by branchName:
+    PR8 3HN  Fishlocks Chemist Ainsdale
+    PR7 5SZ  Fishlocks Chemist Eccleston
+    L17 7BP  McCanns Chemist Aigburth
+    L17 4JP  McCanns Chemist Sandringham
+    SK7 3LQ  Scorah Chemists Bramhall
+    SK7 6BG  Scorah Chemists Hazel Grove
+All six correctly attributed. No branch carries another branch's postcode.
+
+2. BUILD - BYTE-STABLE
+All six generators re-run (branch landing, contraception, service, switch,
+travel clinic, weight loss). Every generated page came back byte-identical:
+git reported no change anywhere under modules/. All 29 checkers exit 0.
+
+3. GUARD PROVED BY INJECTION, NOT ASSUMED
+Three injections against the pre-existing rules, each restored immediately:
+  A. CH49 1SX written onto the live McCanns Sandringham Pharmacy First page
+     -> UNKNOWN fired. Rule 1 holds on a patient-facing page.
+  B. L9 7AS (a REAL Clear Chemist Aintree postcode) onto the same page
+     -> FOREIGN fired, naming both branches. Rule 3 holds.
+  C. An unnamed wrong postcode, a real-format Warrington value, typed into
+     status/index.html, the page a human reads to see where the audit has
+     got to. The literal is deliberately NOT written here: it was a
+     transient test value, and naming it in this file would force a
+     permanent NARRATIVE_POSTCODES entry to keep the file legal, which is
+     exactly the exemption rot rule 1's second half exists to prevent. Run
+     95 made that mistake with SK7 1BJ and the entry is still carried.
+     -> UNKNOWN fired as "not a named historical value". The run 55
+     hardening that replaced the whole-file exemption with a value-named one
+     still bites.
+
+4. DEFECT FOUND - IN THE CHECKER, NOT THE DATA
+Found from this checker's own two standing UNOWNED warnings, which three
+previous passes had read as noise rather than as a report of what the tool
+was not checking.
+
+modules/branch/pages/INDEX.md and modules/branch/pages/SEO.md each carry SIX
+branches and six postcodes. Both sit inside an OWNED_DIR, but ownerOf()
+matches one owner per FILENAME, so no owner could be resolved, rule 3 was
+switched off for both files, and the only rule still applying was rule 1 -
+which asks whether a postcode is REAL, not whether it is on the RIGHT branch.
+
+A real, valid postcode against the wrong branch is precisely the McCanns
+Sandringham error this item exists to prevent, and in these two files it
+would have passed in silence. This is not theoretical:
+  - both files hold the most confusable pair in the estate, McCanns Aigburth
+    L17 7BP and McCanns Sandringham L17 4JP, same brand, same L17 district,
+    five lines apart in INDEX.md;
+  - both files are public copy, the SEO meta descriptions pasted into Weebly,
+    not internal notes.
+The three earlier passes on this item all verified the DATA in these files
+was right. None noticed that nothing was holding it right.
+
+FIX: rule 6, MISATTRIB, added to tools/check-postcodes.js. A line that names
+exactly one branch must carry that branch's postcode and no other branch's.
+Line-level, and deliberately narrow: it fires only where exactly one branch
+is named on the line, so a page that merely mentions a neighbouring branch is
+never accused. Narrative files, audits/ and the declaring files keep their
+existing exemption, because they quote wrong values on purpose.
+
+Negative-tested twice, both restored:
+  D. Aigburth's L17 7BP moved onto the Sandringham line in INDEX.md
+     -> MISATTRIB modules/branch/pages/INDEX.md:50, naming both branches.
+  E. Bramhall's SK7 3LQ moved onto the Aigburth line in SEO.md
+     -> MISATTRIB modules/branch/pages/SEO.md:21, naming both branches.
+Both were silent passes before this change.
+
+FALSE-POSITIVE CHECK: clean run across all 341 scanned text files reports
+0 failures with rule 6 active. No page, pack or paste block that mentions a
+neighbouring branch is flagged.
+
+The two UNOWNED warnings remain, correctly. They still report that these
+files have no single owner, which is true; rule 6 now covers the gap that
+warning was pointing at.
+
+5. STANDING ITEMS UNCHANGED
+The CH49 1SX value in the GBP management record is still out of this agent's
+reach. The action note for Rishi or Dane stands.
+Live blemishes previously seen (Sandrigham typo, McCann's Pharmacy naming)
+remain held under Q39 and item 5.3. Not re-checked this run, no browser.
+
+RESULT: data clean for the fourth consecutive pass and not one character of
+it edited. One checker defect found and fixed. No new question raised.

@@ -33,6 +33,12 @@
   5. UNOWNED    a file carrying a postcode whose owning branch cannot be
                 worked out is reported, so the tool states what it did not
                 check rather than passing over it in silence.
+  6. MISATTRIB  a line that names exactly one branch must carry that branch's
+                postcode and no other branch's. Rule 3 matches ONE owner per
+                FILENAME, so a MULTI-branch file is reported UNOWNED by rule 5
+                and then checked by nothing but rule 1, which only asks whether
+                a postcode is real - not whether it is on the right branch.
+                That is the item 1.3 failure shape exactly.
 
   Run:  node tools/check-postcodes.js  [--verbose]
   Exit 0 = clean, 1 = failures. Warnings alone do not fail the run.
@@ -211,6 +217,43 @@ function checkFile(p) {
       fail("FOREIGN  " + r + ": owned by " + owner.id + " (" + norm(owner.postalCode) + ") but carries " + pc + " (" + b.id + ")");
     }
   });
+
+  // Rule 6. Found on the item 1.3 quality pass 2026-08-13, from this
+  // checker's own standing UNOWNED warnings rather than from the data.
+  // modules/branch/pages/INDEX.md and SEO.md each carry SIX branches and six
+  // postcodes, so ownerOf() can match no single owner, rule 3 is switched off
+  // for them, and the only rule left is rule 1 - which asks whether a postcode
+  // is REAL, not whether it is on the RIGHT branch. A real postcode against the
+  // wrong branch is precisely the McCanns Sandringham error this item exists
+  // to prevent, and it would have passed here in silence. It is not a
+  // theoretical gap: both files hold the most confusable pair in the estate,
+  // McCanns Aigburth L17 7BP and McCanns Sandringham L17 4JP - same brand,
+  // same L17 district, five lines apart - and both files are public SEO
+  // descriptions pasted into Weebly. Checked line by line, and ONLY where a
+  // line names exactly one branch, so a page that merely mentions a
+  // neighbouring branch is never accused. Narrative and declaring files are
+  // exempt for the usual reason: they quote the wrong value on purpose.
+  if (!isNarrative && DECLARING.indexOf(r) === -1) {
+    text.split(/\r?\n/).forEach(function (line, idx) {
+      var named = branches.filter(function (b) {
+        return b.branchName && line.indexOf(b.branchName) !== -1;
+      });
+      if (named.length !== 1) return;
+      var b = named[0];
+      var want = norm(b.postalCode);
+      if (!want) return;
+      var onLine = {};
+      var mm;
+      PC_RE.lastIndex = 0;
+      while ((mm = PC_RE.exec(line)) !== null) onLine[norm(mm[1] + " " + mm[2])] = true;
+      Object.keys(onLine).forEach(function (pc) {
+        if (pc !== want && byPostcode[pc]) {
+          fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + b.branchName +
+               " (" + want + ") but carries " + pc + " (" + byPostcode[pc].id + ")");
+        }
+      });
+    });
+  }
 }
 
 scan(ROOT);

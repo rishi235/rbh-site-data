@@ -2,6 +2,106 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-thirty-eighth run [commit hash recorded in the
+follow-up commit] - Quality pass on item 1.3, the McCanns Sandringham
+postcode sweep, the oldest verification standing among completed items.
+Fourth pass on this item. REPO HALF ONLY: no browser was available, so
+nothing live was read and nothing live is claimed. The data is clean for the
+fourth consecutive pass and not one character of it was edited. The defect
+found was in the checker, and unlike previous passes it was not hiding: the
+tool had been printing it as a warning for three passes and three passes read
+it as noise.
+
+ANSWER PICKUP NOT AVAILABLE, eighteenth consecutive run, 121 to 138. The
+cause has changed slightly and is worth recording precisely. Two Chrome
+extension instances ARE connected and were listed this run, so the extension
+side is alive; the block is that the tooling requires a human to choose
+between the two before any call is made, and an unattended run has nobody to
+ask and may not pick for itself. So NO browser call was made at all: nothing
+fetched, clicked, typed, submitted or logged in to, and no other route
+attempted. 36 questions open going in, 36 going out; none raised, none
+answered. Q59 already asks how to clear this block, so no duplicate was
+raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed one: no question was raised.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with
+origin and clean.
+
+SELECTION. 6.6 is still the first unchecked item that is not [BLOCKED] and
+it still could not be advanced, for the reason runs 135 to 137 recorded:
+every remaining route into it is live Google Search Console or the Weebly
+admin, and both need the browser. 6.6 keeps NO [BLOCKED] tag, because it is
+blocked on tooling and not on a decision from Rishi, and it remains the next
+item for the first run that has a usable browser. Every other unchecked item
+is [BLOCKED] on a question, so this run went to a quality pass. Rotation:
+runs 96 to 137 covered all 41 completed items one per run, run 137 took 4.3
+which was run 96's item, so the oldest verification standing is run 97's,
+which was 1.3 at 2026-08-12 03:41.
+
+STATE FOUND, ALL VERIFIED THIS RUN. CH49 1SX appears in exactly six files,
+every one the audit recording its own finding (AGENT_LOG.md, AGENT_WORKLIST,
+CLAUDE.md, the 2026-08-12 audit file, status/index.html and the checker's
+own named exemption). No page, pack, paste block or branches.json entry
+carries it, and a case-insensitive sweep finds no hidden form. L17 4JP is
+correct in branches.json and USED rather than merely declared across 27
+files. All six branch landing postcodes were verified by branchName against
+branches.json and all six are correctly attributed. All 29 checkers exit 0.
+All six generators re-run and every generated page came back byte-identical,
+with git reporting no change under modules/.
+
+GUARDS PROVED, NOT ASSUMED. Three injections against the existing rules,
+each restored immediately: CH49 1SX onto the live McCanns Sandringham
+Pharmacy First page fired UNKNOWN; a REAL other-branch postcode (L9 7AS,
+Clear Chemist Aintree) onto the same page fired FOREIGN naming both
+branches; and an unnamed wrong postcode typed into status/index.html fired
+UNKNOWN as "not a named historical value", so run 55's value-named
+exemption still bites where the old whole-file one would have passed.
+
+DEFECT FOUND AND FIXED - rule 6 MISATTRIB in tools/check-postcodes.js.
+check-postcodes.js has been emitting two standing UNOWNED warnings for
+modules/branch/pages/INDEX.md and modules/branch/pages/SEO.md. Runs 55, 96
+and 97 all saw them and all treated them as noise. They were not noise, they
+were the tool correctly reporting what it was not checking. Both files carry
+SIX branches and six postcodes, so ownerOf() - which matches one owner per
+FILENAME - could resolve no owner, rule 3 FOREIGN was switched off for them,
+and the only rule left applying was rule 1, which asks whether a postcode is
+REAL and not whether it is on the RIGHT branch. A real, valid postcode
+against the wrong branch is the McCanns Sandringham failure shape exactly,
+which is the entire reason item 1.3 exists, and in these two files it would
+have passed in silence. Not theoretical on two counts: both files hold the
+most confusable pair in the estate, McCanns Aigburth L17 7BP and McCanns
+Sandringham L17 4JP, same brand, same L17 district, five lines apart in
+INDEX.md; and both files are public copy, the SEO meta descriptions pasted
+into Weebly, not internal notes. The three earlier passes each verified that
+the DATA in these files was right. None noticed that nothing was holding it
+right, which is the difference between a sweep and a guard and is the whole
+point of this item.
+
+Rule 6 checks line by line: a line naming exactly one branch must carry that
+branch's postcode and no other branch's. Deliberately narrow - it fires only
+where exactly one branch is named on the line, so a page that merely
+mentions a neighbouring branch is never accused. Narrative files, audits/
+and the declaring files keep their existing exemption because they quote
+wrong values on purpose. Negative-tested twice, both cases previously silent
+passes: Aigburth's L17 7BP moved onto the Sandringham line failed as
+MISATTRIB INDEX.md:50, and Bramhall's SK7 3LQ moved onto the Aigburth line
+failed as MISATTRIB SEO.md:21, each naming both branches. Both restored. A
+clean run across all 341 scanned files reports 0 failures with rule 6
+active, so no false positive was introduced. The two UNOWNED warnings
+remain, correctly: they still report that these files have no single owner,
+which is true, and rule 6 now covers the gap they were pointing at.
+
+FILES CHANGED. tools/check-postcodes.js (rule 6 plus its header rule),
+AGENT_WORKLIST.md (1.3 note in place), AGENT_LOG.md (this entry),
+audits/mccanns-sandringham-postcode-check-2026-08-13.txt (new).
+No question raised. Standing item unchanged: the CH49 1SX value in the GBP
+management record is still out of this agent's reach and the action note for
+Rishi or Dane stands.
+
 ## 2026-08-13 01:34 BST - hundred-and-thirty-seventh run [commit d7a1c8a, hash
 recorded in this follow-up commit] - Quality pass on item 4.3, the Hirshmans Chemist
 Ainsdale GBP pack, the oldest verification standing among completed items.
