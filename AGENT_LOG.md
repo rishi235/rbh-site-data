@@ -2,6 +2,130 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 22:40 BST - hundred-and-seventy-second run [commit afaf9e6]
+- Item 4.15 quality pass, the Tiffenbergs Chemist Aintree GBP pack, fourth
+pass. ONE REAL DEFECT FOUND AND FIXED, by adding a checker that had never
+existed: tools/check-pharmacy-first-cost.js. No page, generator, data field,
+branches.json entry, pack copy or piece of patient-facing copy was changed.
+Six generators rebuild to a zero diff and all checkers exit 0 before and
+after, 31 before, 32 after. No question raised.
+
+ANSWER PICKUP UNAVAILABLE, and for the reason Q59 already records rather than
+a new one. Two Chrome instances are connected, so the browser tooling needs a
+human choice between them before it will read anything, which an unattended
+run cannot give. No fetch was attempted beyond that point and no other route
+was tried. So no answer was applied, no item was unblocked, and 44 questions
+remain open with nothing posted since 2026-08-10. The previous run's single
+successful pickup stands as the exception it looked like: it happened to run
+while only one instance was connected.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7 applied
+as written. Nothing in this run was a decision to take in any case: it adds a
+rule around copy that is already correct everywhere and changes no wording.
+
+NO LOCK CONTENTION. No .agent-lock and no git index.lock were present, so the
+lock was taken cleanly. audits/live-hours-check-2026-08-13.json again shows as
+modified while git diff returns nothing, line endings only, so it was left
+unstaged as in the last three runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+from scratch by parsing every run heading in this log and the item each run
+named, rather than trusting the previous run's prediction, which is the habit
+that let 2.3 drift 81 runs. Of the 41 completed items, 4.15 came out oldest at
+41 run-headings, against 2.2 at 40 and 2.1 at 39.
+
+THE PACK ITSELF IS STILL CLEAN. Unchanged in git since the second pass,
+MD5 E6AD155DFDE54A89BAC51AD5A355063A, 144 lines, 7961 characters, pure ASCII.
+Every fact re-matched against branches.json: address, postcode, phone, website,
+review link, seoTown Aintree leading in all three places, the Aintree,
+Fazakerley, Liverpool catchment, hasApp false, the five-widget set behind the
+four categories, and the pfLink Post A mirrors. Description 650 characters,
+posts 449, 329, 521 and 425, all against a 1,500 limit. Post A's seven
+conditions and the UTI 16 to 64 range match the generated Pharmacy First page.
+Post C names no medicine, makes no claim, quotes no price.
+
+THE DEFECT: NOTHING IN THE REPO READ THE COST CLAIM. NHS Pharmacy First is
+free at the point of use, and if a medicine is supplied the usual NHS
+prescription charge applies unless the patient is exempt. Those two sentences
+are published on 112 generated pages and in 14 packs, and no checker read a
+word of either. Every existing Pharmacy First rule guards WHO the service is
+for (check-pharmacy-first-eligibility.js) or WHERE an excluded patient should
+go (check-pharmacy-first-safety-net.js). The asymmetry is the tell:
+check-contraception-copy.js rule 5 has required the no-charge answer and failed
+a stated price on every NHS contraception page since it was written. The two
+services are commissioned the same way and free the same way, and only one of
+them was guarded.
+
+PROVED BY INJECTION BEFORE THE FIX. On
+modules/service/pages/pharmacy-first-tiffenbergs-aintree.html, the hero pill
+changed from "Free NHS service at your local Aintree pharmacy" to "Low-cost NHS
+service at your local Aintree pharmacy" walked past all 31 checkers clean. That
+is a free NHS service advertised as a paid one, on the page a patient reads
+before deciding whether they can afford to be seen. This harm runs the quiet
+way: nobody complains about a page that wrongly implies a fee, they just do not
+come, and the pharmacy never learns why. The opposite direction is worse for
+the patient who does come, and it is why rule 3 exists: drop the
+prescription-charge caveat and the page promises something free while the
+counter asks for a charge nobody mentioned.
+
+THE NEW CHECKER, six rules over 112 pages and 16 packs. Rule 1 source: the
+generator still composes both halves of the claim and its pathway keys have not
+drifted from the ones this checker matches filenames on, so rules 2 and 3
+cannot pass while reading nothing. Rule 2: every page states the free NHS
+claim. Rule 3: every page keeps the prescription-charge caveat. Rule 4: no page
+or pack calls the service low-cost, affordable, cheap, discounted, great value,
+a small fee, a consultation fee or payable. Phrases and not words, deliberately:
+the pages correctly say "no charge to be seen" and "the usual NHS prescription
+charge applies", so a word-level list would fail the copy it exists to protect
+and get widened until it caught nothing. Rule 5: no currency amount or
+prices-from line on Pharmacy First copy. Rule 6: a pack whose branch runs the
+service calls it free in a sentence that names the service.
+
+SCOPING, which is where the work actually was. A Pharmacy First page is about
+nothing else, so it is scanned whole. A pack is not - the same file advertises
+a private weight loss clinic and a private travel clinic, and those are allowed
+to carry a price - so packs are scoped by block, and inside a Pharmacy First
+block a sentence plainly about a private service that does not name Pharmacy
+First is left alone.
+
+NEGATIVE-TESTED SEVEN WAYS, five that must fail and two that must not, and
+three of the seven changed the design rather than confirming it. Caught: the
+low-cost hero pill (rule 4), the caveat deleted from a page (rule 3), every
+"free NHS" stripped from a condition page (rule 2), "Consultations from 25
+pounds." added to pack Post A (rule 5), and the free claim removed from all
+three of a pack's Pharmacy First sentences (rule 6). Correctly clean: a price
+added to the private weight loss post, and "Affordable" added to the private
+travel clinic post. The three that moved the design: the pack price passed
+under sentence-level scoping because "Consultations from 25 pounds." names
+neither the service nor a condition, and a price does not have to name the
+thing it prices, so scoping moved to blocks; the pack free-claim test then
+passed because the pack still said "a free NHS blood pressure check" two
+sentences away, and a free claim about a different NHS service is not a free
+claim about this one, so rule 6 now reads only the sentences naming Pharmacy
+First; and the travel clinic test then failed wrongly because "Notes for the
+paster:" carries no markdown heading and folded into the post above it,
+dragging a paid service into scope, so block splitting now also breaks on an
+unindented label line ending in a colon.
+
+TWO VERIFIER GAPS STILL OPEN, carried from the previous run and re-confirmed
+unguarded, for the next passes: an H1 town word moved off the seoTown ("UTI
+treatment in Walton" to "in Liverpool"), and a guarantee added to the travel
+clinic page. The third gap that run listed, the free NHS service described as
+low-cost, is the one closed here.
+
+LIVE HALF NOT RUN. Two Chrome instances are connected, the same condition that
+blocked the answer pickup, so no page was fetched and nothing was clicked. The
+live state for this branch stands on the 2026-08-11 pass, including the three
+live-only observations recorded in the pack's paster notes: the switch banner
+mojibake, the hand-pasted footer en dashes, and the Q56 mailbox spelling.
+
+FILES CHANGED. tools/check-pharmacy-first-cost.js (new),
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-13.txt (new),
+AGENT_WORKLIST.md (4.15 entry), AGENT_LOG.md (this entry). No generated page,
+no generator, no branches.json, no pack.
+
 ## 2026-08-13 21:45 BST - hundred-and-seventy-first run [commit ca00478]
 - Item 2.3 quality pass, the Cherry Lane build-from-near-zero, fourth pass.
 ONE REAL DEFECT FOUND AND FIXED IN REPO, in

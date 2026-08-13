@@ -1,0 +1,149 @@
+Tiffenbergs Chemist Aintree GBP pack - quality pass 4 (item 4.15)
+Date: 2026-08-13
+Branch: agents/audit-backlog
+Repo half only. The live half was NOT performed: two Chrome instances are
+connected and the browser tooling needs a human choice between them, which an
+unattended run cannot give. The live state stands on the 2026-08-11 pass.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so the run does a quality pass instead. Ordering was
+re-derived from scratch by parsing every run heading in AGENT_LOG.md and the
+item each run named, rather than trusting the previous run's prediction. Of
+the 41 completed items, 4.15 is the oldest by that measure, last refreshed 41
+run-headings ago, against 2.2 at 40 and 2.1 at 39.
+
+PACK VERIFIED AGAINST branches.json - NOTHING WRONG
+File: gbp-packs/tiffenbergs-aintree.md
+MD5 E6AD155DFDE54A89BAC51AD5A355063A, 144 lines, 7961 characters, pure ASCII
+(0 non-ASCII bytes). Unchanged in git since commit a28ef44, the second pass.
+
+  branch id        tiffenbergs_longmoor       matches
+  name             Tiffenbergs Chemist        matches brandLabel and branchName
+  address          388 Longmoor Lane          matches streetAddress
+  locality         Liverpool L9 9DB           matches addressLocality/postalCode
+  phone            0151 525 3462              matches
+  website          tiffenbergschemist.co.uk   matches
+  review link      g.page/r/CdfQf2a16Bn4EAE   matches googleReviewUrl
+  seoTown          Aintree                    pack leads with it throughout
+  catchment        Aintree, Fazakerley,       matches serviceAreaList in all
+                   Liverpool                  three places, own town first
+  hasApp           false                      pack mentions no app anywhere
+  widgets          bloodPressure,             five-widget set, so the pack's
+                   contraception,             categories (Pharmacy, Travel
+                   pharmacyFirst, weightLoss, clinic, Weight loss service,
+                   travelClinic               Vaccination centre) are right
+  pfLink           pharmacy-first-service-    Post A mirrors it exactly
+                   aintree
+
+Lengths re-measured: description 650 characters, exactly what its own heading
+claims; posts A 449, B 329, C 521, D 425, all against a 1,500 limit. Byte-stable
+with the third pass on every measurement. (The second pass recorded post D as
+447; the third pass and this one both measure 425. The pack has not changed
+between them, so that is a measurement difference in the earlier pass, not a
+copy change.)
+
+Post A's seven conditions and the UTI 16 to 64 range re-checked against the
+generated pharmacy-first-tiffenbergs-aintree.html and match. Post C names no
+medicine, makes no efficacy claim and quotes no price. Weekday split hours
+9:00am to 1:00pm and 2:00pm to 6:00pm with Saturday and Sunday closed appear in
+the profile basics, the description and the photo shot list.
+
+Repo state: all 31 existing checkers exit 0, and all six generators regenerate
+every page byte-identical, before and after the work below. The only other
+entry in git status is audits/live-hours-check-2026-08-13.json, which shows
+modified while git diff returns nothing: line endings only, left unstaged as in
+the last three runs.
+
+THE DEFECT THIS PASS FOUND: NOTHING READ THE COST CLAIM
+The previous run left three verifier gaps for the next passes and named this
+one first. It is real and it is estate-wide.
+
+NHS Pharmacy First is free at the point of use. The consultation costs the
+patient nothing, and if a medicine is supplied the usual NHS prescription
+charge applies unless they are exempt. Those two sentences are the whole cost
+claim, published on 112 generated pages and in 14 GBP packs. No checker read a
+word of it. Every existing Pharmacy First rule guards WHO the service is for
+(check-pharmacy-first-eligibility.js, cohorts) or WHERE an excluded patient
+goes (check-pharmacy-first-safety-net.js, onward routes). Neither touches cost,
+and the SEO checkers read the shape of a string, not its meaning.
+
+The asymmetry is the point: check-contraception-copy.js rule 5 has required the
+no-charge answer and failed a stated price on every NHS contraception page
+since it was written. NHS contraception and NHS Pharmacy First are commissioned
+the same way and free the same way, and only one of them was guarded.
+
+PROVED BY INJECTION BEFORE THE FIX
+On modules/service/pages/pharmacy-first-tiffenbergs-aintree.html, the hero pill
+changed from "Free NHS service at your local Aintree pharmacy" to "Low-cost NHS
+service at your local Aintree pharmacy" walked past ALL 31 CHECKERS CLEAN. That
+is a free NHS service advertised as a paid one on the page a patient reads
+before deciding whether they can afford to be seen. The harm runs the quiet
+way: nobody complains about a page that wrongly implies a fee, they simply do
+not come, and the pharmacy never learns why. The opposite direction is worse
+for the patient who does come - dropping the prescription-charge caveat leaves
+the page promising something free and the counter asking for a charge nobody
+mentioned.
+
+THE FIX: tools/check-pharmacy-first-cost.js (new, 6 rules)
+  Rule 1 source   - the generator still composes both halves of the claim, and
+                    the seven pathway keys this checker matches filenames on
+                    have not drifted from the generator's own. A floor on the
+                    parser, so rules 2 and 3 cannot pass while reading nothing.
+  Rule 2 free     - every Pharmacy First page states the service is a free NHS
+                    one.
+  Rule 3 caveat   - every Pharmacy First page keeps the NHS prescription-charge
+                    sentence. Overclaiming is not the safe direction.
+  Rule 4 no cost qualifier - no page or pack describes the service as low-cost,
+                    affordable, cheap, discounted, great value, a small fee, a
+                    consultation fee or payable. Phrases, not words: the pages
+                    correctly say "no charge to be seen" and "the usual NHS
+                    prescription charge applies", so a word-level list would
+                    fail the copy it exists to protect.
+  Rule 5 no price - no page or pack states a currency amount or a prices-from
+                    line on Pharmacy First copy.
+  Rule 6 pack coverage - a pack whose branch runs Pharmacy First calls the
+                    service free in a sentence that names the service.
+
+Scoping. The 112 pages are scanned whole, because a Pharmacy First page is
+about nothing else. A pack is not: the same file advertises a private weight
+loss clinic and a private travel clinic, and those are allowed to carry a
+price. Packs are therefore scoped by block, and within a Pharmacy First block a
+sentence plainly about a private service that does not name Pharmacy First is
+left alone.
+
+NEGATIVE-TESTED SEVEN WAYS, five that must fail and two that must not:
+  T1 hero pill "Free NHS service" -> "Low-cost NHS service"   CAUGHT rule 4
+  T2 prescription-charge caveat deleted from a page           CAUGHT rule 3
+  T3 all "free NHS" stripped from a condition page            CAUGHT rule 2
+  T4 "Consultations from 25 pounds." added to pack Post A     CAUGHT rule 5
+  T5 free claim removed from all three pack PF sentences      CAUGHT rule 6
+  T6 price added to the private weight loss post (Post C)     correctly clean
+  T7 "Affordable" added to the private travel clinic post D   correctly clean
+
+Two of those tests changed the design rather than confirming it, and both are
+recorded in the checker at the code they produced:
+  - T4 initially PASSED under sentence-level scoping, because "Consultations
+    from 25 pounds." names neither the service nor a condition. A price does
+    not have to name the thing it is pricing. Scoping moved to blocks.
+  - T5 then PASSED, because the pack still said "a free NHS blood pressure
+    check" two sentences away. A free claim about a different NHS service is
+    not a free claim about this one, so rule 6 now reads only the sentences
+    that name Pharmacy First.
+  - T7 then FAILED wrongly, because "Notes for the paster:" carries no markdown
+    heading and folded into the travel clinic post above it, dragging a paid
+    service into Pharmacy First scope. Block splitting now also breaks on an
+    unindented label line ending in a colon.
+
+AFTER THE FIX
+All 32 checkers exit 0 on the untouched tree. All six generators regenerate
+every page byte-identical, so no page, no generator output, no branches.json
+entry, no pack copy and no patient-facing wording changed in this run. The only
+new file is the checker itself. No question raised: this adds a rule around
+copy that is already correct and decides nothing.
+
+TWO VERIFIER GAPS STILL OPEN, carried from the previous run and re-confirmed
+still unguarded, for the next passes:
+  - an H1 town word moved off the seoTown ("UTI treatment in Walton" changed to
+    "in Liverpool") walks past every checker.
+  - a guarantee added to the travel clinic page walks past every checker.

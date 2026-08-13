@@ -2142,6 +2142,31 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       an hour ahead of its true time, which made this item look fresher than
       items verified after it and is why runs 87 to 127 passed over it.
       Evidence in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (fourth re-verification, repo half only): pack
+      verified clean again and unchanged in git since the second pass, MD5
+      E6AD155DFDE54A89BAC51AD5A355063A, 144 lines, pure ASCII. Every fact
+      re-matched against branches.json, description 650 and posts 449, 329,
+      521 and 425, Post A's seven conditions and the UTI 16 to 64 range
+      matching the generated Pharmacy First page. ONE REAL DEFECT FOUND AND
+      FIXED, outside the pack and estate-wide: nothing in the repo read the
+      Pharmacy First COST claim. Changing the hero pill on
+      pharmacy-first-tiffenbergs-aintree.html from "Free NHS service" to
+      "Low-cost NHS service" walked past all 31 checkers clean, which is a free
+      NHS service advertised as a paid one on the page a patient reads before
+      deciding whether they can afford to be seen. check-contraception-copy.js
+      has guarded exactly this claim on the NHS contraception pages since it
+      was written; Pharmacy First had no equivalent. New checker
+      tools/check-pharmacy-first-cost.js, 6 rules over 112 pages and 16 packs:
+      the free claim present, the NHS prescription-charge caveat present, no
+      cost qualifier, no price, and a pack that advertises the service calls it
+      free in a sentence that names it. Negative-tested seven ways, five that
+      must fail and two that must not, three of which changed the design. All
+      32 checkers exit 0 and all six generators are byte-stable, so no page,
+      pack, generator output or piece of patient-facing copy changed. Two
+      verifier gaps carried from the previous run are re-confirmed still open
+      for the next passes: an H1 town word moved off the seoTown, and a
+      guarantee added to the travel clinic page. No question raised. Evidence
+      in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-13.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
