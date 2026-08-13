@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 23:15 BST - hundred-and-seventy-fifth run
+## 2026-08-13 23:15 BST - hundred-and-seventy-fifth run [commit 380f4de, this
+hash line added by a small follow-up commit, which is why the log is one
+commit behind the work it describes]
 - Item 4.7 quality pass, McCanns Chemist Sandringham GBP pack, fifth pass.
 ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. No page, no
 generator, no data field, no branches.json entry, no pack and no piece of
