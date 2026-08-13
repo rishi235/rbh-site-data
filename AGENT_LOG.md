@@ -2,6 +2,133 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 05:04 BST - hundred-and-forty-third run - Quality pass on item
+4.1, the GBP pack TEMPLATE.md plus the Fishlocks Ainsdale pack, last verified
+2026-08-12 05:42 as the hundred-and-first run and the oldest verification
+standing. Fourth pass on this item. REPO HALF ONLY: no browser was available,
+so nothing live was read and nothing live is claimed. The pack verified clean
+on every fact. ONE REAL GAP FOUND AND CLOSED, and it was in the template
+rather than the pack: TEMPLATE.md carried neither the "Branch id:" line nor
+the profile basics block. Fixed in both directions, eight negative tests, all
+eight fire. No new question.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Re-derived this run rather than trusted: 29 lines in this log
+mention a standing authorisation and every one of them is either a past run
+recording its absence or the expired section itself. Nothing this run needed
+one in any case. No live copy changed, no medicine name, efficacy claim or
+price touched, and no commercial, legal or regulatory position decided. The
+two files changed are a drafting instruction and a checker, neither of which
+reaches a patient.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-third consecutive run, 121 to 143. Cause
+unchanged and confirmed again this run, not assumed: two Chrome extension
+instances are connected and both were listed, so the extension side is alive.
+The block is that the tooling requires a human to choose between the two
+before any browser call is made, and states explicitly that the agent must
+not pick one itself. An unattended run has nobody to ask. Enumerating the
+connected extensions is the only thing that happened: NO page was fetched and
+nothing was clicked, typed, submitted or logged in to, on any site. No other
+route was attempted. 38 questions open going in, 38 going out; this run
+raised none and answered none. Q59 already asks how to clear this block, so
+no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin, worktree clean. The unchecked items
+were taken first as the procedure requires. 6.6 is still the first unchecked
+item that is not [BLOCKED] and still could not be advanced, for the reason
+its own text states and runs 135 to 142 recorded: the redirect is NOT broken,
+and what remains is a canonical tag plus a historic index artifact, both of
+which live in Weebly's head and admin rather than in this repo. Run 135
+already proved the repo side. Every remaining route needs live Google Search
+Console or the Weebly admin, and both need the browser. Every other unchecked
+item is [BLOCKED] on a question, so the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 142. Run 142 handed
+over 4.1. This run re-derived it independently by the line-number method that
+run 142 established, and reached the same answer, but only after correcting
+the same class of bug run 142 warned about. A first pass matched the item
+number on the heading LINE only and produced a different and wrong order,
+because several run headings wrap and carry the item number on the
+continuation line: run 113's heading ends "Quality pass on item" with "3.12"
+starting the next line, so 3.12 looked far older than it is. Matching the
+heading plus its next two lines fixes it. Sorted that way all 41 completed
+items have a recorded pass and 4.1, at log line 3796, is the oldest, ahead of
+3.2 (3740), 3.3 (3687), 3.4 (3633) and 3.5 (3573). THE NEXT RUN SHOULD TAKE
+3.2, then 3.3, 3.4 and 3.5. Join wrapped headings before reading the item
+number, and sort by line number, never by a parsed date.
+
+REPO HALF CLEAN. gbp-packs/fishlocks-ainsdale.md verified fact by fact
+against the fishlocks_ainsdale entry in branches.json rather than against run
+101's account of it: branchName, 17 Station Road, Ainsdale, PR8 3HN with
+Southport as the post town on the house convention, phone 01704 575478,
+review link, hours line matching the Monday to Friday 08:45 to 18:00
+specification with Saturday and Sunday stated closed, catchment order
+Ainsdale, Birkdale, Southport, hasApp true with the app line it earns,
+profile website on the branch's own landing page per the shared-domain rule,
+categories and services earned by the five widgets and nothing else, Post A
+on the branch's own pfLink. The description was re-measured rather than
+taken from its own heading: 746 characters, which is exactly what the
+heading claims. All 30 checkers pass and all seven generators rebuild to
+zero diff, status/index.html changing only its timestamp and its rolling
+recent-runs list, which had not yet caught up with runs 141 and 142.
+
+THE GAP, AND WHY THE FOUR EARLIER PASSES MISSED IT. Item 4.1 is two files,
+and every pass so far had read the pack hard and the template lightly. Run
+101 recorded that TEMPLATE.md "re-read and needed no change". It needed one.
+TEMPLATE.md opens by telling the drafter to copy it and "fill every section",
+then runs from its rules block straight into section 1. It carried neither
+the "Branch id:" line nor the "Profile basics" block, although all 15 real
+packs carry both, and eight rules in check-gbp-packs.js read them. The tell
+was in the template's own text: its hours rule refers to "the '- Hours:' line
+in the profile basics", a block the template never provides.
+
+PROVED BY INJECTION, TWO ROUNDS, ON A COPY OF THE FISHLOCKS PACK. Strip both
+blocks and the checker reports exactly ONE fault, the missing Branch id line,
+and then silently skips every fact rule beneath it, because without the id
+there is no branch to check the pack against. Restore the id and leave the
+basics out, which is precisely the state a drafter reaches after fixing the
+one error they were shown, and seven more failures appear at once: the GBP
+listing name, the street address, the phone, the postcode, the hours line,
+the review link and the profile website. So the template handed a drafter a
+pack that had to fail twice over before they saw a real content error, and
+the second round held the five facts a Google profile actually publishes.
+The pack was restored from git and re-verified byte-identical afterwards,
+and the checker returned to 0 failures.
+
+WHAT WAS NOT WRONG, RECORDED SO THE NEXT PASS DOES NOT RE-OPEN IT. Three
+candidate gaps were tested and all three are already covered, so none became
+a finding. The Pharmacy First conditions and age ranges in the packs are read
+by check-pharmacy-first-eligibility.js rules 9 and 10, not by
+check-gbp-packs.js, which is why they do not appear in this checker's header
+list. The review link, street address, phone and postcode are all guarded in
+BOTH directions, own-value-present and other-branch-value-absent. And the
+button label allowlist run 142 added matches what TEMPLATE.md already tells a
+drafter to write, "Book" or "Learn more", so the template and the checker
+agree there.
+
+THE FIX, BOTH HALVES. TEMPLATE.md now carries the skeleton above section 1:
+the header line, the Branch id line, the facts-checked line and the six-field
+profile basics block, every field sourced to a named branches.json key and
+cross-referring to the hours and profile-website rules already stated above
+it. The address line records the post-town convention that puts Southport
+after Ainsdale. The "how to use" line now says to fill the header blocks as
+well as the numbered sections. Then the anti-rot half, which is the part that
+stops this recurring: check-gbp-packs.js now reads TEMPLATE.md itself.
+Nothing did before, because the pack loop excludes it by name at line 189, it
+resolving to no branch. That exclusion is correct and stays; the new rule
+sits outside the loop and asserts the eight things the skeleton must show.
+Eight negative tests, one per assertion, all eight fire and each produces
+exactly one failure; the file was restored between every mutation and the
+suite returns to 0 failures.
+
+FILES CHANGED: gbp-packs/TEMPLATE.md, tools/check-gbp-packs.js,
+AGENT_WORKLIST.md (fourth quality pass note under item 4.1), AGENT_LOG.md,
+status/index.html (generator output, timestamp and recent-runs list only).
+No generator input changed and no pack changed, so all seven generators
+rebuild to zero diff. Commit hash recorded in the follow-up commit.
+
 ## 2026-08-13 04:20 BST - hundred-and-forty-second run [commit 2813910] -
 Quality pass on item 4.5, Scorah Chemists Hazel Grove GBP pack. REPO HALF ONLY:
 no browser was available, so nothing live was read and nothing live is claimed.

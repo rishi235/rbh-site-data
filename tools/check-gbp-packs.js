@@ -1608,6 +1608,50 @@ for (const key of Object.keys(KNOWN_HOURS_DAYS)) {
   }
 }
 
+// --- the template a pack is drafted FROM ---------------------------------
+// Every rule above reads a FINISHED pack. Nothing read the file those packs
+// are copied from, because the pack loop excludes TEMPLATE.md by name: it
+// resolves to no branch, so the fact rules cannot run on it. That left the
+// drafting instruction free to drift out of step with the rules enforced
+// here, and it had. Found on the item 4.1 quality pass, 2026-08-13.
+// TEMPLATE.md told the drafter to "fill every section" and then ran from its
+// rules block straight into section 1, carrying neither the "Branch id:"
+// line nor the profile basics block, although all 15 packs carry both and
+// eight rules in this file read them.
+//
+// Why it is worth a rule and not just a fixed file. Proved by injection that
+// day on a copy of fishlocks-ainsdale.md: strip the two blocks and this
+// checker reports ONE fault, the missing Branch id line, and then silently
+// skips every fact rule beneath it, because without the id there is no
+// branch to check the pack against. Put the id back and seven more failures
+// appear at once: name, street address, phone, hours, review link and the
+// profile website. So the template handed a drafter a pack that had to fail
+// twice over before they saw a real content error, and the second round held
+// the five facts a GBP profile actually publishes. Run 101 fixed a stale
+// note in the Fishlocks pack and left the same class of staleness standing
+// in the template, which is the evidence that an unread file rots.
+const TEMPLATE_FILE = path.join(PACK_DIR, "TEMPLATE.md");
+if (!fs.existsSync(TEMPLATE_FILE)) {
+  fails.push("gbp-packs/TEMPLATE.md is missing, so there is no drafting instruction for the next pack and nothing this checker enforces is written down for a human");
+} else {
+  const tpl = fs.readFileSync(TEMPLATE_FILE, "utf8");
+  const REQUIRED_TEMPLATE_BITS = [
+    [/^[ \t]*Branch id:/m, '"Branch id:" line, which is what resolves a pack to branches.json and without which every fact rule in this checker is skipped'],
+    [/^[ \t]*Profile basics/m, '"Profile basics" block, which carries the facts the paster sets on the Google profile'],
+    [/^[ \t]*-[ \t]*Name on GBP:/m, '"- Name on GBP:" field'],
+    [/^[ \t]*-[ \t]*Address:/m, '"- Address:" field'],
+    [/^[ \t]*-[ \t]*Phone:/m, '"- Phone:" field'],
+    [/^[ \t]*-[ \t]*Hours:/m, '"- Hours:" field'],
+    [/^[ \t]*-[ \t]*Website/m, '"- Website" field (or "- Website for the profile" on a shared domain)'],
+    [/^[ \t]*-[ \t]*Review link:/m, '"- Review link:" field'],
+  ];
+  for (const [re, what] of REQUIRED_TEMPLATE_BITS) {
+    if (!re.test(tpl)) {
+      fails.push(`TEMPLATE.md no longer shows the ${what}. A pack drafted from this template would reach this checker missing it, and the fact rules here would report it late or, without the branch id, not at all. Restore the skeleton that sits above section 1 (item 4.1 quality pass, 2026-08-13).`);
+    }
+  }
+}
+
 // --- coverage both ways --------------------------------------------------
 for (const b of branches) {
   if (!isPackable(b)) continue;

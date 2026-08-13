@@ -1,7 +1,8 @@
 # GBP content pack - TEMPLATE
 
-How to use: copy this file to gbp-packs/<branch-slug>.md and fill every
-section from branches.json (facts) and the branch's live pages (tone).
+How to use: copy this file to gbp-packs/<branch-slug>.md and fill the two
+header blocks below plus every numbered section, from branches.json (facts)
+and the branch's live pages (tone).
 Everything here is paste-ready for Google Business Profile. Agents draft;
 Rishi or Dane paste into GBP by hand.
 
@@ -58,6 +59,45 @@ Rules for every pack (from Master Plan v2 / Build Pack v2 and advertising law):
   line are not read as hours.
 - Business description: GBP limit is 750 characters. Stay under it.
 - Posts: keep each under 1,500 characters; first sentence carries the message.
+
+## Pack header and profile basics (both sit above section 1)
+
+Every one of the 15 packs opens with these two blocks, and eight of the
+checker's rules read them. Until the item 4.1 quality pass on 2026-08-13
+this template ran from the rules straight into section 1, so a pack drafted
+faithfully from it carried neither block. Proved by injection that day, on
+a copy of fishlocks-ainsdale.md: strip the two blocks and
+tools/check-gbp-packs.js reports ONE fault, the missing Branch id line, and
+silently skips every fact rule beneath it, because without the id it cannot
+resolve the pack to a branch. Put the id back and seven more failures
+appear at once - name, address, phone, hours, review link and profile
+website. So the drafter met the same pack twice before reaching a real
+content error. The checker held; the template was the hole.
+
+    # GBP content pack - <branchName>
+
+    Branch id: <id> (branches.json). Drafted <YYYY-MM-DD>.
+    Facts checked against branches.json (address, phone, hours confirmed by
+    NHS <openingHours.confirmed>). Ready for Rishi or Dane to paste into GBP.
+
+    Profile basics (for checking, not pasting):
+    - Name on GBP: <branchName>
+    - Address: <streetAddress>, <addressLocality> <postalCode>, adding the
+      post town where it differs from addressLocality, which is the house
+      convention ("17 Station Road, Ainsdale, Southport PR8 3HN")
+    - Phone: <phone>
+    - Hours: every open day and every clock time from this branch's
+      openingHours, with every closed day stated as closed. See the opening
+      hours rule above; it is enforced in both directions
+    - Website: <website>, the homepage, for a branch that owns its domain.
+      On a shared domain write "Website for the profile:" instead and point
+      it at pharmacy-<brandSlug>-<townSlug>.html. See the profile website
+      rule above
+    - Review link: <googleReviewUrl>
+
+Every value in the block comes from branches.json and nothing in it is
+invented. None of it is pasted as copy either: it is what the paster checks
+the profile against, field by field, before touching the sections below.
 
 ## 1. Business description (max 750 chars)
 (Who the branch is, how long serving the area, core NHS services, the private

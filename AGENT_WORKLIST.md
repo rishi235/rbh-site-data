@@ -703,6 +703,40 @@ Pharmacy First wording to the NHS service description.
       pages", which is stale now the service pages are live; rewritten to
       the observed 2026-08-12 state so the paster is told the posts are
       clear to publish and only the landing page paste is outstanding.
+      Quality pass 2026-08-13 (fourth), REPO HALF ONLY: no browser was
+      available this run, so nothing live was read and nothing live is
+      claimed. The pack half is clean on every fact re-checked against the
+      fishlocks_ainsdale entry in branches.json: name, 17 Station Road,
+      Ainsdale, Southport PR8 3HN, phone 01704 575478, review link, hours
+      Monday to Friday 8:45am to 6:00pm with Saturday and Sunday stated
+      closed, catchment leading with Ainsdale, the app line it earns on
+      hasApp true, the profile website on its own landing page, the
+      categories and services earned by its five widgets, Post A on the
+      branch's own pfLink, and a description measured at 746 characters,
+      exactly what its heading claims. All 30 checkers pass and all seven
+      generators rebuild to zero diff (status/index.html timestamp only).
+      THE DEFECT THIS PASS, IN THE OTHER HALF OF THE ITEM. TEMPLATE.md, the
+      file every pack is copied from, told the drafter to "fill every
+      section" and then ran from its rules block straight into section 1.
+      It carried neither the "Branch id:" line nor the profile basics
+      block, although all 15 packs carry both and eight rules in
+      check-gbp-packs.js read them. Proved by injection on a copy of
+      fishlocks-ainsdale.md: strip the two blocks and the checker reports
+      ONE fault, the missing Branch id line, then skips every fact rule
+      beneath it, because without the id there is no branch to check
+      against; put the id back and seven more fire at once, holding the
+      five facts a Google profile actually publishes. So a pack drafted
+      faithfully from the template had to fail twice before anyone saw a
+      real content error. The checker held throughout; the template was the
+      hole, and run 101 fixing a stale note in the pack while leaving the
+      same staleness in the template is the evidence that a file no rule
+      reads will rot. Fixed both halves: TEMPLATE.md now carries the
+      skeleton above section 1, with every field sourced to branches.json
+      and pointing at the hours and profile-website rules already above it,
+      and check-gbp-packs.js now reads TEMPLATE.md itself, which nothing
+      did before because the pack loop excludes it by name. Eight negative
+      tests, all eight fire, one failure each, and the restored file is
+      clean. No new question.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
