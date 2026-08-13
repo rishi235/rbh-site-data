@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 09:34 BST - hundred-and-fifty-second run
+## 2026-08-13 09:34 BST - hundred-and-fifty-second run [commit 04c1a93]
 - Quality pass on item 3.10, Riddings Pharmacy (Timperley), the least recently
 verified completed item. Third machine-era pass. REPO HALF ONLY: no browser was
 available, so nothing live was read and nothing live is claimed. All 12 pages
