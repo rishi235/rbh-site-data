@@ -804,10 +804,37 @@ for (const file of packFiles) {
   // do, because McCanns Sandringham sits at 1b Aigburth Road and a street
   // name is an address, not a catchment claim.
   const areaList = (b.serviceAreaList || []).filter(Boolean);
+
+  // A catchment element may carry a lowercase compass qualifier: three packs
+  // write "north Liverpool" where branches.json holds plain "Liverpool".
+  //
+  // Found on the item 4.2 quality pass, 2026-08-13, by length-neutral
+  // injection into gbp-packs/cherry-lane-walton.md. Both catchment rules
+  // below parse a run as elements separated by commas and "and", and both
+  // built their element out of capitalised words or the branch's own town
+  // names only. Neither could match "north Liverpool", so the run
+  // "Walton, Everton and north Liverpool" ended one element early at two
+  // towns, and BOTH rules short-circuit on `towns.length < 3`. The effect is
+  // not a weakened check, it is no check at all: Everton was replaced with
+  // Woolton, a town this branch does not serve, and every checker stayed
+  // green; the lead town was swapped to Everton and the order rule never
+  // fired either. Moving the qualifier to the tail ("Liverpool north") made
+  // the identical bad town fail immediately, which is what isolated the
+  // cause to the qualifier rather than to the rules.
+  //
+  // Only lowercase qualifiers are matched, which is the form the packs use;
+  // a capitalised "North Liverpool" is already a plain place and is handled
+  // by the existing element. asOwnTown() below reads an element's trailing
+  // words, so "north Liverpool" resolves to the branch's own Liverpool and
+  // counts towards the two-own-town threshold rather than against it.
+  const AREA_QUALIFIER =
+    "(?:north|south|east|west|central|greater|upper|lower|inner|outer)\\s+";
+
   if (b.seoTown && areaList.length >= 3) {
     // Longest first, so "North Liverpool" wins over "Liverpool".
     const alt = areaList.slice().sort((x, y) => y.length - x.length).map(escapeRe).join("|");
-    const runRe = new RegExp(`(?:${alt})(?:\\s*,\\s*(?:${alt}))+(?:\\s*,?\\s+and\\s+(?:${alt}))?`, "g");
+    const OWN_ELEM = `(?:${AREA_QUALIFIER})?(?:${alt})`;
+    const runRe = new RegExp(`${OWN_ELEM}(?:\\s*,\\s*${OWN_ELEM})+(?:\\s*,?\\s+and\\s+${OWN_ELEM})?`, "g");
     const flat = text.replace(/\s*\n\s*/g, " ");
     const key = `${id}::areaOrder`;
     for (const run of flat.match(runRe) || []) {
@@ -871,7 +898,7 @@ for (const file of packFiles) {
       .join("|");
     // A capitalised place-shaped phrase: "Woolton", "Lark Lane", "St Helens".
     const PLACE = "[A-Z][A-Za-z'\\-]*(?:\\s+[A-Z][A-Za-z'\\-]*){0,2}";
-    const ELEM = `(?:${altOwn}|${PLACE})`;
+    const ELEM = `(?:(?:${AREA_QUALIFIER})?(?:${altOwn}|${PLACE}))`;
     const anyRe = new RegExp(`${ELEM}(?:\\s*,\\s*${ELEM})+(?:\\s*,?\\s+and\\s+${ELEM})?`, "g");
     const flatAny = text.replace(/\s*\n\s*/g, " ");
     for (const run of flatAny.match(anyRe) || []) {
