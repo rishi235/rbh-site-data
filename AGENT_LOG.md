@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 10:12 BST - hundred-and-fifty-third run [commit PENDING]
+## 2026-08-13 10:12 BST - hundred-and-fifty-third run [commit 0015f13]
 - Quality pass on item 3.12, Tiffenbergs Chemist (Aintree, L9 postal
 Liverpool), the least recently verified completed item. Fourth machine-era
 pass. REPO HALF ONLY: no browser was available, so nothing live was read and
