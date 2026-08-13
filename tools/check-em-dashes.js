@@ -36,6 +36,11 @@
       this checker applies and is explained below
     - an empty or missing banners folder, so the stricter rule cannot quietly
       stop covering anything either
+    - ANY non-ASCII character, AND any dash written as an HTML entity, in a
+      GBP content pack under gbp-packs/, which is a different pairing from
+      every other rule here and is explained below
+    - an empty or missing gbp-packs folder, so that rule cannot quietly stop
+      covering anything either
 
   Why the banners get an ASCII-only rule rather than a dash rule. A banner is
   not pasted into a page. It goes into Weebly > Settings > SEO > Header Code,
@@ -73,6 +78,46 @@
   now scanned for *.md, so a sheet a future generator adds is covered the day
   it is written rather than the day somebody remembers to list it, and a
   folder yielding no sheet fails instead of passing quietly.
+
+  Why the GBP packs fail on non-ASCII AND on dash entities, which no other
+  rule here pairs. A pack under gbp-packs/ is paste-ready copy for a Google
+  Business Profile: the business description, the services entries, the four
+  post drafts and the profile basics are all typed or pasted, by Rishi or
+  Dane, straight into a plain-text Google field. That makes two rules true at
+  once, and each one is the other's blind spot.
+
+    - Non-ASCII fails, as it does for a banner. A smart quote, an en dash or
+      an emoji carried across from a draft lands in the field as typed, and
+      the house standard bans emojis and em dashes in copy outright.
+    - A dash ENTITY fails too, which is the opposite of the banner rule. A
+      banner is resolved by innerHTML, so &mdash; is the FIX there. Nothing
+      resolves a Google profile field, so the same entity publishes the
+      literal string "&mdash;" on the profile. An entity is pure ASCII, so an
+      ASCII-only rule alone would pass it, and the dash rule the rest of this
+      checker applies is written for files a browser renders.
+
+  Found on the item 4.3 quality pass, 2026-08-13, by injection into
+  gbp-packs/hirshmans-ainsdale.md. A literal em dash in the business
+  description, a real emoji in Post D, and US spelling in the description all
+  passed all 29 checkers. The pack facts themselves were sound: injecting the
+  sister branch's street, phone and review link, a POM medicine name, an
+  efficacy claim and another branch's name into the same file were each
+  caught by check-gbp-packs.js, so what was missing was not fact checking but
+  the copy standard. gbp-packs/ was named in TEMPLATE.md's own rules for
+  every pack ("UK English. No em dashes. No emojis. Plain English.") and read
+  by check-brand-spelling.js, check-postcodes.js, check-address-region.js,
+  check-pharmacy-first-eligibility.js and check-gbp-packs.js, so it was not
+  an unwatched folder. It was an unwatched RULE in a watched folder.
+
+  TEMPLATE.md is scanned with the packs, for the reason the DRAFT-*.html
+  files are in EXTRA_HTML: it is the file every new pack is copied from, so a
+  dash there is a dash in every pack written after it.
+
+  All 16 files were already clean when the rule was added, so this closed a
+  latent hole rather than a live breach. US spelling is a third gap found by
+  the same injection and is NOT closed here: it needs a word list rather than
+  a character test, and is recorded in AGENT_LOG.md for a later pass rather
+  than half-built now.
 
   This is the fourth time this repo has found the same shape of fault: when a
   checker passes, ask WHICH FILES it read. check-seo-lengths rule 3 read the
@@ -179,6 +224,13 @@ const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords):
 const BANNER_DIR = path.join(REPO, "modules", "switch", "pages", "banners");
 const NON_ASCII_RE = /[^\x00-\x7F]/g;
 
+// The GBP content packs. Paste-ready copy for a plain-text Google Business
+// Profile field, so they are held to BOTH rules at once: no non-ASCII
+// character, and no dash written as an HTML entity either, because nothing
+// resolves an entity on a Google profile and it would publish literally.
+// See "Why the GBP packs fail on non-ASCII AND on dash entities" above.
+const PACK_DIR = path.join(REPO, "gbp-packs");
+
 // The live module code. Every generated page loads modules/<name>/<name>.js
 // and .css, plus core/site-data.js, from jsDelivr, and three of those files
 // build sentences with innerHTML at run time. That copy is on the page a
@@ -277,6 +329,37 @@ function checkBannerFile(file){
   });
 }
 
+// A GBP pack fails on ANY non-ASCII character and on ANY dash entity. The
+// whole file is checked, not just the pasted sections: a pack is read by a
+// human who copies out of it, there is no build step to strip anything, and a
+// dash in a paster note is a dash the paster can carry into the field. Nothing
+// in the folder is generated, so a failure is fixed in the pack by hand.
+function checkPackFile(file){
+  const raw = fs.readFileSync(file, "utf8");
+  notes.filesScanned++;
+  raw.split(/\r?\n/).forEach(function(line, i){
+    NON_ASCII_RE.lastIndex = 0;
+    const found = line.match(NON_ASCII_RE);
+    ENTITY_RE.lastIndex = 0;
+    const entity = ENTITY_RE.test(line);
+    if (!found && !entity) return;
+    const parts = [];
+    if (found) {
+      const codes = [...new Set(found.map(function(ch){
+        return "U+" + ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0");
+      }))].join(" ");
+      parts.push("non-ASCII " + codes);
+    }
+    if (entity) parts.push(dashKind(line) + ", which would paste literally");
+    failures.push({
+      file: rel(file),
+      line: i + 1,
+      kind: "in GBP pack (" + parts.join("; ") + ")",
+      text: line.trim().slice(0, 140)
+    });
+  });
+}
+
 // A code file is checked with its comments blanked, because a dash in a note
 // to the next developer reaches nobody. Two shapes are blanked and only two:
 // /* ... */ blocks, and lines that are a // comment from the first non-space
@@ -369,6 +452,31 @@ if (!fs.existsSync(BANNER_DIR)) {
   }
 }
 
+// TEMPLATE.md is scanned with the packs on purpose: it is the file every new
+// pack is copied from, so a dash there is a dash in every pack written next.
+let packCount = 0;
+if (!fs.existsSync(PACK_DIR)) {
+  failures.push({
+    file: rel(PACK_DIR),
+    line: 0,
+    kind: "missing folder",
+    text: "the GBP pack folder is gone, so the pack rule covers nothing."
+  });
+} else {
+  fs.readdirSync(PACK_DIR).filter(function(f){ return f.endsWith(".md"); }).sort().forEach(function(f){
+    checkPackFile(path.join(PACK_DIR, f));
+    packCount++;
+  });
+  if (packCount === 0) {
+    failures.push({
+      file: rel(PACK_DIR),
+      line: 0,
+      kind: "empty folder",
+      text: "no .md packs found, so the pack rule covers nothing."
+    });
+  }
+}
+
 let pageCount = 0;
 let sheetCount = 0;
 PAGE_DIRS.forEach(function(dir){
@@ -416,14 +524,15 @@ EXTRA_HTML.forEach(function(file){
 console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
   + " non-generated copy file(s), " + codeCount
   + " live module code file(s), " + bannerCount
-  + " switch banner(s) held to ASCII only, " + sheetCount
+  + " switch banner(s) held to ASCII only, " + packCount
+  + " GBP pack(s) held to ASCII only plus no dash entities, " + sheetCount
   + " paste sheet(s) discovered (" + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside build or code comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
 
 if (failures.length) {
   console.log("");
-  console.log("FAILURES (" + failures.length + ") - dashes, or banner characters, in copy that reaches the public:");
+  console.log("FAILURES (" + failures.length + ") - dashes, or banner or GBP pack characters, in copy that reaches the public:");
   failures.forEach(function(f){
     console.log("  FAIL  " + f.file + " line " + f.line + " (" + f.kind + "): " + f.text);
   });

@@ -12,7 +12,17 @@ Rules for every pack (from Master Plan v2 / Build Pack v2 and advertising law):
 - No efficacy claims ("works", "guaranteed", "best results"). No before/after.
 - Pharmacy First wording stays close to the NHS service description: free NHS
   service, seven conditions, no GP appointment needed, age ranges apply.
-- UK English. No em dashes. No emojis. Plain English.
+- UK English. No em dashes. No emojis. Plain English. A pack is pasted into a
+  plain-text Google field, so tools/check-em-dashes.js holds every file in this
+  folder, this template included, to pure ASCII AND fails a dash written as an
+  HTML entity (the ampersand-mdash and ampersand-ndash spellings, and their
+  numeric forms): nothing resolves an entity on a Google profile, so it would
+  publish as the literal characters a patient then reads in the description.
+  That is also why this rule cannot be written out here in its own entity
+  form, and why the checker's own explanation lives in the checker, not here.
+  Added at the item 4.3 quality pass, 2026-08-13, after an
+  em dash, an emoji and a smart quote were each shown to pass all 29 checkers.
+  UK spelling is NOT yet enforced by any checker and still rests on the writer.
 - Profile website on a shared domain: Fishlocks, McCanns and Scorah each run
   two branches on one website. Those branches point the GBP profile website
   at their own branch landing page (pharmacy-<brandSlug>-<townSlug>.html),

@@ -2,6 +2,143 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 01:34 BST - hundred-and-thirty-seventh run [commit hash recorded
+in the follow-up commit] - Quality pass on item 4.3, the Hirshmans Chemist
+Ainsdale GBP pack, the oldest verification standing among completed items.
+Third pass on this item. REPO HALF ONLY: no browser was available, so nothing
+live was read and nothing live is claimed. The PACK is clean for the third
+consecutive pass and not one character of it was edited. The defect found was
+in the checkers, and for the first time on a GBP pack pass it was not in
+check-gbp-packs.js: the packs were fact checked hard and copy checked not at
+all.
+
+ANSWER PICKUP NOT AVAILABLE, seventeenth consecutive run, 121 to 137. Same
+cause as runs 126 to 136: two Chrome extension instances are connected to this
+account and the tooling requires a human choice between them before any call
+is made. An unattended run has nobody to ask and may not pick for itself, so
+NO browser call was made at all: nothing fetched, clicked, typed, submitted or
+logged in to, and no other route attempted. 36 questions open going in, 36
+going out; none raised, none answered. Q59 already asks how to clear this
+block, so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10
+23:14 BST. Nothing this run needed one: no question was raised.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with origin
+and clean.
+
+SELECTION. 6.6 is still the first unchecked item that is not [BLOCKED] and it
+still could not be advanced, for the reason runs 135 and 136 both recorded:
+every remaining route into it is live Google Search Console or the Weebly
+admin, and both need the browser. Run 136 re-verified the repo half in full
+and I did not repeat that work a third time. 6.6 keeps NO [BLOCKED] tag,
+because it is blocked on tooling and not on a decision from Rishi, and it
+remains the next item for the first run that has a browser. Every other
+unchecked item is [BLOCKED] on a question, so this run went to a quality pass.
+
+QUALITY PASS TARGET. The rotation has completed a full cycle. Runs 96 to 136
+covered all 41 completed items, one per run, and run 136 took 1.4, which was
+run 95's item. So the oldest verification standing is run 96's, which was 4.3
+at 2026-08-12 03:12. No item has been missed and none has been taken twice in
+the cycle.
+
+STATE FOUND, ALL VERIFIED THIS RUN. 29 of 29 checkers exit 0. All six
+generators were re-run and every generated page came back byte-identical, with
+git reporting no change anywhere under modules/. The pack itself verifies fact
+by fact against branches.json and rule by rule against TEMPLATE.md: business
+description 743 characters exactly as its own heading claims, posts 448, 408,
+402 and 317 against a 1,500 limit, name, street, locality, postcode, phone,
+website and review link all matching, the Hours line carrying every clock time
+in openingHours and no other and naming Monday to Saturday open with Sunday
+closed, all five widget services listed, ten photo shots including the vinyl
+lead and the pending-Google-updates reminder, and the post buttons pointing at
+pages this repo generates. Post A's HARD STOP stands unchanged: its button is
+the legacy hand-built pharmacy-first-service-ainsdale.html, which is item 5.3
+and Q8/Q34, not a fault in this pack.
+
+WHAT WAS PROVED BEFORE ANYTHING WAS CHANGED. Nine injections into
+gbp-packs/hirshmans-ainsdale.md, each run against all 29 checkers and each
+reverted before the next. SIX WERE CAUGHT, all by check-gbp-packs.js: the
+sister branch's street, its phone, its review link, a POM medicine name in
+Post C, an efficacy claim in Post C, and another branch named in the business
+description. The street injection is worth recording because it is the
+sharpest one available on this branch: Fishlocks Chemist Ainsdale is at 17
+Station Road and Hirshmans is at 56-62 Sherwood House, Station Road, the same
+street in the same town with the same postcode district, so a swapped number
+on a Google profile sends a patient a couple of hundred yards to the wrong RBH
+pharmacy. That is caught today.
+
+THREE WERE NOT CAUGHT, and they are one rule, not three: a literal em dash
+(U+2014) in the business description, a real emoji in Post D, and US spelling
+("organized", "vaccination center") in the description. TEMPLATE.md has
+required "UK English. No em dashes. No emojis. Plain English" of every pack
+since the packs were written, and no checker was reading it. gbp-packs was not
+an unwatched folder either: check-gbp-packs.js, check-brand-spelling.js,
+check-postcodes.js, check-address-region.js and
+check-pharmacy-first-eligibility.js all read it. It was an unwatched RULE in a
+watched folder, which is a new variant of the shape this repo keeps finding.
+The stakes are the same as any other paste target: a pack is copied by hand
+into a plain-text Google Business Profile field by Rishi or Dane, and whatever
+is in it is what a patient reads.
+
+THE FIX, in tools/check-em-dashes.js. That checker already held generated
+pages, paste sheets, hand-pasted Weebly blocks, switch banners and live module
+code, and its own header carries the standing lesson "when a checker passes,
+ask WHICH FILES it read". It had never read gbp-packs. All 16 files in the
+folder, TEMPLATE.md included, are now held to TWO rules at once:
+
+  - pure ASCII, as a switch banner is, which fails the em dash, the emoji and
+    a smart quote carried across from a draft
+  - no dash written as an HTML entity, which is the OPPOSITE of the banner
+    rule and is the part worth reading twice. A banner is resolved by
+    innerHTML, so an entity is the fix there. Nothing resolves a Google
+    profile field, so the same entity publishes as literal characters in the
+    description. An entity is itself pure ASCII, so an ASCII-only rule alone
+    would have passed it.
+
+TEMPLATE.md is scanned with the packs deliberately, for the same reason the
+DRAFT-*.html copy templates are in EXTRA_HTML: it is the file every new pack
+is copied from, so a dash there is a dash in every pack written after it. Its
+rules section now names the enforcing tool, as the other pack rules already
+name check-gbp-packs.js, and had to be worded around the entity spellings
+because writing them out would have failed the rule the paragraph describes.
+
+NEGATIVE-TESTED FIVE WAYS plus the folder guard, each with the file restored
+from git afterwards: literal em dash in the description (fails, U+2014
+reported), real emoji in Post D (fails), an mdash entity in Post B (fails,
+reported as "would paste literally"), a smart apostrophe in Post A (fails,
+U+2019), an ndash entity in the paster notes (fails), and the folder renamed
+away (fails as "missing folder", so the rule cannot quietly stop covering
+anything). Clean state passes and the summary line now reports 16 GBP packs
+alongside the 177 pages, 15 banners and 11 sheets.
+
+ALL 16 PACKS WERE ALREADY CLEAN, so this closes a latent hole rather than a
+live breach, and no pack copy was edited anywhere in the estate.
+
+KNOWN LIMIT, DELIBERATE. UK spelling is the third gap the injection found and
+it is NOT closed. A character test cannot catch "organized" or "center"; that
+needs a word list with the usual traps (a licensed premises, a practice versus
+to practise, brand names that are legitimately American), and building half of
+one now would leave a rule that looks enforced and is not. Recorded here for a
+later pass. Second, smaller: the emoji failure reports surrogate halves
+(U+D83D U+DE80) rather than U+1F680, because it uses the same charCodeAt
+reporting the banner rule has used since 2026-08-10. Left consistent with the
+banner rule on purpose rather than making the same character report two
+different ways in one checker.
+
+FILES CHANGED. tools/check-em-dashes.js (the new gbp-packs rule, its
+explanation in the header, the folder guard and the summary line),
+gbp-packs/TEMPLATE.md (the copy rule now names its enforcer),
+AGENT_WORKLIST.md (quality pass note under 4.3), AGENT_LOG.md (this entry).
+No generated page touched, no branches.json field touched, no pack copy
+touched. 29 of 29 checkers green after the change and all six generators
+rebuild to zero diff.
+
+QUESTIONS. None raised. 36 open, unchanged.
+
+
 ## 2026-08-13 01:04 BST - hundred-and-thirty-sixth run [commit hash recorded
 in the follow-up commit] - Quality pass on item 1.4, the NAP check, the oldest
 verification standing among completed items (last verified at run 95). Third

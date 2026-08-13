@@ -751,6 +751,40 @@ Pharmacy First wording to the NHS service description.
       one pack with no pending-Google-updates reminder, so its paster would
       have left Google's own queued edits to hours, categories and the
       address to publish themselves. Reminder added to that pack.
+      Quality pass 2026-08-13 (third pass, repo half only, no browser
+      available): the pack is clean again on every fact. Description 743
+      characters as its heading claims, posts 448, 408, 402 and 317 against
+      the 1,500 limit, and name, street, locality, postcode, phone, website
+      and review link all matching branches.json. The Hours line carries
+      every clock time in openingHours and no other, and names Monday to
+      Saturday open and Sunday closed. All five widget services are listed,
+      ten photo shots with the vinyl lead and the pending-Google-updates
+      reminder, and the three usable post buttons point at pages this repo
+      generates. Post A's HARD STOP still stands: its button is the legacy
+      hand-built pharmacy-first-service-ainsdale.html, which is item 5.3 and
+      Q8/Q34, not a defect in this pack. All 29 checkers exit 0 and all six
+      generators rebuild byte-identical.
+      One defect found, again in the verifier and not the pack, and this
+      time not in check-gbp-packs.js. Six injections into this pack were
+      caught: the sister branch's street (Fishlocks Ainsdale is 17 Station
+      Road, the same street as Hirshmans at 56-62 Sherwood House, so a
+      swapped number sends a patient 200 yards to the wrong shop), its
+      phone, its review link, a POM medicine name in Post C, an efficacy
+      claim, and another branch named in the description. Three were not
+      caught: a literal em dash in the business description, a real emoji
+      in Post D, and US spelling. Those are TEMPLATE.md's own rule for
+      every pack, "UK English. No em dashes. No emojis. Plain English", and
+      no checker was reading it, so a pack was fact checked hard and copy
+      checked not at all. The character half is now closed in
+      tools/check-em-dashes.js, which held pages, paste sheets, banners and
+      live module code but had never read gbp-packs: all 16 files including
+      TEMPLATE.md are held to pure ASCII AND to no dash entity, the second
+      rule being necessary because an entity is itself ASCII and would
+      paste onto a Google profile as literal text. Negative-tested five
+      ways plus the missing-folder guard. All 16 files were already clean,
+      so this closes a latent hole rather than a live breach. UK spelling
+      stays open: it needs a word list, not a character test, and is left
+      for a later pass rather than half-built here.
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
