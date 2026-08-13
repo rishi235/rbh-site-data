@@ -1,0 +1,139 @@
+Item 4.9 quality pass - Clear Chemist Aintree GBP pack
+Date: 2026-08-13 (run 165). Fourth pass on this item.
+Branch: clearchemist_aintree. Pack: gbp-packs/clear-aintree.md
+Last verified: 2026-08-12 16:12 BST (run 122), the oldest verification
+standing among completed items at the start of this run.
+
+REPO HALF ONLY. No live check and no answer pickup: two Chrome browsers
+are connected and an unattended run cannot choose between them (Q59,
+now twelve consecutive runs). The 2026-08-11 live verdicts on this item
+stand as written and no fresh live claim is made here.
+
+METHOD
+Injection testing, continuing the method runs 163 and 164 used to find
+their defects: corrupt one fact at a time, run all 31 checkers, restore
+the file from git and confirm the working tree is byte-clean before the
+next injection. The harness restored from git rather than from a copy,
+and restored on entry as well as in a finally block, after an early
+injection left the pack dirty when the shell was killed mid-run. That
+dirty state was caught and reverted before any commit.
+
+
+INJECTIONS AND RESULTS (before the fix)
+
+  A1  phone changed in the profile-basics line only        UNCAUGHT
+  A2  phone changed in all five occurrences                CAUGHT
+  A3  phone changed in Post A body only                    UNCAUGHT
+  B1  review link repointed                                CAUGHT
+  B2  postcode, final letter altered                       CAUGHT
+      (the altered value is not written out here: check-postcodes.js
+      rejects a fabricated postcode quoted anywhere in the repo, which
+      is the guard working, and it is not worth an entry in
+      NARRATIVE_POSTCODES for a throwaway test value)
+  B3  unit number changed in all three occurrences         CAUGHT
+  B4  unit number changed in Post A body only              UNCAUGHT
+  C1  location clause "in Aintree" -> "in Walton"          UNCAUGHT  <-- defect
+  C2  location clause "in Aintree" -> "in Bootle"          UNCAUGHT  <-- defect
+
+AFTER THE FIX
+
+  C1  location clause "in Aintree" -> "in Walton"          CAUGHT
+  C2  location clause "in Aintree" -> "in Bootle"          CAUGHT
+
+ESTATE-WIDE CONFIRMATION OF THE NEW RULE (other packs)
+
+  D1b fishlocks-eccleston "in Eccleston" -> "in Coppull"   CAUGHT
+  D2  smartts-bootle      "in Bootle"    -> "in Sefton"    CAUGHT
+  D3b gordon-short-crosby "in Crosby"    -> "in Waterloo"  CAUGHT
+
+REGRESSION ON THE RULE ADDED BY RUN 164
+
+  D4  fishlocks-eccleston "in Eccleston" -> "in Ainsdale"  CAUGHT
+      (a foreign town, still caught by the run 164 rule; the new rule
+      is additive and does not mask it)
+
+
+THE DEFECT FOUND AND FIXED: THE LOCATION CLAUSE
+
+The business description opens by saying where the shop is: "at Unit 20
+Brookfield Trade Centre on Brookfield Drive in Aintree, Liverpool".
+Changing that one clause to "in Walton, Liverpool" passed all 31
+checkers clean.
+
+Run 164 added a rule to this file for exactly this shape of fault, and
+it does not catch this case, by its own design. That rule carries a
+derived exemption: a town in the branch's own serviceAreaList is its
+catchment and belongs in the copy. Walton IS in Clear Aintree's
+serviceAreaList (Aintree, Fazakerley, Walton, Bootle, North Liverpool),
+so the substituted town is exempt before the rule considers where in the
+sentence it sits. The exemption is correct about the catchment clause
+and wrong about the location clause.
+
+This is the worse half of the pair, not the same fault twice. A foreign
+town is a word with no business in the pack at all. A catchment town is
+already sitting in the same sentence, so it is the substitution a
+careless edit actually makes, and it is the one no reader detects,
+because "in Walton ... serving Aintree, Fazakerley, Walton" still scans.
+Walton is also the seoTown of TWO other branches in this estate, Cherry
+Lane Pharmacy and Coleman and Leighs Pharmacy. So the corrupted line
+does not merely misplace Clear Chemist by about two miles, it places it
+where two other RBH pharmacies genuinely are, on copy pasted verbatim
+into a public Google Business Profile.
+
+THE RULE ADDED
+Reads the location construct rather than the whole sentence: a road
+name, then the town immediately following it, as "<road> in <Town>" or
+"<road>, <Town>,". That town must be the branch's own seoTown or
+addressLocality. Deliberately narrow: the captured word must be a town
+the estate actually knows, so "on Cherry Lane, open six days a week" and
+"on Macclesfield Road, Scorah Chemists Hazel Grove looks after" do not
+match a location construct at all. Seven of the fifteen packs state a
+road-anchored town and are checked; the other eight state no town after
+their road and are skipped rather than guessed at, the same choice the
+house-number rule makes for the three "Unit" addresses. Scope is the
+published copy only, the business description and the post bodies,
+matching the run 164 rule. Composed from branches.json, with a
+KNOWN_LOCATION_TOWN exception map and the standard anti-rot sweep.
+
+RESULT: 31 of 31 checkers exit 0. 0 failures across the 15 real packs.
+No page, generator, data field, branches.json entry, paste sheet, GBP
+pack or piece of patient-facing copy was changed. The only file changed
+is tools/check-gbp-packs.js.
+
+
+TWO GAPS CONFIRMED BUT NOT FIXED THIS RUN
+
+1. THE PHONE IS A PRESENCE RULE (A1, A3 above). NEW, worth taking next.
+   Changing the phone in one place is uncaught, including in the Post A
+   body, which is public copy. Changing it in all five is caught. Run
+   164 recorded that in fishlocks-eccleston "every profile-basics value
+   appears exactly ONCE, so the presence rules are load-bearing here".
+   Clear Aintree is the counterexample: the phone appears five times, so
+   the presence rule is not load-bearing and a single-site corruption is
+   invisible. This is the run 163 house-number finding one field along.
+   Not fixed here because the fix needs a scope decision this pack makes
+   concrete: clear-aintree.md DELIBERATELY quotes a second, different
+   number (0151 203 6535, the number the branch's own website
+   publishes) in its profile-basics note to document Q28, so a naive
+   "every phone-shaped string must match branches.json" rule would fail
+   the clean tree. The rule wants scoping to published copy only, the
+   same scope the town rules use. Left for the next pass rather than
+   rushed, and recorded here so it is not lost.
+
+2. THE UNIT NUMBER IN ONE PLACE (B4 above). NOT a new defect. The
+   house-number rule added by run 163 documents this exclusion in its
+   own comment: it engages only where the branch's streetAddress OPENS
+   with a house number, "thirteen of the sixteen", and the three that
+   open with "Unit" (Fishlocks Eccleston and the two entries sharing
+   Unit 20 Brookfield) are "left to the rules above rather than guessed
+   at". Clear Aintree is one of those three. Recorded as an empirical
+   confirmation that the documented exclusion is reachable, not as a
+   new finding.
+
+NO NEW QUESTION RAISED. Both items above are checker gaps to fix, not
+decisions for Rishi, so neither belongs in QUESTIONS.json.
+
+NO AUTONOMOUS WINDOW. The top of AGENT_LOG.md was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. Nothing turned on it, because this run raised no
+question.

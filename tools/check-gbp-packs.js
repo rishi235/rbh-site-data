@@ -231,6 +231,8 @@ const seenHoursDaysKnown = {};
 // matches a real breach fails the run.
 const KNOWN_FOREIGN_TOWN = {};
 const seenForeignTownKnown = {};
+const KNOWN_LOCATION_TOWN = {};
+const seenLocationTownKnown = {};
 
 const fails = [];
 const warns = [];
@@ -1843,6 +1845,112 @@ for (const file of packFiles) {
   } else if (KNOWN_FOREIGN_TOWN[`${b.id}::foreignTown`]) {
     seenForeignTownKnown[`${b.id}::foreignTown`] = false;
   }
+
+  // --- the town in the LOCATION clause, not just a foreign town ------------
+  // Found on the item 4.9 quality pass, 2026-08-13, by injection into
+  // clear-aintree.md. The business description opens by saying where the shop
+  // is: "at Unit 20 Brookfield Trade Centre on Brookfield Drive in Aintree,
+  // Liverpool". Changing that one clause to "in Walton, Liverpool" passed all
+  // 31 checkers clean.
+  //
+  // The rule directly above was written on the 4.8 pass for exactly this
+  // fault and does not catch it, by its own design. It carries a derived
+  // exemption: "a town in this branch's own serviceAreaList is its catchment
+  // and belongs in the copy". Walton IS in Clear Aintree's serviceAreaList,
+  // so the substituted town is exempt before the rule looks at where in the
+  // sentence it sits. The exemption is right about the catchment CLAUSE
+  // ("serving Aintree, Fazakerley, Walton, Bootle and North Liverpool") and
+  // wrong about the LOCATION clause, which is the one that states where the
+  // building is.
+  //
+  // This is the worse half of the pair, not the same fault twice. A foreign
+  // town is a word that has no business in the pack at all; a catchment town
+  // is already sitting in the same sentence, so it is the substitution a
+  // careless edit actually makes, and it is the one the reader cannot detect,
+  // because "in Walton ... serving Aintree, Fazakerley, Walton" still scans.
+  // Walton is also the seoTown of TWO other branches in this estate, Cherry
+  // Lane Pharmacy and Coleman and Leighs Pharmacy, so the corrupted line does
+  // not merely misplace Clear Chemist, it puts it where two RBH pharmacies
+  // genuinely are, about two miles away, on copy pasted verbatim into Google.
+  //
+  // The rule reads the LOCATION CONSTRUCT rather than the whole sentence: a
+  // road name, then the town that immediately follows it, either as
+  // "<road> in <Town>" or as "<road>, <Town>,". That town must be this
+  // branch's own seoTown or addressLocality. It is deliberately narrow. The
+  // captured word must be a town the estate actually knows, so "on Cherry
+  // Lane, open six days a week" and "on Macclesfield Road, Scorah Chemists
+  // Hazel Grove looks after" do not match a location construct at all. Seven
+  // of the fifteen packs state a road-anchored town and are checked; the
+  // other eight state no town after their road and are skipped rather than
+  // guessed at, the same choice the house-number rule makes for the three
+  // "Unit" addresses.
+  //
+  // Scope is the published copy only, matching the rule above: the business
+  // description and the post bodies. The preamble and the paster notes are
+  // instructions and never reach the profile.
+  const ROAD_SUFFIX =
+    "(?:Road|Street|Drive|Lane|Avenue|Way|Village|Close|Place|Parade|Crescent|Terrace|Walk|Hill|Green|Square)";
+  const estateTowns = new Map();
+  for (const o of branches) {
+    if (!isPackable(o)) continue;
+    for (const t of [...splitPlaces(o.seoTown), ...splitPlaces(o.addressLocality)]) {
+      if (t) estateTowns.set(t.toLowerCase(), t);
+    }
+  }
+  for (const t of b.serviceAreaList || []) {
+    if (t) estateTowns.set(String(t).toLowerCase(), String(t));
+  }
+  const ownTowns = new Set(
+    [...splitPlaces(b.seoTown), ...splitPlaces(b.addressLocality)].map((s) => s.toLowerCase())
+  );
+  const locationRe = new RegExp(
+    `\\b${ROAD_SUFFIX}\\s*(?:\\bin\\b|,)\\s*([A-Z][A-Za-z'’]*(?:\\s+[A-Z][A-Za-z'’]*)*)`,
+    "g"
+  );
+  const locationBreaches = [];
+  for (const [scope, body] of townScopes) {
+    const flatBody = String(body || "").replace(/\s+/g, " ");
+    for (const m of flatBody.matchAll(locationRe)) {
+      // Longest known town first, so "North Liverpool" wins over "Liverpool".
+      const captured = m[1];
+      let named = null;
+      for (const [lc, orig] of estateTowns) {
+        if (captured.toLowerCase() === lc || captured.toLowerCase().startsWith(lc + " ")) {
+          if (!named || lc.length > named.toLowerCase().length) named = orig;
+        }
+      }
+      if (!named) continue;
+      if (ownTowns.has(named.toLowerCase())) continue;
+      const owners = branches
+        .filter(
+          (o) =>
+            isPackable(o) &&
+            o.id !== b.id &&
+            [...splitPlaces(o.seoTown), ...splitPlaces(o.addressLocality)].some(
+              (t) => t.toLowerCase() === named.toLowerCase()
+            )
+        )
+        .map((o) => o.branchName);
+      const whose = owners.length
+        ? `, which is the town of ${[...new Set(owners)].join(" and ")},`
+        : "";
+      locationBreaches.push(
+        `the ${scope} places this branch on its own road but in "${named}"${whose} while branches.json puts it in "${b.seoTown}" (postal "${b.addressLocality}"). The catchment rule above does not see it, because "${named}" is in this branch's own serviceAreaList and is therefore exempt as a catchment town, but a catchment town is somewhere the branch SERVES, not where it IS. This copy is pasted verbatim into the public Google profile. The construct reads "${m[0].trim()}"`
+      );
+    }
+  }
+  if (locationBreaches.length) {
+    const key = `${b.id}::locationTown`;
+    const known = KNOWN_LOCATION_TOWN[key];
+    if (known) {
+      seenLocationTownKnown[key] = true;
+      warn(file, `KNOWN ${locationBreaches[0]}. ${known.question}: ${known.reason}`);
+    } else {
+      for (const msg of locationBreaches) fail(file, msg);
+    }
+  } else if (KNOWN_LOCATION_TOWN[`${b.id}::locationTown`]) {
+    seenLocationTownKnown[`${b.id}::locationTown`] = false;
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------
@@ -1887,6 +1995,12 @@ for (const key of Object.keys(KNOWN_HOURS_DAYS)) {
 for (const key of Object.keys(KNOWN_FOREIGN_TOWN)) {
   if (!seenForeignTownKnown[key]) {
     fails.push(`stale exception: KNOWN_FOREIGN_TOWN["${key}"] no longer matches a pack naming another branch's town in its pasted copy. Remove it (${KNOWN_FOREIGN_TOWN[key].question}).`);
+  }
+}
+
+for (const key of Object.keys(KNOWN_LOCATION_TOWN)) {
+  if (!seenLocationTownKnown[key]) {
+    fails.push(`stale exception: KNOWN_LOCATION_TOWN["${key}"] no longer matches a pack stating the wrong town in its location clause. Remove it (${KNOWN_LOCATION_TOWN[key].question}).`);
   }
 }
 

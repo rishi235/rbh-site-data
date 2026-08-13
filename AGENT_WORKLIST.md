@@ -1522,6 +1522,43 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unaffected. Re-read the live half on the next pass with a live
       route. Evidence:
       audits/clear-aintree-gbp-pack-check-2026-08-12.txt. Done 2026-08-12
+      Quality pass 2026-08-13: fourth pass. Repo half only, no live check
+      and no answer pickup (two Chrome browsers connected, an unattended
+      run cannot choose between them; Q59, twelve consecutive runs). The
+      pack itself is clean for the fourth time. Method was injection
+      testing, as runs 163 and 164 used: nine injections, six caught
+      before the fix. One real defect found and fixed in the checker, not
+      the pack. The business description says where the shop IS, and
+      changing "in Aintree, Liverpool" to "in Walton, Liverpool" passed
+      all 31 checkers clean. The run 164 town rule does not catch it by
+      its own design: it exempts any town in the branch's own
+      serviceAreaList as a catchment town, and Walton is in Clear
+      Aintree's. That exemption is right about the catchment clause and
+      wrong about the location clause. It is the worse half of the pair,
+      because a catchment town is already in the same sentence, so it is
+      the substitution a careless edit actually makes, and "in Walton ...
+      serving Aintree, Fazakerley, Walton" still scans. Walton is also
+      the seoTown of Cherry Lane Pharmacy and Coleman and Leighs
+      Pharmacy, so the corrupted line puts Clear Chemist where two other
+      RBH pharmacies genuinely are. New rule reads the location construct
+      (road, then the town immediately following as "<road> in <Town>" or
+      "<road>, <Town>,") and requires that town to be the branch's own
+      seoTown or addressLocality; seven packs state a road-anchored town
+      and are checked, the other eight state none and are skipped rather
+      than guessed at. Scope is published copy only, matching run 164.
+      KNOWN_LOCATION_TOWN with the standard anti-rot sweep. Confirmed
+      estate-wide on smartts-bootle, fishlocks-eccleston and
+      gordon-short-crosby, and the run 164 foreign-town rule still fires,
+      so the new rule is additive. 31 checkers green, 0 findings across
+      the 15 real packs, no patient-facing copy changed. Two gaps
+      confirmed but not fixed: the phone is a presence rule and a
+      single-site change is uncaught (NEW, the run 163 finding one field
+      along, deferred only because this pack deliberately quotes a second
+      number to document Q28 so the fix needs scoping to published copy);
+      and the unit number in one place, which is NOT new, being the
+      documented "Unit" exclusion in the run 163 rule's own comment.
+      Evidence:
+      audits/clear-aintree-gbp-pack-check-2026-08-13.txt. Done 2026-08-13
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
