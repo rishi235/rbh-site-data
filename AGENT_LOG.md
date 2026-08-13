@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 16:34 BST - hundred-and-sixty-sixth run
+## 2026-08-13 16:34 BST - hundred-and-sixty-sixth run [commit e17703d, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Item 4.10 quality pass, the Smartts Chemist Bootle GBP pack. ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. It is the gap
 run 165 predicted and deferred, and it is estate-wide. No page, generator,
