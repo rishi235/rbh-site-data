@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 10:42 BST - hundred-and-fifty-fourth run [commit pending]
+## 2026-08-13 10:42 BST - hundred-and-fifty-fourth run [commit 7e7e2b4, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Quality pass on item 3.13, Clear Chemist (Aintree, L9 postal Liverpool),
 the least recently verified completed item. REPO HALF ONLY: no browser was
 available, so nothing live was read and nothing live is claimed. All 3 pages
