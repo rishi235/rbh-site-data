@@ -2461,6 +2461,26 @@ so tools/build-audit-status.js picks them up like any other item.
       generator-owned (dead cross-links, stale switch-page targets, moved
       permalinks). Log any live-only fixes needed as a question, same as
       5.8.
+      Quality pass 2026-08-13: the four live findings of 2026-08-11 stand as
+      written and Q53/Q54 stay open; no browser was available, so nothing
+      live was re-read and nothing live is re-claimed. ONE REAL DEFECT FOUND
+      AND FIXED IN REPO, in the checker rather than in a page. RULE 1 of
+      tools/check-service-links.js is the only repo-side rule guarding the
+      class of link this item is about, and it matched one link shape only:
+      absolute, estate host, ending .html. That was 6 of the 421
+      estate-internal links on the 177 generated pages. The other 415 were
+      covered by no rule: 244 relative hrefs (the service cross-links, which
+      are exactly the dead-cross-link and stale-permalink shape 6.2 exists
+      to catch) and 171 bare-host homepage links. The extensionless shape,
+      which is what Riddings /clinic-prices is, could not be seen either.
+      Rule widened to read all three shapes and proved by injection: a
+      relative link to a non-generated page, a relative link with a query
+      string, and an extensionless estate path all now fail, and the
+      original 6 absolute links still resolve. No page, generator, data
+      field or piece of patient-facing copy was changed. No defect was
+      hiding in the blind spot on the day it was closed: all 244 relative
+      targets resolve to pages this repo generates, so the gap was the
+      finding, not a live breakage. All 30 checkers green before and after.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

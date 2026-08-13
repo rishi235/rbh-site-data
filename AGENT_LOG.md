@@ -2,6 +2,98 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 11:34 BST - hundred-and-fifty-sixth run
+- Quality pass on item 6.2, the stalest completed item. ONE REAL DEFECT FOUND
+AND FIXED IN REPO: RULE 1 of check-service-links.js, the only repo-side rule
+guarding the exact class of link item 6.2 is about, read 6 of the 421
+estate-internal links on the 177 generated pages. Fixed by widening the rule
+to the other two link shapes the generators emit. No page, generator, data
+field or piece of patient-facing copy was changed. REPO HALF ONLY: no browser
+was available, so nothing live was read and nothing live is claimed.
+
+THE FINDING, AND WHY IT MATTERS MORE HERE THAN ELSEWHERE. Item 6.2 is the
+broken-internal-link item. Its live half found four things on 2026-08-11 and
+concluded "Generator-owned defects found: none". That conclusion is still
+correct, but it was reached partly by a checker that could not have seen a
+generator-owned defect of the commonest shape. RULE 1 matched one pattern:
+href="//<estate host>/<something>.html". The generators emit three shapes:
+  - 244 RELATIVE hrefs, every service cross-link on the estate
+    (contraception-*, earache-treatment-*, pharmacy-first-* and the rest).
+    Unread. This is precisely the dead-cross-link and stale-permalink shape
+    the item exists to catch, and the Riddings switch permalink the live
+    sweep found is this shape.
+  - 171 bare-host homepage links. Unread, and uncounted: the summary line
+    reported 6 estate links where the true figure is 421.
+  - extensionless estate paths. None in the repo, but Riddings /clinic-prices,
+    dead and cross-linked from eight sites, is this shape, and if a generator
+    ever emitted it RULE 1 would have passed it in silence.
+So 415 of 421 internal links, 98.6 per cent, sat behind a rule that reported
+itself clean. Same shape as the check-em-dashes.js gap on 2026-08-12 and the
+five before it: the rule was right about the files it read and silent about
+the ones it did not.
+
+PROVED, NOT ASSUMED, IN BOTH DIRECTIONS. The gap was measured first by reading
+every href on all 177 pages and bucketing it (6 covered, 415 not), rather than
+inferred from the regex. The widened rule was then proved to bite by injecting
+three faults into a real generated page: a relative link to a page the repo
+does not generate, a relative link with a query string, and an extensionless
+estate path. All three failed the run; the page was restored with git checkout
+and the tree re-checked, so nothing injected survives. The first injection
+attempt was a bad test and is worth recording: switch-prescriptions-riddings-
+timperley.html looked like the Riddings defect but IS generated here, so it
+correctly did not fail. The Riddings fault is live-only, in the permalink
+Weebly serves, not in the repo's link.
+
+A BUG IN MY OWN FIRST FIX, CAUGHT BEFORE COMMIT. The first version of the
+absolute-URL match was anchored at the end of the string, so any absolute URL
+with a query string (fonts.googleapis.com/css2?family=) did not match as
+absolute and fell through to the relative branch, producing 187 false
+failures against hosts those links never had. Visible only because the run
+was executed rather than assumed. The match now stops at ? or #.
+
+NO NEW QUESTION RAISED. The finding was a checker widening: no money, no legal
+exposure, no patient-facing regulatory claim, nothing for Rishi to decide.
+Q53 and Q54, the two live-only decisions this item raised on 2026-08-11, stand
+exactly as raised. 42 questions open going in, 42 going out.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+searched for a "Standing authorisation - autonomous window" section and every
+hit is prose recording its absence. The only real one expired 2026-08-10
+23:14 BST, three days ago. It did not bite either way, there being nothing to
+decide.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-fourth consecutive run, 121 to 156. Cause
+confirmed again rather than assumed: TWO Chrome extension instances are
+connected, so the extension side is alive, and the tooling requires a human to
+choose between them before any browser call and states the agent must not pick
+one. An unattended run has nobody to ask. Enumerating the extensions is the
+only thing that happened: NO page was fetched, and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted. Q59
+already asks how to clear this, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running.
+Fetched, on agents/audit-backlog, level with origin at 71190da, tree clean.
+Unchecked items taken first as the procedure requires: 6.6 is still the ONLY
+unchecked item that is not [BLOCKED], and still cannot be advanced, for the
+reason its own corrected text gives - the redirect is not broken, what remains
+is a canonical tag in Weebly's head and a decaying historic index artifact,
+and both routes need the browser. So the run went to a quality pass. All 30
+checkers green before any change and all 30 green after.
+
+ROTATION RE-DERIVED INDEPENDENTLY, and it agrees with run 155 this time. Least
+recently verified measured by when an item was last the SUBJECT of a run, not
+when its number last appeared anywhere in this log: each of the 193 headings
+was joined with the following six lines before the number was read, and the
+match anchored so 3.1 cannot swallow 3.10 or 3.13. 6.2 is stalest at 39 runs
+back, alone at the top with no tie this time, then 5.2 at 38, 5.6 at 37, 6.3
+at 36. All 41 completed items have a recorded pass. THE NEXT RUN SHOULD TAKE
+5.2, THEN 5.6, THEN 6.3.
+
+- Files changed: tools/check-service-links.js (RULE 1 widened, header comment
+updated to state the three shapes and the KNOWN key convention),
+AGENT_WORKLIST.md (6.2 quality pass recorded in place), AGENT_LOG.md.
+- Commit: see the follow-up hash line added above this entry.
+
 ## 2026-08-13 11:04 BST - hundred-and-fifty-fifth run [commit 52cb79d, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]

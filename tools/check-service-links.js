@@ -24,7 +24,18 @@
       branch domains that this repo does not generate. Either the repo owns the
       page and the link should point at the generated slug, or the page is
       live-only and nothing here can keep it correct. Both need saying out loud.
+    - RULE 1, unverifiable estate path: a link to an estate host with a path
+      that is not a .html page, so there is no generated file it can be matched
+      against. Riddings /clinic-prices, cross-linked from eight sites and dead
+      on all eight, is this shape. Added by the item 6.2 quality pass.
     - RULE 2, claim: efficacy or results-claim wording in visible page copy.
+
+  RULE 1 reads all three link shapes the generators emit: absolute estate .html
+  links, RELATIVE hrefs, and estate paths with no .html. Until 2026-08-13 it
+  matched the first shape only, which was 6 of the 421 estate-internal links on
+  the 177 pages. KNOWN keys are "<host>/<path>" for absolute links and
+  "relative:<href>" for relative ones. Bare homepage links (a host with no path)
+  are counted but never failed: a homepage always exists.
 
   What is only REPORTED, not failed:
     - links to pages on our domains that are listed in KNOWN below, each with a
@@ -124,20 +135,67 @@ PAGE_DIRS.forEach(function (dir) {
     pageCount++;
 
     // RULE 1 - link targets
-    const re = /href="(https?:)?\/\/([^\/"?#]+)\/([^"?#]*\.html)"/gi;
+    //
+    // WIDENED on the item 6.2 quality pass, 2026-08-13. The rule used to match
+    // one link shape only: an ABSOLUTE link, to an estate host, ending .html.
+    // The generators emit three shapes, and that pattern read 6 of the 421
+    // estate-internal links on the 177 generated pages. The other 415 were
+    // covered by no rule at all:
+    //   - 244 RELATIVE hrefs (contraception-*.html, earache-treatment-*.html
+    //     and the rest of the service cross-links). These are the exact class
+    //     item 6.2 is about, a dead cross-link or a stale permalink, and the
+    //     Riddings switch permalink found live by the 6.2 sweep is this shape.
+    //   - 171 bare-host homepage links (https://www.cherrylanepharmacy.co.uk
+    //     with no path). Legitimate, but they were not counted either, so the
+    //     "estate link" tally under-reported the estate by a factor of 70.
+    //   - extensionless estate paths. None in the repo today, but /clinic-prices
+    //     is precisely the shape the 6.2 sweep found broken live on 8 sites,
+    //     and the old pattern could not have seen it if a generator emitted it.
+    // No defect was in the blind spot on the day it was widened: all 244
+    // relative targets resolve to pages this repo generates. The gap was the
+    // finding, the same shape as the check-em-dashes.js gap on 2026-08-12.
     let m;
+    const re = /href\s*=\s*"([^"]*)"/gi;
     while ((m = re.exec(visible))) {
+      const href = m[1].trim();
+      if (!href || /^(mailto:|tel:|javascript:|data:|#)/i.test(href)) continue;
       linkCount++;
-      const host = m[2].toLowerCase();
-      const page = m[3].toLowerCase().replace(/^.*\//, "");
-      if (!estateHosts.has(host)) continue;
-      estateLinkCount++;
-      if (generated.has(page)) continue;
-      const key = host + "/" + m[3].toLowerCase();
+
+      // Host, then path up to any query string or fragment. NOT anchored at the
+      // end: an absolute URL carrying a query (fonts.googleapis.com/css2?family=)
+      // must still be recognised as absolute, or it falls through to the
+      // relative branch and is reported against a host it never had.
+      const abs = href.match(/^(?:https?:)?\/\/([^\/"?#]+)([^"?#]*)/i);
+      let key;
+      let target;
+
+      if (abs) {
+        const host = abs[1].toLowerCase();
+        if (!estateHosts.has(host)) continue;   // external, out of scope by design
+        estateLinkCount++;
+        const pth = (abs[2] || "/").replace(/^\//, "");
+        if (pth === "") continue;               // homepage, always exists
+        key = host + "/" + pth.toLowerCase();
+        target = pth.toLowerCase().replace(/^.*\//, "");
+      } else {
+        // Relative href: resolves on the branch's own site, so the estate host
+        // is implied. Same-page anchors and query strings are stripped first.
+        estateLinkCount++;
+        const clean = href.split("?")[0].split("#")[0];
+        if (!clean || clean === "/") continue;  // homepage, always exists
+        key = "relative:" + clean.toLowerCase();
+        target = clean.toLowerCase().replace(/^.*\//, "");
+      }
+
+      if (generated.has(target)) continue;
       if (KNOWN[key]) { knownHits[key] = (knownHits[key] || 0) + 1; continue; }
+
+      // An estate path with no .html is a page this repo cannot own or keep
+      // correct, so it needs a reason on the record rather than silence.
+      const rule = /\.html$/i.test(target) ? "stale target" : "unverifiable estate path";
       failures.push({
         file: rel(file),
-        rule: "stale target",
+        rule: rule,
         text: "links to " + key + ", which this repo does not generate"
       });
     }
