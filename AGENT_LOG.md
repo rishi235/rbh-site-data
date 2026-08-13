@@ -6,7 +6,8 @@ Format: date, time, item worked, what changed, commit hash, any questions.
 - Item 4.6 quality pass, the McCanns Chemist Aigburth GBP pack. ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,
 generator, data field, paste sheet, GBP pack or piece of patient-facing copy
-was changed. All 31 checkers pass. No new question raised. Commit COMMIT_HASH.
+was changed. All 31 checkers pass. No new question raised. Commit 066a467
+(this hash line added by a small follow-up commit).
 
 REPO HALF ONLY: two Chrome instances are connected and an unattended run
 cannot choose between them, so no browser call was made, nothing live was read
