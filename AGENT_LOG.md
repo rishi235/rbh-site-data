@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 07:34 BST - hundred-and-forty-eighth run - Quality pass on item
+## 2026-08-13 07:34 BST - hundred-and-forty-eighth run [commit 2432891, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes] - Quality pass on item
 3.6, McCanns Chemist (Aigburth and Sandringham), last verified 2026-08-12 and
 the oldest verification standing. Fourth pass on this item. REPO HALF ONLY: no
 browser was available, so nothing live was read and nothing live is claimed.
