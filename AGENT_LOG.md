@@ -2,6 +2,113 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 00:34 BST - hundred-and-seventy-eighth run
+- Item 3.1 quality pass, the canonical title/H1 pattern, fourth pass. ONE REAL
+DEFECT FOUND AND FIXED, in tools/check-seo-pattern.js. No page, no generator,
+no data field, no branches.json entry, no pack and no piece of patient-facing
+copy was changed. All 32 checkers exit 0 before and after, the self-test
+passes with no length warnings, and all six generators rebuild all 177 pages
+to a zero diff. NO new question.
+
+ANSWER PICKUP UNAVAILABLE, fifteenth consecutive run. Same cause as the last
+run and as Q59 describes: two Chrome extension instances are connected and the
+tooling requires a human to choose between them before it will make any call.
+An unattended run has nobody to ask and is not allowed to pick for itself, so
+no fetch was attempted, no other route was tried, nothing was clicked and no
+tab was opened. 46 questions remain open with nothing posted since 2026-08-10.
+The unblock is still one action on Rishi's side.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written. Nothing needed a
+decision in any case: the defect was fixed in the verifier and proved.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly at
+00:34.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+independently by walking all 215 run headings in this log and reading the item
+worked from the first lines of each entry. 3.1 was last worked 42 headings
+ago, then 1.4 at 41 and 4.3 at 40.
+
+CORRECTION TO THE PREVIOUS RUN. The 177th run recorded that "3.1 is not a
+completed item and does not appear in the worklist, so the previous run's
+'3.1 at 40' reads as 1.4". That is wrong. Item 3.1 is a completed item and is
+at AGENT_WORKLIST.md line 367, "- [x] 3.1 Define the title/H1 pattern once, in
+the generator, with per-branch town words sourced from branches.json". Its own
+last pass is logged at heading 42, "Quality pass on item 3.1, the canonical
+title/H1 pattern definition". The previous run therefore skipped the oldest
+item and took the second-oldest. No harm done beyond one run of delay, and 3.1
+is taken here. Worth recording because the same reasoning would have skipped
+it again on every future run.
+
+THE DEFECT: EVERY TOWN RULE ASKED THE PATTERN, NOT THE DATA. Item 3.1's own
+wording is "with per-branch town words SOURCED FROM branches.json", and Build
+Pack v2 section 5.1 gives the reason: "Build every URL, title and H1 from
+seoTown/townSlug. Using addressLocality targets the wrong catchment." Nothing
+in the repo asserted that clause. checkTitle, checkH1, checkMeta, the exact
+match in check-seo-pattern.js and the cross-town absence rule all take the
+branch town from seo-pattern.js pick(), and pick() is also what the nine
+composers use. So "does the page carry the right town" was answered by
+comparing the page against pick()'s own answer. Circular.
+
+Not theoretical. Eight of the fifteen live branches have a seoTown that
+differs from addressLocality, and that difference is the entire purpose of the
+field: Cherry Lane and Coleman and Leighs are postally Liverpool and trade in
+Walton, Clear Chemist and Tiffenbergs are postally Liverpool and trade in
+Aintree, Gordon Short in Crosby, McCanns Sandringham in St Michael's, McCanns
+Aigburth in Aigburth, Riddings in Timperley. Under addressLocality all eight
+would target Liverpool, and two pairs of RBH branches would compete with each
+other for one city word instead of owning four catchments.
+
+PROVED BY INJECTION, TWICE, because the two halves fail differently. Injected
+into landingTitle and landingH1 only, the self-test caught it loudly and by
+name ("landing FAIL title missing seoTown 'Aigburth'"), because checkTitle
+still asked the honest pick(). Injected into pick() ITSELF, that anchor was
+defeated: the self-test PASSED. The suite went red only by collateral, because
+five of the seven page types are built from store objects whose town the
+generator resolves from b.seoTown before the pattern is called, so those pages
+did not move while the expectations did, surfacing as 437 page mismatches with
+no indication of the real cause. Those generators are an accidental anchor,
+not a rule. The branch landing family has no anchor at all: it hands the raw
+branch straight to landingTitle(), so page and expectation moved together and
+every rule passed on those pages. Both McCanns landing pages silently became
+"Pharmacy in Liverpool", identical titles and identical H1s on one shared
+domain, and the only thing that noticed was a warning about duplicate H1s.
+
+THE FIX. check-seo-pattern.js now carries a DATA-SOURCE RULE: for every
+buildable branch, pat.pick(b).town must equal b.seoTown and pat.pick(b).brand
+must equal b.brandLabel, read from branches.json directly. It is the only rule
+in the file that does not route through pick() to decide what it expects. It
+carries a vacuity guard on the same convention as the empty-PAGE_TYPES and
+empty-service-words guards already there: if no live branch had an
+addressLocality differing from its seoTown the comparison would pass whichever
+field pick() read, so that state fails rather than quietly becoming a check of
+nothing. Negative-tested four ways: pick() to addressLocality fails and names
+all eight differing branches individually; pick() brand to branchName fails on
+the brand leg; every seoTown forced equal to addressLocality trips the vacuity
+guard; restored passes. branches.json was restored from backup after the third
+test and git confirms it untouched.
+
+RESIDUAL, STATED PLAINLY. The rule checks pick(), which is where all nine
+composers take their town. A composer reading b.addressLocality directly would
+not be caught here, but is caught by the self-test, as the first injection
+shows. The two rules cover each other; neither covers both halves alone.
+Separately, tools/build-switch-pages.js CONFIG still holds hand-written brand
+and town literals for all 15 branches rather than reading branches.json. It
+was examined on this pass and is NOT a live defect, because check-seo-pattern
+computes the switch expectation from the raw branch so any divergence fails
+the exact match at once. Recorded because it is a mirror, and item 5.7 proved
+seoTown is a value that moves.
+
+REPO HALF ONLY. Whether Weebly is serving these titles was not checked, for
+the browser reason above; that half is already tracked under 5.3/5.4 and the
+paste run.
+
+FILES CHANGED: tools/check-seo-pattern.js (the data-source rule and its
+summary line), AGENT_WORKLIST.md (3.1 pass note appended in place),
+AGENT_LOG.md (this entry), audits/seo-pattern-check-2026-08-14.txt (new).
+
 ## 2026-08-14 00:04 BST - hundred-and-seventy-seventh run [commit 7b3661c]
 - Item 1.1 quality pass, brand-name spelling, sixth pass. ONE REAL DEFECT
 FOUND AND FIXED, in tools/check-brand-spelling.js. No page, no generator, no

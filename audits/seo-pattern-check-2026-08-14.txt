@@ -1,0 +1,115 @@
+ITEM 3.1 QUALITY PASS - 2026-08-14 (fourth pass)
+tools/seo-pattern.js, the canonical title/H1/description pattern.
+REPO HALF ONLY. The live half was not run: the browser tooling had two
+extension instances connected and needs a human to choose between them, so
+no page was fetched. See AGENT_LOG.md for this run.
+
+RESULT: ONE REAL DEFECT FOUND AND FIXED, in tools/check-seo-pattern.js.
+No page, no generator, no data field, no branches.json entry and no piece of
+patient-facing copy was changed. All 177 pages rebuild byte-identical.
+
+BASELINE BEFORE ANY CHANGE
+  node tools/seo-pattern.js          self-test passed, no length warnings
+  32 of 32 checkers                  exit 0
+  6 generators rebuilt               zero diff across all 177 pages
+
+THE DEFECT: EVERY TOWN RULE ASKED THE PATTERN, NOT THE DATA
+Item 3.1 reads "define the title/H1 pattern once, in the generator, with
+per-branch town words SOURCED FROM branches.json". Build Pack v2 section 5.1
+gives the reason: "Build every URL, title and H1 from seoTown/townSlug. Using
+addressLocality targets the wrong catchment."
+
+Nothing in the repo asserted that clause. Every town rule that existed before
+this pass - checkTitle, checkH1, checkMeta, the exact match in
+check-seo-pattern.js and the cross-town absence rule - takes the branch town
+from seo-pattern.js pick(). pick() is also what the composers use. So the
+question "does the page carry the right town" was being answered by comparing
+the page with pick()'s own answer, which is circular: a pick() that started
+reading addressLocality would move the pages and the expectations together.
+
+WHY IT MATTERS HERE RATHER THAN IN PRINCIPLE
+Eight of the fifteen live branches have seoTown != addressLocality, and the
+difference is the entire purpose of the field:
+  mccanns_aigburth        Aigburth      vs Liverpool
+  mccanns_sandringham     St Michael's  vs Liverpool
+  clearchemist_aintree    Aintree       vs Liverpool
+  colemanleigh_liverpool  Walton        vs Liverpool
+  gordonshorts_crosby     Crosby        vs Liverpool
+  cherrylane_liverpool    Walton        vs Liverpool
+  tiffenbergs_longmoor    Aintree       vs Liverpool
+  riddings_timperley      Timperley     vs Timperley, Altrincham
+Under addressLocality those eight would all target Liverpool. Cherry Lane and
+Coleman and Leighs would compete with each other for one city word instead of
+owning Walton, and Clear Chemist and Tiffenbergs the same for Aintree. That is
+precisely the failure Build Pack v2 section 1.4 and 5.1 are written against.
+
+PROVED BY INJECTION, TWICE, BECAUSE THE TWO HALVES FAIL DIFFERENTLY
+  A. Drift injected into landingTitle/landingH1 only.
+     CAUGHT, loudly and by name, by the self-test in tools/seo-pattern.js:
+     "landing FAIL title missing seoTown 'Aigburth'" and the same for the H1,
+     seven branches over. checkTitle still asked the honest pick() for the
+     town, so the anchor held. This half was already safe.
+  B. Drift injected into pick() ITSELF.
+     DEFEATED that anchor: the self-test PASSED. The suite went red only by
+     collateral - five of the seven page types are built from store objects
+     whose town the generator resolves from b.seoTown before the pattern is
+     ever called, so those pages did not move while the expectations did, and
+     the mismatch was reported as 437 page failures with no indication of the
+     real cause. Those generators are an accidental anchor, not a rule.
+     The branch landing family has no anchor at all: build-branch-landing-
+     pages.js hands the raw branch straight to landingTitle(), so page and
+     expectation moved together and every rule above passed on those pages.
+     Both McCanns landing pages silently became "Pharmacy in Liverpool", with
+     identical titles and identical H1s on one shared domain.
+
+THE FIX
+tools/check-seo-pattern.js now carries a DATA-SOURCE RULE that asserts the
+source directly against branches.json instead of against the pattern's own
+answer: for every buildable branch, pat.pick(b).town must equal b.seoTown and
+pat.pick(b).brand must equal b.brandLabel. It is the only rule in the file
+that does not route through pick() to decide what it expects.
+
+It carries a vacuity guard, the same convention as the empty-PAGE_TYPES and
+empty-service-words guards already in the file: if no live branch had an
+addressLocality differing from its seoTown, the comparison would pass
+whichever field pick() read, so that state FAILS rather than quietly reducing
+the rule to a check of nothing.
+
+NEGATIVE-TESTED FOUR WAYS
+  0. baseline, unmodified                        exit 0
+  1. pick() town -> addressLocality              exit 1, all 8 differing
+                                                 branches named individually
+  2. pick() brand -> branchName                  exit 1, brand leg named
+  3. every seoTown forced equal to
+     addressLocality (vacuity guard)             exit 1, "cannot tell the two
+                                                 fields apart"
+  4. restored                                    exit 0
+branches.json was restored from backup after test 3 and git confirms it is
+untouched.
+
+AFTER THE FIX
+  node tools/seo-pattern.js          self-test passed, no length warnings
+  32 of 32 checkers                  exit 0
+  6 generators rebuilt               zero diff across all 177 pages
+  check-seo-pattern.js               177 pages checked, 0 untyped, 0 failures
+  data-source rule                   15 branches checked, 8 of them differing
+
+RESIDUAL LIMITATIONS, STATED PLAINLY
+  1. The rule checks pick(), which is where all nine composers take their town
+     and brand. A composer that ignored pick() and read b.addressLocality
+     directly would not be caught HERE, but it is caught by the self-test, as
+     injection A above demonstrates. The two rules cover each other; neither
+     covers both halves alone.
+  2. tools/build-switch-pages.js CONFIG still holds hand-written brand and town
+     literals for all 15 branches rather than reading branches.json. This was
+     examined on this pass and is NOT a live defect: check-seo-pattern.js
+     computes the switch expectation from the raw branch, so any divergence
+     between the table and branches.json fails the exact match immediately. It
+     is recorded here because it is a mirror, and a mirror that agrees with its
+     source is indistinguishable from a derived value until the source moves.
+     Item 5.7 proved seoTown does move (McCanns Sandringham, 2026-08-10).
+  3. The live half was not run. Whether Weebly is serving these titles is a
+     separate question, already tracked under 5.3/5.4 and the paste run.
+
+NO NEW QUESTION. The defect needed no decision from Rishi; it was fixed in the
+verifier and negative-tested.

@@ -413,6 +413,32 @@ check is file-wide, so inlining one of a builder's two call sites is caught
 late by the output rules rather than here. Evidence in
 audits/seo-pattern-check-2026-08-13.txt. REPO HALF ONLY, the live half was not
 run: browser unavailable, see the log for this run.
+Quality pass 2026-08-14: the pattern clean for the fourth consecutive pass,
+one defect found and fixed in the verifier. Self-test passes with no length
+warnings, all six generators reproduce all 177 pages byte-identical, all 32
+checkers green. The defect: item 3.1 requires the town words to be SOURCED
+FROM branches.json (Build Pack v2 section 5.1, "using addressLocality targets
+the wrong catchment") and nothing asserted that clause. Every town rule in the
+repo took its expected town from seo-pattern pick(), which is also what the
+composers use, so the check was circular. Eight of the fifteen live branches
+have seoTown different from addressLocality, so a pick() reading the wrong
+field would put Liverpool on the Walton, Aintree, Crosby, St Michael's and
+Aigburth pages at once. Proved by injection twice: injected into
+landingTitle/landingH1 the self-test caught it by name, but injected into
+pick() itself the self-test PASSED and the suite went red only by collateral,
+because five of the seven page types are built from store objects the
+generator resolves before the pattern sees them. The branch landing family has
+no such anchor and both McCanns landing pages silently became "Pharmacy in
+Liverpool" with identical titles and H1s on one shared domain.
+check-seo-pattern.js now carries a data-source rule asserting pick().town
+equals seoTown and pick().brand equals brandLabel against branches.json
+directly, with a vacuity guard so an estate that stopped exercising the
+difference fails rather than passing on nothing. Negative-tested four ways.
+Residual: build-switch-pages.js CONFIG still mirrors brand and town as
+literals, examined and not a live defect because the exact match recomputes
+from the raw branch, but recorded as a mirror. Evidence in
+audits/seo-pattern-check-2026-08-14.txt. REPO HALF ONLY, the live half was not
+run: browser unavailable, see the log for this run. No new question.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

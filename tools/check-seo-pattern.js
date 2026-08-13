@@ -463,11 +463,86 @@ Object.keys(KNOWN_NON_PAGE_BUILDER).forEach(function (f) {
   }
 });
 
+// ---------------------------------------------------------------------------
+// DATA-SOURCE RULE - does the pattern still read seoTown? (item 3.1 quality
+// pass, 2026-08-14)
+// ---------------------------------------------------------------------------
+// Item 3.1 is "define the title/H1 pattern once, in the generator, WITH
+// PER-BRANCH TOWN WORDS SOURCED FROM branches.json", and Build Pack v2 section
+// 5.1 says why: "Build every URL, title and H1 from seoTown/townSlug. Using
+// addressLocality targets the wrong catchment." Every rule above this line is
+// blind to that clause, because every one of them asks the town of
+// seo-pattern.js pick() and then checks the page against the answer. That is
+// circular. pick() decides the town for all nine composers and for
+// checkTitle(), checkH1() and checkMeta() as well, so a pick() that started
+// reading addressLocality would move the pages and the expectations together
+// and the exact match would still hold.
+//
+// It is not a theoretical clause. Eight of the fifteen live branches have a
+// seoTown that differs from their addressLocality, and the difference is the
+// whole point of the field: Cherry Lane and Coleman and Leighs are postally
+// Liverpool and trade in Walton, Tiffenbergs is postally Liverpool and trades
+// in Aintree, and McCanns Sandringham is postally Liverpool and trades in
+// St Michael's. Under addressLocality those eight pages would target Liverpool,
+// which is the exact miss Build Pack v2 warns about, and RBH would have two
+// pairs of branches competing for one city word instead of four catchments.
+//
+// Proved by injection on this pass, twice, because the two halves fail
+// differently. Injecting the drift into landingTitle/landingH1 alone was
+// caught, loudly and by name, by the self-test in tools/seo-pattern.js, since
+// checkTitle() still asked the honest pick() for the town. Injecting it into
+// pick() ITSELF defeated that: the self-test passed, and the only reason the
+// suite went red was collateral, five of the seven page types being built from
+// store objects whose town the generator resolves from b.seoTown before the
+// pattern ever sees it. Those generators are an accidental anchor, not a rule,
+// and the branch landing family has no such anchor at all: it hands the raw
+// branch straight to landingTitle(), so under a pick() drift the page and the
+// expectation move together and nothing above fires.
+//
+// So the source is asserted directly, against branches.json rather than
+// against the pattern's own answer. The vacuity guard matters as much as the
+// rule: if no live branch had a seoTown that differed from its addressLocality
+// the comparison would pass whichever field pick() read, so an estate that
+// stopped exercising the difference FAILS here rather than quietly reducing
+// this to a check of nothing. Same convention as the empty-PAGE_TYPES and
+// empty-service-words guards above.
+var sourceChecked = 0, sourceDiffering = 0;
+data.branches.forEach(function (b) {
+  if (b.disposed || b.id === "rbh_head_office_aintree") return;
+  if (!b.seoTown || !b.brandLabel) return; // the self-test hard-fails these
+  var got = pat.pick(b);
+  sourceChecked++;
+  if (b.addressLocality && b.addressLocality !== b.seoTown) sourceDiffering++;
+  if (got.town !== b.seoTown) {
+    console.log("FAIL " + b.id + ": seo-pattern pick() returns town '" + got.town + "' but branches.json");
+    console.log("       seoTown is '" + b.seoTown + "'. Titles, H1s and descriptions must be built from");
+    console.log("       seoTown (Build Pack v2 section 5.1), not addressLocality '" + (b.addressLocality || "") + "'.");
+    fails++;
+  }
+  if (got.brand !== b.brandLabel) {
+    console.log("FAIL " + b.id + ": seo-pattern pick() returns brand '" + got.brand + "' but branches.json");
+    console.log("       brandLabel is '" + b.brandLabel + "'. The brand must come from brandLabel.");
+    fails++;
+  }
+});
+if (!sourceChecked) {
+  console.log("FAIL the data-source rule read no buildable branch, so it asserts nothing about where");
+  console.log("       seo-pattern.js takes its town and brand from.");
+  fails++;
+} else if (!sourceDiffering) {
+  console.log("FAIL no live branch has an addressLocality that differs from its seoTown, so the");
+  console.log("       data-source rule cannot tell the two fields apart and would pass whichever one");
+  console.log("       pick() read. Restore a differing branch or retire this rule deliberately.");
+  fails++;
+}
+
 console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-service-pages.js: " + CONDITION_SLUGS.join(", "));
 console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verified across " +
   Object.keys(contractBuilders).length + " generator(s), " +
   Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
 console.log("service-word rule: " + swChecked + " pages had title, h1 and meta all read against their page type's service words.");
+console.log("data-source rule: " + sourceChecked + " branches had seo-pattern pick() checked against branches.json seoTown/brandLabel, " +
+  sourceDiffering + " of them with an addressLocality that differs from seoTown.");
 console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
   " live seoTowns (" + OTHER_TOWNS.join(", ") + "), serviceAreaList excusing the branch's own catchment.");
 console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");
