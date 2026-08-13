@@ -1,0 +1,131 @@
+ITEM 3.8 QUALITY PASS - SK Chemists (Bootle)
+Run 150, 2026-08-13, agents/audit-backlog.
+Third machine-era pass. Previous: 2026-08-12 (run 108), 2026-08-11 (run 66).
+
+SCOPE OF THIS PASS: REPO HALF ONLY.
+No browser was available this run (see the answer-pickup note in AGENT_LOG.md),
+so nothing on the live sites was read and nothing about the live sites is
+claimed here. The live-half findings recorded on the run 108 pass still stand
+as last observed and were NOT re-tested: SK's service page SEO titles still
+render as page name plus site title pending the queued 5.3/5.4 repaste, the
+switch banner mojibake close button persists, and the old pfLink page keeps its
+known 5.3/Q34 faults.
+
+WHY 3.8 WAS TAKEN
+6.6 is the only unchecked, non-BLOCKED item on the worklist and was re-read in
+full this run rather than taken on run 149's word. Its own corrected text says
+the redirect is not broken and what remains is a canonical tag plus a historic
+index artifact, both in Weebly's head and admin, both needing the browser. So
+the run went to a quality pass. Rotation was re-derived independently by
+joining each run heading with the following six lines before reading the item
+number, because several headings wrap. All 41 completed items have a recorded
+pass. 3.8 was deepest in the log at line 4245, ahead of 3.9 (4178) and 3.10
+(4108). This agrees with run 149's handover. NEXT RUN SHOULD TAKE 3.9, THEN
+3.10, THEN 3.12.
+
+WHAT WAS VERIFIED, AND HOW
+audits/sk-independent-2026-08-13.js. Fresh extraction written for this pass,
+sharing no code with tools/: its own directory walk, its own regexes and its
+own reading of branches.json. If it agrees with the 30 checkers that is
+evidence; if it disagreed, one of the two would be wrong and both would be read.
+
+  12 pages discovered out of 182 html files under modules/ (11 service, 1
+  switch), which is the expected count for this branch.
+
+  3,512 checks, 0 failures:
+    - exactly one H1 per page, every one carrying the seoTown "Bootle"
+    - display phone 0151 944 1013 and tel:01519441013 on all 12, and no other
+      branch's number in either shape
+    - own street 516 Stanley Road and own postcode L20 5DW only
+    - JSON-LD parsed on all 12 and compared field by field to branches.json
+      (@context, @type, name, telephone, and all five address subfields), plus
+      the url matched to the page's own host and own filename
+    - no widget id hard-coded on any page, own or any other branch's
+    - no other branch's review link, Pharmacy First link, ODS code, NHS email
+      or website host, and own ODS FH575 only
+    - no other RBH brand named in visible copy
+    - no http:// URL on any page
+    - data-branch equals "SK Chemists" on every module root
+    - map embed query matched to the own street and postcode
+    - every relative internal link resolves to a file that exists and stays
+      inside this branch
+    - no em or en dash and no emoji in visible copy, literal or HTML entity,
+      with build comments blanked first, which is the line the repo's own
+      check-em-dashes.js draws
+    - CDN pins consistent within each page
+    - the three copies of each page's two Weebly SEO fields (build comment,
+      *-SEO.md, *INDEX.md) compared against each other, 23 sheet rows
+
+NEGATIVE TESTS - audits/sk-negative-tests-2026-08-13.ps1
+A checker that has never failed has not been shown to work. Six real faults
+were injected into real files, each reverted by git checkout in a finally
+block. All six now fire:
+    PASS  wrong phone digit on a service page
+    PASS  another branch's postcode on a service page
+    PASS  JSON-LD url pointing at another page
+    PASS  sheet SEO title diverging from the page comment
+    PASS  em dash injected into visible page copy
+    PASS  hard-coded widget id on a service page
+Worktree clean after the suite, both times it was run to completion.
+
+THE 30 CHECKERS AND THE GENERATORS
+All 30 tools/check-*.js pass. All six generators re-run and every output is
+byte-identical: git status shows no modification to any generated page, sheet
+or banner.
+
+GBP PACK
+gbp-packs/sk-chemists-bootle.md carries the branch's own phone, street,
+postcode, review link and website. Zero non-ASCII characters and zero dash
+entities, which is the stricter pair of rules a pack is held to. No other
+branch's phone, street, postcode or review link anywhere in the file.
+
+THREE FINDINGS THAT WERE FAULTS IN THIS RUN'S OWN WORK, WRITTEN UP RATHER THAN
+DROPPED. Two of them looked like estate defects and one hid a real hole.
+
+  1. TWELVE FALSE FLAGS, MINE. The first run of the extraction reported all 12
+     pages "carries rbh_head_office_aintree tel:". Head office has an empty
+     phone in branches.json, so "tel:" plus an empty string matched every page.
+     A branch with no number is now skipped. No page was ever at fault.
+
+  2. A REAL HOLE IN MY OWN SHEET PARSER, CAUGHT ONLY BY A NEGATIVE TEST. The
+     first parser read sheet fields in sequence and accepted a title only after
+     it had seen a slug. The six *-SEO.md sheets write Page Title BEFORE Page
+     Permalink, while the five INDEX.md sheets write the slug first. So every
+     *-SEO.md title in the estate was silently dropped and the title half of
+     the comparison was vacuous, while the run still reported "23 sheet rows
+     compared" and read as clean. Proved by injecting the Hirshmans Aintree UTI
+     title onto the SK UTI row: the first version did not notice. The parser now
+     reads each heading block whole, so field order inside a block cannot
+     matter, and two assertions were added so that a page whose title or
+     description is found in no sheet at all fails rather than passing quietly.
+     Check count rose from 3,452 to 3,512 once the dropped comparisons actually
+     ran. This is the same shape of fault the repo has now recorded seven times:
+     a checker that passes because of what it never read.
+
+  3. AN ENCODING FAULT IN THE TEST HARNESS, NOT IN THE CHECKER. The em dash test
+     first reported MISS. Windows PowerShell 5.1's Set-Content writes ANSI by
+     default, so the injected em dash landed as byte 0x97 and node, reading the
+     file as UTF-8, saw a replacement character rather than U+2014. The harness
+     now reads and writes no-BOM UTF-8 through .NET on both sides and the test
+     fires. Nothing in the estate was wrong.
+
+TWO THINGS NOTED, NEITHER A DEFECT
+  - A shared read handle from another process on this machine sits on
+    modules/switch/pages/switch-prescriptions-sk-chemists-bootle.html. It fails
+    an exclusive open and PowerShell's Set-Content, which aborted the negative
+    test suite the first two times. It does NOT block the build:
+    build-switch-pages.js rewrote that same file byte-identically at 08:42:37
+    while the handle was open. Environment quirk, not a repo defect.
+  - gbp-packs/sk-chemists-bootle.md names Smartts Chemist. Read in context this
+    is a deliberate paster note at lines 167 to 169 explaining that the two
+    Bootle descriptions are worded differently on purpose so Google does not see
+    duplicate text across the profiles. It is a note, not pasteable copy, which
+    is why check-gbp-packs.js is right to pass it.
+
+NO QUESTION RAISED. Nothing this pass touched needed a decision from Rishi:
+no copy was edited, no patient-facing claim was changed, no money or legal or
+regulatory matter arose. The two script fixes are to this run's own audit
+tooling and the estate itself was found clean on every check.
+
+RESULT: item 3.8 clean. Zero in-repo defects in the SK Chemists (Bootle) pages,
+sheets, pack or data fields.

@@ -681,6 +681,26 @@ audits/smartts-build-check-2026-08-13.txt.
       pfLink page keeps its known 5.3/Q34 faults with all seven conditions
       and cohorts still correct against the NHS specification. Evidence in
       audits/sk-build-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (third). REPO HALF ONLY: no browser this run, so
+      nothing live was read or claimed. All 12 pages re-verified by a third
+      independent extraction sharing no code with tools/, 3,512 checks, 0
+      failures: one H1 per page carrying Bootle, phone in both shapes with no
+      other branch's digits, own street and postcode only, JSON-LD field by
+      field including the url's own host and filename, no hard-coded widget id,
+      own ODS FH575 only, no other branch's review or Pharmacy First link, no
+      http:// on any page, no other brand in visible copy, relative links all
+      resolving and staying in-branch. 23 sheet rows compared across the three
+      copies of every page's two Weebly SEO fields. All 30 checkers pass and all
+      six generators rebuild byte-identical. GBP pack clean, zero non-ASCII and
+      zero dash entities. Six negative tests all fire. NO in-repo defect found
+      in the estate. Three findings were faults in this run's own work and are
+      written up rather than dropped, one of them real: the first sheet parser
+      dropped every *-SEO.md title, because those sheets write Page Title before
+      Page Permalink while the INDEX sheets write the slug first, so the title
+      half of the comparison was vacuous while still reporting 23 rows. Caught
+      only by a negative test, fixed by parsing each heading block whole, and
+      the check count rose from 3,452 to 3,512 once the dropped comparisons ran.
+      No question raised. Evidence in audits/sk-build-check-2026-08-13.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

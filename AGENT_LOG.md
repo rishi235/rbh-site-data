@@ -2,6 +2,132 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 08:47 BST - hundred-and-fiftieth run - Quality pass on item 3.8,
+SK Chemists (Bootle), last verified 2026-08-12 and the oldest verification
+standing. Third machine-era pass. REPO HALF ONLY: no browser was available, so
+nothing live was read and nothing live is claimed. All 12 pages verified clean,
+3,512 checks, 0 failures. NO defect found in the estate. Three findings were
+faults in this run's own work, one of them a real hole that had made part of
+this pass vacuous, and all three are written up rather than dropped. No question
+raised. Nothing edited in any page, sheet, pack or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in this log is at line 11914, dated
+2026-08-09 23:14 BST to 2026-08-10 23:14 BST, and it expired three days ago.
+Every other mention of the phrase is a past run recording its absence. This run
+needed no decision in any case: it edited no copy and no patient-facing claim,
+and the two fixes it did make are to its own audit tooling.
+
+ANSWER PICKUP NOT AVAILABLE, thirtieth consecutive run, 121 to 150. Cause
+unchanged and confirmed again this run rather than assumed: the connected
+browsers were enumerated and TWO extension instances are live, so the extension
+side is alive. The tooling requires a human to choose between the two before any
+browser call is made and states explicitly that the agent must not pick one
+itself. An unattended run has nobody to ask. Enumerating the extensions is the
+only thing that happened: NO page was fetched, and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted. 40
+questions open going in, 40 going out. Q59 already asks how to clear this block,
+so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 72b7f8f, worktree clean. Unchecked
+items taken first as the procedure requires. 6.6 is still the ONLY unchecked
+item that is not [BLOCKED] and still could not be advanced: re-read in full this
+run rather than taken on run 149's word, and its own corrected text says the
+redirect is not broken and what remains is a canonical tag plus a historic index
+artifact, both of which live in Weebly's head and admin, not in this repo, and
+both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 149. Each run heading
+was joined with the following six lines before the item number was read, because
+several headings wrap and carry the number on a continuation line. 187 run
+headings, and every one of the 41 completed items has a recorded pass. 3.8 was
+deepest in the log at line 4245, ahead of 3.9 (4178) and 3.10 (4108). THE NEXT
+RUN SHOULD TAKE 3.9, THEN 3.10, THEN 3.12.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 SK pages, 11 service and
+1 switch, re-read by a third independent extraction with its own file discovery,
+its own regexes and its own reading of branches.json, sharing no code with
+tools/. 12 pages found out of 182 html files under modules/, which is the
+expected count. 3,512 checks, 0 failures: exactly one H1 per page and every one
+carrying Bootle; display phone 0151 944 1013 and tel:01519441013 on all 12 with
+no other branch's number in either shape; own street 516 Stanley Road and own
+postcode L20 5DW only; JSON-LD parsed on all 12 and compared field by field to
+branches.json, including the url matched to the page's own host and own
+filename; no widget id hard-coded anywhere, own or foreign; own ODS FH575 only;
+no other branch's review link, Pharmacy First link, NHS email or website host;
+no http:// on any page; no other RBH brand in visible copy; data-branch correct
+on every module root; map embed query matched to the own address; every relative
+internal link resolving to a file that exists and staying inside the branch; no
+em or en dash and no emoji in visible copy, literal or entity, with build
+comments blanked first, which is the line check-em-dashes.js already draws.
+23 sheet rows compared across the three copies the estate keeps of every page's
+two Weebly SEO fields. All 30 checkers pass. All six generators re-run and every
+output byte-identical. GBP pack clean: own phone, street, postcode, review link
+and website present, zero non-ASCII characters, zero dash entities.
+
+THREE FINDINGS THAT WERE MINE, NOT THE ESTATE'S. Recording them because two of
+them looked like estate defects and the third had quietly made part of this pass
+prove nothing.
+
+  1. TWELVE FALSE FLAGS. The first run reported all 12 pages "carries
+  rbh_head_office_aintree tel:". Head office has an empty phone in branches.json,
+  so "tel:" plus an empty string matches every page. A branch with no number is
+  now skipped. No page was ever at fault.
+
+  2. A REAL HOLE IN MY OWN SHEET PARSER, CAUGHT ONLY BY A NEGATIVE TEST. The
+  first parser read sheet fields in sequence and accepted a title only after it
+  had seen a slug. The six *-SEO.md sheets write Page Title BEFORE Page
+  Permalink; the five INDEX.md sheets write the slug first. So every *-SEO.md
+  title was silently dropped and the title half of the comparison was vacuous,
+  while the run still reported "23 sheet rows compared" and read as clean.
+  Proved by injecting the Hirshmans Aintree UTI title onto the SK UTI row: the
+  first version did not notice. Fixed by parsing each heading block whole so
+  field order inside a block cannot matter, plus two assertions so a page whose
+  title or description is found in no sheet at all fails rather than passing
+  quietly. Check count rose from 3,452 to 3,512 once the dropped comparisons
+  actually ran. This is the same shape of fault this repo has now recorded seven
+  times, and it is worth naming plainly: it happened inside the very pass whose
+  job is to catch it, one run after run 149 fixed the neighbouring version of it
+  in check-seo-sheets.js. The lesson holds for the tooling and for the audit
+  tooling alike. A checker that has never failed has not been shown to work.
+
+  3. AN ENCODING FAULT IN THE TEST HARNESS. The em dash negative test first
+  reported MISS. Windows PowerShell 5.1's Set-Content writes ANSI by default, so
+  the injected em dash landed as byte 0x97 and node, reading the file as UTF-8,
+  saw a replacement character rather than U+2014. The harness now reads and
+  writes no-BOM UTF-8 through .NET on both sides and the test fires. Nothing in
+  the estate was wrong.
+
+NEGATIVE TESTS, ALL SIX FIRE. Wrong phone digit; another branch's postcode;
+JSON-LD url pointing at another page; sheet SEO title diverging from the page
+comment; em dash in visible copy; hard-coded widget id. Each injected into a
+real file and reverted by git checkout in a finally block, so a crash cannot
+leave the worktree dirty. Worktree confirmed clean afterwards.
+
+ONE ENVIRONMENT NOTE FOR RISHI, NOT A DEFECT AND NOT BLOCKING ANYTHING. Another
+process on the ProDesk holds a shared read handle on
+modules/switch/pages/switch-prescriptions-sk-chemists-bootle.html. It is enough
+to fail an exclusive open and PowerShell's Set-Content, which aborted the
+negative test suite twice before its last two tests ran. It does NOT block the
+build: build-switch-pages.js rewrote that same file byte-identically at 08:42:37
+while the handle was still open, because node asks for compatible sharing. Most
+likely an indexer, Defender or OneDrive; no repo change is needed and none was
+made. Flagged only so a future run that sees a write fail on that one file knows
+it is the machine and not the repo.
+
+LIVE HALF NOT RE-TESTED, AND THE PREVIOUS FINDINGS STILL STAND AS LAST OBSERVED
+rather than as verified today: SK's service page SEO titles still render as page
+name plus site title pending the queued 5.3/5.4 repaste, the switch banner
+mojibake close button persists, and the old pfLink page keeps its known 5.3/Q34
+faults. None of that was checked this run and none of it is claimed as current.
+
+Files changed: audits/sk-independent-2026-08-13.js (new),
+audits/sk-negative-tests-2026-08-13.ps1 (new),
+audits/sk-build-check-2026-08-13.txt (new), AGENT_WORKLIST.md (3.8 pass
+recorded in place), AGENT_LOG.md (this entry). No generated page, sheet, pack,
+generator, checker or data field was modified.
+
 ## 2026-08-13 08:04 BST - hundred-and-forty-ninth run [commit 9e87540, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes] - Quality pass on item
