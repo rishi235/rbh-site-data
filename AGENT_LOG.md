@@ -2,6 +2,122 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 16:34 BST - hundred-and-sixty-sixth run
+- Item 4.10 quality pass, the Smartts Chemist Bootle GBP pack. ONE REAL
+DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. It is the gap
+run 165 predicted and deferred, and it is estate-wide. No page, generator,
+data field, branches.json entry, paste sheet, GBP pack or piece of
+patient-facing copy was changed. All 31 checkers pass. No new question
+raised.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-12 live verdicts on this
+item stand as written. Answer pickup (step 3) was unavailable for the
+same reason, which is Q59 and remains the run-level blocker. That is now
+thirteen consecutive runs without an answer fetch, and 42 questions are
+open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. Nothing turned on it, because this run raised no
+question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no
+item to take. Ordering was re-derived from this log rather than assumed,
+by parsing every run header and the item each run named: item 4.10 was
+last verified at run 123, 2026-08-12 16:45 BST, the oldest standing
+verification once runs 163, 164 and 165 refreshed 4.6, 4.8 and 4.9.
+Second pass on this item.
+
+THE PACK ITSELF IS CLEAN, AND WELL GUARDED. Twelve injections against
+smartts-bootle.md, all twelve caught: the postcode, the review link, the
+house number changed in the profile basics alone and in the description
+alone, the location-clause town changed to Liverpool and to Sefton (the
+rule run 165 added fires on both, and names the seven branches Liverpool
+belongs to), a post button repointed at a sister brand's domain, the
+hours line closing at 19:00, the hours line opening on Saturday, the
+street name, and the Pharmacy First UTI range. The two house-number
+injections and both location-town injections are caught by the rules runs
+163, 164 and 165 added, so those rules are load-bearing on a second pack
+and not just on the one they were written against.
+
+TWO HARNESS FAULTS, BOTH CAUGHT, BOTH WORTH RECORDING. Run 165 warned
+that a run which committed blindly would publish the very defect it was
+testing for. Two more variants of that appeared here.
+First, Set-Content -Encoding utf8 on Windows PowerShell writes a BOM. The
+packs must be pure ASCII, so the first injection sweep tripped ASCII rules
+on every line and reported catches that were the harness, not the rule.
+Fixed by writing through UTF8Encoding($false).
+Second, and worse, the scratch scripts were being written INTO the repo
+working directory. check-postcodes.js scans every text file in the tree,
+so it read the injected postcode out of the harness script itself and
+reported the injection as CAUGHT. Four phone injections were recorded as
+caught on that basis and were in fact uncaught. The harness was moved out
+of the repo to C:\Dev\rbh-agent-tmp and every result re-run. The lesson
+generalises: a checker that walks the tree will read the agent's own
+working files, so scratch files must never live in the repo.
+
+THE REAL DEFECT: A WRONG PHONE NUMBER IN PUBLISHED COPY.
+Changing one digit of the phone number in a post body passed ALL 31
+CHECKERS CLEAN in clear-aintree.md (Post A and Post B), in
+coleman-leigh-walton.md and in riddings-timperley.md.
+
+Two rules guard the phone and a wrong number satisfies both. The sister
+rule only FAILS a number that happens to belong to another branch;
+anything else is a WARN. The presence rule only asks whether the correct
+number appears SOMEWHERE in the file, so in a pack that prints the phone
+more than once, the untouched copies satisfy it. Four packs print the
+phone in copy that reaches the profile, so four of the fifteen were
+exposed. Run 165 found this on clear-aintree and deferred it for the
+scope decision below rather than rush it.
+
+WHY IT MATTERS MORE THAN A MISSING NUMBER. A mistyped digit is the
+substitution a careless edit actually makes, and no reader detects it,
+because a plausible local number reads as correct. Pasted verbatim into a
+public Google Business Profile it publishes a dead line, or somebody
+else's, as the way to reach a pharmacy. A missing number is conspicuous;
+a wrong one is not.
+
+THE SCOPE DECISION, WHICH IS THE WHOLE REASON THIS WAS DEFERRED. A blunt
+"every phone-shaped string must match branches.json" rule would fail the
+clean tree, because two packs deliberately quote a number that is NOT the
+branch's own in order to document a live-site fault:
+clear-aintree.md quotes the number the branch's own website publishes
+(Q28), and hirshmans-ainsdale.md quotes a number that does not dial. Both
+sit in the preamble and the "Notes for the paster" block, which are
+instructions to the person pasting and never reach the profile. So the new
+rule is scoped to published copy only, the business description and the
+post bodies, the same scope the two town rules use. KNOWN_PUBLISHED_PHONE
+with the standard anti-rot sweep, currently empty.
+
+VERIFIED, NOT ASSUMED. After the fix all four previously uncaught
+injections fail, each naming the post it found the number in. Three
+controls confirm the scope is doing real work rather than the rule simply
+never firing: changing the deliberately-wrong number in clear-aintree's
+NOTES block still passes (instructions, not published); a wrong number
+added to a business description fails, with the published-phone rule the
+only rule that fires; and the CORRECT number added to the same
+description passes. Run 165's sister-number injection still fails through
+its own older rule, so the new rule is additive and masks nothing. The
+clean tree passes 31 of 31 with 0 findings across the 15 real packs, so
+the gap was in the checker and not in the packs.
+
+ONE THING CHARACTERISED, NOT A DEFECT. The description character-count
+rule carries a plus or minus 5 tolerance (line 867). The two description
+controls above changed the length by exactly 5, which is why that rule
+stayed silent and the published-phone rule was cleanly isolated. Recorded
+so a later run does not read that silence as a second gap.
+
+GAP CONFIRMED BUT NOT FIXED, CARRIED FORWARD. The unit number changed in
+one place only, unchanged from runs 163 and 165: the house-number rule
+engages only where streetAddress OPENS with a house number, thirteen of
+the sixteen, with the three "Unit" addresses left out by its own comment.
+Smartts is a numbered address so it is covered here, but the three Unit
+packs remain unguarded on that field. Still the best-value item for the
+next run now that the phone is closed.
+
 ## 2026-08-13 - hundred-and-sixty-fifth run
 - Item 4.9 quality pass, the Clear Chemist Aintree GBP pack. ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,

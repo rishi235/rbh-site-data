@@ -233,6 +233,11 @@ const KNOWN_FOREIGN_TOWN = {};
 const seenForeignTownKnown = {};
 const KNOWN_LOCATION_TOWN = {};
 const seenLocationTownKnown = {};
+// "<branch id>::publishedPhone". Use one only where a pack deliberately
+// publishes a number that is not the branch's own in copy that reaches the
+// profile, and say so with a question id. Same anti-rot convention.
+const KNOWN_PUBLISHED_PHONE = {};
+const seenPublishedPhoneKnown = {};
 
 const fails = [];
 const warns = [];
@@ -926,6 +931,61 @@ for (const file of packFiles) {
   }
   if (ownPhone && digits(text).indexOf(ownPhone) === -1) {
     fail(file, `branch phone ${b.phone} does not appear anywhere in the pack`);
+  }
+
+  // --- the phone in PUBLISHED copy ---------------------------------------
+  // The two rules directly above guard the phone in two ways, and a pack that
+  // publishes a wrong number satisfies both. The sister rule only fails when
+  // the wrong number happens to be another branch's; anything else is a WARN.
+  // The presence rule only asks whether the right number appears SOMEWHERE in
+  // the file, so in a pack that prints the phone more than once, changing one
+  // copy leaves the others to satisfy it. Confirmed by injection on the item
+  // 4.10 pass, 2026-08-13: one digit changed in a post body of
+  // clear-aintree.md, coleman-leigh-walton.md and riddings-timperley.md passed
+  // all 31 checkers. Run 165 predicted this gap on the 4.9 pass and deferred
+  // it for the scope decision below.
+  //
+  // A mistyped digit is the substitution a careless edit actually makes, and
+  // it is the one no reader detects, because a plausible local number reads as
+  // correct. Pasted into a Google Business Profile it is worse than a missing
+  // number: it publishes a dead line, or somebody else's, as the way to reach
+  // a pharmacy.
+  //
+  // Scope is the published copy only, the same scope the two town rules below
+  // use: the business description and the post bodies. The preamble and the
+  // "Notes for the paster" block are instructions and never reach the profile,
+  // and that is exactly where the estate's legitimate wrong numbers sit.
+  // clear-aintree.md quotes the number its own website publishes in order to
+  // document Q28, and hirshmans-ainsdale.md quotes a number that does not dial
+  // for the same reason. A rule reading the whole file would fail both for
+  // saying the true thing, which is why this is scoped rather than absolute.
+  const phoneScopes = [];
+  const descForPhone = descriptionOf(text);
+  if (descForPhone) phoneScopes.push(["business description", descForPhone]);
+  for (const p of postsOf(text)) phoneScopes.push([p.label, p.body]);
+  const publishedPhoneBreaches = [];
+  for (const [scope, body] of phoneScopes) {
+    for (const raw of String(body || "").match(/\b0\d[\d\s]{8,13}\b/g) || []) {
+      const d = digits(raw);
+      if (d.length < 10 || d === ownPhone) continue;
+      const other = branches.find((x) => isPackable(x) && digits(x.phone) === d);
+      const whose = other ? `, which is ${other.branchName}'s number,` : "";
+      publishedPhoneBreaches.push(
+        `the ${scope} publishes the phone number ${norm(raw)}${whose} but branches.json holds ${b.phone} for ${b.branchName}. This copy is pasted verbatim into the public Google profile, so it publishes a number that is not this pharmacy's. The presence rule above does not see it, because ${b.phone} still appears elsewhere in the pack, and the sister rule only fails a number that belongs to another branch`
+      );
+    }
+  }
+  if (publishedPhoneBreaches.length) {
+    const key = `${b.id}::publishedPhone`;
+    const known = KNOWN_PUBLISHED_PHONE[key];
+    if (known) {
+      seenPublishedPhoneKnown[key] = true;
+      warn(file, `KNOWN ${publishedPhoneBreaches[0]}. ${known.question}: ${known.reason}`);
+    } else {
+      for (const msg of publishedPhoneBreaches) fail(file, msg);
+    }
+  } else if (KNOWN_PUBLISHED_PHONE[`${b.id}::publishedPhone`]) {
+    seenPublishedPhoneKnown[`${b.id}::publishedPhone`] = false;
   }
 
   // --- pack links against the pages this repo actually generates ---------
@@ -2001,6 +2061,12 @@ for (const key of Object.keys(KNOWN_FOREIGN_TOWN)) {
 for (const key of Object.keys(KNOWN_LOCATION_TOWN)) {
   if (!seenLocationTownKnown[key]) {
     fails.push(`stale exception: KNOWN_LOCATION_TOWN["${key}"] no longer matches a pack stating the wrong town in its location clause. Remove it (${KNOWN_LOCATION_TOWN[key].question}).`);
+  }
+}
+
+for (const key of Object.keys(KNOWN_PUBLISHED_PHONE)) {
+  if (!seenPublishedPhoneKnown[key]) {
+    fails.push(`stale exception: KNOWN_PUBLISHED_PHONE["${key}"] no longer matches a pack publishing a phone number that is not the branch's own. Remove it (${KNOWN_PUBLISHED_PHONE[key].question}).`);
   }
 }
 
