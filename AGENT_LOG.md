@@ -2,8 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 07:05 BST - hundred-and-forty-seventh run [commit hash appended
-by the same follow-up commit that pushes this entry] - Quality pass on item
+## 2026-08-13 07:05 BST - hundred-and-forty-seventh run [commit 6b5543a, this
+hash line added by a small follow-up commit, which is why the log is one
+commit behind the work it describes] - Quality pass on item
 3.5, Hirshmans Chemist (Ainsdale), last verified 2026-08-12 and the oldest
 verification standing. Fourth pass on this item. REPO HALF ONLY: no browser
 was available, so nothing live was read and nothing live is claimed. All 12
