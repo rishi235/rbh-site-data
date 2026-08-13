@@ -751,6 +751,23 @@ audits/smartts-build-check-2026-08-13.txt.
       county in the live contact block and homepage body, the Q22
       estate-wide weight loss tagline). Zero in-repo defects. Evidence in
       audits/riddings-build-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (hundred-and-fifty-second run, third machine-era
+      pass). REPO HALF ONLY: no browser, so nothing live was read and the live
+      findings above are not reconfirmed. All 12 pages re-read by a fresh
+      independent extraction sharing no code with tools/. 3,312 checks over 27
+      families, 0 failures, and every family counted rather than assumed so
+      none ran vacuously. 25 negative tests all fire, each mutation confirmed
+      to have applied. All 30 checkers exit 0 and all six generators rebuild
+      byte-identical. GBP pack and switch banner file both clean and free of
+      foreign data; the banner's close button is the correct &times; entity in
+      repo, so the live mojibake is a stale paste, not a repo state. NO defect
+      found in the estate. Three findings: run 151's vacuity finding narrowed,
+      the foreign-ODS scan is vacuous only at Riddings and does real work on
+      the six shared-domain landing pages; a fault in this run's own POM
+      extractor, written up rather than dropped; and Riddings confirmed as the
+      worked precedent for open Q64 rather than a third convention. No
+      question raised. Evidence in
+      audits/riddings-build-check-2026-08-13.txt. Done 2026-08-13
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

@@ -1,0 +1,179 @@
+Riddings Pharmacy (Timperley) build check - 2026-08-13 - hundred-and-fifty-second run
+Item 3.10 quality pass, THIRD machine-era pass. Fresh extraction written for
+this run: own file discovery, own regexes, own reading of branches.json, no
+code shared with tools/check-*.js. branches.json and tools/pom-names.js read
+as data only. Script deleted before commit.
+
+SCOPE LIMIT, STATED FIRST. REPO HALF ONLY. No browser was available to this
+run, so nothing live was read and nothing live is claimed. The live findings
+recorded on the 2026-08-12 pass (pfLink serving correctly with all seven
+cohorts, homepage NAP, hours and email correct, the switch banner mojibake
+close button, the Q31-era Cheshire county in the live contact block, the Q22
+weight loss tagline) are NOT reconfirmed here. They stand on that pass, not
+this one.
+
+REPO HALF - 12 pages found, 12 expected (11 service including weight loss and
+travel, 1 switch), out of 182 html files under modules/:
+  modules/service/pages/*-riddings-timperley.html          (11)
+  modules/switch/pages/switch-prescriptions-riddings-timperley.html
+
+RESULT: 3,312 checks across 27 check families, 0 failures. ALL CLEAN.
+NO DEFECT FOUND IN THE ESTATE. Nothing was edited in any page, sheet, pack,
+banner or data field.
+
+EVERY FAMILY COUNTED, NOT ASSUMED. Each family reports the number of
+comparisons it actually performed, so a family cannot pass by running zero
+times. No family scored zero.
+
+  F1_one_h1                  12     F11_foreign_ods           168
+  F2_h1_seotown              12     F12_foreign_nhsmail       168
+  F3_display_phone           12     F13_foreign_widget        888
+  F4_tel_present             12     F14_no_http                12
+  F4_tel_value               24     F15_data_branch            12
+  F5_foreign_phone          168     F16_no_dash                12
+  F6_own_postcode            12     F17_no_mojibake            96
+  F7_foreign_postcode       180     F18_no_app_copy            48
+  F8_foreign_review         168     F19_pom                   984
+  F9_ld_present              12     F20_foreign_host          180
+  F9_ld_parse                12
+  F9_ld_type                 12     TOTAL                   3,312
+  F9_ld_name                 12
+  F9_ld_tel                  12
+  F9_ld_addr                 60
+  F10_ld_url_host            12
+  F10_ld_url_file            12
+
+WHAT WAS VERIFIED ON EVERY ONE OF THE 12 PAGES
+- Exactly one H1, and it carries Timperley (the seoTown, and the first entry
+  in the branch's own serviceAreaList).
+- Visible NAP: 38 Riddings Road, WA15 6BP, display phone 0161 973 2951.
+- Every tel: link is the branch's own number as unspaced digits, 01619732951.
+  24 tel: links across 12 pages, no page without one.
+- No other trading branch's phone digits anywhere, compared against all 15
+  other branches with spacing, hyphens and brackets stripped from the page
+  first so a differently formatted number cannot hide.
+- No other branch's postcode, Google review link, ODS code, NHS mailbox,
+  Appointedd widget id or website host.
+- JSON-LD parses on all 12 and matches branches.json field for field:
+  @type Pharmacy, name, telephone digits, streetAddress, the two-part
+  "Timperley, Altrincham" locality unique to this branch, WA15 6BP, Greater
+  Manchester as addressRegion, GB. The url is self-referencing and checked
+  twice: it must start with the branch's own website host AND end with the
+  page's own filename, so a copied block from a sister page cannot pass.
+- No http:// anywhere. data-branch is "Riddings Pharmacy" on every page.
+- No en dash or em dash in visible copy, no mojibake, no app copy (hasApp is
+  false for this branch, correctly).
+- POM union scan empty on all 12 including the weight loss and travel pages:
+  82 medicine names over five clinical groups, word-boundary matched.
+
+NEGATIVE TESTS: 25 of 25 FAMILIES CAUGHT THEIR BREAK. A green checker that
+cannot go red proves nothing, so every family was deliberately broken on a
+real page held in memory and had to fail. Each mutation was also confirmed to
+have actually applied, so a no-op edit cannot masquerade as a passing test.
+All 25 fired. Three fired a second family as well, correctly and for the
+right reason: adding a second H1 also trips the seoTown check on the added
+heading; changing the display phone also trips the JSON-LD telephone; putting
+a sister branch's number into the JSON-LD also trips the foreign phone scan.
+
+CHECKERS AND GENERATORS
+- All 30 tools/check-*.js run: every one exits 0. Their own known issues and
+  warnings are unchanged and already pinned to questions.
+- All six page generators re-run: build-branch-landing-pages,
+  build-contraception-pages, build-service-pages, build-switch-pages,
+  build-travel-clinic-pages, build-weight-loss-pages. git status is clean
+  afterwards, so all six rebuild byte-identical from current data. The 12
+  pages on disk are what the generators produce today, not a stale artefact.
+
+ADJACENT ARTEFACTS, both clean
+- gbp-packs/riddings-timperley.md: street, postcode, phone, town, region,
+  website and Google review link all match branches.json. Scanned against
+  every other branch's phone, postcode and ODS code: no foreign value.
+- modules/switch/pages/banners/switch-prescriptions-riddings-timperley.txt:
+  SWITCH_URL and BRAND both correct for this branch, and the close button is
+  the &times; HTML entity. THE REPO FILE IS CORRECT. The mojibake close button
+  recorded on live in earlier passes is therefore a stale paste in Weebly, not
+  a repo state. Not reconfirmed this run, no browser.
+
+FINDING A (real, and it NARROWS run 151's finding rather than repeating it)
+Run 151 recorded that the foreign NHS mailbox and foreign widget id scans are
+structurally vacuous estate-wide, because no generated page carries either
+value, so they pass for the wrong reason. That was measured again here from a
+different direction, and it holds, but the ODS half of it needs correcting.
+
+  Riddings, 12 pages:   own ODS code      0 of 12 pages
+                        own NHS mailbox   0 of 12
+                        own widget ids    0 of 12
+                        own review url   12 of 12
+                        own phone digits 12 of 12
+
+  Estate, 182 pages:    any NHS mailbox   0 of 182
+                        any widget id     0 of 182
+                        any ODS code      6 of 182
+                        any review url  177 of 182
+
+So: the NHS mailbox and widget id families are vacuous estate-wide, as run 151
+said. The ODS family is NOT. Six pages carry an ODS code, and they are exactly
+the six item 5.2 branch landing pages, each holding its own correct code:
+Fishlocks Ainsdale FK848, Fishlocks Eccleston FKJ81, McCanns Aigburth FA428,
+McCanns Sandringham FAP24, Scorah Bramhall FL495, Scorah Hazel Grove FKD04.
+Those are the six branches that share a domain with a sister branch, which is
+precisely where an ODS code earns its place. So the foreign-ODS scan has real
+work to do in the estate; it is vacuous only at Riddings, which is on its own
+domain and needs no such disambiguator. The widget id absence is explained by
+design and is visible in the pages themselves: every service page carries the
+comment "widget rendered by service.js from branches.json - do not hard-code a
+widgetId". Nothing here needs fixing. It is recorded so that no future run
+reads three green scans as three pieces of evidence when at this branch only
+the phone and review-link scans are actually exercised.
+
+FINDING B (a fault in THIS run's own work, written up rather than dropped)
+The first version of this run's POM extractor pulled quoted words out of
+pom-names.js with a general regex and did not strip the file's comments first.
+It therefore loaded the words the file's own prose quotes as EXAMPLES, and
+reported 12 false failures for the "medicine" usually. The irony is exact: the
+sentence it misread is the one explaining that word-boundary matching stops
+"alli" firing inside "usually". The extractor now strips block and line
+comments first, parses only the five named array literals, and stops the run
+outright if any group parses empty, so a silently empty POM list cannot ever
+present itself as a clean page. 82 names loaded: weight loss 21, Pharmacy
+First 8, contraception 2, travel vaccines 36, antimalarials 15.
+
+FINDING C (evidence for OPEN question Q64, no new question raised)
+Q64 asks how the estate should standardise its address strings, having found
+five GBP packs that write the Royal Mail post town while branches.json does
+not, and it notes in passing that "Riddings Timperley is a third convention
+again". This pass checked what that actually means, since Riddings was the
+branch in front of it.
+
+The Riddings pack and branches.json AGREE. The pack writes "38 Riddings Road,
+Timperley, Altrincham WA15 6BP" and branches.json holds addressLocality
+"Timperley, Altrincham", which the 12 generated pages and their JSON-LD carry
+verbatim. Riddings is not a divergence at all: it is the only branch already
+holding the post town INSIDE addressLocality, which is why its pack and its
+pages cannot disagree the way the other five do. Riddings is therefore the
+worked precedent for the direction Q64 is asking about, and it demonstrably
+passes check-jsonld, check-nap, check-map-embeds and check-gbp-packs while
+doing it. The one difference is a single comma: the pack writes "Altrincham
+WA15 6BP" and the pages write "Altrincham, WA15 6BP". That is punctuation, not
+data, and Google parses both. Recorded as evidence on Q64, which stays open
+because the decision is estate-wide and is Rishi's, not an agent's.
+
+Q63 does not reach this branch. Riddings trades alone on
+www.riddingspharmacy.co.uk, so the one site-wide Weebly header field holds the
+one banner that belongs there, and the shared-domain conflict Q63 describes
+cannot arise here.
+
+QUESTIONS: none raised. 41 open going in, 41 going out.
+ANSWER PICKUP: not available, thirty-second consecutive run. Two Chrome
+extension instances are connected and the tooling requires a human to choose
+between them before any browser call, and states the agent must not choose.
+An unattended run has nobody to ask. Enumerating the connected extensions is
+the only thing that happened: no page was fetched, and nothing was clicked,
+typed, submitted or logged in to on any site. No other route was attempted.
+Q59 already asks how to clear this, so no duplicate was raised.
+
+ROTATION: 3.10 was re-derived independently as the least recently verified
+completed item (deepest in AGENT_LOG.md at line 4277, ahead of 3.12 at 4143
+and 3.13 at 4050), which agrees with run 151's note rather than trusting it.
+All 41 completed items have a recorded pass. NEXT RUN SHOULD TAKE 3.12, THEN
+3.13, THEN 6.2 / 5.1.

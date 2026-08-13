@@ -2,6 +2,131 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 09:34 BST - hundred-and-fifty-second run
+- Quality pass on item 3.10, Riddings Pharmacy (Timperley), the least recently
+verified completed item. Third machine-era pass. REPO HALF ONLY: no browser was
+available, so nothing live was read and nothing live is claimed. All 12 pages
+verified clean, 3,312 checks over 27 families, 0 failures. NO defect found in
+the estate. Two real findings and one fault in this run's own work, all written
+up rather than dropped. No question raised. Nothing edited in any page, sheet,
+pack, banner or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and there is
+none current. The only real one ran 2026-08-09 23:14 to 2026-08-10 23:14 BST
+and expired three days ago. This run needed no decision in any case: it edited
+no copy and no patient-facing claim.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-second consecutive run, 121 to 152. Cause
+unchanged and confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states explicitly that the agent must not pick one itself. An
+unattended run has nobody to ask. Enumerating the extensions is the only thing
+that happened: NO page was fetched, and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. 41 questions open
+going in, 41 going out. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 393a575, tracked tree clean.
+Unchecked items taken first as the procedure requires. 6.6 is still the ONLY
+unchecked item that is not [BLOCKED] and still could not be advanced: its own
+corrected text says the redirect is not broken and what remains is a canonical
+tag plus a historic index artifact, both of which live in Weebly's head and
+admin, and both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 151. Each of the 189
+run headings was joined with the following six lines before the item number was
+read, because several headings wrap and carry the number on a continuation
+line, and the item match was anchored so 3.1 cannot swallow 3.10. All 41
+completed items have a recorded pass. 3.10 was deepest in the log at line 4277,
+ahead of 3.12 (4143) and 3.13 (4050). THE NEXT RUN SHOULD TAKE 3.12, THEN 3.13,
+THEN 6.2 / 5.1.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Riddings pages, 11
+service and 1 switch, re-read by a fresh extraction with its own file
+discovery, its own regexes and its own reading of branches.json, importing
+nothing from tools/. 12 pages found out of 182 html files under modules/, which
+is the expected count. 3,312 checks, 0 failures: exactly one H1 per page and
+every one carrying Timperley; display phone 0161 973 2951 and all 24 tel: links
+as unspaced digits with no other branch's number in either shape, spacing and
+punctuation stripped from the page before comparison; own postcode WA15 6BP
+present; JSON-LD parsed on all 12 and compared field by field to branches.json,
+including Greater Manchester and the two-part "Timperley, Altrincham" locality
+unique to this branch, with the url checked twice, against the branch's own
+host AND its own filename, so a block copied from a sister page cannot pass; no
+other branch's phone, postcode, review link, ODS code, NHS mailbox, widget id
+or website host; no http:// on any page; data-branch correct; no en or em dash
+and no mojibake in visible copy; no app copy, which is right because hasApp is
+false; POM union scan empty on all 12 including the weight loss and travel
+pages, 82 names over five clinical groups.
+
+EVERY FAMILY COUNTED SO NONE RAN VACUOUSLY, and 25 of 25 NEGATIVE TESTS FIRED.
+Each family reports the comparisons it actually performed; none scored zero.
+Each family was then deliberately broken on a real page held in memory and had
+to fail, with each mutation confirmed to have actually applied so a no-op edit
+cannot masquerade as a passing test. All 25 caught their break. Three fired a
+second family too, correctly: a second H1 also trips the seoTown check on the
+added heading, a changed display phone also trips the JSON-LD telephone, and a
+sister branch's number in the JSON-LD also trips the foreign phone scan.
+
+ALL 30 CHECKERS EXIT 0 AND ALL SIX GENERATORS REBUILD BYTE-IDENTICAL, so the
+12 pages on disk are what the generators produce from current data today, not a
+stale artefact. Adjacent artefacts also clean: the GBP pack matches
+branches.json on street, postcode, phone, town, region, website and review link
+and carries no other branch's phone, postcode or ODS code; and the switch
+banner file has the right SWITCH_URL and BRAND and the correct &times; entity
+on its close button, which means the mojibake close button recorded on live in
+earlier passes is a STALE PASTE in Weebly, not a repo state.
+
+FINDING A, REAL, AND IT NARROWS RUN 151 RATHER THAN REPEATING IT. Run 151
+recorded the foreign NHS mailbox and foreign widget id scans as structurally
+vacuous estate-wide. Measured again here from a different direction, that holds
+for those two: 0 of 182 generated pages carry any branch's NHS mailbox and 0 of
+182 carry any widget id, the latter by explicit design, stated in a comment on
+the pages themselves that the widget is rendered by service.js from
+branches.json and must not be hard-coded. But the ODS half needs correcting.
+The foreign-ODS scan is NOT vacuous estate-wide: 6 of 182 pages carry an ODS
+code, and they are exactly the six item 5.2 branch landing pages, each holding
+its own correct code, Fishlocks Ainsdale FK848, Fishlocks Eccleston FKJ81,
+McCanns Aigburth FA428, McCanns Sandringham FAP24, Scorah Bramhall FL495 and
+Scorah Hazel Grove FKD04. Those are the six branches sharing a domain with a
+sister, which is precisely where an ODS code earns its place. So that scan does
+real work in the estate and is vacuous only at Riddings, which trades alone on
+its own domain and needs no disambiguator. Nothing needs fixing. It is recorded
+so no future run reads three green scans as three pieces of evidence when at
+this branch only the phone and review-link scans are actually exercised, 12 of
+12 each.
+
+FINDING B, A FAULT IN THIS RUN'S OWN WORK. The first version of this run's POM
+extractor used a general quoted-string regex on tools/pom-names.js without
+stripping the file's comments, so it loaded the words that file's own prose
+quotes as EXAMPLES and reported 12 false failures for the "medicine" usually.
+The irony is exact: the sentence it misread is the one explaining that
+word-boundary matching stops "alli" firing inside "usually". Fixed to strip
+block and line comments first, parse only the five named array literals, and
+stop the run outright if any group parses empty, so a silently empty POM list
+can never present itself as a clean page.
+
+FINDING C, EVIDENCE FOR OPEN Q64, NO NEW QUESTION. Q64 notes in passing that
+"Riddings Timperley is a third convention again". Checked, because Riddings was
+the branch in front of this run, and it is not a divergence at all. The pack
+writes "38 Riddings Road, Timperley, Altrincham WA15 6BP" and branches.json
+holds addressLocality "Timperley, Altrincham", which the 12 pages and their
+JSON-LD carry verbatim. Riddings is the only branch already holding the post
+town INSIDE addressLocality, which is exactly why its pack and its pages cannot
+disagree the way the other five do. It is therefore the worked precedent for
+the direction Q64 asks about, and it passes check-jsonld, check-nap,
+check-map-embeds and check-gbp-packs while doing it. The one difference is a
+single comma before the postcode, punctuation not data. Recorded on Q64, which
+stays open because the decision is estate-wide and is Rishi's. Q63 does not
+reach this branch: Riddings trades alone on its domain, so the shared-domain
+banner conflict cannot arise here.
+
+Files changed: AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/riddings-build-check-2026-08-13.txt. Commit hash recorded below.
+
 ## 2026-08-13 09:05 BST - hundred-and-fifty-first run [commit ba77405, this hash line added by a small follow-up commit]
 - Quality pass on item 3.9, Coleman and Leighs Pharmacy (Walton), the least
 recently verified completed item. Third machine-era pass. REPO HALF ONLY: no
