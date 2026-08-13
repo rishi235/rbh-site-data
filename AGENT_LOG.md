@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 00:04 BST - hundred-and-seventy-seventh run [commit PENDING]
+## 2026-08-14 00:04 BST - hundred-and-seventy-seventh run [commit 7b3661c]
 - Item 1.1 quality pass, brand-name spelling, sixth pass. ONE REAL DEFECT
 FOUND AND FIXED, in tools/check-brand-spelling.js. No page, no generator, no
 data field, no branches.json entry, no pack and no piece of patient-facing
