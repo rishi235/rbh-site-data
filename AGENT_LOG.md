@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 20:04 BST - hundred-and-sixty-ninth run
+## 2026-08-13 20:04 BST - hundred-and-sixty-ninth run [commit aff88e5]
 - Item 4.14 quality pass, the Gordon Short Chemist Crosby GBP pack, fourth
 pass. ONE REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js.
 No page, generator, data field, branches.json entry, pack copy or piece of
