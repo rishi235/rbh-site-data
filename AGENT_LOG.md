@@ -7,7 +7,7 @@ Format: date, time, item worked, what changed, commit hash, any questions.
 REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-opening-hours.js. No page,
 generator, data field or piece of patient-facing copy was changed, all 31
 checkers pass and every page regenerates byte-identical from all six
-generators. No new question raised.
+generators. No new question raised. Commit 426277a.
 
 REPO HALF ONLY: two Chrome instances are connected and an unattended run cannot
 choose between them, so no browser call was made, nothing live was read and
