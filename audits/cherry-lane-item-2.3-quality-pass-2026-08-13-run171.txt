@@ -1,0 +1,143 @@
+ITEM 2.3 - CHERRY LANE BUILD-FROM-NEAR-ZERO - FOURTH QUALITY PASS
+Run 171, 2026-08-13, unattended. Repo half and live half both run.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so there was no item to take and the standing rule sends
+the run to a quality pass on the least recently verified completed item.
+Ordering was re-derived by parsing every run header in AGENT_LOG.md and the
+item each run named. 2.3 came out oldest by a distance: last refreshed in the
+eighty-ninth run, 81 runs ago, against 4.15 at 42 and 2.2 at 41.
+
+ANSWER PICKUP (step 3) - AVAILABLE AGAIN
+The portal feedback endpoint was read successfully for the first time in
+eighteen runs. One Chrome instance was connected, so there was no ambiguity to
+stop the fetch. The endpoint returned 11 entries, newest Q16 on 2026-08-10.
+Every one is already recorded as answered in QUESTIONS.json (Q2, Q3, Q4, Q5,
+Q13, Q14, Q15, Q16), so there was nothing new to apply and no worklist item
+became unblocked. 44 questions remain open with no answer posted since
+2026-08-10. Q59, the pickup blocker itself, is left open rather than closed on
+one good run.
+
+REPO HALF - CLEAN AND BYTE-STABLE FOR THE FOURTH PASS
+- Six generators rebuilt to a zero diff across all 177 pages.
+- All 31 checkers exit 0, before the change and after it.
+- The branch owns exactly the 12 pages the repo generates for Cherry Lane:
+  11 service-family pages plus the switch page, no branch landing page, which
+  is correct for this branch.
+- Field by field against branches.json on all 12 pages: 202 Cherry Lane,
+  Liverpool, L4 8SG, Merseyside, 0151 226 2051, ODS FA226, seoTown Walton in
+  every title and H1, hasApp false with no app claim anywhere, no POM name
+  from tools/pom-names.js, no foreign branch phone, postcode or ODS code.
+- Character hygiene: the only non-ASCII characters in the set are the em dash
+  in each page's build comment, which is the documented report-only exemption
+  in check-em-dashes.js, and the pound sign on the weight loss page, which is
+  the RULE 7 fee string explained on the third pass. No smart quotes.
+- Widget ids are correctly absent from the pages. service.js renders them from
+  branches.json at run time and each page carries the comment saying so.
+
+THE DEFECT: RULE 7 COULD NOT SEE THE TOP OF A COHORT RANGE
+File: tools/check-pharmacy-first-eligibility.js
+
+The pattern that finds an age in page copy was:
+
+    /(?:aged|age)\s+(\d{1,2})|\bunder\s+(\d{1,2})\b|\bover\s+(\d{1,2})\b/gi
+
+It captures the number immediately after "aged" and nothing else, and the
+rule 7 loop then read a single number per match. A cohort on these pages is
+almost always written as a RANGE - "Women aged 16 to 64", "Age 1 to 17" - so
+the SECOND number was never captured and never checked, on all 98 condition
+pages, for as long as the rule has existed.
+
+The top of the range is the end that matters. It is the boundary that decides
+whether a woman of 65 is invited to book a UTI consultation the pathway
+excludes her from, and whether a parent reads that the earache pathway covers
+a child it stops at.
+
+Rules 5 and 6 did not cover the gap, because both ask whether the correct
+string appears ANYWHERE in the page. A page can carry the right cohort in the
+eligibility list and the wrong one in the hero pill and satisfy both.
+
+PROVED BY INJECTION, TWICE, BEFORE THE FIX
+  uti-treatment-cherry-lane-walton.html, hero pill only:
+    "Women aged 16 to 64" -> "Women aged 16 to 74"
+    result: all 31 checkers green. MISSED.
+  earache-treatment-cherry-lane-walton.html, hero pill only:
+    " to 17" -> " to 27"
+    result: all 31 checkers green. MISSED.
+
+THE FIX
+The range tail is now part of the pattern and optional, and both loops that
+use it read every number the match captured instead of the first:
+
+    /(?:aged|age)\s+(\d{1,2})(?:\s*(?:to|-|and)\s*(\d{1,2}))?|
+      \bunder\s+(\d{1,2})\b|\bover\s+(\d{1,2})\b/gi
+
+Optional matters: "aged 18 and over" on the shingles page still matches with
+one number and does not become a failure. The same widening is applied to the
+pack loop for rule 9 so the two halves of the checker read ages the same way.
+
+AFTER THE FIX
+  A  uti pill only, 64 -> 74      CAUGHT by check-pharmacy-first-eligibility
+  B  earache pill only, 17 -> 27  CAUGHT by check-pharmacy-first-eligibility
+  C  untouched tree               all 31 green, no false positive
+  D  pack, 16 to 64 -> 16 to 65   CAUGHT, rule 9, both numbers now reported
+
+Nothing else changed. No page, no generator, no branches.json field, no pack,
+no patient-facing copy. Six generators still rebuild to a zero diff after the
+change and all 31 checkers are green.
+
+THREE FURTHER VERIFIER GAPS FOUND, NOT FIXED THIS RUN
+Found by the same injection battery, left for the next passes so this run
+stays one item done properly. All three walked past all 31 checkers:
+  - the town word in an H1 moved off the seoTown ("UTI treatment in Walton"
+    to "in Liverpool"). check-seo-pattern.js does not read it back.
+  - a guarantee added to the travel clinic page ("Guaranteed protection on
+    every trip").
+  - the Pharmacy First page describing the free NHS service as "low-cost".
+The third is the same class as the defect fixed above: a wrong statement about
+an NHS service on a live patient-facing page.
+
+LIVE HALF - READ ONLY, ONE CHROME INSTANCE, NOTHING CLICKED
+Sitemap: 28 URLs, all 12 generated pages present and the old weight loss URL
+still live beside the new one, which is Q5 applied as answered. lastmod is
+2026-08-07 across every entry, consistent with the second pass finding that
+lastmod is not a safe republish indicator on this site.
+
+Pharmacy First overview: repasted and correct. All seven conditions render
+with their NHS age ranges, UTI reads "Women aged 16 to 64", earache "Age 1 to
+17", and the qualifying sentence "Each has its own age range set by the NHS"
+is present.
+
+Old weight loss page: still the short signpost. No medicine named, no claim,
+no pricing, no Buy Now button. Q5 continues to hold.
+
+Three live faults, none in copy this repo owns:
+  1. REGRESSION. The Weebly-native footer publishes the branch NHS mailbox as
+     pharmacy.FA226@mhs.net, one letter wrong, on every page read this run
+     (switch, Pharmacy First, old weight loss). The second pass on 2026-08-11
+     recorded this typo as gone and the footer as publishing no NHS mailbox at
+     all. It is back, and an email to it bounces. This is Q36, already open.
+  2. The switch page still renders the pre-Q7 em dash as mojibake, visible
+     garbage in the body copy: "it usually is not OCircumflex CCedilla
+     oDiaeresis we make the first step quick and easy". Cleared by the queued
+     repaste, not by this repo.
+  3. The switch page SEO title field is still "Switch Your Prescriptions -
+     Cherry Lane Pharmacy Walton" against the paste sheet's "Switch Your
+     Prescriptions to Cherry Lane Pharmacy, Walton". Q3, unchanged.
+Also seen: the switch banner close control renders as mojibake on the Pharmacy
+First and old weight loss pages, so that banner block is a mis-encoded paste in
+its own right, separate from the switch page body.
+
+NO NEW QUESTION
+The defect was a verifier reading its own copy wrongly, not a decision about
+what the copy should say. No NHS wording was changed and no page was touched,
+so there was nothing to put to Rishi.
+
+NOTE ON METHOD
+The first injection battery this run reported check-postcodes.js failing on
+every injection. That was contamination, not a finding: the harness itself had
+been written into audits/ and quoted real postcodes, which rule 1 of that
+checker correctly objects to. The harness was moved outside the repo and every
+result above was re-taken clean. Recorded because a future run reading only
+the first result set would chase a checker that is working correctly.

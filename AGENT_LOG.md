@@ -2,6 +2,101 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 21:45 BST - hundred-and-seventy-first run
+- Item 2.3 quality pass, the Cherry Lane build-from-near-zero, fourth pass.
+ONE REAL DEFECT FOUND AND FIXED IN REPO, in
+tools/check-pharmacy-first-eligibility.js. No page, generator, data field,
+branches.json entry, pack copy or piece of patient-facing copy was changed.
+Six generators rebuild to a zero diff and all 31 checkers exit 0 before and
+after. No question raised.
+
+ANSWER PICKUP WORKED, FOR THE FIRST TIME IN EIGHTEEN RUNS. One Chrome
+instance was connected, so there was no ambiguity to stop the fetch and the
+portal feedback endpoint was read successfully. It returned 11 entries,
+newest Q16 on 2026-08-10, and every one is already recorded as answered in
+QUESTIONS.json. So nothing new to apply, no item unblocked, and 44 questions
+still open with no answer posted since 2026-08-10. Q59 is left OPEN rather
+than closed: one good fetch is not evidence the blocker is gone, and the
+condition that caused it (more than one Chrome extension connected) is not
+under this run's control.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. None is present, so step 7
+applied as written. The fix below was not a decision to take: it repairs a
+checker that was reading its own pinned NHS criteria wrongly, and it changes
+no wording a patient reads.
+
+NO LOCK CONTENTION. No .agent-lock and no git index.lock were present, so
+the lock was taken cleanly. audits/live-hours-check-2026-08-13.json again
+shows as modified while git diff returns nothing, line endings only, so it
+was left unstaged as in the last two runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6). Ordering was re-derived by parsing every run header
+in this log and the item each run named: 2.3 came out oldest by a distance,
+last refreshed in the eighty-ninth run, 81 runs ago, against 4.15 at 42 and
+2.2 at 41. Worth saying why it had drifted so far back: 2.3 is the only
+completed item that had NOT been reached in the sweep of the last forty runs,
+because the ordering used on those runs was taken from the previous run's
+prediction rather than re-derived, and a single miss compounds.
+
+THE DEFECT: THE CHECKER COULD NOT SEE THE TOP OF A COHORT RANGE. The pattern
+that finds an age in page copy captured only the number immediately after
+"aged", and the rule 7 loop read one number per match. A Pharmacy First
+cohort on these pages is almost always a RANGE, "Women aged 16 to 64" or
+"Age 1 to 17", so the SECOND number was never captured and never checked, on
+all 98 condition pages, for as long as rule 7 has existed. The top of the
+range is the end that decides whether a woman of 65 is invited to book a UTI
+consultation the pathway excludes her from. Rules 5 and 6 did not cover it,
+because both ask whether the correct string appears ANYWHERE in the page: a
+page can carry the right cohort in the eligibility list and the wrong one in
+the hero pill and satisfy both, which is exactly the shape that got through.
+
+PROVED BY INJECTION BEFORE THE FIX, TWICE. Changing the hero pill ONLY on
+uti-treatment-cherry-lane-walton.html from "Women aged 16 to 64" to "Women
+aged 16 to 74", and on earache-treatment-cherry-lane-walton.html from 17 to
+27, both walked past all 31 checkers clean. After the fix both are caught by
+check-pharmacy-first-eligibility.js and the untouched tree is still green, so
+no false positive was bought with the catch. The range tail is optional, so
+"aged 18 and over" on the shingles page still matches with one number. The
+same widening is applied to the pack loop so both halves of the checker read
+ages the same way, and a pack injection of "16 to 64" to "16 to 65" now
+reports both numbers rather than one.
+
+THREE FURTHER VERIFIER GAPS FOUND AND LEFT FOR THE NEXT PASSES, so this run
+stays one item done properly. All three walked past all 31 checkers: an H1
+town word moved off the seoTown ("UTI treatment in Walton" to "in
+Liverpool"), a guarantee added to the travel clinic page, and the Pharmacy
+First page describing the free NHS service as "low-cost". The third is the
+same class as the defect fixed above and should be taken first.
+
+LIVE HALF RUN THIS TIME, READ ONLY, NOTHING CLICKED. All 12 pages are still
+in the 28-URL sitemap. The Pharmacy First overview is repasted and correct,
+all seven conditions with their NHS age ranges and the qualifying sentence
+present. The old weight loss page is still the compliant signpost Q5 asked
+for, naming no medicine and making no claim. Three live faults stand, none in
+copy this repo owns. FIRST AND NEW: the Q36 footer typo is BACK. The
+Weebly-native footer publishes the branch NHS mailbox as
+pharmacy.FA226@mhs.net on every page read this run, against the 2026-08-11
+note that recorded it gone and the footer carrying no NHS mailbox at all. An
+email to it bounces. Q36 is already open, so this is added evidence rather
+than a new question, but it is now a regression rather than a stale finding.
+Second, the switch page still renders the pre-Q7 em dash as mojibake in body
+copy a patient reads. Third, the switch SEO title field is still the
+pre-Phase-3 string (Q3). Separately, the switch banner close control renders
+as mojibake on the other two pages, so that banner block is a mis-encoded
+paste in its own right.
+
+METHOD NOTE, so a future run does not chase it. The first injection battery
+reported check-postcodes.js failing on every injection. That was
+contamination and not a finding: the harness had been written into audits/
+and quoted real postcodes, which rule 1 of that checker correctly objects to.
+The harness was moved outside the repo and every result above was re-taken
+clean.
+
+Files changed: tools/check-pharmacy-first-eligibility.js, AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/cherry-lane-item-2.3-quality-pass-2026-08-13-run171.txt.
+
 ## 2026-08-13 21:07 BST - hundred-and-seventieth run [commit 6457b34]
 - Item 4.11 quality pass, the SK Chemists Bootle GBP pack, fourth pass. ONE
 REAL DEFECT FOUND AND FIXED IN REPO, in

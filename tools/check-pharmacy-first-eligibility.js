@@ -200,7 +200,16 @@ var UNIT_AFTER = /^\s*(?:second|minute|hour|day|week|month|year|character|word|p
 // A page for condition X may legitimately mention other numbers (3 days for
 // shingles, 999, 111). Only numbers written as an AGE are checked, and only
 // against that condition's allowed set.
-var AGE_IN_TEXT = /(?:aged|age)\s+(\d{1,2})|\bunder\s+(\d{1,2})\b|\bover\s+(\d{1,2})\b/gi;
+// A cohort is usually written as a RANGE, and until the item 2.3 quality pass
+// on 2026-08-13 this pattern read only the number straight after "aged", so
+// the SECOND end of every range was invisible to rule 7. That is the end that
+// drifts: the top of the UTI cohort, the top of the earache cohort. Proved by
+// injection on uti-treatment-cherry-lane-walton.html, where "Women aged 16 to
+// 64" changed to "Women aged 16 to 74" walked past all 31 checkers. Rules 5
+// and 6 did not save it either, because they match the correct string ANYWHERE
+// on the page and the eligibility list further down still carried it. The
+// range tail is optional, so "aged 18 and over" still matches with one number.
+var AGE_IN_TEXT = /(?:aged|age)\s+(\d{1,2})(?:\s*(?:to|-|and)\s*(\d{1,2}))?|\bunder\s+(\d{1,2})\b|\bover\s+(\d{1,2})\b/gi;
 
 // Wording that sends the reader somewhere other than this service. A boundary
 // age is only tolerated inside one of these (see rule 7).
@@ -376,12 +385,17 @@ pages.forEach(function (p) {
     var mm;
     AGE_IN_TEXT.lastIndex = 0;
     while ((mm = AGE_IN_TEXT.exec(seg)) !== null) {
-      var n = Number(mm[1] || mm[2] || mm[3]);
-      if (allowed[n]) continue;
-      // Allow it only if it is a boundary of the cohort AND the block it
-      // sits in redirects the reader elsewhere.
-      if (boundary[n] && REDIRECTS.test(seg)) continue;
-      stray[n] = seg;
+      // Every number the pattern captured, not just the first: a range hands
+      // back two, and the second one is the end that drifts.
+      [mm[1], mm[2], mm[3], mm[4]].forEach(function (raw) {
+        if (raw === undefined) return;
+        var n = Number(raw);
+        if (allowed[n]) return;
+        // Allow it only if it is a boundary of the cohort AND the block it
+        // sits in redirects the reader elsewhere.
+        if (boundary[n] && REDIRECTS.test(seg)) return;
+        stray[n] = seg;
+      });
     }
   });
   Object.keys(stray).forEach(function (n) {
@@ -427,7 +441,9 @@ packs.forEach(function (file) {
     AGE_IN_TEXT.lastIndex = 0;
     while ((mm = AGE_IN_TEXT.exec(seg)) !== null) {
       if (UNIT_AFTER.test(seg.slice(mm.index + mm[0].length))) continue;
-      seen[Number(mm[1] || mm[2] || mm[3])] = true;
+      [mm[1], mm[2], mm[3], mm[4]].forEach(function (raw) {
+        if (raw !== undefined) seen[Number(raw)] = true;
+      });
     }
     if (!Object.keys(seen).length) return;
 

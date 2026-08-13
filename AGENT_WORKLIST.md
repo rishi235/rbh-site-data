@@ -273,6 +273,29 @@ audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt.
       where the misbooking is silent. No page, copy or data change, no new
       question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-08-12-run130.txt.
+      Fourth quality pass 2026-08-13 (hundred-and-seventy-first run). Repo
+      half clean for the fourth pass running: six generators to a zero diff,
+      all 31 checkers green, the 12 pages verified field by field against
+      branches.json, no non-ASCII outside the documented build-comment
+      exemption and the RULE 7 fee sign. ONE REAL DEFECT FOUND AND FIXED, in
+      tools/check-pharmacy-first-eligibility.js: its age pattern read only the
+      first number after "aged", so the SECOND end of every cohort RANGE was
+      invisible to rule 7 on all 98 condition pages. "Women aged 16 to 64"
+      changed to "Women aged 16 to 74" in the hero pill of
+      uti-treatment-cherry-lane-walton.html walked past all 31 checkers,
+      because rules 5 and 6 match the correct string anywhere on the page and
+      the eligibility list below still carried it. Now caught, on the UTI and
+      the earache pages, with the untouched tree still green. Live half read
+      this run, read only: all 12 pages still in the 28-URL sitemap, the
+      Pharmacy First overview renders all seven conditions with the correct
+      NHS age ranges, and the old weight loss page is still the compliant
+      signpost Q5 asked for, naming no medicine and making no claim. Three
+      live faults stand, none in copy this repo owns: the Q36 footer typo
+      pharmacy.FA226@mhs.net is BACK on every page read, against the
+      2026-08-11 note that recorded it gone; the switch page still renders the
+      pre-Q7 em dash as mojibake; and the switch SEO title field is still the
+      pre-Phase-3 string. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-08-13-run171.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
