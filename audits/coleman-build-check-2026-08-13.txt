@@ -1,0 +1,150 @@
+Item 3.9 quality pass - Coleman and Leighs Pharmacy (Walton)
+Run 151, 2026-08-13. Third machine-era pass.
+Previous passes: 2026-08-04 (build), 2026-08-10, 2026-08-12 (run 109).
+
+REPO HALF ONLY. No browser was available this run, so nothing live was read
+and nothing live is claimed. The live-half findings recorded on the 2026-08-12
+pass (pfLink 404, stale-paste ampersand banner and footer, mojibake close
+button, Q22 weight loss tagline) are NOT reconfirmed here and still stand as
+last recorded.
+
+BRANCH RECORD
+  id            colemanleigh_liverpool
+  brandLabel    Coleman and Leighs Pharmacy
+  street        241 Walton Village
+  locality      Liverpool        seoTown  Walton
+  postcode      L4 6TH           region   Merseyside
+  phone         0151 525 3522
+  ODS           FWK18            hasApp   false
+
+METHOD
+Verification was written fresh for this run (.coleman-pass.py, deleted after
+the run): its own directory walk, its own regexes, its own reading of
+branches.json. It imports nothing from tools/, so a fault in a repo checker
+cannot hide a fault in a page, and a fault in this script cannot be masked by
+a repo checker agreeing with it.
+
+PAGE HALF
+  182 html files under modules/, 12 discovered for this branch
+  11 service pages + 1 switch page, which is the expected shape
+  2,297 checks, 0 failures
+
+  Verified per page: exactly one H1 and it carries Walton; display phone
+  0151 525 3522 and both tel: links as unspaced digits; no other branch's
+  phone, postcode, review link, ODS code, NHS mailbox, widget id or website
+  host; own postcode present; no insecure http:// url; JSON-LD parsed and
+  compared field by field to branches.json including Merseyside, the
+  Liverpool locality against the Walton seoTown, and a self-referencing url
+  matched to the page's own host AND its own filename; data-branch correct;
+  no en or em dash in visible copy; no mojibake; no app copy (hasApp false);
+  POM union scan empty on all 12; relative links stay in-branch.
+
+NON-VACUITY, MEASURED NOT ASSUMED
+Run 150 found part of its own pass had been silently vacuous, so every check
+family here was counted rather than trusted. All 20 families ran on all 12
+pages:
+
+  dash 12, data-branch 12, h1-count 12, h1-town 12, http 12,
+  jsonld-country 12, jsonld-locality 12, jsonld-name 12, jsonld-parse 12,
+  jsonld-phone 12, jsonld-postcode 12, jsonld-present 12, jsonld-region 12,
+  jsonld-street 12, jsonld-url-file 12, jsonld-url-host 12, mojibake 12,
+  phone-display 12, phone-tel 24, pom 108
+
+  No family scored zero.
+
+NEGATIVE TESTS - 20 deliberate corruptions, each applied in memory only
+Every one must produce at least one flag or the corresponding check is not
+really running:
+
+  h1 FIRES(12)          town FIRES(12)         phone FIRES(36)
+  tel FIRES(36)         postcode FIRES(35)     region FIRES(12)
+  street FIRES(12)      http FIRES(24)         pom FIRES(12)
+  emdash FIRES(12)      jsonldname FIRES(24)   jsonldurl FIRES(12)
+  databranch FIRES(12)  jsonldbreak FIRES(12)  host FIRES(24)
+  injectods FIRES(12)   injectnhsmail FIRES(24) injectwidget FIRES(12)
+
+  Three mutations did not fire on first attempt. All three were faults in
+  this run's own test design, not holes in the checks, and all three are
+  written up below rather than quietly corrected.
+
+REPO CHECKERS AND GENERATORS
+  All 30 tools/check-*.js pass, exit 0.
+  All six generators re-run and the tracked tree is byte-identical
+  afterwards, so nothing on these pages is hand-edited drift.
+
+PASTE SHEETS
+  12 generated pages, 12 sheet permalinks, one-to-one with no orphan either
+  way. 276 checks. Blocks parsed WHOLE rather than by field order, which is
+  the fault run 150 found in its own parser (*-SEO.md writes Page Title
+  before Page Permalink, INDEX.md writes the slug first).
+  Titles and descriptions unique within the branch, no medicine named in any
+  title, description or meta keywords field.
+
+  Longest titles, against the 65 limit (Q24 headroom):
+    65  NHS contraception service in Walton - Coleman and Leighs Pharmacy
+    64  Switch Your Prescriptions to Coleman and Leighs Pharmacy, Walton
+    61  Sore throat treatment in Walton - Coleman and Leighs Pharmacy
+
+  The contraception title sits exactly ON the 65 limit with zero headroom,
+  and "Coleman and Leighs Pharmacy" is one of only three brands the Q24
+  shortening rule can shorten, so this branch does have a remedy if a title
+  ever grows. Recorded for Q24 rather than actioned.
+
+NO DEFECT FOUND IN THE ESTATE.
+
+FINDING 1 (real, and it limits what this pass and the repo's own checkers can
+claim). Two of the cross-contamination scans are structurally vacuous, not
+just here but across the whole estate. Measured over all 177 generated pages:
+
+  phone            177 / 177 pages carry one   scan is REAL
+  googleReviewUrl  177 / 177                   scan is REAL
+  odsCode            6 / 177                   scan is REAL but narrow
+  nhsEmail           0 / 177                   VACUOUS
+  widgetId           0 / 177                   VACUOUS
+
+  No generated page anywhere in the estate contains an NHS mailbox or a
+  booking widget id, so "no foreign NHS mailbox found" and "no foreign widget
+  id found" are true for the wrong reason and prove nothing. Both are
+  explained by existing design rather than by a fault: Q36 already records
+  that no generated page prints an NHS mailbox, and Q17 records that pages
+  ship an empty widget box which modules/service/service.js fills at run time
+  from branches.json. The six pages that do carry an ODS code are exactly the
+  six branch landing pages, which embed it in the NHS review URL.
+
+  Nothing needs fixing. This is recorded so that a future pass does not count
+  either scan as evidence that a page is clean, and so the next reader knows
+  the widget id a visitor actually gets is resolved live from @main and is
+  not verifiable from this branch at all (Q45 covers that second hop).
+
+FINDING 2 (fault in this run's own work). The first negative test for a
+foreign ODS code replaced FWK18 with another branch's code and did not fire.
+The mutation was a no-op: FWK18 appears nowhere in the 12 pages. Re-tested by
+INJECTING a foreign ODS code instead of substituting one, which fires on all
+12. The same fault hid inside the widget test twice over: the first mutation
+substituted a widget id that is not on any page, and the replacement injected
+a FABRICATED id, which correctly did not fire because the scan compares
+against real branches.json values only. It fires once a genuine foreign id
+(Cherry Lane's pharmacyFirst diary) is injected. Testing a scan by corrupting
+a token the page does not contain proves nothing, and it looked exactly like
+a passing test.
+
+FINDING 3 (fault in this run's own work). The sheet script initially flagged
+the insect bite description at 164 characters as over-length. It is not. The
+house limit is DESC_MAX = 165 in tools/check-seo-lengths.js, set deliberately
+with a written rationale, and 160 was this script's own invention. The page is
+correct and the script was wrong. Corrected before the pass was recorded.
+
+FINDING 4 (checked, correctly out of scope, no action). Nine paste sheets
+carry a literal U+2014 EM DASH in their "## Brand - Town - Service" headings,
+while check-em-dashes.js passes. That is not a hole. The checker's rule is
+scoped in its own header to PASTEABLE VALUES, the Page Title, Page
+Description, Meta Keywords, SEO title and SEO description lines that get typed
+into Weebly. A sheet heading is a structural label that is never pasted
+anywhere, so it is correctly outside the rule. Recorded because a future pass
+reading the raw sheets will see the same dashes and should not re-raise it.
+
+NO QUESTION RAISED. Nothing here needs a decision from Rishi: the one real
+finding is a statement about what two scans can prove, and the other three are
+this run's own errors.
+
+Evidence: this file. Scratch scripts were deleted after the run.

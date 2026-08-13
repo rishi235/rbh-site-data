@@ -716,6 +716,23 @@ audits/smartts-build-check-2026-08-13.txt.
       banner and footer, mojibake close button and the Q22 weight loss
       tagline all persist, previously recorded, confirmation only.
       Evidence in audits/coleman-build-check-2026-08-12.txt.
+      Quality pass 2026-08-13 (hundred-and-fifty-first run, third machine-era
+      pass). REPO HALF ONLY: no browser, so nothing live was read and the
+      live findings above are not reconfirmed. All 12 pages re-read by a
+      fresh independent extraction sharing no code with tools/. 2,297 checks,
+      0 failures, and every one of the 20 check families counted rather than
+      assumed so none ran vacuously. 20 negative tests all fire. All 30
+      checkers pass and all six generators rebuild byte-identical. 12 sheet
+      permalinks one-to-one with the 12 pages, 276 checks, blocks parsed
+      whole so field order cannot hide a comparison. NO defect found in the
+      estate. One real finding, estate-wide: the foreign NHS mailbox and
+      foreign widget id scans are structurally vacuous because no generated
+      page anywhere carries either value (0 of 177), so they pass for the
+      wrong reason; both are explained by existing design (Q36, Q17) and need
+      no fix, but neither is evidence a page is clean. Three further findings
+      were faults in this run's own work, all written up rather than dropped.
+      No question raised. Evidence in
+      audits/coleman-build-check-2026-08-13.txt. Done 2026-08-13
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

@@ -2,6 +2,122 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 09:05 BST - hundred-and-fifty-first run [commit HASH_PLACEHOLDER]
+- Quality pass on item 3.9, Coleman and Leighs Pharmacy (Walton), the least
+recently verified completed item. Third machine-era pass. REPO HALF ONLY: no
+browser was available, so nothing live was read and nothing live is claimed.
+All 12 pages verified clean, 2,297 checks, 0 failures. NO defect found in the
+estate. One real finding about what two scans can prove, and three findings
+that were faults in this run's own work, all written up rather than dropped.
+No question raised. Nothing edited in any page, sheet, pack or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the log was searched for
+"Standing authorisation - autonomous window" and the only real one is dated
+2026-08-09 23:14 to 2026-08-10 23:14 BST, expired three days ago. Every other
+mention is a past run recording its absence. This run needed no decision in any
+case: it edited no copy and no patient-facing claim.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-first consecutive run, 121 to 151. Cause
+unchanged and confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states explicitly that the agent must not pick one itself. An
+unattended run has nobody to ask. Enumerating the extensions is the only thing
+that happened: NO page was fetched, and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. 35 questions open
+going in, 35 going out. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 571b8cf, tracked tree clean.
+Unchecked items taken first as the procedure requires. 6.6 is still the ONLY
+unchecked item that is not [BLOCKED] and still could not be advanced: its own
+corrected text says the redirect is not broken and what remains is a canonical
+tag plus a historic index artifact, both of which live in Weebly's head and
+admin, and both routes need the browser. So the run went to a quality pass.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 150. Each of the 188
+run headings was joined with the following six lines before the item number was
+read, because several headings wrap and carry the number on a continuation
+line. All 41 completed items have a recorded pass. 3.9 was deepest in the log
+at line 4235, ahead of 3.10 (4162) and 3.12 (4028). THE NEXT RUN SHOULD TAKE
+3.10, THEN 3.12, THEN 3.13.
+
+THE 12 PAGES ARE CLEAN, VERIFIED INDEPENDENTLY. All 12 Coleman pages, 11
+service and 1 switch, re-read by a fresh extraction with its own file
+discovery, its own regexes and its own reading of branches.json, importing
+nothing from tools/. 12 pages found out of 182 html files under modules/, which
+is the expected count. 2,297 checks, 0 failures: exactly one H1 per page and
+every one carrying Walton; display phone 0151 525 3522 and both tel: links as
+unspaced digits on all 12 with no other branch's number in either shape; own
+postcode L4 6TH present; JSON-LD parsed on all 12 and compared field by field
+to branches.json, including Merseyside, the Liverpool addressLocality against
+the Walton seoTown, and the url matched to the page's own host AND its own
+filename; no other branch's phone, postcode, review link, ODS code, NHS
+mailbox, widget id or website host; no http:// on any page; data-branch
+correct; no en or em dash and no mojibake in visible copy; no app copy, which
+is right because hasApp is false; POM union scan empty on all 12.
+
+NON-VACUITY MEASURED, NOT ASSUMED. Run 150 found part of its own pass had gone
+silently vacuous, so every check family was counted this time. All 20 families
+ran on all 12 pages and none scored zero. 20 negative tests were then run, each
+a deliberate corruption applied in memory only, and every one produces at least
+one flag.
+
+ALL 30 CHECKERS PASS and all six generators rebuild the tracked tree
+byte-identical, so nothing on these pages is hand-edited drift.
+
+PASTE SHEETS: 12 permalinks against 12 pages, one to one with no orphan either
+way, 276 checks. Blocks were parsed WHOLE rather than by field order, which is
+the exact fault run 150 found in its own parser. Titles and descriptions unique
+within the branch, no medicine named in any title, description or keywords
+field. The contraception title sits exactly ON the 65 limit at 65 characters
+with zero headroom; this brand is one of the three the Q24 shortening rule can
+act on, so a remedy exists here. Recorded for Q24, not actioned.
+
+FINDING 1, REAL, AND IT LIMITS WHAT THIS PASS CAN CLAIM. Two cross-
+contamination scans are structurally vacuous, estate-wide. Measured over all
+177 generated pages: phone appears on 177 of 177 and review link on 177 of 177,
+so those scans are real; odsCode appears on only 6 of 177, and those six are
+exactly the six branch landing pages, which embed it in the NHS review URL; but
+nhsEmail appears on 0 of 177 and a booking widget id on 0 of 177. So "no
+foreign NHS mailbox found" and "no foreign widget id found" are true for the
+wrong reason and prove nothing at all. Neither is a fault: Q36 already records
+that no generated page prints an NHS mailbox, and Q17 records that pages ship
+an empty widget box which service.js fills at run time from branches.json.
+Nothing needs fixing, and this is recorded only so a future pass does not count
+either scan as evidence, and so the next reader knows the widget id a visitor
+actually receives is resolved live from @main and is not verifiable from this
+branch at all (Q45 covers that hop).
+
+FINDING 2, A FAULT IN THIS RUN'S OWN WORK. The first negative test for a
+foreign ODS code substituted FWK18 for another branch's code and did not fire.
+The mutation was a no-op, because FWK18 appears nowhere in the 12 pages. The
+same fault hid in the widget test twice: the first mutation substituted an id
+no page carries, and its replacement injected a FABRICATED id, which correctly
+did not fire because the scan only compares against real branches.json values.
+Both fire once a genuine foreign value is INJECTED rather than substituted.
+Corrupting a token the page does not contain proves nothing, and it looked
+exactly like a passing test. This is what surfaced Finding 1.
+
+FINDING 3, A FAULT IN THIS RUN'S OWN WORK. The sheet script first flagged the
+insect bite description at 164 characters as over-length. It is not: the house
+limit is DESC_MAX = 165 in tools/check-seo-lengths.js, set deliberately with a
+written rationale, and 160 was this script's own invention. The page was right
+and the script was wrong.
+
+FINDING 4, CHECKED AND CORRECTLY OUT OF SCOPE. Nine paste sheets carry a
+literal U+2014 em dash in their "## Brand - Town - Service" headings while
+check-em-dashes.js passes. That is not a hole: the checker scopes its rule, in
+its own header, to pasteable values only, meaning the Page Title, Page
+Description, Meta Keywords, SEO title and SEO description lines that get typed
+into Weebly. A sheet heading is a structural label that is never pasted.
+Recorded so a future pass reading the raw sheets does not re-raise it.
+
+Files changed: AGENT_WORKLIST.md (3.9 ticked in place with the pass recorded),
+AGENT_LOG.md (this entry), audits/coleman-build-check-2026-08-13.txt (new).
+No page, sheet, pack, generator or data field was touched.
+
 ## 2026-08-13 08:47 BST - hundred-and-fiftieth run [commit ecab660, this hash
 line added by a small follow-up commit] - Quality pass on item 3.8,
 SK Chemists (Bootle), last verified 2026-08-12 and the oldest verification
