@@ -34,6 +34,14 @@
       public as a page and is in no .html file in this repo
     - a live code folder that yields no .js or .css at all, so the module-code
       rule cannot quietly stop covering anything
+    - an em dash or en dash, literal or entity, in a string value in the
+      RUN-TIME DATA the live code fetches, meaning branches.json, which
+      core/site-data.js pulls from jsDelivr and modules/emar/emar.js renders
+      into the page. branchName and serviceAreaList reach no generated .html
+      at all, so a dash in either is invisible to every page rule above
+    - a run-time data file that is missing, does not parse, or is referenced
+      by live code without being covered here, so the data rule cannot
+      quietly stop covering anything
     - ANY non-ASCII character at all in a switch banner paste file under
       modules/switch/pages/banners/, which is a stricter rule than the rest of
       this checker applies and is explained below
@@ -145,6 +153,8 @@
     - dashes inside block comments and whole-line // comments in the module
       code, which no visitor sees either
     - dashes in paste sheet headings, which are labels for whoever is pasting
+    - dashes in a run-time data maintenance note, currently the top-level
+      schemaNote in branches.json, which no generator and no module code reads
 
   Run:  node tools/check-em-dashes.js
 */
@@ -274,8 +284,43 @@ const PACK_DIR = path.join(REPO, "gbp-packs");
 const CODE_DIRS = [path.join(REPO, "modules"), path.join(REPO, "core")];
 const CODE_EXT = /\.(?:js|css)$/i;
 
+// The run-time DATA the live module code renders. This is the sixth time this
+// repo has hit the same shape, and it is one turn past the fifth. The fifth
+// asked whether the copy is in a file at all, and widened this checker to read
+// the live .js that writes sentences with innerHTML. It stopped there, at the
+// CODE. The words that code puts on the page do not all live in the code:
+// core/site-data.js fetches branches.json from jsDelivr at run time, and
+// modules/emar/emar.js renders branchName, streetAddress, addressLocality,
+// postalCode and serviceAreaList straight into #rbhem-branch-strip and the
+// hero. A .json file matched no rule here, so branches.json was read by no
+// dash rule at all.
+//
+// It is not caught downstream either, which is what makes it reachable rather
+// than merely untidy. Proved by marker injection on the item 5.1 quality pass,
+// 2026-08-13: of the branch fields, only twelve reach a generated page, and
+// branchName and serviceAreaList are NOT among them. A dash in either would
+// appear in no .html file in this repo, so the generated-page rule above could
+// never see it, while the live eMAR page would render it. An em dash injected
+// into serviceAreaList passed all 30 checkers and changed no generated page.
+//
+// Everything was clean when this was added, so this closes a latent hole
+// rather than a live breach. The one dash in the file is the top-level
+// schemaNote, which is a maintenance note read by no generator and no module
+// code, so it is REPORTED like a build comment rather than failed. There is no
+// per-branch schemaNote, so that exclusion is one path and not a category.
+//
+// The list is named rather than discovered, because "every .json" is the wrong
+// scope: audits/*.json hold snippets scraped off the live sites and would fail
+// on dashes that are correctly there, and QUESTIONS.json is internal. So the
+// guard below does the job discovery does elsewhere in this file - it reads the
+// live code for .json references and fails if one is not covered here, which is
+// the "estate outgrew the names" fault caught at source instead of next year.
+const DATA_FILES = [path.join(REPO, "branches.json")];
+const DATA_NOTE_PATHS = new Set(["schemaNote"]);
+const JSON_REF_RE = /([A-Za-z0-9_\-./]+\.json)/g;
+
 const failures = [];
-const notes = { commentDashes: 0, headingDashes: 0, filesScanned: 0 };
+const notes = { commentDashes: 0, headingDashes: 0, dataNoteDashes: 0, filesScanned: 0 };
 
 function rel(p){ return path.relative(REPO, p).replace(/\\/g, "/"); }
 
@@ -418,6 +463,65 @@ function checkCodeFile(file){
   });
 }
 
+// A data file is walked as parsed JSON rather than line by line, so a failure
+// can name the FIELD a dash sits in. A field path is what the person fixing it
+// needs: "branches[7].serviceAreaList[0]" says which branch and which value,
+// where a line number in a 1,200-line data file says almost nothing. The line
+// number is recovered afterwards by finding the offending value in the raw text.
+function walkJsonStrings(node, where, out){
+  if (node && typeof node === "object") {
+    if (Array.isArray(node)) {
+      node.forEach(function(v, i){ walkJsonStrings(v, where + "[" + i + "]", out); });
+    } else {
+      Object.keys(node).forEach(function(k){
+        walkJsonStrings(node[k], where ? where + "." + k : k, out);
+      });
+    }
+  } else if (typeof node === "string") {
+    out.push({ where: where, value: node });
+  }
+  return out;
+}
+
+function checkDataFile(file){
+  const raw = fs.readFileSync(file, "utf8");
+  notes.filesScanned++;
+  const lines = raw.split(/\r?\n/);
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    failures.push({
+      file: rel(file),
+      line: 0,
+      kind: "unparseable run-time data",
+      text: "this file is fetched at run time and does not parse as JSON: " + err.message
+    });
+    return;
+  }
+  walkJsonStrings(parsed, "", []).forEach(function(entry){
+    if (!hasDash(entry.value)) return;
+    // A note nothing renders is reported, not failed, like a build comment.
+    if (DATA_NOTE_PATHS.has(entry.where)) {
+      notes.dataNoteDashes += countDashes(entry.value);
+      return;
+    }
+    let lineNo = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (hasDash(lines[i]) && lines[i].indexOf(entry.value.slice(0, 60)) !== -1) {
+        lineNo = i + 1;
+        break;
+      }
+    }
+    failures.push({
+      file: rel(file),
+      line: lineNo,
+      kind: dashKind(entry.value) + " in run-time data at " + entry.where,
+      text: entry.value.slice(0, 140)
+    });
+  });
+}
+
 function walkCode(dir, out){
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function(entry){
     const full = path.join(dir, entry.name);
@@ -451,6 +555,62 @@ if (codeCount === 0) {
     text: "no .js or .css found in the live module folders, so the module-code rule covers nothing."
   });
 }
+
+// The run-time data files, plus the guard that keeps DATA_FILES from going
+// stale the way every named list in this checker's history has.
+let dataCount = 0;
+DATA_FILES.forEach(function(file){
+  if (!fs.existsSync(file)) {
+    failures.push({
+      file: rel(file),
+      line: 0,
+      kind: "missing file",
+      text: "listed in DATA_FILES but not present. Remove the entry or restore the file."
+    });
+    return;
+  }
+  checkDataFile(file);
+  dataCount++;
+});
+if (dataCount === 0) {
+  failures.push({
+    file: "branches.json",
+    line: 0,
+    kind: "no run-time data",
+    text: "no run-time data file was read, so the data rule covers nothing."
+  });
+}
+
+// Read the live module code for .json references and fail on any that
+// DATA_FILES does not cover. This is the discovery half: if a future module
+// starts fetching a second data file, the copy inside it is public the day it
+// ships, and this fails then rather than the day somebody remembers the list.
+// Only the basename is compared, because the code cites CDN URLs, not paths.
+const dataNames = new Set(DATA_FILES.map(function(f){ return path.basename(f); }));
+const seenRefs = new Set();
+CODE_DIRS.forEach(function(dir){
+  if (!fs.existsSync(dir)) return;
+  walkCode(dir, []).forEach(function(file){
+    if (!/\.js$/i.test(file)) return;
+    const src = fs.readFileSync(file, "utf8");
+    let m;
+    JSON_REF_RE.lastIndex = 0;
+    while ((m = JSON_REF_RE.exec(src)) !== null) {
+      const base = path.basename(m[1]);
+      // res.json() and r.json() are method calls, not files.
+      if (!/^[\w.-]+\.json$/.test(base) || /^(?:res|r|response)\.json$/.test(m[1])) continue;
+      if (!dataNames.has(base) && !seenRefs.has(base)) {
+        seenRefs.add(base);
+        failures.push({
+          file: rel(file),
+          line: src.slice(0, m.index).split("\n").length,
+          kind: "uncovered run-time data (" + base + ")",
+          text: "live code references this .json but DATA_FILES does not cover it, so no dash rule reads it. Add it to DATA_FILES."
+        });
+      }
+    }
+  });
+});
 
 let bannerCount = 0;
 if (!fs.existsSync(BANNER_DIR)) {
@@ -549,9 +709,11 @@ console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
   + " live module code file(s), " + bannerCount
   + " switch banner(s) held to ASCII only, " + packCount
   + " GBP pack(s) held to ASCII only plus no dash entities, " + sheetCount
-  + " paste sheet(s) discovered (" + notes.filesScanned + " files scanned)");
+  + " paste sheet(s) discovered, " + dataCount
+  + " run-time data file(s) (" + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside build or code comments - not public, not a failure");
 console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
+console.log("  " + notes.dataNoteDashes + " dash(es) in run-time data maintenance notes - rendered by nothing, not a failure");
 
 if (failures.length) {
   console.log("");

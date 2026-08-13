@@ -2,6 +2,143 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 11:04 BST - hundred-and-fifty-fifth run [commit HASH_PENDING]
+- Quality pass on item 5.1, joint least recently verified. ONE REAL DEFECT
+FOUND AND FIXED IN REPO: check-em-dashes.js read every file format that
+carries public copy but did not read the run-time DATA the live code renders,
+so branches.json was covered by no dash rule at all. Fixed by widening the
+checker. No page, generator, data field or piece of patient-facing copy was
+changed. REPO HALF ONLY: no browser was available, so nothing live was read
+and nothing live is claimed.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and there is
+none. The only real one ran 2026-08-09 23:14 to 2026-08-10 23:14 BST and
+expired three days ago. It did not bite this run either way: the finding was a
+checker widening, not a decision, so there was nothing to decide autonomously
+and nothing to leave open.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-third consecutive run, 121 to 155. Cause
+unchanged and confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states explicitly that the agent must not pick one itself. An
+unattended run has nobody to ask. Enumerating the extensions is the only thing
+that happened: NO page was fetched, and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. 42 questions open
+going in, 42 going out, none raised and none closed. Q59 already asks how to
+clear this block, so no duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process running.
+Fetched, on agents/audit-backlog, level with origin at 64fca83, tracked tree
+clean. Unchecked items taken first as the procedure requires. 6.6 is still the
+ONLY unchecked item that is not [BLOCKED] and still could not be advanced, for
+the reason its own corrected text gives: the redirect is not broken, what
+remains is a canonical tag in Weebly's head and a decaying historic index
+artifact, and both routes need the browser. So the run went to a quality pass.
+All 30 checkers green before any change.
+
+ROTATION RE-DERIVED INDEPENDENTLY, AND THE FIRST ATTEMPT WAS WRONG. Worth
+recording because the wrong answer looked reasonable. Measuring "least recently
+verified" by the most recent line on which an item number appears ANYWHERE in
+this log put 6.3 at the top. That is the wrong measure: it counts an item being
+mentioned in passing by another run's write-up as if it had been verified. The
+right measure is when an item was last the SUBJECT of a run, so each of the 195
+headings was joined with the following six lines before the number was read,
+because several headings wrap and carry the number on a continuation line, and
+the match was anchored so 3.1 cannot swallow 3.10 or 3.13. On that measure 5.1
+and 6.2 are jointly stalest at 38 runs back, then 5.2, then 5.6, which agrees
+with runs 153 and 154. All 41 completed items have a recorded pass; none has
+never been verified. 5.1 and 6.2 genuinely tie, having been the joint subject
+of one run, and 5.1 was taken on the tiebreak that its own rule has escaped
+through a new surface five times, so it earns the scrutiny. THE NEXT RUN SHOULD
+TAKE 6.2, THEN 5.2, THEN 5.6.
+
+THE SIXTH INSTANCE OF THE SAME FAULT, AND IT IS ONE TURN PAST THE FIFTH. The
+five already recorded at the top of check-em-dashes.js all resolve to: when a
+checker passes, ask WHICH FILES it read. The fifth, found on the 5.1 pass on
+2026-08-11, added a turn: ask whether the copy is in a file at all, and widened
+the checker to read the live module CODE, because service.js writes sentences
+into the page with innerHTML at run time. It stopped at the code. The words
+that code puts on the page do not all live in the code. core/site-data.js
+fetches branches.json from jsDelivr at run time, and modules/emar/emar.js
+renders branchName, streetAddress, addressLocality, postalCode and
+serviceAreaList straight into the eMAR branch strip and hero. A .json file
+matched no rule in the checker, so the single source of truth for the whole
+estate was read by no dash rule.
+
+PROVED REACHABLE BY INJECTION RATHER THAN ARGUED, AND THE FIRST TWO ATTEMPTS
+DISPROVED IT. This matters, because the obvious objection is that a dash in
+branches.json would flow into a generated page and be caught there. Injecting
+into branchName was caught, but by seven identity and spelling checkers, not by
+the dash rule, which passed. Injecting into keywords was caught by nothing and
+reached no page, because keywords are used only for branch matching in emar.js
+and are never rendered. Injecting into serviceAreaList passed ALL 30 checkers
+and changed no generated page. So the question was settled by marking every
+string field of one branch with a unique token, regenerating once, and reading
+which tokens came out: exactly twelve branch fields reach a generated page, and
+branchName and serviceAreaList are NOT among them. A dash in either appears in
+no .html anywhere in this repo, so the generated-page rule could never catch it
+downstream, while emar.js renders it on the live page. branches.json was
+restored byte-for-byte after the probe and verified so.
+
+THE FIX, AND WHY IT NEEDED NO SIGN-OFF. It is a checker widening. No page, no
+generator, no data field and no patient-facing wording was touched, so it sits
+outside the money, legal and regulatory carve-out entirely. check-em-dashes.js
+now also reads the run-time data: it walks parsed JSON rather than lines so a
+failure names the field, reporting "branches[12].serviceAreaList[0]" rather
+than only a line number in a 1,200-line file, and recovers the line number
+afterwards for the person fixing it. The top-level schemaNote is REPORTED and
+not failed, on the same principle as a build comment: it is a maintenance note
+read by no generator and no module code, confirmed by searching every generator
+and module for the field. There is no per-branch schemaNote, so that exclusion
+is one path and not a category. The one dash in branches.json today is in that
+note, so the file was clean throughout and this closes a latent hole rather
+than a live breach.
+
+AND THE LIST CANNOT GO STALE, WHICH IS THE POINT OF THE HISTORY. A named list
+is what failed in four of the five previous instances, so DATA_FILES is not
+just a list. Scanning every .json in the repo would be the wrong scope, because
+audits/*.json hold snippets scraped off the live sites and would fail on dashes
+that are correctly there, and QUESTIONS.json is internal. So the checker reads
+the live module code for .json references and FAILS on any that DATA_FILES does
+not cover, with res.json() and r.json() method calls excluded by pattern. If a
+future module starts fetching a second data file, the copy inside it is public
+the day it ships and the checker fails that day rather than the day somebody
+remembers the list. A listed file that is missing, or that does not parse, also
+fails.
+
+VERIFIED BOTH WAYS, NOT JUST THE GREEN ONE. Clean repo: exit 0, and the
+schemaNote dash correctly counted as a note rather than a failure. Em dash in
+serviceAreaList: exit 1, correct field path, correct line 939. En dash in
+branchName: exit 1. HTML entity &mdash; in branchName: exit 1, and reported as
+an entity rather than a literal, which is the distinction the 3.9 pass was
+raised on. A second dash added to schemaNote: still exit 0, note count moved 1
+to 2 and nothing else. A fake services.json reference added to emar.js: exit 1,
+naming the file and the line. Every injection was reverted and the tree
+confirmed clean after each.
+
+CHECKED AND DELIBERATELY NOT CALLED A DEFECT. Two .html files in the repo are
+read by no page rule, status/index.html and tools/branches-editor.html. Both
+are correctly out of scope: the first is the internal progress page published
+behind Cloudflare Access, the second is an internal editing tool, and neither
+is patient-facing. Also confirmed complete rather than assumed: PAGE_DIRS names
+three pages folders and discovery finds exactly three, 177 generated pages;
+EXTRA_HTML names six files and the weebly-paste folder holds exactly the two it
+lists; the banners folder holds 15 files for 15 switch branches. Those lists
+are complete TODAY, which is not the same as safe, and the same staleness
+argument that produced the DATA_FILES guard applies to them, but widening them
+was not this run's item and inventing that scope would have been the wrong
+call.
+
+FILES CHANGED. tools/check-em-dashes.js (the widening, plus its own header
+documentation of the sixth instance), AGENT_WORKLIST.md (quality pass note
+appended in place under item 5.1, which stays ticked), AGENT_LOG.md (this
+entry), status/index.html (regenerated). All 30 checkers green after the
+change, and all seven generators rebuild every page byte-identical, so the only
+generated file that moves is status/index.html, and it moves because this log
+entry grew it, not because a page changed.
+
 ## 2026-08-13 10:42 BST - hundred-and-fifty-fourth run [commit 7e7e2b4, this
 hash line added by a small follow-up commit, which is why the log is one commit
 behind the work it describes]

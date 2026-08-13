@@ -2055,6 +2055,30 @@ so tools/build-audit-status.js picks them up like any other item.
       blanked. OUTSTANDING on the live side: 156 generated pages load
       service.js from the service-module-phase1 pin, so the three sentences
       stay live until item 5.5 fast-forwards that branch.
+      Quality pass 2026-08-13: repo half verified clean and byte-stable
+      again, all 30 checkers green and all seven generators rebuilding every
+      page byte-identical. The pass then found the SIXTH instance of this
+      repo's recurring fault, one turn past the fifth. The 2026-08-11 pass
+      widened check-em-dashes.js to read the live module CODE, because copy
+      the browser assembles at run time is in no .html file. It stopped at
+      the code. The DATA that code renders was still read by no dash rule:
+      core/site-data.js fetches branches.json from jsDelivr at run time and
+      modules/emar/emar.js renders branchName, streetAddress,
+      addressLocality, postalCode and serviceAreaList into the eMAR page.
+      Proved reachable by marker injection rather than argued: of the branch
+      fields only twelve reach a generated page, and branchName and
+      serviceAreaList are not among them, so a dash in either shows up in no
+      .html in this repo and the page rule can never catch it downstream. An
+      em dash injected into serviceAreaList passed all 30 checkers and
+      changed no generated page. FIXED IN REPO, no sign-off needed, since it
+      is a checker widening and not patient-facing copy: check-em-dashes.js
+      now reads the run-time data, reports a field path such as
+      branches[12].serviceAreaList[0] rather than only a line number, treats
+      the top-level schemaNote as a maintenance note that nothing renders,
+      and fails if live code references a .json that is not covered, so the
+      list cannot go stale the way every named list in this file's history
+      has. branches.json was clean throughout, so this closed a latent hole
+      rather than a live breach.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
