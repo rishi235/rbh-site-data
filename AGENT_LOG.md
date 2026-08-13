@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 01:34 BST - hundred-and-thirty-seventh run [commit hash recorded
-in the follow-up commit] - Quality pass on item 4.3, the Hirshmans Chemist
+## 2026-08-13 01:34 BST - hundred-and-thirty-seventh run [commit d7a1c8a, hash
+recorded in this follow-up commit] - Quality pass on item 4.3, the Hirshmans Chemist
 Ainsdale GBP pack, the oldest verification standing among completed items.
 Third pass on this item. REPO HALF ONLY: no browser was available, so nothing
 live was read and nothing live is claimed. The PACK is clean for the third
