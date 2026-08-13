@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 12:50 BST - hundred-and-fifty-eighth run
+## 2026-08-13 12:50 BST - hundred-and-fifty-eighth run [commit 4b6371b, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Quality pass on item 5.6, the stalest completed item. ONE REAL DEFECT FOUND
 AND FIXED IN REPO: the Q14 title-length rule, which is the whole substance of
 item 5.6, did not reach the switch page family at all. Fixed by composing
