@@ -2,7 +2,9 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 11:04 BST - hundred-and-fifty-fifth run [commit HASH_PENDING]
+## 2026-08-13 11:04 BST - hundred-and-fifty-fifth run [commit 52cb79d, this
+hash line added by a small follow-up commit, which is why the log is one commit
+behind the work it describes]
 - Quality pass on item 5.1, joint least recently verified. ONE REAL DEFECT
 FOUND AND FIXED IN REPO: check-em-dashes.js read every file format that
 carries public copy but did not read the run-time DATA the live code renders,
