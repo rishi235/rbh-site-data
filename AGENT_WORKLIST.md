@@ -1425,6 +1425,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unpasted Weebly default (run 78 pattern, queued repaste covers it).
       No question raised.
       See audits/fishlocks-eccleston-gbp-pack-check-2026-08-12.txt.
+      Quality pass 2026-08-13: fourth pass. Repo half only, no live check
+      and no answer pickup (two Chrome browsers connected, an unattended
+      run cannot choose between them; Q59, eleven consecutive runs). The
+      pack itself is clean for the fourth time. Method changed from
+      reciting the facts again to injection-testing whether the checkers
+      prove what they claim: 19 injections, 16 caught. All six profile
+      basics caught, and every value in that block appears exactly once
+      here, so the run 163 house-number gap does not bite this pack. All
+      four Pharmacy First and blood pressure cohort injections caught by
+      check-pharmacy-first-eligibility.js rule 9 rather than by
+      check-gbp-packs.js, which an earlier draft of this pass misread as a
+      gap because it ran one checker instead of all 31.
+      One real defect found and fixed in the checker, not the pack: the
+      business description says where the shop IS, and changing "in
+      Eccleston, near Chorley" to "in Ainsdale, near Southport" - the
+      sister Fishlocks branch on the shared domain - passed all 31
+      checkers clean. Phone, postcode, review link, street address and
+      house number are all guarded against a sister's value leaking in;
+      the TOWN was the one member of that family with no rule, and it is
+      the word the description leads with. A presence rule cannot cover it
+      because "Eccleston" appears 25 times in the pack. New rule bars
+      another live branch's seoTown or addressLocality from the business
+      description and the post bodies, exempting this branch's own
+      serviceAreaList and any sentence the sister rule already governs;
+      paster notes and preamble are out of scope because they are never
+      published. Composed from branches.json, KNOWN_FOREIGN_TOWN with the
+      standard anti-rot sweep. Seven negative tests all correct, 31
+      checkers green, 0 findings across the 15 real packs, so the gap was
+      latent not live. No patient-facing copy changed. No question raised.
+      See audits/fishlocks-eccleston-gbp-pack-check-2026-08-13.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

@@ -26,6 +26,11 @@
       cut out first, because neither is ever posted
     - Phone and postcode match branches.json; no other branch's phone or
       postcode appears in the pack
+    - No other branch's TOWN appears in the copy that is pasted into the
+      public profile (the business description and the post bodies), unless
+      it is in this branch's own serviceAreaList or the sentence is a
+      governed sister-branch claim. Paster notes and the preamble are out of
+      scope because they are never published
     - The five template sections and the four posts are all present
     - The Categories section sets Pharmacy as primary and lists every
       secondary category the branch's services earn (Build Pack v2 4.1)
@@ -218,6 +223,14 @@ const seenSisterKnown = {};
 // convention: a key that no longer matches a real breach fails the run.
 const KNOWN_HOURS_DAYS = {};
 const seenHoursDaysKnown = {};
+
+// Accepted exceptions to the foreign-town rule, keyed
+// "<branch id>::foreignTown". Use one only where a pack deliberately names
+// another branch's town in copy that is pasted into the public profile, and
+// say so with a question id. Same anti-rot convention: a key that no longer
+// matches a real breach fails the run.
+const KNOWN_FOREIGN_TOWN = {};
+const seenForeignTownKnown = {};
 
 const fails = [];
 const warns = [];
@@ -1737,6 +1750,99 @@ for (const file of packFiles) {
       seenSisterKnown[key] = false;
     }
   }
+
+  // --- another branch's TOWN must not appear in the pasted copy ----------
+  // Found on the item 4.8 quality pass, 2026-08-13, by injection. The
+  // business description of fishlocks-eccleston.md opens by saying where the
+  // shop is: "trades from Unit 3 The Carrington Centre on New Mill Street in
+  // Eccleston, near Chorley". Changing that ONE clause to "in Ainsdale, near
+  // Southport" - the sister Fishlocks branch, on the shared
+  // fishlockpharmacy.co.uk domain - passed all 31 checkers clean.
+  //
+  // Nothing read it. The estate already guards every other identifying fact
+  // against a sister's value leaking in: the phone, the postcode, the review
+  // link, the street address and, since the item 4.6 pass, the house number
+  // on the branch's own road. The TOWN is the one member of that family that
+  // had no rule, and it is the word the description leads with.
+  //
+  // Presence rules cannot cover it, for the reason the 4.6 pass set out: the
+  // branch's own town appears 25 times in this pack, so a rule asking whether
+  // "Eccleston" appears somewhere is satisfied no matter what the location
+  // clause says. The corrupted description reads perfectly well and
+  // contradicts itself only if you hold the address line and the catchment
+  // list in view at the same time, which no reader of a Google profile does.
+  //
+  // What it would publish is worse than a wrong pin. The description is
+  // pasted verbatim into the public profile, so the shop would state a town
+  // it is not in, 30 miles away, while its own address line and catchment
+  // still say Eccleston. Two Fishlocks branches share one domain and one
+  // brand name, which is exactly the confusion the pack's own paster note
+  // exists to prevent: "do not mix in Ainsdale details".
+  //
+  // Scope is the copy that actually reaches the public: the business
+  // description and the post bodies. The preamble and the "Notes for the
+  // paster" block are instructions to the person pasting and are never
+  // published, which is where all three of the estate's current legitimate
+  // foreign-town mentions sit (both Fishlocks packs name the other's town
+  // when explaining the shared domain).
+  //
+  // Two exemptions, both derived rather than whitelisted. A town in this
+  // branch's own serviceAreaList is its catchment and belongs in the copy.
+  // And a sentence making a sister claim is governed by the rule directly
+  // above, which already proves the town named is a real live sister's: that
+  // is what lets mccanns-aigburth.md say "a second branch, McCanns Chemist
+  // Sandringham, in St Michael's" inside its description and stay green.
+  // Both "sister branch" and "second branch" phrasings are read, because the
+  // estate uses both.
+  const descForTown = descriptionOf(text);
+  const townScopes = [];
+  if (descForTown) townScopes.push(["business description", descForTown]);
+  for (const p of postsOf(text)) townScopes.push([p.label, p.body]);
+
+  const splitPlaces = (s) => String(s || "").split(",").map((x) => x.trim()).filter(Boolean);
+  const ownWords = new Set(
+    [...splitPlaces(b.seoTown), ...splitPlaces(b.addressLocality), ...(b.serviceAreaList || [])]
+      .map((s) => s.toLowerCase())
+  );
+  const foreign = new Map();
+  for (const o of branches) {
+    if (!isPackable(o) || o.id === b.id) continue;
+    for (const t of [...splitPlaces(o.seoTown), ...splitPlaces(o.addressLocality)]) {
+      if (ownWords.has(t.toLowerCase())) continue;
+      if (!foreign.has(t.toLowerCase())) foreign.set(t.toLowerCase(), { town: t, owners: [] });
+      foreign.get(t.toLowerCase()).owners.push(o.branchName);
+    }
+  }
+
+  const townBreaches = [];
+  for (const [scope, body] of townScopes) {
+    const flatBody = String(body || "").replace(/\s+/g, " ");
+    for (const { town, owners } of foreign.values()) {
+      const re = new RegExp(`\\b${escapeRe(town)}\\b`, "gi");
+      if (!re.test(flatBody)) continue;
+      // Sentence-bounded, so a governed sister claim exempts only itself.
+      const guilty = (flatBody.match(/[^.]*\.|[^.]+$/g) || []).filter(
+        (s) => new RegExp(`\\b${escapeRe(town)}\\b`, "i").test(s) &&
+               !/\b(?:sister|second)\s+branch(?:es)?\b/i.test(s)
+      );
+      if (!guilty.length) continue;
+      townBreaches.push(
+        `the ${scope} names "${town}", which is the town of ${[...new Set(owners)].join(" and ")} and is neither this branch's own town nor anywhere in its serviceAreaList. This copy is pasted verbatim into the public Google profile, so it would tell patients the shop is somewhere it is not. The sentence reads "${guilty[0].trim()}"`
+      );
+    }
+  }
+  if (townBreaches.length) {
+    const key = `${b.id}::foreignTown`;
+    const known = KNOWN_FOREIGN_TOWN[key];
+    if (known) {
+      seenForeignTownKnown[key] = true;
+      warn(file, `KNOWN ${townBreaches[0]}. ${known.question}: ${known.reason}`);
+    } else {
+      for (const msg of townBreaches) fail(file, msg);
+    }
+  } else if (KNOWN_FOREIGN_TOWN[`${b.id}::foreignTown`]) {
+    seenForeignTownKnown[`${b.id}::foreignTown`] = false;
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------
@@ -1776,6 +1882,11 @@ for (const key of Object.keys(KNOWN_SISTER)) {
 for (const key of Object.keys(KNOWN_HOURS_DAYS)) {
   if (!seenHoursDaysKnown[key]) {
     fails.push(`stale exception: KNOWN_HOURS_DAYS["${key}"] no longer matches a pack whose hours line names days the branch's openingHours does not support. Remove it (${KNOWN_HOURS_DAYS[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_FOREIGN_TOWN)) {
+  if (!seenForeignTownKnown[key]) {
+    fails.push(`stale exception: KNOWN_FOREIGN_TOWN["${key}"] no longer matches a pack naming another branch's town in its pasted copy. Remove it (${KNOWN_FOREIGN_TOWN[key].question}).`);
   }
 }
 

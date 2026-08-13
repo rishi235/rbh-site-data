@@ -2,6 +2,109 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 - hundred-and-sixty-fourth run
+- Item 4.8 quality pass, the Fishlocks Chemist Eccleston GBP pack. ONE REAL
+DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,
+generator, data field, paste sheet, GBP pack or piece of patient-facing copy
+was changed. All 31 checkers pass. No new question raised.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser call was made, nothing live was
+read and nothing live is claimed. The 2026-08-12 live verdicts on this item
+stand as written. Answer pickup (step 3) was unavailable for the same
+reason, which is Q59 and remains the run-level blocker. That is now eleven
+consecutive runs without an answer fetch, and 42 questions are open.
+
+NO AUTONOMOUS WINDOW. The top of this log was read for a "Standing
+authorisation - autonomous window" section. The only real one expired
+2026-08-10 23:14 BST, so step 7 applied as written. Nothing turned on it,
+because this run raised no question.
+
+WHY A QUALITY PASS, AND WHY THIS ITEM. All eight unchecked worklist items
+are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so there was no item
+to take. Ordering re-derived from this log rather than assumed: item 4.8 was
+last verified at run 121, 2026-08-12 15:40 BST, the oldest standing
+verification once run 163 refreshed 4.6 (run 120, 15:08). Run 163 named the
+same method. Fourth pass on this item.
+
+METHOD CHANGED, DELIBERATELY. Runs 38, 80 and 121 each read this pack fact
+by fact and found nothing. A fourth recital would have added little, so this
+pass tested whether the CHECKERS prove what they claim, which is what run
+163 did to find its defect. Nineteen injections, one value at a time, file
+restored and byte-compared after each.
+
+SIXTEEN OF NINETEEN CAUGHT. All six profile-basics injections caught: phone,
+review link, profile website repointed at the sister landing page, postcode,
+name with an extra service word, unit number. Worth recording that every
+profile-basics value appears exactly ONCE in this pack, so the presence
+rules are load-bearing here and the run 163 house-number gap does not bite
+it. Post buttons caught when repointed at the sister's switch page, the
+sister's weight loss page and the shared homepage. Also caught: catchment
+order, photo list cut to nine, a medicine name in Post C, an efficacy claim,
+an em dash, and an over-length description (both the 750 limit and the
+stated count of 730).
+
+A CORRECTION I MADE MID-RUN, RECORDED BECAUSE IT CHANGED A VERDICT. An early
+draft of this pass ran only check-gbp-packs.js and read three injections as
+uncaught: a dropped Pharmacy First condition, the UTI cohort moved from
+16-64 to 16-74, and the blood pressure cohort moved from 40 to 30. All three
+ARE caught, by check-pharmacy-first-eligibility.js rule 9, which exists for
+exactly this and was added on 2026-08-12. Re-run against all 31 checkers,
+every clinical injection failed correctly. One checker is not the suite, and
+a "nothing caught this" claim is only worth as much as the suite behind it.
+
+THE REAL DEFECT: THE TOWN. The business description opens by saying where
+the shop IS - "trades from Unit 3 The Carrington Centre on New Mill Street
+in Eccleston, near Chorley". Changing that one clause to "in Ainsdale, near
+Southport", the sister Fishlocks branch on the shared fishlockpharmacy.co.uk
+domain, passed ALL 31 CHECKERS CLEAN.
+
+WHY NOTHING SAW IT. The estate already guards every other identifying fact
+against a sister's value leaking in: phone, postcode, review link, street
+address, and since run 163 the house number on the branch's own road. The
+town was the one member of that family with no rule, and it is the word the
+description leads with. A presence rule cannot cover it for the same reason
+run 163 gave: "Eccleston" appears 25 times in this pack, so asking whether
+the branch's own town appears somewhere is satisfied whatever the location
+clause says. This is the run 163 defect one field along.
+
+WHAT IT WOULD HAVE PUBLISHED. Worse than a wrong pin. The description is
+pasted verbatim into the public profile, so the shop would state a town it
+is not in, about 30 miles away, while its own address line and catchment
+still read Eccleston. Two Fishlocks branches share one domain and one brand
+name, which is precisely what this pack's own paster note exists to prevent:
+"do not mix in Ainsdale details". The corrupted sentence reads perfectly
+well and contradicts itself only if you hold the address line and the
+catchment list in view at once, which no reader of a Google profile does.
+
+THE FIX, DERIVED NOT HARDCODED. Another live branch's seoTown or
+addressLocality may not appear in the copy that reaches the public - the
+business description and the post bodies. Two exemptions, both composed
+rather than whitelisted: a town in this branch's own serviceAreaList is its
+catchment and belongs there, and a sentence making a sister claim is already
+governed by the sister rule directly above, which proves the town named is a
+real live sister's. Both "sister branch" and "second branch" phrasings are
+read, because the estate uses both. Preamble and "Notes for the paster" are
+out of scope because they are never published, which is where all three of
+the estate's current legitimate foreign-town mentions sit. The town list is
+built from branches.json, so a disposal or a seoTown rename moves the rule
+with it. KNOWN_FOREIGN_TOWN added with the same anti-rot sweep as the other
+seven exception lists.
+
+NEGATIVE TESTED, SEVEN CASES, ALL CORRECT. Caught: the original defect, a
+post body naming the sister town, and the McCanns sister sentence once
+stripped of its sister wording. Silent: the own catchment reordered, a
+foreign town added to the paster notes only, the McCanns governed sister
+sentence untouched, and an unrelated pack. Baseline 0 findings across all 15
+real packs, so the gap was latent, not live.
+
+FILES CHANGED. tools/check-gbp-packs.js (the new rule, its exception map and
+the header rule list), audits/fishlocks-eccleston-gbp-pack-check-2026-08-13.txt
+(new), AGENT_WORKLIST.md (quality pass note under 4.8), AGENT_LOG.md (this
+entry). audits/live-hours-check-2026-08-13.json was rewritten by running the
+suite but the content was identical, pure CRLF churn, so it was restored
+rather than committed.
+
 ## 2026-08-13 - hundred-and-sixty-third run
 - Item 4.6 quality pass, the McCanns Chemist Aigburth GBP pack. ONE REAL
 DEFECT FOUND AND FIXED IN REPO, in tools/check-gbp-packs.js. No page,

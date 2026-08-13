@@ -1,0 +1,117 @@
+Item 4.8 quality pass - gbp-packs/fishlocks-eccleston.md
+Run 164, 2026-08-13. Fourth pass on this item.
+
+METHOD
+Three previous passes (runs 38, 80, 121) read this pack fact by fact and
+found nothing wrong. A fourth recital would have added little, so this pass
+followed run 163's method instead: test whether the CHECKERS actually prove
+what they claim, by corrupting one value at a time and seeing what survives.
+
+Nineteen injections in total. Each one changed a single value, ran the
+checkers, and the file was restored and byte-compared afterwards.
+
+WHAT HELD (16 of 19 injections caught)
+Profile basics, all six caught by check-gbp-packs.js:
+  - phone, one digit                     caught (presence rule)
+  - review link, one character           caught (presence rule)
+  - profile website -> sister landing    caught (shared-domain rule)
+  - postcode, one character              caught (presence rule)
+  - name, extra service word             caught (name rule)
+  - unit number                          caught (street address rule)
+Every profile-basics value appears exactly ONCE in this pack, so the
+presence rules are load-bearing here and the run 163 house-number gap does
+not bite this pack.
+
+Post buttons and copy:
+  - Post B button -> sister switch page  caught
+  - Post C button -> sister weight loss  caught
+  - Post A button -> shared homepage     caught
+  - catchment order, seoTown not first   caught
+  - photo shot list cut from 10 to 9     caught
+  - Post C names Mounjaro                caught
+  - Post C efficacy claim                caught (three rules fired)
+  - em dash introduced                   caught
+  - description over 750 characters      caught (both the limit and the
+                                         stated count of 730)
+
+Clinical eligibility, all caught by check-pharmacy-first-eligibility.js
+rule 9, NOT by check-gbp-packs.js:
+  - Pharmacy First condition dropped     caught
+  - UTI cohort 16-64 -> 16-74            caught
+  - UTI cohort 16-64 -> 16-65            caught
+  - blood pressure cohort 40 -> 30       caught
+Recorded because an earlier draft of this pass ran only check-gbp-packs.js
+and wrongly read these three as gaps. They are not. The verdict changed
+once the full 31-checker suite was run, which is the standard this pass
+should have started at.
+
+THE ONE REAL DEFECT, IN THE CHECKER NOT THE PACK
+The business description opens by saying where the shop is: "trades from
+Unit 3 The Carrington Centre on New Mill Street in Eccleston, near
+Chorley". Changing that one clause to "in Ainsdale, near Southport" - the
+sister Fishlocks branch - passed ALL 31 CHECKERS CLEAN.
+
+Nothing read it. The estate already guards every other identifying fact
+against a sister's value leaking in: phone, postcode, review link, street
+address, and since run 163 the house number on the branch's own road. The
+TOWN had no rule, and it is the word the description leads with.
+
+A presence rule cannot cover it. "Eccleston" appears 25 times in this pack,
+so asking whether the branch's own town appears somewhere is satisfied
+whatever the location clause says. This is the same class as the run 163
+address defect, one field along.
+
+What it would publish is worse than a wrong pin: the description is pasted
+verbatim into the public profile, so the shop would state a town it is not
+in, about 30 miles away, while its own address line and catchment still
+read Eccleston. Two Fishlocks branches share one domain and one brand name,
+which is exactly what the pack's own paster note exists to prevent ("do not
+mix in Ainsdale details").
+
+THE FIX
+New rule in tools/check-gbp-packs.js. Another live branch's seoTown or
+addressLocality may not appear in the copy that is pasted into the public
+profile - the business description and the post bodies - with two derived
+exemptions:
+  - a town in this branch's own serviceAreaList is its catchment
+  - a sentence making a sister claim is already governed by the sister
+    rule directly above it, which proves the town named is a real live
+    sister's. Both "sister branch" and "second branch" phrasings are read.
+Preamble and "Notes for the paster" are out of scope because they are never
+published, which is where all three of the estate's current legitimate
+foreign-town mentions sit (both Fishlocks packs name the other's town when
+explaining the shared domain; McCanns Aigburth names St Michael's in its
+governed sister sentence inside the description).
+
+Nothing is hardcoded: the town list is composed from branches.json, so a
+disposal or a seoTown rename moves the rule with it.
+KNOWN_FOREIGN_TOWN exception map added with the same anti-rot sweep as the
+other seven exception lists: a key that stops matching a real breach fails
+the run.
+
+NEGATIVE TESTED, SEVEN CASES, ALL CORRECT
+  caught  description town -> sister town (the original defect)
+  caught  post body names sister town
+  caught  McCanns sister sentence stripped of its sister wording
+  silent  own catchment town reordered in the description
+  silent  foreign town added to the paster notes only
+  silent  McCanns governed sister sentence, untouched
+  silent  unrelated pack, no change
+Baseline: 0 findings across all 15 real packs, so the gap was latent, not
+live. No pack in the estate breaches the new rule today.
+
+RESULT
+31 checkers green, 0 failures, 18 pre-existing warnings unchanged (this
+pack's one warning is the known Q64 post-town item, which is blocked and
+was not touched). No page, generator, data field, paste sheet, GBP pack or
+piece of patient-facing copy was changed. Only tools/check-gbp-packs.js.
+No question raised, none answered.
+
+NOT DONE THIS RUN
+The live half. Two Chrome browsers are connected and an unattended run
+cannot choose between them, so no browser call was made and nothing live is
+claimed. The 2026-08-12 live verdicts stand as written: all four post URLs
+200 and Eccleston-correct, landing page 404 pending the queued paste (Q35),
+switch title still the unpasted Weebly default (run 78 pattern). Answer
+pickup was unavailable for the same reason - Q59, now eleven consecutive
+runs.
