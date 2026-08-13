@@ -2,8 +2,8 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-13 - hundred-and-thirty-eighth run [commit hash recorded in the
-follow-up commit] - Quality pass on item 1.3, the McCanns Sandringham
+## 2026-08-13 - hundred-and-thirty-eighth run [commit d2b341c] - Quality
+pass on item 1.3, the McCanns Sandringham
 postcode sweep, the oldest verification standing among completed items.
 Fourth pass on this item. REPO HALF ONLY: no browser was available, so
 nothing live was read and nothing live is claimed. The data is clean for the
