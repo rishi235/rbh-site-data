@@ -943,5 +943,21 @@
     "status": "open",
     "answer": null,
     "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct."
+  },
+  {
+    "id": "Q62",
+    "date": "2026-08-13",
+    "item": "quality pass on 4.4 (finding, does not block any item)",
+    "question": "Four GBP packs state a post town in the Profile basics address line that exists nowhere in branches.json: \"Stockport\" on Scorah Bramhall and Scorah Hazel Grove, and \"Southport\" on Fishlocks Ainsdale and Hirshmans Ainsdale. Both are the correct Royal Mail post towns today and all four lines are right, but because branches.json holds no postTown field there is nothing in the repo holding them right, and injection confirmed it: changing the Bramhall line to \"Bramhall, Macclesfield SK7 3LQ\" passed all 30 checkers clean. This line is the exact string a paster types into the Google Business Profile address field, and a wrong town there is the single most damaging local listing error there is. How should the post town be held?",
+    "options": [
+      "Add an optional postTown field to branches.json for the four branches that need one, and have check-gbp-packs.js require the address line to compose only from branches.json fields. Cleanest and puts the fact in the single source of truth, but adding a field also means refreshing the embedded snapshot in tools/branches-editor.html or check-editor-snapshot.js will fail, so it is a slightly wider change than one file.",
+      "Leave branches.json alone and pin the four post towns in check-gbp-packs.js as an allowlist keyed by branch id. Smallest change and closes the injection hole today, but it puts a branch fact in a checker rather than in the data, which is the opposite of how every other fact in this repo is held.",
+      "Drop the post town from all four address lines so the pack composes only from branches.json (street, locality, postcode). Nothing new to hold, but it makes the pasted address less complete than Royal Mail format, and the paster may add the town back by hand anyway.",
+      "Leave it. The four lines are correct, they change roughly never, and the risk of an unnoticed edit to a post town is low."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found on the fourth quality pass of item 4.4, 2026-08-13. Not fixed autonomously because option 1 needs a new branches.json field plus an editor snapshot refresh, which is a wider blast radius than one worklist item and is a genuine choice rather than an obvious fix. Nothing is wrong on the four packs today; this is about what holds them right tomorrow."
   }
 ]

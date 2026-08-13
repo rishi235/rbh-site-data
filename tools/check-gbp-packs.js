@@ -526,6 +526,97 @@ for (const file of packFiles) {
     fail(file, `Services section lists "${rule.name}", but branches.json gives this branch no ${rule.key} widget, so the profile would advertise a service the branch does not run. Remove it, or add the service to branches.json first`);
   }
 
+  // --- claims outside the known vocabulary --------------------------------
+  // Found on the item 4.4 quality pass, 2026-08-13, by injection.
+  //
+  // The two reverse rules above are a BLOCKLIST: they walk SERVICE_RULES and
+  // CATEGORY_RULES, five services and three categories, and fail a pack that
+  // claims one of those without the widget that earns it. That shape can only
+  // ever catch a claim it already has a name for. A claim OUTSIDE the list is
+  // invisible to it. Proved against gbp-packs/scorah-bramhall.md: a services
+  // bullet reading "- Ear wax removal: microsuction ear wax removal by
+  // appointment." and a secondary category "Dental clinic" both walked past
+  // all 30 checkers clean. Neither is a service any RBH branch runs.
+  //
+  // That is the hole sitting exactly where the risk is highest. The rules
+  // above already state the reason a false claim is the expensive direction:
+  // "somebody travels to the shop for a service that is not there". The
+  // likeliest false claim is not "travel clinic" on a branch that lost its
+  // travel widget, which the blocklist does catch. It is a service nobody
+  // thought to name, added to a pack in good faith from a stale note or a
+  // half-remembered conversation, and pasted into a public Google profile
+  // that most patients read instead of the website. For a pharmacy an
+  // invented clinical service is also an advertising-standards and GPhC
+  // exposure, not only a wasted journey.
+  //
+  // So this rule inverts the shape: an ALLOWLIST. Every service bullet label
+  // and every secondary category named in any pack must be one this repo
+  // already recognises. The vocabulary below is not a guess: it is the
+  // complete set in use across all 15 packs on 2026-08-13, derived by reading
+  // them rather than by memory.
+  //
+  // What this rule does and does not promise, stated plainly so a later run
+  // does not over-trust it. Seven of these labels have no widget in
+  // branches.json at all (blister packs, blood testing, NHS vaccinations,
+  // medical cannabis and so on), so nothing in this repo can confirm the
+  // branch runs them. This rule therefore does NOT verify a claim is true. It
+  // guarantees only that no pack can introduce a NEW service or category
+  // claim silently: adding one now requires a deliberate edit here, which is
+  // where a human decides whether the branch really offers it. That is the
+  // strongest guarantee the repo's data can support, and it is the one the
+  // blocklist above was missing.
+  const RECOGNISED_SERVICES = [
+    "NHS prescription dispensing", "NHS Pharmacy First", "NHS blood pressure check",
+    "NHS contraception service", "Travel clinic", "Weight loss clinic",
+    "Private consultation room", "Blister packs", "NHS vaccinations",
+    "Vaccinations", "Blood testing", "Blood tests", "Medical cannabis consultation",
+  ].map((s) => s.toLowerCase());
+  const RECOGNISED_CATEGORIES = [
+    "Pharmacy", "Travel clinic", "Vaccination centre", "Weight loss service",
+    "Blood testing service",
+  ].map((s) => s.toLowerCase());
+
+  // Per-bullet, unlike bulletsOf() above, which flattens the whole section
+  // into one string. This rule needs each bullet on its own so it can read
+  // the label in front of the colon and name the offending one in the error.
+  const bulletListOf = (section) => {
+    const out = [];
+    let inBullet = false;
+    for (const line of String(section || "").split("\n")) {
+      if (/^\s*-\s+/.test(line)) { inBullet = true; out.push(line.trim().replace(/^-\s*/, "")); continue; }
+      if (inBullet && /^\s+\S/.test(line)) { out[out.length - 1] += " " + line.trim(); continue; }
+      inBullet = false;
+    }
+    return out;
+  };
+
+  // A pack may carry a "NOTE:" bullet about the live listing name, as
+  // cherry-lane-walton.md and hirshmans-ainsdale.md both do. That is a note to
+  // the paster, not a category claim, so it is skipped by the same reasoning
+  // that keeps clear-aintree.md's prose note out of the rules above.
+  // catSec is already the raw section text. svcSec above was flattened by
+  // norm(), which destroys the line breaks this rule reads, so the services
+  // section is taken from the source again rather than reusing it.
+  const svcSecRaw = (text.match(/^##\s*3\.\s*Services section content[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1] || "";
+  for (const bl of bulletListOf(catSec)) {
+    if (/^note\b/i.test(bl)) continue;
+    const names = (bl.match(/^[^:]+:\s*(.*)$/) || [])[1];
+    if (!names) continue;
+    for (const raw of names.split(",")) {
+      const name = raw.trim().replace(/\.$/, "");
+      if (!name) continue;
+      if (RECOGNISED_CATEGORIES.includes(name.toLowerCase())) continue;
+      fail(file, `Categories section names "${name}", which is not a category any pack in this repo uses. A secondary category puts the profile into map searches for that service, so an unrecognised one advertises something no RBH branch is known to run. If the branch genuinely offers it, add it to RECOGNISED_CATEGORIES in tools/check-gbp-packs.js deliberately`);
+    }
+  }
+  for (const bl of bulletListOf(svcSecRaw)) {
+    if (/^note\b/i.test(bl)) continue;
+    const label = (bl.match(/^([^:]+):/) || [])[1];
+    if (!label) continue;
+    if (RECOGNISED_SERVICES.includes(label.trim().toLowerCase())) continue;
+    fail(file, `Services section lists "${label.trim()}", which is not a service any pack in this repo uses. This section is pasted into a public Google profile, so an unrecognised service is a promise to a patient who then makes a journey for it. If the branch genuinely offers it, add it to RECOGNISED_SERVICES in tools/check-gbp-packs.js deliberately`);
+  }
+
   // --- the photo shot list ------------------------------------------------
   // Until the item 4.3 quality pass on 2026-08-11, section 4 was read for its
   // heading and nothing else: REQUIRED_SECTIONS proved the "## 4. Photo shot

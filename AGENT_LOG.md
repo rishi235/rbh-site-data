@@ -2,6 +2,163 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 03:34 BST - hundred-and-forty-first run - Quality pass on item
+4.4, Scorah Chemists Bramhall GBP pack. REPO HALF ONLY: no browser was
+available, so nothing live was read and nothing live is claimed. The pack is
+clean for the fourth consecutive pass. The gap closed is estate-wide, not
+branch-specific: the reverse rules on pack services and categories were a
+BLOCKLIST, so any claim outside their five-service, three-category vocabulary
+was invisible. check-gbp-packs.js now also runs an allowlist over every
+service label and secondary category in all 15 packs. 7 negative tests, all 7
+caught. Q62 raised on the post town in the address line.
+
+ROTATION FOLLOWED, AND RE-DERIVED RATHER THAN TRUSTED. Run 140 named 4.4 as
+the next item. This run did not take that on trust: it re-ran the derivation
+by run 140's own prescribed method, reading every "## " heading JOINED WITH
+THE NEXT TWO LINES so wrapped headings are not missed. That found 143
+quality-pass headings across 41 distinct items and put 4.4 furthest down the
+file, last verified by run 99 on 2026-08-12 at 04:39, with 4.5, 4.1, 3.2 and
+3.3 next oldest. Independent agreement with run 140. THE NEXT RUN SHOULD TAKE
+4.5, Scorah Chemists Hazel Grove.
+
+THE UNCHECKED ITEMS FIRST, AS THE PROCEDURE REQUIRES. 6.6 is still the first
+unchecked item that is not [BLOCKED] and still could not be advanced, for the
+reason runs 135 to 140 recorded: the item's own text says the redirect is NOT
+broken and what remains is a canonical tag plus a historic index artifact,
+both of which live in Weebly's head and admin rather than in this repo. Run
+135 already proved the repo side. Every remaining route needs live Google
+Search Console or the Weebly admin, and both need the browser. 6.6 keeps no
+[BLOCKED] tag because it is blocked on tooling, not on a decision. Every other
+unchecked item is [BLOCKED] on a question, so the run went to a quality pass.
+
+ANSWER PICKUP NOT AVAILABLE, twenty-first consecutive run, 121 to 141. Cause
+unchanged and worth restating precisely because it has now cost 21 runs. Two
+Chrome extension instances are connected and both were listed this run, so the
+extension side is alive. The block is that the tooling requires a human to
+choose between the two before any browser call is made, and states explicitly
+that the agent must not pick one itself. An unattended run has nobody to ask.
+So NO browser call was made at all: nothing fetched, clicked, typed, submitted
+or logged in to, and no other route was attempted. 37 questions open going in,
+38 going out; this run raised Q62 and answered none. Q59 already asks how to
+clear this block, so no duplicate was raised.
+
+NO AUTONOMOUS WINDOW. The 2026-08-09 section remains the only "Standing
+authorisation - autonomous window" in this log and it expired 2026-08-10 23:14
+BST. Q62 was therefore raised rather than decided, which is the right outcome
+regardless: it is a genuine choice with a wider blast radius than one item,
+not an obvious fix.
+
+RUN START STATE. No .agent-lock and no .git\index.lock, so nothing stale to
+clear; a fresh lock was written. Branch agents/audit-backlog level with origin
+and clean. All 30 existing checkers exited 0 and all six page generators
+reproduced every page byte-identical before anything was changed, so nothing
+below is a pre-existing failure.
+
+A FALSE RESULT CAUGHT BEFORE IT WAS ACTED ON, AND THE RULE THAT PREVENTS IT.
+This run's first two probes reported that almost every injected fault was
+caught, including faults that plainly should not have been. The cause was this
+run's own scratch scripts, which had been written to the repo ROOT.
+check-postcodes.js, check-em-dashes.js and check-brand-spelling.js scan the
+whole repo tree, and one scratch file carried an invented test postcode, so the
+suite failed on every iteration and every mutation looked caught. A control
+run with the pack untouched exposed it: the suite failed with the file
+unmodified. All scratch was moved to C:\Temp\rbh-agent-run141 and every probe
+re-run from there, after which the control fired nothing and the real gaps
+appeared. RULE FOR FUTURE RUNS: never write scratch files inside
+C:\Dev\rbh-site-data. The repo-wide checkers do not know the difference
+between a page and a throwaway. The same guard then failed the first draft of
+this run's audit file for quoting an invented postcode in its process note,
+which is the checker working correctly; the note was reworded.
+
+A DUPLICATE GUARD NEARLY BUILT, AND WHY IT WAS NOT. The early probes appeared
+to show that a pack could state the wrong Pharmacy First condition count
+("seven" to "nine") and the wrong UTI cohort ("16 to 64" to "16 to 74")
+undetected. Both looked like exactly the class of patient-facing clinical gap
+run 140 closed on the website pages, and a new checker for them was nearly
+written. It would have been a duplicate. Those probes had only ever run
+check-gbp-packs.js, not the suite. Rules 9 and 10 of
+check-pharmacy-first-eligibility.js already pin the cohorts AND the condition
+list and count inside the GBP packs, added by the runs that found them on
+2026-08-12, and both injections fail that checker at exit 1. METHOD NOTE: a
+probe that runs one checker can only ever tell you what that checker does. The
+re-probe ran the seven checkers that actually read gbp-packs/ and gave an
+honest result.
+
+WHAT VERIFIED CLEAN ON SCORAH BRAMHALL. gbp-packs/scorah-bramhall.md checked
+field by field against branches.json by a throwaway extractor reusing no
+checker code: 22 assertions, 21 pass, and the 22nd a false flag from the test
+itself, a naive /app/ word test matching the pack's own paster note "No app
+mention anywhere in this pack", which is correct copy. Verified: branch name,
+61-63 North Park Road, Bramhall, SK7 3LQ, phone 0161 439 3744, Google review
+link, pfLink on Post A, addressLocality and seoTown both Bramhall, all five
+catchment towns in branches.json order, hours Monday to Friday 09:00-18:00 and
+Saturday 09:00-13:00 with Sunday closed, hours provenance date 2026-06-24,
+profile website set to the branch landing page rather than the shared
+homepage, description 742 characters under the paste-join convention with its
+own stated count true and inside the 750 limit, and no other live branch's
+phone or postcode anywhere in the pack. Zero defects. The four post buttons
+and the profile website line are carried forward from run 99 unverified and
+should be re-fetched when a browser returns.
+
+HOW THE GAP WAS FOUND. By injection, not by reading. The two reverse rules
+added by the item 4.8 and 4.11 passes walk SERVICE_RULES, five services, and
+CATEGORY_RULES, three categories, and fail a pack claiming one of those
+without the branches.json widget that earns it. That shape can only catch a
+claim it already has a name for. A services bullet reading "- Ear wax removal:
+microsuction ear wax removal by appointment." and a secondary category "Dental
+clinic" both walked past all 30 checkers clean. Neither is a service any RBH
+branch runs. The hole sat exactly where the risk is highest. The likeliest
+false claim is not "travel clinic" on a branch that lost its travel widget,
+which the blocklist does catch; it is a service nobody thought to name, added
+in good faith from a stale note and pasted into a public Google profile that
+most patients read instead of the website. For a pharmacy an invented clinical
+service is advertising-standards and GPhC exposure, not only a wasted journey.
+Same shape of gap the runs on eligibility, contraception, travel and Pharmacy
+First safety-net copy found: the frame checked eight ways, the claim itself
+checked nowhere.
+
+THE FIX, AND WHAT IT DOES NOT PROMISE. check-gbp-packs.js now runs an
+ALLOWLIST over every service bullet label and every secondary category named
+in any pack. The vocabulary was derived by reading all 15 packs on 2026-08-13
+rather than from memory: 13 service labels, 5 categories. "NOTE:" bullets are
+skipped, because cherry-lane-walton.md and hirshmans-ainsdale.md each carry a
+note about the live GBP listing name that is not a claim. Stated plainly in
+the checker comments so a later run does not over-trust it: seven of the
+recognised labels have no widget in branches.json at all (blister packs, blood
+testing, NHS vaccinations, medical cannabis and others), so nothing in this
+repo can confirm the branch runs them. The rule does NOT verify a claim is
+true. It guarantees only that no pack can introduce a NEW service or category
+claim silently, because adding one now needs a deliberate edit to the
+vocabulary, which is where a human decides. That is the strongest guarantee
+the repo's data supports and it is what the blocklist lacked.
+
+NEGATIVE TESTS, 7 OF 7 CAUGHT, each mutated file byte-restored and confirmed
+identical afterwards: invented service "Ear wax removal" and invented category
+"Dental clinic" on scorah-bramhall; invented "Flu jab walk in clinic" on
+cherry-lane-walton; invented category "Podiatry" on clear-aintree, the pack
+whose prose not-offered note the rules above deliberately spare, and the note
+survived; a typo in a real label, "Blister packs" to "Blister Pak", on
+hirshmans-ainsdale; a plausible but unrecognised "Ear syringing" on
+fishlocks-ainsdale; and "Medical cannabis consultation" altered to "Medical
+cannabis prescribing" on smartts-bootle. All 15 packs pass clean with the rule
+in place, all 30 checkers exit 0, and all six generators reproduced every page
+byte-identical with git reporting no change under modules/.
+
+Q62 RAISED, NOT DECIDED. Four packs carry a post town in the Profile basics
+address line that exists nowhere in branches.json: "Stockport" on the two
+Scorah packs, "Southport" on fishlocks-ainsdale and hirshmans-ainsdale. All
+four are correct Royal Mail post towns today, but nothing holds them right,
+and injection confirmed it: "Bramhall, Macclesfield SK7 3LQ" passed all 30
+checkers. That line is the exact string a paster types into the GBP address
+field. Not fixed this run because the clean fix adds a postTown field to
+branches.json, which also forces a refresh of the embedded snapshot in
+tools/branches-editor.html or check-editor-snapshot.js fails. Wider blast
+radius than one item, and a real choice, so it is a question.
+
+Files changed: tools/check-gbp-packs.js (the new allowlist rule),
+AGENT_WORKLIST.md (item 4.4 ticked in place with the pass note),
+QUESTIONS.json (Q62), audits/scorah-bramhall-pack-check-2026-08-13.txt (new).
+
 ## 2026-08-13 03:04 BST - hundred-and-fortieth run [commit e593837, hash
 recorded in this follow-up commit] - Quality pass on item 3.11, Gordon Short Chemist
 Crosby. REPO HALF ONLY: no browser was available, so nothing live was read

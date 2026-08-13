@@ -1,0 +1,108 @@
+Quality pass audit - item 4.4, Scorah Chemists Bramhall GBP pack
+Date: 2026-08-13, hundred-and-forty-first run. Fourth pass on this item
+(drafted 2026-08-04; second pass 2026-08-11 as run 57; third pass
+2026-08-12 as run 99).
+
+REPO HALF ONLY. No browser was available this run (see the log entry and
+Q59), so nothing live was fetched and nothing live is claimed. The three
+button URLs and the profile website line are carried forward from the
+run 99 pass unverified, and should be re-fetched when a browser returns.
+
+FACTS, RE-VERIFIED INDEPENDENTLY
+gbp-packs/scorah-bramhall.md checked field by field against branches.json
+entry scorah_bramhall by a throwaway extractor reusing no checker code.
+22 assertions, 21 pass, 1 false flag from the test itself (a naive /app/
+word test matched the pack's own paster note "No app mention anywhere in
+this pack", which is correct copy, not a defect). Verified: branch name,
+61-63 North Park Road, Bramhall, SK7 3LQ, phone 0161 439 3744, Google
+review link, pfLink on Post A, addressLocality and seoTown both Bramhall,
+all five catchment towns in branches.json order, hours Monday to Friday
+09:00-18:00 and Saturday 09:00-13:00 with Sunday closed, hours provenance
+date 2026-06-24, profile website set to the branch landing page rather
+than the shared homepage, description 742 characters under the paste-join
+convention and inside the 750 limit with its own stated count true, and
+no other live branch's phone or postcode anywhere in the pack.
+Zero defects in the pack. Fourth consecutive clean pass.
+
+All 30 checkers exit 0. All six page generators re-ran and reproduced
+every page byte-identical; git reported no change under modules/.
+
+THE GAP CLOSED (estate-wide, not branch-specific)
+The two reverse rules in tools/check-gbp-packs.js, added by the item 4.8
+and 4.11 passes, are a BLOCKLIST. They walk SERVICE_RULES (five services)
+and CATEGORY_RULES (three categories) and fail a pack claiming one of
+those without the branches.json widget that earns it. That shape can only
+catch a claim it already has a name for, so a claim OUTSIDE the list was
+invisible. Proved by injection against this pack: a services bullet
+"- Ear wax removal: microsuction ear wax removal by appointment." and a
+secondary category "Dental clinic" both walked past all 30 checkers
+clean. Neither is a service any RBH branch runs.
+
+That hole sat exactly where the risk is highest. The likeliest false
+claim is not "travel clinic" on a branch that lost its travel widget,
+which the blocklist does catch; it is a service nobody thought to name,
+added in good faith from a stale note and pasted into a public Google
+profile that most patients read instead of the website. For a pharmacy an
+invented clinical service is advertising-standards and GPhC exposure, not
+only a wasted patient journey.
+
+THE FIX
+tools/check-gbp-packs.js now also runs an ALLOWLIST over every service
+bullet label and every secondary category named in any pack. The
+vocabulary was derived by reading all 15 packs on 2026-08-13, not from
+memory: 13 service labels and 5 categories. "NOTE:" bullets are skipped,
+because cherry-lane-walton.md and hirshmans-ainsdale.md both carry a note
+about the live GBP listing name that is not a claim.
+
+WHAT THE NEW RULE DOES AND DOES NOT PROMISE
+Seven of the recognised labels have no widget in branches.json at all
+(blister packs, blood testing, NHS vaccinations, medical cannabis and so
+on), so nothing in this repo can confirm the branch runs them. The rule
+therefore does NOT verify that a claim is true. It guarantees only that
+no pack can introduce a NEW service or category claim silently: adding
+one now needs a deliberate edit to the vocabulary, which is where a human
+decides whether the branch really offers it. That is the strongest
+guarantee the repo's data supports, and it is what the blocklist lacked.
+This is stated in the checker comments so a later run does not over-trust
+the rule.
+
+NEGATIVE TESTS, 7 of 7 CAUGHT
+1. scorah-bramhall.md, invented service "Ear wax removal"        caught
+2. scorah-bramhall.md, invented category "Dental clinic"         caught
+3. cherry-lane-walton.md, invented "Flu jab walk in clinic"      caught
+4. clear-aintree.md, invented category "Podiatry" on the pack
+   that carries a prose not-offered note (the note survived)      caught
+5. hirshmans-ainsdale.md, typo in a real label,
+   "Blister packs" to "Blister Pak"                               caught
+6. fishlocks-ainsdale.md, plausible but unrecognised
+   "Ear syringing"                                                caught
+7. smartts-bootle.md, "Medical cannabis consultation" altered
+   to "Medical cannabis prescribing"                              caught
+Every mutated file was byte-restored and confirmed identical after each
+test. All 15 packs pass clean with the rule in place.
+
+FINDING NOT FIXED, RAISED AS Q62
+Four packs carry a post town in the Profile basics address line that has
+no source of truth anywhere in the repo: "Stockport" in scorah-bramhall
+and scorah-hazel-grove, "Southport" in fishlocks-ainsdale and
+hirshmans-ainsdale. Both are correct Royal Mail post towns today, but
+branches.json holds no postTown field, so nothing holds them right.
+Injection confirmed the gap: changing this pack's line to "Bramhall,
+Macclesfield SK7 3LQ" passed all 30 checkers. The address line is the
+exact string a paster types into the GBP address field. Not fixed this
+run because the clean fix needs a new branches.json field, and adding one
+also requires updating the embedded snapshot in tools/branches-editor.html
+or check-editor-snapshot.js fails. That is a decision plus a wider blast
+radius than one item, so it is Q62 rather than an autonomous change.
+
+PROCESS NOTE FOR FUTURE RUNS
+This run's first probe produced false results because its scratch scripts
+were written to the repo root. check-postcodes.js, check-em-dashes.js and
+check-brand-spelling.js scan the whole repo tree, so a scratch file
+containing an invented test postcode failed the suite and made every
+mutation look caught. A control test with the pack untouched exposed it.
+Note also that an audit file must not quote an invented postcode either:
+the first draft of this file did, and check-postcodes.js failed it, which
+is the same guard working correctly.
+Scratch files must be written OUTSIDE the repo; this run moved them to
+C:\Temp\rbh-agent-run141 and re-ran everything from there.

@@ -857,6 +857,21 @@ Everything seen live is already held in Q43; one sentence added there for the
 shared Pharmacy First page's own contact section carrying the truncated
 61 North Park Road and an unspaced phone, the same Weebly furniture family.
 No in-repo defect. audits/scorah-bramhall-pack-check-2026-08-12.txt.
+Quality pass 2026-08-13 (run 141): fourth pass, clean, REPO HALF ONLY (no
+browser, so the four post buttons and the profile website line are carried
+forward from the run 99 pass unverified). 22 independent assertions against
+branches.json, 21 pass and the 22nd a false flag from the test itself. The
+gap closed is estate-wide: the two reverse rules on services and categories
+were a blocklist over five services and three categories, so a claim outside
+that vocabulary was invisible. An injected "- Ear wax removal" service bullet
+and a "Dental clinic" category both passed all 30 checkers. check-gbp-packs.js
+now also runs an allowlist over every service label and secondary category in
+every pack, derived by reading all 15 packs rather than from memory; 7 of 7
+negative tests caught. The rule deliberately promises only that no NEW claim
+can appear silently, not that a claim is true, because seven recognised labels
+have no widget in branches.json to check against. New question Q62 on the post
+town in the address line, which has no source of truth in the repo.
+audits/scorah-bramhall-pack-check-2026-08-13.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
