@@ -1463,6 +1463,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       failures to 1. All six generators rebuild to a zero diff and all 29
       checkers pass. No new question.
       Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-12b.txt.
+      Quality pass 2026-08-13: fifth pass, repo half only, no live check and
+      no answer pickup (the portal returned the Cloudflare Access login page,
+      the cause Q59 records). The pack is clean for the fifth consecutive
+      pass and nothing in it was edited: every fact re-read against
+      branches.json, the counts it claims of itself measured rather than
+      trusted (713, 463, 298, 518, 425), zero non-ASCII, dash and smart-quote
+      characters, catchment still leading with St Michael's in all three
+      places, hasApp still false with no app claim.
+      Method was injection rather than recitation: 14 injections, each
+      followed by the full 32-checker suite and an automatic restore.
+      ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. Its
+      catchment rule reads the ORDER of the list and is structurally
+      incapable of reading anything else, because the regex it matches with
+      is composed out of the branch's own serviceAreaList towns and so can
+      only ever match those towns. A town that is not on the list is not a
+      wrong element, it is invisible: the run ends one element early and
+      still leads with the right seoTown. Proved by injection, replacing
+      Dingle with Woolton in the services-section catchment, which walked
+      past all 32 checkers clean while claiming a catchment the group does
+      not have on a public Google profile. The foreign-town rule further
+      down the file does not cover it, because that one fires only on
+      another branch's own town; a town belonging to no branch falls between
+      the two. A membership rule was added beside the order rule, composed
+      from branches.json, deliberately membership only and not completeness
+      or order. Two false positives on the first run were both rule defects
+      and were fixed in the rule with no pack touched: the lead-in verb was
+      being swallowed ("Serving Bootle"), and an address was being read as a
+      catchment ("Sherwood House, Station Road, Ainsdale, Southport").
+      Negative-tested four ways, each producing exactly one failure so the
+      two rules do not double up, including a loophole test proving
+      "Serving Woolton" still fails. All 15 packs already comply, so the gap
+      was latent. All 32 checkers exit 0 and all six generators rebuild to a
+      zero diff. No new question.
+      Recorded but not fixed, for the next pass: an absolute outcome
+      guarantee injected into Post D ("Every traveller is fully protected")
+      passed all 32 checkers, because check-travel-clinic-copy.js does not
+      read gbp-packs/ at all. Same shape as the last three runs' defects.
+      Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-13.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

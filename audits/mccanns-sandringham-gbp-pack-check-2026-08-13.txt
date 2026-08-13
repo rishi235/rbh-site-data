@@ -1,0 +1,123 @@
+McCanns Chemist Sandringham GBP pack - quality pass, fifth pass
+Item 4.7. Run of 2026-08-13 23:04 BST. Repo half only.
+
+SCOPE AND LIMITS
+Repo half only. No live page was read and this pass makes no fresh live
+claim. Answer pickup was attempted first and returned the Cloudflare Access
+login page for data.rbhealth.co.uk, so no answers were collected; that is
+the cause Q59 already records and no new question is raised for it. No
+attempt was made to log in and no other route was tried.
+
+THE PACK ITSELF: CLEAN, FIFTH CONSECUTIVE PASS
+Every fact re-read against branches.json rather than trusted:
+  branchName      McCanns Chemist Sandringham      matches
+  streetAddress   1b Aigburth Road                 matches
+  addressLocality Liverpool                        matches
+  postalCode      L17 4JP                          matches
+  phone           0151 727 3076                    matches
+  googleReviewUrl https://g.page/r/CbMDr1qOLqnrEAE/review   matches
+  website         shared domain, profile set to the branch landing page
+  hasApp          false, and the pack claims no app anywhere
+  seoTown         St Michael's, and the catchment leads with it in all
+                  three places (description, services, Post B)
+  serviceAreaList St Michael's, Aigburth, Lark Lane, Dingle - the pack
+                  quotes all four in that order in all three places
+  openingHours    09:00-13:00 and 14:00-18:00 Monday to Friday, Saturday
+                  and Sunday closed. Both sessions and both closed days
+                  are stated on the pack's hours line.
+
+Counts verified by measurement, not by reading the headings:
+  description  713 characters (the heading claims 713, limit 750)
+  Post A       463    Post B  298    Post C  518    Post D  425
+  All four inside the 1,500 limit. Identical to all four earlier passes.
+Character hygiene: 0 non-ASCII, 0 em dashes, 0 smart quotes.
+
+Nothing in the pack was edited on this pass.
+
+METHOD: INJECTION, NOT RECITATION
+Fourteen injections were made into the pack one at a time, each followed by
+the full 32-checker suite and an automatic restore. Baseline 0 failures,
+and 0 failures again after the final restore.
+  CAUGHT  hours, morning session ends 2pm not 1pm      check-gbp-packs
+  CAUGHT  hours, Saturday advertised open              check-gbp-packs
+  CAUGHT  catchment lead town swapped to Aigburth      check-gbp-packs
+  MISSED  catchment tail town swapped to Woolton       (the defect below)
+  CAUGHT  blood pressure cohort 40 -> 30               check-pharmacy-first-eligibility
+  CAUGHT  app claim added though hasApp is false       check-gbp-packs
+  MISSED  travel clinic outcome guarantee added        (recorded, not fixed)
+  CAUGHT  free NHS service given a price               check-gbp-packs,
+                                                       check-pharmacy-first-cost
+  CAUGHT  seven conditions becomes eight               check-pharmacy-first-eligibility
+Four further injections did not apply because the anchor text did not match
+the pack's line wrapping, and are not counted either way.
+
+THE DEFECT FOUND AND FIXED, IN THE CHECKER NOT THE PACK
+tools/check-gbp-packs.js has a catchment rule that reads the ORDER of the
+list and is structurally incapable of reading anything else. The regex it
+matches with is composed out of the branch's own serviceAreaList towns, so
+it can only ever match those towns. A town that is not on the list is not
+read as a wrong element: it is invisible, and the run simply ends one
+element early, still leading with the right seoTown, so the rule passes it
+in both directions.
+
+Proved by injection rather than asserted. The services-section catchment
+"St Michael's, Aigburth, Lark Lane and Dingle" had Dingle replaced with
+Woolton, a town this branch does not serve, and all 32 checkers stayed
+green. That copy is pasted verbatim into a public Google profile, so it
+claims a catchment the group does not have and aims the profile's local
+search at a town none of the branch's own pages target.
+
+The foreign-town rule further down the same file does not cover it: that
+one fires only on a town that is ANOTHER branch's seoTown or
+addressLocality, which is the sister-branch leak. A town belonging to no
+branch at all falls between the two rules, and Woolton is exactly that.
+
+A membership rule was added next to the order rule, composed from
+branches.json so adding a town to a serviceAreaList permits that word for
+that branch with no edit to the checker. It is deliberately membership
+only, not completeness and not order: a pack may quote a shorter run than
+the data holds, and the lead word is already owned by the rule above.
+
+TWO FALSE POSITIVES ON FIRST RUN, BOTH FIXED IN THE RULE, NO PACK TOUCHED
+The first version failed 16 times across 13 packs and every one was a rule
+defect:
+  1. The lead-in verb was swallowed. Every pack opens a run with "Serving
+     Bootle, Sefton and Liverpool", so the first element read "Serving
+     Bootle". The rule now reads the trailing words of an element too and
+     takes the element as that town when a trailing phrase is one. This is
+     not a loophole and was tested as such: "Serving Woolton" is still read
+     as Woolton and still fails.
+  2. An address is not a catchment. Both Ainsdale packs open "Sherwood
+     House, Station Road, Ainsdale, Southport" and Riddings opens "Riddings
+     Road, Timperley, Altrincham": comma separated, ending in the branch's
+     own towns, the same shape as a catchment run and the opposite meaning.
+     A non-own element ending in a street word is now skipped. Only
+     non-own elements are tested this way, so "Lark Lane" is untouched
+     because it is a real town in this branch's serviceAreaList.
+
+NEGATIVE TESTS, FOUR WAYS, EACH PRODUCING EXACTLY ONE FAILURE
+  N1  Dingle -> Woolton on this pack                       caught, 1 failure
+  N2  lead-in "Serving Woolton" (loophole test)            caught, 1 failure
+  N3  street-shaped "Woolton Road"                         passes, by design
+  N4  same injection on sk-chemists-bootle.md              caught, 1 failure
+  Pack as written                                          green
+Exactly one failure in each caught case, so the new rule and the existing
+order rule do not double up.
+
+STATE AFTER THE WORK
+All 32 checkers exit 0. All six generators rebuild to a zero diff. The only
+changed file is tools/check-gbp-packs.js. No page, no generator, no data
+field, no branches.json entry, no pack and no piece of patient-facing copy
+was changed.
+
+RECORDED BUT NOT FIXED
+The travel clinic injection ("Every traveller is fully protected", an
+absolute outcome guarantee added to Post D) passed all 32 checkers.
+check-travel-clinic-copy.js does not read gbp-packs/ at all, and the
+shared claim list check-gbp-packs.js does apply does not carry that
+phrasing. This is the same "regulated copy checker one folder short" shape
+as runs 172, 173 and 174 and is left for the next pass rather than folded
+into this one, which is already a full item's work. It is not raised as a
+question because it needs no decision from Rishi, only the work.
+
+NO NEW QUESTION.

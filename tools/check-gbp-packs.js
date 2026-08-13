@@ -824,6 +824,93 @@ for (const file of packFiles) {
     }
   }
 
+  // --- and every town IN the catchment list must be one of this branch's --
+  // The rule above reads the ORDER of the catchment list and nothing else,
+  // and it is structurally incapable of reading anything else, because the
+  // regex it matches with is composed out of the branch's own areaList towns
+  // and so can only ever match those towns. A town that is not on the list
+  // is not read as a wrong element: it is invisible, and the run simply ends
+  // one element early. Splice a foreign town into the tail of the list and
+  // the shortened run still leads with the right seoTown, so the rule above
+  // passes it in both directions.
+  //
+  // Found on the item 4.7 quality pass, 2026-08-13, by injection into
+  // gbp-packs/mccanns-sandringham.md: the services-section catchment
+  // "St Michael's, Aigburth, Lark Lane and Dingle" had Dingle replaced with
+  // Woolton, a town this branch does not serve, and all 32 checkers stayed
+  // green. That copy is pasted verbatim into a public Google profile, so it
+  // claims a catchment the group does not have and aims the profile's local
+  // search at a town none of the branch's own pages target.
+  //
+  // The foreign-town rule further down this file does not cover it. That one
+  // fires only on a town that is ANOTHER branch's seoTown or addressLocality,
+  // which is the sister-branch leak. A town belonging to no branch at all
+  // falls between the two rules, which is exactly what Woolton is. This rule
+  // closes the membership direction and leaves ownership to that one.
+  //
+  // Deliberately membership only, not completeness and not order. A pack may
+  // legitimately quote a shorter run than branches.json holds, and the lead
+  // word is already owned by the rule above. What a pack may not do is name
+  // a town that is nowhere in this branch's own data.
+  //
+  // Composed from branches.json, so adding a town to a serviceAreaList makes
+  // it a permitted word for that branch with no edit here. A run must carry
+  // at least two of the branch's own towns before it is read as a catchment
+  // claim at all, which is what keeps ordinary capitalised prose lists out:
+  // "Check the Post B, C and D page URLs" carries none.
+  if (areaList.length >= 3) {
+    const own = new Set(
+      [...areaList, b.seoTown, b.addressLocality]
+        .filter(Boolean)
+        .map((t) => String(t).toLowerCase())
+    );
+    const altOwn = areaList
+      .slice()
+      .sort((x, y) => y.length - x.length)
+      .map(escapeRe)
+      .join("|");
+    // A capitalised place-shaped phrase: "Woolton", "Lark Lane", "St Helens".
+    const PLACE = "[A-Z][A-Za-z'\\-]*(?:\\s+[A-Z][A-Za-z'\\-]*){0,2}";
+    const ELEM = `(?:${altOwn}|${PLACE})`;
+    const anyRe = new RegExp(`${ELEM}(?:\\s*,\\s*${ELEM})+(?:\\s*,?\\s+and\\s+${ELEM})?`, "g");
+    const flatAny = text.replace(/\s*\n\s*/g, " ");
+    for (const run of flatAny.match(anyRe) || []) {
+      const towns = run.split(/\s*,\s*|\s+and\s+/).map((t) => t.trim()).filter(Boolean);
+      if (towns.length < 3) continue;
+      // An element carries its lead-in verb when the run opens a sentence:
+      // every pack writes "Serving Bootle, Sefton and Liverpool", so the
+      // first element reads "Serving Bootle". Read the trailing words of an
+      // element too, and take the element as that town if a trailing phrase
+      // is one. This is not a loophole: it accepts an element only when a
+      // town the branch really has is what the element ENDS with, so
+      // "Serving Woolton" is still read as Woolton and still fails.
+      const asOwnTown = (t) => {
+        const words = t.split(/\s+/);
+        for (let i = 0; i < words.length; i++) {
+          if (own.has(words.slice(i).join(" ").toLowerCase())) return true;
+        }
+        return false;
+      };
+      // A street is not a catchment claim. Both Ainsdale packs open with
+      // "Sherwood House, Station Road, Ainsdale, Southport" and Riddings
+      // with "Riddings Road, Timperley, Altrincham": an address, comma
+      // separated, ending in the branch's own towns, which is the same
+      // shape as a catchment run and means the opposite thing. Only a
+      // NON-own element is tested this way, so "Lark Lane" is untouched,
+      // because it is a real town in this branch's serviceAreaList.
+      const STREET = /\b(?:Road|Rd|Street|St|Lane|Avenue|Ave|Drive|Close|Way|Parade|House|Court|Place|Terrace|Crescent|Square|Walk|Row|Hill)\b\.?$/i;
+      const ownHits = towns.filter((t) => asOwnTown(t));
+      // Two of the branch's own towns is what makes this a catchment claim
+      // rather than any other comma list that happens to be capitalised.
+      if (ownHits.length < 2) continue;
+      for (const t of towns) {
+        if (asOwnTown(t)) continue;
+        if (STREET.test(t)) continue;
+        fail(file, `catchment list names "${t}", which is not in this branch's serviceAreaList in branches.json (${areaList.join(", ")}) and is neither its seoTown nor its addressLocality. This list is pasted verbatim into the public Google profile, so it claims a catchment the branch does not have and aims the profile at a town none of its own pages target. Found: "${run}"`);
+      }
+    }
+  }
+
   // --- a branch name used as if it were a place -------------------------
   // Some branches are named after something that is not a town: McCanns
   // Chemist Sandringham is named after the parade it stands on, not a place

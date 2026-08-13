@@ -2,6 +2,106 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 23:15 BST - hundred-and-seventy-fifth run
+- Item 4.7 quality pass, McCanns Chemist Sandringham GBP pack, fifth pass.
+ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. No page, no
+generator, no data field, no branches.json entry, no pack and no piece of
+patient-facing copy was changed. All 32 checkers exit 0 and all six
+generators rebuild to a zero diff, before and after. No new question.
+
+ANSWER PICKUP UNAVAILABLE, twelfth consecutive run. This run got one step
+further than the last eleven and the answer is no better: the browser did
+read, and what it returned was the Cloudflare Access sign-in page for
+data.rbhealth.co.uk, not the feedback JSON. No login was attempted, no other
+route was tried, and the tab was closed. Same cause Q59 already records, so
+no new question is raised. 45 questions are open with nothing posted since
+2026-08-10. The unblock remains one action on Rishi's side: sign in to the
+portal in the Chrome the extension is attached to and leave that session
+live, after which step 3 resumes on its own.
+
+NO AUTONOMOUS WINDOW. The top of this log carried no "Standing authorisation
+- autonomous window" section, so step 7 applied as written. Nothing this run
+needed deciding: the defect was a latent checker gap with one correct fix.
+
+LOCK. No .agent-lock and no git index.lock were present, so the lock was
+taken cleanly at 23:04. audits/live-hours-check-2026-08-13.json again shows
+as modified while git diff returns nothing, line endings only, left unstaged
+as in the last six runs.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+independently rather than inherited, by parsing the subject of all 211 run
+headings in this log: 4.7 was last worked 42 run headings ago, then 4.2 at
+41 and 1.1 at 40. That agrees with the previous run's own prediction. 4.7 it
+is.
+
+METHOD. Injection, not recitation. The pack's facts were re-read against
+branches.json and its self-claimed counts measured rather than trusted (713,
+463, 298, 518, 425, all matching, all inside the limits, zero non-ASCII).
+Then 14 injections, each followed by the full 32-checker suite and an
+automatic restore: 7 caught, 2 missed, 4 skipped on anchor mismatch and one
+of the misses is the defect below. Baseline 0 failures and 0 again after the
+final restore.
+
+THE DEFECT: A RULE THAT CAN ONLY SEE WHAT IT ALREADY KNOWS. The catchment
+rule in check-gbp-packs.js reads the ORDER of a pack's catchment list, and
+it is structurally incapable of reading anything else, because the regex it
+matches with is composed out of that branch's own serviceAreaList towns. A
+town that is not on the list is therefore not a wrong element. It is
+invisible: the run simply ends one element early, still leads with the right
+seoTown, and passes in both directions. Proved by replacing Dingle with
+Woolton in the services-section catchment of mccanns-sandringham.md, which
+walked past all 32 checkers clean. That list is pasted verbatim into a
+public Google profile, so it claims a catchment the group does not have and
+aims the profile's local search at a town none of the branch's own pages
+target.
+
+WHY THE EXISTING FOREIGN-TOWN RULE DOES NOT COVER IT. That rule fires only
+on a town that is ANOTHER branch's seoTown or addressLocality, which is the
+sister-branch leak it was written for. A town belonging to no branch at all
+falls between the two rules, and Woolton is exactly that. The fix closes the
+membership direction and leaves ownership where it is.
+
+THE FIX. A membership rule added beside the order rule, composed from
+branches.json so adding a town to a serviceAreaList permits that word for
+that branch with no edit to the checker. Deliberately membership only, not
+completeness and not order: a pack may legitimately quote a shorter run than
+the data holds, and the lead word is already owned by the rule above.
+
+TWO FALSE POSITIVES ON THE FIRST RUN, BOTH RULE DEFECTS, NO PACK TOUCHED.
+The first version failed 16 times across 13 packs and every one was the
+rule's fault. First, the lead-in verb was being swallowed: every pack opens
+a run with "Serving Bootle, Sefton and Liverpool", so the first element read
+"Serving Bootle". The rule now reads an element's trailing words too, which
+was then tested as a loophole and is not one, because "Serving Woolton" is
+still read as Woolton and still fails. Second, an address is not a catchment
+claim: both Ainsdale packs open "Sherwood House, Station Road, Ainsdale,
+Southport" and Riddings opens "Riddings Road, Timperley, Altrincham", which
+is the same comma-separated shape ending in the branch's own towns and means
+the opposite thing. A non-own element ending in a street word is now
+skipped, and only non-own elements are tested that way, so "Lark Lane"
+survives untouched because it is a real town in this branch's own list.
+
+NEGATIVE TESTS, FOUR WAYS, each producing exactly one failure so the new
+rule and the order rule do not double up: the Woolton injection on this
+pack; the "Serving Woolton" loophole test; a street-shaped "Woolton Road"
+which passes by design; and the same injection on sk-chemists-bootle.md,
+proving the rule is estate-wide and not fitted to one file. The pack as
+written stays green. All 15 packs already comply, so the gap was latent
+rather than live.
+
+RECORDED, NOT FIXED, FOR THE NEXT PASS. The other miss: an absolute outcome
+guarantee injected into Post D, "Every traveller is fully protected", passed
+all 32 checkers. check-travel-clinic-copy.js does not read gbp-packs/ at
+all, and the shared claim list that check-gbp-packs.js does apply to packs
+does not carry that phrasing. That is the same "regulated copy checker one
+folder short" shape as runs 172, 173 and 174. It is left for the next pass
+rather than folded into this one, and it is not raised as a question because
+it needs no decision from Rishi, only the work.
+
+Files changed: tools/check-gbp-packs.js, AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/mccanns-sandringham-gbp-pack-check-2026-08-13.txt.
+
 ## 2026-08-13 23:05 BST - hundred-and-seventy-fourth run [commit 788bcb9, this
 hash line added by a small follow-up commit, which is why the log is one
 commit behind the work it describes]
