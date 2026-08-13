@@ -850,6 +850,46 @@ audits/smartts-build-check-2026-08-13.txt.
       12 pages, 0 mismatches.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
+      Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
+      run, so nothing live was read and nothing live is claimed. The three
+      pages are clean on every fact. All three re-read by an independent
+      extraction with its own file discovery, its own regexes and its own
+      reading of branches.json, importing nothing from tools/: 3 pages found
+      out of 182 html files under modules/, 225 checks, 0 failures. Exactly
+      one H1 per page, each carrying both Aintree and Clear Chemist; display
+      phone 0151 203 8365 in visible copy with every tel: link the unspaced
+      form and no other branch's number in either shape; own postcode L9 7AS
+      present and no other branch's; JSON-LD parsed on all three and compared
+      field by field to branches.json, including Liverpool as addressLocality
+      against Aintree as the seoTown, with each url ending in its own
+      filename; no other branch's town or brand named; no http:// URL, no
+      emoji; website and review link matching branches.json; and no
+      hard-coded Appointedd widget id on any page. All 30 checkers pass and
+      all seven generators rebuild every page byte-identical (only
+      status/index.html moves, and only because run 153's log entries grew
+      it). The em dashes in the page header comments are not a breach:
+      check-em-dashes.js reports dashes inside build comments rather than
+      failing them, deliberately and with its reasoning written down, because
+      no visitor sees them.
+      THE FINDING IS NOT IN THE FACTS, IT IS IN WHAT THE PAGES PROMISE, and
+      it is raised as Q65 rather than fixed. All three pages invite the
+      patient to attend in person: the switch page promises "Collect from
+      us" and calls Clear "your local independent pharmacy in Aintree" and
+      "a local NHS pharmacy in Aintree", the weight loss page says "call in,
+      so you can be seen privately without waiting", and the travel clinic
+      page says patients are "seen discreetly in the pharmacy". Every field
+      branches.json holds for this branch says the opposite: it is the only
+      one of the 15 trading pharmacies with no openingHours ("no public NHS
+      profile hours applicable"), no pfLink and pfBooking false, no
+      nhsReviewUrl, only two widgets rather than five, an address shared
+      with head office at a trade centre unit, exclusion from the
+      broken-link sweep, and a schemaNote recording that Clear "has no
+      physical branch resource in Appointedd". NOTHING WAS EDITED. This is a
+      live patient-facing claim with a regulatory edge, which the run
+      instructions carve out of autonomous decisions, and no autonomous
+      window is open in any case. No checker was added either, because any
+      rule would have to assert Clear's trading status, which is the thing
+      being asked.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

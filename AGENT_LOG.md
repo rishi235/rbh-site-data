@@ -2,6 +2,136 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-13 10:42 BST - hundred-and-fifty-fourth run [commit pending]
+- Quality pass on item 3.13, Clear Chemist (Aintree, L9 postal Liverpool),
+the least recently verified completed item. REPO HALF ONLY: no browser was
+available, so nothing live was read and nothing live is claimed. All 3 pages
+verified clean on the facts, 225 checks, 0 failures. ONE FINDING, and it is a
+real one: all three pages promise the patient an in-person visit that every
+field in branches.json says this branch cannot offer. Raised as Q65, NOT
+fixed, because it is a live patient-facing claim with a regulatory edge.
+Nothing was edited in any page, generator, sheet, pack, banner or data field.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the top of this log was
+read for a "Standing authorisation - autonomous window" section and there is
+none. The only real one ran 2026-08-09 23:14 to 2026-08-10 23:14 BST and
+expired three days ago. This mattered this run, unlike the last few: the
+finding below is exactly the kind of decision that would otherwise have been
+taken autonomously, and it sits inside the carve-out (money, legal risk, or a
+live patient-facing regulatory claim) that stays a question even when a
+window IS open. So it would have been left open either way.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-second consecutive run, 121 to 154. Cause
+unchanged and confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states explicitly that the agent must not pick one itself. An
+unattended run has nobody to ask. Enumerating the extensions is the only thing
+that happened: NO page was fetched, and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. 40 questions open
+going in, 41 going out. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Fetched, on
+agents/audit-backlog, level with origin at 4dc117b, tracked tree clean.
+Unchecked items taken first as the procedure requires. 6.6 is still the ONLY
+unchecked item that is not [BLOCKED] and still could not be advanced: its own
+corrected text says the redirect is not broken and what remains is a canonical
+tag plus a historic index artifact, both of which live in Weebly's head and
+admin, and both routes need the browser. So the run went to a quality pass.
+All 30 checkers green before any change.
+
+ROTATION RE-DERIVED, NOT TRUSTED, AND IT AGREES WITH RUN 153. Each of the 191
+run headings was joined with the following six lines before the item number was
+read, because several headings wrap and carry the number on a continuation
+line, and the item match was anchored so 3.1 cannot swallow 3.10. All 41
+completed items have a recorded pass; none has never been verified. 3.13 was
+deepest in the log at line 4315, ahead of the joint 5.1 / 6.2 (4180) and 5.2
+(4120). THE NEXT RUN SHOULD TAKE 5.1 AND 6.2, THEN 5.2, THEN 5.6.
+
+THE 3 PAGES ARE CLEAN ON THE FACTS, VERIFIED INDEPENDENTLY. All 3 Clear pages,
+1 switch and 2 service, re-read by a fresh extraction with its own file
+discovery, its own regexes and its own reading of branches.json, importing
+nothing from tools/. 3 pages found out of 182 html files under modules/, which
+is the expected count. 225 checks, 0 failures: exactly one H1 per page and
+every one carrying both Aintree, the seoTown, and Clear Chemist; display phone
+0151 203 8365 present in visible copy and every tel: link as unspaced digits
+with no other branch's number in either shape, spacing and punctuation
+stripped before comparison; own postcode L9 7AS present and no other branch's;
+JSON-LD parsed on all 3 and compared field by field to branches.json,
+including Merseyside as addressRegion and Liverpool as addressLocality against
+Aintree as the seoTown, with each url checked to start at the branch website
+and end in its own filename; no other branch's seoTown and no other brand
+label anywhere, the cross-town rule excused only by this branch's own
+serviceAreaList; no http:// URL and no emoji; website and googleReviewUrl
+matching branches.json; and no page hard-coding an Appointedd widget id, which
+matters here because service.js is supposed to read it from branches.json at
+run time. All 30 checkers pass and all seven generators rebuild every page
+byte-identical. The only file that moves is status/index.html, and it moves
+because run 153's log entries and the follow-up hash commit grew it by 3,755
+bytes and 8 timestamps, not because a page changed.
+
+ONE THING CHECKED AND DELIBERATELY NOT CALLED A DEFECT. Both service pages and
+the switch page carry em dashes in their HTML header comments, and the house
+standard bans em dashes. check-em-dashes.js passes anyway, and it is right to:
+it blanks HTML comments before testing and counts what it finds there as
+"dashes inside build comments - not public, not a failure", with the reasoning
+written out at the top of the file. The comments are paste instructions, no
+visitor sees them, and the Weebly SEO title and description lines inside those
+same comments, which ARE typed into Weebly, are clean. Checked rather than
+assumed, because a passing checker is worth asking which files and which lines
+it reads, and this one has been widened four times on exactly that question.
+
+THE FINDING: THREE PAGES PROMISE A VISIT THIS BRANCH APPEARS UNABLE TO TAKE.
+The facts on the pages are all correct. What is not established is whether a
+patient can turn up at all. The switch page's step 3 is headed "Collect from
+us" and reads "Your prescriptions come to Clear Chemist and you get support
+from a real local pharmacy team", above a Google map to the unit; its hero
+calls Clear "Your local independent pharmacy in Aintree" and its opening
+sentence "a local NHS pharmacy in Aintree", and a trust tile promises "Local
+Aintree pharmacy support, not a call centre". The weight loss page answers "Do
+I need an appointment?" with "Book online for a set time, or call in, so you
+can be seen privately without waiting". The travel clinic page offers a
+"Private travel health service at your local Aintree pharmacy" and a tile
+reading "Seen discreetly in the pharmacy". Against all of that,
+clearchemist_aintree is the only one of the 15 trading pharmacies with NO
+openingHours, and the schemaNote says why: "no public NHS profile hours
+applicable". It is also the only ODS-holding branch with no pfLink and
+pfBooking false, so no Pharmacy First, which is the service a distance-selling
+pharmacy is not commissioned for. It has no nhsReviewUrl while every other
+trading branch does. It carries two widgets, weightLoss and travelClinic,
+where the rest carry five. Its address is Unit 20 Brookfield Trade Centre,
+which it shares with RB Healthcare head office. sweep-broken-links.js skips
+its host. And the schemaNote records that "Clear uses the Online Appointment
+resource since it has no physical branch resource in Appointedd". Nine
+independent signals, all pointing the same way.
+
+WHY IT WAS RAISED AND NOT FIXED, AND WHY NO CHECKER WAS ADDED EITHER. The run
+instructions carve money, legal risk and live patient-facing regulatory claims
+out of autonomous decisions even during an open window, and this is all three
+shapes at once: it is public copy soliciting NHS prescription transfers. A
+checker was considered and rejected for a harder reason: any rule I could
+write would have to encode Clear's trading status, and that status is the
+question. Writing the rule would be answering it. So Q65 states the evidence,
+sets out four mutually exclusive readings and recommends the second, which is
+the only one that explains every signal at once: private clinics by
+appointment at Brookfield, which is why the booking widgets and the phone
+exist, but not a walk-in NHS collection pharmacy, which is why there are no
+NHS hours, no Pharmacy First and no NHS review profile. Under that reading the
+two private pages need "call in" and "seen discreetly in the pharmacy"
+replaced with booked-appointment wording, and the switch page needs the
+collection promise removed outright.
+
+TWO THINGS SEPARATED FOR WHOEVER ANSWERS. The travel clinic and weight loss
+widgets were cloned to all 12 brand groups in one bulk action on 2026-07-18,
+per the schemaNote, so Clear may be holding a travel clinic page nobody ever
+decided it should have; travel vaccination cannot be delivered remotely, so
+that page is the least defensible of the three under the first reading. And
+the switch page is the one carrying real patient consequence, because somebody
+who transfers on the strength of it has moved their medication supply, so if
+only one page is changed it should be that one. Both points are in Q65's note
+rather than left for the reader to infer.
+
 ## 2026-08-13 10:12 BST - hundred-and-fifty-third run [commit 0015f13]
 - Quality pass on item 3.12, Tiffenbergs Chemist (Aintree, L9 postal
 Liverpool), the least recently verified completed item. Fourth machine-era
