@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 04:05 BST - hundred-and-eighty-fifth run [commit HASH_PENDING]
+## 2026-08-14 04:05 BST - hundred-and-eighty-fifth run [commit 5914081, hash line added by a small follow-up commit]
 - Item 4.1 quality pass, the GBP pack TEMPLATE plus the Fishlocks Ainsdale
 pack, fifth pass. ZERO IN-REPO DEFECTS IN THE PACK for the second consecutive
 pass and not one character of it was edited. TWO DEFECTS FOUND IN THE OTHER
