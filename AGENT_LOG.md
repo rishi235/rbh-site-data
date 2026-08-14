@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 - hundred-and-ninety-fourth run
+## 2026-08-14 - hundred-and-ninety-fourth run [commit 84cde67, this hash line added by a small follow-up commit]
 
 - Item 3.8 quality pass, SK Chemists (Bootle), fourth machine pass.
 ZERO DEFECTS IN THE 12 SK PAGES and not one character of any page was edited.
