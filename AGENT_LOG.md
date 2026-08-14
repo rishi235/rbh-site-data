@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 12:34 BST - hundred-and-ninety-eighth run
+## 2026-08-14 12:34 BST - hundred-and-ninety-eighth run [commit f9b1dd9, this hash line added by a small follow-up commit]
 
 - Item 5.1 quality pass, the em dash rule. ONE DEFECT FOUND AND FIXED, in the
 checker rather than in any copy. It is the SEVENTH instance of this repo's
