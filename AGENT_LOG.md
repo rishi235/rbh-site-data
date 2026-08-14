@@ -2,6 +2,101 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 17:20 BST - two-hundred-and-third run
+
+- Quality pass on item 5.7, the McCanns Sandringham seoTown move. ONE REAL
+DEFECT FOUND AND FIXED, in the guard for this item's own subject matter: a town
+word RETIRED by 5.7 is invisible to every checker, because the rule that would
+catch a wrong town only asks whether the word belongs to another LIVE branch.
+Proved by a contrast pair, not argued. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited, sweeping the log for all three phrasings:
+all 41 completed items resolve, none unresolved, and the order agrees exactly
+with the 202nd run's projection shifted by one. 5.7 is stalest, then 4.6, 4.8.
+
+BASELINE. A stale .agent-lock was found at 60.3 minutes old, over the 45-minute
+threshold, so it was deleted and reclaimed as the standing instruction requires.
+No .git\index.lock. Level with origin, worktree clean. All 36 checkers green and
+all six generators rebuild every page byte-identical BEFORE any edit, and again
+after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. Fortieth consecutive
+run of this fault, which is what Q59 asks about, so no duplicate was raised. 47
+questions open going in, 47 going out. Nothing live was read.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation" section in this log is
+dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days ago, and it is
+not at the top of the file. Step 7 applied as written.
+
+WHAT HELD. Four injections found the estate properly protected and no defect is
+claimed for any of them: changing seoTown wholesale in branches.json fired 27
+checkers; drifting build-switch-pages.js's hardcoded town table away from
+branches.json, which is the Q19 duplication realised, fired 3; and reverting the
+sheet's Page Title or Page Description to the old word fired check-seo-sheets
+with a named drift each time.
+
+THE DEFECT. The fifth injection was one stale token inside a Meta Keywords line,
+and ALL 36 CHECKERS EXITED 0. check-seo-sheets.js parses three of the four SEO
+fields Weebly asks a human to type - Page Title, Page Permalink, Page
+Description - and never Meta Keywords, so 177 lines of public copy across 11
+sheets are compared to nothing there. Those lines do have a dedicated guard,
+check-seo-keywords.js, with five rules on their content, and the relevant one
+asks whether the keywords name ANOTHER LIVE BRANCH's seoTown. Its edge is
+therefore the set of live seoTowns. Item 5.7 RETIRED a town word, and a retired
+word belongs to no branch, so nothing holds it.
+
+Proved on one line of one file:
+
+  "Aintree"     (a live seoTown)       -> caught, named precisely
+  "Sandringham" (the word 5.7 retired) -> ALL 36 CHECKERS EXITED 0
+
+So the single item that created an orphaned town word is the single item whose
+regression its own guard cannot see. The word is not obscure: it is still
+spelled in this branch's permalinks on purpose, in plain sight. Live
+consequence had it regressed is 5.7's own stated failure mode, the Weebly
+keyword field keeping a town the branch no longer claims while the title, H1 and
+description all claim St Michael's.
+
+LATENT, NOT LIVE. All 177 Meta Keywords lines were scanned against every
+branch's own seoTown and serviceAreaList: 0 foreign town words, and 0
+occurrences of "Sandringham" in any keywords line. A latent hole closed, no live
+breach, no copy edited anywhere.
+
+THE FIX. RULE 8 in check-seo-keywords.js, retired town word. When a branch's
+townSlug de-slugs to something that is no longer its seoTown, that word is
+retired: it may stay in the permalink, but it may not appear in the pasted
+keywords unless it is genuinely in the branch's own serviceAreaList. Derived
+from data already in branches.json, so there is no list of retired words to
+maintain and the next townSlug hold is covered automatically. Exactly one branch
+diverges today, which is 5.7's own; the other 14 skip. Five negative tests, three
+fire and two are false-positive guards (the permalink must not be policed; a
+word genuinely served again is not retired). The run summary now prints how many
+branches the rule guards, so it cannot quietly cover nothing.
+
+TWO METHOD ERRORS, CAUGHT AND CORRECTED RATHER THAN REPORTED. Recorded because
+either could have put a false finding in this log. First, PowerShell's
+Set-Content re-encoded a whole sheet on write and mangled its em dashes into
+mojibake, and check-app-membership.js fired on THAT, not on the injected text;
+the tell was a failure message naming four unrelated branches. Every affected
+probe was rerun with a byte-preserving Node helper and only byte-clean results
+are reported. Second, a "git checkout -- ." used to reset a probe silently
+reverted the fix itself, so an apparently passing test had actually run against
+the pre-fix file; the fix was re-applied and all five negative tests rerun with
+a harness that restores only modules/ and branches.json and never tools/.
+
+FILES CHANGED. tools/check-seo-keywords.js (RULE 8, a normTown helper, header
+contract and run summary), AGENT_WORKLIST.md, AGENT_LOG.md, and a new evidence
+file audits/sandringham-town-item-5.7-quality-pass-2026-08-14-run203.txt. No
+page, generator, data field or piece of patient-facing copy changed.
+
+NEXT. Stalest after this run: 4.6, then 4.8, then 4.9.
+
 ## 2026-08-14 15:45 BST - two-hundred-and-second run [commit 58b56c3, this hash line added by a small follow-up commit]
 
 - Quality pass on item 6.3, opening hours vs branches.json. ONE REAL DEFECT

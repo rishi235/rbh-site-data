@@ -3591,6 +3591,36 @@ so tools/build-audit-status.js picks them up like any other item.
       generator, data field or piece of patient-facing copy changed, no new
       question. Evidence:
       audits/sandringham-town-item-5.7-quality-pass-2026-08-13-run162.txt.
+      Quality pass 2026-08-14 (fifth, run 203). Done 2026-08-14. REPO HALF
+      ONLY (browser unavailable, Q59, fortieth consecutive run). The migration
+      re-verified correct: seoTown "St Michael's" with an ASCII apostrophe,
+      townSlug still held at "sandringham", serviceAreaList still leading
+      St Michael's, 13 Meta Keywords lines carrying St Michael's and none
+      carrying the old word. ONE REAL DEFECT FOUND AND FIXED, in the guard
+      rather than on a page, and it is this item's own subject matter.
+      check-seo-sheets.js parses three of Weebly's four SEO fields and never
+      Meta Keywords, so 177 lines of public copy are compared to nothing
+      there. Their dedicated guard, check-seo-keywords.js, has a rule for a
+      wrong town, but it asks whether the word is ANOTHER LIVE BRANCH's
+      seoTown, so its edge is the set of live seoTowns. 5.7 RETIRED a town
+      word, and a retired word is in nobody's set. Proved by a contrast pair
+      on one line: "Aintree" fires that rule, "Sandringham" - the word 5.7
+      itself retired - passed all 36 checkers. So the one item that created
+      an orphaned town word is the one item whose regression its own guard
+      could not see. Fixed with RULE 8, retired town word, derived from
+      townSlug against seoTown so it needs no list to maintain and covers
+      the next townSlug hold automatically; the permalink keeps the word on
+      purpose and is not policed, and a word genuinely back in
+      serviceAreaList is not retired. Five negative tests, three fire and two
+      are false-positive guards. All 177 keywords lines scanned: 0 foreign
+      town words, so a latent hole closed, not a live breach. No page,
+      generator, data field or patient-facing copy changed. No new question.
+      Two method errors were caught mid-run and corrected rather than
+      reported: PowerShell re-encoding a sheet and mangling its em dashes,
+      which made an unrelated checker fire, and a "git checkout -- ." that
+      silently reverted the fix before its own tests ran. Both are written up
+      in the evidence file. Evidence:
+      audits/sandringham-town-item-5.7-quality-pass-2026-08-14-run203.txt.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against

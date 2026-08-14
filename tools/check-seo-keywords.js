@@ -51,6 +51,17 @@
       pages. The weight loss and travel clinic sheets are where a phrase like
       "rapid weight loss Bootle" would be written as a keyword, and until this
       landed no rule read them at all.
+    - RULE 8, retired town word: the keywords carry the word this branch's
+      townSlug still spells when that word is no longer its seoTown and is not
+      in its serviceAreaList. Added on the item 5.7 quality pass, 2026-08-14.
+      RULE 4's edge is the set of LIVE seoTowns, so it can only ask whether a
+      town belongs to ANOTHER branch. Retiring a word takes it out of that set
+      altogether, and nothing then holds it. Proved by injection: "Aintree"
+      dropped into the McCanns St Michael's keywords fails RULE 4, while
+      "Sandringham" - the word item 5.7 itself retired - passed all 36
+      checkers. Derived from townSlug against seoTown, so it needs no list of
+      retired words to maintain and covers the next townSlug hold automatically.
+      Exactly one branch in the estate diverges today, which is 5.7's own.
     - a run in which no sheet yields a single Meta Keywords line, so the whole
       check would pass while covering nothing.
 
@@ -116,6 +127,12 @@ function wordRe(s) {
   const esc = String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return new RegExp("(^|[^a-z0-9])" + esc + "([^a-z0-9]|$)", "i");
 }
+
+// Compare two town words ignoring case, spacing and punctuation, so a townSlug
+// ("lark-lane", "st-michaels") can be held against a seoTown ("Lark Lane",
+// "St Michael's") without a slugify helper and without tripping on the
+// apostrophe that item 5.7 deliberately kept as a plain ASCII one.
+function normTown(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
 const townOwners = {};
 live.forEach(function (b) { (townOwners[b.seoTown] = townOwners[b.seoTown] || []).push(b.id); });
@@ -264,6 +281,27 @@ entries.forEach(function (e) {
       "Meta Keywords carry " + claim[1] + " (" + String(claim[0]) + "). Efficacy and results wording is not "
       + "allowed in public copy. Got: " + kw);
   }
+
+  // RULE 8 - retired town word. RULE 4 asks whether a town belongs to ANOTHER
+  // live branch, so its edge is the set of live seoTowns. A word retired from
+  // that set belongs to nobody and leaves the guarded set entirely. That is
+  // not a hypothetical: item 5.7 retired "Sandringham" as a seoTown while
+  // deliberately holding townSlug at "sandringham" so no live URL would break,
+  // which is why the retired word is still sitting in this branch's permalinks
+  // in plain sight. So the one item that created an orphaned town word is the
+  // one item whose regression rules 3 to 7 cannot see.
+  const retired = b.townSlug.replace(/-/g, " ");
+  if (normTown(retired) !== normTown(b.seoTown)) {
+    const servedNow = (b.serviceAreaList || []).some(function (s) {
+      return normTown(s) === normTown(retired);
+    });
+    if (!servedNow && wordRe(retired).test(kw)) {
+      record(e.permalink, "retired", where,
+        "Meta Keywords carry '" + retired + "', which this branch's townSlug still spells but which is "
+        + "no longer its seoTown ('" + b.seoTown + "') and is not in its serviceAreaList. The permalink "
+        + "keeps that word on purpose so no live URL breaks; the pasted keywords must not. Got: " + kw);
+    }
+  }
 });
 
 // A run that reads no keywords at all passes while covering nothing.
@@ -284,6 +322,10 @@ console.log("check-seo-keywords: " + checked + " Meta Keywords line(s) across " 
   + " paste sheet(s), against " + live.length + " live branches");
 console.log("  presence and absence over " + TOWNS.length + " live seoTowns, "
   + BRANDS.length + " brand names, and each branch's own outward code");
+console.log("  " + live.filter(function (b) {
+  return normTown(b.townSlug.replace(/-/g, " ")) !== normTown(b.seoTown);
+}).length + " branch(es) hold a townSlug that is no longer their seoTown, so a "
+  + "retired town word is guarded there too");
 
 if (Object.keys(knownHits).length) {
   console.log("");

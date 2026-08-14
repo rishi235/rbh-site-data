@@ -1,0 +1,110 @@
+ITEM 5.7 QUALITY PASS (fifth) - 2026-08-14, run 203
+McCanns Sandringham: seoTown moved to "St Michael's", townSlug held at "sandringham"
+
+SCOPE AND HONESTY
+Repo half only. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: no page was fetched, and nothing was clicked, typed,
+submitted or logged in to on any site. Fortieth consecutive run of this fault,
+which is what Q59 asks about, so no duplicate question was raised. No live
+verdict is claimed or re-claimed here.
+
+BASELINE
+No .agent-lock older than 45 minutes was left in place: one was found at 60.3
+minutes, treated as stale and deleted per the standing instruction. No
+.git\index.lock. Level with origin, worktree clean. All 36 checkers exit 0 and
+all six generators rebuild every page byte-identical BEFORE any edit, and again
+after.
+
+STATE OF THE ITEM, RE-VERIFIED
+  seoTown          "St Michael's"      (plain ASCII apostrophe)
+  townSlug         "sandringham"       (deliberately held, no live URL moved)
+  serviceAreaList  St Michael's, Aigburth, Lark Lane, Dingle
+  13 Meta Keywords lines across six sheets carry "St Michael's"
+  0 Meta Keywords lines anywhere carry the retired word "Sandringham"
+The migration itself is complete and correct. No page, generator, data field or
+piece of patient-facing copy was changed this run.
+
+WHAT WAS PROBED, AND WHAT HELD
+Five injections, each reverted before the next.
+
+  1. seoTown changed wholesale in branches.json      -> 27 checkers fired.
+     The estate is strongly protected here. No defect.
+  2. build-switch-pages.js's hardcoded town table drifted from branches.json
+     (the Q19 duplication realised)                  -> 3 checkers fired.
+     Caught. No defect. Note that check-switch-copy.js, the dedicated switch
+     guard, was not one of the three.
+  3. Sheet Page Description reverted to the old word -> check-seo-sheets fired
+     ("description drift"). Caught.
+  4. Sheet Page Title reverted to the old word       -> check-seo-sheets fired
+     ("title drift"). Caught.
+  5. ONE stale token inside the Meta Keywords line   -> ALL 36 CHECKERS EXIT 0.
+
+A METHOD ERROR THAT WAS CAUGHT AND CORRECTED, RECORDED BECAUSE IT NEARLY STOOD
+The first three runs of probes 2 to 4 were contaminated. PowerShell's
+Set-Content re-encoded the whole sheet on write and mangled its em dashes into
+"a-EUR"" mojibake, and check-app-membership.js then fired on THAT rather than on
+the injected text. The tell was the failure message naming four unrelated
+branches. Every affected probe was rerun with a byte-preserving Node helper,
+and only the byte-clean results are reported above. Separately, a
+"git checkout -- ." used to reset a probe silently reverted the fix itself; the
+five negative tests below were rerun afterwards against the restored fix, with
+a harness that restores only modules/ and branches.json and never tools/.
+
+THE DEFECT
+check-seo-sheets.js parses exactly three fields per sheet block: Page Title
+(line 145), Page Permalink (146) and Page Description (147). Weebly's SEO panel
+has FOUR fields. It never parses Meta Keywords, so that field is compared to
+nothing there - 177 lines of public copy across 11 sheets.
+
+That field does have a dedicated guard, check-seo-keywords.js, with five rules
+on its content. The one that would catch a wrong town is RULE 4: "the keywords
+name ANOTHER LIVE BRANCH's seoTown". Its edge is therefore the set of live
+seoTowns. Item 5.7 RETIRED a town word. A retired word belongs to no branch, so
+it is not in that set, and nothing holds it.
+
+Proved by a contrast pair rather than argued, on the same line of the same file:
+  "Aintree"     (a live seoTown)          -> RULE 4 fires, named precisely.
+  "Sandringham" (the word 5.7 retired)    -> ALL 36 CHECKERS EXIT 0.
+
+So the single item that created an orphaned town word is the single item whose
+regression its own guard cannot see. The retired word is not obscure: it is
+still spelled in this branch's permalinks on purpose, in plain sight, on every
+page the branch owns.
+
+Live consequence had it regressed: Weebly's keyword field would have carried a
+town the branch no longer claims, on a page whose title, H1 and description all
+claim St Michael's, competing for a word its own data does not treat as local.
+That is item 5.7's stated failure mode: "or the live listings keep the old word".
+
+LATENT, NOT LIVE
+All 177 Meta Keywords lines were scanned against every branch's own seoTown and
+serviceAreaList: 0 foreign town words, and 0 occurrences of "Sandringham" in
+any keywords line. A latent hole was closed. No live breach, and no copy edited.
+
+THE FIX
+tools/check-seo-keywords.js, RULE 8 - retired town word. When a branch's
+townSlug, de-slugged, is no longer its seoTown, that word is retired; it may
+stay in the permalink, but it may not appear in the pasted keywords unless it is
+genuinely in the branch's own serviceAreaList. Derived from data already in
+branches.json, so it needs no list of retired words to maintain and covers the
+next townSlug hold automatically. Exactly one branch in the estate diverges
+today, which is 5.7's own; the other 14 skip. A normTown() helper compares a
+slug to a town name without a slugify dependency and without tripping on the
+ASCII apostrophe 5.7 deliberately kept. The run summary now states how many
+branches the rule is actually guarding, so it cannot quietly cover nothing.
+
+NEGATIVE TESTS (5, all pass)
+  T1 baseline clean, RULE 8 silent                             exit 0  PASS
+  T2 retired word in keywords, the 5.7 regression              exit 1  PASS
+     and the failure is RULE 8's own message, not another rule's
+  T3 permalink still carries "sandringham", not policed        exit 0  PASS
+  T4 word genuinely served again, so not retired               exit 0  PASS
+  T5 a live branch's seoTown still caught by RULE 4            exit 1  PASS
+T3 and T4 are false-positive guards: the rule must not police the permalink,
+and must not ban a word the branch genuinely serves.
+
+AFTER
+All 36 checkers exit 0. All six generators rebuild byte-identical. The only
+modified file is tools/check-seo-keywords.js. No question raised.
