@@ -1294,7 +1294,7 @@ audits/smartts-build-check-2026-08-14.txt.
       field. No new question. Evidence in
       audits/gordon-short-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
-      12 pages, 0 mismatches.
+      12 pages, 0 mismatches. Quality pass 2026-08-14.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

@@ -2,6 +2,100 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 11:34 BST - hundred-and-ninety-sixth run
+
+- Item 3.12 quality pass, Tiffenbergs Chemist (Aintree), 12 pages. ZERO
+DEFECTS and not one character of any page was edited. NO defect found in repo
+tooling either, which is the unusual part and is explained below. No new
+question. Two estate-wide sweeps run as corroboration, both clean.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering re-derived
+mechanically rather than trusted, and the first derivation was WRONG and was
+caught: parsing the first body line of each run block returned 9999 for seven
+completed items, because this log's "##" headers WRAP onto continuation lines
+and the parser was reading wrapped header text as the body. Rebuilt to join
+the header through the first 14 lines and strip the bracketed commit note.
+233 run blocks, 41 completed items, 12 blocks unresolved. Stalest first: 3.12
+at 42 runs, 3.13 at 41, 5.1 at 40, 5.2 at 38, 5.6 at 37. That agrees with the
+195th run's figures shifted by one for 3.9, which is the check that the second
+derivation is sound.
+
+REPO HALF ONLY. Two Chrome extension instances are connected, so the extension
+side is alive, but the tooling requires a human to choose between them before
+any browser call and states the agent must not pick one itself. An unattended
+run has nobody to ask, so step 3 got no further than enumerating them: NO page
+was fetched and nothing was clicked, typed, submitted or logged in to, on any
+site. No other route was attempted. Thirty-third consecutive run of this
+fault, which is what Q59 asks about, so no duplicate was raised. 47 questions
+open going in, 47 going out. Nothing live was read on this run and nothing
+live is claimed below.
+
+NO AUTONOMOUS WINDOW. Every "Standing authorisation - autonomous window"
+string in this log sits inside a past run's own "NO AUTONOMOUS WINDOW"
+sentence. There is no live authorisation section, so step 7 applied as
+written. Nothing on this run needed it in any case.
+
+BASELINE. No .agent-lock, no .git\index.lock at start. Level with origin at
+dc34058, worktree clean. 36 checkers green. Six generators re-run and every
+page rebuilt byte-identical, so the pages verified below are the pages the
+generators produce today, not a stale build.
+
+THE PASS, 216 CHECKS, 0 FLAGS. An independent instrument, restating the Build
+Pack v2 spec text rather than importing tools/seo-pattern.js, so the generator
+is not tested against itself. 12 pages found (11 service, 1 switch). Per page:
+exactly one H1; the H1 real crawlable text; seoTown "Aintree" in the H1 and in
+the filename; the paste-header SEO title present and carrying the town; the
+H1 NOT falling back to the postal locality "Liverpool", which is the Build
+Pack 5.1 rule that using addressLocality targets the wrong catchment; brand
+and display phone 0151 525 3462 as real crawlable text; a tel: link whose
+digits match branches.json; data-branch present and equal to branchName; no
+Appointedd widget id hard-coded into the page, which is Build Pack 5.3; no
+personal rishi@ address, which is 5.6; and crawlable text above a floor.
+Tiffenbergs is a clean case of the seoTown question the 195th run raised:
+seoTown "Aintree" appears in neither the street "388 Longmoor Lane" nor the
+locality "Liverpool", so the token cannot be present for an unrelated reason.
+
+THE INSTRUMENT WAS PROVED, AND THEN CORRECTED. Two things were checked before
+the 0 flags was believed, and the second one mattered. First, injection: a
+temp COPY of the UTI page had its paste-header title rewritten to "UTI
+treatment in Liverpool", and the instrument flagged both the sheet mismatch
+and the wrong-catchment town. The repo working tree was never modified. But
+the firing counts showed the sheet comparison ran on 11 of 12 pages, not 12:
+the instrument read paste sheets from modules/service/pages only, and the
+switch page's sheets live in modules/switch/pages. A clean result on a rule
+that never ran on a page is not a clean result. Fixed to read both folders,
+9 sheets, 171 titles, and the comparison then fired 12 of 12.
+
+WHAT I EXPECTED TO FIND AND DID NOT. The paste-header block inside each page
+is a set of values a human types into Weebly, and check-em-dashes.js blanks
+HTML comments before testing, so a dash there is reported and not failed. That
+looked like the same shape of hole this repo has now found six times: a rule
+that reads a file format, and public copy that is not in that format. It is
+not one. tools/check-seo-sheets.js already compares the page head comment
+against the paste sheets in BOTH dialects, the *SEO.md permalink form and the
+*INDEX.md backticked-slug form, and its own header records it being widened to
+the INDEX sheets on the 3.7 pass and proved by injection then. My sweep of all
+177 pages against all 11 sheets found 0 divergences, 177 title compares and
+177 description compares fired, 0 pages with no header and 0 with no sheet
+entry. That is corroboration of an existing checker by an instrument that
+shares no code with it, not a new finding, and it is recorded as such rather
+than dressed up as one.
+
+SECOND SWEEP, ALSO CLEAN. Build Pack 5.3 says a widget id must never be
+hard-coded into a page. All 79 widget ids in branches.json were searched for
+across all 177 generated pages: 0 leaks. The inverse was run too, because
+searching only for ids you already know cannot find an id you do not: every
+24-hex token appearing in any page was collected and checked against
+branches.json, and there were 0 tokens that branches.json does not account
+for. The service pages carry the comment "widget rendered by service.js from
+branches.json - do not hard-code a widgetId" and they honour it.
+
+FILES CHANGED. AGENT_WORKLIST.md, the 3.12 line, "Quality pass 2026-08-14."
+appended in place, matching the 3.7 convention. AGENT_LOG.md, this entry. No
+page, generator, checker or data file was touched, because nothing was found
+to be wrong with any of them.
+
 ## 2026-08-14 11:04 BST - hundred-and-ninety-fifth run [commit 2eba969, this hash line added by a small follow-up commit]
 
 - Item 3.9 quality pass, Coleman and Leighs Pharmacy (Walton), fourth machine
