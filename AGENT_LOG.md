@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 15:45 BST - two-hundred-and-second run
+## 2026-08-14 15:45 BST - two-hundred-and-second run [commit 58b56c3, this hash line added by a small follow-up commit]
 
 - Quality pass on item 6.3, opening hours vs branches.json. ONE REAL DEFECT
 FOUND AND FIXED, in the item's own dedicated guard: an hours claim written
