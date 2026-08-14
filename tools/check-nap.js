@@ -44,6 +44,16 @@
       another branch's page would have published silently. That is the same
       failure shape as a foreign phone number or a foreign postcode, both of
       which have had a rule for weeks. Correct on all six today.
+    - the sweeps above read a fact WRITTEN MORE THAN ONE WAY. Added on the
+      item 1.4 quality pass, 2026-08-14. Every sweep before this one fixed
+      WHERE a fact could sit and left WHAT SHAPE it could be written in at
+      exactly one, so the identical wrong fact in a second spelling passed
+      unread: a phone as 0151-226-2051, (0151) 226 2051, 0151.226.2051,
+      0151&nbsp;226&nbsp;2051 or +44 151 226 2051; another branch's postcode
+      as "sk7 3bl"; another pharmacy's trading name as "smartts chemist".
+      All five phone shapes, the lower-case postcode and the lower-case name
+      were injected into a live page on 2026-08-14 and this file exited 0 on
+      every one of them.
   Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
   question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
@@ -90,7 +100,34 @@ const digits = (s) => String(s || "").replace(/\D/g, "");
 // A phone number written for a human: 0151 226 2051, 01704 577376.
 // Declared here rather than beside the paste-block section because the
 // generated-page sweep below uses it too. See PHONE SWEEP.
-const PHONE_RE = /\b0\d[\d ]{7,13}\d\b/g;
+//
+// WIDENED on the item 1.4 quality pass, 2026-08-14. The sweep added on
+// 2026-08-11 fixed WHERE a number could be read and left WHAT SHAPE it could
+// be written in at exactly one: digits separated by spaces, with a leading
+// zero. The same wrong number written 0151-226-2051, (0151) 226 2051,
+// 0151.226.2051, 0151&nbsp;226&nbsp;2051 or +44 151 226 2051 was invisible to
+// every rule in this file. That is the same failure as the "Call us on"
+// number in August, one layer down: the reader moved, the shape did not.
+// Separators allowed between digits are the space, the hyphen, the full stop
+// and round brackets; the +44 international prefix is allowed in place of the
+// leading zero. The 10-or-11-digit filter below still does the real narrowing,
+// so a wider match here cannot flag an ordinary number in copy.
+const PHONE_RE = /(?:\+\s?44[\s.()-]*|\b0)\d(?:[\s.()-]{0,2}\d){8,10}\b/g;
+
+// Reduce a written number to its national form: drop every separator, and
+// turn a +44 international prefix into the leading 0 it stands in for, so
+// "+44 151 226 2051" and "0151 226 2051" compare equal. digits() is left
+// alone because tel: hrefs and JSON-LD telephone are machine fields that are
+// already written in one shape.
+const phoneDigits = (s) => {
+  const t = String(s || "").trim();
+  let d = t.replace(/\D/g, "");
+  if (/^\+\s?4\s?4/.test(t)) {
+    d = d.replace(/^44/, "");
+    if (d.charAt(0) !== "0") d = "0" + d;
+  }
+  return d;
+};
 // A UK postcode as it appears in copy, always upper case.
 const PC_RE = /\b[A-Z]{1,2}[0-9][A-Z0-9]?\s?[0-9][A-Z]{2}\b/g;
 // An email address as it appears in copy or inside a mailto href.
@@ -132,7 +169,15 @@ const KNOWN_NAME = {};
 const KNOWN_STREET = {};
 
 // Pages HTML-escape text and attribute values; decode before comparing.
+// The non-breaking space is decoded to an ordinary space, and a literal
+// U+00A0 is normalised to one, because every sweep in this file separates
+// the parts of a fact on whitespace. Without this, "0151&nbsp;226&nbsp;2051"
+// and "202&nbsp;Cherry Lane" are not the same strings as the ones the rules
+// are looking for, and a wrong number or a wrong street written that way
+// reads correctly to the public and passes unread here. Added on the item
+// 1.4 quality pass, 2026-08-14.
 const unesc = (s) => s === null || s === undefined ? s : String(s)
+  .replace(/&nbsp;|&#160;|&#xa0;/gi, " ").replace(/\u00a0/g, " ")
   .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
   .replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
 
@@ -310,11 +355,15 @@ for (const dir of PAGE_DIRS) {
     // thing. Sweep every phone-shaped number instead, the way the paste
     // block half of this file already does.
     const swept = stripComments(unesc(html));
+    // Lower-cased once for the case-insensitive sweeps below (foreign
+    // postcode, name, street). Declared here rather than beside the first of
+    // them so all three read the same haystack.
+    const sweptLower = swept.toLowerCase();
     PHONE_RE.lastIndex = 0;
     let pm;
     while ((pm = PHONE_RE.exec(swept)) !== null) {
       const raw = pm[0].trim().replace(/\s+/g, " ");
-      const d = digits(raw);
+      const d = phoneDigits(raw);
       if (d.length < 10 || d.length > 11) continue;
       if (d === digits(b.phone)) continue;
       const key = file + "::" + raw;
@@ -364,6 +413,45 @@ for (const dir of PAGE_DIRS) {
           "'s postcode in branches.json");
     }
 
+    // --- FOREIGN POSTCODE, WRITTEN IN ANY CASE -------------------------
+    // PC_RE has no /i flag, on the stated assumption that a postcode in copy
+    // is "always upper case". That is a convention, not a fact, and it is the
+    // shape half of the same blind spot the phone had: the sweep above reads
+    // WHERE a postcode may sit but only ONE way of writing it, so another
+    // branch's postcode typed "sk7 3bl" or "Sk7 3bl" passed unread. Proved by
+    // injection on 2026-08-14.
+    //
+    // The fix is deliberately narrow rather than putting /i on PC_RE. Matched
+    // case-insensitively, the postcode shape (letters, digit, optional
+    // character, digit, two letters) also fits ordinary copy such as
+    // "vitamin B12 3rd", and this checker's whole value is that it does not
+    // cry wolf. So this rule looks only for a string that IS another live
+    // branch's postcode, which can never be innocent on this page. An
+    // unrecognised lower-case postcode-shaped string is left alone, and that
+    // is stated rather than hidden.
+    for (const other of branches) {
+      if (other.id === b.id || !other.postalCode) continue;
+      if (other.postalCode.replace(/\s+/g, " ").toUpperCase() ===
+        b.postalCode.replace(/\s+/g, " ").toUpperCase()) continue;
+      const want = other.postalCode.replace(/\s+/g, " ").toLowerCase();
+      const at = sweptLower.indexOf(want);
+      if (at === -1) continue;
+      const asWritten = swept.substr(at, other.postalCode.length);
+      // An all-upper-case occurrence is already reported by the sweep above.
+      // Reporting it twice would not add anything.
+      if (asWritten === asWritten.toUpperCase()) continue;
+      const key = file + "::" + asWritten;
+      if (KNOWN_POSTCODE[key]) {
+        usedKnownPostcode.add(key);
+        warn(rel, 'KNOWN postcode "' + asWritten + '". ' +
+          KNOWN_POSTCODE[key].question + ": " + KNOWN_POSTCODE[key].reason);
+        continue;
+      }
+      bad(rel, 'postcode "' + asWritten + '" belongs to ' + other.branchName +
+        ", not " + b.branchName + ". Written in mixed or lower case, so the " +
+        "upper-case postcode sweep could not see it");
+    }
+
     // --- EMAIL SWEEP ---------------------------------------------------
     // The mailto rule above only reads an address inside an anchor. An email
     // written as plain text ("write to x@y any time") was invisible, proved
@@ -411,10 +499,16 @@ for (const dir of PAGE_DIRS) {
     // shared domain is legitimately named by the item 2.2 "our other
     // branch" block, and its LINK is already policed by check-branch-
     // identity rule 9.
+    // Matched without regard to case, added on the item 1.4 quality pass of
+    // 2026-08-14. The rule was written as an exact-string includes(), so
+    // "smartts chemist" in a sentence, or a name typed in capitals in a
+    // heading, published a foreign pharmacy and passed. Case cannot make a
+    // trading name innocent, and a brand label is distinctive enough that
+    // matching it loosely cannot flag ordinary copy.
     for (const other of branches) {
       if (other.brandLabel === b.brandLabel) continue;
       for (const nm of [other.branchName, other.brandLabel]) {
-        if (!nm || !swept.includes(nm)) continue;
+        if (!nm || !sweptLower.includes(nm.toLowerCase())) continue;
         const key = file + "::" + nm;
         if (KNOWN_NAME[key]) {
           usedKnownName.add(key);
@@ -438,9 +532,12 @@ for (const dir of PAGE_DIRS) {
     // had yesterday. Branches sharing this street are skipped: Clear
     // Chemist and RB Healthcare Ltd Head Office are both Unit 20 Brookfield
     // Trade Centre, so that string is not foreign on either.
+    // Matched without regard to case for the same reason as the name sweep
+    // above. A street line is not less foreign for being written in lower
+    // case or in a capitalised heading.
     for (const other of branches) {
       if (!other.streetAddress || other.streetAddress === b.streetAddress) continue;
-      if (!swept.includes(other.streetAddress)) continue;
+      if (!sweptLower.includes(other.streetAddress.toLowerCase())) continue;
       const key = file + "::" + other.streetAddress;
       if (KNOWN_STREET[key]) {
         usedKnownStreet.add(key);
@@ -520,9 +617,9 @@ for (const dir of PASTE_DIRS) {
     let sawPhone = false;
     PHONE_RE.lastIndex = 0;
     while ((m = PHONE_RE.exec(text)) !== null) {
-      if (digits(m[0]).length < 10) continue;
+      if (phoneDigits(m[0]).length < 10) continue;
       sawPhone = true;
-      if (digits(m[0]) !== digits(b.phone))
+      if (phoneDigits(m[0]) !== digits(b.phone))
         bad(rel, 'phone "' + m[0].trim() + '" vs "' + b.phone + '" for ' + b.id);
     }
 
@@ -649,8 +746,8 @@ for (const abs of SHARED_PASTE_FILES) {
   let m;
   PHONE_RE.lastIndex = 0;
   while ((m = PHONE_RE.exec(text)) !== null) {
-    if (digits(m[0]).length < 10) continue;
-    const owner = branches.find((b) => b.phone && digits(b.phone) === digits(m[0]));
+    if (phoneDigits(m[0]).length < 10) continue;
+    const owner = branches.find((b) => b.phone && digits(b.phone) === phoneDigits(m[0]));
     bad(rel, 'shared template carries phone "' + m[0].trim() + '"' +
       (owner ? " (" + owner.branchName + ")" : "") +
       ", which would publish one branch's number on every branch that pastes it");

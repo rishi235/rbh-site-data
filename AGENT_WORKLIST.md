@@ -72,6 +72,25 @@ at Unit 20 Brookfield, do not flag each other). KNOWN_NAME and KNOWN_STREET
 added on the same stale-key-fails contract as the existing lists. Negative
 tested nine ways, including the three false-positive guards. Full working in
 audits/nap-item-1.4-quality-pass-2026-08-13-run136.txt.
+Quality pass 2026-08-14 (run 179): NAP data clean for the fourth pass running.
+177 pages, 3 paste blocks, 0 mismatches, all 32 checkers pass, all six
+generators rebuild to a zero diff. REPO HALF ONLY, no live half: the browser
+was unavailable (Q59). One defect found and fixed in the verifier rather than
+the data, and it is the layer under the three before it. Each earlier pass
+moved the READER and left the SHAPE at one: a sweep that looks everywhere for
+a single spelling of a fact is only as wide as that spelling. Proved by
+injection on the Cherry Lane contraception page, where all 32 checkers exited
+0 on a foreign phone written 0161-439-3744, (0161) 439 3744, 0161.439.3744,
+0161&nbsp;439&nbsp;3744 and +44 161 439 3744, on a foreign postcode written
+"sk7 3lq", on a foreign trading name written "smartts chemist" and on a
+foreign street written "42 fernhill road". unesc now decodes the non-breaking
+space, PHONE_RE reads hyphens, full stops and brackets and accepts +44 via a
+new phoneDigits(), the name and street sweeps are case-insensitive, and a
+narrow foreign-postcode-any-case rule was added rather than putting /i on
+PC_RE, which would have flagged copy like "vitamin B12 3rd". Negative tested
+22 ways, 15 must-catch and 7 must-pass. Residual stated: an abbreviated street
+("Station Rd") is still not read. Full working in
+audits/nap-item-1.4-quality-pass-2026-08-14-run179.txt.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;

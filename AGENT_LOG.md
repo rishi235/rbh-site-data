@@ -2,6 +2,111 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 01:05 BST - hundred-and-seventy-ninth run [commit hash added by a small follow-up commit]
+- Item 1.4 quality pass, the NAP check, fourth pass. ONE REAL DEFECT FOUND AND
+FIXED, in tools/check-nap.js. No page, no generator, no data field, no
+branches.json entry, no pack and no piece of patient-facing copy was changed.
+All 32 checkers exit 0 before and after, and all six generators rebuild all
+177 pages to a zero diff. NO new question.
+
+ANSWER PICKUP UNAVAILABLE, sixteenth consecutive run. Same cause as the last
+fifteen runs and as Q59 describes: two Chrome extension instances are
+connected and the tooling requires a human to choose between them before it
+will make any call. An unattended run has nobody to ask and is not allowed to
+pick for itself, so no fetch was attempted, no other route was tried, nothing
+was clicked and no tab was opened. 46 questions remain open with nothing
+posted since 2026-08-10. The unblock is still one action on Rishi's side.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written. Nothing needed a
+decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than trusted: all 41 completed items were read out of
+AGENT_WORKLIST.md, then all 219 run headings in this log were walked and each
+item's most recent heading recorded. 1.4 came back oldest at 43, then 4.3 at
+42 and 1.3 at 41. That agrees with what the 178th run predicted, which is
+worth saying given the 177th run got the ordering wrong.
+
+THE DEFECT: THREE PASSES MOVED THE READER AND LEFT THE SHAPE AT ONE. Item 1.4
+has had three quality passes and each closed a WHERE gap. 2026-08-11: the
+phone was read in two fixed shapes, now swept across the page. 2026-08-12: the
+postcode was read in three fixed places and the email only inside a mailto,
+both now swept. 2026-08-13: the name was read in two structured fields and the
+street in three fixed places, both now swept. Every one of those fixes widened
+where the checker looks and left WHAT SPELLING it looks for at exactly one. A
+sweep that searches the whole page for a single way of writing a fact is only
+as wide as that spelling, so the same wrong fact written a second perfectly
+ordinary way was invisible to all 32 checkers.
+
+PROVED BY INJECTION, EIGHT WAYS, into the visible copy of the Cherry Lane
+contraception page. check-nap exited 0 on every one of these: Scorah
+Bramhall's phone number written 0161-439-3744, (0161) 439 3744,
+0161.439.3744, 0161&nbsp;439&nbsp;3744 and +44 161 439 3744; Scorah
+Bramhall's postcode written "sk7 3lq"; Smartts Chemist's trading name written
+"smartts chemist"; and Smartts Chemist's street written "42 fernhill road".
+The control cases, the same facts written the one way each rule expected, were
+all caught, which is what makes this a shape gap rather than a coverage gap.
+
+Two of the eight are not invented writing styles. The non-breaking space is
+what a Weebly editor emits when a human types a number and the editor stops it
+wrapping, and unesc() decoded five entities but not that one. The bracketed
+STD code is the house style on most printed pharmacy signage, so it is the
+form most likely to be typed in by hand.
+
+THE FIX, IN ONE FILE. unesc() now decodes &nbsp;, &#160; and &#xa0; and
+normalises a literal U+00A0, because every sweep in the file splits a fact on
+whitespace. PHONE_RE now allows the space, hyphen, full stop and round
+brackets between digits and accepts the +44 prefix in place of the leading
+zero; a new phoneDigits() reduces a written number to its national form so the
+two forms compare equal, and is used at all three phone sweep sites. digits()
+is deliberately left alone, because tel: hrefs and JSON-LD telephone are
+machine fields already written one way. The name and street sweeps are now
+case-insensitive.
+
+THE POSTCODE FIX IS NARROW ON PURPOSE. PC_RE was NOT given a /i flag. Matched
+case-insensitively the postcode shape also fits ordinary copy such as "vitamin
+B12 3rd", and a checker that cries wolf gets widened until it means nothing,
+which is the failure this file exists to avoid. Instead there is a new rule
+that looks only for a string that IS another live branch's postcode, which can
+never be innocent on this page, and skips an all-upper-case occurrence because
+the existing sweep already reports it.
+
+NEGATIVE TESTED 22 WAYS, ALL CORRECT. 15 must-catch cases now fail the
+checker, including all eight injections above, a mixed-case foreign postcode
+and an upper-case trading name. 7 must-pass cases prove the wider regex does
+not cry wolf and none fails: the branch's OWN phone written hyphenated and
+written +44, "vitamin B12 3rd generation", a date range "2026-08-13 to
+2026-08-29", "28 tablets, 0.5mg, from 12.50 to 199.00 per course", a nine
+digit reference 012345678, and the branch's own street in lower case. The
+target page was restored from memory after every case and git confirms it
+untouched.
+
+RESIDUAL, STATED PLAINLY. An abbreviated street ("17 Station Rd" for "17
+Station Road") is still not read. Closing it needs fuzzy matching on a free
+text field, which is the single change most likely to make this checker cry
+wolf, and a wrong street written beside the right postcode is already caught
+by the postcode sweep. Not attempted, on purpose. A lower-case
+postcode-shaped string belonging to no branch is also still not read, for the
+reason above.
+
+THE DATA ITSELF IS CLEAN, fourth pass running. 177 pages, 3 paste blocks, 0
+mismatches, 0 warnings. The gap was latent: it is what would have published
+silently, not what has.
+
+REPO HALF ONLY. Whether Weebly is serving these facts was not checked, for the
+browser reason above; that half is tracked under 5.3/5.4 and the paste run.
+
+FILES CHANGED: tools/check-nap.js (the four widened rules and the new
+postcode rule, plus the header note), AGENT_WORKLIST.md (1.4 pass note
+appended in place), AGENT_LOG.md (this entry),
+audits/nap-item-1.4-quality-pass-2026-08-14-run179.txt (new),
+audits/live-hours-check-2026-08-14.json (new, written by check-live-hours.js
+when the suite was run).
+
 ## 2026-08-14 00:34 BST - hundred-and-seventy-eighth run [commit f8281f2, hash line added by a small follow-up commit]
 - Item 3.1 quality pass, the canonical title/H1 pattern, fourth pass. ONE REAL
 DEFECT FOUND AND FIXED, in tools/check-seo-pattern.js. No page, no generator,

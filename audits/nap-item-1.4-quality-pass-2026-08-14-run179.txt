@@ -1,0 +1,125 @@
+ITEM 1.4 QUALITY PASS - 2026-08-14, run 179 (fourth pass)
+=========================================================
+Scope: repo half only. No browser was used, so nothing here says anything
+about what Weebly is currently serving. Answer pickup was unavailable for the
+sixteenth consecutive run (Q59): two Chrome extension instances are connected
+and the tooling requires a human to choose between them. Nothing was clicked,
+no tab was opened and no other route was tried.
+
+BASELINE
+--------
+All 32 checkers exit 0 before any change.
+check-nap.js: 177 pages, 3 paste blocks, 16 branches.json entries,
+0 mismatches, 0 warnings.
+
+THE DEFECT: THE SWEEPS READ ONE WAY OF WRITING EACH FACT
+--------------------------------------------------------
+Three previous passes on this item each closed a WHERE gap. 2026-08-11: the
+phone was read in two fixed shapes and is now swept across the whole page.
+2026-08-12: the postcode was read in three fixed places and the email only
+inside a mailto, and both are now swept. 2026-08-13: the name was read in two
+structured fields and the street in three fixed places, and both are now swept.
+
+Every one of those fixes moved the READER and left the SHAPE at exactly one.
+A sweep that looks everywhere for a single spelling of a fact is only as wide
+as that spelling. So the same wrong fact, written a second perfectly ordinary
+way, was invisible to all 32 checkers.
+
+Proved by injection into the visible copy of
+modules/service/pages/contraception-cherry-lane-walton.html. Each of the
+following published a foreign NAP fact on a live patient page, and check-nap
+exited 0 on every one:
+
+  0161-439-3744                    Scorah Bramhall's number, hyphenated
+  (0161) 439 3744                  the same number, bracketed STD code
+  0161.439.3744                    the same number, full stops
+  0161&nbsp;439&nbsp;3744          the same number, non-breaking spaces
+  +44 161 439 3744                 the same number, international form
+  sk7 3lq                          Scorah Bramhall's postcode, lower case
+  smartts chemist                  another pharmacy's trading name, lower case
+  42 fernhill road                 another pharmacy's street, lower case
+
+The control cases (the same facts written the one way each rule expected)
+were caught, which is what makes this a shape gap and not a coverage gap.
+
+Two of these are not hypothetical writing styles. The non-breaking space is
+what a Weebly editor emits when a human types a number and the editor keeps
+it from wrapping, and unesc() decoded five entities but not that one. The
+bracketed STD code is the house style of most printed pharmacy signage.
+
+THE FIX, IN tools/check-nap.js ONLY
+-----------------------------------
+1. unesc() now decodes &nbsp;, &#160; and &#xa0; and normalises a literal
+   U+00A0 to an ordinary space, because every sweep in the file splits a fact
+   on whitespace.
+2. PHONE_RE widened from /\b0\d[\d ]{7,13}\d\b/ to allow the space, hyphen,
+   full stop and round brackets between digits, and to accept the +44
+   international prefix in place of the leading zero. The real narrowing was
+   always the 10-or-11-digit filter and the branch-phone comparison, not the
+   regex, so a wider match cannot flag ordinary copy.
+3. New phoneDigits() reduces a written number to its national form, turning
+   +44 into the leading 0 it stands in for, so the two forms compare equal.
+   Used at all three phone sweep sites (generated pages, paste blocks, the
+   shared switch template). digits() is left alone: tel: hrefs and JSON-LD
+   telephone are machine fields already written one way.
+4. The name sweep and the street sweep now match without regard to case.
+5. A new FOREIGN POSTCODE, ANY CASE rule. Deliberately narrow: PC_RE was NOT
+   given a /i flag, because case-insensitively the postcode shape also fits
+   ordinary copy such as "vitamin B12 3rd", and this checker's value is that
+   it does not cry wolf. The new rule looks only for a string that IS another
+   live branch's postcode, which can never be innocent on this page, and it
+   skips an all-upper-case occurrence because the existing sweep reports that
+   one already. Stated residual: an unrecognised lower-case postcode-shaped
+   string is still not read.
+
+NEGATIVE TESTING - 22 CASES, ALL CORRECT
+----------------------------------------
+15 must-catch cases: all 8 injections above, plus the plain-space phone,
+the upper-case foreign postcode, a mixed-case foreign postcode (Sk7 3Lq),
+an upper-case trading name, the exact-case name and street controls, and a
+literal U+00A0 phone. All 15 now fail the checker.
+
+7 must-pass cases, to prove the wider regex does not cry wolf. None fails:
+  own phone written hyphenated (0151-226-2051)
+  own phone written +44 151 226 2051
+  "Ask about vitamin B12 3rd generation supplements"   postcode-shaped copy
+  "Open 2026-08-13 to 2026-08-29 as usual"             date range
+  "28 tablets, 0.5mg, from 12.50 to 199.00 per course" prices and quantities
+  "Our ODS reference is 012345678"                     9-digit reference
+  own street written lower case
+
+The target page was restored from memory after every case and the checker
+exits 0 on the restored file. git confirms no page, no generator, no data
+field and no branches.json entry was changed.
+
+AFTER
+-----
+All 32 checkers exit 0.
+check-nap.js: 177 pages, 3 paste blocks, 0 mismatches, 0 warnings.
+All six page generators rebuild every page to a zero diff:
+  build-branch-landing-pages.js   6 branch landing pages
+  build-contraception-pages.js
+  build-service-pages.js
+  build-switch-pages.js
+  build-travel-clinic-pages.js    15 pages
+  build-weight-loss-pages.js      15 pages
+git diff --stat over modules/ is empty.
+
+THE DATA ITSELF, WHICH IS WHAT THE ITEM IS ABOUT
+------------------------------------------------
+Clean for the fourth pass running. No page, no paste block and no shared
+template carries a wrong name, address, postcode, phone or email. The gap was
+latent: it is what WOULD have published silently, not what has.
+
+RESIDUAL, STATED PLAINLY
+------------------------
+1. An abbreviated street ("17 Station Rd" for "17 Station Road") is still not
+   read. Fixing it needs fuzzy matching on a free-text field, which is the one
+   thing likely to make this checker cry wolf, and a wrong street with the
+   right postcode is already caught by the postcode sweep. Not attempted here
+   on purpose.
+2. A lower-case postcode-shaped string that belongs to no branch is still not
+   read, for the reason given at point 5 above.
+3. Everything here is the repo half. Whether the live Weebly pages carry these
+   facts correctly is tracked separately under 5.3/5.4 and the paste run, and
+   is blocked on the browser.
