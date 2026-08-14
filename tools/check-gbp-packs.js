@@ -134,6 +134,104 @@ const EFFICACY_WARN = [
   "dramatic",
 ];
 
+// The QUALIFIERS on the two private clinical services, added on the item 4.8
+// quality pass, 2026-08-14. Everything above this point bans wording. Nothing
+// above it REQUIRES any, and the two private clinics are sold on qualified
+// offers: the qualifier is the part that makes the advertisement lawful, and
+// deleting it leaves an offer that reads better and promises more.
+//
+// Proved by injection against gbp-packs/fishlocks-eccleston.md, one edit at a
+// time, all 36 checkers run on each. Six deletions walked past every one of
+// them clean:
+//   - the whole "This is a private, paid service and it is not right for
+//     everyone - the pharmacist will advise." sentence, cut from Post C
+//   - "as part of a supervised plan alongside diet and lifestyle changes",
+//     cut from Post C, leaving the clinic with no plan and no diet framing
+//   - the same "supervised plan" wording cut from the services bullet
+//   - "subject to availability and clinical suitability", cut from Post D
+//   - the same wording cut from the services travel bullet
+//   - "private, paid service" changed to "free service", which advertises a
+//     paid weight loss clinic as free on a public Google profile
+// A GBP post is Regime 1 under the house weight loss standard, the stricter
+// half: an advertisement pushed onto a public profile rather than an inner
+// page the patient chose. The estate already bans the medicine names and the
+// efficacy claims there. It did not hold the qualifier that sits beside them.
+//
+// This pins a convention the estate already keeps rather than inventing one:
+// 12 of the 15 packs carry every marker below, and the three that carry none
+// are a whole older Post C and Post D drafting, not a partial drift. They are
+// listed in KNOWN_CLINIC_QUALIFIER against the question that asks whether to
+// bring them onto the same wording. Same shape as rule 11 in
+// check-pharmacy-first-eligibility.js, which pinned the "Age ranges set by the
+// NHS apply to each condition" sentence for the same reason.
+//
+// Wording is matched loosely enough to survive an honest rewrite: "not right
+// for everyone" and "not suitable for everyone" are both live and both count,
+// and the pharmacist-will-advise clause satisfies the same requirement on its
+// own.
+const CLINIC_QUALIFIERS = [
+  {
+    key: "weightLossPaid",
+    widget: "weightLoss",
+    where: "post",
+    postRe: /weight loss/i,
+    re: /private,?\s+paid\s+service/i,
+    what: "that the weight loss clinic is a private, paid service",
+    why:
+      "a GBP post is an advertisement, and a private weight loss clinic " +
+      "advertised without saying it is paid for reads as an NHS service",
+  },
+  {
+    key: "weightLossSuitability",
+    widget: "weightLoss",
+    where: "post",
+    postRe: /weight loss/i,
+    re: /not\s+(?:right|suitable)\s+for\s+everyone|pharmacist\s+will\s+advise/i,
+    what: "that the weight loss clinic is not right for everyone, or that the pharmacist will advise",
+    why:
+      "without it the post advertises an unqualified offer of a service that " +
+      "is clinically assessed and may be declined",
+  },
+  {
+    key: "weightLossSupervised",
+    widget: "weightLoss",
+    where: "post",
+    postRe: /weight loss/i,
+    re: /supervised\s+plan/i,
+    what: "that the weight loss clinic is a supervised plan",
+    why:
+      "it is the wording that frames the clinic as ongoing clinical " +
+      "supervision rather than a product being sold",
+  },
+  {
+    key: "travelSuitability",
+    widget: "travelClinic",
+    where: "post",
+    postRe: /travel/i,
+    re: /subject\s+to\s+availability\s+and\s+clinical\s+suitability/i,
+    what: "that travel vaccinations are subject to availability and clinical suitability",
+    why:
+      "without it the post promises vaccines the clinic may not hold and may " +
+      "not be able to give the patient in front of it",
+  },
+  {
+    key: "servicesWeightLossSupervised",
+    widget: "weightLoss",
+    where: "services",
+    re: /supervised\s+plan/i,
+    what: "that the weight loss clinic is a supervised plan",
+    why: "the services section is pasted into the profile in its own right",
+  },
+  {
+    key: "servicesTravelSuitability",
+    widget: "travelClinic",
+    where: "services",
+    re: /subject\s+to\s+availability\s+and\s+clinical\s+suitability/i,
+    what: "that travel vaccinations are subject to availability and clinical suitability",
+    why: "the services section is pasted into the profile in its own right",
+  },
+];
+
 const EM_DASH = /[—–―]/;
 // The entity spellings of the same characters. A pack is pasted into Google's
 // plain-text profile fields, so an entity does not render as a dash there: it
@@ -238,6 +336,35 @@ const seenLocationTownKnown = {};
 // profile, and say so with a question id. Same anti-rot convention.
 const KNOWN_PUBLISHED_PHONE = {};
 const seenPublishedPhoneKnown = {};
+
+// Accepted exceptions to the private-clinic qualifier rule, keyed
+// "<branch id>::clinicQualifiers". One key per BRANCH rather than one per
+// missing qualifier, because these three packs are not a partial drift: they
+// carry an older Post C and Post D drafting wholesale and carry none of the
+// six markers, so they will be rewritten together or not at all. The key goes
+// stale as a unit the moment a pack gains all of them, which is the anti-rot
+// convention the maps above use.
+//
+// This is deliberately NOT fixed in this run. The rule above is a checker
+// change and touches no published copy; rewriting these three packs would
+// change live patient-facing weight loss and travel advertising, which is a
+// decision for Rishi and not one an unattended run should take. Q72 asks it.
+const CLINIC_QUALIFIER_Q72 = {
+  question: "Q72",
+  reason:
+    "the pack carries the older Post C and Post D drafting, which states " +
+    "neither that the weight loss clinic is a private, paid service that is " +
+    "not right for everyone and runs as a supervised plan, nor that travel " +
+    "vaccinations are subject to availability and clinical suitability. The " +
+    "other 12 packs state all of it. Whether these three are brought onto the " +
+    "same wording is the decision Q72 asks; all three move together.",
+};
+const KNOWN_CLINIC_QUALIFIER = {
+  "cherrylane_liverpool::clinicQualifiers": CLINIC_QUALIFIER_Q72,
+  "fishlocks_ainsdale::clinicQualifiers": CLINIC_QUALIFIER_Q72,
+  "hirshmans_ainsdale::clinicQualifiers": CLINIC_QUALIFIER_Q72,
+};
+const seenClinicQualifierKnown = {};
 
 // Branches where Post A must NOT yet be repointed at their own generated
 // Pharmacy First page, keyed by branch id. The Post A rule below treats the
@@ -1090,6 +1217,51 @@ for (const file of packFiles) {
   }
   for (const h of findTerms(text, EFFICACY_WARN)) {
     warn(file, `line ${h.line}: check wording "${h.term}". Context: ${h.text}`);
+  }
+
+  // --- the qualifiers on the two private clinics -------------------------
+  // The other direction from every rule above: what a pack must SAY, not what
+  // it may not. See the CLINIC_QUALIFIERS comment at the top for the six
+  // injections that proved this was unguarded, and why a GBP post is the
+  // stricter of the two weight loss regimes.
+  //
+  // Gated on the branch's widget set, so a branch that runs neither clinic is
+  // never asked for a qualifier on a service it does not offer, and the pack
+  // only has to carry the wording on a surface it actually uses: if a pack has
+  // no weight loss post, the post-level weight loss rules do not apply to it.
+  // That is the same gating the services and categories rules above use.
+  const qualPosts = postsOf(text);
+  const qualSvc = norm((text.match(/^##\s*3\.\s*Services section content[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1]);
+  const qualMissing = [];
+  for (const q of CLINIC_QUALIFIERS) {
+    if (!(b.widgets || {})[q.widget]) continue;
+    let surface = null;
+    let surfaceName = "";
+    if (q.where === "post") {
+      const p = qualPosts.find((x) => q.postRe.test(x.label));
+      if (!p) continue;
+      surface = norm(p.body);
+      surfaceName = p.label;
+    } else {
+      if (!qualSvc) continue;
+      surface = qualSvc;
+      surfaceName = "Services section";
+    }
+    if (!q.re.test(surface)) {
+      qualMissing.push({ key: q.key, surfaceName, what: q.what, why: q.why });
+    }
+  }
+  if (qualMissing.length) {
+    const knownKey = `${id}::clinicQualifiers`;
+    const known = KNOWN_CLINIC_QUALIFIER[knownKey];
+    if (known) {
+      seenClinicQualifierKnown[knownKey] = true;
+      warn(file, `known exception (${known.question}): ${qualMissing.length} private-clinic qualifier(s) missing - ${qualMissing.map((m) => m.key).join(", ")}. ${known.reason}`);
+    } else {
+      for (const m of qualMissing) {
+        fail(file, `${m.surfaceName} does not state ${m.what}. This is copy pasted into a public Google Business Profile, which is an advertisement, and ${m.why}. 12 of the 15 packs state it. If this pack is deliberately different, add "${knownKey}" to KNOWN_CLINIC_QUALIFIER with a question id.`);
+      }
+    }
   }
 
   // --- house style -------------------------------------------------------
@@ -2384,6 +2556,12 @@ for (const key of Object.keys(KNOWN_LOCATION_TOWN)) {
 for (const key of Object.keys(KNOWN_PUBLISHED_PHONE)) {
   if (!seenPublishedPhoneKnown[key]) {
     fails.push(`stale exception: KNOWN_PUBLISHED_PHONE["${key}"] no longer matches a pack publishing a phone number that is not the branch's own. Remove it (${KNOWN_PUBLISHED_PHONE[key].question}).`);
+  }
+}
+
+for (const key of Object.keys(KNOWN_CLINIC_QUALIFIER)) {
+  if (!seenClinicQualifierKnown[key]) {
+    fails.push(`stale exception: KNOWN_CLINIC_QUALIFIER["${key}"] no longer matches a pack missing a private-clinic qualifier, so the pack has been brought onto the estate wording. Remove it (${KNOWN_CLINIC_QUALIFIER[key].question}).`);
   }
 }
 

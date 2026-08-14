@@ -2131,6 +2131,40 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       checkers green, 0 findings across the 15 real packs, so the gap was
       latent not live. No patient-facing copy changed. No question raised.
       See audits/fishlocks-eccleston-gbp-pack-check-2026-08-13.txt.
+      Quality pass 2026-08-14: fifth pass. Repo half only, no live check and
+      no answer pickup (two Chrome browsers connected, an unattended run
+      cannot choose between them; Q59, forty-second consecutive run). The
+      pack itself is clean for the fifth time, facts re-verified field by
+      field against branches.json. 30 injections across three batches, all
+      36 checkers run on each. Confirmed in passing that the hours rule the
+      204th run added for item 4.6 reaches this pack's photo shot list.
+      One real defect found and fixed in the checker and the template, not
+      in any published copy. Every advertising rule in the estate BANS
+      wording and none REQUIRES any, and the two private clinics are sold on
+      qualified offers. Six edits walked past all 36 checkers clean:
+      deleting the whole "private, paid service and it is not right for
+      everyone - the pharmacist will advise" sentence from Post C, deleting
+      the supervised-plan wording from Post C and from the services bullet,
+      deleting "subject to availability and clinical suitability" from Post
+      D and from the services bullet, and changing "private, paid service"
+      to "free service", which advertises a paid weight loss clinic as free
+      on a public Google profile. A GBP post is Regime 1, the stricter half
+      of the house weight loss standard. check-weight-loss-copy.js does not
+      read gbp-packs/ at all, check-gbp-packs.js carried only prohibitions,
+      and TEMPLATE.md asked for none of it, so the convention was kept by 12
+      packs and required by no file. New CLINIC_QUALIFIERS rule, six markers
+      gated on the branch's widget set and on the pack having that post;
+      TEMPLATE.md sections 3 and 5 now tell the drafter to write them.
+      Negative tested 10 ways, 7 must-catch and 3 must-pass, all correct.
+      The convention is bimodal: 12 packs carry all six markers and three
+      (Cherry Lane Walton, Fishlocks Ainsdale, Hirshmans Ainsdale) carry
+      none, running a whole older Post C and Post D drafting. Those three
+      are pinned in KNOWN_CLINIC_QUALIFIER against Q72 rather than
+      rewritten, because changing live patient-facing weight loss and travel
+      advertising is Rishi's decision. Residual stated: an outcome claim
+      outside the known vocabulary still passes, which is a standing design
+      position in that checker rather than a new finding.
+      See audits/fishlocks-eccleston-gbp-pack-check-2026-08-14.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

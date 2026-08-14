@@ -2,6 +2,126 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 - two-hundred-and-fifth run
+
+- Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, fifth
+pass. ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js and
+gbp-packs/TEMPLATE.md. No page, generator, data field, paste sheet, branch
+fact or piece of patient-facing copy was changed. All 36 checkers pass. One
+new question, Q72.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited: the log was swept for the two pass-header
+shapes it actually uses, all 41 completed items resolved to a real header, and
+the headers ranked by POSITION IN THE FILE rather than by header date. Item
+4.8 came out oldest, last verified in the hundred-and-sixty-fourth run. That
+agrees with the 204th run, which refreshed 4.6 and noted runs 163, 164 and 165
+as the 4.6/4.8/4.9 group, but the agreement was checked rather than assumed.
+
+A TRAP WORTH RECORDING. A first cut of that ranking counted MENTIONS and put
+4.8 and 4.9 joint-oldest on a line that only refers to them in passing. A
+mention is not a verification. The strict version then matched a prose QUOTE
+of a header for 4.1, 75 lines above its real header; it did not change the
+answer here, but it would have if the quote had sat lower in the file.
+
+BASELINE. No .agent-lock and no .git\index.lock. Level with origin, worktree
+clean. All 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit, and again after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+requires a human to choose between them. An unattended run has nobody to ask,
+so step 3 got no further than enumerating them: NO page was fetched and
+nothing was clicked, typed, submitted or logged in to, on any site. No other
+route was attempted. Forty-second consecutive run of this fault, which is what
+Q59 asks about, so no duplicate was raised. Nothing live was read and the
+2026-08-12 live verdicts on this item stand as written rather than re-claimed.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation" section in this log is
+dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days ago, and it
+is not at the top of the file. Step 7 applied as written, which is why the
+three packs below were pinned and asked about rather than rewritten.
+
+METHOD. Injection testing, one value at a time, all 36 checkers run on each,
+file restored and byte-compared after every one. 30 injections in three
+batches: 12 on the pack's facts and clinical content, 8 isolating the finding,
+10 negative-testing the fix.
+
+WHAT HELD. Nine of the first twelve caught, including all the clinical ones:
+both blood pressure cohorts, the Post A UTI cohort, a dropped Pharmacy First
+condition, the condition count, the catchment order, a medicine name in Post
+C, and a paster note asserting hasApp false against branches.json. Also worth
+recording: the hours rule the 204th run added for item 4.6 was confirmed here
+on a second pack, catching a time changed in the photo shot list.
+
+THE DEFECT: EVERY RULE BANS WORDING, NONE REQUIRES ANY. The two private
+clinics are sold on qualified offers, and the qualifier is the part that makes
+the advertisement lawful. Six edits walked past ALL 36 CHECKERS clean:
+
+  delete "This is a private, paid service and it is not right for everyone
+    - the pharmacist will advise." from Post C          ALL 36 EXITED 0
+  delete "as part of a supervised plan alongside diet and lifestyle changes"
+    from Post C                                          ALL 36 EXITED 0
+  delete the same supervised-plan wording from the services bullet
+                                                         ALL 36 EXITED 0
+  delete "subject to availability and clinical suitability" from Post D
+                                                         ALL 36 EXITED 0
+  delete the same wording from the services travel bullet ALL 36 EXITED 0
+  change "private, paid service" to "free service"        ALL 36 EXITED 0
+
+The last one is the sharpest: it advertises a paid weight loss clinic as free
+on a public Google profile. A GBP post is Regime 1 under the house weight loss
+standard, the stricter half, because it is pushed at people rather than opened
+by them. The estate already bans the medicine names and the efficacy claims
+there. It did not hold the qualifier standing next to them.
+
+WHY NOTHING SAW IT. check-weight-loss-copy.js reads the generated pages, the
+branch landing pages and the paste sheets, and does not read gbp-packs/ at
+all, so the weight loss checker has never read a pack. check-gbp-packs.js
+carries MEDICINE_NAMES, EFFICACY_FAIL and the shared CLAIM_PATTERNS, every one
+of them a prohibition. And TEMPLATE.md tells the drafter "no medicine names,
+no efficacy claims" for Post C and says nothing about the qualifiers. So the
+convention was kept by twelve packs and asked for by no file, which is exactly
+how three packs came to be drafted without it.
+
+THE FIX. New CLINIC_QUALIFIERS rule: six markers, each gated on the branch's
+own widget set AND on the pack actually carrying that post, so no branch is
+asked for a qualifier on a service it does not run. Composed from
+branches.json and the pack's own sections, nothing hardcoded per branch.
+Wording is matched loosely enough to survive an honest rewrite: "not right for
+everyone" and "not suitable for everyone" both count, and the
+pharmacist-will-advise clause satisfies that requirement alone. TEMPLATE.md
+sections 3 and 5 now tell the drafter to write them, because a rule enforced
+in a checker and absent from the template it is drafted from is the drift the
+item 4.1 pass caught on 2026-08-13. Same shape as rule 11 in
+check-pharmacy-first-eligibility.js, which pinned the NHS age-ranges sentence.
+
+THREE PACKS PINNED, NOT REWRITTEN, AND ASKED AS Q72. The convention is
+bimodal with no partial cases: 12 packs carry all six markers, and Cherry Lane
+Walton, Fishlocks Ainsdale and Hirshmans Ainsdale carry none, running a whole
+older Post C and Post D drafting that names no medicines and makes no efficacy
+claims, so it broke no rule that existed, and advertises both clinics with no
+qualifier at all. They are pinned in KNOWN_CLINIC_QUALIFIER on the standard
+anti-rot contract, one key per branch because all three move together.
+Rewriting them would change live patient-facing weight loss and travel
+advertising, which is Rishi's call and not an unattended run's, so Q72 asks
+it. Warning lines went 52 to 55, the three new ones being those packs.
+
+ONE RESIDUAL, STATED NOT FIXED. An outcome claim outside the known vocabulary
+("we get results for everyone") still passes. check-gbp-packs.js already sets
+out why a list-based detector can only catch a claim it has a name for; that
+is a standing design position, not a new finding, and widening it is a larger
+question than this pass.
+
+NEGATIVE TESTS, 10 OF 10 CORRECT. Seven must-catch, including a stale KNOWN
+key on a pack that carries every marker, all caught. Three must-pass, "not
+right" reworded to "not suitable", the suitability carried by the pharmacist
+clause alone, and a harmless rewording that keeps every qualifier, all passed.
+
+Files changed: tools/check-gbp-packs.js, gbp-packs/TEMPLATE.md,
+QUESTIONS.json, AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/fishlocks-eccleston-gbp-pack-check-2026-08-14.txt.
+
 ## 2026-08-14 18:25 BST - two-hundred-and-fourth run [commit cb10fdb, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack. ONE REAL

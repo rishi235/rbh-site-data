@@ -1,0 +1,143 @@
+Item 4.8 quality pass - Fishlocks Chemist Eccleston GBP pack
+Fifth pass. 2026-08-14, two-hundred-and-fifth run.
+Repo half only. No browser call was made and nothing live is claimed.
+
+WHY THIS ITEM
+All eight unchecked worklist items are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6), so this run is a quality pass. Staleness was re-derived
+mechanically rather than inherited from the previous run's projection.
+AGENT_LOG.md was swept for the pass-header shapes it actually uses
+("Item N quality pass" and "Quality pass on item N"), all 41 completed items
+resolved to a real header, and the headers were ranked by POSITION IN THE
+FILE, newest at the top. Item 4.8 came out oldest, last verified in the
+hundred-and-sixty-fourth run.
+
+One trap worth recording. A first pass at this ranking counted MENTIONS
+rather than pass headers and put 4.8 and 4.9 joint-oldest on a line that
+merely refers to them ("verification once runs 163, 164 and 165 refreshed
+4.6, 4.8 and 4.9"). A mention is not a verification. The strict version also
+matched a prose quote for 4.1 ("- Item 4.1 quality pass" inside a sentence),
+75 lines above its real header; the real header at line 1921 is far newer, so
+it did not change the answer, but it would have if the quote had sat lower.
+
+BASELINE, BEFORE ANY EDIT
+No .agent-lock, no .git\index.lock. Level with origin/agents/audit-backlog,
+worktree clean. All 36 checkers exit 0. All six generators rebuild every page
+byte-identical (git status empty after regeneration). 52 warning lines, all
+pre-existing.
+
+METHOD
+Injection testing, one value at a time, all 36 checkers run on each, the file
+restored and byte-compared after every one. 30 injections in three batches:
+12 probing the pack's facts and clinical content, 8 isolating the finding,
+10 negative-testing the fix.
+
+WHAT HELD (batch 1, 9 of 12 caught)
+  CAUGHT  hours in the photo shot list, 12:00pm -> 1:00pm   [gbp-packs]
+  CAUGHT  blood pressure cohort in the description, 40 -> 30
+  CAUGHT  blood pressure cohort in the services bullet, 40 -> 30
+  CAUGHT  Post A UTI cohort, 16-64 -> 16-74
+  CAUGHT  services bullet drops earache, seven conditions -> six
+  CAUGHT  description count, seven -> eight
+  CAUGHT  paster note asserts hasApp false against branches.json
+  CAUGHT  Post C names a medicine (control)
+  CAUGHT  Post B catchment order reversed
+The hours injection is worth noting: it confirms the rule the previous run
+added for item 4.6, that an hours statement anywhere in a pack must agree with
+branches.json, reaches this pack's photo shot list. That was the 204th run's
+defect and it is closed here on a second pack.
+
+THE DEFECT: THE QUALIFIERS ARE GUARDED BY NOTHING
+Every advertising rule in the estate bans wording. None requires any. The two
+private clinics are sold on qualified offers, and the qualifier is the part
+that makes the advertisement lawful. Six edits walked past ALL 36 CHECKERS:
+
+  UNCAUGHT  delete "This is a private, paid service and it is not right for
+            everyone - the pharmacist will advise." from Post C
+  UNCAUGHT  delete "as part of a supervised plan alongside diet and lifestyle
+            changes" from Post C
+  UNCAUGHT  delete "as part of a supervised plan" from the services weight
+            loss bullet
+  UNCAUGHT  delete "subject to availability and clinical suitability" from
+            Post D
+  UNCAUGHT  delete the same wording from the services travel bullet
+  UNCAUGHT  change "private, paid service" to "free service", which advertises
+            a paid weight loss clinic as free on a public Google profile
+
+A GBP post is Regime 1 under the house weight loss standard, the stricter
+half: an advertisement pushed onto a public profile, not an inner page the
+patient chose to open. The estate already bans the medicine names and the
+efficacy claims there. It did not hold the qualifier sitting beside them.
+
+WHY NOTHING SAW IT
+check-weight-loss-copy.js reads modules/service/pages, modules/branch/pages
+and modules/service/weebly-paste. It does not read gbp-packs/ at all, so the
+weight loss checker has never read a pack. check-gbp-packs.js carries
+MEDICINE_NAMES, EFFICACY_FAIL and the shared CLAIM_PATTERNS, all of them
+prohibitions. And gbp-packs/TEMPLATE.md tells the drafter "no medicine names,
+no efficacy claims" for Post C and says nothing at all about the qualifiers.
+So the convention was kept by twelve packs and asked for by no file.
+
+ONE RESIDUAL, STATED NOT FIXED
+An outcome claim outside the known vocabulary ("we get results for everyone")
+still passes. check-gbp-packs.js already sets out, at its claims-outside-the-
+known-vocabulary note, why a list-based claim detector can only catch a claim
+it has a name for. That is a standing design position, not a new finding, and
+widening it is a larger question than this pass.
+
+THE FIX, IN THE CHECKER AND THE TEMPLATE, NOT IN ANY PUBLISHED COPY
+tools/check-gbp-packs.js: new CLINIC_QUALIFIERS rule, six markers, each gated
+on the branch's own widget set and on the pack actually having that post, so
+no branch is asked for a qualifier on a service it does not run. Composed from
+branches.json and the pack's own sections; nothing hardcoded per branch.
+Wording is matched loosely enough to survive an honest rewrite: "not right for
+everyone" and "not suitable for everyone" both count, and the
+pharmacist-will-advise clause satisfies that requirement on its own.
+gbp-packs/TEMPLATE.md: sections 3 and 5 now tell the drafter to write the
+qualifiers, because a rule enforced in a checker and absent from the template
+it is drafted from is the drift the item 4.1 pass caught on 2026-08-13.
+
+THE THREE OLDER PACKS, PINNED NOT REWRITTEN
+The convention is bimodal, with no partial cases. Measured across all 15:
+12 packs carry all six markers; cherry-lane-walton, fishlocks-ainsdale and
+hirshmans-ainsdale carry none. Those three run a whole older Post C and Post D
+drafting ("a private, no pressure consultation", "we support you at every step
+with regular check-ins", "get your jabs sorted before you go") which names no
+medicines and makes no efficacy claims, so it broke no rule that existed, and
+advertises both clinics with no qualifier at all.
+
+They are pinned in KNOWN_CLINIC_QUALIFIER against Q72, one key per branch
+because all three move together, on the same anti-rot contract as every other
+exception map in the file: a key that stops matching a real breach fails the
+run. They are NOT rewritten here. That would change live patient-facing weight
+loss and travel advertising, which is Rishi's decision and outside what an
+unattended run should take, and there is no autonomous window open in any case.
+
+NEGATIVE TESTS, 10 OF 10 CORRECT
+  MUST-CATCH  remove the weight loss suitability sentence          CAUGHT
+  MUST-CATCH  remove "supervised plan" from Post C                 CAUGHT
+  MUST-CATCH  remove travel suitability from Post D                CAUGHT
+  MUST-CATCH  remove "supervised plan" from the services bullet    CAUGHT
+  MUST-CATCH  "private, paid service" -> "free service"            CAUGHT
+  MUST-CATCH  remove travel suitability from the services bullet   CAUGHT
+  MUST-CATCH  stale KNOWN key on a pack that carries every marker  CAUGHT
+  MUST-PASS   "not right" -> "not suitable for everyone"           passed
+  MUST-PASS   suitability carried by the pharmacist clause alone   passed
+  MUST-PASS   harmless rewording that keeps every qualifier        passed
+
+AFTER THE FIX
+All 36 checkers exit 0. All six generators rebuild byte-identical, git status
+shows only tools/check-gbp-packs.js, gbp-packs/TEMPLATE.md, QUESTIONS.json,
+AGENT_WORKLIST.md, AGENT_LOG.md and this file. Warning lines 52 -> 55: the
+three new ones are the three pinned packs, each naming all six missing
+markers and Q72. No page, generator, data field, paste sheet, branch fact or
+piece of patient-facing copy was changed.
+
+THE PACK ITSELF IS CLEAN FOR THE FIFTH TIME
+Facts re-verified against branches.json: name, address, postcode PR7 5SZ,
+phone 01257 451251, hours including the Saturday 9 to 12, review link,
+profile website pointed at its own Eccleston landing page, catchment order
+leading with Eccleston, categories and services earned by the widget set,
+description 730 characters, all four post buttons on Eccleston pages, app
+mentions correctly gated on hasApp true. The pre-existing Q64 post-town
+warning stands unchanged.

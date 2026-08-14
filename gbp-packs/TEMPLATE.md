@@ -118,7 +118,12 @@ sentence plain-English description. NHS services first, then private.
 List every service the branch's widget set in branches.json gives it -
 Pharmacy First, blood pressure, contraception, weight loss, travel clinic -
 and do not list one it has no widget for. tools/check-gbp-packs.js fails any
-pack that omits one, and warns where the business description leaves one out.)
+pack that omits one, and warns where the business description leaves one out.
+The two PRIVATE bullets carry their qualifier here as well as in the posts,
+because this section is pasted into the profile in its own right: the weight
+loss bullet says the clinic runs as a "supervised plan", and the travel bullet
+says vaccinations are "subject to availability and clinical suitability". See
+the note under section 5.)
 
 ## 4. Photo shot list
 (What to photograph so the profile looks real and local. Front, inside,
@@ -134,6 +139,23 @@ action any pending Google updates while in the profile.)
 ### Post D - Travel clinic
 (Each post: text plus the button suggestion - "Book" or "Learn more" with the
 right page link from branches.json.)
+
+(THE QUALIFIERS ON THE TWO PRIVATE CLINICS. The two lines above say what these
+posts may not contain. They must also SAY certain things, and until the item
+4.8 quality pass on 2026-08-14 this template asked for none of it, which is
+why three packs were drafted without any of it and nothing said so. A GBP post
+is an advertisement pushed onto a public profile, the stricter of the two
+weight loss regimes, so the qualifier is the part that makes the offer lawful.
+tools/check-gbp-packs.js now fails any pack that leaves one out.
+Post C, wherever the branch has a weightLoss widget, states all three of:
+  - that the clinic is a "private, paid service"
+  - that it is "not right for everyone" or "not suitable for everyone", or
+    that "the pharmacist will advise"
+  - that it runs as a "supervised plan"
+Post D, wherever the branch has a travelClinic widget, states that
+vaccinations are "subject to availability and clinical suitability".
+Write these as ordinary sentences in the branch's own voice. Do not bolt them
+on as a disclaimer.)
 
 Notes for the paster:
 (This block sits below section 5 and is the only part of a pack addressed to
