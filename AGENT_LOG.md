@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 13:04 BST - hundred-and-ninety-ninth run
+## 2026-08-14 13:04 BST - hundred-and-ninety-ninth run [commit 9721a45, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.2, the six branch landing pages. ONE REAL DEFECT
 FOUND AND FIXED, and unlike the last seven runs it is in the PATIENT-FACING
