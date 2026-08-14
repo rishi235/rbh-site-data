@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 15:10 BST - two-hundred-and-first run
+## 2026-08-14 15:10 BST - two-hundred-and-first run [commit f643ade, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack. ONE REAL
 DEFECT FOUND AND FIXED, on the public-profile surface: hasApp was read by
