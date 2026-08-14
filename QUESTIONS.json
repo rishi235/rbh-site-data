@@ -1150,5 +1150,21 @@
     "status": "open",
     "answer": null,
     "note": "Found by injection on the fifth quality pass of item 4.9, 2026-08-14. Nothing in any pack was changed; the injection was reverted. Options 1 and 2 are not exclusive in the long run, but they are exclusive as the next action: option 1 hardens the guard, option 2 removes the hazard and the guard together. Option 2 is the better end state and option 1 is the safer thing to do this week, because Q13 has been open since 2026-08-10 and the packs are pasteable today."
+  },
+  {
+    "id": "Q75",
+    "date": "2026-08-14",
+    "item": "quality pass on 4.10 (finding, does not block any item)",
+    "question": "The medical cannabis wording in a GBP pack is held by nothing but the paster note asking for it. Smartts Bootle deliberately limits the entry to \"book a free consultation to discuss eligibility\", and its own notes say \"Do not add availability or benefit claims anywhere on the profile\". Injecting a benefit claim into that services line, so it read \"Medical cannabis consultation: proven to help chronic pain; book a free consultation to discuss eligibility\", passed all 36 checkers clean. The weight loss equivalents are guarded properly: a medicine name, an efficacy claim, a Buy Now button and lead pricing injected into Post C were all caught. Medical cannabis is the higher-risk category of the two, being unlicensed specials prescribed against a Schedule 2 controlled drug, and it is the one with no rule at all. The pack is correct today; the exposure is the next edit.",
+    "options": [
+      "Extend the existing weight loss claim rules to cover a medical cannabis block: reuse the efficacy, pricing and buy-button patterns already in claim-patterns.js, and additionally ban availability language (in stock, available now, we supply) near any medical cannabis mention. Smallest change, reuses tested patterns, and lands the same day.",
+      "Require the wording positively instead of banning claims: any pack naming medical cannabis must carry the exact consultation-and-eligibility sentence and nothing else in that entry. Tightest cover, but it freezes a sentence that may need to differ per branch.",
+      "Treat medical cannabis as out of scope for GBP entirely and remove it from the packs and profiles, leaving it to the website service pages where the copy is generated and already checked.",
+      "Leave it. Only two packs mention medical cannabis, the wording is right in both, and the paster notes already say not to embellish it."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found by injection on the fourth quality pass of item 4.10, 2026-08-14. Nothing was changed in any pack for this finding; the injection was reverted and the estate is green. Raised rather than decided because it is a live patient-facing regulatory claim, which the run rules keep out of autonomous decisions, and because the right word list is a judgement about advertising exposure rather than a mechanical fix. Whichever option is picked should be applied to every pack naming medical cannabis at once, not just to Smartts."
   }
 ]

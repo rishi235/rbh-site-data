@@ -2,6 +2,140 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 - two-hundred-and-seventh run
+
+- Quality pass on item 4.10, the Smartts Chemist Bootle GBP pack, fourth pass.
+ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. No page,
+generator, data field, branches.json entry, paste sheet, GBP pack or piece of
+patient-facing copy was changed. All 36 checkers pass. One new question, Q75.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited: every "## " run header in this log was
+parsed, the FIRST bullet under each was read, and only the two header shapes
+the log actually uses were accepted ("- Quality pass on item X.Y" and "- Item
+X.Y quality pass"). 247 run headers, 55 resolving to an item, 41 distinct
+items, which matches the 41 ticked worklist items exactly with nothing left
+over. Ranked by recency, item 4.10 came out oldest, last verified in the
+hundred-and-sixty-sixth run on 2026-08-13 16:34 BST.
+
+BASELINE. No .agent-lock and no stale .git\index.lock. Level with origin at
+a2e38ac, worktree clean. All 36 checkers green and all six page generators
+rebuild every page byte-identical BEFORE any edit, and again after.
+
+ANSWER PICKUP: A DIFFERENT FAULT FROM THE LAST FORTY-THREE RUNS, WORTH READING.
+For the first time since 2026-08-12 only ONE Chrome extension instance was
+connected, so the ambiguity Q59 describes did not arise. The browser was
+selected, a tab was opened and https://data.rbhealth.co.uk/api/feedback was
+navigated to, read-only. It returned the Cloudflare Access sign-in page rather
+than the feedback JSON, so Rishi's Access session is not currently held in that
+browser. Per the run rules the fetch was abandoned there: nothing was clicked,
+typed, submitted or logged in to, no other route was attempted, and the tab was
+closed. Pickup is therefore still unavailable and no answers were collected, but
+the CAUSE has moved from "two browsers, nobody to choose" to "one browser, not
+signed in". That is a smaller problem and a different fix, and it is worth Rishi
+knowing: signing in to the portal once in that Chrome profile would likely be
+enough to make pickup start working. No duplicate question was raised, because
+Q59 already owns answer pickup.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+mentions in this log are the two prose lines in the 206th and earlier entries
+recording that the 2026-08-09 window expired. There is no live section at the
+top of the file, so step 7 applied as written, which is why the cannabis
+finding below was asked about rather than decided.
+
+METHOD. Injection testing, one value at a time, all 36 checkers run on each,
+file restored from git and byte-compared against the original after every one.
+25 injections, run detached to a results file and polled, so no step depended
+on a shell staying alive. 24 ran, 1 skipped for a non-unique anchor, and every
+single one restored clean.
+
+WHAT HELD. Twenty-one of the twenty-four caught, including every fact and every
+weight loss regulatory one: the house number, the locality, the postcode, the
+phone, the website, the review link, the branch id, the primary category, the
+description character claim, the hasApp claim, a dropped catchment town, the
+Pharmacy First age range, an eighth condition added to the Pharmacy First
+seven, a widened blood pressure age, an em dash, a non-ASCII character, and
+removal of the split-day lunch guidance the first pass added, which confirms
+that rule still holds. Post C remains well guarded: a medicine name, an
+efficacy claim, a Buy Now button and lead pricing were all four caught.
+
+THE DEFECT: A MISSPELLED ROAD NAME IN THE ONE LINE THAT SETS THE MAP PIN.
+
+  change the "- Address:" line only, Fernhill Road -> Fernhall Road
+  ALL 36 EXITED 0
+
+This is the road-name twin of the house-number fault the 4.6 pass fixed and the
+unit-number fault the 4.9 pass fixed, and it is the worst of the three. The
+presence rule passes, because the description and Posts B and D still spell
+"42 Fernhill Road" correctly. The sister rule passes, because Fernhall Road is
+no branch's address. The house-number rule does not merely stay quiet, it is
+blind: it scans for a number sitting in front of the branch's own road name, so
+a misspelled road is not a wrong number on a known road, it is an occurrence
+the regex never matches. And the post-town rule immediately below is switched
+off by the same edit, because it locates the post town by finding the street
+inside the address line and does nothing when it is not there. That is exactly
+the pathology the 4.6 note warned about, "one mistyped digit both publishes a
+wrong pin and switches off the next rule", reached through the road name.
+
+Why it matters more than the other two: a wrong house number moves the pin
+along the right road, and a wrong unit number moves it to the wrong door in the
+right building. A wrong road name puts the pharmacy on a road it is not on, and
+Google geocodes it wherever it can. The "- Address:" line is the single line the
+paster sets the pin from, and every rule in the file reported clean.
+
+THE FIX. The "- Address:" line must CONTAIN the branches.json streetAddress,
+after whitespace is collapsed. Deliberately containment and not equality,
+because the line legitimately carries the post town and postcode after the
+street and the post-town rule owns the words between them. Before writing the
+rule, all 15 packs were probed and all 15 already satisfy it, so it landed
+without needing a single exception. Guarded by a KNOWN_IDENTITY key
+"<branch id>::addressStreetLine" on the same anti-rot convention as its
+neighbours, and the stale-exception message was updated to name the new field
+so a future reader is not told the wrong list.
+
+NEGATIVE-TESTED FIVE WAYS, ACROSS THREE PACKS. Clean run first, all 36 exit 0
+with the rule in place, so no regression. Then: the road name on smartts-bootle
+caught; the road name on mccanns-aigburth caught; the building name on
+clear-aintree caught, which matters because that is a unit address and the two
+earlier address rules treat those differently; the road name deleted from the
+line entirely caught. Fifth, the road name uppercased to FERNHILL ROAD is
+deliberately NOT a failure, because the match is case-insensitive and shouting
+an address is not publishing a wrong one.
+
+TWO INJECTIONS WERE NOT CAUGHT AND WERE NOT FIXED HERE.
+
+Medical cannabis, raised as Q75. Injecting a benefit claim into the services
+line, so it read "Medical cannabis consultation: proven to help chronic pain;
+book a free consultation to discuss eligibility", passed all 36 checkers. The
+pack itself is correct and its own paster note says "Do not add availability or
+benefit claims anywhere on the profile", but nothing enforces it. The weight
+loss equivalents are all guarded, so the higher-risk category, unlicensed
+specials against a Schedule 2 controlled drug, is the one with no rule. Raised
+rather than decided because it is a live patient-facing regulatory claim, which
+the run rules keep out of autonomous decisions even inside a window, and
+because choosing the banned wording is a judgement about advertising exposure.
+The pack is correct today; the exposure is the next edit.
+
+UK spelling, deliberately recorded as NOT a defect. Changing "judgement-free"
+to "judgment-free" in Post C passed clean. This was examined and left alone on
+purpose: "judgment" is correct UK English in the legal register and Oxford
+accepts it, so a rule banning it would fire on correct copy. check-uk-spelling.js
+is written narrow precisely to avoid that, and its own header lists five words
+it refuses to police for the same reason. Adding this one would make the checker
+less trustworthy, not more. Recorded here so a later pass does not rediscover it
+and "fix" it.
+
+REPO HALF ONLY ON THE LIVE QUESTIONS. Nothing live was read this run beyond the
+failed pickup above, so the 2026-08-12 live verdicts on this pack stand as
+written rather than re-claimed: NAP correct, all four post targets live, and
+the website-hours contradiction on smarttschemist.co.uk, which still prints
+9:00am to 6:00pm with no lunch closure, still stands.
+
+Files changed: tools/check-gbp-packs.js (the new rule, the key-list comment and
+the stale-exception message), AGENT_WORKLIST.md (4.10 fourth pass recorded in
+place), QUESTIONS.json (Q75), AGENT_LOG.md (this entry).
+
 ## 2026-08-14 - two-hundred-and-sixth run
 
 - Quality pass on item 4.9, the Clear Chemist Aintree GBP pack, fifth pass.

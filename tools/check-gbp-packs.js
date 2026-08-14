@@ -277,7 +277,8 @@ const seenNotOfferedKnown = {};
 
 // Accepted exceptions to the profile-basics rules, keyed
 // "<branch id>::gbpName", "<branch id>::streetAddress",
-// "<branch id>::addressPostTown", "<branch id>::reviewLink" or
+// "<branch id>::addressPostTown", "<branch id>::addressStreetLine",
+// "<branch id>::reviewLink" or
 // "<branch id>::profileWebsite". Same anti-rot
 // convention: a key that no longer matches a real breach fails the run.
 const POST_TOWN_Q64 = {
@@ -1773,6 +1774,58 @@ for (const file of packFiles) {
   // holds "Timperley, Altrincham") is not read as a breach.
   const addrLine = (text.match(/^-\s*Address:[^\n]*(?:\n\s{2,}[^\n]*)*/m) || [])[0] || "";
   const flatAddr = norm(addrLine.replace(/^-\s*Address:/, ""));
+
+  // --- the "- Address:" line must carry the branch's own street ------------
+  // Added by the item 4.10 quality pass, 2026-08-14, by injection into
+  // smartts-bootle.md. Changing the "- Address:" line alone from "42 Fernhill
+  // Road" to "42 Fernhall Road" passed ALL 36 CHECKERS clean.
+  //
+  // This is the road-name twin of the house-number fault the 4.6 pass found
+  // and the unit-number fault the 4.9 pass found, and it passes for the same
+  // two reasons plus a third that makes it worse:
+  //
+  //   1. The presence rule above passes, because the description, Post B and
+  //      Post D still spell "42 Fernhill Road" correctly.
+  //   2. The sister rule above passes, because "Fernhall Road" is no branch's
+  //      address.
+  //   3. The house-number rule above is BLIND to it, not merely quiet. That
+  //      rule scans for a number sitting in front of the branch's own road
+  //      name, so a misspelled road name is not a wrong number on a known
+  //      road, it is an occurrence the regex never matches at all.
+  //
+  // And then the post-town rule immediately below is DISABLED by the very
+  // same edit, because it locates the post town by finding the branch's own
+  // street inside the address line and does nothing at all when it is not
+  // there. That silent give-up is the exact pathology the house-number note
+  // above warned about ("one mistyped digit both publishes a wrong pin and
+  // switches off the next rule"), reached here through the road name instead.
+  //
+  // The consequence is the worst of the three address faults, because the
+  // "- Address:" line is the single line the paster sets the Google Maps pin
+  // from. A wrong house number moves the pin along the right road; a wrong
+  // road name puts the pharmacy on a road it is not on, or on no road at all,
+  // and Google will silently geocode it wherever it can. Every other rule in
+  // this file kept reporting clean while it did so.
+  //
+  // The rule is deliberately the narrowest thing that closes it: the address
+  // line must CONTAIN the branches.json streetAddress after whitespace is
+  // collapsed. It is not an equality test, because the line legitimately
+  // carries the post town and postcode after the street, and the rule below
+  // is the one that owns the words between them. All fifteen packs satisfy it
+  // today, verified before the rule was written, so it fails only on a real
+  // divergence and does not need a single exception on the day it lands.
+  const streetLineKey = `${b.id}::addressStreetLine`;
+  const streetLineKnown = KNOWN_IDENTITY[streetLineKey];
+  if (addrLine && ownStreet && flatAddr.toLowerCase().indexOf(ownStreet.toLowerCase()) === -1) {
+    const msg = `the "- Address:" line reads "${flatAddr}", which does not contain this branch's street address "${b.streetAddress}" from branches.json. The presence rule passes because the street is spelled correctly elsewhere in the pack, and the sister rule passes because what the line actually states is no branch's address. That line is the one the paster sets the Google Maps pin from, so the profile would publish a street this branch is not on, and the post town rule below is switched off by the same edit because it finds the post town by locating the street inside this line.`;
+    if (streetLineKnown) {
+      seenIdentityKnown[streetLineKey] = true;
+      warn(file, `KNOWN ${msg} ${streetLineKnown.question}: ${streetLineKnown.reason}`);
+    } else {
+      fail(file, msg);
+    }
+  }
+
   const townKey = `${b.id}::addressPostTown`;
   const townKnown = KNOWN_IDENTITY[townKey];
   if (addrLine && ownStreet && b.postalCode) {
@@ -2557,7 +2610,7 @@ for (const key of Object.keys(KNOWN_NOT_OFFERED)) {
 }
 for (const key of Object.keys(KNOWN_IDENTITY)) {
   if (!seenIdentityKnown[key]) {
-    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, post town, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
+    fails.push(`stale exception: KNOWN_IDENTITY["${key}"] no longer matches a pack with a profile-basics fault in its name, street address, address line street, post town, review link or website. Remove it (${KNOWN_IDENTITY[key].question}).`);
   }
 }
 for (const key of Object.keys(KNOWN_PHOTOS)) {

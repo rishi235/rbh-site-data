@@ -2332,6 +2332,40 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       homepage navigation, which is the condition the pack sets for
       swapping Post A's link. No in-repo defect, no copy changed, no new
       question. Done 2026-08-12.
+      Fourth quality pass 2026-08-14: pack clean on every fact for the
+      fourth time running, and ONE REAL DEFECT FOUND AND FIXED in
+      tools/check-gbp-packs.js. Nothing in this pack or any other pack was
+      edited. Every fact re-verified against branches.json including both
+      hours sessions; description still exactly the 710 characters it
+      claims; posts 461, 324, 516 and 420; pure ASCII, no medicine name, no
+      em dash, no emoji; split-day lunch guidance still present, and
+      removing it still fails, so the rule the first pass added holds.
+      Method was injection testing, 25 injections one value at a time with
+      all 36 checkers run on each and the file restored and byte-compared
+      after every one. 21 caught, 1 skipped as a non-unique anchor, 3 not.
+      THE DEFECT: changing the "- Address:" line alone from "42 Fernhill
+      Road" to "42 Fernhall Road" passed all 36 checkers clean. This is the
+      road-name twin of the house-number fault the 4.6 pass fixed and the
+      unit-number fault the 4.9 pass fixed, and it is the worst of the
+      three: the presence rule passes because the road is spelled correctly
+      in the description and Posts B and D, the sister rule passes because
+      Fernhall Road is no branch's address, the house-number rule is blind
+      rather than quiet because its regex looks for a number in front of a
+      road name it can no longer find, and the post-town rule below it is
+      switched off by the same edit for the same reason. A wrong house
+      number moves the Google Maps pin along the right road; a wrong road
+      name puts the pharmacy on a road it is not on. Fixed by requiring the
+      "- Address:" line to contain the branches.json streetAddress. All 15
+      packs satisfy it today, checked before the rule was written, so it
+      needed no exception on the day it landed. Negative-tested five ways
+      across three packs including a unit-address pack; a case-only change
+      is deliberately not a failure. Two injections were not caught and
+      were not fixed here: a benefit claim added to the medical cannabis
+      services line, raised as Q75 because it is a live regulatory claim,
+      and "judgement" changed to "judgment", which is not a defect because
+      judgment is correct UK English in the legal register and a rule would
+      create false positives, exactly the trap check-uk-spelling.js is
+      written to avoid. Done 2026-08-14.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
