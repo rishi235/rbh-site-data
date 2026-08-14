@@ -2,6 +2,100 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 - hundred-and-ninety-third run
+
+- Item 3.10 quality pass, Riddings Pharmacy (Timperley), fourth machine pass.
+ZERO DEFECTS IN THE 12 PAGES and not one character of any page was edited. ONE
+REAL DEFECT FOUND AND FIXED IN REPO, in tools/check-switch-copy.js. A SECOND
+INSTANCE of the same class found in tools/check-contraception-copy.js,
+reproduced, and deliberately left for its own pass. No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically, 233 run blocks parsed and 41 completed items. TWO ORDERINGS WERE
+COMPUTED AND THEY DISAGREE, which is worth recording because it decides which
+item is stalest. Counting the last MENTION of an id anywhere in a run block put
+3.13 first at 38; counting the last run that took the item as its SUBJECT put
+3.10 first at 40. Mention counting is the wrong question here: item 3.1's own
+worklist text contains the string "items 3.2 to 3.13", so an item can look
+recently verified because another item's prose names it. Subject counting was
+used. 3.10 was last verified on 2026-08-13 09:34, the 152nd run.
+
+REPO HALF ONLY. One Chrome instance was connected, so step 3 was attempted.
+https://data.rbhealth.co.uk/api/feedback returned the Cloudflare Access
+sign-in page rather than JSON, so the session is not live. Per the procedure
+nothing else was tried and no login was attempted. The 47 open questions stay
+open. This is the recurring fault Q59 records. Nothing live was read on this
+run and nothing live is claimed below.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written. Nothing on
+this run needed it: the fix is checking code and touches no patient-facing
+copy.
+
+BASELINE. 36 checkers green, six generators rebuild all 177 pages
+byte-identical, 12 Riddings pages on disk as recorded. Sheet coverage proved
+rather than assumed: 177 permalink entries against 177 generated pages, 1:1,
+no page without an entry and no entry without a page, so the sheet-driven
+rules in check-seo-lengths and check-seo-keywords are not running vacuously.
+
+THE DEFECT: A BUILD PACK RULE NOTHING ASSERTED. Build Pack v2 section 5.1
+states it as a critical rule, "anything that must RANK has to be real text in
+the page, not injected by JavaScript". Nothing in the repo asserted it, and
+check-switch-copy.js RULE 3 was the reason it looked as though something did.
+RULE 3 pins every static line of generator copy to every page, but it asked
+whether the page SOURCE contained the line, and textOf() strips tags without
+stripping script bodies. So a line moved out of the body into a script that
+writes it back with innerHTML satisfied both halves of the test while being
+absent from the page as far as Google is concerned. That is the exact fault
+section 5.1 is written against, on the fifteen highest-commitment pages in the
+estate: the pages that ask a patient to move their prescriptions.
+
+PROVED BY INJECTION, NOT BY READING. The three "How switching works" steps on
+switch-prescriptions-riddings-timperley.html were replaced by an empty div plus
+a script assigning the identical markup to innerHTML. All 36 checkers stayed
+green. The same injection on travel-clinic-riddings-timperley.html failed
+immediately, because check-travel-clinic-copy.js has stripped scripts and
+comments since the 69th run. Two checkers were asking different questions of
+the same class of copy, and the weaker one guarded the higher-stakes pages.
+
+THE FIX. crawlable() and crawlableText() strip HTML comments and script blocks,
+mirroring check-travel-clinic-copy.js. RULE 3 and the "earned" half of the
+conditional rule now read crawlable text. THE ABSENCE DIRECTION WAS NOT
+CHANGED, on purpose: copy hidden in a script is still written into the page for
+a patient to read, so a promise the branch has not earned is still a promise,
+and weakening that rule to match the presence rule would have traded one blind
+spot for another. A guard fails the run if the stripper removes nothing (the
+rules would silently revert to source rules) or removes the body (they would
+pass on almost nothing).
+
+SIX NEGATIVE TESTS, ALL FIRE. Script injection and comment injection each fail
+with the section 5.1 wording; a simply deleted line still fails with the old
+"stale build" wording, which is a regression guard on the message rather than
+just the exit code; removing the script-strip regex and making it greedy each
+fail on the [crawlable] guard; and an unmutated control passes, so the suite is
+not failing on something left behind. Every mutation was confirmed applied
+before its run, and page and checker were restored from a byte backup after.
+
+SECOND INSTANCE, FOUND AND NOT FIXED. check-contraception-copy.js has the same
+gap: its visible() strips comments only. Reproduced on one of this item's own
+12 pages by hiding the "Is it free?" answer on
+contraception-riddings-timperley.html in a script; the checker exits 0. NOT
+FIXED HERE ON PURPOSE, because that file's single visible() also feeds four
+absence rules on barred wording and a safeguarding rule that reads both ways,
+so the same edit would weaken every absence rule on an NHS contraception page
+while strengthening the presence rules. It deserves its own pass and its own
+negative tests. Written up in the audit file and on the worklist so the next
+run picks it up rather than rediscovering it. check-service-links.js is the
+only other body-copy checker with no script handling; it was not tested and
+nothing is claimed about it.
+
+FILES CHANGED. tools/check-switch-copy.js (the fix, the guard and the header
+rule text), audits/riddings-build-check-2026-08-14.txt (new, the evidence),
+AGENT_WORKLIST.md (item 3.10 annotated in place), AGENT_LOG.md (this entry).
+No page under modules/ changed: verified byte-identical after every injection
+was reverted by regeneration.
+
 ## 2026-08-14 09:34 BST - hundred-and-ninety-second run [commit 871337d, hash line added by a small follow-up commit]
 
 - Item 6.2 quality pass, broken internal links, second machine pass. ZERO

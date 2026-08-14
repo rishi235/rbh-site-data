@@ -72,7 +72,11 @@
       and every page on disk is one the generator builds.
     - RULE 3, verbatim: every static line of body copy in the generator appears
       on every page, word for word, with branch values resolved, so a page
-      cannot borrow another branch's town inside a sentence.
+      cannot borrow another branch's town inside a sentence. Read against the
+      CRAWLABLE text, not the raw source: from the item 3.10 quality pass on
+      2026-08-14, copy that survives only inside a <script> or an HTML comment
+      counts as absent, per Build Pack v2 section 5.1. A guard fails the run if
+      the stripper stops removing anything or starts removing the body.
     - RULE 4, one answer per question: a page may not both promise
       unconditionally that we handle the GP side and hedge the same thing
       elsewhere. Currently breached on all fifteen pages and pinned in KNOWN.
@@ -165,6 +169,43 @@ function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").
 function rx(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 function flat(s) { return String(s).replace(/\s+/g, " ").trim(); }
 function textOf(h) { return flat(h.replace(/<[^>]+>/g, " ")); }
+
+// ---------------------------------------------------------------------------
+// CRAWLABLE - what a search engine can actually read (item 3.10 quality pass,
+// 2026-08-14).
+//
+// Build Pack v2 section 5.1 states it as a critical rule: "anything that must
+// RANK has to be real text in the page, not injected by JavaScript". Until
+// this pass nothing in the repo asserted it, and RULE 3 below was the reason
+// it looked as though something did. RULE 3 asked whether the page SOURCE
+// contained the line. A line moved out of the body and into a <script> that
+// writes it back with innerHTML is still in the source, so RULE 3 passed on
+// copy Google can no longer see - which is the precise fault section 5.1 is
+// written against, on the fifteen highest-commitment pages in the estate.
+//
+// Proved by injection on this pass: the three "How switching works" steps on
+// switch-prescriptions-riddings-timperley.html were replaced by an empty div
+// plus a script assigning the identical markup to innerHTML. All 36 checkers
+// stayed green. The same injection on the travel clinic page failed
+// immediately, because check-travel-clinic-copy.js has stripped scripts since
+// the sixty-ninth run. The two checkers were asking different questions of the
+// same class of page copy; this brings the switch side into line.
+//
+// Comments are stripped for the same reason: copy that survives only inside
+// <!-- --> is not rendered and not indexed either.
+//
+// This is used for the PRESENCE direction ONLY. Absence rules must keep
+// reading the raw source, because copy hidden in a script is still written
+// into the page for a patient to read, so a promise this branch has not
+// earned is still a promise. Weakening an absence rule to match a presence
+// rule would trade one blind spot for another.
+// ---------------------------------------------------------------------------
+function crawlable(h) {
+  return flat(String(h)
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " "));
+}
+function crawlableText(h) { return textOf(crawlable(h)); }
 
 var genSrc = fs.readFileSync(GENERATOR, "utf8");
 var genBody = genSrc.replace(/^[\s\S]*?\*\//, "");
@@ -334,8 +375,35 @@ ids.forEach(function (id) {
     return;
   }
   var html = fs.readFileSync(file, "utf8");
-  pages[id] = { file: file, html: html, text: textOf(html) };
+  pages[id] = {
+    file: file,
+    html: html,
+    text: textOf(html),
+    // Presence rules read these two. See CRAWLABLE above.
+    crawl: crawlable(html),
+    crawlText: crawlableText(html)
+  };
 });
+// Guard on the stripper itself. A regex that silently stopped matching would
+// turn the crawlable rules back into source rules without failing anything,
+// and a regex that ate the page would make them pass on nothing. Every switch
+// page carries a JSON-LD <script> and a head comment, so both must shrink the
+// text, and the body must survive.
+Object.keys(pages).forEach(function (id) {
+  var p = pages[id];
+  if (p.crawl.length >= flat(p.html).length) {
+    failures.push("[crawlable] " + rel(p.file) + ": stripping scripts and comments " +
+      "removed nothing, so every presence rule below is reading the raw source " +
+      "again and the Build Pack v2 section 5.1 rule is not being applied.");
+  }
+  if (p.crawlText.length < 1200) {
+    failures.push("[crawlable] " + rel(p.file) + ": only " + p.crawlText.length +
+      " characters of crawlable text survive the stripper, which is too little " +
+      "for a page of this family. Either the page has lost its body copy or the " +
+      "stripper is over-matching and the rules below are checking almost nothing.");
+  }
+});
+
 fs.readdirSync(PAGE_DIR).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
   if (!expected[f]) {
     failures.push("[pages] " + rel(path.join(PAGE_DIR, f)) + ": a switch page with " +
@@ -391,10 +459,19 @@ Object.keys(pages).forEach(function (id) {
       return;
     }
     var want = flat(r.text);
-    if (p.html.indexOf(want) === -1 && textOf(want) && p.text.indexOf(textOf(want)) === -1) {
+    // Crawlable text only: a line that survives solely inside a <script> or an
+    // HTML comment is not on the page as far as Google is concerned.
+    if (p.crawl.indexOf(want) === -1 && textOf(want) && p.crawlText.indexOf(textOf(want)) === -1) {
+      var hidden = p.html.indexOf(want) !== -1 || p.text.indexOf(textOf(want)) !== -1;
       fail("verbatim", id + " missing line", rel(p.file) + ": the generator writes " +
-        "\"" + want.slice(0, 110) + "\" and the page does not carry it. Either the " +
-        "page is a stale build or a branch value has been resolved wrongly.");
+        "\"" + want.slice(0, 110) + "\" and the page does not carry it" +
+        (hidden
+          ? " as crawlable text. It is present in the source but only inside a " +
+            "<script> or an HTML comment, so a patient searching for it cannot " +
+            "find the page. Build Pack v2 section 5.1: anything that must rank " +
+            "has to be real text in the page, not injected by JavaScript."
+          : ". Either the page is a stale build or a branch value has been " +
+            "resolved wrongly.") );
     }
   });
 
@@ -413,8 +490,14 @@ Object.keys(pages).forEach(function (id) {
       var r = resolve(tpl, id);
       if (r.unresolved) return;   // reported by the unconditional pass above
       var want = flat(r.text);
+      // Two different questions, so two different readings. "Is the earned copy
+      // on the page?" is a presence rule and must read crawlable text. "Is
+      // unearned copy on the page?" is an absence rule and must read the raw
+      // source, because innerHTML still shows it to the patient.
+      var presentCrawlable = p.crawl.indexOf(want) !== -1 ||
+        p.crawlText.indexOf(textOf(want)) !== -1;
       var present = p.html.indexOf(want) !== -1 || p.text.indexOf(textOf(want)) !== -1;
-      if (earned && !present) {
+      if (earned && !presentCrawlable) {
         fail("verbatim", id + " missing " + block.name, rel(p.file) + ": this " +
           "branch sets " + block.gate + ", so the generator writes the " +
           block.name + " line \"" + want.slice(0, 90) + "\", and the page does " +

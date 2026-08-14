@@ -1,0 +1,116 @@
+RIDDINGS PHARMACY (TIMPERLEY) - ITEM 3.10 QUALITY PASS
+Date: 2026-08-14
+Run: hundred-and-ninety-third, agents/audit-backlog
+Scope: repo half only. The portal answer fetch returned the Cloudflare Access
+sign-in page, so no live page was read and nothing live is claimed here.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Ordering was re-derived
+mechanically from AGENT_LOG.md rather than inherited. 233 run blocks parsed,
+41 completed items. Two orderings were computed and they disagree, which is
+recorded here because it changes which item is "stalest":
+
+  by LAST MENTION of the id anywhere in a run block
+      3.13 at 38, 3.10 at 35, 5.6 at 34, 4.5 at 32
+  by LAST RUN THAT TOOK THE ITEM AS ITS SUBJECT
+      3.10 at 40, 3.12 at 39, 3.13 at 38, 5.2 at 35, 5.6 at 34
+
+Mention counting is wrong for this purpose: item 3.1's worklist text contains
+the string "items 3.2 to 3.13", so an item can look recently verified because
+another item's prose names it. Subject counting was used. 3.10 last verified
+on 2026-08-13 09:34, the hundred-and-fifty-second run.
+
+BASELINE
+  36 checkers run, 0 failures.
+  6 generators rebuilt: no change under modules/, byte-identical.
+  12 Riddings pages on disk, matching the count recorded on the item.
+  177 sheet permalink entries against 177 generated pages, 1:1, no page
+  without a sheet entry and no sheet entry without a page. So the sheet-driven
+  rules in check-seo-lengths and check-seo-keywords are not vacuous.
+
+THE FINDING: A BUILD PACK RULE NOTHING ASSERTED
+Build Pack v2 section 5.1 states it as a critical rule: "anything that must
+RANK has to be real text in the page, not injected by JavaScript. The switch
+module gets this right; service pages must too."
+
+Nothing in the repo asserted it, and check-switch-copy.js RULE 3 was the
+reason it looked as though something did. RULE 3 pins every static line of
+generator copy to every page, but it asked whether the page SOURCE contained
+the line:
+
+    p.html.indexOf(want) === -1 && textOf(want) && p.text.indexOf(textOf(want)) === -1
+
+textOf() strips tags but not <script> bodies, so both halves of that test are
+satisfied by a line that has been moved out of the body and into a script
+which writes it back with innerHTML. The line is in the source and is not on
+the page as far as Google is concerned.
+
+PROVED BY INJECTION, NOT BY READING
+The three "How switching works" steps on
+modules/switch/pages/switch-prescriptions-riddings-timperley.html were
+replaced by an empty div plus a script assigning the identical markup to
+innerHTML. All 36 checkers stayed green. The same injection applied to
+modules/service/pages/travel-clinic-riddings-timperley.html failed
+immediately, because check-travel-clinic-copy.js has stripped scripts and
+comments since the sixty-ninth run. Two checkers were asking different
+questions of the same class of page copy, and the weaker of the two guards
+the fifteen highest-commitment pages in the estate.
+
+THE FIX
+tools/check-switch-copy.js gains crawlable() and crawlableText(), which strip
+HTML comments and <script> blocks, mirroring check-travel-clinic-copy.js.
+RULE 3 and the "earned" half of the conditional rule now read crawlable text.
+
+The absence direction was deliberately NOT changed. "Is unearned copy on this
+page?" must keep reading the raw source, because copy hidden in a script is
+still written into the page for a patient to read, so a promise the branch has
+not earned is still a promise. Weakening the absence rule to match the
+presence rule would have traded one blind spot for another.
+
+A guard on the stripper itself fails the run if stripping removes nothing
+(the rules would silently revert to source rules) or if it removes the body
+(the rules would pass on almost nothing).
+
+NEGATIVE TESTS, SIX, ALL FIRE
+  NT1 a step moved into a <script> using innerHTML   fails, section 5.1 wording
+  NT2 the same line moved into an HTML comment       fails, section 5.1 wording
+  NT3 the line simply deleted                        fails, "stale build" wording
+                                                     (regression guard: the old
+                                                     message must survive)
+  NT4 script-strip regex removed                     fails on the [crawlable] guard
+  NT5 script-strip regex made greedy                 fails on the [crawlable] guard
+  NT6 control, no mutation                           passes
+Every mutation was confirmed to have applied before its run, and the page and
+the checker were restored from a byte backup after each.
+
+SECOND INSTANCE OF THE SAME CLASS, FOUND AND NOT FIXED THIS RUN
+check-contraception-copy.js has the same gap. Its visible() strips HTML
+comments only, not scripts:
+
+    function visible(html) { return norm(html.replace(/<!--[\s\S]*?-->/g, " ")); }
+
+Reproduction, on one of this item's own 12 pages: take the first <details>
+block on modules/service/pages/contraception-riddings-timperley.html (the "Is
+it free?" answer, which states the NHS Pharmacy Contraception Service is free
+and carries no prescription charge), replace it with an empty div plus a
+script assigning the identical markup to innerHTML, and run
+node tools/check-contraception-copy.js. It exits 0.
+
+NOT FIXED HERE ON PURPOSE. That file mixes presence rules with ABSENCE rules
+on barred wording (lines 262, 310, 328, 336) and a safeguarding rule at line
+367 that reads both ways. Stripping scripts inside its single visible() would
+weaken every absence rule on an NHS contraception page in the same edit that
+strengthens the presence rules. That needs its own pass and its own negative
+tests, the same way this one got them. It is written up here and on the
+worklist so the next run picks it up rather than rediscovering it.
+
+check-service-links.js is the only other body-copy checker with no script
+handling and has not been tested. Not claimed either way.
+
+RESULT
+No defect in the Riddings pages. Not one character of any page was edited:
+every injection was reverted and the six generators rebuild all 177 pages
+byte-identical. One real in-repo defect found and fixed, in a checker. One
+further instance of the same class found, reproduced and recorded.
+No question raised.

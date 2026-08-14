@@ -1077,6 +1077,39 @@ audits/smartts-build-check-2026-08-14.txt.
       worked precedent for open Q64 rather than a third convention. No
       question raised. Evidence in
       audits/riddings-build-check-2026-08-13.txt. Done 2026-08-13
+      Quality pass 2026-08-14 (hundred-and-ninety-third run, fourth machine-era
+      pass). REPO HALF ONLY: the portal fetch returned the Cloudflare Access
+      sign-in page, so nothing live was read and the live findings above are
+      not reconfirmed. ZERO DEFECTS IN THE 12 PAGES and not one character of
+      any page was edited. 36 checkers green, all six generators rebuild all
+      177 pages byte-identical, and the sheet set proved 1:1 with the pages
+      (177 entries, 177 pages, no orphan either way) so the sheet-driven rules
+      are not vacuous. ONE REAL DEFECT FOUND AND FIXED IN REPO, in
+      tools/check-switch-copy.js. Build Pack v2 section 5.1 states as a
+      critical rule that anything which must rank has to be real text in the
+      page and not injected by JavaScript, and nothing asserted it. RULE 3
+      pins every generator copy line to every page but asked whether the page
+      SOURCE carried it, and textOf() strips tags without stripping script
+      bodies, so a line moved into a script that writes it back with innerHTML
+      satisfied both halves of the test while leaving the page unrankable.
+      Proved by injection: the three "How switching works" steps on the
+      Riddings switch page hidden in a script, all 36 checkers stayed green;
+      the same injection on the travel clinic page failed at once, because
+      check-travel-clinic-copy.js has stripped scripts since the sixty-ninth
+      run. The two checkers were asking different questions of the same class
+      of copy and the weaker one guards the 15 highest-commitment pages in the
+      estate. Fixed with crawlable()/crawlableText() on the PRESENCE rules
+      only: the absence direction still reads raw source, because copy hidden
+      in a script is still shown to the patient, so an unearned promise is
+      still a promise. Guard added so the run fails if the stripper stops
+      removing anything or starts removing the body. Six negative tests, all
+      fire, including a regression guard that a simply deleted line still
+      fails with the old wording. SECOND INSTANCE FOUND AND DELIBERATELY NOT
+      FIXED: check-contraception-copy.js has the same gap, reproduced on this
+      item's own contraception page, and left for its own pass because its
+      single visible() also feeds four absence rules and a safeguarding rule
+      that would be weakened by the same edit. No question raised. Evidence in
+      audits/riddings-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
