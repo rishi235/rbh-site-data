@@ -3063,6 +3063,32 @@ so tools/build-audit-status.js picks them up like any other item.
       list cannot go stale the way every named list in this file's history
       has. branches.json was clean throughout, so this closed a latent hole
       rather than a live breach.
+      Quality pass 2026-08-14: repo half verified clean and byte-stable again,
+      all 36 checkers green and all seven generators rebuilding every page
+      byte-identical. The pass then found the SEVENTH instance of this repo's
+      recurring fault, and it is the same named-list shape as the sixth rather
+      than a new one. The 2026-08-13 pass fixed WHICH FILES the dash rule reads
+      and left WHICH LINES a list of five label names. The paste sheets write
+      NINE labels. The four not named were Page Permalink (177), Page slug /
+      URL (163), Page name (14) and HTML URL (14), and Page Permalink is not an
+      edge case: it sits between Page Title and Page Description in the same
+      four-line block, is typed into the same Weebly SEO panel in the same
+      sitting, and becomes the live page URL. Proved by injection rather than
+      argued: an em dash in any of the four passed check-em-dashes with exit 0
+      and moved the notes counter from 591 to 592 and nothing else, the
+      identical signature the 3.6 pass recorded for SEO title. FIXED IN REPO,
+      no sign-off needed, since it is a checker widening and not patient-facing
+      copy: the rule is now a SHAPE, not a list, so any "- **Label:** value"
+      line in a sheet is checked and only markdown section headings and prose
+      fall to the notes bucket. Verified in ten directions, all four new labels
+      and all five previously named ones now fail on injection while a section
+      heading correctly stays reported. All nine labels were clean throughout,
+      so this closed a latent hole rather than a live breach and no copy and no
+      generated page changed. Coverage of FILES was re-derived from scratch on
+      the same pass and is complete: all 182 .html under modules/ are reached,
+      and the only asset a generated page loads from outside CODE_DIRS is the
+      third-party Appointedd SDK. Instrument kept at
+      audits/em-dash-label-coverage-probe-2026-08-14.js.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

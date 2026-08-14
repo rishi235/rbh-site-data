@@ -15,11 +15,14 @@
       browser but are invisible to a literal character search: &mdash; &ndash;
       &#8212; &#8211; and their hex forms &#x2014; &#x2013;
     - an em dash or en dash, literal or entity, in a pasteable value in the
-      paste sheets, meaning the Page Title, Page Description, Meta Keywords,
-      SEO title and SEO description lines that get typed into the Weebly SEO
-      fields. The last two spellings are the INDEX.md sheets' names for the
-      same two Weebly fields the *-SEO.md sheets call the first two, and were
-      being counted as headings rather than values until 2026-08-13
+      paste sheets, meaning ANY "- **Label:** value" line, because every one of
+      them is a value somebody copies out of the sheet: the Weebly SEO fields
+      (Page Title, Page Description, Meta Keywords, and their INDEX.md spellings
+      SEO title and SEO description), the Page Permalink that becomes the URL,
+      the Page name that shows in site navigation, and the slug and source URL
+      lines. Until 2026-08-13 this read three labels, until 2026-08-14 five, and
+      it is now a shape rather than a list of names - see "Why the labels are no
+      longer NAMED" below
     - the same, in the non-generated public copy listed in EXTRA_HTML: the
       hand-pasted Weebly blocks, and the DRAFT-*.html templates the weight loss
       and travel clinic generators name as their approved-copy source
@@ -148,11 +151,25 @@
   item 5.1 quality pass, 2026-08-11. Ask which files a checker reads, and then
   ask whether the copy is in a file at all.
 
+  The sixth is the run-time DATA rule below: the fifth widened this checker to
+  read the live .js that writes sentences at run time and stopped at the code,
+  while the words that code renders came from branches.json, which no dash rule
+  read. The seventh is the paste sheet LABEL rule, found on the item 5.1 quality
+  pass, 2026-08-14, and it is the same named-list fault one more time: the label
+  list named five of the nine labels the sheets write, and the four it missed
+  included Page Permalink, which sits between Page Title and Page Description in
+  the same block and becomes the live URL. Both are now shapes rather than lists
+  - the data rule fails on any .json the live code references and DATA_FILES
+  does not cover, and the sheet rule reads any labelled line at all. The lesson
+  has now cost seven turns: a list of names is not a rule, it is a snapshot of
+  what somebody could remember on the day they wrote it.
+
   What is only REPORTED, not failed:
     - dashes inside <!-- HTML build comments -->, which no visitor sees
     - dashes inside block comments and whole-line // comments in the module
       code, which no visitor sees either
-    - dashes in paste sheet headings, which are labels for whoever is pasting
+    - dashes in paste sheet markdown section headings and prose, which are
+      structure for whoever is pasting rather than values they type
     - dashes in a run-time data maintenance note, currently the top-level
       schemaNote in branches.json, which no generator and no module code reads
 
@@ -250,7 +267,44 @@ const EXTRA_HTML = [
 // recorded at the top of this file, with one turn added: those asked which
 // FILES a checker reads, and this one asks which LINES INSIDE a file it counts
 // as copy. A sheet the checker opens is not a sheet the checker reads.
-const PASTEABLE_LINE = /^\s*-\s*\*\*(Page Title|Page Description|Meta Keywords|SEO title|SEO description):\*\*/i;
+//
+// Why the labels are no longer NAMED. The paragraph above widened the list from
+// three labels to five and left it a list, which is the same shape this repo has
+// now been caught by seven times: a named list stops covering what the estate
+// grows next. Found on the item 5.1 quality pass, 2026-08-14. The five names
+// covered five of the NINE labels the sheets actually write, and the four they
+// missed sit in the same four-line block as the three they caught:
+//
+//     ## Smartts Chemist - Bootle
+//     - **Page Title:**      <- named, failed
+//     - **Page Permalink:**  <- NOT named, counted as a heading
+//     - **Page Description:**<- named, failed
+//     - **Meta Keywords:**   <- named, failed
+//
+// Page Permalink is a Weebly SEO Settings field typed by the same person in the
+// same sitting as the three either side of it, and it becomes the page URL, so
+// it is as public as a value gets. The other three missed labels are "Page name"
+// (the Weebly page name, which shows in site navigation), "Page slug / URL" and
+// "HTML URL". 177 permalinks, 163 slugs and 14 page names were read by no dash
+// rule at all.
+//
+// Proved by injection on 2026-08-14 rather than argued: an em dash put into the
+// real Page Permalink, Page name, Page slug / URL and HTML URL values each
+// passed check-em-dashes with exit 0 and moved the paste sheet heading count
+// from 591 to 592 and nothing else - the identical signature the 3.6 pass
+// recorded for "SEO title". All four were clean beforehand, so this closes a
+// latent hole rather than a live breach and no copy changed.
+//
+// So the rule is INVERTED rather than extended. Any "- **Label:** value" line in
+// a paste sheet is a pasteable value and is checked; only genuine markdown
+// section headings and prose fall to the notes bucket. A future generator that
+// writes a new labelled field is covered the day it is written rather than the
+// day somebody remembers to add its name here, which is what DISCOVERING the
+// sheets did for FILES and what this does for LINES. Verified safe before
+// landing: of the 591 dashes currently in the notes bucket, all 591 are in
+// markdown section headings ("## Cherry Lane Pharmacy - Walton") and none is on
+// a labelled line, so inverting the rule fails nothing that was passing.
+const PASTEABLE_LINE = /^\s*[-*]\s*\*\*[^*]+:\*\*/;
 
 // The switch banner paste files. Pasted into Weebly's site-wide Header Code
 // field, which mangles non-ASCII characters, so these are held to ASCII only.
@@ -712,7 +766,7 @@ console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
   + " paste sheet(s) discovered, " + dataCount
   + " run-time data file(s) (" + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside build or code comments - not public, not a failure");
-console.log("  " + notes.headingDashes + " dash(es) in paste sheet headings - paster labels, not pasted values");
+console.log("  " + notes.headingDashes + " dash(es) in paste sheet section headings and prose - structure, not pasted values");
 console.log("  " + notes.dataNoteDashes + " dash(es) in run-time data maintenance notes - rendered by nothing, not a failure");
 
 if (failures.length) {

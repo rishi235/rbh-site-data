@@ -2,6 +2,120 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 12:34 BST - hundred-and-ninety-eighth run
+
+- Item 5.1 quality pass, the em dash rule. ONE DEFECT FOUND AND FIXED, in the
+checker rather than in any copy. It is the SEVENTH instance of this repo's
+recurring fault and, like the sixth, it is the named-list shape rather than a
+new one. No copy changed, no generated page changed, no question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering re-derived
+mechanically with the 197th run's corrected method: window cut at "Stalest
+first" so a quoted staleness table counts as a mention rather than a
+verification, and only declared-worked-item constructions counted. 238 blocks
+parsed, 41 completed items, 0 unresolved. The result agrees exactly with the
+197th run's figures shifted by one (3.13 42 to 0 having just been verified,
+5.1 41 to 42, 5.2 39 to 40, 5.6 38 to 39), which is the check that the method
+is stable rather than re-guessed. 5.1 is the stalest at 42 blocks.
+
+BASELINE. No .agent-lock and no .git\index.lock at start. Level with origin at
+6026a9a, worktree clean. 36 checkers green. All seven generators re-run and
+every page rebuilt byte-identical, so the state verified below is what the
+generators produce today and not a stale build. Only status/index.html moved,
+and only because this log's entries grow it; restored to baseline before the
+pass and regenerated after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted.
+Thirty-fifth consecutive run of this fault, which is what Q59 asks about, so
+no duplicate was raised. 47 questions open going in, 47 going out. Nothing
+live was read on this run and nothing live is claimed below.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: every "Standing
+authorisation - autonomous window" string in this log was listed and all but
+one sit inside a past run's own "NO AUTONOMOUS WINDOW" sentence. The single
+real section is at line 17104, dated 2026-08-09 23:14 to 2026-08-10 23:14
+BST, and expired four days ago. Step 7 applied as written.
+
+THE DEFECT. check-em-dashes.js decides which LINES inside a paste sheet count
+as pasted copy, and it decided from a list of five label names: Page Title,
+Page Description, Meta Keywords, SEO title, SEO description. The eleven sheets
+write NINE labels. The four that were never named are Page Permalink (177
+lines), Page slug / URL (163), Page name (14) and HTML URL (14). Every one of
+them fell to the else branch and was counted as a paste sheet HEADING, the
+bucket for labels nobody types.
+
+Page Permalink is the one that matters. It is not an outlying field: it sits
+between Page Title and Page Description inside the same four-line block, in
+files headed "Weebly SEO Settings", is typed into the same Weebly panel by the
+same person in the same sitting as the three either side of it, and it becomes
+the live page URL. Page name is the Weebly page name and shows in site
+navigation. So two of the four are public copy by any reading, and all four are
+values a human copies out of a sheet.
+
+PROVED BY INJECTION, NOT ARGUED. An em dash was written into the real value of
+each of the four labels in turn. All four passed check-em-dashes with exit 0,
+and each moved the notes counter from 591 to 592 and changed nothing else -
+the identical signature the item 3.6 pass recorded on 2026-08-13 when it caught
+SEO title the same way. The harness restored the original bytes after every
+case and the worktree was confirmed clean afterwards.
+
+THE FIX, AND WHY IT IS A SHAPE AND NOT FOUR MORE NAMES. The obvious repair was
+to add the four missing labels to the list. That is exactly what the 3.6 pass
+did when it went from three names to five, and the list was stale again within
+a day. So the rule is inverted instead: any "- **Label:** value" line in a
+paste sheet is a pasted value and is checked, and only genuine markdown section
+headings and prose fall to the notes bucket. A generator that adds a labelled
+field is covered the day it ships rather than the day somebody remembers to add
+its name, which is what DISCOVERING the sheets already did for files and what
+this now does for lines.
+
+Checked for safety before landing rather than after: of the 591 dashes
+currently in the notes bucket, all 591 are in markdown section headings such as
+"## Cherry Lane Pharmacy - Walton" and not one is on a labelled line, so
+inverting the rule fails nothing that was passing. That is why this landed as a
+fix and not as a question.
+
+VERIFIED IN TEN DIRECTIONS. All four newly covered labels now fail on
+injection. All five previously named labels still fail, so nothing regressed. A
+dash injected into a markdown section heading still passes and still moves the
+notes counter, so the reported-not-failed bucket still means what it says. 36
+checkers green afterwards and all six page generators rebuild every page
+byte-identical, so no copy and no page moved.
+
+FIXED IN REPO, NO SIGN-OFF NEEDED. Same reasoning as the sixth instance on
+2026-08-13: this is a checker widening, not patient-facing copy, and all nine
+labels were clean throughout, so it closes a latent hole rather than a live
+breach. Nothing here touches money, legal risk or a regulatory claim, so the
+step 7 carve-out does not apply and no question was raised.
+
+COVERAGE OF FILES RE-DERIVED TOO, and it is complete. Rather than assume the
+sixth instance finished the file question, the whole repo was walked
+independently: all 182 .html files under modules/ are reached (177 by
+PAGE_DIRS and 5 by EXTRA_HTML, with modules/emar/weebly the extensionless
+sixth entry), all 7 served .js/.css are under CODE_DIRS, and the only asset a
+generated page loads from outside the repo is the third-party Appointedd
+booking SDK. brand/ holds a logo and no code. So the remaining gap really was
+the line question and not a second file question.
+
+FILES CHANGED
+- tools/check-em-dashes.js - PASTEABLE_LINE inverted from a five-name list to a
+  labelled-line shape; header documents the seventh instance and the summary
+  line now says "section headings and prose" rather than "headings"
+- CLAUDE.md - the seventh turn recorded in the existing check-em-dashes
+  section, with the rule stated plainly: a list of names is not a rule, it is a
+  snapshot of what somebody could remember on the day they wrote it
+- AGENT_WORKLIST.md - quality pass note appended in place under item 5.1
+- audits/em-dash-label-coverage-probe-2026-08-14.js - new independent
+  instrument, imports nothing from tools/, answers the file question, the label
+  question and what the notes bucket is hiding, and exits non-zero on any gap
+
+QUESTIONS. None raised. 47 open going in, 47 going out.
+
 ## 2026-08-14 12:04 BST - hundred-and-ninety-seventh run [commit f88f34b, this hash line added by a small follow-up commit]
 
 - Item 3.13 quality pass, Clear Chemist (Aintree), 3 pages, second machine

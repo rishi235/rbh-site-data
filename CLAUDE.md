@@ -332,6 +332,28 @@ dashes on the page side. They were clean, so the hole was latent, not a live
 breach. Both checkers now DISCOVER sheets by scanning each pages folder for
 `*.md`, and a folder yielding no sheet fails.
 
+Discovering the FILES did not finish the job, and the item 5.1 quality pass on
+2026-08-14 found the same shape one level down, on the seventh turn. Opening a
+sheet is not reading it: `check-em-dashes.js` decided which LINES inside a sheet
+counted as copy from a list of five label names, and the sheets write NINE. The
+four it missed were `Page Permalink`, `Page name`, `Page slug / URL` and
+`HTML URL`, and the first of those sits between `Page Title` and
+`Page Description` in the same four-line block, is typed into the same Weebly
+panel in the same sitting, and becomes the live page URL. An em dash injected
+into any of the four passed with exit 0 and moved the notes counter by one, the
+identical signature the 3.6 pass recorded. All four were clean, so this was
+latent. The rule is now a SHAPE rather than a list: any `- **Label:** value`
+line in a sheet is a pasted value and is checked, and only markdown section
+headings and prose fall to the notes bucket.
+
+The rule worth carrying, seven turns in: **a list of names is not a rule, it is
+a snapshot of what somebody could remember on the day they wrote it.** Every
+time this repo has widened a named list rather than replacing it with the shape
+it was approximating, the list has gone stale again within days. When a checker
+passes, ask which files it read, then whether the copy is in a file at all, then
+which lines inside that file it counted - and then replace the answer with a
+pattern so the next generator is covered the day it ships.
+
 
 ## The copy that reaches the public without being generated
 
