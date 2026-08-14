@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 18:05 BST - two-hundred-and-eighth run
+## 2026-08-14 18:05 BST - two-hundred-and-eighth run [commit 4a62b26, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack,
 fifth pass. ONE REAL DEFECT FOUND AND FIXED, in tools/claim-patterns.js, and it
