@@ -1,1229 +1,1243 @@
 {
-  "lastUpdated": "2026-08-05",
-  "brandGroups": {
-    "scorahs": [
-      "scorah_bramhall",
-      "scorah_hazel"
-    ],
-    "mccanns": [
-      "mccanns_aigburth",
-      "mccanns_sandringham"
-    ],
-    "fishlocks": [
-      "fishlocks_ainsdale",
-      "fishlocks_eccleston"
-    ],
-    "rbhealth": [
-      "rbh_head_office_aintree"
-    ]
-  },
-  "hostMap": {
-    "rbhealth.co.uk": [
-      "rbh_head_office_aintree"
-    ],
-    "www.rbhealth.co.uk": [
-      "rbh_head_office_aintree"
-    ],
-    "www.colemanandleighspharmacy.co.uk": [
-      "colemanleigh_liverpool"
-    ],
-    "www.fishlockpharmacy.co.uk": [
-      "fishlocks_ainsdale",
-      "fishlocks_eccleston"
-    ],
-    "www.gordonshortchemist.co.uk": [
-      "gordonshorts_crosby"
-    ],
-    "www.hirshmanspharmacy.co.uk": [
-      "hirshmans_ainsdale"
-    ],
-    "www.mccannspharmacy.co.uk": [
-      "mccanns_aigburth",
-      "mccanns_sandringham"
-    ],
-    "www.riddingspharmacy.co.uk": [
-      "riddings_timperley"
-    ],
-    "www.skchemist.co.uk": [
-      "skchemists_bootle"
-    ],
-    "www.smarttschemist.co.uk": [
-      "smartts_bootle"
-    ],
-    "www.tiffenbergschemist.co.uk": [
-      "tiffenbergs_longmoor"
-    ],
-    "www.scorah-chemists.co.uk": [
-      "scorah_bramhall",
-      "scorah_hazel"
-    ],
-    "www.cherrylanepharmacy.co.uk": [
-      "cherrylane_liverpool"
-    ],
-    "www.clearchemist.co.uk": [
-      "clearchemist_aintree"
-    ]
-  },
-  "branches": [
-    {
-      "id": "scorah_bramhall",
-      "brandKey": "scorahs",
-      "brandLabel": "Scorah Chemists",
-      "branchName": "Scorah Chemists Bramhall",
-      "streetAddress": "61-63 North Park Road",
-      "addressLocality": "Bramhall",
-      "postalCode": "SK7 3LQ",
-      "addressRegion": "Greater Manchester",
-      "addressCountry": "GB",
-      "phone": "0161 439 3744",
-      "email": "Bramhall@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CZdA75DAMigGEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "scorah",
-        "bramhall",
-        "north-park-road",
-        "sk7",
-        "sk7 3lq"
-      ],
-      "serviceAreaList": [
-        "Bramhall",
-        "Cheadle Hulme",
-        "Hazel Grove",
-        "Handforth",
-        "Poynton"
-      ],
-      "shortCode": "BRA",
-      "branchNumber": 13,
-      "odsCode": "FL495",
-      "nhsEmail": "pharmacy.FL495@nhs.net",
-      "pfLink": "https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/scorah-chemists-bramhall/XFL495/leave-a-review",
-      "website": "https://www.scorah-chemists.co.uk",
-      "seoTown": "Bramhall",
-      "townSlug": "bramhall",
-      "brandSlug": "scorah",
-      "widgets": {
-        "bloodPressure": "66b9d3e9d71f677c6d5e6015",
-        "contraception": "6a4797ca61e4b9e09738d082",
-        "pharmacyFirst": "6a439fa31916ef7a9401cc92",
-        "weightLoss": "66b9d3d18ed9220fea0a205d",
-        "travelClinic": "66b9d4565781154cd1315e0b"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "scorah_hazel",
-      "brandKey": "scorahs",
-      "brandLabel": "Scorah Chemists",
-      "branchName": "Scorah Chemists Hazel Grove",
-      "streetAddress": "87 Macclesfield Road",
-      "addressLocality": "Hazel Grove",
-      "postalCode": "SK7 6BG",
-      "addressRegion": "Greater Manchester",
-      "addressCountry": "GB",
-      "phone": "01625 872267",
-      "email": "Hazel@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CZbFKrky9BUsEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "scorah",
-        "hazel",
-        "hazel-grove",
-        "macclesfield-road",
-        "sk7",
-        "sk7 6bg"
-      ],
-      "serviceAreaList": [
-        "Hazel Grove",
-        "Bramhall",
-        "Offerton",
-        "Great Moor",
-        "Poynton"
-      ],
-      "shortCode": "HAZ",
-      "branchNumber": 14,
-      "odsCode": "FKD04",
-      "nhsEmail": "pharmacy.FKD04@nhs.net",
-      "pfLink": "https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/scorah-chemists-hazel-grove/XFKD04/leave-a-review",
-      "website": "https://www.scorah-chemists.co.uk",
-      "seoTown": "Hazel Grove",
-      "townSlug": "hazel-grove",
-      "brandSlug": "scorah",
-      "widgets": {
-        "bloodPressure": "6a4797d261e4b9e09738d087",
-        "contraception": "6a4797dba73ee8f2ca31fc17",
-        "pharmacyFirst": "6a4798e8f7e44e6923bcb237",
-        "weightLoss": "66b9d3d18ed9220fea0a205d",
-        "travelClinic": "66b9d4565781154cd1315e0b"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "note": "Saturday trading ceased 24 June 2026. Previously open Sat 09:00-13:00.",
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "mccanns_aigburth",
-      "brandKey": "mccanns",
-      "brandLabel": "McCanns Chemist",
-      "branchName": "McCanns Chemist Aigburth",
-      "streetAddress": "112 Aigburth Road",
-      "addressLocality": "Liverpool",
-      "postalCode": "L17 7BP",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 727 3185",
-      "email": "Aigburth@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CdDj9KyelDVyEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "mccann",
-        "mccanns",
-        "aigburth",
-        "l17 7bp",
-        "aigburth-road",
-        "l17"
-      ],
-      "serviceAreaList": [
-        "Aigburth",
-        "Sefton Park",
-        "Mossley Hill",
-        "Grassendale"
-      ],
-      "shortCode": "AIG",
-      "branchNumber": 8,
-      "odsCode": "FA428",
-      "nhsEmail": "pharmacy.FA428@nhs.net",
-      "pfLink": "https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/XFA428/leave-a-review",
-      "website": "https://www.mccannspharmacy.co.uk",
-      "seoTown": "Aigburth",
-      "townSlug": "aigburth",
-      "brandSlug": "mccanns",
-      "widgets": {
-        "bloodPressure": "66b61bcabea374dfa684f189",
-        "contraception": "6a4790dae25e32949a70c14b",
-        "pharmacyFirst": "66b61b8583640d066a95622e",
-        "weightLoss": "66bb29f1328f6dafbb88971b",
-        "travelClinic": "66b61b3d5e6c5e79f623b3e3"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "mccanns_sandringham",
-      "brandKey": "mccanns",
-      "brandLabel": "McCanns Chemist",
-      "branchName": "McCanns Chemist Sandringham",
-      "streetAddress": "1b Aigburth Road",
-      "addressLocality": "Liverpool",
-      "postalCode": "L17 4JP",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 727 3076",
-      "email": "Sandringham@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CbMDr1qOLqnrEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "mccann",
-        "mccanns",
-        "sandringham",
-        "l17 4jp",
-        "aigburth-road",
-        "l17"
-      ],
-      "serviceAreaList": [
-        "Aigburth",
-        "St Michael's",
-        "Lark Lane",
-        "Dingle"
-      ],
-      "shortCode": "SAN",
-      "branchNumber": 7,
-      "odsCode": "FAP24",
-      "nhsEmail": "pharmacy.FAP24@nhs.net",
-      "pfLink": "https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/XFAP24/leave-a-review",
-      "website": "https://www.mccannspharmacy.co.uk",
-      "seoTown": "Sandringham",
-      "townSlug": "sandringham",
-      "brandSlug": "mccanns",
-      "widgets": {
-        "bloodPressure": "6a478f9f51c51dd528f210d7",
-        "contraception": "6a4791ca51c51dd528f210fd",
-        "pharmacyFirst": "6a478fae4065a96ce45e4dbf",
-        "weightLoss": "66bb29f1328f6dafbb88971b",
-        "travelClinic": "66b61b3d5e6c5e79f623b3e3"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "fishlocks_ainsdale",
-      "brandKey": "fishlocks",
-      "brandLabel": "Fishlocks Chemist",
-      "branchName": "Fishlocks Chemist Ainsdale",
-      "streetAddress": "17 Station Road",
-      "addressLocality": "Ainsdale",
-      "postalCode": "PR8 3HN",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "01704 575478",
-      "email": "Ainsdale@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/Cfl0iMf3cgGaEAE/review",
-      "hasApp": true,
-      "keywords": [
-        "fishlock",
-        "fishlocks",
-        "ainsdale",
-        "pr8 3hn",
-        "station-road",
-        "pr8"
-      ],
-      "serviceAreaList": [
-        "Ainsdale",
-        "Birkdale",
-        "Southport"
-      ],
-      "shortCode": "AIN",
-      "branchNumber": 3,
-      "odsCode": "FK848",
-      "nhsEmail": "pharmacy.FK848@nhs.net",
-      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlock-chemists/XFK848/leave-a-review",
-      "website": "https://www.fishlockpharmacy.co.uk",
-      "seoTown": "Ainsdale",
-      "townSlug": "ainsdale",
-      "brandSlug": "fishlocks",
-      "widgets": {
-        "bloodPressure": "6a47893f37e5ff141a4219ac",
-        "contraception": "6a478ac5b4a3250ce920c081",
-        "pharmacyFirst": "66b1f5b59c1e2182b14fac3a",
-        "weightLoss": "66b1f5561a0469a9f6b3b359",
-        "travelClinic": "66b1f4ff9c1e2182b14fac37"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "08:45",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "fishlocks_eccleston",
-      "brandKey": "fishlocks",
-      "brandLabel": "Fishlocks Chemist",
-      "branchName": "Fishlocks Chemist Eccleston",
-      "streetAddress": "Unit 3 The Carrington Centre, New Mill Street",
-      "addressLocality": "Eccleston",
-      "postalCode": "PR7 5SZ",
-      "addressRegion": "Chorley",
-      "addressCountry": "GB",
-      "phone": "01257 451251",
-      "email": "Eccleston@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CYyjtWbSXqEkEAE/review",
-      "hasApp": true,
-      "keywords": [
-        "fishlock",
-        "fishlocks",
-        "eccleston",
-        "pr7 5sz",
-        "carrington",
-        "new-mill",
-        "pr7",
-        "chorley"
-      ],
-      "serviceAreaList": [
-        "Eccleston",
-        "Charnock Richard",
-        "Coppull"
-      ],
-      "shortCode": "ECC",
-      "branchNumber": 4,
-      "odsCode": "FKJ81",
-      "nhsEmail": "pharmacy.FKJ81@nhs.net",
-      "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlocks-pharmacy/XFKJ81/leave-a-review",
-      "website": "https://www.fishlockpharmacy.co.uk",
-      "seoTown": "Eccleston",
-      "townSlug": "eccleston",
-      "brandSlug": "fishlocks",
-      "widgets": {
-        "bloodPressure": "6a478bd8207a049d89a9a34b",
-        "contraception": "6a478be0a73ee8f2ca31fbe0",
-        "pharmacyFirst": "6a478beb207a049d89a9a350",
-        "weightLoss": "66b1f5561a0469a9f6b3b359",
-        "travelClinic": "66b1f4ff9c1e2182b14fac37"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "12:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "rbh_head_office_aintree",
-      "brandKey": "rbhealth",
-      "brandLabel": "RB Healthcare Ltd",
-      "branchName": "RB Healthcare Ltd Head Office",
-      "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
-      "addressLocality": "Liverpool",
-      "postalCode": "L9 7AS",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "hasApp": false,
-      "keywords": [
-        "rbhealth",
-        "rb-health",
-        "rb healthcare",
-        "head office",
-        "head-office",
-        "aintree",
-        "brookfield",
-        "l9 7as",
-        "l9"
-      ],
-      "serviceAreaList": [
-        "Aintree",
-        "Fazakerley",
-        "Maghull",
-        "Walton",
-        "Bootle",
-        "North Liverpool"
-      ],
-      "shortCode": "RBH",
-      "branchNumber": 1,
-      "pfBooking": false,
-      "website": "https://www.rbhealth.co.uk"
-    },
-    {
-      "id": "clearchemist_aintree",
-      "brandKey": "clearchemist",
-      "brandLabel": "Clear Chemist",
-      "branchName": "Clear Chemist",
-      "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
-      "addressLocality": "Liverpool",
-      "postalCode": "L9 7AS",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 203 8365",
-      "email": "admin@clearchemist.co.uk",
-      "googleReviewUrl": "https://g.page/r/CYTJCk0EpvxFEAE/review",
-      "hasApp": true,
-      "keywords": [
-        "clearchemist",
-        "clear-chemist",
-        "aintree",
-        "brookfield",
-        "l9 7as",
-        "l9"
-      ],
-      "serviceAreaList": [
-        "Aintree",
-        "Fazakerley",
-        "Walton",
-        "Bootle",
-        "North Liverpool"
-      ],
-      "shortCode": "CLE",
-      "branchNumber": 15,
-      "odsCode": "FD553",
-      "nhsEmail": "pharmacy.FD553@nhs.net",
-      "pfBooking": false,
-      "website": "https://www.clearchemist.co.uk",
-      "seoTown": "Aintree",
-      "townSlug": "aintree",
-      "brandSlug": "clear",
-      "widgets": {
-        "weightLoss": "691451f1f9b8831e135baacb",
-        "travelClinic": "6a5bf020900e97b9c7d8aa46"
-      }
-    },
-    {
-      "id": "smartts_bootle",
-      "brandKey": "smartts",
-      "brandLabel": "Smartts Chemist",
-      "branchName": "Smartts Chemist",
-      "streetAddress": "42 Fernhill Road",
-      "addressLocality": "Bootle",
-      "postalCode": "L20 9HH",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 922 4984",
-      "email": "Smartts@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CVzJUbDqQwReEBM/review",
-      "hasApp": true,
-      "keywords": [
-        "smartts",
-        "fernhill",
-        "bootle",
-        "l20 9hh",
-        "l20"
-      ],
-      "serviceAreaList": [
-        "Bootle",
-        "Sefton",
-        "Liverpool"
-      ],
-      "shortCode": "SMA",
-      "branchNumber": 11,
-      "odsCode": "FQN70",
-      "nhsEmail": "pharmacy.FQN70@nhs.net",
-      "pfLink": "https://www.smarttschemist.co.uk/pharmacy-first-service-bootle.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/smartts-chemist/XFQN70/leave-a-review",
-      "website": "https://www.smarttschemist.co.uk",
-      "seoTown": "Bootle",
-      "townSlug": "bootle",
-      "brandSlug": "smartts",
-      "widgets": {
-        "bloodPressure": "66b9ea5b04f4c06db8fdbf92",
-        "contraception": "6a479719a73ee8f2ca31fc08",
-        "pharmacyFirst": "66b9ea9004f4c06db8fdbf9c",
-        "weightLoss": "66c86882ec8717372992a309",
-        "travelClinic": "6a5bf199f1b6a563bc42908c"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "hirshmans_ainsdale",
-      "brandKey": "hirshmans",
-      "brandLabel": "Hirshmans Chemist",
-      "branchName": "Hirshmans Chemist",
-      "streetAddress": "56-62 Sherwood House, Station Road",
-      "addressLocality": "Ainsdale",
-      "postalCode": "PR8 3HW",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "01704 577376",
-      "email": "Hirshmans@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CUagKTNTXwMYEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "hirshman",
-        "hirshmans",
-        "ainsdale",
-        "pr8 3hw",
-        "station-road",
-        "pr8"
-      ],
-      "serviceAreaList": [
-        "Ainsdale",
-        "Birkdale",
-        "Southport"
-      ],
-      "shortCode": "HIR",
-      "branchNumber": 6,
-      "odsCode": "FW378",
-      "nhsEmail": "pharmacy.FW378@nhs.net",
-      "pfLink": "https://www.hirshmanspharmacy.co.uk/pharmacy-first-service-ainsdale.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/hirshman-s-chemist/XFW378/leave-a-review",
-      "website": "https://www.hirshmanspharmacy.co.uk",
-      "seoTown": "Ainsdale",
-      "townSlug": "ainsdale",
-      "brandSlug": "hirshmans",
-      "widgets": {
-        "bloodPressure": "66b9cefa0712ffe0d87e12d8",
-        "contraception": "6a478e3afb612bf3ee54d836",
-        "pharmacyFirst": "6a439f268babccc7d30915ea",
-        "weightLoss": "66b9ce9e8ed9220fea0a204c",
-        "travelClinic": "66b9cf3a5781154cd1315dff"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "08:30",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:30"
-          }
-        ]
-      }
-    },
-    {
-      "id": "skchemists_bootle",
-      "brandKey": "skchemists",
-      "brandLabel": "SK Chemists",
-      "branchName": "SK Chemists",
-      "streetAddress": "516 Stanley Road",
-      "addressLocality": "Bootle",
-      "postalCode": "L20 5DW",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 944 1013",
-      "email": "SK@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CeAIYeqSjIYBEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "sk-chemists",
-        "skchemists",
-        "stanley-road",
-        "bootle",
-        "l20 5dw",
-        "l20"
-      ],
-      "serviceAreaList": [
-        "Bootle",
-        "Sefton",
-        "Liverpool"
-      ],
-      "shortCode": "SKC",
-      "branchNumber": 10,
-      "odsCode": "FH575",
-      "nhsEmail": "pharmacy.FH575@nhs.net",
-      "pfLink": "https://www.skchemist.co.uk/pharmacy-first-service-bootle.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/sk-chemists/XFH575/leave-a-review",
-      "website": "https://www.skchemist.co.uk",
-      "seoTown": "Bootle",
-      "townSlug": "bootle",
-      "brandSlug": "sk-chemists",
-      "widgets": {
-        "bloodPressure": "66b9d6088ed9220fea0a206d",
-        "contraception": "6a47976aa73ee8f2ca31fc0d",
-        "pharmacyFirst": "66b9d657d71f677c6d5e602b",
-        "weightLoss": "66c86584ba5faa183dc1c4a3",
-        "travelClinic": "6a5bf248918ea659155231e0"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "colemanleigh_liverpool",
-      "brandKey": "colemanandleigh",
-      "brandLabel": "Coleman and Leighs Pharmacy",
-      "branchName": "Coleman and Leighs Pharmacy",
-      "streetAddress": "241 Walton Village",
-      "addressLocality": "Liverpool",
-      "postalCode": "L4 6TH",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 525 3522",
-      "email": "Colemans@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CVRiXrQr74lLEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "coleman",
-        "leigh",
-        "walton",
-        "walton-village",
-        "l4 6th",
-        "l4"
-      ],
-      "serviceAreaList": [
-        "Walton",
-        "Liverpool",
-        "Sefton"
-      ],
-      "shortCode": "COL",
-      "branchNumber": 2,
-      "odsCode": "FWK18",
-      "nhsEmail": "pharmacy.FWK18@nhs.net",
-      "pfLink": "https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-walton.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/coleman-and-leighs-pharmacy/XFWK18/leave-a-review",
-      "website": "https://www.colemanandleighspharmacy.co.uk",
-      "seoTown": "Walton",
-      "townSlug": "walton",
-      "brandSlug": "coleman-leigh",
-      "widgets": {
-        "bloodPressure": "66b9db8a121338480dd72787",
-        "contraception": "6a478893da29d60a80c8131c",
-        "pharmacyFirst": "66b9dba20712ffe0d87e12f2",
-        "weightLoss": "66c8696297a4c50a888f230e",
-        "travelClinic": "6a5bf2bfd34f7693a5c5f1f7"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "riddings_timperley",
-      "brandKey": "riddings",
-      "brandLabel": "Riddings Pharmacy",
-      "branchName": "Riddings Pharmacy",
-      "streetAddress": "38 Riddings Road",
-      "addressLocality": "Timperley, Altrincham",
-      "postalCode": "WA15 6BP",
-      "addressRegion": "Greater Manchester",
-      "addressCountry": "GB",
-      "phone": "0161 973 2951",
-      "email": "Riddings@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CRtdZliseNZGEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "riddings",
-        "timperley",
-        "altrincham",
-        "wa15 6bp",
-        "wa15"
-      ],
-      "serviceAreaList": [
-        "Timperley",
-        "Altrincham",
-        "Trafford"
-      ],
-      "shortCode": "RID",
-      "branchNumber": 9,
-      "odsCode": "FDW90",
-      "nhsEmail": "pharmacy.FDW90@nhs.net",
-      "pfLink": "https://www.riddingspharmacy.co.uk/pharmacy-first-service-timperley.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/riddings-pharmacy/XFDW90/leave-a-review",
-      "website": "https://www.riddingspharmacy.co.uk",
-      "seoTown": "Timperley",
-      "townSlug": "timperley",
-      "brandSlug": "riddings",
-      "widgets": {
-        "bloodPressure": "66b9c5450712ffe0d87e12c5",
-        "contraception": "6a47934d55326b3f7e5be42a",
-        "pharmacyFirst": "6a439f7b1916ef7a9401cc8f",
-        "weightLoss": "66b9c43c99512e8591be4a3d",
-        "travelClinic": "6a5bf315b78beedb8f44a0a8"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "gordonshorts_crosby",
-      "brandKey": "gordonshorts",
-      "brandLabel": "Gordon Short Chemist",
-      "branchName": "Gordon Short Chemist",
-      "streetAddress": "159 College Road",
-      "addressLocality": "Liverpool",
-      "postalCode": "L23 3AT",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 924 3449",
-      "email": "Shorts@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CZcVDM6emi6OEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "gordon",
-        "shorts",
-        "college-road",
-        "l23 3at",
-        "crosby",
-        "l23"
-      ],
-      "serviceAreaList": [
-        "Crosby",
-        "Waterloo",
-        "Sefton"
-      ],
-      "shortCode": "GOR",
-      "branchNumber": 5,
-      "odsCode": "FPD45",
-      "nhsEmail": "pharmacy.FPD45@nhs.net",
-      "pfLink": "https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/gordon-short-chemist/XFPD45",
-      "website": "https://www.gordonshortchemist.co.uk",
-      "seoTown": "Crosby",
-      "townSlug": "crosby",
-      "brandSlug": "gordon-short",
-      "widgets": {
-        "bloodPressure": "66b9e9e8a1aa58f7426edab6",
-        "contraception": "6a4799554065a96ce45e4dcd",
-        "pharmacyFirst": "66b9ea0304f4c06db8fdbf8f",
-        "weightLoss": "66c86a43ec8717372992a30f",
-        "travelClinic": "6a5bf360900e97b9c7d8aa49"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "14:00",
-            "closes": "17:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "cherrylane_liverpool",
-      "brandKey": "cherrylane",
-      "brandLabel": "Cherry Lane Pharmacy",
-      "branchName": "Cherry Lane Pharmacy",
-      "streetAddress": "202 Cherry Lane",
-      "addressLocality": "Liverpool",
-      "postalCode": "L4 8SG",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 226 2051",
-      "email": "Cherry@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CRF-ODLpmvUAEAE/review",
-      "hasApp": false,
-      "keywords": [
-        "cherry-lane",
-        "l4 8sg",
-        "l4",
-        "cherry lane"
-      ],
-      "serviceAreaList": [
-        "Liverpool",
-        "Walton",
-        "Everton"
-      ],
-      "shortCode": "CHE",
-      "branchNumber": 17,
-      "odsCode": "FA226",
-      "nhsEmail": "pharmacy.FA226@nhs.net",
-      "pfLink": "https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226/leave-a-review",
-      "website": "https://www.cherrylanepharmacy.co.uk",
-      "seoTown": "Walton",
-      "townSlug": "walton",
-      "brandSlug": "cherry-lane",
-      "widgets": {
-        "bloodPressure": "66b47e5dcad218d342bbecca",
-        "contraception": "6a4783d77658d72e988c07ca",
-        "earache": "6a479c06fb612bf3ee54d85b",
-        "impetigo": "6a479bdbef6fe2adc49b25e7",
-        "insectBite": "6a479baffb612bf3ee54d856",
-        "pharmacyFirst": "66b20ae6609c16953de3e0cf",
-        "shingles": "6a479b7b4065a96ce45e4ddf",
-        "sinusitis": "6a479b43f7e44e6923bcb252",
-        "soreThroat": "6a479b104065a96ce45e4dd6",
-        "uti": "6a479ab5b4a3250ce920c0b7",
-        "weightLoss": "66b20b55bd0ba991115af5e1",
-        "travelClinic": "6a5bf3ac7066e1645399e678"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:30"
-          },
-          {
-            "dayOfWeek": [
-              "Saturday"
-            ],
-            "opens": "09:00",
-            "closes": "17:00"
-          }
-        ]
-      }
-    },
-    {
-      "id": "tiffenbergs_longmoor",
-      "brandKey": "tiffenbergs",
-      "brandLabel": "Tiffenbergs Chemist",
-      "branchName": "Tiffenbergs Chemist",
-      "streetAddress": "388 Longmoor Lane",
-      "addressLocality": "Liverpool",
-      "postalCode": "L9 9DB",
-      "addressRegion": "Merseyside",
-      "addressCountry": "GB",
-      "phone": "0151 525 3462",
-      "email": "Tiffenberg@rbhealth.co.uk",
-      "googleReviewUrl": "https://g.page/r/CdfQf2a16Bn4EAE/review",
-      "hasApp": false,
-      "keywords": [
-        "tiffenbergs",
-        "longmoor",
-        "l9 9db",
-        "l9"
-      ],
-      "serviceAreaList": [
-        "Aintree",
-        "Fazakerley",
-        "Liverpool"
-      ],
-      "shortCode": "TIF",
-      "branchNumber": 12,
-      "odsCode": "FAX36",
-      "nhsEmail": "pharmacy.FAX36@nhs.net",
-      "pfLink": "https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree",
-      "pfBooking": true,
-      "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/tiffenbergs-chemist/XFAX36/leave-a-review",
-      "website": "https://www.tiffenbergschemist.co.uk",
-      "seoTown": "Aintree",
-      "townSlug": "aintree",
-      "brandSlug": "tiffenbergs",
-      "widgets": {
-        "bloodPressure": "66b9da17d71f677c6d5e602f",
-        "contraception": "6a4793b74065a96ce45e4dc6",
-        "pharmacyFirst": "66b9da6d121338480dd72783",
-        "weightLoss": "66c868fafbe13d151242ede5",
-        "travelClinic": "6a5bf3f6d34f7693a5c5f1fa"
-      },
-      "openingHours": {
-        "source": "NHS pharmacy profile",
-        "confirmed": "2026-06-24",
-        "closedDays": [
-          "Saturday",
-          "Sunday"
-        ],
-        "specification": [
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "13:00"
-          },
-          {
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "14:00",
-            "closes": "18:00"
-          }
-        ]
-      }
-    }
+ "lastUpdated": "2026-08-15",
+ "brandGroups": {
+  "scorahs": [
+   "scorah_bramhall",
+   "scorah_hazel"
   ],
-  "schemaNote": "Enriched 2026-06-27 with shortCode, branchNumber, odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl from RBH master branch spreadsheet. SMA nhsReviewUrl corrected from XFH575 (SK) to XFQN70 (Smartts). Scorah Bramhall street normalised to 61-63 North Park Road. Added 2026-06-30: website, seoTown, townSlug, brandSlug per branch (service-layer SEO fields), and widgets (Appointedd booking widget IDs; Cherry Lane pharmacyFirst populated). seoTown is the catchment town used in page titles/H1 and may differ from postal addressLocality (e.g. Cherry Lane = Walton, not Liverpool). Added 2026-07-13: openingHours per trading branch (schema.org openingHoursSpecification shape), sourced from NHS pharmacy profiles, all last confirmed by NHS on 2026-06-24. Hazel Grove ceased Saturday trading 24 June 2026. Head office, Clear Chemist and the disposed Wilmslow site have no openingHours (no public NHS profile hours applicable). Added 2026-07-18: widgets.weightLoss and widgets.travelClinic per branch (12 active brand groups; Wilmslow excluded as disposed) — weightLoss widgets existed for all 13 non-rbhealth brands already; travelClinic widgets pre-existed only for Fishlocks/Hirshmans/McCanns/Scorah and were cloned (via Appointedd Clone + resource reassignment from the Fishlocks - Travel Clinic template, category \"Travel Health\") for the remaining 8 brands (Clear uses the \"Online Appointment\" resource since it has no physical branch resource in Appointedd)."
+  "mccanns": [
+   "mccanns_aigburth",
+   "mccanns_sandringham"
+  ],
+  "fishlocks": [
+   "fishlocks_ainsdale",
+   "fishlocks_eccleston"
+  ],
+  "rbhealth": [
+   "rbh_head_office_aintree"
+  ]
+ },
+ "hostMap": {
+  "rbhealth.co.uk": [
+   "rbh_head_office_aintree"
+  ],
+  "www.rbhealth.co.uk": [
+   "rbh_head_office_aintree"
+  ],
+  "www.colemanandleighspharmacy.co.uk": [
+   "colemanleigh_liverpool"
+  ],
+  "www.fishlockpharmacy.co.uk": [
+   "fishlocks_ainsdale",
+   "fishlocks_eccleston"
+  ],
+  "www.gordonshortchemist.co.uk": [
+   "gordonshorts_crosby"
+  ],
+  "www.hirshmanspharmacy.co.uk": [
+   "hirshmans_ainsdale"
+  ],
+  "www.mccannspharmacy.co.uk": [
+   "mccanns_aigburth",
+   "mccanns_sandringham"
+  ],
+  "www.riddingspharmacy.co.uk": [
+   "riddings_timperley"
+  ],
+  "www.skchemist.co.uk": [
+   "skchemists_bootle"
+  ],
+  "www.smarttschemist.co.uk": [
+   "smartts_bootle"
+  ],
+  "www.tiffenbergschemist.co.uk": [
+   "tiffenbergs_longmoor"
+  ],
+  "www.scorah-chemists.co.uk": [
+   "scorah_bramhall",
+   "scorah_hazel"
+  ],
+  "www.cherrylanepharmacy.co.uk": [
+   "cherrylane_liverpool"
+  ],
+  "www.clearchemist.co.uk": [
+   "clearchemist_aintree"
+  ]
+ },
+ "branches": [
+  {
+   "id": "scorah_bramhall",
+   "brandKey": "scorahs",
+   "brandLabel": "Scorah Chemists",
+   "branchName": "Scorah Chemists Bramhall",
+   "streetAddress": "61-63 North Park Road",
+   "addressLocality": "Bramhall",
+   "postalCode": "SK7 3LQ",
+   "addressRegion": "Greater Manchester",
+   "addressCountry": "GB",
+   "phone": "0161 439 3744",
+   "email": "Bramhall@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CZdA75DAMigGEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "scorah",
+    "bramhall",
+    "north-park-road",
+    "sk7",
+    "sk7 3lq"
+   ],
+   "serviceAreaList": [
+    "Bramhall",
+    "Cheadle Hulme",
+    "Hazel Grove",
+    "Handforth",
+    "Poynton"
+   ],
+   "shortCode": "BRA",
+   "branchNumber": 13,
+   "odsCode": "FL495",
+   "nhsEmail": "pharmacy.FL495@nhs.net",
+   "pfLink": "https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/scorah-chemists-bramhall/XFL495/leave-a-review",
+   "website": "https://www.scorah-chemists.co.uk",
+   "seoTown": "Bramhall",
+   "townSlug": "bramhall",
+   "brandSlug": "scorah",
+   "widgets": {
+    "bloodPressure": "66b9d3e9d71f677c6d5e6015",
+    "contraception": "6a4797ca61e4b9e09738d082",
+    "pharmacyFirst": "6a439fa31916ef7a9401cc92",
+    "weightLoss": "66b9d3d18ed9220fea0a205d",
+    "travelClinic": "66b9d4565781154cd1315e0b",
+    "flu": "66b9d476d71f677c6d5e601e"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "scorah_hazel",
+   "brandKey": "scorahs",
+   "brandLabel": "Scorah Chemists",
+   "branchName": "Scorah Chemists Hazel Grove",
+   "streetAddress": "87 Macclesfield Road",
+   "addressLocality": "Hazel Grove",
+   "postalCode": "SK7 6BG",
+   "addressRegion": "Greater Manchester",
+   "addressCountry": "GB",
+   "phone": "01625 872267",
+   "email": "Hazel@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CZbFKrky9BUsEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "scorah",
+    "hazel",
+    "hazel-grove",
+    "macclesfield-road",
+    "sk7",
+    "sk7 6bg"
+   ],
+   "serviceAreaList": [
+    "Hazel Grove",
+    "Bramhall",
+    "Offerton",
+    "Great Moor",
+    "Poynton"
+   ],
+   "shortCode": "HAZ",
+   "branchNumber": 14,
+   "odsCode": "FKD04",
+   "nhsEmail": "pharmacy.FKD04@nhs.net",
+   "pfLink": "https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/scorah-chemists-hazel-grove/XFKD04/leave-a-review",
+   "website": "https://www.scorah-chemists.co.uk",
+   "seoTown": "Hazel Grove",
+   "townSlug": "hazel-grove",
+   "brandSlug": "scorah",
+   "widgets": {
+    "bloodPressure": "6a4797d261e4b9e09738d087",
+    "contraception": "6a4797dba73ee8f2ca31fc17",
+    "pharmacyFirst": "6a4798e8f7e44e6923bcb237",
+    "weightLoss": "66b9d3d18ed9220fea0a205d",
+    "travelClinic": "66b9d4565781154cd1315e0b",
+    "flu": "66b9d476d71f677c6d5e601e"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "note": "Saturday trading ceased 24 June 2026. Previously open Sat 09:00-13:00.",
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mccanns_aigburth",
+   "brandKey": "mccanns",
+   "brandLabel": "McCanns Chemist",
+   "branchName": "McCanns Chemist Aigburth",
+   "streetAddress": "112 Aigburth Road",
+   "addressLocality": "Liverpool",
+   "postalCode": "L17 7BP",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 727 3185",
+   "email": "Aigburth@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CdDj9KyelDVyEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "mccann",
+    "mccanns",
+    "aigburth",
+    "l17 7bp",
+    "aigburth-road",
+    "l17"
+   ],
+   "serviceAreaList": [
+    "Aigburth",
+    "Sefton Park",
+    "Mossley Hill",
+    "Grassendale"
+   ],
+   "shortCode": "AIG",
+   "branchNumber": 8,
+   "odsCode": "FA428",
+   "nhsEmail": "pharmacy.FA428@nhs.net",
+   "pfLink": "https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/XFA428/leave-a-review",
+   "website": "https://www.mccannspharmacy.co.uk",
+   "seoTown": "Aigburth",
+   "townSlug": "aigburth",
+   "brandSlug": "mccanns",
+   "widgets": {
+    "bloodPressure": "66b61bcabea374dfa684f189",
+    "contraception": "6a4790dae25e32949a70c14b",
+    "pharmacyFirst": "66b61b8583640d066a95622e",
+    "weightLoss": "66bb29f1328f6dafbb88971b",
+    "travelClinic": "66b61b3d5e6c5e79f623b3e3",
+    "flu": "66b619b6a8780c548fa0c6d7"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "14:00",
+      "closes": "17:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mccanns_sandringham",
+   "brandKey": "mccanns",
+   "brandLabel": "McCanns Chemist",
+   "branchName": "McCanns Chemist Sandringham",
+   "streetAddress": "1b Aigburth Road",
+   "addressLocality": "Liverpool",
+   "postalCode": "L17 4JP",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 727 3076",
+   "email": "Sandringham@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CbMDr1qOLqnrEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "mccann",
+    "mccanns",
+    "sandringham",
+    "l17 4jp",
+    "aigburth-road",
+    "l17"
+   ],
+   "serviceAreaList": [
+    "Aigburth",
+    "St Michael's",
+    "Lark Lane",
+    "Dingle"
+   ],
+   "shortCode": "SAN",
+   "branchNumber": 7,
+   "odsCode": "FAP24",
+   "nhsEmail": "pharmacy.FAP24@nhs.net",
+   "pfLink": "https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/XFAP24/leave-a-review",
+   "website": "https://www.mccannspharmacy.co.uk",
+   "seoTown": "Sandringham",
+   "townSlug": "sandringham",
+   "brandSlug": "mccanns",
+   "widgets": {
+    "bloodPressure": "6a478f9f51c51dd528f210d7",
+    "contraception": "6a4791ca51c51dd528f210fd",
+    "pharmacyFirst": "6a478fae4065a96ce45e4dbf",
+    "weightLoss": "66bb29f1328f6dafbb88971b",
+    "travelClinic": "66b61b3d5e6c5e79f623b3e3",
+    "flu": "66b619b6a8780c548fa0c6d7"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fishlocks_ainsdale",
+   "brandKey": "fishlocks",
+   "brandLabel": "Fishlocks Chemist",
+   "branchName": "Fishlocks Chemist Ainsdale",
+   "streetAddress": "17 Station Road",
+   "addressLocality": "Ainsdale",
+   "postalCode": "PR8 3HN",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "01704 575478",
+   "email": "Ainsdale@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/Cfl0iMf3cgGaEAE/review",
+   "hasApp": true,
+   "keywords": [
+    "fishlock",
+    "fishlocks",
+    "ainsdale",
+    "pr8 3hn",
+    "station-road",
+    "pr8"
+   ],
+   "serviceAreaList": [
+    "Ainsdale",
+    "Birkdale",
+    "Southport"
+   ],
+   "shortCode": "AIN",
+   "branchNumber": 3,
+   "odsCode": "FK848",
+   "nhsEmail": "pharmacy.FK848@nhs.net",
+   "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlock-chemists/XFK848/leave-a-review",
+   "website": "https://www.fishlockpharmacy.co.uk",
+   "seoTown": "Ainsdale",
+   "townSlug": "ainsdale",
+   "brandSlug": "fishlocks",
+   "widgets": {
+    "bloodPressure": "6a47893f37e5ff141a4219ac",
+    "contraception": "6a478ac5b4a3250ce920c081",
+    "pharmacyFirst": "66b1f5b59c1e2182b14fac3a",
+    "weightLoss": "66b1f5561a0469a9f6b3b359",
+    "travelClinic": "66b1f4ff9c1e2182b14fac37",
+    "flu": "66b239a2cbe057bc620e3bc1"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "08:45",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fishlocks_eccleston",
+   "brandKey": "fishlocks",
+   "brandLabel": "Fishlocks Chemist",
+   "branchName": "Fishlocks Chemist Eccleston",
+   "streetAddress": "Unit 3 The Carrington Centre, New Mill Street",
+   "addressLocality": "Eccleston",
+   "postalCode": "PR7 5SZ",
+   "addressRegion": "Chorley",
+   "addressCountry": "GB",
+   "phone": "01257 451251",
+   "email": "Eccleston@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CYyjtWbSXqEkEAE/review",
+   "hasApp": true,
+   "keywords": [
+    "fishlock",
+    "fishlocks",
+    "eccleston",
+    "pr7 5sz",
+    "carrington",
+    "new-mill",
+    "pr7",
+    "chorley"
+   ],
+   "serviceAreaList": [
+    "Eccleston",
+    "Charnock Richard",
+    "Coppull"
+   ],
+   "shortCode": "ECC",
+   "branchNumber": 4,
+   "odsCode": "FKJ81",
+   "nhsEmail": "pharmacy.FKJ81@nhs.net",
+   "pfLink": "https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/fishlocks-pharmacy/XFKJ81/leave-a-review",
+   "website": "https://www.fishlockpharmacy.co.uk",
+   "seoTown": "Eccleston",
+   "townSlug": "eccleston",
+   "brandSlug": "fishlocks",
+   "widgets": {
+    "bloodPressure": "6a478bd8207a049d89a9a34b",
+    "contraception": "6a478be0a73ee8f2ca31fbe0",
+    "pharmacyFirst": "6a478beb207a049d89a9a350",
+    "weightLoss": "66b1f5561a0469a9f6b3b359",
+    "travelClinic": "66b1f4ff9c1e2182b14fac37",
+    "flu": "66b239a2cbe057bc620e3bc1"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "12:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "rbh_head_office_aintree",
+   "brandKey": "rbhealth",
+   "brandLabel": "RB Healthcare Ltd",
+   "branchName": "RB Healthcare Ltd Head Office",
+   "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
+   "addressLocality": "Liverpool",
+   "postalCode": "L9 7AS",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "hasApp": false,
+   "keywords": [
+    "rbhealth",
+    "rb-health",
+    "rb healthcare",
+    "head office",
+    "head-office",
+    "aintree",
+    "brookfield",
+    "l9 7as",
+    "l9"
+   ],
+   "serviceAreaList": [
+    "Aintree",
+    "Fazakerley",
+    "Maghull",
+    "Walton",
+    "Bootle",
+    "North Liverpool"
+   ],
+   "shortCode": "RBH",
+   "branchNumber": 1,
+   "pfBooking": false,
+   "website": "https://www.rbhealth.co.uk"
+  },
+  {
+   "id": "clearchemist_aintree",
+   "brandKey": "clearchemist",
+   "brandLabel": "Clear Chemist",
+   "branchName": "Clear Chemist",
+   "streetAddress": "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
+   "addressLocality": "Liverpool",
+   "postalCode": "L9 7AS",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 203 8365",
+   "email": "admin@clearchemist.co.uk",
+   "googleReviewUrl": "https://g.page/r/CYTJCk0EpvxFEAE/review",
+   "hasApp": true,
+   "keywords": [
+    "clearchemist",
+    "clear-chemist",
+    "aintree",
+    "brookfield",
+    "l9 7as",
+    "l9"
+   ],
+   "serviceAreaList": [
+    "Aintree",
+    "Fazakerley",
+    "Walton",
+    "Bootle",
+    "North Liverpool"
+   ],
+   "shortCode": "CLE",
+   "branchNumber": 15,
+   "odsCode": "FD553",
+   "nhsEmail": "pharmacy.FD553@nhs.net",
+   "pfBooking": false,
+   "website": "https://www.clearchemist.co.uk",
+   "seoTown": "Aintree",
+   "townSlug": "aintree",
+   "brandSlug": "clear",
+   "widgets": {
+    "weightLoss": "691451f1f9b8831e135baacb",
+    "travelClinic": "6a5bf020900e97b9c7d8aa46"
+   }
+  },
+  {
+   "id": "smartts_bootle",
+   "brandKey": "smartts",
+   "brandLabel": "Smartts Chemist",
+   "branchName": "Smartts Chemist",
+   "streetAddress": "42 Fernhill Road",
+   "addressLocality": "Bootle",
+   "postalCode": "L20 9HH",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 922 4984",
+   "email": "Smartts@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CVzJUbDqQwReEBM/review",
+   "hasApp": true,
+   "keywords": [
+    "smartts",
+    "fernhill",
+    "bootle",
+    "l20 9hh",
+    "l20"
+   ],
+   "serviceAreaList": [
+    "Bootle",
+    "Sefton",
+    "Liverpool"
+   ],
+   "shortCode": "SMA",
+   "branchNumber": 11,
+   "odsCode": "FQN70",
+   "nhsEmail": "pharmacy.FQN70@nhs.net",
+   "pfLink": "https://www.smarttschemist.co.uk/pharmacy-first-service-bootle.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/smartts-chemist/XFQN70/leave-a-review",
+   "website": "https://www.smarttschemist.co.uk",
+   "seoTown": "Bootle",
+   "townSlug": "bootle",
+   "brandSlug": "smartts",
+   "widgets": {
+    "bloodPressure": "66b9ea5b04f4c06db8fdbf92",
+    "contraception": "6a479719a73ee8f2ca31fc08",
+    "pharmacyFirst": "66b9ea9004f4c06db8fdbf9c",
+    "weightLoss": "66c86882ec8717372992a309",
+    "travelClinic": "6a5bf199f1b6a563bc42908c",
+    "flu": "66b9ea4749bb635b4329f764"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "hirshmans_ainsdale",
+   "brandKey": "hirshmans",
+   "brandLabel": "Hirshmans Chemist",
+   "branchName": "Hirshmans Chemist",
+   "streetAddress": "56-62 Sherwood House, Station Road",
+   "addressLocality": "Ainsdale",
+   "postalCode": "PR8 3HW",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "01704 577376",
+   "email": "Hirshmans@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CUagKTNTXwMYEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "hirshman",
+    "hirshmans",
+    "ainsdale",
+    "pr8 3hw",
+    "station-road",
+    "pr8"
+   ],
+   "serviceAreaList": [
+    "Ainsdale",
+    "Birkdale",
+    "Southport"
+   ],
+   "shortCode": "HIR",
+   "branchNumber": 6,
+   "odsCode": "FW378",
+   "nhsEmail": "pharmacy.FW378@nhs.net",
+   "pfLink": "https://www.hirshmanspharmacy.co.uk/pharmacy-first-service-ainsdale.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/hirshman-s-chemist/XFW378/leave-a-review",
+   "website": "https://www.hirshmanspharmacy.co.uk",
+   "seoTown": "Ainsdale",
+   "townSlug": "ainsdale",
+   "brandSlug": "hirshmans",
+   "widgets": {
+    "bloodPressure": "66b9cefa0712ffe0d87e12d8",
+    "contraception": "6a478e3afb612bf3ee54d836",
+    "pharmacyFirst": "6a439f268babccc7d30915ea",
+    "weightLoss": "66b9ce9e8ed9220fea0a204c",
+    "travelClinic": "66b9cf3a5781154cd1315dff",
+    "flu": "66b9cf1636d8568042399dda"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "14:00",
+      "closes": "17:30"
+     }
+    ]
+   }
+  },
+  {
+   "id": "skchemists_bootle",
+   "brandKey": "skchemists",
+   "brandLabel": "SK Chemists",
+   "branchName": "SK Chemists",
+   "streetAddress": "516 Stanley Road",
+   "addressLocality": "Bootle",
+   "postalCode": "L20 5DW",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 944 1013",
+   "email": "SK@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CeAIYeqSjIYBEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "sk-chemists",
+    "skchemists",
+    "stanley-road",
+    "bootle",
+    "l20 5dw",
+    "l20"
+   ],
+   "serviceAreaList": [
+    "Bootle",
+    "Sefton",
+    "Liverpool"
+   ],
+   "shortCode": "SKC",
+   "branchNumber": 10,
+   "odsCode": "FH575",
+   "nhsEmail": "pharmacy.FH575@nhs.net",
+   "pfLink": "https://www.skchemist.co.uk/pharmacy-first-service-bootle.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/sk-chemists/XFH575/leave-a-review",
+   "website": "https://www.skchemist.co.uk",
+   "seoTown": "Bootle",
+   "townSlug": "bootle",
+   "brandSlug": "sk-chemists",
+   "widgets": {
+    "bloodPressure": "66b9d6088ed9220fea0a206d",
+    "contraception": "6a47976aa73ee8f2ca31fc0d",
+    "pharmacyFirst": "66b9d657d71f677c6d5e602b",
+    "weightLoss": "66c86584ba5faa183dc1c4a3",
+    "travelClinic": "6a5bf248918ea659155231e0",
+    "flu": "66b9d67d24f87455bc63399f"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "colemanleigh_liverpool",
+   "brandKey": "colemanandleigh",
+   "brandLabel": "Coleman and Leighs Pharmacy",
+   "branchName": "Coleman and Leighs Pharmacy",
+   "streetAddress": "241 Walton Village",
+   "addressLocality": "Liverpool",
+   "postalCode": "L4 6TH",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 525 3522",
+   "email": "Colemans@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CVRiXrQr74lLEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "coleman",
+    "leigh",
+    "walton",
+    "walton-village",
+    "l4 6th",
+    "l4"
+   ],
+   "serviceAreaList": [
+    "Walton",
+    "Liverpool",
+    "Sefton"
+   ],
+   "shortCode": "COL",
+   "branchNumber": 2,
+   "odsCode": "FWK18",
+   "nhsEmail": "pharmacy.FWK18@nhs.net",
+   "pfLink": "https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-walton.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/coleman-and-leighs-pharmacy/XFWK18/leave-a-review",
+   "website": "https://www.colemanandleighspharmacy.co.uk",
+   "seoTown": "Walton",
+   "townSlug": "walton",
+   "brandSlug": "coleman-leigh",
+   "widgets": {
+    "bloodPressure": "66b9db8a121338480dd72787",
+    "contraception": "6a478893da29d60a80c8131c",
+    "pharmacyFirst": "66b9dba20712ffe0d87e12f2",
+    "weightLoss": "66c8696297a4c50a888f230e",
+    "travelClinic": "6a5bf2bfd34f7693a5c5f1f7",
+    "flu": "66b9dbd50712ffe0d87e12f5"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "riddings_timperley",
+   "brandKey": "riddings",
+   "brandLabel": "Riddings Pharmacy",
+   "branchName": "Riddings Pharmacy",
+   "streetAddress": "38 Riddings Road",
+   "addressLocality": "Timperley, Altrincham",
+   "postalCode": "WA15 6BP",
+   "addressRegion": "Greater Manchester",
+   "addressCountry": "GB",
+   "phone": "0161 973 2951",
+   "email": "Riddings@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CRtdZliseNZGEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "riddings",
+    "timperley",
+    "altrincham",
+    "wa15 6bp",
+    "wa15"
+   ],
+   "serviceAreaList": [
+    "Timperley",
+    "Altrincham",
+    "Trafford"
+   ],
+   "shortCode": "RID",
+   "branchNumber": 9,
+   "odsCode": "FDW90",
+   "nhsEmail": "pharmacy.FDW90@nhs.net",
+   "pfLink": "https://www.riddingspharmacy.co.uk/pharmacy-first-service-timperley.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/riddings-pharmacy/XFDW90/leave-a-review",
+   "website": "https://www.riddingspharmacy.co.uk",
+   "seoTown": "Timperley",
+   "townSlug": "timperley",
+   "brandSlug": "riddings",
+   "widgets": {
+    "bloodPressure": "66b9c5450712ffe0d87e12c5",
+    "contraception": "6a47934d55326b3f7e5be42a",
+    "pharmacyFirst": "6a439f7b1916ef7a9401cc8f",
+    "weightLoss": "66b9c43c99512e8591be4a3d",
+    "travelClinic": "6a5bf315b78beedb8f44a0a8",
+    "flu": "66b9c3f28ed9220fea0a2042"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "gordonshorts_crosby",
+   "brandKey": "gordonshorts",
+   "brandLabel": "Gordon Short Chemist",
+   "branchName": "Gordon Short Chemist",
+   "streetAddress": "159 College Road",
+   "addressLocality": "Liverpool",
+   "postalCode": "L23 3AT",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 924 3449",
+   "email": "Shorts@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CZcVDM6emi6OEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "gordon",
+    "shorts",
+    "college-road",
+    "l23 3at",
+    "crosby",
+    "l23"
+   ],
+   "serviceAreaList": [
+    "Crosby",
+    "Waterloo",
+    "Sefton"
+   ],
+   "shortCode": "GOR",
+   "branchNumber": 5,
+   "odsCode": "FPD45",
+   "nhsEmail": "pharmacy.FPD45@nhs.net",
+   "pfLink": "https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/gordon-short-chemist/XFPD45",
+   "website": "https://www.gordonshortchemist.co.uk",
+   "seoTown": "Crosby",
+   "townSlug": "crosby",
+   "brandSlug": "gordon-short",
+   "widgets": {
+    "bloodPressure": "66b9e9e8a1aa58f7426edab6",
+    "contraception": "6a4799554065a96ce45e4dcd",
+    "pharmacyFirst": "66b9ea0304f4c06db8fdbf8f",
+    "weightLoss": "66c86a43ec8717372992a30f",
+    "travelClinic": "6a5bf360900e97b9c7d8aa49",
+    "flu": "66b9ea305781154cd1315e2b"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "14:00",
+      "closes": "17:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "cherrylane_liverpool",
+   "brandKey": "cherrylane",
+   "brandLabel": "Cherry Lane Pharmacy",
+   "branchName": "Cherry Lane Pharmacy",
+   "streetAddress": "202 Cherry Lane",
+   "addressLocality": "Liverpool",
+   "postalCode": "L4 8SG",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 226 2051",
+   "email": "Cherry@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CRF-ODLpmvUAEAE/review",
+   "hasApp": false,
+   "keywords": [
+    "cherry-lane",
+    "l4 8sg",
+    "l4",
+    "cherry lane"
+   ],
+   "serviceAreaList": [
+    "Liverpool",
+    "Walton",
+    "Everton"
+   ],
+   "shortCode": "CHE",
+   "branchNumber": 17,
+   "odsCode": "FA226",
+   "nhsEmail": "pharmacy.FA226@nhs.net",
+   "pfLink": "https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226/leave-a-review",
+   "website": "https://www.cherrylanepharmacy.co.uk",
+   "seoTown": "Walton",
+   "townSlug": "walton",
+   "brandSlug": "cherry-lane",
+   "widgets": {
+    "bloodPressure": "66b47e5dcad218d342bbecca",
+    "contraception": "6a4783d77658d72e988c07ca",
+    "earache": "6a479c06fb612bf3ee54d85b",
+    "impetigo": "6a479bdbef6fe2adc49b25e7",
+    "insectBite": "6a479baffb612bf3ee54d856",
+    "pharmacyFirst": "66b20ae6609c16953de3e0cf",
+    "shingles": "6a479b7b4065a96ce45e4ddf",
+    "sinusitis": "6a479b43f7e44e6923bcb252",
+    "soreThroat": "6a479b104065a96ce45e4dd6",
+    "uti": "6a479ab5b4a3250ce920c0b7",
+    "weightLoss": "66b20b55bd0ba991115af5e1",
+    "travelClinic": "6a5bf3ac7066e1645399e678",
+    "flu": "66b20c7a1a0469a9f6b3b3a4"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:30"
+     },
+     {
+      "dayOfWeek": [
+       "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+     }
+    ]
+   }
+  },
+  {
+   "id": "tiffenbergs_longmoor",
+   "brandKey": "tiffenbergs",
+   "brandLabel": "Tiffenbergs Chemist",
+   "branchName": "Tiffenbergs Chemist",
+   "streetAddress": "388 Longmoor Lane",
+   "addressLocality": "Liverpool",
+   "postalCode": "L9 9DB",
+   "addressRegion": "Merseyside",
+   "addressCountry": "GB",
+   "phone": "0151 525 3462",
+   "email": "Tiffenberg@rbhealth.co.uk",
+   "googleReviewUrl": "https://g.page/r/CdfQf2a16Bn4EAE/review",
+   "hasApp": false,
+   "keywords": [
+    "tiffenbergs",
+    "longmoor",
+    "l9 9db",
+    "l9"
+   ],
+   "serviceAreaList": [
+    "Aintree",
+    "Fazakerley",
+    "Liverpool"
+   ],
+   "shortCode": "TIF",
+   "branchNumber": 12,
+   "odsCode": "FAX36",
+   "nhsEmail": "pharmacy.FAX36@nhs.net",
+   "pfLink": "https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree",
+   "pfBooking": true,
+   "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/tiffenbergs-chemist/XFAX36/leave-a-review",
+   "website": "https://www.tiffenbergschemist.co.uk",
+   "seoTown": "Aintree",
+   "townSlug": "aintree",
+   "brandSlug": "tiffenbergs",
+   "widgets": {
+    "bloodPressure": "66b9da17d71f677c6d5e602f",
+    "contraception": "6a4793b74065a96ce45e4dc6",
+    "pharmacyFirst": "66b9da6d121338480dd72783",
+    "weightLoss": "66c868fafbe13d151242ede5",
+    "travelClinic": "6a5bf3f6d34f7693a5c5f1fa",
+    "flu": "66b9da54d71f677c6d5e6036"
+   },
+   "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+     "Saturday",
+     "Sunday"
+    ],
+    "specification": [
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "13:00"
+     },
+     {
+      "dayOfWeek": [
+       "Monday",
+       "Tuesday",
+       "Wednesday",
+       "Thursday",
+       "Friday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+     }
+    ]
+   }
+  }
+ ],
+ "schemaNote": "Enriched 2026-06-27 with shortCode, branchNumber, odsCode, nhsEmail, pfLink, pfBooking, nhsReviewUrl from RBH master branch spreadsheet. SMA nhsReviewUrl corrected from XFH575 (SK) to XFQN70 (Smartts). Scorah Bramhall street normalised to 61-63 North Park Road. Added 2026-06-30: website, seoTown, townSlug, brandSlug per branch (service-layer SEO fields), and widgets (Appointedd booking widget IDs; Cherry Lane pharmacyFirst populated). seoTown is the catchment town used in page titles/H1 and may differ from postal addressLocality (e.g. Cherry Lane = Walton, not Liverpool). Added 2026-07-13: openingHours per trading branch (schema.org openingHoursSpecification shape), sourced from NHS pharmacy profiles, all last confirmed by NHS on 2026-06-24. Hazel Grove ceased Saturday trading 24 June 2026. Head office, Clear Chemist and the disposed Wilmslow site have no openingHours (no public NHS profile hours applicable). Added 2026-07-18: widgets.weightLoss and widgets.travelClinic per branch (12 active brand groups; Wilmslow excluded as disposed) — weightLoss widgets existed for all 13 non-rbhealth brands already; travelClinic widgets pre-existed only for Fishlocks/Hirshmans/McCanns/Scorah and were cloned (via Appointedd Clone + resource reassignment from the Fishlocks - Travel Clinic template, category \"Travel Health\") for the remaining 8 brands (Clear uses the \"Online Appointment\" resource since it has no physical branch resource in Appointedd)."
 }
