@@ -1119,5 +1119,36 @@
     "status": "open",
     "answer": null,
     "note": "No published copy was changed this run. The finding is that nothing in the repo read these qualifiers at all: deleting the whole suitability sentence from a weight loss post, deleting the supervised-plan wording, deleting the travel availability wording, or changing \"private, paid service\" to \"free service\", each walked past all 36 checkers clean. tools/check-gbp-packs.js now requires all six markers on any branch whose widget set gives it the clinic, and gbp-packs/TEMPLATE.md now tells the drafter to write them, which is why the three older packs surfaced. They are pinned in KNOWN_CLINIC_QUALIFIER against this question, one key per branch because all three move together. If you pick option 1 or 2 the pins must be removed in the same session as the rewrite, because a pin whose case has been fixed fails the run by design. Two things worth knowing. This does not touch the five live weight loss PAGES under item 5.8 and Q16, which are a separate and larger exposure. And the packs are drafts for pasting, so whether any of these three posts is actually live on the profile is not something the repo records; if they are, the live post needs the same edit as the pack."
+  },
+  {
+    "id": "Q73",
+    "date": "2026-08-14",
+    "item": "quality pass on 4.9 (finding, does not block any item)",
+    "question": "A GBP pack can place the shop in the wrong town and no checker sees it, provided the wrong town is one the branch serves. Injecting \"the weight loss clinic at Clear Chemist in Walton\" into Post C of clear-aintree.md passed all 36 checkers clean, although branches.json puts the branch in Aintree. Two rules should have held it and neither does: the catchment rule exempts Walton because it is in this branch's own serviceAreaList, and the rule added on the item 3.5 pass for exactly this fault only engages where the branch is named on its own ROAD as well, which this construct is not. The copy is pasted verbatim into a public Google profile, so it would tell Google the pharmacy is in a town it only delivers to. Widening the rule is easy; the question is how wide, because the packs legitimately write catchment towns next to the branch name in almost every post.",
+    "options": [
+      "Widen the item 3.5 rule so any \"<brand or branch name> in <town>\" construct fails when the town is neither seoTown nor addressLocality, dropping the requirement that a road be named. Strongest cover, and the phrasing is narrow enough that the estate should stay green, but it will need a KNOWN list if any pack legitimately writes the brand next to a catchment town.",
+      "Add a separate, narrower rule that reads only the four post drafts and the business description, and requires that wherever the branch is located with \"in <town>\", the town is seoTown or addressLocality. Leaves the services and catchment prose untouched, so it is the lowest false-positive risk, but it does not cover the profile-basics block.",
+      "Leave it. The packs are drafted from branches.json and a human reads them before pasting, so treat this as a drafting risk rather than a checker gap."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found by injection on the fifth quality pass of item 4.9, 2026-08-14. Nothing was changed in any pack for this finding; the injection was reverted and the estate is green. Worth knowing before choosing: Clear Chemist is the branch where this matters most, because its serviceAreaList names Walton, Bootle, Fazakerley and North Liverpool, and the profile is deliberately being kept local to Aintree against the pull of the e-commerce side. Whichever option is picked, it should be applied to all 15 packs at once rather than to this one."
+  },
+  {
+    "id": "Q74",
+    "date": "2026-08-14",
+    "item": "quality pass on 4.9 (finding, does not block any item)",
+    "question": "The paster warnings at the foot of a GBP pack are load-bearing safety copy, and nothing requires them to still be there. Deleting the whole warning that the Post B, C and D links return 404, including the line \"Do not post a button to a page that 404s: a Google post pointing at an error page is worse than no button\", passed all 36 checkers clean. That warning is the only thing standing between the pack and a paster wiring three public Google posts to error pages, because the pack still carries the three dead URLs on the buttons above it. This is the same shape as the defect found on the item 4.8 pass: every rule in the file bans wording and almost none requires any, so safety copy can be deleted silently while the unsafe copy it guards stays put.",
+    "options": [
+      "Make the checker require the warning wherever the pack still carries the URL it warns about: if a pack names a link it has recorded as 404, it must also carry the do-not-post warning. Ties the requirement to the actual hazard rather than to a fixed word list, so it retires itself when the pages exist.",
+      "Fix the cause instead and drop the need for the warning: settle how Clear Chemist's three generated pages reach the public, which is the decision already sitting in item 5.5 and Q13, then repoint the three buttons and delete the warning deliberately.",
+      "Require the notes generically: every pack must keep each warning line the TEMPLATE declares, enforced the way the clinic qualifiers now are. Broadest cover, but it freezes wording that is meant to change per branch.",
+      "Leave it. The warnings are drafting aids for a named human and the repo cannot police what a person deletes before pasting."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found by injection on the fifth quality pass of item 4.9, 2026-08-14. Nothing in any pack was changed; the injection was reverted. Options 1 and 2 are not exclusive in the long run, but they are exclusive as the next action: option 1 hardens the guard, option 2 removes the hazard and the guard together. Option 2 is the better end state and option 1 is the safer thing to do this week, because Q13 has been open since 2026-08-10 and the packs are pasteable today."
   }
 ]

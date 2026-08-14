@@ -2,6 +2,129 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 - two-hundred-and-sixth run
+
+- Quality pass on item 4.9, the Clear Chemist Aintree GBP pack, fifth pass.
+ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. No page,
+generator, data field, branches.json entry, paste sheet, GBP pack or piece of
+patient-facing copy was changed. All 36 checkers pass. Two new questions, Q73
+and Q74.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited from the 205th run: every "## " run header
+in this log was parsed, the FIRST bullet under each was read, and only the two
+header shapes the log actually uses were accepted ("- Quality pass on item
+X.Y" and "- Item X.Y quality pass"). Reading the first bullet only is what
+keeps a prose mention or a quoted header out of the ranking, which is the trap
+the 205th run recorded. That resolved 42 items, one of which is 6.6 and is not
+complete; the remaining 41 match the 41 ticked items in the worklist exactly.
+Ranked by position in the file, item 4.9 came out oldest, last verified in the
+hundred-and-sixty-fifth run on 2026-08-13.
+
+BASELINE. No .agent-lock and no stale .git\index.lock. Level with origin at
+e61cbef, worktree clean. All 36 checkers green and all six page generators
+rebuild every page byte-identical BEFORE any edit, and again after.
+build-status-page.js is deliberately not counted in that six: it stamps a
+build time and embeds the log, so it can never be byte-identical. It was run,
+its output inspected, and reverted, so the baseline stayed clean.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+requires a human to choose between them. An unattended run has nobody to ask,
+so step 3 got no further than enumerating them: NO page was fetched and
+nothing was clicked, typed, submitted or logged in to, on any site. No other
+route was attempted. Forty-third consecutive run of this fault, which is what
+Q59 asks about, so no duplicate was raised. Nothing live was read and the
+2026-08-10 live verdicts on this pack, including the three 404 URLs, stand as
+written rather than re-claimed.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log is dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired
+four days ago, and it is not at the top of the file. Step 7 applied as
+written, which is why the two findings below were asked about rather than
+decided.
+
+A HARNESS NOTE, BECAUSE IT BIT AGAIN. The first attempt ran the injection loop
+inside the interactive shell and the shell was killed mid-injection, leaving
+clear-aintree.md dirty exactly as it did on the 165th run. The finally block
+does not run when the process is killed. It was caught on the next read and
+reverted with git checkout before anything else was done, and the loop was
+then run detached, writing to a file and polled, so no later step depended on
+a shell staying alive. Nothing corrupt reached a commit. The harness was also
+moved out of tools\ to a temp path, because an untracked file inside the repo
+made the harness's own clean check fail on entry.
+
+METHOD. Injection testing, one value at a time, all 36 checkers run on each,
+file restored from git and the tree byte-compared after every one. 25
+injections in three batches: 20 on the pack's facts, safety copy and clinical
+content, 5 negative-testing the fix.
+
+WHAT HELD. Seventeen of the twenty caught, including every clinical and
+regulatory one: the postcode, the phone in Post A, the website, the review
+link, a dropped catchment town, a medicine name added to Post C, an efficacy
+claim added to Post C, a Buy Now button on Post C, lead pricing in Post C, a
+Pharmacy First service added to a branch branches.json gives no pfLink, the
+hasApp claim flipped in a paster note, the branch id, the primary category,
+the character count on the description, an em dash, a US spelling and a brand
+misspelling. The clinic-qualifier rule the 205th run added held here on a
+second pack. Worth recording that Post C is well guarded: four separate
+injections into the weight loss post were all caught.
+
+THE DEFECT: THE THREE "UNIT" PACKS WERE LEFT OUT OF THE ADDRESS RULE.
+
+  change the "- Address:" line only, Unit 20 -> Unit 21   ALL 36 EXITED 0
+
+The item 4.6 pass, three runs ago, built a rule for precisely this fault after
+finding that changing a house number in one place passed clean. That rule
+engages only where the branch's streetAddress OPENS with a house number,
+thirteen of the sixteen. Its own comment says the three that open with "Unit"
+are "left to the rules above rather than guessed at". The rules above do not
+hold them, and this injection is the proof: the presence rule passed because
+the description and Post A still spell "Unit 20 Brookfield Trade Centre", and
+the sister rule passed because Unit 21 is no branch's address. Those are the
+same two reasons the 4.6 rule was written. So the three packs on unit
+addresses were the only ones in the estate where a wrong door published
+silently, and the "- Address:" line is the one the paster sets the Google Maps
+pin from. On a trade estate the unit number is not a softer fact than a house
+number; it is the only thing separating one door from the next.
+
+THE FIX. tools/check-gbp-packs.js now parses a second address shape,
+"Unit <n> <rest>", and anchors the match on the first comma-separated segment
+of the road part rather than the whole string. That detail is the difference
+between a rule that works and a rule that passes on everything: branches.json
+holds "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree" while Post
+A writes "Unit 20 Brookfield Trade Centre on Brookfield Drive", so a
+whole-string match would find no mention at all. The "Unit" word is optional
+in the match, so a mention that drops it and writes a bare "21 Brookfield
+Trade Centre" is caught on the same footing. Behaviour for the thirteen
+house-number branches is untouched: the new branch is only reached when the
+existing parse fails.
+
+NEGATIVE-TESTED, five injections, all caught by check-gbp-packs.js and nothing
+else: the original address line, Post A, the business description, the bare
+number with "Unit" dropped, and Unit 3 -> Unit 4 in fishlocks-eccleston.md,
+which is item 4.8's pack and the third of the three. All 36 checkers are green
+on the real estate with the fix in place, so it fires on the fault and not on
+the packs as they stand.
+
+TWO FINDINGS NOT FIXED, BOTH ASKED. Q73: a pack can place the shop in the
+wrong TOWN and pass, provided the wrong town is one the branch serves.
+"Clear Chemist in Walton" in Post C passed all 36, because the catchment rule
+exempts Walton as a serviceAreaList entry and the item 3.5 rule for this fault
+only engages where a road is named too. Q74: the paster warnings are
+load-bearing safety copy and nothing requires them. Deleting the whole warning
+that the Post B, C and D buttons return 404, including "Do not post a button
+to a page that 404s", passed all 36 while the three dead URLs stayed on the
+buttons above it. Q74 is the item 4.8 defect one layer out: the file bans
+wording and almost never requires any, so a guard can be deleted while the
+hazard it guards stays.
+
+THE RULE WORTH CARRYING. When a pass adds a rule and scopes it, read what it
+says about what it LEFT OUT. This rule's comment named the three packs it
+skipped and gave a reason that sounded right and was not true. An exclusion
+written in a comment is an assumption, and the same injection that justified
+the rule tests the exclusion in one line.
+
 ## 2026-08-14 - two-hundred-and-fifth run
 
 - Quality pass on item 4.8, the Fishlocks Chemist Eccleston GBP pack, fifth

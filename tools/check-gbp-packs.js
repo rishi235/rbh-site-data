@@ -1682,21 +1682,55 @@ for (const file of packFiles) {
   // Ainsdale ("56-62 Sherwood House, Station Road") are covered rather than
   // skipped. The remaining three open with "Unit" (Fishlocks Eccleston and the
   // two entries that share Unit 20 Brookfield), where the digits are a unit
-  // designation rather than a street number, so they are left to the rules
-  // above rather than guessed at. Whitespace is collapsed
+  // designation rather than a street number.
+  //
+  // THOSE THREE ARE NOW COVERED TOO, added on the item 4.9 quality pass,
+  // 2026-08-14. The 4.6 pass left them "to the rules above", and injection
+  // into clear-aintree.md on this pass showed the rules above do not hold
+  // them: changing the "- Address:" line alone from Unit 20 to Unit 21
+  // Brookfield Trade Centre passed ALL 36 CHECKERS clean, for exactly the two
+  // reasons this rule was written for. The presence rule passed because the
+  // description and Post A still spell "Unit 20 Brookfield Trade Centre", and
+  // the sister rule passed because Unit 21 is no branch's address. A unit
+  // number is not a softer fact than a house number on a trade estate: it is
+  // the only thing separating one door from the next, and it is the line the
+  // paster sets the Google Maps pin from. Leaving it uncovered meant the two
+  // packs on Brookfield Drive and the one at The Carrington Centre were the
+  // three in the estate where a wrong door published silently.
+  //
+  // A unit address is matched on the FIRST comma-separated segment of the
+  // road part ("Brookfield Trade Centre", "The Carrington Centre") rather
+  // than the whole string, because the packs write the tail differently each
+  // time: branches.json holds "Unit 20 Brookfield Trade Centre, Brookfield
+  // Drive, Aintree" while Post A writes "Unit 20 Brookfield Trade Centre on
+  // Brookfield Drive". Matching the whole string would find none of them and
+  // the rule would pass on everything. The "Unit" word itself is optional in
+  // the match, so a mention that drops it and writes a bare "21 Brookfield
+  // Trade Centre" is caught on the same footing. Whitespace is collapsed
   // first because these mentions wrap mid-address in the packs (Post D writes
   // "at 112\nAigburth Road"), and a line-bounded read would miss them.
   // Occurrences that spell another branch's full address are skipped, so the
   // sister rule keeps sole ownership of that fault and it is reported once.
   const NUMBER_SRC = "\\d+[a-z]?(?:\\s*-\\s*\\d+[a-z]?)?";
+  const UNIT_WORD_SRC = "(?:unit|suite)";
   const simpleStreet = new RegExp(`^(${NUMBER_SRC})\\s+(.+)$`, "i").exec(ownStreet);
-  if (simpleStreet) {
-    const ownNumber = simpleStreet[1];
-    const ownRoad = simpleStreet[2];
+  const unitStreet = simpleStreet
+    ? null
+    : new RegExp(`^${UNIT_WORD_SRC}\\s+(${NUMBER_SRC})\\s+(.+)$`, "i").exec(ownStreet);
+  const parsedStreet = simpleStreet || unitStreet;
+  if (parsedStreet) {
+    const isUnit = !simpleStreet;
+    const ownNumber = parsedStreet[1];
+    // A unit address is anchored on its first comma-separated segment only;
+    // see the note above for why the whole string finds nothing.
+    const ownRoad = isUnit ? parsedStreet[2].split(",")[0].trim() : parsedStreet[2];
     const otherStreets = branches
       .filter((x) => x.id !== b.id && x.streetAddress)
       .map((x) => norm(x.streetAddress).toLowerCase());
-    const numbered = new RegExp(`\\b(${NUMBER_SRC})\\s+${escapeRe(ownRoad)}\\b`, "gi");
+    const numbered = new RegExp(
+      `\\b${isUnit ? `(?:${UNIT_WORD_SRC}\\s+)?` : ""}(${NUMBER_SRC})\\s+${escapeRe(ownRoad)}\\b`,
+      "gi"
+    );
     const sameNumber = (n) => n.toLowerCase().replace(/\s*-\s*/g, "-") === ownNumber.toLowerCase().replace(/\s*-\s*/g, "-");
     const reported = new Set();
     for (const m of norm(text).matchAll(numbered)) {
@@ -1708,7 +1742,7 @@ for (const file of packFiles) {
       reported.add(lower);
       const key = `${b.id}::streetNumber`;
       const known = KNOWN_IDENTITY[key];
-      const msg = `the pack states "${stated}", but branches.json puts this branch at "${b.streetAddress}". The branch's own address appears elsewhere in the pack, which is why the presence rule passes, and this number is no branch's address, which is why the sister rule passes. A pack is pasted straight into Google Business Profile, so a wrong house number on the right road moves the map pin to the wrong building`;
+      const msg = `the pack states "${stated}", but branches.json puts this branch at "${b.streetAddress}". The branch's own address appears elsewhere in the pack, which is why the presence rule passes, and this number is no branch's address, which is why the sister rule passes. A pack is pasted straight into Google Business Profile, so a wrong ${isUnit ? "unit number in the right building moves the map pin to the wrong door" : "house number on the right road moves the map pin to the wrong building"}`;
       if (known) {
         seenIdentityKnown[key] = true;
         warn(file, `KNOWN ${msg}. ${known.question}: ${known.reason}`);
