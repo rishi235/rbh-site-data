@@ -2,6 +2,118 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 02:34 BST - hundred-and-eighty-second run [commit hash added by a small follow-up commit]
+- Item 1.2 quality pass, the Hirshmans Ainsdale address, fifth pass, and the
+first pass on this item to cover BOTH halves since the third. CLEAN on the
+address itself for the fifth consecutive time. ONE IN-REPO DEFECT FOUND AND
+FIXED, in status/index.html, which is not a page, a generator or a piece of
+patient-facing copy. NO new question. Evidence in
+audits/hirshmans-address-check-2026-08-14.txt.
+
+ANSWER PICKUP UNAVAILABLE, nineteenth consecutive run. A tab was opened on
+https://data.rbhealth.co.uk/api/feedback read-only and Cloudflare Access
+served its own sign-in page for data.rbhealth.co.uk, offering Azure AD or an
+emailed login code. Chrome does not hold a live Access session for that
+hostname. Nothing was clicked, nothing typed, no login attempted, no other
+route tried, tab closed. 46 questions remain open with nothing posted since
+2026-08-10. The unblock is still one action on Rishi's side: sign in to
+data.rbhealth.co.uk once in the Chrome profile these runs use.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written. Nothing needed a
+decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than trusted: all 41 completed items were read out of
+AGENT_WORKLIST.md, all 219 run headings in this log were walked, and each
+item's most recent heading recorded. 1.2 came back oldest at 42, then 3.11 at
+41 and 4.4 at 40. That is exactly what the 181st run predicted, and it is the
+prediction, not the prediction's author, that was checked.
+
+THE ADDRESS IS CLEAN AND NOT ONE CHARACTER OF IT WAS EDITED. 19 broken
+variants swept across 386 files: hyphen, en dash and em dash forms, "56 to
+62", shifted and transposed house numbers, a dropped "Sherwood House",
+"Sherwood Hse", the unspaced postcode, the singular "Hirshman", the old
+"Hirshmans Pharmacy" branding and five phone mis-formats. Every hit is
+narrative, a checker DECLARING a wrong variant to catch, the GBP pack's Post
+A HARD STOP note recording the old live page's defect, or Fishlocks
+Ainsdale's own correct PR8 3HN. All 12 Hirshmans pages carry the canonical
+street, the locality and PR8 3HW, and not one carries PR8 3HN. All 33
+checkers exit 0 before and after. All six generators rebuild to a zero diff.
+
+GUARD COVERAGE EXTENDED IN TWO DIRECTIONS, four injections, all restored,
+tree verified clean afterwards.
+
+The first two matter because they close a loop opened yesterday. The 181st
+run fixed check-postcodes.js PC_RE, which was uppercase-only and allowed at
+most one space, so a postcode in the wrong typographic form was invisible to
+all six of that checker's rules AT ONCE. That fix had never been exercised
+against a Hirshmans page. It was this pass. A lower-case foreign postcode
+"pr8 3hn" and a double-spaced "PR8  3HN" were each written into
+pharmacy-first-hirshmans-ainsdale.html and both were caught, by
+check-postcodes and independently by check-nap. Yesterday's fix works on this
+item's own surface, which is the only place it was ever going to matter.
+
+The third is a genuinely new direction. All four earlier passes injected into
+the GBP PACK and proved the pack is checked against branches.json. Nobody had
+proved the cross-check fires the other way, when the SOURCE is the thing that
+is wrong. The real historical defect, "64 Station Road", was written into
+branches.json itself: check-nap and check-gbp-packs both caught it. The
+fourth injection replaced the locality with "Southport" on a page and
+check-nap caught it, with check-postcodes correctly silent.
+
+A NARRATIVE CORRECTION, NOT A DATA ERROR. The fourth pass recorded the
+unspaced phone as sitting in "13 generated pages". It is twelve. The
+thirteenth file carrying the hirshmans-ainsdale slug is a switch banner paste
+block, and it is right to omit the number: all 15 switch banners in the
+estate were checked this pass and NOT ONE carries a postcode, so the omission
+is the estate-wide design rather than a Hirshmans gap. Related and also
+worth recording: Hirshmans has no branch landing page, and nor should it,
+because only six branches have one.
+
+THE IN-REPO DEFECT. status/index.html claimed "To do (1)" and "Blocked (7)"
+against a true 0 and 8, because item 6.6 has since been marked [BLOCKED]
+under Q66. "Done (41)" was already right. It has been regenerated with
+build-status-page.js so the page is honest. This is the same file and the
+same root cause as open question Q42: build-status-page.js is not in the
+six-generator set the runs rebuild every time, so it drifts silently and
+nothing flags it. Regenerating it does not pre-empt Q42's decision about
+whether that page should exist at all.
+
+LIVE HALF, read-only, one page read. The address, which is what item 1.2 is
+actually about, is CORRECT on all three live surfaces on
+hirshmanspharmacy.co.uk/contact-us.html. Opening hours match branches.json on
+both surfaces, cross-checked against audits/live-hours-check-2026-08-14.json.
+Every standing cosmetic in Q41's note was read and is still live: the line
+break through "Station Road", the missing postcode, the unspaced phone in the
+top block, the nhs.net address in two blocks against the footer's
+rbhealth.co.uk one, and the en dashes in the footer hours line.
+
+ONE NEW LIVE OBSERVATION, folded into Q41's note rather than raised as a
+question, because it is the same block, the same single Weebly hand edit, and
+there are already 46 questions open. Both live address blocks print the
+locality over two lines, "Ainsdale" then "Southport". branches.json holds
+addressLocality "Ainsdale" and the word Southport appears nowhere in the repo
+for this branch, while the generated footer strip renders "..., Ainsdale, PR8
+3HW". Postally Southport is the correct post town for PR8 3HW so nothing is
+factually wrong. It is a NAP-consistency point of exactly the same kind as
+the unspaced phone: one page, two spellings of the locality, neither matching
+the single source of truth.
+
+A LEAD FOR THE ITEM 2.1 PASS, deliberately not chased here. Fishlocks
+Ainsdale's contact page is NOT at /contact-us.html: that URL 404s. The domain
+is also fishlockpharmacy.co.uk, singular, not fishlocks. Whoever runs the 2.1
+pass needs to find the real path before claiming anything about that page.
+
+FILES CHANGED: AGENT_WORKLIST.md (1.2 fifth-pass record appended in place,
+item stays ticked), AGENT_LOG.md (this entry), QUESTIONS.json (Q41's note
+extended, no new question, still 70 entries and 46 open),
+audits/hirshmans-address-check-2026-08-14.txt (new), status/index.html
+(regenerated, counts corrected).
+
 ## 2026-08-14 02:05 BST - hundred-and-eighty-first run [commit b6bdbb7, hash line added by a small follow-up commit]
 - Item 1.3 quality pass, the McCanns Sandringham postcode error, fifth pass.
 ONE DEFECT FOUND AND FIXED, in tools/check-postcodes.js, and it sat under all

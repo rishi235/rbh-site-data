@@ -2487,6 +2487,31 @@ appended to the line. Do not move them; the status page reads them in place.
       would put the pin on another branch"). Earlier passes had proved the
       page surface only. Evidence in
       audits/hirshmans-address-check-2026-08-13.txt. Done 2026-08-13
+      Fifth quality pass 2026-08-14 (hundred-and-eighty-second run). BOTH
+      HALVES this time, repo and live, browser read-only. Clean for the fifth
+      consecutive pass on the thing the item is about: the address. No data,
+      page, generator or patient-facing copy edited. 19 broken variants swept
+      across 386 files and every hit accounted for as narrative, a declaring
+      checker, the GBP pack's HARD STOP note, or Fishlocks Ainsdale's own
+      correct PR8 3HN. All 12 Hirshmans pages carry the canonical street,
+      locality and PR8 3HW and none carries PR8 3HN. All 33 checkers exit 0,
+      all six generators byte-identical. Guard coverage extended twice: the
+      check-postcodes PC_RE fix made yesterday was proved on THIS item's
+      surface for the first time (lower-case and double-spaced foreign
+      postcodes both now caught, where before yesterday they were invisible
+      to all six rules at once), and a wrong street was injected at SOURCE in
+      branches.json rather than into the pack, proving check-nap and
+      check-gbp-packs fire in that direction too, which four earlier passes
+      never tested. Narrative correction: the unspaced phone sits in 12
+      generated pages, not the 13 the fourth pass recorded; the 13th file is
+      a switch banner, and no switch banner in the estate carries a postcode.
+      One in-repo defect found and fixed: status/index.html was stale at
+      "1 to do, 7 blocked" against a real 0 and 8, regenerated. Live half:
+      address correct on all three surfaces, hours match branches.json, every
+      Q41 cosmetic still live, one addition folded into Q41's note (both
+      address blocks print "Ainsdale" then "Southport", which the repo never
+      says). No new question. Evidence in
+      audits/hirshmans-address-check-2026-08-14.txt. Done 2026-08-14
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

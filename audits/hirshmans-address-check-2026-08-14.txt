@@ -1,0 +1,164 @@
+HIRSHMANS AINSDALE ADDRESS CHECK - item 1.2, FIFTH quality pass
+Date: 2026-08-14 (hundred-and-eighty-second run)
+Branch: agents/audit-backlog
+Scope: repo half AND live half. Browser used read-only, nothing clicked or typed.
+
+CANONICAL (branches.json, id hirshmans_ainsdale)
+  streetAddress   : 56-62 Sherwood House, Station Road
+  addressLocality : Ainsdale
+  postalCode      : PR8 3HW
+  addressRegion   : Merseyside
+  phone           : 01704 577376
+  email           : Hirshmans@rbhealth.co.uk
+  nhsEmail        : pharmacy.FW378@nhs.net
+  website         : https://www.hirshmanspharmacy.co.uk
+
+RESULT: CLEAN for the fifth consecutive pass. No data edited, no page edited,
+no generator edited, no checker defect found, no patient-facing copy touched.
+
+1. BROKEN-VARIANT SWEEP
+386 files scanned (whole repo, .git and node_modules excluded). 19 variants
+swept, covering hyphen and dash forms, transposed and shifted house numbers,
+a dropped "Sherwood House", the foreign Ainsdale postcode, unspaced and
+mis-typed postcodes, the singular "Hirshman", the old "Hirshmans Pharmacy"
+branding and five phone mis-formats.
+
+  56 - 62 Sherwood        0 real hits
+  56<en dash>62 Sherwood  0 real hits
+  56<em dash>62 Sherwood  0 real hits
+  56 to 62 Sherwood       0 real hits
+  56-62 Station Road      1 hit, AGENT_LOG.md, narrating this audit
+  56-62 Sherwood Road     0 real hits
+  Sherwood House, 56-62   1 hit, AGENT_LOG.md, narrating this audit
+  54-62 / 56-64 Sherwood  0 real hits
+  Sherwood Hse            2 hits, both narrative
+  PR83HW                  0 real hits
+  01704 57 73 76          0 real hits
+  0170 4577376            0 real hits
+
+Every hit on the remaining variants is accounted for:
+
+  "64 Station Road" - 8 hits. Seven are narrative (log, worklist,
+  QUESTIONS.json, three audits, status/index.html). The eighth is
+  gbp-packs/hirshmans-ainsdale.md, where it is the Post A HARD STOP note
+  recording the OLD live page's defect, not an address the pack publishes.
+
+  "PR8 3HN" - 29 hits, none of them a Hirshmans surface. It is Fishlocks
+  Ainsdale's own correct postcode, used in its 17 generated pages, its GBP
+  pack, the template, branches.json, the editor and the narrative files.
+
+  "Hirshman " (singular) - 2 hits, both narrative.
+
+  "Hirshmans Pharmacy" - 10 hits. Two are the GBP pack recording the current
+  GBP listing name and the old live branding; two are check-brand-spelling.js
+  and check-seo-sheets.js DECLARING it as a wrong variant to catch; the rest
+  are narrative.
+
+  "017014577376" (twelve digits, does not dial) - 7 hits, all narrative plus
+  the GBP pack's HARD STOP note. Not published anywhere.
+
+  "01704577376" (unspaced) - 18 hits. Twelve are generated pages where it is
+  the tel: href and the visible text is the correctly spaced form. The rest
+  are narrative.
+
+2. ADDRESS SURFACE, PAGE BY PAGE
+13 files under modules/ carry the hirshmans-ainsdale slug. Twelve are pages
+and all twelve carry the canonical street, the locality and PR8 3HW, and none
+carries PR8 3HN. Zero defects.
+
+The thirteenth is modules/switch/pages/banners/switch-prescriptions-hirshmans-
+ainsdale.txt, a banner paste block, which carries no address at all.
+
+CORRECTION TO AN EARLIER LOG ENTRY. The fourth pass (2026-08-13) recorded the
+unspaced phone as sitting in "13 generated pages". It is twelve. The
+thirteenth file is that banner, and the banner is right to omit it: all 15
+switch banners across the estate were checked this pass and NOT ONE carries a
+postcode, so the omission is the estate-wide design, not a Hirshmans gap.
+No data was wrong, only the count in the narrative.
+
+Hirshmans has no branch landing page. Only six branches do (Fishlocks
+Ainsdale, Fishlocks Eccleston, McCanns Aigburth, McCanns Sandringham, Scorah
+Bramhall, Scorah Hazel Grove), so there is no missing page here.
+
+3. CHECKERS AND GENERATORS
+All 33 checkers exit 0 before and after the pass.
+All six generators (branch-landing, contraception, service, switch,
+travel-clinic, weight-loss) rebuild to a ZERO git diff. Byte identical.
+
+4. GUARD PROOF BY INJECTION - FOUR INJECTIONS, ALL RESTORED
+Every injection was reverted with git checkout and the tree verified clean
+afterwards. All four checkers return to exit 0 at the end.
+
+The first two prove, ON THIS ITEM'S OWN SURFACE, the check-postcodes.js PC_RE
+fix that the hundred-and-eighty-first run made yesterday. That fix had never
+been exercised against a Hirshmans page.
+
+  A. Lower-case foreign postcode "pr8 3hn" written into
+     pharmacy-first-hirshmans-ainsdale.html (2 occurrences).
+       check-postcodes  exit 1  CAUGHT
+       check-nap        exit 1  CAUGHT
+     Before yesterday's fix this would have been invisible to all six of
+     check-postcodes' rules at once. It is now caught.
+
+  B. Double-spaced foreign postcode "PR8  3HN" on the same page.
+       check-postcodes  exit 1  CAUGHT
+       check-nap        exit 1  CAUGHT
+     This is the multi-whitespace half of the same fix, also now proved.
+
+  C. NEW DIRECTION THIS PASS. Wrong street injected at SOURCE, in
+     branches.json itself ("56-62 Sherwood House, Station Road" replaced with
+     "64 Station Road", the real historical defect).
+       check-nap        exit 1  CAUGHT
+       check-gbp-packs  exit 1  CAUGHT
+     All four earlier passes injected into the PACK and proved the pack was
+     checked against the source. Nobody had proved the cross-check fires the
+     other way round, when the source is the thing that is wrong. It does.
+
+  D. Wrong locality, "Ainsdale" replaced with "Southport" on the page.
+       check-nap        exit 1  CAUGHT
+       check-postcodes  exit 0  correct, the postcode was untouched
+
+5. LIVE HALF - read-only, 2026-08-14
+https://www.hirshmanspharmacy.co.uk/contact-us.html read once.
+
+The address itself, which is what item 1.2 is actually about, is CORRECT on
+all three live surfaces: top contact block, middle address block and the
+generated footer strip all read "56-62 Sherwood House, Station Road".
+
+Opening hours match branches.json on both live surfaces read, cross-checked
+against audits/live-hours-check-2026-08-14.json.
+
+Standing cosmetics from Q41 all CONFIRMED STILL LIVE today:
+  - top block splits "Station Road" across a line break
+  - top block omits the PR8 3HW postcode
+  - top block writes the phone unspaced, 01704577376, where the middle block
+    and the footer both write 01704 577376
+  - top block and middle block both publish pharmacy.FW378@nhs.net while the
+    generated footer publishes Hirshmans@rbhealth.co.uk
+  - footer strip uses en dashes in its hours line and has no in-repo source
+
+NEW LIVE OBSERVATION, added to Q41's note rather than raised as a question,
+because it is the same hand edit on the same block and there are already 46
+questions open. BOTH live address blocks print the locality over two lines,
+"Ainsdale" then "Southport". branches.json holds addressLocality "Ainsdale"
+and the word Southport appears nowhere in the repo for this branch, and the
+generated footer strip renders "..., Ainsdale, PR8 3HW" with no Southport.
+Postally Southport is the correct post town for PR8 3HW, so nothing here is
+factually wrong. It is a NAP-consistency point: the same page prints the
+locality two different ways and neither matches the single source of truth.
+
+LEAD FOR THE ITEM 2.1 PASS, not chased further here. Fishlocks Ainsdale's
+contact page is NOT at /contact-us.html on https://www.fishlockpharmacy.co.uk
+(404). Whoever runs the 2.1 pass needs to find the real path before claiming
+anything about that page. Note also the domain is fishlockpharmacy.co.uk,
+singular, not fishlocks.
+
+6. IN-REPO DEFECT FOUND AND FIXED
+status/index.html, built by build-status-page.js, was stale: it claimed
+"To do (1)" and "Blocked (7)" when the true position is 0 to do and 8
+blocked, because item 6.6 has since been marked [BLOCKED] under Q66. The
+"Done (41)" count was already right. Regenerated this pass so the page is
+honest. This is the same file and the same root cause as open question Q42:
+build-status-page.js is not in the six-generator set the runs rebuild, so it
+drifts silently. Regenerating it does not pre-empt Q42's decision about what
+should happen to that page.
