@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 09:34 BST - hundred-and-ninety-second run
+## 2026-08-14 09:34 BST - hundred-and-ninety-second run [commit 871337d, hash line added by a small follow-up commit]
 
 - Item 6.2 quality pass, broken internal links, second machine pass. ZERO
 DEFECTS ON THE 177 PAGES and not one character of any page was edited. TWO
