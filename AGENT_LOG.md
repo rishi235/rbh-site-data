@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 19:30 BST - two-hundred-and-tenth run
+## 2026-08-14 19:30 BST - two-hundred-and-tenth run [commit ddfadbb, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.13, the Riddings Pharmacy Timperley GBP pack, fifth
 pass. TWO REAL DEFECTS FOUND AND FIXED. The first was the repo sitting RED at
