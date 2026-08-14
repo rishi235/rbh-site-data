@@ -2,6 +2,132 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 01:35 BST - hundred-and-eightieth run
+- Item 4.3 quality pass, the Hirshmans Ainsdale GBP pack, fourth pass. ONE
+DEFECT FOUND AND FIXED, and it is the residual the last pass on this item
+named and left open on purpose. A new checker, tools/check-uk-spelling.js,
+the 33rd. No page, no generator, no data field, no branches.json entry, no
+pack and no piece of patient-facing copy was changed. All 33 checkers exit 0
+before and after, and all six generators rebuild all 177 pages to a zero
+diff. NO new question.
+
+ANSWER PICKUP UNAVAILABLE, seventeenth consecutive run. Same cause as the
+last sixteen and as Q59 describes, and this run confirmed it directly rather
+than assuming it: the browser list was read and returned TWO connected local
+Chrome extension instances, "Browser 1" and "Browser 2", whereupon the
+tooling requires a human to choose between them before it will make any
+call. An unattended run has nobody to ask and is not allowed to pick for
+itself, so no fetch was attempted, no other route was tried, nothing was
+clicked and no tab was opened. 46 questions remain open with nothing posted
+since 2026-08-10. The unblock is still one action on Rishi's side: close one
+of the two Chrome instances, or pick one once.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section at the top of this log, so step 7 applied as written. Nothing needed
+a decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than trusted: all 41 completed items were read out of
+AGENT_WORKLIST.md, then all 217 run headings in this log were walked and
+each item's most recent heading recorded. 4.3 came back oldest at 42, then
+1.3 at 41 and 1.2 at 40. That agrees with what the 179th run predicted.
+
+THE PACK IS CLEAN, FOURTH PASS RUNNING. Every fact re-verified against
+branches.json: name, street, locality, postcode, phone, website and review
+link all exact. The business description claims 743 characters and measures
+743 under the paste-join count, inside the 750 limit. Posts 448, 408, 402
+and 317 against a 1,500 limit. Every clock time in the Hours line maps to
+openingHours and no other time appears anywhere in it. All five widget
+services listed, ten photo shots with the vinyl lead and the
+pending-Google-updates reminder. Post A's HARD STOP still stands and is item
+5.3 / Q8/Q34, not a defect in this pack.
+
+THE DEFECT: THE LAST OPEN CLAUSE OF THE COPY STANDARD. TEMPLATE.md sets one
+rule for every pack, "UK English. No em dashes. No emojis. Plain English."
+The 2026-08-13 pass on this same item found three faults by injection into
+this pack and closed two of them in check-em-dashes.js. The third, US
+spelling, was left open deliberately and recorded in two places, the
+worklist item and check-em-dashes.js's own header, because it needs a word
+list rather than a character test and half-building it was worse than
+leaving it named. Confirmed still open at the start of this run: no checker
+in tools/ held any UK/US spelling rule. A character test could never have
+caught it. An em dash is one code point and an emoji is one, so "is this
+file ASCII" is a property of the bytes; "organized" is pure ASCII,
+correctly spelled, and an ordinary English word, wrong only because it is
+the wrong side of the Atlantic.
+
+THE REAL RISK WAS A USELESS CHECKER, NOT A WEAK ONE, so it was measured
+before a line was written. Over the same 233 files a naive sweep reports
+"color" 614 times in 187 files, every one CSS; "check" 346 times, every one
+"free NHS blood pressure check", which is the correct UK name of a service
+this estate sells; "center" 51 times, every one text-align; "math" 15, every
+one Math.ceil. Two independent narrowings answer that. The READER only ever
+sees copy: text nodes plus the attributes a person and Google read, script
+and style dropped whole; string literals only in .js; content: only in .css;
+whole file less code, URLs and quoted spans in .md; string values in
+branches.json, which is read because emar.js renders branch fields straight
+onto the live page. The LIST only holds words with no legitimate UK reading,
+and check, meter, license, practice, program, curb, story, disk, tire,
+inquiry, math, fetus, sulfur and judgment are excluded by name with a reason
+each in the file. fetus and sulfur are the spellings UK medical usage and
+the BNF actually use.
+
+THE HARD PART WAS .js AND IT TOOK THREE ATTEMPTS. A string literal in this
+repo's module code is usually only PART of a tag, because the markup is
+built by joining literals with +, so a literal can sit entirely inside a tag
+with neither "<" nor ">" in it to key on. In service.js the run of
+"' style='color:#fff;font-weight:700;" is pure CSS with no angle bracket.
+The first attempt reported 14 false alarms, the second still reported one,
+and the third carries tag state ACROSS the literals of a file in source
+order, which is the order the browser joins them in. "<" only opens a tag
+when a letter or "/" follows, the real HTML rule, so "blood pressure < 140"
+stays readable, and a tag still open at end of file is reported rather than
+trusted, because otherwise it would silently blank the rest.
+
+NEGATIVE TESTED 16 WAYS, ALL 16 CORRECT. 10 must-catch: the original
+"organized" injection into this pack's description, "traveling" in a post,
+"favorite" in a pack, "Pediatric" in TEMPLATE.md which every new pack is
+copied from, "Diarrhea" in a generated page, "center" in an alt attribute,
+"authorized" in a service.js string that is real on-page copy, "Center" in
+branches.json, "neighborhood" in a site-wide banner, and "immunized" placed
+after a literal containing a bare "<" and ">" to prove the tokeniser does
+not swallow what follows one. 6 must-pass: "licensed pharmacy" and "GP
+practice", "blood pressure check" and "blood glucose meter", "Blood pressure
+> 140 needs a review", a CSS style block, a CSS style attribute, and a US
+spelling inside a quoted reading of a live page, which is reported as a NOTE
+and not failed, the same precedent as check-brand-spelling.js. Every
+injection was restored and git confirms nothing was left changed.
+
+EVERYTHING WAS ALREADY CLEAN. All 16 pack files, all 177 generated pages,
+the banners, the paste sheets, the drafts, the live module code and
+branches.json pass the new rule with no rewording. This closes a latent hole
+rather than a live breach, the same shape as the em dash and emoji half.
+
+RESIDUAL, STATED PLAINLY. Americanisms that are vocabulary rather than
+spelling (drugstore, vacation, shot for jab, refill for repeat prescription)
+are still not read. Catching them needs a sense of register rather than a
+word list, and a list would cry wolf on "shot" in particular. Not attempted,
+on purpose. And a list is a list: a US spelling nobody has thought of is not
+caught until it is added, which is why the floor of 120 and the
+self-contradiction rules are there, so the list can grow and cannot quietly
+rot.
+
+REPO HALF ONLY. Whether Weebly is serving this copy was not checked, for the
+browser reason above; that half is tracked under 5.3/5.4 and the paste run.
+
+FILES CHANGED: tools/check-uk-spelling.js (new, the 33rd checker),
+AGENT_WORKLIST.md (4.3 pass note appended in place), AGENT_LOG.md (this
+entry), audits/uk-spelling-item-4.3-quality-pass-2026-08-14-run180.txt
+(new). audits/live-hours-check-2026-08-14.json was rewritten by
+check-live-hours.js when the suite was run and came back byte-identical, so
+it is not in the commit. audits/live-hours-check-2026-08-13.json was left
+dirty by an earlier run with an empty diff, a line-ending artefact and no
+content change; it was restored rather than committed.
+
+
 ## 2026-08-14 01:05 BST - hundred-and-seventy-ninth run [commit 40e2e4b, hash line added by a small follow-up commit]
 - Item 1.4 quality pass, the NAP check, fourth pass. ONE REAL DEFECT FOUND AND
 FIXED, in tools/check-nap.js. No page, no generator, no data field, no

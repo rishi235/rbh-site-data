@@ -1224,6 +1224,40 @@ Pharmacy First wording to the NHS service description.
       so this closes a latent hole rather than a live breach. UK spelling
       stays open: it needs a word list, not a character test, and is left
       for a later pass rather than half-built here.
+      Quality pass 2026-08-14 (fourth pass, repo half only, no browser
+      available): the pack is clean on every fact again. Description 743
+      characters as its heading claims, posts 448, 408, 402 and 317 against
+      the 1,500 limit, and name, street, locality, postcode, phone, website
+      and review link all matching branches.json. Every clock time in the
+      Hours line maps to openingHours and no other time appears, all five
+      widget services are listed, ten photo shots with the vinyl lead and
+      the pending-Google-updates reminder. Post A's HARD STOP still stands
+      and is item 5.3 / Q8/Q34, not a defect here. This pass closed the UK
+      spelling residual named directly above, the last open clause of
+      TEMPLATE.md's copy rule, in a new tools/check-uk-spelling.js. A word
+      list could easily have been useless rather than weak: measured first,
+      a naive sweep reports 614 hits for "color" (all CSS), 346 for "check"
+      (all "blood pressure check", correct UK English) and 51 for "center"
+      (all text-align). So the reader only ever sees copy - text nodes and
+      the attributes a person reads, string literals in .js with tag state
+      carried ACROSS literals because a literal can sit wholly inside a tag
+      with no angle bracket in it, content: in .css, and branches.json
+      string values because emar.js renders those live - and the list only
+      holds words with no legitimate UK reading, with check, meter, license,
+      practice, program, curb, fetus, sulfur and judgment excluded by name
+      and reason. 167 spellings, self-guarded against rot. Negative tested
+      16 ways, all 16 correct: 10 must-catch including the original US
+      spelling injection, an alt attribute, a banner, branches.json and copy
+      following a bare "<" and ">"; 6 must-pass including CSS, "licensed
+      pharmacy", "GP practice", "blood glucose meter" and a quoted reading
+      of a live page. All 16 packs, 177 pages, banners, drafts, module code
+      and branches.json were already clean, so this closes a latent hole
+      rather than a live breach. 33 checkers exit 0 and all six generators
+      rebuild byte-identical. Residual: Americanisms that are vocabulary
+      rather than spelling (drugstore, vacation, shot, refill) are still not
+      read, deliberately, because catching them needs register rather than a
+      list and would cry wolf on "shot". Audit:
+      audits/uk-spelling-item-4.3-quality-pass-2026-08-14-run180.txt
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

@@ -1,0 +1,181 @@
+ITEM 4.3 QUALITY PASS - FOURTH PASS - 2026-08-14 (run 180)
+Hirshmans Chemist (Ainsdale) GBP pack, and the copy standard behind it.
+Repo half only. No browser was available; see the log entry for why.
+
+===========================================================================
+PART 1 - THE PACK ITSELF, VERIFIED FACT BY FACT AGAINST branches.json
+===========================================================================
+Clean on every fact, for the fourth pass running. Nothing in the pack was
+changed.
+
+  brandLabel        Hirshmans Chemist            present, exact
+  streetAddress     56-62 Sherwood House, Station Road   present, exact
+  addressLocality   Ainsdale                     present, exact
+  postalCode        PR8 3HW                      present, exact
+  phone             01704 577376                 present, exact
+  website           https://www.hirshmanspharmacy.co.uk    present, exact
+  googleReviewUrl   https://g.page/r/CUagKTNTXwMYEAE/review present, exact
+
+  Business description   claimed 743 characters, measured 743 under the
+                         paste-join count, limit 750. Claim is true.
+  Post lengths           A 448, B 408, C 402, D 317, against a 1,500 limit.
+
+  Hours                  every clock time in the pack maps to openingHours
+                         and no other time appears:
+                           8:30am = 08:30   1:00pm = 13:00   2:00pm = 14:00
+                           6:00pm = 18:00   9:00am = 09:00   5:30pm = 17:30
+                         Monday to Saturday open, Sunday closed, both lunch
+                         closures carried, and the paster note still spells
+                         out the two ranges GBP needs per open day.
+
+  Widgets                all five in branches.json are listed in section 3:
+                         bloodPressure, contraception, pharmacyFirst,
+                         weightLoss, travelClinic.
+
+  Photo shot list        10 shots, vinyl storefront lead present, pending
+                         Google updates reminder present.
+
+  Post A HARD STOP still stands and is NOT a defect in this pack. Its button
+  is the branch pfLink, the legacy hand-built
+  pharmacy-first-service-ainsdale.html. That is item 5.3 and Q8/Q34.
+
+===========================================================================
+PART 2 - THE DEFECT: THE LAST OPEN CLAUSE OF THE COPY STANDARD
+===========================================================================
+TEMPLATE.md sets one rule for every pack: "UK English. No em dashes. No
+emojis. Plain English." The 2026-08-13 pass on this same item found three
+copy faults by injection into this pack, all three passing all 29 checkers.
+Two were closed that day in check-em-dashes.js. The third, US SPELLING, was
+left open ON PURPOSE and recorded in two places, because it needs a word
+list rather than a character test:
+
+  tools/check-em-dashes.js header:
+    "US spelling is a third gap found by the same injection and is NOT
+     closed here: it needs a word list rather than a character test, and is
+     recorded in AGENT_LOG.md for a later pass rather than half-built now."
+
+  AGENT_WORKLIST.md item 4.3:
+    "UK spelling stays open: it needs a word list, not a character test,
+     and is left for a later pass rather than half-built here."
+
+Confirmed still open at the start of this run: no checker in tools/ held any
+UK/US spelling rule. This pass closes it.
+
+WHY A CHARACTER TEST COULD NEVER HAVE CAUGHT IT
+An em dash is one code point and an emoji is one, so "is this file ASCII" is
+a decidable property of the bytes. "Organized" is pure ASCII, correctly
+spelled, and an ordinary English word. It is wrong only because it is the
+wrong side of the Atlantic, which is knowledge and has to be listed.
+
+===========================================================================
+PART 3 - THE FIX: tools/check-uk-spelling.js (NEW, the 33rd checker)
+===========================================================================
+The danger with a word list is that it becomes useless, not that it becomes
+weak. Measured before writing a line of the checker, over the same 233 files:
+
+    \bcolor\b   614 hits in 187 files, every one CSS (color:#fff)
+    \bcheck\b   346 hits, every one "free NHS blood pressure check", which
+                is the correct UK name of a service this estate sells
+    \bcenter\b   51 hits, every one text-align:center
+    \bmath\b     15 hits, every one Math.ceil
+    behavior      1 hit, scrollIntoView({behavior:"smooth"})
+
+So the checker is narrowed in TWO independent directions.
+
+1. THE READER ONLY EVER SEES COPY
+   .html/.txt   text nodes, plus alt, title, aria-label, placeholder and
+                meta/og content. script and style dropped whole, every
+                other attribute dropped with its tag.
+   .js          string literals only, comments blanked first.
+   .css         the value of content: and nothing else.
+   .md          whole file, less fenced code, less URLs, less quoted spans.
+   branches.json string values, less URLs. Read because modules/emar/emar.js
+                renders branch fields straight onto the live page and some
+                of them reach no .html file in this repo.
+
+   The hard part was .js, and it took three attempts. A string literal here
+   is usually PART of a tag, because the markup is built by joining literals
+   with +, so a literal can sit entirely inside a tag with neither "<" nor
+   ">" in it to key on:
+
+       "Call <a href='" + telHref + "' style='color:#fff;font-weight:700;" +
+         "text-decoration:underline;'>" + name + "</a>"
+
+   The second literal is pure CSS. A regex over one literal cannot see it.
+   The checker now carries tag state ACROSS the literals of a file in source
+   order, which is the order the browser joins them in. "<" only opens a tag
+   when a letter or "/" follows, the real HTML rule, so ordinary copy such as
+   "blood pressure < 140" stays readable. A tag left open at end of file is
+   reported as a finding, because otherwise it would silently blank the rest.
+
+2. THE LIST ONLY HOLDS WORDS WITH NO LEGITIMATE UK READING
+   167 US spellings against their UK forms. Excluded on purpose, each named
+   in the file with its reason: check, meter, license, practice, program,
+   curb, story, disk, tire, inquiry, math, fetus, sulfur, judgment. fetus
+   and sulfur are the spellings UK medical usage and the BNF actually use.
+   Vocabulary (drugstore, vacation, shot, refill) is out of scope: it needs
+   a sense of register, not a word list. Named so the omission is a decision.
+
+   The list also guards itself: an entry mapping to itself fails, an entry
+   that is both a flagged US form and another entry's UK fix fails, and the
+   list may not shrink below a floor of 120.
+
+   Third rule: the reader must have read something. A file class opened and
+   yielding no copy at all fails rather than passing. That is the fault this
+   repo has now found six times.
+
+===========================================================================
+PART 4 - NEGATIVE TESTED 16 WAYS, ALL 16 CORRECT
+===========================================================================
+Every injection was restored and git confirms no page, pack, generator,
+branches.json entry, banner or module file was left changed.
+
+MUST CATCH, all 10 caught, exit 1:
+   1  "organized" in this pack's business description (the original 4.3
+      injection that started this)
+   2  "traveling" in a pack post
+   3  "favorite" in a pack
+   4  "Pediatric" in TEMPLATE.md, the file every new pack is copied from
+   5  "Diarrhea" in a generated page text node
+   6  "center" in an alt attribute, which a person and Google both read
+   7  "authorized" in a service.js string literal that is real on-page copy
+   8  "Center" in branches.json, which emar.js renders live
+   9  "neighborhood" in a banner pasted site-wide into Weebly header code
+  10  "immunized" placed AFTER a literal containing a bare "<" and ">", so
+      the tokeniser is proved not to swallow the copy that follows one
+
+MUST PASS, all 6 passed, exit 0:
+  11  "licensed pharmacy" and "GP practice" - correct UK English, excluded
+  12  "blood pressure check" and "blood glucose meter" - correct UK English
+  13  "Blood pressure > 140 needs a review" - a bare > in copy is not markup
+  14  <style>.x{color:#fff;text-align:center;}</style> - CSS is not copy
+  15  style="background-color:#fff;text-align:center" - CSS is not copy
+  16  a US spelling inside a quoted reading of a live page, reported as a
+      NOTE and not failed, the same precedent as check-brand-spelling.js
+      and check-gbp-packs.js
+
+===========================================================================
+PART 5 - RESULT
+===========================================================================
+All 16 pack files, all 177 generated pages, the banners, the paste sheets,
+the drafts, the live module code and branches.json are ALREADY clean under
+the new rule. Nothing had to be reworded. This closes a latent hole rather
+than a live breach, which is the same shape as the em dash and emoji half
+closed on 2026-08-13.
+
+  33 checkers exit 0, before and after.
+  All six generators rebuild all 177 pages to a zero diff.
+  Files changed: tools/check-uk-spelling.js (new), AGENT_WORKLIST.md,
+  AGENT_LOG.md, this audit file.
+
+RESIDUAL, STATED PLAINLY
+  - Americanisms that are vocabulary rather than spelling (drugstore,
+    vacation, shot for jab, refill for repeat prescription) are not read.
+    Catching them needs register, not a list, and a list would cry wolf on
+    "shot" in particular. Not attempted, on purpose.
+  - The list is a list. A US spelling nobody has thought of is not caught
+    until it is added. That is inherent to the approach and is why the
+    floor and the self-contradiction rules exist: the list can grow, and it
+    cannot quietly rot.
+  - Repo half only. Whether Weebly is serving this copy is not checked here;
+    that half is tracked under 5.3/5.4 and the paste run.
