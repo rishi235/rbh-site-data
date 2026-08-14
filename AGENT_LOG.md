@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 17:20 BST - two-hundred-and-third run
+## 2026-08-14 17:20 BST - two-hundred-and-third run [commit c43af8a, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.7, the McCanns Sandringham seoTown move. ONE REAL
 DEFECT FOUND AND FIXED, in the guard for this item's own subject matter: a town
