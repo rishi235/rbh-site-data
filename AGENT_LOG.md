@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 14:05 BST - two-hundredth run
+## 2026-08-14 14:05 BST - two-hundredth run [commit cfeceb8, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.6, the Q14 title-length rule. ONE REAL DEFECT FOUND
 AND FIXED. It is in a guard rather than in patient-facing copy, but it is the
