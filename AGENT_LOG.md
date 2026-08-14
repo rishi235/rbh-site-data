@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 - two-hundred-and-seventh run
+## 2026-08-14 - two-hundred-and-seventh run [commit 04c7d57, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.10, the Smartts Chemist Bootle GBP pack, fourth pass.
 ONE REAL DEFECT FOUND AND FIXED, in tools/check-gbp-packs.js. No page,
