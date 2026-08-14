@@ -2,6 +2,176 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 18:05 BST - two-hundred-and-eighth run
+
+- Quality pass on item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack,
+fifth pass. ONE REAL DEFECT FOUND AND FIXED, in tools/claim-patterns.js, and it
+is a weight loss advertising one. No page, generator, data field, branches.json
+entry, paste sheet, GBP pack or piece of patient-facing copy was changed. All 36
+checkers pass. One new question, Q76, and two further gaps recorded below.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited: every "## " run header in this log was
+parsed, the first bullet under each was read, and only the two header shapes the
+log actually uses were accepted. 248 run headers, 164 resolving to an item, 41
+distinct items, which matches the 41 ticked worklist items exactly with nothing
+left over and nothing never passed. Ranked by recency, item 4.12 came out
+oldest, last verified in the hundred-and-sixty-seventh run on 2026-08-13 17:05
+BST.
+
+BASELINE. No .agent-lock and no stale .git\index.lock. Level with origin at
+372a140, worktree clean. All 36 checkers green and all six page generators
+rebuild every page byte-identical BEFORE any edit, and again after.
+
+ANSWER PICKUP: THE SAME FAULT AS THE LAST RUN, NARROWED FURTHER. Only ONE Chrome
+extension instance was connected, so the Q59 ambiguity did not arise. That
+browser was selected, a tab opened and https://data.rbhealth.co.uk/api/feedback
+navigated to, read-only. It returned the Cloudflare Access sign-in page for
+"RB Data Portal", offering Azure AD and an email login code, so Rishi's Access
+session is not held in that profile. Per the run rules the fetch was abandoned
+there: nothing was clicked, typed, submitted or logged in to, no other route was
+attempted, and the tab was closed. Pickup remains unavailable and no answers
+were collected. Worth repeating from the last run because it is now confirmed
+twice: the cause is no longer "two browsers, nobody to choose", it is "one
+browser, not signed in", and signing in to the portal once in that Chrome
+profile would likely be enough to start pickup working. 51 questions are open
+and waiting behind it. No duplicate question raised, because Q59 already owns
+answer pickup.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: every "Standing
+authorisation" and "autonomous window" string in this log was listed. All but
+one sit inside a past run's own "NO AUTONOMOUS WINDOW" sentence; the single real
+section is at line 18197 and reads 2026-08-09 23:14 BST to 2026-08-10 23:14 BST,
+long expired. There is no live section at the top of the file, so step 7 applied
+as written and nothing was decided autonomously.
+
+THE PACK ITSELF: STABLE ACROSS FIVE PASSES. Every fact re-verified against
+branches.json - name, 241 Walton Village Liverpool L4 6TH, 0151 525 3522,
+website, review link, hasApp false with no app mention anywhere, catchment
+Walton, Liverpool and Sefton leading with its own seoTown. All five character
+counts came back byte-identical to all four earlier passes: description 631,
+which is exactly what its heading claims, and posts 456, 321, 528 and 433
+against the 1,500 limit. Zero non-ASCII characters, zero em or en dashes, zero
+dash entities, zero hits against the full 82-name union in tools/pom-names.js.
+The four ampersand spellings of the old trading name are all in the preamble and
+the paster notes, where they are the pack documenting what the live site still
+says, and none is in published copy.
+
+METHOD. Injection testing, one value at a time, all 36 checkers run on each, the
+pack rewritten from the in-memory original and sha256-compared after every one.
+24 injections, run detached to a results file and polled, so no step depended on
+a shell staying alive. 23 ran, 1 skipped for a non-unique anchor, and every
+single one restored clean to 813f3edc1f03.
+
+WHAT HELD. Nineteen of the twenty-three were caught. Both misspellings of this
+branch's own trading name in published copy, the ampersand form and the dropped
+s, and the ampersand form on the "- Name on GBP" line. Both website-domain
+typos, the dropped s and a .co.uk to .com swap. Both button-URL faults, a slug
+typo and a sister brand's domain. The review link token, one digit of the phone
+in a post body, the postcode on the address line, the guarded hours line, the
+house number in the description, the blood pressure age, the Pharmacy First UTI
+age range, a dropped catchment town, a foreign town in the location clause, an
+app mention on a branch with hasApp false, and an em dash.
+
+THE DEFECT: A WEIGHT LOSS EFFICACY CLAIM WRITTEN THE PLAINEST WAY ROUND.
+
+  Post C, "This is a private, paid service"
+       -> "This is the fastest and most effective way to lose weight,
+           and it is a private, paid service"
+  ALL 36 EXITED 0
+
+Post C is a weight loss advertisement bound for a public Google profile, which
+is the strictest regime in the house standards, and the checker's own header
+says it checks "No efficacy claims". Two separate misses put this through. The
+superlative rule the 4.13 pass added on 2026-08-13 is deliberately noun-anchored
+- it fires on a superlative followed within 40 characters by the thing being
+sold - and its noun list held only the words a pack uses for the product:
+treatment, clinic, service, programme, plan, injection, jab, weight loss. So
+"fastest" followed by "way" matched nothing at all. And "most effective" existed
+only in the two fixed forms "most effective weight loss" and "most effective
+treatment", so "most effective way" was invisible on its own account.
+
+It is the same fault the 4.13 note describes, one step further out. That pass
+caught the superlative expressed about the PRODUCT. This is the superlative
+expressed about the RESULT, which is what somebody selling actually writes.
+
+THE FIX. In tools/claim-patterns.js, which is the single definition every
+claim-reading checker requires. The superlative noun anchor now also reads
+"way", "method" and the verb phrase "lose weight" / "losing weight", so a
+sentence that never names a product noun is still read. And "most/more
+effective" gets its own noun-anchored, distance-bounded rule beside it, rather
+than being folded into the superlative pattern, because it is a two-word
+comparative and the original entry is left standing where it is.
+
+WHAT WAS DRAFTED IN AND TAKEN BACK OUT, WHICH IS THE MORE USEFUL HALF. "option",
+"route" and "approach" were in the first version of the noun list and are not in
+the committed one. A sweep of all 402 text files in the repo found "option" in
+the travel clinic lead-time caution: "Travelling within the next 1 to 2 weeks
+may limit which vaccines can still be effective in time, call us and we will
+advise on the best option". That sentence is written into
+tools/build-travel-clinic-pages.js and therefore stands on all sixteen generated
+travel clinic pages, which check-service-links.js reads. It is advice to ring
+the pharmacy, not a promise about a product, and shipping the wider list would
+have failed sixteen live pages for saying the right thing. "route" and
+"approach" went with it on the same reasoning. That is the discipline the 4.13
+note already records for a bare superlative: widen the anchor only as far as the
+evidence in the repo allows.
+
+VERIFIED BOTH WAYS, because a claim rule that over-fires is worse than useless.
+Sixteen claim phrasings must fail and all sixteen do, including every one of the
+six the 4.13 pass listed, so nothing regressed. Ten pieces of legitimate copy
+must stay clean and all ten do, including the travel clinic option sentence, the
+"best straight-on frontage shot" photo direction that 11 packs carry, and "best
+route of administration". All 36 checkers exit 0 with the warn count unchanged
+at 55, so no existing pack or page was newly failed. The original injection was
+re-run in situ after the fix and is now caught by check-gbp-packs.js, and the
+pack restored byte-identical.
+
+THREE FURTHER GAPS FOUND, ONE ASKED ABOUT AND TWO RECORDED.
+
+1. Q76, raised. A GBP post can name a DIFFERENT RBH pharmacy and nothing
+   notices. "the pharmacist-led weight loss clinic at Cherry Lane Pharmacy in
+   Walton", injected into Post C in place of this branch's own name, passed all
+   36 checkers. Every other identifying fact in published copy is guarded
+   against a sister's value leaking in - phone, postcode, review link, street
+   address, house number, town - and the trading NAME is the one member of that
+   family with no rule. The spelling checker only reads misspellings of this
+   branch's own name, so a correctly spelled other-branch name goes straight
+   through, and Cherry Lane shares Walton as its seoTown so the town rules see
+   nothing either. Asked rather than fixed because the scope (branchName only,
+   or brandLabel too) is a judgement about how the sister-claim exemption
+   should behave, and getting it wrong fails a pack that is doing the right
+   thing.
+
+2. The ROAD NAME in published copy is unguarded where no house number sits in
+   front of it. Post B reads "A local team on Walton Village you can actually
+   speak to"; changing that to "Walton Vale", a real and different Liverpool
+   road about a mile away, passed all 36 checkers. The 4.10 pass closed the
+   road name in the "- Address:" line and the house-number rule reads the
+   description, which is why the same injection into the description IS caught.
+   Neither reaches a bare road name in a post body. Not asked: there is no
+   decision, the rule wants the same location-construct shape the town rule
+   already uses.
+
+3. The LUNCH CLOSURE half of the hours-anywhere rule has two blind spots, both
+   on this pack. The description reads "Open Monday to Friday, closed 1pm to 2pm
+   for lunch"; changing it to "1pm to 3pm" passed all 36 checkers, because the
+   rule splits a sentence on commas and the clause carrying the closure names no
+   day, so it is dropped before it is compared. The photo list reads "the
+   weekday lunch closure (1:00pm to 2:00pm)"; the same change passed, because
+   "weekday" is not a day name and the only day names in that sentence are
+   Saturday and Sunday, which branches.json holds closed and the rule correctly
+   skips. Both are in copy that matters: the first is pasted verbatim into the
+   public profile. The 4.6 pass wrote this rule for exactly this shape and these
+   two forms survived it. Not asked: no decision, the fix is to carry day
+   context forward across segments of one sentence and to read "weekday" and
+   "weekdays" as the open days.
+
+FILES CHANGED. tools/claim-patterns.js (the fix), AGENT_WORKLIST.md (fifth pass
+recorded in place under item 4.12), QUESTIONS.json (Q76), AGENT_LOG.md (this
+entry).
+
 ## 2026-08-14 - two-hundred-and-seventh run [commit 04c7d57, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.10, the Smartts Chemist Bootle GBP pack, fourth pass.

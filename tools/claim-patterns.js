@@ -54,9 +54,54 @@ const CLAIM_PATTERNS = [
   // bare superlative would therefore have failed 11 packs on copy that is
   // never posted. The superlative only fails where it qualifies the thing
   // being sold.
-  [/\b(?:the|our|uk'?s|nations?'?s)\s+(?:best|finest|leading|top|safest|strongest|fastest|quickest|number\s*one|no\.?\s*1)\b[^.\n]{0,40}?\b(?:treatment|clinic|service|programme|program|plan|injection|jab|weight\s*loss)\b/i, "superlative comparative claim"],
+  [/\b(?:the|our|uk'?s|nations?'?s)\s+(?:best|finest|leading|top|safest|strongest|fastest|quickest|number\s*one|no\.?\s*1)\b[^.\n]{0,40}?\b(?:treatment|clinic|service|programme|program|plan|injection|jab|weight\s*loss|way|method|lose\s+weight|losing\s+weight)\b/i, "superlative comparative claim"],
   [/\b(?:best|strongest|safest|fastest|quickest)\s+(?:weight\s*loss|slimming)\b/i, "superlative comparative claim"],
-  [/\bbest[- ]in[- ]class\b/i, "superlative comparative claim"]
+  [/\bbest[- ]in[- ]class\b/i, "superlative comparative claim"],
+
+  // The OUTCOME anchor, added 2026-08-14 on the fifth item 4.12 quality pass.
+  // The 2026-08-13 superlative rule above anchored on the NOUN being sold, and
+  // the noun list held only the things a pack calls the product: treatment,
+  // clinic, service, programme, plan, injection, jab, weight loss. That leaves
+  // out the plainest English there is for the same promise, which names the
+  // outcome instead of the product. Injected into Post C of
+  // coleman-leigh-walton.md, a weight loss advertisement bound for a public
+  // Google profile, "This is the fastest and most effective way to lose
+  // weight" passed ALL 36 CHECKERS. Two separate misses put it through:
+  // "fastest" was followed by "way", which was in no noun list, and
+  // "most effective" was only ever read in the fixed forms "most effective
+  // weight loss" and "most effective treatment", so "most effective way"
+  // matched nothing at all.
+  //
+  // It is the same fault the 4.13 pass wrote up one step further out. That
+  // pass found the superlative expressed about the product and fixed it; this
+  // is the superlative expressed about the result, which is what a person
+  // actually writes when they are selling. "way" and "method" are added to
+  // the noun anchor above, and the verb phrase "lose weight" / "losing
+  // weight" is added beside them so a sentence that never names a noun at
+  // all is still read.
+  //
+  // Three more words were drafted into that list and taken back out, because
+  // a sweep of all 402 text files in this repo showed they are ordinary
+  // clinical English here rather than selling words. "option" appears in
+  // "call us and we will advise on the best option" - the travel clinic
+  // caution about vaccines needing lead time, written into
+  // build-travel-clinic-pages.js and therefore standing on all sixteen
+  // generated travel clinic pages, which check-service-links.js reads. It is
+  // advice to ring the pharmacy, not a promise about a product, and adding
+  // the word would have failed sixteen live pages for saying the right
+  // thing. "route" and "approach" were dropped with it on the same reasoning
+  // (route of administration, a different pathway). This is the same
+  // discipline the 2026-08-13 note above records for a bare superlative:
+  // widen the anchor only as far as the evidence in the repo allows.
+  //
+  // "most effective" gets its own line rather than being folded into the
+  // superlative pattern, because it is a two-word comparative rather than a
+  // single superlative adjective and the original entry, which is left where
+  // it is, only ever covered two of its forms. Kept noun-anchored and
+  // distance-bounded for the reason the 4.13 note gives: a bare "effective"
+  // is ordinary English about a service, and only the comparative qualifying
+  // the thing being sold is a claim.
+  [/\b(?:most|more)\s+effective\b[^.\n]{0,40}?\b(?:weight\s*loss|treatment|clinic|service|programme|program|plan|injection|jab|way|method|lose\s+weight|losing\s+weight)\b/i, "comparative efficacy claim"]
 ];
 
 // Returns [regexp, reason] for the first pattern this text breaches, or null.

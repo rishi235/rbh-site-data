@@ -1166,5 +1166,21 @@
     "status": "open",
     "answer": null,
     "note": "Found by injection on the fourth quality pass of item 4.10, 2026-08-14. Nothing was changed in any pack for this finding; the injection was reverted and the estate is green. Raised rather than decided because it is a live patient-facing regulatory claim, which the run rules keep out of autonomous decisions, and because the right word list is a judgement about advertising exposure rather than a mechanical fix. Whichever option is picked should be applied to every pack naming medical cannabis at once, not just to Smartts."
+  },
+  {
+    "id": "Q76",
+    "date": "2026-08-14",
+    "item": "quality pass on 4.12 (finding, does not block any item)",
+    "question": "A GBP post can name a different RBH pharmacy and nothing notices. Injecting \"the pharmacist-led weight loss clinic at Cherry Lane Pharmacy in Walton\" into Post C of coleman-leigh-walton.md, replacing this branch's own trading name, passed all 36 checkers clean. Every other identifying fact in published copy is already guarded against a sister branch's value leaking in: the phone, the postcode, the review link, the street address, the house number and the town all fail. The trading NAME is the one member of that family with no rule, and it is the word the post leads with. The spelling checker only reads misspellings of this branch's own name, so a correctly spelled other-branch name goes straight through, and Cherry Lane shares Walton as its seoTown so the town rules see nothing wrong either. The pack is correct today; the exposure is the next edit, and the copy is pasted verbatim into a public Google profile.",
+    "options": [
+      "Add a rule to check-gbp-packs.js failing any other live branch's branchName in the published copy (business description and post bodies only), with the existing sister-claim exemption carried over so mccanns-aigburth.md can keep naming its sister inside its description. Mirrors the foreign-town rule exactly, reuses its scope and its exemption, and is the smallest change.",
+      "The same rule but reading brandLabel as well as branchName, so \"McCanns Chemist\" in a Coleman post fails even where no specific branch is named. Wider cover, but brandLabel is shared between sister branches so the exemption has to do more work.",
+      "Go further and require the positive: every post body must contain this branch's own branchName at least once, as well as naming no other. Tightest, but it would need checking against the four packs whose posts may not all name the shop.",
+      "Leave it. The trading name is the most visible word in a pack and a wrong one is the fault a human reader is most likely to spot before pasting."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found by injection on the fifth quality pass of item 4.12, 2026-08-14. Nothing was changed in any pack for this finding; the injection was reverted, the pack proved byte-identical by sha256 and the estate is green. Raised rather than decided because the scope question (branchName only, or brandLabel too) is a judgement about how the sister-claim exemption should behave, and getting it wrong fails a pack that is doing the right thing. Two further gaps were found on the same pass and are recorded in AGENT_LOG.md rather than asked about, because neither needs a decision: the road name in published copy is unguarded where no house number sits in front of it, and the lunch-closure half of the hours rule is blind both to a closure stated in a separate comma clause and to the word \"weekday\" in place of a day name."
   }
 ]

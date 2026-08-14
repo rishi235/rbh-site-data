@@ -2580,6 +2580,49 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       characters of the limit. No page, generator, data field,
       branches.json entry, paste sheet, GBP pack or piece of
       patient-facing copy was changed. No new question raised.
+      Fifth quality pass 2026-08-14. Repo half only: the one connected
+      Chrome instance is not signed in to the portal, so nothing live was
+      read and the 2026-08-12 live verdicts above stand as written. The
+      pack is stable across five passes: every fact re-verified against
+      branches.json (name, 241 Walton Village Liverpool L4 6TH,
+      0151 525 3522, website, review link, hasApp false with no app
+      mention, catchment Walton, Liverpool and Sefton leading with its own
+      seoTown), and all five character counts came back byte-identical to
+      all four earlier passes (description 631 exactly as the heading
+      claims, posts 456, 321, 528 and 433). Zero non-ASCII, zero dash
+      characters, zero dash entities, zero hits against the full 82-name
+      union in tools/pom-names.js. All 36 checkers exit 0 and all six page
+      generators rebuild every page byte-identical, before and after.
+      Twenty-four injections were run from a harness held outside the repo,
+      one value at a time, all 36 checkers on each, the pack restored from
+      the original and sha256-compared after every one; 23 ran, 1 skipped
+      for a non-unique anchor, and every one restored clean. Nineteen were
+      caught, including the ampersand and dropped-s forms of the trading
+      name, both website-domain typos, both button-URL typos, the review
+      link token, the phone digit, the postcode, the guarded hours line,
+      the house number, the blood pressure age, the Pharmacy First age
+      range, a dropped catchment town, a foreign town in the location
+      clause, an app mention and an em dash. ONE IN-REPO DEFECT FOUND AND
+      FIXED, in tools/claim-patterns.js: "This is the fastest and most
+      effective way to lose weight", injected into Post C, passed all 36
+      checkers. The 2026-08-13 superlative rule anchored only on the nouns
+      a pack uses for the product, so "fastest" followed by "way" matched
+      nothing, and "most effective" was only ever read in the two fixed
+      forms "most effective weight loss" and "most effective treatment".
+      The noun anchor now also reads way, method and the verb phrase
+      lose/losing weight, and "most/more effective" gets its own
+      noun-anchored rule. Option, route and approach were drafted in and
+      taken back out: "advise on the best option" is the travel clinic
+      lead-time caution on all sixteen generated travel clinic pages, and
+      failing those would have been a false positive on correct clinical
+      advice. Verified both ways: sixteen claim phrasings caught, ten
+      pieces of legitimate copy still clean, all 36 checkers green with the
+      warn count unchanged at 55, and the injection re-run in situ is now
+      caught by check-gbp-packs.js. No page, generator, data field,
+      branches.json entry, paste sheet, GBP pack or piece of
+      patient-facing copy was changed. Three further gaps identified and
+      recorded in AGENT_LOG.md for the next pass; one question raised, Q76.
+      Done 2026-08-14.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
