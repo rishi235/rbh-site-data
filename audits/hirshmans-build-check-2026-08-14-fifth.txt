@@ -1,0 +1,42 @@
+Item 3.5 quality pass - Hirshmans Chemist (Ainsdale) - fifth pass
+Date: 2026-08-14   Run: hundred-and-eighty-ninth
+Method: independent extraction, own regexes, no code shared with tools/.
+Script: audits/hirshmans-independent-2026-08-14.js
+
+RESULTFILES FOUND: 12
+  contraception-hirshmans-ainsdale.html
+  earache-treatment-hirshmans-ainsdale.html
+  impetigo-treatment-hirshmans-ainsdale.html
+  insect-bite-treatment-hirshmans-ainsdale.html
+  pharmacy-first-hirshmans-ainsdale.html
+  shingles-treatment-hirshmans-ainsdale.html
+  sinusitis-treatment-hirshmans-ainsdale.html
+  sore-throat-treatment-hirshmans-ainsdale.html
+  travel-clinic-hirshmans-ainsdale.html
+  uti-treatment-hirshmans-ainsdale.html
+  weight-loss-clinic-hirshmans-ainsdale.html
+  switch-prescriptions-hirshmans-ainsdale.html
+
+PAGES CARRYING JSON-LD: 12 of 12
+
+TITLE LENGTHS: 44 to 62
+DESC LENGTHS:  137 to 156
+
+CHECKS RUN: 1728
+FAILURES:   0
+
+GENERATOR REPRODUCTION
+All six build scripts re-run; every generated page reproduced byte-identical
+(git status clean across modules/service, modules/switch, modules/branch).
+
+CHECKER SUITE
+All 35 tools/check-*.js exit 0.
+
+INJECTION TESTS (each injected into pharmacy-first-hirshmans-ainsdale.html,
+then the full 35-checker suite run, then reverted)
+  A second H1 naming a foreign town   -> CAUGHT by check-seo-pattern.js
+  B seoTown removed from the H1       -> CAUGHT by check-seo-pattern.js
+  C foreign town in SEO description   -> CAUGHT by check-seo-pattern.js,
+                                         check-seo-sheets.js
+A is a cross-branch regression test of the h1 COUNT rule added on the item 3.2
+pass (2026-08-14, run 186). It fires on this branch too.

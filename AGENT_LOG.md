@@ -2,6 +2,94 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 06:34 BST - hundred-and-eighty-ninth run
+- Item 3.5 quality pass, Hirshmans Chemist (Ainsdale), fifth machine pass. ZERO
+DEFECTS IN THE 12 PAGES for the second consecutive pass and not one character
+of any page was edited. ONE DEFECT FOUND AND FIXED, and it was in the AUDIT
+METHOD rather than on a page: the folder holding the audit trail was corrupting
+the git status check every pass reads as its proof. Three injections, all three
+caught. No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically. MY FIRST DERIVATION WAS WRONG IN EXACTLY THE WAY RUN 186 WARNED
+IT WOULD BE, and I am recording that I walked into the documented trap: a
+per-line regex put 3.5 at 83 runs and 3.6 at 82, a suspiciously contiguous run
+that contradicted Q64 (raised 2026-08-13 on a 3.5 pass). Run 186 had already
+found and written up this exact fault and its cause, that older headings WRAP so
+"item" and "3.5" sit on different lines. Joining each heading block before
+matching fixed it and put 3.5 oldest at 41 runs, which agrees with run 186's
+handover exactly (3.2 was 41 runs old then, and 3.3, 3.4 have been taken since).
+The lesson is to read the previous entry's warnings BEFORE deriving, not after.
+
+REPO HALF ONLY. Step 3 ran: a tab was opened on the feedback endpoint and it
+returned the Cloudflare Access login page, so pickup was unavailable and the
+run stopped there as the procedure requires. Nothing was clicked, typed or
+logged in to. The 47 open questions stay open. This is the recurring fault Q59
+already records, not a new one. Nothing live was read and nothing live is
+claimed below.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written. Nothing needed
+it: the one fix is repo hygiene, not a decision.
+
+THE 12 PAGES ARE CLEAN. Fifth independent extraction, own regexes, no code
+shared with tools/: 1728 checks, 0 failures. That is the SAME COUNT the fourth
+pass ran, on a script written fresh, so the two agree by arriving separately
+rather than by one calling the other. 11 service pages and 1 switch page,
+titles 44 to 62 characters, descriptions 137 to 156, exactly one H1 each and
+every one carrying Ainsdale, PR8 3HW the only postcode, 01704 577376 the only
+phone-shaped number with its tel: link on all 12, no foreign brand, town,
+phone, postcode or widget id anywhere, JSON-LD address correct field by field
+on all 12. All six generators reproduced every page byte-identical.
+
+THE DEFECT: THE AUDIT TRAIL WAS BREAKING THE AUDIT. .gitattributes declares the
+three generated page folders as LF because this clone runs core.autocrlf=true,
+and its own header says why: a quality pass re-runs the six build scripts and
+reads a clean git status as proof the committed pages still match what the
+generators produce, so false positives make real drift indistinguishable from
+noise. audits/ was never added to that list. git checks the live-hours report
+out with CRLF, 427 carriage returns, and check-live-hours.js ends its run with
+JSON.stringify, which writes LF, so every run leaves a phantom "modified" file
+in the very status output the pass depends on. It bit this run: the post-build
+status came back with one modified file that had to be chased down before the
+real result could be read. Fixed by declaring audits/ as LF. All 97 tracked
+files under audits/ already hold LF in the index, checked one by one, so
+nothing renormalises and no committed content changes.
+
+THE CLAIM I NEARLY PUBLISHED, AND WHY IT WAS FALSE. My negative test appeared
+to DISPROVE the fix: with the rule removed, checkout still produced LF and the
+status still came back clean, which would have made the rule dead weight. It
+was the test that was broken, not the fix. PowerShell's Set-Location does not
+move .NET's working directory, so [IO.File]::WriteAllText(".gitattributes")
+wrote to C:\Users\Admin\.gitattributes while git kept reading the repo's copy,
+which still had the rule. The "without the rule" arm was silently running WITH
+it. Rerun with absolute paths the paired test is decisive: without the rule,
+checkout writes 427 CRs and a checker run leaves " M"; with it, checkout writes
+0 CRs and two consecutive runs leave the folder clean. The stray file was
+deleted. Worth recording because a broken harness that reports SUCCESS is the
+dangerous direction, and it nearly deleted a real fix. It also invalidated a
+first attempt at the injection battery, which reported four anchors "not found"
+when the file it was reading was empty.
+
+INJECTIONS, ALL THREE CAUGHT. Each written into
+pharmacy-first-hirshmans-ainsdale.html, the full 35-checker suite run, then
+reverted. A second H1 naming a foreign town: caught by check-seo-pattern.js.
+The seoTown removed from the H1: caught. A foreign town in the SEO description:
+caught by check-seo-pattern.js and check-seo-sheets.js. The first is a
+cross-branch regression test of the h1 COUNT rule run 186 added on item 3.2 two
+runs ago, and it fires on this branch too, which is the point of testing it
+somewhere other than where it was written.
+
+FILES CHANGED: .gitattributes (audits/ declared LF),
+audits/hirshmans-independent-2026-08-14.js (the extractor, kept so the pass is
+reproducible), audits/hirshmans-build-check-2026-08-14-fifth.txt (evidence),
+AGENT_WORKLIST.md (the 3.5 fifth-pass note), AGENT_LOG.md (this entry).
+No page, no generator, no data field, no branches.json entry, no GBP pack and
+no piece of patient-facing copy was changed.
+
+THE NEXT RUN SHOULD TAKE 3.6, then 3.7, then 3.8.
+
 ## 2026-08-14 05:34 BST - hundred-and-eighty-eighth run [commit 6ff0079, hash line added by a small follow-up commit]
 - Item 3.4 quality pass, Cherry Lane Pharmacy, fifth machine pass. ZERO DEFECTS
 IN THE 12 PAGES for the second consecutive pass and not one character of any

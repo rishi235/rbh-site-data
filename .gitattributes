@@ -22,3 +22,31 @@
 modules/service/pages/** text eol=lf
 modules/switch/pages/**  text eol=lf
 modules/branch/pages/**  text eol=lf
+
+# The audit artefacts, added 2026-08-14 during the quality pass on item 3.5.
+#
+# The same fault as above, in the folder the audit trail itself lives in, and
+# it was corrupting the very check the note above exists to protect.
+#
+# tools/check-live-hours.js ends every run with
+# fs.writeFileSync(outFile, JSON.stringify(report, null, 2)), and
+# JSON.stringify writes LF. With core.autocrlf=true and no rule for this
+# folder, git checks the file out with CRLF (measured: 427 carriage returns)
+# and the checker immediately rewrites it with LF, so git reports it modified
+# on every run. The content is never modified: measured on the run that added
+# this line, the working tree file and the index blob had the same sha and the
+# same 27369 bytes, and git diff exited 0, while git status still printed " M".
+#
+# That matters because every quality pass re-runs the six build scripts and
+# reads a clean git status as proof the committed pages still match what the
+# generators produce. A pass also runs the checker suite, so that phantom sat
+# in the status output and had to be investigated and dismissed by hand before
+# the real result could be read. One file is a nuisance; the point of the note
+# above is that noise and real drift stop being distinguishable once there is
+# enough of it.
+#
+# Safe to declare: all 97 tracked files under audits/ already hold LF in the
+# index, checked one by one before this was added, so nothing renormalises and
+# no committed content changes.
+
+audits/** text eol=lf

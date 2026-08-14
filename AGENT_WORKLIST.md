@@ -714,7 +714,7 @@ checkers pass and all seven generators rebuild with no generated page changed.
 Evidence in audits/cherry-lane-build-check-2026-08-14-fifth.txt. No new
 question. Done 2026-08-14
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
-      12 pages, 0 mismatches.
+      12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
 Titles 44 to 62 characters, descriptions 137 to 156, one H1 each, Ainsdale in
 every title, description, H1 and slug, seoTown and addressLocality both
@@ -772,6 +772,26 @@ way to standardise changes schema.org on all 177 pages and is Q64's decision.
 Nothing edited. tools/check-gbp-packs.js now enforces the rule with the five
 packs in KNOWN_IDENTITY against Q64, proven by five negative tests. Evidence in
 audits/hirshmans-build-check-2026-08-13-fourth.txt.
+Quality pass 2026-08-14 (fifth): the 12 pages are clean for the second
+consecutive pass and not one character of any page was edited. Fifth
+independent extraction, own regexes, no code shared with tools/: 1728 checks,
+0 failures, the same count the fourth pass ran, so the two agree by arriving
+separately. Titles 44 to 62, descriptions 137 to 156, exactly one H1 each
+carrying Ainsdale, PR8 3HW the only postcode, 01704 577376 the only phone, no
+foreign brand, town, phone, postcode or widget id, JSON-LD address correct
+field by field on all 12. All six generators reproduced every page
+byte-identical and all 35 checkers pass. Three injections into
+pharmacy-first-hirshmans-ainsdale.html were all caught: a second H1 naming a
+foreign town, the seoTown removed from the H1, and a foreign town in the SEO
+description. The first is a cross-branch regression test of the h1 COUNT rule
+added on the item 3.2 pass two runs earlier, and it fires here too.
+ONE DEFECT FOUND AND FIXED, and it was in the audit METHOD rather than on a
+page: audits/ was not covered by .gitattributes, so git checked the live-hours
+report out with CRLF and check-live-hours.js immediately rewrote it with LF,
+leaving a phantom "modified" file in the git status that every quality pass
+reads as its proof the generators still match. Fixed by declaring audits/ as
+LF, the same rule the generated page folders already carry. Evidence in
+audits/hirshmans-build-check-2026-08-14-fifth.txt. No new question.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
