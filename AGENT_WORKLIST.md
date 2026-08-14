@@ -873,7 +873,7 @@ behaviour both PASSED under the old rule. Nothing was wrong today; the policy
 was unpinned, same shape as the widget diary gap found on item 3.7. No copy
 edited anywhere. Evidence in audits/mccanns-build-check-2026-08-14.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
-      12 pages, 0 mismatches. Quality pass 2026-08-13.
+      12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
 NAP "42 Fernhill Road", L20 9HH and 0151 922 4984 on all 12, one tel: link
 each, seoTown and addressLocality both Bootle so there is no divergence to get
@@ -945,6 +945,35 @@ correct, so a latent hole closed rather than a live breach, and no copy was
 edited anywhere. Two apparent findings were faults in this run's own script
 and are written up rather than dropped. No question raised. Evidence in
 audits/smartts-build-check-2026-08-13.txt.
+CORRECTION added 2026-08-14, fifth pass: the phrase "own ODS FQN70 only" above
+meant "no other branch's ODS code". It did not mean the page carries its own,
+and no pass has ever asserted that, because the extractor line meant to do it
+could never fail. These 12 pages carry no ODS code at all, which is correct:
+an ODS code appears only on the 6 branch landing pages, and Smartts has none.
+Quality pass 2026-08-14 (fifth). REPO HALF ONLY: two Chrome instances are
+connected and an unattended run cannot choose between them, so no browser was
+used and nothing live is claimed. All 12 pages re-verified by a fifth
+independent extraction sharing no code with tools/, 3,071 checks, 0 failures,
+and all four coverage gates cleared before the result was read. One H1 each
+carrying Bootle, phone in both shapes with no other branch's digits, own
+street and postcode only, JSON-LD field by field, no hard-coded widget id, one
+pin per page as the generators declare, no other branch's ODS, review URL or
+Pharmacy First link, no http://, no other brand named, no dash in any shape.
+23 sheet rows across 11 discovered sheet files, the three writings of each
+page's SEO fields agreeing. All 36 checkers pass and all six generators
+rebuilt every page byte-identical. ONE DEFECT FOUND, latent and live-reaching:
+the booking button on every service page is a same-page fragment link and
+NOTHING IN THE REPO RESOLVED IT against the id it points at, because
+check-service-links strips same-page anchors by design. A renamed id or a
+typo'd href would leave the CTA scrolling nowhere on up to 158 live pages with
+all 35 checkers green, and these are NHS Pharmacy First, contraception, travel
+and weight loss bookings. Nothing was broken: all 186 fragment links resolved,
+no duplicate id. New tools/check-fragment-targets.js, 3 rules, all 3 proven by
+injection into real pages with a clean re-run between each. Rule 2 exists
+because rule 1 passes vacuously on a page whose booking card was dropped
+entirely. A second defect was in this pass's own method and is written up
+rather than dropped. No copy edited anywhere, no question raised. Evidence in
+audits/smartts-build-check-2026-08-14.txt.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

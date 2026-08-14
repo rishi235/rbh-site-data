@@ -2,6 +2,119 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 08:35 BST - hundred-and-ninety-first run
+
+- Item 3.7 quality pass, Smartts Chemist (Bootle), fifth machine pass. ZERO
+DEFECTS IN THE 12 PAGES and not one character of any page was edited. TWO
+DEFECTS FOUND AND FIXED, neither on a page: the estate's booking button was
+resolved by nothing in the repo, and this pass's own extractor carried an
+assertion that could not fail. Three negative tests, all three fire. No new
+question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited: run heading blocks joined before matching,
+per the documented wrap trap, 231 blocks parsed, 41 completed items, 3.7
+stalest at 41 runs. That agrees with run 190's handover, which is the point of
+deriving it separately.
+
+A STALE LOCK AND AN INTERRUPTED PREDECESSOR. .agent-lock was 59.8 minutes old,
+past the 45-minute threshold, so it was treated as stale and deleted per the
+procedure. It had been left by a run that started at 07:41, wrote two files and
+died before committing: audits/smartts-independent-2026-08-14.js and
+tools/check-fragment-targets.js were sitting untracked in the tree. Both were
+taken as INHERITED AND UNVERIFIED rather than trusted: every rule was re-run,
+re-proved by injection, and one wrong figure in the checker header was found by
+doing so. That is recorded here because the run's headline finding did not
+originate with this run, and the log should not imply otherwise.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run cannot
+choose between them, so no browser was used, nothing live was read and nothing
+live is claimed below. The same constraint blocked step 3, so the portal answer
+pickup could not run and the 47 open questions stay open. This is the recurring
+fault Q59 already records, not a new one.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written. Nothing needed
+it: both fixes are checking code, and neither changes patient-facing copy.
+
+THE 12 PAGES ARE CLEAN. Fifth independent extraction, own regexes, own sheet
+parser, no code shared with tools/: 3,071 checks, 0 failures. COVERAGE WAS
+PROVED BEFORE THE RESULT WAS READ, since an extractor can pass by finding
+nothing: 12 pages found by globbing rather than from a list, 11 sheet files
+discovered, 341 blocks scanned, 23 Smartts rows parsed, and the script exits
+non-zero on any of four gates. One H1 each carrying Bootle, phone in both
+shapes with no other branch's digits, own street and postcode only, JSON-LD
+field by field including name and url, no hard-coded widget id, one pin per
+page (service-module-phase1 x11, 6a275e1 x1) as the generators declare, no
+other branch's ODS, review URL or Pharmacy First link, no http:// anywhere, no
+other brand named, no dash literal or entity. All 36 checkers pass and all six
+generators reproduced every page byte-identical.
+
+DEFECT 1: THE BOOKING BUTTON WAS RESOLVED BY NOTHING. The primary call to
+action on every service page is a same-page fragment link, href="#book",
+pointing at a booking card written some four hundred lines away in the same
+generator; the switch family does the same with #switch-form-card. No tool in
+the repo resolved the two halves against each other. check-service-links.js is
+the checker that reads links and it STRIPS same-page anchors on purpose,
+because its job is where a link leaves the page to. So a renamed id or a typo'd
+href would leave the button scrolling nowhere on up to 158 live pages while all
+35 checkers stayed green, since the page keeps its heading, NAP, JSON-LD, pin
+and phone. It just cannot be booked from. These are NHS Pharmacy First,
+contraception, travel and weight loss bookings, so this is the patient's route
+into a clinical service and the revenue path, and a page that looks perfect in
+every audit is the worst place for it to fail. NOTHING WAS BROKEN: 186 fragment
+links across the 177 generated pages all resolved against 1,446 declared ids,
+172 JS-driven href="#" buttons exempted, no duplicate id anywhere. A latent
+hole closed, not a live breach repaired.
+
+INJECTIONS, ALL THREE CAUGHT. Each written into a real page, the full checker
+run, then reverted, with a re-run after each revert to prove the tree was clean
+before the next case, and every revert confirmed byte-identical. Rule 1 TARGET,
+href="#book" retyped as "#booking" on the UTI page: caught. Rule 2 CTA, the
+booking link dropped altogether on the sinusitis page: caught. Rule 3 DUPID,
+id="book" emitted twice on the shingles page: caught. RULE 2 IS THE ONE WORTH
+KEEPING, because rule 1 passes vacuously on a page whose booking card was
+dropped entirely: no fragment links means no broken fragment links. The first
+DUPID attempt was a HARNESS FAULT and is recorded as one: these pages are
+Weebly paste fragments with no </body> tag, so the mutation matched nothing and
+the harness reported it rather than passing quietly. Absolute paths throughout,
+per run 189's finding.
+
+DEFECT 2: AN ASSERTION THAT COULD NOT FAIL. The inherited extractor's ODS line
+read ok(x === -1 || true, ...) under a comment claiming it was "counted below
+properly". It was not: below only ever checked OTHER branches' codes, so no
+pass has asserted anything about Smartts' own. Scanning all 177 pages settled
+the convention, which was unanimous and undeclared: an ODS code appears on the
+6 branch landing pages and nowhere else, 0 of 171 service and switch pages
+carry one, and no generated page in the estate carries an nhs.net address.
+Smartts is a single-site brand with no landing page, so its 12 pages correctly
+carry neither. The line is now two real assertions, which is where the extra 12
+checks came from. This makes the fourth pass's phrase "own ODS FQN70 only" one
+field short of what a reader would take it to mean, and a one-line correction
+has been added to that note in the worklist rather than rewriting it, so the
+record shows what was believed at the time. Same shape as run 190's finding on
+3.6, and the fourth time this repo has been bitten by a check that reads less
+than its name suggests.
+
+ALSO CORRECTED: the inherited checker's header claimed 188 fragment links, a
+figure its own output contradicts. The true count is 186, corrected at source
+rather than left to be quoted onward. Small, but it is the exact class of error
+that gets copied into a later log entry and then believed.
+
+FILES CHANGED: tools/check-fragment-targets.js (new, 3 rules, inherited then
+verified and its header corrected), audits/smartts-independent-2026-08-14.js
+(the extractor, inherited then corrected, kept so the pass is reproducible),
+audits/smartts-build-check-2026-08-14.txt (evidence), AGENT_WORKLIST.md (the
+3.7 fifth-pass note and the one-line correction to the fourth), AGENT_LOG.md
+(this entry). No page, no generator, no data field, no branches.json entry, no
+GBP pack and no piece of patient-facing copy was changed.
+
+THE NEXT RUN SHOULD TAKE 3.8, then 3.9, then 3.10. A warning worth carrying:
+this run inherited work from a crashed predecessor. If untracked files are
+sitting in the tree at the start of a run, they are unverified, and the honest
+move is to re-prove them rather than commit them as found.
+
 ## 2026-08-14 07:34 BST - hundred-and-ninetieth run [commit 924f86d, hash line added by a small follow-up commit]
 - Item 3.6 quality pass, McCanns Chemist (Aigburth and Sandringham), fifth
 machine pass. ZERO DEFECTS IN THE 26 PAGES and not one character of any page

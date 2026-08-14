@@ -1,0 +1,98 @@
+Item 3.7 quality pass - Smartts Chemist (Bootle) - FIFTH machine pass
+Run 191, 2026-08-14. Repo half only: no browser was used, nothing live was
+read and nothing live is claimed here.
+
+PAGES DISCOVERED BY GLOBBING (never from a list): 12 of 177 generated pages
+  modules/service/pages/contraception-smartts-bootle.html
+  modules/service/pages/earache-treatment-smartts-bootle.html
+  modules/service/pages/impetigo-treatment-smartts-bootle.html
+  modules/service/pages/insect-bite-treatment-smartts-bootle.html
+  modules/service/pages/pharmacy-first-smartts-bootle.html
+  modules/service/pages/shingles-treatment-smartts-bootle.html
+  modules/service/pages/sinusitis-treatment-smartts-bootle.html
+  modules/service/pages/sore-throat-treatment-smartts-bootle.html
+  modules/service/pages/travel-clinic-smartts-bootle.html
+  modules/service/pages/uti-treatment-smartts-bootle.html
+  modules/service/pages/weight-loss-clinic-smartts-bootle.html
+  modules/switch/pages/switch-prescriptions-smartts-bootle.html
+
+INDEPENDENT EXTRACTION (audits/smartts-independent-2026-08-14.js, sharing no
+code with tools/):
+  CHECKS RUN:       3071
+  FAILURES:         0
+  SHEET FILES:      11 discovered, 341 blocks scanned, 23 Smartts rows parsed
+  PINS SEEN:        service-module-phase1 x11, 6a275e1 x1 (as the generators declare)
+  FRAGMENT LINKS:   13 resolved on the 12 pages
+  COVERAGE GATES:   all four cleared (>=12 pages, >=20 sheet rows, >=2500
+                    checks, >=12 fragment links). The script exits non-zero if
+                    any gate fails, so a green run means it looked and found
+                    nothing, not that it failed to look.
+
+WHAT WAS VERIFIED ON THE 12 PAGES
+  one H1 each, carrying seoTown Bootle
+  phone 0151 922 4984 in display and tel: shape, no other branch's digits
+  own street 42 Fernhill Road and postcode L20 9HH only
+  JSON-LD field by field: @type, name, url, telephone, and all six address fields
+  no literal Appointedd widget id (all estate ids scanned)
+  exactly one CDN pin per page
+  no other branch's ODS code, review URL or Pharmacy First link
+  no http:// href or src
+  no other brand named in visible copy
+  no em or en dash, literal or entity
+  every same-page fragment link lands on an id that exists on that page
+  sheets: titles carry Bootle, descriptions 120-165 chars, and the three
+  writings of each page's SEO fields agree with each other
+  GBP pack pasteable half: own NAP only, ASCII, no dash entity
+
+FULL SUITE
+  CHECKERS:   36 of 36 pass (35 existing plus the new fragment checker)
+  GENERATORS: all 6 rebuilt every page byte-identical; git status unchanged
+              by the rebuild
+
+DEFECT 1 (in tools/, latent, now closed): NOTHING RESOLVED THE BOOKING BUTTON
+The primary call to action on every service page is a same-page fragment link
+(href="#book") pointing at a booking card written some 400 lines away in the
+same generator; the switch family does the same with #switch-form-card. No
+tool in the repo resolved the two halves against each other -
+check-service-links.js strips same-page anchors by design, because its job is
+where a link LEAVES the page to. A renamed id or a typo'd href would leave the
+button scrolling nowhere on up to 158 live pages while all 35 checkers stayed
+green, since the page keeps its heading, NAP, JSON-LD, pin and phone. These
+are NHS Pharmacy First, contraception, travel and weight loss bookings, so it
+is the patient's route into a clinical service.
+  Nothing was broken: 186 fragment links across the 177 pages all resolved
+  against 1,446 declared ids, 172 JS-driven href="#" buttons exempted, no
+  duplicate id anywhere. A latent hole closed, not a live breach repaired.
+  New tools/check-fragment-targets.js, 3 rules, all 3 proven by injection:
+    RULE 1 TARGET  href="#book" -> href="#booking" on the UTI page      CAUGHT
+    RULE 2 CTA     booking link dropped on the sinusitis page           CAUGHT
+    RULE 3 DUPID   id="book" emitted twice on the shingles page         CAUGHT
+  Each injection was written into a real page, the checker run, the page
+  restored, and the checker re-run to prove the tree was clean before the next
+  case. All three reverts confirmed byte-identical. Rule 2 exists because rule
+  1 passes vacuously on a page whose booking card was dropped altogether: no
+  fragment links means no broken fragment links.
+
+DEFECT 2 (in this pass's own method): AN ASSERTION THAT COULD NOT FAIL
+The extractor's ODS line was written as ok(x === -1 || true, ...) under a
+comment claiming it was "counted below properly". It could never fail, and
+below only ever checked OTHER branches' codes, so no pass has ever asserted
+anything about Smartts' own ODS code. Scanning all 177 generated pages settled
+the convention: an ODS code appears on the 6 branch landing pages and nowhere
+else, 0 of 171 service and switch pages carry one, and no generated page in
+the estate carries an nhs.net address. Smartts is a single-site brand with no
+landing page, so its 12 pages correctly carry neither. The line is now two
+real assertions, which is where the +12 checks came from.
+  This makes the fourth pass's phrase "own ODS FQN70 only" one field short of
+  what a reader would take it to mean: it meant "no other branch's ODS", not
+  "carries its own". A one-line correction has been added to that note in the
+  worklist rather than rewriting it, so the record shows what was believed at
+  the time. Same shape as run 190's finding on item 3.6, and the fourth time
+  this repo has been bitten by a check that reads less than its name suggests.
+
+ALSO CORRECTED: the new checker's header first claimed 188 fragment links, a
+figure its own output contradicts. The true count is 186. Corrected at source
+rather than left to be quoted onward.
+
+NO PAGE, GENERATOR, DATA FIELD, branches.json ENTRY, GBP PACK OR PIECE OF
+PATIENT-FACING COPY WAS CHANGED BY THIS RUN.
