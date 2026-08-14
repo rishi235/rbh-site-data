@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 03:35 BST - hundred-and-eighty-fourth run
+## 2026-08-14 03:35 BST - hundred-and-eighty-fourth run [commit f036073, hash line added by a small follow-up commit]
 - Item 4.4 quality pass, Scorah Chemists Bramhall GBP pack, fifth pass. ZERO
 IN-REPO DEFECTS in the pack for the fifth consecutive pass. ONE ESTATE-WIDE
 GAP CLOSED, and it is the clinical scope of an NHS service published on
