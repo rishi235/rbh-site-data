@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 05:34 BST - hundred-and-eighty-eighth run
+## 2026-08-14 05:34 BST - hundred-and-eighty-eighth run [commit 6ff0079, hash line added by a small follow-up commit]
 - Item 3.4 quality pass, Cherry Lane Pharmacy, fifth machine pass. ZERO DEFECTS
 IN THE 12 PAGES for the second consecutive pass and not one character of any
 page was edited. THE ONE DEFECT THE FOURTH PASS RECORDED AND LEFT OPEN IS NOW
