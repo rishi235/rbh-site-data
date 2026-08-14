@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 07:34 BST - hundred-and-ninetieth run
+## 2026-08-14 07:34 BST - hundred-and-ninetieth run [commit 924f86d, hash line added by a small follow-up commit]
 - Item 3.6 quality pass, McCanns Chemist (Aigburth and Sandringham), fifth
 machine pass. ZERO DEFECTS IN THE 26 PAGES and not one character of any page
 was edited. ONE DEFECT FOUND AND FIXED, in a checker rather than on a page,
