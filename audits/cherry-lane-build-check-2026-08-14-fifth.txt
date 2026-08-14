@@ -1,0 +1,84 @@
+﻿Item 3.4 Cherry Lane Pharmacy - FIFTH quality pass
+Run 188, unattended, 2026-08-14. Branch agents/audit-backlog.
+REPO HALF ONLY: no browser was available (two Chrome instances connected and
+an unattended run cannot choose between them), so nothing live was read and
+nothing live is claimed.
+
+=== 1. THE 12 PAGES, INDEPENDENT EXTRACTION ===
+Verifier written fresh for this run, sharing no code with tools/.
+
+BRANCH cherrylane_liverpool | seoTown=Walton | postal=Liverpool
+PAGES 12 | CHECKS 288 | FAILURES 0
+
+Positive-coverage proof (guards the run-187 trap of an extractor that
+passes by finding nothing):
+
+page | sheet | titleLen | descLen | h1s | jsonld | telLink
+contraception | CONTRACEPTION-SEO.md | 58 | 153 | 1 | yes | yes
+earache-treatment | SEO.md | 50 | 144 | 1 | yes | yes
+impetigo-treatment | SEO.md | 51 | 145 | 1 | yes | yes
+insect-bite-treatment | SEO.md | 63 | 157 | 1 | yes | yes
+pharmacy-first | SEO.md | 46 | 149 | 1 | yes | yes
+shingles-treatment | SEO.md | 51 | 145 | 1 | yes | yes
+sinusitis-treatment | SEO.md | 52 | 146 | 1 | yes | yes
+sore-throat-treatment | SEO.md | 54 | 148 | 1 | yes | yes
+travel-clinic | TRAVEL-CLINIC-SEO.md | 45 | 140 | 1 | yes | yes
+uti-treatment | SEO.md | 46 | 140 | 1 | yes | yes
+weight-loss-clinic | WEIGHT-LOSS-SEO.md | 50 | 138 | 1 | yes | yes
+switch-prescriptions | SEO.md | 57 | 142 | 1 | yes | yes
+
+Sheet entries matched: 12 of 12
+Total sheet entries parsed across all 5 sheets: 171
+Pages with a structural miss: 0
+
+=== 2. THE DEFECT CLOSED: RULE 12 OF check-weight-loss-copy.js ===
+The 2026-08-13 fourth pass recorded but did not fix: check-weight-loss-copy.js
+scoped to modules/service/pages only, so the weight loss paste block in
+modules/service/weebly-paste was weight loss copy no weight loss rule read.
+Rule 12 added, holding both paste blocks to Regime 1.
+
+Checker report after the change:
+
+check-weight-loss-copy
+  15 weight loss page(s) read against tools/build-weight-loss-pages.js
+  21 line(s) of service copy pinned, 7 FAQ pair(s), 6 screening statement(s)
+  21 medicine name(s) barred from tools/pom-names.js, 12 claim pattern(s) from tools/claim-patterns.js
+  consultation fee: "from £39.99", the same on all 15 page(s)
+  6 branch landing page(s) read as Regime 1, 6 of them advertising the clinic and held to no medicine name, no POM class reference, no purchase wording, no results, rate-of-loss or body-part claim, no offer, and the consultation floor
+  2 Weebly paste block(s) read as Regime 1, 1 of them weight loss copy and held to the same prohibitions plus a live route into the weight loss page
+  OK - no failures
+
+=== 3. NEGATIVE TESTS ===
+Each injects one breach, runs the real checker, requires it to fail AND to
+name the paste file, then restores the file. Test 10 is the one that proves
+the scoping fix: a medicine named in a block that never says weight loss.
+
+CONTROL untouched tree: exit=0 (green, as required)
+1. medicine name in visible copy :: exit=1 :: FIRES, and names the paste file
+2. medicine name in hover text only :: exit=1 :: FIRES, and names the paste file
+3. POM class reference :: exit=1 :: FIRES, and names the paste file
+4. purchase wording :: exit=1 :: FIRES, and names the paste file
+5. once-a-week dosing :: exit=1 :: FIRES, and names the paste file
+6. rate-of-loss claim :: exit=1 :: FIRES, and names the paste file
+7. discount offer :: exit=1 :: FIRES, and names the paste file
+8. no route into the weight loss page :: exit=1 :: FIRES, and names the paste file
+9. gutted block still named weight loss :: exit=1 :: FIRES, and names the paste file
+10. medicine in a block that never says weight loss :: exit=1 :: FIRES, and names the paste file
+
+RESTORED tree: exit=0 (green, nothing left changed)
+NEGATIVE TESTS: 10 fired, 0 did not
+
+=== 4. WHOLE-TREE STATE ===
+All checkers: PASS=35 FAIL=0
+All seven page generators rebuilt: no generated page changed (177 pages
+byte-identical). status/index.html moved by 3 lines, which is its embedded
+timestamp and the log catching up to the 187th run entry, not a page defect.
+
+=== 5. NOT DONE, AND WHY ===
+Rule 12 deliberately does not apply rule 11's positive consultation floor.
+Rule 11 anchors that floor on a service tile whose job is to sell the clinic.
+The weight loss paste block is a page-moved notice, not a sale, so requiring
+it to say consultation would fail correct copy. The floor belongs on the
+destination page, where rules 1 to 10 already hold it.
+
+No new question. No copy changed. No live change.

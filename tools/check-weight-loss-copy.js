@@ -874,6 +874,150 @@ landings.forEach(function (f) {
   }
 });
 
+// ---------------------------------------------------------------------------
+// RULE 12, the Weebly paste blocks, which are Regime 1.
+//
+// Rules 1 to 10 read modules/service/pages and rule 11 reads
+// modules/branch/pages. modules/service/weebly-paste was read by neither, and
+// one of the two blocks in it is weight loss copy. The 2026-08-13 pass of
+// item 3.4 found this and recorded it rather than fixing it: "check-weight-
+// loss-copy.js scopes to modules/service/pages only, so the weight loss paste
+// block is weight loss copy no weight loss rule reads. It is clean today.
+// Worth a later run." This is that run. Same shape as rule 11 and as rule 7 of
+// tools/check-pharmacy-first-cost.js: a checker written for one folder, and a
+// second folder saying the same things to the same public.
+//
+// Why these blocks are Regime 1
+// -----------------------------
+// AI\RBH_WeightLoss_Advertising_Standards.md splits by how a page is REACHED,
+// not by how important it is. The inner-page exemption covers a page "the
+// customer chooses to click into", not an entry point. Each block's own header
+// comment names its paste target, and both are legacy URLs that Google already
+// ranks: the pharmacy first block says "This old URL is still the one Google
+// ranks". A page arrived at from a search result or an old bookmark is an
+// entry point in the literal sense the standard means, so the near-total
+// prohibition applies and the inner-page naming exemption does not. That is
+// the strict reading, and it is also the cheap one: both blocks are clean
+// under it today, so nothing has to be rewritten to adopt it.
+//
+// What rule 12 deliberately does NOT do
+// -------------------------------------
+// It does not apply rule 11's positive consultation floor. Rule 11 anchors
+// that floor on a service TILE, an element whose job is to sell the clinic
+// from a page about something else. The weight loss block here is not selling
+// anything: it is a page-moved notice whose entire content is a sentence
+// saying the clinic has moved and a button to the page that carries the
+// eligibility, safety and no-guarantee copy. Requiring it to also say
+// "consultation" would fail correct copy, which is the exact failure this
+// file warns about twice already, once about consultation pricing and once
+// about the sentence window that a different service could satisfy. The
+// consultation floor belongs on the destination page and rules 1 to 10 hold
+// it there.
+//
+// What it does hold, beyond the Regime 1 prohibitions, is the link itself. A
+// block that advertises the clinic and links nowhere strands the patient on a
+// selling page with no route to the copy that qualifies the offer, which is
+// the same harm rule 11's no-weight-loss-link case describes.
+//
+// The silent zero here is not a file count. These blocks are deleted once
+// pasted, so a floor on how many exist would fire on the folder being used
+// correctly. The real risk is a file that still exists and still says weight
+// loss in its NAME while its body has been gutted or reworded past the
+// detector, leaving the rule passing by reading nothing. That is what is
+// guarded.
+// ---------------------------------------------------------------------------
+const PASTE_DIR = path.join(REPO, "modules", "service", "weebly-paste");
+
+const pasteFiles = fs.existsSync(PASTE_DIR)
+  ? fs.readdirSync(PASTE_DIR).filter(function (f) { return /\.html$/.test(f); })
+  : [];
+
+let pasteWithWeightLoss = 0;
+
+pasteFiles.forEach(function (f) {
+  const file = path.join(PASTE_DIR, f);
+  const raw = fs.readFileSync(file, "utf8");
+  const name = rel(file);
+
+  // Regime 1 reads attributes and hover text, so the medicine and purchase
+  // scans read the raw block with only the paste instructions blanked. The
+  // header comment is blanked on purpose: it is an instruction to a human
+  // about what to remove from the old page, and on the weight loss block it
+  // legitimately contains the words "prescription medicine names" and "the
+  // 22.5% claim" as a description of what is being deleted. Reading it as
+  // copy would fail the block for documenting its own fix.
+  const whole = collapse(blankComments(raw));
+  const text = visible(raw);
+  const namedWeightLoss = /weight-loss|weight_loss|weightloss/i.test(f);
+
+  if (namedWeightLoss && !namesWeightLoss(text)) {
+    fail("paste", name + "::gutted",
+      name + " is named as a weight loss block but its visible text no longer " +
+      "names weight loss at all, so rule 12 would check it by reading nothing. " +
+      "Either the block was emptied and should be deleted rather than left, or " +
+      "the wording moved past the detector.");
+    return;
+  }
+
+  // Scoping follows rule 11 exactly, and the order matters. The patterns that
+  // carry their own subject, a medicine name, "skinny jab", "Add to Basket",
+  // are read on EVERY block, not only the ones that say "weight loss", because
+  // a block naming Mounjaro while never using the words weight loss is the
+  // breach the standard is most concerned with and gating it behind the
+  // service name would skip it. Only the patterns that are wrong about weight
+  // loss specifically are gated below.
+  pom.WEIGHT_LOSS.forEach(function (medicine) {
+    if (pom.findMedicine(whole, [medicine])) {
+      fail("paste", name + "::medicine::" + medicine,
+        name + ' names "' + medicine + '". This block replaces the whole of a ' +
+        "legacy URL that Google already ranks, so it is an entry point and " +
+        "therefore Regime 1 under AI\\RBH_WeightLoss_Advertising_Standards.md, " +
+        "where no prescription-only medicine may be named anywhere, hover text " +
+        "and small print included.");
+    }
+  });
+
+  POM_CLASS.concat(PURCHASE).forEach(function (pair) {
+    const m = whole.match(pair[0]);
+    if (m) {
+      fail("paste", name + "::class::" + m[0].toLowerCase(),
+        name + " carries " + pair[1] + ' ("' + m[0] + '"). The ASA has ruled ' +
+        "this promotes a prescription-only medicine on a page in Regime 1 even " +
+        "where no medicine is named.");
+    }
+  });
+
+  const wl = sentences(text).filter(namesWeightLoss);
+  if (!wl.length) return;
+  pasteWithWeightLoss++;
+  const wlText = wl.join(". ");
+
+  POM_CLASS_IN_CONTEXT.concat(RATE_CLAIMS).concat(OFFERS).forEach(function (pair) {
+    const m = wlText.match(pair[0]);
+    if (m) {
+      fail("paste", name + "::wl::" + m[0].toLowerCase(),
+        name + " says " + pair[1] + ' in its weight loss copy ("' + m[0] +
+        '"). This block is Regime 1, where the clinic may be offered as a ' +
+        "consultation and nothing more.");
+    }
+  });
+
+  const hit = claims.findClaim(wlText);
+  if (hit) {
+    const m = wlText.match(hit[0]);
+    fail("paste", name + "::claim::" + (m ? m[0].toLowerCase() : String(hit[0])),
+      name + " makes " + hit[1] + ' in its weight loss copy: "' +
+      (m ? m[0] : String(hit[0])) + '".');
+  }
+
+  if (!/<a\b[^>]*href="[^"]*weight-loss-clinic-[^"]*\.html"/i.test(raw)) {
+    fail("paste", name + "::no-weight-loss-link",
+      name + " is weight loss copy that links to no weight-loss-clinic page, " +
+      "so the patient is left on a page about the clinic with no route to the " +
+      "eligibility, safety and no-guarantee copy that qualifies it.");
+  }
+});
+
 // --- report ------------------------------------------------------------------
 
 const staleKnown = Object.keys(KNOWN).filter(function (k) {
@@ -897,6 +1041,9 @@ console.log("  " + landings.length + " branch landing page(s) read as Regime 1, 
   landingsWithWeightLoss + " of them advertising the clinic and held to no " +
   "medicine name, no POM class reference, no purchase wording, no results, " +
   "rate-of-loss or body-part claim, no offer, and the consultation floor");
+console.log("  " + pasteFiles.length + " Weebly paste block(s) read as Regime 1, " +
+  pasteWithWeightLoss + " of them weight loss copy and held to the same " +
+  "prohibitions plus a live route into the weight loss page");
 
 const acceptedKeys = Object.keys(knownUsed);
 if (acceptedKeys.length) {

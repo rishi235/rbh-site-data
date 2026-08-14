@@ -2,6 +2,92 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 05:34 BST - hundred-and-eighty-eighth run
+- Item 3.4 quality pass, Cherry Lane Pharmacy, fifth machine pass. ZERO DEFECTS
+IN THE 12 PAGES for the second consecutive pass and not one character of any
+page was edited. THE ONE DEFECT THE FOURTH PASS RECORDED AND LEFT OPEN IS NOW
+CLOSED, and closing it turned up a second defect in my own first draft of the
+fix, which is the more useful finding. Ten negative tests, all ten fire.
+No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited, joining all 228 run heading blocks to the
+item each states it worked and sorting by position in the log rather than by
+timestamp, because two headings on 2026-08-13 carry times that disagree with
+their run numbers. 3.4 is the stalest completed item at 41 runs, last verified
+2026-08-13 07:12. This is the round-robin the 187th run was one step ahead of.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run cannot
+choose between them, so no browser was used, nothing live was read and nothing
+live is claimed. The same constraint blocked step 3: the portal answer pickup
+could not run, so the 47 open questions stay open. This is the recurring fault
+Q59 already records, not a new one.
+
+THE 12 PAGES ARE CLEAN. Fifth independent extraction, own regexes, no code
+shared with tools/: 288 checks, 0 failures. COVERAGE WAS PROVED BEFORE THE
+RESULT WAS BELIEVED, because the 187th run's lesson is that an extractor can
+pass by finding nothing. 171 entries parsed across all five paste sheets, all
+12 pages matched to an entry, titles 45 to 63 characters, descriptions 138 to
+157, exactly one H1 each, JSON-LD and a tel: link on all 12. Walton in every
+title, description and H1; Liverpool as the JSON-LD addressLocality, which is
+the postal town and NOT the seoTown; phone 0151 226 2051 with no other
+phone-shaped number anywhere; L4 8SG the only postcode; no foreign town, brand
+or widget id.
+
+THE DEFECT CLOSED: COPY THAT NO RULE READ. The fourth pass recorded, and did
+not fix, that check-weight-loss-copy.js scoped to modules/service/pages only,
+so the weight loss block in modules/service/weebly-paste was weight loss copy
+no weight loss rule read. Rule 12 now reads that folder. This is the third time
+this exact shape has been found in this repo: a checker written for one folder,
+and a second folder saying the same things to the same public. Rule 11 was the
+second and rule 7 of check-pharmacy-first-cost.js was the first.
+
+WHICH REGIME, AND WHY IT COST NOTHING. The house standard splits by how a page
+is REACHED, not by how important it is. Each block's own header comment names
+its paste target and both are legacy URLs Google already ranks, the pharmacy
+first one says so in as many words. A page arrived at from a search result is
+an entry point, so Regime 1 applies and the inner-page naming exemption does
+not. Both blocks are already clean under the strict reading, so adopting it
+rewrote no copy and changed nothing published. The blocks are not live in any
+case.
+
+THE SECOND DEFECT, WHICH WAS MINE. My first draft gated every rule behind the
+block naming weight loss. That would have skipped a block naming Mounjaro while
+never using the words weight loss, which is the breach the standard cares most
+about. Rule 11 does not make that mistake: it runs the self-scoping scans, the
+medicine names and the purchase wording, on EVERY page and gates only the
+patterns that are wrong about weight loss specifically. Corrected to match, and
+test 10 exists so it cannot come back. Found by reading rule 11 against my own
+code rather than by any test, which is why the comparison is worth doing.
+
+WHAT RULE 12 DELIBERATELY DOES NOT DO. It does not apply rule 11's positive
+consultation floor. That floor is anchored on a service tile whose job is to
+sell the clinic from a page about something else. This block is a page-moved
+notice: one sentence saying the clinic has moved and a button to the page that
+carries the eligibility, safety and no-guarantee copy. Requiring it to also say
+"consultation" would fail correct copy, which is the failure this file already
+warns about twice. The floor belongs on the destination page and rules 1 to 10
+hold it there. What rule 12 does add beyond the prohibitions is the link
+itself, so a block cannot advertise the clinic and strand the patient.
+
+THE SILENT ZERO IS NOT A FILE COUNT. These blocks are deleted once pasted, so a
+floor on how many exist would fire on the folder being used correctly. The real
+risk is a file that still exists and still says weight loss in its NAME while
+its body has been gutted past the detector. That is what is guarded, and test 9
+proves it fires. The checker's report line now states how many blocks it read
+and how many were weight loss, so a future silent zero is visible.
+
+STATE. All 35 checkers pass. All seven generators rebuilt and no generated page
+changed, all 177 byte-identical. status/index.html moved by three lines, its
+embedded timestamp and the log catching up to the 187th run entry, which is
+bookkeeping not a page defect. audits/live-hours-check-2026-08-14.json was
+rewritten byte-identical by its own checker and restored.
+
+FILES: tools/check-weight-loss-copy.js (rule 12 added), AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/cherry-lane-build-check-2026-08-14-fifth.txt (new),
+status/index.html (regenerated).
+
 ## 2026-08-14 - hundred-and-eighty-seventh run [commit 2111c35]
 - Item 3.3 quality pass, Fishlocks Chemist (Ainsdale and Eccleston), fourth
 machine pass. ZERO DEFECTS IN THE 26 PAGES for the fourth consecutive pass and

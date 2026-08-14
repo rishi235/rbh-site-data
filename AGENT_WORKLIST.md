@@ -682,6 +682,37 @@ changed. Recorded not fixed: check-weight-loss-copy.js scopes to
 modules/service/pages only, so the weight loss paste block is weight loss copy
 no weight loss rule reads. It is clean today. Worth a later run. Evidence in
 audits/cherry-lane-build-check-2026-08-13-fourth.txt. No new question.
+Quality pass 2026-08-14 (fifth): ZERO DEFECTS IN THE 12 PAGES for the second
+consecutive pass and not one character of any page was edited. THE DEFECT THE
+FOURTH PASS RECORDED IS NOW CLOSED. REPO HALF ONLY, no browser was available
+so nothing live was read or claimed. Fifth independent extraction written
+fresh for this run and sharing no code with tools/: 288 checks, 0 failures,
+across all 12 pages. Coverage was proved positively before the result was
+believed, because the 187th run's lesson is that an extractor can pass by
+finding nothing: 171 sheet entries parsed across all five paste sheets, all 12
+pages matched to an entry, titles 45 to 63 characters, descriptions 138 to 157,
+exactly one H1 each, JSON-LD and a tel: link on all 12. Walton in every title,
+description and H1, Liverpool as the JSON-LD addressLocality (the postal town,
+NOT the seoTown), phone 0151 226 2051 with no other phone-shaped number, L4 8SG
+the only postcode, no foreign town, brand or widget id. THE FIX: rule 12 added
+to check-weight-loss-copy.js, which now reads modules/service/weebly-paste as
+Regime 1. Regime chosen on the standard's own test of how a page is REACHED,
+not how important it is: each block's header comment names its paste target and
+both are legacy URLs Google already ranks, so they are entry points and the
+inner-page naming exemption does not apply. Both blocks are clean under the
+strict reading, so adopting it rewrote nothing. Ten negative tests, all ten
+fire and all ten name the paste file. ONE DEFECT FOUND IN MY OWN FIRST DRAFT
+AND RECORDED SO IT IS NOT REPEATED: the first version gated every rule behind
+the block naming weight loss, so a block naming Mounjaro while never using the
+words weight loss would have been skipped entirely. Rule 11 does not make that
+mistake, it runs the self-scoping scans on every page and gates only the
+context-scoped ones. Corrected to match, and test 10 exists to hold it. Rule 12
+deliberately does NOT apply rule 11's positive consultation floor: that floor
+is anchored on a service tile whose job is to sell the clinic, while this block
+is a page-moved notice, so requiring it would fail correct copy. All 35
+checkers pass and all seven generators rebuild with no generated page changed.
+Evidence in audits/cherry-lane-build-check-2026-08-14-fifth.txt. No new
+question. Done 2026-08-14
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
