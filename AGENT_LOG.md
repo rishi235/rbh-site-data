@@ -2,6 +2,98 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 07:34 BST - hundred-and-ninetieth run
+- Item 3.6 quality pass, McCanns Chemist (Aigburth and Sandringham), fifth
+machine pass. ZERO DEFECTS IN THE 26 PAGES and not one character of any page
+was edited. ONE DEFECT FOUND AND FIXED, in a checker rather than on a page,
+and the useful part is HOW it was found: my own extractor was wrong first, and
+checking my assumption before trusting it turned up a rule that had been one
+field short of true for four passes. Three negative tests, all three fire.
+No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Run 189's parting warning
+was to read the previous entry's warnings BEFORE deriving the order, not after,
+so I did: every run heading BLOCK was joined before matching, because older
+headings wrap and put "item" and its number on different lines. 230 blocks
+parsed, 41 completed items. 3.6 is the stalest at 41 runs. That agrees with
+run 189's handover exactly, which is the point of deriving it separately
+rather than inheriting it.
+
+REPO HALF ONLY. Two Chrome instances are connected and an unattended run
+cannot choose between them, so no browser was used, nothing live was read and
+nothing live is claimed below. The same constraint blocked step 3, so the
+portal answer pickup could not run and the open questions stay open. This is
+the recurring fault Q59 already records, not a new one.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written. Nothing
+needed it: the fix is a checker rule, not a decision, and it changes no
+patient-facing copy.
+
+THE 26 PAGES ARE CLEAN. Fifth independent extraction, own regexes, own sheet
+parser, no code shared with tools/: 4,636 checks, 0 failures. COVERAGE WAS
+PROVED BEFORE THE RESULT WAS READ, because run 187's lesson is that an
+extractor can pass by finding nothing: 26 pages found by globbing rather than
+from a list, 177 sheet entries parsed across all six sheets, all 26 matched to
+an entry by permalink, and the script exits non-zero if it runs fewer than 500
+checks. One H1 each carrying its own seoTown including the St Michael's
+retitle, phone in both shapes with every tel: link its own, own postcode and
+street only, 73 estate widget ids scanned per page with none hard-coded, pins
+as each generator declares (24 @service-module-phase1, 2 switch @6a275e1),
+own ODS only, no other branch's review URL, no http:// anywhere, cross-town
+clean. Titles 42 to 64 characters, descriptions 135 to 159. All 35 checkers
+pass and all six generators reproduced every page byte-identical.
+
+THE DEFECT: A RULE THAT COULD NOT TELL A SITE FROM A BRAND. My extractor
+asserted the JSON-LD "name" equals brandLabel on every page and flagged the
+two branch landing pages, which carry "McCanns Chemist Aigburth" and
+"McCanns Chemist Sandringham". I did not edit them. I read all 177 estate
+pages first, and the pages were right: the convention is unanimous and was
+undeclared, 6 of 6 branch landing pages carry branchName and 171 of 171
+service and switch pages carry brandLabel (99 of those sit at single-site
+brands where the two strings are equal). check-jsonld rule 3 accepted EITHER
+name on EVERY page, so the only thing it could catch was a name belonging to
+no branch at all. The direction that matters is a branch landing page falling
+back to the bare brandLabel: that hands Google two pages at two different
+addresses carrying one identical entity name, which is precisely the merge the
+branch landing page family was built to prevent, and the old rule passed it
+without comment. Rule 3 is now module-aware and takes the family from the
+DIRECTORY rather than the filename, so a renamed page cannot slip into the
+wrong family. Nothing was wrong today; the policy was unpinned. That is the
+same shape as the widget diary gap found on item 3.7, and it is the third
+time this repo has been bitten by a checker that reads less than its name
+suggests.
+
+WHAT THIS SAYS ABOUT THE FOUR EARLIER PASSES. Passes two through four on this
+item all recorded "JSON-LD address correct field by field". That was true of
+the address and remains true. But "name" sat outside the address block and was
+being read through the either/or rule, so on this item specifically the phrase
+was one field short of what a reader would take it to mean. A one-line
+correction has been added to the fourth-pass note in the worklist rather than
+rewriting it, so the record shows what was believed at the time.
+
+INJECTIONS, ALL THREE CAUGHT. Each written into a real page, the full checker
+run, then reverted, with a re-run after each revert to prove the tree was
+clean before the next case. A branch landing page dropped to the bare
+brandLabel: caught. A service page at a multi-site brand taking the site name:
+caught. A name belonging to no branch at all: caught, which is the regression
+test that the old rule's one real job still works. THE FIRST TWO BOTH PASSED
+UNDER THE OLD RULE, which is what makes them worth running. Harness used
+absolute paths throughout, per run 189's finding that Set-Location does not
+move .NET's working directory and a harness editing the wrong file reports
+success.
+
+FILES CHANGED: tools/check-jsonld.js (rule 3 tightened, header note, a
+per-family counter in the summary), audits/mccanns-independent-2026-08-14.js
+(the extractor, kept so the pass is reproducible),
+audits/mccanns-build-check-2026-08-14.txt (evidence), AGENT_WORKLIST.md (the
+3.6 fifth-pass note and the one-line correction to the fourth), AGENT_LOG.md
+(this entry). No page, no generator, no data field, no branches.json entry, no
+GBP pack and no piece of patient-facing copy was changed.
+
+THE NEXT RUN SHOULD TAKE 3.7, then 3.8, then 3.9.
+
 ## 2026-08-14 06:34 BST - hundred-and-eighty-ninth run
 - Item 3.5 quality pass, Hirshmans Chemist (Ainsdale), fifth machine pass. ZERO
 DEFECTS IN THE 12 PAGES for the second consecutive pass and not one character

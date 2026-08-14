@@ -1,0 +1,80 @@
+﻿ITEM 3.6 QUALITY PASS - McCANNS CHEMIST (AIGBURTH AND SANDRINGHAM) - FIFTH PASS
+date: 2026-08-14   branch: agents/audit-backlog   repo half only, no browser
+base commit: c4f6cba
+
+=== 1. INDEPENDENT EXTRACTION (audits/mccanns-independent-2026-08-14.js) ===
+McCANNS CHEMIST - ITEM 3.6 FIFTH INDEPENDENT EXTRACTION
+date: 2026-08-14   repo: rbh-site-data   branch: agents/audit-backlog
+
+COVERAGE GATE (proved before the result is read):
+  pages found: 26 (expected 26)
+  sheet entries parsed: 177 (expected >0)
+  pages matched to a sheet entry: 26 (expected 26)
+  sheet files parsed: 6
+  estate widget ids scanned per page: 73
+  foreign towns scanned per page: 9
+  other-branch phones scanned per page: 13
+
+PAGES BY MODULE:
+  branch: 2
+  service: 22
+  switch: 2
+
+PIN OWNERSHIP:
+  build-branch-landing-pages.js @service-module-phase1: 2 pages
+  build-service-pages.js @service-module-phase1: 16 pages
+  build-contraception-pages.js @service-module-phase1: 2 pages
+  build-travel-clinic-pages.js @service-module-phase1: 2 pages
+  build-weight-loss-pages.js @service-module-phase1: 2 pages
+  build-switch-pages.js @6a275e1: 2 pages
+
+SHEET STRING LENGTHS:
+  titles: 42 to 64 characters (26 values)
+  descriptions: 135 to 159 characters (26 values)
+
+RESULT: 4636 checks, 0 failures
+ALL CLEAN
+
+=== 2. check-jsonld AFTER RULE 3 WAS TIGHTENED ===
+check-jsonld
+  177 generated page(s) checked against 16 trading branches
+  177 map iframe address(es) decoded and compared
+  @type declared: Pharmacy x177
+  name checked per family: branch:branchName x6, service:brandLabel x156, switch:brandLabel x15
+
+check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+
+=== 3. NEGATIVE TESTS FOR THE TIGHTENED RULE 3 ===
+Each injection written into a real page, the checker run, then reverted.
+Cases 1 and 2 PASSED under the old either/or rule. That is the point of them.
+baseline check-jsonld exit=0 (green)
+CAUGHT  branch landing page falls back to the bare brandLabel (the direction that matters)
+         FAIL  modules/branch/pages/pharmacy-mccanns-aigburth.html: "name" is "McCanns Chemist" but a branch page must declare branchName, which branches.json gives as "McCanns Chemist Aigburth". It is this br
+CAUGHT  service page at a multi-site brand takes the site name instead of the brand
+         FAIL  modules/service/pages/uti-treatment-mccanns-sandringham.html: "name" is "McCanns Chemist Sandringham" but a service page must declare brandLabel, which branches.json gives as "McCanns Chemist". 
+CAUGHT  regression: a name belonging to no branch at all (old rule caught this, new one must too)
+         FAIL  modules/switch/pages/switch-prescriptions-mccanns-aigburth.html: "name" is "Totally Other Pharmacy" but a switch page must declare brandLabel, which branches.json gives as "McCanns Chemist".
+
+ALL NEGATIVE TESTS FIRE
+
+=== 4. ALL SIX GENERATORS REBUILT ===
+  build-branch-landing-pages.js: exit=0
+  build-service-pages.js: exit=0
+  build-contraception-pages.js: exit=0
+  build-travel-clinic-pages.js: exit=0
+  build-weight-loss-pages.js: exit=0
+  build-switch-pages.js: exit=0
+
+git status after regenerating (no page changed = byte-identical):
+ M tools/check-jsonld.js
+?? audits/mccanns-build-check-2026-08-14.txt
+?? audits/mccanns-independent-2026-08-14.js
+
+=== 5. FULL CHECKER SUITE ===
+CHECKERS TOTAL=35 PASS=35 FAIL=0
+
+=== 6. NOT CLAIMED ===
+Two Chrome instances are connected and an unattended run cannot choose
+between them, so no browser was used. Nothing live was read and nothing
+live is claimed. The portal answer pickup could not run for the same
+reason, so the open questions stay open. Recurring fault, already Q59.

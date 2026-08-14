@@ -27,7 +27,9 @@
  *   1. Every generated page has exactly one JSON-LD block, and it parses.
  *   2. "@type" is Pharmacy on every branch page. No page may be typed more
  *      vaguely than its siblings.
- *   3. "name" is the branch's branchName or brandLabel from branches.json.
+ *   3. "name" is the right one of branchName / brandLabel FOR THAT PAGE FAMILY:
+ *      a branch landing page declares branchName, a service or switch page
+ *      declares brandLabel. See the note below.
  *   4. "url" is the branch website plus the page's own filename.
  *   5. PostalAddress matches branches.json field for field, including
  *      addressRegion and addressCountry.
@@ -40,6 +42,22 @@
  * Expected values are composed here from branches.json rather than imported
  * from the generators, on purpose. A checker that calls the code it is checking
  * proves nothing.
+ *
+ * RULE 3 WAS TIGHTENED ON THE ITEM 3.6 QUALITY PASS, 2026-08-14. Nothing was
+ * wrong; the policy was unpinned, which is the same shape of gap the item 3.7
+ * pass found in the widget diaries. Rule 3 used to accept EITHER branchName or
+ * brandLabel on EVERY page, so it could only catch a name belonging to no
+ * branch at all. The estate turns out to be unanimous and undeclared: all 6
+ * branch landing pages declare branchName, and all 171 service and switch
+ * pages declare brandLabel (90 service and 9 switch pages sit at single-site
+ * brands where the two strings are equal, so they satisfy either form).
+ *
+ * The direction that matters is a branch landing page falling back to the bare
+ * brandLabel. A brand landing page exists precisely to separate two sites: with
+ * "McCanns Chemist" on both the Aigburth and the Sandringham landing page,
+ * Google is handed two pages at two different addresses carrying one identical
+ * entity name, which is the merge this page family was built to prevent. The
+ * old rule passed that happily. It now fails.
  */
 
 var fs = require("fs");
@@ -125,6 +143,7 @@ console.log("check-jsonld");
 var checked = 0;
 var unmatched = 0;
 var typeCounts = {};
+var nameFamilies = {};
 var mapsChecked = 0;
 
 PAGE_DIRS.forEach(function (dir) {
@@ -168,10 +187,19 @@ PAGE_DIRS.forEach(function (dir) {
       fail(rel + ': "@context" is "' + obj["@context"] + '", expected "https://schema.org"');
     }
 
-    // Rule 3
-    if (obj.name !== b.branchName && obj.name !== b.brandLabel) {
-      known(file, "name", rel + ': "name" is "' + obj.name + '" but branches.json says branchName "' +
-        b.branchName + '" or brandLabel "' + b.brandLabel + '"');
+    // Rule 3. Module-aware: see the note at the top of this file. The family is
+    // taken from the directory the page was found in, not from its filename, so
+    // a renamed page cannot slip into the wrong family.
+    var family = path.basename(path.dirname(dir)); // branch | service | switch
+    var wantName = (family === "branch") ? b.branchName : b.brandLabel;
+    var wantWhich = (family === "branch") ? "branchName" : "brandLabel";
+    nameFamilies[family + ":" + wantWhich] = (nameFamilies[family + ":" + wantWhich] || 0) + 1;
+    if (obj.name !== wantName) {
+      known(file, "name", rel + ': "name" is "' + obj.name + '" but a ' + family +
+        ' page must declare ' + wantWhich + ', which branches.json gives as "' + wantName + '"' +
+        (obj.name === b.branchName || obj.name === b.brandLabel
+          ? '. It is this branch\'s other name, which is why the old either/or rule passed it.'
+          : '.'));
     }
 
     // Rule 4
@@ -242,6 +270,9 @@ console.log("  " + checked + " generated page(s) checked against " + branches.le
 console.log("  " + mapsChecked + " map iframe address(es) decoded and compared");
 console.log("  @type declared: " + Object.keys(typeCounts).sort().map(function (t) {
   return t + " x" + typeCounts[t];
+}).join(", "));
+console.log("  name checked per family: " + Object.keys(nameFamilies).sort().map(function (k) {
+  return k + " x" + nameFamilies[k];
 }).join(", "));
 if (unmatched) console.log("  " + unmatched + " page(s) skipped, no branch matched from the filename");
 

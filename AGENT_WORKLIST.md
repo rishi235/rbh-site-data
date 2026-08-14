@@ -826,7 +826,10 @@ family, own ODS only, no other branch's review or Pharmacy First link, no
 http:// on any page, cross-town clean apart from the deliberate same-brand
 signpost to Sandringham on the Aigburth landing page. 50 sheet rows,
 descriptions 135 to 159 characters. Both GBP packs satisfy run 147's new
-post-town rule. All 30 checkers pass, all seven generators byte-identical.
+post-town rule. All 30 checkers pass, all seven generators byte-identical. [see the fifth pass
+below: this pass and the three before it read the JSON-LD "name" through a
+rule that could not tell branchName from brandLabel, so "field by field" was
+one field short of true.]
 ONE DEFECT FOUND, in a checker rather than on a page: check-em-dashes.js read
 three pasteable label spellings and the INDEX.md sheets write two more ("SEO
 title", "SEO description", 326 lines), which were being counted as headings
@@ -834,6 +837,41 @@ rather than pasted values. Proved by injection, fixed at source, three
 negative tests all fire. All 326 lines were already clean, so a latent hole
 closed, not a live breach. No copy edited anywhere. Evidence in
 audits/mccanns-build-check-2026-08-13.txt.
+Quality pass 2026-08-14 (fifth). Done 2026-08-14. REPO HALF ONLY: two Chrome
+instances are connected and an unattended run cannot choose between them, so
+no browser was used, nothing live was read and nothing live is claimed. All 26
+pages re-verified by a fifth independent extraction sharing no code with
+tools/, 4,636 checks, 0 failures, and NOT ONE CHARACTER OF ANY PAGE WAS
+EDITED. Coverage was proved before the result was read (run 187's lesson): 26
+pages found by globbing, 177 sheet entries parsed across all six sheets, all 26
+matched to a sheet entry by permalink, and the script refuses to report a
+result on fewer than 500 checks. One H1 per page carrying its own seoTown,
+phone in both shapes with every tel: link its own, own postcode and street
+only, JSON-LD address field by field, 73 estate widget ids scanned per page
+with none hard-coded, pins as each generator declares (24 pages
+@service-module-phase1, the 2 switch pages @6a275e1), own ODS only, no other
+branch's review URL, no http:// anywhere, cross-town clean. Titles 42 to 64
+characters, descriptions 135 to 159. Brand widget diary policy re-asserted from
+the data: weightLoss and travelClinic shared across both McCanns sites, the
+three NHS diaries unique per site and colliding with no other branch. All 35
+checkers pass, all six generators reproduced every page byte-identical.
+ONE DEFECT FOUND AND FIXED, in a checker rather than on a page, and it was
+found by my own extractor being WRONG first. My draft asserted the JSON-LD
+"name" equals brandLabel on every page and flagged the two branch landing
+pages. The pages were right and the assertion was wrong, so before changing
+anything I read all 177 estate pages: the convention is unanimous and was
+undeclared, 6 of 6 branch landing pages carry branchName and 171 of 171
+service and switch pages carry brandLabel. check-jsonld rule 3 accepted EITHER
+name on EVERY page, so it could only ever catch a name belonging to no branch
+at all. The direction that matters is a branch landing page falling back to
+the bare brandLabel: that hands Google two pages at two different addresses
+carrying one identical entity name, which is the exact merge the branch
+landing page family exists to prevent, and the old rule passed it. Rule 3 is
+now module-aware, taking the family from the directory rather than the
+filename. Three negative tests, all three fire, and the two that prove the new
+behaviour both PASSED under the old rule. Nothing was wrong today; the policy
+was unpinned, same shape as the widget diary gap found on item 3.7. No copy
+edited anywhere. Evidence in audits/mccanns-build-check-2026-08-14.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
