@@ -1886,6 +1886,136 @@ for (const file of packFiles) {
     }
   }
 
+  // --- an hours statement ANYWHERE in the pack must agree ----------------
+  // Every rule above reads ONE region, the "- Hours:" bullet in the profile
+  // basics, and stops at its line break. Eleven of the fifteen packs state a
+  // clock time somewhere else as well, and two of those places are read by
+  // the person about to type into Google: the paster note that restates the
+  // split day in full, and the business description, which is PUBLIC copy
+  // pasted verbatim into the profile. Neither agreed with anything.
+  //
+  // Found on the item 4.6 quality pass, 2026-08-14, by injection into
+  // mccanns-aigburth.md, which states its hours in four places. Changing the
+  // paster note's Saturday close from 5:00pm to 6:00pm left the guarded
+  // hours line untouched and ALL 36 CHECKERS EXITED 0, so the pack published
+  // one Saturday to the checker and a different one to the paster. Moving
+  // the photo list's lunch closure to "1:00pm to 3:00pm" passed the same
+  // way, and so did turning the note's "Monday to Friday" into "Monday to
+  // Saturday". It is the same shape as the address defect the 2026-08-13
+  // pass closed on this same pack: a fact stated more than once, guarded in
+  // one place only, and the unguarded copy is the operative one.
+  //
+  // Scope and the three things deliberately NOT read, each of which is a
+  // real line in a real pack rather than a hypothetical:
+  // - QUOTED spans, because clear-aintree.md and smartts-bootle.md quote the
+  //   hours the branch's own WEBSITE publishes as evidence that the site is
+  //   wrong. Reading a quoted error as a claim would fail the two packs
+  //   doing this best. Same reason the hours line strips them.
+  // - HISTORY parentheticals, for scorah-hazel-grove.md's ceased Saturday.
+  // - Any day branches.json holds CLOSED, because that day has no ranges to
+  //   compare against and the day rule above already owns it. This is what
+  //   keeps scorah-hazel-grove.md's "still shows Saturday 9:00am to 1:00pm,
+  //   remove it" out of scope: it is an instruction to delete a wrong
+  //   Saturday, not a claim to publish one.
+  //
+  // A lunch statement is read as a BREAK, not as opening hours, and checked
+  // against the gap the specification actually leaves. "The pharmacy closes
+  // for lunch 1:00pm to 2:00pm Monday to Saturday" in gordon-short-crosby.md
+  // is a correct sentence that a naive opening-hours read would fail.
+  if (spec && spec.length) {
+    const T2 = "(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)";
+    const TO2 = "(?:to|until|till)";
+    const dRanges = {};
+    for (const s of spec) {
+      for (const d of (s.dayOfWeek || [])) {
+        (dRanges[d] = dRanges[d] || []).push([s.opens, s.closes]);
+      }
+    }
+    for (const d of Object.keys(dRanges)) dRanges[d].sort((a, z) => a[0].localeCompare(z[0]));
+    const gapsOf = (d) => {
+      const rs = dRanges[d] || [];
+      const out = [];
+      for (let i = 1; i < rs.length; i++) out.push([rs[i - 1][1], rs[i][0]]);
+      return out;
+    };
+    const expandDays2 = (s) =>
+      s.replace(new RegExp(`${DAY_SRC}\\s*(?:to|-|through|thru|until)\\s*${DAY_SRC}`, "gi"), (m, a, z) => {
+        const from = dayIndexOf(a);
+        const to = dayIndexOf(z);
+        if (from < 0 || to < 0 || to < from) return m;
+        return ` ${DAY_NAMES.slice(from, to + 1).join(" ")} `;
+      });
+    const pairsIn = (s) => {
+      const out = [];
+      for (const m of s.matchAll(new RegExp(`${T2}\\s*${TO2}\\s*${T2}`, "gi"))) {
+        out.push([toMinutes(m[1], m[2], m[3].toLowerCase()), toMinutes(m[4], m[5], m[6].toLowerCase())]);
+      }
+      return out;
+    };
+    const scope = (hoursLine ? text.split(hoursLine).join(" \n ") : text)
+      .replace(/\([^)]*\b(?:previously|formerly|ceased|used to|was)\b[^)]*\)/gi, " ")
+      .replace(/"[^"]*"/g, " ")
+      .replace(/\s+/g, " ");
+    for (const sentence of scope.split(/\.\s+/)) {
+      if (!new RegExp(T2, "i").test(sentence)) continue;
+      // The colon is a separator here because the paster note introduces its
+      // restatement with one ("... to show the lunch closure: Monday to
+      // Friday ..."), and without it the two day segments arrive fused and
+      // the wrong day carries the wrong ranges. But a clock time contains a
+      // colon too, so splitting on every one cuts "9:00am" into "9" and
+      // "00am" and the rule silently reads nothing. That is exactly what the
+      // first draft of this rule did: it caught the photo-list injection,
+      // whose colons sat inside parentheses and so were never split, and
+      // missed both paster-note injections. A colon between two digits is
+      // part of a time, never punctuation.
+      const segs = [];
+      let depth = 0;
+      let buf = "";
+      for (let i = 0; i < sentence.length; i++) {
+        const ch = sentence[i];
+        if (ch === "(") depth++;
+        else if (ch === ")") depth = Math.max(0, depth - 1);
+        const inTime = ch === ":" && /\d/.test(sentence[i - 1] || "") && /\d/.test(sentence[i + 1] || "");
+        if ((ch === "," || ch === ";" || (ch === ":" && !inTime)) && depth === 0) { segs.push(buf); buf = ""; }
+        else buf += ch;
+      }
+      segs.push(buf);
+      for (const seg of segs) {
+        const days = [];
+        for (const m of expandDays2(seg).matchAll(new RegExp(DAY_SRC, "gi"))) {
+          const i = dayIndexOf(m[1]);
+          if (i >= 0 && !days.includes(DAY_NAMES[i])) days.push(DAY_NAMES[i]);
+        }
+        const openDays = days.filter((d) => (dRanges[d] || []).length);
+        if (!openDays.length) continue;
+        const where = norm(seg).trim().slice(0, 110);
+        if (/\bclos(?:ed|es|ure|ing)\b|\blunch\b/i.test(seg)) {
+          const claimed = pairsIn(seg);
+          if (claimed.length !== 1) continue;
+          const [cs, ce] = claimed[0];
+          for (const d of openDays) {
+            const gaps = gapsOf(d);
+            if (!gaps.length) continue;
+            if (!gaps.some((g) => g[0] === cs && g[1] === ce)) {
+              fail(file, `outside the guarded hours line, this pack states a ${d} closure of ${cs} to ${ce}, but branches.json leaves ${d} closed ${gaps.map((g) => `${g[0]} to ${g[1]}`).join(" and ")}. The hours line is not the only place this pack states its hours, and this one is read by the paster or pasted into the public profile. Found: "${where}"`);
+            }
+          }
+        } else {
+          let claimed = pairsIn(seg.replace(/\([^)]*\)/g, " "));
+          if (!claimed.length) claimed = pairsIn(seg);
+          if (!claimed.length) continue;
+          const got = claimed.map((r) => `${r[0]} to ${r[1]}`).sort();
+          for (const d of openDays) {
+            const want = (dRanges[d] || []).map((r) => `${r[0]} to ${r[1]}`).sort();
+            if (want.join(" | ") !== got.join(" | ")) {
+              fail(file, `outside the guarded hours line, this pack publishes ${d} as ${got.join(" and ")}, but branches.json holds ${d} as ${want.join(" and ")}. The "- Hours:" line may be perfect and still leave this wrong, because nothing read past it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open. Found: "${where}"`);
+            }
+          }
+        }
+      }
+    }
+  }
+
   // --- a lunch closure must tell the paster to enter TWO ranges -----------
   // Seven of the sixteen branches close for lunch, so a weekday appears
   // twice in openingHours.specification. The rule above proves the pack's

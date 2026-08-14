@@ -2,6 +2,107 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 18:25 BST - two-hundred-and-fourth run
+
+- Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack. ONE REAL
+DEFECT FOUND AND FIXED, in the checker rather than the pack: every hours rule
+reads ONE region and this pack states its hours in FOUR places, so the sentence
+the paster actually reads while typing into Google was guarded by nothing.
+Proved by three injections, not argued. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited: the log was swept for every phrasing that
+records a verification, all 41 completed items resolved to an entry, and the
+entries were ranked by POSITION IN THE FILE rather than by header date, because
+14 items share 2026-08-13 and three of those headers carry no clock time at all.
+Item 4.6 was last verified in the hundred-and-sixty-third run and is the oldest
+standing. That agrees with the 203rd run's projection, which was not relied on.
+
+BASELINE. No .agent-lock and no .git\index.lock. Level with origin, worktree
+clean. All 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit, and again after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. Forty-first
+consecutive run of this fault, which is what Q59 asks about, so no duplicate was
+raised. 47 questions open going in, 47 going out. Nothing live was read, and the
+2026-08-12 live verdicts on this item stand as written rather than re-claimed.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation" section in this log is
+dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days ago, and it is
+not at the top of the file. Step 7 applied as written.
+
+WHAT HELD. The pack's own data is clean for the fifth time, verified field by
+field against branches.json: name, street, post town, postcode, phone, the hours
+line including both lunch closures and the two-range paster instruction, review
+link, profile website pointed at its own landing page, catchment order,
+categories and services earned by the widget set, description at 725 of 750
+characters, all four post buttons resolving to this branch's own pages, and no
+app mention anywhere because hasApp is false. One warning only, the known 5.3
+pfLink item.
+
+THE DEFECT. tools/check-gbp-packs.js cuts one string, hoursLine, out of the
+"- Hours:" bullet in the profile basics, and the time rule, the day rule and the
+day-pairing rule all read that string and nothing else. This pack states its
+hours in four places. All 36 checkers exited 0 on each of:
+
+  paster note, Saturday close 5:00pm -> 6:00pm        ALL 36 EXITED 0
+  photo shot list, lunch closure end 2:00pm -> 3:00pm ALL 36 EXITED 0
+  paster note, "Monday to Friday" -> "Monday to Saturday"  ALL 36 EXITED 0
+
+The first is the operative line: it is the sentence a person reads while filling
+in Google's hours editor, and it published a Saturday an hour longer than the
+staff work while the guarded line stayed perfect. Same shape as the address
+defect the 2026-08-13 pass closed on this same pack - a fact stated more than
+once, guarded in one place only, and the unguarded copy the one that reaches a
+human.
+
+ESTATE-WIDE, NOT LOCAL. 11 of the 15 packs state a clock time outside the
+guarded line. In six of them it sits inside the BUSINESS DESCRIPTION or a POST,
+which is public copy pasted verbatim into the profile, so this was never only a
+paster-note problem.
+
+THE FIX. New rule: an hours statement anywhere in a pack must agree with
+branches.json. Composed from the data, nothing hardcoded. It deliberately does
+not read quoted spans (clear-aintree and smartts-bootle quote the hours their
+own website publishes as evidence the site is wrong), history parentheticals
+(scorah-hazel-grove's ceased Saturday) or days branches.json holds closed (which
+is what keeps "if the profile still shows Saturday 9:00am to 1:00pm, remove it"
+out of scope - deleting a wrong day is not claiming one). A lunch sentence is
+read as a BREAK against the gap the specification leaves rather than as opening
+hours, so gordon-short-crosby's correct "closes for lunch 1:00pm to 2:00pm
+Monday to Saturday" passes. Each of those three exclusions is a real line in a
+real pack, not a hypothetical.
+
+A FAULT IN THE FIRST DRAFT, RECORDED RATHER THAN QUIETLY FIXED. The segment
+splitter treated the colon as punctuation, which it is in the paster note
+("... to show the lunch closure: Monday to Friday ..."), but a clock time
+carries one too, so "9:00am" was cut into "9" and "00am" and the rule read
+nothing. It caught the photo-list injection, whose colons sat inside brackets
+and were never split, and MISSED both paster-note injections. A rule that passes
+its happy path while silently reading nothing is the exact failure this pass
+exists to find, so it is written up rather than buried.
+
+NEGATIVE TESTED 14 WAYS, all as expected: 9 must-catch across four packs
+(mccanns-aigburth, hirshmans-ainsdale, gordon-short-crosby, riddings-timperley,
+sk-chemists-bootle) and three regions (paster note, photo list, business
+description and post copy), and 5 must-pass false-positive guards. The 18
+warnings are the same 18 as before the change, so the rule adds no noise.
+
+RESIDUAL, STATED. A restatement naming no weekday is still unread: four packs
+write "per weekday (9:00am to 1:00pm and 2:00pm to 6:00pm)" and the rule needs a
+named day to compare against. Mapping "weekday" onto Monday to Friday would be a
+guess that Saturday-trading branches make wrong, so it is left open deliberately.
+
+FILES CHANGED. tools/check-gbp-packs.js (new rule), AGENT_WORKLIST.md (4.6
+ticked in place with the pass recorded), AGENT_LOG.md (this entry),
+audits/mccanns-aigburth-gbp-pack-quality-pass-2026-08-14.txt (full working). No
+page, no copy and no branches.json field was changed.
+
 ## 2026-08-14 17:20 BST - two-hundred-and-third run [commit c43af8a, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.7, the McCanns Sandringham seoTown move. ONE REAL

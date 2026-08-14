@@ -1886,6 +1886,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       mention in each of the other three. Ten injections caught, none
       missed, all 31 checkers green, no page, generator, data field or piece
       of patient-facing copy changed. No new question.
+      Quality pass 2026-08-14 (two-hundred-and-fourth run): fifth pass, and
+      the pack's own data is clean for the fifth time on name, address, post
+      town, postcode, phone, hours including both lunch closures, review
+      link, catchment order, profile website, categories, services,
+      description length, all four post buttons and hasApp. One warning, the
+      known 5.3 pfLink. REPO HALF ONLY, no browser (Q59), so the 2026-08-12
+      live verdicts above stand as written. All 36 checkers green and all six
+      generators byte-stable before and after. ONE REAL DEFECT FOUND AND
+      FIXED, in the checker rather than the pack, and it is the hours twin of
+      the address defect the 2026-08-13 pass closed on this same pack. Every
+      hours rule reads ONE region, the "- Hours:" bullet, and this pack
+      states its hours in four places. Proved by injection with all 36
+      checkers exiting 0 three times: the paster note's Saturday close moved
+      from 5:00pm to 6:00pm, the photo list's lunch closure moved to 3:00pm,
+      and the note's "Monday to Friday" turned into "Monday to Saturday".
+      The first is the sentence the paster reads while typing into Google's
+      hours editor. Estate-wide: 11 of the 15 packs state a clock time
+      outside the guarded line, and in six of them it is inside the business
+      description or a post, which is public copy pasted verbatim into the
+      profile. New rule holds every hours statement anywhere in a pack to
+      branches.json, composed from the data with nothing hardcoded, reading a
+      lunch sentence as a BREAK against the gap the specification leaves
+      rather than as opening hours, and deliberately not reading quoted
+      spans, history parentheticals or days held closed, each of which is a
+      real line in a real pack. The first draft of the rule split on the
+      colon inside "9:00am" and silently read nothing, which its own negative
+      tests caught; recorded rather than quietly fixed. Negative tested 14
+      ways, 9 must-catch across four packs and three regions and 5 must-pass
+      false-positive guards, all as expected. Residual stated: a restatement
+      naming no weekday is still unread. No page, copy or data change, no new
+      question. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-08-14.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

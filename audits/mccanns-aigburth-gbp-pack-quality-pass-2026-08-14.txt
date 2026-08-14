@@ -1,0 +1,135 @@
+ITEM 4.6 QUALITY PASS - McCanns Chemist Aigburth GBP pack
+Run: two-hundred-and-fourth unattended run, 2026-08-14
+Branch: agents/audit-backlog. Repo half only, no live half (see BROWSER below).
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so the run does a quality pass instead. Staleness was
+re-derived mechanically rather than inherited from the 203rd run's projection:
+the log was swept for every phrasing that records a verification, all 41
+completed items resolved to an entry, and the entries were ranked by position
+in the file rather than by header date, because 14 items share 2026-08-13 and
+three of those entries carry no clock time in their header. Item 4.6 was last
+verified in the hundred-and-sixty-third run and is the oldest standing. That
+agrees with the 203rd run's projection, which was not relied on.
+
+BASELINE BEFORE ANY EDIT
+- No .agent-lock present. No .git\index.lock. Lock created, deleted on exit.
+- Level with origin/agents/audit-backlog, worktree clean.
+- All 36 checkers exit 0.
+- All six generators rebuild every page byte-identical (git status clean).
+
+BROWSER
+Two Chrome extension instances are connected and the tooling states a human
+must choose between them and that the agent must not pick one itself. An
+unattended run has nobody to ask, so step 3 got no further than enumerating
+them. NO page was fetched and nothing was clicked, typed, submitted or logged
+in to, on any site. No other route was attempted. Forty-first consecutive run
+of this fault, which is what Q59 asks about, so no duplicate was raised. The
+2026-08-12 live verdicts in the worklist stand as written and nothing live is
+re-claimed here.
+
+THE PACK'S OWN DATA - CLEAN FOR THE FIFTH TIME
+Verified field by field against branches.json (mccanns_aigburth):
+  name                McCanns Chemist Aigburth                        agrees
+  street address      112 Aigburth Road                               agrees
+  post town           Liverpool (addressLocality)                     agrees
+  postcode            L17 7BP                                         agrees
+  phone               0151 727 3185                                   agrees
+  hours line          Mon-Fri 09:00-13:00 and 14:00-18:00,
+                      Sat 09:00-13:00 and 14:00-17:00, Sun closed     agrees
+  both lunch closures stated, two-range paster instruction present    agrees
+  review link         https://g.page/r/CdDj9KyelDVyEAE/review         agrees
+  profile website     pharmacy-mccanns-aigburth.html (own landing)    agrees
+  catchment order     Aigburth, Sefton Park, Mossley Hill, Grassendale agrees
+  categories          earned by the widget set                        agrees
+  services            earned by the widget set                        agrees
+  description         725 characters against the 750 limit            agrees
+  four post buttons   leaf names resolve to this branch's own pages   agrees
+  hasApp false        no app mention anywhere in the pack             agrees
+One warning only, and it is the known item 5.3 pfLink entry.
+
+THE DEFECT - ONE FOUND AND FIXED, IN THE CHECKER, NOT THE PACK
+Every hours rule in check-gbp-packs.js reads ONE region: the "- Hours:" bullet
+in the profile basics. hoursLine is cut at the first following bullet or blank
+line and the time rule, the day rule and the day-pairing rule all read that
+string and nothing else. This pack states its hours in FOUR places.
+
+Proved by injection, all 36 checkers exiting 0 on each:
+
+  a) paster note, Saturday close 5:00pm changed to 6:00pm   ALL 36 EXIT 0
+  b) photo shot list, lunch closure end 2:00pm to 3:00pm    ALL 36 EXIT 0
+  c) paster note, "Monday to Friday" to "Monday to Saturday" ALL 36 EXIT 0
+
+(a) is the operative line. It is the sentence the paster reads while typing
+into Google's hours editor, and it published a Saturday an hour longer than
+the staff work while the guarded line stayed perfect. Same shape as the
+address defect the 2026-08-13 pass closed on this same pack: a fact stated
+more than once, guarded in one place only, and the unguarded copy the one
+that reaches a human.
+
+ESTATE-WIDE, NOT LOCAL. Eleven of the fifteen packs state a clock time outside
+the guarded line: coleman-leigh-walton, fishlocks-eccleston, gordon-short-
+crosby, hirshmans-ainsdale, mccanns-aigburth, mccanns-sandringham, riddings-
+timperley, scorah-hazel-grove, sk-chemists-bootle, smartts-bootle and
+tiffenbergs-aintree. Two of those places are worse than a paster note: the
+BUSINESS DESCRIPTION (riddings-timperley, sk-chemists-bootle, smartts-bootle,
+coleman-leigh-walton, gordon-short-crosby, tiffenbergs-aintree) and a POST
+(sk-chemists-bootle) are public copy pasted verbatim into the profile.
+
+THE FIX
+New rule in tools/check-gbp-packs.js: an hours statement anywhere in the pack
+must agree with branches.json. Scope is the whole pack minus the already
+guarded hours line. Composed from branches.json, nothing hardcoded.
+- Quoted spans are not read, because clear-aintree.md and smartts-bootle.md
+  quote the hours their own WEBSITE publishes as evidence the site is wrong.
+- History parentheticals are not read (scorah-hazel-grove's ceased Saturday).
+- Days branches.json holds CLOSED are skipped, which is what keeps scorah-
+  hazel-grove's "if the profile still shows Saturday 9:00am to 1:00pm, remove
+  it" out of scope: an instruction to delete a wrong day is not a claim.
+- A lunch statement is read as a BREAK and checked against the gap the
+  specification actually leaves, not as opening hours, so gordon-short-crosby's
+  correct "closes for lunch 1:00pm to 2:00pm Monday to Saturday" passes.
+
+A FAULT IN THE FIRST DRAFT OF THE RULE, FOUND BY ITS OWN NEGATIVE TESTS
+The segment splitter treated the colon as punctuation, which it is in the
+paster note ("... to show the lunch closure: Monday to Friday ..."), but a
+clock time carries one too, so "9:00am" was cut into "9" and "00am" and the
+rule read nothing. It caught injection (b), whose colons sat inside brackets
+and so were never split, and MISSED (a) and (c). A colon between two digits is
+now treated as part of a time. Recorded because a rule that passes its happy
+path while silently reading nothing is the exact failure this pass exists to
+find.
+
+NEGATIVE TESTS - 14, ALL AS EXPECTED (9 must-catch, 5 must-pass)
+  CATCH  1  mccanns-aigburth note: Saturday close 5pm to 6pm
+  CATCH  2  mccanns-aigburth photo list: lunch end 2pm to 3pm
+  CATCH  3  mccanns-aigburth note: day word Friday to Saturday
+  CATCH  4  mccanns-aigburth note: weekday close 6pm to 7pm
+  CATCH  5  mccanns-aigburth note: split day flattened to one 9 to 6 range
+  CATCH  6  hirshmans-ainsdale note: Saturday close 5:30pm to 6pm
+  CATCH  7  gordon-short-crosby note: lunch end 2pm to 2:30pm
+  CATCH  8  riddings-timperley BUSINESS DESCRIPTION: close 6pm to 7pm
+  CATCH  9  sk-chemists-bootle POST COPY: open 9am to 8am
+  PASS  10  control, unchanged text
+  PASS  11  false-positive guard: quoted wrong hours must not fire
+  PASS  12  false-positive guard: history parenthetical must not fire
+  PASS  13  false-positive guard: a correct extra restatement must pass
+  PASS  14  false-positive guard: delete-a-wrong-Saturday instruction
+
+AFTER THE CHANGE
+All 36 checkers exit 0 on the untouched tree. The 18 warnings are the same 18
+as before the change, so the rule adds no noise. All six generators rebuild
+byte-identical. No page, no copy and no branches.json field was changed.
+
+RESIDUAL, STATED RATHER THAN HIDDEN
+A restatement that names no weekday is still not read, because the rule needs
+a day to compare against. Four packs write "per weekday (9:00am to 1:00pm and
+2:00pm to 6:00pm)" in their paster note (coleman-leigh-walton, mccanns-
+sandringham, smartts-bootle, tiffenbergs-aintree) and those brackets are
+invisible to this rule. Mapping "weekday" onto Monday to Friday would be a
+guess about which days a branch trades, and Saturday-trading branches make
+that guess wrong, so it is left open deliberately rather than approximated.
+
+QUESTIONS RAISED
+None. 47 open going in, 47 going out.
