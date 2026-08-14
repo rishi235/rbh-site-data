@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 02:05 BST - hundred-and-eighty-first run
+## 2026-08-14 02:05 BST - hundred-and-eighty-first run [commit b6bdbb7, hash line added by a small follow-up commit]
 - Item 1.3 quality pass, the McCanns Sandringham postcode error, fifth pass.
 ONE DEFECT FOUND AND FIXED, in tools/check-postcodes.js, and it sat under all
 six of that checker's rules at once rather than in any one of them. No page,
