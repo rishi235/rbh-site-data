@@ -2,6 +2,131 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 13:04 BST - hundred-and-ninety-ninth run
+
+- Quality pass on item 5.2, the six branch landing pages. ONE REAL DEFECT
+FOUND AND FIXED, and unlike the last seven runs it is in the PATIENT-FACING
+COPY and not only in a checker: all six pages stated the free NHS blood
+pressure check cohort a year narrower than the NHS service. The guard that
+should have caught it was widened in the same run. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness re-derived
+mechanically rather than inherited, and the derivation had to be widened: the
+198th run's method read only the "- Item X.Y quality pass" opening, and seven
+completed items came back unresolved because runs 157 and earlier wrote
+"- Quality pass on item X.Y" instead. With both constructions read, all 41
+completed items resolve, none unresolved, and the order agrees exactly with
+the 198th run's projection shifted by one. 5.2 is stalest at 41 blocks, then
+5.6 at 40, 4.5 at 38, 6.3 at 37.
+
+BASELINE. No .agent-lock and no .git\index.lock at start. Level with origin,
+worktree clean. 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit, so what follows was measured against what the
+generators produce today.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted.
+Thirty-sixth consecutive run of this fault, which is what Q59 asks about, so
+no duplicate was raised. 47 questions open going in, 47 going out.
+
+NO AUTONOMOUS WINDOW. The top of this log carries no "Standing authorisation -
+autonomous window" section. The only real one in the file expired 2026-08-10
+23:14 BST, four days ago. Step 7 applied as written.
+
+THE DEFECT. All six landing pages carry a services grid, and its sixth tile
+read: "Free NHS blood pressure checks if you are over 40. Just ask in store."
+The NHS cohort is adults aged 40 AND OVER. "Over 40" is a year narrower and
+turns away the eligible forty-year-old who reads it. This is not an
+interpretation: the cohort is pinned in the repo, at
+tools/check-pharmacy-first-eligibility.js, and all fifteen GBP packs state it
+as "aged 40 and over" or "aged 40 or over".
+
+WHY EVERY CHECKER PASSED IT. Coverage was measured, not assumed, by spawning
+each of the 36 checkers under a preload that hooks fs.readFileSync and
+recording every path opened. Twenty-two of the 36 read all six landing pages.
+They read titles, links, hours, NAP, spelling, em dashes, schema and copy
+rules. Not one of them reads an age. Rule 9 of
+check-pharmacy-first-eligibility.js is the rule that pins this exact cohort,
+and it read gbp-packs/ only.
+
+AND THE FILE HAD ALREADY BEEN NAMED. When rule 9 was written on 2026-08-12 its
+own header recorded that the blood pressure cohort "existed only as prose, in
+tools/build-branch-landing-pages.js and in ten of the packs". So the unguarded
+file was named in the same commit that guarded the packs, and then left. Two
+days later the prose in it was wrong and the board was green. Naming an
+unguarded file is not guarding it; that is the lesson recorded in CLAUDE.md,
+not the blood pressure number.
+
+MEASURED BEFORE THE RULE WAS WIDENED, NOT AFTER. Pointing an age rule at HTML
+pages full of opening times, postcodes, phone numbers and street numbers can
+easily fail things that were legitimately passing. So every age-shaped string
+in the readable text of all six pages was listed first, using a copy of the
+checker's own pattern and unit guard: six hits across six pages, all six the
+blood pressure cohort itself, nothing else. The widening therefore fails
+nothing that was passing.
+
+THE FIX, BOTH HALVES. The copy now reads "Free NHS blood pressure checks for
+adults aged 40 and over. Just ask in store.", which is the pinned phrase and
+matches the fifteen packs. Rule 9 now reads the six generated landing pages as
+well as the packs, on visible text with markup, JSON-LD and the paste
+instruction comment stripped, so only what a patient can read is judged. An
+empty or missing landing directory now FAILS rather than passing quietly, the
+same convention EXTRA_HTML keeps in check-em-dashes.js. Rule 10 stays
+pack-only and is handed the pack list, not the widened list.
+
+PROVED SEVEN WAYS, AND ONE INJECTION WAS WRONG RATHER THAN THE RULE. The
+harness asserts: untouched tree passes; the original defect put back in the
+generator fails on all six pages; a wrong cohort injected onto a page fails;
+the pinned cohort attached to a service it does not belong to fails; the pack
+half still bites, so nothing regressed; a missing landing directory fails; and
+the tree passes again after restore. The wrong-service case passed the checker
+on the first attempt and the rule was right to pass it: only the blurb had
+been changed, and after tag stripping the tile HEADING "Blood pressure checks"
+sits in the same sentence, so the cohort really was named beside its own
+service. The injection was corrected to move the heading too, and then it
+fails as expected.
+
+A HARNESS FAULT WORTH RECORDING. The first draft of that harness restored its
+injections with git checkout, which destroyed the uncommitted fix it existed
+to test, because HEAD still carried the defect. It was rewritten to snapshot
+and restore by byte copy. A test harness that can only run after the work is
+committed is not a test harness. Recorded in CLAUDE.md.
+
+FIXED IN REPO, NO SIGN-OFF NEEDED, AND THE CARVE-OUT CONSIDERED PROPERLY. This
+is patient-facing NHS eligibility copy, so the step 7 carve-out was weighed
+rather than waved past. It does not apply: the cohort was already decided and
+pinned in this repo and is stated the corrected way in all fifteen packs, so
+this is the copy being brought back to the estate's own standard rather than a
+new clinical judgement. It costs nothing, creates no legal exposure, and
+widens eligibility to match the NHS rather than narrowing it. None of the six
+pages is live in any case; all six URLs 404 and always have.
+
+VERIFIED. All 36 checkers green afterwards. All six generators rebuild every
+page byte-identical except the intended change. Exactly one line moved on each
+of the six landing pages and nothing else in the estate moved. The coverage
+probe re-run confirms check-pharmacy-first-eligibility.js now reads all six.
+
+FILES CHANGED
+- tools/build-branch-landing-pages.js - the blood pressure tile blurb, with a
+  comment recording the cohort, where it is pinned and why the wording matters
+- tools/check-pharmacy-first-eligibility.js - rule 9 widened to the six landing
+  pages, visibleText() added, the empty-directory guard, rule 10 kept pack-only,
+  header and summary line updated
+- modules/branch/pages/*.html - six pages regenerated, one line each
+- CLAUDE.md - new section: NHS eligibility ages, the file a checker named but
+  never read, and the git-checkout harness fault
+- AGENT_WORKLIST.md - quality pass note appended in place under item 5.2
+- audits/landing-coverage-probe-2026-08-14.js - new instrument, imports nothing
+  from tools/, answers which checkers read these pages and what age-shaped
+  strings exist on them, exits non-zero on any off-pin age
+- audits/rule9-landing-negative-tests-2026-08-14.ps1 - new, the seven cases
+
+QUESTIONS. None raised. 47 open going in, 47 going out.
+
 ## 2026-08-14 12:34 BST - hundred-and-ninety-eighth run [commit f9b1dd9, this hash line added by a small follow-up commit]
 
 - Item 5.1 quality pass, the em dash rule. ONE DEFECT FOUND AND FIXED, in the

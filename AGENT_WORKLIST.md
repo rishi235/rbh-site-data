@@ -3151,6 +3151,36 @@ so tools/build-audit-status.js picks them up like any other item.
       restored with git checkout; nothing injected survives and the six pages
       are byte-identical to the committed ones. No data, no page and no
       patient-facing copy was changed. No new question raised.
+      Quality pass 2026-08-14: repo half only, no browser available, so
+      nothing live was read and nothing live is claimed. ONE REAL DEFECT FOUND
+      AND FIXED, and this time it is in the patient-facing copy itself, not
+      only in a guard. All six landing pages advertised the free NHS blood
+      pressure check as being "if you are over 40". The NHS cohort is adults
+      aged 40 AND OVER, which is how all fifteen GBP packs state it and how it
+      is pinned in tools/check-pharmacy-first-eligibility.js. The pages were a
+      year narrower than the service and turned away eligible forty-year-olds.
+      All 36 checkers passed on it: the 22 that read these pages read titles,
+      links, hours, NAP and copy rules, and not one reads an age. Rule 9,
+      which pins exactly this cohort, read gbp-packs/ only, even though the
+      header of that same checker had named
+      tools/build-branch-landing-pages.js two days earlier as carrying the
+      cohort as unguarded prose. Naming an unguarded file is not guarding it.
+      Fixed both halves: the blurb now reads "Free NHS blood pressure checks
+      for adults aged 40 and over", and rule 9 now reads the six generated
+      landing pages as well as the packs, on their readable text with markup,
+      JSON-LD and the paste comment stripped. Safety measured before the rule
+      was widened rather than after: across all six pages the only age-shaped
+      string of any kind is the cohort itself, so no opening time, postcode,
+      phone number or street number is caught. Seven negative cases pass,
+      including the original defect put back in the generator, a wrong cohort
+      on a page, the right number attached to the wrong service, the pack half
+      still biting, and a missing landing directory failing rather than
+      passing quietly. One line changed on each of the six pages and nothing
+      else moved; all 36 checkers green and all six generators rebuild clean.
+      Evidence: audits/landing-coverage-probe-2026-08-14.js and
+      audits/rule9-landing-negative-tests-2026-08-14.ps1. No new question
+      raised: the cohort was already decided and pinned in this repo, so this
+      is the copy being brought back to the estate's own standard.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

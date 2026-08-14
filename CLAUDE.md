@@ -1179,3 +1179,51 @@ being to read the fifteen live sites before changing any copy.
 Written on the item 3.12 quality pass, 2026-08-11. The checker was tested by
 breaking it twenty-six ways, one per rule direction. All twenty-six fail the
 run.
+
+
+## NHS eligibility ages, and the file a checker named but never read
+
+The free NHS blood pressure check is for **adults aged 40 and over**. That
+cohort is pinned once, in `tools/check-pharmacy-first-eligibility.js`, beside
+the seven Pharmacy First pathways. Changing the number there is a clinical
+change, not a copy change.
+
+Rule 9 of that checker was written on 2026-08-12 to hold the fifteen GBP packs
+to the pinned cohorts. Its own header recorded, in the same commit, that the
+cohort "existed only as prose, in tools/build-branch-landing-pages.js and in
+ten of the packs". The rule then stopped at the `gbp-packs/` boundary. So the
+file was named as unguarded and left that way for two days.
+
+It had already drifted. Every pack said "aged 40 and over". The six branch
+landing pages said "if you are over 40", which is a year narrower than the NHS
+service and turns away eligible forty-year-olds. All 36 checkers passed on it.
+Twenty-two of them read those pages, and they read titles, links, hours, NAP,
+spelling and copy rules; not one read an age.
+
+The lesson is not about blood pressure. **Naming an unguarded file in a comment
+is not guarding it.** A sentence in a header that says "this also lives over
+there" is a to-do, not a rule, and the next reader will take the checker's
+green board as the answer.
+
+Two things follow for any rule that pins a fact:
+
+- Ask which FAMILIES of file state that fact, not which family the rule was
+  aimed at. Eligibility copy is anything a patient reads that says who
+  qualifies. A Weebly embed block is that, exactly as a GBP pack is.
+- Measure before widening, not after. Before rule 9 was pointed at the landing
+  pages, every age-shaped string in their readable text was listed: the cohort
+  itself and nothing else. No opening time, postcode, phone number or street
+  number matched. A widening that fails something which was legitimately
+  passing is a different, worse defect.
+
+Found and fixed on the item 5.2 quality pass, 2026-08-14. Rule 9 now reads the
+generated landing pages as well as the packs, on visible text with markup,
+JSON-LD and the paste-instruction comment stripped, and a missing or empty
+landing directory fails the run rather than passing quietly. Seven negative
+cases, in `audits/rule9-landing-negative-tests-2026-08-14.ps1`.
+
+One more thing, learned the hard way in the same run. That harness first
+restored its injections with `git checkout`, which silently destroyed the
+uncommitted fix it existed to test, because HEAD still carried the defect. **A
+test harness must restore by byte copy, not from git**, or it can only be run
+after the work it is testing has already been committed.

@@ -64,8 +64,10 @@
     8. Every condition page carries the safety redirect that names the
        excluded cohort, where NHS defines one.
 
-    9. On the GBP packs in gbp-packs/, no age is stated that is not a pinned
-       NHS cohort, and no pinned cohort is attached to the wrong service.
+    9. On the GBP packs in gbp-packs/, and since 2026-08-14 on the generated
+       branch landing pages in modules/branch/pages/, no age is stated that is
+       not a pinned NHS cohort, and no pinned cohort is attached to the wrong
+       service.
        Rules 1 to 8 guard the generator and the 98 generated pages, and
        stopped at the repo boundary: nothing read the packs. That mattered
        because a pack is public-facing clinical copy in its own right. Post A
@@ -124,6 +126,13 @@
   was pinned nowhere else in the repo: it existed only as prose, in
   tools/build-branch-landing-pages.js and in ten of the packs.
 
+  That landing generator prose stayed unguarded for two days after the
+  sentence above named it, and it had already drifted: the six branch landing
+  pages said "if you are over 40" where every pack says "aged 40 and over".
+  The copy was corrected and rule 9 widened to read the landing pages on the
+  item 5.2 quality pass, 2026-08-14. Naming an unguarded file is not guarding
+  it.
+
   The pinned criteria, from the NHS Pharmacy First service specification
   (seven clinical pathways). Changing a number here is a clinical change,
   not a copy change, and should be made only against the current NHS
@@ -149,6 +158,9 @@ var ROOT = path.join(__dirname, "..");
 var GENERATOR = path.join(ROOT, "tools", "build-service-pages.js");
 var PAGE_DIR = path.join(ROOT, "modules", "service", "pages");
 var PACK_DIR = path.join(ROOT, "gbp-packs");
+// Rule 9 reads these too, since the item 5.2 quality pass on 2026-08-14. See
+// the rule 9 section below for why.
+var LANDING_DIR = path.join(ROOT, "modules", "branch", "pages");
 
 // ---------------------------------------------------------------------------
 // The pinned NHS criteria. ages is the exact set of age numbers the copy for
@@ -411,12 +423,34 @@ pages.forEach(function (p) {
 });
 
 // ---------------------------------------------------------------------------
-// Rule 9, on the GBP packs.
+// Rule 9, on the GBP packs AND on the six branch landing pages.
 // ---------------------------------------------------------------------------
 // Sentence-bounded, for the same reason rule 7 is block-bounded: a cohort
 // named in the sentence next door must not excuse an age in this one. Split
 // on a full stop followed by whitespace, which leaves URLs and times intact
 // because neither carries a space after its dots or colons.
+//
+// WHY THE LANDING PAGES WERE ADDED, 2026-08-14 (item 5.2 quality pass).
+// When rule 9 was written on 2026-08-12 the header of this file recorded that
+// the blood pressure cohort "existed only as prose, in
+// tools/build-branch-landing-pages.js and in ten of the packs". Rule 9 then
+// pinned the packs and stopped at the gbp-packs/ boundary, so the prose in the
+// landing generator was named as unguarded and left that way. It had already
+// drifted: all fifteen packs say "aged 40 and over", while the six landing
+// pages said "if you are over 40", which is a year narrower than the NHS
+// service and turns away eligible forty-year-olds. Every one of the 36
+// checkers passed on it, because the twenty-two that read these pages read
+// titles, links, hours, NAP and copy rules, and not one reads an age.
+//
+// These pages are patient-facing NHS eligibility copy in the same sense a pack
+// is: each is pasted whole into a Weebly page and each states, unprompted, who
+// qualifies for a free NHS service. So they are held to the same pinned
+// cohorts rather than to a second list that could drift from the first.
+//
+// Measured before it was written rather than after: across all six pages the
+// ONLY age-shaped string of any kind is the blood pressure cohort itself. No
+// opening time, postcode, phone number or street number matches AGE_IN_TEXT,
+// so widening the rule here fails nothing that was passing.
 function packSentences(text) {
   return norm(text)
     .split(/[.!?]\s+/)
@@ -424,6 +458,23 @@ function packSentences(text) {
     .filter(function (s) { return s.length > 0; });
 }
 
+// A landing page is an HTML embed block. Only what a patient can READ is
+// eligibility copy, so the paste-instruction comment at the top, the JSON-LD
+// and any markup are dropped before the sentence split. Entities are decoded
+// so an escaped apostrophe cannot hide a word the context test looks for.
+function visibleText(html) {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, " ");
+}
+
+// packs is the pack list on its own, because rule 10 below is a pack-only rule
+// and must not be handed a landing page. rule9Files is packs plus the landing
+// pages.
 var packs = [];
 if (fs.existsSync(PACK_DIR)) {
   fs.readdirSync(PACK_DIR).forEach(function (f) {
@@ -433,9 +484,28 @@ if (fs.existsSync(PACK_DIR)) {
   });
 }
 
-packs.forEach(function (file) {
+var rule9Files = packs.map(function (p) { return { file: p, html: false }; });
+// The generated branch landing pages (item 5.2). A directory that has stopped
+// producing pages is a silent hole, so an empty or missing one fails the run
+// rather than passing quietly, the same convention EXTRA_HTML keeps in
+// check-em-dashes.js.
+var landingPages = fs.existsSync(LANDING_DIR)
+  ? fs.readdirSync(LANDING_DIR).filter(function (f) { return /\.html$/.test(f); })
+  : [];
+if (!landingPages.length) {
+  failures.push("modules/branch/pages: no landing pages found, so rule 9 read none of " +
+    "them. Either the generator has stopped writing them or this path is wrong " +
+    "(rule 9)");
+}
+landingPages.forEach(function (f) {
+  rule9Files.push({ file: path.join(LANDING_DIR, f), html: true });
+});
+
+rule9Files.forEach(function (entry) {
+  var file = entry.file;
   var name = rel(file);
-  packSentences(fs.readFileSync(file, "utf8")).forEach(function (seg) {
+  var body = fs.readFileSync(file, "utf8");
+  packSentences(entry.html ? visibleText(body) : body).forEach(function (seg) {
     var seen = {};
     var mm;
     AGE_IN_TEXT.lastIndex = 0;
@@ -464,7 +534,7 @@ packs.forEach(function (file) {
     Object.keys(seen).forEach(function (n) {
       if (accounted[n]) return;
       failures.push(name + ": states age " + n +
-        ", which is not part of any NHS cohort a pack may state (rule 9)\n" +
+        ", which is not part of any NHS cohort this copy may state (rule 9)\n" +
         "         pinned cohorts: " +
         PACK_COHORTS.map(function (c) { return c.nhs; }).join("; ") +
         "\n         " + seg);
@@ -665,6 +735,7 @@ console.log("  " + checked + " pinned conditions read from " + rel(GENERATOR));
 console.log("  " + pages.length + " condition pages checked against them");
 console.log("  " + packs.length + " GBP packs checked against the pinned cohorts and the " +
   PATHWAYS.length + " pathways");
+console.log("  " + landingPages.length + " branch landing pages checked against the pinned cohorts (rule 9)");
 
 warnings.forEach(function (w) { console.log("  WARN " + w); });
 

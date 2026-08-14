@@ -148,8 +148,14 @@ function servicesOf(b) {
       blurb: "Travel vaccinations and advice before your trip." },
     { name: "Contraception", href: "contraception-" + ss + ".html",
       blurb: "NHS contraception service. Start or continue oral contraception without a GP appointment." },
+    // The NHS blood pressure check cohort is "adults aged 40 and over", pinned
+    // in tools/check-pharmacy-first-eligibility.js and stated that way in all
+    // fifteen GBP packs. This tile said "if you are over 40", which is a year
+    // narrower than the service and turns away eligible forty-year-olds. Found
+    // and corrected on the item 5.2 quality pass, 2026-08-14; rule 9 of that
+    // checker now reads these six pages, so the two cannot drift again.
     { name: "Blood pressure checks", href: null,
-      blurb: "Free NHS blood pressure checks if you are over 40. Just ask in store." }
+      blurb: "Free NHS blood pressure checks for adults aged 40 and over. Just ask in store." }
   ];
 }
 
