@@ -1954,7 +1954,7 @@ for (const file of packFiles) {
   // by hand and agreed with nothing.
   //
   // The fault it lets through is not hypothetical for this group. Wilmslow
-  // was disposed on 1 June 2026, which is why the generators had to learn
+  // was disposed on 1 July 2026, which is why the generators had to learn
   // to skip a disposed branch at item 1.4. A disposal takes a branch out of
   // branches.json's live set and out of every generated page automatically,
   // and it would leave this sentence standing, on a public profile, sending

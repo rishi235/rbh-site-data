@@ -939,7 +939,7 @@ in Bramhall" and `scorah-bramhall.md` says "our sister branch in Hazel Grove is
 close by". `mccanns-sandringham.md` carries a third in a paster note.
 
 The fault this lets through is not hypothetical for this group. Wilmslow was
-disposed on 1 June 2026, which is why the generators had to learn to skip a
+disposed on 1 July 2026, which is why the generators had to learn to skip a
 disposed branch at item 1.4. A disposal removes a branch from the live set and
 from every generated page automatically, and it would leave the sentence
 standing on a public profile, sending patients to a pharmacy the group no
