@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 01:35 BST - hundred-and-eightieth run
+## 2026-08-14 01:35 BST - hundred-and-eightieth run [commit ab32c4b, hash line added by a small follow-up commit]
 - Item 4.3 quality pass, the Hirshmans Ainsdale GBP pack, fourth pass. ONE
 DEFECT FOUND AND FIXED, and it is the residual the last pass on this item
 named and left open on purpose. A new checker, tools/check-uk-spelling.js,
