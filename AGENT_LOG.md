@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 12:04 BST - hundred-and-ninety-seventh run
+## 2026-08-14 12:04 BST - hundred-and-ninety-seventh run [commit f88f34b, this hash line added by a small follow-up commit]
 
 - Item 3.13 quality pass, Clear Chemist (Aintree), 3 pages, second machine
 pass. ZERO DEFECTS IN THE REPO and not one character of any page was edited.
