@@ -2,6 +2,103 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 15:45 BST - two-hundred-and-second run
+
+- Quality pass on item 6.3, opening hours vs branches.json. ONE REAL DEFECT
+FOUND AND FIXED, in the item's own dedicated guard: an hours claim written
+anywhere on a landing page other than the hours card was invisible to all 36
+checkers. Proved by injection, not argued. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness was re-derived
+mechanically rather than inherited, sweeping the log for all three phrasings
+("quality pass on item X.Y", "item X.Y quality pass", "quality pass on X.Y"):
+all 41 completed items resolve, none unresolved, and the order agrees exactly
+with the 201st run's projection shifted by one. 6.3 is stalest, then 5.7, 4.6,
+4.8.
+
+BASELINE. No .agent-lock and no .git\index.lock at start. Level with origin,
+worktree clean. All 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit, and again after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed, submitted
+or logged in to, on any site. No other route was attempted. Thirty-ninth
+consecutive run of this fault, which is what Q59 asks about, so no duplicate was
+raised. 47 questions open going in, 47 going out. Nothing live was read and the
+2026-08-12 live verdicts are not re-claimed; Q55 stays open as raised.
+
+NO AUTONOMOUS WINDOW. The only real "Standing authorisation" section in this log
+is dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days ago, and it
+is not at the top of the file. Step 7 applied as written.
+
+THE DEFECT. check-opening-hours.js is the dedicated guard for this item and it
+had six rules, every one of which had moved the READER deeper while leaving its
+EDGE exactly where it started. Rules 1 to 3 read the structured hours card and
+the JSON-LD; rules 4 to 6 read branches.json. Nothing read the rest of the page.
+So an hours claim written anywhere else was not wrong to this checker, it was
+invisible to it. check-gbp-packs cannot cover the gap either: it reads the
+static pack, not the generated page, which is why it caught two lesser probes
+this run and could not catch this one.
+
+Proved by adding a single FAQ answer to build-branch-landing-pages.js:
+
+  "We are open Monday to Friday, 9am to 6pm, and Saturday mornings."
+
+  -> ALL 36 CHECKERS EXITED 0, on all six landing pages
+
+That sentence rendered two inches beneath an hours card reading "Monday: 9am to
+1pm, 2pm to 6pm". It is this item's own subject matter: the Smartts
+straight-through Mon-Fri 9am-6pm claim that hides a lunch closure, the exact
+live fault 6.3 exists to chase, reproduced inside the repo, contradicting the
+page's own card, and sending a patient to a locked door at 1.30pm.
+
+Two earlier probes this run DID fire and neither fired on the page: dropping a
+branch's openingHours entirely and adding an overlapping session were both
+caught by check-gbp-packs only, so the estate was protected there and no defect
+is claimed for either.
+
+THE FIX. New rule 7, a CONTAINMENT rule rather than another comparison. The
+hours card is the only place on a landing page a clock time may appear. A
+comparison rule would have to parse English and would lose to the next phrasing
+exactly as this phrasing beat rules 1 to 6; containment does not care how a
+claim is worded, because the card is generated from branches.json and already
+proved field for field by rules 1 to 3, so everything inside it is proved and
+anything outside it is unproved by construction. Read raw, so a time in a title
+or alt attribute counts, which the GBP pack rule learned earlier. Carries a
+coverage floor (88 clock times swept today, and a reader that finds none fails),
+a KNOWN_TIME_OUTSIDE_CARD exception list on the usual stale-key-fails contract,
+and a deliberate design choice that changed card markup fails loudly through
+rule 1 rather than letting rule 7 fall silently open.
+
+NEGATIVE TESTED 11 WAYS, 7 must-catch and 4 must-pass, all as expected:
+the defect itself, a time in a title attribute only, a time in the hero copy, a
+full-stop minute ("1.30pm"), a stale exception key, a blinded time reader, and
+changed card markup; passing on the untouched tree, on a matching exception key,
+on a legitimate branches.json hours edit, and on the JSON-LD's own 24-hour
+times. The first version of the test script reported six false passes because it
+piped Get-Content into Set-Content on the same path, which fails with a sharing
+violation and silently applies no mutation; that is now fixed and documented at
+the top of the script so the next run does not repeat it.
+
+RESIDUAL, STATED NOT HIDDEN. A bare 24-hour time ("open 9 to 18") is still not
+read. Those numerals cannot be told apart from the ordinary numbers in this copy
+("seven common conditions", "aged 16 to 64") without inventing false positives
+on live patient pages.
+
+Zero pages breach rule 7 on today's tree, so the fix is a no-op on the current
+estate and closes the gap for the next edit, exactly as rule 6 was. No page, no
+generator, no data field and no patient-facing copy changed.
+
+FILES CHANGED
+- tools/check-opening-hours.js (rule 7, its two readers, the exception list,
+  the anti-rot check, the coverage floor and the reasoning header)
+- audits/opening-hours-rule7-negative-tests-2026-08-14.ps1 (new, the 11 cases)
+- AGENT_WORKLIST.md (6.3 entry appended in place)
+- AGENT_LOG.md (this entry)
+
 ## 2026-08-14 15:10 BST - two-hundred-and-first run [commit f643ade, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack. ONE REAL

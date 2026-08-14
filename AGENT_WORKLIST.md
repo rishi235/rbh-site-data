@@ -3770,6 +3770,47 @@ so tools/build-audit-status.js picks them up like any other item.
       generator, no data field and no patient-facing copy changed. All 31
       checkers green and all six generators rebuild byte-identical. No
       question raised. Done 2026-08-13.
+      Third quality pass 2026-08-14 (run 202), REPO HALF ONLY: two Chrome
+      instances are connected and an unattended run cannot choose between
+      them, so no browser call was made, nothing live was read and nothing
+      live is re-claimed. The 2026-08-12 verdicts stand and Q55 stays open.
+      ONE REAL DEFECT FOUND AND FIXED, again in the checker rather than in any
+      page or piece of data, and it is the layer under rule 6. Every rule this
+      checker had moved the READER deeper into the hours card and left its
+      EDGE where it was: rules 1 to 3 read the structured rows and the
+      JSON-LD, rules 4 to 6 read branches.json, and nothing read the rest of
+      the page at all. So an hours claim written anywhere else on a landing
+      page was not wrong to this checker, it was invisible to it, and
+      check-gbp-packs cannot cover it either because that checker reads the
+      static pack rather than the generated page. Proved by adding one FAQ
+      answer to build-branch-landing-pages.js, "We are open Monday to Friday,
+      9am to 6pm, and Saturday mornings": ALL 36 CHECKERS EXITED 0 while all
+      six landing pages published it two inches under an hours card reading
+      "Monday: 9am to 1pm, 2pm to 6pm". That is this item's own subject
+      matter, the Smartts straight-through Mon-Fri 9am-6pm claim that hides a
+      lunch closure, reproduced in the repo, contradicting the page's own card
+      and sending a patient to a locked door at 1.30pm. New rule 7 is a
+      CONTAINMENT rule rather than another comparison: the hours card is the
+      only place on a landing page a clock time may appear, so it does not
+      matter how a future claim is worded, which a comparison rule would have
+      to parse and would lose to the next phrasing. Read raw, so a time in a
+      title or alt attribute counts. Backed by a coverage floor (88 clock
+      times swept today), a KNOWN_TIME_OUTSIDE_CARD exception list on the
+      usual stale-key-fails contract, and a deliberate design choice that a
+      changed card markup fails loudly via rule 1 rather than falling silently
+      open. Negative tested 11 ways, 7 must-catch and 4 must-pass, all as
+      expected, including the attribute-only time, full-stop minutes, a stale
+      exception key, a blinded reader, the changed markup, and three
+      false-positive guards. Residual stated: a bare 24-hour time ("open 9 to
+      18") is not read, because those numerals cannot be told from "seven
+      common conditions" or "aged 16 to 64" without inventing false positives
+      on live patient pages. Zero pages breach the rule today, so the fix is a
+      no-op on the current estate and closes the gap for the next edit, as
+      rule 6 was. No page, generator, data field or patient-facing copy
+      changed. All 36 checkers green and all six generators rebuild
+      byte-identical, before and after. No question raised. Evidence:
+      audits/opening-hours-rule7-negative-tests-2026-08-14.ps1. Done
+      2026-08-14.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
