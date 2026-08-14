@@ -86,7 +86,8 @@ var NARRATIVE_FILES = [
 
 var NARRATIVE_POSTCODES = {
   "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed.",
-  "SK7 1BJ": "Run 95 (item 1.4 quality pass, 2026-08-12): the foreign postcode injected into Cherry Lane's contraception page to prove check-nap's body-copy blind spot. audits/nap-check-2026-08-12.txt quotes it to record the test."
+  "SK7 1BJ": "Run 95 (item 1.4 quality pass, 2026-08-12): the foreign postcode injected into Cherry Lane's contraception page to prove check-nap's body-copy blind spot. audits/nap-check-2026-08-12.txt quotes it to record the test.",
+  "PR7 5SX": "Run 209 (item 4.8 quality pass, 2026-08-14): the one-character-off variant of the Fishlocks Eccleston postcode PR7 5SZ, used as an injection value. Its harness was written into the repo root, so this checker failed on the harness rather than the pack and silently mis-attributed six injections as caught. AGENT_LOG.md quotes the value to record that method fault. Narrative surfaces only: a PR7 5SX typed into a page, pack or branches.json still fails, which matters because it is exactly the single-character error this checker exists to catch."
 };
 
 // Files that DECLARE or DOCUMENT a postcode rather than USE it. This

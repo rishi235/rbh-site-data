@@ -2,6 +2,145 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 19:30 BST - two-hundred-and-tenth run
+
+- Quality pass on item 4.13, the Riddings Pharmacy Timperley GBP pack, fifth
+pass. TWO REAL DEFECTS FOUND AND FIXED. The first was the repo sitting RED at
+HEAD; the second is an estate-wide weight loss advertising gap on the pack
+surface. No page, generator, data field, branches.json entry, paste sheet, GBP
+pack or piece of patient-facing copy was changed. All 36 checkers pass and the
+generators rebuild byte-identical. One new question, Q77.
+
+DEFECT 1, THE REPO WAS RED AT HEAD AND THE LAST RUN PUT IT THERE. Baseline
+check-postcodes.js FAILED on a clean worktree, level with origin. The cause is
+last run's own log entry: correction 2 narrates the harness contamination and
+quotes the injected postcode "PR7 5SX" literally, check-postcodes.js sweeps
+AGENT_LOG.md as a narrative surface, and an unknown postcode on a narrative
+surface fails unless it is named in NARRATIVE_POSTCODES. So run 209 committed a
+log entry that broke a checker, and reported "all 36 checkers pass" in the same
+entry, because the suite was run BEFORE the entry was written. A log that
+records the run is also a file the run is checked against. Fixed the way the
+checker's own failure message prescribes and with the precedent already in the
+list: PR7 5SX added to NARRATIVE_POSTCODES with a reason, alongside SK7 1BJ,
+which is there for exactly the same thing, an injection value quoted by an audit
+file. The exemption is narrative-scoped, so a PR7 5SX typed into a page, a pack
+or branches.json still fails, which matters because PR7 5SZ to PR7 5SX is
+precisely the single-character error the checker exists to catch. Rewriting last
+run's entry to drop the literal was rejected: the value is legitimately quoted
+evidence and the checker offers the exemption for that case.
+
+DEFECT 2, A PACK COULD PROMOTE A PRESCRIPTION-ONLY MEDICINE WITHOUT NAMING IT.
+check-gbp-packs.js read a pack for medicine NAMES (tools/pom-names.js) and for
+efficacy CLAIMS (tools/claim-patterns.js). Neither can see a medicine that is
+pointed at rather than named, and no claim made about it. Injected one at a time
+into Post C of the Riddings pack, an advertisement bound for a public Google
+profile and therefore Regime 1, the strictest half of the house standard, all
+five of these PASSED ALL 36 CHECKERS:
+
+  "The pharmacist-led weight loss injection clinic at Riddings Pharmacy"
+  "The skinny jab clinic at Riddings Pharmacy"
+  "Our GLP-1 clinic at Riddings Pharmacy"
+  "... offers a weekly injection after a consultation"
+  "The pharmacist-led weight loss pen service at Riddings Pharmacy"
+
+The ASA has ruled that each of these promotes a POM as surely as naming it. This
+is the fourth consecutive run to find the same family one step further out: 4.13
+on 2026-08-13 caught the superlative about the PRODUCT, 4.12 the superlative
+about the METHOD, 4.8 the promise about the PATIENT, and this one the medicine
+itself with its name taken off.
+
+THE FIX, AND WHY IT IS A MOVE RATHER THAN A NEW LIST. These patterns already
+existed, written on the item 2.1 pass for the six branch landing pages, and
+check-weight-loss-copy.js had recorded in its own header the precise condition
+for promoting them: "these are class references and they are barred in this
+regime only. If a second Regime 1 family ever needs them, promote them then, the
+way pom-names itself was promoted once three checkers had typed the same list."
+The GBP packs are that second family, and they are the more exposed one. So the
+patterns moved verbatim to a new tools/pom-class-patterns.js, check-weight-loss-
+copy.js now requires them instead of declaring them, and check-gbp-packs.js
+gained a rule reading the same definitions. No value changed in the move.
+
+SCOPING, WHICH IS THE HALF THAT COULD HAVE GONE WRONG. The self-scoping phrases
+(skinny jab, GLP-1, weight loss injection/jab/pen/shot) carry their own subject
+and are read across the whole pack, because they are wrong in a paster note as
+surely as in a post. The dosing phrases (once a week, weekly injection) are read
+only in sentences that name weight loss, because they are ordinary English
+elsewhere and the contraception service legitimately signposts a contraceptive
+injection. Reading those across the whole pack would fail correct copy and the
+rule would then get widened until it caught nothing, which is the trap the
+"guarantee" note on the 4.8 pass and the "option" note on the 4.12 pass both
+record. All 16 packs including TEMPLATE.md were swept before the rule was wired
+and none matches either list, so the gap was latent and nothing live is wrong.
+
+VERIFIED, AND ONE ASSERTION I GOT WRONG AND CORRECTED. All five injections
+re-run and all five now fail check-gbp-packs.js and nothing else. A control
+injection of ordinary service copy ("a private consultation in our confidential
+consultation room") still passes all 36, so the rule is not over-broad. The pack
+was restored from the in-memory original and sha256-compared after every single
+injection and came back to C3B17DCB every time, including after the harness was
+killed mid-run by a tool timeout. The first draft of the new rule's comment
+claimed these phrases were already caught on the 15 weight loss pages as well as
+the landing pages. That was assumed, not measured, and it was wrong: POM_CLASS
+belongs to RULE 11 and rule 11 reads modules/branch/pages only. Measured both
+ways, injecting into weight-loss-clinic-cherry-lane-walton.html leaves
+check-weight-loss-copy.js at exit 0 and injecting into
+pharmacy-fishlocks-ainsdale.html fails it every time. The comment was corrected
+in place rather than left for a future run to inherit, and the gap became Q77.
+
+Q77 RAISED, NOT DECIDED. The 15 weight loss pages do not read these patterns.
+Those are the Regime 2 inner pages where the house standard permits naming a
+medicine in balanced factual terms, so the position there is genuinely arguable:
+"skinny jab" is a promotional colloquialism rather than balanced information, so
+the exemption arguably does not cover it even though it covers the real name.
+That is a judgement about live patient-facing copy about a prescription-only
+medicine, which is exactly what an unattended run should not settle on its own.
+No page carries any of these phrases today.
+
+METHOD NOTE, SO THE NEXT RUN DOES NOT REPEAT IT. The injection harness lived in
+C:\Temp\rbh-harness, outside the repo, per last run's correction 2, and recorded
+ALL failing checkers rather than stopping at the first. Two harness faults of my
+own, both caught and neither affecting a result: a full battery of 6 injections
+by 36 checkers takes 6 to 8 minutes and exceeds the tool call timeout, so it
+must be launched detached with its output redirected to a file and then polled;
+and a PowerShell -replace with a count argument throws, which left a page
+BLANKED rather than injected and produced three meaningless "caught" results
+that were re-taken with [regex]::Replace. A test that fails for the wrong reason
+looks exactly like a test that passes for the right one.
+
+STALENESS, AND A CORRECTION TO LAST RUN'S RANKING. Last run's correction 1 was
+right about the method and wrong about the answer: it named 3.3 as stalest and
+told the next run to take it, but 3.3 was re-passed at 2026-08-14 05:24, later
+than the 2026-08-13 06:17 it cited. Re-derived here from both sources with the
+later winning, all 41 ticked items resolve, and the genuinely stalest was 4.13
+at 2026-08-13 18:45, then 4.14 at 20:04 and 4.11 at 21:07. Every other item has
+been passed since 2026-08-13 21:45. THE NEXT RUN SHOULD TAKE 4.14, and should
+re-derive rather than inherit this paragraph.
+
+BASELINE AND HOUSEKEEPING. No .agent-lock and no stale .git\index.lock, so the
+lock was taken cleanly. Level with origin, worktree clean before any edit. All
+36 checkers green after the postcode fix and again at the end; both generators
+run rebuild byte-identical.
+
+ANSWER PICKUP UNAVAILABLE, FOURTH CONSECUTIVE RUN, SAME CAUSE. One Chrome
+extension connected, so no ambiguity about which. A tab was opened read-only on
+https://data.rbhealth.co.uk/api/feedback and it returned the Cloudflare Access
+sign-in page for "RB Data Portal", offering Azure AD or an email login code.
+Nothing was clicked, typed, submitted or logged in to, no other route was tried,
+and the tab was closed. 53 questions are now open behind this. Q59 already owns
+answer pickup so no duplicate was raised. Signing in to the portal once in that
+Chrome profile would likely start pickup working.
+
+NO AUTONOMOUS WINDOW. Re-derived, not inherited: every "Standing authorisation"
+string in this log was listed and all but one sit inside a past run's own "NO
+AUTONOMOUS WINDOW" sentence. The single real section heading is at line 18495,
+dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, long expired. Step 7 applied as
+written and nothing was decided autonomously. Q77 would have fallen inside the
+money/legal/regulatory carve-out in any case.
+
+Files changed: tools/pom-class-patterns.js (new), tools/check-gbp-packs.js,
+tools/check-weight-loss-copy.js, tools/check-postcodes.js, QUESTIONS.json,
+AGENT_WORKLIST.md, AGENT_LOG.md.
+
 ## 2026-08-14 18:48 BST - two-hundred-and-ninth run [commit 2b4b246]
 
 - Quality pass. FIVE REAL DEFECTS FOUND AND FIXED, all in one commit to

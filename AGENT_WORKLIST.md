@@ -2727,6 +2727,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unavailable for the same reason (Q59).
       Evidence: audits/riddings-timperley-gbp-pack-check-2026-08-13.txt.
       Done 2026-08-13.
+      Fifth quality pass 2026-08-14: pack clean and byte-stable across all
+      five passes (description 657, posts 449, 319, 521, 425, zero non-ASCII,
+      zero em or en dashes, zero smart quotes), every fact re-verified against
+      branches.json. The defect was in the rule again, and it is estate-wide
+      and a compliance one. The pack surface could promote a prescription-only
+      weight loss medicine WITHOUT naming it. check-gbp-packs.js read the pack
+      for medicine names (tools/pom-names.js) and for efficacy claims
+      (tools/claim-patterns.js), and neither can see a medicine that is
+      pointed at rather than named or claimed about. Injected one at a time
+      into Post C, an advertisement bound for a public Google profile and so
+      Regime 1, all five of "weight loss injection clinic", "the skinny jab
+      clinic", "Our GLP-1 clinic", "offers a weekly injection" and "weight
+      loss pen service" PASSED ALL 36 CHECKERS. The ASA has ruled each of
+      these promotes a POM as surely as naming it. The patterns already
+      existed for the six branch landing pages, written on the item 2.1 pass,
+      and check-weight-loss-copy.js had recorded in its own header the exact
+      condition for promoting them: "if a second Regime 1 family ever needs
+      them, promote them then". The packs are that family. Fixed by moving
+      them to a new shared tools/pom-class-patterns.js, read by both checkers
+      from one definition, and adding a rule to check-gbp-packs.js. Scoping is
+      split as on the pages: the self-scoping phrases are read across the
+      whole pack, the dosing phrases only in sentences naming weight loss, so
+      the contraception service can still signpost a contraceptive injection.
+      All 16 packs including TEMPLATE.md swept before wiring with zero hits,
+      so the gap was latent and nothing live is wrong. All five injections
+      re-run and now caught, a control injection of ordinary service copy
+      still passes, and the pack sha256-compared back to its original after
+      every single injection. All 36 checkers green before and after and the
+      generators rebuild byte-identical. One new question, Q77: the 15 weight
+      loss pages in modules/service/pages do NOT read these patterns, which
+      was measured on this pass rather than assumed and is a judgement about
+      live patient-facing copy, so it was raised rather than decided. Live
+      half NOT performed: answer pickup returned the Cloudflare Access sign-in
+      page (Q59), so no live page was read and every live-side state still
+      rests on the 2026-08-11 check. Done 2026-08-14.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

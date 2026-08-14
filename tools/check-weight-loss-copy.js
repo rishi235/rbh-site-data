@@ -695,23 +695,16 @@ function sentences(text) {
   });
 }
 
-function namesWeightLoss(seg) {
-  return /weight[\s-]*loss|weight management|slimming/i.test(seg);
-}
-
-// Self-scoping: the phrase names the subject, so it is read across the page.
-const POM_CLASS = [
-  [/\bglp[\s-]?1\b/i, "the GLP-1 class"],
-  [/\bskinny\s+jabs?\b/i, 'the phrase "skinny jab"'],
-  [/\bfat\s+jabs?\b/i, 'the phrase "fat jab"'],
-  [/\bobesity\s+treatment\s+jabs?\b/i, 'the phrase "obesity treatment jab"'],
-  [/\bweight[\s-]*loss\s+(?:injections?|jabs?|pens?|shots?)\b/i,
-    "an injectable weight loss product"],
-  [/\bslimming\s+(?:injections?|jabs?|pens?|shots?)\b/i,
-    "an injectable weight loss product"],
-  [/\b(?:injectable|injection)\s+weight[\s-]*loss\b/i,
-    "an injectable weight loss product"]
-];
+// namesWeightLoss, POM_CLASS and POM_CLASS_IN_CONTEXT moved to
+// tools/pom-class-patterns.js on the item 4.13 quality pass, 2026-08-14, on
+// the condition this file's own header set: a second Regime 1 family needed
+// them. That family is the GBP packs, where all five of these phrases passed
+// all 36 checkers by injection. The values are unchanged by the move, so this
+// checker behaves exactly as before; check-gbp-packs.js now reads the same
+// definitions rather than a second copy of them.
+const pomClass = require("./pom-class-patterns.js");
+const namesWeightLoss = pomClass.namesWeightLoss;
+const POM_CLASS = pomClass.SELF_SCOPING;
 
 const PURCHASE = [
   [/\bbuy\s+now\b/i, '"Buy Now"'],
@@ -721,10 +714,8 @@ const PURCHASE = [
 ];
 
 // Only wrong about weight loss, so read in weight loss sentences only.
-const POM_CLASS_IN_CONTEXT = [
-  [/\bonce[\s-]a[\s-]week\b/i, "a once-a-week dosing schedule"],
-  [/\bweekly\s+(?:injections?|jabs?|pens?|shots?|doses?)\b/i, "a weekly injectable"]
-];
+// Moved to tools/pom-class-patterns.js with POM_CLASS above, same reason.
+const POM_CLASS_IN_CONTEXT = pomClass.IN_CONTEXT;
 
 const RATE_CLAIMS = [
   [/\b\d+\s*(?:%|per\s?cent)\b[^.]{0,40}\bbody\s*weight\b/i,

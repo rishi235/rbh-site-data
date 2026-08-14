@@ -116,6 +116,21 @@ const MEDICINE_NAMES = require("./pom-names.js").WEIGHT_LOSS;
 // indistinguishable from one rule until somebody edits one.
 const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
 
+// The ways copy can promote a prescription-only weight loss medicine without
+// naming it. Shared with check-weight-loss-copy.js, which applies the same
+// definitions to the generated pages. See the rule that uses this, and
+// tools/pom-class-patterns.js, for the injections that proved a pack could
+// carry all of them and pass every checker.
+const POM_CLASS = require("./pom-class-patterns.js");
+
+// Sentence splitter for the sentence-scoped half of that rule. Matches the
+// splitter check-weight-loss-copy.js uses, so a sentence means the same thing
+// on both surfaces: whitespace collapsed first, then split on . ! or ?
+// followed by a space. Newlines inside a pack's wrapped post body collapse to
+// spaces, so a post reads as prose rather than as one sentence per line.
+const splitSentences = (s) =>
+  norm(s).split(/[.!?]\s+/).map(norm).filter((x) => x.length > 0);
+
 // Hard efficacy claims. Pack-specific, and deliberately NOT merged into
 // tools/claim-patterns.js: that file is the shared page-and-pack list, this one
 // is the extra wording a pasted Google post should not carry. Both run.
@@ -1218,6 +1233,67 @@ for (const file of packFiles) {
   }
   for (const h of findTerms(text, EFFICACY_WARN)) {
     warn(file, `line ${h.line}: check wording "${h.term}". Context: ${h.text}`);
+  }
+
+  // --- promoting a POM without naming it ---------------------------------
+  // Added on the item 4.13 quality pass, 2026-08-14, by injection into Post C
+  // of gbp-packs/riddings-timperley.md. The three rules above read the pack
+  // for medicine NAMES (pom-names.js) and for efficacy CLAIMS
+  // (claim-patterns.js). Neither can see a medicine that is promoted without
+  // being named and without a claim being made about it, and that is a ruled
+  // breach in its own right rather than a near miss. Five injections, one at a
+  // time, each reverted and the file sha256-compared back afterwards, ALL FIVE
+  // PASSED ALL 36 CHECKERS:
+  //
+  //   "The pharmacist-led weight loss injection clinic at Riddings Pharmacy"
+  //   "The skinny jab clinic at Riddings Pharmacy"
+  //   "Our GLP-1 clinic at Riddings Pharmacy"
+  //   "... offers a weekly injection after a consultation"
+  //   "The pharmacist-led weight loss pen service at Riddings Pharmacy"
+  //
+  // Every one of those is already caught on the six branch landing pages, by
+  // RULE 11 of check-weight-loss-copy.js. Measured on this pass rather than
+  // assumed, and the first draft of this comment had it wrong: they are NOT
+  // caught on the 15 weight loss pages in modules/service/pages, because
+  // POM_CLASS belongs to rule 11 and rule 11 reads modules/branch/pages only.
+  // Injecting "skinny jab", "GLP-1" and "weight loss injection" into
+  // weight-loss-clinic-cherry-lane-walton.html left that checker at exit 0,
+  // and into pharmacy-fishlocks-ainsdale.html failed it every time. Q77 asks
+  // Rishi whether the service pages should read these patterns too; it is a
+  // live patient-facing regulatory judgement, so it is not decided here.
+  //
+  // The pack that feeds the Google profile those landing pages are linked FROM
+  // had no such rule, so the most exposed surface in the estate was the least
+  // guarded. Same shape as the item 4.15 and 2.2 findings on Pharmacy First
+  // cost and the item 2.1 finding on rule 11 scoping: a rule written for one
+  // folder, and a second folder publishing the same claim to the same patient.
+  //
+  // The patterns were moved to tools/pom-class-patterns.js to be read here and
+  // there from one definition, on the condition check-weight-loss-copy.js set
+  // in its own header when it declined to promote them: "if a second Regime 1
+  // family ever needs them, promote them then". The packs are that family.
+  //
+  // Scope. SELF_SCOPING reads the whole pack: "skinny jab" is wrong in a
+  // paster note as surely as in a post. IN_CONTEXT reads only sentences that
+  // name weight loss, because "once a week" and "weekly injection" are
+  // ordinary English elsewhere and the contraception service legitimately
+  // signposts a contraceptive injection. Reading those across the whole pack
+  // would fail correct copy and the rule would then be widened until it caught
+  // nothing, which is the trap the "guarantee" note on the item 4.8 pass and
+  // the "option" note on the item 4.12 pass both record.
+  //
+  // All 16 packs including TEMPLATE.md were swept before this rule was wired
+  // and none matches either list, so it asserts nothing new about live copy
+  // and the gap it closes was latent.
+  const pomClassHit = POM_CLASS.findSelfScoping(text);
+  if (pomClassHit) {
+    fail(file, `this pack alludes to a prescription-only weight loss medicine without naming it, by ${pomClassHit.why}: "${pomClassHit.match}". The ASA has ruled that this promotes a POM to the public just as naming it does, and a pack is pasted into a public Google profile, which is Regime 1 in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, the advertising regime with the near-total prohibition. Naming no medicine is not enough if the copy points at one anyway. Patterns in tools/pom-class-patterns.js`);
+  }
+  for (const seg of splitSentences(text)) {
+    const ctxHit = POM_CLASS.findInContext(seg);
+    if (ctxHit) {
+      fail(file, `this pack describes ${ctxHit.why} in a sentence about weight loss: "${ctxHit.match}". A dosing schedule identifies the medicine class without naming it, which the ASA treats as promoting the POM, and a GBP pack is Regime 1 advertising. Patterns in tools/pom-class-patterns.js. Sentence: ${seg.slice(0, 120)}`);
+    }
   }
 
   // --- the qualifiers on the two private clinics -------------------------
