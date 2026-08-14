@@ -3409,6 +3409,48 @@ so tools/build-audit-status.js picks them up like any other item.
       check-seo-lengths.js holds its own TITLE_MAX = 65 rather than importing
       the exported TITLE_WARN_LEN, which is left as it is on purpose so the
       checker stays an independent witness to the composer.
+      Quality pass 2026-08-14: repo half verified clean a fifth time (36
+      checkers green, all six generators byte-identical, the self-test still
+      deriving the longest condition from build-service-pages.js, KNOWN in
+      check-seo-lengths.js still empty). Composer half re-measured from
+      branches.json rather than trusted: 195 composed titles across all
+      seven families, NONE over the 65 limit, and exactly ONE title in the
+      estate is actually being rescued by the Q14 rule, the insect bite
+      title at Coleman and Leighs going 70 to 61. All six generators
+      compose through the four seo-pattern composers, so the switchTitle
+      bypass fixed on 2026-08-13 was the last one. REPO HALF ONLY: no
+      browser was available (two Chrome extension instances connected and
+      an unattended run cannot choose between them), so the Q14 live
+      repaste is unverified this run and remains outstanding. ONE REAL
+      DEFECT FOUND AND FIXED, in the guard rather than the copy: item 5.6
+      promises that only the SERP title loses the word and that the H1,
+      the JSON-LD name, data-branch and every visible line of copy keep the
+      full trading name. Two thirds of that was guarded and one third was
+      not. Proved by injection on a real page, not argued: putting
+      "Coleman and Leighs" into the JSON-LD name fails check-nap,
+      check-jsonld and check-branch-identity, but putting it into the hero
+      paragraph, a section heading and the contact block while leaving
+      data-branch and the JSON-LD name correct passed ALL 36 checkers. The
+      cause is structural, not an oversight: check-brand-spelling rule 2
+      derives near misses by SWAPPING the shop-type word, never by
+      dropping it, and dropping it is exactly what the Q14 rule does, so
+      the one variant this repo manufactures deliberately is the one
+      variant rule 2 is built not to see. Fixed by adding rule 6 to
+      check-brand-spelling.js: the shortened brand may appear only on a
+      line whose role is to declare the page SEO title, anywhere else in a
+      generated page or paste sheet is a leak. Which brands shorten, and
+      to what, is read back out of seo-pattern.js by asking fitTitle
+      itself rather than restating its rule, so the two cannot drift; a
+      first attempt that restated the rule as any shop-type word wrongly
+      flagged "SK" and "Fishlocks" and was corrected before commit.
+      Measured before writing: 0 hits across all 188 generated pages and
+      paste sheets, so it fails nothing that was passing. Negative-tested
+      18 ways plus three live injections, including a leak on a Riddings
+      page, where "Riddings" is also the street the shop stands on.
+      Street addresses and the repo's own "<short brand> <town>" shorthand
+      are masked, both derived from branches.json. Output unchanged: all
+      177 pages and all six paste sheets regenerate byte-identical, the
+      only modified file is the checker.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a

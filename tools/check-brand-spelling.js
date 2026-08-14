@@ -67,6 +67,15 @@
                 brand the canonical way. Rule 3 pinned the one table where a
                 brand is typed rather than read. There are two, and this is
                 the second.
+    6. SHORT    the Q14 shortened brand ("Coleman and Leighs" for "Coleman
+                and Leighs Pharmacy") appears ONLY on a line declaring the
+                page's SEO title, never in visible copy. Rule 2 derives its
+                near misses by swapping the shop-type word, never by
+                dropping it, so the one variant this repo manufactures on
+                purpose is the one variant rule 2 cannot see. Which brands
+                shorten, and to what, is read back out of seo-pattern.js
+                itself rather than restated here. See the block above rule 6
+                for the injection that proved the gap.
 
   The copy a browser assembles at run time
   ----------------------------------------
@@ -525,6 +534,159 @@ if (!fs.existsSync(siteData)) {
   }
   notes.push(sdFound + " hardcoded FALLBACK branch record(s) in " +
     "core/site-data.js checked against the canonical trading names");
+}
+
+// ---------------------------------------------------------------------------
+// Rule 6: the one brand variant this repo MANUFACTURES on purpose, and the
+// one place it is allowed to appear.
+// ---------------------------------------------------------------------------
+// The Q14 length rule (item 5.6) shortens an over-length page title by
+// dropping the trailing shop-type word from the brand, so
+// "Coleman and Leighs Pharmacy" becomes "Coleman and Leighs" in the SERP
+// title and nowhere else. Item 5.6 states the other half of that bargain
+// plainly: the H1, the JSON-LD name, data-branch and every visible line of
+// copy keep the full trading name. Only the SERP title loses the word.
+//
+// Two of those three were already guarded, and one was not. Proved by
+// injection on 2026-08-14, on a real page and not in theory:
+//
+//   - shortened brand into the JSON-LD name  -> check-branch-identity,
+//     check-jsonld and check-nap all fail. Guarded.
+//   - shortened brand into the hero paragraph, a section heading and the
+//     contact block, leaving data-branch and the JSON-LD name correct
+//     -> all 36 checkers PASS. Not guarded at all.
+//
+// The reason is structural rather than an oversight, and it is why rule 2
+// can never grow into this. Rule 2 derives near misses by SWAPPING the
+// shop-type word (Chemist, Chemists, Pharmacy, Pharmacies). Dropping it is
+// exactly what the Q14 rule does, so the one variant this repo publishes
+// deliberately is the one variant rule 2 is built not to see. Teaching
+// rule 2 the dropped form would fail the Q14 title itself, which is the
+// correct output. It needs its own rule with its own permitted place.
+//
+// So: the shortened form of a trading name may appear ONLY on a line whose
+// role is to declare the page's SEO title. Anywhere else in a generated page
+// or its paste sheet it is a leak, and it is the kind that reads as a
+// different business to a patient while every identity checker stays green.
+//
+// Derived, not listed, so a rename or a new branch is covered the day
+// CANONICAL changes: shortenable brands come from CANONICAL, the street
+// addresses and towns from branches.json.
+//
+// Two masks, both needed and both measured before this rule was written:
+//   - STREET ADDRESSES. "Cherry Lane" and "Riddings" are shortened brands
+//     and also the streets the shops stand on, so "202 Cherry Lane" and
+//     "38 Riddings Road" are legitimate on every page of those two branches.
+//   - BRANCH SHORTHAND. This repo names a branch "<short brand> <town>"
+//     (riddings-timperley.md, coleman-leigh-walton.md), and that shorthand
+//     appears in operational prose such as the banner note in
+//     modules/switch/pages/INDEX.md. A leak reads "at Coleman and Leighs",
+//     never "Coleman and Leighs Walton", so the mask cannot hide the fault.
+//
+// Measured before it was written: 0 hits across all 188 generated pages and
+// paste sheets, so it fails nothing that was passing. Negative-tested 18
+// ways, including the three injected leaks above, a leak on a Riddings page,
+// a leak in a paste sheet description, and the real Q14 title in all four
+// places it legitimately appears.
+var SHORT_SCAN_DIRS = [
+  path.join(ROOT, "modules", "service", "pages"),
+  path.join(ROOT, "modules", "switch", "pages"),
+  path.join(ROOT, "modules", "branch", "pages")
+];
+
+// The shapes the six generators write when they declare a page's SEO title.
+var TITLE_ROLE = /(?:Weebly page SEO title:|\*\*SEO title:\*\*|\*\*Page Title:\*\*|<title>|\(SEO-first)/i;
+
+// Which brands can be shortened, and to what, is NOT restated here. The
+// composer is asked directly: pad a title past the limit so fitTitle must
+// retry, then read back what it put in place of the brand. seo-pattern.js
+// shortens only a brand ending in " Pharmacy" today, but this rule does not
+// need to know that, and cannot drift from it if that ever changes. Same
+// convention as reading a generator as data under test.
+var pat = require(path.join(ROOT, "tools", "seo-pattern.js"));
+var shortForms = [];
+if (typeof pat.fitTitle !== "function" || typeof pat.TITLE_WARN_LEN !== "number") {
+  failures.push("tools/seo-pattern.js no longer exports fitTitle and " +
+    "TITLE_WARN_LEN, so rule 6 cannot ask the composer which brands it " +
+    "shortens. That is a finding, not a pass: the Q14 rule would still be " +
+    "writing shortened brands into titles with nothing watching where they land");
+} else {
+  var PAD = new Array(pat.TITLE_WARN_LEN + 2).join("x") + " ";
+  Object.keys(CANONICAL).forEach(function (id) {
+    var label = CANONICAL[id];
+    var got = pat.fitTitle(function (brand) { return PAD + brand; }, label);
+    var short = got.slice(PAD.length);
+    if (!short || short === label) return;   // this brand cannot be shortened
+    if (shortForms.some(function (s) { return s.short === short; })) return;
+    shortForms.push({ full: label, short: short });
+  });
+}
+
+var shortMasks = [];
+branches.forEach(function (b) {
+  if (b.streetAddress) shortMasks.push(b.streetAddress);
+});
+var shortTowns = [];
+branches.forEach(function (b) {
+  if (b.seoTown && shortTowns.indexOf(b.seoTown) === -1) shortTowns.push(b.seoTown);
+  if (b.addressLocality && shortTowns.indexOf(b.addressLocality) === -1) shortTowns.push(b.addressLocality);
+});
+shortForms.forEach(function (sf) {
+  shortTowns.forEach(function (t) {
+    shortMasks.push(sf.short + " " + t);
+    shortMasks.push(sf.short + ", " + t);
+  });
+});
+shortMasks.sort(function (a, b) { return b.length - a.length; });
+
+var shortFiles = [];
+SHORT_SCAN_DIRS.forEach(function (dir) {
+  if (!fs.existsSync(dir)) {
+    failures.push(rel(dir) + " is in the rule 6 scan list but is not there " +
+      "any more, so the Q14 shortened-brand rule covers nothing there");
+    return;
+  }
+  fs.readdirSync(dir).forEach(function (f) {
+    if (/\.(html|md)$/i.test(f)) shortFiles.push(path.join(dir, f));
+  });
+});
+
+if (!shortFiles.length) {
+  failures.push("rule 6 read no generated page or paste sheet, so the Q14 " +
+    "shortened-brand rule covered nothing. An empty read is a finding, not " +
+    "a pass - same convention as the run-time code rule above");
+} else if (!shortForms.length) {
+  notes.push("no canonical trading name ends in a shop-type word, so the " +
+    "Q14 shortening rule can produce no shortened form and rule 6 has " +
+    "nothing to guard");
+} else {
+  var shortTitleLines = 0;
+  shortFiles.forEach(function (fp) {
+    var lines = fs.readFileSync(fp, "utf8").split(/\r?\n/);
+    lines.forEach(function (raw, i) {
+      if (TITLE_ROLE.test(raw)) { shortTitleLines++; return; }
+      var ln = raw;
+      shortMasks.forEach(function (mask) { ln = ln.split(mask).join(" "); });
+      shortForms.forEach(function (sf) {
+        var re = new RegExp("\\b" + esc(sf.short) +
+          "\\b(?!\\s+(?:Pharmacy|Pharmacies|Chemist|Chemists))");
+        if (!re.test(ln)) return;
+        fail(rel(fp) + "::short::" + sf.short,
+          rel(fp) + ":" + (i + 1) + ': reads "' + sf.short + '" without its ' +
+          'shop-type word, on a line that is not the page SEO title. That ' +
+          'is the shortened form the Q14 length rule writes into the title ' +
+          'and nowhere else - the trading name here is "' + sf.full + '". ' +
+          "data-branch and the JSON-LD name are guarded by check-nap, " +
+          "check-jsonld and check-branch-identity; visible copy is guarded " +
+          "only here");
+      });
+    });
+  });
+  notes.push(shortFiles.length + " generated page(s) and paste sheet(s) " +
+    "checked for the Q14 shortened brand outside a title, " + shortTitleLines +
+    " title line(s) allowed it, " + shortForms.length +
+    " shortenable trading name(s): " +
+    shortForms.map(function (s) { return s.short; }).join(", "));
 }
 
 // ---------------------------------------------------------------------------

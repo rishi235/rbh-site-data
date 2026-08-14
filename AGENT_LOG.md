@@ -2,6 +2,100 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 14:05 BST - two-hundredth run
+
+- Quality pass on item 5.6, the Q14 title-length rule. ONE REAL DEFECT FOUND
+AND FIXED. It is in a guard rather than in patient-facing copy, but it is the
+guard on a promise item 5.6 makes in its own words, and the gap was proved by
+injection on a real page rather than argued. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness re-derived
+mechanically rather than inherited, using both log constructions ("- Item X.Y
+quality pass" and "Quality pass on item X.Y"): all 41 completed items resolve,
+none unresolved, and the order agrees exactly with the 199th run's projection
+shifted by one. 5.6 is stalest at 41 blocks, then 4.5 at 39, 6.3 at 38, 5.7
+at 37.
+
+BASELINE. No .agent-lock and no .git\index.lock at start. Level with origin,
+worktree clean. 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted.
+Thirty-seventh consecutive run of this fault, which is what Q59 asks about, so
+no duplicate was raised. 47 questions open going in, 47 going out. The Q14
+live repaste at Coleman and Leighs therefore stays unverified and outstanding.
+
+NO AUTONOMOUS WINDOW. Every "Standing authorisation" string in this log was
+read: 61 hits, 60 of them past runs recording an absence, and the one real
+section is dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days
+ago. It is not at the top of the file. Step 7 applied as written.
+
+THE COMPOSER HALF, RE-MEASURED NOT TRUSTED. Every title was recomposed from
+branches.json through seo-pattern: 195 samples across all seven page
+families, none over the 65 limit, and exactly ONE title in the estate is
+actually being rescued by the Q14 rule, the insect bite title at Coleman and
+Leighs going 70 characters to 61. All six generators were read and all six
+compose through the four seo-pattern composers, so the switchTitle bypass
+fixed on 2026-08-13 was the last of that kind. check-seo-lengths reads all
+177 paste-sheet entries across all 6 sheets, so its coverage is complete.
+
+THE DEFECT. Item 5.6 states the other half of the Q14 bargain plainly: only
+the SERP title loses the word, and the H1, the JSON-LD name, data-branch and
+every visible line of copy keep the full trading name. Two thirds of that was
+guarded and one third was not:
+
+  - "Coleman and Leighs" injected into the JSON-LD name    -> check-nap,
+    check-jsonld and check-branch-identity all fail. Guarded.
+  - the same string injected into the hero paragraph, a section heading and
+    the contact block, leaving data-branch and the JSON-LD name correct
+    -> ALL 36 CHECKERS PASS. Not guarded at all.
+
+That second page is one a patient reads, and it would have read as a
+different business on three lines with the board green.
+
+WHY NO CHECKER COULD SEE IT. Not an oversight, and it is why rule 2 of
+check-brand-spelling could never have grown into this. Rule 2 derives its
+near misses by SWAPPING the shop-type word (Chemist, Chemists, Pharmacy,
+Pharmacies). Dropping the word is exactly what the Q14 rule's shortenBrand
+does. So the single brand variant this repo manufactures on purpose is the
+single variant rule 2 is built not to see, and teaching rule 2 to see it
+would fail the Q14 title itself, which is the correct output. It needed its
+own rule with its own permitted place.
+
+THE FIX. Rule 6 in tools/check-brand-spelling.js: the shortened brand may
+appear only on a line whose role is to declare the page's SEO title, and
+anywhere else in a generated page or paste sheet is a leak. Which brands
+shorten, and to what, is not restated in the checker; it asks fitTitle
+itself, by padding a title past the limit and reading back what the composer
+put in place of the brand, so the rule and the composer cannot drift.
+
+A WRONG FIRST ATTEMPT, RECORDED. The first version restated the shortening
+rule as "any trailing shop-type word" instead of asking the composer. That
+is wider than shortenBrand, which only drops " Pharmacy", and it immediately
+failed three legitimate lines by treating "SK" and "Fishlocks" as shortened
+brands. Caught by running the checker before commit, and it is the reason the
+final version derives the answer instead of restating it.
+
+MEASURED BEFORE WRITTEN, AND NEGATIVE-TESTED. The rule was run against the
+clean repo first: 0 hits across all 188 generated pages and paste sheets, so
+it fails nothing that was passing. Then 18 table-driven cases plus three live
+injections on real pages: the three-line visible leak now fails, a leak on a
+Riddings page fails (where "Riddings" is also the street the shop stands on),
+and the real Q14 title still passes in all four places it legitimately
+appears. Two masks were needed and both are derived from branches.json, not
+listed: the branch street addresses, and this repo's own "<short brand>
+<town>" shorthand, which appears in operational prose such as the banner note
+in modules/switch/pages/INDEX.md.
+
+FILES CHANGED. tools/check-brand-spelling.js (rule 6 and its header entry),
+AGENT_WORKLIST.md, AGENT_LOG.md. All 177 pages and all six paste sheets
+regenerate byte-identical; the only modified file in the repo is the checker.
+
 ## 2026-08-14 13:04 BST - hundred-and-ninety-ninth run [commit 9721a45, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.2, the six branch landing pages. ONE REAL DEFECT
