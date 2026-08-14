@@ -1337,6 +1337,37 @@ audits/smartts-build-check-2026-08-14.txt.
       window is open in any case. No checker was added either, because any
       rule would have to assert Clear's trading status, which is the thing
       being asked.
+      Quality pass 2026-08-14, second machine pass, REPO HALF ONLY: two Chrome
+      extension instances are connected and the tooling requires a human to
+      choose between them, so nothing live was read and nothing live is
+      claimed. ZERO DEFECTS, no page edited. A new independent instrument
+      (audits/clear-aintree-independent-2026-08-14.js, importing nothing from
+      tools/) ran 298 checks across the three pages and found none: structure,
+      heading order, paste-header SEO title and description lengths, phone in
+      both shapes, postcode, review link, website, map embed address, no
+      foreign branch identity, no http://, no dash, no emoji, no personal
+      inbox, no hard-coded widget id, every fragment target resolving, and
+      every CDN pin resolving to a real ref with the pinned file present at
+      it. The instrument was proved before it was believed: a companion probe
+      (audits/clear-aintree-vacuity-probe-2026-08-14.js) injects nine real
+      faults one at a time and all nine are now caught, with the page restored
+      by git after each. THREE SEPARATE FALSE READINGS WERE CAUGHT AND FIXED
+      IN THE INSTRUMENTS, NOT IN THE REPO: cmd ate the "^" in "^{commit}" so
+      every CDN pin first looked broken; "service-module-phase1" exists in
+      this clone only as a remote tracking ref, which is not a live fault
+      because jsDelivr resolves against GitHub; and two probe injections were
+      vacuous, one using a postcode belonging to no branch and one landing
+      inside the paste-header comment the audit deliberately strips. THE ONE
+      NEW COVERAGE FINDING, reported not raised: sweep-broken-links.js
+      excludes www.clearchemist.co.uk by SKIP_HOSTS, so no link on these three
+      pages has ever been status-checked. Measured rather than assumed, that
+      exposure is currently nil, because all three links to that host are the
+      site root, which cannot 404 while the site exists. It becomes real the
+      moment a deep link is added, and section D of the audit re-measures it.
+      Q65 (the pages promise a walk-in service the branch record contradicts)
+      and Q20 (the inert data-wa on the travel page, which is estate-wide
+      across 15 travel and 14 Pharmacy First pages, not a Clear defect) are
+      both already open and were deliberately not re-raised.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

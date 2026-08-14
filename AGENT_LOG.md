@@ -2,6 +2,133 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 12:04 BST - hundred-and-ninety-seventh run
+
+- Item 3.13 quality pass, Clear Chemist (Aintree), 3 pages, second machine
+pass. ZERO DEFECTS IN THE REPO and not one character of any page was edited.
+Three false readings were found and fixed, all three inside my own
+instruments rather than in the repo. No new question raised. One coverage
+finding reported below rather than raised, because it is measured at nil
+today.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering re-derived
+mechanically and, as on the last run, THE FIRST DERIVATION WAS WRONG AND WAS
+CAUGHT. Matching a bare item id inside the first 15 lines of each run block
+returned 3.13 as recently verified, because the 194th run's block quotes a
+staleness table ("Stalest first: 3.8 at 43...") inside that window, and a
+quoted table is a mention, not a verification. Rebuilt to cut the window at
+"Stalest first" and to count only declared-worked-item constructions ("Item
+X.Y quality pass", "Quality pass on item X.Y"). That agrees with the 195th
+and 196th runs' figures shifted by one: 3.13 at 42 blocks, 5.1 at 41, 5.2 at
+39, 5.6 at 38. 237 blocks parsed, 41 completed items, 0 unresolved. 3.13 is
+the stalest.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted.
+Thirty-fourth consecutive run of this fault, which is what Q59 asks about, so
+no duplicate was raised. 47 questions open going in, 47 going out. Nothing
+live was read on this run and nothing live is claimed below.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+string anywhere near the top of this log sits inside the previous run's own
+"NO AUTONOMOUS WINDOW" sentence. There is no live authorisation section, so
+step 7 applied as written. Nothing on this run needed it in any case.
+
+BASELINE. No .agent-lock, no .git\index.lock at start. Level with origin at
+902827f, worktree clean. 36 checkers green. All seven page generators re-run
+and every page rebuilt byte-identical, so the pages verified below are the
+pages the generators produce today, not a stale build. Only status/index.html
+moved, and only because this log's entries grew it; it was restored to
+baseline before the pass and regenerated after.
+
+THE PASS, 298 CHECKS, 0 FAILURES. A new instrument,
+audits/clear-aintree-independent-2026-08-14.js, with its own file discovery,
+its own regexes and its own reading of branches.json, importing NOTHING from
+tools/, so the generators are not tested against themselves. 3 pages found
+out of 182 html files under modules/. Per page: exactly one H1, carrying both
+"Aintree" and "Clear Chemist" and never falling back to the postal locality
+"Liverpool" (Build Pack 5.1); no skipped heading level; the paste-header SEO
+title present, within 65 characters and carrying the seoTown, and the
+description present and between 80 and 165; display phone 0151 203 8365 as
+crawlable text with every tel: link the unspaced form; own postcode L9 7AS;
+review link, website and map-embed address all matching branches.json;
+data-branch equal to branchName; no other branch's phone, postcode, town or
+brand anywhere; no http:// URL; no em or en dash in visible copy; no emoji;
+no personal rishi@ address (Build Pack 5.6); no hard-coded 24-hex Appointedd
+widget id (Build Pack 5.3); every href="#..." resolving to an id on the same
+page; and every CDN pin resolving to a real git ref with the pinned file
+present at that ref.
+
+THE INSTRUMENT WAS PROVED, AND IT TOOK TWO GOES. A companion probe,
+audits/clear-aintree-vacuity-probe-2026-08-14.js, injects nine real faults
+one at a time into a real page, runs the audit, and asserts the matching rule
+fires; it refuses to start unless the worktree is clean and restores the page
+with git checkout after every injection. First run: 7 caught, 2 MISSED. Both
+misses were probe defects, not blind rules, and both were diagnosed before
+anything was concluded. The "foreign postcode" injection used an invented
+code one character off Fishlocks Ainsdale's PR8 3HN, and an invented code
+belongs to no branch, so the rule was right to stay silent and the probe was
+testing nothing. It now injects PR8 3HN itself. The invented code is not
+written out here or in the probe, because check-postcodes.js reads this log
+and correctly refuses any postcode that is in no branch and has no registered
+reason, which is how this very mistake surfaced.
+The "town stripped from H1" injection matched its phrase inside the
+paste-header comment, which the audit deliberately strips before reading
+copy, so the H1 kept its town. Both corrected, second run 9 caught, 0 missed,
+page restored clean.
+
+THE THIRD FALSE READING, AND THE ONE MOST WORTH REMEMBERING. The audit's
+first run reported six CDN pin failures, which would have been a serious
+finding: a broken pin means every live page loses its stylesheet and script.
+Both causes were in the instrument. First, the check shelled out through
+execSync, which on Windows goes via cmd, and cmd eats the "^" in "^{commit}",
+so git received "service-module-phase1{commit}" and rejected it. execFile
+takes no shell and resolves correctly. Second, "service-module-phase1" exists
+in this clone only as a remote tracking ref, and jsDelivr resolves against
+GitHub rather than against this clone, so a bare local miss is not a live
+fault; the check now retries as origin/<ref> before failing. After both
+fixes, all pins resolve and every pinned file is present at its ref. The rule
+this repo keeps relearning held again: a failing check is a claim about the
+instrument until the instrument has been cleared.
+
+THE ONE NEW COVERAGE FINDING, REPORTED NOT RAISED. Applying this repo's own
+rule ("when a checker passes, ask which files it read") in reverse, and
+asking instead which checkers SKIP this branch: tools/sweep-broken-links.js
+carries SKIP_HOSTS = { "www.clearchemist.co.uk", "rbhealth.co.uk" }, so no
+link on any of these three pages has ever been status-checked, and
+tools/check-nap.js skips the street sweep here because Clear shares "Unit 20
+Brookfield Trade Centre" with RB Healthcare Ltd Head Office. The first skip
+sounds serious, so it was measured rather than assumed. All three
+estate-internal links on these pages are the bare site root
+https://www.clearchemist.co.uk, with no path, and a root cannot 404 while the
+site exists. Current exposure is therefore nil. It stops being nil the moment
+a deep link is added to any of these pages, which is why section D of the
+audit re-measures it on every future run rather than recording today's answer
+as settled. No question was raised and no checker was added, because there is
+no defect to fix and a rule asserting "Clear must never gain a deep link"
+would be wrong.
+
+NOT RE-RAISED, DELIBERATELY. Q65 (all three pages promise an in-person
+service the branch record contradicts at every field) stands exactly as the
+2026-08-13 pass left it, and is a live patient-facing claim with a regulatory
+edge that the run instructions carve out of autonomous decisions. Q20 (a page
+carrying data-wa with no WhatsApp button, so the attribute is inert) is
+already reported by check-whatsapp-route.js, and checking it estate-wide
+showed it covers 15 travel clinic and 14 Pharmacy First pages uniformly, so
+it is a module-level decision and not a Clear Chemist defect. Restating
+either would be noise.
+
+FILES CHANGED. audits/clear-aintree-independent-2026-08-14.js (new),
+audits/clear-aintree-vacuity-probe-2026-08-14.js (new),
+audits/clear-aintree-build-check-2026-08-14.txt (new, the saved output),
+AGENT_WORKLIST.md (item 3.13 note), AGENT_LOG.md (this entry),
+status/index.html (regenerated). No page under modules/ was touched, and
+git status confirms it.
+
 ## 2026-08-14 11:34 BST - hundred-and-ninety-sixth run
 
 - Item 3.12 quality pass, Tiffenbergs Chemist (Aintree), 12 pages. ZERO
