@@ -3435,6 +3435,40 @@ so tools/build-audit-status.js picks them up like any other item.
       hiding in the blind spot on the day it was closed: all 244 relative
       targets resolve to pages this repo generates, so the gap was the
       finding, not a live breakage. All 30 checkers green before and after.
+      Second quality pass 2026-08-14, REPO HALF ONLY: the Cloudflare Access
+      session was not signed in, so no live page was read and nothing live is
+      re-claimed. The four live findings of 2026-08-11 stand as written and
+      Q53/Q54 stay open. TWO REAL DEFECTS FOUND AND FIXED, both in the checker,
+      neither on a page. The 2026-08-13 widening made RULE 1 of
+      tools/check-service-links.js read all three link shapes, but it still
+      resolved a target BY FILENAME against the estate as a whole, asking only
+      whether a basename existed somewhere. Every generated page is published to
+      exactly one Weebly site, at that site's root, so that was the wrong
+      question. Defect 1, cross-host: a relative link from a Fishlocks page to
+      contraception-riddings-timperley.html passed, because the file exists,
+      and 404s live, because fishlockpharmacy.co.uk does not serve Riddings'
+      pages. That is the dead-cross-link class this item exists to catch, and
+      all 244 relative links sat in the blind spot. Defect 2, subpath: the rule
+      took everything after the last slash, so a path with a directory in it
+      resolved on the filename at the end, and Weebly publishes at the root.
+      RULE 1 now resolves by host, attributing each page to its domain by its
+      brandSlug-townSlug suffix, so the paired Fishlocks, Scorah and McCanns
+      branches correctly share a host and may cross-link, and rejects any path
+      carrying a directory. A page nothing can attribute to a host now stops the
+      run rather than quietly weakening the rule. Proved by injection, four
+      cases: cross-host and subpath both passed the old rule and both fail now;
+      not-in-repo and extensionless failed before and still do. Verified by a
+      second extractor written from scratch for this pass and sharing no code
+      with tools/ (audits/link-integrity-2026-08-14.js, own globbing, own href
+      regex covering both quote styles, own resolution model, five coverage
+      gates): it reached the same estate independently, 177 pages, 987 hrefs,
+      421 estate-internal (177 absolute, 244 relative, 171 homepage), and found
+      ZERO defects on the pages. So no defect was in either blind spot on the
+      day it was closed: the gaps were the finding, not a live breakage. Counts
+      and the six known issues are unchanged by the widening, so the rule is not
+      weaker anywhere it was already strong. No page, generator, data field or
+      piece of patient-facing copy was changed. All 36 checkers green, and all
+      six generators reproduced every page byte-identical, before and after.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

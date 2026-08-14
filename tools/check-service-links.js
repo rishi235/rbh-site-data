@@ -24,6 +24,12 @@
       branch domains that this repo does not generate. Either the repo owns the
       page and the link should point at the generated slug, or the page is
       live-only and nothing here can keep it correct. Both need saying out loud.
+    - RULE 1, cross-host target: the target page IS generated here, but for a
+      different branch domain, so it is a live 404 on the site the link sits on.
+      Added by the item 6.2 quality pass, 2026-08-14.
+    - RULE 1, subpath: an estate link with a directory in its path. Weebly
+      publishes every page at the site root, so a directory cannot resolve.
+      Added by the item 6.2 quality pass, 2026-08-14.
     - RULE 1, unverifiable estate path: a link to an estate host with a path
       that is not a .html page, so there is no generated file it can be matched
       against. Riddings /clinic-prices, cross-linked from eight sites and dead
@@ -33,9 +39,24 @@
   RULE 1 reads all three link shapes the generators emit: absolute estate .html
   links, RELATIVE hrefs, and estate paths with no .html. Until 2026-08-13 it
   matched the first shape only, which was 6 of the 421 estate-internal links on
-  the 177 pages. KNOWN keys are "<host>/<path>" for absolute links and
-  "relative:<href>" for relative ones. Bare homepage links (a host with no path)
-  are counted but never failed: a homepage always exists.
+  the 177 pages. KNOWN keys are "<host>/<path>", one shape for every link, since
+  a relative href resolves on the host of the page it sits on. Bare homepage
+  links (a host with no path) are counted but never failed: a homepage always
+  exists.
+
+  RULE 1 RESOLVES BY HOST, NOT BY FILENAME, since 2026-08-14. It used to ask
+  only whether a basename existed somewhere in the estate. Every generated page
+  is published to exactly one Weebly site, at that site's root, so that question
+  was the wrong one: fishlockpharmacy.co.uk does not serve riddingspharmacy.co.uk's
+  pages. A relative cross-branch link passed the old rule and 404s live, which is
+  the dead-cross-link class item 6.2 exists to catch, and all 244 relative links
+  sat in that blind spot. Pages are attributed to a host by their
+  "<brandSlug>-<townSlug>" suffix from branches.json, so the two Fishlocks
+  branches, the two Scorahs and the two McCanns correctly share one host each and
+  may link to one another. Proved by injection on 2026-08-14: a relative link to
+  another branch's page, and a link with a directory in its path, both passed the
+  old rule and both fail now. No defect was in the blind spot on the day it was
+  closed: all 421 estate-internal links resolve on the host they land on.
 
   What is only REPORTED, not failed:
     - links to pages on our domains that are listed in KNOWN below, each with a
@@ -107,18 +128,35 @@ function blankComments(text) {
 
 const data = JSON.parse(fs.readFileSync(path.join(REPO, "branches.json"), "utf8"));
 const estateHosts = new Set();
+const hostOfSlug = new Map();   // "<brandSlug>-<townSlug>" -> host
 data.branches.forEach(function (b) {
   if (b.disposed || !b.website) return;
-  estateHosts.add(b.website.replace(/^https?:\/\//, "").replace(/\/$/, "").toLowerCase());
+  const host = b.website.replace(/^https?:\/\//, "").replace(/\/+$/, "").toLowerCase();
+  estateHosts.add(host);
+  if (b.brandSlug && b.townSlug) hostOfSlug.set((b.brandSlug + "-" + b.townSlug).toLowerCase(), host);
 });
 
-// Every page this repo generates, by filename.
-const generated = new Set();
+// Every page this repo generates, mapped to the ONE host that publishes it.
+// Longest slug first, so scorah-hazel-grove is not swallowed by a shorter match.
+const slugs = Array.from(hostOfSlug.keys()).sort(function (a, b) { return b.length - a.length; });
+const generated = new Map();    // "<basename>.html" -> host
+const unattributed = [];
 PAGE_DIRS.forEach(function (dir) {
   if (!fs.existsSync(dir)) return;
-  fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); })
-    .forEach(function (f) { generated.add(f.toLowerCase()); });
+  fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
+    const name = f.toLowerCase();
+    const slug = slugs.find(function (s) { return name.replace(/\.html$/, "").endsWith("-" + s); });
+    if (!slug) { unattributed.push(name); return; }
+    generated.set(name, hostOfSlug.get(slug));
+  });
 });
+// A page nothing can attribute to a host cannot be checked at all, so it must
+// stop the run rather than quietly weaken the rule for every other page.
+if (unattributed.length) {
+  console.log("check-service-links");
+  console.log("  FAIL  page(s) not attributable to a branch host: " + unattributed.join(", "));
+  process.exit(1);
+}
 
 const failures = [];
 const knownHits = {};
@@ -133,6 +171,9 @@ PAGE_DIRS.forEach(function (dir) {
     const file = path.join(dir, f);
     const visible = blankComments(fs.readFileSync(file, "utf8"));
     pageCount++;
+    // The host this page is published to. A relative href on it resolves here
+    // and nowhere else, which is what makes a cross-branch link a live 404.
+    const selfHost = generated.get(f.toLowerCase());
 
     // RULE 1 - link targets
     //
@@ -166,33 +207,58 @@ PAGE_DIRS.forEach(function (dir) {
       // must still be recognised as absolute, or it falls through to the
       // relative branch and is reported against a host it never had.
       const abs = href.match(/^(?:https?:)?\/\/([^\/"?#]+)([^"?#]*)/i);
-      let key;
-      let target;
+      let host;
+      let pth;
 
       if (abs) {
-        const host = abs[1].toLowerCase();
+        host = abs[1].toLowerCase();
         if (!estateHosts.has(host)) continue;   // external, out of scope by design
-        estateLinkCount++;
-        const pth = (abs[2] || "/").replace(/^\//, "");
-        if (pth === "") continue;               // homepage, always exists
-        key = host + "/" + pth.toLowerCase();
-        target = pth.toLowerCase().replace(/^.*\//, "");
+        pth = abs[2] || "/";
       } else {
-        // Relative href: resolves on the branch's own site, so the estate host
-        // is implied. Same-page anchors and query strings are stripped first.
-        estateLinkCount++;
-        const clean = href.split("?")[0].split("#")[0];
-        if (!clean || clean === "/") continue;  // homepage, always exists
-        key = "relative:" + clean.toLowerCase();
-        target = clean.toLowerCase().replace(/^.*\//, "");
+        // Relative href: resolves on the host of the page it sits on, which is
+        // why selfHost, not the estate as a whole, is the right question to ask.
+        // Same-page anchors and query strings are stripped first.
+        host = selfHost;
+        pth = href.split("?")[0].split("#")[0];
+        if (!pth) continue;                     // same-page anchor only
+      }
+      estateLinkCount++;
+
+      pth = pth.replace(/^\/+/, "");
+      if (pth === "") continue;                 // homepage, always exists
+
+      const key = host + "/" + pth.toLowerCase();
+
+      // Weebly publishes every page at the site root, so a directory in the
+      // path cannot resolve, whatever the filename on the end of it is.
+      if (pth.indexOf("/") !== -1) {
+        if (KNOWN[key]) { knownHits[key] = (knownHits[key] || 0) + 1; continue; }
+        failures.push({
+          file: rel(file),
+          rule: "subpath",
+          text: "links to " + key + ", and Weebly publishes at the site root, so a directory cannot resolve"
+        });
+        continue;
       }
 
-      if (generated.has(target)) continue;
+      const owner = generated.get(pth.toLowerCase());
+      if (owner === host) continue;             // generated for this host, resolves
       if (KNOWN[key]) { knownHits[key] = (knownHits[key] || 0) + 1; continue; }
+
+      // Generated here but for another branch domain: the file exists, the link
+      // still 404s, and only a host-aware rule can tell the two apart.
+      if (owner !== undefined) {
+        failures.push({
+          file: rel(file),
+          rule: "cross-host target",
+          text: "links to " + key + ", but that page is generated for " + owner + ", so it 404s on " + host
+        });
+        continue;
+      }
 
       // An estate path with no .html is a page this repo cannot own or keep
       // correct, so it needs a reason on the record rather than silence.
-      const rule = /\.html$/i.test(target) ? "stale target" : "unverifiable estate path";
+      const rule = /\.html$/i.test(pth) ? "stale target" : "unverifiable estate path";
       failures.push({
         file: rel(file),
         rule: rule,

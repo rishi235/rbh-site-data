@@ -2,6 +2,93 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 09:34 BST - hundred-and-ninety-second run
+
+- Item 6.2 quality pass, broken internal links, second machine pass. ZERO
+DEFECTS ON THE 177 PAGES and not one character of any page was edited. TWO
+DEFECTS FOUND AND FIXED, both in the checker: RULE 1 resolved link targets by
+filename rather than by host, and it ignored directories in a path. Four
+negative tests; two of them passed the old rule and fail now. No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited: run heading blocks joined before matching,
+per the documented wrap trap, 232 blocks parsed, 41 completed items, 6.2
+stalest at 36 runs. 3.7, which run 191 worked, now sits at 1.
+
+REPO HALF ONLY. One Chrome instance was connected, so step 3 was attempted
+properly this time rather than skipped. https://data.rbhealth.co.uk/api/feedback
+returned the Cloudflare Access sign-in page, not JSON, so the session is not
+live. Per the procedure nothing else was tried and no login was attempted. The
+47 open questions stay open. This is the recurring fault Q59 records. Nothing
+live was read on this run and nothing live is claimed below.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written. Nothing needed
+it: both fixes are checking code and neither touches patient-facing copy.
+
+THE 177 PAGES ARE CLEAN. Second independent extraction, written from scratch
+for this pass, sharing no code with tools/: own globbing, own href regex
+covering single and double quotes, own branches.json read, own resolution
+model. COVERAGE WAS PROVED BEFORE THE RESULT WAS READ, since an extractor can
+pass by finding nothing: five gates, on the estate host set, the branch slug
+map, the page count, the href count and the estate-link count, each exiting
+non-zero on its own. It reached the same estate independently: 177 pages, 987
+hrefs, 421 estate-internal, split 177 absolute, 244 relative and 171 homepage.
+Every one of the 421 resolves on the host it lands on. The five live-only
+Smartts targets and the one known claim are unchanged.
+
+DEFECT 1: THE RULE ASKED THE WRONG QUESTION. Every generated page is published
+to exactly one Weebly site, at that site's root. RULE 1 took the basename of a
+target and asked whether it existed anywhere in the estate. It does not follow
+that the link resolves: fishlockpharmacy.co.uk does not serve
+riddingspharmacy.co.uk's pages. Injecting a relative link from a Fishlocks page
+to contraception-riddings-timperley.html passed the checker cleanly and would
+have been a live 404. That is exactly the dead-cross-link class item 6.2 exists
+to catch, and all 244 relative links, the majority of the estate's internal
+linking, sat in that blind spot. The 2026-08-13 widening added the shapes but
+kept the filename test, so the gap survived it.
+
+DEFECT 2: A DIRECTORY IN THE PATH WAS DISCARDED. The rule read
+target = pth.replace(/^.*\//, ""), so services/contraception-fishlocks-
+ainsdale.html was tested as contraception-fishlocks-ainsdale.html and passed.
+Weebly publishes at the root, so any directory is unresolvable whatever the
+filename on the end of it.
+
+THE FIX. RULE 1 now attributes every generated page to the one host that
+publishes it, by its brandSlug-townSlug suffix from branches.json, longest slug
+first so scorah-hazel-grove is not swallowed by scorah-bramhall's shorter
+neighbour. A relative href is resolved against the host of the page it sits on;
+an absolute one against the host in the URL. A target generated for a different
+host now fails as "cross-host target", a path with a directory as "subpath". The
+two paired-branch cases are handled correctly by construction: Fishlocks,
+Scorah and McCanns each have two branches on one domain, so their cross-branch
+links are legitimate and still pass, which a per-branch rule would have broken.
+A page nothing can attribute to a host now stops the run rather than quietly
+weakening the rule for every other page. KNOWN keys are now one shape,
+"<host>/<path>", instead of two.
+
+PROOF, AND WHAT IT DID NOT FIND. Four injections, each run against both
+checkers before and after: cross-host MISSED then CAUGHT, subpath MISSED then
+CAUGHT, extensionless CAUGHT both times, not-in-repo CAUGHT both times.
+Evidence in audits/link-integrity-negatives-2026-08-14.txt. On the clean tree
+the counts and the six known issues are identical before and after, so the rule
+is not weaker anywhere it was already strong, and no defect was hiding in
+either blind spot on the day it was closed. The gaps were the finding, not a
+live breakage, the same shape as the check-em-dashes.js gap on 2026-08-12 and
+the check-opening-hours.js gap on 2026-08-13.
+
+WHAT WAS NOT DONE. The four live findings of 2026-08-11 stand as written and
+Q53/Q54 stay open; with no session there was no way to re-read them. Nothing
+was decided on any open question.
+
+FILES CHANGED. tools/check-service-links.js (RULE 1 host-aware, subpath rule,
+attribution gate, header rewritten to match), AGENT_WORKLIST.md (6.2 pass
+appended in place), AGENT_LOG.md (this entry), plus two new evidence files,
+audits/link-integrity-2026-08-14.js and
+audits/link-integrity-negatives-2026-08-14.txt. All 36 checkers green and all
+six generators reproduced every page byte-identical, before and after.
+
 ## 2026-08-14 08:35 BST - hundred-and-ninety-first run [commit a7fa444, hash line added by a small follow-up commit]
 
 - Item 3.7 quality pass, Smartts Chemist (Bootle), fifth machine pass. ZERO

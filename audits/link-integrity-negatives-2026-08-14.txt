@@ -1,0 +1,39 @@
+Item 6.2 quality pass, 2026-08-14. Negative tests by injection.
+
+Method: one relative href on modules/branch/pages/pharmacy-fishlocks-ainsdale.html
+was mutated, both checkers were run, then the page was restored with
+git checkout. Four cases. "MISSED" means the checker exited 0 on a link that
+cannot resolve live.
+
+BEFORE the fix, tools/check-service-links.js as it stood after 2026-08-13:
+
+  cross-host   href="contraception-riddings-timperley.html"          MISSED
+  subpath      href="services/contraception-fishlocks-ainsdale.html" MISSED
+  extensionless href="/clinic-prices"                                CAUGHT
+  not in repo  href="contraception-does-not-exist.html"              CAUGHT
+
+  audits/link-integrity-2026-08-14.js caught all four.
+
+AFTER the fix, RULE 1 resolving by host and rejecting directories:
+
+  cross-host    CAUGHT  [cross-host target] links to
+                www.fishlockpharmacy.co.uk/contraception-riddings-timperley.html,
+                but that page is generated for www.riddingspharmacy.co.uk,
+                so it 404s on www.fishlockpharmacy.co.uk
+  subpath       CAUGHT  [subpath] Weebly publishes at the site root, so a
+                directory cannot resolve
+  extensionless CAUGHT  [unverifiable estate path]
+  not in repo   CAUGHT  [stale target]
+
+  audits/link-integrity-2026-08-14.js still caught all four.
+
+State of the clean tree, unchanged by the widening:
+
+  177 generated page(s), 987 link(s), 421 to our own 13 branch domains
+  (177 absolute, 244 relative, 171 homepage), 6 known issues awaiting a
+  decision, 0 failures. All 36 checkers green. All six generators reproduce
+  every page byte-identical.
+
+No page, generator, data field or piece of patient-facing copy was changed.
+No live page was read on this pass: the portal answer pickup found a
+Cloudflare Access login page, so nothing live is claimed here.
