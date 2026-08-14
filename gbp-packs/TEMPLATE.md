@@ -134,3 +134,26 @@ action any pending Google updates while in the profile.)
 ### Post D - Travel clinic
 (Each post: text plus the button suggestion - "Book" or "Learn more" with the
 right page link from branches.json.)
+
+Notes for the paster:
+(This block sits below section 5 and is the only part of a pack addressed to
+the person doing the pasting rather than to the Google profile. Nothing here
+is pasted into Google. All 15 packs carry it, and until the item 4.1 quality
+pass on 2026-08-14 this template did not mention it at all, so a pack drafted
+faithfully from the template would have carried none of the instructions
+below and nothing would have said so. tools/check-gbp-packs.js now fails any
+pack, and this template, that has no "Notes for the paster:" line. Write the
+branch-specific version of each note that applies.)
+- Profile website: on a shared domain, name the landing page to use and say
+  whether it resolves yet. If it does not, say plainly that the profile
+  website must not be set until it does. A profile pointed at a page that
+  returns 404 is worse than one left alone.
+- Post C names no medicines and makes no efficacy claims, per the POM
+  advertising rules above. Say so here, and say that none are to be added
+  when posting.
+- Post buttons: if GBP only offers "Learn more", use it with the same links.
+- Categories: check the names against what GBP's picker offers on the day and
+  take the closest match, because the picker list is not stable.
+- Anything else branch-specific the paster would otherwise get wrong, and the
+  date any live state claimed above was last observed, so the next reader can
+  tell how old it is.

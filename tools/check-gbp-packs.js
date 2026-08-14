@@ -348,6 +348,17 @@ const REQUIRED_POSTS = [
   /^###\s*Post D\b/m,
 ];
 
+// The block that sits below section 5 in every finished pack. It is not a
+// numbered section and it is not pasted into Google, which is exactly why it
+// had no rule: it is the only place the pack speaks to the human doing the
+// pasting rather than to the profile. All 15 packs carry it and it is where
+// the instructions with real consequence live - "do NOT set the profile
+// website until it resolves", "do not add medicine names when posting",
+// "check the category names against what GBP's picker actually offers".
+// Lose it and the paste still looks complete while the paster is no longer
+// told any of that. Found on the item 4.1 quality pass, 2026-08-14.
+const REQUIRED_NOTES = /^Notes for the paster:/m;
+
 // Pull the business description body: everything between the section 1
 // heading and the next "## " heading, minus the heading line itself.
 function descriptionOf(text) {
@@ -469,6 +480,9 @@ for (const file of packFiles) {
   REQUIRED_POSTS.forEach((re, i) => {
     if (!re.test(text)) fail(file, `missing Post ${"ABCD"[i]}`);
   });
+  if (!REQUIRED_NOTES.test(text)) {
+    fail(file, 'no "Notes for the paster:" block below section 5. That block is the only part of the pack addressed to the person doing the pasting rather than to the Google profile, and it carries the instructions with consequence: which branches must not have their profile website set yet, that no medicine name may be added to the weight loss post, and that the category names have to be matched against whatever GBP\'s picker offers on the day. Without it the pack still reads as complete and the paster is told none of it');
+  }
 
   // --- the GBP profile website on a shared domain -----------------------
   // Master Plan v2 section 3: Fishlocks, McCanns and Scorah each run two
@@ -2285,6 +2299,49 @@ if (!fs.existsSync(TEMPLATE_FILE)) {
       fails.push(`TEMPLATE.md no longer shows the ${what}. A pack drafted from this template would reach this checker missing it, and the fact rules here would report it late or, without the branch id, not at all. Restore the skeleton that sits above section 1 (item 4.1 quality pass, 2026-08-13).`);
     }
   }
+  // The template must SHOW every block a finished pack is required to have.
+  // Found on the item 4.1 quality pass, 2026-08-14, and it is the same fault
+  // as the one above, one level up. The 2026-08-13 pass pinned the skeleton
+  // that sits ABOVE section 1 and stopped there, so the five numbered
+  // sections and the four post headings - the structure every pack is failed
+  // for missing, five lines of REQUIRED_SECTIONS and four of REQUIRED_POSTS -
+  // were enforced on the finished pack and on nothing in the file the pack is
+  // copied from.
+  //
+  // Proved by injection that day, on gbp-packs/TEMPLATE.md, three ways:
+  // "## 3. Services section content" retitled to "## 3. Services (free
+  // text)", "### Post D - Travel clinic" demoted to a plain line, and
+  // "## 1. Business description" retitled to "## 1. About the branch". Each
+  // break was restored and the file proved byte-identical by sha256, and
+  // every one of the three walked past ALL 35 checkers clean. A drafter
+  // copying the broken template produces a pack missing a required section,
+  // and only then does anything fail - in the pack, not in the template that
+  // caused it, which is the long way round to a fault that was already
+  // written down.
+  //
+  // The patterns are READ from REQUIRED_SECTIONS, REQUIRED_POSTS and
+  // REQUIRED_NOTES rather than typed again here, so the template and the pack
+  // loop cannot drift apart: change what a pack must contain and the template
+  // is held to the new shape in the same edit. That is deliberate - retyping
+  // the headings is exactly how this file would come to enforce one structure
+  // on packs and a different one on the template.
+  if (!REQUIRED_SECTIONS.length || !REQUIRED_POSTS.length) {
+    fails.push("REQUIRED_SECTIONS or REQUIRED_POSTS is empty, so the pack structure rule and the TEMPLATE.md structure rule below it both pass on anything. Whatever emptied it has retired two rules silently; restore the headings or delete both rules deliberately");
+  }
+  REQUIRED_SECTIONS.forEach((re, i) => {
+    if (!re.test(tpl)) {
+      fails.push(`TEMPLATE.md does not show section ${i + 1} (${re.source}), although every pack is failed for missing it. A pack drafted from this template would be missing a required section before anyone wrote a word of copy into it (item 4.1 quality pass, 2026-08-14).`);
+    }
+  });
+  REQUIRED_POSTS.forEach((re, i) => {
+    if (!re.test(tpl)) {
+      fails.push(`TEMPLATE.md does not show the "Post ${"ABCD"[i]}" heading, although every pack is failed for missing it. Section 5 asks for four posts and the template is the only place the drafter is told which four (item 4.1 quality pass, 2026-08-14).`);
+    }
+  });
+  if (!REQUIRED_NOTES.test(tpl)) {
+    fails.push('TEMPLATE.md does not show the "Notes for the paster:" block, although all 15 packs carry one below section 5 and every pack is now failed for missing it. That block holds the instructions with consequence - do not set the profile website until the landing page resolves, do not add medicine names to the weight loss post, match the categories against GBP\'s picker on the day - and a pack drafted from a template that never mentions it would carry none of them (item 4.1 quality pass, 2026-08-14).');
+  }
+
   // The advertising rules, applied to the template as well. The pack loop
   // excludes TEMPLATE.md by name, so a medicine name or an efficacy claim
   // written into the template as SPECIMEN COPY is read by nothing, and every

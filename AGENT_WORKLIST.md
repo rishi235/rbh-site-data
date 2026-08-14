@@ -1155,6 +1155,48 @@ Pharmacy First wording to the NHS service description.
       did before because the pack loop excludes it by name. Eight negative
       tests, all eight fire, one failure each, and the restored file is
       clean. No new question.
+      Quality pass 2026-08-14 (fifth), REPO HALF ONLY: no live page was
+      read this run and nothing live is claimed. Done 2026-08-14. The pack
+      half is clean again on every fact re-checked against the
+      fishlocks_ainsdale entry in branches.json: name, 17 Station Road,
+      Ainsdale, Southport PR8 3HN, phone 01704 575478, review link, hours
+      Monday to Friday 8:45am to 6:00pm with Saturday and Sunday stated
+      closed, catchment leading with Ainsdale, the app line it earns on
+      hasApp true, the profile website on its own landing page, the five
+      widgets earning their categories and services, Post A on the branch's
+      own pfLink, and the description heading claiming 746 characters.
+      All 35 checkers pass and all seven generators rebuild to zero diff
+      (status/index.html timestamp only). Not one character of the pack was
+      edited.
+      THE DEFECT THIS PASS IS THE 2026-08-13 ONE AGAIN, ONE LEVEL UP. That
+      pass pinned the skeleton ABOVE section 1 into TEMPLATE.md and stopped
+      there. The five numbered sections and the four post headings, which
+      are the structure every pack is failed for missing, were enforced on
+      the finished pack and on nothing in the file the pack is copied from.
+      Proved by injection on TEMPLATE.md three ways: section 3 retitled,
+      Post D demoted to a plain line, section 1 retitled. Every one of the
+      three walked past ALL 35 checkers clean, and each was restored and
+      proved byte-identical by sha256. A drafter copying the broken
+      template produces a pack missing a required section, and the failure
+      then lands on the pack rather than on the template that caused it.
+      SECOND DEFECT, THE SAME SHAPE. All 15 packs carry a "Notes for the
+      paster:" block below section 5; TEMPLATE.md never mentioned it and no
+      rule read it. It is the only part of a pack addressed to the human
+      rather than to the profile, and it is where the instructions with
+      consequence sit: do not set the profile website until the landing
+      page resolves, do not add medicine names to Post C, match the
+      categories against GBP's picker on the day. A pack drafted faithfully
+      from the template would have carried none of them and nothing would
+      have said so.
+      Fixed both halves. check-gbp-packs.js now holds TEMPLATE.md to every
+      REQUIRED_SECTIONS and REQUIRED_POSTS heading and to the notes block,
+      with the patterns READ from those arrays rather than retyped, so the
+      template and the pack loop cannot drift apart; every pack is now held
+      to the notes block too, and all 15 already comply; and an empty-array
+      guard stops the derivation being retired silently. TEMPLATE.md now
+      carries a "Notes for the paster:" section saying what belongs in it.
+      Thirteen negative tests, all thirteen fire, every injected file
+      restored and proved byte-identical by sha256. No new question.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

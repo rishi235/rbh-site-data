@@ -2,6 +2,103 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 04:05 BST - hundred-and-eighty-fifth run [commit HASH_PENDING]
+- Item 4.1 quality pass, the GBP pack TEMPLATE plus the Fishlocks Ainsdale
+pack, fifth pass. ZERO IN-REPO DEFECTS IN THE PACK for the second consecutive
+pass and not one character of it was edited. TWO DEFECTS FOUND IN THE OTHER
+HALF OF THE ITEM, both in TEMPLATE.md, and both are the 2026-08-13 defect
+again one level up. Thirteen negative tests, all thirteen fire. No new
+question.
+
+ANSWER PICKUP UNAVAILABLE, twenty-second consecutive run. A tab was opened
+read-only on https://data.rbhealth.co.uk/api/feedback and Cloudflare Access
+redirected it to rbhealth.cloudflareaccess.com and served its own sign-in
+page, so the page carried no JSON to read. Nothing was clicked, nothing
+typed, no login attempted, no other route tried, tab closed. 46 questions
+remain open with nothing posted since 2026-08-10. The unblock is still one
+action on Rishi's side: sign in to data.rbhealth.co.uk once in the Chrome
+profile these runs use.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: every occurrence of
+"Standing authorisation" in this log is a past run recording its absence, the
+only real window was the 2026-08-09 one which expired 2026-08-10, and the top
+of the log runs straight from the header into the 184th run entry. Step 7
+applied as written. Nothing on this pass needed a decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically from the item each run heading states it WORKED, across all 222
+headings, rather than from mentions: 4.1 came back oldest at 41 runs, then
+3.2 at 40 and 3.3 at 39. That confirms the 184th run's prediction of 4.1 next
+and the prediction was checked rather than trusted.
+
+THE PACK IS CLEAN. Every fact re-verified against the fishlocks_ainsdale
+entry in branches.json: branchName, 17 Station Road, Ainsdale with Southport
+as the post town on the house convention, PR8 3HN, phone 01704 575478, the
+review link, hours Monday to Friday 8:45am to 6:00pm with Saturday and Sunday
+both stated closed against closedDays, the catchment leading with Ainsdale
+then Birkdale and Southport in serviceAreaList order, the app line it earns
+on hasApp true, the profile website on its own landing page rather than the
+shared Fishlocks homepage, the categories and services earned by its five
+widgets, and Post A on the branch's own pfLink. All 35 checkers exit 0 and
+all seven generators rebuild every page byte-identical, status/index.html
+timestamp aside.
+
+THE FIRST DEFECT. The 2026-08-13 pass on this same item found TEMPLATE.md
+carrying neither the "Branch id:" line nor the profile basics block, and
+fixed it by pinning that skeleton into the checker. It pinned the skeleton
+that sits ABOVE section 1 and stopped there. The five numbered sections and
+the four post headings - REQUIRED_SECTIONS and REQUIRED_POSTS, the structure
+every pack in the estate is failed for missing - were enforced on the
+finished pack and on nothing at all in the file the pack is copied from.
+Proved by injection on TEMPLATE.md, three ways: "## 3. Services section
+content" retitled to "## 3. Services (free text)", "### Post D - Travel
+clinic" demoted to a plain bracketed line, and "## 1. Business description"
+retitled to "## 1. About the branch". Every one of the three walked past ALL
+35 CHECKERS CLEAN, and each was restored and proved byte-identical by sha256.
+A drafter copying the broken template produces a pack missing a required
+section, and only the pack then fails, which is the long way round to a fault
+that was already written down one file earlier.
+
+THE SECOND DEFECT, THE SAME SHAPE. All 15 packs carry a "Notes for the
+paster:" block below section 5. TEMPLATE.md never mentioned it and no rule in
+any of the 35 checkers read it, proved by scanning: "Notes for the paster"
+appears nowhere in check-gbp-packs.js. That block is the only part of a pack
+addressed to the human doing the pasting rather than to the Google profile,
+and it is where the instructions with consequence sit: which branches must
+not have their profile website set yet because the landing page still returns
+404, that no medicine name may be added to Post C under the POM advertising
+rules, and that the category names have to be matched against whatever GBP's
+picker offers on the day. A pack drafted faithfully from the template would
+have carried none of it, and the pack would still have read as complete.
+
+THE FIX, BOTH HALVES. tools/check-gbp-packs.js now holds TEMPLATE.md to every
+REQUIRED_SECTIONS heading, every REQUIRED_POSTS heading and the notes block,
+with the patterns READ FROM THOSE ARRAYS rather than retyped, so the template
+and the pack loop cannot come to enforce two different structures; every pack
+is now held to the notes block as well, and all 15 already comply, so this
+closes a hole rather than fixing an error; and an empty-array guard fails
+loudly if REQUIRED_SECTIONS or REQUIRED_POSTS is ever emptied, since emptying
+either would otherwise retire two rules in silence. gbp-packs/TEMPLATE.md now
+carries a "Notes for the paster:" section stating what belongs in it, written
+below the rules block so the advertising scan reads it, and carrying no
+medicine name and no efficacy claim.
+
+THE TESTS. Thirteen negative tests, all thirteen caught their break with a
+non-zero exit and the expected message, and every injected file was restored
+and proved byte-identical by sha256: the five section headings and the Post A
+and Post D headings removed from TEMPLATE.md one at a time; the notes block
+removed from TEMPLATE.md; the notes block removed from two different packs;
+REQUIRED_POSTS[0] and REQUIRED_SECTIONS[2] repointed at headings no file has,
+which is what proves the template rule reads the arrays rather than a retyped
+copy of them; and REQUIRED_POSTS emptied, which fires the stale guard.
+
+FILES CHANGED. tools/check-gbp-packs.js (+57), gbp-packs/TEMPLATE.md (+23),
+AGENT_WORKLIST.md (item 4.1 ticked in place with the fifth-pass note),
+AGENT_LOG.md, status/index.html (generator timestamp only).
+
 ## 2026-08-14 03:35 BST - hundred-and-eighty-fourth run [commit f036073, hash line added by a small follow-up commit]
 - Item 4.4 quality pass, Scorah Chemists Bramhall GBP pack, fifth pass. ZERO
 IN-REPO DEFECTS in the pack for the fifth consecutive pass. ONE ESTATE-WIDE
