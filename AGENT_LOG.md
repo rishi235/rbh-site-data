@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 18:25 BST - two-hundred-and-fourth run
+## 2026-08-14 18:25 BST - two-hundred-and-fourth run [commit cb10fdb, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.6, the McCanns Chemist Aigburth GBP pack. ONE REAL
 DEFECT FOUND AND FIXED, in the checker rather than the pack: every hours rule
