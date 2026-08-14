@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 08:35 BST - hundred-and-ninety-first run
+## 2026-08-14 08:35 BST - hundred-and-ninety-first run [commit a7fa444, hash line added by a small follow-up commit]
 
 - Item 3.7 quality pass, Smartts Chemist (Bootle), fifth machine pass. ZERO
 DEFECTS IN THE 12 PAGES and not one character of any page was edited. TWO
