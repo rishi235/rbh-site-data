@@ -512,6 +512,34 @@ run: browser unavailable, see the log for this run. No new question.
       legs) and check-seo-pattern.js (both wired in, plus a guard failing any
       page type declared with no service words). Five negative tests, all
       five fire. No new question.
+      Quality pass 2026-08-14: fourth machine pass, REPO HALF ONLY (browser
+      unavailable, see the log). All 26 Scorah pages re-read by a fourth
+      independent extraction and CLEAN on every leg for the fourth
+      consecutive pass: own town in title, description and H1, exactly one
+      H1, no foreign seoTown outside the branch's own serviceAreaList,
+      titles 42 to 63 characters against a 65 limit, descriptions 135 to 160
+      inside the 80 to 165 band. THE GAP WAS THE HEADING LEG, AND IT WAS A
+      COUNTING GAP. Item 3.2 covers the heading, and every heading rule in
+      the repo reads the FIRST h1 and stops: the exact match, checkH1(),
+      checkCrossTown() and rule 4 of check-seo-lengths.js. None of them
+      counts, so a SECOND h1 was invisible to all four at once. That lands
+      on this item in particular because the cross-town absence rule was
+      added on the 2026-08-11 pass on 3.2 precisely because Bramhall and
+      Hazel Grove share a domain, and a second h1 was the one place it could
+      not look. Proved by injection: a second "<h1>Pharmacy in Ainsdale</h1>"
+      on pharmacy-scorah-bramhall.html, naming a live seoTown absent from
+      Bramhall's serviceAreaList, passed all 35 checkers and the self-test.
+      The same injection carrying a foreign BRAND was caught, but by
+      check-nap.js on the brand alone, which is collateral rather than
+      cover. "Exactly one h1 per page" had been verified by hand on 08-11
+      and by extraction on 08-12 and 08-13, true every time and preserved by
+      no rule. Fixed in check-seo-pattern.js with a ONE H1 rule counting
+      <h1[^>]*> so an attributed h1 still counts, running before the content
+      rules. The exact match deliberately keeps its bare <h1> read rather
+      than being widened, so the fix tightens without loosening. Five
+      negative tests, all five fire, all five restores byte-identical by
+      sha256. Evidence in audits/seo-pattern-h1-count-2026-08-14.txt. No new
+      question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

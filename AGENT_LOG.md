@@ -2,6 +2,95 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 04:34 BST - hundred-and-eighty-sixth run
+- Item 3.2 quality pass, Scorah Chemists (Bramhall and Hazel Grove), fourth
+machine pass. ZERO DEFECTS IN THE 26 PAGES for the fourth consecutive pass and
+not one character of any page was edited. ONE DEFECT FOUND AND FIXED IN THE
+RULES, and it is a COUNTING gap that made four separate heading rules blind at
+the same time. Five negative tests, all five fire. No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited, by joining every run heading in this log to
+the item it states it WORKED, across all 223 headings. FIRST ATTEMPT WAS WRONG
+AND IS RECORDED SO THE NEXT RUN DOES NOT REPEAT IT: a per-line regex put 3.5 at
+80 runs and 3.7 at 78, which contradicted Q64 (raised 2026-08-13 on a 3.5 pass).
+The cause is that this log uses TWO heading formats - older runs name the item
+in the heading itself ("Quality pass on item 3.5") and newer runs name it in the
+first bullet ("- Item 4.1 quality pass") - and the older headings WRAP, so
+"item" and "3.5" sit on different lines and no per-line regex can see them.
+Joining each heading block before matching fixes it and makes the two methods
+agree. On the corrected derivation 3.2 is the oldest at 41 runs, last worked
+2026-08-13 05:34, which also confirms the 185th run's prediction. 3.3 (40 runs)
+is next, then 3.4, then 3.6.
+
+THE 26 PAGES ARE CLEAN. Fourth independent extraction, own regexes rather than
+the checker's, so the two agree only if both are right: 13 Bramhall and 13 Hazel
+Grove, every page carrying its own seoTown in title, description and H1, exactly
+one H1 each, no foreign seoTown outside the branch's own serviceAreaList, titles
+42 to 63 characters against the 65 limit, descriptions 135 to 160 inside the 80
+to 165 band.
+
+THE DEFECT. Item 3.2 is "put the town and service words into every page title,
+description and HEADING". Every heading rule in the repo reads the FIRST h1 and
+stops: the exact match in check-seo-pattern.js, checkH1(), checkCrossTown(), and
+rule 4 of check-seo-lengths.js. NOT ONE OF THEM COUNTS, so a page carrying a
+SECOND h1 satisfied all four at once because all four were reading the first
+one. That lands on this item specifically: the cross-town ABSENCE rule was added
+on the 2026-08-11 pass on 3.2 precisely because Bramhall and Hazel Grove share a
+domain and a page naming its sister town makes the two compete for one
+catchment, and a second h1 was the one place that rule could not look.
+
+PROVED BY INJECTION, TWICE, AND THE SECOND INJECTION IS WHY THE FIRST MATTERS.
+A second "<h1>Pharmacy in Ainsdale</h1>" on pharmacy-scorah-bramhall.html names
+a live seoTown that is NOT in Bramhall's serviceAreaList: ALL 35 CHECKERS AND
+THE SELF-TEST PASSED. Writing the same heading with the brand attached
+("<h1>Pharmacy in Ainsdale - Fishlocks Chemist</h1>") was caught, but by
+check-nap.js and on the foreign BRAND NAME only, not on the town and not on the
+second heading. That is collateral, not cover: strip the brand and nothing fires
+at all. "Exactly one h1 per page" had been verified BY HAND on the 2026-08-11
+pass and by independent extraction on 08-12 and 08-13. True all three times,
+preserved by no rule. Same fault the file's own CROSS-TOWN note records: a hand
+check that no rule replaces is a check that holds until the next regeneration.
+
+THE FIX AND THE LINE IT DOES NOT CROSS. check-seo-pattern.js gains a ONE H1
+rule: every typed page must carry exactly one h1, counted with <h1[^>]*> so an
+h1 that gains an attribute still counts, and run BEFORE the content rules
+because those all read a single h1. The exact match deliberately KEEPS its bare
+<h1> read rather than being widened to match the counting pattern, so an
+attributed h1 still fails loudly there instead of being quietly accepted. The
+fix tightens without loosening anywhere, and negative test 5 holds that line by
+proving the count rule declines to claim a case the exact match still fails.
+
+NEGATIVE TESTS. Five, all five fire, each mutating one page, running the
+checker, restoring the page and proving the restore byte-identical by sha256:
+second bare h1 with a foreign town; second h1 carrying an attribute; no h1 at
+all; second h1 on a Pharmacy First page (a different page family); and the
+no-loosening case above. Evidence in
+audits/seo-pattern-h1-count-2026-08-14.txt.
+
+STATE. All 35 checkers exit 0 and the self-test exits 0 with no length warnings,
+before and after. All seven generators rebuild all 177 pages byte-identical, the
+status/index.html timestamp aside, which is not a page. No page, generator, data
+field, branches.json entry, pack or piece of patient-facing copy was changed.
+Files changed: tools/check-seo-pattern.js, audits/seo-pattern-h1-count-2026-08-14.txt,
+AGENT_WORKLIST.md (the 3.2 pass note), AGENT_LOG.md (this entry).
+
+ANSWER PICKUP UNAVAILABLE, twenty-third consecutive run. A tab was opened
+read-only on https://data.rbhealth.co.uk/api/feedback and Cloudflare Access
+redirected it to rbhealth.cloudflareaccess.com and served its own sign-in page,
+so the page carried no JSON to read. Nothing was clicked, nothing typed, no
+login attempted, no other route tried, tab closed. 46 questions remain open with
+nothing posted since 2026-08-10. The unblock is still one action on Rishi's
+side: sign in to data.rbhealth.co.uk once in the Chrome profile these runs use.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: the top of the log runs
+straight from the header into the 185th run entry, with no "Standing
+authorisation - autonomous window" section present. Step 7 applied as written.
+Nothing on this pass needed a decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
 ## 2026-08-14 04:05 BST - hundred-and-eighty-fifth run [commit 5914081, hash line added by a small follow-up commit]
 - Item 4.1 quality pass, the GBP pack TEMPLATE plus the Fishlocks Ainsdale
 pack, fifth pass. ZERO IN-REPO DEFECTS IN THE PACK for the second consecutive

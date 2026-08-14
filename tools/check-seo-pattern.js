@@ -41,6 +41,11 @@
   it, 30 checkers green both times. The H1 had no content rule of its own at
   all, so its seoTown is now asserted here too.
 
+  Fifth thing, added on the item 3.2 quality pass, 2026-08-14: a page must
+  carry EXACTLY ONE h1. Every h1 rule in this repo reads the FIRST h1 and
+  stops, so a SECOND heading was invisible to all of them at once. See
+  ONE H1 below.
+
   Run:  node tools/check-seo-pattern.js
   Exits 1 on any mismatch. Reports per brand so the Phase 3 worklist items
   (one brand each) can be verified individually.
@@ -252,8 +257,43 @@ var DIRS = [
   path.join(__dirname, "..", "modules", "branch", "pages")
 ];
 
+// ---------------------------------------------------------------------------
+// ONE H1 - the count rule (item 3.2 quality pass, 2026-08-14)
+// ---------------------------------------------------------------------------
+// Item 3.2 is "put the town and service words into every page title,
+// description and HEADING". Every heading rule in this repo reads the first
+// h1 and stops: the exact match below takes hm[1] off one regex, checkH1()
+// is handed that one string, checkCrossTown() is handed the same string, and
+// rule 4 of check-seo-lengths.js runs its own single .exec() the same way.
+// Not one of them counts. So a page carrying a SECOND h1 satisfied all of
+// them at once, because all of them were reading the first one.
+//
+// That is not a cosmetic gap on this item in particular. The cross-town
+// ABSENCE rule above was added on the 2026-08-11 pass on this same item,
+// precisely because Scorah Bramhall and Hazel Grove share a domain and a
+// page naming its sister town makes the two compete for one catchment. A
+// second h1 is the one place that rule could not look. Proved by injection
+// on this pass: a second "<h1>Pharmacy in Ainsdale</h1>" was added to
+// pharmacy-scorah-bramhall.html, naming a live seoTown that is NOT in
+// Bramhall's serviceAreaList, and all 35 checkers and the self-test passed.
+// An earlier injection that also carried a foreign BRAND was caught, but
+// only by check-nap.js and only on the brand, which is collateral rather
+// than cover: strip the brand and nothing fires.
+//
+// "Exactly one h1 per page" was verified BY HAND on the 2026-08-11 pass and
+// re-verified by independent extraction on 2026-08-12 and 2026-08-13. It was
+// true all three times and no rule preserved it, which is the same fault
+// this file's own CROSS-TOWN note records: a hand check that no rule
+// replaces is a check that holds until the next regeneration.
+//
+// Counting uses <h1[^>]*> so an h1 that gains an attribute still counts.
+// The exact match below deliberately keeps its bare <h1> read, so an
+// attributed h1 fails loudly there rather than being quietly accepted; the
+// two are different questions and neither is widened to suit the other.
+var H1_OPEN_RE = /<h1[^>]*>/gi;
+
 var perBrand = {}; // brandLabel -> { pages: n, fails: [] }
-var checked = 0, fails = 0, crossTownChecked = 0, swChecked = 0;
+var checked = 0, fails = 0, crossTownChecked = 0, swChecked = 0, h1CountChecked = 0;
 var untyped = [];  // files this checker could not type: unchecked, not skipped
 
 DIRS.forEach(function (dir) {
@@ -273,6 +313,19 @@ DIRS.forEach(function (dir) {
     perBrand[brand] = perBrand[brand] || { pages: 0, fails: [] };
     perBrand[brand].pages++;
     checked++;
+
+    // ONE H1. Runs before the content rules below, because every one of them
+    // reads a single h1 and a page with two makes all of them report on the
+    // first while the second goes unread. See the ONE H1 note above.
+    var h1Count = (html.match(H1_OPEN_RE) || []).length;
+    if (h1Count !== 1) {
+      perBrand[brand].fails.push(file + ": " + h1Count + " h1 elements, expected exactly 1. " +
+        "Every h1 rule in this repo reads the first h1 only, so the others go unchecked " +
+        "by the pattern match, the seoTown and service-word rules and the cross-town rule.");
+      fails++;
+    } else {
+      h1CountChecked++;
+    }
 
     if (gotTitle !== exp.title) { perBrand[brand].fails.push(file + ": title '" + gotTitle + "' != '" + exp.title + "'"); fails++; }
     if (gotH1 !== exp.h1) { perBrand[brand].fails.push(file + ": h1 '" + gotH1 + "' != '" + exp.h1 + "'"); fails++; }
@@ -541,6 +594,7 @@ console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verifi
   Object.keys(contractBuilders).length + " generator(s), " +
   Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
 console.log("service-word rule: " + swChecked + " pages had title, h1 and meta all read against their page type's service words.");
+console.log("one-h1 rule: " + h1CountChecked + " pages carry exactly one h1, so the pattern, seoTown, service-word and cross-town rules read the whole heading of every page.");
 console.log("data-source rule: " + sourceChecked + " branches had seo-pattern pick() checked against branches.json seoTown/brandLabel, " +
   sourceDiffering + " of them with an addressLocality that differs from seoTown.");
 console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
