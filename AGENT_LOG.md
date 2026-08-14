@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 - hundred-and-eighty-seventh run
+## 2026-08-14 - hundred-and-eighty-seventh run [commit 2111c35]
 - Item 3.3 quality pass, Fishlocks Chemist (Ainsdale and Eccleston), fourth
 machine pass. ZERO DEFECTS IN THE 26 PAGES for the fourth consecutive pass and
 not one character of any page was edited. ONE DEFECT FOUND IN THE RULES, and
