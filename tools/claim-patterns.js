@@ -101,7 +101,46 @@ const CLAIM_PATTERNS = [
   // distance-bounded for the reason the 4.13 note gives: a bare "effective"
   // is ordinary English about a service, and only the comparative qualifying
   // the thing being sold is a claim.
-  [/\b(?:most|more)\s+effective\b[^.\n]{0,40}?\b(?:weight\s*loss|treatment|clinic|service|programme|program|plan|injection|jab|way|method|lose\s+weight|losing\s+weight)\b/i, "comparative efficacy claim"]
+  [/\b(?:most|more)\s+effective\b[^.\n]{0,40}?\b(?:weight\s*loss|treatment|clinic|service|programme|program|plan|injection|jab|way|method|lose\s+weight|losing\s+weight)\b/i, "comparative efficacy claim"],
+
+  // The PATIENT-FACING OUTCOME group, added 2026-08-14 on the item 4.8 quality
+  // pass. Everything above this point reads a claim about the PRODUCT (the
+  // best clinic) or about the METHOD (the fastest way). Five plainer shapes
+  // were injected into Post C of gbp-packs/fishlocks-eccleston.md, a weight
+  // loss advertisement bound for a public Google profile and therefore Regime
+  // 1 under the house standard, the strictest half. ALL FIVE PASSED ALL 36
+  // CHECKERS:
+  //   - "Most patients lose 2 stone in 12 weeks"
+  //   - "You will lose weight with us"
+  //   - "Our success stories speak for themselves"
+  //   - "It works better than dieting alone"
+  //   - "Drop a dress size before your holiday"
+  // None names a product noun, none uses a superlative and none says
+  // "results", so the 4.12 and 4.13 rules above could not see any of them.
+  // They are what somebody selling actually writes once the obvious words are
+  // banned: the promise moves off the product and onto the patient.
+  //
+  // Each is anchored on evidence from a sweep of all 400 text files in this
+  // repo, the discipline the two notes above record. "dress size", "you will
+  // lose" and "success stor(y|ies)" appear NOWHERE in the repo, so they cost
+  // nothing. The quantified rule needs a "lose" within 30 characters of the
+  // number so it reads a weight, not a price: "pounds" is also currency here.
+  // Its only two hits repo-wide are in audits/, which are records of earlier
+  // injection tests and are read by no checker.
+  //
+  // What was drafted in and taken back out, which is the more useful half: a
+  // general GUARANTEE rule. "guarantee" has 24 hits, and 11 of them are the
+  // correct disclaimer standing on every generated weight loss page - "does
+  // not guarantee eligibility, treatment or results". Shipping it would have
+  // failed eleven live pages for carrying the exact sentence that makes them
+  // lawful, the same trap the "option" note above records. The bare word
+  // "guaranteed" is already caught for packs by EFFICACY_FAIL in
+  // check-gbp-packs.js, which is where it belongs.
+  [/\blos(?:e|es|ing)\b[^.\n]{0,30}?\b\d+(?:\.\d+)?\s*(?:stone|kg|kilos?|kilograms?|lbs?|pounds?)\b/i, "quantified weight loss claim"],
+  [/\bdress\s+sizes?\b/i, "quantified weight loss claim"],
+  [/\byou\s*(?:'ll|\s+will)\s+lose\b/i, "promises the patient a specific outcome"],
+  [/\bsuccess\s+stor(?:y|ies)\b/i, "testimonial-style results claim"],
+  [/\b(?:better|faster|quicker|safer|more\s+effective)\s+than\b[^.\n]{0,40}?\b(?:diet|dieting|exercise|the\s+gym|surgery|slimming|other\s+(?:clinics|treatments|pharmacies)|weight\s*loss)\b/i, "comparative efficacy claim"]
 ];
 
 // Returns [regexp, reason] for the first pattern this text breaches, or null.
