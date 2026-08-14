@@ -2,6 +2,119 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 02:05 BST - hundred-and-eighty-first run
+- Item 1.3 quality pass, the McCanns Sandringham postcode error, fifth pass.
+ONE DEFECT FOUND AND FIXED, in tools/check-postcodes.js, and it sat under all
+six of that checker's rules at once rather than in any one of them. No page,
+no generator, no data field, no branches.json entry, no pack and no piece of
+patient-facing copy was changed. All 33 checkers exit 0 before and after, and
+all six generators rebuild all 177 pages to a zero diff. NO new question.
+
+ANSWER PICKUP UNAVAILABLE, eighteenth consecutive run, and this run got one
+step further than the last seventeen before failing. A tab was opened on
+https://data.rbhealth.co.uk/api/feedback read-only. It did not return the
+feedback JSON: Cloudflare Access served its own sign-in page for
+data.rbhealth.co.uk, offering Azure AD or an emailed login code. Chrome does
+not hold a live Access session for that hostname. Per the standing rule
+nothing was clicked, nothing was typed, no login was attempted, no other
+route was tried, and the tab was closed. 46 questions remain open with
+nothing posted since 2026-08-10. The unblock is still one action on Rishi's
+side: sign in to data.rbhealth.co.uk once in the Chrome profile these runs
+use, so the Access cookie is present when a run reads the endpoint.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written. Nothing needed a
+decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than trusted: all 41 completed items were read out of
+AGENT_WORKLIST.md, all 222 run headings in this log were walked, and each
+item's most recent heading recorded. 1.3 came back oldest at 43, then 1.2 at
+42, 3.11 at 41 and 4.4 at 40. That agrees with what the 180th run predicted.
+
+THE DATA IS CLEAN, FIFTH PASS RUNNING, AND NOT ONE CHARACTER OF IT WAS
+EDITED. CH49 1SX appears in exactly eight files on a case-insensitive sweep,
+every one of them the audit narrating its own finding, and in no page, pack,
+paste block or branches.json entry. L17 4JP is correct in branches.json for
+mccanns_sandringham and is used across 30 files, 16 of them generated pages,
+packs or paste blocks.
+
+THE DEFECT: THE SCANNER, NOT THE RULES. check-postcodes.js has six rules and
+every one of them reads its postcodes through one regular expression, PC_RE.
+PC_RE is uppercase-only and allows at most ONE whitespace character between
+the outward and inward code. So a postcode it cannot see is invisible to
+rules 1, 2, 3, 4, 5 and 6 simultaneously, including a wrong one sitting on a
+live page. Four earlier passes proved this guard by injection, and all four
+injected the value in the one typographic form the guard was already looking
+for, so the blind spot survived every proof it was ever given.
+
+IT IS NOT THEORETICAL, AND THE REPO ALREADY KNEW. check-nap.js, the sibling
+checker running against the same data, hit this exact fault and fixed it for
+itself: its own comments at lines 53 and 421 record that a branch postcode
+typed in lower case passed unread. Nobody carried the lesson across to
+check-postcodes.js. The irony is that check-nap.js still holds those literal
+lower-case strings today, in a file that is neither a narrative file nor a
+declaring file, so the one file in the repo that documents the blind spot is
+also a live demonstration of it. Typed in upper case that value would fail
+rule 1 as UNKNOWN; typed in lower case it passed here in silence.
+
+THE FIX. A second expression, PC_RE_LOOSE: same shape, case-insensitive,
+separator widened to a run of ordinary spaces, tabs, a non-breaking space, an
+&nbsp; entity or one line wrap, and now REQUIRED rather than optional.
+Requiring the separator is what keeps the widening honest, because without it
+a case-insensitive match reads CSS hex colours and short git hashes as
+postcodes. Both expressions now feed one function, extract(), and both scan
+sites call it - the whole-file pass and rule 6's line-by-line pass - so
+widening the scanner widens all six rules at once and the two sites cannot
+drift apart again.
+
+THE BOUNDARY IS DELIBERATE AND WRITTEN DOWN, NOT AN OVERSIGHT. A loose match
+only counts if it canonicalises to a postcode this repo already has a
+position on: a branches.json value, live or disposed, or a value named in
+NARRATIVE_POSTCODES. That covers the whole of this item's risk, because the
+dangerous error is a REAL postcode that sends a patient to the wrong place,
+meaning another branch's or CH49 1SX itself, and every one of those is in the
+set. Deliberately out of scope: a postcode-shaped string that belongs to no
+branch and is not a named historical value, written in lower case. Matching
+that class case-insensitively flags ordinary copy such as a vitamin B12
+reference followed by an ordinal, and this repo has already learned where
+that road goes - three standing UNOWNED warnings were read as noise by three
+consecutive passes before rule 6 was written. A checker that cries wolf gets
+widened until it means nothing. In upper case that class still fails rule 1,
+which is where it should be caught.
+
+NEGATIVE TESTS: FIVE NEW, ALL FIVE PREVIOUSLY SILENT, ALL FIVE NOW FAIL.
+Every injection was run against the pre-change checker and the post-change
+checker in turn, and both edited files were restored byte-for-byte with git
+status confirming it. T1 lower-case foreign, "pr8 3hw" on a McCanns Aigburth
+service page: was silent, now FOREIGN. T2 non-breaking-space unknown,
+CH49 with an &nbsp; before 1SX on a live page: was silent, now UNKNOWN. T3
+the same foreign postcode wrapped across two lines: was silent, now FOREIGN.
+T4 the same with a double space: was silent, now FOREIGN. T5 the one that
+matters most, MISATTRIB inside a MULTI-BRANCH file: modules/branch/pages/
+SEO.md line 27, the McCanns Chemist Sandringham line, given the Aigburth
+postcode in lower case. That is the most confusable pair in the estate, same
+brand, same L17 district, in public SEO copy that gets pasted into Weebly,
+and it was silent before and fails now. Three uppercase regressions (FOREIGN,
+UNKNOWN, MISATTRIB) fail exactly as they did before, so nothing was traded
+away for the new coverage.
+
+CLEAN-RUN BEHAVIOUR UNCHANGED. 0 failures, the same three standing UNOWNED
+warnings, 17 distinct postcodes, 16 live branches. Two per-postcode file
+counts rose because forms that were always there are now read: PR8 3HW 29 to
+30 and SK7 3LQ 28 to 30, all of them lower-case keyword entries and wrapped
+prose in files already accounted for.
+
+OUTSTANDING, UNCHANGED. The CH49 1SX value in the Google Business Profile
+management record is still out of this agent's reach. The action note for
+Rishi or Dane stands.
+
+FILES CHANGED. tools/check-postcodes.js, AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/mccanns-sandringham-postcode-check-2026-08-14.txt.
+
 ## 2026-08-14 01:35 BST - hundred-and-eightieth run [commit ab32c4b, hash line added by a small follow-up commit]
 - Item 4.3 quality pass, the Hirshmans Ainsdale GBP pack, fourth pass. ONE
 DEFECT FOUND AND FIXED, and it is the residual the last pass on this item

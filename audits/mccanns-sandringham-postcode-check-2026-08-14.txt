@@ -1,0 +1,142 @@
+ITEM 1.3 QUALITY PASS - FIFTH PASS
+McCanns Sandringham postcode error (CH49 1SX, correct value L17 4JP)
+Date: 2026-08-14
+Branch: agents/audit-backlog
+Run: hundred-and-eighty-first
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so this run is a quality pass on the least recently
+verified completed item. Ordering was re-derived mechanically rather than
+trusted: all 41 completed items were read out of AGENT_WORKLIST.md, all 222
+run headings in AGENT_LOG.md were walked, and each item's most recent
+heading recorded. 1.3 came back oldest at 43 runs, then 1.2 at 42, 3.11 at
+41 and 4.4 at 40. That agrees with what the 180th run predicted.
+
+PART 1 - THE DATA. CLEAN AGAIN, NOT ONE CHARACTER EDITED.
+
+CH49 1SX appears in exactly eight files, case-insensitive sweep, and every
+one of them is the audit recording its own finding:
+
+    audits/hirshmans-build-check-2026-08-13-fourth.txt
+    audits/mccanns-sandringham-postcode-check-2026-08-12.txt
+    audits/mccanns-sandringham-postcode-check-2026-08-13.txt
+    status/index.html
+    tools/check-postcodes.js
+    AGENT_LOG.md
+    AGENT_WORKLIST.md
+    CLAUDE.md
+
+No generated page, no GBP pack, no Weebly paste block and no branches.json
+entry carries it. The count is up one on the fourth pass (six files) purely
+because two more audit files now narrate it.
+
+L17 4JP is correct in branches.json for mccanns_sandringham (McCanns Chemist
+Sandringham, 1b Aigburth Road, Liverpool, Merseyside) and is used across 30
+files, 16 of them generated pages, packs or paste blocks.
+
+All 33 checkers exit 0. All six generators rebuild all 177 pages to a zero
+diff. The only file changed by this run is tools/check-postcodes.js.
+
+PART 2 - THE DEFECT. THE SCANNER UNDER ALL SIX RULES.
+
+check-postcodes.js has six rules, and every one of them reads its postcodes
+through a single regular expression, PC_RE. PC_RE is uppercase-only and
+allows AT MOST ONE whitespace character between the outward and inward code.
+A postcode PC_RE cannot see is therefore invisible to rule 1, 2, 3, 4, 5 and
+6 at once, including a wrong one sitting on a live page.
+
+Four earlier passes proved the guard by injection and all four injected the
+value in the one typographic form the guard was already looking for, so the
+blind spot survived every proof.
+
+It is not theoretical. check-nap.js, the sibling checker running against the
+same data, hit this exact fault and fixed it for itself. Its own comments,
+at lines 53 and 421, record that a branch's postcode typed "sk7 3bl" or
+"Sk7 3bl" passed unread. Nobody carried the lesson across to this file. The
+irony is that check-nap.js still holds those literal strings today, in a
+file that is neither a narrative file nor a declaring file, so the one file
+in the repo that documents the blind spot is also a live demonstration of
+it: written in upper case that value would fail rule 1 as UNKNOWN, and
+written in lower case it passes here in silence.
+
+PART 3 - THE FIX.
+
+A second expression, PC_RE_LOOSE, same shape, case-insensitive, with the
+separator widened to a run of ordinary spaces, tabs, a non-breaking space,
+an &nbsp; entity or one line wrap, and now REQUIRED rather than optional.
+Requiring a separator is what keeps the widening honest: without it a
+case-insensitive match reads CSS hex colours (f0f9ff, e3e6ea, d8e4ec) and
+short git hashes (fb0d4bf) as postcodes.
+
+Both expressions now feed one function, extract(), and both scan sites in
+the file (the whole-file pass and rule 6's line-by-line pass) call it, so
+widening the scanner widens all six rules at once and the two sites cannot
+drift apart again.
+
+THE BOUNDARY IS DELIBERATE AND NAMED, NOT AN OVERSIGHT.
+
+A loose match only counts if it canonicalises to a postcode this repo
+already has a position on: a branches.json value, live or disposed, or a
+value named in NARRATIVE_POSTCODES. That set covers the whole of this item's
+risk, because the dangerous error is a REAL postcode that sends a patient to
+the wrong place, meaning another branch's or CH49 1SX itself, and every one
+of those is in the set.
+
+What is deliberately NOT covered is a postcode-shaped string that belongs to
+no branch and is not a named historical value, written in lower case. It
+stays out because matching that class case-insensitively flags ordinary copy
+such as a vitamin B12 reference followed by an ordinal, and this repo has
+already learned where that road goes: three standing UNOWNED warnings were
+read as noise by three consecutive passes before rule 6 was written. A
+checker that cries wolf gets widened until it means nothing. Written in
+upper case that class still fails rule 1 today, which is where it should be
+caught.
+
+PART 4 - NEGATIVE TESTS. FIVE NEW, THREE REGRESSIONS.
+
+Each injection was run against the pre-change checker and the post-change
+checker in turn. Injection target for T1 to T4 was
+modules/service/pages/pharmacy-first-mccanns-aigburth.html, owned by
+mccanns_aigburth (L17 7BP). Both files were restored byte-for-byte
+afterwards and git status confirms it.
+
+  T1  lowercase foreign, "pr8 3hw" (Hirshmans Ainsdale)
+      before: exit 0, silent
+      after:  exit 1, FOREIGN, owned by mccanns_aigburth but carries PR8 3HW
+
+  T2  non-breaking-space unknown, "CH49&nbsp;1SX" on a live page
+      before: exit 0, silent
+      after:  exit 1, UNKNOWN, in no branches.json entry
+
+  T3  line-wrapped foreign, outward code and inward code on separate lines
+      before: exit 0, silent
+      after:  exit 1, FOREIGN
+
+  T4  double-space foreign, "PR8  3HW"
+      before: exit 0, silent
+      after:  exit 1, FOREIGN
+
+  T5  MISATTRIB in a MULTI-BRANCH file. modules/branch/pages/SEO.md line 27,
+      the McCanns Chemist Sandringham line, given the Aigburth postcode in
+      lower case, "l17 7bp". This is the most confusable pair in the estate,
+      same brand, same L17 district, in public SEO copy pasted into Weebly.
+      before: exit 0, silent
+      after:  exit 1, MISATTRIB at SEO.md:27
+
+  R1  uppercase foreign, "PR8 3HW"        before: fails. after: fails.
+  R2  uppercase unknown, "CH49 1SX"       before: fails. after: fails.
+  R3  uppercase MISATTRIB, "L17 7BP"      before: fails. after: fails.
+
+Clean-run behaviour is unchanged: 0 failures, the same three standing
+UNOWNED warnings (gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md,
+modules/branch/pages/SEO.md), 17 distinct postcodes, 16 live branches. Two
+per-postcode file counts rose because forms that were always there are now
+read: PR8 3HW 29 to 30 and SK7 3LQ 28 to 30, all of them keyword entries and
+wrapped prose in files that were already accounted for.
+
+OUTSTANDING, UNCHANGED
+The CH49 1SX value in the Google Business Profile management record is still
+out of this agent's reach. The action note for Rishi or Dane stands.
+
+NO NEW QUESTION.

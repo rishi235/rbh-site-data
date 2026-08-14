@@ -114,6 +114,30 @@ var SKIP_DIRS = { ".git": 1, "node_modules": 1, ".vscode": 1 };
 var TEXT_EXT = /\.(html|md|js|json|txt|css|ps1)$/i;
 var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 
+// The scanner, and the blind spot under all six rules. Found on the item 1.3
+// quality pass 2026-08-14 (fifth pass). Every rule above sits on PC_RE, so a
+// postcode PC_RE cannot see is invisible to rule 1, 2, 3, 4, 5 and 6 at once -
+// including a wrong one on a live page. PC_RE is uppercase-only and allows AT
+// MOST ONE whitespace character, so "pr8 3hw", "Pr8 3Hw", "PR8&nbsp;3HW",
+// "PR8  3HW" and a postcode wrapped across two lines are all unread. Four
+// earlier passes proved the guard by injecting values in the one typographic
+// form the guard was already looking for.
+//
+// It is not theoretical. check-nap.js, the sibling checker on the same data,
+// hit this exact fault and fixed it for itself (see its lines 53 and 421: a
+// "branch's postcode typed 'sk7 3bl' or 'Sk7 3bl' passed unread"); nobody
+// carried the lesson across to this file. check-nap.js still holds that
+// literal string today, in a file that is neither narrative nor declaring.
+// Typed uppercase it would fail rule 1 as UNKNOWN. Typed lowercase it passes
+// here in silence.
+//
+// PC_RE_LOOSE is the same shape, case-insensitive, with the separator widened
+// to a run of ordinary spaces, tabs, a non-breaking space, an &nbsp; entity or
+// one line wrap - and now REQUIRED. Requiring it is what keeps the widening
+// honest: without it a case-insensitive match reads CSS hex colours (f0f9ff,
+// e3e6ea, d8e4ec) and short git hashes (fb0d4bf) as postcodes.
+var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|[ \t ]|\r?\n[ \t]*){1,10}([0-9][A-Za-z]{2})\b/g;
+
 function norm(pc) { return String(pc || "").toUpperCase().replace(/\s+/g, " ").trim(); }
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }
 
@@ -128,6 +152,41 @@ branches.forEach(function (b) {
   if (!pc) return;
   if (!byPostcode[pc] || rank(b) > rank(byPostcode[pc])) byPostcode[pc] = b;
 });
+
+// What the loose pass is allowed to report, and the boundary is deliberate.
+// A loose match only counts if it canonicalises to a postcode this repo
+// already has a position on: a branches.json value, live or disposed, or a
+// named historical value. That set covers the whole of this item's risk. The
+// dangerous error is a REAL postcode that sends a patient to the wrong place -
+// another branch's, or CH49 1SX itself - and every one of those is in here.
+//
+// What is deliberately NOT covered: a postcode-shaped string that belongs to
+// no branch and is not a named historical value, written in lower case. It
+// stays out because matching that class case-insensitively flags "vitamin B12
+// 3rd" in ordinary copy, and this repo has already learned where that road
+// goes - three standing UNOWNED warnings were read as noise by three
+// consecutive passes before rule 6 was written. A checker that cries wolf gets
+// widened until it means nothing. Written in upper case that class still fails
+// rule 1 today, which is where it should be caught.
+var INTEREST = {};
+Object.keys(byPostcode).forEach(function (pc) { INTEREST[pc] = 1; });
+branches.forEach(function (b) { if (norm(b.postalCode)) INTEREST[norm(b.postalCode)] = 1; });
+Object.keys(NARRATIVE_POSTCODES).forEach(function (pc) { INTEREST[norm(pc)] = 1; });
+
+// The one place postcodes are read out of text, so widening it widens all six
+// rules at once and none of them can drift apart again.
+function extract(text) {
+  var found = {};
+  var m;
+  PC_RE.lastIndex = 0;
+  while ((m = PC_RE.exec(text)) !== null) found[norm(m[1] + " " + m[2])] = true;
+  PC_RE_LOOSE.lastIndex = 0;
+  while ((m = PC_RE_LOOSE.exec(text)) !== null) {
+    var pc = norm((m[1] + " " + m[2]).toUpperCase());
+    if (INTEREST[pc]) found[pc] = true;
+  }
+  return Object.keys(found);
+}
 
 // Longest-suffix match on "<brandSlug>-<townSlug>" (as check-nap.js does),
 // falling back to a brandSlug prefix for the paste blocks and packs, whose
@@ -171,11 +230,7 @@ function scan(dir) {
 function checkFile(p) {
   var r = rel(p);
   var text = fs.readFileSync(p, "utf8");
-  var found = {};
-  var m;
-  PC_RE.lastIndex = 0;
-  while ((m = PC_RE.exec(text)) !== null) found[norm(m[1] + " " + m[2])] = true;
-  var list = Object.keys(found);
+  var list = extract(text);
   filesScanned++;
   if (!list.length) return;
 
@@ -242,11 +297,7 @@ function checkFile(p) {
       var b = named[0];
       var want = norm(b.postalCode);
       if (!want) return;
-      var onLine = {};
-      var mm;
-      PC_RE.lastIndex = 0;
-      while ((mm = PC_RE.exec(line)) !== null) onLine[norm(mm[1] + " " + mm[2])] = true;
-      Object.keys(onLine).forEach(function (pc) {
+      extract(line).forEach(function (pc) {
         if (pc !== want && byPostcode[pc]) {
           fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + b.branchName +
                " (" + want + ") but carries " + pc + " (" + byPostcode[pc].id + ")");

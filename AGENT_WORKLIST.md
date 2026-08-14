@@ -2418,6 +2418,39 @@ appended to the line. Do not move them; the status page reads them in place.
       both now fail; 341-file clean run confirms no false positive. No new
       question. Done 2026-08-13. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-08-13.txt.
+      Quality pass 2026-08-14 (fifth pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to eight files, all of
+      them the audit narrating itself; L17 4JP correct in branches.json and
+      used across 30 files, 16 of them pages, packs or paste blocks. All 33
+      checkers pass, all six generators byte-identical, only the checker
+      changed. The defect was in check-postcodes.js for the fifth time
+      running, and this time it was under all six rules at once rather than
+      in any one of them. Every rule reads its postcodes through one regular
+      expression, PC_RE, which is uppercase-only and allows at most one
+      whitespace character, so "pr8 3hw", "PR8&nbsp;3HW", "PR8  3HW" and a
+      postcode wrapped across two lines are unread by rules 1 to 6
+      simultaneously, including on a live page. Four earlier passes proved
+      the guard by injection and all four injected the value in the one
+      typographic form the guard was already looking for. Not theoretical:
+      check-nap.js, the sibling checker on the same data, hit this exact
+      fault and fixed it for itself (its lines 53 and 421 record a branch
+      postcode typed in lower case passing unread), and nobody carried the
+      lesson across. Fix: a second, case-insensitive expression with the
+      separator widened to spaces, tabs, a non-breaking space, an &nbsp;
+      entity or one line wrap, and now required rather than optional, since
+      requiring it is what stops a case-insensitive match reading CSS hex
+      colours and short git hashes as postcodes. Both expressions feed one
+      extract() used by both scan sites, so the two cannot drift apart
+      again. The widening is bounded on purpose and the boundary is named in
+      the file: a loose match only counts if it canonicalises to a postcode
+      the repo already has a position on, which covers the whole of this
+      item's risk, because the dangerous error is a real postcode that sends
+      a patient to the wrong place. Five negative tests, all five previously
+      silent, all five now fail, including the Aigburth postcode in lower
+      case on the Sandringham line of the multi-branch SEO.md; three
+      uppercase regressions still fail as before. No new question. Done
+      2026-08-14. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-08-14.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
