@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 02:34 BST - hundred-and-eighty-second run [commit hash added by a small follow-up commit]
+## 2026-08-14 02:34 BST - hundred-and-eighty-second run [commit 88836fc, hash line added by a small follow-up commit]
 - Item 1.2 quality pass, the Hirshmans Ainsdale address, fifth pass, and the
 first pass on this item to cover BOTH halves since the third. CLEAN on the
 address itself for the fifth consecutive time. ONE IN-REPO DEFECT FOUND AND
