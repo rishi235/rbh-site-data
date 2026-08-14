@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-14 01:05 BST - hundred-and-seventy-ninth run [commit hash added by a small follow-up commit]
+## 2026-08-14 01:05 BST - hundred-and-seventy-ninth run [commit 40e2e4b, hash line added by a small follow-up commit]
 - Item 1.4 quality pass, the NAP check, fourth pass. ONE REAL DEFECT FOUND AND
 FIXED, in tools/check-nap.js. No page, no generator, no data field, no
 branches.json entry, no pack and no piece of patient-facing copy was changed.
