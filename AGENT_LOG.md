@@ -2,6 +2,142 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 03:05 BST - hundred-and-eighty-third run [commit HASH_PENDING]
+- Item 3.11 quality pass, Gordon Short Chemist Crosby, fourth pass. ZERO
+IN-REPO DEFECTS on this branch's 12 pages for the fourth consecutive pass.
+ONE ESTATE-WIDE GUARD GAP CLOSED, the last unguarded block of the Pharmacy
+First triad. ONE DEFECT FOUND IN THE NEW CHECKER BY ITS OWN FIRST RUN AND
+FIXED BEFORE COMMIT. No new question. Evidence in
+audits/gordon-short-build-check-2026-08-14.txt.
+
+ANSWER PICKUP UNAVAILABLE, twentieth consecutive run. A tab was opened
+read-only on https://data.rbhealth.co.uk/api/feedback and Cloudflare Access
+served its own sign-in page for data.rbhealth.co.uk, offering Azure AD or an
+emailed login code. Chrome does not hold a live Access session for that
+hostname. Nothing was clicked, nothing typed, no login attempted, no other
+route tried, tab closed. 46 questions remain open with nothing posted since
+2026-08-10. The unblock is still one action on Rishi's side: sign in to
+data.rbhealth.co.uk once in the Chrome profile these runs use.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+at the top of this log, so step 7 applied as written. Nothing on this pass
+needed a decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited: all 41 completed items were read out of
+AGENT_WORKLIST.md, all 223 run headings in this log were walked, and each
+item's most recent heading recorded. 3.11 came back oldest at 42, then 4.4 at
+41 and 4.1 at 39. The 182nd run predicted exactly that, and it is the
+prediction that was checked, not its author.
+
+THE 12 PAGES ARE CLEAN AND NOT ONE CHARACTER WAS EDITED. An independent
+extraction with its own file discovery, its own regexes and its own reading
+of branches.json, importing nothing from tools/, found 12 pages under
+modules/ and ran 960 checks with 0 failures: exactly one H1 per page carrying
+Crosby; 159 College Road, L23 3AT and 0151 924 3449 in visible copy on all
+12; every tel: link the branch's own unspaced digits; own Google review link
+on all 12 and no other branch's phone, postcode or review link anywhere;
+every email on the pages either branches.json's shorts@rbhealth.co.uk or the
+branch nhs.net address and no third one; JSON-LD parsing on all 12 and
+matching branches.json field for field including Merseyside as addressRegion
+and a self-referencing url on the branch's own domain; no http:// URL, no
+emoji, no em dash, no non-ASCII in visible copy except the pound sign; no
+other branch's seoTown or Appointedd widget id; and no app copy against
+hasApp false. All 34 checkers exit 0 and all seven generators rebuild every
+page byte-identical.
+
+THE GAP. Every Pharmacy First condition page carries three blocks of clinical
+copy answering three different questions. Do I have this: CONDITIONS.symptoms.
+Is the service for me: eligibleYes and ageNote, guarded since the sixty-third
+run. What if it is not: eligibleNo, guarded since the hundred-and-fortieth
+run, which was this same item's third pass. NOTHING HAD EVER READ THE
+SYMPTOMS LIST. It is composed once in build-service-pages.js and rendered
+onto 98 live condition pages, 7 pathways across 14 branches, and it is the
+first clinical block a patient reads and the one they self-assess against. A
+bad edit there does not produce a visibly broken page. It produces a page
+that quietly describes the wrong illness with all 33 checkers green.
+
+It was found by method rather than by eye, and that is the part worth
+keeping. All 66 distinct headings across this branch's 12 pages were
+extracted and each generic phrase was searched across every file in tools/.
+26 came back with no checker mentioning them, and the seven
+"<condition> symptoms" headings were the only clinically loaded group among
+them. Reading pages by hand for a fifth time would not have found this;
+asking which blocks the checkers name did.
+
+NEW tools/check-pharmacy-first-symptoms.js. 8 rules: presence and minimum
+length, no duplicated symptom, the composed heading and the shared lead
+"Common signs include:" on the page, every own point verbatim as an item of
+the list, the item count matching the generator (rule 4 catches a point that
+went missing, rule 5 one that was added by hand), no other pathway's symptom
+or heading, no onward NHS route inside a symptom point because escalation
+belongs in the safety net where the safety-net checker enforces the "call
+999" wording, and no medicine from tools/pom-names.js named as a symptom.
+Plus three coverage guards and a two-way PATHWAYS pin guard, so a new
+pathway cannot ship without its symptoms being read. 14 negative tests, all
+14 caught their break, every injected file restored and proved byte-identical
+by sha256 before and after, on the generator and on this branch's own UTI and
+shingles pages.
+
+THE CHECKER'S OWN DEFECT, found by its first run and fixed before commit. The
+first draft read whole-page text with substring matching and rule 6 failed on
+28 clean pages. "A high temperature" is a genuine sore throat and earache
+symptom, it is also a substring of the sinusitis symptom "A high temperature
+or feeling generally unwell", and it appears again inside the UTI safety
+net's kidney-infection line. The eligibility, safety-net and FAQ blocks
+legitimately reuse this vocabulary, so a symptoms rule that reads them cannot
+be right. Rules 3 to 6 now read the symptoms block only and compare whole
+values, never substrings, which is both correct and stricter. That is the
+fourth time this repo has found the same fault, after check-seo-lengths,
+check-nap and check-cdn-pins: when a checker fires, or passes, ask WHICH TEXT
+IT READ. This one read the right page and the wrong part of it.
+
+LIVE HALF, read-only, two pages read, nothing clicked or typed. The symptoms
+block is CORRECT on both the live UTI and shingles pages: heading, the shared
+lead and every point verbatim, and no impetigo copy on the shingles page,
+which is the contamination rule 6 exists to catch and the likeliest one
+because the two pathways describe rashes in similar words. Eligibility and
+safety-net blocks match on both too.
+
+Both live pages are still the PRE-ITEM-1.1 PASTE, calling the pharmacy
+"Gordon Shorts Chemist" in the browser title, hero paragraph, booking card,
+steps heading, Pharmacy First link and contact block, where the repo build
+says "Gordon Short Chemist" in all 11 places. The rename landed in commit
+1ec8f7b on 2026-08-04. This is a KNOWN state, already recorded against this
+branch in the worklist and this log, not fixable in this repo, waiting on a
+Weebly paste run. It is restated only because it makes the live reading
+useful rather than redundant: the symptoms copy is byte-for-byte identical in
+a paste more than ten days old and in today's build, so the block the new
+checker guards is the block patients are reading today.
+
+ONE FURTHER CONFIRMATION OF THE RUNTIME SPLIT. The static pasted body carries
+the old plural name while the runtime-injected footer strip, drawn by
+core/site-data.js from branches.json at @main, carries the correct singular
+name with the correct address, hours and email. The same page shows both
+spellings at once, from two different layers. Checked while there, and it
+puts a concrete field on Q13: branches.json on origin/service-module-phase1
+still holds branchName and brandLabel "Gordon Shorts Chemist" with
+lastUpdated 2026-07-17, against "Gordon Short Chemist" on origin/main
+(2026-08-05), and that branch is 63 commits behind main.
+
+STANDING STATES, CONFIRMED NOT NEW: the switch banner mojibake close button,
+the live-only "Great Crosby" sidebar line (the footer strip matches
+branches.json exactly), and the en dashes in the runtime footer hours line.
+
+status/index.html regenerated to a TIMESTAMP-ONLY diff this run. Its counts
+were already right (0 to do, 8 blocked, 41 done), so it was reverted rather
+than committed as churn. It is still outside the generator set the runs
+rebuild, which is open question Q42, unchanged.
+
+FILES CHANGED: tools/check-pharmacy-first-symptoms.js (new),
+AGENT_WORKLIST.md (3.11 fourth-pass record appended in place, item stays
+ticked), AGENT_LOG.md (this entry),
+audits/gordon-short-build-check-2026-08-14.txt (new). QUESTIONS.json
+untouched, still 70 entries and 46 open.
+
 ## 2026-08-14 02:34 BST - hundred-and-eighty-second run [commit 88836fc, hash line added by a small follow-up commit]
 - Item 1.2 quality pass, the Hirshmans Ainsdale address, fifth pass, and the
 first pass on this item to cover BOTH halves since the third. CLEAN on the

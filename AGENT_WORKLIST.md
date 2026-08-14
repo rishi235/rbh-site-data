@@ -977,6 +977,56 @@ audits/smartts-build-check-2026-08-13.txt.
       the seven pathways whose safety net names no urgent route, which is a
       clinical call on live patient-facing copy and not mine to make, so the
       checker warns on it rather than failing. Done 2026-08-13
+      Fourth quality pass 2026-08-14 (hundred-and-eighty-third run), and this
+      time correctly selected: 3.11 was the oldest verification standing at 42
+      run headings, re-derived mechanically from all 41 completed items and all
+      223 headings rather than inherited from the previous run's prediction.
+      ZERO IN-REPO DEFECTS on the 12 pages for the fourth consecutive pass. An
+      independent extraction importing nothing from tools/ ran 960 checks with
+      0 failures: one H1 per page carrying Crosby, 159 College Road / L23 3AT /
+      0151 924 3449 visible on all 12, every tel: link the branch's own
+      unspaced digits, own Google review link on all 12 and no other branch's
+      phone, postcode or review link, every email on the pages branches.json's
+      own or the branch nhs.net address, JSON-LD parsing on all 12 and matching
+      branches.json field for field with a self-referencing url, no http://, no
+      emoji, no em dash and no non-ASCII in visible copy except the pound sign,
+      no other branch's town or widget id, and no app copy against hasApp
+      false. All 34 checkers exit 0 and all seven generators rebuild every page
+      byte-identical.
+      THE GAP WAS THE THIRD AND LAST UNGUARDED BLOCK OF THE PHARMACY FIRST
+      TRIAD. Every condition page answers three questions: do I have this
+      (symptoms), is the service for me (eligibleYes, guarded since run 63),
+      and what if it is not (eligibleNo, guarded since run 140 on this item's
+      own third pass). Nothing had ever read the symptoms list, which is
+      composed once in build-service-pages.js and rendered onto 98 live
+      condition pages, and which is the first clinical block a patient reads
+      and the one they self-assess against. Found by method, not by eye: all 66
+      distinct headings across the 12 pages were extracted and searched across
+      every file in tools/, and 26 came back guarded by nothing. New
+      tools/check-pharmacy-first-symptoms.js, 8 rules, three coverage guards
+      and a two-way PATHWAYS pin guard so a new pathway cannot ship without its
+      symptoms being read. 14 negative tests, all 14 caught their break, every
+      injection restored and proved byte-identical by sha256.
+      ONE DEFECT IN THE CHECKER ITSELF, found by its own first run and fixed
+      before commit: the first draft read whole-page text with substring
+      matching and rule 6 failed on 28 clean pages, because "A high
+      temperature" is a real sore throat and earache symptom, a substring of
+      the sinusitis symptom, and also sits inside the UTI safety net. Rules 3
+      to 6 now read the symptoms block only and compare whole values. Fourth
+      time this repo has found the same fault: ask which text a checker read.
+      LIVE HALF, read-only, two pages. The symptoms block is correct on both
+      the live UTI and shingles pages, heading, lead and every point verbatim,
+      with no impetigo copy on the shingles page. Both pages are still the
+      pre-item-1.1 "Gordon Shorts Chemist" paste, which is a known state
+      awaiting a Weebly paste run and not fixable here, and that is exactly
+      what makes the reading useful: the symptoms copy is identical in a paste
+      over ten days old and in today's build, so the newly guarded block is the
+      block patients are reading now. Also confirmed: branches.json on
+      origin/service-module-phase1 still says "Gordon Shorts Chemist"
+      (lastUpdated 2026-07-17) against main's "Gordon Short Chemist", and that
+      branch is 63 commits behind main, which is Q13 restated with a concrete
+      field. No new question. Evidence in
+      audits/gordon-short-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.

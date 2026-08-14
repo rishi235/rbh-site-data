@@ -1,0 +1,147 @@
+GORDON SHORT CHEMIST (CROSBY) - ITEM 3.11 FOURTH QUALITY PASS
+Run 183, 2026-08-14, branch agents/audit-backlog.
+
+SELECTION
+Derived mechanically, not inherited. All 41 completed worklist items were
+read out of AGENT_WORKLIST.md and all 223 run headings in AGENT_LOG.md were
+walked to find each item's most recent verification. 3.11 came back oldest at
+42 headings, then 4.4 at 41 and 4.1 at 39. All eight unchecked items are
+still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so a quality pass
+was the correct action. The 182nd run predicted 3.11 next; the prediction was
+re-derived rather than trusted, and it held.
+
+REPO HALF - 12 PAGES, INDEPENDENT EXTRACTION
+Own file discovery, own regexes, own reading of branches.json, importing
+nothing from tools/. 12 pages found under modules/ (11 service, 1 switch).
+960 checks, 0 failures.
+
+  - exactly one H1 per page, carrying Crosby
+  - 159 College Road, L23 3AT and 0151 924 3449 in visible copy on all 12
+  - every tel: link the branch's own unspaced digits, no exceptions
+  - no other trading branch's phone, postcode or Google review link anywhere
+  - own Google review link present on all 12
+  - every email on the pages is branches.json's own (shorts@rbhealth.co.uk)
+    or the branch nhs.net address, no third address
+  - JSON-LD parses on all 12 and matches branches.json field for field:
+    159 College Road / Liverpool / L23 3AT / Merseyside / GB, telephone,
+    and a self-referencing url on gordonshortchemist.co.uk
+  - no http:// URL, no emoji
+  - no non-ASCII in visible copy except the pound sign
+  - no em dash in visible copy
+  - no other branch's seoTown named
+  - no other branch's Appointedd widget id on any page
+  - hasApp is false and no app copy appears
+
+SUITE AND REBUILD
+All 34 checkers exit 0 (33 before this pass, plus the new one below).
+All seven generators rebuild every page byte-identical. The only file that
+moves is status/index.html, and only its timestamp line; its counts were
+already correct (0 to do, 8 blocked, 41 done), so it was reverted rather than
+committed as churn. That page is still outside the generator set the runs
+rebuild, which is open question Q42.
+
+THE GAP: THE SYMPTOMS BLOCK WAS READ BY NOTHING
+Every Pharmacy First condition page carries three blocks of clinical copy
+answering three different questions:
+
+  1. "Do I have this?"        -> CONDITIONS[cond].symptoms
+  2. "Is the service for me?" -> CONDITIONS[cond].eligibleYes and ageNote
+  3. "What if it is not?"     -> CONDITIONS[cond].eligibleNo
+
+Block 2 has been guarded since run 63 by check-pharmacy-first-eligibility.js.
+Block 3 has been guarded since run 140 by check-pharmacy-first-safety-net.js,
+written on this same item's third pass. Nothing had ever read block 1.
+
+It was found by method rather than by eye: all 66 distinct headings across the
+12 Gordon Short pages were extracted and each generic phrase was searched
+across every file in tools/. 26 came back with no checker mentioning them, and
+the seven "<condition> symptoms" headings were the only clinically loaded
+group among them. The symptoms list is composed once in build-service-pages.js
+and rendered onto 98 live condition pages, 7 pathways across 14 branches. It
+is the first clinical block a patient reads and the one they self-assess
+against. A bad edit there does not break a page; it makes the page quietly
+describe the wrong illness while all 33 existing checkers stay green.
+
+NEW: tools/check-pharmacy-first-symptoms.js, 8 rules plus three coverage
+guards and a two-way pin guard on PATHWAYS.
+
+  rule 1  presence: a ready pathway with no symptoms array, fewer than 3
+          points, or a blank point
+  rule 2  no duplicated symptom within a pathway
+  rule 3  the block is on the page: composed heading "<longName> symptoms"
+          and the shared lead "Common signs include:"
+  rule 4  every own symptom point present verbatim as an ITEM OF THE LIST
+  rule 5  the list holds exactly as many items as the generator declares
+          (rule 4 catches a point that went missing, rule 5 one that was
+          added by hand)
+  rule 6  no other pathway's symptom in the list and no other pathway's
+          symptoms heading on the page
+  rule 7  descriptive not directive: no GP, NHS 111, 999, A&E, walk-in or
+          urgent-care route inside a symptom point, because escalation
+          belongs in the safety net where the safety-net checker reads it
+          and enforces the "call 999" wording
+  rule 8  no medicine from tools/pom-names.js named in a symptom point
+          (82 names read from that file rather than mirrored into a literal)
+
+14 negative tests, all 14 caught their break, every injected file restored
+and confirmed byte-identical by sha256 before and after. Injections covered
+each of the 8 rules and the PATHWAYS pin guard, on the generator and on this
+branch's own UTI and shingles pages.
+
+A DEFECT IN THE CHECKER, FOUND BY ITS OWN FIRST RUN AND FIXED BEFORE COMMIT
+The first draft read whole-page text with substring matching, and rule 6
+failed on 28 clean pages. "A high temperature" is a genuine sore throat and
+earache symptom; it is also a substring of the sinusitis symptom "A high
+temperature or feeling generally unwell", and it appears again inside the UTI
+safety net's kidney-infection line. The eligibility, safety-net and FAQ blocks
+legitimately reuse this vocabulary, so a symptoms rule that reads them cannot
+be right. Rules 3 to 6 now read the symptoms block only and compare whole
+values, never substrings, which is both correct and stricter. This is the
+fourth time this repo has found the same fault: when a checker fires, or
+passes, ask WHICH TEXT it read.
+
+LIVE HALF - READ ONLY, TWO PAGES, NOTHING CLICKED OR TYPED
+uti-treatment-gordon-short-crosby.html and
+shingles-treatment-gordon-short-crosby.html on gordonshortchemist.co.uk.
+
+The symptoms block is CORRECT on both. UTI: heading "Urinary tract infection
+(UTI) symptoms", the lead, and all five points verbatim. Shingles: heading
+"Shingles symptoms", the lead, and all four points verbatim, with no impetigo
+copy bleeding in, which is the contamination rule 6 exists to catch and the
+likeliest one, because the two pathways describe rashes in similar words.
+Eligibility and safety-net blocks also match on both pages.
+
+That matters more than it looks. Both live pages are the PRE-ITEM-1.1 PASTE:
+they call the pharmacy "Gordon Shorts Chemist" in the browser title, the hero
+paragraph, the booking card, the steps heading, the Pharmacy First link and
+the contact block, while the repo build says "Gordon Short Chemist" in all 11
+places. The rename landed in commit 1ec8f7b on 2026-08-04 and the pages have
+not been repasted since. This is a KNOWN state, already recorded against
+Gordon Short in the worklist and the log, not fixable in this repo, and it
+waits on a Weebly paste run. It is recorded here only as confirmation, and
+because it makes the live reading useful rather than redundant: the symptoms
+copy is byte-for-byte the same in a paste more than ten days old as in
+today's build, so the block the new checker now guards is the same block the
+patient is reading today.
+
+One further confirmation of the runtime split described in CLAUDE.md. The
+static pasted body carries the old plural name while the runtime-injected
+footer strip, drawn by core/site-data.js from branches.json at
+@main, carries the correct singular "Gordon Short Chemist" with the correct
+address, hours and email. So this page shows both spellings at once, from two
+different layers. Also confirmed while there: branches.json on
+origin/service-module-phase1 still holds branchName "Gordon Shorts Chemist"
+with lastUpdated 2026-07-17, against "Gordon Short Chemist" on origin/main
+(2026-08-05), and that branch is 63 commits behind main. That is the Q13
+stale-behind-a-pin exposure, unchanged, restated with a concrete field.
+
+STANDING STATES, CONFIRMED NOT NEW
+The switch banner mojibake close button, the "Great Crosby" sidebar line that
+appears live and not in branches.json (the footer strip matches branches.json
+exactly), and the en dashes in the runtime footer hours line. All three were
+recorded by earlier passes and are unchanged.
+
+RESULT
+Zero in-repo defects on this branch's 12 pages, for the fourth consecutive
+pass. One estate-wide guard gap closed. No new question raised: nothing on
+this pass needed a decision.
