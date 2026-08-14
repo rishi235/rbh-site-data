@@ -2,6 +2,144 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 03:35 BST - hundred-and-eighty-fourth run
+- Item 4.4 quality pass, Scorah Chemists Bramhall GBP pack, fifth pass. ZERO
+IN-REPO DEFECTS in the pack for the fifth consecutive pass. ONE ESTATE-WIDE
+GAP CLOSED, and it is the clinical scope of an NHS service published on
+fourteen Google profiles and read by nothing. TWO DEFECTS FOUND IN THE NEW
+CHECKER BY ITS OWN NEGATIVE TESTS AND FIXED BEFORE COMMIT. No new question.
+Evidence in audits/scorah-bramhall-pack-check-2026-08-14.txt.
+
+ANSWER PICKUP UNAVAILABLE, twenty-first consecutive run. A tab was opened
+read-only on https://data.rbhealth.co.uk/api/feedback and Cloudflare Access
+redirected to rbhealth.cloudflareaccess.com and served its own sign-in page.
+Chrome does not hold a live Access session for that hostname. Nothing was
+clicked, nothing typed, no login attempted, no other route tried, tab closed.
+46 questions remain open with nothing posted since 2026-08-10. The unblock is
+still one action on Rishi's side: sign in to data.rbhealth.co.uk once in the
+Chrome profile these runs use.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: the only "Standing
+authorisation - autonomous window" section in this log is the 2026-08-09 one,
+which expired 2026-08-10, and every other occurrence of the phrase is a past
+run recording its absence. Step 7 applied as written. Nothing on this pass
+needed a decision in any case.
+
+LOCK. No .agent-lock and no git index.lock, so the lock was taken cleanly.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically, and the first attempt at deriving it was WRONG in a way worth
+recording. Ranking completed items by "last MENTIONED in a run block" put
+3.11, 4.4, 1.1 and 4.1 all at zero runs ago, which is nonsense: they were
+mentioned because the 183rd run's own text discusses the ordering. A mention
+is not a verification. Re-ranked on the item each run states it WORKED, read
+from the run heading and its first bullet across all 224 headings, 4.4 came
+back oldest at 42 runs, then 4.1 at 40 and 3.2 at 39. That confirms the 183rd
+run's prediction of "4.4 at 41, 4.1 at 39" to within the one heading it had
+not yet appended, and the prediction was checked rather than trusted.
+
+THE PACK IS CLEAN AND NOT ONE CHARACTER OF IT WAS EDITED. An independent
+verification importing nothing from tools/ ran 174 assertions with 0 failures:
+branchName, streetAddress, postalCode, phone, review link, website, seoTown
+and addressLocality all present and all matching branches.json; no other
+trading branch's phone, postcode or review link anywhere in the file; hasApp
+false with no app copy; and the business description 742 characters against a
+claim of 742 and a limit of 750. All 35 checkers exit 0 and all seven
+generators rebuild every page byte-identical.
+
+THE GAP. tools/check-gbp-packs.js is 2,360 lines and reads every FACT a pack
+publishes: name, address, house number, post town, postcode, phone, hours,
+days, day-time pairing, review link, profile website, categories, service
+labels, catchment towns, button targets, button labels, post length, pricing,
+medicine names and efficacy claims. It reads NOT ONE CONDITION NAME. Proved by
+scanning it: "sinusitis", "sore throat", "earache", "impetigo", "shingles" and
+"insect bite" appear nowhere in that file.
+
+Fourteen of the fifteen packs publish the seven Pharmacy First conditions
+TWICE each, once in the Services bullet and once in Post A, and both blocks
+are pasted verbatim into a public Google Business Profile. So the clinical
+scope of a free NHS service was stated 28 times in public copy and guarded by
+nothing. A pack that dropped a condition, added an eighth, or attached the
+wrong age range would publish a wrong clinical claim on a Google profile with
+all 34 checkers green. This is the same shape as the gap the 3.11 pass closed
+one run earlier on the generated pages: clinical copy composed once, rendered
+many times, guarded nowhere. The generated pages now carry four clinical
+checkers. The packs carried none.
+
+WHAT THE COPY ACTUALLY SAYS, checked before anything was written. All 28
+blocks are correct: seven of seven conditions in every block, the "where
+appropriate" hedge present everywhere, the service stated free everywhere, no
+price anywhere, UTI at "women aged 16 to 64" matching the canon ageNote, and
+earache written as the paediatric pathway and never for adults. Clear Chemist
+Aintree, the one pack with no pharmacyFirst widget in branches.json, correctly
+names no condition at all. So this closes a hole rather than fixing an error.
+
+NEW tools/check-gbp-pharmacy-first.js. 12 rules and two coverage guards. The
+canon is READ from tools/build-service-pages.js rather than copied, taking the
+declaration head only so that requiring the generator cannot regenerate 112
+pages as a side effect, which means the packs and the 98 live condition pages
+cannot drift apart. Rules: a two-way pin on CONDITION_ORDER, CONDITIONS and
+the lay synonyms; coverage both ways against the pharmacyFirst widget; all
+seven conditions in every block that publishes the list; no condition outside
+the NHS seven inside a block promising a free NHS assessment; the count word
+against the canon; UTI and earache age ranges read out of ageNote rather than
+typed; the "where appropriate" hedge, because Pharmacy First is an assessment
+that may or may not lead to a supply; the service stated free and carrying no
+price; stray condition words outside the blocks, with a deliberate allowlist
+for the legitimate case of a shingles VACCINATION, which is a different
+service entirely; and stale-exception detection on that allowlist. 17 negative
+tests, all 17 caught their break, every injected file restored and proved
+byte-identical by sha256.
+
+THE CHECKER'S OWN TWO DEFECTS, both found by its tests and both fixed before
+commit. This is the fifth time this repo has found the same underlying fault,
+and it arrived twice in one file, so it is worth stating plainly: WHEN A
+CHECKER FIRES, OR PASSES, ASK WHICH TEXT IT READ.
+
+First, a CRLF and $ scope collapse. The packs are stored CRLF. In a JavaScript
+regex with the m flag, $ matches at EVERY line terminator and \r is one, so
+the "end of block" alternative in both scope patterns fired at the end of each
+block's FIRST PHYSICAL LINE. The visible symptom was rule 9 reporting all
+seven conditions in all fourteen packs, 98 failures on completely clean copy.
+The dangerous symptom was silent: with one line in scope, rules 3 to 8 saw no
+condition, took their "names nothing, skip" branch, and did nothing at all
+while the checker reported success. A green checker reading one line in ten is
+worse than no checker, because it retires the question. Fixed by normalising
+line endings and replacing $ with a true end-of-input assertion, and then
+guarded structurally by a new rule 2b which refuses to accept a located block
+that names no condition, so this class of fault fails loudly rather than
+depending on anyone re-reading a regex.
+
+Second, a rule that could not see the most-read block on the profile. Rule 5
+checks the count word and originally sat inside the block loop with everything
+else. The negative test that changes "seven common conditions" to "eight"
+PASSED THE CHECKER. The reason is that the count is claimed THREE times in a
+pack, not twice: section 1's business description also says "assess and treat
+seven common conditions free of charge", and the business description is
+neither the Services bullet nor Post A, so it sat outside every scope the file
+had. The test's String.replace hit that first occurrence, the two blocks kept
+saying "seven", and the checker reported success on a pack whose 750-character
+description, the block Google shows first, had just been falsified. Rule 5 now
+reads all published copy, cutting only the paster notes.
+
+NO LIVE HALF. No browser session was available for verification beyond the
+read-only answer-pickup attempt, so nothing live was read and nothing live is
+claimed. The four post buttons and the profile website line, including the
+known pharmacy-scorah-bramhall.html 404 that the pack's own paster note
+anticipates, are carried forward from the run 99 live pass and remain
+unverified since.
+
+ALSO COMMITTED: status/index.html. The 183rd run appended its worklist note
+and log entry but did not regenerate the status page, so this run's rebuild
+carries that catch-up. Checked rather than assumed: the diff is the 183rd
+run's own worklist note, its log summary entry and the page timestamp, and
+nothing else.
+
+Files changed: tools/check-gbp-pharmacy-first.js (new),
+audits/scorah-bramhall-pack-check-2026-08-14.txt (new), AGENT_WORKLIST.md,
+AGENT_LOG.md, status/index.html.
+
 ## 2026-08-14 03:05 BST - hundred-and-eighty-third run [commit e1363dd, hash line added by a small follow-up commit]
 - Item 3.11 quality pass, Gordon Short Chemist Crosby, fourth pass. ZERO
 IN-REPO DEFECTS on this branch's 12 pages for the fourth consecutive pass.

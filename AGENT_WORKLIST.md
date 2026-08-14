@@ -1358,6 +1358,31 @@ can appear silently, not that a claim is true, because seven recognised labels
 have no widget in branches.json to check against. New question Q62 on the post
 town in the address line, which has no source of truth in the repo.
 audits/scorah-bramhall-pack-check-2026-08-13.txt.
+Quality pass 2026-08-14 (run 184): fifth pass, clean, REPO HALF ONLY (no
+browser session, so the four post buttons and the profile website line are
+carried forward from the run 99 live pass, still unverified since). 174
+independent assertions, 0 failures: every branches.json fact present, no other
+trading branch's phone, postcode or review link anywhere, hasApp false with no
+app copy, and the 742-character description claim re-derived and true.
+The gap closed is estate-wide and clinical. check-gbp-packs.js is 2,360 lines
+and reads every FACT in a pack, and not one condition name: "sinusitis",
+"sore throat", "earache", "impetigo", "shingles" and "insect bite" appear
+nowhere in it. Fourteen packs publish the seven Pharmacy First conditions
+twice each, in the Services bullet and in Post A, and every one of those 28
+blocks is pasted verbatim into a public Google profile. So the clinical scope
+of an NHS service was stated 28 times in public copy and guarded by nothing.
+All 28 blocks verified correct by hand first: seven of seven conditions in
+each, "where appropriate" hedge present, stated free, no price, UTI at 16 to
+64 and earache paediatric, all matching the canon in build-service-pages.js.
+New tools/check-gbp-pharmacy-first.js, 12 rules plus two coverage guards,
+reading the canon out of the generator so the packs and the 98 live condition
+pages cannot drift. 17 negative tests, all 17 caught their break, every
+injection restored and proved byte-identical by sha256. Two defects were found
+IN THE NEW CHECKER by its own tests and fixed before commit: a CRLF and $
+scope collapse that had rules 3 to 8 reading one line per block while
+reporting success, and a rule 5 that could not see the business description,
+which is the third place a pack claims the condition count. No new question.
+audits/scorah-bramhall-pack-check-2026-08-14.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

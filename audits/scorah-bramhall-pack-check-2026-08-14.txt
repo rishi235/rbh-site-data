@@ -1,0 +1,67 @@
+ITEM 4.4 QUALITY PASS - Scorah Chemists Bramhall GBP pack
+Run: hundred-and-eighty-fourth, 2026-08-14. Branch agents/audit-backlog.
+Independent verification: this file imports nothing from tools/ except the
+canon in build-service-pages.js, and re-derives every fact from branches.json.
+
+CANON READ FROM tools/build-service-pages.js
+  CONDITION_ORDER (7): uti, sore-throat, sinusitis, earache, impetigo, shingles, insect-bite
+    uti           name=UTI | ageNote=Women aged 16 to 64
+    sore-throat   name=Sore throat | ageNote=Age 5 and over
+    sinusitis     name=Sinusitis | ageNote=Age 12 and over
+    earache       name=Earache | ageNote=Age 1 to 17
+    impetigo      name=Impetigo | ageNote=Age 1 and over
+    shingles      name=Shingles | ageNote=Age 18 and over
+    insect-bite   name=Infected insect bite | ageNote=Age 1 and over
+
+PART 1. THE PACK AGAINST branches.json, FACT BY FACT
+  ok   branchName      Scorah Chemists Bramhall
+  ok   streetAddress   61-63 North Park Road
+  ok   postalCode      SK7 3LQ
+  ok   phone           0161 439 3744
+  ok   googleReviewUrl https://g.page/r/CZdA75DAMigGEAE/review
+  ok   website         https://www.scorah-chemists.co.uk
+  ok   seoTown         Bramhall
+  ok   addressLocality Bramhall
+  ok   no other trading branch phone, postcode or review link anywhere in the pack
+  ok   hasApp is false and the pack carries no app copy
+  ok   business description 742 characters, claims 742, limit 750
+
+PART 2. PHARMACY FIRST CLINICAL COPY ACROSS EVERY PACK
+This is the gap this pass closed. check-gbp-packs.js (2,360 lines) contains
+none of the strings "sinusitis", "sore throat", "earache", "impetigo",
+"shingles" or "insect bite": it read every fact in a pack and no condition.
+
+  confirmed absent from check-gbp-packs.js: "sinusitis"
+  confirmed absent from check-gbp-packs.js: "sore throat"
+  confirmed absent from check-gbp-packs.js: "earache"
+  confirmed absent from check-gbp-packs.js: "impetigo"
+  confirmed absent from check-gbp-packs.js: "shingles"
+  confirmed absent from check-gbp-packs.js: "insect bite"
+
+  cherry-lane-walton.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  clear-aintree.md           no pharmacyFirst widget, names 0 conditions   ok
+  coleman-leigh-walton.md    2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  fishlocks-ainsdale.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  fishlocks-eccleston.md     2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  gordon-short-crosby.md     2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  hirshmans-ainsdale.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  mccanns-aigburth.md        2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  mccanns-sandringham.md     2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  riddings-timperley.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  scorah-bramhall.md         2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  scorah-hazel-grove.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  sk-chemists-bootle.md      2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  smartts-bootle.md          2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+  tiffenbergs-aintree.md     2 blocks, 7/7 conditions each, hedged, free, no price, UTI 16-64, earache paediatric   ok
+
+  packs fully clean: 14 of 14 with the pharmacyFirst widget
+  Pharmacy First blocks read: 28 (two per pack)
+
+TOTAL CHECKS 174, FAILURES 0
+
+NEW CHECKER tools/check-gbp-pharmacy-first.js
+  12 rules plus two coverage guards. 17 negative tests, all 17 caught their
+  break, every injected file restored and proved byte-identical by sha256.
+  Two defects were found in the checker by its own tests and fixed before
+  commit: a CRLF/$ scope collapse that made rules 3 to 8 read one line per
+  block, and a rule 5 placement that could not see the business description.
