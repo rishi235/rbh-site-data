@@ -1070,6 +1070,33 @@ audits/smartts-build-check-2026-08-14.txt.
       were faults in this run's own work, all written up rather than dropped.
       No question raised. Evidence in
       audits/coleman-build-check-2026-08-13.txt. Done 2026-08-13
+      Quality pass 2026-08-14 (hundred-and-ninety-fifth run, fourth
+      machine-era pass). REPO HALF ONLY: no browser, so nothing live was read
+      and the live findings above are not reconfirmed. All 12 pages re-read by
+      a fresh independent extraction sharing no code with tools/, restating
+      the pattern from the Build Pack v2 spec text rather than importing
+      tools/seo-pattern.js so the generator is not tested against itself.
+      208 checks, 0 flags. The new question this pass asked: can a page's
+      seoTown be present only because the STREET contains that word? Coleman
+      and Leighs raises it, seoTown Walton against street "241 Walton
+      Village". Town survives removal of the street string in every title and
+      H1, and schema addressLocality stays Liverpool, so the catchment word
+      has not leaked into the postal locality. ESTATE CONTROL so a clean
+      result could not look special: same question put to all 177 generated
+      pages, 0 without exactly one crawlable H1, 0 missing their seoTown, 0
+      whose H1 town comes only from the street. ZERO DEFECTS IN THE 12 PAGES
+      and not one character of any page was edited. ONE REAL DEFECT FOUND AND
+      FIXED IN REPO, in tools/check-travel-clinic-copy.js: it stripped
+      <script> bodies case-sensitively, so uppercase <SCRIPT> survived and
+      copy hidden inside one counted as visible. Third instance of the class
+      the 193rd and 194th runs closed on check-switch-copy.js and
+      check-contraception-copy.js; this one was missed because it did strip
+      scripts and so read as already covered. Proved by injection with a
+      lowercase control, including the governing "private, paid service"
+      sentence going missing while the checker returned OK. Three faults in
+      this run's own instrument (56 flags then 4, all its own) written up
+      rather than dropped. No question raised. Evidence in
+      audits/coleman-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

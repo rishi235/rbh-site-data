@@ -1,0 +1,144 @@
+COLEMAN AND LEIGHS PHARMACY (WALTON) - ITEM 3.9 QUALITY PASS
+Fourth machine-era pass. 2026-08-14, hundred-and-ninety-fifth run.
+Branch id colemanleigh_liverpool. Repo half only, no browser.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Ordering re-derived
+mechanically rather than trusted: 235 run blocks parsed out of AGENT_LOG.md,
+41 completed items, each aged by the last run that took it as its SUBJECT
+rather than by mentions. Stalest first: 3.9 at 43 runs, 3.12 at 41, 3.13 at
+40, 5.1 at 39, 5.2 at 37. Item 3.9 was last the subject of the 151st run.
+
+BASELINE
+No .agent-lock and no .git\index.lock at start. Level with origin at dc34058,
+worktree clean. 36 checkers green. All six page generators rebuild every page
+byte-identical (git status empty after a full rebuild). 12 Coleman and Leighs
+pages on disk: 11 under modules/service/pages, 1 under modules/switch/pages.
+
+ANSWER PICKUP UNAVAILABLE
+Two Chrome extension instances are connected. The tooling requires a human to
+choose between them before any browser call and states the agent must not pick
+one itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them. NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted. This is
+the 32nd consecutive run of this fault, which is what Q59 asks about, so no
+duplicate was raised. 47 questions open going in, 47 going out. Nothing live
+was read on this run and nothing live is claimed here; the live findings in
+the 2026-08-12 pass are NOT reconfirmed.
+
+NO AUTONOMOUS WINDOW
+Re-derived rather than trusted. Every "Standing authorisation - autonomous
+window" string in AGENT_LOG.md occurs inside a "NO AUTONOMOUS WINDOW" sentence
+in a past run's own log entry. There is no live authorisation section. Step 7
+applied as written. Nothing on this run needed it in any case: the fix below
+is to audit tooling and touches no patient-facing copy.
+
+THE NEW QUESTION THIS PASS ASKED
+Nothing in the repo had asked whether a page's seoTown can be present only
+because the STREET address happens to contain that word. Coleman and Leighs is
+the branch that raises it: seoTown is "Walton" and the street is
+"241 Walton Village", so the token "Walton" is on every page for a reason that
+has nothing to do with the catchment town. Any rule satisfied by mere presence
+of the token would pass even with the town gone from the title and H1.
+
+RESULT ON THE 12 PAGES: 208 CHECKS, 0 FLAGS
+Per page: exactly one crawlable H1; paste-header SEO title present; town in
+both H1 and title AND still present after the street string and the token pair
+"Walton Village" are removed, so the town is carried on its own merits; the
+correct family shape; schema addressLocality is "Liverpool" and is NOT the
+seoTown, so the catchment word has not leaked into the postal locality; brand,
+street, postcode and phone all present as real crawlable text rather than
+script-only; a tel: link; crawlable text above a floor.
+
+Family shapes confirmed against the spec text (Build Pack v2 s1.4, s5.1, s5.4),
+restated in the instrument rather than imported from tools/seo-pattern.js, so
+the generator is not being tested against itself:
+  Family A  H1 "<Phrase> in Walton", title "<Phrase> in Walton - <brand>"
+            contraception, earache, impetigo, insect bite, shingles,
+            sinusitis, sore throat, UTI
+  Family B  H1 "<Service> at <brand> in Walton",
+            title "<Service> at <brand>, Walton"
+            Pharmacy First, Travel Clinic, Weight Loss Clinic
+  Switch    canonical conversion H1 and canonical switchTitle
+Two apparent divergences were checked and are deliberate, not defects:
+  - insect bite title reads "... - Coleman and Leighs" with " Pharmacy"
+    dropped. That is the Q14 fitTitle rule; the full title would be 70
+    characters and the shortened one is 61.
+  - earache H1 is "Earache treatment for children in Walton" while its title
+    is "Earache treatment in Walton - ...". build-service-pages.js carries an
+    explicit h1Phrase distinct from metaCondition for earache only, and
+    check-seo-pattern.js documents earache as the single exception. The
+    clinical restriction to ages 1 to 17 is why.
+
+ESTATE CONTROL, 177 PAGES, 0 FLAGS
+So that a clean Coleman and Leighs result could not look special, the same
+question was put to every generated page in the estate, each matched to its
+branch by the longest brandSlug-townSlug pair in its filename. 177 pages
+scanned: 0 without exactly one crawlable H1, 0 whose H1 is missing its
+seoTown, 0 whose H1 town comes only from the street. The crossover risk is
+latent estate-wide and live nowhere.
+Two facts worth recording from the same sweep, neither a defect:
+  - 3 branches have their seoTown inside their own street address:
+    mccanns_aigburth (112 Aigburth Road), clearchemist_aintree (Brookfield
+    Trade Centre ... Aintree), colemanleigh_liverpool (241 Walton Village).
+  - 8 branches have seoTown different from addressLocality, which is the
+    documented design (CLAUDE.md), and two towns are each claimed by two
+    branches: Walton by colemanleigh_liverpool and cherrylane_liverpool,
+    Aintree by clearchemist_aintree and tiffenbergs_longmoor.
+
+FAULTS IN THIS RUN'S OWN WORK, WRITTEN UP RATHER THAN DROPPED
+The first instrument produced 56 flags. Every one was its own fault, and none
+was a defect in any page. Recorded because a run that reported those 56 as
+findings would have been badly wrong:
+  1. It looked for <title>. These pages are Weebly EMBED fragments with no
+     <html>, <head> or <title>; the SEO title lives in the paste-header
+     comment and in the SEO sheets. 48 flags.
+  2. It required the brand in every H1. Family A deliberately keeps the brand
+     out of the H1 and puts it in the title, where Google truncates last.
+     8 flags.
+The corrected instrument then produced 4 more flags, all one further fault of
+its own: it derived the page key by stripping only the branch suffix from the
+filename, giving "earache-treatment" and "switch-prescriptions" where the code
+tested for "earache" and "switch". Fixed, after which 208 checks and 0 flags.
+
+THE ONE REAL DEFECT, IN REPO, FOUND AND FIXED
+tools/check-travel-clinic-copy.js stripped <script> bodies CASE-SENSITIVELY:
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+This is the third instance of the class the 193rd and 194th runs closed on
+check-switch-copy.js and check-contraception-copy.js. Those two had no script
+stripping at all. This one did, so it read as already covered and nobody
+re-examined it. Uppercase <SCRIPT> survived the strip, and copy hidden inside
+one counted as visible.
+
+PROVED BY INJECTION, WITH A CONTROL, NOT BY READING
+The hero paragraph of travel-clinic-coleman-leigh-walton.html was moved out of
+the body into a script that wrote it back with innerHTML, the markup inside
+the script byte-identical via a template literal so no escaping changed it.
+  - lowercase <script>, old checker: FAIL. This is the control, and it is what
+    proves the hole was the case half only rather than script handling in
+    general.
+  - uppercase <SCRIPT>, old checker: OK, no failures. The governing
+    "private, paid service" sentence was absent from the rendered page and the
+    checker whose job is that sentence did not notice.
+  - uppercase <SCRIPT>, fixed checker: FAIL on both the verbatim rule and the
+    [private] rule, naming the missing sentence.
+The page was reverted with git checkout after each injection. No page file is
+modified by this run.
+
+THE FIX
+visible() now strips scripts with /<script\b[\s\S]*?<\/script>/gi, matching
+the two checkers already hardened, with a comment recording why the case flag
+is the point. plain() inherits it, so the sentence-level rules including the
+[private] rule are covered too.
+
+DELIBERATELY NOT CHANGED
+tools/check-weight-loss-copy.js uses /<script[\s\S]*?<\/script>/gi. It is
+already case-insensitive and so does not carry this defect. It lacks the \b,
+which can only cause over-stripping, never the under-stripping that hides
+copy, so it was left alone rather than widened on a pass that did not need to.
+
+AFTER THE FIX
+36 checkers green. All six generators rebuild every page byte-identical. The
+only modified file in the worktree is tools/check-travel-clinic-copy.js.
+No question raised.

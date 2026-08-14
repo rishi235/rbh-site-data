@@ -2,6 +2,122 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 11:04 BST - hundred-and-ninety-fifth run
+
+- Item 3.9 quality pass, Coleman and Leighs Pharmacy (Walton), fourth machine
+pass. ZERO DEFECTS IN THE 12 PAGES and not one character of any page was
+edited. ONE REAL DEFECT FOUND AND FIXED IN REPO, in
+tools/check-travel-clinic-copy.js. This is the THIRD instance of the class the
+193rd and 194th runs closed on check-switch-copy.js and
+check-contraception-copy.js, and the reason it was missed is worth more than
+the fix. No new question.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering re-derived
+mechanically rather than trusted: 235 run blocks parsed, 41 completed items,
+each aged by the last run that took it as its SUBJECT. Subject counting, not
+mention counting, for the reason the 193rd run recorded: item 3.1's own
+worklist text contains the string "items 3.2 to 3.13". Stalest first: 3.9 at
+43 runs, 3.12 at 41, 3.13 at 40, 5.1 at 39, 5.2 at 37. 3.9 was last the
+subject of the 151st run.
+
+REPO HALF ONLY. Two Chrome extension instances are connected, so the extension
+side is alive, but the tooling requires a human to choose between them before
+any browser call and states the agent must not pick one itself. An unattended
+run has nobody to ask, so step 3 got no further than enumerating them: NO page
+was fetched and nothing was clicked, typed, submitted or logged in to, on any
+site. No other route was attempted. Thirty-second consecutive run of this
+fault, which is what Q59 asks about, so no duplicate was raised. 47 questions
+open going in, 47 going out. Nothing live was read on this run and nothing
+live is claimed below.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: every "Standing
+authorisation - autonomous window" string in this log sits inside a past run's
+own "NO AUTONOMOUS WINDOW" sentence. There is no live authorisation section.
+Step 7 applied as written. Nothing on this run needed it in any case: the fix
+is to audit tooling and touches no patient-facing copy.
+
+BASELINE. No .agent-lock, no .git\index.lock at start. Level with origin at
+dc34058, worktree clean. 36 checkers green, six generators rebuild all pages
+byte-identical, 12 Coleman and Leighs pages on disk as recorded.
+
+THE NEW QUESTION, 208 CHECKS, 0 FLAGS. Nothing in the repo had asked whether a
+page's seoTown can be present only because the STREET address happens to
+contain that word. Coleman and Leighs is the branch that raises it: seoTown
+"Walton" against street "241 Walton Village", so the token is on every page for
+a reason unconnected to the catchment town, and any rule satisfied by mere
+presence of it would pass with the town gone from the title and H1. Per page:
+exactly one crawlable H1; paste-header SEO title present; the town in both and
+STILL THERE after the street string and the pair "Walton Village" are removed;
+the correct family shape; schema addressLocality "Liverpool" and not the
+seoTown, so the catchment word has not leaked into the postal locality; brand,
+street, postcode and phone as real crawlable text; a tel: link; text above a
+floor. The instrument restates the two families from the Build Pack v2 spec
+text rather than importing tools/seo-pattern.js, so the generator is not tested
+against itself. Two apparent divergences were run down and are deliberate: the
+insect bite title drops " Pharmacy" under the Q14 fitTitle rule (70 characters
+becomes 61), and earache carries an explicit h1Phrase distinct from
+metaCondition, which check-seo-pattern.js documents as the single exception.
+
+ESTATE CONTROL, 177 PAGES, 0 FLAGS. So a clean Coleman and Leighs result could
+not look special, the same question was put to every generated page, each
+matched to its branch by the longest brandSlug-townSlug pair in its filename.
+0 without exactly one crawlable H1, 0 whose H1 is missing its seoTown, 0 whose
+H1 town comes only from the street. The risk is latent estate-wide and live
+nowhere. Two facts recorded from the same sweep, neither a defect: three
+branches have their seoTown inside their own street (mccanns_aigburth,
+clearchemist_aintree, colemanleigh_liverpool), and two towns are each claimed
+by two branches, Walton by colemanleigh_liverpool and cherrylane_liverpool,
+Aintree by clearchemist_aintree and tiffenbergs_longmoor.
+
+THE DEFECT, AND WHY IT SURVIVED TWO RUNS THAT WERE LOOKING FOR IT.
+check-travel-clinic-copy.js stripped script bodies CASE-SENSITIVELY,
+/<script[\s\S]*?<\/script>/g. The two checkers hardened on the 193rd and 194th
+runs had no script stripping at all, which is what made them findable. This one
+DID strip scripts, so it read as already covered and neither run re-examined
+it. Uppercase <SCRIPT> survived the strip and copy hidden inside one counted as
+visible, to visible() and to plain() beneath it, which is what the
+sentence-level rules use.
+
+PROVED BY INJECTION, WITH A CONTROL, NOT BY READING. The hero paragraph of
+travel-clinic-coleman-leigh-walton.html was moved out of the body into a script
+that wrote it back with innerHTML, byte-identical inside a template literal so
+no escaping changed the markup, this run having read the 194th run's note on
+exactly that trap. Lowercase, old checker: FAIL. Uppercase, old checker: OK, no
+failures, with the governing "private, paid service" sentence absent from the
+rendered page and the checker whose job is that sentence not noticing.
+Uppercase, fixed checker: FAIL on both the verbatim rule and the [private]
+rule, naming the missing sentence. The lowercase control is what proves the
+hole was the case half only rather than script handling in general. The page
+was reverted with git checkout after each injection; no page file is modified
+by this run.
+
+THE FIX. visible() now uses /<script\b[\s\S]*?<\/script>/gi, matching the two
+already-hardened checkers, with a comment recording that the case flag is the
+point so the next reader does not "tidy" it away. plain() inherits it.
+DELIBERATELY NOT WIDENED: check-weight-loss-copy.js is already /gi and does not
+carry this defect; it lacks the \b, which can only over-strip, never hide copy,
+so it was left alone.
+
+THREE FAULTS IN THIS RUN'S OWN WORK, WRITTEN UP RATHER THAN DROPPED. The first
+instrument produced 56 flags and every one was its own fault: 48 because it
+looked for a <title> in what are Weebly EMBED fragments with no <html>, <head>
+or <title>, the SEO title living in the paste-header comment and the SEO
+sheets; 8 because it demanded the brand in every H1 when Family A deliberately
+keeps the brand out of the H1 and puts it in the title, where Google truncates
+last. The corrected instrument produced 4 more, all one further fault: it
+stripped only the branch suffix from the filename, giving "earache-treatment"
+and "switch-prescriptions" where the code tested for "earache" and "switch".
+Recorded because a run that had reported those 56 as findings would have been
+badly wrong, and because the shape of the error is the same one the 194th run
+warned about: an instrument that fails for its own reasons reads exactly like a
+defect in the estate.
+
+FILES CHANGED. tools/check-travel-clinic-copy.js (the fix and its note),
+audits/coleman-build-check-2026-08-14.txt (new evidence file),
+AGENT_WORKLIST.md (3.9 annotated in place), AGENT_LOG.md (this entry).
+AFTER THE FIX: 36 checkers green, all six generators rebuild byte-identical.
+
 ## 2026-08-14 - hundred-and-ninety-fourth run [commit 84cde67, this hash line added by a small follow-up commit]
 
 - Item 3.8 quality pass, SK Chemists (Bootle), fourth machine pass.

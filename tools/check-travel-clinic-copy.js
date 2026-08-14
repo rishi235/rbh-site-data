@@ -268,9 +268,26 @@ function norm(s) {
     .replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
     .replace(/\s+/g, " ").trim();
 }
+// Crawlable copy only. HTML comments and <script> bodies both go, because
+// neither is copy a traveller reads or a crawler indexes. Build Pack v2
+// section 5.1: "anything that must RANK has to be real text in the page, not
+// injected by JavaScript".
+//
+// The tag match is case-insensitive and \b-anchored, and that is the whole
+// point of this note. The 193rd and 194th runs closed this class on
+// check-switch-copy.js and check-contraception-copy.js, both of which had no
+// script stripping at all. This checker DID strip scripts, so it read as
+// already covered and nobody re-examined it, but it stripped them
+// case-sensitively. <SCRIPT> survived, and copy hidden inside one counted as
+// visible. Proved on the item 3.9 quality pass, 2026-08-14, by moving the
+// hero paragraph of travel-clinic-coleman-leigh-walton.html into an
+// uppercase <SCRIPT> that wrote it back with innerHTML: the governing
+// "private, paid service" sentence was absent from the rendered page and
+// this checker still returned OK. The same block in lowercase failed
+// immediately, which is what proves the hole was the case half only.
 function visible(html) {
   return norm(html.replace(/<!--[\s\S]*?-->/g, " ")
-                  .replace(/<script[\s\S]*?<\/script>/g, " "));
+                  .replace(/<script\b[\s\S]*?<\/script>/gi, " "));
 }
 // Visible text with the tags removed, for the sentence-level rules.
 function plain(html) { return norm(visible(html).replace(/<[^>]*>/g, " ")); }
