@@ -1198,5 +1198,21 @@
     "note": "Found on the fifth quality pass of item 4.13, 2026-08-14, while proving that moving these patterns into tools/pom-class-patterns.js had not disabled the page-side rule. It had not: the landing pages still fail all three. Nothing was changed on any page for this finding, both injected files were restored and sha256-compared back to their originals, and all 36 checkers are green. Raised rather than decided because it is a judgement about what live patient-facing copy may say about a prescription-only medicine, which is outside what an unattended run should settle on its own. The first draft of the new rule's comment in check-gbp-packs.js asserted these were already caught on the service pages; that was wrong and has been corrected in place rather than left to be inherited.",
     "status": "open",
     "answer": null
+  },
+  {
+    "id": "Q78",
+    "date": "2026-08-14",
+    "item": "quality pass on 4.14 (finding, does not block any item)",
+    "question": "The GBP packs now fail on weight loss copy that sells on body image rather than on the service: transformation framing, \"beach body\", \"a new you\", \"feel confident in your body again\", \"do not let your weight hold you back\", \"join hundreds who have already slimmed down\", and a photo direction describing a before-and-after picture without using the words. Seven of those were injected into gbp-packs/gordon-short-crosby.md and all seven passed all 36 checkers in complete silence before this run. The house standards put that class with the 2025-26 social responsibility rulings that turn on exploiting body image, but compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7 rates it CONDITIONAL and \"on its own it is mild\" on an inner page the customer chose to visit, which is Regime 2, and it records the live Smartts weight loss page carrying \"Ready to start your transformation?\" today. The new rule therefore stops at the packs, which are Regime 1 advertising. The open question is whether the same family should also be read on the 15 generated weight loss pages and the six branch landing pages, which would fail that live page until it is reworded. No page and no pack matches any of the twelve patterns today, so nothing live is wrong either way.",
+    "options": [
+      "Leave it as it is: the rule reads GBP packs only, which is the Regime 1 advertising surface, and the inner pages keep the latitude the house standards explicitly give them. No live copy changes and nothing needs rewording.",
+      "Extend the family to the 15 weight loss pages and the six branch landing pages as a WARN, so the wording is reported on every build without failing a run. Surfaces the exposure everywhere and gives you the list of pages to judge, while touching no live copy and blocking no build.",
+      "Extend the family to those pages as a FAIL and reword the live Smartts page. The strictest reading on every surface, but it changes live patient-facing copy, and the reword has to land first or the build stays red on wording the standards currently permit.",
+      "Extend only the imagery half (a before-and-after picture described without the words) to the pages, and leave the body-image appeals to the packs, on the grounds that a picture makes the same claim on any surface while a form of words does not."
+    ],
+    "recommended": 1,
+    "note": "Found on the fifth quality pass of item 4.14, 2026-08-14. Same shape as Q77, which asked the matching question about the POM class patterns one surface out. Option 2 is recommended because it reports the exposure on every surface without touching live copy or turning a build red, and it produces the page list you would need before deciding option 3. Option 3 should not be taken until the Smartts page has been reworded. Nothing was changed on any page or pack for this finding: every injection was reverted and the file sha256-compared back to its original, all 36 checkers are green and all six generators rebuild byte-identical. Raised rather than decided because it is a judgement about live patient-facing weight loss copy, which is outside what an unattended run should settle on its own.",
+    "status": "open",
+    "answer": null
   }
 ]

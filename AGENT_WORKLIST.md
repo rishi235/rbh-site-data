@@ -2869,6 +2869,65 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       that no repo file records; that departure is documented at the map. No
       pack copy, page, generator, data field or branches.json entry changed.
       No question raised. Done 2026-08-13.
+      Fifth quality pass 2026-08-14. REPO HALF ONLY: the answer-pickup fetch
+      returned a Cloudflare Access login page, so no live page was read and this
+      pass makes no fresh live claim. The 2026-08-10 hard STOP on the Post A
+      link swap stands as written. Baseline was GREEN at HEAD on a clean
+      worktree, unlike the previous run. The pack is clean and byte-stable
+      across five passes: every fact re-verified against branches.json (name,
+      159 College Road, Liverpool L23 3AT, 0151 924 3449, website, review link,
+      pfLink, hasApp false with no app claim, catchment Crosby, Waterloo and
+      Sefton leading with its own seoTown in all three places), hours matching
+      openingHours on both sessions of all six trading days plus Sunday closed,
+      description 652 characters and posts 449, 280, 521 and 424, identical to
+      all four earlier passes, and zero non-ASCII, dash or smart-quote
+      characters. ONE REAL DEFECT FOUND AND FIXED IN REPO, again in a checker
+      and again one step further out than the last four passes: weight loss
+      copy that sells on BODY IMAGE rather than on the service was read by no
+      rule at all. Seven injections into this pack, one at a time and each
+      sha256-compared back afterwards, PASSED ALL 36 CHECKERS in complete
+      silence, with not even a warning raised: "Ready to start your
+      transformation?", "Feel confident in your body again.", "Get beach body
+      ready for summer.", "Join hundreds of local patients who have already
+      slimmed down.", "Do not let your weight hold you back any longer.", "A
+      new you starts here.", and a photo shot list direction reading "A weight
+      loss patient holding up the trousers they have slimmed out of". The
+      eighth injection, "Before and after photos from a weight loss patient",
+      WAS caught, by the EFFICACY_FAIL literal "before and after" - so the
+      phrase was barred and the same picture described in a photographer's own
+      words was not. None of the existing rules could see these:
+      claim-patterns reads a claim about the product, the method or a measured
+      outcome, pom-class-patterns reads an unnamed medicine, and EFFICACY_WARN
+      holds "transform" but is only a warning AND cannot match
+      "transformation", because findTerms wraps every term in a word boundary,
+      so the exact word the house reference quotes slips past even the soft
+      warning. The house reference names this class in its own words
+      (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7, the 2025-26
+      social responsibility rulings that turn on exploiting body image). Fixed
+      with BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT in tools/check-gbp-packs.js,
+      deliberately NOT promoted to the shared claim-patterns.js, because that
+      list governs the generated inner pages, which are Regime 2, and the
+      assessment records a live page carrying "Ready to start your
+      transformation?" and rates it acceptable there; promoting it would fail
+      correct live copy. All twelve patterns were swept across the 16 packs,
+      modules/, core/, brand/ and tools/ before being wired: zero matches
+      anywhere, so the rule asserts nothing new about copy that exists today.
+      The first negative test FAILED and is recorded because it is the more
+      useful half: gated sentence by sentence on namesWeightLoss, the way
+      POM_CLASS is gated, two of the seven walked straight back through the
+      rule just written to catch them, because neither sentence contains the
+      phrase "weight loss". Re-scoped so the body of any post whose label names
+      weight loss is read as one surface, Post C being the weight loss
+      advertisement by construction, with the sentence gate still applying
+      everywhere else. Negative-tested ten ways: all seven injections now fail
+      with exactly one failure each, and three controls stay clean, including
+      the photographer's "otherwise the best straight-on frontage shot" that 11
+      of the 15 packs carry and a legitimate "join the NHS contraception
+      service". All 36 checkers exit 0 and all six generators rebuild
+      byte-identical. No pack copy, page, generator, data field or
+      branches.json entry changed. Q78 raised, asking whether the same family
+      should be read on the generated weight loss and branch landing pages.
+      Done 2026-08-14.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

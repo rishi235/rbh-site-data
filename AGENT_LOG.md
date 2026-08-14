@@ -2,6 +2,147 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 20:35 BST - two-hundred-and-eleventh run
+
+- Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, fifth
+pass. ONE REAL DEFECT FOUND AND FIXED, in a checker rather than in a pack. No
+page, generator, data field, branches.json entry, paste sheet, GBP pack or
+piece of patient-facing copy was changed. All 36 checkers pass and all six
+generators rebuild byte-identical. One new question, Q78.
+
+BASELINE GREEN, UNLIKE LAST RUN. All 36 checkers exit 0 on a clean worktree
+level with origin before anything was touched. Last run committed a log entry
+that broke check-postcodes.js and then reported the suite green because it had
+run the suite before writing the entry; the NARRATIVE_POSTCODES fix it applied
+holds, and this run confirms it from a cold start.
+
+ANSWER PICKUP UNAVAILABLE. https://data.rbhealth.co.uk/api/feedback redirected
+to a Cloudflare Access sign-in page, so Rishi's Chrome is not holding a live
+session. No login was attempted and no other route was tried, per the standing
+rule. 53 questions remain open, now 54 with Q78. This is Q59's problem and it
+has now blocked step 3 on every run for several days.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than inherited: every "Standing
+authorisation" string in this log was listed, and all but one are past runs
+recording the absence of a window. The single real section heading is dated
+2026-08-09 23:14 BST to 2026-08-10 23:14 BST, which expired four days ago. So
+step 7 applies as written and the finding below is raised as a question rather
+than decided.
+
+ITEM SELECTION. Every unchecked item in the worklist is [BLOCKED] behind an
+open question (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run did a
+quality pass instead. The least recently verified item was derived by walking
+every run heading in this log in order and taking the item each one worked:
+excluding the two blocked items that appear there (5.3, 6.6), 4.14 was the
+completed item with the oldest most-recent pass.
+
+THE DEFECT: BODY IMAGE WAS READ BY NO RULE ON THE MOST EXPOSED SURFACE. Seven
+injections into gbp-packs/gordon-short-crosby.md, one at a time, each reverted
+and the file sha256-compared back to its original afterwards, PASSED ALL 36
+CHECKERS in complete silence, with not even a warning raised:
+
+  "Ready to start your transformation?"
+  "Feel confident in your body again."
+  "Get beach body ready for summer."
+  "Join hundreds of local patients who have already slimmed down."
+  "Do not let your weight hold you back any longer."
+  "A new you starts here."
+  "- A weight loss patient holding up the trousers they have slimmed out of."
+
+The eighth was CAUGHT, and it is the one that shows the shape of the hole
+rather than its existence: "- Before and after photos from a weight loss
+patient, with written consent." failed on the EFFICACY_FAIL literal "before
+and after". So the phrase is barred and the same photograph, described in the
+words a person briefing a photographer would actually use, is not. The shot
+list is not idle copy either: those pictures go onto the same public Google
+profile as the posts.
+
+WHY NOTHING COULD SEE THEM. This is the fifth consecutive run to find the same
+family one step further out, and the step is now off the product entirely.
+4.13 caught the superlative about the PRODUCT, 4.12 the superlative about the
+METHOD, 4.8 the promise about the PATIENT's measured outcome, and last run the
+MEDICINE with its name taken off. Every one of those rules reads a claim.
+None of these seven makes a claim: they sell weight loss by telling the reader
+how to feel about their own body, which is a different thing and needs no
+claim at all. claim-patterns.js reads product, method and outcome;
+pom-class-patterns.js reads an unnamed medicine; EFFICACY_FAIL reads fixed
+phrases and holds none of these.
+
+EFFICACY_WARN LOOKS LIKE COVER AND IS NOT, TWICE OVER. It holds "transform".
+That entry cannot fail a run, because it is a WARN. And it cannot even warn
+here, because findTerms wraps every term as (^|[^a-z])term([^a-z]|$), so
+"transform" does not match "transformation" - the exact word the house
+reference quotes. Measured on this run rather than assumed: the transformation
+injection produced no FAIL and no WARN of any kind. The entry is left where it
+is, doing a different job on a different word.
+
+THE HOUSE REFERENCE NAMES THIS CLASS. compliance/WEIGHT_LOSS_LIVE_PAGE_
+ASSESSMENT.md section 7 puts "Ready to start your transformation?" with "the
+2025-26 social responsibility rulings in the reference, which turn on
+exploiting body image". It rates it CONDITIONAL and "on its own it is mild" -
+and it is rating an INNER PAGE, which is Regime 2, the half with the
+exemption. A pack is pasted into a public Google profile, which is Regime 1.
+The same sentence is not the same sentence on the two surfaces, which is the
+entire point of the two-regime split, and the stricter surface was the one
+with no rule at all.
+
+THE FIX, AND WHERE IT DELIBERATELY STOPS. BODY_IMAGE_SELF (7 patterns, read
+across the whole pack) and BODY_IMAGE_CONTEXT (3 patterns, read only in
+weight loss copy) added to tools/check-gbp-packs.js. NOT promoted to the
+shared tools/claim-patterns.js, and that restraint is the substance of the
+decision rather than a detail: claim-patterns is applied to the generated
+pages by check-weight-loss-copy.js, and the assessment records the live
+Smartts weight loss page carrying "Ready to start your transformation?" and
+rates it acceptable in its regime. Promoting the list would have failed
+correct live copy, which is the trap the "guarantee" note on the 4.8 pass and
+the "option" note on the 4.12 pass both record. This is a Regime 1 position,
+so it lives in the Regime 1 checker, the way EFFICACY_FAIL does, and the
+condition for promoting it later is written at the list.
+
+COST OF THE RULE, MEASURED BEFORE IT WAS WIRED. All twelve candidate patterns
+were swept across the 16 packs, every generated page in modules/, core/ and
+brand/, and tools/. ZERO matches anywhere. So the rule asserts nothing new
+about copy that exists today and the gap it closes was latent, which is the
+same footing the POM_CLASS rule went in on last run.
+
+THE FIRST NEGATIVE TEST FAILED, AND THAT IS THE MORE USEFUL HALF.
+BODY_IMAGE_CONTEXT was first gated sentence by sentence on
+POM_CLASS.namesWeightLoss, on the reasoning that copying the existing gate
+would keep the two rules asking the same question. Two of the seven then
+walked straight back through the rule that had just been written to catch
+them: "Join hundreds of local patients who have already slimmed down." and
+"Do not let your weight hold you back any longer." both returned exit 0.
+Neither sentence contains the phrase "weight loss". The sentence gate is right
+for POM_CLASS, where the risk is a contraceptive injection being read as a
+weight loss one, and wrong here, where the selling sentence names a feeling
+instead of the service. Re-scoped so the body of any post whose label names
+weight loss is read as ONE surface, Post C being the weight loss
+advertisement by construction, with the sentence gate still applying
+everywhere else in the pack. Recording this because inheriting the wrong gate
+from a neighbouring rule is exactly the mistake that would otherwise be
+repeated the next time one of these is written.
+
+NEGATIVE-TESTED TEN WAYS after the re-scope. All seven injections now fail
+with exactly one failure each, so the rules do not double up. Three controls
+stay clean: the pack as written; the photographer's direction "otherwise the
+best straight-on frontage shot", which 11 of the 15 packs carry and which a
+looser rule would have failed on all 11; and "You can join the NHS
+contraception service here.", which proves "join" is only read where the
+surrounding copy is about weight loss.
+
+Q78 RAISED. Whether the same body-image family should also be read on the 15
+generated weight loss pages and the six branch landing pages. Not decided
+here: the assessment rates this class acceptable on an inner page, one live
+page carries it today, and changing that is a judgement about live
+patient-facing weight loss copy, which is outside what an unattended run
+should settle on its own. Recommended option is the WARN, which reports the
+exposure on every surface without touching live copy or turning a build red.
+Same shape as Q77 from last run, one surface out.
+
+Files changed: tools/check-gbp-packs.js (the only tracked code change),
+AGENT_WORKLIST.md, QUESTIONS.json, AGENT_LOG.md, and a new evidence record at
+audits/gordon-short-item-4.14-quality-pass-2026-08-14.txt.
+
 ## 2026-08-14 19:30 BST - two-hundred-and-tenth run [commit ddfadbb, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.13, the Riddings Pharmacy Timperley GBP pack, fifth

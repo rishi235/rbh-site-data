@@ -1,0 +1,156 @@
+Item 4.14 Gordon Short Chemist Crosby pack - FIFTH quality pass
+Date: 2026-08-14
+Branch: agents/audit-backlog
+
+METHOD
+Every injection was made one at a time into gbp-packs/gordon-short-crosby.md,
+all 36 checkers were run on it, the file was then restored from the original
+bytes and sha256-compared back to its starting hash. Every run below recorded
+HASH_OK=True, so no injected string was ever left in the pack.
+
+BASELINE
+All 36 checkers exit 0 on a clean worktree level with origin. Unlike the
+previous run, the repo was NOT red at HEAD.
+
+PACK VERIFIED AGAINST branches.json (unchanged, fifth pass running)
+  branchName      Gordon Short Chemist        matches
+  streetAddress   159 College Road            matches
+  addressLocality Liverpool                   matches
+  postalCode      L23 3AT                     matches
+  phone           0151 924 3449               matches
+  website         gordonshortchemist.co.uk    matches
+  googleReviewUrl g.page/r/CZcVDM6emi6OEAE    matches
+  seoTown         Crosby, leads catchment     matches in all three places
+  serviceAreaList Crosby, Waterloo, Sefton    matches
+  hasApp          false, no app mentioned     matches
+  openingHours    both sessions, six days,    matches, Sunday closed
+                  Sat 09:00-13:00/14:00-17:00
+  description     653 chars incl. wrap        heading claims 652, checker agrees
+  posts           A=449 B=280 C=521 D=424     identical to all four earlier passes
+  non-ASCII 0, en/em dashes 0, smart quotes 0
+
+DEFECT FOUND: BODY IMAGE AND SOCIAL PROOF UNGUARDED ON A REGIME 1 SURFACE
+
+Seven injections PASSED ALL 36 CHECKERS, in complete silence, not even a
+warning raised. Six in Post C, the weight loss advertisement, one in the
+photo shot list:
+
+  PASSED  "Ready to start your transformation?"
+  PASSED  "Feel confident in your body again."
+  PASSED  "Get beach body ready for summer."
+  PASSED  "Join hundreds of local patients who have already slimmed down."
+  PASSED  "Do not let your weight hold you back any longer."
+  PASSED  "A new you starts here."
+  PASSED  "- A weight loss patient holding up the trousers they have
+           slimmed out of."   (photo shot list)
+
+One control injection was correctly CAUGHT, which is what showed the shape of
+the gap rather than its existence:
+
+  CAUGHT  "- Before and after photos from a weight loss patient, with written
+           consent."
+          by check-gbp-packs.js, EFFICACY_FAIL literal "before and after"
+
+So the literal phrase is barred and the same picture described in a
+photographer's own words is not.
+
+WHY THE EXISTING RULES COULD NOT SEE THESE
+  claim-patterns.js      reads a claim about the PRODUCT, the METHOD or a
+                         MEASURED OUTCOME. None of the seven makes one.
+  pom-class-patterns.js  reads an unnamed MEDICINE. None of the seven names
+                         or alludes to one.
+  EFFICACY_FAIL          reads fixed phrases, and none of these is on it.
+  EFFICACY_WARN          holds "transform", and it does not help twice over.
+                         It is a WARN, so it cannot fail a run; and findTerms
+                         wraps every term as (^|[^a-z])term([^a-z]|$), so
+                         "transform" does not match "transformation", which is
+                         the exact word the house reference quotes.
+
+HOUSE REFERENCE
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7 puts "Ready to start
+your transformation?" with "the 2025-26 social responsibility rulings in the
+reference, which turn on exploiting body image". It rates it CONDITIONAL and
+"on its own it is mild" - rating an INNER PAGE, which is Regime 2. A pack is
+pasted into a public Google profile, which is Regime 1.
+
+PRE-WIRING SWEEP (cost of the rule before it was added)
+Twelve candidate patterns swept across gbp-packs (16 files), modules/ (all
+generated pages), core/ and brand/, and tools/:
+
+  beach/bikini/summer/holiday body      0 0 0 0
+  new you                               0 0 0 0
+  transformation                        0 0 0 0
+  transform your body/life/shape        0 0 0 0
+  slim down / slimmed down              0 0 0 0
+  confidence in your body/skin          0 0 0 0
+  holding you back                      0 0 0 0
+  join hundreds/thousands/N             0 0 0 0
+  slimmed out of                        0 0 0 0
+  old trousers/jeans/clothes            0 0 0 0
+  love your body / body you deserve     0 0 0 0
+  feel like yourself again              0 0 0 0
+
+ZERO matches anywhere. The rule asserts nothing new about copy that exists
+today; the gap it closes was latent.
+
+FIX
+tools/check-gbp-packs.js only. BODY_IMAGE_SELF (7 patterns, read across the
+whole pack) and BODY_IMAGE_CONTEXT (3 patterns, read only in weight loss
+copy). Kept in the pack checker and deliberately NOT promoted to the shared
+tools/claim-patterns.js, because claim-patterns is applied to the generated
+pages by check-weight-loss-copy.js and the assessment records the live Smartts
+inner page carrying "Ready to start your transformation?" and rates it
+acceptable in its regime. Promoting it would fail correct live copy.
+
+THE FIRST NEGATIVE TEST FAILED, AND THAT IS THE USEFUL PART
+BODY_IMAGE_CONTEXT was first gated sentence by sentence on
+POM_CLASS.namesWeightLoss, the same gate POM_CLASS uses. Two of the seven then
+walked straight back through the rule written to catch them:
+
+  P4 "Join hundreds of local patients who have already slimmed down."  exit=0
+  P5 "Do not let your weight hold you back any longer."                exit=0
+
+Neither sentence contains the phrase "weight loss", so the gate excluded both.
+The sentence gate is right for POM_CLASS, where the risk is a contraceptive
+injection being read as a weight loss one, and wrong here, where the selling
+sentence names a feeling rather than the service. Re-scoped: the body of any
+post whose label names weight loss is read as one surface, because Post C IS
+the weight loss advertisement by construction, and elsewhere in the pack the
+sentence gate still applies.
+
+NEGATIVE TEST AFTER THE RE-SCOPE
+  S2 trousers slimmed out of      exit=1  1 failure
+  P1 transformation               exit=1  1 failure
+  P2 body confidence              exit=1  1 failure
+  P3 beach body                   exit=1  1 failure
+  P4 slimmed down peers           exit=1  1 failure
+  P5 hold you back                exit=1  1 failure
+  P6 new you                      exit=1  1 failure
+  C1 unchanged pack (control)     exit=0  clean
+  C2 "otherwise the best straight-on frontage shot" (control)  exit=0 clean
+  C3 "You can join the NHS contraception service here." (control) exit=0 clean
+
+C2 matters: 11 of the 15 packs carry that photographer's direction, and a
+bare superlative rule would have failed all 11. C3 matters: it proves "join"
+is only read where the surrounding copy is about weight loss.
+
+AFTER THE FIX
+All 36 checkers exit 0. All six generators (branch landing, contraception,
+service, switch, travel clinic, weight loss) rebuild byte-identical - git
+reports no generated file modified. The only tracked file changed on this run
+is tools/check-gbp-packs.js.
+
+NOT CHANGED
+No pack copy, no page, no generator, no data field, no branches.json entry, no
+paste sheet, no patient-facing copy. The 2026-08-10 hard STOP on the Post A
+link swap stands untouched.
+
+LIVE HALF NOT PERFORMED
+The answer-pickup fetch returned a Cloudflare Access login page, so no live
+page was read on this run and this pass makes no fresh claim about live copy.
+
+QUESTION RAISED
+Q78, whether the same body-image family should be read on the 15 generated
+weight loss pages and the six branch landing pages. Not decided here: the
+assessment rates this class acceptable on an inner page and one live page
+carries it, so changing it is a live patient-facing regulatory judgement.

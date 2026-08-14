@@ -149,6 +149,92 @@ const EFFICACY_WARN = [
   "dramatic",
 ];
 
+// BODY IMAGE AND SOCIAL PROOF, added on the item 4.14 quality pass, 2026-08-14.
+//
+// Every weight loss rule above this point reads a claim about the PRODUCT (the
+// best clinic), the METHOD (the fastest way), the PATIENT'S MEASURED OUTCOME
+// (lose 2 stone in 12 weeks) or the MEDICINE (skinny jab, GLP-1). None of them
+// reads the appeal that sells weight loss without making any of those claims:
+// the one aimed at how the reader feels about their body. Injected one at a
+// time into gbp-packs/gordon-short-crosby.md, each reverted and the file
+// sha256-compared back afterwards, SIX PASSED ALL 36 CHECKERS in complete
+// silence, with not even a warning raised:
+//
+//   "Ready to start your transformation?"
+//   "Feel confident in your body again."
+//   "Get beach body ready for summer."
+//   "Join hundreds of local patients who have already slimmed down."
+//   "Do not let your weight hold you back any longer."
+//   "A new you starts here."
+//
+// A seventh, a photo direction reading "A weight loss patient holding up the
+// trousers they have slimmed out of", also passed. That is a before-and-after
+// picture described without the words: EFFICACY_FAIL catches the literal
+// "before and after", and the shot list is where a photographer is told what
+// to take, so the words are exactly what a person writing a brief would not
+// use. The photographs go onto the same public profile as the posts.
+//
+// Why this is a rule and not a matter of taste. The house reference names this
+// class in its own words. compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+// section 7 puts "Ready to start your transformation?" with "the 2025-26
+// social responsibility rulings in the reference, which turn on exploiting
+// body image". It rates it CONDITIONAL and "on its own it is mild" - but it is
+// rating an INNER PAGE, which is Regime 2, the half with the exemption. A pack
+// is pasted into a public Google profile, which is Regime 1, the advertising
+// half with the near-total prohibition. The same sentence is not the same
+// sentence on the two surfaces, which is the whole point of the two-regime
+// split, and the stricter surface was the one with no rule at all.
+//
+// "transform" is already in EFFICACY_WARN above, and it does not help. Two
+// reasons, both measured on this pass rather than assumed. It is a WARN, so it
+// cannot fail a run. And findTerms wraps every term as (^|[^a-z])term([^a-z]|$),
+// so "transform" does not match "transformation" - the exact word the house
+// reference quotes slips past even the soft warning. The entry is left where
+// it is; it is doing a different job on a different word.
+//
+// Scoped to the pack and NOT promoted to tools/claim-patterns.js, which is the
+// shared list check-weight-loss-copy.js applies to the generated pages. That
+// would be wrong here and would fail correct live copy: the assessment records
+// the live Smartts page carrying "Ready to start your transformation?" and
+// rates it acceptable in its regime. This is a Regime 1 position, so it lives
+// in the Regime 1 checker, the way EFFICACY_FAIL does. If a second Regime 1
+// family ever needs these, promote them then, the way pom-class-patterns.js
+// was promoted once the packs needed what the pages already had.
+//
+// Split self-scoping from in-context for the reason pom-class-patterns.js
+// gives: a phrase that carries its own subject is wrong wherever it sits, and
+// a phrase that is ordinary English elsewhere is only wrong about weight loss.
+// All twelve patterns were swept across all 16 packs, all 177 generated pages
+// in modules/, core/, brand/ and tools/ before being wired: ZERO matches
+// anywhere. So this rule asserts nothing new about copy that exists today and
+// the gap it closes was latent, which is the same footing the POM_CLASS rule
+// was added on.
+const BODY_IMAGE_SELF = [
+  [/\b(?:beach|bikini|summer|holiday)\s+bod(?:y|ies)\b/i,
+    "body-image pressure tied to an event"],
+  [/\bnew\s+you\b/i, "a new-self promise"],
+  [/\btransformation\b|\btransform\s+your\s+(?:body|life|shape|figure)\b/i,
+    "transformation framing"],
+  [/\bconfiden(?:t|ce)\s+in\s+your\s+(?:own\s+)?(?:body|skin)\b/i,
+    "a body-image appeal"],
+  [/\bbody\s+you\s+deserve\b|\blove\s+your\s+body\b/i, "a body-image appeal"],
+  [/\bslimmed\s+out\s+of\b/i,
+    "a before-and-after picture described without the words"],
+  [/\b(?:old|former)\s+(?:trousers|jeans|clothes|dress|shirt)s?\b/i,
+    "a before-and-after picture described without the words"],
+];
+
+// Only wrong ABOUT weight loss, so read sentence by sentence and only where the
+// sentence names it. Gated on POM_CLASS.namesWeightLoss so both rules ask the
+// same question rather than each writing its own regex.
+const BODY_IMAGE_CONTEXT = [
+  [/\b(?:hold|holds|holding)\s+you\s+back\b/i,
+    "pressure framing that treats the reader's body as the obstacle"],
+  [/\bslim(?:med|ming)?\s+down\b/i, "an outcome promised in plainer words"],
+  [/\bjoin\s+(?:hundreds|thousands|dozens|\d+)\b/i,
+    "social proof, which is testimonial evidence in numbers"],
+];
+
 // The QUALIFIERS on the two private clinical services, added on the item 4.8
 // quality pass, 2026-08-14. Everything above this point bans wording. Nothing
 // above it REQUIRES any, and the two private clinics are sold on qualified
@@ -1293,6 +1379,47 @@ for (const file of packFiles) {
     const ctxHit = POM_CLASS.findInContext(seg);
     if (ctxHit) {
       fail(file, `this pack describes ${ctxHit.why} in a sentence about weight loss: "${ctxHit.match}". A dosing schedule identifies the medicine class without naming it, which the ASA treats as promoting the POM, and a GBP pack is Regime 1 advertising. Patterns in tools/pom-class-patterns.js. Sentence: ${seg.slice(0, 120)}`);
+    }
+  }
+
+  // --- body image and social proof ---------------------------------------
+  // See the BODY_IMAGE_SELF comment at the top of this file for the seven
+  // injections that proved this was unguarded, and for why the rule stops at
+  // the pack instead of being shared with the generated pages.
+  for (const h of findClaims(text, BODY_IMAGE_SELF)) {
+    fail(file, `line ${h.line}: this pack sells weight loss on body image rather than on the service, by ${h.reason}: "${h.term}". The house standards put this with the social responsibility rulings that turn on exploiting body image (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7). An inner page the customer chose to visit gets some latitude there; a pack is pasted into a public Google profile, which is Regime 1, the advertising regime, and gets none. Context: ${h.text}`);
+  }
+  // The in-context half needs a unit BIGGER than the sentence, and the first
+  // negative test on this rule is what proved it. "Do not let your weight hold
+  // you back any longer." and "Join hundreds of local patients who have already
+  // slimmed down." are both squarely about weight loss, and neither contains
+  // the phrase "weight loss": split into sentences and gated on
+  // POM_CLASS.namesWeightLoss, both walked straight back through the rule that
+  // had just been written to catch them. The sentence gate is right for
+  // POM_CLASS, where the risk is a contraceptive injection being read as a
+  // weight loss one, and wrong here, where the selling sentence names a
+  // feeling rather than the service.
+  //
+  // The post is the honest unit. Post C IS the weight loss advertisement by
+  // construction, so its whole body is a weight loss context and is read as
+  // one. Everywhere else in the pack the sentence gate still applies, so a
+  // stray "slim down" in the travel clinic post is not read as weight loss
+  // copy. Hits are de-duplicated by phrase so a breach inside Post C is
+  // reported once rather than twice.
+  const bodyImageSurfaces = postsOf(text)
+    .filter((p) => /weight\s*loss/i.test(p.label))
+    .map((p) => p.body)
+    .concat(splitSentences(text).filter((s) => POM_CLASS.namesWeightLoss(s)));
+  const bodyImageSeen = new Set();
+  for (const surface of bodyImageSurfaces) {
+    for (const [re, why] of BODY_IMAGE_CONTEXT) {
+      const m = surface.match(re);
+      if (!m) continue;
+      const key = `${why}::${m[0].toLowerCase()}`;
+      if (bodyImageSeen.has(key)) break;
+      bodyImageSeen.add(key);
+      fail(file, `this pack uses ${why} in its weight loss copy: "${m[0]}". A GBP pack is Regime 1 advertising under the house standards, where the appeal has to rest on the service and its qualifiers rather than on how the reader is invited to feel about their body (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7). Context: ${norm(surface).slice(0, 120)}`);
+      break;
     }
   }
 
