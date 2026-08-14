@@ -56,6 +56,12 @@
       and SEO.md names exactly the app-member branches. That marker is what
       tells a paster which page is supposed to have a card, so it drifting is
       how a correct repo still produces a wrong paste.
+    - RULE 8, the GBP packs: a pack whose branch is not an app member claims an
+      app in the copy that is pasted into the public Google profile, or in the
+      photo shot list; or the pack's paster note states a hasApp value
+      branches.json does not hold; or the note says the pack mentions no app
+      and the pasted copy does. Added on the item 4.5 quality pass,
+      2026-08-14. See the block above RULE 8 for why.
     - a stale KNOWN key, same convention as KNOWN_DRIFT in check-cdn-pins.js.
 
   Run:  node tools/check-app-membership.js
@@ -332,6 +338,189 @@ if (fs.existsSync(landingGenPath)) {
   }
 }
 
+// ---- RULE 8: the GBP content packs -----------------------------------------
+// WHY (item 4.5 quality pass, 2026-08-14).
+//
+// This file was written on the 3.8 pass because hasApp "was the only field in
+// branches.json that reaches a public page and was read by no checker". It then
+// stopped at the generated pages. It never opened gbp-packs/, and neither did
+// anything else: "hasApp" appears nowhere in tools/check-gbp-packs.js, all
+// 2,417 lines of it, and check-app-membership.js is not among the fourteen
+// checkers that read the pack directory.
+//
+// That left the field unguarded on the surface where it is MOST exposed. Four
+// packs actively publish app copy into the business description and the posts
+// (clear-aintree, fishlocks-ainsdale, fishlocks-eccleston, smartts-bootle,
+// which are exactly the four app members), and ten more carry a paster note
+// asserting what branches.json says about this branch. All of it is pasted
+// into, or acted on inside, a public Google Business Profile, and none of it
+// was read.
+//
+// Proved by injection on this run, all three restored afterwards:
+//   - "You can order repeat prescriptions through our app." added to the
+//     business description of scorah-hazel-grove.md (hasApp false), with the
+//     stated character count kept honest and the description left at 704 of
+//     the 750 limit: ALL 36 CHECKERS PASSED.
+//   - the same claim added to that pack's Post B: ALL 36 PASSED.
+//   - the reverse, every app claim stripped from the posts of
+//     smartts-bootle.md (hasApp true): ALL 36 PASSED.
+// Two earlier injections did fire, and neither fired on the app. Adding the
+// sentence without correcting the stated count failed the description length
+// and count rules, and an "- App ordering:" service bullet failed the
+// unrecognised-service rule. Asking which text the checker actually read is
+// what separated those from a real guard, and is the discipline recorded on
+// the 183rd run.
+//
+// This is the same shape as the fault this file was created for. There, one
+// boolean copy-pasted between two adjacent records would give SK Chemists
+// Bootle an app card it does not run while Smartts, 1.5 miles away, silently
+// lost the one it does. Here the same flip would leave the pack's note telling
+// the paster the opposite of the truth, and the paster acts on the note.
+//
+// SCOPE. Rule 8a reads only the copy that reaches the public profile: the
+// business description, the Services section and the post bodies. The preamble
+// and the "Notes for the paster" block are excluded, exactly as the town rule
+// in check-gbp-packs.js excludes them, because they are never pasted. That
+// exclusion is load-bearing rather than tidy: riddings-timperley.md's note
+// tells the paster that the OLD live switch page carries a "Download our app"
+// block with App Store and Google Play buttons and must not be copied across.
+// A rule that read the whole pack would fail that pack for the sentence
+// warning against the very thing this rule exists to stop. The photo shot list
+// is read too, by 8b, because a pack telling a paster to photograph an app
+// screen for a branch with no app is the same false claim in picture form.
+//
+// A pack is NOT required to mention the app or to carry the note. Ten packs
+// carry the note and two app members do not (fishlocks-ainsdale carries app
+// copy and no note, cherry-lane-walton carries neither), and choosing not to
+// advertise a service is a marketing decision, not a false claim. Only a
+// contradiction fails.
+const PACK_DIR = path.join(REPO, "gbp-packs");
+
+// "app" and "apps" as whole words only. Without the boundaries this matches
+// "happy", "appointment", "apply" and "appropriate", every one of which is
+// ordinary pharmacy copy present in these packs.
+const PACK_APP_WORD = /\bapps?\b/i;
+const PACK_STORE_NAME = /\bApp Store\b|\bGoogle Play\b/i;
+// STORE_RE above is declared /g, and a /g regex carries lastIndex between
+// .test() calls, so calling it twice on the same string returns true then
+// false. Rule 8 asks the same question of four blocks in every one of fifteen
+// packs, so that would have made the answer depend on call order. A
+// non-global twin is built from its source rather than the pattern being
+// retyped, which is the same reason DAY_SRC exists in check-gbp-packs.js.
+const PACK_STORE_URL = new RegExp(STORE_RE.source, "i");
+
+function packSection(text, headingRe) {
+  const m = text.match(headingRe);
+  if (!m) return "";
+  const rest = text.slice(m.index + m[0].length);
+  return rest.split(/^## /m)[0];
+}
+
+function packClaimsApp(s) {
+  return PACK_APP_WORD.test(s) || PACK_STORE_NAME.test(s) || PACK_STORE_URL.test(s);
+}
+
+let packsRead = 0;
+if (fs.existsSync(PACK_DIR)) {
+  fs.readdirSync(PACK_DIR)
+    .filter(function (f) { return f.endsWith(".md") && f !== "TEMPLATE.md"; })
+    .sort()
+    .forEach(function (f) {
+      const file = path.join(PACK_DIR, f);
+      const text = fs.readFileSync(file, "utf8");
+      const where = "gbp-packs/" + f;
+
+      const idm = text.match(/^Branch id:\s*([A-Za-z0-9_]+)/m);
+      if (!idm) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "has no \"Branch id:\" line, so its app claims could not be tested against any branch"
+        });
+        return;
+      }
+      const b = branches.filter(function (x) { return x.id === idm[1]; })[0];
+      if (!b) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "names branch id \"" + idm[1] + "\", which is not in branches.json"
+        });
+        return;
+      }
+      packsRead++;
+      const isMember = b.hasApp === true;
+
+      // The copy that reaches the public profile. "Button:" lines are cut for
+      // the same reason check-gbp-packs.js cuts them when measuring a post:
+      // the button is a picker choice and a link, never posted prose.
+      const desc = packSection(text, /^## 1\. Business description[^\n]*\n/m);
+      const svc = packSection(text, /^## 3\. Services[^\n]*\n/m);
+      let posts = packSection(text, /^## 5\. Post drafts[^\n]*\n/m);
+      posts = posts.split(/^Notes for the paster:/m)[0];
+      posts = posts.split(/\r?\n/).filter(function (l) {
+        return !/^\s*Button:/.test(l);
+      }).join("\n");
+      const published = [desc, svc, posts].join("\n");
+
+      const shots = packSection(text, /^## 4\. Photo shot list[^\n]*\n/m);
+      const notes = (text.split(/^Notes for the paster:/m)[1] || "");
+
+      // 8a - the public copy against the field.
+      if (!isMember && packClaimsApp(published)) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the copy pasted into the public Google profile claims an app, but branches.json has hasApp false for "
+            + b.id + ". A profile advertising an app the branch does not run sends a patient to a store for nothing"
+        });
+      }
+
+      // 8b - the shot list against the field.
+      if (!isMember && packClaimsApp(shots)) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the photo shot list asks for an app shot, but branches.json has hasApp false for " + b.id
+        });
+      }
+
+      // 8c - the paster note against the field.
+      const saysTrue = /hasApp\s+true/i.test(notes);
+      const saysFalse = /hasApp\s+false/i.test(notes);
+      if (saysTrue && saysFalse) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the paster notes state both hasApp true and hasApp false for this branch"
+        });
+      } else if (saysTrue && !isMember) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the paster note tells the paster branches.json has hasApp true, but it has false for "
+            + b.id + ", so the note invites an app claim onto a profile that must not carry one"
+        });
+      } else if (saysFalse && isMember) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the paster note tells the paster branches.json has hasApp false, but it has true for "
+            + b.id + ", so the branch's own app would be kept off its profile"
+        });
+      }
+
+      // 8d - the note against the pack it describes.
+      if (/No app mention anywhere in this pack/i.test(notes) && packClaimsApp(published)) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "the paster note says there is no app mention anywhere in this pack, but the pasted copy carries one"
+        });
+      }
+    });
+}
+
 const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; });
 
 console.log("check-app-membership");
@@ -340,6 +529,7 @@ console.log("  " + memberIds.length + " app member(s) of " + branches.length + "
 if (CANON) console.log("  canonical name: \"" + CANON + "\" (read from build-switch-pages.js)");
 if (STORE_URLS.length) console.log("  " + STORE_URLS.length + " store URL(s) declared in one generator, hardcoded nowhere else");
 console.log("  " + checkedPages + " page(s) in the two families that render hasApp, " + cardPages + " carrying the app");
+console.log("  " + packsRead + " GBP pack(s) read for app claims in the copy pasted to the public profile");
 Object.keys(knownHits).forEach(function (k) {
   console.log("  KNOWN " + k + ": " + KNOWN[k]);
 });

@@ -2,6 +2,96 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 15:10 BST - two-hundred-and-first run
+
+- Quality pass on item 4.5, the Scorah Chemists Hazel Grove GBP pack. ONE REAL
+DEFECT FOUND AND FIXED, on the public-profile surface: hasApp was read by
+nothing in gbp-packs/. Proved by injection on three separate blocks, not
+argued. No question raised.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Staleness re-derived
+mechanically rather than inherited, using both log constructions ("- Item X.Y
+quality pass" and "Quality pass on item X.Y"): all 41 completed items resolve,
+none unresolved, and the order agrees exactly with the 200th run's projection
+shifted by one. 4.5 is stalest, then 6.3, 5.7, 4.6.
+
+BASELINE. No .agent-lock and no .git\index.lock at start. Level with origin,
+worktree clean. 36 checkers green and all six generators rebuild every page
+byte-identical BEFORE any edit, and again after.
+
+REPO HALF ONLY. Two Chrome extension instances are connected and the tooling
+states a human must choose between them and that the agent must not pick one
+itself. An unattended run has nobody to ask, so step 3 got no further than
+enumerating them: NO page was fetched and nothing was clicked, typed,
+submitted or logged in to, on any site. No other route was attempted.
+Thirty-eighth consecutive run of this fault, which is what Q59 asks about, so
+no duplicate was raised. 47 questions open going in, 47 going out.
+
+NO AUTONOMOUS WINDOW. The only real "Standing authorisation" section in this
+log is dated 2026-08-09 23:14 to 2026-08-10 23:14 BST, expired four days ago,
+and it is not at the top of the file. Step 7 applied as written.
+
+THE PACK, RE-VERIFIED NOT TRUSTED. Fifth pass, and the pack itself is clean
+again: name, street address, postcode, phone, hours including the 24 June
+Saturday closure, review link, catchment order and its lead town, profile
+website on its own landing page rather than the shared Bramhall homepage,
+categories and services each earned by a widget, the sister-branch claim, the
+712-character description and all four post button targets, all against
+branches.json. Q64 (the Royal Mail post town on the "- Address:" line) was
+recognised and not re-raised.
+
+THE DEFECT. tools/check-app-membership.js exists because hasApp "was the only
+field in branches.json that reaches a public page and was read by no checker".
+It then stopped at the generated pages. It never opened gbp-packs/, and nothing
+else read the field there: "hasApp" appears nowhere in check-gbp-packs.js, all
+2,417 lines, and this checker is not among the fourteen that read the pack
+directory. That is the MORE exposed surface, not the less. Four packs publish
+app copy into the business description and posts, and ten more carry a paster
+note asserting what branches.json holds.
+
+  - app sentence added to this pack's description (hasApp false), stated count
+    corrected and length left legal at 704 of 750  -> ALL 36 CHECKERS PASSED
+  - the same claim added to this pack's Post B                -> ALL 36 PASSED
+  - every app claim stripped from smartts-bootle.md (hasApp true)
+                                                              -> ALL 36 PASSED
+
+Two earlier injections DID fire and neither fired on the app: one hit the
+description length and stated-count rules, the other the unrecognised-service
+rule. Each was re-run isolated before being called anything. Asking which text
+the checker actually read is the discipline from the 183rd run and it is what
+separated those two from a real guard.
+
+THE FIX. RULE 8 in check-app-membership.js, the file that already owns the
+field, rather than a second copy of the semantics in check-gbp-packs.js. 8a the
+pasted copy, 8b the photo shot list, 8c the paster note against branches.json
+both directions, 8d the note against the pack it describes. Scope is the pasted
+copy only, which is load-bearing: riddings-timperley.md's note warns the paster
+NOT to inherit an old page's App Store block, and a rule reading the whole pack
+would fail that pack for the sentence warning against the very thing the rule
+exists to stop. Two traps handled rather than tripped: \bapps?\b so "happy",
+"appointment" and "apply" do not match, and a non-global twin of STORE_RE built
+from its source, because a /g regex carries lastIndex between .test() calls and
+Rule 8 asks the same question of four blocks in each of fifteen packs.
+
+Eight negative tests fire; the clean estate and the riddings note both stay
+silent. One of the eight is skchemists_bootle flipped to hasApp true, which is
+the exact adjacent-record boolean flip this file was created for, now caught on
+the pack surface as well as on the pages.
+
+OBSERVATION, NOT ACTED ON. The packs name the app as "our app" and, once, "the
+Smartts app", while RULE 5 pins the generated pages to the canonical name read
+from build-switch-pages.js. Whether a GBP profile should carry the canonical
+app name or the branch's own brand is a marketing decision, not a data defect,
+and the store listing name was not verifiable from the repo half. No pack copy
+changed and no rule written for it.
+
+FILES CHANGED. tools/check-app-membership.js (RULE 8 and its header),
+AGENT_WORKLIST.md (item 4.5 fifth-pass note, in place), AGENT_LOG.md,
+audits/scorah-hazel-grove-pack-check-2026-08-14.txt (new). No page, no pack and
+no field in branches.json was touched. 36 checkers pass and all six generators
+byte-identical after the change.
+
 ## 2026-08-14 14:05 BST - two-hundredth run [commit cfeceb8, this hash line added by a small follow-up commit]
 
 - Quality pass on item 5.6, the Q14 title-length rule. ONE REAL DEFECT FOUND

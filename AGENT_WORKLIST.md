@@ -1777,6 +1777,33 @@ structural carve-out for the rules block that quotes the wording it bans,
 plus a guard that fails if that boundary heading is renamed. Eight negative
 tests fire. 31 checkers pass, all six generators byte-identical, no page or
 data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-13.txt.
+Quality pass 2026-08-14 (run 201): fifth pass. The pack itself clean for the
+fifth time, every fact re-verified against branches.json: name, street address,
+postcode, phone, hours including the 24 June Saturday closure, review link,
+catchment order and its lead town, profile website on its own landing page,
+categories and services earned by the widget set, the sister-branch claim, the
+712-character description and all four post button targets. The post town on
+the "- Address:" line is Q64 and was not re-raised. One real defect found and
+fixed, again in a checker rather than the pack: HASAPP WAS UNREAD ON THE PACK
+SURFACE. check-app-membership.js was written because hasApp reached a public
+page unguarded, then stopped at the generated pages; "hasApp" appears nowhere
+in check-gbp-packs.js and this checker was not among the fourteen that open
+gbp-packs/. Yet four packs publish app copy into the business description and
+posts and ten more carry a paster note asserting what branches.json says.
+Proved by injection: an app sentence added to this pack's description with the
+stated count kept honest and the length legal passed all 36 checkers, the same
+claim in Post B passed all 36, and stripping every app claim out of
+smartts-bootle.md passed all 36. Two earlier injections fired on the length
+rule and the unrecognised-service rule, not on the app, which is why each was
+re-run isolated. RULE 8 added to check-app-membership.js, the file that already
+owns the field, rather than a third copy of it elsewhere: 8a the pasted copy,
+8b the photo shot list, 8c the paster note against branches.json, 8d the note
+against the pack it describes. Scope is the pasted copy only, so
+riddings-timperley.md's note warning the paster NOT to inherit an old page's
+App Store block does not fire. Eight negative tests fire, including the
+adjacent-record boolean flip this file was created for, now caught on the pack
+surface too. 36 checkers pass, all six generators byte-identical, no page, pack
+or data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-14.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

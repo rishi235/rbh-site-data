@@ -1,0 +1,145 @@
+scorah-hazel-grove.md - fifth quality pass (worklist item 4.5)
+Run 201, 2026-08-14. Branch id scorah_hazel.
+
+BASELINE
+No .agent-lock and no .git\index.lock at start. Level with origin/agents/
+audit-backlog, worktree clean. 36 checkers green and all six generators
+rebuild every page byte-identical BEFORE any edit, and again after.
+
+THE PACK, FACT BY FACT AGAINST branches.json - CLEAN (fifth time)
+  Name on GBP        Scorah Chemists Hazel Grove      = branchName
+  Street address     87 Macclesfield Road             = streetAddress
+  Postcode           SK7 6BG                          = postalCode
+  Phone              01625 872267                     = phone
+  Hours              Mon-Fri 09:00-18:00, Sat and Sun closed
+                                                      = openingHours.specification
+                                                        plus closedDays
+  Saturday closure   ceased 24 June 2026              = openingHours.note,
+                                                        confirmed 2026-06-24
+  Review link        g.page/r/CZbFKrky9BUsEAE/review  = googleReviewUrl
+  Catchment          Hazel Grove, Bramhall, Offerton, Great Moor, Poynton
+                                                      = serviceAreaList, in order,
+                                                        leading with seoTown
+  Profile website    pharmacy-scorah-hazel-grove.html  own landing page, not the
+                                                        shared scorah-chemists.co.uk
+                                                        homepage (shared with Bramhall)
+  Categories         Pharmacy primary, plus Travel clinic, Vaccination centre,
+                     Weight loss service               earned by widgets.travelClinic
+                                                        and widgets.weightLoss
+  Services           five NHS and private services     each earned by a widget
+  Sister branch      "Our sister branch is in Bramhall" scorah_bramhall is live,
+                                                        same brandKey, seoTown Bramhall
+  Description        712 characters                    under the 750 GBP limit,
+                                                        stated count true
+  Post A button      pfLink                            = branches.json pfLink
+  Posts B, C, D      branch-specific repo slugs        resolve to generated pages
+  App                no mention anywhere in the pasted copy, hasApp false
+
+KNOWN, NOT RE-RAISED
+  Q64  the "- Address:" line carries the Royal Mail post town (Stockport) while
+       branches.json holds only the dependent locality (Hazel Grove). Five packs
+       move together once Q64 is answered. Nothing edited.
+  Q3   the live Weebly copy may lag the repo. Not testable from the repo half.
+
+THE DEFECT - hasApp was unread on the pack surface
+tools/check-app-membership.js exists because hasApp "was the only field in
+branches.json that reaches a public page and was read by no checker" (item 3.8
+pass). It then stopped at the generated pages. It never opened gbp-packs/, and
+nothing else read the field there either: "hasApp" appears nowhere in
+tools/check-gbp-packs.js, all 2,417 lines of it, and check-app-membership.js is
+not among the fourteen checkers that read the pack directory.
+
+That is the more exposed surface, not the less. Four packs publish app copy
+into the business description and the post bodies - clear-aintree,
+fishlocks-ainsdale, fishlocks-eccleston and smartts-bootle, which are exactly
+the four app members - and ten more carry a paster note asserting what
+branches.json holds for that branch. All of it is pasted into, or acted on
+inside, a public Google Business Profile.
+
+PROVED BY INJECTION, not argued. All restored afterwards, worktree clean.
+  TEST A  "You can order repeat prescriptions through our app." added to the
+          business description of this pack (hasApp false), stated character
+          count corrected to 704 so the length and count rules stayed honest
+          ................................................. ALL 36 PASSED
+  TEST B  the same claim added to this pack's Post B ...... ALL 36 PASSED
+  TEST C  every app claim stripped from the posts of
+          smartts-bootle.md (hasApp true) ................. ALL 36 PASSED
+
+Two earlier injections DID fire, and neither fired on the app. Adding the
+sentence without correcting the stated count failed the description length rule
+(764 over the 750 limit) and the stated-count rule; an "- App ordering:" service
+bullet failed the unrecognised-service rule, which a deliberate addition to
+RECOGNISED_SERVICES would have silenced. Each was re-run isolated before being
+called a pass or a fail. Asking which text the checker actually read is the
+discipline recorded on the 183rd run, and it is what separated these two from a
+real guard.
+
+THE FIX - RULE 8 in tools/check-app-membership.js
+Added to the file that already owns hasApp, rather than to check-gbp-packs.js
+or a new third file, because two copies of a rule that agree are
+indistinguishable from one rule until somebody edits one.
+  8a  a non-member's pasted copy claims an app
+  8b  a non-member's photo shot list asks for an app shot
+  8c  the paster note states a hasApp value branches.json does not hold,
+      either direction
+  8d  the note says the pack mentions no app and the pasted copy does
+
+SCOPE, which is load-bearing rather than tidy. 8a reads the business
+description, the Services section and the post bodies with "Button:" lines cut.
+The preamble and the "Notes for the paster" block are excluded, exactly as the
+town rule in check-gbp-packs.js excludes them, because they are never pasted.
+riddings-timperley.md's note tells the paster that the OLD live switch page
+carries a "Download our app" block with App Store and Google Play buttons and
+must NOT be copied across. A rule reading the whole pack would fail that pack
+for the sentence warning against the very thing this rule exists to stop.
+
+A pack is NOT required to mention the app or to carry the note. Ten packs carry
+the note; fishlocks-ainsdale is a member carrying app copy and no note, and
+cherry-lane-walton is a non-member carrying neither. Choosing not to advertise
+a service is a marketing decision, not a false claim. Only a contradiction
+fails.
+
+Two traps handled rather than tripped:
+  - "app" as a bare substring matches "happy", "appointment", "apply" and
+    "appropriate", all of which are ordinary copy present in these packs. The
+    rule matches \bapps?\b only.
+  - STORE_RE, already in the file, is declared /g, and a /g regex carries
+    lastIndex between .test() calls, so the same question asked twice returns
+    true then false. Rule 8 asks it of four blocks in each of fifteen packs. A
+    non-global twin is built from STORE_RE.source, so the pattern is not
+    retyped.
+
+NEGATIVE TESTS - eight fire, two must-not-fire cases stay silent
+  N1  non-member description claims an app ................. FAIL, correct
+  N2  non-member Post B claims an app ...................... FAIL, correct
+  N3  non-member post names the App Store .................. FAIL, correct
+  N4  non-member shot list asks for an app shot ............ FAIL, correct
+  N5  non-member note claims hasApp true ................... FAIL, correct
+  N6  member note claims hasApp false ...................... FAIL, correct
+  N8  skchemists_bootle flipped to hasApp true in
+      branches.json, its pack note now lying ............... FAIL, correct
+  T0  clean estate ......................................... exit 0, 15 packs read
+  N7  riddings-timperley.md's note naming the App Store
+      while warning against it ............................. exit 0, correct
+
+N8 is the exact fault this file was created for. SK Chemists Bootle sits 1.5
+miles from Smartts, in the same town, on the same postcode prefix, and directly
+beside it in branches.json. One boolean copy-pasted between two adjacent
+records would have left SK's pack telling the paster the opposite of the truth,
+and the paster acts on the note. That is now caught on the pack surface as well
+as on the pages.
+
+OBSERVATION FOR RISHI, not acted on
+The packs name the app three ways in pasted copy: "our app" (clear-aintree,
+fishlocks-ainsdale, fishlocks-eccleston, smartts-bootle), and "the Smartts app"
+(smartts-bootle). RULE 5 of this checker pins the name on the GENERATED pages
+to the canonical string read from build-switch-pages.js, currently "RB
+Healthcare Pharmacy app". Whether a GBP profile should use the canonical app
+name or the branch's own brand is a marketing decision, not a data defect, and
+the store listing name was not verifiable from the repo half. No pack copy was
+changed and no rule was written for it. Raised here rather than guessed at.
+
+RESULT
+36 checkers pass. All six generators rebuild every page byte-identical. One
+file changed, tools/check-app-membership.js. No page, no pack and no field in
+branches.json was touched. No question raised.
