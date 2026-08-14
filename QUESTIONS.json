@@ -1087,5 +1087,21 @@
     "status": "open",
     "answer": null,
     "note": "No copy was changed this run and no listing was touched; browser use in these runs is read only and a GBP edit is not something a run would do in any case. The finding is recorded from the pack's own note, not from reading Google. Worth knowing before you pick: option 3 is only cheap if the Simple Weight Loss decision is genuinely close, since the 90 day park was logged in CLAUDE.md and the clock is not visible from here. Option 4 is listed because the evidence for it is real, not because it is recommended: the domain and the listing both say Pharmacy, and if that is what patients actually know the branch as, then item 1.1 pinned the wrong half of the estate for this one branch. The checker now fails either way round, so whichever name you settle on, the other becomes a hard error the moment it appears in copy."
+  },
+  {
+    "id": "Q71",
+    "date": "2026-08-14",
+    "item": "quality pass on 3.3 (finding, does not block any item)",
+    "question": "Three of our branch landing pages name their sister branch's town in the page description, and the two branches sit on the same domain. McCanns Sandringham (St Michael's) lists Aigburth, Scorah Bramhall lists Hazel Grove, and Scorah Hazel Grove lists Bramhall. Every one of those is geographically honest, since Aigburth really does adjoin St Michael's and Hazel Grove really does adjoin Bramhall, and the wording comes from each branch's serviceAreaList rendered into the description as \"Serving X, Y and Z\". The problem is that it puts two of our own pages on one domain competing for the same catchment word, which is the self-competition items 2.2, 3.2 and 3.3 exist to prevent. Fishlocks is unaffected because Ainsdale and Eccleston are about 40 miles apart. This is a search and conversion decision rather than a defect, so it is being asked rather than changed. How do you want the descriptions to read?",
+    "options": [
+      "Leave all three as they are and keep pinning them (the descriptions stay useful to a patient searching the neighbouring district, and the overlap is real rather than invented; costs nothing now, but the two pages keep splitting the same catchment word between them)",
+      "Remove only the sister town from each of the three descriptions, leaving the other neighbouring areas in place (each page keeps a full catchment list minus the one word its sister already owns, so the self-competition goes and almost none of the reach does; needs a serviceAreaList edit, a regeneration and a repaste of three Weebly SEO descriptions)",
+      "Remove the sister town from the weaker branch of each pair only, so one page is left owning the shared word outright (strongest single-page signal for the branch you want to win that search; needs a view on which of Sandringham and Aigburth, and which of Bramhall and Hazel Grove, should be the winner)",
+      "Leave the descriptions alone but split the two Scorah branches and the two McCanns branches onto separate domains so the pages stop sharing a host at all (removes the whole class of problem including the switch-banner conflict in Q63; much the largest option, with new domains, new Weebly sites, redirects and a rebuild of the affected packs)"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Nothing was changed on any page this run. The checker now reports these three as pinned rather than failing them, so the repo stays green while the decision is open, and any NEW instance of the same thing fails the run outright. If you pick option 2 or 3, the pinned entries must be removed from KNOWN_SISTER_TOWN in tools/check-seo-pattern.js at the same time, because a pin whose case has been fixed fails the run by design. Option 4 overlaps with Q63, which asks which branch a shared-domain switch banner should point at; if the domains were ever split, both questions close together. Worth knowing: this was found because adding a sister town to serviceAreaList both writes that town into the public description and silently buys it an exemption from the rule that would have caught it, so before this run a single data edit could have done this to any of the three pairs with all 35 checkers staying green."
   }
 ]

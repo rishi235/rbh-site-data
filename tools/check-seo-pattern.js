@@ -120,15 +120,128 @@ function townRe(town) {
 var TOWN_RE = {};
 OTHER_TOWNS.forEach(function (t) { TOWN_RE[t] = townRe(t); });
 
+// ---------------------------------------------------------------------------
+// SISTER TOWNS ON A SHARED DOMAIN - the excuse that must not apply
+// (item 3.3 quality pass, 2026-08-14)
+// ---------------------------------------------------------------------------
+// The serviceAreaList excuse below is right for genuine neighbouring
+// catchments (Walton and Bootle) and wrong for exactly one case: a branch that
+// shares a HOST with another branch. Three do - Fishlocks Ainsdale and
+// Eccleston on www.fishlockpharmacy.co.uk, McCanns Aigburth and Sandringham,
+// Scorah Bramhall and Hazel Grove - and the shared-domain self-competition
+// those pairs create is the whole reason items 2.2, 3.2 and 3.3 exist.
+//
+// The fault is that ONE data edit both commits the offence and hides it.
+// serviceAreaList is not an inert excuse list: build-branch-landing-pages.js
+// renders it into the public description as "Serving X, Y and Z". So adding a
+// sister town to serviceAreaList writes that town into the branch's own
+// description AND, on the very next line here, buys the exemption that stops
+// this rule reading it. Self-cloaking, and it needs no code change.
+//
+// Proved by injection on this pass: "Eccleston" added to
+// fishlocks_ainsdale.serviceAreaList regenerated the Ainsdale landing page
+// with the public description "Serving Ainsdale, Birkdale, Southport and
+// Eccleston", carried it into modules/branch/pages/SEO.md for a human to paste
+// into Weebly SEO Settings, and ALL 35 CHECKERS AND THE SELF-TEST EXITED 0.
+// check-editor-snapshot.js fails first on snapshot drift, but that is
+// bookkeeping about the editor's embedded copy and is cleared by the snapshot
+// refresh that normally follows any data edit; refreshing it left all 35
+// green. Collateral, not cover - the distinction the 2026-08-14 item 3.2 pass
+// drew about a foreign brand name.
+//
+// Derived from hostMap rather than a literal pair list, so a fourth shared
+// domain is covered the day it is added. A missing hostMap FAILS rather than
+// quietly disabling the rule, and so does a hostMap yielding no shared host at
+// all, because three exist today: if that reaches zero either the derivation
+// has broken or the domains have genuinely been split, and this guard should
+// then be retired deliberately rather than by silence.
+if (!data.hostMap || typeof data.hostMap !== "object") {
+  fail("branches.json declares no hostMap, so the shared-domain sister-town rule cannot be derived");
+}
+var liveById = {};
+data.branches.forEach(function (b) {
+  if (b.disposed || b.id === "rbh_head_office_aintree" || !b.seoTown) return;
+  liveById[b.id] = b;
+});
+var SISTER_TOWNS = {};   // branch id -> lowercased seoTowns sharing its host
+var sharedHosts = 0;
+Object.keys(data.hostMap).forEach(function (host) {
+  var ids = [].concat(data.hostMap[host]).filter(function (id) { return liveById[id]; });
+  var uniq = ids.filter(function (id, i) { return ids.indexOf(id) === i; });
+  if (uniq.length < 2) return;
+  sharedHosts++;
+  uniq.forEach(function (id) {
+    uniq.forEach(function (other) {
+      if (other === id) return;
+      var t = liveById[other].seoTown;
+      if (!t || t === liveById[id].seoTown) return;
+      (SISTER_TOWNS[id] = SISTER_TOWNS[id] || []).push(t.toLowerCase());
+    });
+  });
+});
+if (!sharedHosts) {
+  fail("hostMap yields no host serving two live branches, so the sister-town rule would assert " +
+       "nothing. Three shared domains existed when this rule was written. Either the derivation " +
+       "is broken, or the domains have genuinely been split and this guard should be removed on purpose.");
+}
+
+// THE THREE THAT ALREADY EXIST, and why they are pinned rather than failed.
+// Writing this rule found three live pages already naming their sister's town
+// in the landing-page description, all three geographically HONEST: Aigburth
+// really does adjoin St Michael's, and Hazel Grove really does adjoin
+// Bramhall. Fishlocks is clean both ways, its two towns being some 40 miles
+// apart, which is why the injection above had to manufacture the case.
+//
+// So this is not a defect with an obvious fix. Removing the sister town makes
+// the description less useful to a patient searching the neighbouring
+// district; keeping it has two of our own pages competing for one word on one
+// domain. Which branch should own "Hazel Grove" is a live conversion decision,
+// the same class as the switch-banner conflict this item's 2026-08-13 pass
+// pinned to Q63 rather than deciding. Raised as Q71.
+//
+// Pinned, not excused, on the KNOWN_DRIFT convention this repo already uses: a
+// listed case is reported and does not fail, anything NOT listed FAILS, and a
+// listed case that has gone away FAILS as stale so the list cannot rot into a
+// blanket exemption. That keeps the Fishlocks injection failing while the
+// three real ones wait on an answer.
+var KNOWN_SISTER_TOWN = {
+  "pharmacy-mccanns-sandringham.html|Aigburth":
+    "Q71 - McCanns Sandringham (St Michael's) lists neighbouring Aigburth, the seoTown of its sister branch on www.mccannspharmacy.co.uk",
+  "pharmacy-scorah-bramhall.html|Hazel Grove":
+    "Q71 - Scorah Bramhall lists neighbouring Hazel Grove, the seoTown of its sister branch on www.scorah-chemists.co.uk",
+  "pharmacy-scorah-hazel-grove.html|Bramhall":
+    "Q71 - Scorah Hazel Grove lists neighbouring Bramhall, the seoTown of its sister branch on www.scorah-chemists.co.uk"
+};
+var sisterSeen = {};
+
 // Returns a list of problem strings for one page's three public strings.
-function checkCrossTown(b, fields) {
+// A "PINNED " prefix means reported but not counted as a failure.
+function checkCrossTown(b, fields, file) {
   var problems = [];
   var areas = (b.serviceAreaList || []).map(function (s) { return String(s).toLowerCase(); });
+  var sisters = SISTER_TOWNS[b.id] || [];
   Object.keys(fields).forEach(function (fieldName) {
     var value = fields[fieldName] || "";
     OTHER_TOWNS.forEach(function (t) {
       if (t === b.seoTown) return;
       if (!TOWN_RE[t].test(value)) return;
+      // A sister branch on the same host is never excused by serviceAreaList.
+      // Checked BEFORE the excuse, which is the whole point of the rule.
+      if (sisters.indexOf(t.toLowerCase()) !== -1) {
+        var key = file + "|" + t;
+        var msg = fieldName + " names '" + t + "', the seoTown of " +
+          townOwners[t].join(" and ") + ", which shares a domain with this branch. " +
+          "Two branches on one host compete for one catchment, and serviceAreaList " +
+          "does not excuse that" +
+          (areas.indexOf(t.toLowerCase()) === -1 ? " ('" + t + "' is not in it either)" : "");
+        if (Object.prototype.hasOwnProperty.call(KNOWN_SISTER_TOWN, key)) {
+          sisterSeen[key] = true;
+          problems.push("PINNED " + msg + ". " + KNOWN_SISTER_TOWN[key]);
+        } else {
+          problems.push(msg);
+        }
+        return;
+      }
       if (areas.indexOf(t.toLowerCase()) !== -1) return; // in this branch's own catchment
       problems.push(fieldName + " names '" + t + "', the seoTown of " +
         townOwners[t].join(" and ") + ", and '" + t + "' is not in this branch's serviceAreaList");
@@ -367,17 +480,38 @@ DIRS.forEach(function (dir) {
     // The absence rule. Runs on what the page ACTUALLY carries, not on what
     // the pattern would produce, because the fault it looks for is drift.
     crossTownChecked++;
-    checkCrossTown(exp.b, { title: gotTitle, h1: gotH1, description: gotDesc || "" }).forEach(function (p) {
+    checkCrossTown(exp.b, { title: gotTitle, h1: gotH1, description: gotDesc || "" }, file).forEach(function (p) {
       perBrand[brand].fails.push(file + ": " + p);
-      fails++;
+      // A PINNED case is reported in full but waits on a decision (Q71), so it
+      // does not fail the run. Everything else does.
+      if (p.indexOf("PINNED ") !== 0) fails++;
     });
   });
 });
 
 Object.keys(perBrand).sort().forEach(function (brand) {
   var r = perBrand[brand];
-  console.log((r.fails.length ? "FAIL " : "OK   ") + brand + " - " + r.pages + " pages" + (r.fails.length ? ", " + r.fails.length + " mismatches" : ""));
+  // A brand carrying only PINNED entries is not failing and must not be
+  // printed as though it were, or the pinned three would read as three
+  // breakages on every future run.
+  var hard = r.fails.filter(function (f) { return f.indexOf("PINNED ") === -1; });
+  var pinned = r.fails.length - hard.length;
+  console.log((hard.length ? "FAIL " : "OK   ") + brand + " - " + r.pages + " pages" +
+    (hard.length ? ", " + hard.length + " mismatches" : "") +
+    (pinned ? ", " + pinned + " pinned (awaiting an answer, not a failure)" : ""));
   r.fails.forEach(function (f) { console.log("       " + f); });
+});
+
+// A pinned case that has gone away must be de-listed deliberately. Same
+// stale-key contract as KNOWN_NON_PAGE below and KNOWN_DRIFT in
+// check-cdn-pins.js: the list cannot be allowed to rot into a blanket excuse.
+Object.keys(KNOWN_SISTER_TOWN).forEach(function (key) {
+  if (!sisterSeen[key]) {
+    console.log("FAIL stale KNOWN_SISTER_TOWN key - " + key + " no longer names its sister's town.");
+    console.log("       The pinned case is fixed. Remove the key (and close its question) rather than");
+    console.log("       leaving an exemption standing for a page that no longer needs one.");
+    fails++;
+  }
 });
 // Untyped files, and the KNOWN_NON_PAGE list that excuses them.
 var excused = [];

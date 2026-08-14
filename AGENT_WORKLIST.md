@@ -606,6 +606,38 @@ run: browser unavailable, see the log for this run. No new question.
       pins it to Q63, since which branch should win is a live conversion
       decision. Six negative tests, all six fire, including one that removes
       11b's own excuse to prove it is not a no-op. Raised as Q63.
+      Quality pass 2026-08-14 (fourth): REPO HALF ONLY, browser unavailable
+      for the 24th run running, so nothing live was read or claimed. The 26
+      pages are clean on every leg by a fourth independent extraction: own
+      town in title, description and H1, service words on all three legs,
+      exactly one H1 each, titles 44 to 63 characters, descriptions 137 to
+      157, own phone present and the sister branch's phone and postcode
+      absent, and no other live seoTown in any of the three public strings.
+      The extractor's own first version was wrong and was fixed before being
+      trusted: it read title and description from head tags these Weebly
+      embed fragments do not have, and reported all 26 EMPTY. It now reads
+      them from the paste sheets, which is what reaches Google. All 35
+      checkers, the self-test and all seven generators byte-stable, before
+      and after. THE DEFECT IS THAT AN EXCUSE LIST IS ALSO PUBLIC COPY.
+      checkCrossTown excused any town in the branch's own serviceAreaList,
+      with no exception for a sister branch on the same host, and three hosts
+      each serve two branches. serviceAreaList is rendered into the public
+      description as "Serving X, Y and Z", so ONE data edit both writes a
+      sister town into a branch's own description and buys the exemption that
+      hides it. Self-cloaking, no code change needed. Proved by injection:
+      "Eccleston" added to fishlocks_ainsdale.serviceAreaList shipped
+      "Serving Ainsdale, Birkdale, Southport and Eccleston" into the page and
+      the paste sheet, and all 35 checkers and the self-test exited 0. NOT
+      FIXED BY FAILING IT: the new rule fired on the untouched tree, on three
+      live pages (McCanns Sandringham naming Aigburth, and the two Scorah
+      pages naming each other), all three geographically honest neighbours.
+      Which branch should own a shared catchment word is a live conversion
+      decision, so those three are PINNED to Q71 on the KNOWN_DRIFT
+      convention rather than failed, while any new instance fails outright
+      and a pin whose case is fixed fails as stale. Six negative tests, all
+      six behave as required, including a no-loosening test and a
+      false-positive test. Raised as Q71. Full working in
+      audits/fishlocks-item-3.3-quality-pass-2026-08-14.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

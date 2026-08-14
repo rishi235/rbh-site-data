@@ -1,0 +1,184 @@
+ITEM 3.3 QUALITY PASS - Fishlocks Chemist (Ainsdale and Eccleston)
+2026-08-14, 187th run, branch agents/audit-backlog. REPO HALF ONLY.
+Fourth quality pass on this item (previous: 2026-08-11, 08-12, 08-13).
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so this run is a quality pass. The least recently
+verified COMPLETED item was derived mechanically rather than inherited, by
+joining each run heading block in AGENT_LOG.md to the item it states it
+worked, across all 224 headings. Blocks are joined before matching because
+this log uses two heading formats and the older headings wrap across lines.
+Result: 3.3 is the oldest completed item at 41 runs, last worked 2026-08-13.
+5.8 (154 runs) and 6.1 (113) sit above it in the raw ordering but are
+unchecked and [BLOCKED], so they have never been done and cannot be
+quality-passed. This agrees with the 186th run's prediction, derived
+independently.
+
+BROWSER / ANSWER PICKUP: UNAVAILABLE, twenty-fourth consecutive run.
+Two Chrome browsers are connected and selecting between them requires an
+interactive choice that an unattended run cannot make. No tab was opened, no
+live page was read, and nothing live is claimed anywhere in this file.
+
+-----------------------------------------------------------------------
+THE 26 PAGES ARE CLEAN. Fourth independent extraction.
+-----------------------------------------------------------------------
+Written fresh for this run with its own regexes, sharing no code with any
+tools/check-*.js, so the two agree only if both are right.
+
+Corrected a mistake in the extractor before trusting it: the first version
+read <title> and <meta name=description> from the page body and reported all
+26 titles and descriptions EMPTY. That was the extractor, not the repo. These
+pages are Weebly embed fragments and carry no head tags; per CLAUDE.md the
+strings that reach Google are the ones typed into Weebly SEO Settings, read
+off the paste sheets. The extractor now reads title and description from the
+sheets (177 entries parsed) and the H1 from the page body.
+
+  pages found                26  (13 Ainsdale, 13 Eccleston)
+  own seoTown in title       26/26
+  own seoTown in description 26/26
+  own seoTown in H1          26/26
+  service word, all 3 legs   26/26
+  sister town in any leg     0/26
+  other live seoTown         0/26  (outside the branch's serviceAreaList)
+  exactly one H1             26/26
+  title length               44 to 63 chars (limit 65)
+  description length         137 to 157 chars (band 80 to 165)
+  own phone present          26/26
+  sister phone present       0/26
+  sister postcode present    0/26
+  PROBLEMS                   0
+
+Also reconciled, which nothing had asked before: each page's build-header
+copy of the SEO title and description against the paste sheet copy. 0 drift
+across all 26. This turned out to be already covered by check-seo-sheets.js,
+including the five INDEX.md manifests added on the 2026-08-13 item 3.7 pass.
+
+STATE BEFORE AND AFTER: all 35 checkers exit 0, tools/seo-pattern.js
+self-test exits 0, all seven generators rebuild all 177 pages to a zero diff.
+branches.json sha256 000863E6AA156C04D1684D2D3AC5F346FF91248D4E7453A55DC641EEDB041BD0
+unchanged throughout. No page, generator, data field, paste sheet, pack or
+piece of patient-facing copy was changed by this run.
+
+-----------------------------------------------------------------------
+THE DEFECT: serviceAreaList is an excuse list AND public copy at once
+-----------------------------------------------------------------------
+checkCrossTown() in tools/check-seo-pattern.js is the ABSENCE rule added on
+the 2026-08-11 pass on this item, precisely because branches sharing a domain
+compete for one catchment. It excused any town found in the branch's own
+serviceAreaList:
+
+    if (areas.indexOf(t.toLowerCase()) !== -1) return; // own catchment
+
+There was no exception for a SISTER BRANCH ON THE SAME HOST. Three hosts
+serve two live branches each:
+
+    www.fishlockpharmacy.co.uk   fishlocks_ainsdale + fishlocks_eccleston
+    www.mccannspharmacy.co.uk    mccanns_aigburth + mccanns_sandringham
+    www.scorah-chemists.co.uk    scorah_bramhall + scorah_hazel
+
+serviceAreaList is not an inert excuse list. build-branch-landing-pages.js
+renders it into the public description as "Serving X, Y and Z". So ONE data
+edit both commits the offence and buys the exemption that hides it. It is
+self-cloaking and needs no code change.
+
+PROVED BY INJECTION. "Eccleston" added to fishlocks_ainsdale.serviceAreaList.
+The Ainsdale landing page regenerated with the public description:
+
+  "Fishlocks Chemist Ainsdale, Ainsdale PR8 3HN. NHS prescriptions, Pharmacy
+   First and private clinics. Serving Ainsdale, Birkdale, Southport and
+   Eccleston."
+
+carried identically into modules/branch/pages/SEO.md for a human to paste
+into Weebly SEO Settings. ALL 35 CHECKERS AND THE SELF-TEST EXITED 0.
+
+check-editor-snapshot.js fails first, but on snapshot drift between the
+editor's embedded copy and branches.json. That is bookkeeping, and it is
+cleared by the snapshot refresh that normally follows any data edit; doing
+that refresh left all 35 green with the sister town still live in the
+description. Collateral, not cover, the same distinction the 2026-08-14 item
+3.2 pass drew about a foreign brand name.
+
+A note on method: the first injection attempt rewrote branches.json through a
+PowerShell JSON round-trip, which reformatted the file so the generators could
+not parse it and all six exited 1. That run was void and is recorded here so
+it is not mistaken for evidence. The injection was redone as a surgical text
+edit. A second false start anchored on the branch id's first occurrence in the
+file, which is inside hostMap, and edited scorah_bramhall by mistake.
+
+-----------------------------------------------------------------------
+WHAT THE RULE FOUND ON THE UNTOUCHED TREE, AND WHY IT IS PINNED NOT FAILED
+-----------------------------------------------------------------------
+The first version of the fix hard-failed the sister-town case. It fired on
+the CLEAN tree, on three live pages:
+
+  pharmacy-mccanns-sandringham.html  description names "Aigburth"
+  pharmacy-scorah-bramhall.html      description names "Hazel Grove"
+  pharmacy-scorah-hazel-grove.html   description names "Bramhall"
+
+All three are geographically HONEST. Aigburth genuinely adjoins St Michael's;
+Hazel Grove genuinely adjoins Bramhall. Fishlocks is clean in both directions,
+its two towns being some 40 miles apart, which is why the injection had to
+manufacture the case at all.
+
+So this is not a defect with an obvious fix, and my first reading of it as one
+was wrong. Removing the sister town makes the description less useful to a
+patient searching the neighbouring district. Keeping it has two of our own
+pages competing for one word on one domain. Which branch should own "Hazel
+Grove" is a live conversion decision, the same class as the switch-banner
+conflict this item's 2026-08-13 pass pinned to Q63 rather than deciding.
+Shipping a checker that hard-fails the clean tree would also have broken every
+subsequent run. RAISED AS Q71 and pinned.
+
+THE FIX. tools/check-seo-pattern.js gains a shared-domain sister-town rule:
+  - SISTER_TOWNS derived from hostMap, not a literal pair list, so a fourth
+    shared domain is covered the day it is added.
+  - A sister town is checked BEFORE the serviceAreaList excuse and is never
+    excused by it.
+  - KNOWN_SISTER_TOWN pins the three existing cases with a reason and Q71, on
+    the same convention as KNOWN_DRIFT in check-cdn-pins.js: a listed case is
+    reported and does not fail, anything NOT listed FAILS, and a listed case
+    that has gone away FAILS as stale so the list cannot rot into a blanket
+    exemption.
+  - A missing hostMap fails. A hostMap yielding no shared host fails, because
+    three exist today and a zero means either the derivation broke or the
+    domains were genuinely split and the guard should be retired on purpose.
+  - The per-brand summary line counts pinned entries separately, so the three
+    do not read as three breakages on every future run.
+
+The rule only ever REMOVES an excuse. It cannot make anything pass that
+previously failed.
+
+-----------------------------------------------------------------------
+NEGATIVE TESTS - six, all six behave as required
+-----------------------------------------------------------------------
+T1 must PASS   untouched tree, all 35 checkers + self-test      exit 0  PASS
+T2 must CATCH  sister town via serviceAreaList (self-cloaking)  exit 1  PASS
+T3 must CATCH  sister town in the H1, not just the description  exit 1  PASS
+T4 must CATCH  stale KNOWN_SISTER_TOWN key                      exit 1  PASS
+T5 must CATCH  foreign town not in serviceAreaList (no loosen)  exit 1  PASS
+T6 must PASS   genuine non-sister neighbour still excused       exit 0  PASS
+
+T5 is the no-loosening test: the pre-existing rule must still fire on an
+ordinary foreign town. T6 is the false-positive test: a neighbouring town that
+is not a sister must still be excused by serviceAreaList.
+
+Every test restored only the files it touched. Two earlier test scripts used
+"git checkout -- ." in teardown and silently discarded the uncommitted fix,
+twice. Recorded so the next run does not repeat it: never use a bare git
+checkout in teardown while holding uncommitted work.
+
+FINAL STATE
+  branches.json sha256 unchanged (000863E6...041BD0)
+  tools/branches-editor.html sha256 unchanged (F8F8EAE8...571F5F)
+  all 35 checkers exit 0, self-test exits 0
+  all seven generators rebuild to a zero diff
+  files changed by this run: tools/check-seo-pattern.js, QUESTIONS.json,
+  AGENT_WORKLIST.md, AGENT_LOG.md, and this file
+
+RESIDUAL, STATED RATHER THAN CLOSED
+The rule reads the three public SEO strings only (title, description, H1),
+which is item 3.3's scope. The deliberate cross-branch paragraph that item 2.2
+puts in landing-page BODY copy is therefore untouched and still passes, which
+is correct. Nothing checks whether the sister town appears in body copy on a
+shared domain, and after Q71 is answered that may be worth asking separately.

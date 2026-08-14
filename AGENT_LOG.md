@@ -2,6 +2,113 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 - hundred-and-eighty-seventh run
+- Item 3.3 quality pass, Fishlocks Chemist (Ainsdale and Eccleston), fourth
+machine pass. ZERO DEFECTS IN THE 26 PAGES for the fourth consecutive pass and
+not one character of any page was edited. ONE DEFECT FOUND IN THE RULES, and
+it is the first one this item has produced that could not simply be fixed:
+closing it properly meant raising a question, not shipping a stricter checker.
+Six negative tests, all six behave as required. New question Q71.
+
+WHY THIS ITEM. All eight unchecked items are still [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6), so this is a quality pass. Ordering was re-derived
+mechanically rather than inherited, joining each of the 224 run heading blocks
+to the item it states it worked, because this log uses two heading formats and
+the older headings wrap. 3.3 is the oldest COMPLETED item at 41 runs, last
+worked 2026-08-13. 5.8 (154) and 6.1 (113) sit above it in the raw ordering
+but are unchecked and [BLOCKED], so they have never been done and cannot be
+quality-passed. Agrees with the 186th run's prediction, derived independently.
+
+THE 26 PAGES ARE CLEAN. Fourth independent extraction, own regexes, no code
+shared with the checkers. 13 Ainsdale and 13 Eccleston, every page carrying its
+own seoTown in title, description and H1, a service word on all three legs,
+exactly one H1, titles 44 to 63 characters against the 65 limit, descriptions
+137 to 157 inside the 80 to 165 band, own phone present, sister phone and
+postcode absent, no foreign seoTown in any public string. MY OWN EXTRACTOR WAS
+WRONG FIRST AND IS RECORDED SO THE NEXT RUN DOES NOT REPEAT IT: version one
+read <title> and <meta name=description> from the page body and reported all
+26 titles and descriptions EMPTY. These pages are Weebly embed fragments and
+carry no head tags; the strings that reach Google live in the paste sheets, as
+CLAUDE.md says. Reading the sheets gives 177 entries and 0 problems.
+
+THE DEFECT: AN EXCUSE LIST THAT IS ALSO PUBLIC COPY. checkCrossTown in
+check-seo-pattern.js is the cross-town ABSENCE rule added on the 2026-08-11
+pass on this very item, because branches sharing a domain compete for one
+catchment. It excused any town found in the branch's own serviceAreaList and
+had NO exception for a sister branch on the same host. Three hosts serve two
+live branches each (Fishlocks, McCanns, Scorah). serviceAreaList is not an
+inert excuse list: build-branch-landing-pages.js renders it into the public
+description as "Serving X, Y and Z". So ONE data edit both commits the offence
+and buys the exemption that hides it, with no code change at all.
+
+PROVED BY INJECTION. "Eccleston" added to fishlocks_ainsdale.serviceAreaList
+regenerated the Ainsdale landing page with the public description "Serving
+Ainsdale, Birkdale, Southport and Eccleston", carried it identically into
+modules/branch/pages/SEO.md for a human to paste into Weebly SEO Settings, and
+ALL 35 CHECKERS AND THE SELF-TEST EXITED 0. check-editor-snapshot.js fails
+first, but on snapshot drift, which is bookkeeping and is cleared by the
+refresh that normally follows any data edit; doing that refresh left all 35
+green with the sister town still live. Collateral, not cover, the same
+distinction the 186th run drew about a foreign brand name.
+
+WHY IT IS PINNED AND NOT FAILED, WHICH IS THE REAL FINDING. The first version
+of the fix hard-failed the sister-town case and fired on the UNTOUCHED tree,
+on three live pages: McCanns Sandringham names Aigburth, Scorah Bramhall names
+Hazel Grove, Scorah Hazel Grove names Bramhall. All three are geographically
+HONEST, Aigburth genuinely adjoining St Michael's and Hazel Grove genuinely
+adjoining Bramhall. Fishlocks is clean both ways, its towns being some 40 miles
+apart, which is why the injection had to manufacture the case. So my first
+reading of this as a plain defect was wrong: removing the sister town costs a
+patient searching the neighbouring district, keeping it has two of our own
+pages splitting one catchment word on one domain, and which branch should win
+is a live conversion decision, the same class as the switch-banner conflict
+this item's 2026-08-13 pass pinned to Q63. Shipping the hard-fail would also
+have broken every subsequent run. Raised as Q71 and pinned instead.
+
+THE FIX. check-seo-pattern.js gains a shared-domain sister-town rule.
+SISTER_TOWNS is derived from hostMap rather than a literal pair list, so a
+fourth shared domain is covered the day it is added; a sister town is checked
+BEFORE the serviceAreaList excuse and is never excused by it; KNOWN_SISTER_TOWN
+pins the three existing cases with a reason and Q71 on the KNOWN_DRIFT
+convention, so a listed case is reported without failing, anything unlisted
+FAILS, and a listed case that has gone away FAILS as stale; a missing hostMap
+fails, and so does a hostMap yielding no shared host, because three exist
+today. The per-brand summary counts pinned entries separately so the three do
+not read as breakages every run. The rule only ever REMOVES an excuse, so it
+cannot make anything pass that previously failed.
+
+NEGATIVE TESTS. Six, all six as required: untouched tree passes; the
+self-cloaking serviceAreaList injection is caught; a sister town in the H1 is
+caught; a stale KNOWN_SISTER_TOWN key is caught; an ordinary foreign town not
+in serviceAreaList is still caught (no loosening); and a genuine non-sister
+neighbour is still excused (no false positive). Evidence in
+audits/fishlocks-item-3.3-quality-pass-2026-08-14.txt.
+
+TWO METHOD ERRORS RECORDED SO THEY ARE NOT REPEATED. The first injection
+rewrote branches.json through a PowerShell JSON round-trip, which reformatted
+the file so all six generators failed to parse it; that run was void, not
+evidence. And two test scripts used "git checkout -- ." in teardown, which
+silently discarded the uncommitted fix, twice. Never use a bare git checkout
+in teardown while holding uncommitted work.
+
+STATE. All 35 checkers exit 0 and the self-test exits 0, before and after. All
+seven generators rebuild all 177 pages to a zero diff. branches.json and
+tools/branches-editor.html are byte-identical to their starting hashes. No
+page, generator, data field, branches.json entry, paste sheet, pack or piece of
+patient-facing copy was changed. Files changed: tools/check-seo-pattern.js,
+QUESTIONS.json (Q71), audits/fishlocks-item-3.3-quality-pass-2026-08-14.txt,
+AGENT_WORKLIST.md (the 3.3 pass note), AGENT_LOG.md (this entry).
+
+ANSWER PICKUP UNAVAILABLE, twenty-fourth consecutive run, and for a different
+reason than usual. Two Chrome browsers are connected and choosing between them
+requires an interactive selection an unattended run cannot make, so no tab was
+opened at all. Nothing live was read and nothing live is claimed in this entry.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window" section
+is present at the top of this log, so step 7 applied as written and Q71 was
+left open rather than decided. It would have been left open in a window in any
+case, being a live patient-facing search and conversion decision.
+
 ## 2026-08-14 04:34 BST - hundred-and-eighty-sixth run [commit c6ff149, hash line added by a small follow-up commit]
 - Item 3.2 quality pass, Scorah Chemists (Bramhall and Hazel Grove), fourth
 machine pass. ZERO DEFECTS IN THE 26 PAGES for the fourth consecutive pass and
