@@ -2,6 +2,134 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-14 18:48 BST - two-hundred-and-ninth run [commit 2b4b246]
+
+- Quality pass. FIVE REAL DEFECTS FOUND AND FIXED, all in one commit to
+tools/claim-patterns.js, and all of them weight loss advertising. No page,
+generator, data field, branches.json entry, paste sheet, GBP pack or piece of
+patient-facing copy was changed. All 36 checkers pass, all six generators
+rebuild byte-identical. No new question. Two corrections to this log's own
+method are recorded below and they matter more than the fix.
+
+CORRECTION 1, THE STALENESS DERIVATION IN THIS LOG HAS BEEN UNDER-READING
+ITSELF. This run first picked item 4.8 as stalest, on a parse of this log that
+resolved 41 run headers to 41 ticked items with nothing left over, which is
+the same shape of check the last several runs have reported passing. It was
+wrong. Item 4.8 had in fact been passed EARLIER THE SAME DAY at 17:00, commit
+e61cbef, and 4.9 (17:17) and 4.10 (17:51) after it. The parse missed them
+because it only reads the first bullet under each run header, and those runs
+name their item further into the entry. The error was caught only because the
+header comment inside check-gbp-packs.js said "added on the item 4.8 quality
+pass, 2026-08-14" while the parse claimed 4.8 was last touched on 2026-08-12,
+and git log settled it.
+
+Staleness is now derived from TWO sources and the later of the two wins: this
+log's run headers, and `git log` commit subjects, which carry "<item> quality
+pass" on every pass that changed code. Both are incomplete on their own - a
+pass that finds no defect commits no code, so git alone undercounts, and the
+log parse undercounts as shown. Merged, all 41 ticked items resolve. On the
+corrected ranking the genuinely stalest item is 3.3 (2026-08-13 06:17), then
+3.8 (08:47), then 3.10 (09:42). Every 4.x pack has now been passed within the
+last 26 hours. THE NEXT RUN SHOULD TAKE 3.3, and should derive staleness from
+both sources rather than inheriting this paragraph.
+
+CORRECTION 2, THIS RUN'S FIRST INJECTION BATTERY CONTAMINATED ITSELF AND THE
+RESULT WAS SILENTLY WRONG. The harness wrote its script and its results file
+into the repo root as .tmp-*. check-postcodes.js sweeps every text file in the
+repo, 417 of them with those present, and one of the injections it was asked
+to test contained the string "PR7 5SX". So check-postcodes.js failed on the
+HARNESS rather than on the pack, on every injection, and because the harness
+stopped at the first failing checker it recorded six injections as "CAUGHT by
+check-postcodes.js" that nothing had actually caught. The tell was an em dash
+injection reported as caught by check-postcodes.js when check-em-dashes.js
+runs earlier in the alphabet and had passed it. Re-run with the harness
+outside the repo entirely and recording ALL failing checkers rather than
+stopping at the first, five of those six turned out to be real gaps. Any
+future harness must live outside C:\Dev\rbh-site-data. A checker that reads
+the whole repo will read the test rig too.
+
+BASELINE. No .agent-lock and no stale .git\index.lock. Level with origin,
+worktree clean, all 36 checkers green and all six generators byte-identical
+before any edit, and again after.
+
+ANSWER PICKUP UNAVAILABLE, THIRD RUN RUNNING, SAME CAUSE. One Chrome extension
+instance connected, so no ambiguity about which. A tab was opened read-only on
+https://data.rbhealth.co.uk/api/feedback and it returned the Cloudflare Access
+sign-in page for "RB Data Portal" offering Azure AD or an email login code.
+Rishi's Access session is not held in that profile. Nothing was clicked, typed,
+submitted or logged in to, no other route was tried, and the tab was closed.
+52 questions are open behind this. Q59 already owns answer pickup so no
+duplicate was raised. Signing in to the portal once in that Chrome profile
+would likely start pickup working.
+
+NO AUTONOMOUS WINDOW. Re-derived, not inherited: every "Standing authorisation"
+string in this log was listed, and all but one sit inside a past run's own
+"NO AUTONOMOUS WINDOW" sentence. The single real section is dated 2026-08-09
+23:14 to 2026-08-10 23:14 BST, long expired. Step 7 applied as written and
+nothing was decided autonomously.
+
+THE PACK ITSELF: CLEAN, AND UNCHANGED BY THIS RUN. Every fact re-verified
+against branches.json - name, Unit 3 The Carrington Centre, New Mill Street,
+Eccleston, Chorley PR7 5SZ, 01257 451251, hours Monday to Friday 9 to 6 and
+Saturday 9 to 12 with Sunday closed, review link, hasApp true so the app
+mentions are correct, catchment "Eccleston, Charnock Richard and Coppull" in
+all three places leading with its own seoTown, and the profile website
+correctly pointed at the Eccleston landing page rather than the shared
+fishlockpharmacy.co.uk homepage. All five character counts came back exactly
+as the pack and the worklist claim: description 730, posts 463, 348, 521 and
+433. Zero non-ASCII characters, zero em or en dashes, zero dash entities, zero
+hits against the 82-name union in tools/pom-names.js.
+
+THE DEFECTS: THE PROMISE MOVED OFF THE PRODUCT AND ONTO THE PATIENT.
+
+Injected one at a time into Post C, a weight loss advertisement bound for a
+public Google profile and therefore Regime 1 under the house standard, the
+strictest half. All five passed ALL 36 CHECKERS:
+
+  "Most patients lose 2 stone in 12 weeks"
+  "You will lose weight with us"
+  "Our success stories speak for themselves"
+  "It works better than dieting alone"
+  "Drop a dress size before your holiday"
+
+This is the third run in a row to find the same family one step further out.
+The 4.13 pass on 2026-08-13 caught the superlative about the PRODUCT ("the
+best weight loss clinic"). The 4.12 pass yesterday evening caught the
+superlative about the METHOD ("the fastest way to lose weight"). None of these
+five names a product noun, uses a superlative, or says "results", so neither
+rule could see them. They are what a person writes once the obvious words are
+banned: a quantified outcome, a direct promise to the reader, a testimonial, a
+comparison against dieting, and a clothing-size result.
+
+THE FIX, and what was taken back out. Five patterns added to
+tools/claim-patterns.js, the shared definition every claim-reading checker
+requires, so packs and generated pages get them together. Each is anchored on
+a sweep of all 400 text files in the repo: "dress size", "you will lose" and
+"success stor(y|ies)" appear nowhere in the repo at all, so they cost nothing;
+the quantified rule requires a "lose" within 30 characters of the number so it
+reads a weight and not a price, since "pounds" is also currency here, and its
+only two repo-wide hits are in audits/, which no checker reads; the comparative
+rule is anchored to diet, exercise, surgery, slimming and weight loss so it
+does not fire on the one ordinary "faster than" in status/index.html.
+
+A general GUARANTEE rule was drafted in and deliberately taken back out, which
+is the more useful half of this entry. "guarantee" has 24 hits in the repo and
+eleven of them are the CORRECT disclaimer standing on every generated weight
+loss page: "does not guarantee eligibility, treatment or results". Shipping it
+would have failed eleven live pages for carrying the exact sentence that makes
+them lawful. That is the same trap the "option" note from the 4.12 pass
+records, and the bare word "guaranteed" is already caught for packs by
+EFFICACY_FAIL in check-gbp-packs.js, which is where it belongs.
+
+VERIFIED. All five re-injected after the fix and all five now fail
+check-gbp-packs.js. A control injection of ordinary service copy ("We also
+offer a private consultation room") still passes, so the new rules are not
+over-broad. The pack was restored from the in-memory original and
+sha256-compared after every single injection, and came back to 0EEB89BF1F00
+every time. Clean run after the change: 36 of 36 checkers pass and all six
+generators rebuild byte-identical, with tools/claim-patterns.js the only
+modified file.
+
 ## 2026-08-14 18:05 BST - two-hundred-and-eighth run [commit 4a62b26, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.12, the Coleman and Leighs Pharmacy Walton GBP pack,
