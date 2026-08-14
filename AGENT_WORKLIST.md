@@ -1010,6 +1010,34 @@ audits/smartts-build-check-2026-08-14.txt.
       only by a negative test, fixed by parsing each heading block whole, and
       the check count rose from 3,452 to 3,512 once the dropped comparisons ran.
       No question raised. Evidence in audits/sk-build-check-2026-08-13.txt.
+      Quality pass 2026-08-14 (fourth). REPO HALF ONLY: no browser answer
+      session, so nothing live was read or claimed. ZERO DEFECTS IN THE 12 SK
+      PAGES and not one character of any page was edited. A fresh independent
+      extraction sharing no code with tools/ asked a question nothing in the
+      repo had asked of these pages: is any identity copy present only inside a
+      <script>, and therefore absent to a crawler? 96 checks across the 12
+      pages, 0 flags: exactly one crawlable H1 per page carrying Bootle, and
+      phone in both shapes, postcode, street, town and brand label all real
+      text on every page. Estate control run so an SK-clean result could not
+      look special: all 182 pages under modules/ scanned, no page anywhere has
+      a script-only H1. ONE REAL DEFECT FOUND AND FIXED IN REPO, in
+      tools/check-contraception-copy.js: it read pages through visible(), which
+      strips HTML comments but not <script> bodies, so copy moved into a script
+      and written back with innerHTML satisfied every presence rule while being
+      invisible to Google, against Build Pack v2 section 5.1. This is the
+      second instance of the class the 193rd run fixed in check-switch-copy.js
+      and deliberately left for its own pass. Proved by injection, not by
+      reading: the four hero-points on contraception-sk-chemists-bootle.html,
+      including "Free NHS service, confidential consultation", were moved into
+      a script byte-identically and all 36 checkers stayed green; the same
+      block wrapped in an HTML comment failed on all four lines, which is what
+      proves the hole was the script half only. Presence rules now read
+      crawlable text; the absence rules were deliberately NOT changed, because
+      a price or a reversed consent sentence injected by JavaScript is still
+      put in front of the patient. Seven negative tests all fire, including one
+      guarding the half that was not changed. 36 checkers pass, six generators
+      rebuild byte-identical. No question raised. Evidence in
+      audits/sk-build-check-2026-08-14.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

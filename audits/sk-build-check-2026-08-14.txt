@@ -1,0 +1,144 @@
+Item 3.8 quality pass - SK Chemists (Bootle) - 2026-08-14
+Fourth machine-era pass. REPO HALF ONLY: no browser answer session was
+available, so nothing live was read and nothing live is claimed below.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Staleness was re-derived
+mechanically rather than trusted: 234 run blocks parsed out of AGENT_LOG.md,
+41 completed items read out of AGENT_WORKLIST.md, and each item aged by the
+last run that took it as its SUBJECT (the first item id in the first fourteen
+lines of a run block). Subject counting, not mention counting, for the reason
+recorded on the 193rd run: item 3.1's own worklist text contains the string
+"items 3.2 to 3.13", so mention counting makes an item look recently verified
+because another item's prose named it. Result, stalest first: 3.8 at 43 runs,
+3.9 at 42, 3.12 at 40, 3.13 at 39, 5.1 at 38. 3.8 was last the subject of the
+150th run, 2026-08-13 08:47 BST.
+
+BASELINE AT RUN START
+No .agent-lock, no .git\index.lock. Fetched, on agents/audit-backlog, level
+with origin at d83456d, worktree clean.
+36 checkers pass, 0 fail.
+Six generators (branch-landing, contraception, service, switch, travel-clinic,
+weight-loss) all rebuild byte-identical: git status after the rebuild shows no
+page changed.
+
+SK VERIFICATION - 12 PAGES, 96 CHECKS, 0 FLAGS
+Independent extraction (tmp_skaudit.py at run time), sharing no code with
+tools/. It asks one question nothing in the repo had asked of these pages:
+is any of SK's identity copy present ONLY inside a <script>, that is, absent
+as far as a crawler is concerned?
+
+  contraception-sk-chemists-bootle.html
+  earache-treatment-sk-chemists-bootle.html
+  impetigo-treatment-sk-chemists-bootle.html
+  insect-bite-treatment-sk-chemists-bootle.html
+  pharmacy-first-sk-chemists-bootle.html
+  shingles-treatment-sk-chemists-bootle.html
+  sinusitis-treatment-sk-chemists-bootle.html
+  sore-throat-treatment-sk-chemists-bootle.html
+  travel-clinic-sk-chemists-bootle.html
+  uti-treatment-sk-chemists-bootle.html
+  weight-loss-clinic-sk-chemists-bootle.html
+  switch-prescriptions-sk-chemists-bootle.html
+
+Per page: exactly one crawlable <h1> and it carries the town; phone in both
+shapes, postcode, street, town and brand label all present as crawlable text
+and none of them script-only; crawlable text above the floor. 96 checks, 0
+flags. Nothing on any SK page was edited on this run.
+
+ESTATE CONTROL - 182 PAGES, 0 SCRIPT-ONLY H1
+Run so an SK-clean result cannot look special: every .html under modules/ was
+scanned for a page whose <h1> exists in the source but not in the crawlable
+text. None found. The defect below is therefore a hole in a CHECKER, not a
+live defect in the estate.
+
+THE DEFECT FOUND AND FIXED: tools/check-contraception-copy.js
+This is the second instance of the class the 193rd run found and fixed in
+check-switch-copy.js on the item 3.10 pass earlier the same day. That run
+reproduced it here and deliberately left it for its own pass. This is that
+pass.
+
+Build Pack v2 section 5.1: "anything that must RANK has to be real text in the
+page, not injected by JavaScript". check-contraception-copy.js read the page
+through visible(), which strips HTML comments but NOT <script> bodies. Copy
+moved out of the body into a script that writes it back with innerHTML
+therefore satisfied every presence rule while being absent from the page as
+far as Google is concerned.
+
+PROVED BY INJECTION, NOT BY READING
+The four hero-points on contraception-sk-chemists-bootle.html, one of which is
+"Free NHS service, confidential consultation", were replaced by an empty div
+plus a script assigning the identical markup to innerHTML via a backtick
+template literal, so the markup inside the script was byte-identical to the
+markup it replaced. Against the OLD checker: check-contraception-copy passed,
+and all 36 checkers stayed green. The same block wrapped in an HTML comment
+failed immediately on all four lines. That contrast is what proves the hole
+was the script half only, and that the comment half was already covered.
+
+An earlier version of the injection escaped double quotes for a JS string
+literal, which broke one of the four lines on its own and made the checker
+fail for the wrong reason. That first result was discarded and the injection
+redone with a backtick literal. Recorded because a mutation that fails for the
+wrong reason looks like a passing test.
+
+THE FIX
+crawlable() strips HTML comments and <script> blocks, mirroring
+check-switch-copy.js and check-travel-clinic-copy.js. Presence rules now read
+it: RULE 3 verbatim, RULE 4 service name, RULE 5 the no-prescription-charge
+answer, RULE 6 the consent sentence, RULE 9 the safeguarding step.
+
+THE ABSENCE DIRECTION WAS NOT CHANGED, on purpose. A price, a reversed consent
+sentence, a named prescription-only medicine or a long-acting-method offer
+injected by JavaScript is still put in front of the patient, so those rules
+still read the whole page. Weakening them to match the presence rules would
+trade one blind spot for another. RULE 4's wrong-name list, RULE 5's price and
+charge terms, RULE 6's reversed forms, RULE 7 LARC offers and RULE 8 medicine
+names all still read visible().
+
+Guard on the stripper itself: the run fails if stripping removes nothing (the
+presence rules would silently revert to source rules) or if fewer than 2,500
+characters of crawlable text survive (they would pass on almost nothing).
+Healthy pages of this family carry 3,640 to 3,771 characters, measured on all
+fourteen.
+
+SEVEN NEGATIVE TESTS, ALL FIRE
+  T0  unmutated control                      exit 0   as expected
+  T1  copy moved into a <script>             exit 1   and names section 5.1
+  T2  copy wrapped in an HTML comment        exit 1   already covered, still is
+  T3  copy simply deleted                    exit 1   keeps the stale-build wording
+  T4  script-strip regex neutered            exit 1   [crawlable] guard fires
+  T5  script-strip regex made greedy         exit 1   [crawlable] guard fires
+  T6  price injected inside a <script>       exit 1   absence rule still fires
+  T7  restored control                       exit 0   suite is not failing on debris
+
+T3 is a regression guard on the message rather than just the exit code: a
+deleted line must still read as a stale build, not as a section 5.1 breach.
+T6 is the guard on the half of the change that was deliberately NOT made.
+Every mutation was confirmed applied before its run, and page and checker were
+restored from byte backups after. The strip line was asserted present before
+T4 and T5 mutated it, so neither test could pass vacuously.
+
+STATE AT RUN END
+36 checkers pass, 0 fail. Six generators rebuild byte-identical. The only
+modified file in the worktree is tools/check-contraception-copy.js. No page,
+sheet, GBP pack or data field was edited.
+
+ANSWER PICKUP NOT AVAILABLE, thirty-first consecutive run of this fault.
+Cause confirmed again rather than assumed: the connected browsers were
+enumerated and TWO extension instances are live, so the extension side is
+alive. The tooling requires a human to choose between them before any browser
+call is made and states that the agent must not pick one itself. An unattended
+run has nobody to ask. Enumerating the extensions is the only thing that
+happened: NO page was fetched, and nothing was clicked, typed, submitted or
+logged in to, on any site. No other route was attempted. 47 questions open
+going in, 47 going out. Q59 already asks how to clear this block, so no
+duplicate was raised.
+
+NO AUTONOMOUS WINDOW. Re-derived rather than trusted: the only "Standing
+authorisation - autonomous window" section in AGENT_LOG.md is dated
+2026-08-09 23:14 BST to 2026-08-10 23:14 BST and expired four days ago. Step 7
+applied as written. This run needed no decision in any case: it edited no copy
+and no patient-facing claim, and the single change is to audit tooling.
+
+NO NEW QUESTION RAISED.

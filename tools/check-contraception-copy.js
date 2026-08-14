@@ -53,7 +53,12 @@
     - RULE 3, verbatim: every static line of service copy in the generator
       appears on every page, word for word. Lines carrying the brand or the
       town are compared after substituting that branch's own values, so a page
-      cannot borrow another branch's town inside a sentence either.
+      cannot borrow another branch's town inside a sentence either. Read
+      against the CRAWLABLE text, not the raw source: from the item 3.8
+      quality pass on 2026-08-14, copy that survives only inside a <script> or
+      an HTML comment counts as absent, per Build Pack v2 section 5.1. A guard
+      fails the run if the stripper stops removing anything or starts removing
+      the body.
     - RULE 4, service name: every page names the service by its NHS name,
       "NHS Pharmacy Contraception Service". A page naming it anything else
       fails.
@@ -211,6 +216,42 @@ function norm(s) {
 }
 function visible(html) { return norm(html.replace(/<!--[\s\S]*?-->/g, " ")); }
 
+// ---------------------------------------------------------------------------
+// CRAWLABLE - what a search engine can actually read (item 3.8 quality pass,
+// 2026-08-14).
+//
+// Build Pack v2 section 5.1 states it as a critical rule: "anything that must
+// RANK has to be real text in the page, not injected by JavaScript".
+// visible() above strips HTML comments but not <script> bodies, so a line of
+// service copy moved out of the body into a script that writes it back with
+// innerHTML stayed in visible() and RULE 3 passed on copy Google can no longer
+// see. That is the precise fault section 5.1 is written against.
+//
+// Proved by injection on this pass, not by reading: the four hero-points on
+// contraception-sk-chemists-bootle.html, including "Free NHS service,
+// confidential consultation", were replaced by an empty div plus a script
+// assigning the identical markup to innerHTML. All 36 checkers stayed green.
+// The same block wrapped in an HTML comment failed immediately on all four
+// lines, which is what proves the hole was the script half only.
+//
+// This is the second instance of the class. The first was fixed in
+// check-switch-copy.js on the item 3.10 quality pass earlier the same day and
+// found there; this mirrors that fix so the two checkers ask the same question
+// of the same class of copy.
+//
+// PRESENCE DIRECTION ONLY. Absence rules below must keep reading visible(),
+// because copy hidden in a script is still written into the page for a patient
+// to read: a price, a reversed consent sentence or a named medicine injected
+// by JavaScript is still in front of the patient. Weakening an absence rule to
+// match a presence rule would trade one blind spot for another.
+// ---------------------------------------------------------------------------
+function crawlable(html) {
+  return norm(String(html)
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " "));
+}
+function textOnly(s) { return norm(String(s).replace(/<[^>]+>/g, " ")); }
+
 var pages = [];
 buildIds.forEach(function (id) {
   var b = byId[id];
@@ -225,11 +266,38 @@ buildIds.forEach(function (id) {
       b.brandLabel + " " + b.seoTown + ", so a paster has a sheet entry and no page.");
     return;
   }
-  pages.push({ b: b, file: file, raw: fs.readFileSync(file, "utf8") });
+  var raw = fs.readFileSync(file, "utf8");
+  pages.push({ b: b, file: file, raw: raw, crawl: crawlable(raw) });
+});
+
+// Guard on the stripper itself. A regex that silently stopped matching would
+// turn every presence rule below back into a source rule without failing
+// anything, and a regex that ate the page would make them pass on nothing.
+// Every contraception page carries three <script> blocks and two HTML
+// comments, so the stripper must shrink the page, and the body must survive.
+pages.forEach(function (p) {
+  if (p.crawl.length >= visible(p.raw).length) {
+    failures.push("[crawlable] " + rel(p.file) + ": stripping scripts and comments " +
+      "removed nothing, so every presence rule below is reading the raw source " +
+      "again and the Build Pack v2 section 5.1 rule is not being applied.");
+  }
+  var plain = textOnly(p.crawl);
+  if (plain.length < 2500) {
+    failures.push("[crawlable] " + rel(p.file) + ": only " + plain.length +
+      " characters of crawlable text survive the stripper, against roughly 3,650 " +
+      "on a healthy page of this family. Either the page has lost its body copy " +
+      "or the stripper is over-matching and the rules below are checking almost " +
+      "nothing.");
+  }
 });
 
 pages.forEach(function (p) {
-  var text = visible(p.raw);
+  // Two different questions, so two different readings. "Is the copy on the
+  // page?" is a presence rule and reads the crawlable text. "Is forbidden
+  // wording on the page?" is an absence rule and reads everything, because
+  // innerHTML still shows it to the patient. See CRAWLABLE above.
+  var crawl = p.crawl;
+  var all = visible(p.raw);
   var name = rel(p.file);
 
   // RULE 3: every line of service copy, verbatim, with branch values resolved.
@@ -241,16 +309,24 @@ pages.forEach(function (p) {
         "of copy is not being checked on any page.");
       return;
     }
-    if (text.indexOf(want) === -1) {
+    if (crawl.indexOf(want) === -1) {
+      var hidden = all.indexOf(want) !== -1;
       fail("verbatim", name + "|" + want, name + ' does not carry the generator line "' +
-        want + '". Either the page is a stale build or it has been hand-edited.');
+        want + '"' + (hidden
+          ? " as crawlable text. It is present in the source but only inside a " +
+            "<script>, so a patient searching for it cannot find the page. Build " +
+            "Pack v2 section 5.1: anything that must rank has to be real text in " +
+            "the page, not injected by JavaScript."
+          : ". Either the page is a stale build or it has been hand-edited."));
     }
   });
 
   // RULE 4: the service is named the way the NHS names it.
-  if (text.indexOf(SERVICE_NAME) === -1) {
+  if (crawl.indexOf(SERVICE_NAME) === -1) {
     fail("servicename", name, name + ' does not name the service "' + SERVICE_NAME +
-      '". A page that renames an NHS service is describing something that does not exist.');
+      '" as crawlable text. A page that renames an NHS service is describing ' +
+      "something that does not exist, and a page that only names it from a " +
+      "script is not naming it to a search engine at all.");
   }
   var wrongNames = [
     "NHS Contraception Service", "Pharmacy Contraception Scheme",
@@ -259,7 +335,7 @@ pages.forEach(function (p) {
   wrongNames.forEach(function (w) {
     // Only a miss: the correct name contains none of these as a substring.
     if (SERVICE_NAME.indexOf(w) !== -1) return;
-    if (text.indexOf(w) !== -1) {
+    if (all.indexOf(w) !== -1) {
       fail("servicename", name + "|" + w, name + ' calls the service "' + w +
         '" but its NHS name is "' + SERVICE_NAME + '".');
     }
@@ -291,14 +367,23 @@ var LARC_OFFERS = [
 ];
 
 pages.forEach(function (p) {
+  // Absence rules read everything (text/lower); the two presence rules in this
+  // block read the crawlable text. See CRAWLABLE above.
   var text = visible(p.raw);
   var lower = text.toLowerCase();
+  var crawl = p.crawl;
+  var crawlLower = crawl.toLowerCase();
   var name = rel(p.file);
 
   // RULE 5: free, and priced nowhere.
-  if (lower.indexOf("no prescription charge") === -1) {
-    fail("free", name, name + " does not carry the no-prescription-charge answer, " +
-      "which is the one line that tells a reader this NHS service costs nothing.");
+  if (crawlLower.indexOf("no prescription charge") === -1) {
+    fail("free", name, name + " does not carry the no-prescription-charge answer " +
+      "as crawlable text, which is the one line that tells a reader this NHS " +
+      "service costs nothing." +
+      (lower.indexOf("no prescription charge") !== -1
+        ? " It is in the source but only inside a <script>, so it is not on the " +
+          "page as far as a search engine is concerned."
+        : ""));
   }
   var priceHit = /£\s?\d|\b\d+\s?(?:pounds|p per)\b|\bfrom \d+\b/i.exec(text);
   if (priceHit) {
@@ -313,12 +398,17 @@ pages.forEach(function (p) {
   });
 
   // RULE 6: consent, in the right direction.
-  var consentOk = /only tell your gp[^.]*if you give your consent/i.test(text);
+  var CONSENT = /only tell your gp[^.]*if you give your consent/i;
+  var consentOk = CONSENT.test(crawl);
   if (!consentOk) {
     fail("consent", name, name + " does not carry the consent sentence in the form " +
       '"We will only tell your GP that you have used the service if you give your ' +
       'consent." That sentence is the page\'s statement of what happens to the ' +
-      "patient's data, so it is not one to paraphrase.");
+      "patient's data, so it is not one to paraphrase." +
+      (CONSENT.test(text)
+        ? " It is in the source but only inside a <script>, so the page's only " +
+          "statement about the patient's data is not crawlable text."
+        : ""));
   }
   var reversed = [
     "we will always tell your gp", "your gp will be told", "we never tell your gp",
@@ -363,8 +453,10 @@ pages.forEach(function (p) {
 // ---------------------------------------------------------------------------
 var headerPromisesSafeguarding = /under-?16s?\s+carry\s+a\s+safeguarding\s+step/i.test(genSrc);
 if (headerPromisesSafeguarding) {
+  // Presence rule, so crawlable text: a safeguarding step a patient only sees
+  // after JavaScript runs is not a safeguarding step the page states.
   var withStep = pages.filter(function (p) {
-    var t = visible(p.raw).toLowerCase();
+    var t = p.crawl.toLowerCase();
     return t.indexOf("under 16") !== -1 || t.indexOf("under-16") !== -1 ||
            t.indexOf("safeguard") !== -1 || /aged\s+16/.test(t);
   });
@@ -400,6 +492,8 @@ console.log("  " + pages.length + " contraception page(s) read against " +
   rel(GENERATOR));
 console.log("  " + copyLines.length + " line(s) of service copy pinned, " +
   summaries.length + " FAQ pair(s)");
+console.log("  presence rules read crawlable text only (scripts and comments " +
+  "stripped, Build Pack v2 section 5.1); absence rules read the whole page");
 
 var acceptedKeys = Object.keys(knownUsed);
 if (acceptedKeys.length) {
