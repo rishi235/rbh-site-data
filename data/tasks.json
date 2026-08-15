@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-14T06:19:38Z",
+  "generated_at": "2026-08-15T06:14:02Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 29,
-    "overdue": 6,
-    "due_next_7_days": 12,
+    "overdue": 15,
+    "due_next_7_days": 3,
     "no_due_date": 8
   },
   "tasks": [
@@ -74,7 +74,7 @@
       "gid": "1214136972182247",
       "name": "Blackpool Properties — CPM Resolution",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -84,7 +84,7 @@
       "gid": "1214136817964486",
       "name": "Call Chris Law - Amberbanks mortgage (10 months remaining)",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -94,7 +94,7 @@
       "gid": "1214136800189546",
       "name": "Chase Chris Jaap - Hartington Road finder's fee",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -104,7 +104,7 @@
       "gid": "1216071371852141",
       "name": "Chase Nprendra in respect of shared routes",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -114,7 +114,7 @@
       "gid": "1214136868225238",
       "name": "Chase Townsend Lane planning update",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -124,7 +124,7 @@
       "gid": "1217441986698230",
       "name": "Consider updating your project progress",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1217441986698230"
     },
@@ -132,7 +132,7 @@
       "gid": "1213369640834405",
       "name": "Extend out Branches Budget  - look at description 1st",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -142,7 +142,7 @@
       "gid": "1214151808324250",
       "name": "KEOS / Barton House - pursue £4,200 arrears",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1214151808324250"
     },
@@ -150,7 +150,7 @@
       "gid": "1214137297345240",
       "name": "Quarterly - Full Founder Context Master review with Claude",
       "due_on": "2026-08-14",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
