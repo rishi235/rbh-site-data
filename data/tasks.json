@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-17T06:09:49Z",
+  "generated_at": "2026-08-18T06:11:35Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 29,
-    "overdue": 15,
+    "total": 28,
+    "overdue": 14,
     "due_next_7_days": 3,
-    "no_due_date": 8
+    "no_due_date": 9
   },
   "tasks": [
     {
@@ -121,14 +121,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214136868225238"
     },
     {
-      "gid": "1217441986698230",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-08-14",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217441986698230"
-    },
-    {
       "gid": "1213369640834405",
       "name": "Extend out Branches Budget  - look at description 1st",
       "due_on": "2026-08-14",
@@ -157,16 +149,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1214137297345240"
     },
     {
-      "gid": "1217373606155941",
-      "name": "Deltera: chase trial and pricing details from Daniel Wright",
-      "due_on": "2026-08-18",
-      "overdue": false,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373606155941"
-    },
-    {
       "gid": "1217367484697785",
       "name": "Sort weightloss posters out",
       "due_on": "2026-08-18",
@@ -177,6 +159,14 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217367484697785"
     },
     {
+      "gid": "1217550199023619",
+      "name": "Appointedd emails - leave a review with Clicksend",
+      "due_on": "2026-08-21",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1217550199023619"
+    },
+    {
       "gid": "1217373771172802",
       "name": "Deltera: decide phased rollout approach for Delta calendar and B2B module",
       "due_on": "2026-08-21",
@@ -185,16 +175,6 @@
         "Rishi WORK"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373771172802"
-    },
-    {
-      "gid": "1217373606276042",
-      "name": "Deltera: confirm attendance - clay pigeon shooting event, Fri 4 Sept, Worsley",
-      "due_on": "2026-08-28",
-      "overdue": false,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373606276042"
     },
     {
       "gid": "1214228515439278",
@@ -243,6 +223,16 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217054151431369"
+    },
+    {
+      "gid": "1217550199023615",
+      "name": "Peoples nest dashboard - artifact with APi",
+      "due_on": null,
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217550199023615"
     },
     {
       "gid": "1208715130577136",
