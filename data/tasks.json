@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-18T06:11:35Z",
+  "generated_at": "2026-08-19T06:11:56Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 28,
-    "overdue": 14,
-    "due_next_7_days": 3,
+    "overdue": 15,
+    "due_next_7_days": 2,
     "no_due_date": 9
   },
   "tasks": [
@@ -152,7 +152,7 @@
       "gid": "1217367484697785",
       "name": "Sort weightloss posters out",
       "due_on": "2026-08-18",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
