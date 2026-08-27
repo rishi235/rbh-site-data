@@ -2,6 +2,65 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-27 (later) - Q79 answered: all stores close on bank holidays
+Run by Claude in the same Cowork session. Rishi answered Q79 directly: all RB Healthcare stores are
+closed on bank holidays, estate-wide, no branch exception stated.
+
+branches.json bankHolidays block updated: tradingPolicy "closed" and a tradingPolicyNote recording
+the answer and date. QUESTIONS.json Q79 marked answered with the same text. NOT DONE: this run did
+not touch check-live-hours.js or check-opening-hours.js, so neither checker actually reads dates2026
+or tradingPolicy yet. A live hours check run near one of the seven 2026 dates will still read as a
+human-judgement snippet rather than an automatic pass, until that gets built. Left as a clearly
+separate piece of work rather than folded into this edit.
+
+Files changed: branches.json (bankHolidays.tradingPolicy, bankHolidays.tradingPolicyNote, note
+reworded from NOT YET CONFIRMED to CONFIRMED), QUESTIONS.json (Q79 answered), this log. Still
+uncommitted at the point this entry was written; see the entry above for why and where.
+
+## 2026-08-27 - Bank holiday gap found while checking Dane's McCanns Aigburth GMB fix
+Run by Claude in a Cowork session, not the hourly agent, prompted by Rishi asking me to verify
+Dane's fix (McCanns Aigburth GMB afternoon session corrected from 14:15 to 14:00) against every
+authoritative source, not just the obvious page.
+
+CHECKED. All 15 mccanns-aigburth-tagged pages in the live sitemap plus the homepage, contactus.html,
+services.html and prescriptions.html (19 pages, one shared footer template, confirmed identical
+across every page type checked): Monday to Friday 9am-1pm/2pm-6pm, Saturday 9am-1pm/2pm-5pm, Sunday
+closed, on every page, matching branches.json exactly. NHS.uk profile FA428: same hours, fetched
+directly. Live Google listing for both McCanns Aigburth and McCanns Sandringham, read with Claude in
+Chrome: the 14:15 fault is gone, both now read 2pm. Dane's fix was correctly scoped; nothing else on
+the website or NHS.uk was ever wrong.
+
+NEW FINDING, NOT DANE'S. Both McCanns Aigburth and McCanns Sandringham currently show Monday as fully
+Closed on the live Google listing, in the standing weekly grid with no holiday caveat shown. First
+read as a live defect and reported to Rishi as one. Rishi corrected this: 31 August 2026 is the
+England and Wales Summer bank holiday, which explains a Monday reading Closed without it being a
+second data fault, and the same explanation covers both branches rather than needing two unrelated
+errors. Verified against gov.uk before accepting the correction rather than just taking it on trust.
+
+THE REAL GAP. branches.json's openingHours has no concept of a bank holiday at all: it is a plain
+weekly recurring schedule (closedDays plus specification), so nothing in the repo records whether any
+branch actually closes, opens reduced hours, or trades normally on a bank holiday, and neither
+check-live-hours.js nor check-opening-hours.js can tell a deliberate holiday closure from a real
+defect. This run's own first read of the Monday finding is the proof: a live hours check within a
+week or two of any bank holiday risks the same false positive.
+
+FIX, DELIBERATELY PARTIAL. Added a top-level bankHolidays block to branches.json: the seven 2026
+England and Wales dates from gov.uk, sourced and dated, plus a note pointing at this entry and Q79.
+Did NOT invent a per-branch bank holiday trading policy - TEMPLATE.md's own rule is no invented
+hours, and I do not know whether these branches close, reduce hours or trade normally on a bank
+holiday. Raised as Q79 rather than guessed.
+
+WHERE THIS SITS. Made through the device bridge to C:\dev\rbh-site-data on agents/audit-backlog. The
+2026-07-31 repo hygiene audit already found that this Linux bridge has core.autocrlf unset while the
+ProDesk has it true, so git run from here on a CRLF file reports the whole file changed against a
+blob stored as LF, not just the real edit. No git commands were run from here for that reason. The
+branches.json, QUESTIONS.json and this log entry are sitting edited but uncommitted on the ProDesk
+checkout, pending a commit run from the ProDesk's own shell rather than through this bridge.
+
+Files changed: branches.json (bankHolidays block, lastUpdated bumped, schemaNote appended),
+QUESTIONS.json (Q79), this log. No page, generator, checker or GBP pack touched. No commit yet, see
+above.
+
 ## 2026-08-14 20:35 BST - two-hundred-and-eleventh run [commit c35d38f, this hash line added by a small follow-up commit]
 
 - Quality pass on item 4.14, the Gordon Short Chemist Crosby GBP pack, fifth

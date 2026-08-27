@@ -25,7 +25,7 @@ Never merge the two. Never copy fields between them.
 
 ## Schema
 
-Top level: lastUpdated, brandGroups, hostMap, branches[], schemaNote
+Top level: lastUpdated, brandGroups, hostMap, branches[], bankHolidays, schemaNote
 
 Each branch in branches[] uses these keys:
 
@@ -33,7 +33,7 @@ Each branch in branches[] uses these keys:
     streetAddress, addressLocality, postalCode, addressRegion, seoRegion, addressCountry,
     phone, email, googleReviewUrl, hasApp, keywords[], serviceAreaList[],
     shortCode, branchNumber, odsCode, nhsEmail,
-    pfLink, pfBooking, nhsReviewUrl,
+    pfLink, pfBooking, nhsReviewUrl, openingHours,
     website, seoTown, townSlug, brandSlug, widgets{}, disposed
 
 Notes:
@@ -51,6 +51,10 @@ Notes:
 - Head office (rbh_head_office_aintree) has no phone, email, odsCode or
   nhsEmail. That is correct, not missing data.
 - Bump lastUpdated on every edit.
+- openingHours is a plain weekly recurring schedule and carries no bank holiday
+  handling. bankHolidays (added 2026-08-27) lists gov.uk dates only, not any
+  per-branch policy - see its note field and Q79 before treating a Closed day near
+  one of those dates as a defect.
 
 ## Editing
 

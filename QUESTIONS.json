@@ -1214,5 +1214,19 @@
     "note": "Found on the fifth quality pass of item 4.14, 2026-08-14. Same shape as Q77, which asked the matching question about the POM class patterns one surface out. Option 2 is recommended because it reports the exposure on every surface without touching live copy or turning a build red, and it produces the page list you would need before deciding option 3. Option 3 should not be taken until the Smartts page has been reworded. Nothing was changed on any page or pack for this finding: every injection was reverted and the file sha256-compared back to its original, all 36 checkers are green and all six generators rebuild byte-identical. Raised rather than decided because it is a judgement about live patient-facing weight loss copy, which is outside what an unattended run should settle on its own.",
     "status": "open",
     "answer": null
+  },
+  {
+    "id": "Q79",
+    "date": "2026-08-27",
+    "item": "general (raised in a Cowork session, not the hourly agent)",
+    "question": "Dane found and corrected a GMB entry for McCanns Aigburth showing the afternoon session opening at 14:15 instead of 14:00. Checking it against every other authoritative source (all 19 live pages on mccannspharmacy.co.uk including every footer, NHS.uk profile FA428, and the live public Google listing) found nothing else wrong: the fix was correctly scoped and the website and NHS.uk were never wrong. But the same live GMB check also found both McCanns Aigburth and McCanns Sandringham currently showing Monday as fully Closed. 31 August 2026 is the England and Wales Summer bank holiday (verified against gov.uk), so this is very likely Google reflecting that date rather than a second data defect, and it is the same explanation on both branches, which fits a deliberate holiday setting rather than two unrelated errors. What is not established is the actual answer: branches.json's openingHours has no concept of a bank holiday at all, so there is nothing in the repo recording whether each branch actually closes, opens reduced hours, or trades normally on a bank holiday, and check-live-hours.js and check-opening-hours.js have no way to tell a deliberate holiday closure from a real defect. A live hours check run within a week or two of any date in the new bankHolidays block risks the same false read this one nearly was.",
+    "options": [
+      "Confirm the actual bank holiday trading policy per branch (closed / reduced hours / normal hours) so it can be added to branches.json properly, then extend check-live-hours.js to skip or specially handle the seven 2026 bank holiday dates",
+      "Leave bank holidays unhandled for now and rely on a human reading the snippets noticing the date, as happened this time only because it was checked the same week"
+    ],
+    "recommended": 0,
+    "note": "Raised in a Cowork session on 2026-08-27, not the hourly agent. branches.json bankHolidays block added this run with the gov.uk 2026 England and Wales dates and a note pointing here; no per-branch policy was invented, since TEMPLATE.md's own rule is no invented hours. This edit was made through the device bridge to C:\\dev\\rbh-site-data, which the 2026-07-31 repo hygiene audit already flagged as the wrong place to run git from (autocrlf mismatch against the ProDesk). The file changes are sitting uncommitted on agents/audit-backlog pending a commit run from the ProDesk itself.",
+    "status": "answered",
+    "answer": "All RB Healthcare stores are closed on bank holidays. Answered by Rishi directly in a Cowork session, 2026-08-27. branches.json bankHolidays block updated with tradingPolicy: closed. check-live-hours.js and check-opening-hours.js still need building out to actually read dates2026 and tradingPolicy and allow for them - that part of the item is not done, only the data."
   }
 ]
