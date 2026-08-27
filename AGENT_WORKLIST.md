@@ -4208,5 +4208,23 @@ so tools/build-audit-status.js picks them up like any other item.
       tag needs the Weebly head and therefore the browser (Q59). There is
       no repo-side work remaining on this item.
 
+- [ ] 6.7 Bank holiday awareness in the hours checkers: branches.json now
+      carries a bankHolidays block (added 2026-08-27, Q79 answered) with
+      gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
+      confirmed by Rishi - all branches close on every date in it. Neither
+      check-live-hours.js nor check-opening-hours.js reads either field
+      yet. Found live in a Cowork session checking a McCanns Aigburth GMB
+      fix: the live Google listing correctly showed Monday closed for the
+      31 August bank holiday, and without the gov.uk cross-check this read
+      as a second data defect stacked on top of the one Dane had actually
+      found and fixed (14:15 vs 14:00). check-live-hours.js should skip or
+      specially label any date in dates2026 rather than compare it to the
+      weekly openingHours rows, and check-opening-hours.js should not fail
+      a generated page's JSON-LD or visible card for omitting a one-off
+      closure that dates2026/tradingPolicy already accounts for.
+      Negative-test that a genuine weekly-hours mismatch on a non-bank-
+      holiday date still fails, so the exemption cannot swallow a real
+      defect that happens to land near one of the seven dates.
+
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
