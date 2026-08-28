@@ -2,6 +2,50 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-28 - Plain-English decision line added to Questions for Rishi
+Run by Claude in a Cowork session, not the hourly agent, prompted by Rishi
+reading the Q18 question verbatim and asking whether the audit backlog's
+questions are in plain English. They are not: the "question" field states
+the recommendation, where there is one, at the end of a technical paragraph
+rather than at the start, so the decision is buried under file and generator
+names Rishi does not need to read to decide.
+
+RULE ADDED. AGENT_WORKLIST.md's "Rules for every run" now requires every
+entry written to QUESTIONS.json to open its "question" field with one
+plain-English sentence naming the decision needed, stating the
+recommendation in the same sentence where there is one, before the existing
+technical detail, which stays in full underneath. The same opening sentence
+applies to the matching AGENT_LOG.md narrative when one is written for the
+same finding.
+
+FOUR ITEMS RETROFITTED IN QUESTIONS.json AS A WORKED EXAMPLE. Q17, Q18, Q19
+and Q24 each now open with a "Decision needed:" sentence; nothing after it
+was shortened, reworded or dropped. Q18 is the example Rishi quoted back.
+NOT done this run: the matching four entries in this file's own "Questions
+for Rishi" section below still read in the old order, and QUESTIONS.json's
+own answered entries (Q1 to Q16 and others) were left exactly as they are,
+since the rule only bites on how a "question" field is worded, not on
+history that is already settled.
+
+WHAT IS LEFT. QUESTIONS.json holds 55 open items in total; 51 remain
+unretrofitted, and the four matching entries in this file's "Questions for
+Rishi" section still need the same opening sentence. Raised as worklist item
+6.8 rather than done in one pass here, because writing an accurate one-line
+summary needs the same read-the-detail-first care the rest of this backlog
+is held to, and rushing 51 of them in one sitting risks misstating a
+recommendation, which is worse than leaving the old wording in place.
+
+A SEPARATE DEFECT FOUND WHILE READING THIS, NOT FIXED HERE.
+scripts/notify-questions.js parses lines starting with "- " under this
+file's "Questions for Rishi" heading, but every current entry there is
+written "OPEN: Q## (raised ...) - ", which does not match that pattern. The
+SMS notifier is very likely not firing on anything logged in the current
+format. Raised rather than fixed because it needs deciding whether to fix
+the parser or the log format, and that decision belongs with whoever set up
+notify-questions.js's ClickSend credentials.
+
+Files changed: AGENT_WORKLIST.md (new rule, new item 6.8), QUESTIONS.json
+(Q17, Q18, Q19, Q24 question fields only), this log.
 ## 2026-08-27 (later) - Q79 answered: all stores close on bank holidays
 Run by Claude in the same Cowork session. Rishi answered Q79 directly: all RB Healthcare stores are
 closed on bank holidays, estate-wide, no branch exception stated.

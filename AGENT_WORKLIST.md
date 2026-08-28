@@ -14,6 +14,14 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
 - If an item needs a decision from Rishi, write the question in AGENT_LOG.md
   under "Questions for Rishi", mark the item [BLOCKED] here, move on.
 - UK English. No em dashes. No emojis. Plain English.
+- Every entry written to QUESTIONS.json opens its "question" field with one
+  plain-English sentence naming the decision needed, stating the
+  recommendation in the same sentence where there is one. The full
+  technical detail, file names and generator names included, still follows
+  straight after in full, for whoever picks the item up to act on; it is
+  just not the first thing Rishi has to read to decide. Give the matching
+  AGENT_LOG.md narrative the same opening sentence when one is written for
+  the same finding.
 
 ## Phase 1 - Data accuracy (quick wins)
 - [x] 1.4 Check every branch page's NAP (name, address, phone) against
@@ -4225,6 +4233,23 @@ so tools/build-audit-status.js picks them up like any other item.
       Negative-test that a genuine weekly-hours mismatch on a non-bank-
       holiday date still fails, so the exemption cannot swallow a real
       defect that happens to land near one of the seven dates.
+
+- [ ] 6.8 Plain-English decision line on the rest of the open backlog:
+      QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
+      ones). Rishi flagged that the "question" field buries the actual
+      decision under file names and generator names he does not need to
+      read to decide, and asked for the fix in rule form (added above,
+      2026-08-28) rather than a one-off cleanup. Four items were retrofitted
+      the same day as a working example: Q17, Q18, Q19 and Q24 each now
+      open with one plain-English "Decision needed:" sentence stating the
+      choice and, where there is one, the recommendation, with the existing
+      technical detail left in full straight after it. The remaining ~51
+      open items still read as they did before. Do this with the same care
+      as the four above, not mechanically: read each question, its options
+      and its note before writing the one-line summary, and do not shorten,
+      soften or drop any existing technical detail, option or note. This is
+      a rewrite of the opening sentence only. One run is unlikely to clear
+      all 51; note here how many are done and keep going next run.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
