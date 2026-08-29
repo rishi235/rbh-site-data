@@ -1,6 +1,82 @@
-﻿# AGENT LOG - hourly audit-backlog runs
+# AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+
+## 2026-08-29 23:11 BST (seventh run today) - Quality pass on 1.1, brand-name spelling, seventh pass: rule 4 gap (doubled-consonant misspellings) proved by injection and closed; Gordon Short live state has moved in both directions
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. By the
+line-number method, 1.1 held the oldest standing verification of any
+completed item: its newest pass was the hundred-and-seventy-seventh run,
+2026-08-14 00:04, deeper in this log than any other completed item after
+today's earlier passes. (2.2's deepest heading match is older still, but
+2.2 was refreshed today in the shared 2.3-and-2.2 pass, so it does not
+count.)
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON (13
+entries), read at 23:03 through one browser tab, opened and closed, nothing
+clicked, typed or submitted. Every entry maps to an already answered
+question (Q2-Q5, Q13-Q17). No entry answers any of the 56 open questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at f1da6ce, worktree clean.
+
+BASELINE. All six generators rebuilt to a zero diff and all 36 checker
+scripts exited 0 before any inspection, so the findings below reflect the
+committed state.
+
+THE DEFECT: RULE 4 HELD FOUR MISSPELLINGS AND THE ESTATE CAN PRODUCE MORE.
+Rule 2 derives its near misses from the canonical letters (trailing s,
+apostrophe, ampersand, shop-type swap), so a variant whose LETTERS differ
+is rule 4's job, and rule 4 listed only MacCann, Hirschman, Tiffenburg and
+the spaced S K Chemists. The doubled consonants were unguarded: "Smarts
+Chemist" for Smartts and "Ridings Pharmacy" for Riddings are single-key
+errors a writer would not notice, and "Ridings" doubles as the street
+misspelt, since the shop stands on Riddings Road. Proved by injection
+BEFORE the fix: "Smarts Chemist" in gbp-packs/smartts-bootle.md prose and
+"Ridings Pharmacy" in a generated branch landing page each passed ALL 36
+CHECKERS, while the control, the rule 2 derived "Smartt Chemist" in the
+same position of the same file, failed as it should, so the harness and
+checker were live on the files under test. All injections reverted with git
+checkout, tree verified clean.
+
+THE FIX. Three MISSPELT entries added, same class and same shape as the
+listed S K Chemists: Smarts (also catching "Smart Chemist"/"Smart
+Pharmacy"), Ridings, and the spaced Mc Cann. Listed, not derived, because a
+wrong letter is knowledge, not arithmetic. All three verified to have zero
+legitimate uses in public copy before listing (git grep, whole repo,
+outside this log and QUESTIONS.json). Rules stay case-sensitive, so
+ordinary prose like "street smarts" and "safe riding" is untouched.
+
+VERIFIED SEVEN WAYS. After the fix: Smarts in pack prose fails, Ridings in
+a generated page fails, Mc Canns in a switch banner .txt fails, Smart
+Pharmacy in pack prose fails, the lowercase prose control still passes, and
+the two pre-existing controls (MacCann, derived Smartt) still fail, so
+nothing was traded away. Zero false positives: the clean run is unchanged
+(8 quoted readings, same notes). All 36 checkers exit 0 after the fix.
+Evidence: audits/brand-spelling-check-2026-08-29.txt.
+
+LIVE SIDE (read-only, two pages fetched, nothing clicked or typed), and it
+has moved in BOTH directions since the note item 1.1 carries:
+- pharmacy-first-service-crosby.html no longer says "Gordon Shorts"
+  anywhere. The name was hand-corrected in place: the copy is still the old
+  hand-built page (American spellings, old layout), not the generated Build
+  Pack v2 page, so the correction was an edit, not the awaited repaste.
+- travel-clinic-gordon-short-crosby.html is unchanged: a pre-1.1 paste of
+  the GENERATED page carrying "Gordon Shorts Chemist" in its browser title,
+  its H1, its body prose and its own contact card, while the site-wide
+  footer on the same page spells the name correctly. The branch now
+  disagrees with itself within a single page. Same repaste Q32 and item 5.3
+  wait on; the pack's note (title only) understated it, the worklist note
+  now records all four surfaces. Blocks nothing, no new question raised.
+
+FILES CHANGED: tools/check-brand-spelling.js (three MISSPELT entries plus
+doc comments), AGENT_WORKLIST.md (1.1 pass note appended in place),
+audits/brand-spelling-check-2026-08-29.txt (new), AGENT_LOG.md (this
+entry). Commit hash recorded in a small follow-up commit.
 
 ## 2026-08-29 22:37 BST (sixth run today) - Quality pass on 5.6, the Q14 length-aware title rule: repo side fully sound, live Weebly repaste still outstanding after 17 days
 
@@ -19895,7 +19971,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -20269,7 +20345,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -21917,7 +21993,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 

@@ -1,0 +1,51 @@
+brand-spelling quality pass evidence - 2026-08-29 (seventh pass on item 1.1)
+
+CLEAN RUN AFTER FIX (exit 0):
+check-brand-spelling
+  16 trading branch(es), 13 distinct trading name(s) pinned
+  225 file(s) of public copy scanned for near-miss spellings and 7 known misspelling(s), banners included
+  7 live module code file(s) under modules/ and core/ scanned for the same, comments blanked - this is the copy a browser writes into the page at run time
+
+  NOTE  gbp-packs/coleman-leigh-walton.md:28 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:168 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:172 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:121 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:142 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:148 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:38 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:124 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  15 hardcoded brand string(s) in build-switch-pages.js CONFIG checked against branches.json
+  NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
+  NOTE  188 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 3 shortenable trading name(s): Coleman and Leighs, Riddings, Cherry Lane
+check-brand-spelling: clean, every trading name is spelled the one way, 8 quoted reading(s) of a live page read as evidence.
+
+INJECTION MATRIX (all reverted, tree verified clean after each):
+  BEFORE THE FIX, proving the gap:
+    "Smarts Chemist" in gbp-packs/smartts-bootle.md (unquoted prose)  -> ALL 36 checkers PASSED
+    "Ridings Pharmacy" in modules/branch/pages/pharmacy-fishlocks-ainsdale.html -> ALL 36 checkers PASSED
+    control "Smartt Chemist" (rule 2 derived dropped-s), same file, same position -> check-brand-spelling FAILED, so the harness was live
+  AFTER THE FIX:
+    1 "Smarts Chemist" in pack prose                       -> exit 1 (was 0)
+    2 "Ridings Pharmacy" in a generated branch page        -> exit 1 (was 0)
+    3 "Mc Canns Chemist" in a switch banner .txt           -> exit 1 (was 0)
+    4 "Smart Pharmacy" (dropped t and s) in pack prose     -> exit 1 (was 0)
+    5 lowercase prose "street smarts and safe riding"      -> exit 0 (case rule intact)
+    6 pre-existing control "MacCann Chemist"               -> exit 1 (nothing traded away)
+    7 pre-existing control "Smartt Chemist" (derived)      -> exit 1 (nothing traded away)
+  Zero false positives: the clean run is byte-identical in failures and notes
+  to the pre-fix clean run (8 quoted readings, same NOTE lines).
+
+FULL SUITE: all 36 checker scripts exit 0 before and after the fix; all six
+generators rebuild to a zero diff.
+
+LIVE READINGS (read-only, two pages fetched, nothing clicked or typed):
+  gordonshortchemist.co.uk/pharmacy-first-service-crosby.html
+    Browser title: "Pharmacy First Service at Gordon Short Chemist | Crosby & Surrounding Areas"
+    Name correct throughout, including H1 and contact block. But the copy is
+    still the OLD hand-built page (American spellings, old layout), not the
+    generated Build Pack v2 page, so the name was hand-corrected in place.
+  gordonshortchemist.co.uk/travel-clinic-gordon-short-crosby.html
+    Browser title: "Travel Clinic at Gordon Shorts Chemist, Crosby"
+    Still a pre-1.1 paste of the generated page: "Gordon Shorts Chemist" in
+    the title, the H1, the body prose and the page's own contact card, while
+    the site-wide footer on the same page reads "Gordon Short Chemist".

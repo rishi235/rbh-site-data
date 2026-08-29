@@ -55,8 +55,9 @@
     4. MISSPELT no known transliteration misspelling of a trading name
                 appears in public copy. Rule 2 derives its near misses
                 from the canonical form, so it can never see a variant
-                whose letters differ: MacCann, Hirschman, Tiffenburg and
-                the spaced S K Chemists. The hand sweep this checker
+                whose letters differ: MacCann, Hirschman, Tiffenburg,
+                the spaced S K Chemists and Mc Cann, and the doubled
+                consonants dropped from Smartts and Riddings. The hand sweep this checker
                 replaced (fifty-first run) grepped for exactly those, so
                 the checker must hold at least what the sweep held. These
                 are listed, not derived, because a wrong transliteration
@@ -265,7 +266,18 @@ var MISSPELT = [
   { wrong: "MacCann",      right: "McCanns Chemist",     re: /\bMacCann(?:s|'s)?\b/g },
   { wrong: "Hirschman",    right: "Hirshmans Chemist",   re: /\bHirschman(?:s|'s)?\b/g },
   { wrong: "Tiffenburg",   right: "Tiffenbergs Chemist", re: /\bTiffenburg(?:s|'s)?\b/g },
-  { wrong: "S K Chemists", right: "SK Chemists",         re: /\bS\s+K\s+Chemists?\b/g }
+  { wrong: "S K Chemists", right: "SK Chemists",         re: /\bS\s+K\s+Chemists?\b/g },
+  // Doubled-consonant drops and a spaced Mc, added by the seventh 1.1 pass
+  // (2026-08-29) after "Smarts Chemist" and "Ridings Pharmacy" each passed
+  // all 36 checkers by injection. Letters differ from the canonical form, so
+  // rule 2 can never derive these; same class as the four above. All three
+  // verified to have zero legitimate uses in public copy before listing, and
+  // the rules stay case-sensitive, so "smarts" and "riding" in prose are
+  // untouched. "Ridings" also catches the street misspelt: the road is
+  // Riddings Road, double d.
+  { wrong: "Smarts",       right: "Smartts Chemist",     re: /\bSmarts(?:'s)?\b|\bSmart(?:'s)?\s+(?:Chemists?|Pharmac(?:y|ies))\b/g },
+  { wrong: "Ridings",      right: "Riddings Pharmacy",   re: /\bRidings(?:'s)?\b/g },
+  { wrong: "Mc Cann",      right: "McCanns Chemist",     re: /\bMc\s+Canns?(?:'s)?\b/g }
 ];
 
 // ---------------------------------------------------------------------------

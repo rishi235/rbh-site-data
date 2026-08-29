@@ -3336,6 +3336,29 @@ appended to the line. Do not move them; the status page reads them in place.
       Simple Weight Loss Clinic". Pre-1.1 name on the group's most public
       surface, and it names a parked brand. Raised as Q70, blocks nothing.
       Done 2026-08-14.
+      Quality pass 2026-08-29 (repo half and a live read): the rule holds for
+      the seventh consecutive pass. All 36 checker scripts exit 0, all six
+      generators rebuild to a zero diff. THE DEFECT THIS TIME WAS IN RULE 4,
+      NOT RULE 2: letter-level misspellings that drop a doubled consonant.
+      Rule 2 derives near misses from the canonical letters, so "Smarts
+      Chemist" (one t) and "Ridings Pharmacy" (one d) are invisible to it by
+      construction, and neither was in the MISSPELT list. Proved by
+      injection: both passed all 36 checkers, while the derived control
+      "Smartt Chemist" in the same position failed. Fixed by extending
+      MISSPELT with Smarts, Ridings and the spaced Mc Cann (same class as
+      the listed S K Chemists), after verifying zero legitimate uses of any
+      of the three in public copy. Negative-tested seven ways including a
+      lowercase prose control; zero false positives, the clean run is
+      unchanged. Evidence: audits/brand-spelling-check-2026-08-29.txt.
+      LIVE SIDE, movement in both directions: the Gordon Short Pharmacy
+      First page no longer carries "Gordon Shorts" anywhere - the name was
+      hand-corrected in place, though the page is still the old hand-built
+      copy, not the generated one. The travel clinic page is UNCHANGED: a
+      pre-1.1 paste with "Gordon Shorts Chemist" in its title, H1, body and
+      its own contact card, while the site-wide footer on the same page
+      spells it correctly, so the branch now disagrees with itself within a
+      single page. Same repaste Q32 and item 5.3 wait on. Blocks nothing,
+      no new question. Done 2026-08-29.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
