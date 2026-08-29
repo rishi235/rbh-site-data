@@ -4250,7 +4250,7 @@ so tools/build-audit-status.js picks them up like any other item.
       days out and audits/live-hours-check-2026-08-29.json carries the
       label.
 
-- [ ] 6.8 Plain-English decision line on the rest of the open backlog:
+- [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
       ones). Rishi flagged that the "question" field buries the actual
       decision under file names and generator names he does not need to

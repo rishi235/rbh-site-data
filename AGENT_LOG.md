@@ -2,6 +2,40 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Item 6.8 COMPLETE: plain-English decision lines on all 56 open questions
+
+Extended interactive run. Rishi was present and asked for a catch-up
+session (the scheduled task had been paused in error), authorising a
+longer run and parallel drafting. Three drafting agents worked the
+remaining backlog in parallel (Q49-58, Q59-68, Q69-78) while Q39-48 were
+drafted directly from full reads; every question, its options, its
+0-based recommended index and its note were read in full before the
+opening was written.
+
+All 40 remaining open questions (Q39 to Q78) now carry the one-sentence
+plain-English "Decision needed: ... Recommended: ..." opening required
+by the 2026-08-28 rule, with all existing technical detail, options and
+notes preserved untouched after it. Applied by script with the same
+byte-preservation guard as the previous two runs: every prefixed entry
+proven to still end with its original text verbatim, all other fields
+and entries proven byte-identical, and the git diff is exactly 40
+modified lines in QUESTIONS.json. All 36 checkers pass.
+
+Running total: 56 of 56 open questions now carry the opening (4 on
+2026-08-28, 10 on the earlier 2026-08-29 run, 40 this run; Q80 and Q81
+were written that way from new). Item 6.8 is ticked Done.
+
+ANSWER PICKUP: attempted this run via the extension's own browser
+confirmation route since Rishi is present to click Connect; result
+recorded below in this entry's postscript if it succeeded, otherwise the
+two-browser pairing block recorded on the previous run still stands and
+Q59 remains the decision that clears it permanently.
+
+Files changed: QUESTIONS.json (40 question fields prefixed),
+AGENT_WORKLIST.md (6.8 ticked), this log. No page, generator or data
+field changed. No new questions raised. Commit: the commit carrying this
+entry.
+
 ## 2026-08-29 - Item 6.8 in progress: plain-English decision lines, ten more done
 Scheduled run (evening). Took the first unchecked non-blocked item, 6.8:
 retrofit each open question in QUESTIONS.json with one plain-English
