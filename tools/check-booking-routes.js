@@ -97,24 +97,10 @@ var PAGE_DIRS = [
 // Key: "<subject>::<rule>". Remove the entry when the fix lands; a key that
 // no longer breaks its rule fails the run.
 // ---------------------------------------------------------------------------
-var KNOWN = {
-  "contraception::fallback": {
-    question: "Q17",
-    reason:
-      "The NHS Pharmacy Contraception Service has its own Appointedd diary at " +
-      "all 14 branches that offer it, and no branch's Pharmacy First overview " +
-      "links to it, so falling back to the Pharmacy First diary would book a " +
-      "patient into the wrong service. Fixing it means editing service.js, " +
-      "which is a CDN-pinned asset: today modules/service/service.js is " +
-      "byte-identical between origin/main and the pinned ref " +
-      "service-module-phase1, and Q13's recommended fix (fast-forward the " +
-      "pinned branch to main) is free only while that stays true. The fault " +
-      "is latent - check-page-coverage only earns a contraception page where " +
-      "the branch holds a contraception widget - so the fix belongs in the " +
-      "same supervised session that answers Q13, not in an unattended run " +
-      "that would make Q13 more expensive."
-  }
-};
+var KNOWN = {};
+// (The Q17 contraception::fallback entry was removed 2026-08-29: Rishi
+// answered Q17 on 2026-08-28 and contraception now sits in
+// NO_FALLBACK_SERVICE_KEYS, so the rule no longer breaks.)
 
 var failures = [];
 var warnings = [];

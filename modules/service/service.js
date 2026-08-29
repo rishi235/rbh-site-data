@@ -347,8 +347,12 @@
   // Weight Loss and Travel Clinic are distinct paid services with their own Appointedd
   // diaries — falling back to the branch's Pharmacy First widget here would book a
   // customer into the wrong clinic/service, so (unlike the NHS condition pages) these
-  // two never fall back.
-  var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true };
+  // two never fall back. The NHS Pharmacy Contraception Service is in the
+  // same position: it has its own diary at every branch that offers it and is
+  // never the Pharmacy First diary, so it must not fall back either (Q17,
+  // answered 2026-08-28). With no widget id the page keeps its own generic
+  // book-an-appointment content instead of a wrong diary.
+  var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true, "contraception": true };
 
   function renderBookingWidget(mount, widgetId) {
     function doRender() {

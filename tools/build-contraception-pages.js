@@ -1,7 +1,7 @@
 /*
   Generates the NHS Pharmacy Contraception Service page per store from
   branches.json (same data model as build-service-pages.js). One page per store,
-  reusing the store's Appointedd "Pharmacy 1st" widget for booking.
+  using the store's own Appointedd contraception widget for booking.
 
   Run:  node tools/build-contraception-pages.js
   Out:  modules/service/pages/contraception-<brandSlug>-<townSlug>.html
@@ -73,9 +73,12 @@ function headLinks() {
 
 function bookingCard(store, b) {
   // widgetId injected at runtime by service.js from branches.json (data layer).
-  // Contraception pages get the branch's `contraception` widget automatically
-  // (service.js falls back to pharmacyFirst only if it is missing).
-  var hasWidgets = store.widgets && (store.widgets.contraception || store.widgets.pharmacyFirst);
+  // Contraception pages get the branch's `contraception` widget only.
+  // Contraception is in NO_FALLBACK_SERVICE_KEYS (Q17, answered 2026-08-28):
+  // with no contraception widget the page must carry the generic booking
+  // placeholder below, never an empty box that the old fallback would have
+  // filled with the Pharmacy First diary.
+  var hasWidgets = store.widgets && store.widgets.contraception;
   var inner = hasWidgets
     ? '<div class="booking-widget">\n' +
       '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
@@ -251,6 +254,17 @@ BUILD.forEach(function (storeId) {
 var seoPath = path.join(outDir, "CONTRACEPTION-SEO.md");
 fs.writeFileSync(seoPath, seoMd);
 console.log("Generated " + BUILD.length + " contraception pages into modules/service/pages/");
+
+// Q17 (answered 2026-08-28): a branch without its own contraception widget is
+// never a reason to leave the page out - the page still builds, carrying the
+// generic book-an-appointment placeholder - but it must be surfaced loudly so
+// the missing diary gets chased.
+var noWidget = BUILD.filter(function (id) { return !((byId[id] || {}).widgets || {}).contraception; });
+if (noWidget.length) {
+  console.log("WARNING: " + noWidget.length + " branch(es) have no contraception widget. Their pages carry the generic book-an-appointment placeholder (call + callback form) instead of a diary: " + noWidget.join(", "));
+} else {
+  console.log("All " + BUILD.length + " branches hold their own contraception widget; every page renders its own diary.");
+}
 console.log("Build sheet: modules/service/pages/CONTRACEPTION-SEO.md");
 
 // Convenience copy for the existing paste workflow. Best effort only: if the

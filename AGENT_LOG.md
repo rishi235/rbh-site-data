@@ -2,6 +2,64 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 (second run) - Q17 answer picked up and applied: contraception joins the no-fallback bar
+
+Unattended run. ANSWER PICKUP WORKED for the first time since Q59 was
+raised: only one Chrome extension is connected today, so the browser
+choice that blocked every previous unattended pickup did not arise. The
+portal returned 13 feedback entries; one was for an open question, Q17
+(newest entry 2026-08-28 15:06). All others were already recorded.
+Q59 stays open: the underlying two-extension condition can recur.
+
+Q17 answered by Rishi: do not leave a contraception page out because a
+branch has no booking widget - build the page so it indexes, put a
+generic book-an-appointment in place (or a placeholder widget), and
+surface the gap. That overrides the wait-for-Q13 recommendation, so
+applying it was this run's work item (step 3 of the task).
+
+Applied in three places, all on agents/audit-backlog:
+
+1. modules/service/service.js: "contraception" added to
+   NO_FALLBACK_SERVICE_KEYS. A contraception page can now never render
+   the branch's Pharmacy First diary; with no widget id it keeps its own
+   static content instead.
+2. tools/build-contraception-pages.js: the booking card now requires the
+   branch's own contraception widget (previously pharmacyFirst alone was
+   enough to earn a live widget box, which service.js would then have
+   filled with the wrong diary). Without it the page carries the generic
+   book-an-appointment placeholder: call the branch plus the callback
+   form, exactly the "generic in place" Rishi asked for. The build now
+   also prints a loud per-branch warning naming any branch without a
+   contraception widget (the "somehow let us know"). Stale header
+   comment about reusing the Pharmacy 1st widget corrected.
+3. tools/check-booking-routes.js: the Q17 KNOWN entry
+   (contraception::fallback) removed; the rule it suppressed now passes,
+   and leaving it would itself fail the run under the stale-KNOWN check.
+
+Pages regenerated: byte-identical, because all 14 trading branches
+currently hold their own contraception widget (verified against
+branches.json this run; head office and Clear Chemist correctly have
+none and no page). So nothing patient-facing changes today; the fix
+closes the latent wrong-diary route and the page-coverage gate.
+
+Live rollout note: service.js is CDN-pinned to service-module-phase1,
+which tracks main, not this branch. The bar reaches live with the merge
+to main (Q3) and the item 5.5 fast-forward and re-pin, both supervised
+work. Until then live pages keep the old fallback, which cannot fire
+today for the same all-widgets-present reason. main and the pinned
+branch stay byte-identical, so item 5.5's fast-forward remains free.
+
+All checkers pass (exit 0 across tools/check-*.js). QUESTIONS.json: Q17
+marked answered with the verbatim portal text and what was applied; 56
+questions remain open. No worklist item was [BLOCKED] on Q17, so the
+worklist is unchanged. No new questions raised. No autonomous window
+present and no autonomous decision taken - this was Rishi's own answer.
+
+Files changed: modules/service/service.js,
+tools/build-contraception-pages.js, tools/check-booking-routes.js,
+QUESTIONS.json, AGENT_LOG.md. Commit hash in the next entry's line or
+via git log.
+
 ## 2026-08-29 - Quality pass on 4.15 (Tiffenbergs Aintree GBP pack), guarantee verifier gap closed [commit 8021277, hash line added by a small follow-up commit]
 
 Unattended run. All worklist items done or [BLOCKED], so a quality pass:
