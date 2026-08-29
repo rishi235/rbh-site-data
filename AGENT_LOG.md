@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-29 (second run) - Q17 answer picked up and applied: contraception joins the no-fallback bar
+## 2026-08-29 (second run) - Q17 answer picked up and applied: contraception joins the no-fallback bar [commit 0582008]
 
 Unattended run. ANSWER PICKUP WORKED for the first time since Q59 was
 raised: only one Chrome extension is connected today, so the browser
@@ -57,8 +57,7 @@ present and no autonomous decision taken - this was Rishi's own answer.
 
 Files changed: modules/service/service.js,
 tools/build-contraception-pages.js, tools/check-booking-routes.js,
-QUESTIONS.json, AGENT_LOG.md. Commit hash in the next entry's line or
-via git log.
+QUESTIONS.json, AGENT_LOG.md. Commit 0582008; hash line added by this small follow-up commit.
 
 ## 2026-08-29 - Quality pass on 4.15 (Tiffenbergs Aintree GBP pack), guarantee verifier gap closed [commit 8021277, hash line added by a small follow-up commit]
 
