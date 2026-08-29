@@ -99,6 +99,27 @@ PC_RE, which would have flagged copy like "vitamin B12 3rd". Negative tested
 22 ways, 15 must-catch and 7 must-pass. Residual stated: an abbreviated street
 ("Station Rd") is still not read. Full working in
 audits/nap-item-1.4-quality-pass-2026-08-14-run179.txt.
+Quality pass 2026-08-29 23:43 (eighth run today): NAP data clean for the fifth
+pass running. 177 pages, 3 paste blocks, 0 mismatches, all 36 checkers pass,
+all six generators rebuild to a zero diff. Two shape gaps found by injection
+and closed, both one notch along the 2026-08-14 axis. PHONE_RE allowed at most
+two separator characters between digit groups, so a foreign phone written with
+spaced hyphens or full stops ("0161 - 439 - 3744") passed all 36 checkers
+while "0161- 439 -3744" was caught; widened to three. The foreign-postcode-
+any-case rule only knew the spaced spelling, so "sk73lq" passed unread even
+though PC_RE reads SK73LQ (its space is optional); it now reads the spaceless
+form, boundary-guarded so a longer token containing the letters cannot fire
+it. The paste-block half, whose postcode sweep is upper-case PC_RE only, got
+the any-case rule the generated pages have had since 2026-08-14. Negative
+tested 18 ways, 10 must-catch and 8 must-pass, all correct, and the whole
+estate exits 0 under the wider rules. LIVE HALF DONE for the first time since
+2026-08-12: the live Cherry Lane contraception page is NAP-exact on name,
+address, phone and the generated footer email; the Weebly site furniture
+still publishes the Q36 pharmacy.FA226@mhs.net typo, unchanged, already
+tracked. Residuals unchanged and deliberate: an abbreviated street
+("Station Rd") and an unrecognised lower-case postcode-shaped string are
+still not read. Full working in
+audits/nap-item-1.4-quality-pass-2026-08-29.txt.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;

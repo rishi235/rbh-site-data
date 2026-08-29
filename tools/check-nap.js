@@ -112,7 +112,16 @@ const digits = (s) => String(s || "").replace(/\D/g, "");
 // and round brackets; the +44 international prefix is allowed in place of the
 // leading zero. The 10-or-11-digit filter below still does the real narrowing,
 // so a wider match here cannot flag an ordinary number in copy.
-const PHONE_RE = /(?:\+\s?44[\s.()-]*|\b0)\d(?:[\s.()-]{0,2}\d){8,10}\b/g;
+// WIDENED AGAIN on the item 1.4 quality pass, 2026-08-29, one notch along
+// the same axis: the 2026-08-14 widening allowed up to TWO separator
+// characters between digit groups, so a number written with a spaced
+// hyphen or full stop ("0161 - 439 - 3744", three characters between the
+// groups) still passed every rule in this file, while "0161- 439 -3744"
+// was caught. Proved by injection on the Cherry Lane contraception page.
+// Three is enough for every spaced single-separator style a human types;
+// the 10-to-12-digit shape still does the real narrowing, and the whole
+// estate exits 0 under the wider run, so it does not cry wolf today.
+const PHONE_RE = /(?:\+\s?44[\s.()-]*|\b0)\d(?:[\s.()-]{0,3}\d){8,10}\b/g;
 
 // Reduce a written number to its national form: drop every separator, and
 // turn a +44 international prefix into the leading 0 it stands in for, so
@@ -434,9 +443,23 @@ for (const dir of PAGE_DIRS) {
       if (other.postalCode.replace(/\s+/g, " ").toUpperCase() ===
         b.postalCode.replace(/\s+/g, " ").toUpperCase()) continue;
       const want = other.postalCode.replace(/\s+/g, " ").toLowerCase();
-      const at = sweptLower.indexOf(want);
-      if (at === -1) continue;
-      const asWritten = swept.substr(at, other.postalCode.length);
+      // The spaceless form too ("sk73lq"), added 2026-08-29: PC_RE reads
+      // SK73LQ because its space is optional, but this rule's indexOf only
+      // knew the spaced spelling, so the same foreign postcode written
+      // lower case AND without its space passed unread. Proved by
+      // injection. Boundary-guarded so a longer token that merely contains
+      // the letters cannot fire it.
+      const wantBare = other.postalCode.replace(/\s+/g, "").toLowerCase();
+      let at = sweptLower.indexOf(want);
+      let matchLen = other.postalCode.length;
+      if (at === -1) {
+        const bareRe = new RegExp("(?<![a-z0-9])" + wantBare + "(?![a-z0-9])");
+        const bm = bareRe.exec(sweptLower);
+        if (!bm) continue;
+        at = bm.index;
+        matchLen = wantBare.length;
+      }
+      const asWritten = swept.substr(at, matchLen);
       // An all-upper-case occurrence is already reported by the sweep above.
       // Reporting it twice would not add anything.
       if (asWritten === asWritten.toUpperCase()) continue;
@@ -674,6 +697,39 @@ for (const dir of PASTE_DIRS) {
           '" but branches.json holds the post town as "' + b.addressLocality +
           '". One shop published with two address strings splits its own ' +
           "citations, and seoTown belongs in a title, not in an address");
+    }
+
+    // --- FOREIGN POSTCODE, WRITTEN IN ANY CASE ------------------------
+    // Added on the item 1.4 quality pass, 2026-08-29. The generated pages
+    // have had this rule since 2026-08-14; the paste blocks, whose
+    // postcode sweep above is PC_RE and therefore upper-case only, never
+    // got it, so another branch's postcode typed "sk7 3lq" or "sk73lq"
+    // in a block passed unread. Same narrow shape as the generated rule:
+    // only a string that IS another live branch's postcode fires, an
+    // unrecognised lower-case postcode-shaped string is left alone, and
+    // an all-upper-case occurrence is skipped because PC_RE already
+    // reports it.
+    const textLower = text.toLowerCase();
+    for (const other of branches) {
+      if (other.id === b.id || !other.postalCode) continue;
+      if (other.postalCode.replace(/\s+/g, " ").toUpperCase() ===
+        b.postalCode.replace(/\s+/g, " ").toUpperCase()) continue;
+      const wantPc = other.postalCode.replace(/\s+/g, " ").toLowerCase();
+      const wantPcBare = other.postalCode.replace(/\s+/g, "").toLowerCase();
+      let pcAt = textLower.indexOf(wantPc);
+      let pcLen = other.postalCode.length;
+      if (pcAt === -1) {
+        const bareRe = new RegExp("(?<![a-z0-9])" + wantPcBare + "(?![a-z0-9])");
+        const bm = bareRe.exec(textLower);
+        if (!bm) continue;
+        pcAt = bm.index;
+        pcLen = wantPcBare.length;
+      }
+      const pcAsWritten = text.substr(pcAt, pcLen);
+      if (pcAsWritten === pcAsWritten.toUpperCase()) continue;
+      bad(rel, 'postcode "' + pcAsWritten + '" belongs to ' + other.branchName +
+        ", not " + b.branchName + ". Written in mixed or lower case, so the " +
+        "upper-case postcode sweep could not see it");
     }
 
     // Emails got the generated-page sweep on 2026-08-12; the paste blocks

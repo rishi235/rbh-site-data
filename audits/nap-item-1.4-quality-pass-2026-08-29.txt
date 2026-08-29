@@ -1,0 +1,104 @@
+ITEM 1.4 QUALITY PASS - 2026-08-29 23:43 BST (eighth run today)
+NAP check, fifth pass. Verifier hardened twice, data clean, live half done.
+
+BASELINE BEFORE ANY CHANGE
+- All six generators rebuilt every page to a zero git diff.
+- All 36 checkers exited 0.
+- check-nap: 177 pages, 3 paste blocks, 0 mismatches, 0 warnings.
+
+DEFECT 1 - PHONE SEPARATOR WIDTH (tools/check-nap.js, PHONE_RE)
+The 2026-08-14 pass widened WHAT SHAPE a phone may be written in, allowing
+up to TWO separator characters ([\s.()-]{0,2}) between digit groups. A human
+style it left out: the spaced single separator. Proved by injection into the
+visible copy of modules/service/pages/contraception-cherry-lane-walton.html:
+- "0161 - 439 - 3744" (Scorah Bramhall's number, spaced hyphens, three
+  characters between groups): all 36 checkers exited 0. UNREAD.
+- "0161 . 439 . 3744" (spaced full stops): UNREAD.
+- Control "0161- 439 -3744" (two characters): caught, which is what makes
+  this a shape gap one notch along the same axis, not a coverage gap.
+FIX: separator run widened to {0,3}. The 10-to-12-digit shape still does the
+real narrowing. phoneDigits() comparison unchanged, so the branch's own
+number in any of these shapes still passes.
+
+DEFECT 2 - SPACELESS LOWER-CASE FOREIGN POSTCODE (same file, two places)
+The foreign-postcode-any-case rule added 2026-08-14 looks for another live
+branch's postcode by indexOf of its SPACED lower-case spelling only.
+PC_RE catches "SK73LQ" (its space is optional), so upper-case spaceless was
+covered, but "sk73lq" fitted neither rule. Proved by injection on the same
+page: "sk73lq" and "Sk73Lq" both exited 0. UNREAD. Control "sk7 3lq" caught.
+FIX (generated pages): the rule now also searches the spaceless lower-case
+form, boundary-guarded ((?<![a-z0-9]) ... (?![a-z0-9])) so a longer token
+that merely contains the letters cannot fire it. All-upper-case occurrences
+still skipped because PC_RE already reports them.
+FIX (paste blocks): the paste-block half's postcode sweep is PC_RE and
+therefore upper-case only, and it NEVER had the any-case rule at all, so
+"sk7 3lq" or "sk73lq" in a paste block landed on a live page unread. The
+same narrow rule added there. Philosophy preserved from 2026-08-14: only a
+string that IS another live branch's postcode fires; an unrecognised
+lower-case postcode-shaped string is left alone, stated rather than hidden.
+
+NEGATIVE TESTED 18 WAYS, ALL CORRECT
+Generated page (contraception-cherry-lane-walton.html), injected after the
+H1, page restored and git-verified untouched after every case:
+MUST-CATCH (7/7 fail the checker as required):
+  C1 foreign phone "0161 - 439 - 3744" spaced hyphens
+  C2 foreign phone "0161 . 439 . 3744" spaced dots
+  C3 foreign postcode "sk73lq" lower-case spaceless
+  C4 foreign postcode "Sk73Lq" mixed-case spaceless
+  C5 control foreign phone "0161-439-3744" compact
+  C6 control foreign postcode "sk7 3lq" spaced lower-case
+  C7 foreign phone "+44 161 - 439 - 3744" international with spaced hyphens
+MUST-PASS (7/7 exit 0, no cry-wolf):
+  P1 own phone written "0151 - 226 - 2051"
+  P2 "vitamin B12 3rd generation"
+  P3 "xsk73lq" and "sk73lq9" (boundary guard both sides)
+  P4 date range "2026-08-13 to 2026-08-29"
+  P5 "28 tablets, 0.5mg, from 12.50 to 199.00 per course"
+  P6 opening hours "09:00 - 13:00 and 14:00 - 17:30" (colons break the run)
+  P7 nine-digit reference "012345678" (too few digits)
+Paste block (cherry-lane-old-weight-loss-replacement.html), appended and
+restored:
+  PB1 foreign postcode "sk7 3lq" spaced lower-case - caught
+  PB2 foreign postcode "sk73lq" spaceless lower-case - caught
+  PB3 "sk73lq9" inside a longer token - passes (guard holds)
+  PB4 foreign phone "0161 - 439 - 3744" - caught (shared PHONE_RE)
+
+AFTER THE FIX
+- check-nap on the committed estate: 177 pages, 3 paste blocks, 0
+  mismatches, 0 warnings, exit 0. The wider rules flag nothing real, so
+  they do not cry wolf today.
+- All 36 checkers exit 0. All six generators still rebuild to a zero diff.
+
+LIVE HALF - DONE, first time since 2026-08-12
+Browser read-only, one page fetched, nothing clicked, typed or submitted:
+https://www.cherrylanepharmacy.co.uk/contraception-cherry-lane-walton.html
+- Name "Cherry Lane Pharmacy": exact.
+- Address "202 Cherry Lane, Liverpool, L4 8SG": exact on street, post town
+  and postcode, contact card and footer both.
+- Phone "0151 226 2051": exact, every occurrence.
+- Generated footer email "Cherry@rbhealth.co.uk": exact.
+- The Weebly site furniture above the generated footer still publishes
+  "e: pharmacy.FA226@mhs.net", the Q36 typo (should be nhs.net). Unchanged
+  since the 2026-08-12 live half; Q36 remains open and already records this
+  page. No new question needed.
+Also noted in passing: a guessed URL /nhs-contraception-service.html
+returns a 404; the real permalink is the generated filename. No defect,
+recorded only so a later pass does not repeat the guess.
+
+RESIDUAL, STATED PLAINLY (unchanged from run 179, still deliberate)
+- An abbreviated street ("Station Rd") is still not read: fuzzy matching on
+  free text is the change most likely to make this checker cry wolf, and a
+  wrong street beside the right postcode is caught by the postcode sweep.
+- An unrecognised lower-case postcode-shaped string belonging to no branch
+  is still not read, per the PC_RE /i refusal of 2026-08-14.
+- A phone with FOUR or more characters between digit groups ("0161  -  439")
+  is still not read. Each widening follows a proved injection, not a guess;
+  nothing suggests that style exists in the wild.
+
+FILES CHANGED
+- tools/check-nap.js: PHONE_RE {0,2} to {0,3}; spaceless form added to the
+  generated-page any-case postcode rule; any-case postcode rule added to
+  the paste-block half.
+- AGENT_WORKLIST.md: 1.4 pass note appended in place.
+- AGENT_LOG.md: this run's entry.
+- audits/nap-item-1.4-quality-pass-2026-08-29.txt: this file.

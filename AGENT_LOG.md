@@ -2,6 +2,83 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 23:43 BST (eighth run today) - Quality pass on 1.4, the NAP check, fifth pass: two shape gaps proved by injection and closed, live half done for the first time since 2026-08-12
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. By the
+line-number method, 1.4 held the oldest standing verification: its newest
+pass was run 179, 2026-08-14 01:05 BST, deeper in this log than any other
+completed item after tonight's earlier passes (all 43 completed items
+walked against all headings, 1.4 came back oldest).
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 2026-08-10. Nothing decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 23:03 pickup, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). No entry answers any of the 56
+open questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All six generators
+rebuilt to a zero diff and all 36 checkers exited 0 before any inspection.
+
+THE DEFECTS, BOTH IN tools/check-nap.js, BOTH ONE NOTCH ALONG THE RUN-179
+AXIS. That pass taught the file that a fact can be WRITTEN more than one
+way, then bounded each rule at a particular width, and the width is where
+both gaps sat. PHONE_RE allowed at most two separator characters between
+digit groups, so Scorah Bramhall's number written "0161 - 439 - 3744"
+(spaced hyphens, three characters) or "0161 . 439 . 3744" passed all 36
+checkers on the Cherry Lane contraception page while the two-character
+"0161- 439 -3744" was caught. And the foreign-postcode-any-case rule knew
+only the spaced spelling, so "sk73lq" and "Sk73Lq" passed while "sk7 3lq"
+was caught; PC_RE covers the upper-case spaceless SK73LQ because its space
+is optional, which left exactly the lower-and-spaceless corner dark. The
+paste-block half turned out never to have had the any-case rule at all,
+its postcode sweep being upper-case PC_RE only, so the same wrong fact in
+a paste block landed on a live page with nothing in between.
+
+THE FIX, IN ONE FILE. PHONE_RE separator run widened {0,2} to {0,3};
+phoneDigits() comparison unchanged, so a branch's own number in any shape
+still passes. The generated-page any-case postcode rule now also searches
+the spaceless lower-case form, boundary-guarded so a longer token that
+merely contains the letters cannot fire it, and still skips all-upper
+occurrences PC_RE already reports. The paste-block half got the same
+narrow rule. The 2026-08-14 philosophy is preserved: only a string that IS
+another live branch's postcode fires, an unrecognised lower-case
+postcode-shaped string is left alone, and that is stated, not hidden.
+
+NEGATIVE TESTED 18 WAYS, ALL CORRECT: 10 must-catch (the four injections
+above, three controls, the international "+44 161 - 439 - 3744", and the
+spaced and spaceless lower-case postcode in a paste block) and 8 must-pass
+(own phone spaced-hyphenated, "vitamin B12 3rd generation", "xsk73lq" and
+"sk73lq9" proving the boundary guard, a date range, a dotted price list,
+colon-separated opening hours, a nine-digit reference). The target files
+were restored after every case and git confirms them untouched. The whole
+estate exits 0 under the wider rules, so they cry no wolf today.
+
+LIVE HALF DONE, first time since 2026-08-12 (runs 136 and 179 skipped it,
+browser unavailable, Q59 - resolved since). One page fetched read-only:
+the live Cherry Lane contraception page is NAP-exact on name, address,
+phone and the generated footer email. The Weebly site furniture still
+publishes the Q36 pharmacy.FA226@mhs.net typo, unchanged and already
+tracked under Q36; no new question.
+
+THE DATA ITSELF IS CLEAN, fifth pass running: 177 pages, 3 paste blocks,
+0 mismatches, 0 warnings. Both gaps were latent - what would have
+published silently, not what has.
+
+RESIDUAL, unchanged and deliberate: abbreviated streets ("Station Rd") and
+unrecognised lower-case postcode-shaped strings are still not read, for
+the cry-wolf reasons run 179 stated; a separator run of four or more
+characters is likewise not read until an injection proves the style real.
+
+NO new question. FILES CHANGED: tools/check-nap.js, AGENT_WORKLIST.md (1.4
+pass note in place), AGENT_LOG.md (this entry),
+audits/nap-item-1.4-quality-pass-2026-08-29.txt (new). Full working in
+that audit file.
+
 ## 2026-08-29 23:11 BST (seventh run today) [commit e25d450, hash line added by a small follow-up commit] - Quality pass on 1.1, brand-name spelling, seventh pass: rule 4 gap (doubled-consonant misspellings) proved by injection and closed; Gordon Short live state has moved in both directions
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
