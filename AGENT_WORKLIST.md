@@ -4216,7 +4216,7 @@ so tools/build-audit-status.js picks them up like any other item.
       tag needs the Weebly head and therefore the browser (Q59). There is
       no repo-side work remaining on this item.
 
-- [ ] 6.7 Bank holiday awareness in the hours checkers: branches.json now
+- [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
       confirmed by Rishi - all branches close on every date in it. Neither
@@ -4233,6 +4233,22 @@ so tools/build-audit-status.js picks them up like any other item.
       Negative-test that a genuine weekly-hours mismatch on a non-bank-
       holiday date still fails, so the exemption cannot swallow a real
       defect that happens to land near one of the seven dates.
+      Done 2026-08-29. check-live-hours.js labels rather than skips: the
+      report gains a bankHolidays section (region, tradingPolicy,
+      withinDays 14, nearThisRun) and a console NOTE when any dates2026
+      date falls within 14 days of the run, so a one-off Closed snippet
+      near a holiday is read in context instead of raised as a defect.
+      check-opening-hours.js keeps every weekly rule exactly as it was, no
+      rule reads dates2026 and a page is never failed for omitting a
+      one-off closure the policy accounts for, and now validates the block
+      itself (real ISO dates, no duplicates, tradingPolicy one of
+      closed/reduced/normal) because the live labelling depends on it.
+      Negative-tested four ways: bad date, bad policy and duplicate date
+      each fail, and a genuine Tuesday mismatch injected into a landing
+      page still fails on a non-holiday date, so the awareness cannot
+      swallow a real defect. Demonstrated live this run: 2026-08-31 is two
+      days out and audits/live-hours-check-2026-08-29.json carries the
+      label.
 
 - [ ] 6.8 Plain-English decision line on the rest of the open backlog:
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered

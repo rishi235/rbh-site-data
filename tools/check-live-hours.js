@@ -30,6 +30,17 @@
   - audits/live-hours-check-<date>.json - snippets + expected, per branch.
   - Console summary, one line per branch: pages fetched, snippet count.
   Exit code 0 always: survey tool, not a gate.
+
+  BANK HOLIDAYS (item 6.7, Q79)
+  branches.json carries a bankHolidays block: gov.uk England and Wales dates
+  and tradingPolicy "closed", confirmed estate-wide by Rishi on 2026-08-27.
+  A live listing or page showing a one-off Closed day near one of those
+  dates is Google or the site reflecting the holiday, not a weekly-hours
+  defect - exactly the false read the McCanns Aigburth check of 2026-08-27
+  nearly produced. This tool does not compare, so it does not skip: it
+  LABELS. The report gains a bankHolidays section naming any date within
+  NEAR_DAYS of the run, and the console says the same, so the reader allows
+  for the date before raising a question on a Closed snippet.
 */
 "use strict";
 
@@ -44,6 +55,12 @@ var TIMEOUT_MS = 20000;
 var DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 var DAY_RE = /\b(mon(day)?|tue(s|sday)?|wed(nesday)?|thu(r|rs|rsday)?|fri(day)?|sat(urday)?|sun(day)?)\b/i;
 var PAGE_HINT_RE = /(contact|opening|hours|find|about|visit)/i;
+
+// Item 6.7: how close a bank holiday has to be to this run before the report
+// warns the reader. 14 days, because the 2026-08-27 McCanns check showed
+// Google carrying the holiday closure at least four days out and Q79's note
+// says a run "within a week or two" of a date risks the false read.
+var NEAR_DAYS = 14;
 
 function fetchWithTimeout(url) {
   var ctrl = new AbortController();
@@ -177,11 +194,39 @@ chain.then(function () {
       };
     })
   };
+  // Item 6.7: label the run with any bank holiday close enough to explain a
+  // one-off Closed day in the snippets. Labelling, not skipping: every
+  // snippet is still collected and shown, the reader just gets the date
+  // context the 2026-08-27 McCanns check had to reconstruct by hand.
+  var bh = data.bankHolidays || null;
+  var runDay = new Date(report.date + "T00:00:00Z");
+  var nearDates = [];
+  if (bh) {
+    (bh.dates2026 || []).forEach(function (d) {
+      var diff = Math.abs((new Date(d + "T00:00:00Z") - runDay) / 86400000);
+      if (diff <= NEAR_DAYS) nearDates.push(d);
+    });
+  }
+  report.bankHolidays = bh ? {
+    region: bh.region,
+    tradingPolicy: bh.tradingPolicy,
+    withinDays: NEAR_DAYS,
+    nearThisRun: nearDates,
+    readerNote: nearDates.length
+      ? "The dates in nearThisRun fall within " + NEAR_DAYS + " days of this run. tradingPolicy is \"" + bh.tradingPolicy + "\" estate-wide (Q79, answered 2026-08-27), so a live page or listing showing a one-off Closed day at or around those dates is very likely the bank holiday, not a weekly-hours defect. Check the date before raising a mismatch on any Closed snippet."
+      : "No bank holiday falls within " + NEAR_DAYS + " days of this run, so a Closed day in these snippets cannot be explained by one."
+  } : {
+    readerNote: "branches.json carries no bankHolidays block, so holiday closures cannot be told apart from defects here. See Q79."
+  };
+
   var outDir = path.join(ROOT, "audits");
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
   var outFile = path.join(outDir, "live-hours-check-" + report.date + ".json");
   fs.writeFileSync(outFile, JSON.stringify(report, null, 2));
   console.log("check-live-hours: " + report.branches.length + " branch(es), report written to " + path.relative(ROOT, outFile));
+  if (nearDates.length) {
+    console.log("  NOTE  bank holiday within " + NEAR_DAYS + " days of this run: " + nearDates.join(", ") + " (tradingPolicy " + (bh && bh.tradingPolicy) + "). A one-off Closed day near these dates is the holiday, not a weekly-hours defect.");
+  }
   report.branches.forEach(function (rb) {
     var snips = rb.pages.reduce(function (n, p) { return n + (p.snippets ? p.snippets.length : 0); }, 0);
     var errs = rb.pages.filter(function (p) { return p.error; }).length;

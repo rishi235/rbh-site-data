@@ -187,6 +187,46 @@ var branches = data.branches.filter(function (b) { return !b.disposed; });
 
 console.log("check-opening-hours");
 
+// Item 6.7 (Q79). Bank holidays are one-off closures and live deliberately
+// outside the weekly model: openingHours stays a plain recurring schedule,
+// the visible card and the JSON-LD publish that schedule only, and no rule
+// in this file reads bankHolidays.dates2026 when comparing page to data. A
+// generated page is therefore never failed for omitting a one-off closure
+// that bankHolidays.tradingPolicy already accounts for, and must not be:
+// the omission is correct, the card describes the recurring week.
+//
+// What IS checked is the block itself. check-live-hours.js now labels live
+// snippets against these dates, so a mistyped date or an unlabelled list
+// here would mislabel a genuine defect as a holiday, or a holiday as a
+// defect, at the exact moment the label matters.
+(function () {
+  var bh = data.bankHolidays;
+  if (!bh) {
+    notes.push("bank holidays: branches.json carries no bankHolidays block, so a live Closed day near a public holiday cannot be cross-checked (Q79).");
+    return;
+  }
+  var dates = bh.dates2026 || [];
+  if (!dates.length) {
+    fail("bankHolidays: block is present but dates2026 is missing or empty. Either carry the gov.uk dates or remove the block");
+  }
+  var seen = {};
+  dates.forEach(function (d) {
+    var ok = false;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(d))) {
+      var dt = new Date(d + "T00:00:00Z");
+      ok = !isNaN(dt.getTime()) && dt.toISOString().slice(0, 10) === d;
+    }
+    if (!ok) fail('bankHolidays: "' + d + '" is not a real ISO yyyy-mm-dd date. check-live-hours.js labels live snippets against this list, so a bad date mislabels a real defect as a holiday');
+    if (seen[d]) fail('bankHolidays: "' + d + '" is listed twice');
+    seen[d] = 1;
+  });
+  var POLICIES = ["closed", "reduced", "normal"];
+  if (POLICIES.indexOf(bh.tradingPolicy) === -1) {
+    fail('bankHolidays: tradingPolicy is ' + JSON.stringify(bh.tradingPolicy) + ' but must be "closed", "reduced" or "normal". An unlabelled date list invites the same false read the block exists to prevent (Q79)');
+  }
+  notes.push("bank holidays (item 6.7): " + dates.length + " date(s) in bankHolidays.dates2026, tradingPolicy \"" + bh.tradingPolicy + "\". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.");
+})();
+
 // Rules 4, 5 and 6 apply to the data itself, landing page or not. Rule 6 in
 // particular must not be scoped to branches with a landing page: an unstated
 // day also reaches the GBP packs and the JSON-LD.

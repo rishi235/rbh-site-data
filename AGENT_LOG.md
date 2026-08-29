@@ -2,6 +2,44 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Item 6.7 done: bank holiday awareness in the hours checkers
+Second commit of the same scheduled run as the recovery entry below.
+
+check-live-hours.js now LABELS rather than skips, since it is a survey tool
+that never compared in the first place: the audit report gains a top-level
+bankHolidays section (region, tradingPolicy, withinDays 14, nearThisRun,
+readerNote) and the console prints a NOTE when any bankHolidays.dates2026
+date falls within 14 days of the run. Fourteen days because the McCanns
+check of 2026-08-27 saw Google carrying the closure at least four days out
+and Q79 named "a week or two" as the risk window.
+
+check-opening-hours.js keeps every weekly rule untouched: no rule reads
+dates2026, so a generated page is never failed for omitting a one-off
+closure that tradingPolicy already accounts for, and a comment now states
+that as the design rather than an accident. What it does gain is validation
+of the bankHolidays block itself (dates parse as real ISO days, no
+duplicates, tradingPolicy one of closed/reduced/normal), because the live
+labelling depends on that block being right: a mistyped date would mislabel
+a genuine defect as a holiday at the exact moment the label matters.
+
+NEGATIVE-TESTED four ways, each reverted and the tree checked clean after:
+a bad date (2026-13-01), a bad policy ("shut") and a duplicate date each
+fail check-opening-hours; a genuine Tuesday hours mismatch injected into
+pharmacy-fishlocks-ainsdale.html still fails on a non-holiday date, so the
+awareness cannot swallow a real weekly defect. All 36 checkers green after.
+
+DEMONSTRATED LIVE THIS RUN: 2026-08-31 (Summer bank holiday) is two days
+from the run date, and the regenerated
+audits/live-hours-check-2026-08-29.json opens with nearThisRun
+["2026-08-31"] and the reader note, which is exactly the context the
+2026-08-27 McCanns read had to reconstruct by hand.
+
+Files changed: tools/check-live-hours.js, tools/check-opening-hours.js,
+audits/live-hours-check-2026-08-29.json (new), AGENT_WORKLIST.md (6.7
+ticked), this log. No page, generator, data field or patient-facing copy
+changed. No new questions this item; Q80 and Q81 were raised in the
+recovery commit below.
+
 ## 2026-08-29 - Recovery of the interrupted 2026-08-14 run (item 4.11 quality pass)
 Scheduled run. The 2026-08-14 run crashed before committing: its .agent-lock
 was still present (21531 minutes old, deleted as stale under the 45-minute
