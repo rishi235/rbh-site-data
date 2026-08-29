@@ -693,7 +693,31 @@ Object.keys(KNOWN_NON_PAGE_BUILDER).forEach(function (f) {
 // stopped exercising the difference FAILS here rather than quietly reducing
 // this to a check of nothing. Same convention as the empty-PAGE_TYPES and
 // empty-service-words guards above.
-var sourceChecked = 0, sourceDiffering = 0;
+//
+// THE REGION LEG, added on the item 3.1 quality pass, 2026-08-30. pick()
+// returns three values and the rule above covered two of them. The third,
+// region, is the landing-title qualifier: "Pharmacy in Eccleston, Chorley -
+// Fishlocks Chemist". Its contract (stated in pick()'s own comment and in
+// CLAUDE.md) is seoRegion where set, else addressRegion, and seoRegion exists
+// for exactly one reason: where the borough beats the county as the local
+// search word. "Eccleston, Chorley" is what separates Fishlocks Eccleston
+// from Eccleston in St Helens. Nothing asserted that source. Proved by
+// injection twice on the pass: with pick() reading addressRegion FIRST, the
+// Eccleston landing title silently became "Pharmacy in Eccleston, Lancashire"
+// and the self-test and all 36 checkers stayed green, the deliberate borough
+// word gone; with pick() reading addressLocality as the region, six landing
+// pages lost their qualifier outright or swapped it for the postal city, the
+// McCanns pages reading ", Liverpool" - the wrong-catchment word Build Pack
+// v2 section 5.1 warns about - and again everything stayed green. Both times
+// page and expectation moved together, because the exact match asks
+// landingTitle() and landingTitle() asks the same pick() that drifted.
+// So the region leg is asserted directly against branches.json, and it has
+// its own vacuity guard: at least one live branch must carry a seoRegion that
+// differs from its addressRegion (Fishlocks Eccleston today). If none does,
+// the precedence half of the comparison cannot tell seoRegion-first from
+// addressRegion-first and would pass either, so that state fails rather than
+// quietly narrowing the rule to the drift-to-addressLocality half.
+var sourceChecked = 0, sourceDiffering = 0, regionDiffering = 0;
 data.branches.forEach(function (b) {
   if (b.disposed || b.id === "rbh_head_office_aintree") return;
   if (!b.seoTown || !b.brandLabel) return; // the self-test hard-fails these
@@ -711,6 +735,15 @@ data.branches.forEach(function (b) {
     console.log("       brandLabel is '" + b.brandLabel + "'. The brand must come from brandLabel.");
     fails++;
   }
+  var expRegion = b.seoRegion || b.addressRegion || "";
+  if (b.seoRegion && b.seoRegion !== b.addressRegion) regionDiffering++;
+  if (got.region !== expRegion) {
+    console.log("FAIL " + b.id + ": seo-pattern pick() returns region '" + got.region + "' but branches.json");
+    console.log("       gives '" + expRegion + "' (seoRegion where set, else addressRegion). The landing-title");
+    console.log("       qualifier must come from those two fields in that order, never from");
+    console.log("       addressLocality '" + (b.addressLocality || "") + "'.");
+    fails++;
+  }
 });
 if (!sourceChecked) {
   console.log("FAIL the data-source rule read no buildable branch, so it asserts nothing about where");
@@ -722,6 +755,14 @@ if (!sourceChecked) {
   console.log("       pick() read. Restore a differing branch or retire this rule deliberately.");
   fails++;
 }
+if (sourceChecked && !regionDiffering) {
+  console.log("FAIL no live branch has a seoRegion that differs from its addressRegion, so the");
+  console.log("       region leg of the data-source rule cannot tell seoRegion-first from");
+  console.log("       addressRegion-first and would pass either precedence. Fishlocks Eccleston");
+  console.log("       carried the differing value when this rule was written. Restore one or");
+  console.log("       retire the leg deliberately.");
+  fails++;
+}
 
 console.log("\n" + CONDITION_SLUGS.length + " ready conditions read from build-service-pages.js: " + CONDITION_SLUGS.join(", "));
 console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verified across " +
@@ -729,8 +770,9 @@ console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verifi
   Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
 console.log("service-word rule: " + swChecked + " pages had title, h1 and meta all read against their page type's service words.");
 console.log("one-h1 rule: " + h1CountChecked + " pages carry exactly one h1, so the pattern, seoTown, service-word and cross-town rules read the whole heading of every page.");
-console.log("data-source rule: " + sourceChecked + " branches had seo-pattern pick() checked against branches.json seoTown/brandLabel, " +
-  sourceDiffering + " of them with an addressLocality that differs from seoTown.");
+console.log("data-source rule: " + sourceChecked + " branches had seo-pattern pick() checked against branches.json seoTown/brandLabel");
+console.log("       and the region leg against seoRegion/addressRegion, " + sourceDiffering +
+  " with addressLocality differing from seoTown, " + regionDiffering + " with seoRegion differing from addressRegion.");
 console.log("cross-town rule: " + crossTownChecked + " pages read against " + OTHER_TOWNS.length +
   " live seoTowns (" + OTHER_TOWNS.join(", ") + "), serviceAreaList excusing the branch's own catchment.");
 console.log(checked + " pages checked, " + untyped.length + " untyped (" + excused.length + " excused by KNOWN_NON_PAGE), " + fails + " failures.");

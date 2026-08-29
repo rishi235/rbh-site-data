@@ -487,6 +487,27 @@ literals, examined and not a live defect because the exact match recomputes
 from the raw branch, but recorded as a mirror. Evidence in
 audits/seo-pattern-check-2026-08-14.txt. REPO HALF ONLY, the live half was not
 run: browser unavailable, see the log for this run. No new question.
+Quality pass 2026-08-30: the pattern clean for the fifth consecutive pass,
+one defect found and fixed in the verifier. Self-test passes with no length
+warnings, all six generators reproduce all 177 pages byte-identical, all 36
+checkers green. The defect, one notch along the run-178 axis: the data-source
+rule that pass added covers pick().town and pick().brand, and pick() returns
+three values. The third, region, is the landing-title qualifier (seoRegion
+where set, else addressRegion - "Eccleston, Chorley" is what separates
+Fishlocks Eccleston from Eccleston, St Helens) and nothing asserted its
+source. Proved by injection twice: precedence swapped to addressRegion-first,
+the Eccleston title silently became "Pharmacy in Eccleston, Lancashire" and
+everything stayed green; region read from addressLocality, six landing pages
+lost the qualifier or swapped it for postal "Liverpool" and everything stayed
+green. check-seo-pattern.js now asserts pick().region against
+(seoRegion || addressRegion) from branches.json directly, with a vacuity
+guard requiring at least one live branch to exercise the precedence.
+Negative-tested four ways. Residual stated in the audit file: no self-test
+row asserts the region qualifier, so a composer-side region drift is caught
+late by the exact match rather than by name. Live sample: the Cherry Lane
+contraception page serves the pattern title and H1 verbatim, exactly one h1.
+Landing pages still not live (Q35 paste outstanding). Evidence in
+audits/seo-pattern-check-2026-08-30.txt. No new question.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

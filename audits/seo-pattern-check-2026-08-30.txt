@@ -1,0 +1,101 @@
+Item 3.1 quality pass - 2026-08-30 00:12 BST (unattended run)
+Canonical title/H1 pattern (tools/seo-pattern.js) and its verifier
+(tools/check-seo-pattern.js). Fifth pass on this item.
+
+RUN START STATE
+- No .agent-lock, no .git\index.lock. agents/audit-backlog level with origin,
+  worktree clean.
+- Self-test passes with no length warnings. All 36 checkers exit 0. All six
+  generators rebuild all 177 pages to a zero diff before any inspection, so
+  everything below is attributable to this run.
+
+WHY 3.1
+All eight unchecked worklist items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6), so the run is a quality pass on the least recently verified
+completed item. Ageing was derived two independent ways: per-item dated pass
+notes in AGENT_WORKLIST.md, and the newest pass mention of each of the 43
+completed items in AGENT_LOG.md by line depth. Both agree the 2026-08-29 runs
+cleared everything older than 2026-08-14 except item 3.1, whose newest pass
+mention (run 178, 2026-08-14 00:34 BST) sits deeper in the log than any other
+completed item's. 3.1 taken.
+
+THE DEFECT FOUND ON THIS PASS, one notch along the run-178 axis
+Run 178 established that the town and brand a page carries must be asserted
+against branches.json directly, not against seo-pattern pick()'s own answer,
+because pick() feeds both the composers and the checks - circular. The rule it
+added covers pick().town and pick().brand. pick() returns THREE values. The
+third, region, is the landing-title qualifier ("Pharmacy in Eccleston,
+Chorley - Fishlocks Chemist"), contracted in pick()'s own comment and
+CLAUDE.md as seoRegion where set, else addressRegion. seoRegion exists for
+exactly one reason: where the borough beats the county as the local search
+word (Eccleston, Chorley vs Eccleston, St Helens). Nothing asserted that
+source. Every rule that reads the landing title compares it with
+landingTitle(), and landingTitle() takes its region from the same pick().
+
+PROVED BY INJECTION, TWICE
+1. pick() region precedence swapped to addressRegion-first. Rebuilt: the
+   Fishlocks Eccleston landing page title, SEO.md paste sheet and INDEX.md all
+   became "Pharmacy in Eccleston, Lancashire - Fishlocks Chemist", the
+   deliberate borough word gone. Self-test exit 0, all 36 checkers exit 0.
+2. pick() region read from addressLocality. Rebuilt: all six branch landing
+   pages changed. Ainsdale, Eccleston, Bramhall and Hazel Grove lost the
+   qualifier outright (addressLocality equals seoTown there, so the tag
+   suppresses); both McCanns pages gained ", Liverpool", the postal city -
+   the wrong-catchment word Build Pack v2 section 5.1 warns about. Self-test
+   exit 0, all 36 checkers exit 0.
+Both injections were reverted with git checkout and the worktree confirmed
+clean before the fix was written.
+
+THE FIX, in tools/check-seo-pattern.js only
+The data-source rule now asserts the third leg: for every buildable branch,
+pat.pick(b).region must equal (b.seoRegion || b.addressRegion || ""), read
+from branches.json directly. A vacuity guard on the established convention:
+at least one live branch must carry a seoRegion differing from its
+addressRegion (Fishlocks Eccleston today), because with none the precedence
+half of the comparison cannot tell seoRegion-first from addressRegion-first
+and would pass either. The summary line now reports both differing counts.
+No page, no generator, no data field, no pattern function and no piece of
+patient-facing copy was changed.
+
+NEGATIVE TESTED FOUR WAYS, all correct
+- Injection 1 re-run under the new rule: FAIL naming fishlocks_eccleston
+  ('Lancashire' vs 'Chorley'), plus the un-regenerated page mismatching as
+  collateral. Exit 1.
+- Injection 2 re-run under the new rule: FAIL on all 15 branches by name.
+  Exit 1.
+- seoRegion temporarily removed from fishlocks_eccleston in branches.json:
+  the vacuity guard fails the run rather than letting the leg go vacuous.
+  Exit 1. branches.json restored from git and confirmed untouched.
+- Restored state: self-test 0 warnings, all 36 checkers exit 0, all six
+  generators rebuild all 177 pages to a zero diff.
+
+RESIDUAL, stated plainly
+The rule checks pick(), where all nine composers take their region. A composer
+that inlined its own region read would not be caught here; for the town leg
+the self-test covers that half, but no self-test row asserts the region
+qualifier's presence in a landing title, so that corner rests on the exact
+match recomputing from the live pattern - a drift there surfaces only when
+seo-pattern.js next changes. Same shape as the run-178 residual, recorded not
+hidden. The run-178 residual (build-switch-pages.js CONFIG literals) is
+unchanged and still not a live defect.
+
+LIVE HALF
+One page fetched read-only via the browser:
+https://www.cherrylanepharmacy.co.uk/contraception-cherry-lane-walton.html
+serves title "NHS contraception service in Walton - Cherry Lane Pharmacy" and
+one h1 "NHS contraception service in Walton", both matching the pattern
+functions verbatim, exactly one h1 on the page. Nothing clicked, typed or
+submitted. Landing pages (the family the region leg guards) are still not
+live - the Q35 paste remains outstanding - so the live half of the region
+question cannot be read yet; it will be readable after the 5.3/5.4 paste run.
+
+ANSWER PICKUP
+Portal fetch read cleanly: 13 entries, identical to the 2026-08-29 23:43
+pickup, all mapping to already answered questions (Q2-Q5, Q13-Q17). Nothing
+for any of the 56 open questions. No autonomous window is present in
+AGENT_LOG.md, so no autonomous decision was available or taken.
+
+FILES CHANGED
+tools/check-seo-pattern.js (region leg, vacuity guard, summary line),
+AGENT_WORKLIST.md (3.1 pass note appended in place), AGENT_LOG.md (this run's
+entry), audits/seo-pattern-check-2026-08-30.txt (this file).

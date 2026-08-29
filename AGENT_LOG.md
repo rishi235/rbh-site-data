@@ -2,6 +2,83 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 00:12 BST - Quality pass on 3.1, the canonical title/H1 pattern, fifth pass: the data-source rule gains its third leg, region, after two injections proved the landing-title qualifier could drift with every checker green
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Ageing
+was derived two independent ways (worklist pass-note dates, and newest log
+mention by line depth per completed item); both agree the 2026-08-29 runs
+cleared everything older except 3.1, whose newest pass is run 178,
+2026-08-14 00:34 BST. 3.1 taken.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same 13
+JSON entries as the 2026-08-29 23:43 pickup, read through one browser tab,
+opened and closed, nothing clicked, typed or submitted. Every entry maps to
+an already answered question (Q2-Q5, Q13-Q17). No entry answers any of the
+56 open questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. Self-test 0
+warnings, all 36 checkers exit 0, all six generators rebuilt to a zero diff
+before any inspection.
+
+THE DEFECT, ONE NOTCH ALONG THE RUN-178 AXIS. Run 178 taught this item that
+a town or brand must be asserted against branches.json directly rather than
+against pick()'s own answer, and bounded the rule at two of the three values
+pick() returns. The third, region, is the landing-title qualifier:
+"Pharmacy in Eccleston, Chorley - Fishlocks Chemist". Its contract is
+seoRegion where set, else addressRegion, and seoRegion exists precisely for
+the case where the borough beats the county as the local search word.
+Nothing asserted that source: every rule reading a landing title compares it
+with landingTitle(), which takes its region from the same pick().
+
+PROVED BY INJECTION, TWICE. Precedence swapped to addressRegion-first: the
+Eccleston landing page, its SEO.md paste sheet and INDEX.md all rebuilt to
+"Pharmacy in Eccleston, Lancashire", the deliberate borough word gone,
+self-test and all 36 checkers green. Region read from addressLocality: all
+six landing pages changed, four losing the qualifier outright and both
+McCanns pages gaining ", Liverpool" - the postal city, the exact
+wrong-catchment word Build Pack v2 section 5.1 warns about - again with
+everything green. Both times page and expectation moved together. Both
+injections reverted via git checkout, worktree confirmed clean before the
+fix.
+
+THE FIX, IN ONE FILE. tools/check-seo-pattern.js data-source rule now
+asserts pat.pick(b).region equals (b.seoRegion || b.addressRegion || "")
+from branches.json directly, with a vacuity guard requiring at least one
+live branch to carry a seoRegion differing from its addressRegion (Fishlocks
+Eccleston today), so an estate that stopped exercising the precedence fails
+rather than reducing the leg to a check of nothing. Summary line reports
+both differing counts. No page, no generator, no data field, no pattern
+function and no patient-facing copy changed.
+
+NEGATIVE TESTED FOUR WAYS, ALL CORRECT: both injections re-run under the new
+rule fail by branch name (exit 1); seoRegion temporarily removed from
+fishlocks_eccleston trips the vacuity guard (exit 1, branches.json restored,
+git confirms untouched); restored state runs the whole estate green with a
+zero-diff rebuild.
+
+LIVE HALF. One page fetched read-only: the Cherry Lane contraception page
+serves the pattern title and H1 verbatim with exactly one h1. The landing
+family the region leg guards is still not live (Q35 paste outstanding), so
+the live half of the region question becomes readable only after the 5.3/5.4
+paste run.
+
+RESIDUAL, stated plainly: no self-test row asserts the region qualifier's
+presence in a landing title, so a composer-side region drift (as opposed to
+a pick()-side one) is caught late by the exact match when seo-pattern.js
+next changes, not by name at the moment it lands. Same shape as the run-178
+residual. The run-178 residual (build-switch-pages.js CONFIG literals) is
+unchanged and still not a live defect.
+
+NO new question. FILES CHANGED: tools/check-seo-pattern.js,
+AGENT_WORKLIST.md (3.1 pass note in place), AGENT_LOG.md (this entry),
+audits/seo-pattern-check-2026-08-30.txt (new).
+
 ## 2026-08-29 23:43 BST (eighth run today) [commit 3037096, hash line added by a small follow-up commit] - Quality pass on 1.4, the NAP check, fifth pass: two shape gaps proved by injection and closed, live half done for the first time since 2026-08-12
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
