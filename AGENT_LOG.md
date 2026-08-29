@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-29 22:35 BST (fifth run today) - Quality pass on 4.2 (Cherry Lane GBP pack), seventh pass, pack clean; the run-176 catchment lead-in residue is closed [commit hash recorded in the follow-up commit]
+## 2026-08-29 22:35 BST (fifth run today) - Quality pass on 4.2 (Cherry Lane GBP pack), seventh pass, pack clean; the run-176 catchment lead-in residue is closed [commit 785b353, hash line added by a small follow-up commit]
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. With
@@ -19834,7 +19834,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -20208,7 +20208,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -21856,7 +21856,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 
