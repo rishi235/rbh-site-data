@@ -2,6 +2,56 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 21:08 BST (third run today) - Quality pass on 2.1 (Fishlocks Ainsdale), fourth pass, clean; one live-state update logged
+
+Unattended run. All unchecked worklist items remain [BLOCKED] (5.3, 5.4,
+5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Item 2.1
+held the oldest standing verification (run 90, 2026-08-12 00:11), after
+the two earlier runs today refreshed 2.3, 2.2, 4.15 and 4.11.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(13 entries). Every entry maps to an already-answered question (newest
+pair are the two Q17 entries of 2026-08-28, applied by this morning's
+run). No entry answers any of the 56 open questions. One tab opened and
+closed, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+REPO HALF, ALL HOLDING. All six generators rebuilt to a zero git diff
+before any edit; all 36 checkers pass. The branch owns exactly its 13
+pages. Field checks against branches.json all pass: Ainsdale in every
+H1, 01704 575478 as text and as tel: link on every page, no other
+branch's postcode anywhere in the set, Ainsdale@rbhealth.co.uk present.
+Non-ASCII sweep with forced UTF-8 decoding: the only non-ASCII characters
+in the whole set are the legitimate pound sign in the weight loss booking
+sub-line (run 90's known state) and the U+2014 dashes inside the HTML
+build comments, which check-em-dashes.js excludes by design (its header,
+lines 12-13 and 168-169, scopes the rule to visible copy; 174 pages
+estate-wide carry comment dashes, all invisible to visitors). No defect,
+no copy changed, nothing to fix in-repo.
+
+LIVE HALF, READ-ONLY GETs. 12 of 13 pages return 200 with correct phone
+and town. pharmacy-fishlocks-ainsdale.html still 404s awaiting the Q35
+paste. The old shared page weight-loss-services-eccleston-ainsdale.html
+still returns 200 and still names Mounjaro, Wegovy and Orlistat - the
+exact state Q57 raised and 5.8 (blocked on Q16/Q58) exists to resolve;
+known, not re-raised, not touched.
+
+ONE LIVE-STATE UPDATE, NO NEW QUESTION. The Fishlocks sitemap lastmod
+now reads 2026-08-14T17:32:10, where run 90 saw 2026-07-18. So a Weebly
+publish DID go out on 2026-08-14, but the Q35 branch landing page paste
+was not part of it (the page still 404s). This sharpens Q35 rather than
+duplicating it: whoever next runs a Fishlocks paste session has had a
+publish opportunity since Q35 was raised and the landing page remains
+the gap. Logged here; Q35 left open as-is.
+
+Files changed: AGENT_LOG.md only. No question raised, none answered.
+Open questions 56 before, 56 after.
+
 ## 2026-08-29 (second run) - Q17 answer picked up and applied: contraception joins the no-fallback bar [commit 0582008]
 
 Unattended run. ANSWER PICKUP WORKED for the first time since Q59 was
