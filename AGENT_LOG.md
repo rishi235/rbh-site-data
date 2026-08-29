@@ -2,6 +2,43 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Item 6.8 in progress: plain-English decision lines, ten more done
+Scheduled run (evening). Took the first unchecked non-blocked item, 6.8:
+retrofit each open question in QUESTIONS.json with one plain-English
+"Decision needed:" opening sentence stating the choice and the
+recommendation, per the rule Rishi set on 2026-08-28, with all existing
+technical detail, options and notes preserved untouched after it.
+
+Done this run, each read in full (question, options, note) before the
+sentence was written: Q20 (travel clinic contact routes), Q21 (WhatsApp
+number source of truth), Q22 (weight loss fix ordering), Q28 (Clear
+Aintree phone conflict), Q29 (Clear pages publication route), Q34 (5.3
+split), Q35 (six 404 landing pages), Q36 (Cherry Lane footer mailbox),
+Q37 (Fishlocks Weebly furniture), Q38 (opening hours JSON-LD). The
+rewrite was applied by script with a byte-preservation guard: every
+prefixed entry proven to still end with its original text verbatim, all
+other fields and all 71 other entries proven unchanged, and the git diff
+is exactly 10 modified lines in QUESTIONS.json. All 36 checkers pass.
+
+Running total: 14 of 56 open questions now carry the opening (four
+retrofitted 2026-08-28, ten this run; Q80 and Q81 were written that way
+from new). 40 remain; next run continues from Q39. Item 6.8 left
+unticked as its own text instructs until all are done.
+
+ANSWER PICKUP UNAVAILABLE THIS RUN: the portal fetch could not be
+attempted because two Chrome browsers are connected to the extension and
+an unattended run cannot make the interactive browser selection the
+tooling now requires. This is a new failure shape on top of Q59 (nine
+consecutive Cloudflare Access failures): even with Chrome signed in, the
+pickup will not work while two browsers are paired. Worth adding to the
+Q59 decision: unpairing the stale browser from the Claude extension
+would remove this blocker without any code change. No other route was
+tried, per the rules.
+
+Files changed: QUESTIONS.json (10 question fields prefixed),
+AGENT_WORKLIST.md (6.8 progress note), this log. No page, generator or
+data field changed. No new questions raised.
+
 ## 2026-08-29 - Item 6.7 done: bank holiday awareness in the hours checkers
 Second commit of the same scheduled run as the recovery entry below.
 

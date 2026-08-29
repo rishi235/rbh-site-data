@@ -4266,6 +4266,11 @@ so tools/build-audit-status.js picks them up like any other item.
       soften or drop any existing technical detail, option or note. This is
       a rewrite of the opening sentence only. One run is unlikely to clear
       all 51; note here how many are done and keep going next run.
+      Progress 2026-08-29: ten more retrofitted this run with a plain-English
+      opening sentence and recommendation, originals preserved in full: Q20,
+      Q21, Q22, Q28, Q29, Q34, Q35, Q36, Q37 and Q38. With the four done
+      2026-08-28 (Q17, Q18, Q19, Q24) and Q80/Q81 written that way from new,
+      40 open questions remain to retrofit. Keep going next run from Q39.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
