@@ -84,8 +84,11 @@
       branch declares it holds the registration that vaccine requires. No
       branch declares it either way today, so the rule is pinned in KNOWN
       against the question it is waiting on rather than filled in by an agent.
-    - a stale KNOWN key fails, the same convention as KNOWN_DRIFT in
-      check-cdn-pins.js, so an accepted breach cannot outlive its reason.
+    - RULE 12, outcomes: no page promises protection or immunity as a result
+      of the consultation or a vaccine. Guarantee wording, percentage claims
+      and assured-protection phrasing all fail; questions are exempt, the same
+      convention as RULE 6.
+    - a stale KNOWN key fails, the same convention as KNOWN_DRIFT in      check-cdn-pins.js, so an accepted breach cannot outlive its reason.
 
   Clinical wording is not this checker's to decide. It pins what the
   superintendent pharmacist signed off and fails when it moves.
@@ -425,6 +428,37 @@ pages.forEach(function (p) {
       "That phrase is what makes the vaccine grid a list of what the branch can " +
       "talk about rather than a list of what is on the shelf today.");
   }
+});
+
+// ---------------------------------------------------------------------------
+// RULE 12, no outcome promises. A travel vaccine reduces risk; nothing on a
+// page may promise protection or immunity as a result. Found by the 4.15
+// quality pass of 2026-08-29: the sentence "We guarantee full protection for
+// every destination." walked past every checker, because RULE 6 reads only
+// stock wording. Sited here beside RULE 6 because the two share the question
+// exemption: a question is not a promise.
+// ---------------------------------------------------------------------------
+var OUTCOME_PROMISE = [
+  [/guarantee[a-z]*/i, "uses guarantee wording"],
+  [/100\s*%/, "promises a percentage"],
+  [/\bassured?\s+(?:of\s+)?(?:full\s+)?(?:protection|immunity)/i, "promises assured protection"],
+  [/(?:fully|completely|totally)\s+(?:protected|immune)\b/i, "promises full protection"],
+  [/lifelong\s+(?:protection|immunity)/i, "promises lifelong protection"],
+  [/will\s+protect\s+you/i, "promises protection as an outcome"]
+];
+
+pages.forEach(function (p) {
+  var name = rel(p.file);
+  var text = plain(p.raw);
+  OUTCOME_PROMISE.forEach(function (r) {
+    var hit = r[0].exec(text);
+    if (!hit) return;
+    if (/\?$/.test((sentences(text).filter(function (s) { return s.indexOf(hit[0]) !== -1; })[0] || ""))) return;
+    fail("outcome", name + "|" + r[1], name + " " + r[1] + ' ("' + hit[0].trim() +
+      '"). No vaccine or consultation may be described as guaranteeing ' +
+      "protection or immunity; the copy may only say what the service is and " +
+      "that suitability is decided at the consultation.");
+  });
 });
 
 // ---------------------------------------------------------------------------

@@ -3033,6 +3033,26 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       for the next passes: an H1 town word moved off the seoTown, and a
       guarantee added to the travel clinic page. No question raised. Evidence
       in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-13.txt.
+      Quality pass 2026-08-29 (fifth re-verification, repo half only): pack
+      verified clean again, byte-identical with the fourth pass, MD5
+      E6AD155DFDE54A89BAC51AD5A355063A, 144 lines. Every fact re-matched
+      against branches.json: name, address, phone, split weekday hours with
+      the lunch closure in all three places, website, review link, catchment
+      membership and order leading with seoTown, hasApp false, Post A
+      mirroring pfLink. Description 650 characters as claimed, pure ASCII, no
+      dashes, no medicine names, Post C and D qualifiers present, all three
+      Post B/C/D targets exist as generated pages. check-gbp-packs 0 failures.
+      Live half NOT performed: two Chrome extensions connected, an unattended
+      run cannot choose between them (Q59); live state stands on 2026-08-11.
+      The two carried verifier gaps were re-tested. The H1-off-seoTown gap is
+      CLOSED: check-seo-pattern now fails the mutation precisely. The travel
+      clinic guarantee gap was STILL OPEN and is now closed: RULE 12 (outcome
+      promises) added to check-travel-clinic-copy.js, promise-framed patterns
+      only after a first draft tripped on the legitimate "take time to give
+      full protection" FAQ line, negative-tested six ways (five must-fail,
+      one must-pass question exemption). All 36 checkers exit 0; no page,
+      pack or generator output changed. Evidence in
+      audits/tiffenbergs-aintree-gbp-pack-check-2026-08-29.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

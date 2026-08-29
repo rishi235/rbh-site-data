@@ -2,6 +2,56 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Quality pass on 4.15 (Tiffenbergs Aintree GBP pack), guarantee verifier gap closed
+
+Unattended run. All worklist items done or [BLOCKED], so a quality pass:
+item 4.15 taken as least recently verified (fourth pass 2026-08-13, tied
+cohort, fewest passes). Fifth re-verification, repo half only.
+
+Pack clean: byte-identical with the fourth pass (MD5
+E6AD155DFDE54A89BAC51AD5A355063A, unchanged in git since a28ef44). Every
+fact re-matched against branches.json: name, address, phone, split
+weekday hours with the lunch closure in all three places, website,
+review link, pfLink behind Post A, catchment membership and order,
+hasApp false. Description 650 characters as its heading claims, pure
+ASCII, no dashes, no medicine names, Post C and D private-clinic
+qualifiers present, all three Post B/C/D link targets exist as generated
+pages. check-gbp-packs 0 failures.
+
+The two verifier gaps carried since the 2026-08-13 pass were re-tested
+by mutation. The H1-off-seoTown gap is CLOSED: check-seo-pattern.js now
+fails an Aintree-to-Fazakerley H1 swap with two precise failures. The
+travel clinic guarantee gap was STILL OPEN: "We guarantee full
+protection for every destination." in visible copy walked past all 36
+checkers, because RULE 6 reads only stock wording. Fixed this run:
+RULE 12 (outcome promises) added to check-travel-clinic-copy.js.
+Guarantee wording, percentage claims, assured or lifelong protection and
+"will protect you" now fail; questions exempt, the RULE 6 convention. A
+first draft flagging bare "full protection" was rejected during the run:
+the generator's own book-ahead FAQ legitimately says some vaccines "take
+time to give full protection" on all 15 pages, so the shipped patterns
+are promise-framed only. Negative-tested six ways, five must-fail and
+one must-pass, all correct. This is a checker-only change: no page,
+pack or generator output moved. All 36 checkers exit 0.
+
+Files changed: tools/check-travel-clinic-copy.js, AGENT_WORKLIST.md
+(4.15 note), audits/tiffenbergs-aintree-gbp-pack-check-2026-08-29.txt
+(new), AGENT_LOG.md.
+
+ANSWER PICKUP UNAVAILABLE: two Chrome extensions are connected to the
+account and the browser tooling requires a human choice between them
+before any tab can be read, which an unattended run cannot give. This is
+the exact condition Q59 describes and Q59 remains open. 57 questions
+are open; no answers were collected. No other route attempted, per the
+task rules.
+
+NO AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window"
+section is present at the top of this log, so no autonomous decisions
+were taken. The RULE 12 addition is not a question decision: it enforces
+the superintendent pharmacist's existing standing instruction already
+quoted in the generator header, and changes no patient-facing copy.
+
+No new questions raised.
 ## 2026-08-29 - Quality passes on 2.3 (Cherry Lane) and 2.2 (Fishlocks split), Q82 raised
 
 Same extended interactive session as the 6.8 completion below, continuing

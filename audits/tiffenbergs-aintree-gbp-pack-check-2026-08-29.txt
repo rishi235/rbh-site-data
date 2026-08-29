@@ -1,0 +1,70 @@
+Item 4.15 quality pass - Tiffenbergs Chemist Aintree GBP pack
+Date: 2026-08-29 (fifth re-verification, repo half only)
+Run: unattended audit-backlog worker
+
+PACK STATE
+- gbp-packs/tiffenbergs-aintree.md unchanged in git since 2026-08-11
+  (commit a28ef44), MD5 E6AD155DFDE54A89BAC51AD5A355063A, 144 lines,
+  byte-identical with the 2026-08-13 pass.
+
+FACT CHECKS (all against branches.json, tiffenbergs_longmoor)
+- Name on GBP: Tiffenbergs Chemist - matches branchName. PASS
+- Address: 388 Longmoor Lane, Liverpool L9 9DB - matches streetAddress,
+  addressLocality, postalCode. PASS
+- Phone: 0151 525 3462 - matches. PASS
+- Hours: Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, lunch
+  closure stated, Saturday and Sunday closed - matches the two-session
+  specification and closedDays. Lunch closure carried in the description
+  prose and the photo shot list, both consistent. PASS
+- Website and review link - match website and googleReviewUrl. PASS
+- Post A link matches pfLink exactly (extensionless Weebly permalink,
+  known checker WARN, tested live on 2026-08-11 and correct). PASS
+- Catchment: Aintree, Fazakerley, Liverpool - matches serviceAreaList,
+  membership and order, leading with seoTown. PASS
+- hasApp false and no app mention anywhere. PASS
+
+MECHANICAL CHECKS
+- Business description 650 characters, exactly what its heading claims.
+- No em or en dashes, no mojibake, no emojis; file pure ASCII.
+- No medicine names (POM sweep: mounjaro, wegovy, ozempic, saxenda,
+  orlistat, semaglutide, tirzepatide, liraglutide - zero hits).
+- Post C carries all the private-clinic qualifiers (private, paid, not
+  right for everyone, pharmacist will advise, supervised plan) and
+  Post D the availability and clinical suitability hedge.
+- Post B, C and D URL targets exist as generated pages in the repo:
+  modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html,
+  modules/service/pages/weight-loss-clinic-tiffenbergs-aintree.html,
+  modules/service/pages/travel-clinic-tiffenbergs-aintree.html.
+- check-gbp-packs.js: 0 failures; the single Tiffenbergs WARN is the
+  known extensionless pfLink shape.
+
+LIVE HALF NOT PERFORMED
+Two Chrome extensions are connected and the browser tooling requires a
+human choice between them, which an unattended run cannot give (known
+issue, Q59). No page was fetched. The live state stands on the
+2026-08-11 pass.
+
+CARRIED VERIFIER GAPS RE-TESTED
+1. H1 town moved off seoTown: CLOSED. Mutating the travel clinic H1
+   from Aintree to Fazakerley now fails check-seo-pattern.js with two
+   precise failures (pattern mismatch and missing seoTown). No change
+   needed.
+2. Guarantee added to the travel clinic page: WAS STILL OPEN, NOW
+   CLOSED. The sentence "We guarantee full protection for every
+   destination." inserted into visible copy walked past all 36 checkers,
+   because RULE 6 of check-travel-clinic-copy.js reads only stock
+   wording. Fixed this run: RULE 12 (outcome promises) added to
+   check-travel-clinic-copy.js - guarantee wording, percentage claims,
+   assured or lifelong protection and "will protect you" all fail;
+   questions are exempt, the RULE 6 convention. A first draft that
+   flagged bare "full protection" was rejected during this run because
+   the generator's own book-ahead FAQ legitimately says some vaccines
+   "take time to give full protection" on all 15 pages; the shipped
+   patterns are promise-framed only. Negative-tested six ways: five
+   must-fail insertions (guarantee, 100%, fully protected, lifelong
+   immunity, assured of protection) all fail the run; one must-pass
+   (question form) passes. Unmutated pages pass. Full suite of 36
+   checkers exits 0 after the change.
+
+NO NEW QUESTIONS. No patient-facing copy, page, pack or generator
+output changed; the only file modified is tools/check-travel-clinic-copy.js.
