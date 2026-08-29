@@ -1,0 +1,74 @@
+Road-name rule - item 4.3 quality pass - 2026-08-30
+
+Baseline before any change: 36 checkers exit 0, six generators rebuild to a
+zero diff, worktree clean at commit 43a0851.
+
+Injection harness: C:\Users\Admin\AppData\Local\Temp\rbh-harness (outside the
+repo, per the run 209 correction), each injection applied to the named pack,
+ALL 36 checkers run recording every failing checker, file restored afterwards
+and the worktree confirmed clean by git status.
+
+Probes on gbp-packs/hirshmans-ainsdale.md before the fix:
+  INJ1 review link token corrupted one character      -> caught (check-gbp-packs)
+  INJ2 website line pointed at a non-existent domain  -> caught (check-gbp-packs)
+  INJ3 Post D button host swapped to a sister domain  -> caught (check-gbp-packs)
+  INJ4 NHS contraception service line deleted         -> caught (check-gbp-packs)
+  INJ5 photo shot list "Station Road" -> "Shakespeare Road"
+                                                      -> PASSED ALL 36 SILENTLY
+  INJ6 Post B "a local team on Station Road" -> "Shakespeare Road"
+                                                      -> PASSED ALL 36 SILENTLY
+  INJ7 Post B catchment "Birkdale" -> "Formby" (control)
+                                                      -> caught (check-gbp-packs)
+
+The defect: the road NAME in published pack prose was read by nothing. Towns
+have a membership rule (item 4.8 pass), house numbers on the branch's own
+road are proved (item 4.6 pass), the address line in the profile basics is
+checked fact by fact, but a wrong road in a post body or the shot list walked
+past everything. A road is the navigational fact a patient walks down, and
+the shot list is what the photographer navigates by.
+
+The fix: new road-name rule in tools/check-gbp-packs.js. Scope: business
+description, services section, post bodies, photo shot list (preamble and
+paster notes stay out of scope so the Hirshmans HARD STOP can keep quoting
+the wrong address it warns about). A road phrase must resolve, via
+word-bounded tails so a sentence-start capture like "Serving Hazel Grove"
+reads as the place it names, to one of: this branch's own streetAddress
+road; a place the branch owns (seoTown, addressLocality, addressRegion,
+serviceAreaList - which is what lets "Lark Lane" and "Mossley Hill" stand in
+the McCanns packs); a live brandLabel or branchName (the Cherry Lane
+cross-references); or a sister branch's road in a sentence that names that
+sister's brandLabel. Everything derived from branches.json, nothing
+whitelisted. KNOWN_ROAD exception map with the standard stale-key sweep, and
+a vacuity guard: 14 of the 15 real packs carry a road phrase in the scanned
+blocks today (verified by independent count; coleman-leigh-walton names no
+road anywhere), so fewer than 10 fails the run.
+
+Negative tests after the fix, all correct:
+  NT1 INJ6 re-run                                     -> exit 1, road rule, by name
+  NT2 INJ5 re-run                                     -> exit 1, road rule, by name
+  NT3 sister road ungoverned (Fernhill Road in SK's services section)
+                                                      -> exit 1, road rule, names Smartts
+  NT4 sister road governed ("Our sister branch Smartts Chemist on Fernhill
+      Road...") -> road rule passes it; the run still exits 1 on the
+      PRE-EXISTING sister-brand rule because SK has no same-brand sister,
+      which is that rule doing its own job, not a road-rule fault
+  NT5 ROAD_WORDS mangled to test vacuity              -> exit 1, vacuity guard fires
+      (checker restored byte-identical, sha256 compared)
+
+Post-fix state: all 36 checkers exit 0 on the real estate, all six
+generators rebuild to a zero diff, only tools/check-gbp-packs.js changed
+(152 lines added, nothing removed).
+
+Live half, read-only, 2026-08-30: the Post C button target
+weight-loss-clinic-hirshmans-ainsdale.html, the Post D button target
+travel-clinic-hirshmans-ainsdale.html and the generated Pharmacy First
+replacement pharmacy-first-hirshmans-ainsdale.html all load on
+hirshmanspharmacy.co.uk with the correct name, address (56-62 Sherwood
+House, Station Road), phone (01704 577376), postcode and footer hours, the
+PF page carries the seven conditions with the NHS age ranges including
+earache 1 to 17, and the weight loss page is the qualified Regime 2 copy
+with no medicine names and no Buy Now. Known open findings seen and left
+with their questions: the two side-by-side footer emails (Q41), the Yellow
+fever card leading the travel list (Q48), the from 39.99 fee placement
+(Q51), and stray em dash and mojibake characters on the live pastes that
+exist in no repo source (the known repaste backlog).

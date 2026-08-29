@@ -1709,6 +1709,32 @@ Pharmacy First wording to the NHS service description.
       read, deliberately, because catching them needs register rather than a
       list and would cry wolf on "shot". Audit:
       audits/uk-spelling-item-4.3-quality-pass-2026-08-14-run180.txt
+      Quality pass 2026-08-30 (fifth pass, repo and live): the pack is
+      clean on every fact again. Description 743 characters as its heading
+      claims, posts 448, 408, 402 and 317 against the 1,500 limit, and
+      name, street, locality, postcode, phone, hours, website and review
+      link all matching branches.json. Post A's HARD STOP still stands and
+      is item 5.3 / Q8/Q34, not a defect here. Live half read-only: the
+      Post C and Post D button targets and the generated Pharmacy First
+      replacement all load on hirshmanspharmacy.co.uk with the right
+      address, phone and NHS age ranges, so the HARD STOP note's claim
+      about the replacement page being live and correct is true. One
+      defect found, in the verifier and not the pack: the road name in
+      published prose was read by nothing. "A local team on Station Road"
+      changed to "Shakespeare Road" in Post B passed all 36 checkers in
+      silence, and the same wrong road in the photo shot list also passed.
+      Towns, house numbers and the address line were each guarded; the
+      road name was not, and the road is the navigational fact a patient
+      walks down. New road-name rule in check-gbp-packs.js: every road
+      phrase in the description, services section, post bodies and photo
+      shot list must resolve to this branch's own street, a place the
+      branch owns in branches.json, a live brand name, or a sister's road
+      in a sentence naming that sister, everything derived from
+      branches.json, with a KNOWN_ROAD exception map and a vacuity guard
+      (14 of 15 packs carry a road phrase today). Negative-tested five
+      ways, all correct. All 36 checkers exit 0 and all six generators
+      rebuild byte-identical. Audit:
+      audits/road-rule-item-4.3-quality-pass-2026-08-30.txt
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

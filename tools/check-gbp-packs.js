@@ -436,6 +436,18 @@ const seenHoursDaysKnown = {};
 // matches a real breach fails the run.
 const KNOWN_FOREIGN_TOWN = {};
 const seenForeignTownKnown = {};
+
+// Accepted exceptions to the road-name rule, keyed "<branch id>::road". Use
+// one only where a pack deliberately names a road that is not this branch's
+// own and not a governed sister reference, with the question that allowed it.
+// Same anti-rot convention as every KNOWN map here: a stale key fails.
+const KNOWN_ROAD = {};
+const seenRoadKnown = {};
+// How many packs carried at least one road phrase in the scanned blocks on
+// this run. Read by the vacuity guard after the pack loop: if the extraction
+// ever stops seeing roads the estate demonstrably writes, the rule has been
+// retired silently and that is a failure, not a clean run.
+let roadMentionPacks = 0;
 const KNOWN_LOCATION_TOWN = {};
 const seenLocationTownKnown = {};
 // "<branch id>::publishedPhone". Use one only where a pack deliberately
@@ -2804,6 +2816,133 @@ for (const file of packFiles) {
     seenForeignTownKnown[`${b.id}::foreignTown`] = false;
   }
 
+  // --- the ROAD a pack names, not just the town ----------------------------
+  // Found on the item 4.3 quality pass, 2026-08-30, by injection into
+  // gbp-packs/hirshmans-ainsdale.md. Post B closes "a local team on Station
+  // Road you can actually speak to". Changed to "a local team on Shakespeare
+  // Road", a road no branch is on, and all 36 checkers passed in silence. The
+  // same wrong road written into the photo shot list also passed. Towns have
+  // had a membership rule since the item 4.8 pass (2026-08-13), house numbers
+  // on the branch's own road since the item 4.6 pass, and the address line in
+  // the profile basics is proved against branches.json fact by fact - but the
+  // road NAME in published prose was read by nothing, and the road is the
+  // navigational fact a patient actually walks down. Same fault family as the
+  // item 4.10 pass ("a misspelled road name ... published a wrong map pin"),
+  // one surface over.
+  //
+  // What counts as a road phrase: a capitalised run ending in a road word.
+  // What is allowed, all derived from branches.json rather than whitelisted:
+  //   - a road in this branch's own streetAddress ("Station Road");
+  //   - a place this branch already owns: seoTown, addressLocality,
+  //     addressRegion or a serviceAreaList entry. "Lark Lane" and "Mossley
+  //     Hill" are catchment entries that end in road words, "Hazel Grove" is
+  //     a town, and the tail comparison below is what lets a sentence-start
+  //     capture like "Serving Hazel Grove" resolve to the place it names;
+  //   - a phrase inside any live branch's brandLabel or branchName, so a
+  //     reference to the Cherry Lane brand is not read as a road. A brand
+  //     named AS A PLACE is already the branch-word rule's job, not this one;
+  //   - another live branch's own road, only in a sentence that also names
+  //     that branch's brandLabel. That is the governed-sister shape the
+  //     foreign-town rule exempts. The estate's two real cross-references
+  //     (the two Bootle paster notes) sit outside the scanned blocks, so the
+  //     path is unexercised today and is negative-tested instead. A sister's
+  //     road in a sentence that does not name the sister is a leak, the same
+  //     family the sister phone, postcode and house-number rules exist for.
+  // Anything else fails: a road branches.json has never heard of is exactly
+  // what the injection wrote.
+  //
+  // Scope: the three published blocks every published-copy rule reads (the
+  // business description, the services section, the post bodies) plus the
+  // photo shot list. The shot list is instructions, but it is the instruction
+  // a photographer navigates by, and the photographs land on the same public
+  // profile as the posts - the body-image scan reads the shot list on the
+  // same reasoning. The preamble and the paster notes stay out of scope: the
+  // Hirshmans hard stop must stay free to quote the wrong address on the old
+  // hand-built page in order to warn about it.
+  {
+    const ROAD_WORDS = "(?:Road|Street|Lane|Avenue|Drive|Close|Crescent|Grove|Place|Court|Parade|Terrace|Row|Walk|Gardens|Boulevard|Hill|Gate|Green|Brow|Square|Way)";
+    const roadPhrasesIn = (s) => {
+      const flat = String(s || "").replace(/\s+/g, " ");
+      const re = new RegExp("\\b([A-Z][a-z]+(?: [A-Z][a-z]+)*) " + ROAD_WORDS + "\\b", "g");
+      const phrases = [];
+      let m;
+      while ((m = re.exec(flat)) !== null) phrases.push(m[0]);
+      return { flat, phrases };
+    };
+    // Word-bounded tails of a candidate, at least two words, so an
+    // over-capture keeps the phrase it actually names.
+    const tailsOf = (phrase) => {
+      const w = phrase.split(" ");
+      const tails = [];
+      for (let k = 0; k <= w.length - 2; k++) tails.push(w.slice(k).join(" ").toLowerCase());
+      return tails;
+    };
+    const ownRoads = new Set(roadPhrasesIn(b.streetAddress).phrases.map((p) => p.toLowerCase()));
+    const ownPlaces = new Set(
+      [b.seoTown, b.addressLocality, b.addressRegion, ...(b.serviceAreaList || [])]
+        .filter(Boolean).map((s) => String(s).toLowerCase())
+    );
+    const liveLabels = [];
+    for (const o of branches) {
+      if (o.disposed) continue;
+      for (const lbl of [o.brandLabel, o.branchName]) if (lbl) liveLabels.push(String(lbl).toLowerCase());
+    }
+    const sisterRoads = new Map();
+    for (const o of branches) {
+      if (o.disposed || o.id === b.id) continue;
+      for (const p of roadPhrasesIn(o.streetAddress).phrases) {
+        const low = p.toLowerCase();
+        if (ownRoads.has(low)) continue;
+        if (!sisterRoads.has(low)) sisterRoads.set(low, []);
+        sisterRoads.get(low).push(o);
+      }
+    }
+    const photoForRoad = (text.match(/^##\s*4\.\s*Photo shot list[^\n]*\n([\s\S]*?)(?=^##\s)/m) || [])[1] || "";
+    const roadScopes = [];
+    if (descForTown) roadScopes.push(["business description", descForTown]);
+    if (servicesForTown) roadScopes.push(["services section", servicesForTown]);
+    for (const p of postsOf(text)) roadScopes.push([p.label, p.body]);
+    roadScopes.push(["photo shot list", photoForRoad]);
+    const roadBreaches = [];
+    let roadMentions = 0;
+    for (const [scope, body] of roadScopes) {
+      const { flat, phrases } = roadPhrasesIn(body);
+      for (const cand of phrases) {
+        roadMentions++;
+        const tails = tailsOf(cand);
+        if (tails.some((tl) => ownRoads.has(tl) || ownPlaces.has(tl))) continue;
+        if (tails.some((tl) => liveLabels.some((lbl) => lbl.includes(tl)))) continue;
+        const sisterTail = tails.find((tl) => sisterRoads.has(tl));
+        if (sisterTail) {
+          const owners = sisterRoads.get(sisterTail);
+          const sentence = (flat.match(/[^.]*\.|[^.]+$/g) || []).find((s) => s.toLowerCase().includes(sisterTail)) || "";
+          const named = owners.some((o) => sentence.toLowerCase().includes(String(o.brandLabel || "").toLowerCase()));
+          if (named) continue;
+          roadBreaches.push(
+            `the ${scope} names "${cand}", which is the road of ${[...new Set(owners.map((o) => o.branchName + " (" + o.id + ")"))].join(" and ")}, in a sentence that does not name that branch. A sister's road in this branch's copy sends a patient to the wrong shop. The sentence reads "${sentence.trim()}"`
+          );
+        } else {
+          roadBreaches.push(
+            `the ${scope} names "${cand}", a road that appears in no live branch's streetAddress, no place this branch owns in branches.json and no live brand name. This copy reaches the public profile (or directs the photographer), so a road branches.json has never heard of is a wrong navigational fact. If the mention is deliberate, add a KNOWN_ROAD entry with the question that allowed it`
+          );
+        }
+      }
+    }
+    if (roadMentions > 0) roadMentionPacks++;
+    if (roadBreaches.length) {
+      const key = `${b.id}::road`;
+      const known = KNOWN_ROAD[key];
+      if (known) {
+        seenRoadKnown[key] = true;
+        warn(file, `KNOWN ${roadBreaches[0]}. ${known.question}: ${known.reason}`);
+      } else {
+        for (const msg of roadBreaches) fail(file, msg);
+      }
+    } else if (KNOWN_ROAD[`${b.id}::road`]) {
+      seenRoadKnown[`${b.id}::road`] = false;
+    }
+  }
+
   // --- the town in the LOCATION clause, not just a foreign town ------------
   // Found on the item 4.9 quality pass, 2026-08-13, by injection into
   // clear-aintree.md. The business description opens by saying where the shop
@@ -2954,6 +3093,19 @@ for (const key of Object.keys(KNOWN_FOREIGN_TOWN)) {
   if (!seenForeignTownKnown[key]) {
     fails.push(`stale exception: KNOWN_FOREIGN_TOWN["${key}"] no longer matches a pack naming another branch's town in its pasted copy. Remove it (${KNOWN_FOREIGN_TOWN[key].question}).`);
   }
+}
+
+for (const key of Object.keys(KNOWN_ROAD)) {
+  if (!seenRoadKnown[key]) {
+    fails.push(`stale exception: KNOWN_ROAD["${key}"] no longer matches a pack naming a road that is not its own. Remove it (${KNOWN_ROAD[key].question}).`);
+  }
+}
+// Vacuity guard for the road rule. Measured on 2026-08-30: 14 of the 15 real
+// packs carry at least one road phrase in the scanned blocks (coleman-leigh
+// names no road anywhere). An estate that suddenly reads as road-free means
+// the extraction broke, not that the copy stopped naming roads.
+if (roadMentionPacks < 10) {
+  fails.push(`road rule vacuity: only ${roadMentionPacks} pack(s) yielded a road phrase in the scanned blocks, against 14 measured on 2026-08-30. The road-name rule is no longer reading the estate; fix the extraction rather than trusting this run`);
 }
 
 for (const key of Object.keys(KNOWN_LOCATION_TOWN)) {

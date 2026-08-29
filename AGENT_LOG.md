@@ -2,6 +2,104 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 00:48 BST - Quality pass on 4.3 (Hirshmans Ainsdale GBP pack), fifth pass: pack clean, live half verified, and the road name in published pack prose turns out to be read by nothing
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness derived from both sources per the run 209 correction (log run
+headers and git log commit subjects, later of the two wins): after the
+2026-08-30 00:12 run took 3.1, the stalest completed item is 4.3, last
+passed 2026-08-14 01:46 (run 180). 4.3 taken.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 00:12 pickup, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). No entry answers any of the 56
+open questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 43a0851, worktree clean. All 36
+checkers exit 0 and all six generators rebuilt to a zero diff before any
+inspection.
+
+THE PACK IS CLEAN. Every fact verified against branches.json: name, street,
+locality, postcode, phone, website, review link; the Hours line carries
+every clock time in openingHours and no other; description 743 characters
+exactly as its heading claims; posts 448, 408, 402 and 317; all five widget
+services listed both ways; ten photo shots with the vinyl lead and the
+pending-Google-updates reminder; the three usable post buttons point at
+pages this repo generates. Post A's HARD STOP still stands and is item 5.3
+/ Q8/Q34, not a defect in this pack.
+
+LIVE HALF, READ-ONLY. The Post C and Post D button targets
+(weight-loss-clinic- and travel-clinic-hirshmans-ainsdale.html) and the
+generated Pharmacy First replacement the HARD STOP note points at all load
+on hirshmanspharmacy.co.uk with the correct address, phone and footer
+hours; the PF page carries the seven conditions with their NHS age ranges
+(earache 1 to 17 included) and the weight loss page is the qualified
+Regime 2 copy, no medicine names, no Buy Now. Known open findings seen and
+left with their questions: the two side-by-side footer emails (Q41), the
+Yellow fever lead card (Q48), the fee placement (Q51), and live-paste em
+dash and mojibake characters that exist in no repo source (the repaste
+backlog).
+
+THE DEFECT, PROVED BY INJECTION TWICE. Harness outside the repo, every
+failing checker recorded, pack restored and worktree confirmed clean after
+each probe. Seven probes: a corrupted review link token, a wrong website
+domain, a Post D button on a sister's domain, a deleted contraception
+service line and a foreign catchment town were all caught by
+check-gbp-packs.js. But "a local team on Station Road" in Post B changed
+to "a local team on Shakespeare Road" passed ALL 36 CHECKERS in silence,
+and the same wrong road in the photo shot list passed too. Towns have had
+a membership rule since the 4.8 pass, house numbers on the branch's own
+road since the 4.6 pass, and the address line is proved fact by fact - but
+the road NAME in published prose was read by nothing. A road is the
+navigational fact a patient walks down, and the shot list is the
+instruction a photographer navigates by; both reach the same public
+profile. Same fault family as the 4.10 pass ("a misspelled road name ...
+published a wrong map pin"), one surface over.
+
+THE FIX, IN ONE FILE. New road-name rule in tools/check-gbp-packs.js,
+scoped to the business description, services section, post bodies and
+photo shot list (preamble and paster notes stay out of scope so the
+Hirshmans HARD STOP can keep quoting the wrong address it warns about).
+Every road phrase must resolve, via word-bounded tails so "Serving Hazel
+Grove" reads as the place it names, to this branch's own street, a place
+the branch owns in branches.json (which is what lets Lark Lane and Mossley
+Hill stand in the McCanns packs), a live brand name (the Cherry Lane
+cross-references), or a sister's road in a sentence naming that sister's
+brandLabel - everything derived from branches.json, nothing whitelisted.
+KNOWN_ROAD exception map with the standard stale-key sweep, and a vacuity
+guard: 14 of the 15 real packs carry a road phrase in the scanned blocks
+today (independently counted; coleman-leigh names no road anywhere), so
+fewer than 10 fails the run.
+
+NEGATIVE TESTED FIVE WAYS, ALL CORRECT: both silent injections re-run fail
+by name; an ungoverned sister road (Fernhill Road in SK's services section)
+fails naming Smartts; a governed sister sentence passes the road rule and
+still fails the PRE-EXISTING sister-brand rule, which is that rule doing
+its own job; ROAD_WORDS mangled trips the vacuity guard, checker restored
+byte-identical by sha256. All 36 checkers exit 0 on the real estate, all
+six generators rebuild to a zero diff. No page, no generator, no data
+field and no patient-facing copy changed.
+
+RESIDUAL, stated plainly: the extraction reads capitalised prose, so a road
+written lower-case or with an apostrophe (St Michael's Road) is not seen -
+conservative, not wrong, same shape as the postcode scanner before its
+widening. And a candidate whose tail happens to equal an own place or road
+("Southport Road") would pass as the place it ends in; a false negative,
+never a false positive. Hours-in-prose claims (Post B "Open Saturdays too",
+description "open six days a week") remain deliberately unread: that is
+Q80, open, and this run does not pre-empt it.
+
+NO new question. FILES CHANGED: tools/check-gbp-packs.js (152 lines added),
+AGENT_WORKLIST.md (4.3 pass note in place), AGENT_LOG.md (this entry),
+audits/road-rule-item-4.3-quality-pass-2026-08-30.txt (new).
+
 ## 2026-08-30 00:12 BST [commit 0915b29, hash line added by a small follow-up commit] - Quality pass on 3.1, the canonical title/H1 pattern, fifth pass: the data-source rule gains its third leg, region, after two injections proved the landing-title qualifier could drift with every checker green
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
