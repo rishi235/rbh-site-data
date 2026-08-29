@@ -1,6 +1,67 @@
-# AGENT LOG - hourly audit-backlog runs
+﻿# AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+
+## 2026-08-29 22:37 BST (sixth run today) - Quality pass on 5.6, the Q14 length-aware title rule: repo side fully sound, live Weebly repaste still outstanding after 17 days
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. By the
+line-number method, 5.6 held the oldest standing verification of any
+completed item: its newest pass was the thirty-fifth run, 2026-08-10
+18:29, deeper in this log than any other item's after today's earlier
+passes refreshed 2.1, 2.2, 4.2 and 4.7.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON (13
+entries), read at 22:36 through one browser tab, opened and closed,
+nothing clicked, typed or submitted. Every entry maps to an already
+answered question (Q2-Q5, Q13-Q17). No entry answers any of the 56 open
+questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 53f27ca, worktree clean.
+
+BASELINE. All six generators rebuilt to a zero diff and all 44 checkers
+passed before any inspection, so everything below reflects the committed
+state, not this run's edits.
+
+WHAT WAS VERIFIED, AND WHAT PASSED (repo half):
+- The 61-character title "Infected insect bite treatment in Walton -
+  Coleman and Leighs" reads identically in all three places it is
+  written: the page build comment (lines 2 and 4 of
+  modules/service/pages/insect-bite-treatment-coleman-leigh-walton.html),
+  the paste sheet modules/service/pages/SEO.md line 97, and
+  modules/service/pages/INDEX.md line 84.
+- The stale 70-character version exists nowhere in the repo outside this
+  log and the Q14 question record, so there is no wrong copy to paste.
+- TITLE_WARN_LEN is still declared exactly once (tools/seo-pattern.js
+  line 111) and read by the composer (line 124), the pattern checker
+  (line 241), the export block (line 303) and check-brand-spelling.js
+  rule 6, so the limit titles are fitted to and judged against cannot
+  drift apart.
+- The self-test still reads build-service-pages.js as data under test:
+  it extracts every metaCondition value, derives the longest, prints the
+  derivation, and exits 1 if the generator declares none (lines
+  330-339). Run this evening it passed with no length warnings, and the
+  pfConditionMax rows show the rule firing correctly per brand.
+
+THE LIVE HALF, UNCHANGED AND STILL WRONG. A single plain GET at 22:37
+(read-only, no browser session) returned HTTP 200 and the same
+hand-typed title recorded on 2026-08-11 and 2026-08-12: "Infected insect
+bite treatment in Walton - Coleman & Leigh Pharmacy", 67 characters,
+with "&" for "and" and singular "Leigh". The Weebly SEO title field has
+not been repasted from SEO.md in the 17 days since the repo fix landed,
+so the live Google result keeps truncating. Evidence:
+audits/insect-bite-title-live-check-2026-08-29.txt. This is the known
+outstanding leg of Q14, waiting on the next Weebly paste run alongside
+the paste work already queued behind 5.3, 5.4 and 5.8. No new defect, no
+new question; flagged here so the age of the gap is on record.
+
+FILES CHANGED. audits/insect-bite-title-live-check-2026-08-29.txt (new),
+AGENT_LOG.md (this entry). No generator, data or page output changed.
+Commit hash recorded in the status page publish.
 
 ## 2026-08-29 22:35 BST (fifth run today) - Quality pass on 4.2 (Cherry Lane GBP pack), seventh pass, pack clean; the run-176 catchment lead-in residue is closed [commit 785b353, hash line added by a small follow-up commit]
 
@@ -19834,7 +19895,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -20208,7 +20269,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -21856,7 +21917,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 
@@ -24217,3 +24278,4 @@ repasted. One for Rishi or Dane when convenient.
 Branch agents/audit-backlog created from main. Worklist seeded from
 Master Plan v2, Build Pack v2 and the June audit context pack. Hourly
 scheduled task created on the ProDesk. No site changes made in this run.
+

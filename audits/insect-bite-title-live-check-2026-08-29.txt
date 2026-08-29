@@ -1,0 +1,23 @@
+﻿Quality pass on item 5.6 - live title check, 2026-08-29 (sixth run today)
+Method: single plain GET, Invoke-WebRequest -UseBasicParsing, no browser
+session, nothing clicked, typed or submitted.
+
+URL: https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+HTTP status: 200
+Live <title>: Infected insect bite treatment in Walton - Coleman &amp; Leigh Pharmacy
+Decoded: Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy
+Decoded length: 67 characters
+
+Repo paste-sheet title (modules/service/pages/SEO.md):
+Infected insect bite treatment in Walton - Coleman and Leighs
+Length: 61 characters
+
+Findings:
+1. Unchanged since the 2026-08-12 check, now 17 days on: the live title
+   is byte-identical to the one run 77 recorded on 2026-08-11. The
+   hand-typed Weebly SEO title field ("&" for "and", singular "Leigh")
+   has not been repasted from SEO.md, so the live title stays over the
+   65-character line and keeps truncating in Google. The repaste
+   corrects length and brand spelling in one action. This remains the
+   only outstanding leg of Q14; the repo side has been correct since
+   2026-08-10 and no new decision is needed.
