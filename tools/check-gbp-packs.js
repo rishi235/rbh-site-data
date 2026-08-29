@@ -116,6 +116,11 @@ const MEDICINE_NAMES = require("./pom-names.js").WEIGHT_LOSS;
 // indistinguishable from one rule until somebody edits one.
 const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
 
+// The shared protection-promise list, the SAME one RULE 12 of
+// check-travel-clinic-copy.js reads over the generated pages. Defined once in
+// tools/outcome-promise-patterns.js; see the outcome-promise scan below.
+const OUTCOME_PROMISE = require("./outcome-promise-patterns.js").OUTCOME_PROMISE;
+
 // The ways copy can promote a prescription-only weight loss medicine without
 // naming it. Shared with check-weight-loss-copy.js, which applies the same
 // definitions to the generated pages. See the rule that uses this, and
@@ -1358,6 +1363,33 @@ for (const file of packFiles) {
   }
   for (const h of findTerms(text, EFFICACY_WARN)) {
     warn(file, `line ${h.line}: check wording "${h.term}". Context: ${h.text}`);
+  }
+  // --- no outcome promises -----------------------------------------------
+  // Added on the item 4.7 sixth quality pass, 2026-08-29. The 4.7 fifth pass
+  // (2026-08-13) recorded, unfixed, that an absolute protection guarantee
+  // injected into Post D passed every checker, and the 4.15 pass earlier on
+  // 2026-08-29 closed that gap for the generated pages only (RULE 12 of
+  // check-travel-clinic-copy.js reads modules/service/pages, not this
+  // folder). Re-proved by mutation on this pass after that fix shipped:
+  // "We guarantee full protection for every destination." in Post D of
+  // gbp-packs/mccanns-sandringham.md passed all 36 checkers, because
+  // EFFICACY_FAIL above carries guarantee wording about RESULTS, not about
+  // protection. A pack is pasted onto a public Google profile as an
+  // advertisement, so it cannot promise what a page may not. The patterns are
+  // shared with RULE 12 via tools/outcome-promise-patterns.js so the two
+  // cannot drift, and the question exemption is RULE 12's own: a question is
+  // not a promise.
+  {
+    const packLines = text.split(/\r?\n/);
+    for (const [re, reason] of OUTCOME_PROMISE) {
+      packLines.forEach((line, i) => {
+        const m = line.match(re);
+        if (!m) return;
+        const sentence = (line.split(/(?<=[.!?])\s+/).find((s) => s.indexOf(m[0]) !== -1) || line).trim();
+        if (/\?$/.test(sentence)) return; // a question is not a promise
+        fail(file, `line ${i + 1}: outcome promise "${norm(m[0])}" (${reason}), from the shared tools/outcome-promise-patterns.js that RULE 12 of check-travel-clinic-copy.js applies to the generated pages. No pack may promise protection or immunity as an outcome; the copy may only say what the service is and that suitability is decided at the consultation. Context: ${norm(line).slice(0, 90)}`);
+      });
+    }
   }
 
   // --- promoting a POM without naming it ---------------------------------
@@ -3041,6 +3073,9 @@ if (!fs.existsSync(TEMPLATE_FILE)) {
   }
   for (const h of findTerms(tplScannable, EFFICACY_FAIL)) {
     fails.push(`TEMPLATE.md line ${h.line}: efficacy claim "${h.term}". Specimen copy in the template becomes real copy in the next pack. Context: ${h.text}`);
+  }
+  for (const h of findClaims(tplScannable, OUTCOME_PROMISE)) {
+    fails.push(`TEMPLATE.md line ${h.line}: outcome promise "${h.term}" (${h.reason}), from the shared tools/outcome-promise-patterns.js. Specimen copy in the template becomes real copy in the next pack. Context: ${h.text}`);
   }
   if (!/^Rules for every pack\b/m.test(tpl)) {
     fails.push('TEMPLATE.md no longer has a "Rules for every pack" heading. That heading is the boundary the advertising scan above uses to tell the block that STATES the rules from the specimen copy a drafter copies, so without it the template\'s own rule statements would be read as claims and fail. Restore the heading, or move the carve-out to whatever replaced it (item 4.5 quality pass, 2026-08-13).');

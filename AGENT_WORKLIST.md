@@ -2061,6 +2061,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       passed all 32 checkers, because check-travel-clinic-copy.js does not
       read gbp-packs/ at all. Same shape as the last three runs' defects.
       Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-13.txt.
+      Quality pass 2026-08-29: sixth pass, repo and live halves both run.
+      The pack is clean for the sixth consecutive pass and was not edited:
+      every fact re-read against branches.json, the counts it claims of
+      itself measured rather than trusted (713, 463, 298, 518, 425), zero
+      non-ASCII, catchment still leading with St Michael's in all three
+      places, hasApp still false with no app claim. Live: all four post
+      targets 200 and in the sitemap; the profile-website landing page still
+      404s (Q35, the pack holds the paster back); the live Post A page still
+      carries the unpasted default title and pre-Q15 copy, the recorded
+      live-lag state awaiting the queued repaste.
+      The gap the fifth pass recorded for the next pass is now CLOSED. It
+      had survived the 4.15 pass of 2026-08-29, which fixed the page half
+      only: re-proved by mutation, "We guarantee full protection for every
+      destination." in Post D still passed all 36 checkers. RULE 12's
+      pattern list moved to the new shared tools/outcome-promise-patterns.js
+      (the claim-patterns.js convention), check-travel-clinic-copy.js now
+      requires it unchanged in scope, and check-gbp-packs.js scans every
+      pack and the TEMPLATE.md specimen surface with it, question-exempt.
+      Swept first: no pack carries any such wording today, so the gap was
+      latent. Negative-tested six ways (guarantee in Post D fails, the same
+      wording as a question passes, 100% in a second pack fails, lifelong
+      immunity fails, template specimen fails, visible page copy still
+      fails under the refactored RULE 12), all correct, every mutation
+      restored to a clean worktree. All six generators rebuild to a zero
+      diff and all 36 checkers pass. No new question.
+      Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-29.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

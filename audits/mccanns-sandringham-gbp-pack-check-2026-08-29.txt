@@ -1,0 +1,65 @@
+Item 4.7 quality pass evidence - McCanns Chemist Sandringham GBP pack
+Run date: 2026-08-29 (fourth run today). Sixth pass on this item.
+
+REPO HALF
+- All six generators rebuilt to a zero git diff before any edit.
+- All 36 checkers exit 0 before and after the change this pass made.
+- gbp-packs/mccanns-sandringham.md verified fact by fact against branches.json
+  (id mccanns_sandringham): name McCanns Chemist Sandringham; address
+  1b Aigburth Road, Liverpool L17 4JP; phone 0151 727 3076; review link
+  https://g.page/r/CbMDr1qOLqnrEAE/review; split weekday hours 9:00am to
+  1:00pm and 2:00pm to 6:00pm with Saturday and Sunday closed, and the
+  split-day paster guidance present; catchment "St Michael's, Aigburth,
+  Lark Lane and Dingle" in serviceAreaList order in all three places;
+  hasApp false and no app mention.
+- Counts measured rather than trusted: description 713 characters as its
+  heading claims; posts A to D 463, 298, 518 and 425 against the 1,500
+  limit. Zero non-ASCII characters in the file.
+- The pack itself needed no edit and was not edited.
+
+LIVE HALF (read-only GETs)
+- Post A target pharmacy-first-mccanns-sandringham.html: 200, in sitemap.
+- Post B, C, D targets (switch, weight loss, travel): all 200, in sitemap.
+- Profile website target pharmacy-mccanns-sandringham.html: 404, absent
+  from sitemap. Known Q35 state; the pack already holds the paster back.
+- Old shared pfLink pharmacy-first-service-aigburth.html: 200.
+- Live Post A page: phone 0151 727 3076 present, no wrong-branch postcode,
+  no medicine names. Its title still carries the unpasted-SEO-field default
+  construction and the live copy predates the Q15 St Michael's repaste
+  (repo copy leads with St Michael's, live copy does not). Both are the
+  recorded live-lag state awaiting the queued Weebly repaste; not re-raised.
+
+THE FINDING AND THE FIX
+The fifth pass (2026-08-13) recorded, unfixed: an outcome guarantee
+injected into Post D passes every checker, because
+check-travel-clinic-copy.js does not read gbp-packs/. The 4.15 pass earlier
+on 2026-08-29 added RULE 12 to that checker, closing the gap for generated
+pages only. Re-proved by mutation on this pass after that fix shipped:
+"We guarantee full protection for every destination." in Post D of this
+pack passed all 36 checkers.
+
+Fix: the RULE 12 pattern list moved to a new shared module,
+tools/outcome-promise-patterns.js (the claim-patterns.js convention,
+defined once); check-travel-clinic-copy.js now requires it with scope and
+question exemption unchanged; check-gbp-packs.js requires it and scans
+every pack plus the TEMPLATE.md specimen surface, with RULE 12's question
+exemption. A repo sweep first confirmed no pack carries any of the wording
+today, so the gap was latent and no live copy changes.
+
+Negative tests, six ways, all correct:
+- T1 guarantee sentence in Post D: fails (the recorded gap, now closed).
+- T2 same wording as a question: passes (a question is not a promise).
+- T3 "100% protected" in another pack (tiffenbergs-aintree.md): fails.
+- T4 "lifelong immunity" in this pack: fails.
+- T5 specimen guarantee in TEMPLATE.md section body: fails (the rules
+  block carve-out still exempts the template's own quoted rule wording).
+- T6 guarantee in VISIBLE page copy of the generated travel page: RULE 12
+  still fails it after the require refactor. A first T6 injection landed in
+  the page's SEO comment block, which visible() strips, and correctly did
+  not fire; repeated in body copy, it fired. Every mutation restored and
+  the worktree byte-identical afterwards (git status clean).
+
+Files changed this pass: tools/outcome-promise-patterns.js (new),
+tools/check-travel-clinic-copy.js, tools/check-gbp-packs.js,
+AGENT_WORKLIST.md (4.7 note), AGENT_LOG.md, this file.
+No new questions raised. No question answered by this pass.

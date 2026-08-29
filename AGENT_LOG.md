@@ -2,6 +2,75 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 (fourth run today) - Quality pass on 4.7 (McCanns Sandringham GBP pack), sixth pass, pack clean; the pack-side guarantee gap recorded 2026-08-13 is closed
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. With
+2.1, 2.2, 2.3, 4.15 and 4.11 all refreshed earlier today, item 4.7 held
+the oldest standing verification (run 91, 2026-08-12 00:39).
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing decided autonomously.
+The checker change below is not a question decision: it enforces the same
+standing rule the 4.15 pass enforced this morning, on the pack surface the
+page fix could not reach, and changes no patient-facing copy.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON
+(13 entries, one Chrome extension connected, no browser-choice block).
+Every entry maps to an already-answered question (Q2-Q5, Q13-Q17; the
+newest pair are the two Q17 entries of 2026-08-28, applied by this
+morning's second run). No entry answers any of the 56 open questions. One
+tab opened and closed, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+REPO HALF, PACK CLEAN. All six generators rebuilt to a zero diff before
+any edit; all 36 checkers pass before and after. The pack verified fact
+by fact against branches.json (name, 1b Aigburth Road, Liverpool L17 4JP,
+0151 727 3076, review link, split-day hours with the paster guidance,
+catchment leading with St Michael's in serviceAreaList order in all three
+places, hasApp false, no app mention), its self-claimed counts measured
+rather than trusted (description 713; posts 463, 298, 518, 425), zero
+non-ASCII. Sixth consecutive clean pass on the pack; nothing in it edited.
+
+LIVE HALF, READ-ONLY GETs. All four post targets return 200 and sit in
+the branch sitemap. Known states re-confirmed, none re-raised: the
+profile-website landing page pharmacy-mccanns-sandringham.html still 404s
+and is absent from the sitemap (Q35, the pack holds the paster back), the
+old shared pfLink still returns 200, and the live Post A page still
+serves the unpasted default title and pre-Q15 catchment copy while the
+repo copy leads with St Michael's - the recorded live-lag awaiting the
+queued Weebly repaste.
+
+THE FINDING AND THE FIX. The fifth pass (2026-08-13) recorded, unfixed:
+an outcome guarantee injected into Post D passes every checker, because
+check-travel-clinic-copy.js does not read gbp-packs/. This morning's 4.15
+pass closed the same class for generated pages only (RULE 12). Re-proved
+by mutation after that fix shipped: "We guarantee full protection for
+every destination." in Post D of this pack passed ALL 36 CHECKERS, because
+the pack checker's EFFICACY_FAIL carries guarantee wording about results,
+not protection. Fixed on the claim-patterns.js convention: the RULE 12
+list moved to the new shared tools/outcome-promise-patterns.js,
+check-travel-clinic-copy.js requires it with scope and question exemption
+unchanged, and check-gbp-packs.js now scans every pack and the
+TEMPLATE.md specimen surface with it, question-exempt. A sweep first
+showed no pack carries any such wording today, so the gap was latent and
+no live copy moves. Negative-tested six ways, five must-fail and one
+must-pass, all correct: guarantee in Post D fails, the same wording as a
+question passes, "100% protected" in tiffenbergs-aintree.md fails,
+"lifelong immunity" fails, a template specimen fails while the template's
+own quoted rule wording stays exempt under the rules-block carve-out, and
+visible page copy still fails under the refactored RULE 12 (a first
+injection into the page's SEO comment block correctly did not fire, since
+visible() strips it). Every mutation restored; worktree clean.
+
+Files changed: tools/outcome-promise-patterns.js (new),
+tools/check-travel-clinic-copy.js, tools/check-gbp-packs.js,
+AGENT_WORKLIST.md (4.7 note),
+audits/mccanns-sandringham-gbp-pack-check-2026-08-29.txt (new),
+AGENT_LOG.md. No question raised, none answered. Open questions 56
+before, 56 after.
 ## 2026-08-29 21:08 BST (third run today) - Quality pass on 2.1 (Fishlocks Ainsdale), fourth pass, clean; one live-state update logged [commit f27ad0c, hash line added by a small follow-up commit]
 
 Unattended run. All unchecked worklist items remain [BLOCKED] (5.3, 5.4,

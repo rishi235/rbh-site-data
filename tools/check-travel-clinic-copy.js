@@ -438,14 +438,11 @@ pages.forEach(function (p) {
 // stock wording. Sited here beside RULE 6 because the two share the question
 // exemption: a question is not a promise.
 // ---------------------------------------------------------------------------
-var OUTCOME_PROMISE = [
-  [/guarantee[a-z]*/i, "uses guarantee wording"],
-  [/100\s*%/, "promises a percentage"],
-  [/\bassured?\s+(?:of\s+)?(?:full\s+)?(?:protection|immunity)/i, "promises assured protection"],
-  [/(?:fully|completely|totally)\s+(?:protected|immune)\b/i, "promises full protection"],
-  [/lifelong\s+(?:protection|immunity)/i, "promises lifelong protection"],
-  [/will\s+protect\s+you/i, "promises protection as an outcome"]
-];
+// The list itself moved to tools/outcome-promise-patterns.js on the item 4.7
+// sixth quality pass (2026-08-29), because check-gbp-packs.js needs the same
+// patterns for pack copy and two copies of one rule rot independently. This
+// rule's scope and question exemption are unchanged.
+var OUTCOME_PROMISE = require("./outcome-promise-patterns.js").OUTCOME_PROMISE;
 
 pages.forEach(function (p) {
   var name = rel(p.file);
