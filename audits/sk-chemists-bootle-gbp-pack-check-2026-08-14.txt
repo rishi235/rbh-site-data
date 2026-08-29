@@ -1,0 +1,84 @@
+SK Chemists Bootle GBP pack - fifth quality pass
+Item 4.11. Run of 2026-08-14, branch agents/audit-backlog.
+Repo half only. No browser call was made beyond the step 3 answer fetch, which
+returned a Cloudflare Access sign-in page, so nothing live is claimed here and
+the 2026-08-10 to 2026-08-12 live verdicts stand as written.
+
+BASELINE
+All 36 checkers exit 0 on a clean worktree level with origin, before anything
+was touched. gbp-packs/sk-chemists-bootle.md sha256
+E37DAB81BC9A4E9DA4440580E263751DB2E14B25CAB04247B79BAC5E7906CA81.
+
+PACK RE-VERIFIED, NOTHING IN IT IS WRONG
+Address 516 Stanley Road, Bootle L20 5DW, phone 0151 944 1013, website
+https://www.skchemist.co.uk and the Google review link all match branches.json.
+Hours are the single Monday to Friday 09:00 to 18:00 session with Saturday and
+Sunday stated as closed, matching openingHours confirmed 2026-06-24. Catchment
+reads Bootle, Sefton and Liverpool, leading with its own seoTown. Categories
+and the section 3 service list match the five-widget set exactly
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic). The
+three Post C qualifiers and the Post D qualifier are all present. hasApp is
+false and no app is mentioned. Fifth consecutive pass with the pack byte-stable.
+
+THE DEFECT: SECTION 3 IS PUBLISHED COPY AND NO PUBLISHED-COPY RULE READ IT
+Every published-copy rule in check-gbp-packs.js was scoped to two blocks, the
+business description and the four post bodies. TEMPLATE.md says of section 3
+that it "is pasted into the profile in its own right", and it is: each line
+becomes a GBP Services entry on the public profile. The scope was short by one
+of the three blocks that reach the public.
+
+Proved by injecting the SAME string into all three blocks, one at a time, each
+reverted and the file sha256-compared back afterwards:
+
+  string                                                  desc   Post C  sect 3
+  "Call 0151 944 1014 ..." (one digit changed)            FAIL   FAIL    SILENT
+  "Prices from 99 pounds a month, with a discount ..."    FAIL   FAIL    SILENT
+  "... open seven days a week including Sat and Sun"      FAIL   SILENT  SILENT
+  "Our patients lose more than any other pharmacy ..."    FAIL   SILENT  SILENT
+
+Nine further single-line injections into section 3 alone were run first, of
+which these also passed all 36 checkers in silence:
+  - "Weight loss clinic: no appointment needed, walk in any day and start the
+    same day."
+  - "Weight loss clinic: results typically seen within the first four weeks."
+  - "NHS blood pressure check: free checks for adults of any age."
+  - "Email pharmacy.FH575@nhs.net to book a private weight loss consultation."
+Three were caught, all by whole-file rules rather than published-copy rules:
+free NHS travel jabs, guaranteed antibiotics, and the app mention.
+
+THE FIX
+tools/check-gbp-packs.js only. servicesOf(text) added beside descriptionOf(),
+and section 3 added to three published-copy scopes: the published phone rule,
+the price and offer rule, and the foreign-town rule. No new pattern was
+written: the rules already existed and were pointed at two thirds of the
+published surface.
+
+AFTER THE FIX
+All 36 checkers exit 0 across the whole estate. All six generators rebuild
+byte-identical. Re-injection into section 3 of the clean pack: the wrong phone,
+the lead price with discount, and a half-price time-limited offer are now all
+caught by check-gbp-packs.js. Pack sha256 restored to the baseline value above.
+No pack copy, page, generator, data field, branches.json entry, paste sheet or
+patient-facing wording was changed, and no pack in the estate carries any of
+the injected wording today, so this asserts nothing new about live copy.
+
+STILL SILENT, RAISED AS QUESTIONS
+Q79: a day or hours claim written anywhere other than the "- Hours:" line is
+read by no rule, so "open seven days a week including Saturday and Sunday"
+passes in a post body as well as in section 3.
+Q80: a comparative outcome claim that names neither a product noun nor a
+superlative, "our patients lose more than with any other pharmacy in Bootle",
+passes in a post body. It is the same class the 4.8, 4.12 and 4.13 passes
+widened claim-patterns.js for, one step further out again.
+
+POSTSCRIPT, RECOVERY RUN 2026-08-29
+The 2026-08-14 run crashed before committing: this file and the
+check-gbp-packs.js fix were found uncommitted on the ProDesk under a
+.agent-lock dated 2026-08-14, and the two questions above were never written
+to QUESTIONS.json. In the fifteen days between, Q79 was taken by the McCanns
+Aigburth bank holiday question (2026-08-27). The two questions above are
+therefore raised on 2026-08-29 as Q80 (a day or hours claim written anywhere
+other than the "- Hours:" line) and Q81 (a comparative outcome claim naming
+neither a product nor a superlative). The fix was re-verified before
+committing: all 36 checkers exit 0 and the pack sha256 is unchanged at the
+baseline value above.

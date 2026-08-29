@@ -595,6 +595,45 @@ function descriptionOf(text) {
   return m ? m[1].trim() : null;
 }
 
+// The services section body: everything between the section 3 heading and the
+// next "## " heading. Added on the item 4.11 quality pass, 2026-08-14.
+//
+// Every published-copy rule in this file was scoped to two blocks, the
+// business description and the post bodies, on the reasoning each of those
+// rules writes out for itself: the preamble and the "Notes for the paster"
+// block are instructions and never reach the profile, so a rule reading the
+// whole file would fail the packs that quote a wrong number or a sister town
+// in order to document it. That reasoning is right and the scope drawn from
+// it was short by one block. TEMPLATE.md says of section 3 that it "is pasted
+// into the profile in its own right", and it is: each line becomes a GBP
+// Services entry on the public profile, sitting beside the description a
+// patient reads.
+//
+// Proved by injection on this pass, on gbp-packs/sk-chemists-bootle.md. The
+// SAME string was injected into the description, into Post C and into section
+// 3, one at a time, each reverted and the file sha256-compared back
+// afterwards. Three of them failed in the description and passed section 3 in
+// silence:
+//   - "Call 0151 944 1014 for weight loss enquiries."   (one digit changed)
+//   - "Prices from 99 pounds a month with a discount for the first month."
+//   - "The clinic is open seven days a week including Saturday and Sunday."
+// The first publishes a number that dials nothing on a profile whose whole
+// job is to be rung. The second is the lead pricing plus discount that
+// section 5 of compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md names as a
+// ruled breach in the advertising regime, and a Services entry is advertising
+// exactly as a post is. The third states an opening day for a shop shut on
+// both weekend days, which is the locked-door fault the opening hours rule
+// calls the one fact on a profile that matters most.
+//
+// So this is a scope defect, not a missing rule: the rules existed and were
+// pointed at two thirds of the published surface. Nothing about live copy
+// changes, because no pack in the estate carries any of the above in section
+// 3 today. It stops one being added silently.
+function servicesOf(text) {
+  const m = text.match(/^##\s*3\.\s*Services section content[^\n]*\n([\s\S]*?)(?=^##\s)/m);
+  return m ? m[1].trim() : null;
+}
+
 // A post can carry a paster instruction block of its own, after the copy and
 // the "Button:" line. The Riddings Post B hard stop is the first and so far
 // the only one in the estate: the forty-second run added it when the canonical
@@ -1518,6 +1557,11 @@ for (const file of packFiles) {
   const phoneScopes = [];
   const descForPhone = descriptionOf(text);
   if (descForPhone) phoneScopes.push(["business description", descForPhone]);
+  // Section 3 joins the scope on the item 4.11 pass, 2026-08-14: see the note
+  // on servicesOf() above. A wrong number in a Services entry publishes on the
+  // same profile as a wrong number in the description.
+  const servicesForPhone = servicesOf(text);
+  if (servicesForPhone) phoneScopes.push(["services section", servicesForPhone]);
   for (const p of postsOf(text)) phoneScopes.push([p.label, p.body]);
   const publishedPhoneBreaches = [];
   for (const [scope, body] of phoneScopes) {
@@ -1734,7 +1778,14 @@ for (const file of packFiles) {
     [/\bthis week only\b|\blimited time\b|\bwhile stocks last\b/i, "a time-limited offer"],
     [/\bsave\s+£?\s?\d/i, "a saving claim"],
   ];
-  for (const p of postsOf(text)) {
+  // Section 3 joins the four post bodies on the item 4.11 pass, 2026-08-14:
+  // see the note on servicesOf() above. A Services entry is pushed onto the
+  // public profile exactly as a post is, so a lead price or a discount in one
+  // is the same advertising the rule below bars in the other.
+  const priceScopes = postsOf(text).map((p) => ({ label: p.label, body: p.body }));
+  const servicesForPrice = servicesOf(text);
+  if (servicesForPrice) priceScopes.push({ label: "The services section", body: servicesForPrice });
+  for (const p of priceScopes) {
     for (const [re, why] of PRICE_PATTERNS) {
       const hit = p.body.match(re);
       if (!hit) continue;
@@ -2638,6 +2689,14 @@ for (const file of packFiles) {
   const descForTown = descriptionOf(text);
   const townScopes = [];
   if (descForTown) townScopes.push(["business description", descForTown]);
+  // Section 3 joins the scope on the item 4.11 pass, 2026-08-14: see the note
+  // on servicesOf() above. Several packs name their catchment towns in the
+  // Services entries ("serving Bootle, Sefton and Liverpool"), which is the
+  // branch's own serviceAreaList and exempt; a SISTER's town appearing there
+  // would publish the same contradiction on the same profile as one in the
+  // description.
+  const servicesForTown = servicesOf(text);
+  if (servicesForTown) townScopes.push(["services section", servicesForTown]);
   for (const p of postsOf(text)) townScopes.push([p.label, p.body]);
 
   const splitPlaces = (s) => String(s || "").split(",").map((x) => x.trim()).filter(Boolean);

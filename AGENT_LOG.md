@@ -2,6 +2,48 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Recovery of the interrupted 2026-08-14 run (item 4.11 quality pass)
+Scheduled run. The 2026-08-14 run crashed before committing: its .agent-lock
+was still present (21531 minutes old, deleted as stale under the 45-minute
+rule) and its finished work sat uncommitted in the worktree for fifteen days.
+Recovered and committed this run after re-verification, since leaving it
+dirty would contaminate every later commit.
+
+WHAT THE RECOVERED WORK IS. The fifth quality pass on item 4.11 found that
+section 3 of the GBP packs (the Services entries, published copy per
+TEMPLATE.md) was read by no published-copy rule: a wrong phone number, lead
+pricing with a discount, and a false seven-days-a-week claim all passed in
+silence there while failing in the description. tools/check-gbp-packs.js
+gained servicesOf() and section 3 joined the published phone, price/offer and
+foreign-town scopes. Full evidence in
+audits/sk-chemists-bootle-gbp-pack-check-2026-08-14.txt.
+
+RE-VERIFIED BEFORE COMMITTING. All 36 checkers exit 0; the pack sha256
+matches the audit baseline (no injection was left behind).
+
+QUESTIONS RENUMBERED. The crashed run intended to raise its two residual
+gaps as Q79 and Q80 but never wrote them; Q79 has since been used by the
+McCanns bank holiday question. Raised now as Q80 (prose hours claims are read
+by no rule) and Q81 (comparative outcome claims with no product noun or
+superlative), both open, both recommending a checker widening. Postscript
+recording the renumbering appended to the audit file.
+
+ALSO IN THIS COMMIT. tools/branches-editor.html embedded snapshot refreshed
+from branches.json: check-editor-snapshot.js was failing on lastUpdated drift
+(2026-08-10 vs 2026-08-27) left by the 2026-08-27 Cowork bankHolidays edit,
+which updated branches.json without the snapshot. Mechanical refresh, no
+judgement involved, done so the suite is green rather than left red across
+runs.
+
+ANSWER PICKUP UNAVAILABLE. The browser bridge reported two connected Chrome
+browsers and requires a human to choose between them, which an unattended run
+cannot do. No portal fetch was made; 54 open questions unchanged by pickup.
+
+Files changed: tools/check-gbp-packs.js, tools/branches-editor.html,
+QUESTIONS.json (Q80, Q81 added), audits/sk-chemists-bootle-gbp-pack-check-
+2026-08-14.txt (new, with postscript), this log. Commit hash in the commit
+itself; worklist item 6.7 follows as this run's item in a second commit.
+
 ## 2026-08-28 - Plain-English decision line added to Questions for Rishi
 Run by Claude in a Cowork session, not the hourly agent, prompted by Rishi
 reading the Q18 question verbatim and asking whether the audit backlog's

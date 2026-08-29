@@ -1228,5 +1228,33 @@
     "note": "Raised in a Cowork session on 2026-08-27, not the hourly agent. branches.json bankHolidays block added this run with the gov.uk 2026 England and Wales dates and a note pointing here; no per-branch policy was invented, since TEMPLATE.md's own rule is no invented hours. This edit was made through the device bridge to C:\\dev\\rbh-site-data, which the 2026-07-31 repo hygiene audit already flagged as the wrong place to run git from (autocrlf mismatch against the ProDesk). The file changes are sitting uncommitted on agents/audit-backlog pending a commit run from the ProDesk itself.",
     "status": "answered",
     "answer": "All RB Healthcare stores are closed on bank holidays. Answered by Rishi directly in a Cowork session, 2026-08-27. branches.json bankHolidays block updated with tradingPolicy: closed. check-live-hours.js and check-opening-hours.js still need building out to actually read dates2026 and tradingPolicy and allow for them - that part of the item is not done, only the data."
+  },
+  {
+    "id": "Q80",
+    "date": "2026-08-29",
+    "item": "quality pass on 4.11 (finding, does not block any item)",
+    "question": "Decision needed: should check-gbp-packs.js also read day and hours claims written in pack prose against the branch's opening hours, with the recommendation being yes. Found on the recovered 2026-08-14 quality pass of item 4.11: the string \"The clinic is open seven days a week including Saturday and Sunday\" passes all 36 checkers when written in a post body or in section 3 of a GBP pack, because only the \"- Hours:\" line is checked against branches.json openingHours. For a shop closed on both weekend days that is the locked-door fault the opening hours rule treats as the most damaging wrong fact on a profile. No pack in the estate carries any such wording today, so nothing live is wrong; the rule would only stop one being added silently.",
+    "options": [
+      "Widen check-gbp-packs.js to sweep the three published-copy blocks (business description, post bodies, services section) for day names and 'X days a week' phrasing and fail any that contradicts the branch's openingHours. Checker-only, catches the locked-door fault everywhere it could be written, touches no copy.",
+      "Leave as is: the '- Hours:' line stays the single place hours may be written, and prose hours claims stay unread, relying on the pack author."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised by the interrupted 2026-08-14 run, which crashed before writing to QUESTIONS.json; its audit file (audits/sk-chemists-bootle-gbp-pack-check-2026-08-14.txt) numbered this Q79, an id since taken by the McCanns Aigburth bank holiday question. Renumbered Q80 on the 2026-08-29 recovery run. Separate from item 6.7, which is about the seven 2026 bank holiday dates, not prose hours claims."
+  },
+  {
+    "id": "Q81",
+    "date": "2026-08-29",
+    "item": "quality pass on 4.11 (finding, does not block any item)",
+    "question": "Decision needed: should claim-patterns.js be widened again to catch comparative outcome claims that use neither a medicine name nor a superlative word, with the recommendation being yes. Found on the recovered 2026-08-14 quality pass of item 4.11: \"Our patients lose more than with any other pharmacy in Bootle\" passes all 36 checkers in a post body. It is the same class the 4.8, 4.12 and 4.13 passes widened claim-patterns.js for, one step further out: no product noun and no superlative, but still an outcome comparison against competitors in weight loss advertising, which the house standards treat as a claim rather than a factual overview on a Regime 1 surface. No pack or page matches the wording today.",
+    "options": [
+      "Add a comparative-outcome family to claim-patterns.js (shapes like 'lose more than', 'better results than', 'than any other pharmacy/clinic/provider') read on the same published-copy surfaces as the existing claim families. Checker-only, no live copy is affected either way.",
+      "Accept the residual gap: each widening chases a longer tail, and the manual read of any new pack remains the control."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised by the interrupted 2026-08-14 run; its audit file numbered this Q80, renumbered Q81 on the 2026-08-29 recovery run. A checker widening only makes checks stricter, but it sits next to weight loss advertising judgement, so it is raised rather than decided."
   }
 ]
