@@ -1557,6 +1557,18 @@ Pharmacy First wording to the NHS service description.
       note reporting the stale live embed - fixed by reading parentheticals
       as evidence, the same convention the hours rules already use. Zero
       page diff, 29 checkers pass. Q40 remains open. Done 2026-08-12
+      Quality pass 2026-08-29 (seventh): pack verified fact by fact against
+      branches.json, every self-claimed count measured exact (736; 449, 348,
+      403, 318), zero non-ASCII, all four post targets in the repo, live and
+      in the sitemap, and the old weight loss page still holding the Q5 edit
+      (no medicine names, no pricing). Nothing in the pack is wrong. The
+      run-176 residue was taken: an enumerated AREA_LEADIN ("across", "the
+      wider") now lets both catchment rules parse the two Tiffenbergs runs
+      they had been skipping, proved dead before and alive after by
+      length-neutral injection in seven directions, with the order rule
+      stripping lead-ins before its seoTown comparison so the three
+      "across <seoTown>" packs stay green on their own correct copy. See
+      audits/cherry-lane-gbp-pack-check-2026-08-29.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

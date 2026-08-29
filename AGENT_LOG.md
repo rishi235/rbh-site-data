@@ -2,6 +2,72 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 22:35 BST (fifth run today) - Quality pass on 4.2 (Cherry Lane GBP pack), seventh pass, pack clean; the run-176 catchment lead-in residue is closed [commit hash recorded in the follow-up commit]
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. With
+2.1 and 4.7 refreshed by the third and fourth runs today, item 4.2 held
+the oldest standing verification (run 176, 2026-08-13 23:34): derived by
+the line-number method, its newest recorded pass sat deeper in this log
+than any other completed item's except 2.2, which today's second pass
+already refreshed. 6.7 and 6.8 were completed today and are not stale.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 23:14 on 2026-08-10. Nothing decided autonomously.
+The checker change below is not a question decision: it completes the fix
+run 176 shipped and explicitly assigned to "the next pass on 4.15, or on
+this rule", and changes no patient-facing copy.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned JSON (13
+entries). Every entry maps to an already-answered question (Q2-Q5,
+Q13-Q17; newest are the two Q17 entries of 2026-08-28, applied by today's
+second run). No entry answers any of the 56 open questions. One tab
+opened and closed, nothing clicked, typed or submitted.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean.
+
+REPO HALF, PACK CLEAN. All six generators rebuilt to a zero diff before
+any edit; all 36 checkers pass before and after. The pack verified fact
+by fact against branches.json (name, 202 Cherry Lane, Liverpool L4 8SG,
+0151 226 2051, website, review link, the three hours lines, catchment
+leading with seoTown Walton), its self-claimed counts measured rather
+than trusted (description 736 exactly as claimed; posts 449, 348, 403,
+318), zero non-ASCII, zero em dashes, all four post
+button targets present in the repo. Seventh pass; nothing in the pack
+edited.
+
+LIVE HALF, READ-ONLY GETs. All four post targets return 200 and sit in
+the branch sitemap. The old weight-loss-clinic-walton.html page still
+holds the Q5 hand edit: zero medicine names (Mounjaro, Wegovy, Orlistat,
+Saxenda, tirzepatide, semaglutide all absent), zero pound-sign prices,
+five links to the new Weight Loss Clinic page. Known states held; nothing
+re-raised.
+
+THE FINDING AND THE FIX. Run 176 left one residue, precisely stated:
+Tiffenbergs' "across north Liverpool" and "the wider Liverpool area"
+carry lowercase lead-ins that are not compass words, so both catchment
+runs parsed one element early and BOTH catchment rules skipped that pack
+entirely. Re-proved dead this run by length-neutral injection: a foreign
+town walked past all 36 checkers in each of the two runs. Fixed on the
+run-176 convention: an enumerated AREA_LEADIN fragment ("across", "the
+wider") in tools/check-gbp-packs.js, optional before AREA_QUALIFIER in
+both rules' elements. Enumerated, not open, which answers run 176's
+false-positive concern - and the concern was right: the first cut failed
+three packs whose runs open "across <seoTown>" on their own correct copy,
+so the order rule now strips lead-ins from elements before its seoTown
+comparison. Negative-tested seven ways, six must-fail and one must-pass,
+all correct (foreign town in each Tiffenbergs run, lead swap in the
+across-run, both Cherry Lane regressions from run 176, lead swap behind
+SK Bootle's lead-in, restored control). Every mutation restored with git
+checkout. Coleman and Leighs' "surrounding streets of" line is not a
+comma run and stays out of scope by design. No live copy was wrong; the
+defect was a dead checker.
+
+Files changed: tools/check-gbp-packs.js, AGENT_WORKLIST.md (4.2 note),
+audits/cherry-lane-gbp-pack-check-2026-08-29.txt (new), AGENT_LOG.md.
+No question raised, none answered. Open questions 56 before, 56 after.
+
 ## 2026-08-29 (fourth run today) - Quality pass on 4.7 (McCanns Sandringham GBP pack), sixth pass, pack clean; the pack-side guarantee gap recorded 2026-08-13 is closed [commit 07d7332, hash line added by a small follow-up commit]
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
@@ -19768,7 +19834,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -20142,7 +20208,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -21790,7 +21856,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 

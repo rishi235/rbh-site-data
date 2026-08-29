@@ -338,7 +338,7 @@ const CLINIC_QUALIFIERS = [
   },
 ];
 
-const EM_DASH = /[—–―]/;
+const EM_DASH = /[Ã¢â‚¬â€Ã¢â‚¬â€œÃ¢â‚¬â€¢]/;
 // The entity spellings of the same characters. A pack is pasted into Google's
 // plain-text profile fields, so an entity does not render as a dash there: it
 // reaches the public profile as the literal characters "&mdash;". That is
@@ -1117,15 +1117,43 @@ for (const file of packFiles) {
   const AREA_QUALIFIER =
     "(?:north|south|east|west|central|greater|upper|lower|inner|outer)\\s+";
 
+  // A catchment element may also carry a lowercase LEAD-IN before the
+  // qualifier or town: "across north Liverpool", "the wider Liverpool".
+  //
+  // Found on the item 4.2 quality pass of 2026-08-13 and deliberately left
+  // then, because accepting ARBITRARY lowercase lead-ins would let ordinary
+  // prose parse as catchment runs across all packs. Taken on the item 4.2
+  // quality pass of 2026-08-29, this rule's own next pass, as that log entry
+  // assigned. The set below is ENUMERATED, not open: exactly the lead-ins in
+  // use in the packs on 2026-08-29 (Tiffenbergs' "across north Liverpool"
+  // and "the wider Liverpool area"; Coleman and Leighs' "surrounding streets
+  // of" line is not a comma run and is out of scope). Before this change,
+  // both Tiffenbergs runs ended one element early at two towns and BOTH
+  // catchment rules short-circuited on towns.length < 3: proved by
+  // length-neutral injection, Fazakerley replaced with a town the branch
+  // does not serve walked past every checker, and so did the same swap in
+  // the "the wider" run. A prose list is still kept out the same way as
+  // before: a run must carry a comma pair and, for the membership rule, at
+  // least two of the branch's own towns, and "across Walton and north
+  // Liverpool" carries no comma at all. When a pack legitimately adds a new
+  // lead-in word, add it here with the pack that uses it.
+  const AREA_LEADIN = "(?:across|the\\s+wider)\\s+";
+
   if (b.seoTown && areaList.length >= 3) {
     // Longest first, so "North Liverpool" wins over "Liverpool".
     const alt = areaList.slice().sort((x, y) => y.length - x.length).map(escapeRe).join("|");
-    const OWN_ELEM = `(?:${AREA_QUALIFIER})?(?:${alt})`;
+    const OWN_ELEM = `(?:${AREA_LEADIN})?(?:${AREA_QUALIFIER})?(?:${alt})`;
     const runRe = new RegExp(`${OWN_ELEM}(?:\\s*,\\s*${OWN_ELEM})+(?:\\s*,?\\s+and\\s+${OWN_ELEM})?`, "g");
     const flat = text.replace(/\s*\n\s*/g, " ");
     const key = `${id}::areaOrder`;
     for (const run of flat.match(runRe) || []) {
-      const towns = run.split(/\s*,\s*|\s+and\s+/).map((t) => t.trim()).filter(Boolean);
+      // The lead-in is glue, not place: "across Ainsdale, Birkdale and
+      // Southport" leads with Ainsdale, not with "across Ainsdale". Strip
+      // it from each element before the seoTown comparison, or the three
+      // packs whose runs open with "across <seoTown>" fail on their own
+      // correct copy (they did, on the first cut of this change).
+      const leadRe = new RegExp(`^(?:${AREA_LEADIN})`);
+      const towns = run.split(/\s*,\s*|\s+and\s+/).map((t) => t.trim().replace(leadRe, "")).filter(Boolean);
       if (towns.length < 3) continue;
       if (towns[0] === b.seoTown) continue;
       const known = KNOWN_AREA_ORDER[key];
@@ -1185,7 +1213,7 @@ for (const file of packFiles) {
       .join("|");
     // A capitalised place-shaped phrase: "Woolton", "Lark Lane", "St Helens".
     const PLACE = "[A-Z][A-Za-z'\\-]*(?:\\s+[A-Z][A-Za-z'\\-]*){0,2}";
-    const ELEM = `(?:(?:${AREA_QUALIFIER})?(?:${altOwn}|${PLACE}))`;
+    const ELEM = `(?:(?:${AREA_LEADIN})?(?:${AREA_QUALIFIER})?(?:${altOwn}|${PLACE}))`;
     const anyRe = new RegExp(`${ELEM}(?:\\s*,\\s*${ELEM})+(?:\\s*,?\\s+and\\s+${ELEM})?`, "g");
     const flatAny = text.replace(/\s*\n\s*/g, " ");
     for (const run of flatAny.match(anyRe) || []) {
@@ -1798,7 +1826,7 @@ for (const file of packFiles) {
   // "free NHS assessment" and "free blood pressure checks", which is the
   // correct description of an NHS service and the opposite of a promotion.
   const PRICE_PATTERNS = [
-    [/£\s?\d/, "a price"],
+    [/Ã‚Â£\s?\d/, "a price"],
     [/\b\d+(?:\.\d{1,2})?\s*(?:pounds|quid|gbp)\b/i, "a price written in words"],
     [/\bfrom\s+(?:just\s+|only\s+)?\d/i, 'a "from" lead price'],
   ];
@@ -1808,7 +1836,7 @@ for (const file of packFiles) {
     [/\bdiscount(?:ed|s)?\b/i, "a discount"],
     [/\b\d+\s*%\s*off\b/i, "a percentage discount"],
     [/\bthis week only\b|\blimited time\b|\bwhile stocks last\b/i, "a time-limited offer"],
-    [/\bsave\s+£?\s?\d/i, "a saving claim"],
+    [/\bsave\s+Ã‚Â£?\s?\d/i, "a saving claim"],
   ];
   // Section 3 joins the four post bodies on the item 4.11 pass, 2026-08-14:
   // see the note on servicesOf() above. A Services entry is pushed onto the
@@ -2834,7 +2862,7 @@ for (const file of packFiles) {
     [...splitPlaces(b.seoTown), ...splitPlaces(b.addressLocality)].map((s) => s.toLowerCase())
   );
   const locationRe = new RegExp(
-    `\\b${ROAD_SUFFIX}\\s*(?:\\bin\\b|,)\\s*([A-Z][A-Za-z'’]*(?:\\s+[A-Z][A-Za-z'’]*)*)`,
+    `\\b${ROAD_SUFFIX}\\s*(?:\\bin\\b|,)\\s*([A-Z][A-Za-z'Ã¢â‚¬â„¢]*(?:\\s+[A-Z][A-Za-z'Ã¢â‚¬â„¢]*)*)`,
     "g"
   );
   const locationBreaches = [];

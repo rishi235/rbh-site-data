@@ -1,0 +1,73 @@
+Item 4.2 quality pass - Cherry Lane Pharmacy (Walton) GBP pack
+Date: 2026-08-29, unattended run (fifth today)
+Pack: gbp-packs/cherry-lane-walton.md
+Last previous pass: 2026-08-13 23:34 (run 176, commit 9632595)
+
+PACK FACTS vs branches.json (cherrylane_liverpool) - all match:
+- Name: Cherry Lane Pharmacy (branchName)
+- Address: 202 Cherry Lane, Liverpool L4 8SG
+- Phone: 0151 226 2051
+- Hours: Mon-Fri 9:00am-6:30pm, Sat 9:00am-5:00pm, Sunday closed
+  (openingHours specification 09:00-18:30 / 09:00-17:00, closedDays Sunday)
+- Website: https://www.cherrylanepharmacy.co.uk
+- Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
+- Catchment run "serves Walton, Everton and north Liverpool": leads with
+  seoTown Walton; Everton and Liverpool both in serviceAreaList.
+
+SELF-CLAIMED COUNTS, measured not trusted - all exact:
+- Description: 736 measured vs 736 claimed (limit 750)
+- Posts A-D: 449, 348, 403, 318 (limit 1,500)
+- Non-ASCII characters: 0. Em dashes: 0.
+
+POST BUTTON TARGETS - all four exist in the repo:
+- modules/service/pages/pharmacy-first-cherry-lane-walton.html
+- modules/switch/pages/switch-prescriptions-cherry-lane-walton.html
+- modules/service/pages/weight-loss-clinic-cherry-lane-walton.html
+- modules/service/pages/travel-clinic-cherry-lane-walton.html
+
+LIVE HALF, read-only GETs:
+- All four post targets return 200 and appear in the branch sitemap.
+- Old page weight-loss-clinic-walton.html returns 200 and the Q5 hand
+  edit is holding: zero mentions of Mounjaro, Wegovy, Orlistat, Saxenda,
+  tirzepatide or semaglutide, zero pound-sign prices, five links to the
+  new Weight Loss Clinic page. Stays live for rank as Q5 decided.
+
+THE RESIDUE FROM RUN 176, NOW TAKEN. That pass left one dead spot,
+precisely stated: Tiffenbergs' catchment elements "across north
+Liverpool" and "the wider Liverpool area" carry lowercase lead-ins that
+are not compass words, so both runs parsed one element early at two
+towns and BOTH catchment rules short-circuited - no order check and no
+membership check at all on that pack. It assigned the fix to "the next
+pass on 4.15, or on this rule". This is a pass on this rule.
+
+Proved still dead before the fix, length-neutrally: Fazakerley replaced
+with a 10-character town the branch does not serve walked past every
+checker in the "across" run, and the same swap (9 characters) walked
+past in the "the wider" run.
+
+THE FIX. An enumerated AREA_LEADIN fragment ("across", "the wider") in
+tools/check-gbp-packs.js, accepted optionally before the existing
+AREA_QUALIFIER in both catchment-rule elements. Enumerated, not open,
+which is what answers run 176's false-positive concern: arbitrary
+lowercase lead-ins stay unmatched. The first cut produced exactly the
+false positive that concern predicted - three packs whose runs open
+"across <seoTown>" failed the order rule on their own correct copy - so
+the order rule now strips the lead-in from each element before the
+seoTown comparison. Lead-ins are glue, not places.
+
+NEGATIVE-TESTED SEVEN WAYS, all length-neutral, all correct:
+- T1 foreign town inside the "across" run: FAILS (was dead)
+- T2 foreign town inside the "the wider" run: FAILS (was dead)
+- T3 lead swap Aintree/Fazakerley in the "across" run: FAILS (was dead)
+- T4 regression, foreign town in Cherry Lane's run: still FAILS
+- T5 regression, lead swap in Cherry Lane's run: still FAILS
+- T6 lead swap behind SK Bootle's "across" lead-in: FAILS
+- T7 restored control: PASSES
+Every mutation restored with git checkout; worktree carries only the
+checker change. Full suite: all 36 checkers exit 0 on all 15 packs and
+the generated pages, before commit.
+
+NO LIVE COPY ERROR. The pack copy itself needed no change; the defect
+was a dead checker, the same class as run 176 found. Coleman and
+Leighs' "surrounding streets of" line is not a comma run and remains
+out of scope by design.
