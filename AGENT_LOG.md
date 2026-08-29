@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-30 00:12 BST - Quality pass on 3.1, the canonical title/H1 pattern, fifth pass: the data-source rule gains its third leg, region, after two injections proved the landing-title qualifier could drift with every checker green
+## 2026-08-30 00:12 BST [commit 0915b29, hash line added by a small follow-up commit] - Quality pass on 3.1, the canonical title/H1 pattern, fifth pass: the data-source rule gains its third leg, region, after two injections proved the landing-title qualifier could drift with every checker green
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Ageing
