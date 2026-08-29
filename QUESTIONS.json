@@ -1256,5 +1256,20 @@
     "status": "open",
     "answer": null,
     "note": "Raised by the interrupted 2026-08-14 run; its audit file numbered this Q80, renumbered Q81 on the 2026-08-29 recovery run. A checker widening only makes checks stricter, but it sits next to weight loss advertising judgement, so it is raised rather than decided."
+  },
+  {
+    "id": "Q82",
+    "date": "2026-08-29",
+    "item": "quality pass on 2.3 (finding, does not block any item)",
+    "question": "Decision needed: the repo's own rules file still names a branches.json path that no longer exists, pointing into the OneDrive clone whose own warning note told everyone off it in July, so should the rule be updated to name the real file, and is it time to finish or discard that clone's uncommitted change and delete the folder as the note instructs? Recommended: update the rule to name C:\\Dev\\rbh-site-data\\branches.json as the single valid copy, and deal with the OneDrive folder in the same sitting if you have ten minutes at the machine. Detail: CLAUDE.md in the repo declares 'Weebly\\seo\\rbh-site-data\\branches.json' the only valid branches.json and says any other copy is stale, flag and stop. That folder exists under the OneDrive Documents tree but holds no branches.json at all: its READ-ME-ONEDRIVE-WARNING.txt of 29 July 2026 records the file as showing deleted but not committed, states everything committed is already on GitHub with service-module-phase1 merged to main, and instructs finishing or discarding the change then deleting the folder because OneDrive rewriting .git corrupted the sibling data-portal clone and cost four weeks of portal work on 21 July. Meanwhile the only branches.json in existence is C:\\Dev\\rbh-site-data\\branches.json, which every generator, checker and these runs already use. As written, the rule points any careful reader at a file that does not exist and tells them to distrust the real one.",
+    "options": [
+      "Update the rules file to name C:\\Dev\\rbh-site-data\\branches.json (the working clone of rishi235/rbh-site-data) as the single valid copy, keeping the flag-and-stop rule for any other copy found. One documentation change on the audit branch, no page or data change.",
+      "Do option 1 and also close out the OneDrive clone in the same sitting: open it, commit or discard the pending branches.json deletion, push anything real, then delete the folder as its own warning note instructs. Removes the corruption risk the note describes, but needs you at the machine for the git decisions.",
+      "Leave the rules file as it is and rely on the audit task's own line naming C:\\Dev as canonical. No edit, but every future agent reading the repo rules first is pointed at a file that does not exist."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found on the 2026-08-29 item 2.3 quality pass. The OneDrive folder was read only and not touched, and no unattended run will touch it. Nothing is blocked on this. The Fishlocks 2.2 pass the same session found no defects at all."
   }
 ]

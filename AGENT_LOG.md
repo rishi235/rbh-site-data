@@ -2,6 +2,50 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-29 - Quality passes on 2.3 (Cherry Lane) and 2.2 (Fishlocks split), Q82 raised
+
+Same extended interactive session as the 6.8 completion below, continuing
+at Rishi's request. With every worklist item now done or [BLOCKED], the
+two least recently verified completed items were quality-passed in
+parallel by read-only agents (repo side only; live-site verification was
+not possible, see the pickup note below).
+
+Item 2.3 Cherry Lane, fifth pass: all 12 pages verified against Build
+Pack v2. Page set, Walton titles and H1s, NAP against branches.json,
+UK spelling, em dash rule and POM absence all pass. One new finding,
+raised as Q82: the repo CLAUDE.md still names Weebly\seo\rbh-site-data\
+branches.json as the only valid branches.json, but that OneDrive folder
+holds no branches.json and its own READ-ME-ONEDRIVE-WARNING.txt
+(29 July) instructs closing the clone out; the only real file is this
+repo's branches.json. Documentation defect, not decided autonomously
+because it touches how the OneDrive clone gets closed out. Minor style
+note, not fixed (generated output, not worth a repaste): comma splice at
+weight-loss-clinic-cherry-lane-walton.html line 100. Also noted: no repo
+paste sheet covers the contraception, travel clinic, weight loss and
+switch page SEO fields (SEO.md/INDEX.md cover the eight Pharmacy First
+pages only), so their Weebly-side titles cannot be verified from repo.
+
+Item 2.2 Fishlocks split, fifth pass: no defects at all. Both landing
+pages verified against Build Pack v2 and branches.json: correct
+seoTown/seoRegion composition (Eccleston, Chorley title separation),
+NAP field for field, no cross-contamination between Ainsdale and
+Eccleston, brand spelling clean, no em dashes, no POM names. Standing
+gap unchanged: the six shared-domain landing pages are still not pasted
+to Weebly (INDEX.md live-state note of 2026-08-12).
+
+Q82 appended to QUESTIONS.json with the Decision needed opening, guard
+script proving all 81 existing entries byte-identical. All 36 checkers
+pass.
+
+ANSWER PICKUP: retried this session via the extension's broadcast
+confirmation route with Rishi present; no browser responded within the
+window on the first attempt. A further attempt is made at the end of the
+session; if none succeeds, the two-browser pairing block stands and Q59
+remains the permanent fix.
+
+Files changed: QUESTIONS.json (Q82 appended), this log. No page,
+generator or data field changed.
+
 ## 2026-08-29 - Item 6.8 COMPLETE: plain-English decision lines on all 56 open questions
 
 Extended interactive run. Rishi was present and asked for a catch-up
