@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-29 (fourth run today) - Quality pass on 4.7 (McCanns Sandringham GBP pack), sixth pass, pack clean; the pack-side guarantee gap recorded 2026-08-13 is closed
+## 2026-08-29 (fourth run today) - Quality pass on 4.7 (McCanns Sandringham GBP pack), sixth pass, pack clean; the pack-side guarantee gap recorded 2026-08-13 is closed [commit 07d7332, hash line added by a small follow-up commit]
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. With
