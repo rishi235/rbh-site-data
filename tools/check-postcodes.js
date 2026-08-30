@@ -226,7 +226,25 @@ function extract(text) {
   var found = {};
   var m;
   var views = [text];
-  var decoded = text.replace(/%(?:20|2C|2B)/gi, " ");
+  // Iterate the decode to a fixed point (bounded) so a postcode hidden
+  // behind MORE than one layer of percent-encoding still surfaces -
+  // "%2520" is "%20" re-encoded, itself standing for a plain space.
+  // Widened on the item 1.2 quality pass 2026-08-30 (seventh pass): proved
+  // by injection that a foreign postcode joined by %2520 passed this
+  // checker at exit 0, because the single-pass decode only ever stripped
+  // one layer, so "%2520" never became "%20" and never became a space.
+  // %25 decodes to a literal "%", which is correct URL decoding regardless
+  // of postcodes; it just means a run of %25xx collapses one layer per
+  // pass. Bounded at 5 passes, far more than any real URL needs, so a
+  // pathological string cannot loop forever.
+  var decoded = text;
+  for (var i = 0; i < 5; i++) {
+    var next = decoded.replace(/%(?:20|2C|2B|25)/gi, function (m2) {
+      return m2.toLowerCase() === "%25" ? "%" : " ";
+    });
+    if (next === decoded) break;
+    decoded = next;
+  }
   if (decoded !== text) views.push(decoded);
   views.forEach(function (t) {
     PC_RE.lastIndex = 0;

@@ -1,3 +1,95 @@
+## 2026-08-30 (item 1.2 quality pass, seventh) - Double-encoded postcode separator ("%2520") defeated the sixth pass's decode view, which only stripped one layer
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched, level with origin, worktree clean before any
+edit.
+
+ANSWER PICKUP. Fetched https://data.rbhealth.co.uk/api/feedback (one
+browser tab, read-only, opened and closed, nothing clicked, typed or
+submitted) and read all entries returned (Q2-Q5, Q13-Q22, Q24, Q28, Q29,
+several duplicated, same set as recent runs). Cross-checked every one
+against QUESTIONS.json: all already marked "answered", confirmed by direct
+status lookup on each id. None of the 51 currently open questions (Q34-
+Q85) has a portal answer. No status changes, nothing to apply.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run. Nothing decided autonomously.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), unchanged
+from the last run and confirmed against QUESTIONS.json directly: Q8, Q9,
+Q13 and Q16 are answered but their fixes sit outside an unattended run's
+authorisation (Q13 needs a push to a branch other than agents/audit-
+backlog; Q9 needs a hand edit in the Weebly editor; Q8 needs a Weebly
+paste on the critical path; Q16 was re-asked as Q22, answered "unsure,
+will produce guidance"), and Q52, Q60 and Q66 remain open with no portal
+answer. So this run took the quality-pass branch. Staleness: with 1.3's
+seventh pass now at the top of this log, the 36-item rotation pool (43
+checked items minus the seven established one-offs 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) has item 1.2 as the item whose most recent pass is oldest
+- sixth pass, 2026-08-30 01:41 BST, now the earliest last-pass timestamp
+of any pool item since every other pool item was touched later today.
+Derived by scanning every "## 2026-..." header in this log for each
+item's topmost (most recent) occurrence and ranking by that position. 1.2
+taken.
+
+REPO HALF, CLEAN BEFORE TOUCHING ANYTHING. All 36 tools/check-*.js
+checkers run individually: zero failures. All six generators
+(build-branch-landing-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages,
+build-contraception-pages) plus build-status-page.js rebuilt from the
+clean checkout: git status --porcelain empty afterwards, so all 178
+pages plus the status page reproduce the committed state byte for byte.
+
+THE ADDRESS IS CLEAN, BOTH HALVES, SEVENTH TIME. branches.json canonical
+(56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW, 01704 577376).
+All 12 Hirshmans generated pages carry PR8 3HW exactly twice each; PR8
+3HN appears only on Fishlocks Ainsdale pages across the whole repo.
+gbp-packs/hirshmans-ainsdale.md canonical, its PR8 3HN mention is the
+documented HARD STOP note quoting the old live page's defect (64 Station
+Road, 017014577376), unchanged.
+
+THE DEFECT, PROVED BY INJECTION BEFORE FIXING. The sixth pass's URL-
+decode view in extract() (tools/check-postcodes.js) replaced %20, %2C
+and %2B with a space in a SINGLE pass, closing the case of a postcode
+PRECEDED by an encoded separator. It did not close the case of a
+DOUBLE-encoded separator - "%2520", which is "%20" itself re-encoded, a
+realistic shape when a URL-building step percent-encodes a string that
+already contains an encoded space. Proved before fixing: a foreign PR8
+3HN joined to Hirshmans context by a "%2520" map link, injected onto
+modules/service/pages/earache-treatment-hirshmans-ainsdale.html, passed
+check-postcodes.js at exit 0 in silence; the identical injection into
+gbp-packs/hirshmans-ainsdale.md also passed silently. Both test files
+restored from git immediately after each proof.
+
+Fixed in extract() of tools/check-postcodes.js: the single-pass decode is
+now a bounded loop (5 iterations) that also collapses %25 to a literal
+"%", so "%2520" unwinds to "%20" on the first pass and to a space on the
+second, and any deeper re-encoding unwinds the same way. Decoding %25 to
+"%" is correct URL decoding in its own right, not a special case for
+postcodes. Proved after: the identical page injection now fails at exit
+1 with a FOREIGN finding naming both branches; the identical pack
+injection fails the same way. Clean tree re-run: all 36 checkers exit 0,
+all six generators plus build-status-page.js rebuild byte-identical.
+
+LIVE HALF, READ-ONLY. https://www.hirshmanspharmacy.co.uk/contact-us.html
+read in full, one browser tab, opened and closed, nothing clicked, typed
+or submitted. Address correct on all three surfaces (left contact block,
+middle detail block, footer strip). Opening hours match branches.json
+exactly, including both lunch closures. Standing Q41 cosmetics unchanged:
+left block omits the postcode and splits "Station Road" across a line
+break; left block phone unspaced where the other two blocks read it
+correctly; footer hours line uses en dashes with no in-repo source.
+Nothing new to add to Q41 this pass.
+
+Files changed: tools/check-postcodes.js (bounded decode loop, %25
+added), status/index.html (regenerated), AGENT_WORKLIST.md (1.2
+seventh-pass note, in place), AGENT_LOG.md (this entry),
+audits/hirshmans-address-check-2026-08-30-seventh.txt (new).
+No question raised. 51 remain open.
+
 ## 2026-08-30 (item 1.3 quality pass, seventh) - Fused lowercase postcode with no separator at all read by nothing; PC_RE_LOOSE's separator made optional
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

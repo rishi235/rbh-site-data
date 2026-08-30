@@ -3955,6 +3955,23 @@ appended to the line. Do not move them; the status page reads them in place.
       three surfaces, hours match branches.json including lunch closures,
       every Q41 cosmetic still live, nothing new. Evidence in
       audits/hirshmans-address-check-2026-08-30.txt. Done 2026-08-30
+      Seventh quality pass 2026-08-30 (rotation pool, following 1.3's
+      seventh pass): address clean both halves for the seventh consecutive
+      time. All 12 Hirshmans pages carry PR8 3HW, PR8 3HN found only on
+      Fishlocks Ainsdale pages, gbp-packs/hirshmans-ainsdale.md canonical
+      with its HARD STOP note unchanged. Guard coverage extended again: the
+      sixth pass's URL-decode view only stripped ONE layer of percent
+      encoding, so a DOUBLE-encoded separator ("%2520", "%20" re-encoded)
+      still defeated it - proved by injection on the same Hirshmans page
+      and the pack, both passing all 36 checkers in silence before the fix.
+      extract() now decodes in a bounded loop (5 passes) and also collapses
+      %25 to a literal "%", so any depth of re-encoding unwinds; proved
+      clean by the identical injections failing at exit 1 after the fix,
+      restored, re-run clean. Live half: contact-us read in full, address
+      correct on all three surfaces, hours match branches.json including
+      both lunch closures, every Q41 cosmetic still live and unchanged,
+      nothing new to add. Evidence in
+      audits/hirshmans-address-check-2026-08-30-seventh.txt. Done 2026-08-30
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

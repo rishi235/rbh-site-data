@@ -1,0 +1,68 @@
+﻿Item 1.2 quality pass evidence - 2026-08-30 (seventh pass)
+Hirshmans address: 56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW, 01704 577376
+
+REPO HALF
+- branches.json canonical: streetAddress "56-62 Sherwood House, Station Road",
+  addressLocality "Ainsdale", postalCode "PR8 3HW", phone "01704 577376",
+  email Hirshmans@rbhealth.co.uk. Verified against the live source of truth.
+- All 12 Hirshmans generated pages (contraception, earache, impetigo,
+  insect-bite, pharmacy-first, shingles, sinusitis, sore-throat,
+  travel-clinic, uti, weight-loss-clinic, switch-prescriptions) carry
+  PR8 3HW exactly twice each; grep for PR8 3HN across every HTML page in
+  the repo returns hits on Fishlocks Ainsdale pages only, never a
+  Hirshmans page. gbp-packs/hirshmans-ainsdale.md carries the canonical
+  address and phone; its PR8 3HN mentions are the documented HARD STOP
+  note quoting the old live page's defect (64 Station Road,
+  017014577376), unchanged.
+- All 36 checkers exit 0 before and after the fix below. All six page
+  generators plus build-status-page.js rebuild with zero diff on the
+  six generated-page directories; only status/index.html and
+  tools/check-postcodes.js changed this pass.
+
+DEFECT FOUND AND FIXED, PROVED BY INJECTION BEFORE AND AFTER
+check-postcodes.js's URL-decode view (added on the sixth pass to catch
+a postcode PRECEDED by %20/%2C/%2B) only stripped ONE layer of percent
+encoding. A DOUBLE-encoded separator - "%2520", which is "%20"
+re-encoded, itself standing for a plain space - was never reduced to a
+space, so the postcode token never formed and the checker missed it.
+
+Proved before fixing: injected a foreign PR8 3HN onto a Hirshmans page
+(modules/service/pages/earache-treatment-hirshmans-ainsdale.html) joined
+to the branch's own PR8 3HW context by a "%2520"-encoded map link -
+check-postcodes.js exited 0, silent. The same injection on
+gbp-packs/hirshmans-ainsdale.md also passed silently.
+
+Fixed in extract() of tools/check-postcodes.js: the decode is now a
+bounded loop (5 passes) that also collapses %25 to a literal "%", so
+"%2520" decodes to "%20" on the first pass and to a space on the
+second, and any deeper re-encoding unwinds the same way. %25 decoding
+to "%" is correct URL decoding on its own terms, independent of
+postcodes.
+
+Proved after fixing: the identical page injection now fails at exit 1
+with "FOREIGN modules/service/pages/earache-treatment-hirshmans-ainsdale.html:
+owned by hirshmans_ainsdale (PR8 3HW) but carries PR8 3HN
+(fishlocks_ainsdale)". The identical pack injection now fails the same
+way. Both test files restored from git immediately after each proof;
+git status confirms no injection artefact survived. Clean tree re-run:
+all 36 checkers exit 0.
+
+LIVE HALF, READ-ONLY
+https://www.hirshmanspharmacy.co.uk/contact-us.html read in full via
+one browser tab, opened and closed, nothing clicked, typed or
+submitted. Address correct on all three surfaces (left contact block,
+middle detail block, footer strip): 56-62 Sherwood House, Station
+Road, Ainsdale, PR8 3HW. Opening hours match branches.json exactly,
+including both lunch closures (Mon-Fri 8:30-13:00 and 14:00-18:00,
+Sat 9:00-13:00 and 14:00-17:30, Sun closed). Standing Q41 cosmetics
+unchanged and not repeated here: left block omits the postcode and
+splits "Station Road" across a line break; left block phone reads
+"01704577376" unspaced where the middle and footer blocks read it
+correctly spaced; footer hours line uses en dashes with no in-repo
+source. Nothing new to add to Q41 this pass.
+
+No new question raised. Files changed: tools/check-postcodes.js (bounded
+decode loop, %25 added), status/index.html (regenerated),
+AGENT_WORKLIST.md (1.2 seventh-pass note, in place), AGENT_LOG.md (this
+entry), audits/hirshmans-address-check-2026-08-30-seventh.txt (new,
+this file).
