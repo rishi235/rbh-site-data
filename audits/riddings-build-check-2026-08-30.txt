@@ -1,0 +1,69 @@
+Riddings Pharmacy (Timperley) - item 3.10 fifth machine-era quality pass - 2026-08-30
+
+RUN START STATE
+Branch agents/audit-backlog level with origin at 8f40116, worktree clean.
+All 36 checkers green. All six generators rebuilt: zero diff (177 pages byte-identical).
+
+REPO HALF - fresh independent extraction, no code shared with tools/
+12 pages, 1,872 checks across 23 counted families, 0 failures.
+  F1-h1-count 12, F1-h1-town 12, F2-tel-present 12, F2-tel-value 24,
+  F3-phone-visible 12, F3-postcode 12, F4-foreign-phone 168,
+  F4-foreign-postcode 180, F4-foreign-review 168, F4-foreign-widget 888,
+  F5-jsonld-present 12, F5-jsonld-parse 12, F5-street 12, F5-locality 12,
+  F5-postcode 12, F5-region 12, F5-country 12, F5-telephone 12, F5-name 12,
+  F6-pom 228, F7-emdash 12, F8-app 12, F11-host 24.
+F9 (own widget ids) and F10 (rbhealth email) counted zero on this surface:
+service and switch page fragments embed neither. Vacuous here by design, not
+a miss.
+Checks verified per page: exactly one h1 carrying Timperley; every tel: link
+the branch phone as unspaced digits; visible phone and postcode present; no
+other active branch's phone, postcode, review URL or widget id; JSON-LD
+parsed and matched field for field against branches.json including the
+two-part "Timperley, Altrincham" locality and Greater Manchester region; POM
+union scan (19 names incl. weight loss and contraception POMs) empty
+including the weight loss page; no em dash outside build comments; no app
+copy (hasApp false); no foreign pharmacy/chemist host in any href.
+
+NEGATIVE TESTS - 7 mutations, all applied via node (3.11 PowerShell no-op
+lesson respected), all fire, page hash-verified restored after each:
+wrong tel digits, foreign JSON-LD region, second h1, em dash, POM name
+(Wegovy), foreign branch postcode plain (SK7 3LQ). Note for the next pass:
+four first-attempt mutations anchored on a </body> tag no-opped, because
+these pages are Weebly paste fragments ending at the JSON-LD script with no
+body wrapper; re-anchored to end-of-file. An early foreign-postcode attempt
+with PR9 0LH did not fire because PR9 0LH is no branch's postcode - test
+artefact, not an extractor gap.
+
+GAP PROBES - three shapes in the known fault family (rules right about the
+shapes they read, silent about ones they do not), each injected then all 36
+checkers run. ALL THREE CAUGHT, no checker change needed:
+  1. Foreign postcode as SK7&nbsp;3LQ  - caught by check-nap.js and
+     check-postcodes.js.
+  2. Foreign postcode with raw U+00A0   - caught by both.
+  3. Em dash as &mdash; entity          - caught by check-em-dashes.js.
+The postcode escape-widening from the 1.3/1.2 passes (0b55c4a, e983dec)
+covers the entity and NBSP shapes; verified here on this surface. First pass
+on this item since 08-14 to find zero new checker gaps.
+
+LIVE HALF - two read-only GETs via browser, nothing clicked, typed or
+submitted:
+Homepage: NAP, hours, email and phone all correct against branches.json.
+Known states persist, confirmation only: switch banner mojibake close button
+(repo carries the correct &times; - stale paste), Q31-era Cheshire in the
+contact block and homepage body, Q22 weight loss tagline ("Tried the rest?
+Now try the best.").
+pfLink page (pharmacy-first-service-timperley.html): serves correctly, all
+seven Pharmacy First cohorts right against the NHS specification (AOM 1-17,
+impetigo 1+, infected insect bites 1+, shingles 18+, sinusitis 12+, sore
+throat 5+, UTI women 16-64). NHS email pharmacy.FDW90@nhs.net correct.
+NEW LIVE OBSERVATION: the live PF page is pre-repaste legacy copy - US
+spellings (characterized, recognizing) and the old title/H1 ("Riddings
+Pharmacy: Pharmacy First Service in Timperley & Altrincham") versus the
+repo's rewritten page ("Pharmacy First at Riddings Pharmacy in Timperley").
+No patient-facing error; the 3.1 title/H1 pattern and UK-spelling sweep are
+simply not live for this page yet. Part of the estate-wide repaste backlog
+already tracked (5.6/5.7 and the switch SEO repastes). No new question
+raised.
+
+RESULT: zero in-repo defects, no checker change, not one character of any
+page edited.

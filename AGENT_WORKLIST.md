@@ -1292,6 +1292,20 @@ audits/smartts-build-check-2026-08-14.txt.
       single visible() also feeds four absence rules and a safeguarding rule
       that would be weakened by the same edit. No question raised. Evidence in
       audits/riddings-build-check-2026-08-14.txt. Done 2026-08-14
+      Quality pass 2026-08-30 (fifth machine-era pass). BOTH HALVES. Repo:
+      12 pages re-read by a fresh independent extraction sharing no code
+      with tools/, 1,872 checks across 23 counted families, 0 failures;
+      7 negative tests all fire (node-applied); three gap probes in the
+      known shape family (foreign postcode as &nbsp; entity, as raw U+00A0,
+      em dash as &mdash; entity) all CAUGHT by existing checkers - first
+      pass on this item to find zero new checker gaps. Live: homepage NAP,
+      hours and email correct; the three known live states persist
+      (mojibake close button, Q31 Cheshire, Q22 tagline); pfLink page
+      serves all seven cohorts correctly but is pre-repaste legacy copy
+      (US spellings, old title/H1) - stale paste, part of the tracked
+      estate-wide repaste backlog, not a repo defect. Zero in-repo
+      defects, nothing edited. Evidence in
+      audits/riddings-build-check-2026-08-30.txt. Done 2026-08-30
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

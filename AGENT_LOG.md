@@ -2,6 +2,62 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 [commit hash recorded in a small follow-up commit] - Quality pass on 3.10 (Riddings Pharmacy, Timperley), fifth pass: both halves clean, three shape probes all caught, zero new checker gaps for the first time on this item
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from log headers and git commit subjects: stalest completed item
+is 3.10, last passed 2026-08-14 10:16 (56efe91). Taken.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened and
+closed, nothing clicked, typed or submitted. Every entry maps to an already
+answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only such section in this log remains the
+2026-08-09 one, expired 2026-08-10. Nothing decided autonomously; nothing
+needed it - this run changed no page, no checker and no data.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 8f40116, worktree clean, all 36
+checkers green, all six generators rebuilt to a zero diff before
+inspection.
+
+REPO HALF CLEAN. Fresh independent extraction sharing no code with tools/:
+12 pages, 1,872 checks across 23 counted families, 0 failures. Seven
+negative tests all fire, node-applied per the 3.11 lesson; four
+first-attempt mutations anchored on </body> no-opped because these pages
+are Weebly paste fragments with no body wrapper - re-anchored to
+end-of-file and recorded so the next pass does not repeat it. Three gap
+probes in the known fault family (foreign postcode as &nbsp; entity, as
+raw U+00A0, em dash as &mdash; entity) were each injected and all 36
+checkers run: ALL THREE CAUGHT (check-nap, check-postcodes,
+check-em-dashes). The 1.3/1.2 escape-widening (0b55c4a, e983dec) holds on
+this surface. First pass on this item to find zero new checker gaps - the
+checker suite is converging.
+
+LIVE HALF, two read-only GETs. Homepage NAP, hours and email correct
+against branches.json; the three known live states persist and are
+confirmation only (switch banner mojibake close button, Q31-era Cheshire,
+Q22 weight loss tagline). pfLink page serves all seven Pharmacy First
+cohorts correctly with the right NHS email. NEW LIVE OBSERVATION: the live
+PF page is pre-repaste legacy copy - US spellings and the old title/H1
+versus the repo's rewritten page. No patient-facing error; part of the
+tracked estate-wide repaste backlog. No new question raised.
+
+A FILE-HANDLING FAULT IN THIS RUN ITSELF, CAUGHT AND CORRECTED BEFORE
+PUSH: the first attempt at these log and worklist edits used PowerShell
+Set-Content, which added BOMs and double-encoded existing non-ASCII lines
+in AGENT_LOG.md. Caught by reading the diff before pushing, both files
+restored from the parent commit, edits redone via node with plain UTF-8,
+commit amended (never pushed in the broken state). Rule for future runs:
+edit these files with node, not PowerShell Set-Content.
+
+Files changed: AGENT_WORKLIST.md (3.10 fifth-pass note), AGENT_LOG.md
+(this entry), audits/riddings-build-check-2026-08-30.txt (new evidence).
+No page, checker, generator or data change. No questions raised; 56 open.
+
+
 
 ## 2026-08-30 [commit 5a474fd, hash line added by a small follow-up commit] - Quality pass on 6.2 (broken internal links), third pass: both halves verified for the first time since the 2026-08-11 sweep, RULE 1 gains single-quote coverage, all four live findings stand, one new fact fed to Q53
 
