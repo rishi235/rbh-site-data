@@ -2,6 +2,76 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 03:43 [commit pending] - Quality pass on 3.2 (Scorah SEO pages), fifth pass, one-line count rule added to check-seo-pattern
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from both sources (log run headers and git commit subjects,
+later of the two wins): stalest completed item is 3.2, last passed
+2026-08-14 04:46. 3.2 taken, its fifth machine pass and the first since
+08-12 to include the live half.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 2026-08-30 pickups before it, read through one
+browser tab, opened and closed, nothing clicked, typed or submitted. Every
+entry maps to an already answered question (Q2-Q5, Q13-Q17). 56 open
+before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six page generators rebuilt to a zero diff before any
+inspection.
+
+THE PAGES ARE CLEAN, THE GAP WAS IN THE RULES AGAIN, AND IT WAS THE 08-14
+QUESTION ASKED OF THE OTHER TWO LEGS. A fifth independent extraction
+(audits/verify-3.2-2026-08-30.js, imports nothing from tools/) re-read all
+26 Scorah pages and found them clean on every leg: own town in title,
+description and H1, service words on all three legs, exactly one h1, no
+foreign seoTown outside the branch's own serviceAreaList, titles inside 65
+characters, descriptions inside 80 to 165. But the 08-14 pass closed the
+counting gap on the HEADING leg only. The title and description lines were
+still read first-match-only: check-seo-pattern.js takes each off a single
+.exec(), and nothing anywhere counted the lines. So a page carrying a
+second "Weebly page SEO title" or "Weebly page SEO description" line
+satisfied every rule in the repo while the second line went unread, and
+those lines are paste instructions read by human eyes, so two title lines
+give the paster a coin toss on which becomes the live SEO title. Proved by
+injection before fixing: a second title line and a second description
+line, each reading "Pharmacy in Ainsdale" on the Bramhall UTI page (a live
+seoTown not in Bramhall's serviceAreaList), passed all 36 checkers, while
+the independent verifier caught both on its count rule. Fixed in
+tools/check-seo-pattern.js: a ONE TITLE LINE, ONE DESCRIPTION LINE rule
+mirroring the ONE H1 rule, counting the labels anywhere in the file so a
+duplicate outside the head comment still fails, with its own summary line
+in the checker output. Four negative tests, all four fire: duplicate title
+line, duplicate description line, missing title line, duplicate planted in
+the body outside the head comment. Restore byte-identical, all 36 checkers
+green after the fix, all six generators still rebuild to a zero diff.
+
+LIVE HALF, TWO READ-ONLY GETS ON THE BRAMHALL PAGES. The UTI page serves
+the pattern's H1 "UTI treatment in Bramhall" and copy verbatim under
+Weebly's doubled-brand default title "UTI treatment in Bramhall - Scorah
+Chemists - Scorah Chemists", which extends the run 78 unpasted-title
+finding to Bramhall explicitly (08-12 proved it on Hazel Grove). The
+Bramhall landing page 404s, matching the Hazel Grove landing state the
+08-12 pass recorded and the pack's paster note anticipates. Both known and
+queued under 5.3/5.4 and the paste run. No repo defect. Nothing clicked,
+typed or submitted.
+
+ONE WORKING NOTE for future runs, not a page fault: the em dash on line 2
+of every service page sits inside the HTML build comment, which
+check-em-dashes deliberately reports without failing because no visitor
+sees it. Checked and left alone.
+
+Files changed: tools/check-seo-pattern.js (one-line count rule),
+AGENT_WORKLIST.md (3.2 pass paragraph), AGENT_LOG.md (this entry),
+audits/verify-3.2-2026-08-30.js and audits/verify-3.2-2026-08-30-output.txt
+(evidence). No new question. 56 questions open before and after.
+
 ## 2026-08-30 03:11 [commit 4ecae38] - Quality pass on 4.1 (Fishlocks Ainsdale GBP pack + TEMPLATE.md), pack clean on 153 independent checks
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

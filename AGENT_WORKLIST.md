@@ -590,6 +590,35 @@ audits/seo-pattern-check-2026-08-30.txt. No new question.
       negative tests, all five fire, all five restores byte-identical by
       sha256. Evidence in audits/seo-pattern-h1-count-2026-08-14.txt. No new
       question.
+      Quality pass 2026-08-30: fifth machine pass, both halves. All 26
+      Scorah pages re-read by a fifth independent extraction and CLEAN on
+      every leg for the fifth consecutive pass: own town in title,
+      description and H1, service words on all three legs, exactly one H1,
+      no foreign seoTown outside the branch's own serviceAreaList, titles
+      inside 65 characters, descriptions inside 80 to 165. Live half, two
+      read-only GETs: the Bramhall UTI page serves the pattern's H1 and
+      copy verbatim under Weebly's doubled-brand default title, which
+      extends the known unpasted-title finding to Bramhall explicitly, and
+      the Bramhall landing page 404s exactly as the Hazel Grove landing did
+      on the 08-12 pass. Both known and queued under 5.3/5.4 and the paste
+      run. THE GAP WAS THE 08-14 COUNTING QUESTION ASKED OF THE OTHER TWO
+      LEGS. The 08-14 pass counted h1 elements and stopped there; the title
+      and description lines were still read first-match-only by .exec(), so
+      a page carrying a SECOND "Weebly page SEO title" or "Weebly page SEO
+      description" line passed every rule while the second line went
+      unread, and those lines are exactly what the paster's eyes read when
+      the block goes into Weebly. Proved by injection: a second title line
+      and a second description line, each reading "Pharmacy in Ainsdale" on
+      the Bramhall UTI page (a live seoTown not in Bramhall's
+      serviceAreaList), passed all 36 checkers. Fixed in
+      check-seo-pattern.js: a ONE TITLE LINE, ONE DESCRIPTION LINE rule
+      counting the labels anywhere in the file, mirrored on the ONE H1
+      rule. Four negative tests (duplicate title, duplicate description,
+      missing title line, duplicate in the body outside the head comment),
+      all four fire; restore byte-identical, all 36 checkers green, all six
+      generators rebuild to a zero diff. Evidence in
+      audits/verify-3.2-2026-08-30.js and
+      audits/verify-3.2-2026-08-30-output.txt. No new question.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

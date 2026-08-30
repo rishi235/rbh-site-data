@@ -405,8 +405,27 @@ var DIRS = [
 // two are different questions and neither is widened to suit the other.
 var H1_OPEN_RE = /<h1[^>]*>/gi;
 
+// ---------------------------------------------------------------------------
+// ONE TITLE LINE, ONE DESCRIPTION LINE (item 3.2 quality pass, 2026-08-30)
+// ---------------------------------------------------------------------------
+// The 2026-08-14 pass closed the counting gap on the heading leg and stopped
+// there. Item 3.2's sentence has three legs, and the other two were still
+// read first-match-only: the title comes off one .exec() and the description
+// off another, so a page carrying a SECOND "Weebly page SEO title" or
+// "Weebly page SEO description" line satisfied every rule in this file while
+// the second line went unread. That matters because these lines are paste
+// instructions: whoever pastes the block into Weebly reads the head comment
+// with their own eyes, and two title lines give a coin toss on which one
+// becomes the live SEO title. Proved by injection on the 2026-08-30 pass: a
+// second title line and a second description line, each reading "Pharmacy in
+// Ainsdale" against a Bramhall page (a live seoTown NOT in Bramhall's
+// serviceAreaList), passed all 36 checkers. Counted on the label alone,
+// anywhere in the file, so a duplicate outside the head comment still fails.
+var TITLE_LINE_RE = /Weebly page SEO title:/g;
+var DESC_LINE_RE = /Weebly page SEO description:/g;
+
 var perBrand = {}; // brandLabel -> { pages: n, fails: [] }
-var checked = 0, fails = 0, crossTownChecked = 0, swChecked = 0, h1CountChecked = 0;
+var checked = 0, fails = 0, crossTownChecked = 0, swChecked = 0, h1CountChecked = 0, lineCountChecked = 0;
 var untyped = [];  // files this checker could not type: unchecked, not skipped
 
 DIRS.forEach(function (dir) {
@@ -436,9 +455,25 @@ DIRS.forEach(function (dir) {
         "Every h1 rule in this repo reads the first h1 only, so the others go unchecked " +
         "by the pattern match, the seoTown and service-word rules and the cross-town rule.");
       fails++;
-    } else {
-      h1CountChecked++;
+    } else {
+      h1CountChecked++;
+    }
+
+    // ONE TITLE LINE, ONE DESCRIPTION LINE. Same question as ONE H1, asked of
+    // the other two legs of item 3.2's sentence. See the note above.
+    var titleLineCount = (html.match(TITLE_LINE_RE) || []).length;
+    var descLineCount = (html.match(DESC_LINE_RE) || []).length;
+    if (titleLineCount !== 1) {
+      perBrand[brand].fails.push(file + ": " + titleLineCount + " 'Weebly page SEO title' lines, expected exactly 1. " +
+        "Every title rule in this file reads the first line only, and the paster reads them all.");
+      fails++;
     }
+    if (descLineCount !== 1) {
+      perBrand[brand].fails.push(file + ": " + descLineCount + " 'Weebly page SEO description' lines, expected exactly 1. " +
+        "Every description rule in this file reads the first line only, and the paster reads them all.");
+      fails++;
+    }
+    if (titleLineCount === 1 && descLineCount === 1) lineCountChecked++;
 
     if (gotTitle !== exp.title) { perBrand[brand].fails.push(file + ": title '" + gotTitle + "' != '" + exp.title + "'"); fails++; }
     if (gotH1 !== exp.h1) { perBrand[brand].fails.push(file + ": h1 '" + gotH1 + "' != '" + exp.h1 + "'"); fails++; }
@@ -770,6 +805,7 @@ console.log("PAGE_TYPES contract: " + contractChecked + " title/H1 leg(s) verifi
   Object.keys(KNOWN_NON_PAGE_BUILDER).length + " non-page builder(s) excused.");
 console.log("service-word rule: " + swChecked + " pages had title, h1 and meta all read against their page type's service words.");
 console.log("one-h1 rule: " + h1CountChecked + " pages carry exactly one h1, so the pattern, seoTown, service-word and cross-town rules read the whole heading of every page.");
+console.log("one-line rule: " + lineCountChecked + " pages carry exactly one SEO title line and one SEO description line, so the title and description rules read the only line the paster can paste.");
 console.log("data-source rule: " + sourceChecked + " branches had seo-pattern pick() checked against branches.json seoTown/brandLabel");
 console.log("       and the region leg against seoRegion/addressRegion, " + sourceDiffering +
   " with addressLocality differing from seoTown, " + regionDiffering + " with seoRegion differing from addressRegion.");
