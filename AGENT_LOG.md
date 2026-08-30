@@ -1,4 +1,4 @@
-## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.10 (Smartts Chemist Bootle GBP pack), fifth pass: pack clean on every fact for the fifth time, no repo defect; eight injections run, all caught; live half unavailable (Q59), no new question
+## 2026-08-30 a5d77c0 - Quality pass on 4.10 (Smartts Chemist Bootle GBP pack), fifth pass: pack clean on every fact for the fifth time, no repo defect; eight injections run, all caught; live half unavailable (Q59), no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
