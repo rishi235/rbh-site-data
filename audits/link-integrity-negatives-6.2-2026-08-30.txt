@@ -1,0 +1,31 @@
+Item 6.2 third quality pass, 2026-08-30 - RULE 1 quote-style injection evidence
+
+Gap: RULE 1 of tools/check-service-links.js read href="..." only. A
+single-quoted href was read by no rule. All 1,705 generator-emitted hrefs
+on the 177 pages are double-quoted today, so clean-tree counts could not
+and did not change.
+
+Page injected: modules/service/pages/contraception-fishlocks-ainsdale.html
+Each injection appended one anchor, run, then the page restored with
+git checkout and hash-verified (ac859fd4e4efc52439f61037781551b2d0d66998,
+equal to HEAD) before the next.
+
+AGAINST THE OLD RULE (commit 4b7ed11 state):
+  INJ1 single-quoted dead estate page  <a href='no-such-page-fishlocks-ainsdale.html'>  => exit=0  MISSED
+  INJ3 single-quoted cross-host link   <a href='contraception-riddings-timperley.html'> => exit=0  MISSED
+  INJ2 double-quoted dead page control <a href="no-such-page-fishlocks-ainsdale.html">  => exit=1  caught [stale target]
+
+AGAINST THE WIDENED RULE (this pass):
+  INJ1 => exit=1  FAIL [stale target] links to www.fishlockpharmacy.co.uk/no-such-page-fishlocks-ainsdale.html, which this repo does not generate
+  INJ3 => exit=1  FAIL [cross-host target] links to www.fishlockpharmacy.co.uk/contraception-riddings-timperley.html, but that page is generated for www.riddingspharmacy.co.uk, so it 404s on www.fishlockpharmacy.co.uk
+  INJ2 => exit=1  FAIL [stale target] unchanged
+
+Clean tree before and after the widening: 177 pages, 987 links, 421 estate,
+6 known issues, exit 0. The rule is not weaker anywhere it was already strong.
+
+Note for the record: the first attempt at this widening wrote the edited
+checker through a relative .NET path while the process working directory was
+elsewhere, so the file on disk never changed and the "new rule" injections
+were in fact re-runs against the old rule (both exited 0, which is what
+exposed the failed write). The edit was redone with absolute paths and
+verified on disk via git diff before the proofs above were run.

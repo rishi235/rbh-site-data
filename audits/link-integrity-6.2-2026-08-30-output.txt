@@ -1,0 +1,4 @@
+pages=177 hrefs=987 estate=421 (abs=6 rel=244 homepage=171)
+known targets seen=5 references=6
+defects=0
+CLEAN

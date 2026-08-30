@@ -4264,6 +4264,36 @@ so tools/build-audit-status.js picks them up like any other item.
       weaker anywhere it was already strong. No page, generator, data field or
       piece of patient-facing copy was changed. All 36 checkers green, and all
       six generators reproduced every page byte-identical, before and after.
+      Third quality pass 2026-08-30, BOTH HALVES for the first time since the
+      2026-08-11 sweep. Repo half: ONE REAL DEFECT FOUND AND FIXED, in the
+      checker, not on a page. RULE 1 of tools/check-service-links.js read
+      double-quoted hrefs only, so a single-quoted href - hand-added, or
+      emitted by a future generator change - was read by no rule at all. All
+      1,705 generator-emitted hrefs are double-quoted today, so nothing was
+      hiding behind the gap on the day it was closed. Proved by injection in
+      both directions: a single-quoted link to a dead estate page and a
+      single-quoted cross-host link both passed the old rule and both fail
+      the widened one, and the double-quoted control fails both. Verified by
+      a third from-scratch extractor sharing no code with tools/
+      (audits/link-integrity-6.2-2026-08-30.js: own globbing, own href regex
+      reading both quote styles, own resolution model, five coverage gates,
+      one proved to fire by mutation). It reached the same estate
+      independently: 177 pages, 987 hrefs, 421 estate-internal (6 absolute
+      with a path, 244 relative, 171 homepage), 5 known targets carrying 6
+      references, ZERO defects. Clean-tree counts identical before and after
+      the widening. Live half, read only, five URLs, nothing clicked or
+      typed: all four 2026-08-11 findings re-read for the first time since
+      the sweep and all four stand unchanged 19 days on. The canonical
+      Riddings switch permalink still 404s and the old permalink still
+      serves; Tiffenbergs book-now.html still 404s; Riddings /clinic-prices
+      still 404s while service-price-list.html serves. Q53 and Q54 stay open.
+      NEW FACT recorded on Q53's note: the stale live Riddings switch page
+      carries the 'Support that delivers results.' weight loss tile, an
+      efficacy claim the repo's generated replacement does not contain, so
+      the queued permalink fix also removes a live results claim on a weight
+      loss service. No page, generator, data field or piece of patient-facing
+      copy was changed. All 36 checkers green, and all six generators
+      reproduced every page byte-identical, before and after.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

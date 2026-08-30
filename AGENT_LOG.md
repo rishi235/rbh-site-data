@@ -2,6 +2,98 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+
+## 2026-08-30 - Quality pass on 6.2 (broken internal links), third pass: both halves verified for the first time since the 2026-08-11 sweep, RULE 1 gains single-quote coverage, all four live findings stand, one new fact fed to Q53
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from log run headers and git commit subjects, later of the two
+wins: stalest completed item is 6.2, last passed 2026-08-14 09:12
+(871337d). Taken, its third machine pass, and the first run on this item
+with a working browser since the original sweep.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only 'Standing authorisation - autonomous
+window' section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously; nothing needed it, since both
+changes are checking code and evidence files.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 4b7ed11, worktree clean. All 36
+checkers green and all six generators rebuilt to a zero diff before any
+inspection.
+
+REPO HALF: ONE REAL DEFECT FOUND AND FIXED, in the checker, not on a
+page. RULE 1 of tools/check-service-links.js matched href="..." only, so
+a single-quoted href was read by no rule: a single-quoted link to a dead
+estate page and a single-quoted cross-host link both passed the whole
+checker suite. Nothing was hiding behind the gap: all 1,705
+generator-emitted hrefs on the 177 pages are double-quoted, so clean-tree
+counts (177 pages, 987 links, 421 estate, 6 known) are identical before
+and after the widening. Same fault family as the seven before it: the
+rule was right about the shapes it read and silent about the one it did
+not. Proof in audits/link-integrity-negatives-6.2-2026-08-30.txt, page
+restored via git checkout and hash-verified after every injection.
+
+THIRD INDEPENDENT EXTRACTION, ZERO DEFECTS. New from-scratch verifier
+audits/link-integrity-6.2-2026-08-30.js, importing nothing from tools/:
+own globbing, own href regex reading BOTH quote styles, own branches.json
+read, own host-attribution and resolution model, five coverage gates each
+exiting non-zero on its own (one proved to fire by mutation before the
+result was read). Same estate reached independently: 177 pages, 987
+hrefs, 421 estate-internal (6 absolute-with-path, 244 relative, 171
+homepage), 5 known targets / 6 references, zero defects on the pages.
+
+LIVE HALF, READ ONLY, FIVE URLS, NOTHING CLICKED OR TYPED. First live
+re-read of the 2026-08-11 sweep findings; all four stand unchanged 19
+days on:
+- Riddings: switch-prescriptions-riddings-timperley.html still 404;
+  switch-prescriptions.html (old permalink) still serves the full switch
+  page. Q53 stands.
+- Tiffenbergs: book-now.html still 404 while the site-wide nav links it.
+  Q53 stands.
+- Riddings: /clinic-prices still 404; service-price-list.html live and
+  serving. Q53 stands.
+- Cloudflare email-obfuscation artefact not re-read (an artefact by
+  construction). Q54 stands.
+
+NEW FACT FED TO Q53 (note updated, question and options untouched): the
+stale live Riddings switch page at the old permalink carries the 'Support
+that delivers results.' weight loss tile - the same efficacy claim held
+as KNOWN_CLAIM on the Smartts page under Q16 - while the repo's generated
+Riddings switch page carries no services grid and no claim. So the queued
+Q53 permalink fix is not just a dead-link repair: the repaste it forces
+also removes a live results claim on a weight loss service. Recorded on
+the note rather than as a new question because the decision it informs is
+already open as Q53; no autonomous action was taken on it, since it is a
+live patient-facing regulatory claim and live-only besides.
+
+A WRITE FAULT OF MY OWN, CAUGHT AND RECORDED. The first attempt at the
+RULE 1 widening wrote the checker through a relative .NET path while the
+process working directory was elsewhere, so the file on disk never
+changed and the 'new rule' injections re-ran the old rule - both exited 0,
+which is what exposed the failed write. Redone with absolute paths,
+verified on disk via git diff before the proofs were re-run. Recorded in
+the negatives file so the evidence trail explains its own first draft.
+
+ONE LIVE OBSERVATION OUTSIDE SCOPE, one line, no action: the Riddings
+footer prints the premises GPhC number on one line and the
+superintendent's on another with inconsistent capitalisation ('DR S K
+Kochhar' vs 'Dr S K Kochhar'), live-only Weebly furniture of the Q37/Q39
+class already before Rishi.
+
+FILES CHANGED: tools/check-service-links.js (RULE 1 quote widening),
+audits/link-integrity-6.2-2026-08-30.js (new),
+audits/link-integrity-6.2-2026-08-30-output.txt (new),
+audits/link-integrity-negatives-6.2-2026-08-30.txt (new),
+AGENT_WORKLIST.md (6.2 third-pass note), QUESTIONS.json (Q53 note),
+AGENT_LOG.md (this entry). No new questions: 56 open before, 56 after.
+All 36 checkers green after the change.
+
 ## 2026-08-30 [commit ae94442, hash line added by a small follow-up commit] - Quality pass on 3.7 (Smartts Chemist, Bootle), sixth pass: 12 pages clean on 2,354 independent checks, four new legs proved by mutation, live switch page still serving pre-repaste title and description
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

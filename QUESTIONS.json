@@ -821,7 +821,7 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "Full target list with per-page sources is in audits/broken-links-sweep-2026-08-11.json. The Riddings fix has two parts because the site-wide switch banner on Riddings links the old permalink, so a rename without the banner retarget would break the banner on every page."
+    "note": "Full target list with per-page sources is in audits/broken-links-sweep-2026-08-11.json. The Riddings fix has two parts because the site-wide switch banner on Riddings links the old permalink, so a rename without the banner retarget would break the banner on every page. Update 2026-08-30 (third 6.2 quality pass, live re-read): all three dead links stand unchanged 19 days on - the canonical Riddings switch permalink still 404s with the old permalink still live, Tiffenbergs book-now.html still 404s, and /clinic-prices still 404s while service-price-list.html serves. New fact: the stale live Riddings switch page at the old permalink carries the 'Support that delivers results.' weight loss tile, an efficacy claim the repo's generated replacement page does not contain, so the queued permalink fix also removes a live results claim on a weight loss service and is worth doing sooner rather than later."
   },
   {
     "id": "Q54",

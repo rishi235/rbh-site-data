@@ -196,9 +196,18 @@ PAGE_DIRS.forEach(function (dir) {
     // relative targets resolve to pages this repo generates. The gap was the
     // finding, the same shape as the check-em-dashes.js gap on 2026-08-12.
     let m;
-    const re = /href\s*=\s*"([^"]*)"/gi;
+    // BOTH quote styles since 2026-08-30 (third 6.2 quality pass). Every href
+    // the generators emit today is double-quoted (1,705 of 1,705), but the rule
+    // read double quotes only, so a single-quoted href - hand-added, or emitted
+    // by a future generator change - was read by no rule at all. Proved by
+    // injection before the widening: a single-quoted link to a dead estate page
+    // and a single-quoted cross-host link both passed this checker; the same
+    // target double-quoted failed. Clean-tree counts are identical before and
+    // after (177 pages, 987 links, 421 estate, 6 known), so the rule is not
+    // weaker anywhere it was already strong.
+    const re = /href\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
     while ((m = re.exec(visible))) {
-      const href = m[1].trim();
+      const href = (m[1] !== undefined ? m[1] : m[2]).trim();
       if (!href || /^(mailto:|tel:|javascript:|data:|#)/i.test(href)) continue;
       linkCount++;
 
