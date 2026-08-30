@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-30 - Quality pass on 3.6 (McCanns Chemist, Aigburth and Sandringham), sixth pass: 24 pages clean on 4,596 independent checks, first two-branch verifier, live still serving the pre-5.7 Sandringham wording
+## 2026-08-30 [commit dcb9fd8, hash line added by a small follow-up commit] - Quality pass on 3.6 (McCanns Chemist, Aigburth and Sandringham), sixth pass: 24 pages clean on 4,596 independent checks, first two-branch verifier, live still serving the pre-5.7 Sandringham wording
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
