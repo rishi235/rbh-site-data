@@ -1,3 +1,92 @@
+## 2026-08-30 (item 4.11 quality pass) - Quality pass on 4.11 (SK Chemists Bootle GBP pack), sixth pass: pack clean on every fact for the sixth time, live half performed, one factual update recorded, all findings already tracked, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running before the lock was created for this run. Branch agents/audit-backlog
+fetched and pulled, level with origin, worktree clean before any edit.
+
+ANSWER PICKUP: ATTEMPTED AND SUCCESSFUL FETCH, NO NEW ANSWERS. Fetched
+https://data.rbhealth.co.uk/api/feedback and read all thirteen entries
+returned (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, some duplicated across
+dates). All correspond to questions already answered and recorded before
+today; none of the 57 currently open questions had a matching answer entry,
+so no worklist item was unblocked by this step.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run, so step 8 applied as written; no decision was needed anyway.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Scanned every dated quality-pass header in this log for the most
+recent pass date on each 1.x/2.x/3.x/4.x/5.x/6.x rotation candidate
+(excluding the established one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Every candidate had been touched on 2026-08-29 evening or 2026-08-30,
+except 4.11 (SK Chemists Bootle GBP pack), whose fifth pass was the
+2026-08-29 recovery of the crashed 2026-08-14 run, timestamped earlier in
+that day than every other 2026-08-29 pass. 4.11 was the clear oldest
+verification standing and was taken as this run's item.
+
+REPO HALF, CLEAN. All six generators rebuilt to a byte-identical worktree;
+git status showed no diff immediately after regeneration. All 36
+tools/check-*.js checkers exit 0. sk-chemists-bootle.md's facts (address,
+phone, hours, website, review link, hasApp false, pfLink) were checked
+field by field against the branches.json record (id skchemists_bootle) and
+match exactly.
+
+LIVE HALF, PERFORMED. A single Chrome tab was available this run, so the
+two-browser pairing block (Q59) did not apply. Read
+pharmacy-first-sk-chemists-bootle.html, pharmacy-first-service-bootle.html,
+sitemap.xml, weight-loss-clinic.html, index.html (link hrefs only, via
+read-only DOM query) and switch-prescriptions-sk-chemists-bootle.html
+directly.
+
+pharmacy-first-sk-chemists-bootle.html (the branch-specific replacement
+Post A should point at once 5.3 unblocks) reconfirmed clean: correct
+trading name, correct town spelling, correct hours, and all seven
+Pharmacy First conditions and NHS age ranges (UTI 16-64, sore throat 5+,
+sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected insect
+bite 1+) matching branches.json exactly.
+
+Three known live-only faults reconfirmed unchanged, none in copy this
+repo owns. pharmacy-first-service-bootle.html (the old Post A target) is
+confirmed still live, still absent from the branch sitemap, and its H1
+still reads "Pharmacy First Service in Bottle, Liverpool" with the town
+misspelled - already tracked under 5.3/Q34, unchanged. weight-loss-clinic.html
+(the legacy page) is confirmed still live, still present in the branch
+sitemap alongside the correct weight-loss-clinic-sk-chemists-bootle.html,
+still names Mounjaro/Wegovy/Orlistat, still carries the superlative claim,
+the outcome slider and lead pricing from £39.99, and the homepage top nav
+plus a homepage tile still link to it by name three times (confirmed by a
+read-only DOM query for weight-loss anchors) - already tracked under
+5.8/Q58, unchanged, not fixed here as this is live patient-facing
+regulatory copy an unattended run may not decide. The switch page body
+still carries a mojibake dash where the repo source holds none, matching
+the estate-wide repaste-backlog pattern tracked elsewhere.
+
+ONE FACTUAL UPDATE RECORDED. The pack's paster notes said the site had
+not been republished since 18 July, checked as recently as 2026-08-12.
+The sitemap read this run is now dated 2026-08-14T18:12:51, so a
+site-wide republish has since happened - but it did not carry the
+branch-specific paste backlog above with it, which is still exactly as
+described. A dated addendum was appended to sk-chemists-bootle.md
+recording both facts (the republish date update, and that the paste
+backlog it warned about is unmoved) so the next person working the paste
+queue is not misled by the stale "not republished" line. All 36 checkers
+re-run clean after the addition; no em dash or mojibake byte was typed
+into the note, the corruption is described in words, following the
+lesson from the 2026-08-30 4.14 pass.
+
+RESULT. One in-repo change (the dated addendum), no new defect found
+beyond what is already tracked, no new question raised. Q80 and Q81
+(this item's own residual checker-widening questions, raised on the
+2026-08-29 recovery pass) remain open and untouched; both are pure
+checker-strictness recommendations with no live copy affected either way,
+and no autonomous window was active this run to action them.
+
+Files changed: gbp-packs/sk-chemists-bootle.md, this log. Commit hash in
+the commit itself.
 ## 2026-08-30 (item 2.3 quality pass) - Quality pass on 2.3 (Cherry Lane, full 12-page build), sixth pass: repo clean, live half performed, three known live-only faults reconfirmed unchanged, no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

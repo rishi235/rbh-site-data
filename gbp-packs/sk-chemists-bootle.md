@@ -175,3 +175,21 @@ Notes for the paster:
   unless special hours say otherwise. The dates are deliberately not retyped
   here so they cannot drift; read them from branches.json at paste time.
   Added on the item 4.5 quality pass, 2026-08-30.
+- Live re-check, 2026-08-30 (item 4.11 quality pass, sixth pass): the site
+  has now republished - the sitemap's lastmod moved from the 18 July date
+  recorded above to 2026-08-14T18:12:51 - so the "not republished since 18
+  July" note above is out of date. The branch-specific paste backlog it
+  warned about has not moved with it, though. Still needing a paste,
+  confirmed live today: the switch page body still carries a mojibake dash
+  where the source holds none, and the switch banner, where it shows on a
+  page, still renders its close control as mojibake, matching the same
+  site-wide Header Code fault already tracked on other branches.
+  pharmacy-first-service-bootle.html is confirmed still live, still outside
+  the branch sitemap and still misspelling the town (item 5.3, Q34,
+  unchanged). weight-loss-clinic.html is confirmed still live, still in the
+  branch sitemap alongside the correct branch page, and the homepage top
+  nav plus a homepage tile still link to it by name, three times (item 5.8,
+  Q58, unchanged, not fixed here as this is live patient-facing regulatory
+  copy an unattended run may not decide). No new question raised. Q80 and
+  Q81, this item's two residual checker-widening questions, remain open and
+  untouched; no autonomous window was active this run.
