@@ -21,7 +21,7 @@ same pass, thirty URLs across the three domains (five per
 branch: pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,
 travel-clinic-, contraception-), and all thirty returned 200. The paste
 order constraint in the paragraph above is therefore already satisfied for
-ALL THREE pairs, not just Fishlocks: each of the six landing pages can be
+ALL THREE pairs, not just Fishlocks Chemist: each of the six landing pages can be
 pasted on its own, in any order, and no link on it will 404. The only thing
 between the shared-domain split and a visitor or Google is the six Weebly
 pastes themselves. The six packs in gbp-packs/ each set the Google profile

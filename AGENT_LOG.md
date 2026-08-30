@@ -1,3 +1,111 @@
+## 2026-08-30 (answer pickup: Q22, Q24, Q28, Q29; item 5.7 quality pass) - Two answer-pickup decisions applied to the repo, two recorded with no repo action, one checker regression introduced and fixed, 5.7 re-verified
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched and pulled, level with origin (28281cd),
+worktree clean before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+entries returned. Four map to currently open questions with no answer
+recorded yet: Q22, Q24, Q28, Q29. One tab opened and closed, nothing
+clicked, typed or submitted.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of this
+run.
+
+APPLIED:
+- Q24 - widened tools/seo-pattern.js's shortenBrand() from matching only a
+  trailing " Pharmacy" to also matching " Chemist"/" Chemists", so all 14
+  trading brands have a length-overrun remedy, not just the 3 ending in
+  Pharmacy. Verified by rebuilding all seven page generators: 0 pages
+  changed from this edit alone (fires on nothing today, as the answer
+  predicted).
+- Q28 - branches.json's clearchemist_aintree.phone corrected from
+  "0151 203 8365" to "0151 203 6535" (Rishi confirmed 6535 is correct).
+  Regenerated the three Clear pages that print it
+  (switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-
+  aintree.html, travel-clinic-clear-aintree.html); git diff confirms only
+  those three files plus branches.json changed. gbp-packs/clear-aintree.md
+  updated in the same edit (it is hand-authored prose, not generated, so it
+  does not regenerate on its own) - the "DO NOT PASTE THIS NUMBER YET" hold
+  and the Post A caveat both rewritten now the number is confirmed.
+  OUTSTANDING, outside repo/browser-write reach: repasting the three
+  regenerated pages to the clearchemist.co.uk store, and pasting 6535 to the
+  branch's Google Business Profile - both need Rishi or Dane.
+- Q22 and Q29 recorded as answered with no repo action: Q22 because Rishi's
+  answer is "unsure, will produce guidance" and nothing in the repo carries
+  the copy in question; Q29 because the decision is to leave Clear's three
+  pages generated and unpublished, which is the current state already.
+
+QUESTIONS.json: all four moved from "open" to "answered" with the answer
+text recorded and dated. Open count 53 -> 49. None of the four block a
+worklist item (all four say so themselves), so nothing was unmarked
+[BLOCKED].
+
+REGRESSION FROM Q24, FOUND AND FIXED WHILE VERIFYING: running the full
+36-checker suite after the Q24/Q28 edits surfaced 3 new check-brand-
+spelling.js failures that did not exist before this run. Not a page defect -
+a checker-scope defect. check-brand-spelling.js's rule 6 derives which
+brands are "shortenable" directly from seo-pattern.js's shortenBrand(), so
+widening it to Chemist-suffixed brands correctly brought SK Chemists and
+Fishlocks Chemist into rule 6's scan for the first time. Two of the three
+failures were a checker bug this exposed rather than a real leak: the
+shop-type-word negative-lookahead only matched title case, so build-comment
+headers like "SK CHEMISTS" (all caps) were misread as a bare "SK" with no
+shop-type word. Fixed by widening the lookahead alternatives to the
+all-caps forms too (Pharmacy/PHARMACY/Pharmacies/PHARMACIES/Chemist/
+CHEMIST/Chemists/CHEMISTS). A case-insensitive /i flag was tried first and
+reverted immediately: it also made the brand half of the match case-
+insensitive, which matched lower-case URL slugs like
+"-scorah-hazel-grove-" and "-clear-aintree-" that the case-sensitive form
+had always safely ignored, and failures jumped to 785 before the revert.
+The third failure was a genuine bare "Fishlocks" mention (no "Chemist")
+in modules/branch/pages/INDEX.md:24, internal build-index prose, not a
+customer-facing page; reworded to "Fishlocks Chemist" since it costs
+nothing and the meaning is identical. All 35 non-live checkers clean
+afterwards. tools/check-brand-spelling.js's stale comment ("seo-pattern.js
+shortens only a brand ending in ' Pharmacy' today") updated to record Q24.
+
+ITEM 5.7 QUALITY PASS (see correction below on how this was picked). Repo
+half re-verified end to end: seoTown "St Michael's" / townSlug held at
+"sandringham" unchanged in branches.json; all 13 pages the branch owns
+still lead with St Michael's in title, description, H1, meta keywords and
+hero copy; no permalink moved; the Aigburth sister cross-link still names
+St Michael's; the switch page (now sourced through the Q19 rewire applied
+last run) carries it correctly, confirming the Q19 refactor integrated
+cleanly with 5.7's data. Live half read again by plain GET on
+switch-prescriptions-mccanns-sandringham.html: unchanged from every prior
+pass, still serves "Sandringham" throughout (SEO title, H1, body copy) -
+the Weebly repaste flagged OUTSTANDING since 2026-08-10 has still not
+happened. No new question; this reconfirms the same recorded paste
+backlog, not a new defect. Full text logged in AGENT_WORKLIST.md's 5.7
+entry.
+
+CORRECTION TO METHOD, logged plainly rather than quietly: this run picked
+5.7 as "least recently verified completed item" from a scan of
+AGENT_LOG.md quality-pass dates alone, without first finding today's
+established convention (recorded repeatedly earlier today, e.g. the item
+4.7 quality pass run) that 1.1, 1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 are treated
+as one-offs and excluded from the regular rotation pool. 5.7 should not
+have been this run's rotation pick. The pass was still worth doing, since
+it re-verified that this run's own Q24/Q28 edits caused no regression on
+5.7's pages and re-confirmed the live gap, but it does not count as this
+run's rotation-pool verification. By the same method used on 2026-08-30's
+"item 4.7" run (scan every candidate's most recent quality-pass date,
+excluding the one-off list, take the oldest), the correct pick is 4.2
+(Cherry Lane GBP pack), last passed 2026-08-29 22:35 BST and not touched
+since. Next unattended run should take 4.2, not continue the 5.7 thread.
+
+Files changed: branches.json, tools/seo-pattern.js, tools/check-brand-
+spelling.js, tools/branches-editor.html, gbp-packs/clear-aintree.md,
+modules/branch/pages/INDEX.md, QUESTIONS.json, AGENT_WORKLIST.md, and the
+three regenerated Clear Chemist Aintree pages. All 35 non-live checkers
+pass. No file hand-edited that a generator owns without also regenerating
+it; INDEX.md, QUESTIONS.json, gbp-packs/clear-aintree.md and
+branches-editor.html's snapshot are hand-authored/data files with no
+generator, edited directly as CLAUDE.md's architecture note allows.
+
 ## 2026-08-30 (answer pickup: Q18, Q19, Q20, Q21) - Applied four answered findings, no worklist item taken this run
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

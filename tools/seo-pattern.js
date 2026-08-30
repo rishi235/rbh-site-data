@@ -104,16 +104,25 @@ function pick(b) {
 // condition name gets handled the same way instead of quietly overrunning.
 //
 // It fires ONLY when a composed title is over the limit AND the brand ends in
-// " Pharmacy", so every other title in the estate is untouched and every other
-// page regenerates byte-identical. Nothing else shortens: the H1, the JSON-LD
-// name, the data-branch attribute and every visible line of copy keep the full
-// trading name Q1 settled. Only the SERP title loses the word.
+// " Pharmacy", " Chemist" or " Chemists", so every other title in the estate
+// is untouched and every other page regenerates byte-identical. Nothing else
+// shortens: the H1, the JSON-LD name, the data-branch attribute and every
+// visible line of copy keep the full trading name Q1 settled. Only the SERP
+// title loses the word.
+//
+// Widened to cover " Chemist"/" Chemists" (Q24, answered by Rishi 2026-08-30):
+// only 3 of the 14 trading brands end in " Pharmacy"; the other 11 end in
+// " Chemist" or " Chemists" and had no remedy at all if one of their titles
+// ever overran. Consistent with the Q14 reasoning that the brand, not the
+// NHS wording, is what gives way. Fires on nothing today - no Chemist-suffixed
+// title is currently over the limit - so every page regenerates byte-identical.
 var TITLE_WARN_LEN = 65;
 
 // The only permitted shortening. Returns null if the brand does not end in
-// " Pharmacy", in which case the title is left long and checkTitle warns.
+// " Pharmacy", " Chemist" or " Chemists", in which case the title is left
+// long and checkTitle warns.
 function shortenBrand(brand) {
-  return /\sPharmacy$/.test(brand) ? brand.replace(/\sPharmacy$/, "") : null;
+  return /\s(Pharmacy|Chemists?)$/.test(brand) ? brand.replace(/\s(Pharmacy|Chemists?)$/, "") : null;
 }
 
 // Compose a title with `compose(brand)`, retrying once with the shortened

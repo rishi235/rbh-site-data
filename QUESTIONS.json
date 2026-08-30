@@ -337,8 +337,8 @@
       "Homepage line only for now, and leave the five inner pages until the wider Weebly paste run. Smallest action that reduces the most exposure, but it leaves five pages carrying a superlative POM claim and an outcome slider"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
+    "status": "answered",
+    "answer": "Unsure - Rishi needs to loop back on sequencing the homepage line against the five inner pages and will produce guidance. Recorded here 2026-08-30 by the audit worker. No repo action taken: nothing generated carries this copy (confirmed again on this pass), so there is nothing to fix until the guidance arrives.",
     "note": "Nothing in the repo is affected and no generated page carries any of this. The one repo-side item is unchanged from Q16: the Weight Loss Clinic tile on the Smartts switch page says 'Support that delivers results' and links to the old page. It was not changed this run because it is patient-facing regulatory copy, which the autonomous window's own carve-out reserves for you; the replacement wording offered is 'Pharmacist-led consultations and ongoing support'. Three things worth knowing before deciding. First, do not fix these by deleting the medicine names: the assessment sets out which elements are the breach and which are permitted information, and an over-correction costs a patient real information while leaving the claims. Second, one fact could not be established without you: whether any paid search, paid social or organic social post links to these pages. If it does, the landing page falls under the advertising regime and the position is materially worse. Third, a separate and non-regulatory defect on the same visit: the whole live Smartts site, homepage sidebar and footer included, states Mon-Fri 9am-6pm, while branches.json holds 09:00 to 13:00 and 14:00 to 18:00 from the NHS profile confirmed 2026-06-24, so it tells patients the pharmacy is open through the hour it is shut. Riddings was checked as a control and is correct. Fix it in the same visit."
   },
   {
@@ -367,8 +367,8 @@
       "Leave the rule as it is but raise the checker's limit to 70 characters so an overrun warns rather than fails. Cheapest, and the worst of the three: it hides the truncation instead of preventing it, which is the problem Phase 3 exists to fix"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
+    "status": "answered",
+    "answer": "Yes - widen the rule to drop a trailing ' Chemist' or ' Chemists' as well as ' Pharmacy', so all fourteen brands have the same remedy. Implemented 2026-08-30 by the audit worker in tools/seo-pattern.js (shortenBrand regex widened from /\\\\sPharmacy$/ to /\\\\s(Pharmacy|Chemists?)$/, comments updated). Verified by a full rebuild of every page generator: it fires on nothing today, zero pages changed from this edit (the only generated-output diff this run came from the separate Q28 phone number fix).",
     "note": "Two numbers worth having before you decide. The estate's longest title today is the Coleman and Leighs contraception page at exactly 65 characters, the limit itself, and it keeps the full brand because the rule only fires above the limit rather than at it. The second longest is the McCanns Sandringham infected insect bite page at 64, and that one cannot be shortened at all. So the headroom on the two tightest titles in the estate is one character each, and only one of them has a remedy. A related consequence of the rule you may not have intended, and which nothing flags: Coleman and Leighs now presents two different brand strings to Google across its own pages, ending one title '- Coleman and Leighs' and another '- Coleman and Leighs Pharmacy', because only the first overran. That is the same entity-resolution question as Q18 and it may be worth answering the two together. Nothing here blocks any worklist item and no page changed on this pass."
   },
   {
@@ -429,8 +429,8 @@
       "Neither is confirmed. Ring the branch and settle it before anything is pasted or changed"
     ],
     "recommended": 2,
-    "status": "open",
-    "answer": null,
+    "status": "answered",
+    "answer": "0151 203 6535 is correct. branches.json updated for clearchemist_aintree (phone changed from 0151 203 8365 to 0151 203 6535), and the three Clear pages (switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html) regenerated. Implemented 2026-08-30 by the audit worker; check-nap, check-seo-lengths and check-seo-pattern all ran clean afterwards (0 mismatches, 0 failures). Outstanding, outside repo/browser-write reach: repasting the three regenerated pages to the clearchemist.co.uk store, and updating the Google Business Profile listing to 6535 - both need Rishi or Dane.",
     "note": "Option 3 is recommended only because it is the likeliest explanation, not because it is verified: the live page labels 6535 \"Customer Services\" and gives a separate pharmacy mailbox, pharmacy@clearchemist.co.uk, which reads like a business that runs two lines. It is a guess until the branch confirms, which is why this was not decided under the autonomous window: a wrong telephone number on a pharmacy's Google profile is patient-facing, and no option here can be implemented without a fact only the branch holds. Related, found in the same read and belonging to Q21: Clear advertises its own WhatsApp number, 07512 330 076, on the same contact page and promises a reply within the hour, while all three of its generated pages carry the estate-wide hardcoded 447521775631. So the estate default is already demonstrably wrong for at least one branch, which is the concrete case Q21 was missing."
   },
   {
@@ -444,8 +444,8 @@
       "Leave the three pages generated and unpublished, keep the homepage buttons, and revisit when the store is next worked on. No cost now, but the repo keeps building and checking pages that reach nobody, and the next pass finds the same thing"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
+    "status": "answered",
+    "answer": "Leave the three pages generated and unpublished, keep the homepage buttons, and revisit when the store is next worked on. Recorded here 2026-08-30 by the audit worker. No repo action taken or needed; nothing changed this run for Clear's publish route.",
     "note": "Not decided under the autonomous window because every option costs money or scope: option 1 is store development time and option 2 removes a branch from the local search work Rishi commissioned. The pack is safe either way in the meantime. Worth knowing when deciding: Clear is the only branch with no Pharmacy First, no blood pressure and no contraception service, so its three pages are the whole of its local web presence, and the item 3.13 pass already noted that a third of it, the travel clinic page, offers a visitor no callback form and no WhatsApp button, which is Q20."
   },
   {

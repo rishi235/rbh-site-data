@@ -11,13 +11,9 @@ Profile basics (for checking, not pasting):
 - Address: Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree,
   Liverpool L9 7AS. Confirmed against the branch's own live contact page
   on 2026-08-10, which gives the same unit and the same postcode.
-- Phone: 0151 203 8365 in branches.json. DO NOT PASTE THIS NUMBER YET.
-  The branch's own website publishes 0151 203 6535 as its only telephone
-  number, twice on its own contact page at www.clearchemist.co.uk/
-  contact-us (read 2026-08-10), and not 0151 203 8365 anywhere this pass
-  could find. One of the two is wrong and only the branch can say which.
-  Confirm with Clear, correct branches.json if it is the one at fault,
-  and only then set the number on the profile. See question Q28.
+- Phone: 0151 203 6535, confirmed by Rishi 2026-08-30 (Q28). branches.json
+  and all three generated pages were updated from the old 0151 203 8365
+  to 0151 203 6535 the same day. Safe to paste.
 - Hours: not recorded in branches.json. Do not paste or invent hours -
   confirm with the branch and add to branches.json first. The branch's
   live contact page does publish hours, so the answer is obtainable:
@@ -97,7 +93,7 @@ Clear Chemist is a real pharmacy in Aintree, not just a website. Behind
 every order is a team of pharmacists and dispensers at Unit 20 Brookfield
 Trade Centre on Brookfield Drive, Liverpool, serving Aintree, Fazakerley,
 Walton, Bootle and North Liverpool. Order through our website or app, or
-call us on 0151 203 8365 and speak to a person. Questions about your
+call us on 0151 203 6535 and speak to a person. Questions about your
 medicines? Our pharmacists are happy to help.
 Button: Learn more -> https://www.clearchemist.co.uk
 
@@ -105,7 +101,7 @@ Button: Learn more -> https://www.clearchemist.co.uk
 Switching your prescriptions to Clear Chemist takes about 30 seconds.
 Tell us your name, date of birth and GP surgery - we contact the surgery
 and handle everything else. A real team in Aintree you can actually speak
-to on 0151 203 8365, with a website and app that make ordering repeats
+to on 0151 203 6535, with a website and app that make ordering repeats
 simple. Serving Aintree, Fazakerley, Walton, Bootle and North Liverpool.
 Button: Learn more -> https://www.clearchemist.co.uk/switch-prescriptions-clear-aintree.html
 
@@ -140,10 +136,8 @@ Notes for the paster:
 - Opening hours are not in branches.json for this branch. Confirm hours
   with the branch, add them to branches.json, then set them on GBP. Do
   not guess.
-- Post A quotes 0151 203 8365. Hold that number back until Q28 is
-  settled, for the reason in the profile basics above: the branch's own
-  website publishes a different one. Either confirm the number first, or
-  post A without the telephone sentence and add it afterwards.
+- Post A quotes 0151 203 6535, confirmed correct by Q28 (2026-08-30).
+  Safe to post as written.
 - The Post B, C and D URLs were checked live on 2026-08-10 and ALL THREE
   RETURN 404. This is not a lag to wait out. Clear is the one branch in
   the estate whose website is not Weebly: clearchemist.co.uk is the

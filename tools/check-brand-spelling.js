@@ -616,9 +616,10 @@ var TITLE_ROLE = /(?:Weebly page SEO title:|\*\*SEO title:\*\*|\*\*Page Title:\*
 // Which brands can be shortened, and to what, is NOT restated here. The
 // composer is asked directly: pad a title past the limit so fitTitle must
 // retry, then read back what it put in place of the brand. seo-pattern.js
-// shortens only a brand ending in " Pharmacy" today, but this rule does not
-// need to know that, and cannot drift from it if that ever changes. Same
-// convention as reading a generator as data under test.
+// shortened only a brand ending in " Pharmacy" until Q24 (2026-08-30) widened
+// it to " Chemist"/" Chemists" too, but this rule does not need to know
+// that, and cannot drift from it if it changes again. Same convention as
+// reading a generator as data under test.
 var pat = require(path.join(ROOT, "tools", "seo-pattern.js"));
 var shortForms = [];
 if (typeof pat.fitTitle !== "function" || typeof pat.TITLE_WARN_LEN !== "number") {
@@ -685,7 +686,7 @@ if (!shortFiles.length) {
       shortMasks.forEach(function (mask) { ln = ln.split(mask).join(" "); });
       shortForms.forEach(function (sf) {
         var re = new RegExp("\\b" + esc(sf.short) +
-          "\\b(?!\\s+(?:Pharmacy|Pharmacies|Chemist|Chemists))");
+          "\\b(?!\\s+(?:Pharmacy|PHARMACY|Pharmacies|PHARMACIES|Chemist|CHEMIST|Chemists|CHEMISTS))");
         if (!re.test(ln)) return;
         fail(rel(fp) + "::short::" + sf.short,
           rel(fp) + ":" + (i + 1) + ': reads "' + sf.short + '" without its ' +

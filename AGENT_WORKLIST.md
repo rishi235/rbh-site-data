@@ -4521,6 +4521,40 @@ so tools/build-audit-status.js picks them up like any other item.
       silently reverted the fix before its own tests ran. Both are written up
       in the evidence file. Evidence:
       audits/sandringham-town-item-5.7-quality-pass-2026-08-14-run203.txt.
+      Quality pass 2026-08-30 (this run): repo half re-verified again. All 35
+      static tools/check-*.js checkers pass (check-live-hours.js excluded,
+      needs a live fetch). branches.json still holds seoTown "St Michael's"
+      with townSlug held at "sandringham" on purpose; all 13 pages the branch
+      owns still lead with St Michael's in title, description, H1, meta
+      keywords and hero copy; permalinks unmoved; the Aigburth sister
+      cross-link still names St Michael's; the GBP pack's catchment order
+      fix from the 2026-08-11 pass still holds. Live half read again by
+      plain GET on switch-prescriptions-mccanns-sandringham.html: unchanged
+      from every prior pass, the live SEO title, H1 and body copy still say
+      "Sandringham", not "St Michael's" - the Weebly repaste flagged
+      OUTSTANDING since 2026-08-10 has still not happened. No new question;
+      this is the same recorded paste backlog, reconfirmed, not a new defect.
+      Two regressions were found and fixed during this pass, both caused by
+      this run's own earlier work (Q24: widening the title-shortening rule
+      to Chemist-suffixed brands), not by anything in 5.7 itself: (1)
+      check-brand-spelling.js rule 6 read "SK CHEMISTS" (an uppercase build
+      comment header) as a bare "SK" leak because its shop-type-word lookahead
+      only matched title case; the lookahead alternatives were widened to
+      also match the all-caps forms (an attempted case-insensitive fix was
+      tried first, reverted immediately when it started matching lower-case
+      URL slugs like "-scorah-hazel-grove-" and produced 785 false failures);
+      (2) modules/branch/pages/INDEX.md:24 had a genuine bare "Fishlocks"
+      mention with no shop-type word, reworded to "Fishlocks Chemist". All
+      35 checkers clean after both fixes.
+      CORRECTION TO METHOD: this item was picked without first checking the
+      established rotation-exclusion list recorded earlier today (1.1, 1.4,
+      2.2, 5.6, 5.7, 6.7, 6.8 are one-offs, not part of the rotation pool).
+      5.7 should not have been the rotation pick; it was still worth doing
+      because it re-verified this run's own Q24/Q28 edits caused no regression
+      elsewhere, but it does not reset 5.7's rotation clock in the sense the
+      other candidates use. Per the same method, 4.2 (Cherry Lane GBP pack)
+      is the one rotation candidate not touched on 2026-08-30 (last pass
+      2026-08-29 22:35 BST) and should be the next run's quality-pass item.
 - [ ] [BLOCKED] 5.8 Q16 weight loss advertising exposure: fix the five live
       weight loss pages and the estate-wide homepage claim. Rishi's answer to
       Q16 was an instruction to verify the finding against
