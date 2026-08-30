@@ -1,0 +1,72 @@
+Item 3.1 quality pass, sixth pass, 2026-08-30 (unattended run)
+================================================================
+
+SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3, 5.4,
+5.5, 5.8, 6.1, 6.4, 6.5, 6.6). A full scan of AGENT_LOG.md for every
+"## 2026-08-30" header (40 found) showed all 36 rotation-pool items
+(checked items minus the established one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) had already been quality-passed today, EXCEPT that AGENT_WORKLIST.md's
+own per-item dates disagreed with this for item 4.11 (showed 2026-08-13,
+last checked item). Cross-checking AGENT_LOG.md and gbp-packs/sk-chemists-
+bootle.md showed 4.11 actually had a fifth pass (2026-08-29 recovery) and a
+sixth pass (2026-08-30) that were never appended to AGENT_WORKLIST.md - see
+Q84. With 4.11 correctly excluded, item 3.1's earliest 2026-08-30 header
+(00:12 BST) was the oldest last-verified timestamp of any rotation-pool
+item, so 3.1 is this run's pick.
+
+REPO HALF. All six generators rebuilt from a clean checkout: git status
+--porcelain empty afterwards, so all 177 pages reproduce the committed
+state byte for byte. All 36 tools/check-*.js checkers run individually,
+zero failures.
+
+INJECTION TEST. tools/seo-pattern.js's fitTitle was patched to
+  function fitTitle(compose, brand) { return compose(brand); }
+i.e. never retrying with a shortened brand, defeating the Q14/Q24 rule.
+tools/build-service-pages.js was rerun. Result:
+  modules/service/pages/insect-bite-treatment-coleman-leigh-walton.html
+  Weebly page SEO title reverted to the full, over-length form:
+  "Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy"
+  (70 characters).
+All 36 checkers rerun. check-seo-lengths.js FAILED, by name, on this exact
+page:
+  FAIL insect-bite-treatment-coleman-leigh-walton (modules/service/pages/SEO.md):
+  title is 70 characters, over the 65 limit, so Google truncates it
+       Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy
+No other checker fired (correct: this is the only page in the estate that
+currently exercises the shortenBrand rescue). Conclusion: the fitTitle
+contract is backstopped by a second, independent checker (check-seo-
+lengths.js), not merely self-consistent with seo-pattern.js's own
+self-test, which would have been circular. This closes out a residual this
+item's history had not explicitly tested: previous passes proved the DATA
+SOURCE (town/brand/region) is asserted independently of pick()'s own
+answer, but had not proved the LENGTH-RESCUE behaviour is independently
+backstopped too.
+
+REVERT. tools/seo-pattern.js restored from the pre-injection copy; all six
+generators rerun; git status --porcelain empty; all 36 checkers rerun,
+zero failures.
+
+LIVE HALF. One Chrome tab, read-only, no click/type/submit.
+https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+read directly via a read-only DOM query (title, first h1, meta
+description):
+  title:    "Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy"
+  h1:       "Infected insect bite treatment in Walton" (exactly one h1)
+  metaDesc: "Infected insect bite treatment at Coleman & Leigh Pharmacy in
+             Walton. Free NHS Pharmacy First service, be assessed by a
+             pharmacist with no GP appointment needed."
+H1 matches the pattern exactly (no brand in this family's H1, so nothing to
+diverge). Title and meta both still carry the live site's long-standing
+"Coleman & Leigh Pharmacy" wording instead of the repo's "Coleman and
+Leighs Pharmacy" (brandLabel in branches.json) - or, for this specific
+page, the Q14-shortened "Coleman and Leighs". This is the same brand-name
+paste-lag already tracked under Q1 and item 1.1 (see QUESTIONS.json Q1 and
+AGENT_WORKLIST.md lines around 1326, 3028, 3058, 3891, 3893, and AGENT_LOG.md
+lines 1073, 1852, 3252, 13855, 14369) - reconfirmed unchanged, not a new
+finding, not fixed here (Weebly paste, outside repo/browser-write reach).
+
+RESULT. No in-repo defect in the pattern. One process finding raised as
+Q84 (AGENT_WORKLIST.md not kept in sync with AGENT_LOG.md for at least
+item 4.11's fifth/sixth passes), not fixed here as it is bigger than this
+pass's scope. Files changed this run: AGENT_WORKLIST.md (this note, under
+item 3.1), QUESTIONS.json (Q84), this file, AGENT_LOG.md (entry to follow).

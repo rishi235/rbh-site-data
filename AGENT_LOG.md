@@ -1,3 +1,96 @@
+## 2026-08-30 (item 3.1 quality pass, sixth) - Pattern clean, one injection test closes a residual on the length-rescue rule, live paste-lag reconfirmed, one process gap raised as Q84
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched and pulled, level with origin, worktree clean
+before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+entries returned (Q2-Q5, Q13-Q22, Q24, Q28, Q29, some duplicated across
+dates). Every entry maps to a question already marked "answered"; none of
+the 49 currently open questions had a new answer in the feed. No
+QUESTIONS.json status changes from this step.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run took the quality-pass
+branch. A full scan of every "## 2026-08-30" header in this log (40 found)
+showed all 36 rotation-pool items (checked items minus the established
+one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) had already been quality-passed
+today - except that AGENT_WORKLIST.md's own per-item dates disagreed for
+item 4.11, which still showed 2026-08-13 as its last pass there. Cross-
+checking this log and gbp-packs/sk-chemists-bootle.md showed 4.11 had
+actually had a fifth pass (2026-08-29 recovery) and a sixth pass
+(2026-08-30, this log's line ~589) that were never appended to
+AGENT_WORKLIST.md under the item, which is exactly the gap step 5 depends
+on NOT existing when it says to pick the least recently verified item from
+that file. With 4.11 correctly excluded on the true state, item 3.1's
+earliest 2026-08-30 header (00:12 BST) was the oldest last-verified
+timestamp of any rotation-pool item, so 3.1 is this run's pick. Raised as
+Q84 rather than fixed here: backfilling every item potentially affected by
+the same gap is bigger than one pass's scope, and doing it hastily risks
+writing a summary under the wrong item or missing one silently.
+
+REPO HALF, CLEAN. All six generators rebuilt from a clean checkout: git
+status --porcelain empty afterwards, so all 177 pages reproduce the
+committed state byte for byte. All 36 tools/check-*.js checkers run
+individually, zero failures.
+
+INJECTION TEST, closing a residual this item's history had not explicitly
+covered. Every earlier pass on 3.1 proved the DATA SOURCE half of the
+pattern (town, brand, region, one leg added per pass) is asserted against
+branches.json independently of pick()'s own answer. None had tested
+whether the LENGTH-RESCUE half (fitTitle/shortenBrand, the Q14/Q24 rule)
+is backstopped the same way, rather than merely self-consistent with
+seo-pattern.js's own self-test, which would be circular in the same way
+the town/brand checks used to be before the 2026-08-14 pass. fitTitle was
+patched to "function fitTitle(compose, brand) { return compose(brand); }",
+i.e. never retrying with a shortened brand. tools/build-service-pages.js
+rebuilt: insect-bite-treatment-coleman-leigh-walton.html's SEO title
+reverted to the full 70-character form ("Infected insect bite treatment in
+Walton - Coleman and Leighs Pharmacy"), the one page in the estate that
+exercises the rescue. All 36 checkers rerun: check-seo-lengths.js FAILED
+by name on exactly this page ("title is 70 characters, over the 65
+limit"), no other checker fired. Confirms the rule is genuinely
+backstopped by a second, independent checker. Reverted: tools/seo-
+pattern.js restored, all six generators rerun, git status --porcelain
+empty, all 36 checkers rerun clean.
+
+LIVE HALF, PERFORMED. One Chrome tab, read-only, no click/type/submit.
+https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-
+leigh-walton.html read directly by a read-only DOM query (title, first h1,
+meta description). H1 ("Infected insect bite treatment in Walton", exactly
+one h1) matches the pattern exactly. Title and meta description both still
+read "Coleman & Leigh Pharmacy" rather than the repo's "Coleman and
+Leighs Pharmacy" (or, for this page, the Q14-shortened "Coleman and
+Leighs") - the same long-tracked brand-name paste lag already recorded
+under Q1 and item 1.1, reconfirmed unchanged rather than a new finding,
+not fixed here (Weebly paste, outside repo/browser-write reach).
+
+NOTE ON AN EARLIER STEP IN THIS RUN. Before settling on the six real page
+generators, this run's first rebuild pass globbed all tools/build-*.js and
+so also ran build-audit-status.js (which republished the portal status
+page early, with stale pre-run data - harmless, since step 10 republishes
+it properly at the end of this same run) and build-status-page.js (which
+modified status/index.html). status/index.html was reverted with git
+checkout before any further work; only the six content generators
+(build-branch-landing-pages.js, build-contraception-pages.js, build-
+service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) were used from that point on, matching every
+other pass's convention.
+
+RESULT. No in-repo defect in the pattern; the length-rescue rule proved
+independently backstopped. One process finding raised as Q84 (see above).
+No new question about the pattern itself.
+
+Files changed: AGENT_WORKLIST.md (sixth quality pass note appended in
+place under item 3.1), QUESTIONS.json (Q84 appended),
+audits/seo-pattern-check-2026-08-30-sixth.txt (new evidence file), this
+log. Commit hash in the commit itself.
+
 ## 2026-08-30 (item 2.2 quality pass, fifth) - Repo half re-verified clean and byte-stable, both branch landing pages re-checked field by field, live findings reconfirmed unchanged, WhatsApp absence confirmed by design
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

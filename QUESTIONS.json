@@ -1286,5 +1286,19 @@
     "status": "open",
     "answer": null,
     "note": "McCanns Sandringham runs the same template per the McCanns brand pages sharing one Weebly site; it should be read before any fix lands so both branches move together, the way the five-then-seven branch group already does in WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md. Full element-by-element write-up added to that file under a new 2026-08-30 section rather than repeated here."
+  },
+  {
+    "id": "Q84",
+    "date": "2026-08-30",
+    "item": "process finding, does not block any item (found during the item 3.1 sixth quality pass)",
+    "question": "Decision needed: should the missing-worklist-note gap be backfilled by a dedicated pass, with the recommendation being yes. Several items' fifth and sixth quality passes this run cycle (confirmed for 4.11, and the same pattern is very likely present on others given how many 2026-08-30 headers exist in AGENT_LOG.md with no matching dated note under their item in AGENT_WORKLIST.md) were written up in AGENT_LOG.md and in the item's own data file (a gbp-packs pack or similar) but never appended in place under the item in AGENT_WORKLIST.md, as step 7 of the worker's own procedure requires. AGENT_WORKLIST.md is the file step 5 reads to pick the least recently verified completed item, so a gap there makes that selection wrong: this run's own item-selection step nearly picked 4.11 (last worklist-recorded pass 2026-08-13) before AGENT_LOG.md and gbp-packs/sk-chemists-bootle.md showed it had actually been passed again on 2026-08-29 and 2026-08-30. The true state was only recoverable by grepping every 2026-08-30 header in AGENT_LOG.md and diffing against AGENT_WORKLIST.md's per-item dates, which is not something step 5 asks a run to do and cost real time this run. Not fixed here: backfilling every affected item's missing note is a bigger, separate piece of work than this pass's scope, and doing it hastily risks copying a summary into the wrong item or missing one silently.",
+    "options": [
+      "Run a dedicated pass (not tied to any one worklist item) that greps AGENT_LOG.md for every 2026-08-30 and 2026-08-29 quality-pass header, checks whether AGENT_WORKLIST.md's matching item carries a note with that date, and appends the missing ones verbatim from the log. Restores AGENT_WORKLIST.md as an accurate single source for step 5's own selection logic; one-off cost, no ongoing process change.",
+      "Change step 5/7 so item selection reads AGENT_LOG.md headers directly instead of AGENT_WORKLIST.md's per-item notes, since the log has proved to be the more reliable record. Fixes the selection risk without a backfill, but AGENT_WORKLIST.md then drifts further from the truth as a human-readable per-item history, which is its other purpose.",
+      "Leave it: the drift is cosmetic since a careful run can still recover the true state from AGENT_LOG.md (as this run did), and every item does eventually get re-verified regardless of which one is nominally oldest."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null
   }
 ]

@@ -590,6 +590,32 @@ late by the exact match rather than by name. Live sample: the Cherry Lane
 contraception page serves the pattern title and H1 verbatim, exactly one h1.
 Landing pages still not live (Q35 paste outstanding). Evidence in
 audits/seo-pattern-check-2026-08-30.txt. No new question.
+Quality pass 2026-08-30 (sixth pass): the pattern clean again, no defect
+found in the pattern itself. Self-test passes with no length warnings, all
+six generators reproduce all 177 pages byte-identical, all 36 checkers
+green. One injection test run rather than a length-of-rope reading: fitTitle
+was patched to always return the unshortened title (compose(brand) with no
+retry), all service pages rebuilt, and check-seo-lengths.js caught it by
+name on insect-bite-treatment-coleman-leigh-walton.html ("title is 70
+characters, over the 65 limit"), the one page in the estate that exercises
+the Q14/Q24 shortenBrand rescue. So the fitTitle contract (item 5.6's rule)
+is genuinely backstopped by a second checker, not merely self-consistent
+with seo-pattern.js's own self-test. Reverted; git status clean and all 36
+checkers re-confirmed green afterwards. Live sample:
+colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+read directly - H1 and meta service-word content match the pattern, but the
+live SEO title and description both still read "Coleman & Leigh Pharmacy"
+rather than the repo's "Coleman and Leighs Pharmacy" (or, for this specific
+page, the Q14-shortened "Coleman and Leighs"), the same long-tracked
+brand-name paste lag as Q1/item 1.1, unchanged and not fixed here.
+Separate process finding, not about the pattern itself: this item was
+reached only after discovering that item 4.11's fifth and sixth passes
+(2026-08-29, 2026-08-30) were logged in AGENT_LOG.md and in
+gbp-packs/sk-chemists-bootle.md but never appended here, which is why
+AGENT_WORKLIST.md alone made 4.11 look like the oldest unverified item when
+it was not. Raised as Q84 rather than fixed here, since backfilling every
+affected item is bigger than this pass's scope. No new question about the
+pattern itself. Evidence in audits/seo-pattern-check-2026-08-30-sixth.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
