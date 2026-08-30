@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-30 04:20 [commit hash added by a small follow-up commit] - Quality pass on 3.3 (Fishlocks Ainsdale and Eccleston), fifth pass, one-label-per-block rule added to check-seo-sheets
+## 2026-08-30 04:20 [commit 30e1fdd, hash line added by a small follow-up commit] - Quality pass on 3.3 (Fishlocks Ainsdale and Eccleston), fifth pass, one-label-per-block rule added to check-seo-sheets
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
