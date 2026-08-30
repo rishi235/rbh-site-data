@@ -1,0 +1,128 @@
+Item 2.1 Fishlocks Ainsdale - sixth quality pass, 2026-08-30
+Unattended run, branch agents/audit-backlog.
+
+REPO HALF
+All six generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt from a clean checkout. git status --porcelain
+returned empty afterwards: every one of the 177 generated pages reproduces the
+committed state byte for byte.
+
+All 34 checkers under tools/ run clean, zero failures:
+check-address-region, check-app-membership, check-booking-routes,
+check-branch-identity, check-branch-links, check-brand-spelling,
+check-cdn-pins, check-contraception-copy, check-editor-snapshot,
+check-em-dashes, check-fragment-targets, check-gbp-packs,
+check-gbp-pharmacy-first, check-jsonld, check-live-hours, check-map-embeds,
+check-nap, check-opening-hours, check-page-coverage,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-service-links, check-switch-copy,
+check-travel-clinic-copy, check-uk-spelling, check-url-scheme,
+check-weight-loss-copy, check-whatsapp-route, check-widget-diaries.
+check-nap: 177 pages and 3 paste blocks against 16 branches, 0 mismatches.
+check-page-coverage: 177 pages accounted for.
+
+gbp-packs/fishlocks-ainsdale.md re-verified fact by fact against
+branches.json: address (17 Station Road, Ainsdale, Southport PR8 3HN),
+phone (01704 575478), hours (Mon-Fri 8:45am-6:00pm, Sat/Sun closed), and
+googleReviewUrl all match. Description length recomputed independently with
+the same wrapped-line-join method check-gbp-packs.js uses
+(desc.replace(/\s*\n\s*/g, " ").trim() before counting): 746 characters,
+exact match to the pack's own claim. Post body lengths recomputed the same
+way: A 448, B 385, C 402, D 313.
+
+LIVE HALF
+fishlockpharmacy.co.uk fetched read-only via the browser (no click, type or
+submit).
+
+- pharmacy-fishlocks-ainsdale.html (the Q35 branch landing page): still 404.
+  Unchanged since 2026-08-10. Still waiting on the Weebly paste Q35 asks for.
+- sitemap.xml: every one of the 40 listed URLs now carries lastmod
+  2026-08-14T17:32:10+00:00. This has moved on from the 2026-07-18 lastmod
+  every prior pass on this item recorded, so a publish has happened on this
+  site since the fifth pass (2026-08-13) - but it did not include either
+  branch landing page, which still do not appear in the sitemap at all and
+  still 404. Noted as a positive fact (the site is not permanently stuck)
+  that does not change Q35's status.
+- pharmacy-first-fishlocks-ainsdale.html: live, clean. All seven Pharmacy
+  First conditions listed normally (UTI, sore throat, sinusitis, earache,
+  impetigo, shingles, infected insect bite), no "coming soon" text found by
+  a raw case-insensitive scan of the page text. Matches
+  gbp-packs/fishlocks-ainsdale.md and branches.json.
+- weight-loss-services-eccleston-ainsdale.html (the Q57 sixth live instance
+  of the old weight loss template): still live, still in the sitemap, still
+  linked from other pages' nav. Still carries "Real Results with Mounjaro",
+  the "How much weight could you lose?" outcome slider, and the "Explore
+  treatments" picker naming Wegovy (semaglutide), Mounjaro (tirzepatide) and
+  Orlistat by name. Unchanged since the 2026-08-12 finding. Q57 remains
+  open and accurately describes live state.
+- contact.html and the site-wide contact block/legal footer (the Q37
+  finding): still read "Fishlock Pharmacy - Eccleston" / "Fishlock
+  Pharmacy, Ainsdale, Southport" in the contact block headers, and
+  "Fishlock Chemist (GPHC no. 1121085 and 1034673)" in the legal footer,
+  none of which is the trading name "Fishlocks Chemist" branches.json and
+  every generated page carry. The Ainsdale address is still abbreviated to
+  "17 Station Rd" against branches.json's "17 Station Road". This is
+  Weebly-native site furniture with no generator, unreachable by any paste
+  of a generated page. Unchanged since 2026-08-11/12. Q37 remains open and
+  accurately describes live state.
+
+NOT CLOSED, RECONFIRMED: the checker-scope gap the fifth pass (2026-08-13)
+flagged and left open. tools/check-travel-clinic-copy.js and
+tools/check-contraception-copy.js still declare PAGE_DIR as
+modules/service/pages only (confirmed by reading both files in full this
+pass), unlike tools/check-weight-loss-copy.js, which gained a RULE 11 scan
+of modules/branch/pages on this same item's own 2026-08-13 pass. So the two
+"Travel clinic" and "Contraception" tiles on all six branch landing pages
+carry copy no checker reads.
+
+Checked whether this is live exposure today, not just a theoretical gap.
+build-branch-landing-pages.js composes both tiles as one static literal
+each (lines 147-150), not templated per branch: "Travel vaccinations and
+advice before your trip." and "NHS contraception service. Start or
+continue oral contraception without a GP appointment." Confirmed identical,
+word for word, on all six live/generated landing pages. Read against the
+same rules RULE 4-12 in check-travel-clinic-copy.js and the equivalent
+rules in check-contraception-copy.js enforce: no medicine name, no
+NHS-funding promise (travel tile does not mention NHS funding at all), no
+stock guarantee, no outcome/protection promise, and the contraception tile
+correctly says "NHS contraception service" rather than implying a private
+paid service. Both tiles are clean today. So this is a verifier blind
+spot with no live breach behind it right now, not an active defect.
+
+Recommended design for whoever picks this up next, so it does not have to
+be re-derived: because both tile strings are static literals (not spliced
+per branch the way the weight loss RULE 11 template lines are), a full
+RULE-11-style per-branch template resolver is not needed. A lighter rule
+in each checker is enough:
+ 1. Read the tile's literal blurb straight out of
+    build-branch-landing-pages.js (the same "read the copy out of the
+    generator" approach every rule in both checkers already uses).
+ 2. Verbatim-check it appears on every branch landing page in
+    modules/branch/pages (a page cannot drift from the generator).
+ 3. Run the blurb text through the same pattern sets these checkers
+    already import for their own leaf pages: pom-names.js (medicine
+    names), outcome-promise-patterns.js (no protection/results claim),
+    and the local funding/stock hedge patterns already defined in
+    check-travel-clinic-copy.js.
+This is materially smaller than RULE 11 because there is exactly one
+string per service to check, not one resolved per branch, and it can be
+proved clean against the current copy in the same run that adds it.
+Left for a dedicated pass rather than added here, because a change to a
+regulated-copy checker deserves the same negative testing RULE 11 got (17
+cases) rather than being fitted in alongside a routine quality pass.
+
+CONCLUSION
+Item 2.1 repo half: clean, byte-stable, all 34 checkers pass. Live half:
+one positive change (sitemap republished 2026-08-14, no longer stuck at
+2026-07-18), three findings reconfirmed unchanged and accurately described
+by their existing open questions (Q35 landing page 404, Q37 Weebly
+furniture brand name and address abbreviation, Q57 old weight loss page
+still live). One verifier gap reconfirmed present but shown to have no
+live breach behind it today, with a concrete lightweight design left for
+whoever next works on check-travel-clinic-copy.js or
+check-contraception-copy.js. No worklist item blocked or unblocked by this
+pass. No question raised: nothing found here needs a decision from Rishi
+that the existing Q35/Q37/Q38/Q57 do not already cover.

@@ -1,3 +1,87 @@
+## 2026-08-30 (item 2.1 quality pass, sixth) - Repo half re-verified clean, live findings reconfirmed unchanged, checker-scope gap reconfirmed and shown to carry no live risk
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched and pulled, level with origin (d31e201),
+worktree clean before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+entries returned. Every entry present maps to a question already marked
+"answered" (Q2-Q5, Q13-Q22, Q24, Q28, Q29); none of the currently open
+questions (Q34 onward) have an answer in the feed. No QUESTIONS.json
+status changes this run.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run.
+
+ITEM SELECTION: every unchecked line in AGENT_WORKLIST.md is [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, all pending Weebly/live-side
+actions or a main-branch fast-forward this run is not permitted to do),
+so this run took the quality-pass branch, the same reading of step 5 the
+last several unattended runs have used. Compiled the most recent "Quality
+pass YYYY-MM-DD" date recorded against every checked, non-one-off item in
+AGENT_WORKLIST.md. Two items tied for oldest at 2026-08-13: item 2.1
+(fifth pass) and item 2.2 (fourth pass). Took 2.1, the lower item number
+and the one with more prior passes on record, as the tie-break.
+
+WHAT WAS DONE: all six generators rebuilt from a clean checkout; git
+status --porcelain returned empty afterwards, so all 177 generated pages
+reproduce the committed state byte for byte. All 34 checkers pass, zero
+failures. gbp-packs/fishlocks-ainsdale.md re-verified fact by fact against
+branches.json (address, phone, hours, review link all match) and its
+description and post lengths recomputed independently using the same
+wrapped-line-join method check-gbp-packs.js uses: 746, 448, 385, 402, 313
+characters, exact match to the pack's own claims.
+
+LIVE VERIFICATION: fishlockpharmacy.co.uk read live, browser read-only, no
+click, type or submit. One positive change: the sitemap's lastmod has
+moved from 2026-07-18, which every prior pass on this item recorded, to
+2026-08-14, so the site has been published since the fifth pass. That
+publish did not include either branch landing page, which are absent from
+the sitemap and still both 404 (Q35, unchanged since 2026-08-10). The
+Weebly-native contact block and legal footer still name the business
+"Fishlock Pharmacy" and "Fishlock Chemist" and abbreviate the Ainsdale
+street to "17 Station Rd" (Q37, unchanged). The old shared weight loss
+page weight-loss-services-eccleston-ainsdale.html is still live, still in
+the sitemap, and still carries "Real Results with Mounjaro", the outcome
+slider and the treatment picker naming Wegovy, Mounjaro and Orlistat
+(Q57, unchanged). The Pharmacy First Ainsdale page reads clean, all seven
+conditions listed normally. All three open questions (Q35, Q37, Q57) still
+accurately describe live state; nothing here changes their status or needs
+a new question.
+
+CHECKER-SCOPE GAP RECONFIRMED, NOT FIXED THIS PASS: the fifth pass
+(2026-08-13) flagged that check-travel-clinic-copy.js and
+check-contraception-copy.js scope to modules/service/pages only, unlike
+check-weight-loss-copy.js, which gained a RULE 11 scan of
+modules/branch/pages on this same item's own 2026-08-13 pass. Confirmed
+by reading both checkers in full: still true today. Checked whether this
+is live exposure rather than a theoretical gap: build-branch-landing-
+pages.js composes the "Travel clinic" and "Contraception" tiles on all six
+branch landing pages as one static literal each (not templated per
+branch), confirmed identical word for word on all six generated pages, and
+both are clean against every RULE 4-12 pattern (medicine names, funding
+promises, stock guarantees, outcome promises) both checkers already
+enforce for their own leaf pages. So the gap carries no live breach today.
+A lightweight fix (verbatim-check the one literal per service against the
+generator, then run it through the existing pom-names.js and outcome-
+promise-patterns.js pattern sets, no per-branch template resolver needed,
+materially smaller than RULE 11) is written up in the worklist entry and
+in audits/fishlocks-ainsdale-quality-pass-2026-08-30.txt for whoever picks
+it up, left for a dedicated pass rather than fitted in here because a
+change to a regulated-copy checker deserves the same negative testing
+RULE 11 got (17 cases) rather than being rushed alongside a routine
+quality pass.
+
+No in-repo defect found or fixed this run. No question raised: nothing
+found needs a decision from Rishi that Q35, Q37, Q38 or Q57 do not already
+cover. No worklist item blocked or unblocked by this pass.
+
+Files changed: AGENT_WORKLIST.md (item 2.1 sixth quality pass entry),
+audits/fishlocks-ainsdale-quality-pass-2026-08-30.txt (new evidence file),
+AGENT_LOG.md. No generated page changed; no generator or checker changed.
+
 ## 2026-08-30 (item 4.2 quality pass, eighth) - Pack re-verified clean, one caveat cleared live, one generator regression found and fixed at source
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

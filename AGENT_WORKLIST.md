@@ -226,6 +226,38 @@ audits/nap-item-1.4-quality-pass-2026-08-29.txt.
       Not closed and left for the next pass: check-travel-clinic-copy.js and
       check-contraception-copy.js are short in exactly the same way. Evidence:
       audits/fishlocks-ainsdale-quality-pass-2026-08-13.txt.
+      Quality pass 2026-08-30 (sixth pass): repo half clean and byte-stable
+      again, all six generators rebuilt to a zero diff, all 34 checkers pass.
+      gbp-packs/fishlocks-ainsdale.md re-verified fact by fact against
+      branches.json (address, phone, hours, review link) and its description
+      and post lengths recomputed independently (746, 448, 385, 402, 313
+      characters), all matching the pack's own claims. Live half: one
+      positive change, the fishlockpharmacy.co.uk sitemap has moved on from
+      the 2026-07-18 lastmod every prior pass recorded to 2026-08-14, so a
+      publish has happened on this site since the fifth pass, though it did
+      not include either branch landing page. Q35 (branch landing pages
+      still 404), Q37 (Weebly-native contact block and legal footer naming
+      the business "Fishlock Pharmacy"/"Fishlock Chemist" and abbreviating
+      the Ainsdale street), and Q57 (the sixth live copy of the old weight
+      loss template, still carrying "Real Results with Mounjaro" and naming
+      six POM medicines) were all read live again and are unchanged;
+      existing questions still accurately describe live state. The
+      check-travel-clinic-copy.js/check-contraception-copy.js scope gap the
+      fifth pass left open is reconfirmed present (both still scope to
+      modules/service/pages only, unlike check-weight-loss-copy.js's RULE
+      11) but shown to have no live breach behind it today: both branch
+      landing page tiles are static literals in
+      tools/build-branch-landing-pages.js, confirmed identical on all six
+      pages and clean against every RULE 4-12 pattern both checkers already
+      enforce. A lightweight design (verbatim-check the one literal per
+      service, then run it through the existing pom-names.js and
+      outcome-promise-patterns.js pattern sets, no per-branch template
+      resolver needed) is left for a dedicated pass, since a change to a
+      regulated-copy checker deserves the same negative testing RULE 11 got
+      rather than being fitted in alongside a routine pass. No in-repo
+      defect found; no question raised; no worklist item blocked or
+      unblocked. Evidence: audits/fishlocks-ainsdale-quality-pass-2026-08-30
+      .txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
