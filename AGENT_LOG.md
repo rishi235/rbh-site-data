@@ -1,6 +1,75 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.8 (Fishlocks Chemist Eccleston GBP pack), sixth pass: pack clean on every fact and rule for the sixth time, no repo defect; live half re-checked, both known divergences (landing page 404, switch page title) unchanged and already covered by 5.3/5.4, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process running.
+Branch agents/audit-backlog fetched and pulled, level with origin, worktree
+clean before any edit.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. One Chrome tab opened to
+https://data.rbhealth.co.uk/api/feedback and closed after reading; nothing
+clicked, typed or submitted. The 13 JSON entries returned cover Q2-Q5 and
+Q13-Q17 only, all already recorded as answered in QUESTIONS.json. 57 open
+questions before this run, 57 after (no new question raised).
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp, so step 8 would apply as written
+if a decision were needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Ordering re-derived from AGENT_LOG.md pass headers rather than
+trusted: item 4.6 was re-verified by this run's predecessor earlier today,
+which leaves the rest of the tied group (4.8, 4.9, 4.10, 4.12, 4.13, 4.14,
+all last touched 2026-08-11) as the oldest untouched. Of that group, 4.8
+was verified first that day (eightieth run), ahead of 4.9 (eighty-first)
+and the rest, so 4.8 is now the oldest and was taken.
+
+REPO HALF, ALL HOLDING. All 36 checkers run individually, 0 failures.
+check-gbp-packs.js's own summary: 15 packs, 15 live branches, 21 warnings,
+0 failures; the one warning against this pack is the pre-existing Q64
+address post-town divergence, unchanged, still blocked pending Rishi's
+decision (all five affected packs move together). Facts re-verified
+against branches.json: name, address, postcode PR7 5SZ, phone
+01257 451251, hours including the Saturday 9 to 12, review link, catchment
+order, pfLink, hasApp true and the widget set all match. Description and
+post character counts recomputed independently rather than trusted: 730,
+463, 348, 521, 433, all matching the pack's own claims exactly. All six
+content generators re-run; git status empty afterwards, so nothing in the
+estate drifted.
+
+LIVE HALF, READ-ONLY. Chrome used only to navigate and read text, nothing
+clicked, typed or submitted beyond the URL bar. Profile landing page
+(pharmacy-fishlocks-eccleston.html) still 404, same known queued-paste
+state as the 2026-08-11 and 2026-08-12 passes, covered by 5.3/5.4. Posts A
+(Pharmacy First), B (switch) and D (travel) all 200 and Eccleston-correct.
+The switch page's live browser title still serves Weebly's default
+construction rather than the SEO title in modules/switch/pages/INDEX.md,
+same divergence as 2026-08-11, same 5.3/5.4 coverage, not new. Post C
+(weight loss clinic) checked in full against
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and
+AI/RBH_WeightLoss_Advertising_Standards.md, treated as a Regime 1 page
+because it is linked from the sitewide nav and a persistent header
+button: no medicine named anywhere on the page, no superlative or
+efficacy claim, no Real Results heading or outcome slider, no treatment
+picker, no lead price in the hero (the £39.99 figure sits only in the
+booking section), buttons read Book a consultation / Request a callback
+rather than Buy Now, and the page states plainly that treatment is not
+guaranteed, with eligibility, exclusion and disclaimer sections present.
+Clean against both regimes.
+
+RESULT. No in-repo defect found. No new live defect found; the two
+pre-existing live divergences (landing page 404, switch page title) are
+unchanged in shape and severity and remain tracked against blocked
+worklist items 5.3/5.4. No question raised. Full detail in
+audits/fishlocks-eccleston-gbp-pack-check-2026-08-30.txt.
+
+Files changed: AGENT_WORKLIST.md (4.8 entry), AGENT_LOG.md (this entry),
+audits/fishlocks-eccleston-gbp-pack-check-2026-08-30.txt (new).
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.6 (McCanns Chemist Aigburth GBP pack), sixth pass: pack clean on every fact and rule for the sixth time, no repo defect; one new compliance finding on a live weight loss page raised as Q83, not fixed
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

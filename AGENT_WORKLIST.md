@@ -2493,6 +2493,23 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       outside the known vocabulary still passes, which is a standing design
       position in that checker rather than a new finding.
       See audits/fishlocks-eccleston-gbp-pack-check-2026-08-14.txt.
+      Quality pass 2026-08-30: sixth pass, unattended run. Repo half and
+      live half both checked; pack clean again, no defect. All 36 checkers
+      individually run, 0 failures; the one warning against this pack is
+      the pre-existing Q64 post-town divergence, unchanged. Facts and
+      counts (730, 463, 348, 521, 433) re-verified against branches.json
+      independently rather than trusted; all six generators re-run, git
+      status empty afterwards. Live: landing page still 404 (known
+      queued-paste state, 5.3/5.4); Posts A, B and D all 200 and
+      Eccleston-correct; switch page title still serves Weebly's default
+      construction rather than the generated SEO title (same divergence as
+      the 2026-08-11 pass, same 5.3/5.4 coverage). Post C (weight loss
+      clinic) checked against compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+      as a Regime 1 page (linked from the sitewide nav and header button):
+      no medicine named, no superlative or efficacy claim, no lead pricing
+      in the hero, no Buy Now button, clear that treatment is not
+      guaranteed - clean. No question raised.
+      See audits/fishlocks-eccleston-gbp-pack-check-2026-08-30.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

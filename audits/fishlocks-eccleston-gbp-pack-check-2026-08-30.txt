@@ -1,0 +1,104 @@
+Item 4.8 quality pass - Fishlocks Chemist Eccleston GBP pack
+Sixth pass. 2026-08-30, unattended run.
+Repo half and live half both checked.
+
+WHY THIS ITEM
+All eight unchecked worklist items are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6), so this run is a quality pass. Staleness re-derived from
+AGENT_LOG.md pass headers rather than trusted from the previous run's own
+note: item 4.6 was re-verified earlier today (this run's predecessor), which
+leaves 4.8 as the oldest of the tied group last touched 2026-08-11 (four
+other packs - 4.9, 4.10, 4.12, 4.13, 4.14 - share that date but were all
+verified after 4.8 that day, so 4.8 is oldest).
+
+ANSWER PICKUP RAN FIRST, NOTHING NEW FOR THIS ITEM
+One Chrome tab opened read-only to https://data.rbhealth.co.uk/api/feedback
+and closed after reading. 13 entries returned, covering Q2-Q5 and Q13-Q17,
+all already recorded as "answered" in QUESTIONS.json. Nothing to apply.
+
+BASELINE, BEFORE ANY EDIT
+No .agent-lock, no .git\index.lock, no git process running. Branch
+agents/audit-backlog fetched and pulled, level with origin, worktree clean.
+
+REPO HALF
+All 36 checkers run individually: 0 failures, 0 unexpected warnings.
+check-gbp-packs.js's own summary: 15 packs, 15 live branches, 21 warnings
+(all pre-existing and accounted for elsewhere), 0 failures. The one warning
+against this pack is the known Q64 address-post-town divergence (pack reads
+"Eccleston, Chorley PR7 5SZ", branches.json addressLocality is "Eccleston"
+alone) - unchanged, still blocked pending Rishi's decision on the estate-wide
+standard, all five affected packs move together.
+
+Facts re-verified against branches.json: name, address (Unit 3 The
+Carrington Centre, New Mill Street, Eccleston, PR7 5SZ), phone 01257 451251,
+hours (Mon-Fri 9-6, Sat 9-12, Sun closed) including the Saturday morning-only
+opening called out in the photo shot list, review link, catchment order
+"Eccleston, Charnock Richard and Coppull" leading with the branch's own
+seoTown, pfLink, hasApp true, and the widget set (bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic) all present and
+matching the services and categories the pack claims.
+
+Character counts recomputed independently (line-wraps flattened to single
+spaces, as the text would paste) rather than trusted from the pack's own
+claims: description 730, Post A 463, Post B 348, Post C 521, Post D 433.
+All five match exactly.
+
+All six content generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) re-run; git status
+empty afterwards, so every generated page across the estate, not just this
+branch's, rebuilds byte-identical. No repo defect found this pass.
+
+LIVE HALF (read-only, Chrome, nothing clicked, typed or submitted beyond
+navigation)
+  Profile website landing page
+    https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html
+    Still 404. Same known queued-paste state as the 2026-08-11 and
+    2026-08-12 passes. Covered by worklist items 5.3/5.4, both [BLOCKED].
+    Not a new finding.
+  Post A - Pharmacy First
+    https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html
+    200. Content is Eccleston-specific throughout: address, phone
+    01257 451251, all seven Pharmacy First conditions with the correct age
+    ranges (UTI 16-64, sore throat 5+, sinusitis 12+, earache 1-17, impetigo
+    1+, shingles 18+, infected insect bite 1+), no Ainsdale facts present.
+  Post B - Switch your prescriptions
+    https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-eccleston.html
+    200. Address, phone and catchment framing correct for Eccleston.
+    One live divergence, not new: the browser tab title reads "Switch Your
+    Prescriptions - Fishlocks Chemist Eccleston" (Weebly's default
+    construction from page name + site name) where modules/switch/pages/
+    INDEX.md specifies "Switch Your Prescriptions to Fishlocks Chemist,
+    Eccleston" as the SEO title. Same divergence recorded on the
+    2026-08-11 pass (run 78 pattern, unpasted SEO field). Covered by the
+    5.3/5.4 repaste scope; no question raised.
+  Post C - Weight loss clinic
+    https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-eccleston.html
+    200. Checked against compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and
+    AI/RBH_WeightLoss_Advertising_Standards.md rather than assumed clean.
+    This page is linked from the sitewide nav ("WEIGHT LOSS CLINIC
+    (ECCLESTON)") and from a persistent header button on every page, so it
+    is treated as Regime 1 for this check (a page a button proactively
+    links to) rather than relying on the Regime 2 inner-page exemption. No
+    medicine is named anywhere on the page (wording throughout is
+    "prescription-only weight-loss medication", never Mounjaro, Wegovy or
+    Orlistat); no superlative or efficacy claim ("most effective", "best");
+    no Real Results heading or outcome slider; no treatment picker; no
+    lead price in the hero (the £39.99 figure appears only in the booking
+    section, not the hero); buttons read "Book a consultation" / "Request
+    a callback", not Buy Now; the page states plainly that treatment is
+    not guaranteed ("nothing below is a guarantee of treatment... Will I
+    definitely be prescribed weight-loss medication?") and carries
+    eligibility and exclusion sections plus a closing disclaimer. Clean
+    against both regimes; no finding.
+  Post D - Travel clinic
+    https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-eccleston.html
+    200. Content Eccleston-specific throughout, "subject to availability
+    and clinical suitability" qualifier present, no efficacy claims.
+
+RESULT
+No in-repo defect found. No live defect newly found; the two live
+divergences present (landing page 404, switch page title) are both
+previously logged, both already tracked against blocked worklist items, and
+neither has changed shape or severity since the 2026-08-11 pass. No question
+raised.
