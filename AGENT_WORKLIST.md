@@ -1460,6 +1460,24 @@ audits/smartts-build-check-2026-08-14.txt.
       audits/gordon-short-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
+      Quality pass 2026-08-30, both halves. Repo half: fresh independent
+      instrument audits/verify-3.12-2026-08-30.js (imports nothing from
+      tools/, own regexes and sheet parsing) ran 2,355 checks across the
+      12 Tiffenbergs pages on the 15-leg single-branch template proved on
+      3.5/3.7/3.8/3.9: counts, sheet agreement, own town, service words,
+      cross-town absence, phone/postcode isolation (including from Clear
+      Chemist in the same L9 district), lengths, JSON-LD field by field,
+      tel:, widget and brand isolation, banner, root attributes, fragment
+      resolution, no hard-coded widget ids, WhatsApp agreement. 0 failures.
+      Instrument proved by three fault injections (foreign phone, Clear's
+      L9 7AS postcode, orphan 24-hex id), all three caught, page restored
+      by git each time. All 36 checkers green, six generators rebuilt to a
+      zero diff. Live half: pharmacy-first and switch pages read read-only;
+      phone, address, postcode, Aintree wording and displayed hours all
+      match branches.json. Q56 (footer publishes tiffenbergs@ plural
+      against branches.json singular) re-confirmed still present live, not
+      re-raised. The pre-5.1 em dash in the live switch page copy remains,
+      as expected until the queued Weebly repaste; the repo copy is clean.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

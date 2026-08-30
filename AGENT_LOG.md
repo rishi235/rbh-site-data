@@ -1,6 +1,61 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.12 (Tiffenbergs Chemist, Aintree): 12 pages clean on 2,355 independent checks, both halves, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Stalest
+completed item by last-pass date: 3.12, last passed 2026-08-14 11:34 (run
+196). Taken. Both halves done.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing was decided autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no stale .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean, all 36 checkers
+green, all six generators rebuilt to a zero diff before inspection.
+
+REPO HALF CLEAN. Fresh independent instrument sharing no code with tools/
+(audits/verify-3.12-2026-08-30.js): 12 pages, 2,355 checks, 0 failures, on
+the 15-leg single-branch template proved on 3.5/3.7/3.8/3.9. The
+cross-identity legs matter here because Clear Chemist shares both the
+seoTown Aintree and the L9 district: the shared town is excluded by
+construction, while the postcode leg still separates the two branches
+(L9 9DB own, L9 7AS absent). JSON-LD compared field by field against
+branches.json on all 12 pages, including Liverpool as addressLocality
+against Aintree as the seoTown. Sheet agreement proved across 177 parsed
+permalinks.
+
+INSTRUMENT PROVED BEFORE BELIEVED. Three fault injections, each run
+against all 2,355 checks and restored with git checkout afterwards:
+- Foreign phone (Smartts Bootle) in visible copy: CAUGHT.
+- Clear Chemist's L9 7AS postcode in place of the branch's own: CAUGHT.
+- Orphan 24-hex widget id on the root element (belonging to no branch,
+  which the foreign-id leg alone would pass): CAUGHT by leg 14.
+
+LIVE HALF, READ ONLY. pharmacy-first-tiffenbergs-aintree.html and
+switch-prescriptions-tiffenbergs-aintree.html read on the live site,
+nothing clicked, typed or submitted. Phone 0151 525 3462, address 388
+Longmoor Lane, postcode L9 9DB, Aintree wording, the seven Pharmacy First
+conditions and the displayed hours (9-6 closed 1-2, Sat Sun closed) all
+match branches.json. Two known live residues re-confirmed, neither
+re-raised: Q56 still shows live (footer publishes tiffenbergs@ plural
+where branches.json holds Tiffenberg@ singular; the generated paste blocks
+print no email, so the divergence lives in the Weebly footer, exactly as
+Q56 records), and the live switch page still carries the pre-5.1 em dash
+in "it usually is not" copy, which the queued Weebly repaste already
+prices in. The repo copy of that string is clean.
+
+FILES CHANGED. audits/verify-3.12-2026-08-30.js (new),
+audits/verify-3.12-2026-08-30-output.txt (new), AGENT_WORKLIST.md (pass
+note appended in place under 3.12), AGENT_LOG.md (this entry). No page,
+generator, data or checker was changed. No new question raised.
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.9 (Coleman and Leighs Pharmacy, Walton), fifth pass: 12 pages clean on 1,705 independent checks, one probe of three found a real estate-wide checker gap, closed as check-service-links RULE 3
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
