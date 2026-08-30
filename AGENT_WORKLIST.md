@@ -3263,6 +3263,35 @@ appended to the line. Do not move them; the status page reads them in place.
       uppercase regressions still fail as before. No new question. Done
       2026-08-14. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-08-14.txt.
+      Quality pass 2026-08-30 (sixth pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to nine files, all
+      of them the audit narrating itself; L17 4JP correct in branches.json
+      and used across 32 files; the live Pharmacy First page carries the
+      right postcode on both McCanns blocks and the landing page 404
+      remains the queued-paste finding, not new. All 36 checkers pass, all
+      six generators byte-identical, only the checker changed. The defect
+      was in check-postcodes.js for the sixth time: the fifth pass widened
+      the separator to spaces, tabs, &nbsp; and a line wrap, but a
+      postcode travels inside LINKS as well as prose, and the URL forms
+      %20, %2B, a literal + and a hyphen were unread by all six rules at
+      once. Proved before fixing: a Google Maps directions link carrying
+      the AIGBURTH postcode in + form, written into
+      gbp-packs/mccanns-sandringham.md - copy that is pasted into the
+      Google Business Profile, links included - passed all 36 checkers in
+      silence. The generated pages were already guarded (check-map-embeds
+      proves value, encoding, contact-card agreement and the directions
+      button; check-nap caught a %20 injection in a paste block), but the
+      packs and any future URL-carrying surface had nothing behind them,
+      which is the exact class of gap this checker was written to close.
+      Fix: the four URL separators added to PC_RE_LOOSE in the shared
+      extract(), still INTEREST-bounded so date ranges, CSS tokens and
+      street-number ranges like 61-63 stay unread. Five negative tests:
+      plus-form foreign, lowercase plus-form CH49 1SX, hyphen slug form
+      and %2B form all previously silent and all now fail, and the plain
+      uppercase regression still fails. Warning set identical before and
+      after, the same three standing UNOWNED. No new question. Done
+      2026-08-30. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-08-30.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

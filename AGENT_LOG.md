@@ -2,6 +2,74 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 01:12 BST [commit HASHPLACEHOLDER, hash line added by a small follow-up commit] - Quality pass on 1.3 (McCanns Sandringham postcode sweep), sixth pass: data clean, live half verified, and the checker could not read a postcode inside a link
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness derived from both sources (log run headers and git log commit
+subjects, later of the two wins): stalest completed item is 1.3, last
+passed 2026-08-14 02:14. 1.3 taken.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 2026-08-30 00:48 pickup, read through one browser
+tab, opened and closed, nothing clicked, typed or submitted. Every entry
+maps to an already answered question (Q2-Q5, Q13-Q17). No entry answers
+any of the open questions.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+exit 0 and all six generators rebuilt to a zero diff before any
+inspection.
+
+THE DATA IS CLEAN. CH49 1SX confined to nine files, all of them the audit
+narrating itself, case-insensitive sweep, no hidden form; L17 4JP correct
+in branches.json and used across 32 files; L17 7BP correct on Aigburth.
+
+LIVE HALF, READ-ONLY. pharmacy-first-mccanns-sandringham.html shows
+1b Aigburth Road, Liverpool, L17 4JP in the Sandringham contact block and
+the Aigburth footer block carries its own L17 7BP, both attributions
+correct, no CH49 anywhere. The GBP profile website target
+pharmacy-mccanns-sandringham.html still 404s - the standing queued-paste
+finding, not new. Sandrigham typo, McCann's naming and footer em dashes
+seen and left with Q39 and the repaste backlog.
+
+THE DEFECT, PROVED BY INJECTION BEFORE FIXING. A Google Maps directions
+link carrying the AIGBURTH postcode in + form
+(destination=1b+Aigburth+Road+Liverpool+L17+7BP), written into
+gbp-packs/mccanns-sandringham.md - copy that is pasted into the Google
+Business Profile, links included - passed ALL 36 CHECKERS IN SILENCE.
+Every rule in check-postcodes reads postcodes through one extract(), and
+neither PC_RE nor PC_RE_LOOSE could read a separator of %20, %2B, a
+literal + or a hyphen: the fifth pass widened the separator for prose
+(case, nbsp, line wrap) and nobody asked how a postcode travels inside a
+link. The generated pages were already guarded - probes proved
+check-map-embeds catches a wrong directions destination on a branch page
+(rule 6) and check-nap catches a %20 form in a paste block - but the
+packs and any future URL-carrying surface outside the three generated
+page dirs had nothing, which is the exact class of gap this checker
+exists to close.
+
+THE FIX. The four URL separators added to PC_RE_LOOSE in the shared
+extract(), so all six rules widen together. Still INTEREST-bounded: a
+loose match only counts if it canonicalises to a postcode the repo has a
+position on, so date ranges, CSS tokens and street-number ranges like
+61-63 stay unread. Five negative tests, four previously silent (plus-form
+foreign, lowercase plus-form CH49 1SX, hyphen slug form, %2B form), all
+now fail; the plain uppercase regression still fails. Warning set
+identical before and after, the same three standing UNOWNED. All 36
+checkers pass, all six generators byte-identical.
+
+FILES CHANGED. tools/check-postcodes.js (the widening and its comment),
+AGENT_WORKLIST.md (1.3 sixth-pass note), AGENT_LOG.md (this entry),
+audits/mccanns-sandringham-postcode-check-2026-08-30.txt (evidence),
+audits/live-hours-check-2026-08-30.json (check-live-hours run evidence
+from the baseline suite). No page, pack or data file edited. No new
+question.
+
 ## 2026-08-30 00:48 BST [commit dd3e837, hash line added by a small follow-up commit] - Quality pass on 4.3 (Hirshmans Ainsdale GBP pack), fifth pass: pack clean, live half verified, and the road name in published pack prose turns out to be read by nothing
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

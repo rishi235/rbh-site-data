@@ -137,7 +137,21 @@ var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 // one line wrap - and now REQUIRED. Requiring it is what keeps the widening
 // honest: without it a case-insensitive match reads CSS hex colours (f0f9ff,
 // e3e6ea, d8e4ec) and short git hashes (fb0d4bf) as postcodes.
-var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|[ \t ]|\r?\n[ \t]*){1,10}([0-9][A-Za-z]{2})\b/g;
+//
+// Widened again on the item 1.3 quality pass 2026-08-30 (sixth pass): the
+// separator now also reads the URL forms %20, %2B, a literal + and a hyphen,
+// because a postcode travels inside links as well as prose. Proved first:
+// a Google Maps directions link with ANOTHER BRANCH'S postcode in + form,
+// written into gbp-packs/mccanns-sandringham.md - copy that is pasted into
+// the Google Business Profile, links included - passed all 36 checkers in
+// silence. The generated pages' maps URLs are guarded by check-map-embeds
+// (value, encoding, agreement) and check-nap caught the %20 form in a paste
+// block, but the packs and any future URL-carrying surface had nothing. The
+// INTEREST bound below is what makes this widening safe: a hyphenated or
+// plus-joined token only counts if it canonicalises to a postcode the repo
+// already has a position on, so date ranges, CSS tokens and street-number
+// ranges like 61-63 stay unread.
+var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){1,10}([0-9][A-Za-z]{2})\b/g;
 
 function norm(pc) { return String(pc || "").toUpperCase().replace(/\s+/g, " ").trim(); }
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }

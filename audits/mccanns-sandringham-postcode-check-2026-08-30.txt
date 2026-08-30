@@ -1,0 +1,67 @@
+Item 1.3 quality pass - 2026-08-30 (sixth pass)
+McCanns Sandringham postcode sweep (CH49 1SX wrong, L17 4JP correct)
+
+DATA
+- CH49 1SX confined to nine files, all the audit narrating itself:
+  AGENT_LOG.md, AGENT_WORKLIST.md, CLAUDE.md, status/index.html,
+  tools/check-postcodes.js and three earlier audits/ evidence files
+  (plus audits/hirshmans-build-check-2026-08-13-fourth.txt quoting it).
+  Case-insensitive sweep, no hidden form. No page, pack, paste block or
+  branches.json entry carries it.
+- L17 4JP correct in branches.json (mccanns_sandringham, line 311) and
+  used across 32 files. L17 7BP correct on mccanns_aigburth (line 219).
+- Baseline: all 36 checkers exit 0, all six generators rebuilt to a
+  zero diff before any inspection.
+
+LIVE (read-only, two page loads, nothing clicked or typed)
+- pharmacy-first-mccanns-sandringham.html: contact block reads
+  1b Aigburth Road, Liverpool, L17 4JP; Aigburth footer block carries
+  its own L17 7BP; both attributions correct; no CH49 anywhere.
+- pharmacy-mccanns-sandringham.html (the GBP profile website target)
+  still 404s - standing finding, waits on the queued Weebly paste,
+  held under the repaste backlog, not new.
+- Known live blemishes seen and left with their holders: Sandrigham
+  typo and McCann's naming (Q39), footer em dashes (repaste backlog).
+
+THE DEFECT, PROVED BY INJECTION BEFORE FIXING
+- Probe 1: the Get directions href on the generated Sandringham branch
+  page given the Aigburth postcode in %20 form. check-postcodes exit 0,
+  check-nap exit 0 - but check-map-embeds caught it (rule 6, the
+  directions button must equal the map). Generated pages are guarded.
+- Probe 2: the same wrong value in the iframe q= - check-nap caught it.
+- Probe 3a: a Google Maps directions link carrying the AIGBURTH
+  postcode in + form (destination=1b+Aigburth+Road+Liverpool+L17+7BP)
+  written into gbp-packs/mccanns-sandringham.md, copy that is pasted
+  into the Google Business Profile, links included. ALL 36 CHECKERS
+  PASSED IN SILENCE.
+- Probe 3b: a %20-form wrong postcode in a weebly-paste block -
+  check-nap caught that one.
+- Root cause: every rule in check-postcodes reads postcodes through
+  extract(), and neither PC_RE nor PC_RE_LOOSE could read a postcode
+  whose separator is %20, %2B, a literal + or a hyphen. A postcode
+  travels inside links as well as prose, and the packs (and any future
+  URL-carrying surface outside the three generated page dirs) had no
+  other checker behind them.
+
+THE FIX
+- PC_RE_LOOSE separator widened to add %20, %2B, + and hyphen, in the
+  one extract() both scan sites share. Still INTEREST-bounded: a loose
+  match only counts if it canonicalises to a postcode the repo has a
+  position on, so date ranges, CSS tokens and street-number ranges
+  like 61-63 stay unread.
+
+TESTS
+- T1 plus-form foreign postcode in the pack: FOREIGN, exit 1
+  (previously silent - this is probe 3a re-run after the fix).
+- T2 lowercase plus-form ch49+1sx in the pack: UNKNOWN, exit 1
+  (previously silent).
+- T3 hyphen slug form l17-7bp in the pack: FOREIGN, exit 1
+  (previously silent).
+- T4 %2B form: FOREIGN, exit 1 (previously silent).
+- T5 regression, plain uppercase foreign postcode: FOREIGN, exit 1
+  (still fails as before).
+- Warning set identical before and after the fix: the same three
+  standing UNOWNED warnings (gbp-packs/TEMPLATE.md,
+  modules/branch/pages/INDEX.md, SEO.md), no new false positive.
+- Final state: all 36 checkers pass, all six generators byte-identical,
+  worktree carries only the checker change and this evidence.
