@@ -2,6 +2,83 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 [commit HASHPENDING, hash line added by a small follow-up commit] - Quality pass on 3.7 (Smartts Chemist, Bootle), sixth pass: 12 pages clean on 2,354 independent checks, four new legs proved by mutation, live switch page still serving pre-repaste title and description
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from log run headers and git commit subjects, later of the two
+wins: stalest completed item is 3.7, last passed 2026-08-14 08:41
+(a7fa444, the pass that resolved the booking button's fragment link).
+Taken, its sixth machine pass.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the recent pickups, read through one browser tab,
+opened and closed, nothing clicked, typed or submitted. Every entry maps
+to an already answered question (Q2-Q5, Q13-Q17). 56 open before, 56
+after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at c8f1f8f, worktree clean. All
+36 checkers green and all six generators rebuilt to a zero diff before
+any inspection.
+
+THE 12 PAGES ARE CLEAN. Sixth independent extraction
+(audits/verify-3.7-2026-08-30.js, imports nothing from tools/) read all
+12 Smartts pages (11 service, 1 switch): 2,354 checks, 0 failures, on
+the single-branch template proved on 3.5 (counts, sheet agreement and
+one-label-per-block, own town, service words, cross-town absence,
+phone/postcode isolation, lengths, JSON-LD field by field, tel:, widget
+isolation, brand isolation, banner). Bootle nuance handled: SK Chemists
+shares the seoTown, so the cross-town leg excludes the shared value
+while the phone/postcode leg still isolates the two Bootle branches
+from each other. Four legs new to this item, each proved by mutation
+before the clean rerun, page restored byte-identical:
+- ROOT ATTRIBUTES (ported from the 3.6 template): every service page's
+  #rbhsv-root carries data-branch equal to branchName or brandLabel and
+  a non-empty data-service. A misspelled data-branch was caught.
+- FRAGMENT RESOLUTION, an independent re-proof of the fifth pass fix:
+  every href="#x" resolves to an in-page id. A dangling #bok was caught.
+- NO HARD-CODED WIDGET ID: leg 9 only bars OTHER branches' widget ids,
+  so a typo'd id belonging to no branch would sail through every
+  checker; this leg bars any 24-hex string in a page, since the pages
+  themselves say widgets are rendered by the module JS from
+  branches.json. An injected orphan id was caught.
+- WHATSAPP AGREEMENT: all 12 pages carry the same data-wa, in 447 plus
+  nine digits form, equal to DEFAULT_WHATSAPP read as text from both
+  module JS files. A one-digit drift was caught twice (page vs module,
+  page vs page).
+
+LIVE HALF, READ ONLY, THREE URLS, NOTHING CLICKED OR TYPED.
+- pharmacy-first-smartts-bootle.html live and matching the repo field
+  for field: title, description, h1, JSON-LD (all eight fields and the
+  url), root attributes, data-wa, six tel: links, pins on
+  service-module-phase1, booking widget rendered. The only dangling
+  anchor on the page is Weebly's own theme Search link (href="#"),
+  outside the embed, not ours.
+- The OLD Pharmacy First page at the branches.json pfLink,
+  pharmacy-first-service-bootle.html, is STILL LIVE alongside the new
+  one, with no rbhsv-root embed and no h1. That is exactly the blocked
+  5.3/5.4 territory (Q8/Q9, both open), so no new question raised; noted
+  here so the eventual answer can count Smartts among the branches
+  carrying both pages.
+- The live switch page serves a PRE-REPASTE title and description:
+  live title "Switch Your Prescriptions - Smartts Chemist Bootle" vs
+  repo "Switch Your Prescriptions to Smartts Chemist, Bootle", and a
+  live description still mentioning "NHS & private healthcare including
+  medical cannabis referrals" vs the repo's approved shorter wording.
+  The h1 and data-wa match the repo and the pins are already on
+  6a275e1, so this is the Weebly SEO-fields repaste outstanding, the
+  same shape 3.5's sixth pass found at Hirshmans. Repo side needs no
+  change.
+
+NO IN-REPO DEFECTS. Files changed: audits/verify-3.7-2026-08-30.js,
+audits/verify-3.7-2026-08-30-output.txt, AGENT_LOG.md. No new
+questions.
+
 ## 2026-08-30 [commit dcb9fd8, hash line added by a small follow-up commit] - Quality pass on 3.6 (McCanns Chemist, Aigburth and Sandringham), sixth pass: 24 pages clean on 4,596 independent checks, first two-branch verifier, live still serving the pre-5.7 Sandringham wording
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
