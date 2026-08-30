@@ -1,0 +1,119 @@
+Item 4.14 Gordon Short Chemist Crosby pack - SIXTH quality pass
+Date: 2026-08-30
+Branch: agents/audit-backlog
+
+WHY THIS ITEM
+All unchecked worklist items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6), so this run took a quality pass instead of new scope. Rotation
+review: every item in the 3.x/4.x rotation had a quality-pass entry dated
+2026-08-29 or 2026-08-30 except 4.14, whose last recorded pass was
+2026-08-11 (eighty-fifth run) - over two weeks stale against everything
+else in the rotation, and the oldest verification date of any completed
+item in the backlog. Picked 4.14.
+
+BASELINE
+All 36 checkers exit 0 on the worktree level with origin at 45425b9.
+
+PACK VERIFIED AGAINST branches.json (gordonshorts_crosby), sixth pass running
+  branchName      Gordon Short Chemist        matches
+  streetAddress   159 College Road            matches
+  addressLocality Liverpool                   matches
+  postalCode      L23 3AT                     matches
+  phone           0151 924 3449               matches
+  website         gordonshortchemist.co.uk    matches
+  googleReviewUrl g.page/r/CZcVDM6emi6OEAE    matches
+  seoTown         Crosby                      matches
+  serviceAreaList Crosby, Waterloo, Sefton    matches
+  hasApp          false, no app mentioned     matches
+  openingHours    both sessions, six days,    matches, Sunday closed
+                  Sat 09:00-13:00/14:00-17:00
+All fields identical to the fifth pass (2026-08-14). No drift.
+
+LIVE HALF PERFORMED (first time since 2026-08-14 that this item's live pages
+were read; the two intervening runs on the wider backlog either found the
+answer-pickup route to Chrome unavailable or were scoped to other items)
+
+Sitemap: https://www.gordonshortchemist.co.uk/sitemap.xml now dates every
+URL 2026-08-15T07:41:55+00:00. Previously stuck at 2026-07-19 across every
+check from 2026-08-10 to 2026-08-14. A site-wide republish has happened
+since the last pass.
+
+Read against the four pages the pack's four posts link to:
+
+1. pharmacy-first-service-crosby.html (pfLink, Post A's live link) - reads
+   "Gordon Short Chemist" correctly throughout title, heading, body and
+   footer. Unchanged and safe, as on every prior pass.
+
+2. switch-prescriptions-gordon-short-crosby.html (Post B) - NAME FAULT NOW
+   FIXED. Previously carried no naming fault of its own (that was never the
+   defect on this page); the known defect here was the mojibake em dash in
+   the "How switching works" intro copy, and it is STILL LIVE after the
+   republish: a corrupted three-byte sequence renders where the em dash
+   belongs, in the sentence introducing "How switching to Gordon Short
+   Chemist works". Repaste from the repo copy (which check-em-dashes.js
+   confirms is clean) still outstanding.
+
+3. pharmacy-first-gordon-short-crosby.html (branch-specific page, listed in
+   the sitemap, NOT the page Post A links to) - STILL WRONG. The republish
+   visibly rebuilt this page: it now carries a materially different layout
+   (an FAQ accordion and a booking widget that were not there on the last
+   check), so this was not skipped by the republish. Despite the rebuild it
+   still reads "Gordon Shorts Chemist" throughout: browser title, H1, body
+   copy and the footer "Contact Gordon Shorts Chemist" block. Unchanged
+   defect, now confirmed to survive a full page rebuild rather than just a
+   stale untouched paste. The 2026-08-10 STOP on repointing Post A to this
+   page stands: it must not be linked until repasted and re-verified reading
+   "Gordon Short Chemist".
+
+4. weight-loss-clinic-gordon-short-crosby.html (Post C) - STILL WRONG. Same
+   fault: "Gordon Shorts Chemist" throughout title, H1, body copy (including
+   the clinical eligibility copy) and footer contact block. Also rebuilt in
+   the republish (new FAQ and callback-request sections) but the wrong name
+   survived.
+
+5. travel-clinic-gordon-short-crosby.html (Post D) - STILL WRONG. Same fault
+   again: "Gordon Shorts Chemist" throughout title, H1, body and footer.
+   Also visibly rebuilt, name fault also survived.
+
+Read but not part of the four posts: every page checked carries a
+site-wide header with a persistent "BOOK NOW WEIGHT LOSS CLINIC" button and
+a "WEIGHT LOSS CLINIC GORDON SHORT CROSBY" nav link, present on every page
+sampled including Pharmacy First and switch pages, not just the weight loss
+page itself. This corroborates the existing Q60 / worklist items 6.4-6.5
+(weight loss nav architecture, blocked pending Rishi's decision) rather than
+raising new scope; not treated as a new finding.
+
+Also observed: the live sitemap lists weight-loss-clinic-crosby.html as a
+separate URL from weight-loss-clinic-gordon-short-crosby.html (the page the
+pack's Post C links to). Possible duplicate content, in the same family as
+item 6.1 (Q52, sitemap duplication, already blocked and estate-wide). Not
+chased further on this pass; flagging only as supporting evidence for 6.1.
+
+Footer hour ranges on all five pages read this run still render en dashes
+("Mon-Fri 9am-6pm" etc using the en dash character), unchanged from every
+prior check. Also a Weebly hand-paste defect, not a repo one.
+
+FIX MADE
+gbp-packs/gordon-short-crosby.md only: appended a dated live-recheck note
+(2026-08-30) recording the above. The note itself was drafted with a direct
+quote of the live mojibake sequence, which correctly tripped
+check-em-dashes.js on the pack file itself (a GBP pack is held to ASCII
+only, same as any other public-facing copy in this repo) - re-written to
+describe the corruption in words instead of reproducing the bytes, then
+re-verified clean.
+
+AFTER THE FIX
+All 36 checkers exit 0. All six generators (branch landing, contraception,
+service, switch, travel clinic, weight loss) rebuilt byte-identical - git
+status shows only gbp-packs/gordon-short-crosby.md changed (26 insertions).
+
+NOT CHANGED
+No live page, no paste, no branches.json entry, no generated page, no other
+pack. The 2026-08-10 hard STOP on the Post A link swap stands untouched.
+
+QUESTIONS
+No new question raised. Q78 (whether the body-image copy family found on
+this pack's Post C should be read on the 15 generated weight loss pages and
+six branch landing pages too) remains open and unaffected by this pass;
+answer-pickup this run found no new answer for it or any other open
+question (see AGENT_LOG.md for the fetch detail).

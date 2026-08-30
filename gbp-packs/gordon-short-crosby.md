@@ -159,3 +159,29 @@ Notes for the paster:
   unless special hours say otherwise. The dates are deliberately not retyped
   here so they cannot drift; read them from branches.json at paste time.
   Added on the item 4.5 quality pass, 2026-08-30.
+- Live recheck 2026-08-30 (item 4.14, sixth quality pass): sitemap now dated
+  2026-08-15 across every page on this site (previously stuck at 2026-07-19),
+  so a site-wide republish did happen since the last check. Read against the
+  four post-linked pages: pfLink (pharmacy-first-service-crosby.html) still
+  reads Gordon Short Chemist throughout and remains safe as Post A's link,
+  unchanged. switch-prescriptions-gordon-short-crosby.html now reads Gordon
+  Short Chemist correctly too (the naming fault on that page is fixed), but
+  its mojibake em dash survived the republish: the intro sentence above
+  "How switching to Gordon Short Chemist works" still renders a corrupted
+  three-byte sequence where the em dash belongs, so that repaste is still
+  needed. pharmacy-first-gordon-short-crosby.html, weight-loss-clinic-gordon-short-
+  crosby.html and travel-clinic-gordon-short-crosby.html were all rebuilt in
+  the republish - the Pharmacy First page now carries a materially different
+  layout with an FAQ block and a booking widget it did not have before - but
+  all three still say "Gordon Shorts Chemist" throughout title, heading, body
+  and footer contact block, unchanged from every check since 2026-08-10. The
+  wrong name is evidently sitting in a content block that Weebly is carrying
+  forward across republishes rather than something a one-off repaste will
+  fix on its own; whoever repastes these should check the source block itself
+  once, not just retype text into it, or the name may reappear at the next
+  republish. The STOP on repointing Post A to the branch-specific Pharmacy
+  First page stands, unchanged. The footer hour ranges on all four pages
+  still use en dashes, also unchanged, also still wanting the plain-hyphen
+  retype noted above. No pack fact affected; branches.json cross-check
+  (name, address, phone, website, review link, seoTown, service area, hasApp,
+  both opening-hours sessions) all still matches exactly, sixth pass running.

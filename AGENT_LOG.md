@@ -1,3 +1,37 @@
+## 2026-08-30 (item 4.14 quality pass) - Quality pass on 4.14 (Gordon Short Chemist Crosby GBP pack), sixth pass: pack clean on every branches.json fact for the sixth time running, no drift since the fifth pass on 2026-08-14; live half performed for the first time since 2026-08-14, the first time this item's own live pages have been read since then. Sitemap now dated 2026-08-15 (previously stuck at 2026-07-19), confirming a site-wide republish happened. Of the four pages the pack's four posts link to: pfLink (pharmacy-first-service-crosby.html, Post A) remains correct and safe, unchanged. switch-prescriptions-gordon-short-crosby.html (Post B) had its long-standing naming state confirmed still correct, but its known mojibake em dash in the "How switching works" intro survived the republish, still needing a repaste. The other three - pharmacy-first-gordon-short-crosby.html (the branch-specific page Post A must NOT be repointed to under the 2026-08-10 STOP), weight-loss-clinic-gordon-short-crosby.html (Post C) and travel-clinic-gordon-short-crosby.html (Post D) - were all visibly rebuilt in the republish (new FAQ/booking-widget layouts) but all three still read "Gordon Shorts Chemist" throughout title, heading, body and footer, confirming the wrong name is carried in a content block that survives a full page rebuild rather than a simple stale paste; the STOP stands. Estate-wide en-dash footer hours defect also reconfirmed unchanged. Persistent site-wide weight-loss nav button observed on every page sampled, corroborating Q60/6.4/6.5 rather than raising new scope. Fix made: appended a dated 2026-08-30 live-recheck note to gbp-packs/gordon-short-crosby.md; the first draft of that note quoted the live mojibake bytes directly and check-em-dashes.js correctly failed the pack on its own rule (packs are held to ASCII only, same as any public copy), so it was rewritten to describe the corruption in words and reverified clean. All 36 checkers exit 0 after the fix; all six generators rebuild byte-identical; git status shows only the pack file changed. Audit detail: audits/gordon-short-item-4.14-quality-pass-2026-08-30.txt. No new question raised; Q78 remains open and untouched by this pass.
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass, same as
+its immediate predecessor (4.13).
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running. Branch agents/audit-backlog fetched and pulled, level with
+origin at 45425b9, worktree clean before any edit.
+
+ANSWER PICKUP: ATTEMPTED AND SUCCESSFUL. Fetched
+https://data.rbhealth.co.uk/api/feedback and read all fourteen entries
+returned (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, some duplicated across
+dates). All are already recorded as "answered" in QUESTIONS.json by
+earlier runs. No unprocessed answer found for any currently OPEN question
+(open set checked: Q18-Q83 minus already-answered), so no worklist item
+was unblocked by this step.
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp at the top of this run, so step 8
+would have applied as written if a decision had been needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Reviewed quality-pass history across every completed item: the
+3.x/4.x rotation had all been touched on 2026-08-29 or 2026-08-30 except
+4.14, last passed 2026-08-11 (eighty-fifth run) and never re-verified on
+either 2026-08-14 (when 4.10/4.12/4.13 got their fifth passes) or since -
+the oldest verification date of any completed item in the backlog. Picked
+4.14.
+
+REPO HALF. All 36 checkers run individually, 0 failures, both before and
+after the pack edit. All six build-*.js generators re-run; git status
+showed only gbp-packs/gordon-short-crosby.md changed (26 insertions), so
+the six page generators remain byte-identical against the worktree.
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.13 (Riddings Pharmacy Timperley GBP pack), sixth pass: pack clean on every fact for the sixth time, no in-repo defect; live half performed for the first time since 2026-08-11 (Chrome resolved to a single instance this run); Post B's canonical URL still 404, unchanged; new observation that the site republished on 2026-08-14 without carrying this branch's switch paste, so the estate repaste backlog cannot assume the next general republish will pick it up; known live weight loss exposure on the old weight-loss-clinic-timperley.html page reconfirmed unchanged and already tracked under 5.8; no new question raised
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
