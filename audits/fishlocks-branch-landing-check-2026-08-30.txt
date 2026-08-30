@@ -1,0 +1,66 @@
+Item 2.2 quality pass, fifth pass, 2026-08-30 (unattended run)
+
+REPO HALF
+- Clean checkout, agents/audit-backlog at start, no prior diff.
+- All six generators rebuilt (build-branch-landing-pages.js,
+  build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+  build-travel-clinic-pages.js, build-weight-loss-pages.js), all exit 0.
+  git status --porcelain empty against tracked files afterwards: 177 generated
+  pages reproduce the committed state byte for byte.
+- All 36 checkers in tools/ run individually, all exit 0. No failures.
+
+FIELD-BY-FIELD, modules/branch/pages/pharmacy-fishlocks-ainsdale.html vs
+branches.json fishlocks_ainsdale:
+  phone 01704 575478 (text + tel: link) - match
+  postcode PR8 3HN - match
+  street 17 Station Road - match
+  email Ainsdale@rbhealth.co.uk - match
+  googleReviewUrl (g.page/r/Cfl0iMf3cgGaEAE/review) - match
+  nhsReviewUrl (XFK848/leave-a-review) - match
+  brandLabel "Fishlocks Chemist" - match
+  opening hours (Mon-Fri 08:45-18:00) - match
+  sister-branch cross-link to pharmacy-fishlocks-eccleston.html - present
+  pfLink (pharmacy-first-fishlocks-ainsdale.html) - match
+  hasApp sentence ("RB Healthcare Pharmacy app") - present, correctly gated
+  whatsapp field - deliberately absent from this page; see note below
+
+FIELD-BY-FIELD, modules/branch/pages/pharmacy-fishlocks-eccleston.html vs
+branches.json fishlocks_eccleston:
+  phone 01257 451251 (text + tel: link) - match
+  postcode PR7 5SZ - match
+  street Unit 3 The Carrington Centre, New Mill Street - match
+  email Eccleston@rbhealth.co.uk - match
+  googleReviewUrl (g.page/r/CYyjtWbSXqEkEAE/review) - match
+  nhsReviewUrl (XFKJ81/leave-a-review) - match
+  brandLabel "Fishlocks Chemist" - match
+  addressRegion Lancashire, seoRegion Chorley - both present
+  opening hours (Mon-Fri 09:00-18:00, Sat 09:00-12:00, closed Sunday) - match
+  sister-branch cross-link to pharmacy-fishlocks-ainsdale.html - present
+  pfLink (pharmacy-first-fishlocks-eccleston.html) - match
+  hasApp sentence - present, correctly gated
+  whatsapp field - deliberately absent from this page; see note below
+
+WHATSAPP NOTE (checked, not a defect): tools/check-whatsapp-route.js documents
+build-branch-landing-pages.js as deliberately excluded from its GENERATORS
+list - "its pages carry no module root, no booking mount and no WhatsApp
+route." Both pages confirmed to carry no WhatsApp text or link, consistent
+with that documented design. check-whatsapp-route.js passed (exit 0), so this
+is by design, not a gap.
+
+LIVE HALF (fishlockpharmacy.co.uk, browser read-only, no click/type/submit)
+- https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html - 404
+- https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html - 404
+- /sitemap.xml read in full: 40 URLs, all lastmod 2026-08-14T17:32:10+00:00,
+  neither branch landing page present in the sitemap at all. Identical to the
+  lastmod recorded on the item 2.1 sixth pass earlier today, confirming no
+  publish has happened since. The old shared pages
+  pharmacy-first-service-eccleston-ainsdale.html and
+  weight-loss-services-eccleston-ainsdale.html remain the live, sitemapped
+  targets.
+- Q35 (branch landing pages 404, awaiting Weebly paste) and Q69 (the "Free
+  NHS treatment" wording on the Pharmacy First tile, raised on the fourth
+  pass) re-read and both still accurately describe live state. No change,
+  no new question.
+
+RESULT: no in-repo defect found. No question raised or closed this pass.
+Worklist item 2.2 re-verified clean for the fifth time.

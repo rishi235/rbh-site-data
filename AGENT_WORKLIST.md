@@ -349,6 +349,23 @@ audits/nap-item-1.4-quality-pass-2026-08-29.txt.
       two Chrome instances are connected and an unattended run may not choose
       between them. Evidence:
       audits/fishlocks-branch-landing-check-2026-08-13.txt.
+      Quality pass 2026-08-30 (fifth pass): repo half clean and byte-stable
+      again, all six generators rebuilt to a zero diff, all 36 checkers pass.
+      Both branch landing pages re-verified field by field against
+      branches.json (NAP, phone as text and tel: link, email, both review
+      links, JSON-LD address fields including seoRegion, opening hours,
+      sister-branch cross-link, pfLink, hasApp gating): 0 mismatches. The
+      missing WhatsApp field on both pages is confirmed by design, not a
+      gap: check-whatsapp-route.js documents build-branch-landing-pages.js
+      as deliberately excluded from its GENERATORS list, since these pages
+      carry no module root, no booking mount and no WhatsApp route. Live
+      half: both pages still 404, still absent from the sitemap, whose 40
+      URLs still carry the 2026-08-14T17:32:10 lastmod the item 2.1 sixth
+      pass recorded earlier today, confirming no publish since. Q35 (branch
+      pages 404, awaiting Weebly paste) and Q69 (the "Free NHS treatment"
+      wording) re-read live and both still accurately describe live state.
+      No in-repo defect found; no question raised or closed. Evidence:
+      audits/fishlocks-branch-landing-check-2026-08-30.txt.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on

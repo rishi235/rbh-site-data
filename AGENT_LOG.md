@@ -1,3 +1,72 @@
+## 2026-08-30 (item 2.2 quality pass, fifth) - Repo half re-verified clean and byte-stable, both branch landing pages re-checked field by field, live findings reconfirmed unchanged, WhatsApp absence confirmed by design
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched and pulled, level with origin, worktree clean
+before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+29 entries returned. Every entry maps to a question already marked
+"answered" (Q2-Q5, Q13-Q22, Q24, Q28, Q29); none of the currently open
+questions (Q34 onward, 49 open) have an answer in the feed. No
+QUESTIONS.json status changes this run.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run.
+
+ITEM SELECTION: every unchecked line in AGENT_WORKLIST.md is [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, all pending Weebly/live-side actions or a
+main-branch fast-forward this run is not permitted to do), so this run took
+the quality-pass branch, the same reading of step 5 recent unattended runs
+have used. Compiled the most recent "Quality pass YYYY-MM-DD" date recorded
+against every checked, non-one-off item in AGENT_WORKLIST.md. Two items
+tied for oldest at 2026-08-13: item 2.2 (fourth pass) and item 4.11 (fifth
+pass). Took 2.2, the lower item number, as the tie-break; item 4.11 has one
+more prior pass on record but the item-number signal is the more objective
+of the two and is what "FIRST unchecked item" already uses elsewhere in
+this procedure.
+
+WHAT WAS DONE: all six generators rebuilt from a clean checkout; git status
+--porcelain returned empty afterwards, so all 177 generated pages reproduce
+the committed state byte for byte. All 36 checkers in tools/ run
+individually, zero failures. Both branch landing pages
+(modules/branch/pages/pharmacy-fishlocks-ainsdale.html and
+pharmacy-fishlocks-eccleston.html) re-verified field by field against
+branches.json fishlocks_ainsdale and fishlocks_eccleston: phone as text and
+as tel: link, postcode, street, email, both review links (Google and NHS),
+brandLabel, opening hours (including Eccleston's Saturday half-day and
+seoRegion Chorley), the sister-branch cross-link, pfLink, and the hasApp
+sentence gating - 0 mismatches across both pages. Neither page carries a
+WhatsApp number or link; checked against tools/check-whatsapp-route.js,
+which documents build-branch-landing-pages.js as deliberately excluded from
+its GENERATORS list because these pages "carry no module root, no booking
+mount and no WhatsApp route" - confirmed by design, not a gap left by Q21's
+rollout.
+
+LIVE VERIFICATION: fishlockpharmacy.co.uk read live, browser read-only, no
+click, type or submit. Both
+https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html and
+.../pharmacy-fishlocks-eccleston.html still return 404. /sitemap.xml read in
+full: 40 URLs, all lastmod 2026-08-14T17:32:10+00:00, identical to the
+lastmod the item 2.1 sixth pass recorded earlier today, confirming no
+publish has happened on this site since. Neither branch landing page
+appears in the sitemap. The old shared pages
+pharmacy-first-service-eccleston-ainsdale.html and
+weight-loss-services-eccleston-ainsdale.html remain the live, sitemapped
+targets. Q35 (branch landing pages 404, awaiting Weebly paste) and Q69 (the
+"Free NHS treatment" wording on the Pharmacy First tile) were both read
+against live state again and still accurately describe it; no change to
+either.
+
+RESULT: no in-repo defect found this pass; no question raised or closed.
+Item 2.2 ticked in place in AGENT_WORKLIST.md with the fifth quality pass
+entry, not moved to another section. Evidence:
+audits/fishlocks-branch-landing-check-2026-08-30.txt.
+
+Files changed: AGENT_WORKLIST.md,
+audits/fishlocks-branch-landing-check-2026-08-30.txt, this log. Commit hash
+in the commit itself.
 ## 2026-08-30 (item 2.1 quality pass, sixth) - Repo half re-verified clean, live findings reconfirmed unchanged, checker-scope gap reconfirmed and shown to carry no live risk
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
