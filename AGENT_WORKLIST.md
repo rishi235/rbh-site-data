@@ -3813,6 +3813,32 @@ so tools/build-audit-status.js picks them up like any other item.
       audits/rule9-landing-negative-tests-2026-08-14.ps1. No new question
       raised: the cohort was already decided and pinned in this repo, so this
       is the copy being brought back to the estate's own standard.
+      Quality pass 2026-08-30: fifth pass, both halves. Repo half: all 36
+      checkers green and all six generators rebuilt byte-identical before
+      inspection. The bank holiday work that landed since the last pass
+      (branches.json bankHolidays block added 2026-08-27, checker awareness
+      item 6.7 done 2026-08-29) was read against these pages: the landing
+      pages state weekly hours only, and check-opening-hours.js confirms
+      every visible and structured opening time on all six pages still
+      matches branches.json, with the bankHolidays block validated
+      alongside. ONE REAL DEFECT FOUND AND FIXED, in the data's own
+      documentation rather than a page: the bankHolidays.note in
+      branches.json still claimed check-live-hours.js and
+      check-opening-hours.js do not read dates2026 or tradingPolicy and
+      that Q79 was not yet implemented in the checkers, which item 6.7
+      made untrue on 2026-08-29. A future run trusting that note would
+      either hand-allow a live Closed-day mismatch the checkers now
+      label, or set about rebuilding 6.7. The note now records that 6.7
+      is implemented. No page, no patient-facing copy and no schema
+      changed; the six pages are byte-identical to the committed ones and
+      check-editor-snapshot stays clean since no branch field moved.
+      Live half, read only: all six landing URLs re-read in one tab,
+      nothing clicked, typed or submitted; all six still return 404,
+      unchanged since 2026-08-10, now 20 days queued for the Weebly paste
+      (Q35 remains the open decision on how they go live). The thirty
+      service pages they link to were not re-swept this run; the
+      2026-08-11 finding that all thirty return 200 stands as the paste
+      prerequisite. No new question raised.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

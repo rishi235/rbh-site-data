@@ -1,6 +1,56 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 5.2 (six branch landing pages), fifth pass: repo half clean on 36 checkers and a zero-diff rebuild, one stale-data defect fixed in branches.json, all six landing URLs re-confirmed 404 live
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Stalest
+completed item by last-pass position in this log: 5.2, last passed
+2026-08-14. Taken, its fifth pass. Both halves done.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only standing authorisation section in this log
+remains the 2026-08-09 one, expired 2026-08-10. Nothing was decided
+autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no .git index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before inspection.
+
+REPO HALF. The angle this pass added over 2026-08-14: the bank holiday
+work landed after the last 5.2 pass (bankHolidays block in branches.json
+2026-08-27, checker awareness item 6.7 2026-08-29) was read against the
+six landing pages. They state weekly hours only, in prose and in JSON-LD,
+and check-opening-hours.js verifies both forms on all six pages against
+branches.json with the bankHolidays block validated alongside. ONE REAL
+DEFECT FOUND AND FIXED, in the data's own documentation rather than a
+page: bankHolidays.note still claimed check-live-hours.js and
+check-opening-hours.js do not read dates2026 or tradingPolicy and that
+Q79 was answered but not yet implemented, which item 6.7 made untrue on
+2026-08-29. A future run trusting that note would either hand-allow a
+live Closed-day mismatch the checkers now label, or set about rebuilding
+6.7; with the Summer bank holiday falling tomorrow (2026-08-31) that
+note was one run away from doing real harm. The note now records that
+6.7 is implemented. Files changed: branches.json (note text only, no
+branch field, no date, no policy value), AGENT_WORKLIST.md, AGENT_LOG.md.
+All 36 checkers re-run green after the edit, check-editor-snapshot
+included, and all six generators still rebuild byte-identical, proving
+the note feeds no page.
+
+LIVE HALF, READ ONLY. All six landing URLs re-read in one tab, nothing
+clicked, typed or submitted: fishlockpharmacy.co.uk x2, 
+mccannspharmacy.co.uk x2, scorah-chemists.co.uk x2. All six still return
+404, unchanged since 2026-08-10, now 20 days queued for the Weebly paste.
+Q35 remains the open decision on how they go live. The thirty service
+pages they link to were not re-swept; the 2026-08-11 finding that all
+thirty return 200 stands as the paste prerequisite.
+
+No new question raised. 56 questions remain open.
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 5.1 (Q7 em dashes in public switch copy), fourth pass: repo half clean, three mutation probes caught including the first probe of the new bankHolidays field, live Cherry Lane residues re-confirmed, no repo change needed
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
