@@ -2,6 +2,76 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 05:05 - Quality pass on 3.4 (Cherry Lane Pharmacy, Walton), sixth pass: 12 pages clean on 1,938 independent checks, live half verified for the first time since 2026-08-12, zero defects
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Staleness
+from both sources (log run headers and git commit subjects, later of the two
+wins): stalest completed item is 3.4, last passed 2026-08-14 05:47. Taken,
+its sixth machine pass and the first since 2026-08-12 to include the live
+half.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before any inspection.
+
+THE 12 PAGES ARE CLEAN. Sixth independent extraction
+(audits/verify-3.4-2026-08-30.js, imports nothing from tools/) re-read all
+12 Cherry Lane pages: 1,938 checks, 0 failures. One SEO title line, one
+description line and one h1 each; sheet agreement by permalink across all
+six paste sheets, with each block's labels counted (the one-label-per-block
+gap the 3.3 pass closed is re-checked here with independent regexes AND the
+comparison reads the FIRST label line, the paster's reading); Walton in
+title, description and h1 on every page; a service word in all three legs;
+no foreign live town in any leg (Liverpool and Everton excused by
+serviceAreaList); own phone 0151 226 2051 present and every other live
+branch's phone and postcode absent; L4 8SG present; titles inside 65
+characters, descriptions 80 to 165; JSON-LD parses on all 12 with
+addressLocality the postal town Liverpool, not the seoTown; a tel: link on
+all 12; no other branch's widget id anywhere; the switch banner points at
+Cherry Lane's own switch page; and the two weebly-paste replacement blocks
+name no weight loss POM (independent name list, not tools/pom-names.js) and
+each links its destination page.
+
+COVERAGE PROVED BEFORE THE RESULT WAS BELIEVED. Three injections into the
+worktree, then restored: a doubled Page Title line ahead of the real one in
+the Cherry Lane UTI sheet block (the exact poison shape the 3.3 pass found)
+fires both the label count and the first-line title comparison; a foreign
+town (Bramhall) in a page's SEO title line fires the sheet-agreement,
+own-town and foreign-town rules; Mounjaro injected into the weight loss
+replacement block fires the POM rule. Six failures total, all expected.
+tools/check-seo-sheets.js was also run against the first injection and
+fires cross-brand, so the rule written on Fishlocks holds on Cherry Lane.
+Worktree restored to zero diff and re-verified clean.
+
+LIVE HALF, TWO READ-ONLY GETS, the first live read for 3.4 since
+2026-08-12. web_fetch was unavailable for these URLs (provenance
+restriction in this environment), so both reads went through one browser
+tab, read-only, opened and closed, nothing clicked, typed or submitted. The
+UTI page serves exactly the sheet title, description and H1, one h1, own
+phone and postcode only, no foreign town. The Pharmacy First page serves
+exactly the sheet title "Pharmacy First at Cherry Lane Pharmacy, Walton",
+the sheet description, the pattern H1, own phone and postcode only, and the
+site furniture hours line (Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed)
+matches branches.json exactly. No live defect, nothing new raised.
+
+NO WEIGHT LOSS COPY EDITED. The weight loss checks in this run are
+read-only verification; no patient-facing copy, no page, no generator, no
+data field and no branches.json entry was changed.
+
+Files changed: audits/verify-3.4-2026-08-30.js and its output txt (new),
+AGENT_WORKLIST.md (3.4 sixth-pass paragraph), AGENT_LOG.md (this entry).
+No new questions. 56 open before, 56 after.
+
 ## 2026-08-30 04:20 [commit 30e1fdd, hash line added by a small follow-up commit] - Quality pass on 3.3 (Fishlocks Ainsdale and Eccleston), fifth pass, one-label-per-block rule added to check-seo-sheets
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

@@ -824,6 +824,22 @@ is a page-moved notice, so requiring it would fail correct copy. All 35
 checkers pass and all seven generators rebuild with no generated page changed.
 Evidence in audits/cherry-lane-build-check-2026-08-14-fifth.txt. No new
 question. Done 2026-08-14
+Quality pass 2026-08-30 (sixth): clean on both halves, no defect, no new
+question. All 12 pages re-read by a sixth independent extraction
+(audits/verify-3.4-2026-08-30.js, imports nothing from tools/): 1,938 checks,
+0 failures - counts, sheet agreement including the one-label-per-block count
+the 3.3 pass added (proved here by injection on the Cherry Lane UTI block,
+where the doubled title also trips this verifier's first-line comparison),
+Walton in all three legs, no foreign town, phone and postcode isolation
+against every other live branch, lengths, JSON-LD postal-town Liverpool, tel:
+on all 12, no foreign widget id, banner self-pointing, and the two
+weebly-paste replacement blocks name no POM and link their destination pages.
+Three injections, all fire; tools/check-seo-sheets.js also fires cross-brand
+on the doubled label. Live half, two read-only GETs, the first since
+2026-08-12: UTI and Pharmacy First pages serve the exact sheet titles,
+descriptions and H1s, own phone and postcode only, and the furniture hours
+line matches branches.json exactly.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
