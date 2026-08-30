@@ -2053,6 +2053,30 @@ App Store block does not fire. Eight negative tests fire, including the
 adjacent-record boolean flip this file was created for, now caught on the pack
 surface too. 36 checkers pass, all six generators byte-identical, no page, pack
 or data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-14.txt.
+Quality pass 2026-08-30: sixth pass. The pack itself clean for the sixth time,
+every fact re-verified against branches.json: name, street address, postcode,
+phone, hours including the 24 June Saturday closure, review link, catchment
+order, profile website on its own landing page, hasApp false honoured, the
+712-character description re-derived at 712, all five referenced repo slugs
+present. Live, read-only: the landing page still 404s exactly as the paster
+note anticipates (Q35 class), the Post A-D targets all return 200. The post
+town on the "- Address:" line is Q64 and was not re-raised. One real defect
+found and fixed, on the pack surface across the estate rather than in this
+pack alone: BANK HOLIDAYS NEVER REACHED THE PACK SURFACE. Q79 (answered
+2026-08-27, all stores closed on bank holidays) landed in branches.json the
+same day and the hours checkers learned to read it on 2026-08-29 (item 6.7),
+but no pack and not GBP_MANUAL.md told the paster that a GBP profile shows a
+bank holiday as Open unless special hours are set, with the Summer bank
+holiday falling the day after this run. Same class as the run 201 hasApp
+finding: a branches.json fact unread where it is acted on. Fixed with one
+identical paster-note bullet in all 15 packs and a template variant in
+TEMPLATE.md, naming bankHolidays.dates2026 rather than retyping the dates so
+nothing can drift, plus two rules in check-gbp-packs.js: every pack's notes
+block, and the template's, must carry the instruction and name the field,
+gated on tradingPolicy "closed" so a policy change forces the notes to be
+rewritten. Three negative tests fire, each restored sha256-identical. 36
+checkers pass, all six generators byte-identical, no pasted copy, page or
+data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-30.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

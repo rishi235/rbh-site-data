@@ -1,0 +1,60 @@
+Item 4.5 quality pass evidence - Scorah Chemists Hazel Grove GBP pack
+Date: 2026-08-30 (sixth pass; previous passes 08-04, 08-05, 08-09, 08-11,
+08-12, 08-13, 08-14 per AGENT_WORKLIST.md entry)
+
+RUN START STATE
+- No .agent-lock, no .git index.lock. agents/audit-backlog level with origin.
+- All 36 checkers exit 0. All six generators rebuilt to a zero diff.
+
+PACK FACTS vs branches.json (scorah_hazel), all verified equal
+- Name on GBP: Scorah Chemists Hazel Grove = branchName
+- Address: 87 Macclesfield Road, Hazel Grove SK7 6BG (streetAddress,
+  addressLocality, postalCode). The post town "Stockport" on the
+  "- Address:" line is the Q64 known divergence, WARNed by the checker,
+  not re-raised.
+- Phone: 01625 872267 = phone
+- Hours: Mon-Fri 9:00am-6:00pm, Sat closed, Sun closed = specification +
+  closedDays; 24 June Saturday-closure note present in both places.
+- Review link = googleReviewUrl. hasApp false and no app mention anywhere.
+- Catchment: Hazel Grove, Bramhall, Offerton, Great Moor, Poynton =
+  serviceAreaList, same order, in description and Post B.
+- Description: stated 712 characters, measured 712 (newline-as-space join).
+- Sister-branch claim (Bramhall) still satisfied per the run 57 guard.
+
+REPO SLUGS REFERENCED BY THE PACK
+- pharmacy-scorah-hazel-grove.html            modules/branch/pages  OK
+- pharmacy-first-scorah-hazel-grove.html      modules/service/pages OK
+- switch-prescriptions-scorah-hazel-grove.html modules/switch/pages OK
+- weight-loss-clinic-scorah-hazel-grove.html  modules/service/pages OK
+- travel-clinic-scorah-hazel-grove.html       modules/service/pages OK
+- pharmacy-first-service-hazel-grove-bramhall.html is live-only (pfLink),
+  not repo-generated, WARNed by the checker as designed.
+
+LIVE HALF (read-only HTTP HEAD, 2026-08-30)
+- pharmacy-scorah-hazel-grove.html                 404 (Q35 class, as the
+  paster note anticipates; profile website must not be set until it lives)
+- pharmacy-first-service-hazel-grove-bramhall.html 200
+- switch-prescriptions-scorah-hazel-grove.html     200
+- weight-loss-clinic-scorah-hazel-grove.html       200
+- travel-clinic-scorah-hazel-grove.html            200
+
+DEFECT FOUND AND FIXED (estate-wide, pack surface)
+Bank holidays never reached the pack surface. Q79 (2026-08-27, all stores
+closed on bank holidays) landed in branches.json bankHolidays the same day;
+item 6.7 taught check-live-hours.js and check-opening-hours.js to read it
+on 2026-08-29; but no pack and not GBP_MANUAL.md told the paster that a GBP
+profile shows a bank holiday as Open unless special hours are set on the
+profile. Next closure: 2026-08-31, the day after this run.
+Fix:
+- One identical paster-note bullet appended to the Notes for the paster
+  block of all 15 packs, and a template variant to TEMPLATE.md. The note
+  names branches.json bankHolidays.dates2026 rather than retyping dates.
+- check-gbp-packs.js: new per-pack rule (gated on tradingPolicy "closed")
+  requiring the notes block to carry the instruction and name the field;
+  matching template-side rule.
+Negative tests, each restored sha256-identical afterwards:
+- bullet removed from scorah-hazel-grove.md      exit 1, correct message
+- bankHolidays.dates2026 corrupted to dates2027   exit 1
+- bullet removed from TEMPLATE.md                 exit 1
+Post-fix: check-gbp-packs.js exit 0; full 36-checker suite exit 0; all six
+generators byte-identical; no pasted copy, page or data field changed.

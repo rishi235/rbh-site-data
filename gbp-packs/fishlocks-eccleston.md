@@ -139,3 +139,11 @@ Notes for the paster:
 - Check category names against what GBP's picker actually offers on the
   day; pick the closest match.
 - App mentions are fine for this branch: branches.json has hasApp true.
+- Bank holiday special hours: while in the profile, open Google's special
+  hours and mark every remaining 2026 date in branches.json
+  bankHolidays.dates2026 as Closed. All RB Healthcare stores close on bank
+  holidays (Q79, confirmed by Rishi 2026-08-27; tradingPolicy "closed",
+  estate-wide, no branch exception). Google shows a bank holiday as Open
+  unless special hours say otherwise. The dates are deliberately not retyped
+  here so they cannot drift; read them from branches.json at paste time.
+  Added on the item 4.5 quality pass, 2026-08-30.

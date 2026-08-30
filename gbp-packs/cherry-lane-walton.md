@@ -129,3 +129,11 @@ Notes for the paster:
 - No "free assessment" wording for the travel clinic: the Cherry Lane
   travel consultation is a private, paid service per the branch's own
   travel page FAQ (corrected 2026-08-05 quality pass).
+- Bank holiday special hours: while in the profile, open Google's special
+  hours and mark every remaining 2026 date in branches.json
+  bankHolidays.dates2026 as Closed. All RB Healthcare stores close on bank
+  holidays (Q79, confirmed by Rishi 2026-08-27; tradingPolicy "closed",
+  estate-wide, no branch exception). Google shows a bank holiday as Open
+  unless special hours say otherwise. The dates are deliberately not retyped
+  here so they cannot drift; read them from branches.json at paste time.
+  Added on the item 4.5 quality pass, 2026-08-30.

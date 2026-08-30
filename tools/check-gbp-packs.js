@@ -769,6 +769,28 @@ for (const file of packFiles) {
     fail(file, 'no "Notes for the paster:" block below section 5. That block is the only part of the pack addressed to the person doing the pasting rather than to the Google profile, and it carries the instructions with consequence: which branches must not have their profile website set yet, that no medicine name may be added to the weight loss post, and that the category names have to be matched against whatever GBP\'s picker offers on the day. Without it the pack still reads as complete and the paster is told none of it');
   }
 
+  // --- bank holiday special hours on the pack surface -------------------
+  // Q79 (answered by Rishi 2026-08-27): all RB Healthcare stores close on
+  // bank holidays. The data landed in branches.json bankHolidays the same
+  // day and the two hours checkers learned to read it on 2026-08-29 (item
+  // 6.7), but nothing carried the policy onto the pack surface: no pack,
+  // and not GBP_MANUAL.md either, told the paster that a GBP profile shows
+  // a bank holiday as Open unless special hours are set on the profile.
+  // That is the locked-door fault on the one surface patients check first,
+  // and the next closure was a day away when this was found. Same class as
+  // the run 201 hasApp finding: a branches.json fact unread where it is
+  // acted on. The note names bankHolidays.dates2026 rather than retyping
+  // the dates, on the claim-patterns doctrine that a fact retyped is a
+  // fact that drifts. Found on the item 4.5 quality pass, 2026-08-30.
+  {
+    const notesBlock = text.split(/^Notes for the paster:/m)[1] || "";
+    const bh = data.bankHolidays || {};
+    if (String(bh.tradingPolicy || "").toLowerCase() === "closed") {
+      if (!/bank holiday/i.test(notesBlock) || !/special hours/i.test(notesBlock) || !notesBlock.includes("bankHolidays.dates2026")) {
+        fail(file, 'the "Notes for the paster:" block has no bank holiday special-hours instruction. All RB Healthcare stores close on bank holidays (branches.json bankHolidays.tradingPolicy "closed", Q79 answered 2026-08-27), and a GBP profile shows a bank holiday as Open unless special hours are set on the profile, so the paster must be told to mark every remaining date in branches.json bankHolidays.dates2026 as Closed while in the profile. The note must name bankHolidays.dates2026 rather than retype the dates (item 4.5 quality pass, 2026-08-30)');
+      }
+    }
+  }
   // --- the GBP profile website on a shared domain -----------------------
   // Master Plan v2 section 3: Fishlocks, McCanns and Scorah each run two
   // branches on one website, so the second branch "leans on its own GBP
@@ -3256,6 +3278,18 @@ if (!fs.existsSync(TEMPLATE_FILE)) {
   }
   for (const h of findClaims(tplScannable, OUTCOME_PROMISE)) {
     fails.push(`TEMPLATE.md line ${h.line}: outcome promise "${h.term}" (${h.reason}), from the shared tools/outcome-promise-patterns.js. Specimen copy in the template becomes real copy in the next pack. Context: ${h.text}`);
+  }
+  // Bank holiday special hours must also be stated in the template's notes
+  // block, or the next pack drafted from it silently loses the instruction
+  // every existing pack now carries (item 4.5 quality pass, 2026-08-30).
+  {
+    const tplNotes = tpl.split(/^Notes for the paster:/m)[1] || "";
+    const bh = data.bankHolidays || {};
+    if (String(bh.tradingPolicy || "").toLowerCase() === "closed") {
+      if (!/bank holiday/i.test(tplNotes) || !/special hours/i.test(tplNotes) || !tplNotes.includes("bankHolidays.dates2026")) {
+        fails.push('TEMPLATE.md: the "Notes for the paster:" block has no bank holiday special-hours instruction naming branches.json bankHolidays.dates2026, so a pack drafted from the template would not tell the paster to set the estate-wide bank holiday closures (Q79) as special hours on the profile (item 4.5 quality pass, 2026-08-30)');
+      }
+    }
   }
   if (!/^Rules for every pack\b/m.test(tpl)) {
     fails.push('TEMPLATE.md no longer has a "Rules for every pack" heading. That heading is the boundary the advertising scan above uses to tell the block that STATES the rules from the specimen copy a drafter copies, so without it the template\'s own rule statements would be read as claims and fail. Restore the heading, or move the carve-out to whatever replaced it (item 4.5 quality pass, 2026-08-13).');

@@ -179,3 +179,11 @@ branch-specific version of each note that applies.)
 - Anything else branch-specific the paster would otherwise get wrong, and the
   date any live state claimed above was last observed, so the next reader can
   tell how old it is.
+- Bank holiday special hours: tell the paster to mark every remaining date
+  in branches.json bankHolidays.dates2026 as Closed in Google's special
+  hours while in the profile. All RB Healthcare stores close on bank
+  holidays (Q79, 2026-08-27, tradingPolicy "closed", estate-wide). Do not
+  retype the dates into the pack; name the branches.json field instead so
+  they cannot drift. tools/check-gbp-packs.js fails any pack, and this
+  template, whose notes block carries no such instruction (item 4.5 quality
+  pass, 2026-08-30).

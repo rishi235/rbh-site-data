@@ -1,6 +1,71 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.5 (Scorah Hazel Grove GBP pack), sixth pass: pack clean on every fact, one estate-wide pack-surface defect fixed - bank holiday special hours never reached the packs
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. By the
+standing staleness projection (the 08-14 pack passes next, 4.5 first), 4.5
+taken, its sixth pass, both halves done.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only standing authorisation section in this log
+remains the 2026-08-09 one, expired 2026-08-10. Nothing was decided
+autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no .git index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before any edit.
+
+PACK HALF. Every fact re-verified against branches.json (scorah_hazel):
+name, address, phone, hours with the 24 June Saturday closure, review
+link, catchment order in description and Post B, profile website on its
+own landing page, hasApp false honoured, sister-branch claim, and the
+712-character description claim re-measured at exactly 712. All five
+branch-specific slugs the pack references exist in the repo. The post
+town on the "- Address:" line is Q64 and was not re-raised.
+
+LIVE HALF, READ-ONLY. Five HTTP status reads, nothing clicked or typed:
+the landing page pharmacy-scorah-hazel-grove.html still 404s exactly as
+the paster note anticipates (Q35 class), and all four post button targets
+return 200 (shared PF page, switch, weight loss, travel).
+
+ONE REAL DEFECT FOUND AND FIXED, ESTATE-WIDE, ON THE PACK SURFACE. Bank
+holidays never reached the packs. Q79 (answered by Rishi 2026-08-27: all
+stores closed on bank holidays) landed in branches.json bankHolidays the
+same day, and item 6.7 taught the two hours checkers to read it on
+2026-08-29, but no pack and not GBP_MANUAL.md told the paster that a GBP
+profile shows a bank holiday as Open unless special hours are set on the
+profile - the locked-door fault on the surface patients check first, with
+the Summer bank holiday falling tomorrow (2026-08-31). Same class as the
+run 201 hasApp finding: a branches.json fact unread where it is acted on.
+Fix: one identical paster-note bullet appended to the Notes for the
+paster block of all 15 packs, a template variant in TEMPLATE.md, both
+naming bankHolidays.dates2026 rather than retyping the dates so nothing
+can drift, and two new rules in check-gbp-packs.js (per-pack and
+template-side, gated on tradingPolicy "closed") so the instruction cannot
+be silently deleted. Three negative tests fired and were restored
+sha256-identical: bullet removed from this pack (exit 1, correct
+message), field name corrupted to dates2027 (exit 1), bullet removed from
+TEMPLATE.md (exit 1). This applies an already-made decision (Q79), so no
+question was raised; the paste itself remains a supervised human action.
+
+FILES CHANGED
+- gbp-packs/*.md (all 15 packs + TEMPLATE.md, one notes bullet each)
+- tools/check-gbp-packs.js (two new rules)
+- audits/scorah-hazel-grove-pack-check-2026-08-30.txt (evidence)
+- AGENT_WORKLIST.md (4.5 entry appended in place)
+- AGENT_LOG.md (this entry)
+
+No pasted copy, generated page or data field changed. 36 checkers pass,
+all six generators byte-identical after the change. No new question: 56
+open before, 56 after. Next stalest by the standing projection: 4.6,
+then 4.8.
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 6.3 (opening hours vs branches.json), third pass: live half re-read for the first time since 2026-08-12, thirteen branches match, Smartts mismatch stands (Q55), one survey-tool defect fixed after the raw snippets manufactured a false Scorah Saturday swap
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
