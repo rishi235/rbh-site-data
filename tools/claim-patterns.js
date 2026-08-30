@@ -136,7 +136,21 @@ const CLAIM_PATTERNS = [
   // lawful, the same trap the "option" note above records. The bare word
   // "guaranteed" is already caught for packs by EFFICACY_FAIL in
   // check-gbp-packs.js, which is where it belongs.
-  [/\blos(?:e|es|ing)\b[^.\n]{0,30}?\b\d+(?:\.\d+)?\s*(?:stone|kg|kilos?|kilograms?|lbs?|pounds?)\b/i, "quantified weight loss claim"],
+  // Word-number widening, added 2026-08-30 on the fifth item 4.4 quality
+  // pass. The quantified rule as shipped by the 4.8 pass read DIGITS only,
+  // so the plainest spoken form of the same promise walked through:
+  // injected into Post C of gbp-packs/scorah-bramhall.md, "Most patients
+  // lose a stone in the first month." passed ALL 36 CHECKERS. "a stone" is
+  // how the claim is actually said in England; nobody writes "lose 1
+  // stone". The number alternation gains the word numbers a/an/one..ten and
+  // "half a", and the verb gains drop/shed, the two verbs the 4.8 note
+  // itself recorded ("Drop a dress size", "shed pounds") but only ever
+  // caught inside one fixed phrase each. A sweep of every checked surface
+  // on 2026-08-30 found no legitimate verb-plus-word-number-plus-unit text
+  // (the McCanns Aigburth pack has "Drop in and", which has no unit within
+  // reach), so the widening costs nothing. The digit form stays covered
+  // because \d+ remains first in the alternation.
+  [/\b(?:los(?:e|es|ing)|drop(?:s|ped|ping)?|shed(?:s|ding)?)\b[^.\n]{0,30}?\b(?:\d+(?:\.\d+)?|a|an|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a)\s+(?:stones?|kg|kilos?|kilograms?|lbs?|pounds?)\b/i, "quantified weight loss claim"],
   [/\bdress\s+sizes?\b/i, "quantified weight loss claim"],
   [/\byou\s*(?:'ll|\s+will)\s+lose\b/i, "promises the patient a specific outcome"],
   [/\bsuccess\s+stor(?:y|ies)\b/i, "testimonial-style results claim"],

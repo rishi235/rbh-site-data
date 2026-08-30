@@ -1,0 +1,36 @@
+﻿Item 4.4 fifth quality pass - Scorah Chemists Bramhall GBP pack - 2026-08-30
+
+Verifier: audits/verify-4.4-2026-08-30.js (imports nothing from tools/).
+Result: 120 independent checks over gbp-packs/scorah-bramhall.md against
+branches.json, 0 defects, 0 flags. Covers canonical NAP, foreign-branch
+identity leakage (phone, digits-only phone, postcode, review URL for every
+other live branch), POM and drug-class names, outcome and efficacy
+patterns, weight loss framing sentences, the Pharmacy First condition
+list, hasApp, description length claim (742 claimed, matches), copy
+standards (no em dashes, no emojis, https only), URL domain restriction,
+hours strings and the Q62 post town line.
+
+Mutations (applied via node; a PowerShell string replace no-opped on the
+first attempt because of hard-wrapped source lines - reproved the
+2026-08-30 3.11 run's lesson):
+M1 PF scope drift ("chickenpox" for "infected insect bites"): CAUGHT by
+   check-gbp-pharmacy-first.js, exit 1. The f036073 guard holds.
+M2 outcome promise ("Most patients lose a stone in the first month." in
+   Post C): PASSED ALL 36 CHECKERS. Real gap: the 4.8 quantified rule in
+   tools/claim-patterns.js read digits only. Fixed this run - number
+   alternation widened to word numbers (a/an/one..ten, half a), verbs
+   widened to drop/shed. Unit tests 10/10, M2 re-run now red on
+   check-gbp-packs.js, clean repo green on all 36.
+
+Live half (read only, two pages):
+- pharmacy-scorah-bramhall.html still returns 404, so the Bramhall
+  profile website still cannot move off the shared homepage. Known,
+  anticipated by the pack's own paster note and recorded in Q43.
+- pharmacy-first-service-hazel-grove-bramhall.html (Post A's pfLink)
+  resolves and carries the full NHS condition list. The Q43 hand-edited
+  furniture family is unchanged on it: truncated "61 North Park Road" and
+  unspaced 01614393744 in the contact section, "Cheshire SK7 3LQ" in the
+  Weebly contact block, truncated footer address. One further member of
+  the same family observed: the live page TITLE reads "Stockport,
+  Cheshire". Same family, same fix route, rides with Q43. No new
+  question raised.

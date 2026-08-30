@@ -2,6 +2,73 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 - Quality pass on 4.4 (Scorah Chemists Bramhall GBP pack), fifth pass: pack clean on 120 independent checks, PF guard re-proved by mutation, and a word-number outcome claim ("lose a stone") that passed all 36 checkers is now caught
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from both sources (log run headers and git commit subjects,
+later of the two wins): stalest completed item is 4.4, last passed
+2026-08-14 03:53 (commit f036073). 4.4 taken. Evidence in
+audits/scorah-bramhall-4.4-pass-2026-08-30.txt and the verifier
+audits/verify-4.4-2026-08-30.js.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 2026-08-30 answer pickups before it, read through
+one browser tab, opened and closed, nothing clicked, typed or submitted.
+Every entry maps to an already answered question (Q2-Q5, Q13-Q17). 56
+open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. The checker widening below is an in-repo defect fix inside
+the quality-pass mandate, not a decision taken for Rishi.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at 44499b6, worktree clean. All 36
+checkers green and all six page generators rebuilt to a zero diff before
+any inspection.
+
+THE PACK IS CLEAN AND NOT ONE CHARACTER OF IT WAS EDITED. An independent
+verifier importing nothing from tools/ ran 120 checks against
+branches.json: canonical NAP, foreign-branch leakage across every live
+branch (phones, digit-normalised phones, postcodes, review URLs), POM and
+drug-class names, outcome and efficacy patterns, weight loss framing, the
+PF condition list, hasApp, the 742-character description claim
+(verified), copy standards and URL domains. Zero defects, zero flags.
+The Q62 post town line still reads Stockport, correct, still held by
+nothing (Q62 stays open).
+
+GUARD RE-PROVED, THEN A REAL GAP FOUND AND CLOSED. Mutation 1 swapped
+"infected insect bites" for "chickenpox" in the services section:
+check-gbp-pharmacy-first.js went red, so the guard the last 4.4 pass
+added (f036073) holds. Mutation 2 appended "Most patients lose a stone
+in the first month." to Post C, a weight loss advertisement bound for a
+public Google profile, and it PASSED ALL 36 CHECKERS. The 4.8 pass's
+quantified rule in tools/claim-patterns.js read digits only ("lose 2
+stone" caught, "lose a stone" not), which is the plainest spoken form of
+the same promise. Fix: the number alternation gains word numbers
+(a/an/one..ten, half a) and the verb gains drop/shed, both anchored on
+the 4.8 note's own evidence; a sweep of every checked surface found no
+legitimate verb-plus-word-number-plus-unit text, so nothing legitimate
+fails. Ten unit tests pass, the mutation re-run goes red on
+check-gbp-packs.js, and the clean repo is green on all 36. Both
+mutations were applied via node after a PowerShell string replace
+silently no-opped on the hard-wrapped source, the same trap the
+2026-08-30 3.11 run recorded.
+
+LIVE HALF, READ ONLY. pharmacy-scorah-bramhall.html still 404s, so the
+Bramhall profile website still cannot move off the shared homepage - the
+pack's paster note remains the operative instruction and Q43 already
+records it. Post A's pfLink page resolves with the full NHS condition
+list. The Q43 hand-edited furniture family is unchanged, and one further
+member was observed: the live PF page title reads "Stockport, Cheshire"
+(Bramhall is Greater Manchester). Same family, rides with Q43, no new
+question raised.
+
+Files changed: tools/claim-patterns.js (widened rule plus dated note),
+audits/verify-4.4-2026-08-30.js, audits/scorah-bramhall-4.4-pass-2026-08-30.txt,
+AGENT_LOG.md. No page output moved. No new questions. 56 questions open.
+
 ## 2026-08-30 [commit 163b2dc, hash line added by a small follow-up commit] - Quality pass on 3.11 (Gordon Short Chemist, Crosby), fifth pass: 12 pages clean on 1,823 independent checks, both clinical/identity guards re-proved by mutation, live pfLink and homepage verified, zero in-repo defects
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
