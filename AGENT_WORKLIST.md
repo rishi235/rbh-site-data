@@ -3009,6 +3009,37 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       patient-facing copy was changed. Three further gaps identified and
       recorded in AGENT_LOG.md for the next pass; one question raised, Q76.
       Done 2026-08-14.
+      Sixth quality pass 2026-08-30: pack clean on every fact for the sixth
+      time running, no in-repo defect. All 36 checkers exit 0. Every fact
+      re-verified against branches.json: name Coleman and Leighs Pharmacy,
+      address 241 Walton Village, Liverpool L4 6TH, phone 0151 525 3522,
+      website, review link, hasApp false with no app mention, both
+      opening-hours sessions (09:00 to 13:00 and 14:00 to 18:00 Monday to
+      Friday, Saturday and Sunday closed) and catchment Walton, Liverpool
+      and Sefton in all three places, leading with its own seoTown. All
+      five character counts came back byte-identical to all five earlier
+      passes (description 631 exactly as the heading claims, posts 456,
+      321, 528 and 433). Zero non-ASCII, zero dash characters, zero dash
+      entities, zero hits against the now 84-name union in
+      tools/pom-names.js. Eight injections run from a harness held outside
+      the repo, one value at a time, all restored and sha256-confirmed
+      byte-identical after every one. BOTH gaps this pack's fifth pass
+      found and left open are now closed, neither by an edit made here: a
+      road name swapped into Post B and into the photo shot list, with no
+      house number in front of it either time, is now caught by
+      check-gbp-packs.js (the guard the item 4.10 pass added earlier
+      today); and the lunch closure stated with a wrong time inside a
+      comma clause, and again with "weekday" standing in for a day name,
+      is now caught too (the hours-statement-anywhere rule other passes
+      broadened today). Q76's own case was re-run to confirm it is still
+      live: a sister branch's name substituted for this branch's own in
+      Post C is still MISSED by every checker, exactly as Q76 describes,
+      so Q76 stands exactly as raised. All 7 build-*.js page generators
+      re-run; git status empty afterwards, so nothing in the estate
+      drifted. Live half not performed: the browser tool rejected the
+      connection with the standing two-Chrome-instances error (Q59); the
+      2026-08-12 live verdicts recorded in this pack stand as written. No
+      new question, no in-repo defect. Done 2026-08-30.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

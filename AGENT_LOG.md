@@ -1,3 +1,98 @@
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.12 (Coleman and Leighs Pharmacy Walton GBP pack), sixth pass: pack clean on every fact for the sixth time, no repo defect; both previously-recorded gaps (road name, lunch-closure phrasing) now closed by other passes' fixes; Q76 re-confirmed still open, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running. Branch agents/audit-backlog fetched and pulled, level with
+origin, worktree clean before any edit.
+
+ANSWER PICKUP: NOT ATTEMPTED VIA THE API READ, BLOCKED. tabs_context_mcp
+returned "multiple Chrome browsers connected, none selected for this
+session" on the first call. This is Q59's standing two-Chrome-instances
+condition, still open since 2026-08-12. Per the task's own instruction
+(never select a browser or attempt another route; this is a
+non-interactive run with no user to ask which browser), pickup was logged
+unavailable and the run continued. 57 open questions before this run, 57
+after (no new question raised).
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp, so step 8 would apply as written
+if a decision were needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. This run's predecessor (4.10) took that pack to a fifth pass,
+which left 4.12, 4.13 and 4.14 tied, all last verified (fifth pass) on
+2026-08-14, the oldest verification date left among the actively-rotating
+GBP packs. Every other completed item outside that rotation (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) has no quality-pass history in this log at all,
+and reads as a one-off fix or feature landed at commit time rather than
+recurring content this backlog re-verifies, so they were not treated as
+candidates. Picked 4.12 as the lowest-numbered item in the tied group, the
+same tie-break the 4.10 entry used earlier today.
+
+REPO HALF, ALL HOLDING. All 36 checkers run individually, 0 failures.
+Facts re-verified against branches.json: name Coleman and Leighs Pharmacy,
+address 241 Walton Village, Liverpool L4 6TH, phone 0151 525 3522,
+website, review link, hasApp false with no app mention, both
+opening-hours sessions (09:00-13:00 and 14:00-18:00 Monday to Friday,
+Saturday and Sunday closed), catchment Walton, Liverpool and Sefton in
+all three places leading with its own seoTown. All five character counts
+byte-identical to all five earlier passes (description 631, posts 456,
+321, 528, 433). Zero non-ASCII, zero dash characters or entities, zero
+hits against the 84-name union in tools/pom-names.js (grown from 82 at
+the fifth pass, from other items' work today). All 7 build-*.js
+generators re-run (build-audit-status.js deliberately excluded, that only
+runs at step 10); git status empty afterwards, so nothing in the estate
+drifted.
+
+INJECTION TESTING, EIGHT MUTATIONS, RESTORED AND SHA256-CONFIRMED AFTER
+EVERY ONE. Method: mutate the working copy of gbp-packs/coleman-leigh-walton.md
+one change at a time with a Python harness held outside the repo, run the
+relevant checkers, record the result, restore with git checkout and
+confirm the hash matches the original, repeat. 1) A road name (Fernhill
+Road, a different branch's road) swapped into Post B's "A local team on
+Walton Village" line, no house number in front of it: caught by
+check-gbp-packs.js. 2) The same swap into the photo shot list's
+"Shopfront on Walton Village" line: caught. These two are the first gap
+this pack's fifth pass (2026-08-14) found and left open for the next
+pass; both are now closed, not by any edit made here but by the
+road-name guard the item 4.10 pass added earlier today. 3) The business
+description's lunch closure rewritten into a comma clause with the wrong
+time (1pm to 3pm dressed as "closed to browsers between one and three
+each afternoon"): caught by check-gbp-packs.js. 4) The same line
+rewritten with "weekdays" standing in for "Monday to Friday" and the same
+wrong time: caught. These two are the pack's second recorded gap from the
+fifth pass; both are now closed too, by the hours-statement-anywhere rule
+other passes broadened today. 5) Trading name swapped to the ampersand
+form "Coleman & Leigh Pharmacy": caught by check-gbp-packs.js and
+check-brand-spelling.js. 6) Postcode swapped to Smartts Bootle's L20 9HH:
+caught by check-gbp-packs.js and check-postcodes.js. 7) Phone digit
+changed (3522 to 3512): caught by check-gbp-packs.js. 8) Q76's own case
+re-run to confirm it is still live: a sister branch's name, "Cherry Lane
+Pharmacy", substituted for this branch's own in Post C: MISSED by every
+checker run, exactly as Q76 describes. This is a re-confirmation, not a
+new finding; no rule has been added because Q76 is still awaiting
+Rishi's decision on scope (branchName only, or brandLabel too) and this
+is not something to decide autonomously (a wrong guess fails a pack that
+is doing the right thing, and there is no active autonomous window in
+any case). Working copy confirmed byte-identical to HEAD after every
+restore and at the end of the run.
+
+LIVE HALF, NOT PERFORMED. The claude-in-chrome browser tool rejected
+tabs_context_mcp with the two-connected-browsers selection error before
+any page was reached. Per the task's read-only, no-alternate-route
+instruction and the non-interactive nature of this run, no browser
+attempt was retried and no page was read. This matches Q59, still open.
+The 2026-08-12 live verdicts recorded in this pack stand as written:
+Post A's pfLink 404, Posts B/C/D resolving, the live site mid-repaste on
+the trading name.
+
+NO NEW QUESTION, NO IN-REPO DEFECT. Q76 remains the only open item
+against this pack, unchanged by this pass. Nothing in the pack, a
+generator, branches.json, a paste sheet or a piece of patient-facing
+copy was changed.
+
 ## 2026-08-30 a5d77c0 - Quality pass on 4.10 (Smartts Chemist Bootle GBP pack), fifth pass: pack clean on every fact for the fifth time, no repo defect; eight injections run, all caught; live half unavailable (Q59), no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
