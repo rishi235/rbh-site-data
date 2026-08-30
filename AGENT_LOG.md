@@ -2,6 +2,74 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 01:41 BST - Quality pass on 1.2 (Hirshmans address sweep), sixth pass: address clean both halves; the checker fixed last run still could not read a postcode PRECEDED by %20, fixed and proved on page and pack
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Staleness
+derived from both sources (log run headers and git log commit subjects,
+later of the two wins): stalest completed item is 1.2, last passed
+2026-08-14 02:43. 1.2 taken.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 01:12 pickup, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). None of the 56 open questions
+has an answer. 56 open before, 56 after.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+exit 0 and all six page generators rebuilt to a zero diff before any
+inspection.
+
+THE ADDRESS IS CLEAN, BOTH HALVES. branches.json canonical (56-62 Sherwood
+House, Station Road, Ainsdale, PR8 3HW, 01704 577376). Seventeen broken
+variants swept across 418 tracked files, every hit accounted for as
+narrative, a declaring checker, the pack's HARD STOP note, live-hours
+evidence quoting Fishlocks' own live page, or the tel: href on 12 generated
+pages whose visible text is correctly spaced. All 12 Hirshmans pages carry
+the canonical street and PR8 3HW, none carries PR8 3HN. Live contact-us
+read once, read-only: address correct on all three surfaces, hours match
+branches.json including both lunch closures, every Q41 cosmetic still live,
+nothing new to add to Q41 this pass.
+
+GUARD COVERAGE EXTENDED TWICE, surfaces never proved for this item before.
+A JSON-LD-only foreign postcode (visible block untouched) failed
+check-jsonld naming field and both values, and check-postcodes FOREIGN
+named both branches. A map query pointed at the neighbour's real 17 Station
+Road PR8 3HN failed check-map-embeds on both the address rule and the
+contact-card-agreement rule. Both restored, re-run clean.
+
+DEFECT ONE, THE ONE THAT MATTERS: the 1.3 fix made last run was incomplete.
+PC_RE_LOOSE gained %20 and %2B in its SEPARATOR, but in a fully encoded URL
+the postcode token is PRECEDED by %20 or %2C, and the digit in that escape
+defeats the leading \b, so neither regex ever started matching. Proved
+before fixing: a foreign PR8 3HN in %20 form inside the Hirshmans map URL
+passed check-postcodes at exit 0 (check-map-embeds covers pages, so no live
+exposure there), and the same form appended to gbp-packs/hirshmans-ainsdale.md
+as an encoded directions link passed ALL 36 checkers in silence - the exact
+pack surface last run's fix was written for. Fixed in extract() of
+tools/check-postcodes.js: the text is also read through a URL-decoded view
+(%20/%2C/%2B to space), feeding the same INTEREST bound so nothing new can
+be misread. Proved after: page injection FOREIGN exit 1, pack injection
+FOREIGN exit 1, clean tree exit 0 with only the standing 3 UNOWNED
+warnings, all 36 checkers exit 0.
+
+DEFECT TWO, RECURRENCE OF RUN 56'S LESSON ON THIS SAME ITEM:
+status/index.html stale since 2026-08-14 11:46 UTC, claiming Done 41
+against a real 43 and showing the 198th run as most recent.
+build-status-page.js sits outside the six page generators and the
+2026-08-27 to 2026-08-30 runs did not run it. Regenerated this run; the
+regenerate step in future runs should treat it as the seventh generator.
+
+Files changed: tools/check-postcodes.js (decoded view in extract),
+status/index.html (regenerated), AGENT_WORKLIST.md (1.2 sixth-pass note,
+in place), AGENT_LOG.md (this entry),
+audits/hirshmans-address-check-2026-08-30.txt (new).
+No question raised. 56 remain open.
 ## 2026-08-30 01:12 BST [commit 0b55c4a, hash line added by a small follow-up commit] - Quality pass on 1.3 (McCanns Sandringham postcode sweep), sixth pass: data clean, live half verified, and the checker could not read a postcode inside a link
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

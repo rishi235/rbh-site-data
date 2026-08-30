@@ -3353,6 +3353,27 @@ appended to the line. Do not move them; the status page reads them in place.
       address blocks print "Ainsdale" then "Southport", which the repo never
       says). No new question. Evidence in
       audits/hirshmans-address-check-2026-08-14.txt. Done 2026-08-14
+      Sixth quality pass 2026-08-30. Both halves, browser read-only. Clean for
+      the sixth consecutive pass on the address itself: branches.json
+      canonical, 17 broken variants swept across 418 tracked files with every
+      hit accounted for, all 12 Hirshmans pages carry the canonical street and
+      PR8 3HW, all 36 checkers exit 0, all six generators byte-identical.
+      Guard coverage extended twice, both surfaces never proved for this item
+      before: a JSON-LD-only foreign postcode (check-jsonld and
+      check-postcodes both fired) and a map query pointed at the neighbour
+      (check-map-embeds fired on value and agreement). Two defects found and
+      fixed away from the address: status/index.html stale since 2026-08-14
+      (build-status-page.js not run by recent runs - run 56's lesson on this
+      same item, recurred), regenerated; and check-postcodes could not see a
+      postcode inside a fully URL-encoded link because the %20 preceding the
+      token defeats the leading word boundary, so a foreign postcode in an
+      encoded pack directions link passed all 36 checkers in silence - the
+      exact surface the 2026-08-30 1.3 fix was written for, incompletely.
+      extract() now also reads a URL-decoded view; proved by injection on the
+      page and the pack, before and after. Live half: address correct on all
+      three surfaces, hours match branches.json including lunch closures,
+      every Q41 cosmetic still live, nothing new. Evidence in
+      audits/hirshmans-address-check-2026-08-30.txt. Done 2026-08-30
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

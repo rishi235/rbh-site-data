@@ -190,16 +190,33 @@ Object.keys(NARRATIVE_POSTCODES).forEach(function (pc) { INTEREST[norm(pc)] = 1;
 
 // The one place postcodes are read out of text, so widening it widens all six
 // rules at once and none of them can drift apart again.
+//
+// Widened on the item 1.2 quality pass 2026-08-30 (sixth pass): the text is
+// also read through a URL-decoded view. The 1.3 widening the run before put
+// %20 and %2B in the SEPARATOR, but a postcode inside a fully encoded URL is
+// PRECEDED by %20 or %2C too ("...Ainsdale%2C%20PR8%203HN..."), and the digit
+// in that escape defeats the leading \b, so neither regex ever started
+// matching - proved by injection on a Hirshmans map URL, where a foreign
+// PR8 3HN in %20 form passed this checker at exit 0 while the plain-text form
+// failed it. check-map-embeds catches this on generated pages; a pack's
+// encoded maps link had nothing. Decoding the common escapes to spaces in a
+// second view gives the boundary back; both views feed the same INTEREST
+// bound, so nothing new can be misread.
 function extract(text) {
   var found = {};
   var m;
-  PC_RE.lastIndex = 0;
-  while ((m = PC_RE.exec(text)) !== null) found[norm(m[1] + " " + m[2])] = true;
-  PC_RE_LOOSE.lastIndex = 0;
-  while ((m = PC_RE_LOOSE.exec(text)) !== null) {
-    var pc = norm((m[1] + " " + m[2]).toUpperCase());
-    if (INTEREST[pc]) found[pc] = true;
-  }
+  var views = [text];
+  var decoded = text.replace(/%(?:20|2C|2B)/gi, " ");
+  if (decoded !== text) views.push(decoded);
+  views.forEach(function (t) {
+    PC_RE.lastIndex = 0;
+    while ((m = PC_RE.exec(t)) !== null) found[norm(m[1] + " " + m[2])] = true;
+    PC_RE_LOOSE.lastIndex = 0;
+    while ((m = PC_RE_LOOSE.exec(t)) !== null) {
+      var pc = norm((m[1] + " " + m[2]).toUpperCase());
+      if (INTEREST[pc]) found[pc] = true;
+    }
+  });
   return Object.keys(found);
 }
 
