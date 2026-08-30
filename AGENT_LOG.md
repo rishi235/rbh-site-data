@@ -1,6 +1,77 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 5.1 (Q7 em dashes in public switch copy), fourth pass: repo half clean, three mutation probes caught including the first probe of the new bankHolidays field, live Cherry Lane residues re-confirmed, no repo change needed
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Stalest
+completed item by last-subject date: 5.1, last passed 2026-08-13 (run 155,
+commit 52cb79d). Taken, its fourth pass. Both halves done.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing was decided autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before inspection.
+
+REPO HALF CLEAN, COVERAGE RE-INVENTORIED. Every folder in the repo that
+holds .html was listed and set against what check-em-dashes.js reads: the
+three generated page dirs (service/pages 156, switch/pages 15,
+branch/pages 6) are PAGE_DIRS; the two DRAFTs, the two weebly-paste
+replacements, modules/switch/weebly.html and modules/emar/weebly are
+EXTRA_HTML; banners, gbp-packs, modules+core code and branches.json have
+their own rules. The only uncovered .html are status/index.html (internal,
+Q42 already asks whether to retire it) and tools/branches-editor.html
+(internal tool). No public-copy surface exists that the checker does not
+read - the first 5.1 pass since 2026-08-11 to find no seventh surface.
+
+INSTRUMENT PROVED BEFORE BELIEVED, AND ONE PROBE TRAP WORTH RECORDING.
+Three injections, each restored with git checkout and the checker re-run
+clean afterwards:
+- Literal em dash appended to the visible H1 of the Cherry Lane switch
+  page: CAUGHT (fail at line 20, em dash named).
+- &ndash; entity injected into branches.json bankHolidays.note, the field
+  added 2026-08-27 and never probed before: CAUGHT by the run-time data
+  rule, proving the rule walks fields added after it was written.
+- Literal em dash appended to a GBP pack: CAUGHT by the pack rule.
+THE TRAP: the first two attempts at the H1 probe looked like a checker
+gap but were a faulty probe. PowerShell Set-Content wrote the em dash in
+ANSI (0x97), which node's utf8 read turns into U+FFFD, not U+2014, so the
+dash rule rightly saw no dash. Any future injection of non-ASCII must be
+written with an explicit UTF-8 encoder ([System.IO.File]::WriteAllText
+with UTF8Encoding) or the probe tests nothing. Recorded here so the next
+run does not burn time on the same false alarm, and does not log a
+checker defect that does not exist.
+
+LIVE HALF, READ ONLY. The Cherry Lane switch page was read live in one
+tab, nothing clicked, typed or submitted. Findings, all known, none
+re-raised:
+- The Q7 em dash is STILL LIVE in the body copy: "it usually is not
+  [em dash] we make the first step quick and easy". The pre-5.1 paste is
+  what a patient reads; the queued whole-block repaste (worklist 5.1
+  OUTSTANDING note) remains the fix. 17 days queued as of today.
+- The Q36 footer typo pharmacy.FA226@mhs.net is still published by the
+  Weebly-native footer on this page as well; branches.json and the
+  generated blocks remain correct (pharmacy.FA226@nhs.net, printed by no
+  generated page). Fact fed to Q36, no new question.
+- The Weebly-native footer NAP line carries en dashes in its hours text
+  (Mon-Fri, 9am-6:30pm ranges). No repo file prints that line, so it is
+  site furniture in the same class Q36/Q39 already queue for the
+  supervised Weebly sweep; noted for that sweep, not re-raised.
+- The footer hours themselves MATCH branches.json (Mon-Fri 09:00-18:30,
+  Sat 09:00-17:00, Sun closed), so no 6.3 divergence on this site.
+
+NO REPO DEFECT FOUND, NO FILE CHANGED except this log. No new question:
+56 open before, 56 after. Next stalest by the run-155 measure: 5.2, then
+6.3, then the 08-14 pack passes (4.5, 4.6, 4.8, 4.9, 4.10, 4.12-4.14).
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.13 (Clear Chemist, Aintree), third pass: 298 independent checks clean, first live half read, Q29's never-published state confirmed by direct observation
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
