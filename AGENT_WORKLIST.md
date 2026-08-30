@@ -1223,6 +1223,30 @@ audits/smartts-build-check-2026-08-14.txt.
       sentence going missing while the checker returned OK. Three faults in
       this run's own instrument (56 flags then 4, all its own) written up
       rather than dropped. No question raised. Evidence in
+      Quality pass 2026-08-30 (fifth machine-era pass). BOTH HALVES. Repo:
+      all 12 pages re-read by a fresh independent extraction sharing no
+      code with tools/ (audits/coleman-walton-independent-2026-08-30.js),
+      1,705 checks across 13 counted families, 0 failures; the
+      contamination family alone runs 1,404. All 36 checkers green and all
+      six generators rebuild to a zero diff before inspection. Three shape
+      probes, injected then restored: a foreign-branch tel: link CAUGHT
+      (check-nap), an en dash as decimal entity CAUGHT (check-em-dashes),
+      and a POM name (Mounjaro) in general service-page body copy CAUGHT BY
+      NOTHING - a real gap, since the four copy checkers each read only
+      their own page family and check-pharmacy-first-symptoms rule 8 reads
+      the symptoms block only. Closed this run: check-service-links.js
+      gains RULE 3, a whole-page POM scan of every generated page from
+      tools/pom-names.js (full five-group union appears on 0 of 182 pages,
+      measured before the rule was added), proved by mutation on two page
+      families and by a clean re-run after restore. Live, read-only GETs:
+      pfLink still 404 (standing 5.3/Q8 state, unchanged); the replacement
+      PF page is live and correct in content but still the pre-rename
+      "Coleman & Leigh" paste, so repaste-before-repoint stands; homepage
+      NAP, hours and email correct; the weight loss tile claim, mojibake
+      switch-banner close button and ampersand branding persist, all
+      previously recorded, confirmation only. No new question. Evidence in
+      audits/coleman-walton-item-3.9-quality-pass-2026-08-30.txt.
+      Done 2026-08-30
       audits/coleman-build-check-2026-08-14.txt. Done 2026-08-14
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.

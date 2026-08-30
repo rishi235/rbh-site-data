@@ -1,0 +1,44 @@
+Item 3.9 quality pass, 2026-08-30 (fifth machine-era pass), both halves.
+
+Repo half
+  Verifier: audits/coleman-walton-independent-2026-08-30.js (fresh, no tools/ code)
+  PAGES=12 CHECKS=1705 FAMILIES=13 FAILS=0
+  family counts: seo-title=48, seo-desc=24, h1=24, nap=24, contamination=1404,
+  identity=12, dashes=12, scheme=12, pins=12, widgets=55, jsonld=72, wl-copy=5,
+  switch=1
+  All 36 checkers green before and after; six generators rebuild zero-diff.
+
+Shape probes (injected into visible copy, all 36 checkers run, restored via
+git checkout, worktree confirmed clean after each)
+  1. Foreign-branch phone as unspaced tel: link (tel:01519441013 on the sore
+     throat page): CAUGHT by check-nap.js.
+  2. POM name "Mounjaro" in general body copy on the sore throat page: caught
+     by NOTHING (all 36 green). Gap real: check-weight-loss-copy,
+     check-switch-copy, check-travel-clinic-copy and check-gbp-packs each read
+     their own family; check-pharmacy-first-symptoms rule 8 reads the symptoms
+     block only. CLOSED this run: check-service-links.js RULE 3, whole-page
+     POM scan of every generated page from tools/pom-names.js. Full five-group
+     union measured on 0 of 182 generated pages before the rule was added.
+     Re-proved after the widening: Mounjaro on a service page fails, Malarone
+     on the contraception page fails, clean tree passes.
+  3. En dash as decimal entity &#8211; in visible weight loss copy: CAUGHT by
+     check-em-dashes.js.
+
+Live half (read-only GETs on www.colemanandleighspharmacy.co.uk)
+  Homepage: NAP correct (241 Walton Village, Liverpool, L4 6TH, 0151 525 3522,
+  colemans@rbhealth.co.uk), hours match branches.json. Standing findings
+  persist, previously recorded: weight loss tile efficacy/superlative claim
+  (5.8 scope), mojibake switch-banner close button, "0151 5253522" spacing in
+  the contact block.
+  pfLink /pharmacy-first-service-walton.html: still Weebly's 404 page, the
+  standing 5.3/Q8 state, unchanged.
+  Replacement /pharmacy-first-coleman-leigh-walton.html: live, in nav, correct
+  NHS condition set and age ranges, but still the pre-rename paste reading
+  "Coleman & Leigh" in title and body while footer reads "Coleman and Leighs".
+  Repaste before repoint, as recorded 2026-08-11.
+
+No new question raised. No page, sheet, pack or data field edited.
+Files changed: tools/check-service-links.js (RULE 3), AGENT_WORKLIST.md,
+AGENT_LOG.md, audits/coleman-walton-independent-2026-08-30.js (new),
+audits/patch-rule3-2026-08-30.js (new, the exact edit as run),
+this file (new).

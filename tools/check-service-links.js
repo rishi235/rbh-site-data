@@ -35,6 +35,20 @@
       against. Riddings /clinic-prices, cross-linked from eight sites and dead
       on all eight, is this shape. Added by the item 6.2 quality pass.
     - RULE 2, claim: efficacy or results-claim wording in visible page copy.
+    - RULE 3, medicine: a POM name from tools/pom-names.js in visible page
+      copy, whole page, every generated page. Added by the item 3.9 quality
+      pass, 2026-08-30, after an injected "Mounjaro" in the body of a
+      Pharmacy First condition page passed all 36 checkers: the four
+      copy checkers each read their own page family and
+      check-pharmacy-first-symptoms rule 8 reads the symptoms block only,
+      so general visible copy on the service pages was read by no medicine
+      rule at all. The full five-group union appears on 0 of the 182
+      generated pages, measured before the rule was added, so this is
+      enforcement of the position every generator already declares, not
+      new policy. If a page family's position is ever relaxed (the
+      inner-page exemption in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md),
+      record the page and name in KNOWN_POM with the question id rather
+      than deleting the name from pom-names.js.
 
   RULE 1 reads all three link shapes the generators emit: absolute estate .html
   links, RELATIVE hrefs, and estate paths with no .html. Until 2026-08-13 it
@@ -116,6 +130,22 @@ const KNOWN_CLAIM = {
 // sheets) apply one list rather than two copies of it.
 const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
 
+// RULE 3 names: one list, defined once in tools/pom-names.js. The run stops
+// outright on an empty union so a silently empty list can never present
+// itself as a clean estate (the run-151 lesson).
+const pom = require("./pom-names.js");
+const POM_NAMES = pom.union(pom.WEIGHT_LOSS, pom.PHARMACY_FIRST,
+  pom.CONTRACEPTION, pom.TRAVEL_VACCINES, pom.ANTIMALARIALS);
+if (!POM_NAMES.length) {
+  console.log("check-service-links");
+  console.log("  FAIL empty POM name union from tools/pom-names.js");
+  process.exit(1);
+}
+
+// Accepted medicine mentions, "<relative file path>::<name>" -> reason with
+// a question id. Empty today: no generated page names any medicine.
+const KNOWN_POM = {};
+
 function rel(p) { return path.relative(REPO, p).replace(/\\/g, "/"); }
 
 // Blank out HTML comments, keeping line numbers intact, so build notes that
@@ -161,6 +191,7 @@ if (unattributed.length) {
 const failures = [];
 const knownHits = {};
 const knownClaimHits = {};
+const knownPomHits = {};
 let pageCount = 0;
 let linkCount = 0;
 let estateLinkCount = 0;
@@ -293,12 +324,26 @@ PAGE_DIRS.forEach(function (dir) {
         text: "line " + (i + 1) + " (" + pair[1] + "): " + line.trim().slice(0, 160)
       });
     });
+
+    // RULE 3 - POM medicine name in visible copy, whole page
+    visible.split(/\r?\n/).forEach(function (line, i) {
+      const hit = pom.findMedicine(line, POM_NAMES);
+      if (!hit) return;
+      const pomKey = rel(file) + "::" + hit;
+      if (KNOWN_POM[pomKey]) { knownPomHits[pomKey] = (knownPomHits[pomKey] || 0) + 1; return; }
+      failures.push({
+        file: rel(file),
+        rule: "medicine",
+        text: "line " + (i + 1) + ": names \"" + hit + "\" in visible copy"
+      });
+    });
   });
 });
 
 // A KNOWN entry that no longer fires means the fix landed; the entry must go.
 const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; })
-  .concat(Object.keys(KNOWN_CLAIM).filter(function (k) { return !knownClaimHits[k]; }));
+  .concat(Object.keys(KNOWN_CLAIM).filter(function (k) { return !knownClaimHits[k]; }))
+  .concat(Object.keys(KNOWN_POM).filter(function (k) { return !knownPomHits[k]; }));
 
 console.log("check-service-links");
 console.log("  " + pageCount + " generated page(s), " + linkCount + " link(s), "
@@ -308,6 +353,9 @@ Object.keys(knownHits).forEach(function (k) {
 });
 Object.keys(knownClaimHits).forEach(function (k) {
   console.log("  KNOWN CLAIM " + k.split("::")[1] + " in " + k.split("::")[0] + ": " + KNOWN_CLAIM[k]);
+});
+Object.keys(knownPomHits).forEach(function (k) {
+  console.log("  KNOWN POM " + k.split("::")[1] + " in " + k.split("::")[0] + ": " + KNOWN_POM[k]);
 });
 
 if (stale.length) {
@@ -332,5 +380,5 @@ if (failures.length || stale.length) process.exit(1);
 
 console.log("");
 console.log("check-service-links: clean, "
-  + (Object.keys(knownHits).length + Object.keys(knownClaimHits).length)
+  + (Object.keys(knownHits).length + Object.keys(knownClaimHits).length + Object.keys(knownPomHits).length)
   + " known issue(s) awaiting a decision.");

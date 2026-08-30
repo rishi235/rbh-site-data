@@ -1,6 +1,84 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.9 (Coleman and Leighs Pharmacy, Walton), fifth pass: 12 pages clean on 1,705 independent checks, one probe of three found a real estate-wide checker gap, closed as check-service-links RULE 3
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Stalest
+completed item by last-pass date and log depth: 3.9, last passed 2026-08-13
+(repo half only, run 151). Taken. Both halves done this time.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened and
+closed, nothing clicked, typed or submitted. Every entry maps to an already
+answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. The
+checker widening below is verification tooling, not a copy or data change,
+and sits inside the established quality-pass precedent (the 1.2/1.3 escape
+widening, the 3.3 one-label rule, the 6.2 single-quote rule).
+
+RUN START STATE. No .agent-lock, no stale .git\index.lock. Branch
+agents/audit-backlog level with origin at b2f6977, worktree clean, all 36
+checkers green, all six generators rebuilt to a zero diff before inspection.
+
+REPO HALF CLEAN. Fresh independent extraction sharing no code with tools/
+(audits/coleman-walton-independent-2026-08-30.js): 12 pages, 1,705 checks
+across 13 counted families, 0 failures. The contamination family alone runs
+1,404: no other live branch phone, postcode, ODS code or widget id appears
+anywhere in the 12 Coleman pages. JSON-LD compared field by field against
+branches.json (72 checks), including the Liverpool addressLocality against
+the Walton seoTown, both correct. Titles carry the Q1 trading name; the Q14
+insect-bite short suffix is accepted by design.
+
+THREE SHAPE PROBES, ONE FOUND A REAL GAP. Each injected into visible copy,
+all 36 checkers run, restored with git checkout:
+- Foreign-branch phone as an unspaced tel: link: CAUGHT by check-nap.
+- En dash as decimal entity &#8211; in visible copy: CAUGHT by
+  check-em-dashes (the hex leg was proved on the 3.8 pass; this proves the
+  decimal leg).
+- POM name "Mounjaro" in general body copy on the sore throat page: CAUGHT
+  BY NOTHING. All 36 checkers stayed green. The gap is structural, not
+  Coleman-specific: check-weight-loss-copy, check-switch-copy,
+  check-travel-clinic-copy and check-gbp-packs each read only their own
+  page family, and check-pharmacy-first-symptoms rule 8 reads the symptoms
+  block only, so general visible copy on the Pharmacy First condition and
+  contraception pages was read by no medicine rule at all.
+
+GAP CLOSED: check-service-links.js RULE 3. A whole-page scan of every
+generated page for any name in the full five-group union from
+tools/pom-names.js, one report per line, with a KNOWN_POM exception list
+(empty today) for any future deliberate relaxation under the inner-page
+exemption, and a hard stop on an empty union (the run-151 lesson). Measured
+before adding: the union appears on 0 of the 182 generated pages, so the
+rule is enforcement of the position every generator already declares, not
+new policy and not a copy change. Proved by mutation both ways: Mounjaro on
+a service page fails, Malarone on the contraception page fails, and the
+clean tree passes with all 36 checkers green. The exact edit is preserved
+in audits/patch-rule3-2026-08-30.js.
+
+LIVE HALF, three read-only GETs on colemanandleighspharmacy.co.uk, the
+first live verification of this item since 2026-08-12. Homepage: NAP,
+hours and email all correct against branches.json. pfLink
+/pharmacy-first-service-walton.html still returns Weebly 404, the standing
+5.3/Q8 state, unchanged. The generated replacement
+/pharmacy-first-coleman-leigh-walton.html is still live and in navigation
+with the correct NHS condition set, but remains the pre-rename paste
+("Coleman & Leigh" in title and body against the Q1 name in the footer), so
+the 2026-08-11 verdict stands: repaste before repoint. The homepage weight
+loss tile claim, the mojibake switch-banner close button and the ampersand
+branding all persist and were all previously recorded, confirmation only.
+No in-repo defect from the live half; the repo is ahead of Weebly until the
+paste run happens, the known estate-wide state.
+
+- Files changed: tools/check-service-links.js (RULE 3),
+  audits/coleman-walton-independent-2026-08-30.js (new),
+  audits/patch-rule3-2026-08-30.js (new),
+  audits/coleman-walton-item-3.9-quality-pass-2026-08-30.txt (new),
+  AGENT_WORKLIST.md (pass note under 3.9), AGENT_LOG.md (this entry).
+- Worklist: unchanged in status (quality pass, 3.9 already [x]).
+- Questions: none raised, none answered this run.
 
 ## 2026-08-30 07:41 BST [commit b2f6977, hash line added by a small follow-up commit] - Quality pass on 3.8 (SK Chemists, Bootle), fifth pass: 12 pages clean on 1,633 independent checks, three shape probes all caught, zero new checker gaps - second item after 3.10 to converge
 
