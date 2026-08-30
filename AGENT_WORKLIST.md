@@ -2191,6 +2191,35 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       naming no weekday is still unread. No page, copy or data change, no new
       question. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-08-14.txt.
+      Quality pass 2026-08-30 (unattended run): sixth pass. Ordering re-derived
+      mechanically: all 41 completed items read out of this file, all run
+      headings in AGENT_LOG.md walked, and 4.6 (last touched 2026-08-11, the
+      seventy-ninth run) came back the oldest standing verification in the
+      estate, tied on date with 4.8, 4.9, 4.10, 4.12, 4.13 and 4.14 but
+      earliest that day. Pack verified fact by fact against branches.json a
+      sixth time: name, address, phone, hours with both lunch closures,
+      review link, catchment order, hasApp, pfLink, description length
+      (725 characters recomputed independently) and the St Michael's
+      sister-branch wording all hold. node tools/check-gbp-packs.js: 0
+      failures, one known WARN (the live-only pfLink target). Bank holiday
+      paster note (added estate-wide on the 4.5 pass) confirmed present.
+      LIVE HALF, read-only: all four post button URLs and the homepage
+      return 200; the profile-website landing page still 404s awaiting the
+      queued paste run (unchanged from every prior pass). The Weebly title
+      suffix and the Sandrigham/McCann's furniture typos are the same known
+      findings already held elsewhere. ONE NEW FINDING, not a repo defect:
+      the weight loss clinic page at this domain was read against
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md for the first time and
+      is materially cleaner than the seven branches that file already
+      covers (no medicine named, no efficacy claim, no slider, no treatment
+      picker, balanced eligibility section), but its booking block leads
+      with a standalone "from £39.99" price ahead of its eligibility
+      section, the same pattern the reference rules a breach elsewhere.
+      McCanns Sandringham not read this run, presumed same template,
+      unverified. Nothing edited (live Weebly copy, and pricing/regulatory
+      wording is never an autonomous decision); written up in the
+      compliance file and raised as Q83. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-08-30.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

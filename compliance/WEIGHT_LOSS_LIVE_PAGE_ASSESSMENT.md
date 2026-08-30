@@ -334,3 +334,57 @@ settle which regime applies.
 
 Nothing was read live for this addendum and no page was touched. It restates
 evidence already in the repo and narrows Q58; it raises no new question.
+
+
+## ADDITION 2026-08-30: McCanns Chemist Aigburth, a new domain read for the first time
+
+Read live, read only, during the sixth quality pass of item 4.6 (McCanns
+Chemist Aigburth GBP pack). This is the first time www.mccannspharmacy.co.uk
+has been read against the house standard; it is a different Weebly site and a
+different template to the seven branches above (smarttschemist.co.uk,
+riddingspharmacy.co.uk, skchemist.co.uk and the rest), so nothing here should
+be assumed to generalise to it or from it.
+
+Page read: www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html.
+McCanns Sandringham was not read this run. The two branches share one Weebly
+site, so it is likely to carry the same template, but that is an assumption,
+not a finding, until it is actually read.
+
+### What is clean
+
+No medicine is named anywhere on the page. There is no results heading, no
+superlative efficacy claim, no interactive slider promising a personalised
+kilogram figure, and no treatment picker of named products. The eligibility
+section ("Is this service right for you?") is genuinely balanced: who the
+service may suit, who it is not right for (pregnancy, under-18s, specific
+medical histories, interactions with existing weight-loss or diabetes
+medication), and a standalone line reading "nothing below is a guarantee of
+treatment, a specific medicine, or a specific outcome. Individual results
+vary." A closing disclaimer repeats that the page is general information, not
+medical advice, and does not guarantee eligibility, treatment or results. Against elements 1, 2, 3 and 6 of the assessment above (results heading,
+superlative claim, outcome slider, named treatment picker) this page is CLEAR.
+
+### What is not: the lead price
+
+The booking block reads "Private consultation at McCanns Chemist, from
+£39.99. Choose a time that suits you." against a "Book your Weight Loss Clinic
+consultation" heading. This is the same wording pattern as element 5 above,
+the "From £39.99 including your consultation" the reference rules a breach:
+a single lead number rather than a factual price list, introduced with
+"from". It is a materially weaker instance of the same pattern rather than a
+copy of it. It is not in the hero block and not above the fold: it follows an
+introductory paragraph that already states "it is not right for everyone -
+see below", so some suitability signal precedes it, which the flagged
+branches do not have at that point. It also is not paired with a superlative
+product claim or a results heading on the same page, which is what the
+reference's finding on element 5 leaned on together with the price. But the
+reference's rule on pricing does not run only alongside those other breaches:
+"a factual list of prices... provided the list carries no product claims and
+does not actively encourage choosing on price, with no highlighted special
+offers and no free offers" is a standalone test, and a single "from" price
+in a booking call to action, ahead of the page's own detailed eligibility
+list, reads as encouraging entry on price under that test on its own. CONDITIONAL: fails if read against the pricing rule alone; a materially
+better case than the seven branches above on every other element.
+
+Raised as Q83. No page or repo content changed; this file only records what
+was read.

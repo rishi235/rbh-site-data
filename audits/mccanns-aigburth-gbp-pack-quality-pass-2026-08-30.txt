@@ -1,0 +1,25 @@
+﻿McCanns Chemist Aigburth GBP pack (item 4.6) - sixth quality pass
+Run: unattended, 2026-08-30
+Scope: gbp-packs/mccanns-aigburth.md against branches.json (mccanns_aigburth) and TEMPLATE.md; live read of the pack's five linked URLs.
+
+REPO HALF
+- Name, address (112 Aigburth Road, Liverpool L17 7BP), phone (0151 727 3185), review link: match branches.json exactly.
+- Hours: Mon-Fri 09:00-13:00 and 14:00-18:00, Sat 09:00-13:00 and 14:00-17:00, Sun closed - match branches.json openingHours.specification exactly, both lunch closures stated.
+- hasApp false honoured: no app mention anywhere in the pack.
+- pfLink matches branches.json exactly (shared Aigburth Pharmacy First page); pack notes already flag this as pending swap to a branch-specific page.
+- serviceAreaList order (Aigburth, Sefton Park, Mossley Hill, Grassendale) matches in both the description and Post B.
+- Sister-branch sentence reads "McCanns Chemist Sandringham, in St Michael's", the post-5.7 form; paster note against shortening it is present.
+- Description length: 725 characters as pasted (continuous text, line-wraps flattened to single spaces), against the stated 725/750. Recomputed independently, matches the pack's own claim.
+- node tools/check-gbp-packs.js: 0 failures estate-wide. mccanns-aigburth.md carries one WARN, the known live-only pfLink target, already covered by the pack's own notes. No new warning.
+- Bank holiday paster-note bullet (added estate-wide on the 4.5 quality pass, 2026-08-30) confirmed present in this pack.
+
+LIVE HALF, READ-ONLY (Claude in Chrome, nothing clicked, typed or submitted)
+- pharmacy-mccanns-aigburth.html (profile website / Post A target's sibling landing page): still 404. Consistent with every prior pass; awaiting the queued paste run.
+- pharmacy-first-service-aigburth.html (Post A): 200. Weebly default " - MCCANNS PHARMACY" title suffix still present (known, repaste covers it). Footer carries "Sandrigham Medical Centre" typo and "McCann's Pharmacy" apostrophe naming (known site-furniture faults, held by the open furniture question). Hours block matches branches.json.
+- switch-prescriptions-mccanns-aigburth.html (Post B): 200, content matches the pack's description of the page.
+- weight-loss-clinic-mccanns-aigburth.html (Post C): 200. NEW READ against compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, first time this domain has been checked against the house weight loss advertising standard. Materially cleaner than the seven branches already found: no medicine named, no efficacy or results claim, no slider, no treatment picker, balanced eligibility section. One CONDITIONAL finding: the booking block leads with "from £39.99" ahead of the page's detailed eligibility section, the same pricing pattern the reference rules a breach elsewhere, though weaker (not hero-positioned, not paired with a product claim). Full write-up added to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under "ADDITION 2026-08-30". Raised as Q83, not fixed (live Weebly copy outside this repo, and pricing/regulatory copy is never an autonomous-window decision).
+- travel-clinic-mccanns-aigburth.html (Post D): 200, content matches the pack's description, no compliance concern.
+- Homepage (www.mccannspharmacy.co.uk): read for context. "BOOK NOW WEIGHT LOSS CLINIC" nav button present but carries no medicine name or claim on its own; no other weight loss content on the homepage body. No new finding.
+- McCanns Sandringham was NOT read this run; Q83's note flags it as presumed same template, unverified.
+
+RESULT: no repo defect found this pass. Pack remains clean on every fact and rule. One new compliance finding raised (Q83), non-blocking, does not touch item 4.6's own completion.
