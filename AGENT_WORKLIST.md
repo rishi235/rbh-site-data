@@ -1551,6 +1551,34 @@ audits/smartts-build-check-2026-08-14.txt.
       and Q20 (the inert data-wa on the travel page, which is estate-wide
       across 15 travel and 14 Pharmacy First pages, not a Clear defect) are
       both already open and were deliberately not re-raised.
+      Quality pass 2026-08-30, third machine pass, FIRST WITH A LIVE HALF.
+      REPO HALF: zero defects, no page edited. All six generators rebuilt
+      byte-identical and all 36 checkers pass. The proven independent
+      instrument (audits/clear-aintree-independent-2026-08-14.js, importing
+      nothing from tools/) re-ran clean: 298 checks across the three pages,
+      0 failures, output saved to
+      audits/clear-aintree-independent-2026-08-30-output.txt. The instrument
+      was re-proved before being believed: the nine-fault vacuity probe ran
+      again and all nine injections were caught, with the page restored
+      clean by git afterwards
+      (audits/clear-aintree-vacuity-probe-2026-08-30-output.txt). Section D
+      re-measured the sweep-broken-links SKIP_HOSTS exposure: still nil,
+      because all three links to www.clearchemist.co.uk remain the site
+      root and no deep link has been added.
+      LIVE HALF, READ ONLY, the first time any pass has read the live store
+      for this item: one browser tab, four addresses read, nothing clicked,
+      typed or submitted. The site root loads and trades normally. All
+      three generated slugs (switch-prescriptions-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html and
+      travel-clinic-clear-aintree.html) return the store's own 404 page,
+      which confirms by direct observation what Q29 records: the three
+      pages have never reached the public, so the walk-in wording Q65
+      queries is not yet in front of any patient. The store's 404 page
+      gives 0151 203 6535 as the contact number, consistent with Q28's
+      standing read that 6535 is the e-commerce customer services line
+      while branches.json's 8365 is the pharmacy line; nothing about that
+      divergence changed. Q65, Q29 and Q28 all remain open and were
+      deliberately not re-raised.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

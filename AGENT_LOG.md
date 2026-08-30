@@ -1,6 +1,54 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.13 (Clear Chemist, Aintree), third pass: 298 independent checks clean, first live half read, Q29's never-published state confirmed by direct observation
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Stalest
+completed item by last-pass date: 3.13, last passed 2026-08-14 (run 197).
+Taken. Both halves done, the live half for the first time on this item.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing was decided autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no stale .git\index.lock. Branch
+agents/audit-backlog level with origin at a9711d0, worktree clean. All six
+generators rebuilt to a zero diff and all 36 checkers green before
+inspection.
+
+REPO HALF CLEAN. The proven independent instrument
+audits/clear-aintree-independent-2026-08-14.js (imports nothing from
+tools/) re-ran clean: 298 checks across the three Clear pages, 0 failures.
+Instrument re-proved before believed: the nine-fault vacuity probe caught
+all nine injections (wrong tel digit, second H1, em dash, http URL,
+personal inbox, foreign postcode, dangling fragment, hard-coded widget id,
+town stripped from H1), page restored clean by git after each. Section D
+re-measured the SKIP_HOSTS exposure: still nil, all three links to
+www.clearchemist.co.uk are the site root, no deep link added since
+2026-08-14.
+
+LIVE HALF, READ ONLY, FIRST TIME FOR THIS ITEM. Neither earlier pass could
+reach a browser; this run could. Four addresses read in one tab, nothing
+clicked, typed or submitted. The store root loads and trades normally. All
+three generated slugs return the store's own 404 page, confirming by
+direct observation what Q29 records: the three generated pages have never
+reached the public, and therefore the walk-in promises Q65 queries are not
+yet in front of any patient. The store's 404 page names 0151 203 6535 as
+the contact number, consistent with Q28's standing read (6535 customer
+services, 8365 pharmacy in branches.json). Q28, Q29 and Q65 remain open
+and were deliberately not re-raised.
+
+FILES CHANGED. audits/clear-aintree-independent-2026-08-30-output.txt
+(new), audits/clear-aintree-vacuity-probe-2026-08-30-output.txt (new),
+AGENT_WORKLIST.md (pass note appended in place under 3.13), AGENT_LOG.md
+(this entry). No page, generator, data or checker was changed. No new
+question raised.
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 3.12 (Tiffenbergs Chemist, Aintree): 12 pages clean on 2,355 independent checks, both halves, no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
