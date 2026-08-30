@@ -2038,6 +2038,27 @@ Pharmacy First wording to the NHS service description.
       ways, all correct. All 36 checkers exit 0 and all six generators
       rebuild byte-identical. Audit:
       audits/road-rule-item-4.3-quality-pass-2026-08-30.txt
+      Quality pass 2026-08-30 (sixth pass, repo and live): the pack itself
+      is unaffected and needed no change, Post C already links to the
+      correct generated weight-loss-clinic-hirshmans-ainsdale.html. All six
+      generators rebuilt to zero diff and all 36 checkers exit 0. Live
+      checks this pass: Post B's target
+      (switch-prescriptions-hirshmans-ainsdale.html) loads with matching
+      name, address, phone and hours, but its body still carries the
+      pre-Q7 em dash live ("it usually is not [em dash] we make the first
+      step quick and easy" against the repo source's plain full stop),
+      the same outstanding item 5.1 live-paste-lag already confirmed at
+      Cherry Lane and reconfirmed on Coleman and Leighs; Hirshmans joins
+      that list, no new question needed. Separately, and not a defect in
+      this pack: the live Hirshmans homepage's top nav, secondary nav,
+      footer nav and a content image all link to the legacy
+      hirshmanspharmacy.co.uk/weight-loss-clinic.html rather than the
+      compliant generated page, an eighth live instance of the item 5.8
+      pattern (superlative Mounjaro claim, Real Results heading, outcome
+      slider, named treatment picker, lead price, plus a wrong branch
+      address matching the known 5.3 error). Recorded in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and raised as Q85
+      under item 5.8, which stays [BLOCKED]; nothing live was changed.
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
@@ -2355,7 +2376,7 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       is materially cleaner than the seven branches that file already
       covers (no medicine named, no efficacy claim, no slider, no treatment
       picker, balanced eligibility section), but its booking block leads
-      with a standalone "from £39.99" price ahead of its eligibility
+      with a standalone "from Ã‚Â£39.99" price ahead of its eligibility
       section, the same pattern the reference rules a breach elsewhere.
       McCanns Sandringham not read this run, presumed same template,
       unverified. Nothing edited (live Weebly copy, and pricing/regulatory
@@ -3394,7 +3415,7 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       recorded in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (Riddings
       Timperley is one of the seven branches listed there) - Mounjaro,
       Wegovy and Orlistat named, an efficacy superlative, an outcome slider
-      claiming up to 22.5% body weight loss, and lead pricing at �39.99.
+      claiming up to 22.5% body weight loss, and lead pricing at Ã¯Â¿Â½39.99.
       This is worklist item 5.8's territory and Rishi's Q5 answer already
       sets the fix direction, so no new question is raised; the GBP pack's
       own Post C remains compliant and is not implicated. Answer pickup
@@ -4712,6 +4733,20 @@ so tools/build-audit-status.js picks them up like any other item.
       sweep should record both facts per branch, sitemap listing and link
       context: either one alone settles nothing. Added as an addendum to the
       assessment. No new question, no live read, nothing touched.
+      2026-08-30 (sixth pass on item 4.3, Hirshmans Chemist Ainsdale): an
+      eighth live instance found, hirshmanspharmacy.co.uk/weight-loss-clinic.html.
+      All six elements from the 2026-08-10 assessment present (superlative
+      Mounjaro claim, Real Results heading, outcome slider, named treatment
+      picker, lead price of "39.99" above the fold) plus a wrong branch
+      address matching the known 5.3 HARD STOP error. All four on-page
+      weight-loss link slots on the live homepage (top nav, secondary nav,
+      footer nav, content image) point at the legacy page and none point at
+      the compliant generated page this branch's own GBP pack already links
+      to, the clearest regime 1 case confirmed yet, stronger than SK. Raised
+      as Q85, recommending the SK-style unlink-first approach given the
+      severity. Full evidence in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+      under the 2026-08-30 addition for Hirshmans. gbp-packs/hirshmans-ainsdale.md
+      itself is unaffected and was not touched. Item 5.8 stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

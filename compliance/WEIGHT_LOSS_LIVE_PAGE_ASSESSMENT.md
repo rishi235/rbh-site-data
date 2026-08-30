@@ -388,3 +388,56 @@ better case than the seven branches above on every other element.
 
 Raised as Q83. No page or repo content changed; this file only records what
 was read.
+
+
+## ADDITION 2026-08-30: Hirshmans Chemist Ainsdale, an eighth live instance found on the 4.3 quality pass (sixth pass)
+
+Read live, read only, during the sixth quality pass of item 4.3 (Hirshmans
+Chemist Ainsdale GBP pack). hirshmanspharmacy.co.uk carries the same old
+template already found at Cherry Lane (Q5, fixed), the original five under
+Q16 (Smartts Bootle, Gordon Short Crosby, Tiffenbergs Aintree, Riddings
+Timperley, Coleman and Leighs Walton), Fishlocks (Q57) and SK Chemists
+(Q58). This is the eighth confirmed instance.
+
+Page read: hirshmanspharmacy.co.uk/weight-loss-clinic.html.
+
+### What is on the page
+
+All six elements the 2026-08-10 assessment identified as breaches on the
+original five are present. A "Real Results with Mounjaro" heading carries
+the superlative claim that Mounjaro is "one of the most effective weight
+loss treatments available" and can help lose "up to 22.5%" of body weight
+over 72 weeks. An interactive slider under "How much weight could you
+lose?" returns a personalised kilogram figure (26kg shown at a 116kg start
+weight) from a dragged starting weight. A named treatment picker under
+"Explore treatments" lists Wegovy (semaglutide), Mounjaro (tirzepatide) and
+Orlistat as selectable options. A lead price, "From £39.99 including your
+consultation," sits in the hero block above the fold, ahead of any
+eligibility or suitability content. The page also carries a wrong branch
+address in its footer strip, "64 Station Road, Ainsdale, Southport"
+against the branch's true address of 56-62 Sherwood House, Station Road,
+the same wrong-address error already known on this branch's separate
+legacy Pharmacy First page (item 5.3's HARD STOP), so this reads as the
+same old site build rather than a fresh error.
+
+### Link context: the clearest regime 1 case confirmed so far
+
+Every weight-loss link on the live Hirshmans homepage points straight at
+this page. The main top nav item, the secondary nav item, the footer nav
+item, and a content image link all carry href="/weight-loss-clinic.html".
+None of the four link slots point at the compliant generated page
+(weight-loss-clinic-hirshmans-ainsdale.html), which this branch's own GBP
+pack (Post C) already links to correctly, and which is effectively
+orphaned on the live site as a result, unreachable except by direct URL or
+from the GBP pack once posted. The homepage also still carries the shared
+estate-wide line "Weight Loss Clinic: Innovative solutions that deliver
+results. Tried the rest? Now try the best." that Q22 already covers. This
+is a stronger regime 1 case than SK (two link slots confirmed under Q58):
+all four on-page link slots were checked here and all four resolve to the
+legacy page.
+
+BREACH, all six elements of the 2026-08-10 assessment plus the
+estate-wide homepage line. Raised as Q85. No page or repo content changed;
+this file only records what was read. The GBP pack itself
+(gbp-packs/hirshmans-ainsdale.md) is unaffected: Post C already links to
+the correct generated page and was not touched.
