@@ -136,32 +136,12 @@ var PAGE_DIRS = [
 // Key: "<subject>::<rule>". Remove the entry when the fix lands; a key that
 // no longer breaks its rule fails the run.
 // ---------------------------------------------------------------------------
-var Q18_REASON =
-  "Q18: this branch shares its brandLabel and its website with a sister " +
-  "branch, so the bare brandLabel names two pharmacies. Five generators " +
-  "(build-service-pages, build-switch-pages, build-weight-loss-pages, " +
-  "build-travel-clinic-pages, build-contraception-pages) map " +
-  "brand: b.brandLabel and use it for both the JSON-LD name and " +
-  "data-branch, so 12 of this branch's 13 pages identify themselves by the " +
-  "brand. The sixth generator, build-branch-landing-pages, uses " +
-  "b.branchName, so the 13th page identifies the shop. Not changed " +
-  "autonomously: the JSON-LD name is what Google reads to decide whether " +
-  "two addresses are one business or two, so moving it is a search " +
-  "decision, and it puts 72 pages into a Weebly repaste queue that is " +
-  "already the bottleneck. Remove this entry when Q18 is answered and " +
-  "applied.";
-
+// Q18 (answered and applied 2026-08-30): the five service-family generators
+// now read b.branchName for the JSON-LD name and data-branch, the same field
+// build-branch-landing-pages already used, so a shared-brandLabel branch no
+// longer collides with its sister on these two machine-readable fields. No
+// exceptions remain open here.
 var KNOWN = {};
-[
-  "fishlocks_ainsdale",
-  "fishlocks_eccleston",
-  "mccanns_aigburth",
-  "mccanns_sandringham",
-  "scorah_bramhall",
-  "scorah_hazel"
-].forEach(function (id) {
-  KNOWN[id + "::ambiguous"] = { question: "Q18", reason: Q18_REASON };
-});
 
 var failures = [];
 var warnings = [];

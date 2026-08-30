@@ -63,10 +63,17 @@ function buildList(file) {
 function switchConfigList() {
   const src = genSource("build-switch-pages.js");
   if (src === null) return null;
-  const m = src.match(/const\s+CONFIG\s*=\s*\{([\s\S]*?)\n\};/);
-  if (!m) { fail("LIST_UNREADABLE", "could not find the CONFIG object in tools/build-switch-pages.js"); return null; }
+  // Q19 (answered and applied 2026-08-30): brand, brandSlug, town, townSlug
+  // and site moved out of a hardcoded per-branch CONFIG literal and now come
+  // from branches.json; CONFIG itself is built at runtime, so there is no
+  // literal object under that name any more. The list of branch ids that get
+  // a switch page still lives as a literal object though: EXTRAS, holding
+  // only the genuinely presentation-only extras (videoId, services). Its keys
+  // are the same 15 branch ids CONFIG's keys used to be.
+  const m = src.match(/const\s+EXTRAS\s*=\s*\{([\s\S]*?)\n\};/);
+  if (!m) { fail("LIST_UNREADABLE", "could not find the EXTRAS object in tools/build-switch-pages.js"); return null; }
   const keys = (m[1].match(/^ {2}([a-z0-9_]+)\s*:/gm) || []).map(function (s) { return s.trim().replace(":", ""); });
-  if (!keys.length) { fail("LIST_UNREADABLE", "CONFIG object in tools/build-switch-pages.js parsed as empty"); return null; }
+  if (!keys.length) { fail("LIST_UNREADABLE", "EXTRAS object in tools/build-switch-pages.js parsed as empty"); return null; }
   return keys;
 }
 

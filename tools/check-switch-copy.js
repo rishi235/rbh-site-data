@@ -216,13 +216,24 @@ data.branches.forEach(function (b) { byId[b.id] = b; });
 // ---------------------------------------------------------------------------
 // Read the branch config out of the generator as data under test.
 //
-// CONFIG is a plain object literal of strings and arrays of strings. It is
-// evaluated rather than mirrored here so that adding a branch, or moving a
-// town, puts the new value under these rules without anyone editing this file.
+// Q19 (answered and applied 2026-08-30) split the old CONFIG object literal
+// in two: brand, brandSlug, town, townSlug and site now come from
+// branches.json (already parsed above as byId), and only the genuinely
+// presentation-only extras (videoId, services) stay as a literal object,
+// EXTRAS, in the generator. CONFIG itself is now built at runtime by the
+// generator, not written out as a literal, so there is nothing for a brace
+// counter to find under that name any more.
+//
+// EXTRAS is still a plain object literal, evaluated here the same way CONFIG
+// used to be, for the same reason: adding a branch, or moving a town, should
+// not require anyone to edit this file. It is then merged with byId the same
+// way build-switch-pages.js merges them at generation time, so CONFIG here is
+// composed from the same two sources as the real one rather than mirrored by
+// hand.
 // ---------------------------------------------------------------------------
 var CONFIG = null;
 (function readConfig() {
-  var start = genBody.indexOf("const CONFIG = {");
+  var start = genBody.indexOf("const EXTRAS = {");
   if (start === -1) return;
   var open = genBody.indexOf("{", start);
   var depth = 0, end = -1;
@@ -232,11 +243,25 @@ var CONFIG = null;
     else if (ch === "}") { depth--; if (depth === 0) { end = i; break; } }
   }
   if (end === -1) return;
+  var extras;
   try {
-    CONFIG = new Function("return (" + genBody.slice(open, end + 1) + ");")();
+    extras = new Function("return (" + genBody.slice(open, end + 1) + ");")();
   } catch (e) {
-    CONFIG = null;
+    return;
   }
+  if (!extras || typeof extras !== "object") return;
+  CONFIG = {};
+  Object.keys(extras).forEach(function (id) {
+    var b = byId[id];
+    if (!b) return;
+    CONFIG[id] = Object.assign({
+      brand: b.brandLabel,
+      brandSlug: b.brandSlug,
+      town: b.seoTown,
+      townSlug: b.townSlug,
+      site: b.website
+    }, extras[id]);
+  });
 })();
 
 // ---------------------------------------------------------------------------

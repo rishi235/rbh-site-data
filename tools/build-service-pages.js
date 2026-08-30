@@ -33,7 +33,6 @@ const pat = require("./seo-pattern"); // single source of title/H1 pattern (item
 // re-point them to this ref to pick up the banner + video (commit cf8fa0f onward).
 const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
-const WHATSAPP = "447521775631";
 
 // Appointedd SDK is identical for every store/service; only the widgetId changes.
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
@@ -469,7 +468,7 @@ function pharmacySchema(store, b, url) {
     JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Pharmacy",
-      "name": store.brand,
+      "name": b.branchName,
       "url": url,
       "telephone": b.phone || "",
       "address": {
@@ -507,7 +506,7 @@ function overviewPage(storeId) {
 
   return headComment(store, title, meta, slug) + "\n" +
     headLinks() + "\n\n" +
-    '<div id="rbhsv-root" data-branch="' + esc(store.brand) + '" data-service="Pharmacy First" data-wa="' + WHATSAPP + '">\n' +
+    '<div id="rbhsv-root" data-branch="' + esc(b.branchName) + '" data-service="Pharmacy First" data-wa="' + b.whatsapp + '">\n' +
     '  <div class="wrap">\n\n' +
     '    <section class="hero">\n' +
     '      <div class="hero-grid">\n' +
@@ -589,7 +588,7 @@ function conditionPage(storeId, key) {
 
   return headComment(store, title, meta, slug) + "\n" +
     headLinks() + "\n\n" +
-    '<div id="rbhsv-root" data-branch="' + esc(store.brand) + '" data-service="' + esc(c.metaCondition) + '" data-wa="' + WHATSAPP + '">\n' +
+    '<div id="rbhsv-root" data-branch="' + esc(b.branchName) + '" data-service="' + esc(c.metaCondition) + '" data-wa="' + b.whatsapp + '">\n' +
     '  <div class="wrap">\n\n' +
     '    <section class="hero">\n' +
     '      <div class="hero-grid">\n' +

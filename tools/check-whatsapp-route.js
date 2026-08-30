@@ -1,5 +1,6 @@
 /*
-  check-whatsapp-route.js  (added 2026-08-10 on the item 3.13 quality pass, Q21)
+  check-whatsapp-route.js  (added 2026-08-10 on the item 3.13 quality pass, Q21;
+  RULE 1 rewired 2026-08-30 when Q21 was answered and applied)
 
   The WhatsApp destination is the third way a patient can reach a branch from a
   generated page, after the phone number and the callback form. Nothing had ever
@@ -8,27 +9,39 @@
   Why it exists. Every other contact detail on a page is derived from
   branches.json and guarded: the phone by check-nap, the review link and the
   NHS mailbox by check-branch-links, the booking diary by check-booking-routes.
-  The WhatsApp number is not in branches.json at all. It is hardcoded SEVEN
-  times - once as `const WHATSAPP` in each of the five service-family
-  generators, and once as `DEFAULT_WHATSAPP` in each of modules/service/
-  service.js and modules/switch/switch.js - and it reaches a page as the
-  data-wa attribute on the module root, which service.js and switch.js read to
-  build the wa.me link behind "Send via WhatsApp instead".
+  The WhatsApp number used to not be in branches.json at all, and was hardcoded
+  SEVEN times instead - once as `const WHATSAPP` in each of the five
+  service-family generators, and once as `DEFAULT_WHATSAPP` in each of
+  modules/service/service.js and modules/switch/switch.js - and it reaches a
+  page as the data-wa attribute on the module root, which service.js and
+  switch.js read to build the wa.me link behind "Send via WhatsApp instead".
 
-  All seven agree today. That is the whole problem: seven copies that agree are
-  indistinguishable from one source of truth right up to the moment somebody
-  edits one of them, and then some pages send patient enquiries to a number
-  nobody is watching while every visible line on the page still reads correctly.
-  Same silent class as the switch pages that were found still posting
-  prescription switch requests to a personal inbox (Q13), and the same shape as
-  the duplicated switch-page CONFIG raised as Q19.
+  All seven agreed at the time, which was the whole problem: seven copies that
+  agree are indistinguishable from one source of truth right up to the moment
+  somebody edits one of them, and then some pages send patient enquiries to a
+  number nobody is watching while every visible line on the page still reads
+  correctly. Same silent class as the switch pages that were found still
+  posting prescription switch requests to a personal inbox (Q13), and the same
+  shape as the duplicated switch-page CONFIG raised as Q19.
+
+  Q21 answered this: branches.json now carries a `whatsapp` field per branch
+  (all 16 hold 447521775631 today), and the five service-family generators
+  read `b.whatsapp` per page instead of declaring their own constant. The two
+  module runtime defaults (DEFAULT_WHATSAPP in service.js and switch.js) were
+  deliberately left as hardcoded literals, per Rishi's decision, so as not to
+  touch the CDN-pinned assets - see the KNOWN-adjacent note on RULE 2 below.
+  modules/emar/emar.js's WHATSAPP_E164 remains a genuinely different number,
+  unrelated and untouched, see KNOWN.
 */
 /*
   What FAILS the run:
-    - RULE 1, generator agreement: two generators declare different WhatsApp
-      constants.
+    - RULE 1, source agreement: a generator has regressed to hardcoding a
+      `const WHATSAPP` literal instead of reading branches.json (declaring one
+      again is exactly the pre-Q21 shape this file exists to stop); or
+      branches.json is missing a branch's `whatsapp` field; or two branches
+      disagree on the value.
     - RULE 2, runtime default agreement: a module JS DEFAULT_WHATSAPP disagrees
-      with the generator constant. That default is what a page falls back to
+      with the branches.json value. That default is what a page falls back to
       when data-wa is missing, so a divergence here is invisible until it fires.
     - RULE 3, format: any declared or emitted number is not a UK mobile in
       E.164 without the plus (447 followed by nine digits). wa.me rejects
@@ -76,9 +89,10 @@ const KNOWN = {
     + "this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed."
 };
 
-// Generators that emit a module root, and are therefore expected to declare
-// the number. build-branch-landing-pages is deliberately absent: its pages
-// carry no module root, no booking mount and no WhatsApp route.
+// Generators that emit a module root, and are therefore expected to read
+// branches.json's whatsapp field per page. build-branch-landing-pages is
+// deliberately absent: its pages carry no module root, no booking mount and
+// no WhatsApp route.
 const GENERATORS = [
   "build-service-pages.js",
   "build-switch-pages.js",
@@ -95,40 +109,53 @@ const failures = [];
 const notes = [];
 const knownHits = {};
 
-// ---- RULE 1: the generators must agree -------------------------------------
-// Read as data under test rather than required in, so a generator that stops
-// declaring the constant fails here instead of quietly emitting nothing.
-const declared = {};
+// ---- RULE 1: no generator may hardcode the number again --------------------
+// Post-Q21, the number lives in branches.json, not in a per-generator
+// constant. A generator that declares `const WHATSAPP = "..."` again has
+// regressed to exactly the shape this checker was built to catch, so that is
+// now a failure in itself rather than something to read and compare.
 GENERATORS.forEach(function (g) {
   const file = path.join(REPO, "tools", g);
   if (!fs.existsSync(file)) {
-    failures.push({ rule: "generator agreement", where: "tools/" + g, text: "generator is missing" });
+    failures.push({ rule: "source agreement", where: "tools/" + g, text: "generator is missing" });
     return;
   }
   const src = fs.readFileSync(file, "utf8");
-  // Capture whatever is between the quotes, not just digits. Matching \d+ here
-  // meant a malformed value ("+447...") failed to match at all, so the checker
-  // reported the constant as ABSENT rather than as malformed - it went blind
-  // exactly where it needed to be loud. Found on its own negative test.
   const m = src.match(/const\s+WHATSAPP\s*=\s*"([^"]*)"/);
-  if (!m) {
+  if (m) {
     failures.push({
-      rule: "generator agreement",
+      rule: "source agreement",
       where: "tools/" + g,
-      text: "emits a module root but declares no WHATSAPP constant"
+      text: "declares a hardcoded const WHATSAPP = \"" + m[1] + "\" again; Q21 moved this to branches.json's "
+        + "whatsapp field, read per branch as b.whatsapp"
     });
+  }
+});
+
+// ---- RULE 1 (data): branches.json is the source of truth now --------------
+// Read as data under test rather than required in, so a branch missing the
+// field, or two branches disagreeing, fails here instead of quietly emitting
+// nothing (or something wrong) onto the pages built from it.
+const branchesFile = path.join(REPO, "branches.json");
+const branchesData = JSON.parse(fs.readFileSync(branchesFile, "utf8"));
+const declared = {};
+(branchesData.branches || []).forEach(function (b) {
+  if (b.disposed) return;
+  const key = "branches.json::" + b.id;
+  if (!b.whatsapp) {
+    failures.push({ rule: "source agreement", where: key, text: "no whatsapp field" });
     return;
   }
-  declared["tools/" + g] = m[1];
+  declared[key] = b.whatsapp;
 });
 
 const declaredValues = Array.from(new Set(Object.keys(declared).map(function (k) { return declared[k]; })));
 if (declaredValues.length > 1) {
   Object.keys(declared).forEach(function (k) {
-    failures.push({ rule: "generator agreement", where: k, text: "declares " + declared[k] });
+    failures.push({ rule: "source agreement", where: k, text: "whatsapp=" + declared[k] });
   });
 }
-// The agreed number: what the generators say, when they say one thing.
+// The agreed number: what branches.json says, when every branch says one thing.
 const AGREED = declaredValues.length === 1 ? declaredValues[0] : null;
 
 // ---- RULE 3 (declarations): format ----------------------------------------
@@ -159,8 +186,8 @@ const moduleJs = walk(path.join(REPO, "modules"), []);
 const runtime = {};
 moduleJs.forEach(function (file) {
   const src = fs.readFileSync(file, "utf8");
-  // Same reason as the generator constant above: capture the value, then judge
-  // it, so a malformed default is reported rather than silently unseen.
+  // Same reason as the branches.json values above: capture the value, then
+  // judge it, so a malformed default is reported rather than silently unseen.
   const m = src.match(/var\s+(?:DEFAULT_WHATSAPP|WHATSAPP_E164)\s*=\s*"([^"]*)"/);
   if (!m) return;
   const key = rel(file);
@@ -175,7 +202,7 @@ moduleJs.forEach(function (file) {
     failures.push({
       rule: "runtime default",
       where: key,
-      text: "falls back to " + m[1] + " but the generators emit " + AGREED
+      text: "falls back to " + m[1] + " but branches.json agrees on " + AGREED
         + ", so a page with no data-wa would reach a different number"
     });
   }
@@ -228,7 +255,7 @@ PAGE_DIRS.forEach(function (dir) {
       failures.push({
         rule: "page agreement",
         where: rel(file),
-        text: 'data-wa="' + waAttr[1] + '" but the generators emit ' + AGREED
+        text: 'data-wa="' + waAttr[1] + '" but branches.json agrees on ' + AGREED
       });
     } else if (!E164_UK_MOBILE.test(waAttr[1])) {
       failures.push({
@@ -244,7 +271,7 @@ PAGE_DIRS.forEach(function (dir) {
 
 // A KNOWN entry that no longer fires means the position changed; the entry
 // must go, so a stale key fails the run.
-// Only judged when the generators agree. If they do not, there is no agreed
+// Only judged when branches.json agrees. If it does not, there is no agreed
 // number to compare a runtime default against, so nothing can fire and every
 // KNOWN entry would look stale - which would bury the real fault under a
 // misleading one.
@@ -253,13 +280,12 @@ const stale = AGREED
   : [];
 
 console.log("check-whatsapp-route");
-console.log("  " + Object.keys(declared).length + " generator constant(s), "
+console.log("  " + Object.keys(declared).length + " branch(es) declaring whatsapp in branches.json, "
   + Object.keys(runtime).length + " runtime default(s), "
   + withWa + " of " + pageCount + " generated page(s) carry data-wa");
 if (AGREED) {
   console.log("  agreed number: " + AGREED
-    + "  (declared in " + (Object.keys(declared).length + Object.keys(runtime).length - Object.keys(knownHits).length)
-    + " place(s), held in no data file)");
+    + "  (declared per branch in branches.json, held in no generator constant)");
 }
 Object.keys(knownHits).forEach(function (k) {
   console.log("  KNOWN " + k + " = " + runtime[k] + ": " + KNOWN[k]);
@@ -290,10 +316,9 @@ if (failures.length) {
     console.log("  FAIL  [" + f.rule + "] " + f.where + ": " + f.text);
   });
   console.log("");
-  console.log("The WhatsApp number is not in branches.json, so there is no source to fix it");
-  console.log("at. Until Q21 settles where it should live, every copy has to be changed in");
-  console.log("the same commit: the five generators, then both module defaults, then");
-  console.log("regenerate. Do not fix a page by hand; the next regeneration overwrites it.");
+  console.log("The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it");
+  console.log("there, then regenerate the five service-family generators. Do not fix a page by");
+  console.log("hand; the next regeneration overwrites it.");
   process.exit(1);
 }
 if (stale.length) process.exit(1);

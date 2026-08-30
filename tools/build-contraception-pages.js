@@ -22,7 +22,6 @@ const pat = require("./seo-pattern"); // single source of title/H1 pattern (item
 // (Was the immutable SHA "76221ba", which froze pages out of module fixes.)
 const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
-const WHATSAPP = "447521775631";
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
 const RAW = "https://raw.githubusercontent.com/rishi235/rbh-site-data/service-module-phase1/modules/service/pages/";
 
@@ -151,7 +150,7 @@ function contactCard(store, b) {
 
 function pharmacySchema(store, b, url) {
   return '<script type="application/ld+json">\n' + JSON.stringify({
-    "@context": "https://schema.org", "@type": "Pharmacy", "name": store.brand, "url": url,
+    "@context": "https://schema.org", "@type": "Pharmacy", "name": b.branchName, "url": url,
     "telephone": b.phone || "",
     "address": { "@type": "PostalAddress", "streetAddress": b.streetAddress || "", "addressLocality": b.addressLocality || "", "postalCode": b.postalCode || "", "addressRegion": b.addressRegion || "", "addressCountry": b.addressCountry || "GB" }
   }, null, 2) + "\n</script>";
@@ -167,7 +166,7 @@ function contraceptionPage(storeId) {
     "  Weebly page SEO title:       " + title + "\n  Weebly page SEO description:  " + meta + "\n" +
     "  NOTE: NHS Pharmacy Contraception Service standard wording. Superintendent pharmacist signs off before publish.\n-->\n" +
     headLinks() + "\n\n" +
-    '<div id="rbhsv-root" data-branch="' + esc(store.brand) + '" data-service="Contraception service" data-wa="' + WHATSAPP + '">\n' +
+    '<div id="rbhsv-root" data-branch="' + esc(b.branchName) + '" data-service="Contraception service" data-wa="' + b.whatsapp + '">\n' +
     '  <div class="wrap">\n\n' +
     '    <section class="hero">\n      <div class="hero-grid">\n        <div>\n' +
     '          <div class="hero-help-row">NHS Pharmacy Contraception Service</div>\n' +

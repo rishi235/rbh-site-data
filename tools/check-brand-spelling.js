@@ -460,15 +460,25 @@ targets.forEach(function (t) {
 });
 
 // ---------------------------------------------------------------------------
-// Rule 3: the one table where a brand is typed rather than read.
+// Rule 3: the table that USED to be the one place a brand was typed rather
+// than read. Q19 (answered and applied 2026-08-30) rewired
+// tools/build-switch-pages.js so brand, brandSlug, town, townSlug and site
+// come from branches.json instead of a hardcoded per-branch CONFIG literal,
+// so there is no longer a typed brand string here to compare. The rule now
+// asserts the negative: no branch key in build-switch-pages.js may declare a
+// literal "brand": "..." again, because that would be exactly the copy this
+// rule used to guard against. If Rishi ever reintroduces a hardcoded brand
+// table there (or anywhere else that reads a "brand" field back out of a
+// generator), this rule needs rewriting to check it against branches.json
+// again, the way it used to.
 // ---------------------------------------------------------------------------
 var switchGen = path.join(ROOT, "tools", "build-switch-pages.js");
 var byId = {};
 branches.forEach(function (b) { byId[b.id] = b; });
 
 if (!fs.existsSync(switchGen)) {
-  failures.push("tools/build-switch-pages.js is gone, so the hardcoded brand " +
-    "table this rule exists to guard cannot be read");
+  failures.push("tools/build-switch-pages.js is gone, so this rule cannot confirm " +
+    "it still reads brand from branches.json");
 } else {
   var gen = fs.readFileSync(switchGen, "utf8");
   var re = /(\w+):\s*\{\s*brand:\s*"([^"]+)"/g;
@@ -476,27 +486,21 @@ if (!fs.existsSync(switchGen)) {
   var m2;
   while ((m2 = re.exec(gen)) !== null) {
     var id = m2[1], typed = m2[2];
-    var b = byId[id];
     found++;
-    if (!b) {
-      fail(id + "::config", "tools/build-switch-pages.js CONFIG has an entry " +
-        'for "' + id + '", which is not a trading branch in branches.json');
-      continue;
-    }
-    if (typed !== b.brandLabel) {
-      fail(id + "::config", "tools/build-switch-pages.js CONFIG types brand " +
-        '"' + typed + '" for ' + id + ', but branches.json says "' +
-        b.brandLabel + '". That string becomes the H1, the body copy, the ' +
-        "data-branch and the JSON-LD name on this branch's switch page");
-    }
+    fail(id + "::config", "tools/build-switch-pages.js CONFIG types a literal " +
+      'brand: "' + typed + '" for ' + id + " again. Q19 moved this to branches.json's " +
+      "brandLabel, read per branch as b.brandLabel; a hardcoded literal here is " +
+      "the exact duplication that rule used to guard against.");
   }
-  if (!found) {
-    failures.push("tools/build-switch-pages.js: no CONFIG brand entries " +
-      "matched, so this rule read nothing. The table's shape has changed and " +
-      "the pattern needs updating rather than passing silently");
+  var readsFromBranchesJson = /brand:\s*b\.brandLabel/.test(gen);
+  if (!found && !readsFromBranchesJson) {
+    failures.push("tools/build-switch-pages.js: no hardcoded CONFIG brand literal " +
+      "found, but no `brand: b.brandLabel` read from branches.json either. The " +
+      "generator's shape has changed again and this rule needs updating rather than " +
+      "passing silently.");
   }
-  notes.push(found + " hardcoded brand string(s) in build-switch-pages.js " +
-    "CONFIG checked against branches.json");
+  notes.push(found + " hardcoded brand string(s) found in build-switch-pages.js " +
+    "CONFIG (expect 0, post-Q19), brand read from branches.json: " + readsFromBranchesJson);
 }
 
 // ---------------------------------------------------------------------------

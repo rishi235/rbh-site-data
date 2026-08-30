@@ -27,9 +27,7 @@
  *   1. Every generated page has exactly one JSON-LD block, and it parses.
  *   2. "@type" is Pharmacy on every branch page. No page may be typed more
  *      vaguely than its siblings.
- *   3. "name" is the right one of branchName / brandLabel FOR THAT PAGE FAMILY:
- *      a branch landing page declares branchName, a service or switch page
- *      declares brandLabel. See the note below.
+ *   3. "name" is branchName, on every page family. See the note below.
  *   4. "url" is the branch website plus the page's own filename.
  *   5. PostalAddress matches branches.json field for field, including
  *      addressRegion and addressCountry.
@@ -47,17 +45,30 @@
  * wrong; the policy was unpinned, which is the same shape of gap the item 3.7
  * pass found in the widget diaries. Rule 3 used to accept EITHER branchName or
  * brandLabel on EVERY page, so it could only catch a name belonging to no
- * branch at all. The estate turns out to be unanimous and undeclared: all 6
- * branch landing pages declare branchName, and all 171 service and switch
- * pages declare brandLabel (90 service and 9 switch pages sit at single-site
- * brands where the two strings are equal, so they satisfy either form).
+ * branch at all. The estate turned out to be unanimous and undeclared: all 6
+ * branch landing pages declared branchName, and all 171 service and switch
+ * pages declared brandLabel (90 service and 9 switch pages sat at single-site
+ * brands where the two strings are equal, so they satisfied either form).
  *
- * The direction that matters is a branch landing page falling back to the bare
- * brandLabel. A brand landing page exists precisely to separate two sites: with
- * "McCanns Chemist" on both the Aigburth and the Sandringham landing page,
- * Google is handed two pages at two different addresses carrying one identical
- * entity name, which is the merge this page family was built to prevent. The
- * old rule passed that happily. It now fails.
+ * The direction that mattered was a branch landing page falling back to the
+ * bare brandLabel. A brand landing page exists precisely to separate two
+ * sites: with "McCanns Chemist" on both the Aigburth and the Sandringham
+ * landing page, Google is handed two pages at two different addresses
+ * carrying one identical entity name, which is the merge this page family was
+ * built to prevent. The old either/or rule passed that happily; the tightened
+ * rule failed it, which is what put six branches into Q18.
+ *
+ * RULE 3 WAS SIMPLIFIED AGAIN ON 2026-08-30, WHEN Q18 WAS ANSWERED AND
+ * APPLIED. The five service-family generators were rewired to read
+ * b.branchName for the JSON-LD name, the same field build-branch-landing-pages
+ * already used, so the per-family either/or above no longer describes the
+ * estate: every page family now declares branchName, and the six branches
+ * that share a brandLabel with a sister branch (Fishlocks Ainsdale/Eccleston,
+ * McCanns Aigburth/Sandringham, Scorah Bramhall/Hazel Grove) now identify
+ * themselves correctly on all 13 of their pages, not just their branch landing
+ * page. The 10 non-shared branches are unaffected: branchName equals
+ * brandLabel for all of them, so their pages were already satisfying whichever
+ * rule was in force.
  */
 
 var fs = require("fs");
@@ -187,12 +198,16 @@ PAGE_DIRS.forEach(function (dir) {
       fail(rel + ': "@context" is "' + obj["@context"] + '", expected "https://schema.org"');
     }
 
-    // Rule 3. Module-aware: see the note at the top of this file. The family is
-    // taken from the directory the page was found in, not from its filename, so
-    // a renamed page cannot slip into the wrong family.
+    // Rule 3 (Q18 answered and applied 2026-08-30). Every page family now
+    // declares branchName: the five service-family generators were rewired to
+    // read b.branchName for the JSON-LD name, the same field
+    // build-branch-landing-pages already used, so the old per-family
+    // either/or (branch pages get branchName, service/switch pages get
+    // brandLabel) collapsed to one expected value. See the note at the top of
+    // this file for why the either/or existed and what it used to miss.
     var family = path.basename(path.dirname(dir)); // branch | service | switch
-    var wantName = (family === "branch") ? b.branchName : b.brandLabel;
-    var wantWhich = (family === "branch") ? "branchName" : "brandLabel";
+    var wantName = b.branchName;
+    var wantWhich = "branchName";
     nameFamilies[family + ":" + wantWhich] = (nameFamilies[family + ":" + wantWhich] || 0) + 1;
     if (obj.name !== wantName) {
       known(file, "name", rel + ': "name" is "' + obj.name + '" but a ' + family +

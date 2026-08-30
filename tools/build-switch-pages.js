@@ -10,13 +10,20 @@ const pat = require("./seo-pattern"); // single source of title/H1 pattern (item
 // Commit hash the pages pin switch.css / switch.js to (immutable = no jsDelivr lag).
 const PIN = "6a275e1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/switch";
-const WHATSAPP = "447521775631";
 
-// Per-branch presentation config (town/slug curated for SEO; data pulled from branches.json).
-// videoId and services are only set where we have real URLs (Smartts).
-const CONFIG = {
-  smartts_bootle:        { brand: "Smartts Chemist", brandSlug: "smartts", town: "Bootle", townSlug: "bootle", site: "https://www.smarttschemist.co.uk",
-    videoId: "Y5yamwKtIDU",
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8"));
+const byId = {};
+data.branches.forEach(b => { byId[b.id] = b; });
+
+// Per-branch presentation-only extras. brand, brandSlug, town, townSlug and
+// site used to be duplicated here from branches.json (brandLabel, brandSlug,
+// seoTown, townSlug, website); Q19 rewired the generator to read those five
+// fields from branches.json directly, so only the genuinely presentation-only
+// extras remain: videoId and the services grid, both only set where we have
+// real URLs (Smartts). The key order below is also the switch-page build
+// order, unchanged from before Q19.
+const EXTRAS = {
+  smartts_bootle:        { videoId: "Y5yamwKtIDU",
     services: [
       ["service-red","Blood Tests","Fast local private testing.","https://www.smarttschemist.co.uk/blood-testing.html"],
       ["service-gold","Vaccinations","Comprehensive vaccination services.","https://www.smarttschemist.co.uk/vaccinations.html"],
@@ -25,27 +32,37 @@ const CONFIG = {
       ["service-orange","Travel Clinic","Advice and vaccines before travel.","https://www.smarttschemist.co.uk/vaccinations.html"],
       ["service-purple","Medical Cannabis","Book a free consultation to discuss eligibility.","https://www.smarttschemist.co.uk/medical-cannabis.html"]
     ] },
-  colemanleigh_liverpool:{ brand: "Coleman and Leighs Pharmacy", brandSlug: "coleman-leigh", town: "Walton", townSlug: "walton", site: "https://www.colemanandleighspharmacy.co.uk" },
-  fishlocks_ainsdale:    { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.fishlockpharmacy.co.uk" },
-  fishlocks_eccleston:   { brand: "Fishlocks Chemist", brandSlug: "fishlocks", town: "Eccleston", townSlug: "eccleston", site: "https://www.fishlockpharmacy.co.uk" },
-  gordonshorts_crosby:   { brand: "Gordon Short Chemist", brandSlug: "gordon-short", town: "Crosby", townSlug: "crosby", site: "https://www.gordonshortchemist.co.uk" },
-  hirshmans_ainsdale:    { brand: "Hirshmans Chemist", brandSlug: "hirshmans", town: "Ainsdale", townSlug: "ainsdale", site: "https://www.hirshmanspharmacy.co.uk" },
-  mccanns_aigburth:      { brand: "McCanns Chemist", brandSlug: "mccanns", town: "Aigburth", townSlug: "aigburth", site: "https://www.mccannspharmacy.co.uk" },
-  // town is deliberately NOT the townSlug here: Q15 moved the local word to
-  // St Michael's while holding the permalink at sandringham so no live URL breaks.
-  mccanns_sandringham:   { brand: "McCanns Chemist", brandSlug: "mccanns", town: "St Michael's", townSlug: "sandringham", site: "https://www.mccannspharmacy.co.uk" },
-  riddings_timperley:    { brand: "Riddings Pharmacy", brandSlug: "riddings", town: "Timperley", townSlug: "timperley", site: "https://www.riddingspharmacy.co.uk" },
-  skchemists_bootle:     { brand: "SK Chemists", brandSlug: "sk-chemists", town: "Bootle", townSlug: "bootle", site: "https://www.skchemist.co.uk" },
-  tiffenbergs_longmoor:  { brand: "Tiffenbergs Chemist", brandSlug: "tiffenbergs", town: "Aintree", townSlug: "aintree", site: "https://www.tiffenbergschemist.co.uk" },
-  scorah_bramhall:       { brand: "Scorah Chemists", brandSlug: "scorah", town: "Bramhall", townSlug: "bramhall", site: "https://www.scorah-chemists.co.uk" },
-  scorah_hazel:          { brand: "Scorah Chemists", brandSlug: "scorah", town: "Hazel Grove", townSlug: "hazel-grove", site: "https://www.scorah-chemists.co.uk" },
-  cherrylane_liverpool:  { brand: "Cherry Lane Pharmacy", brandSlug: "cherry-lane", town: "Walton", townSlug: "walton", site: "https://www.cherrylanepharmacy.co.uk" },
-  clearchemist_aintree:  { brand: "Clear Chemist", brandSlug: "clear", town: "Aintree", townSlug: "aintree", site: "https://www.clearchemist.co.uk" }
+  colemanleigh_liverpool: {},
+  fishlocks_ainsdale:     {},
+  fishlocks_eccleston:    {},
+  gordonshorts_crosby:    {},
+  hirshmans_ainsdale:     {},
+  mccanns_aigburth:       {},
+  mccanns_sandringham:    {},
+  riddings_timperley:     {},
+  skchemists_bootle:      {},
+  tiffenbergs_longmoor:   {},
+  scorah_bramhall:        {},
+  scorah_hazel:           {},
+  cherrylane_liverpool:   {},
+  clearchemist_aintree:   {}
 };
 
-const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8"));
-const byId = {};
-data.branches.forEach(b => { byId[b.id] = b; });
+// CONFIG keeps the same shape (brand/brandSlug/town/townSlug/site plus any
+// extras) that the rest of this file already reads, so nothing below this
+// point had to change. Values now come from branches.json rather than being
+// curated per branch here.
+const CONFIG = {};
+Object.keys(EXTRAS).forEach(id => {
+  const b = byId[id];
+  CONFIG[id] = Object.assign({
+    brand: b.brandLabel,
+    brandSlug: b.brandSlug,
+    town: b.seoTown,
+    townSlug: b.townSlug,
+    site: b.website
+  }, EXTRAS[id]);
+});
 
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
@@ -129,7 +146,7 @@ function page(id){
 <link rel="stylesheet" href="${CDN}/switch.css">
 <script src="${CDN}/switch.js" defer></script>
 
-<div id="rbhsw-root" data-branch="${esc(c.brand)}" data-wa="${WHATSAPP}">
+<div id="rbhsw-root" data-branch="${esc(b.branchName)}" data-wa="${b.whatsapp}">
   <div class="wrap">
 
     <section class="hero">
@@ -250,7 +267,7 @@ function page(id){
 {
   "@context": "https://schema.org",
   "@type": "Pharmacy",
-  "name": "${c.brand.replace(/"/g,'')}",
+  "name": "${b.branchName.replace(/"/g,'')}",
   "url": "${url}",
   "telephone": "${b.phone||""}",
   "address": {

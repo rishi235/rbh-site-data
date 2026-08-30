@@ -18,7 +18,6 @@ const pat = require("./seo-pattern"); // single source of title/H1 pattern (item
 
 const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
-const WHATSAPP = "447521775631";
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
 
 // Every active, non-disposed brand with a widgets.travelClinic id in branches.json.
@@ -110,6 +109,38 @@ function bookingCard(store, b) {
     '        </div>';
 }
 
+function enquiryForm(store) {
+  return '' +
+    '<div class="form-card hero-form pad" id="svc-enquiry">\n' +
+    '          <iframe name="svc-post" id="svc-post" style="display:none;"></iframe>\n' +
+    '          <form id="svc-form" method="post" target="svc-post" novalidate>\n' +
+    '            <h2 class="form-title">Prefer us to call you?</h2>\n' +
+    '            <p class="form-sub">Leave your name and number and our ' + esc(store.town) + ' team will call you back to arrange your travel consultation.</p>\n' +
+    '            <div class="form-grid">\n' +
+    '              <label>First name *<input type="text" name="first_name" autocomplete="given-name" required></label>\n' +
+    '              <label>Last name *<input type="text" name="last_name" autocomplete="family-name" required></label>\n' +
+    '              <label>Mobile *<input type="tel" name="mobile" autocomplete="tel" placeholder="07..." required></label>\n' +
+    '              <label>Email (optional)<input type="email" name="email" autocomplete="email" placeholder="name@example.com"></label>\n' +
+    '              <label class="full">Anything we should know? (optional)<textarea name="message" rows="3"></textarea></label>\n' +
+    '            </div>\n' +
+    '            <input type="hidden" name="destination" value="">\n' +
+    '            <input type="hidden" name="source" value="">\n' +
+    '            <input type="hidden" name="website_url" value="">\n' +
+    '            <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">\n' +
+    '            <div class="actions">\n' +
+    '              <button type="submit" class="btn submit-btn"><span>Request a callback</span></button>\n' +
+    '              <a id="svc-wa" class="btn wa-btn" href="#" rel="nofollow noopener">Send via WhatsApp instead</a>\n' +
+    '            </div>\n' +
+    '            <p class="privacy">We will only use your details to arrange your travel consultation.</p>\n' +
+    '            <div id="svc-msg" class="msg" aria-live="polite"></div>\n' +
+    '          </form>\n' +
+    '          <div id="svc-thankyou" class="thankyou">\n' +
+    '            <h3>Thank you</h3>\n' +
+    '            <p>We have received your request and the team will call you back shortly.</p>\n' +
+    '          </div>\n' +
+    '        </div>';
+}
+
 function trustBar(store) {
   return '' +
     '<div class="trust-bar">\n' +
@@ -142,7 +173,7 @@ function pharmacySchema(store, b, url) {
     JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Pharmacy",
-      "name": store.brand,
+      "name": b.branchName,
       "url": url,
       "telephone": b.phone || "",
       "address": {
@@ -166,7 +197,7 @@ function travelClinicPage(storeId) {
 
   return headComment(store, title, meta, slug) + "\n" +
     headLinks() + "\n\n" +
-    '<div id="rbhsv-root" data-branch="' + esc(store.brand) + '" data-service="Travel Clinic" data-wa="' + WHATSAPP + '">\n' +
+    '<div id="rbhsv-root" data-branch="' + esc(b.branchName) + '" data-service="Travel Clinic" data-wa="' + b.whatsapp + '">\n' +
     '  <div class="wrap">\n\n' +
     '    <section class="hero">\n' +
     '      <div class="hero-grid">\n' +
@@ -263,7 +294,7 @@ function travelClinicPage(storeId) {
     '            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, the travel consultation is by appointment so the advisor has time to go through your itinerary and health history properly. Book online for a set time, or call us.</div></details>\n' +
     '          </div>\n' +
     '        </div>\n' +
-    '        <div>\n          ' + contactCard(store, b) + '\n        </div>\n' +
+    '        <div>\n          ' + enquiryForm(store) + '\n          <div style="margin-top:18px;"></div>\n          ' + contactCard(store, b) + '\n        </div>\n' +
     '      </div>\n' +
     '    </section>\n\n' +
     '  </div>\n' +
