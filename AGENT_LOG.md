@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-30 01:41 BST - Quality pass on 1.2 (Hirshmans address sweep), sixth pass: address clean both halves; the checker fixed last run still could not read a postcode PRECEDED by %20, fixed and proved on page and pack
+## 2026-08-30 01:41 BST [commit e983dec, hash line added by a small follow-up commit] - Quality pass on 1.2 (Hirshmans address sweep), sixth pass: address clean both halves; the checker fixed last run still could not read a postcode PRECEDED by %20, fixed and proved on page and pack
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. Staleness
