@@ -407,6 +407,39 @@ audits/nap-item-1.4-quality-pass-2026-08-29.txt.
       pre-Q7 em dash as mojibake; and the switch SEO title field is still the
       pre-Phase-3 string. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-08-13-run171.txt.
+      Fifth quality pass 2026-08-29 (extended interactive session, repo half
+      only - live-site verification not possible that run, see the log
+      entry). All 12 pages verified against Build Pack v2: page set,
+      Walton titles/H1s, NAP against branches.json, UK spelling, em dash
+      rule and POM absence all pass. One new finding, raised as Q82: the
+      repo CLAUDE.md still names Weebly\seo\rbh-site-data\branches.json as
+      the only valid branches.json, but this repo's branches.json is the
+      only real file; documentation defect, not decided autonomously
+      because it touches how the OneDrive clone gets closed out. No fix
+      made. Evidence: cherry-lane-gbp-pack-check-2026-08-29.txt covers the
+      linked 4.2 GBP pack pass from the same session.
+      Sixth quality pass 2026-08-30 (unattended run). Repo half clean
+      again: six generators to a byte-identical worktree, all 36 checkers
+      exit 0, branches.json fields spot-checked against the 12 pages, the
+      switch page's build-comment SEO title/description confirmed correct
+      against spec. Live half performed this run (single Chrome tab
+      available): three known live-only faults reconfirmed unchanged, none
+      in copy this repo owns - the switch page title still the
+      pre-Phase-3 string, the switch page's "How switching works" intro
+      still renders its em dash as mojibake, and the footer NHS mailbox
+      typo pharmacy.FA226@mhs.net is back (last seen fixed only once, on
+      2026-08-11, wrong again by 2026-08-13 and again now), all already
+      tracked (5.1/3.1/Q3, estate repaste backlog, Q36). Pharmacy First
+      overview still renders all seven conditions with correct NHS age
+      ranges; the old weight loss page remains the compliant Q5 signpost.
+      Comma splices in the weight-loss-clinic FAQ (noted 2026-08-04) are
+      confirmed still present and now identified as sitting inside a
+      shared FAQ-answer template rather than being Cherry-Lane-specific;
+      still not fixed, for the same reason as before (generated output,
+      no repaste currently queued for this alone). No in-repo defect
+      found, no fix needed, no new question. Q82 remains open, untouched.
+      Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-08-30-sixth.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

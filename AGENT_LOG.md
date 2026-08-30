@@ -1,3 +1,89 @@
+## 2026-08-30 (item 2.3 quality pass) - Quality pass on 2.3 (Cherry Lane, full 12-page build), sixth pass: repo clean, live half performed, three known live-only faults reconfirmed unchanged, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running before the lock was created for this run. Branch agents/audit-backlog
+fetched and pulled, level with origin, worktree clean before any edit.
+
+ANSWER PICKUP: ATTEMPTED AND SUCCESSFUL FETCH, NO NEW ANSWERS. Fetched
+https://data.rbhealth.co.uk/api/feedback and read all thirteen entries
+returned (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, some duplicated across
+dates). All correspond to questions already answered and recorded before
+today; none of the 57 currently open questions (Q18-Q83 minus already
+answered) had a matching answer entry, so no worklist item was unblocked
+by this step.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run, so step 8 applied as written; no decision was needed anyway.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Built a table of the most recent quality-pass date for every
+2.x/3.x/4.x rotation candidate (the established convention per the
+4.12/4.15 reasoning: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 are one-off items,
+not rotation candidates) by scanning all dated headers in this log.
+Twenty-nine candidates found; the oldest by a clear margin was 2.3
+(Cherry Lane), last touched 2026-08-29 in the same session as 2.2 and
+6.8, with its own live-site verification skipped that run. 2.1 (also
+2026-08-29) and 4.7/4.2 were the next oldest but all newer than 2.3.
+
+REPO HALF, CLEAN. All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) rebuilt to a
+byte-identical worktree; git status showed no diff immediately after
+regeneration. All 36 tools/check-*.js checkers exit 0. Cherry Lane's
+branches.json record (id cherrylane_liverpool) spot-checked field by
+field against the 12 generated pages: phone, postcode, email, nhsEmail,
+seoTown, odsCode all consistent. The switch page's build comment carries
+the correct current SEO title/description spec and clean ASCII body
+copy; the drift described below is live-only. Reconfirmed the standing
+minor style note (two comma splices in the weight-loss-clinic FAQ,
+known since 2026-08-04): both still present, and now identified as
+sitting inside the shared FAQ-answer template used across other
+branches' weight loss pages rather than being specific to Cherry Lane.
+Still not fixed, same reasoning as every prior pass: generated output,
+no checker treats it as a defect, and a fix would sit unseen until the
+next Weebly repaste.
+
+LIVE HALF, PERFORMED. A single Chrome tab was available this run, so
+the two-browser pairing block (Q59) did not apply. Read
+switch-prescriptions-cherry-lane-walton.html,
+pharmacy-first-cherry-lane-walton.html and the old
+weight-loss-clinic-walton.html signpost page directly.
+
+Three known live-only faults reconfirmed unchanged, none in copy this
+repo owns. The switch page's <title> still reads the pre-Phase-3 string
+"Switch Your Prescriptions - Cherry Lane Pharmacy Walton" against the
+repo's current "Switch Your Prescriptions to Cherry Lane Pharmacy,
+Walton", already tracked under 5.1/3.1/Q3. The "How switching works"
+intro still renders its em dash as mojibake, matching the same
+repaste-backlog pattern seen on other branches this week. The footer NHS
+mailbox typo pharmacy.FA226@mhs.net (missing the "n" in nhs.net) is
+back: the 2026-08-11 pass found it corrected, the 2026-08-13 pass found
+it wrong again, and it is wrong again now, so this looks like a fault
+that flip-flops on the live Weebly copy rather than one that was ever
+durably fixed. This is Q36 territory; no new question raised, the
+existing tracking stands.
+
+Two clean re-confirmations. The Pharmacy First overview still renders
+all seven conditions with the correct NHS age ranges (UTI 16-64, sore
+throat 5+, sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+,
+infected insect bite 1+), no drift from repo. The old weight loss page
+remains the compliant Q5 signpost: no medicine named, no claim made.
+
+RESULT. No in-repo defect found, no fix made, no new question raised.
+Q82 (the CLAUDE.md branches.json documentation pointer, raised on the
+fifth pass) remains open and untouched; it was not decided autonomously
+because no autonomous window is active this run and, in any case, the
+question turns on how an OneDrive clone gets closed out, not a fact this
+run could safely resolve alone.
+
+Files changed: AGENT_WORKLIST.md (item 2.3 sixth-pass paragraph
+appended), this log, audits/cherry-lane-item-2.3-quality-pass-2026-08-30-sixth.txt
+(new). No page, generator or data field changed.
+
 ## 2026-08-30 (item 4.15 quality pass, second run today) - Quality pass on 4.15 (Tiffenbergs Chemist Aintree GBP pack), sixth pass, live half performed for the first time since 2026-08-11: pack clean, three known live-only defects reconfirmed, one new live-copy-drift finding queued for repaste
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

@@ -1,0 +1,57 @@
+Item 2.3 Cherry Lane - sixth quality pass - 2026-08-30
+Unattended run (audit-backlog-worker).
+
+REPO HALF
+- All six generators (build-branch-landing-pages, build-contraception-pages,
+  build-service-pages, build-switch-pages, build-travel-clinic-pages,
+  build-weight-loss-pages) rebuilt to a byte-identical worktree (git status
+  clean immediately after rebuild).
+- All 36 tools/check-*.js checkers exit 0 on the rebuilt tree.
+- Cherry Lane branch record in branches.json (id cherrylane_liverpool)
+  spot-checked field by field: phone 0151 226 2051, postcode L4 8SG, email
+  Cherry@rbhealth.co.uk, nhsEmail pharmacy.FA226@nhs.net, seoTown Walton,
+  odsCode FA226, hasApp false - all consistent with the 12 generated pages.
+- Switch page build comment confirms the current Weebly paste-sheet SEO
+  title/description spec: "Switch Your Prescriptions to Cherry Lane
+  Pharmacy, Walton" / "Switch your prescriptions to Cherry Lane Pharmacy in
+  Walton in under 30 seconds. Local NHS pharmacy. We contact your GP and
+  handle everything." Repo copy is correct; drift is live-side only (see
+  below).
+- Switch page "How switching works" intro reads clean ASCII in the repo:
+  "...it usually is not. We make the first step quick and easy." No em
+  dash, no mojibake source.
+- Re-confirmed the known minor style note: weight-loss-clinic-cherry-lane-walton.html
+  carries two comma splices in its FAQ answers ("...right for you, this is
+  decided case by case." and "...not suitable for everyone, your clinician
+  will talk you through this before you decide."), both inside the shared
+  FAQ answer template also used on other branches' weight loss pages, so
+  this looks estate-wide rather than Cherry-Lane-specific. Not fixed:
+  generated output, no repo checker flags it as a compliance issue, and a
+  fix would sit unseen until the next Weebly repaste, same reasoning as
+  every prior pass on this item.
+
+LIVE HALF (cherrylanepharmacy.co.uk, single Chrome tab available this run)
+- switch-prescriptions-cherry-lane-walton.html: page <title> still reads
+  the pre-Phase-3 string "Switch Your Prescriptions - Cherry Lane Pharmacy
+  Walton" against the repo spec above - unchanged stale paste, tracked
+  under 5.1/3.1/Q3. "How switching works" intro still renders the em dash
+  as mojibake (rendering as the same mojibake bytes noted on prior passes, in place of the plain-ASCII full stop the repo carries) - unchanged, tracked under the estate repaste
+  backlog. Footer NHS mailbox reads pharmacy.FA226@mhs.net (missing "n")
+  - confirmed BACK, same state as the 2026-08-13 fourth pass, not the
+  2026-08-11 "fixed" state; this is Q36 territory and appears to
+  flip-flop rather than being durably fixed live.
+- pharmacy-first-cherry-lane-walton.html: all seven Pharmacy First
+  conditions render with the correct NHS age ranges (UTI 16-64, sore
+  throat 5+, sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+,
+  infected insect bite 1+). No drift from repo. Same footer mailbox typo
+  present (shared template, not page-specific).
+- weight-loss-clinic-walton.html (old page, Q5 signpost): still the
+  compliant short signpost with no medicine name and no claim, pointing
+  visitors to the new Weight Loss Clinic page. Unchanged, compliant.
+
+RESULT: no in-repo defect found, no fix made, no new question raised.
+Three known live-only faults reconfirmed unchanged (switch title, switch
+em dash mojibake, footer mailbox typo), all already tracked and already
+queued for repaste. Q82 (CLAUDE.md branches.json documentation pointer)
+remains open and untouched by this pass, not decided autonomously as no
+autonomous window is active this run.
