@@ -1,6 +1,60 @@
-# AGENT LOG - hourly audit-backlog runs
+﻿# AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+
+## 2026-08-30 03:11 [commit hash in the follow-up commit] - Quality pass on 4.1 (Fishlocks Ainsdale GBP pack + TEMPLATE.md), pack clean on 153 independent checks
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from both sources (log run headers and git commit subjects, later
+of the two wins): stalest completed item is 4.1, last passed 2026-08-14
+04:14. 4.1 taken. Evidence in
+audits/fishlocks-ainsdale-4.1-pass-2026-08-30.txt and the verifier
+audits/verify-4.1-2026-08-30.js.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 2026-08-30 pickups before it, read through one
+browser tab, opened and closed, nothing clicked, typed or submitted. Every
+entry maps to an already answered question (Q2-Q5, Q13-Q17). 56 open
+before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six page generators rebuilt to a zero diff before any
+inspection.
+
+THE PACK IS CLEAN AND NOT ONE CHARACTER OF IT WAS EDITED. An independent
+verifier importing nothing from tools/ ran 153 checks against
+branches.json: canonical NAP, foreign-branch leakage across every live
+branch (phones, digit-normalised phones, postcodes, review URLs), POM and
+drug-class names, outcome and efficacy patterns pack-wide plus a tighter
+set scoped to the weight loss copy, PF condition list and ages, hasApp
+true earning its app mention, the 746-character description claim
+(verified), hours day-composition against branches.json, catchment order,
+pfLink on Post A, post lengths, URL domains and copy standards. Zero
+defects, zero flags. One verifier-side correction during the run: the
+catchment check now reads the house natural-language list ("Ainsdale,
+Birkdale and Southport") rather than demanding comma-only order; the pack
+was right, the first draft of the check was not.
+
+LIVE HALF, READ ONLY. All four post button targets resolve and read
+correctly for Ainsdale (details in the evidence file). Two known states
+re-confirmed, no new question raised for either: the profile website
+target pharmacy-fishlocks-ainsdale.html still returns 404 (Q35,
+unchanged since 2026-08-12; the pack's paster note already covers it),
+and the live switch page still shows the pre-Q7 em dash copy ("it
+usually is not - we make...") that the repo fixed, which reaches live
+with the Q13-answered pin-and-repaste plan (the Q45 state).
+
+Files changed: audits/verify-4.1-2026-08-30.js,
+audits/fishlocks-ainsdale-4.1-pass-2026-08-30.txt, AGENT_LOG.md. No
+generated page, no pack, no data file touched. Questions: none raised,
+none answered.
+
 
 ## 2026-08-30 [commit f276b9f, hash line added by a small follow-up commit] - Quality pass on 4.4 (Scorah Chemists Bramhall GBP pack), fifth pass: pack clean on 120 independent checks, PF guard re-proved by mutation, and a word-number outcome claim ("lose a stone") that passed all 36 checkers is now caught
 
@@ -20492,7 +20546,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -20866,7 +20920,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -22514,7 +22568,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 

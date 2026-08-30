@@ -1,0 +1,69 @@
+﻿Quality pass on item 4.1 - gbp-packs/TEMPLATE.md + gbp-packs/fishlocks-ainsdale.md
+Date: 2026-08-30. Unattended run. Verifier: audits/verify-4.1-2026-08-30.js
+(independent, imports nothing from tools/, reads branches.json and the pack only).
+
+RESULT: PACK CLEAN. 153 checks, 0 defects, 0 flags. Not one character of the
+pack was edited.
+
+In-repo verification (verify-4.1-2026-08-30.js):
+- Canonical facts: branchName, 17 Station Road, PR8 3HN, phone 01704 575478 in
+  the canonical spaced form, own review URL, addressLocality Ainsdale.
+- Foreign-branch leakage: no other live branch's phone (spaced or
+  digit-normalised), postcode or review URL anywhere in the pack.
+- POM and drug-class names: none of the 16 names/classes appear (regime 1
+  surface, near-total prohibition).
+- Outcome/efficacy: pack-wide promise shapes absent; weight-loss-scoped
+  patterns (results/fast/effective/works) absent from Post C and the WL
+  service line. Blood testing's "fast results" sits outside WL copy and is
+  not a WL claim.
+- WL framing: pharmacist-led, private, consultation-led; no Buy wording, no
+  pricing or discounts in WL copy.
+- Pharmacy First: all seven NHS conditions, free NHS framing, UTI women 16 to
+  64, no non-PF conditions added.
+- hasApp true: the app mention the pack earns is present.
+- Description: 746 characters as claimed, within 750.
+- Copy standards: no em dashes, no emojis, https only; all URLs on
+  fishlockpharmacy.co.uk or g.page.
+- Post A button is the branch's own pfLink. Four posts parse, all bodies
+  within the 1,500 limit.
+- Hours: Monday to Friday 8:45am to 6:00pm, Saturday and Sunday closed;
+  matches branches.json spec and closedDays exactly, day composition rule
+  honoured (no stated opening for a closed day, no open day omitted).
+- Catchment: Ainsdale, Birkdale and Southport in serviceAreaList order.
+- Profile website is the Ainsdale landing page, not the shared homepage.
+- Widgets: all five widget-earned services present.
+
+Verifier note: the first draft of the catchment check demanded the literal
+string "Ainsdale, Birkdale, Southport"; the pack uses the house
+natural-language list "Ainsdale, Birkdale and Southport", same order. The
+check was corrected to test order through the natural-language form. This was
+the only defect the first run reported and it was in the verifier, not the
+pack.
+
+Live verification 2026-08-30 (browser, read only, nothing clicked, typed or
+submitted):
+- pharmacy-first-fishlocks-ainsdale.html: resolves, right branch, phone
+  01704 575478, 17 Station Road PR8 3HN, all seven conditions with NHS age
+  ranges (UTI 16-64 women, sore throat 5+, sinusitis 12+, earache 1-17,
+  impetigo 1+, shingles 18+, insect bite 1+).
+- weight-loss-clinic-fishlocks-ainsdale.html: resolves, no medicine names, no
+  efficacy claims, consultation-may-not-lead-to-prescription framing, "not
+  right for everyone", no Buy button. Pack's Post C button target remains
+  compliant.
+- switch-prescriptions-fishlocks-ainsdale.html: resolves, right branch, app
+  block present (hasApp true). FINDING, known state: the live page still
+  carries the pre-fix copy "it usually is not - we make the first step quick
+  and easy" with a literal em dash. The repo page already reads "it usually
+  is not. We make the first step quick and easy." (the Q7 fix). Live lags the
+  repo until the pins move and the pages repaste, the Q13-answered plan and
+  the Q45 state. No pack change and no new question.
+- travel-clinic-fishlocks-ainsdale.html: resolves, right branch, states
+  private paid service, no free-assessment wording (the 2026-08-05 fix
+  holds).
+- pharmacy-fishlocks-ainsdale.html (profile website target): still 404, the
+  known Q35 state, unchanged since 2026-08-12. The pack's paster note already
+  says do not set the profile website until it resolves, so the note stays
+  correct as written.
+
+Baseline for the run: all 36 checkers green before and after; all six page
+generators rebuilt to a zero diff.
