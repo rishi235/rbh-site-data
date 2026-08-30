@@ -57,6 +57,14 @@ Files changed: AGENT_WORKLIST.md (3.10 fifth-pass note), AGENT_LOG.md
 (this entry), audits/riddings-build-check-2026-08-30.txt (new evidence).
 No page, checker, generator or data change. No questions raised; 56 open.
 
+CORRECTION, same run, before finishing: the evidence file quoting the
+PR9 0LH test artefact turned check-postcodes red after the main commits
+were pushed. The checker's own remedy applied: PR9 0LH added to
+NARRATIVE_POSTCODES with a reason naming the audit file as its only
+legitimate carrier. Full 36-checker suite green again. So this run did
+change one checker data list after all - the sentence above stands for
+the quality-pass work itself.
+
 
 
 ## 2026-08-30 [commit 5a474fd, hash line added by a small follow-up commit] - Quality pass on 6.2 (broken internal links), third pass: both halves verified for the first time since the 2026-08-11 sweep, RULE 1 gains single-quote coverage, all four live findings stand, one new fact fed to Q53
