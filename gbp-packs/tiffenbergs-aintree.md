@@ -150,3 +150,29 @@ three live-only observations, none blocking a post:
   unless special hours say otherwise. The dates are deliberately not retyped
   here so they cannot drift; read them from branches.json at paste time.
   Added on the item 4.5 quality pass, 2026-08-30.
+
+
+Live recheck 2026-08-30 (sixth quality pass; live half performed for the
+first time since 2026-08-11, evidence in
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt): site
+republished, sitemap now dated 2026-08-15 (was stuck at 2026-07-19). All
+four post targets return 200 and read correctly, NAP matching
+branches.json throughout. Three known live-only defects reconfirmed
+unchanged: the switch banner close button still renders as mojibake
+(U+251C U+00F9) on every page, so the run-44 source fix committed
+2026-08-10 has still not reached this site despite the republish; the
+site-wide footer still writes its hour ranges with en dashes; and the
+live contact block still publishes tiffenbergs@rbhealth.co.uk, plural,
+against Tiffenberg@rbhealth.co.uk in branches.json (Q56, still open).
+One new finding, queued for the same repaste: two live content blocks
+carry a dash where the repo source and generated page are plain ASCII
+with a full stop. Post B's "How switching works" intro reads live
+"...it usually is not - we make the first step" where repo reads
+"...it usually is not. We make the first step". Post C's suitability
+intro reads live "...not right for everyone - see below" where repo
+reads "...not right for everyone. See below". Stale pre-cleanup paste
+surviving the republish, not a repo defect; check-em-dashes.js already
+reads both source files and both pass clean. No repo file changed for
+this finding. Persistent site-wide weight-loss nav button observed on
+every page, corroborating Q60/6.4/6.5 rather than raising new scope. No
+new question raised.

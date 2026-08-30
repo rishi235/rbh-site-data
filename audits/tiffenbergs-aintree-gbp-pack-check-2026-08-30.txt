@@ -1,0 +1,110 @@
+Item 4.15 quality pass - Tiffenbergs Chemist Aintree GBP pack
+Date: 2026-08-30 (sixth re-verification)
+Run: unattended audit-backlog worker
+
+PACK STATE
+- gbp-packs/tiffenbergs-aintree.md unchanged in git before this pass since
+  2026-08-11 (commit a28ef44), MD5 E6AD155DFDE54A89BAC51AD5A355063A, 144
+  lines, byte-identical with the fourth and fifth passes.
+
+FACT CHECKS (all against branches.json, tiffenbergs_longmoor)
+- Name on GBP: Tiffenbergs Chemist - matches branchName. PASS
+- Address: 388 Longmoor Lane, Liverpool L9 9DB - matches streetAddress,
+  addressLocality, postalCode. PASS
+- Phone: 0151 525 3462 - matches. PASS
+- Hours: Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, lunch
+  closure stated, Saturday and Sunday closed - matches the two-session
+  specification and closedDays. PASS
+- Website and review link - match website and googleReviewUrl. PASS
+- Post A link matches pfLink exactly (extensionless Weebly permalink,
+  known checker WARN, tested live and correct). PASS
+- Catchment: Aintree, Fazakerley, Liverpool - matches serviceAreaList,
+  membership and order, leading with seoTown. PASS
+- hasApp false and no app mention anywhere. PASS
+
+MECHANICAL CHECKS
+- Business description 650 characters, exactly what its heading claims.
+- No em or en dashes, no mojibake, no emojis; file pure ASCII.
+- No medicine names (POM sweep: mounjaro, wegovy, ozempic, saxenda,
+  orlistat, semaglutide, tirzepatide, liraglutide - zero hits).
+- Post C carries all the private-clinic qualifiers (private, paid, not
+  right for everyone, pharmacist will advise, supervised plan) and
+  Post D the availability and clinical suitability hedge.
+- All 36 checkers exit 0. All six generators rebuilt to a byte-identical
+  worktree (git status clean before and after).
+
+LIVE HALF PERFORMED (first time since 2026-08-11; the 2026-08-12 and
+2026-08-29 passes both skipped it because two Chrome extensions were
+connected and an unattended run cannot choose between them, Q59; a
+single Chrome tab was available this run so the block did not apply)
+- Site republished since the last live check: sitemap.xml now dated
+  2026-08-15T07:39:10+00:00, previously stuck at 2026-07-19.
+- All four post targets return 200 and read correctly, NAP matching
+  branches.json throughout:
+  - Post A, pharmacy-first-service-aintree(.html): shared pfLink, correct
+    trading name, address, phone, hours, seven Pharmacy First conditions
+    with the UTI 16-64 range.
+  - Post B, switch-prescriptions-tiffenbergs-aintree.html: correct
+    trading name, address, phone throughout.
+  - Post C, weight-loss-clinic-tiffenbergs-aintree.html: no medicine
+    names, no efficacy or outcome-guarantee wording, pricing stated as
+    "from GBP39.99", private-service framing present throughout.
+  - Post D, travel-clinic-tiffenbergs-aintree.html: no medicine names,
+    no guarantee wording (RULE 12, added on the 2026-08-29 pass, holding).
+
+THREE KNOWN LIVE-ONLY DEFECTS RECONFIRMED UNCHANGED
+1. Switch banner close button: still renders as mojibake on every page
+   checked. Read via script (element.textContent, not a text-extraction
+   artifact): two characters, code points U+251C and U+00F9. The run-44
+   source fix (committed 2026-08-10, writing the HTML entity so the
+   symbol survives the Header Code field) has still not reached this
+   site even after the 2026-08-15 republish - the same content-survives-
+   rebuild shape the item 4.14 pass found today on Gordon Short's branch
+   name. Queued repaste, unchanged from prior passes.
+2. Site-wide footer: still writes its hour ranges with en dashes
+   (Mon-Fri, 9am-6pm, 1-2pm all rendered with U+2013) on every page
+   checked. Hand-paste, exists in no repo branch. Unchanged from prior
+   passes.
+3. Contact email: live contact block and footer still publish
+   tiffenbergs@rbhealth.co.uk (plural) against Tiffenberg@rbhealth.co.uk
+   in branches.json (singular). Q56, still open. Unchanged from prior
+   passes.
+
+ONE NEW FINDING: LIVE COPY DRIFT ON TWO CONTENT BLOCKS
+Two live content blocks carry a dash where the repo source (and the
+generated page built from it) is plain ASCII with a full stop, so the
+em/en-dash cleanup already shipped in the generator has not reached live
+either. Confirmed against modules/switch/pages/switch-prescriptions-
+tiffenbergs-aintree.html and modules/service/pages/weight-loss-clinic-
+tiffenbergs-aintree.html directly (both read with explicit UTF-8 decoding
+to rule out a text-extraction artifact; both are pure ASCII, matching
+check-em-dashes.js's clean result).
+
+- Post B, "How switching works" intro. Repo and generated page:
+  "...it usually is not. We make the first step quick and easy."
+  Live: "...it usually is not [em dash, U+2014] we make the first step
+  quick and easy." (lowercase "we" carried through from the dash join).
+- Post C, suitability intro. Repo and generated page:
+  "...and it is not right for everyone. See below."
+  Live: "...and it is not right for everyone [en dash, U+2013] see
+  below." (lowercase "see" carried through from the dash join).
+
+Both are stale pre-cleanup paste surviving the 2026-08-15 republish, not
+a repo defect - check-em-dashes.js already reads both source files and
+both pass clean. No repo file changed for this finding; it is queued for
+the same repaste that will fix the banner and footer items above. No
+new question raised: it feeds the existing repaste backlog rather than
+opening new scope.
+
+OTHER LIVE OBSERVATIONS, NOT NEW SCOPE
+- Persistent site-wide weight-loss nav button/menu item visible on every
+  page sampled (header nav "BOOK NOW WEIGHT LOSS CLINIC" and a repeated
+  "WEIGHT LOSS CLINIC TIFFENBERGS AINTREE" menu entry). Corroborates
+  Q60/6.4/6.5 (weight loss nav architecture, open, blocking 6.4 and 6.5),
+  not raised as new scope.
+
+NO NEW QUESTIONS RAISED beyond corroboration noted above. Open questions
+57 before this run, 57 after. Only file changed:
+gbp-packs/tiffenbergs-aintree.md (dated live-recheck note appended,
+following the 2026-08-11/2026-08-13/2026-08-29 pattern), AGENT_WORKLIST.md
+(4.15 note), AGENT_LOG.md, this file.

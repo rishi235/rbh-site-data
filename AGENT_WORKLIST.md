@@ -3229,7 +3229,7 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       recorded in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (Riddings
       Timperley is one of the seven branches listed there) - Mounjaro,
       Wegovy and Orlistat named, an efficacy superlative, an outcome slider
-      claiming up to 22.5% body weight loss, and lead pricing at £39.99.
+      claiming up to 22.5% body weight loss, and lead pricing at ï¿½39.99.
       This is worklist item 5.8's territory and Rishi's Q5 answer already
       sets the fix direction, so no new question is raised; the GBP pack's
       own Post C remains compliant and is not implicated. Answer pickup
@@ -3519,6 +3519,20 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       one must-pass question exemption). All 36 checkers exit 0; no page,
       pack or generator output changed. Evidence in
       audits/tiffenbergs-aintree-gbp-pack-check-2026-08-29.txt.
+      Quality pass 2026-08-30 (sixth re-verification, live half performed
+      for the first time since 2026-08-11): pack verified clean again,
+      byte-identical with the fourth and fifth passes. Every fact
+      re-matched against branches.json. All 36 checkers exit 0, all six
+      generators byte-stable. Live half performed: site republished
+      (sitemap now 2026-08-15, was 2026-07-19), all four post targets
+      return 200 and read correctly. Three known live-only defects
+      reconfirmed unchanged (switch banner mojibake despite the
+      republish, footer en dashes, tiffenbergs@ vs Tiffenberg@ email
+      split, Q56 still open). One new finding, queued for the same
+      repaste: two live content blocks (Post B switching-works intro,
+      Post C suitability intro) carry a dash the repo source and
+      generated page do not; not a repo defect. No new question raised.
+      Evidence in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

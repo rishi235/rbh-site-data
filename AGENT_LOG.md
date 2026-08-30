@@ -1,3 +1,100 @@
+## 2026-08-30 (item 4.15 quality pass, second run today) - Quality pass on 4.15 (Tiffenbergs Chemist Aintree GBP pack), sixth pass, live half performed for the first time since 2026-08-11: pack clean, three known live-only defects reconfirmed, one new live-copy-drift finding queued for repaste
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass, same as
+its immediate predecessor (4.14).
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running. Branch agents/audit-backlog fetched and pulled, level with
+origin, worktree clean before any edit.
+
+ANSWER PICKUP: ATTEMPTED AND SUCCESSFUL. Fetched
+https://data.rbhealth.co.uk/api/feedback and read all fourteen entries
+returned (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, some duplicated across
+dates). All are already recorded as "answered" in QUESTIONS.json by
+earlier runs. No unprocessed answer found for any currently OPEN question
+(open set checked: Q18-Q83 minus already-answered, 57 open before this
+run and 57 after), so no worklist item was unblocked by this step.
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp at the top of this run, so step 8
+would have applied as written if a decision had been needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Reviewed quality-pass history across every completed item using
+the dated headers in this log: of the recurring-content candidates (the
+2.x/3.x/4.x rotation; 1.1, 1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 are one-off
+fixes or features with no quality-pass history and are not treated as
+candidates, per the reasoning recorded on the 4.12 pass of 2026-08-30),
+four items were tied at 2026-08-29, the oldest date left: 4.15 (morning),
+2.1 (21:08, third run), 4.7 (fourth run) and 4.2 (22:35, fifth run), in
+that chronological order within the day. 4.15 was the earliest of the
+four and therefore the most overdue, so it was picked over the
+lowest-numbered tie-break used when passes are same-time or unordered.
+
+REPO HALF, PACK CLEAN. Facts re-verified against branches.json
+(tiffenbergs_longmoor): name, address, phone, split weekday hours with
+the lunch closure, website, review link, catchment leading with Aintree
+in serviceAreaList order, hasApp false, Post A mirroring pfLink exactly.
+gbp-packs/tiffenbergs-aintree.md unchanged in git since 2026-08-11 before
+this run's edit. All 36 checkers exit 0 before and after. All six
+generators rebuilt to a byte-identical worktree.
+
+LIVE HALF PERFORMED, FIRST TIME SINCE 2026-08-11. The 2026-08-12 and
+2026-08-29 passes both skipped it because two Chrome extensions were
+connected and an unattended run cannot choose between them (Q59); this
+run had a single Chrome tab available throughout, so the block did not
+apply. Site republished since the last live check: sitemap.xml now dated
+2026-08-15 (was 2026-07-19), the same shape the 4.14 pass found on
+Gordon Short's site earlier today. All four post targets return 200 and
+read correctly, NAP matching branches.json throughout.
+
+Three known live-only defects reconfirmed unchanged: the switch banner
+close button still renders as mojibake on every page (read via script as
+element.textContent, code points U+251C and U+00F9, not a text-extraction
+artifact), so the run-44 source fix committed 2026-08-10 has still not
+reached this site even after the republish; the site-wide footer still
+writes its hour ranges with en dashes (hand-paste, exists in no repo
+branch); and the live contact block still publishes
+tiffenbergs@rbhealth.co.uk, plural, against Tiffenberg@rbhealth.co.uk in
+branches.json (Q56, still open).
+
+One new finding: two live content blocks carry a dash where the repo
+source and the generated page are plain ASCII with a full stop, so the
+em/en-dash cleanup already shipped in the generator has not reached live
+either, the same content-survives-rebuild shape the 4.14 pass found
+today on Gordon Short's branch name. Confirmed by reading
+modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html and
+modules/service/pages/weight-loss-clinic-tiffenbergs-aintree.html
+directly with explicit UTF-8 decoding, ruling out a read-tool artifact:
+both files are pure ASCII. Post B's "How switching works" intro reads
+live "...it usually is not [em dash] we make the first step..." where
+repo and generated page read "...it usually is not. We make the first
+step...". Post C's suitability intro reads live "...not right for
+everyone [en dash] see below..." where repo and generated page read
+"...not right for everyone. See below.". Both are stale pre-cleanup
+paste surviving the republish, not a repo defect: check-em-dashes.js
+already reads both source files and both pass clean. No repo file
+changed for this finding; it is queued for the same repaste that will
+fix the banner and footer items above.
+
+Fix made: appended a dated 2026-08-30 live-recheck note to
+gbp-packs/tiffenbergs-aintree.md, following the 2026-08-11/2026-08-13/
+2026-08-29 pattern, describing all findings above in words rather than
+quoting the live dash characters directly (the note was checked against
+check-em-dashes.js and check-gbp-packs.js after writing, both exit 0,
+following the same discipline the 4.14 pass used today after its first
+draft tripped the checker). New audit evidence file
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt. Persistent
+site-wide weight-loss nav button observed on every page sampled,
+corroborating Q60/6.4/6.5 rather than raising new scope.
+
+No new question raised; Q56 and Q59 remain open and untouched by this
+pass. Open questions 57 before, 57 after.
+
+Files changed: gbp-packs/tiffenbergs-aintree.md,
+audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt (new),
+AGENT_WORKLIST.md (4.15 note), AGENT_LOG.md.
 ## 2026-08-30 (item 4.14 quality pass) - Quality pass on 4.14 (Gordon Short Chemist Crosby GBP pack), sixth pass: pack clean on every branches.json fact for the sixth time running, no drift since the fifth pass on 2026-08-14; live half performed for the first time since 2026-08-14, the first time this item's own live pages have been read since then. Sitemap now dated 2026-08-15 (previously stuck at 2026-07-19), confirming a site-wide republish happened. Of the four pages the pack's four posts link to: pfLink (pharmacy-first-service-crosby.html, Post A) remains correct and safe, unchanged. switch-prescriptions-gordon-short-crosby.html (Post B) had its long-standing naming state confirmed still correct, but its known mojibake em dash in the "How switching works" intro survived the republish, still needing a repaste. The other three - pharmacy-first-gordon-short-crosby.html (the branch-specific page Post A must NOT be repointed to under the 2026-08-10 STOP), weight-loss-clinic-gordon-short-crosby.html (Post C) and travel-clinic-gordon-short-crosby.html (Post D) - were all visibly rebuilt in the republish (new FAQ/booking-widget layouts) but all three still read "Gordon Shorts Chemist" throughout title, heading, body and footer, confirming the wrong name is carried in a content block that survives a full page rebuild rather than a simple stale paste; the STOP stands. Estate-wide en-dash footer hours defect also reconfirmed unchanged. Persistent site-wide weight-loss nav button observed on every page sampled, corroborating Q60/6.4/6.5 rather than raising new scope. Fix made: appended a dated 2026-08-30 live-recheck note to gbp-packs/gordon-short-crosby.md; the first draft of that note quoted the live mojibake bytes directly and check-em-dashes.js correctly failed the pack on its own rule (packs are held to ASCII only, same as any public copy), so it was rewritten to describe the corruption in words and reverified clean. All 36 checkers exit 0 after the fix; all six generators rebuild byte-identical; git status shows only the pack file changed. Audit detail: audits/gordon-short-item-4.14-quality-pass-2026-08-30.txt. No new question raised; Q78 remains open and untouched by this pass.
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
