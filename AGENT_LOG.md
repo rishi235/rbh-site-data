@@ -1,7 +1,86 @@
-# AGENT LOG - hourly audit-backlog runs
+﻿# AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 06:20 [commit hash recorded by a small follow-up commit] - Quality pass on 3.5 (Hirshmans Chemist, Ainsdale), sixth pass: 12 pages clean on 2,258 independent checks, JSON-LD field-by-field leg added, live switch page found carrying stale pre-repaste title and description
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from both sources (log run headers and git commit subjects, later
+of the two wins): stalest completed item is 3.5, last passed 2026-08-14
+06:50 (commit "Item 3.5 fifth quality pass: cover audits/ in
+.gitattributes"); next oldest is 3.6 at 2026-08-14 07:14. Taken, its sixth
+machine pass and the FIRST LIVE READ FOR 3.5 since the fifth pass, which
+was repo half only.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous window"
+section in this log remains the 2026-08-09 one, expired 2026-08-10. Nothing
+decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before any inspection.
+
+THE 12 PAGES ARE CLEAN. Sixth independent extraction
+(audits/verify-3.5-2026-08-30.js, imports nothing from tools/) re-read all
+12 Hirshmans pages (11 service, 1 switch): 2,258 checks, 0 failures. The
+fifth pass ran 1,728; the count grew because this pass adds two legs the
+3.4 template did not carry. NEW LEG: JSON-LD verified FIELD BY FIELD
+against branches.json on every page - name equals branchName, telephone
+digits equal the branch phone, streetAddress, addressLocality, postalCode,
+addressRegion and addressCountry exact, and the url must sit on the
+branch's own host and end with the page filename (the earlier rule read
+addressLocality alone). Also new: brand-label isolation, no other live
+branch's brandLabel anywhere in any page. The established legs all held:
+one SEO title line, one description line, one h1 per page; sheet agreement
+by permalink across all six paste sheets with one-label-per-block counted
+by independent regex and the FIRST label line compared, the paster's
+reading; Ainsdale in title, description and h1 on every page; a service
+word in all three legs; no foreign live town in any leg (Birkdale and
+Southport excused by serviceAreaList); own phone 01704 577376 present and
+every other live branch's phone and postcode absent; PR8 3HW present;
+titles inside 65 characters, descriptions 80 to 165; a tel: link on all
+12; no other branch's widget id anywhere; the switch banner points at
+Hirshmans' own switch page.
+
+COVERAGE PROVED BEFORE THE RESULT WAS BELIEVED. Three injections into the
+worktree, then restored: a doubled Page Title line in the Hirshmans UTI
+sheet block fired the label count rule when placed after the permalink
+line (1 failure) and both the count and the first-line title comparison
+when placed ahead of the real title, the paster-order poison shape (2
+failures); a foreign town (Bramhall) in the sore throat page's SEO title
+and h1 fired sheet agreement, own-town and foreign-town rules (5
+failures); Cherry Lane's postcode L4 8SG injected into the travel clinic
+page's JSON-LD alone fired both the foreign-postcode rule and the new
+JSON-LD postalCode field rule (2 failures), proving the new leg reads the
+structured block independently of the visible page. Ten failures total,
+all expected. Worktree restored to zero diff and re-verified clean.
+
+LIVE HALF, TWO READ-ONLY PAGE READS through one browser tab, opened and
+closed, nothing clicked, typed or submitted. The UTI page serves exactly
+the sheet title, description and H1, one h1, own phone with tel: links,
+PR8 3HW, and JSON-LD carrying the correct name, phone, postcode and
+locality twice over (the page block plus a second site-level block, a
+Weebly template artefact; both consistent, not a defect). ONE LIVE-STATE
+FINDING, known class, no repo defect: the live switch page's H1 and body
+match the current sheet, but its SEO title reads "Switch Your
+Prescriptions - Hirshmans Chemist Ainsdale" against the sheet's "Switch
+Your Prescriptions to Hirshmans Chemist, Ainsdale", and its description
+carries "Local NHS pharmacy -- we contact your GP" against the sheet's
+"Local NHS pharmacy. We contact your GP". That is the pre-Q7 wording
+still live: the Weebly repaste remains outstanding for this page, the
+same queue the 5.6 pass measured at 17 days on 2026-08-29. The Hirshmans
+switch page belongs on that repaste list. No new question raised; the
+repaste queue is already known and answered ground.
+
+FILES CHANGED. audits/verify-3.5-2026-08-30.js and its output txt (new),
+AGENT_LOG.md (this entry). No page, sheet, generator or data change.
+Worklist untouched: 3.5 stays [x].
 ## 2026-08-30 05:05 [commit 4ff6e06, hash line added by a small follow-up commit] - Quality pass on 3.4 (Cherry Lane Pharmacy, Walton), sixth pass: 12 pages clean on 1,938 independent checks, live half verified for the first time since 2026-08-12, zero defects
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
@@ -20754,7 +20833,7 @@ the six deliberate sister-branch links on the landing pages, each between two
 branches on one shared domain. Pharmacy First link graph across all 14
 branches: every overview links all seven conditions and every condition page
 links back to its own branch's overview. Price strings in public copy: one,
-"from ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
+"from ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99", on all 15 weight loss pages, defined once as CONSULT_FEE in the
 generator rather than written out per page, and no travel clinic page carries a
 price at all.
 
@@ -21128,7 +21207,7 @@ found at Cherry Lane: Wegovy, Mounjaro and Orlistat named with dosage formats,
 a slider telling the visitor "you could lose up to 26kg (22.5% of your body
 weight)", a section headed "Real Results with Mounjaro" claiming it is "one of
 the most effective weight loss treatments available", and a price of "From
-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
+ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Q5 was raised on the assumption Cherry Lane was a one-off. It was not.
 Checking the equivalent URL on all 15 branch sites found the same page still
 live at FIVE branches: Smartts Bootle, Gordon Short Crosby, Tiffenbergs
 Aintree, Riddings Timperley and Coleman and Leighs Walton. The other nine
@@ -22776,7 +22855,7 @@ the page was headed "Access medicated weight loss treatment", carried a
 to 22.5% of your body weight over 72 weeks", ran an interactive slider
 projecting a 26kg loss, listed Wegovy (semaglutide), Mounjaro (tirzepatide)
 and Orlistat as "Explore treatments" with product images, and priced the
-service "From ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
+service "From ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£39.99". Editor config worth keeping: brand #0d6efd, hero
 image turndownfoodnoise.png, Appointedd widget IDs 66b20b55bd0ba991115af5e1
 (in-store) and 68710670f341060bc6a09451 (online).
 
