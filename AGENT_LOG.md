@@ -2,6 +2,72 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 - Quality pass on 3.11 (Gordon Short Chemist, Crosby), fifth pass: 12 pages clean on 1,823 independent checks, both clinical/identity guards re-proved by mutation, live pfLink and homepage verified, zero in-repo defects
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness derived from both sources (log run headers and git commit
+subjects, later of the two wins): stalest completed item is 3.11, last
+passed 2026-08-14 03:05 (commit e1363dd). 3.11 taken. Evidence in
+audits/gordon-short-build-check-2026-08-30.txt.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the 2026-08-30 01:41 pickup, read through one browser
+tab, opened and closed, nothing clicked, typed or submitted. Every entry
+maps to an already answered question (Q2-Q5, Q13-Q17). None of the 56 open
+questions has an answer. 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously. Nothing on this pass needed a
+decision in any case.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin at b844532, worktree clean. All 36
+checkers exit 0 and all six page generators rebuilt to a zero diff before
+any inspection.
+
+THE 12 PAGES ARE CLEAN AND NOT ONE CHARACTER WAS EDITED. An independent
+verification importing nothing from tools/ ran 1,823 checks over the 12
+pages with zero defects: one H1 per page carrying Crosby, canonical NAP in
+visible copy everywhere, every tel: link the branch's own digits, own
+review link only, JSON-LD matching branches.json field for field, no
+foreign phone, postcode, review link, seoTown or widget id, no http://
+URL, no app copy against hasApp false. 22 flags all triaged to two
+documented benign classes: the callback form's "name@example.com"
+placeholder (RFC-reserved hint domain, not a published address) and the
+generator's leading HTML comment em dash, which check-em-dashes.js
+documents as out of scope because comments never render.
+
+BOTH GUARDS FOR THIS ITEM'S RISK CLASSES RE-PROVED BY MUTATION, and the
+proof matters more than usual this pass because the first attempt produced
+a FALSE ALARM worth recording. data-branch swapped to "Smartts Chemist" on
+the UTI page: caught twice by check-branch-identity (rule 2 owner, rule 6
+split). A symptom point rewritten to a foreign symptom: caught by
+check-pharmacy-first-symptoms rule 4. Both restored, tree re-verified
+clean. THE METHOD NOTE: the first mutation was applied with PowerShell's
+string Replace, which silently matched nothing, so all 36 checkers
+"passed" a mutation that was never on disk and a NOT_CAUGHT_BY_ANY_OF_36
+verdict was nearly logged against a checker that works. Future runs:
+apply mutations with node and assert the file actually changed before
+reading any checker's verdict.
+
+LIVE SITE READ-ONLY, BOTH SURFACES CLEAN. The pfLink page resolves with
+correct title and NAP, and all seven Pharmacy First conditions carry age
+ranges matching canon, including UTI at women 16-64 and otitis media 1-17.
+Homepage NAP correct. Hours on both pages match branches.json exactly
+including both lunch closures. "Great Crosby" as an extra address line is
+live Weebly furniture, cosmetic, canon fields all present. The Q22 weight
+loss claim ("Tried the rest? Now try the best." with "Innovative solutions
+that deliver results") is confirmed still live on this homepage at
+2026-08-30 - already recorded under Q22/5.8, not touched, regulatory
+carve-out.
+
+FILES CHANGED: audits/gordon-short-build-check-2026-08-30.txt (new),
+this log entry. No page, generator, checker or data change - nothing
+needed one. No new question raised: both flags are documented scope
+decisions and the one live finding is already Q22's.
+
 ## 2026-08-30 01:41 BST [commit e983dec, hash line added by a small follow-up commit] - Quality pass on 1.2 (Hirshmans address sweep), sixth pass: address clean both halves; the checker fixed last run still could not read a postcode PRECEDED by %20, fixed and proved on page and pack
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,

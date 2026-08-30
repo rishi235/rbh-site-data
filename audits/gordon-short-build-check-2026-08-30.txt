@@ -1,0 +1,67 @@
+Item 3.11 quality pass evidence - Gordon Short Chemist, Crosby - 2026-08-30
+
+INDEPENDENT VERIFICATION
+An independent script (own file discovery, own regexes, own reading of
+branches.json, importing nothing from tools/) found 12 pages matching
+"gordon" under modules/ and ran 1,823 checks: exactly one H1 per page
+carrying Crosby; 159 College Road, L23 3AT and 0151 924 3449 in visible
+copy on all 12; every tel: link the branch's own digits; own Google review
+link on all 12; no other branch's phone, postcode, review link, seoTown or
+widget id anywhere; JSON-LD parsing on all 12 and matching branches.json
+field for field (streetAddress, postalCode, addressLocality, addressRegion
+Merseyside, telephone, self-referencing url on gordonshortchemist.co.uk);
+no http:// URL; no non-ASCII in visible copy except the pound sign; no app
+copy against hasApp false.
+
+22 flags, all triaged to two documented benign classes, zero defects:
+1. "name@example.com" (11 pages) is the placeholder attribute on the
+   optional email field of the callback form, a format hint using the
+   RFC 2606 reserved example.com domain, not a published address. The
+   pages' real addresses are Shorts@rbhealth.co.uk and pharmacy.FPD45@nhs.net
+   only, both matching branches.json.
+2. An em dash (12 pages) sits only inside the generator's leading HTML
+   comment ("GORDON SHORT CHEMIST <emdash> <page> (SEO-first...)").
+   check-em-dashes.js documents its scope as visible copy "once HTML
+   comments are stripped out", so this is a recorded scope decision, not a
+   miss. No em dash anywhere in visible copy.
+
+MUTATION TESTS - both guards for this item's risk classes still bite
+1. data-branch swapped to "Smartts Chemist" on the UTI page:
+   check-branch-identity FAILED it twice (rule 2 owner, rule 6 split),
+   naming smartts_bootle and the enquiry-misfiling consequence. Restored,
+   re-run clean.
+2. First UTI symptom point rewritten to a foreign symptom:
+   check-pharmacy-first-symptoms FAILED it (rule 4, point missing).
+   Restored, re-run clean.
+METHOD NOTE, recorded because it cost twenty minutes and could mislead a
+future run: the first attempt at mutation 1 used PowerShell
+[string].Replace on text read by [System.IO.File]::ReadAllText, which
+silently failed to match the attribute (MUTATION_APPLIED=False), so all 36
+checkers "passed the mutation" that was never on disk. A false NOT_CAUGHT
+verdict was nearly logged. Mutations applied through node landed correctly
+and were caught. Apply mutations with node, and always assert the mutation
+actually changed the file before reading a checker's verdict.
+
+LIVE SITE, READ-ONLY
+pfLink https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html
+resolves, correct title, correct NAP, all seven Pharmacy First conditions
+with age ranges matching canon (otitis media 1-17, impetigo 1+, insect
+bites 1+, shingles 18+, sinusitis 12+, sore throat 5+, UTI women 16-64).
+Homepage: NAP correct; hours on both pages match branches.json exactly,
+including both lunch closures (Mon-Fri 9-1/2-6, Sat 9-1/2-5, Sun closed).
+"Great Crosby" appears as an extra address line on live Weebly furniture -
+cosmetic, canon fields all present, same class as the known live-furniture
+cosmetics on other branches. The Q22 homepage weight loss claim ("Tried
+the rest? Now try the best." plus "Innovative solutions that deliver
+results") is still live on this branch's homepage, 2026-08-30 - already
+recorded under Q22/5.8, nothing new, not touched (regulatory carve-out).
+
+BASELINE
+All 36 checkers exit 0 before and after; six page generators rebuild to a
+zero diff; tree clean at commit b844532 before this evidence file.
+
+VERIFIER RAW OUTPUT
+PAGES=12
+CHECKS=1823
+FAILURES=22 (all triaged above: 11 x placeholder email, 11 x comment em
+dash on service pages, plus the switch page's copy of each)
