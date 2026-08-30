@@ -1,6 +1,72 @@
-﻿# AGENT LOG - hourly audit-backlog runs
+# AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+
+## 2026-08-30 04:20 [commit hash added by a small follow-up commit] - Quality pass on 3.3 (Fishlocks Ainsdale and Eccleston), fifth pass, one-label-per-block rule added to check-seo-sheets
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from both sources (log run headers and git commit subjects,
+later of the two wins): stalest completed item is 3.3, last passed
+2026-08-14 05:24. 3.3 taken, its fifth machine pass and the first since
+2026-08-12 to include the live half.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the recent pickups, read through one browser tab,
+opened and closed, nothing clicked, typed or submitted. Every entry maps
+to an already answered question (Q2-Q5, Q13-Q17). 56 open before, 56
+after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before any
+inspection.
+
+THE PAGES ARE CLEAN, THE GAP WAS IN THE RULES, AND IT WAS LAST NIGHT'S
+3.2 QUESTION ASKED ONE ARTEFACT UP THE CHAIN. A fifth independent
+extraction (audits/verify-3.3-2026-08-30.js, imports nothing from tools/)
+re-read all 26 Fishlocks pages and found them clean on every leg: one SEO
+title line, one description line and one h1 each, sheet agreement by
+permalink across all six paste sheets, own town and service words on all
+three legs, no foreign or sister town in any public string, sister phone
+and postcode absent from every page, titles inside 65 characters,
+descriptions 80 to 165, both switch banners pointing at their own branch,
+and "Eccleston in Eccleston" absent. But the 3.2 pass counted label lines
+on the PAGES only. check-seo-sheets.js parses each paste sheet block
+last-write-wins: a block carrying the same label twice keeps only the
+second value and compares THAT to the page, while a paster reading the
+block top to bottom takes the first. So a poisoned first title line in a
+sheet block satisfied every rule in the repo while being the line a human
+would paste into Weebly. Proved by injection before fixing: a second
+"- **Page Title:** Pharmacy in Ainsdale" line ahead of the real one in
+the Fishlocks Ainsdale UTI block of modules/service/pages/SEO.md passed
+all 36 checkers, while the independent verifier caught the mismatch.
+Fixed in tools/check-seo-sheets.js: a ONE LABEL PER BLOCK rule counting
+Page Title, Page Permalink and Page Description labels per block in the
+SEO dialect and SEO title, Page slug / URL and SEO description in the
+INDEX dialect, failing on any count above one, with the failure message
+naming the dialect's own labels. Five negative tests, all five fire:
+duplicate title, description and permalink in an SEO block, duplicate SEO
+title in an INDEX block, clean tree passes. All 36 checkers green after
+the fix, all six generators still rebuild to a zero diff.
+
+LIVE HALF, TWO READ-ONLY GETS, ONE PER SIDE, the first live read for 3.3
+since 2026-08-12. Both UTI pages serve the exact pattern title and H1,
+and the pasted SEO titles are live on both sides, no doubled-brand Weebly
+default (unlike Scorah last night). Own phone and address correct in each
+embed. Site furniture opening hours match branches.json exactly on both
+branches. The furniture faults visible (Fishlock Pharmacy naming, 17
+Station Rd abbreviation, singular Fishlock Chemist in the GPhC line) are
+the known Q37 set, already open, nothing new raised.
+
+Files changed: tools/check-seo-sheets.js (one-label-per-block rule),
+audits/verify-3.3-2026-08-30.js and its output txt (new),
+AGENT_WORKLIST.md (3.3 fifth pass paragraph), AGENT_LOG.md (this entry).
+No new questions. 56 open before, 56 after.
 
 ## 2026-08-30 03:43 [commit ca30807] - Quality pass on 3.2 (Scorah SEO pages), fifth pass, one-line count rule added to check-seo-pattern
 

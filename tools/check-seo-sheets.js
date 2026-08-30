@@ -111,6 +111,20 @@ SHEETS.forEach(function (sheetPath) {
 
   function flush() {
     if (!cur) return;
+    // ONE LABEL PER BLOCK (2026-08-30, item 3.3 fifth quality pass). The
+    // parser below is last-write-wins: a block carrying the same label twice
+    // kept only the second value and compared THAT to the page, while a
+    // paster reading the block top to bottom takes the first. Proved by
+    // injection: a second "- **Page Title:** Pharmacy in Ainsdale" line ahead
+    // of the real one in the Fishlocks Ainsdale UTI block passed all 36
+    // checkers. Same shape as the one-title-line rule check-seo-pattern
+    // gained on the 3.2 pass the night before, one artefact up the chain.
+    var labelNames = cur.dialect === "index" ? ["SEO title", "Page slug / URL", "SEO description"] : ["Page Title", "Page Permalink", "Page Description"];
+    [[labelNames[0], cur.nTitle], [labelNames[1], cur.nPermalink], [labelNames[2], cur.nDesc]].forEach(function (pair) {
+      if (pair[1] > 1) {
+        failures.push(rel(sheetPath) + ' block "' + cur.heading + '": ' + pair[1] + " '" + pair[0] + "' labels in one block - the checker compares the last, a paster takes the first, so the two can disagree with no failure");
+      }
+    });
     if (!cur.permalink) {
       if (cur.title || cur.desc) {
         failures.push(rel(sheetPath) + ' block "' + cur.heading + '": has a title or description but no Page Permalink, so it cannot be matched to a page');
@@ -137,23 +151,23 @@ SHEETS.forEach(function (sheetPath) {
     var m;
     if (/^##\s+/.test(line)) {
       flush();
-      cur = { heading: norm(line.replace(/^##\s+/, "")), title: "", permalink: "", desc: "", dialect: "seo" };
+      cur = { heading: norm(line.replace(/^##\s+/, "")), title: "", permalink: "", desc: "", dialect: "seo", nTitle: 0, nPermalink: 0, nDesc: 0 };
       return;
     }
     if (!cur) return;
     // SEO dialect: the *-SEO.md sheets.
-    if ((m = /^-\s+\*\*Page Title:\*\*\s*(.*)$/.exec(line))) cur.title = norm(m[1]);
-    else if ((m = /^-\s+\*\*Page Permalink:\*\*\s*(.*)$/.exec(line))) cur.permalink = norm(m[1]).replace(/\.html$/, "");
-    else if ((m = /^-\s+\*\*Page Description:\*\*\s*(.*)$/.exec(line))) cur.desc = norm(m[1]);
+    if ((m = /^-\s+\*\*Page Title:\*\*\s*(.*)$/.exec(line))) { cur.title = norm(m[1]); cur.nTitle++; }
+    else if ((m = /^-\s+\*\*Page Permalink:\*\*\s*(.*)$/.exec(line))) { cur.permalink = norm(m[1]).replace(/\.html$/, ""); cur.nPermalink++; }
+    else if ((m = /^-\s+\*\*Page Description:\*\*\s*(.*)$/.exec(line))) { cur.desc = norm(m[1]); cur.nDesc++; }
     // INDEX dialect: the *INDEX.md sheets write the SAME two Weebly fields
     // under different labels, and point at the page with a backticked slug
     // rather than a permalink. The slug is taken from the backticks alone:
     // the switch sheet writes a non-ASCII arrow after it and the service
     // sheet writes "->", so anything that reads past the closing backtick
     // covers one sheet and silently drops the other.
-    else if ((m = /^-\s+\*\*SEO title:\*\*\s*(.*)$/i.exec(line))) { cur.title = norm(m[1]); cur.dialect = "index"; }
-    else if ((m = /^-\s+\*\*SEO description:\*\*\s*(.*)$/i.exec(line))) { cur.desc = norm(m[1]); cur.dialect = "index"; }
-    else if ((m = /^-\s+\*\*Page slug \/ URL:\*\*\s*`([^`]+?)(?:\.html)?`/i.exec(line))) { cur.permalink = norm(m[1]); cur.dialect = "index"; }
+    else if ((m = /^-\s+\*\*SEO title:\*\*\s*(.*)$/i.exec(line))) { cur.title = norm(m[1]); cur.dialect = "index"; cur.nTitle++; }
+    else if ((m = /^-\s+\*\*SEO description:\*\*\s*(.*)$/i.exec(line))) { cur.desc = norm(m[1]); cur.dialect = "index"; cur.nDesc++; }
+    else if ((m = /^-\s+\*\*Page slug \/ URL:\*\*\s*`([^`]+?)(?:\.html)?`/i.exec(line))) { cur.permalink = norm(m[1]); cur.dialect = "index"; cur.nPermalink++; }
   });
   flush();
 });

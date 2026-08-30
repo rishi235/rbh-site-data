@@ -717,6 +717,38 @@ audits/seo-pattern-check-2026-08-30.txt. No new question.
       six behave as required, including a no-loosening test and a
       false-positive test. Raised as Q71. Full working in
       audits/fishlocks-item-3.3-quality-pass-2026-08-14.txt.
+      Quality pass 2026-08-30 (fifth): clean on both halves, and the rules
+      gap was one artefact up the chain again. All 26 pages re-read by a
+      fifth independent extraction (audits/verify-3.3-2026-08-30.js,
+      imports nothing from tools/): counts (one SEO title line, one
+      description line, one h1 per page), sheet agreement by permalink
+      across all six paste sheets, own town on all three legs, service
+      words on all three legs, cross-town and sister-town absence, sister
+      phone and postcode absent from every page, lengths, both switch
+      banners pointing at their own branch, and "Eccleston in Eccleston"
+      absent. All clean. All 36 checkers green and all six generators
+      byte-stable before and after. LIVE HALF, first since 2026-08-12: both
+      UTI pages read read-only, exact pattern title and H1 live on both
+      sides, pasted SEO titles live (no doubled-brand Weebly default,
+      unlike Scorah), own phone and address correct in each embed, and the
+      site furniture opening hours match branches.json on both branches.
+      The furniture faults visible on fishlockpharmacy.co.uk (Fishlock
+      Pharmacy naming, "17 Station Rd", singular Fishlock Chemist in the
+      GPhC line) are the known Q37 set, nothing new. THE DEFECT WAS IN THE
+      SHEETS RULE, THE 3.2 COUNT QUESTION ONE ARTEFACT UP THE CHAIN:
+      check-seo-sheets.js parses a paste sheet block last-write-wins, so a
+      block carrying the same label twice kept only the second value and
+      compared THAT to the page, while a paster reading the block top to
+      bottom takes the first. Proved by injection before fixing: a second
+      "- **Page Title:** Pharmacy in Ainsdale" line ahead of the real one
+      in the Fishlocks Ainsdale UTI block passed all 36 checkers while the
+      independent extraction caught the mismatch. Fixed with a
+      one-label-per-block rule in check-seo-sheets.js covering both sheet
+      dialects, with the failure message naming the dialect's own labels.
+      Five negative tests, all five fire: duplicate Page Title, Page
+      Description and Page Permalink in an SEO block, duplicate SEO title
+      in an INDEX block, and the clean tree passes. Evidence in
+      audits/verify-3.3-2026-08-30-output.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
