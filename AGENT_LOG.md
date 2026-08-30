@@ -67,6 +67,8 @@ of every service page sits inside the HTML build comment, which
 check-em-dashes deliberately reports without failing because no visitor
 sees it. Checked and left alone.
 
+TWO CORRECTIONS RECORDED AFTER THE PUSH, SAME RUN. First, commit ca30807 shows tools/check-seo-pattern.js as 815 insertions against 779 deletions. That is not a rewrite: the old blob was stored with CRLF endings from before this clone gained core.autocrlf=true, and committing the patched file let git renormalise the whole blob to LF. Content-wise the change is the one-line count rule alone; future diffs on this file are now clean. Second, the first push of the evidence txt was UTF-16 with a BOM (a PowerShell Tee-Object default), which git stored as binary against the audits/** text eol=lf rule. Rewritten as UTF-8 with LF in the follow-up commit.
+
 Files changed: tools/check-seo-pattern.js (one-line count rule),
 AGENT_WORKLIST.md (3.2 pass paragraph), AGENT_LOG.md (this entry),
 audits/verify-3.2-2026-08-30.js and audits/verify-3.2-2026-08-30-output.txt
