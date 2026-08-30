@@ -3179,6 +3179,63 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       half NOT performed: answer pickup returned the Cloudflare Access sign-in
       page (Q59), so no live page was read and every live-side state still
       rests on the 2026-08-11 check. Done 2026-08-14.
+      Sixth quality pass 2026-08-30: pack clean on every fact for the sixth
+      time, no in-repo defect. All 36 checkers exit 0, all seven build-*.js
+      generators re-run with git status clean afterwards (the one unrelated
+      change in the tree, status/index.html, is this run's own status-page
+      timestamp refresh, not a Riddings artefact). Facts re-verified against
+      branches.json: name Riddings Pharmacy, address 38 Riddings Road,
+      Timperley, Altrincham WA15 6BP, phone 0161 973 2951, website and
+      review link, hasApp false with no app mention, single Monday to
+      Friday 09:00 to 18:00 session with Saturday and Sunday closed,
+      catchment Timperley, Altrincham and Trafford leading with its own
+      seoTown. Description and posts byte-identical to all five earlier
+      passes (description 657, posts 449, 319, 521, 425); the only edit to
+      this file today was the 4.5 pass's estate-wide bank holiday note
+      appended at 11:12, which touches no fact this pass checks. Four fresh
+      injections run one at a time from the live file with sha256 restore
+      after each: "skinny jab" into Post C (pom-class-patterns.js scoping),
+      an outcome claim ("you could lose up to 22.5% of your body weight")
+      into Post C, a foreign branch's town (Bootle) into Post D, and a
+      medicine name (Mounjaro) into Post C. All four CAUGHT, none missed;
+      no new checker gap found this pass.
+      LIVE HALF PERFORMED for the first time since 2026-08-11: this run's
+      browser connection resolved to a single Chrome instance rather than
+      the two-instance block Q59 has recorded on recent runs. Post B's
+      canonical URL (switch-prescriptions-riddings-timperley.html) still
+      returns a 404, unchanged since 2026-08-10; the hard stop in the pack
+      remains necessary. The live switch page still sits at the old
+      permalink switch-prescriptions.html and is still the pre-Phase-3
+      paste: H1 without town words, a "Download our app" block despite
+      hasApp false, the contact block reading "Timperley, Cheshire" against
+      branches.json's Greater Manchester, and the site-wide footer line
+      still set with en dashes. All previously logged, none changed. NEW
+      THIS PASS: the site's sitemap.xml has in fact been republished since
+      the last check, lastmod now 2026-08-14T22:45:05+00:00 across every
+      URL (previously 2026-07-18), yet the switch-prescriptions-riddings-
+      timperley.html paste still did not land in that republish and the
+      page is still absent from the sitemap. The pack's own assumption
+      that this paste "rides along with paste work already queued" at "the
+      next Weebly paste run" does not hold: a full republish has already
+      happened since without it, so the estate-wide repaste backlog (5.6,
+      5.7) needs this branch's switch paste actioned explicitly rather than
+      assumed to ride along. The branch-specific Pharmacy First page
+      remains live and in the sitemap as the pack records; today's separate
+      item 3.10 pass independently found it is still pre-repaste legacy
+      copy (US spellings, old title and H1), same backlog, not a new
+      finding here. Also confirmed live and unchanged: weight-loss-clinic-
+      timperley.html, the old page linked from the homepage nav and still
+      in the sitemap, still carries the full Regime 1 breach already
+      recorded in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (Riddings
+      Timperley is one of the seven branches listed there) - Mounjaro,
+      Wegovy and Orlistat named, an efficacy superlative, an outcome slider
+      claiming up to 22.5% body weight loss, and lead pricing at £39.99.
+      This is worklist item 5.8's territory and Rishi's Q5 answer already
+      sets the fix direction, so no new question is raised; the GBP pack's
+      own Post C remains compliant and is not implicated. Answer pickup
+      succeeded this run (single Chrome instance): all entries found were
+      already recorded against Q2 to Q17 by earlier runs, nothing new to
+      process. No new question raised. Done 2026-08-30.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

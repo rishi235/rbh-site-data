@@ -1,3 +1,114 @@
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.13 (Riddings Pharmacy Timperley GBP pack), sixth pass: pack clean on every fact for the sixth time, no in-repo defect; live half performed for the first time since 2026-08-11 (Chrome resolved to a single instance this run); Post B's canonical URL still 404, unchanged; new observation that the site republished on 2026-08-14 without carrying this branch's switch paste, so the estate repaste backlog cannot assume the next general republish will pick it up; known live weight loss exposure on the old weight-loss-clinic-timperley.html page reconfirmed unchanged and already tracked under 5.8; no new question raised
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass, same as
+its immediate predecessor (4.12).
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process
+running. Branch agents/audit-backlog fetched and pulled, level with
+origin at 96208d6, worktree clean before any edit.
+
+ANSWER PICKUP: ATTEMPTED AND SUCCESSFUL. tabs_context_mcp returned a
+single Chrome tab this run, not the "multiple browsers connected, none
+selected" state Q59 has recorded on several recent runs. Fetched
+https://data.rbhealth.co.uk/api/feedback and read all fourteen entries.
+All of them (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, with some duplicated
+across dates) are already recorded as "answered" in QUESTIONS.json by
+earlier runs today and on 2026-08-04/08-10. No unprocessed answer found,
+so no worklist item was unblocked by this step. Given the browser worked
+cleanly this run, the live half below was also performed, the first time
+since 2026-08-11 that a run has read this branch's live site.
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp, so step 8 would apply as written
+if a decision were needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. Pass-count review across the GBP pack rotation (4.5 through
+4.15) showed 4.12 reached a sixth pass earlier today (this run's
+immediate predecessor), leaving 4.13 and 4.14 tied at a fifth pass dated
+2026-08-14, the oldest verification date left in the rotation. Picked
+4.13, the lower-numbered of the tie, the same tie-break convention used
+by the 4.12 entry.
+
+REPO HALF. All 36 checkers run individually, 0 failures. All seven
+build-*.js generators re-run; git status showed only the unrelated
+status/index.html timestamp refresh (this run's own status-page rebuild),
+confirming the six page generators are byte-identical against the
+current worktree. Facts re-verified against branches.json: name Riddings
+Pharmacy, address 38 Riddings Road, Timperley, Altrincham WA15 6BP, phone
+0161 973 2951, website and review link, hasApp false with no app
+mention, single Monday to Friday 09:00-18:00 session with Saturday and
+Sunday closed, catchment Timperley, Altrincham and Trafford leading with
+its own seoTown. Description and post character counts byte-identical to
+all five earlier passes (description 657, posts 449, 319, 521, 425). The
+file's only change since the fifth pass is the 4.5 pass's estate-wide
+bank holiday note, appended today at 11:12 (commit aa3c706), which adds
+no fact this pass checks.
+
+NEGATIVE TESTS. Four injections into a working copy of the pack, one at
+a time, sha256-restored after each and confirmed byte-identical to the
+original: "skinny jab" into Post C (tests the pom-class-patterns.js
+scoping added on the fifth pass), an outcome/results claim ("you could
+lose up to 22.5% of your body weight") into Post C, a foreign branch's
+town (Bootle) into Post D, and a medicine name (Mounjaro) into Post C.
+All four CAUGHT by check-gbp-packs.js. No new checker gap found this
+pass.
+
+LIVE HALF PERFORMED (read-only GETs, nothing clicked, typed or
+submitted). Post B's canonical URL
+(switch-prescriptions-riddings-timperley.html) still returns a 404,
+unchanged since 2026-08-10; the pack's hard stop remains correct and
+necessary. The live switch page still sits at the old permalink
+switch-prescriptions.html and is still the pre-Phase-3 paste: H1 without
+town words, a "Download our app" block despite hasApp false, the contact
+block reading "Timperley, Cheshire" against branches.json's Greater
+Manchester, and the site-wide footer line still set with en dashes. All
+previously logged, none changed since 2026-08-11.
+NEW THIS PASS: sitemap.xml has in fact been republished since the last
+check. lastmod now reads 2026-08-14T22:45:05+00:00 across every URL
+(previously 2026-07-18 on every check back to 2026-08-10), so the site
+HAS been republished in the interim, yet
+switch-prescriptions-riddings-timperley.html still did not land in that
+republish and remains absent from the sitemap. This corrects an
+assumption the pack itself states ("that paste is queued anyway, because
+[it] is a pre-Phase-3 paste... which item 3.10 put into the repo copy" -
+implying the next general republish would carry it): a full republish has
+now demonstrably happened without carrying this branch's switch paste, so
+worklist items 5.6/5.7's estate repaste backlog needs this branch's
+switch paste actioned as its own step, not assumed to ride along with
+whatever triggered the 08-14 republish. Nothing in the pack itself was
+changed for this, since the hard stop's guidance (do not post the 404
+URL) is unaffected either way.
+The branch-specific Pharmacy First page (pharmacy-first-riddings-
+timperley.html) remains live and in the sitemap, as the pack records.
+Today's separate item 3.10 pass (audits/riddings-build-check-2026-08-30.txt)
+independently found this same page is still pre-repaste legacy copy (US
+spellings, old title and H1) - same backlog, not a new finding from this
+pass.
+Also checked live and unchanged: weight-loss-clinic-timperley.html, the
+old page linked from the homepage nav and still in the sitemap, still
+carries the full Regime 1 breach already recorded in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (Riddings Timperley is one
+of the seven branches listed there) - Mounjaro, Wegovy and Orlistat named,
+an efficacy superlative ("one of the most effective weight loss
+treatments"), an outcome slider claiming up to 22.5% body weight loss,
+and lead pricing at 39.99 pounds ahead of eligibility. This is worklist
+item 5.8's territory, already [BLOCKED] pending implementation, and
+Rishi's Q5 answer already sets the fix direction (strip the POM content,
+keep both URLs live pointing at the new pages), so no new question is
+raised here. The GBP pack's own Post C remains compliant (no medicine
+named, no efficacy claim) and is not implicated by this live page.
+
+RESULT: zero in-repo defects, no checker change, the pack file unchanged
+by this pass (only the earlier 4.5-pass bank holiday note present), one
+live-state correction recorded (the republish-without-paste finding
+above) feeding the existing 5.6/5.7 backlog rather than opening a new
+question, and the known 5.8 weight loss exposure reconfirmed unchanged.
+Evidence: this run's browser reads are not separately filed, since
+nothing found was new; the pack's paster notes are unchanged and remain
+current.
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.12 (Coleman and Leighs Pharmacy Walton GBP pack), sixth pass: pack clean on every fact for the sixth time, no repo defect; both previously-recorded gaps (road name, lunch-closure phrasing) now closed by other passes' fixes; Q76 re-confirmed still open, no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
