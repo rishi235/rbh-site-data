@@ -1,0 +1,54 @@
+McCanns Chemist Sandringham GBP pack - quality pass, seventh pass
+Run: unattended, 2026-08-30 16:39 BST (item 4.7 quality pass, sixth-oldest-standing rotation pick)
+
+REPO HALF
+- All six generators rebuilt to a zero diff against the committed worktree before any edit (status/index.html
+  and reports/digital/Digital_Audit_Status.html excluded, both timestamp-only regenerations unrelated to this
+  pack).
+- All 36 tools/check-*.js checkers pass, before and after.
+- check-gbp-packs.js --verbose confirms its own measured counts for this pack: desc=713 A=463 B=298 C=518
+  D=425.
+
+FACT-BY-FACT AGAINST branches.json (mccanns_sandringham)
+- Name: McCanns Chemist Sandringham - match.
+- Address: 1b Aigburth Road, Liverpool L17 4JP - match. Cross-checked against sibling mccanns_aigburth
+  (112 Aigburth Road, L17 7BP) to rule out the swapped-house-number class of defect the 4.7 second pass
+  (2026-08-12) found the checker blind to: distinct street numbers, postcodes, review links and phone numbers
+  confirmed on both records, no cross-contamination.
+- Phone: 0151 727 3076 - match (differs correctly from Aigburth's 0151 727 3185).
+- Review link: https://g.page/r/CbMDr1qOLqnrEAE/review - match (differs correctly from Aigburth's
+  CdDj9KyelDVyEAE).
+- Hours: Mon-Fri 09:00-13:00 and 14:00-18:00, Sat/Sun closed - match, split-day paster guidance present.
+- Catchment: "St Michael's, Aigburth, Lark Lane and Dingle" in that order in all three places in the pack -
+  match, consistent with the seoTown ordering item 5.7 (Q15) set.
+- hasApp: false, no app mentioned anywhere in the pack - match.
+- Description measured independently by line-range extraction: 713 characters exactly, text unchanged since
+  the sixth pass.
+- Post bodies measured independently by regex extraction: A=463, B=298, C=518, D=425, all exactly as claimed.
+- Non-ASCII sweep: 0 bytes above 0x7F in the file. Pure ASCII confirmed by direct byte read, not just the
+  checker's say-so.
+- Post C: no medicine named, no efficacy or outcome claim; re-swept for the RULE 12 / outcome-promise-patterns
+  wording the sixth pass added to this checker's coverage - clean.
+
+LIVE HALF, READ-ONLY GETs (one Chrome tab, opened and closed, nothing clicked, typed or submitted)
+- Answer pickup ran first: https://data.rbhealth.co.uk/api/feedback returned 13 entries (Q2-Q5, Q13-Q17,
+  duplicates from resubmission), none matching any of the 57 currently open questions. No unblock.
+- pharmacy-first-mccanns-sandringham.html: 200, in the branch sitemap. Title still the unpasted default
+  "Pharmacy First at McCanns Chemist, Sandringham - MCCANNS PHARMACY" and body text still has no
+  "St Michael's" string (checked directly against the fetched HTML) - the same live-lag recorded on every
+  prior pass, awaiting the queued Weebly repaste, not a new finding.
+- switch-prescriptions-mccanns-sandringham.html: 200.
+- weight-loss-clinic-mccanns-sandringham.html: 200.
+- travel-clinic-mccanns-sandringham.html: 200.
+- pharmacy-mccanns-sandringham.html (the profile website / landing page): 404, absent from the sitemap.
+  Re-confirms Q35, unchanged, still the reason the pack holds the paster back on the profile website field.
+- pharmacy-first-service-aigburth.html (the old shared pfLink still in branches.json): 200. branches.json
+  pfLink deliberately untouched; the live GBP repoint is item 5.3's business, still [BLOCKED].
+- Repo-generated pharmacy-first-mccanns-sandringham.html (modules/service/pages/) does lead with "St Michael's"
+  in both the H1 and the meta description, confirming the repo copy is correct and only the live paste lags.
+
+RESULT
+Seventh consecutive clean pass. No in-repo defect found this time (the sixth pass's outcome-promise-patterns
+fix and the second pass's identity-swap guard both re-verified as holding, nothing regressed). No new
+question raised. All findings already tracked: Q35 (profile page 404), the untitled/uncatchmented live Post A
+page (queued Weebly repaste), and item 5.3 (live pfLink repoint, blocked).

@@ -2414,6 +2414,29 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       restored to a clean worktree. All six generators rebuild to a zero
       diff and all 36 checkers pass. No new question.
       Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-29.txt.
+      Quality pass 2026-08-30: seventh pass, repo half clean and live half
+      performed. Every fact re-checked against branches.json, including a
+      cross-check against sibling mccanns_aigburth to rule out the
+      swapped-identity class the second pass found (distinct street number,
+      postcode, review link and phone confirmed on both records). Counts
+      measured independently rather than trusted: description 713, posts
+      463, 298, 518, 425, matching the pack's own claims and the checker's
+      --verbose output exactly. Zero non-ASCII bytes by direct byte read.
+      Post C re-swept against the outcome-promise-patterns wording the sixth
+      pass added: still clean, nothing regressed. All six generators rebuild
+      to a zero diff and all 36 checkers pass.
+      Live half: the four post targets (Pharmacy First, switch, weight loss
+      clinic, travel clinic) all return 200 and sit in the branch sitemap.
+      The profile-website landing page pharmacy-mccanns-sandringham.html
+      still 404s and is absent from the sitemap (Q35, unchanged, the pack
+      still holds the paster back on that field). The live Post A page still
+      serves the unpasted default title and has no "St Michael's" string in
+      its body (checked directly), while the repo-generated copy correctly
+      leads with St Michael's in both H1 and meta description - the same
+      queued-repaste lag recorded on every prior pass, not a new finding.
+      branches.json pfLink deliberately untouched (item 5.3's business,
+      still [BLOCKED]). No in-repo defect found this pass. No new question.
+      Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-30.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

@@ -1,4 +1,76 @@
-﻿## 2026-08-30 (item 2.1 quality pass) - Quality pass on 2.1 (Fishlocks Ainsdale), fifth pass: repo clean, live half performed, no defect, no new question
+## 2026-08-30 (item 4.7 quality pass) - Quality pass on 4.7 (McCanns Sandringham GBP pack), seventh pass: repo clean, live half performed, no defect, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass again.
+
+RUN START STATE. No .agent-lock, no .git\index.lock, no git process
+running before the lock was created for this run. Branch agents/audit-backlog
+fetched and pulled, level with origin (39932d6), worktree clean before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+thirteen entries returned (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17, several
+duplicated across timestamps). All entries map to questions already answered
+and recorded before this run; none of the 57 currently open questions had a
+matching answer, so no worklist item was unblocked. One tab opened and
+closed, nothing clicked, typed or submitted.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing authorisation"
+section with an unexpired end timestamp at the start of this run.
+
+WHY THIS ITEM. Scanned every dated quality-pass header in this log for the
+most recent pass date on each rotation candidate, excluding the established
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Every candidate had been
+touched on 2026-08-30 except 4.2 and 4.7, both last passed on 2026-08-29;
+4.7's sixth pass (fourth run that day) preceded 4.2's seventh pass (fifth
+run that day), so 4.7 held the oldest standing verification and was taken
+as this run's item.
+
+REPO HALF, CLEAN. All six generators rebuilt to a byte-identical worktree
+before any edit (status/index.html and the externally-published
+Digital_Audit_Status.html excepted, both timestamp-only and regenerated
+routinely). All 36 tools/check-*.js checkers pass, before and after.
+check-gbp-packs.js --verbose confirms its own measured counts for this pack:
+desc=713 A=463 B=298 C=518 D=425, matching the pack's self-claim exactly.
+
+Every fact re-verified against branches.json (mccanns_sandringham): name,
+address 1b Aigburth Road L17 4JP, phone 0151 727 3076, review link
+https://g.page/r/CbMDr1qOLqnrEAE/review, split-day hours with paster
+guidance, catchment "St Michael's, Aigburth, Lark Lane and Dingle" in that
+order in all three places, hasApp false with no app mention. Cross-checked
+against sibling mccanns_aigburth (112 Aigburth Road, L17 7BP, phone 0151 727
+3185, review link CdDj9KyelDVyEAE) to rule out the swapped-identity class
+the second pass (2026-08-12) found the checker blind to: no cross-
+contamination on either record. Description and all four posts measured
+independently by direct text extraction, not just trusted from the pack's
+own header: 713, 463, 298, 518, 425, all exact. Zero non-ASCII bytes by
+direct byte read of the file. Post C re-swept for the outcome-promise-
+patterns wording the sixth pass (2026-08-29) added to this checker's
+coverage: still clean, the fix holds, nothing regressed.
+
+LIVE HALF, READ-ONLY GETs. All four post targets
+(pharmacy-first-mccanns-sandringham.html, switch-prescriptions-mccanns-
+sandringham.html, weight-loss-clinic-mccanns-sandringham.html, travel-
+clinic-mccanns-sandringham.html) return 200 and sit in the branch sitemap.
+Known states re-confirmed, none re-raised: the profile-website landing page
+pharmacy-mccanns-sandringham.html still 404s and is absent from the sitemap
+(Q35, the pack holds the paster back on that field), the old shared pfLink
+pharmacy-first-service-aigburth.html still returns 200 and branches.json's
+pfLink field was deliberately left untouched (item 5.3, still [BLOCKED]),
+and the live Post A page still serves the unpasted default title
+("Pharmacy First at McCanns Chemist, Sandringham - MCCANNS PHARMACY") with
+no "St Michael's" string anywhere in its fetched body, while the repo's own
+generated copy of the same page correctly leads with St Michael's in both
+H1 and meta description - confirming the repo is correct and only the
+queued Weebly repaste is outstanding, the same lag recorded on every prior
+pass.
+
+RESULT. Seventh consecutive clean pass on this pack. No in-repo defect
+found this time. No new question raised.
+
+Files changed: AGENT_WORKLIST.md (4.7 note),
+audits/mccanns-sandringham-gbp-pack-check-2026-08-30.txt (new), AGENT_LOG.md.
+No question raised, none answered. Open questions 57 before, 57 after.
+## 2026-08-30 (item 2.1 quality pass) - Quality pass on 2.1 (Fishlocks Ainsdale), fifth pass: repo clean, live half performed, no defect, no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass again.
