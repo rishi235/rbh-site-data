@@ -2,7 +2,7 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
-## 2026-08-30 [commit HASHPENDING, hash line added by a small follow-up commit] - Quality pass on 3.7 (Smartts Chemist, Bootle), sixth pass: 12 pages clean on 2,354 independent checks, four new legs proved by mutation, live switch page still serving pre-repaste title and description
+## 2026-08-30 [commit ae94442, hash line added by a small follow-up commit] - Quality pass on 3.7 (Smartts Chemist, Bootle), sixth pass: 12 pages clean on 2,354 independent checks, four new legs proved by mutation, live switch page still serving pre-repaste title and description
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
