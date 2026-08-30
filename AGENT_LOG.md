@@ -1,3 +1,91 @@
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.10 (Smartts Chemist Bootle GBP pack), fifth pass: pack clean on every fact for the fifth time, no repo defect; eight injections run, all caught; live half unavailable (Q59), no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process running.
+Branch agents/audit-backlog fetched and pulled, level with origin, worktree
+clean before any edit.
+
+ANSWER PICKUP: NOT ATTEMPTED VIA THE API READ, BLOCKED EARLIER. Before
+reaching step 3, the Chrome browser tool itself returned 'multiple Chrome
+browsers connected, none selected for this session' on the very first
+navigate call and again on a second, unrelated attempt later in the run.
+This is Q59's standing two-Chrome-instances condition, still open since
+2026-08-12. Per the task's own instruction (never select a browser or
+attempt another route; this is a non-interactive run with no user to ask
+which browser), pickup was logged unavailable and the run continued.
+57 open questions before this run, 57 after (no new question raised).
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no 'Standing authorisation'
+section with an unexpired end timestamp, so step 8 would apply as written
+if a decision were needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. This run's predecessor (4.9) closed out the tied 2026-08-13
+cohort (4.9 being the oldest of it). Of the remaining group last verified
+before today, 4.10, 4.12, 4.13 and 4.14 all carry a fourth-pass date of
+2026-08-14, tied for oldest; 4.11 and 4.15 were excluded, both having been
+re-verified on 2026-08-29. Picked 4.10 as the lowest-numbered item in the
+tied group; no other ordering signal found in AGENT_WORKLIST.md or
+AGENT_LOG.md to break the tie.
+
+REPO HALF, ALL HOLDING. All 36 checkers run individually, 0 failures.
+check-gbp-packs.js's own summary: 21 estate-wide warnings, 0 failures;
+the one warning against this pack is the pre-existing live-only pfLink
+target note (pharmacy-first-service-bootle.html is not a page this repo
+generates), unchanged since the third pass. check-seo-lengths.js's own
+summary: 24 warnings, 0 failures; 8 of them are the pre-existing Q44
+shared-H1 pairs between this pack's pages and SK Chemists Bootle's,
+unchanged. Facts re-verified against branches.json: name Smartts Chemist,
+address 42 Fernhill Road, Bootle L20 9HH, phone 0151 922 4984, website,
+review link, both opening-hours sessions (09:00-13:00 and 14:00-18:00
+Monday to Friday, Saturday and Sunday closed), and the bank holiday note
+added on the item 4.5 pass earlier today. Catchment reads Bootle, Sefton
+and Liverpool in all three places, leading with its own seoTown. Widget
+set (bloodPressure, contraception, pharmacyFirst, weightLoss,
+travelClinic) fully covered. All six page-content generators re-run;
+git status empty afterwards, so nothing in the estate drifted.
+
+INJECTION TESTING, EIGHT MUTATIONS, ALL CAUGHT. Method: mutate a working
+copy of gbp-packs/smartts-bootle.md one change at a time, run all 36
+checkers, record failures, restore the original from a backup, repeat.
+1) Address street name changed Fernhill to Fernhall (the fourth pass's
+own fix, re-proved): caught by check-gbp-packs. 2) Phone swapped to SK
+Chemists Bootle's number: caught by check-gbp-packs. 3) A medicine name
+pair added to Post C: caught by check-gbp-packs. 4) An outcome claim
+added to Post C: caught by check-gbp-packs. 5) Postcode swapped to
+Fishlocks Ainsdale's: caught by check-gbp-packs and check-postcodes.
+6) Catchment order reversed: caught by check-gbp-packs. 7) An em dash
+substituted for the hyphen in Post A: caught by check-em-dashes. First
+attempt at this one targeted a substring that did not exist in the file
+(a capitalisation and wording mismatch on my part), silently matched
+nothing, and would have wrongly logged a miss; caught before being
+recorded, by checking the file actually changed, and re-run against the
+correct substring. 8) The split-hours lunch guidance bullet removed from
+the paster notes: caught by check-gbp-packs, the rule the pack's own
+first pass added. Zero genuine misses. Working copy confirmed byte-
+identical to HEAD after every restore and at the end of the run.
+
+LIVE HALF, NOT PERFORMED. The claude-in-chrome browser tool rejected the
+first navigate call with a two-connected-browsers selection error before
+any page was reached, and rejected a second, independent attempt the same
+way. Per the task's read-only, no-alternate-route instruction and the
+non-interactive nature of this run, no further browser attempt was made
+and no page was read. This matches Q59, open since 2026-08-12, and
+contradicts the most recent run's own log (4.9, this morning, which
+reported a successful fetch), so the underlying condition is evidently
+intermittent rather than fixed. Recommend Rishi treat Q59 as still live
+and, if he wants live-half checks to stop being intermittent, action one
+of its three options; no change made here, as this is exactly the
+decision Q59 already asks for and no new information changes the
+analysis.
+
+WORKLIST AND LOG. AGENT_WORKLIST.md item 4.10 gains a fifth quality pass
+paragraph dated 2026-08-30, in place, not moved. No item ticked from
+unchecked to checked, since 4.10 was already [x]. No new question raised;
+Q59 stands as is.
+
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.

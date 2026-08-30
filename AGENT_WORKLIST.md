@@ -2723,6 +2723,35 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       judgment is correct UK English in the legal register and a rule would
       create false positives, exactly the trap check-uk-spelling.js is
       written to avoid. Done 2026-08-14.
+      Fifth quality pass 2026-08-30: pack clean on every fact for the fifth
+      time running, no in-repo defect. All 36 checkers exit 0. Every fact
+      re-verified against branches.json: name, address (42 Fernhill Road,
+      Bootle L20 9HH), phone 0151 922 4984, website, review link, split
+      hours (09:00 to 13:00 and 14:00 to 18:00 Monday to Friday, Saturday
+      and Sunday closed) and the bank holiday note added on the item 4.5
+      pass. Catchment reads Bootle, Sefton and Liverpool in all three
+      places, leading with its own seoTown. check-gbp-packs.js's own
+      summary still carries one warning against this pack, the pre-existing
+      live-only pfLink target note, unchanged; check-seo-lengths.js still
+      carries the pre-existing Q44 shared-H1 warning against the eight
+      pages shared with SK Chemists Bootle, also unchanged. Eight
+      injections run one at a time against a working copy and reverted
+      after each, all caught, zero misses: road-name twin (Fernhill to
+      Fernhall, the fourth pass's own fix) and phone swapped to SK Chemists
+      Bootle's number both caught by check-gbp-packs; a medicine name pair
+      added to Post C and an outcome claim added to Post C both caught by
+      check-gbp-packs; the postcode swapped to Fishlocks Ainsdale's caught
+      by check-gbp-packs and check-postcodes; the catchment order reversed
+      caught by check-gbp-packs; an em dash substituted into Post A caught
+      by check-em-dashes (first attempt at this injection targeted the
+      wrong substring and wrongly logged a miss before the substring was
+      corrected and re-run); and the split-hours lunch guidance bullet
+      removed from the paster notes caught by check-gbp-packs, the rule
+      the first pass added. All six generators rebuilt to a zero diff.
+      Live half not performed: the browser tool returned the two-Chrome-
+      instances selection error on the first call (Q59's standing
+      condition, still open), so no browser call beyond that one rejected
+      attempt was made. No new question. Done 2026-08-30.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
