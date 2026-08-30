@@ -113,13 +113,21 @@ function htmlToText(html) {
 
 // Every line (plus its neighbours) that mentions a weekday. Neighbours are
 // kept because Weebly often puts "Monday - Friday" and the times on
-// separate lines.
+// separate lines. The window is 6 lines BEFORE and 2 after: on a
+// multi-branch page the branch heading sits above its hours card, and a
+// 1-line leading window dropped it while the 2-line trailing window kept
+// the NEXT card's heading, so the 2026-08-30 run's raw snippets read as
+// Bramhall Sat Closed / Hazel Grove Sat 9am-1pm on the Scorah contact
+// page - the exact swap of the truth, resolved only by re-reading the
+// live DOM. Six leading lines reach past the t/f/e contact lines to the
+// card's own postcode or address line, which names the branch. Do not
+// narrow the leading window.
 function daySnippets(text) {
   var lines = text.split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean);
   var keep = {};
   lines.forEach(function (l, i) {
     if (DAY_RE.test(l)) {
-      for (var j = Math.max(0, i - 1); j <= Math.min(lines.length - 1, i + 2); j++) keep[j] = 1;
+      for (var j = Math.max(0, i - 6); j <= Math.min(lines.length - 1, i + 2); j++) keep[j] = 1;
     }
   });
   var out = [];

@@ -4502,6 +4502,27 @@ so tools/build-audit-status.js picks them up like any other item.
       byte-identical, before and after. No question raised. Evidence:
       audits/opening-hours-rule7-negative-tests-2026-08-14.ps1. Done
       2026-08-14.
+      Third quality pass 2026-08-30, both halves. Repo half: rule 7
+      re-proved by injection (the FAQ prose hours claim was caught on the
+      generated pages, checker exit 1, tree restored to a zero diff, all
+      static checkers green). Live half, first since 2026-08-12:
+      check-live-hours.js across all 14 trading branches (evidence
+      audits/live-hours-check-2026-08-30.json), the first read with the
+      6.7 bank holiday labelling active - 2026-08-31 (Summer bank
+      holiday, tradingPolicy closed) was flagged by the tool. Verdicts:
+      thirteen branches match branches.json; Smartts still publishes
+      straight-through Mon-Fri hours with no lunch closure on the
+      homepage card, the NAP line and the contact page, so Q55 stands as
+      raised. ONE SURVEY-TOOL DEFECT FOUND AND FIXED: the snippet window
+      (1 line before each weekday line, 2 after) dropped each hours
+      card's own heading while keeping the NEXT card's, so the raw
+      snippets read the Scorah contact page as Bramhall Sat Closed and
+      Hazel Grove Sat 9am-1pm, the exact swap of the truth; a read-only
+      look at the live DOM shows the first card is Hazel Grove (Sat
+      Closed, correct) and the second Bramhall (Sat 9am-1pm, correct).
+      Leading window widened to 6 lines so each card carries its own
+      address or postcode line; today's audit JSON regenerated and now
+      reads correctly without leaving the file.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

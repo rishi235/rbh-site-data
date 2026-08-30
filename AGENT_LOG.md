@@ -1,6 +1,90 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 6.3 (opening hours vs branches.json), third pass: live half re-read for the first time since 2026-08-12, thirteen branches match, Smartts mismatch stands (Q55), one survey-tool defect fixed after the raw snippets manufactured a false Scorah Saturday swap
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass. By the
+standing staleness projection (5.2, then 6.3, then the 08-14 pack passes)
+and with 5.2 taken last run, 6.3 is stalest, last passed 2026-08-14 (run
+202, repo half only). Taken, its third pass, both halves this time.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as recent pickups, read through one browser tab, opened
+and closed, nothing clicked, typed or submitted. Every entry maps to an
+already answered question (Q2-Q5, Q13-Q17). 56 open before, 56 after.
+
+NO AUTONOMOUS WINDOW. The only standing authorisation section in this log
+remains the 2026-08-09 one, expired 2026-08-10. Nothing was decided
+autonomously; nothing needed deciding.
+
+RUN START STATE. No .agent-lock, no .git index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 35 static
+checkers green and all six generators rebuilt to a zero diff before any
+edit.
+
+REPO HALF. Rule 7 (the containment rule added on the 202nd run) re-proved
+by injection rather than assumed: the original defect case, an FAQ prose
+hours claim ("We are open Monday to Friday, 9am to 6pm."), was patched
+into build-branch-landing-pages.js and check-opening-hours failed exactly
+as designed ("9am is printed outside the opening hours card", exit 1,
+100 clock times swept). Generator restored, pages rebuilt, checker green,
+porcelain clean. No repo defect in the item's own guard.
+
+LIVE HALF, FIRST SINCE 2026-08-12. The two-Chrome fault that blocked
+thirty-nine consecutive runs (Q59) is not present today: the browser
+answered both the step 3 pickup and one verification read. 
+check-live-hours.js ran read-only across all 14 trading branches,
+evidence in audits/live-hours-check-2026-08-30.json. First live read
+with the 6.7 bank holiday labelling active: the tool flagged 2026-08-31
+(Summer bank holiday, tradingPolicy closed estate-wide per Q79) so a
+one-off Closed day near tomorrow is the holiday, not a weekly-hours
+defect. No such snippet appeared; every site states weekly hours only,
+consistent with policy.
+
+VERDICTS, READ SNIPPET BY SNIPPET AGAINST branches.json. Thirteen
+branches match: Scorah x2, McCanns x2, Fishlocks x2 (the 8.45am start
+and Sat Closed sit on the 17 Station Road card, the 9am-6pm Sat 9-12 on
+the Carrington Centre card, both right), Hirshmans, SK Chemists, Coleman
+and Leigh, Riddings, Gordon Short (Sat 9-5 with the 1-2pm closure equals
+the split day), Cherry Lane, Tiffenbergs. Smartts is still the sole
+mismatch: homepage card, NAP line and contact page all publish
+straight-through Mon-Fri 9am-6pm / 09:00-18:00 against the NHS-sourced
+1pm-2pm lunch closure. Q55 stands as raised, no duplicate raised.
+
+ONE SURVEY-TOOL DEFECT FOUND AND FIXED. The raw snippets for the Scorah
+contact page read as Bramhall Sat Closed / Hazel Grove Sat 9am-1pm, the
+exact swap of the truth, because daySnippets() kept 1 line before each
+weekday line and 2 after: the card's own heading (which sits 6-9 lines
+above, past the t/f/e contact lines) was dropped, while the NEXT card's
+heading was kept as a trailing label. Resolved by a read-only look at
+the live DOM in one browser tab (nothing clicked, typed or submitted):
+the first card is headed Scorah Hazel Grove (Sat Closed, correct for
+Hazel Grove) and the second Scorah Bramhall (Sat 9am-1pm, correct for
+Bramhall). No live defect and no question raised. The fix widens the
+leading window to 6 lines so each card carries its own address or
+postcode line inside its snippet; the tool still decides nothing, it
+just stops actively inviting the wrong verdict. Today's audit JSON was
+regenerated with the fix and now reads correctly file-alone. A future
+reader should trust the LEADING label in a snippet, not a trailing one.
+
+FACT NOTED, NOT RE-RAISED. The Scorah contact page card prints "61-63
+North Park Road" for Bramhall where branches.json and the generated NAP
+block hold "61 North Park Road". Weebly-native site furniture in the
+same class Q39 already queues for the supervised Weebly sweep; noted for
+that sweep.
+
+FILES CHANGED
+- tools/check-live-hours.js (leading snippet window 1 -> 6 lines, with
+  the reasoning in the header)
+- audits/live-hours-check-2026-08-30.json (regenerated with the fix)
+- AGENT_WORKLIST.md (6.3 entry appended in place)
+- AGENT_LOG.md (this entry)
+
+No page, generator, data field or piece of patient-facing copy changed.
+No new question: 56 open before, 56 after. Next stalest by the standing
+projection: the 08-14 pack passes, 4.5 first, then 4.6, 4.8.
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 5.2 (six branch landing pages), fifth pass: repo half clean on 36 checkers and a zero-diff rebuild, one stale-data defect fixed in branches.json, all six landing URLs re-confirmed 404 live
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
