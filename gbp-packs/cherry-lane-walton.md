@@ -7,14 +7,18 @@ Ready for Rishi or Dane to paste into GBP.
 IMPORTANT before posting: the Cherry Lane build (worklist item 2.3) is
 done - the full 12-page set is in the repo and verified live on
 cherrylanepharmacy.co.uk (2026-08-04), so Posts A to D can all be used.
-One live-site caveat remains: the Pharmacy First overview embed is a stale
-paste (shows five conditions as coming soon although all seven are live) -
-repaste it when convenient. The old weight loss page caveat is cleared:
-verified 2026-08-12, the Q5 hand edit is done on
+The Pharmacy First overview embed caveat is cleared: verified live
+2026-08-30 on pharmacy-first-cherry-lane-walton.html, all seven
+conditions show normally with no "coming soon" placeholder text anywhere
+on the page (the stale paste flagged on the 2026-08-12 second quality
+pass has since been repasted). The old weight loss page caveat is also
+cleared: verified 2026-08-12, the Q5 hand edit is done on
 weight-loss-clinic-walton.html - the page now carries only a short
 signpost to the new Weight Loss Clinic page, names no medicines and shows
 no pricing, and it stays live for rank as Q5 decided. Post C still links
-only the new page.
+only the new page. Note: the live footer's NHS mailbox reads
+pharmacy.FA226@mhs.net on this page, the Q36 typo, unchanged and already
+tracked there; not repeated as a fresh finding here.
 
 Profile basics (for checking, not pasting):
 - Name on GBP: Cherry Lane Pharmacy

@@ -1,3 +1,91 @@
+## 2026-08-30 (item 4.2 quality pass, eighth) - Pack re-verified clean, one caveat cleared live, one generator regression found and fixed at source
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched and pulled, level with origin (882e66a),
+worktree clean before any edit.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback and read all
+entries returned (Q59's two-signed-in-instances block did not recur this
+run - the fetch worked cleanly). Every entry present maps to a question
+already marked "answered" (Q2-Q5, Q13-Q22, Q24, Q28, Q29); none of the
+currently open questions (Q34 onward) have an answer in the feed. No
+QUESTIONS.json status changes this run.
+
+NO AUTONOMOUS WINDOW. Top of AGENT_LOG.md carried no "Standing
+authorisation" section with an unexpired end timestamp at the start of
+this run.
+
+ITEM SELECTION: every unchecked line in AGENT_WORKLIST.md is [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) - nothing pickable under step 5's
+first branch, so this run took the quality-pass branch instead. The prior
+run's own log entry had already worked out the correct rotation pick and
+left an explicit instruction: "Next unattended run should take 4.2, not
+continue the 5.7 thread." Followed that rather than re-deriving it, and
+confirmed 4.2's own worklist entry agrees - its most recent quality pass
+was 2026-08-29 (seventh), the oldest of any non-one-off item.
+
+WHAT WAS DONE: gbp-packs/cherry-lane-walton.md re-verified fact by fact
+against branches.json - address, phone, hours, website and review link
+all match, and townSlug/seoTown/serviceAreaList agree with the pack's own
+framing. The two length claims (description 736; posts 449, 348, 403,
+318) were recomputed independently rather than trusted, using the same
+wrapped-line-join method tools/check-gbp-packs.js uses (desc.replace(/
+\s*\n\s*/g, " ").trim() before counting) - exact match on all five
+numbers. All 34 checkers under tools/ run clean, zero failures; the
+pack's only warning is the already-tracked Q72 private-clinic-qualifier
+exception, unchanged.
+
+LIVE VERIFICATION: pharmacy-first-cherry-lane-walton.html and
+weight-loss-clinic-walton.html both read live. The Pharmacy First page
+now shows all seven conditions normally, with no "coming soon" text
+anywhere on the page (checked via page text extraction and a raw
+case-insensitive scan of body.innerText) - the stale-embed caveat this
+pack has carried since the 2026-08-12 second quality pass is cleared, and
+the pack's intro note has been rewritten to say so. The old weight loss
+page still carries its Q5 signpost (no medicine names, no pricing) and
+stays live for rank as Q5 decided - unchanged. Both live pages' footers
+still read the NHS mailbox as pharmacy.FA226@mhs.net, which is the
+already-open Q36 finding (a Weebly-native footer element no generator
+here owns), unchanged since it was last read; not raised as a new
+question, but noted directly in the pack so the next pass does not have
+to rediscover it from scratch.
+
+REGRESSION FOUND AND FIXED, not from this pack but surfaced by rebuilding
+all six generators as part of verifying it: build-branch-landing-pages.js
+regenerated modules/branch/pages/INDEX.md different from what is
+committed, reverting "not just Fishlocks Chemist" back to "not just
+Fishlocks". That is the exact brand-spelling defect the item 5.7 run
+fixed earlier today - except that run hand-edited the generated INDEX.md
+itself rather than its generator, on the mistaken belief (stated in that
+run's own log entry) that INDEX.md is "hand-authored... with no
+generator". It is not: line 391 of build-branch-landing-pages.js
+hardcodes the sentence as a literal string and fs.writeFileSync's the
+whole file every run, so the hand fix was silently overwritten the next
+time anyone ran the generator - which is exactly what happened when this
+pass rebuilt it for verification. Fixed at the correct source this time:
+the generator's own string now reads "not just Fishlocks Chemist",
+verified as a single-line diff, and regenerating now reproduces the
+committed INDEX.md byte for byte. All 34 checkers re-run clean
+afterwards, including check-brand-spelling.js. Lesson for future runs:
+before hand-editing any file under modules/, grep the relevant tools/
+generator for the exact string first - CLAUDE.md's own architecture note
+says pages are generated and generators must be the one written to, and
+this file is Exhibit A for why a plausible-sounding exception to that
+rule needs checking against the generator source, not just against
+whether the file "looks" hand-authored.
+
+Files changed: tools/build-branch-landing-pages.js (the one-line source
+fix), gbp-packs/cherry-lane-walton.md (caveat update), AGENT_WORKLIST.md,
+AGENT_LOG.md. modules/branch/pages/INDEX.md and the other five
+generators' output were rebuilt during verification and reproduce the
+committed state exactly, so nothing generated changed in this commit.
+No file hand-edited that a generator owns without also fixing and
+regenerating from the generator. No question raised: no worklist item
+was blocked or unblocked by this pass, and the two live findings (the
+cleared embed caveat, the still-open Q36 footer typo) are recorded rather
+than requiring a fresh decision.
+
 ## 2026-08-30 (answer pickup: Q22, Q24, Q28, Q29; item 5.7 quality pass) - Two answer-pickup decisions applied to the repo, two recorded with no repo action, one checker regression introduced and fixed, 5.7 re-verified
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

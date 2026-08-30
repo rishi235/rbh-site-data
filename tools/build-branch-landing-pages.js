@@ -388,7 +388,7 @@ var md = "# Branch landing pages - paste manifest\n\n" +
   "branch: pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,\n" +
   "travel-clinic-, contraception-), and all thirty returned 200. The paste\n" +
   "order constraint in the paragraph above is therefore already satisfied for\n" +
-  "ALL THREE pairs, not just Fishlocks: each of the six landing pages can be\n" +
+  "ALL THREE pairs, not just Fishlocks Chemist: each of the six landing pages can be\n" +
   "pasted on its own, in any order, and no link on it will 404. The only thing\n" +
   "between the shared-domain split and a visitor or Google is the six Weebly\n" +
   "pastes themselves. The six packs in gbp-packs/ each set the Google profile\n" +

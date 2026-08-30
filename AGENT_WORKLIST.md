@@ -1805,6 +1805,40 @@ Pharmacy First wording to the NHS service description.
       stripping lead-ins before its seoTown comparison so the three
       "across <seoTown>" packs stay green on their own correct copy. See
       audits/cherry-lane-gbp-pack-check-2026-08-29.txt.
+      Quality pass 2026-08-30 (eighth): pack re-verified fact by fact
+      against branches.json (address, phone, hours, website, review link
+      and service area all match), and the two length claims recomputed
+      with the same wrapped-line-join method check-gbp-packs.js uses
+      (description 736, posts 449, 348, 403, 318) - exact match, nothing
+      wrong. All 34 checkers in tools/ pass clean, cherry-lane-walton.md's
+      only warning is the already-tracked Q72 exception. All six page
+      generators rebuilt: modules/branch/pages/INDEX.md came back
+      different from what was committed, a regression - see below.
+      Live pages re-read: pharmacy-first-cherry-lane-walton.html now shows
+      all seven Pharmacy First conditions live with no "coming soon" text
+      anywhere on the page, so the stale-embed caveat this pack has
+      carried since 2026-08-12 is cleared; pack updated to record this.
+      weight-loss-clinic-walton.html still carries its Q5 signpost, no
+      medicine names, no pricing - unchanged. The live footer's NHS
+      mailbox on both pages read pharmacy.FA226@mhs.net, the already-open
+      Q36 typo, unchanged; not raised again, noted in the pack instead so
+      the next pass does not need to rediscover it.
+      REGRESSION FOUND AND FIXED: rebuilding
+      tools/build-branch-landing-pages.js reverted
+      modules/branch/pages/INDEX.md's "not just Fishlocks Chemist" back to
+      "not just Fishlocks", undoing the item 5.7 run's 2026-08-30
+      brand-spelling fix. That fix had been made by hand-editing the
+      generated INDEX.md rather than the generator, on the mistaken belief
+      recorded in that run's own log entry that INDEX.md is hand-authored
+      with no generator; it is not - line 391 of
+      build-branch-landing-pages.js hardcodes the sentence and rewrites
+      the whole file on every run. Fixed at the correct source this time:
+      the generator's own string now reads "not just Fishlocks Chemist",
+      and regenerating now reproduces the committed INDEX.md byte for
+      byte. All 34 checkers re-run clean afterwards, including
+      check-brand-spelling.js. Files changed this pass:
+      tools/build-branch-landing-pages.js, gbp-packs/cherry-lane-walton.md.
+      Done 2026-08-30
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
