@@ -1,0 +1,46 @@
+Item 1.3 quality pass, seventh pass - 2026-08-30
+==================================================
+
+Full check-postcodes.js --verbose run (post-fix, clean state):
+----------------------------------------------------------------
+Postcodes found:
+  CH49 1SX  (not in branches.json)  10 file(s)
+  L17 4JP  mccanns_sandringham  34 file(s)
+  L17 7BP  mccanns_aigburth  34 file(s)
+  L20 5DW  skchemists_bootle  32 file(s)
+  L20 9HH  smartts_bootle  31 file(s)
+  L23 3AT  gordonshorts_crosby  30 file(s)
+  L4 6TH  colemanleigh_liverpool  29 file(s)
+  L4 8SG  cherrylane_liverpool  37 file(s)
+  L9 7AS  clearchemist_aintree  17 file(s)
+  L9 9DB  tiffenbergs_longmoor  29 file(s)
+  PR7 5SX  (not in branches.json)  2 file(s)
+  PR7 5SZ  fishlocks_eccleston  31 file(s)
+  PR8 3HN  fishlocks_ainsdale  37 file(s)
+  PR8 3HW  hirshmans_ainsdale  36 file(s)
+  PR9 0LH  (not in branches.json)  3 file(s)
+  SK7 1BJ  (not in branches.json)  5 file(s)
+  SK7 3LQ  scorah_bramhall  39 file(s)
+  SK7 6BG  scorah_hazel  31 file(s)
+  WA15 6BP  riddings_timperley  29 file(s)
+
+WARN  UNOWNED gbp-packs/TEMPLATE.md carries PR8 3HN but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/INDEX.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/SEO.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+
+468 text files scanned, 19 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+
+Negative test (proved before fixing, then reverted):
+------------------------------------------------------
+Injected into gbp-packs/mccanns-sandringham.md (temporary, not committed):
+  'McCanns Chemist Sandringham map link https://maps.example.com/dest=l177bp'
+  (Aigburth's L17 7BP, fused, lowercase, no separator, on a line naming Sandringham)
+
+BEFORE fix (PC_RE_LOOSE separator required, {1,10}): 0 failures, exit 0 - MISSED
+AFTER fix (PC_RE_LOOSE separator optional, {0,10}):
+  FOREIGN  gbp-packs/mccanns-sandringham.md: owned by mccanns_sandringham (L17 4JP) but carries L17 7BP (mccanns_aigburth)
+  MISATTRIB gbp-packs/mccanns-sandringham.md:184: line names McCanns Chemist Sandringham (L17 4JP) but carries L17 7BP (mccanns_aigburth)
+  2 failure(s), exit 1 - CAUGHT
+
+Injection reverted (git checkout), full 36-checker suite re-run clean,
+all six generators regenerated to byte-identical output.

@@ -1,3 +1,95 @@
+## 2026-08-30 (item 1.3 quality pass, seventh) - Fused lowercase postcode with no separator at all read by nothing; PC_RE_LOOSE's separator made optional
+
+Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
+process running before the lock was created for this run. Branch
+agents/audit-backlog fetched, level with origin, worktree clean before any
+edit.
+
+ANSWER PICKUP. Fetched https://data.rbhealth.co.uk/api/feedback (one
+browser tab, read-only, opened and closed, nothing clicked, typed or
+submitted) and read all 26 entries returned (Q2-Q5, Q13-Q22, Q24, Q28,
+Q29, several duplicated). Cross-checked every one against QUESTIONS.json:
+all already marked "answered", confirmed by direct status lookup on each
+id. No status changes, nothing to apply.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run. Nothing decided autonomously.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - checked each
+against QUESTIONS.json directly: Q8, Q9, Q13 and Q16 are answered but
+their fixes are explicitly out of an unattended run's authorisation (Q13
+needs a push to a branch other than agents/audit-backlog; Q9 needs a hand
+edit in the Weebly editor; Q8 needs a Weebly paste on the critical path;
+Q16 was re-asked as Q22 and Q22's answer is "unsure, will produce
+guidance"), and Q52, Q60 and Q66 are still open with no answer. So this
+run took the quality-pass branch, consistent with every run today.
+Delegated the staleness ranking to a subagent instructed to extract every
+"## 2026-..." header from this log and rank the rotation pool (36 items:
+all 43 checked items minus the 7 established one-offs 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) by the date of each item's most recent quality-pass header.
+Result: item 1.3 (McCanns Sandringham postcode sweep) last passed
+2026-08-30 01:12 BST, the sixth pass and the FIRST rotation-pool item
+touched today; every other pool item had a later same-day pass, right up
+to 4.3's sixth pass at the top of the log before this entry. 1.3 taken.
+
+REPO HALF, CLEAN BEFORE TOUCHING ANYTHING. All 36 tools/check-*.js
+checkers run individually: zero failures. All six generators
+(build-branch-landing-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages,
+build-contraception-pages) rebuilt from the clean checkout: git status
+--porcelain empty afterwards, so all 177 pages reproduce the committed
+state byte for byte.
+
+LIVE HALF, READ-ONLY. pharmacy-first-mccanns-sandringham.html re-fetched
+and read in full: Sandringham contact block correctly shows 1b Aigburth
+Road, Liverpool, L17 4JP; the Aigburth footer block correctly shows 112
+Aigburth Rd, L17 7BP; no CH49 anywhere on the page. Standing blemishes
+(Sandrigham typo in the footer address line, "McCann's Pharmacy - Aigburth"
+naming inconsistency) seen and left under Q39, unchanged from the sixth
+pass three hours earlier.
+
+THE DEFECT, PROVED BY INJECTION BEFORE FIXING. check-postcodes.js's
+PC_RE_LOOSE regex had its separator group written as REQUIRED ({1,10}),
+a deliberate choice from the fifth pass to stop a case-insensitive match
+reading CSS hex colours and git hashes as postcodes. That requirement
+had a blind spot nobody had named: a postcode with NO separator between
+outward and inward code, in lower case. The strict PC_RE already reads a
+FUSED postcode in uppercase (its own separator is optional, \s?), so
+"L177BP" was always caught; "l177bp" was not, because PC_RE is
+uppercase-only and PC_RE_LOOSE's separator was mandatory. Proved before
+fixing: appended a test line to gbp-packs/mccanns-sandringham.md - "McCanns
+Chemist Sandringham map link https://maps.example.com/dest=l177bp" -
+Aigburth's postcode, fused, lowercased, on a line naming the Sandringham
+branch by name. This is the exact MISATTRIB shape rule 6 was written to
+catch (a real postcode, on the wrong branch, on a line naming that
+branch), and it passed all 36 checkers in silence: 0 failures, exit 0.
+
+THE FIX. PC_RE_LOOSE's separator quantifier widened from {1,10} to
+{0,10}, so zero separators is now a valid match. The INTEREST bound
+(unchanged, and the reason this is safe) still requires any loose match
+to canonicalise to a postcode the repo already has a position on - a
+branches.json value, live or disposed, or a named historical value - so
+this cannot start reading arbitrary six-character runs out of hex
+colours, hashes or slugs elsewhere in the file; that bound is exactly
+what the separator requirement existed to back up, and it still holds
+with the requirement gone. Documented inline at the regex with the same
+"proved before fixing" narrative future passes have relied on.
+Negative-tested: re-ran the same injection after the fix and it now fails
+both FOREIGN (gbp-packs/mccanns-sandringham.md: owned by
+mccanns_sandringham but carries mccanns_aigburth's postcode) and
+MISATTRIB (line names McCanns Chemist Sandringham but carries L17 7BP),
+exit 1. Injection reverted (git checkout), full 36-checker suite re-run
+clean, all six generators regenerated to byte-identical output - only
+tools/check-postcodes.js differs from the committed state before this
+run's edits.
+
+FILES CHANGED. tools/check-postcodes.js (the widening and its comment),
+AGENT_WORKLIST.md (1.3 seventh-pass note), AGENT_LOG.md (this entry),
+audits/mccanns-sandringham-postcode-check-2026-08-30-seventh.txt
+(evidence, including the before/after injection result). No page, pack
+or data file edited. No new question.
 ## 2026-08-30 (item 4.3 quality pass, sixth) - Pack itself clean, but the pass surfaces an eighth live weight-loss legacy page (Q85) and reconfirms the item 5.1 live paste-lag at Hirshmans
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git

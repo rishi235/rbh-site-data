@@ -3852,6 +3852,27 @@ appended to the line. Do not move them; the status page reads them in place.
       after, the same three standing UNOWNED. No new question. Done
       2026-08-30. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-08-30.txt.
+      Quality pass 2026-08-30 (seventh pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to the audit
+      narrating itself; L17 4JP correct in branches.json and used across
+      the estate; the live Pharmacy First page re-verified, both McCanns
+      contact blocks correct, no CH49 anywhere. All 36 checkers pass, all
+      six generators byte-identical, only the checker changed. The defect
+      was in check-postcodes.js for the seventh time: PC_RE_LOOSE's
+      separator was REQUIRED ({1,10}), so a fused postcode with no
+      separator at all - lower case, no space, no punctuation - was unread
+      by all six rules at once, on top of the plain uppercase form PC_RE
+      already read fused. Proved before fixing: Aigburth's postcode fused
+      and lowercased ('l177bp') on a line naming McCanns Chemist
+      Sandringham in gbp-packs/mccanns-sandringham.md - the exact
+      MISATTRIB shape rule 6 exists to catch - passed all 36 checkers in
+      silence. Fix: the separator group made optional ({0,10}), still
+      INTEREST-bounded so it cannot start reading hex colours, hashes or
+      slugs elsewhere as postcodes. Negative-tested: the injection above
+      now fails as both FOREIGN and MISATTRIB; reverted, then fixed; full
+      36-checker suite and all six generators re-run clean afterwards. No
+      new question. Done 2026-08-30. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-08-30-seventh.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

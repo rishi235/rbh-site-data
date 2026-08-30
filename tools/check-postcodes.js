@@ -152,7 +152,26 @@ var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 // plus-joined token only counts if it canonicalises to a postcode the repo
 // already has a position on, so date ranges, CSS tokens and street-number
 // ranges like 61-63 stay unread.
-var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){1,10}([0-9][A-Za-z]{2})\b/g;
+//
+// Widened again on the item 1.3 quality pass 2026-08-30 (seventh pass): the
+// separator is now OPTIONAL (0 or more), not required. Proved first: a
+// lowercase, no-separator postcode ("l177bp", Aigburth's L17 7BP with no
+// space) written on a line naming McCanns Chemist Sandringham in
+// gbp-packs/mccanns-sandringham.md - the exact MISATTRIB shape rule 6 exists
+// to catch - passed all 36 checkers in silence, because PC_RE is
+// uppercase-only and PC_RE_LOOSE's separator group was written as {1,10}, so
+// a fused lowercase pair matched neither. The strict PC_RE already reads a
+// fused UPPERCASE postcode ("L177BP") via its own optional \s?; the loose
+// pattern had no equivalent for mixed or lower case. The INTEREST bound is
+// what keeps a zero-separator match safe: a fused token only counts if it
+// canonicalises to a postcode the repo already has a position on, so it
+// cannot start reading arbitrary six-character runs out of hex colours,
+// hashes or slugs elsewhere in the file - the exact risk the comment above
+// this one warns against, and the reason the separator was required in the
+// first place. Negative-tested: the injection above now fails as MISATTRIB;
+// reverted after proving it, then fixed; all 36 checkers and all six
+// generators re-run clean afterwards.
+var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){0,10}([0-9][A-Za-z]{2})\b/g;
 
 function norm(pc) { return String(pc || "").toUpperCase().replace(/\s+/g, " ").trim(); }
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }
