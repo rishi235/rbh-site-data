@@ -2614,6 +2614,18 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       documented "Unit" exclusion in the run 163 rule's own comment.
       Evidence:
       audits/clear-aintree-gbp-pack-check-2026-08-13.txt. Done 2026-08-13
+      Quality pass 2026-08-30 (sixth pass): pack clean on every fact
+      and every rule for the sixth time, no repo defect. All 36
+      checkers 0 failures; check-gbp-packs.js's only warning against
+      this pack remains the pre-existing Q28 documentation flag. All
+      six page-content generators re-run, worktree byte-stable. Live
+      half re-read: contact page still publishes 0151 203 6535 and no
+      8365 (Q28 unchanged), Clear's own WhatsApp 07512 330 076 still
+      distinct from the estate-wide hardcoded number (Q21's concrete
+      case, unchanged), hours unchanged, and all three post-target
+      URLs still 404 (Q29 unchanged, homepage-button workaround still
+      correct). No new question raised. Evidence:
+      audits/clear-aintree-gbp-pack-check-2026-08-30.txt. Done 2026-08-30
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

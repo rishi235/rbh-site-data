@@ -1,0 +1,57 @@
+Clear Chemist Aintree GBP pack - quality pass, 2026-08-30 (sixth pass)
+Item 4.9. Unattended run, agents/audit-backlog.
+
+REPO HALF
+- Facts re-verified against branches.json (clearchemist_aintree): name
+  "Clear Chemist", address Unit 20 Brookfield Trade Centre, Brookfield
+  Drive, Aintree, Liverpool L9 7AS, phone 0151 203 8365, website
+  https://www.clearchemist.co.uk, review link
+  https://g.page/r/CYTJCk0EpvxFEAE/review, serviceAreaList (Aintree,
+  Fazakerley, Walton, Bootle, North Liverpool) matching the pack's
+  catchment list and order, seoTown Aintree leading the description,
+  hasApp true, pfBooking false and no pfLink (no Pharmacy First post),
+  no blood pressure or contraception widgets, weightLoss and
+  travelClinic widget ids present matching the two private-service
+  posts. All match.
+- Business description re-measured: 669 characters, matching the
+  pack's own heading claim, well under the 750 limit.
+- check-gbp-packs.js: 0 failures, 21 warnings estate-wide; the only
+  warning against this pack is the pre-existing Q28 flag that
+  0151 203 6535 is not Clear's branches.json number, which the pack
+  deliberately documents and holds back from posting.
+- All 36 tools/check-*.js run individually: 0 failures across the
+  board.
+- All six page-content generators (build-branch-landing-pages,
+  build-service-pages, build-switch-pages, build-travel-clinic-pages,
+  build-weight-loss-pages, build-contraception-pages) re-run; git
+  status clean afterwards, so the estate has not drifted since the
+  last pass. (build-status-page.js and build-audit-status.js are
+  unrelated to this item and were not part of the verification; an
+  accidental status/index.html regeneration from an earlier blanket
+  build-*.js sweep in this run was reverted with git checkout before
+  anything was staged.)
+
+LIVE HALF (read-only, Chrome, GET/read only, nothing clicked or
+submitted)
+- https://www.clearchemist.co.uk/contact-us: still publishes
+  "Customer Services Telephone: 0151 203 6535" and no mention of
+  0151 203 8365 anywhere on the page. Q28 unchanged.
+- Same page still advertises "WhatsApp us - 07512 330 076" as Clear's
+  own number, distinct from the estate-wide hardcoded WhatsApp number
+  used elsewhere in the repo (Q21's concrete case). Unchanged.
+- Opening hours as published: "Non-NHS Services - Monday - Friday
+  8am-4.30pm", "NHS Services - Monday - Thursday 8am - 6pm", "not open
+  on bank holidays and weekends" - matches the pack's own recorded
+  starting point, still not something branches.json can express as a
+  single hours block, still correctly withheld from GBP per the pack.
+- All three post-target URLs re-checked and still 404 live:
+  /switch-prescriptions-clear-aintree.html,
+  /weight-loss-clinic-clear-aintree.html,
+  /travel-clinic-clear-aintree.html. Q29 unchanged; the pack's
+  homepage-button workaround for all three posts remains correct.
+
+RESULT
+No in-repo defect found. No new live defect found. The three known,
+already-tracked divergences (Q28 phone number, Q29 no paste route /
+three 404s, Q21's WhatsApp concrete case) are unchanged in shape and
+severity. No new question raised.

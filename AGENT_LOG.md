@@ -1,6 +1,78 @@
 # AGENT LOG - hourly audit-backlog runs
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
+## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.9 (Clear Chemist Aintree GBP pack), sixth pass: pack clean on every fact and rule for the sixth time, no repo defect; live half re-checked, all three known divergences (Q28 phone, Q29 three 404s, Q21 WhatsApp concrete case) unchanged, no new question
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+
+RUN START STATE. No .agent-lock, no .git index.lock, no git process running.
+Branch agents/audit-backlog fetched and pulled, level with origin, worktree
+clean before any edit.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. One Chrome tab opened to
+https://data.rbhealth.co.uk/api/feedback and closed after reading; nothing
+clicked, typed or submitted. The 13 JSON entries returned (Q17, Q16, Q15,
+Q13, Q14, Q5, Q4 x2, Q3 x2, Q2 x2) are all already recorded as answered in
+QUESTIONS.json (Q17's APPLIED note already covers the newest 2026-08-28
+portal entry). 57 open questions before this run, 57 after (no new
+question raised).
+
+NO AUTONOMOUS WINDOW. AGENT_LOG.md carries no "Standing authorisation"
+section with an unexpired end timestamp, so step 8 would apply as written
+if a decision were needed; none was.
+
+WHY THIS ITEM. All unchecked items [BLOCKED], so a quality pass was taken
+instead. This run's predecessor (4.8) named 4.9 as the next-oldest in the
+tied cohort; independently re-derived from AGENT_WORKLIST.md's own Done
+dates rather than trusted at face value. Of the group last touched before
+today (4.9 fifth pass 2026-08-13; 4.10, 4.12, 4.13 and 4.14 fifth passes
+2026-08-14), 4.9 is the oldest. 4.11 and 4.15 were excluded from the
+count: both were re-verified on 2026-08-29 (4.11 by an interrupted-run
+recovery, 4.15 by its own fifth pass), so neither belongs in the tied
+group any more.
+
+REPO HALF, ALL HOLDING. All 36 checkers run individually, 0 failures.
+check-gbp-packs.js's own summary: 21 estate-wide warnings, 0 failures;
+the one warning against this pack is the pre-existing Q28 flag that
+0151 203 6535 is not this branch's branches.json number, which the pack
+deliberately documents and withholds from posting. Facts re-verified
+against branches.json: name, address (Unit 20 Brookfield Trade Centre,
+Brookfield Drive, Aintree, Liverpool, L9 7AS), phone 0151 203 8365,
+website, review link, serviceAreaList and catchment order, seoTown
+leading the description, hasApp true, pfBooking false with no pfLink
+(correctly no Pharmacy First post), and the weightLoss/travelClinic
+widget ids matching the two private-service posts. Description
+re-measured at 669 characters, matching the pack's own claim. All six
+page-content generators re-run; git status empty afterwards, so nothing
+in the estate drifted. One process note: an initial blanket run of every
+tools/build-*.js script (this run's own error, not a repo defect) also
+triggered build-status-page.js and regenerated status/index.html, which
+is unrelated to this item; reverted with git checkout before anything
+was staged, then the six page-content generators re-run individually
+and confirmed byte-stable.
+
+LIVE HALF, READ-ONLY. Chrome used only to navigate and read text, nothing
+clicked, typed or submitted beyond the URL bar. Contact page
+(clearchemist.co.uk/contact-us) still publishes 0151 203 6535 twice and
+8365 nowhere (Q28 unchanged), still advertises Clear's own WhatsApp
+07512 330 076 distinct from the estate-wide hardcoded number (Q21's
+concrete case, unchanged), and still states the same split NHS/non-NHS
+weekly hours with no bank holiday or weekend opening, matching the pack's
+recorded starting point. All three post-target URLs
+(switch-prescriptions-clear-aintree.html,
+weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html)
+re-checked and still 404 live (Q29 unchanged; the pack's homepage-button
+workaround for all three posts remains correct).
+
+RESULT. No in-repo defect found. No new live defect found; the three
+pre-existing live divergences (Q28, Q29, Q21's concrete case) are
+unchanged in shape and severity. No question raised. Full detail in
+audits/clear-aintree-gbp-pack-check-2026-08-30.txt.
+
+Files changed: AGENT_WORKLIST.md (4.9 entry), AGENT_LOG.md (this entry),
+audits/clear-aintree-gbp-pack-check-2026-08-30.txt (new).
+
 ## 2026-08-30 [commit hash in the commit itself] - Quality pass on 4.8 (Fishlocks Chemist Eccleston GBP pack), sixth pass: pack clean on every fact and rule for the sixth time, no repo defect; live half re-checked, both known divergences (landing page 404, switch page title) unchanged and already covered by 5.3/5.4, no new question
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
