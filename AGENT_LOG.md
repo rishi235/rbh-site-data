@@ -2,6 +2,102 @@
 Newest entries at the top. Every run appends an entry, even a no-change one.
 Format: date, time, item worked, what changed, commit hash, any questions.
 
+## 2026-08-30 - Quality pass on 3.6 (McCanns Chemist, Aigburth and Sandringham), sixth pass: 24 pages clean on 4,596 independent checks, first two-branch verifier, live still serving the pre-5.7 Sandringham wording
+
+Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this run is a quality pass.
+Staleness from log run headers and git commit subjects, later of the two
+wins: stalest completed item is 3.6, last passed 2026-08-14 (commit
+924f86d, the pass that pinned check-jsonld rule 3 to be family-aware).
+Taken, its sixth machine pass and the first since the Q15 St Michael's
+rename landed in the repo.
+
+ANSWER PICKUP RAN, NOTHING TO COLLECT. The portal fetch returned the same
+13 JSON entries as the recent pickups, read through one browser tab,
+opened and closed, nothing clicked, typed or submitted. Every entry maps
+to an already answered question (Q2-Q5, Q13-Q17). 56 open before, 56
+after.
+
+NO AUTONOMOUS WINDOW. The only "Standing authorisation - autonomous
+window" section in this log remains the 2026-08-09 one, expired
+2026-08-10. Nothing decided autonomously.
+
+RUN START STATE. No .agent-lock, no .git\index.lock. Branch
+agents/audit-backlog level with origin, worktree clean. All 36 checkers
+green and all six generators rebuilt to a zero diff before any
+inspection.
+
+THE 24 PAGES ARE CLEAN. Sixth independent extraction
+(audits/verify-3.6-2026-08-30.js, imports nothing from tools/) read all
+24 McCanns service and switch pages (11 service + 1 switch per branch;
+the two landing pages belong to 5.2's passes): 4,596 checks, 0 failures.
+This is the first verifier in the series built for a TWO-BRANCH
+shared-domain brand, and it carries four legs the single-site 3.5
+template could not: (1) ENTITY-DECODED town matching, because St
+Michael's can ship its apostrophe as &#39;, &#x27;, &apos;, &rsquo; or a
+typographic quote and a plain-apostrophe rule would go blind on exactly
+the branch Q15 renamed; (2) SIBLING ISOLATION, the two McCanns phones
+and postcodes must not cross between the branches' pages, and no page
+may reference the sibling's page slug, since a crossed link walks a
+patient to the other branch's diary; (3) the FAMILY-AWARE JSON-LD name
+rule this item's own fifth pass pinned into check-jsonld (service and
+switch pages declare brandLabel, landing pages branchName), applied
+field by field against branches.json including url on own host ending
+with the page filename; (4) widget isolation NET OF SHARED DIARIES,
+since the two branches legitimately share one weightLoss and one
+travelClinic diary id, so only ids belonging to neither may be treated
+as foreign. New leg on top: every service page's #rbhsv-root carries
+data-branch equal to branchName or brandLabel and a data-service
+attribute, the pair service.js stamps into the enquiry email source line
+and the WhatsApp text. Established legs all held: counts, sheet
+agreement by permalink across all six paste sheets with
+one-label-per-block and first-line comparison, own town in all three
+legs, service words, cross-town absence (Aigburth excused on Sandringham
+pages via serviceAreaList, St Michael's NOT excused on Aigburth pages),
+lengths, tel: link, brand isolation, banners pointing at own switch page
+and not the sibling's.
+
+COVERAGE PROVED BEFORE THE RESULT WAS BELIEVED. Five injections into the
+worktree, then restored: a doubled Page Title after the permalink in the
+McCanns UTI sheet block fired the label count rule (1 failure) and ahead
+of the real title fired count plus first-line comparison (2 failures);
+Bramhall into the sore throat Aigburth title and h1 fired sheet
+agreement, own-town and foreign-town rules (5 failures); Cherry Lane's
+L4 8SG into the travel clinic JSON-LD alone fired the foreign-postcode
+and JSON-LD postalCode rules (2 failures); a sibling switch-page link
+injected into an Aigburth page fired the new sibling-slug rule (1
+failure); data-branch rewritten to Hirshmans Chemist fired both the
+brand-isolation and the new enquiry-labelling rule (2 failures). Plus
+one positive proof: rewriting a Sandringham h1's apostrophe to &#39;
+stayed CLEAN, so the decode leg reads the encoded form correctly. All
+11 negative failure shapes fired; nothing passed that should have
+failed.
+
+LIVE READ, FOUR PAGES, READ-ONLY: uti-treatment and switch-prescriptions
+for both branches on www.mccannspharmacy.co.uk. Repo is correct; live is
+NOT YET REPASTED for 5.7. The live Sandringham pages still serve the
+pre-Q15 wording ("UTI treatment in Sandringham", "Free NHS service in
+Sandringham") and the live Sandringham switch page still carries the
+pre-5.1 em dash ("it usually is not - we make..." with an em dash, which
+the repo rewrote to a full stop). Nothing regressed: this is the queued
+Weebly repaste 5.7's own entry priced in, confirmed still outstanding as
+of today. The known site-furniture faults persist unchanged and are
+already on record: the " - MCCANNS PHARMACY" Weebly title suffix (run 78
+diagnosis), the footer "Sandrigham Medical Centre" missing-n typo and
+the footer "McCann's Pharmacy" apostrophe naming. All need a supervised
+Weebly session, none is a repo defect.
+
+ONE DESIGN FACT RECORDED, NOT A DEFECT. Both McCanns branches stamp
+data-branch="McCanns Chemist" (brandLabel), so the enquiry label alone
+does not say which branch. No enquiry can be misfiled though: service.js
+also writes the full page URL into the form's website_url field and the
+WhatsApp "Page:" line, and every McCanns page slug names its branch.
+check-booking-routes rule 4 accepts brandLabel by design. Left as is.
+
+FILES: audits/verify-3.6-2026-08-30.js and its output txt added. No
+worklist change (3.6 stays [x]). No questions raised, none needed.
+
+
 ## 2026-08-30 06:20 [commit 7898f47, hash line added by a small follow-up commit] - Quality pass on 3.5 (Hirshmans Chemist, Ainsdale), sixth pass: 12 pages clean on 2,258 independent checks, JSON-LD field-by-field leg added, live switch page found carrying stale pre-repaste title and description
 
 Unattended run. All eight unchecked worklist items remain [BLOCKED] (5.3,
