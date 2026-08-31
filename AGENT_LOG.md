@@ -1,3 +1,143 @@
+## 2026-08-31 (later still again) - Item 2.1 quality pass (seventh): Fishlocks Ainsdale reverified clean in repo (36/36 checkers, up from 34), live half re-read and Q35/Q37/Q57 all reconfirmed unchanged, Q37 gained a non-blocking addendum about a second, correctly worded footer block found alongside the still-wrong one
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder. No `.agent-lock` existed at the start of this run; created fresh with
+the current UTC timestamp. `.git\index.lock` was present at the start, 0
+bytes, roughly 24 minutes old (created 21:40, checked against 22:04),
+confirmed no git process running via `ps aux`. Left in place at that point,
+under the 1-hour threshold, matching the convention several prior entries
+record for a lock that young. `git fetch origin` was tried rather than
+assumed broken: failed identically to every entry on record today, "Host key
+verification failed", no `~/.ssh`, no `gh`, no `GITHUB_TOKEN`, no credential
+helper. Anonymous `git ls-remote` against the same repo works and returns
+`f2fa2671bcd819972b5d5551da9fcf683a4eac7f` for `agents/audit-backlog`,
+confirmed to be an ancestor of local HEAD, so origin has not moved and local
+sits safely 11 commits ahead from prior runs (one of which, per its own
+commit message, pushed successfully "via native Windows host" rather than
+this class of shell). Proceeded on the local checkout.
+
+A note on a mistake made and caught this run: an early edit to add a Q37
+addendum used `JSON.stringify(obj, null, 2)` to rewrite the whole of
+QUESTIONS.json, which silently reformatted all 1335 lines because the file's
+existing format (PowerShell `ConvertTo-Json` style: double space after each
+key's colon, deep array indentation, `\uXXXX`-escaped punctuation) does not
+match Node's default `JSON.stringify` output. `git diff --stat` immediately
+showed 2670 lines changed for a one-sentence addition, caught before commit.
+`.git\index.lock` being present at that moment (see above) also meant
+`git checkout -- QUESTIONS.json` could not be used to revert; `git show
+HEAD:QUESTIONS.json` (a read-only git command, does not touch the index or
+need the lock) was used instead to recover the original bytes, then the
+addendum was reapplied as a single surgical string replacement that matches
+the file's existing escaping exactly, verified with `git diff --stat`
+showing exactly 1 line changed before committing. Recording this so a future
+run does not repeat a full-file JSON rewrite on this specific file.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. 28 entries, newest still
+2026-08-30T17:01:00.269Z (Q29), the same set every entry has found since
+2026-08-30. Cross-checked all 17 answer-shaped entries (Q2-Q5, Q13-Q22,
+Q24, Q28, Q29) against QUESTIONS.json programmatically: every one already
+recorded as "answered" with matching text. Nothing new to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). `^- \[ \]` in AGENT_WORKLIST.md: 8 unchecked items
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), all still [BLOCKED] on open
+questions. Quality pass instead, per the worklist's own fallback rule.
+Ranked all 38 completed items programmatically (oldest max-date in the
+item's own block, then fewest "quality pass" mentions, then file order):
+items 3.9 and 3.10 had both moved to 2026-08-31 by their sixth passes
+earlier today, taking them out of contention. An eight-way tie remained at
+max-date 2026-08-30 with 5 quality-pass mentions each (2.1, 2.2, 4.2, 4.3,
+4.5, 4.9, 4.10, 1.2; 5.2 also ties on date and mentions but sits later in
+file order). Item 2.1 (Fishlocks Ainsdale, line 160) sits earliest in the
+file, so file order picked it. Read the full 2.1 block (six prior quality
+passes, 2026-08-04 build through 2026-08-30 sixth pass) before touching
+anything.
+
+WORK DONE, REPO HALF. Ran all 36 checkers individually (up from 34 at the
+sixth pass; check-app-membership.js and check-brand-spelling.js were both
+added since): 0 failures. Rebuilt all six generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages):
+`git status --porcelain modules/ core/` empty before and after, byte-
+identical output. Wrote an independent extraction importing nothing from
+tools/, sweeping all 13 of the branch's own pages (the branch landing page,
+11 service pages, the switch page) for the branch's own phone/postcode/
+street presence, every other branch's phone and postcode (foreign-NAP
+contamination), em/en dash outside build comments, and the singular
+"Fishlock" brand near-miss. 0 issues. NO DEFECT FOUND IN THE REPO. Evidence:
+audits/fishlocks-ainsdale-quality-pass-2026-08-31.txt (full 36-checker
+output).
+
+WORK DONE, LIVE HALF. Read-only, via Chrome, no clicks or submissions.
+fishlockpharmacy.co.uk/sitemap.xml: lastmod still fixed at
+2026-08-14T17:32:10, unchanged since the sixth pass, confirming no publish
+in the 17 days since; 40 URLs, still no branch landing page for either
+Fishlocks branch, still carries weight-loss-services-eccleston-ainsdale.html
+and pharmacy-first-service-eccleston-ainsdale.html. Re-read all three of the
+item's open live questions directly rather than trusting the sitemap's lack
+of movement as proof of no change:
+- Q35 (branch landing pages never pasted): pharmacy-fishlocks-ainsdale.html
+  fetched live, still returns the Weebly 404 page. Unchanged.
+- Q37 (Weebly-native business names wrong): contact.html fetched live, the
+  contact block still heads its columns "Fishlock Pharmacy, Ainsdale,
+  Southport" / "Fishlock Pharmacy, Eccleston, Chorley", the legal line still
+  reads "Fishlock Chemist (GPHC no. 1121085 and 1034673)", the Ainsdale
+  address is still abbreviated "17 Station Rd". Unchanged. NEW: the same
+  page (and weight-loss-services-eccleston-ainsdale.html, read the same way)
+  also carries a second footer block, below the wrong one, reading
+  "Fishlocks Chemist - two local NHS pharmacies in Ainsdale & Eccleston" and
+  giving the Ainsdale address correctly in full as "17 Station Road". Not
+  recorded on any of the six prior passes of this item. Read as an addendum
+  to Q37 rather than a new question: it is more detail on the same live
+  fault (two footer blocks on the same pages, one right and one wrong), not
+  a new fault, and it does not change Q37's recommendation, only adds that
+  the next Weebly session should check which block should remain once the
+  wrong one is fixed. QUESTIONS.json Q37 updated with the addendum text
+  (single-line diff, see the ENVIRONMENT section above for how).
+- Q57 (sixth live copy of the old weight loss template): confirmed the
+  homepage's plain "Weight Loss Clinic" link (href=
+  /weight-loss-services-eccleston-ainsdale.html) is distinct from the two
+  branch-specific "Weight Loss Clinic (Ainsdale/Eccleston)" links beside it,
+  and still resolves to the old template page, which still carries the
+  "Real Results with Mounjaro" heading, the "How much weight could you
+  lose?" outcome slider (116kg / up to 26kg / 22.5%), and the three-medicine
+  "Explore treatments" picker (Wegovy, Mounjaro, Orlistat). Still homepage-
+  linked, still outside the inner-page exemption per the house standard.
+  Unchanged.
+
+QUESTIONS. No new question raised. Q37 amended in place with the addendum
+above (still open, recommendation unchanged). Q35 and Q57 reconfirmed with
+no changes needed.
+
+FILES CHANGED. AGENT_WORKLIST.md (appended the 2026-08-31 seventh-pass note
+to item 2.1, item stays checked). QUESTIONS.json (Q37 question field gained
+one addendum sentence-block, single-line diff). AGENT_LOG.md (this entry).
+audits/fishlocks-ainsdale-quality-pass-2026-08-31.txt (new, full 36-checker
+output). Untracked debris from prior runs (`.agent-lock.released-*`,
+`.testfile123.todelete`, the stray `C:/` directory, `scratchtest*.txt`,
+other items' own audit evidence files) left untouched again, out of scope
+for this item; repeating prior entries' flag that a dedicated tidy-up item
+probably deserves a worklist slot.
+
+COMMIT. Committed locally to `agents/audit-backlog`. `git push` attempted
+per standard practice of trying rather than assuming; expected to fail for
+the reasons in the ENVIRONMENT section, and outcome recorded immediately
+below this entry's own commit line in the shell transcript, not restated
+here to avoid a stale claim if the attempt's result changes between writing
+this paragraph and running it.
+
+STEP 10 (status page publish). Attempted per standard practice; expected to
+fail identically to every entry today for lack of `gh`/credentials in this
+shell, same infrastructure gap flagged repeatedly and not something this run
+can close.
+
+LOCK RELEASE. `.agent-lock` cannot be deleted (FUSE mount does not support
+unlink, confirmed again this run); renamed rather than deleted, matching
+every prior entry's workaround.
+
 ## 2026-08-31 (later still) - Item 3.10 quality pass (sixth): Riddings Pharmacy (Timperley) reverified against five checkers hardened since yesterday's pass, all clean, both halves confirmed unchanged
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`

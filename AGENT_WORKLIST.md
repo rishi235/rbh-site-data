@@ -293,6 +293,48 @@ same pattern recorded throughout 2026-08-31's entries above.
       defect found; no question raised; no worklist item blocked or
       unblocked. Evidence: audits/fishlocks-ainsdale-quality-pass-2026-08-30
       .txt.
+      Quality pass 2026-08-31 (seventh pass): all 8 worklist items still
+      unchecked are [BLOCKED], so this was the fallback quality pass, picked
+      by the standard ranking (oldest max-date, then fewest quality-pass
+      mentions, then file order): item 2.1 won an eight-way tie at
+      2026-08-30/5 mentions on file order. Repo half: all 36 checkers pass
+      (up from 34 at the sixth pass, two more added since), all six
+      generators rebuild to a zero diff against the untouched tree, and an
+      independent extraction (no imports from tools/) swept all 13 pages for
+      phone, postcode and street address presence, foreign NAP from every
+      other branch, em/en dash outside build comments, and the singular
+      "Fishlock" brand near-miss. Zero issues. No in-repo defect found.
+      Live half, read-only via Chrome: fishlockpharmacy.co.uk's sitemap is
+      still fixed at the 2026-08-14T17:32:10 lastmod the sixth pass recorded,
+      confirming no publish has happened on this site in the seventeen days
+      since, so Q35, Q37 and Q57 were re-read live rather than assumed
+      current. All three still hold exactly as last logged: (1) Q35,
+      pharmacy-fishlocks-ainsdale.html still 404s and neither branch landing
+      page is in the sitemap's 40 URLs; (2) Q37, contact.html's Weebly-native
+      contact block still heads its columns "Fishlock Pharmacy, Ainsdale,
+      Southport" / "Fishlock Pharmacy, Eccleston, Chorley", the legal line
+      still reads "Fishlock Chemist (GPHC no. 1121085 and 1034673)", and the
+      Ainsdale address still abbreviates to "17 Station Rd"; (3) Q57, the
+      homepage's plain "Weight Loss Clinic" link (as distinct from the two
+      branch-specific links beside it) still resolves to
+      weight-loss-services-eccleston-ainsdale.html, which still carries the
+      "Real Results with Mounjaro" heading, the weight-loss outcome slider
+      and the three-medicine treatment picker (Wegovy, Mounjaro, Orlistat).
+      One new, non-blocking observation for Q37: the same pages now also
+      carry a second, separate footer block below the wrong Weebly contact
+      block, reading "Fishlocks Chemist - two local NHS pharmacies in
+      Ainsdale & Eccleston" with the address correctly given in full as
+      "17 Station Road" rather than "Rd". This block is new since the sixth
+      pass logged the contact block's wording and appears site-wide (seen
+      identically on contact.html and the weight-loss page), so a correctly
+      worded trust bar already exists alongside the still-wrong native
+      contact block rather than instead of it; this does not change Q37's
+      recommendation but is added to its text below so the next Weebly
+      session knows one of the two blocks on the page is already right. No
+      new question raised (folded into Q37 rather than opening a fresh one,
+      since it is additional detail on the same live fault, not a new
+      fault). No worklist item blocked or unblocked. Evidence:
+      audits/fishlocks-ainsdale-quality-pass-2026-08-31.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
