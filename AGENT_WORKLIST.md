@@ -1566,6 +1566,45 @@ audits/smartts-build-check-2026-08-14.txt.
       branch is 63 commits behind main, which is Q13 restated with a concrete
       field. No new question. Evidence in
       audits/gordon-short-build-check-2026-08-14.txt. Done 2026-08-14
+      Fifth quality pass 2026-08-30 (commit 163b2dc) was completed and
+      logged in AGENT_LOG.md but never appended to this block - a sync
+      gap, the same shape as Q84. Recorded there: 12 pages clean on 1,823
+      independent checks, both clinical/identity guards re-proved by
+      mutation, live pfLink and homepage verified, zero in-repo defects.
+      Sixth quality pass 2026-08-31, both halves. REPO HALF: all 34
+      checkers exit 0. Fresh independent extraction
+      (audits/verify-3.11-2026-08-31.js), importing nothing from tools/,
+      ran 708 checks across all 12 pages: own phone spaced and unspaced
+      (tel:), own postcode and street address, own Google review link, H1
+      carrying Crosby on every page, correct "Gordon Short Chemist"
+      spelling only (never "Gordon Shorts"), no other trading branch's
+      phone, postcode or review link anywhere, JSON-LD parsed and matched
+      to branches.json field for field (name, address, telephone) on all
+      12, no em or en dash and no unexpected non-ASCII outside the weight
+      loss price's pound sign. Zero failures. All six generators rebuild
+      every page byte-identical; git status clean.
+      LIVE HALF, four read-only GETs (pharmacy-first, switch, weight
+      loss, travel clinic). NAP, hours and email correct against
+      branches.json on all four. Known live-only states reconfirmed
+      unchanged, all already tracked, nothing new: the cosmetic "Great
+      Crosby" sidebar line (footer address block correct); the
+      estate-wide en dash in the footer hours strip; the mojibake em dash
+      in the switch page's "usually is not" sentence, pre-repaste; and
+      the STOP-standing "Gordon Shorts Chemist" misspelling, which still
+      carries through the title, H1, body and footer of the live
+      weight-loss-clinic and travel-clinic pages (not the pharmacy-first
+      or switch pages, both correct) despite the generated repo pages
+      being correct throughout - a content block that survives a full
+      rebuild, not a stale paste, per the 4.14 finding; the STOP against
+      repointing Post A stands. Weight loss and travel clinic copy on
+      both live pages re-read for compliance: no prescription-only
+      medicine named, balanced framing, no superlative or guaranteed-
+      outcome language, no vaccine stock guarantee, pricing not headlined
+      as a discount, all required safety-net cohorts present. Zero
+      in-repo defects. No new question. Evidence in
+      audits/verify-3.11-2026-08-31.js and
+      audits/gordon-short-item-3.11-quality-pass-2026-08-31.txt. Done
+      2026-08-31
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

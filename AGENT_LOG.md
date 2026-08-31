@@ -1,3 +1,127 @@
+## 2026-08-31 (item 3.11 quality pass, sixth) - Gordon Short Chemist, Crosby: both halves clean, a fourth-to-fifth-pass AGENT_WORKLIST.md sync gap backfilled, standing live-only findings reconfirmed unchanged
+
+Unattended run. RUN START STATE. .agent-lock and .git\index.lock were both
+present and stale on start (LastWriteTime 01:00 and 01:07 respectively,
+both well past their thresholds, no git process running), left over from
+earlier lock-staleness testing this session; both removed per the
+procedure before a fresh lock was created. Branch agents/audit-backlog
+fetched, level with origin, worktree clean before any edit (a handful of
+untracked .agent-lock.released-* and .rm-test-* files from that earlier
+testing remain in the working directory, harmless and outside this run's
+scope, not committed).
+
+ANSWER PICKUP. Fetched https://data.rbhealth.co.uk/api/feedback (one
+browser tab, read-only, opened and closed, nothing clicked, typed or
+submitted) and read all 26 entries returned (Q2-Q5, Q13-Q22, Q24, Q28,
+Q29, several duplicated). Cross-checked every one against QUESTIONS.json:
+all already marked "answered", confirmed by direct status lookup on each
+id. None of the 51 currently open questions has a portal answer. No
+status changes, nothing to apply.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run. Nothing decided autonomously.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), confirmed
+against QUESTIONS.json directly. So this run took the quality-pass
+branch. Staleness ranking delegated to a subagent instructed to extract
+every "## 2026-..." header from this log and rank the 36-item rotation
+pool (43 checked items minus the seven established one-offs 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) by the date of each item's most recent
+quality-pass header. Result: every pool item had already been touched on
+2026-08-30, and item 3.11 (Gordon Short Chemist, Crosby)'s fifth pass
+(commit 163b2dc) was the earliest of that day's passes still standing,
+just ahead of 1.2's sixth pass at 01:41 BST. 3.11 taken.
+
+A SYNC GAP FOUND BEFORE TOUCHING ANYTHING ELSE. Item 3.11's fifth pass
+(2026-08-30, commit 163b2dc) is recorded in this log but was never
+appended to AGENT_WORKLIST.md's 3.11 block - the file jumped straight
+from the fourth pass (2026-08-14) to item 3.12. Same shape as Q84
+(process finding, does not block any item). Backfilled a short pointer
+note in AGENT_WORKLIST.md referencing this log entry rather than
+reconstructing the fifth pass's findings from memory, then appended this
+sixth pass beneath it.
+
+A TOOLING TRAP FOUND AND WORKED AROUND WHILE MAKING THAT EDIT.
+AGENT_WORKLIST.md is committed with LF-only line endings (confirmed by
+byte length before and after a no-op round trip); .NET's
+File.WriteAllLines rejoins lines with Environment.NewLine, which is CRLF
+in this session, so a naive read-modify-write touched all 5198 lines
+instead of the intended 39 and would have committed a repo-wide
+line-ending rewrite alongside this run's actual change, under a very
+exact-text-sensitive set of checkers. Caught before committing by diffing
+a pure round trip (no content change) and seeing the whole file flagged;
+fixed by inserting via raw text substring splicing with explicit LF line
+breaks and writing back with a no-BOM UTF8 encoding, which reproduced a
+39-line, zero-noise diff. AGENT_LOG.md, by contrast, is CRLF throughout,
+so this entry was written with CRLF and the same no-BOM encoding. Worth a
+line for whoever next scripts an edit to either file: check the file's
+actual line endings before writing, do not assume one convention
+repo-wide.
+
+REPO HALF. All 34 tools/check-*.js checkers run individually: zero
+failures. Fresh independent extraction, audits/verify-3.11-2026-08-31.js,
+imports nothing from tools/, uses its own regexes and its own reading of
+branches.json. Across all 12 of the branch's generated pages: 708 checks,
+0 failures - own phone in both the spaced visible form and the unspaced
+tel: form, own postcode L23 3AT, own street address, own Google review
+link, exactly one H1 per page carrying Crosby, the correct "Gordon Short
+Chemist" spelling only (never "Gordon Shorts"), no other trading branch's
+phone, postcode or Google review link anywhere on the page, a JSON-LD
+block that parses and matches branches.json field for field on name,
+address and telephone, no em or en dash outside build comments, and no
+non-ASCII character outside build comments except the pound sign on the
+weight loss page. All six generators (build-branch-landing-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages, build-contraception-pages) rebuilt from the
+clean checkout: git status --porcelain showed no tracked-file changes
+afterwards, so every generated page reproduces the committed state byte
+for byte.
+
+LIVE HALF, read-only, four GETs on gordonshortchemist.co.uk: the
+pharmacy-first page, the switch-prescriptions page, the weight loss
+clinic page and the travel clinic page. NAP (159 College Road,
+Liverpool, L23 3AT, 0151 924 3449, shorts@rbhealth.co.uk) and opening
+hours (Mon-Fri 9-6 with a 1-2pm lunch closure, Sat 9-5 with the same
+lunch closure, Sun closed) match branches.json exactly on all four
+pages. Known live-only states reconfirmed unchanged, all already
+tracked elsewhere, nothing new: the cosmetic "Great Crosby" line inside
+the sidebar address block on every page (the footer address block is
+correct); the estate-wide en dash in the footer hours strip; the
+mojibake em dash in the switch page's "it usually is not [mojibake] we
+make the first step quick and easy" sentence, a pre-repaste encoding
+artifact not present in the repo source; and the STOP-standing "Gordon
+Shorts Chemist" misspelling (extra trailing s), which still runs
+through the title, H1, body copy and footer contact block of the live
+weight-loss-clinic and travel-clinic pages specifically (the
+pharmacy-first and switch pages are both correct). This matches the
+4.14 quality-pass finding that the wrong name lives in a content block
+that survives a full page rebuild rather than a simple stale paste; the
+standing instruction not to repoint Post A (the pfLink) stands, and this
+is a live Weebly content fix, not an in-repo defect, confirmed by the
+repo-half sweep above finding both the source and the generated pages
+correct throughout. Weight loss and travel clinic copy on both live
+pages read for compliance against the two-regime rule: no
+prescription-only medicine named by brand, balanced factual framing
+throughout, no superlative or guaranteed-outcome language, no stock
+guarantee on vaccines, pricing shown as an indicative "from" figure with
+no discount headline, and the required safety-net cohorts (pregnancy,
+under-18s, relevant medical history, the 999/urgent-help line) all
+present on the weight loss page. Consistent with
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md's existing read of this
+branch.
+
+Zero in-repo defects. No new question raised; Q78 remains open and
+untouched by this pass.
+
+Files changed: AGENT_WORKLIST.md (3.11 block: fifth-pass sync-gap note
+plus this sixth-pass entry, in place), AGENT_LOG.md (this entry),
+audits/verify-3.11-2026-08-31.js (new, independent verification
+instrument), audits/gordon-short-item-3.11-quality-pass-2026-08-31.txt
+(new, evidence). 51 questions remain open.
+
+
 ## 2026-08-30 (item 1.2 quality pass, seventh) - Double-encoded postcode separator ("%2520") defeated the sixth pass's decode view, which only stripped one layer
 
 Unattended run. RUN START STATE. No .agent-lock, no .git\index.lock, no git
