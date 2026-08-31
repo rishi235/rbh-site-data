@@ -5020,6 +5020,39 @@ record.
       are masked, both derived from branches.json. Output unchanged: all
       177 pages and all six paste sheets regenerate byte-identical, the
       only modified file is the checker.
+      Quality pass 2026-08-31 (sixth pass, unattended, Cowork sandboxed
+      shell): repo half verified clean a sixth time. All 36 checkers ran
+      clean after one unrelated fix (see below); all eight generators
+      reproduced every page and paste sheet byte-identical; the 61-character
+      insect bite title stands unchanged in the page, the paste sheet and
+      the index; KNOWN in check-seo-lengths.js is still empty; the self-test
+      still derives the longest condition from build-service-pages.js; and
+      switchTitle still composes through fitTitle. BEFORE starting this
+      item's own pass, check-brand-spelling.js was found failing estate-wide
+      (1 of 36 checkers), unrelated to 5.6: gbp-packs/gordon-short-crosby.md
+      line 192 (the seventh-pass live-recheck note the immediately preceding
+      run added) reported the live "Gordon Shorts Chemist" misspelling
+      without quotation marks, breaking the quoted-is-evidence convention
+      rule 2 relies on to tell a note from a claim. Fixed by quoting it, the
+      same way the four other live-recheck notes in that same file already
+      do; checker back to clean; no other item affected; not logged against
+      4.14 since it is a one-line formatting fix to that item's own most
+      recent note, not new fact-finding.
+      Live half: checked via Claude in Chrome (read-only). The live Weebly
+      SEO title field for insect-bite-treatment-coleman-leigh-walton.html is
+      unchanged since first read on 2026-08-10/11: "Infected insect bite
+      treatment in Walton - Coleman & Leigh Pharmacy", 67 characters,
+      ampersand and singular "Leigh", matching no version this repo has ever
+      shipped. The live meta description also reads "Coleman & Leigh
+      Pharmacy" against the repo's "Coleman and Leighs Pharmacy". The H1
+      is correct and carries no brand, as the family A pattern requires. The
+      Q14 repaste (title and description together, from
+      modules/service/pages/SEO.md) remains the whole fix and remains
+      outstanding, now unconfirmed-changed across seven live reads spanning
+      2026-08-10 to 2026-08-31. No new question: Q14 already describes this
+      exactly and already recommends the repaste. Evidence gathered inline
+      this run (document.title, H1 and meta description read via JavaScript
+      in the live page), not saved to a separate audit file.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a

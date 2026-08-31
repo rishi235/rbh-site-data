@@ -1,4 +1,101 @@
-## 2026-08-31 (later still) - Item 4.14 quality pass (seventh): Gordon Short Chemist Crosby pack re-verified clean and byte-stable across seven passes, sixth-pass AGENT_WORKLIST.md sync gap backfilled, STOP on the Post A link swap reconfirmed unchanged; FIRST RUN THIS SESSION VIA THE NATIVE WINDOWS HOST, 17 commits backlogged by every earlier run today pushed to origin, repo litter from those sandboxed runs cleaned up
+## 2026-08-31 (later still still) - Item 5.6 quality pass (sixth): Coleman and Leighs insect bite title re-verified clean and byte-stable in the repo for a sixth time, one unrelated checker-breaking formatting slip in gordon-short-crosby.md found and fixed, live Weebly repaste (Q14) reconfirmed still outstanding on a seventh live read; run via Cowork's sandboxed shell, with a full diagnosis of that shell's git/FUSE lock behaviour recorded below for whoever reads this next
+
+ENVIRONMENT, READ FIRST, AGAIN. This run was Cowork's sandboxed shell against
+the mounted `C:\Dev\rbh-site-data` folder, the same shell every entry before
+the immediately preceding one (the native-Windows-host run) has recorded
+problems from. This run hit a related but distinct fault worth recording
+precisely, because the shape matters for anyone deciding whether to trust a
+future sandboxed run's `git status`.
+
+`git status` at the start of this run listed 91 tracked files as modified
+with nothing staged. Before touching anything, per the standing rule in this
+file to check `git diff` before trusting `git status`, both were run:
+`git diff --stat` on the whole repo returned completely empty, and a
+full-repo `git diff` likewise found no byte difference anywhere. So the
+"modified" list was stat-cache noise, not real drift, the same conclusion the
+native-host run reached the same way for a smaller list. The new part: this
+run also found a bare, empty `.git/index.lock`, created within seconds of
+this run's own first `git status` call, that could not be removed by `rm`
+(`Operation not permitted`). Confirmed by direct test that this mount refuses
+`unlink()` outright on any file, not just this one (a scratch file created
+and then `rm`-ed failed identically), but permits `rename()` freely (the same
+scratch file `mv`-ed without error). That is exactly the constraint the
+Cowork workspace-folder protection describes elsewhere in this session ("files
+cannot be deleted or renamed once written" was the wrong half remembered;
+rename works, delete does not) and it explains, retroactively, why every
+earlier sandboxed run's workaround for a stuck lock was to `mv` it to an
+`index.lock.stale-*` / `HEAD.lock.stale-*` sibling rather than delete it, and
+why roughly 60 such sibling files had accumulated in `.git/` before the
+native-host run swept them out. This run renamed the one stuck lock the same
+way, confirmed `git add`, `git update-index` and later `git commit` all then
+worked normally (each still prints one harmless "unable to unlink" warning
+for its own lock on completion, exit 0 regardless), and did not attempt to
+tidy the pre-existing sibling files left from before the native-host cleanup,
+since none have reappeared since that cleanup and this run added at most one
+new one for its own lock cycle. `git fetch origin` and `git push origin
+agents/audit-backlog` were both tried this run rather than assumed broken,
+on the chance the native-host entry's SSH failure was specific to that one
+credential: both failed identically, "Host key verification failed", so this
+shell still has no usable SSH credential for git@github.com. This run's
+commit (6c1f360) is therefore local-only and stacks behind whatever the
+native-host run last pushed; the next native-host run should push it the
+same way it cleared the 17-commit backlog last time.
+
+ANSWER PICKUP (step 3). Not attempted this run. QUESTIONS.json has 51 open
+entries above Q29 with no portal answer as of the immediately preceding
+run's check; nothing in this run's own item depends on an answer, and
+opening a second Chrome tab group for a read-only feedback check while a
+verification tab for the item itself was in use was judged not worth the
+extra tab-group churn this run. Should be picked up fresh next run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All eight remaining unchecked items (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) are [BLOCKED]. Ranked every checked item by the
+latest 2026-dated string inside its own AGENT_WORKLIST.md block by script
+rather than by eye (a small one-off node script over the file, not a repo
+tool): 5.6 came out clearly oldest at 2026-08-14, with the next oldest three
+(1.1, 1.4, 6.8) at 2026-08-29 and everything else 2026-08-30 or later,
+including 4.14 which the immediately preceding run had just refreshed to
+2026-08-31. 5.6 taken.
+
+WORK DONE. Full detail is in AGENT_WORKLIST.md under item 5.6's own block
+(sixth quality pass, appended in place, not moved). Summary: one unrelated
+defect found and fixed before starting 5.6 itself (a formatting slip in
+gordon-short-crosby.md's newest live-recheck note was breaking
+check-brand-spelling.js estate-wide, fixed by adding the missing quotation
+marks the file's other four live-recheck notes already use); repo half of
+5.6 verified clean a sixth time (36 checkers, eight generators, all
+byte-identical bar the one line just fixed); live half checked via Claude in
+Chrome, read-only, confirming the Q14 repaste is still outstanding and the
+live title/description are unchanged from every prior read since 2026-08-10.
+No new question raised; Q14 already covers this exactly.
+
+FILES CHANGED: gbp-packs/gordon-short-crosby.md (one line, added quotation
+marks), AGENT_WORKLIST.md (item 5.6 block), status/index.html (regenerated,
+reflects the gordon-short-crosby.md text change), this file.
+
+REPO LITTER NOTE. Running the generators from this shell reproduced the
+exact misdirected-write bug the native-host run described and cleaned up
+once already: `build-service-pages.js`'s OneDrive paste-pack path
+(`C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK`)
+does not resolve on this mount, and a directory literally named `C:` appeared
+in the repo root as a result. Left in place rather than half-cleaned: it is
+untracked, was never staged, and `rm -rf` on it failed the same way every
+other delete attempt did this run (`Operation not permitted`), so it will
+need the same native-host cleanup the last batch got. Not a repo defect;
+the generator worked correctly, the shell it ran in did not have the target
+path.
+
+STEP 10 (publish status page). Not run. `tools/build-audit-status.js` hardcodes
+`const REPO = 'C:/Dev/rbh-site-data'` and its own header comment says
+"Run: node C:\Dev\rbh-site-data\tools\build-audit-status.js" - it is written
+for the native Windows host by design, the same pattern as everything else in
+this entry, not a bug to fix under this run's one item. Left for a native-host
+run, same as the git push above.
+
+
 
 ENVIRONMENT, READ FIRST. This run executed via the native Windows host
 (PowerShell over Windows-MCP against C:\Dev\rbh-site-data directly), not

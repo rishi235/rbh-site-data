@@ -189,7 +189,7 @@ Notes for the paster:
   (pharmacy-first-service-crosby.html) and the switch page still read Gordon
   Short Chemist correctly and Post A remains safe as written; the switch
   page's mojibake em dash in "How switching...works" is unchanged.
-  pharmacy-first-gordon-short-crosby.html still reads Gordon Shorts Chemist
+  pharmacy-first-gordon-short-crosby.html still reads "Gordon Shorts Chemist"
   throughout its heading and body (contact card and footer are correct), so
   the STOP on repointing Post A to it stands, unchanged. Footer en dashes
   unchanged. New observation: a stray mojibake glyph near the top of every
