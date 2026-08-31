@@ -443,6 +443,32 @@ same pattern recorded throughout 2026-08-31's entries above.
       wording) re-read live and both still accurately describe live state.
       No in-repo defect found; no question raised or closed. Evidence:
       audits/fishlocks-branch-landing-check-2026-08-30.txt.
+      Quality pass 2026-08-31 (sixth pass): repo half clean and byte-stable
+      a sixth time. All six generators rebuilt from branches.json, sha256
+      of all 182 generated HTML files taken before and after: zero diff.
+      All 36 check-*.js run individually, all exit 0. Manual field sweep of
+      both branch landing pages against branches.json (branchName,
+      streetAddress, addressLocality, postalCode, addressRegion, phone,
+      email, seoTown, googleReviewUrl, nhsReviewUrl, hasApp gating and app
+      sentence): all present and matching. One correction to the fifth
+      pass's own wording: pfLink was listed among the "0 mismatches"
+      compared fields, but the raw branches.json pfLink URL string does not
+      appear on either page verbatim, because build-branch-landing-pages.js
+      does not read pfLink at all (grepped, no reference) and instead
+      builds its own relative same-domain link
+      ("pharmacy-first-<brandSlug>-<townSlug>.html"). That link is correct
+      for a page living on the branch's own domain and is already covered
+      by check-service-links.js and check-branch-identity.js, both clean,
+      so this is a wording correction about which field was actually
+      compared, not a defect in the page. Live half, read-only via Claude
+      in Chrome: both pages still 404, sitemap.xml still 40 URLs at the
+      same 2026-08-14T17:32:10 lastmod as every pass since the 14th,
+      neither landing page listed, no publish since. Q35 and Q69 re-read
+      against current live state and both still accurately describe it. No
+      in-repo defect found; no question raised or closed. Evidence:
+      audits/fishlocks-branch-landing-check-2026-08-31.txt,
+      audits/checker-results-2.2-2026-08-31.txt,
+      audits/_before-2.2-2026-08-31.sha256, audits/_after-2.2-2026-08-31.sha256.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on

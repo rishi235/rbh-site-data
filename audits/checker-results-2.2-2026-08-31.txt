@@ -1,0 +1,36 @@
+[0] check-address-region.js :: check-address-region: clean, every addressRegion is a county (2 warning(s)).
+[0] check-app-membership.js :: check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+[0] check-booking-routes.js :: check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+[0] check-branch-identity.js :: check-branch-identity: clean, every page names the branch it belongs to.
+[0] check-branch-links.js :: check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 1 known issue(s) awaiting a decision).
+[0] check-brand-spelling.js :: check-brand-spelling: clean, every trading name is spelled the one way, 10 quoted reading(s) of a live page read as evidence.
+[0] check-cdn-pins.js :: check-cdn-pins: clean, 3 warning(s), 7 known issue(s) awaiting a decision.
+[0] check-contraception-copy.js ::   OK - no failures
+[0] check-editor-snapshot.js :: check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+[0] check-em-dashes.js :: check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.
+[0] check-fragment-targets.js :: check-fragment-targets: clean, every fragment link lands on an element that exists.
+[0] check-gbp-packs.js :: 0 failures.
+[0] check-gbp-pharmacy-first.js :: check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14 packs, all clean.
+[0] check-jsonld.js :: check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+[0] check-live-hours.js ::   tiffenbergs_longmoor: 2 page(s), 5 snippet group(s)
+[0] check-map-embeds.js :: check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+[0] check-nap.js :: Checked 177 pages and 3 paste block(s) against 16 branches.json entries: 0 mismatch(es), 0 warning(s).
+[0] check-opening-hours.js :: check-opening-hours: clean, every visible and structured opening time matches branches.json.
+[0] check-page-coverage.js :: check-page-coverage: clean, 177 pages accounted for
+[0] check-pharmacy-first-cost.js :: check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+[0] check-pharmacy-first-eligibility.js :: check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
+[0] check-pharmacy-first-safety-net.js :: check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+[0] check-pharmacy-first-symptoms.js :: check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.
+[0] check-postcodes.js :: 546 text files scanned, 19 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+[0] check-seo-keywords.js :: check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+[0] check-seo-lengths.js :: check-seo-lengths: clean, every title and description fits and is unique. 24 warning(s).
+[0] check-seo-pattern.js :: 177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+[0] check-seo-sheets.js :: check-seo-sheets: clean, every page and its paste sheet agree.
+[0] check-service-links.js :: check-service-links: clean, 6 known issue(s) awaiting a decision.
+[0] check-switch-copy.js :: check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where they send people, 11 rules, 5 accepted breach(es) pinned to a question.
+[0] check-travel-clinic-copy.js ::   OK - no failures
+[0] check-uk-spelling.js :: check-uk-spelling: clean, the public copy is written in UK English.
+[0] check-url-scheme.js :: 222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 30 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+[0] check-weight-loss-copy.js ::   OK - no failures
+[0] check-whatsapp-route.js :: check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+[0] check-widget-diaries.js :: check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.

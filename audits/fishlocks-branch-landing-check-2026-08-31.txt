@@ -1,0 +1,49 @@
+Item 2.2 quality pass (sixth), 2026-08-31
+==========================================
+
+REPO HALF
+---------
+All six generators rebuilt from branches.json:
+  tools/build-service-pages.js        -> 112 service pages
+  tools/build-switch-pages.js         -> 15 switch pages
+  tools/build-branch-landing-pages.js -> 6 branch landing pages
+  tools/build-weight-loss-pages.js    -> 15 weight loss pages
+  tools/build-travel-clinic-pages.js  -> 15 travel clinic pages
+  tools/build-contraception-pages.js  -> 14 contraception pages
+
+sha256 of all 182 generated HTML files, before vs after rebuild: ZERO DIFF.
+(audits/tmp-2.2-pass/before.sha256, audits/tmp-2.2-pass/after.sha256)
+
+All 36 check-*.js run individually, all exit 0 (see checker-results.txt
+for the full list). No failures, no new warnings attributable to this item.
+
+Manual field sweep, pharmacy-fishlocks-ainsdale.html and
+pharmacy-fishlocks-eccleston.html against branches.json (fishlocks_ainsdale,
+fishlocks_eccleston): branchName, streetAddress, addressLocality,
+postalCode, addressRegion, phone, email, seoTown, googleReviewUrl,
+nhsReviewUrl all present and matching. hasApp true on both, app sentence
+("RB Healthcare Pharmacy app") present on both. pfLink field in
+branches.json is not consumed by this generator (confirmed: no reference
+to pfLink in tools/build-branch-landing-pages.js) - both pages instead
+build a relative same-domain link ("pharmacy-first-<slug>.html"), which is
+correct for this page type and not a defect; check-service-links.js and
+check-branch-identity.js both cover that link target and both passed clean.
+
+LIVE HALF
+---------
+Read-only, via Claude in Chrome:
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html  -> 404
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html -> 404
+  https://www.fishlockpharmacy.co.uk/sitemap.xml -> 40 URLs, all still
+    lastmod 2026-08-14T17:32:10+00:00, neither landing page listed, no
+    change since the 2026-08-30 (fifth) pass. The old combined page
+    pharmacy-first-service-eccleston-ainsdale.html is still the live target.
+
+CONCLUSION
+----------
+No in-repo defect found. No question raised or closed. Q35 (six branch
+landing pages built and verified clean but never pasted to Weebly, six GBP
+profiles waiting on the paste) and Q69 (branch-page Pharmacy First tile
+says "free NHS treatment" rather than "free NHS consultation") both
+re-read against current live state and both still describe it accurately.
+Neither is urgent because neither page has reached a patient yet.

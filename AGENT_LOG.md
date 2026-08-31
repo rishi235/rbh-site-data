@@ -1,3 +1,138 @@
+## 2026-08-31 (later again) - Item 2.2 quality pass (sixth): Fishlocks shared-domain branch landing pages reverified clean in repo (36/36 checkers, zero-diff rebuild of all 182 pages), live half re-read and still 404 with no sitemap change, Q35/Q69 reconfirmed unchanged, one wording correction to the fifth pass's own "0 mismatches" claim (pfLink is not actually read by this generator)
+
+LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run;
+created fresh with a UTC timestamp. `.git\index.lock` was present, 0 bytes,
+about 24 minutes old at the check (created 22:11, checked 22:34-22:35),
+under the 1-hour staleness threshold and confirmed no local git process
+running, so left in place per the standing rule, matching the convention
+several prior entries record. `git fetch origin` was attempted rather than
+assumed broken: `git@github.com` SSH failed identically to every entry on
+record today with "Host key verification failed", no `~/.ssh`, no `gh`, no
+`GITHUB_TOKEN`, no credential helper. Anonymous `git ls-remote` over HTTPS
+(`https://github.com/rishi235/rbh-site-data.git`) works and returned
+`f2fa2671bcd819972b5d5551da9fcf683a4eac7f` for `agents/audit-backlog`,
+confirmed an ancestor of local HEAD via `git merge-base --is-ancestor`, so
+origin has not moved and local sits safely 12 commits ahead from prior runs.
+Proceeded on the local checkout. Because the index.lock was still present
+when this run reached its own commit step, `git add`/`git commit` were not
+attempted from this shell; see PUSH note at the end.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Same 28 entries every run has
+found since 2026-08-30, newest still 2026-08-30T17:01:00.269Z (Q29).
+Cross-checked all 17 answer-shaped entries (Q2-Q5, Q13-Q22, Q24, Q28, Q29)
+against QUESTIONS.json programmatically: every one already recorded as
+"answered". Nothing new to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally; step 7's
+blocking rule applies as written.
+
+ITEM SELECTION (step 5). `^- \[ \]` in AGENT_WORKLIST.md: 8 unchecked
+items (5.3, 5.4, 5.5, 5.8, 6.1, one instance each of Q60-tagged 6.4 and
+6.5, 6.6), all still [BLOCKED]. Checked 5.5 specifically since Q13 (which
+it cites) shows "answered" in the feedback fetch: its own worklist text
+already explains the block is independent of the answer - it needs a push
+to a branch other than agents/audit-backlog and a supervised Weebly paste,
+both outside an unattended run's authorisation, so it correctly stays
+blocked. With no unblocked item available, took a quality pass instead, per
+the worklist's own fallback rule. Ranked all 39 completed items
+programmatically (oldest max-date in the item's own block, then fewest
+"quality pass" mentions, then file order): items 2.1, 3.9 and 3.10 had all
+moved to 2026-08-31 by passes earlier today, taking them out of
+contention. Item 2.2 (Fishlocks shared-domain branch landing pages, line
+338) sits at max-date 2026-08-30 with 5 quality-pass mentions, earliest in
+file order among a seven-way tie (2.2, 4.2, 4.3, 4.5, 4.9, 4.10, 1.2). Read
+the full 2.2 block (five prior quality passes, 2026-08-04 build through
+2026-08-30 fifth pass) before touching anything.
+
+WORK DONE, REPO HALF. Snapshotted sha256 of all 182 generated HTML files
+under modules/ before touching anything (audits/_before-2.2-2026-08-31.sha256).
+Ran all six generators (build-service-pages, build-switch-pages,
+build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages), all completed with
+no errors. Re-hashed all 182 files (audits/_after-2.2-2026-08-31.sha256):
+byte-identical, zero diff, `git status --short modules/` empty. Ran all 36
+tools/check-*.js individually: all exit 0
+(audits/checker-results-2.2-2026-08-31.txt). Manually swept both
+pharmacy-fishlocks-ainsdale.html and pharmacy-fishlocks-eccleston.html
+field by field against branches.json (branchName, streetAddress,
+addressLocality, postalCode, addressRegion, phone, email, seoTown,
+googleReviewUrl, nhsReviewUrl, hasApp gating, app sentence): all present
+and correct.
+
+One thing worth recording precisely rather than repeating uncritically:
+the fifth pass's log entry lists pfLink among the fields it found "0
+mismatches" on. Checking that claim directly, the raw pfLink URL string
+from branches.json does not appear anywhere in either page's HTML.
+`grep -n "pfLink" tools/build-branch-landing-pages.js` returns nothing -
+the generator never reads that field. What both pages actually carry is a
+same-domain relative link, `pharmacy-first-<brandSlug>-<townSlug>.html`,
+built independently of pfLink and correct for a page that lives on the
+branch's own site. That link target is already governed by
+check-service-links.js and check-branch-identity.js, both clean, so
+nothing on the page is wrong. But the fifth pass's own description of what
+it verified was not accurate on this one point, which is exactly the
+"which files did it actually read" question this repo's CLAUDE.md keeps
+finding cause to ask of checkers - here asked of a quality-pass log entry
+instead of a checker, and it holds up: a verified claim and an actually-true
+claim are not automatically the same thing. Corrected in the worklist entry
+for this pass; no page or generator change needed, because the page itself
+is right.
+
+WORK DONE, LIVE HALF. Read-only via Claude in Chrome (no ambiguity this run,
+no other browser tab group open):
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html  -> 404
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html -> 404
+  https://www.fishlockpharmacy.co.uk/sitemap.xml -> 40 URLs, all still
+    lastmod 2026-08-14T17:32:10+00:00, neither landing page listed, no
+    change since the fifth pass yesterday. Q35 (six branch landing pages
+    built and verified but never pasted to Weebly, six GBP profiles
+    waiting on it) and Q69 (branch-page Pharmacy First tile says "free NHS
+    treatment" rather than "free NHS consultation") both re-read against
+    current live state and both still describe it accurately. Neither is
+    urgent because neither page has reached a patient yet.
+
+RESULT. No in-repo defect found. No question raised or closed. Evidence:
+audits/fishlocks-branch-landing-check-2026-08-31.txt,
+audits/checker-results-2.2-2026-08-31.txt,
+audits/_before-2.2-2026-08-31.sha256, audits/_after-2.2-2026-08-31.sha256.
+Item 2.2 left ticked (already [x]) with a new dated block appended in
+AGENT_WORKLIST.md.
+
+PUSH. `.git\index.lock` was still present and still under the 1-hour
+threshold when this run reached its commit step, so `git add`/`git commit`
+were not run from this Cowork shell - matching the same constraint recorded
+in the entry at the top of this file before this one. All work is written
+to the working tree and captured in this log entry; committing and pushing
+this run's changes needs either a later run in this shell once the lock has
+either cleared or crossed the 1-hour staleness threshold, or the native
+Windows host, which a prior entry records has pushed successfully before.
+`build-audit-status.js` (step 10) was attempted anyway rather than assumed
+broken, and failed, but not at the point expected. Its source shows it
+publishes to rbh-data-portal via the `gh` CLI specifically
+(`gh api repos/.../contents/... --jq .sha` and `gh api -X PUT ...`), and
+`which gh` returns nothing in this shell - not installed - so a `gh`-stage
+failure was expected. What actually happened is earlier and more basic:
+the script hardcodes `const REPO = 'C:/Dev/rbh-site-data'` and reads
+`AGENT_WORKLIST.md` etc. from that literal path, which does not resolve in
+this Linux sandbox (this repo is mounted at
+`/sessions/confident-stoic-davinci/mnt/rbh-site-data` here, per this
+session's own path mapping) - so it throws `ENOENT` on its very first read,
+before ever reaching a `gh` call. Not fixed on the spot: the script is
+written for, and correctly hardcodes, the native Windows host it is meant
+to run on, and patching it to detect its own environment is a change to a
+publishing tool outside this run's one worklist item, not a quality-pass
+fix. Flagging this as a standing environment gap rather than a per-run
+condition: this Cowork shell currently has no route to GitHub, read or
+write, other than anonymous HTTPS reads (works for `git ls-remote` and
+plain content fetches), and separately cannot run `build-audit-status.js`
+to completion at all regardless of GitHub access, because the script only
+knows the Windows path to this repo. This second half is not a new
+finding - an earlier entry in this file already recorded the identical
+`ENOENT` on the identical hardcoded path - it is reconfirmed unchanged
+here, not rediscovered.
+
 ## 2026-08-31 (later still again) - Item 2.1 quality pass (seventh): Fishlocks Ainsdale reverified clean in repo (36/36 checkers, up from 34), live half re-read and Q35/Q37/Q57 all reconfirmed unchanged, Q37 gained a non-blocking addendum about a second, correctly worded footer block found alongside the still-wrong one
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
