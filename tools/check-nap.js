@@ -54,6 +54,18 @@
       All five phone shapes, the lower-case postcode and the lower-case name
       were injected into a live page on 2026-08-14 and this file exited 0 on
       every one of them.
+    - the STREET sweep also reads a fact written more than one way. Added on
+      the item 1.4 quality pass, 2026-08-31. The street sweep added on
+      2026-08-13 matched only the exact streetAddress string, and every pass
+      since then recorded the same documented residual without fixing it:
+      "an abbreviated street ('Station Rd') is still not read". Proved
+      current by injection: "42 Fernhill Rd" (Smartts Bootle's own street,
+      abbreviated) on the Cherry Lane contraception page passed with 0
+      mismatches, while the full-form "42 Fernhill Road" is caught. The
+      sweep now accepts the common abbreviation of the road-type word only
+      (Road/Rd, Street/St, Lane/Ln, Drive/Dr, Avenue/Ave); the house number
+      and the rest of the name still have to match exactly, so this narrows
+      a real gap without loosening the rule into false positives.
   Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
   question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
@@ -176,6 +188,41 @@ const KNOWN_EMAIL = {};
 // keyed "<filename>::<the string as written>", and a stale key fails the run.
 const KNOWN_NAME = {};
 const KNOWN_STREET = {};
+
+// The street sweep below has matched only the EXACT streetAddress string
+// since it was added on 2026-08-12, which left the same residual as the
+// phone and postcode sweeps once did: a fact read in only one spelling.
+// Documented from 2026-08-14 as a known gap and left unfixed for five
+// quality passes ("an abbreviated street ('Station Rd') is still not
+// read"). Proved current on the item 1.4 quality pass, 2026-08-31: "42
+// Fernhill Rd" (Smartts Bootle's own street, abbreviated) injected into the
+// Cherry Lane contraception page passed check-nap.js with 0 mismatches,
+// while the full-form "42 Fernhill Road" is caught. A patient reading an
+// abbreviated foreign street address is sent to the wrong shop exactly as
+// a full-form one would, so the shape gap is a real NAP fault, not a
+// cosmetic one. Fixed by building a regex per street that accepts either
+// the full word or its common abbreviation for the road-type word only
+// (the number and the rest of the name still have to match exactly), the
+// same "shape, not spelling" fix already applied to the phone and postcode
+// sweeps. Only the word actually present in branches.json is varied, so
+// this cannot loosen a match into flagging an unrelated street.
+const STREET_ABBR = [
+  [/\broad\b/gi, "road|rd\\."],
+  [/\bstreet\b/gi, "street|st\\."],
+  [/\blane\b/gi, "lane|ln\\."],
+  [/\bdrive\b/gi, "drive|dr\\."],
+  [/\bavenue\b/gi, "avenue|ave\\."],
+];
+const streetPatternCache = new Map();
+function streetPattern(street) {
+  if (streetPatternCache.has(street)) return streetPatternCache.get(street);
+  let pat = street.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  for (const [full, alt] of STREET_ABBR)
+    pat = pat.replace(full, "\\b(?:" + alt + "?)\\b");
+  const re = new RegExp(pat, "i");
+  streetPatternCache.set(street, re);
+  return re;
+}
 
 // Pages HTML-escape text and attribute values; decode before comparing.
 // The non-breaking space is decoded to an ordinary space, and a literal
@@ -560,7 +607,7 @@ for (const dir of PAGE_DIRS) {
     // case or in a capitalised heading.
     for (const other of branches) {
       if (!other.streetAddress || other.streetAddress === b.streetAddress) continue;
-      if (!sweptLower.includes(other.streetAddress.toLowerCase())) continue;
+      if (!streetPattern(other.streetAddress).test(sweptLower)) continue;
       const key = file + "::" + other.streetAddress;
       if (KNOWN_STREET[key]) {
         usedKnownStreet.add(key);

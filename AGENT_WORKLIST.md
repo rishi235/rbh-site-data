@@ -120,6 +120,41 @@ tracked. Residuals unchanged and deliberate: an abbreviated street
 ("Station Rd") and an unrecognised lower-case postcode-shaped string are
 still not read. Full working in
 audits/nap-item-1.4-quality-pass-2026-08-29.txt.
+Quality pass 2026-08-31 (all unchecked items [BLOCKED], quality-pass fallback):
+NAP data clean for the sixth pass running. 177 pages, 3 paste blocks, 0
+mismatches, all 36 checkers pass, all six generators rebuild to a zero diff.
+REPO HALF ONLY, no live half this run. Ran all 36 checkers and the full
+regeneration diff first with no defect found, then, rather than stop there,
+tested the one residual this item has carried unfixed since 2026-08-14: "an
+abbreviated street ('Station Rd') is still not read". Proved it was still
+real, not stale wording, by injecting "42 Fernhill Rd" (Smartts Bootle's own
+street, abbreviated, no brand name alongside it so the name sweep could not
+mask the result) into the Cherry Lane contraception page: all 36 checkers
+exited 0, the same shape as every earlier phone, postcode, email and name gap
+this item has closed. Fixed at the same layer as those: the street sweep
+(added 2026-08-13) matched only the exact streetAddress string; it now
+matches the full word or its common abbreviation for the road-type word only
+(Road/Rd, Street/St, Lane/Ln, Drive/Dr, Avenue/Ave), built per street as a
+regex rather than a plain .includes(), with the house number and the rest of
+the name still required to match exactly so this cannot loosen into a false
+positive on an unrelated street. Verified the fix three ways: the injected
+abbreviated street is now caught (MISMATCH, correct branch identified), the
+real repo still exits 0 mismatches with the injection reverted (byte-identical
+to the pre-change file), and a full cross-check of every branch pair's street
+against every other branch's abbreviation pattern found no false positive
+beyond the one case already skipped by design (Clear Chemist and RB
+Healthcare Ltd Head Office share the literal string "Unit 20 Brookfield Trade
+Centre, Brookfield Drive, Aintree", already exempted by the existing
+exact-match skip before the new pattern is even reached). Residual narrowed,
+not closed: an unrecognised lower-case postcode-shaped string is unchanged,
+and abbreviations for close/crescent/etc. are not covered, only the five
+road-type words that actually appear in branches.json today; widen the list
+the day a sixth one is added. No question raised, blocks nothing.
+Environment note: this run's shell has no usable git credential for
+git@github.com (git fetch/push both fail "Host key verification failed",
+consistent with every other sandboxed-shell entry in this log), so step 9's
+push and step 10's status-page publish are queued for a native-host run, the
+same pattern recorded throughout 2026-08-31's entries above.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;

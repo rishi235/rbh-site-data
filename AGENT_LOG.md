@@ -1,3 +1,108 @@
+## 2026-08-31 (later still still still still) - Item 1.4 quality pass (sixth): the documented "abbreviated street not read" residual, left open since 2026-08-14 across five passes, proved still real by injection and fixed in check-nap.js's street sweep
+
+ENVIRONMENT. This run was Cowork's sandboxed shell against the mounted
+`C:\Dev\rbh-site-data` folder, same class of environment as every entry
+above. `.agent-lock` did not exist at the start of this run; created fresh.
+Found a bare `.git/index.lock` (0 bytes, about 25 minutes old at the time of
+the check), well under the 1-hour staleness threshold in this run's own
+instructions, so it was left alone rather than removed; `git status` and
+plain reads worked around it without issue, matching the pattern recorded in
+the 2026-08-31 (later still) entry further down this file. `git fetch origin`
+was tried rather than assumed broken and failed identically to every other
+sandboxed-shell entry today, "Host key verification failed": this shell still
+has no usable SSH credential for git@github.com. Proceeded on the local
+checkout, which was already 2 commits ahead of origin/agents/audit-backlog
+from a prior run that could not push either. Also present but untouched, as
+out of scope for this item and not blocking it: a stray `C:/` directory tree,
+a `.testfile123.todelete` file, and two `.agent-lock.released-*` files, all
+untracked leftovers from earlier sessions on this mount (the unlink block
+documented elsewhere in this file means they cannot be deleted from a
+sandboxed shell; renaming, not deleting, is this mount's only working removal
+primitive). None were added to git.
+
+ANSWER PICKUP (step 3). Not attempted this run: this session's browser tools
+are Claude's built-in browser and Claude in Chrome, not the always-signed-in
+Chrome instance earlier native-host entries used, and the procedure's method
+depends on Rishi's own Chrome holding the Cloudflare Access session. Left for
+a run with that specific browser. QUESTIONS.json unchanged: 85 total, 51
+still open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Every unchecked item (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) is [BLOCKED], so this run did a quality pass instead, per the
+worklist's own fallback rule. Ranked completed items by the latest
+2026-dated string in their own AGENT_WORKLIST.md block: 1.1 and 1.4 tie
+oldest at 2026-08-29 (6.8, the previous tied item, was closed by the
+immediately preceding run today). Read both full blocks before choosing.
+1.1 (brand-name spelling) has had seven quality passes recorded; 1.4 (NAP)
+has had five, one fewer, so took 1.4.
+
+WORK DONE. Ran all 36 checkers clean (0 failures) and regenerated all six
+generators to a byte-identical diff before changing anything, confirming the
+repo was clean going in. Rather than stop at a clean re-run, tested the one
+residual this item has carried since the 2026-08-14 quality pass and
+repeated unfixed through the 2026-08-29 pass: "an abbreviated street
+('Station Rd') is still not read." Injected "42 Fernhill Rd" (Smartts
+Bootle's own street, written abbreviated, deliberately with no brand name
+alongside it so the existing name sweep could not mask the result) into the
+Cherry Lane contraception page's hero copy and ran all 36 checkers: all 36
+exited 0, including check-nap.js itself (0 mismatches), confirming the
+residual was still a live gap and not stale documentation. One earlier
+attempt at the same injection also carrying the brand name "Smartts Chemist"
+was caught by the pre-existing name sweep, which would have been a false
+negative for this specific test had it been left in, so it was reverted and
+retested without the name.
+
+Fixed check-nap.js at the same layer as every earlier fix on this item
+(2026-08-11 phone shape, 2026-08-12 postcode/email location, 2026-08-13
+name/street location, 2026-08-14 shape-not-location): the street sweep
+(itself added 2026-08-13) matched only the exact `streetAddress` string from
+branches.json. It now builds a per-street regex that accepts the full
+road-type word or its common abbreviation (Road/Rd, Street/St, Lane/Ln,
+Drive/Dr, Avenue/Ave, each with an optional trailing full stop on the
+abbreviation), leaving the house number and the rest of the name to match
+exactly, so this narrows a real gap without loosening the rule into false
+positives. Verified three ways: (1) the injected abbreviated street is now
+caught, with the correct owning branch named in the message; (2) the real
+repo, with the injection reverted to a byte-identical file, still exits 0
+mismatches across all 177 pages and 3 paste blocks; (3) a full cross-check of
+every branch's street pattern against every other branch's street string in
+branches.json found no false positive beyond the one pair already exempted
+by the pre-existing exact-match skip (Clear Chemist and RB Healthcare Ltd
+Head Office genuinely share one building, "Unit 20 Brookfield Trade Centre,
+Brookfield Drive, Aintree"). Re-ran all 36 checkers and the six-generator
+regeneration after the fix: still 0 failures, still a zero diff, so the
+change touches only the checker, not any generator or generated page.
+
+Residual narrowed, not closed, and said so in AGENT_WORKLIST.md: an
+unrecognised lower-case postcode-shaped string is unchanged from 2026-08-14,
+and only the five road-type words actually present in branches.json today
+(Road, Street, Lane, Drive, Avenue) are covered; a sixth (Close, Crescent,
+Way, etc.) would need adding to STREET_ABBR the day a branch address uses
+one. No question raised; this did not need Rishi's judgement, only the same
+mechanical widening item 1.4 has needed four times before.
+
+FILES CHANGED: tools/check-nap.js (STREET_ABBR table, streetPatternCache,
+streetPattern() helper, the street-sweep call site switched from `.includes`
+to the new pattern, and two documentation blocks: the file's own top-of-file
+history list and a comment beside KNOWN_STREET). AGENT_WORKLIST.md (item 1.4
+block, quality-pass note appended in place). This file. No generator, no
+generated page, no branches.json field touched.
+
+STEP 9 (commit and push). Committed locally as a single commit covering
+tools/check-nap.js and AGENT_WORKLIST.md. `git push origin
+agents/audit-backlog` attempted and failed identically to every sandboxed-
+shell entry today, "Host key verification failed", so this commit stacks
+behind the 2 commits already unpushed on this branch, all three waiting for
+a native-host run to push.
+
+STEP 10 (publish status page). Not run: `tools/build-audit-status.js`
+hardcodes a native Windows path (`C:/Dev/rbh-site-data`) per every prior
+sandboxed-shell entry's own note. Left for the native-host run that also
+handles the push above.
+
 ## 2026-08-31 (later still still still) - Item 6.8 quality pass: the "40 open questions remain, keep going from Q39" note this item left on 2026-08-29 was stale, one gap (Q83) found and closed, all 51 currently open questions now carry the plain-English "Decision needed:" opening; also confirms this run's own environment matches the immediately preceding entry's diagnosis exactly, git checkout included, not just git commit/push
 
 ENVIRONMENT. This run was Cowork's sandboxed shell against the mounted
