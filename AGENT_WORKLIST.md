@@ -1193,6 +1193,45 @@ filename. Three negative tests, all three fire, and the two that prove the new
 behaviour both PASSED under the old rule. Nothing was wrong today; the policy
 was unpinned, same shape as the widget diary gap found on item 3.7. No copy
 edited anywhere. Evidence in audits/mccanns-build-check-2026-08-14.txt.
+Quality pass 2026-08-31 (sixth). Done 2026-08-31. Clean on both halves, no
+repo defect, no new question. All 36 checkers green (up from 35 at the
+fifth pass on 2026-08-14). All six generators rebuilt; sha256 of all 203 files
+under modules/service/pages, modules/switch/pages and modules/branch/pages
+identical before and after. A sixth independent extraction
+(audits/verify-3.6-2026-08-31.js, imports nothing from tools/, own regexes
+throughout) re-read all 26 pages: 2,589 checks, 0 failures, covering one H1
+per page carrying the branch's own seoTown, the excused/unexcused
+cross-town asymmetry (Sandringham's serviceAreaList carries Aigburth so its
+sister mention is excused, Aigburth's does not carry St Michael's so no
+excuse exists there), own phone and postcode present with the sister's
+absent, JSON-LD name equal to the branch's own branchName rather than the
+bare shared brandLabel "McCanns Chemist" per the item 3.12 branch-identity
+rule, JSON-LD address matching branches.json field by field, the map embed
+decoding to the branch's own address, data-wa matching the estate WhatsApp
+number, and title/description length and own-town presence resolved against
+the correct one of four service-family sheets. Cross-town guard re-proved
+by injection, then restored: "near St Michael's" added to the Aigburth UTI
+H1 was caught by both check-seo-pattern.js (naming the shared-domain rule
+by id) and the independent extraction before being reverted via `git show
+HEAD:<path> > <path>` (this mount's `git checkout --` cannot unlink the old
+file); sha256 after restore matched the pre-injection file exactly and all
+36 checkers were re-run clean. LIVE HALF, two read-only GETs via Claude in
+Chrome: the Aigburth UTI page is fully correct (title, H1, phone, address,
+hours). The Sandringham UTI page's title and H1 still read "Sandringham"
+rather than "St Michael's" live, though the repo's generated page and paste
+sheet both correctly carry "St Michael's" - this is the queued item
+5.7/Q15 repaste, already tracked since the fourth pass on 2026-08-14, not a
+repo defect. The site footer's known Q39 set ("McCann's Pharmacy" branding,
+"Sandrigham Medical Centre" typo) is unchanged, nothing new. Evidence in
+audits/mccanns-build-check-2026-08-31.txt. NOTE ON RUN CONDITIONS: executed
+via Cowork's sandboxed shell, not the native Windows host this procedure
+assumes; `git fetch origin` failed with "Host key verification failed" (no
+SSH credential for git@github.com from this shell), the same limitation
+every recent run has recorded, and a pre-existing .git/index.lock (left by
+an earlier run, under the 1-hour staleness threshold throughout) may leave
+this run's commit sitting locally until a native-host or credentialed
+session pushes it - see the AGENT_LOG.md addendum for this run's actual
+outcome.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
@@ -1295,6 +1334,76 @@ because rule 1 passes vacuously on a page whose booking card was dropped
 entirely. A second defect was in this pass's own method and is written up
 rather than dropped. No copy edited anywhere, no question raised. Evidence in
 audits/smartts-build-check-2026-08-14.txt.
+Quality pass 2026-08-31 (sixth; unattended, Cowork sandboxed shell, not the
+native Windows environment this procedure assumes - see this run's own
+AGENT_LOG.md entry for the environment limitations, unchanged from every
+other run today). Picked as the least recently verified completed item: a
+case-sensitivity bug in this run's own tie-break scan (matching "Quality
+pass" but not "Fifth quality pass") first suggested 4.10/4.12/4.13 were the
+most overdue at 21 days stale; redone case-insensitively across all 43
+completed items, the true answer was 3.7 itself (last verified 2026-08-14,
+5.6 tied at the same date but is a narrow single-fact item, not a full
+branch audit) and 6.7/6.8 (never verified, but done only two days ago, so
+not yet due). Worth carrying: a tie-break scan that silently drops entries
+because of a capitalisation difference is the same class of fault this repo
+keeps finding in its checkers - ask which lines a scan actually matched.
+All 12 pages re-verified by a sixth independent extraction sharing no code
+with tools/ (audits/verify-3.7-2026-08-31.js): 697 checks, 0 failures after
+two bugs in the script itself were found and fixed rather than reported as
+defects - it did not strip the HTML build comment before its em-dash check
+(the comment's own em dash is check-em-dashes.js's documented, estate-wide
+exemption) and it looked for a maps embed at .../maps/embed?q=... when the
+generators actually emit .../maps?q=...&output=embed. Covers: own postcode
+and phone present with no other live branch's; own street address present;
+map query decodes to the branch's own address; JSON-LD @type Pharmacy, name,
+telephone and full PostalAddress field by field; data-branch and data-wa
+correct where present; the cross-town naming guard (no other live branch's
+seoTown without a serviceAreaList excuse); hasApp consistency (Smartts is a
+member, its switch page carries the app card); no em dash outside the
+build-comment exemption; no other branch's Appointedd widget id anywhere on
+the page; every discovered paste-sheet block naming this branch carries its
+own Bootle seoTown; the shared switch paste template (modules/switch/
+weebly.html) carries no branch-specific fact. All 36 checkers (up from 21 at
+the first pass) re-run before any change: 0 failures. All six generators
+rebuilt: git status on modules/service/pages, modules/switch/pages and
+modules/branch/pages shows zero diff, byte-identical.
+Three injections run against the real checkers on pharmacy-first-smartts-
+bootle.html, each restored by byte copy from a saved original (not git
+checkout) before the next: phone swapped to SK Chemists Bootle's number,
+caught by check-nap.js (6 mismatches); postcode swapped to SK Chemists
+Bootle's, caught by check-postcodes.js ("FOREIGN ... owned by smartts_bootle
+but carries L20 5DW (skchemists_bootle)"); and the road-name twin fault the
+item 4.10 fourth pass found unguarded in GBP packs at the time (Fernhill to
+Fernhall), tested here against the page side for the first time - caught
+independently by check-nap.js, check-jsonld.js and check-map-embeds.js,
+confirming the generated-page checkers already do field-level string
+equality on streetAddress rather than presence-only, so that fault class
+never reached the page side even before the 4.10 pack fix. No defect, but
+worth recording as closing a suspicion rather than opening one. Final sweep
+after all three injections and reverts: 36 of 36 checkers exit 0, and
+git diff on the injected file is empty.
+Live half performed (browser available this run, unlike the fifth pass):
+read-only GETs on pharmacy-first-smartts-bootle.html and switch-
+prescriptions-smartts-bootle.html. NAP correct on both (42 Fernhill Road,
+Bootle, L20 9HH; 0151 922 4984). Three standing live-only gaps reconfirmed
+unchanged, none new: (1) the live footer/hours card still prints "Monday
+9:00am - 6:00pm" etc with no lunch closure shown, the website-hours
+contradiction first recorded on the item 4.10 first pass; (2) the switch
+page's live browser-tab title still reads "Switch Your Prescriptions -
+Smartts Chemist Bootle", a hand-typed variant of the paste-sheet title
+"Switch Your Prescriptions to Smartts Chemist, Bootle", the same unpasted-
+title pattern recorded on runs 77 and 80; (3) the switch page's services
+grid still reads "Weight Loss Clinic - Support that delivers results" under
+the tracked Q16/5.8 KNOWN_CLAIM exemption, key not stale. The switch banner
+mojibake close button (INDEX.md's own note, confirmed live at Smartts on
+2026-08-10) was not independently re-read this pass - plain-text extraction
+does not reliably surface a single mojibake glyph, and re-confirming it
+would need a screenshot rather than get_page_text. Answer pickup (step 3)
+performed: 26 entries read from https://data.rbhealth.co.uk/api/feedback,
+spanning Q2-Q29, every id already "answered" in QUESTIONS.json, nothing new.
+No in-repo defect found, no copy changed, no new question. Evidence in
+audits/smartts-build-check-2026-08-31.txt and audits/verify-3.7-2026-08-31.js.
+Done 2026-08-31 (sixth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

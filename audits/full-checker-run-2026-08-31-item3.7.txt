@@ -1,0 +1,237 @@
+=== tools/check-address-region.js (exit 0) ===
+  1 accepted exception(s) checked against the values each one was granted for, so an exception cannot widen to cover a value nobody approved
+  WARN  KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of seoTown "St Michael's" (would be "st-michaels"). Q15: townSlug is deliberately held at 'sandringham' while seoTown reads 'St Michael's'. Rishi's answer moved the local word in the copy but kept the permalinks, so no live URL breaks and no redirects are needed. The title and the URL naming different places is the accepted cost.
+  WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
+
+check-address-region: clean, every addressRegion is a county (2 warning(s)).
+
+=== tools/check-app-membership.js (exit 0) ===
+  2 store URL(s) declared in one generator, hardcoded nowhere else
+  21 page(s) in the two families that render hasApp, 6 carrying the app
+  15 GBP pack(s) read for app claims in the copy pasted to the public profile
+
+check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+
+=== tools/check-booking-routes.js (exit 0) ===
+  service.js routes 11 service slug(s); 3 may not fall back to the Pharmacy First diary
+  7 Pharmacy First condition(s) read from the overview pages
+  6 widget id(s) shared between sister branches (one diary per pair, expected)
+
+check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+
+=== tools/check-branch-identity.js (exit 0) ===
+  16 trading branch(es), 3 website(s) shared by a pair
+  198 review link(s), 6 branch landing link(s) and 238 service page link(s) read on those pages
+
+  NOTE  3 brand(s) carried by more than one trading branch, where brandLabel alone cannot identify a shop: Scorah Chemists, McCanns Chemist, Fishlocks Chemist
+check-branch-identity: clean, every page names the branch it belongs to.
+
+=== tools/check-branch-links.js (exit 0) ===
+check-branch-links
+  16 branch record(s) read from branches.json
+  WARN  clearchemist_aintree.nhsReviewUrl: trading branch with an ODS code but no NHS review link, so nothing can point patients at its NHS reviews.
+  KNOWN tiffenbergs_longmoor.pfLink: Q8 / item 5.3: the Post A Pharmacy First link for this branch has no .html ending. It is one of the 11 pfLink values Q8 covers, so it is left alone until that question is answered and all 11 move together.
+check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 1 known issue(s) awaiting a decision).
+
+=== tools/check-brand-spelling.js (exit 0) ===
+  NOTE  gbp-packs/hirshmans-ainsdale.md:124 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  0 hardcoded brand string(s) found in build-switch-pages.js CONFIG (expect 0, post-Q19), brand read from branches.json: true
+  NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
+  NOTE  188 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 12 shortenable trading name(s): Scorah, McCanns, Fishlocks, Clear, Smartts, Hirshmans, SK, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane, Tiffenbergs
+check-brand-spelling: clean, every trading name is spelled the one way, 9 quoted reading(s) of a live page read as evidence.
+
+=== tools/check-cdn-pins.js (exit 0) ===
+  WARN  branch ref 'service-module-phase1' is 64 commit(s) behind origin/main and carries 318 page reference(s). It is pinned as a MUTABLE ref so that one push updates live pages without a repaste; while it sits behind main, that no longer happens.
+  WARN  modules/service/service.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
+  WARN  core/site-data.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
+
+check-cdn-pins: clean, 3 warning(s), 7 known issue(s) awaiting a decision.
+
+=== tools/check-contraception-copy.js (exit 0) ===
+  22 line(s) of service copy pinned, 5 FAQ pair(s)
+  presence rules read crawlable text only (scripts and comments stripped, Build Pack v2 section 5.1); absence rules read the whole page
+  1 accepted breach(es), each with a reason in KNOWN:
+    safeguarding::no under-16 step on any page
+  OK - no failures
+
+=== tools/check-editor-snapshot.js (exit 0) ===
+check-editor-snapshot
+  embedded snapshot: 16 branches, lastUpdated 2026-08-30
+  branches.json:     16 branches, lastUpdated 2026-08-30
+
+check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+
+=== tools/check-em-dashes.js (exit 0) ===
+  200 dash(es) inside build or code comments - not public, not a failure
+  591 dash(es) in paste sheet section headings and prose - structure, not pasted values
+  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure
+
+check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.
+
+=== tools/check-fragment-targets.js (exit 0) ===
+  177 generated page(s) read, 1536 id(s) declared
+  186 same-page fragment link(s) resolved against them, 187 JS-driven href="#" button(s) exempted
+  0 held under KNOWN
+
+check-fragment-targets: clean, every fragment link lands on an element that exists.
+
+=== tools/check-gbp-packs.js (exit 0) ===
+  WARN  sk-chemists-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  smartts-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  tiffenbergs-aintree.md: link has no .html ending, which Weebly pages normally need: https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree
+
+0 failures.
+
+=== tools/check-gbp-pharmacy-first.js (exit 0) ===
+check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14 packs, all clean.
+
+=== tools/check-jsonld.js (exit 0) ===
+  177 map iframe address(es) decoded and compared
+  @type declared: Pharmacy x177
+  name checked per family: branch:branchName x6, service:branchName x156, switch:branchName x15
+
+check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+
+=== tools/check-live-hours.js (exit 0) ===
+  colemanleigh_liverpool: 2 page(s), 5 snippet group(s)
+  riddings_timperley: 2 page(s), 4 snippet group(s)
+  gordonshorts_crosby: 2 page(s), 5 snippet group(s)
+  cherrylane_liverpool: 2 page(s), 3 snippet group(s)
+  tiffenbergs_longmoor: 2 page(s), 5 snippet group(s)
+
+=== tools/check-map-embeds.js (exit 0) ===
+  16 trading branch(es), 16 map address(es) read from branches.json
+  177 generated page(s), 177 map embed(s), 6 directions button(s)
+  6 generator(s) checked for how the query is composed
+
+check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+
+=== tools/check-nap.js (exit 0) ===
+Checked 177 pages and 3 paste block(s) against 16 branches.json entries: 0 mismatch(es), 0 warning(s).
+
+=== tools/check-opening-hours.js (exit 0) ===
+  rule 7 swept 88 clock time(s) on those pages, all of which must sit inside the hours card
+  NOTE  bank holidays (item 6.7): 8 date(s) in bankHolidays.dates2026, tradingPolicy "closed". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+check-opening-hours: clean, every visible and structured opening time matches branches.json.
+
+=== tools/check-page-coverage.js (exit 0) ===
+  Switch           earns 15 branches, list holds 15
+  Branch landing   earns  6 branches, list holds  6
+  expected page set: 177 pages across 3 folders
+
+check-page-coverage: clean, 177 pages accounted for
+
+=== tools/check-pharmacy-first-cost.js (exit 0) ===
+  112 Pharmacy First page(s) checked for the free claim, the prescription-charge caveat, cost qualifiers and prices
+  16 GBP pack(s) checked for cost qualifiers, prices and the free claim
+  6 branch landing page(s) checked, 6 of them advertising Pharmacy First and held to the free claim, cost qualifiers and prices
+
+check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+
+=== tools/check-pharmacy-first-eligibility.js (exit 0) ===
+  98 condition pages checked against them
+  15 GBP packs checked against the pinned cohorts and the 7 pathways
+  6 branch landing pages checked against the pinned cohorts (rule 9)
+
+check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
+
+=== tools/check-pharmacy-first-safety-net.js (exit 0) ===
+  7 ready conditions read from tools/build-service-pages.js
+  98 condition pages checked against their own safety net
+  WARN impetigo: safety net names no urgent route. The impetigo safety net names a GP twice but no urgent route. Whether NHS impetigo copy should carry a red flag is a clinical call on live patient-facing copy, so it is raised, not decided. (Q61)
+
+check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+
+=== tools/check-pharmacy-first-symptoms.js (exit 0) ===
+  7 ready pathways read from tools/build-service-pages.js
+  98 condition pages checked against their own symptoms list
+  82 medicine names read from tools/pom-names.js for rule 8
+
+check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.
+
+=== tools/check-postcodes.js (exit 0) ===
+WARN  UNOWNED gbp-packs/TEMPLATE.md carries PR8 3HN but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/INDEX.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/SEO.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+
+539 text files scanned, 19 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+
+=== tools/check-seo-keywords.js (exit 0) ===
+check-seo-keywords: 177 Meta Keywords line(s) across 11 paste sheet(s), against 15 live branches
+  presence and absence over 11 live seoTowns, 12 brand names, and each branch's own outward code
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+
+=== tools/check-seo-lengths.js (exit 0) ===
+         UTI treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-sk-chemists-bootle.html and uti-treatment-smartts-bootle.html
+         UTI treatment in Bootle
+
+check-seo-lengths: clean, every title and description fits and is unique. 24 warning(s).
+
+=== tools/check-seo-pattern.js (exit 0) ===
+one-line rule: 177 pages carry exactly one SEO title line and one SEO description line, so the title and description rules read the only line the paster can paste.
+data-source rule: 15 branches had seo-pattern pick() checked against branches.json seoTown/brandLabel
+       and the region leg against seoRegion/addressRegion, 8 with addressLocality differing from seoTown, 1 with seoRegion differing from addressRegion.
+cross-town rule: 177 pages read against 11 live seoTowns (Bramhall, Hazel Grove, Aigburth, St Michael's, Ainsdale, Eccleston, Aintree, Bootle, Walton, Timperley, Crosby), serviceAreaList excusing the branch's own catchment.
+177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+
+=== tools/check-seo-sheets.js (exit 0) ===
+  177 SEO-sheet entries and 163 INDEX-sheet entries across 11 discovered sheets
+  177 generated pages compared
+  163 pages also compared against an INDEX sheet, 14 with no INDEX row (the contraception family has no INDEX sheet)
+
+check-seo-sheets: clean, every page and its paste sheet agree.
+
+=== tools/check-service-links.js (exit 0) ===
+  KNOWN www.smarttschemist.co.uk/pharmacy-first-service-bootle.html (1 reference(s)): Q8/Q16: old live-only Pharmacy First page. Same class as the 11 GBP pack links held under item 5.3, which is blocked because the repo change is tied to a Weebly paste.
+  KNOWN www.smarttschemist.co.uk/medical-cannabis.html (1 reference(s)): Q16: live-only service page. No generator owns it; wording is held to eligibility only.
+  KNOWN CLAIM Support that delivers results. in modules/switch/pages/switch-prescriptions-smartts-bootle.html: Q16: the Weight Loss Clinic tile on the Smartts switch page promises an outcome, which the house rule on weight loss copy does not allow. It is hardcoded in the CONFIG block of tools/build-switch-pages.js and is the only claim of its kind in the estate. Not rewritten autonomously because it is patient-facing regulatory copy, which is Rishi's call; the replacement wording is offered in Q16.
+
+check-service-links: clean, 6 known issue(s) awaiting a decision.
+
+=== tools/check-switch-copy.js (exit 0) ===
+check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where they send people, 11 rules, 5 accepted breach(es) pinned to a question.
+
+=== tools/check-travel-clinic-copy.js (exit 0) ===
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+  OK - no failures
+
+=== tools/check-uk-spelling.js (exit 0) ===
+  167 US spelling(s) held against their UK forms, floor 120
+  198 page/paste/banner file(s), 27 pack/sheet file(s), 4 live script(s), 3 stylesheet(s), 1 data file(s)
+  copy read: markup 557171 chars, markdown 235603, script strings 5999, stylesheet content 2, data strings 8896
+
+check-uk-spelling: clean, the public copy is written in UK English.
+
+=== tools/check-url-scheme.js (exit 0) ===
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 30 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+
+=== tools/check-weight-loss-copy.js (exit 0) ===
+  21 medicine name(s) barred from tools/pom-names.js, 18 claim pattern(s) from tools/claim-patterns.js
+  consultation fee: "from £39.99", the same on all 15 page(s)
+  6 branch landing page(s) read as Regime 1, 6 of them advertising the clinic and held to no medicine name, no POM class reference, no purchase wording, no results, rate-of-loss or body-part claim, no offer, and the consultation floor
+  2 Weebly paste block(s) read as Regime 1, 1 of them weight loss copy and held to the same prohibitions plus a live route into the weight loss page
+  OK - no failures
+
+=== tools/check-whatsapp-route.js (exit 0) ===
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+
+=== tools/check-widget-diaries.js (exit 0) ===
+  shared brand diaries : travelClinic, weightLoss
+  per-site diaries     : bloodPressure, contraception, pharmacyFirst
+  6 id(s) shared between sister sites, 0 permitted across brands
+
+check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.
+

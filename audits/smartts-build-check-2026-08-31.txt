@@ -1,0 +1,34 @@
+Smartts Chemist Bootle - independent verification, item 3.7 sixth quality pass, 2026-08-31
+Pages checked: 12
+Total checks: 697
+Failures: 0
+
+All checks passed.
+
+---
+Injection tests run against the real checkers (tools/check-*.js), on
+modules/service/pages/pharmacy-first-smartts-bootle.html, each reverted by
+byte copy from a saved original before the next injection (not git checkout):
+
+1. Phone swapped to SK Chemists Bootle's number (0151 944 1013):
+   check-nap.js exit 1, 6 mismatches, all naming the correct branch and the
+   correct expected value. Caught.
+
+2. Postcode swapped to SK Chemists Bootle's (L20 5DW):
+   check-postcodes.js exit 1: "FOREIGN modules/service/pages/pharmacy-first-
+   smartts-bootle.html: owned by smartts_bootle (L20 9HH) but carries L20 5DW
+   (skchemists_bootle)". Caught.
+
+3. Road-name twin (Fernhill -> Fernhall), the same fault class the item 4.10
+   fourth pass found unguarded in gbp-packs at the time:
+   check-nap.js, check-jsonld.js and check-map-embeds.js all exit 1 and all
+   three independently flag the wrong street name against branches.json.
+   Unlike the GBP-pack address rule before its 4.10 fix, the generated-page
+   checkers already do field-level string equality on streetAddress rather
+   than presence-only, so this fault class does not reach the page side.
+   Worth recording: no defect, but confirms the page-level guards are
+   already stronger than the pack-level guard was before it was patched.
+
+All three injections restored to byte-identical (diff -q clean) before the
+next injection and before the final 36-checker sweep. Final sweep after all
+three: 36 of 36 checkers exit 0.

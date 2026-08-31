@@ -1,3 +1,291 @@
+## 2026-08-31 (item 3.7 quality pass, sixth) - Smartts Chemist (Bootle) re-verified clean for the sixth pass; zero in-repo defects; phone, postcode and road-name-twin injections all caught; three standing live-only gaps (hours contradiction, switch title paste-lag, Q16/5.8 weight loss claim) reconfirmed unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
+ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every run today has
+recorded, reconfirmed in full this run rather than assumed:
+
+RUN START STATE. .agent-lock was present but stale (created 2026-08-31
+10:37:01Z by the preceding item 3.6 sixth-pass run; this run's own start
+time was 2026-08-31 11:34-11:35 UTC, 57-58 minutes later, over the 45-minute
+threshold). `rm -f .agent-lock` failed with "Operation not permitted" - this
+mount (the real C:\Dev\rbh-site-data via a fuse bridge) allows creating and
+overwriting files but not deleting or, per file_handling_rules, renaming
+them; confirmed again this run that `os.rename` in fact succeeds where
+`os.remove`/`rm` do not, which is how every one of the many
+".agent-lock.released-*" and ".git/index.lock.stale-*" sibling files in this
+repo's root and .git/ came to exist - prior runs' own workaround for the same
+restriction, not clutter. Rather than add another one, this run overwrote
+.agent-lock in place with a fresh timestamp (2026-08-31T11:35:20Z), which
+achieves the same practical effect (the stale claim is gone, replaced by
+this run's own) without adding a new sibling file. A stale .git/index.lock
+(created 2026-08-31 10:14 UTC by an earlier run today, 80 minutes old, over
+the 1-hour threshold, no git process running per `ps aux`) was cleared this
+time via `os.rename` to `.git/index.lock.old` rather than left in place as
+several recent runs had to - this unblocked `git add`, which had been
+failing estate-wide since at least the item 3.8 fifth pass. `git fetch
+origin` still failed with "Host key verification failed" (no usable SSH
+credential for git@github.com from this shell), the same limitation every
+run today has recorded; `git commit`/`git push` were therefore not
+attempted for real content until the end of this run's own work, see below.
+
+ANSWER PICKUP (step 3): available this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text
+(read-only, no click, no submit, no login). 26 entries returned, Q2 through
+Q29, every distinct id already "answered" in QUESTIONS.json. Nothing new to
+apply. Tab closed after reading.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section was present at the top of this file at the start of the run, so
+step 7 applies as written (unused this run, no new question was raised).
+
+WHY THIS ITEM. All eight remaining unchecked AGENT_WORKLIST.md items are
+[BLOCKED] (confirmed by grep, unchanged from the item 3.6 pass's own note),
+so the quality-pass branch was taken. The tie-break scan for "least recently
+verified completed item" was run twice: the first pass, matching the literal
+string "Quality pass 2026-MM-DD" case-sensitively, missed every "Second/
+Third/Fourth/Fifth quality pass" entry (lowercase "quality pass" after an
+ordinal) and wrongly suggested 4.10/4.12/4.13 as 21 days stale. Rerun
+case-insensitively across all 43 completed items closed that gap and gave
+the real answer: 3.7 (Smartts Chemist, Bootle), last verified 2026-08-14,
+tied with 5.6 at the same date but 5.6 is a narrow single-fact item rather
+than a full branch audit, so 3.7 was taken. 6.7 and 6.8 have never been
+quality-passed at all but were done only two days ago (2026-08-29), so not
+yet overdue by the same logic every prior run has applied to freshly-done
+items. Recording the case-sensitivity bug itself, because it is the same
+"a scan is only as good as what it actually matched" fault this repo's own
+checkers have hit repeatedly (check-seo-lengths rule 3, check-cdn-pins'
+EXTRA_PASTE, check-em-dashes' label list) - this time in the meta-process
+that decides which item gets audited, not in an audit itself.
+
+REPO HALF, CLEAN. All 12 Smartts Bootle pages (11 service-family pages plus
+the switch page) re-verified by a sixth independent extraction sharing no
+code with tools/check-*.js: audits/verify-3.7-2026-08-31.js, 697 checks, 0
+failures - after fixing two bugs in the script itself rather than reporting
+them as findings. First: the em-dash check did not strip the HTML build
+comment before scanning, and every generated page's build comment carries an
+em dash by check-em-dashes.js's own documented, estate-wide, no-visitor-
+sees-it exemption; the script now blanks HTML comments first, the same
+convention check-em-dashes.js and check-seo-lengths.js already use. Second:
+the maps-embed check looked for `google.com/maps/embed?q=...` but the six
+generators actually emit `google.com/maps?q=...&output=embed`; fixed to
+match what check-map-embeds.js itself accepts. Neither was a repo defect,
+both were re-verified as false positives before being written up as fixed
+rather than as findings. What the 697 checks cover: own postcode and phone
+present with no other live branch's; own street address present; the Google
+Maps iframe query decodes to the branch's own full address; JSON-LD @type
+Pharmacy, name, telephone and PostalAddress field by field; data-branch and
+data-wa correct wherever present; the cross-town naming guard (no other live
+branch's seoTown appears without a serviceAreaList excuse - Smartts has none
+of the estate's five excused entries and correctly claims none); hasApp
+consistency (Smartts is a member, its switch page carries the app card, no
+non-member page carries app copy); no em dash outside the documented build-
+comment exemption; no other live branch's Appointedd widget id anywhere on
+any of the 12 pages; every discovered paste-sheet block naming Smartts
+Bootle carries its own Bootle seoTown; and the shared switch paste template
+(modules/switch/weebly.html) carries no Smartts-specific phone or postcode,
+confirming it is still the branch-agnostic template it is meant to be.
+All 36 checkers (up from 21 at the item's first pass on 2026-08-11) re-run
+before any change: audits/full-checker-run-2026-08-31-item3.7.txt, 0 of 36
+failures. All six page generators (build-service-pages, build-switch-pages,
+build-branch-landing-pages, build-weight-loss-pages, build-travel-clinic-
+pages, build-contraception-pages) re-run: `git status --porcelain` on
+modules/service/pages, modules/switch/pages and modules/branch/pages
+returns nothing, confirming byte-identical regeneration across all 177
+pages, not only Smartts Bootle's own 12. (build-status-page.js was also run,
+regenerating status/index.html with current counts as expected;
+build-audit-status.js was not run here, it belongs to step 10 below.)
+
+INJECTION TESTING, three targeted mutations against the real checkers on
+pharmacy-first-smartts-bootle.html, each restored from a saved-before-any-
+edit original via byte copy (`cp`, not `git checkout`, per the lesson the
+item 5.2 quality pass recorded about a harness that destroyed its own
+uncommitted fix by restoring from HEAD) before the next injection began:
+(1) phone swapped to SK Chemists Bootle's 0151 944 1013 - check-nap.js exit
+1, 6 mismatches, all correctly naming Smartts as the true owner and SK
+Chemists as the phone's actual owner. (2) postcode swapped to SK Chemists
+Bootle's L20 5DW - check-postcodes.js exit 1: "FOREIGN ... owned by
+smartts_bootle (L20 9HH) but carries L20 5DW (skchemists_bootle)". (3) the
+road-name twin fault the item 4.10 fourth pass found completely unguarded
+in GBP packs on 2026-08-14 (Fernhill silently changed to Fernhall, passing
+every rule that only checks presence rather than exact equality) - tested
+here against the generated-page side for the first time. Caught
+independently by three separate checkers: check-nap.js (contact address,
+map query and JSON-LD streetAddress all flagged), check-jsonld.js (address.
+streetAddress and the map iframe target both flagged) and check-map-
+embeds.js (map address flagged). This confirms, rather than assumes, that
+the generated-page checkers already do field-level string equality on
+streetAddress rather than the presence-only matching the GBP-pack checker
+had before its 4.10 fix - so this specific fault class never reached the
+page side even before that pack-level fix landed. No defect; a suspicion
+closed. Final sweep after all three injections and their reverts: 36 of 36
+checkers exit 0, and `git diff` on the injected file is empty.
+
+LIVE HALF, PERFORMED (browser available this run, via Claude in Chrome,
+read-only navigate + get_page_text, no click, no submit, no login). Read
+pharmacy-first-smartts-bootle.html and switch-prescriptions-smartts-
+bootle.html on the live site. NAP correct on both: "42 Fernhill Road,
+Bootle, L20 9HH", "0151 922 4984". Three standing live-only gaps
+reconfirmed unchanged, none of them new and none of them repo defects:
+(1) the live opening-hours card still prints a single "Monday 9:00am -
+6:00pm" range per weekday with no lunch closure shown, the website-hours
+contradiction the item 4.10 first pass recorded (Smartts closes 1-2pm per
+branches.json and the generated page's own JSON-LD correctly carries both
+sessions; only the live Weebly footer text collapses them); (2) the switch
+page's live browser-tab title still reads "Switch Your Prescriptions -
+Smartts Chemist Bootle", a hand-typed variant of the paste-sheet's "Switch
+Your Prescriptions to Smartts Chemist, Bootle", the same unpasted-title
+pattern recorded on runs 77 and 80 and reconfirmed on this item's second and
+third passes; (3) the switch page's services grid still reads "Weight Loss
+Clinic - Support that delivers results", the tracked Q16/5.8 KNOWN_CLAIM
+exemption, key not stale. Not independently re-read this pass: the switch
+banner's mojibake close button (INDEX.md's own note, confirmed live at
+Smartts on 2026-08-10) - plain-text page extraction does not reliably
+surface a single corrupted glyph, and confirming it properly would need a
+screenshot rather than get_page_text, which this run judged out of scope
+for a single stale-item re-verification.
+
+No in-repo defect found. No copy changed anywhere. No new question raised.
+AGENT_WORKLIST.md item 3.7 updated in place with the full sixth-pass
+account. Evidence: audits/smartts-build-check-2026-08-31.txt,
+audits/verify-3.7-2026-08-31.js, audits/full-checker-run-2026-08-31-item3.7.txt.
+
+## 2026-08-31 (item 3.6 quality pass, sixth) - McCanns Chemist (Aigburth and Sandringham) re-verified clean for the sixth pass; zero in-repo defects; cross-town guard re-proved by injection; one known live-only paste-lag gap (5.7/Q15 St Michael's retitle) and the standing Q39 footer set reconfirmed unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
+ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation this log has recorded for
+every recent run.
+
+RUN START STATE. No .agent-lock present at the start; created one immediately
+(2026-08-31T10:37:01Z). No git process of this session's own was running
+(checked via ps aux). A .git/index.lock was found present, roughly 20 minutes
+old at the time of the first check (left behind by the immediately preceding
+run, the 3.8 fifth pass, whose own log entry below records the same
+lock-handling situation), still present and still under the 1-hour staleness
+threshold at every check made through the end of this run (last checked
+2026-08-31T10:44Z, lock unchanged since 11:14 local/10:14 UTC), so left in
+place rather than removed, per the procedure's explicit threshold. UNLIKE
+several recent runs, this lock did NOT clear before commit time: `git add`
+was attempted twice (once before starting the work item, once at the end)
+and failed both times with "Unable to create .git/index.lock: File exists."
+THIS RUN'S EDITS (AGENT_WORKLIST.md item 3.6 block, this log entry, and the
+two new audit files) THEREFORE SIT UNCOMMITTED IN THE WORKING TREE, not even
+locally committed, which is one step further behind than the usual "committed
+locally but unpushed" state this log has recorded on other recent runs. They
+are saved to the real mounted repo (this session reaches it at
+/sessions/.../mnt/rbh-site-data/, a mount of the real C:\Dev\rbh-site-data),
+so nothing is lost, but a native-host or credentialed session will need to
+review, `git add` and commit them (on top of the pre-existing, already
+15-commits-ahead-of-origin backlog and the large pre-existing set of files
+`git status` reports modified with zero actual diff bytes - CRLF/mtime
+stat-cache noise on this mount, reconfirmed untouched this run, not content
+drift) before they reach origin. `git fetch origin` also failed this run with
+"Host key verification failed" (no usable SSH credential for git@github.com
+from this shell), the same limitation every recent run has recorded.
+tools/build-audit-status.js (step 10) was checked rather than attempted: it
+shells out via `gh api` (confirmed absent from this sandbox: `which gh` found
+nothing) and hardcodes `cwd: 'C:/Dev/rbh-site-data'`, a Windows path this
+Linux sandbox cannot resolve, so it could only fail here and was not run.
+
+ANSWER PICKUP (step 3): AVAILABLE THIS RUN. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text
+(read-only, no click, no submit, no login). 26 entries returned, spanning Q2
+through Q29. Every distinct question id named (Q2, Q3, Q4, Q5, Q13, Q14, Q15,
+Q16, Q17, Q18, Q19, Q20, Q21, Q22, Q24, Q28, Q29) already "answered" in
+QUESTIONS.json. Nothing new to apply this run. Browser tab closed after
+reading.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section was present at the top of AGENT_LOG.md at the start of this run, so
+step 7 applies as written (unused this run - no new question was raised).
+
+WHY THIS ITEM. All eight remaining unchecked AGENT_WORKLIST.md items
+confirmed [BLOCKED] directly against the file, each already carrying a
+documented reason requiring a supervised or hand-paste session (5.3 Q8, 5.4
+Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch
+taken. Nine items were already touched today by earlier runs (3.2, 3.3, 3.4,
+3.5, 3.11, 4.1, 4.4, 4.11, 5.1). Item 3.6's own block was last verified on
+the fifth pass, 2026-08-14, and the immediately preceding run (3.8, fifth
+pass, same day) named 3.6 as "an equally valid candidate for a future run"
+after its own tie-break exercise. 3.6 was confirmed untouched today (checked
+AGENT_LOG.md for any "## 2026-08-31 ... item 3.6" heading; none existed) and
+was taken.
+
+REPO HALF, CLEAN. Full detail in audits/mccanns-build-check-2026-08-31.txt.
+All 36 tools/check-*.js re-run clean before any change (0 of 36 failures,
+whole estate; up from 35 checkers at the fifth pass on 2026-08-14). All six
+page generators re-run; sha256 of all 203 files under modules/service/pages,
+modules/switch/pages and modules/branch/pages identical before and after -
+the whole estate regenerated byte-identical, not only McCanns' own pages. A
+fresh independent extraction sharing no code with tools/check-*.js
+(audits/verify-3.6-2026-08-31.js) re-derives expected facts from
+branches.json and reads all 26 McCanns pages directly (11 Aigburth service
+pages + 1 switch page, the same for Sandringham, plus the two branch landing
+pages): 2,589 checks, 0 failures. Covers one H1 per page carrying the
+branch's own seoTown; the deliberate cross-town excuse asymmetry
+(Sandringham's serviceAreaList carries "Aigburth" so its sister mention is
+excused, Aigburth's serviceAreaList does not carry "St Michael's" so no
+excuse exists there); own phone present as both visible text and a tel:
+link with no other live branch's digits anywhere; own postcode present with
+every other live branch's absent; JSON-LD parsing with @type Pharmacy,
+name equal to the branch's own branchName rather than the bare shared
+brandLabel "McCanns Chemist" (the item 3.12 branch-identity rule), and the
+full PostalAddress matching branches.json field by field; data-branch equal
+to the same branchName; the Google Maps embed decoding to the branch's own
+address; data-wa matching both the estate WhatsApp constant and the
+branch's own whatsapp field; no other live branch's ODS code or Google
+review URL; paste-sheet title and description length and own-seoTown
+presence, resolved against the correct one of four service-family sheets
+per CLAUDE.md's "fourth SEO field" convention (SEO.md for the seven
+Pharmacy First condition pages, CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md
+and WEIGHT-LOSS-SEO.md for their own families - the script's first draft
+missed this and reported six false failures before being fixed); the
+widget diary policy (weightLoss and travelClinic ids shared across both
+McCanns branches, bloodPressure/contraception/pharmacyFirst unique per site
+and colliding with no other live branch's per-site diary); and both branch
+landing pages cross-linking each other by filename.
+
+GUARD RE-PROVED BY INJECTION, not just read. The H1 of
+modules/service/pages/uti-treatment-mccanns-aigburth.html was changed by
+direct edit from "UTI treatment in Aigburth" to "UTI treatment in Aigburth,
+near St Michael's" - naming the sister branch's seoTown, which Aigburth's own
+serviceAreaList does not carry, so no excuse applies. Both
+tools/check-seo-pattern.js and the independent extraction caught it
+immediately: check-seo-pattern named the shared-domain rule by id ("h1 names
+'St Michael's', the seoTown of mccanns_sandringham, which shares a domain
+with this branch... serviceAreaList does not excuse that"), and the same run
+surfaced, unprompted, the pre-existing Q71 pin on
+pharmacy-mccanns-sandringham.html's description naming Aigburth - confirming
+the rule tells the excused case from the unexcused one correctly rather than
+blanket-failing any cross-mention. File restored via `git show HEAD:<path> >
+<path>` (this mount's `git checkout --` cannot unlink the old file, the same
+limitation item 3.3's 2026-08-31 pass recorded); sha256 after restore
+matched the pre-injection file exactly, the independent extraction re-ran
+clean (2,589 checks, 0 failures), and all 36 checkers were re-run clean (0 of
+36) after restore.
+
+LIVE HALF PERFORMED, two read-only GETs via Claude in Chrome (navigate +
+get_page_text; no click, no submit, no login; tab closed after each read).
+uti-treatment-mccanns-aigburth.html: title, H1, phone, address and opening
+hours all correct and matching branches.json. No new finding.
+uti-treatment-mccanns-sandringham.html: phone, address and contact card
+correct. ONE KNOWN LIVE-ONLY GAP RECONFIRMED, NOT NEW: the live title and H1
+still read "UTI treatment in Sandringham" rather than "UTI treatment in St
+Michael's", though the repo's generated page and paste-sheet comment both
+correctly carry "St Michael's" (confirmed by direct read of the generated
+file). This is the queued item 5.7/Q15 repaste, already tracked since this
+item's fourth pass on 2026-08-14, not a repo defect. The site-wide footer on
+both pages carries the pre-existing, already-tracked Q39 set unchanged
+("McCann's Pharmacy" branding with the apostrophe-s, and the "Sandrigham
+Medical Centre" typo in the Sandringham address line). Nothing new.
+
+RESULT. Zero in-repo defects found, sixth pass running for this item. No
+copy, page, generator or branches.json entry changed. Both live findings are
+reconfirmations of already-tracked paste lag, not new evidence, so no
+question was raised. AGENT_WORKLIST.md item 3.6 updated in place with this
+pass's note (checkbox already [x] from 2026-08-04, no change needed there).
+See RUN START STATE above for why this run's edits could not be committed or
+pushed from this shell.
+
 ## 2026-08-31 (item 3.8 quality pass, fifth) - SK Chemists Bootle re-verified clean for the fifth pass running; zero in-repo defects; two known live-only paste-lag gaps reconfirmed unchanged
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
