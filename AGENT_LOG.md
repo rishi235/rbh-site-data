@@ -105,6 +105,18 @@ AGENT_WORKLIST.md, unlike the equivalent passes on other items. This run
 added both the missing sixth-pass summary and this seventh-pass summary
 to AGENT_WORKLIST.md's 3.5 entry in one edit.
 
+LOG ADDENDUM: end-of-run lock handling. `git commit` needed five attempts
+before succeeding, blocked each time by the same mount-lock churn this log
+has recorded before (`.git/index.lock` and `.git/HEAD.lock` reappearing
+between a rename-aside and the next git command); resolved the same way
+each time (rename the lock aside, retry), no force-remove used, commit
+a2ad57f. At the end of the run, plain `rm -f .agent-lock` failed with
+"Operation not permitted", the same class of restriction this mount
+applies to the git lock files rather than anything specific to this run;
+renamed aside instead, to `.agent-lock.released-20260831-0945-claude`,
+the same convention the many `.agent-lock.released-*` markers already in
+this repo's root record. No `.agent-lock` file remains active.
+
 Files changed: audits/verify-3.5-2026-08-31.js (new),
 audits/hirshmans-item-3.5-quality-pass-2026-08-31.txt (new),
 AGENT_WORKLIST.md (3.5 sixth- and seventh-pass paragraphs backfilled),
