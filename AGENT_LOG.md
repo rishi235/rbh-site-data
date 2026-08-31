@@ -108,7 +108,13 @@ AGENT_WORKLIST.md, AGENT_LOG.md. No generated page, no pack, no data file
 touched. Questions: none raised, none answered. PUSH: attempted, failed
 on SSH publickey auth (see RUN START STATE above); this commit will sit
 locally ahead of origin/agents/audit-backlog until a native-host run or a
-credentialed session pushes it.
+credentialed session pushes it. STATUS PAGE: tools/build-audit-status.js
+also could not run this session - it hardcodes the read path as
+C:/Dev/rbh-site-data/... rather than resolving it relative to the
+script, so on this mount (reached at /sessions/.../mnt/rbh-site-data/,
+not the literal Windows path) it fails with ENOENT before doing anything;
+another native-host-only step alongside push, not attempted further. The
+portal progress page was not updated by this run.
 
 
 ## 2026-08-31 (item 4.4 quality pass, sixth) - Scorah Chemists Bramhall GBP pack: clean on 149 independent checks, hours and the bank-holiday note now derived from branches.json instead of hand-typed, both prior guards re-proved by mutation, a fifth-pass AGENT_WORKLIST.md sync gap backfilled, live half unchanged
