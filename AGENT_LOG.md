@@ -1,3 +1,140 @@
+## 2026-08-31 (later still still still still still still) - Item 3.12 quality pass (third): Tiffenbergs Chemist re-verified clean in the repo, live coverage widened from 2 of 12 pages to 6 of 12 (weight loss, travel clinic, contraception, infected insect bite added), zero defects found, Q56 reconfirmed unchanged
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry above. `.agent-lock` did not
+exist at the start of this run; created fresh with the current UTC timestamp
+via the Write tool (which does not hit this mount's unlink block, since it
+only needs to create a new file, not remove one). A bare `.git/index.lock`
+was present, about 18 minutes old by wall clock with no git process running
+(`ps aux | grep git` empty), well under this run's own 1-hour staleness
+threshold, so left alone rather than moved aside, matching the disposition
+recorded in this file's 2026-08-31 (later still still still) entry for a
+25-minute-old lock. `git status` and other plain reads worked around it
+without issue. `git fetch origin` was tried rather than assumed broken and
+failed identically to every sandboxed-shell entry today, "Host key
+verification failed": this shell still has no usable SSH credential for
+git@github.com. Proceeded on the local checkout, which was already 5 commits
+ahead of origin/agents/audit-backlog from prior runs that could not push
+either. The pile of leftover untracked files already documented by every
+entry today (three `.agent-lock.released-*` files, `.testfile123.todelete`,
+a stray `C:/` directory, `scratchtest.txt`, `scratchtest2.renamed.txt`, and
+six untracked audit files left by other items' work this session) was left
+untouched, out of scope for this item. One of those files,
+`.testfile123.todelete`, was briefly renamed aside during an unrelated
+unlink/rename test at the very start of this run and renamed back to its
+original name immediately afterwards, byte-identical, before any other work
+began; noted here only because it is the one leftover file this run's own
+commands touched, even briefly.
+
+ANSWER PICKUP (step 3). Attempted via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Page loaded and returned JSON
+normally (Chrome's Cloudflare Access session held). 27 entries returned,
+newest dated 2026-08-30T17:01, covering AUDIT ANSWER Q2 through Q29.
+Cross-checked all 17 distinct ids against QUESTIONS.json programmatically:
+every one already carries `"status": "answered"`, so nothing here was new. No
+change made to QUESTIONS.json. 85 total, 51 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) are [BLOCKED], confirmed by grep, so this run did a quality pass
+instead, per the worklist's own fallback rule. Ranked every completed item
+programmatically by the latest 2026-dated string in its own AGENT_WORKLIST.md
+block, then by count of "quality pass" mentions as tiebreaker (the same
+two-step method the 2026-08-31 (later still still) and (later still still
+still) entries above used for 1.1 and 1.4). Oldest date was 2026-08-30,
+shared by roughly a dozen items; of those, 3.12 (Tiffenbergs Chemist) carried
+the fewest quality-pass mentions (2, one fewer than the next-lowest), so was
+taken as the fallback rule's tiebreak.
+
+WORK DONE. Read the existing 3.12 block in full before touching anything: two
+prior quality passes (2026-08-14, 2026-08-30), the second an exhaustive
+2,355-check independent-instrument pass with fault injection covering all 12
+pages, plus a first live read limited to two of the 12 pages (Pharmacy First
+overview, switch). Ran all 36 checkers individually (0 failures) and
+rebuilt all six generators before changing anything: `git status --porcelain
+modules/ core/` empty both before and after, confirming byte-identical
+output and a clean repo going in.
+
+Rather than repeat the same repo-half instrument a third time for marginal
+value, widened the live half instead, which the 2026-08-30 pass had covered
+for only 2 of the branch's 12 live pages. Read four more, read-only via
+Claude in Chrome, nothing clicked, typed or submitted:
+weight-loss-clinic-tiffenbergs-aintree.html,
+travel-clinic-tiffenbergs-aintree.html, contraception-tiffenbergs-aintree.html
+and insect-bite-treatment-tiffenbergs-aintree.html. All four clean against
+branches.json (address, phone, opening hours including the 1-2pm lunch
+closure, postcode, seoTown) and, for the two compliance-sensitive pages,
+against the two-regime weight loss/travel clinic rules in
+RBH_WeightLoss_Advertising_Standards.md and this repo's own
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md: no medicine or vaccine named by brand or
+drug name, no superlative or guaranteed-outcome language, price shown only
+inside the booking card rather than headlined, and the travel clinic
+book-ahead window stated consistently as "6 to 8 weeks" in every place it
+appears. Q56 (branches.json's singular `Tiffenberg@rbhealth.co.uk` against
+the plural `tiffenbergs@rbhealth.co.uk` every live page's footer and contact
+card actually shows) reconfirmed present and unchanged on all four pages;
+not re-raised, same disposition as the 2026-08-30 pass's finding on the two
+pages it read. One further observation, also not raised as new: the shared
+Weebly site-wide footer strip under the contact card on every page (not a
+file this repo generates) renders with en dashes, byte-identical across all
+four pages read, which is the same pending-repaste/out-of-scope class
+already on record for the pre-5.1 em dash in the live switch page, not a
+distinct gap. Zero in-repo defects found; nothing edited under `tools/`,
+`modules/`, `core/` or `branches.json`.
+
+Live coverage for this item now stands at 6 of 12 pages across the two most
+recent passes, up from 2 of 12 before this run. The remaining six condition
+pages (earache, impetigo, shingles, sinusitis, sore throat, UTI) are still
+unread live for this item and are left for a future pass, recorded as such
+in AGENT_WORKLIST.md rather than left implicit.
+
+Appended the quality-pass note to the existing 3.12 block in place (not
+moved), matching every other item's convention. One editing mistake made and
+caught before finishing: the first attempt at the AGENT_WORKLIST.md edit
+matched the anchor text against near-identical wording that in fact belonged
+to the following item, 3.13 (Clear Chemist), and landed the new paragraph
+inside 3.13's block instead of 3.12's, duplicating the whole 3.12 entry a
+second time in the wrong place. Caught immediately by grepping the file for
+the item header ("3.12 Tiffenbergs") and finding two matches instead of one;
+fixed with a short Node script that located the correct block boundaries by
+line index, spliced the new paragraph into the real 3.12 block, removed the
+duplicate from inside 3.13, and wrote the result to a scratch path, verified
+line-for-line against the original with `diff` (27 insertions, 3 deletions,
+nothing else touched, checked/unchecked item counts unchanged at 43/8)
+before the corrected file replaced the original via `cp` to a temp name
+followed by `mv` over the real path, the same rename-not-unlink convention
+already on record elsewhere in this file. Recorded here in full because it
+is exactly the class of mistake this file exists to make visible rather than
+quietly absorb.
+
+Regenerated status/index.html via tools/build-status-page.js (the local
+status-snapshot script, not the portal-publishing tools/build-audit-status.js
+referenced in step 10) to keep it in step with the AGENT_WORKLIST.md edit.
+Re-ran all 36 checkers a second time after both edits: still 0 failures.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.12 block, quality-pass note appended
+in place), status/index.html (regenerated), audits/verify-3.12-2026-08-31.md
+(new, this pass's findings), this file. No generator, no generated page, no
+branches.json field touched.
+
+STEP 9 (commit and push). Committed locally. `git push origin
+agents/audit-backlog` attempted rather than assumed broken and failed
+identically to every sandboxed-shell entry today, "Host key verification
+failed": this shell still has no usable SSH credential for git@github.com.
+This commit stacks behind the 5 commits already unpushed on this branch from
+prior sandboxed-shell runs, all waiting for a native-host run to push.
+
+STEP 10 (publish status page). Not run: `tools/build-audit-status.js` opens
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md` with a literal Windows path and
+throws `ENOENT` on this mount, per every prior sandboxed-shell entry's own
+note. Left for the native-host run that also handles the push above.
+
+STEP 11 (lock release). `.agent-lock` cannot be deleted from this shell for
+the reason recorded in ENVIRONMENT, so released by the same rename convention
+already on disk (`.agent-lock.released-<epoch>`).
+
 ## 2026-08-31 (later still still still still still) - Item 1.1 quality pass (eighth): case-drift near misses (Mccanns Chemist, Mccann Chemist, Sk Chemists) proved unguarded by injection and fixed in check-brand-spelling.js's rule 2
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`

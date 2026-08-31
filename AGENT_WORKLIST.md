@@ -1884,6 +1884,30 @@ Done 2026-08-31 (sixth pass).
       against branches.json singular) re-confirmed still present live, not
       re-raised. The pre-5.1 em dash in the live switch page copy remains,
       as expected until the queued Weebly repaste; the repo copy is clean.
+      Quality pass 2026-08-31, THIRD PASS, WIDENED LIVE COVERAGE. Repo half:
+      re-ran all 36 checkers individually (0 failures) and rebuilt all six
+      generators before touching anything (git status on modules/ and
+      core/ empty before and after, byte-identical). No file changed; no
+      defect found in the repo half. Live half, read only, nothing clicked
+      or typed: read four of Tiffenbergs' 12 live pages the 2026-08-30 pass
+      had not read (weight loss, travel clinic, contraception, and the
+      infected-insect-bite Pharmacy First condition page), taking live
+      coverage for this item from 2 of 12 pages to 6 of 12 across the two
+      most recent passes. All four clean: no medicine or vaccine named by
+      brand on the weight loss or travel clinic pages, no superlative or
+      results claim, price shown only inside the booking card and not
+      headlined, book-ahead window stated consistently as "6 to 8 weeks",
+      and every fact (address, phone, opening hours including the 1-2pm
+      lunch closure, postcode, seoTown) matches branches.json on all four.
+      Q56 reconfirmed present and unchanged on all four pages read this
+      pass. One further live-only observation, not raised as new: the
+      shared Weebly site-wide footer strip beneath the contact card on
+      every page (not any file this repo generates) renders with en dashes,
+      the same pending-repaste/out-of-repo-scope class already on record
+      for the switch page's em dash, not a new gap. No question raised for
+      Rishi. Evidence: audits/verify-3.12-2026-08-31.md. Six of Tiffenbergs'
+      12 live pages (earache, impetigo, shingles, sinusitis, sore throat,
+      UTI) remain unread live for this item; left for a future pass.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
