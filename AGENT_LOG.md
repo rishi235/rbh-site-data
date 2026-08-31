@@ -1,3 +1,121 @@
+## 2026-08-31 (later still) - Item 4.14 quality pass (seventh): Gordon Short Chemist Crosby pack re-verified clean and byte-stable across seven passes, sixth-pass AGENT_WORKLIST.md sync gap backfilled, STOP on the Post A link swap reconfirmed unchanged; FIRST RUN THIS SESSION VIA THE NATIVE WINDOWS HOST, 17 commits backlogged by every earlier run today pushed to origin, repo litter from those sandboxed runs cleaned up
+
+ENVIRONMENT, READ FIRST. This run executed via the native Windows host
+(PowerShell over Windows-MCP against C:\Dev\rbh-site-data directly), not
+Cowork's sandboxed shell that every run recorded in this log today used. That
+matters because every one of today's earlier entries records the same two
+failures from that shell: `git fetch`/`git push` failing with "Host key
+verification failed" (no usable SSH credential for git@github.com from that
+shell) and `.agent-lock` being impossible to delete (only overwrite or
+rename) on that mount. Neither limitation applied here. `git fetch origin`
+and `git push origin agents/audit-backlog` both succeeded on the first try
+with a real SSH credential, `.agent-lock` deleted and recreated normally with
+`Remove-Item`, and a stale `.git/index.lock` (created 12:46, over 45 minutes
+old, no git process running) was removed the same way before doing anything
+else.
+
+BACKLOG CLEARED (step 9, but for sixteen previous runs' work, not this run's
+own). At the start of this run the branch was 17 commits ahead of
+`origin/agents/audit-backlog` with no local uncommitted work of substance
+(see below) - every commit already logged in this file by today's earlier
+sandboxed-shell runs (3.2, 3.3, 3.4, 3.5, 3.6, 3.7 and their addenda, plus
+5.1, 4.1, 4.4, 4.11 further back), none of which could reach origin from
+that shell. `git push origin agents/audit-backlog` sent all 17 in one motion,
+exit 0, branch now even with origin. This was done before touching this
+run's own item, on the view that clearing a same-branch backlog that six
+prior runs had each individually failed to clear is worth more than leaving
+it for a seventeenth stacked commit.
+
+REPO LITTER FROM TODAY'S SANDBOXED RUNS, CLEANED UP. Working tree carried,
+alongside the 17 unpushed commits: nineteen `.agent-lock.released-*` and
+`.agent-lock.stale-*` sibling files (the sandboxed shell's workaround for not
+being able to delete the lock, recorded in several of today's entries),
+five stray test files (`.rm-test-*.txt`, `testperm.txt`, `testwrite2.txt`,
+`__lftest__.txt`) and one corrupted directory literally named "C" + a single
+Private-Use-Area character (U+F03A, visually similar to a colon in some icon
+fonts) containing `Users\rishi\OneDrive - RB Healthcare Ltd\Downloads\
+cowork\PASTE_PACK\`, forty-eight files of genuine weight-loss/travel-clinic
+paste-sheet output. That directory was plainly a misdirected write from
+inside the sandboxed shell: `build-switch-pages.js` legitimately writes paste
+packs to that same OneDrive path (confirmed working correctly this run, see
+below), and something in that shell's path handling substituted the
+Private-Use-Area glyph for the colon and created the result inside the repo
+instead. All of the above deleted. Only the corrupted repo-internal copy was
+removed; nothing at the real OneDrive path was touched, and if that path
+already holds a correct copy from a working run, nothing was lost.
+
+WORKING TREE "MODIFIED" FILES, LEFT ALONE, NOT A DEFECT. `git status` showed
+around 80 tracked files as modified with no `git add` run. Checked before
+doing anything else: `git diff`, `git --no-pager diff --stat` and
+`git --no-pager diff --shortstat` all returned completely empty output for
+every file checked including `.gitattributes` itself, `core.autocrlf` and
+`core.filemode` are both false, and `git check-attr` reports no text/eol
+attribute set on the sampled files. Reads as a stat-dirty artefact from
+`.gitattributes` being among the files flagged (a known git behaviour: an
+attributes change can mark files status-dirty on cached stat info without any
+byte actually differing), not real uncommitted work. Left entirely alone:
+no `git add`, no renormalise, nothing staged or committed from that list this
+run, so if it is ever real it stays visible for whoever looks at it properly
+rather than being folded into this run's commit.
+
+ANSWER PICKUP (step 3). https://data.rbhealth.co.uk/api/feedback read via
+Claude in Chrome (read-only, tab closed after). 26 entries returned, Q2
+through Q29. Checked all seventeen distinct ids named against QUESTIONS.json:
+every one already "answered". Nothing new to apply. 51 of 85 QUESTIONS.json
+entries remain open, all above Q29, none with a portal answer yet.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file. Proceeded normally; nothing in this
+run's own item raised a question in any case.
+
+ITEM SELECTION (step 5). All eight remaining unchecked items (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed [BLOCKED] directly against AGENT_WORKLIST.md,
+so the quality-pass branch was taken. Ranked every checked item by the latest
+2026-dated string inside its own block: 4.14 (Gordon Short Chemist Crosby
+pack) and 5.6 came out tied oldest at 2026-08-14 by that file's own text, with
+every item touched today (3.2, 3.3, 3.5, 3.6, 3.7, 3.8, 3.11, 4.1, 4.4)
+excluded. Reading the pack file itself rather than only AGENT_WORKLIST.md
+broke the tie: gbp-packs/gordon-short-crosby.md already carried a "sixth
+quality pass" live-recheck note dated 2026-08-30 that had never been synced
+into AGENT_WORKLIST.md's own item 4.14 block, the same sync-gap shape several
+other items have needed backfilling this month. That made 4.14 the more
+overdue of the two by the file that is actually meant to be current, so it
+was taken, backfilling the sixth pass and adding a seventh in the same edit
+rather than letting the gap compound.
+
+WORK DONE. Baseline: all 36 tools/check-*.js clean, 0 failures, before any
+change. Pack re-verified fact by fact against branches.json (id
+gordonshorts_crosby): address 159 College Road, Liverpool L23 3AT, phone
+0151 924 3449, both hours sessions on all six trading days plus Sunday
+closed, catchment Crosby/Waterloo/Sefton leading with its own seoTown,
+hasApp false, review link and website both match, description 652
+characters, posts 449/280/521/424 - identical to all six earlier passes,
+byte-stable across seven. All six generators rebuilt: sha256 of all 204
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages identical before and after (paste-pack side-output
+confirmed landing correctly at the real OneDrive path this run, see above).
+All 36 checkers re-run clean after regeneration. Live half performed
+read-only via Claude in Chrome (navigate + get_page_text only, no click, no
+submit, no login, tab closed after): pharmacy-first-service-crosby.html
+(Post A's actual link) and switch-prescriptions-gordon-short-crosby.html
+both still read Gordon Short Chemist correctly; the switch page's mojibake
+em dash is unchanged; pharmacy-first-gordon-short-crosby.html (the
+branch-specific page Post A must never be repointed to) still reads Gordon
+Shorts Chemist throughout its heading and body while its own contact card
+and footer read correctly, so the STOP from 2026-08-10 stands, unchanged.
+Footer en dashes unchanged. One new live-only observation logged, not
+actioned: a stray mojibake glyph near the top of every page checked,
+sitewide rather than branch-specific and in no repo file. Full detail in
+AGENT_WORKLIST.md under item 4.14 and in the pack's own paster notes. Zero
+in-repo defects. No pack copy, page, generator, data field or
+branches.json entry changed. No new question raised.
+
+STEP 9/10/11. Committed (AGENT_WORKLIST.md, AGENT_LOG.md,
+gbp-packs/gordon-short-crosby.md, plus this run's litter cleanup) and pushed
+to origin/agents/audit-backlog, on top of the 17-commit backlog cleared
+above. tools/build-audit-status.js run to publish the status page. Lock
+released by deletion (native host, no workaround needed).
+
 ## 2026-08-31 (later) - Log addendum: push/publish outcomes and lock handling for the item 3.7 quality pass (sixth) run
 
 Recorded separately so the main entry below stays about the audit, not the

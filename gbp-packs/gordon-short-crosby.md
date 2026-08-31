@@ -185,3 +185,14 @@ Notes for the paster:
   retype noted above. No pack fact affected; branches.json cross-check
   (name, address, phone, website, review link, seoTown, service area, hasApp,
   both opening-hours sessions) all still matches exactly, sixth pass running.
+- Live recheck 2026-08-31 (item 4.14, seventh quality pass): pfLink
+  (pharmacy-first-service-crosby.html) and the switch page still read Gordon
+  Short Chemist correctly and Post A remains safe as written; the switch
+  page's mojibake em dash in "How switching...works" is unchanged.
+  pharmacy-first-gordon-short-crosby.html still reads Gordon Shorts Chemist
+  throughout its heading and body (contact card and footer are correct), so
+  the STOP on repointing Post A to it stands, unchanged. Footer en dashes
+  unchanged. New observation: a stray mojibake glyph near the top of every
+  page checked, most likely a corrupted close-button multiplication sign in
+  a site-wide banner snippet, not branch-specific and not in any repo file.
+  No pack fact affected.

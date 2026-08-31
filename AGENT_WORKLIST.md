@@ -3961,6 +3961,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       branches.json entry changed. Q78 raised, asking whether the same family
       should be read on the generated weight loss and branch landing pages.
       Done 2026-08-14.
+      Sixth quality pass 2026-08-30 (backfilled here on the seventh pass below;
+      the pack's own note recorded this at the time but it was never synced to
+      this file, the same sync gap several other items have needed backfilling
+      this month). Live recheck: the site's sitemap was now dated 2026-08-15 on
+      every page, against 2026-07-19 on every earlier check, so a site-wide
+      republish had happened. pfLink (pharmacy-first-service-crosby.html) and
+      the switch page both now read Gordon Short Chemist correctly, the switch
+      page's naming fault fixed by that republish, but the switch page's
+      mojibake em dash survived it. The three branch-specific generated pages
+      (pharmacy-first-gordon-short-crosby.html, weight-loss-clinic-gordon-
+      short-crosby.html, travel-clinic-gordon-short-crosby.html) were all
+      rebuilt in the republish but still read Gordon Shorts Chemist throughout,
+      unchanged since 2026-08-10; the wrong name is evidently sitting in a
+      content block Weebly carries forward across republishes rather than
+      something a one-off repaste fixes. The STOP on repointing Post A to the
+      branch-specific page stands. Footer en dashes on all four pages
+      unchanged. No pack fact affected, no in-repo defect, no question raised.
+      Seventh quality pass 2026-08-31. FIRST RUN THIS SESSION VIA THE NATIVE
+      WINDOWS HOST rather than Cowork's sandboxed shell (see the AGENT_LOG.md
+      entry for this date for the wider environment note). Baseline green: all
+      36 checkers exit 0 before any change. Pack re-verified fact by fact
+      against branches.json: address 159 College Road, Liverpool L23 3AT,
+      phone 0151 924 3449, both hours sessions on all six trading days plus
+      Sunday closed, catchment Crosby, Waterloo and Sefton leading with its own
+      seoTown, hasApp false with no app claim, review link and website both
+      match, description still 652 characters, posts 449/280/521/424,
+      identical to all six earlier passes: byte-stable across seven. Zero
+      non-ASCII, dash or smart-quote characters in the pack itself. All six
+      generators rebuilt: sha256 of all 204 files under modules/service/pages,
+      modules/switch/pages and modules/branch/pages identical before and
+      after. LIVE HALF PERFORMED (read-only, Claude in Chrome, navigate and
+      get_page_text only, no click, no submit, no login, tab closed after):
+      pharmacy-first-service-crosby.html, the page Post A actually links to,
+      still reads Gordon Short Chemist throughout and remains safe as written.
+      switch-prescriptions-gordon-short-crosby.html still reads Gordon Short
+      Chemist correctly; its mojibake em dash in "How switching...works" is
+      unchanged. pharmacy-first-gordon-short-crosby.html, the branch-specific
+      page Post A must not be repointed to, still reads Gordon Shorts Chemist
+      throughout its heading and body, though its own contact card and footer
+      blocks correctly read Gordon Short Chemist, the same split the sixth
+      pass found; the STOP stands, unchanged. Footer en dashes on all three
+      checked pages unchanged. One further live-only observation, not
+      previously logged: a stray mojibake glyph near the top of every page
+      checked (rendering as "├ù", most likely a corrupted close-button
+      multiplication sign in a site-wide banner snippet), appears sitewide
+      rather than branch-specific, no repo file carries it; noted here for
+      whoever next handles the repaste queue, not actioned further. No
+      in-repo defect found. No pack fact, page, generator or branches.json
+      entry changed. No new question raised. Done 2026-08-31.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
