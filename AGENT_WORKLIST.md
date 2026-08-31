@@ -5700,6 +5700,30 @@ record.
       Q21, Q22, Q28, Q29, Q34, Q35, Q36, Q37 and Q38. With the four done
       2026-08-28 (Q17, Q18, Q19, Q24) and Q80/Q81 written that way from new,
       40 open questions remain to retrofit. Keep going next run from Q39.
+      Quality pass 2026-08-31: checked the actual state of QUESTIONS.json
+      against this note's own "40 remain, keep going from Q39" instruction,
+      since all non-blocked worklist items are done and this was the least
+      recently touched. The 40 had already been cleared by runs between
+      2026-08-29 and 2026-08-30 that did the retrofit work but never wrote a
+      progress line here, the same missing-worklist-note gap Q84 raised
+      about other items; Q39 to Q82, Q84 and Q85 all carried a "Decision
+      needed:" opening already. One gap remained: Q83, dated 2026-08-30, was
+      the only open question of 51 with no retrofit, most likely added by a
+      run that retrofitted its siblings (Q82, Q84, Q85) but missed the one
+      in between. Fixed by prepending one plain-English sentence stating the
+      choice (fold the McCanns Aigburth lead-price finding into item 5.8, or
+      leave it on record, or fix it standalone) and the recommendation
+      (fold into 5.8), with the full original finding preserved verbatim
+      straight after, same convention as every other retrofit. Verified
+      programmatically that all 51 currently open questions (Q34 to Q85,
+      excluding answered ones) now open with "Decision needed:" and that
+      JSON.parse still succeeds. check-em-dashes.js, check-postcodes.js and
+      check-url-scheme.js, the three checkers that read QUESTIONS.json, all
+      still pass with 0 failures. No page regenerated, nothing else in the
+      repo touched. This item is now genuinely complete: no open question
+      remains unretrofitted. Any future question added to QUESTIONS.json
+      still needs the same "Decision needed:" opening under the standing
+      rule near the top of this file; this is not a one-off any more.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

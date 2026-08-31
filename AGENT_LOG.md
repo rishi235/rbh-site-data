@@ -1,3 +1,111 @@
+## 2026-08-31 (later still still still) - Item 6.8 quality pass: the "40 open questions remain, keep going from Q39" note this item left on 2026-08-29 was stale, one gap (Q83) found and closed, all 51 currently open questions now carry the plain-English "Decision needed:" opening; also confirms this run's own environment matches the immediately preceding entry's diagnosis exactly, git checkout included, not just git commit/push
+
+ENVIRONMENT. This run was Cowork's sandboxed shell against the mounted
+`C:\Dev\rbh-site-data` folder, same as the immediately preceding entry.
+`.agent-lock` did not exist at the start of this run (deleted cleanly by
+that entry's own run, or by whatever cleared it since); created fresh with
+no stale-lock handling needed. `git fetch origin` failed identically to
+every sandboxed-shell entry today, "Host key verification failed": this
+shell still has no usable SSH credential for git@github.com. Confirms the
+preceding entry's finding extends one command further than it recorded:
+`git checkout -- <file>` failed too, repeatedly, with "unable to unlink
+old '<file>': Operation not permitted", even after renaming the
+`.git/index.lock` its own first attempt created. So the unlink block this
+mount enforces is not limited to `.git/index.lock`; `git checkout` needs to
+unlink the working-tree file it is replacing, and that fails the same way
+for any tracked file, not only files inside `.git/`. This mattered because
+an early attempt to fix Q83 by round-tripping QUESTIONS.json through
+`JSON.parse` and `JSON.stringify(_, null, 2)` reformatted all 85 entries
+(the file is written elsewhere with PowerShell-style `ConvertTo-Json`
+spacing, double space after each colon; `JSON.stringify` with a 2-space
+indent does not match that), producing a 2,638-line diff for a one-line
+content change. Attempting `git checkout -- QUESTIONS.json` to undo it
+hit the unlink block above and could not restore the file that way either.
+Recovered by reading the original blob straight from `git show
+HEAD:QUESTIONS.json` (unaffected by the working-tree corruption) into a
+scratch path, doing a plain string replace of only the one field's value
+against that original text so every other byte stayed identical, then
+writing the result over the real path with `cp` to a temp name followed by
+`mv` over the original: rename works on this mount even though unlink does
+not, matching the preceding entry's own finding about `.agent-lock`, now
+confirmed for an ordinary tracked file too. The lesson for the next run:
+do not touch a large hand-maintained JSON file with a full parse/stringify
+round-trip on this shell unless the formatting is known to match; a targeted
+text substitution against the last known-good blob is both safer and, on
+this mount, the only thing that can be undone if it goes wrong.
+
+ANSWER PICKUP (step 3). Attempted via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Page loaded and returned JSON
+normally (Chrome's Cloudflare Access session held). All entries returned
+are answers to Q2 to Q29, dated 2026-08-04 to 2026-08-30; none answer any
+currently open question (Q34 to Q85). No question's status changed.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Every unchecked item (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) is [BLOCKED], so this run did a quality pass instead, per the
+worklist's own fallback rule. Ranked every completed item by the latest
+2026-dated string in its own AGENT_WORKLIST.md block with a small one-off
+script, the same method the immediately preceding run used for 5.6: three
+items tied oldest at 2026-08-29 (1.1, 1.4, 6.8), with everything else
+2026-08-30 or later. Read all three before choosing. 1.1 (brand-name
+spelling) and 1.4 (NAP) have each already had six or seven quality passes
+confirming the rule holds, with the checkers doing the heavy verification;
+6.8 (plain-English decision lines on QUESTIONS.json) is a bounded, explicit,
+unfinished tail with its own continuation instruction ("40 open questions
+remain to retrofit. Keep going next run from Q39") and no code, generator or
+live-page risk. Took 6.8.
+
+WORK DONE. Checked whether the 2026-08-29 progress note's premise still
+held before doing anything: scripted a scan of every open question's
+"question" field for a leading "Decision needed:" string. Result: 50 of 51
+already had it. The 40 the note said remained had been retrofitted by one
+or more runs between 2026-08-29 and 2026-08-30 that never wrote a line
+under this item recording it, so the note was stale in exactly the shape
+Q84 already named for other items (AGENT_LOG.md and the item's own data
+ahead of AGENT_WORKLIST.md). The one gap, Q83 (added 2026-08-30, a live
+finding from the 4.6 quality pass, not part of the original Q39-to-Q78
+range this item was scoped against), most likely fell between two runs:
+whichever retrofitted Q82, Q84 and Q85 skipped the one dated in between
+them. Fixed per the method above: read Q83 in full (its question, three
+options, recommendation and note) before writing anything, then prepended
+one sentence stating the choice (fold the McCanns Aigburth lead-price
+finding into item 5.8's session, leave it on record as an arguable case, or
+fix it now standalone) and the recommendation already marked in the data
+(fold into 5.8, same fix shape: drop the lead price from the booking block,
+leave it disclosed only in the FAQ), then the complete original finding
+verbatim, unchanged, straight after, same convention as every prior
+retrofit in this item. Verified programmatically afterward that all 51
+open questions now carry the opening and that the file still parses as
+JSON. Ran the three checkers that read QUESTIONS.json, check-em-dashes.js,
+check-postcodes.js and check-url-scheme.js: all three still pass, 0
+failures (check-postcodes' three warnings are pre-existing, about
+modules/branch/pages/INDEX.md, SEO.md and gbp-packs/TEMPLATE.md, unrelated
+to this file or this change). No generator run, no page regenerated,
+nothing else in the repo touched. Recorded in AGENT_WORKLIST.md under 6.8
+that the item is now genuinely complete, not merely at its last checkpoint,
+and that any future question added to QUESTIONS.json still needs the same
+opening under the standing rule, so this is a permanent expectation rather
+than a one-off cleanup from here.
+
+FILES CHANGED: QUESTIONS.json (Q83's question field only, one line,
+original content preserved verbatim after the new opening sentence),
+AGENT_WORKLIST.md (item 6.8 block), this file. status/index.html not
+regenerated this run; queued for step 10 below.
+
+STEP 9 (commit and push). Committed locally. `git push origin
+agents/audit-backlog` will be attempted; expected to fail identically to
+every sandboxed-shell entry today ("Host key verification failed"), in
+which case this commit stacks behind the one unpushed commit already
+sitting on this branch from the immediately preceding (5.6) run, both
+waiting for a native-host run to push, the same pattern recorded there.
+
+STEP 10 (publish status page). `tools/build-audit-status.js` hardcodes
+`const REPO = 'C:/Dev/rbh-site-data'` and is written for the native Windows
+host, per the preceding entry's own note; not run from this shell for the
+same reason. Left for a native-host run alongside the push above.
+
 ## 2026-08-31 (later still still) - Item 5.6 quality pass (sixth): Coleman and Leighs insect bite title re-verified clean and byte-stable in the repo for a sixth time, one unrelated checker-breaking formatting slip in gordon-short-crosby.md found and fixed, live Weebly repaste (Q14) reconfirmed still outstanding on a seventh live read; run via Cowork's sandboxed shell, with a full diagnosis of that shell's git/FUSE lock behaviour recorded below for whoever reads this next
 
 ENVIRONMENT, READ FIRST, AGAIN. This run was Cowork's sandboxed shell against
