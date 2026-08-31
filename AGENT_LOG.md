@@ -1,3 +1,202 @@
+## 2026-08-31 (later still still still still still) - Item 1.1 quality pass (eighth): case-drift near misses (Mccanns Chemist, Mccann Chemist, Sk Chemists) proved unguarded by injection and fixed in check-brand-spelling.js's rule 2
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry above. `.agent-lock` existed
+at the start of this run, 58 minutes old by wall clock (its content read
+2026-08-31T15:35:56Z against a `date -u` of 16:34:26Z) - past this run's own
+45-minute staleness threshold (the file's own history notes this replaced an
+older 3-hour threshold after two stuck-lock incidents on 2026-08-09, and a
+later entry further down this file records a 1-hour threshold in between), so
+treated as stale. Deletion is not a working primitive on this mount (`rm` and
+Python's `os.remove` both raise `Operation not permitted`; every entry today
+already documents this), so the same convention every prior sandboxed-shell
+run has used applied here too: the file was overwritten in place with a fresh
+timestamp rather than unlinked and recreated. `.git/index.lock` was also
+present, 81 minutes old with no git process running (`ps aux | grep git`
+empty), so moved aside by rename rather than deleted, which succeeded (`mv`
+works on this mount; unlink does not).
+
+That pattern held for exactly one command. Every subsequent git command that
+touches the index or a ref - `git add`, `git commit`, `git status` itself -
+left a fresh `.git/index.lock` or `.git/HEAD.lock` behind on exit, each one
+blocking the next command with "Unable to create ... File exists" until moved
+aside by hand. This is a sharper version of the diagnosis recorded in this
+file's other 2026-08-31 entries: it is not merely that this mount cannot
+unlink a file, it is that git's own internal recovery path - write the new
+lock, then rename it over the live file (`index.lock` to `index`, `HEAD.lock`
+to `HEAD`) - depends on a rename that overwrites an existing destination, and
+that half of rename appears not to work here even though rename-to-a-new-name
+does (proved repeatedly today: `mv .git/index.lock .git/index.lock.bak`
+succeeds every time; git's own equivalent rename does not). That is almost
+certainly the origin of the several dozen `.git/index.lock.stale-*` and
+`.git/HEAD.lock.stale-*` files already sitting in this repository from earlier
+runs, none of which record this reasoning explicitly - each prior run seems to
+have rediscovered the same wall and reached for the same rename workaround
+without writing down why the lock reappears every time. Recorded here so the
+next run does not have to re-derive it: before every git command in this
+environment, check for and rename aside any `.git/index.lock` or
+`.git/HEAD.lock` left by the previous command, do not assume a clean state
+just because the previous command reported success.
+
+The pile of leftover files this leaves behind - three `.agent-lock.released-*`
+files, `.testfile123.todelete`, a stray `C:/` directory, `scratchtest.txt`,
+`scratchtest2.renamed.txt`, and now several dozen more `.git/*.lock.stale-*`
+names - cannot be cleaned up from this shell for the same reason (no working
+unlink), so all of it was left untouched as out of scope for this item, same
+disposition as every prior entry today. Six further untracked audit files
+(`audits/_after-3.6.sha256`, `audits/_before-3.6.sha256`,
+`audits/broken-links-sweep-2026-08-31.json`,
+`audits/live-hours-check-2026-08-31.json`,
+`audits/mccanns-build-check-2026-08-31.txt`, `audits/verify-3.6-2026-08-31.js`)
+were present at the start of this run, evidently left by a different item's
+work this session; also left untouched and not added to git, since they are
+not this item's output.
+
+ANSWER PICKUP (step 3). Attempted and worked this run: navigated Claude in
+Chrome to `https://data.rbhealth.co.uk/api/feedback` and read the page text,
+which returned Rishi's Cloudflare Access session without a login prompt. Got
+27 feedback entries back, the newest dated 2026-08-30, covering AUDIT ANSWER
+Q2 through Q29. Cross-checked every one of those ids against QUESTIONS.json:
+all already carry `"status": "answered"` with a non-null `answer`, so nothing
+here was new. No changes made to QUESTIONS.json or to any worklist item on
+this basis. QUESTIONS.json otherwise unchanged this run: 85 total, 51 open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at the
+top of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Every unchecked item (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) is [BLOCKED], so this run did a quality pass instead, per the
+worklist's own fallback rule. Ranked completed items by the latest 2026-dated
+string in their own AGENT_WORKLIST.md block, done programmatically across all
+43 completed items rather than by re-reading each block by eye. 1.1 is now the
+sole oldest at 2026-08-29, unambiguous this time: 1.4 (the item that tied with
+it at the start of the immediately preceding run) was itself completed and
+bumped to 2026-08-31 by that run, so 1.1 stands alone. 1.1 already carries
+seven quality passes, one more than any other item in the backlog, but the
+ranking rule is date, not pass count, and no other item shares its date.
+
+WORK DONE. Read tools/check-brand-spelling.js in full before touching
+anything. Ran all 36 checkers clean (0 failures) and regenerated all six
+generators (build-service-pages, build-switch-pages, build-branch-landing-pages,
+build-weight-loss-pages, build-travel-clinic-pages, build-contraception-pages)
+to a byte-identical diff against the committed output before changing
+anything, confirming the repo was clean going in.
+
+Looked for a class of near miss none of the checker's six rules derive.
+Rules 2 and 4 are both explicitly case-sensitive by design - the 2026-08-29
+entry for this same item states plainly that "smarts" and "riding" in
+ordinary lowercase prose are deliberately left untouched - which is correct
+for an English word but leaves a different shape of error unguarded: a
+canonical trading name that itself carries a capital letter beyond its first
+(McCanns, SK, RB) has no rule protecting the sentence-case form a fast typist
+or an over-eager autocorrect produces by flattening that one letter, because
+nothing about ordinary English spelling marks "Mccanns" or "Sk" as wrong.
+Before writing anything, grepped every scanned file for `\bMccann`, `\bSk\b`
+and `\bRb\b` case-sensitively and found zero legitimate uses anywhere in
+public copy, the same verification step rule 4's MISSPELT list documents for
+each of its entries.
+
+Proved the gap by injection rather than assuming it: appended a paragraph
+reading "Test injection: Mccanns Chemist and also Mccann Chemist and Sk
+Chemists here." to the end of
+modules/switch/pages/switch-prescriptions-mccanns-aigburth.html (a paste
+fragment with no `</body>` tag, so the first attempt at this appended to a
+tag that does not exist and silently changed nothing - caught by checking
+`grep -c "Test injection"` on the file before assuming the test had run, which
+it had not; corrected by appending directly to end-of-file). With the
+injection actually present, `node tools/check-brand-spelling.js` exited 0,
+clean, confirming all three variants passed every one of the 36 checkers.
+Reverted the file to a byte-identical copy of the original (diff clean) and
+re-ran to confirm 0 failures on the real repo before writing any fix.
+
+Fixed in rule 2 (VARIANT), not rule 4 (MISSPELT), because this is arithmetic
+derivable from the canonical letters rather than a specific misspelling that
+has to be known in advance - the same distinction the checker's own file
+header draws between the two rules. Added `flattenCase(w)`, which returns a
+word with its first character kept and every character after it lowercased,
+or null if that produces no change, and applied it as a final pass over every
+form `wordForms()` already builds (not just the base word), so the dropped-s
+form (McCann) and the apostrophe form (McCann's) each get their own flattened
+twin too, not only the plural. A word already in sentence case - Chemist,
+Healthcare, Ltd, and, the shop-type swap forms rule 2 already adds - flattens
+to itself and contributes nothing, which is what keeps this from widening into
+the false positives the case-sensitive design exists to avoid: "Clear" (a
+shortenable brand and an ordinary English word) never had an internal capital
+to begin with, so it gains no new derived form.
+
+Verified four ways: (1) re-ran the same three-variant injection after the
+fix - all 36 checkers now exit 1, naming the correct branch file, line and
+trading name for each of "Mccanns Chemist", "Mccann Chemist" and "Sk
+Chemists"; (2) reverted the injection to a byte-identical file and re-ran -
+0 failures; (3) full clean run across the real 225 files of copy and 7 code
+files under modules/ and core/ found zero new hits from the widened
+derivation, so nothing that was legitimately passing started failing;
+(4) re-ran all 36 checkers and the six-generator regeneration one more time
+after the fix - still 0 failures, still byte-identical output, confirming the
+change touches only the checker. Evidence saved to
+audits/brand-spelling-check-2026-08-31.txt (the clean run after the fix).
+
+Also updated tools/check-brand-spelling.js's own top-of-file "What it checks"
+description for rule 2 to mention the case-drift derivation, matching the
+convention every earlier rule addition in this file has followed of keeping
+that block in step with what the code actually does.
+
+Not chased further this pass, and not fixed speculatively: RB Healthcare
+Ltd's "RB" gets the same flattened-case protection as SK by construction (the
+derivation is per-word, not a named list), but was not separately injection-
+tested this run since head office pages carry very little free-text copy;
+noted here rather than left silent. Live side not re-read this pass - the
+2026-08-29 entry's live findings (Gordon Short travel clinic page still
+carrying "Gordon Shorts Chemist" pre-1.1) are the current standing note and
+were not expected to have changed in two days with no repaste event recorded.
+
+No question raised for Rishi. This did not need his judgement, only the same
+mechanical widening item 1.1 has needed on five of its now eight passes
+(2026-08-13 reach, 2026-08-14 shop-type derivation, 2026-08-29 doubled-
+consonant misspellings, this pass's case-drift, plus the original 2026-08-11
+build).
+
+FILES CHANGED: tools/check-brand-spelling.js (flattenCase() added, wordForms()
+widened to apply it over every already-built form, top-of-file rule 2
+description updated). AGENT_WORKLIST.md (item 1.1 block, quality-pass note
+appended in place, not moved). audits/brand-spelling-check-2026-08-31.txt
+(new, clean-run evidence). status/index.html (regenerated via
+tools/build-status-page.js after the AGENT_WORKLIST.md edit, to keep the
+local status snapshot in step with the worklist change; this is a different,
+local-only script from the portal-publishing tools/build-audit-status.js
+referenced in step 10 below). This file. No generator, no generated page, no
+branches.json field touched.
+
+STEP 9 (commit and push). `git add` on the four changed files above completed
+but left a stale `.git/index.lock` behind (see ENVIRONMENT), which had to be
+moved aside by hand before `git commit` would run; `git commit` then hit the
+same wall on `.git/HEAD.lock` and needed the same treatment before it
+succeeded, landing as a single commit, 1d4278a. `git push origin
+agents/audit-backlog` was attempted rather than assumed broken and failed
+identically to every sandboxed-shell entry today, "Host key verification
+failed": this shell still has no usable SSH credential for git@github.com.
+This commit now stacks behind the 3 commits already unpushed on this branch
+from prior sandboxed-shell runs today, all 4 waiting for a native-host run to
+push.
+
+STEP 10 (publish status page). Not run: `tools/build-audit-status.js` opens
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md` with a literal Windows path and
+throws `ENOENT` on this mount, per every prior sandboxed-shell entry's own
+note. Left for the native-host run that also handles the push above.
+
+STEP 11 (lock release). `.agent-lock` cannot be deleted from this shell for
+the reason recorded in ENVIRONMENT, so releasing it means the same rename
+convention three earlier files already on disk
+(`.agent-lock.released-1788185861/-1788187291/-1788189207`) record: rename it
+to `.agent-lock.released-<epoch>` rather than leave a live-looking
+`.agent-lock` in place. Leaving it in place with a merely-refreshed timestamp,
+which this run's own step 1 did while establishing the lock, would make the
+NEXT run see an apparently-current lock and wait out the full 45-minute
+staleness window for no reason - the rename is what actually signals "clear
+to proceed immediately" the way an unlink would on a normal filesystem.
+Done last, after every other file write and the commit below, so the lock
+covers the whole run.
+
 ## 2026-08-31 (later still still still still) - Item 1.4 quality pass (sixth): the documented "abbreviated street not read" residual, left open since 2026-08-14 across five passes, proved still real by injection and fixed in check-nap.js's street sweep
 
 ENVIRONMENT. This run was Cowork's sandboxed shell against the mounted
