@@ -3235,6 +3235,54 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       changed. Re-proved by injection on four packs after the fix. No new
       question raised. Evidence in
       audits/sk-chemists-bootle-gbp-pack-check-2026-08-13.txt.
+      Fifth quality pass (recovered 2026-08-29, run originally started
+      2026-08-14 and crashed before committing; recovered after
+      re-verification since leaving it uncommitted would contaminate every
+      later commit): found that section 3 of the pack (the Services
+      entries, published copy per TEMPLATE.md) was read by no
+      published-copy rule, so a wrong phone number, lead pricing with a
+      discount, or a false seven-days-a-week claim there would pass in
+      silence while the same fault would fail in the description.
+      tools/check-gbp-packs.js gained servicesOf() and section 3 joined the
+      published phone, price/offer and foreign-town scopes. All 36 checkers
+      re-run clean; the pack's own bytes did not change. Two residual
+      checker-widening questions raised as Q80 (prose hours claims read by
+      no rule) and Q81 (comparative outcome claims with no product noun or
+      superlative), both open. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-08-14.txt.
+      Sixth quality pass 2026-08-30: pack clean on every fact for the sixth
+      time (description 735, posts 466/305/530/380, unchanged); all 36
+      checkers exit 0, all six generators rebuild to zero diff. Live half
+      performed: pharmacy-first-sk-chemists-bootle.html reconfirmed correct
+      throughout; three known live-only faults reconfirmed unchanged and
+      not fixed here (pharmacy-first-service-bootle.html still misspells
+      "Bottle" and is still outside the sitemap, item 5.3/Q34; the legacy
+      weight-loss-clinic.html is still live, still linked three times from
+      the homepage, item 5.8/Q58; the switch page mojibake dash is still
+      paste-lag). One factual update recorded: the sitemap now reads
+      2026-08-14T18:12:51, so the site has been republished since the
+      18 July date the paster notes previously warned about, but the
+      branch-specific paste backlog did not move with it; a dated addendum
+      was appended to sk-chemists-bootle.md so the paste queue is not
+      misled by the stale line. No new question. This entry backfills a
+      sync gap: the fifth and sixth passes were done and committed on
+      2026-08-29/30 but never recorded here until this seventh pass found
+      the gap.
+      Seventh quality pass 2026-08-31: pack re-verified byte-stable for the
+      seventh time running (description 735, posts 466/305/530/380, pure
+      ASCII, zero em or en dashes). All 36 tools/check-*.js checkers exit 0
+      and all six generators rebuild to a byte-identical worktree (203
+      generated pages unchanged). Address, phone, hours, website, review
+      link, hasApp and catchment cross-checked directly against
+      branches.json (id skchemists_bootle) field by field and match.
+      Live half NOT performed this run: the built-in browser refused
+      navigation to both the answer-pickup portal and the live branch
+      domain (denied/failed with no further detail), so the 2026-08-30
+      sixth-pass live verdicts stand as written rather than being restated
+      as re-checked. Q80 and Q81 remain open and untouched; no autonomous
+      window was active. No new defect found, no new question raised;
+      this pass's only change is the fifth/sixth-pass sync-gap backfill
+      above.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

@@ -1,3 +1,110 @@
+## 2026-08-31 (item 4.11 quality pass, seventh) - SK Chemists Bootle GBP pack: byte-stable for the seventh pass running, all 36 checkers green, all six generators zero-diff, fifth and sixth-pass AGENT_WORKLIST.md sync gap backfilled, live half not performed (browser access unavailable this run)
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
+run in this log has recorded: no SSH key for git@github.com in this
+shell (`ssh -T git@github.com` gives "Permission denied (publickey)" and
+`git fetch origin` fails the same way). This run's local commit will sit
+ahead of origin/agents/audit-backlog until a native-host or credentialed
+session pushes it. The repo is reached at /sessions/.../mnt/rbh-site-data/,
+a mount of the real C:\Dev\rbh-site-data, so edits and local commits land
+on the real repo, they just cannot leave it from here.
+
+RUN START STATE. No .agent-lock present at the start; created one. No
+git process of this session's own was running. .git/index.lock and a
+same-minute .git/HEAD.lock were found present from this shell's own prior
+git command in this run (this mount's git cannot unlink its own lock
+files on first attempt, a recurring quirk this log has recorded under
+many timestamps as .git/*.lock.stale-* markers); both settled and were
+moved aside as .stale-testmv rather than deleted, the same workaround
+prior runs have used. Worktree carried the same large, pre-existing,
+already-documented set of files `git status` reports modified with zero
+actual diff bytes (spot-checked CHANGELOG.md and the full `git diff`
+stat: empty) - CRLF/mtime stat-cache noise on this mount, not content
+drift, confirmed again this run; left untouched, not committed. The
+pre-existing junk (many `.agent-lock.released-*` markers, `.rm-test-*`,
+`__lftest__.txt`, `testwrite2.txt`, a literal `C:/` directory) was left
+alone as prior runs have done.
+
+ANSWER PICKUP: UNAVAILABLE. The built-in browser refused every
+navigation attempted this run, including a plain https://example.com
+control request, not just the feedback portal - so this is a browser
+unavailability, not a domain block or an Access sign-in page. Logged and
+carried on per the standing instruction; no other route attempted, no
+login attempted. None of the 51 open questions could be checked against
+new answers this run.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of this run.
+
+WHY THIS ITEM. All eight unchecked worklist items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch taken. Built a table of
+the most recent quality-pass date recorded in AGENT_WORKLIST.md for every
+candidate in the 36-item rotation pool (43 checked items minus the seven
+established one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), excluding the six
+items already touched today by earlier runs (3.2, 3.3, 3.4, 3.5, 3.11,
+4.1, 4.4). 4.11 (SK Chemists Bootle GBP pack) came out oldest by
+AGENT_WORKLIST.md's own text, last showing a fourth pass dated
+2026-08-13.
+
+That date turned out to be wrong, which is itself the first finding.
+sk-chemists-bootle.md and this log both already carried a fifth pass
+(recovered 2026-08-29, from a run originally started and crashed on
+2026-08-14) and a sixth pass (2026-08-30), neither of which
+AGENT_WORKLIST.md's 4.11 entry mentioned - the same "AGENT_WORKLIST.md
+sync gap" shape this log has now found and backfilled on several other
+items (2.1, 3.2, 3.4, 3.5, 4.1, 4.11 itself once before). Had the true
+last-touched date (2026-08-30) been visible in the worklist, 4.11 would
+have tied with several other items rather than standing out as clearly
+oldest; it was still a legitimate pick since 2026-08-30 is no later than
+those other candidates and the sync gap needed closing regardless, so the
+item was kept rather than re-picked. Both missing passes were pulled from
+this log (the 2026-08-29 recovery entry and the 2026-08-30 sixth-pass
+entry) and their summaries backfilled into AGENT_WORKLIST.md's 4.11 block
+in place, immediately before item 4.12, so a future run reading only the
+worklist will no longer be misled.
+
+REPO HALF, CLEAN. All 36 tools/check-*.js checkers run individually this
+run: all exit 0. All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) rebuilt from
+branches.json; sha256 of every file under modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after and
+diffed byte for byte - identical, so the 203 generated pages are
+unchanged. sk-chemists-bootle.md's own bytes re-measured directly:
+business description 735 characters, Posts A-D 466/305/530/380
+characters, pure ASCII, zero em or en dashes - identical to all six prior
+passes. Address (516 Stanley Road, Bootle L20 5DW), phone
+(0151 944 1013), hours (Monday-Friday 09:00-18:00, Saturday and Sunday
+closed), website, Google review link, hasApp (false) and catchment
+(Bootle, Sefton, Liverpool, leading with its own seoTown) were each
+cross-checked directly against the branches.json record (id
+skchemists_bootle) and match.
+
+LIVE HALF, NOT PERFORMED. The built-in browser would not navigate to
+anything this run (see Answer Pickup above), so no live page, sitemap or
+DOM query could be read. The 2026-08-30 sixth-pass live verdicts stand as
+written rather than being restated as re-checked: pharmacy-first-service-
+bootle.html still misspelling "Bottle" and still outside the branch
+sitemap (5.3/Q34), the legacy weight-loss-clinic.html still live and
+still linked three times from the homepage (5.8/Q58), and the switch page
+mojibake dash still a paste-lag item. None of these were asserted as
+freshly checked; they are carried forward and dated to 2026-08-30 in the
+worklist backfill above.
+
+RESULT. No new defect found in the pack or its generator. No new
+question raised; Q80 and Q81 (this item's own residual checker-widening
+questions) remain open and untouched, and no autonomous window was
+active to action them. The only in-repo change this run is the
+AGENT_WORKLIST.md sync-gap backfill (fifth, sixth and seventh pass
+summaries added to the 4.11 entry) and this log entry.
+
+Files changed: AGENT_WORKLIST.md, this log. Commit expected to sit
+unpushed ahead of origin/agents/audit-backlog per the Run Start State
+note above.
+
 ## 2026-08-31 (item 3.5 quality pass, seventh) - Hirshmans Chemist, Ainsdale: all 12 pages clean on a seventh independent extraction with a new WhatsApp leg added, cross-town and WhatsApp guards re-proved by a double injection and restored, live half unchanged, sixth-pass AGENT_WORKLIST.md sync gap backfilled
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
