@@ -1,3 +1,124 @@
+## 2026-08-31 (even later) - Item 3.13 quality pass (fourth): Clear Chemist Aintree, Q28's 2026-08-30 phone fix independently re-verified as correctly and durably applied, zero defects found
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry below. No `.agent-lock`
+existed at the start of this run; created fresh with the current UTC
+timestamp (2026-08-31T17:34:16Z). A bare `.git/index.lock` was present from
+a prior run and could not be removed (`rm` and `mv` both tried; `rm` fails
+"Operation not permitted" on this mount, `mv` succeeds, matching every prior
+entry's documented workaround), so it was moved aside rather than left in
+place. `git fetch origin` was tried rather than assumed broken and failed
+identically to every sandboxed-shell entry before it, "Host key verification
+failed": this shell has no SSH credential for git@github.com, no
+`.git-credentials`, no `gh` CLI, and no `GITHUB_TOKEN` in its environment,
+confirmed by checking all four directly rather than assuming from the fetch
+error alone. General HTTPS egress works fine (api.github.com and github.com
+both returned HTTP 200 to a plain curl), so this is specifically an
+unauthenticated-git-remote gap, not a network gap. Proceeded on the local
+checkout, already 6 commits ahead of origin/agents/audit-backlog from prior
+runs that could not push either.
+
+ANSWER PICKUP (step 3). Attempted via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Page loaded and returned JSON
+normally (Chrome's Cloudflare Access session held). 27 entries returned,
+newest dated 2026-08-30T17:01, covering AUDIT ANSWER Q2 through Q29 (same
+set as the prior entry below reported). Cross-checked all 17 distinct ids
+against QUESTIONS.json programmatically: every one already carries
+`"status": "answered"`. No change made to QUESTIONS.json.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) are [BLOCKED], confirmed by grep, so this run did a quality pass
+instead. Ranked every completed item programmatically by the latest
+2026-dated string in its own AGENT_WORKLIST.md block, then by count of
+"quality pass" mentions as tiebreaker, then by file order - the same method
+the two prior fallback-pass entries in this file used. Oldest date was
+2026-08-30, shared by several items; of those, 3.13 (Clear Chemist Aintree)
+and 6.2 (broken internal links) tied on fewest quality-pass mentions (3
+each); 3.13 sits earlier in the file, so file order broke the tie.
+
+WORK DONE. Read the existing 3.13 block in full before touching anything:
+three prior quality passes (2026-08-13, 2026-08-14, 2026-08-30), the last
+of which added the item's first live read (four addresses, all clean) on
+top of an already-proven independent instrument with a nine-fault vacuity
+probe. Ran all 36 checkers individually (0 failures) and rebuilt every
+generator before changing anything: `git status --porcelain modules/ core/`
+empty both before and after, confirming byte-identical output and a clean
+repo going in.
+
+Rather than repeat the same repo-half instrument a fourth time for no new
+information, checked something no prior pass had: whether Q28's own
+implementation note actually held up, independently, a day later, rather
+than being taken on the word of the run that wrote it. Q28 (raised on the
+4.9 quality pass, 2026-08-10) asked which of two phone numbers -
+branches.json's 0151 203 8365 or the live site's 0151 203 6535 - was
+correct for Clear Chemist Aintree; Rishi answered via the portal on
+2026-08-30 that 6535 is correct, and the same run's log claims branches.json
+and all three generated pages were updated and regenerated that day.
+Checked directly: branches.json's clearchemist_aintree.phone reads
+"0151 203 6535"; all three generated pages
+(switch-prescriptions-clear-aintree.html,
+weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html)
+print only 6535, no trace of 8365 anywhere; check-nap.js independently
+confirms 0 mismatches across 177 pages and 3 paste blocks. A repo-wide grep
+for "0151 203 8365" outside branches.json and the generated pages surfaced
+one hit, in gbp-packs/clear-aintree.md - read in full rather than flagged on
+sight, and it is the pack's own dated note explaining that the number
+changed FROM 8365 TO 6535 on 2026-08-30, not a value anyone would paste;
+every actual paste-facing line in the same pack (Profile basics, Post A,
+Post B, the paster note) already reads 6535. Confirmed not a defect, the
+same quoted-evidence-not-a-claim pattern already documented for other GBP
+packs in this repo's own CLAUDE.md.
+
+LIVE HALF, READ ONLY, second time this item has had one: one browser tab,
+five addresses read, nothing clicked, typed or submitted. Root trades
+normally. The contact page gives 0151 203 6535 in both NAP surfaces
+("Customer Services Telephone" and the complaints footer), matching
+branches.json and matching the 2026-08-30 read - no drift in the 24 hours
+since. All three generated slugs still return the store's own 404 page
+(which itself also shows 6535), unchanged from 2026-08-30 and consistent
+with Q29, re-read against QUESTIONS.json this run and confirmed to have
+moved from open to answered since the 2026-08-30 note was written ("leave
+the three pages generated and unpublished... revisit when the store is next
+worked on"). Q28 has likewise moved from open to answered since that same
+note was written earlier the same day. Q65 (the pages' walk-in wording
+against the branch's own record) remains open and was not re-raised;
+nothing this pass read bears on it beyond what the 2026-08-30 pass already
+recorded.
+
+Zero in-repo defects found; nothing edited under `tools/`, `modules/`,
+`core/` or `branches.json`. `status/index.html` regenerated as a side effect
+of re-running the generators and checkers (its own run-count line moves);
+no other file in that pass changed.
+
+Appended the quality-pass note to the existing 3.13 block in place, matching
+every other item's convention.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.13 block, quality-pass note
+appended in place), status/index.html (regenerated), this file. No
+generator, no generated page, no branches.json field touched.
+
+STEP 9 (commit and push). Committed locally. `git push origin
+agents/audit-backlog` attempted rather than assumed broken and failed
+identically to every sandboxed-shell entry before it, "Host key
+verification failed". This commit stacks behind the 6 commits already
+unpushed on this branch from prior sandboxed-shell runs, all still waiting
+for a native-host run (one with an SSH credential for git@github.com and an
+authenticated `gh` CLI) to push and to run step 10's
+`tools/build-audit-status.js` publish, which also depends on `gh` and is not
+available from this shell.
+
+STEP 10 (publish status page). Not run, for the reason given above:
+`tools/build-audit-status.js` needs the `gh` CLI, which is not installed and
+has no stored credential in this sandbox. Left for the native-host run that
+also handles the push.
+
+STEP 11 (lock release). `.agent-lock` cannot be deleted from this shell (`rm`
+fails "Operation not permitted"), so released by the same rename convention
+already on disk: `.agent-lock.released-<epoch>`.
+
 ## 2026-08-31 (later still still still still still still) - Item 3.12 quality pass (third): Tiffenbergs Chemist re-verified clean in the repo, live coverage widened from 2 of 12 pages to 6 of 12 (weight loss, travel clinic, contraception, infected insect bite added), zero defects found, Q56 reconfirmed unchanged
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`

@@ -2009,6 +2009,59 @@ Done 2026-08-31 (sixth pass).
       while branches.json's 8365 is the pharmacy line; nothing about that
       divergence changed. Q65, Q29 and Q28 all remain open and were
       deliberately not re-raised.
+      Fourth quality pass 2026-08-31, from Cowork's sandboxed shell (see
+      this run's AGENT_LOG.md entry for the environment note common to
+      every sandboxed-shell run). All 8 unblocked worklist items were
+      [BLOCKED], so this was the fallback quality pass, picked by the same
+      method as prior fallback passes: oldest last-verified date, tied
+      with 6.2, then fewest "quality pass" mentions in its own block
+      (also tied with 6.2 at 3), then file order.
+      REPO HALF: zero defects. All 36 checkers ran individually, 0
+      failures. Every generator (tools/build-*.js) re-ran and
+      `git status --porcelain modules/ core/` was empty before and after,
+      confirming byte-identical output.
+      TARGETED VERIFICATION: this pass's actual finding is that Q28's
+      2026-08-30 implementation note ("branches.json updated for
+      clearchemist_aintree... three Clear pages... regenerated") had never
+      been independently re-checked by a later run, so it was checked now
+      rather than taken on trust. branches.json's clearchemist_aintree
+      phone reads 0151 203 6535; all three generated pages
+      (switch-prescriptions-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html,
+      travel-clinic-clear-aintree.html) print only 6535, no trace of the
+      old 8365; check-nap.js confirms 0 mismatches across 177 pages and 3
+      paste blocks. A grep for the old number outside branches.json and
+      the generated pages did surface one hit, in
+      gbp-packs/clear-aintree.md, and it was read in full before being
+      treated as a finding: it is the pack's own dated note recording that
+      the number changed FROM 8365 TO 6535 on 2026-08-30, not a paste
+      value, and every actual paste-facing line in the pack (the Profile
+      basics phone line, Post A, Post B and the paster note) already reads
+      6535. Confirmed not a defect, same class as the quoted-evidence
+      exemption already documented elsewhere in this repo for GBP pack
+      narrative.
+      LIVE HALF, READ ONLY, second time this item has had one: one browser
+      tab, five addresses read, nothing clicked, typed or submitted. Root
+      trades normally. The contact page gives 0151 203 6535 in both NAP
+      surfaces ("Customer Services Telephone" and the complaints footer),
+      matching branches.json and matching the 2026-08-30 read, so no drift
+      in the 24 hours since. All three generated slugs still return the
+      store's own 404 page (which itself now shows 6535 too), unchanged
+      from 2026-08-30 and consistent with Q29, which has since moved from
+      open to answered ("leave the three pages generated and unpublished
+      ... revisit when the store is next worked on") - re-read against
+      QUESTIONS.json this run rather than assumed. Q28 has likewise moved
+      from open to answered since the note directly above this one was
+      written (that note's "Q28... remains open" was accurate at the time
+      it was written, earlier the same day). Q65 remains open and was not
+      re-raised; nothing this pass read bears on it beyond what the
+      2026-08-30 pass already recorded.
+      Answer pickup (this run's step 3) reconfirmed separately: all 17
+      distinct question ids visible in the portal feedback endpoint,
+      including Q28 and Q29, already carry "answered" in QUESTIONS.json,
+      so nothing new to apply from that source either.
+      Zero in-repo defects found; nothing edited under tools/, modules/,
+      core/ or branches.json.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
