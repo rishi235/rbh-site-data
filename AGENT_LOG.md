@@ -1,3 +1,47 @@
+## 2026-08-31 (later) - Log addendum: push/publish outcomes and lock handling for the item 3.7 quality pass (sixth) run
+
+Recorded separately so the main entry below stays about the audit, not the
+environment. This run, UNLIKE the immediately preceding item 3.6 sixth-pass
+run, got as far as a local commit: `git add` and `git commit` both
+succeeded once the stale `.git/index.lock` (80 minutes old, no git process
+running) and a stale `.git/HEAD.lock` (over an hour old, left behind by an
+earlier crashed run today) were cleared via `os.rename` rather than `rm`,
+which this mount permits (rename works, delete does not - see the main
+entry for the fuller account and why the many `.agent-lock.released-*` and
+`.git/*.lock.stale-*` sibling files in this repo exist at all). Two further
+locks appeared mid-operation - a fresh `index.lock` when `git add` was first
+tried, and both `index.lock` and `HEAD.lock` again immediately after the
+commit completed - each time git itself created the lock, hit "Operation not
+permitted" trying to unlink its own temporary object files
+(`.git/objects/*/tmp_obj_*`), logged that as a non-fatal warning, and then
+left the lock file in place rather than being able to clean it up at the
+end of its own run. Renamed away each time (`*.stale-20260831-1239-item3.7`,
+etc.) and the operation underneath had, in every case, actually succeeded
+despite the warning: `git add` staged the six files correctly and `git
+commit` produced `ad16015`, a real commit with the full six-file diff.
+The repo is now 16 commits ahead of `origin/agents/audit-backlog` (15 from
+before this run, plus this run's own), all local-only. `git fetch origin`
+and `git push origin agents/audit-backlog` both still fail with "Host key
+verification failed" - no usable SSH credential for git@github.com from
+this shell, the same limitation every run today has recorded and this run
+could not clear. `tools/build-audit-status.js` (step 10) was attempted
+rather than only checked, and failed as its own header would predict:
+`which gh` confirmed the CLI is absent, and the script's own read of
+AGENT_WORKLIST.md is hardcoded to `C:/Dev/rbh-site-data/AGENT_WORKLIST.md`,
+a Windows path this Linux sandbox cannot open (`ENOENT`). Both failures are
+pre-existing and structural to this environment, not caused by this run.
+Lock release (step 11): `.agent-lock` cannot be deleted on this mount, so
+this run overwrote it in place with its own claim at the start (rather than
+adding yet another sibling file) and, at the end, wrote a release marker
+`.agent-lock.released-20260831-1250-item3.7` recording the claim timestamp,
+the same convention every recent run has used since deletion was found to
+be impossible. THEREFORE: this run's six-file diff (AGENT_WORKLIST.md,
+AGENT_LOG.md, status/index.html, and three new audits/ files) IS committed
+locally to the real mounted repo at `ad16015`, one step further along than
+the immediately preceding run's uncommitted state, but still needs a
+native-host or credentialed session to `git push` before it reaches origin,
+on top of the pre-existing 15-commit backlog.
+
 ## 2026-08-31 (item 3.7 quality pass, sixth) - Smartts Chemist (Bootle) re-verified clean for the sixth pass; zero in-repo defects; phone, postcode and road-name-twin injections all caught; three standing live-only gaps (hours contradiction, switch title paste-lag, Q16/5.8 weight loss claim) reconfirmed unchanged
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
