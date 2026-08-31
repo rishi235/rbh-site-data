@@ -1,3 +1,126 @@
+## 2026-08-31 (later still) - Item 3.10 quality pass (sixth): Riddings Pharmacy (Timperley) reverified against five checkers hardened since yesterday's pass, all clean, both halves confirmed unchanged
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry today. `.agent-lock` present
+at start, timestamp 58 minutes old (created 20:36:04, checked against 20:34:11
+on the sandbox clock, roughly 3496 seconds), past the 45-minute threshold set
+after the two stuck-lock incidents on 2026-08-09, so treated as stale.
+Filesystem confirmed FUSE-mounted with `default_permissions` and does not
+support `unlink` at all (`rm`, Python `os.remove`, and `chmod` all return
+"Operation not permitted" even as the owning user, and `lsattr` returns
+"Operation not supported" rather than showing an immutable flag), so deletion
+is structurally impossible from this shell, not merely blocked. `mv`/rename
+within the same filesystem does work, matching the `.agent-lock.released-*`
+and `.git/index.lock.stale-*` naming convention every prior entry today has
+already established as the workaround: stale lock renamed rather than
+deleted, `.agent-lock` recreated fresh via `>` redirect with the current UTC
+timestamp. `.git/index.lock` (0 bytes, no git process running per `pgrep`)
+and a freshly-appeared `.git/HEAD.lock` were both renamed the same way before
+`git status` and `git checkout` would proceed; this happened repeatedly
+through the run exactly as the dozens of prior `index.lock.stale-*` files
+from today's earlier entries predict. `git fetch origin` tried rather than
+assumed broken: "Host key verification failed" as always. Ran
+`ssh-keyscan -H github.com` to rule out a merely-missing known_hosts entry -
+host key added successfully, but the retry then failed
+"Permission denied (publickey)": confirmed there is no SSH key anywhere in
+this shell (`~/.ssh` was empty before the keyscan) and no `gh` CLI, no
+`GITHUB_TOKEN`, no credential helper, matching every entry today. Plain HTTPS
+`curl -I https://github.com` returned 200, so this is the network-reachable,
+credential-absent gap already on record, not an outage, and step 10's
+`build-audit-status.js` (which shells out to `gh`) was not attempted for the
+same reason it has failed every other entry today. Proceeded on the local
+checkout, which the branch is still tracking correctly (`agents/audit-
+backlog`, matches the tip of yesterday's work, no drift).
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. 28 entries returned. Newest is
+still 2026-08-30T17:01:00.269Z (Q29), same set every entry today has found.
+Nothing new to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top of
+this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). `^- \[ \]` in AGENT_WORKLIST.md: 8 unchecked items,
+all still `[BLOCKED]` on open questions. Quality pass instead. Ranked all 43
+completed items programmatically (oldest max-date in the item's own block,
+then fewest "quality pass" mentions, then file order): item 3.10 (Riddings
+Pharmacy, Timperley) was the clear winner on max-date 2026-08-30 with only 4
+quality-pass mentions, ahead of an eight-way tie also dated 2026-08-30 with 5
+mentions each (2.1, 2.2, 4.2, 4.3, 4.5, 4.9, 4.10, 1.2). Read the full 3.10
+block (five prior quality passes, 2026-08-04 build through 2026-08-30 fifth
+pass) before touching anything.
+
+WORK DONE, REPO HALF. Rather than write a sixth independent extraction from
+scratch (the fifth pass already ran 1,872 checks across 23 families with 7
+negative tests, all firing), looked instead at what had genuinely changed
+since that pass: `git log --since="2026-08-30 00:00" -- tools/check-*.js`
+shows five checkers hardened in the last day that had never been run against
+Riddings before: check-em-dashes.js/check-service-links.js (widened to the
+sixth public-copy file), check-brand-spelling.js (case-drift near misses),
+check-nap.js (abbreviated foreign street sweep), check-cdn-pins.js
+(EXTRA_PASTE gained modules/emar/weebly), check-postcodes.js (fixed-point
+double-decode, fused-postcode detection), check-gbp-packs.js (bank holiday
+special-hours rule). Ran all 36 checkers fresh across the whole estate:
+0 failures (audits/riddings-full-suite-2026-08-31.txt). Confirmed
+gbp-packs/riddings-timperley.md already carries the Q79 bank holiday section
+(added on an earlier pass, not this one, but never previously reconfirmed
+against Riddings specifically as part of a 3.10 pass). Two WARN-level lines
+on the pack, both pre-existing and expected per check-service-links.js's own
+documented behaviour: pharmacy-first-service-timperley.html and switch-
+prescriptions.html are live-only pages outside what this repo generates.
+NO DEFECT FOUND.
+
+WORK DONE, LIVE HALF. Read-only, via Claude in Chrome, two GETs.
+riddingspharmacy.co.uk homepage: NAP, hours and email all match
+branches.json exactly (38 Riddings Road, Timperley, Altrincham, WA15 6BP,
+0161 973 2951, riddings@rbhealth.co.uk, Mon-Fri 9-6, Sat/Sun closed). The
+weight loss services line reads "Innovative solutions that deliver results.
+Tried the rest? Now try the best." - checked this word-for-word against
+Q22's own question text and it is the identical string Q22 already covers
+(status "answered" 2026-08-30, Rishi's answer "unsure, will produce
+guidance", explicitly no repo action pending since nothing generated carries
+this copy). Recording this as reconfirmation of a tracked, already-answered
+finding, not a new one. pharmacy-first-service-timperley.html: all seven
+Pharmacy First cohorts present and correctly worded against the NHS
+specification (acute otitis media, impetigo, infected insect bites,
+shingles, sinusitis, sore throat, uncomplicated UTI), on the same pre-
+repaste legacy copy (US "recognizing" spelling, old title/H1 pattern) logged
+as a stale-paste backlog item on the 2026-08-13/30 passes, not a repo
+defect. NO DEFECT FOUND, NOTHING EDITED LIVE (read-only throughout).
+
+QUESTIONS. None raised. Both open items touched this run (Q22, the two
+service-link WARNs) are pre-existing and already correctly tracked; nothing
+here changes their status.
+
+FILES CHANGED. AGENT_WORKLIST.md (appended the 2026-08-31 sixth-pass note to
+item 3.10, item stays checked). AGENT_LOG.md (this entry).
+audits/riddings-full-suite-2026-08-31.txt (new, full 36-checker output).
+Untracked debris from prior runs (`.agent-lock.released-*`,
+`.testfile123.todelete`, the stray `C:/` directory, `scratchtest*.txt`, other
+items' own audit evidence files) left untouched again, out of scope for this
+item.
+
+COMMIT. Committed locally to `agents/audit-backlog`. `git push` not
+attempted: no credentials in this shell, per the ENVIRONMENT section above,
+same as every entry today. Branch is now 11 commits ahead of
+`origin/agents/audit-backlog` as tracked locally (anonymous `git ls-remote`
+was not re-checked this run; no reason to expect origin has moved, since
+nothing in this shell across the whole day has been able to push to it).
+
+STEP 10 (status page publish). Not attempted: `build-audit-status.js` shells
+out to the `gh` CLI, which is not installed in this shell and has no
+credentials configured, identical to the SSH gap above. Flagging again, as
+every entry today has, that this is an infrastructure gap for Rishi to close
+outside any single run (an SSH deploy key or a `GITHUB_TOKEN` with `gh` or a
+credential helper added to whatever provisions this Cowork shell), not
+something any run in this shell can work around: there is nothing here to
+authenticate with, and sourcing or fabricating credentials is out of scope
+regardless of how many times this is found.
+
+LOCK RELEASE. `.agent-lock` cannot be deleted (FUSE mount does not support
+unlink); renamed to `.agent-lock.released-1788208562` per the established
+convention, matching every prior entry's workaround.
+
 ## 2026-08-31 (later again) - Item 3.9 quality pass (sixth): Coleman and Leighs Pharmacy (Walton) reverified clean in repo, live half re-checked properly for the first time since 2026-08-13/14's browser-less passes and found nothing has moved in three weeks
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`

@@ -1792,6 +1792,34 @@ Done 2026-08-31 (sixth pass).
       estate-wide repaste backlog, not a repo defect. Zero in-repo
       defects, nothing edited. Evidence in
       audits/riddings-build-check-2026-08-30.txt. Done 2026-08-30
+      Quality pass 2026-08-31 (sixth machine-era pass). Selected as the
+      least-recently-verified completed item (oldest max-date in its own
+      block, 2026-08-30, tied with several others, fewest quality-pass
+      mentions among the tie, file order breaking the final tie against
+      2.1/2.2/4.2/4.3/4.5/4.9/4.10/1.2). New angle: five checkers had been
+      hardened since the fifth pass yesterday (check-em-dashes/check-
+      service-links widened for the sixth public-copy file; check-brand-
+      spelling case-drift rule; check-nap abbreviated-street sweep; check-
+      cdn-pins EXTRA_PASTE gained modules/emar/weebly; check-postcodes
+      fixed-point double-decode and fused-postcode detection; check-gbp-
+      packs gained the bank holiday special-hours rule), none of which had
+      run against Riddings before. Ran all 36 checkers fresh, full estate:
+      0 failures. Confirmed gbp-packs/riddings-timperley.md already carries
+      the Q79 bank holiday section (added on an earlier estate-wide pass,
+      not this one). Two WARN-level (not failing) service-link notices on
+      the pack, both pre-existing and expected: pharmacy-first-service-
+      timperley.html and switch-prescriptions.html are live-only pages this
+      repo does not generate. Live half, two read-only GETs: homepage NAP,
+      hours, email and the Q22 weight loss tagline ("Innovative solutions
+      that deliver results. Tried the rest? Now try the best.") all
+      unchanged and match branches.json; re-confirmed this exact string is
+      the one already covered by Q22 (answered "unsure, will produce
+      guidance" on 2026-08-30, no repo action pending) rather than a new
+      finding. pfLink page still serves all seven Pharmacy First cohorts
+      correctly on the pre-repaste legacy copy already logged as a stale-
+      paste backlog item, not a repo defect. ZERO in-repo defects, nothing
+      edited. Evidence in audits/riddings-full-suite-2026-08-31.txt. Done
+      2026-08-31
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
