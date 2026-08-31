@@ -4532,6 +4532,41 @@ appended to the line. Do not move them; the status page reads them in place.
       spells it correctly, so the branch now disagrees with itself within a
       single page. Same repaste Q32 and item 5.3 wait on. Blocks nothing,
       no new question. Done 2026-08-29.
+      Quality pass 2026-08-31 (eighth, repo half only): the rule holds for
+      the eighth consecutive pass. All 36 checker scripts exit 0 and all six
+      generators rebuild to a byte-identical diff against the committed
+      output, confirming the repo was clean going in. THE DEFECT THIS TIME
+      WAS A NEW DIMENSION AGAIN, CASE RATHER THAN LETTERS: every rule before
+      this one is deliberately case-sensitive (the 2026-08-29 pass kept
+      "smarts" and "riding" untouched in prose on purpose), which is right
+      for an ordinary English word but leaves a word that carries a capital
+      BEYOND its first letter unguarded, because nothing about ordinary
+      spelling marks the flattened form as wrong. Proved by injection:
+      "Mccanns Chemist", "Mccann Chemist" and "Sk Chemists" all passed every
+      one of the 36 checkers, while the derived control "Smartt Chemist" (an
+      unrelated existing rule) still correctly failed in the same run.
+      Verified zero legitimate uses of "Mccann", "Mccanns", "Sk" or "Rb" as
+      standalone words anywhere in public copy before changing anything.
+      Fixed in rule 2 (VARIANT), not rule 4, because this is arithmetic
+      rather than knowledge: wordForms() now derives a sentence-case
+      flattened form (first letter kept, rest lowercased) for every form it
+      already builds, so McCanns/McCann/McCann's and SK/SKs/SK's each also
+      cover their flattened twin automatically, and RB Healthcare Ltd is
+      covered the same way without being named. Guarded against widening
+      into a false positive the way the case-sensitive design exists to
+      avoid: a word already in sentence case (Chemist, Healthcare, and, the
+      shop-type swap forms) flattens to itself and adds nothing, proved by
+      a full clean re-run finding zero new hits anywhere in the 225 files of
+      copy or the 7 code files. Negative-tested by injecting the three
+      variants into a real page, confirming exit 1 naming the correct branch
+      and the correct trading name for each, then reverting to a
+      byte-identical file and re-confirming exit 0. Evidence:
+      audits/brand-spelling-check-2026-08-31.txt (clean run) plus the
+      injection transcript in this run's AGENT_LOG.md entry. Live side not
+      re-read this pass; the last live read (2026-08-29) is the current
+      standing note. Blocks nothing, no new question - this is the same
+      mechanical widening item 1.1 has needed on five of its eight passes.
+      Done 2026-08-31.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi

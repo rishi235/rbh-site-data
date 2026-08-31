@@ -41,11 +41,14 @@
     2. VARIANT  no near-miss spelling of any canonical brand appears in
                 public copy. Near misses are derived from the canonical form
                 rather than listed: a trailing s added or dropped on any
-                word, an apostrophe-s form, "and" written as "&", and the
+                word, an apostrophe-s form, "and" written as "&", the
                 shop-type word swapped for any other (Chemist, Chemists,
-                Pharmacy, Pharmacies). So "Fishlock Chemist", "Fishlock's
-                Chemist", "Gordon Shorts Chemist", "Coleman & Leigh
-                Pharmacy", "Hirshmans Pharmacy" and "Cherry Lane Chemist"
+                Pharmacy, Pharmacies), and (added by the eighth 1.1 pass,
+                2026-08-31) a word's own internal capital flattened to
+                sentence case (McCanns to Mccanns, SK to Sk, RB to Rb). So
+                "Fishlock Chemist", "Fishlock's Chemist", "Gordon Shorts
+                Chemist", "Coleman & Leigh Pharmacy", "Hirshmans Pharmacy",
+                "Cherry Lane Chemist", "Mccanns Chemist" and "Sk Chemists"
                 are all caught without anyone having thought of them in
                 advance.
     3. CONFIG   the brand strings hardcoded in the CONFIG table of
@@ -230,6 +233,25 @@ Object.keys(CANONICAL).forEach(function (id) {
 var SHOPTYPE = ["Chemist", "Chemists", "Pharmacy", "Pharmacies"];
 var SHOPTYPE_LC = SHOPTYPE.map(function (s) { return s.toLowerCase(); });
 
+// Case-drift, added by the eighth 1.1 pass (2026-08-31) after "Mccanns
+// Chemist", "Mccann Chemist" and "Sk Chemists" each passed all 36 checkers
+// by injection. Every rule before this one is case-sensitive by design (the
+// 2026-08-29 pass deliberately kept "smarts" and "riding" untouched in
+// prose), which is correct for an ordinary English word but wrong for a
+// word that carries a capital BEYOND its first letter - McCanns, SK, RB.
+// Nothing about ordinary spelling rules marks "Mccanns" or "Sk" as unusual,
+// so a fast typist or an autocorrect pass silently flattens exactly that
+// capital and produces a string no existing rule reads as a misspelling.
+// Guarded the same way as every other rule 2 form: a word already in
+// sentence case (Chemist, Healthcare, and) flattens to itself and adds
+// nothing, so this cannot widen into the ordinary-English false positives
+// the case-sensitive design exists to avoid.
+function flattenCase(w) {
+  if (w.length < 2) return null;
+  var flat = w.charAt(0) + w.slice(1).toLowerCase();
+  return flat !== w ? flat : null;
+}
+
 function wordForms(w) {
   var forms = [w];
   if (/s$/.test(w)) {
@@ -243,6 +265,13 @@ function wordForms(w) {
   if (SHOPTYPE_LC.indexOf(w.toLowerCase()) !== -1) {
     SHOPTYPE.forEach(function (s) { forms.push(s); forms.push(s + "'s"); });
   }
+  // Applied over every form already collected, not just the base word, so
+  // the dropped-s form (McCann) and the apostrophe form (McCann's) are each
+  // covered too, not only the plural (McCanns).
+  forms.slice().forEach(function (f) {
+    var flat = flattenCase(f);
+    if (flat && forms.indexOf(flat) === -1) forms.push(flat);
+  });
   return forms;
 }
 
