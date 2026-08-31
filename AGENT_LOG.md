@@ -138,8 +138,23 @@ findings.
 
 Files changed: audits/verify-3.4-2026-08-31.js (new), QUESTIONS.json
 (Q36 note extended), this log. No page, generator, checker, branches.json
-or GBP pack touched. git push not attempted to succeed (see limitation
-above); commit made locally on agents/audit-backlog.
+or GBP pack touched. Committed locally on agents/audit-backlog as 171abbf
+(6 commits now ahead of origin). `git push origin agents/audit-backlog`
+attempted as normal and failed exactly as predicted above ("Host key
+verification failed"); no other push route tried. `git add`/`git commit`
+themselves needed three and one attempts respectively before succeeding,
+each blocked by the same class of mount-lock churn as the run-start
+state (`.git/index.lock` and stray `.git/objects/*/tmp_obj_*` files
+reappearing between an `mv` clearing them and the next git command),
+resolved the same way each time (rename the lock aside, retry); no
+force-remove used. `node tools/build-audit-status.js` (step 10) was run
+as instructed even though it cannot succeed here: it fails immediately
+with ENOENT on its own hardcoded `C:/Dev/rbh-site-data/AGENT_WORKLIST.md`
+path, the same fault the previous run's "Log addendum" recorded; not
+fixed (out of scope for this item, the path is correct on the native
+ProDesk, and 3.9's finding on this repo's other hardcoded-path generator
+suggests this class of fault is worth its own worklist item rather than
+a piecemeal fix here). .agent-lock deleted at the end of this run.
 
 
 
