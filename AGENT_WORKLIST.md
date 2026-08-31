@@ -1044,6 +1044,61 @@ on the doubled label. Live half, two read-only GETs, the first since
 2026-08-12: UTI and Pharmacy First pages serve the exact sheet titles,
 descriptions and H1s, own phone and postcode only, and the furniture hours
 line matches branches.json exactly.
+Quality pass 2026-08-31 (seventh): REPO HALF CLEAN, LIVE HALF FOUND ONE REAL
+DEFECT, not on a repo-generated page. All 36 checkers pass and all six
+generators rebuild byte-identical (git diff empty on modules/ and core/
+before and after). A seventh independent extraction
+(audits/verify-3.4-2026-08-31-seventh.js, imports nothing from tools/): 1,914
+checks across all 12 pages, 0 failures, repeating every invariant the sixth
+pass proved plus one the sixth pass could not have run - the "whatsapp" field
+Q21 added to branches.json between the sixth and seventh passes. Every
+Cherry Lane page carrying a module root now carries data-wa="447521775631"
+and no other branch's whatsapp number appears anywhere. Proved live by
+injection (a foreign number substituted into the UTI page's data-wa, caught,
+reverted, git diff empty again).
+Live half widened past the two pages every prior pass has read (UTI,
+Pharmacy First): read the two old-URL bridge pages
+(weight-loss-clinic-walton.html, pharmacy-first-service-walton.html) for the
+first time since their weebly-paste replacement blocks were written on
+2026-08-05 and corrected on 2026-08-13, plus the homepage and the UTI page
+again as a control. weight-loss-clinic-walton.html is live with the bridge
+content, but it is the 2026-08-05 wording, not the 2026-08-13 fix: the fourth
+quality pass removed "Walton" from between "Cherry Lane" and "Liverpool" in
+the postal address inside modules/service/weebly-paste/cherry-lane-old-weight-
+loss-replacement.html (the exact citation-consistency fault CLAUDE.md
+documents for this item), but the live page still reads "202 Cherry Lane,
+Walton, Liverpool L4 8SG" today, 18 days after the repo was corrected - the
+live paste has never been refreshed. pharmacy-first-service-walton.html
+carries neither the 2026-08-05 nor the 2026-08-13 wording: it is a fully
+different, independently functioning page with its own hero, an embedded
+YouTube explainer and a live Appointedd booking widget (confirmed by reading
+the iframe's own query string, id=66b20ae6609c16953de3e0cf, which IS Cherry
+Lane's own pharmacyFirst widget id in branches.json - no wrong-diary risk).
+The repo's 2026-08-05 comment calling this page "currently renders empty" no
+longer describes it; something replaced it live since, outside this repo's
+visibility, and the weebly-paste replacement was never applied here either.
+SEPARATELY, and worse for citation consistency: a site-wide Weebly contact
+element (not part of any repo-controlled page content, and invisible to
+get_page_text's rendered-text extraction - only found by reading actual
+mailto href attributes) carries two Scorah Chemists addresses -
+mailto:info@scorah-chemists.co.uk and mailto:scorahchemists87@npanet.co.uk -
+alongside the correct mailto:Cherry@rbhealth.co.uk, on every Cherry Lane page
+sampled: the homepage, uti-treatment-cherry-lane-walton.html (a repo-generated
+page previously read clean three times), and both old-URL bridge pages.
+scorah-chemists.co.uk is confirmed live in branches.json as the real website
+for Scorah Chemists Bramhall and Hazel Grove, an unrelated branch pair, so
+this is a genuine cross-branch citation on Cherry Lane's site, consistent with
+the site having been built from a cloned Scorah Weebly template whose
+site-wide contact widget was never fully de-branded. Nothing in this repo
+could have caught either finding: the first is a live/repo drift on a file
+this repo does track but does not re-verify live on every pass, the second is
+a Weebly-native element with no file in this repo at all, the same class of
+blind spot CLAUDE.md already documents for live-only Weebly pages. Both
+recorded as Q86, both require a live Weebly edit outside this repo's reach,
+neither touches a generated page, generator or branches.json field, so
+nothing was fixed and nothing regenerated. Known Q36 footer typo
+(pharmacy.FA226@mhs.net) re-confirmed present and unchanged on both old-URL
+pages, not re-raised.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.

@@ -1,3 +1,205 @@
+## 2026-08-31 (even later still again) - Item 3.4 quality pass (seventh): Cherry Lane Pharmacy repo half clean including a new whatsapp/data-wa check, live half widened past UTI/Pharmacy First and found two real live defects nothing in this repo can see, one repo self-inflicted mistake made and fully recovered mid-run
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry below it. No `.agent-lock`
+existed at the start of this run; created fresh with the current UTC
+timestamp (2026-08-31T18:35:08Z). A bare `.git/index.lock` (0 bytes,
+timestamped 19:32:48 local, roughly 2-15 minutes old at the points it was
+checked) was present throughout the run with no git process running (`ps
+aux | grep git` clean each time), under this run's own 1-hour staleness
+threshold, so left in place rather than moved aside. `git fetch origin` was
+tried rather than assumed broken and failed identically to every
+sandboxed-shell entry today, "Host key verification failed": confirmed
+directly this shell has no SSH key, no `.git-credentials`, no `gh` CLI and no
+`GITHUB_TOKEN`. Plain HTTPS to github.com works (curl 200), so this is the
+same unauthenticated-git-remote gap every entry today records, not a network
+gap. Proceeded on the local checkout, 8 commits ahead of
+origin/agents/audit-backlog from prior runs that could not push either. The
+pile of leftover untracked files documented by every entry today
+(`.agent-lock.released-*`, `.testfile123.todelete`, a stray `C:/` directory,
+`scratchtest.txt`, `scratchtest2.renamed.txt`, several other items' own audit
+evidence files) was left untouched, out of scope for this item.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Page loaded and returned JSON
+normally. Newest entry still dated 2026-08-30T17:01:00.269Z (Q29), the same
+set every entry today has found. Cross-checked Q2 through Q29 against
+QUESTIONS.json programmatically: all already `"status": "answered"`. No
+change made.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top of
+this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Grepped AGENT_WORKLIST.md for `^- \[ \]`: 8
+unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), all `[BLOCKED]`, the
+same set every entry today has found. Quality pass instead, per the
+worklist's own fallback rule. Ranked all 43 completed items programmatically,
+same method as every prior fallback pass: oldest max-date in the item's own
+block, then fewest "quality pass" mentions, then file order. Item 6.2 (this
+file's immediately preceding entry) had just moved to 2026-08-31 by virtue of
+its own fourth pass, taking it out of contention. Three items tied on the new
+oldest date, 2026-08-30, with 4 quality-pass mentions each: 3.4, 3.9, 3.10.
+3.4 (Cherry Lane Pharmacy) sits earliest in the file, so file order broke the
+tie. Read the existing 3.4 block in full (six prior quality passes,
+2026-08-04 build through 2026-08-30) before touching anything.
+
+WORK DONE, REPO HALF. Ran all 36 checkers individually before changing
+anything: 0 failures. Rebuilt all six generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages):
+`git status --porcelain modules/ core/` empty before and after, confirming
+byte-identical output and a clean repo going in. Wrote a seventh independent
+extraction, audits/verify-3.4-2026-08-31-seventh.js, importing nothing from
+tools/: repeats every invariant the sixth pass (2026-08-30) proved across
+Cherry Lane's 12 pages (counts, sheet agreement, own town, service words,
+cross-town absence, phone/postcode isolation, lengths, JSON-LD postal town,
+tel:, widget isolation, banner, the two weebly-paste replacement blocks)
+PLUS one check the sixth pass could not have run: branches.json gained a
+per-branch "whatsapp" field (Q21) between the sixth and seventh passes, now
+read by all five service-family generators and switch.js/service.js as a
+last-resort fallback only. Checked every Cherry Lane page carrying a module
+root for `data-wa="447521775631"` (Cherry Lane's own number) and the absence
+of any other branch's whatsapp number anywhere in the page. 1,914 checks, 0
+failures. Proved the new rule fires by injection: substituted a foreign
+number into uti-treatment-cherry-lane-walton.html's data-wa attribute,
+caught, reverted via a same-directory `cp`-then-`mv` (this mount does not
+allow a direct overwrite-in-place edit to unlink the original; a same-device
+rename does), confirmed `git status --porcelain modules/` empty again
+afterward. check-whatsapp-route.js itself was also read output-first rather
+than trusted on exit code alone, since a generator dropping its own hardcoded
+constant in favour of branches.json is exactly the kind of change that can
+silently make a rule vacuous: it correctly reports "agreed number:
+447521775631 (declared per branch in branches.json, held in no generator
+constant)" across 171 of 177 pages, so the estate-wide checker updated
+itself correctly and is not a rubber stamp.
+
+WORK DONE, LIVE HALF - WIDENED PAST WHAT EVERY PRIOR PASS HAS READ. The
+third and sixth quality passes on this item each read two live URLs, UTI and
+Pharmacy First, both generated pages. This pass read those two again as a
+control (both still clean, matching 2026-08-30) plus, for the first time
+since they were written, the two OLD-URL bridge pages this item's own
+weebly-paste replacement blocks exist to fix:
+
+  1. weight-loss-clinic-walton.html - LIVE WITH A STALE PASTE. The fourth
+     quality pass (2026-08-13) found and fixed a citation-consistency fault
+     in modules/service/weebly-paste/cherry-lane-old-weight-loss-
+     replacement.html: the 2026-08-05 draft read "202 Cherry Lane, Walton,
+     Liverpool L4 8SG", putting the seoTown inside a postal address, and the
+     fix removed "Walton". `git log --follow -p` confirms both commits
+     (f600227, 2026-08-05, introduces it; 926fcf3, 2026-08-13, removes it).
+     The LIVE page today reads "202 Cherry Lane, Walton, Liverpool L4 8SG" -
+     the pre-fix wording, word for word. The 2026-08-13 pass itself recorded
+     "neither block is live, so nothing published changed"; this pass is the
+     first to check since, and finds the paste WAS done at some point, but
+     from the 2026-08-05 draft, and never refreshed to the corrected text in
+     the 18 days since. The footer citation on the same page (a separate,
+     site-wide element) already reads the correct "Liverpool, L4 8SG" with
+     no Walton, so the fault is confined to the pasted body paragraph.
+
+  2. pharmacy-first-service-walton.html - NOT THE PAGE THE REPO DESCRIBES.
+     The replacement block's own header comment (2026-08-05) calls this "the
+     old URL Google still ranks but currently renders empty". It is not
+     empty today: it is a fully different, independently functioning page
+     with its own hero, an embedded YouTube explainer ("Do you know about
+     Pharmacy First?"), a live Appointedd booking widget listing all seven
+     Pharmacy First conditions with Select buttons, and a sticky "Book an
+     Appointment" footer bar. None of this matches the weebly-paste
+     replacement block's bridge text, which was never applied here. Checked
+     the one thing that would matter most if it were wrong - which diary the
+     booking widget writes to - read-only, via the iframe's own query
+     string rather than by clicking anything: `id=66b20ae6609c16953de3e0cf`,
+     which IS Cherry Lane's own `widgets.pharmacyFirst` value in
+     branches.json, so there is no wrong-diary risk here. The repo's own
+     "currently renders empty" note is simply stale and should not be relied
+     on by a future pass.
+
+  3. NEW FINDING, SITE-WIDE, NOT IN ANY FILE THIS REPO TRACKS. A Weebly
+     contact-card element carries two mailto links to Scorah Chemists -
+     `mailto:info@scorah-chemists.co.uk` and
+     `mailto:scorahchemists87@npanet.co.uk` - alongside the correct
+     `mailto:Cherry@rbhealth.co.uk`. scorah-chemists.co.uk is confirmed in
+     branches.json as the real, live website for Scorah Chemists Bramhall
+     and Hazel Grove, an unrelated branch pair. Found on
+     pharmacy-first-service-walton.html by inspecting `a[href^="mailto:"]`
+     directly (get_page_text renders the link as bare "Mail" text and a
+     blank zero-width-joiner link, so this is invisible to a text read), then
+     confirmed present identically on weight-loss-clinic-walton.html,
+     uti-treatment-cherry-lane-walton.html (a repo-generated page three prior
+     passes have read clean) and the homepage - four for four pages sampled,
+     consistent with a single site-wide Weebly element rather than a
+     per-page block. Nothing in this repo could have caught this: it is not
+     content any generator writes, so no checker's page-directory scope ever
+     reaches it, the same class of blind spot CLAUDE.md already documents
+     for live-only Weebly pages, just one level further down into a
+     site-wide widget rather than a whole page. Known Q36 footer typo
+     (pharmacy.FA226@mhs.net) re-confirmed present and unchanged on both old
+     URLs, not re-raised. Recorded both live findings as Q86 (next available
+     id; QUESTIONS.json had 85 entries). Neither is a repo-controlled field,
+     both need a live Weebly edit, so nothing was fixed and nothing was
+     regenerated.
+
+SELF-INFLICTED MISTAKE, CAUGHT AND FULLY RECOVERED. Writing Q86 the first
+time round-tripped QUESTIONS.json through Python's `json.load` /
+`json.dump(..., indent=2)`. The file is maintained elsewhere with
+PowerShell's `ConvertTo-Json` spacing (4-space indent, two spaces after every
+colon, `\u0027` for apostrophes), which a 2-space `json.dump` does not
+reproduce, so the round-trip reformatted all 85 existing entries and
+produced a 2,652-line diff for what should have been a 16-line addition -
+the exact mistake and the exact size this file's own "(later still still
+still)" entry already recorded once today, for the same file, under Q83.
+That entry's own lesson ("do not touch a large hand-maintained JSON file
+with a full parse/stringify round-trip on this shell unless the formatting
+is known to match") was read too late to prevent the mistake but was what
+found the fix: `git checkout -- QUESTIONS.json` failed, as that entry
+predicted, with "unable to unlink old 'QUESTIONS.json': Operation not
+permitted" - this mount blocks unlink() unconditionally, including inside
+`git checkout`'s own recovery path. Recovered exactly as documented: read
+`git show HEAD:QUESTIONS.json` (a blob, unaffected by the corrupted working
+tree) into a scratch file, built the Q86 object as a hand-assembled string
+matching the original's exact spacing and comma placement (verified against
+the Q85 entry immediately before it, byte for byte), spliced it in before
+the closing `]` with a plain Python string operation - no parse/dump of the
+surrounding 85 entries - then wrote the result to a new file INSIDE the repo
+directory (not `/tmp`, which is a different device and makes `mv` fail
+"inter-device move failed... unable to remove target" for the same
+unlink-block reason) and `mv`-ed it over QUESTIONS.json, a same-device
+rename, which this mount does allow. Result verified three ways: `git diff
+QUESTIONS.json` shows exactly 16 inserted lines and nothing else touched;
+`python3 -c "json.load(...)"` parses clean at 86 entries; `check-em-dashes.js`
+and `check-postcodes.js` both still pass with the same pre-existing warnings
+as before. Recorded here so a future run does not repeat this a third time:
+never call `json.dump` on this file; always splice a hand-built,
+style-matched string into a copy of the last-known-good blob, and always
+build the replacement file on the same filesystem as the target before
+`mv`-ing it into place.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.4 block, quality-pass note appended
+in place), QUESTIONS.json (Q86 appended, spliced against the git blob as
+described above, all 85 prior entries byte-identical), audits/verify-3.4-
+2026-08-31-seventh.js (new), this file. No generator, no generated page, no
+branches.json field, no patient-facing copy.
+
+STEP 9 (commit and push). `git add` on the four changed/new paths above,
+then `git commit`. `git push origin agents/audit-backlog` attempted rather
+than assumed broken and failed identically to every sandboxed-shell entry
+today, "Host key verification failed". This commit stacks behind the 8
+commits already unpushed on this branch from prior sandboxed-shell runs, all
+still waiting for a native-host run (SSH credential for git@github.com, or
+an authenticated `gh` CLI) to push and to run step 10's
+`tools/build-audit-status.js` publish.
+
+STEP 10 (publish status page). Attempted: `tools/build-audit-status.js`
+hardcodes `C:/Dev/rbh-site-data` as its own repo path (a native-Windows-host
+literal), so it fails immediately in this sandbox with ENOENT before it ever
+reaches the GitHub API call; even patched, it needs the `gh` CLI to publish
+to rishi235/rbh-data-portal, which is not installed and has no stored
+credential here either, matching every sandboxed-shell entry today. Left for
+the native-host run that also handles the push.
+
+STEP 11 (lock release). `.agent-lock` cannot be deleted from this shell
+(`rm` fails "Operation not permitted"), so released by the established
+rename convention: `.agent-lock.released-<epoch>`.
+
 ## 2026-08-31 (even later still) - Item 6.2 quality pass (fourth): check-service-links.js's medicine-name and claim rules widened to cover the six non-generated public-copy files check-em-dashes.js already knew about, one real defect found and fixed in the checker, live findings re-read and unchanged
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
