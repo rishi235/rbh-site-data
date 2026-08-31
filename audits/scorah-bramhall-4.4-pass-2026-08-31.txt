@@ -1,0 +1,28 @@
+Item 4.4 quality pass, sixth pass, 2026-08-31
+Scorah Chemists Bramhall GBP pack (gbp-packs/scorah-bramhall.md)
+
+=== All 36 tools/check-*.js: PASS (individually run, zero failures) ===
+
+=== Independent verifier: audits/verify-4.4-2026-08-31.js ===
+CHECKS=149 DEFECTS=0 FLAGS=0
+
+=== Mutation 1: PF condition swap (infected insect bites -> chickenpox) ===
+check-gbp-pharmacy-first.js: 4 problems reported, exit 1 (caught)
+check-gbp-packs.js: 0 failures (condition-list ownership is check-gbp-pharmacy-first's, as designed)
+Restored: sha256 verified identical to pre-mutation copy
+
+=== Mutation 2: word-number outcome claim ('lose a stone') appended to Post C ===
+check-gbp-packs.js: FAIL - efficacy claim 'lose a stone' (quantified weight loss claim), exit 1 (caught)
+Restored: sha256 verified identical to pre-mutation copy
+
+=== Generators: all six rebuilt, output byte-identical to committed pages ===
+
+=== Live half (read-only, one browser tab, nothing clicked/typed/submitted) ===
+Post A pfLink (pharmacy-first-service-hazel-grove-bramhall.html): resolves, all 7 PF conditions correct, canon age ranges
+Post B switch (switch-prescriptions-scorah-bramhall.html): resolves, pre-Q7 em dash still renders as mojibake (Q43 family, unchanged)
+Post C weight loss (weight-loss-clinic-scorah-bramhall.html): resolves, Regime 2 compliant, no medicine named, hedged throughout
+Post D travel clinic (travel-clinic-scorah-bramhall.html): resolves, no vaccine guaranteed in stock, availability hedge present
+Profile website (pharmacy-scorah-bramhall.html): still 404s, unchanged since 2026-08-11, per pack's own paster note (Q43)
+Shared PF page mid-body contact block: still truncates '61 North Park Road' (missing -63), unchanged, already Q43's third-pass note (2026-08-12)
+
+No in-repo defect found. No new question raised.

@@ -1,3 +1,195 @@
+## 2026-08-31 (item 4.4 quality pass, sixth) - Scorah Chemists Bramhall GBP pack: clean on 149 independent checks, hours and the bank-holiday note now derived from branches.json instead of hand-typed, both prior guards re-proved by mutation, a fifth-pass AGENT_WORKLIST.md sync gap backfilled, live half unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Worth stating plainly because
+it changes what two steps below could do. The repo is reached at
+/sessions/.../mnt/rbh-site-data/, a mount of the same C:\Dev\rbh-site-data
+folder rather than a copy, so file edits and git commits land on the real
+local repo. But the shell has no SSH key for git@github.com and no gh CLI
+binary, where the normal execution host has both.
+
+RUN START STATE. No .agent-lock present at start. A stale .git\index.lock
+WAS present (mtime 06:10 BST, no git process running, 65+ minutes old,
+past the 1-hour threshold): removal was attempted with rm, unlink and
+Python's os.remove, all three returning "Operation not permitted" on this
+mount even though the file was owned by this session's user with rwx
+permissions; mv succeeded (renamed to index.lock.stale-1788156995) and
+git treated that as equivalent to deletion, which is the workaround this
+mount needs going forward - a numbered sequence of similarly named
+index.lock.stale-* files already sitting in .git/ shows this is not the
+first run to hit it. Branch agents/audit-backlog fetched, level with
+origin at bf784c6, worktree otherwise carrying a large set of files git
+status reports as modified with zero actual diff bytes against HEAD on
+every one checked (git diff --stat and git diff -w --stat both empty,
+only CRLF normalisation warnings on stderr) - a pre-existing
+environmental artefact of this session's checkout, not caused by this
+run or any prior one, not touched, and not committed. Noted here in case
+a future run needs the context.
+
+ANSWER PICKUP. Fetched https://data.rbhealth.co.uk/api/feedback (one
+browser tab, read-only, opened and closed, nothing clicked, typed or
+submitted) and read all 26 entries returned (Q2-Q5, Q13-Q22, Q24, Q28,
+Q29). Cross-checked every id directly against QUESTIONS.json: all 17
+distinct ids already "answered". None of the 51 currently open questions
+(Q34 onward) appears in the feedback dump. No status changes, nothing to
+apply.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), confirmed
+directly against AGENT_WORKLIST.md and QUESTIONS.json. Quality-pass
+branch taken. Staleness ranking delegated to a subagent instructed to
+extract every "## 2026-..." header from this log and rank the 36-item
+rotation pool (43 checked items minus the seven established one-offs
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) by the date of each item's most recent
+quality-pass header. Result: every pool item had already been touched on
+2026-08-30 except 3.11 (touched 2026-08-31, last run). Tie-broken by
+position in the reverse-chronological log: item 4.4's 2026-08-30 entry
+sits at the highest line number of any same-date item, so it was the
+first quality-pass event of that day's batch and the one every other
+item was re-touched after. 4.4 (Scorah Chemists Bramhall GBP pack) taken.
+
+A SYNC GAP FOUND BEFORE TOUCHING ANYTHING ELSE, same shape as Q84 and the
+3.11 gap backfilled last run. Item 4.4's fifth pass (2026-08-30, commit
+f276b9f) is recorded in this log but was never appended to
+AGENT_WORKLIST.md's 4.4 block - the file jumped straight from the fourth
+pass (2026-08-14) to item 4.5. Backfilled a short pointer note in
+AGENT_WORKLIST.md referencing this log entry rather than reconstructing
+the fifth pass's findings from memory, then appended this sixth pass
+beneath it, both written with the file's own LF-only line endings
+(confirmed byte-checked before writing, not assumed) rather than through
+any tool that might rejoin lines with CRLF.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually: zero
+failures. All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from the
+checkout: the set of files git reports as touched under modules/ was
+identical in count and names before and after the rebuild, so every
+generated page reproduces the committed state byte for byte.
+
+INDEPENDENT VERIFICATION, EXTENDED. A fresh verifier,
+audits/verify-4.4-2026-08-31.js, imports nothing from tools/ and repeats
+every check the fifth pass's verifier ran (canonical NAP, foreign-branch
+leakage across every live branch including the whatsapp field added
+since Q21 landed, POM and drug-class names, outcome and efficacy
+patterns, weight loss framing, the PF condition list, hasApp, the
+742-character description claim, copy standards, URL domains), then adds
+four new checks this pass introduces: weekday and Saturday hours strings
+DERIVED from branches.json's openingHours.specification via the same
+12-hour formatting the generators use, rather than hardcoded literals,
+so a future hours change would be caught here without anyone updating
+the script by hand; the bank-holiday paster note added on the 4.5 pass
+carries none of the eight actual bankHolidays.dates2026 values, neither
+as an ISO date nor spelled out in prose ("25 December" etc), which is
+the real drift risk the note's own wording warns against; the
+sister-branch sentence is checked against branches.json rather than
+assumed, confirming the named sister (Hazel Grove, id scorah_hazel) is a
+live branch sharing the pack's own brandLabel and that the sentence names
+that sister's own seoTown; and the WhatsApp reference in Post B is
+checked for any digit run that would disagree with the branch's own
+whatsapp field or another branch's.
+
+ONE FALSE POSITIVE IN THE NEW VERIFIER ITSELF, CAUGHT BEFORE TRUSTING IT.
+The first cut of the bank-holiday check banned every ISO-shaped date
+inside the note and failed on "2026-08-27" (the date Rishi confirmed
+Q79) and "2026-08-30" (the date the note was added), neither of which is
+a bank holiday date and both of which are normal provenance/citation
+convention used throughout this repo's own commentary. Fixed by checking
+the note against the actual eight dates2026 values instead of banning
+every date shape, which is the same class of over-broad-rule mistake
+this repo's own checkers have repeatedly found and fixed in each other
+(the log's running theme: "when a check passes or fails, ask what it
+actually read"). Final run: 149 checks, 0 defects, 0 flags.
+
+BOTH GUARDS FOR THIS ITEM'S RISK CLASSES RE-PROVED BY MUTATION, applied
+with node and the mutated file's sha256 confirmed to differ from the
+original before trusting any checker's verdict, per the method note the
+3.11 and 4.4 fifth passes both recorded after a PowerShell Replace
+silently no-opped in an earlier run. Mutation 1: "infected insect bites"
+swapped to "chickenpox" in the Services block and Post A -
+check-gbp-pharmacy-first.js caught it fourfold (two omission findings,
+two wrong-condition findings), check-gbp-packs.js correctly left the
+clinical-condition question to that checker and reported clean on
+everything it owns. Mutation 2: "Most patients lose a stone in the first
+month." appended ahead of Post C's closing line - check-gbp-packs.js
+failed it via the CLAIM_PATTERNS/tools/claim-patterns.js word-number rule
+the fifth pass added, confirming that fix still holds five days on. Both
+mutations restored from a pre-mutation copy and the restored file's
+sha256 verified identical to the original before either was trusted;
+git diff against HEAD after restoration was empty.
+
+LIVE HALF, READ ONLY. All five URLs the pack's notes and post buttons
+point at were fetched in one browser tab, nothing clicked, typed or
+submitted, closed after. Post A's pfLink page (the shared Hazel
+Grove/Bramhall Pharmacy First page) resolves and reads correctly: all
+seven conditions present with the canon age ranges (otitis media 1-17,
+UTI women 16-64), correct NAP for both branches in the footer. Post B's
+switch page resolves; the pre-Q7 em dash still renders as the mojibake
+"a EUR" sequence in the "how switching works" copy, unchanged paste lag,
+already Q43's family. Post C's weight loss page resolves and reads
+correctly under the Regime 2 exemption: no medicine named, hedged
+throughout ("not a guarantee", "individual results vary", suitability
+decided at assessment), private-paid framing stated, no Buy Now button,
+no lead price headlined above the fold. Post D's travel clinic page
+resolves and reads correctly, no vaccine named as guaranteed in stock,
+availability-and-suitability hedge present, the six-vaccine grid matches
+the generator's own list. The profile website target
+pharmacy-scorah-bramhall.html still 404s, unchanged since 2026-08-11, as
+the pack's own paster note anticipates - Q43 remains the operative
+record. One live detail re-observed rather than new: the shared PF
+page's mid-body contact block still prints the Bramhall address as "61
+North Park Road" (house number truncated) against the correct "61-63"
+in the footer and in branches.json - this exact instance was already
+recorded in Q43's third-pass note (2026-08-12) and is unchanged, so it
+is not re-raised as new evidence. No new question raised.
+
+A SIDE EFFECT WORTH RECORDING: this log's own line endings. The prior
+run's top entry (item 3.11, lines 1-124 before this run) was CRLF, laid
+down by that run's own File.WriteAllLines-style write; everything below
+it was LF. This run's editing tool rewrote those 124 lines to LF when a
+small text fix landed inside this entry, so the whole file is now
+uniformly LF rather than mixed. Checked before trusting it: all six
+checkers that read AGENT_LOG.md (check-em-dashes, check-postcodes,
+check-uk-spelling, check-url-scheme, and both status-page builders)
+still exit 0, and diffing the file's content with line endings ignored
+shows nothing beyond this run's own additions. No content was altered,
+only the previous entry's carriage returns were dropped. Recorded here
+because the resulting git diff is larger than this run's actual change
+(124 lines show as delete-plus-reinsert) and a future run diffing this
+file for content should know why.
+
+PUSH AND STATUS-PAGE PUBLISH COULD NOT RUN THIS PASS, BOTH FOR THE SAME
+REASON GIVEN AT THE TOP: no SSH key and no gh CLI in this sandbox. `git
+push origin agents/audit-backlog` failed "Permission denied (publickey)"
+even after adding github.com's host key to known_hosts by hand to rule
+out that half of the failure; no credential was fetched, generated or
+requested to try to get past it, per the hard rule against handling
+credentials. `node tools/build-audit-status.js` was not run at all: the
+script hardcodes REPO as the Windows path C:/Dev/rbh-site-data and shells
+out to `gh`, neither of which resolves from this shell, so running it
+would only have produced a confusing failure rather than new information.
+The commit below (db5664e) is real and sits on the local
+agents/audit-backlog branch, one commit ahead of origin at bf784c6; it
+carries none of the CRLF-normalisation noise described above (only the
+four files this pass touched were staged and committed). It needs an
+environment with working git credentials to reach GitHub - either a
+future run of this same procedure executed on the native host, or a
+manual push - before the portal status page can be refreshed to reflect
+it. Nothing else in the procedure was skipped.
+
+FILES CHANGED: audits/verify-4.4-2026-08-31.js (new),
+audits/scorah-bramhall-4.4-pass-2026-08-31.txt (new), AGENT_WORKLIST.md
+(4.4 block: fifth-pass pointer backfilled, sixth pass appended),
+AGENT_LOG.md (this entry, plus the whole file's line endings normalised
+to LF as a side effect of editing, see above). No page, generator,
+checker, pack or data field touched - nothing needed changing. No new
+questions. 51 questions open before, 51 after. Commit db5664e made
+locally; NOT pushed to origin this run (see above).
+
 ## 2026-08-31 (item 3.11 quality pass, sixth) - Gordon Short Chemist, Crosby: both halves clean, a fourth-to-fifth-pass AGENT_WORKLIST.md sync gap backfilled, standing live-only findings reconfirmed unchanged
 
 Unattended run. RUN START STATE. .agent-lock and .git\index.lock were both

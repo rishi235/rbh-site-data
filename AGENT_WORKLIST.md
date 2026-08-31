@@ -2173,6 +2173,45 @@ scope collapse that had rules 3 to 8 reading one line per block while
 reporting success, and a rule 5 that could not see the business description,
 which is the third place a pack claims the condition count. No new question.
 audits/scorah-bramhall-pack-check-2026-08-14.txt.
+Quality pass 2026-08-30 (fifth pass, commit f276b9f): sync gap, this pass was
+recorded in AGENT_LOG.md but never appended here until the sixth pass below
+found the gap. Summary from the log: pack clean on 120 independent checks,
+the run-99 live post-button findings carried forward unverified this pass
+(no browser session), the PF condition guard re-proved by mutation, and a
+real gap found and closed in tools/claim-patterns.js: a word-number outcome
+claim ("Most patients lose a stone in the first month.") injected into
+Post C passed all 36 checkers because the quantified-claim pattern read
+digits only. Fixed by adding word numbers (a/an/one..ten, half a) and
+drop/shed verbs to the pattern. Ten unit tests pass, the mutation re-run
+goes red, the clean repo stays green on all 36. No new question. See
+AGENT_LOG.md "## 2026-08-30 [commit f276b9f...] - Quality pass on 4.4" and
+audits/scorah-bramhall-4.4-pass-2026-08-30.txt.
+Quality pass 2026-08-31: sixth pass, clean. 149 independent checks in a
+rewritten verifier (audits/verify-4.4-2026-08-31.js), 0 defects: every
+fact from the fifth pass re-verified plus four new checks - weekday and
+Saturday hours strings derived from branches.json's openingHours.specification
+rather than hardcoded, so an hours change would be caught without a script
+update; the bank-holiday paster note added on the 4.5 pass carries none of
+the eight actual bankHolidays.dates2026 values in any form, which is the
+real drift risk its own wording warns against (the verifier's first cut
+banned every ISO-shaped date and false-flagged the note's own provenance
+dates - fixed to check against the real date list instead); the
+sister-branch sentence checked against branches.json rather than assumed
+(Hazel Grove, id scorah_hazel, is a live branch sharing the pack's
+brandLabel); and the WhatsApp reference in Post B checked against the
+branch's own whatsapp field. Both prior guards re-proved by mutation
+(PF condition swap caught fourfold by check-gbp-pharmacy-first.js; the
+word-number outcome claim caught by check-gbp-packs.js, confirming the
+fifth pass's fix still holds), applied with node and sha256-verified before
+and after restoration. Live half read-only, all five URLs: Post A's pfLink
+page, Post C's weight loss page and Post D's travel clinic page all read
+correctly; Post B's switch page still carries the pre-Q7 em dash rendering
+as mojibake (Q43 family, unchanged); the profile website target still
+404s as the pack's paster note anticipates (Q43, unchanged since
+2026-08-11); the shared PF page's truncated "61 North Park Road" contact
+line is unchanged and already recorded under Q43's third-pass note. No
+new question. See audits/verify-4.4-2026-08-31.js and
+audits/scorah-bramhall-4.4-pass-2026-08-31.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
