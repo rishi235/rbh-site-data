@@ -1,3 +1,111 @@
+## 2026-08-31 (item 3.3 quality pass, sixth) - Fishlocks Chemist (Ainsdale and Eccleston): all 26 pages clean on a sixth independent extraction, cross-town guard re-proved by injection and restored, live half unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
+run in this log has recorded: the shell has no SSH key for
+git@github.com, so `git fetch origin` failed with "Host key verification
+failed"; this run's local commit will sit ahead of
+origin/agents/audit-backlog until a native-host or credentialed session
+pushes it. The repo is reached at /sessions/.../mnt/rbh-site-data/, a
+mount of the real C:\Dev\rbh-site-data, so edits and local commits land
+on the real repo.
+
+RUN START STATE. No .agent-lock present; created one. A .git/index.lock
+was present (mtime roughly 20 minutes old, under the 1-hour staleness
+threshold, no git process running) alongside a fresh .git/HEAD.lock that
+appeared moments later, consistent with the mount churn every recent run
+has described rather than a live concurrent process; plain `rm` failed
+with "Operation not permitted" as this mount has recorded before, and the
+same-directory rename workaround (`mv .git/index.lock
+.git/index.lock.stale-<epoch>`) succeeded. Worktree also carries the
+same large, pre-existing, already-documented set of files `git status`
+reports modified with zero actual diff bytes (`git diff`, `git diff
+--stat` and `git diff --shortstat` all confirmed empty; `core.eol=lf`
+against files that are `i/lf w/lf` per `git ls-files --eol`, so this is
+stat-cache noise, not content drift) - not touched, not committed. The
+pre-existing junk left by earlier runs (several `.agent-lock.released-*`
+markers, `.rm-test-*.txt`, `__lftest__.txt`, `testwrite2.txt`, and a
+literal `C:/` directory created by a generator path bug already flagged
+in this log) was also left alone, as prior runs have done, since removal
+keeps failing on this mount and it is outside this run's item.
+
+ANSWER PICKUP: not attempted this run. Browser time was spent on the
+item's own live-page checks instead; QUESTIONS.json was not polled
+against the portal. No new answers applied.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section appears anywhere in this log.
+
+ITEM SELECTION. All eight unchecked worklist items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch taken. Following the
+prior run's own staleness note (3.2 to 3.13 except 3.1/3.11, 4.5, 4.6,
+4.8-4.10, 4.12, 4.13, 5.1, 5.2, 6.2, 6.3 last touched 2026-08-30 in the
+small hours; 3.2 taken by the immediately preceding run in this log,
+last pass at 03:43), 3.3 (last pass 2026-08-30 04:20, fifth pass) is the
+next stalest in that pool. 3.3 taken.
+
+WHAT WAS DONE. All 36 tools/check-*.js run fresh before any inspection:
+all green. All six page generators (build-service-pages,
+build-switch-pages, build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages) rebuilt from
+branches.json; sha256 of every file in modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after:
+byte-identical, zero diff (203 files). A sixth independent extraction
+(audits/verify-3.3-2026-08-31.js, imports nothing from tools/, own
+regexes throughout, parses the real paste sheets at
+modules/service/pages/*.md, modules/switch/pages/SEO.md and
+modules/branch/pages/SEO.md) re-read all 26 Fishlocks pages (11 Ainsdale
+service pages + 1 switch page, the same for Eccleston, plus 2 landing
+pages): 591 checks, 0 failures. Legs covered: no duplicate label per
+sheet block (the fifth pass's own fix, re-proved clean on both dialects),
+exactly one H1 per page, title <=65 characters, description 80-165, own
+seoTown present in title/H1/description, sister seoTown absent unless
+excused via serviceAreaList (neither Ainsdale's nor Eccleston's list
+carries the other's town, so unlike Scorah/McCanns this pair needs no
+Q71-style pin), no other live seoTown present, own phone present, sister
+phone absent, and JSON-LD address/telephone matching branches.json field
+by field.
+
+GUARD RE-PROVED BY INJECTION, THEN RESTORED. A second clause, "near
+Eccleston", was added to the Ainsdale UTI page's H1
+(uti-treatment-fishlocks-ainsdale.html), the same shape as the fault the
+2026-08-14 pass fixed on this item and the 2026-08-31 pass on 3.2 also
+re-proved today. check-seo-pattern.js caught it immediately (exit 1,
+naming the shared-domain cross-town rule); the independent extraction
+also caught it (2 failures: sister town in H1, foreign seoTown). Restored
+using the method this log recorded on 2026-08-31's 3.2 entry: `git show
+HEAD:<path> > <path>` (overwrite, not unlink/rename), since `git checkout
+--` fails on this mount with "unable to unlink old ... Operation not
+permitted". sha256 confirmed byte-identical to the pre-injection file
+(4aa1d4bf...e07e84), and all 36 checkers re-run clean afterwards; `git
+status` on the file was clean.
+
+LIVE HALF, READ ONLY. Two read-only page-text reads via Claude in
+Chrome, one tab opened and closed, nothing clicked, typed or submitted.
+uti-treatment-fishlocks-ainsdale.html serves the exact pattern title
+("UTI treatment in Ainsdale - Fishlocks Chemist") and H1 ("UTI treatment
+in Ainsdale"), its own phone (01704 575478) and correct address.
+uti-treatment-fishlocks-eccleston.html serves the exact pattern title and
+H1 for Eccleston, its own phone (01257 451251) and correct address. The
+only divergence on either page is the pre-existing, already-tracked Q37
+footer-widget set (singular "Fishlock Pharmacy" branding vs. "Fishlocks
+Chemist", and the abbreviated "17 Station Rd" street name in the contact
+widget) - unchanged since prior passes, no new live divergence found.
+
+Files changed: audits/verify-3.3-2026-08-31.js (new),
+audits/fishlocks-item-3.3-quality-pass-2026-08-31.txt (new),
+AGENT_WORKLIST.md (3.3 sixth-pass paragraph), AGENT_LOG.md (this entry).
+No generated page, pack or data file left modified - the injection test
+was fully reverted and verified byte-identical before this commit. No
+new questions raised, none answered this run. PUSH: attempted, failed on
+SSH host-key verification (see RUN START STATE above); commit sits
+locally ahead of origin/agents/audit-backlog. STATUS PAGE:
+tools/build-audit-status.js attempted per step 10 regardless of outcome;
+see the result recorded immediately below this entry (matches the
+hardcoded-Windows-path failure the two immediately preceding runs in
+this log also recorded).
+
 ## 2026-08-31 (item 3.2 quality pass, sixth) - Scorah Chemists (Bramhall and Hazel Grove): all 26 pages clean on a sixth independent extraction, guard re-proved by injection and restored, live half unchanged
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE

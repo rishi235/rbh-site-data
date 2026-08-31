@@ -880,6 +880,45 @@ pattern itself. Evidence in audits/seo-pattern-check-2026-08-30-sixth.txt.
       Description and Page Permalink in an SEO block, duplicate SEO title
       in an INDEX block, and the clean tree passes. Evidence in
       audits/verify-3.3-2026-08-30-output.txt.
+      Quality pass 2026-08-31 (sixth): clean on both halves, no repo
+      defect, no new question. All 36 checkers green. All six generators
+      rebuilt from branches.json; sha256 of every file in
+      modules/service/pages, modules/switch/pages and modules/branch/pages
+      taken before and after: byte-identical, zero diff. A sixth
+      independent extraction (audits/verify-3.3-2026-08-31.js, imports
+      nothing from tools/, own regexes throughout) re-read all 26 pages
+      (11 Ainsdale service pages + 1 switch page, the same for Eccleston,
+      plus 2 landing pages): 591 checks, 0 failures. Covers the fifth
+      pass's own fix (no duplicate label per sheet block, both dialects),
+      one H1 per page, title <=65 characters, description 80-165, own
+      seoTown present in title/H1/description, sister seoTown absent
+      unless excused via serviceAreaList (neither branch's list carries
+      the other's town, so no Q71-style pin applies here), no other live
+      seoTown present, own phone present, sister phone absent, and JSON-LD
+      address/telephone matching branches.json field by field. Cross-town
+      guard re-proved by injection, then restored: a second "near
+      Eccleston" clause added to the Ainsdale UTI page's H1 was caught by
+      both check-seo-pattern.js (exit 1, names the shared-domain rule) and
+      the independent extraction (2 failures) before being reverted via
+      `git show HEAD:<path> > <path>` (this mount's `git checkout --`
+      cannot unlink the old file); sha256 after restore matched the
+      pre-injection file exactly and all 36 checkers were re-run clean.
+      LIVE HALF: both UTI pages read read-only via Claude in Chrome.
+      Ainsdale serves exact pattern title/H1 and its own phone (01704
+      575478); Eccleston serves exact pattern title/H1 and its own phone
+      (01257 451251); both addresses correct. The only divergence on
+      either page is the pre-existing, already-tracked Q37 footer-widget
+      set (singular "Fishlock Pharmacy" branding and the abbreviated "17
+      Station Rd" street name in the contact widget) - unchanged, nothing
+      new. Evidence in
+      audits/fishlocks-item-3.3-quality-pass-2026-08-31.txt.
+      NOTE ON RUN CONDITIONS: executed via Cowork's sandboxed shell, not
+      the native Windows host this procedure assumes. `git fetch origin`
+      failed with "Host key verification failed" (no SSH key for
+      git@github.com in this shell), the same limitation every recent run
+      in this log has recorded; this run's commit will sit locally ahead
+      of origin/agents/audit-backlog until a native-host or credentialed
+      session pushes it.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

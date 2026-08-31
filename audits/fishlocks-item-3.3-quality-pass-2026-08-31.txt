@@ -1,0 +1,64 @@
+Item 3.3 quality pass, sixth run - 2026-08-31
+
+=== all 36 tools/check-*.js ===
+tools/check-address-region.js: exit 0
+tools/check-app-membership.js: exit 0
+tools/check-booking-routes.js: exit 0
+tools/check-branch-identity.js: exit 0
+tools/check-branch-links.js: exit 0
+tools/check-brand-spelling.js: exit 0
+tools/check-cdn-pins.js: exit 0
+tools/check-contraception-copy.js: exit 0
+tools/check-editor-snapshot.js: exit 0
+tools/check-em-dashes.js: exit 0
+tools/check-fragment-targets.js: exit 0
+tools/check-gbp-packs.js: exit 0
+tools/check-gbp-pharmacy-first.js: exit 0
+tools/check-jsonld.js: exit 0
+tools/check-live-hours.js: exit 0
+tools/check-map-embeds.js: exit 0
+tools/check-nap.js: exit 0
+tools/check-opening-hours.js: exit 0
+tools/check-page-coverage.js: exit 0
+tools/check-pharmacy-first-cost.js: exit 0
+tools/check-pharmacy-first-eligibility.js: exit 0
+tools/check-pharmacy-first-safety-net.js: exit 0
+tools/check-pharmacy-first-symptoms.js: exit 0
+tools/check-postcodes.js: exit 0
+tools/check-seo-keywords.js: exit 0
+tools/check-seo-lengths.js: exit 0
+tools/check-seo-pattern.js: exit 0
+tools/check-seo-sheets.js: exit 0
+tools/check-service-links.js: exit 0
+tools/check-switch-copy.js: exit 0
+tools/check-travel-clinic-copy.js: exit 0
+tools/check-uk-spelling.js: exit 0
+tools/check-url-scheme.js: exit 0
+tools/check-weight-loss-copy.js: exit 0
+tools/check-whatsapp-route.js: exit 0
+tools/check-widget-diaries.js: exit 0
+
+=== six generators, sha256 before/after modules/service/pages, modules/switch/pages, modules/branch/pages ===
+before/after diff: (empty = byte-identical)
+(no output above = 0 differences across 203 files)
+
+=== independent extraction audits/verify-3.3-2026-08-31.js ===
+Total checks: 591, failures: 0
+All checks passed.
+
+=== injection test: sister-town H1 injection on uti-treatment-fishlocks-ainsdale.html ===
+Injected '<h1>UTI treatment in Ainsdale near Eccleston</h1>' (was 'UTI treatment in Ainsdale').
+check-seo-pattern.js caught it: exit 1, 'h1 names Eccleston, the seoTown of fishlocks_eccleston...'
+audits/verify-3.3-2026-08-31.js caught it: exit 1, 2 failures (sister town in H1, foreign seoTown).
+Restored via 'git show HEAD:<path> > <path>' (git checkout -- fails to unlink on this mount).
+sha256 after restore: 4aa1d4bf31099c2231762d8c4b49b99d1c080394d9be0480544cde57f1e07e84 (matches pre-injection).
+All 36 checkers re-run clean after restore. git status on the file: clean.
+
+=== live half, read-only GET via Claude in Chrome, two UTI pages ===
+uti-treatment-fishlocks-ainsdale.html: title 'UTI treatment in Ainsdale - Fishlocks Chemist',
+  H1 'UTI treatment in Ainsdale', own phone 01704 575478 shown and correct, address correct.
+uti-treatment-fishlocks-eccleston.html: title 'UTI treatment in Eccleston - Fishlocks Chemist',
+  H1 'UTI treatment in Eccleston', own phone 01257 451251 shown and correct, address correct.
+Both sides carry the known Q37 footer-widget furniture faults unchanged: singular 'Fishlock Pharmacy'
+branding (vs. 'Fishlocks Chemist') and '17 Station Rd' abbreviated street name in the contact widget.
+No new live divergence found.
