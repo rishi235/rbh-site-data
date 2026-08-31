@@ -4393,6 +4393,58 @@ so tools/build-audit-status.js picks them up like any other item.
       and the only asset a generated page loads from outside CODE_DIRS is the
       third-party Appointedd SDK. Instrument kept at
       audits/em-dash-label-coverage-probe-2026-08-14.js.
+Quality pass 2026-08-31 (eighth). UNATTENDED RUN, COWORK SANDBOXED SHELL. No
+SSH key for git@github.com in this shell (git fetch/push both give "Host key
+verification failed"); this run's commit sits locally ahead of
+origin/agents/audit-backlog until a native-host or credentialed session
+pushes it. Browser WAS available this run (unlike the immediately prior run)
+and answer pickup ran clean: all 17 portal entries read back (Q2-Q29 range)
+were already recorded as "answered" in QUESTIONS.json, nothing new to apply.
+No standing autonomous window present. All eight remaining unchecked items
+confirmed [BLOCKED] directly against this file, so the quality-pass branch
+was taken; 5.1 came out tied oldest by last-touched date (2026-08-14) with
+3.6, 3.7, 3.8 and 4.14, all excluded as already covered by an earlier run
+today except these four, and 5.1 was picked from the tie.
+node tools/check-em-dashes.js re-run clean: 177 pages, 6 non-generated copy
+files, 7 live module code files, 15 banners, 16 GBP packs, 11 paste sheets,
+1 run-time data file, 233 files scanned, zero failures - byte-identical
+counts to the seventh pass, nothing in this item's own domain has drifted.
+ONE REAL DEFECT FOUND AND FIXED, one hop over into check-cdn-pins.js rather
+than in check-em-dashes.js itself, by re-applying this item's own question
+("which files carry public copy nobody is reading") to a sibling checker.
+check-em-dashes.js added modules/emar/weebly to its own EXTRA_HTML on
+2026-08-11 with the reasoning "a hand-pasted Weebly block like
+modules/switch/weebly.html and is as public as one" - but check-cdn-pins.js's
+EXTRA_PASTE list, whose whole job is proving a pin still holds current code,
+was never told, so this file's three live CDN references (emar.css, emar.js,
+core/site-data.js, all @main) sat entirely outside the one checker built to
+see them. Added to EXTRA_PASTE. That surfaced a second, smaller gap
+underneath: emar.css and emar.js are declared by no generator (there is no
+build-emar-pages.js, unlike service and switch), the same position core/
+assets are already in, so naively adding the file would have FAILED both on
+"no generator declares a PIN for modules/emar" - correct in shape, wrong in
+verdict, since there is structurally nothing to compare against. Generalised
+the existing core/ carve-out into GENERATORLESS_MODULES, derived from the
+filesystem (module folders under modules/ with no build-*.js declaring a
+PIN) rather than a named list, on purpose: a typo'd module path in a paste
+file matches no real folder and still fails as before, proved by injection
+(sed-swapped modules/emar/emar.css to modules/emarx/emar.css, ran the
+checker, got exactly one FAIL naming modules/emarx, restored the file and
+confirmed sha256-identical to the pre-injection copy). All tools/check-*.js
+re-run individually after the fix: 36 of 36 exit 0. No generator or
+branches.json touched, so no regeneration was needed and none was run.
+emar.css and emar.js at @main matched HEAD byte for byte when this landed
+(git diff against locally cached origin/main, itself stale since 2026-08-15
+for lack of network git access this session, so this is not a fully live
+confirmation and is stated as such), so this closes a latent hole rather
+than a live breach. CLAUDE.md's CDN-pins section corrected in place (it said
+"five public-copy files", there are six) with a short addendum in the same
+narrative style recording the finding and the fix. No pack, page, generator
+or branches.json entry changed. No question raised - this is a checker
+widening, not a live-facing decision. Evidence: this log entry and the
+in-place check-cdn-pins.js comments; no separate audits/ file was produced,
+this pass being short enough that the checker's own annotated diff is the
+record.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

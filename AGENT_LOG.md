@@ -1,3 +1,172 @@
+## 2026-08-31 (item 5.1 quality pass, eighth) - check-em-dashes.js re-verified clean and byte-stable; one real defect found and fixed in a sibling checker, check-cdn-pins.js, which had never read the same public paste file check-em-dashes.js added to its own list on 2026-08-11
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
+ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation this log has recorded for
+every recent run: no SSH key for git@github.com in this shell. `ssh -T
+git@github.com` and `git fetch origin` both gave "Host key verification
+failed" (a slightly different failure text than the "Permission denied
+(publickey)" earlier runs recorded, same root cause: no usable credential for
+GitHub from this shell). This run's commits sit locally ahead of
+origin/agents/audit-backlog until a native-host or credentialed session
+pushes them. The repo is reached at /sessions/.../mnt/rbh-site-data/, a mount
+of the real C:\Dev\rbh-site-data, so edits and local commits land on the real
+repo, they just cannot leave it from here.
+
+RUN START STATE. No .agent-lock present at the start; created one
+immediately (2026-08-31T09:34:15Z), before any other step, so the gap the
+previous log entry flagged does not repeat here. No git process of this
+session's own was running (checked via ps aux). A .git/index.lock was found
+present, created moments earlier by this run's own first read-only git
+command and left behind: `rm -f .git/index.lock` failed with "Operation not
+permitted", which is this mount's now-well-documented inability to unlink its
+own git lock files on the first attempt. Left in place rather than fought
+further, matching the "settle and move aside" workaround prior runs have
+used; it did not block any subsequent git command this run (git status, git
+log, git diff, git show all ran fine with it present). Worktree carries the
+same large, pre-existing, already-documented set of files `git status`
+reports modified with zero actual diff bytes (`git diff -b --stat` confirmed
+empty across all of them) - CRLF/mtime stat-cache noise on this mount, not
+content drift, re-confirmed this run and left untouched. The pre-existing
+junk (many `.agent-lock.released-*` markers, `.rm-test-*`, `__lftest__.txt`,
+`testwrite2.txt`, a literal `C:/` directory under the repo root) was left
+alone as prior runs have done; none of it is tracked by git and none of it
+is part of this run's work.
+
+ANSWER PICKUP: AVAILABLE THIS RUN, unlike the immediately prior run (browser
+refused every navigation then). Navigated to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text
+(read-only, no click, no submit, no login). 26 feedback entries returned,
+spanning Q2 through Q29 with several questions answered more than once (the
+newest timestamp per id was used, though in every case the repeated answer
+text was identical to the earlier one, so it made no difference here).
+Cross-checked all 17 distinct question ids named (Q2, Q3, Q4, Q5, Q13, Q14,
+Q15, Q16, Q17, Q18, Q19, Q20, Q21, Q22, Q24, Q28, Q29) against
+QUESTIONS.json: every one was already "answered" there. Nothing new to
+apply. The 51 currently open questions (Q34 onward) had no entries in the
+portal response at all, so none of them could be closed this run either.
+Browser tab closed after reading, per the "clean up tabs you open" rule.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section was present at the top of AGENT_LOG.md at the start of this run
+(confirmed by reading the first three lines and by grep before editing
+anything), so step 7 applies as written: a new question would be raised and
+the item marked BLOCKED rather than decided autonomously. No new question
+was needed this run regardless (see RESULT below).
+
+WHY THIS ITEM. All eight remaining unchecked items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66) - unchanged from the prior run's finding, no
+portal answer touched any of them. Quality-pass branch taken. Built the same
+kind of last-touched-date table prior runs have used: computed the maximum
+YYYY-MM-DD date appearing anywhere in each completed item's own block (43
+completed items, minus the seven established one-offs 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8, minus the eight items an earlier run today already touched -
+3.2, 3.3, 3.4, 3.5, 3.11, 4.1, 4.4, 4.11). Five items tied for oldest at
+2026-08-14: 3.6 (McCanns), 3.7 (Smartts), 3.8 (SK Chemists), 4.14 (Gordon
+Short Crosby GBP pack) and 5.1 (this item). Counting actual "quality pass"
+occurrences (case-insensitively, since 4.14's later passes are worded
+"Second quality pass", "Third quality pass" etc, which a case-sensitive
+count of "Quality pass" undercounts) showed all five have had multiple
+passes with the same last date, so the tie could not be broken on
+recency or pass count alone. 5.1 was picked because its own quality-pass
+history is a live, unfinished investigation into exactly the class of
+question a pick among these five should be re-asking ("which files carry
+public copy that a checker does not read"), rather than a coin flip; the
+other four remain equally valid candidates for a future run.
+
+REPO HALF. `node tools/check-em-dashes.js` re-run clean before any change was
+made: 177 generated pages, 6 non-generated copy files, 7 live module code
+files, 15 switch banners held to ASCII, 16 GBP packs held to ASCII plus no
+dash entities, 11 paste sheets discovered, 1 run-time data file, 233 files
+scanned in total, zero failures - the same counts the seventh pass recorded,
+so this item's own domain has not drifted since 2026-08-14.
+
+ONE REAL DEFECT FOUND AND FIXED, one file over from this item's own checker.
+Re-reading check-em-dashes.js's own header (it already documents, in its own
+words, "modules/emar/weebly carries no file extension, which is why it sat
+outside every scan in this checker until the item 5.1 quality pass on
+2026-08-11 ... a hand-pasted Weebly block like modules/switch/weebly.html and
+is as public as one") prompted asking whether every OTHER checker that reads
+modules/switch/weebly.html for the same reason also reads modules/emar/weebly.
+tools/check-cdn-pins.js does not: its EXTRA_PASTE list, added on the item 3.4
+pass on 2026-08-11 and documented in CLAUDE.md as "the five public-copy
+files", named modules/switch/weebly.html and four weight-loss/travel-clinic
+files, but never modules/emar/weebly - the exact file check-em-dashes.js had
+already identified as the same class of public copy that same day. Confirmed
+by reading the file directly: it loads emar.css, emar.js and
+core/site-data.js from jsDelivr @main, three live CDN references that sat
+completely outside the one checker whose entire purpose is proving a pin
+still holds current code. `node tools/check-cdn-pins.js` before the fix:
+exits 0, "plus 9 reference(s) in 8 non-generated file(s): 5 public paste, 3
+runtime asset(s)" - the emar references simply were not counted.
+
+FIX. Added "modules/emar/weebly" to EXTRA_PASTE in tools/check-cdn-pins.js.
+That alone would have produced two FAILUREs ("pins main but no generator
+declares a PIN for modules/emar") for emar.css and emar.js, because unlike
+service and switch, the emar module has no build-emar-pages.js and therefore
+no generator-declared PIN to compare against - the exact position core/
+assets are already in, which the existing rule already carves out and
+reports rather than fails. Rather than hardcode "emar" as a second named
+exception (the shape this repo's own history warns against seven times over
+in check-em-dashes.js alone), generalised the carve-out into
+GENERATORLESS_MODULES: every folder under modules/ that no build-*.js
+declares a PIN for, derived from fs.readdirSync at run time. This is
+deliberately a filesystem-derived SHAPE rather than a literal list, for a
+concrete reason proved by injection rather than argued: a typo'd module path
+in a paste file (e.g. "modules/emarx/emar.css") matches no real folder under
+modules/, so it is not in GENERATORLESS_MODULES either, and the rule falls
+through to the original failure path unchanged. Proved directly: sed-swapped
+"modules/emar/emar.css" to "modules/emarx/emar.css" in the live file, ran the
+checker, got exactly one FAILURE naming modules/emarx (the core/site-data.js
+and emar.js references stayed correctly reported, not failed), then restored
+the file from a pre-edit copy and confirmed sha256 identical to the original.
+`node tools/check-cdn-pins.js` after the fix: exits 0, "plus 12 reference(s)
+in 9 non-generated file(s): 6 public paste, 3 runtime asset(s)", with three
+new KNOWN lines naming modules/emar/weebly's references to emar.css, emar.js
+and core/site-data.js, all reported as visible-but-unverifiable for the
+documented reason rather than failed.
+
+VERIFICATION. All 36 tools/check-*.js run individually after the fix: 36 of
+36 exit 0, nothing else regressed. No generator and no branches.json entry
+was touched, so no page regeneration was needed and none was run - confirmed
+by re-reading the diff of this run's changes before committing, which
+touches exactly tools/check-cdn-pins.js, AGENT_WORKLIST.md, CLAUDE.md and
+this log. Checked whether emar.css and emar.js currently differ from main,
+since that is the live-facing question the fix now makes visible rather than
+answering by itself: `git diff origin/main -- modules/emar/emar.css
+modules/emar/emar.js modules/emar/weebly core/site-data.js` returned empty,
+so they are byte-identical today. Stated with a caveat rather than as full
+confirmation: this shell has no network git access this run (see Run Start
+State above), so "origin/main" here is a LOCALLY CACHED ref last fetched
+2026-08-15, sixteen days stale, not a live read of GitHub. The comparison is
+still meaningful (it rules out drift that predates the cache), but a fresh
+fetch from a credentialed session would be needed to rule out anything more
+recent.
+
+DOCUMENTATION. CLAUDE.md's CDN-pins section said "EXTRA_PASTE holds the five
+public-copy files"; there are now six. Corrected in place with a short
+addendum in the section's own established style ("### The fifth public-copy
+file the pin checker didn't know about"), recording the finding, the fix,
+and the byte-identical-today caveat above. AGENT_WORKLIST.md's 5.1 entry
+carries the same summary as an eighth quality pass, appended in place
+directly after the seventh pass's text, not moved or reordered.
+
+RESULT. No defect found in this item's own domain (em/en dashes); one real
+defect found and fixed in check-cdn-pins.js, a sibling checker, plus the
+CLAUDE.md documentation gap that came with it. No copy, page, generator or
+branches.json entry changed - both fixes are checker/documentation widenings
+that closed a latent hole (both assets clean at the point of fixing), not a
+response to a live breach. No question raised: this needed no sign-off, the
+same convention every checker-widening entry in this log has used, since
+nothing patient-facing or public-copy-visible changed.
+
+Files changed: tools/check-cdn-pins.js, AGENT_WORKLIST.md, CLAUDE.md, this
+log. Commit expected to sit locally ahead of origin/agents/audit-backlog per
+the Run Start State note above until a native-host or credentialed session
+can push it. Status page publish attempted per step 10 and its outcome
+recorded in a log addendum immediately following this entry, in the same
+two-part pattern the 4.11 pass used.
+
 ## 2026-08-31 (later) - Log addendum: push/publish outcomes and a lock-step gap recorded for the 4.11 quality pass (seventh) run
 
 Push and publish both failed exactly as this log has recorded for every

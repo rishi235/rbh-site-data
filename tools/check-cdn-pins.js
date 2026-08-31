@@ -116,9 +116,23 @@ var KNOWN_DRIFT = [
 //
 // A listed file that has gone FAILS the run, the same convention as
 // EXTRA_HTML in check-em-dashes.js, so the list cannot rot.
+//
+// modules/emar/weebly was missing from this list until the item 5.1 quality
+// pass, 2026-08-31 - the same shape of gap this file's own header already
+// names: "when a checker passes, ask WHICH FILES it read." check-em-dashes.js
+// added modules/emar/weebly to ITS EXTRA_HTML list on 2026-08-11, on the
+// reasoning that it is "a hand-pasted Weebly block like modules/switch/
+// weebly.html and is as public as one" - it is pasted into the Borough Care
+// eMAR page and loads emar.css, emar.js and core/site-data.js from jsDelivr
+// @main, exactly the shape this checker exists to verify. This list was
+// never told, so a public paste template carrying three live CDN pins sat
+// entirely outside the one checker whose job is proving a pin still holds
+// current code. See GENERATORLESS_MODULES below for why modules/emar/emar.css
+// and .js need a further carve-out once they are actually read.
 // ---------------------------------------------------------------------------
 var EXTRA_PASTE = [
   "modules/switch/weebly.html",
+  "modules/emar/weebly",
   "modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html",
   "modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html",
   "modules/service/DRAFT-weight-loss-copy.html",
@@ -355,6 +369,32 @@ Object.keys(refPages).forEach(function (ref) {
   }
 });
 
+// modules/ folders that no build-*.js generator declares a PIN for, derived
+// from the filesystem rather than named, added on the same pass that added
+// modules/emar/weebly to EXTRA_PASTE above (item 5.1 quality pass,
+// 2026-08-31). service and switch each have a generator that owns a PIN for
+// their own module folder and is the single source of truth for it; branch
+// and emar do not - branch pages load modules/service assets rather than a
+// modules/branch/*.css or .js of their own, and emar has no generator at
+// all, so nothing in this repo composes an expected ref for modules/emar/
+// emar.css or emar.js. That is the same position core/ assets are already
+// in below, for the same reason (no generated page loads one, so there is
+// nothing to hold a paste reference to), so it gets the same treatment:
+// reported so the reference is visible, not failed for lacking a comparison
+// that cannot exist. Deriving this from the filesystem rather than writing
+// "emar" as a literal keeps a typo'd module name in a paste file (which
+// matches no real folder) failing as before, instead of silently downgrading
+// it - the exact "list vs shape" lesson this repo's other checkers already
+// carry.
+var MODULES_DIR = path.join(ROOT, "modules");
+var GENERATORLESS_MODULES = new Set(
+  fs.existsSync(MODULES_DIR)
+    ? fs.readdirSync(MODULES_DIR, { withFileTypes: true })
+        .filter(function (e) { return e.isDirectory() && !gens[e.name]; })
+        .map(function (e) { return e.name; })
+    : []
+);
+
 // 5. A PUBLIC PASTE file must pin what its own module's generator pins. It is
 //    pasted into a Weebly embed, so it is as public as a generated page, and
 //    two refs for one module's asset means the pasted embed and the generated
@@ -371,6 +411,16 @@ extraPaste.forEach(function (r) {
     return;
   }
   var assetMod = (r.file.split("/")[1]) || "";
+  // A generator-less module (emar today) is the same position as core/: no
+  // generated page loads one, so nothing composes an expected ref. Reported,
+  // not failed. See GENERATORLESS_MODULES above.
+  if (GENERATORLESS_MODULES.has(assetMod)) {
+    known.push(r.page + " loads " + r.file + " @" + r.ref +
+      ", a modules/" + assetMod + " asset no generator declares a PIN for, so " +
+      "nothing composes an expected ref for it. Reported so the reference is " +
+      "at least visible.");
+    return;
+  }
   var declared = gens[assetMod];
   if (!declared) {
     failures.push(r.page + ": pins " + r.ref + " but no generator declares a PIN for modules/" + assetMod);

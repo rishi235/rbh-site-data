@@ -139,6 +139,38 @@ the sheets and the H1 was not on one. `check-nap` read two phone shapes and the
 FAQ used a third. This one was built specifically to look past the repo and
 still only looked inside it.
 
+### The fifth public-copy file the pin checker didn't know about
+
+"Five public-copy files" above was wrong by one, and stayed wrong for twenty
+days. `modules\emar\weebly` is the same shape of file as
+`modules\switch\weebly.html`: a hand-pasted Weebly block, this one on the
+Borough Care eMAR page, loading `emar.css`, `emar.js` and `core\site-data.js`
+from jsDelivr `@main`. `check-em-dashes.js` already knew this and added it to
+its own `EXTRA_HTML` list on 2026-08-11, in the same words used above -
+"a hand-pasted Weebly block like `modules\switch\weebly.html` and is as public
+as one." `check-cdn-pins.js`'s `EXTRA_PASTE` list was never told, so a public
+paste template carrying three live CDN references sat completely outside the
+one checker whose entire job is proving a pin still holds current code. Found
+on the item 5.1 quality pass, 2026-08-31, by re-asking this section's own
+question of a sibling checker rather than of this one.
+
+Adding the file surfaced a second gap underneath the first. `emar.css` and
+`emar.js` are not core assets and not declared by any generator either - the
+`emar` module has no `build-emar-pages.js`, unlike `service` and `switch`,
+so nothing in this repo composes an expected ref for them, the exact position
+`core\` assets are already in. `check-cdn-pins.js` now derives the set of
+generator-less module folders from the filesystem rather than naming `emar`
+as a literal, so a real typo in a paste file (which matches no folder that
+exists) still fails as before, and any future module added without a
+generator is covered the day its paste file references it rather than the
+day somebody remembers to list it - the same "shape, not list" fix this
+file's other checkers have needed repeatedly. Both `emar.css` and `emar.js`
+at `@main` were byte-identical to the checked-out branch when this landed
+(and to the locally cached `origin/main`, itself several days stale for lack
+of network git access this session), so this closed a latent hole rather
+than a live breach; the reference is now visible and will fail correctly the
+day it stops matching.
+
 ## SEO strings - what Google actually shows
 
 The title and description that reach Google are the ones a human types into
