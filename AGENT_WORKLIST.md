@@ -1670,6 +1670,46 @@ Done 2026-08-31 (sixth pass).
       audits/coleman-walton-item-3.9-quality-pass-2026-08-30.txt.
       Done 2026-08-30
       audits/coleman-build-check-2026-08-14.txt. Done 2026-08-14
+      Quality pass 2026-08-31 (sixth machine-era pass). BOTH HALVES. Repo:
+      all 36 checkers re-run individually, 0 failures; all six generators
+      rebuilt, git status empty before and after (sha256 of all 12 pages
+      unchanged). Fresh independent extraction sharing no code with tools/
+      (audits/verify-3.9-2026-08-31-sixth.js), 301 checks across 8 families
+      (phone-shaped strings, postcode-shaped strings, em/en dash outside
+      comments, cross-branch seoTown contamination, POM-name union,
+      ampersand/missing-s brand variants, data-branch/JSON-LD name and
+      @type, data-wa against the branch's own whatsapp field), 0 failures.
+      Instrument proved by three injections into scratch copies (never
+      touching the repo): a foreign phone number caught, a foreign seoTown
+      (Bootle) caught, an em dash injected into the H1 caught; a first
+      em-dash injection attempt landed inside the build comment's own
+      (permitted) em dash and was correctly invisible, which is the
+      checker working as intended, not a gap, confirmed by re-running the
+      probe against visible body copy instead. Live, read-only via Claude
+      in Chrome: homepage unchanged since the 2026-08-12 GBP pack note
+      (body copy reads "Coleman and Leighs Pharmacy" correctly, but the
+      header banner and footer still read "Coleman & Leigh Pharmacy", 19
+      days after that pack recorded it as a mixed-state site); pfLink
+      (Post A, https://www.colemanandleighspharmacy.co.uk/pharmacy-first-
+      service-walton.html) still 404, standing 5.3/Q8 state, unchanged;
+      the live switch page is still the pre-rename paste throughout,
+      including a mojibake em dash ("it usually is not [mojibake] we make
+      the first step") that the repo's own generated copy does not
+      contain (verified: the generated file has no em dash outside its
+      build comment and reads "it usually is not. We make the first step"
+      with a full stop), so the live page predates both the 2026-08-04
+      brand-name fix and whatever em-dash cleanup gave the repo its
+      current wording; the homepage weight loss line ("Innovative
+      solutions that deliver results... Now try the best") also persists,
+      standing Q22 state, itself unresolved on the portal ("Unsure. Need
+      to loop back on this"). No new defect in the repo. No new question
+      raised; all three live findings were already recorded (GBP pack
+      2026-08-12, this item's own 2026-08-12/2026-08-30 passes, Q8, Q22)
+      and this pass is confirmation that none of them has moved in three
+      weeks, which is itself worth Rishi knowing given repaste is sitting
+      on a growing backlog. Evidence in audits/verify-3.9-2026-08-31-
+      sixth.js (copied into the repo from the sandbox scratch directory
+      where it was authored and run). Done 2026-08-31
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
