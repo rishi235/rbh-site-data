@@ -1,3 +1,85 @@
+## 2026-08-31 (later still, unattended run) - Raised Q87: the recurring SSH-push/publish-path blocker formalised as a decision, no worklist item touched
+
+LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run
+(only `.agent-lock.released-*` files from fourteen prior runs today, plus a
+`.git/index.lock` created 23:15 BST, ~20 minutes old at the check - under
+the 1-hour staleness threshold and no local git process running via `ps
+aux`, so left in place per the standing rule). Created `.agent-lock` fresh
+with a UTC timestamp. `git fetch origin` reconfirmed the identical "Host
+key verification failed" SSH failure every run today has hit (now 18
+occurrences of that exact string across AGENT_LOG.md); anonymous `git
+ls-remote` over HTTPS confirms origin/agents/audit-backlog is unchanged at
+`f2fa267` and local HEAD is 14 commits ahead, unpushed, going back to
+commit `c0a56bd`.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Same 28 entries the prior run
+found, newest still Q29 (2026-08-30T17:01:00.269Z). Nothing new to
+reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally - no autonomous
+decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md items remain
+[BLOCKED]; nothing newly unblocked by the answer pickup. Per the prior
+run's own reasoning (see the entry directly below), a further quality-pass
+commit was not opened on top of an already-14-deep unpushed local branch -
+stacking more work that cannot land does not help Rishi and risks the same
+"tangled diff" recovery the prior run had to do by hand.
+
+WHAT WAS DONE INSTEAD. Re-read the last several log entries and confirmed
+the SSH host-key failure and the build-audit-status.js hardcoded-path
+ENOENT (reconfirmed live this run: `path: 'C:/Dev/rbh-site-data/...'` does
+not resolve in this Linux sandbox) have each been independently
+rediscovered and written up in prose by at least six separate runs today,
+but never once raised as a QUESTIONS.json entry - so the block has never
+been visible on the published status page (which itself cannot currently
+publish, for the second reason) and no run has had standing authorisation
+to fix it rather than re-describe it. Raised **Q87** in QUESTIONS.json:
+four concrete, mutually-exclusive options (run the task on Rishi's native
+Windows host; provision the sandbox with its own scoped push credential;
+fix build-audit-status.js's path resolution as a small independent
+code-quality fix; or accept the status quo and keep pushing by hand),
+recommending option 1 as the correct architectural fix, with a note that
+option 3 (the `__dirname`-relative path fix) is worth doing regardless of
+which option Rishi picks but was not made unilaterally in this run since it
+touches a script whose current hardcoded path may be a deliberate original
+choice rather than a bug.
+
+RESULT. QUESTIONS.json now has 87 entries. No worklist item ticked, no
+generator or checker changed, no page regenerated.
+
+COMMIT (step 9) - NOT COMPLETED THIS RUN, left for the next run to pick up.
+`.git/index.lock`, present at the start of this run (created 23:15:46
+BST/22:15:46 UTC per `stat`), was re-checked before committing and found
+still only ~21 minutes old with no local git process running - under the
+1-hour staleness threshold this worker's own instructions set for exactly
+this file, so it was correctly left in place per that rule rather than
+force-removed on a judgement call that the risk was probably nil. Both
+`git add` and `git commit` therefore failed with git's own "Unable to
+create .git/index.lock: File exists" error. The two edited files
+(`QUESTIONS.json` with Q87 appended, and this log entry) are left as
+uncommitted working-tree changes, not reverted - matching the precedent set
+two entries below, where a later run committed an earlier run's
+already-complete, already-logged work once the lock cleared. Whoever runs
+this repo next (scheduled run or Rishi directly) should, once
+`.git/index.lock` has genuinely aged past 1 hour and no git process is
+confirmed running: `git add QUESTIONS.json AGENT_LOG.md` and commit
+attributing the change to this entry, before doing any of that run's own
+work, so the two do not get tangled into one diff.
+
+PUSH. Not attempted separately - nothing was committed this run to push,
+and `git fetch` above already reconfirmed the identical, by-now
+19-times-recorded SSH host-key failure. Local branch remains 14 commits
+ahead of origin, unpushed, pending Q87.
+
+PUBLISH (step 10). Ran `node tools/build-audit-status.js` regardless, per
+step 10's own instruction to run it even on a run that could not otherwise
+complete its intended work. Identical ENOENT on the hardcoded
+`C:/Dev/rbh-site-data` path, now cited directly in Q87's own text rather
+than only described in prose.
+
 ## 2026-08-31 (later still) - Log addendum: lock, commit and publish handling for the item 2.2 quality pass (sixth) run
 
 LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run.
