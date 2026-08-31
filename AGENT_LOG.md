@@ -1,3 +1,51 @@
+## 2026-08-31 (later) - Log addendum: push/publish outcomes for the 5.1 quality pass (eighth) run
+
+Push and publish both failed exactly as this log has recorded for every
+recent same-session run, and are recorded here rather than folded into the
+run entry below because both happened after that entry was written.
+
+`git push origin agents/audit-backlog` gave "Host key verification failed" -
+no usable SSH host key for github.com from this shell, the same root cause
+the immediately preceding run recorded (that run saw "Permission denied
+(publickey)"; this run saw the host-key-verification variant, which surfaced
+first because the run before it had already accepted or cached a host key
+this run's fresh git config does not have). Commit 3c06f6e sits locally
+ahead of origin/agents/audit-backlog until a native-host or credentialed
+session pushes it, alongside the eleven-plus commits already queued there
+from earlier runs today.
+
+`node tools/build-audit-status.js` gave the same ENOENT this log has
+recorded before: `Error: ENOENT: no such file or directory, open
+'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'`. The generator hardcodes the
+Windows path rather than resolving it relative to its own file location, so
+it works from the native Windows environment this procedure assumes and
+cannot work from this mount point. Not fixed here: it is outside this run's
+chosen item (5.1) and outside the HARD RULES' one permitted exception to
+"do not touch any other repo or scheduled task" (publishing via the script
+as it stands, not editing it). Left as a standing, already-tracked
+limitation for a native-host or credentialed session to either run directly
+or fix at source.
+
+Git lock handling this run, recorded for whoever reads this next: this
+mount's git creates `.git/index.lock` (and, once, `.git/HEAD.lock`) on
+ordinary read commands such as `git status` and `git diff --stat`, and
+cannot unlink its own lock on the first attempt (`rm -f` fails with
+"Operation not permitted"; this is a FUSE mount of the real
+`C:\Dev\rbh-site-data`, not a second process - `ps aux` showed nothing else
+running). `mv` DOES succeed where `rm` does not, so the workaround this run
+used, matching prior runs, was to move each stale lock aside with a unique
+suffix immediately before the next git command that needed to write, rather
+than deleting it. This had to be done twice before `git add` and once more
+before `git commit`; none of the moves-aside affected the staged changes or
+the commit itself. The repo root already carries several dozen
+`.agent-lock.released-*`, `.git/*.lock.stale-*` and similar markers from
+this same fight in earlier runs today; this run added to that pile rather
+than cleaning it up, consistent with "the pre-existing junk was left alone"
+in the run entry below - a dedicated pass to actually delete the accumulated
+stale-lock and test-file debris (none of it is git-tracked, so it costs
+nothing to leave and nothing to remove) would be a reasonable small future
+item if it starts affecting readability of `ls` output during a run.
+
 ## 2026-08-31 (item 5.1 quality pass, eighth) - check-em-dashes.js re-verified clean and byte-stable; one real defect found and fixed in a sibling checker, check-cdn-pins.js, which had never read the same public paste file check-em-dashes.js added to its own list on 2026-08-11
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
