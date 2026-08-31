@@ -1,3 +1,28 @@
+## 2026-08-31 (later) - Log addendum: push/publish outcomes and a lock-step gap recorded for the 4.11 quality pass (seventh) run
+
+Push and publish both failed exactly as this log has recorded for every
+recent same-session run. `git push origin agents/audit-backlog` gave
+"git@github.com: Permission denied (publickey)" - no SSH key for
+git@github.com in this shell. `node tools/build-audit-status.js` gave
+ENOENT on 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md' - the generator
+hardcodes the Windows path, which does not exist under this shell's
+mount point. Neither is fixed here, both already tracked as this
+session type's standing limitation. Commit 5e70681 sits locally ahead of
+origin/agents/audit-backlog until a native-host or credentialed session
+pushes it.
+
+One process gap to record honestly rather than paper over: this run did
+not create .agent-lock at the start as step 1 requires. It got drawn
+straight into diagnosing the stray .git/*.lock files and the CRLF
+stat-cache noise before doing the numbered procedure, and by the time
+that was resolved the lock step had been skipped rather than deliberately
+followed. No collision resulted - `ls .agent-lock` was checked
+immediately beforehand and nothing else wrote to AGENT_WORKLIST.md or
+AGENT_LOG.md during this run - but the safety property step 1 exists for
+was not actually in force while this run's edits were made. Flagging so
+a future run does not read this entry and assume the lock step is
+optional.
+
 ## 2026-08-31 (item 4.11 quality pass, seventh) - SK Chemists Bootle GBP pack: byte-stable for the seventh pass running, all 36 checkers green, all six generators zero-diff, fifth and sixth-pass AGENT_WORKLIST.md sync gap backfilled, live half not performed (browser access unavailable this run)
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
