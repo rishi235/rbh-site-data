@@ -1,3 +1,138 @@
+## 2026-08-31 (item 3.2 quality pass, sixth) - Scorah Chemists (Bramhall and Hazel Grove): all 26 pages clean on a sixth independent extraction, guard re-proved by injection and restored, live half unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
+run in this log has recorded: the shell has no SSH key for
+git@github.com, so git fetch/push fail on host key/publickey auth, and
+this run's local commit will sit ahead of origin/agents/audit-backlog
+until a native-host or credentialed session pushes it. The repo is
+reached at /sessions/.../mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data, so edits and local commits land on the real repo.
+
+RUN START STATE. No .agent-lock present. A .git\index.lock WAS present
+(mtime roughly 17 minutes old, no git process running, so under the
+1-hour staleness threshold on its own, but abandoned rather than held by
+anything live). Following the workaround this mount has needed on every
+recent run - `rm`/`mv` off-mount both fail with "Operation not
+permitted", but a same-directory rename succeeds - it was renamed to
+.git/index.lock.stale-<epoch> rather than deleted. `git fetch origin`
+then failed with "Host key verification failed", confirmed as the same
+class of pre-existing SSH limitation this log has recorded on prior
+runs (previously seen as "Permission denied (publickey)"); not
+retried further, per the hard rule against attempting any other route.
+Worktree also carries the same large, pre-existing, already-documented
+set of files git reports modified with zero actual diff bytes (CRLF
+normalisation only, `core.autocrlf=false`/`core.eol=lf` against a
+Windows-checked-out working tree) - not touched, not committed, matches
+every prior run's description of this artefact exactly.
+
+ANSWER PICKUP RAN AND SUCCEEDED (no browser session conflict this time,
+unlike the nine-run failure streak Q59 records). Fetched
+https://data.rbhealth.co.uk/api/feedback, one tab, read-only, opened and
+closed, nothing clicked, typed or submitted. Returned 26 entries (Q2-Q5,
+Q13-Q22 with Q18-Q21 appearing twice each, Q24, Q28, Q29). Cross-checked
+every id against QUESTIONS.json: all 17 distinct ids already recorded as
+"answered". Nothing new to apply. 51 open before, 51 open after.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section appears anywhere in this log.
+
+ITEM SELECTION. All eight unchecked worklist items remain [BLOCKED] (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), confirmed
+directly against AGENT_WORKLIST.md and QUESTIONS.json. Quality-pass
+branch taken. Staleness ranked directly (not delegated this run): pool
+is every completed item except the seven established one-offs (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8), latest header per item found by scanning
+AGENT_LOG.md's own section headers (subject text before the first
+" - ", so an incidental mid-sentence mention of another item's number
+does not get mistaken for that item's own pass - this bit a first attempt,
+which initially misread the 2026-08-30 item 4.3 header's passing mention
+of "item 5.1" as 5.1's own most recent pass; corrected by grepping the
+full log for "5.1" and confirming its real most recent dedicated header
+sits earlier in the file). Result: a cluster of items (4.1, 4.4, 3.11,
+1.2, 1.3, 4.3, 3.1, 2.1, 4.2, 4.7, 4.11, 2.3, 4.15, 4.14) has been passed
+repeatedly through 2026-08-30 and 2026-08-31, while a much larger set
+(3.2 to 3.13 except 3.1/3.11, 4.5, 4.6, 4.8 to 4.10, 4.12, 4.13, 5.1, 5.2,
+6.2, 6.3) last received a dedicated pass on 2026-08-30 in the small hours
+and has not been touched since by any run in the recent cluster. Worth
+flagging for whoever next tunes the staleness-ranking approach: something
+about how prior runs pick the "least recently verified" item has been
+returning to the same ~14-item pool for two days running rather than
+reaching this much larger, staler set. Stalest of the untouched set is
+3.2 (Scorah Chemists), last passed 2026-08-30 03:43 (its fifth pass),
+roughly 28.5 hours before this run. 3.2 taken.
+
+WHAT WAS DONE. All 36 tools/check-*.js run fresh before any inspection:
+all green. All six page generators (build-service-pages,
+build-switch-pages, build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages) rebuilt from
+branches.json; sha256 of every file in modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after:
+byte-identical, zero diff. A sixth independent extraction
+(audits/verify-3.2-2026-08-31.js, imports nothing from tools/, own
+regexes throughout) re-read all 26 Scorah pages (12 Bramhall, 12 Hazel
+Grove, 2 landing) and found them clean on every leg item 3.2 covers: own
+seoTown present in title, description and h1; exactly one title line,
+one description line and one h1 per page; title within 65 characters;
+description within 80-165; no foreign live seoTown outside the branch's
+own serviceAreaList. The only two hits are the same pinned pair every
+pass since 08-11 has found and Q71 already covers: the two landing-page
+descriptions each name their sister town, excused because branches.json's
+own serviceAreaList lists it.
+
+GUARD RE-PROVED BY INJECTION, THEN RESTORED. Rather than only reading, a
+second `<h1>Pharmacy in Ainsdale</h1>` (a live seoTown not in Bramhall's
+serviceAreaList) was injected into pharmacy-scorah-bramhall.html, the
+same shape as the fault the 2026-08-14 pass fixed. check-seo-pattern.js
+caught it immediately: "2 h1 elements, expected exactly 1", exit 1.
+Restoring hit the same delete-restriction this mount has recorded before:
+`git checkout --` failed with "unable to unlink old ... Operation not
+permitted". Worked around by writing `git show HEAD:<path>` back over the
+file directly (overwrite, not unlink/rename) rather than using git
+checkout's own restore path; sha256 confirmed byte-identical to the
+pre-injection file, and check-seo-pattern.js confirmed green again
+afterwards. Noting the working restore method here since it is not yet
+written down elsewhere in this log and the checkout-fails-to-unlink
+problem keeps recurring.
+
+ALSO NOTED, NOT ACTED ON: running build-service-pages.js and
+build-contraception-pages.js as part of the regeneration step reproduced
+the debris a prior run (2026-08-31, item 4.1 seventh-pass entry's
+predecessor context) had already flagged and left alone - both
+generators write a side-copy of their paste packs to paths that treat an
+absolute Windows path as relative under this mount
+(C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK
+and cowork/CONTRACEPTION_SEO.md), creating or refreshing junk directories
+under the repo root on this sandbox. Untracked, not committed, not
+touched beyond regenerating over what was already there; flagged again
+because it is likely worth a supervised cleanup or a path fix at some
+point, same as the earlier find.
+
+LIVE HALF, READ ONLY. Two read-only GETs, one tab opened and closed,
+nothing clicked, typed or submitted. uti-treatment-scorah-bramhall.html
+still serves the live page under Weebly's doubled-brand default title
+("UTI treatment in Bramhall - Scorah Chemists - Scorah Chemists")
+rather than the pasted SEO title, extending the known unpasted-title
+finding unchanged since 2026-08-30 - queued under 5.3/5.4 and the paste
+run. pharmacy-scorah-bramhall.html (the Bramhall landing page) still
+404s, unchanged since 2026-08-12. No new live divergence found.
+
+Files changed: audits/verify-3.2-2026-08-31.js (new), AGENT_WORKLIST.md
+(3.2 sixth-pass paragraph), AGENT_LOG.md (this entry). No generated page,
+pack or data file left modified - the injection test was fully reverted
+and verified byte-identical before this commit. No new questions raised,
+none answered beyond the already-recorded set. 51 open before, 51 open
+after. PUSH: attempted, failed on SSH host-key verification (see RUN
+START STATE above); commit sits locally ahead of
+origin/agents/audit-backlog. STATUS PAGE: tools/build-audit-status.js
+attempted per step 10 regardless of outcome and failed as the previous
+run also found: it hardcodes its read path as C:/Dev/rbh-site-data/...
+rather than resolving relative to the script, so on this mount (reached
+at /sessions/.../mnt/rbh-site-data/, not the literal Windows path) it
+threw ENOENT on AGENT_WORKLIST.md before doing anything. Another
+native-host-only step, not attempted further. The portal progress page
+was not updated by this run.
+
 ## 2026-08-31 (item 4.1 quality pass, seventh) - Fishlocks Chemist Ainsdale GBP pack + TEMPLATE.md: clean on 153 independent checks (identical to the sixth pass, no drift), a sixth-pass AGENT_WORKLIST.md sync gap backfilled, live half unchanged (Q35, Q45)
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE

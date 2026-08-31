@@ -727,6 +727,29 @@ pattern itself. Evidence in audits/seo-pattern-check-2026-08-30-sixth.txt.
       generators rebuild to a zero diff. Evidence in
       audits/verify-3.2-2026-08-30.js and
       audits/verify-3.2-2026-08-30-output.txt. No new question.
+      Quality pass 2026-08-31: sixth machine pass, both halves. All 36
+      checkers green before inspection, all six generators rebuilt to a
+      zero diff (sha256 before/after every file in the three page
+      directories). A sixth independent extraction
+      (audits/verify-3.2-2026-08-31.js, own regexes, imports nothing from
+      tools/) re-read all 26 Scorah pages and found them CLEAN on every leg
+      for the sixth consecutive pass: own seoTown in title, description and
+      h1, exactly one of each, titles within 65 characters, descriptions
+      within 80 to 165, no foreign seoTown outside the branch's own
+      serviceAreaList bar the two pinned sister-town landing descriptions
+      Q71 already covers. Rather than only re-reading, this pass proved the
+      guard still bites: injected a second "<h1>Pharmacy in Ainsdale</h1>"
+      (a live seoTown absent from Bramhall's serviceAreaList) into
+      pharmacy-scorah-bramhall.html, the same fault shape the 2026-08-14
+      pass fixed; check-seo-pattern.js caught it immediately ("2 h1
+      elements, expected exactly 1"). Restored by writing
+      `git show HEAD:<path>` back over the file, because `git checkout --`
+      fails to unlink on this mount; sha256-confirmed byte-identical to the
+      original, checkers green again. No drift found, no new fault class,
+      no new question. Live half unchanged: the Bramhall UTI page still
+      serves Weebly's doubled-brand default title (unpasted, queued under
+      5.3/5.4) and the Bramhall landing page still 404s (unchanged since
+      2026-08-12). Evidence in audits/verify-3.2-2026-08-31.js.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
