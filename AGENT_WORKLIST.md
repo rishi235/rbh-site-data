@@ -1089,6 +1089,30 @@ leaving a phantom "modified" file in the git status that every quality pass
 reads as its proof the generators still match. Fixed by declaring audits/ as
 LF, the same rule the generated page folders already carry. Evidence in
 audits/hirshmans-build-check-2026-08-14-fifth.txt. No new question.
+Quality pass 2026-08-30 06:20 (sixth): 12 pages clean on a sixth independent
+extraction, 2,258 checks, 0 failures. New leg: JSON-LD verified field by field
+against branches.json rather than addressLocality alone; also new, brand-label
+isolation. Three injections (doubled sheet label, foreign town, foreign
+postcode in JSON-LD) all caught and restored. Live half, first since the fifth
+pass: UTI page clean; switch page found serving pre-Q7 stale title and
+description (paste-lag, already tracked under the 5.6 repaste queue). No new
+question.
+Quality pass 2026-08-31 (seventh): 12 pages clean on a seventh independent
+extraction (audits/verify-3.5-2026-08-31.js, __dirname-relative rather than
+the sixth pass's hardcoded C:/Dev/rbh-site-data path), 2,282 checks, 0
+failures. NEW LEG: Q21's per-branch whatsapp field confirmed on all 12
+rendered pages (data-wa="447521775631", Hirshmans' own number, no foreign
+number present), independent of check-whatsapp-route.js. Two simultaneous
+injections into the UTI page (foreign town "Bramhall" appended to the h1;
+data-wa corrupted) both caught by check-seo-pattern.js, check-whatsapp-route.js
+and the independent verifier, then restored byte-identical
+(sha256 0e361de6...62783e confirmed). Live half, two read-only reads: UTI page
+clean, including the footer hours line stating both weekday sessions and both
+Saturday sessions distinctly against branches.json; switch page's pre-Q7 title/
+description paste-lag and mojibake em dash reconfirmed unchanged, no repo-side
+fix available. All six generators rebuild byte-identical; all 36 checkers
+green. Evidence in audits/hirshmans-item-3.5-quality-pass-2026-08-31.txt. No
+new question.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

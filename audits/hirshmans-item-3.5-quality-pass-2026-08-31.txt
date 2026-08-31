@@ -1,0 +1,80 @@
+Item 3.5 quality pass, seventh - Hirshmans Chemist, Ainsdale - 2026-08-31
+
+Selection: all eight unchecked worklist items remain [BLOCKED] (5.3 Q8, 5.4
+Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch
+taken. Staleness ranked across the 36-item rotation pool (all checked items
+except the seven established one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) by
+each item's most recent "## 2026-..." AGENT_LOG.md header line number,
+higher meaning earlier in that day's batch and so more stale. Six items
+already touched today (2026-08-31, chronological order: 3.11, 4.4, 4.1,
+3.2, 3.3, 3.4). Of the 30 remaining, every one's most recent touch was
+2026-08-30; 3.5's 06:20 BST sixth-pass entry (line 3450 of AGENT_LOG.md)
+was the highest line number, i.e. the oldest untouched-today entry, so 3.5
+was taken.
+
+Pre-flight: all 36 tools/check-*.js run before any inspection - all green.
+All six page generators rebuilt from branches.json; git status on
+modules/service/pages, modules/switch/pages and modules/branch/pages
+empty afterwards (those directories are declared LF in .gitattributes, so
+a clean git status is proof of a byte-identical rebuild), 203 generated
+files, zero diff.
+
+Seventh independent extraction (audits/verify-3.5-2026-08-31.js), carrying
+forward all eleven legs the sixth pass proved and adding a twelfth: Q21
+landed after the sixth pass, adding a per-branch "whatsapp" field to
+branches.json; this pass independently confirms all 12 Hirshmans pages
+carry data-wa="447521775631" (Hirshmans' own number) and no other branch's
+number, read off the rendered pages rather than the generator source, so
+it cannot share a blind spot with check-whatsapp-route.js. Also fixed the
+sixth pass's own REPO path: hardcoded "C:/Dev/rbh-site-data" replaced with
+path.resolve(__dirname, ".."), so this script now runs unchanged on the
+native ProDesk checkout or a mounted copy, the same fix the 3.4 seventh-
+pass script made.
+
+Result: 12 pages checked, 177 sheet permalinks parsed, 2,282 checks run
+(up from 2,258 on the sixth pass; +24 = the new WhatsApp leg's two checks
+per page), 0 failures.
+
+Guard re-proved by injection, then restored. Two simultaneous injections
+into uti-treatment-hirshmans-ainsdale.html: (1) appended " near Bramhall"
+to the H1 (Bramhall is not in Hirshmans' serviceAreaList); (2) corrupted
+its data-wa value from 447521775631 to 447500000000. check-seo-pattern.js
+caught (1) immediately (exit 1, h1 mismatch plus cross-town rule naming
+Bramhall as scorah_bramhall's seoTown). check-whatsapp-route.js caught (2)
+immediately (exit 1, page-agreement failure). The independent verifier
+caught both (2 failures: foreign town in h1[0]; wrong data-wa value).
+Restored using `git show HEAD:<path> > <path>` (overwrite, not
+unlink/rename, since `git checkout --` fails on this mount with "unable
+to unlink old ... Operation not permitted"). sha256 confirmed byte-
+identical to the pre-injection file
+(0e361de64860529b029747af63cef76c5e9fd3b810c57af089ce7b312c62783e); all 36
+checkers and the independent verifier re-run clean afterwards; git status
+on the file reported clean.
+
+Live half, read only. Two read-only page-text reads via Claude in Chrome,
+one tab opened and closed, nothing clicked, typed or submitted.
+
+uti-treatment-hirshmans-ainsdale.html: title "UTI treatment in Ainsdale -
+Hirshmans Chemist" and H1 "UTI treatment in Ainsdale" match the pattern
+exactly; own phone 01704 577376 and address correct; footer NHS mailbox
+reads pharmacy.FW378@nhs.net correctly (no typo of the kind Q36 tracks at
+Cherry Lane); footer hours line reads "Open Mon-Fri 8:30am-1pm, 2pm-6pm,
+Sat 9am-1pm, 2pm-5:30pm, Sun closed", which states both weekday sessions
+and both Saturday sessions distinctly and matches branches.json's
+specification field by field, including the lunch closure.
+
+switch-prescriptions-hirshmans-ainsdale.html: same known live paste-lag
+the sixth pass recorded, unchanged. Live SEO title reads "Switch Your
+Prescriptions - Hirshmans Chemist Ainsdale" against the repo's current
+"Switch Your Prescriptions to Hirshmans Chemist, Ainsdale"; live body
+copy reads "it usually is not" followed by a mojibake em dash (three
+corrupted bytes from a Weebly paste of the pre-Q7 em-dash wording) "we
+make the first step quick and easy", with a knock-on lower-case "we",
+against the repo's plain-full-stop wording "it usually is not. We make
+the first step quick and easy." Both are paste-lag with no repo-side fix
+available, already tracked under the 5.6 repaste queue and Q7's em-dash
+finding; no new question raised.
+
+Files changed: audits/verify-3.5-2026-08-31.js (new), this file (new),
+AGENT_WORKLIST.md (3.5 seventh-pass paragraph), AGENT_LOG.md (dated
+entry). No page, generator, checker or branches.json left modified.

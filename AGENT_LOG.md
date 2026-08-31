@@ -1,3 +1,124 @@
+## 2026-08-31 (item 3.5 quality pass, seventh) - Hirshmans Chemist, Ainsdale: all 12 pages clean on a seventh independent extraction with a new WhatsApp leg added, cross-town and WhatsApp guards re-proved by a double injection and restored, live half unchanged, sixth-pass AGENT_WORKLIST.md sync gap backfilled
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
+run in this log has recorded: no SSH key for git@github.com in this
+shell (`ssh -T git@github.com` and `git fetch origin` both fail with
+"Permission denied (publickey)", no ~/.ssh/id_* present, only a fresh
+known_hosts). This run's local commit will sit ahead of
+origin/agents/audit-backlog until a native-host or credentialed session
+pushes it. The repo is reached at /sessions/.../mnt/rbh-site-data/, a
+mount of the real C:\Dev\rbh-site-data, so edits and local commits land
+on the real repo, they just cannot leave it from here.
+
+RUN START STATE. No .agent-lock present; created one. No .git/index.lock
+present. Worktree carries the same large, pre-existing, already-documented
+set of files `git status` reports modified with zero actual diff bytes
+(`git diff -b` confirmed empty across every one of them, i.e. CRLF
+stat-cache noise, not content drift) - not touched, not committed. The
+pre-existing junk left by earlier runs (many `.agent-lock.released-*`
+markers, `.rm-test-*.txt`, `__lftest__.txt`, `testwrite2.txt`, a literal
+`C:/` directory) was left alone as prior runs have done; running
+build-service-pages.js this session reprinted the same "Paste packs: ...
+C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK"
+line previously identified as this generator's own hardcoded Windows path
+being resolved as a relative path by this shell, so the `C:/` tree grew
+by the same files again; not fixed, out of scope for this item.
+
+ANSWER PICKUP: attempted and succeeded - https://data.rbhealth.co.uk/api/feedback
+returned its normal JSON feed (Q29 down to Q2) on the first navigation, no
+Cloudflare Access sign-in page. Every entry matched a question already
+"answered" in QUESTIONS.json (spot-checked Q2-Q5, Q13-Q22, Q24, Q28, Q29
+directly); none of the 51 currently open questions (Q34 onward) appeared
+in the feed. No status changes, nothing to apply.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run.
+
+ITEM SELECTION. All eight unchecked worklist items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch taken. Six items already
+touched today (2026-08-31, chronological order taken from this log's
+headers and body text: 3.11, 4.4, 4.1, 3.2, 3.3, 3.4). Of the remaining 30
+in the 36-item rotation pool (43 checked items minus the seven established
+one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), every one's most recent touch
+was 2026-08-30; ranked by log line number (higher = earlier in that day's
+batch = more stale), 3.5's 06:20 BST sixth-pass entry (line 3450) was the
+highest line number in the pool, i.e. the oldest untouched-today entry.
+3.5 (Hirshmans Chemist, Ainsdale) taken.
+
+WHAT WAS DONE. All 36 tools/check-*.js run fresh before any inspection:
+all green. All six page generators rebuilt from branches.json; git status
+on modules/service/pages, modules/switch/pages and modules/branch/pages
+(all declared LF in .gitattributes) empty afterwards, so the 203 generated
+files are byte-identical to what is committed. A seventh independent
+extraction (audits/verify-3.5-2026-08-31.js, imports nothing from tools/,
+own regexes throughout, __dirname-relative so it runs on either checkout
+rather than the sixth pass's hardcoded C:/Dev/rbh-site-data path) re-read
+all 12 Hirshmans pages: 2,282 checks, 0 failures, carrying forward the
+sixth pass's eleven legs (counts, sheet agreement and one-label-per-block,
+own town, service words, cross-town absence, phone/postcode isolation,
+lengths, JSON-LD field-by-field, tel:, widget isolation, brand-label
+isolation, switch banner) plus a new twelfth leg: Q21 landed after the
+sixth pass, adding a per-branch `whatsapp` field to branches.json; this
+pass independently confirms all 12 pages carry `data-wa="447521775631"`
+(Hirshmans' own number) and no other branch's number, read off the
+rendered pages rather than the generator source, so it cannot share a
+blind spot with check-whatsapp-route.js.
+
+GUARD RE-PROVED BY A DOUBLE INJECTION, THEN RESTORED. Two simultaneous
+changes to uti-treatment-hirshmans-ainsdale.html: appended " near Bramhall"
+to the h1 (Bramhall is scorah_bramhall's seoTown, not in Hirshmans'
+serviceAreaList), and corrupted its data-wa value from 447521775631 to
+447500000000. check-seo-pattern.js caught the first immediately (exit 1,
+h1 mismatch plus the cross-town rule naming Bramhall); check-whatsapp-
+route.js caught the second immediately (exit 1, page-agreement failure
+naming the branch); the independent verifier caught both (2 failures:
+foreign town in h1[0], wrong data-wa value). Restored using `git show
+HEAD:<path> > <path>` (overwrite, not unlink/rename), since `git checkout
+--` fails on this mount with "unable to unlink old ... Operation not
+permitted". sha256 confirmed byte-identical to the pre-injection file
+(0e361de64860529b029747af63cef76c5e9fd3b810c57af089ce7b312c62783e); all 36
+checkers and the independent verifier re-run clean afterwards; `git
+status` on the file reported clean.
+
+LIVE HALF, READ ONLY. Two read-only page-text reads via Claude in Chrome,
+one tab opened and closed, nothing clicked, typed or submitted.
+uti-treatment-hirshmans-ainsdale.html serves the exact pattern title and
+H1, its own phone and address, the correct FW378 nhs.net footer email (no
+typo of the kind Q36 tracks at Cherry Lane), and a footer hours line that
+states both weekday sessions and both Saturday sessions distinctly,
+matching branches.json's specification including the lunch closure.
+switch-prescriptions-hirshmans-ainsdale.html reconfirms the sixth pass's
+finding unchanged: live SEO title reads "Switch Your Prescriptions -
+Hirshmans Chemist Ainsdale" against the repo's current "Switch Your
+Prescriptions to Hirshmans Chemist, Ainsdale", and live body copy carries
+a mojibake em dash and knock-on lower-case "we" against the repo's plain-
+full-stop wording - both paste-lag with no repo-side fix available,
+already tracked under the 5.6 repaste queue and Q7's em-dash finding. No
+new question raised.
+
+WORKLIST SYNC GAP BACKFILLED. The sixth pass (2026-08-30 06:20) recorded
+"Worklist untouched: 3.5 stays [x]" and added no paragraph to
+AGENT_WORKLIST.md, unlike the equivalent passes on other items. This run
+added both the missing sixth-pass summary and this seventh-pass summary
+to AGENT_WORKLIST.md's 3.5 entry in one edit.
+
+Files changed: audits/verify-3.5-2026-08-31.js (new),
+audits/hirshmans-item-3.5-quality-pass-2026-08-31.txt (new),
+AGENT_WORKLIST.md (3.5 sixth- and seventh-pass paragraphs backfilled),
+this log entry. No page, generator, checker or branches.json left
+modified. Committed locally on agents/audit-backlog. `git push origin
+agents/audit-backlog` attempted as normal and failed exactly as predicted
+above ("Permission denied (publickey)"); no other push route tried.
+`node tools/build-audit-status.js` (step 10) was run as instructed even
+though it cannot succeed here: it fails immediately with ENOENT on its
+own hardcoded Windows path, the same fault recorded against this script
+and build-audit-status.js by several immediately preceding runs in this
+log; not fixed (out of scope for this item). .agent-lock deleted at the
+end of this run.
+
 ## 2026-08-31 (item 3.4 quality pass, seventh) - Cherry Lane Pharmacy, Walton: all 12 pages clean on a seventh independent extraction with a new WhatsApp leg added, cross-town guard re-proved by injection and restored, live half re-read on three pages and Q36's known footer typo confirmed on two more of them
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
