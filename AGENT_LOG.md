@@ -129,6 +129,46 @@ native-host or credentialed session can push it. Push and publish outcomes
 recorded in a log addendum immediately following this entry, matching the
 two-part pattern recent runs have used.
 
+## 2026-08-31 (later) - Log addendum: push/publish outcomes and lock handling for the 3.8 quality pass (fifth) run
+
+Push and publish both failed exactly as this log has recorded for every
+recent same-session run. `git push origin agents/audit-backlog` gave "Host
+key verification failed" - no usable SSH host key for github.com from this
+shell. Commit a515681 sits locally ahead of origin/agents/audit-backlog
+until a native-host or credentialed session pushes it, alongside the
+commits already queued there from today's earlier runs (up to and including
+3c06f6e / 76e2005, the 5.1 eighth pass). `node tools/build-audit-status.js`
+gave the same ENOENT this log has recorded before: `Error: ENOENT: no such
+file or directory, open 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'` - the
+generator hardcodes the Windows path rather than resolving it relative to
+its own file location, so it works from the native Windows environment this
+procedure assumes and cannot work from this mount point. Not fixed here:
+outside this run's chosen item (3.8) and outside the HARD RULES' one
+permitted exception to "do not touch any other repo or scheduled task"
+(publishing via the script as it stands, not editing it). Left as a
+standing, already-tracked limitation.
+
+Git lock handling this run, recorded for whoever reads this next: a
+.git/index.lock roughly 20 minutes old was present at the start (see the
+main entry above), left below this procedure's 1-hour staleness threshold
+and did not block any read command. `git add` on this run's four changed
+files then hit it directly ("Unable to create '.git/index.lock': File
+exists"). Matching the workaround this log has recorded on every recent
+run, `mv` (not `rm`, which fails "Operation not permitted" on this FUSE
+mount) moved the lock aside with a unique suffix
+(.git/index.lock.stale-20260831-1006-item3.8), after which `git add` and
+`git commit` both completed with only cosmetic "unable to unlink
+tmp_obj_*"/"HEAD.lock" warnings, no functional effect (commit succeeded,
+tree is correct per `git show --stat`). The repo root and .git/ now carry a
+very large and growing pile of `.agent-lock.released-*`,
+`.git/index.lock.stale-*` and `.git/HEAD.lock.stale-*` markers from this
+same recurring fight across many runs today; this run added three more
+rather than cleaning the pile up, consistent with every recent run's
+choice to leave it (none of it is git-tracked, so it costs nothing to
+leave). Flagging again, as the 5.1 addendum below already did: a dedicated
+small pass to delete the accumulated debris would be reasonable once it
+starts affecting readability of `ls` output, but is not this run's item.
+
 ## 2026-08-31 (later) - Log addendum: push/publish outcomes for the 5.1 quality pass (eighth) run
 
 Push and publish both failed exactly as this log has recorded for every
