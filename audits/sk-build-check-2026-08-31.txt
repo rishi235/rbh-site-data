@@ -1,0 +1,86 @@
+Item 3.8 quality pass (fifth), 2026-08-31, unattended run via Cowork's
+sandboxed shell (mount of C:\Dev\rbh-site-data, not the native Windows
+environment this procedure assumes).
+
+SCOPE: SK Chemists Bootle, 12 pages (11 service-family pages under
+modules/service/pages/ plus modules/switch/pages/switch-prescriptions-
+sk-chemists-bootle.html). Branch id skchemists_bootle, ODS FH575.
+
+1. CHECKER SUITE. All 36 tools/check-*.js run individually before any
+   change: 36 of 36 exit 0, zero failures across the whole estate (not
+   just SK).
+
+2. GENERATOR REBUILD. sha256 of all 12 SK files taken before regeneration.
+   All six page generators run (build-branch-landing-pages,
+   build-contraception-pages, build-service-pages, build-switch-pages,
+   build-travel-clinic-pages, build-weight-loss-pages). sha256 taken again
+   after: byte-for-byte identical across all 12 files. git diff --stat and
+   git diff -b --stat against modules/ both returned empty (whole tree, not
+   only SK), confirming the regeneration touched nothing anywhere.
+
+3. INDEPENDENT EXTRACTION. audits/sk-independent-2026-08-31.js, sharing no
+   code with tools/check-*.js, re-derives expected facts from branches.json
+   and greps the 12 pages directly: exactly one H1 per page carrying
+   Bootle; own phone present as a tel: link and matches JSON-LD; no other
+   live branch's phone digits, postcode, ODS code or brand label present
+   anywhere on any page; own postcode present; JSON-LD parses on all 12
+   with @type Pharmacy, telephone, street, postcode and region all matching
+   branches.json; data-branch (where present) equals branchName/brandLabel.
+   696 checks, 0 flags, 12 files.
+
+4. INJECTION PROOF (guard re-proved, not just read). Line 141 of
+   uti-treatment-sk-chemists-bootle.html (the visible contact-line phone)
+   was changed from "0151 944 1013" to "0151 226 2051" (Cherry Lane
+   Pharmacy's number) by direct sed edit. tools/check-nap.js then reported
+   2 mismatches by name: "visible phone ... vs ..." and "phone ... belongs
+   to Cherry Lane Pharmacy, not SK Chemists". File restored from a pre-edit
+   copy; cmp confirmed byte-identical to the original; check-nap.js
+   re-run clean (0 mismatches). Confirms the phone guard is live on this
+   branch's pages, not passing by coincidence.
+
+5. GBP PACK CROSS-CHECK. gbp-packs/sk-chemists-bootle.md's facts (address,
+   phone, hours, website, review link, hasApp false, pfLink) checked field
+   by field against branches.json (skchemists_bootle): match exactly.
+   (4.11, the pack item itself, was re-verified separately earlier today;
+   this is a lighter cross-check within 3.8's own scope, not a repeat of
+   that pass.)
+
+6. LIVE HALF. Two read-only GETs via the Claude in Chrome browser
+   (navigate + get_page_text, no click, no submit, no login):
+
+   uti-treatment-sk-chemists-bootle.html: H1, phone, address, postcode,
+   opening hours, GPhC number (1034404), Superintendent Pharmacist (Dr S K
+   Kochhar, GPhC 2039034), Company No (06223421) and both footer email
+   casings (sk@rbhealth.co.uk / SK@rbhealth.co.uk) all correct and matching
+   branches.json. One known live-only gap reconfirmed: the browser tab
+   title renders "UTI treatment in Bootle - SK Chemists - SK CHEMIST" (page
+   title plus Weebly's own site-title suffix) rather than the paste sheet's
+   "UTI treatment in Bootle - SK Chemists", because the SEO title field
+   still awaits the queued 5.3/5.4 repaste. Not a repo defect: the correct
+   string is confirmed present in modules/service/pages/SEO.md and was
+   already tracked under 5.3/5.4 by the fourth pass.
+
+   switch-prescriptions-sk-chemists-bootle.html: contact card, hours,
+   phone, footer facts all correct. One known live-only gap reconfirmed:
+   the "How switching works" intro reads "...it usually is not [mojibake]
+   we make the first step quick and easy", carrying a mojibake-corrupted
+   em dash ("\u00d3\u00c7\u00f6" bytes, rendered as three garbled characters
+   in a UTF-8 terminal) where the current repo source
+   (tools/build-switch-pages.js line 231, and the generated page) reads a
+   plain full stop: "it usually is not. We make the first step quick and
+   easy." This is the pre-Q7/5.1-fix version of the copy, still live
+   because the Weebly paste for this branch has not been refreshed since
+   item 5.1 rewrote the generator on 2026-08-09. Matches the identical
+   finding already recorded for this same branch and page in today's 4.11
+   quality pass (SK Chemists Bootle GBP pack), and the same paste-lag class
+   already recorded on Cherry Lane, Scorah Bramhall, Scorah Hazel Grove and
+   Gordon Short Crosby's switch pages. No repo action needed: the repo
+   source is already correct, this is paste lag only, already tracked
+   under the estate-wide switch-page repaste backlog. No new question
+   raised.
+
+RESULT. Zero in-repo defects found in this item's own domain across five
+passes now (initial build plus four prior quality passes plus this one).
+No copy, page, generator or branches.json entry changed by this pass. No
+question raised: the two live findings are both already-tracked paste lag,
+reconfirmed rather than new.

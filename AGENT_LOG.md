@@ -1,3 +1,134 @@
+## 2026-08-31 (item 3.8 quality pass, fifth) - SK Chemists Bootle re-verified clean for the fifth pass running; zero in-repo defects; two known live-only paste-lag gaps reconfirmed unchanged
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS
+ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation this log has recorded for
+every recent run: no usable git credential for github.com from this shell
+(`git fetch origin` gave "Host key verification failed"). This run's local
+commit sits ahead of origin/agents/audit-backlog until a native-host or
+credentialed session pushes it. The repo is reached at
+/sessions/.../mnt/rbh-site-data/, a mount of the real C:\Dev\rbh-site-data,
+so edits and local commits land on the real repo, they just cannot leave it
+from here.
+
+RUN START STATE. No .agent-lock present at the start; created one
+immediately (2026-08-31T10:04:18Z). No git process of this session's own was
+running (checked via ps aux; each bash call in this shell is its own fresh
+sandboxed process, so nothing from an earlier call can still be alive by the
+time a new call starts). A .git/index.lock was found present, roughly 20
+minutes old at the time of the check, left behind by the immediately
+preceding run (the 5.1 eighth pass, whose own log addendum below records the
+same lock-handling fight). Below the 1-hour staleness threshold this
+procedure sets, so left in place rather than removed; it did not block any
+read command this run (git status, git diff, git log, git show all ran fine
+with it present), matching the pattern the 5.1 and 4.11 entries below
+already recorded. Worktree carries the same large, pre-existing,
+already-documented set of files git status reports modified with zero actual
+diff bytes (git diff and git diff -b both empty on every one checked) -
+CRLF/mtime stat-cache noise on this mount, not content drift, reconfirmed
+this run and left untouched. The pre-existing junk (many
+.agent-lock.released-* markers, .rm-test-*, __lftest__.txt, testwrite2.txt,
+a literal "C:/" directory under the repo root) was left alone as prior runs
+have done; none of it is tracked by git and none of it is part of this run's
+work.
+
+ANSWER PICKUP: AVAILABLE THIS RUN. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text
+(read-only, no click, no submit, no login) - the two-Chrome-instance block
+Q59 describes did not apply this run, one tab was available throughout. 26
+feedback entries returned, spanning Q2 through Q29 (Q17 through Q29 the
+newest, several answered more than once with identical text each time).
+Cross-checked all 17 distinct question ids named against QUESTIONS.json:
+every one already "answered" there (Q2, Q3, Q4, Q5, Q13, Q14, Q15, Q16, Q17,
+Q18, Q19, Q20, Q21, Q22, Q24, Q28, Q29). Nothing new to apply. The 51
+currently open questions had no entries in the portal response at all, so
+none of them could be closed this run either. Browser tab closed after
+reading.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section was present at the top of AGENT_LOG.md at the start of this run
+(confirmed by reading the first lines and by grep before editing anything),
+so step 7 applies as written.
+
+WHY THIS ITEM. All eight remaining unchecked items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md, each for a documented reason requiring a
+supervised or hand-paste session (5.3 Q8, 5.4 Q9, 5.5 Q13 - answered by
+Rishi but blocked on pushing a non-agents/audit-backlog branch and a Weebly
+paste, both outside this run's authorisation, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60,
+6.6 Q66). Quality-pass branch taken. Computed the maximum date appearing in
+each completed item's own block (45 completed items, minus the seven
+established one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, minus the nine items
+already touched today by earlier runs - 3.2, 3.3, 3.4, 3.5, 3.11, 4.1, 4.4,
+4.11, 5.1). Four items tied for oldest at 2026-08-14: 3.6 (McCanns), 3.7
+(Smartts), 3.8 (SK Chemists) and 4.14 (Gordon Short Crosby GBP pack).
+Counting "quality pass" occurrences (case-insensitive) to break the tie: 3.6
+and 3.8 tied lowest at 3 mentions each, against 5 each for 3.7 and 4.14; 3.8
+was picked over 3.6 as the shorter of the two blocks (4,773 vs 5,819
+characters), suggesting marginally less recent scrutiny in total, not only
+by last date. 3.6 remains an equally valid candidate for a future run.
+
+REPO HALF, CLEAN. Full detail in audits/sk-build-check-2026-08-31.txt. All
+36 tools/check-*.js re-run clean before any change (0 of 36 failures, whole
+estate). All six page generators re-run; sha256 of all 12 SK Chemists Bootle
+files (11 service-family pages plus the switch page) identical before and
+after regeneration; git diff --stat and git diff -b --stat against the
+entire modules/ tree both returned nothing, so the whole estate regenerated
+byte-identical, not only SK's own pages. A fresh independent extraction
+sharing no code with tools/check-*.js
+(audits/sk-independent-2026-08-31.js) re-derives expected facts from
+branches.json and reads the 12 pages directly: 696 checks, 0 flags - one
+crawlable H1 per page carrying Bootle, own phone as a tel: link matching
+JSON-LD, no other live branch's phone digits, postcode, ODS code or brand
+label anywhere on any page, JSON-LD parsing and matching branches.json field
+by field on all 12, data-branch equal to branchName/brandLabel where
+present. The GBP pack's facts (address, phone, hours, website, review link,
+hasApp false, pfLink) were checked field by field against branches.json and
+match exactly.
+
+GUARD RE-PROVED BY INJECTION, not just read. Line 141 of
+uti-treatment-sk-chemists-bootle.html (the visible contact-line phone) was
+changed by direct edit from SK's own number to Cherry Lane Pharmacy's.
+tools/check-nap.js caught it immediately, naming both the visible-vs-JSON-LD
+mismatch and the specific wrong branch it belonged to (2 mismatches). File
+restored from a pre-edit copy; cmp confirmed byte-identical to the original;
+check-nap.js re-run clean (0 mismatches, matching the pre-injection baseline
+across the whole estate). Confirms the phone guard is live on this branch's
+pages rather than passing by coincidence of nothing having drifted.
+
+LIVE HALF PERFORMED, two read-only GETs via the Claude in Chrome browser
+(navigate + get_page_text; no click, no submit, no login; tab closed after).
+uti-treatment-sk-chemists-bootle.html: H1, phone, address, postcode,
+opening hours, GPhC number, Superintendent Pharmacist name and GPhC
+registration, Company No and both footer email casings all correct and
+matching branches.json. One known live-only gap reconfirmed unchanged: the
+browser tab title renders the Weebly-default "... - SK CHEMIST" suffix
+because the SEO title field still awaits the queued 5.3/5.4 repaste, not a
+repo defect (the correct string is confirmed present in
+modules/service/pages/SEO.md). switch-prescriptions-sk-chemists-bootle.html:
+contact card, hours, phone and footer facts all correct. One known
+live-only gap reconfirmed unchanged: the "How switching works" intro still
+carries a mojibake-corrupted em dash where the current repo source
+(tools/build-switch-pages.js line 231, and the generated page) reads a
+plain full stop - the pre-Q7/5.1 version of the copy, still live because
+this branch's switch page has not been repasted since item 5.1 rewrote the
+generator on 2026-08-09. Matches the identical finding already recorded on
+this same page in today's earlier 4.11 pass, and the same estate-wide
+switch-page repaste-lag pattern already tracked on Cherry Lane, both Scorah
+branches and Gordon Short Crosby. No repo action needed for either finding:
+both are paste lag against copy the repo already holds correctly, already
+tracked elsewhere. No new question raised.
+
+RESULT. Zero in-repo defects found, fifth pass running for this item. No
+copy, page, generator or branches.json entry changed. Both live findings are
+reconfirmations of already-tracked paste lag, not new evidence, so no
+question was raised.
+
+Files changed: AGENT_WORKLIST.md, this log, audits/sk-build-check-2026-08-31.txt,
+audits/sk-independent-2026-08-31.js. Commit expected to sit locally ahead of
+origin/agents/audit-backlog per the Run Start State note above until a
+native-host or credentialed session can push it. Push and publish outcomes
+recorded in a log addendum immediately following this entry, matching the
+two-part pattern recent runs have used.
+
 ## 2026-08-31 (later) - Log addendum: push/publish outcomes for the 5.1 quality pass (eighth) run
 
 Push and publish both failed exactly as this log has recorded for every

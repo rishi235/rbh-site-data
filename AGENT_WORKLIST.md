@@ -1359,6 +1359,35 @@ audits/smartts-build-check-2026-08-14.txt.
       guarding the half that was not changed. 36 checkers pass, six generators
       rebuild byte-identical. No question raised. Evidence in
       audits/sk-build-check-2026-08-14.txt.
+      Quality pass 2026-08-31 (fifth). EXECUTED VIA COWORK'S SANDBOXED SHELL.
+      All 36 checkers exit 0 before any change. All six generators rebuilt;
+      sha256 of all 12 SK files identical before and after; git diff --stat
+      and git diff -b --stat against the whole modules/ tree both empty.
+      Fresh independent extraction sharing no code with tools/
+      (audits/sk-independent-2026-08-31.js): 696 checks, 0 flags, 12 files -
+      one H1 per page carrying Bootle, own phone/postcode/ODS present, no
+      other live branch's phone, postcode, ODS or brand label present
+      anywhere, JSON-LD parses and matches branches.json field by field on
+      all 12. Guard re-proved by injection, not just read: the visible
+      contact-line phone on uti-treatment-sk-chemists-bootle.html was
+      changed to Cherry Lane's number, check-nap.js caught it by name (2
+      mismatches), file restored and confirmed byte-identical by cmp,
+      checker re-run clean. GBP pack cross-checked field by field against
+      branches.json, matches. ZERO IN-REPO DEFECTS, fifth pass running.
+      LIVE HALF PERFORMED, two read-only GETs (Claude in Chrome, no click,
+      no submit, no login). uti-treatment-sk-chemists-bootle.html: all
+      facts correct; one known live-only gap reconfirmed unchanged, the
+      SEO title field still awaiting the 5.3/5.4 repaste so the browser tab
+      shows the Weebly-default "... - SK CHEMIST" suffix instead of the
+      paste sheet's title. switch-prescriptions-sk-chemists-bootle.html:
+      all facts correct; one known live-only gap reconfirmed unchanged, the
+      "usually is not" sentence still carries the pre-Q7/5.1 mojibake em
+      dash, matching today's 4.11 pass finding on the same page and the
+      same estate-wide switch-page repaste-lag pattern already tracked on
+      Cherry Lane, both Scorah branches and Gordon Short Crosby. No repo
+      action needed for either; both are paste lag only. No new question
+      raised. Evidence in audits/sk-build-check-2026-08-31.txt and
+      audits/sk-independent-2026-08-31.js.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
