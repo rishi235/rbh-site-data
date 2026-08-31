@@ -1,0 +1,67 @@
+Item 4.1 quality pass (seventh) - Fishlocks Chemist Ainsdale GBP pack + TEMPLATE.md
+Run: 2026-08-31, unattended, Cowork sandboxed shell
+Prior pass: 2026-08-30 03:11, commit 4ecae38, 153 checks, 0 defects, 0 flags
+
+REPO HALF
+
+All 50 tools/*.js scripts run clean (36 checkers + 6 generators + supporting
+modules), status quo before any inspection. Six page generators
+(build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt to zero diff except status/index.html's
+"generated at" timestamp, the expected byte-stable pattern.
+
+Independent verifier audits/verify-4.1-2026-08-30.js re-run unmodified
+against the current fishlocks_ainsdale entry in branches.json and the
+current gbp-packs/fishlocks-ainsdale.md:
+
+  CHECKS=153 DEFECTS=0 FLAGS=0
+
+Identical result to the sixth pass. No drift in either file since
+2026-08-30 03:11. Not one character of the pack or TEMPLATE.md was edited
+this pass.
+
+Facts re-confirmed by eye against branches.json (fishlocks_ainsdale): name
+Fishlocks Chemist Ainsdale, 17 Station Road, Ainsdale, Southport PR8 3HN,
+phone 01704 575478, review link https://g.page/r/Cfl0iMf3cgGaEAE/review,
+hours Monday to Friday 8:45am to 6:00pm with Saturday and Sunday closed
+(matches openingHours.specification and closedDays exactly), catchment
+Ainsdale, Birkdale, Southport (serviceAreaList, in order), hasApp true
+earning the app sentence, five widgets (bloodPressure, contraception,
+pharmacyFirst, weightLoss, travelClinic) earning their five service lines,
+Post A's button on the branch's own pfLink
+(pharmacy-first-fishlocks-ainsdale.html, not a shared or legacy page - this
+branch is not under the Post-A HARD STOP that item 5.3/Q8/Q34 covers).
+
+LIVE HALF, READ ONLY (Chrome, one tab, opened and closed, nothing clicked,
+typed or submitted)
+
+1. https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+   (the profile-website target the pack's paster note withholds pending
+   this resolving) - still returns 404 Page Not Found. Q35 state unchanged
+   since 2026-08-12. The pack's note already tells the paster not to set
+   the profile website until this resolves; no pack change needed.
+
+2. https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-ainsdale.html
+   - loads correctly, all facts on the page match branches.json (phone,
+   address, hours). The "How switching works" intro still reads "it
+   usually is not -- we make the first step quick and easy" with a live
+   em dash, the pre-Q13-repaste copy this repo's own generator no longer
+   emits. Q45 state unchanged. This is a live-paste-lag issue tracked
+   under Q13's pin-and-repaste plan (answered, NOT YET APPLIED, item 5.5,
+   supervised session), not a defect in this pack.
+
+No new live divergence found. Both known caveats reconfirmed, neither
+newly wrong, neither a new question.
+
+ANSWER PICKUP (see AGENT_LOG.md entry for the full portal dump): 25 entries
+returned, all map to already-answered questions (Q2-Q5, Q13-Q22, Q24, Q28,
+Q29). None bear on Q35 or Q45. No status changes applied.
+
+CONCLUSION
+
+Item 4.1 clean for the seventh consecutive verification. No in-repo fix
+required. AGENT_WORKLIST.md's item 4.1 block was missing the sixth pass's
+note (2026-08-30 03:11, commit 4ecae38) entirely - a sync gap of the same
+shape found and backfilled on other items' most recent passes (4.4, 3.11).
+Backfilled here along with today's seventh-pass note.

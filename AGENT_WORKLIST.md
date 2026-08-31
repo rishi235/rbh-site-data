@@ -1852,6 +1852,29 @@ Pharmacy First wording to the NHS service description.
       carries a "Notes for the paster:" section saying what belongs in it.
       Thirteen negative tests, all thirteen fire, every injected file
       restored and proved byte-identical by sha256. No new question.
+      Quality pass 2026-08-30 03:11 (sixth, commit 4ecae38): AGENT_WORKLIST.md
+      sync gap - this pass was logged in AGENT_LOG.md but never appended
+      here; backfilled now as part of the seventh pass below. Independent
+      verifier (audits/verify-4.1-2026-08-30.js, imports nothing from
+      tools/) ran 153 checks against branches.json: canonical NAP,
+      foreign-branch leakage, POM and drug-class names, outcome/efficacy
+      patterns, PF condition list and ages, hasApp/app-mention, the
+      746-character description claim, hours day-composition, catchment
+      order, pfLink on Post A, post lengths, URL domains. Zero defects,
+      zero flags. Not one character of the pack edited. Live half:
+      profile-website target still 404 (Q35, unchanged since 2026-08-12);
+      live switch page still carries the pre-Q13-repaste em dash (Q45).
+      See audits/fishlocks-ainsdale-4.1-pass-2026-08-30.txt.
+      Quality pass 2026-08-31 (seventh): re-ran the same independent
+      verifier unmodified - CHECKS=153 DEFECTS=0 FLAGS=0, identical to the
+      sixth pass, no drift in the pack or TEMPLATE.md since 2026-08-30.
+      All 50 tools/*.js scripts (36 checkers plus generators) clean; six
+      page generators rebuild to zero diff bar status/index.html's
+      timestamp. Live half re-checked: pharmacy-fishlocks-ainsdale.html
+      still 404 (Q35 unchanged), switch page em dash still live (Q45
+      unchanged, tracked under Q13's answered-but-not-yet-applied
+      pin-and-repaste plan, item 5.5). No new defect, no new question.
+      See audits/fishlocks-ainsdale-4.1-pass-2026-08-31.txt. Done 2026-08-31
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
