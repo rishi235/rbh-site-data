@@ -1,3 +1,91 @@
+## 2026-08-31 (later still) - Log addendum: lock, commit and publish handling for the item 2.2 quality pass (sixth) run
+
+LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run.
+`.git\index.lock` and `.git\HEAD.lock` were both present, 0 bytes, created
+22:11, same as the prior run's entry below recorded finding at 22:34-22:35.
+This run checked again at 23:04-23:06 (53-55 minutes old), still under the
+1-hour threshold with no local git process visible via `ps aux`, so left in
+place at first per the standing rule, matching the prior run's own
+judgement. Waited (two short sleeps) until the lock crossed 60 minutes
+(reached ~61 minutes, 23:11), re-confirmed no local git process running,
+then removed it.
+
+Removal needed a workaround worth recording as a new, general finding, not
+specific to this lock: `rm` (unlink) fails with "Operation not permitted"
+on this mounted repo from this Cowork sandboxed shell, on `.git/index.lock`,
+on a fresh throwaway test file created in the same run, and on git's own
+internal temp objects and lock files during normal `add`/`commit` operations
+(`.git/objects/*/tmp_obj_*`, and a fresh `index.lock`/`HEAD.lock` that git
+itself creates and fails to clean up at the end of its own add/commit).
+`mv` (rename) works where `rm` does not, and was used throughout as the
+workaround: rename the lock out of the way rather than delete it. This
+explains the thirteen `.agent-lock.released-*` files, `.testfile123.todelete`,
+`scratchtest.txt`/`scratchtest2.renamed.txt` and the stray `C:/` directory
+already sitting untracked in this repo - the pattern matches prior runs
+independently hitting the same unlink limitation and working around it the
+same way, without ever writing it up as a standing, named issue. Not
+cleaned up this run: none of those files are this run's to interpret or
+delete, and deleting is exactly the operation that does not work reliably
+here, so removing them safely would need the native Windows host. Flagging
+here so a future run does not re-discover this from scratch a third time.
+
+Once the lock was clear, `git add` then `git commit` (both re-run once each
+after moving away a fresh `index.lock`/`HEAD.lock` git created mid-operation)
+committed the prior run's already-complete, already-logged item 2.2 sixth
+pass: `AGENT_LOG.md`, `AGENT_WORKLIST.md` and the four evidence files its own
+RESULT section names (`audits/fishlocks-branch-landing-check-2026-08-31.txt`,
+`audits/checker-results-2.2-2026-08-31.txt`,
+`audits/_before-2.2-2026-08-31.sha256`, `audits/_after-2.2-2026-08-31.sha256`),
+as commit `efa1903`. No other untracked file was staged - the audits
+directory also holds files from what look like other, still-uncommitted
+quality passes (`_before-3.6.sha256`/`_after-3.6.sha256`,
+`broken-links-sweep-2026-08-31.json`, `live-hours-check-2026-08-31.json`,
+`mccanns-build-check-2026-08-31.txt`, `verify-3.6-2026-08-31.js`), none
+referenced by any currently-uncommitted AGENT_LOG.md/AGENT_WORKLIST.md text
+in this working tree, so committing them under this entry would misattribute
+someone else's evidence to item 2.2. Left untouched for whoever's run they
+belong to.
+
+PUSH. `git push origin agents/audit-backlog` reconfirmed the same
+"Host key verification failed" SSH failure recorded by every entry today;
+no `~/.ssh`, no `gh`, no `GITHUB_TOKEN`, no credential helper, and anonymous
+HTTPS only supports reads. Local `agents/audit-backlog` is now 13 commits
+ahead of `origin/agents/audit-backlog` (confirmed origin unchanged via
+anonymous `git ls-remote`, still at `f2fa267`). This is the third
+consecutive run to reach the identical conclusion: this Cowork sandboxed
+shell has no route to push to GitHub, full stop, not a transient condition.
+Pushing commit `efa1903` and everything ahead of it needs the native
+Windows host.
+
+PUBLISH (step 10). Re-ran `node tools/build-audit-status.js` rather than
+assuming yesterday's finding still held: reproduces the identical `ENOENT`
+on the hardcoded `const REPO = 'C:/Dev/rbh-site-data'` (line 11), which does
+not resolve in this Linux sandbox. Unchanged; not fixed, for the same reason
+the prior entry gives - it is the correct path for the host the script is
+meant to run on, and patching it is outside this run's scope.
+
+ITEM SELECTION AND SCOPE. With the lock and commit resolved, this run's
+remaining time went to finishing what the prior run had already completed
+and verified rather than opening a new quality pass on top of a working
+tree that was mid-recovery - stacking a second item's edits on an
+already-stuck commit risked mixing two items' diffs into one tangle. All 8
+unchecked AGENT_WORKLIST.md items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6); none newly unblocked (see answer pickup below). No new
+worklist item was started this run.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Same 28 entries as the prior
+run found, newest still 2026-08-30T17:01:00.269Z (Q29). Cross-checked all
+17 answer-shaped entries against QUESTIONS.json programmatically: every one
+already "answered". Nothing new to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+RESULT. Commit `efa1903` created and left unpushed, pending the native
+Windows host. No in-repo defect found or fixed this run beyond the lock
+recovery. No new question raised.
+
 ## 2026-08-31 (later again) - Item 2.2 quality pass (sixth): Fishlocks shared-domain branch landing pages reverified clean in repo (36/36 checkers, zero-diff rebuild of all 182 pages), live half re-read and still 404 with no sitemap change, Q35/Q69 reconfirmed unchanged, one wording correction to the fifth pass's own "0 mismatches" claim (pfLink is not actually read by this generator)
 
 LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run;
