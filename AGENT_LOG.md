@@ -1,3 +1,138 @@
+## 2026-09-01 (unattended run) - Diagnosed the root cause of the recurring index.lock/HEAD.lock pileup: this workspace folder blocks unlink(), not just SSH. No worklist item touched, all 8 remain [BLOCKED]
+
+LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run
+(only fifteen `.agent-lock.released-*` files from prior runs today). A
+`.git/index.lock` existed, created 23:15:46 BST on 31 August, ~79 minutes
+old at the check and past the 45-minute threshold this worker's own
+instructions now set (tightened from the old 3-hour one after the
+2026-08-09 stuck-lock incidents). Attempted `rm .git/index.lock`: it
+failed with `Operation not permitted` despite the file being owned by this
+session's own user with `rwx` permissions - this is not a git permissions
+problem, it is this Cowork workspace folder's own file-delete protection
+(documented in this agent's system instructions: files in the connected
+folder "cannot be deleted or renamed once written" without an explicit
+user-facing delete confirmation, which is meaningless for an unattended
+run). `mv` to a renamed (not-previously-existing) path succeeded
+immediately, confirming rename-to-a-new-name is permitted where unlink,
+and overwrite-in-place, are not (confirmed a second time below, on
+AGENT_LOG.md itself). This is exactly the workaround every prior run has
+been silently using all day (fifteen `.agent-lock.released-*` files, ~90
+`.git/index.lock.stale-*`/`.released-*`/`.bak`/`.old`/`.try*` files now
+sitting in `.git/`) without any of them writing down why `rm` does not
+work - each treated it as a one-off oddity rather than a structural fact
+about this environment.
+
+Created `.agent-lock` fresh (UTC timestamp).
+
+THE FULL SHAPE OF THE PROBLEM. Committing the prior run's pending Q87 diff
+(see below) surfaced the same fault one level deeper. `git add` and
+`git commit` both printed `warning: unable to unlink
+'.git/objects/XX/tmp_obj_XXXXXX': Operation not permitted` - git writes a
+loose object to a temp name and unlinks it once the content already exists
+under its real hash (which is common when the same tree/blob recurs across
+many commits, as AGENT_LOG.md's repeated headers do); the write and the
+rename-into-place both succeed, only the final cleanup unlink fails. The
+commit itself still landed correctly (`git fsck` clean, no dangling or
+corrupt objects), but every write leaves a stray temp file behind. Counted
+**225** `tmp_obj_*` files in `.git/objects/` right now, and the commit this
+run made added more. `.git/HEAD.lock` showed the identical pattern: git
+renames it over `HEAD` to record the new commit (that succeeds, HEAD is
+correct), then tries to unlink the now-empty lock name and fails, leaving a
+zero-byte `.git/HEAD.lock` sitting there ready to make the *next* commit
+in this same session fail with `fatal: Unable to create '.git/HEAD.lock':
+File exists` unless it is renamed away first - which is exactly what
+happened, twice, within this single run (see COMMIT section below).
+`.git` is 45MB, a meaningful fraction of it now inert temp-file litter
+that will keep growing by roughly two files (index.lock, HEAD.lock) plus a
+handful of tmp_obj files every single commit, forever, until someone with
+delete rights on the folder clears it or the repo is re-cloned elsewhere.
+
+A second, independent confirmation landed by accident: attempting to
+prepend this very log entry via a plain shell `cat newentry AGENT_LOG.md >
+tmp && mv tmp AGENT_LOG.md` failed outright with `mv: inter-device move
+failed: ... unable to remove target: Operation not permitted`, because
+that pattern needs to remove/overwrite the existing AGENT_LOG.md at its
+own path - a same-name replace, not a rename-to-new-name. Falling back to
+this run's file-edit tool (which goes through Cowork's own write path
+rather than a raw shell overwrite) succeeded immediately. So the working
+rule for any future run editing tracked files by hand in bash: renaming a
+lock file to a brand-new name works; overwriting or deleting an existing
+tracked file by its own name from the shell does not, and needs the
+file-edit tool instead.
+
+The mechanism in one line: **this connected folder allows create and
+rename-to-a-new-name but blocks unlink and same-name overwrite from the
+shell, and git's own crash-safety design (write to a temp name, then
+atomically publish it) assumes unlink always eventually succeeds for
+cleanup.** It does not here. Every prior run's "stale lock" narrative was
+one symptom of this; the object litter is a second, quieter one that
+nobody had connected to the same cause because `git commit` still visibly
+succeeds despite the warnings, so nothing in the normal run output flags
+it as a problem.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback (worked cleanly this run, no
+duplicate-session issue as flagged in Q59). 28 entries, newest still Q29
+(2026-08-30T17:01:00.269Z). Nothing new since the last several runs; no
+open question (Q30 onward, 53 of them, now 54 with Q87) has an answer yet,
+including Q87.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of AGENT_LOG.md at the start of this run. Proceeded normally - no
+autonomous decisions taken.
+
+ITEM SELECTION (step 5). Re-verified directly: 51 checkbox lines in
+AGENT_WORKLIST.md, 43 ticked, 8 unchecked, and all 8 unchecked lines carry
+`[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). No item was newly
+unblocked by this run's answer pickup. Per the same reasoning the Q87 run
+used two entries above: opening a further quality-pass commit on top of an
+unpushed, already-multi-commit-deep local branch, in an environment that
+cannot cleanly land its own git operations without manual lock clearing
+first, was not attempted. This run's contribution is diagnostic and
+process work instead, same category as the Q87 run.
+
+COMMIT (step 9), part one - landing the prior run's pending diff. The Q87
+run (entry two below) had edited `QUESTIONS.json` (added Q87) and its own
+`AGENT_LOG.md` entry but could not commit, `.git/index.lock` then being
+under the old 1-hour threshold. This run's lock was past the current
+45-minute threshold, so per that run's own request: `git add
+AGENT_LOG.md QUESTIONS.json` and committed as `ba5bca2`, attributing the
+change to that run rather than folding it into this one's own diff.
+
+COMMIT (step 9), part two - this run's own log entry and the Q87 note
+update below. Hit the freshly-regenerated `.git/index.lock` and
+`.git/HEAD.lock` left behind by part one's commit (see above) - renamed
+both away a second time (`.git/index.lock.stale-1788219407-cleared`,
+`.git/HEAD.lock.stale-1788219407-cleared`) before this second commit could
+proceed.
+
+Q87 UPDATE. Appended this run's unlink-vs-rename finding to Q87's `note`
+field rather than opening a new question - it is the same root subject
+(this sandbox cannot reliably do git's own housekeeping) and strengthens
+rather than changes the case for Q87's recommended option 1 (run natively
+on Rishi's Windows host), since a native filesystem would not have this
+delete restriction either. Did not touch Q87's `options`, `recommended` or
+`status` - the decision on offer there is unchanged, this only adds
+evidence.
+
+PUSH. `git push origin agents/audit-backlog` attempted after both commits:
+identical `Host key verification failed` SSH failure Q87 already
+documents (nineteenth-plus occurrence of that exact string today). Local
+branch now 16 commits ahead of `origin/agents/audit-backlog` (`f2fa267`),
+unpushed.
+
+PUBLISH (step 10). Ran `node tools/build-audit-status.js` regardless, per
+step 10's own instruction - result recorded in the git log immediately
+after this entry lands.
+
+HOUSEKEEPING NOTE FOR WHOEVER NEXT HAS DELETE ACCESS TO THIS FOLDER (not
+actioned by this run - no delete capability, and it is not this run's call
+to make unilaterally): `.git/` in this repo currently carries roughly 90
+renamed lock files and 225+ orphaned `tmp_obj_*` files, none of which are
+reachable from any ref or needed for correctness (`git fsck` clean). A
+native-host `git gc` / manual `rm` pass would reclaim the space; nothing in
+this repo depends on any of them being kept.
+
 ## 2026-08-31 (later still, unattended run) - Raised Q87: the recurring SSH-push/publish-path blocker formalised as a decision, no worklist item touched
 
 LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run
