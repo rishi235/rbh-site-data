@@ -237,14 +237,17 @@ const PAGE_DIRS = [
 // every scan in this checker until the item 5.1 quality pass on 2026-08-11.
 // It is a hand-pasted Weebly block like modules/switch/weebly.html and is as
 // public as one.
-const EXTRA_HTML = [
-  path.join(REPO, "modules", "switch", "weebly.html"),
-  path.join(REPO, "modules", "emar", "weebly"),
-  path.join(REPO, "modules", "service", "DRAFT-weight-loss-copy.html"),
-  path.join(REPO, "modules", "service", "DRAFT-travel-clinic-copy.html"),
-  path.join(REPO, "modules", "service", "weebly-paste", "cherry-lane-old-pharmacy-first-replacement.html"),
-  path.join(REPO, "modules", "service", "weebly-paste", "cherry-lane-old-weight-loss-replacement.html")
-];
+//
+// Read from tools/extra-public-copy-files.js since the item 6.2 quality pass
+// (fourth), 2026-08-31, rather than kept as this checker's own literal. That
+// pass found check-service-links.js's medicine-name and claim rules reading
+// none of these six files, the exact class this checker already knew carried
+// risk (the item 5.1 pass found a surviving &ndash; in the weight loss DRAFT
+// after the generated pages were fixed). Two lists naming the same six files
+// are indistinguishable from one until somebody edits only one of them, so
+// there is now a single list and both checkers require it.
+const EXTRA_HTML = require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS
+  .map(function (segs) { return path.join.apply(path, [REPO].concat(segs)); });
 
 // Lines in the paste sheets whose value is typed straight into Weebly.
 //

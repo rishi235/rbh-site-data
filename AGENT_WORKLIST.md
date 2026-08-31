@@ -5543,6 +5543,56 @@ record.
       loss service. No page, generator, data field or piece of patient-facing
       copy was changed. All 36 checkers green, and all six generators
       reproduced every page byte-identical, before and after.
+      Fourth quality pass 2026-08-31, both halves. ONE REAL DEFECT FOUND AND
+      FIXED, in the checker, not in any page. check-service-links.js's RULE 2
+      (efficacy/results claims) and RULE 3 (POM medicine names) exist
+      specifically to keep prescription-only medicine names and outcome
+      promises off public copy, and both read PAGE_DIRS only - the 177
+      generated pages. Six files carry live public copy without being a
+      generated page (two hand-pasted Weebly embeds, two DRAFT-*.html content
+      specs the weight loss and travel clinic generators cite as their own
+      approved-copy source, and two Cherry Lane "old page" replacement
+      blocks), and check-em-dashes.js has scanned all six as its own
+      EXTRA_HTML since the item 3.9 and 5.1 quality passes - the item 3.9
+      pass found a stale &ndash; surviving in DRAFT-weight-loss-copy.html
+      after the generated pages were fixed for it, so this repo already knew
+      this exact file class carried copy risk. check-service-links.js read
+      none of them. Extracted the six-file list into
+      tools/extra-public-copy-files.js (path segment arrays, one per file) so
+      it is one source of truth rather than two copies that happen to agree;
+      check-em-dashes.js's own EXTRA_HTML now derives from it, proved
+      byte-identical before and after (233 files scanned, same clean-tree
+      counts). check-service-links.js now scans all six for RULE 2 and RULE 3
+      in full (neither needs a host), and for RULE 1 (link targets) resolves
+      the two Cherry Lane replacement files against their real branch host,
+      since both carry a genuine relative link into a real Weebly page
+      (verified against branches.json's cherry-lane-walton entry rather than
+      hardcoded); the other four are store-agnostic templates with no single
+      branch to resolve a relative link against, so a relative href on them
+      is skipped only when it is an unstamped {{TOKEN}} placeholder and
+      otherwise reported as "unattributed relative link" rather than silently
+      passed, the same stop-rather-than-weaken convention already used for a
+      generated page with no matching branch host. Zero hits on all six files
+      when this was added (1,000 links now counted, up from 987, all new
+      count from the extra files; still 6 KNOWN, still 0 unexplained
+      failures): the gap was latent, not a live breach. Proved by injection,
+      four cases, each reverted to a byte-identical file afterwards (git diff
+      empty on modules/ throughout): a POM name added to
+      DRAFT-weight-loss-copy.html caught by RULE 3; a claim added to
+      modules/emar/weebly caught by RULE 2; a real relative link added to the
+      store-agnostic DRAFT-travel-clinic-copy.html caught as "unattributed
+      relative link"; and the Cherry Lane pharmacy-first replacement's own
+      link retargeted to a non-existent page caught as "stale target" via the
+      new host-aware resolution. All 36 checkers green and all six generators
+      reproduced every page byte-identical, before and after; no generator,
+      page, data field or patient-facing copy touched.
+      Live half, read only, four URLs, nothing clicked or typed: all four
+      2026-08-11 findings re-read a second day running and all four stand
+      unchanged - Riddings' canonical switch permalink still 404s and the old
+      permalink still serves the full switch page (still carrying its own
+      "Support that delivers results" weight loss tile, already noted against
+      Q53); Tiffenbergs' book-now.html still 404s; Riddings' /clinic-prices
+      still 404s. Q53 and Q54 stay open, nothing new to add to either.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

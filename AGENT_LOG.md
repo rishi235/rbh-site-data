@@ -1,3 +1,184 @@
+## 2026-08-31 (even later still) - Item 6.2 quality pass (fourth): check-service-links.js's medicine-name and claim rules widened to cover the six non-generated public-copy files check-em-dashes.js already knew about, one real defect found and fixed in the checker, live findings re-read and unchanged
+
+ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`
+folder, same class of environment as every entry below it. No `.agent-lock`
+existed at the start of this run; created fresh with the current UTC
+timestamp (2026-08-31T18:04:52Z). `.git/index.lock` and `.git/HEAD.lock` were
+both present, about 25 minutes old by epoch arithmetic
+(`os.path.getmtime` against `date -u +%s`) with no git process running
+(`ps aux` clean), under this run's own 1-hour staleness threshold, so left in
+place rather than moved aside; no git write was attempted until after the
+work was done, at which point they were handled (see STEP 9 below). `git
+fetch origin` was tried rather than assumed broken and failed identically to
+every sandboxed-shell entry before it, "Host key verification failed": this
+shell has no SSH credential for git@github.com. Proceeded on the local
+checkout, already 7 commits ahead of origin/agents/audit-backlog from prior
+runs that could not push either. The pile of leftover untracked files
+documented by every entry today (`.agent-lock.released-*`,
+`.testfile123.todelete`, a stray `C:/` directory, `scratchtest.txt`,
+`scratchtest2.renamed.txt`, six untracked audit files from other items' work)
+was left untouched, out of scope for this item.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+https://data.rbhealth.co.uk/api/feedback. Page loaded and returned JSON
+normally. Newest entry dated 2026-08-30T17:01:00.269Z (Q29), the same set the
+2026-08-31 (even later) entry above reported. Cross-checked every id (Q2
+through Q29) against QUESTIONS.json: all already `"status": "answered"`. No
+change made to QUESTIONS.json.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top of
+this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Grepped AGENT_WORKLIST.md for `^- \[ \]`: 8 unchecked
+items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), all `[BLOCKED]`, same set the
+prior entry found. Quality pass instead. Ranked all 43 completed items
+programmatically: for each item's own block (from its `- [x]` header to the
+next), took the latest `2026-\d\d-\d\d` string appearing anywhere in it, then
+the count of "quality pass" (case-insensitive) mentions as tiebreak, then file
+order. Item 6.2 had the single oldest max-date (2026-08-30) with the fewest
+quality-pass mentions (3) of anything sharing that date - the 2026-08-31
+(even later) entry above moved 3.13 out of the tie it had shared with 6.2, by
+quality-passing 3.13 itself the same day.
+
+WORK DONE. Read the existing 6.2 block in full: three prior quality passes
+(2026-08-13, 2026-08-14, 2026-08-30), each widening RULE 1 of
+check-service-links.js (double-quote-only, then filename-only resolution,
+then single-quote hrefs), each finding the defect in the checker rather than
+on a page, and the last of which added the first live re-read since
+2026-08-11. Ran all 36 checkers individually (0 failures) before touching
+anything.
+
+Rather than widen RULE 1 a fourth time for no new information, asked the
+question this repo's own CLAUDE.md keeps asking of every checker that
+passes: which FILES did it read. check-service-links.js's three PAGE_DIRS are
+the 177 generated pages only. Six files carry live public copy without being
+one - modules/switch/weebly.html, modules/emar/weebly,
+modules/service/DRAFT-weight-loss-copy.html,
+modules/service/DRAFT-travel-clinic-copy.html, and the two
+modules/service/weebly-paste/cherry-lane-old-*-replacement.html blocks - and
+check-em-dashes.js has read all six as its own hardcoded EXTRA_HTML since the
+item 3.9 and 5.1 quality passes. RULE 2 (efficacy/results claims) and RULE 3
+(POM medicine names) exist specifically to keep the two classes of content
+those six files are most likely to carry off public copy - the item 3.9 pass
+found a stale &ndash; still sitting in DRAFT-weight-loss-copy.html after the
+generated pages had been fixed for the same entity, so this repo already knew
+this file class carried copy risk - and neither rule read any of them.
+Checked directly with a throwaway script (tools/pom-names.js's own
+`findMedicine` plus tools/claim-patterns.js's `CLAIM_PATTERNS` against each
+file's lines): zero POM hits and zero claim hits across all six today, so the
+gap was latent, not a live breach, the same shape as every other "ask which
+files it read" finding logged in CLAUDE.md.
+
+Extracted the six-file list into a new module, tools/extra-public-copy-files.js
+(REPO-relative path SEGMENT arrays, so each caller composes its own absolute
+path), rather than adding a second hardcoded copy inside check-service-links.js
+next to check-em-dashes.js's existing one - two lists naming the same six files
+are indistinguishable from one until somebody edits only one of them, the same
+argument CLAUDE.md already makes for the seven hardcoded WhatsApp numbers.
+check-em-dashes.js's own EXTRA_HTML now derives from the shared module instead
+of its own literal; ran it before and after and got byte-identical output (233
+files scanned, same pass/fail counts, same clean-tree checker text).
+
+check-service-links.js was refactored so the RULE 1/2/3 body that used to be
+the inline forEach callback for each PAGE_DIRS file is now a named function,
+`scanFile(file, selfHost)`, called once per generated page (as before, with
+its existing selfHost from the brandSlug-townSlug attribution) and once per
+extra file. RULE 2 and RULE 3 run unchanged and unconditionally on every extra
+file, since neither rule needs a host. RULE 1 needed a decision per file: the
+two Cherry Lane replacement blocks each carry one real, branch-specific
+relative link (into a live Weebly page replacing a dead old URL, per their own
+PASTE TARGET comments), so RULE 1 resolves them against Cherry Lane's real
+host, read from branches.json's cherry-lane-walton hostOfSlug entry rather than
+hardcoded a second time (`EXTRA_LINK_HOST_SLUG`, keyed by relative file path).
+The other four are store-agnostic templates - a paste block or a content spec
+with `{{TOKEN}}` placeholders, not a page for one branch - so they have no
+single host to resolve a relative href against; a `{{TOKEN}}` placeholder href
+is skipped as not a real URL (confirmed today's actual hrefs on these four are
+all `#` anchors, `tel:` links, external CDN links, or `{{TOKEN}}` placeholders,
+zero real relative links), and any OTHER relative href on one of them is
+reported as "unattributed relative link" and fails the run, rather than being
+silently skipped - the same stop-rather-than-quietly-weaken-the-rule decision
+already used above it for a generated page nothing can attribute to a host.
+Verified this file-by-file before writing the code: zero real relative links
+on the four store-agnostic files today, one each on the two Cherry Lane files,
+both already resolving correctly to pages this repo generates
+(pharmacy-first-cherry-lane-walton.html, weight-loss-clinic-cherry-lane-walton.html,
+both present in modules/service/pages/).
+
+One real syntax defect caught and fixed before the checker ever ran: the new
+module's own block comment described the file scope as
+"modules/*/pages/", and the literal "*/" inside that path closed the
+comment early, which `node -c` caught immediately. Reworded to
+"modules/[family]/pages/" in both places it appeared.
+
+Proved the four new failure paths fire by injection, each reverted to a
+byte-identical file immediately after (git diff empty on modules/ throughout,
+confirmed with `git status --porcelain modules/` after every revert and again
+at the end): a "Mounjaro" insertion into DRAFT-weight-loss-copy.html caught by
+RULE 3 (2 hits, both lines reported); a "Guaranteed results" insertion into
+modules/emar/weebly caught by RULE 2; a real relative href
+(`/some-other-page.html`) substituted for the `#book` anchor in the
+store-agnostic DRAFT-travel-clinic-copy.html caught as "unattributed relative
+link"; and the Cherry Lane pharmacy-first replacement's own link retargeted
+from `/pharmacy-first-cherry-lane-walton.html` to a non-existent
+`/pharmacy-first-cherry-lane-hazel-grove.html` caught as "stale target" via
+the new host-aware resolution (Cherry Lane has no Hazel Grove branch; the
+generic "stale target" rule fired rather than "cross-host target" because the
+substituted filename does not exist for ANY branch, which is still a correct
+catch of the injected break). A fifth attempt, removing a file to prove the
+missing-file check, could not be carried out: `mv` on `modules/emar/weebly`
+failed "Operation not permitted" on this mount both away and back, matching
+this repo's documented workaround pattern for `rm`/`mv` on this mount, so the
+file was never actually moved and the checker correctly still found it; the
+missing-file code path is the same `!fs.existsSync(file)` pattern
+check-em-dashes.js already uses and proves elsewhere, so it was not forced
+further against a filesystem restriction that would not cooperate.
+
+Ran all 36 checkers after the change (0 failures) and rebuilt all six
+generators (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages): `git status --porcelain modules/ core/` empty
+before and after, confirming byte-identical output. No page, generator, data
+field or patient-facing copy was touched; the two checker files and the one
+new module are the entire diff.
+
+LIVE HALF, READ ONLY, four URLs, nothing clicked or typed. Re-read the
+2026-08-11 findings a second day running: Riddings'
+switch-prescriptions-riddings-timperley.html still 404s;
+switch-prescriptions.html (the old permalink) still serves the full switch
+page, still carrying its own "Weight Loss Clinic - Support that delivers
+results" tile, already noted against Q53 on 2026-08-30 and not re-raised;
+Tiffenbergs' book-now.html still 404s; Riddings' /clinic-prices still 404s.
+No drift in the 24 hours since the third quality pass. Q53 and Q54 both stay
+open, nothing new fed to either.
+
+FILES CHANGED: tools/extra-public-copy-files.js (new), tools/check-em-dashes.js
+(EXTRA_HTML now derived from the new module), tools/check-service-links.js
+(RULE 1/2/3 body extracted into scanFile(), extra-file scan added, header
+comment extended), AGENT_WORKLIST.md (item 6.2 block, quality-pass note
+appended in place), this file. No generator, no generated page, no
+branches.json field, no patient-facing copy.
+
+STEP 9 (commit and push). `.git/index.lock` and `.git/HEAD.lock`, both about
+25 minutes old at the start of the run, were still present at commit time; `git
+add` and `git commit` both completed without needing to move either aside,
+so whatever process created them was not holding a lock git itself checks for
+mid-operation on this mount. Committed locally. `git push origin
+agents/audit-backlog` attempted rather than assumed broken and failed
+identically to every sandboxed-shell entry today, "Host key verification
+failed". This commit stacks behind the 7 commits already unpushed on this
+branch from prior sandboxed-shell runs, all still waiting for a native-host
+run (one with an SSH credential for git@github.com and an authenticated `gh`
+CLI) to push and to run step 10's `tools/build-audit-status.js` publish.
+
+STEP 10 (publish status page). Not run: `tools/build-audit-status.js` needs
+the `gh` CLI, which is not installed and has no stored credential in this
+sandbox. Left for the native-host run that also handles the push.
+
+STEP 11 (lock release). `.agent-lock` cannot be deleted from this shell (`rm`
+fails "Operation not permitted"), so released by the established rename
+convention: `.agent-lock.released-<epoch>`.
+
 ## 2026-08-31 (even later) - Item 3.13 quality pass (fourth): Clear Chemist Aintree, Q28's 2026-08-30 phone fix independently re-verified as correctly and durably applied, zero defects found
 
 ENVIRONMENT. Cowork's sandboxed shell against the mounted `C:\Dev\rbh-site-data`

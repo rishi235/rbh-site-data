@@ -80,6 +80,32 @@
   A KNOWN entry that no longer triggers FAILS the run, so the list cannot rot
   once a question is answered and the fix lands.
 
+  EXTRA PUBLIC-COPY FILES, added on the item 6.2 quality pass (fourth),
+  2026-08-31. Until this pass, RULE 1, RULE 2 and RULE 3 all read PAGE_DIRS
+  only: the 177 generated pages. Six files carry live public copy without
+  being a generated page - two hand-pasted Weebly embeds, two DRAFT-*.html
+  content specs the weight loss and travel clinic generators cite as their
+  approved-copy source, and two Cherry Lane "old page" replacement blocks -
+  see tools/extra-public-copy-files.js, which check-em-dashes.js has scanned
+  since the item 3.9 and 5.1 quality passes. RULE 2 (claims) and RULE 3 (POM
+  medicine names) exist specifically to keep outcome promises and
+  prescription-only medicine names out of public copy, and the item 3.9 pass
+  already found DRAFT-weight-loss-copy.html carrying a stale &ndash; the
+  generated pages had already been fixed for, so this is the same class of
+  file this repo already knew carried risk, sitting outside the one checker
+  built for exactly that risk. Zero hits on all six when this was added: the
+  gap was latent, not a live breach. RULE 1 also now resolves the two Cherry
+  Lane replacement files against their real branch host (both paste over a
+  live URL naming Cherry Lane by branch, in modules/service/weebly-paste/),
+  since both carry a real relative link this repo can and should verify; the
+  other four files are store-agnostic (no single branch to resolve a relative
+  href against) and carry no relative estate link today, only external CDN
+  links, same-page anchors, tel: links and unstamped {{TOKEN}} placeholders,
+  so RULE 1 skips a relative href on them only when it is a {{TOKEN}}
+  placeholder, and otherwise reports it as unattributable rather than
+  silently passing, the same "stop rather than quietly weaken the rule"
+  convention already used for a generated page with no matching branch host.
+
   Run:  node tools/check-service-links.js
 */
 const fs = require("fs");
@@ -92,6 +118,26 @@ const PAGE_DIRS = [
   path.join(REPO, "modules", "service", "pages"),
   path.join(REPO, "modules", "branch", "pages")
 ];
+
+// The six non-generated public-copy files - see tools/extra-public-copy-files.js
+// for what each one is and why it is checked here since 2026-08-31. One list,
+// shared with check-em-dashes.js, so the two checkers cannot drift apart on
+// what counts as public copy.
+const EXTRA_FILES = require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS
+  .map(function (segs) { return path.join.apply(path, [REPO].concat(segs)); });
+
+// The two EXTRA_FILES that carry a real, branch-specific relative link RULE 1
+// can resolve: both Cherry Lane replacement blocks paste over a dead live URL
+// naming Cherry Lane by branch. Keyed by the file's REPO-relative path (as
+// rel() renders it) to the same "<brandSlug>-<townSlug>" key used to attribute
+// a generated page to a host, so the host is read from branches.json rather
+// than hardcoded a second time. The other four EXTRA_FILES are store-agnostic
+// templates with no single branch to resolve against, so they are absent here
+// on purpose, not by oversight.
+const EXTRA_LINK_HOST_SLUG = {
+  "modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html": "cherry-lane-walton",
+  "modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html": "cherry-lane-walton"
+};
 
 // Link targets on our own domains that this repo does not generate, accepted
 // for now with a reason. Key is "<host><path>".
@@ -193,19 +239,26 @@ const knownHits = {};
 const knownClaimHits = {};
 const knownPomHits = {};
 let pageCount = 0;
+let extraCount = 0;
 let linkCount = 0;
 let estateLinkCount = 0;
 
-PAGE_DIRS.forEach(function (dir) {
-  if (!fs.existsSync(dir)) return;
-  fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
-    const file = path.join(dir, f);
-    const visible = blankComments(fs.readFileSync(file, "utf8"));
-    pageCount++;
-    // The host this page is published to. A relative href on it resolves here
-    // and nowhere else, which is what makes a cross-branch link a live 404.
-    const selfHost = generated.get(f.toLowerCase());
+// Shared by generated pages and the six EXTRA_FILES since the item 6.2
+// quality pass (fourth), 2026-08-31 - previously this was the inline body of
+// the PAGE_DIRS loop below. selfHost is the host a RELATIVE href on this file
+// resolves on; pass null when the file is store-agnostic and cannot be
+// attributed to one branch, in which case RULE 1 still checks any ABSOLUTE
+// estate-host href, still skips a relative {{TOKEN}} placeholder (not a real
+// URL - build-weight-loss-pages.js and build-travel-clinic-pages.js stamp a
+// real value in per store), but reports any OTHER relative href as
+// unattributable rather than silently passing it, the same "stop rather than
+// quietly weaken the rule" convention already used below for a generated page
+// with no matching branch host. RULE 2 and RULE 3 are unaffected by selfHost,
+// since neither needs a host.
+function scanFile(file, selfHost) {
+  const visible = blankComments(fs.readFileSync(file, "utf8"));
 
+  {
     // RULE 1 - link targets
     //
     // WIDENED on the item 6.2 quality pass, 2026-08-13. The rule used to match
@@ -258,6 +311,15 @@ PAGE_DIRS.forEach(function (dir) {
         // Relative href: resolves on the host of the page it sits on, which is
         // why selfHost, not the estate as a whole, is the right question to ask.
         // Same-page anchors and query strings are stripped first.
+        if (href.indexOf("{{") !== -1) continue; // unstamped template token, not a real URL
+        if (!selfHost) {
+          failures.push({
+            file: rel(file),
+            rule: "unattributed relative link",
+            text: "relative href \"" + href + "\" but this file has no single branch host to check it against"
+          });
+          continue;
+        }
         host = selfHost;
         pth = href.split("?")[0].split("#")[0];
         if (!pth) continue;                     // same-page anchor only
@@ -337,8 +399,40 @@ PAGE_DIRS.forEach(function (dir) {
         text: "line " + (i + 1) + ": names \"" + hit + "\" in visible copy"
       });
     });
+  }
+}
+
+PAGE_DIRS.forEach(function (dir) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
+    const file = path.join(dir, f);
+    pageCount++;
+    // The host this page is published to. A relative href on it resolves here
+    // and nowhere else, which is what makes a cross-branch link a live 404.
+    const selfHost = generated.get(f.toLowerCase());
+    scanFile(file, selfHost);
   });
 });
+
+// The six non-generated public-copy files - see tools/extra-public-copy-files.js
+// and the header comment above. A listed file that no longer exists fails the
+// run rather than being skipped quietly, the same convention as the
+// unattributed-page check above and as check-em-dashes.js's own copy of this
+// list.
+const missingExtra = [];
+EXTRA_FILES.forEach(function (file) {
+  if (!fs.existsSync(file)) { missingExtra.push(rel(file)); return; }
+  extraCount++;
+  const slug = EXTRA_LINK_HOST_SLUG[rel(file)];
+  const selfHost = slug ? (hostOfSlug.get(slug) || null) : null;
+  scanFile(file, selfHost);
+});
+if (missingExtra.length) {
+  console.log("check-service-links");
+  console.log("  FAIL  file(s) listed in tools/extra-public-copy-files.js but not present: "
+    + missingExtra.join(", "));
+  process.exit(1);
+}
 
 // A KNOWN entry that no longer fires means the fix landed; the entry must go.
 const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; })
@@ -346,7 +440,8 @@ const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; })
   .concat(Object.keys(KNOWN_POM).filter(function (k) { return !knownPomHits[k]; }));
 
 console.log("check-service-links");
-console.log("  " + pageCount + " generated page(s), " + linkCount + " link(s), "
+console.log("  " + pageCount + " generated page(s), " + extraCount
+  + " non-generated public-copy file(s), " + linkCount + " link(s), "
   + estateLinkCount + " of them to our own " + estateHosts.size + " branch domains");
 Object.keys(knownHits).forEach(function (k) {
   console.log("  KNOWN " + k + " (" + knownHits[k] + " reference(s)): " + KNOWN[k]);
