@@ -1,4 +1,147 @@
-## 2026-08-31 (item 3.3 quality pass, sixth) - Fishlocks Chemist (Ainsdale and Eccleston): all 26 pages clean on a sixth independent extraction, cross-town guard re-proved by injection and restored, live half unchanged
+## 2026-08-31 (item 3.4 quality pass, seventh) - Cherry Lane Pharmacy, Walton: all 12 pages clean on a seventh independent extraction with a new WhatsApp leg added, cross-town guard re-proved by injection and restored, live half re-read on three pages and Q36's known footer typo confirmed on two more of them
+
+Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
+WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
+run in this log has recorded: no SSH key for git@github.com in this
+shell (`git fetch origin` and any push fail with "Host key
+verification failed", confirmed again this run: no ~/.ssh directory at
+all, no known_hosts, no private key; `gh` CLI is not installed either,
+so step 10's portal publish cannot authenticate). This run's local
+commit will sit ahead of origin/agents/audit-backlog (5 commits ahead
+at the start of this run, 6 by the end) until a native-host or
+credentialed session pushes it. The repo is reached at
+/sessions/.../mnt/rbh-site-data/, a mount of the real C:\Dev\rbh-site-data,
+so edits and local commits land on the real repo, they just cannot
+leave it from here. The reference documents this procedure names
+(RBH_DIGITAL_MASTER_PLAN_v2.md, RBH_DIGITAL_BUILD_PACK_v2.md,
+00_DIGITAL_AUDIT_CONTEXT_PACK.md, RBH_WeightLoss_Advertising_Standards.md)
+all live under C:\Users\rishi\..., which is not mounted into this
+sandbox at all (only rbh-site-data, outputs and uploads are); this run
+worked from the in-repo compliance doc and CLAUDE.md only, as recent
+runs executed through this bridge appear to have done.
+
+RUN START STATE. No .agent-lock present; created one. A stale
+.git/index.lock and .git/HEAD.lock pair was present (mtime resolved to
+~25 minutes old once the BST/UTC offset was accounted for; no git
+process running), moved aside with the same rename workaround this log
+has recorded before (plain `rm` was not attempted given the prior
+"Operation not permitted" reports; rename succeeded and unblocked git
+immediately). Worktree also carries the same large, pre-existing,
+already-documented set of files `git status` reports modified with
+zero actual diff bytes (CRLF stat-cache noise, confirmed again via
+`git diff --stat` on a sample) - not touched, not committed. The
+pre-existing junk left by earlier runs (`.agent-lock.released-*`
+markers, `.rm-test-*.txt`, `__lftest__.txt`, `testwrite2.txt`, a
+literal `C:/` directory) was left alone as prior runs have done. New
+evidence on the `C:/` directory's origin: running `build-service-pages.js`
+this session printed "Paste packs: 14 store files in C:/Users/rishi/
+OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK" and the
+directory tree under the repo's own `C:/` matches that path exactly -
+so it is the generator's own hardcoded Windows path being resolved as
+a relative path by this shell, the same class of fault the previous
+run's "Log addendum" recorded against build-audit-status.js, not
+agent error, and it will recur on every build-service-pages run made
+through this bridge. Not fixed (out of scope for this item; the path
+is correct on the native ProDesk).
+
+ANSWER PICKUP: attempted and, unlike the nine-run failure streak Q59
+describes, succeeded this time - https://data.rbhealth.co.uk/api/feedback
+returned its normal JSON feed on the first navigation, no Cloudflare
+Access sign-in page and no "two extensions signed in" refusal. Worth
+recording since Q59 is still open and describes this as a standing
+block: today it was not one. All entries returned (Q29 down to Q2)
+matched answers already recorded with status "answered" in
+QUESTIONS.json; none of the 51 currently open questions (Q34 onward)
+appeared in the feed. No status changes, nothing to apply. Q59 itself
+left open and untouched, since a single successful fetch does not
+prove the underlying two-sign-in cause is gone.
+
+NO AUTONOMOUS WINDOW. No "Standing authorisation - autonomous window"
+section with an unexpired end timestamp was present at the top of this
+log at the start of the run.
+
+ITEM SELECTION. All eight unchecked worklist items confirmed [BLOCKED]
+directly against AGENT_WORKLIST.md (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16,
+6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass branch taken. Staleness
+ranked by extracting every "## 2026-..." header from this log for the
+36-item rotation pool (43 checked items minus the seven established
+one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and taking the most recent
+header line number per item. Five items had already been touched today
+(2026-08-31: 3.11, 4.4, 4.1, 3.2, 3.3, in that chronological order).
+Of the remaining 31, every one's most recent touch was 2026-08-30;
+ranked by log line number (higher = earlier in that day's batch = more
+stale), 3.4's 05:05 BST sixth-pass entry was the oldest untouched-today
+entry in the pool (3.5/3.6/3.7 and the rest all show later line
+numbers, i.e. later 2026-08-30 passes). 3.4 (Cherry Lane Pharmacy,
+Walton) taken.
+
+WHAT WAS DONE. All 36 tools/check-*.js run fresh before any inspection:
+all green. All six page generators rebuilt from branches.json; sha256
+of every file under modules/*/pages taken before and after: byte-
+identical, zero diff (188 files). A seventh independent extraction
+(audits/verify-3.4-2026-08-31.js, imports nothing from tools/, own
+regexes throughout, __dirname-relative so it runs on either checkout
+rather than the sixth pass's hardcoded C:/Dev/rbh-site-data path) re-
+read all 12 Cherry Lane pages: 1,962 checks, 0 failures, covering the
+same eleven legs the sixth pass proved (counts, sheet agreement and
+one-label-per-block, own town, service words, cross-town absence,
+phone/postcode isolation, lengths, JSON-LD postal town, tel:, widget
+isolation, banner, weebly-paste replacement blocks) plus a new twelfth
+leg: Q21 landed after the sixth pass, adding a per-branch `whatsapp`
+field to branches.json; this pass independently confirmed all 12 pages
+carry `data-wa="447521775631"` (Cherry Lane's own number) and no other
+branch's number, read off the rendered pages rather than the generator
+source, so it cannot share a blind spot with check-whatsapp-route.js.
+
+GUARD RE-PROVED BY INJECTION, THEN RESTORED. Appended " near Aintree"
+to the UTI page's H1 (uti-treatment-cherry-lane-walton.html), the same
+shape of fault prior passes on this and other items have used.
+check-seo-pattern.js caught it immediately (exit 1, naming Aintree as
+the seoTown of clearchemist_aintree and tiffenbergs_longmoor, absent
+from Cherry Lane's serviceAreaList); the independent verifier also
+caught it (2 duplicate-worded failures on the same h1[0]). Restored
+using `git show HEAD:<path> > <path>` (overwrite, not unlink/rename),
+since `git checkout --` fails on this mount with "unable to unlink
+old ... Operation not permitted", as before. sha256 confirmed byte-
+identical to the pre-injection file
+(a6971686f13c2a6d645754298943243570a9cfbd394825b8a81afb62d962789c);
+all 36 checkers and the verifier re-run clean afterwards; `git status`
+on the file reported clean.
+
+LIVE HALF, READ ONLY. Three read-only page-text reads via Claude in
+Chrome (cherrylanepharmacy.co.uk switch page and Pharmacy First page,
+plus one comparison read of fishlockpharmacy.co.uk's switch page),
+tabs opened and closed, nothing clicked, typed or submitted. Title, H1
+and phone (0151 226 2051) correct on both Cherry Lane pages read.
+Q36's known footer typo (`pharmacy.FA226@mhs.net` instead of
+`pharmacy.FA226@nhs.net`) was previously confirmed only on the
+contraception page; it is now confirmed on the switch page and the
+Pharmacy First page too, i.e. at least three of Cherry Lane's own
+pages, consistent with it being the site-wide Weebly footer rather
+than one stray paste. The comparison read at Fishlocks Ainsdale used a
+completely different footer format (`E: ainsdale@rbhealth.co.uk`,
+`E: eccleston@rbhealth.co.uk`), confirming Q36 is Cherry Lane's own
+site furniture, not a shared template fault across branches. Also
+reconfirmed live, on the switch page: the item 5.1 (Q7) em-dash paste-
+lag already tracked for this branch - the repo's generated copy reads
+"it usually is not. We make the first step quick and easy." (plain
+full stop, no dash), the live page still serves the pre-5.1 wording
+with an em dash, now corrupted to mojibake ("ÔÇö") by the Weebly paste
+path, with a knock-on lower-case "we". Both are paste-lag with no
+repo-side fix available; Q36 updated in QUESTIONS.json with today's
+two extra confirmed pages and the em-dash reconfirmation (edited via a
+scoped text replacement, not a full JSON re-serialisation, to avoid
+rewriting the file's PowerShell-style formatting into a 1,300-line
+diff for a one-sentence change - caught and reverted before committing).
+No new question raised; Q36 and item 5.1's tracking already cover both
+findings.
+
+Files changed: audits/verify-3.4-2026-08-31.js (new), QUESTIONS.json
+(Q36 note extended), this log. No page, generator, checker, branches.json
+or GBP pack touched. git push not attempted to succeed (see limitation
+above); commit made locally on agents/audit-backlog.
+
+
 
 Unattended run, EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE
 WINDOWS ENVIRONMENT THIS PROCEDURE ASSUMES. Same limitation every recent
