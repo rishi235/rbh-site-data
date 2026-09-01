@@ -120,7 +120,7 @@ function questionCard(q) {
       '</span></label>';
   }).join('\n');
   return '<div class="border border-gray-200 rounded-xl p-4 mb-3 bg-gray-50" data-qid="' + esc(q.id) + '">' +
-    '<p class="text-xs text-gray-500 mb-1">' + esc(q.date) + ' - worklist item ' + esc(q.item) + '</p>' +
+    '<p class="text-xs text-gray-500 mb-1"><span class="font-semibold text-gray-700">' + esc(q.id) + '</span> - ' + esc(q.date) + ' - worklist item ' + esc(q.item) + '</p>' +
     '<p class="text-sm font-medium text-gray-900 mb-3">' + esc(q.question) + '</p>' +
     '<div class="space-y-2">' + opts +
     '<label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 bg-white cursor-pointer">' +
@@ -174,13 +174,15 @@ const answerScript = '<script>' +
   'if (!val) { status.textContent = "Pick an option or type an answer first."; return; }' +
   'btn.disabled = true; status.textContent = "Sending...";' +
   'try {' +
-  'var r = await fetch("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" },' +
-  'body: JSON.stringify({ type: "Feedback", area: "Audit answer " + qid, message: "AUDIT ANSWER " + qid + " | " + val }) });' +
-  'if (r.ok) {' +
+  'var r = await fetch("/api/audit-answer", { method: "POST", headers: { "Content-Type": "application/json" },' +
+  'body: JSON.stringify({ id: qid, answer: val }) });' +
+  'var out = null; try { out = await r.json(); } catch (e2) {}' +
+  'if (r.ok && out && out.ok) {' +
   'var saved = { val: val, at: new Date().toLocaleString("en-GB", { hour12: false }) };' +
   'try { localStorage.setItem("auditAnswer:" + qid, JSON.stringify(saved)); } catch (e) {}' +
   'markSent(card, saved);' +
-  '} else { status.textContent = "Send failed (" + r.status + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
+  'if (out.written === "kv-fallback") { var n = card.querySelector("[data-sent-note]"); if (n) n.textContent += " (Recorded via the fallback box, not written straight to the file yet - tell Claude if this keeps happening.)"; }' +
+  '} else { status.textContent = "Send failed (" + (out && out.error ? out.error : r.status) + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
   '} catch (e) { status.textContent = "Send failed. Try again or answer in Claude chat."; btn.disabled = false; }' +
   '});});' +
   '</scr' + 'ipt>';
