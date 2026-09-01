@@ -1,3 +1,48 @@
+## 2026-09-01 (later still, unattended run) - Reconfirmed no change: Q87 still unanswered, all 8 items still [BLOCKED], index.lock still under threshold, nothing pushed or committed
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only the prior
+`.agent-lock.released-*` files). `.git/index.lock` present, 27 minutes old at
+the check, no local git process running (`ps aux`) - under this run's own
+1-hour staleness threshold, so left in place rather than removed, same rule
+the 2026-08-31 Q87 run applied at 20 minutes. Created `.agent-lock` fresh
+(UTC timestamp) after the check. New evidence on the SSH side, sharper than
+"host key verification failed": `~/.ssh` does not exist at all in this
+sandbox, so there is no identity to verify a host key against in the first
+place, confirming Q87 option 2 (provisioning a credential here) is a real
+gap to fill, not a config tweak.
+
+ANSWER PICKUP (step 3). Read `https://data.rbhealth.co.uk/api/feedback` via
+Claude in Chrome, read-only. Same 28 entries prior runs found, newest still
+Q29 (2026-08-30T17:01:00.269Z). Q87 has no answer. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md items remain
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6); none newly unblocked.
+Per the same reasoning the last two runs recorded: did not open a further
+quality-pass commit on top of a local branch already 16 commits ahead of
+origin with no working push route, since that stacks work that cannot land
+without helping Rishi.
+
+PUBLISH (step 10). Ran `node tools/build-audit-status.js` per the step's own
+instruction to run it regardless. Identical ENOENT on the hardcoded
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md` path that Q87 already documents -
+unchanged.
+
+COMMIT / PUSH (steps 9). Not attempted. `git add`/`git commit` would fail
+immediately against the still-present `.git/index.lock` (confirmed left in
+place above), and nothing was generated or edited this run besides this log
+entry, so there is nothing else to stage. `git rev-list --count
+origin/agents/audit-backlog..HEAD` still reads 16, HEAD still `3b0ecd7`,
+unchanged since the prior entry - confirms no drift, not just no progress.
+
+RESULT. No worklist item touched, no code or data changed, no new
+QUESTIONS.json entry (Q87 already covers this fully and remains the correct,
+open decision for Rishi). This entry itself is left uncommitted, same as the
+2026-08-31 Q87 entry was, for a future run to land once `.git/index.lock`
+has genuinely gone stale.
+
 ## 2026-09-01 (unattended run) - Diagnosed the root cause of the recurring index.lock/HEAD.lock pileup: this workspace folder blocks unlink(), not just SSH. No worklist item touched, all 8 remain [BLOCKED]
 
 LOCK AND ENVIRONMENT. `.agent-lock` did not exist at the start of this run
