@@ -1,0 +1,63 @@
+Item 3.3 quality pass (seventh), 2026-09-01
+Fishlocks Chemist (Ainsdale and Eccleston)
+
+REPO HALF
+- All 36 tools/check-*.js run individually: 36 pass, 0 fail.
+- All six generators (build-service-pages, build-branch-landing-pages,
+  build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+  build-contraception-pages) rebuilt from branches.json. sha256 of every
+  file in modules/service/pages, modules/switch/pages and modules/branch/pages
+  taken before and after: byte-identical, zero diff (203 files hashed).
+- Seventh independent extraction, audits/verify-3.3-2026-09-01.js, imports
+  nothing from tools/, own regexes throughout. Reads all 26 Fishlocks pages
+  (11 Ainsdale service pages, 1 Ainsdale switch page, 1 Ainsdale branch
+  landing page; same 13 for Eccleston) plus the six paste sheets
+  (service/branch/switch x SEO.md + INDEX.md). 343 checks, 0 failures.
+  Covers: exactly one H1 per page, own seoTown present in H1, sister
+  seoTown absent from H1 unless excused via the branch's own
+  serviceAreaList (neither branch's list carries the other's town, so no
+  Q71-style pin applies to this pair), own phone present, sister phone
+  absent, own postcode present, sister postcode absent, no doubled
+  own-town phrase ("Eccleston in Eccleston" style), at most one Page Title
+  / Page Description label per sheet block (the 3.3 fifth-pass fix, still
+  holding), sheet title/description carry the branch's own town, and
+  neither switch page banner self-links to the sister branch's switch
+  page.
+
+INJECTION TEST (cross-town guard re-proved)
+- modules/service/pages/uti-treatment-fishlocks-ainsdale.html H1 changed
+  from "UTI treatment in Ainsdale" to "UTI treatment in Ainsdale, near
+  Eccleston".
+- audits/verify-3.3-2026-09-01.js: caught, 1 failure ("H1 does not name
+  sister town (Eccleston) unless excused").
+- tools/check-seo-pattern.js: caught, exit 1, both the per-page pattern
+  mismatch and the cross-town rule fired ("h1 names 'Eccleston', the
+  seoTown of fishlocks_eccleston, which shares a domain with this branch
+  ... serviceAreaList does not excuse that").
+- File restored from a pre-injection copy (cp, not git checkout --, per
+  this mount's known unlink restriction). sha256 after restore matched
+  the pre-injection file exactly. git status --short showed no tracked
+  diff. All 36 checkers re-run clean, all 343 independent-extraction
+  checks clean, check-seo-pattern.js exit 0.
+
+LIVE HALF (read-only Node fetch(), GET only, same conduct as
+tools/sweep-broken-links.js and tools/check-live-hours.js; the Claude in
+Chrome browser tools were unavailable this run - two Chrome extensions
+connected to the account and no human present to choose one, the standing
+Q59 blocker)
+- https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html
+  200. Title "UTI treatment in Ainsdale - Fishlocks Chemist". H1 "UTI
+  treatment in Ainsdale", exact pattern match. Own phone (01704 575478)
+  and own postcode (PR8 3HN) both present.
+- https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-eccleston.html
+  200. Title "UTI treatment in Eccleston - Fishlocks Chemist". H1 "UTI
+  treatment in Eccleston", exact pattern match. Own phone (01257 451251)
+  and own postcode (PR7 5SZ) both present.
+- Q37 footer/site-furniture set reconfirmed unchanged on both pages:
+  singular "Fishlock Pharmacy" branding present, abbreviated "17 Station
+  Rd" street form present (not "Road"), alongside the correct plural
+  "Fishlocks Chemist" brand elsewhere on the page. Nothing new; already
+  tracked.
+
+RESULT: no in-repo defect, no new live finding, no new question. Standing
+findings (Q37 footer set) reconfirmed present and unchanged.

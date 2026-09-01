@@ -1,3 +1,120 @@
+## 2026-09-01 (unattended run, following the 2.3 seventh pass) - Item 3.3 quality pass (seventh): Fishlocks Chemist (Ainsdale and Eccleston) re-verified clean on all 36 checkers, zero in-repo defect; cross-town guard re-proved by injection and cleanly restored; live half performed via read-only fetch and reconfirms the standing Q37 footer set unchanged, no new finding, no new question.
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T10:34:35Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key
+for git@github.com there) - the standing Q87 diagnosis, confirmed again.
+No global gitconfig, credential helper, `.netrc` or SSH key exists in that
+sandbox at all; an anonymous `https://` `git ls-remote` against the public
+repo worked, confirming the repo itself is reachable, only push/pull
+credentials are missing there. Per the precedent set by today's earlier
+runs, all git network operations (fetch, checkout, pull, and later the
+push) were instead run via the Windows-MCP PowerShell tool directly
+against the real `C:\Dev\rbh-site-data`, which holds working credentials.
+No `.git\index.lock` was present at the first check on that host; one
+appeared briefly after this run's own page regeneration (0 minutes old,
+no git process holding it, same FUSE-mount artefact earlier entries have
+already diagnosed) and was removed via PowerShell before it could block
+anything.
+
+GIT STATE. `git fetch` / `git checkout agents/audit-backlog` / `git pull
+--ff-only` via PowerShell: already up to date, no-op. Local HEAD and
+`origin/agents/audit-backlog` were already the same commit (1dc8285)
+before this run started, so no backlog of unpushed work was carried in.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Multiple Chrome browsers are connected to this account and none
+has been selected for this session," which requires an explicit human
+choice via AskUserQuestion. This is an unattended run with nobody present
+to answer, so pickup was logged as unavailable and not retried by any
+other route, per the procedure's own fallback instruction. Same Q59
+blocker several of today's earlier runs also hit. 55 questions remain
+open (Q34-Q89 excluding Q79, which was already closed).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this log at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED] - no item to take.
+Quality pass taken instead. Determined the least recently verified
+completed item programmatically: parsed every "quality pass" heading in
+this log for its item number and date. Twelve items were tied at
+2026-08-30 as their most recent pass (1.2, 3.3, 4.2, 4.5, 4.6, 4.7, 4.8,
+4.9, 4.10, 4.13, 4.14, 5.7), all others already re-verified on
+2026-08-31 or 2026-09-01. Within that tie, 3.3 and 4.10 were both least
+frequently passed (fifth pass each, versus sixth, seventh or eighth for
+the rest of the group); their actual commit timestamps (`git log -1
+--format=%ai <hash>`) were 3.3 at 2026-08-30 04:15:33+01:00 (commit
+30e1fdd) against 4.10 at 2026-08-30 12:46:49+01:00 (commit a5d77c0), so
+3.3 was earlier and was taken, matching the tie-break method the 2.3 run
+immediately before this one used and described in its own log entry.
+
+WHAT WAS DONE. Full repo-half re-verification on the sandboxed mount (the
+checkers and generators do not need push credentials): ran all six
+generators (build-service-pages, build-branch-landing-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages); sha256 of all 203 files in
+modules/service/pages, modules/switch/pages and modules/branch/pages
+taken before and after regeneration: byte-identical, zero diff. Ran all
+36 `tools/check-*.js` checkers individually: 36 pass, 0 fail.
+
+Wrote a seventh independent extraction, audits/verify-3.3-2026-09-01.js,
+own regexes throughout, importing nothing from tools/. Read all 26
+Fishlocks pages (11 Ainsdale service pages, 1 switch page, 1 branch
+landing page; the same 13 for Eccleston) plus the six paste sheets:
+exactly one H1 per page, own seoTown present in the H1, sister seoTown
+absent unless excused via the branch's own serviceAreaList (neither
+branch's list carries the other's town, so no Q71-style pin applies to
+this pair), own phone present and sister phone absent, own postcode
+present and sister postcode absent, no doubled own-town phrase, at most
+one Page Title / Page Description label per sheet block (the 3.3
+fifth-pass fix, re-checked and still holding), sheet title/description
+carry the branch's own town, and neither switch page banner self-links to
+the sister branch's switch page. 343 checks, 0 failures.
+
+INJECTION TEST (cross-town guard re-proved). Changed
+modules/service/pages/uti-treatment-fishlocks-ainsdale.html's H1 from
+"UTI treatment in Ainsdale" to "UTI treatment in Ainsdale, near
+Eccleston". Both the independent extraction (1 failure, names the sister
+town by word) and tools/check-seo-pattern.js (exit 1, both the per-page
+pattern-match rule and the cross-town/shared-domain rule fired) caught
+it. Restored from a pre-injection copy via plain file copy, not `git
+checkout --` (this mount cannot unlink the old file, an already-diagnosed
+FUSE-mount restriction). sha256 after restore matched the pre-injection
+file exactly; `git status --short` showed no tracked diff; all 36
+checkers and all 343 independent-extraction checks re-run clean.
+
+LIVE HALF. Claude in Chrome was unavailable (see ANSWER PICKUP above,
+same underlying cause - multiple connected browsers, no human to choose).
+Performed instead via plain read-only Node `fetch()` (GET only, same
+conduct this audit has already established for check-live-hours.js and
+sweep-broken-links.js, not a browser-automation tool): both UTI pages -
+https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html
+and .../uti-treatment-fishlocks-eccleston.html - returned 200 with the
+exact pattern title and H1, and each branch's own phone and postcode
+present. The standing Q37 footer/site-furniture set (singular "Fishlock
+Pharmacy" branding, abbreviated "17 Station Rd" street form, alongside
+the correct plural "Fishlocks Chemist" brand elsewhere on the page) was
+reconfirmed present and unchanged on both pages. Nothing new. Full
+evidence in audits/fishlocks-item-3.3-quality-pass-2026-09-01.txt.
+
+RESULT. No in-repo defect. No new live finding. No new question. Item 3.3
+tick line updated in AGENT_WORKLIST.md with the seventh-pass summary.
+
+COMMIT AND PUSH. Committed on the sandboxed mount (same filesystem the
+Windows-MCP session sees, confirmed by cross-checking .agent-lock's
+timestamp from both sides), then pushed via the Windows-MCP PowerShell
+session against the real C:\Dev\rbh-site-data, which holds credentials
+the sandbox lacks. See the commit hash in the git log for this change.
+
+PUBLISH. tools/build-audit-status.js run via the Windows-MCP PowerShell
+session (needs the same GitHub credentials as the push) to republish the
+portal status page.
+
+LOCK RELEASE. .agent-lock deleted at the end of this run from the
+sandboxed mount.
+
 ## 2026-09-01 (unattended run, following the 4.15 seventh pass) - Item 2.3 quality pass (seventh): Cherry Lane Pharmacy Walton re-verified clean on all 36 checkers, zero in-repo defect; live half found a significant regression on the Pharmacy First overview page (five of seven condition cards back to "Page coming soon" with no link, live now), raised as Q89; two other known live-only faults reconfirmed unchanged, one (Q36 footer mailbox typo) not observed this pass.
 
 LOCK AND ENVIRONMENT. Run driven via the Windows-MCP PowerShell tool directly

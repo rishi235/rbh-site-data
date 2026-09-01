@@ -1085,6 +1085,35 @@ branches.json entry changed, no new question raised.
       in this log has recorded; this run's commit will sit locally ahead
       of origin/agents/audit-backlog until a native-host or credentialed
       session pushes it.
+      Quality pass 2026-09-01 (seventh): clean on both halves, no repo
+      defect, no new question. All 36 checkers green. All six generators
+      rebuilt from branches.json; sha256 of every file in
+      modules/service/pages, modules/switch/pages and modules/branch/pages
+      taken before and after: byte-identical, zero diff (203 files). A
+      seventh independent extraction (audits/verify-3.3-2026-09-01.js,
+      imports nothing from tools/, own regexes throughout) re-read all 26
+      pages plus the six paste sheets: 343 checks, 0 failures. Cross-town
+      guard re-proved by injection: "UTI treatment in Ainsdale, near
+      Eccleston" on the Ainsdale UTI page's H1 was caught by both the
+      independent extraction and check-seo-pattern.js (exit 1, names the
+      shared-domain rule), then restored from a pre-injection copy (this
+      mount cannot unlink via `git checkout --`); sha256 after restore
+      matched the pre-injection file exactly and all 36 checkers were
+      re-run clean. LIVE HALF (read-only Node fetch, Claude in Chrome
+      unavailable this run - two connected Chrome extensions and no human
+      present to choose one, standing Q59): both UTI pages read 200 with
+      exact pattern title/H1 and their own phone and postcode; the
+      standing Q37 footer set (singular "Fishlock Pharmacy" branding,
+      abbreviated "17 Station Rd") reconfirmed present and unchanged on
+      both branches, nothing new. Evidence in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-01.txt.
+      NOTE ON RUN CONDITIONS: git fetch/checkout/pull and the eventual
+      push were run via the Windows-MCP PowerShell tool directly against
+      the real C:\Dev\rbh-site-data (the credentialed native host), not
+      the sandboxed Linux mount used for the checkers and generators -
+      that mount's `git fetch origin` again failed outright with "Host
+      key verification failed" (no SSH key for git@github.com in that
+      sandbox), same as every recent run's diagnosis (Q87).
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
