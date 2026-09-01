@@ -1,4 +1,124 @@
-## 2026-09-01 (unattended scheduled run, following the 3.5 eighth pass) - Item 3.8 quality pass (sixth): SK Chemists Bootle, all 36 checkers clean, six generators byte-identical across 215 sha256-hashed files, sixth independent extraction clean (12 files, 1,044 checks, 0 flags), h1-count and WhatsApp-route guards reproved by a two-fault injection into pharmacy-first-sk-chemists-bootle.html (a page type not used for SK Bootle injection in either named prior pass) and restored byte-identical. GBP pack cross-checked field by field against branches.json, matches. Zero in-repo defect, no new question. Live half not read this run (Claude in Chrome not connected, checked twice); the fifth pass's two live-only findings (pfLink page pre-5.3/Q34 repaste, switch page pre-Q7/5.1 mojibake em dash) were not re-confirmed and should not be assumed unchanged.
+## 2026-09-01 (unattended scheduled run, following the 3.8 sixth pass) - Item 3.7 quality pass (seventh): Smartts Chemist Bootle, all 36 checkers clean, six generators byte-identical across 215 sha256-hashed files, seventh independent extraction clean (12 files, 2,113 checks, 0 flags), check-nap/check-postcodes/check-em-dashes guards reproved by three sequential injections into switch-prescriptions-smartts-bootle.html (a page type not used for Smartts injection in any prior pass - all prior injections landed on the pharmacy-first hub page) and each restored byte-identical. Zero in-repo defect, no new question. Live half not read this run (Claude in Chrome not connected, checked at answer pickup and again for this item); the sixth pass's three live-only findings (hours-card lunch closure omitted, switch page live tab title a hand-typed variant, Q16/5.8 KNOWN_CLAIM services-grid wording) were not re-confirmed and should not be assumed unchanged.
+
+ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-
+task runner), same split as every recent run: a sandboxed Linux mount of the
+real C:\Dev\rbh-site-data for file work and checker/generator runs (no
+network needed for these - confirmed again this run: the sandbox has no SSH
+key for git@github.com, git fetch fails with "Host key verification failed"
+over SSH, HTTPS to github.com itself returns 200 but no credential is
+available for a push), plus the Windows-MCP PowerShell tool for git network
+operations (fetch, checkout, pull, commit, push) against the real repo path,
+which holds working SSH credentials - the standing Q87 split. .agent-lock
+absent at start; created via the sandboxed path at 2026-09-01T17:34:37Z
+(2026-09-01T18:34:37+01:00), confirmed identical from the Windows path
+(same underlying mount). No .git\index.lock present at start. Repo already
+at c2242ea on agents/audit-backlog, up to date with origin; fetch/checkout/
+pull via the Windows path confirmed "Already up to date", no-op. A fresh
+0-byte .git/index.lock was left behind by one of the sandboxed path's own
+`git status` calls partway through this run (the sandboxed mount could not
+unlink it itself - "Operation not permitted"); it was under a minute old,
+well under the 1-hour staleness threshold, so rather than wait it was
+removed directly via the Windows path once confirmed no git process was
+running, since it was self-evidently spurious (created by this run's own
+read-only status call, not by an in-progress operation). git status clean
+immediately after. Noted separately, not actioned as part of this item: the
+repo root carries a long accumulation of stale `.agent-lock.released-<ts>`
+files from many prior runs (the lock-release step appears to rename rather
+than delete under some condition) plus a handful of leftover scratch/test
+files (`.testfile123.todelete`, `scratchtest.txt`, `scratchtest2.renamed.txt`,
+`qtmp.json`, `open_q.txt`, and a mis-encoded `C:\` directory entry) - all
+untracked, none blocking this run, worth a housekeeping item but out of
+scope for a single-item quality pass per the procedure's own "do not invent
+new scope" instruction.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the
+run. Unattended run, nobody present to resolve it; logged as unavailable and
+not retried by another route, per the procedure's own fallback instruction.
+57 questions open at the start of this run (unchanged since the previous
+run); none answered or resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Same rotation-pool method as prior runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit whose message mentions that item number by a word-boundary regex
+match (git log -1 --format=%cI --perl-regexp --grep="(?<![0-9.])<id>(?![0-9])").
+The oldest such timestamp belonged to item 3.7 (2026-08-31T12:46:00+01:00,
+the sixth pass) - every other rotation-pool item had a commit later than
+that, including 3.8 which the immediately prior run had just brought current
+(2026-09-01T18:12:14+01:00, the newest of all 36). 3.7 taken.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually: 36/36
+pass, zero failures. All six page generators rebuilt (build-branch-landing-
+pages, build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages); sha256 of every file
+under modules/ taken before and after (215 files): byte-identical, zero
+diff; git status --short modules/ and git diff --stat modules/ both empty
+throughout. branches.json's smartts_bootle entry read in full: address (42
+Fernhill Road, Bootle, L20 9HH), phone (0151 922 4984), ODS FQN70, review
+link, website, whatsapp (447521775631), hasApp true, serviceAreaList
+(Bootle, Sefton, Liverpool), openingHours (Monday-Friday 09:00-13:00 and
+14:00-18:00 - a genuine lunch-split day, Saturday and Sunday closed) -
+matches every prior pass's findings, no drift since the sixth pass.
+
+INDEPENDENT EXTRACTION. audits/verify-3.7-2026-09-01.js written fresh for
+this pass (own regexes, no import from tools/, repo-root-relative per the
+established convention). Checks all 12 pages: exactly one h1 naming Bootle;
+own phone present with no other live branch's digits anywhere on the page;
+own postcode present with no other branch's; own street address present
+with no other branch's; JSON-LD @type Pharmacy, telephone and full
+PostalAddress matching branches.json field by field where a JSON-LD block
+exists; data-wa correct where present; no other live branch's seoTown
+without a serviceAreaList excuse; hasApp/app-card consistency on the switch
+page; no em dash outside the documented build-comment exemption; no other
+branch's Appointedd widget id; map query decodes to this branch's own
+address; no other branch's ODS code; no non-https href/src; no other
+branch's brandLabel. 12 files, 2,113 checks, 0 flags on the clean tree.
+
+GUARD RE-PROOF BY INJECTION. Widened rather than repeated: the sixth pass's
+three injections (phone, postcode, road-name twin) all landed on
+pharmacy-first-smartts-bootle.html, the branch's Pharmacy First hub page -
+the fourth and fifth passes' injections landed there too (a scripted copy
+move and a contact-line phone swap respectively). This pass moved to
+switch-prescriptions-smartts-bootle.html, untried for Smartts injection in
+any named prior pass. Three sequential injections, each restored by byte
+copy from a saved original (not git checkout) and sha256-confirmed before
+the next: (1) the visible phone swapped to SK Chemists Bootle's number
+(0151 944 1013) - caught by check-nap.js, 7 mismatches across both visible
+occurrences, the JSON-LD telephone field, and its own cross-branch-
+ownership rule firing twice; (2) the postcode swapped to SK Chemists
+Bootle's L20 5DW - caught by check-postcodes.js's FOREIGN rule ("owned by
+smartts_bootle (L20 9HH) but carries L20 5DW (skchemists_bootle)"); three
+pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md and
+modules/branch/pages/{INDEX,SEO}.md were confirmed unrelated, present
+identically in the clean baseline run; (3) an em dash added to the visible
+hero-proof paragraph (not the build comment) - caught by check-em-dashes.js
+by exact file and line. Final sweep after all three injections and
+restores: sha256 of the file matches the pre-injection hash, git diff
+--stat empty, all 36 checkers re-run clean (0 failures).
+
+LIVE HALF. Not performed - Claude in Chrome reported not connected both at
+the top-of-run answer pickup and when tried again for this item's live
+half, and per the procedure's fallback this was logged rather than retried
+by another route. The sixth pass's three standing live-only findings (the
+footer/hours card omitting the lunch closure at a branch that genuinely has
+one; the switch page's live browser-tab title a hand-typed variant of the
+paste-sheet title; the switch page's services grid still carrying the
+tracked Q16/5.8 KNOWN_CLAIM wording) were NOT re-confirmed this run and
+should not be assumed unchanged.
+
+RESULT. No in-repo defect found, no copy changed, no new question raised.
+Worklist item 3.7 appended with this pass's narrative and "Done 2026-09-01
+(seventh pass)." Evidence: audits/smartts-build-check-2026-09-01.txt,
+audits/verify-3.7-2026-09-01.js.
+
+ all 36 checkers clean, six generators byte-identical across 215 sha256-hashed files, sixth independent extraction clean (12 files, 1,044 checks, 0 flags), h1-count and WhatsApp-route guards reproved by a two-fault injection into pharmacy-first-sk-chemists-bootle.html (a page type not used for SK Bootle injection in either named prior pass) and restored byte-identical. GBP pack cross-checked field by field against branches.json, matches. Zero in-repo defect, no new question. Live half not read this run (Claude in Chrome not connected, checked twice); the fifth pass's two live-only findings (pfLink page pre-5.3/Q34 repaste, switch page pre-Q7/5.1 mojibake em dash) were not re-confirmed and should not be assumed unchanged.
 
 ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-
 task runner), with a sandboxed Linux mount of the real C:\Dev\rbh-site-data

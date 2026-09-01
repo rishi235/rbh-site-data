@@ -1758,6 +1758,40 @@ spanning Q2-Q29, every id already "answered" in QUESTIONS.json, nothing new.
 No in-repo defect found, no copy changed, no new question. Evidence in
 audits/smartts-build-check-2026-08-31.txt and audits/verify-3.7-2026-08-31.js.
 Done 2026-08-31 (sixth pass).
+Quality pass 2026-09-01 (seventh; unattended, Cowork sandboxed shell for file
+work plus the Windows PowerShell path for git, per the standing Q87 split -
+see this run's AGENT_LOG.md entry). Picked as the least recently verified
+rotation-pool item by the established method (oldest commit whose message
+matches each item id by word boundary): 3.7 last touched 2026-08-31T12:46,
+older than every other of the 36 rotation-pool items. All 36 checkers run
+individually before any change, 36/36 exit 0. All six generators rebuilt,
+sha256 of all 215 modules/ files byte-identical before and after, zero diff.
+Fresh independent extraction (audits/verify-3.7-2026-09-01.js, no code
+shared with tools/) across all 12 pages: 2,113 checks, 0 flags - own phone,
+postcode and street address present with no other live branch's; JSON-LD
+field by field; data-wa; cross-town seoTown guard; hasApp/app-card
+consistency; no em dash outside the build-comment exemption; no other
+branch's widget id, ODS code or brandLabel; map query decodes correctly; no
+non-https link. Guard re-proof by injection widened rather than repeated:
+all three of the sixth pass's injections landed on pharmacy-first-smartts-
+bootle.html, so this pass used switch-prescriptions-smartts-bootle.html
+instead (untried for Smartts injection before). Three injections, each
+restored by byte copy and sha256-confirmed before the next: phone swap to
+SK Chemists Bootle's number, caught by check-nap.js (7 mismatches across
+visible text, JSON-LD and its cross-branch rule); postcode swap to SK
+Chemists Bootle's L20 5DW, caught by check-postcodes.js's FOREIGN rule; an
+em dash added to the hero-proof paragraph (not the build comment), caught
+by check-em-dashes.js by file and line. Final sweep: file sha256 matches
+pre-injection, git diff empty, all 36 checkers clean. Live half not
+performed - Claude in Chrome reported not connected at answer pickup and
+again for this item; the sixth pass's three live-only findings (hours-card
+lunch closure omitted, switch page live tab title a hand-typed variant,
+Q16/5.8 KNOWN_CLAIM services-grid wording) were not re-confirmed and should
+not be assumed unchanged. Answer pickup unavailable (Chrome not connected);
+57 questions open, unchanged from the prior run. No in-repo defect, no copy
+changed, no new question. Evidence in audits/smartts-build-check-2026-09-01.txt
+and audits/verify-3.7-2026-09-01.js.
+Done 2026-09-01 (seventh pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

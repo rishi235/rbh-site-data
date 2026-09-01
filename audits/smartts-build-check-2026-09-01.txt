@@ -1,0 +1,64 @@
+Item 3.7 quality pass (seventh), 2026-09-01, unattended Cowork run.
+Environment: sandboxed Linux mount for file work, checkers and generators
+(no network needed); Windows-MCP PowerShell path for git network operations
+against the real C:\Dev\rbh-site-data repo, per the standing Q87 split.
+
+CHECKERS: all 36 tools/check-*.js run individually before any change. 36/36
+exit 0.
+
+GENERATORS: all six page generators rebuilt (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages). sha256 of all 215 files
+under modules/ taken before and after: byte-identical, zero diff. git status
+--short modules/ empty throughout.
+
+INDEPENDENT EXTRACTION: audits/verify-3.7-2026-09-01.js, written fresh, no
+code shared with tools/. Covers all 12 Smartts Chemist Bootle pages
+(contraception, earache, impetigo, insect-bite, pharmacy-first hub,
+shingles, sinusitis, sore-throat, travel-clinic, uti, weight-loss-clinic,
+switch). 2,113 checks, 0 flags: own phone and postcode present with no
+other live branch's; own street address present with no other branch's;
+JSON-LD @type Pharmacy, telephone and full PostalAddress matching
+branches.json field by field; data-wa correct; cross-town seoTown guard
+clean (no other live branch's seoTown without a serviceAreaList excuse);
+hasApp true and the switch page carries the app card; no em dash outside
+the build-comment exemption; no other branch's Appointedd widget id; map
+query decodes to this branch's own address; no other branch's ODS code; no
+non-https href/src; no other branch's brandLabel.
+
+GUARD RE-PROOF BY INJECTION. Widened rather than repeated: the sixth pass's
+three injections (phone, postcode, road-name twin) all landed on
+pharmacy-first-smartts-bootle.html. This pass used
+switch-prescriptions-smartts-bootle.html instead, a page type not used for
+Smartts injection in any prior pass, restoring by byte copy from a saved
+original (not git checkout) before the next injection:
+  1. Visible phone swapped to SK Chemists Bootle's (0151 944 1013):
+     check-nap.js caught it on all four surfaces (2x visible phone, JSON-LD
+     telephone, plus its own cross-branch-ownership rule firing twice) - 7
+     mismatches. Restored byte-identical (sha256 confirmed).
+  2. Postcode swapped to SK Chemists Bootle's (L20 5DW): check-postcodes.js
+     caught it - "FOREIGN ... owned by smartts_bootle (L20 9HH) but carries
+     L20 5DW (skchemists_bootle)". Restored byte-identical (sha256
+     confirmed). Three pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md
+     and modules/branch/pages/{INDEX,SEO}.md reconfirmed unrelated to this
+     injection (present identically in the clean baseline run).
+  3. Em dash injected into visible copy (the hero-proof paragraph, not the
+     build comment): check-em-dashes.js caught it by line and file. Restored
+     byte-identical (sha256 confirmed).
+Final sweep after all three injections and reverts: git diff --stat on the
+injected file empty, sha256 matches the pre-injection hash, all 36 checkers
+re-run clean (0 failures).
+
+LIVE HALF: not performed. Claude in Chrome reported "not connected" at the
+top of this run (step 3 answer pickup) and again when tried for this item;
+not retried by another route per the procedure's own fallback. The sixth
+pass's three standing live-only findings (footer/hours card omitting the
+lunch closure; switch page's live tab title a hand-typed variant of the
+paste-sheet title; switch page services grid carrying the tracked
+Q16/5.8 KNOWN_CLAIM wording) were NOT re-confirmed this pass and should not
+be assumed unchanged.
+
+ANSWER PICKUP: unavailable, Claude in Chrome not connected. 57 questions
+open at the start of this run, unchanged from the prior run today.
+
+No in-repo defect found, no copy changed, no new question raised.
