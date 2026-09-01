@@ -3737,6 +3737,52 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       instances selection error on the first call (Q59's standing
       condition, still open), so no browser call beyond that one rejected
       attempt was made. No new question. Done 2026-08-30.
+      Sixth quality pass 2026-09-01: pack clean on every fact for the sixth
+      time running, no in-repo defect. Independent extraction
+      (audits/verify-4.10-2026-09-01.js, imports nothing from tools/, own
+      regexes) re-verified all facts against branches.json: name, address
+      (42 Fernhill Road, Bootle L20 9HH), phone 0151 922 4984, website,
+      review link, both hours sessions and Saturday/Sunday closed,
+      description exactly 710 characters, all four post links resolving to
+      existing generated files bar the known live-only pfLink, all four
+      posts under the 1,500 character limit, no medicine or vaccine brand
+      name (including yellow fever), no em dash, en dash, smart quote or
+      nbsp. 29/29 checks passed. All 36 tools/check-*.js exit 0; all six
+      generators rebuilt byte-identical (sha256 before/after matched).
+      Live half performed via Claude in Chrome, read-only, three of the
+      four post targets read: switch-prescriptions-smartts-bootle.html
+      reconfirms two already-open findings unchanged - the Q55 website
+      hours contradiction (footer and page both print 9:00am-6:00pm with no
+      lunch closure, matching this pack's own paster warning) and the Q16
+      "Support that delivers results" weight-loss tile claim, still
+      correctly held in check-service-links.js's KNOWN_CLAIM pending
+      Rishi's wording decision. weight-loss-clinic-smartts-bootle.html
+      reconfirms the Q51/Q83/Q88 lead-price-position finding (booking card
+      states "from £39.99" above the eligibility section, same as the other
+      14 weight loss pages) and a stale paste separate from that: two
+      strings on this live page ("not right for everyone" and "at
+      consultation") still carry the pre-cleanup en dash the item 3.9 pass
+      already removed from the generator on 2026-08-11, so the live copy on
+      this specific branch predates that fix and needs the same repaste the
+      other weight-loss pages are already queued for. Not raised as a new
+      question: it is the same estate-wide finding already reconfirmed on
+      several other branches' weight loss pages (see run log), just newly
+      confirmed on this one. Estate-wide en-dash footer hours line (no
+      in-repo source) also present, unchanged, already known.
+      travel-clinic-smartts-bootle.html reconfirms the Q48 yellow fever gap
+      (branches.json has no yellowFeverCentre field for this branch) and no
+      other issue. pharmacy-first-service-bootle.html (Post A's live-only
+      target) is the known old page held under Q8/Q16, unchanged.
+      PROCESS NOTE: this run's initial staleness scan used a line-boundary
+      regex over AGENT_WORKLIST.md that mis-detected this item's block end
+      and read only the very first (2026-08-10) pass, ranking 4.10 as the
+      stalest item in the 36-item rotation pool when its true last pass was
+      2026-08-30, one of the more recent. Caught before committing by
+      reading this paragraph directly. The corrected reading of all 43
+      items' own paragraphs shows 4.11 (SK Chemists Bootle pack, sole pass
+      2026-08-10) is the genuinely stalest item in the pool, older than
+      2.3 (2026-08-11), 3.11 (2026-08-14) and 6.2/6.3 (2026-08-13); the
+      next run should take 4.11. No new question. Done 2026-09-01.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

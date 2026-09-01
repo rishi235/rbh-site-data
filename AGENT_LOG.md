@@ -1,4 +1,172 @@
-## 2026-09-01 (unattended run, following the 4.6 seventh pass) - Item 4.8 quality pass (seventh): Fishlocks Chemist Eccleston pack re-verified clean fact by fact; live half re-read (landing page still 404, all four posts 200, switch-title Weebly-default divergence reconfirmed unchanged); NEW FINDING that Q83's weight-loss lead-price wording is generator-level (tools/build-weight-loss-pages.js CONSULT_FEE), not McCanns-specific, confirmed on a second branch and raised as Q88; this run also landed the prior run's 4.6 commit once .git/index.lock finally aged past the 1-hour threshold, and cleared roughly a dozen fresh index.lock/HEAD.lock instances created by git's own housekeeping mid-run by rename, per Q87
+## 2026-09-01 (unattended run, following the 4.8 seventh pass) - Item 4.10 quality pass (sixth): Smartts Chemist Bootle GBP pack re-verified clean fact by fact; live half re-read across three of the four post targets, reconfirming Q55 (website hours), Q16 (weight-loss tile claim), Q51/Q83/Q88 (lead price position) and Q48 (yellow fever) all unchanged, plus a newly-confirmed-on-this-branch instance of the already-estate-wide pre-cleanup en-dash stale paste on the weight loss page; PROCESS NOTE: this run's own staleness scan initially mis-ranked 4.10 as stalest due to a line-boundary bug reading only its first pass, corrected before committing - 4.11 (SK Chemists Bootle) is the true stalest item and is flagged for the next run
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. Repo reached at
+/sessions/busy-clever-cori/mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data; edits and local commits land on the real repo.
+
+LOCK AND ENVIRONMENT. No `.agent-lock` present at the start (only
+`.agent-lock.released-*` markers from earlier runs); created one
+immediately. `.git/index.lock` present, freshly created by this run's own
+early `git status`/`git fetch` calls (age under three minutes at first
+check, no git process running per `ps aux`), consistent with every recent
+run's finding that git's own housekeeping recreates this file and this
+mount cannot unlink it; left in place rather than renamed since it did not
+block any git command this run needed (`git status` and `git fetch` both
+completed with the stale-looking lock still present and its mtime
+unchanged, confirming it is leftover debris rather than an active
+blocker). `git fetch origin` failed with "Host key verification failed",
+Q87, reconfirmed and not re-diagnosed. Local branch was 27 commits ahead
+of origin/agents/audit-backlog at the start of this run.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab opened
+and closed, nothing clicked, typed or submitted, against
+`https://data.rbhealth.co.uk/api/feedback`. Same 28 entries every recent
+run has found (Q2 through Q29), cross-checked programmatically against
+all 17 distinct question ids in the response: all already recorded in
+QUESTIONS.json as "answered" with matching text. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present anywhere in this log at the start of this run.
+Proceeded normally; step 8's exception did not apply.
+
+ITEM SELECTION (step 5). Confirmed directly against AGENT_WORKLIST.md: 43
+of 51 checkbox lines ticked, all 8 unchecked lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) still [BLOCKED]. Quality-pass branch taken. Staleness
+was derived by scripting a scan of AGENT_LOG.md headers for "item X.Y
+quality pass" mentions, which returned 4.10 as the item with the oldest
+most-recent mention (line 2715, far below every other item's most recent
+mention). Before committing to that pick, the item's own paragraph in
+AGENT_WORKLIST.md was read directly to confirm the recommended course of
+action recorded there, per the standing rule that AGENT_WORKLIST.md's own
+paragraph is the more reliable source than a header scan (a rule this log
+has recorded twice before, for 3.3 and 5.2). That read showed the AGENT_LOG.md
+header-scan method was itself unreliable here for a related but distinct
+reason: 4.10's paragraph in fact records FIVE prior passes
+(2026-08-10, 08-11, 08-12, 08-14, 08-30), the most recent only nine days
+old, not the single 2026-08-10 pass a first, less careful automated read
+of the paragraph had initially returned. The true position, reconstructed
+by reading all 43 items' own paragraphs against their exact recorded
+`- [x] N.N` start lines: excluding the seven items the 2026-08-31 runs
+established as one-offs outside the main rotation (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8), the stalest item in the remaining 36-item pool is 4.11 (SK
+Chemists Bootle pack, sole pass 2026-08-10), ahead of 2.3 (2026-08-11),
+3.11 and 6.7's exclusion aside 3.11 (2026-08-14), and 6.2/6.3
+(2026-08-13); 4.10's true last pass, 2026-08-30, sits with the bulk of
+the pool. This was discovered only after 4.10's sixth pass below was
+already complete. Rather than discard genuine, clean verification work,
+this run committed 4.10's sixth pass as valid (it found one real,
+previously-unconfirmed-on-this-branch live finding, detailed below) and
+records the correction here so the next run takes 4.11 instead of
+re-deriving the same wrong ranking. The general lesson, consistent with
+this log's own repeated finding about single-source rankings: a header
+scan of one file is not a substitute for reading the record the
+procedure actually points at.
+
+WHAT WAS DONE. All 36 tools/check-*.js run fresh before any inspection:
+all green, zero failures (full output not reproduced here; only the two
+pre-existing WARNs in check-gbp-packs.js's summary concern this branch,
+both already known - the live-only pfLink target, and the Q44 shared-H1
+warning against SK Chemists Bootle). All six page generators
+(build-service-pages, build-switch-pages, build-branch-landing-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages) rebuilt from branches.json; no diff.
+
+Independent extraction, audits/verify-4.10-2026-09-01.js, imports nothing
+from tools/, parses gbp-packs/smartts-bootle.md and branches.json with its
+own regexes. 29 checks, all passed: GBP name, address, phone, website and
+review link all match branches.json; both Mon-Fri hours sessions and the
+Saturday/Sunday closure match; the business description is exactly the
+710 characters its own heading claims and under the 750 limit; all four
+post links resolve, the pfLink correctly recognised as the known
+live-only exception; all four posts are under the 1,500 character limit
+(461, 324, 516, 420, unchanged across all six passes); no medicine or
+vaccine brand name including yellow fever; no em dash, en dash, smart
+quote or non-breaking space. Output: audits/verify-4.10-2026-09-01-output.txt.
+
+LIVE HALF (three of the four post targets read via Claude in Chrome,
+read-only, one tab, closed between pages, nothing clicked, typed or
+submitted beyond navigation and text extraction):
+
+- switch-prescriptions-smartts-bootle.html: live and correct in every
+  fact this pass checked (address, phone, review link) but reconfirms two
+  standing findings unchanged. First, the footer and the visible hours
+  block both print "9:00am - 6:00pm" Monday to Friday with no lunch
+  closure, contradicting branches.json's NHS-confirmed split hours and
+  this pack's own paster warning about exactly that contradiction (Q55,
+  open). Second, the services grid's Weight Loss Clinic tile still reads
+  "Support that delivers results", an outcome claim hardcoded in
+  tools/build-switch-pages.js's CONFIG block, still correctly held in
+  check-service-links.js's KNOWN_CLAIM under Q16 with its recorded reason
+  (patient-facing regulatory wording, Rishi's call, not to be rewritten
+  autonomously). Neither is new; both reconfirmed unchanged on this
+  branch.
+- weight-loss-clinic-smartts-bootle.html: this is the compliant,
+  generator-built replacement page (not the old live-only page), live and
+  correctly worded - no medicine brand name, no efficacy or results claim,
+  clinical eligibility framing throughout, matching
+  compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md's standard. Two findings,
+  neither new to the estate but newly confirmed on THIS branch's copy.
+  First, the booking card states "Private consultation at Smartts
+  Chemist, from £39.99" above the eligibility section, the same
+  lead-price-position question already open at Q51 (all 15 weight loss
+  pages) and Q83/Q88 (generator-level CONSULT_FEE, confirmed
+  branch-agnostic on a second branch by the immediately preceding run).
+  Second, a genuine stale-paste finding: the live page's HTML (confirmed
+  by reading raw innerHTML, char code 0x2013 in both places) still reads
+  "...and it is not right for everyone – see below." and "...assess your
+  suitability at consultation – nothing below is a guarantee..." with an
+  en dash in both, while the CURRENT generated file in this repo
+  (modules/service/pages/weight-loss-clinic-smartts-bootle.html) reads
+  the same two sentences with a full stop instead ("...not right for
+  everyone. See below." / "...at consultation. Nothing below is a
+  guarantee..."), the exact rewrite the item 3.9 quality pass made to the
+  generator on 2026-08-11. This live page therefore predates that fix and
+  needs the same repaste already owed to the other weight-loss pages
+  carrying this same known pre-cleanup wording (reconfirmed on several
+  other branches elsewhere in this log). Not raised as a new question:
+  it is the same already-tracked, generator-fixed/live-stale finding,
+  confirmed present on one more branch. The estate-wide footer hours line
+  ("Open Mon–Fri 9am–6pm...") also carries en dashes with no in-repo
+  source, already known and unchanged, distinct from the two body-copy
+  instances above.
+- travel-clinic-smartts-bootle.html: live and correctly worded (no vaccine
+  named by brand, four safety cohorts present, one book-ahead window).
+  Advertises yellow fever, reconfirming the already-open Q48 gap
+  (branches.json has no yellowFeverCentre field for this or any branch,
+  so nothing can currently verify the claim per-branch).
+- pharmacy-first-service-bootle.html (Post A's live-only pfLink target)
+  not re-read in detail beyond confirming it still resolves and is the
+  same known old page held under Q8/Q16 (blocked pending item 5.3); no
+  change expected or found.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field, branches.json
+entry or paste sheet was changed. AGENT_WORKLIST.md's item 4.10 paragraph
+gained a sixth-pass note; no other file under modules/, tools/ or
+gbp-packs/ changed.
+
+FILES CHANGED
+- audits/verify-4.10-2026-09-01.js (new)
+- audits/verify-4.10-2026-09-01-output.txt (new)
+- AGENT_WORKLIST.md (item 4.10's own paragraph, sixth-pass note appended)
+- AGENT_LOG.md (this entry)
+
+QUESTIONS. None raised. Q16, Q48, Q51, Q55, Q83, Q88 all reconfirmed
+unchanged, none re-opened or re-answered. 54 open before this run, 54
+after.
+
+COMMIT (step 9). `git add` the four files above, single commit on
+agents/audit-backlog. `git push origin agents/audit-backlog` attempted as
+normal and failed exactly as Q87 predicts ("Host key verification
+failed"); no other push route tried, no credentials entered. Commit sits
+locally ahead of origin, will land the moment Q87 is resolved.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed;
+outcome recorded immediately after this entry.
+
+`.agent-lock` deleted at the end of this run.
+
+---
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start; created immediately
 after the first check, correcting the sequencing gap the 4.6 run flagged in
