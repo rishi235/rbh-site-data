@@ -1348,5 +1348,20 @@
         "status": "open",
         "answer": null,
         "note": "Options 1 and 3 are not mutually exclusive with option 1 - fixing the __dirname path is a small, safe, no-risk code change worth making regardless of where the task ultimately runs, since it is currently wrong on any host that is not exactly C:/Dev/rbh-site-data. Not made in this run because CLAUDE.md's own convention (see the CDN-pin and generator sections) is to change data/generators only as part of an explicit decision, and this script's path is arguably a deliberate original choice rather than a bug - flagging rather than assuming. UPDATE 2026-09-01 (unattended run): confirmed the deeper mechanism. This sandbox's connected workspace folder allows file creation and rename-to-a-new-name but blocks unlink() and same-name overwrite. Git's own crash-safety design relies on unlink succeeding to clean up temp files after a successful write (loose objects written as tmp_obj_* then unlinked once real; index.lock and HEAD.lock unlinked once their content is published), so every write leaves debris: found ~90 renamed lock files and 225+ orphaned tmp_obj_* files in .git/objects (45MB total, git fsck clean, nothing corrupt, just litter that grows every commit). This is a second, independent piece of evidence for option 1 (native Windows host) beyond the SSH failure: even with working push credentials, this specific sandboxed folder cannot do git's routine housekeeping cleanly, so option 2 (provisioning a push credential here) would stop the push failures but not the object/lock litter, which keeps accumulating either way."
+    },
+    {
+        "id": "Q88",
+        "date": "2026-09-01",
+        "item": "quality pass on 4.8 (finding, does not block any item; cross-references Q83)",
+        "question": "Q83 raised the weight loss booking block's lead price (\"from \u00a339.99\", ahead of the eligibility section) as if it might be a McCanns Aigburth or domain-specific choice. The seventh quality pass of item 4.8 (Fishlocks Chemist Eccleston) read www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-eccleston.html live and found the identical construction, and tools/build-weight-loss-pages.js confirms why: CONSULT_FEE (\"from \u00a339.99\") is declared once and interpolated into the same booking heading ahead of the same eligibility section on all 15 generated pages. So this is not a per-branch judgement call, it is whether the generator itself should stop leading with the price ahead of eligibility on every branch's page. Should the remediation Q83 already proposes (drop the standalone lead price from the booking block, keep it disclosed only in the FAQ answer) be made a generator change in tools/build-weight-loss-pages.js reaching all 15 pages at once, rather than a per-branch live paste fix?",
+        "options": [
+            "Fix it in the generator: remove CONSULT_FEE from the booking heading block in tools/build-weight-loss-pages.js (keep it in the FAQ answer only), regenerate all 15 pages, and repaste. One change reaches every branch consistently and prevents the same pattern being reintroduced on any future branch; costs a Weebly repaste of 15 pages already in the paste queue",
+            "Treat Q83 and Q88 as one decision and answer them together when 5.8 is unblocked, since they are the same underlying wording found on two branches now rather than two separate issues",
+            "Leave it as recorded and revisit only if the standards get read more strictly, the same position Q83's option 2 already offers, now understood to apply to all 15 pages rather than one"
+        ],
+        "recommended": 1,
+        "status": "open",
+        "answer": null,
+        "note": "No page or repo content changed. This is documentation only: compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md carries the full evidence under its 2026-09-01 addition. Pricing and regulatory copy on live, patient-facing weight loss pages is explicitly outside what an unattended run may decide or edit on its own."
     }
 ]

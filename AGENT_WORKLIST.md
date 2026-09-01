@@ -3447,6 +3447,54 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       in the hero, no Buy Now button, clear that treatment is not
       guaranteed - clean. No question raised.
       See audits/fishlocks-eccleston-gbp-pack-check-2026-08-30.txt.
+      Quality pass 2026-09-01 (unattended run, seventh pass, rotation pool):
+      earliest-last-touched item in the pool once 4.5 and 4.6 were re-verified
+      today (chronological order within 2026-08-30 re-derived from git log
+      --reverse, since several items in the pool share that calendar date;
+      4.8's sixth pass, 845ae17, is the earliest commit of the eleven still in
+      the pool). Pack re-verified fact by fact against branches.json a seventh
+      time: address, PR7 5SZ, phone 01257 451251, hours (Mon-Fri 9-6, Sat 9-12,
+      Sun closed), review link, catchment "Eccleston, Charnock Richard and
+      Coppull" in order, hasApp true, pfLink, and all five character counts
+      (730/463/348/521/433) recomputed independently in Node rather than
+      trusted - unchanged. node tools/check-gbp-packs.js: 0 failures, the one
+      standing WARN is the pre-existing Q64 post-town divergence. All 36
+      checkers run individually: 36/36 pass. All eight generators rebuilt;
+      git status on modules/ empty, byte-identical (build-audit-status.js
+      fails as always in this sandbox, Q87, not a page generator).
+      LIVE HALF, via Claude in Chrome, read-only, five page reads, nothing
+      clicked or typed. pharmacy-fishlocks-eccleston.html (landing page):
+      still 404, known queued-paste state (5.3/5.4). Post A
+      (pharmacy-first-fishlocks-eccleston.html): 200, matches this repo's
+      generated output, all seven Pharmacy First conditions present with
+      correct age ranges. Post B (switch-prescriptions-fishlocks-
+      eccleston.html): 200; live title reads "Switch Your Prescriptions -
+      Fishlocks Chemist Eccleston" against the paste sheet's "Switch Your
+      Prescriptions to Fishlocks Chemist, Eccleston" - the same Weebly
+      default-construction divergence the 2026-08-11 and 2026-08-30 passes
+      already recorded, unchanged, still covered by 5.3/5.4, not re-raised.
+      Post C (weight-loss-clinic-fishlocks-eccleston.html): 200; no medicine
+      named, no superlative or efficacy claim, no lead pricing in the hero,
+      eligibility section balanced - consistent with the sixth pass's "clean"
+      verdict on those elements. NEW FINDING, more precise than the sixth
+      pass's hero-only check: the booking block below the hero reads "Private
+      consultation at Fishlocks Chemist, from £39.99. Choose a time that
+      suits you.", ahead of the "Is this service right for you?" eligibility
+      section - the identical construction Q83 raised against McCanns
+      Aigburth, word for word but for the branch name. Read against
+      tools/build-weight-loss-pages.js, this is not branch-specific: a single
+      CONSULT_FEE constant (line 23) is interpolated into the same booking
+      heading (line 108) ahead of the same eligibility block (line 234) on
+      all 15 generated pages, so this is confirmed as a generator-level
+      pattern rather than a McCanns or Fishlocks peculiarity. Full write-up
+      in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under a new
+      2026-09-01 section. Raised as Q88, cross-referencing Q83; both should
+      be answered together. Post D (travel-clinic-fishlocks-eccleston.html):
+      200, matches this repo's generated output, no vaccine named by brand,
+      all six vaccine/advice categories listed generically. No in-repo defect
+      found. No page, generator, pack or branches.json entry changed. Open
+      question count 54 (Q88 added), 53 pre-existing unchanged.
+      See audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-01.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

@@ -441,3 +441,47 @@ estate-wide homepage line. Raised as Q85. No page or repo content changed;
 this file only records what was read. The GBP pack itself
 (gbp-packs/hirshmans-ainsdale.md) is unaffected: Post C already links to
 the correct generated page and was not touched.
+
+## ADDITION 2026-09-01: Q83's lead price is generator-level, not a McCanns
+## Aigburth peculiarity - confirmed on Fishlocks Eccleston, presumed on all 15
+
+Read live, read only, during the seventh quality pass of item 4.8 (Fishlocks
+Chemist Eccleston GBP pack):
+www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-eccleston.html. This
+is the correct, repo-generated inner page (not the separate legacy template
+that Fishlocks also carries under Q57 at a different URL on the same
+domain), and it is clean on the same six elements as McCanns Aigburth: no
+medicine named, no results heading, no superlative claim, no slider, no
+treatment picker, and the eligibility section ("Is this service right for
+you?") is genuinely balanced with the same "individual results vary" and
+"nothing below is a guarantee" wording.
+
+It also carries the identical pattern Q83 raised against McCanns Aigburth:
+"Private consultation at Fishlocks Chemist, from £39.99. Choose a time that
+suits you." under a "Book your Weight Loss Clinic consultation" heading,
+positioned ahead of the "Is this service right for you?" eligibility
+section, word for word the same construction, differing only in the branch
+name.
+
+That is not a coincidence and it is not two branches independently drafted
+the same way. tools/build-weight-loss-pages.js declares
+`const CONSULT_FEE = "from £39.99";` once, at line 23, and interpolates it
+into the same booking heading (line 108) on every one of the 15 pages it
+generates; the eligibility section markup (line 234) is likewise one shared
+block, always after it. Q83 was raised reading a live page as if it might
+be a McCanns-specific or domain-specific choice. It is not: it is this
+repo's own shared generator template, so once any branch's generated
+weight-loss page is live-pasted, that branch carries this exact pattern.
+Fishlocks Eccleston confirms the second instance; the other 13 branches
+whose generated page has been live-pasted are presumed to carry it too,
+unverified individually, on the same evidence basis Q83 already used for
+McCanns Sandringham.
+
+This does not change what Q83 asks Rishi to decide, but it changes the
+premise it is decided against: this is not a one-branch judgement call, it
+is whether tools/build-weight-loss-pages.js itself should stop leading with
+CONSULT_FEE ahead of the eligibility section on all 15 pages, which is a
+generator change reaching every live branch's page in one edit rather than
+a per-branch paste fix. No page or repo content changed; this file only
+records what was read and what the generator source confirms. Raised as
+Q88, cross-referencing Q83; both should be answered together.

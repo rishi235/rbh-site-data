@@ -1,4 +1,167 @@
-## 2026-09-01 (unattended run, following the 4.5 seventh pass) - Item 4.6 quality pass (seventh): McCanns Chemist Aigburth pack re-verified clean fact by fact including the sister-branch St Michael's wording; live half re-read (landing page still 404, all four posts still 200, Q39 furniture typos and Q83 weight-loss lead-price finding both reconfirmed unchanged); Q87's SSH-push, index-lock-unlink and publish-path diagnosis reproduced a further time, not re-argued; this run's own work left uncommitted, blocked by an index.lock still under the 1-hour staleness threshold at the time of writing
+## 2026-09-01 (unattended run, following the 4.6 seventh pass) - Item 4.8 quality pass (seventh): Fishlocks Chemist Eccleston pack re-verified clean fact by fact; live half re-read (landing page still 404, all four posts 200, switch-title Weebly-default divergence reconfirmed unchanged); NEW FINDING that Q83's weight-loss lead-price wording is generator-level (tools/build-weight-loss-pages.js CONSULT_FEE), not McCanns-specific, confirmed on a second branch and raised as Q88; this run also landed the prior run's 4.6 commit once .git/index.lock finally aged past the 1-hour threshold, and cleared roughly a dozen fresh index.lock/HEAD.lock instances created by git's own housekeeping mid-run by rename, per Q87
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start; created immediately
+after the first check, correcting the sequencing gap the 4.6 run flagged in
+its own PROCESS NOTE. `.git/index.lock` and `.git/HEAD.lock` both present at
+the start, dated 2026-09-01 05:20:39 +0100 (about 44 minutes old at first
+check, `ps aux` clean of any git process), the same lock the 4.6 run left
+behind still under the 1-hour threshold. This run waited for it genuinely to
+age past 1 hour (about 15 minutes of `sleep`, in ~170-second increments
+because the shell tool caps a single call below the 600s asked for) rather
+than clearing it early, the same convention every recent run in this log has
+used. Once genuinely stale (60.7 minutes, no git process running), both
+locks were cleared by rename (`mv` to a `.stale-<timestamp>` suffix), unlink
+still confirmed blocked (`rm -f` on both returned "Operation not
+permitted"). `git fetch origin` then failed identically to every run in this
+log: "Host key verification failed" - Q87, reconfirmed, not re-diagnosed.
+
+This run then hit a shape of Q87 not spelled out as plainly in earlier
+entries: every `git add`, `git commit` and even plain `git status
+--porcelain` that touches the index creates its OWN fresh `index.lock` (and
+occasionally `HEAD.lock`) as normal git housekeeping, which git itself
+cannot unlink afterwards for the same reason nothing else can, so the very
+act of committing relands the blocker for the NEXT git call. Landing the
+prior run's 4.6 commit took two rounds of "run git command, mv the fresh
+lock out of the way, run the next git command" rather than one clean
+sequence. This is consistent with, and now directly demonstrates in real
+time, the QUESTIONS.json Q87 update already on record from earlier today
+about ~90 renamed lock files and 225+ orphaned `tmp_obj_*` files
+accumulating in `.git/objects` - this run added a further dozen or so
+renamed lock files to that count and did not attempt to clean up the
+existing pile (renaming, the only operation available, would not reduce
+clutter, only relabel it).
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab opened
+and closed, nothing clicked, typed or submitted, against
+`https://data.rbhealth.co.uk/api/feedback`: same 28 entries the 4.5 and 4.6
+runs already read, covering Q2-Q29 only. Cross-checked programmatically
+against all 17 distinct question ids in the response: all already recorded
+in QUESTIONS.json as "answered" with matching text. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of AGENT_LOG.md at the start of this run. Proceeded normally, no autonomous
+decisions.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines remain [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, each individually re-read and
+confirmed still correctly blocked on grounds outside an unattended run's
+authorisation - Weebly hand edits, a main-branch push, or a supervised
+decision), so the run is a quality pass. The rotation pool the 4.5/4.6 runs
+identified (1.2, 2.3, 4.2, 4.7, 4.8, 4.9, 4.10, 4.12, 4.13, 4.15, 5.7, all
+last touched 2026-08-30) needed its own internal ordering re-derived, since
+AGENT_WORKLIST.md records only the calendar date, not the time, and eleven
+items share it now that 4.5 and 4.6 are done. `git log --oneline --since
+"2026-08-30 00:00" --until "2026-08-31 00:00" --reverse`, filtered to the
+eleven items and numbered, showed 1.2 was touched TWICE that day (a sixth
+pass early, commit 7 of the day's log, and a SEVENTH pass late, commit 63 -
+double-encoded postcode separator fix), making 1.2 the freshest of the
+batch rather than the stalest, which a naive "last date mentioned" reading
+would have missed. Excluding 1.2, the remaining ten items' single 2026-08-30
+touch ordered by commit position: 4.8 (43) is earliest, then 4.9 (44), 4.10
+(45), 4.12 (47), 4.13 (48), 4.15 (50), 2.3 (51), 4.7 (54), 5.7 (56), 4.2
+(57). 4.8 (Fishlocks Chemist Eccleston GBP pack) taken as the least
+recently verified.
+
+WHAT WAS DONE. gbp-packs/fishlocks-eccleston.md re-read in full and every
+fact re-checked against branches.json's fishlocks_eccleston record: name,
+street address, PR7 5SZ, addressRegion Lancashire, seoRegion Chorley,
+phone, opening hours (Mon-Fri 9-6, Sat 9-12, Sun closed), review link,
+hasApp true, catchment order (matches serviceAreaList exactly), Post A's
+link against pfLink (exact match). The five character-count claims (730
+description, 463/348/521/433 for Posts A-D) were recomputed independently
+in Node rather than trusted: all five exact.
+
+`node tools/check-gbp-packs.js` run and saved to
+audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-01.txt: 0
+failures, the one standing warning against this pack is the pre-existing
+Q64 post-town divergence (unchanged, not re-raised). All 36
+`tools/check-*.js` checkers run individually and appended to the same
+evidence file: 36/36 exit 0. All eight `tools/build-*.js` generators
+rebuilt (`build-audit-status.js` fails as always in this sandbox on its
+hardcoded `C:/Dev/rbh-site-data` path, Q87's second finding, not a page
+generator so it does not affect byte-identical proof); `git status
+--porcelain modules/` empty afterwards, confirming byte-identical output.
+`tools/build-status-page.js` re-run after the worklist edit landed:
+"0 to do, 8 blocked, 43 done, 0 questions" (that count is the worklist's
+own to-do/blocked/done tally, not QUESTIONS.json's open-question count,
+which stands at 54 after this run's Q88).
+
+LIVE HALF, via Claude in Chrome, read-only, five page reads, nothing
+clicked or typed. pharmacy-fishlocks-eccleston.html (profile-website
+landing page): still 404, unchanged, known queued-paste state (5.3/5.4).
+pharmacy-first-fishlocks-eccleston.html (Post A): 200, matches this repo's
+generated output, all seven Pharmacy First conditions present with correct
+NHS age ranges. switch-prescriptions-fishlocks-eccleston.html (Post B):
+200; live title "Switch Your Prescriptions - Fishlocks Chemist Eccleston"
+still does not match modules/switch/pages/SEO.md's "Switch Your
+Prescriptions to Fishlocks Chemist, Eccleston" - the same Weebly
+default-title-construction divergence the 2026-08-11 and 2026-08-30 passes
+already recorded, confirmed unchanged, still covered by the 5.3/5.4 repaste
+scope, not re-raised. weight-loss-clinic-fishlocks-eccleston.html (Post
+C): 200; no medicine named, no superlative or efficacy claim, no lead
+pricing in the hero, eligibility section balanced - consistent with the
+sixth pass's verdict on those elements.
+
+NEW FINDING. The booking block below the hero on Post C reads "Private
+consultation at Fishlocks Chemist, from £39.99. Choose a time that suits
+you.", ahead of the "Is this service right for you?" eligibility section -
+the identical construction Q83 raised against McCanns Chemist Aigburth,
+word for word but for the branch name. Checked against
+tools/build-weight-loss-pages.js rather than assumed: `const CONSULT_FEE =
+"from £39.99"` is declared once (line 23) and interpolated into the same
+booking heading (line 108) ahead of the same eligibility block (line 234)
+on all 15 pages the generator produces, so this is confirmed as a
+generator-level pattern, not a McCanns or Fishlocks peculiarity as Q83's
+original framing might have suggested. Full write-up added to
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under a 2026-09-01 section.
+Raised as Q88, cross-referencing Q83 (recommended: fold both into one
+generator fix rather than a per-branch paste fix, once 5.8 is unblocked).
+No page, generator, pack or branches.json content changed; this is a
+documentation and escalation finding only, consistent with the rule that
+pricing and regulatory copy on live patient-facing weight loss pages is
+never an unattended decision.
+
+travel-clinic-fishlocks-eccleston.html (Post D): 200, matches this repo's
+generated output, no vaccine named by brand, all six advice categories
+listed generically.
+
+No in-repo defect found this pass beyond the pre-existing status-page
+staleness pattern (avoided this run by re-running build-status-page.js
+after the worklist edit, per the lesson item 1.2's sixth pass recorded).
+One new question raised (Q88); 53 pre-existing questions unchanged.
+
+FILES CHANGED
+- AGENT_WORKLIST.md - item 4.8's own paragraph, seventh-pass note appended
+- AGENT_LOG.md - this entry
+- QUESTIONS.json - Q88 appended
+- compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - 2026-09-01 addition
+- status/index.html - regenerated after the worklist edit
+- audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-01.txt - new
+- audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-01.txt - already
+  present from landing the prior run's 4.6 commit (see COMMIT below)
+
+COMMIT (step 9). Two commits this run. First, the prior run's already-
+written 4.6 entry (AGENT_WORKLIST.md, AGENT_LOG.md, the 4.6 evidence file)
+was landed once the inherited index.lock aged past 1 hour and was cleared
+by rename - see LOCK AND ENVIRONMENT above; that commit is 0515c79. Second,
+this run's own 4.8 work (AGENT_WORKLIST.md, AGENT_LOG.md, QUESTIONS.json,
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, status/index.html, the new
+4.8 evidence file) is committed below this entry once written. `git push`
+was attempted after each commit; both failed identically ("Host key
+verification failed", Q87, unchanged). Local branch is now further ahead of
+origin/agents/audit-backlog than before this run; nothing pushed.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed.
+Failed: `ENOENT` on the hardcoded `const REPO = 'C:/Dev/rbh-site-data'`,
+identical to every run since this sandbox began, Q87's second finding,
+reproduced again, not re-diagnosed. Status page (the portal-hosted one,
+distinct from status/index.html above) not updated this run.
+
+`.agent-lock` released at the end of this run (renamed to
+`.agent-lock.released-<timestamp>`, unlink blocked, same workaround used
+throughout this log).
+
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (created partway
 through this run rather than at the very first step, a process gap being
