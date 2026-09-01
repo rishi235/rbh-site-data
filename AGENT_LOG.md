@@ -1,3 +1,117 @@
+## 2026-09-01 (unattended scheduled run, following the 3.9 seventh pass) - Item 3.10 quality pass (seventh): Riddings Pharmacy Timperley re-verified clean, repo half only, ZERO DEFECTS
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker, generator and independent-script
+runs, plus Windows-MCP PowerShell for git network operations against the real
+repo path, which holds working SSH credentials (the standing Q87 split). The
+sandboxed remote confirmed unusable again this run ("Host key verification
+failed" on `git fetch` and `ssh -T git@github.com`, "Permission denied
+(publickey)" once a host key was accepted - matching every prior run's
+finding exactly). .agent-lock absent at start; created via the sandboxed path
+(timestamp 2026-09-01T21:04:12Z). Real repo already on agents/audit-backlog
+at e300bd8 (the 3.9 seventh-pass commit) and up to date with origin; no pull
+needed. No index.lock present on either path at start, so the stale-lock
+clearance in step 1 was not exercised this run.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected". Unattended run, nobody present
+to resolve it; logged as unavailable and not retried by another route, per
+the procedure's own fallback instruction. 91 questions on file, 57 open at
+the start of this run (unchanged since the previous run); none answered or
+resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Computed, for each of the 36 rotation-pool items (all checked items
+excluding the seven established one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8), the newest commit across full git history whose message mentions that
+item number by word boundary (so "3.1" cannot match inside "3.10" or "3.13").
+The oldest such date belonged to item 3.10, Riddings Pharmacy Timperley
+(2026-08-31T21:40:08+01:00, the sixth pass) - every other rotation-pool item,
+including 3.9 which the immediately prior run had just brought current, had
+a later commit. 3.10 taken: seventh pass, following 2026-08-04 (build),
+2026-08-12, 2026-08-13, 2026-08-14, 2026-08-30 and 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 exit 0, zero failures, estate-wide. All six page generators
+rebuilt (branch landing, contraception, service, switch, travel clinic,
+weight loss); sha256 of all 189 tracked .html/.js/.css files under modules/
+and core/ taken before and after: byte-identical, zero diff. `git
+--no-optional-locks status --porcelain modules/ core/ tools/ branches.json
+gbp-packs/` empty throughout.
+
+Checked which checkers had changed since the sixth pass (2026-08-31): four
+commits touched tools/ - 33ed5ca (check-service-links.js gained reading of
+JS-injected patient-facing copy in service.js/switch.js for claims and POM
+names), bf55653 (check-gbp-packs.js foreign-street rule gained the
+abbreviation-aware match check-nap.js already had), 7952f50
+(check-gbp-packs.js POST_INSTRUCTION case-sensitivity fix, already
+re-verified directly against Riddings' own pack in that same commit),
+ec35fcf (check-postcodes.js nbsp/fused-postcode fix). All four already
+exercised clean against the full estate, including Riddings, in the 36/36
+run above.
+
+Wrote a fresh independent extraction in Python (shares no code with tools/,
+not copied from any prior pass's Node script) covering all 12 Riddings pages
+(10 service-family pages plus the switch page): 108 checks across 9 families
+- tel: link exact match, visible phone-shaped-string sweep, postcode-shaped-
+string sweep, JSON-LD parse and field-for-field match (address, region,
+telephone, @type), seoTown presence in visible text, foreign brandLabel
+absence, em/en dash absence outside build comments, data-branch correctness,
+Google Maps embed query decode-and-compare against streetAddress/
+addressLocality/postalCode. 0 failures.
+
+Guard effectiveness proved by two injections, against a full rsync scratch
+copy of the whole repo (excluding .git) in /tmp rather than the tracked
+files - a first attempt copying only modules/core/tools/gbp-packs/
+branches.json produced 11 false STALE failures from check-postcodes.js
+purely because its whole-repo narrative-file scan found AGENT_LOG.md,
+README.md etc. missing from the partial copy; caught before drawing any
+conclusion, and redone as a full copy so the checker's real scope was
+exercised properly. Injection 1: Riddings' own switch page tel: link and
+visible phone swapped to a foreign (0151) number - CAUGHT by check-nap.js,
+both the tel: link comparison and the phone-like-string sweep fired
+independently, 4 mismatches, correctly naming Riddings Pharmacy's actual
+number. Injection 2, targeting the specific rule gained since the sixth pass:
+"Guaranteed results" (a tools/claim-patterns.js match) injected into
+service.js's innerHTML walk-in card copy - CAUGHT by check-service-links.js's
+new JS-copy-reading path, naming the exact file and line, and applying
+estate-wide since every service-family page (including all ten of Riddings')
+loads this script. check-gbp-packs.js's POST_INSTRUCTION fix (7952f50) was
+not re-injected fresh this pass since that commit's own message already
+records a direct re-verification against riddings-timperley.md. Real repo
+diffed against the scratch copy after each injection and confirmed untouched
+throughout; scratch directory deleted at the end.
+
+LIVE CHECKS. None this run (Claude in Chrome unavailable, see ANSWER PICKUP
+above). The live findings recorded on the fifth and sixth passes (pfLink page
+serving correct Pharmacy First content on pre-repaste legacy copy - stale-
+paste backlog item, not a repo defect; homepage NAP, hours and email correct
+as of 2026-08-31; the Q22 weight loss tagline unchanged; mojibake switch-
+banner close button; Q31-era Cheshire county wording) are not reconfirmed
+this run and should be treated as unchanged rather than re-verified.
+
+FILES CHANGED. audits/riddings-build-check-2026-09-01.txt (new).
+AGENT_WORKLIST.md (3.10's entry appended, stays ticked). No file under
+modules/, core/, branches.json, tools/ or gbp-packs/ changed - zero in-repo
+defects found this pass.
+
+QUESTIONS. None raised this run. 57 remain open from prior runs (unchanged).
+
+COMMIT AND PUSH. Committed on agents/audit-backlog via the Windows-MCP
+PowerShell path against the real repo (sandboxed push unavailable, same SSH
+gap recorded above).
+
+STATUS PAGE. tools/build-audit-status.js run per step 10; see outcome below.
+
+LOCK. .agent-lock deleted at the end of this run via the sandboxed path.
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 3.4 eighth pass) - Item 3.9 quality pass (seventh): Coleman and Leighs Pharmacy Walton re-verified clean, repo half only, ZERO DEFECTS
 
 ENVIRONMENT AND LOCK. Sandboxed Linux mount of C:\Dev\rbh-site-data for file work,

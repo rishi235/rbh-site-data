@@ -1,0 +1,73 @@
+Item 3.10 quality pass (seventh) - Riddings Pharmacy (Timperley) - 2026-09-01
+Unattended scheduled run, agents/audit-backlog branch.
+
+SELECTION: least-recently-verified completed item in the 36-item rotation
+pool (excluding one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), computed
+from the newest commit mentioning each item number (word-boundary match)
+across full git history. 3.10's newest mention was 2026-08-31T21:40:08+01:00
+(sixth pass), the oldest of all 36 - every other rotation-pool item had a
+later commit, including the immediately preceding run's own item (3.9,
+2026-09-01T20:17-ish).
+
+ESTATE-WIDE CHECKERS: all 36 tools/check-*.js run individually, 36/36 exit 0,
+zero failures, zero warnings on Riddings' own pages (two pre-existing WARNs
+on riddings-timperley.md for the two live-only pages this repo does not
+generate - pharmacy-first-service-timperley.html and
+switch-prescriptions.html - unchanged from every prior pass).
+
+GENERATORS: all six rebuilt (branch landing, contraception, service, switch,
+travel clinic, weight loss). sha256 of all 189 tracked .html/.js/.css files
+under modules/ and core/ taken before and after: byte-identical, zero diff.
+git status --porcelain modules/ core/ tools/ branches.json gbp-packs/ empty
+throughout.
+
+NEW SINCE THE SIXTH PASS (2026-08-31): four commits touched tools/ since
+then - 33ed5ca (check-service-links.js now reads JS-injected copy in
+service.js/switch.js for claims and POM names), bf55653
+(check-gbp-packs.js foreign-street rule gained the abbreviation-aware match
+check-nap.js already had), 7952f50 (check-gbp-packs.js POST_INSTRUCTION
+case-sensitivity fix, already re-verified directly against Riddings' own
+pack in that commit), ec35fcf (check-postcodes.js nbsp/fused-postcode
+fix). All four already exercised against the full estate including Riddings
+in the 36/36 clean run above.
+
+INDEPENDENT EXTRACTION (fresh, Python, shares no code with tools/): 12
+Riddings pages (10 service-family + switch), 108 checks across 9 families -
+tel: link match, visible phone-shaped string match, postcode-shaped string
+match, JSON-LD parse and field match (address, region, telephone, @type),
+seoTown presence, foreign brandLabel absence, em/en dash absence outside
+build comments, data-branch correctness, map embed query decode-and-compare.
+0 failures.
+
+GUARD EFFECTIVENESS - three injections, all against /tmp scratch copies
+(full rsync of the repo excluding .git, so check-postcodes.js's whole-repo
+scan has its narrative files present and is not vacuously scoped - a partial
+copy tried first produced 11 false STALE failures purely from missing
+AGENT_LOG.md/README.md/etc., corrected before drawing any conclusion). Real
+repo never touched; diffed against scratch afterward to confirm.
+  1. Foreign phone (0151...) swapped into Riddings' own switch page tel:
+     link and visible text - CAUGHT by check-nap.js (4 mismatches, both the
+     tel: link and the phone-like-string sweep fired independently).
+  2. "Guaranteed results" (a CLAIM_PATTERNS match) injected into
+     service.js's innerHTML card copy, the JS-injected-copy path
+     check-service-links.js gained since the sixth pass (33ed5ca) - CAUGHT,
+     naming the exact line and file, estate-wide (every service-family page
+     including Riddings' ten loads this script).
+  3. (Baseline-only, not repeated as a fresh injection this pass since
+     7952f50 already proved it directly against Riddings' own pack in its
+     own commit) - check-gbp-packs.js POST_INSTRUCTION case fix re-confirmed
+     passing on riddings-timperley.md in the estate-wide run above.
+
+LIVE CHECKS: Claude in Chrome reported "not connected" at the top of the run
+(mcp__claude-in-chrome__tabs_context_mcp). Unattended run, nobody present to
+resolve it. Not retried by another route, per the procedure's fallback
+instruction. The live findings recorded on the fifth and sixth passes
+(pfLink page serving correct Pharmacy First content but on pre-repaste
+legacy copy - stale-paste backlog item, not a repo defect; homepage NAP,
+hours and email correct as of 2026-08-31; Q22 weight loss tagline unchanged;
+mojibake switch-banner close button; Q31-era Cheshire county wording) are
+NOT reconfirmed this run and should be treated as unchanged rather than
+re-verified.
+
+RESULT: ZERO in-repo defects found. Nothing under modules/, core/, tools/,
+branches.json or gbp-packs/ changed. No new question raised.

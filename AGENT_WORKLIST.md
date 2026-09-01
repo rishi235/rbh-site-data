@@ -2231,6 +2231,26 @@ Done 2026-09-01 (seventh pass).
       paste backlog item, not a repo defect. ZERO in-repo defects, nothing
       edited. Evidence in audits/riddings-full-suite-2026-08-31.txt. Done
       2026-08-31
+      Quality pass 2026-09-01 (seventh pass, unattended scheduled run).
+      Selected as the least-recently-verified completed item (oldest newest-
+      mention date across all 36 rotation-pool items). REPO HALF ONLY:
+      Claude in Chrome reported not connected, so nothing live was read and
+      the live findings above are not reconfirmed. All 36 checkers run
+      individually, 36/36 clean; all six generators rebuild all 189 tracked
+      modules/core files byte-identical. Fresh independent Python extraction
+      (108 checks, 9 families: tel:/visible-phone/postcode matching, JSON-LD
+      field-for-field, seoTown presence, foreign-brandLabel absence, em/en
+      dash absence, data-branch correctness, map-query decode-compare) across
+      all 12 pages, 0 failures. Targeted the two checkers hardened since the
+      sixth pass that had not yet been proved against Riddings by injection:
+      check-service-links.js's new JS-injected-copy reading (33ed5ca) caught
+      "Guaranteed results" injected into service.js's innerHTML card copy;
+      check-nap.js re-confirmed catching a foreign phone number swapped into
+      Riddings' own switch page. Both injections run against a full /tmp
+      rsync scratch copy (not the tracked repo), diffed back to confirm the
+      real files were never touched. ZERO in-repo defects found, nothing
+      edited. Evidence in audits/riddings-build-check-2026-09-01.txt. Done
+      2026-09-01
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
