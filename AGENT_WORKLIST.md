@@ -5944,6 +5944,40 @@ record.
       Leading window widened to 6 lines so each card carries its own
       address or postcode line; today's audit JSON regenerated and now
       reads correctly without leaving the file.
+      Fourth quality pass 2026-09-01 (unattended run, Cowork sandboxed
+      shell). Repo half: all 36 checkers run fresh, all green; all six
+      generators rebuilt to a byte-identical worktree against
+      audits/_before-6.3-2026-09-01.sha256 (203 files, zero diff). Live
+      half re-run for the first time since 2026-08-30:
+      tools/check-live-hours.js executed directly from this sandbox's own
+      shell via Node's native fetch (no browser needed, network reaches
+      all 14 branch domains), evidence
+      audits/live-hours-check-2026-09-01.json. The bank holiday label
+      correctly named 2026-08-31 (Summer bank holiday, one day before
+      this run) as near, so the reader allows for it before reading any
+      Closed snippet. All 14 branches' snippets read by hand against
+      branches.json: thirteen match exactly, including the seven
+      lunch-closure branches (mccanns_aigburth, mccanns_sandringham,
+      hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby,
+      tiffenbergs_longmoor all publish their closed-1-2pm hours live, and
+      scorah/fishlocks/skchemists/riddings/cherry_lane's straight-through
+      or half-day Saturday hours all match too). Smartts remains the sole
+      mismatch: both the homepage hours card and the contact page still
+      publish straight-through "9:00am - 6:00pm" with no lunch closure,
+      against branches.json's NHS-sourced 09:00-13:00/14:00-18:00 split,
+      unchanged since first found. Q55 stands as raised, live-only fix,
+      not something this repo can correct. Checker trusted rather than
+      assumed: rule 7 (the containment rule that catches a clock time
+      printed anywhere outside the hours card) re-proved by injection on
+      a scratch copy of the repo outside the working tree (never against
+      a tracked file) - added a spurious "9am to 6pm on Saturdays" FAQ
+      answer to McCanns Aigburth's landing page, checker correctly
+      exited 1 with two failures naming both times and the right file;
+      scratch copy discarded afterwards, tracked tree untouched. No
+      in-repo defect found, no fix needed, no new question. Evidence:
+      audits/live-hours-check-2026-09-01.json,
+      audits/_before-6.3-2026-09-01.sha256,
+      audits/_after-6.3-2026-09-01.sha256 (identical).
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

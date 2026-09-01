@@ -1,3 +1,138 @@
+## 2026-09-01 (unattended run, following the 5.2 pass) - Item 6.3 quality pass (fourth): all 14 trading branches' live hours reverified against branches.json, thirteen match including all seven lunch-closure branches, Smartts (Q55) remains the sole live-only mismatch, rule 7 re-proved by injection on a disposable scratch copy
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
+`.agent-lock.released-*` markers from earlier runs). No `.git/index.lock` or
+`.git/HEAD.lock` present this time. Created `.agent-lock` fresh (UTC
+timestamp) after the check.
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. `git fetch origin` failed with "Host key
+verification failed" (no `~/.ssh` in this sandbox, no credential helper,
+no GITHUB_TOKEN) - this is Q87, already fully diagnosed and open since
+2026-08-31, not re-diagnosed here. Local branch was 20 commits ahead of
+origin/agents/audit-backlog at the start of this run (19 prior + this
+run's own predecessor, the 5.2 sixth pass, landed just before this run
+started).
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+`https://data.rbhealth.co.uk/api/feedback`. Same 28 entries every recent
+run has found (Q2 through Q29), all already recorded as "answered" in
+QUESTIONS.json. No answer present for any of Q34-Q87. Nothing to
+reconcile. Tab opened and closed, nothing clicked, typed or submitted.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally; step 8's
+question-raising rule applies as written.
+
+ITEM SELECTION (step 5). All 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6) still carry [BLOCKED], none newly unblocked. Quality-pass
+branch taken. Re-derived staleness properly this time rather than trusting
+a case-sensitive grep: a `grep -n "Quality pass"` on AGENT_WORKLIST.md
+missed every entry phrased "Second quality pass", "Third quality pass"
+etc. (lowercase q after an ordinal), which had made item 2.3 look
+falsely stale at 2026-08-11 in a first pass at this ranking. Redone
+case-insensitively across all 36 items in the pool (excluding the seven
+one-off items outside the main rotation: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8, and excluding 5.2, just completed this session). Oldest shared
+last-touched date across the pool: 2026-08-30, shared by sixteen items
+(2.3, 3.1, 4.2, 4.3, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.12, 4.13, 4.15, 1.3,
+1.2, 6.3). Tie-broken the same way the 5.2 entry recorded: among those
+sixteen, found each item's own most recent 2026-08-30 entry in
+AGENT_LOG.md and took the one with the HIGHEST line number, i.e. the
+earliest entry logged that day (entries are prepended, so a high line
+number for a same-day entry means everything above it was added later
+that day). 6.3's sole 2026-08-30 entry sits at line 6123, the highest
+among the sixteen, making it the stalest. 6.3 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` run fresh before any inspection:
+all green, no failures. All six page generators rebuilt from
+branches.json; sha256 of all 203 files under modules/*/pages taken before
+(audits/_before-6.3-2026-09-01.sha256) and after
+(audits/_after-6.3-2026-09-01.sha256): byte-identical, zero diff.
+
+LIVE HALF, first re-run since 2026-08-30. `tools/check-live-hours.js` was
+executed directly in this sandbox's shell using Node's own global
+`fetch()` - no browser was needed, and the sandbox's allowlisted network
+reached all 14 branch domains without issue, which is worth recording
+since several other live-check items this backlog have had to route
+through Chrome or skip the live half entirely for lack of it. Report
+written to audits/live-hours-check-2026-09-01.json. The bank-holiday
+label correctly flagged 2026-08-31 (Summer bank holiday, one day before
+this run, tradingPolicy "closed") as near, so any one-off Closed snippet
+would have been read in that light; none of the snippets needed it, since
+none of the 14 branches showed a Closed day that contradicts their normal
+week.
+
+All 14 branches' snippets read by hand against `expectedRows()`:
+thirteen match exactly. This is the first pass to explicitly confirm all
+seven lunch-closure branches (mccanns_aigburth, mccanns_sandringham,
+hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby,
+tiffenbergs_longmoor, and Smartts as the exception below) against their
+live pages in one run: six of the seven publish their closed-1pm-to-2pm
+window correctly and explicitly on both the homepage card and the
+contact page. Scorah (split by branch on a shared domain), Fishlocks
+(split by branch on a shared domain), SK Chemists, Riddings and Cherry
+Lane all match their non-split or half-Saturday hours exactly, including
+Cherry Lane's non-standard 6.30pm weekday close and 5pm Saturday, and
+Fishlocks Ainsdale's non-standard 8.45am open.
+
+THE ONE MISMATCH, RECONFIRMED UNCHANGED. Smartts Chemist's live homepage
+hours card ("Monday 9:00am - 6:00pm" through Friday, repeated on
+smarttschemist.co.uk/contact-us.html as "Weekdays / 09:00 - 18:00") still
+publishes a straight-through day, against branches.json's NHS-sourced
+09:00-13:00 / 14:00-18:00 split confirmed 2026-06-24. This is Q55,
+raised 2026-08-11 or earlier, live-only copy that a Weebly repaste has to
+fix; nothing in this repo generates or serves that page. No new evidence
+changes its status; not re-raised as a new question.
+
+CHECKER TRUSTED RATHER THAN ASSUMED. Rather than take the 36-green result
+on faith, re-proved `check-opening-hours.js` rule 7 (the containment rule
+added 2026-08-14 specifically for this item, which catches a clock time
+printed anywhere on a landing page outside the hours card) by injection.
+Method: `rsync`-copied the whole repo to a scratch directory OUTSIDE the
+mounted working tree (`/sessions/.../scratch/rbh-scratch`, not under
+`C:\Dev\rbh-site-data`), confirmed the copy's own checker run was clean
+(88 clock times swept, exit 0), added one spurious FAQ line to
+`modules/branch/pages/pharmacy-mccanns-aigburth.html` in the SCRATCH COPY
+ONLY ("Are you open on Saturdays? Yes, we are open 9am to 6pm on
+Saturdays."), reran the checker there: exit 1, two failures, both naming
+the correct file and both spurious times ("9am", "6pm"). Scratch
+directory deleted immediately after (`rm -rf`); the tracked repository
+was never touched by the injection, confirmed by `git status` showing no
+changes beyond the two files this pass intentionally edited (see FILES
+CHANGED). This closes the same "trust but verify" gap several other
+items' passes have applied (2.3, 3.3, 5.2 among them) but which this
+item's own quality-pass history had not yet applied to rule 7 specifically
+since the rule's introduction on 2026-08-14.
+
+No in-repo defect found, no page, generator or data field changed, no new
+question raised. Q55 remains open and unchanged.
+
+FILES CHANGED
+- audits/live-hours-check-2026-09-01.json - new, live snippets report
+- audits/_before-6.3-2026-09-01.sha256 - new, pre-rebuild checksums
+- audits/_after-6.3-2026-09-01.sha256 - new, post-rebuild checksums
+  (identical to the before file)
+- AGENT_WORKLIST.md - item 6.3's own paragraph, fourth-pass note appended
+- AGENT_LOG.md - this entry
+
+QUESTIONS. None raised, none answered. 53 open (Q34-Q87 minus the twelve
+already-answered-and-recorded), unchanged from the start of this run.
+
+COMMIT (step 9). `git add` the five files above, single commit on
+agents/audit-backlog. `git push origin agents/audit-backlog` attempted as
+normal and failed exactly as Q87 predicts ("Host key verification
+failed"); no other push route tried, no credentials entered. Commit sits
+locally ahead of origin, will land the moment Q87 is resolved.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed;
+expected to fail for the reason Q87 records (hardcoded
+`C:/Dev/rbh-site-data` path does not resolve inside this Linux sandbox),
+outcome recorded immediately after this entry rather than re-diagnosed
+here.
+
+`.agent-lock` deleted at the end of this run.
+
 ## 2026-09-01 (unattended run, following the 6.7 pass) - Item 5.2 quality pass (sixth): six branch landing pages reverified clean on both halves, one apparent cross-branch town match investigated and cleared as a same-word-different-brand coincidence rather than reported blind, Q21's new branches.json whatsapp field confirmed correctly out of scope for this generator, all six landing URLs still 404
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
