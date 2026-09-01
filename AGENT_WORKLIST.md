@@ -2608,6 +2608,33 @@ Pharmacy First wording to the NHS service description.
       unchanged, tracked under Q13's answered-but-not-yet-applied
       pin-and-repaste plan, item 5.5). No new defect, no new question.
       See audits/fishlocks-ainsdale-4.1-pass-2026-08-31.txt. Done 2026-08-31
+      Quality pass 2026-09-01 (eighth): least recently verified rotation-pool
+      item, picked by reading each candidate's actual git commit timestamp
+      rather than trusting AGENT_WORKLIST.md's own date-only text or
+      AGENT_LOG.md's header phrasing (both methods have misled prior passes
+      on other items - see the 4.9 and 4.6/4.8 entries). All 36 checkers
+      pass; all six generators rebuild byte-identical (sha256 of every file
+      under modules/ unchanged); independent verifier
+      audits/verify-4.1-2026-08-30.js re-run unmodified, CHECKS=153
+      DEFECTS=0 FLAGS=0, identical to the sixth and seventh passes. Pack
+      re-checked field by field against the fishlocks_ainsdale entry in
+      branches.json: clean. check-gbp-packs.js's two WARNs (Q72 qualifier
+      wording, Q64 address post-town divergence) both pre-existing and
+      unchanged. Live half read by plain Node fetch() (Claude in Chrome
+      unavailable, "not connected"): profile-website target still 404 (Q35
+      unchanged); switch page em dash still live (Q45 unchanged); weight
+      loss page's one en dash confirmed safety-net language, not a new
+      claim. NEW FINDING, never recorded in this item's seven prior passes:
+      every page checked on fishlockpharmacy.co.uk carries a shared site
+      footer misspelling the brand as "Fishlock Pharmacy" (branch-picker
+      block) and "Fishlock Chemist" (GPHC/legal line), dropping the "s"
+      item 1.1 standardised into every generated page. Confirmed on three
+      separate URLs, so very likely site-wide across both Fishlocks
+      branches. This footer is hand-built Weebly content outside anything
+      this repo generates or checks, so no repo-side fix exists. Raised as
+      Q91. No page, generator or branches.json field changed this pass.
+      See audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt and
+      audits/verify-4.1-2026-09-01-output.txt. Done 2026-09-01
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

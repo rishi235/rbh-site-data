@@ -1,0 +1,65 @@
+Item 4.1 quality pass (eighth), 2026-09-01
+Fishlocks Chemist Ainsdale GBP pack
+
+REPO HALF
+- All 36 tools/check-*.js run individually: 36/36 pass, zero failures.
+- check-gbp-packs.js: two pre-existing WARNs on fishlocks-ainsdale.md, both
+  known exceptions pending Rishi's decision, unchanged from every prior
+  pass: Q72 (private-clinic qualifier wording, six items, moves with 12
+  other packs) and Q64 (address post-town vs addressLocality divergence,
+  moves with four other packs). Neither is a new finding.
+- All six page generators (build-service-pages, build-branch-landing-pages,
+  build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+  build-contraception-pages) rebuilt. sha256 of every file under modules/
+  taken before and after: byte-identical, zero diff. git status --short
+  modules/ empty throughout.
+- Independent verifier audits/verify-4.1-2026-08-30.js re-run unmodified:
+  CHECKS=153 DEFECTS=0 FLAGS=0, identical to the sixth and seventh passes.
+  Output: audits/verify-4.1-2026-09-01-output.txt.
+- branches.json fishlocks_ainsdale entry re-read field by field against the
+  pack: address, phone, review link, hours (Mon-Fri 08:45-18:00, Sat/Sun
+  closed), catchment order, all five widgets (bloodPressure, contraception,
+  pharmacyFirst, weightLoss, travelClinic), hasApp true. All match.
+
+LIVE HALF (read-only, plain Node fetch(), GET only, no browser, nothing
+clicked or submitted - Claude in Chrome unavailable this run, "not
+connected")
+- pharmacy-fishlocks-ainsdale.html (profile-website target): still 404.
+  Q35, unchanged since 2026-08-12.
+- pharmacy-first-fishlocks-ainsdale.html, weight-loss-clinic-fishlocks-
+  ainsdale.html, travel-clinic-fishlocks-ainsdale.html: all 200, correct
+  phone (01704 575478), no POM medicine names, no em/en dash in body copy
+  bar the one already-tracked instance below.
+- switch-prescriptions-fishlocks-ainsdale.html: 200, correct phone. Two
+  live em dashes reconfirmed in the hero/intro copy ("Local NHS pharmacy —
+  we contact your GP..." and "...it usually is not — we make the first
+  step quick and easy"). This is the standing Q45 pre-repaste em dash,
+  unchanged across every prior pass of this item.
+- weight-loss-clinic page: one en dash entity found, "&ndash;" in the
+  suitability-assessment sentence. Read in context: this is safety-net
+  language ("we assess your suitability at consultation &ndash; nothing
+  below is a guarantee of treatment"), not a new claim, and sits in the
+  same pre-repaste category as the switch page's em dashes (Q45/Q13).
+
+NEW FINDING (live-only, not new to this pass's pages but never previously
+read in this item's seven prior passes): every page checked on
+fishlockpharmacy.co.uk carries a shared site footer with two brand-name
+errors, both dropping the "s" from "Fishlocks":
+  - "Fishlock Pharmacy, Eccleston, Chorley..." and "Fishlock Pharmacy,
+    Ainsdale, Southport..." in the footer's branch-picker block
+  - "Fishlock Chemist (GPHC no. 1121085 and 1034673) which is owned by RB
+    Healthcare Ltd..." in the footer's legal/superintendent line
+This is the exact brand-spelling defect item 1.1 corrected estate-wide in
+this repo (branches.json brandLabel is "Fishlocks Chemist"), but it lives
+in a hand-built Weebly footer element shared across both Fishlocks
+branches' pages, outside anything this repo generates or any checker here
+reads. Confirmed present identically on three separate URLs (Pharmacy
+First, switch, weight loss), so it is very likely site-wide rather than
+page-specific. Not previously recorded anywhere in this item's own
+worklist history or in QUESTIONS.json. Raised as Q91 (see QUESTIONS.json);
+no repo-side fix exists for it since the footer is not repo-generated
+content. No page, generator or branches.json field changed - this is a
+finding, not a defect this run could act on.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field or paste sheet was
+changed. AGENT_WORKLIST.md's item 4.1 paragraph gains an eighth-pass note.

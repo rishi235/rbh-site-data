@@ -1,3 +1,128 @@
+## 2026-09-01 (unattended scheduled run, following the 3.6 seventh pass) - Item 4.1 quality pass (eighth): Fishlocks Chemist Ainsdale GBP pack, all 36 checkers clean, six generators byte-identical, independent verifier (153 checks) unchanged from the sixth/seventh passes, zero in-repo defect; live half read-only found the shared fishlockpharmacy.co.uk site footer misspelling the brand "Fishlock Pharmacy"/"Fishlock Chemist" (missing the "s" item 1.1 standardised) across every page checked, never previously recorded in this item's seven prior passes - raised as Q91. Two already-tracked live-only gaps reconfirmed unchanged (profile-website landing page still 404, Q35; switch page em dash still live, Q45).
+
+ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-task
+runner), with a sandboxed Linux mount of the real `C:\Dev\rbh-site-data` for file
+work plus the Windows-MCP PowerShell tool for git network operations - the same
+split established precedent (Q87) documents. `.agent-lock` absent at start;
+created at 2026-09-01T15:04:29Z. This run's own `git fetch` from the sandboxed
+mount created a fresh `.git/index.lock` that could not be unlinked from that
+mount (confirmed: `rm`, `mv` and Python `os.remove` all raised EPERM; a plain
+truncate/write to the same path succeeded, and renaming a plain non-`.git` file
+such as `.agent-lock` also succeeded) - the same FUSE unlink/rename restriction
+on `.git/` specifically that dozens of prior runs have hit and worked around by
+renaming the lock out of the way (hence the large number of
+`.git/index.lock.stale-*`/`.released-*` debris files already in the tree, none
+of which this run touched, cleanup being outside this run's scope). Renamed to
+`.git/index.lock.stuck`, which cleared it for git purposes; later deleted
+cleanly via the Windows-MCP PowerShell tool, since deletion is not restricted
+on the native side. All git network operations (fetch, pull, commit, push) ran
+via PowerShell against the real repo path, which holds working SSH credentials;
+`git fetch origin` / `git pull --ff-only` confirmed the branch already matched
+`origin/agents/audit-backlog` at commit 7175c45 before work began, no incoming
+commits missed.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected". Unattended run, nobody present to
+resolve it; logged as unavailable and not retried by another route, per the
+procedure's own fallback instruction. 56 questions were open at the start; this
+run's own finding brings the total to 91 (57 open after Q91).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED]. Quality pass taken instead.
+Given this log's own repeated record of single-method staleness rankings going
+wrong (wrongly naming 3.3, 4.10, 4.6/4.8, and 4.11 as "stalest" on different
+prior runs, each corrected only after the item's own AGENT_WORKLIST.md
+paragraph or a fresh method was checked), this run went straight to the most
+authoritative source: `git log --since "2026-08-29 00:00"` (145 commits) read
+via the Windows-MCP PowerShell tool, excluding the seven established one-off
+items outside the rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), and taking
+the most recent commit timestamp actually mentioning each remaining item. The
+oldest such timestamp belonged to item 4.1 (2026-08-31 07:47:19, the seventh
+pass) - every other rotation-pool item had a commit later than that, most from
+earlier the same day (2026-09-01). 4.1 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` checkers run individually: 36/36 pass,
+zero failures. `check-gbp-packs.js` full output checked for this pack by name:
+two pre-existing WARNs, both known exceptions pending Rishi's decision and
+unchanged (Q72 private-clinic qualifier wording, moves with 12 other packs;
+Q64 address post-town vs addressLocality divergence, moves with four other
+packs). All six page generators (`build-service-pages`,
+`build-branch-landing-pages`, `build-switch-pages`, `build-weight-loss-pages`,
+`build-travel-clinic-pages`, `build-contraception-pages`) rebuilt; sha256 of
+every file under `modules/` taken before and after rebuild: byte-identical,
+zero diff (193 files, `diff` clean); `git status --short modules/` empty
+throughout. `branches.json`'s `fishlocks_ainsdale` entry read field by field
+against the pack: address, phone, review link, hours (Monday-Friday
+08:45-18:00, Saturday/Sunday closed), catchment order, all five widgets
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic),
+hasApp true - all match. Independent verifier
+`audits/verify-4.1-2026-08-30.js` re-run unmodified: `CHECKS=153 DEFECTS=0
+FLAGS=0`, identical to the sixth and seventh passes, no drift in the pack or
+TEMPLATE.md since 2026-08-30. Output saved to
+`audits/verify-4.1-2026-09-01-output.txt`.
+
+LIVE HALF (read-only, plain Node `fetch()`, GET only - Claude in Chrome
+unavailable this run, so no browser was used; nothing clicked, typed or
+submitted):
+- `pharmacy-fishlocks-ainsdale.html` (the pack's profile-website target):
+  still 404. Q35, unchanged since 2026-08-12.
+- `pharmacy-first-fishlocks-ainsdale.html`,
+  `weight-loss-clinic-fishlocks-ainsdale.html`,
+  `travel-clinic-fishlocks-ainsdale.html`: all 200, correct phone (01704
+  575478), no POM medicine names anywhere.
+- `switch-prescriptions-fishlocks-ainsdale.html`: 200, correct phone. Two
+  live em dashes reconfirmed in the hero/intro copy ("Local NHS pharmacy —
+  we contact your GP..." / "...it usually is not — we make the first step
+  quick and easy") - the standing Q45 pre-repaste finding, unchanged.
+- Weight loss page: one `&ndash;` entity, read in context as safety-net
+  language ("we assess your suitability at consultation – nothing below is a
+  guarantee of treatment"), not a new claim - same pre-repaste category as
+  Q45/Q13.
+
+NEW FINDING, never recorded across this item's seven prior passes despite
+multiple earlier live reads (2026-08-12, 08-30, 08-31): every page checked on
+fishlockpharmacy.co.uk carries an identical shared site footer with two wrong
+forms of the brand name, both dropping the "s" from "Fishlocks" - the
+branch-picker block reads "Fishlock Pharmacy, Eccleston, Chorley" and
+"Fishlock Pharmacy, Ainsdale, Southport"; the legal/superintendent line reads
+"Fishlock Chemist (GPHC no. 1121085 and 1034673) which is owned by RB
+Healthcare Ltd, Company No 06223421. The Superintendent Pharmacist is Dr S K
+Kochhar (GPhC reg 2039034)". branches.json holds brandLabel "Fishlocks
+Chemist" for both branches, and item 1.1 (2026-08-04) standardised this exact
+spelling across every generated page; this footer is hand-built Weebly
+content shared across both Fishlocks branches (it lists both branch
+addresses), sitting entirely outside anything this repo generates or any of
+the 36 checkers read. No repo-side fix exists. Raised as Q91, "finding, does
+not block any item" per the established pattern. Confirmed on three separate
+URLs (Pharmacy First, switch, weight loss), so very likely site-wide rather
+than page-specific.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field, `branches.json`
+entry or paste sheet was changed. `gbp-packs/fishlocks-ainsdale.md` was not
+edited (already correct).
+
+FILES CHANGED
+- `audits/verify-4.1-2026-09-01-output.txt` (new)
+- `audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt` (new)
+- `AGENT_WORKLIST.md` (item 4.1's own paragraph, eighth-pass note appended)
+- `QUESTIONS.json` (Q91 appended)
+- `AGENT_LOG.md` (this entry)
+
+QUESTIONS. Q91 raised (open). 56 open before this run, 57 after. No other
+question's status changed.
+
+COMMIT (step 9) and PUBLISH (step 10) follow this entry via the Windows-MCP
+PowerShell tool against the real repo path, which holds working credentials;
+see the commit this entry's own hash lands in for the exact outcome. `.agent-
+lock` removed at the end of this run (via PowerShell, since native deletion
+is not restricted there).
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 4.4 seventh pass) - Item 3.6 quality pass (seventh): McCanns Chemist (Aigburth and Sandringham), all 26 generated pages re-verified clean on all 36 checkers plus a fresh 1,437-check independent extraction, byte-identical regeneration confirmed, three guards (cross-town H1, phone, em dash) re-proved by injection and restored byte-identical; live half read-only found no in-repo defect, two already-tracked live-only gaps reconfirmed unchanged (Sandringham UTI page still live as "Sandringham" not "St Michael's", Q15/5.7; both branch landing pages still 404 live, Q35).
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
