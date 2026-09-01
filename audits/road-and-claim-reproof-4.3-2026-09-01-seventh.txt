@@ -1,0 +1,36 @@
+Item 4.3 quality pass (seventh), 2026-09-01
+Re-proof by disposable scratch-copy injection of two existing check-gbp-packs.js
+safeguards, applied specifically to gbp-packs/hirshmans-ainsdale.md content
+rather than trusted from where each rule was first written (road rule born
+here on the fifth pass 2026-08-30; claim-patterns word-number rule born on
+Scorah Bramhall's fifth pass 2026-08-30, never individually re-proven against
+Hirshmans copy before this pass).
+
+Method: rsync-copied the whole repo (excluding .git) to a scratch directory
+outside the mounted working tree. Confirmed the scratch copy's own
+check-gbp-packs.js run was clean first (exit 0, 0 failures, same known WARNs
+as the tracked repo). Two separate mutations tried in turn, each restored
+before the next:
+
+1. ROAD-NAME RULE. Post B's "a local team on Station Road" changed to
+   "a local team on Shakespeare Road" (Shakespeare Road appears in no live
+   branch's streetAddress, no place Hirshmans owns in branches.json, and no
+   live brand name).
+   Result: FAIL, exit 1.
+   "FAIL  hirshmans-ainsdale.md: the Post B - Switch your prescriptions names
+   'Shakespeare Road', a road that appears in no live branch's streetAddress,
+   no place this branch owns in branches.json and no live brand name..."
+
+2. CLAIM-PATTERNS WORD-NUMBER OUTCOME CLAIM. Post C (weight loss) had
+   "Most patients lose a stone in the first month." inserted before its
+   closing "Book your consultation today."
+   Result: FAIL, exit 1.
+   "FAIL  hirshmans-ainsdale.md: line 108: efficacy claim 'lose a stone'
+   (quantified weight loss claim), from the shared tools/claim-patterns.js
+   that check-weight-loss-copy.js applies to the generated pages..."
+
+Both safeguards fire correctly on Hirshmans-specific content, not just on
+the branch each was originally written against. Scratch directory deleted
+immediately after each restoration; `git status --short
+gbp-packs/hirshmans-ainsdale.md tools/check-gbp-packs.js` on the tracked
+repo confirmed no changes reached the working tree at any point.

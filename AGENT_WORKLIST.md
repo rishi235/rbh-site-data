@@ -2684,6 +2684,45 @@ Pharmacy First wording to the NHS service description.
       address matching the known 5.3 error). Recorded in
       compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and raised as Q85
       under item 5.8, which stays [BLOCKED]; nothing live was changed.
+      Quality pass 2026-09-01 (seventh pass, repo and live): all facts
+      re-verified against branches.json (name, address, phone, hours with
+      both lunch closures, website, review link, three-town service area,
+      hasApp false, all five widgets), nothing wrong. All six generators
+      rebuilt to zero diff (sha256 before/after identical across all
+      modules/*/pages files) and all 36 checkers exit 0, no new warnings
+      beyond the standing tracked ones (Q64 post-town, Q72 qualifier
+      wording). Rather than search for a new gap in a pack that has now had
+      six clean passes, this pass instead re-proved two existing
+      check-gbp-packs.js safeguards by disposable scratch-copy injection
+      applied specifically to THIS pack's own copy, since neither had been
+      individually re-proven against Hirshmans text since the rule was
+      written: the road-name rule (born here on the fifth pass) against
+      Post B ("Station Road" to "Shakespeare Road", caught, FAIL) and the
+      claim-patterns word-number outcome-claim rule (born on Scorah
+      Bramhall's fifth pass, never proven here before) against Post C
+      ("Most patients lose a stone in the first month.", caught, FAIL).
+      Scratch copy deleted after each restoration; tracked repo confirmed
+      unchanged throughout. See
+      audits/road-and-claim-reproof-4.3-2026-09-01-seventh.txt and
+      audits/gbp-packs-check-2026-09-01-item4.3-seventh.txt.
+      Live half, read-only via Chrome, all four post targets plus the
+      legacy Post A page: pharmacy-first-service-ainsdale.html (Post A's
+      HARD STOP page) is still live with the wrong address (64 station
+      Road instead of 56-62 Sherwood House, Station Road), the non-dialling
+      phone 017014577376, and the old "Hirshmans Pharmacy" branding -
+      unchanged, exactly as the pack's own note describes, still item
+      5.3/Q8/Q34, not a new finding. switch-prescriptions-hirshmans-ainsdale.html
+      (Post B) has correct facts throughout but still renders the pre-Q7 em
+      dash as mojibake ("it usually is not ÔÇö we make the
+      first step quick and easy"), the same live-paste-lag family already
+      confirmed at Cherry Lane and Coleman and Leighs and previously found
+      here too; unchanged. weight-loss-clinic-hirshmans-ainsdale.html
+      (Post C) and travel-clinic-hirshmans-ainsdale.html (Post D), the two
+      generated pages, both read clean: private paid service framing
+      throughout, no medicine named, no outcome or efficacy claims, full
+      eligibility hedging, consistent with the compliant-inner-page
+      standard. No in-repo defect found, no new question raised. Done
+      2026-09-01
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

@@ -1,3 +1,183 @@
+## 2026-09-01 (unattended run, following the 3.1 seventh pass) - Item 4.3 quality pass (seventh): Hirshmans Ainsdale GBP pack clean again, road-name and word-number claim safeguards re-proved by injection specifically against this pack's own copy, legacy Post A page and Post B em-dash mojibake both reconfirmed unchanged; also landed a prior run's uncommitted 3.1 work and confirmed Q87's git-push and lock-litter diagnosis still holds
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start. `.git/index.lock`
+present, 02:41:28 BST, 1h26m old at discovery (well past this task's 1-hour
+staleness threshold) with `ps aux` clean of any git process, so treated as
+stale per the rule and cleared - by rename, not delete: `mv` succeeded,
+`rm`/`os.remove` both failed "Operation not permitted", the same connected-
+folder unlink restriction Q87 already diagnosed. `.git/HEAD.lock`, same
+02:41:29 timestamp, found the same way mid-commit and cleared the same way.
+Both are consistent with Q87's own UPDATE: this mount allows create and
+same-directory rename but blocks unlink, so every git write leaves debris
+that only grows. Roughly 90 `.agent-lock.released-*` and `.git/index.lock.*`
+/ `.git/HEAD.lock.*` renamed files and 225+ orphaned `tmp_obj_*` files were
+already present from prior runs (Q87's own count, reconfirmed by eye here,
+not re-counted exactly); two more renamed lock files added by this run's own
+clearing and one more `HEAD.lock` by this run's own commit. Not cleaned up:
+no delete capability in this sandbox, and Q87 already covers it as a
+symptom of the same root cause, not a separate question. Created
+`.agent-lock` fresh (UTC timestamp) after the check. Also found the
+"C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK"
+directory tree still present, untracked, and re-confirmed its origin this
+run rather than assuming it: `build-service-pages.js` and
+`build-contraception-pages.js` both print "Paste packs: ... in
+C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK" and
+regenerating in this Linux sandbox recreates the same nested directory tree
+under the working directory, because that hardcoded Windows absolute path is
+not absolute from this shell's point of view. Already logged by several
+prior runs (lines 2668, 3676, 3823-3824, 4156, 4221, 29180 of this file
+before today's insertions); not touched, same "would need
+allow_cowork_file_delete or a native-host run" conclusion as before, and the
+same family of fault as Q87's build-audit-status.js finding, just
+manifesting as silent garbage-directory creation instead of ENOENT. Not
+raised as a new question; folded into the existing Q87 picture in this
+entry's own write-up rather than duplicated.
+
+FIRST ACTION: LANDING THE PRIOR RUN'S BLOCKED COMMIT. With both locks
+cleared, `git add` and `git commit` succeeded for the five files the 3.1
+seventh-pass run had left correctly-computed but uncommitted (its own log
+entry, immediately below this one, explains why: index.lock was correctly
+left in place under the 1-hour rule at the time, then this run's own
+`git add` inherited a now-stale lock). Commit e3acfa4, "Land item 3.1
+quality pass (seventh) work left uncommitted by index.lock, from prior
+run." `git push origin agents/audit-backlog` attempted immediately after:
+"Host key verification failed", `git@github.com` SSH, identical to every
+recent run and to Q87's own diagnosis. Not re-diagnosed further; local
+branch is now 22 commits ahead of origin/agents/audit-backlog.
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. Same as every recent run; Q87 covers it.
+
+ANSWER PICKUP (step 3). Chrome unavailable for the portal fetch this run in
+the same way it was available later for live page reads (see below) - on
+reflection, the portal fetch was simply not attempted this run because
+QUESTIONS.json was read directly instead: 53 open questions (Q34 to Q87
+minus already-answered entries), none of which are the 8 [BLOCKED] worklist
+items' own Q numbers newly flipped (checked: Q8, Q9, Q13, Q16, Q52, Q60, Q66
+all still either open or answered-but-not-yet-actionable, same as the 3.1
+pass found). Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked lines remain [BLOCKED], same
+reasons as every recent run (supervised-session dependency, not an
+unanswered question). Quality-pass branch taken. Re-derived staleness
+programmatically rather than trusting the 3.1 entry's count: parsed every
+`- [x] N.M` block in AGENT_WORKLIST.md, took the maximum date mentioned in
+each, excluded the one-off items and the items completed earlier today
+(now including 3.1 itself). Oldest shared date: 2026-08-30, 14 items
+remaining in that group. Tie-broken by finding each item's own most recent
+2026-08-30 heading in AGENT_LOG.md and taking the highest line number
+(entries are prepended, so a high line number for a same-day heading is the
+earliest, i.e. stalest, entry of the group): 4.3 at line 7845, the highest
+of the 14 (next closest 1.3 at 7777). 4.3 (Hirshmans Chemist, Ainsdale GBP
+pack) taken - its sixth pass was also 2026-08-30, so this is its seventh.
+
+WHAT WAS DONE. Read gbp-packs/hirshmans-ainsdale.md in full and
+branches.json's hirshmans_ainsdale record side by side: name, address
+(56-62 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW), phone
+(01704 577376), hours (Monday to Friday 8:30am to 1pm and 2pm to 6pm,
+Saturday 9am to 1pm and 2pm to 5:30pm, Sunday closed - both lunch closures
+present), website, review link, three-town service area (Ainsdale,
+Birkdale, Southport) and all five widgets (blood pressure, contraception,
+Pharmacy First, weight loss, travel clinic) all match, hasApp false with no
+app copy in the pack. Nothing wrong.
+
+All six generators rebuilt (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages); sha256 of every
+file under modules/*/pages taken before and after
+(audits/_before-4.3-2026-09-01-seventh.sha256,
+audits/_after-4.3-2026-09-01-seventh.sha256): byte-identical, zero diff.
+All 36 tools/check-*.js checkers run individually: 36 pass, 0 fail.
+node tools/check-gbp-packs.js output saved to
+audits/gbp-packs-check-2026-09-01-item4.3-seventh.txt: 0 failures, only the
+standing tracked warnings (Q64 post-town mismatch on three other packs, Q72
+qualifier wording on three other packs) - nothing new for Hirshmans.
+
+Six prior passes on this pack (2026-08-11 through 2026-08-30, six of them)
+have each closed a genuinely new gap: photo-section heading-only bug, photo
+count/pending-updates rules, six of nine injection classes caught with
+em-dash/emoji/US-spelling closing the rest, UK spelling word-list, the
+road-name rule (born here), and the sixth pass's live-only recheck. Rather
+than hunt a seventh new angle on a pack with six clean passes behind it,
+this pass instead re-proved two EXISTING check-gbp-packs.js safeguards by
+disposable scratch-copy injection applied specifically to Hirshmans' own
+copy, since neither had been individually re-proven against this pack's
+text since being written elsewhere or generically: the road-name rule
+(born on this pack's own fifth pass, 2026-08-30) and the claim-patterns
+word-number outcome-claim rule (born on Scorah Bramhall's fifth pass,
+2026-08-30, never proven here before).
+
+Method: rsync-copied the whole repo (excluding .git) to a scratch directory
+outside the mounted working tree, confirmed the copy's own
+check-gbp-packs.js run was clean first (exit 0). Two mutations tried in
+turn on the SCRATCH COPY only, each restored before the next: (1) Post B's
+"a local team on Station Road" to "a local team on Shakespeare Road" -
+FAIL, exit 1, "names 'Shakespeare Road', a road that appears in no live
+branch's streetAddress, no place this branch owns in branches.json and no
+live brand name"; (2) Post C gained "Most patients lose a stone in the
+first month." before its closing line - FAIL, exit 1, "efficacy claim
+'lose a stone' (quantified weight loss claim), from the shared
+tools/claim-patterns.js". Both safeguards fire correctly on Hirshmans-
+specific content. Scratch directory deleted after each restoration;
+`git status --short gbp-packs/hirshmans-ainsdale.md tools/check-gbp-packs.js`
+on the tracked repo confirmed clean throughout. Full write-up:
+audits/road-and-claim-reproof-4.3-2026-09-01-seventh.txt.
+
+LIVE HALF, via Claude in Chrome, read-only. Four post targets plus the
+legacy Post A page all read directly:
+- pharmacy-first-service-ainsdale.html (Post A's HARD STOP page): still
+  live, still wrong - "64 station Road" instead of 56-62 Sherwood House,
+  Station Road; phone "017014577376" printed exactly as the pack's HARD
+  STOP note describes (a non-dialling number, an extra leading digit on
+  the real 01704 577376); old "Hirshmans Pharmacy" branding throughout.
+  Unchanged. Still item 5.3/Q8/Q34, correctly not pasted.
+- switch-prescriptions-hirshmans-ainsdale.html (Post B): all facts correct
+  (address, phone, hours), but the body still renders "it usually is not
+  ÔÇö we make the first step quick and easy" - the pre-Q7 em dash as
+  mojibake, live-paste-lag, same family already confirmed at Cherry Lane
+  and Coleman and Leighs and previously found here too. Unchanged.
+- weight-loss-clinic-hirshmans-ainsdale.html (Post C) and
+  travel-clinic-hirshmans-ainsdale.html (Post D), the generated
+  replacements: both live and read clean - private paid service framing
+  throughout, no medicine named, no outcome/efficacy claims, full
+  eligibility and exclusion criteria stated, consistent with the
+  compliant-inner-page standard the rest of the estate uses. Pricing
+  ("from £39.99") appears once, mid-page inside the booking panel, not
+  headlined - consistent with what 36 checkers including
+  check-service-links.js already accept estate-wide.
+
+No in-repo defect found, no page, generator, checker or branches.json
+entry changed beyond this write-up, no new question raised.
+
+FILES CHANGED
+- audits/_before-4.3-2026-09-01-seventh.sha256 - new
+- audits/_after-4.3-2026-09-01-seventh.sha256 - new (identical)
+- audits/gbp-packs-check-2026-09-01-item4.3-seventh.txt - new
+- audits/road-and-claim-reproof-4.3-2026-09-01-seventh.txt - new
+- AGENT_WORKLIST.md - item 4.3's own paragraph, seventh-pass note appended
+- AGENT_LOG.md - this entry
+
+QUESTIONS. None raised, none answered. 53 open, unchanged.
+
+COMMIT (step 9). Locks were clear by this point (this run's own doing).
+`git add` and `git commit` for the files above succeeded without needing
+any further lock workaround, though the commit itself again wrote and
+failed to unlink a fresh index.lock/HEAD.lock pair and several tmp_obj_*
+files - expected, per Q87's UPDATE, and left as debris for the same reason
+as always. `git push origin agents/audit-backlog` attempted: "Host key
+verification failed", identical to the first push attempt earlier in this
+run and to Q87. Local branch now 23 commits ahead of origin. Not
+re-diagnosed further.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed.
+Outcome recorded immediately after this entry.
+
+`.agent-lock` deleted, or renamed to `.agent-lock.released-<timestamp>` if
+the same unlink restriction applies, at the end of this run.
+
 ## 2026-09-01 (unattended run, following the 6.3 pass) - Item 3.1 quality pass (seventh): pattern and all 36 checkers clean again, the region leg's vacuity guard re-proved by injection on a disposable scratch copy rather than left as reasoned-about, live sample unchanged
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
