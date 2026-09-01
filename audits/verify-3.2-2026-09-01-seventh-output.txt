@@ -1,0 +1,4 @@
+NOTE pharmacy-scorah-bramhall.html: description names sister town 'Hazel Grove' (excused via serviceAreaList - known pinned case, Q71)
+NOTE pharmacy-scorah-hazel-grove.html: description names sister town 'Bramhall' (excused via serviceAreaList - known pinned case, Q71)
+
+26 Scorah pages checked (own extraction, no import from tools/), 0 failures.

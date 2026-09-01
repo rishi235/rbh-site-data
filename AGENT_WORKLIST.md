@@ -916,6 +916,41 @@ branches.json entry changed, no new question raised.
       serves Weebly's doubled-brand default title (unpasted, queued under
       5.3/5.4) and the Bramhall landing page still 404s (unchanged since
       2026-08-12). Evidence in audits/verify-3.2-2026-08-31.js.
+      Quality pass 2026-09-01: seventh machine pass, REPO HALF ONLY (Claude
+      in Chrome not connected this run, so the live half was not read; see
+      the log). All 36 checkers green before inspection. All six generators
+      rebuilt to a zero diff (sha256 of every file under modules/ before and
+      after, 215 files, byte-identical). A seventh independent extraction
+      (audits/verify-3.2-2026-08-31.js, re-run unmodified) re-read all 26
+      Scorah pages and found them CLEAN on every leg for the seventh
+      consecutive pass: own seoTown in title, description and h1, exactly
+      one of each, no foreign seoTown outside the branch's own
+      serviceAreaList bar the two pinned sister-town landing descriptions
+      Q71 already covers. Proved the guard still bites by injection on a
+      page type not used in the last two proofs: a second
+      "<h1>Pharmacy in Ainsdale</h1>" (a live seoTown absent from Hazel
+      Grove's serviceAreaList) added to contraception-scorah-hazel-grove.html;
+      check-seo-pattern.js caught it immediately ("2 h1 elements, expected
+      exactly 1"), exit code 1. Restored via `git show HEAD:<path>` (git
+      checkout fails to unlink on this mount), sha256-confirmed
+      byte-identical to the original before the edit, all 36 checkers green
+      again, extraction clean again. branches.json's scorah_bramhall and
+      scorah_hazel entries re-read field by field against both packs:
+      address, phone, review link, hours (Bramhall Mon-Fri 09:00-18:00 and
+      Sat 09:00-13:00; Hazel Grove Mon-Fri 09:00-18:00, Saturday ceased 24
+      June 2026, both correctly closedDays Sunday/Saturday+Sunday) - all
+      match. `check-gbp-packs.js` output for both packs unchanged: the same
+      two known WARNs (live-only pfLink target; Q64 post-town vs
+      addressLocality divergence), no new WARN. No drift found, no new
+      fault class, no in-repo defect, no new question. Live half not
+      re-read this pass (browser unavailable); the two previously logged
+      live-only findings (Bramhall and Hazel Grove UTI pages serving
+      Weebly's doubled-brand default title, queued under 5.3/5.4; the
+      Bramhall landing page 404) were not re-confirmed and should not be
+      assumed unchanged without a future browser-available pass. Evidence in
+      audits/verify-3.2-2026-09-01-seventh-output.txt,
+      audits/_before-3.2-2026-09-01-seventh.sha256,
+      audits/_after-3.2-2026-09-01-seventh.sha256.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

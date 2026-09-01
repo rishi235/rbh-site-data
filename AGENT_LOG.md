@@ -1,4 +1,118 @@
-## 2026-09-01 (unattended scheduled run, following the 3.6 seventh pass) - Item 4.1 quality pass (eighth): Fishlocks Chemist Ainsdale GBP pack, all 36 checkers clean, six generators byte-identical, independent verifier (153 checks) unchanged from the sixth/seventh passes, zero in-repo defect; live half read-only found the shared fishlockpharmacy.co.uk site footer misspelling the brand "Fishlock Pharmacy"/"Fishlock Chemist" (missing the "s" item 1.1 standardised) across every page checked, never previously recorded in this item's seven prior passes - raised as Q91. Two already-tracked live-only gaps reconfirmed unchanged (profile-website landing page still 404, Q35; switch page em dash still live, Q45).
+## 2026-09-01 (unattended scheduled run, following the 4.1 eighth pass) - Item 3.2 quality pass (seventh): Scorah Chemists Bramhall/Hazel Grove, all 36 checkers clean, six generators byte-identical, seventh independent extraction clean, cross-town h1 guard reproved by injection on a page type not used in the prior two proofs and restored byte-identical, both branches.json entries re-matched to their packs field by field, zero in-repo defect, no new question. Live half not read this run (Claude in Chrome unavailable); the two standing live-only findings for this item (unpasted UTI page titles under 5.3/5.4, Bramhall landing page 404) were not re-confirmed and should not be assumed unchanged.
+
+ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-task
+runner), with a sandboxed Linux mount of the real `C:\Dev\rbh-site-data` for file
+work and checker/generator runs (no network needed for these), plus the
+Windows-MCP PowerShell tool for git network operations (fetch, pull, commit,
+push) against the real repo path, which holds working SSH credentials - the
+standing Q87 split. `.agent-lock` absent at start; created on the sandboxed
+mount at 2026-09-01T15:34:34Z. No `.git/index.lock` present on either side at
+any point this run. `git fetch origin` from the sandboxed mount failed
+outright with "Host key verification failed" as expected (no SSH key there);
+the same fetch from the Windows PowerShell path succeeded and `git pull
+--ff-only origin agents/audit-backlog` confirmed the branch already matched
+`origin/agents/audit-backlog` at commit 9e64be1 before work began (the
+previous run's 4.1 eighth-pass commit) - no incoming commits missed. The large
+number of stale `.agent-lock.released-*`, `scratchtest*`,
+`.testfile123.todelete` and a malformed `C\uF03A/` (mojibake colon) untracked
+entries already in the tree were left untouched, cleanup being outside this
+run's scope.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected". Unattended run, nobody present to
+resolve it; logged as unavailable and not retried by another route, per the
+procedure's own fallback instruction. 57 questions open at the start of this
+run (Q91 was the previous run's addition); none answered or resolved this run,
+so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Used the same rotation-pool method as the prior run: `git log
+--since "2026-08-25 00:00"` (149 commits) read via the sandboxed mount (no
+network needed for a local log read), excluding the seven established one-off
+items outside the rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), and
+taking the most recent commit timestamp actually mentioning each remaining
+item by a word-boundary regex match on the item number. The oldest such
+timestamp belonged to item 3.2 (2026-08-31 08:14:06, the sixth pass, matching
+its own AGENT_WORKLIST.md paragraph exactly) - every other rotation-pool item
+had a commit later than that, and item 4.1 (this run's predecessor) was
+excluded from being the answer by virtue of having just been touched. 3.2
+taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` checkers run individually: 36/36
+pass, zero failures. `check-gbp-packs.js` full output grepped for "scorah":
+two pre-existing WARNs on each of the two packs, both known and unchanged -
+the shared live-only `pfLink` target warning, and Q64 (post-town vs
+addressLocality divergence in the pack's typed address line, moves with four
+other packs pending Rishi's decision). All six page generators
+(`build-service-pages`, `build-branch-landing-pages`, `build-switch-pages`,
+`build-weight-loss-pages`, `build-travel-clinic-pages`,
+`build-contraception-pages`) rebuilt; sha256 of every file under `modules/`
+taken before and after (215 files): byte-identical, zero diff; `git status
+--short modules/` empty throughout. Independent extraction
+`audits/verify-3.2-2026-08-31.js` re-run unmodified: "26 Scorah pages checked
+(own extraction, no import from tools/), 0 failures", identical result to the
+sixth pass, two NOTE lines for the Q71-pinned sister-town descriptions,
+nothing new. `branches.json`'s `scorah_bramhall` and `scorah_hazel` entries
+read field by field against both packs: address, phone, review link, hours
+(Bramhall Mon-Fri 09:00-18:00 plus Sat 09:00-13:00; Hazel Grove Mon-Fri
+09:00-18:00 only, Saturday trading ceased 24 June 2026, both branches
+correctly listing their closed days) - all match, no drift since the sixth
+pass.
+
+GUARD RE-PROOF BY INJECTION. Rather than only re-reading, this pass proved
+the cross-town/one-h1 guard still bites, on a page type not used in the
+sixth pass's proof (which used `pharmacy-scorah-bramhall.html`) or the
+2026-08-14 pass's proof, to widen rather than repeat the coverage evidence:
+injected a second `<h1>Pharmacy in Ainsdale</h1>` (a live seoTown absent from
+Hazel Grove's own `serviceAreaList`) into
+`modules/service/pages/contraception-scorah-hazel-grove.html`.
+`check-seo-pattern.js` caught it immediately - "contraception-scorah-hazel-
+grove.html: 2 h1 elements, expected exactly 1" - exit code 1. Restored by
+writing `git show HEAD:<path>` back over the file, because `git checkout --`
+fails to unlink on this mount (the same restore method the sixth pass
+recorded); sha256-confirmed byte-identical to the pre-injection file. Full
+36-checker suite re-run clean, `git status --short modules/` empty,
+independent extraction re-run clean again.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field, `branches.json`
+entry or paste sheet was changed (the injection was written and then
+restored byte-identical within this run; no net change landed).
+`gbp-packs/scorah-bramhall.md` and `gbp-packs/scorah-hazel-grove.md` were not
+edited (already correct).
+
+LIVE HALF - NOT READ THIS RUN. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected" (same failure as the answer
+pickup above), so no live page was fetched. This item's two standing
+live-only findings - the Bramhall and Hazel Grove UTI pages serving Weebly's
+doubled-brand default title (unpasted, queued under 5.3/5.4) and the
+Bramhall landing page 404ing - were NOT re-confirmed this run and are
+recorded in the worklist paragraph as not-reconfirmed rather than silently
+carried forward as unchanged, per the discipline several prior repo-half-only
+passes on other items have followed.
+
+FILES CHANGED
+- `audits/verify-3.2-2026-09-01-seventh-output.txt` (new)
+- `audits/_before-3.2-2026-09-01-seventh.sha256` (new)
+- `audits/_after-3.2-2026-09-01-seventh.sha256` (new)
+- `AGENT_WORKLIST.md` (item 3.2's own paragraph, seventh-pass note appended)
+- `AGENT_LOG.md` (this entry)
+
+QUESTIONS. None raised this run. 57 open before, 57 open after; no question's
+status changed (answer pickup unavailable, see above).
+
+COMMIT (step 9) and PUBLISH (step 10) follow this entry via the Windows-MCP
+PowerShell tool against the real repo path, which holds working credentials;
+see the commit this entry's own hash lands in for the exact outcome.
+`.agent-lock` removed at the end of this run.
+
+---
+
+
 
 ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-task
 runner), with a sandboxed Linux mount of the real `C:\Dev\rbh-site-data` for file
