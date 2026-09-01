@@ -1,0 +1,18 @@
+=== REAL TRACKED PAGES ===
+pharmacy-fishlocks-ainsdale.html: CLEAN
+pharmacy-fishlocks-eccleston.html: CLEAN
+pharmacy-mccanns-aigburth.html: CLEAN
+pharmacy-mccanns-sandringham.html: CLEAN
+pharmacy-scorah-bramhall.html: CLEAN
+pharmacy-scorah-hazel-grove.html: CLEAN
+
+=== NEGATIVE TESTS (scratch copy only, tracked files untouched) ===
+Test 1 (bare brandLabel injection): CAUGHT
+    - JSON-LD name is 'Fishlocks Chemist', expected branchName 'Fishlocks Chemist Ainsdale'
+    - JSON-LD name is the bare brandLabel 'Fishlocks Chemist' (ambiguous with sister branch)
+    - data-branch is {'Fishlocks Chemist'}, expected {'Fishlocks Chemist Ainsdale'}
+Test 2 (app-card on non-member branch): CAUGHT
+    - app-card marker present=True, expected False (hasApp=False)
+
+Real pages clean: True
+Negative tests both caught (script proven non-vacuous): True

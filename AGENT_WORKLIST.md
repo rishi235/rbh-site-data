@@ -6296,6 +6296,41 @@ record.
       branches.json entry changed. Evidence:
       audits/verify-5.2-2026-09-01.py and
       audits/verify-5.2-2026-09-01-output.txt.
+      Quality pass 2026-09-01 (seventh, unattended run, rotation-pool pick):
+      repo half only, Claude in Chrome not connected so nothing live was
+      read or claimed this run; the sixth pass's live findings (all six
+      URLs 404, 22+ days queued, Q35 still open) stand unchanged rather
+      than being re-verified. All 36 checkers green before inspection. All
+      six generators rebuilt from branches.json; sha256 of all 189 tracked
+      .html/.js/.css files under modules/ and core/ taken before and after:
+      byte-identical, zero diff. Confirmed branches.json and the
+      landing-page generator/checker files untouched since the sixth pass
+      (`git log 3c590d1c..HEAD` empty for both), so this pass re-confirms
+      rather than re-tests against moved data.
+      NEW ANGLE: these six landing pages are exactly the six branches
+      estate-wide where brandLabel != branchName (Fishlocks, McCanns and
+      Scorah each run two shops on one shared domain - see CLAUDE.md
+      "Which pharmacy does a page say it is"), which makes them the
+      highest-risk pages in the estate for a bare-brandLabel JSON-LD/
+      data-branch bug, and none of the six prior passes tested this
+      specifically against these pages. Wrote a fresh independent script
+      (audits/verify-5.2-2026-09-01-seventh.py, own JSON-LD parsing, no
+      import from tools/) checking, per page: JSON-LD `name` equals the
+      branch's own `branchName` (not the bare shared `brandLabel`),
+      `data-branch` equals `branchName`, and an app-card marker is present
+      if and only if the branch is an app member (true only for the two
+      Fishlocks branches). All six pages clean on all three checks. Proved
+      the script is not a no-op by injection against a scratch temp-dir
+      copy, never the tracked file: swapping Fishlocks Ainsdale's
+      branchName for the bare brandLabel in both the JSON-LD name and
+      data-branch was caught (three mismatch lines, including one flagging
+      it as ambiguous with the sister branch), and adding an app-download
+      sentence to McCanns Aigburth (not an app member) was caught. Tracked
+      files confirmed untouched throughout (`git status --porcelain
+      modules/branch/` empty after both injections). No defect found, no
+      page or generator changed, no new question raised. Evidence:
+      audits/verify-5.2-2026-09-01-seventh.py and
+      audits/verify-5.2-2026-09-01-seventh-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

@@ -1,4 +1,120 @@
-## 2026-09-01 (unattended scheduled run, following the 3.10 seventh pass) - Item 2.1 quality pass (eighth): Fishlocks Ainsdale re-verified clean, repo half only, ZERO DEFECTS
+## 2026-09-01 (unattended scheduled run, following the 2.1 eighth pass) - Item 5.2 quality pass (seventh): six shared-domain landing pages re-verified clean, repo half only, ZERO DEFECTS
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker and generator runs, plus
+Windows-MCP PowerShell for git status/log checks against the real repo
+path, which holds working SSH credentials (the standing Q87 split; not
+re-raised as a duplicate, it is already open and answered=null). The
+sandboxed mount confirmed unusable for git network operations again this
+run ("Host key verification failed" on `git fetch origin`, matching every
+prior run's finding). Real repo, checked via Windows-MCP PowerShell before
+starting work, already on agents/audit-backlog at c8df6f8 (the 2.1
+eighth-pass commit) and up to date with origin; no pull needed since both
+paths share the same working tree and .git directory (the connected
+folder), so the previous run's push already landed. .agent-lock absent at
+start (all prior lock files present only as .agent-lock.released-* debris,
+consistent with Q87's unlink()-blocked filesystem finding); created fresh
+this run. No .git\index.lock present on either path.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected", checked at the start of the
+run. Unattended run, nobody present to resolve it; logged as unavailable
+and not retried by another route, per the procedure's own fallback
+instruction. Open-question count not re-tallied this run (QUESTIONS.json
+is large; no answers could be picked up regardless with the browser
+unavailable).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead, same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all 43 checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the newest commit
+(across all 637 commits, full message body, word-boundary regex so "1.2"
+cannot match inside "1.2x" and "3.1" cannot match inside "3.10") whose
+message mentions that item number. The oldest such timestamp belonged to
+item 5.2 (2026-09-01T02:13:18+01:00, the sixth pass, commit 3c590d1c) -
+every other rotation-pool item had a later commit, all the way through
+2.1's 22:39:55+01:00 eighth pass that closed out the previous run. 5.2
+taken: seventh pass, following passes on 2026-08-09 (build), 2026-08-10,
+2026-08-11, 2026-08-13, 2026-08-14 and 2026-08-30/09-01 (fifth and sixth).
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 exit 0, zero failures, estate-wide. All six page generators
+rebuilt (branch landing, contraception, service, switch, travel clinic,
+weight loss); sha256 of all 189 tracked .html/.js/.css files under
+modules/ and core/ taken before and after: byte-identical, zero diff.
+`git --no-optional-locks status --porcelain modules/ core/ tools/
+branches.json gbp-packs/` empty throughout. Confirmed branches.json and
+the branch-landing generator/checker files unchanged since the sixth pass
+commit (`git log 3c590d1c..HEAD -- branches.json` and the same for
+tools/build-branch-landing-pages.js, tools/check-branch-identity.js,
+tools/check-app-membership.js all empty), so no data or rule drift for
+this item to re-test against.
+
+NEW ANGLE. None of the six prior passes had specifically tested the
+brandLabel/branchName distinction against these six pages, despite these
+six branches being exactly the six branches estate-wide where the two
+strings differ (Fishlocks Ainsdale/Eccleston, McCanns Aigburth/
+Sandringham, Scorah Bramhall/Hazel Grove - CLAUDE.md "Which pharmacy does
+a page say it is"), which makes this item's own six pages the sharpest
+place in the estate to prove check-branch-identity.js is actually biting
+rather than trusting the estate-wide green board. Wrote a fresh
+independent script, audits/verify-5.2-2026-09-01-seventh.py, sharing no
+code with tools/ and using its own JSON-LD parsing (json.loads on the
+extracted <script type="application/ld+json"> block, not a regex over the
+whole page, to avoid false-positive "name" matches inside areaServed
+entries - an early draft of this script did exactly that and had to be
+rewritten). Checked per page: JSON-LD `name` equals the branch's own
+`branchName` and is never the bare shared `brandLabel`; `data-branch`
+equals `branchName`; an app-download marker is present if and only if the
+branch carries `hasApp: true` (Fishlocks Ainsdale and Eccleston only, per
+branches.json). All six pages clean on all three checks.
+
+Guard effectiveness proved by injection, against a scratch temp-directory
+copy of two pages, never the tracked files. Test 1: Fishlocks Ainsdale's
+branchName swapped for the bare brandLabel in both the JSON-LD name and
+data-branch - CAUGHT, three mismatch lines including one naming it
+"ambiguous with sister branch". Test 2: an app-download sentence appended
+to McCanns Aigburth, a non-app-member branch - CAUGHT (app-card marker
+present=True, expected False). `git --no-optional-locks status --porcelain
+modules/branch/` confirmed empty after both injections, proving the
+tracked files were never touched. Script exits 0 only when both the real
+pages are clean and both negative tests are caught, so a future silent
+regression in the script itself (e.g. a check quietly dropped) would show
+as a negative-test failure rather than a false "all clean".
+
+LIVE CHECKS. None this run (Claude in Chrome unavailable, as above). The
+sixth pass's live findings - all six landing URLs still 404, 22+ days
+queued for the Weebly paste (Q35 remains the open decision), one of the
+thirty linked service pages spot-checked and returning 200 - are not
+reconfirmed this run and should be treated as unchanged rather than
+re-verified.
+
+FILES CHANGED. AGENT_WORKLIST.md (5.2's entry appended, seventh pass, item
+stays [x] since it was already marked complete on the first pass).
+audits/verify-5.2-2026-09-01-seventh.py (new). audits/verify-5.2-2026-09-
+01-seventh-output.txt (new). AGENT_LOG.md (this entry).
+
+QUESTIONS. None raised this run. No defect found to raise a question
+about, and no autonomous window was open in which to act on an existing
+one.
+
+GIT. Committed on agents/audit-backlog via the sandboxed path (same
+working tree/.git as the real repo per the Q87 split), then pushed via
+Windows-MCP PowerShell against the real repo path, which holds the working
+SSH credentials the sandboxed path lacks. Commit hash and push confirmation
+recorded in the commit itself; see `git log -1` on either path.
+
+NEXT ROTATION-POOL ITEM. After this commit, item 5.2 moves to the back of
+the 36-item rotation. The next-oldest by newest-mention-commit becomes
+whichever item was second-oldest in this run's ranking, i.e. item 6.3
+(2026-09-01T02:41:29+01:00) unless a future run's commits change the
+ranking first.
+
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
 C:\Dev\rbh-site-data for file work, checker and generator runs, plus
