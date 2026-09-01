@@ -1851,6 +1851,35 @@ Done 2026-08-31 (sixth pass).
       action needed for either; both are paste lag only. No new question
       raised. Evidence in audits/sk-build-check-2026-08-31.txt and
       audits/sk-independent-2026-08-31.js.
+      Quality pass 2026-09-01 (sixth, unattended scheduled run). Taken
+      because all 8 unchecked worklist lines are [BLOCKED]; 3.8 was the
+      rotation-pool item with the oldest last-touching commit. All 36
+      checkers pass before any change. All six generators rebuilt byte-
+      identical across 215 files under modules/ (sha256 before/after, zero
+      diff). Fresh independent extraction sharing no code with tools/
+      (audits/verify-3.8-2026-09-01.js): 12 files, 1,044 checks, 0 flags -
+      one H1 per page naming Bootle, own phone/postcode/street/ODS/WhatsApp
+      present with no other live branch's, JSON-LD matching branches.json
+      field by field, map query decoding to the branch's own address, no
+      foreign seoTown outside serviceAreaList. Guard re-proved by injection
+      on a page type not used for SK Bootle injection before (pharmacy-
+      first-sk-chemists-bootle.html, hub page rather than a leaf condition
+      page): a duplicate H1 naming Aigburth (McCanns' seoTown, not in this
+      branch's serviceAreaList) plus a corrupted data-wa, both caught
+      immediately by check-seo-pattern.js, check-whatsapp-route.js and the
+      independent extraction; file restored and confirmed byte-identical by
+      sha256 and cmp; all 36 checkers and the independent extraction re-run
+      clean. GBP pack cross-checked field by field against branches.json
+      (name, address, phone, both hours directions, website, review link),
+      matches; no sister-branch claim, correctly. ZERO IN-REPO DEFECTS,
+      sixth pass running. LIVE HALF NOT PERFORMED: Claude in Chrome not
+      connected this run (checked twice); logged as unavailable, not
+      retried by another route, and the fifth pass's two live-only findings
+      (pfLink page pre-5.3/Q34 repaste, switch page pre-Q7/5.1 mojibake em
+      dash) were not re-confirmed and should not be assumed unchanged. No
+      new question raised. Evidence in
+      audits/sk-bootle-item-3.8-quality-pass-2026-09-01.txt and
+      audits/verify-3.8-2026-09-01.js.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
