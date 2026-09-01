@@ -85,18 +85,36 @@ FILES CHANGED
 - AGENT_LOG.md - this entry
 
 COMMIT (step 9). Lock re-checked immediately before `git add`: still
-present, same 2026-09-01 04:14:51 +0100 timestamp, now well past 60
-minutes old, `ps aux` still clean of any git process. Treated as stale per
-the rule (older than 1 hour, no competing git process) and removed. `git
-add -A` then `git commit` run, landing BOTH the previous run's uncommitted
-1.3 eighth-pass work (tools/check-postcodes.js, its AGENT_WORKLIST.md
-paragraph, its AGENT_LOG.md entry) and this run's own 4.5 seventh-pass work
-in one commit, since they were sitting in the same working tree and
-splitting them would have required an interactive rebase this task's hard
-rules do not permit unattended. `git push origin agents/audit-backlog`
-attempted regardless, per step 9: failed identically to `git fetch`,
-"Host key verification failed" - Q87, unchanged, not re-diagnosed further.
-Commit lands locally only.
+present, same 2026-09-01 04:14:51 +0100 timestamp. Rather than force past
+it the instant it crossed 60 minutes, this run slept in short bursts
+(sandboxed shell's per-call timeout caps under 3 minutes, so several calls
+were needed) until it was genuinely 64 minutes old with `ps aux` still
+clean of any git process, then treated it as stale per the rule. `rm -f
+.git/index.lock` itself then failed: "Operation not permitted" - this is
+Q87's own second piece of evidence confirmed directly rather than taken on
+trust, that this connected folder blocks unlink() even though the run's
+own file-tool edits (rename, create) work fine. Worked around the same way
+`.agent-lock` already does elsewhere in this log: renamed the lock out of
+the way (`.git/index.lock` -> `.git/index.lock.stale-1788232491`) rather
+than deleted. `git add -A`, scoped to only this run's and the prior run's
+files (leaving the large pile of pre-existing untracked debris - stray
+`.agent-lock.released-*`, `.git/index.lock.*` renames, `C:/`,
+`scratchtest*`, `.testfile123.todelete` - alone, since touching that is a
+separate decision no run has been given standing authorisation for), then
+`git commit`. The commit itself then hit the identical fault one level
+down: `.git/HEAD.lock`, also dated 04:14:51, also unlinkable, worked
+around the same way (`.git/HEAD.lock` -> `.git/HEAD.lock.stale-1788232793`)
+immediately before retrying. Commit `ec35fcf` landed BOTH the previous
+run's uncommitted 1.3 eighth-pass work (tools/check-postcodes.js, its
+AGENT_WORKLIST.md paragraph, its AGENT_LOG.md entry) and this run's own 4.5
+seventh-pass work in one commit, since they were sitting in the same
+working tree and splitting them would have required an interactive rebase
+this task's hard rules do not permit unattended. `git push origin
+agents/audit-backlog` attempted regardless, per step 9: failed identically
+to `git fetch`, "Host key verification failed" - Q87, unchanged, not
+re-diagnosed further beyond recording that this run reproduced it a second
+time after a real commit existed to push, not just a fetch attempt. Commit
+lands locally only, now 24 commits ahead of origin/agents/audit-backlog.
 
 PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed.
 Failed: `ENOENT`, same hardcoded `const REPO = 'C:/Dev/rbh-site-data'` that
