@@ -1,4 +1,120 @@
-## 2026-09-01 (unattended run, following the 2.3 seventh pass) - Item 3.3 quality pass (seventh): Fishlocks Chemist (Ainsdale and Eccleston) re-verified clean on all 36 checkers, zero in-repo defect; cross-town guard re-proved by injection and cleanly restored; live half performed via read-only fetch and reconfirms the standing Q37 footer set unchanged, no new finding, no new question.
+## 2026-09-01 (unattended run, following the 3.3 seventh pass) - Item 4.7 quality pass (eighth): McCanns Chemist Sandringham GBP pack re-verified clean on all 36 checkers, zero in-repo defect; three fresh injections (sister-branch address swap, NHS cohort widening, catchment membership) all caught and restored; live half performed via read-only fetch, all findings (Q35 landing page 404, unpasted Sandringham titles on four content pages, unchanged sitemap) reconfirmed unchanged, no new finding, no new question.
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T11:04:38Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key
+for git@github.com there) - the standing Q87 diagnosis, reconfirmed. No
+global gitconfig, credential helper, `.netrc` or SSH key exists in that
+sandbox. Per established precedent, all git network operations (fetch,
+checkout, pull, add, commit, push) were instead run via the Windows-MCP
+PowerShell tool directly against the real `C:\Dev\rbh-site-data`, which
+holds working credentials; the sandboxed mount was used only for file
+reads/edits and running the node checkers/generators, which need no
+network access. One self-inflicted lock was hit and cleared this run: a
+plain `git status` issued from the Linux mount (to sanity-check for
+debris) created a fresh, 0-byte `.git/index.lock` that the mount could
+not unlink ("Operation not permitted", the standing FUSE restriction);
+confirmed no git process was running (`Get-Process git`) and removed it
+via PowerShell within the same minute it was created, since it was this
+run's own artefact rather than another run's abandoned lock - not a
+1-hour-stale case, a same-run cleanup. Lesson carried forward: avoid
+`git status`/`git add`/any index-touching command via the Linux mount
+entirely; do all git operations via PowerShell only.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `list_connected_browsers` showed
+two Chrome extensions connected to this account ("Browser 1", "Browser
+2"), and the tool's own response requires an explicit human choice via
+AskUserQuestion before any browser action can proceed. This is an
+unattended run with nobody present to answer, so pickup was logged as
+unavailable and not retried by any other route, per the procedure's own
+fallback instruction - the same Q59 blocker several other runs today
+have hit. 55 questions remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run. Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED], so this run took a
+quality pass rather than a worklist item. Re-derived the least-recently-
+verified item with a Python scan of AGENT_WORKLIST.md that bounds each
+top-level "- [x] N.N" item's own paragraph properly (start line to the
+next top-level item), rather than a fixed line window, because two
+things earlier today showed a window-based scan can mislead: the initial
+naive "most recent quality-pass heading date" method (used to pick 3.3)
+found a different, wider tied set than the "rotation pool" concept a
+separate run derived the same day, and item 4.10's own entry recorded
+that a window-based re-scan wrongly concluded item 4.11 had only one
+pass (2026-08-10) when 4.11's own paragraph in fact records seven,
+ending 2026-08-31. Using the accurate whole-paragraph scan across all
+43 checked items: the oldest last-touched date remaining is 2026-08-30,
+shared by four items (4.2, 4.7, 1.2, 5.7). 1.2 was excluded as already
+established (by an earlier run today) as touched twice that day and not
+genuinely the stalest; 5.7 was excluded as one of the seven established
+one-off items outside the rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8). Between the remaining two, 4.7 and 4.2, an earlier run today
+derived a same-day commit-position ordering placing 4.7 (position 54 on
+2026-08-30) before 4.2 (position 57); 4.7 (McCanns Chemist Sandringham
+GBP pack) was taken.
+
+WHAT WAS DONE. gbp-packs/mccanns-sandringham.md re-read in full; every
+fact re-checked against branches.json's mccanns_sandringham record
+(address, phone, review link, hours, hasApp, catchment order and
+membership, all four post links). Character counts recomputed
+independently in Node: description 713, posts A-D 463/298/518/425, all
+five exact. `node tools/check-gbp-packs.js`: 0 failures (21 pre-existing
+warnings elsewhere in the estate, all already tracked, none new). All 36
+`tools/check-*.js` checkers run individually: 36/36 exit 0. All six page
+generators rebuilt; sha256 of all 182 files in modules/**/pages/*.html
+taken before and after: byte-identical, zero diff.
+
+Three injection tests, each on a disposable backup restored by plain
+file copy (md5sum-confirmed identical to the pre-injection original
+before continuing, not `git checkout --`): (1) street address swapped to
+sister McCanns Aigburth's "112 Aigburth Road" - caught two ways by
+check-gbp-packs.js (sister-identity rule and address-presence rule),
+exit 1; (2) Post A's NHS cohort widened from "16 to 64" to "16 to 65" -
+caught by check-pharmacy-first-eligibility rule 9 (2 failures, both ages
+named), exit 1 confirmed by a standalone re-run after the first attempt's
+exit code was masked by piping through `tail` in the same shell command
+(a bash mistake on this run's part, caught and corrected before writing
+it up, not a checker defect); (3) services-section catchment line changed
+from "...and Dingle" to "...and Woolton" (not in this branch's own
+serviceAreaList) - caught by check-gbp-packs.js's catchment membership
+rule, exit 1. All three restored; full 36-checker suite re-run clean
+after the final restore, pack file md5sum unchanged throughout
+(1fdab7c3402db5b18dfcda0d4bd59bb4).
+
+LIVE HALF. Claude in Chrome unavailable (see ANSWER PICKUP above, same
+underlying cause). Performed instead via plain read-only
+`Invoke-WebRequest` (GET only) against the real host, the same
+established substitute this audit has used before when the browser is
+unavailable. pharmacy-mccanns-sandringham.html: still 404 (Q35),
+unchanged. pharmacy-first-mccanns-sandringham.html,
+switch-prescriptions-mccanns-sandringham.html,
+weight-loss-clinic-mccanns-sandringham.html and
+travel-clinic-mccanns-sandringham.html: all 200, all still serve the
+unpasted default title and body copy leading with "Sandringham" rather
+than "St Michael's" - the same queued-repaste lag recorded on every
+prior pass, not a new finding. sitemap.xml: lastmod still
+2026-08-14T23:05:25+00:00 throughout and the landing page still absent
+from it, confirming no republish since the seventh pass's own reading.
+
+No in-repo defect found. No new question raised. Evidence:
+audits/mccanns-sandringham-gbp-pack-check-2026-09-01.txt.
+
+PROCESS NOTE ON DEBRIS (not fixed, out of scope for this item): running
+`build-service-pages.js` from the sandboxed Linux mount confirmed a
+pre-existing, harmless issue - the generator's PASTE_PACK output uses an
+absolute Windows path (`C:/Users/rishi/OneDrive - RB Healthcare
+Ltd/Downloads/cowork/PASTE_PACK`), which the Linux mount resolves as a
+literal `C:` directory inside the repo tree rather than the real Windows
+location. This is the source of the untracked `C:/` folder already
+visible in `git status` before this run started. The tracked page output
+in `modules/**/pages/` is unaffected (confirmed byte-identical above).
+Not cleaned up, as it is outside this item's scope; flagged here so the
+next run does not mistake it for something this pass introduced.
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T10:34:35Z. That mount's `git fetch

@@ -1,0 +1,106 @@
+Item 4.7 quality pass (eighth) - McCanns Chemist Sandringham GBP pack
+Run: 2026-09-01, unattended (audit-backlog-worker scheduled task)
+
+SELECTION METHOD
+All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6)
+reconfirmed [BLOCKED], so this run took a quality pass. Re-derived the
+"least recently verified" item from scratch using a proper block-bounded
+scan of AGENT_WORKLIST.md (every top-level "- [x] N.N" item's own
+paragraph, from its declaration line to the next top-level item, rather
+than a line-window heuristic), because two runs earlier today (item 4.10's
+own pass, and its stale-lock diagnosis note) each recorded a case of an
+inaccurate window-based scan understating an item's true pass history -
+4.10's own note wrongly concluded item 4.11 had a single pass on
+2026-08-10, when 4.11's own paragraph in fact records seven passes ending
+2026-08-31. Using the accurate scan, the items whose own paragraph's
+most recent date is 2026-08-30 (the oldest date left, all other checked
+items having already been touched today or on 2026-08-31) are: 4.2, 4.7,
+1.2, 5.7. Of these, 1.2 was separately established earlier today as
+touched twice on 2026-08-30 (not genuinely the stalest), and 5.7 is on
+the established one-off exclusion list (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8
+are one-offs, not part of the rotation pool). Between the remaining two,
+4.7 and 4.2, a same-day commit-position ordering derived earlier today
+(following the 4.5/4.6 runs) placed 4.7 (commit position 54 on
+2026-08-30) before 4.2 (position 57), so 4.7 was taken.
+
+WHAT WAS DONE
+gbp-packs/mccanns-sandringham.md re-read in full and every fact
+re-checked against branches.json's mccanns_sandringham record: name,
+street address (1b Aigburth Road, Liverpool L17 4JP), phone
+(0151 727 3076), review link (https://g.page/r/CbMDr1qOLqnrEAE/review),
+hours (Mon-Fri 9:00-13:00 and 14:00-18:00, Sat/Sun closed), hasApp false
+with no app mention, catchment "St Michael's, Aigburth, Lark Lane and
+Dingle" matching serviceAreaList exactly in order, and all four post
+links resolving to this branch's own generated pages. Character counts
+recomputed independently in Node rather than trusted: description 713,
+posts A-D 463/298/518/425 - all five exact matches to the pack's own
+claims.
+
+`node tools/check-gbp-packs.js`: 0 failures (21 pre-existing warnings
+across other packs, all already tracked under Q64/Q72 etc., none new).
+All 36 `tools/check-*.js` checkers run individually: 36/36 exit 0.
+
+All six page generators (build-service-pages, build-branch-landing-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages) rebuilt. sha256 of all 182 files in
+modules/**/pages/*.html taken before and after: byte-identical, zero
+diff. (Note: build-service-pages.js also writes a PASTE_PACK copy to an
+absolute Windows path, C:/Users/rishi/OneDrive - RB Healthcare
+Ltd/Downloads/cowork/PASTE_PACK; run from the sandboxed Linux mount this
+resolves to a literal "C:" directory inside the repo tree rather than the
+real Windows location - pre-existing, harmless to the tracked output,
+already visible as untracked debris from earlier runs, not touched or
+cleaned up by this pass as it is outside this item's scope.)
+
+INJECTION TESTS (three, each on a disposable backup, each restored and
+re-verified byte-identical by md5sum before continuing)
+1. Address swap: "1b Aigburth Road" changed to sister McCanns Aigburth's
+   "112 Aigburth Road" in the profile-basics line. check-gbp-packs.js
+   caught it two ways: the sister-identity rule ("belongs to McCanns
+   Chemist Aigburth, not McCanns Chemist Sandringham") and the address
+   line-presence rule. Exit 1.
+2. NHS eligibility: Post A's "uncomplicated water infections in women
+   aged 16 to 64" changed to "16 to 65". check-pharmacy-first-eligibility
+   rule 9 caught it (states age 16 and age 65, neither part of any pinned
+   NHS cohort). Exit 1, 2 failures reported. (First run of this injection
+   was piped through `tail` in the same shell command, which masked the
+   real exit code behind `tail`'s own status - re-run standalone to
+   confirm 1 before recording it here, so the number above is verified,
+   not assumed.)
+3. Catchment membership: the services-section catchment line changed from
+   "...Lark Lane and Dingle." to "...Lark Lane and Woolton." (Woolton is
+   in nobody's serviceAreaList for this branch). check-gbp-packs.js caught
+   it: "catchment list names Woolton, which is not in this branch's
+   serviceAreaList". Exit 1.
+All three restored via plain file copy from a pre-injection backup (not
+`git checkout --`, consistent with this repo's established convention on
+the sandboxed mount); md5sum of the restored file matched the
+pre-injection original exactly (1fdab7c3402db5b18dfcda0d4bd59bb4) each
+time. Full 36-checker suite re-run clean after final restore.
+
+LIVE HALF
+Performed via plain read-only HTTP GET (Invoke-WebRequest) against the
+real C:\Dev\rbh-site-data host, not the Claude in Chrome browser tools:
+two Chrome extensions are connected to this account and an unattended run
+cannot choose between them (Q59), so browser-based verification was
+unavailable, and a plain GET is the established substitute this audit has
+used before when the browser is unavailable (e.g. check-live-hours.js,
+sweep-broken-links.js) - not a browser-automation tool, no clicking,
+typing or submitting.
+
+- pharmacy-mccanns-sandringham.html: 404, unchanged (Q35).
+- pharmacy-first-mccanns-sandringham.html: 200, title "Pharmacy First at
+  McCanns Chemist, Sandringham - MCCANNS PHARMACY", body still says
+  "Sandringham" not "St Michael's" - unpasted default, unchanged.
+- switch-prescriptions-mccanns-sandringham.html: 200, same unpasted
+  Sandringham state, unchanged.
+- weight-loss-clinic-mccanns-sandringham.html: 200, same, unchanged.
+- travel-clinic-mccanns-sandringham.html: 200, same, unchanged.
+- sitemap.xml: lastmod still 2026-08-14T23:05:25+00:00 throughout, and
+  pharmacy-mccanns-sandringham.html still absent from it - no republish
+  since the 08-30 pass's own reading, so the recorded repaste backlog is
+  unchanged, not a new finding.
+
+No in-repo defect found. No new question raised. Q35, Q39 and the
+queued-repaste lag all reconfirmed unchanged for the eighth consecutive
+pass.

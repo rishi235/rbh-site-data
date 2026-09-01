@@ -3374,6 +3374,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       branches.json pfLink deliberately untouched (item 5.3's business,
       still [BLOCKED]). No in-repo defect found this pass. No new question.
       Evidence: audits/mccanns-sandringham-gbp-pack-check-2026-08-30.txt.
+      Quality pass 2026-09-01 (eighth): re-derived the least-recently-
+      verified rotation item with a proper block-bounded scan of this
+      whole file rather than a line-window heuristic (a window heuristic
+      had just been shown, in item 4.10's own entry, to under-read a
+      different item's pass history), confirming 4.7 as the correct pick
+      over 4.2 by same-day commit position. Every fact re-checked against
+      branches.json: address, phone, review link, hours, hasApp, catchment
+      order and membership, all four post links. Counts re-measured
+      independently: description 713, posts 463/298/518/425, all exact.
+      All six generators rebuilt to a zero-diff worktree (182 pages
+      byte-identical before/after); all 36 checkers exit 0.
+      Three injections proved the guards rather than reciting them, each
+      on a disposable backup restored by plain file copy and confirmed
+      byte-identical by md5sum before continuing: (1) street address
+      swapped to sister McCanns Aigburth's "112 Aigburth Road" - caught by
+      both the sister-identity rule and the address-presence rule in
+      check-gbp-packs.js; (2) Post A's NHS cohort widened from "16 to 64"
+      to "16 to 65" - caught by check-pharmacy-first-eligibility rule 9
+      (2 failures, both ages named); (3) the services-section catchment
+      line changed from "...and Dingle" to "...and Woolton" (not in this
+      branch's serviceAreaList) - caught by check-gbp-packs.js's catchment
+      membership rule. All three restored and the full 36-checker suite
+      re-run clean.
+      Live half performed via plain read-only HTTP GET (Claude in Chrome
+      unavailable - two Chrome extensions connected, unattended run cannot
+      choose, Q59). All five findings reconfirmed unchanged from the
+      seventh pass: pharmacy-mccanns-sandringham.html still 404 (Q35); the
+      four content pages (Pharmacy First, switch, weight loss, travel
+      clinic) all 200 but still serve the unpasted default title and body
+      copy leading with "Sandringham" rather than "St Michael's"; sitemap
+      lastmod still 2026-08-14T23:05:25+00:00 throughout and the landing
+      page still absent from it, confirming no republish since the
+      seventh pass's own reading. No in-repo defect found. No new
+      question. Evidence:
+      audits/mccanns-sandringham-gbp-pack-check-2026-09-01.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
