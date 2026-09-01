@@ -18,9 +18,21 @@ failed" as expected (no SSH key there); the same fetch from the Windows
 PowerShell path succeeded and `git pull --ff-only origin agents/audit-backlog`
 confirmed the branch already matched `origin/agents/audit-backlog` at commit
 e5af8e9 before work began (the previous run's 3.2 seventh-pass commit) - no
-incoming commits missed. This run's commit and push were made from the
-sandboxed mount as in prior runs (see COMMIT below); the Windows path was
-used only for the read-only fetch/pull/log steps.
+incoming commits missed. `git push --dry-run` confirmed the sandboxed mount
+still has no working SSH key (same "Host key verification failed"), so this
+run's commit and push were made via the Windows PowerShell path as well (see
+COMMIT below), not the sandboxed mount.
+
+INDEX.LOCK BLOCKER (new this run). The stray `.git/index.lock` noted above
+was not merely cosmetic: the first `git add`/`git commit` attempt from the
+Windows PowerShell path failed outright with "Unable to create
+'C:/dev/rbh-site-data/.git/index.lock': File exists", because the lock file
+the sandboxed mount could not unlink is the same physical file the Windows
+path sees. `Remove-Item .git\index.lock -Force` from the Windows path
+deleted it without difficulty, and the commit then succeeded on retry. Worth
+carrying forward: when this mount quirk recurs, clear the lock from the
+Windows path, not the sandboxed mount, since only the former can actually
+remove it.
 
 ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
 returned "Claude in Chrome is not connected". Unattended run, nobody present
@@ -115,7 +127,11 @@ COMMIT. Changed files: `AGENT_WORKLIST.md`, `AGENT_LOG.md`,
 `audits/verify-3.5-2026-09-01.js`, `audits/hirshmans-item-3.5-quality-pass-2026-09-01.txt`.
 No file under `modules/` or `branches.json` changed (generators reproduced
 byte-identical output; the injection was made and reverted within this run
-and never committed).
+and never committed). Committed and pushed via the Windows PowerShell path
+to `agents/audit-backlog` as `9e3ca23`, confirmed matching
+`origin/agents/audit-backlog` after a fresh fetch. A second small commit
+follows this one, correcting this section's earlier draft (written before
+the push) which had wrongly assumed the sandboxed mount could push.
 
 ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-task
 runner), with a sandboxed Linux mount of the real `C:\Dev\rbh-site-data` for file
