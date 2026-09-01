@@ -171,7 +171,29 @@ var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 // first place. Negative-tested: the injection above now fails as MISATTRIB;
 // reverted after proving it, then fixed; all 36 checkers and all six
 // generators re-run clean afterwards.
-var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){0,10}([0-9][A-Za-z]{2})\b/g;
+// Widened again on the item 1.3 quality pass 2026-09-01 (eighth pass): the
+// separator recognised only the literal named entity "&nbsp;" and a raw
+// U+00A0 character, not the two numeric character references that mean the
+// same thing, "&#160;" (decimal) and "&#xa0;" (hex, either case). Proved
+// first: Aigburth's postcode, split as "L17&#160;7BP" and again as
+// "L17&#xa0;7BP", written on a line naming McCanns Chemist Sandringham in
+// gbp-packs/mccanns-sandringham.md - the same MISATTRIB shape as every
+// earlier pass on this item - passed all 36 checkers in silence. This is not
+// a new class of gap, it is the SAME one check-nap.js already closed for
+// itself: that file's own unesc() (line 236) has decoded
+// "&nbsp;|&#160;|&#xa0;" case-insensitively since the item 1.4 quality pass,
+// 2026-08-14, and the comment introducing PC_RE_LOOSE's percent-encoding
+// widening already named this exact failure mode ("nobody carried the
+// lesson across to this file") without it being fixed here until now. Fix:
+// both numeric forms added to the separator alternation, the hex form's
+// letters written out in both cases because this regex carries no "i" flag
+// (case is handled by writing [A-Za-z] explicitly in the postcode groups
+// instead, so adding an "i" flag here would also loosen %2B/%20/&nbsp;
+// matching in ways not audited). Negative-tested: the injection above now
+// fails as both FOREIGN and MISATTRIB; reverted after proving it on a
+// scratch copy outside the working tree, then applied here; all 36 checkers
+// and all six generators re-run clean afterwards.
+var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|&#(?:160|[xX][aA]0);|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){0,10}([0-9][A-Za-z]{2})\b/g;
 
 function norm(pc) { return String(pc || "").toUpperCase().replace(/\s+/g, " ").trim(); }
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }

@@ -2943,6 +2943,24 @@ gated on tradingPolicy "closed" so a policy change forces the notes to be
 rewritten. Three negative tests fire, each restored sha256-identical. 36
 checkers pass, all six generators byte-identical, no pasted copy, page or
 data field touched. See audits/scorah-hazel-grove-pack-check-2026-08-30.txt.
+Quality pass 2026-09-01: seventh pass. The pack re-verified clean for the
+seventh time: name, street address, postcode, phone, hours including the 24
+June Saturday closure, review link, catchment order and its five towns
+(matching serviceAreaList exactly), profile website on its own landing page,
+hasApp false honoured, the sister-branch sentence naming Bramhall correctly,
+the bank holiday bullet added last pass still present and still naming
+bankHolidays.dates2026 rather than retyped dates, and the 712-character
+description re-derived independently at exactly 712. The post town on the
+"- Address:" line is Q64 and was not re-raised. Live, read-only, via Claude
+in Chrome: the landing page (pharmacy-scorah-hazel-grove.html) still 404s
+exactly as the paster note anticipates (Q35 class); all four Post A-D button
+targets return 200 and render correctly, including the shared Post A page's
+Hazel Grove contact block; the site footer's "Hazel Grove: ... Mon-Fri
+9am-6pm, Sat & Sun closed" still agrees with branches.json's post-24-June
+hours, no Saturday reappearance. No new defect, no in-repo change beyond
+this note and the audit file. 36/36 checkers pass, all six generators
+untouched. See audits/scorah-hazel-grove-pack-check-2026-09-01.txt. Next
+stalest by the standing projection: 4.6.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
@@ -4673,6 +4691,36 @@ appended to the line. Do not move them; the status page reads them in place.
       36-checker suite and all six generators re-run clean afterwards. No
       new question. Done 2026-08-30. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-08-30-seventh.txt.
+      Quality pass 2026-09-01 (eighth pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to the audit
+      narrating itself; L17 4JP correct in branches.json and used across
+      the estate. All 36 checkers pass, all six generators byte-identical,
+      only the checker changed. The defect was in check-postcodes.js for
+      the eighth time: PC_RE_LOOSE's separator recognised the literal named
+      entity "&nbsp;" and a raw U+00A0 character, but not the two numeric
+      character references that mean the same thing, "&#160;" (decimal) and
+      "&#xa0;" (hex, either case). Proved before fixing: Aigburth's postcode
+      split as "L17&#160;7BP" and again as "L17&#xa0;7BP", written on a line
+      naming McCanns Chemist Sandringham in gbp-packs/mccanns-sandringham.md
+      - the same MISATTRIB shape every earlier pass on this item has found -
+      passed all 36 checkers in silence. Not a new class of gap:
+      check-nap.js's own unesc() has decoded "&nbsp;|&#160;|&#xa0;" since
+      the item 1.4 quality pass, 2026-08-14, and the comment introducing
+      PC_RE_LOOSE's percent-encoding widening already named this exact
+      failure mode without it being fixed here. Fix: both numeric forms
+      added to the separator alternation, written out in both cases for the
+      hex form's letters since this regex carries no "i" flag. Negative-
+      tested on a scratch copy outside the working tree: the injection above
+      failed as both FOREIGN and MISATTRIB after the fix, passed silently
+      before it; reverted after proving, then applied to the tracked
+      checker and re-verified there too. Live half: pharmacy-first-service-
+      aigburth.html re-read, both McCanns contact blocks correct (L17 7BP
+      Aigburth, L17 4JP Sandringham), no CH49 1SX anywhere, "Sandrigham"
+      typo still standing under Q39, nothing new. No new question. Done
+      2026-09-01. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-01-eighth.txt,
+      audits/_before-1.3-eighth-2026-09-01.sha256,
+      audits/_after-1.3-eighth-2026-09-01.sha256 (identical).
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
