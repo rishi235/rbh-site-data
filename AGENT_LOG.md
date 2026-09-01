@@ -1,3 +1,123 @@
+## 2026-09-01 (unattended scheduled run, following the 6.2 fifth pass) - Item 3.4 quality pass (eighth): Cherry Lane Pharmacy Walton re-verified clean, repo half only, ZERO DEFECTS
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker, generator and independent-script
+runs (no network needed and none available - the sandboxed git remote is SSH
+and this mount has no key, "Host key verification failed" on `git fetch`,
+matching every prior run's finding), plus Windows-MCP PowerShell for git
+network operations (fetch, checkout, pull, and the eventual commit/push)
+against the real repo path, which holds working SSH credentials - the
+standing Q87 split. .agent-lock absent at start; created via the sandboxed
+path (timestamp 2026-09-01T20:05:57Z), same underlying mount as the Windows
+path. git fetch/checkout/pull via the Windows path: "Already up to date" on
+agents/audit-backlog, 33ed5ca (the 6.2 fifth-pass commit). No index.lock
+present at start on either path.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the
+run. Unattended run, nobody present to resolve it; logged as unavailable and
+not retried by another route, per the procedure's own fallback instruction.
+57 questions open at the start of this run (unchanged since the previous
+run); none answered or resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead, same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit whose message (subject and body) mentions that item number by a
+word-boundary regex match. The oldest such timestamp belonged to item 3.4
+(2026-08-31T19:52:03+01:00, the seventh pass) - every other rotation-pool
+item had a later commit, including 6.2 which the immediately prior run had
+just brought current (2026-09-01T20:13:45+01:00, the newest of all 36). 3.4
+taken: Cherry Lane Pharmacy (Walton), eighth pass following 2026-08-04
+(build), 2026-08-12, 2026-08-13, 2026-08-14, 2026-08-30 and 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 pass, zero failures. All six page generators rebuilt; sha256
+of every .html/.js/.css file under modules/ and core/ taken before and after
+(189 files): byte-identical, zero diff; git status --porcelain modules/
+core/ empty throughout.
+
+Wrote an eighth independent extraction, audits/verify-3.4-2026-09-01-eighth.js,
+sharing no code with tools/ and not copied from the seventh pass's script
+(structure kept similar for comparability, logic re-derived from
+branches.json and the page conventions rather than reused). Covers all 12
+Cherry Lane pages (11 service, 1 switch): SEO title/description/h1 counts,
+paste-sheet agreement, own town Walton present, no foreign live branch's
+seoTown present (serviceAreaList excuse applied), a service word for the
+page type in title/description/h1, own phone and postcode present with no
+other branch's phone or postcode anywhere, title <=65 and description
+80-165 characters, JSON-LD present with addressLocality "Liverpool" (the
+postal town, not seoTown) and a tel: link, no other branch's widget id
+anywhere, data-wa="447521775631" on every page carrying a module root with
+no foreign whatsapp number, and the switch banner pointing at Cherry Lane's
+own switch page. 1,918 checks, 0 failures.
+
+Two checks added beyond the seventh pass's coverage. First, a positive
+re-test of the two weebly-paste replacement blocks
+(cherry-lane-old-weight-loss-replacement.html,
+cherry-lane-old-pharmacy-first-replacement.html): the postal address string
+must read "202 Cherry Lane, Liverpool L4 8SG" verbatim. This is the fourth
+pass's real defect (2026-08-13) turned into a standing regression guard -
+that defect was the seoTown "Walton" typed inside the postal address
+between street and postal town, and a scan that only checks for the
+ABSENCE of "Walton" would not catch a different wrong word landing in the
+same slot. Both blocks passed. Second, confirmed
+tools/check-service-links.js's widening from this run's own earlier item
+(6.2 fifth pass, which taught RULE 2 and RULE 3 to read
+modules/service/service.js and modules/switch/switch.js for JS-injected
+patient-facing copy) actually names both files in its own source, so Cherry
+Lane's Pharmacy First and switch pages are inside that new scan rather than
+silently excluded by a stale reference. Confirmed.
+
+Guard effectiveness re-proved by injection rather than trusted on inspection
+alone. Picked weight-loss-clinic-cherry-lane-walton.html for the data-wa
+injection because it is untried for Cherry Lane specifically - the sixth
+pass injected into the UTI block and the seventh pass injected into the UTI
+page a second time, so this pass used a different page type. Set
+data-wa="447999999999" (a foreign-shaped number, no live branch's own):
+the eighth-pass verify script failed correctly (1 failure, exact page and
+field named) and so did tools/check-whatsapp-route.js
+("[page agreement] ... data-wa=\"447999999999\" but branches.json agrees
+on 447521775631"). Restoration hit the same sandbox limitation this log has
+recorded before: `git checkout --` on the file returned "unable to unlink
+... Operation not permitted" and left the page mutated on disk with the
+injected value still in place. Per the standing lesson already written into
+this repo's CLAUDE.md ("a test harness must restore by byte copy, not from
+git"), restored by reversing the exact injected string directly rather than
+retrying git checkout; sha256 of the restored file compared byte-for-byte
+against `git show HEAD:<path>` and matched exactly. A stray `.git/index.lock`
+left behind by the failed checkout was cleared via the Windows PowerShell
+path (same sandbox unlink restriction, real filesystem has no such
+restriction). Re-ran the full 189-file sha256 sweep and the 36 checkers a
+second time after restoration: byte-identical, 36/36 pass, confirming the
+injection left no trace.
+
+RESULT. Zero in-repo defects. No new question. Live half not read this run
+(Claude in Chrome unavailable) - the seventh pass's two live findings (Q86,
+the cross-branch Scorah mailto addresses in the site-wide contact widget
+and the stale pre-fix wording still live on the weight-loss-clinic-walton.html
+old-URL bridge page) and the Q36 footer typo stand unverified rather than
+reconfirmed this pass. Also unread this run, for the record: item 2.3's
+2026-09-01 pass (a different worklist line for the same branch, covering the
+branch landing page rather than the service pages this item owns) found a
+live regression on the Pharmacy First overview page and raised it as Q89;
+this item's own tracked page set does not include that live page's rendered
+state, and confirming or refuting Q89 needs the same unavailable browser, so
+it is left exactly as 2.3 recorded it rather than re-asserted here.
+
+STEP 9-11. AGENT_WORKLIST.md line for 3.4 updated in place with this pass's
+findings (ticked already; the quality-pass paragraph appended). This log
+entry added. QUESTIONS.json unchanged (no new question, none answered this
+run - Claude in Chrome unavailable for pickup). Commit and push via the
+Windows PowerShell path (sandboxed mount has no SSH key). Status page
+publish via tools/build-audit-status.js. .agent-lock deleted at the end.
+
 ## 2026-09-01 (unattended scheduled run, following the 3.13 fifth pass) - Item 6.2 quality pass (fifth): broken/mistargeted internal links and claim/POM copy, repo half only, ONE REAL DEFECT FOUND AND FIXED - RULE 2 and RULE 3 never read the two JS files that inject patient-facing copy into a page at runtime
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of

@@ -1294,6 +1294,36 @@ neither touches a generated page, generator or branches.json field, so
 nothing was fixed and nothing regenerated. Known Q36 footer typo
 (pharmacy.FA226@mhs.net) re-confirmed present and unchanged on both old-URL
 pages, not re-raised.
+Quality pass 2026-09-01 (eighth): REPO HALF CLEAN, ZERO DEFECTS. Live half not
+read this run (Claude in Chrome not connected), so the seventh pass's two live
+findings (Q86 cross-branch Scorah mailto addresses in the site-wide contact
+widget; the stale 2026-08-05 wording still live on the weight-loss-clinic-
+walton.html bridge page) and the Q36 footer typo stand unverified rather than
+reconfirmed. All 36 checkers pass; all six generators rebuilt and 189
+modules/core files sha256-hashed before and after, byte-identical, zero diff.
+An eighth independent extraction sharing no code with tools/
+(audits/verify-3.4-2026-09-01-eighth.js): 1,918 checks across all 12 pages, 0
+failures, repeating every seventh-pass invariant (counts, sheet agreement,
+own/foreign town, service words, phone/postcode isolation, lengths, JSON-LD
+postal-town Liverpool, tel:, foreign widget ids, data-wa/whatsapp) plus two new
+ones: a positive re-test that both weebly-paste replacement blocks' postal
+address string reads "202 Cherry Lane, Liverpool L4 8SG" verbatim with no
+seoTown inserted (the exact fourth-pass citation-consistency fault, now a
+standing regression guard rather than an absence-of-Walton scan that could
+miss a different wrong word in the same slot), and a check that
+check-service-links.js's item-6.2-fifth-pass widening (landed earlier in this
+same run) actually names modules/service/service.js and
+modules/switch/switch.js rather than silently excluding Cherry Lane's
+Pharmacy First and switch pages from the new JS-injected-copy scan. Guard
+effectiveness re-proved by injection: data-wa on
+weight-loss-clinic-cherry-lane-walton.html (untried page type for Cherry
+Lane injection testing; prior passes used the UTI page twice) set to a
+foreign number, both the verify script and tools/check-whatsapp-route.js
+fired correctly, restored by direct byte-level reversal rather than git
+checkout (sandbox mount blocks unlink on this file, matching the
+documented Q87-adjacent finding), sha256 confirmed identical to HEAD
+afterward and the full 189-file estate confirmed byte-identical again. No
+in-repo defect, no new question. Done 2026-09-01
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
