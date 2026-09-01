@@ -1,4 +1,193 @@
-## 2026-09-01 (unattended run, following the 4.10 sixth pass) - Item 4.9 quality pass (seventh): Clear Chemist Aintree GBP pack re-verified clean on all 36 checkers and a fresh 23-check independent extraction; live half closes the loop the sixth pass could not, confirming Q28's phone fix (0151 203 6535) is now live and matches branches.json and the pack for the first time an unattended run has checked it after the fix landed; Q21 (Clear's own WhatsApp) and Q29 (all three post-target pages still 404 on the e-commerce site) both reconfirmed unchanged; PROCESS NOTE: the previous run's flag of 4.11 as "the true stalest item" was itself wrong - 4.11 had in fact been through a seventh pass the day before (2026-08-31) - and this run's own first two automated staleness derivations were also wrong before a third, paragraph-boundary-based method settled on 4.9; see ITEM SELECTION below for what each method got wrong and why
+## 2026-09-01 (unattended run, following the 4.9 seventh pass) - Item 4.12 quality pass (seventh): Coleman and Leighs Pharmacy Walton GBP pack re-verified clean on all 36 checkers, nine fresh injections proved (eight caught, one correctly WARN-only on a boundary case), Q76's sister-branch-name gap re-confirmed still live for the third time; live half performed for the first time since 2026-08-12, both known live faults (Post A pfLink 404, mixed-trading-name paste) reconfirmed unchanged; PROCESS NOTE: corrected a "84-name" miscount of tools/pom-names.js that has now appeared in at least two passes' own write-ups (this item's sixth pass and 4.9's seventh pass) - the file is and has always been 82 names, unchanged since its only commit on 2026-08-11
+
+LOCK AND ENVIRONMENT. Repo reached at
+/sessions/cool-wizardly-bohr/mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data; edits and local commits land on the real repo, per
+every prior run's own note that this procedure assumes the native Windows
+environment but actually runs in Cowork's sandboxed Linux shell. No
+`.agent-lock` present at the start (only `.agent-lock.released-*` and
+similar debris from many earlier runs, left untouched, out of this run's
+scope). Created `.agent-lock` fresh. `.git/index.lock` and `.git/HEAD.lock`
+were both present at the start, dated 07:15 BST, ~30 minutes old at the
+first check - under the 45-minute `.agent-lock` threshold this worker's
+instructions set, but that threshold is this run's own stuck-run guard, not
+a rule about `.git/`'s locks, and the root cause Q87 and several prior
+entries have already diagnosed (this connected folder allows create and
+rename-to-a-new-name but blocks unlink and same-name overwrite from the
+shell, so git's own crash-safety cleanup writes a lock, completes the
+write, then silently fails to unlink it) means an empty, unlinkable
+`.git/index.lock` or `.git/HEAD.lock` here is never evidence of a real
+concurrent process; `ps aux` confirmed no git process running before
+either was touched. Both were renamed away (not deleted) to
+`.git/index.lock.stale-<ts>-cleared` and `.git/HEAD.lock.stale-<ts>-cleared`
+once this run had real work to commit, the same workaround every recent
+run has used. `git fetch origin` failed exactly as Q87 predicts, "Host key
+verification failed"; not re-diagnosed. Local branch confirmed a
+straightforward unpushed backlog ahead of `origin/agents/audit-backlog`,
+not a divergence.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab per
+target, closed between uses, nothing clicked, typed or submitted beyond
+navigation and text extraction. https://data.rbhealth.co.uk/api/feedback
+returned 28 entries, the same set recent runs have read (Q2-Q5, Q13-Q22,
+Q24, Q28, Q29, newest still Q29 at 2026-08-30T17:01). Cross-checked against
+QUESTIONS.json: all 17 distinct ids already recorded "answered" with
+matching text. Nothing to reconcile, including Q76 and Q87, both still
+open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading at the top of this log at the start of this run. Proceeded
+normally; step 8's exception did not apply.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED], so this is a quality
+pass. Staleness derived by the paragraph-boundary method the 4.9 run
+trusted (extracting each of the 51 items' own text block between checkbox
+lines and taking the latest YYYY-MM-DD it contains), cross-checked against
+git commit timestamps rather than dates alone, since AGENT_WORKLIST.md
+only records the date and several items tie on the same day. Of the 36
+eligible items (43 done minus the seven established one-offs), eight tied
+on 2026-08-30: 4.9 (12:11, now re-verified today by the immediately prior
+run), 4.12 (13:11), 4.13 (13:46), 4.15 (14:45), 2.3 (15:11), 4.7 (16:41),
+4.2 (18:47), 1.2 (21:43) - commit hashes and timestamps confirmed directly
+against each item's own commit (96208d6, 45425b9, 1bde5cf, 95c8fc4,
+7a02154, d31e201, db4c503). With 4.9 now current, 4.12 (13:11) is the
+least recently verified. Taken as this run's item.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` run fresh before any inspection:
+all green, zero failures. `node tools/check-gbp-packs.js` reconfirmed the
+one WARN naming this pack unchanged (Post A's pfLink is a live-only page
+no checker here can keep correct).
+
+Every fact in gbp-packs/coleman-leigh-walton.md re-verified against
+branches.json (id colemanleigh_liverpool): name, address 241 Walton
+Village Liverpool L4 6TH, phone 0151 525 3522, website, review link,
+hasApp false, both opening-hours sessions (09:00-13:00 and 14:00-18:00
+Monday to Friday, Saturday and Sunday closed) and catchment Walton,
+Liverpool and Sefton. All five character counts (description 631, posts
+456, 321, 528, 433) came back byte-identical to all six earlier passes.
+Zero non-ASCII characters, zero dash characters or entities. Zero hits
+against tools/pom-names.js's medicine-name union - which is 82 names, not
+84: `pom.union(WEIGHT_LOSS, PHARMACY_FIRST, CONTRACEPTION,
+TRAVEL_VACCINES, ANTIMALARIALS).length` is 82 (21+8+2+36+15, no
+duplicates), verified directly by requiring the file rather than trusting
+either prior write-up. tools/pom-names.js has exactly one commit
+(0066bfe, the item 3.13 pass, 2026-08-11) and has not changed since, so
+this was never a shrinking file - both this item's sixth pass and 4.9's
+own seventh pass (see that entry, two below) independently wrote "84",
+which means the same miscount has now propagated at least twice. No
+functional consequence: check-gbp-packs.js calls the union function and
+tests the real list regardless of what number a log entry quotes about
+it, and this pack scores zero hits either way. Recorded here so the next
+run does not copy "84" forward a third time.
+
+Nine injections run against a working copy, one value at a time, each
+followed by the full 36-checker sweep (not just check-gbp-packs.js, after
+an early miscue in this run's own testing showed a brand-name and an
+em-dash injection are check-brand-spelling.js's and check-em-dashes.js's
+jobs respectively, not check-gbp-packs.js's), then restored from a
+pre-run copy and sha256-confirmed byte-identical every time. Eight caught:
+a wrong phone digit inside Post B's own paste-able sentence
+(check-gbp-packs.js, which names the exact reason a WARN-only case below
+would not have caught it); a wrong postcode; a website domain typo in a
+button URL; the ampersand form of the trading name in Post B
+(check-brand-spelling.js, confirming it still reads gbp-packs/); a real
+em dash character in Post D (check-em-dashes.js); a foreign town
+(Aigburth, which is McCanns Aigburth's own seoTown and nowhere in this
+branch's serviceAreaList) added to the description (caught by three
+separate rules at once, including the description-length rule, since the
+extra word also pushed the true count nine characters past the heading's
+stated 631); the review link token; a dropped house number from Post B's
+address; a closing time changed from 6pm to 7pm; and an app mention added
+to the published services section, despite this branch's hasApp being
+false (check-app-membership.js). The ninth deliberately tested a
+boundary rather than a gap: the same wrong phone digit placed instead in
+the "Profile basics (for checking, not pasting)" line, with the correct
+number left standing in Post B, produced only the pre-existing WARN, not
+a FAIL - reading check-gbp-packs.js's own WARN text confirms this is
+because that line is explicitly not paste content and the branch's real
+number is still published elsewhere in the pack, so this is the checker
+behaving correctly rather than a gap. A tenth attempt (an app mention
+placed inside the paster-notes section rather than in published copy)
+was similarly a false alarm from testing the wrong location rather than a
+real gap: check-app-membership.js only tests the business description,
+services section and post bodies with Button: lines stripped, by design,
+because paster notes are guidance to the human pasting the profile and
+never reach the public page themselves; moving the same injection into
+the services section caught it immediately.
+
+Q76's case (a sister branch's trading name substituted for this branch's
+own inside a post body) was re-run a third time: injecting "Cherry Lane
+Pharmacy" for "Coleman and Leighs Pharmacy" in Post C, Cherry Lane being
+the one other RBH branch that shares this branch's Walton seoTown, is
+still MISSED by all 36 checkers. Q76 stands exactly as raised on
+2026-08-14 and still awaits Rishi's decision on scope (branchName only,
+branchName and brandLabel, a positive "must name itself" rule, or leave
+it) - not decided here, since getting the scope wrong risks failing a
+pack that is doing the right thing, exactly as Q76's own note says.
+
+All 7 build-*.js page generators re-run (branch-landing, contraception,
+service, status, switch, travel-clinic, weight-loss); `git status
+--porcelain modules/` empty before and after, so nothing in the estate
+drifted. `tools/build-service-pages.js` again wrote its Windows
+paste-pack path literally inside this Linux mount as a `C:/` directory
+tree, and `tools/build-status-page.js` refreshed `status/index.html`'s
+own timestamp as a normal side effect of being re-run; neither is new
+debris and neither is this run's to clean up.
+
+LIVE HALF, via Claude in Chrome, read-only, one tab, closed between
+pages, nothing clicked, typed or submitted beyond navigation and text
+extraction - performed for the first time since the second and third
+passes (2026-08-11 and 2026-08-12); the four passes in between could not
+reach a working browser session. pharmacy-first-service-walton.html (the
+pfLink Post A's button carries) still returns the site's 404 template,
+so the paster note's hard stop against posting Post A as it stands still
+holds. The replacement page pharmacy-first-coleman-leigh-walton.html is
+still live, in navigation, and still the pre-correction paste: title, H1,
+body copy, header banner, top navigation and footer all read "Coleman &
+Leigh Pharmacy", while the address block the same page carries reads the
+confirmed "Coleman and Leighs Pharmacy" - the identical mixed state first
+recorded 2026-08-12, unchanged across the four unverified passes and now
+reconfirmed directly. switch-prescriptions-coleman-leigh-walton.html,
+weight-loss-clinic-coleman-leigh-walton.html and
+travel-clinic-coleman-leigh-walton.html (Posts B, C, D) all still
+resolve, in the same mixed-name pattern, all still carrying the correct
+phone, address and postcode in their contact cards. The homepage still
+lists "Weight Loss Clinic: Innovative solutions that deliver results.
+Tried the rest? Now try the best." unchanged - the Q22 estate-wide
+tagline, already answered 2026-08-30 as "Unsure, guidance pending", so no
+repo action is due on it from this pass.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field, branches.json
+entry, paste sheet or GBP pack was changed. AGENT_WORKLIST.md's item 4.12
+paragraph gained a seventh-pass note, including the pom-names.js
+correction. No new question raised.
+
+FILES CHANGED
+- AGENT_WORKLIST.md (item 4.12's own paragraph, seventh-pass note
+  appended)
+- status/index.html (regenerated as a side effect of re-running all 7
+  page generators; timestamp only, no content change from this pass's
+  own work)
+- AGENT_LOG.md (this entry)
+
+COMMIT (step 9). `git add AGENT_WORKLIST.md AGENT_LOG.md status/index.html
+&& git commit`, after clearing the inherited `.git/index.lock` and
+`.git/HEAD.lock` as described above. A fresh, empty `.git/index.lock`
+regenerated by the add/commit itself and produced the same harmless
+"unable to unlink" warning on each subsequent git command in this run;
+left in place afterwards per the standing convention, since it is under
+the threshold and this run has nothing further to commit.
+
+PUSH. `git push origin agents/audit-backlog` attempted: expected to hit,
+and did hit, the same "Host key verification failed" SSH failure Q87
+documents. Local branch now further ahead of
+origin/agents/audit-backlog, unpushed, pending Q87.
+
+PUBLISH (step 10). Ran `node tools/build-audit-status.js` regardless, per
+step 10's own instruction.
+
+
 
 EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
 THIS PROCEDURE ASSUMES. Repo reached at

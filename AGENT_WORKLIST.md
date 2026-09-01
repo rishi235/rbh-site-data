@@ -4171,6 +4171,69 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       connection with the standing two-Chrome-instances error (Q59); the
       2026-08-12 live verdicts recorded in this pack stand as written. No
       new question, no in-repo defect. Done 2026-08-30.
+      Seventh quality pass 2026-09-01: pack clean on every fact for the
+      seventh time running, no in-repo defect. All 36 checkers exit 0; the
+      one WARN naming this pack (Post A's pfLink resolving to a live-only
+      page) is unchanged, the same accepted class every pass since the
+      second has carried. Every fact re-verified against branches.json:
+      name, address 241 Walton Village, Liverpool L4 6TH, phone
+      0151 525 3522, website, review link, hasApp false, both opening-hours
+      sessions and catchment Walton, Liverpool and Sefton in all three
+      places. All five character counts came back byte-identical to all
+      six earlier passes (description 631, posts 456, 321, 528 and 433).
+      Zero non-ASCII, zero dash characters, zero dash entities, zero hits
+      against the medicine-name union in tools/pom-names.js. PROCESS NOTE:
+      that union is 82 names (21 + 8 + 2 + 36 + 15 across the five groups),
+      not the 84 the sixth pass's own paragraph states; tools/pom-names.js
+      has had exactly one commit since it was created on the item 3.13 pass
+      (2026-08-11) and has not changed since, so the sixth pass's count was
+      a miscount in its own write-up, not a file that shrank. No functional
+      effect - the checker uses the full union regardless of the number
+      quoted about it - so nothing was fixed, only corrected here.
+      Nine injections run from a harness held outside the repo, one value
+      at a time, all restored and sha256-confirmed byte-identical after
+      every one. Eight were caught: a wrong phone digit inside Post B's own
+      paste-able body (check-gbp-packs.js, which explicitly distinguishes
+      this from the WARN-only case below), a wrong postcode, a website
+      domain typo in a button URL, the ampersand form of the trading name
+      in Post B (check-brand-spelling.js, confirming its GBP-pack coverage
+      still holds), a real em dash character in Post D (check-em-dashes.js),
+      a foreign town (Aigburth, McCanns' own seoTown) in the description
+      (three separate rules, including the description-length rule since
+      the extra word pushed the count past its stated heading), the review
+      link token, a dropped house number, a wrong closing time, and an app
+      mention added to the published services section despite hasApp being
+      false (check-app-membership.js). One deliberately proved a boundary
+      rather than a gap: the same wrong phone digit placed in the "Profile
+      basics (for checking, not pasting)" reference line, with the correct
+      number still standing in Post B, produced only the known WARN, not a
+      FAIL, because that line is explicitly not paste content and the
+      correct number remains published elsewhere - confirmed as intended
+      behaviour, not a defect, by reading check-gbp-packs.js's own WARN
+      text. Q76's own case was re-run a third time to confirm it is still
+      live: a sister branch's name (Cherry Lane, which shares this
+      branch's Walton seoTown) substituted for this branch's own in Post C
+      is still MISSED by every one of the 36 checkers, exactly as Q76
+      describes, so Q76 stands exactly as raised and still awaits a
+      decision on scope. All 7 build-*.js page generators re-run; git
+      status empty on modules/ afterwards, so nothing in the estate
+      drifted.
+      Live half performed for the first time since the second and third
+      passes (2026-08-11 and 2026-08-12); the four passes between then and
+      now could not reach a working browser. Via Claude in Chrome,
+      read-only: Post A's pfLink still 404s, so the paster note's hard stop
+      still stands. The replacement page
+      pharmacy-first-coleman-leigh-walton.html is still live and still the
+      pre-correction paste: title, H1, body copy, header banner and footer
+      all read "Coleman & Leigh Pharmacy", while the address block on the
+      same page reads the confirmed "Coleman and Leighs Pharmacy" - the
+      identical mixed state recorded on 2026-08-12, unchanged since. Posts
+      B, C and D all still resolve, in the same mixed-name state. The
+      homepage still carries the Q22 estate-wide weight loss line
+      ("Innovative solutions that deliver results. Tried the rest? Now try
+      the best."), unchanged; Q22 was answered 2026-08-30 as "Unsure,
+      guidance pending", so no repo action is due on it yet. No new
+      question, no in-repo defect. Done 2026-09-01.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
