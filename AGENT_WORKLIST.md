@@ -2595,6 +2595,25 @@ Pharmacy First wording to the NHS service description.
       check-brand-spelling.js. Files changed this pass:
       tools/build-branch-landing-pages.js, gbp-packs/cherry-lane-walton.md.
       Done 2026-08-30
+      Quality pass 2026-09-01 (ninth, unattended run): pack re-verified fact
+      by fact against branches.json (address, phone, hours, website, review
+      link and service area all match), and both length claims recomputed
+      independently with the same wrapped-line-join method check-gbp-packs.js
+      uses (description 736, posts 449, 348, 403, 318) - exact match, nothing
+      wrong. All six page generators rebuilt to a zero diff across the whole
+      repo (git diff --stat and --name-only both empty), all 36 checkers
+      exit 0, and check-gbp-packs.js reports 0 failures with cherry-lane-
+      walton.md's only warning still the already-tracked Q72 exception.
+      Q40, Q72 and Q36 spot-checked in QUESTIONS.json and confirmed still
+      open, none stale. Live half NOT performed: the built-in browser denied
+      navigation to cherrylanepharmacy.co.uk outright on this unattended run
+      (no user present to grant site access), the same class of blocker Q59
+      already tracks; not retried by any other route. Live state therefore
+      stands as last recorded on the 2.3 seventh quality pass (2026-09-01):
+      Q89 Pharmacy First overview regression, Q36 footer mailbox typo, and
+      the 3.1/5.1/Q3 switch page title and mojibake em dash all unverified
+      this pass. No in-repo defect found, no fix needed, no new question.
+      Evidence: audits/cherry-lane-gbp-pack-check-2026-09-01.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

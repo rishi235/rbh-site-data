@@ -1,0 +1,86 @@
+Item 4.2 quality pass (ninth) - Cherry Lane Pharmacy (Walton) GBP pack
+Date: 2026-09-01, unattended run
+Pack: gbp-packs/cherry-lane-walton.md
+Last previous pass: 2026-08-30 (eighth), commit "Item 4.2 quality pass (eighth)"
+
+LOCK AND ENVIRONMENT. .agent-lock absent at start; created 2026-09-01
+11:34:35 UTC. The sandboxed Linux mount's git fetch/pull both failed
+outright with "Host key verification failed" (no SSH key for
+git@github.com there), the standing Q87 diagnosis, reconfirmed again this
+run. Per established precedent, git network operations (fetch, pull,
+add, commit, push) were run via the Windows-MCP PowerShell tool directly
+against the real C:\Dev\rbh-site-data, which holds working credentials;
+the sandboxed mount was used only for file reads/edits and running the
+node checkers/generators, which need no network access. No index.lock
+issue hit this run.
+
+ITEM SELECTION. All unchecked worklist items (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6) remain [BLOCKED], so this run took a quality pass. A fresh
+whole-paragraph date scan of AGENT_WORKLIST.md (a Python script bounding
+each top-level "- [x] N.N" item to the next top-level item, extracting
+every "Nth quality pass YYYY-MM-DD" and "Done YYYY-MM-DD" date, matched
+case-insensitively so ordinal-prefixed passes like "Second quality pass"
+are not missed) found the oldest last-touched date among items in the
+rotation pool (excluding the seven established one-off items 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) was 2026-08-30, shared by 4.2 (5 dated entries,
+2 of them on 2026-08-30) and 1.2 (5 dated entries, 4 of them on
+2026-08-30). 1.2 was touched four times on its last active day against
+4.2's two, so 4.2 (Cherry Lane GBP pack) was taken as genuinely the
+stalest under the same reasoning an earlier run today applied to exclude
+1.2 in favour of 4.7.
+
+PACK FACTS vs branches.json (cherrylane_liverpool) - all match:
+- Name: Cherry Lane Pharmacy (branchName)
+- Address: 202 Cherry Lane, Liverpool L4 8SG
+- Phone: 0151 226 2051
+- Hours: Mon-Fri 9:00am-6:30pm, Sat 9:00am-5:00pm, Sunday closed
+  (openingHours specification 09:00-18:30 / 09:00-17:00, closedDays Sunday)
+- Website: https://www.cherrylanepharmacy.co.uk
+- Review link: https://g.page/r/CRF-ODLpmvUAEAE/review
+- Catchment run "serves Walton, Everton and north Liverpool": leads with
+  seoTown Walton; Everton and Liverpool both in serviceAreaList.
+
+SELF-CLAIMED COUNTS, measured independently with a fresh Python script
+(joins each section's wrapped lines with a single space before counting,
+the same method check-gbp-packs.js uses) rather than trusted - all exact:
+- Description: 736 measured vs 736 claimed (limit 750)
+- Posts A-D: 449, 348, 403, 318 measured vs 449, 348, 403, 318 claimed
+  (limit 1,500)
+
+POST BUTTON TARGETS - all four generated in the repo:
+- modules/service/pages/pharmacy-first-cherry-lane-walton.html
+- modules/switch/pages/switch-prescriptions-cherry-lane-walton.html
+- modules/service/pages/weight-loss-clinic-cherry-lane-walton.html
+- modules/service/pages/travel-clinic-cherry-lane-walton.html
+
+REGENERATION. All six page generators (build-branch-landing-pages,
+build-service-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages) run against the
+checked-out tree. git diff --stat and git diff --name-only both empty
+afterwards: byte-identical output across the whole repo, not just the
+Cherry Lane pages.
+
+ALL 36 CHECKERS RUN, ALL EXIT 0. check-gbp-packs.js: "0 failures", 15
+packs, 15 live branches. cherry-lane-walton.md's only listed warning is
+the already-tracked Q72 exception (six private-clinic qualifier phrases
+missing from the older Post C/D drafting), unchanged, consistent with
+every pass since Q72 was raised. No new warning, no new failure.
+QUESTIONS.json spot-checked: Q40 (listing name decision), Q72 (private-
+clinic qualifiers) and Q36 (footer NHS mailbox typo) all confirmed still
+open, none resolved, none stale.
+
+LIVE HALF - NOT PERFORMED. The built-in browser (mcp__Claude_Browser)
+denied navigation to https://www.cherrylanepharmacy.co.uk outright on
+both a direct page navigate and a bare-domain preview_start, with no
+approval prompt reaching this unattended run (no user present to grant
+site access). This is the same class of blocker Q59 already tracks for
+Claude in Chrome; logged here rather than retried by any other route,
+per the procedure's own fallback instruction. Live state (Q89 Pharmacy
+First overview regression, Q36 footer mailbox typo, the 3.1/5.1/Q3
+switch page title and mojibake em dash) therefore stands as last
+recorded on the 2026-09-01 seventh quality pass of item 2.3 and is not
+re-verified here.
+
+NO IN-REPO DEFECT FOUND. Nothing in the pack, the generators or the
+checkers needed a change this pass. No files changed except this
+evidence file and the worklist/log entries recording the pass.

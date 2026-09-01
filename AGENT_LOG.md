@@ -1,4 +1,91 @@
-## 2026-09-01 (unattended run, following the 3.3 seventh pass) - Item 4.7 quality pass (eighth): McCanns Chemist Sandringham GBP pack re-verified clean on all 36 checkers, zero in-repo defect; three fresh injections (sister-branch address swap, NHS cohort widening, catchment membership) all caught and restored; live half performed via read-only fetch, all findings (Q35 landing page 404, unpasted Sandringham titles on four content pages, unchanged sitemap) reconfirmed unchanged, no new finding, no new question.
+## 2026-09-01 (unattended run, following the 4.7 eighth pass) - Item 4.2 quality pass (ninth): Cherry Lane Pharmacy Walton GBP pack re-verified clean on all 36 checkers and a fresh independent recount of both length claims, zero in-repo defect; live half not performed this run (built-in browser denied navigation outright, no user present to approve), so Q89/Q36/3.1/5.1/Q3 live state stands unverified rather than reconfirmed; no new finding, no new question.
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T11:34:35Z. That mount's `git fetch
+origin` and `git pull --ff-only` both failed outright with "Host key
+verification failed" (no SSH key for git@github.com there) - the
+standing Q87 diagnosis, reconfirmed again. Per established precedent,
+all git network operations (fetch, pull, add, commit, push) were run via
+the Windows-MCP PowerShell tool directly against the real
+`C:\Dev\rbh-site-data`, which holds working credentials; the sandboxed
+mount was used only for file reads/edits and running the node
+checkers/generators, which need no network access. No `.git/index.lock`
+issue was hit this run (avoided running `git status`/`git add` from the
+Linux mount at all, per the previous run's own carried-forward lesson).
+
+ANSWER PICKUP (step 3) - no open QUESTIONS.json entries were skipped for
+lack of trying: the fetch to `https://data.rbhealth.co.uk/api/feedback`
+was not attempted this run because the live browser check below already
+established no site navigation could complete unattended; logged as
+unavailable rather than retried by another route. 55 of 89 questions
+remain open, unchanged by this pass (this pass raised no new question).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this file at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) remain `[BLOCKED]`, so this run took a quality
+pass rather than a worklist item. Re-derived the least-recently-verified
+item with a Python script that bounds each top-level `- [x] N.N` item's
+own paragraph to the next top-level item and extracts every
+`Nth quality pass YYYY-MM-DD` / `Done YYYY-MM-DD` date case-insensitively
+(the first cut of this script used an exact-case "Quality pass" match and
+wrongly returned 2.3 and 4.11 as stalest, because most passes in this
+repo are written "Second quality pass", "Third quality pass" and so on
+with a lowercase q; fixed before trusting the result). With that fixed,
+the oldest last-touched date among items in the established rotation pool
+(excluding the seven one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) was
+2026-08-30, shared by 4.2 (5 dated entries, 2 on 2026-08-30) and 1.2 (5
+dated entries, 4 on 2026-08-30). Following the same reasoning an earlier
+run today used to exclude 1.2 in favour of 4.7, 1.2 was excluded again
+here as touched four times on its last active day against 4.2's two, so
+4.2 (Cherry Lane Pharmacy Walton GBP pack) was taken.
+
+WHAT WAS DONE. gbp-packs/cherry-lane-walton.md re-read in full and every
+profile-basics fact (name, address, phone, hours, website, review link,
+service area) checked against `branches.json`'s `cherrylane_liverpool`
+entry: all match, no drift. Both self-claimed length counts (description
+736, posts A-D 449/348/403/318) recomputed independently with a fresh
+Python script joining each section's wrapped lines with a single space
+before counting, the same method `check-gbp-packs.js` uses: exact match
+on all five. All six page generators (`build-branch-landing-pages`,
+`build-service-pages`, `build-switch-pages`, `build-weight-loss-pages`,
+`build-travel-clinic-pages`, `build-contraception-pages`) rebuilt against
+the checked-out tree; `git diff --stat` and `git diff --name-only` both
+came back empty, so the whole repo regenerates byte-identical, not just
+the Cherry Lane pages. All 36 `tools/check-*.js` checkers run individually
+and all exit 0; `check-gbp-packs.js` reports "0 failures" across all 15
+packs, and `cherry-lane-walton.md`'s only listed warning is the
+already-tracked Q72 exception (six private-clinic qualifier phrases
+missing from the older Post C/D drafting), unchanged since it was raised.
+Q40 (Cherry Lane listing name), Q72 and Q36 (footer NHS mailbox typo) all
+spot-checked in `QUESTIONS.json` and confirmed still `open`, none stale.
+
+LIVE HALF - NOT PERFORMED. `mcp__Claude_Browser__navigate` and
+`preview_start` were both tried against `www.cherrylanepharmacy.co.uk`
+(the full Pharmacy First overview URL, then the bare domain) and both
+were denied outright ("navigation ... was denied or failed"), with no
+approval prompt reaching this unattended run because nobody is present to
+grant site access. This is the built-in browser rather than the Claude in
+Chrome extension the previous few runs hit the same wall with (Q59), but
+the effect is identical: no live verification possible this run. Per the
+procedure's own fallback instruction, this was logged rather than retried
+by any other route (no curl, no alternative fetch). Consequence: the live
+findings this pack's notes carry - the Q89 Pharmacy First overview
+regression (five of seven condition cards reverted to "Page coming
+soon"), the Q36 footer NHS mailbox typo, and the 3.1/5.1/Q3 switch page
+SEO title and mojibake em dash - are NOT reconfirmed this pass. They
+stand exactly as last recorded on item 2.3's seventh quality pass
+(2026-09-01, this morning), which is more recent than this pass would
+have added value to reconfirming even if the browser had worked, so
+nothing is lost by the gap, but nothing new was checked either.
+
+NO IN-REPO DEFECT FOUND. Nothing in the pack, a generator or a checker
+needed a change. Files changed this run: `AGENT_WORKLIST.md` (item 4.2
+paragraph), `AGENT_LOG.md` (this entry), and the new evidence file
+`audits/cherry-lane-gbp-pack-check-2026-09-01.txt`.
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T11:04:38Z. That mount's `git fetch
