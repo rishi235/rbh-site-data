@@ -83,6 +83,41 @@ const digits = (s) => String(s || "").replace(/\D/g, "");
 const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
 const escapeRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+// Abbreviation-aware street matching, the same fix tools/check-nap.js applied
+// to its own street sweep on the item 1.4 quality pass, 2026-08-31, and never
+// carried across to this file. Both the OWN-street presence rule and the
+// FOREIGN-street rule below matched only the EXACT streetAddress string,
+// which is the identical "one spelling" gap the phone and postcode rules in
+// this file and in check-nap.js have each already been widened for. Found on
+// the item 1.2 quality pass (eighth), 2026-09-01: Hirshmans Ainsdale's own
+// street, "56-62 Sherwood House, Station Road", written abbreviated as
+// "Station Rd" inside another branch's pack (cherry-lane-walton.md, in a
+// paster note naming Hirshmans Chemist), passed check-gbp-packs.js with 0
+// failures, because flatText.indexOf() only ever looked for the full word.
+// The generated-page surface has carried the equivalent fix for six days;
+// the pack surface, which is pasted verbatim into a public Google profile,
+// had nothing. Only the road-type word is varied (Road/Rd, Street/St,
+// Lane/Ln, Drive/Dr, Avenue/Ave); the house number and the rest of the name
+// still have to match exactly, so this narrows the real gap without loosening
+// the rule into false positives.
+const STREET_ABBR = [
+  [/\broad\b/gi, "road|rd\\."],
+  [/\bstreet\b/gi, "street|st\\."],
+  [/\blane\b/gi, "lane|ln\\."],
+  [/\bdrive\b/gi, "drive|dr\\."],
+  [/\bavenue\b/gi, "avenue|ave\\."],
+];
+const streetPatternCache = new Map();
+function streetPattern(street) {
+  if (streetPatternCache.has(street)) return streetPatternCache.get(street);
+  let pat = escapeRe(street);
+  for (const [full, alt] of STREET_ABBR)
+    pat = pat.replace(full, "\\b(?:" + alt + "?)\\b");
+  const re = new RegExp(pat, "i");
+  streetPatternCache.set(street, re);
+  return re;
+}
+
 // Medicine names must not appear in public-facing pharmacy marketing.
 // Brand names and INNs for the weight loss and related POM classes. The list
 // moved into tools/pom-names.js on the item 3.13 quality pass, 2026-08-11,
@@ -1989,7 +2024,7 @@ for (const file of packFiles) {
   }
 
   const ownStreet = norm(b.streetAddress || "");
-  if (ownStreet && flatText.indexOf(ownStreet.toLowerCase()) === -1) {
+  if (ownStreet && !streetPattern(ownStreet).test(flatText)) {
     const key = `${b.id}::streetAddress`;
     const known = KNOWN_IDENTITY[key];
     if (known) {
@@ -2006,7 +2041,7 @@ for (const file of packFiles) {
     // office are both Unit 20 Brookfield Trade Centre), so an identical string
     // is not a foreign address at all.
     if (!s || s.toLowerCase() === ownStreet.toLowerCase()) continue;
-    if (flatText.indexOf(s.toLowerCase()) === -1) continue;
+    if (!streetPattern(s).test(flatText)) continue;
     const key = `${b.id}::streetAddress`;
     const known = KNOWN_IDENTITY[key];
     if (known) {

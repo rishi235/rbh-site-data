@@ -1,0 +1,131 @@
+Item 1.2 - eighth quality pass - 2026-09-01 (unattended run)
+=============================================================
+
+Scope: re-verify Hirshmans Chemist Ainsdale's address ("56-62 Sherwood
+House, Station Road, Ainsdale, PR8 3HW") everywhere it appears in the
+repo, per the rotation-pool selection (least recently verified completed
+item; last touched 2026-08-30, seventh pass).
+
+Environment note: git network operations (fetch/pull/push) fail in the
+sandboxed Linux mount with "Host key verification failed" (Q87,
+reconfirmed). File edits, checker runs and generator runs were done in
+the sandboxed mount; git fetch/pull verification and the eventual push
+were run via the Windows-MCP PowerShell tool against the real
+C:\Dev\rbh-site-data, which holds working credentials. Both copies were
+confirmed on the same commit (26fb4cf) and branch (agents/audit-backlog,
+up to date with origin) before work began.
+
+Live half: NOT performed. The built-in browser denied navigation
+outright (no user present to approve, same finding as the ninth pass on
+4.2 immediately before this run). Claude in Chrome could not be used
+either: two browsers are connected to this account and nothing in an
+unattended run can answer the required "which browser" prompt. So this
+is a repo-half-only pass, the same position the fourth pass was in on
+2026-08-13.
+
+1. CANONICAL ADDRESS
+branches.json, hirshmans_ainsdale: streetAddress "56-62 Sherwood House,
+Station Road", addressLocality "Ainsdale", postalCode "PR8 3HW",
+addressRegion "Merseyside". Unchanged from every prior pass.
+
+2. BROKEN-VARIANT SWEEP
+Swept the whole tracked tree (533 files) for PR8 3HN / PR83HN, "56-62
+Sherwood" (confirms canonical form present), "64 Station Road" (the old
+live page's wrong street), "017014577376" (the old live page's dead
+phone number) and "Sherwood Road" (a plausible street-name slip). Every
+hit accounted for:
+  - PR8 3HN is Fishlocks Ainsdale's OWN correct postcode (same road,
+    different pharmacy) and appears legitimately on Fishlocks' own pages,
+    its pack, the branch INDEX/SEO sheets, status/index.html and
+    gbp-packs/TEMPLATE.md's worked example of the seoTown convention.
+  - "56-62 Sherwood" appears correctly on branches.json, the Hirshmans
+    pack and all 12 Hirshmans-owned generated pages, plus the rendered
+    narrative in status/index.html.
+  - "64 Station Road" and "017014577376" appear only inside
+    gbp-packs/hirshmans-ainsdale.md's HARD STOP note (documenting the old
+    live page's defect, unchanged since 2026-08-04) and in
+    status/index.html's rendering of that same pack text.
+  - "Sherwood Road" (wrong street-type word): zero hits anywhere.
+No new variant, no defect.
+
+3. ALL 36 CHECKERS
+Ran every tools/check-*.js individually: all exit 0 before any change
+this pass.
+
+4. ALL SIX GENERATORS
+Ran build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages against the checked-out tree. git diff --stat
+came back empty except for status/index.html's routine timestamp/log
+regeneration (3 lines: the "Updated" stamp and the two most-recent-run
+summaries it embeds) - not a data defect, and left unregenerated on
+purpose until this pass's own log entry exists, per step 10.
+build-audit-status.js itself cannot run from the sandboxed mount (it is
+hardcoded to C:/Dev/rbh-site-data and needs the GitHub API); run instead
+from the real machine via Windows-MCP at the end of this run, as
+established practice.
+
+5. GUARD COVERAGE EXTENDED - NEW THIS PASS
+Proved, by injection, that check-nap.js's abbreviation-aware street sweep
+(added 2026-08-31 using Smartts' Fernhill Road as the test case) also
+correctly fires on HIRSHMANS' OWN compound street, which had never been
+used as the injected value for that specific feature before. Injected
+"You can also visit Hirshmans Chemist at 56-62 Sherwood House, Station Rd
+for this service." into modules/service/pages/contraception-cherry-lane-
+walton.html: check-nap.js failed with two MISMATCHes (foreign name,
+foreign street, abbreviated form caught). Reverted; diff against the
+pre-injection copy came back byte-identical; re-ran clean (177 pages, 3
+paste blocks, 0 mismatches).
+
+6. DEFECT FOUND AND FIXED: check-gbp-packs.js's street rule never got the
+   same abbreviation fix
+Following on from point 5, tested the equivalent injection against the
+GBP PACK surface rather than the generated-page surface, since packs are
+checked by a separate tool (check-gbp-packs.js) with its own,
+independently written street-address rule (added for the McCanns
+Aigburth/Sandringham "same road, two shops" risk). Injected a paster note
+into gbp-packs/cherry-lane-walton.md: "TEST INJECTION: patients sometimes
+ask about Hirshmans Chemist at 56-62 Sherwood House, Station Rd, which is
+a different branch entirely." Ran check-gbp-packs.js: exit 0, 0 failures.
+The foreign-street rule (tools/check-gbp-packs.js, then lines 1991-2018)
+matched only the exact string via flatText.indexOf(), the identical "one
+spelling" gap check-nap.js's street sweep had until 2026-08-31 - and that
+fix was never carried across to this file, despite the fix's own
+introducing comment in check-nap.js explicitly warning "nobody carried
+the lesson across" about the sibling postcode case. Reverted the
+injection (diff against the pre-injection copy came back byte-identical)
+before fixing.
+
+Fix: added the same STREET_ABBR table and streetPattern() cache/builder
+from tools/check-nap.js to tools/check-gbp-packs.js (reusing this file's
+own existing escapeRe() helper), and pointed both the OWN-street presence
+rule and the FOREIGN-street rule at it in place of the exact
+flatText.indexOf() check. Only the road-type word is varied (Road/Rd,
+Street/St, Lane/Ln, Drive/Dr, Avenue/Ave); the house number and the rest
+of the street name still have to match exactly.
+
+Negative-tested after the fix: re-injected the identical "Station Rd"
+line into gbp-packs/cherry-lane-walton.md. check-gbp-packs.js now exits 1
+with "FAIL cherry-lane-walton.md: street address '56-62 Sherwood House,
+Station Road' belongs to Hirshmans Chemist, not Cherry Lane Pharmacy, so
+the profile would put the pin on another branch" (reported in canonical
+full form, as intended). Reverted again; diff against the pre-injection
+copy came back byte-identical. Re-ran all 36 checkers clean (0 failures
+across all 15 packs, same standing Q64/Q72 warnings as before, nothing
+new) and all six generators byte-identical except status/index.html's
+routine regeneration.
+
+This closes the pack-surface half of the same gap class the generated-
+page half closed six days ago. It was not theoretical for this pair
+specifically: Hirshmans Ainsdale and Fishlocks Ainsdale share Station
+Road, which is exactly the estate's most plausible real street mix-up
+(as the fifth and later passes on this item already noted for the
+postcode), and a GBP pack is pasted verbatim into a live public Google
+profile with nothing in between.
+
+7. RESULT
+Zero in-repo defect remaining on the address itself: clean for the eighth
+consecutive pass. One real checker-guard gap found and fixed (point 6),
+proved by injection before and after, on a surface (GBP packs) this item
+had not previously exercised for the abbreviation class of fault. No new
+question raised; no live-site claim made or reconfirmed this pass.

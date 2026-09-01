@@ -1,3 +1,142 @@
+## 2026-09-01 (unattended run, following the 4.2 ninth pass) - Item 1.2 quality pass (eighth): Hirshmans Ainsdale address re-verified clean on all 36 checkers and a fresh five-pattern broken-variant sweep; found and fixed a real gap in check-gbp-packs.js's foreign-street rule (exact-string match only, never given the abbreviation-aware fix check-nap.js applied to itself on 2026-08-31), proved by injection before and after; live half not performed (built-in browser denied navigation, Claude in Chrome's multi-browser prompt cannot be answered unattended); no new question.
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T12:04:30Z. That mount's `git fetch
+origin` and `git pull --ff-only` both failed outright with "Host key
+verification failed" (no SSH key for git@github.com there) - the
+standing Q87 diagnosis, reconfirmed again. Per established precedent, all
+git network operations (fetch, pull, add, commit, push) were run via the
+Windows-MCP PowerShell tool directly against the real
+`C:\Dev\rbh-site-data`, which holds working credentials; the sandboxed
+mount was used only for file reads/edits and running the node
+checkers/generators, which need no network access. Both copies were
+confirmed on the same commit (26fb4cf) and branch (agents/audit-backlog,
+up to date with origin) before work began.
+
+ANSWER PICKUP (step 3). Not attempted this run: Claude in Chrome reported
+two connected browsers and asked which to use, which an unattended run
+cannot answer, and the live-check attempt below already established no
+site navigation could complete unattended either way. Logged as
+unavailable rather than retried by another route. 55 of 89 questions
+remain open, unchanged by this pass (this pass raised no new question).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this file at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) remain `[BLOCKED]`, so this run took a quality
+pass rather than a worklist item. Re-derived the least-recently-verified
+item with the same bounded-paragraph date-extraction method the previous
+two passes used (excluding the seven one-off items 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8). Unlike the previous two passes, this run found no tie: 1.2
+(Hirshmans Ainsdale) was last touched 2026-08-30 and every other item in
+the rotation pool was last touched 2026-08-31 or later (4.2 and 4.7 both
+moved to 2026-09-01 by the two immediately preceding runs), so 1.2 was
+taken cleanly.
+
+WHAT WAS DONE. branches.json's hirshmans_ainsdale entry re-read in full:
+streetAddress "56-62 Sherwood House, Station Road", addressLocality
+"Ainsdale", postalCode "PR8 3HW", unchanged. Swept all 533 tracked files
+for five patterns (the canonical postcode's wrong neighbour PR8 3HN, the
+canonical street, the old live page's wrong street "64 Station Road", its
+dead phone number "017014577376", and a plausible wrong-street-type slip
+"Sherwood Road"): every hit accounted for as before (Fishlocks Ainsdale's
+own postcode, the pack's own HARD STOP note and its rendering in
+status/index.html, zero hits for the last pattern). All 36
+`tools/check-*.js` checkers run individually, all exit 0 before any
+change. All six generators rebuilt against the checked-out tree;
+`git diff --stat` came back empty except for status/index.html's routine
+timestamp/log regeneration, left unregenerated on purpose until this
+entry exists (build-audit-status.js itself cannot run from the sandboxed
+mount - it is hardcoded to `C:/Dev/rbh-site-data` and needs the GitHub
+API - so it runs from the real machine via Windows-MCP at the very end,
+per step 10).
+
+LIVE HALF. Not performed. `mcp__Claude_Browser__preview_start` against
+the Hirshmans contact page returned "navOk: false" (Chrome pane opened at
+about:blank, navigation denied) - the same "built-in browser denied
+navigation outright, no user present to approve" finding the immediately
+preceding 4.2 ninth pass recorded. Claude in Chrome was tried first and
+returned a hard stop: two browsers are connected to this account and
+nothing can pick between them without the AskUserQuestion tool, which is
+unavailable in an unattended run. So this is a repo-half-only pass, the
+same position the fourth pass on this item was in on 2026-08-13. No Q41
+cosmetic reconfirmed or contradicted this run.
+
+GUARD COVERAGE EXTENDED (in-repo, no live claim). Two steps, the second
+the substantive finding of this pass.
+
+First: proved by injection that check-nap.js's abbreviation-aware street
+sweep (added on this item's own sixth-pass sibling, item 1.4, on
+2026-08-31, using Smartts Bootle's "42 Fernhill Road" as the test value)
+also fires correctly when the value under test is HIRSHMANS' OWN street,
+which nothing had used for that specific feature before. Injected "You
+can also visit Hirshmans Chemist at 56-62 Sherwood House, Station Rd for
+this service." into
+`modules/service/pages/contraception-cherry-lane-walton.html`:
+check-nap.js failed with two MISMATCHes (foreign pharmacy name, foreign
+street in its abbreviated form). Reverted; `diff` against a pre-injection
+backup copy came back byte-identical; re-ran clean (177 pages, 3 paste
+blocks, 0 mismatches, 0 warnings).
+
+Second: the same method turned up a real, previously unfound gap on a
+DIFFERENT checker. GBP packs are policed by `check-gbp-packs.js`, not
+`check-nap.js`, and its own foreign-street rule was written independently
+(for the McCanns Aigburth/Sandringham "same road, two shops" risk) rather
+than shared code. Injected a paster note into
+`gbp-packs/cherry-lane-walton.md`: "TEST INJECTION: patients sometimes
+ask about Hirshmans Chemist at 56-62 Sherwood House, Station Rd, which is
+a different branch entirely." Ran `check-gbp-packs.js`: exit 0, 0
+failures - the abbreviated form was invisible. Its street rule (both the
+own-street presence half and the foreign-street half, then at lines
+1991-2018) matched only the exact string via `flatText.indexOf()`, the
+identical "one spelling" gap check-nap.js's own street sweep had until
+2026-08-31 - and whose introducing comment in check-nap.js explicitly
+warned that the same shape of fix had been carried across for the phone
+and postcode sweeps but "nobody carried the lesson across" for other
+files. It hadn't been, for this file, for this fact. Reverted the
+injection (byte-identical diff against backup) before fixing anything.
+
+FIX. Added the same `STREET_ABBR` table and a `streetPattern()`
+cache/builder to `tools/check-gbp-packs.js`, reusing that file's own
+existing `escapeRe()` helper rather than duplicating it, and pointed both
+the own-street presence rule and the foreign-street rule at
+`streetPattern(...).test(flatText)` in place of the exact
+`flatText.indexOf()` check. Only the road-type word varies (Road/Rd,
+Street/St, Lane/Ln, Drive/Dr, Avenue/Ave); the house number and the rest
+of the street name still have to match exactly, so this cannot loosen a
+match into a false positive. Confirmed the fix does not change today's
+clean baseline (still 0 failures across all 15 packs) before
+re-injecting.
+
+NEGATIVE-TESTED AFTER THE FIX. Re-injected the identical "Station Rd"
+line into `gbp-packs/cherry-lane-walton.md`. `check-gbp-packs.js` now
+exits 1: "FAIL cherry-lane-walton.md: street address '56-62 Sherwood
+House, Station Road' belongs to Hirshmans Chemist, not Cherry Lane
+Pharmacy, so the profile would put the pin on another branch" - reported
+in canonical full form as intended. Reverted again; `diff` against the
+backup came back byte-identical. Re-ran all 36 checkers (0 failures
+across all 15 packs, same standing Q64/Q72 warnings unchanged, nothing
+new) and all six generators (byte-identical except status/index.html's
+routine regeneration).
+
+This closes, on the pack surface, the same gap class the generated-page
+surface closed six days ago, and it is not theoretical for this specific
+pair: Hirshmans Ainsdale and Fishlocks Ainsdale share Station Road, the
+estate's most plausible real street mix-up (already the reasoning behind
+several earlier passes' postcode-encoding guard work on this item), and a
+GBP pack is copy pasted verbatim into a live public Google Business
+Profile with nothing in between.
+
+RESULT. Zero in-repo defect remaining on the address itself, clean for
+the eighth consecutive pass on what this item is actually about. One real
+checker-guard gap found and fixed on a surface (GBP packs) this item had
+never exercised for the abbreviation class of fault, proved by injection
+both before and after the fix, changed file `tools/check-gbp-packs.js`
+only (plus the new evidence file and this log). No new question. Evidence
+in `audits/hirshmans-address-check-2026-09-01-eighth.txt`.
+
 ## 2026-09-01 (unattended run, following the 4.7 eighth pass) - Item 4.2 quality pass (ninth): Cherry Lane Pharmacy Walton GBP pack re-verified clean on all 36 checkers and a fresh independent recount of both length claims, zero in-repo defect; live half not performed this run (built-in browser denied navigation outright, no user present to approve), so Q89/Q36/3.1/5.1/Q3 live state stands unverified rather than reconfirmed; no new finding, no new question.
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the

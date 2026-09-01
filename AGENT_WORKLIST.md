@@ -5261,6 +5261,38 @@ appended to the line. Do not move them; the status page reads them in place.
       both lunch closures, every Q41 cosmetic still live and unchanged,
       nothing new to add. Evidence in
       audits/hirshmans-address-check-2026-08-30-seventh.txt. Done 2026-08-30
+      Eighth quality pass 2026-09-01 (unattended run, rotation pool). REPO
+      HALF ONLY: built-in browser denied navigation outright and Claude in
+      Chrome could not resolve its multi-browser prompt unattended, so
+      nothing live was read or claimed. Address itself clean for the eighth
+      consecutive pass: branches.json canonical, a five-pattern broken-
+      variant sweep across all 533 tracked files came back fully accounted
+      for (PR8 3HN is Fishlocks Ainsdale's own postcode; "64 Station Road"
+      and "017014577376" are confined to the pack's own HARD STOP note and
+      its rendering in status/index.html; zero hits for "Sherwood Road"),
+      all 36 checkers exit 0, all six generators byte-identical except
+      status/index.html's routine timestamp regeneration. Guard coverage
+      extended twice. First, proved by injection that check-nap.js's
+      abbreviation-aware street sweep (added 2026-08-31 on Smartts' Fernhill
+      Road) also fires correctly on HIRSHMANS' OWN compound street written
+      as "Station Rd", never previously used to test that feature; reverted
+      byte-identical, re-ran clean. Second and more significant: the same
+      injection tried against the GBP PACK surface (a different checker,
+      check-gbp-packs.js) passed with 0 failures, because that file's
+      foreign-street rule still matched only the exact string - the
+      identical gap check-nap.js fixed for itself six days ago, never
+      carried across, despite that fix's own comment warning "nobody
+      carried the lesson across" about the sibling case. Fixed: added the
+      same STREET_ABBR/streetPattern() logic to check-gbp-packs.js, reusing
+      its existing escapeRe() helper, applied to both the own-street
+      presence rule and the foreign-street rule. Re-proved by injection
+      (now FAILS, reported in canonical full form), reverted byte-
+      identical, all 36 checkers and all six generators re-run clean. Not
+      theoretical for this pair: Hirshmans Ainsdale and Fishlocks Ainsdale
+      share Station Road, the estate's most plausible real street mix-up,
+      and a GBP pack is pasted verbatim into a live public profile. No new
+      question. Evidence in
+      audits/hirshmans-address-check-2026-09-01-eighth.txt. Done 2026-09-01
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
