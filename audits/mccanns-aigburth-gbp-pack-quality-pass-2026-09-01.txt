@@ -1,0 +1,100 @@
+check-gbp-packs: 15 packs, 15 live branches in branches.json
+
+21 warning(s) - human judgement, not automatic failures:
+  WARN  cherry-lane-walton.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  clear-aintree.md: phone-like number 0151 203 8365 is not Clear Chemist's number in branches.json
+  WARN  coleman-leigh-walton.md: link target "pharmacy-first-service-walton.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  fishlocks-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  fishlocks-ainsdale.md: KNOWN the "- Address:" line reads "17 Station Road, Ainsdale, Southport PR8 3HN", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  fishlocks-eccleston.md: KNOWN the "- Address:" line reads "Unit 3 The Carrington Centre, New Mill Street, Eccleston, Chorley PR7 5SZ", so the post town between the street and the postcode is "Eccleston Chorley", but branches.json holds addressLocality as "Eccleston". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  gordon-short-crosby.md: link target "pharmacy-first-service-crosby.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  hirshmans-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  hirshmans-ainsdale.md: phone-like number 017014577376 is not Hirshmans Chemist's number in branches.json
+  WARN  hirshmans-ainsdale.md: link target "pharmacy-first-service-ainsdale.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  hirshmans-ainsdale.md: KNOWN the "- Address:" line reads "56-62 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  mccanns-aigburth.md: link target "pharmacy-first-service-aigburth.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  riddings-timperley.md: link target "pharmacy-first-service-timperley.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  riddings-timperley.md: link target "switch-prescriptions.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-bramhall.md: link target "pharmacy-first-service-hazel-grove-bramhall.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  scorah-hazel-grove.md: link target "pharmacy-first-service-hazel-grove-bramhall.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-hazel-grove.md: KNOWN the "- Address:" line reads "87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG", so the post town between the street and the postcode is "Hazel Grove Stockport", but branches.json holds addressLocality as "Hazel Grove". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  sk-chemists-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  smartts-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  tiffenbergs-aintree.md: link has no .html ending, which Weebly pages normally need: https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree
+
+0 failures.
+
+=== full 36-checker suite, exit codes ===
+tools/check-address-region.js exit=0
+tools/check-app-membership.js exit=0
+tools/check-booking-routes.js exit=0
+tools/check-branch-identity.js exit=0
+tools/check-branch-links.js exit=0
+tools/check-brand-spelling.js exit=0
+tools/check-cdn-pins.js exit=0
+tools/check-contraception-copy.js exit=0
+tools/check-editor-snapshot.js exit=0
+tools/check-em-dashes.js exit=0
+tools/check-fragment-targets.js exit=0
+tools/check-gbp-packs.js exit=0
+tools/check-gbp-pharmacy-first.js exit=0
+tools/check-jsonld.js exit=0
+tools/check-live-hours.js exit=0
+tools/check-map-embeds.js exit=0
+tools/check-nap.js exit=0
+tools/check-opening-hours.js exit=0
+tools/check-page-coverage.js exit=0
+tools/check-pharmacy-first-cost.js exit=0
+tools/check-pharmacy-first-eligibility.js exit=0
+tools/check-pharmacy-first-safety-net.js exit=0
+tools/check-pharmacy-first-symptoms.js exit=0
+tools/check-postcodes.js exit=0
+tools/check-seo-keywords.js exit=0
+tools/check-seo-lengths.js exit=0
+tools/check-seo-pattern.js exit=0
+tools/check-seo-sheets.js exit=0
+tools/check-service-links.js exit=0
+tools/check-switch-copy.js exit=0
+tools/check-travel-clinic-copy.js exit=0
+tools/check-uk-spelling.js exit=0
+tools/check-url-scheme.js exit=0
+tools/check-weight-loss-copy.js exit=0
+tools/check-whatsapp-route.js exit=0
+tools/check-widget-diaries.js exit=0
+
+=== description char count (independent recompute) ===
+length: 725 (claimed 725)
+
+=== six generators regenerated, git diff under modules/ ===
+(blank above = zero-diff, byte-identical)
+
+=== live half, read-only via Claude in Chrome, 2026-09-01 ===
+pharmacy-mccanns-aigburth.html (profile website / branch landing page): 404,
+  unchanged, still awaiting the queued Weebly paste run.
+pharmacy-first-service-aigburth.html (Post A, live-only shared page): 200.
+  Title carries the Weebly default " - MCCANNS PHARMACY" suffix (known,
+  repaste covers it). Aigburth contact block: phone 0151 727 3185 (matches),
+  hours match branches.json exactly including both lunch closures, email
+  shown lowercase "aigburth@rbhealth.co.uk" vs branches.json's
+  "Aigburth@rbhealth.co.uk" (case only, not a functional mismatch, not
+  raised). Sandringham sister block still reads "1B Aigburth Road (in
+  Sandrigham Medical Centre)" (typo, "Sandrigham") and "McCann's Pharmacy"
+  branding throughout - both are the standing Q39 furniture findings,
+  reconfirmed unchanged, not re-raised as new.
+switch-prescriptions-mccanns-aigburth.html (Post B): 200, live, matches
+  this repo's generated output (build-switch-pages.js), correct branding,
+  address, phone.
+weight-loss-clinic-mccanns-aigburth.html (Post C): 200, live. No medicine
+  named, no efficacy/results claim, "not right for everyone" stated,
+  balanced eligibility section present. The Q83 finding reconfirmed
+  unchanged: the booking block states "from £39.99" ahead of the
+  eligibility section. Not re-raised; Q83 already open and covers this
+  exact page and fact.
+travel-clinic-mccanns-aigburth.html (Post D): 200, live, matches this
+  repo's generated output, no vaccine or antimalarial named by brand,
+  disease-name mentions only (Yellow fever, Typhoid, Hepatitis A & B,
+  Rabies, Japanese encephalitis) which check-travel-clinic-copy.js already
+  treats as clean.
+
+No new defect found. No new question raised.

@@ -1,4 +1,134 @@
-## 2026-09-01 (unattended run, following the 1.3 eighth pass) - Item 4.5 quality pass (seventh): Scorah Chemists Hazel Grove pack re-verified clean fact by fact including the bank-holiday bullet added last pass; live half re-read (landing page still 404, all four posts still 200); Q87's git-push and index-lock diagnosis reconfirmed, not re-argued; prior run's 1.3 eighth-pass work still uncommitted, landed by this run once the lock aged past an hour
+## 2026-09-01 (unattended run, following the 4.5 seventh pass) - Item 4.6 quality pass (seventh): McCanns Chemist Aigburth pack re-verified clean fact by fact including the sister-branch St Michael's wording; live half re-read (landing page still 404, all four posts still 200, Q39 furniture typos and Q83 weight-loss lead-price finding both reconfirmed unchanged); Q87's SSH-push, index-lock-unlink and publish-path diagnosis reproduced a further time, not re-argued; this run's own work left uncommitted, blocked by an index.lock still under the 1-hour staleness threshold at the time of writing
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (created partway
+through this run rather than at the very first step, a process gap being
+recorded plainly rather than smoothed over - see PROCESS NOTE below).
+`.git/index.lock` present at the start, dated 2026-09-01 05:20:39 +0100,
+about 14 minutes old at the first check and about 21 minutes old when
+`git add` was attempted mid-run, both readings well under this task's
+1-hour staleness threshold, with `ps aux` clean of any git process both
+times. Left in place both times, per the rule and per every recent run's
+convention. `git fetch origin` failed identically to every run in this
+log: "Host key verification failed" - Q87, reconfirmed, not re-diagnosed
+beyond noting it recurred. `git add` itself then failed too, with `fatal:
+Unable to create '.../.git/index.lock': File exists`, because the lock
+had not yet aged past threshold - this is expected git behaviour, not a
+new fault. `rm -f .testfile123.todelete` (an unrelated pre-existing stray
+file, tried purely to confirm scope) failed with "Operation not
+permitted", confirming Q87's diagnosis that this connected folder blocks
+unlink() estate-wide rather than only inside `.git/`.
+
+PROCESS NOTE, logged plainly. This run's first bash call checked for
+`.agent-lock` and `.git/index.lock` correctly, but did not create
+`.agent-lock` immediately afterwards as step 1 requires - it was created
+several tool calls later, after the item was already chosen and most of
+the verification work was already done. No evidence any other run started
+during that window (repo state was consistent throughout, `.agent-lock`
+was absent right up until this run created it), so no actual collision
+occurred, but the sequencing was wrong and is recorded so it is not
+repeated. A related false start: this run initially tried to determine
+"least recently verified item" by grepping AGENT_LOG.md headings for
+"item X.Y quality pass" phrasing, which missed several items (4.6 among
+them) because their most recent pass used different heading wording (e.g.
+"quality pass on item 4.6"). That search wrongly suggested 4.6 had not
+been touched since 2026-08-11, twenty days stale. Cross-checking against
+AGENT_WORKLIST.md itself (the authoritative per-item record, not
+AGENT_LOG.md headings) showed 4.6 actually received a sixth pass on
+2026-08-30, in the same batch as 4.2, 4.7, 4.8, 4.9, 4.10, 4.12, 4.13,
+4.15, 2.3, 1.2 and 5.7 - consistent with an earlier run's own recorded
+rotation-pool finding. 4.6 was still the correct pick within that batch
+(it was verified earliest that day, per the 2026-08-30 sixth-pass entry
+itself), so the eventual choice was right, but by luck as much as method.
+Recorded so a future run trusts AGENT_WORKLIST.md's own per-item history
+over an AGENT_LOG.md heading grep, which this run's experience shows is
+unreliable due to inconsistent heading phrasing across ~85 prior runs.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab opened
+and closed, nothing clicked, typed or submitted, against
+`https://data.rbhealth.co.uk/api/feedback`: 28 entries returned, covering
+Q2-Q29 only, all already recorded in QUESTIONS.json as "answered" with
+matching text (spot-checked programmatically against all 17 distinct
+question ids in the response). Nothing to reconcile. 53 open questions
+unchanged.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the
+top of AGENT_LOG.md at the start of this run. Proceeded normally, no
+autonomous decisions.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines remain [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the run is a quality pass.
+4.6 (McCanns Chemist Aigburth GBP pack) taken as the oldest standing
+verification in the rotation pool, per AGENT_WORKLIST.md's own record
+(see PROCESS NOTE above for how this was actually reached).
+
+WHAT WAS DONE. gbp-packs/mccanns-aigburth.md re-read in full and every
+fact re-checked against branches.json's mccanns_aigburth record: name,
+street address, postcode, addressRegion, phone, opening hours (both
+weekday and Saturday lunch closures), review link, hasApp false, catchment
+order (matches serviceAreaList exactly and in order), Post A's link
+against pfLink (exact match), the sister-branch sentence naming McCanns
+Sandringham in St Michael's (Sandringham's own brandLabel "McCanns
+Chemist" and seoTown "St Michael's" independently re-read from
+branches.json and confirmed unchanged, not disposed). The 725-character
+description claim was recomputed independently in Node rather than
+trusted: 725, exact.
+
+`node tools/check-gbp-packs.js` run and saved to
+audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-01.txt: 0 failures.
+This pack's only warning is the standing one (Post A's link target is a
+live-only page this repo does not generate). All 36 `tools/check-*.js`
+checkers run individually: 36/36 exit 0. All six `tools/build-*.js`
+generators rebuilt; `git status --porcelain modules/` empty afterwards,
+confirming byte-identical output.
+
+LIVE HALF, via Claude in Chrome, read-only, five page reads, nothing
+clicked or typed. pharmacy-mccanns-aigburth.html (profile-website landing
+page): still 404, unchanged, awaiting the queued paste run.
+pharmacy-first-service-aigburth.html (Post A, live-only shared page): 200;
+Weebly default " - MCCANNS PHARMACY" title suffix and the Q39 furniture
+findings ("Sandrigham" typo, "McCann's Pharmacy" naming, abbreviated
+street) all reconfirmed present and unchanged, not re-raised as new -
+Q39 already covers exactly this page and these three faults.
+switch-prescriptions-mccanns-aigburth.html (Post B): 200, matches this
+repo's generated output. weight-loss-clinic-mccanns-aigburth.html (Post
+C): 200; no medicine named, no efficacy claim, "not right for everyone"
+stated; Q83's finding (booking block states "from £39.99" ahead of the
+eligibility section) reconfirmed unchanged and not re-raised, Q83 already
+covers this exact fact on this exact page. travel-clinic-mccanns-
+aigburth.html (Post D): 200, matches this repo's generated output, no
+vaccine named by brand.
+
+No in-repo defect found this pass. No page, generator, pack or
+branches.json entry changed. No new question raised; 53 open, unchanged.
+
+FILES CHANGED
+- AGENT_WORKLIST.md - item 4.6's own paragraph, seventh-pass note appended
+- audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-01.txt - new
+- AGENT_LOG.md - this entry
+
+COMMIT (step 9). `git add AGENT_WORKLIST.md audits/mccanns-aigburth-gbp-
+pack-quality-pass-2026-09-01.txt` failed: `.git/index.lock` still present
+and still under the 1-hour threshold (21 minutes old at the time of the
+attempt), so this run did not force past it, consistent with the rule and
+with every recent run's convention of waiting for genuine staleness rather
+than clearing early. This run's changes therefore sit uncommitted in the
+working tree for a subsequent run to land, the same pattern recorded
+repeatedly earlier today (e.g. the 4.5 and 1.3 entries above). `git push`
+was not attempted since there was nothing new to push beyond the existing
+25 commits already ahead of origin/agents/audit-backlog; `git fetch`
+alone was tried and failed identically to every prior run ("Host key
+verification failed", Q87, unchanged).
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed.
+Failed: `ENOENT` on the hardcoded `const REPO = 'C:/Dev/rbh-site-data'`,
+which does not resolve inside this Linux sandbox - Q87's second finding,
+reproduced again, not re-diagnosed. Status page not updated this run.
+
+`.agent-lock` released at the end of this run (renamed to
+`.agent-lock.released-<timestamp>`, since this connected folder blocks
+unlink() - the same workaround used throughout this log).
+
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (this run created a
 fresh one). `.git/index.lock` present at the start, dated 2026-09-01

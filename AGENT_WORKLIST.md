@@ -3104,6 +3104,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       wording is never an autonomous decision); written up in the
       compliance file and raised as Q83. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-08-30.txt.
+      Quality pass 2026-09-01 (unattended run, seventh pass): the oldest
+      standing verification in the rotation pool (last touched 2026-08-30,
+      tied that day with 4.7, 4.8, 4.9, 4.10, 4.12, 4.13, 4.15, 2.3, 1.2 and
+      5.7, but earliest of that group). Pack re-verified fact by fact
+      against branches.json a seventh time: name, address, postcode, phone,
+      hours with both lunch closures, review link, catchment order, hasApp,
+      pfLink, description length (725 characters, recomputed independently
+      in Node, unchanged) and the St Michael's sister-branch wording (McCanns
+      Sandringham's brandLabel and seoTown re-checked directly, still
+      "McCanns Chemist" / "St Michael's", not disposed, so the sentence
+      still holds both ways). node tools/check-gbp-packs.js: 0 failures, the
+      one standing WARN (Post A's live-only link target). All 36 checkers
+      run individually: 36/36 pass. All six generators rebuilt; git status
+      on modules/ empty, byte-identical. LIVE HALF, read-only via Claude in
+      Chrome, five page reads, nothing clicked or typed: the profile-website
+      landing page (pharmacy-mccanns-aigburth.html) still 404s, unchanged,
+      still awaiting the queued Weebly paste. Post A
+      (pharmacy-first-service-aigburth.html): 200, Weebly default title
+      suffix and the Q39 furniture faults ("Sandrigham" typo, "McCann's
+      Pharmacy" naming, abbreviated street) all reconfirmed unchanged, not
+      re-raised. Post B (switch-prescriptions-mccanns-aigburth.html): 200,
+      matches this repo's generated output. Post C
+      (weight-loss-clinic-mccanns-aigburth.html): 200, no medicine named, no
+      efficacy claim, "not right for everyone" stated; Q83's finding
+      reconfirmed unchanged (booking block still states "from £39.99" ahead
+      of the eligibility section) and not re-raised, Q83 already covers this
+      exact fact. Post D (travel-clinic-mccanns-aigburth.html): 200, matches
+      this repo's generated output, no vaccine named by brand. No new
+      in-repo defect, no new question; open question count unchanged at 53.
+      Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-01.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
