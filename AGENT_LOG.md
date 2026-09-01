@@ -1,4 +1,154 @@
-## 2026-09-01 (unattended scheduled run, following the 3.11 seventh pass) - Item 4.4 quality pass (seventh): Scorah Chemists Bramhall GBP pack re-verified clean on all 36 checkers plus a fresh 58-check independent verifier, three guards (phone, Pharmacy First coverage, em dash) re-proved by injection and restored byte-identical; live half read-only found no in-repo defect, one prior finding refined (Post B's switch page still carries the pre-Q7 meta description, now confirmed a genuine em dash rather than the mojibake the sixth pass recorded - same known unrepasted-live-page drift, not a new issue).
+## 2026-09-01 (unattended scheduled run, following the 4.4 seventh pass) - Item 3.6 quality pass (seventh): McCanns Chemist (Aigburth and Sandringham), all 26 generated pages re-verified clean on all 36 checkers plus a fresh 1,437-check independent extraction, byte-identical regeneration confirmed, three guards (cross-town H1, phone, em dash) re-proved by injection and restored byte-identical; live half read-only found no in-repo defect, two already-tracked live-only gaps reconfirmed unchanged (Sandringham UTI page still live as "Sandringham" not "St Michael's", Q15/5.7; both branch landing pages still 404 live, Q35).
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T14:34:32Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key
+for git@github.com there) - the standing Q87 diagnosis, reconfirmed
+again. Per established precedent, git network operations for this run
+(fetch confirmation, commit, push) ran via the Windows-MCP PowerShell
+tool against the real `C:\Dev\rbh-site-data`, which holds working
+credentials; `git fetch origin` from there confirmed the local branch
+already matched `origin/agents/audit-backlog` at commit f345b17 (no new
+upstream commits). The sandboxed mount was used for file reads, edits,
+and running the node checkers/generators/build scripts, which need no
+network access for that purpose (the read-only live fetch checks did
+work from the sandboxed mount). A `.git/index.lock` was found on both
+the sandboxed mount and the Windows working copy, timestamped
+2026-09-01 15:38:02, created moments earlier by this run's own `git
+status` on the sandboxed mount (which cannot unlink it - the same FUSE
+restriction prior runs have documented); it was well under the
+procedure's one-hour staleness threshold, but no `git` process was
+running on the Windows host, so it was removed from there as an
+orphaned artefact rather than treated as active. Numerous stale
+`.agent-lock.released-*`, `scratchtest*`, `.testfile123.todelete` and a
+malformed `C\uF03A/` (mojibake colon) untracked entry remain in the
+working tree from prior runs; none were touched, since cleaning them up
+is outside this run's one-item scope.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected" (extension unreachable).
+Unattended run, nobody present to resolve it; logged as unavailable and
+not retried by another route, per the procedure's own fallback
+instruction. 56 questions were open at the start; this run added none.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this log at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED]; none unblocked by
+an answer, since answer pickup was unavailable. Quality pass taken
+instead. Computed "least recently verified" from the git commit log
+directly rather than from AGENT_LOG.md's prose headings, since a single
+commit can name two items ("Item 1.3 ... + Item 4.5 ...") and a
+first-match-only regex under-counts them (found and corrected during
+this run's own analysis before picking an item, the same class of
+under-reading fault this repo's checkers have hit repeatedly). Against
+the 36-item rotation pool (43 completed worklist items minus the seven
+established one-offs: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), item 3.6 was
+last touched 2026-08-30 (its sixth pass), older than every other pool
+item including the five items five other runs had already taken earlier
+today (2.3, 3.11, 4.2, 4.3, 4.4, 4.12, 4.14, 4.15, 1.2, 1.3, 5.2, 6.3 all
+now dated 2026-09-01). 3.6 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` checkers run individually
+against the unmodified estate: 36/36 pass. All six generators
+(build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) re-run; sha256 of all 203 files under
+modules/service/pages, modules/switch/pages and modules/branch/pages
+identical before and after. Wrote a fresh independent verifier,
+`audits/verify-3.6-2026-09-01.js`, own regexes throughout, importing
+nothing from `tools/`: discovers all McCanns pages by globbing
+`modules/` rather than a hardcoded list (found exactly 26, matching
+every prior pass), then per page checks the H1 carries the branch's own
+seoTown and does not carry the sister's unless `serviceAreaList`
+excuses it, the phone appears in both visible and `tel:` form and no
+other branch's phone (including all 14 other trading branches, not just
+the sister) appears anywhere, the postcode is the branch's own with no
+other branch's postcode present, the JSON-LD block parses, its `name`
+equals the branch's own `branchName` and never the bare shared
+`brandLabel` "McCanns Chemist" (the item 3.12 branch-identity rule,
+since brandLabel alone would name two shops), its address matches
+branches.json field by field, the map embed's query and (on the two
+branch landing pages) the "Get directions" button's destination both
+decode to the branch's own full address, `data-wa` is a UK mobile in
+E.164 without the plus, `data-branch` names the right branch, no
+`http://` link exists, and any review link present carries the branch's
+own ODS code or Google review URL and not the sister's. First run
+scored 26 false failures on the map-embed rule alone: the draft
+regex assumed a `/maps/embed?` path, but the estate's actual pattern is
+`https://www.google.com/maps?q=...&output=embed` (confirmed by reading
+the raw HTML before concluding anything), so the rule was corrected
+before any result was reported - the same "read what the checker
+actually reads" discipline this repo's own retrospectives keep landing
+on. Corrected, all 1,437 checks pass, 0 failures.
+
+INJECTION TESTS (three, each restored by byte copy from a
+pre-injection backup - not `git checkout`, which this mount cannot use
+to unlink a changed file - and sha256-confirmed identical to the
+original before continuing):
+
+1. `modules/service/pages/uti-treatment-mccanns-aigburth.html`: H1
+   changed from "UTI treatment in Aigburth" to "UTI treatment near St
+   Michael's, Aigburth". Aigburth's own `serviceAreaList` (Aigburth,
+   Sefton Park, Mossley Hill, Grassendale) excuses neither "St
+   Michael's" nor "Sandringham", so this is an unexcused cross-town
+   claim. Caught by `tools/check-seo-pattern.js` (named the
+   shared-domain rule explicitly) and by the independent extraction.
+   Restored; sha256
+   95613a50f3d952ec70013f10e884be6cd423d1d11647cc9683afcb73666926b7
+   matched before and after.
+2. `modules/branch/pages/pharmacy-mccanns-aigburth.html`: every
+   occurrence of Aigburth's phone (0151 727 3185) replaced with
+   Sandringham's (0151 727 3076). Caught by `tools/check-nap.js` (6
+   mismatches: visible phone, JSON-LD telephone, and three
+   branch-attribution mismatches) and by the independent extraction.
+   Restored; sha256
+   0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841
+   matched before and after.
+3. `gbp-packs/mccanns-aigburth.md`: an em dash inserted into Post A's
+   opening sentence ("See a pharmacist — not a waiting list."). Caught
+   by `tools/check-em-dashes.js`. Restored; sha256
+   5f70f1f5b74f2b3cc36ace79ccc45255c73769e0ea86c5a1f6e0772de9b8462d
+   matched before and after.
+
+Full 36-checker suite re-run clean after the final restore. `git
+status --short -- modules/ branches.json gbp-packs/ tools/` empty
+throughout, confirmed from the Windows-side working copy.
+
+LIVE HALF. Claude in Chrome unavailable (see ANSWER PICKUP above).
+Performed instead via plain read-only Node `fetch()` (GET only, the
+established fallback), four URLs read:
+- `uti-treatment-mccanns-aigburth.html`: HTTP 200, title and H1 both
+  correctly read "Aigburth". Fully correct live.
+- `uti-treatment-mccanns-sandringham.html`: HTTP 200, but title and H1
+  both still read "Sandringham" rather than "St Michael's". The repo's
+  generated page and paste sheet both correctly carry "St Michael's" -
+  this is the queued 5.7/Q15 repaste, unchanged since the fourth pass
+  on 2026-08-14 and reconfirmed on the fifth and sixth passes and now
+  the seventh. Not a repo defect.
+- `pharmacy-mccanns-aigburth.html` and
+  `pharmacy-mccanns-sandringham.html`: both HTTP 404. This is the
+  standing queued-paste state each pack's own paster note anticipates
+  (Q35, first raised well before this pass and reconfirmed on multiple
+  intervening passes), not a new finding.
+
+No in-repo defect found, no new question raised. Evidence in
+`audits/verify-3.6-2026-09-01.js` (committed) plus this log entry.
+
+QUESTIONS: none raised this run.
+
+NEXT RUN: with 3.6 now dated 2026-09-01, the oldest item remaining in
+the 36-item rotation pool is whichever of the sixteen items tied at
+2026-08-31 (2.1, 3.2, 3.4, 3.5, 3.7, 3.8, 3.9, 3.10, 3.12, 3.13, 4.1,
+4.11, 5.1, 6.2, plus 3.1 and 3.6 now excluded as done today) has the
+earliest same-day evidence-file timestamp, following the tie-break
+convention the 4.4 pass used - a future run should re-derive this from
+the git log directly (per this run's own correction above) rather than
+assume the list above is exhaustive.
+
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T14:04:27Z. That mount's `git fetch

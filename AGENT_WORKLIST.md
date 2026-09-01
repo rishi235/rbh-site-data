@@ -1482,6 +1482,54 @@ an earlier run, under the 1-hour staleness threshold throughout) may leave
 this run's commit sitting locally until a native-host or credentialed
 session pushes it - see the AGENT_LOG.md addendum for this run's actual
 outcome.
+Quality pass 2026-09-01 (seventh). Done 2026-09-01. Selected as the least
+recently verified item in the 36-item rotation pool (last touched
+2026-08-30, older than every other pool item; all eight open worklist
+lines were still [BLOCKED] and answer pickup via Claude in Chrome was
+unavailable, so no item unblocked). All 36 checkers re-run individually:
+36/36 pass, byte-identical regeneration confirmed via sha256 across all
+203 generated files under modules/service/pages, modules/switch/pages and
+modules/branch/pages before and after rebuilding all six generators. A
+seventh independent extraction (audits/verify-3.6-2026-09-01.js, own
+regexes throughout, imports nothing from tools/) re-read all 26 McCanns
+pages: 1,437 checks, 0 failures, covering the H1's own seoTown with the
+excused/unexcused cross-town asymmetry, own phone in both visible and
+tel: form with no other branch's digits present, own postcode only,
+JSON-LD name equal to the branch's own branchName (never the bare shared
+brandLabel "McCanns Chemist"), JSON-LD address field by field, the map
+embed and the branch landing page's "Get directions" button both decoding
+to the branch's own full address, data-wa matching the estate WhatsApp
+number, data-branch naming the right branch, and no other branch's
+review or ODS identifiers. Three injections, each restored by byte copy
+from a pre-injection backup and sha256-confirmed identical to the
+original before continuing (this mount cannot unlink via `git checkout
+--`): an unexcused cross-town H1 ("near St Michael's" added to the
+Aigburth UTI H1, since Aigburth's own serviceAreaList carries no St
+Michael's or Sandringham) caught by check-seo-pattern.js and the
+independent extraction; a phone swap on the Aigburth branch landing page
+to Sandringham's number, caught by check-nap.js (6 mismatches) and the
+independent extraction; an em dash inserted into gbp-packs/mccanns-
+aigburth.md's Post A copy, caught by check-em-dashes.js. Full 36-checker
+suite re-run clean after the final restore; `git status --short
+modules/ branches.json gbp-packs/ tools/` empty throughout (verified via
+the Windows-side working copy, since this mount's own `git status`
+briefly re-creates .git/index.lock and cannot unlink it either - the
+lock was removed from the Windows side, confirmed no git process was
+running, and it was well under the one-hour staleness bar but plainly
+orphaned rather than held). LIVE HALF: Claude in Chrome unavailable
+("not connected"), so read via plain read-only Node fetch() (GET only,
+the established fallback) instead of retrying another route. Four URLs
+read: the Aigburth UTI page is fully correct live (title and H1 both
+read "Aigburth", HTTP 200); the Sandringham UTI page's title and H1
+still read "Sandringham" rather than "St Michael's" live, matching the
+repo and paste sheet's correct "St Michael's" only in the repo - this is
+the queued 5.7/Q15 repaste, unchanged since the fourth pass on
+2026-08-14 and reconfirmed on every pass since including the sixth on
+2026-08-31; both branch landing pages (pharmacy-mccanns-aigburth.html,
+pharmacy-mccanns-sandringham.html) still 404 live, which is the standing
+queued-paste state each pack's own paster note anticipates (Q35),
+reconfirmed unchanged rather than new. No in-repo defect found, no new
+question raised.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
