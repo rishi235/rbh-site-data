@@ -1,3 +1,193 @@
+## 2026-09-01 (unattended run, following the 4.12 seventh pass) - Item 4.13 quality pass (seventh): Riddings Pharmacy Timperley GBP pack re-verified clean on all 36 checkers; a fresh injection found a real gap and fixed it at source - check-gbp-packs.js's Post B hard-stop marker (POST_INSTRUCTION) was case-sensitive, so recasing "STOP - DO NOT POST" to "Stop - do not post" let a ~1,000-character internal instruction block, including a live URL, get counted as published Google Business Profile copy with the full 36-checker suite still exiting 0; fixed by adding the /i flag, verified three ways, no other pack affected. Live half performed, every finding unchanged from the sixth pass: Post B's canonical switch URL still 404, the live switch page still the pre-Phase-3 paste at the old permalink, the sitemap still has no entry for the correct switch permalink despite a republish since the pack's own note, and weight-loss-clinic-timperley.html still carries the full Regime 1 breach (item 5.8's territory, not re-decided here).
+
+LOCK AND ENVIRONMENT. Repo reached at
+/sessions/youthful-brave-einstein/mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data. `.agent-lock` created correctly at the start of this
+run (unlike the immediately prior run, which recorded its own omission of
+this step). `.git/index.lock` was present at the start, ~14.5 minutes old,
+well under both this worker's 45-minute `.agent-lock` threshold and the
+task's separate 1-hour threshold for `.git/` locks, and `ps aux` in this
+sandbox cannot see whatever process last touched it, since each run boots
+a fresh sandbox instance. Consistent with Q87's diagnosis (this connected
+folder allows create and rename-to-a-new-name but blocks unlink and
+same-name overwrite, so git's own crash-safety cleanup writes a lock,
+completes the write, then silently fails to unlink it), and consistent
+with the identical situation the immediately prior run met and worked
+around, this run did not touch the lock file directly - `git status`,
+`git log` and read-only inspection all worked fine with it present, and no
+git write command was needed until step 9, at which point the same
+rename-away workaround every recent run has used would apply if the lock
+were still blocking. In the event, this run's actual git writes (add,
+commit) succeeded without needing to touch `.git/index.lock` at all, so no
+lock workaround was exercised this time; noted here so the next run does
+not assume one always is. `git fetch origin` failed exactly as Q87
+predicts: "Host key verification failed." This sandbox has no working
+route to GitHub (no ~/.ssh host key, no gh, no token) and Q87 already
+covers this, open since 2026-08-31 with four options recommending the
+task move to Rishi's native Windows host; not re-diagnosed or re-raised
+here. Local branch confirmed already on `agents/audit-backlog`, now 32+
+commits ahead of `origin/agents/audit-backlog` after this run's own
+commit, unchanged as a straightforward unpushed backlog rather than a
+divergence.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab, closed
+between uses, nothing clicked, typed or submitted beyond navigation and
+text extraction. https://data.rbhealth.co.uk/api/feedback returned the
+same 28 entries recent runs have read (Q2-Q5, Q13-Q22, Q24, Q28, Q29,
+newest still Q29 at 2026-08-30T17:01). Cross-checked against
+QUESTIONS.json: all 17 distinct ids already recorded "answered" with
+matching text. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading at the top of this log at the start of this run. Proceeded
+normally; step 8's exception did not apply (moot regardless, since the
+finding this pass was a code fix with no judgement call for Rishi, not a
+[BLOCKED]-worthy decision).
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED], so this is a quality
+pass. Staleness derived the same way the 4.9 and 4.12 seventh passes did
+today: extracting each of the 43 completed items' own text block between
+checkbox lines, taking the latest YYYY-MM-DD it contains, excluding the
+seven established one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), leaving 36
+eligible items. Six items tied on the oldest date, 2026-08-30 (2.3, 4.2,
+4.7, 4.13, 4.15, 1.2), since 4.9 and 4.12 - the two items that tied with
+them before today's two earlier runs - are now dated 2026-09-01. Broke the
+tie against each item's own commit timestamp, cross-checked directly
+against `git log`: 4.13 at 13:46:16 on 2026-08-30 (45425b9) is the
+earliest of the six (4.15 14:45, 2.3 15:11, 4.7 16:41, 4.2 18:47, 1.2
+21:43). Taken as this run's item.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` run fresh before any inspection:
+all green, zero failures. `node tools/check-gbp-packs.js` reconfirmed the
+two pre-existing WARNs naming this pack unchanged (Post A's pfLink and
+Post B's switch link are both live-only pages no checker here can keep
+correct).
+
+Every fact in gbp-packs/riddings-timperley.md re-verified against
+branches.json (id riddings_timperley): name Riddings Pharmacy, address 38
+Riddings Road, Timperley, Altrincham WA15 6BP, phone 0161 973 2951,
+website, review link, hasApp false, single Monday to Friday 09:00-18:00
+session with Saturday and Sunday closed, catchment Timperley, Altrincham
+and Trafford leading with its own seoTown. Extracted the description and
+post bodies using the checker's own `descriptionOf`/`postsOf` regexes
+directly (copied inline into a throwaway node -e, since the file has no
+module.exports) rather than eyeballing character counts: description 657,
+posts 449/319/521/425, byte-identical to all six earlier passes. Zero
+non-ASCII characters, zero em or en dashes. Riddings carries "Riddings
+Pharmacy" as brandLabel for exactly one branch in branches.json, so it is
+not a shared brand and the open Q76 sister-branch-name gap has no surface
+to bite on here.
+
+Two fresh injections run against a working copy of the pack, one at a
+time, each followed by the full 36-checker sweep and a sha256 restore
+back to the pre-injection file:
+
+1. Stripped "bankHolidays.dates2026" out of the paster note's bank-holiday
+   instruction while leaving the words "bank holiday" and "special hours"
+   in place. CAUGHT: check-gbp-packs.js's item-4.5 rule failed the pack
+   exactly as designed, confirming that rule (added 2026-08-30, previously
+   untested against this specific pack) still reads Riddings correctly.
+
+2. Recased the Post B hard-stop marker from "STOP - DO NOT POST THIS
+   BUTTON" to "Stop - do not post this button". MISSED, and this is a real
+   gap rather than a false alarm. `POST_INSTRUCTION` (the regex that cuts
+   the paster's internal hard-stop block out of Post B before the post is
+   measured as published copy) is `/^(?:STOP|DO NOT POST)\b/m` with no `/i`
+   flag. Recasing it stopped the cut firing, so `postsOf` measured Post B
+   at 1356 characters instead of 319 - the roughly 1,000-character
+   instruction block, which names the live 404 URL and tells the paster
+   what to do about it, was counted as text bound for a public Google
+   profile. The full 36-checker suite still exited 0 throughout, because
+   1356 still sits comfortably under the 1,500-character post limit, so
+   nothing surfaced the miscount at all. This is the same shape of fault
+   this repo has hit repeatedly and named in its own CLAUDE.md: a rule that
+   reads the right thing in principle but stops matching on an
+   input-shape assumption (here, letter case) nobody wrote down as a
+   requirement.
+
+   Fixed at source: `POST_INSTRUCTION` now carries the `/i` flag. Before
+   committing, checked all 15 packs plus TEMPLATE.md for any existing line
+   starting "stop" or "do not post" in any case - none exists anywhere in
+   the estate outside this one marker on this one pack - so widening the
+   match to be case-insensitive cannot make anything that currently passes
+   start failing. Verified three ways against the shipped regex, extracted
+   the same way as above: the original "STOP" casing still measures Post B
+   at 319; the recased "Stop" casing now also measures 319 (the fix
+   closes the gap); and deleting the marker word entirely while leaving
+   the instruction prose in place measures 1285 (proving the mechanism
+   still requires the marker word specifically, rather than coincidentally
+   always stripping trailing text regardless of what triggers it). Full
+   36-checker suite re-run clean after the fix. gbp-packs/riddings-timperley.md
+   itself was never left in a modified state - sha256-confirmed
+   byte-identical to its pre-pass value after every injection and at the
+   end of the pass. All seven build-*.js generators re-run
+   (branch-landing, contraception, service, status, switch, travel-clinic,
+   weight-loss); `git status --porcelain modules/` empty before and after,
+   so nothing in the estate drifted. status/index.html changed as the
+   normal side effect of build-status-page.js re-running, same as every
+   prior pass; not new debris.
+
+LIVE HALF, via Claude in Chrome, read-only, one tab, closed after use,
+nothing clicked, typed or submitted beyond navigation and text extraction.
+Every finding unchanged from the sixth pass (2026-08-30): Post B's
+canonical URL (switch-prescriptions-riddings-timperley.html) still returns
+a 404. The live switch page still sits at the old permalink
+switch-prescriptions.html and is still the pre-Phase-3 paste: H1 with no
+town words ("Switch your prescriptions to Riddings Pharmacy in under 30
+seconds"), a "Download our app" block despite branches.json's hasApp being
+false, the contact block reading "Timperley, Cheshire" against
+branches.json's addressRegion "Greater Manchester", and the site-wide
+footer still set with en dashes ("Open Mon–Fri 9am–6pm, Sat & Sun
+closed"). The branch-specific Pharmacy First page
+(pharmacy-first-riddings-timperley.html) remains live, reads correctly
+against branches.json throughout, and is still in the sitemap. The
+sitemap.xml is still dated lastmod 2026-08-14T22:45:05+00:00 across every
+one of its 30 URLs and still carries no entry for
+switch-prescriptions-riddings-timperley.html, confirming the pack's own
+observation from the sixth pass still holds: the site has been republished
+since the pack was drafted, yet this branch's switch-page repaste still
+did not land in that republish, so it needs actioning explicitly rather
+than assumed to ride along with the estate-wide repaste backlog (5.6,
+5.7). weight-loss-clinic-timperley.html re-checked and unchanged: Mounjaro
+(tirzepatide), Wegovy (semaglutide) and Orlistat all named, a "Real
+Results with Mounjaro" superlative heading, an outcome slider claiming up
+to 22.5% of body weight lost, and lead pricing "From £39.99 including your
+consultation" all still live - matching
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md exactly (Riddings Timperley
+is one of the seven branches recorded there). This is worklist item 5.8's
+territory and Rishi's Q5 answer already sets the fix direction ("Strip the
+POM content from the old weight loss page and keep both URLs live pointing
+visitors at the new pages"), so no new question is raised here; the pack's
+own Post C remains compliant and is not implicated.
+
+QUESTIONS. None raised. The pass's one finding was a checker bug with a
+provably safe, fully-tested fix and no judgement call for Rishi to make,
+so it was fixed rather than queued.
+
+WORKLIST AND COMMIT. Item 4.13 updated in place in AGENT_WORKLIST.md with
+this pass's findings (checkbox and "Done 2026-08-04" left untouched, per
+every prior run's convention of appending rather than rewriting). Changed
+files: tools/check-gbp-packs.js (the /i fix), AGENT_WORKLIST.md,
+AGENT_LOG.md. status/index.html also carries this run's build-status-page.js
+timestamp refresh alongside the portal-publish rebuild in step 10 below.
+Pre-existing untracked debris in the working tree (`.agent-lock.released-*`
+files, `C:/` directory tree from build-service-pages.js writing a Windows
+path literally inside this Linux mount, various `audits/*` files and
+loose scratch files from other runs) left untouched, out of this run's
+scope, consistent with every prior run's own note on the same debris.
+
+STEP 9 (push) AND STEP 10 (publish). Both attempted and both failed for
+the reasons Q87 already has open: `git push origin agents/audit-backlog`
+cannot reach GitHub over SSH from this sandbox ("Host key verification
+failed"), so this run's commit joins the growing local-only backlog behind
+it. `node tools/build-audit-status.js` was still run regardless, per this
+worker's own step 10 instruction to run it "even if the work item failed,
+so the page stays honest" - it failed as Q87 also already records, on its
+hardcoded `const REPO = 'C:/Dev/rbh-site-data'` not resolving inside this
+Linux sandbox. Neither failure is new; both are the exact, already-open
+Q87 blocker, not re-raised as a second question.
+
 ## 2026-09-01 (unattended run, following the 4.9 seventh pass) - Item 4.12 quality pass (seventh): Coleman and Leighs Pharmacy Walton GBP pack re-verified clean on all 36 checkers, nine fresh injections proved (eight caught, one correctly WARN-only on a boundary case), Q76's sister-branch-name gap re-confirmed still live for the third time; live half performed for the first time since 2026-08-12, both known live faults (Post A pfLink 404, mixed-trading-name paste) reconfirmed unchanged; PROCESS NOTE: corrected a "84-name" miscount of tools/pom-names.js that has now appeared in at least two passes' own write-ups (this item's sixth pass and 4.9's seventh pass) - the file is and has always been 82 names, unchanged since its only commit on 2026-08-11
 
 LOCK AND ENVIRONMENT. Repo reached at

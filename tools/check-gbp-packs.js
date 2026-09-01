@@ -664,7 +664,22 @@ function servicesOf(text) {
 // post, but it made the reported headroom meaningless. Cut at the marker, the
 // same way the body already cuts at "Notes for the paster:", and keep the
 // stripped text so the caller can still reason about it.
-const POST_INSTRUCTION = /^(?:STOP|DO NOT POST)\b/m;
+//
+// Case-insensitive since the item 4.13 seventh quality pass, 2026-08-31.
+// The marker is bespoke, hand-typed prose (not boilerplate copied from
+// TEMPLATE.md the way "Notes for the paster:" is), so it has no protection
+// against a stray-case typo. Proved by injection: recasing "STOP - DO NOT
+// POST" to "Stop - do not post" on this same Riddings pack made postsOf
+// count Post B at 1356 characters instead of 319 - the ~1000-character
+// hard-stop instruction block, including a live URL, was read as posted
+// copy - and the full 36-checker suite still exited 0, because 1356 still
+// sits under the 1,500 limit. Nothing about the length rule was wrong; the
+// marker that is supposed to remove that text from consideration silently
+// stopped firing. A case-insensitive match closes it without narrowing
+// anything: no other pack in the estate carries a line starting "stop" or
+// "do not post" in any case (checked across all 15 packs plus TEMPLATE.md
+// before this change), so nothing that currently passes can start failing.
+const POST_INSTRUCTION = /^(?:STOP|DO NOT POST)\b/im;
 
 // Split the post drafts section into the individual posts, keeping the
 // post body only (drop the "Button:" line, which is not posted copy, and any

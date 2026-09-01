@@ -4430,6 +4430,73 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       succeeded this run (single Chrome instance): all entries found were
       already recorded against Q2 to Q17 by earlier runs, nothing new to
       process. No new question raised. Done 2026-08-30.
+      Seventh quality pass 2026-09-01: all 36 checkers
+      run fresh, all green before any change. Every fact re-verified against
+      branches.json (id riddings_timperley): name Riddings Pharmacy, address
+      38 Riddings Road, Timperley, Altrincham WA15 6BP, phone
+      0161 973 2951, website and review link, hasApp false with no app
+      mention, single Monday to Friday 09:00 to 18:00 session with Saturday
+      and Sunday closed, catchment Timperley, Altrincham and Trafford
+      leading with its own seoTown. Byte-identical to all six earlier
+      passes: description 657, posts 449, 319, 521, 425, zero non-ASCII
+      characters, zero em or en dashes. Riddings is not a shared brand (one
+      branch carries "Riddings Pharmacy" in branches.json), so the Q76
+      sister-branch-name gap does not apply to this pack.
+      Two fresh injections run against a working copy, sha256-restored after
+      each: stripping "bankHolidays.dates2026" from the paster note while
+      keeping the words "bank holiday" and "special hours" - CAUGHT by the
+      item 4.5 rule, confirming it still reads this pack correctly; and
+      recasing the Post B hard-stop marker from "STOP - DO NOT POST" to
+      "Stop - do not post" - MISSED. check-gbp-packs.js's POST_INSTRUCTION
+      regex that cuts the ~1,000-character hard-stop instruction block out
+      of Post B before counting it as posted copy was case-sensitive, so the
+      recased marker stopped firing and the instruction block, including a
+      live URL, was counted as PUBLISHED copy: Post B measured 1356
+      characters instead of 319, and the full 36-checker suite still exited
+      0, because 1356 still sits under the 1,500 limit. Fixed at source:
+      POST_INSTRUCTION now carries the /i flag. Verified three ways before
+      committing - the original STOP casing still measures 319, the recased
+      Stop casing now also measures 319, and removing the marker word
+      entirely (leaving the instruction prose in place) still measures
+      1285, proving the fix requires the marker word rather than always
+      stripping trailing text. Checked all 15 packs plus TEMPLATE.md for any
+      existing line starting "stop" or "do not post" in any case before
+      widening the match: none exists outside this one marker, so nothing
+      that currently passes can start failing. All 36 checkers green after
+      the fix, gbp-packs/riddings-timperley.md untouched and sha256-confirmed
+      byte-identical to the version at the start of this pass, all seven
+      build-*.js generators re-run with git status --porcelain modules/
+      empty before and after.
+      LIVE HALF performed via Claude in Chrome, read-only, one tab, nothing
+      clicked, typed or submitted beyond navigation and text extraction.
+      Every finding unchanged from the sixth pass: Post B's canonical URL
+      (switch-prescriptions-riddings-timperley.html) still 404; the live
+      switch page still sits at the old permalink switch-prescriptions.html,
+      still the pre-Phase-3 paste (H1 with no town words, a "Download our
+      app" block despite hasApp false, the contact block reading "Timperley,
+      Cheshire" against branches.json's Greater Manchester, and the
+      site-wide footer set with en dashes); the branch-specific Pharmacy
+      First page remains live, correct against branches.json and in the
+      sitemap; the sitemap is still dated lastmod 2026-08-14T22:45:05+00:00
+      throughout and still has no entry for
+      switch-prescriptions-riddings-timperley.html, so the switch paste for
+      this branch still has not landed despite the site having been
+      republished since the pack's own note was written. weight-loss-clinic-
+      timperley.html re-checked and unchanged: Mounjaro, Wegovy and Orlistat
+      named, the "Real Results with Mounjaro" heading, the outcome slider
+      claiming up to 22.5% body weight loss, and lead pricing "From £39.99"
+      all still live, matching compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+      exactly. This is worklist item 5.8's territory and Rishi's Q5 answer
+      already sets the fix direction, so no new question raised here; the
+      GBP pack's own Post C remains compliant and is not implicated.
+      Answer pickup (step 3): https://data.rbhealth.co.uk/api/feedback
+      returned the same 28 entries recent runs have read, newest still Q29
+      at 2026-08-30T17:01; cross-checked against QUESTIONS.json, all 17
+      distinct ids already recorded "answered" with matching text, nothing
+      to reconcile. No autonomous window active at the top of AGENT_LOG.md,
+      so step 8's exception did not apply; not needed this pass regardless,
+      since the marker-casing finding was a straightforward code fix with no
+      judgement call for Rishi. No new question raised. Done 2026-09-01.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
