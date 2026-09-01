@@ -121,7 +121,14 @@ to each other). No file under modules/ or branches.json changed (the
 injected page was restored byte-identical, confirmed above). Committed and
 pushed via the Windows PowerShell path (sandboxed mount has no SSH key -
 "Host key verification failed" reconfirmed, not re-diagnosed, matching
-Q87). Status page republished via tools/build-audit-status.js per step 10.
+Q87). A stray .git\index.lock (present before this run started, 35.8
+minutes old when first hit) blocked the first git add/commit attempt from
+the Windows path exactly as the eighth pass recorded ("Unable to create
+.git/index.lock: File exists"); no git process was running, so it was
+removed via the Windows path per that pass's own precedent, and add/commit
+then succeeded on retry. Status page republished via
+tools/build-audit-status.js per step 10 (43/49 done, 88%). .agent-lock
+removed at the end of this run from the Windows path, confirmed absent.
 No question raised this run.
 
 
