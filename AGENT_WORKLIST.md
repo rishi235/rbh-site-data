@@ -2067,6 +2067,60 @@ Done 2026-09-01 (seventh pass).
       on a growing backlog. Evidence in audits/verify-3.9-2026-08-31-
       sixth.js (copied into the repo from the sandbox scratch directory
       where it was authored and run). Done 2026-08-31
+      Quality pass 2026-09-01 (seventh machine-era pass). REPO HALF ONLY:
+      Claude in Chrome reported not connected at the top of this run
+      (tabs_context_mcp), so nothing live was read this pass and the live
+      findings recorded on 2026-08-31 are not reconfirmed. Picked by the
+      standing rotation-pool method (oldest "most recent commit mentioning
+      this item number" among the 36 rotation-pool items): 3.9's last
+      mention, 2026-08-31T20:17:11+01:00, was the oldest of all 36, ahead
+      of 3.10 (21:40) and every later item through 3.4 (2026-09-01
+      21:11:59, the immediately prior run). All 36 checkers run
+      individually before any change: 36/36 pass. All six generators
+      rebuilt; sha256 of all 189 .html/.js/.css files under modules/ and
+      core/ taken before and after: byte-identical. git status clean
+      throughout.
+      Wrote a seventh independent extraction,
+      audits/verify-3.9-2026-09-01-seventh.js, sharing no code with tools/
+      and not copied from any prior pass's script. Deliberately covers
+      three families not exercised as independent re-derivations in this
+      item's own six prior passes: the booking-widget assignment per page
+      including the Pharmacy First fallback rule (is each of the seven
+      condition pages actually linked from the branch's own PF overview,
+      does branches.json carry distinct, non-colliding widget ids for
+      weight loss/travel clinic/contraception so none of them silently
+      falls back, and are this branch's four widget ids unique across the
+      whole estate); the Google Maps embed query (encoding and value,
+      cross-checked independently against the visible contact-card address
+      on the same page, proving the two are checked separately rather than
+      one standing in for the other); and the Meta Keywords line read
+      directly from the five paste sheets (SEO.md, CONTRACEPTION-SEO.md,
+      TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md, switch SEO.md), checked for
+      own seoTown present, no foreign seoTown without the serviceAreaList
+      excuse, no foreign brandLabel, and no claim/efficacy wording (a
+      second, independently-worded pattern list, not read from
+      tools/claim-patterns.js). A fourth, lighter family re-confirms title
+      length (<=65) and description length (80-165) and seoTown presence
+      in both, recomposed from the sheets. 625 checks across the 12 pages
+      and 12 keyword blocks, 0 failures. ZERO DEFECTS FOUND.
+      Instrument proved by four injections, all run against a scratch copy
+      of modules/ and branches.json in /tmp (never against the tracked
+      repo files, so no restoration was needed and none of the sandbox's
+      known git-unlink problems could apply): a widget-id collision
+      (weightLoss set equal to pharmacyFirst) CAUGHT, both the
+      would-fall-back check and the no-two-ids-identical check firing; a
+      wrong town/postcode in one page's map query CAUGHT, with the
+      contact-card cross-check correctly staying silent since only the map
+      was mutated, proving the two checks are independent rather than one
+      masking the other; a foreign brandLabel plus a claim word injected
+      into one keywords line CAUGHT, three failures, naming both branches
+      that share the foreign brand; and an artificially lengthened title
+      (78 characters) CAUGHT. Total check count stayed at 625 in every run,
+      confirming no check was silently skipped by the mutation. Scratch
+      directory deleted after use; sha256 of the real repo's branches.json
+      and the two mutated-in-scratch page files reconfirmed unchanged
+      against the pre-run baseline. No new defect, no new question.
+      Evidence in audits/verify-3.9-2026-09-01-seventh.js. Done 2026-09-01
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

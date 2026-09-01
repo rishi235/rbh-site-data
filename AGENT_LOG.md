@@ -1,3 +1,128 @@
+## 2026-09-01 (unattended scheduled run, following the 3.4 eighth pass) - Item 3.9 quality pass (seventh): Coleman and Leighs Pharmacy Walton re-verified clean, repo half only, ZERO DEFECTS
+
+ENVIRONMENT AND LOCK. Sandboxed Linux mount of C:\Dev\rbh-site-data for file work,
+checker and generator runs (no network needed and none available - "Host key
+verification failed" on `git fetch`/`ssh -T git@github.com`, matching every prior
+run's finding), plus Windows-MCP PowerShell for the one operation the sandbox
+mount cannot do itself: clearing a self-created .git/index.lock it then cannot
+unlink ("Operation not permitted" on both `rm -f` and git's own cleanup), the
+same restriction this log has recorded before. .agent-lock absent at start;
+created via the sandboxed path (timestamp 2026-09-01T20:34:16Z). Local HEAD
+(f42955b, the 3.4 eighth-pass commit) matched origin/agents/audit-backlog with
+0 commits ahead, so this run started with nothing outstanding to push from a
+prior run (Q87's fourteen-commit backlog does not apply here). No stale
+index.lock present at start.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the run.
+Unattended run, nobody present to resolve it; logged as unavailable and not
+retried by another route, per the procedure's own fallback instruction. 91
+questions on file, 57 open at the start of this run (unchanged since the
+previous run); none answered or resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead, same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit (across all 634 commits, full message body, word-boundary match so
+"3.1" cannot match inside "3.10") whose message mentions that item number.
+The oldest such timestamp belonged to item 3.9 (2026-08-31T20:17:11+01:00,
+the sixth pass) - every other rotation-pool item had a later commit,
+including 3.4 which the immediately prior run had just brought current
+(2026-09-01T21:11:59+01:00, the newest of all 36). 3.9 taken: Coleman and
+Leighs Pharmacy (Walton), seventh pass following 2026-08-04 (build),
+2026-08-12, 2026-08-13, 2026-08-14, 2026-08-30 and 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 pass, zero failures. All six page generators rebuilt (service,
+switch, weight loss, travel clinic, contraception, branch landing); sha256 of
+every .html/.js/.css file under modules/ and core/ taken before and after
+(189 files): byte-identical, zero diff; git status --porcelain modules/ core/
+empty throughout (via `git --no-optional-locks status`, which avoided the
+index.lock problem entirely - plain `git status` on this mount both creates
+and then fails to remove that lock file on every invocation, cleared each
+time via the Windows PowerShell path against the real repo, never via the
+sandboxed `rm`, which is blocked the same way).
+
+Wrote a seventh independent extraction, audits/verify-3.9-2026-09-01-
+seventh.js, sharing no code with tools/ and not copied from any prior pass's
+script. Read the six prior passes' AGENT_LOG entries first to find genuinely
+uncovered ground rather than repeating the same eight families a seventh
+time. Landed on three: booking-widget assignment (does branches.json carry a
+usable pharmacyFirst id; are weightLoss/travelClinic/contraception each on
+their own distinct id rather than silently equal to pharmacyFirst; are none
+of this branch's four ids reused by any other trading branch under the same
+service key, checked estate-wide; and is each of the seven Pharmacy First
+condition pages actually linked from this branch's own PF overview page,
+which is the independent test for "counts as a PF condition" rather than an
+assumption), the Google Maps embed query (decoded and compared against
+streetAddress/addressLocality/postalCode independently encoded, cross-checked
+against the visible contact-card address on the same page as a second,
+separate comparison), and the Meta Keywords line read directly from all five
+relevant paste sheets (own seoTown present, no foreign seoTown without a
+serviceAreaList excuse, no foreign brandLabel, no claim/efficacy wording from
+a second, independently-worded pattern list rather than tools/claim-
+patterns.js). A fourth, lighter family re-confirmed title <=65 chars,
+description 80-165 chars, and seoTown present in both, recomposed from the
+sheets rather than imported from tools/seo-pattern.js. 625 checks across the
+12 pages and 12 keyword blocks (11 service pages, 1 switch page; 5 sheets).
+0 failures. ZERO DEFECTS FOUND in the estate.
+
+Guard effectiveness proved by four injections, and this pass changed method
+here rather than injecting into the tracked repo files and restoring: every
+mutation ran against a scratch copy of modules/ and branches.json made with
+plain `cp -r` into /tmp, run from that directory, then deleted. This sidesteps
+the sandbox's git-unlink restriction entirely rather than working around it
+after the fact, since the tracked files are never touched in the first place.
+Injection 1 (branches.json copy: weightLoss widget id set equal to
+pharmacyFirst) CAUGHT - both the would-silently-fall-back check and the
+no-two-ids-identical check fired, naming the exact ids. Injection 2 (one
+page's map query changed to a different branch's town and postcode) CAUGHT -
+the map-value check fired while the contact-card cross-check correctly stayed
+silent, since only the map was mutated, proving the two are genuinely
+separate comparisons rather than one masking the other. Injection 3 (a
+foreign brandLabel and a claim word added to one keywords line in SEO.md)
+CAUGHT - three failures, correctly naming both trading branches that share
+the injected foreign brand ("Fishlocks Chemist", held by both Ainsdale and
+Eccleston) plus the claim wording. Injection 4 (a title lengthened to 78
+characters in SEO.md) CAUGHT. Total check count held at 625 in every run,
+confirming no check was silently skipped by any mutation. Scratch directory
+removed after each injection and rebuilt fresh from the real repo before the
+next; sha256 of branches.json and the two page files touched by injections 1,
+2 and 4's scratch copies re-taken against the real repo afterward and matched
+the pre-run baseline exactly, confirming the real files were never touched
+(not merely restored).
+
+LIVE CHECKS. None this run (Claude in Chrome unavailable, see ANSWER PICKUP
+above). The live findings recorded on the 2026-08-31 sixth pass (pfLink still
+404, standing 5.3/Q8; live switch page still the pre-rename paste with a
+mojibake em dash the repo's own copy does not carry; header/footer still
+reading "Coleman & Leigh Pharmacy" against body copy's correct "Coleman and
+Leighs"; the Q22 weight loss tagline) are not reconfirmed this run and should
+be treated as unchanged rather than re-verified.
+
+FILES CHANGED. audits/verify-3.9-2026-09-01-seventh.js (new). AGENT_WORKLIST.md
+(3.9's entry appended, stays ticked). No file under modules/, core/,
+branches.json or tools/ changed - zero in-repo defects found this pass.
+
+QUESTIONS. None raised this run. 57 remain open from prior runs (unchanged).
+
+COMMIT AND PUSH. Committed on agents/audit-backlog. Push to origin attempted
+from the sandboxed path first (fails every run, no SSH key on this mount,
+consistent with every prior run's finding); see below for the outcome via the
+Windows PowerShell / real-repo path.
+
+STATUS PAGE. tools/build-audit-status.js run per step 10; see outcome below.
+
+LOCK. .agent-lock deleted at the end of this run via the sandboxed path.
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 6.2 fifth pass) - Item 3.4 quality pass (eighth): Cherry Lane Pharmacy Walton re-verified clean, repo half only, ZERO DEFECTS
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
