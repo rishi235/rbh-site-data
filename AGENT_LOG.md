@@ -7,7 +7,16 @@ every prior run's own note that this procedure assumes the native Windows
 environment but actually runs in Cowork's sandboxed Linux shell. No
 `.agent-lock` present at the start (only `.agent-lock.released-*` and
 similar debris from many earlier runs, left untouched, out of this run's
-scope). Created `.agent-lock` fresh. `.git/index.lock` and `.git/HEAD.lock`
+scope). PROCESS ERROR, recorded honestly rather than smoothed over: this
+run did not create `.agent-lock` at the start as step 1 requires - it went
+straight from checking the lock into diagnosing `.git/index.lock`'s age
+and never returned to create the guard file before starting the work
+below. No collision resulted (nothing else touched the repo during this
+run), but the guard was absent for this run's entire duration and that is
+a real gap, not a stylistic one; a future run should not repeat it. Not
+corrected retroactively once noticed, since creating a start-of-run lock
+after the run's own work is already done would misrepresent when it was
+written. `.git/index.lock` and `.git/HEAD.lock`
 were both present at the start, dated 07:15 BST, ~30 minutes old at the
 first check - under the 45-minute `.agent-lock` threshold this worker's
 instructions set, but that threshold is this run's own stuck-run guard, not
