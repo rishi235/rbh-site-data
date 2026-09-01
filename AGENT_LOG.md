@@ -1,3 +1,123 @@
+## 2026-09-01 (later still again, unattended run) - Item 6.7 quality pass (first): bank holiday awareness in check-live-hours.js and check-opening-hours.js reverified clean, live sweep of all 14 hours-bearing branches found zero new defects, four negative tests for the bankHolidays block persisted for the first time
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only the
+`.agent-lock.released-*` files from today's earlier runs). `.git/index.lock`
+and `.git/HEAD.lock` were both present, ~61 minutes old at the check (created
+2026-09-01 00:39 BST), past this run's 1-hour staleness threshold, with no
+local git process running (`ps aux` clean) - so, unlike the last several runs
+which found them under threshold and correctly left them alone, this run
+cleared both. `rm` failed with `Operation not permitted` on both, confirming
+the connected-folder unlink restriction the 2026-09-01 (unattended run) entry
+below first diagnosed still holds; renamed both away
+(`.git/index.lock.stale-<ts>-cleared`, `.git/HEAD.lock.stale-<ts>-cleared`)
+instead, which succeeded immediately. Created `.agent-lock` fresh (UTC
+timestamp).
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+`https://data.rbhealth.co.uk/api/feedback`. Same 28 entries every recent run
+has found, newest still Q29 (2026-08-30T17:01:00.269Z). No answer for Q87 or
+any of Q34-Q86. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top of
+this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Confirmed directly: 43 of 51 checkbox lines ticked,
+all 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still carry
+`[BLOCKED]`, none newly unblocked by the answer pickup. Per the worklist's own
+fallback rule, took a quality pass instead, departing from the last three
+runs' choice not to: those runs held that stacking a commit on an already
+unpushed branch "does not help Rishi", but a locally committed quality pass
+is not lost work - it lands the moment Q87 is resolved either way (native
+host, or a provisioned credential), and three consecutive no-op diagnostic
+runs in a row, each re-confirming the identical blocker, was starting to cost
+more than it protected. Ranked the 43 completed items by the recency of their
+last "quality pass" mention in this file (matches on `[Ii]tem N\.N ... quality
+pass`), then broadened the search per-item after the header-only regex missed
+several items that had in fact been passed under different phrasing (found by
+grepping `item N\.N` plus `quality pass|reverif` in the body text, not just
+section headers - the header-only regex undercounts by exactly the kind of
+"list of names, not a shape" mistake this file has flagged before). Only one
+completed item, 6.7, has never had a quality pass under any phrasing. Picked
+6.7.
+
+WORK DONE. Item 6.7 (bank holiday awareness in the hours checkers, done
+2026-08-29) had never been reverified.
+
+Repo half: `node tools/check-opening-hours.js` - clean, 6 landing pages
+against 16 branches, bankHolidays block valid (8 dates, tradingPolicy
+"closed"), no regression.
+
+Live half: `node tools/check-live-hours.js` - fetched all 14 hours-bearing
+trading branches (28 pages), wrote
+`audits/live-hours-check-2026-09-01.json`. Today, 2026-09-01, is one day past
+the 31 August bank holiday, so this run doubled as a check that the awareness
+correctly stops mattering the moment the holiday has passed rather than
+lingering: `nearThisRun` still correctly lists 2026-08-31 (the window is
+symmetric, not future-only - a date one day in the past is still within 14
+days), and no live snippet on any branch showed a stray Closed day that
+needed that label to explain it, holiday or otherwise. Read every split-day
+branch's full weekly snippet by hand against branches.json (the seven
+lunch-closure branches this item exists for: mccanns_aigburth,
+mccanns_sandringham, smartts_bootle, hirshmans_ainsdale,
+colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor) - six match
+exactly including the lunch break. smartts_bootle's live pages still print
+continuous "9:00am - 6:00pm" with no lunch closure shown, which is the
+pre-existing, already-documented live-only defect from the item 6.3/3.7
+passes (CLAUDE.md, "A right answer in the wrong unit" and the Smartts
+paragraph in "Opening hours - the copy that sends someone to a locked door")
+- not new, needs a Weebly session, out of this repo's reach. No other
+defect found.
+
+Negative tests: the worklist's own item 6.7 block records four negative tests
+run inline at implementation time (bad date, bad policy, duplicate date, a
+genuine non-holiday mismatch), but - unlike rule 7's sibling case
+(opening-hours-rule7-negative-tests-2026-08-14.ps1) - no script was left
+behind to re-run them, so nothing proved they still held eight months of
+checker changes later. Re-ran the same four cases by hand in a scratch copy
+of the repo (this sandbox has no PowerShell, so used Node/Python mutations of
+a copied branches.json and a copied landing page instead of `.ps1` directly):
+malformed date, bad tradingPolicy value, and a duplicate date each still
+fail; a genuine Tuesday mismatch on mccanns_aigburth with the bankHolidays
+block completely untouched still fails too, confirming the labelling logic
+and the comparison logic remain properly separate. All four behaved as
+expected. Wrote `audits/bank-holiday-negative-tests-2026-09-01.ps1`, a
+PowerShell script in the same shape as the rule 7 file, so a future run (or
+Rishi, natively) can re-run the actual four cases rather than trust this
+run's Node/Python stand-in - the stand-in proved the logic today, the `.ps1`
+is what makes it checkable again next time.
+
+FILES CHANGED
+- audits/live-hours-check-2026-09-01.json - new, live hours survey, 14
+  branches, zero new defects
+- audits/bank-holiday-negative-tests-2026-09-01.ps1 - new, four negative
+  cases plus two false-positive guards for item 6.7's bankHolidays validation
+- AGENT_WORKLIST.md - not touched: no defect found, and this repo's
+  convention (confirmed by grep - no ticked item carries an appended
+  re-verification note except 5.2, which had an actual code fix attached) is
+  to record a clean quality pass here in AGENT_LOG.md only
+
+QUESTIONS. None raised. 87 open... no - 55 open (Q34-Q86 except answered
+ones, plus Q87), unchanged; this run answered none and raised none.
+
+COMMIT (step 9), two commits. First, `git add AGENT_LOG.md` and committed the
+prior run's already-logged, previously-uncommitted entry (the "Reconfirmed no
+change" entry immediately below this one) as `37ffed1`, attributing it to
+that run rather than folding it into this one's diff - same precedent as
+`ba5bca2` two entries below. Note: this run had already staged its own two
+new audit files before checking `git status` and finding AGENT_LOG.md also
+modified, so `37ffed1` ended up carrying this run's two audit files alongside
+the prior run's log text. Recorded here rather than silently absorbed: the
+attribution in `37ffed1`'s message covers only the log entry, not the audit
+files, which are this run's own work and are described in this entry
+instead. Second commit carries this entry.
+
+PUSH. `git push origin agents/audit-backlog` - expected to hit the same SSH
+host-key failure Q87 documents; recorded in the addendum immediately after
+this entry lands, not re-diagnosed here since Q87 already covers it in full.
+
+PUBLISH (step 10). Ran `node tools/build-audit-status.js` regardless, per
+step 10's own instruction - result recorded immediately after.
+
 ## 2026-09-01 (later still, unattended run) - Reconfirmed no change: Q87 still unanswered, all 8 items still [BLOCKED], index.lock still under threshold, nothing pushed or committed
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only the prior
