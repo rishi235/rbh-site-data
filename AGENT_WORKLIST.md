@@ -4822,6 +4822,67 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       whoever next handles the repaste queue, not actioned further. No
       in-repo defect found. No pack fact, page, generator or branches.json
       entry changed. No new question raised. Done 2026-08-31.
+      Eighth quality pass 2026-09-01. Selection required a block-bounded
+      scan of this whole file rather than trusting AGENT_LOG.md header text:
+      several items done earlier today (3.3, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10,
+      4.13) used header wording a simple "Item X.Y quality pass" grep would
+      have missed, wrongly suggesting them as still-oldest; reading each
+      item's own bounded block for a "2026-09-01" mention showed 4.14 was
+      the only one of that group with none, so 4.14 was taken.
+      Pack clean and byte-stable for the eighth pass running: a fresh
+      independent extraction (audits/verify-4.14-2026-09-01.js, own regexes,
+      imports nothing from tools/) re-checked name, address, phone, website,
+      review link, hasApp/no-app-claim, both weekday sessions, both Saturday
+      sessions (confirming the Saturday close is genuinely shorter than the
+      weekday close), Sunday closed, catchment order and membership, the
+      652-character description claim, Post A resolving to the exact pfLink
+      rather than the held branch page, the other three posts resolving to
+      files this repo generates, all four post lengths (449/280/521/424,
+      identical to all seven earlier passes), no medicine name, no
+      body-image wording in Post C, and no em/en dash, smart quote or nbsp:
+      42/42 passed. All 36 checkers exit 0 before any change. All six
+      generators rebuilt to a zero-diff worktree (203 files, sha256
+      identical before/after).
+      Three injections proved rather than recited: Post A's button swapped
+      to the held branch-specific page (caught by check-gbp-packs.js's
+      PF_TARGET_HOLD/Q32 rule); the stated Saturday close widened from
+      5:00pm to 6:00pm, every individual time and day name still technically
+      the branch's own (caught by the day-binding rule with both a
+      missing-time and a day-mismatch failure); "Ready to start your
+      transformation?" appended to Post C (caught by the BODY_IMAGE_SELF
+      rule from the fifth pass). All three restored via plain file copy
+      from a pre-injection backup, sha256-confirmed byte-identical each
+      time, full 36-checker suite re-run clean after the final restore.
+      LIVE HALF performed via plain read-only Node fetch (Claude in Chrome
+      unavailable - two connected browsers, unattended run cannot choose,
+      Q59). All findings from the sixth and seventh passes reconfirmed
+      unchanged: Post A's actual target (pharmacy-first-service-crosby.html)
+      correct and safe; the switch page's naming is fixed (24 correct, 0
+      wrong) but its mojibake em dash under "How switching...works" is
+      still there ("ÔÇö"); the three branch-specific pages Post A must not
+      be repointed to (Pharmacy First, weight loss, travel clinic) still
+      read "Gordon Shorts Chemist" throughout (16, 12 and 11 wrong-name
+      occurrences respectively against 5 correct each), so the STOP remains
+      correctly in force; the sitewide mojibake "├ù" close-button glyph is
+      present on all five pages read; the sitemap is still dated
+      2026-08-15T07:41:55+00:00 throughout, no republish since the last
+      check.
+      NEW FINDING, on a page outside this item's four tracked post targets
+      so nothing before this run had read it: the sitemap also lists
+      weight-loss-clinic-crosby.html, a second live weight loss URL
+      alongside the pack-linked one, the same "old page live next to the
+      current one" shape as the confirmed Post A STOP. Its real head
+      correctly names the branch but its own meta description names Wegovy
+      and Mounjaro by brand in a promotional frame - public search-snippet
+      copy, Regime 1 territory. A vendor booking-widget snippet further down
+      the page body separately carries its own inert second title/meta pair
+      naming "Wilmslow Pharmacy" (RBH's own disposed Wilmslow branch, or
+      unrelated vendor boilerplate - not established). Not acted on: this
+      repo does not generate or link to this page, the medicine-naming point
+      is a live regulatory claim, and neither call is this run's to make
+      alone. Raised as Q90. No in-repo defect on the pack itself. Evidence
+      in audits/gordon-short-item-4.14-quality-pass-2026-09-01-eighth.txt.
+      Done 2026-09-01.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

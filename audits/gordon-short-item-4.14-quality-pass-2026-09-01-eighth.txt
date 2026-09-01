@@ -1,0 +1,154 @@
+Item 4.14 quality pass (eighth) - Gordon Short Chemist Crosby GBP pack
+Run: 2026-09-01, unattended scheduled run, following the seventh pass on 2026-08-31.
+
+SELECTION
+All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) remain
+[BLOCKED]. Quality pass taken instead. Item selection required a full
+block-bounded scan of AGENT_WORKLIST.md rather than trusting AGENT_LOG.md
+header greps: several of today's earlier runs (3.3, 4.5, 4.6, 4.7, 4.8, 4.9,
+4.10, 4.13) had already re-verified their items today under header text that
+did not match a simple "Item X.Y quality pass" pattern, so a naive header
+scan wrongly suggested those items as still-oldest. Reading each item's own
+worklist block directly (grep for "2026-09-01" inside each item's bounded
+section) showed all of those had genuinely been done today except 4.14,
+whose block's last dated entry was "Seventh quality pass 2026-08-31" with no
+2026-09-01 mention anywhere in its bounded text. 4.14 is therefore the
+correct, least-recently-verified pick.
+
+REPO HALF
+branches.json entry (id gordonshorts_crosby) re-read in full: address 159
+College Road, Liverpool L23 3AT; phone 0151 924 3449; hours - Monday to
+Friday 09:00-13:00 and 14:00-18:00, Saturday 09:00-13:00 and 14:00-17:00
+(shorter than the weekday PM session), Sunday closed; serviceAreaList
+["Crosby","Waterloo","Sefton"]; hasApp false; review link
+https://g.page/r/CZcVDM6emi6OEAE/review; website
+https://www.gordonshortchemist.co.uk; pfLink
+https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html.
+
+Wrote a fresh independent extraction, audits/verify-4.14-2026-09-01.js, own
+regexes throughout, importing nothing from tools/. 42 checks: name, address,
+phone, website, review link, hasApp/no-app-claim, both weekday sessions,
+both Saturday sessions (confirming the Saturday close is genuinely shorter
+than the weekday close, not just present), Sunday closed, catchment order
+and membership across the pack, description char-count claim (652,
+verified exact), all 4 post buttons present, Post A resolving to the exact
+pfLink (not the held branch-specific page), the other three posts resolving
+to files this repo actually generates, all four post lengths (449/280/521/
+424, byte-identical to all seven earlier passes), no medicine/vaccine brand
+name, no body-image self-referential weight-loss wording in Post C, and no
+em dash/en dash/smart quote/nbsp anywhere in the pack. 42/42 passed.
+
+All 36 tools/check-*.js run individually: 36/36 pass, 0 failures, before any
+change.
+
+All six generators rebuilt (build-service-pages, build-branch-landing-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages). sha256 of all 203 files under
+modules/service/pages, modules/switch/pages and modules/branch/pages taken
+before and after: byte-identical, zero diff. git status on modules/ empty.
+
+INJECTION TESTS (three, each on the live working copy, each reverted by
+plain file copy from a pre-injection backup and confirmed byte-identical by
+sha256 before continuing, matching this mount's established restore method
+since git checkout -- cannot unlink here):
+
+1. Post A's button URL changed from the pfLink
+   (pharmacy-first-service-crosby.html) to the held branch-specific page
+   (pharmacy-first-gordon-short-crosby.html). Caught by check-gbp-packs.js:
+   "Post A - Pharmacy First button goes to this branch's own generated
+   Pharmacy First page ... but that swap is on hold (Q32)". This is the
+   PF_TARGET_HOLD guard the item 4.14 fourth pass (2026-08-13) added; it
+   still fires exactly as written.
+
+2. The stated Saturday close time widened from 5:00pm to 6:00pm (matching
+   the weekday close), leaving every individual time and every day name
+   still technically one of the branch's own. Caught by check-gbp-packs.js
+   with two failures: a missing-time failure (17:00 no longer appears
+   anywhere in the pack) and a day-bound mismatch failure naming the exact
+   branches.json Saturday hours against what the edited line would publish.
+   This is the day-binding rule from the item 4.14 third pass (2026-08-12).
+
+3. Post C's closing sentence had "Ready to start your transformation?"
+   appended. Caught by check-gbp-packs.js's BODY_IMAGE_SELF rule (the item
+   4.14 fifth pass, 2026-08-14 fix): "this pack sells weight loss on body
+   image rather than on the service, by transformation framing:
+   'transformation'".
+
+All three restored; sha256 after each restore matched the pre-injection
+backup exactly (49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+throughout); git status showed no tracked diff at any point; the full
+36-checker suite was re-run clean after the final restore.
+
+LIVE HALF
+Claude in Chrome unavailable: two connected Chrome browsers, no device
+selected, an unattended run cannot answer the required AskUserQuestion
+(standing Q59 condition). Performed instead via plain read-only Node
+fetch() (GET only), the established fallback this audit has used since the
+item 3.3/3.4 passes. Six URLs read:
+
+- pharmacy-first-service-crosby.html (Post A's actual target, the pfLink):
+  200, title "Pharmacy First Service at Gordon Short Chemist | Crosby &
+  Surrounding Areas", correct name, safe as written, unchanged.
+- switch-prescriptions-gordon-short-crosby.html: 200, title "Switch Your
+  Prescriptions - Gordon Short Chemist Crosby", 24 correct-name occurrences,
+  0 wrong-name occurrences (the naming fault is fixed, as the sixth pass
+  found). The mojibake em dash reconfirmed present and unchanged: the raw
+  bytes "ÔÇö" still render where an em dash belongs, in "With Gordon Short
+  Chemist in Crosby, it usually is not ÔÇö we make the first step quick and
+  easy." under the "How switching to Gordon Short Chemist works" heading.
+  Still needs the repaste already queued.
+- pharmacy-first-gordon-short-crosby.html (the branch-specific page Post A
+  must NOT be repointed to, per the STOP): 200, title "Pharmacy First at
+  Gordon Shorts Chemist, Crosby" (wrong, plural), 5 correct-name mentions
+  against 16 wrong-name mentions. STOP correctly still in force.
+- weight-loss-clinic-gordon-short-crosby.html (Post C's actual target): 200,
+  title "Weight Loss Clinic at Gordon Shorts Chemist, Crosby" (wrong,
+  plural), 5 correct against 12 wrong. Unchanged from every prior check.
+- travel-clinic-gordon-short-crosby.html (Post D's actual target): 200,
+  title "Travel Clinic at Gordon Shorts Chemist, Crosby" (wrong, plural), 5
+  correct against 11 wrong. Unchanged from every prior check.
+- sitemap.xml: every entry still dated lastmod 2026-08-15T07:41:55+00:00, no
+  republish since the sixth/seventh passes' own reading.
+
+All five content pages carry the same stray mojibake glyph the seventh pass
+first noted near the top of the page: a corrupted three-byte sequence
+rendering as "├ù" inside a "flu-header-close" button's aria-label/text
+content ("Close" button character), sitewide rather than branch-specific,
+in no repo file. Unchanged, not re-raised.
+
+NEW FINDING, not previously read by any pass on this item (it sits outside
+the four pack-linked post targets, so nothing before this run had reason to
+open it): the sitemap also lists weight-loss-clinic-crosby.html, a second,
+separate live weight loss URL for this branch alongside the pack-linked
+weight-loss-clinic-gordon-short-crosby.html - the same "old legacy page
+still live next to the current generated one" shape as the confirmed Post A
+STOP, but on a page nothing has checked before. Read read-only: its real
+<head> correctly names the branch (title "Weight Loss Clinic at Gordon
+Short Chemist | Crosby, Liverpool", og:site_name "GORDON SHORT CHEMIST"),
+but that same real head's meta description names two prescription-only
+medicines by brand in a promotional frame: "Offering options like Wegovy,
+Mounjaro weekly injections, and weight loss tablets." A meta description
+reaches Google's search snippet, which is public advertising surface
+regardless of whether a visitor then chooses to click through, so this
+reads as a Regime 1 exposure (CAP rule 12.12 territory), not the limited
+Regime 2 inner-page exemption. Separately, and lower down inside the page
+BODY, a vendor booking-widget snippet (an HTML comment labels it "Weight
+Loss - dual Appointedd (In-store + Online) v2 with Calculator") carries its
+own second, inert <title> and <meta name="description"> pair reading
+"Medicated Weight Loss Treatment in Wilmslow | Wilmslow Pharmacy" - inert
+to the browser tab (browsers use only the first <title>) but present in the
+raw HTML any crawler or scraper reads. Whether "Wilmslow Pharmacy" refers to
+RB Healthcare's own disposed Wilmslow branch (disposal completed 1 June
+2026) or is unrelated vendor-template boilerplate naming some other
+business entirely was not established and is not guessed here. Not acted
+on: this is a live-only page this repo does not generate or link to, the
+medicine-naming point is a live regulatory advertising claim, and neither
+of those is a call this run may make alone. Raised as Q90.
+
+RESULT
+No in-repo defect. No pack copy, page, generator, data field or
+branches.json entry changed. Zero-diff rebuild confirmed. One new question
+raised (Q90), on a page outside this item's own four tracked post targets.
+All previously-known live-only findings on this branch (mojibake em dash,
+wrong-name STOP on three branch-specific pages, sitewide mojibake close-
+button glyph) reconfirmed unchanged.

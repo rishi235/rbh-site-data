@@ -1,4 +1,170 @@
-## 2026-09-01 (unattended run, following the 4.2 ninth pass) - Item 1.2 quality pass (eighth): Hirshmans Ainsdale address re-verified clean on all 36 checkers and a fresh five-pattern broken-variant sweep; found and fixed a real gap in check-gbp-packs.js's foreign-street rule (exact-string match only, never given the abbreviation-aware fix check-nap.js applied to itself on 2026-08-31), proved by injection before and after; live half not performed (built-in browser denied navigation, Claude in Chrome's multi-browser prompt cannot be answered unattended); no new question.
+## 2026-09-01 (unattended run, following the 1.2 eighth pass) - Item 4.14 quality pass (eighth): Gordon Short Chemist Crosby GBP pack re-verified clean on all 36 checkers and a fresh 42-check independent extraction, three injections proved (PF_TARGET_HOLD/Q32, day-bound Saturday hours, BODY_IMAGE_SELF); live half performed via read-only fetch (Claude in Chrome blocked, Q59) and found a new live-only page outside this item's four tracked post targets - weight-loss-clinic-crosby.html, in the sitemap, with a meta description naming Wegovy and Mounjaro by brand and an inert vendor-widget title/meta pair naming "Wilmslow Pharmacy" - raised as Q90; no in-repo defect.
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T13:34:28Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key for
+git@github.com there) - the standing Q87 diagnosis, reconfirmed again. Per
+established precedent, all git network operations (fetch, pull, and the
+eventual commit/push) were run via the Windows-MCP PowerShell tool directly
+against the real `C:\Dev\rbh-site-data`, which holds working credentials;
+the sandboxed mount was used only for file reads/edits and running the node
+checkers/generators, which need no network access. Both copies confirmed on
+the same commit (bf55653, agents/audit-backlog, up to date with origin)
+before work began.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned the same "Multiple Chrome browsers are connected ... none has been
+selected" error every recent run has hit, which requires an explicit human
+choice via AskUserQuestion. Unattended run, nobody present to answer;
+logged as unavailable and not retried by another route, per the procedure's
+own fallback instruction. 55 questions were open at the start (Q90 added by
+this run brings the open count to 56).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED]. Quality pass taken instead.
+A first pass at "least recently verified" using AGENT_LOG.md's own "## "
+headers (as several recent runs describe doing) pointed at item 3.3, then
+at 4.10, both wrongly: both had already been re-verified today under log
+entries whose headers do not contain a clean "Item X.Y quality pass"
+substring (in 3.3's case, the pass narrative sits inside a body block whose
+own header names a different item entirely, apparently from an interleaved
+write). Checking evidence-file timestamps in audits/ for 3.3, 4.5, 4.6,
+4.7, 4.9 and 4.10 confirmed all had genuinely been re-verified this morning
+(evidence files timestamped between 06:41 and 11:40 today). The reliable
+method turned out to be reading each rotation-pool item's own bounded block
+in AGENT_WORKLIST.md directly and searching within it for a "2026-09-01"
+mention, rather than trusting AGENT_LOG.md's header text at all. Every item
+in the group tied at 2026-08-30 (3.3, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.13,
+4.14) had such a mention today except 4.14, whose block's last dated entry
+was "Seventh quality pass 2026-08-31" with no 2026-09-01 text anywhere in
+its bounded section. 4.14 was taken. This selection-method gap (log headers
+under-reporting real pass history) is itself worth carrying forward: the
+next run should prefer the block-bounded worklist scan over a log-header
+grep.
+
+WHAT WAS DONE. Full repo-half re-verification on the sandboxed mount: all
+36 `tools/check-*.js` checkers run individually, 36/36 pass before any
+change. All six generators rebuilt (build-service-pages,
+build-branch-landing-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages); sha256 of all 203
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages taken before and after: byte-identical, zero diff;
+`git status --short modules/` empty.
+
+Wrote a fresh independent extraction, audits/verify-4.14-2026-09-01.js, own
+regexes throughout, importing nothing from tools/. Re-verified the
+gordonshorts_crosby pack against branches.json: name, address (159 College
+Road, Liverpool L23 3AT), phone (0151 924 3449), website, review link,
+hasApp false with no app claim, both weekday sessions (09:00-13:00 and
+14:00-18:00), both Saturday sessions (09:00-13:00 and 14:00-17:00,
+confirming the Saturday close is genuinely shorter than the weekday close,
+not merely a subset check), Sunday closed, catchment order and membership
+(Crosby, Waterloo, Sefton) across all three places in the pack, the
+652-character description claim (recomputed and matched exactly), Post A
+resolving to the exact branches.json pfLink rather than the PF_TARGET_HOLD
+branch page, the other three posts resolving to files this repo actually
+generates, all four post lengths (449/280/521/424, byte-identical to all
+seven earlier passes), no medicine or vaccine brand name, no body-image
+self-referential weight-loss wording in Post C, and no em dash/en
+dash/smart quote/nbsp anywhere in the pack. 42/42 checks passed.
+
+INJECTION TESTS (three, each on a disposable working copy, each reverted by
+plain file copy from a pre-injection backup and sha256-confirmed
+byte-identical before continuing - this mount's `git checkout --` cannot
+unlink the old file, the same FUSE-mount restriction earlier passes
+diagnosed):
+
+1. Post A's button URL swapped from the pfLink
+   (pharmacy-first-service-crosby.html) to the held branch-specific page
+   (pharmacy-first-gordon-short-crosby.html). Caught by
+   check-gbp-packs.js's PF_TARGET_HOLD rule (Q32): "that swap is on hold
+   ... Confirmed live 2026-08-10 and rechecked 2026-08-11 ... Repaste
+   first, then clear the gordonshorts_crosby entry".
+2. The stated Saturday close widened from 5:00pm to 6:00pm, matching the
+   weekday close - every individual time and every day name still
+   technically one of the branch's own times. Caught with two failures: a
+   missing-time failure (17:00 no longer appears anywhere) and a
+   day-bound mismatch naming the exact branches.json Saturday hours
+   against what the edited line would publish. This is the item 4.14 third
+   pass's (2026-08-12) day-binding fix, re-proved.
+3. "Ready to start your transformation?" appended to the end of Post C.
+   Caught by the BODY_IMAGE_SELF rule the item 4.14 fifth pass
+   (2026-08-14) added: "this pack sells weight loss on body image rather
+   than on the service, by transformation framing".
+
+All three restored; sha256 after each restore matched the pre-injection
+backup exactly
+(49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+throughout); `git status --short gbp-packs/` empty at every check; the full
+36-checker suite was re-run clean after the final restore.
+
+LIVE HALF. Claude in Chrome unavailable (see ANSWER PICKUP above, same
+underlying cause). Performed instead via plain read-only Node `fetch()`
+(GET only, the established fallback this audit has used since the item
+3.3/3.4 passes), six URLs read:
+- pharmacy-first-service-crosby.html (Post A's actual target): 200, title
+  "Pharmacy First Service at Gordon Short Chemist | Crosby & Surrounding
+  Areas", correct name, safe as written, unchanged.
+- switch-prescriptions-gordon-short-crosby.html: 200, naming fixed (24
+  correct-name occurrences, 0 wrong), but the mojibake em dash is still
+  there - raw bytes "ÔÇö" render where an em dash belongs, in "it usually
+  is not ÔÇö we make the first step quick and easy" under "How switching
+  to Gordon Short Chemist works". Unchanged, still queued for repaste.
+- pharmacy-first-gordon-short-crosby.html, weight-loss-clinic-gordon-short-
+  crosby.html and travel-clinic-gordon-short-crosby.html (the three
+  branch-specific pages the STOP holds Post A, Post C and Post D's targets
+  away from, respectively for Post A only - Post C and D already point
+  correctly at these two): all three still read "Gordon Shorts Chemist"
+  (wrong, plural) throughout title, heading and body - 16, 12 and 11 wrong
+  occurrences respectively against 5 correct each. Unchanged since
+  2026-08-10; the STOP on Post A remains correctly in force.
+- sitemap.xml: every entry still dated lastmod 2026-08-15T07:41:55+00:00,
+  no republish since the sixth/seventh passes' own reading.
+All five content pages carry the sitewide mojibake "├ù" glyph the seventh
+pass first noted (a corrupted close-button character inside a
+"flu-header-close" button), unchanged, not re-raised.
+
+NEW FINDING, on a page outside this item's four tracked post targets so
+nothing before this run had read it. The sitemap also lists
+weight-loss-clinic-crosby.html, a second live weight loss URL for this
+branch alongside the pack-linked weight-loss-clinic-gordon-short-crosby.html
+- the same "old page live next to the current generated one" shape as the
+confirmed Post A STOP, on a page nothing had checked before. Read
+read-only: its real `<head>` correctly names the branch (title "Weight
+Loss Clinic at Gordon Short Chemist | Crosby, Liverpool", og:site_name
+"GORDON SHORT CHEMIST"), but that same head's meta description names two
+prescription-only medicines by brand in a promotional frame: "Offering
+options like Wegovy, Mounjaro weekly injections, and weight loss tablets."
+A meta description reaches Google's search snippet, public advertising
+surface a patient has not chosen to click into, so this reads as Regime 1
+territory rather than the limited Regime 2 inner-page exemption. Separately,
+further down inside the page body, a vendor booking-widget snippet
+(labelled by its own HTML comment as a shared "dual Appointedd" template)
+carries a second, browser-inert `<title>`/`<meta description>` pair reading
+"Medicated Weight Loss Treatment in Wilmslow | Wilmslow Pharmacy" - present
+in the raw served HTML though no browser tab shows it. Whether "Wilmslow
+Pharmacy" refers to RB Healthcare's own disposed Wilmslow branch (disposal
+completed 1 June 2026) or unrelated vendor-template boilerplate naming a
+different business was not established. Not acted on: this repo neither
+generates nor links to this page, the medicine-naming point is a live
+regulatory advertising claim, and neither call is this run's to make alone
+per the hard-rule carve-out. Raised as Q90.
+
+RESULT. No in-repo defect. No pack copy, page, generator, data field or
+branches.json entry changed. Zero-diff rebuild confirmed. One new question
+raised (Q90). Item 4.14 tick line updated in AGENT_WORKLIST.md with the
+eighth-pass summary. Evidence in
+audits/gordon-short-item-4.14-quality-pass-2026-09-01-eighth.txt and
+audits/verify-4.14-2026-09-01.js.
+
+COMMIT AND PUSH. Committed on the sandboxed mount, then pushed via the
+Windows-MCP PowerShell tool against the real C:\Dev\rbh-site-data (see the
+commit hash and push confirmation logged immediately after this entry, or
+in the next run's environment note if the push step had to be deferred).
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T12:04:30Z. That mount's `git fetch
