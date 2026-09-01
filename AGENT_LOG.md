@@ -1,3 +1,136 @@
+## 2026-09-01 (unattended scheduled run, following the 3.13 fifth pass) - Item 6.2 quality pass (fifth): broken/mistargeted internal links and claim/POM copy, repo half only, ONE REAL DEFECT FOUND AND FIXED - RULE 2 and RULE 3 never read the two JS files that inject patient-facing copy into a page at runtime
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker, generator and independent-script
+runs (no network needed and none available - the sandboxed git remote is SSH
+and this mount has no key, "Host key verification failed" on `git fetch`,
+matching every prior run's finding), plus Windows-MCP PowerShell for git
+network operations (fetch, checkout, pull, and the eventual commit/push)
+against the real repo path, which holds working SSH credentials - the
+standing Q87 split. .agent-lock absent at start; created via the sandboxed
+path (timestamp 2026-09-01T19:03:43Z), confirmed identical from the Windows
+path (same underlying mount, LastWriteTime 01/09/2026 20:03:43). git
+fetch/checkout/pull via the Windows path: "Already up to date" on
+agents/audit-backlog, a79256f (the 3.13 fifth-pass commit). No index.lock
+present this run on either path, so nothing to clear.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the
+run. Unattended run, nobody present to resolve it; logged as unavailable and
+not retried by another route, per the procedure's own fallback instruction.
+57 questions open at the start of this run (unchanged since the previous
+run); none answered or resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit whose message mentions that item number by a word-boundary regex
+match. The oldest such timestamp belonged to item 6.2 (2026-08-31T19:32:35
++01:00, the fourth pass) - every other rotation-pool item had a later
+commit, including 3.13 which the immediately prior run had just brought
+current (2026-09-01T19:42:48+01:00, the newest of all 36). 6.2 taken:
+broken/mistargeted internal links and the two copy-safety rules riding on
+the same checker (results claims, POM medicine names), fifth pass following
+2026-08-11 (build), 2026-08-13, 2026-08-14, 2026-08-30 and 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 pass, zero failures. All six page generators rebuilt; sha256
+of every .html/.js/.css file under modules/ and core/ taken before and after
+(189 files): byte-identical, zero diff; git status --porcelain modules/
+core/ empty throughout.
+
+Read tools/check-service-links.js in full rather than assuming the fourth
+pass's fix was the last gap. RULE 1 (link targets), RULE 2 (claims) and
+RULE 3 (POM medicine names) all read PAGE_DIRS (177 generated pages) and,
+since the fourth pass, the six EXTRA_FILES (hand-pasted Weebly embeds and
+DRAFT copy specs). None of the three had ever read a JS module file.
+modules/service/service.js's injectPFExtras() function writes further
+patient-facing copy into every Pharmacy First page's DOM at RUNTIME, after
+the generated static HTML has already loaded: a self-refer banner, an
+explainer-video card, a "prefer to walk in" card, and a client-side re-link
+of any condition tile still reading "Page coming soon" into a real link
+(confirmed today: 0 of 98 condition-page tiles currently read "Page coming
+soon", so that branch is dormant, not broken). None of that text lives in
+any file RULE 2 or RULE 3 was reading, so a claim or a medicine name typed
+into one of those template strings would have passed all 36 checkers.
+modules/switch/switch.js carries the same shape of injected copy (callback
+and switch-form field labels).
+
+The same service.js function also builds a link href at RUNTIME
+(cslug + "-treatment-" + brandTown + ".html", from location.pathname and a
+hardcoded seven-entry SLUGS table) rather than emitting a static href, so
+RULE 1 cannot see it as a link either. Checked by hand rather than widening
+RULE 1 to the JS source: a plain href-literal regex run against service.js
+matches its own string concatenation as a false link target (a line reading
+href='" + telHref + "' is read as a literal, malformed href), so extending
+RULE 1 there would add noise, not coverage. The runtime link itself is safe
+by construction - brandTown is always read from the CURRENT page's own
+pathname, so the link can only ever resolve on that page's own host - and a
+subagent independently confirmed the SLUGS table's seven keys match the
+<strong> condition-tile text build-service-pages.js emits (UTI, Sore throat,
+Sinusitis, Earache, Impetigo, Shingles, Infected insect bite) and that the
+brand-town suffix pattern matches all 98 generated condition pages and all
+14 generated overview pages exactly.
+
+FIX. tools/check-service-links.js: added EXTRA_JS_COPY_FILES (service.js and
+switch.js); pulled RULE 2 and RULE 3 out of the combined RULE1/2/3 block into
+a standalone scanCopy(file, visible) function, called both from the existing
+per-page/per-EXTRA_FILE scanFile() path and directly against the two JS
+files, so JS source is scanned for claims and medicine names but never run
+through RULE 1's href regex. modules/emar/emar.js deliberately excluded, the
+same Borough Care boundary check-whatsapp-route.js already draws around it
+(it drives care-home eMAR screens, not public marketing copy). Zero hits on
+both files when this was added: the gap was latent, not a live breach, the
+same shape every 6.2 pass before this one has found. Header comment extended
+with a "JS-INJECTED COPY" section recording all of the above.
+
+PROVED BY INJECTION, three cases, each file's sha256 confirmed identical to
+its pre-injection hash afterwards (fs-level edit and restore, not git
+checkout, so no dependency on the sandboxed mount's known index.lock
+unlink problem): (1) a results-claim sentence added to service.js's
+self-refer banner string - caught as [claim], invisible to the old checker;
+(2) a medicine name ("Mounjaro") added to switch.js's "Start your switch"
+button label - caught as [medicine], invisible to the old checker; (3) both
+files confirmed byte-identical to their working-tree hashes after restore
+(eb9c472...30d6a for service.js, 3a1d7df...12393 for switch.js). Also
+confirmed the widened checker still passes clean on the untouched files and
+that all 36 checkers and the six generators are unaffected by the refactor
+(second full run after the fix, byte-identical generator output again).
+
+INDEPENDENT VERIFICATION. New script, sharing no code with
+tools/claim-patterns.js or tools/pom-names.js:
+audits/service-links-js-copy-independent-2026-09-01.js - its own
+28-entry medicine list and its own 7 claim-phrase patterns, run against the
+same two JS files. 0 hits on the clean files; separately confirmed it also
+catches a Wegovy-name injection into service.js when tested (then restored,
+byte-identical). Output saved to
+audits/service-links-js-copy-independent-2026-09-01-output.txt.
+
+LIVE HALF. Not read this pass - Claude in Chrome unavailable (see above).
+Not re-claimed: the four 2026-08-14 findings (Riddings' canonical switch
+permalink 404s and the old permalink still serves the "Support that delivers
+results" tile; Tiffenbergs' book-now.html 404s; Riddings' /clinic-prices
+404s) stand as last read and are not re-verified this run. Q53 and Q54 stay
+open.
+
+RESULT. One real defect found and fixed, in the checker, not in any page,
+generator or data field. Files changed this pass: tools/check-service-links.js
+(EXTRA_JS_COPY_FILES, scanCopy() extraction, header comment),
+AGENT_WORKLIST.md (6.2 fifth-pass note appended), AGENT_LOG.md (this entry),
+audits/service-links-js-copy-independent-2026-09-01.js (new),
+audits/service-links-js-copy-independent-2026-09-01-output.txt (new). No
+page, generator or branches.json touched. No new question raised; Q53 and
+Q54 reconfirmed as still open rather than assumed; 57 questions remain open
+estate-wide.
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 3.12 fourth pass) - Item 3.13 quality pass (fifth): Clear Chemist Aintree, repo half only, 0 in-repo defects, two real faults found and fixed in the vacuity-probe INSTRUMENT (stale phone digit, and a git-checkout restore that failed mid-run and briefly left a page mutated on disk, caught and restored by hand)
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of

@@ -106,6 +106,37 @@
   silently passing, the same "stop rather than quietly weaken the rule"
   convention already used for a generated page with no matching branch host.
 
+  JS-INJECTED COPY, added on the item 6.2 quality pass (fifth), 2026-09-01.
+  RULE 2 and RULE 3 read PAGE_DIRS and the six EXTRA_FILES, all of it static
+  HTML on disk. modules/service/service.js's injectPFExtras() writes further
+  patient-facing copy into every Pharmacy First page at RUNTIME, after the
+  static HTML this repo generates has already loaded: a self-refer banner, an
+  explainer-video card, a "prefer to walk in" card, and a client-side rebuild
+  of any condition tile still reading "Page coming soon" into a real link.
+  None of that text lives in any file the two rules were reading, so a claim
+  or a medicine name written into one of those template strings would pass
+  every checker in the repo. modules/switch/switch.js carries the same shape
+  of injected copy (callback and switch-form field labels) and is scanned for
+  the same reason, though it injects no link.
+
+  The same service.js function also builds a link HREF at runtime
+  (cslug + "-treatment-" + brandTown + ".html", from location.pathname and a
+  hardcoded SLUGS table) rather than emitting a static href, so RULE 1 cannot
+  see it as a link either. RULE 1 is deliberately NOT extended to these two
+  JS files: a naive href-literal scan of the JS source itself produces false
+  matches on the code's own string concatenation (a line reading
+  href='" + telHref + "' is read by the same regex as a literal, malformed
+  href value). The runtime link was checked by hand instead: brandTown always
+  comes from the CURRENT page's own pathname, so the link can only ever
+  resolve on that page's own host, and the SLUGS table's seven keys were
+  checked against the condition-card text emitted by build-service-pages.js
+  and against the filenames of all 98 generated condition pages and all 14
+  generated overview pages - exact matches throughout. Only RULE 2 and RULE 3
+  read EXTRA_JS_COPY_FILES; RULE 1 does not. Zero hits on either file when
+  this was added, tested against every CLAIM_PATTERNS and POM_NAMES entry: the
+  gap was latent, not a live breach, the same shape every 6.2 pass before this
+  one has found.
+
   Run:  node tools/check-service-links.js
 */
 const fs = require("fs");
@@ -138,6 +169,17 @@ const EXTRA_LINK_HOST_SLUG = {
   "modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html": "cherry-lane-walton",
   "modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html": "cherry-lane-walton"
 };
+
+// JS files that inject patient-facing copy into a page's DOM at runtime,
+// rather than emitting it as static HTML - see "JS-INJECTED COPY" above.
+// Scanned by RULE 2 and RULE 3 only; never by RULE 1, for the reason given
+// there. modules/emar/emar.js is deliberately excluded: it drives the
+// Borough Care eMAR screens, not public marketing copy, the same boundary
+// check-whatsapp-route.js already draws around it.
+const EXTRA_JS_COPY_FILES = [
+  path.join(REPO, "modules", "service", "service.js"),
+  path.join(REPO, "modules", "switch", "switch.js")
+];
 
 // Link targets on our own domains that this repo does not generate, accepted
 // for now with a reason. Key is "<host><path>".
@@ -257,7 +299,48 @@ let estateLinkCount = 0;
 // since neither needs a host.
 function scanFile(file, selfHost) {
   const visible = blankComments(fs.readFileSync(file, "utf8"));
+  scanLinks(file, selfHost, visible);
+  scanCopy(file, visible);
+}
 
+// RULE 2 and RULE 3 only, shared between generated/EXTRA_FILES pages (via
+// scanFile above) and EXTRA_JS_COPY_FILES (called directly, skipping RULE 1 -
+// see "JS-INJECTED COPY" in the header comment for why).
+function scanCopy(file, visible) {
+  // RULE 2 - claims in visible copy
+  visible.split(/\r?\n/).forEach(function (line, i) {
+    // One report per line: a single sentence can trip two patterns at once
+    // ("lose up to 22.5% of your body weight" trips both), and reporting it
+    // twice makes the output read as two defects.
+    const pair = CLAIM_PATTERNS.find(function (p) { return p[0].test(line); });
+    if (!pair) return;
+    const claimKey = Object.keys(KNOWN_CLAIM).find(function (k) {
+      const parts = k.split("::");
+      return parts[0] === rel(file) && line.indexOf(parts[1]) !== -1;
+    });
+    if (claimKey) { knownClaimHits[claimKey] = (knownClaimHits[claimKey] || 0) + 1; return; }
+    failures.push({
+      file: rel(file),
+      rule: "claim",
+      text: "line " + (i + 1) + " (" + pair[1] + "): " + line.trim().slice(0, 160)
+    });
+  });
+
+  // RULE 3 - POM medicine name in visible copy, whole page
+  visible.split(/\r?\n/).forEach(function (line, i) {
+    const hit = pom.findMedicine(line, POM_NAMES);
+    if (!hit) return;
+    const pomKey = rel(file) + "::" + hit;
+    if (KNOWN_POM[pomKey]) { knownPomHits[pomKey] = (knownPomHits[pomKey] || 0) + 1; return; }
+    failures.push({
+      file: rel(file),
+      rule: "medicine",
+      text: "line " + (i + 1) + ": names \"" + hit + "\" in visible copy"
+    });
+  });
+}
+
+function scanLinks(file, selfHost, visible) {
   {
     // RULE 1 - link targets
     //
@@ -367,38 +450,6 @@ function scanFile(file, selfHost) {
         text: "links to " + key + ", which this repo does not generate"
       });
     }
-
-    // RULE 2 - claims in visible copy
-    visible.split(/\r?\n/).forEach(function (line, i) {
-      // One report per line: a single sentence can trip two patterns at once
-      // ("lose up to 22.5% of your body weight" trips both), and reporting it
-      // twice makes the output read as two defects.
-      const pair = CLAIM_PATTERNS.find(function (p) { return p[0].test(line); });
-      if (!pair) return;
-      const claimKey = Object.keys(KNOWN_CLAIM).find(function (k) {
-        const parts = k.split("::");
-        return parts[0] === rel(file) && line.indexOf(parts[1]) !== -1;
-      });
-      if (claimKey) { knownClaimHits[claimKey] = (knownClaimHits[claimKey] || 0) + 1; return; }
-      failures.push({
-        file: rel(file),
-        rule: "claim",
-        text: "line " + (i + 1) + " (" + pair[1] + "): " + line.trim().slice(0, 160)
-      });
-    });
-
-    // RULE 3 - POM medicine name in visible copy, whole page
-    visible.split(/\r?\n/).forEach(function (line, i) {
-      const hit = pom.findMedicine(line, POM_NAMES);
-      if (!hit) return;
-      const pomKey = rel(file) + "::" + hit;
-      if (KNOWN_POM[pomKey]) { knownPomHits[pomKey] = (knownPomHits[pomKey] || 0) + 1; return; }
-      failures.push({
-        file: rel(file),
-        rule: "medicine",
-        text: "line " + (i + 1) + ": names \"" + hit + "\" in visible copy"
-      });
-    });
   }
 }
 
@@ -434,6 +485,26 @@ if (missingExtra.length) {
   process.exit(1);
 }
 
+// The two JS files that inject patient-facing copy at runtime - see
+// "JS-INJECTED COPY" above. RULE 2 and RULE 3 only, via scanCopy() directly
+// (not scanFile(), which would also run RULE 1's href scan against the JS
+// source and misread its own string concatenation as a link). A listed file
+// that no longer exists fails the run, the same convention as EXTRA_FILES.
+let jsCopyCount = 0;
+const missingJsCopy = [];
+EXTRA_JS_COPY_FILES.forEach(function (file) {
+  if (!fs.existsSync(file)) { missingJsCopy.push(rel(file)); return; }
+  jsCopyCount++;
+  const visible = blankComments(fs.readFileSync(file, "utf8"));
+  scanCopy(file, visible);
+});
+if (missingJsCopy.length) {
+  console.log("check-service-links");
+  console.log("  FAIL  file(s) listed in EXTRA_JS_COPY_FILES but not present: "
+    + missingJsCopy.join(", "));
+  process.exit(1);
+}
+
 // A KNOWN entry that no longer fires means the fix landed; the entry must go.
 const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; })
   .concat(Object.keys(KNOWN_CLAIM).filter(function (k) { return !knownClaimHits[k]; }))
@@ -441,7 +512,7 @@ const stale = Object.keys(KNOWN).filter(function (k) { return !knownHits[k]; })
 
 console.log("check-service-links");
 console.log("  " + pageCount + " generated page(s), " + extraCount
-  + " non-generated public-copy file(s), " + linkCount + " link(s), "
+  + " non-generated public-copy file(s), " + jsCopyCount + " JS copy source(s), " + linkCount + " link(s), "
   + estateLinkCount + " of them to our own " + estateHosts.size + " branch domains");
 Object.keys(knownHits).forEach(function (k) {
   console.log("  KNOWN " + k + " (" + knownHits[k] + " reference(s)): " + KNOWN[k]);

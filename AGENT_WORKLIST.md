@@ -6857,6 +6857,53 @@ record.
       "Support that delivers results" weight loss tile, already noted against
       Q53); Tiffenbergs' book-now.html still 404s; Riddings' /clinic-prices
       still 404s. Q53 and Q54 stay open, nothing new to add to either.
+      Fifth quality pass 2026-09-01, REPO HALF ONLY (Claude in Chrome
+      unavailable this run). ONE REAL DEFECT FOUND AND FIXED, in the checker,
+      not in any page. RULE 2 (claims) and RULE 3 (POM medicine names) exist
+      to keep outcome promises and prescription-only medicine names out of
+      public copy, and until this pass both read PAGE_DIRS and the six
+      EXTRA_FILES only - all of it static HTML on disk. Two files inject
+      further patient-facing copy into a page's DOM at RUNTIME, after the
+      static HTML has loaded, and were read by no rule at all:
+      modules/service/service.js's injectPFExtras() writes a self-refer
+      banner, an explainer-video card, a "prefer to walk in" card and a
+      client-side re-link of any stale "Page coming soon" condition tile into
+      every Pharmacy First page, and modules/switch/switch.js writes the
+      callback and switch-form field labels. A claim or a medicine name
+      written into one of those template strings would have passed every
+      checker in the repo. The same service.js function also builds a link
+      href at runtime (from location.pathname and a hardcoded SLUGS table)
+      rather than emitting a static one, so RULE 1 cannot see it either;
+      checked by hand rather than extending RULE 1 to the JS source, because
+      a naive href-literal scan of the JS misreads its own string
+      concatenation (href='" + telHref + "') as a malformed link - the runtime
+      link is safe because brandTown always comes from the current page's own
+      pathname, so it only ever resolves on that page's own host, and the
+      SLUGS table's seven keys were checked against build-service-pages.js's
+      condition-card text and against the filenames of all 98 generated
+      condition pages and all 14 overview pages, exact matches throughout.
+      tools/check-service-links.js now reads modules/service/service.js and
+      modules/switch/switch.js through RULE 2 and RULE 3 only (a new
+      EXTRA_JS_COPY_FILES list, scanned via a shared scanCopy() function
+      pulled out of the RULE1/RULE2/RULE3 block so JS files never run through
+      RULE 1's href regex); modules/emar/emar.js stays excluded on purpose, the
+      same Borough Care boundary check-whatsapp-route.js already draws.
+      Zero hits on both files when this was added: the gap was latent, not a
+      live breach, the same shape every 6.2 pass before this one has found.
+      Proved by injection, three cases, each file restored to its
+      pre-injection sha256 afterwards: a results claim added to service.js's
+      self-refer banner text, a medicine name added to switch.js's "Start your
+      switch" button label, both caught by the widened checker and both
+      invisible to it beforehand. Verified by a from-scratch independent
+      script sharing no code with tools/claim-patterns.js or
+      tools/pom-names.js (audits/service-links-js-copy-independent-2026-09-01.js:
+      own medicine list, own claim phrases, own file list): 0 hits on the
+      clean files, and it independently caught the same two injected strings
+      when tested against them. All 36 checkers green and all six generators
+      reproduced every page byte-identical, before and after; no generator,
+      page, data field or patient-facing copy touched. Live half not read
+      this pass (Claude in Chrome unavailable); the four 2026-08-14 findings
+      are not re-claimed. Q53 and Q54 stay open.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
