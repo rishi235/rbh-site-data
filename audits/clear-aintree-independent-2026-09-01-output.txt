@@ -1,0 +1,18 @@
+Item 3.13 independent pass - Clear Chemist (Aintree), 2026-08-14
+182 html files under modules/, 3 belong to this branch.
+
+--- modules/service/pages/travel-clinic-clear-aintree.html
+--- modules/service/pages/weight-loss-clinic-clear-aintree.html
+--- modules/switch/pages/switch-prescriptions-clear-aintree.html
+
+--- D. coverage map: what skips this branch, and what it costs
+  sweep-broken-links.js SKIP_HOSTS: "www.clearchemist.co.uk": 1, "rbhealth.co.uk": 1
+  links on these 3 pages pointing at the skipped hosts: 3
+    travel-clinic-clear-aintree.html -> https://www.clearchemist.co.uk
+    weight-loss-clinic-clear-aintree.html -> https://www.clearchemist.co.uk
+    switch-prescriptions-clear-aintree.html -> https://www.clearchemist.co.uk
+  of which DEEP links (a path, so capable of 404ing): 0
+  => the skip is currently harmless: every link to the skipped host is the site root,
+     which cannot 404 while the site exists. Worth re-testing whenever a deep link is added.
+
+298 checks, 0 failures.

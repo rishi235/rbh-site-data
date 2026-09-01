@@ -1,3 +1,151 @@
+## 2026-09-01 (unattended scheduled run, following the 3.12 fourth pass) - Item 3.13 quality pass (fifth): Clear Chemist Aintree, repo half only, 0 in-repo defects, two real faults found and fixed in the vacuity-probe INSTRUMENT (stale phone digit, and a git-checkout restore that failed mid-run and briefly left a page mutated on disk, caught and restored by hand)
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker and generator runs, plus
+Windows-MCP PowerShell for git network operations (fetch, checkout, pull,
+and lock cleanup) against the real repo path, which holds working SSH
+credentials - the standing Q87 split. .agent-lock absent at start; created
+via the sandboxed path (timestamp 1788287688), confirmed identical from the
+Windows path (same underlying mount). git fetch/checkout/pull via the
+Windows path: "Already up to date" on agents/audit-backlog, d363590 (the
+3.12 fourth-pass commit). The sandboxed path's own `git status` calls threw
+a fresh, empty .git/index.lock on two separate occasions this run (created,
+then "Operation not permitted" on unlink from that side); both were
+confirmed no-git-process-running and removed via the Windows path, the same
+recurring shape as every recent run's log.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the
+run. Unattended run, nobody present to resolve it; logged as unavailable
+and not retried by another route, per the procedure's own fallback
+instruction. 57 questions open at the start of this run; none answered or
+resolved this run (Q87 and Q59, the two process-infrastructure questions
+most relevant to this run's own environment, remain open and were not
+re-raised as duplicates - see below).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit whose message mentions that item number by a word-boundary regex
+match. The oldest such timestamp belonged to item 3.13
+(2026-08-31T18:39:51+01:00) - every other rotation-pool item had a later
+commit, including 3.12 which the immediately prior run had just brought
+current. 3.13 taken: Clear Chemist Aintree (branches.json id
+clearchemist_aintree), 3 pages (switch, weight loss, travel clinic), fifth
+pass following 2026-08-04 (build), 2026-08-13, 2026-08-14, 2026-08-30 and
+2026-08-31.
+
+WHAT WAS DONE, REPO HALF. All 36 tools/check-*.js checkers run individually
+before any change: 36/36 pass, zero failures. All six page generators
+rebuilt; sha256 of every .html/.js/.css file under modules/ and core/ taken
+before and after (189 files): byte-identical, zero diff; git status
+--porcelain modules/ core/ empty throughout. branches.json's
+clearchemist_aintree entry re-read in full: phone 0151 203 6535 (the Q28
+fix), address Unit 20 Brookfield Trade Centre / Brookfield Drive / Aintree,
+postcode L9 7AS, seoTown Aintree, serviceAreaList (Aintree, Fazakerley,
+Walton, Bootle, North Liverpool), hasApp true, no openingHours, no pfLink,
+pfBooking false, two widgets (weightLoss, travelClinic) - matches every
+prior pass, no drift.
+
+INDEPENDENT EXTRACTION. audits/clear-aintree-independent-2026-08-14.js
+re-run unchanged (own file discovery, own regexes, own branches.json read,
+imports nothing from tools/): 3 pages found out of 182 html files under
+modules/, 298 checks, 0 failures - unchanged in scope from every prior 3.13
+pass. Output saved to audits/clear-aintree-independent-2026-09-01-output.txt.
+
+GUARD RE-PROOF, AND WHAT WENT WRONG WITH IT. Ran the existing
+audits/clear-aintree-vacuity-probe-2026-08-14.js (nine fault injections into
+switch-prescriptions-clear-aintree.html, each meant to be undone by
+`git checkout --` immediately afterwards). Two real problems surfaced,
+both in the instrument:
+
+(1) The first injection ("wrong tel digit") hardcoded the pre-Q28 phone
+digits, tel:01512038365. Since branches.json's phone changed to 0151 203
+6535 on 2026-08-30, that string is no longer present on the page, so the
+mutation was a no-op and the probe correctly reported it INERT rather than
+silently passing - but this is a stale test left unfixed for two days after
+the fix it should have been testing landed.
+
+(2) Immediately after, the SECOND injection's restore step failed outright:
+`git checkout -- modules/switch/pages/switch-prescriptions-clear-
+aintree.html` errored "fatal: Unable to create '.../.git/index.lock': File
+exists. Another git process seems to be running", because a `git status
+--porcelain` issued from the sandboxed shell moments earlier (as part of
+this same command chain, checking the target file was clean before the
+probe started) had itself created and failed to unlink an index.lock - the
+exact Q87 mechanism, now caught mid-probe rather than only in a `git
+status` call. The probe script then threw and exited, and
+switch-prescriptions-clear-aintree.html was left on disk carrying the
+injected "Second heading" H1, UNCOMMITTED and unrestored.
+
+CAUGHT AND FIXED IMMEDIATELY, before any further work: grepped the live
+file for "Second heading" and confirmed it was present (the fault was real,
+not hypothetical); removed the stale index.lock via the Windows PowerShell
+path (confirmed no git process running first); ran `git checkout --` on the
+file from the Windows path, which has working git access on this same
+mount; confirmed the grep now empty and `git status --porcelain` clean; and
+sha256-verified the restored file
+(96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9) against
+the pre-regeneration hash taken at the very start of this pass, confirming
+byte-for-byte restoration. No repo-content damage resulted and nothing was
+ever committed in the mutated state, but this is now live evidence (not
+just documentation) that the sandboxed mount's inability to unlink can
+break a running tool mid-operation, not only leave litter behind it -
+directly relevant to Q87, which was not re-raised as a duplicate but is
+reinforced by this finding.
+
+Both faults were then fixed in a new instrument rather than the repo:
+audits/clear-aintree-vacuity-probe-2026-09-01.js reads the branch's live
+phone digits out of branches.json at run time (so a future number change
+cannot make the injection go inert again, and the probe now refuses to run
+at all if its assumed phone string is not found on the page), and restores
+every injection with fs.writeFileSync of the in-memory original string
+rather than `git checkout --`, keeping a git-status read only as a
+secondary, non-authoritative confirmation. This is the same fix CLAUDE.md's
+own "A test harness must restore by byte copy, not from git" lesson already
+states elsewhere in this repo (the rule9-landing-negative-tests harness,
+2026-08-14), not yet applied to this specific probe until this pass. Re-run
+clean: 9 caught, 0 missed, file restored clean and byte-verified
+(96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9 again).
+Output saved to audits/clear-aintree-vacuity-probe-2026-09-01-output.txt.
+
+GBP PACK. gbp-packs/clear-aintree.md cross-checked against branches.json:
+phone, address, postcode, hours-not-recorded caveat, website and review
+link all consistent; check-gbp-packs.js's one WARN against this file (a
+phone-shaped "0151 203 8365" match) is the pack's own dated narrative line
+recording the Q28 change from 8365 to 6535, not a paste value - the same
+quoted-evidence exemption already documented for this file on the
+2026-08-31 pass, re-confirmed rather than assumed.
+
+LIVE HALF. Not read this pass - Claude in Chrome unavailable (see above).
+Not left silently unverified, though: this run's own item 4.9 quality pass
+(seventh, commit 3403334) independently re-read the Clear Chemist Aintree
+live estate earlier the same session and confirmed Q28's phone fix (0151
+203 6535) is live, and Q29 (all three generated pages still 404 on
+clearchemist.co.uk) is unchanged - both cited here rather than re-fetched.
+Q65 (the three pages' walk-in wording against branches.json's by-appointment
+signals) remains open and was correctly not touched: a live patient-facing
+regulatory claim, outside any autonomous decision regardless of window
+state, and no autonomous window was open this run regardless.
+
+RESULT. Zero in-repo defects. Nothing edited under tools/, modules/, core/
+or branches.json. Files changed this pass: AGENT_WORKLIST.md (3.13 note
+appended), AGENT_LOG.md (this entry),
+audits/clear-aintree-independent-2026-09-01-output.txt (new),
+audits/clear-aintree-vacuity-probe-2026-09-01.js (new),
+audits/clear-aintree-vacuity-probe-2026-09-01-output.txt (new). No new
+question raised; Q28, Q29 and Q65 all reconfirmed rather than assumed; Q87
+gains a live (not just documentary) data point but was not re-raised as a
+duplicate.
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 3.7 seventh pass) - Item 3.12 quality pass (fourth): Tiffenbergs Chemist Aintree, repo half only, 0 defects, guard reproved on a page type untried for this branch's injection testing
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of

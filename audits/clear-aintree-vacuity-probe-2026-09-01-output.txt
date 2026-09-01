@@ -1,0 +1,11 @@
+  CAUGHT  wrong tel digit  (expected TELMATCH)
+  CAUGHT  second H1  (expected H1COUNT)
+  CAUGHT  em dash in copy  (expected DASH)
+  CAUGHT  http:// URL  (expected SCHEME)
+  CAUGHT  personal inbox  (expected PERSONALEMAIL)
+  CAUGHT  foreign postcode  (expected FOREIGNPOSTCODE)
+  CAUGHT  dangling fragment  (expected FRAGMENT)
+  CAUGHT  hard-coded widget id  (expected WIDGETID)
+  CAUGHT  town stripped from H1  (expected H1TOWN)
+
+9 caught, 0 missed. modules/switch/pages/switch-prescriptions-clear-aintree.html restored clean (byte-verified).

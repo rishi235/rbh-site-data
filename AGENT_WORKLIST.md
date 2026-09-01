@@ -2602,6 +2602,74 @@ Done 2026-09-01 (seventh pass).
       so nothing new to apply from that source either.
       Zero in-repo defects found; nothing edited under tools/, modules/,
       core/ or branches.json.
+      Quality pass 2026-09-01 (fifth), unattended scheduled run, Cowork
+      sandboxed shell for file work plus the Windows PowerShell path for
+      git network operations (the standing Q87 split). All 8 unblocked
+      worklist items were [BLOCKED], so this was the fallback quality
+      pass, picked by the rotation-pool method (oldest commit last
+      mentioning each of the 36 rotation-pool item numbers): 3.13 was
+      oldest, last touched 2026-08-31T18:39:51+01:00.
+      REPO HALF: all 36 checkers ran individually, 0 failures. All six
+      generators rebuilt; 189 files under modules/ and core/ sha256-hashed
+      before and after, byte-identical throughout, git status empty. The
+      proven independent instrument (audits/clear-aintree-independent-
+      2026-08-14.js, unchanged, importing nothing from tools/) re-ran
+      clean: 298 checks across the three pages, 0 failures, output saved
+      to audits/clear-aintree-independent-2026-09-01-output.txt.
+      TWO REAL FAULTS FOUND AND FIXED IN THE INSTRUMENTS, NOT THE REPO,
+      both in the nine-fault vacuity probe:
+      (1) STALE INJECTION VALUE. The probe's first injection hardcoded the
+      pre-Q28 phone digits (tel:01512038365). Since Q28 changed this
+      branch's phone to 0151 203 6535 on 2026-08-30, that string no longer
+      appears on the page, so the injection came back INERT the moment it
+      was tried - not a live defect, a stale literal in a test unchanged
+      since 2026-08-14 and never revisited after the phone fix landed.
+      (2) RESTORE-BY-GIT FAILURE. Re-running the original probe, a
+      `git status --porcelain` issued moments earlier from the sandboxed
+      shell had left a fresh .git/index.lock behind (that mount can create
+      and rename files but not unlink them, the standing Q87 finding), so
+      the probe's second injection's `git checkout --` restore call failed
+      with "Unable to create index.lock: File exists" and the script
+      crashed with switch-prescriptions-clear-aintree.html still sitting
+      on disk carrying the injected second-H1 fault, UNCOMMITTED. Caught
+      immediately: the live file was checked, confirmed still mutated, and
+      restored via the Windows PowerShell path (which holds working git
+      access and no lock contention on this mount), then sha256-verified
+      byte-identical to the pre-probe hash
+      (96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9)
+      before anything else touched the file. No repo-content damage; the
+      mutation never reached a commit.
+      Both fixed in a new instrument, audits/clear-aintree-vacuity-probe-
+      2026-09-01.js: the phone-digit injection now reads the live number
+      out of branches.json at run time rather than hardcoding either the
+      old or new number, so a future phone change cannot make it go inert
+      again; and every injection is now restored with fs.writeFileSync
+      back to the in-memory original string, with git status kept only as
+      a secondary confirmation rather than the repair mechanism - the
+      exact fix CLAUDE.md's own "A test harness must restore by byte copy,
+      not from git" lesson already prescribes elsewhere in this repo, not
+      yet applied to this particular probe until now. Re-run clean: 9
+      caught, 0 missed, file restored clean and byte-verified, output
+      saved to audits/clear-aintree-vacuity-probe-2026-09-01-output.txt.
+      GBP PACK cross-checked (gbp-packs/clear-aintree.md): consistent with
+      branches.json throughout; the one phone-shaped WARN check-gbp-
+      packs.js raises against it (the old 8365 number) is the pack's own
+      dated narrative recording the Q28 change, not a paste value, same
+      class as the exemption already documented for this pack on the
+      2026-08-31 pass.
+      LIVE HALF: not read this pass. Claude in Chrome not connected
+      (confirmed at answer pickup, step 3 of this run, and not retried by
+      another route per the procedure's own instruction). Q28's phone fix
+      and Q29's three-pages-still-404 state were both independently
+      reconfirmed live earlier the same day by this run's own item 4.9
+      quality pass (seventh), so not re-stated here as unverified. Q65
+      remains open and was correctly not touched: a live patient-facing
+      regulatory claim, carved out of autonomous decisions regardless of
+      window state, and no autonomous window was open this run in any
+      case.
+      Zero in-repo defects. Nothing edited under tools/, modules/, core/
+      or branches.json; the only repo changes this pass are the two new
+      audit instrument/output files and this log entry.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
