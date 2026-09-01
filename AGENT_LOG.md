@@ -1,3 +1,114 @@
+## 2026-09-01 (unattended scheduled run, following the 3.10 seventh pass) - Item 2.1 quality pass (eighth): Fishlocks Ainsdale re-verified clean, repo half only, ZERO DEFECTS
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker and generator runs, plus
+Windows-MCP PowerShell for git network operations against the real repo
+path, which holds working SSH credentials (the standing Q87 split). The
+sandboxed mount confirmed unusable again this run ("Host key verification
+failed" on `git fetch`, matching every prior run's finding exactly).
+.agent-lock absent at start; created via the sandboxed path (timestamp
+2026-09-01T21:34:21Z). Real repo, via Windows-MCP PowerShell, already on
+agents/audit-backlog at f70ac56 (the 3.10 seventh-pass commit) and up to
+date with origin after `git fetch origin`; no pull needed. No index.lock
+present on either path at start.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected", checked at the start of the
+run. Unattended run, nobody present to resolve it; logged as unavailable
+and not retried by another route, per the procedure's own fallback
+instruction. 91 questions on file, 57 open at the start of this run
+(unchanged since the previous run); none answered or resolved this run, so
+57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead, same rotation-pool method as recent runs: for each of the 36
+rotation-pool items (all 43 checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the newest commit
+(across all 636 commits, full message body, word-boundary match so "1.2"
+cannot match inside "1.2x" and "3.1" cannot match inside "3.10") whose
+message mentions that item number. The oldest such timestamp belonged to
+item 2.1 (2026-08-31T22:11:45+01:00, the seventh pass, commit 76cd661) -
+every other rotation-pool item had a later commit. 2.1 taken: eighth pass,
+following 2026-08-04 (build) through the seventh pass on 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before any
+change: 36/36 exit 0, zero failures, estate-wide. All six page generators
+rebuilt (branch landing, contraception, service, switch, travel clinic,
+weight loss); sha256 of all 189 tracked .html/.js/.css files under modules/
+and core/ taken before and after: byte-identical, zero diff. `git
+--no-optional-locks status --porcelain modules/ core/ tools/ branches.json
+gbp-packs/` empty throughout.
+
+Checked which checkers had changed since the seventh pass (2026-08-31):
+four commits touched tools/ - 33ed5ca (check-service-links.js gained
+reading of JS-injected patient-facing copy in service.js/switch.js for
+claims and POM names), bf55653 (check-gbp-packs.js foreign-street rule
+gained the abbreviation-aware match check-nap.js already had), 7952f50
+(check-gbp-packs.js POST_INSTRUCTION case-sensitivity fix), ec35fcf
+(check-postcodes.js nbsp/fused-postcode fix). branches.json unchanged since
+the seventh pass (confirmed via `git log 76cd661..HEAD -- branches.json`,
+empty), so no data drift for this branch to re-verify. check-gbp-packs.js
+run specifically against fishlocks-ainsdale.md: 0 failures, two known WARNs
+unchanged (Q72 six missing private-clinic qualifiers, Q64 post-town vs
+addressLocality mismatch).
+
+Wrote a fresh independent extraction in Python (shares no code with tools/,
+not copied from any prior pass's script) covering all 13 Fishlocks Ainsdale
+pages (branch landing, 11 service-family pages, switch page): 117 checks
+across 9 families - own tel: phone digits present, foreign phone-shaped
+number sweep against every other live branch's actual number, own postcode
+present, foreign postcode-shaped sweep, em/en dash absence outside build
+comments, singular/near-miss brand forms ("Fishlock"/"Fishlock's" without
+the trailing s), JSON-LD parse and field-for-field match (telephone,
+streetAddress, postalCode, addressLocality, addressRegion), Google Maps
+embed query decode-and-compare against streetAddress/addressLocality/
+postalCode, seoTown presence in visible text. 0 issues.
+
+Guard effectiveness proved by injection, against a full rsync scratch copy
+of the whole repo (excluding .git) in /tmp rather than the tracked files
+(diffed identical to the real repo immediately after the copy). Injected:
+the branch's own phone number, on its own switch page, swapped for a
+foreign-shaped number (0161 980 4194) in all four occurrences (tel: link,
+visible text x2, JSON-LD telephone). CAUGHT by check-nap.js: 7 independent
+mismatch lines (visible phone x2, JSON-LD telephone, phone-like-string
+sweep x4, the last naming "Fishlocks Chemist Ainsdale" as the branch whose
+number it actually is). Also caught by the independent script's JSON-LD
+telephone field check. Real repo diffed against the scratch copy after the
+injection and confirmed untouched throughout; scratch directory deleted at
+the end.
+
+LIVE CHECKS. None this run (Claude in Chrome unavailable, checked again
+before writing up, still "not connected"). The findings recorded on the
+seventh pass (Q35 branch landing page still 404 and absent from the
+sitemap; Q37 Weebly-native footer still names "Fishlock Pharmacy"/
+"Fishlock Chemist" and abbreviates the street, with the correctly-worded
+second footer block found alongside it; Q57 the old weight loss template
+still homepage-linked with the Real Results heading, outcome slider and
+three-medicine picker) are not reconfirmed this run and should be treated
+as unchanged rather than re-verified.
+
+FILES CHANGED. audits/fishlocks-ainsdale-quality-pass-2026-09-01.txt (new).
+AGENT_WORKLIST.md (2.1's entry appended, stays ticked). No file under
+modules/, core/, branches.json, tools/ or gbp-packs/ changed - zero in-repo
+defects found this pass.
+
+QUESTIONS. None raised this run. 57 remain open from prior runs (unchanged).
+
+COMMIT AND PUSH. Committed on agents/audit-backlog via the Windows-MCP
+PowerShell path against the real repo (sandboxed push unavailable, same SSH
+gap recorded above).
+
+STATUS PAGE. tools/build-audit-status.js run per step 10; see outcome below.
+
+LOCK. .agent-lock deleted at the end of this run via the sandboxed path.
+
+---
+
 ## 2026-09-01 (unattended scheduled run, following the 3.9 seventh pass) - Item 3.10 quality pass (seventh): Riddings Pharmacy Timperley re-verified clean, repo half only, ZERO DEFECTS
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of

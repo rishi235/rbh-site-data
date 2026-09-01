@@ -335,6 +335,37 @@ same pattern recorded throughout 2026-08-31's entries above.
       since it is additional detail on the same live fault, not a new
       fault). No worklist item blocked or unblocked. Evidence:
       audits/fishlocks-ainsdale-quality-pass-2026-08-31.txt.
+      Quality pass 2026-09-01 (eighth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still
+      [BLOCKED], so this was the fallback quality pass, picked by the
+      standard rotation-pool ranking (oldest newest-mention commit across
+      the 36 rotation-pool items, excluding the seven one-off items 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8): item 2.1's newest mention was the
+      seventh pass at 2026-08-31T22:11:45+01:00, older than every other
+      pool item. Repo half: all 36 checkers pass estate-wide, all six
+      generators rebuild to a byte-identical zero diff against the untouched
+      tree (189 tracked modules/ and core/ files, sha256 before/after
+      identical), and check-gbp-packs.js against fishlocks-ainsdale.md
+      returns 0 failures (two known WARNs unchanged: Q72 private-clinic
+      qualifiers, Q64 post-town vs addressLocality). Four commits touched
+      tools/ since the seventh pass (33ed5ca, bf55653, 7952f50, ec35fcf);
+      branches.json unchanged since then, so no data drift to re-verify. A
+      fresh independent Python extraction (no imports from tools/) swept all
+      13 pages across 9 check families - own phone, foreign phone sweep,
+      own postcode, foreign postcode sweep, em/en dash outside build
+      comments, singular "Fishlock" near-miss, JSON-LD field match, Google
+      Maps embed decode-and-compare, seoTown presence - 117 checks, 0
+      issues. Guard effectiveness proved by injection against a full rsync
+      scratch copy (not the tracked files): the branch's own phone swapped
+      for a foreign-shaped number on its switch page, CAUGHT by check-nap.js
+      (7 mismatch lines) and by the independent script's JSON-LD check; real
+      repo confirmed untouched afterwards, scratch copy deleted. No in-repo
+      defect found. Live half: not re-verified this pass, Claude in Chrome
+      unavailable ("not connected", checked twice). Q35, Q37 (including the
+      seventh-pass addendum) and Q57 treated as unchanged rather than
+      re-verified. No new question raised; no worklist item blocked or
+      unblocked. Evidence:
+      audits/fishlocks-ainsdale-quality-pass-2026-09-01.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

@@ -1,0 +1,53 @@
+Fishlocks Ainsdale (item 2.1) - eighth quality pass - 2026-09-01
+==================================================================
+
+36/36 tools/check-*.js run individually against the full estate: 0 failures.
+
+All six generators rebuilt (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages): 189 tracked
+modules/ and core/ files, sha256 before and after identical, zero diff.
+git --no-optional-locks status --porcelain modules/ core/ tools/
+branches.json gbp-packs/ empty throughout.
+
+Four commits touched tools/ since the seventh pass (76cd661,
+2026-08-31T22:11:45+01:00): 33ed5ca (check-service-links.js reads
+JS-injected copy in service.js/switch.js), bf55653 (check-gbp-packs.js
+foreign-street abbreviation-aware match), 7952f50 (check-gbp-packs.js
+POST_INSTRUCTION case-sensitivity fix), ec35fcf (check-postcodes.js
+nbsp/fused-postcode fix). branches.json unchanged since the seventh
+pass, so no data drift for this branch to re-verify.
+
+check-gbp-packs.js against fishlocks-ainsdale.md: 0 failures, two
+known WARNs unchanged (Q72 private-clinic qualifiers, Q64 post-town
+vs addressLocality).
+
+Independent extraction (fresh Python, shares no code with tools/),
+13 pages (branch landing, 11 service pages, switch page), 117 checks
+across 9 families: own tel: phone digits present, foreign phone-shaped
+number sweep against every other live branch, own postcode present,
+foreign postcode-shaped sweep, em/en dash outside build comments,
+singular/near-miss brand forms (Fishlock/Fishlock's), JSON-LD parse
+and field match (telephone, streetAddress, postalCode, addressLocality,
+addressRegion), Google Maps embed query decode-and-compare, seoTown
+presence in visible text. 0 issues found.
+
+Guard effectiveness proved by injection, against a full rsync scratch
+copy of the whole repo (excluding .git) in /tmp, not the tracked files:
+the branch's own phone number on its switch page (tel: link, visible
+text x2, JSON-LD) swapped for a foreign-shaped number. CAUGHT by
+check-nap.js (7 independent mismatch lines: visible phone x2, JSON-LD
+telephone, phone-like-string sweep x4) and by the independent script's
+JSON-LD telephone check. Real repo diffed against the scratch copy
+after injection and confirmed untouched; scratch directory deleted.
+
+LIVE HALF: not re-verified this pass. Claude in Chrome unavailable
+(mcp__claude-in-chrome__tabs_context_mcp returned 'not connected',
+checked at the start of the run and again before writing this file).
+Prior findings (Q35 branch landing page still 404, Q37 wrong Weebly-
+native footer names plus the correctly-worded second footer block
+found on the seventh pass, Q57 old weight loss template still
+homepage-linked) treated as unchanged rather than re-verified, per
+convention when the browser is unavailable.
+
+NO IN-REPO DEFECT FOUND. No new question raised.
