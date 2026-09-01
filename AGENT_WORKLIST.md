@@ -2424,6 +2424,30 @@ Done 2026-09-01 (seventh pass).
       Rishi. Evidence: audits/verify-3.12-2026-08-31.md. Six of Tiffenbergs'
       12 live pages (earache, impetigo, shingles, sinusitis, sore throat,
       UTI) remain unread live for this item; left for a future pass.
+      Quality pass 2026-09-01, FOURTH PASS, REPO HALF ONLY. All 36 checkers
+      re-run individually before any change, 0 failures; all six generators
+      rebuilt first, 189 files under modules/ and core/ sha256-hashed before
+      and after, byte-identical, git status empty throughout. Fresh
+      independent instrument audits/verify-3.12-2026-09-01.js (portable repo
+      root, no import from tools/, same 15-leg single-branch template as the
+      prior three passes): 12 pages, 177 sheet permalinks, 2,355 checks, 0
+      failures. Instrument proved by three sequential fault injections, each
+      restored by byte copy (not git checkout) and sha256-confirmed back to
+      the original before the next, on sinusitis-treatment-tiffenbergs-
+      aintree.html - a Pharmacy First condition page untried for Tiffenbergs
+      injection in any prior pass, widening from the pharmacy-first hub and
+      switch pages used previously: (1) visible phone swapped to Smartts
+      Bootle's number, caught by the foreign-phone leg; (2) postcode swapped
+      to L9 7AS, caught twice (rbh_head_office_aintree and clearchemist_
+      aintree both carry that postcode); (3) an orphan 24-hex string added
+      beside the module root, caught by the hard-coded-widget-id leg. Zero
+      in-repo defect. Live half NOT done this pass: Claude in Chrome not
+      connected (confirmed at answer pickup and again for this item), so the
+      six live pages left unread by the 2026-08-31 pass (earache, impetigo,
+      shingles, sinusitis, sore throat, UTI) remain unread live, and Q56
+      (Tiffenberg@ singular in branches.json vs tiffenbergs@ plural on the
+      live footer) was not re-confirmed this pass - not assumed unchanged.
+      No new question raised.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

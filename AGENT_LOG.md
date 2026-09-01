@@ -1,4 +1,125 @@
-## 2026-09-01 (unattended scheduled run, following the 3.8 sixth pass) - Item 3.7 quality pass (seventh): Smartts Chemist Bootle, all 36 checkers clean, six generators byte-identical across 215 sha256-hashed files, seventh independent extraction clean (12 files, 2,113 checks, 0 flags), check-nap/check-postcodes/check-em-dashes guards reproved by three sequential injections into switch-prescriptions-smartts-bootle.html (a page type not used for Smartts injection in any prior pass - all prior injections landed on the pharmacy-first hub page) and each restored byte-identical. Zero in-repo defect, no new question. Live half not read this run (Claude in Chrome not connected, checked at answer pickup and again for this item); the sixth pass's three live-only findings (hours-card lunch closure omitted, switch page live tab title a hand-typed variant, Q16/5.8 KNOWN_CLAIM services-grid wording) were not re-confirmed and should not be assumed unchanged.
+## 2026-09-01 (unattended scheduled run, following the 3.7 seventh pass) - Item 3.12 quality pass (fourth): Tiffenbergs Chemist Aintree, repo half only, 0 defects, guard reproved on a page type untried for this branch's injection testing
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker and generator runs (no network
+needed and none available - the sandbox has no SSH key for git@github.com),
+plus Windows-MCP PowerShell for git network operations (fetch, checkout,
+pull, commit, push) against the real repo path, which holds working SSH
+credentials - the standing Q87 split. .agent-lock absent at start; created
+via the sandboxed path, confirmed identical from the Windows path (same
+underlying mount, LastWriteTime 2026-09-01 19:04). Repo already at db93a8d
+on agents/audit-backlog, up to date with origin; fetch/checkout/pull via
+the Windows path confirmed "Already up to date". A fresh spurious
+.git\index.lock (0.07 minutes old, created by the sandboxed path's own git
+status call, "Operation not permitted" on unlink from that side) was
+removed via the Windows path once confirmed no git process was running -
+the same recurring shape noted in the previous three run logs.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. mcp__claude-in-chrome__tabs_context_mcp
+returned "Claude in Chrome is not connected" when tried at the top of the
+run. Unattended run, nobody present to resolve it; logged as unavailable
+and not retried by another route, per the procedure's own fallback
+instruction. 57 questions open at the start of this run (unchanged since
+the previous run); none answered or resolved this run, so 57 remain open.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this log at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass
+taken instead. Same rotation-pool method as the previous three runs: for
+each of the 36 rotation-pool items (all checked items excluding the seven
+established one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the
+most recent commit whose message mentions that item number by a
+word-boundary regex match. The oldest such timestamp belonged to item 3.12
+(2026-08-31T18:14:26+01:00) - every other rotation-pool item, including
+3.7 which the immediately prior run had just brought current
+(2026-09-01T18:40:23+01:00, the newest of all 36), had a later commit.
+3.12 taken: Tiffenbergs Chemist, Aintree, single branch, 12 pages, fourth
+pass following 2026-08-04 (build), 2026-08-14, 2026-08-30 and 2026-08-31.
+
+WHAT WAS DONE. All 36 tools/check-*.js checkers run individually before
+any change: 36/36 pass, zero failures. All six page generators rebuilt
+(build-branch-landing-pages, build-contraception-pages, build-service-
+pages, build-switch-pages, build-travel-clinic-pages, build-weight-loss-
+pages); sha256 of every .html/.js/.css file under modules/ and core/ taken
+before and after (189 files): byte-identical, zero diff; git status
+--porcelain modules/ core/ empty throughout. branches.json's
+tiffenbergs_longmoor entry re-read in full: address (388 Longmoor Lane,
+Liverpool, L9 9DB), phone (0151 525 3462), ODS FAX36, seoTown Aintree,
+serviceAreaList (Aintree, Fazakerley, Liverpool), hasApp false, whatsapp
+447521775631, openingHours (Monday-Friday 09:00-13:00 and 14:00-18:00,
+lunch-split, Saturday and Sunday closed) - matches every prior pass, no
+drift since 2026-08-04.
+
+INDEPENDENT EXTRACTION. audits/verify-3.12-2026-09-01.js written fresh for
+this pass: same 15-leg single-branch template proved on 3.5/3.7/3.8/3.9
+and used by the three prior 3.12 passes, but with the repo root resolved
+relative to the script's own location (path.join(__dirname, "..")) rather
+than the 2026-08-30 script's hardcoded C:/Dev/rbh-site-data, so it runs
+identically from either the sandboxed Linux path or the Windows checkout.
+12 pages, 177 sheet permalinks parsed, 2,355 checks, 0 failures - the same
+check count as the 2026-08-30 instrument, confirming no drift in scope.
+Legs: counts, sheet agreement and one-label-per-block, own town, service
+words, cross-town absence (Clear Chemist Aintree's shared seoTown excluded
+by construction, its full L9 7AS postcode still required absent), phone
+and postcode isolation both ways against every other live branch, title
+and description lengths, JSON-LD field by field including tel:, foreign
+widget id absence, foreign brand label absence, banner target, root
+attributes, in-page fragment resolution, no hard-coded 24-hex widget id
+anywhere, and WhatsApp agreement with both modules' DEFAULT_WHATSAPP.
+
+GUARD RE-PROOF BY INJECTION, WIDENED. The three prior passes' fault
+injections (2026-08-30: foreign phone, Clear Chemist's L9 7AS postcode,
+orphan 24-hex id) did not record which of Tiffenbergs' 12 pages they
+landed on beyond "visible copy"; the two most recent named page reads
+(pharmacy-first and switch) suggest those were the ones exercised. This
+pass moved to sinusitis-treatment-tiffenbergs-aintree.html, one of the six
+Pharmacy First condition pages the 2026-08-31 pass flagged as unread live
+and, so far as the log record shows, untried for injection testing on this
+branch. Three sequential injections, each restored by BYTE COPY from a
+saved original (not git checkout, per the lesson recorded on the item 5.2
+pass) and sha256-confirmed identical to the pre-injection original before
+the next injection began: (1) the first visible phone occurrence swapped
+to Smartts Bootle's number (0151 922 4984) - caught by check-nap's class of
+rule inside the instrument, one failure, "foreign phone ... (smartts_
+bootle) present in page"; (2) the first postcode occurrence swapped to
+L9 7AS - caught twice, because both rbh_head_office_aintree and
+clearchemist_aintree carry that postcode, so the foreign-postcode leg
+fired once per owning branch; (3) an HTML comment carrying a 24-character
+hex string (deadbeefcafefeed12345678, no branch owns it) added immediately
+before the #rbhsv-root div - caught by the hard-coded-widget-id leg, one
+failure. Final sha256 of the page after the third restore matched the
+pre-injection original exactly; git status --porcelain modules/ core/
+empty after. Zero in-repo defect found.
+
+LIVE HALF - NOT DONE THIS PASS. Claude in Chrome unavailable (see answer
+pickup above, and re-checked specifically for this item before writing
+this entry - same result). The six live pages the 2026-08-31 pass left
+unread (earache, impetigo, shingles, sinusitis, sore throat, UTI) remain
+unread live for this item; live coverage stays at 6 of 12 pages across the
+two most recent passes that could reach a browser. Q56 (branches.json
+holds the singular mailbox Tiffenberg@rbhealth.co.uk; the live footer and
+contact card were last confirmed on 2026-08-31 to show the plural
+tiffenbergs@rbhealth.co.uk) was NOT re-confirmed this pass and should not
+be assumed unchanged from the 2026-08-31 reading.
+
+FILES CHANGED. audits/verify-3.12-2026-09-01.js (new), AGENT_WORKLIST.md
+(pass note appended in place under 3.12), AGENT_LOG.md (this entry). No
+page, generator, checker or branches.json entry was changed - the three
+injected pages were all restored byte-identical before the run ended. No
+new question raised.
+
+HOUSEKEEPING NOTED, NOT ACTIONED. The repo root continues to accumulate
+untracked `.agent-lock.released-<ts>` files (32 present at the start of
+this run, one more than the previous run's count) plus the same handful of
+leftover scratch/test files first noted on 2026-09-01 (`.testfile123.
+todelete`, `scratchtest.txt`, `scratchtest2.renamed.txt`, `qtmp.json`,
+`open_q.txt`, a mis-encoded `C:\` directory entry) and several untracked
+audit artefacts from the 2026-08-31 3.6 pass. None block this run; a
+housekeeping item, out of scope for a single-item quality pass per the
+procedure's own "do not invent new scope" instruction.
 
 ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-
 task runner), same split as every recent run: a sandboxed Linux mount of the
