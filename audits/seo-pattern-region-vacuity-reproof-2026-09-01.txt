@@ -1,0 +1,31 @@
+OK   Cherry Lane Pharmacy - 12 pages
+OK   Clear Chemist - 3 pages
+OK   Coleman and Leighs Pharmacy - 12 pages
+FAIL Fishlocks Chemist - 26 pages, 1 mismatches
+       pharmacy-fishlocks-eccleston.html: title 'Pharmacy in Eccleston, Chorley - Fishlocks Chemist' != 'Pharmacy in Eccleston, Lancashire - Fishlocks Chemist'
+OK   Gordon Short Chemist - 12 pages
+OK   Hirshmans Chemist - 12 pages
+OK   McCanns Chemist - 26 pages, 1 pinned (awaiting an answer, not a failure)
+       pharmacy-mccanns-sandringham.html: PINNED description names 'Aigburth', the seoTown of mccanns_aigburth, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - McCanns Sandringham (St Michael's) lists neighbouring Aigburth, the seoTown of its sister branch on www.mccannspharmacy.co.uk
+OK   Riddings Pharmacy - 12 pages
+OK   SK Chemists - 12 pages
+OK   Scorah Chemists - 26 pages, 2 pinned (awaiting an answer, not a failure)
+       pharmacy-scorah-bramhall.html: PINNED description names 'Hazel Grove', the seoTown of scorah_hazel, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - Scorah Bramhall lists neighbouring Hazel Grove, the seoTown of its sister branch on www.scorah-chemists.co.uk
+       pharmacy-scorah-hazel-grove.html: PINNED description names 'Bramhall', the seoTown of scorah_bramhall, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - Scorah Hazel Grove lists neighbouring Bramhall, the seoTown of its sister branch on www.scorah-chemists.co.uk
+OK   Smartts Chemist - 12 pages
+OK   Tiffenbergs Chemist - 12 pages
+FAIL no live branch has a seoRegion that differs from its addressRegion, so the
+       region leg of the data-source rule cannot tell seoRegion-first from
+       addressRegion-first and would pass either precedence. Fishlocks Eccleston
+       carried the differing value when this rule was written. Restore one or
+       retire the leg deliberately.
+
+7 ready conditions read from build-service-pages.js: uti, sore-throat, sinusitis, earache, impetigo, shingles, insect-bite
+PAGE_TYPES contract: 14 title/H1 leg(s) verified across 6 generator(s), 2 non-page builder(s) excused.
+service-word rule: 177 pages had title, h1 and meta all read against their page type's service words.
+one-h1 rule: 177 pages carry exactly one h1, so the pattern, seoTown, service-word and cross-town rules read the whole heading of every page.
+one-line rule: 177 pages carry exactly one SEO title line and one SEO description line, so the title and description rules read the only line the paster can paste.
+data-source rule: 15 branches had seo-pattern pick() checked against branches.json seoTown/brandLabel
+       and the region leg against seoRegion/addressRegion, 8 with addressLocality differing from seoTown, 0 with seoRegion differing from addressRegion.
+cross-town rule: 177 pages read against 11 live seoTowns (Bramhall, Hazel Grove, Aigburth, St Michael's, Ainsdale, Eccleston, Aintree, Bootle, Walton, Timperley, Crosby), serviceAreaList excusing the branch's own catchment.
+177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 2 failures.

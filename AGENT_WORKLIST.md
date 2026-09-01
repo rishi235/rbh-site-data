@@ -719,6 +719,42 @@ AGENT_WORKLIST.md alone made 4.11 look like the oldest unverified item when
 it was not. Raised as Q84 rather than fixed here, since backfilling every
 affected item is bigger than this pass's scope. No new question about the
 pattern itself. Evidence in audits/seo-pattern-check-2026-08-30-sixth.txt.
+Quality pass 2026-09-01 (seventh pass, unattended run): clean again, no new
+defect. Self-test passes with no length warnings. All six generators
+reproduce all 203 files under modules/*/pages byte-identical
+(audits/_before-3.1-2026-09-01-seventh.sha256 and
+_after-3.1-2026-09-01-seventh.sha256, zero diff). All 36 tools/check-*.js
+checkers green. check-seo-pattern.js itself: 177 pages checked, 0 untyped,
+0 failures, the same two PINNED McCanns/Scorah cross-town findings as every
+recent pass (Q71, still open, not a failure).
+Rather than invent a new angle on a file six passes have already
+stress-tested from most directions (condition-slug mirroring, the
+PAGE_TYPES contract, town/brand/region source, one-h1, one-line,
+cross-town absence, fitTitle's length rescue), this pass re-proved one of
+the existing SAFEGUARDS rather than the pattern: the region leg's own
+vacuity guard, which the 2026-08-30 fifth pass added and reasoned about but
+which no log entry shows being triggered by actual injection. Fishlocks
+Eccleston is the sole live branch whose seoRegion differs from its
+addressRegion, so it is the one branch propping that guard up. Method:
+rsync-copied the whole repo to a scratch directory outside the mounted
+working tree, confirmed the copy's own check passed clean, edited the
+copy's branches.json to set fishlocks_eccleston's seoRegion equal to its
+addressRegion (removing the only branch that exercises the precedence),
+reran check-seo-pattern.js: exit 1, "FAIL no live branch has a seoRegion
+that differs from its addressRegion... Fishlocks Eccleston carried the
+differing value when this rule was written. Restore one or retire the leg
+deliberately." Scratch directory deleted immediately after; git status on
+the tracked repo confirmed branches.json and Weebly/ untouched throughout.
+Evidence in audits/seo-pattern-region-vacuity-reproof-2026-09-01.txt. The
+guard is real, not merely documented.
+Live sample: fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html
+still serves the pattern verbatim (title "Pharmacy First at Fishlocks
+Chemist, Ainsdale", H1 "Pharmacy First at Fishlocks Chemist in Ainsdale",
+exactly one h1). mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+(the pinned Q71 page) returns 404, consistent with Q35's landing-page paste
+still being outstanding across all six branch landing pages, not a new or
+changed finding. No in-repo defect found, no page, generator, checker or
+branches.json entry changed, no new question raised.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

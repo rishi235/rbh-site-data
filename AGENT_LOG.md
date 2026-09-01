@@ -1,3 +1,195 @@
+## 2026-09-01 (unattended run, following the 6.3 pass) - Item 3.1 quality pass (seventh): pattern and all 36 checkers clean again, the region leg's vacuity guard re-proved by injection on a disposable scratch copy rather than left as reasoned-about, live sample unchanged
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
+`.agent-lock.released-*` markers from earlier runs today). `.git/index.lock`
+present, about 23 minutes old at the check, well under this run's 1-hour
+staleness threshold, and no local git process running (`ps aux` clean), so
+left in place rather than removed, the same rule recent runs have applied.
+It did not block any git command this run needed. Created `.agent-lock`
+fresh (UTC timestamp) after the check.
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. `git fetch origin` and `git pull --ff-only` both
+failed with "Host key verification failed" as every recent run has found
+(no `~/.ssh` in this sandbox, no credential helper, no GITHUB_TOKEN). This
+is Q87, already fully diagnosed and open since 2026-08-31, not
+re-diagnosed here. Local branch was 21 commits ahead of
+origin/agents/audit-backlog at the start of this run.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+`https://data.rbhealth.co.uk/api/feedback`. Same 28 entries every recent
+run has found (Q2 through Q29), all already confirmed "answered" in
+QUESTIONS.json by direct lookup this run (not assumed from a prior run's
+say-so). No answer present for any of Q34-Q87. Nothing to reconcile. Tab
+opened and closed, nothing clicked, typed or submitted.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run (checked by grep across the whole
+file, not just visual inspection of the top). Proceeded normally; step 8's
+question-raising rule applies as written, and was not needed this run.
+
+ITEM SELECTION (step 5). All 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6) remain [BLOCKED]. Checked whether any of the Q numbers they
+cite (Q8, Q9, Q13, Q16, Q52, Q60, Q66) had newly flipped to answered and
+unblocked the item: Q8, Q9, Q13 and Q16 are indeed "answered" in
+QUESTIONS.json, but reading each item's own paragraph shows the block was
+never about the Q being unanswered - it is about the remaining work
+needing a supervised session (a Weebly paste, a push to a branch other
+than agents/audit-backlog, or both) that this unattended run has no
+authorisation for. Q52, Q60 and Q66 remain open outright. So all eight
+stay correctly [BLOCKED] and none is newly actionable; quality-pass branch
+taken, same as the last several runs.
+Re-derived staleness properly rather than trusting the previous run's
+figure: parsed AGENT_WORKLIST.md programmatically for every `- [x] N.M`
+block, took the maximum YYYY-MM-DD date mentioned inside each block, and
+excluded the seven one-off items outside the main rotation (1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8) plus the two items completed earlier today (5.2, 6.3).
+Oldest shared last-touched date: 2026-08-30, shared by fifteen items (2.3,
+3.1, 4.2, 4.3, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.12, 4.13, 4.15, 1.3, 1.2) -
+one fewer than the sixteen the 6.3 pass found, since 6.3 itself has now
+moved to today's date. Tie-broken the same way recorded runs have used:
+for each of the fifteen, found its own most recent 2026-08-30 heading in
+this file by regex and kept the one with the HIGHEST line number (entries
+are prepended, so a high line number for a same-day heading means
+everything above it was logged later that day, making it the earliest,
+i.e. stalest, entry of the group). 3.1's sole 2026-08-30 heading sits at
+line 7752, the highest among the fifteen (next closest was 4.3 at 7654).
+3.1 taken.
+
+WHAT WAS DONE. `node tools/seo-pattern.js` (the self-test): passed, no
+length warnings, prints every pattern for all 15 buildable branches
+across all seven page types. All six generators
+(build-service-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages,
+build-branch-landing-pages) rerun; sha256 of all 203 files under
+modules/*/pages taken before (audits/_before-3.1-2026-09-01-seventh.sha256)
+and after (audits/_after-3.1-2026-09-01-seventh.sha256): byte-identical,
+zero diff. All 36 tools/check-*.js checkers run individually: 36 pass, 0
+fail. `node tools/check-seo-pattern.js` run and its full output saved to
+audits/seo-pattern-check-2026-09-01-seventh.txt: 177 pages checked, 0
+untyped, 0 failures; the PAGE_TYPES contract, service-word rule, one-h1
+rule, one-line rule, data-source rule and cross-town rule all reported
+clean at their usual estate-wide counts, with the same two PINNED findings
+as every recent pass (pharmacy-scorah-bramhall.html and
+pharmacy-scorah-hazel-grove.html naming each other's seoTown, and
+pharmacy-mccanns-sandringham.html naming Aigburth), all under the still-open
+Q71, not failures.
+
+Six consecutive prior passes (2026-08-11, 08-12, 08-13, 08-14, and two on
+08-30) have each closed a genuinely new gap in this file: the hardcoded
+condition-slug mirror, the unread PAGE_TYPES contract, the town/brand
+source, the region source, and the fitTitle length-rescue backstop. Rather
+than search for a seventh new angle on the pattern itself and risk
+re-discovering ground already covered, this pass instead re-proved one of
+the SAFEGUARDS the fifth pass (2026-08-30) added: the region leg's own
+vacuity guard. That pass's log entry reasoned in prose about what would
+happen if Fishlocks Eccleston, the sole live branch whose seoRegion
+differs from its addressRegion, stopped existing or stopped differing -
+but no entry shows that reasoning actually being fired by injection, which
+is exactly the "trust but verify" gap this backlog's own history keeps
+finding in other checkers (2.3, 3.3, 5.2, 6.3 among them).
+
+Method: `rsync`-copied the whole repo (excluding .git) to a scratch
+directory outside the mounted working tree
+(/sessions/.../scratch/rbh-scratch), confirmed the copy's own
+check-seo-pattern.js run was clean first (exit 0, 177 pages, 0 failures).
+Edited the SCRATCH COPY's branches.json only, setting
+fishlocks_eccleston's seoRegion to equal its addressRegion ("Lancashire"),
+removing the one branch that exercises the seoRegion-vs-addressRegion
+precedence. Reran check-seo-pattern.js there: exit 1, one failure - "FAIL
+no live branch has a seoRegion that differs from its addressRegion, so the
+region leg of the data-source rule cannot tell seoRegion-first from
+addressRegion-first and would pass either precedence. Fishlocks Eccleston
+carried the differing value when this rule was written. Restore one or
+retire the leg deliberately." Full output saved to
+audits/seo-pattern-region-vacuity-reproof-2026-09-01.txt. Scratch directory
+deleted immediately after (`rm -rf`); `git status --short branches.json
+Weebly` on the TRACKED repo confirmed no changes, so the injection never
+touched anything this run would commit. The guard is now proved rather than
+merely documented.
+
+LIVE HALF, via Claude in Chrome, read-only. Two pages read directly rather
+than assumed:
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html serves the
+pattern verbatim - title "Pharmacy First at Fishlocks Chemist, Ainsdale",
+H1 "Pharmacy First at Fishlocks Chemist in Ainsdale", exactly one h1 -
+unchanged from the canonical clean example prior passes have used.
+mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html, the page carrying
+the pinned Q71 finding above, returns 404. That is expected and not a new
+finding: this is the branch landing page family, and Q35 (all six branch
+landing pages still unpasted to Weebly, 22+ days queued as of the 5.2
+sixth pass earlier today) already covers it; nothing here changes that
+item's status.
+
+No in-repo defect found, no page, generator, checker or branches.json
+entry changed, no new question raised. Q71 remains open and unchanged.
+
+FILES CHANGED (on disk, working tree only - see COMMIT below for why)
+- audits/_before-3.1-2026-09-01-seventh.sha256 - new, pre-rebuild checksums
+- audits/_after-3.1-2026-09-01-seventh.sha256 - new, post-rebuild checksums
+  (identical to the before file)
+- audits/seo-pattern-check-2026-09-01-seventh.txt - new, full
+  check-seo-pattern.js output
+- audits/seo-pattern-region-vacuity-reproof-2026-09-01.txt - new, the
+  injection test's full output from the (deleted) scratch copy
+- AGENT_WORKLIST.md - item 3.1's own paragraph, seventh-pass note appended
+- AGENT_LOG.md - this entry
+
+QUESTIONS. None raised, none answered. 53 open (Q34-Q87 minus the entries
+already answered and recorded), unchanged from the start of this run.
+
+COMMIT (step 9) - DID NOT COMPLETE, environmental blocker, same family as
+Q87. `.git/index.lock` was already present at the START of this run
+(created 02:41:28 BST, before this run's own lock check), 23 minutes old
+at that point and left in place correctly under the "no git process
+running, under 1 hour" rule, exactly as the immediately preceding 5.2
+sixth-pass entry records doing with an index.lock of similar age. That
+was the right call at the time: it did not block `git fetch` or `git
+status`. But when this run reached step 9, `git add` failed outright -
+"fatal: Unable to create '.../.git/index.lock': File exists" - because
+the lock is still there and git will not stage anything while it exists.
+Re-checked immediately: `ps aux` clean, no git process running, and the
+lock's age at that point was 30.8 minutes, still under this run's own
+1-hour deletion threshold, so it was NOT deleted and the block was
+respected rather than worked around. Retried `git add` once more a
+moment later with the same result.
+This is very likely the same mechanism Q87's UPDATE already diagnosed:
+this sandboxed connected folder allows file creation but blocks unlink(),
+so git's own crash-safety cleanup (write index.lock, do the write, unlink
+index.lock) can complete the write but silently fail the unlink, leaving
+the lock as permanent debris that no later run's git process ever
+touches, regardless of how long it sits - the same reason ~90
+`.agent-lock.released-*` markers exist instead of a clean delete. If that
+diagnosis is right, this lock will still be exactly 0 bytes and exactly
+this old-looking an hour from now, a day from now, or a month from now;
+elapsed time does not fix it, only a manual `rm` does. Left exactly as
+found, per this run's hard rule and per the procedure's instruction not
+to touch anything the rules do not clearly authorise.
+Net effect: nothing was `git add`-ed, nothing was committed, and
+`git push` was not attempted since there was nothing new to push beyond
+the 21 commits from prior runs already sitting ahead of
+origin/agents/audit-backlog (themselves still blocked on Q87's SSH
+finding). The five files listed above under FILES CHANGED are real,
+saved on disk in the working tree, and will still be there for the next
+run (or for Rishi) to pick up and commit - nothing is lost, only
+unlanded. Recommend treating "the git index.lock left over from a
+previous run's own commit blocks every subsequent run's step 9" as a
+sharpened, evidenced restatement of Q87 rather than a new question: it is
+the same root cause (this connected folder cannot do git's routine
+housekeeping) and the same fix (Q87's option 1, run on the native Windows
+host, or option 2, provision push credentials AND accept the
+housekeeping is still broken either way, per Q87's own note).
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run anyway, as
+instructed ("run it even if the work item failed, so the page stays
+honest"); outcome recorded immediately after this entry rather than
+re-diagnosed here, for the same reason Q87 already records (hardcoded
+`C:/Dev/rbh-site-data` path does not resolve inside this Linux sandbox).
+
+`.agent-lock` deleted at the end of this run (or renamed to
+`.agent-lock.released-<timestamp>` if the same unlink restriction applies
+to it too, matching every prior run's own workaround).
+
 ## 2026-09-01 (unattended run, following the 5.2 pass) - Item 6.3 quality pass (fourth): all 14 trading branches' live hours reverified against branches.json, thirteen match including all seven lunch-closure branches, Smartts (Q55) remains the sole live-only mismatch, rule 7 re-proved by injection on a disposable scratch copy
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
