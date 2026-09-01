@@ -103,7 +103,22 @@ GIT. Windows-MCP PowerShell: `git fetch origin` clean, local branch already
 matched origin before this run's edit. Committed AGENT_WORKLIST.md and this
 log entry to agents/audit-backlog and pushed to origin - network git access
 via PowerShell continues to work in this session, unlike the sandboxed
-shell (Q87 stays open; not re-raised).
+shell (Q87 stays open; not re-raised). Push confirmed landed:
+`git fetch` + `git rev-parse origin/agents/audit-backlog` both read
+939b2c3, matching local HEAD.
+
+PUBLISH (step 10). Ran `node tools\build-audit-status.js` via Windows-MCP
+PowerShell (not the sandboxed shell) specifically because Q87 records that
+script's ENOENT on its hardcoded `C:/Dev/rbh-site-data` path inside the
+Linux sandbox. On the real host the path resolves and the script ran
+clean: "Published reports/digital/Digital_Audit_Status.html (43/49 done,
+88%)". Both of Q87's failure modes (no push route, no publish route) were
+avoided this run simply by doing steps 9 and 10 on the Windows host rather
+than in the sandboxed shell, which is Q87's own option 1 - not implemented
+as a standing fix, just how this run happened to execute both steps, so
+Q87 stays open rather than being marked resolved: nothing guarantees a
+future run remembers to reach for Windows-MCP PowerShell instead of the
+sandboxed shell for these two steps.
 
 
 
