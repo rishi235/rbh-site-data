@@ -3611,6 +3611,58 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       URLs still 404 (Q29 unchanged, homepage-button workaround still
       correct). No new question raised. Evidence:
       audits/clear-aintree-gbp-pack-check-2026-08-30.txt. Done 2026-08-30
+      Seventh quality pass 2026-09-01: this pass's own commit timestamp
+      (12:11 that day) turns out to sit BEFORE Rishi answered Q28 at
+      17:00 the same day, so "Q28 unchanged" above was accurate when
+      written but is now stale; the pack itself was separately brought
+      up to date afterwards (its Phone line and Post A both already
+      read 0151 203 6535 with a note "confirmed by Rishi 2026-08-30
+      (Q28) ... Safe to paste"), so this is the first pass able to
+      confirm the fix LIVE rather than repeat the pre-fix finding. All
+      36 checkers exit 0; check-gbp-packs.js's sole WARN against this
+      pack is unchanged and reconfirmed deliberate: the pack's own
+      narrative sentence quotes the superseded number "0151 203 8365"
+      exactly once, explaining the correction, not stating it as a live
+      fact, the same accepted WARN every pass since the second has
+      carried. Independent extraction, audits/verify-4.9-2026-09-01.js,
+      imports nothing from tools/, parses the pack and branches.json
+      with its own regexes: 23 checks, all passed, including description
+      669/750 and four posts (407, 360, 515, 449) all under the 1,500
+      limit, phone matching branches.json in the profile-basics line and
+      both Post A and Post B, all five catchment towns, hasApp/app
+      mention, zero hits against the 84-name POM union, zero dashes of
+      any kind, and the old-number narrative sentence appearing exactly
+      once. One false failure caught and corrected before recording:
+      matching "speak to on 0151 203 6535" against the raw file first
+      failed, because the pack's own markdown wraps the sentence as
+      "...actually speak\nto on 0151 203 6535...", splitting the phrase
+      across a line break; re-run on whitespace-collapsed text, the same
+      convention check-gbp-packs.js already uses for its own
+      sentence-bounded rules, confirmed it correct. All seven real page
+      generators rebuilt, git status empty afterwards (build-audit-
+      status.js fails as always in this sandbox on its hardcoded
+      C:/Dev/rbh-site-data path, Q87's second finding, not a page
+      generator so it does not affect byte-identical proof). Live half
+      performed via Claude in Chrome, read-only, one tab, closed between
+      pages, nothing clicked, typed or submitted beyond navigation and
+      text extraction: the contact page now publishes 0151 203 6535 with
+      no 8365 anywhere, including on the branch's own 404 template,
+      closing the loop the sixth pass could not (Q28 CONFIRMED FIXED,
+      live and in-repo agree for the first time this pass verified it
+      after the fix landed). Clear's own WhatsApp 07512 330 076 still
+      live and still distinct from the estate-wide hardcoded default
+      (Q21's concrete case, unchanged). Hours unchanged (two different
+      weekly patterns for NHS and non-NHS services, still correctly
+      withheld from branches.json and GBP). All three post-target URLs
+      (switch-prescriptions-clear-aintree.html, weight-loss-clinic-
+      clear-aintree.html, travel-clinic-clear-aintree.html) still return
+      404 live, each showing the branch's own 404 template with the
+      correct new phone number (Q29 unchanged, homepage-button
+      workaround in the pack still correct and necessary). No in-repo
+      defect found, no new question raised. Evidence:
+      audits/clear-aintree-gbp-pack-check-2026-09-01.txt,
+      audits/verify-4.9-2026-09-01.js,
+      audits/verify-4.9-2026-09-01-output.txt. Done 2026-09-01
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

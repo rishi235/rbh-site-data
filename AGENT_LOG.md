@@ -1,4 +1,224 @@
-## 2026-09-01 (unattended run, following the 4.8 seventh pass) - Item 4.10 quality pass (sixth): Smartts Chemist Bootle GBP pack re-verified clean fact by fact; live half re-read across three of the four post targets, reconfirming Q55 (website hours), Q16 (weight-loss tile claim), Q51/Q83/Q88 (lead price position) and Q48 (yellow fever) all unchanged, plus a newly-confirmed-on-this-branch instance of the already-estate-wide pre-cleanup en-dash stale paste on the weight loss page; PROCESS NOTE: this run's own staleness scan initially mis-ranked 4.10 as stalest due to a line-boundary bug reading only its first pass, corrected before committing - 4.11 (SK Chemists Bootle) is the true stalest item and is flagged for the next run
+## 2026-09-01 (unattended run, following the 4.10 sixth pass) - Item 4.9 quality pass (seventh): Clear Chemist Aintree GBP pack re-verified clean on all 36 checkers and a fresh 23-check independent extraction; live half closes the loop the sixth pass could not, confirming Q28's phone fix (0151 203 6535) is now live and matches branches.json and the pack for the first time an unattended run has checked it after the fix landed; Q21 (Clear's own WhatsApp) and Q29 (all three post-target pages still 404 on the e-commerce site) both reconfirmed unchanged; PROCESS NOTE: the previous run's flag of 4.11 as "the true stalest item" was itself wrong - 4.11 had in fact been through a seventh pass the day before (2026-08-31) - and this run's own first two automated staleness derivations were also wrong before a third, paragraph-boundary-based method settled on 4.9; see ITEM SELECTION below for what each method got wrong and why
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. Repo reached at
+/sessions/epic-tender-maxwell/mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data; edits and local commits land on the real repo.
+
+LOCK AND ENVIRONMENT. No `.agent-lock` present at the start (only
+`.agent-lock.released-*` markers from earlier runs, 26 of them, none
+touched); created one immediately, consistent with every recent run's
+finding that this mount can create but not unlink these files. `.git/
+index.lock` absent; `.git/HEAD.lock` present, dated 06:43, about 22
+minutes old at first check and well under the 1-hour staleness
+threshold, so left in place per the standing convention rather than
+renamed - confirmed non-blocking first, with a `git status --porcelain`
+that completed (with only its usual harmless "unable to unlink
+index.lock" warning) while the lock sat there unchanged. `git fetch
+origin` failed exactly as Q87 predicts, "Host key verification failed";
+not re-diagnosed. Local branch was 28 commits ahead of
+origin/agents/audit-backlog at the start (confirmed clean ancestry:
+`git merge-base --is-ancestor origin/agents/audit-backlog HEAD` true,
+the reverse false, so this is a straightforward unpushed backlog, not a
+divergence needing a merge). Untracked debris from earlier runs left
+untouched, out of this run's scope: 26 `.agent-lock.released-*` files,
+`.testfile123.todelete`, two `scratchtest*.txt` files, and a literal
+`C:/` directory tree (`C:/Users/rishi/OneDrive - RB Healthcare
+Ltd/Downloads/cowork`) created by a prior sandboxed run's generator
+call trying to write the Windows paste-pack path
+`C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/
+PASTE_PACK` literally inside this Linux mount; `tools/build-service-
+pages.js` did the same thing again this run (see WHAT WAS DONE), so the
+directory is not new, only added to.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, one tab opened
+and closed, nothing clicked, typed or submitted, against
+`https://data.rbhealth.co.uk/api/feedback`: 28 entries returned,
+covering 17 distinct question ids (Q2-Q5, Q13-Q22, Q24, Q28, Q29).
+Cross-checked programmatically against QUESTIONS.json: all 17 already
+recorded as "answered" with matching text (88 questions on file, 54
+open - none of the 54 open ones appear in this feedback endpoint's
+current page, which only ever surfaces answers, not open questions).
+Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading anywhere in this log at the start of this run.
+Proceeded normally; step 8's exception did not apply.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines confirmed still
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the run is a
+quality pass. The 4.10 run's own log entry named 4.11 as "the true
+stalest item... flagged for the next run", but 4.11's own AGENT_WORKLIST.md
+paragraph shows a seventh pass dated 2026-08-31, one day newer than the
+4.10 run believed, so that flag was itself wrong before this run even
+started - the fourth time this log has recorded a staleness-ranking
+error, after 3.3, 5.2 and the 4.10 entry above it.
+
+Rather than trust a single method again, this run tried three and
+compared them. Method 1, matching `Done (\d{4}-\d{2}-\d{2})` inside each
+item's own paragraph text and taking the max per item: useless on its
+own, because many items' later passes do not end the word "Done" (some
+close "no new question raised" instead), so items with several real
+passes (3.1, 3.2, 4.4, 4.5, 4.6, 4.8, among others) came back showing
+only their original 2026-08-04 "Done" and nothing since, which would
+have sent this run after seven-times-verified items as if untouched.
+Method 2, scanning `git log` commit subjects for the literal phrase
+"item N.M" and taking the most recent commit's date per item: better,
+and it correctly surfaced 4.4's sixth pass and 4.8's seventh, but it
+silently missed 4.12's sixth pass entirely, because that commit's
+subject reads "Quality pass on 4.12 (Coleman and Leighs...)" without
+the word "item", so the regex never matched it and the method reported
+4.12 as stuck on 2026-08-12, eighteen days stale where it was actually
+two days stale. Method 3, extracting each item's own paragraph block
+between its checkbox line and the next item's checkbox line (using the
+line numbers of all 51 checkbox lines as boundaries) and taking the
+single latest `YYYY-MM-DD` appearing anywhere in that block: this is
+the one trusted, because it needs no assumption about which words
+precede a date. It resolved all 36 eligible items (43 done items minus
+the seven established one-offs: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) to
+only three distinct calendar dates - 2026-08-30, 2026-08-31, 2026-09-01
+- because AGENT_WORKLIST.md records only the date, not the time, the
+same ceiling the 4.5/4.6 run hit and solved the same way: eight items
+tied on 2026-08-30 (1.2, 2.3, 4.2, 4.7, 4.9, 4.12, 4.13, 4.15), broken
+by reading `git log --since "2026-08-30 00:00" --until "2026-08-31
+00:00" --reverse` for each item's actual commit time that day. Seven of
+the eight appear once each; 1.2 appears twice (01:42 and 21:43), and
+its LATER time is the one that counts for "last touched", which moves
+it from apparent-earliest to actual-latest of the eight - the exact
+trap the 4.5/4.6 run's own log entry already named for a different
+item, now confirmed to recur. Ordered by true last-touched time: 4.9
+(12:11) is earliest, then 4.12 (13:11), 4.13 (13:46), 4.15 (14:45), 2.3
+(15:11), 4.7 (16:41), 4.2 (18:47), 1.2 (21:43). 4.9 (Clear Chemist
+Aintree GBP pack) taken as the least recently verified.
+
+One more thing worth carrying forward: 4.9's own sixth pass, timestamped
+12:11 on 2026-08-30, is itself the reason this pass had real, non-
+cosmetic work to do rather than being a straight re-confirmation. Rishi
+answered Q28 (the Clear Chemist phone number) at 17:00 that same day -
+nearly five hours after the sixth pass ran - so "Q28 unchanged" in that
+pass's own paragraph was true when written and stale by the time this
+run read it. The fix itself landed in branches.json and the pack
+sometime after 17:00, under a different item's pass (3.13's fourth pass
+references it), not 4.9's own. So a pass can be internally correct and
+still be superseded within the same calendar day by an answer that
+arrives after it runs; the paragraph's own "Done" date is not enough to
+know whether a pass's findings are still current, only the commit time
+against the answer time can settle that.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` run fresh before any
+inspection: all green, zero failures. `node tools/check-gbp-packs.js`
+saved in full; the one WARN naming this pack,
+"clear-aintree.md: phone-like number 0151 203 8365 is not Clear
+Chemist's number in branches.json", is unchanged and reconfirmed
+deliberate - the pack's own narrative sentence quotes the superseded
+number exactly once, explaining the Q28 correction, the same accepted
+WARN every pass since the second (2026-08-11) has carried; not treated
+as a defect and not "fixed" by rewording, consistent with every earlier
+pass's own verdict on it.
+
+All 7 real page generators rebuilt (`build-branch-landing-pages`,
+`build-contraception-pages`, `build-service-pages`, `build-status-page`,
+`build-switch-pages`, `build-travel-clinic-pages`, `build-weight-loss-
+pages`); `git status --porcelain modules/` empty before and after, so
+nothing in the estate drifted. `build-audit-status.js` failed as always
+in this sandbox on its hardcoded `C:/Dev/rbh-site-data` path (Q87's
+second finding); not a page generator, so it does not affect the byte-
+identical proof above. `build-service-pages.js` also re-attempted its
+Windows paste-pack write to `C:/Users/rishi/OneDrive - RB Healthcare
+Ltd/Downloads/cowork/PASTE_PACK`, which in this sandbox resolves inside
+the mount as a literal `C:/` directory tree rather than erroring
+outright; this is the same pre-existing debris noted under LOCK AND
+ENVIRONMENT above, not new, and was left alone rather than cleaned up,
+since deleting files outside this run's own scope is not this
+procedure's job.
+
+Independent extraction, `audits/verify-4.9-2026-09-01.js`, imports
+nothing from `tools/`, parses `gbp-packs/clear-aintree.md` and
+`branches.json` with its own regexes. 23 checks, all passed: business
+description exactly the 669 characters its own heading claims, under
+the 750 limit; all four posts (407, 360, 515, 449 characters) under the
+1,500 limit; phone `0151 203 6535` matches branches.json in the
+profile-basics line, Post A and Post B; address, postcode, website and
+review link all match; all five catchment towns present (Aintree,
+Fazakerley, Walton, Bootle, North Liverpool); `hasApp` true with an app
+mention present; zero hits against the 84-name POM union in
+`tools/pom-names.js`; zero em/en dash characters and zero dash HTML
+entities; the superseded number `0151 203 8365` appears exactly once,
+confirming it is narrative rather than a live claim. One false failure
+caught before recording: the first version of the Post B phone check
+matched against the raw file and failed, because the pack's own
+markdown wraps the sentence as "...you can actually speak\nto on 0151
+203 6535...", splitting the phrase across a line break; re-run against
+whitespace-collapsed text - the same convention `check-gbp-packs.js`
+already applies to its own sentence-bounded rules - it passed. Output:
+`audits/verify-4.9-2026-09-01-output.txt`.
+
+LIVE HALF (via Claude in Chrome, read-only, one tab, closed between
+pages, nothing clicked, typed or submitted beyond navigation and text
+extraction):
+
+- clearchemist.co.uk/contact-us: publishes "Customer Services
+  Telephone: 0151 203 6535" with no trace of the old 8365 number
+  anywhere on the page. This is Q28 CONFIRMED FIXED LIVE - the first
+  time an unattended run has read this page after the fix landed rather
+  than before it; the sixth pass's "Q28 unchanged" was accurate only
+  because it ran before the 17:00 answer, not because the fix had not
+  yet reached the live site. WhatsApp "07512 330 076" also confirmed
+  live and still distinct from the estate-wide hardcoded default
+  447521775631, reconfirming Q21's concrete case unchanged. Hours
+  unchanged: "Non-NHS Services - Monday - Friday 8am-4.30pm", "NHS
+  Services - Monday - Thursday 8am - 6pm", closed bank holidays and
+  weekends - still two different weekly patterns GBP cannot express as
+  one set of times, still correctly withheld from branches.json and the
+  profile per the pack's own guidance.
+- switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-
+  aintree.html, travel-clinic-clear-aintree.html: all three still
+  return the branch's own "404 Not Found 1" template (Q29 unchanged).
+  Worth recording: even the 404 template itself now prints the
+  corrected phone number "0151 203 6535", further confirming the fix
+  reached every part of the live site the pack could plausibly touch,
+  not only the contact page. The pack's homepage-button workaround
+  (point all three post buttons at clearchemist.co.uk rather than a
+  page that 404s) remains correct and necessary; clearchemist.co.uk is
+  the e-commerce store, not Weebly, so these three generated pages have
+  no paste route at all until that architecture question is settled.
+
+NO IN-REPO DEFECT FOUND. No page, generator, data field, branches.json
+entry or paste sheet was changed. gbp-packs/clear-aintree.md was not
+edited (it was already correct, updated by a different pass after the
+Q28 answer). AGENT_WORKLIST.md's item 4.9 paragraph gained a
+seventh-pass note; no other file under modules/, tools/ or gbp-packs/
+changed.
+
+FILES CHANGED
+- audits/verify-4.9-2026-09-01.js (new)
+- audits/verify-4.9-2026-09-01-output.txt (new)
+- audits/clear-aintree-gbp-pack-check-2026-09-01.txt (new)
+- AGENT_WORKLIST.md (item 4.9's own paragraph, seventh-pass note
+  appended)
+- AGENT_LOG.md (this entry)
+
+QUESTIONS. None raised. Q28 status unchanged in QUESTIONS.json
+("answered", not reopened) - this pass adds independent live
+confirmation of the answer's implementation, which is not the same
+thing as the question itself changing state, so no edit was made there.
+Q21 and Q29 both reconfirmed unchanged. 54 open before this run, 54
+after.
+
+COMMIT (step 9). `git add` the five files above, single commit on
+agents/audit-backlog. `git push origin agents/audit-backlog` attempted
+as normal and failed exactly as Q87 predicts ("Host key verification
+failed"); no other push route tried, no credentials entered. Commit
+sits locally ahead of origin, will land the moment Q87 is resolved.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as
+instructed; failed on its hardcoded `C:/Dev/rbh-site-data` path, the
+same Q87 finding recorded above and by every recent sandboxed run; no
+other publish route attempted.
+
+`.agent-lock` deleted at the end of this run.
+
+---
 
 EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
 THIS PROCEDURE ASSUMES. Repo reached at

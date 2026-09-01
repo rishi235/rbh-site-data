@@ -1,0 +1,27 @@
+PASS description char count matches heading
+PASS description under 750
+Post lengths: [ 407, 360, 515, 449 ]
+PASS Post A under 1500
+PASS Post B under 1500
+PASS Post C under 1500
+PASS Post D under 1500
+PASS Phone line matches branches.json
+PASS Post A phone matches branches.json
+PASS Post B phone matches branches.json (whitespace-collapsed)
+PASS Address matches streetAddress
+PASS Postcode present
+PASS Website matches branches.json
+PASS Review link matches branches.json
+PASS Catchment mentions Aintree
+PASS Catchment mentions Fazakerley
+PASS Catchment mentions Walton
+PASS Catchment mentions Bootle
+PASS Catchment mentions North Liverpool
+PASS hasApp true and app mention present
+PASS No POM medicine name in pack (84-name union)
+PASS No em/en dash characters
+PASS No dash HTML entities
+Occurrences of old number 8365: 1
+PASS Old number 8365 appears exactly once (narrative only)
+
+23 passed, 0 failed
