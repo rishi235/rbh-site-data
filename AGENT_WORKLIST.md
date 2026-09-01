@@ -592,6 +592,33 @@ same pattern recorded throughout 2026-08-31's entries above.
       found, no fix needed, no new question. Q82 remains open, untouched.
       Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-08-30-sixth.txt.
+      Seventh quality pass 2026-09-01 (unattended run). Repo half clean again:
+      six generators to a zero diff across the whole repo, all 36 checkers
+      exit 0. NEW FINDING, live and significant: the Pharmacy First overview
+      page (cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html)
+      is showing five of its seven condition cards - Sinusitis, Earache,
+      Impetigo, Shingles, Infected insect bite - as "Page coming soon" with
+      no working link, the exact original 2026-08-04 fault that the
+      2026-08-11 pass believed fixed and every live check since (2026-08-13,
+      2026-08-30) reconfirmed as fine. Those checks only read for the
+      condition name and NHS age range text, which is present on the broken
+      cards too, so none of them actually tested for the "coming soon"
+      marker or the href. The repo's own generated page is correct (all
+      seven as working links, confirmed field by field), so this is a live
+      Weebly paste issue, not an in-repo defect - raised as Q89 rather than
+      repasted (no autonomous window this run, and no live-editing route
+      available in any case). Two other known live-only faults reconfirmed
+      unchanged (switch page SEO title still pre-Phase-3; switch page body
+      still renders a visible mojibake em dash, now pinned to the "How
+      switching to Cherry Lane Pharmacy works" lead paragraph specifically,
+      confirmed not inside an HTML comment). The Q36 footer NHS mailbox typo
+      was not observed this pass on any of the three pages checked (it is
+      simply absent rather than typo'd, matching the 2026-08-11 state
+      instead of the 2026-08-13/2026-08-30 state) - logged as unstable, not
+      re-raised. Weight loss page rechecked for medicine names and
+      superlative claims: none found. No in-repo defect, no fix made.
+      Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-01-seventh.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

@@ -1,0 +1,126 @@
+ITEM 2.3 - CHERRY LANE BUILD-FROM-NEAR-ZERO - SEVENTH QUALITY PASS
+2026-09-01, unattended run. Repo half and live half both run.
+
+WHY THIS ITEM
+All eight unchecked worklist items are still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6), so the run went to a quality pass on the least recently
+verified completed item. The prior (sixth pass, seventh-pass-methodology) run
+today had already worked through the tied group at 2026-08-30 in commit-time
+order and completed 4.13 and 4.15. Of the remaining tied items (2.3, 4.7, 4.2,
+1.2), 2.3 was both earliest by the established commit-timestamp tie-break
+(15:11 on 2026-08-30) and the least frequently passed (sixth pass, against
+seventh for 4.7 and 1.2 and eighth for 4.2), confirmed by grepping every
+"Item 2.3/4.7/4.2/1.2 quality pass" heading in AGENT_LOG.md.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE
+mcp__claude-in-chrome__navigate to https://data.rbhealth.co.uk/api/feedback
+was refused before any page load: two Chrome browsers are connected to this
+account and the tool requires an explicit human choice between them. This run
+is unattended, so pickup was logged as unavailable and not retried by any
+other route, per the procedure's own fallback instruction. Same Q59 blocker
+as every recent run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of this run. Proceeded normally (raise a question
+rather than decide autonomously).
+
+REPO HALF - CLEAN AND BYTE-STABLE FOR THE SEVENTH PASS
+- Six generators (service, branch-landing, switch, weight-loss, travel-clinic,
+  contraception) rebuilt; git status before and after regeneration shows zero
+  tracked-file diff anywhere in the repo.
+- All 36 checkers exit 0 (same count as the sixth pass; no new checker added
+  since).
+- The branch owns exactly the 12 pages the repo generates for Cherry Lane:
+  11 service-family pages plus the switch page, no branch landing page,
+  correct for this branch.
+- modules/service/pages/pharmacy-first-cherry-lane-walton.html carries all
+  seven condition cards as real <a class="condition-card" href="...."> links
+  (sinusitis, earache, impetigo, shingles, insect-bite, plus sore-throat and
+  uti already known good) - no "coming soon" text anywhere in the generated
+  file. This matters directly for the live finding below.
+
+LIVE HALF - THREE PAGES FETCHED READ-ONLY (node fetch, GET only, same conduct
+as tools/sweep-broken-links.js and tools/check-live-hours.js): the switch
+page, the Pharmacy First overview, and the weight loss page. Raw responses
+saved locally during the run and discarded after extraction (not committed;
+findings quoted below verbatim from the fetched HTML).
+
+FINDING 1 (NEW, SIGNIFICANT) - Pharmacy First overview: five of seven
+condition cards are back to "Page coming soon", live, right now
+URL: https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+(status 200). Five condition cards - Sinusitis, Earache, Impetigo, Shingles,
+Infected insect bite - each render:
+  <strong>Sinusitis</strong>
+  <span>Blocked or painful sinuses, facial pressure or congestion.</span>
+  <span style="color:#6b7280;font-size:13px;">Age 12 and over</span>
+  <em style="color:#9ca3af;text-decoration:none;">Page coming soon</em>
+No href, no working link - a dead end. This is the exact original 2026-08-04
+finding ("shows five conditions as coming soon although all seven pages are
+live"), which the 2026-08-11 pass recorded as fixed ("repasted and all seven
+conditions now render with working links... Q5 can be treated as closed"),
+and which every subsequent live check (2026-08-13 fourth pass, 2026-08-30
+sixth pass) reconfirmed as "renders all seven conditions with correct NHS age
+ranges" - true, the age range text is present on every card including the
+five broken ones, so a check that only reads for the condition name and age
+text would pass. None of those checks tested for the "coming soon" marker or
+for the href actually being present, which is the same class of gap this
+repo's own methodology keeps finding elsewhere (check which FIELD a passing
+check actually read). So either the 2026-08-11 repaste reverted at some point
+between 2026-08-13 and today, or it was never actually holding and no live
+check since has tested the right thing. Either way it is live and wrong now:
+a patient on this page today can reach Sore Throat and UTI directly and hits
+a dead end on the other five NHS Pharmacy First conditions.
+
+No in-repo defect: modules/service/pages/pharmacy-first-cherry-lane-walton.html
+is correct (see REPO HALF above), so this is a live Weebly paste staleness
+issue, not something a generator or data change can fix. Raised as Q89 rather
+than decided or repasted autonomously (no autonomous window this run, and
+this run has no way to edit the live Weebly page in any case).
+
+FINDING 2 (RECONFIRMED UNCHANGED) - switch page SEO title
+Still the pre-Phase-3 string: <title>Switch Your Prescriptions - Cherry Lane
+Pharmacy Walton</title>, against the paste sheet's "Switch Your Prescriptions
+to Cherry Lane Pharmacy, Walton". Already tracked under 3.1/5.1/Q3.
+
+FINDING 3 (RECONFIRMED UNCHANGED, LOCATION CONFIRMED) - visible mojibake em
+dash in the switch page body
+The heading reads "...switching to Cherry Lane Pharmacy works</h2>" and the
+lead paragraph immediately after it renders, verbatim in the live HTML and
+NOT inside an HTML comment (confirmed by locating every "-->" boundary around
+it):
+  <p class="lead">Most people put off switching pharmacy because they assume
+  it will be a hassle. With Cherry Lane Pharmacy in Walton, it usually is not
+  ÔÇö we make the first step quick and easy.</p>
+("ÔÇö" is the three-byte UTF-8 em dash misread as Windows-1252,
+rendered literally to the visitor). Genuinely patient-visible, not a build
+comment. Three further occurrences of the same byte sequence on this page ARE
+inside HTML comments (a paste-instruction header and a GA4 script comment)
+and are correctly out of scope for check-em-dashes.js's report-only build
+comment exemption. Already tracked under 3.1/5.1/Q3 (same repaste queue as
+Finding 2, both on the switch page).
+
+FINDING 4 (STATE CHANGE, NOT RE-RAISED) - Q36 NHS mailbox footer typo:
+absent rather than typo'd this pass
+Searched all three fetched pages (switch, Pharmacy First overview, weight
+loss) for "FA226", "mhs.net" and "nhs.net": zero hits on any of them. Only
+Cherry@rbhealth.co.uk appears. This matches the 2026-08-11 second-pass state
+("footer now publishes no NHS mailbox at all") rather than the 2026-08-13
+fourth-pass and 2026-08-30 sixth-pass state ("pharmacy.FA226@mhs.net is
+back"). Read together, the mailbox line appears to come and go between
+deploys or caching rather than being reliably one way, which is worth knowing
+for whoever eventually resolves Q36, but is not itself a new finding to raise
+- logged here as evidence of the instability.
+
+WEIGHT LOSS PAGE - compliance spot check, no defect
+No medicine names (Mounjaro, Wegovy, Orlistat, Saxenda, Ozempic all zero
+hits), no superlative or guarantee language ("lose up to", "clinically
+proven", "guaranteed" all zero hits). Consistent with the Q5 signpost
+treatment and compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md.
+
+RESULT
+No in-repo defect found or fixed - the repo half is clean and byte-stable for
+the seventh consecutive pass. One new significant live-only finding raised as
+Q89 (Pharmacy First overview repaste). Two known live-only faults reconfirmed
+unchanged (switch title, switch mojibake). One known live-only fault (Q36
+footer typo) not observed this pass, logged as unstable rather than resolved.

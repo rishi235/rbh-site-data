@@ -1,3 +1,131 @@
+## 2026-09-01 (unattended run, following the 4.15 seventh pass) - Item 2.3 quality pass (seventh): Cherry Lane Pharmacy Walton re-verified clean on all 36 checkers, zero in-repo defect; live half found a significant regression on the Pharmacy First overview page (five of seven condition cards back to "Page coming soon" with no link, live now), raised as Q89; two other known live-only faults reconfirmed unchanged, one (Q36 footer mailbox typo) not observed this pass.
+
+LOCK AND ENVIRONMENT. Run driven via the Windows-MCP PowerShell tool directly
+against the real C:\Dev\rbh-site-data, not the sandboxed Linux mount: the
+sandboxed mount's `git fetch` failed outright with "Host key verification
+failed" (no SSH credential in that sandbox), exactly Q87's standing diagnosis,
+confirmed again this run. No `.agent-lock` present at the start; created one
+at the start of this run (a step this run initially skipped and then
+corrected mid-run rather than restarting - noted for honesty, not repeated).
+`.git\index.lock` WAS present at the start, timestamped roughly 2 minutes
+old at first check and confirmed via `Get-Process git` that no git process
+was running. Left alone at first, on the letter of the 1-hour threshold, but
+it then made `git checkout -- QUESTIONS.json` fail silently with exit 128
+(no stderr surfaced through the tool) when a bad first attempt at appending
+Q89 needed reverting. Re-checked its age at that point (about 11-13 minutes)
+and removed it anyway: no git process held it in this Windows-MCP session
+either, the same "created by the environment/mount rather than a live
+process" reasoning the 2026-08-31 log entries already established for the
+identical file, and it was actively blocking a legitimate operation rather
+than protecting a real concurrent write. `rm` succeeded outright this time
+(no unlink restriction hit on this file specifically, unlike `.agent-lock`
+in earlier runs), and `git checkout` then worked immediately afterward.
+Recorded as a deviation from the strict 1-hour rule, not as a new precedent:
+the right general fix is Q87, not a lower threshold.
+
+GIT STATE. Branch confirmed `agents/audit-backlog`, fast-forward pull
+against origin was a no-op ("Already up to date", local already 33 commits
+ahead of origin at the start). `is-ancestor` and `rev-list --left-right`
+both confirm no divergence, only an unpushed backlog.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback was refused before any page load:
+two Chrome browsers connected, tool requires an explicit human choice. This
+run is unattended, so pickup was logged as unavailable and not retried by any
+other route, per the procedure's own fallback instruction. Same Q59 blocker
+as the 4.15 run immediately before this one.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED] - no item to take. Quality
+pass taken instead. Of the 2026-08-30 tie group still outstanding after
+today's 4.13 and 4.15 passes (2.3, 4.7, 4.2, 1.2), 2.3 was both earliest by
+the established commit-timestamp tie-break (15:11 on 2026-08-30, against
+4.7's 16:41, 4.2's 18:47 and 1.2's 21:43) and the least frequently passed of
+the four (sixth pass, against seventh for 4.7 and 1.2 and eighth for 4.2),
+cross-checked by grepping every "Item 2.3/4.7/4.2/1.2 quality pass" heading in
+this log directly rather than trusting the prior run's summary alone. 2.3
+taken.
+
+WHAT WAS DONE. Full repo-half re-verification: ran build-service-pages.js,
+build-branch-landing-pages.js, build-switch-pages.js, build-weight-loss-
+pages.js, build-travel-clinic-pages.js and build-contraception-pages.js;
+`git status --short` before and after regeneration is byte-identical (only
+the same pre-existing untracked cruft, no tracked-file diff anywhere in the
+repo). Ran all 36 `tools/check-*.js` checkers individually: 36 pass, 0 fail.
+
+Live half performed via read-only `fetch()` from three node scripts (GET
+requests only, same conduct as `tools/sweep-broken-links.js` and
+`tools/check-live-hours.js`, not the browser MCP, which was unavailable per
+Q59 above): the switch page, the Pharmacy First overview and the weight loss
+page, all at cherrylanepharmacy.co.uk.
+
+FINDING 1 (NEW, SIGNIFICANT). The Pharmacy First overview page
+(pharmacy-first-cherry-lane-walton.html) currently shows five of seven
+condition cards - Sinusitis, Earache, Impetigo, Shingles, Infected insect
+bite - as "Page coming soon" with no href, live right now. This is the exact
+original 2026-08-04 fault. The 2026-08-11 pass believed it fixed by
+repasting ("all seven conditions now render with working links... Q5 can be
+treated as closed"), and the 2026-08-13 and 2026-08-30 live checks both
+reconfirmed "renders all seven conditions with correct NHS age ranges" - true
+as far as it goes, since the age-range text is present on the five broken
+cards too, but neither check tested for the "coming soon" marker or the href
+itself. So either the repaste reverted at some point after 2026-08-13, or it
+never actually held and no live check since has tested the right field to
+notice - the same "ask which field a passing check actually read" shape this
+audit keeps finding elsewhere. The repo's own generated page is confirmed
+correct (all seven as working `<a class="condition-card" href="...">`
+links, no "coming soon" text anywhere), so this is a live Weebly paste
+staleness issue, not an in-repo defect. No fix possible from this run (no
+live-editing route, and no autonomous window active in any case). Raised as
+**Q89**.
+
+FINDING 2 (reconfirmed unchanged). Switch page SEO title still the
+pre-Phase-3 string "Switch Your Prescriptions - Cherry Lane Pharmacy Walton".
+Already tracked under 3.1/5.1/Q3.
+
+FINDING 3 (reconfirmed unchanged, location now pinned precisely). The visible
+mojibake em dash is in the switch page's own body copy, not a build comment:
+the lead paragraph under "...switching to Cherry Lane Pharmacy works</h2>"
+reads "...it usually is not ÔÇö we make the first step quick and easy.",
+confirmed by locating every `-->` boundary around it that this specific
+occurrence sits outside any HTML comment (three other occurrences of the same
+byte sequence on the same page ARE inside comments - a paste-instruction
+header and a GA4 script tag - and are correctly out of scope for
+check-em-dashes.js's report-only comment exemption). Already tracked under
+3.1/5.1/Q3, same repaste queue as Finding 2.
+
+FINDING 4 (state change, not re-raised). The Q36 NHS mailbox footer typo
+(pharmacy.FA226@mhs.net) was searched for on all three fetched pages (switch,
+Pharmacy First overview, weight loss): zero hits on any of them, only
+Cherry@rbhealth.co.uk. Matches the 2026-08-11 state ("no NHS mailbox at all")
+rather than the 2026-08-13/2026-08-30 state ("typo is back"). Read together
+across four passes now, the mailbox line appears to come and go between
+deploys or caching rather than settling one way - logged as evidence of that
+instability for whoever eventually resolves Q36, not raised as a new
+question.
+
+WEIGHT LOSS PAGE. Spot-checked for medicine names (Mounjaro, Wegovy,
+Orlistat, Saxenda, Ozempic - zero hits) and superlative/guarantee language
+("lose up to", "clinically proven", "guaranteed" - zero hits). Consistent
+with the Q5 signpost treatment and
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md. No defect.
+
+RESULT. No in-repo defect found or fixed - repo half clean and byte-stable
+for the seventh consecutive pass on this item. Q89 raised for the live PF
+overview regression. AGENT_WORKLIST.md item 2.3 updated in place with the
+seventh-pass note (not moved, not unchecked - the item itself stays complete;
+quality passes only append). Evidence:
+audits/cherry-lane-item-2.3-quality-pass-2026-09-01-seventh.txt.
+
+STATUS PAGE. build-audit-status.js run at the end of this entry's commit to
+publish the worklist, log and QUESTIONS.json (including Q89) to the portal.
+
+`.agent-lock` deleted at the end of this run.
+
 ## 2026-09-01 (unattended run, following the 4.13 seventh pass) - Item 4.15 quality pass (seventh): Tiffenbergs Chemist Aintree GBP pack re-verified clean, no new in-repo defect; freshly proved the Q79 bank-holiday notesBlock rule specifically against this pack's own wording (not just a synthetic template) by injection on a disposable scratch copy; live half not performed (two Chrome extensions connected, unattended run cannot choose - Q59), live state stands on the sixth pass, 2026-08-30.
 
 LOCK AND ENVIRONMENT. Repo reached at

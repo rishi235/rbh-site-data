@@ -1363,5 +1363,20 @@
         "status": "open",
         "answer": null,
         "note": "No page or repo content changed. This is documentation only: compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md carries the full evidence under its 2026-09-01 addition. Pricing and regulatory copy on live, patient-facing weight loss pages is explicitly outside what an unattended run may decide or edit on its own."
+    },
+    {
+        "id": "Q89",
+        "date": "2026-09-01",
+        "item": "quality pass (seventh) on item 2.3, Cherry Lane Pharmacy Walton",
+        "question": "The seventh quality pass on item 2.3 found that the live Pharmacy First overview page at cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html currently shows five of its seven NHS Pharmacy First condition cards (Sinusitis, Earache, Impetigo, Shingles, Infected insect bite) as \"Page coming soon\" with no working link, while Sore Throat and UTI work. This is the exact fault first found on 2026-08-04, which the 2026-08-11 pass believed it had fixed by repasting (\"all seven conditions now render with working links\"), and which the live checks on 2026-08-13 and 2026-08-30 both reconfirmed as fine. Neither of those two checks actually tested for the \"coming soon\" marker or the link itself, only for the condition name and NHS age range text, which is present on the broken cards as well - so either the fix reverted at some point after 2026-08-13, or it never actually held and nothing since has tested the right thing to notice. The repo's own generated page (modules/service/pages/pharmacy-first-cherry-lane-walton.html) is correct: all seven conditions are working links with no \"coming soon\" text anywhere. So this is a live Weebly paste issue, not something a generator or data change can fix - it needs the current generated page repasted into Weebly. How should this be handled?",
+        "options": [
+            "Repaste the Pharmacy First overview page to Weebly now, from the repo's current generated version, since it is correct and this is a live dead end on five of seven NHS conditions for anyone using this page",
+            "Fold it into the existing repaste backlog and clear it at the next scheduled Weebly paste run rather than treating it as a standalone urgent fix",
+            "Investigate why the 2026-08-11 repaste did not hold, or why the 2026-08-13 and 2026-08-30 checks missed it, before repasting again, in case the same thing happens a third time"
+        ],
+        "recommended": 0,
+        "status": "open",
+        "answer": null,
+        "note": "Full evidence in audits/cherry-lane-item-2.3-quality-pass-2026-09-01-seventh.txt. Two other known live-only faults on this branch were reconfirmed unchanged this pass (switch page SEO title still the pre-Phase-3 string; a visible mojibake em dash in the switch page's \"How switching to Cherry Lane Pharmacy works\" lead paragraph, confirmed not inside an HTML comment) - both already tracked under 3.1/5.1/Q3, not re-raised. The Q36 NHS mailbox footer typo was not observed on any of the three pages checked this pass (home, Pharmacy First overview, weight loss) - the mailbox is simply absent rather than present with a typo, matching the 2026-08-11 state rather than the 2026-08-13/2026-08-30 state - logged as apparently unstable between deploys or caches, not re-raised as a new question."
     }
 ]
