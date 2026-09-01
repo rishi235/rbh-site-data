@@ -1,0 +1,48 @@
+Item 3.5 quality pass (eighth), 2026-09-01
+Hirshmans Chemist, Ainsdale - 12 pages
+
+1. Full checker suite: 36/36 tools/check-*.js pass, 0 failures.
+
+2. Generator rebuild: all six generators (build-service-pages,
+   build-branch-landing-pages, build-switch-pages, build-weight-loss-pages,
+   build-travel-clinic-pages, build-contraception-pages) rebuilt. sha256 of
+   every file under modules/ (203 files) taken before and after: identical,
+   zero diff. git status --short modules/ empty throughout.
+
+3. Independent extraction: audits/verify-3.5-2026-09-01.js, written fresh for
+   this pass, __dirname-relative, no import from tools/. 240 checks, 0
+   failures on the clean tree.
+
+4. Injection/restore proof, on a page type not used for injection in any of
+   the seven prior 3.5 passes (fifth used pharmacy-first-hirshmans-ainsdale.html,
+   seventh used uti-treatment-hirshmans-ainsdale.html; sixth's page not named
+   in the worklist paragraph): weight-loss-clinic-hirshmans-ainsdale.html.
+   Two simultaneous injections:
+     a) second <h1>Weight Loss Clinic in Aigburth</h1> appended (a live
+        seoTown, McCanns Aigburth, absent from Hirshmans' own
+        serviceAreaList)
+     b) data-wa corrupted from 447521775631 to 447521799999
+   Both caught:
+     - check-seo-pattern.js: "2 h1 elements, expected exactly 1"
+     - check-whatsapp-route.js: "data-wa=447521799999 but branches.json
+       agrees on 447521775631"
+     - audits/verify-3.5-2026-09-01.js: all three faults reported (h1 count,
+       foreign town, data-wa mismatch), 237 checks / 3 failures
+   Restored via `git show HEAD:<path>` (git checkout -- does not unlink
+   cleanly on the sandboxed mount, per the item 3.5 fifth-pass finding).
+   sha256 after restore: fb53935e6510668874ce0b809e34304d48e8a28b59fca0f9b297d9aa01edd728
+   (matches pre-injection). Full 36-checker suite re-run clean, independent
+   extraction re-run clean (240 checks, 0 failures), git status --short
+   modules/ empty.
+
+5. Live half: NOT READ this pass. Claude in Chrome reported "not connected"
+   (tabs_context_mcp). No other route attempted, per the procedure's own
+   fallback instruction. The two standing live-only findings recorded on the
+   seventh pass (switch page pre-Q7 title/description paste-lag with mojibake
+   em dash, tracked under the 5.6 repaste queue) were not re-confirmed this
+   run and should not be assumed unchanged or resolved.
+
+6. QUESTIONS.json: 57 open, 34 answered, 91 total - unchanged this run (answer
+   pickup unavailable, same Claude-in-Chrome outage as above).
+
+No in-repo defect found. No new question raised.

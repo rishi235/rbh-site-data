@@ -1398,6 +1398,27 @@ description paste-lag and mojibake em dash reconfirmed unchanged, no repo-side
 fix available. All six generators rebuild byte-identical; all 36 checkers
 green. Evidence in audits/hirshmans-item-3.5-quality-pass-2026-08-31.txt. No
 new question.
+Quality pass 2026-09-01 (eighth): 12 pages clean on an eighth independent
+extraction (audits/verify-3.5-2026-09-01.js, freshly written, no import from
+tools/), 240 checks, 0 failures. All 36 checkers pass; all six generators
+rebuild byte-identical against 203 sha256-hashed files under modules/, git
+status --short modules/ empty throughout. Guard re-proof by injection, on a
+page type not used for injection in either of the two prior passes that name
+one (fifth: pharmacy-first-hirshmans-ainsdale.html; seventh: uti-treatment-
+hirshmans-ainsdale.html): two simultaneous injections into weight-loss-clinic-
+hirshmans-ainsdale.html, a second h1 naming Aigburth (a live seoTown outside
+this branch's serviceAreaList) and a corrupted data-wa. Both caught -
+check-seo-pattern.js on the h1 count, check-whatsapp-route.js on the WhatsApp
+mismatch, and the independent extraction on all three derived faults - then
+restored via `git show HEAD:<path>` and sha256-confirmed byte-identical
+(fb53935e...1edd728). Full 36-checker suite and independent extraction both
+re-run clean after restore. Live half NOT READ this pass: Claude in Chrome
+reported not connected, no other route attempted; the seventh pass's two
+live-only findings (switch page pre-Q7 title/description paste-lag with
+mojibake em dash, under the 5.6 repaste queue) were not re-confirmed and
+should not be assumed unchanged. Evidence in
+audits/hirshmans-item-3.5-quality-pass-2026-09-01.txt. No in-repo defect, no
+new question.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

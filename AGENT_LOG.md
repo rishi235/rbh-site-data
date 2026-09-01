@@ -1,4 +1,121 @@
-## 2026-09-01 (unattended scheduled run, following the 4.1 eighth pass) - Item 3.2 quality pass (seventh): Scorah Chemists Bramhall/Hazel Grove, all 36 checkers clean, six generators byte-identical, seventh independent extraction clean, cross-town h1 guard reproved by injection on a page type not used in the prior two proofs and restored byte-identical, both branches.json entries re-matched to their packs field by field, zero in-repo defect, no new question. Live half not read this run (Claude in Chrome unavailable); the two standing live-only findings for this item (unpasted UTI page titles under 5.3/5.4, Bramhall landing page 404) were not re-confirmed and should not be assumed unchanged.
+## 2026-09-01 (unattended scheduled run, following the 3.2 seventh pass) - Item 3.5 quality pass (eighth): Hirshmans Chemist Ainsdale, all 36 checkers clean, six generators byte-identical across 203 sha256-hashed files, eighth independent extraction clean (240 checks, 0 failures), h1-count and WhatsApp-route guards reproved by a two-fault injection into weight-loss-clinic-hirshmans-ainsdale.html (a page type not used for injection in either named prior pass) and restored byte-identical. Zero in-repo defect, no new question. Live half not read this run (Claude in Chrome not connected); the seventh pass's two live-only findings (switch page pre-Q7 title/description paste-lag with mojibake em dash, under the 5.6 repaste queue) were not re-confirmed and should not be assumed unchanged.
+
+ENVIRONMENT AND LOCK. Session running via Cowork (not the native
+scheduled-task runner), with a sandboxed Linux mount of the real
+`C:\Dev\rbh-site-data` for file work and checker/generator runs (no network
+needed for these), plus the Windows-MCP PowerShell tool for git network
+operations (fetch, pull, log inspection) against the real repo path, which
+holds working SSH credentials - the standing Q87 split. `.agent-lock` absent
+at start; created on the sandboxed mount at 2026-09-01T16:04:30Z. A stray
+`.git/index.lock` appeared on the sandboxed mount partway through this run's
+first `git status` call and could not be unlinked ("Operation not
+permitted") by either git itself or a direct `rm -f` - the same mount quirk
+the item 3.5 fifth pass recorded for `git checkout --`; it did not block any
+subsequent `git status` call and `modules/` continued to read empty/clean
+throughout, so it was left in place rather than chased further. `git fetch
+origin` from the sandboxed mount failed outright with "Host key verification
+failed" as expected (no SSH key there); the same fetch from the Windows
+PowerShell path succeeded and `git pull --ff-only origin agents/audit-backlog`
+confirmed the branch already matched `origin/agents/audit-backlog` at commit
+e5af8e9 before work began (the previous run's 3.2 seventh-pass commit) - no
+incoming commits missed. This run's commit and push were made from the
+sandboxed mount as in prior runs (see COMMIT below); the Windows path was
+used only for the read-only fetch/pull/log steps.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected". Unattended run, nobody present
+to resolve it; logged as unavailable and not retried by another route, per
+the procedure's own fallback instruction. 57 questions open at the start of
+this run (unchanged since the previous run - Q91 was its addition); none
+answered or resolved this run, so 57 remain open. Cross-checked the four
+already-answered questions (Q8, Q9, Q13, Q16) that sit behind the four
+[BLOCKED] worklist items nearest the front of the queue (5.3, 5.4, 5.5, 5.8):
+all four correctly remain [BLOCKED] - each answer explicitly requires a
+Weebly paste, a hand edit in the Weebly editor, or a push to a branch other
+than agents/audit-backlog, all outside an unattended run's authorisation (Q13
+says so in its own answer text), and Q16 was superseded by Q22. No action
+taken on any of the four.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED] by grep. Quality pass taken
+instead. Used the same rotation-pool method as prior runs: for each of the 36
+rotation-pool items (all checked items excluding the seven established
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), found the most recent
+commit whose message mentions that item number by a word-boundary regex
+match (`git log -1 --format=%cI --perl-regexp --grep="(?<![0-9.])<id>(?![0-9])"`),
+read from the sandboxed mount's local history (no network needed for a log
+read). The oldest such timestamp belonged to item 3.5 (2026-08-31T09:45:35+01:00,
+the seventh pass) - every other rotation-pool item had a commit later than
+that. 3.5 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` checkers run individually: 36/36
+pass, zero failures. All six page generators (`build-service-pages`,
+`build-branch-landing-pages`, `build-switch-pages`, `build-weight-loss-pages`,
+`build-travel-clinic-pages`, `build-contraception-pages`) rebuilt; sha256 of
+every file under `modules/` taken before and after (203 files): byte-
+identical, zero diff; `git status --short modules/` empty throughout.
+`branches.json`'s `hirshmans_ainsdale` entry read in full: address, phone,
+postcode, review link, ODS code FW378, both weekday and Saturday lunch
+closures in `openingHours.specification` (this is one of the seven branches
+that closes for lunch on more than one day type), serviceAreaList (Ainsdale,
+Birkdale, Southport) - matches the worklist paragraph's prior findings, no
+drift since the seventh pass.
+
+INDEPENDENT EXTRACTION. `audits/verify-3.5-2026-09-01.js` written fresh for
+this pass (own regexes, no import from `tools/`, `__dirname`-relative per the
+fifth pass's own finding about hardcoded paths breaking across mounts).
+Checks all 12 pages: one h1 naming Ainsdale; display phone and tel: link
+present with no other branch's phone digits; PR8 3HW the only postcode; the
+full street address string; no foreign brand label; no foreign seoTown
+outside this branch's own serviceAreaList; data-wa carries this branch's own
+number with no foreign number present; JSON-LD PostalAddress and telephone
+match branches.json field by field where a JSON-LD block exists; no
+non-https href/src. 240 checks, 0 failures on the clean tree.
+
+GUARD RE-PROOF BY INJECTION. Rather than only re-reading, this pass proved
+two separate guards still bite, on a page type not used for injection in
+either of the two prior passes that name one (fifth:
+`pharmacy-first-hirshmans-ainsdale.html`; seventh:
+`uti-treatment-hirshmans-ainsdale.html`) - widening rather than repeating the
+coverage evidence. Two simultaneous injections into
+`weight-loss-clinic-hirshmans-ainsdale.html`: a second `<h1>Weight Loss
+Clinic in Aigburth</h1>` (Aigburth is a live seoTown, McCanns Chemist's, not
+in Hirshmans' own `serviceAreaList`), and `data-wa` corrupted from
+`447521775631` to `447521799999`. Both faults caught immediately:
+`check-seo-pattern.js` - "weight-loss-clinic-hirshmans-ainsdale.html: 2 h1
+elements, expected exactly 1"; `check-whatsapp-route.js` - "data-wa=
+447521799999 but branches.json agrees on 447521775631"; and the independent
+extraction reported all three derived faults (h1 count, foreign town,
+data-wa mismatch), 237 checks / 3 failures. Restored by writing `git show
+HEAD:<path>` back over the file (`git checkout --` does not unlink cleanly on
+this mount, the same restore method the fifth pass recorded), sha256-
+confirmed byte-identical to the pre-injection file
+(fb53935e6510668874ce0b809e34304d48e8a28b59fca0f9b297d9aa01edd728). Full
+36-checker suite re-run clean, independent extraction re-run clean (240
+checks, 0 failures), `git status --short modules/` empty. Evidence written to
+`audits/hirshmans-item-3.5-quality-pass-2026-09-01.txt`.
+
+LIVE HALF - NOT READ. `mcp__claude-in-chrome__tabs_context_mcp` returned "not
+connected" when checked for the live-page read (same outage recorded under
+ANSWER PICKUP above). No other route attempted, per the procedure's browser
+rules. The seventh pass's two live-only findings for this item (switch page
+serving a pre-Q7 stale title/description with a mojibake em dash, tracked
+under the 5.6 repaste queue) were not re-confirmed this run and should not be
+assumed unchanged or resolved.
+
+RESULT. No in-repo defect found. No new question raised. `AGENT_WORKLIST.md`
+item 3.5 updated in place with the eighth-pass paragraph; no line ticked
+(item was already `[x]`, this is a quality pass, not new completion).
+
+COMMIT. Changed files: `AGENT_WORKLIST.md`, `AGENT_LOG.md`,
+`audits/verify-3.5-2026-09-01.js`, `audits/hirshmans-item-3.5-quality-pass-2026-09-01.txt`.
+No file under `modules/` or `branches.json` changed (generators reproduced
+byte-identical output; the injection was made and reverted within this run
+and never committed).
 
 ENVIRONMENT AND LOCK. Session running via Cowork (not the native scheduled-task
 runner), with a sandboxed Linux mount of the real `C:\Dev\rbh-site-data` for file
