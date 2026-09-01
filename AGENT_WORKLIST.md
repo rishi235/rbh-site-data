@@ -2147,6 +2147,72 @@ Done 2026-08-31 (sixth pass).
       audits/verify-3.11-2026-08-31.js and
       audits/gordon-short-item-3.11-quality-pass-2026-08-31.txt. Done
       2026-08-31
+      Seventh quality pass 2026-09-01 (unattended run), both halves. This was
+      the oldest rotation-pool item standing: 5.7's own 2026-08-30 correction
+      note named 4.2 as next, 4.2 was taken by an earlier run today, and a
+      fresh block-bounded scan of AGENT_WORKLIST.md (excluding the one-off
+      items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, which are not part of the
+      rotation) found 3.11 tied with sixteen others at 2026-08-31 and earliest
+      by evidence-file timestamp within that day (05:44 BST, before every
+      other tied item).
+      REPO HALF. All 36 tools/check-*.js checkers exit 0 before any change.
+      All six generators (build-service-pages, build-branch-landing-pages,
+      build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+      build-contraception-pages) rebuilt: sha256 of every file under
+      modules/*/pages/ taken before and after, zero diff, git status clean on
+      modules/.
+      Fresh independent extraction, audits/verify-3.11-2026-09-01.js,
+      importing nothing from tools/: 978 checks across all 12 pages (11
+      service-family pages plus the switch page), 0 failures. Own spaced
+      phone and unspaced tel: link, own postcode and street address, own
+      Google review link and no other trading branch's phone, postcode or
+      review link anywhere, H1 carrying Crosby on every page, correct
+      "Gordon Short Chemist" spelling only (zero "Gordon Shorts" hits),
+      JSON-LD parsed and matched to branches.json field for field (name,
+      address, telephone) on all 12, no em or en dash and no unexpected
+      non-ASCII outside the weight loss price's pound sign, and no app copy
+      or store URLs (hasApp false). Weight loss page separately re-confirmed
+      to name no prescription-only medicine by brand.
+      Verifier proved live, not vacuous, by four injections on a disposable
+      backup-and-byte-restore cycle (this mount's git checkout cannot unlink
+      the old file, the known FUSE restriction, so restoration was a plain
+      file copy each time, sha256-confirmed identical to the pre-injection
+      backup after every restore): own phone swapped for another branch's
+      (caught, 3 failures), Crosby removed from an H1 (caught), correct
+      spelling swapped to the wrong plural (caught, 2 failures including the
+      JSON-LD name), an em dash inserted in the body (caught, 2 failures).
+      All four restored and git status clean on modules/ throughout.
+      LIVE HALF, read-only, five GETs (Claude in Chrome unavailable this run,
+      "not connected"; fell back to plain Node fetch(), the established
+      fallback since the item 3.3/3.4 passes). pharmacy-first-service-
+      crosby.html (the actual pfLink target): 200, correct branding
+      throughout (12 correct hits, 0 wrong), own phone present, all seven
+      Pharmacy First conditions present with no "coming soon" text anywhere.
+      One new observation, not raised as a question: this live-only page's
+      main heading is an H2, not an H1 ("Gordon Short Chemist: Pharmacy
+      First in Crosby", town correct) - reads as a Weebly theme rendering
+      choice on a page this repo does not generate, not a content defect,
+      and no prior pass claimed an H1 on this specific URL. switch-
+      prescriptions-gordon-short-crosby.html: 200, correct branding
+      throughout (26 correct, 0 wrong), still carries the known mojibake
+      "ÔÇö" for the em dash, pre-repaste, unchanged. weight-loss-clinic- and
+      travel-clinic-gordon-short-crosby.html: both still read "Gordon
+      Shorts Chemist" (wrong, plural) in title, H1 and body - 12 and 11
+      wrong hits respectively - unchanged since 2026-08-10; the STOP against
+      repointing Post A stands and this is the same known-live-only state
+      every prior pass has recorded, not a new defect. Weight loss page
+      re-checked for compliance: no prescription-only medicine named, no
+      Buy Now, no percentage-loss claim; the one "best"/"guaranteed" regex
+      hit was "advise on the best next step" (safety-net language, false
+      positive, not an efficacy claim). Homepage: phone and postcode both
+      present and correct; email present as shorts@rbhealth.co.uk
+      (case-insensitive match to branches.json's Shorts@rbhealth.co.uk); NHS
+      mailbox not shown on the homepage, consistent with every prior pass
+      (never claimed there). sitemap.xml: every entry still lastmod
+      2026-08-15T07:41:55+00:00, unchanged, no republish since the last
+      pass's own reading.
+      Zero in-repo defects. No new question. Evidence:
+      audits/verify-3.11-2026-09-01.js. Done 2026-09-01
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

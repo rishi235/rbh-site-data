@@ -1,4 +1,148 @@
-## 2026-09-01 (unattended run, following the 1.2 eighth pass) - Item 4.14 quality pass (eighth): Gordon Short Chemist Crosby GBP pack re-verified clean on all 36 checkers and a fresh 42-check independent extraction, three injections proved (PF_TARGET_HOLD/Q32, day-bound Saturday hours, BODY_IMAGE_SELF); live half performed via read-only fetch (Claude in Chrome blocked, Q59) and found a new live-only page outside this item's four tracked post targets - weight-loss-clinic-crosby.html, in the sitemap, with a meta description naming Wegovy and Mounjaro by brand and an inert vendor-widget title/meta pair naming "Wilmslow Pharmacy" - raised as Q90; no in-repo defect.
+## 2026-09-01 (unattended run, following the 4.14 eighth pass) - Item 3.11 quality pass (seventh): Gordon Short Chemist Crosby's 12 generated pages re-verified clean on all 36 checkers, byte-identical regeneration, and a fresh 978-check independent extraction proved live by four injections; live half read-only (Claude in Chrome not connected, fell back to plain fetch()) found no new defect, one non-actionable observation logged (live pfLink page's heading renders as H2 not H1, a Weebly theme choice on a page this repo does not generate).
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T13:38:09Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key for
+git@github.com there) and `ssh -T git@github.com` confirmed "Permission
+denied (publickey)" - the standing Q87 diagnosis, reconfirmed again. Per
+established precedent (see the 4.14 eighth-pass entry immediately below),
+git network operations for this run (fetch/pull confirmation, commit, push)
+were intended to run via the Windows-MCP PowerShell tool against the real
+`C:\Dev\rbh-site-data`, which holds working credentials; the sandboxed mount
+was used for file reads/edits and running the node checkers/generators,
+which need no network access. Local branch was already `agents/audit-backlog`
+and reported "up to date with origin/agents/audit-backlog" from the cached
+ref (no fresh fetch succeeded from this mount). A stale-looking but in fact
+FRESH `.git/index.lock` (0 bytes, created by this run's own `git status`
+call) could not be unlinked from the sandboxed mount either - same FUSE
+restriction the 5.7 item's 2026-08-13 pass diagnosed for `git checkout --`.
+It was left for the PowerShell-side git operations to clear, since deleting
+it natively (outside the FUSE view) does not carry the same restriction.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected" (extension unreachable), a
+different failure mode from the "multiple browsers, none selected" error
+recent runs hit, but the same practical outcome. Unattended run, nobody
+present to resolve it; logged as unavailable and not retried by another
+route, per the procedure's own fallback instruction. 56 questions were open
+at the start (Q90 having been added by the immediately preceding run); this
+run added none.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this log at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED]; none unblocked by an
+answer, since answer pickup was unavailable. Quality pass taken instead.
+5.7's own 2026-08-30 correction note (read in full before picking anything)
+named 4.2 as the next run's pick, on the grounds that 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7 and 6.8 are one-off items outside the rotation pool. 4.2 already
+carried a "Quality pass 2026-09-01 (ninth, unattended run)" entry, so an
+earlier run today had already taken it. Re-ran the block-bounded scan this
+time excluding the seven named one-offs: of the remaining rotation-pool
+items, seventeen were tied at a last-mentioned date of 2026-08-31 (2.1, 3.2,
+3.4-3.13, 4.1, 4.4, 4.11, 5.1, 6.2). Evidence-file timestamps in `audits/`
+for that day broke the tie: 3.11's own evidence
+(`audits/gordon-short-item-3.11-quality-pass-2026-08-31.txt`,
+`audits/verify-3.11-2026-08-31.js`) was written at 05:44 BST, earlier than
+every other tied item's own evidence file that day (4.4 at 07:14, 4.1 at
+07:45, 3.5 at 09:43, and so on through 2.1 at 22:07). 3.11 taken.
+
+WHAT WAS DONE. Full repo-half re-verification on the sandboxed mount: all
+36 `tools/check-*.js` checkers run individually, 36/36 pass before any
+change. All six generators rebuilt (build-service-pages,
+build-branch-landing-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages); sha256 of all files
+under `modules/*/pages/` taken before and after: byte-identical, zero diff;
+`git status --short modules/` empty throughout.
+
+Wrote a fresh independent extraction, `audits/verify-3.11-2026-09-01.js`,
+own regexes throughout, importing nothing from `tools/`, composed only from
+`branches.json`. Covers all 12 pages the branch owns (11 service-family
+pages plus the switch page): own spaced phone present and the unspaced
+`tel:` link matching it exactly, own postcode and street address present,
+own Google review link present and no other trading branch's phone,
+postcode or review link anywhere on any page, one H1 per page carrying
+"Crosby", correct "Gordon Short Chemist" spelling only (a zero-count check
+for the wrong plural "Gordon Shorts"), JSON-LD parsed on every page and
+matched to `branches.json` field for field (name, address incl.
+addressRegion, telephone), no em or en dash and no unexpected non-ASCII
+outside the weight loss page's pound sign, and no app copy or store URL
+anywhere (branch's `hasApp` is false). The weight loss page was separately
+re-checked for six prescription-only medicine brand names by name, all
+absent. 978 checks, 0 failures.
+
+INJECTION TESTS (four, all on `pharmacy-first-gordon-short-crosby.html`,
+each reverted by plain file copy from a pre-injection backup and
+sha256-confirmed byte-identical before continuing - this mount's `git
+checkout --` cannot unlink the old file, the same FUSE-mount restriction
+earlier passes diagnosed):
+
+1. Own phone swapped for Fishlocks Ainsdale's phone throughout the page.
+   Caught: spaced-phone-missing, cross-branch-phone-present and
+   JSON-LD-telephone-mismatch, 3 failures.
+2. "Crosby" replaced with "Liverpool" throughout, including the H1. Caught:
+   H1 no longer carries "Crosby", 1 failure.
+3. "Gordon Short" replaced with "Gordon Shorts" throughout. Caught: 11
+   wrong-plural hits and a JSON-LD name mismatch, 2 failures.
+4. An em dash inserted into the visible body text. Caught: em-dash-present
+   and unexpected-non-ASCII, 2 failures.
+
+All four restored; sha256 after each restore matched the pre-injection
+backup exactly (61a2227c9625f7fc6f21ca879d493397deee87d69d1ff08fe966425376170a83
+throughout); `git status --short modules/` empty at every check; the full
+36-checker suite was re-run clean after the final restore.
+
+LIVE HALF. Claude in Chrome unavailable (see ANSWER PICKUP above). Performed
+instead via plain read-only Node `fetch()` (GET only, the established
+fallback since the item 3.3/3.4 passes), five URLs read:
+- pharmacy-first-service-crosby.html (the branch's actual `pfLink` target):
+  200, title and body both correctly branded (12 correct "Gordon Short
+  Chemist" hits, 0 wrong), own phone present, all seven Pharmacy First
+  conditions present in the body text and no "coming soon" text anywhere.
+  New observation, not raised as a question: this page's main heading is an
+  `<h2>`, not an `<h1>` - zero `<h1>` tags anywhere on the page, three
+  `<h2>`s, the first reading "Gordon Short Chemist: Pharmacy First in
+  Crosby" (branding and town both correct). This reads as a Weebly theme
+  rendering choice - the page's own title/meta pair are correct and this
+  repo does not generate this specific URL (it is the pfLink target, a
+  hand-styled Weebly page, distinct from the repo-generated
+  pharmacy-first-gordon-short-crosby.html, which does carry a proper H1 per
+  the independent extraction above) - and no prior pass has ever claimed an
+  H1 on this URL, so this is logged as an observation rather than a new
+  finding or question.
+- switch-prescriptions-gordon-short-crosby.html: 200, naming correct
+  throughout (26 correct hits, 0 wrong), still carries the known mojibake
+  "ÔÇö" where an em dash belongs, in the same sentence prior passes have
+  recorded, pre-repaste, unchanged.
+- weight-loss-clinic-gordon-short-crosby.html and travel-clinic-gordon-
+  short-crosby.html: both still read "Gordon Shorts Chemist" (wrong,
+  plural) throughout title, H1 and body - 12 and 11 wrong hits respectively
+  - unchanged since 2026-08-10 despite the generated repo pages being
+  correct throughout; the STOP against repointing Post A stands and this is
+  the same known-live-only state every prior pass on this item has
+  recorded, not a new defect. Weight loss page re-read for compliance: no
+  prescription-only medicine named, no "Buy Now", no percentage-loss claim;
+  the one regex hit on "best/fastest/guaranteed" was "advise on the best
+  next step" (safety-net language, a false positive, not an efficacy
+  claim).
+- Homepage (gordonshortchemist.co.uk/): phone and postcode both present and
+  correct; the only email found was shorts@rbhealth.co.uk, a
+  case-insensitive match to branches.json's Shorts@rbhealth.co.uk; the NHS
+  mailbox is not shown on the homepage, consistent with every prior pass on
+  this item (never claimed there, so not a regression).
+- sitemap.xml: every entry still lastmod 2026-08-15T07:41:55+00:00,
+  unchanged, no republish since the last pass's own reading.
+
+No in-repo defect found. No new question raised. Files changed this pass:
+AGENT_WORKLIST.md (item 3.11 ticked in place with the seventh-pass
+narrative appended), audits/verify-3.11-2026-09-01.js (new).
+
+PUBLISH AND CLOSE. Status page publish (step 10) and lock removal (step 11)
+follow this entry; see the commit this entry's own hash lands in for the
+exact files touched.
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T13:34:28Z. That mount's `git fetch
