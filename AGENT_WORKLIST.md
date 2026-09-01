@@ -5088,6 +5088,47 @@ record.
       service pages they link to were not re-swept this run; the
       2026-08-11 finding that all thirty return 200 stands as the paste
       prerequisite. No new question raised.
+      Quality pass 2026-09-01 (sixth): clean on both halves, no repo
+      defect, no new question. All 36 checkers green before inspection.
+      All six generators rebuilt from branches.json; sha256 of all 203
+      files under modules/service/pages, modules/switch/pages and
+      modules/branch/pages taken before and after: byte-identical, zero
+      diff. A fresh independent check
+      (audits/verify-5.2-2026-09-01.py, imports nothing from tools/, own
+      regexes) re-read all six landing pages: own seoTown present, own
+      phone present, the "aged 40 and over" blood pressure cohort wording
+      (fixed at source on the 2026-08-14 pass) still current on all six
+      with no reversion to the stale "over 40" phrasing, and a
+      cross-branch seoTown sweep. One apparent match was investigated
+      rather than reported blind: Fishlocks Eccleston's page names
+      "Ainsdale", which is also the seoTown of an unrelated branch
+      (Hirshmans Ainsdale, a different brand), but reading the actual
+      sentence confirms it is the deliberate item 2.2 sister-link
+      paragraph naming Fishlocks Chemist's OWN sister branch, which
+      happens to share the same town word as Hirshmans by coincidence,
+      not a foreign-town breach. Two negative tests proved the script is
+      not a no-op before trusting its clean result: a stale "if you are
+      over 40" injection and a genuine unexcused foreign-town injection
+      (both run against a scratch copy outside the repo, never against a
+      tracked file) each correctly failed the script, naming the right
+      branch and the right fault. NEW ANGLE CHECKED: Q21's answer (a
+      per-branch `whatsapp` field in branches.json) has landed since the
+      fifth pass, all 16 branches now carry it, but
+      build-branch-landing-pages.js does not read it and none of the six
+      pages carries a `data-wa` attribute. Confirmed correct rather than
+      assumed: these six pages are navigational hubs with no booking or
+      WhatsApp widget of their own, unlike the service pages they link
+      to, so the field is out of scope for this generator and this is not
+      a gap. Live half, read only via Claude in Chrome: all six landing
+      URLs re-read, all six still 404, unchanged since 2026-08-10, now 22
+      days queued (Q35 still open). One of the thirty linked service
+      pages spot-checked (Fishlocks Ainsdale's Pharmacy First page)
+      still returns 200 with the pre-existing Q37 footer-widget set
+      unchanged; the full thirty were not re-swept this run, same scope
+      decision as the fifth pass. No page, generator, checker or
+      branches.json entry changed. Evidence:
+      audits/verify-5.2-2026-09-01.py and
+      audits/verify-5.2-2026-09-01-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

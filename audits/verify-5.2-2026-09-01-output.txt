@@ -1,0 +1,30 @@
+Checked 6 pages
+
+NOTES:
+ - pharmacy-fishlocks-ainsdale.html: cohort wording present and current
+ - pharmacy-fishlocks-eccleston.html: cohort wording present and current
+ - pharmacy-fishlocks-eccleston.html: 'Ainsdale' matches unrelated branch hirshmans_ainsdale's seoTown, but is also this branch's own sister's seoTown (same word, different brand) - checked against source, confirmed the sister cross-link paragraph, not a foreign-town breach
+ - pharmacy-mccanns-aigburth.html: cohort wording present and current
+ - pharmacy-mccanns-sandringham.html: cohort wording present and current
+ - pharmacy-scorah-bramhall.html: cohort wording present and current
+ - pharmacy-scorah-hazel-grove.html: cohort wording present and current
+
+All checks clean, 0 failures
+
+---
+NEGATIVE TESTS (run against a scratch copy in /tmp, never against the
+tracked repo files, so nothing below touched a committed page):
+
+1. Injected "if you are over 40" over "aged 40 and over" in
+   pharmacy-scorah-bramhall.html: script exit 1, one failure, correctly
+   naming the branch and the stale wording. Other five pages unaffected.
+
+2. Injected "and we also serve customers travelling from Aintree" into
+   pharmacy-fishlocks-eccleston.html's sister-link sentence: script
+   exit 1, two failures, correctly naming both live branches that own
+   "Aintree" as their seoTown (clearchemist_aintree, tiffenbergs_longmoor)
+   and confirming Fishlocks Eccleston's serviceAreaList carries no excuse
+   for it. Other five pages unaffected.
+
+Both cases restored by discarding the scratch copy; the real repo files
+were never touched by the injection.

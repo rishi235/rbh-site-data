@@ -1,3 +1,142 @@
+## 2026-09-01 (unattended run, following the 6.7 pass) - Item 5.2 quality pass (sixth): six branch landing pages reverified clean on both halves, one apparent cross-branch town match investigated and cleared as a same-word-different-brand coincidence rather than reported blind, Q21's new branches.json whatsapp field confirmed correctly out of scope for this generator, all six landing URLs still 404
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only
+`.agent-lock.released-*` markers from earlier runs today). `.git/index.lock`
+present, ~21 minutes old at the check (created 01:43 BST, checked 02:04
+BST), under this run's own 1-hour staleness threshold and no local git
+process running (`ps aux` clean), so left in place rather than removed, same
+rule recent runs have applied at similar ages. It did not block any git
+command this run needed. Created `.agent-lock` fresh (UTC timestamp) after
+the check.
+
+EXECUTED VIA COWORK'S SANDBOXED SHELL, NOT THE NATIVE WINDOWS ENVIRONMENT
+THIS PROCEDURE ASSUMES. `git fetch origin` failed with "Host key
+verification failed" as it has every recent run (no `~/.ssh` in this
+sandbox); this is Q87, already fully diagnosed and still open, not
+re-diagnosed here. Local branch was 19 commits ahead of
+origin/agents/audit-backlog at the start of this run.
+
+ANSWER PICKUP (step 3). Via Claude in Chrome, read-only, against
+`https://data.rbhealth.co.uk/api/feedback`. Same 28 entries every recent run
+has found (Q2 through Q29), all already recorded as "answered" in
+QUESTIONS.json. No answer present for any of Q34-Q87. Nothing to reconcile.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading at the top
+of this file at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). Confirmed directly against AGENT_WORKLIST.md: 43 of
+51 checkbox lines ticked, all 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6) still carry [BLOCKED], none newly unblocked. Quality-pass
+branch taken. Ranked staleness by reading each of the 43 completed items'
+own paragraph in AGENT_WORKLIST.md for its most recent "Quality pass
+YYYY-MM-DD" line (more reliable than grepping AGENT_LOG.md headers alone:
+one header in this file, "item 3.4 quality pass, seventh", turns out to
+carry TWO concatenated run entries and the second one is actually item 3.3's
+sixth pass, dated a day later than its own header - the header-only method
+would have wrongly ranked 3.3 as the stalest item in the estate when its
+real last pass was 2026-08-31, one of the most recent). Following the
+convention the 2026-08-31 runs established of excluding the seven items
+treated as one-offs outside the main rotation (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8), the remaining 36-item pool's oldest last-touched date was 2026-08-30,
+shared by seventeen items; among those, 5.2 (fifth pass, 2026-08-30, "six
+branch landing pages, one stale-data note fixed") carried the highest line
+number in AGENT_LOG.md, i.e. the earliest entry that day, making it the
+stalest. 5.2 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` run fresh before any inspection:
+all green, no failures. All six page generators
+(build-branch-landing-pages, build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages) rebuilt from branches.json; sha256 of all 203
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages taken before (audits/_before-5.2-2026-09-01.sha256)
+and after: byte-identical, zero diff.
+
+A fresh independent check, audits/verify-5.2-2026-09-01.py (Python rather
+than JS this time, since the item's own prior passes have used both; imports
+nothing from tools/, own regexes throughout), re-read all six landing pages
+against branches.json: own seoTown present, own phone present, and the
+"aged 40 and over" Pharmacy First blood pressure cohort wording (fixed at
+source on the 2026-08-14 pass, after all six pages were found reading the
+narrower "if you are over 40") is still current on all six, no reversion.
+Also ran a cross-branch seoTown sweep (does any page name another live
+branch's town without a serviceAreaList excuse).
+
+ONE APPARENT MATCH, INVESTIGATED AND CLEARED RATHER THAN REPORTED BLIND.
+The sweep flagged Fishlocks Eccleston's landing page for naming "Ainsdale",
+which is the seoTown of an unrelated branch, Hirshmans Ainsdale (a different
+brand, no shared ownership). Reading the actual sentence
+("...If you are nearer our other branch, see Fishlocks Chemist Ainsdale")
+confirms this is the deliberate item 2.2 sister-branch cross-link
+paragraph, naming Fishlocks Chemist's OWN sister branch, which happens to
+trade in a town whose name is also Hirshmans' seoTown by coincidence, not a
+foreign-town breach. The verification script now records this as a note
+with the reasoning rather than either silently excluding it or failing on
+it, so a future genuine foreign-town mention on this page (one that is not
+the sister link) would still be caught. No repo defect.
+
+NEGATIVE-TESTED BEFORE TRUSTING THE CLEAN RESULT, both against a scratch
+copy in /tmp, never against a tracked file: (1) "aged 40 and over" swapped
+back to "if you are over 40" on Scorah Bramhall's page - script exit 1, one
+failure, correct branch and correct wording named, other five pages
+unaffected; (2) an unexcused mention of "Aintree" (the seoTown of two live
+branches, clearchemist_aintree and tiffenbergs_longmoor, neither in
+Fishlocks Eccleston's serviceAreaList) added to Fishlocks Eccleston's
+sister-link sentence - script exit 1, two failures, both branches correctly
+named. Both scratch copies discarded; nothing in the repo was touched by
+either injection.
+
+NEW ANGLE CHECKED, PROMPTED BY WORK LANDED SINCE THE FIFTH PASS. Q21's
+answer (add a per-branch `whatsapp` field to branches.json rather than
+relying solely on the two hardcoded module defaults) has been implemented
+since the 2026-08-30 pass: all 16 branches now carry the field. Checked
+whether this item's six pages need it: `build-branch-landing-pages.js`
+does not reference `whatsapp` or emit a `data-wa` attribute anywhere, and
+`grep -l data-wa modules/branch/pages/*.html` returns nothing. Confirmed
+correct rather than assumed - these six pages are navigational hubs with no
+booking widget or WhatsApp button of their own, unlike the service pages
+they link to, so the new field is genuinely out of scope for this
+generator, not a gap this pass needs to raise.
+
+LIVE HALF, READ ONLY via Claude in Chrome, one tab opened and closed,
+nothing clicked, typed or submitted. All six landing URLs re-read
+(fishlockpharmacy.co.uk x2, mccannspharmacy.co.uk x2,
+scorah-chemists.co.uk x2): all six still return 404, unchanged since
+2026-08-10, now 22 days queued for the Weebly paste (Q35 remains the open
+decision on how they go live). One of the thirty linked service pages
+spot-checked as a paste-prerequisite sample (Fishlocks Ainsdale's Pharmacy
+First page): still 200, title and H1 correct, the pre-existing Q37
+footer-widget set ("Fishlock Pharmacy, Eccleston, Chorley" singular
+branding, abbreviated "17 Station Rd") unchanged and already tracked. The
+full thirty were not re-swept this run, the same scope decision the fifth
+pass made.
+
+FILES CHANGED
+- audits/verify-5.2-2026-09-01.py - new, independent verification script
+- audits/verify-5.2-2026-09-01-output.txt - new, script output plus the
+  two negative-test results
+- audits/_before-5.2-2026-09-01.sha256 - new, pre-rebuild checksums of all
+  203 generated pages, kept as evidence of the byte-identical rebuild
+- AGENT_WORKLIST.md - item 5.2's own paragraph, sixth-pass note appended
+- AGENT_LOG.md - this entry
+
+QUESTIONS. None raised, none answered. 53 open (Q34-Q78, Q80-Q87), unchanged
+from the start of this run.
+
+COMMIT (step 9). `git add` the five files above, single commit on
+agents/audit-backlog. `git push origin agents/audit-backlog` attempted as
+normal and failed exactly as Q87 predicts ("Host key verification failed");
+no other push route tried, no credentials entered. Commit sits locally
+ahead of origin, will land the moment Q87 is resolved.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed;
+expected to fail for the same reason Q87 records (hardcoded
+`C:/Dev/rbh-site-data` path does not resolve inside this Linux sandbox),
+outcome recorded immediately after this entry rather than re-diagnosed
+here.
+
+`.agent-lock` deleted at the end of this run.
+
 ## 2026-09-01 (later still again, unattended run) - Item 6.7 quality pass (first): bank holiday awareness in check-live-hours.js and check-opening-hours.js reverified clean, live sweep of all 14 hours-bearing branches found zero new defects, four negative tests for the bankHolidays block persisted for the first time
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only the
