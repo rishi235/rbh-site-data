@@ -4613,6 +4613,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       window was active. No new defect found, no new question raised;
       this pass's only change is the fifth/sixth-pass sync-gap backfill
       above.
+      Eighth quality pass 2026-09-02 (unattended scheduled run, rotation-
+      pool pick - the least recently verified item across the whole
+      worklist, selected by parsing each item's own paragraph rather than
+      a fixed line window): pack byte-stable for the eighth time
+      (description 735, posts 466/305/530/380, pure ASCII, zero em or en
+      dashes). All 36 checkers exit 0. All branches.json facts (address,
+      phone, hours, website, review link, ODS, nhsEmail, pfLink, hasApp,
+      serviceAreaList) re-matched field by field. All six generators
+      rebuilt; sha256 of all 203 files in modules/service/pages,
+      modules/switch/pages and modules/branch/pages taken before and
+      after: byte-identical, zero diff. Injection test: the branch phone
+      swapped for Cherry Lane Pharmacy's number, caught by
+      check-gbp-packs.js naming both the wrong-branch number and the
+      missing own number; restored, sha256 matched the pre-injection file
+      exactly, all 36 checkers re-run clean. LIVE HALF (Claude in Chrome,
+      no ambiguity this run): pharmacy-first-sk-chemists-bootle.html
+      correct and unchanged; pharmacy-first-service-bootle.html still
+      misspells "Bottle" and is still absent from the sitemap (item
+      5.3/Q34, unchanged); sitemap still dated 2026-08-14T18:12:51,
+      unchanged since the sixth pass; switch page's mojibake em dash
+      still live, source still holds no dash (paste lag, unchanged);
+      weight-loss-clinic.html still live with named medicines, a
+      superlative claim, an outcome slider and lead pricing (item
+      5.8/Q58, unchanged, not fixed here). No new defect, no new
+      question. Q80 and Q81 remain open and untouched. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-09-02.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

@@ -1,0 +1,97 @@
+Item 4.11 quality pass, eighth pass, 2026-09-02 (unattended scheduled run)
+SK Chemists Bootle GBP pack (gbp-packs/sk-chemists-bootle.md)
+Branch id: skchemists_bootle
+
+ITEM SELECTION
+All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6)
+confirmed [BLOCKED], so this run took a quality pass. Selected the least
+recently verified item from the established rotation pool (all checked
+items except the seven one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8,
+per the convention recorded by the 2026-09-01 runs). Parsed
+AGENT_WORKLIST.md properly: for each top-level "- [x]"/"- [ ]" item, its
+own paragraph bounded from its start line to the next top-level item's
+start line (not a fixed line window), then took the last "Quality pass
+YYYY-MM-DD" date mentioned in that paragraph. Within the rotation pool,
+every item showed 2026-09-01 as its last pass except 4.11 (SK Chemists
+Bootle GBP pack), whose seventh and most recent pass was 2026-08-31.
+4.11 selected.
+
+REPO HALF
+
+1. All 36 tools/check-*.js checkers run individually via node: all exit 0.
+
+2. Pack facts cross-checked directly against branches.json (id
+   skchemists_bootle): address 516 Stanley Road, Bootle, L20 5DW; phone
+   0151 944 1013; hours Monday-Friday 09:00-18:00, Saturday and Sunday
+   closed; website https://www.skchemist.co.uk; review link
+   https://g.page/r/CeAIYeqSjIYBEAE/review; ODS FH575; nhsEmail
+   pharmacy.FH575@nhs.net; pfLink
+   https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html;
+   hasApp false; serviceAreaList Bootle, Sefton, Liverpool. All match the
+   pack.
+
+3. Byte-count re-verification (own Python extraction, not shared with any
+   checker): description 735 characters, Post A 466, Post B 305, Post C
+   530, Post D 380 - identical to all seven prior passes. Zero non-ASCII
+   characters and zero em/en dashes in the pack file.
+
+4. Regeneration: all six generators run (build-branch-landing-pages.js,
+   build-contraception-pages.js, build-service-pages.js,
+   build-switch-pages.js, build-travel-clinic-pages.js,
+   build-weight-loss-pages.js). sha256 of all 203 files under
+   modules/service/pages, modules/switch/pages and modules/branch/pages
+   taken before and after: zero diff, byte-identical.
+
+5. Injection test: copied the pack, replaced "0151 944 1013" with
+   "0151 226 2051" (Cherry Lane Pharmacy's number). All 36 checkers
+   re-run: tools/check-gbp-packs.js caught it (exit 1), naming both
+   faults - "phone 0151 226 2051 belongs to Cherry Lane Pharmacy, not SK
+   Chemists" and "branch phone 0151 944 1013 does not appear anywhere in
+   the pack". File restored from the pre-injection copy; sha256 after
+   restore matched the pre-injection file exactly
+   (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da);
+   all 36 checkers re-run clean.
+
+RESULT: zero in-repo defect, eighth consecutive clean pass.
+
+LIVE HALF (read-only, via Claude in Chrome; the extension connected with
+no ambiguity this run, one tab group, no prior sessions)
+
+- https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html:
+  200, exact trading name and address, phone 0151 944 1013, all seven
+  Pharmacy First conditions present with the correct NHS age ranges
+  (UTI women 16-64, sore throat 5+, sinusitis 12+, earache 1-17,
+  impetigo 1+, shingles 18+, infected insect bite 1+). Correct and
+  unchanged.
+
+- https://www.skchemist.co.uk/pharmacy-first-service-bootle.html:
+  still live, heading still reads "Pharmacy First Service in Bottle,
+  Liverpool" (town misspelled). Confirmed absent from the sitemap below.
+  Item 5.3/Q34 finding, unchanged, not fixed here (belongs to 5.3, which
+  is [BLOCKED]).
+
+- https://www.skchemist.co.uk/sitemap.xml: every entry still dated
+  2026-08-14T18:12:51 (unchanged since the sixth pass, 2026-08-30).
+  pharmacy-first-sk-chemists-bootle.html present; pharmacy-first-service-
+  bootle.html absent (confirms the point above); weight-loss-clinic.html
+  still present alongside weight-loss-clinic-sk-chemists-bootle.html.
+
+- https://www.skchemist.co.uk/switch-prescriptions-sk-chemists-bootle.html:
+  correct trading name, address and phone; WhatsApp button present. The
+  known mojibake em dash in the "How switching works" intro
+  ("...it usually is not ÔÇö we make the first step...") is still live;
+  the repo source for this text holds no dash of any kind, so this is
+  paste lag, not an in-repo defect. Unchanged.
+
+- https://www.skchemist.co.uk/weight-loss-clinic.html: still live, still
+  names Mounjaro/Wegovy/Orlistat, still carries a superlative claim
+  ("one of the most effective weight loss treatments available"), a
+  results/outcome slider and lead pricing ("From £39.99"). Item 5.8/Q58
+  finding, unchanged. Not fixed here: this is live patient-facing
+  regulatory copy and belongs to item 5.8, which is [BLOCKED] pending
+  Q58/Q16.
+
+No new defect found on either half. No new question raised. Q80 and Q81
+(this item's two residual checker-widening questions, from the fifth
+pass) remain open and untouched. No autonomous window was active this
+run (checked at the top of AGENT_LOG.md before starting).

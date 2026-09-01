@@ -1,3 +1,92 @@
+## 2026-09-02 (unattended scheduled run, following the 5.3/6.3/answer-pickup run) - Item 4.11 quality pass (eighth): SK Chemists Bootle GBP pack re-verified clean on both halves, zero in-repo defect, no new question
+
+ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
+C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
+Windows-MCP PowerShell for git, against the same real repo path -
+the standing split this log has recorded for many runs (Q87). The
+sandboxed mount's `git fetch origin` failed outright with "Host key
+verification failed" as usual; Windows-MCP PowerShell confirmed the real
+repo already on agents/audit-backlog at 6567271, up to date with origin,
+after its own `git fetch origin`. `.agent-lock` and `.git/index.lock`
+both absent at start; lock created via Windows-MCP PowerShell at
+2026-09-02T00:04:50+01:00. The repo tree carries a long-standing litter
+of untracked `.agent-lock.released-*` files from the Q87 unlink()-blocked
+filesystem finding; left alone as before, they are untracked and harmless.
+
+ANSWER PICKUP (step 3). Fetched https://data.rbhealth.co.uk/api/feedback
+via Claude in Chrome (connected cleanly, no ambiguity - one tab group,
+no pre-existing tabs). All answer entries in the feed, from Q52 back to
+Q2, were already recorded in QUESTIONS.json by earlier runs; Q52's answer
+in particular carries a note that it was written directly into the file
+by an earlier Cowork session rather than picked up automatically, because
+the portal's answer button only writes to a Cloudflare KV store with
+nothing collecting it further (see Q59). Nothing new to apply this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run. Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED], so this run took a
+quality pass. Re-derived the least-recently-verified item with a Python
+scan of AGENT_WORKLIST.md that bounds each top-level "- [x]"/"- [ ]"
+item's own paragraph from its start line to the next top-level item's
+start line, then reads the last "Quality pass YYYY-MM-DD" date in that
+block - the accurate method a 2026-09-01 run established after finding a
+fixed-line-window scan could mislead. Excluded the seven items that
+2026-09-01's runs established as one-off, outside the standard rotation
+pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Within the remaining rotation
+pool, every item's last pass was dated 2026-09-01 except one: item 4.11
+(SK Chemists Bootle GBP pack), last touched 2026-08-31 (seventh pass).
+4.11 selected for this run's eighth pass.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually: all exit 0.
+gbp-packs/sk-chemists-bootle.md re-verified fact by fact against
+branches.json (id skchemists_bootle): address, phone, hours, website,
+review link, ODS FH575, nhsEmail, pfLink, hasApp and serviceAreaList all
+match. Byte counts re-confirmed by a fresh Python extraction: description
+735, Post A 466, Post B 305, Post C 530, Post D 380 - identical to all
+seven prior passes; zero non-ASCII characters, zero em or en dashes. All
+six generators (branch landing, contraception, service, switch, travel
+clinic, weight loss) rebuilt; sha256 of all 203 files under
+modules/service/pages, modules/switch/pages and modules/branch/pages
+taken before and after: byte-identical, zero diff. INJECTION TEST: the
+pack's own phone number was swapped for Cherry Lane Pharmacy's
+(0151 226 2051), all 36 checkers re-run, and tools/check-gbp-packs.js
+caught it (exit 1), naming both "phone 0151 226 2051 belongs to Cherry
+Lane Pharmacy, not SK Chemists" and "branch phone 0151 944 1013 does not
+appear anywhere in the pack". File restored from the pre-injection copy;
+sha256 after restore matched exactly
+(637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da); all
+36 checkers re-run clean. Zero in-repo defect, eighth consecutive clean
+pass.
+
+LIVE HALF (read-only, Claude in Chrome). pharmacy-first-sk-chemists-
+bootle.html: 200, exact trading name, address and phone, all seven
+Pharmacy First conditions with correct NHS age ranges - correct and
+unchanged. pharmacy-first-service-bootle.html: still live, heading still
+misspells "Pharmacy First Service in Bottle, Liverpool" - item 5.3/Q34,
+unchanged, not fixed here (5.3 is [BLOCKED]). sitemap.xml: every entry
+still dated 2026-08-14T18:12:51 (unchanged since the sixth pass);
+confirms pharmacy-first-sk-chemists-bootle.html present and pharmacy-
+first-service-bootle.html absent; weight-loss-clinic.html still present
+alongside the correct weight-loss-clinic-sk-chemists-bootle.html.
+switch-prescriptions-sk-chemists-bootle.html: correct trading name,
+address, phone and WhatsApp button; the known mojibake em dash in the
+"How switching works" intro is still live while the repo source holds no
+dash - paste lag, unchanged. weight-loss-clinic.html: still live, still
+names Mounjaro/Wegovy/Orlistat, still carries a superlative claim, an
+outcome slider and lead pricing "From £39.99" - item 5.8/Q58, unchanged,
+not fixed here (5.8 is [BLOCKED] pending Q58/Q16, and this is live
+patient-facing regulatory copy an unattended run may not decide).
+
+RESULT. No new in-repo defect. No new live finding. No new question. Q80
+and Q81 (this item's two residual checker-widening questions) remain
+open and untouched. Files changed: AGENT_WORKLIST.md (4.11's eighth-pass
+note appended in place), AGENT_LOG.md (this entry),
+audits/sk-chemists-bootle-gbp-pack-check-2026-09-02.txt (new evidence
+file). No generator input changed; regeneration confirmed zero diff.
+
 ## 2026-09-01 (unattended scheduled run, following the 5.2 seventh pass) - Answer pickup (Claude in Chrome connected for the first time in many runs): 16 open questions recorded, item 5.3 partially unblocked (5 of 11 Post A links repointed per Q34), status/index.html retired per Q42, plus a fifth 6.3 quality pass
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
