@@ -1,4 +1,111 @@
-## 2026-09-02 (unattended scheduled run, following the 5.3/6.3/answer-pickup run) - Item 4.11 quality pass (eighth): SK Chemists Bootle GBP pack re-verified clean on both halves, zero in-repo defect, no new question
+## 2026-09-02 (unattended scheduled run, following the 4.11 quality-pass run) - Item 5.1 quality pass (ninth): em dashes in switch page copy re-verified clean in-repo; live CDN pin and Cherry Lane paste lag confirmed directly rather than inferred, both already-known blocks, zero in-repo defect, no new question
+
+ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
+C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
+Windows-MCP PowerShell for git, the same split this log has recorded for
+many runs (Q87). The sandboxed mount's `git fetch origin` failed outright
+with "Host key verification failed" as usual; Windows-MCP PowerShell's own
+`git fetch origin` succeeded cleanly and confirmed the real repo already on
+agents/audit-backlog at aee345a, up to date with origin. `.agent-lock` and
+`.git\index.lock` both absent at start; lock created at 2026-09-01T23:34:19Z
+(sandboxed clock reads UTC, one hour behind the repo's BST timestamps used
+elsewhere in this log). The repo tree carries the long-standing litter of
+untracked `.agent-lock.released-*` files and a mangled `C:` directory from
+the Q87 unlink()-blocked filesystem finding; left alone as before, untracked
+and harmless, out of this item's scope to clean up.
+
+ANSWER PICKUP (step 3). Fetched https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome - connected cleanly, one tab, no ambiguity. Newest entry in
+the feed is Q52's answer (2026-09-01T22:44:51Z); checked every id back to Q2
+against QUESTIONS.json and all were already recorded as "answered" by
+earlier runs. Q37 and Q43 both have portal replies in the feed
+("i need further explanation..." and "Unsure - historically Timperly and
+Bramhall sat in Cheshire...") but neither selects one of the listed options,
+so both correctly remain "status": "open" per the notes an earlier run
+already added to each - re-verified rather than re-flagged. Nothing new to
+apply this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, plus the three under the 6.4/6.5/6.6 headings) re-confirmed [BLOCKED]
+by a direct grep of "^- \[ \]" against AGENT_WORKLIST.md, so the quality-pass
+branch was taken. Re-derived the least-recently-verified completed item with
+a Python scan that bounds each top-level "- [x]"/"- [ ]" item's own
+paragraph from its start line to the next top-level item's start line, reads
+every date in that block, and takes the maximum as the item's last-touched
+date - the same method the 2026-09-02 (4.11) run established. Excluded the
+seven items outside the standard rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8). Within the remaining pool, every item's last date was 2026-09-01 or
+2026-09-02 except one: item 5.1 (em dashes in switch page copy), last
+touched 2026-08-31 (eighth pass). 5.1 selected for this run's ninth pass.
+
+REPO HALF. node tools/check-em-dashes.js: 177 generated pages, 6
+non-generated copy files, 7 live module code files, 15 switch banners, 16
+GBP packs, 11 paste sheets, 1 run-time data file, 233 files scanned, zero
+failures - identical counts to the eighth pass (200 comment dashes, 591
+paste-sheet structure dashes, 1 maintenance-note dash, none of them public
+copy). All 36 tools/check-*.js run individually: 36 of 36 exit 0. All six
+generators (branch landing, contraception, service, switch, travel clinic,
+weight loss) rebuilt; sha256 of all 203 files under modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after:
+byte-identical, zero diff. Nothing in this item's domain has drifted since
+the eighth pass.
+
+LIVE HALF - checked directly this run rather than reasoned about, because
+both Windows-MCP PowerShell git and Claude in Chrome were actually working
+(several recent runs on other items had one or both unavailable). Two things
+checked:
+
+1. The CDN pin. tools/build-service-pages.js, build-branch-landing-pages.js,
+   build-contraception-pages.js, build-travel-clinic-pages.js and
+   build-weight-loss-pages.js all still declare PIN =
+   "service-module-phase1" (the mutable branch ref). Fetched
+   https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@service-module-phase1/modules/service/service.js
+   live in Chrome and read the full file: all three &mdash; entities the
+   2026-08-11 pass rewrote at source (the self-refer banner, the video
+   card, the "Prefer to walk in?" card) are still present, and
+   NO_FALLBACK_SERVICE_KEYS on the live file still reads
+   `{ "weightLoss": true, "travelClinic": true }`, omitting "contraception"
+   (the Q17 fix). Confirmed the mechanism via Windows-MCP PowerShell:
+   `git diff origin/service-module-phase1 HEAD -- modules/service/service.js`
+   shows seven hunks, all of them fixes already committed on this branch and
+   none of them on the pinned branch. `git merge-base --is-ancestor
+   origin/service-module-phase1 origin/main` exits 0, so the pin is a clean
+   ancestor of main, but main is 26 commits ahead and has not absorbed this
+   branch's fixes either - the Q3/Q45 "merge agents/audit-backlog to main"
+   decision has been answered twice now but not yet carried out. This is
+   exactly what item 5.5 (still [BLOCKED]) exists to fix, not this item, so
+   nothing was changed here. Recorded as direct live confirmation of an
+   already-known block rather than a new finding.
+
+2. Cherry Lane's switch page. Read
+   https://www.cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
+   live: the "How switching to Cherry Lane Pharmacy works" paragraph still
+   renders "it usually is not ÔÇö we make the first step quick and easy" -
+   the same pre-Q7 pasted em dash every pass since 2026-08-10 has found,
+   showing as a different mojibake sequence this time (ÔÇö rather than the
+   "a EUR" form the 2026-08-13 pass recorded) but the same underlying fault:
+   repo source has held a plain full stop since 2026-08-09 and the page has
+   never been repasted. The footer on the same page still reads
+   "pharmacy.FA226@mhs.net" - Q36's already-logged typo, unrelated to this
+   item, unchanged.
+
+ZERO IN-REPO DEFECT. No new question raised: both live findings are already
+tracked by existing open items/questions (item 5.5 and Q13/Q45 for the CDN
+pin, Q36 for the Cherry Lane mailbox typo) and this pass changed the state
+of neither. Ninth consecutive clean pass on the repo half. Worklist line
+updated in place with this pass's findings.
+
+GIT. Windows-MCP PowerShell: `git fetch origin` clean, local branch already
+matched origin before this run's edit. Committed AGENT_WORKLIST.md and this
+log entry to agents/audit-backlog and pushed to origin - network git access
+via PowerShell continues to work in this session, unlike the sandboxed
+shell (Q87 stays open; not re-raised).
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
 C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus

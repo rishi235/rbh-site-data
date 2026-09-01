@@ -6163,6 +6163,44 @@ widening, not a live-facing decision. Evidence: this log entry and the
 in-place check-cdn-pins.js comments; no separate audits/ file was produced,
 this pass being short enough that the checker's own annotated diff is the
 record.
+Quality pass 2026-09-02 (ninth). UNATTENDED RUN. Both git network access
+(via Windows-MCP PowerShell against the real C:\Dev\rbh-site-data repo) and
+Claude in Chrome were working cleanly this run, which let this pass do
+something most of the last several could not: check the actual live CDN
+content rather than only the repo. REPO HALF: all 36 checkers exit 0;
+node tools/check-em-dashes.js reports the same steady-state count as the
+eighth pass (233 files scanned, 200 comment dashes, 591 sheet-structure
+dashes, 1 maintenance-note dash, zero failures). All six generators
+rebuilt; sha256 of all 203 files under modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after:
+byte-identical, zero diff. Nothing has drifted since 2026-08-31.
+LIVE HALF, now checked directly rather than inferred: fetched
+https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@service-module-phase1/modules/service/service.js
+in Chrome and read it. It still carries all three &mdash; entities the
+2026-08-11 pass rewrote at source (self-refer banner, video card, "Prefer
+to walk in?" card) and its NO_FALLBACK_SERVICE_KEYS still omits
+"contraception" (the Q17 fix). Confirmed with `git diff
+origin/service-module-phase1 HEAD -- modules/service/service.js` via
+Windows-MCP PowerShell: seven hunks of difference, all fixes already on
+this branch and none on the pin. origin/service-module-phase1 is a clean
+ancestor of origin/main (`git merge-base --is-ancestor` exit 0) but main
+itself has not absorbed this branch's fixes either - Q13/Q45's answered
+"fast-forward"/"merge to main" decisions have not yet been carried out,
+which is exactly what item 5.5 (still [BLOCKED]) exists to do. Not this
+item's fix to make; recorded here as live confirmation of an already-known
+block, not a new finding. Also re-read the Cherry Lane switch page live
+(switch-prescriptions-cherry-lane-walton.html): the "How switching to
+Cherry Lane Pharmacy works" paragraph still renders "it usually is not
+ÔÇö we make the first step quick and easy" - the same pre-Q7 pasted em
+dash as every prior pass, now showing as a different mojibake sequence
+(ÔÇö rather than the "a EUR" form recorded on 2026-08-13) but the same
+underlying fault: repo source holds a full stop, Weebly still holds the
+old em dash, unrepasted. The page's own footer also still shows
+pharmacy.FA226@mhs.net, which is Q36's already-logged typo, not this
+item's. ZERO IN-REPO DEFECT. No new question: both live findings are
+already tracked (item 5.5/Q13/Q45 for the CDN pin, Q36 for the mailbox
+typo) and this pass changed nothing about either. Ninth consecutive clean
+pass on the repo half.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
