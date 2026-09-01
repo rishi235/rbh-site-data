@@ -4843,6 +4843,31 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Post C suitability intro) carry a dash the repo source and
       generated page do not; not a repo defect. No new question raised.
       Evidence in audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt.
+      Quality pass 2026-09-01 (seventh re-verification, repo half only):
+      pack verified clean again, unchanged in git since the sixth pass
+      (md5 04d3e0daac4f80fac10890a8d68d60ff). Every fact re-matched against
+      branches.json programmatically (name, address, phone, split weekday
+      hours, website, review link, hasApp false, catchment order, the
+      five-widget set). All 36 checkers exit 0; the pack's one WARN (Post A
+      link has no .html ending) is the same known non-defect every prior
+      pass has recorded. All six generators rebuilt, all 197 generated
+      files byte-identical. Pure ASCII confirmed, no em or en dashes. The
+      switch banner's source-side mojibake fix (run-44) reconfirmed present
+      (&times; entity, no raw mojibake sequence). Post A/B/C/D target files
+      confirmed present in the repo. Freshly proved, for the first time
+      specifically against this pack's own wording rather than a synthetic
+      template: the Q79 bank-holiday notesBlock rule in check-gbp-packs.js.
+      On a disposable /tmp scratch copy, replaced the notes block's literal
+      "bankHolidays.dates2026" with "bank holiday dates" - FAIL correctly
+      raised naming this file; reverted, re-ran clean, diffed the reverted
+      scratch file against the tracked repo copy as byte-identical. Tracked
+      repo never touched by the test. Live half NOT performed: two Chrome
+      extensions are connected and an unattended run cannot choose between
+      them (Q59, same blocker the third, fourth and fifth passes hit); live
+      state stands on the sixth pass, 2026-08-30. No repo defect found, no
+      page, pack, generator output or branches.json entry changed, no new
+      question raised. Evidence in
+      audits/tiffenbergs-aintree-gbp-pack-check-2026-09-01-seventh.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

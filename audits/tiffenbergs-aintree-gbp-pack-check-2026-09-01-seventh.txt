@@ -1,0 +1,124 @@
+Item 4.15 seventh quality pass - Tiffenbergs Chemist Aintree GBP pack
+Run date: 2026-09-01 (unattended run)
+
+gbp-packs/tiffenbergs-aintree.md md5: 04d3e0daac4f80fac10890a8d68d60ff
+
+branches.json fields for tiffenbergs_longmoor (cross-checked fact by fact against the pack, all match):
+{
+  "id": "tiffenbergs_longmoor",
+  "brandKey": "tiffenbergs",
+  "brandLabel": "Tiffenbergs Chemist",
+  "branchName": "Tiffenbergs Chemist",
+  "streetAddress": "388 Longmoor Lane",
+  "addressLocality": "Liverpool",
+  "postalCode": "L9 9DB",
+  "addressRegion": "Merseyside",
+  "addressCountry": "GB",
+  "phone": "0151 525 3462",
+  "email": "Tiffenberg@rbhealth.co.uk",
+  "googleReviewUrl": "https://g.page/r/CdfQf2a16Bn4EAE/review",
+  "whatsapp": "447521775631",
+  "hasApp": false,
+  "keywords": [
+    "tiffenbergs",
+    "longmoor",
+    "l9 9db",
+    "l9"
+  ],
+  "serviceAreaList": [
+    "Aintree",
+    "Fazakerley",
+    "Liverpool"
+  ],
+  "shortCode": "TIF",
+  "branchNumber": 12,
+  "odsCode": "FAX36",
+  "nhsEmail": "pharmacy.FAX36@nhs.net",
+  "pfLink": "https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree",
+  "pfBooking": true,
+  "nhsReviewUrl": "https://www.nhs.uk/services/pharmacy/tiffenbergs-chemist/XFAX36/leave-a-review",
+  "website": "https://www.tiffenbergschemist.co.uk",
+  "seoTown": "Aintree",
+  "townSlug": "aintree",
+  "brandSlug": "tiffenbergs",
+  "widgets": {
+    "bloodPressure": "66b9da17d71f677c6d5e602f",
+    "contraception": "6a4793b74065a96ce45e4dc6",
+    "pharmacyFirst": "66b9da6d121338480dd72783",
+    "weightLoss": "66c868fafbe13d151242ede5",
+    "travelClinic": "6a5bf3f6d34f7693a5c5f1fa"
+  },
+  "openingHours": {
+    "source": "NHS pharmacy profile",
+    "confirmed": "2026-06-24",
+    "closedDays": [
+      "Saturday",
+      "Sunday"
+    ],
+    "specification": [
+      {
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "13:00"
+      },
+      {
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "14:00",
+        "closes": "18:00"
+      }
+    ]
+  }
+}
+
+Full 36-checker suite: all 36 exit 0 (see /tmp checker sweep this run; also matches the whole-repo sweep run at the top of this run before item selection).
+
+check-gbp-packs.js output for this pack:
+  WARN  tiffenbergs-aintree.md: link has no .html ending, which Weebly pages normally need: https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree
+0 failures overall (repo-wide).
+
+ASCII check: 0 non-ASCII bytes (0 = pure ASCII, unchanged since the second pass).
+
+Generator byte-stability: all six generators rebuilt; sha256 of all 197 files under modules/*/pages and modules/switch/pages/banners before and after: byte-identical, 0 diffs.
+
+Injection proof (Q79 bank-holiday notesBlock rule, item 4.5/6.7's own rule, re-proved specifically against
+THIS pack's actual wording rather than a synthetic template): on a disposable /tmp rsync scratch copy
+(never touching the tracked repo), replaced the notes block's literal 'bankHolidays.dates2026' with
+'bank holiday dates', re-ran check-gbp-packs.js: FAIL correctly raised naming tiffenbergs-aintree.md and
+quoting the exact missing-instruction rule. Reverted the scratch copy, re-ran: 0 failures, and diffed the
+reverted scratch file against the tracked repo copy: byte-identical. Tracked repo never touched during the test.
+
+Switch banner source-side mojibake fix (run-44, 2026-08-10): contains &times; entity = True, contains raw mojibake sequence = False. Source-side confirmed correct; the sixth pass's
+live finding that this fix has still not reached the live site despite a republish is unchanged and not
+re-tested here (live half not performed this run, see below).
+
+Post A/B/C/D target files confirmed present in-repo:
+  modules/service/pages/pharmacy-first-tiffenbergs-aintree.html (branch-specific PF replacement, item 5.3)
+  modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html (Post B)
+  modules/service/pages/weight-loss-clinic-tiffenbergs-aintree.html (Post C)
+  modules/service/pages/travel-clinic-tiffenbergs-aintree.html (Post D)
+Post A's pack-quoted pfLink target (pharmacy-first-service-aintree, no .html) is a live-only legacy page
+this repo does not generate, per the pack's own notes; the WARN above is the same known non-defect every
+prior pass has recorded (Weebly serves the extensionless URL and redirects).
+
+LIVE HALF NOT PERFORMED THIS RUN: two Chrome extensions are connected to this account and the browser
+tooling requires a human choice between them before any navigation, which this unattended run cannot
+give (same blocker the third, fourth and fifth passes hit, Q59). Live state stands on the sixth pass,
+2026-08-30 (audits/tiffenbergs-aintree-gbp-pack-check-2026-08-30.txt): all four post targets 200 and
+reading correctly, three known live-only defects unchanged (switch banner mojibake despite republish,
+footer en dashes, tiffenbergs@ vs Tiffenberg@ email split, Q56 still open), plus the live-copy-drift
+dash finding on Post B/C intros (stale pre-cleanup paste, not a repo defect).
+
+RESULT: pack clean, zero new in-repo defects. No page, pack, generator output or branches.json entry
+changed. No new question raised.

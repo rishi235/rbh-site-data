@@ -1,4 +1,146 @@
-## 2026-09-01 (unattended run, following the 4.12 seventh pass) - Item 4.13 quality pass (seventh): Riddings Pharmacy Timperley GBP pack re-verified clean on all 36 checkers; a fresh injection found a real gap and fixed it at source - check-gbp-packs.js's Post B hard-stop marker (POST_INSTRUCTION) was case-sensitive, so recasing "STOP - DO NOT POST" to "Stop - do not post" let a ~1,000-character internal instruction block, including a live URL, get counted as published Google Business Profile copy with the full 36-checker suite still exiting 0; fixed by adding the /i flag, verified three ways, no other pack affected. Live half performed, every finding unchanged from the sixth pass: Post B's canonical switch URL still 404, the live switch page still the pre-Phase-3 paste at the old permalink, the sitemap still has no entry for the correct switch permalink despite a republish since the pack's own note, and weight-loss-clinic-timperley.html still carries the full Regime 1 breach (item 5.8's territory, not re-decided here).
+## 2026-09-01 (unattended run, following the 4.13 seventh pass) - Item 4.15 quality pass (seventh): Tiffenbergs Chemist Aintree GBP pack re-verified clean, no new in-repo defect; freshly proved the Q79 bank-holiday notesBlock rule specifically against this pack's own wording (not just a synthetic template) by injection on a disposable scratch copy; live half not performed (two Chrome extensions connected, unattended run cannot choose - Q59), live state stands on the sixth pass, 2026-08-30.
+
+LOCK AND ENVIRONMENT. Repo reached at
+/sessions/quirky-gracious-newton/mnt/rbh-site-data/, a mount of the real
+C:\Dev\rbh-site-data. `.agent-lock` present at the start, dated
+2026-09-01T07:34:21Z, about 2h21m old at discovery - well past the 45-minute
+threshold - so treated as stale per step 1. `rm` failed ("Operation not
+permitted", the connected-folder unlink restriction Q87 diagnoses), so the
+file was overwritten in place with a fresh UTC timestamp instead (the same
+"allows write/rename, blocks unlink" shape Q87 already documents). Separately,
+`.git/index.lock` was present, dated 08:13 BST (~1h43m old at discovery, past
+the task's own 1-hour threshold for this file). `rm` and `python3 os.remove()`
+both failed with "Operation not permitted"; `mv` to `.git/index.lock.old`
+succeeded (rename works, unlink does not, exactly as Q87 records). No git
+process visible in `ps aux`. `git status`/`git log` worked cleanly afterwards.
+Also found, not touched beyond noting it: well over one hundred
+`.git/index.lock.*` renamed-away files and a run of `.agent-lock.released-*`
+files in the repo root, debris from every prior run hitting the same unlink
+restriction and working around it with a fresh name each time (Q87's own
+"~90 renamed lock files and 225+ orphaned tmp_obj_* files" finding, grown
+further since). Not cleaned up this run: real, but a separate, larger piece
+of work than one worklist item, and Q87 already covers the mechanism.
+
+`git fetch origin` failed: "Host key verification failed." Confirmed the
+specific cause directly this run rather than assuming: no `~/.ssh` directory
+exists in this sandbox (no host key, no known_hosts, no private key), no `gh`
+CLI, no `GITHUB_TOKEN`/`GH_TOKEN` env var, no git credential helper
+configured - HTTPS to github.com itself works fine (plain `curl` to
+https://github.com returns 200), so this is purely an absent-credential
+problem, not a network block. Exactly Q87's diagnosis, open since 2026-08-31
+with four options awaiting Rishi's decision; not re-diagnosed or re-raised as
+a new question. Local branch confirmed on `agents/audit-backlog`, 32 commits
+ahead of `origin/agents/audit-backlog` at the start, unchanged as a
+straightforward unpushed backlog.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback refused before any page load: two
+Chrome browsers are connected to this account and the tool requires an
+explicit human choice between them before it will act. This run is
+unattended with no user available to answer that choice, so - per the
+procedure's own instruction for when the fetch is unavailable - pickup was
+logged as unavailable and the run carried on without retrying by any other
+route and without attempting to log in. Q59 already covers this class of
+blocker for the live-half checks; not re-raised as a new question for the
+answer-pickup use specifically.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading at the top of this log at the start of this run. Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED]. Quality-pass branch taken,
+following the exact methodology the 4.13 seventh-pass entry above recorded:
+of the 43 completed items excluding the seven established one-offs (1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8), the prior run found a six-way tie on the
+oldest date, 2026-08-30 (2.3, 4.2, 4.7, 4.13, 4.15, 1.2), and took 4.13 as
+earliest by commit timestamp (13:46:16). With 4.13 now done today, the
+remaining five items are still tied at 2026-08-30; by the same
+commit-timestamp tie-break (4.15 14:45, 2.3 15:11, 4.7 16:41, 4.2 18:47, 1.2
+21:43), 4.15 is next. Cross-checked 4.10's own in-run flag that "4.11 is the
+true stalest item" against 4.11's worklist text directly: 4.11's latest
+dated note is 2026-08-31, one day newer than the 2026-08-30 group, so it is
+correctly excluded and 4.10's flag was superseded by 4.13's later,
+commit-cross-checked derivation. 4.15 (Tiffenbergs Chemist Aintree GBP pack)
+taken.
+
+WHAT WAS DONE. Full repo-half re-verification. Ran all 36
+`tools/check-*.js` checkers individually: 36 pass, 0 fail (also matches a
+whole-repo sweep run before item selection). `gbp-packs/tiffenbergs-
+aintree.md` re-matched fact by fact against `branches.json`
+(`tiffenbergs_longmoor`) programmatically: name, address (388 Longmoor Lane,
+Liverpool L9 9DB), phone (0151 525 3462), split weekday hours (9:00-13:00
+and 14:00-18:00, Sat/Sun closed) matching the pack's two-session hours line
+exactly, website, review link, hasApp false, serviceAreaList order
+(Aintree, Fazakerley, Liverpool), and the five-widget set (bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic) behind the pack's
+category list. All matched. `check-gbp-packs.js`'s one WARN for this pack
+(Post A link has no .html ending) is the same known non-defect every prior
+pass has recorded (Weebly serves the extensionless URL and redirects; the
+link is branches.json's own pfLink). Pure ASCII confirmed (0 bytes above
+127) and no em or en dashes, unchanged since the second pass. All six
+generators rebuilt; sha256 of all 197 files under `modules/*/pages` and
+`modules/switch/pages/banners` before and after: byte-identical, 0 diffs.
+The switch banner source-side mojibake fix (run-44, committed 2026-08-10)
+reconfirmed present in `modules/switch/pages/banners/switch-prescriptions-
+tiffenbergs-aintree.html`/`.txt`: contains the `&times;` entity, no raw
+mojibake sequence. Post A/B/C/D target files confirmed present in the repo
+(`pharmacy-first-tiffenbergs-aintree.html`, `switch-prescriptions-
+tiffenbergs-aintree.html`, `weight-loss-clinic-tiffenbergs-aintree.html`,
+`travel-clinic-tiffenbergs-aintree.html`).
+
+FRESH PROOF, not previously done specifically for this pack. The Q79
+bank-holiday `notesBlock` rule in `check-gbp-packs.js` (added on the item
+4.5 quality pass, 2026-08-30, re-proved estate-wide by item 6.7's own pass
+earlier today) had only ever been negative-tested against a generic
+template shape in this item's own history. Proved it directly against
+Tiffenbergs' actual wording: rsync-copied the whole repo excluding `.git`
+to a disposable `/tmp` scratch directory, confirmed the copy's own
+`check-gbp-packs.js` ran clean first, then in the scratch copy only,
+replaced the notes block's literal "bankHolidays.dates2026" with "bank
+holiday dates" (an editor plausibly typing the dates in by hand instead of
+naming the source field). Re-ran: FAIL correctly raised, naming
+`tiffenbergs-aintree.md` and quoting the exact missing-instruction message.
+Reverted the scratch copy, re-ran clean, then diffed the reverted scratch
+file against the tracked repo copy: byte-identical. The tracked repo was
+never touched by this test. Evidence, including the full branches.json
+cross-check and checker output, saved to `audits/tiffenbergs-aintree-gbp-
+pack-check-2026-09-01-seventh.txt`.
+
+LIVE HALF NOT PERFORMED. Same blocker as the answer-pickup step: two Chrome
+extensions connected, no human available to choose between them (Q59), so
+no page was fetched. Live state stands on the sixth pass, 2026-08-30: all
+four post targets returned 200 and read correctly, three known live-only
+defects unchanged (switch banner mojibake despite the republish, footer en
+dashes, tiffenbergs@ vs Tiffenberg@ email split under Q56), plus the
+live-copy-drift dash finding on the Post B/C intros (stale pre-cleanup
+paste, not a repo defect).
+
+No in-repo defect found this pass, no page, pack, generator output or
+branches.json entry changed, no new question raised.
+
+FILES CHANGED
+- AGENT_WORKLIST.md - item 4.15's own paragraph, seventh-pass note appended
+- audits/tiffenbergs-aintree-gbp-pack-check-2026-09-01-seventh.txt - new
+- AGENT_LOG.md - this entry
+- .agent-lock - overwritten with a fresh timestamp (unlink blocked, per
+  above)
+- .git/index.lock - renamed to .git/index.lock.old (unlink blocked, per
+  above)
+
+QUESTIONS. None raised, none answered. 54 open, unchanged.
+
+COMMIT (step 9). `git add` the three changed files, `git commit`. Attempted
+`git push origin agents/audit-backlog`: failed identically to every recent
+run, "Host key verification failed" - Q87, reconfirmed, not re-diagnosed.
+Commit sits locally ahead of origin, unpushed, pending Q87's resolution.
+
+PUBLISH (step 10). `node tools/build-audit-status.js` run as instructed
+regardless. Expected to fail, and did: the script's hardcoded `const REPO =
+'C:/Dev/rbh-site-data'` does not resolve inside this Linux sandbox (Q87's
+own diagnosis, option 3). Status page not updated this run.
+
+`.agent-lock` removal attempted at the end of this run; unlink blocked as
+above, so overwritten/renamed instead, consistent with every recent run.
 
 LOCK AND ENVIRONMENT. Repo reached at
 /sessions/youthful-brave-einstein/mnt/rbh-site-data/, a mount of the real
