@@ -2978,6 +2978,29 @@ as mojibake (Q43 family, unchanged); the profile website target still
 line is unchanged and already recorded under Q43's third-pass note. No
 new question. See audits/verify-4.4-2026-08-31.js and
 audits/scorah-bramhall-4.4-pass-2026-08-31.txt.
+Quality pass 2026-09-01 (seventh, unattended scheduled run): clean. All 36
+tools/check-*.js checkers pass. Fresh independent verifier written
+(audits/verify-4.4-2026-09-01.js, own regexes, imports nothing from
+tools/), 58 checks, 0 failures. Three guards re-proved by injection, each
+restored by byte copy and sha256-confirmed identical to the original
+before continuing: a phone swap (caught by check-gbp-packs.js and the
+verifier), a Pharmacy First condition swap dropping shingles from both the
+Services bullet and Post A (caught fourfold, twice each by
+check-gbp-pharmacy-first.js and the verifier), and an em dash in Post D
+(caught by check-em-dashes.js and the verifier). Full 36-checker suite
+re-run clean after the final restore; git status on gbp-packs/, modules/
+and branches.json empty throughout. Live half read-only (Claude in Chrome
+unavailable this run, fell back to plain fetch()): Post A, Post C and
+Post D all read correctly; the profile website target still 404s as the
+pack anticipates (Q43, unchanged); the shared PF page's truncated address
+is unchanged (Q43). One finding REFINED rather than new: Post B's switch
+page still carries the pre-Q7 text in its meta description, which the
+sixth pass described as rendering as mojibake ("ÔÇö") - this pass reads
+it as a correctly-encoded genuine em dash (U+2014), same underlying
+unrepasted-live-page drift, corrected description only. Not a new
+question; the pack's own Post B note already covers it. No in-repo defect.
+See audits/verify-4.4-2026-09-01.js and
+audits/scorah-bramhall-4.4-pass-2026-09-01.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

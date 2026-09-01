@@ -1,4 +1,136 @@
-## 2026-09-01 (unattended run, following the 4.14 eighth pass) - Item 3.11 quality pass (seventh): Gordon Short Chemist Crosby's 12 generated pages re-verified clean on all 36 checkers, byte-identical regeneration, and a fresh 978-check independent extraction proved live by four injections; live half read-only (Claude in Chrome not connected, fell back to plain fetch()) found no new defect, one non-actionable observation logged (live pfLink page's heading renders as H2 not H1, a Weebly theme choice on a page this repo does not generate).
+## 2026-09-01 (unattended scheduled run, following the 3.11 seventh pass) - Item 4.4 quality pass (seventh): Scorah Chemists Bramhall GBP pack re-verified clean on all 36 checkers plus a fresh 58-check independent verifier, three guards (phone, Pharmacy First coverage, em dash) re-proved by injection and restored byte-identical; live half read-only found no in-repo defect, one prior finding refined (Post B's switch page still carries the pre-Q7 meta description, now confirmed a genuine em dash rather than the mojibake the sixth pass recorded - same known unrepasted-live-page drift, not a new issue).
+
+LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
+sandboxed Linux mount at 2026-09-01T14:04:27Z. That mount's `git fetch
+origin` failed outright with "Host key verification failed" (no SSH key
+for git@github.com there) - the standing Q87 diagnosis, reconfirmed again.
+Per established precedent, git network operations for this run (fetch/pull
+confirmation, commit, push) ran via the Windows-MCP PowerShell tool
+against the real `C:\Dev\rbh-site-data`, which holds working credentials;
+`git fetch origin` from there succeeded and confirmed the local branch
+already matched `origin/agents/audit-backlog` at commit 39887a0 (no new
+upstream commits to pull). The sandboxed mount was used for file reads,
+edits, and running the node checkers/generators, which need no network
+access for that purpose (outbound HTTPS to the live site for the read-only
+fetch checks did work from the sandboxed mount). Numerous stale
+`.agent-lock.released-*`, `scratchtest*`, `.testfile123.todelete` and a
+malformed `C:/` (actually `C:\uF03A/`, a mojibake colon) untracked entry
+remain in the working tree from prior runs; none were touched, since
+cleaning them up is outside this run's one-item scope and they are already
+untracked/ignored rather than committed.
+
+ANSWER PICKUP (step 3) - UNAVAILABLE. `mcp__claude-in-chrome__tabs_context_mcp`
+returned "Claude in Chrome is not connected" (extension unreachable).
+Unattended run, nobody present to resolve it; logged as unavailable and
+not retried by another route, per the procedure's own fallback
+instruction. 56 questions were open at the start; this run added none.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this log at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed still [BLOCKED]; none unblocked by an
+answer, since answer pickup was unavailable. Quality pass taken instead.
+Re-ran the block-bounded scan of the rotation pool (excluding the seven
+one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, and excluding 4.2 and
+3.11, both already taken by earlier runs today): sixteen items remained
+tied at a last-mentioned date of 2026-08-31 (2.1, 3.2, 3.4, 3.5, 3.6, 3.7,
+3.8, 3.9, 3.10, 3.12, 3.13, 4.1, 4.4, 4.11, 5.1, 6.2). Evidence-file
+timestamps in `audits/` for that day broke the tie: 4.4's own evidence
+(`audits/verify-4.4-2026-08-31.js` at 07:10, `audits/scorah-bramhall-4.4-
+pass-2026-08-31.txt` at 07:14) was the earliest of any tied item's own
+evidence file that day, matching the ranking the immediately preceding
+run's own log entry already recorded ("4.4 at 07:14, 4.1 at 07:45, 3.5 at
+09:43...") now that 3.11 itself is done. 4.4 taken.
+
+WHAT WAS DONE. All 36 `tools/check-*.js` checkers run individually against
+the unmodified pack: 36/36 pass. Wrote a fresh independent verifier,
+`audits/verify-4.4-2026-09-01.js`, own regexes throughout, importing
+nothing from `tools/`, composed only from `branches.json` and the pack's
+own text: name, address (street/locality/postcode all present), phone (and
+no other trading branch's phone), hours derived from
+`openingHours.specification` rather than hardcoded, profile website is the
+branch landing page and that file exists in the repo, review link (and no
+other branch's), business description length claim verified under the
+paste-join convention (742 characters, matching every prior pass), hasApp
+false with no app mention (excluding the paster note that itself confirms
+the absence - a self-referential false positive caught and fixed during
+this run, the same shape the repo's own checkers have hit repeatedly),
+WhatsApp reference checked against the branch's own field, the sister-
+branch sentence checked against branches.json (Hazel Grove is live and
+shares the brandLabel, and the sentence names its own seoTown), all seven
+Pharmacy First conditions present with the "where appropriate" hedge and
+the pinned 40-and-over blood pressure cohort, all four post button URLs
+resolve to either the branch's own `pfLink` or a page this repo generates
+and that file exists on disk, Post C names no prescription-only medicine
+and carries no superlative/efficacy claim, the bank-holiday paster note
+carries none of the eight real `dates2026` values and correctly references
+the field by name and Q79, categories checked against the branch's own
+widget set, and no em or en dash anywhere. 58 checks, 0 failures.
+
+INJECTION TESTS (three, each on `gbp-packs/scorah-bramhall.md`, each
+restored by byte copy from a pre-injection backup - not `git checkout`,
+per the established FUSE-mount restriction - and sha256-confirmed
+identical to the original
+(682068c033b3313b2a322f1a12981f39cb10e95a61a4d554644a0df80d6f282f) before
+continuing):
+
+1. Phone swapped for Fishlocks Ainsdale's number throughout. Caught by
+   `tools/check-gbp-packs.js` (phone-not-found FAIL) and by the
+   independent verifier.
+2. "shingles" replaced with "Liverpool" in both the Services bullet and
+   Post A, dropping Pharmacy First coverage to 6 of 7 conditions in both
+   places. Caught by `tools/check-gbp-pharmacy-first.js` (two FAILs) and
+   by the independent verifier.
+3. An em dash inserted into Post D's opening sentence. Caught by
+   `tools/check-em-dashes.js` and by the independent verifier.
+
+All three restored; sha256 after each restore matched the pre-injection
+backup exactly throughout. Full 36-checker suite re-run clean after the
+final restore. `git status --short gbp-packs/ modules/ branches.json`
+empty throughout.
+
+LIVE HALF. Claude in Chrome unavailable (see ANSWER PICKUP above).
+Performed instead via plain read-only Node `fetch()` (GET only, the
+established fallback since the item 3.3/3.4 passes), five URLs read:
+- `pharmacy-scorah-bramhall.html` (the profile website target): 404, as
+  the pack's own paster note anticipates. Unchanged since 2026-08-11
+  (Q43).
+- `pharmacy-first-service-hazel-grove-bramhall.html` (Post A's pfLink):
+  200, branch's own phone, street address and postcode all present.
+- `switch-prescriptions-scorah-bramhall.html` (Post B): 200, branch's own
+  phone/address/postcode present. REFINEMENT, not a new finding: the meta
+  description still carries the pre-Q7 text ("Local NHS pharmacy [dash]
+  we contact your GP and handle everything"), while the repo's own
+  generator now writes it with a full stop and no dash at all since Q7
+  was answered and applied. The sixth pass (2026-08-31) described the
+  live character as rendering as mojibake ("ÔÇö"); this pass reads the
+  raw byte as a correctly-encoded genuine em dash (U+2014). Same
+  underlying fact every prior pass has recorded - an unrepasted live page
+  lagging the repo, exactly what Post B's own paster note warns about -
+  only the description of the character's encoding is corrected. Not
+  raised as a new question, since fixing it is a Weebly repaste, not an
+  in-repo change, and the drift is already known.
+- `weight-loss-clinic-scorah-bramhall.html` (Post C): 200, branch's own
+  details present. Compliance re-check: none of six named prescription-
+  only medicines present, no "Buy Now", no percentage-loss claim.
+- `travel-clinic-scorah-bramhall.html` (Post D): 200, branch's own details
+  present and correct.
+- Shared PF page contact section: still shows the truncated "61 North
+  Park Road" (missing "-63") and an unspaced phone number, unchanged,
+  already recorded under Q43's third-pass note.
+
+No in-repo defect found. No new question raised. Files changed this pass:
+AGENT_WORKLIST.md (item 4.4 ticked entry appended with the seventh-pass
+narrative), audits/verify-4.4-2026-09-01.js (new),
+audits/scorah-bramhall-4.4-pass-2026-09-01.txt (new).
+
+PUBLISH AND CLOSE. Status page publish (step 10) and lock removal (step
+11) follow this entry; see the commit this entry's own hash lands in for
+the exact files touched.
+
+
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at start; created via the
 sandboxed Linux mount at 2026-09-01T13:38:09Z. That mount's `git fetch

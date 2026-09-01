@@ -1,0 +1,56 @@
+Item 4.4 quality pass, seventh, 2026-09-01 (unattended scheduled run)
+=======================================================================
+
+REPO HALF
+- All 36 tools/check-*.js checkers run individually: 36/36 exit 0, clean.
+- Fresh independent verifier written, audits/verify-4.4-2026-09-01.js, own
+  regexes, imports nothing from tools/, composed only from branches.json
+  and the pack's own text. 58 checks, 0 failures on the clean pack.
+- Three injection tests, each restored by byte copy (not git checkout) and
+  sha256-confirmed identical to the pre-injection original
+  (682068c033b3313b2a322f1a12981f39cb10e95a61a4d554644a0df80d6f282f)
+  before continuing:
+    1. Phone swapped for Fishlocks Ainsdale's number throughout.
+       Caught by tools/check-gbp-packs.js (phone-not-found FAIL) and by
+       the independent verifier (phone-line-mismatch).
+    2. "shingles" replaced with "Liverpool" in both the Services bullet
+       and Post A (breaking PF condition coverage to 6 of 7).
+       Caught by tools/check-gbp-pharmacy-first.js (two FAILs, Services
+       bullet and Post A) and by the independent verifier.
+    3. Em dash inserted into Post D's opening sentence.
+       Caught by tools/check-em-dashes.js and by the independent verifier.
+  Full 36-checker suite re-run clean after the final restore.
+  git status --short gbp-packs/ modules/ branches.json: empty throughout.
+
+LIVE HALF (read-only; Claude in Chrome unavailable this run - see
+AGENT_LOG.md environment note - fell back to plain Node fetch(), GET only,
+the established fallback since the item 3.3/3.4 passes)
+- Profile website (pharmacy-scorah-bramhall.html): 404, as the pack's own
+  paster note anticipates. Unchanged since 2026-08-11 (Q43).
+- Post A (pfLink, pharmacy-first-service-hazel-grove-bramhall.html): 200,
+  branch's own phone, street address and postcode all present and correct.
+- Post B (switch-prescriptions-scorah-bramhall.html): 200, branch's own
+  phone/address/postcode present and correct. REFINEMENT OF A PRIOR
+  FINDING: the meta description still carries the pre-Q7 text ("Local NHS
+  pharmacy [dash] we contact your GP and handle everything"), which the
+  repo's own generator now writes without any dash ("Local NHS pharmacy.
+  We contact your GP and handle everything.") since Q7 was answered and
+  applied. The sixth pass (2026-08-31) described the live character as
+  mojibake ("ÔÇö"); this pass reads it as a correctly-encoded genuine
+  em dash (U+2014), not mojibake. Same underlying fact as every prior
+  pass - an unrepasted live page lagging the repo, exactly what the
+  pack's own Post B paster note warns about - only the description of
+  the character's encoding is corrected. Not raised as a new question:
+  it is the same known drift, and fixing it is a Weebly repaste, not an
+  in-repo change.
+- Post C (weight-loss-clinic-scorah-bramhall.html): 200, branch's own
+  phone/address/postcode present. Compliance re-check: none of the six
+  named prescription-only medicines (Mounjaro, Wegovy, Orlistat, Saxenda,
+  Ozempic, Xenical) present, no "Buy Now", no percentage-loss claim.
+- Post D (travel-clinic-scorah-bramhall.html): 200, branch's own
+  phone/address/postcode present and correct.
+- Shared PF page contact section: still shows the truncated "61 North Park
+  Road" (missing "-63") and an unspaced phone number. Unchanged, already
+  recorded under Q43's third-pass note.
+
+No in-repo defect found. No new question raised.
