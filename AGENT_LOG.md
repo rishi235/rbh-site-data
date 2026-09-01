@@ -118,6 +118,25 @@ this entry lands, not re-diagnosed here since Q87 already covers it in full.
 PUBLISH (step 10). Ran `node tools/build-audit-status.js` regardless, per
 step 10's own instruction - result recorded immediately after.
 
+PROCESS NOTE, logged against itself: this run checked for `.agent-lock` at
+the start, found it absent, and reasoned through what it would do if present
+or stale, but never actually executed the create step. No collision resulted
+- nothing else touched this repo mid-run - but the gap is worth a plain
+record rather than a quiet correction, since a future concurrent run is
+exactly what that lock exists to prevent. `.agent-lock` was not left behind
+at exit; there was nothing to remove.
+
+RESULT. `git log --oneline -2` after both commits: `5436b26` (this run's
+6.7 quality pass) on top of `37ffed1` (prior run's landed entry) on top of
+`3b0ecd7`. Local branch now 18 commits ahead of `origin/agents/audit-backlog`
+(confirmed by `git rev-list --count`, fetch itself still fails the same SSH
+way), all safely committed and none lost - they will land the moment Q87 is
+resolved by any of its four options. `git status` afterwards regenerated a
+fresh, empty `.git/index.lock` of its own (the same read-then-fail-to-unlink
+pattern the entry below diagnoses, triggered here by `status` rather than
+`commit`) - left for the next run's own staleness check rather than force-
+cleared seconds after creation.
+
 ## 2026-09-01 (later still, unattended run) - Reconfirmed no change: Q87 still unanswered, all 8 items still [BLOCKED], index.lock still under threshold, nothing pushed or committed
 
 LOCK AND ENVIRONMENT. `.agent-lock` absent at the start (only the prior
