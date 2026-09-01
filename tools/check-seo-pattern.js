@@ -455,9 +455,9 @@ DIRS.forEach(function (dir) {
         "Every h1 rule in this repo reads the first h1 only, so the others go unchecked " +
         "by the pattern match, the seoTown and service-word rules and the cross-town rule.");
       fails++;
-    } else {
-      h1CountChecked++;
-    }
+    } else {
+      h1CountChecked++;
+    }
 
     // ONE TITLE LINE, ONE DESCRIPTION LINE. Same question as ONE H1, asked of
     // the other two legs of item 3.2's sentence. See the note above.
@@ -606,9 +606,12 @@ Object.keys(KNOWN_NON_PAGE).forEach(function (file) {
 // failure naming the generator that stopped composing at the moment it stops
 // rather than surfacing later as an unexplained page mismatch.
 var KNOWN_NON_PAGE_BUILDER = {
-  "build-status-page.js": "generates status/index.html, the internal progress board. Not a public branch page and carries no SEO pattern.",
   "build-audit-status.js": "publishes the audit status page to the data portal. Generates no branch page."
 };
+// build-status-page.js and status/index.html, the repo-local progress board
+// it generated, were retired 2026-09-01 per Q42's answer: the portal page
+// build-audit-status.js publishes does everything this one did and more, is
+// published every run, and is the only channel the runs actually read.
 
 var TOOLS_DIR = __dirname;
 var contractChecked = 0;

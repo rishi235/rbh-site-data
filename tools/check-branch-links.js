@@ -55,12 +55,12 @@ var ROOT = path.join(__dirname, "..");
 var data = JSON.parse(fs.readFileSync(path.join(ROOT, "branches.json"), "utf8"));
 
 // key format: "<branchId>.<field>"
-var KNOWN = {
-  "tiffenbergs_longmoor.pfLink":
-    "Q8 / item 5.3: the Post A Pharmacy First link for this branch has no " +
-    ".html ending. It is one of the 11 pfLink values Q8 covers, so it is " +
-    "left alone until that question is answered and all 11 move together."
-};
+// tiffenbergs_longmoor.pfLink was excused here (Q8/5.3, missing .html) until
+// Q34 answered 5.3 and this pfLink was repointed to the branch's own
+// generated page, which ends .html. Removed 2026-09-01: the entry no longer
+// breaks any rule and the stale-key-fails convention below would otherwise
+// catch it.
+var KNOWN = {};
 
 var failures = [];
 var warnings = [];

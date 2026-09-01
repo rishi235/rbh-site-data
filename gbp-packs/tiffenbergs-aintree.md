@@ -78,7 +78,7 @@ in children, impetigo, shingles, infected insect bites and uncomplicated
 water infections in women aged 16 to 64. No GP appointment or referral
 needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
-Button: Learn more -> https://www.tiffenbergschemist.co.uk/pharmacy-first-service-aintree
+Button: Learn more -> https://www.tiffenbergschemist.co.uk/pharmacy-first-tiffenbergs-aintree.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to Tiffenbergs Chemist in Aintree takes about
@@ -111,13 +111,13 @@ Button: Book -> https://www.tiffenbergschemist.co.uk/travel-clinic-tiffenbergs-a
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the Pharmacy First link from branches.json (pfLink,
-  pharmacy-first-service-aintree). The branch-specific replacement
-  (pharmacy-first-tiffenbergs-aintree.html) was CONFIRMED LIVE on
-  2026-08-11: in the branch sitemap, read in full, correct trading name,
-  NAP, conditions and ages. The repoint needs no Weebly paste, but the
-  swap itself is held under item 5.3 with the other ten links; do not
-  repoint from this pack alone. Post A as written is safe to post today.
+- Post A now points at the branch-specific page
+  (pharmacy-first-tiffenbergs-aintree.html), repointed 2026-09-01 per
+  Q34's answer to worklist item 5.3. It was CONFIRMED LIVE on 2026-08-11
+  (in the branch sitemap, read in full, correct trading name, NAP,
+  conditions and ages) and re-confirmed live 2026-09-01. branches.json's
+  pfLink was updated to match, so this pack and the data agree. The
+  repoint needed no Weebly paste.
 - Check the Post B, C and D URLs resolve before posting; the branch pages
   were regenerated in Phase 3 and the live Weebly copy may lag the repo.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.

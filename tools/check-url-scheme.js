@@ -112,9 +112,10 @@ var NARRATIVE_FILES = [
   "CHANGELOG.md",
   "README.md",
   "CLAUDE.md",
-  "status/index.html",
   SELF
 ];
+// status/index.html was removed from this list 2026-09-01: the file it named
+// was retired per Q42 (see check-seo-pattern.js's KNOWN_NON_PAGE_BUILDER note).
 
 // Namespace URIs. These are identifiers, not fetchable links, and they are
 // http:// by specification: rewriting them to https breaks the document.

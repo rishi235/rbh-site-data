@@ -80,7 +80,7 @@ sore throat, earache in children, impetigo, shingles, infected insect
 bites and uncomplicated water infections in women aged 16 to 64. No GP
 appointment or referral needed - book or just walk in. Age ranges set by
 the NHS apply to each condition.
-Button: Learn more -> https://www.skchemist.co.uk/pharmacy-first-service-bootle.html
+Button: Learn more -> https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html
 
 ### Post B - Switch your prescriptions
 Moving your prescriptions to SK Chemists in Bootle is quick and simple.
@@ -113,23 +113,19 @@ Button: Book -> https://www.skchemist.co.uk/travel-clinic-sk-chemists-bootle.htm
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json. That link was fetched on
-  2026-08-10 and again on 2026-08-11 and it loads, so Post A can be posted
-  as it stands.
-- STOP before treating that page as the right long-term target. Checked
-  2026-08-10, re-checked 2026-08-11 with no change:
-  pharmacy-first-service-bootle.html is live but it is NOT in
-  the branch sitemap, and its heading reads "Pharmacy First Service in
-  Bottle, Liverpool". The town is misspelled. The branch-specific
-  replacement is the better page on every count and is now CONFIRMED LIVE,
-  at https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html,
-  and it IS in the branch sitemap, spells Bootle correctly, carries the
-  correct trading name and lists the same seven conditions and age ranges.
-  So for this branch the swap needs no Weebly paste at all. The swap
-  itself belongs to worklist item 5.3, which repoints all 11 Post A links
-  together, so it is deliberately not made here. Do not hand-edit it in.
-  If the misspelled page is kept live after the swap, retire or signpost
-  it so the branch is not publishing two pages for one service.
+- Post A now points at the branch-specific replacement page, repointed
+  2026-09-01 per Q34's answer to worklist item 5.3:
+  https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html. It is
+  in the branch sitemap, spells Bootle correctly, carries the correct
+  trading name and lists the same seven conditions and age ranges;
+  re-confirmed live 2026-09-01. branches.json's pfLink was updated to
+  match, so this pack and the data agree.
+  The old target, pharmacy-first-service-bootle.html, was checked
+  2026-08-10 and 2026-08-11 with no change: live but NOT in the branch
+  sitemap, and its heading reads "Pharmacy First Service in Bottle,
+  Liverpool" - the town misspelled. It is no longer used by this pack. If
+  it is still live, retire or signpost it so the branch is not publishing
+  two pages for one service.
 - Posts B, C and D were fetched on 2026-08-10, on 2026-08-11 and again on
   2026-08-12, and all three resolve every time.
 - STOP before pasting Post C, and check the destination. Post C's Book

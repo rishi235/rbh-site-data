@@ -80,9 +80,10 @@ var NARRATIVE_FILES = [
   "CHANGELOG.md",
   "README.md",
   "CLAUDE.md",
-  "status/index.html",
   "tools/check-postcodes.js"
 ];
+// status/index.html was removed from this list 2026-09-01: the file it named
+// was retired per Q42 (see check-seo-pattern.js's KNOWN_NON_PAGE_BUILDER note).
 
 var NARRATIVE_POSTCODES = {
   "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed.",

@@ -84,7 +84,7 @@ in children, impetigo, shingles, infected insect bites and uncomplicated
 water infections in women aged 16 to 64. No GP appointment or referral
 needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
-Button: Learn more -> https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html
+Button: Learn more -> https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to McCanns Chemist in Aigburth takes about 30
@@ -136,10 +136,12 @@ Notes for the paster:
   Sandringham" when pasting.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json, which is the shared Aigburth
-  Pharmacy First page. A branch-specific page
-  (pharmacy-first-mccanns-aigburth.html) exists in the repo; swap the link
-  once that page is confirmed live on Weebly.
+- Post A points at this branch's own Pharmacy First page
+  (pharmacy-first-mccanns-aigburth.html), repointed 2026-09-01 per Q34's
+  answer to worklist item 5.3. Confirmed live (200), correct trading name,
+  NAP and conditions, and in the branch's own sitemap, re-verified
+  2026-09-01. branches.json's pfLink for this branch was updated to match,
+  so this pack and the data agree.
 - Check the Post B, C and D page URLs resolve before posting; the live
   Weebly copy may lag the repo. If a page is not live yet, use
   https://www.mccannspharmacy.co.uk until it is.

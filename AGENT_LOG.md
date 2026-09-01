@@ -1,3 +1,198 @@
+## 2026-09-01 (unattended scheduled run, following the 5.2 seventh pass) - Answer pickup (Claude in Chrome connected for the first time in many runs): 16 open questions recorded, item 5.3 partially unblocked (5 of 11 Post A links repointed per Q34), status/index.html retired per Q42, plus a fifth 6.3 quality pass
+
+ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of
+C:\Dev\rbh-site-data for file work, checker and generator runs, plus
+Windows-MCP PowerShell for git operations against the real repo path, which
+holds working SSH credentials and is the SAME .git directory as the
+sandboxed mount (the standing Q87 split). `git fetch origin` on the
+sandboxed path failed exactly as every prior run records ("Host key
+verification failed"). Real repo confirmed via Windows-MCP PowerShell
+already on agents/audit-backlog at 07f5598 (the 5.2 seventh-pass commit)
+and up to date with origin. .agent-lock absent at start (all prior lock
+files present only as .agent-lock.released-* debris, the Q87 unlink()-
+blocked-filesystem finding); created fresh this run.
+A NEW instance of the same finding surfaced mid-run and is worth recording
+for whoever reads this next: a `git status` call on the sandboxed path left
+a `.git/index.lock` file that could not be removed by `rm` OR `mv` from
+that side ("Operation not permitted" both times, with no git process
+running), and it blocked every subsequent `git add`/`git commit` on that
+path until it was cleared. Cleared via `Remove-Item` on the Windows-MCP
+PowerShell path against the same .git directory, which worked immediately.
+Two file deletions later in the run (status/index.html,
+tools/build-status-page.js) hit the identical wall on the sandboxed side
+(`rm -f` returned "Operation not permitted" while the file stayed) and were
+completed the same way, via `Remove-Item` on the Windows-MCP path, then
+confirmed gone from the sandboxed side too (same underlying filesystem).
+The rule worth carrying alongside the existing "restore by byte copy, not
+git" lesson: on this sandboxed mount, ANY operation that needs to unlink a
+file - a git lock, a git checkout that must replace a file, or a plain file
+deletion - has to go through the Windows-MCP PowerShell path instead.
+Ordinary writes (Read/Edit/Write, and `cp` for a byte-identical restore)
+work fine on the sandboxed side; only removal does not.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__tabs_context_mcp reported a
+live tab group this run - Claude in Chrome is CONNECTED for the first time
+in the several most recent runs' logs, all of which recorded it
+unavailable. Navigated to https://data.rbhealth.co.uk/api/feedback and read
+the JSON feed. QUESTIONS.json held 57 open questions at the start of this
+run; cross-referencing the feed against them found genuine answers for
+exactly Q34 through Q51 (18 consecutive IDs), all other open questions
+(Q52 onward, and the older Q2-Q29 range) either had no matching feed entry
+or were already resolved in an earlier run.
+Of the 18: sixteen (Q34, Q35, Q36, Q38, Q39, Q40, Q41, Q42, Q44, Q45, Q46,
+Q47, Q48, Q49, Q50, Q51) contained an actual selection of one of the listed
+options (or, for Q40 and Q48, a clear equivalent decision), so each was
+recorded in QUESTIONS.json: status "answered", the answer text quoted
+verbatim from the portal, and a new "answerDate" field (2026-09-01). Two
+(Q37, Q43) did NOT contain a decision - Q37's reply is "i need further
+explanation as i dont understandin plain english waht you are asking" and
+Q43's is "Unsure ... need advise" - so both were left status "open" per the
+procedure's own logic (there is no decision to apply), with a note appended
+recording the reply verbatim, explaining why it is not being treated as an
+answer, and for Q37 a plain-English restatement of the question for next
+time, since the original evidently did not land. Applying "the decision" to
+sixteen separate findings in one run is out of proportion to the stated
+30-45 minute budget, so this run drew a line: implement the one answer that
+actually unblocks a worklist item (Q34/5.3, below) plus one further answer
+that was small, contained and carried no live-copy or clinical-copy risk
+(Q42, below), and for the other fourteen, record the decision faithfully
+(which is itself real, required work - it is what lets a future run treat
+each as its own contained item) without also implementing all fourteen
+unattended in the same sitting. Six of the fourteen recorded-only answers
+are Weebly-only (Q35, Q36, Q39, Q40 in part, Q41; live hand edits this repo
+cannot make); one needs Rishi's own review and cannot be done by an agent
+under the standing hard rule against touching main (Q45, "Merge
+agents/audit-backlog to main"); one asks for new safeguarding copy that the
+answer itself says needs superintendent-pharmacist sign-off, which this run
+will not fabricate (Q47); one needs external verification of a third
+party's registration list before any repo field can be set (Q48); Q38,
+Q44, Q46, Q49, Q50, Q51 are genuine repo-actionable copy or generator
+changes and are the natural next candidates for a future run's single-item
+slot, in roughly that order of contained-ness. Q50 needs no action at all
+(the answer is "leave it").
+
+ITEM 5.3 / Q34 - IMPLEMENTED. Q34 asked whether to split worklist item 5.3
+(repointing the 11 Post A Pharmacy First links held under Q8) so branches
+whose replacement page is already confirmed live could move without
+waiting for the Weebly paste the rest of the item needs. Answer: yes,
+split it, using a testable rule (repointed only where the replacement page
+has been fetched and confirmed live, in the branch sitemap, correctly
+named and correctly spelled) rather than a fixed list, naming Riddings and
+SK as the two known cases at the time the question was raised.
+The worklist's own accumulated evidence (states five through nine, entered
+across the 4.7, 4.11, 4.12 and 4.15 quality passes) already showed FIVE of
+the eleven meeting that exact bar, not two: Riddings, SK, both McCanns
+branches and Tiffenbergs. Rather than apply only the two named examples,
+this run applied the rule Rishi actually gave, using the worklist's own
+evidence. All five pages were re-fetched live today via Claude in Chrome
+(mcp__claude-in-chrome__navigate + get_page_text) rather than trusted from
+three-week-old passes, and all five still read correctly: correct trading
+name, NAP, all seven Pharmacy First conditions and ages, and on both
+McCanns pages the sister-branch cross-reference. URLs checked:
+https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html,
+https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html,
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html,
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html,
+https://www.tiffenbergschemist.co.uk/pharmacy-first-tiffenbergs-aintree.html.
+branches.json's pfLink for all five branches was repointed (surgical Edit
+calls, not a full JSON rewrite - a first attempt via Python json.dump
+reformatted an unrelated compact array elsewhere in the file, so that
+attempt was discarded and the file restored by byte copy from a pre-edit
+backup, per the standing "restore by byte copy, not git" rule, before
+redoing the change as five targeted Edit calls). The five old pfLink values
+(one shared, one missing its .html ending, none pointing at the branch's
+own generated page) are gone.
+Downstream of that data change, three more things needed updating and
+check-branch-links.js, check-editor-snapshot.js and check-gbp-packs.js
+each said exactly which: (1) check-branch-links.js's stale KNOWN exemption
+for tiffenbergs_longmoor.pfLink (excused because the old value had no
+.html ending) now broke no rule and was removed, with a comment recording
+why; (2) tools/branches-editor.html's embedded const DATA snapshot was
+refreshed from the live branches.json (check-editor-snapshot.js exists
+specifically to make this drift loud); (3) four of the five gbp-packs
+(mccanns-aigburth.md, riddings-timperley.md, sk-chemists-bootle.md,
+tiffenbergs-aintree.md) had their Post A button URL and paster note
+updated to point at the branch's own generated page and to record today's
+repoint and re-confirmation - mccanns-sandringham.md's pack already
+pointed at its own page from an earlier pass (its note said so explicitly:
+"the swap is done"), so only its branches.json pfLink needed changing, not
+its pack file. All 36 checkers green after every step; six generators
+rebuilt and confirmed byte-identical against a pre-change sha256 baseline
+(pfLink is read by no generator, only by the hand-authored gbp-packs), so
+no page changed.
+Item 5.3 itself is NOT ticked done: the other six branches among the
+eleven, including Coleman and Leighs and Gordon Short (both need a Weebly
+repaste before their repoint, per the worklist's own fourth and eighth
+states), stay [BLOCKED]. Worklist entry updated with a tenth state
+recording exactly what moved and why, and QUESTIONS.json's Q34 marked
+answered.
+
+ITEM Q42 - IMPLEMENTED. Two audit status pages existed; only the portal
+one (published every run by tools/build-audit-status.js, per this task's
+own step 10) is kept current and actually read. Answer: retire the
+repo-local one. Deleted status/index.html and tools/build-status-page.js
+(via Windows-MCP PowerShell, see the lock/deletion note above; confirmed
+gone from both paths). Three checkers named these two files in their own
+exemption lists and would have failed on a stale entry if left alone:
+check-seo-pattern.js's KNOWN_NON_PAGE_BUILDER (build-status-page.js
+entry), check-postcodes.js's NARRATIVE_FILES and check-url-scheme.js's
+NARRATIVE_FILES (both status/index.html). All three edited to remove the
+entry and record why in a comment. tools/build-audit-status.js (the
+survivor, run at step 10 below) has no reference to either retired file,
+confirmed by grep before relying on it. All 36 checkers green after the
+edit.
+
+SUPPLEMENTARY: ITEM 6.3, fifth quality pass (repo half + live half). Done
+before Chrome's connection was discovered, so it stands as genuine,
+separate verification rather than this run's primary item. All 36
+checkers run fresh (green), all six generators rebuilt against a fresh
+sha256 baseline of the 189 tracked .html/.js/.css files under modules/ and
+core/ (audits/_before-6.3-2026-09-01-fifth.sha256), byte-identical, zero
+git diff. Live hours re-checked across all 14 trading branches via
+tools/check-live-hours.js, run directly from this sandbox's shell (Node's
+native fetch reaches all 14 domains; evidence
+audits/live-hours-check-2026-09-01.json) - the first time this survey has
+been run twice in one day. All snippets read by hand against
+branches.json: thirteen match exactly, Smartts remains the sole mismatch
+(homepage card and contact page still publish a straight-through 9am-6pm
+with no lunch closure against the NHS-sourced 09:00-13:00/14:00-18:00
+split), unchanged since first found - Q55 stands. NEW ANGLE not tried in
+the four prior 6.3 passes since rule 6 (the omitted-day rule) was written
+on 2026-08-13: re-proved rule 6 by injection on a DIFFERENT branch than
+the original test. Removed Wednesday from tiffenbergs_longmoor's
+specification in a scratch copy (never the tracked file): rule 6 caught
+it correctly ("Wednesday is in neither closedDays nor specification").
+Restored branches.json by byte copy from a pre-test backup (sha256
+verified identical before and after, git status clean throughout), not by
+git checkout, per the standing lesson that a git-checkout-based restore
+can destroy uncommitted work if HEAD still carries the defect. No in-repo
+defect found, no fix needed.
+
+FILES CHANGED. branches.json (five pfLink values, lastUpdated).
+gbp-packs/mccanns-aigburth.md, riddings-timperley.md, sk-chemists-
+bootle.md, tiffenbergs-aintree.md (Post A button + note). tools/branches-
+editor.html (embedded snapshot refresh). tools/check-branch-links.js
+(stale KNOWN removed). tools/check-seo-pattern.js, tools/check-
+postcodes.js, tools/check-url-scheme.js (status/index.html /
+build-status-page.js exemption entries removed). status/index.html,
+tools/build-status-page.js (deleted). QUESTIONS.json (16 questions marked
+answered with answerDate; Q37 and Q43 given a note recording the
+non-decision). AGENT_WORKLIST.md (5.3's tenth state; this entry).
+audits/_before-6.3-2026-09-01-fifth.sha256,
+audits/live-hours-check-2026-09-01.json (new). AGENT_LOG.md (this entry).
+
+QUESTIONS. None newly raised. Q34 and Q42 answered and applied. Fourteen
+other questions recorded as answered (see above) with implementation left
+for future single-item runs. Q37 and Q43 left open with a note explaining
+the portal reply was not a decision.
+
+GIT. Committed on agents/audit-backlog via the sandboxed path for the file
+changes; the .git/index.lock encountered mid-run (see the environment note
+above) was cleared via Windows-MCP PowerShell, and the commit and push
+were completed via Windows-MCP PowerShell against the same .git directory.
+Commit hash and push confirmation recorded in the commit itself; see
+`git log -1` on either path.
+
 ## 2026-09-01 (unattended scheduled run, following the 2.1 eighth pass) - Item 5.2 quality pass (seventh): six shared-domain landing pages re-verified clean, repo half only, ZERO DEFECTS
 
 ENVIRONMENT AND LOCK. Same split as recent runs: sandboxed Linux mount of

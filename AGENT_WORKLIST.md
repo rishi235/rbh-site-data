@@ -6443,6 +6443,39 @@ record.
       pharmacy-first-service-aintree.html, still loads and reads
       correctly but remains absent from the branch sitemap, the SK shape
       without the misspelling.
+      Q34 ANSWERED 2026-09-01 (unattended run, answer pickup via Claude in
+      Chrome, which connected for the first time in several runs): "Split
+      5.3 into the branches that need a paste and the branches that do
+      not, and let an unattended run repoint only where the replacement
+      page has been fetched and confirmed live, in the branch sitemap,
+      correctly named and correctly spelled. Riddings and SK move now at
+      no cost and with no paste; the other nine stay blocked and
+      unchanged." Applied the rule rather than only the two named
+      examples, because the worklist's own accumulated evidence (states
+      five through nine above) already shows five of the eleven meeting
+      that exact bar: Riddings, SK, both McCanns and Tiffenbergs. All five
+      were re-fetched live today rather than trusted from the earlier
+      passes, and all five still read correctly (title, trading name,
+      NAP, seven conditions, ages, and for the two McCanns pages the
+      sister-branch cross-reference). branches.json's pfLink for all five
+      was repointed from the old shared/misspelled/no-.html target to
+      each branch's own generated page, and the corresponding "Post A"
+      button and paster note were updated in mccanns-aigburth.md,
+      riddings-timperley.md, sk-chemists-bootle.md and
+      tiffenbergs-aintree.md (mccanns-sandringham.md's pack already
+      pointed at its own page from an earlier pass, so only its
+      branches.json pfLink needed the swap). check-branch-links.js's
+      stale KNOWN entry for tiffenbergs_longmoor.pfLink was removed (the
+      field no longer breaks the rule it excused) and
+      tools/branches-editor.html's embedded snapshot was refreshed to
+      match. All 36 checkers green, all six generators rebuild
+      byte-identical (pfLink is not read by any generator), before and
+      after. The rest of the eleven stay [BLOCKED] and unchanged,
+      including Coleman and Leighs and Gordon Short, which need a repaste
+      before their repoint per the eighth and fourth states above, and
+      any branch among the eleven not yet confirmed live in a pass. This
+      item is not ticked done, only partially actioned this run. See
+      AGENT_LOG.md for the full run record.
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.

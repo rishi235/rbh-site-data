@@ -90,7 +90,7 @@ in children, impetigo, shingles, infected insect bites and uncomplicated
 water infections in women aged 16 to 64. No GP appointment or referral
 needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
-Button: Learn more -> https://www.riddingspharmacy.co.uk/pharmacy-first-service-timperley.html
+Button: Learn more -> https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to Riddings Pharmacy in Timperley takes about
@@ -140,14 +140,12 @@ Button: Book -> https://www.riddingspharmacy.co.uk/travel-clinic-riddings-timper
 Notes for the paster:
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the pfLink from branches.json. That link was fetched on
-  2026-08-10 and is live, so Post A can be posted as it stands. The
-  branch-specific replacement page is now CONFIRMED LIVE as well, at
-  https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
-  and it is in the branch's sitemap, so the swap this note used to make
-  conditional needs no Weebly paste at all for this branch. The swap
-  itself belongs to worklist item 5.3, which repoints all 11 Post A links
-  together, so it is deliberately not made here. Do not hand-edit it in.
+- Post A now points at the branch-specific page
+  (pharmacy-first-riddings-timperley.html), repointed 2026-09-01 per
+  Q34's answer to worklist item 5.3. It was CONFIRMED LIVE and in the
+  branch's sitemap on 2026-08-10 and re-confirmed live 2026-09-01.
+  branches.json's pfLink was updated to match, so this pack and the data
+  agree. The repoint needed no Weebly paste.
 - Post B: see the hard stop under the post itself. Do not post that URL.
 - Posts C and D were fetched on 2026-08-10 and both resolve.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
