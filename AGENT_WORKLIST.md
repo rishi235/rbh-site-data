@@ -2533,6 +2533,42 @@ Done 2026-09-02 (eighth pass).
       repaste, switch page pre-Q7/5.1 mojibake em dash) were not re-confirmed
       and should not be assumed unchanged. No new question raised. Evidence
       in audits/verify-3.8-2026-09-02.js.
+      Quality pass 2026-09-02 (ninth, unattended scheduled run). Taken
+      because all 8 unchecked worklist lines are [BLOCKED] (confirmed by
+      direct grep, 8 of 8); item-selection method unchanged from prior
+      passes - most recent commit-subject mention per item across the
+      standing 36-item rotation pool (43 completed items minus the
+      out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), stalest wins.
+      3.8 was stalest, last mentioned 2026-09-02T02:42:13+01:00 (the eighth
+      pass); no tie. Answer pickup (step 3) attempted first: Claude in
+      Chrome not connected, logged as unavailable, not retried by another
+      route, per the unattended-run rule. No autonomous-window heading
+      present at the top of this file, so no autonomous decisions applied.
+      REPO HALF. All 36 tools/check-*.js checkers re-run individually
+      before any change, 0 failures. All six page generators rebuilt from
+      branches.json; sha256 of all 221 files under modules/ and core/
+      identical before and after (git status --porcelain modules/ core/
+      empty). Fresh independent extraction sharing no code with tools/ or
+      any prior verify-3.8-*.js (audits/verify-3.8-2026-09-02-ninth.js):
+      12 files, 1,092 checks, 0 flags - one H1 per page naming Bootle
+      (own seoTown), no other live branch's seoTown in title/H1/
+      description outside serviceAreaList's excused Liverpool, own phone
+      in both tel: and visible shapes with no other live branch's digits
+      present anywhere on the page, own postcode only, JSON-LD parsing
+      with @type Pharmacy, @context, name, telephone, full postal address
+      and url all matching branches.json field for field, data-branch
+      naming the branch correctly, data-wa a valid non-placeholder UK
+      mobile matching branches.json, exactly one map iframe per page
+      decoding to the branch's own address on the correct host with
+      output=embed, and no em/en dash character or entity in visible
+      copy. Guard effectiveness proved by injection: postcode swapped to
+      a foreign value in one page, script caught it on both the plain
+      postcode check and the JSON-LD address check (2 flags), file
+      restored from a byte-level backup copy (not git checkout, per the
+      standing lesson on restoring test harness state), re-verified clean
+      afterwards, git status empty on the mutated-then-restored file. No
+      new defect found; no new question raised. Evidence in
+      audits/verify-3.8-2026-09-02-ninth.js.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
