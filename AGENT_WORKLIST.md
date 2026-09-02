@@ -5667,6 +5667,31 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       5.8/Q58, unchanged, not fixed here). No new defect, no new
       question. Q80 and Q81 remain open and untouched. Evidence in
       audits/sk-chemists-bootle-gbp-pack-check-2026-09-02.txt.
+      Ninth quality pass 2026-09-02 (unattended scheduled run, rotation-
+      pool pick, stalest item last mentioned 2026-09-02T00:13:10+01:00,
+      the eighth pass itself, earlier the same day): all branches.json
+      facts re-matched field by field (address, phone, hours, website,
+      review link, serviceAreaList, hasApp, pfLink), no drift. All 36
+      checkers exit 0. All six generators rebuilt; 203 files under
+      modules/service/pages, modules/switch/pages and modules/branch/pages
+      sha256-hashed before and after: byte-identical, zero diff.
+      Injection test, an untried angle for this item (eighth pass injected
+      a phone swap; this pass injects a postcode swap): the pack's own
+      postcode L20 5DW swapped for Cherry Lane Pharmacy's L4 8SG in the
+      Address line, caught independently by both check-gbp-packs.js (two
+      failures, own-postcode-missing and foreign-postcode-named) and
+      check-postcodes.js's FOREIGN rule; restored by byte copy, sha256
+      matched the pre-injection file exactly, all 36 checkers re-run
+      clean. LIVE HALF: not performed, Claude in Chrome not connected
+      (checked twice this run). Q34 (raised on the eighth pass, about item
+      5.3's old pharmacy-first-service-bootle.html target) is now recorded
+      as answered and applied, so it is no longer an open finding for this
+      item; the eighth pass's other live findings (switch-page paste-lag
+      em dash, weight-loss-clinic.html's item 5.8/Q58 regulatory exposure)
+      stand unverified for a further pass rather than re-claimed. Q58, Q80
+      and Q81 re-read from QUESTIONS.json, all still open, unchanged. No
+      new defect, no new question. Evidence in
+      audits/sk-chemists-bootle-gbp-pack-check-2026-09-02-ninth.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

@@ -1,0 +1,86 @@
+Item 4.11 quality pass (ninth) - SK Chemists Bootle GBP pack
+Run: 2026-09-02, unattended scheduled run via Cowork
+Rotation pool pick: least recently verified item across the 36-item pool
+(43 checked items minus out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8),
+method as established on every prior pass: git log --pretty=format:"%cI|%s",
+matching item N.N by word boundary in commit subjects (case-insensitive),
+first/most recent match per item. Item 4.11 was stalest, last mentioned
+2026-09-02T00:13:10+01:00 (eighth pass, same day). Full ranking recorded in
+this run's AGENT_WORKLIST.md/AGENT_LOG.md entries.
+
+FACTS vs branches.json (skchemists_bootle), all match:
+- Address: 516 Stanley Road, Bootle L20 5DW
+- Phone: 0151 944 1013
+- Hours: Monday-Friday 09:00-18:00, Saturday and Sunday closed (single session,
+  no lunch split)
+- Website: https://www.skchemist.co.uk
+- Review link: https://g.page/r/CeAIYeqSjIYBEAE/review
+- serviceAreaList: Bootle, Sefton, Liverpool (pack leads with own seoTown)
+- hasApp: false (pack correctly carries no app mention)
+- pfLink: https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html
+  (branch-specific page, matches pack's Post A note re: Q34/item 5.3 repoint)
+
+CHECKERS: all 36 tools/check-*.js run individually, 36/36 exit 0.
+  check-address-region, check-app-membership, check-booking-routes,
+  check-branch-identity, check-branch-links, check-brand-spelling,
+  check-cdn-pins, check-contraception-copy, check-editor-snapshot,
+  check-em-dashes, check-fragment-targets, check-gbp-packs,
+  check-gbp-pharmacy-first, check-jsonld, check-live-hours, check-map-embeds,
+  check-nap, check-opening-hours, check-page-coverage,
+  check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+  check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+  check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+  check-seo-sheets, check-service-links, check-switch-copy,
+  check-travel-clinic-copy, check-uk-spelling, check-url-scheme,
+  check-weight-loss-copy, check-whatsapp-route, check-widget-diaries.
+
+GENERATORS: all six page generators rebuilt (build-service-pages,
+build-switch-pages, build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages). 203 files under
+modules/service/pages, modules/switch/pages, modules/branch/pages hashed
+(SHA256) before and after: byte-identical, zero diff. git status --porcelain
+modules/ core/ empty before and after.
+
+INJECTION TEST (guard effectiveness), untried angle for this item (eighth
+pass injected a phone swap; this pass injects a postcode swap, a class of
+fault check-postcodes.js's FOREIGN rule and check-gbp-packs.js's own
+postcode rule both separately own):
+  1. Backed up gbp-packs/sk-chemists-bootle.md, SHA256 recorded
+     (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da).
+  2. Replaced the pack's own postcode L20 5DW with Cherry Lane Pharmacy's
+     L4 8SG in the "Address:" profile-basics line.
+  3. check-gbp-packs.js: 2 new failures - "branch postcode L20 5DW does not
+     appear anywhere in the pack" and "postcode L48SG belongs to Cherry Lane
+     Pharmacy, not SK Chemists" (exit 1).
+  4. check-postcodes.js: 1 new failure - "FOREIGN gbp-packs/sk-chemists-
+     bootle.md: owned by skchemists_bootle (L20 5DW) but carries L4 8SG
+     (cherrylane_liverpool)" (exit 1).
+  5. Restored from backup by byte copy; SHA256 re-confirmed identical to the
+     pre-injection hash; git status --porcelain gbp-packs/ empty.
+  6. All 36 checkers re-run: 36/36 exit 0.
+
+LIVE HALF: not performed this run. mcp__claude-in-chrome__navigate reported
+the extension not connected (checked at the start of the run for answer
+pickup and again here before writing this file). The eighth pass's live
+findings therefore stand unverified for a further pass:
+  - pharmacy-first-service-bootle.html: still live, outside the branch
+    sitemap, still misspells "Bottle" in its heading (item 5.3, was Q34 -
+    NOTE: Q34 has since been ANSWERED and applied on 2026-09-01, so this is
+    now the known-superseded old page rather than an open decision; Post A
+    already points at the correct branch-specific replacement).
+  - Switch page mojibake em dash: paste-lag, source already correct.
+  - weight-loss-clinic.html: named medicines, superlative claim, outcome
+    slider, lead pricing - item 5.8/Q58, unchanged, not fixed here (live
+    patient-facing regulatory claim, explicitly outside any autonomous
+    decision per the SKILL.md carve-out; no autonomous window was active
+    this run in any case).
+
+QUESTIONS.json re-read: 94 total, 41 open (unchanged from this run's earlier
+answer-pickup check). Q34 confirmed status "answered" (was open on the
+eighth pass, answered 2026-09-01, already reflected in the pack's own notes
+so nothing to change here). Q58, Q80 and Q81 confirmed still "open",
+unchanged. No new question raised this pass.
+
+RESULT: zero defects found. No files under gbp-packs/, modules/, core/ or
+branches.json changed by this pass beyond this evidence file and the
+worklist/log entries.
