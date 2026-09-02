@@ -650,6 +650,33 @@ same pattern recorded throughout 2026-08-31's entries above.
       superlative claims: none found. No in-repo defect, no fix made.
       Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-01-seventh.txt.
+      Eighth quality pass 2026-09-02 (unattended run). Repo half clean again:
+      six generators to a zero diff, all 36 checkers exit 0, branches.json
+      fields and the 12-page set re-verified field by field. FINDING: Q89's
+      fault is GONE live. The Pharmacy First overview page now renders all
+      seven condition cards with correct working links and no "Page coming
+      soon" text anywhere; spot-checked shingles-treatment-cherry-lane-
+      walton.html (one of the five previously broken cards), which loads
+      200 with fully correct copy. The repaste Q89 asked for evidently
+      happened between the seventh pass (2026-09-01) and this one. Q89
+      marked answered on this evidence, same precedent as Q5 on this item's
+      original build entry. Two known live-only faults reconfirmed
+      unchanged (switch page SEO title still pre-Phase-3; switch page body
+      still renders the pre-Q7 em dash as visible mojibake in the "How
+      switching to Cherry Lane Pharmacy works" lead paragraph). The Q36
+      footer NHS mailbox typo pharmacy.FA226@mhs.net is BACK, observed on
+      all four live pages checked this pass (a stronger, more consistent
+      read than the seventh pass's "absent on all three checked"),
+      reinforcing the "unstable between deploys or caches" pattern rather
+      than a one-off; Q36 already answered and awaiting the next
+      supervised Weebly session, not re-raised, note appended only. Minor
+      unchased observation: a mojibake "x" character on the switch banner
+      matches the shape of the estate-wide switch-banner mojibake already
+      logged on the 4.15 eighth pass, not independently confirmed against
+      source bytes this run (browser tool blocked the raw fetch). Weight
+      loss page rechecked: no medicine names, no superlative claims,
+      correct hedging, unchanged. No in-repo defect, no fix made. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-02-eighth.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

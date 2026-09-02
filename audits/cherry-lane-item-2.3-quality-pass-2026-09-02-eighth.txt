@@ -1,0 +1,83 @@
+Item 2.3 - Cherry Lane Pharmacy Walton - eighth quality pass
+Run: unattended scheduled run via Cowork, 2026-09-02
+
+REPO HALF
+- All six generators (build-service-pages, build-switch-pages, build-weight-loss-pages,
+  build-travel-clinic-pages, build-contraception-pages, build-branch-landing-pages) run.
+  `git diff --stat modules/` empty afterwards: byte-identical output confirmed.
+- All 36 tools/check-*.js run individually. All exit 0.
+- branches.json fields for cherrylane_liverpool spot-checked against generated pages:
+  brandLabel/branchName "Cherry Lane Pharmacy" (identical, no split-brand issue), seoTown
+  "Walton", phone "0151 226 2051", odsCode FA226, nhsEmail pharmacy.FA226@nhs.net,
+  website https://www.cherrylanepharmacy.co.uk, hasApp false, disposed null.
+- 12 generated pages confirmed present: contraception, earache, impetigo, insect-bite,
+  pharmacy-first (overview), shingles, sinusitis, sore-throat, travel-clinic, uti,
+  weight-loss-clinic, switch. H1s all carry "in Walton" per the family A pattern; no
+  <title> tag in the page body, correct per convention (title lives in the SEO.md paste
+  sheet, not the page).
+- Non-ASCII sweep on weight-loss-clinic-cherry-lane-walton.html: one em dash found, inside
+  the build comment header only ("CHERRY LANE PHARMACY -- Weight Loss Clinic..."), the
+  documented report-only exemption in check-em-dashes.js, not a defect.
+- Weight loss page copy re-read against the generator source: no medicine names, no
+  superlative claims, correct hedging ("nothing below is a guarantee...").
+- FAQ comma-splice style issue (first noted 2026-08-04, confirmed on the sixth pass as
+  living in a shared FAQ-answer template rather than Cherry-Lane-specific) not re-fixed
+  this pass, consistent with every prior pass: it fails no checker and is not queued for
+  its own repaste.
+- No in-repo defect found. No files under modules/, tools/, or branches.json changed.
+
+LIVE HALF (single Chrome tab available, no Q59 ambiguity this run)
+- https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html: all seven
+  Pharmacy First condition cards (UTI, Sore throat, Sinusitis, Earache, Impetigo,
+  Shingles, Infected insect bite) now render "Learn more" links with correct hrefs
+  matching the repo's generated filenames (uti-treatment-cherry-lane-walton.html,
+  sore-throat-treatment-cherry-lane-walton.html, sinusitis-treatment-cherry-lane-walton.html,
+  earache-treatment-cherry-lane-walton.html, impetigo-treatment-cherry-lane-walton.html,
+  shingles-treatment-cherry-lane-walton.html, insect-bite-treatment-cherry-lane-walton.html).
+  No "Page coming soon" text found anywhere on the page.
+- FINDING - Q89 RESOLVED ON LIVE EVIDENCE: the seventh-pass fault (five of seven
+  condition cards showing "Page coming soon" with no working link) is no longer present.
+  Spot-checked by navigating directly to shingles-treatment-cherry-lane-walton.html (one
+  of the five previously broken cards): loads 200, correct title "Shingles treatment in
+  Walton - Cherry Lane Pharmacy", full compliant NHS Pharmacy First copy, correct age
+  range (18 and over), no defects. The repaste Q89 asked for has evidently happened
+  since the seventh pass (2026-09-01). See QUESTIONS.json Q89 for the status update
+  applied on the strength of this evidence, following the same "treat as closed on the
+  evidence" precedent used for Q5 on this same item's build entry.
+- Sitemap: fetched https://www.cherrylanepharmacy.co.uk/sitemap.xml, 200, 28 URLs total,
+  all 12 Cherry Lane pages present (contraception, sinusitis, pharmacy-first, shingles,
+  switch, uti, weight-loss-clinic, sore-throat, earache, insect-bite, impetigo,
+  travel-clinic - confirmed by filter, list truncated in the console read but count and
+  visible entries match the full 12-page set).
+- Switch page (switch-prescriptions-cherry-lane-walton.html): document.title still reads
+  "Switch Your Prescriptions - Cherry Lane Pharmacy Walton", the pre-Phase-3 string,
+  against the paste sheet's "Switch Your Prescriptions to Cherry Lane Pharmacy, Walton".
+  Unchanged from every prior pass. Tracked under 3.1/5.1/Q3, not re-raised.
+- Switch page body: "it usually is not [mojibake] we make the first step quick and easy"
+  - the pre-Q7 em dash still rendering as visible mojibake ("ÔÇö") in the "How switching
+  to Cherry Lane Pharmacy works" lead paragraph. Unchanged from every prior pass since
+  2026-08-04/2026-08-11. Tracked under 5.1/Q7, not re-raised.
+- Q36 footer NHS mailbox typo: pharmacy.FA226@mhs.net (should be @nhs.net) observed on
+  ALL FOUR live pages checked this pass (Pharmacy First overview, Shingles, Switch,
+  Weight Loss Clinic) - a stronger and more consistent observation than the seventh
+  pass, which found it absent on the three pages it checked. This is now the fourth
+  distinct state recorded for this fault since 2026-08-07 (present, fixed, present,
+  absent, present again), reinforcing the "unstable between deploys or caches" read from
+  the seventh pass rather than a one-off. Q36 is already answered (fix at next
+  supervised Weebly session, alongside the other 12 unchecked branch footers) but not
+  yet executed; no change made to Q36, this pass's observation appended as a note only.
+- Minor unresolved observation, not chased further this pass: a mojibake character
+  ("├ù", almost certainly a mis-rendered "x" close icon) appears immediately after the
+  "Switch now" prescription-switch banner text on every page read. This matches the
+  shape of the known "switch banner mojibake" already recorded in the 4.15 eighth-pass
+  log entry (run-44's &times; source fix still not repasted) rather than being a new,
+  Cherry-Lane-specific fault. Not independently verified against source bytes this pass
+  (a live fetch of the raw HTML was blocked by the browser tool's cookie/query-string
+  guard); flagged for whoever next reads that estate-wide issue to fold Cherry Lane in
+  as a fourth confirmed branch if it checks out.
+- Weight loss page rechecked for medicine names and superlative claims: none found,
+  same as every prior pass. Correct hedging present ("nothing below is a guarantee of
+  treatment...", "Individual results vary").
+
+No in-repo defect found. No page, pack, generator output or branches.json entry
+changed. No new question raised (Q89 updated on evidence, Q36 not re-raised).

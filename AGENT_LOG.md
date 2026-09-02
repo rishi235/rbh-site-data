@@ -1,3 +1,99 @@
+## 2026-09-02 (unattended scheduled run via Cowork, 08:04 UTC / 09:04 BST) - Item 2.3 quality pass (eighth): Cherry Lane Pharmacy Walton re-verified clean in-repo; live half finds the Q89 Pharmacy First "coming soon" fault now fixed, and the Q36 footer mailbox typo back again on all four pages checked
+
+ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed
+outright again ("Host key verification failed"), the same fetch-level gap
+Q87 and the immediately preceding run's log entry record. Confirmed via
+Windows-MCP PowerShell that C:\Dev\rbh-site-data is the identical working
+copy (HEAD 636e019, matching the sandbox mount and the untracked
+.agent-lock.released-* debris list), already up to date with
+origin/agents/audit-backlog, so all git operations this run were done from
+there. No stale `.git\index.lock` or `HEAD.lock` present (`Get-ChildItem
+.git -Filter *.lock` empty, no git process running). `.agent-lock` created
+08:04:21 UTC via the sandbox bash tool, confirmed visible from the Windows
+side of the same mount.
+
+ANSWER PICKUP (step 3). Single Chrome tab group present, no Q59 ambiguity.
+Fetched https://data.rbhealth.co.uk/api/feedback successfully. All
+returned answers (Q2 through Q52, dated 2026-08-04 to 2026-09-01) already
+match what QUESTIONS.json records as answered, or, for Q37 and Q43, are
+already correctly left open with notes explaining their portal replies
+are requests for clarification rather than decisions. Q52 in particular is
+already recorded "answered" (a prior Cowork session wrote it directly into
+QUESTIONS.json on 2026-09-01, per its own note, because the portal's
+pickup path is broken per Q59). No new answers found for any of the 40
+questions open at run start. QUESTIONS.json otherwise unchanged by this
+step.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at run start. Proceeded normally; no autonomous
+decisions taken this run.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by grep, so the
+quality-pass fallback applied. Rotation order derived exactly as the
+preceding run's log entry predicted: with item 4.15 now freshly touched
+(commit 636e019, 2026-09-02 08:46+01:00), the next stalest of the 36
+in-rotation candidates (1.2, 1.3, 2.1, 2.3, 3.1-3.13, 4.1-4.15, 5.1, 5.2,
+6.2, 6.3, excluding the standing out-of-rotation pool 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) is item 2.3 (Cherry Lane Pharmacy Walton), last touched
+2026-09-01T11:19:28+01:00, confirmed by parsing `git log --pretty=%ad|%s`
+for a word-boundary "N.N" mention per candidate.
+
+WORK DONE. Repo half: all six generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt, `git diff
+--stat modules/` empty afterwards. All 36 tools/check-*.js run
+individually, all exit 0. branches.json fields for cherrylane_liverpool
+spot-checked against the 12-page set (brandLabel/branchName identical so
+no split-brand naming issue applies here; seoTown Walton; phone, odsCode,
+nhsEmail, website, hasApp all match). H1s all carry "in Walton" per the
+family A pattern. One em dash found estate-wide-style in the weight-loss
+page's build comment only, the documented report-only exemption, not a
+defect. FAQ comma-splice style issue (tracked since 2026-08-04, confirmed
+2026-08-30 as living in a shared template) not re-fixed, consistent with
+every prior pass: fails no checker, not queued for its own repaste. No
+in-repo defect found.
+
+Live half (single Chrome tab, no Q59 ambiguity). MAIN FINDING: the
+seventh-pass fault behind Q89 - five of seven Pharmacy First condition
+cards on the overview page rendering "Page coming soon" with no working
+link - is gone. All seven cards now carry "Learn more" links with correct
+hrefs matching the repo's generated filenames, and the previously-broken
+shingles-treatment-cherry-lane-walton.html was spot-checked directly:
+loads 200, correct title and copy, no defects. The repaste Q89
+recommended evidently happened between 2026-09-01 and this run. Q89
+marked "answered" in QUESTIONS.json on this live evidence, following the
+same "treat as closed on the evidence" precedent recorded against Q5 on
+this item's original 2026-08-04 build entry, with a note asking whoever
+did the repaste to record what else went out in the same session since no
+such action was logged here before this pass found it already live.
+Sitemap re-checked (200, 28 URLs, all 12 Cherry Lane pages present). Two
+known live-only faults reconfirmed unchanged: the switch page's SEO title
+is still the pre-Phase-3 string (tracked 3.1/5.1/Q3), and its "How
+switching to Cherry Lane Pharmacy works" paragraph still renders the
+pre-Q7 em dash as visible mojibake. The Q36 footer NHS mailbox typo
+(pharmacy.FA226@mhs.net) is back, and this pass observed it consistently
+on all four pages checked (Pharmacy First overview, Shingles, Switch,
+Weight Loss Clinic) rather than the mixed picture earlier passes found -
+now the fourth distinct state recorded for this fault since 2026-08-07.
+Q36 is already answered (fix at the next supervised Weebly session
+alongside the other twelve unchecked branch footers) and not yet
+executed; noted, not re-raised. A mojibake "x" character on the switch
+banner, seen on every page read, matches the shape of the estate-wide
+switch-banner mojibake already logged on the 4.15 eighth pass, but was not
+independently confirmed against source bytes this run - a raw fetch of
+the page was blocked by the browser tool's own cookie/query-string guard.
+Flagged for whoever next works that issue to fold Cherry Lane in as a
+fourth confirmed branch if it checks out. Weight loss page rechecked for
+medicine names and superlative claims: none found, correct hedging
+present, unchanged from every prior pass.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 2.3, eighth quality-pass entry
+appended), QUESTIONS.json (Q89 marked answered on live evidence, with a
+note), audits/cherry-lane-item-2.3-quality-pass-2026-09-02-eighth.txt
+(new), AGENT_LOG.md (this entry). No page, pack, generator output or
+branches.json entry changed. No new question raised.
+
 ## 2026-09-02 (unattended scheduled run via Cowork, 08:34 BST) - Item 4.15 quality pass (eighth): Tiffenbergs Chemist Aintree GBP pack re-verified clean, live half performed for the first time since 2026-08-30, and the Q56/2026-08-12 "link context unrecorded" gap closed with a confirmed regime 1 weight-loss finding cross-referenced into Q58
 
 ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox again
