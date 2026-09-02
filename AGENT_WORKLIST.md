@@ -3842,6 +3842,39 @@ unrepasted-live-page drift, corrected description only. Not a new
 question; the pack's own Post B note already covers it. No in-repo defect.
 See audits/verify-4.4-2026-09-01.js and
 audits/scorah-bramhall-4.4-pass-2026-09-01.txt.
+Quality pass 2026-09-02 (ninth, unattended scheduled run): clean, with one
+in-repo fix rather than a repeat of the prior eight passes' fact
+re-verification. All 36 checkers re-run against the untouched worktree,
+36/36 pass. Fresh angle: TEMPLATE.md's "Notes for the paster" section
+requires "the date any live state claimed above was last observed, so the
+next reader can tell how old it is", and no checker enforces it. By hand
+against all 15 packs: eleven already carry dated live-state notes, built
+up pass by pass, but scorah-bramhall.md (this item), scorah-hazel-grove.md
+and fishlocks-eccleston.md do not, despite AGENT_WORKLIST.md's own history
+showing the Bramhall 404 re-checked live four times since 2026-08-11. A
+paster reading only the pack, which is what it is drafted for, had no way
+to tell that claim was current rather than three weeks stale. Fixed at
+source for this pack: the profile-website and Post B notes in
+gbp-packs/scorah-bramhall.md now carry today's dated observation. Live
+half, plain HTTP fetch (Claude in Chrome unavailable this run, empty
+list_connected_browsers, same as this morning's 3.11 pass): profile
+website pharmacy-scorah-bramhall.html still 404s, unchanged since
+2026-08-11; Post B switch page resolves (200), NAP matches, but the "How
+switching works" intro still renders the pre-Q7 em dash as mojibake
+(U+00E2 U+20AC U+201D), same family as Gordon Short, SK Chemists Bootle
+and Tiffenberg's packs and AGENT_WORKLIST item 4.3's Cherry Lane/Coleman
+and Leighs finding - live-paste-lag, not a repo defect, source and paste
+sheet both already clean; Posts A, C and D all resolve and read correctly,
+weight loss page names no medicine and carries all three required
+qualifiers, travel clinic page carries its availability hedge, shared PF
+page lists all seven conditions including earache under its NHS clinical
+heading. No new checker rule added this pass (a free-text pattern match
+for "undated live claim" across 15 differently-worded packs risked more
+false positives than value under this run's time budget); flagged as
+worth a properly scoped rule in a future pass. No new question. Full
+36-checker suite re-run clean after the edit; git diff --stat shows
+exactly gbp-packs/scorah-bramhall.md, 16 insertions, 3 deletions. See
+audits/scorah-bramhall-4.4-pass-2026-09-02.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

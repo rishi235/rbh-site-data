@@ -119,15 +119,28 @@ Notes for the paster:
   Scorah profiles do not point at the same page. Paste that landing page to
   Weebly first, along with this branch's service pages, or the profile
   website and the page's own links will 404. See modules/branch/pages/
-  INDEX.md and SEO.md.
+  INDEX.md and SEO.md. Checked live again 2026-09-02: still returns 404,
+  unchanged since first found 2026-08-11 and re-confirmed on every pass
+  since (2026-08-12, 2026-08-31, 2026-09-01). Do not set the profile
+  website until this resolves.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A uses the shared Hazel Grove / Bramhall Pharmacy First page from
   branches.json (pfLink). A branch-specific page
-  (pharmacy-first-scorah-bramhall.html) exists in the repo; swap the link
-  once that page is confirmed live on Weebly.
+  (pharmacy-first-scorah-bramhall.html) exists in the repo, confirmed live
+  (200) again 2026-09-02; swap the link once it is confirmed pasted with
+  the correct trading name and NAP, not just reachable.
 - Check the Post B switch page URL resolves before posting; the switch pages
   were regenerated in Phase 3 and the live Weebly copy may lag the repo.
+  Checked live 2026-09-02: the page resolves (200) and NAP (phone, address,
+  branch name) all match branches.json, but the "How switching works" intro
+  still renders the pre-Q7 em dash as mojibake (U+00E2 U+20AC U+201D, the
+  same three-character double-encoding as elsewhere in the estate) in "it
+  usually is not [mojibake] we make the first step" - the same
+  live-paste-lag family already tracked on Cherry Lane, Coleman and Leighs,
+  Gordon Short and Tiffenberg. Not a repo defect: the module source and the
+  paste sheet both hold a correct, plain em dash, and check-em-dashes.js
+  already reads both clean. Needs a repaste, not a source fix.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker actually offers on the day;
   pick the closest match.

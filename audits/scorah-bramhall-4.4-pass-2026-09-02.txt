@@ -1,0 +1,126 @@
+Item 4.4 quality pass (ninth), 2026-09-02, unattended scheduled run via Cowork.
+Branch: Scorah Chemists Bramhall (scorah_bramhall). Pack: gbp-packs/scorah-bramhall.md.
+
+ENVIRONMENT. This sandbox's own Linux git could not fetch/push (SSH host key
+verification failed, no credentials configured in-sandbox), matching the
+standing gap this repo's log has recorded on every prior run. Confirmed via
+mcp__Windows-MCP__PowerShell against the same mounted working copy
+(git status/log identical branch and HEAD to the sandbox's view) that the
+established working route - running git fetch/checkout/pull/add/commit/push
+from PowerShell on the real host, which does carry working credentials -
+still works. Used it for all git network operations this run.
+
+ROTATION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep, so the quality-pass fallback applied. Rotation order derived
+from git log --pretty=format:'%cI|%s', matching "[Ii]tem N.N" in commit
+subjects, first mention per item, oldest wins, restricted to the 36-item
+rotation pool (43 checked items minus the standing out-of-rotation set 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 4.4 (Scorah Chemists Bramhall)
+last mentioned 2026-09-01T15:12:33+01:00, the stalest of all 36 by a wide
+margin (next-oldest was 2026-09-01T16:18:11+01:00, item 4.1).
+
+FULL CHECKER SUITE. All 36 tools/check-*.js run individually against the
+untouched worktree before any edit: 36/36 exit 0.
+
+REPO HALF - fresh angle. Eight prior passes (2026-08-04 through 2026-09-01)
+had already re-verified this pack's facts against branches.json repeatedly
+(NAP, hours strings derived from openingHours.specification, sister-branch
+sentence, WhatsApp field, PF condition guard, word-number outcome-claim
+guard, 742-character description count, category allowlist) and the four
+post-button targets live on five separate occasions. Rather than repeat an
+eighth independent verifier over the same ground, this pass read
+gbp-packs/TEMPLATE.md's own "Notes for the paster" section closely:
+
+  "Anything else branch-specific the paster would otherwise get wrong, and
+  the date any live state claimed above was last observed, so the next
+  reader can tell how old it is."
+
+Checked whether tools/check-gbp-packs.js enforces this instruction anywhere:
+it does not (grepped for "observed", "last observed", "date.*claim",
+"claimed above" - one unrelated match, a comment about bank holiday dates).
+Checked all 15 packs' "Notes for the paster:" blocks by hand. Most packs
+that make a live-state claim (a page "still 404s", "resolves", "may lag
+the repo" checked on a specific occasion) DO carry an explicit date next to
+it, built up pass by pass: clear-aintree, coleman-leigh-walton,
+fishlocks-ainsdale, gordon-short-crosby, hirshmans-ainsdale,
+mccanns-aigburth, mccanns-sandringham, riddings-timperley,
+sk-chemists-bootle, smartts-bootle and tiffenbergs-aintree all name at
+least one specific date against a live-state claim. Two packs on shared
+domains - scorah-bramhall.md (this item) and scorah-hazel-grove.md
+(item 4.5, out of scope here) - and fishlocks-eccleston.md (item 4.6, also
+out of scope) state the same class of claim ("or the profile website and
+the page's own links will 404", "the live Weebly copy may lag the repo")
+with no date anywhere in the pack itself, despite AGENT_WORKLIST.md's own
+history recording that the Bramhall 404 has been independently re-checked
+live on 2026-08-11, 2026-08-12, 2026-08-31 and 2026-09-01. A paster opening
+only the pack (which is the file TEMPLATE.md says is "ready ... to paste
+into GBP", not AGENT_WORKLIST.md) has no way to tell whether that "will
+404" warning is current or three weeks stale. This is the same shape of
+gap this repo's CLAUDE.md keeps finding: a rule stated in prose with no
+enforcement and no evidence of being read.
+
+Not building a new automated checker rule for this in this pass: the
+existing dated notes across the other 11 packs are free-form prose with no
+consistent structure to pattern-match against without a real risk of false
+positives/negatives across 15 hand-written files with very different
+wording. Flagging this as worth a properly scoped rule in a future pass
+rather than shipping a brittle one under this run's time budget.
+
+LIVE HALF. Claude in Chrome unavailable this run
+(list_connected_browsers returned an empty array, same harder-than-usual
+failure as the 2026-09-02 13:04 UTC pass on item 3.11). Fell back to a
+plain HTTP fetch (curl, from the sandbox, network confirmed reachable) for
+all five URLs the pack depends on:
+
+  https://www.scorah-chemists.co.uk/pharmacy-scorah-bramhall.html               -> 404
+  https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-bramhall.html   -> 200
+  https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html -> 200
+  https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-bramhall.html     -> 200
+  https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html          -> 200
+  https://www.scorah-chemists.co.uk/pharmacy-first-scorah-bramhall.html (branch-specific PF page, referenced in the paster note) -> 200
+
+Profile website (pharmacy-scorah-bramhall.html) still returns 404, unchanged
+since first found 2026-08-11 and re-confirmed on every pass since. Switch
+page (Post B) resolves, NAP (phone 0161 439 3744, address 61-63 North Park
+Road, branch name Bramhall) all match branches.json, but the "How switching
+works" intro still renders the pre-Q7 em dash as mojibake: bytes decode as
+U+00E2 U+20AC U+201D, the same three-character double-encoding pattern
+already tracked on Gordon Short, SK Chemists Bootle and Tiffenberg's own
+packs, and the same live-paste-lag family AGENT_WORKLIST.md's item 4.3 entry
+recorded on Cherry Lane and Coleman and Leighs. Not a repo defect - the
+module source and paste sheet hold a correct plain em dash and
+check-em-dashes.js already reads both clean; this needs a repaste, not a
+source fix. Shared PF page (Post A), weight loss page (Post C) and travel
+clinic page (Post D) all read correctly: phone and "Bramhall" both present
+multiple times on each; weight loss page names no medicine (grepped for
+mounjaro/wegovy/orlistat/saxenda/ozempic/semaglutide/tirzepatide/liraglutide,
+0 matches) and carries all three required qualifiers ("private, paid",
+"not right for everyone" / "not suitable for everyone", "supervised plan");
+travel clinic page carries "subject to availability and clinical
+suitability" five times; the shared PF page lists all seven Pharmacy First
+conditions including earache under its NHS clinical heading "Acute Otitis
+Media (1 to 17 years)", consistent with the rest of the estate's PF pages.
+
+IN-REPO FIX. gbp-packs/scorah-bramhall.md's "Notes for the paster" block
+updated: the profile-website note and the Post B switch-page note both now
+carry today's dated live observation (2026-09-02) with the specific finding
+(404 unchanged; page resolves but em dash renders as mojibake), following
+the same convention already used by the other 11 dated packs. The PF
+branch-specific-page note also picked up a 2026-09-02 confirmation that the
+page is live (200), with a small correction to what "confirmed live" should
+mean going forward - reachable is not the same as correctly pasted, so the
+note now says to confirm the correct trading name and NAP before swapping
+the link, not just that the URL resolves.
+
+Non-ASCII check run against the edited file after the change: 0 characters
+above code point 127 (the mojibake bytes are written out as Unicode code
+points U+00E2 U+20AC U+201D in prose, not as literal characters, so the
+file stays pure ASCII per TEMPLATE.md's own rule and check-em-dashes.js's
+enforcement of it).
+
+Full 36-checker suite re-run after the edit: 36/36 exit 0. git diff --stat:
+exactly one file changed, gbp-packs/scorah-bramhall.md, 16 insertions(+),
+3 deletions(-).
+
+No new question raised. Q43 (the family this pack's live findings already
+belong to) is unchanged and not re-litigated.

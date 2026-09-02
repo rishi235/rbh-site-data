@@ -1,4 +1,83 @@
-## 2026-09-02 (unattended scheduled run via Cowork, 13:04 UTC / 14:04 BST) - Item 3.11 quality pass (eighth): Gordon Short Chemist Crosby booking chain independently verified for the first time on this item, one live-only observation raised as Q93, plus this run's own git/lock housekeeping via the established Windows-MCP PowerShell fallback
+## 2026-09-02 (unattended scheduled run via Cowork, 13:34 UTC / 14:34 BST) - Item 4.4 quality pass (ninth): Scorah Chemists Bramhall pack given a fresh angle instead of an eighth fact re-verification - TEMPLATE.md's undated-live-claim rule found unenforced and unmet on this pack, fixed at source; live half re-confirms the 404 and the mojibake em dash, both unchanged. Commit: 601194f.
+
+ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
+C:\dev\rbh-site-data. No `.agent-lock` present at start; wrote a fresh one
+at 13:34:23Z. No `.git\index.lock` or `.git\HEAD.lock` present. `git
+fetch`/`checkout`/`pull` from this sandbox's own Linux shell failed exactly
+as every prior run: "Host key verification failed" over SSH (HTTPS to
+github.com itself returns 200, confirmed again). Per the established
+working route (item 4.12's eighth pass, item 1.2's ninth pass, item 3.11's
+eighth pass earlier today), all git network operations - fetch, checkout,
+pull, and later add/commit/push - were done via
+`mcp__Windows-MCP__PowerShell` against the identical mounted working copy,
+confirmed to be the same filesystem before relying on it (the lock file
+written from the sandbox was immediately readable from PowerShell with the
+same timestamp). Fetch/pull confirmed already up to date at HEAD 67e7e4f
+before starting work.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array, same as the 13:04 UTC pass on item 3.11 earlier
+today. Per the procedure, no other route tried, no login attempted.
+QUESTIONS.json left exactly as found: 93 total, 40 open, none answered by
+pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this file at the start of the run.
+Proceeded normally.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+`[BLOCKED]` by direct grep, so the quality-pass fallback applied. Rotation
+order derived from `git log --pretty=format:'%cI|%s'`, matching
+`[Ii]tem N.N` in every commit subject, first mention per item, oldest
+wins, over the 36-item rotation pool (43 checked items minus the standing
+out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). All 36 candidates
+found at least once in the log. Item 4.4 (Scorah Chemists Bramhall) was
+stalest, last mentioned 2026-09-01T15:12:33+01:00, well clear of the
+next-oldest (4.1, 2026-09-01T16:18:11+01:00).
+
+WORK DONE. Full detail in audits/scorah-bramhall-4.4-pass-2026-09-02.txt
+and the AGENT_WORKLIST.md entry appended under item 4.4. Summary: all 36
+`tools/check-*.js` checkers run clean against the untouched worktree
+first. Rather than write a ninth independent fact-verifier over ground
+eight prior passes had already covered exhaustively (NAP, hours, PF
+conditions, outcome-claim guard, category allowlist, sister-branch
+sentence, WhatsApp field, 742-character description count), read
+gbp-packs/TEMPLATE.md's "Notes for the paster" section closely and found
+an unenforced instruction: live-state claims in a pack's notes should
+carry the date they were last observed. `tools/check-gbp-packs.js` has no
+rule for this. Checked all 15 packs by hand: 11 already carry dated
+live-state notes; scorah-bramhall.md (this item), scorah-hazel-grove.md
+(item 4.5) and fishlocks-eccleston.md (item 4.6) do not, despite this
+pack's own 404 finding being independently re-checked live four times
+since 2026-08-11. Fixed at source for this pack only (the other two belong
+to different worklist items, out of scope here): the profile-website and
+Post B notes in gbp-packs/scorah-bramhall.md now carry a 2026-09-02 dated
+observation. Live half done by plain HTTP fetch from the sandbox (Claude
+in Chrome unavailable, empty `list_connected_browsers`, same as this
+morning's 3.11 pass): profile website pharmacy-scorah-bramhall.html still
+404s, unchanged since 2026-08-11; Post B switch page resolves with correct
+NAP but still renders the pre-Q7 em dash as mojibake (decoded as U+00E2
+U+20AC U+201D), a live-paste-lag issue already tracked estate-wide, not a
+repo defect; Posts A, C and D and the branch-specific PF page all resolve
+and read correctly, weight loss page names no medicine and carries all
+three required qualifiers, travel clinic page carries its availability
+hedge. Deliberately did not add a new checker rule for the undated-notes
+gap this pass: a free-text pattern match for "undated live claim" across
+15 differently-worded hand-written packs risked more false positives than
+value inside this run's time budget. Flagged in the AGENT_WORKLIST.md
+entry as worth a properly scoped rule in a future pass, not raised as a
+QUESTIONS.json item since it needs no decision from Rishi, only
+engineering time.
+
+FILES CHANGED: gbp-packs/scorah-bramhall.md (16 insertions, 3 deletions),
+AGENT_WORKLIST.md (quality-pass entry appended under item 4.4),
+audits/scorah-bramhall-4.4-pass-2026-09-02.txt (new).
+
+Full 36-checker suite re-run clean after the pack edit. No new question
+raised; QUESTIONS.json untouched by this run's own work (pickup already
+found nothing to apply).
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
 C:\dev\rbh-site-data (same underlying folder as every prior run;
