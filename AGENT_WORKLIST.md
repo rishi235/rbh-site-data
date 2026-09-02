@@ -4304,6 +4304,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       seventh pass's own reading. No in-repo defect found. No new
       question. Evidence:
       audits/mccanns-sandringham-gbp-pack-check-2026-09-01.txt.
+      Quality pass 2026-09-02 (ninth): re-derived the rotation pick the same
+      way as the eighth pass (block-bounded scan of this whole file, not a
+      line-window heuristic); item 3.3 was excluded as freshly completed
+      that morning (08:34 UTC), confirming 4.7 as stalest ahead of 4.2 and
+      the rest of the pool. Every fact re-checked against branches.json:
+      address, phone, review link, hours (both weekday sessions and the
+      split-day paster note), hasApp, catchment order and membership, all
+      four post links. Counts re-measured independently via
+      check-gbp-packs.js --verbose rather than trusted: description 713,
+      posts 463/298/518/425, all exact and unchanged from every prior pass.
+      All six generators rebuilt to a zero-diff worktree (180 pages
+      byte-identical before/after, weebly.html paste template excluded per
+      convention); all 36 checkers exit 0.
+      Three fresh injections proved the guards rather than reciting them,
+      each on a disposable backup restored by plain byte copy and confirmed
+      identical by MD5 before continuing: (1) postcode swapped to sister
+      McCanns Aigburth's L17 7BP - caught by both check-gbp-packs.js (own
+      postcode absent, foreign postcode attributed to the correct sister)
+      and check-postcodes.js's independent FOREIGN rule; (2) the NHS blood
+      pressure cohort widened from "40 and over" to "35 and over" - caught
+      by check-pharmacy-first-eligibility.js rule 9; (3) the review link
+      swapped to sister McCanns Aigburth's - caught by check-gbp-packs.js
+      (own link absent, foreign link attributed to the correct sister),
+      while check-branch-links.js correctly stayed clean since
+      branches.json itself was untouched. All three restored and the full
+      36-checker suite re-run clean each time.
+      Live half performed via Claude in Chrome, plain read-only GET, no
+      login or clicks beyond navigation. All five findings reconfirmed
+      unchanged from the eighth pass: pharmacy-mccanns-sandringham.html
+      still 404 (Q35); the four content pages (Pharmacy First, switch,
+      weight loss, travel clinic) all 200 and in the sitemap, but the
+      Pharmacy First page still serves the unpasted default title and body
+      copy leading with "Sandringham" rather than "St Michael's"; sitemap
+      lastmod unchanged at 2026-08-14T23:05:25Z throughout and the landing
+      page still absent from it. Noted in passing, not new and out of
+      scope for this pack-level item: the live switch page's hero and
+      trust-bar copy still carries the unconditional wording Q49 (answered
+      via portal 2026-09-01) recommends qualifying; check-switch-copy.js's
+      own KNOWN list already tracks this against Q49, so it is not this
+      item's defect to fix. No in-repo defect found this pass. No new
+      question; open question count unchanged at 38 (of 91 total).
+      Evidence: audits/mccanns-sandringham-gbp-pack-quality-pass-2026-09-02.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

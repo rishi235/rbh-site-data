@@ -1,3 +1,113 @@
+## 2026-09-02 (unattended scheduled run via Cowork, 09:04 UTC / 10:04 BST) - Item 4.7 quality pass (ninth): McCanns Chemist Sandringham pack re-verified clean, three fresh injections proved the guards, Q35/Q49 live-lag states reconfirmed unchanged
+
+ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed
+outright again ("Host key verification failed"), the same fetch-level gap
+Q87 and every recent run's log entry record; `git ls-remote` over HTTPS
+confirmed the sandbox's local checkout already matched
+origin/agents/audit-backlog (718e29f) before switching tools, so no data
+was at risk. Used Windows-MCP PowerShell against the real
+C:\Dev\rbh-site-data for fetch/pull and the eventual commit/push, per the
+pattern the 3.3 (eighth) entry above recorded 30 minutes earlier. Pull
+reported "Already up to date." `.agent-lock` created 09:04:30 UTC via the
+sandbox bash tool against the shared mount, confirmed visible from the
+Windows side at 10:04:30 BST; no stale lock or `.git\index.lock` present
+at start. The usual pile of untracked cruft from earlier runs
+(`.agent-lock.released-*`, `.lock-test-file`, `.testfile123.todelete`,
+a stray `C:/` directory, `_agentscratch/`, assorted one-off audit
+scratch files, `open_q.txt`, `qtmp.json`, `scratchtest*.txt`) is still
+present and was left untouched; it predates this run and cleaning it is
+outside this item's scope.
+
+ANSWER PICKUP (step 3). Single Chrome tab group present throughout, no Q59
+ambiguity. Fetched https://data.rbhealth.co.uk/api/feedback successfully.
+Cross-checked all returned answers against the 38 questions open at run
+start (Q37, Q43, Q53-Q54, Q56-Q78, Q80-Q88, Q90-Q91): only Q37 and Q43
+overlap, and both are already correctly left "open" from the previous
+run's pickup (Rishi's portal replies are requests for clarification, not
+decisions selecting one of the listed options; QUESTIONS.json notes
+already record this). No new answers applicable to any open question.
+QUESTIONS.json unchanged by this step.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present at
+the top of this file at run start. Proceeded normally; no autonomous
+decisions taken this run.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by grep, so the
+quality-pass fallback applied again. Rotation candidates: 1.2, 1.3, 2.1,
+2.3, 3.1-3.13, 4.1-4.15, 5.1, 5.2, 6.2, 6.3 (excluding the standing
+out-of-rotation pool 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), ranked by most
+recent commit date carrying a word-boundary "N.N" mention, computed by
+parsing the full git log rather than a line-window heuristic. Item 3.3,
+just completed at 08:34 UTC this morning, is now the freshest and was
+excluded. Item 4.7 (McCanns Chemist Sandringham GBP pack) was stalest at
+2026-09-01T12:16:54+01:00 (eighth pass), ahead of 4.2 and the rest of the
+pool - matching the eighth-pass entry's own note that 4.7 led 4.2 "and the
+rest of the pool" at that time.
+
+WORK DONE - REPO HALF. All six generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from
+branches.json; sha256 of all 180 generated HTML files in
+modules/service/pages, modules/switch/pages (weebly.html paste template
+excluded, same convention as every prior pass) and modules/branch/pages
+taken before and after - byte-identical, zero diff. All 36
+tools/check-*.js run individually, all exit 0.
+
+The pack was re-verified fact by fact against branches.json (address,
+phone, review link, hours including the split-day paster note, hasApp,
+catchment order and membership, all four post links) and count by count
+via `check-gbp-packs.js --verbose` rather than trusted (description 713,
+posts 463/298/518/425, exact and unchanged from every prior pass since
+2026-08-04).
+
+Three fresh injections proved the guards rather than reciting them, each
+on a disposable backup restored by plain byte copy (`Copy-Item` from a
+`C:\Users\Admin\AppData\Local\Temp` copy) and confirmed identical by MD5
+(1FDAB7C3402DB5B18DFCDA0D4BD59BB4) before continuing, full 36-checker
+suite re-run clean after each restore: (1) postcode L17 4JP swapped to
+sister McCanns Aigburth's L17 7BP - caught independently by both
+check-gbp-packs.js (2 failures: own postcode absent, foreign postcode
+present and correctly attributed to the sister branch) and
+check-postcodes.js's FOREIGN rule; (2) the NHS blood pressure cohort
+widened from "adults aged 40 and over" to "adults aged 35 and over" in the
+description - caught by check-pharmacy-first-eligibility.js rule 9 (age 35
+not part of any pinned NHS cohort); (3) the review link swapped to sister
+McCanns Aigburth's (CbMDr1qOLqnrEAE -> CdDj9KyelDVyEAE) - caught by
+check-gbp-packs.js (2 failures: own link absent, foreign link correctly
+attributed to the sister), while check-branch-links.js correctly stayed
+clean since branches.json itself was untouched by this injection. All
+three restored; final `git status --porcelain` on the pack file empty.
+
+Live half performed via Claude in Chrome, plain read-only GET, no login
+and no clicks beyond navigation (two Chrome extensions connected in past
+runs was the historic Q59 blocker; only one tab group was opened and used
+here, so no ambiguity arose). All findings reconfirmed unchanged from the
+eighth pass: pharmacy-mccanns-sandringham.html still 404 (Q35, the pack's
+own paster note already holds the profile-website field back on this);
+the four content pages (Pharmacy First, switch, weight loss, travel
+clinic) all 200 and present in the sitemap; sitemap lastmod unchanged at
+2026-08-14T23:05:25Z throughout and the landing page still absent from it,
+confirming no republish since the eighth pass's own reading; the live
+Pharmacy First page still serves the unpasted default title and body copy
+leading with "Sandringham" rather than "St Michael's". Noted in passing
+and explicitly out of scope for this pack-level item: the live switch
+page's hero and trust-bar copy still carries the unconditional wording
+Q49 (answered via portal 2026-09-01, recommending the hero be qualified)
+addresses; check-switch-copy.js's own KNOWN list already tracks this
+against Q49, so applying that answer belongs to whichever worklist item
+owns the switch-page copy, not to this GBP-pack item.
+
+No in-repo defect found this pass. No new question raised; open question
+count unchanged at 38 (of 91 total).
+Evidence: audits/mccanns-sandringham-gbp-pack-quality-pass-2026-09-02.txt.
+
+WORKLIST AND COMMIT. Appended the ninth-pass paragraph to AGENT_WORKLIST.md
+item 4.7 in place (no line moved, no checkbox state changed - it was
+already `[x]`). Committed AGENT_WORKLIST.md and the new evidence file via
+Windows-MCP PowerShell git, pushed to origin/agents/audit-backlog. Ran
+`node tools/build-audit-status.js` to publish the portal status page. Lock
+released by deleting `.agent-lock` at run end.
 ## 2026-09-02 (unattended scheduled run via Cowork, 08:34 UTC / 09:34 BST) - Item 3.3 quality pass (eighth): Fishlocks Chemist (Ainsdale and Eccleston) re-verified clean on both halves, no in-repo defect, standing Q37 footer set reconfirmed unchanged live
 
 ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed

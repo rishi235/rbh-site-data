@@ -1,0 +1,98 @@
+﻿McCanns Chemist Sandringham GBP pack - quality pass (ninth), 2026-09-02
+Unattended scheduled run via Cowork, ~09:04 UTC / 10:04 BST.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) confirmed [BLOCKED]. Quality-pass fallback applied. Rotation candidates
+(1.2, 1.3, 2.1, 2.3, 3.1-3.13, 4.1-4.15, 5.1, 5.2, 6.2, 6.3, excluding the
+standing out-of-rotation pool 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) ranked by
+most recent commit date carrying a word-boundary "N.N" mention. Item 3.3
+(just completed at 08:34 UTC this morning, eighth pass) excluded from
+rotation as most-recently-touched. Item 4.7 (McCanns Chemist Sandringham
+pack) was stalest, last touched 2026-09-01T12:16:54+01:00 (eighth pass),
+ahead of 4.2 and the rest of the pool.
+
+REPO HALF
+All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from
+branches.json. sha256 of all 180 generated HTML files in modules/service/
+pages, modules/switch/pages (weebly.html paste template excluded, same
+convention as prior passes) and modules/branch/pages taken before and
+after: byte-identical, zero diff.
+
+All 36 tools/check-*.js run individually: all exit 0.
+
+Pack re-verified fact by fact against branches.json: address "1b Aigburth
+Road, Liverpool L17 4JP" matches; phone "0151 727 3076" matches; review
+link https://g.page/r/CbMDr1qOLqnrEAE/review matches; hours match the
+NHS-confirmed spec (09:00-13:00 and 14:00-18:00 Monday-Friday, Saturday and
+Sunday closed) including the split-day paster note; catchment reads "St
+Michael's, Aigburth, Lark Lane and Dingle" in all three places (services
+section, Post A/B copy, notes), leading with the seoTown item 5.7 moved it
+to; hasApp false and no app mention anywhere in the pack; website field
+correct. Counts re-measured independently via check-gbp-packs.js --verbose
+rather than trusted: description 713, posts A=463 B=298 C=518 D=425, all
+exactly matching the pack's own claims, unchanged from every prior pass.
+Post A's seven conditions and the UTI 16-64 range confirmed to match the
+generated Pharmacy First page. Post C names no medicine and makes no
+efficacy claim; no outcome-guarantee wording (checked against
+outcome-promise-patterns.js, added on the sixth pass). No em dash, no
+emoji, pure ASCII confirmed by direct byte read.
+
+THREE FRESH INJECTIONS (guards proved, not recited; each on the live file,
+restored by byte copy from a $env:TEMP backup, MD5 confirmed identical
+before continuing, full 36-checker suite re-run clean after each restore):
+
+1. Postcode L17 4JP -> L17 7BP (sister McCanns Aigburth's postcode).
+   Caught by check-gbp-packs.js (2 failures: own postcode absent, foreign
+   postcode present and attributed to the correct sister branch) AND
+   check-postcodes.js (FOREIGN rule, independently). Restored, hash
+   1FDAB7C3402DB5B18DFCDA0D4BD59BB4 confirmed, 0 failures.
+
+2. NHS blood pressure cohort "adults aged 40 and over" -> "adults aged 35
+   and over" (description line). Caught by
+   check-pharmacy-first-eligibility.js rule 9 (1 failure, age 35 not part
+   of any pinned NHS cohort). Restored, hash confirmed, 0 failures.
+
+3. Review link CbMDr1qOLqnrEAE -> CdDj9KyelDVyEAE (sister McCanns
+   Aigburth's review link). Caught by check-gbp-packs.js (2 failures: own
+   review link absent, foreign review link present and attributed to the
+   correct sister branch). check-branch-links.js correctly stayed clean
+   (it checks branches.json, not the pack, and branches.json was not
+   touched). Restored, hash confirmed, 0 failures.
+
+Final state: git status --porcelain on the pack file empty, all 36
+checkers exit 0, 180-file regeneration still byte-identical.
+
+LIVE HALF (read-only, Claude in Chrome, plain GET, no login, no clicks
+beyond navigation)
+- https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+  still returns 404 (Q35, unchanged, the pack's paster note already holds
+  the profile-website field back on this condition).
+- https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
+  200. Title still the unpasted default "Pharmacy First at McCanns
+  Chemist, Sandringham - MCCANNS PHARMACY" rather than the repo's
+  regenerated St Michael's-led title; visible body copy still leads with
+  "Sandringham" throughout rather than "St Michael's". Unchanged live-lag
+  state recorded on every prior pass, not a new finding.
+- https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html
+  200, in sitemap.
+- https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-sandringham.html
+  200, in sitemap. Post C's live target still names no medicine.
+- https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandringham.html
+  200, in sitemap.
+- sitemap.xml: lastmod on all four content pages still 2026-08-14T23:05:25Z,
+  landing page still absent from it. No republish since the eighth pass's
+  own reading.
+- Noted but not new: the live switch page's hero/trust-bar strings still
+  carry the unconditional "We handle the full switch for you" / "We
+  contact your GP. We handle everything. You do nothing." wording that Q49
+  (answered via portal 2026-09-01, recommending the hero be qualified) has
+  not yet been applied to. Applying Q49 is out of scope for this pack-level
+  item; it belongs to the switch-copy item this repo already tracks it
+  under, and check-switch-copy.js's own KNOWN list already carries the
+  Q49 reference.
+
+RESULT: No in-repo defect found this pass. No new question raised. Open
+question count unchanged at 38 (of 91 total).
