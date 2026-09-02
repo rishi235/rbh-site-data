@@ -1,0 +1,117 @@
+Fishlocks Chemist Ainsdale GBP pack (item 4.1) - quality pass (ninth), 2026-09-02
+Unattended scheduled run via Cowork, ~14:04 UTC / 15:04 BST.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) confirmed [BLOCKED] by direct grep. Quality-pass fallback applied.
+Rotation order derived from git log --pretty=format:'%cI|%s', matching
+"[Ii]tem N.N" in every commit subject, first (most recent) mention per item,
+over the 36-item rotation pool (43 checked items minus the standing
+out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 4.1 (Fishlocks
+Chemist Ainsdale) was stalest, last mentioned 2026-09-01T16:18:11+01:00,
+ahead of 3.2 (2026-09-01T16:40:08+01:00) and the rest of the pool.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__list_connected_browsers
+returned an empty array (no connected Chrome extension this run). Per
+procedure, no other route tried, no login attempted. QUESTIONS.json left
+exactly as found: 93 total, 40 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally.
+
+TOOLING CAVEAT FOUND AND DISCARDED (not a repo defect - recorded so a future
+run does not repeat the mistake). This run's own first attempt at sweeping
+all 36 checkers redirected each checker's stdout to /tmp/out_<name>.txt in
+the Cowork Linux sandbox. /tmp is not writable in this sandbox account, so
+every redirection failed with "Permission denied" and node never ran; the
+text that then appeared under each "tail" call was stale leftover content
+already sitting at those paths from image bake / a prior process, not this
+run's live output. That stale content included what looked like a real
+FAIL from tools/check-gbp-packs.js on gbp-packs/mccanns-sandringham.md (751
+characters, over the 750 GBP limit). Investigated before trusting it:
+git log confirmed neither gbp-packs/mccanns-sandringham.md nor
+tools/check-gbp-packs.js had a single commit after the most recent genuine
+pass on that pack (2026-09-02 09:04 UTC, which itself recorded 0 failures
+and an unchanged working tree), so a real regression between then and now
+was not plausible. Re-ran check-gbp-packs.js standalone with output printed
+directly to the terminal (no /tmp redirection): 0 failures, 17 warnings, all
+already-tracked. Confirmed the fault was in this run's own shell command,
+not the repo. Redid the full sweep writing to
+/sessions/awesome-gracious-gates/scratch/checkrun/ instead: all 36
+tools/check-*.js exit 0, no FAIL or Error string in any of the 36 output
+files (grep -c across all 36 confirms zero).
+
+REPO HALF. All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages, build-contraception-
+pages, build-branch-landing-pages) rebuilt from branches.json. sha256 of
+every *.html and *.md file under modules/ (193 files) taken before and
+after: byte-identical, zero diff. git status --porcelain on modules/,
+status/ and cowork/ empty after rebuild (no new tracked-file drift; the
+generator's own OneDrive paste-pack side-write, which resolves to a
+sandbox-relative path outside modules/, is a pre-existing environment quirk
+unrelated to this item and left untouched).
+
+audits/verify-4.1-2026-08-30.js re-run unmodified: CHECKS=153 DEFECTS=0
+FLAGS=0, identical to the sixth, seventh and eighth passes.
+
+fishlocks_ainsdale entry in branches.json re-read in full and compared field
+by field against gbp-packs/fishlocks-ainsdale.md: name, 17 Station Road,
+Ainsdale PR8 3HN, phone 01704 575478, review link
+https://g.page/r/Cfl0iMf3cgGaEAE/review, hours Monday to Friday 8:45am to
+6:00pm with Saturday and Sunday closed (openingHours.confirmed 2026-06-24,
+unchanged), hasApp true and the app line the pack carries, catchment order
+Ainsdale/Birkdale/Southport, pfLink on Post A, profile website pointed at
+the branch's own landing page rather than the shared homepage, and all five
+widgets (bloodPressure, contraception, pharmacyFirst, weightLoss,
+travelClinic) matching the five NHS/private services the pack's Categories
+and Services sections claim. No "disposed" field on this branch (still
+trading). Nothing in branches.json has moved since the eighth pass.
+
+Independent character counts, written fresh in Python rather than trusted
+from the checker or from prior passes' own numbers (wrapped lines joined on
+whitespace, matching check-gbp-packs.js's method): description 746,
+Post A 448, Post B 385, Post C 402, Post D 313 - exact match to the pack's
+own claimed heading (746) and to every one of the eight prior passes' counts.
+No drift. Confirmed pure ASCII (no character above U+007F), no literal or
+entity em/en dash, and a direct case-insensitive substring scan for
+mounjaro/wegovy/orlistat/semaglutide/tirzepatide/saxenda/liraglutide found
+none, matching Post C's own "no medicines named" drafting.
+
+QUESTIONS.json STATUS CHANGE SINCE THE EIGHTH PASS (2026-09-01), NOTED NOT
+ACTED ON. Q35 (profile-website 404) and Q45 (branches.json served from
+@main at runtime) are now both "answered" - Q35 recommends pasting the six
+outstanding branch landing pages as a dedicated Weebly job, Q45 recommends
+merging agents/audit-backlog to main. Neither answer produces an in-repo
+change for this item: Q35's action is a Weebly paste only Rishi or Dane can
+perform, and Q45's action is a merge to main, which this unattended worker
+is hard-barred from ever doing. Recorded here so the next pass on this item
+knows both are decided and waiting on human action, not still open
+questions. Q91 (shared fishlockpharmacy.co.uk footer misspelling "Fishlock
+Pharmacy"/"Fishlock Chemist", raised on the eighth pass) remains open,
+unchanged; it is hand-built Weebly footer content outside anything this
+repo generates, so it carries no in-repo fix and was not re-added to.
+
+LIVE HALF: NOT PERFORMED THIS PASS. Two routes tried, both blocked, neither
+retried by any other means (per the hard rule against routing around a
+blocked fetch): (1) mcp__claude-in-chrome__list_connected_browsers returned
+an empty array, same as answer pickup above; (2) the built-in browser pane
+(mcp__Claude_Browser__preview_start) was denied navigation to
+https://www.fishlockspharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+outright - "navigation ... was denied or failed" - consistent with the same
+class of blocker the item 4.2 ninth pass hit on cherrylanepharmacy.co.uk on
+its own unattended run (no user present to grant site access). A plain
+mcp__workspace__web_fetch call was also attempted and refused by that tool's
+own provenance gate ("URL not in provenance set"), which is a tool-safety
+restriction rather than a content restriction, so per the standing rule
+against working around a blocked web fetch, no bash/curl/Node-fetch
+alternative was used to reach it. Live state for this item therefore stands
+as last recorded on the eighth pass (2026-09-01): profile-website landing
+page 404 (Q35, now answered but not yet actioned), switch page mojibake em
+dash live (Q45/Q13 paste-lag, now answered but not yet actioned), and the
+shared-footer brand misspelling (Q91, open, no in-repo fix possible).
+
+RESULT: No in-repo defect found this pass. No page, generator or
+branches.json field changed. No new question raised (Q35/Q45's status
+change is a note, not a new question). Open question count unchanged at 40
+of 93 total (pickup found nothing to apply this run).

@@ -1,4 +1,134 @@
-## 2026-09-02 (unattended scheduled run via Cowork, 13:34 UTC / 14:34 BST) - Item 4.4 quality pass (ninth): Scorah Chemists Bramhall pack given a fresh angle instead of an eighth fact re-verification - TEMPLATE.md's undated-live-claim rule found unenforced and unmet on this pack, fixed at source; live half re-confirms the 404 and the mojibake em dash, both unchanged. Commit: cc3c9fc (this line necessarily approximate - amending a commit changes its own hash, so this note is corrected in an addendum below if it ever drifts again; cc3c9fc is the hash immediately after this line was written and before push).
+## 2026-09-02 (unattended scheduled run via Cowork, 14:04 UTC / 15:04 BST) - Item 4.1 quality pass (ninth): Fishlocks Chemist Ainsdale pack re-verified clean (36 checkers, byte-identical rebuild, independent verifier CHECKS=153 DEFECTS=0 FLAGS=0, independent Python re-count of description/posts exact); this run's own checker sweep first threw a false FAIL from a stale /tmp file caused by this sandbox's /tmp being read-only, investigated and discarded as tooling noise, not a repo defect; Q35 and Q45 noted as newly answered but requiring human/out-of-scope action, not an in-repo change; live half not performed, no browser route available this run. Commit: (recorded in the addendum below once pushed).
+
+ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
+C:\dev\rbh-site-data, cross-checked against the canonical path via
+mcp__Windows-MCP__PowerShell to confirm both tools see the same filesystem
+(a fresh .agent-lock written from the Linux side was immediately readable
+with the same timestamp from PowerShell). No `.agent-lock` present at start;
+wrote a fresh one at 14:04:36Z. No `.git\index.lock` present. `git fetch` /
+`checkout` / `pull` from the Linux sandbox's own shell failed exactly as
+every prior run: "Host key verification failed" over SSH. Per the
+established working route (recorded on multiple prior passes, e.g. items
+4.12, 1.2, 3.11), the same git operations were re-run via
+`mcp__Windows-MCP__PowerShell` against the identical mounted working copy:
+already up to date with origin/agents/audit-backlog, no fast-forward
+needed.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array. Per procedure, no other route tried, no login
+attempted. QUESTIONS.json left exactly as found: 93 total, 40 open, none
+answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Proceeded
+normally.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+`[BLOCKED]` by direct grep, so the quality-pass fallback applied. Rotation
+order derived from `git log --pretty=format:'%cI|%s'`, matching
+`[Ii]tem N.N` (case-insensitive) in every commit subject, first (most
+recent) mention per item, over the 36-item rotation pool (43 checked items
+minus the standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Item 4.1 (Fishlocks Chemist Ainsdale) was stalest, last mentioned
+2026-09-01T16:18:11+01:00, just ahead of 3.2 (2026-09-01T16:40:08+01:00)
+and the rest of the pool, confirmed by a fresh Python computation over the
+full commit history rather than trusting AGENT_WORKLIST.md's own date text.
+
+WORK DONE. Full detail in audits/fishlocks-ainsdale-4.1-pass-2026-09-02.txt
+and the AGENT_WORKLIST.md entry appended under item 4.1 (ninth pass).
+Summary: this item has had eight prior quality passes, all exhaustive, so
+the goal this pass was independent re-verification plus a genuine tooling
+correction rather than a ninth repetition of the same fact-check narrative.
+
+TOOLING FALSE ALARM, FOUND AND CLEARED BEFORE IT COULD MISLEAD THE RUN.
+The first attempt at running all 36 tools/check-*.js redirected each
+checker's output to /tmp/out_<name>.txt inside the Cowork Linux sandbox.
+/tmp is not writable by this sandbox account (confirmed separately: writing
+git log output to /tmp/gitlog.txt also failed with Permission denied), so
+every `node checker.js > /tmp/out_X.txt 2>&1` redirection failed before
+node ever ran, and the subsequent `tail` calls printed stale content
+already sitting at those paths (image bake or a prior process), not this
+run's actual output. That stale content included what read as a genuine
+FAIL from tools/check-gbp-packs.js against gbp-packs/mccanns-sandringham.md
+("business description is 751 characters, over the 750 GBP limit"), a pack
+belonging to a different item (4.7). Rather than report this as a new
+defect on the strength of one misleading command, it was checked: git log
+showed no commit to either gbp-packs/mccanns-sandringham.md or
+tools/check-gbp-packs.js since the genuine item 4.7 pass earlier the same
+day (2026-09-02 09:04 UTC), which itself recorded 0 failures and an
+unchanged working tree, so a real regression in the gap between the two
+runs was not plausible. Re-ran check-gbp-packs.js standalone with output
+printed straight to the terminal: 0 failures, 17 pre-existing warnings, all
+already tracked. Redid the full 36-checker sweep writing to
+/sessions/awesome-gracious-gates/scratch/checkrun/ (a writable path)
+instead: all 36 exit 0, and a grep across all 36 output files for
+"FAIL"/"Error"/"error" returns nothing. This is recorded here as a caveat
+for future unattended runs in this same environment - /tmp redirections
+can silently fail and leave stale content behind - not as a repo defect,
+since nothing in rbh-site-data was ever wrong.
+
+REPO HALF. All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages, build-contraception-
+pages, build-branch-landing-pages) rebuilt from branches.json. sha256 of
+every *.html and *.md file under modules/ (193 files) taken before and
+after: byte-identical, zero diff. git status --porcelain on modules/,
+status/ and cowork/ empty after rebuild.
+
+audits/verify-4.1-2026-08-30.js re-run unmodified: CHECKS=153 DEFECTS=0
+FLAGS=0, identical to the sixth, seventh and eighth passes. The
+fishlocks_ainsdale entry in branches.json was re-read in full (not diffed
+against a cached copy) and compared field by field against
+gbp-packs/fishlocks-ainsdale.md: address, phone, hours (confirmed
+2026-06-24, unchanged), review link, hasApp, catchment order, pfLink,
+profile website, and all five widgets against the five services the pack
+claims - clean, nothing has moved since the eighth pass. Independent
+Python re-count (wrapped lines joined on whitespace, matching
+check-gbp-packs.js's own method) confirms description 746 and posts
+448/385/402/313 exactly, matching every one of the eight prior passes'
+numbers; pure ASCII confirmed (no character above U+007F); no literal or
+entity em/en dash; a case-insensitive scan for
+mounjaro/wegovy/orlistat/semaglutide/tirzepatide/saxenda/liraglutide found
+none.
+
+QUESTIONS.json STATUS NOTED, NOT ACTED ON. Q35 (profile-website 404) and
+Q45 (branches.json served from @main at runtime) have both moved to
+"answered" since the eighth pass on 2026-09-01: Q35 recommends pasting the
+six outstanding branch landing pages as a dedicated Weebly job; Q45
+recommends merging agents/audit-backlog to main. Neither answer produces
+an in-repo change for this item - Q35's action needs Rishi or Dane in
+Weebly, and Q45's action is a merge to main, which this unattended worker
+is hard-barred from ever performing regardless of any answer on record.
+Noted here so the next pass on this item knows both are decided and
+waiting on human action rather than still-open questions. Q91 (shared
+fishlockpharmacy.co.uk footer misspelling, raised on the eighth pass)
+remains open and unchanged; still no in-repo fix available since it is
+hand-built Weebly footer content this repo does not generate.
+
+LIVE HALF: NOT PERFORMED THIS PASS. Two routes tried, both blocked, neither
+worked around: `mcp__claude-in-chrome__list_connected_browsers` returned an
+empty array (same as the answer-pickup check above), and the built-in
+browser pane denied navigation outright to
+https://www.fishlockspharmacy.co.uk/pharmacy-fishlocks-ainsdale.html on
+this unattended run (no user present to grant site access), the same class
+of blocker the item 4.2 ninth pass hit on cherrylanepharmacy.co.uk.
+`mcp__workspace__web_fetch` was also tried and refused the URL under its
+own provenance gate ("URL not in provenance set"); per the standing
+instruction not to route around a blocked fetch tool via bash/curl/Node,
+no alternative fetch was attempted. Live state for this item stands as
+last recorded on the eighth pass (2026-09-01): profile-website landing page
+404 (Q35, now answered but not yet actioned), switch page mojibake em dash
+live (Q45/Q13 paste-lag, now answered but not yet actioned), and the
+shared-footer brand misspelling (Q91, open, no in-repo fix possible).
+
+FILES CHANGED: AGENT_WORKLIST.md (quality-pass entry appended under item
+4.1), audits/fishlocks-ainsdale-4.1-pass-2026-09-02.txt (new). No pack, page,
+generator or branches.json field edited - nothing needed changing.
+
+RESULT: No in-repo defect found. No new question raised (the Q35/Q45 status
+note is not a new question). Open question count unchanged at 40 of 93
+total (pickup found nothing to apply this run).
+
+ Scorah Chemists Bramhall pack given a fresh angle instead of an eighth fact re-verification - TEMPLATE.md's undated-live-claim rule found unenforced and unmet on this pack, fixed at source; live half re-confirms the 404 and the mojibake em dash, both unchanged. Commit: cc3c9fc (this line necessarily approximate - amending a commit changes its own hash, so this note is corrected in an addendum below if it ever drifts again; cc3c9fc is the hash immediately after this line was written and before push).
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
 C:\dev\rbh-site-data. No `.agent-lock` present at start; wrote a fresh one

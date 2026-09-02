@@ -3332,6 +3332,30 @@ Pharmacy First wording to the NHS service description.
       Q91. No page, generator or branches.json field changed this pass.
       See audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt and
       audits/verify-4.1-2026-09-01-output.txt. Done 2026-09-01
+      Quality pass 2026-09-02 (ninth, unattended run): all 36 checkers
+      re-run clean (redone via a writable output path after this run's own
+      first sweep gave a false FAIL from a stale /tmp file, see the audit
+      note); all six generators rebuild byte-identical across all 193
+      modules/ files; audits/verify-4.1-2026-08-30.js re-run unmodified,
+      CHECKS=153 DEFECTS=0 FLAGS=0, unchanged since the sixth pass. Pack
+      re-checked field by field against the current fishlocks_ainsdale
+      entry in branches.json: clean, nothing has moved since the eighth
+      pass. Independent Python re-count confirms description 746 and posts
+      448/385/402/313 exactly, pure ASCII, no dash, no medicine name.
+      QUESTIONS.json: Q35 and Q45 have both moved to "answered" since the
+      eighth pass (paste the six landing pages; merge agents/audit-backlog
+      to main) but neither answer yields an in-repo change here - both
+      actions are outside this worker's permitted scope - noted for the
+      next pass rather than acted on. Q91 remains open, unchanged, still no
+      repo-side fix available. LIVE HALF NOT PERFORMED: Claude in Chrome
+      had no connected browser, the built-in browser pane denied
+      navigation outright on this unattended run (no user present to grant
+      site access), and mcp__workspace__web_fetch refused the URL on its
+      own provenance gate; per the standing rule against working around a
+      blocked fetch, no bash/curl alternative was used. Live state stands
+      as last recorded on the eighth pass. No in-repo defect found, no
+      fix needed, no new question. See
+      audits/fishlocks-ainsdale-4.1-pass-2026-09-02.txt. Done 2026-09-02
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
