@@ -1,3 +1,100 @@
+## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.9 quality pass (eighth): Clear Chemist Aintree GBP pack re-verified clean, no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data. No `.agent-lock` present at start; created at run
+start (07:35 BST). A pre-existing `.git\index.lock`, about 24 minutes old
+at run start with no git process running in this sandbox (`ps aux`
+checked), was left alone rather than deleted, since the procedure's
+1-hour staleness threshold had not been reached. The local branch was
+already 9 commits ahead of `origin/agents/audit-backlog` at run start,
+consistent with the standing Q87 push gap recorded below.
+
+ANSWER PICKUP (step 3). `tabs_context_mcp` reported Claude in Chrome "not
+connected". No fetch attempted against a login wall, per the procedure -
+read-only and never a login attempt. QUESTIONS.json left exactly as
+found: 40 open of 91 total (none newly answered this run).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading at the top of this file at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by direct grep, so the
+quality-pass fallback was taken. Rotation order derived the established
+way: parsed `git log --pretty='%ad|%s'` for a `item N.N`-shaped mention
+per candidate item id among the 43 checked worklist items, excluding the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item
+4.9 (Clear Chemist Aintree GBP pack) was the oldest, last touched
+2026-09-01 07:15:30 (seventh pass), over 24 hours before this run and
+the stalest of all 36 candidates.
+
+WORK DONE. Read gbp-packs/clear-aintree.md in full and re-verified every
+fact against branches.json's clearchemist_aintree record: name (Clear
+Chemist), address (Unit 20 Brookfield Trade Centre, Brookfield Drive,
+Aintree, Liverpool L9 7AS), phone (0151 203 6535, per Q28), website
+(https://www.clearchemist.co.uk), review link, serviceAreaList (Aintree,
+Fazakerley, Walton, Bootle, North Liverpool), hasApp (true, consistent
+with the pack's app mentions), the absence of pfLink/pfBooking/Pharmacy
+First widgets (correctly reflected as "no Pharmacy First post" and Post
+A standing in as a local team post instead), and the two widgets held
+(weightLoss, travelClinic) matching Posts C and D. Hours remain absent
+from branches.json, and the pack correctly still says not to paste or
+invent them.
+
+All 36 checkers run individually against the untouched repo: 36/36 exit
+0. The only mention of this pack in any checker's output is the
+pre-existing WARN from check-gbp-packs.js - "phone-like number 0151 203
+8365 is not Clear Chemist's number in branches.json" - which is the
+pack's own dated narrative line at paragraph 1 recording the Q28 change
+from 8365 to 6535, not a paste value, and has been confirmed as
+deliberate and unchanged on the sixth, seventh and (via the item 3.13
+pass) eighth prior checks of this fact.
+
+Checked what had changed since the seventh pass (2026-09-01 07:15:30)
+that could plausibly touch this pack: four commits landed since, none
+specific to Clear or Aintree - `bf55653` (item 1.2, eighth pass) and
+`5b99d26` (item 4.8, ninth pass) made the address-line and post-town
+rules in check-gbp-packs.js abbreviation-aware (Road/Rd, Street/St etc.);
+`47b02bf` (item 1.3, ninth pass) made check-postcodes.js match `&nbsp;`
+case-insensitively; `d288ac6` (item 4.13, eighth pass) hardened the
+POST_INSTRUCTION marker regex against leading whitespace. None apply
+here: this pack's address uses no abbreviated road-type words, carries no
+`&nbsp;` entities (checked directly, zero matches), and its post
+instructions are formatted consistently with the hardened marker. Q21
+(WhatsApp field moved into branches.json), Q28 (phone number) and Q29
+(no Weebly paste route for Clear's three generated pages) all remain
+answered and unchanged; Q65 (the separate live-copy finding about
+walk-in and collection claims on Clear's three generated pages, raised on
+the item 3.13 pass) remains open but sits against item 3.13, not this
+pack, and does not block 4.9.
+
+`branches.json`'s `bankHolidays` block (added 2026-08-27, `lastUpdated`
+2026-09-01) is intact and the pack's bank-holiday paragraph still reads
+the dates from branches.json at paste time rather than retyping them, so
+no drift there either.
+
+LIVE-SIDE CHECK. Not performed. Claude in Chrome reported not connected
+at the start of this run (see Answer Pickup above), so the live GBP
+listing and the three generated Clear pages could not be re-read this
+pass. All previously recorded live findings (Post B/C/D button 404s,
+Clear's non-Weebly publish gap per Q29, and the open Q65 walk-in
+wording) stand unconfirmed-but-unchanged.
+
+OUTCOME. No in-repo defect found. No new question raised. Zero repo
+changes this run beyond this log entry.
+
+GIT. `git add AGENT_LOG.md`, committed locally. `git push origin
+agents/audit-backlog` is expected to fail with "Host key verification
+failed" - no `~/.ssh` directory exists in this sandbox, the standing
+infrastructure gap tracked informally as Q87 across dozens of prior
+runs. `node tools/build-audit-status.js` is expected to fail similarly
+(hardcoded Windows path, cannot resolve from this Linux sandbox mount).
+Both attempted regardless, per the procedure, and results recorded
+immediately below this entry once known. `.agent-lock` released at the
+end of the run by rename to `.agent-lock.released-<epoch>`, matching the
+long-standing convention (plain `rm`/`unlink` fails "Operation not
+permitted" in this sandbox against files synced from the Windows host).
+
 ## 2026-09-02 (later) - Log addendum: item 4.10 seventh-pass commit outcome and lock handling
 
 Commit landed as `2797df7`. At commit time `.git\index.lock` (already
