@@ -1,4 +1,140 @@
-## 2026-09-02 (unattended scheduled run via Cowork, following the 3.12 fifth-pass run) - Item 3.6 quality pass (eighth): McCanns Chemist (Aigburth and Sandringham) re-verified clean on both halves; own verification script found to mis-handle branch landing pages as a distinct page type and corrected; two fresh fault injections caught, restored, re-proved clean
+## 2026-09-02 (unattended scheduled run via Cowork, following the 3.6 eighth-pass run) - Item 3.8 quality pass (seventh): SK Chemists Bootle re-verified clean, repo half only; own verification script's map-embed regex found wrong on first run and fixed; two fresh fault injections caught by both the independent script and the official checkers, restored byte-identical
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers and generators (git,
+node v22.23.2 both confirmed working against the live mount), plus
+Windows-MCP PowerShell for the actual git fetch/checkout/pull/push against
+C:\Dev\rbh-site-data on the real machine, the same split recorded by many
+prior runs (Q87) - the sandbox itself has no SSH key, no gh CLI and no
+https credential for git@github.com:rishi235/rbh-site-data.git, confirmed
+by a failed `git fetch` (Host key verification failed) before falling back
+to the established split. Windows-MCP PowerShell's own `git fetch origin`,
+`git checkout agents/audit-backlog` and `git pull --ff-only` all reported
+already up to date with origin at ce031dd, matching the sandbox mount's own
+git log. `.agent-lock` absent at start (only the long-standing litter of
+stale `.agent-lock.released-*` files and other scratch/test artefacts from
+earlier runs, left untouched as they are outside this run's scope); lock
+created via the sandbox bash mount before any repo work began (same file,
+same filesystem, confirmed readable afterwards from the Windows side via
+Windows-MCP). No `.git\index.lock` present.
+
+ANSWER PICKUP (step 3). Claude in Chrome tools were loaded and
+`tabs_context_mcp` was called first, as required before any other browser
+tool: it reported the extension not connected. Logged as unavailable per
+the unattended-run rule; no alternative route, login or retry attempted.
+Matches the standing Q59 diagnosis already open. QUESTIONS.json left
+exactly as found; none of the open questions block this item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run (checked before writing this entry). Proceeded normally; no
+autonomous decisions taken, and no new question was needed this pass in
+any case.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, and the three under 6.4/6.5/6.6) confirmed [BLOCKED] by a direct
+grep of AGENT_WORKLIST.md, so the quality-pass branch was taken. Re-derived
+the least-recently-verified item using the same method the 3.6 eighth-pass
+run recorded: bind each top-level item's own paragraph (its own
+"- [x]"/"- [ ]" start line to the next top-level item's start line), take
+the maximum date found inside that block, exclude the seven items outside
+the standard rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked lines, and break ties by counting "quality pass" mentions
+within each item's own block, then by ascending item number. Every
+in-pool item's last-touched date was 2026-09-01 except four already
+touched today by this run's four immediate predecessors (3.12, 4.13, 5.1,
+3.6), which dropped out of the tied-lowest group as most-, not
+least-, recently verified. 3.8 and 6.3 tied lowest at 5 own-block
+mentions each (3.6 had also been in that tied group before today's pass
+moved it out). Broke the tie by ascending item number: 3.8 selected for
+this run's seventh pass.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually before any
+change: 36 of 36 exit 0. All six generators (branch landing, contraception,
+service, switch, travel clinic, weight loss) rebuilt; sha256 of all 203
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages taken before and after: byte-identical throughout;
+`git status --porcelain modules/ branches.json gbp-packs/ tools/` empty
+both before and after.
+
+Fresh independent instrument audits/verify-3.8-2026-09-02.js written for
+this pass (own regexes throughout, imports nothing from tools/, follows the
+same template as the item's prior six passes): globs all 12 SK Chemists
+Bootle pages (11 service-family pages plus the switch page; this branch is
+not a shared-domain pair so carries no branch landing page), and for each
+checks the H1's own seoTown, own phone in both display and tel: form with
+no other trading branch's digits present anywhere, own postcode only, no
+other branch's ODS code, the JSON-LD block (type, name, address field by
+field, telephone), the map embed's decoded address, data-wa against the
+estate WhatsApp constant, no foreign seoTown outside serviceAreaList
+(Bootle, Sefton, Liverpool), no other branch's brandLabel in visible copy,
+no http:// links, and no hero/H1 copy present only inside a <script> block.
+
+SCRIPT-DESIGN FINDING, not a page defect. First run: 984 checks, 12
+failures, all twelve false positives of the script's own design. Every one
+of the 12 pages was flagged MAP_COUNT ("expected exactly 1 maps embed
+query, found 0"): the regex assumed the page composed the map URL as
+"/maps/embed?...q=...", but a direct grep against
+uti-treatment-sk-chemists-bootle.html showed the real shape is
+"https://www.google.com/maps?q=<address>&output=embed" - q= is the first
+query parameter after "maps?", not a parameter inside a "/maps/embed?"
+path, so the regex's assumed separator before "q=" never matched anything.
+Fixed by matching the iframe src wholesale and testing for the q= and
+output=embed query parameters independently rather than assuming their
+order or the URL's path shape. Re-run clean: 996 checks (the fix also
+surfaced 12 additional address-decode comparisons the broken regex had
+never reached), 0 flags. Same shape as several prior passes' own extractor
+bugs (item 3.6's JSON-LD "name" assertion, item 3.13's vacuity-probe
+faults, item 3.8's own sixth-pass parser fixes) - a fresh independent
+script is unproven until it has been shown wrong at least once and fixed,
+held again here.
+
+INJECTION PROOF. Two distinct faults planted on
+weight-loss-clinic-sk-chemists-bootle.html, a page type this item's prior
+passes have already used for injection (chosen for its regulatory
+sensitivity rather than novelty this run, given the script-design finding
+above already exercised a different, genuine gap): the H1's town changed
+from "Bootle" to "Aigburth" (McCanns Aigburth's seoTown, not in SK's own
+serviceAreaList), and data-wa corrupted from the estate constant
+447521775631 to a non-estate number. Both caught immediately: the
+independent script flagged H1_TOWN, FOREIGN_SEOTOWN and DATA_WA (3 flags,
+996 checks); tools/check-seo-pattern.js flagged the H1 mismatch, the
+missing seoTown and the unexcused foreign town by name; tools/check-
+whatsapp-route.js flagged the data-wa disagreement by exact value. Full
+36-checker suite run with the faults in place: 2 of 36 failed
+(check-seo-pattern.js, check-whatsapp-route.js), the other 34 correctly
+silent since neither injection touched what they guard. File restored from
+a pre-injection copy and confirmed byte-identical by sha256 (matching the
+pre-injection hash exactly) and by cmp (no output, meaning identical).
+Full 36-checker suite and the independent script both re-run clean
+afterward: 36/36 checkers exit 0, independent script 996 checks, 0 flags.
+
+GBP pack (gbp-packs/sk-chemists-bootle.md) cross-checked field by field
+against branches.json: name, address, phone, hours (Monday to Friday
+9:00am to 6:00pm, Saturday and Sunday closed matches openingHours.
+specification and closedDays), website and review link all match. Post
+A/B/C/D links, the Smartts-Bootle wording-divergence note (kept
+deliberately different so Google does not see duplicate text across the
+two Bootle profiles), the weight-loss Post C destination warning and the
+bank-holiday special-hours guidance are all present and unchanged from the
+sixth pass. No app mention, correctly (hasApp false for this branch).
+
+ZERO IN-REPO DEFECTS, seventh pass running. LIVE HALF NOT PERFORMED:
+Claude in Chrome not connected this run (checked once via
+tabs_context_mcp, matching Q59); logged as unavailable, not retried by
+another route. The sixth pass's two live-only findings (pfLink page
+pre-5.3/Q34 repaste, switch page pre-Q7/5.1 mojibake em dash) were not
+re-confirmed this run and should not be assumed unchanged. No new question
+raised. Evidence in audits/verify-3.8-2026-09-02.js.
+
+WORKLIST AND STATUS PAGE. AGENT_WORKLIST.md item 3.8 updated in place with
+this pass's write-up (block, not moved). QUESTIONS.json unchanged (no
+pickup available, no new question). Committed and pushed to
+origin/agents/audit-backlog via Windows-MCP PowerShell (git add, commit,
+push from C:\Dev\rbh-site-data), then tools/build-audit-status.js run via
+Windows-MCP PowerShell to publish the status page. .agent-lock deleted
+before exit.
+
 
 ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
 C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus

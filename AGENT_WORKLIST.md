@@ -2049,6 +2049,52 @@ Done 2026-09-01 (seventh pass).
       new question raised. Evidence in
       audits/sk-bootle-item-3.8-quality-pass-2026-09-01.txt and
       audits/verify-3.8-2026-09-01.js.
+      Quality pass 2026-09-02 (seventh, unattended scheduled run). Taken
+      because all 8 unchecked worklist lines are [BLOCKED]; item-selection
+      method unchanged from the sixth pass (per-item block max date, "quality
+      pass" mentions within that block as tie-break, ascending item number as
+      final tie-break). 3.6 (touched earlier today by an immediately
+      preceding run) dropped out of the tied-lowest group, leaving 3.8 and
+      6.3 tied at 5 own-block mentions; 3.8 selected as the lower number.
+      REPO HALF. All 36 checkers pass before any change. All six generators
+      rebuilt; sha256 of all 203 files under modules/service/pages,
+      modules/switch/pages and modules/branch/pages identical before and
+      after; git status empty on modules/, branches.json, gbp-packs/ and
+      tools/ both before and after. Fresh independent extraction sharing no
+      code with tools/ (audits/verify-3.8-2026-09-02.js): 12 files, 996
+      checks, 0 flags on the clean run - one H1 per page naming Bootle, own
+      phone in both display and tel: shapes with no other live branch's
+      digits present anywhere, own postcode only, JSON-LD matching
+      branches.json field by field, map query decoding to the branch's own
+      address, data-wa carrying the estate constant, no foreign seoTown
+      outside serviceAreaList (Bootle, Sefton, Liverpool), no other
+      brandLabel in visible copy. The script's own first run flagged all 12
+      pages on MAP_COUNT: its map-embed regex assumed the
+      "/maps/embed?...q=" shape used by the write-up's own prose, but the
+      live markup is "/maps?q=...&output=embed" (confirmed by grep against
+      uti-treatment-sk-chemists-bootle.html); fixed by matching the iframe
+      src wholesale and testing for q= and output=embed as separate query
+      parameters, same shape as several prior passes' own extractor bugs.
+      Guard re-proved by injection, not just read: two distinct faults
+      planted on weight-loss-clinic-sk-chemists-bootle.html (H1 town changed
+      Bootle to Aigburth; data-wa corrupted to a non-estate number), caught
+      by the independent script (H1_TOWN, FOREIGN_SEOTOWN, DATA_WA) and by
+      the official checkers (check-seo-pattern.js: h1 mismatch, missing
+      seoTown, names Aigburth outside serviceAreaList; check-whatsapp-route.js:
+      data-wa disagreement), file restored and confirmed byte-identical by
+      sha256 and cmp, all 36 checkers and the independent script re-run
+      clean (996 checks, 0 flags). GBP pack cross-checked field by field
+      against branches.json (name, address, phone, hours, website, review
+      link): matches; Post A/B/C/D links, Smartts-Bootle wording-divergence
+      note and bank holiday guidance unchanged and correctly still present.
+      ZERO IN-REPO DEFECTS, seventh pass running. LIVE HALF NOT PERFORMED:
+      Claude in Chrome reported not connected at the start of this run
+      (tabs_context_mcp), matching the standing Q59 diagnosis; logged as
+      unavailable, not retried by another route per the unattended-run rule.
+      The sixth pass's two live-only findings (pfLink page pre-5.3/Q34
+      repaste, switch page pre-Q7/5.1 mojibake em dash) were not re-confirmed
+      and should not be assumed unchanged. No new question raised. Evidence
+      in audits/verify-3.8-2026-09-02.js.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
