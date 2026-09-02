@@ -1,4 +1,130 @@
-## 2026-09-02 (later still) - Log correction: the item 1.3 ninth-pass entry below understated the lock handling; index.lock and HEAD.lock both had to be renamed aside to commit, not left alone
+## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.8 quality pass (ninth): Fishlocks Chemist Eccleston GBP pack re-verified clean; check-gbp-packs.js's address-line and post-town rules were not abbreviation-aware, unlike their sibling rules since the item 1.2 eighth pass - fixed in the checker, proved by injection
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data. No `.agent-lock` present at start; created 05:05 UTC. A
+pre-existing `.git\index.lock`, about 17-20 minutes old (well under the
+1-hour staleness threshold in the procedure) with no git process running in
+this sandbox (`ps aux` checked), left alone at the start per the time rule -
+same finding as several immediately preceding runs. `git fetch origin
+agents/audit-backlog` and a direct `ssh -T git@github.com` both failed with
+"Host key verification failed" - no SSH key material in this sandbox, the
+same standing infrastructure gap recorded against Q87 on every recent run.
+Proceeded on the local branch, already 5 commits ahead of
+origin/agents/audit-backlog at run start.
+
+ANSWER PICKUP (step 3). `tabs_context_mcp` reported Claude in Chrome "not
+connected". No fetch attempted against a login wall, per the procedure - the
+browser step is read-only and must never attempt to log in. QUESTIONS.json
+left exactly as found: 40 open of 91 total.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading at the top of this file at the start of the run. Proceeded normally;
+no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by direct grep, so the quality-pass
+fallback was taken. Rotation order derived the same way recent runs have
+recorded: parsed `git log --pretty='%ad|%s'`, took the most recent "item
+N.N"-shaped mention per item id, excluded the standing out-of-rotation pool
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items. Item 1.3 had
+just been redone by the immediately preceding run (this session, minutes
+earlier), so it dropped out of contention; item 4.8 (Fishlocks Chemist
+Eccleston GBP pack) was the new oldest, last touched 2026-09-01 06:30
+(seventh pass, commit 451cce1).
+
+WORK DONE. Read gbp-packs/fishlocks-eccleston.md in full and re-verified
+every fact against branches.json's fishlocks_eccleston record - address,
+phone, hours, review link, catchment order, hasApp, pfLink, and the widget
+set against the Categories and Services sections - all unchanged and
+correct. All 36 checkers run individually against the untouched repo: 36/36
+exit 0, the only mention of this pack being the pre-existing KNOWN Q64
+post-town WARN, unchanged.
+
+Checked what had changed in check-gbp-packs.js since the seventh pass
+(451cce1) rather than re-reciting facts already verified seven times: the
+item 1.2 eighth pass (2026-09-01) added `streetPattern()`, making the
+OWN-street presence rule and the FOREIGN-street sister rule tolerant of
+Road/Rd, Street/St, Lane/Ln, Drive/Dr and Avenue/Ave abbreviations. Two
+sibling rules in the same file - the "- Address:" line presence rule (added
+by the item 4.10 pass, 2026-08-14) and its post-town dependent (added by the
+item 3.5 pass, 2026-08-13) - both predate that fix and still matched by
+plain case-insensitive `indexOf` against the exact branches.json
+`streetAddress` string.
+
+INJECTION. Backed up the pack (sha256 recorded in
+audits/_before-4.8-ninth-2026-09-02.sha256), then changed only the "-
+Address:" line's "New Mill Street" to "New Mill St" - a normal, legitimate
+abbreviation, not an error. `node tools/check-gbp-packs.js` exited 1: FAIL
+"does not contain this branch's street address", plus a knock-on FAIL that
+the `KNOWN_IDENTITY` Q64 exception for this branch had gone stale, because
+the post-town rule silently stopped firing on the same edit (it locates the
+post town by finding the street inside the address line, and gives up
+without reporting when the match is not byte-for-byte). So the one line a
+paster actually sets the Google Maps pin from was stricter than the rest of
+the file, and a correctly-written, merely abbreviated address would have
+hard-failed the whole checker.
+
+FIX. Added `lastStreetMatch(street, haystack)`, reusing `streetPattern()`'s
+source with a global flag and returning the last match (or null), preserving
+the original `lastIndexOf`-based semantics but abbreviation-aware. The
+address-line presence check now tests for a match rather than an `indexOf`
+hit; the post-town calculation now takes its start index and matched length
+from that same match object instead of assuming the match is exactly
+`ownStreet.length` characters long, which is wrong the moment the matched
+text is an abbreviation ("St" is two characters shorter than "Street").
+Dated comments added at the helper and both call sites, following this
+file's existing convention.
+
+RE-TEST. (1) Repeated the exact injection: `check-gbp-packs.js` now exits 0,
+and the post-town rule correctly re-fires its pre-existing KNOWN Q64 WARN -
+proving the match-length fix, not just the presence fix, is correct, rather
+than the rule merely going quiet. (2) Negative test: a genuine wrong road
+name ("New Mall Street", not a recognised abbreviation) still FAILS on all
+three findings, unchanged. (3) Negative test: Hirshmans Ainsdale's full
+address ("55-57 Station Road ... PR8 3HW") substituted whole into the
+address line still FAILS on postcode, sister-postcode, presence and
+address-line rules, unchanged. File restored by plain copy after each test,
+sha256-confirmed identical to the pre-injection hash throughout (`rm` was not
+needed this run - only file copies, no lock contention on the pack file
+itself). Full 36-checker suite re-run on the final, restored state: 36/36
+exit 0. `git status` confirms only tools/check-gbp-packs.js differs from
+HEAD; the pack itself is untouched.
+
+BLAST RADIUS, informational only, not separately fixed. 14 of 16 branches
+carry a Road/Street/Lane/Drive/Avenue word in their branches.json
+`streetAddress` (only the two Unit-20-Brookfield entries and this branch's
+own "Carrington Centre" prefix are Unit-style), so this was a latent
+estate-wide gap surfaced by this pass's pick, not a Fishlocks-Eccleston
+peculiarity. All 15 live packs write their address line in full today
+(confirmed by the clean baseline before any edit), so this closes a
+false-failure risk rather than a missed real fault - nothing has been
+failing live.
+
+LIVE HALF. Not performed. Claude in Chrome reported not connected at the
+answer-pickup check (see above), and the same unavailability applies to a
+live read this run. The seventh pass's live findings (Q35
+pharmacy-fishlocks-eccleston.html 404, Post B live title still Weebly's
+default construction, Q88 weight loss booking-block lead price) stand as
+last recorded, not re-checked today.
+
+RESULT. No pack or branches.json defect. One checker defect fixed
+(consistency gap between sibling rules, not a missed live fault). No new
+question raised; open question count unchanged at 40 open of 91 total.
+Evidence: audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-02.txt.
+
+COMMIT AND PUSH (steps 9-10). Committed locally to agents/audit-backlog.
+`git push` expected to fail with the same "Host key verification failed" as
+the fetch above (Q87, standing gap) - see the commit-time note appended
+immediately after this paragraph for what actually happened with the
+pre-existing `.git\index.lock` at commit time, following the convention the
+immediately preceding two runs' log corrections established (rename aside
+with `mv`, never `rm`, if the lock is still there when `git add`/`git commit`
+is actually attempted). `tools/build-audit-status.js` run regardless per step
+10; its GitHub API publish to rbh-data-portal is expected to fail in this
+sandbox for the same network/credential reason, consistent with every recent
+run (Q87). `.agent-lock` deleted before exiting regardless of outcome.
+
+
 
 The entry below states in its ENVIRONMENT paragraph that the pre-existing
 `.git/index.lock` (about 25 minutes old, under the 1-hour threshold, no git

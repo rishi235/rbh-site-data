@@ -1,0 +1,130 @@
+Item 4.8 quality pass (ninth), 2026-09-02, unattended run via Cowork
+Fishlocks Chemist Eccleston GBP pack - gbp-packs/fishlocks-eccleston.md
+
+SCOPE
+Rotation pick: least-recently-verified pool item after excluding [BLOCKED]
+5.3/5.4/5.5/5.8/6.1/6.4/6.5/6.6 and the standing out-of-rotation pool
+1.1/1.4/2.2/5.6/5.7/6.7/6.8. Derived from git log --pretty='%ad|%s', taking
+the most recent "item N.N" mention per item id; 4.8 was oldest at
+2026-09-01 06:30 (its seventh pass, commit 451cce1).
+
+ENVIRONMENT
+Sandboxed Linux bash mount of C:\dev\rbh-site-data. .agent-lock absent at
+start, created 05:05 UTC. A pre-existing .git\index.lock, about 17-20 minutes
+old (well under the 1-hour staleness threshold) with no git process running
+in this sandbox, left alone per the procedure's time rule pending the commit
+step. git fetch/pull and ssh -T git@github.com both failed with "Host key
+verification failed" - no SSH key material in this sandbox, the same standing
+infrastructure gap recorded against Q87 on every recent run. Proceeded on the
+local branch (agents/audit-backlog, already 5 commits ahead of
+origin/agents/audit-backlog at start).
+
+ANSWER PICKUP (step 3)
+Claude in Chrome reported "not connected" on tabs_context_mcp. No fetch
+attempted against a login wall per the procedure (browser is read-only, never
+log in). QUESTIONS.json left exactly as found: 40 open of 91 total.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading at the top of
+AGENT_LOG.md. Proceeded normally.
+
+REPO HALF
+Read gbp-packs/fishlocks-eccleston.md in full and re-verified every fact
+against branches.json's fishlocks_eccleston record: address (Unit 3 The
+Carrington Centre, New Mill Street, Eccleston, Chorley PR7 5SZ), phone
+01257 451251, hours (Mon-Fri 9-6, Sat 9-12, Sun closed), review link,
+catchment "Eccleston, Charnock Richard and Coppull" in order and leading
+with its own seoTown, hasApp true, pfLink, and the widget set (blood
+pressure, contraception, Pharmacy First, weight loss, travel clinic) against
+the Categories and Services sections - all match, nothing added or omitted
+in either direction. All 36 checkers run individually against the untouched
+repo: 36/36 exit 0. check-gbp-packs.js's only mention of this pack is the
+pre-existing KNOWN Q64 post-town WARN (Royal Mail post town "Chorley" in the
+address line vs branches.json addressLocality "Eccleston"), unchanged from
+every prior pass.
+
+WHAT WAS NEWLY TESTED
+Checked git log since the 4.8 seventh pass (451cce1) for checker changes not
+yet exercised against this pack: check-gbp-packs.js changed on the item 1.2
+eighth pass (2026-09-01, abbreviation-aware street matching via a new
+streetPattern() helper, applied to the OWN-street presence rule and the
+FOREIGN-street sister rule) and the item 4.13 seventh/eighth passes
+(POST_INSTRUCTION marker casing/whitespace hardening - not applicable here,
+this pack carries no such marker). check-postcodes.js also changed minutes
+before this run (item 1.3 ninth pass, &nbsp; case-insensitivity) but that is
+a generic file-wide fix already proved on a different pack.
+
+FINDING AND FIX (in-repo defect, checker only, no pack or branches.json
+change)
+Injection: backed up the pack (sha256 recorded, audits/_before-4.8-ninth-
+2026-09-02.sha256), then changed only the "- Address:" line's "New Mill
+Street" to "New Mill St" - a normal, legitimate abbreviation, not an error.
+node tools/check-gbp-packs.js exited 1: FAIL "does not contain this branch's
+street address", plus a knock-on FAIL that the KNOWN_IDENTITY Q64 exception
+for this branch had gone stale, because the post-town rule silently stopped
+firing on the same edit (it locates the post town by finding the street
+inside the address line, and gave up when the abbreviated form did not match
+byte-for-byte).
+
+Root cause: the address-line presence rule (added by the item 4.10 pass,
+2026-08-14) and the post-town rule (added by the item 3.5 pass, 2026-08-13)
+both predate streetPattern() (added by the item 1.2 eighth pass, 2026-09-01)
+and still matched the address line by plain case-insensitive indexOf against
+the exact branches.json streetAddress string. The OWN-street presence rule
+and the FOREIGN-street sister rule two blocks above already tolerate
+Road/Rd, Street/St, Lane/Ln, Drive/Dr and Avenue/Ave abbreviations since that
+same 1.2 pass; the address-line-specific rule and its post-town dependent had
+not been carried across, so the single line a paster actually sets the
+Google Maps pin from was stricter than the rest of the file, and would
+hard-fail the whole checker on a correctly-written, merely abbreviated
+address.
+
+Fix: added lastStreetMatch(street, haystack), a thin wrapper that reuses
+streetPattern()'s source with a global flag and returns the last match (or
+null), preserving the original lastIndexOf-based semantics but abbreviation-
+aware. The address-line presence check now tests for a match rather than an
+indexOf hit; the post-town calculation now takes its start index and matched
+length from that same match object instead of assuming the match is exactly
+ownStreet.length characters long (needed because "St" is shorter than
+"Street"). Dated comments added at both the helper and the two call sites.
+
+RE-TEST
+1. Repeated the exact injection ("New Mill St"): check-gbp-packs.js now
+   exits 0, and the post-town rule correctly re-fires its pre-existing KNOWN
+   Q64 WARN (proving the match-length fix, not just the presence fix, is
+   correct) instead of going silently blind.
+2. Negative test A - genuine wrong road name ("New Mall Street", not a
+   recognised abbreviation): still FAILS, three findings (presence, address-
+   line, stale-KNOWN-exception), unchanged from pre-fix behaviour.
+3. Negative test B - sister branch's full address substituted into the
+   address line (Hirshmans Ainsdale's "55-57 Station Road...PR8 3HW"): still
+   FAILS on postcode, sister-postcode, presence and address-line rules,
+   unchanged from pre-fix behaviour.
+4. File restored by plain copy from the pre-injection backup after each
+   test; sha256 confirmed identical to the pre-injection hash each time.
+5. Full 36-checker suite re-run on the final, restored state: 36/36 exit 0.
+   git status confirms only tools/check-gbp-packs.js differs from HEAD; the
+   pack itself is untouched.
+
+BLAST RADIUS (not fixed further this pass, informational only)
+14 of 16 branches carry a Road/Street/Lane/Drive/Avenue word in their
+branches.json streetAddress (only the two Unit-20-Brookfield entries and
+Fishlocks Eccleston's "Carrington Centre" prefix are Unit-style), so this was
+a latent estate-wide gap, not a Fishlocks-Eccleston peculiarity; it happened
+to surface here because this was the rotation's pick. All 15 live packs
+write their address line in full today (confirmed by the clean baseline
+before any edit), so nothing has been failing live - this closes a false-
+failure risk, not a missed real fault.
+
+LIVE HALF
+Not performed this pass. Claude in Chrome reported not connected at answer-
+pickup time (see ANSWER PICKUP above); the same unavailability applies to a
+live read. No live claim made or re-asserted this pass; the seventh pass's
+live findings (Q35 pharmacy-fishlocks-eccleston.html 404, Post B live title
+still Weebly's default construction, Q88 weight loss booking-block lead
+price) stand as last recorded, not re-checked today.
+
+RESULT
+No pack or branches.json defect. One checker defect found and fixed
+(consistency gap, not a missed live fault). No new question raised. Open
+question count unchanged at 40 open of 91 total.

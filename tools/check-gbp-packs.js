@@ -118,6 +118,42 @@ function streetPattern(street) {
   return re;
 }
 
+// Item 4.8 ninth quality pass, 2026-09-02: the "- Address:" line rule and the
+// post-town rule immediately below it (added by the 4.10 and 3.5 passes,
+// 2026-08-14 and 2026-08-13, both before streetPattern existed) still matched
+// the EXACT streetAddress string inside the address line by plain indexOf,
+// the identical "one spelling" gap the item 1.2 eighth pass closed for the
+// OWN-street presence rule and the FOREIGN-street rule above. Proved by
+// injection on this pack: writing the address line's own correct street as
+// "New Mill St" instead of "New Mill Street" - a normal, legitimate way to
+// write the address, not an error - FAILED check-gbp-packs.js outright
+// ("does not contain this branch's street address"), even though the
+// presence rule two blocks up now happily accepts that same abbreviation.
+// Worse, it silently disabled the post-town rule at the same time, the exact
+// pathology the 4.10 and 4.6 comments already warn about for a wrong digit or
+// a misspelled road: the post-town check locates the street inside the
+// address line by exact match too, finds nothing, and gives up without
+// reporting. So the one line a paster sets the Google Maps pin from would
+// hard-fail the whole checker on a correct address, for the sole reason that
+// this rule had not been told about an abbreviation its sibling rules already
+// accept. lastStreetMatch() below reuses streetPattern() to find the match
+// (and its actual length, which differs from ownStreet.length when the
+// matched text is abbreviated) so both this rule and the post-town
+// calculation stay abbreviation-aware and consistent with the rules around
+// them. All fifteen live packs write their address line in full today, so
+// this was latent, not a live false failure; confirmed clean before and after
+// on the untouched estate.
+function lastStreetMatch(street, haystack) {
+  const re = new RegExp(streetPattern(street).source, "gi");
+  let m;
+  let last = null;
+  while ((m = re.exec(haystack))) {
+    last = m;
+    if (m.index === re.lastIndex) re.lastIndex += 1;
+  }
+  return last;
+}
+
 // Medicine names must not appear in public-facing pharmacy marketing.
 // Brand names and INNs for the weight loss and related POM classes. The list
 // moved into tools/pom-names.js on the item 3.13 quality pass, 2026-08-11,
@@ -2228,9 +2264,14 @@ for (const file of packFiles) {
   // is the one that owns the words between them. All fifteen packs satisfy it
   // today, verified before the rule was written, so it fails only on a real
   // divergence and does not need a single exception on the day it lands.
+  // Matched via lastStreetMatch() since the item 4.8 ninth quality pass,
+  // 2026-09-02, so a legitimate Road/Rd, Street/St, Lane/Ln, Drive/Dr or
+  // Avenue/Ave abbreviation in this specific line no longer reads as a
+  // divergence - see that function's comment for what broke before.
   const streetLineKey = `${b.id}::addressStreetLine`;
   const streetLineKnown = KNOWN_IDENTITY[streetLineKey];
-  if (addrLine && ownStreet && flatAddr.toLowerCase().indexOf(ownStreet.toLowerCase()) === -1) {
+  const addrStreetMatch = ownStreet ? lastStreetMatch(ownStreet, flatAddr) : null;
+  if (addrLine && ownStreet && !addrStreetMatch) {
     const msg = `the "- Address:" line reads "${flatAddr}", which does not contain this branch's street address "${b.streetAddress}" from branches.json. The presence rule passes because the street is spelled correctly elsewhere in the pack, and the sister rule passes because what the line actually states is no branch's address. That line is the one the paster sets the Google Maps pin from, so the profile would publish a street this branch is not on, and the post town rule below is switched off by the same edit because it finds the post town by locating the street inside this line.`;
     if (streetLineKnown) {
       seenIdentityKnown[streetLineKey] = true;
@@ -2243,11 +2284,12 @@ for (const file of packFiles) {
   const townKey = `${b.id}::addressPostTown`;
   const townKnown = KNOWN_IDENTITY[townKey];
   if (addrLine && ownStreet && b.postalCode) {
-    const at = flatAddr.toLowerCase().lastIndexOf(ownStreet.toLowerCase());
+    const at = addrStreetMatch ? addrStreetMatch.index : -1;
+    const matchLen = addrStreetMatch ? addrStreetMatch[0].length : 0;
     const pcAt = flatAddr.toUpperCase().indexOf(b.postalCode.toUpperCase());
     if (at !== -1 && pcAt > at) {
       const tidy = (s) => s.replace(/[,.]/g, " ").replace(/\s+/g, " ").trim();
-      const between = tidy(flatAddr.slice(at + ownStreet.length, pcAt));
+      const between = tidy(flatAddr.slice(at + matchLen, pcAt));
       const want = tidy(b.addressLocality || "");
       if (between !== want) {
         const msg = `the "- Address:" line reads "${flatAddr}", so the post town between the street and the postcode is "${between}", but branches.json holds addressLocality as "${b.addressLocality}". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates.`;

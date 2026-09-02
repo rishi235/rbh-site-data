@@ -4418,6 +4418,35 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       found. No page, generator, pack or branches.json entry changed. Open
       question count 54 (Q88 added), 53 pre-existing unchanged.
       See audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-01.txt.
+      Quality pass 2026-09-02 (ninth, unattended run): repo half only, Claude
+      in Chrome not connected so no live re-check. Pack re-verified fact by
+      fact against branches.json, unchanged and clean; all 36 checkers green
+      on the untouched repo. Checked what had changed in check-gbp-packs.js
+      since the seventh pass: the item 1.2 eighth pass (2026-09-01) made the
+      OWN-street presence rule and the FOREIGN-street sister rule
+      abbreviation-aware (Road/Rd, Street/St, Lane/Ln, Drive/Dr, Avenue/Ave)
+      but never carried that across to the "- Address:" line rule or its
+      post-town dependent, both older than that fix. Injection proved the
+      gap: writing the address line's own correct street as "New Mill St"
+      instead of "New Mill Street" - a normal abbreviation, not an error -
+      failed check-gbp-packs.js outright and silently disabled the post-town
+      rule too, the same pathology already documented against a wrong digit
+      or a misspelled road name. Fixed in the checker only: added
+      lastStreetMatch(), reusing streetPattern() with a global flag, and
+      pointed both the address-line presence rule and the post-town
+      calculation at its match (index and actual matched length, not
+      ownStreet.length, since an abbreviation is shorter) instead of plain
+      indexOf. Re-tested: the same injection now passes and correctly
+      reactivates the pre-existing KNOWN Q64 post-town WARN; a genuine wrong
+      road name and a sister branch's address substituted into the same line
+      both still FAIL, unchanged. File restored by copy after each test,
+      sha256-confirmed identical throughout; full 36-checker suite green on
+      the final state; only tools/check-gbp-packs.js differs from HEAD, the
+      pack itself untouched. Latent estate-wide (14 of 16 branches carry a
+      Road/Street/Lane/Drive/Avenue word in their street address; all 15 live
+      packs write it in full today, so nothing was failing live). No new
+      question. Open question count unchanged, 40 open of 91 total.
+      See audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-02.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
