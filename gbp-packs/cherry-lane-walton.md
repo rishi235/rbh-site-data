@@ -45,9 +45,16 @@ independent local pharmacy run by people who know the area. Come and see us.
 - Primary: Pharmacy
 - Add if not present (nearest GBP picker name): Travel clinic,
   Weight loss service, Vaccination centre
-- NOTE: the current GBP listing name is "Cherry Lane Pharmacy - Travel
-  Vaccination and Simple Weight Loss Clinic". Name changes are a separate
-  decision - this pack does not touch the listing name.
+- NOTE (Q40, answered 2026-09-01): the current GBP listing name is
+  "Cherry Lane Pharmacy - Travel Vaccination and Simple Weight Loss
+  Clinic". Rename it to "Cherry Lane Pharmacy" in the same session, and
+  move the travel and weight loss words into the categories and services
+  above instead, where Google expects them. Nothing is lost by this: the
+  pack already lists Travel clinic, Weight loss service and Vaccination
+  centre as categories, and the services section below covers both in
+  full. Confirm the live listing name in the profile before editing it,
+  since the name recorded here is from the pack's original 2026-08-04
+  drafting rather than a fresh read.
 
 ## 3. Services section content
 NHS services first:

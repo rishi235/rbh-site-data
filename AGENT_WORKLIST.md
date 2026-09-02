@@ -3379,6 +3379,39 @@ Pharmacy First wording to the NHS service description.
       the 3.1/5.1/Q3 switch page title and mojibake em dash all unverified
       this pass. No in-repo defect found, no fix needed, no new question.
       Evidence: audits/cherry-lane-gbp-pack-check-2026-09-01.txt.
+      Quality pass 2026-09-02 (tenth, unattended run): pack re-verified fact
+      by fact against branches.json (address, phone, hours, website, review
+      link and service area all match) and both length claims recomputed
+      independently (description 736, posts 449, 348, 403, 318) - exact
+      match, nothing wrong. All six generators rebuilt to a zero diff across
+      the whole repo, all 36 checkers exit 0. Q40 and Q36 confirmed moved to
+      "answered" since the ninth pass; Q72 remains open and is the pack's
+      only tracked warning, unchanged.
+      IN-REPO DEFECT FOUND AND FIXED: the Categories section still carried
+      the pre-answer caveat that listing-name changes were untouched by
+      this pack; Q40 was answered 2026-08-01 (sic, posted 2026-09-01)
+      recommending the listing be renamed to "Cherry Lane Pharmacy" with
+      the travel and weight loss words moved into categories and services
+      instead, so the NOTE bullet was rewritten to instruct the paster to
+      do exactly that. First edit used a non-"NOTE" label and broke
+      check-gbp-packs.js's NOTE-bullet exemption (6 false FAILs, each
+      comma-separated clause read as an unrecognised category); corrected
+      by keeping the "NOTE" label, all 36 checkers re-run clean.
+      Live half performed this pass (browser access available, unlike the
+      ninth pass): all seven Pharmacy First conditions live and working
+      (Q89 fix holds); switch page mojibake em dash and Q36 footer typo
+      both confirmed unchanged, already tracked; travel clinic page clean.
+      NEW FINDING: the weight loss clinic page renders two sentences with
+      a live en dash and lower-case continuation where the repo's
+      generated page uses a plain full stop (confirmed byte-for-byte
+      against modules/service/pages/weight-loss-clinic-cherry-lane-walton.html).
+      No compliance substance changed (both qualifiers still present, no
+      medicine named). Same class of fault as the tracked Q7/5.1 switch
+      page dash but not previously read on this page; raised as Q92,
+      recommending it join the existing paste-lag backlog. No in-repo fix
+      applies, since no generator or data file reaches a live Weebly
+      paste. Files changed this pass: gbp-packs/cherry-lane-walton.md.
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-02-tenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

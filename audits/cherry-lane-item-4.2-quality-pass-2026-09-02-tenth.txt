@@ -1,0 +1,136 @@
+Item 4.2 quality pass (tenth, unattended run via Cowork), 2026-09-02
+
+ENVIRONMENT
+Linux sandbox git fetch/push again failed outright with "Host key
+verification failed" (the same fetch-level gap Q87 and every recent run
+record). Switched to Windows-MCP PowerShell against the real
+C:\Dev\rbh-site-data for fetch/pull, per the established pattern. Pull
+reported "Already up to date." .agent-lock found 60 minutes old at run
+start (created 09:34:21 UTC, run started 10:34 UTC), past the 45-minute
+staleness threshold, so treated as stale and overwritten rather than
+exited on. A stale .git/index.lock (no git process running) also
+required mcp__cowork__allow_cowork_file_delete before it could be
+removed from the Cowork-mounted folder; this is expected behaviour for
+that connected-folder protection, not a repo fault.
+
+ANSWER PICKUP (step 3)
+Navigated Claude in Chrome to https://data.rbhealth.co.uk/api/feedback.
+Returned a Cloudflare Access sign-in page rather than the feedback JSON
+(this Chrome session holds no active Cloudflare Access session). Per
+the task's own instruction, logged as unavailable and not retried by any
+other route; no login attempted. 38 questions were open at run start.
+
+ITEM SELECTION (step 5)
+All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6)
+confirmed [BLOCKED], so the quality-pass fallback applied. Rotation
+candidates (excluding the standing out-of-rotation pool 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8) ranked by most recent commit date carrying a
+word-boundary "N.N" mention in the subject line, computed by parsing the
+full git log (667 commits). Item 4.2 (Cherry Lane Pharmacy Walton GBP
+pack) was stalest at 2026-09-01T12:39:37+01:00 (ninth pass), ahead of
+4.14, 3.11 and the rest of the pool.
+
+REPO HALF
+All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from
+branches.json. sha256 of all 177 generated HTML files in
+modules/service/pages, modules/switch/pages (weebly.html paste template
+excluded, standard convention) and modules/branch/pages taken before and
+after: byte-identical, zero diff.
+
+gbp-packs/cherry-lane-walton.md re-read in full. Every profile-basics
+fact (name, address, phone, hours, website, review link, service area)
+checked against branches.json's cherrylane_liverpool entry: all match,
+no drift. Both self-claimed length counts recomputed independently
+(same wrapped-line-join method check-gbp-packs.js uses): description
+736, posts A-D 449/348/403/318 - exact match on all five. Pure ASCII,
+no em or en dash in the pack file itself.
+
+Q40, Q72 and Q36 spot-checked in QUESTIONS.json. Q40 (Cherry Lane
+listing name) and Q36 (footer mailbox typo) have both moved to
+"answered" since the ninth pass (answerDate 2026-09-01 on both); Q72
+remains open, unchanged, and is the pack's only tracked warning
+(6 private-clinic qualifiers missing from the older Post C/D drafting,
+same as every prior pass).
+
+IN-REPO DEFECT FOUND AND FIXED: the pack's "## 2. Categories" section
+still carried the pre-answer caveat "Name changes are a separate
+decision - this pack does not touch the listing name", which is now
+stale: Q40 was answered 2026-09-01 recommending the listing be renamed
+to "Cherry Lane Pharmacy" with the travel and weight loss words moved
+into categories and services instead (the pack's own recommended
+option). Rewrote the NOTE bullet to instruct the paster to do exactly
+that in the same GBP session, keeping the "NOTE" label so
+check-gbp-packs.js's existing NOTE-bullet exemption (line ~1139,
+/^note\b/i) continues to skip it rather than parsing the prose as a
+literal category list - the first draft of this edit used a
+"LISTING NAME (Q40...)" label instead of "NOTE", which broke that
+exemption and produced 6 false FAILs (each comma-separated clause in
+the new prose read as an unrecognised category); corrected by keeping
+the NOTE label, and the full 36-checker suite re-run clean afterwards.
+
+All 36 tools/check-*.js checkers run individually after the fix: all
+exit 0. check-gbp-packs.js reports cherry-lane-walton.md clean bar the
+tracked Q72 warning.
+
+LIVE HALF - PERFORMED THIS PASS (browser access was available this run,
+unlike the ninth pass where both mcp__Claude_Browser tools were denied
+outright with no user present to grant site access)
+Read live via Claude in Chrome, plain read-only GET, no clicks beyond
+navigation, no login:
+
+- pharmacy-first-cherry-lane-walton.html: all seven Pharmacy First
+  conditions render as working links with correct NHS age ranges (UTI
+  16-64, sore throat 5+, sinusitis 12+, earache 1-17, impetigo 1+,
+  shingles 18+, infected insect bite 1+), no "coming soon" text
+  anywhere. Confirms Q89 (Pharmacy First overview regression) remains
+  fixed, as the eighth 2.3 pass found. Footer still reads
+  pharmacy.FA226@mhs.net (Q36 typo, unchanged, already tracked, no
+  fresh finding).
+
+- switch-prescriptions-cherry-lane-walton.html: hero and trust-bar copy
+  still carries the unconditional "We contact your GP. We handle
+  everything. You do nothing." / "We handle the full switch for you" /
+  "No interruption to your medication" wording Q49 already tracks
+  against the FAQ's hedged answer; unchanged, not repeated as new. The
+  mojibake em dash paste-lag ("it usually is not \u00d4\u00c7\u00f6 we make the
+  first step") also confirmed still present, unchanged, already tracked
+  under Q7/5.1.
+
+- weight-loss-clinic-cherry-lane-walton.html: private/paid framing,
+  qualifiers ("not right for everyone", "individual results vary"),
+  named safety cohorts, no medicine names, no stock or outcome
+  guarantee, price shown once as "from GBP39.99" with no discount
+  headline - matches the Regime 2 inner-page standard. NEW FINDING: two
+  sentences that read as plain full stops in the repo's generated page
+  ("...not right for everyone. See below." and "...assess your
+  suitability at consultation. Nothing below is a guarantee...") render
+  live with an en dash and lower-case continuation instead ("...not
+  right for everyone - see below" / "...at consultation - nothing below
+  is a guarantee..."). Confirmed byte-for-byte against
+  modules/service/pages/weight-loss-clinic-cherry-lane-walton.html: the
+  repo is correct, the live paste has drifted. Same class of fault as
+  the already-tracked Q7/5.1 switch-page dash, but not previously read
+  on this page. No compliance substance changed (both qualifiers still
+  present, no medicine named, no claim added), so raised as a
+  paste-lag housekeeping question rather than a compliance flag: Q92,
+  recommending it join the existing paste-lag backlog (Q7/5.1, Q36)
+  and be cleared at the next Weebly session.
+
+- travel-clinic-cherry-lane-walton.html: private/paid framing stated in
+  the hero, "subject to availability and clinical suitability" hedge
+  present, one book-ahead window (6 to 8 weeks) stated consistently, no
+  vaccine or antimalarial named by brand, four safety cohorts named,
+  yellow fever listed (Q48, already tracked, no fresh finding). No new
+  issue found.
+
+CONCLUSION
+Pack itself was clean fact-for-fact and count-for-count on this pass,
+as on every prior pass. One in-repo defect found and fixed (stale Q40
+caveat in the pack, now applying the answered decision). One new
+live-only finding raised as Q92 (weight loss page dash paste-lag);
+no in-repo action applies to it, since no generator or data file can
+reach a live Weebly paste. Open question count 39 of 92 (was 38 of 91
+at run start; Q92 added, no others closed this pass since answer pickup
+was unavailable).

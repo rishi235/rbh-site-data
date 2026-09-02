@@ -1425,5 +1425,20 @@
     "status": "open",
     "answer": null,
     "note": "Full evidence in audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt. This is separate from the already-tracked Q45 em dash finding on the same domain (also reconfirmed unchanged this pass). No repo defect found; the pack and all six generators remain byte-identical and clean, eighth consecutive clean pass on item 4.1 itself."
+  },
+  {
+    "id": "Q92",
+    "date": "2026-09-02",
+    "item": "quality pass (tenth) on item 4.2, Cherry Lane Pharmacy Walton",
+    "question": "The live weight loss clinic page at cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-lane-walton.html carries two sentences where the repo's generated page uses a plain full stop and the live page uses an en dash joined to a lower-case continuation instead. The repo text reads \"This is a paid private service, not an NHS treatment, and it is not right for everyone. See below.\" and \"A pharmacist or clinician will assess your suitability at consultation. Nothing below is a guarantee of treatment, a specific medicine, or a specific outcome.\" (both confirmed byte for byte in modules/service/pages/weight-loss-clinic-cherry-lane-walton.html). The live page reads \"...it is not right for everyone – see below\" and \"...assess your suitability at consultation – nothing below is a guarantee...\" instead. This is the same class of fault as the already-tracked Q7/5.1 switch-page em dash paste-lag (a full stop replaced by a dash somewhere between the generator and the live Weebly paste), but on the weight loss page and with a clean en dash rather than mojibake, so it had not been read by any prior pass of this pack. Nothing here changes the compliance substance: both live sentences still carry their qualifier (\"not right for everyone\", \"nothing below is a guarantee\"), no medicine is named, no claim is added. How should it be handled?",
+    "options": [
+      "Repaste weight-loss-clinic-cherry-lane-walton.html from the repo's current generated version at the next Weebly session, since the repo copy is correct and the live divergence is confirmed",
+      "Fold it into the existing paste-lag backlog alongside Q7/5.1 (switch page) and Q36 (footer mailbox), and clear all of them in one Weebly session rather than treating this as a standalone fix",
+      "Leave it, on the grounds that the qualifier wording still reads correctly in substance and the dash is a stylistic drift rather than a compliance change"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Found on the tenth quality pass on item 4.2, 2026-09-02 (unattended run). Does not block any worklist item. Repo is correct and unaffected; no in-repo fix applies, since no generator or data file can reach a live Weebly paste. Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-02-tenth.txt."
   }
 ]
