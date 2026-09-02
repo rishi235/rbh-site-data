@@ -926,6 +926,56 @@ unattended-run rule; the 2026-09-01 seventh-pass live verdicts
 still 404) stand as written rather than being restated as re-checked. No
 in-repo defect, no new live finding, no new question. Evidence in
 audits/seo-pattern-check-2026-09-02-eighth.txt.
+Quality pass 2026-09-03 (ninth pass, unattended scheduled run): clean again,
+no defect in the checker. Self-test passed with no length warnings. All six
+generators reproduce all 216 files under modules/ and core/ byte-identical
+(sha256 before/after, 216/216, zero diff, git status --porcelain empty).
+check-seo-pattern.js itself: 177 pages, 0 untyped, 0 failures, the same two
+PINNED cross-town cases as every recent pass (Q71, still open, not a
+failure).
+Rather than repeat an already-stress-tested leg, this pass proved three
+angles of the PAGE_TYPES CONTRACT and the KNOWN lists that no prior 3.1 pass
+had isolated by injection, all on a full scratch copy of tools/, branches.json
+and the three page directories outside the tracked tree (not the rsync method
+of the seventh pass, a targeted PowerShell copy instead; the scratch copy's
+own baseline run matched the tracked repo's own output exactly, 177/0/0,
+before any mutation). (1) REVERSE-DIRECTION CONTRACT: the comment above
+KNOWN_NON_PAGE_BUILDER states "every tools/build-*.js must be named by a
+PAGE_TYPES entry... a stale key there FAILS", a rule six prior passes on this
+item described as backstopped but never triggered. A new file,
+tools/build-injection-test-9th-pass.js (a two-line no-op, named to match the
+build-*.js glob and nothing else), was added to the scratch copy: caught by
+name, "FAIL build-injection-test-9th-pass.js is a generator named by no
+PAGE_TYPES entry", exit 1. Removed; scratch copy re-ran clean (177/0/0, exit
+0) before the next mutation. (2) STALE KNOWN_NON_PAGE_BUILDER KEY: deleted
+tools/build-audit-status.js from the scratch copy, the sole file the key
+currently excuses, so the key now names a builder that no longer exists.
+Caught by name, "FAIL stale KNOWN_NON_PAGE_BUILDER key - build-audit-status.js
+no longer exists. Remove it", exit 1. Restored by copying the real file back
+from the tracked repo; scratch re-ran clean before the next mutation. (3)
+UNTYPED FILE FAILS RATHER THAN SKIPS: the 2026-08-11 first pass changed this
+behaviour but no log entry shows it proved by injection. Added
+modules/service/pages/totally-unrecognised-page-9th-pass.html (a bare HTML
+stub matching no expectationsFor() pattern) to the scratch copy: caught by
+name, "FAIL untyped file - totally-unrecognised-page-9th-pass.html: this
+checker cannot type it", the untyped count moving from 0 to 1, exit 1. All
+three defaults are the correct, documented behaviour, so nothing was fixed;
+the scratch directory was deleted after use and `git status --porcelain
+modules/ tools/ core/ branches.json` on the tracked repo confirmed empty
+throughout and at the end, since every mutation happened only in the scratch
+copy. Zero in-repo defects found this pass.
+LIVE HALF: Claude in Chrome reported not connected (checked via
+tabs_context_mcp at answer pickup); per procedure not retried by another
+route, no login attempted. Fell back to the established read-only HTTP GET
+route (Invoke-WebRequest, GET only): fishlockpharmacy.co.uk/
+pharmacy-first-fishlocks-ainsdale.html returned HTTP 200, title "Pharmacy
+First at Fishlocks Chemist, Ainsdale" and H1 "Pharmacy First at Fishlocks
+Chemist in Ainsdale", both the pattern verbatim, unchanged from every prior
+pass's live sample. The Q71/mccannspharmacy.co.uk 404 finding was not
+re-read this pass; treated as unchanged rather than re-verified, consistent
+with the eighth pass's own convention when the finding is not new. No new
+live finding, no new question raised - this is a re-verification, not a
+live-facing or patient-facing decision.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
