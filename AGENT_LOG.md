@@ -165,9 +165,35 @@ QUESTIONS.json and the new audit script; commit; `git push origin
 agents/audit-backlog`. `node tools/build-audit-status.js` then run from
 the same PowerShell session, which resolves its hardcoded
 `C:/Dev/rbh-site-data` path correctly there (unlike this sandbox's Linux
-mount) and published the refreshed status page. Full commit hash and
-push confirmation recorded immediately below this entry once the
-PowerShell commands were run.
+mount) and published the refreshed status page.
+
+Two more stale locks surfaced mid-run, neither the pre-existing
+`.git\index.lock` noted at the top of this entry (which had crossed to
+26+ minutes old, no git process running, file content unchanged the
+whole time, by the point `git add` first needed it) nor caused by this
+run's own commands: a first commit attempt using a multi-line `-m`
+message produced no commit and no error surfaced to this run, then the
+retry with a single-line message failed outright with "cannot lock ref
+'HEAD': Unable to create '.git/HEAD.lock': File exists", and that
+HEAD.lock's own LastWriteTime matched the index.lock's exactly
+(02/09/2026 13:49:03), suggesting both trace to the same earlier stuck
+process rather than to anything this run did. Same evidence applied
+before removing it: `Get-Process` found no git process running, `Remove-
+Item -Force` succeeded (native Windows host, not this sandbox's blocked-
+unlink mount), and the commit then landed cleanly. Net effect: this run
+spent longer than intended clearing two separate stale locks rather than
+one; worth flagging if a future run finds the same pattern of an
+index.lock that survives past its 1-hour procedural threshold WITH an
+accompanying HEAD.lock, since that combination did not resolve itself
+with time and needed both removed before any git write would succeed.
+
+Commit `372f195` ("Item 3.11 quality pass (eighth): ..."), 4 files
+changed (391 insertions), pushed `96ab72f..372f195` to
+`origin/agents/audit-backlog` - confirmed by the push command's own
+"96ab72f..372f195 agents/audit-backlog -> agents/audit-backlog" output,
+not merely assumed from a zero exit code. `node tools/build-audit-
+status.js` reported "Published reports/digital/Digital_Audit_Status.html
+(43/49 done, 88%)".
 
 LOCK RELEASE. `.agent-lock` released at the end of this run by renaming
 to `.agent-lock.released-<epoch>` (direct delete blocked on this mount,
