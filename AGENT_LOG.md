@@ -1,3 +1,30 @@
+## 2026-09-02 (unattended scheduled run via Cowork) - Log addendum: item 4.12 eighth-pass commit outcome, two stale locks from the same interrupted process, push and publish both succeeded via Windows-MCP
+
+At commit time, `.git\HEAD.lock` (not `index.lock`, already cleared
+earlier in the run) blocked `git commit` with "cannot lock ref 'HEAD'".
+Same timestamp, 07:39:15, as the `index.lock` removed at run start, so
+both were left behind by the same interrupted process from before this
+run began, not created by anything in this run. No git process was
+running (`Get-Process git` empty) and this run already held the only
+`.agent-lock`, so the lock was orphaned beyond any doubt; removed, and
+the commit then succeeded immediately. Worth a general note for whoever
+next hits this: a crashed git operation in this repo can leave more than
+one lock file behind at once, and checking for `index.lock` alone is not
+sufficient - `HEAD.lock` wants the same treatment (no process running,
+no legitimate claimant, then remove).
+
+Push (`fc53221..1c741db`) and the `tools/build-audit-status.js` publish
+both succeeded cleanly via Windows-MCP PowerShell this run, unlike the
+push/publish failures Q87 records for several recent runs made from the
+Linux sandbox. Both steps also worked earlier in this same run for the
+11-commit backlog clear. Between this and the HEAD.lock note above, this
+run's environment notes belong alongside Q87 rather than superseding it:
+the underlying cause (Linux sandbox cannot reach GitHub over SSH this
+session; git@github.com fetch fails outright, not just push) is new
+detail worth adding to Q87 next time it is reviewed, since previous
+entries described only push failing, not the harder fetch failure seen
+here.
+
 ## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.12 quality pass (eighth): Coleman and Leighs Pharmacy Walton GBP pack re-verified clean, no in-repo defect; git push backlog of 11 commits cleared via Windows-MCP after the Linux sandbox proved unable to reach GitHub
 
 ENVIRONMENT AND LOCK. Run started via Cowork's sandboxed Linux bash mount
