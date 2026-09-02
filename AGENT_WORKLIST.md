@@ -2739,6 +2739,62 @@ Done 2026-09-02 (eighth pass).
       real files were never touched. ZERO in-repo defects found, nothing
       edited. Evidence in audits/riddings-build-check-2026-09-01.txt. Done
       2026-09-01
+      Quality pass 2026-09-02 (eighth pass, unattended scheduled run via
+      Cowork, 19:34 BST). Selected as stalest of the 36-item rotation pool
+      (last mentioned 2026-09-01T22:09:26+01:00; item 3.9 done immediately
+      before this run was most recent at 2026-09-02T19:04+01:00). All 8
+      unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (8 of 8 via
+      direct grep), so the quality-pass fallback applied. REPO HALF ONLY:
+      mcp__claude-in-chrome__tabs_context_mcp reported the extension not
+      connected, so nothing live was read and the live findings recorded on
+      the fourth through seventh passes (switch banner mojibake, the Q31-era
+      Cheshire county string, the Q22 weight loss tagline, the pre-repaste
+      pfLink legacy copy) stand unverified for a further pass. All 36
+      tools/check-*.js checkers run individually, 36/36 clean (0 failures
+      across the board; warnings and known-issue counts unchanged from the
+      established baseline). All six generators rebuilt; git status
+      --porcelain modules/ core/ empty both before and after, confirming
+      byte-identical regeneration. An eighth independent extraction written
+      fresh for this run, sharing no code with tools/ or any prior verify-
+      3.10-*.js (audits/verify-3.10-2026-09-02-eighth.js): 696 checks across
+      the 12 Riddings pages (11 service-family pages plus the switch page),
+      0 failures - own postcode present and no foreign live-branch postcode,
+      every tel: href and every phone-shaped foreign number checked and
+      clean, own seoTown present with the foreign-seoTown absence rule
+      applied against serviceAreaList, brandLabel spelling, JSON-LD parsed
+      and checked field for field (type, telephone, address block including
+      addressRegion), map embed query decode-compared to the branch address,
+      no em/en dash literal or entity outside build comments, data-wa
+      against the agreed WhatsApp number, data-branch naming only this
+      branch. Instrument proved by four injections against the tracked
+      weight-loss-clinic-riddings-timperley.html file (not previously used
+      for injection testing on this item; prior passes used the switch page
+      and the service.js JS-copy path), each restored by byte copy and
+      SHA256-confirmed identical to the pre-injection original before the
+      next injection: a phone swap to Smartts Chemist's number caught by the
+      JSON-LD telephone rule; a postcode swap to Smartts' L20 9HH caught by
+      both the foreign-postcode rule and the JSON-LD postalCode rule; an
+      &ndash; entity appended in a plain span caught by the em/en dash rule;
+      and a "serving Bootle residents" line caught by the foreign-seoTown
+      rule (Bootle is SK Chemists' seoTown, not in Riddings'
+      serviceAreaList). One process note: a literal em dash character
+      (U+2013) injected via PowerShell string interpolation failed to persist
+      to disk in this environment for reasons not fully diagnosed (Contains
+      checks against the written file returned false); switched to the
+      &ndash; HTML entity, which check-em-dashes.js and this script both
+      treat identically to the literal character, and the injection then
+      behaved as expected. GBP pack (gbp-packs/riddings-timperley.md)
+      re-read in full: profile basics (name, address, phone, hours, website,
+      review link) all agree with branches.json; Post A's link and the
+      pfLink cross-reference agree; all prior live findings the pack
+      documents (Post B's 404 permalink, the live "Timperley, Cheshire"
+      region, the site-wide footer en-dash/middot hours line) are pack notes
+      already on record, not new. ZERO in-repo defects found, nothing
+      edited under tools/, modules/, core/, gbp-packs/ or branches.json.
+      Scratch injection directory deleted after use, leaving no untracked
+      debris from this run. Evidence in
+      audits/verify-3.10-2026-09-02-eighth.js and audits/verify-3.10-2026-
+      09-02-eighth-output.txt. No new question raised. Done 2026-09-02
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
