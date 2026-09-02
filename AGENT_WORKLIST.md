@@ -1990,6 +1990,106 @@ raised - the script fix was a plain, no-judgement-call correction, the
 same class several prior passes have recorded in-line without a
 QUESTIONS.json entry. Evidence: audits/verify-3.6-2026-09-02.js
 (committed).
+Quality pass 2026-09-02 (ninth, 22:34 BST). Selected as the least recently
+verified item in the standing 36-item rotation pool: all 8 unblocked
+AGENT_WORKLIST.md lines confirmed [BLOCKED] (8 of 8 via direct grep), so
+the quality-pass fallback applied. Rotation computed the same way as every
+prior pass: git log --pretty=format:"%cI|%s" matched item N.N by word
+boundary (case-insensitive), first/most recent match per item, over the
+standing pool. Item 3.6 was stalest, last mentioned 2026-09-02T02:15:44+01:00;
+item 3.12 (done in the immediately preceding run) was most recent at
+2026-09-02T22:08:51+01:00.
+REPO HALF. All 36 tools/check-*.js checkers re-run individually before any
+change: 36/36 exit 0. All six generators rebuilt first; git status
+--porcelain modules/ core/ empty before and after, confirming byte-identical
+regeneration. A ninth independent extraction, sharing no code with tools/ or
+any prior verify-3.6-*.js (audits/verify-3.6-2026-09-02-ninth.js): 1,287
+checks across all 26 McCanns pages plus estate-level branches.json assertions,
+0 failures - H1 own-seoTown, the excused/unexcused cross-town asymmetry
+(Sandringham's serviceAreaList excuses naming Aigburth; Aigburth's does not
+excuse St Michael's/Sandringham, and both branch landing pages' deliberate
+sister-branch signpost is treated as the documented exception, not a fault),
+own phone in full-string form with no other live branch's phone string
+anywhere on the page, own postcode with no other branch's postcode, JSON-LD
+name equal to the branch's own branchName rather than the bare shared
+brandLabel, JSON-LD address field by field, data-wa against the estate
+WhatsApp number, data-branch naming the right branch, no em/en dash outside
+build comments, and the brand widget-diary policy (weightLoss and
+travelClinic ids identical across both sister branches; contraception and
+pharmacyFirst ids distinct per branch) re-asserted at the branches.json
+level.
+SCRIPT-DESIGN FINDING, not a page defect, caught before trusting the first
+"clean" result - the same discipline recorded on every prior pass across this
+item and others. The script's first draft asserted a widget id should be
+findable as a literal string on the service/booking pages. All 8 widget-id
+pages failed. Reading CLAUDE.md's own "booking chain" section and the actual
+page markup showed why: a generated service page deliberately ships an EMPTY
+mount and carries no widget id at all, because modules/service/service.js
+resolves it at runtime from branches.json via the filename's
+brandSlug-townSlug key - hard-coding an id on the page is exactly the fault
+that section records as already having sent bookings into the wrong branch's
+diary once before. Fixed by checking instead that NO widget id belonging to
+any of the 16 live branches is hard-coded anywhere on these pages, and that
+the booking mount (rbhsv-root/rbhsw-root) is present; re-run clean at
+1,287/1,287. Not a repo defect - the pages were always correct, the draft
+script's assumption was wrong.
+INJECTION TEST, three faults on impetigo-treatment-mccanns-sandringham.html,
+untried by any prior 3.6 pass (earlier passes used the UTI H1, the Aigburth
+branch landing page's phone, sinusitis' JSON-LD postalCode, data-wa on the
+pharmacy-first page, and a GBP pack Post A copy): (1) postalCode swapped from
+Sandringham's own L17 4JP to Aigburth's L17 7BP throughout the page - caught
+by check-postcodes.js's FOREIGN rule, check-jsonld.js's postalCode rule,
+check-nap.js (4 mismatches) and the independent script (3 legs); (2) data-wa
+changed from the estate's 447521775631 to a fabricated 447000000000 - caught
+by check-whatsapp-route.js and the independent script; (3) an &#8212; numeric
+em-dash entity appended after the H1 - caught by check-em-dashes.js and the
+independent script. File restored by byte copy from a pre-injection backup,
+SHA256-confirmed identical to the original before and after (557D1474...);
+all 36 checkers and the independent script re-run clean after restore; git
+status --porcelain modules/ empty throughout.
+GBP packs (gbp-packs/mccanns-aigburth.md, gbp-packs/mccanns-sandringham.md)
+re-checked via check-gbp-packs.js: 0 failures, no warning naming either
+branch. Both packs' profile-basics block (name, address, phone, hours,
+review link) re-read field by field against branches.json: agrees exactly.
+Both sister-branch mentions in the business descriptions name the correct
+counterpart town ("McCanns Chemist Sandringham, in St Michael's" on the
+Aigburth pack; "Our sister McCanns..." continuing on the Sandringham pack)
+per the check-gbp-packs.js KNOWN_SISTER rule.
+LIVE HALF. Claude in Chrome reported not connected (checked at answer pickup
+and again before this item's live check); per procedure not retried by
+another route, no login attempted. Fell back to the established plain
+read-only Node-equivalent GET route (Invoke-WebRequest, GET only, no
+interaction) used by the seventh and eighth passes when Chrome is
+unavailable: the Aigburth UTI page is fully correct live (title and H1 both
+read "Aigburth", HTTP 200); the Sandringham UTI page's title and H1 still
+read "Sandringham" rather than "St Michael's" live, matching the repo's
+correct "St Michael's" only in the repo - the queued 5.7/Q15 repaste,
+unchanged since the fourth pass on 2026-08-14 and reconfirmed on every pass
+since; both branch landing pages still return HTTP 404 live (Q35, standing
+queued-paste state, unchanged); the known Q39 footer set ("McCann's
+Pharmacy" branding, "Sandrigham" typo) reconfirmed still present and
+unchanged on the Sandringham UTI page. No new live finding.
+Zero in-repo defects found this pass. No new question raised - the widget-id
+script correction was a plain, no-judgement-call fix, the same class several
+prior passes on this item have recorded in-line without a QUESTIONS.json
+entry. QUESTIONS.json re-read: 94 total, 41 open, unchanged; none answered
+by pickup this run. Autonomous window (step 4): no "Standing authorisation"
+heading present at the top of AGENT_LOG.md at the start of the run, so none
+was open; proceeded normally (moot regardless, nothing here needed a
+decision). Environment: mcp__workspace__bash (Cowork sandboxed Linux shell)
+returned "Permission to use mcp__workspace__bash has been denied" on every
+call this run, consistent with every recent run; all git, Node and file work
+was done via mcp__Windows-MCP__PowerShell against the canonical
+C:\Dev\rbh-site-data working copy, the established route. .agent-lock: none
+present at start, none stale; written 22:34:44 BST, deleted at the end of
+this run. No stale .git\index.lock. Pre-existing untracked debris (numerous
+.agent-lock.released-* files, .lock-test-file, .testfile123.todelete, a
+malformed literal-path file, open_q.txt, qtmp.json, scratchtest*.txt and
+other _agentscratch/ and audits/ leftovers from prior runs) noted but not
+touched, out of this item's scope; nothing created or left behind by this
+run beyond its own two kept audit files. Evidence:
+audits/verify-3.6-2026-09-02-ninth.js,
+audits/verify-3.6-2026-09-02-ninth-output.txt (both committed).
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
