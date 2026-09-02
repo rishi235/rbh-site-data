@@ -1,4 +1,203 @@
-## 2026-09-02 (unattended scheduled run, following the 5.1 ninth-pass run) - Item 4.13 quality pass (eighth): Riddings Pharmacy Timperley GBP pack re-verified clean; POST_INSTRUCTION marker regex hardened a second time, this time against leading whitespace, real in-repo defect found and fixed
+## 2026-09-02 (unattended scheduled run, following the 4.13 eighth-pass run) - Item 3.12 quality pass (fifth): Tiffenbergs Chemist Aintree re-verified clean; live coverage of its 12 live pages completed to 12 of 12 for the first time; item-selection tie-break method revised after the log-wide heuristic was found not to track actual verification depth
+
+ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
+C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
+Windows-MCP PowerShell for git, the same split recorded by many prior runs
+(Q87). The sandboxed mount's `git fetch origin` failed outright with "Host
+key verification failed" as usual (no ~/.ssh in the sandbox); Windows-MCP
+PowerShell's own `git fetch`/`status`/`log` confirmed the real repo already
+on agents/audit-backlog at d288ac6, up to date with origin, matching the
+sandbox's own last-known HEAD. `.agent-lock` absent at start (only stale
+`.agent-lock.released-*` litter from earlier runs, none of it a live lock);
+lock created at 2026-09-02T00:34:18Z (sandboxed clock reads UTC). No
+`.git\index.lock` present. The repo tree still carries the long-standing
+untracked scratch files from earlier runs (`.testfile123.todelete`,
+`scratchtest*.txt`, `open_q.txt`, `qtmp.json`, a stray `C:/` directory) -
+out of this item's scope to clean up, noted only so a future run does not
+mistake them for this run's output.
+
+ANSWER PICKUP (step 3). `tabs_context_mcp` reported Claude in Chrome not
+connected before any navigation was attempted. Logged as unavailable per
+the unattended-run rule; no alternative route or login attempted.
+QUESTIONS.json left exactly as found: 40 open of 91 total, none of them
+blocking this item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally; no autonomous decisions taken (nothing in this pass
+needed one - a plain re-verification with no judgement call for Rishi).
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines confirmed [BLOCKED]
+by a direct grep of "^- \[ \]" against AGENT_WORKLIST.md (5.3, 5.4, 5.5,
+5.8, 6.1, and the three under 6.4/6.5/6.6), so the quality-pass branch was
+taken, the same convention recent runs have used when every unchecked line
+is blocked.
+
+Re-derived the least-recently-verified completed item by the method the
+last several runs have recorded: bound each top-level item's own block from
+its start line to the next top-level item's start line, take the maximum
+date found in that block as its last-touched date, excluding the seven
+items outside the standard rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+and the eight blocked lines. That gave a 36-item pool with 33 items tied at
+2026-09-01 and three (4.11, 4.13, 5.1) freshly touched today by the three
+immediately preceding runs, excluded as most-, not least-, recently
+verified.
+
+Breaking the 33-way tie is where this run diverged. The recorded tie-break
+- fewest occurrences of the item's own number, word-boundary matched,
+within 40 characters of the phrase "quality pass" anywhere in
+AGENT_LOG.md - was applied first and returned an unresolved tie: 3.11 and
+3.2 both at 8, next nearest at 9 (1.2, 3.3, 3.8, 4.14, 6.3). Before
+breaking that tie with a further arbitrary rule, it was cross-checked
+against a simpler and more direct measure: counting "quality pass"
+occurrences inside each item's OWN AGENT_WORKLIST.md block only (i.e. how
+many passes that item's own paragraph actually records), rather than
+proximity-matching the item's number against every mention anywhere in the
+log, which also catches other items' entries cross-referencing this one.
+The two measures disagreed sharply: 3.11 and 3.2 both carry 7 own-block
+passes (already more than most of the pool), while 3.8 and 6.3, which the
+log-wide heuristic had ranked two mentions worse off (9 each), actually
+carry only 5 own-block passes each - genuinely fewer real verifications
+than either tied "winner". The log-wide heuristic is picking up incidental
+cross-references (other items' entries mentioning "3.11" or "3.2" in
+passing) as if they were this item's own passes, which is exactly the
+"list of names is not a rule" trap this repo's own checkers have hit
+before (CLAUDE.md, the meta-keywords and em-dash sections) - a proxy
+measure that stops tracking the thing it was built to approximate.
+
+Re-ranked the same 33-item pool by own-block "quality pass" count instead:
+3.12 (Tiffenbergs Chemist) came out lowest at 4, a clear margin under the
+next tier (5, shared by 3.6, 3.8, 6.3) rather than a further tie, so no
+additional tie-break was needed. 3.12 selected for this run's fifth pass.
+This is a refinement of the existing method, not a reversal of it - the
+own-block count is what the log-wide heuristic was always trying to
+approximate at a distance; reading it directly is more reliable than
+proxying it through log-wide text proximity. Recommend future runs use the
+own-block count as the primary tie-break and drop the log-wide proximity
+step, since this run found a concrete case where the two disagree and the
+direct count is demonstrably the more accurate one. No question raised for
+Rishi: this is a mechanical process refinement with no judgement call, the
+same class as the item 5.2 pass's harness-restoration fix and the item
+3.11 third-pass's own item-selection correction, both recorded in-line
+without a QUESTIONS.json entry.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually before any
+change: 36 of 36 exit 0. All seven generators re-run
+(build-service-pages, build-branch-landing-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages, build-contraception-
+pages, plus build-audit-status.js reserved for step 10): the six page
+generators produced 203 files under modules/*/pages, sha256-hashed before
+and after, byte-identical throughout; git status empty on modules/ and
+core/ both before and after.
+
+Fresh independent instrument audits/verify-3.12-2026-09-02.js written for
+this pass (copied from the 2026-09-01 script and re-headed; same 15-leg
+single-branch template proved on 3.5/3.7/3.8/3.9/3.12's own prior passes,
+imports nothing from tools/): 12 pages, 177 sheet permalinks, 2,355 checks,
+0 failures on first run before any injection.
+
+Instrument proved live by three fault injections, each on a page untried
+for injection in any prior 3.12 pass (widening from sinusitis, used on the
+2026-09-01 pass), each restored by byte copy from a pre-injection backup
+(not git checkout) and sha256-confirmed identical before the next
+injection:
+1. impetigo-treatment-tiffenbergs-aintree.html: spaced phone
+   "0151 525 3462" replaced with a fabricated non-branch number
+   "0151 944 4555" via sed (which only matches the spaced text, leaving
+   the unspaced tel: href untouched). Caught via the JSON-LD telephone leg
+   only (1 failure) - correctly NOT via the "foreign phone present" leg,
+   because that leg only fires for numbers belonging to a real other
+   branch and the fabricated number matches none, the same fabricated-
+   vs-real distinction check-nap.js already encodes as FAIL-vs-WARN
+   (confirmed on the 4.13 pass immediately before this one). Restored;
+   sha256 confirmed identical to backup.
+2. uti-treatment-tiffenbergs-aintree.html: postcode "L9 9DB" replaced
+   with Clear Chemist Aintree's real "L9 7AS" - the shared L9 district
+   this item's own template exists to separate. Caught four ways at once:
+   both foreign-postcode legs (rbh_head_office_aintree and
+   clearchemist_aintree both carry L9 7AS), the own-postcode-absent leg,
+   and the JSON-LD postalCode leg. Restored; sha256 confirmed identical.
+3. earache-treatment-tiffenbergs-aintree.html: an orphan 24-hex string
+   added as an HTML comment beside the #rbhsv-root element. Caught by the
+   hard-coded-widget-id leg (1 failure). Restored; sha256 confirmed
+   identical.
+All 203 generated files sha256-confirmed byte-identical to the pre-pass
+baseline after the third restore; git status empty on modules/ and core/
+at the end. Zero in-repo defect.
+
+LIVE HALF, read-only, widened to the six pages left unread live by every
+prior 3.12 pass (earache, impetigo, shingles, sinusitis, sore throat, UTI
+- the 2026-08-31 pass had read the other six: pharmacy-first, switch,
+weight loss, travel clinic, contraception and the infected-insect-bite
+condition page). Claude in Chrome confirmed unreachable at answer pickup
+and re-confirmed for this item specifically. Unlike several recent runs,
+the sandboxed shell in this session has direct outbound network access
+(confirmed with a plain curl HEAD-equivalent to the branch's own domain
+before fetching), so the established "plain Node fetch()" fallback used
+since the item 3.3/3.4 passes was available directly from the sandbox
+without needing the Windows-MCP PowerShell route - all six pages fetched
+by curl, HTTP 200 on all six.
+
+This takes live coverage of Tiffenbergs' 12 live pages to 12 of 12 across
+the passes taken together, for the first time (no single pass has read all
+12 live; coverage has accumulated pass over pass since 2026-08-30).
+
+All six pages clean and mutually consistent, checked against
+branches.json's tiffenbergs_longmoor record and against every other live
+branch: own spaced phone (0151 525 3462, six occurrences per page) and own
+unspaced tel: href (01515253462) both present on every page; own postcode
+(L9 9DB, five occurrences per page) present on every page; "Aintree"
+present 26 times per page; "Longmoor Lane" present five times per page;
+H1 and title both follow the established
+"<Condition> treatment in Aintree - Tiffenbergs Chemist" pattern on all
+six with the condition word correct for its own page. No other trading
+branch's phone or postcode found on any of the six. A brand-comparison
+leg against every other live branch's brandLabel flagged "RB Healthcare
+Ltd" present on all six - checked and confirmed a false positive of this
+pass's own comparison design, not a finding: that string is the shared
+"Owned and operated by RB Healthcare Ltd - Company No 06223421" copyright
+line printed in the footer of literally every page across the whole
+estate, not a cross-branch contamination the way a sister pharmacy's
+brand name would be.
+
+Q56 (branches.json's singular Tiffenberg@ mailbox against the live plural
+tiffenbergs@) reconfirmed present and unchanged in the contact block and
+footer of all six newly-read pages; not re-raised, matches every prior
+pass's reading.
+
+Two already-known, out-of-repo-scope live-only states confirmed present
+on all six pages, identical single occurrence of each on every page,
+both inside non-rendering script or comment text rather than visible
+copy patients read: the pre-repaste mojibake "ÔÇö" (UTF-8 em dash
+mis-decoded as Windows-1252), this time found inside a shared Google
+tag/GTM header comment reading "...Google tag (gtag.js) ÔÇö Coleman &
+Leigh's own..." - evidently boilerplate copied site-wide from Coleman and
+Leighs' original GTM setup and left unchanged since, present identically
+on all six Tiffenbergs pages, non-rendering and not something a patient
+reads; and the mojibake "├ù" (a UTF-8 multiplication-sign close icon
+rendered as Windows-1252) inside the switch banner's close-button
+template literal (`aria-label="Close">├ù</button>`), the same
+close-button mojibake already tracked as a known state on other branches
+including this item's own switch page. Neither is new, both sit outside
+any file this repo generates, and neither is fixable here.
+
+No prescription-only medicine name or superlative/results claim on any
+of the six condition pages, as expected - these are Pharmacy First
+pathways (earache, impetigo, shingles, sinusitis, sore throat, UTI), not
+weight loss or travel clinic pages, so Regime 1/2 wording rules do not
+apply to them.
+
+Zero in-repo defects. No new question raised - this pass's only findings
+were the two already-known live-only mojibake states (now confirmed on a
+wider set of pages) and the item-selection method refinement recorded
+above, neither of which is a decision for Rishi. Worklist item 3.12
+updated in place with this pass's findings, appended after the
+2026-09-01 fourth-pass entry rather than replacing it. Evidence:
+audits/verify-3.12-2026-09-02.js (committed);
+_agentscratch/live312/*.html (six live-fetched pages, working copy only,
+not committed, not part of the tracked repo).
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
 C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus

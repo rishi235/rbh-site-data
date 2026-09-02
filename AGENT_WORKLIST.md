@@ -2583,6 +2583,78 @@ Done 2026-09-01 (seventh pass).
       (Tiffenberg@ singular in branches.json vs tiffenbergs@ plural on the
       live footer) was not re-confirmed this pass - not assumed unchanged.
       No new question raised.
+      Quality pass 2026-09-02, FIFTH PASS, both halves, item selected by a
+      revised method (see AGENT_LOG.md for why): the log-wide "quality pass"
+      proximity heuristic used by recent runs produced an unresolved tie
+      between 3.11 and 3.2 at 8 mentions each, and cross-checking against the
+      simpler count of "quality pass" occurrences inside each item's own
+      AGENT_WORKLIST.md block showed that heuristic does not track actual
+      verification depth (3.11 and 3.2 both already carry 7 own-block passes,
+      while several tied items carry only 5). Re-ranked the full 33-item
+      2026-09-01-dated pool by own-block pass count instead: 3.12 came out
+      lowest at 4, a clear margin under the next tier (5, three items), so 3.12
+      was selected outright, no further tie-break needed.
+      REPO HALF. All 36 checkers re-run individually before any change, 0
+      failures. All seven generators rebuilt first; every file under
+      modules/*/pages sha256-hashed before and after (203 files), byte-
+      identical, git status empty on modules/ and core/ throughout.
+      Fresh independent instrument audits/verify-3.12-2026-09-02.js (same
+      15-leg single-branch template as the four prior passes, imports
+      nothing from tools/): 12 pages, 177 sheet permalinks, 2,355 checks, 0
+      failures. Instrument proved live by three fault injections, each on a
+      page untried for injection in any prior 3.12 pass, restored by byte
+      copy (not git checkout) and sha256-confirmed identical to the
+      pre-injection backup before the next: (1) impetigo page's spaced phone
+      swapped to a fabricated non-branch number - caught via the JSON-LD
+      telephone leg only, the unspaced tel: digits were untouched by the
+      substitution so the "own phone present" leg correctly stayed green,
+      and no "foreign phone" leg fired because the fabricated number
+      matches no real branch, the same fabricated-vs-real distinction
+      already established on check-nap's WARN/FAIL split; (2) UTI page's
+      postcode swapped to Clear Chemist Aintree's real L9 7AS (the shared L9
+      district this item's template exists to separate) - caught four ways
+      at once, both foreign-postcode legs (rbh_head_office_aintree and
+      clearchemist_aintree share that postcode), the own-postcode-absent
+      leg and the JSON-LD postalCode leg; (3) earache page given an orphan
+      24-hex string beside its module root - caught by the hard-coded-
+      widget-id leg. Zero in-repo defect. All 203 generated files
+      sha256-confirmed byte-identical to the pre-pass baseline after every
+      restore.
+      LIVE HALF, read-only, widened to the six pages left unread by every
+      prior pass (earache, impetigo, shingles, sinusitis, sore throat, UTI),
+      via plain curl from the sandbox (Claude in Chrome confirmed
+      unreachable at answer pickup and again for this item; the sandbox has
+      direct outbound network access this run, so no PowerShell fallback was
+      needed). This takes live coverage of Tiffenbergs' 12 live pages to
+      12 of 12 across the passes taken together, for the first time. All six
+      clean and mutually consistent: own phone (both spaced text and
+      unspaced tel: href), own postcode, own street address and "Aintree"
+      all present on every page; H1 and title both follow the
+      "<Condition> treatment in Aintree - Tiffenbergs Chemist" pattern; no
+      other trading branch's phone or postcode found on any of the six
+      (the "RB Healthcare Ltd" hit from group-brand comparison is the
+      shared footer copyright line printed on every page across the whole
+      estate, not cross-branch contamination - a false positive in this
+      pass's own comparison, not a finding). Q56 (branches.json's singular
+      Tiffenberg@ against the live plural tiffenbergs@) reconfirmed present
+      and unchanged in the contact block and footer of all six pages, not
+      re-raised. Two already-known, out-of-repo-scope live-only states
+      confirmed present on all six, identical byte count on each, both
+      inside non-rendering script/comment text rather than visible copy: the
+      pre-repaste mojibake "ÔÇö" em dash (this time inside a shared Google
+      tag/GTM header comment that also names Coleman and Leighs, evidently
+      boilerplate copied site-wide from that branch's original setup and
+      unchanged since, not something a patient reads) and the mojibake
+      "├ù" (a UTF-8 multiplication-sign close icon rendered as Windows-1252)
+      inside the switch banner's close-button template literal, the same
+      close-button mojibake already tracked on other branches. Neither is
+      new; both sit outside this repo's generated output. No prescription
+      medicine names or superlative claims on any of the six condition
+      pages (none expected; these are Pharmacy First pathways, not weight
+      loss). Zero in-repo defects. No new question raised.
+      Evidence: audits/verify-3.12-2026-09-02.js,
+      _agentscratch/live312/*.html (six live fetches, working copy only, not
+      committed). Done 2026-09-02
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
