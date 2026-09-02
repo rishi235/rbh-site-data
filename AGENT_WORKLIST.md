@@ -5212,6 +5212,52 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       the best."), unchanged; Q22 was answered 2026-08-30 as "Unsure,
       guidance pending", so no repo action is due on it yet. No new
       question, no in-repo defect. Done 2026-09-01.
+      Eighth quality pass 2026-09-02 (unattended run via Cowork; the
+      Linux sandbox's bash tool could not reach GitHub over SSH this run,
+      "Host key verification failed", so git and the checker runs were
+      done via Windows-MCP PowerShell against the same working copy at
+      C:\Dev\rbh-site-data instead). Pack clean on every fact for the
+      eighth time running, no in-repo defect. All 36 checkers exit 0; the
+      one WARN naming this pack (Post A's pfLink resolving to a live-only
+      page) is unchanged. Every fact re-verified against branches.json:
+      name Coleman and Leighs Pharmacy, address 241 Walton Village,
+      Liverpool L4 6TH, phone 0151 525 3522, website, review link, hasApp
+      false, both opening-hours sessions (09:00 to 13:00 and 14:00 to
+      18:00 Monday to Friday, Saturday and Sunday closed) and catchment
+      Walton, Liverpool and Sefton in all three places, leading with its
+      own seoTown. Description length (631) and all four post lengths
+      (456, 321, 528, 433) confirmed exact by the checker's own
+      zero-tolerance rule; zero non-ASCII characters, zero dash
+      characters, zero dash entities; zero hits against the 82-name
+      tools/pom-names.js union, checked directly with a standalone script
+      rather than trusted from the checker alone. All 7 build-*.js page
+      generators re-run; git status on modules/ empty afterwards, so
+      nothing in the estate drifted.
+      Four injections run this pass, one value at a time, each restored
+      from an in-memory byte copy held before the edit (not git checkout)
+      and confirmed byte-identical afterwards via git diff --stat: a wrong
+      postcode (caught by check-gbp-packs.js and check-postcodes.js), a
+      wrong phone digit (caught by check-gbp-packs.js), and a genuine em
+      dash character added to Post B (caught by check-em-dashes.js). That
+      third injection was run twice: the first attempt used a plain hyphen
+      rather than an em dash and, correctly, nothing caught it, which is
+      right behaviour under the standing hyphens-only rule and not a
+      checker gap, so it was re-run with an actual U+2014 character to
+      test the real thing. Q76's own case was re-run a fourth time: a
+      sister branch's name (Cherry Lane, which shares this branch's Walton
+      seoTown) substituted for this branch's own in Post C is still MISSED
+      by every one of the 36 checkers, exactly as before. Q76 stands
+      exactly as raised and still awaits a decision on scope.
+      Live half not performed via Claude in Chrome: the extension reported
+      not connected at the start of this run and again when retried
+      mid-pass. As a supplementary, non-browser check only, a direct
+      HTTPS HEAD request to the Post A pfLink target returned 404,
+      consistent with every check since the first pass on 2026-08-10; this
+      confirms only the status code, not page content or the name-state
+      finding, so the fuller 2026-09-01 live verdicts (mixed old and new
+      trading name across the site, Posts B, C and D resolving, the Q22
+      tagline unchanged) stand as written rather than being re-verified.
+      No new question, no in-repo defect. Done 2026-09-02.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

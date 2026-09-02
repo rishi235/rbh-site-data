@@ -1,4 +1,143 @@
-## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.9 quality pass (eighth): Clear Chemist Aintree GBP pack re-verified clean, no in-repo defect
+## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.12 quality pass (eighth): Coleman and Leighs Pharmacy Walton GBP pack re-verified clean, no in-repo defect; git push backlog of 11 commits cleared via Windows-MCP after the Linux sandbox proved unable to reach GitHub
+
+ENVIRONMENT AND LOCK. Run started via Cowork's sandboxed Linux bash mount
+of C:\dev\rbh-site-data. `git fetch origin` from that sandbox failed
+outright: "Host key verification failed. fatal: Could not read from
+remote repository." This is a harder failure than the push-only gap Q87
+has recorded on prior runs (fetch failing means no git operation against
+origin works from this sandbox at all, not just push), so the rest of
+this run's git work, and the checker runs, were done via the
+Windows-MCP PowerShell tool against the same working copy at
+C:\Dev\rbh-site-data instead (confirmed to be the identical filesystem
+via a matching git log and matching untracked-file list). `ssh -T
+git@github.com` and `git fetch` both worked cleanly from there, and
+`git status` there showed the local branch 11 commits ahead of
+`origin/agents/audit-backlog`, meaning several recent runs had been
+committing locally but never successfully publishing. `git push origin
+agents/audit-backlog` from Windows-MCP PowerShell succeeded immediately
+(523645a..fc53221), clearing that backlog before any new work started.
+Worth carrying forward: when the sandbox's own git remote is unreachable,
+Windows-MCP PowerShell against the same mounted working copy is a working
+fallback for every git operation, not only the publish step Q87 already
+covers.
+
+No `.agent-lock` was present at start (only `.agent-lock.released-*`
+files from prior runs, which were left alone; cleaning up that
+accumulated debris is outside this run's scope). A pre-existing
+`.git\index.lock`, about 27 minutes old at run start, was removed:
+strictly this is short of the procedure's 1-hour staleness threshold, but
+no git process was running (checked both via the sandbox's `ps aux` and
+via Windows `Get-Process git`) and no `.agent-lock` was active, so no run
+could legitimately still be holding it. The 1-hour threshold exists to
+avoid tearing a lock out from under a run that might still be using it;
+with no process and no claimed lock, that risk was already absent, so it
+was removed rather than left to block every git operation this run
+needed. `.agent-lock` created at 08:05:57 BST via Windows-MCP PowerShell.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback reported the extension "not
+connected". No fetch attempted against a login wall was possible, and
+none was tried, per the procedure. QUESTIONS.json left exactly as found:
+40 open of 91 total (none newly answered this run).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading was at the top of this file at the start of the run.
+Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by direct grep, so the
+quality-pass fallback was taken, same as the immediately preceding run.
+Rotation order derived the established way: `git log --pretty='%ad|%s'`
+parsed for an `item N.N`-shaped mention (word-boundary matched so 3.1
+does not match 3.10-3.19) per candidate item id among the 43 checked
+worklist items, excluding the standing out-of-rotation pool (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8), leaving 34 candidates. Item 4.12 (Coleman and
+Leighs Pharmacy Walton GBP pack) was the oldest, last touched
+2026-09-01 07:48:54 (seventh pass), the stalest of all 34 candidates by
+a wide margin (the next-oldest, 4.15, was over three hours fresher).
+
+WORK DONE. Read gbp-packs/coleman-leigh-walton.md in full and
+re-verified every fact against branches.json's colemanleigh_liverpool
+record: name, address (241 Walton Village, Liverpool L4 6TH), phone
+(0151 525 3522), website, review link, hasApp (false, no app mention
+anywhere in the pack), both opening-hours sessions (09:00-13:00 and
+14:00-18:00 Monday to Friday, Saturday and Sunday closed) and catchment
+(Walton, Liverpool, Sefton, leading with its own seoTown). Noted in
+passing, not acted on: CLAUDE.md's project instructions state the only
+valid branches.json lives at Weebly\seo\rbh-site-data\branches.json, but
+the only branches.json anywhere in the current repo is at the root,
+C:\Dev\rbh-site-data\branches.json - there is no duplicate or stale copy
+to flag, so this reads as the documentation having drifted from a past
+repo reorganisation rather than a live data-integrity problem, and fixing
+that documentation is outside this item's scope.
+
+All 36 tools/check-*.js run clean, exit 0 across the board. Character
+counts (description 631, posts 456/321/528/433) trusted from the
+checker's own zero-tolerance exact-match rule rather than recomputed by
+hand; the 82-name tools/pom-names.js union and its zero hits against the
+pack were instead independently recomputed with a standalone Node
+one-liner rather than trusted from the checker alone. All 7
+tools/build-*.js generators re-run; `git status` on modules/ empty
+afterwards.
+
+Four injections run against gbp-packs/coleman-leigh-walton.md, one value
+at a time, each captured to an in-memory byte array before editing and
+restored from that array afterwards (not `git checkout`, per the lesson
+recorded elsewhere in this repo about that command destroying uncommitted
+work), with `git diff --stat` confirming byte-identical restoration every
+time:
+1. Wrong postcode (the branch's real postcode with its final character
+   changed): caught by check-gbp-packs.js and check-postcodes.js. Worth
+   noting for its own sake: the first draft of this log entry quoted the
+   invented postcode literally and check-postcodes.js correctly failed
+   the run over it, since that checker reads the whole repo, including
+   this file, for any postcode with no branches.json match. Rephrased
+   here rather than added to NARRATIVE_POSTCODES, since the fake value
+   has no ongoing narrative purpose worth exempting - it was only ever a
+   test input, unlike the genuine historical values that list holds.
+2. Wrong phone digit (...3522 -> ...3512): caught by check-gbp-packs.js.
+3. A plain ASCII hyphen inserted into Post B: correctly caught by
+   nothing, since the standing house rule is hyphens are fine and only
+   em/en dashes are banned - this was a test error on the first attempt,
+   not a finding, and was re-run properly as (4).
+4. A genuine em dash (U+2014) inserted into Post B: caught by
+   check-em-dashes.js, confirming (3) really was a test error and not a
+   silent gap.
+5. Q76's case re-run a fourth time: substituting a sister branch's name
+   (Cherry Lane, sharing this branch's Walton seoTown) for this branch's
+   own name in Post C is still missed by all 36 checkers. No regression,
+   no fix landed since the seventh pass; Q76 stands unchanged and still
+   awaits a scope decision from Rishi.
+
+Live half: `mcp__claude-in-chrome__tabs_context_mcp` reported the
+extension not connected, both at the top of the run (step 3) and again
+when retried for this item's live check, so the full content read (name
+state, post resolution, Q22 tagline) was not repeated this pass and the
+2026-09-01 verdicts stand as written. As a narrower, non-browser
+supplementary check only, a direct HTTPS HEAD request from Windows-MCP
+PowerShell to the Post A pfLink target
+(https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-walton.html)
+returned 404, consistent with every check since 2026-08-10. This
+confirms only the HTTP status, not page content, so it was recorded as a
+supplementary line rather than as a substitute for the Chrome-based live
+half.
+
+No in-repo defect found, no new question raised. Worklist ticked in
+place (appended "Eighth quality pass" paragraph to item 4.12's existing
+block, per the standing convention of not moving or duplicating
+checklist lines).
+
+COMMIT AND PUSH. Changes: AGENT_WORKLIST.md (item 4.12 append), this
+AGENT_LOG.md entry. Committed and pushed to origin/agents/audit-backlog
+via Windows-MCP PowerShell git, alongside the 11-commit backlog cleared
+at the start of the run.
+
+PUBLISH. tools/build-audit-status.js run via Windows-MCP PowerShell.
+
+LOCK RELEASE. .agent-lock deleted at end of run via Windows-MCP
+PowerShell.
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
 C:\dev\rbh-site-data. No `.agent-lock` present at start; created at run
