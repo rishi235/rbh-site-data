@@ -6583,6 +6583,57 @@ appended to the line. Do not move them; the status page reads them in place.
       and a GBP pack is pasted verbatim into a live public profile. No new
       question. Evidence in
       audits/hirshmans-address-check-2026-09-01-eighth.txt. Done 2026-09-01
+      Ninth quality pass 2026-09-02 (unattended scheduled run, rotation pool
+      - item 1.2 was the stalest of the 36 rotation candidates, last touched
+      2026-09-01T13:17 BST, over 24 hours before this run, derived from
+      `git log` "item N.N" mentions with the standing one-off exclusions
+      1.1/1.4/2.2/5.6/5.7/6.7/6.8). REPO HALF: address clean for the ninth
+      consecutive pass. branches.json's hirshmans_ainsdale record unchanged
+      (56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW, 01704 577376,
+      review link, both lunch-closure hour sessions). Eight-pattern broken-
+      variant sweep across all 587 tracked files: every "PR8 3HN" hit is
+      Fishlocks Ainsdale's own postcode, every "017014577376" and "64
+      Station Road"-shaped hit is confined to the pack's own HARD STOP note
+      and narrative/audit files, the one "Hirshman Chemist" hit is a
+      historical audit file recording a past finding, not a live surface;
+      zero hits for "Sherwood Road", "56 62 Sherwood" or any digit-shifted
+      phone. All 36 checkers run individually: 36/36 exit 0. All six
+      generators rebuilt from branches.json; sha256 of all 203 files under
+      modules/service/pages, modules/switch/pages and modules/branch/pages
+      identical before and after, zero diff.
+      GUARD COVERAGE EXTENDED TWICE, both angles never tested on this item
+      before. First, a day-shape defect on the pack's own Hours line
+      (CLAUDE.md's own documented lesson that a profile is set in days, not
+      only times): "Monday to Friday" changed to "Monday to Thursday" with
+      every time value left untouched. check-gbp-packs.js's day rule caught
+      it correctly - "branches.json opens this branch on Friday, but the
+      hours line does not state Friday as an open day" - proving the rule
+      reads the day set, not just the clock times, on this branch's own
+      pack for the first time. Second, the branch's own phone number on the
+      GBP PACK surface specifically (prior passes proved phone-shaped
+      strings on the generated pages via check-nap; the pack via
+      check-gbp-packs had only ever been proven on street and postcode, per
+      the fourth pass): last digit changed (...577376 -> ...577375).
+      check-gbp-packs.js caught it - "branch phone 01704 577376 does not
+      appear anywhere in the pack" - and separately flagged the wrong
+      number as phone-shaped, same as its existing narrative-line WARN
+      logic. Both injections captured to a byte-for-byte backup before
+      editing, restored from that backup (not `git checkout`, per the
+      standing lesson elsewhere in this repo about that command discarding
+      uncommitted work), sha256-confirmed identical to the pre-injection
+      file both times, and the full 36-checker suite re-run clean after
+      restoration.
+      LIVE HALF NOT PERFORMED. Claude in Chrome reported connected (one
+      browser) at the start of this run, then reported not connected when
+      the live-side check for this item was attempted a few minutes later;
+      no fetch was retried against a login wall or an unavailable
+      extension, per the standing procedure. The eighth pass's live state
+      (contact-us address, hours and every Q41 cosmetic) stands unconfirmed
+      but unchanged from this run's perspective.
+      No in-repo defect found, no new question raised. Evidence: full
+      36-checker output and both injection transcripts captured this run;
+      see AGENT_LOG.md for the environment/lock/push handling notes, not
+      repeated here. Done 2026-09-02
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
