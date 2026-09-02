@@ -1,3 +1,133 @@
+## 2026-09-02 (unattended scheduled run via Cowork, following the 3.1 eighth-pass run) - Item 4.3 quality pass (eighth): Hirshmans Ainsdale GBP pack re-verified clean on all 36 checkers, bank-holiday special-hours rule proved by injection against this pack's own copy for the first time, live half re-read via Chrome (connected this run) with all known findings unchanged, no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers, generators and the
+scratch-copy injection test. `.agent-lock` absent at start (only the
+long-standing litter of stale `.agent-lock.released-*` files, left
+untouched as outside this run's scope); lock created via the sandbox
+mount before any repo work began (03:04:34 UTC). A fresh, zero-length
+`.git\index.lock` appeared during this run's own `git status` calls,
+the same "unable to unlink... Operation not permitted" filesystem
+behaviour previous runs have diagnosed (create and rename-to-new-name
+work from this mount, unlink and same-name overwrite do not); confirmed
+under a minute old with no git process running (`ps aux`), so left
+untouched per the procedure's own 1-hour staleness rule, to be renamed
+aside rather than deleted once real work needs committing.
+
+ANSWER PICKUP (step 3). Claude in Chrome was connected this run (unlike
+most recent runs). Navigated read-only to
+https://data.rbhealth.co.uk/api/feedback and read all 47 entries
+returned. Cross-checked every question id mentioned (Q52, Q51, Q50, Q49,
+Q48, Q47, Q46, Q45, Q44, Q43, Q42, Q41, Q40, Q39, Q38, Q37, Q36, Q35,
+Q34, Q29, Q28, Q24, Q22, Q21, Q20, Q19, Q18, Q17, Q16, Q15, Q13, Q14, Q5,
+Q4, Q3, Q2) against QUESTIONS.json: 34 of 36 are already recorded
+"answered" from earlier runs, nothing new to apply. The remaining two,
+Q43 and Q37, are already marked open with a note "PORTAL REPLY RECEIVED
+2026-09-01, NOT A DECISION" recorded by an earlier run today, quoting the
+exact same portal text found again here (Q43: "Unsure ... need advise";
+Q37: "i need further explanation as i dont understandin plain english
+waht you are asking") - both comments rather than option picks, so both
+correctly stay open and needed no further action this run. QUESTIONS.json
+otherwise left exactly as found: 40 open of 91 total, none blocking any
+candidate item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run. Proceeded normally; no autonomous decisions taken, no new question
+needed.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, plus the three under 6.4/6.5/6.6) confirmed [BLOCKED] by direct
+grep, so the quality-pass fallback was taken. Least-recently-verified item
+determined programmatically: parsed every top-level completed item's own
+paragraph in AGENT_WORKLIST.md for "quality pass" date mentions, excluded
+the seven items outside the standard rotation pool (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) and the eight items already re-passed earlier today
+(3.1, 3.6, 3.8, 3.12, 4.11, 4.13, 5.1, 6.3). Every remaining item tied at
+"2026-09-01" by date alone, so ties were broken by the exact time-of-day
+each item's own audits/ evidence file was last written on 2026-09-01
+(cross-checked against the corresponding AGENT_LOG.md entry's own text
+where a file was ambiguous, e.g. item 4.12's seventh pass, timed from its
+log entry's own git-lock timestamp note rather than a distinctly-named
+audit file). Item 4.3 (Hirshmans Ainsdale pack) was last touched at 04:10
+BST on 2026-09-01, the earliest of the whole remaining group; the next
+earliest was 1.3 at 04:40. Selected.
+
+WORK DONE. Read gbp-packs/hirshmans-ainsdale.md in full and cross-checked
+every profile-basics fact against branches.json's hirshmans_ainsdale
+record by hand (name, street, locality, postcode, region, phone, hours
+specification including both lunch-closure sessions, website, review
+link, service area, hasApp, all five widget ids): all matched, nothing
+wrong. All six page generators rebuilt all 203 files under
+modules/*/pages to a byte-identical result (sha256 before/after
+identical, see audits/_before-4.3-2026-09-02-eighth.sha256 and
+audits/_after-4.3-2026-09-02-eighth.sha256). All 36 tools/check-*.js
+checkers run individually, all exit 0; the only Hirshmans-related output
+across all 36 was the standing tracked set - Q64 (post-town vs
+addressLocality), Q72 (six missing private-clinic qualifier phrases),
+Q44 (H1 shared with Fishlocks Ainsdale on a different host, across eight
+Pharmacy First condition pages), the pack's own documented Post A HARD
+STOP wrong-phone/wrong-address note (correctly read as a quoted fact
+about a live page, not a claim by the pack), and the Q64/Q79 bank-holiday
+notes - no new warning. See
+audits/checker-suite-4.3-2026-09-02-eighth.txt.
+
+Fresh injection test, chosen because seven prior passes had already
+individually re-proven the road-name rule and the claim-patterns
+word-number outcome-claim rule against this pack's own text (most
+recently the seventh pass, 2026-09-01), but the bank-holiday
+special-hours rule in check-gbp-packs.js (born on the 4.5/Scorah Hazel
+Grove quality pass, 2026-08-30) had never been individually re-proven
+against Hirshmans' own copy specifically. On a disposable rsync copy of
+the whole repo outside the tracked tree (excluding .git and lock
+litter), the "Bank holiday special hours" paragraph was stripped from
+the scratch copy's gbp-packs/hirshmans-ainsdale.md and
+check-gbp-packs.js run alone against the scratch copy failed it by name:
+"the \"Notes for the paster:\" block has no bank holiday special-hours
+instruction". Baseline run against the unmutated scratch copy first
+confirmed 0 failures, so the fault was attributable to the injection
+alone. Scratch copy deleted immediately after; sha256 of the tracked
+repo's gbp-packs/hirshmans-ainsdale.md confirmed unchanged before and
+after (215430cd...051927b), and `git status --porcelain gbp-packs/`
+confirmed no tracked change.
+
+LIVE HALF. Performed this run because Claude in Chrome was connected
+(most recent runs have found it unavailable). All four post targets
+re-read, read-only, one tab, closed after use. Findings unchanged from
+the seventh pass (2026-09-01): pharmacy-first-service-ainsdale.html
+(Post A, the HARD STOP page) still publishes the wrong address ("64
+station Road" instead of "56-62 Sherwood House, Station Road"), the
+non-dialling phone 017014577376, and "Hirshmans Pharmacy" branding in
+its body copy, against the correct facts in its own site footer - item
+5.3/Q8/Q34, not a new finding.
+switch-prescriptions-hirshmans-ainsdale.html (Post B) has every fact
+correct but still renders the pre-Q7 em dash as mojibake ("it usually is
+not ÔÇö we make the first step quick and easy"), the same
+live-paste-lag family already confirmed at Cherry Lane and Coleman and
+Leighs. weight-loss-clinic-hirshmans-ainsdale.html (Post C) and
+travel-clinic-hirshmans-ainsdale.html (Post D), the two generated pages,
+both read clean: private paid framing throughout, no medicine or vaccine
+named as guaranteed in stock, full eligibility hedging, consistent with
+the compliant-inner-page standard.
+
+RESULT. No in-repo defect. No new live finding. No new question. Item
+4.3's tick line updated in AGENT_WORKLIST.md with the eighth-pass
+summary.
+
+FILES CHANGED
+- `audits/_before-4.3-2026-09-02-eighth.sha256` (new)
+- `audits/_after-4.3-2026-09-02-eighth.sha256` (new)
+- `audits/checker-suite-4.3-2026-09-02-eighth.txt` (new)
+- `AGENT_WORKLIST.md` (item 4.3's own paragraph, eighth-pass note appended)
+- `AGENT_LOG.md` (this entry)
+
+QUESTIONS. No question added or changed. 40 open of 91 total, unchanged.
+
+COMMIT (step 9) and PUBLISH (step 10) follow this entry. `.agent-lock`
+removed at the end of this run.
+
+---
+
 ## 2026-09-02 (unattended scheduled run via Cowork, following the 6.3 fifth-pass run) - Item 3.1 quality pass (eighth): SEO title/H1/meta pattern re-verified clean, checkMeta's own 80-165 length-bound leg proved by injection independently of check-seo-lengths.js for the first time, no in-repo defect
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of

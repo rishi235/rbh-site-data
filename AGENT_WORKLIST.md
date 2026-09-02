@@ -3500,6 +3500,42 @@ Pharmacy First wording to the NHS service description.
       eligibility hedging, consistent with the compliant-inner-page
       standard. No in-repo defect found, no new question raised. Done
       2026-09-01
+      Quality pass 2026-09-02 (eighth pass, repo and live): re-verified as
+      the least recently touched rotation-pool item (last touched 04:10 BST
+      on 2026-09-01, the earliest last-touch time of all 27 eligible items
+      once the eight items already re-passed earlier on 2026-09-02 were
+      excluded). All facts re-checked against branches.json (name, address,
+      phone, hours with both lunch closures, website, review link,
+      three-town service area, hasApp false, all five widgets) and nothing
+      wrong. All six generators rebuilt to zero diff (sha256 before/after
+      identical across all 203 modules/*/pages files) and all 36 checkers
+      exit 0, no new warnings beyond the standing tracked ones (Q64 post-town,
+      Q72 qualifier wording, Q44 shared H1, plus the pack's own documented
+      Post A HARD STOP note). Fresh scratch-copy injection test, chosen
+      because the bank-holiday special-hours rule (born on the 4.5 quality
+      pass, 2026-08-30) had never been individually re-proven against this
+      pack's own copy: on a disposable rsync copy of the whole repo outside
+      the tracked tree, the "Bank holiday special hours" paragraph was
+      stripped from gbp-packs/hirshmans-ainsdale.md and check-gbp-packs.js
+      run alone failed it by name, "the paster note has no bank holiday
+      special-hours instruction". Scratch copy deleted immediately after;
+      sha256 of gbp-packs/hirshmans-ainsdale.md in the tracked repo confirmed
+      unchanged throughout. Live half, read-only via Chrome (connected this
+      run): all four post targets re-read. pharmacy-first-service-ainsdale.html
+      (Post A, HARD STOP) still live with the wrong address (64 station Road
+      instead of 56-62 Sherwood House), the non-dialling phone
+      017014577376, and "Hirshmans Pharmacy" branding in the body copy -
+      unchanged, still item 5.3/Q8/Q34, not a new finding.
+      switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders
+      the pre-Q7 em dash as mojibake ("it usually is not ÔÇö
+      we make the first step quick and easy"), the same live-paste-lag
+      family as Cherry Lane and Coleman and Leighs, unchanged since the
+      seventh pass. weight-loss-clinic-hirshmans-ainsdale.html (Post C) and
+      travel-clinic-hirshmans-ainsdale.html (Post D) both still read clean:
+      private paid framing, no medicine or vaccine named as guaranteed in
+      stock, full eligibility hedging. No in-repo defect found, no new
+      question raised. Audit:
+      audits/checker-suite-4.3-2026-09-02-eighth.txt. Done 2026-09-02
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
