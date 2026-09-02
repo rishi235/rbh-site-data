@@ -1,0 +1,93 @@
+Tiffenbergs Chemist Aintree GBP pack - eighth quality pass
+Run: unattended scheduled run via Cowork, 2026-09-02
+Branch id: tiffenbergs_longmoor
+
+REPO HALF
+---------
+All 36 tools/check-*.js scripts run individually, all exit 0:
+check-address-region, check-app-membership, check-booking-routes,
+check-branch-identity, check-branch-links, check-brand-spelling,
+check-cdn-pins, check-contraception-copy, check-editor-snapshot,
+check-em-dashes, check-fragment-targets, check-gbp-packs,
+check-gbp-pharmacy-first, check-jsonld, check-live-hours, check-map-embeds,
+check-nap, check-opening-hours, check-page-coverage,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-service-links, check-switch-copy,
+check-travel-clinic-copy, check-uk-spelling, check-url-scheme,
+check-weight-loss-copy, check-whatsapp-route, check-widget-diaries.
+
+All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt with
+`git diff --stat modules/` empty afterwards - byte-identical to the
+committed output.
+
+gbp-packs/tiffenbergs-aintree.md unchanged since the sixth pass
+(md5 6880a60bd1e32fea3fa791a806b2b3e2). Facts re-matched against
+branches.json programmatically: branchName, streetAddress,
+addressLocality, postalCode, phone, website, googleReviewUrl, pfLink,
+seoTown (Aintree) leading the catchment order, and all three
+serviceAreaList towns present. Pure ASCII, no em or en dash. hasApp false,
+no app mention.
+
+LIVE HALF (performed - single Chrome instance connected this run, no Q59
+ambiguity)
+---------
+Fetched via Claude in Chrome, read-only, no clicks/typing/submission:
+
+- pharmacy-first-tiffenbergs-aintree.html - 200, reads correctly, all
+  seven Pharmacy First conditions and the UTI 16-64 age range match the
+  pack and the generated page.
+- switch-prescriptions-tiffenbergs-aintree.html - 200, reads correctly.
+- weight-loss-clinic-tiffenbergs-aintree.html (compliant generated page,
+  Post C target) - 200, no medicine named, no results heading, no
+  superlative, no slider, balanced eligibility section present.
+- travel-clinic-tiffenbergs-aintree.html (Post D target) - 200, reads
+  correctly, yellow fever listed among vaccines (Q48 still open on
+  registration status estate-wide, not specific to this pack).
+- sitemap.xml - unchanged since 2026-08-15T07:39:10+00:00 (the sixth-pass
+  republish); no new publish since.
+
+Known live-only defects reconfirmed UNCHANGED from the sixth pass
+(2026-08-30):
+- Switch banner close button still mojibake ("├ù" / "├ù"
+  raw bytes) on every page carrying the banner; run-44's &times; source fix
+  still not repasted to this site.
+- Site-wide footer still writes hour ranges with en dashes (hand-pasted
+  Weebly furniture, no repo branch).
+- Live contact block and footer still publish tiffenbergs@rbhealth.co.uk
+  (plural) against branches.json's Tiffenberg@rbhealth.co.uk (singular).
+  Q56 still open, still no new evidence either way.
+- Post B ("How switching works" intro) still carries a live em dash
+  ("...it usually is not - we make the first step") where the repo source
+  and generated page read a plain full stop.
+- Post C (weight loss) suitability intro still carries a live dash
+  ("...not right for everyone - see below") where the repo source reads a
+  full stop.
+- Persistent site-wide "WEIGHT LOSS CLINIC" nav button on every page,
+  corroborating Q60/6.4/6.5.
+
+NEW THIS PASS: link context for the legacy weight-loss page resolved.
+weight-loss-clinic-aintree.html (a different, older page, not the
+compliant generated one above) is confirmed live in the sitemap (already
+known since 2026-08-11/Q56 addendum) AND is now confirmed linked from the
+homepage: both the top nav "Weight Loss Clinic" item and a separate body
+link on index.html point at it, while a third link correctly reaches the
+compliant page. The legacy page names Mounjaro, Wegovy and Orlistat,
+carries a "Real Results with Mounjaro" superlative/results heading, an
+interactive weight-loss slider, and a lead "From £39.99" price above the
+fold - all six elements the 2026-08-10 assessment identified as breaches
+on the original five branches. This closes the "link context...
+unrecorded" gap the 2026-08-12 compliance-doc addendum left open
+specifically for Tiffenbergs. Full detail:
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, ADDITION 2026-09-02.
+Cross-referenced into Q58's note (does not change Q58's recommendation;
+adds Tiffenbergs to the confirmed-regime-1 branch list alongside SK and
+Hirshmans). No page, pack, generator output or branches.json entry
+changed. No new question raised - existing Q58 already asks the
+operative question this evidence answers.
+
+RESULT: pack clean, no repo defect, no new question. Live-only exposure
+finding recorded against the existing 5.8/Q58 backlog.

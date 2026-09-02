@@ -1,4 +1,105 @@
-## 2026-09-02 (unattended scheduled run via Cowork) - Log addendum: item 4.12 eighth-pass commit outcome, two stale locks from the same interrupted process, push and publish both succeeded via Windows-MCP
+## 2026-09-02 (unattended scheduled run via Cowork, 08:34 BST) - Item 4.15 quality pass (eighth): Tiffenbergs Chemist Aintree GBP pack re-verified clean, live half performed for the first time since 2026-08-30, and the Q56/2026-08-12 "link context unrecorded" gap closed with a confirmed regime 1 weight-loss finding cross-referenced into Q58
+
+ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox again
+failed outright ("Host key verification failed"), the same fetch-level
+gap Q87 already records as new detail beyond the push-only failures its
+earlier entries described. Confirmed via Windows-MCP PowerShell that
+C:\Dev\rbh-site-data is the identical working copy (matching HEAD commit
+69416e30), already up to date with origin/agents/audit-backlog, so all
+git operations this run were done from there instead, per the fallback
+Q87 and the immediately preceding run's log entry already establish. No
+`.agent-lock` or stale `.git\index.lock`/`HEAD.lock` present at start (only
+the accumulated `.agent-lock.released-*` debris from prior runs, left
+alone, cleanup out of scope). `.agent-lock` created 07:34:40 UTC via the
+sandbox bash tool, confirmed visible from the Windows side of the same
+mount.
+
+ANSWER PICKUP (step 3). Only one Chrome tab group/instance was present
+this run - the Q59 "two signed-in extensions" ambiguity that has blocked
+this step on prior runs did not recur. Fetched
+https://data.rbhealth.co.uk/api/feedback successfully. All portal answers
+returned date from 2026-08-04 to 2026-09-01 and match answers already
+recorded in QUESTIONS.json as "answered" or, for Q37 and Q43, already
+correctly left "open" with a note explaining their portal replies are
+requests for clarification/"unsure", not decisions (verified by reading
+both questions' existing notes, which already record this exact reasoning
+from a prior run). No new answers found for any of the 40 currently open
+questions. QUESTIONS.json otherwise unchanged by this step.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present
+at the top of this file at run start. Proceeded normally; no autonomous
+decisions taken this run.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by grep, so the
+quality-pass fallback applied, consistent with recent runs. Rotation
+order derived as established: `git log --pretty=%ad|%s` parsed for a
+word-boundary `item N.N` mention per candidate among the 43 checked
+worklist items (1.2, 1.3, 2.1, 2.3, 3.1-3.13, 4.1-4.15, 5.1, 5.2, 6.2, 6.3
+- 36 candidates after excluding the standing out-of-rotation pool 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 4.15 (Tiffenbergs Chemist Aintree GBP
+pack) was stalest, last touched 2026-09-01 11:05:37 +0100, ahead of the
+next-oldest (2.3, 2026-09-01 11:19:28).
+
+WORK DONE. Repo half: all 36 `tools/check-*.js` scripts run individually,
+all exit 0. All six generators (`build-service-pages`,
+`build-switch-pages`, `build-weight-loss-pages`, `build-travel-clinic-
+pages`, `build-contraception-pages`, `build-branch-landing-pages`)
+rebuilt with `git diff --stat modules/` empty afterwards, confirming
+byte-identical output. gbp-packs/tiffenbergs-aintree.md unchanged since
+the sixth pass (md5 6880a60bd1e32fea3fa791a806b2b3e2); every fact
+re-matched against branches.json programmatically (name, address, phone,
+website, review link, pfLink, seoTown-first catchment order, hasApp
+false).
+
+Live half performed for the first time since 2026-08-30 (blocked on the
+third through seventh passes by Q59). All four post targets
+(pharmacy-first-, switch-prescriptions-, weight-loss-clinic-, travel-
+clinic-tiffenbergs-aintree.html) fetched and read correctly, 200s
+throughout, NAP matching branches.json. Sitemap unchanged since the
+2026-08-15 republish. Known live-only defects reconfirmed unchanged: the
+switch banner mojibake (run-44's `&times;` source fix still not
+repasted), the site-wide footer's en dashes, the tiffenbergs@ vs
+Tiffenberg@ email split (Q56, still open, no new evidence either way),
+and the two live-only stray dashes on Posts B and C first found
+2026-08-30.
+
+NEW FINDING, cross-referenced into the existing 5.8/Q58 backlog rather
+than raised as a fresh question. The 2026-08-12 addendum to
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md had already established
+that Tiffenbergs (one of Q16's "original five") carries a legacy
+weight-loss-clinic-aintree.html page in its own sitemap, but explicitly
+left its LINK CONTEXT unrecorded - whether the homepage or top nav
+proactively links into it, which is the fact that decides whether the
+strict regime 1 advertising rules apply. `read_page` on the live
+homepage (index.html) this run found two link slots pointing straight at
+the legacy page (the top nav "Weight Loss Clinic" item and a separate
+body link), while a third, secondary link correctly reaches the compliant
+generated page. The legacy page itself carries all six elements the
+2026-08-10 assessment identified as breaches: it names Mounjaro, Wegovy
+and Orlistat, headlines "Real Results with Mounjaro" with a superlative
+efficacy claim, runs an interactive weight-loss slider, and leads with a
+"From £39.99" price above the fold. This closes the gap for Tiffenbergs
+specifically and puts it alongside SK (Q58) and Hirshmans (Q85) as a
+confirmed two-or-more-link-slot regime 1 case. Nothing was edited on any
+live page, no repo/generator/branches.json content changed - this is a
+live patient-facing regulatory claim involving medicine names and
+efficacy claims, which per the standing hard rules is never an autonomous
+decision regardless of any authorisation window. Recorded as a full
+addendum in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md ("ADDITION
+2026-09-02: Tiffenbergs Chemist Aintree link context confirmed") and as
+an appended note on Q58 in QUESTIONS.json; Q58's recommendation is
+unchanged, this only adds Tiffenbergs to its confirmed-branch list.
+Evidence in audits/tiffenbergs-aintree-gbp-pack-check-2026-09-02-eighth.txt.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 4.15, eighth quality-pass entry
+appended), QUESTIONS.json (Q58 note appended), compliance/
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (new addendum appended),
+audits/tiffenbergs-aintree-gbp-pack-check-2026-09-02-eighth.txt (new),
+AGENT_LOG.md (this entry). No page, pack, generator output or
+branches.json entry changed. No new question raised.
+
+
 
 At commit time, `.git\HEAD.lock` (not `index.lock`, already cleared
 earlier in the run) blocked `git commit` with "cannot lock ref 'HEAD'".

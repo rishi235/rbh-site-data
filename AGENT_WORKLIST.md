@@ -6010,6 +6010,34 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       page, pack, generator output or branches.json entry changed, no new
       question raised. Evidence in
       audits/tiffenbergs-aintree-gbp-pack-check-2026-09-01-seventh.txt.
+      Quality pass 2026-09-02 (eighth re-verification, repo and live both
+      performed): pack unchanged since the sixth pass (md5
+      6880a60bd1e32fea3fa791a806b2b3e2), every fact re-matched against
+      branches.json, all 36 checkers exit 0, all six generators byte-stable.
+      Live half performed for the first time since 2026-08-30: only one
+      Chrome instance was connected this run (Q59's ambiguity did not
+      recur), so all four post targets were fetched and read correctly, and
+      the known live-only defects (switch banner mojibake, footer en
+      dashes, tiffenbergs@ vs Tiffenberg@ email split, the two stray dashes
+      on Posts B and C) were all reconfirmed unchanged since 2026-08-30.
+      Sitemap unchanged since the 2026-08-15 republish.
+      NEW: read the live homepage's actual link targets (not inferred from
+      the sitemap) and confirmed both the top nav "Weight Loss Clinic" item
+      and a separate body link point at the old weight-loss-clinic-aintree.
+      html template (Mounjaro/Wegovy/Orlistat named, a "Real Results"
+      heading, a weight-loss slider, a lead £39.99 price above the fold),
+      while the compliant generated page is reachable only via a third,
+      secondary link. This closes the "link context... unrecorded" gap the
+      2026-08-12 addendum left open specifically for Tiffenbergs (one of
+      Q16's "original five"), putting it alongside SK (Q58) and Hirshmans
+      (Q85) as a confirmed regime 1 case. Recorded as an addendum in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and cross-referenced
+      into Q58's note; no new question raised, since Q58 already asks the
+      operative question this evidence answers, and this is a live
+      patient-facing regulatory finding an unattended run may not act on
+      directly. No page, pack, generator output or branches.json entry
+      changed. Evidence in
+      audits/tiffenbergs-aintree-gbp-pack-check-2026-09-02-eighth.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

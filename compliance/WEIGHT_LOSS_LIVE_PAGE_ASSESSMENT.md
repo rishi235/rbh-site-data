@@ -485,3 +485,66 @@ generator change reaching every live branch's page in one edit rather than
 a per-branch paste fix. No page or repo content changed; this file only
 records what was read and what the generator source confirms. Raised as
 Q88, cross-referencing Q83; both should be answered together.
+
+## ADDITION 2026-09-02: Tiffenbergs Chemist Aintree link context confirmed - closes the gap the 2026-08-12 addendum left open
+
+Read live, read only, during the eighth quality pass of item 4.15
+(Tiffenbergs Chemist Aintree GBP pack). Tiffenbergs was already one of the
+"original five" branches Q16 named on 2026-08-10 as carrying the old
+template at a legacy URL, and the 2026-08-12 addendum above confirmed the
+legacy page sits in this branch's own sitemap alongside the generated inner
+page. What that addendum left explicitly open was the link context: "the
+homepage or the top nav points into the legacy page... unrecorded for five
+of the seven branches." Tiffenbergs was one of the five. It no longer is.
+
+Page read: www.tiffenbergschemist.co.uk/weight-loss-clinic-aintree.html,
+reached from www.tiffenbergschemist.co.uk/index.html.
+
+### What is on the page
+
+The same template already read at eight other branches. A "Real Results
+with Mounjaro" heading calls Mounjaro "one of the most effective weight
+loss treatments available" and claims it "can help you lose up to 22.5%"
+of body weight "over 72 weeks". An interactive slider under "How much
+weight could you lose?" returns a personalised kilogram figure (26kg
+shown at a 116kg start weight) from a dragged starting weight. A named
+treatment picker under "Explore treatments" lists Wegovy (semaglutide),
+Mounjaro (tirzepatide) and Orlistat as selectable options. A lead price,
+"From £39.99 including your consultation," sits above the fold in the
+hero block, ahead of any eligibility or suitability content, alongside
+"Book in-store" and "Start online" buttons. All six elements the
+2026-08-10 assessment identified as breaches on the original five are
+present, unchanged from that template.
+
+### Link context: a confirmed regime 1 case
+
+Read via `read_page` on the live homepage (index.html), not inferred from
+the sitemap. Two link slots point at the legacy page: the top nav item
+labelled "Weight Loss Clinic" (href="/weight-loss-clinic-aintree.html")
+and a separate body link elsewhere on the same page carrying the identical
+href. A third, unrelated link elsewhere on the homepage, labelled "Weight
+Loss Clinic Tiffenbergs Aintree", correctly points at the compliant
+generated page (weight-loss-clinic-tiffenbergs-aintree.html), so the
+compliant page is reachable, but it sits alongside the legacy page rather
+than replacing it, and the two link slots that read as primary navigation
+(top nav and a body link) both send a visitor to the breaching page. This
+is the same shape as SK (Q58: two link slots confirmed) rather than the
+four-of-four case at Hirshmans (Q85), but it is enough to put Tiffenbergs
+in the strict regime on the same test Q58 already applied to SK: the
+homepage itself proactively links to the page, so the exposure does not
+depend on proving ad spend.
+
+The legacy page's own footer address (388 Longmoor Lane, Aintree,
+Liverpool L9 9DB) matches branches.json; unlike Hirshmans, no address
+error was found on this instance.
+
+BREACH, all six elements, plus a confirmed regime 1 link context. This
+closes Tiffenbergs' entry in the "link context... unrecorded" list the
+2026-08-12 addendum opened; of the five branches named there, only
+Riddings Timperley, Smartts Bootle, Gordon Short Crosby and Coleman and
+Leighs Walton remain unread on this specific question. No page or repo
+content changed; this file only records what was read. The GBP pack
+itself (gbp-packs/tiffenbergs-aintree.md) is unaffected: Post C already
+links to the correct generated page and was not touched. Cross-referenced
+into Q58's note rather than raised as a new question, since Q58 already
+asks the operative question this evidence answers.
