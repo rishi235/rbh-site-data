@@ -194,7 +194,35 @@ var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 // fails as both FOREIGN and MISATTRIB; reverted after proving it on a
 // scratch copy outside the working tree, then applied here; all 36 checkers
 // and all six generators re-run clean afterwards.
-var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&nbsp;|&#(?:160|[xX][aA]0);|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){0,10}([0-9][A-Za-z]{2})\b/g;
+//
+// Widened again on the item 1.3 quality pass 2026-09-02 (ninth pass): the
+// named entity itself, "&nbsp;", was still written as four fixed lowercase
+// letters, and the eighth pass's own comment above named the reason without
+// closing it - no "i" flag was added because it would also loosen %2B, %20
+// and the hex numeric form in ways not audited, but the entity's OWN case
+// was never separately widened the way "&#xa0;" already had been (compare
+// "[xX][aA]0" two lines up). So "&NBSP;", "&Nbsp;" and every other case
+// variant of the named entity matched nothing. Proved first, file-wide, not
+// just against the regex in isolation: Aigburth's postcode written as
+// "L17&NBSP;7BP" on the McCanns Chemist Sandringham line of Post B in
+// gbp-packs/mccanns-sandringham.md extracted as zero postcodes under the
+// unmodified pattern - a node -e run against the mutated file found only the
+// correct "L17 4JP" already on the page, so neither rule 3 nor rule 6 had
+// anything to fire on, and the full 36-checker suite passed at exit 0 with
+// the injected foreign postcode present. check-nap.js's unesc() has decoded
+// &nbsp; case-insensitively (a whole-pattern "gi" flag on a separate,
+// single-purpose regex) since the item 1.4 quality pass, 2026-08-14; this
+// file never had an equivalent for the named entity specifically. Fix: the
+// four letters of "nbsp" each written as an upper/lower pair, the same
+// convention the hex form already used, so the numeric forms, "%2B", "%20",
+// "+" and "-" stay exactly as case-sensitive as before. Negative-tested: the
+// injection above now fails as FOREIGN (file-level, gbp-packs is an
+// OWNED_DIRS directory) after the fix and passed silently before it;
+// reverted by byte copy from a pre-mutation backup (sha256-verified
+// identical), then the fix applied to the tracked checker and re-verified
+// there too; all 36 checkers and all six generators re-run clean
+// afterwards.
+var PC_RE_LOOSE = /\b([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)(?:&[nN][bB][sS][pP];|&#(?:160|[xX][aA]0);|%20|%2B|\+|-|[ \t ]|\r?\n[ \t]*){0,10}([0-9][A-Za-z]{2})\b/g;
 
 function norm(pc) { return String(pc || "").toUpperCase().replace(/\s+/g, " ").trim(); }
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }

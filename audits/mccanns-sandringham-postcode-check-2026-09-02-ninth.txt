@@ -1,0 +1,26 @@
+Postcodes found:
+  CH49 1SX  (not in branches.json)  11 file(s)
+  L17 4JP  mccanns_sandringham  43 file(s)
+  L17 7BP  mccanns_aigburth  46 file(s)
+  L20 5DW  skchemists_bootle  44 file(s)
+  L20 9HH  smartts_bootle  40 file(s)
+  L23 3AT  gordonshorts_crosby  39 file(s)
+  L4 6TH  colemanleigh_liverpool  36 file(s)
+  L4 8SG  cherrylane_liverpool  47 file(s)
+  L9 7AS  clearchemist_aintree  23 file(s)
+  L9 9DB  tiffenbergs_longmoor  46 file(s)
+  PR7 5SX  (not in branches.json)  4 file(s)
+  PR7 5SZ  fishlocks_eccleston  46 file(s)
+  PR8 3HN  fishlocks_ainsdale  53 file(s)
+  PR8 3HW  hirshmans_ainsdale  54 file(s)
+  PR9 0LH  (not in branches.json)  5 file(s)
+  SK7 1BJ  (not in branches.json)  7 file(s)
+  SK7 3LQ  scorah_bramhall  56 file(s)
+  SK7 6BG  scorah_hazel  47 file(s)
+  WA15 6BP  riddings_timperley  36 file(s)
+
+WARN  UNOWNED gbp-packs/TEMPLATE.md carries PR8 3HN but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/INDEX.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/SEO.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+
+620 text files scanned, 19 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).

@@ -6119,6 +6119,47 @@ appended to the line. Do not move them; the status page reads them in place.
       audits/mccanns-sandringham-postcode-check-2026-09-01-eighth.txt,
       audits/_before-1.3-eighth-2026-09-01.sha256,
       audits/_after-1.3-eighth-2026-09-01.sha256 (identical).
+      Quality pass 2026-09-02 (ninth pass): data clean again and not one
+      character of it edited. CH49 1SX still confined to the audit
+      narrating itself; L17 4JP correct in branches.json and used across
+      the estate. All 36 checkers pass, all six generators byte-identical
+      (git status --porcelain -- modules/ empty before and after), only the
+      checker changed. The defect was in check-postcodes.js for the ninth
+      time, and it was the one gap the eighth pass's own comment had already
+      named without closing: PC_RE_LOOSE's separator recognised the numeric
+      character references "&#160;" and "&#xa0;" case-insensitively (an
+      explicit [xX][aA]0 class) but still matched the NAMED entity "&nbsp;"
+      as four fixed lowercase letters, so "&NBSP;", "&Nbsp;" and every other
+      case variant of the entity itself matched nothing. Proved before
+      fixing, file-wide rather than against the regex in isolation:
+      Aigburth's postcode written as "L17&NBSP;7BP" on Post B of
+      gbp-packs/mccanns-sandringham.md (a line naming McCanns Chemist
+      Sandringham only, per the standard MISATTRIB shape) extracted as zero
+      postcodes under the unmodified checker - a direct node -e run against
+      the mutated file confirmed only the pre-existing "L17 4JP" was found -
+      so neither rule 3 (FOREIGN) nor rule 6 (MISATTRIB) had anything to
+      fire on, and the full 36-checker suite passed at exit 0 with the wrong
+      postcode present. Not a new class of gap: check-nap.js's unesc() has
+      decoded &nbsp; case-insensitively (a whole-pattern "gi" flag on a
+      separate, single-purpose regex) since the item 1.4 quality pass,
+      2026-08-14, and this checker had already carried that lesson across
+      for the numeric forms but not for the named entity itself. Fix: the
+      four letters of "nbsp" each written as an explicit upper/lower pair,
+      matching the convention the hex form already used, so the numeric
+      escapes, "+" and "-" stay exactly as case-sensitive as before (no
+      whole-pattern "i" flag added, for the same reason the eighth pass
+      gave). Negative-tested: the injection above now fails as FOREIGN
+      (file-level, gbp-packs is an OWNED_DIRS directory) after the fix and
+      passed silently before it; reverted by byte copy from a pre-mutation
+      backup (sha256-verified identical, not git checkout), then the fix
+      applied to the tracked checker and re-verified there too. A second
+      supplementary injection on the branch-name line itself, run on a
+      scratch copy outside the working tree, confirmed the fixed regex also
+      extracts the case-varied postcode where rule 6 (MISATTRIB) would apply.
+      No new question. Done 2026-09-02. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-02-ninth.txt,
+      audits/_before-1.3-ninth-2026-09-02.sha256,
+      audits/_after-1.3-ninth-2026-09-02.sha256 (identical).
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

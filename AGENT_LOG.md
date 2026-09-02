@@ -1,3 +1,148 @@
+## 2026-09-02 (unattended scheduled run via Cowork) - Item 1.3 quality pass (ninth): McCanns Sandringham postcode checker hardened for case-varied "&nbsp;" entity, FOREIGN catch proved by file-wide injection on gbp-packs/mccanns-sandringham.md, no data defect, checker-only fix
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers and generators. No
+`.agent-lock` present at start (only the long-standing litter of stale
+`.agent-lock.released-*` files, left untouched, out of scope). Lock created
+04:38 UTC. A `.git\index.lock` from a prior run was found present, about 25
+minutes old at first check (under the 1-hour staleness threshold) with no
+git process running (`ps aux`); left alone per the procedure's time rule,
+same finding as the immediately preceding run. `git fetch` against the SSH
+remote failed immediately with "Host key verification failed" (no SSH key in
+this sandbox, consistent with every recent run's finding, and confirmed
+again this run via a direct `ssh -T git@github.com` test: host key accepted,
+then "Permission denied (publickey)" - no key material present at all, not
+merely an unrecognised host). Local HEAD was already 3 commits ahead of
+`origin/agents/audit-backlog` at run start (the 4.3, 4.6 and 4.5 eighth-pass
+commits from the immediately preceding three runs today, all logged in this
+file as unpushed and awaiting Rishi's own machine); this run's commit adds a
+fourth. Not raised as a new question: this is the same standing
+infrastructure gap already recorded (Q87 and the many log entries since), and
+today's runs have settled on committing locally and logging the push failure
+rather than attempting a Windows-MCP workaround, which requires interactive
+approval unavailable in an unattended scheduled run.
+
+ANSWER PICKUP (step 3). Claude in Chrome tools were not loaded/available in
+this run's toolset in a way that could be confirmed connected; no answer
+fetch was attempted rather than guessing at a result. QUESTIONS.json left
+exactly as found, 40 open of 91 total.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally; no autonomous decisions taken, no new question needed.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+fallback was taken. Rotation order derived the same way the immediately
+preceding run recorded: parsed `git log --pretty=format:'%ad|%s'`, recorded
+every distinct "item N.N" mention per commit (case-insensitive, all matches,
+not just the first), took the first (most recent) commit per item, excluded
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. With today's three earlier passes (4.5, 4.6, 4.3) and
+this morning's 3.1 pass already bumping their items' last-touch timestamps,
+item 1.3 (McCanns Sandringham postcode sweep) was now the sole oldest at
+2026-09-01 05:20 (previously tied with 4.5, which has since been redone).
+Item 1.3 selected; last touched 2026-09-01 (eighth pass).
+
+WORK DONE. Read tools/check-postcodes.js in full, including all eight prior
+passes' comments recorded above PC_RE_LOOSE. The eighth pass's own comment
+named a loose end it had not closed: it added case-insensitive handling for
+the numeric character references ("&#160;", "&#xa0;", via an explicit
+[xX][aA]0 class) but explicitly declined a whole-pattern "i" flag "because it
+would also loosen %2B/%20/&nbsp; matching in ways not audited" - and then
+never separately widened the NAMED entity "&nbsp;" the way it had widened the
+hex numeric form. Tested directly: `&NBSP;`, `&Nbsp;` and `&NbSp;` all failed
+to match PC_RE_LOOSE against a standalone regex harness, while `&nbsp;` (the
+one case already handled) matched. Confirmed baseline first: all 36 checkers
+green on the untouched repo.
+
+INJECTION TEST (before fixing). sha256 of gbp-packs/mccanns-sandringham.md
+recorded before mutation (bc9ab580...b7a4038 truncated in this line, full
+value in audits/_before-1.3-ninth-2026-09-02.sha256). First attempt mutated
+the business-description paragraph (max 750 chars, self-declares "713"); the
+added text pushed the description to 751 characters, and check-gbp-packs.js
+correctly failed on the unrelated over-length rule, which would have made a
+"passed all 36 checkers in silence" claim inaccurate - reverted and moved the
+injection to Post B instead, which carries a 1,500-character limit with
+ample headroom and makes no self-declared count. Wrote Aigburth's postcode as
+"L17&NBSP;7BP" into Post B, on a line that does not itself carry the McCanns
+Chemist Sandringham branch name (a deliberate choice: this isolates the test
+to rule 3, FOREIGN, which is file-scoped via OWNED_DIRS/ownerOf() and needed
+no line-level name match, rather than rule 6, MISATTRIB, which is
+line-scoped). Ran a direct `node -e` extraction against the mutated file
+using the unmodified PC_RE_LOOSE: it returned only the pre-existing "L17
+4JP", proving the injected postcode was invisible to the checker file-wide,
+not merely in an isolated regex test. `node tools/check-postcodes.js`
+exited 0. Ran the full 36-checker suite against the mutated file: 35 passed,
+only check-gbp-packs.js's Q64 WARNs appeared (pre-existing, unrelated); 0
+checkers flagged the injected postcode. Confirms the same class of gap as
+every prior pass on this item: "passed all 36 checkers in silence."
+
+FIX. Rewrote the "&nbsp;" alternative in PC_RE_LOOSE as
+"&[nN][bB][sS][pP];", matching the explicit-case-class convention the hex
+form already used, rather than adding a whole-pattern "i" flag (which would
+have loosened %2B/%20/+/- matching in ways not audited, the same reasoning
+the eighth pass gave for declining it). Added a dated comment paragraph above
+the pattern recording the finding, the proof, and the fix, following the
+convention of the eight paragraphs already there. No other line in the file
+changed.
+
+RE-TEST (after fixing). Same mutated file, fixed checker: `node -e`
+extraction now returns both "L17 4JP" and "L17&NBSP;7BP"; `node
+tools/check-postcodes.js` exits 1 with `FOREIGN gbp-packs/mccanns-
+sandringham.md: owned by mccanns_sandringham (L17 4JP) but carries L17 7BP
+(mccanns_aigburth)`. A supplementary test on a scratch copy OUTSIDE the
+working tree (not the tracked file) moved the same injected value onto the
+Post B line that does carry the full branch name, to confirm the fix also
+reaches rule 6 (MISATTRIB): the fixed regex extracted the case-varied
+postcode there too. The tracked file was restored from the pre-mutation
+backup by byte copy (not git checkout), and sha256 confirmed identical to
+the before-mutation value (audits/_before-1.3-ninth-2026-09-02.sha256 and
+audits/_after-1.3-ninth-2026-09-02.sha256 match).
+
+VERIFICATION. Full 36-checker suite re-run on the clean, restored repo: 0
+failures. All six generators re-run: `git status --porcelain -- modules/`
+empty both before and after, byte-identical output, confirming this is a
+checker-only change with no effect on generated pages. Evidence file
+regenerated: audits/mccanns-sandringham-postcode-check-2026-09-02-ninth.txt
+(--verbose output, 620 files scanned, 19 distinct postcodes, 0 failures, 3
+pre-existing UNOWNED warnings unchanged).
+
+RESULT. No in-repo data defect found; the defect was in the checker, for the
+ninth consecutive pass on this item. No new question raised. QUESTIONS.json
+unchanged, 40 open of 91 total. Worklist item 1.3 updated in place with the
+ninth-pass paragraph (not moved). Evidence:
+audits/mccanns-sandringham-postcode-check-2026-09-02-ninth.txt,
+audits/_before-1.3-ninth-2026-09-02.sha256,
+audits/_after-1.3-ninth-2026-09-02.sha256.
+
+STEP 9 (COMMIT/PUSH). Committed locally on agents/audit-backlog. Attempted
+`git push origin agents/audit-backlog` over SSH: failed identically to every
+recent run today, "Host key verification failed" (no SSH key present in this
+sandbox, confirmed directly this run - see ENVIRONMENT above). No credential
+was sought, fabricated or entered anywhere, per the hard rule against
+secrets in this workflow. This run's commit sits on the local
+agents/audit-backlog branch behind the three earlier unpushed commits from
+today's 4.3, 4.6 and 4.5 eighth-pass runs, all four now awaiting a future run
+with working push access or Rishi's own machine (which holds the real SSH
+key) to push them. Not raised as a new question; this is the same standing
+infrastructure gap already recorded (Q87 and the many log entries since).
+Worth flagging plainly for whoever next has push access: FOUR runs' worth of
+work (2026-09-02, roughly 03:41 through this run) is sitting only on this
+sandbox's local branch and nowhere else. If this sandbox is ever reset
+without a push happening first, that work is lost.
+
+STEP 10 (PUBLISH STATUS PAGE). Not run to completion. `node
+tools/build-audit-status.js` was invoked to confirm current behaviour rather
+than skipped on assumption alone: it errored (stack trace, no useful output)
+consistent with the standing finding that it shells out to the `gh` CLI,
+which `which gh` confirms is not installed in this sandbox. Skipped rather
+than pursued further, consistent with the standing guidance in this log not
+to invoke it speculatively without genuine publish access. The portal status
+page is therefore stale relative to this run and the three before it today.
+
+LOCK. Released.
+
 ## 2026-09-02 (later) - Log correction: lock release for the item 4.5 eighth-pass run was by rename, not unlink
 
 The entry below states in its LOCK paragraph that ".agent-lock removed (this
