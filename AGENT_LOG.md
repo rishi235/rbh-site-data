@@ -1,3 +1,127 @@
+## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.10 quality pass (seventh): Smartts Chemist Bootle GBP pack re-verified clean; three abbreviation/whitespace fixes landed in check-gbp-packs.js since the sixth pass proved on this pack by injection, no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data. No `.agent-lock` present at start; created 06:06 UTC
+(07:04 local). A pre-existing `.git\index.lock`, about 48 minutes old at run
+start, with no git process running in this sandbox (`ps aux` checked) -
+left alone rather than deleted, since the procedure's 1-hour staleness
+threshold had not been reached and this sandbox has no way to see a git
+process on the real Windows host that might still hold it. `git fetch
+origin agents/audit-backlog` failed with "Host key verification failed" -
+no `~/.ssh` directory at all in this sandbox (no known_hosts, no key
+material), the same standing infrastructure gap already recorded against
+Q87 on at least nine prior runs today. Proceeded on the local branch, which
+was already 7 commits ahead of origin/agents/audit-backlog at run start.
+
+ANSWER PICKUP (step 3). `tabs_context_mcp` reported Claude in Chrome "not
+connected". No fetch attempted against a login wall, per the procedure.
+QUESTIONS.json left exactly as found: 40 open of 91 total (Q87 still open,
+covers this run's fetch/push/publish failures, not re-raised).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading at the top of this file at the start of the run. Proceeded
+normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by direct grep, so the
+quality-pass fallback was taken. Rotation order derived the established
+way: parsed `git log --pretty='%ad|%s'`, took the most recent "item N.N"
+mention per candidate item id among the 43 checked worklist items minus the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 4.10
+(Smartts Chemist Bootle GBP pack) was the oldest, last touched 2026-09-01
+06:43:26 (sixth pass, commit visible in log as "Item 4.10 quality pass
+(sixth)"), which had itself flagged 4.11 as the next-stalest - 4.11 was
+since redone at 00:13:10 today, restoring 4.10 to stalest.
+
+WORK DONE. Read gbp-packs/smartts-bootle.md in full and re-verified every
+fact against branches.json's smartts_bootle record - name, address (42
+Fernhill Road, Bootle L20 9HH), phone (0151 922 4984), hours (Mon-Fri
+9-1/2-6, Sat/Sun closed), website, review link, serviceAreaList (Bootle,
+Sefton, Liverpool), hasApp (true, and the pack's app mention and paster
+note are both consistent with it), pfLink, and the five widgets
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic)
+against the Categories and Services sections - all unchanged and correct.
+All 36 checkers run individually against the untouched repo: 36/36 exit 0,
+the only mention of this pack being the pre-existing pfLink live-only-page
+WARN.
+
+Checked what had changed in check-gbp-packs.js since the sixth pass
+(2026-09-01 06:43): three fixes landed since, none specific to this branch
+but all structurally capable of touching it -
+(1) `bf55653` (item 1.2, eighth pass) made the OWN-street presence rule and
+the FOREIGN-street sister rule abbreviation-aware (Road/Rd, Street/St,
+Lane/Ln, Drive/Dr, Avenue/Ave);
+(2) `7952f50`/`d288ac6` (item 4.13, seventh and eighth passes) hardened the
+POST_INSTRUCTION hard-stop marker regex, first for casing then for leading
+whitespace, so paster-instruction text after a STOP marker is not counted
+as posted copy;
+(3) `5b99d26` (item 4.8, ninth pass) made the "- Address:" line presence
+rule and its post-town dependent abbreviation-aware to match (1), via a new
+`lastStreetMatch()` helper.
+None of these had been proved against this specific pack before.
+
+INJECTION, four tests, each backed up first (sha256 in
+audits/_before-4.10-seventh-2026-09-02.sha256) and restored by plain file
+copy afterwards, sha256-confirmed byte-identical each time (no `rm` used on
+the pack itself, no lock contention on it):
+
+1. Own-street abbreviation: "- Address:" line changed from "42 Fernhill
+   Road, Bootle L20 9HH" to "42 Fernhill Rd, Bootle L20 9HH" (a normal,
+   legitimate abbreviation). `check-gbp-packs.js` exited 0, 0 failures -
+   proves fix (3) holds for this pack, matching the item 4.8 pass's own
+   proof on a different branch.
+2. Genuine wrong street: "Fernhill Road" changed to "Fernhall Road" (not a
+   recognised abbreviation). Exited 1 with exactly the expected FAIL: `the
+   "- Address:" line reads "42 Fernhall Road, Bootle L20 9HH", which does
+   not contain this branch's street address "42 Fernhill Road"...` -
+   negative control, proves the rule still catches a real error rather
+   than having gone permissive.
+3. Foreign-street sister rule, full and abbreviated form: this pack's own
+   paster note already names the other Bootle branch as "SK Chemists
+   (Stanley Road)" without a house number, which does not trigger the
+   sister rule today because streetPattern() matches SK Chemists' full
+   branches.json string "516 Stanley Road", house number included, and the
+   pack deliberately omits it - a legitimate cross-reference, not a latent
+   gap, confirmed by testing both directions: expanding the note to "SK
+   Chemists (516 Stanley Road)" FAILED with `street address "516 Stanley
+   Road" belongs to SK Chemists, not Smartts Chemist...`, and expanding it
+   to the abbreviated "SK Chemists (516 Stanley Rd)" FAILED identically -
+   proves fix (1) catches the sister's street in both spellings on this
+   pack specifically, not just on the branch (Hirshmans/Cherry Lane) it was
+   found and fixed on.
+4. POST_INSTRUCTION leading whitespace: inserted a 2,010-character block
+   beginning "   STOP - verification-only injection..." (three leading
+   spaces before STOP) between Post D's Button line and the shared "Notes
+   for the paster:" heading - a block that would push Post D from ~420
+   characters to well over the 1,500 limit if leaked into counted post
+   copy. Exited 0, 0 failures, only the pre-existing pfLink WARN - proves
+   fix (2)'s leading-whitespace tolerance holds on this pack, on a post
+   type (D, the last post before the notes heading) not used in the
+   item 4.13 pass's own proof.
+
+Final restored state re-run on all 36 checkers individually (exit code
+captured separately per checker to avoid one dump exceeding the tool output
+ceiling, which a combined run hit once during this pass): 36/36 exit 0.
+`git status` confirms only tools/check-gbp-packs.js's existing content is
+unchanged and only this log file plus the new sha256 backup are new; the
+pack itself carries no diff from HEAD.
+
+RESULT. Zero in-repo defect. No checker or generator change made (all
+relevant fixes were already landed by the item 1.2/4.8/4.13 passes before
+this run started; this pass's job was proving them against a pack none of
+those three had touched, not writing new code). Live half not read this
+run (Claude in Chrome not connected). No new question raised.
+
+COMMIT AND PUSH (steps 9-10). `git add AGENT_LOG.md
+audits/_before-4.10-seventh-2026-09-02.sha256` then `git commit`. `git push
+origin agents/audit-backlog` expected to fail with "Host key verification
+failed" per Q87 (no SSH key material in this sandbox) - not treated as a
+run failure, per the standing convention every run today has followed.
+`node tools/build-audit-status.js` expected to fail with ENOENT on its
+hardcoded `C:/Dev/rbh-site-data` path, which does not resolve from this
+Linux mount - also per Q87, also not treated as a run failure. Both
+outcomes recorded in the addendum immediately below once actually run.
+
 ## 2026-09-02 (later) - Log addendum: item 4.8 ninth-pass commit outcome, lock handling and build-audit-status.js result
 
 Commit landed as `5b99d26`. At commit time `.git\index.lock` (already present
