@@ -8254,6 +8254,47 @@ pass on the repo half.
       page, data field or patient-facing copy touched. Live half not read
       this pass (Claude in Chrome unavailable); the four 2026-08-14 findings
       are not re-claimed. Q53 and Q54 stay open.
+      Sixth quality pass, 2026-09-02 (unattended scheduled run), REPO HALF
+      ONLY (Claude in Chrome not connected this run either). NO NEW DEFECT
+      FOUND. All 35 checkers in tools/ ran individually and exited clean (0
+      failures across the board; the usual WARN/NOTE lines are pre-existing
+      and unrelated to this item). Both 6.2-specific independent instruments
+      re-run clean: audits/link-integrity-6.2-2026-08-30.js reached
+      177 pages, 987 hrefs, 421 estate-internal (6 absolute, 244 relative,
+      171 homepage), 5 known targets/6 references, 0 defects; audits/
+      service-links-js-copy-independent-2026-09-01.js scanned both
+      EXTRA_JS_COPY_FILES (service.js, switch.js) with its own medicine list
+      and claim phrases, 0 hits. All six generators (build-service-pages,
+      build-switch-pages, build-branch-landing-pages, build-weight-loss-pages,
+      build-travel-clinic-pages, build-contraception-pages) reproduced every
+      page byte-identical: git status --porcelain modules/ core/ was empty
+      both before and after the rebuild. One angle examined and ruled out
+      rather than left unasked: blankComments() in check-service-links.js
+      strips only HTML-style <!-- --> comments, and is applied unmodified to
+      the two EXTRA_JS_COPY_FILES (added on the fifth pass). A JS file has no
+      HTML comments, so blankComments() blanks nothing in service.js or
+      switch.js, meaning every JS-source comment in those two files is
+      scanned as "visible" text by RULE 2 and RULE 3, the same as any real
+      template string. That is over-inclusive, not under-inclusive: it
+      cannot hide a claim or a POM name (the failure mode every prior 6.2
+      pass has been hunting), it can only ever produce a false FAIL if a
+      future code comment happens to contain a claim phrase or a medicine
+      name, which is a maintainability note, not a defect, and is not
+      independently confirmed as a live problem, so no checker change was
+      made on the strength of it alone. Also read core/site-data.js in full:
+      it is a branches.json fetch-and-fallback shim, dispatches events, and
+      contains no patient-facing prose or claim/medicine-shaped strings
+      (only a hardcoded FALLBACK branch record with address fields, already
+      covered by check-brand-spelling.js's own FALLBACK check), so its
+      absence from EXTRA_FILES/EXTRA_JS_COPY_FILES is correct, not a gap.
+      QUESTIONS.json re-read: 94 total, 41 open, Q53 and Q54 both still
+      "open", nothing new to add to either; the four 2026-08-14 live findings
+      are not re-claimed, live half not read this pass. Environment: 
+      mcp__workspace__bash (Cowork sandboxed Linux shell) returned
+      "Permission to use mcp__workspace__bash has been denied" on every call
+      this run; all git, Node and file work was done via
+      mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+      working copy, the established route recorded on every recent pass.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
