@@ -2095,6 +2095,75 @@ not be assumed unchanged. Answer pickup unavailable (Chrome not connected);
 changed, no new question. Evidence in audits/smartts-build-check-2026-09-01.txt
 and audits/verify-3.7-2026-09-01.js.
 Done 2026-09-01 (seventh pass).
+Quality pass 2026-09-02 (eighth; unattended, native Windows environment via
+mcp__Windows-MCP__PowerShell for both git and Node, mcp__workspace__bash denied
+outright this run rather than the SSH host-key failure recorded on prior
+passes - see this run's AGENT_LOG.md entry). Picked as the least recently
+verified rotation-pool item by the established method (oldest commit whose
+message matches each item id by word boundary, over the 36-item pool): 3.7
+last touched 2026-09-01T18:40, older than every other item; 3.5 (just done
+the same day) was most recent.
+Baseline sweep before any change found one pre-existing failure unrelated to
+Smartts: check-postcodes.js FAILED (3 UNKNOWN) because two untracked scratch
+files under _agentscratch/ (a leftover full git-log dump from an earlier run,
+plus one this run wrote for the rotation scan) contained commit-message text
+with postcode-shaped substrings, and check-postcodes.js scans the whole repo
+by design. Removed both scratch files (never committed, not part of any
+worklist item); check-postcodes.js returned to 0 failures. Worth carrying:
+scratch debris left in the repo tree between runs can flip the one checker
+that reads the whole repo, exactly the "which files did it read" class of
+fault this repo keeps finding, just from the wrong direction - the checker
+was reading correctly, the tree had drifted. All 36 checkers then confirmed
+0/36 failing before any change was made.
+All six generators rebuilt: sha256 of all 215 modules/ files taken before and
+after, Compare-Object reports zero diff, git status on modules/ empty.
+Fresh independent extraction (audits/verify-3.7-2026-09-02-eighth.js, no code
+shared with tools/ or with any prior pass's script) across all 12 Smartts
+pages: 264 checks, 0 flags - own postcode, street address and phone present
+with no other live branch's; tel: link resolves to own number; JSON-LD
+@type/@context/name/telephone/PostalAddress field by field; data-branch and
+data-wa correct where present; cross-town seoTown guard (no other live
+branch's seoTown without a serviceAreaList excuse); no em dash outside the
+build-comment exemption; no other branch's Appointedd widget id anywhere on
+the page; map query decodes to the branch's own address; no http:// links;
+no other branch's ODS code, review URL or Pharmacy First link; hasApp/app-card
+consistency (Smartts is a member, store URLs appear only on its switch page).
+Guard re-proof by injection used a page untried in either of the two prior
+injection passes: weight-loss-clinic-smartts-bootle.html (sixth pass used
+pharmacy-first-smartts-bootle.html, seventh used switch-prescriptions-
+smartts-bootle.html). Three injections, each restored from a byte-copy backup
+and sha256-confirmed identical to the pre-injection original before the next:
+phone swapped to SK Chemists Bootle's 0151 944 1013, caught by check-nap.js
+(6 mismatches: visible phone x2, JSON-LD telephone, plus three "belongs to SK
+Chemists, not Smartts Chemist" cross-branch flags) and independently by this
+pass's own script; postcode swapped to SK Chemists Bootle's L20 5DW, caught
+by check-postcodes.js's FOREIGN rule; an em dash added to the booking-sub
+paragraph (line 39, not the build comment), caught by check-em-dashes.js by
+file and line and by this pass's own script. One process error worth
+recording rather than hiding: the first attempt at the em-dash injection used
+Set-Content on a PowerShell line array with -NoNewline, which silently joined
+every line into one with no separators and corrupted the file structure
+(confirmed by a newline count of 1 where 172 was expected); caught before any
+checker ran, by inspecting the file rather than trusting the write, restored
+from the byte-copy backup, and redone as a plain string replace on the raw
+file content, the same method already proven safe by the first two
+injections. Final sweep after all three injections and reverts: file sha256
+matches the pre-injection original exactly, git status/diff on the file
+empty, all 36 checkers exit 0, this pass's own script back to 264/0.
+Live half not performed - Claude in Chrome reported not connected at answer
+pickup and was not retried for this item, per procedure (no other route
+tried, no login attempted). The sixth pass's three live-only findings (hours
+card lunch closure omitted, switch page live tab title a hand-typed variant,
+Q16/5.8 KNOWN_CLAIM services-grid wording) were not re-confirmed this pass
+and should not be assumed unchanged. Answer pickup (step 3): Chrome not
+connected, unavailable; 41 questions open per QUESTIONS.json at the start of
+this run, unchanged by this pass. No autonomous-window heading present in
+AGENT_LOG.md at the start of this run, so step 4 did not apply. No in-repo
+defect in Smartts's own pages, one pre-existing repo-hygiene issue found and
+fixed (the scratch-debris false failure above), no copy changed, no new
+question. Evidence in audits/smartts-build-check-2026-09-02-eighth.txt and
+audits/verify-3.7-2026-09-02-eighth.js.
+Done 2026-09-02 (eighth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

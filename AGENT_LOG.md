@@ -1,4 +1,51 @@
-## 2026-09-02 (unattended scheduled run via Cowork, 16:04 BST) - Item 3.5 quality pass (ninth): Hirshmans Chemist Ainsdale re-verified clean (36 checkers, byte-identical rebuild across all six generators, ninth independent extraction 756/756 checks); new leg cross-checked the item against RBH_DIGITAL_BUILD_PACK_v2.md section 1.4 (title/URL/H1) for the first time, matching the item 3.2 eighth-pass methodology; guard re-proof by injection on the switch page (not previously used for this item's injections) caught by check-seo-pattern.js and check-whatsapp-route.js, restored byte-identical; live half not read, Claude in Chrome not connected. No in-repo defect, no new question. Commit: 0210326.
+## 2026-09-02 (unattended scheduled run via Cowork, 16:34 BST) - Item 3.7 quality pass (eighth): Smartts Chemist Bootle re-verified clean (36 checkers, byte-identical rebuild across all six generators/215 files, eighth independent extraction 264/264 checks); guard re-proof by injection on weight-loss-clinic-smartts-bootle.html (untried target for this item; sixth pass used the Pharmacy First page, seventh used the switch page) - phone swap caught by check-nap.js, postcode swap caught by check-postcodes.js's FOREIGN rule, em dash on line 39 caught by check-em-dashes.js, all three also caught by this pass's own script, restored byte-identical each time (sha256-confirmed). One in-repo defect found and fixed: stray untracked scratch files under _agentscratch/ (a leftover git-log dump plus one this run wrote) had postcode-shaped commit-message text in them, flipping check-postcodes.js to 3 UNKNOWN failures before any Smartts work started; removed, checker back to 0 failures, all 36 confirmed clean before proceeding. One process slip caught and corrected before it reached a checker: a PowerShell line-array Set-Content with -NoNewline silently stripped every newline from the target file during the em-dash injection attempt; caught by inspecting the file (newline count 1 instead of 172) rather than trusting the write, restored from byte-copy backup, redone as a plain string replace. Live half not read, Claude in Chrome not connected. No in-repo defect in Smartts's own pages, no new question. Commit: <pending, see below>.
+
+ENVIRONMENT AND LOCK. mcp__workspace__bash (the Cowork sandboxed Linux shell)
+returned "Permission to use mcp__workspace__bash has been denied" on every
+call this run, a harder failure than the SSH host-key-verification error
+recorded on every previous run's attempt to git fetch/pull from that shell.
+No file or git work was attempted via the sandboxed shell as a result. Per
+the established working route (recorded on multiple prior passes, most
+recently the 2026-09-02 16:04 BST run), all git operations, Node execution
+and file work were done via mcp__Windows-MCP__PowerShell against the
+canonical C:\Dev\rbh-site-data working copy directly, with Read/Edit/Write
+used for the two worklist/log file edits. No .agent-lock present at start,
+no stale .git\index.lock. .agent-lock written at 16:34:55 BST via PowerShell
+and deleted at the end of this run.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__tabs_context_mcp reported the
+Chrome extension not connected. Per procedure, no other route tried, no
+login attempted. QUESTIONS.json left exactly as found: 94 total, 41 open,
+none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Proceeded
+normally, no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep match (8 of 8), so the quality-pass fallback
+applied. Rotation order derived the same way as every prior pass: git log
+--pretty=format:"%cI|%s", matching item N.N by word boundary in commit
+subjects (case-insensitive, first/most recent match per item), over the
+36-item rotation pool (43 checked items minus the standing out-of-rotation
+set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 3.7 (Smartts Chemist Bootle) was
+stalest, last mentioned 2026-09-01T18:40:23+01:00; item 3.5 (done earlier the
+same day) was most recent at 2026-09-02T16:17:31+01:00.
+
+WORK DONE. Full detail in the AGENT_WORKLIST.md entry appended under item 3.7
+(eighth pass) and in audits/verify-3.7-2026-09-02-eighth.js and
+audits/smartts-build-check-2026-09-02-eighth.txt. Summary as in the headline
+above. Scratch-debris cleanup: removed _agentscratch/gitlog.txt (this run's
+own rotation-scan dump) and _agentscratch/gitlog_full.txt (a leftover from an
+earlier, unidentified run, referenced by its own content as belonging to a
+prior check-postcodes fix); both were untracked, neither was ever committed,
+so nothing public or in git history changed. All temporary injection-test
+files under _agentscratch/ (original-file backup, per-injection checker
+output, sha256 CSVs) were deleted again at the end of this run's step 4, to
+avoid leaving the next run the same class of false-failure risk.
+
+PUBLISH (step 10). tools/build-audit-status.js run after commit and push;
+see its own output below for the result.
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
 C:\dev\rbh-site-data, cross-checked against the canonical path via
