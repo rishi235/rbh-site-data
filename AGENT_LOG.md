@@ -1,3 +1,32 @@
+## 2026-09-02 (later) - Log addendum: item 4.10 seventh-pass commit outcome and lock handling
+
+Commit landed as `2797df7`. At commit time `.git\index.lock` (already
+present at run start, ~48 minutes old, left alone per the 1-hour threshold)
+still blocked `git add` with "File exists"; `ps aux` re-checked and showed
+no git process running in this sandbox, so it was renamed aside with `mv`
+to `index.lock.renamed-<epoch>`, never `rm` (the same "Operation not
+permitted" on unlink this log has documented on well over a hundred prior
+runs). `git commit` itself then left a fresh `HEAD.lock` behind on the same
+"Operation not permitted", renamed aside the same way once the commit had
+landed. A third `index.lock` appeared during the post-commit `git status`
+call and was renamed aside too before continuing. `git push origin
+agents/audit-backlog` failed exactly as expected with "Host key
+verification failed" - no SSH key material anywhere in this sandbox
+(confirmed no `~/.ssh` directory exists at all), the standing Q87 gap.
+`node tools/build-audit-status.js` failed with `ENOENT` on
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md`, the hardcoded Windows path the
+script reads directly, which cannot resolve from this sandbox's Linux
+mount - also covered by Q87, not a new finding. `.agent-lock` (created at
+06:06 UTC this run) released the same way at the end of the run, by rename
+to `.agent-lock.released-<epoch>`, matching the long-standing convention.
+
+Net effect, consistent with Q87: this run's work (the AGENT_LOG.md entry
+and the new sha256 backup file) is committed and correct on the local
+branch, now 8 commits ahead of origin/agents/audit-backlog, but has not
+reached GitHub and the portal status page has not been refreshed. No
+action taken beyond what Q87 already recommends; not re-raised as a new
+question.
+
 ## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.10 quality pass (seventh): Smartts Chemist Bootle GBP pack re-verified clean; three abbreviation/whitespace fixes landed in check-gbp-packs.js since the sixth pass proved on this pack by injection, no in-repo defect
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
