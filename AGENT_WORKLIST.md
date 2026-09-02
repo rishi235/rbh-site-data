@@ -3304,6 +3304,58 @@ Done 2026-09-02 (eighth pass).
       Evidence: audits/verify-3.12-2026-09-02.js,
       _agentscratch/live312/*.html (six live fetches, working copy only, not
       committed). Done 2026-09-02
+      Quality pass 2026-09-02, SIXTH PASS, REPO HALF ONLY (Claude in Chrome
+      confirmed not connected at answer pickup and again for this item).
+      All 36 tools/check-*.js checkers re-run individually before any
+      change, 0 failures. All six generators rebuilt first (196 files
+      under modules/ and core/ hashed before), git status --porcelain
+      modules/ core/ empty after regeneration, byte-identical, nothing to
+      commit from the rebuild. Re-ran the existing independent instrument
+      audits/verify-3.12-2026-09-02.js (fifth pass, same day, portable, no
+      import from tools/): 12 pages, 177 sheet permalinks, 2,355 checks, 0
+      failures, confirming no drift since this morning's pass. Guard
+      effectiveness re-proved by three fresh fault injections on
+      contraception-tiffenbergs-aintree.html, a page untried for injection
+      in any of the five prior 3.12 passes (own diary, not a Pharmacy First
+      fallback page, so a different surface from the condition pages used
+      previously): (1) visible phone (contact-line only, tel: href left
+      alone) swapped to Smartts Chemist Bootle's real number, caught by
+      check-nap.js as two mismatches (own phone wrong, foreign phone
+      belongs to Smartts); (2) visible address postcode (contact-line only)
+      swapped to Clear Chemist Aintree's real L9 7AS - the same shared L9
+      district this item's template exists to keep separated - caught by
+      check-postcodes.js's FOREIGN rule naming clearchemist_aintree by id;
+      check-jsonld.js correctly stayed clean on this one, since only the
+      visible contact line was touched and its own JSON-LD postalCode field
+      was untouched - each checker owns its own surface, not a gap; (3) an
+      &#8212; numeric entity injected beside the H1, caught by
+      check-em-dashes.js ("em dash (HTML numeric entity)"), incidentally
+      re-confirming the immediately preceding run's fix to that checker's
+      numeric-entity matching against a live page rather than only the
+      injected test file it was built and proved against. All three
+      restored by byte copy (not git checkout) from a pre-injection backup
+      and SHA256-confirmed identical to the original
+      (9F6CE5DDE12C5E3A69DD15266DE9E4DACDCBCC21F2D7F7F3D54EC85869FACFA0)
+      after each restoration and again after the last; backup file deleted
+      afterwards. All 36 checkers re-run clean after cleanup; git status
+      --porcelain on modules/, core/, gbp-packs/, branches.json and tools/
+      empty throughout and at the end. GBP pack
+      (gbp-packs/tiffenbergs-aintree.md) re-checked via check-gbp-packs.js:
+      0 failures, 17 estate-wide human-judgement warnings unchanged, none
+      naming Tiffenbergs. branches.json's tiffenbergs_longmoor record
+      re-read field by field (phone, postalCode, seoTown, hasApp): agrees
+      with the pack and with every page. Zero in-repo defects found. Live
+      half not attempted this pass: full 12-of-12 live coverage was already
+      completed earlier the same day by the fifth pass, so re-reading it
+      again today would not be new information, and Claude in Chrome was
+      unreachable regardless (checked at answer pickup and again here). Q56
+      (branches.json's singular Tiffenberg@ against the live plural
+      tiffenbergs@) stands as last confirmed by the fifth pass, not
+      re-verified. No new question raised.
+      Evidence: this run reused audits/verify-3.12-2026-09-02.js rather
+      than duplicating it, since it was written and proved the same day;
+      injection transcript is this run's own PowerShell session, not
+      separately filed. Done 2026-09-02 (sixth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
