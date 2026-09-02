@@ -1647,6 +1647,80 @@ pharmacy-mccanns-sandringham.html) still 404 live, which is the standing
 queued-paste state each pack's own paster note anticipates (Q35),
 reconfirmed unchanged rather than new. No in-repo defect found, no new
 question raised.
+Quality pass 2026-09-02 (eighth). Done 2026-09-02. Selected as the least
+recently verified item in the rotation pool: every non-excluded item was
+last touched 2026-09-01 except three freshly touched the same day
+(3.12, 4.13, 5.1), so the pool tied at 2026-09-01; broken by the
+own-block "quality pass" mention count the 3.12 fifth-pass run
+established as the more reliable tie-break (log-wide proximity matching
+was found that run to pick up other items' incidental cross-references
+as if they were the item's own passes). 3.6 tied lowest at 5 own-block
+mentions alongside 3.8 and 6.3; broken by ascending item number as a
+plain, auditable rule with all three genuinely tied.
+REPO HALF. All 36 tools/check-*.js checkers re-run individually: 36 of
+36 exit 0. All six generators (branch landing, contraception, service,
+switch, travel clinic, weight loss) rebuilt; sha256 of all 203 files
+under modules/service/pages, modules/switch/pages and modules/branch/pages
+taken before and after: byte-identical, zero diff; git status empty on
+modules/, branches.json, gbp-packs/ and tools/ throughout. A fresh
+eighth independent extraction (audits/verify-3.6-2026-09-02.js, own
+regexes throughout, imports nothing from tools/) re-read all 26 McCanns
+pages: 1,351 checks, 0 failures, covering H1 own-seoTown, the
+excused/unexcused cross-town asymmetry (now also correctly excusing the
+Aigburth branch landing page's deliberate sister-branch signpost link,
+a page-type exception the first draft of this pass's own script missed
+and had to correct - see below), own phone in both display and tel:
+form with no other branch's digits present anywhere on the page, own
+postcode only, JSON-LD name equal to the branch's own branchName rather
+than the bare shared brandLabel, JSON-LD address field by field, data-wa
+matching the estate WhatsApp number (correctly absent on the two branch
+landing pages, which carry no WhatsApp button by design, confirmed on
+the item 2.2 fifth pass), data-branch naming the right branch, and the
+map embed decoding to the branch's own full address.
+SCRIPT-DESIGN FINDING, not a page defect. The extraction's first run
+flagged 3 false positives: the Aigburth branch landing page "names
+unexcused sister town" (it names Sandringham/St Michael's inside its
+own deliberate "if you are nearer our other branch" signpost sentence,
+which item 3.6's sixth pass already recorded as intentional) and both
+branch landing pages "missing data-wa" (they carry no WhatsApp button
+of any kind, correct by design). The script's town-excuse and
+data-wa checks did not know branch landing pages are a distinct page
+type with their own deliberate exceptions; fixed by excusing that page
+type explicitly in both checks, rather than by weakening either rule
+generally. Re-run clean at 1,351/1,351 after the fix - same shape as
+several prior passes' own extractor bugs (the 3.6 fifth pass's own
+JSON-LD "name" assertion, the 3.13 fifth pass's vacuity-probe faults).
+INJECTION TEST, two faults, both on pages untried in any prior 3.6
+pass (earlier passes tested the Aigburth UTI H1, the Aigburth branch
+landing page's phone, and a GBP pack Post A copy): (1)
+sinusitis-treatment-mccanns-aigburth.html's JSON-LD postalCode changed
+from Aigburth's own L17 7BP to Sandringham's L17 4JP - caught by the
+independent extraction (3 legs), check-jsonld.js and check-nap.js,
+which also correctly named the postcode as belonging to "McCanns
+Chemist Sandringham, not McCanns Chemist Aigburth"; (2)
+pharmacy-first-mccanns-sandringham.html's data-wa changed from the
+estate's 447521775631 to a fabricated 447000000000 - caught by the
+independent extraction and check-whatsapp-route.js. Both files restored
+by byte copy from a pre-injection backup (not git checkout, per this
+mount's established unlink() limitation) and sha256-confirmed identical
+to the pre-injection original; all 36 checkers and the independent
+extraction re-run clean after both restores.
+LIVE HALF, read-only, via direct fetch (Claude in Chrome unavailable
+this run - see AGENT_LOG.md). Five URLs read: the Aigburth UTI page is
+fully correct live (title and H1 both read "Aigburth", HTTP 200, own
+phone x6); the Sandringham UTI page's title and H1 still read
+"Sandringham" rather than "St Michael's" live, matching the repo's
+correct "St Michael's" only in the repo - the queued 5.7/Q15 repaste,
+unchanged since the fourth pass on 2026-08-14 and reconfirmed on every
+pass since; both branch landing pages still 404 live (Q35, standing
+queued-paste state); the Aigburth switch page is correct (trading name,
+own phone x7). The known Q39 footer set ("McCann's Pharmacy" branding,
+"Sandrigham" typo) reconfirmed present and unchanged on the Sandringham
+UTI page. No in-repo defect found. No new live finding. No new question
+raised - the script fix was a plain, no-judgement-call correction, the
+same class several prior passes have recorded in-line without a
+QUESTIONS.json entry. Evidence: audits/verify-3.6-2026-09-02.js
+(committed).
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

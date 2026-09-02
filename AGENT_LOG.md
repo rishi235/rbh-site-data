@@ -1,4 +1,157 @@
-## 2026-09-02 (unattended scheduled run, following the 4.13 eighth-pass run) - Item 3.12 quality pass (fifth): Tiffenbergs Chemist Aintree re-verified clean; live coverage of its 12 live pages completed to 12 of 12 for the first time; item-selection tie-break method revised after the log-wide heuristic was found not to track actual verification depth
+## 2026-09-02 (unattended scheduled run via Cowork, following the 3.12 fifth-pass run) - Item 3.6 quality pass (eighth): McCanns Chemist (Aigburth and Sandringham) re-verified clean on both halves; own verification script found to mis-handle branch landing pages as a distinct page type and corrected; two fresh fault injections caught, restored, re-proved clean
+
+ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
+C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
+Windows-MCP PowerShell for git, the same split this log has recorded for
+many runs (Q87). Windows-MCP PowerShell's own `git fetch origin`,
+`git checkout agents/audit-backlog` and `git pull --ff-only` all succeeded
+cleanly and confirmed the real repo on agents/audit-backlog at 28c16bd, up
+to date with origin, matching the sandbox's own view of the same files.
+`.agent-lock` absent at start (only the long-standing litter of stale
+`.agent-lock.released-*` files from earlier runs); lock created via
+Windows-MCP PowerShell before any repo work began. No `.git\index.lock`
+present. The sandbox this session had direct outbound network access
+(confirmed by a plain curl HTTP 200 against the branch's own domain before
+fetching), so the live half was read directly by curl rather than needing
+the Windows-MCP PowerShell fallback.
+
+ANSWER PICKUP (step 3). Claude in Chrome tools were loaded and called:
+`navigate` timed out waiting on `tabs_context_mcp`, and a direct
+`tabs_context_mcp` call then reported the extension not connected. Logged
+as unavailable per the unattended-run rule; no alternative route, login or
+retry attempted. This matches the standing Q59 diagnosis already open
+(two Chrome extension instances signed in at once block any unattended
+call). QUESTIONS.json left exactly as found: 40 open of 91 total, none of
+them blocking this item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run. Proceeded normally; no autonomous decisions taken - the one judgement
+made this pass (the script's page-type exceptions) was a mechanical
+correction with no policy content, the same class several prior passes
+have recorded without a QUESTIONS.json entry.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, plus the three under 6.4/6.5/6.6) confirmed [BLOCKED] by a
+direct search of AGENT_WORKLIST.md, so the quality-pass branch was taken.
+Re-derived the least-recently-verified item by binding each top-level
+item's own paragraph (from its own "- [x]"/"- [ ]" start line to the next
+top-level item's start line) and reading the maximum date found in that
+block, excluding the seven items outside the standard rotation pool (1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked lines - the same
+method recent runs have used. This gave a pool where every item's last
+date was 2026-09-01 except three freshly touched today by the three
+immediately preceding runs (3.12, 4.13, 5.1), excluded as most-, not
+least-, recently verified. Broke the resulting tie using the refinement
+the 3.12 fifth-pass run recommended: count "quality pass" mentions inside
+each item's OWN AGENT_WORKLIST.md block only, rather than proximity-
+matching the item number against the whole log (which that run found
+picks up other items' incidental cross-references as if they were the
+item's own passes). 3.6, 3.8 and 6.3 tied lowest at 5 own-block mentions
+each, a clear margin under the next tier (6). Broke this final three-way
+tie by ascending item number, a plain and auditable rule given all three
+were genuinely tied on the primary measure: 3.6 selected for this run's
+eighth pass.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually before any
+change: 36 of 36 exit 0. All six generators (branch landing, contraception,
+service, switch, travel clinic, weight loss) rebuilt; sha256 of all 203
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages taken before and after: byte-identical throughout;
+git status empty on modules/, branches.json, gbp-packs/ and tools/ both
+before and after.
+
+Fresh independent instrument audits/verify-3.6-2026-09-02.js written for
+this pass (own regexes throughout, imports nothing from tools/, follows
+the same template as the item's prior seven passes): globs all 26 McCanns
+pages (13 per branch: 11 service-family pages, one branch landing page,
+one switch page), and for each checks the H1's own seoTown, the
+excused/unexcused cross-town asymmetry, own phone in both display and
+tel: form with no other trading branch's digits present anywhere on the
+page, own postcode only, the JSON-LD block (type, name equal to the
+branch's own branchName rather than the bare shared brandLabel, address
+field by field, telephone), data-wa against the estate WhatsApp constant,
+data-branch, and the map embed's decoded address.
+
+SCRIPT-DESIGN FINDING, not a page defect. First run: 1,351 checks, 3
+failures, all three false positives of the script's own design rather
+than real faults. (1) pharmacy-mccanns-aigburth.html was flagged for
+naming the unexcused sister town "St Michael's" - inspection showed this
+is the branch landing page's own deliberate cross-link sentence, "This
+page is for our Aigburth pharmacy. If you are nearer our other branch,
+see McCanns Chemist Sandringham in St Michael's", which the item 3.6
+sixth-pass write-up already recorded as an intentional signpost, not a
+collision. (2) and (3) both branch landing pages were flagged for missing
+data-wa - inspection showed neither carries a WhatsApp button of any
+kind, `<div id="rbhsv-root" data-branch="...">` with no data-wa attribute
+at all, which the item 2.2 fifth-pass write-up already recorded as
+"WhatsApp absence confirmed by design" (a different generator,
+build-branch-landing-pages.js, from the five service-family generators
+that declare the WHATSAPP constant). The script did not know branch
+landing pages are a distinct page type carrying their own deliberate
+exceptions to both rules. Fixed by adding an explicit
+`isBranchLandingPage` exception to the cross-town check and the data-wa
+check, rather than weakening either rule for every page type. Re-run
+clean: 1,351 checks, 0 failures. Same shape as several prior passes'
+own extractor bugs (the item 3.6 fifth pass's own JSON-LD "name"
+assertion, the item 3.13 fifth pass's vacuity-probe faults) - the
+lesson those passes already drew, that a fresh independent script is
+itself unproven until it has been shown wrong at least once and fixed,
+held again here.
+
+INJECTION TEST, two faults, each on a page untried by any prior 3.6 pass
+(the seventh pass tested the Aigburth UTI H1, the Aigburth branch landing
+page's phone, and a GBP pack Post A copy dash; the third and sixth passes
+used similar targets). Both backed up first and restored by byte copy
+afterward, sha256-confirmed identical to the pre-injection original
+before re-running the checkers (this mount's `git checkout --` cannot
+unlink the old file, the same limitation every recent run has recorded):
+1. sinusitis-treatment-mccanns-aigburth.html: JSON-LD postalCode changed
+   from Aigburth's own "L17 7BP" to Sandringham's "L17 4JP" via sed.
+   Caught by the independent extraction (3 legs: sister's postcode
+   present, foreign postcode present, JSON-LD postalCode mismatch),
+   check-jsonld.js ("address.postalCode is L17 4JP but branches.json
+   says L17 7BP") and check-nap.js, which correctly named the postcode
+   as "belongs to McCanns Chemist Sandringham, not McCanns Chemist
+   Aigburth" rather than just flagging an unowned string.
+2. pharmacy-first-mccanns-sandringham.html: data-wa changed from the
+   estate's "447521775631" to a fabricated "447000000000" via sed.
+   Caught by the independent extraction and check-whatsapp-route.js
+   ("data-wa=447000000000 but branches.json agrees on 447521775631").
+Both files restored from the pre-injection backup; sha256 confirmed
+identical to the original before either injection. Full 36-checker suite
+and the independent extraction (1,351/1,351) both re-run clean after both
+restores. `git status --short modules/ branches.json gbp-packs/ tools/`
+empty.
+
+LIVE HALF, read-only. Claude in Chrome unavailable this run (see ANSWER
+PICKUP above); the sandbox had direct outbound network access this
+session, so five URLs were read by plain curl GET instead of the
+Windows-MCP PowerShell fallback several recent runs have needed: the
+Aigburth UTI page is fully correct live (title and H1 both read
+"Aigburth", HTTP 200, own phone present six times); the Sandringham UTI
+page's title and H1 still read "Sandringham" rather than "St Michael's"
+live, while the repo and paste sheet both correctly carry "St Michael's"
+- the queued 5.7/Q15 repaste, unchanged since the fourth pass on
+2026-08-14 and reconfirmed on every pass since including the sixth and
+seventh; both branch landing pages (pharmacy-mccanns-aigburth.html,
+pharmacy-mccanns-sandringham.html) returned HTTP 404 live, the standing
+queued-paste state each pack's own paster note anticipates (Q35),
+reconfirmed unchanged; the Aigburth switch page is correct live (trading
+name, own phone present seven times). The known Q39 footer set
+("McCann's Pharmacy" branding, "Sandrigham" typo) was checked on the
+Sandringham UTI page and reconfirmed present and unchanged.
+
+RESULT. Zero in-repo defect. No new live finding - every live state this
+pass read matches every prior 3.6 pass exactly. No new question raised:
+the only finding this pass made (the script's page-type blind spot) is a
+mechanical correction with no judgement call for Rishi, not something
+step 8's QUESTIONS.json process exists for. Worklist item 3.6 updated in
+place with this pass's findings, appended after the 2026-09-01
+seventh-pass entry rather than replacing it. Evidence:
+audits/verify-3.6-2026-09-02.js (committed).
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
 C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
