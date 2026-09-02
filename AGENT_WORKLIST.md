@@ -7573,6 +7573,62 @@ pass on the repo half.
       audits/live-hours-check-2026-09-01.json,
       audits/_before-6.3-2026-09-01.sha256,
       audits/_after-6.3-2026-09-01.sha256 (identical).
+      Fifth quality pass 2026-09-02 (unattended run, Cowork). Repo half: all
+      36 checkers run individually, 36 of 36 exit 0; all six generators
+      rebuilt, sha256 of all 203 generated files identical before and
+      after; git status empty on modules/, branches.json, gbp-packs/ and
+      tools/ throughout. Live half re-run: the sandbox reached all 14
+      branch domains directly over plain HTTPS (confirmed by a curl 200
+      against two branch hosts first), so tools/check-live-hours.js ran
+      unattended with no browser needed, evidence
+      audits/live-hours-check-2026-09-02.json. Bank holiday labelling
+      checked against bankHolidays.dates2026 by hand (only 2026-08-31 falls
+      within the 14-day window of this run, and the tool's own console
+      note named exactly that date and no other). All 14 branches' live
+      snippets read against branches.json by address, phone and postcode
+      rather than by the snippet's own trailing section label, because the
+      Fishlocks and Scorah pages still interleave one section's footer
+      contact details with the next section's heading and hours inside a
+      single extracted snippet (the same shape the 2026-08-30 pass
+      described; the 2026-08-14 widening fixed the LEADING drop, not this
+      trailing carry-over, and it remains a reading hazard rather than an
+      in-repo defect, since the tool deliberately hands raw snippets to a
+      human rather than auto-verdicting). Read this way, all thirteen
+      previously-matching branches still match exactly, including the
+      seven lunch-closure branches and both split-domain pairs read by
+      their own address/phone rather than the trailing label. Smartts
+      remains the sole live mismatch: the homepage hours card, the contact
+      page and the site footer all still publish straight-through
+      "9:00am - 6:00pm" (or "09:00 - 18:00") with no lunch closure, against
+      branches.json's NHS-sourced 09:00-13:00/14:00-18:00 split. Q55 stands
+      as raised; this remains a live-only fix outside this repo's control,
+      not something a worker run can correct. One fresh check not run on
+      any prior pass of this item: rule 6 (the omission guard added
+      2026-08-13, last proved 2026-08-13) re-tested by injection this run
+      rather than assumed - removed Saturday from riddings_timperley's
+      closedDays in the tracked branches.json without adding it to
+      specification (an omission, not a stated closure), ran
+      check-opening-hours.js: failed exactly as designed ("Saturday is in
+      neither closedDays nor specification"), then branches.json restored
+      from a pre-injection copy taken immediately before the edit and
+      confirmed byte-identical by sha256 both before overwriting and after
+      restoring; checker re-run clean (36/36) and git status confirmed
+      empty on the file throughout via git status --porcelain (both the
+      sandbox mount and, independently, Windows-MCP PowerShell against the
+      real C:\Dev\rbh-site-data). No page, generator or data field left
+      changed. No in-repo defect found, no fix needed, no new question.
+      Evidence: audits/live-hours-check-2026-09-02.json (this pass's live
+      survey). Note for whoever runs the next pass: a stale, zero-length
+      .git\index.lock (Windows timestamp 02/09/2026 03:10) was found
+      during this run's git status calls from the sandboxed Linux mount,
+      causing an "unable to unlink ... Operation not permitted" warning
+      there; confirmed under the procedure's 1-hour/no-process threshold
+      it does not yet qualify for deletion (under a minute old when found,
+      no git process running per Get-Process on the Windows side), so it
+      was left in place and not touched, and all git status/diff checks in
+      this run were cross-verified via Windows-MCP PowerShell instead,
+      which was unaffected by it. Worth a look if a future run finds it
+      still present and genuinely stale.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

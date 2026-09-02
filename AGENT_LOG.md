@@ -1,4 +1,136 @@
-## 2026-09-02 (unattended scheduled run via Cowork, following the 3.6 eighth-pass run) - Item 3.8 quality pass (seventh): SK Chemists Bootle re-verified clean, repo half only; own verification script's map-embed regex found wrong on first run and fixed; two fresh fault injections caught by both the independent script and the official checkers, restored byte-identical
+## 2026-09-02 (unattended scheduled run via Cowork, following the 3.8 seventh-pass run) - Item 6.3 quality pass (fifth): estate-wide opening hours re-verified both halves, Smartts remains the sole live mismatch (Q55 stands), rule 6 omission guard re-proved by injection, no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers, generators and (this
+run) the live-hours survey itself (node's native fetch reached all 14
+branch domains directly, confirmed by a plain curl 200 against two branch
+hosts before running anything), plus Windows-MCP PowerShell for the git
+fetch/checkout/pull against C:\Dev\rbh-site-data on the real machine, the
+same split many prior runs have recorded (Q87) - the sandbox itself has no
+SSH key, no gh CLI and no https credential for
+git@github.com:rishi235/rbh-site-data.git, confirmed by a failed sandbox
+`git fetch` over SSH (Host key verification failed) before falling back to
+the established split; an anonymous HTTPS fetch from the sandbox against
+the public repo did work read-only and matched the Windows-MCP fetch
+exactly (5abba64...), so no pull was needed either side. `.agent-lock`
+absent at start (only the long-standing litter of stale
+`.agent-lock.released-*` files and other scratch/test artefacts from
+earlier runs, left untouched as outside this run's scope); lock created via
+the sandbox bash mount before any repo work began, confirmed readable
+afterwards from the Windows side via Windows-MCP (LastWriteTime
+02/09/2026 03:04:23, well under the 45-minute staleness threshold
+throughout this run). A stale-LOOKING but not-yet-stale `.git\index.lock`
+(zero length, Windows timestamp 03:10:12) appeared during this run's own
+`git status` calls from the sandbox mount, producing an "unable to unlink
+... Operation not permitted" warning there; checked against the procedure's
+own rule (delete only if older than 1 hour AND no git process running) it
+was under a minute old when found, so it was left untouched rather than
+deleted, and every git status/diff check from that point on was
+cross-verified via Windows-MCP PowerShell against the real machine, which
+was unaffected by it and reported clean status throughout. Flagged in
+AGENT_WORKLIST.md for whoever runs the next pass, in case it is still
+sitting there and genuinely stale by then.
+
+ANSWER PICKUP (step 3). Claude in Chrome tools were loaded and `navigate`
+was called first against https://data.rbhealth.co.uk/api/feedback: it
+reported the extension not connected, without needing a further
+`tabs_context_mcp` call to confirm. Logged as unavailable per the
+unattended-run rule; no alternative route, login or retry attempted.
+Matches the standing Q59 diagnosis already open (two Chrome extension
+instances signed in at once block any unattended call). QUESTIONS.json
+left exactly as found: 40 open of 91 total at the start of this run, none
+of them blocking item 6.3.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run (checked before writing this entry). Proceeded normally; no
+autonomous decisions taken, and no new question was needed this pass.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, plus the three under 6.4/6.5/6.6) confirmed [BLOCKED] by a direct
+grep of AGENT_WORKLIST.md, so the quality-pass branch was taken. Re-derived
+the least-recently-verified item programmatically rather than by eye this
+run (a short Python script over AGENT_WORKLIST.md's own top-level item
+blocks, same method recent runs have described by hand): bound each
+top-level item's own paragraph from its own "- [x]"/"- [ ]" start line to
+the next top-level item's start line, took the maximum 2026-MM-DD date
+found inside that block, excluded the seven items outside the standard
+rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked
+lines. 3.6, 3.8, 4.13 and 5.1 (this run's four immediate predecessors)
+dropped out of contention as most-, not least-, recently verified, each
+now carrying a 2026-09-02 date inside its own block. The remaining pool of
+30 items tied at 2026-09-01 as the oldest max-date; breaking the tie by
+counting "quality pass" mentions within each item's own block only (per
+the refinement the 3.12 fifth-pass run recorded, to avoid picking up
+another item's incidental cross-references), 6.3 was the unique lowest at
+5 mentions, one clear of the next tier at 6. No further tie-break needed.
+6.3 selected for this run's fifth pass.
+
+REPO HALF. All 36 tools/check-*.js checkers run individually before any
+change: 36 of 36 exit 0. All six generators (branch landing, contraception,
+service, switch, travel clinic, weight loss) rebuilt; sha256 of all 203
+files under modules/service/pages, modules/switch/pages and
+modules/branch/pages taken before and after: byte-identical throughout;
+`git status --porcelain modules/ branches.json gbp-packs/ tools/` empty
+both before and after (and, separately, `git status --porcelain` against
+the whole tree via Windows-MCP PowerShell showed only this run's new
+audits/live-hours-check-2026-09-02.json as a change, nothing else).
+
+LIVE HALF. tools/check-live-hours.js run directly from the sandbox (no
+browser needed this run - confirmed outbound network reaches the branch
+domains before starting): 14 branches, 2 pages each, evidence
+audits/live-hours-check-2026-09-02.json. Bank holiday label checked by
+hand against bankHolidays.dates2026: only 2026-08-31 falls inside the
+14-day window of a 2026-09-02 run, and that is exactly what the tool's own
+console NOTE named, no more and no less. All 14 branches' snippets read
+against branches.json field by field (address, phone, postcode, and the
+hours themselves), matching content rather than the snippet's own trailing
+label, because the Fishlocks and Scorah shared-domain pages still splice
+one section's trailing contact footer onto the NEXT section's heading and
+hours inside a single extracted snippet - the same shape the 2026-08-30
+pass described and fixed on the LEADING side only; the trailing carry-over
+remains and is a reading hazard for whoever reads the JSON by eye, not an
+in-repo defect, since the tool is deliberately a survey instrument that
+hands raw snippets to a human rather than auto-verdicting. Read this way,
+thirteen of fourteen branches match branches.json exactly, including all
+seven lunch-closure branches and both shared-domain pairs (Scorah,
+McCanns) read by their own address and phone rather than by position.
+Smartts remains the sole mismatch: the homepage hours card, the contact
+page and the site footer all still publish straight-through "9:00am -
+6:00pm" / "09:00 - 18:00" with no lunch closure, against branches.json's
+NHS-sourced 09:00-13:00/14:00-18:00 split, unchanged since first found on
+2026-08-11. Q55 stands as raised; this is a live-only fix (a Weebly page
+edit) outside what this repo can correct.
+
+INJECTION PROOF, the one check not yet re-run on this item since its
+introduction. Rule 6 (check-opening-hours.js, the omission guard: a day
+in neither closedDays nor specification is silently published as
+"Closed") was added and first proved 2026-08-13, then not touched by any
+of the item's four subsequent passes, all of which re-proved rule 7
+instead. sha256 of branches.json taken and a full copy kept before any
+edit. Removed "Saturday" from riddings_timperley's own closedDays in the
+TRACKED branches.json without adding it to specification, i.e. a pure
+omission rather than a stated closure: check-opening-hours.js failed
+immediately and specifically ("riddings_timperley: Saturday is in neither
+closedDays nor specification..."), node exit code 1. branches.json then
+restored from the pre-injection copy; sha256 confirmed byte-identical to
+the pre-injection hash; `git status --porcelain branches.json` empty
+afterwards (sandbox and, independently, Windows-MCP PowerShell both);
+checker re-run clean, 36/36 exit 0. No page, generator or data field left
+changed.
+
+ZERO IN-REPO DEFECTS THIS PASS. WORKLIST AND STATUS PAGE. AGENT_WORKLIST.md
+item 6.3 updated in place with this pass's write-up (block, not moved).
+QUESTIONS.json unchanged (40 open, none newly raised or closed - no
+pickup available, Q55 stands on the evidence gathered this run). Evidence
+retained: audits/live-hours-check-2026-09-02.json. Committed and pushed to
+origin/agents/audit-backlog via Windows-MCP PowerShell (git add, commit,
+push from C:\Dev\rbh-site-data), then tools/build-audit-status.js run via
+Windows-MCP PowerShell to publish the status page. .agent-lock deleted
+before exit.
+
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
 C:\dev\rbh-site-data for file reads/edits, checkers and generators (git,
