@@ -185,23 +185,68 @@ const EN = "–";
 // The entity spellings of the same two characters. A browser renders these
 // identically to the literal form, so anything that reaches the public has to
 // be checked for both. Kept as one source of truth for the test and the count.
-const EM_ENTITY = /&(?:mdash|#8212|#[xX]2014);/g;
-const EN_ENTITY = /&(?:ndash|#8211|#[xX]2013);/g;
-const ENTITY_RE = /&(?:mdash|ndash|#8212|#8211|#[xX]2014|#[xX]2013);/g;
+//
+// Named entities are matched by exact spelling, which is safe: HTML5 named
+// character references are case-sensitive and "&mdash;"/"&ndash;" are the
+// only spellings a browser resolves, so there is no padding or casing
+// variant to miss.
+//
+// Numeric character references are NOT matched by exact digit string. Until
+// the item 5.1 quality pass (tenth), 2026-09-02, this file matched only the
+// un-padded forms "&#8212;", "&#8211;", "&#x2014;", "&#x2013;". The HTML5
+// tokenizer's numeric-character-reference state accumulates an arbitrary
+// number of digits into one code point and leading zeros do not change the
+// value, exactly as "007" and "7" are the same number, so "&#08212;",
+// "&#0008212;", "&#x02014;" and "&#X0002014;" all render as the identical em
+// dash in every browser while matching none of the four literal patterns.
+// Proved by injection rather than argued: "&#x02014;" written into a real
+// "Page Permalink" line in modules/switch/pages/SEO.md passed the un-fixed
+// checker with exit 0, the exact class of silent miss this file's own header
+// has now recorded five times for other reasons (which files, which lines,
+// which unit). Restored by byte copy afterwards, line count re-confirmed
+// unchanged (95 before and after).
+//
+// Fixed by matching the general numeric-reference SHAPE, decimal or hex, any
+// digit count, and comparing the DECODED value to the two dash code points
+// (U+2014, U+2013) rather than matching a spelling. That is robust to any
+// amount of padding by construction, the same "shape not list" fix this
+// file's own history keeps landing on for other gaps.
+const EM_NAMED_RE = /&mdash;/;
+const EN_NAMED_RE = /&ndash;/;
+const NUMERIC_ENTITY_RE = /&#(\d+);|&#[xX]([0-9a-fA-F]+);/g;
+const EM_CODEPOINT = 0x2014;
+const EN_CODEPOINT = 0x2013;
+
+// Every numeric character reference in a string that decodes to the em or en
+// dash code point, regardless of leading zeros or digit count.
+function dashNumericEntities(text){
+  const out = [];
+  NUMERIC_ENTITY_RE.lastIndex = 0;
+  let m;
+  while ((m = NUMERIC_ENTITY_RE.exec(text)) !== null) {
+    const cp = m[1] !== undefined ? parseInt(m[1], 10) : parseInt(m[2], 16);
+    if (cp === EM_CODEPOINT) out.push({ kind: "em", match: m[0] });
+    else if (cp === EN_CODEPOINT) out.push({ kind: "en", match: m[0] });
+  }
+  return out;
+}
 
 const LITERAL_RE = /[–—]/;
 // One test used by every call site: does this line carry a dash in ANY form.
 function hasDash(line){
-  ENTITY_RE.lastIndex = 0;
-  return LITERAL_RE.test(line) || ENTITY_RE.test(line);
+  if (LITERAL_RE.test(line)) return true;
+  if (EM_NAMED_RE.test(line) || EN_NAMED_RE.test(line)) return true;
+  return dashNumericEntities(line).length > 0;
 }
 // Report em vs en, and literal vs entity, so a failure says what to look for.
 function dashKind(line){
   if (line.indexOf(EM) !== -1) return "em dash";
   if (line.indexOf(EN) !== -1) return "en dash";
-  EM_ENTITY.lastIndex = 0;
-  if (EM_ENTITY.test(line)) return "em dash (HTML entity)";
-  return "en dash (HTML entity)";
+  if (EM_NAMED_RE.test(line)) return "em dash (HTML entity)";
+  if (EN_NAMED_RE.test(line)) return "en dash (HTML entity)";
+  const numeric = dashNumericEntities(line);
+  if (numeric.length && numeric[0].kind === "em") return "em dash (HTML numeric entity)";
+  return "en dash (HTML numeric entity)";
 }
 
 // Folders holding generated pages that get pasted onto the live sites.
@@ -391,9 +436,10 @@ function blankComments(text){
 
 function countDashes(text){
   const lit = text.match(/[–—]/g);
-  ENTITY_RE.lastIndex = 0;
-  const ent = text.match(ENTITY_RE);
-  return (lit ? lit.length : 0) + (ent ? ent.length : 0);
+  const namedEm = text.match(/&mdash;/g);
+  const namedEn = text.match(/&ndash;/g);
+  const numeric = dashNumericEntities(text).length;
+  return (lit ? lit.length : 0) + (namedEm ? namedEm.length : 0) + (namedEn ? namedEn.length : 0) + numeric;
 }
 
 function checkHtmlFile(file){
@@ -465,8 +511,7 @@ function checkPackFile(file){
   raw.split(/\r?\n/).forEach(function(line, i){
     NON_ASCII_RE.lastIndex = 0;
     const found = line.match(NON_ASCII_RE);
-    ENTITY_RE.lastIndex = 0;
-    const entity = ENTITY_RE.test(line);
+    const entity = EM_NAMED_RE.test(line) || EN_NAMED_RE.test(line) || dashNumericEntities(line).length > 0;
     if (!found && !entity) return;
     const parts = [];
     if (found) {

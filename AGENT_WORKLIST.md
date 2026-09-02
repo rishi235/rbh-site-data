@@ -7528,6 +7528,58 @@ item's. ZERO IN-REPO DEFECT. No new question: both live findings are
 already tracked (item 5.5/Q13/Q45 for the CDN pin, Q36 for the mailbox
 typo) and this pass changed nothing about either. Ninth consecutive clean
 pass on the repo half.
+Quality pass 2026-09-02 (tenth). UNATTENDED RUN. All 8 remaining unchecked
+AGENT_WORKLIST.md lines confirmed [BLOCKED] (8 of 8 via direct grep), so the
+quality-pass fallback applied via the standing rotation-pool method: git log
+--pretty=format:"%cI|%s" matched item N.N by word boundary (case-insensitive),
+first/most recent match per item, over the standing 36-item pool. Item 5.1 was
+stalest, last mentioned 2026-09-02T00:39:08+01:00; item 4.11 (done in the
+immediately preceding run) was most recent at 2026-09-02T21:09:53+01:00.
+This pass found a REAL, previously latent gap in tools/check-em-dashes.js
+itself, one item deeper than any of the prior nine passes on this item: every
+numeric HTML character-reference form the checker matched (&#8212; &#8211;
+&#x2014; &#x2013;) was matched by EXACT DIGIT STRING, not by decoded value.
+The HTML5 tokenizer accumulates a numeric character reference's digits into a
+code point and ignores leading zeros - "&#08212;" and "&#x02014;" render as
+the identical em dash to "&#8212;" and "&#x2014;" in every browser - so a
+zero-padded numeric entity was invisible to this checker while being exactly
+as public as the un-padded form it already caught. Proved by injection rather
+than argued: "&#x02014;" written into the real Page Permalink line for
+Fishlocks Ainsdale in modules/switch/pages/SEO.md passed
+`node tools/check-em-dashes.js` with exit 0 ("clean"). FIXED IN REPO, no
+sign-off needed, same as this item's five prior checker-widening fixes: the
+entity match is now two named-entity tests (&mdash;/&ndash;, exact spelling,
+safe because HTML5 named references are case-sensitive with no padding
+concept) plus a general numeric-reference regex whose matches are DECODED and
+compared by value against U+2014/U+2013, robust to any digit count or
+padding by construction - the same "shape not list" fix this checker's own
+header already documents for five earlier gaps (files, code, data, sheet
+files, sheet lines), now landing a sixth time one level further down, inside
+the character-matching regex itself rather than in what it was pointed at.
+Re-ran the same injected file after the fix: exit 1, correctly named "em dash
+(HTML numeric entity)" at the right line. Restored modules/switch/pages/SEO.md
+by byte copy from a pre-injection backup; SHA256 confirmed identical
+(73689c39...45fd0) before and after, line count unchanged (95). Independent
+proof kept at audits/em-dash-numeric-entity-padding-probe-2026-09-02.js. 15
+cases: six previously-missed padded em/en-dash forms (decimal and hex, one to
+several leading zeros, mixed-case X), four previously-caught un-padded forms,
+three non-dash numeric entities (nbsp, padded and un-padded) to prove no new
+false positive, one plain string and one literal hyphen as controls. All 15
+correct. All 36 tools/check-*.js re-run individually after the fix: 36/36
+exit 0, identical steady-state counts to before this pass (233 files scanned,
+200 comment dashes, 591 sheet-heading dashes, 1 data-note dash), confirming
+the fix changes matching logic without changing any verdict on real content.
+All six generators rebuilt: git status --porcelain modules/ core/ empty
+before and after, so no page or generator was touched and none needed to be -
+this was a checker-only fix. Live half not read this run (Claude in Chrome
+reported not connected on the standard tabs_context_mcp check; per procedure,
+not retried by another route, no login attempted); the ninth pass's two live
+findings (item 5.5/Q13/Q45 CDN-pin block, Q36 mailbox typo) stand unchanged
+and unclaimed by this pass. No new question raised - this is a checker
+widening, not a live-facing or patient-facing decision. Tenth consecutive
+clean pass on the repo half; first of the ten to find a defect in the
+checker's own character-matching logic rather than in a page, pack, sheet or
+generator.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
