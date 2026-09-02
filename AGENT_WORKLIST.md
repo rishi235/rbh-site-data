@@ -1230,6 +1230,42 @@ audits/seo-pattern-check-2026-09-02-eighth.txt.
       that mount's `git fetch origin` again failed outright with "Host
       key verification failed" (no SSH key for git@github.com in that
       sandbox), same as every recent run's diagnosis (Q87).
+      Quality pass 2026-09-02 (eighth): clean on both halves, no repo
+      defect, no new question. All six generators rebuilt from
+      branches.json; sha256 of every file in modules/service/pages,
+      modules/switch/pages and modules/branch/pages taken before and
+      after (203 files): byte-identical, zero diff. All 36 tools/check-*.js
+      run individually, all exit 0. An eighth independent extraction
+      (audits/verify-3.3-2026-09-02.js, imports nothing from tools/, own
+      regexes throughout) re-read all 26 pages plus the six paste sheets:
+      665 checks, 0 failures, repeating every leg the seventh pass proved
+      and adding two new legs no prior independent extraction for this item
+      covered - JSON-LD PostalAddress/telephone matching branches.json
+      field by field, and the paste sheets' Meta Keywords line (own town
+      present, sister town absent unless excused via serviceAreaList,
+      sister brandLabel absent). Cross-town guard re-proved by injection:
+      "UTI treatment in Ainsdale, near Eccleston" appended to the Ainsdale
+      UTI page's H1 was caught by both check-seo-pattern.js (exit 1, 2
+      mismatches) and the independent extraction (1 failure), then restored
+      from a pre-injection byte copy (sha256 matched exactly); all 36
+      checkers re-run clean post-restore. A stray .git/index.lock left by
+      the sandboxed mount's `git status` call during the post-restore
+      re-check was cleared via the Windows-MCP PowerShell path (same class
+      as Q87's standing lock-handling note), no repo content affected.
+      LIVE HALF (single Chrome tab, no Q59 ambiguity): both UTI pages read
+      200 with the exact pattern title/H1 ("UTI treatment in Ainsdale -
+      Fishlocks Chemist" / "... in Eccleston - ..."), each branch's own
+      phone and postcode correct, and the standing Q37 footer set (singular
+      "Fishlock Pharmacy"/"Fishlock Chemist" naming, "17 Station Rd"
+      abbreviation) reconfirmed present and unchanged on both branches -
+      the correct second trust-bar block noted on the seventh-pass addendum
+      also still coexists alongside it, nothing new either way.
+      NOTE ON RUN CONDITIONS: git fetch/checkout/pull and the eventual
+      push were run via the Windows-MCP PowerShell tool directly against
+      the real C:\Dev\rbh-site-data, not the sandboxed Linux mount used for
+      the checkers and generators - that mount's `git fetch origin` again
+      failed outright with "Host key verification failed", same as every
+      recent run's diagnosis (Q87).
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

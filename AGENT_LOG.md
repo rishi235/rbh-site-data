@@ -1,4 +1,101 @@
-## 2026-09-02 (unattended scheduled run via Cowork, 08:04 UTC / 09:04 BST) - Item 2.3 quality pass (eighth): Cherry Lane Pharmacy Walton re-verified clean in-repo; live half finds the Q89 Pharmacy First "coming soon" fault now fixed, and the Q36 footer mailbox typo back again on all four pages checked
+## 2026-09-02 (unattended scheduled run via Cowork, 08:34 UTC / 09:34 BST) - Item 3.3 quality pass (eighth): Fishlocks Chemist (Ainsdale and Eccleston) re-verified clean on both halves, no in-repo defect, standing Q37 footer set reconfirmed unchanged live
+
+ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed
+outright again ("Host key verification failed"), the same fetch-level gap
+Q87 and every recent run's log entry record. Switched to Windows-MCP
+PowerShell against the real C:\Dev\rbh-site-data for fetch/checkout/pull
+and the eventual push; confirmed identical working copy via the shared
+mount. Pull fast-forwarded one commit (359d89b, "Audit answer: Q55
+answered via portal") that had landed since the previous run. `.agent-lock`
+created 08:34:22 UTC via the sandbox bash tool, confirmed visible and
+refreshed from the Windows side of the same mount; no stale lock or
+`.git\index.lock` present at start.
+
+ANSWER PICKUP (step 3). Single Chrome tab group present throughout, no
+Q59 ambiguity. Fetched https://data.rbhealth.co.uk/api/feedback
+successfully. Cross-checked all returned answers (Q2 through Q52, dated
+2026-08-04 to 2026-09-01) against the 38 questions open at run start
+(Q37, Q43, Q53-Q54, Q56-Q78, Q80-Q88, Q90-Q91): only Q37 and Q43 overlap,
+and both are already correctly left "open" from the previous run's
+pickup, with notes explaining Rishi's portal replies ("i need further
+explanation...", "Unsure...") are requests for clarification rather than
+decisions selecting one of the listed options. No new answers applicable
+to any open question. QUESTIONS.json otherwise unchanged by this step.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation" heading present
+at the top of this file at run start. Proceeded normally; no autonomous
+decisions taken this run.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by grep, so the
+quality-pass fallback applied. Rotation candidates: 1.2, 1.3, 2.1, 2.3,
+3.1-3.13, 4.1-4.15, 5.1, 5.2, 6.2, 6.3 (excluding the standing
+out-of-rotation pool 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), ranked by most
+recent commit date carrying a word-boundary "N.N" mention. Item 2.3 (just
+completed) excluded. Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston)
+was stalest at 2026-09-01T11:42:38+01:00 (seventh pass), ahead of 4.7,
+4.2 and the rest of the pool.
+
+WORK DONE - REPO HALF. All six generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from
+branches.json; sha256 of all 203 files in modules/service/pages,
+modules/switch/pages and modules/branch/pages taken before and after -
+byte-identical, zero diff. All 36 tools/check-*.js run individually, all
+exit 0.
+
+An eighth independent extraction was written fresh
+(audits/verify-3.3-2026-09-02.js, imports nothing from tools/, own
+regexes throughout), re-reading all 26 Fishlocks pages (11 service pages
+per branch, 1 switch page per branch, 1 branch landing page per branch)
+plus the six paste sheets: 665 checks, 0 failures. It repeats every leg
+the seventh pass's extraction proved (one H1 per page, own seoTown
+present, sister seoTown absent unless excused, own phone/postcode
+present and sister's absent, no doubled own-town phrase, sheet duplicate-
+label guard, switch banner self-reference) and adds two legs no prior
+independent extraction for this item covered: JSON-LD PostalAddress and
+telephone matching branches.json field by field (a machine-read fact
+invisible to a visible-text scan), and the paste sheets' Meta Keywords
+line (own town present, sister town absent unless excused via
+serviceAreaList, sister brandLabel absent).
+
+The cross-town guard was re-proved by injection rather than trusted:
+"UTI treatment in Ainsdale, near Eccleston " was prepended inside the H1
+of uti-treatment-fishlocks-ainsdale.html. Caught by both
+check-seo-pattern.js (exit 1, "2 mismatches") and the independent
+extraction (1 failure, naming the sister-town H1 rule), then restored
+from a pre-injection byte copy taken before the edit; sha256 after
+restore matched the pre-injection file exactly, and all 36 checkers were
+re-run clean post-restore. A stray `.git/index.lock` left by the
+sandboxed mount's own `git status` call during that post-restore check
+blocked nothing (bash-side removal was denied by the mount's
+permissions) and was cleared via the Windows-MCP PowerShell path in under
+a minute; no repo content was affected and `git status` confirmed the
+touched file was byte-clean against HEAD throughout. Same class of
+sandbox/Windows-mount lock friction Q87 already records.
+
+LIVE HALF (single Chrome tab, no Q59 ambiguity). Both UTI pages read
+200 read-only: Ainsdale carries the exact pattern title and H1 ("UTI
+treatment in Ainsdale - Fishlocks Chemist"), its own phone (01704
+575478) and postcode (PR8 3HN); Eccleston carries the exact pattern
+title/H1, its own phone (01257 451251) and postcode (PR7 5SZ). The
+standing Q37 footer set - singular "Fishlock Pharmacy"/"Fishlock
+Chemist" business naming and the "17 Station Rd" street abbreviation, in
+the native Weebly contact-block furniture - is present and unchanged on
+both pages. The correct second trust-bar block the seventh-pass addendum
+first recorded ("Fishlocks Chemist - two local NHS pharmacies in
+Ainsdale & Eccleston", "17 Station Road" spelled in full) still coexists
+alongside the wrong block, exactly as before. No new live defect found.
+Nothing here changes the standing recommendation at Q37.
+
+No in-repo defect found. No new question raised.
+
+COMMIT/PUSH/PUBLISH. Committed audits/verify-3.3-2026-09-02.js and the
+AGENT_WORKLIST.md eighth-pass note via the Windows-MCP PowerShell path
+against the real C:\Dev\rbh-site-data (sandbox has no SSH key for
+git@github.com, per Q87). Pushed to origin/agents/audit-backlog.
+tools/build-audit-status.js run to publish the portal status page.
+
 
 ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed
 outright again ("Host key verification failed"), the same fetch-level gap
