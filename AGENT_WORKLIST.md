@@ -1483,6 +1483,44 @@ checkout (sandbox mount blocks unlink on this file, matching the
 documented Q87-adjacent finding), sha256 confirmed identical to HEAD
 afterward and the full 189-file estate confirmed byte-identical again. No
 in-repo defect, no new question. Done 2026-09-01
+Quality pass 2026-09-02 (ninth): REPO HALF CLEAN, ZERO DEFECTS. Live half not
+read this run (Claude in Chrome not connected), so the seventh pass's two live
+findings (Q86 cross-branch Scorah mailto addresses in the site-wide contact
+widget; the stale 2026-08-05 wording still live on the weight-loss-clinic-
+walton.html bridge page) and the Q36 footer typo stand unverified for a second
+consecutive pass. All 36 tools/check-*.js checkers ran individually and passed
+(the one apparent check-postcodes.js failure mid-run traced to this run's own
+_agentscratch/gitlog_rotation.txt, a git-log dump used to compute the rotation
+pool that quoted a commit message containing the CH49 1SX narrative postcode
+CLAUDE.md already documents - the same false-alarm shape recorded on the
+2026-09-02 17:07 BST run - deleted, untracked, never committed, re-ran clean).
+All six generators rebuilt byte-identical (git status --porcelain modules/
+core/ empty before and after). A ninth independent extraction, written fresh
+for this run and sharing no code with tools/
+(audits/verify-3.4-2026-09-02-ninth.js): 1,030 checks across all 12 pages, 0
+failures - H1 count and Walton/no-foreign-town/no-foreign-brand, data-branch
+and data-wa, tel: link and visible-phone isolation against every other live
+branch's number, postcode isolation, JSON-LD type/name/telephone/address/url
+field by field, map query matching own address, no foreign widget id
+hard-coded, CDN pins (service-module-phase1 / 6a275e1), no literal or entity
+em/en dash, and no brand-name medicine anywhere on the weight loss page.
+Guard effectiveness re-proved by injection on travel-clinic-cherry-lane-
+walton.html (untried page for Cherry Lane injection testing; prior passes
+used the UTI, switch, Pharmacy First and weight-loss-clinic pages): a phone
+swap to Smartts Chemist's number caught by both tools/check-nap.js and this
+run's verify script; a postcode swap to Smartts's L20 9HH caught by
+tools/check-postcodes.js's FOREIGN rule and the verify script, alongside a
+JSON-LD name corruption from an earlier combined-injection attempt that also
+correctly failed both; and, after that combined attempt was found to have
+silently prevented its own third change (a regex step renaming every "Cherry
+Lane Pharmacy" occurrence had already consumed the literal substring the
+em-dash injection depended on, an authoring mistake in the test script, not a
+checker gap - confirmed by checking the file for the dash character before
+concluding anything), a clean single-purpose re-run of the em-dash injection
+was caught correctly by both tools/check-em-dashes.js and the verify script.
+Restored by byte copy from a pre-injection backup each time, sha256-confirmed
+identical to the original after the final restoration. No in-repo defect, no
+new question.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
