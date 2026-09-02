@@ -3307,6 +3307,64 @@ Done 2026-09-02 (eighth pass).
       Zero in-repo defects. Nothing edited under tools/, modules/, core/
       or branches.json; the only repo changes this pass are the two new
       audit instrument/output files and this log entry.
+      Quality pass 2026-09-02 (sixth), unattended scheduled run, Windows
+      PowerShell path throughout (mcp__workspace__bash denied outright
+      this run, same as the immediately preceding 16:34 BST run's item
+      3.7 pass; no sandboxed-shell work attempted). All 8 unblocked
+      worklist items were [BLOCKED] (confirmed by direct grep, 8 of 8),
+      so this was the fallback quality pass, picked by the standing
+      rotation-pool method: git log commit subjects matched against each
+      of the 36 rotation-pool item numbers (43 checked items minus the
+      standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8),
+      oldest most-recent-mention wins. 3.13 was oldest, last touched
+      2026-09-01T19:42:48+01:00, ahead of 6.2 (20:13:45) and 3.4 (21:11:59).
+      REPO HALF: all 36 checkers ran individually. 35 passed clean on the
+      first run; check-postcodes.js initially returned 1 failure, but the
+      cause was this run's own working file, _agentscratch/gitlog.txt (a
+      git-log dump made to compute the rotation pool above), which quoted
+      a commit message containing the McCanns Sandringham correction
+      postcode CH49 1SX - the exact NARRATIVE_POSTCODES value CLAUDE.md
+      already documents, hitting a file outside NARRATIVE_FILES. Same
+      shape as the stray-scratch-file finding recorded on this run's own
+      earlier item 3.7 pass. Deleted (untracked, never committed;
+      confirmed by `git status --porcelain _agentscratch` showing only
+      the untracked directory itself beforehand); check-postcodes.js
+      re-ran clean, 0 failures, 3 warnings, none new. Not a repo defect.
+      All six generators rebuilt (branch landing, contraception, service,
+      switch, travel clinic, weight loss); `git status --porcelain
+      modules/ core/` empty both before and after, byte-identical output.
+      The proven independent instrument
+      (audits/clear-aintree-independent-2026-08-14.js, unchanged,
+      importing nothing from tools/) re-ran clean: 298 checks across the
+      three pages, 0 failures, output saved to
+      audits/clear-aintree-independent-2026-09-02-output.txt. The
+      instrument was re-proved before being believed: the nine-fault
+      vacuity probe (audits/clear-aintree-vacuity-probe-2026-09-01.js,
+      the version fixed on the previous pass to read the live phone digit
+      from branches.json at run time and restore by byte copy rather than
+      git) ran again, 9 caught, 0 missed, page restored clean and
+      byte-verified, output saved to
+      audits/clear-aintree-vacuity-probe-2026-09-02-output.txt.
+      GBP PACK re-checked (gbp-packs/clear-aintree.md): the one WARN
+      check-gbp-packs.js raises against it is unchanged and confirmed
+      still narrative - line 15's "the old 0151 203 8365" recording the
+      Q28 change, not a paste value; every actual paste-facing line
+      (Profile basics phone, Post A, Post B) reads 0151 203 6535. Output
+      saved to audits/clear-aintree-gbp-pack-check-2026-09-02.txt.
+      LIVE HALF: not read this pass. Claude in Chrome confirmed not
+      connected at this run's own step 3 answer pickup; per procedure,
+      not retried by another route and no login attempted.
+      Zero in-repo defects found in Clear Chemist's own pages, records or
+      pack. Q65 remains open and was correctly not re-raised: a live
+      patient-facing regulatory claim (whether Clear can take a walk-in),
+      carved out of autonomous decisions regardless of window state, and
+      no autonomous window was open this run (no "Standing authorisation"
+      heading present at the top of AGENT_LOG.md at the start of the
+      run). Q28 and Q29 re-read from QUESTIONS.json: both still
+      "answered", unchanged, not re-stated as findings.
+      Nothing edited under tools/, modules/, core/ or branches.json; the
+      only repo changes this pass are three new audit output files and
+      this log entry.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
