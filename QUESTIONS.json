@@ -1456,5 +1456,20 @@
     "status": "open",
     "answer": null,
     "note": "Not raised as blocking anything: the widget id read live today is correct, verified byte-for-byte against branches.json's own pharmacyFirst id for Gordon Short. This is a coverage gap (nothing guards it going forward), not a live defect found today. Evidence: audits/verify-3.11-2026-09-02-booking-chain.js and this pass's own AGENT_WORKLIST.md entry under item 3.11."
+  },
+  {
+    "id": "Q94",
+    "date": "2026-09-02",
+    "item": "quality pass (eighth) on item 3.2, Scorah Chemists (Bramhall and Hazel Grove) - incidental finding while cross-checking against Build Pack v2, does not block item 3.2 or any worklist item",
+    "question": "While verifying item 3.2 against RBH_DIGITAL_BUILD_PACK_v2.md's own \"1.4 Page titles and headings\" requirement (confirmed clean - see AGENT_WORKLIST.md), the same document's \"BLOCK 2 - GOOGLE ANALYTICS\", section 2.2 \"Fix Scorah double-tracking\", was read for context. It states Scorah fires two GA4 properties plus a dead 2023 Universal Analytics tag (UA-7870337-1) at once, and instructs keeping the estate-standard property (446988293 / G-1Q5Z31FYJC via Tag Manager) and removing the hard-coded G-87CFXQPZEW and the dead UA tag from the site HTML. A repo-wide search (AGENT_WORKLIST.md, QUESTIONS.json, AGENT_LOG.md, every *.md and *.json file) found zero mentions of this fix, the two GA property IDs, or the dead UA tag anywhere in rbh-site-data. This is not a rbh-site-data defect: no generator in this repo emits Google Analytics or Tag Manager code, so there is no file here to change, and Build Pack v2 itself frames Block 2 as manual account-side work (\"instructions for you to click through\") rather than something a generator could produce. The finding is that this specific action item appears to have no tracking anywhere this audit's worklist would surface it, so it may simply have been missed rather than deliberately out of scope.",
+    "options": [
+      "Confirm whether 2.2 has already been actioned live (Scorah's GA4 admin panel and site HTML) since the Build Pack was written; if not done, action it directly in Google Analytics/Tag Manager and in the Weebly site HTML, since no repo change can complete this",
+      "Add a lightweight non-repo tracker (e.g. a checklist section at the top of AGENT_WORKLIST.md or a separate GA_ACCOUNT_TASKS.md) that scheduled runs can read and flag as still-open on the status page, even though no run can ever complete it, so it stops being invisible to the audit",
+      "Treat Block 2 of the Build Pack as permanently out of scope for this repo and this scheduled task, on the basis that it is account-side work outside rbh-site-data's remit, and rely on Rishi tracking it elsewhere"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised only because it surfaced while reading the Build Pack for item 3.2's own verification, per this run's remit to check against the Build Pack v2 spec; no repo scope was invented and no file was changed for this. Not verified live this run (browser unavailable, see AGENT_LOG). Analytics conversion tracking reading zero on every site is separately confirmed as a known, unresolved issue in RBH_DIGITAL_MASTER_PLAN_v2.md, so this is likely one symptom of a wider Block 2 gap, not an isolated one - but a full Build-Pack-vs-worklist reconciliation was not performed this run and would be new scope."
   }
 ]

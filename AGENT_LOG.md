@@ -1,3 +1,94 @@
+## 2026-09-02 (unattended scheduled run, direct on native host via
+mcp__Windows-MCP__PowerShell) - Item 3.2 quality pass (eighth): Scorah
+Chemists (Bramhall and Hazel Grove) re-verified clean, all 35 checkers exit
+0, all six generators rebuild all 215 modules/ files byte-identical, eighth
+independent extraction 208/208 checks clean. New angle this pass: cross-
+checked item 3.2 directly against RBH_DIGITAL_BUILD_PACK_v2.md section 1.4
+("title, URL and main heading (H1)") for the first time in this item's
+history and added a URL/permalink-contains-townSlug check across all 26
+pages, previously only spot-checked; clean. Incidental finding while reading
+the Build Pack: section 2.2 ("Fix Scorah double-tracking", GA4/UA tag
+cleanup) has never been tracked anywhere in this repo and cannot be
+completed here (manual Google account work, no generator produces GA/GTM
+code) - raised as Q94, no repo scope invented, no file changed for it. Live
+half not run (browser unavailable, see below). No in-repo defect. Commit:
+(see below).
+
+ENVIRONMENT AND LOCK. This run had BOTH mcp__workspace__bash (a Linux
+sandbox mounting a synced copy of the folder, no git/GitHub credentials,
+git@github.com SSH fails Permission denied publickey, no gh, no
+GITHUB_TOKEN) and mcp__Windows-MCP__PowerShell (direct shell access to the
+actual native host, user prodeskai\admin, working git SSH credentials
+confirmed by a clean fetch/pull). Per the established route recorded by
+every prior run back to at least item 3.11 (Q87), all git operations and
+all file edits this run were done via the PowerShell/native-host route, not
+the Linux sandbox, and the Linux sandbox was not used at all after this was
+confirmed. No .agent-lock present at start; wrote one at 14:34:35Z (visible
+identically from both tool routes, confirming they see the same underlying
+folder). No stale .git index.lock. git fetch/checkout/pull: already up to
+date with origin/agents/audit-backlog, no divergence, no fast-forward
+needed - so Q87's 14 local commits stranded ahead of origin note is
+stale; a prior run using the same PowerShell route has already landed them.
+NOTE ON FILE-WRITE RELIABILITY: a first attempt to insert this pass's
+AGENT_WORKLIST.md paragraph, split across two separate PowerShell tool
+calls (edit in one call, verify in a later call), silently did not
+persist - later reads showed the original text and a third file length
+different from both the pre- and post-edit lengths reported by the edit
+call itself, with git status showing no modification at all. Root cause
+not established (possibly a caching or consistency lag between tool
+invocations on this host, not the FUSE unlink issue Q87 documents for the
+sandbox side, since this is the native host). Fixed by redoing the edit and
+its verification inside ONE PowerShell call: this persisted correctly and
+was independently confirmed by a fresh subsequent call. Worth carrying
+forward: on this host, do not assume a write from one PowerShell tool call
+is visible to a later one without re-verifying; prefer read-modify-write-
+verify inside a single call for this repo's files.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__list_connected_browsers
+returned an empty array (zero connected browsers, not the two-instance
+ambiguity Q59 describes). Per procedure, no other route tried, no login
+attempted. QUESTIONS.json left as found except for this run's own Q94
+addition: 94 total, 41 open (40 pre-existing plus Q94), none answered by
+pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No Standing authorisation autonomous window
+heading present at the top of this file at the start of the run. Proceeded
+normally, no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+BLOCKED by direct Select-String match, so the quality-pass fallback
+applied. Rotation order derived fresh from git log, matching item N.N
+case-insensitive in commit subjects, first most recent mention per item,
+over the pool of 42 checked items minus the standing out-of-rotation set
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 3.2 (Scorah Chemists) was
+stalest, last mentioned 2026-09-01T16:40:08+01:00, confirmed by a fresh
+PowerShell computation over the full commit history rather than trusting
+AGENT_WORKLIST.md's own date text.
+
+WORK DONE. Full detail in the AGENT_WORKLIST.md entry appended under item
+3.2 (eighth pass) and in audits/verify-3.2-2026-09-02-eighth.js,
+audits/verify-3.2-2026-09-02-eighth-output.txt and
+audits/checker-sweep-2026-09-02-item3.2.txt. Summary: seven prior passes on
+this item had exhaustively proved the title/H1/service-word/cross-town
+mechanism, so this pass's goal was a genuinely new check (the Build Pack's
+own three-part wording, specifically the URL leg no prior pass had
+verified estate-wide) rather than a mechanical re-run, plus mechanical
+re-confirmation (checker sweep, byte-identical regeneration) as a
+baseline. Both clean. GA double-tracking finding raised as Q94 and left
+entirely alone in the repo (no file to change here).
+
+QUESTIONS RAISED THIS RUN. Q94 (item 3.2, incidental, does not block item
+3.2 or any worklist item): Build Pack v2 section 2.2 Fix Scorah
+double-tracking (two live GA4 properties plus a dead 2023 UA tag on
+Scorah's site HTML) has no tracker anywhere in this repo and cannot be
+fixed here. Recommended option 1 (confirm live status and action directly
+in Google's admin, since no repo file can do this).
+
+STATUS PAGE PUBLISH (step 10). Attempted via
+node tools\build-audit-status.js on the native host - see result recorded
+immediately below this entry if it succeeded, or a separate note if it
+did not.
+
 ## 2026-09-02 (unattended scheduled run via Cowork, 14:04 UTC / 15:04 BST) - Item 4.1 quality pass (ninth): Fishlocks Chemist Ainsdale pack re-verified clean (36 checkers, byte-identical rebuild, independent verifier CHECKS=153 DEFECTS=0 FLAGS=0, independent Python re-count of description/posts exact); this run's own checker sweep first threw a false FAIL from a stale /tmp file caused by this sandbox's /tmp being read-only, investigated and discarded as tooling noise, not a repo defect; Q35 and Q45 noted as newly answered but requiring human/out-of-scope action, not an in-repo change; live half not performed, no browser route available this run. Commit: 427a5b2.
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of

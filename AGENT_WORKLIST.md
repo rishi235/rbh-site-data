@@ -1032,6 +1032,48 @@ audits/seo-pattern-check-2026-09-02-eighth.txt.
       audits/verify-3.2-2026-09-01-seventh-output.txt,
       audits/_before-3.2-2026-09-01-seventh.sha256,
       audits/_after-3.2-2026-09-01-seventh.sha256.
+      Quality pass 2026-09-02 (eighth): clean on both halves that could be
+      run, no repo defect, no new question on item 3.2 itself. All 35
+      tools/check-*.js run individually, all exit 0 (see
+      audits/checker-sweep-2026-09-02-item3.2.txt). All six generators
+      rebuilt from branches.json; sha256 of all 215 files under modules/
+      taken before and after: byte-identical, zero diff, git status --short
+      modules empty. An eighth independent extraction
+      (audits/verify-3.2-2026-09-02-eighth.js, imports nothing from
+      tools/, own regexes, parses the paste sheets by block rather than
+      trusting the generator) re-read all 26 Scorah pages (13 Bramhall, 13
+      Hazel Grove, each 11 service pages, 1 landing page and 1 switch
+      page): 208 checks, 0 failures. THIS PASS'S NEW ANGLE: none of the
+      first seven passes had gone back to the Build Pack v2 source wording
+      for this item. RBH_DIGITAL_BUILD_PACK_v2.md section 1.4 ("Page
+      titles and headings") reads "Put the town and service in the page
+      title, URL and main heading (H1) for each service page" - three
+      elements, not two. All seven prior passes verified title and H1
+      thoroughly; none had explicitly verified the URL/permalink leg
+      across the full set. This pass added that check: for all 26 pages,
+      the generated filename (which is also the Weebly Page Permalink
+      pasted from the sheet, cross-checked by direct block lookup rather
+      than assumed) contains the branch's own townSlug. All 26 clean,
+      confirmed by the same extraction that also re-proved title (seoTown
+      present, <=65 chars), description (seoTown present, 80-165 chars),
+      and H1 (exactly one, seoTown present) for the sixth consecutive
+      pass. No unexcused cross-town mention flagged. No in-repo defect
+      found, no new question on this item. INCIDENTAL FINDING while
+      reading the Build Pack for this cross-check: Block 2 of the same
+      document ("Fix Scorah double-tracking", GA4/UA tag cleanup) has no
+      tracking anywhere in this repo and cannot be completed by any
+      generator here, since it is manual Google account/Tag Manager work.
+      Not a defect in item 3.2 and no repo scope invented for it; raised
+      separately as Q94. LIVE HALF NOT RUN:
+      mcp__claude-in-chrome__list_connected_browsers returned an empty
+      array this run (no browser session available), so the two
+      previously logged live-only findings (Bramhall/Hazel Grove UTI pages
+      serving Weebly's doubled-brand default title, queued under 5.3/5.4;
+      the Bramhall landing page 404) were not re-checked and should not be
+      assumed unchanged. Evidence in
+      audits/verify-3.2-2026-09-02-eighth.js,
+      audits/verify-3.2-2026-09-02-eighth-output.txt,
+      audits/checker-sweep-2026-09-02-item3.2.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
