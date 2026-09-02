@@ -1,3 +1,97 @@
+## 2026-09-02 (subagent run in the Cowork Linux sandbox mount, working directory /sessions/wizardly-stoic-babbage/mnt/rbh-site-data on branch agents/audit-backlog) - Item 4.14 quality pass (ninth): Gordon Short Chemist Crosby pack re-verified clean and byte-stable for the ninth pass running, PF_TARGET_HOLD/Q32 re-proved by injection, live half reconfirms all tracked findings unchanged including Q90, one fresh angle (review link href) added
+
+ENVIRONMENT. No git network access in this sandbox: `git fetch`, `git pull`,
+`git push` and `git commit` were all out of scope for this run by explicit
+task instruction (this sandbox has no working GitHub credential and every
+network git attempt fails with "Host key verification failed", a known and
+expected gap, handled outside this task). Worked directly against the
+checked-out worktree on `agents/audit-backlog`, which the task briefing
+confirmed was already clean and up to date with the branch this run was
+assigned to. Did not touch `.agent-lock` or any lock file. No changes made
+to `main`, no force-push, no other repo touched.
+
+ITEM SELECTION. Assigned directly: item 4.14 (Gordon Short Chemist Crosby
+GBP pack), specified as the ninth quality pass on this item and, per the
+worklist, the stalest candidate by last-mention date at the time of
+assignment (eighth pass dated 2026-09-01, no other item's block carried a
+2026-09-02 mention yet when this run started).
+
+WORK DONE - REPO HALF. Read `CLAUDE.md` in full first, then the entire
+existing 4.14 block in `AGENT_WORKLIST.md` (all eight prior passes) before
+touching anything, so nothing already on record - Q32/PF_TARGET_HOLD, the
+mojibake em dash, the sitewide "├ù" glyph, Q90 - was re-litigated. Ran all
+36 `tools/check-*.js` checkers individually (no run-all script found in the
+repo): all exit 0 on the clean worktree before any change. Read
+`gbp-packs/gordon-short-crosby.md` in full and cross-checked every
+profile-basics fact against the `gordonshorts_crosby` entry in
+`branches.json` directly (not just trusting the checker's green result):
+name, address, phone, website, review link, pfLink, hasApp, catchment order
+and both opening-hours sessions on all six trading days plus Sunday closed
+all match exactly. Independently recomputed the description and four post
+character counts with a standalone script (own line-join logic, nothing
+imported from the checker): 652 / 449 / 280 / 521 / 424, identical to all
+eight earlier passes - byte-stable across nine. Confirmed zero non-ASCII,
+dash or smart-quote characters in the pack file itself.
+
+Rebuilt all six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) from `branches.json`;
+took sha256 of all 203 generated files under `modules/service/pages`,
+`modules/switch/pages` and `modules/branch/pages` before and after - zero
+diff, byte-identical. Re-ran the full 36-checker suite after regeneration:
+still all exit 0. Confirmed via `git status --porcelain` that none of
+`gbp-packs/`, `branches.json`, `modules/` or `tools/` carried any change
+from the read/regenerate cycle.
+
+One negative test re-run rather than only recited: backed up the pack,
+swapped Post A's button to the held branch-specific
+`pharmacy-first-gordon-short-crosby.html` page, confirmed
+`check-gbp-packs.js`'s `PF_TARGET_HOLD`/Q32 rule still fails it by name with
+the same message logged on the fourth pass, restored the file from the
+backup and confirmed sha256-identical to the pre-injection copy, then
+re-ran the full 36-checker suite clean.
+
+WORK DONE - LIVE HALF. Only one Chrome browser was connected this run
+(`list_connected_browsers` returned exactly one), unlike several recent
+passes blocked by two simultaneous connections, so the live half was
+performed. Read-only throughout: `navigate`, `get_page_text` and
+`javascript_tool` only, no clicks, no form input, no login.
+`pharmacy-first-service-crosby.html` (Post A's actual target) still reads
+Gordon Short Chemist throughout and remains safe as written.
+`switch-prescriptions-gordon-short-crosby.html` still reads Gordon Short
+Chemist correctly; its mojibake em dash under "How switching...works" is
+unchanged ("ÔÇö"). `pharmacy-first-gordon-short-crosby.html`, the
+branch-specific page the STOP holds Post A back from, still reads "Gordon
+Shorts Chemist" throughout its title, heading and body, with only its
+contact card and footer correctly reading the singular name - the STOP
+remains correctly in force. The sitewide mojibake "├ù" glyph is still
+present near the top of every page read. The footer hour ranges (en dashes)
+are unchanged. `sitemap.xml` is still dated
+2026-08-15T07:41:55+00:00 throughout - no republish since the eighth pass -
+and still lists `weight-loss-clinic-crosby.html` alongside the pack-linked
+weight loss page. That page's meta description still names Wegovy and
+Mounjaro by brand, reconfirming Q90's finding unchanged; not re-raised, per
+the task's explicit instruction not to duplicate an already-open question.
+
+FRESH ANGLE. No earlier pass had read a live link's actual `href` rather
+than its visible text or its presence/absence. Used `javascript_tool` on
+the live switch page to pull every anchor whose `href` contains "review":
+the "Read Google reviews" link resolves to
+`https://g.page/r/CZcVDM6emi6OEAE/review`, an exact match for
+`branches.json`'s `googleReviewUrl` and the pack's own profile-basics line.
+Confirms the review-link chain is correct end to end on the live page, not
+merely correct-looking in the source data.
+
+RESULT. No in-repo defect found this pass. No question raised - Q90 stands
+as the only open item this pack surfaces, and it was independently
+reconfirmed rather than re-raised. `AGENT_WORKLIST.md` item 4.14 updated
+with a "Ninth quality pass 2026-09-02" paragraph appended to the end of its
+block, immediately before the 4.15 line; the `- [x] 4.14 ...` line itself
+left untouched. This entry prepended to the top of `AGENT_LOG.md`, above
+all existing content, none of which was altered. NOT COMMITTED, NOT PUSHED
+- staged nothing, committed nothing, left for the orchestrating process to
+review and commit as instructed.
+
 ## 2026-09-02 (unattended scheduled run via Cowork, 10:34 UTC / 11:34 BST) - Item 4.2 quality pass (tenth): Cherry Lane Pharmacy Walton pack re-verified clean, stale Q40 caveat found and fixed, live weight loss page dash paste-lag found and raised as Q92
 
 ENVIRONMENT AND LOCK. `git fetch origin` from the Linux sandbox failed

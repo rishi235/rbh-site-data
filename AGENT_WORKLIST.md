@@ -5992,6 +5992,57 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       alone. Raised as Q90. No in-repo defect on the pack itself. Evidence
       in audits/gordon-short-item-4.14-quality-pass-2026-09-01-eighth.txt.
       Done 2026-09-01.
+      Ninth quality pass 2026-09-02. Baseline green: all 36 checkers exit 0
+      before any change. Pack re-verified fact by fact against branches.json's
+      gordonshorts_crosby entry, read side by side rather than trusted from
+      the checker: name Gordon Short Chemist, 159 College Road, Liverpool
+      L23 3AT, phone 0151 924 3449, website, review link
+      https://g.page/r/CZcVDM6emi6OEAE/review, pfLink, hasApp false with no
+      app claim in the pack, catchment Crosby, Waterloo and Sefton in that
+      order in all three places, and both opening-hours sessions on all six
+      trading days plus Sunday closed, all exact matches. Description and
+      post character counts independently recomputed by script (own
+      line-join, nothing imported from the checker): 652 description,
+      449/280/521/424 for Posts A-D, byte-identical to all eight earlier
+      passes - ninth pass running with zero drift. Zero non-ASCII, dash or
+      smart-quote characters. All six generators rebuilt from branches.json;
+      sha256 of all 203 files under modules/service/pages, modules/switch/
+      pages and modules/branch/pages identical before and after, zero diff.
+      One injection re-proved rather than recited: Post A's button swapped
+      to the held branch-specific page, sha256-confirmed before and after,
+      still caught by name by check-gbp-packs.js's PF_TARGET_HOLD/Q32 rule
+      with the same message as the fourth pass; restored byte-identical and
+      the full 36-checker suite re-run clean.
+      LIVE HALF PERFORMED (read-only, Claude in Chrome, navigate and
+      get_page_text/javascript_tool only, no click, no submit, no login;
+      only one browser connected this run, unlike the eighth pass's two).
+      All tracked findings reconfirmed unchanged: pfLink
+      (pharmacy-first-service-crosby.html), Post A's real target, still
+      reads Gordon Short Chemist throughout and remains safe as written;
+      switch-prescriptions-gordon-short-crosby.html still reads Gordon Short
+      Chemist correctly, its mojibake em dash under "How switching...works"
+      unchanged ("ÔÇö"); pharmacy-first-gordon-short-crosby.html, the
+      branch-specific page Post A must not be repointed to, still reads
+      "Gordon Shorts Chemist" throughout title, heading and body, with the
+      contact card and footer still correctly reading the singular name -
+      the STOP stands; the sitewide mojibake "├ù" glyph is still present
+      near the top of every page read; the footer hour ranges on all pages
+      checked still use en dashes; the sitemap is still dated
+      2026-08-15T07:41:55+00:00 throughout, no republish since the last
+      check, and still lists weight-loss-clinic-crosby.html, the second
+      live weight loss URL outside this pack's post targets. Its meta
+      description still names Wegovy and Mounjaro by brand, reconfirming
+      Q90 unchanged; not re-raised, per the standing instruction not to
+      duplicate it.
+      One fresh angle not run by any earlier pass: read the actual href, not
+      just the visible text, behind the "Read Google reviews" link on the
+      live switch page via javascript_tool. It resolves to
+      https://g.page/r/CZcVDM6emi6OEAE/review, an exact match for
+      branches.json's googleReviewUrl and the pack's own profile-basics
+      line - the review link chain is correct end to end, not just
+      correct-looking. No in-repo defect found. No pack copy, page,
+      generator, data field or branches.json entry changed. No new question
+      raised. Done 2026-09-02.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
