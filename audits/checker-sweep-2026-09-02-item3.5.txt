@@ -1,0 +1,42 @@
+﻿Checker sweep, item 3.5 ninth quality pass, 2026-09-02.
+All 36 tools/check-*.js run individually, output redirected outside the repo tree
+(the earlier /_agentscratch postcode false-alarm this run showed why).
+
+check-address-region                     exit 0
+check-app-membership                     exit 0
+check-booking-routes                     exit 0
+check-branch-identity                    exit 0
+check-branch-links                       exit 0
+check-brand-spelling                     exit 0
+check-cdn-pins                           exit 0
+check-contraception-copy                 exit 0
+check-editor-snapshot                    exit 0
+check-em-dashes                          exit 0
+check-fragment-targets                   exit 0
+check-gbp-packs                          exit 0
+check-gbp-pharmacy-first                 exit 0
+check-jsonld                             exit 0
+check-live-hours                         exit 0
+check-map-embeds                         exit 0
+check-nap                                exit 0
+check-opening-hours                      exit 0
+check-page-coverage                      exit 0
+check-pharmacy-first-cost                exit 0
+check-pharmacy-first-eligibility         exit 0
+check-pharmacy-first-safety-net          exit 0
+check-pharmacy-first-symptoms            exit 0
+check-postcodes                          exit 0
+check-seo-keywords                       exit 0
+check-seo-lengths                        exit 0
+check-seo-pattern                        exit 0
+check-seo-sheets                         exit 0
+check-service-links                      exit 0
+check-switch-copy                        exit 0
+check-travel-clinic-copy                 exit 0
+check-uk-spelling                        exit 0
+check-url-scheme                         exit 0
+check-weight-loss-copy                   exit 0
+check-whatsapp-route                     exit 0
+check-widget-diaries                     exit 0
+
+TOTAL: 36 checkers, 0 non-zero exit.

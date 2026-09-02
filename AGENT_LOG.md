@@ -1,3 +1,104 @@
+## 2026-09-02 (unattended scheduled run via Cowork, 16:04 BST) - Item 3.5 quality pass (ninth): Hirshmans Chemist Ainsdale re-verified clean (36 checkers, byte-identical rebuild across all six generators, ninth independent extraction 756/756 checks); new leg cross-checked the item against RBH_DIGITAL_BUILD_PACK_v2.md section 1.4 (title/URL/H1) for the first time, matching the item 3.2 eighth-pass methodology; guard re-proof by injection on the switch page (not previously used for this item's injections) caught by check-seo-pattern.js and check-whatsapp-route.js, restored byte-identical; live half not read, Claude in Chrome not connected. No in-repo defect, no new question. Commit: (see below).
+
+ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
+C:\dev\rbh-site-data, cross-checked against the canonical path via
+mcp__Windows-MCP__PowerShell (confirmed both tools see the same filesystem:
+a fresh .agent-lock written from the Linux side at 15:04:25 UTC was
+immediately readable with the same timestamp from PowerShell). No
+.agent-lock present at start. No stale .git\index.lock. git fetch/checkout/
+pull from the Linux sandbox's own shell failed exactly as every prior run:
+"Host key verification failed" over SSH. Per the established working route
+(recorded on multiple prior passes), the same git operations were re-run via
+mcp__Windows-MCP__PowerShell against the identical mounted working copy:
+already up to date with origin/agents/audit-backlog, no fast-forward needed.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__navigate reported the Chrome
+extension not connected. Per procedure, no other route tried, no login
+attempted. QUESTIONS.json left exactly as found: 94 total, 41 open, none
+answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Proceeded
+normally, no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct Select-String match (8 of 8), so the quality-pass
+fallback applied. Rotation order derived from git log --pretty=format:"%cI|%s"
+(written via Out-File -Encoding utf8 after a first attempt using plain ">"
+redirect produced UTF-16-encoded output that silently broke every regex
+match - worth carrying forward: always force -Encoding utf8 on any redirect
+whose output Python or Node will parse on this host), matching item N.N
+case-insensitive in commit subjects, first (most recent) mention per item,
+over the 36-item rotation pool (43 checked items minus the standing
+out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 3.5 (Hirshmans
+Chemist Ainsdale) was stalest, last mentioned 2026-09-01T17:11:57+01:00.
+
+WORK DONE. Full detail in the AGENT_WORKLIST.md entry appended under item
+3.5 (ninth pass) and in audits/verify-3.5-2026-09-02-ninth.js,
+audits/verify-3.5-2026-09-02-ninth-output.txt and
+audits/checker-sweep-2026-09-02-item3.5.txt. Summary: eight prior passes had
+exhaustively proved the title/H1/JSON-LD/WhatsApp/phone/postcode mechanism
+for this branch's 12 pages, so this pass's goal was a genuinely new check
+(the Build Pack's own URL/permalink leg, following the same methodology
+added on the item 3.2 eighth pass) plus mechanical re-confirmation as a
+baseline, both clean, plus a guard re-proof by injection on a page type
+(switch) not previously used for this item's injections.
+
+TOOLING NOTE, not a repo defect. This run's own first checker sweep threw a
+false FAIL from check-postcodes.js, which scans the whole repo by design.
+The cause was this run's own scratch git-log dump (containing postcode-
+shaped text from historical commit subjects) left inside _agentscratch/,
+itself an untracked scratch area already used by several prior runs. Same
+shape as the item 4.1 ninth-pass /tmp finding: the checker was doing its job
+correctly, the noise was self-inflicted tooling residue. Fixed by deleting
+the scratch dump and redirecting checker output to a directory outside the
+repo tree (%TEMP%) for the remainder of the run; re-ran clean (0 failures, 3
+pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md and the branch
+INDEX.md/SEO.md sheets, unchanged from baseline, consistent with those
+files' documented multi-branch/template status).
+
+SEPARATE TOOLING NOTE, caught and corrected before it reached a commit. The
+first attempt to insert this pass's AGENT_WORKLIST.md paragraph was done via
+a single mcp__Windows-MCP__PowerShell Get-Content/Set-Content round-trip
+split across what was intended to be state carried from an earlier tool
+call; PowerShell tool calls on this host do NOT share variable state between
+separate invocations (each is evidently a fresh process), so the $content
+variable was empty at the point of use and Set-Content overwrote
+AGENT_WORKLIST.md down to 42 lines. Caught immediately by re-reading the
+line count before proceeding further; restored via git checkout, confirmed
+back to 8510 lines before any further edit. Re-attempted as a single
+self-contained PowerShell call (read, compute, write, verify, all inside one
+invocation) per the read-modify-write-verify convention already recorded by
+the item 3.2 pass - this time the insertion landed correctly, but Set-Content
+on this host writes CRLF regardless of input, and AGENT_LOG.md/AGENT_WORKLIST.md
+are committed LF-only with no .gitattributes rule forcing normalisation, so
+the CRLF write made git see the entire 8510-line file as changed (all
+deletions/insertions) and, worse, PowerShell's default codepage read/write
+also corrupted several pre-existing mojibake sequences elsewhere in the file
+(the various already-known mojibake em dashes and currency-symbol artefacts
+logged by earlier passes) into a DIFFERENT, further-corrupted mojibake form.
+Caught by inspecting git diff --stat and git diff before staging anything;
+restored via git checkout a second time. Final successful approach: a small
+Node.js script (Node reads/writes UTF-8 without a codepage round-trip),
+splitting the file on '\n', inserting the new paragraph as an array of
+plain-hyphen lines between the existing item 3.5 block and the item 3.6
+line, and writing back with '\n' joins only. Verified before proceeding:
+git diff --stat showed exactly "40 insertions(+)", no deletions, and a
+byte-level LF/CRLF count confirmed 0 CRLF in the rewritten file. Worth
+carrying forward alongside the item 3.2 finding: on this host, PowerShell's
+own string-handling (both variable persistence AND its default line-ending/
+codepage behaviour on write) is not safe for editing these repo text files;
+prefer a short Node.js (or Python) script invoked via PowerShell for any
+edit to AGENT_WORKLIST.md, AGENT_LOG.md or QUESTIONS.json, reading and
+writing UTF-8 explicitly and joining on '\n' only.
+
+QUESTIONS RAISED THIS RUN. None.
+
+STATUS PAGE PUBLISH (step 10). Attempted via
+node tools\build-audit-status.js on the native host - see result recorded
+immediately below this entry if it succeeded, or a separate note if it did
+not.
+
 ## 2026-09-02 - Log addendum: item 3.2 eighth-pass commit hash (7f03296)
 
 ## 2026-09-02 (unattended scheduled run, direct on native host via

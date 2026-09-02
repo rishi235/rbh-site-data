@@ -1608,6 +1608,46 @@ mojibake em dash, under the 5.6 repaste queue) were not re-confirmed and
 should not be assumed unchanged. Evidence in
 audits/hirshmans-item-3.5-quality-pass-2026-09-01.txt. No in-repo defect, no
 new question.
+Quality pass 2026-09-02 (ninth): 12 pages clean on a ninth independent
+extraction (audits/verify-3.5-2026-09-02-ninth.js, freshly written, no import
+from tools/), 756 checks, 0 failures. All 36 checkers pass (audits/checker-
+sweep-2026-09-02-item3.5.txt); all six generators rebuild every modules/ file
+byte-identical, git status --short modules/ empty both before and after
+regeneration. NEW LEG: cross-checked against RBH_DIGITAL_BUILD_PACK_v2.md
+section 1.4 ("title, URL and main heading") for the first time on this item,
+matching the check added on the item 3.2 eighth pass - for all 12 pages, the
+generated filename (which is also the sheet's own Page Permalink, looked up
+by exact block match rather than assumed) contains this branch's townSlug
+"ainsdale", alongside the pre-existing title and H1 legs. Also newly
+re-proved: the build comment's human-readable Weebly SEO title/description
+lines match the sheet's Page Title/Page Description exactly, independent of
+check-seo-sheets.js. Guard re-proof by injection, on a page type not used for
+injection in any of the eight prior passes on this item (fifth: pharmacy-
+first; seventh: uti-treatment; eighth: weight-loss-clinic): two simultaneous
+injections into switch-prescriptions-hirshmans-ainsdale.html, a foreign
+seoTown ("Bramhall", outside this branch's serviceAreaList) appended to the
+H1, and a corrupted data-wa. Both caught - check-seo-pattern.js on the h1
+mismatch and the foreign-town rule, check-whatsapp-route.js on the WhatsApp
+mismatch, and the independent extraction on both - then restored via git
+checkout and sha256-confirmed byte-identical to the pre-injection hash. Full
+36-checker suite and independent extraction both re-run clean after restore.
+TOOLING NOTE, not a repo defect: this run's own checker sweep first threw a
+false FAIL from check-postcodes.js (which scans the whole repo, per its own
+documented scope) picking up postcode-shaped text inside this run's own
+scratch git-log dump left in _agentscratch/. Same shape as the item 4.1
+ninth-pass /tmp finding. Fixed by deleting the scratch files and re-running
+checker output to a directory outside the repo tree for the rest of this
+pass; confirmed clean afterwards (0 failures, 3 pre-existing UNOWNED warnings
+on TEMPLATE.md and the branch sheets, unchanged from baseline).
+Live half NOT READ this pass: Claude in Chrome reported not connected on two
+separate checks, no other route tried, no login attempted. The seventh
+pass's live-only findings (switch page pre-Q7 title/description paste-lag
+with mojibake em dash, under the 5.6 repaste queue) were not re-confirmed
+and should not be assumed unchanged or resolved. Evidence in
+audits/verify-3.5-2026-09-02-ninth.js,
+audits/verify-3.5-2026-09-02-ninth-output.txt and
+audits/checker-sweep-2026-09-02-item3.5.txt. No in-repo defect found, no new
+question.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
