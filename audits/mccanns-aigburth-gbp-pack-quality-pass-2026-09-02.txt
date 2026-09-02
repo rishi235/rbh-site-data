@@ -1,0 +1,89 @@
+Item 4.6 quality pass, eighth pass, 2026-09-02 (unattended scheduled run via Cowork)
+Pack: gbp-packs/mccanns-aigburth.md
+Branch: mccanns_aigburth (branches.json)
+
+SELECTION
+All 8 remaining unchecked worklist items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) confirmed [BLOCKED] by direct grep, so the quality-pass fallback was
+taken. Rotation order re-derived from AGENT_LOG.md header dates (excluding
+the seven items outside the standard rotation pool: 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8, and the eight items already in the blocked set above). Earliest
+date in the eligible pool was 2026-08-11, tied across 4.6, 4.8, 4.9, 4.10 and
+4.13. Tie broken by run sequence number within that day: 4.6 was the
+seventy-ninth run of 2026-08-11, earlier than 4.8 (eightieth, 19:09 BST),
+4.9 (eighty-first, 19:45 BST), 4.10 (eighty-second, 20:26 BST) and 4.13
+(eighty-fourth, 21:10 BST). 4.6 selected.
+
+FACT-BY-FACT CHECK AGAINST branches.json (mccanns_aigburth record), eighth
+time
+- Name on GBP "McCanns Chemist Aigburth" = branchName. Match.
+- Address "112 Aigburth Road, Liverpool L17 7BP" = streetAddress +
+  addressLocality + postalCode. Match.
+- Phone "0151 727 3185" = phone. Match.
+- Hours "Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm (closed
+  1:00pm to 2:00pm), Saturday 9:00am to 1:00pm and 2:00pm to 5:00pm, Sunday
+  closed" = openingHours.specification (both weekday and Saturday lunch
+  closures) + closedDays ["Sunday"]. Match.
+- Review link = googleReviewUrl. Match.
+- Profile website landing page slug = brandSlug-townSlug pattern on the
+  branch's own website domain. Match.
+- serviceAreaList ["Aigburth", "Sefton Park", "Mossley Hill", "Grassendale"]
+  = description and Post B catchment wording. Match.
+- hasApp false = "No app mention anywhere in this pack" note, no app card
+  in the pack. Match.
+- pfLink = Post A button target exactly. Match.
+- Description length: independently recomputed in Python by isolating the
+  block between "## 1. Business description" and "## 2. Categories" =
+  725 characters, matching the pack's own "(max 750 chars - this is 725)"
+  header and the 750 limit.
+- Sister-branch sentence "McCanns Chemist Sandringham, in St Michael's":
+  cross-checked mccanns_sandringham's own record directly this pass rather
+  than trusting the prior write-up - brandLabel "McCanns Chemist", seoTown
+  "St Michael's", disposed: null (not disposed), serviceAreaList includes
+  "St Michael's" first. Still holds both ways.
+
+CHECKER RUN (full suite, 34 of 35 tools/check-*.js; check-live-hours.js
+skipped, needs live network access this run)
+node tools/check-gbp-packs.js: 0 failures, 17 warnings estate-wide, none
+against mccanns-aigburth.md.
+All 33 other checkers run individually: 33/33 exit 0, no new failure
+against this pack or estate-wide.
+
+REGENERATION
+All six generators (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rerun. git status --porcelain modules/: empty.
+Byte-stable.
+
+INJECTION TEST (proves the checker still catches a real fault, not just
+reasoned about)
+sha256 of gbp-packs/mccanns-aigburth.md recorded before mutation:
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+Mutated the profile-basics phone line only: "0151 727 3185" ->
+"0151 727 3186" (wrong number, one digit changed).
+node tools/check-gbp-packs.js against the mutated file:
+  WARN  mccanns-aigburth.md: phone-like number 0151 727 3186 is not
+        McCanns Chemist Aigburth's number in branches.json
+  FAIL  mccanns-aigburth.md: branch phone 0151 727 3185 does not appear
+        anywhere in the pack
+Caught cleanly, both the wrong-number WARN and the missing-real-number
+FAIL fired as expected.
+Restored by BYTE COPY from a pre-mutation backup (not git checkout, per
+the standing lesson in CLAUDE.md that a test harness must restore by byte
+copy or it can only be run after the tested work is already committed).
+Post-restore sha256: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+(identical to the pre-mutation hash). diff against the pre-mutation backup:
+no output (byte-identical). Re-ran node tools/check-gbp-packs.js: 0 failures.
+git status --porcelain on the file: empty (matches HEAD, nothing to
+commit from this test).
+
+LIVE HALF
+NOT PERFORMED this run. Claude in Chrome tools were loaded but reported
+"Claude in Chrome is not connected" when tabs_context_mcp was called at
+step 3 (answer pickup) - the same unavailability applied to any live read
+for this item, so the 2026-09-01 seventh-pass live verdicts stand as
+written and nothing live is re-claimed this run.
+
+RESULT
+No new in-repo defect. No new question. Open question count unchanged
+(40 open of 91 total at the start of this run).

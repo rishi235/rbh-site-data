@@ -3970,6 +3970,29 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       this repo's generated output, no vaccine named by brand. No new
       in-repo defect, no new question; open question count unchanged at 53.
       Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-01.txt.
+      Quality pass 2026-09-02 (unattended run, eighth pass): oldest standing
+      verification in the rotation pool, re-derived from AGENT_LOG.md header
+      dates rather than assumed - tied at 2026-08-11 with 4.8, 4.9, 4.10 and
+      4.13, but earliest of that group by run sequence number (seventy-ninth
+      run that day, before 4.8's eightieth). Pack re-verified fact by fact
+      against branches.json an eighth time: name, address, postcode, phone,
+      hours with both lunch closures, review link, catchment order, hasApp,
+      pfLink, description length (725 characters, recomputed independently)
+      and the St Michael's sister-branch wording (mccanns_sandringham's own
+      record re-read directly this pass: brandLabel, seoTown and disposed
+      status all still hold). node tools/check-gbp-packs.js: 0 failures. All
+      33 other checkers run individually: 33/33 exit 0. All six generators
+      rebuilt: git status on modules/ empty, byte-stable. INJECTION TEST: the
+      profile-basics phone line mutated one digit on a scratch-backed copy
+      (sha256 recorded before and after); check-gbp-packs.js caught it
+      cleanly with both a WARN (wrong number present) and a FAIL (real
+      number absent); restored by byte copy from the pre-mutation backup,
+      not git checkout, and the post-restore sha256 matched exactly. LIVE
+      HALF NOT PERFORMED this run: Claude in Chrome reported not connected
+      when queried at step 3, so the 2026-09-01 seventh-pass live verdicts
+      stand unchanged and nothing live is re-claimed. No new in-repo defect,
+      no new question; open question count unchanged at 40 (of 91 total).
+      Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-02.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
