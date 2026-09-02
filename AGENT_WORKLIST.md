@@ -2721,6 +2721,79 @@ Done 2026-09-01 (seventh pass).
       pass's own reading.
       Zero in-repo defects. No new question. Evidence:
       audits/verify-3.11-2026-09-01.js. Done 2026-09-01
+      Eighth quality pass 2026-09-02 (unattended run), fresh angle only, no
+      re-litigation of NAP/JSON-LD/spelling/symptoms/safety-net/em-dashes
+      (all seven prior passes' territory). Selected as the oldest of the 36
+      rotation-pool items: parsed the full git log (no truncated window) for
+      an "item N.N"-shaped commit subject per candidate, excluding the
+      standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8); 3.11
+      last mentioned 2026-09-01T14:43:42+01:00 (seventh pass), over 24 hours
+      before every other of the 36 candidates.
+      REPO HALF. All 36 tools/check-*.js exit 0 on the untouched worktree.
+      Fresh angle: the booking chain (branches.json widgets -> filename ->
+      service.js routing -> Appointedd widget id -> data-branch/data-service
+      on the mount), never independently read on THIS item before, though
+      check-booking-routes.js covers it estate-wide and already passes.
+      New audits/verify-3.11-2026-09-02-booking-chain.js, importing nothing
+      from tools/, reads service.js's own SERVICE_WIDGET_KEYS map and
+      NO_FALLBACK_SERVICE_KEYS set as data under test: 68 checks across all
+      11 service-family pages plus the switch page, 0 failures. Confirmed:
+      pharmacy-first resolves to the branch's own pharmacyFirst widget; all
+      seven NHS condition pages (uti, sore-throat, sinusitis, earache,
+      impetigo, shingles, insect-bite) correctly fall back to the same
+      pharmacyFirst widget, none holding one of their own; contraception,
+      weight-loss-clinic and travel-clinic each resolve to their own
+      dedicated widget id with no fallback; every page's data-branch reads
+      "Gordon Short Chemist" and no other branch's name; every data-service
+      value is present and non-empty; the switch page's data-branch matches
+      too.
+      Two injections proved the verifier live, restored by byte copy (not
+      git checkout, this mount's documented unlink restriction) and
+      sha256-confirmed identical to the pre-injection backup both times: a
+      wrong branch name swapped onto the pharmacy-first page's data-branch
+      (caught, 1 failure), and the contraception widget id deleted from
+      branches.json entirely (caught, 1 failure). The second injection
+      caught a genuine bug in this pass's own first-draft check, the same
+      shape as the checker-tests-itself pattern recorded on this item's
+      third and fourth passes: the WIDGET rule originally read
+      "!!wanted || NO_FALLBACK[serviceKey]", which let a NO_FALLBACK
+      service's widget id be deleted and still pass, because NO_FALLBACK
+      being true satisfied the check regardless of wanted. A page that
+      exists was already earned by check-page-coverage.js only because the
+      branch holds that widget, so an existing NO_FALLBACK page with no
+      widget id is a real break, not a correctly-absent case. Fixed to
+      require wanted unconditionally; both injections re-run clean after
+      the fix and all 36 checkers plus the new verifier re-confirmed 0
+      failures on the fully restored worktree (git status clean on all
+      tracked files).
+      LIVE HALF, read-only, two GETs (Claude in Chrome unavailable this
+      run, zero connected browsers; plain Node fetch(), the established
+      fallback). NEW OBSERVATION, not a defect: the pfLink target
+      (pharmacy-first-service-crosby.html) is a DIFFERENT live page from
+      this repo's generated pharmacy-first-gordon-short-crosby.html - a
+      different filename entirely, and one that does not parse under
+      service.js's own routing regex (which needs the URL to start
+      "pharmacy-first-<brandSlug>-<townSlug>"). Confirmed the live page
+      carries no jsdelivr reference and no rbhsv-root mount at all: the
+      booking widget there is a separate, hand-pasted Appointedd embed
+      with a HARDCODED widgetId, not the dynamic service.js lookup this
+      repo's generated pages and check-booking-routes.js assume. The
+      hardcoded id read directly off the live page is
+      66b9ea0304f4c06db8fdbf8f, an exact match to branches.json's own
+      pharmacyFirst widget for this branch, so the live booking is wired
+      to the correct diary despite using a different mechanism - positive
+      confirmation, not a defect. Five other branches carry the same
+      "pharmacy-first-service-<town>.html" pfLink shape (Scorah, Smartts,
+      Hirshmans, Coleman and Leighs, plus this one), which is outside this
+      item's scope to check further; raised as Q93 since no checker in
+      this repo reads a live hardcoded widget embed against
+      branches.json, and this pass could only do it by hand for one
+      branch. Homepage: phone (0151 924 3449, 3 hits), postcode-bearing
+      address (159 College Road, 3 hits) and email (shorts@rbhealth.co.uk,
+      1 hit, case-insensitive) all correct.
+      Zero in-repo defects. One question raised, Q93 (does not block this
+      item). Evidence: audits/verify-3.11-2026-09-02-booking-chain.js.
+      Done 2026-09-02
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

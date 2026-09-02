@@ -1,3 +1,178 @@
+## 2026-09-02 (unattended scheduled run via Cowork, 13:04 UTC / 14:04 BST) - Item 3.11 quality pass (eighth): Gordon Short Chemist Crosby booking chain independently verified for the first time on this item, one live-only observation raised as Q93, plus this run's own git/lock housekeeping via the established Windows-MCP PowerShell fallback
+
+ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
+C:\dev\rbh-site-data (same underlying folder as every prior run;
+confirmed by writing .agent-lock from this sandbox and reading the same
+timestamp back via Windows-MCP PowerShell against C:\Dev\rbh-site-data).
+No `.agent-lock` present at start, so no staleness question arose; wrote
+a fresh one immediately. A pre-existing `.git\index.lock`, about 15
+minutes old with no git process found running, was left alone per the
+procedure's 1-hour threshold (not stale) rather than deleted, and did not
+block `git fetch`/`checkout`/`pull`, all of which succeeded from
+PowerShell without needing it removed.
+
+`git fetch`/`pull` from this sandbox's own Linux shell failed exactly as
+every prior run has recorded: "Host key verification failed" over SSH,
+HTTPS to github.com itself returning 200 (confirmed again), no
+`~/.ssh`, no `gh`, no `GITHUB_TOKEN`. This is the standing Q87 gap, not
+re-raised. Per the working route two separate prior runs have now
+independently established (item 4.12's eighth pass, then item 1.2's
+ninth pass yesterday), all git network operations for this run - fetch,
+checkout, pull, and later add/commit/push - were done via
+`mcp__Windows-MCP__PowerShell` against the identical mounted working
+copy, which does carry working SSH credentials on the real host.
+Confirmed before relying on it: `git status`/`git log` from PowerShell
+showed the same branch, same HEAD and same working-tree state this
+sandbox sees, proving it is the same filesystem rather than a stale
+mirror.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array - zero connected browsers, a harder failure than
+the "one browser but not authenticated" state recorded on yesterday's
+1.2 pass. Per the procedure, no other route was tried and no login was
+attempted. QUESTIONS.json left exactly as found at the start of this
+step: 39 open of 92 total (none newly answered this run; one new
+question, Q93, added later by this run's own work, not by pickup).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at the start of this
+run. Proceeded normally; no autonomous decisions taken.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) confirmed `[BLOCKED]` by direct grep, so the
+quality-pass fallback was taken. Rotation order derived the established
+way: parsed `git log --pretty=format:'%H|%cI|%s'` (the full history, no
+truncated window) for an `[Ii]tem N.N`-shaped commit subject per
+candidate id among the 36 rotation-pool items (43 checked items minus
+the standing out-of-rotation pool 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8; all
+36 candidates found at least once in the log, none silently missing).
+Item 3.11 (Gordon Short Chemist Crosby) was the oldest, last mentioned
+2026-09-01T14:43:42+01:00 (its own seventh pass, from yesterday's
+worklist entry), well over 24 hours before this run and the stalest of
+all 36 by a wide margin (the next-oldest was itself over an hour
+fresher).
+
+WORK DONE - REPO HALF. Read AGENT_WORKLIST.md's entire existing item
+3.11 block (all seven prior passes) before touching anything, so nothing
+already on record - NAP, JSON-LD, brand spelling, the Pharmacy First
+symptoms/eligibility/safety-net triad, em-dashes, weight loss and travel
+clinic compliance, app membership - was re-litigated. All 36
+`tools/check-*.js` checkers run individually against the untouched
+worktree: 36/36 exit 0.
+
+Fresh angle chosen deliberately: the booking chain (branches.json
+widgets -> filename -> service.js routing -> Appointedd widget id ->
+data-branch/data-service on the mount). Never independently read on this
+item across seven prior passes, despite being a well-documented class of
+silent failure in this repo's own CLAUDE.md ("the booking chain -
+filename to diary"). check-booking-routes.js already guards it
+estate-wide and already passes, but this item had never had its own
+independent extraction of it, the standard every other angle on it had
+already been held to.
+
+New audits/verify-3.11-2026-09-02-booking-chain.js, importing nothing
+from tools/: reads service.js's own SERVICE_WIDGET_KEYS map and
+NO_FALLBACK_SERVICE_KEYS set as data under test rather than a hand-typed
+copy. 68 checks across all 11 service-family pages plus the switch page,
+0 failures on first clean run: pharmacy-first resolves to the branch's
+own pharmacyFirst widget id; all seven NHS Pharmacy First condition
+pages (uti, sore-throat, sinusitis, earache, impetigo, shingles,
+insect-bite) correctly fall back to that same widget, holding none of
+their own; contraception, weight-loss-clinic and travel-clinic each
+resolve to their own dedicated widget with no fallback, matching
+NO_FALLBACK_SERVICE_KEYS; every page's data-branch reads "Gordon Short
+Chemist" and never another branch's name; every data-service value is
+present and non-empty; the switch page's own data-branch matches too.
+
+Two injections proved the verifier live, each backed up and restored by
+byte copy (not `git checkout`, this mount's own documented unlink
+restriction) with sha256 confirmed identical to the pre-injection backup
+after every restore: (1) the pharmacy-first page's data-branch swapped
+to "Smartts Chemist" - caught, 1 failure; (2) branches.json's own
+contraception widget id deleted from the Gordon Short record entirely -
+caught, 1 failure, but only after fixing a real bug this pass's own
+first draft had introduced. The WIDGET rule originally read `!!wanted ||
+NO_FALLBACK[serviceKey]`, which let a NO_FALLBACK service's widget id be
+deleted and still PASS, because NO_FALLBACK being true satisfied the
+check regardless of whether a widget actually existed. A page that
+exists was already earned by check-page-coverage.js only because the
+branch holds that widget (per CLAUDE.md's own booking-chain section), so
+an existing NO_FALLBACK page with no widget id is a real break, not a
+correctly-absent state. Fixed to require `wanted` unconditionally; both
+injections re-run clean after the fix, and the full 36-checker suite
+plus the new verifier were re-confirmed 0 failures on the fully restored
+worktree, `git status --porcelain` showing no tracked-file changes.
+Worth carrying forward: the fourth time now this repo's own convention
+of "a checker's first draft gets tested by its own negative tests before
+being trusted" has caught a real bug in itself, this time in a
+same-run, not-yet-committed script rather than a standing tools/
+checker - the discipline applies just as much to a fresh audit script as
+to permanent tooling.
+
+LIVE HALF, read-only, two GETs (Claude in Chrome unavailable this run,
+zero connected browsers per the answer-pickup step above; fell back to
+plain Node `fetch()`, the established fallback since the item 3.3/3.4
+passes). NEW OBSERVATION, not a defect, and not previously read by any
+of the seven prior passes on this item: the pfLink target
+(pharmacy-first-service-crosby.html) is a DIFFERENT live page from this
+repo's own generated pharmacy-first-gordon-short-crosby.html - a
+different filename entirely, and one that does not parse under
+service.js's own routing regex, which requires the URL to start
+"pharmacy-first-<brandSlug>-<townSlug>". Confirmed directly: the live
+page carries zero "jsdelivr" references and no "rbhsv" mount anywhere in
+its source, so it is not running this repo's generated content or
+service.js at all. Its booking widget is a separate, hand-pasted
+Appointedd embed with a HARDCODED widgetId rather than the dynamic
+service.js lookup this repo's own generated pages and
+check-booking-routes.js both assume. Read directly off the live page,
+that hardcoded id is `66b9ea0304f4c06db8fdbf8f` - an exact match to
+branches.json's own pharmacyFirst widget for gordonshorts_crosby, so the
+live booking is correctly wired to this branch's own diary today, just
+via a different mechanism than this repo's checkers can see. Checked
+across the whole estate's pfLink values (branches.json, read-only, no
+live fetch needed for this part): five branches total carry the same
+"pharmacy-first-service-<town>.html" pfLink shape (Scorah, Smartts,
+Hirshmans, Coleman and Leighs, plus this one), all presumably the same
+hand-pasted pattern, but only Gordon Short's live page was actually
+fetched and read this pass - the other four remain unverified, not
+confirmed clean. Raised as Q93: nothing in this repo currently checks a
+live hardcoded widget embed against branches.json, so a future
+widget-id change on any of these five branches (a real diary migration,
+for instance) would update branches.json and the repo's own generated
+page correctly while leaving the live hardcoded page silently pointing
+at the old diary, with every existing checker in this repo still green.
+Recommended a periodic live-verification script covering all five, to
+run as part of future quality passes on those items.
+
+Homepage, read-only: phone (0151 924 3449, 3 hits), postcode-bearing
+address (159 College Road, 3 hits) and email (shorts@rbhealth.co.uk, 1
+hit, case-insensitive match to branches.json's Shorts@rbhealth.co.uk)
+all correct - consistent with every prior pass, nothing new checked
+here beyond the standing baseline.
+
+OUTCOME. Zero in-repo defects. One question raised, Q93 (does not block
+this item; the live booking widget verified today is correct, this is a
+coverage gap going forward, not a live fault found today). Worklist
+ticked in place: appended an "Eighth quality pass 2026-09-02" paragraph
+to item 3.11's existing block in AGENT_WORKLIST.md, per the standing
+convention of never moving or duplicating checklist lines. New evidence
+file: audits/verify-3.11-2026-09-02-booking-chain.js.
+
+GIT, PUSH AND PUBLISH. Staged, committed and pushed via the Windows-MCP
+PowerShell route confirmed working at the start of this run (see
+Environment above): `git add` covering AGENT_WORKLIST.md, AGENT_LOG.md,
+QUESTIONS.json and the new audit script; commit; `git push origin
+agents/audit-backlog`. `node tools/build-audit-status.js` then run from
+the same PowerShell session, which resolves its hardcoded
+`C:/Dev/rbh-site-data` path correctly there (unlike this sandbox's Linux
+mount) and published the refreshed status page. Full commit hash and
+push confirmation recorded immediately below this entry once the
+PowerShell commands were run.
+
+LOCK RELEASE. `.agent-lock` released at the end of this run by renaming
+to `.agent-lock.released-<epoch>` (direct delete blocked on this mount,
+the same documented restriction every prior run has hit).
+
 ## 2026-09-02 (unattended scheduled run via Cowork, 11:45 UTC / 12:45 BST) - Item 1.2 quality pass (ninth): Hirshmans Chemist Ainsdale address/NAP re-verified clean, two fresh injection angles proved (pack hours day-shape, pack phone), plus this run's own git/lock/commit housekeeping and an unresolved push/publish gap
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of

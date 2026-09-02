@@ -1440,5 +1440,21 @@
     "status": "open",
     "answer": null,
     "note": "Found on the tenth quality pass on item 4.2, 2026-09-02 (unattended run). Does not block any worklist item. Repo is correct and unaffected; no in-repo fix applies, since no generator or data file can reach a live Weebly paste. Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-02-tenth.txt."
+  },
+  {
+    "id": "Q93",
+    "date": "2026-09-02",
+    "item": "quality pass (eighth) on item 3.11, Gordon Short Chemist Crosby",
+    "question": "Decision needed: the eighth quality pass on item 3.11 found that Gordon Short Chemist's Pharmacy First booking page (the pfLink target, pharmacy-first-service-crosby.html) is not this repo's generated page at all. It is a separate, older, hand-pasted live page carrying a hardcoded Appointedd widget embed rather than the dynamic service.js lookup this repo's own generated pages and check-booking-routes.js assume. Read directly off the live page, the hardcoded widget id matches branches.json exactly, so the booking itself is correct today, but nothing in this repo checks that hardcoded id against branches.json, so a future change to the branch's pharmacyFirst widget id (a real diary migration, for instance) would update branches.json and this repo's own generated page and leave the live hardcoded page silently pointing at the old diary with every repo checker still green. Five branches carry the same \"pharmacy-first-service-<town>.html\" pfLink shape and are presumed to have the same hand-pasted pattern (Scorah, Smartts, Hirshmans, Coleman and Leighs, plus Gordon Short), but only Gordon Short's was actually read this pass; the other four are unverified, not confirmed clean. Should this be checked further and guarded going forward?",
+    "options": [
+      "Read the other four branches' live pfLink pages by hand (or via a small one-off script) to confirm their hardcoded widget ids also match branches.json today, then leave it there: a one-off confirmation, no standing guard, and the risk resurfaces silently the next time any of these five branches' pharmacyFirst widget id changes",
+      "Build a periodic live-verification script (outside the generator/checker pattern, since it needs a live fetch rather than repo content) that reads each of these five branches' hardcoded pfLink widget ids and compares them to branches.json's own pharmacyFirst id, run it as part of future quality passes on these five items so a silent drift would be caught the next time this rotation reaches them (recommended: closes the actual risk - a diary change nobody notices - at the cost of a new small script and it only runs as often as its item comes up in rotation)",
+      "Leave it as a documented known state and re-verify by hand only when doing a future quality pass on one of the other four affected branches, without building anything new: no extra code, but the same silent-drift risk stands until whichever pass happens to look",
+      "Repaste all five branches' pfLink pages to point at this repo's own generated page (the one that already uses the dynamic, self-correcting service.js lookup), removing the hardcoded embed entirely: fixes the root cause estate-wide rather than one branch at a time, but is a live Weebly repaste on five separate sites and needs a paste session, not something this run can do"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Not raised as blocking anything: the widget id read live today is correct, verified byte-for-byte against branches.json's own pharmacyFirst id for Gordon Short. This is a coverage gap (nothing guards it going forward), not a live defect found today. Evidence: audits/verify-3.11-2026-09-02-booking-chain.js and this pass's own AGENT_WORKLIST.md entry under item 3.11."
   }
 ]
