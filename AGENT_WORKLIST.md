@@ -7697,6 +7697,59 @@ pass on the repo half.
       page or generator changed, no new question raised. Evidence:
       audits/verify-5.2-2026-09-01-seventh.py and
       audits/verify-5.2-2026-09-01-seventh-output.txt.
+      Quality pass 2026-09-02 (eighth, unattended run, rotation-pool pick):
+      repo half only, Claude in Chrome not connected (checked at the start
+      of the run and again before finishing), so nothing live was read or
+      claimed; the seventh pass's live findings (all six URLs 404, Q35
+      still open) stand unchanged. All 34 tools/check-*.js checkers ran
+      individually, 34/34 clean, 0 failures. All six generators rebuilt
+      byte-identical (git status --porcelain modules/ core/ empty before
+      and after).
+      NEW ANGLE: none of the seven prior passes had independently
+      re-derived the "Get directions" button or the visible Email: contact
+      line on these six pages, both hand-typed surfaces distinct from the
+      tel:/JSON-LD surfaces earlier passes covered, or run full cross-branch
+      NAP isolation (phone, postcode, email) against all 16 branches rather
+      than only the six landing branches' own data. Wrote a fresh
+      independent script (audits/verify-5.2-2026-09-02-eighth.js, imports
+      nothing from tools/, own regexes): 342 checks across the six pages -
+      tel: href and visible "Call ..." button digits, mailto: href and
+      visible Email: line, Get directions button destination decoded and
+      compared to the branch's own address, map iframe query decoded and
+      compared both to the branch address and to the directions
+      destination (catching drift between the two if they ever
+      diverged), googleReviewUrl and nhsReviewUrl link targets, visible
+      postcode in the address contact-line, JSON-LD email field, and
+      phone/email/postcode isolation against all 15 other live branches.
+      0 failures.
+      Guard effectiveness proved by four injections against an in-memory
+      copy of pharmacy-mccanns-aigburth.html (a scratch harness script,
+      audits/_scratch-inject-test-5.2.js, deleted immediately after use;
+      the tracked file was opened read-only throughout, confirmed by
+      git status --porcelain modules/branch/ empty before and after): a
+      tel: href swap to Fishlocks Ainsdale's real phone caught (own
+      mismatch and foreign match both true); a visible-address postcode
+      swap to Fishlocks Ainsdale's postcode caught; a Get directions
+      destination changed to a fabricated address while the map iframe
+      was left alone caught as a directions-vs-map drift; a mailto: email
+      swap to Fishlocks Ainsdale's email caught (own mismatch and foreign
+      match both true). One process slip caught and corrected before
+      trusting the "clean" instrument, the same discipline recorded on
+      multiple prior passes across other items: the first postcode-swap
+      injection used a plain string .replace() on the bare address text,
+      which silently patched the FAQ "Where do I park?" answer (the first
+      occurrence of that exact string in the file) rather than the
+      contact-card address line further down, so both checks read false
+      with no visible error. Caught by inspecting the actual matched
+      string rather than trusting the boolean, and fixed by scoping the
+      replacement to the full `<div class="contact-line"><p>...</p></div>`
+      wrapper, which is also why the real verify script's own regex was
+      never at risk: it already requires that exact wrapper and would not
+      have matched the FAQ paragraph either way. Not a defect in the
+      verify script or in the page. No in-repo defect found this pass, no
+      page, generator, checker or branches.json entry changed, no new
+      question raised. Evidence: audits/verify-5.2-2026-09-02-eighth.js
+      and audits/verify-5.2-2026-09-02-eighth-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
