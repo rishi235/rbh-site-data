@@ -1,3 +1,5 @@
+## 2026-09-02 - Log addendum: item 3.2 eighth-pass commit hash (7f03296)
+
 ## 2026-09-02 (unattended scheduled run, direct on native host via
 mcp__Windows-MCP__PowerShell) - Item 3.2 quality pass (eighth): Scorah
 Chemists (Bramhall and Hazel Grove) re-verified clean, all 35 checkers exit
