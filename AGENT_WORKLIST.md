@@ -9042,6 +9042,53 @@ generator.
       which was unaffected by it. Worth a look if a future run finds it
       still present and genuinely stale.
 
+      Quality pass (sixth), done 2026-09-03: baseline check before any
+      change found tools/check-postcodes.js failing (1 failure) - the
+      ninth-pass item 3.8 write-up in AGENT_LOG.md quoted its injection
+      value "L23 6TX" without adding it to NARRATIVE_POSTCODES, so the
+      repo-wide postcode checker had been red since that commit landed.
+      Fixed in-repo: added the entry to NARRATIVE_POSTCODES with a reason
+      naming the 3.8 ninth pass; check-postcodes.js re-run clean (0
+      failures, 3 pre-existing UNOWNED warnings unchanged). All 36
+      checkers then re-run individually: 36 of 36 exit 0. All six
+      generators rebuilt from branches.json: sha256 of all 216 files
+      under modules/ and core/ identical before and after, git status
+      --porcelain modules/ core/ empty throughout.
+      INJECTION PROOF: rule 4 (a day in both closedDays and specification
+      at once) had not been proved by injection in any of this item's
+      five prior passes, unlike rules 6 and 7. branches.json backed up
+      byte-for-byte first (sha256 904DE09B...). "Saturday" added to
+      gordonshorts_crosby's closedDays alongside its existing Saturday
+      opening sessions: check-opening-hours.js failed immediately and
+      specifically ("gordonshorts_crosby: Saturday is listed in
+      closedDays and also carries opening times"), exit 1. Restored by
+      byte copy from the backup, sha256 confirmed identical
+      (904DE09B...), all 36 checkers re-run clean, git status --porcelain
+      branches.json empty afterwards.
+      LIVE HALF: Claude in Chrome unreachable (tabs_context_mcp reported
+      not connected, checked at answer pickup and again before this
+      item's live check); per procedure not retried by another route, no
+      login attempted. Fell back to the established read-only HTTP GET
+      route (Invoke-WebRequest, GET only). Smartts homepage
+      (smarttschemist.co.uk) still publishes "9:00am - 6:00pm" straight
+      through with no lunch closure, in both the hours card (five
+      matches) and the entity-encoded footer widget ("9am-6pm, Sat & Sun
+      closed") - unchanged since first found 2026-08-11. Gordon Short
+      Crosby checked as a live control: correctly publishes "9:00am -
+      6:00pm (closed 1-2pm)" throughout, confirming the injection target
+      branch's live copy still agrees with branches.json. Q55 (raised
+      2026-08-11) was answered via the portal on 2026-09-02 - Rishi chose
+      option 1, edit the live Smartts pages to the lunch-closure wording -
+      but the live site has not yet been edited as of this pass, which is
+      expected: implementing Q55's answer is a Weebly session outside
+      this worker's write scope (browser use stays read-only). Not
+      re-raised as a new question; Q55 stands as answered-but-not-yet-
+      actioned, worth flagging to whoever next has Weebly access.
+      One in-repo defect found and fixed this pass (the postcode
+      exemption gap above); zero defects in check-opening-hours.js
+      itself. Evidence: this write-up; no new audit file needed since the
+      HTTP checks were brief and are quoted here in full.
+
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
       three weight loss nav entries ("Weight Loss Clinic", "Weight Loss
