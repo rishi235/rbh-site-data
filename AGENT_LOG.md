@@ -83,17 +83,28 @@ wording) stand unconfirmed-but-unchanged.
 OUTCOME. No in-repo defect found. No new question raised. Zero repo
 changes this run beyond this log entry.
 
-GIT. `git add AGENT_LOG.md`, committed locally. `git push origin
-agents/audit-backlog` is expected to fail with "Host key verification
-failed" - no `~/.ssh` directory exists in this sandbox, the standing
-infrastructure gap tracked informally as Q87 across dozens of prior
-runs. `node tools/build-audit-status.js` is expected to fail similarly
-(hardcoded Windows path, cannot resolve from this Linux sandbox mount).
-Both attempted regardless, per the procedure, and results recorded
-immediately below this entry once known. `.agent-lock` released at the
-end of the run by rename to `.agent-lock.released-<epoch>`, matching the
-long-standing convention (plain `rm`/`unlink` fails "Operation not
-permitted" in this sandbox against files synced from the Windows host).
+GIT AND PUBLISH OUTCOME. At commit time a fresh `.git\index.lock` blocked
+`git add` with "File exists"; `ps aux` showed no git process running in
+this sandbox, so it was renamed aside with `mv` to
+`index.lock.renamed-<epoch>`, never `rm` (unlink fails "Operation not
+permitted" against files synced from the Windows host, as on well over a
+hundred prior runs). The commit itself then warned on three
+`.git/objects/*/tmp_obj_*` files and a fresh `HEAD.lock`, all "Operation
+not permitted" on unlink, and landed clean regardless as `302db0f`.
+`git push origin agents/audit-backlog` failed exactly as expected with
+"Host key verification failed" - confirmed no `~/.ssh` directory exists
+anywhere in this sandbox, the standing infrastructure gap tracked
+informally as Q87 across dozens of prior runs. `node
+tools/build-audit-status.js` failed as expected too, with `ENOENT` on
+the hardcoded Windows path `C:/Dev/rbh-site-data/AGENT_WORKLIST.md`,
+which cannot resolve from this sandbox's Linux mount - also Q87, not a
+new finding. Net effect: this run's log entry is committed and correct
+on the local branch, now 10 commits ahead of
+`origin/agents/audit-backlog`, but has not reached GitHub and the portal
+status page has not been refreshed. No action taken beyond what Q87
+already covers; not re-raised as a new question. `.agent-lock` released
+at the end of the run by rename to `.agent-lock.released-<epoch>`, the
+same convention.
 
 ## 2026-09-02 (later) - Log addendum: item 4.10 seventh-pass commit outcome and lock handling
 
