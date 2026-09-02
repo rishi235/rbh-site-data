@@ -1,3 +1,27 @@
+## 2026-09-02 (later) - Log addendum: item 4.8 ninth-pass commit outcome, lock handling and build-audit-status.js result
+
+Commit landed as `5b99d26`. At commit time `.git\index.lock` (already present
+and left alone at run start, per the entry below) still blocked `git add`
+with "File exists"; `ps aux` re-checked and showed no git process running, so
+it was moved aside with `mv` to `index.lock.renamed-<epoch>`, never `rm`
+(this filesystem's `rm`/unlink on `.git` lock files returns "Operation not
+permitted", the same recurring condition this log has documented well over a
+hundred times). `git commit` then itself left a fresh `HEAD.lock` behind with
+the identical "Operation not permitted" on git's own cleanup unlink, despite
+the commit completing successfully; that was also renamed aside afterwards,
+before the push attempt, so it would not block a later run. `git push origin
+agents/audit-backlog` failed exactly as expected with "Host key verification
+failed" - no SSH key material in this sandbox, the standing Q87 gap, same as
+every recent run. `node tools/build-audit-status.js` failed with `ENOENT` on
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md`, a hardcoded Windows path the script
+reads directly rather than a relative path, which cannot resolve from this
+sandbox's Linux mount; also consistent with every recent unattended run and
+already covered by Q87 rather than a new finding. `.agent-lock` itself hit
+the same "Operation not permitted" on `rm` at the very end of the run and was
+released the same way, by rename to `.agent-lock.released-<epoch>`, matching
+the long-standing convention already visible in the many like-named files in
+this directory.
+
 ## 2026-09-02 (unattended scheduled run via Cowork) - Item 4.8 quality pass (ninth): Fishlocks Chemist Eccleston GBP pack re-verified clean; check-gbp-packs.js's address-line and post-town rules were not abbreviation-aware, unlike their sibling rules since the item 1.2 eighth pass - fixed in the checker, proved by injection
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
