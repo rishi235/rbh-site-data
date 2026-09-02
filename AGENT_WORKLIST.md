@@ -813,6 +813,29 @@ exactly one h1). mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
 still being outstanding across all six branch landing pages, not a new or
 changed finding. No in-repo defect found, no page, generator, checker or
 branches.json entry changed, no new question raised.
+Quality pass 2026-09-02 (eighth pass, unattended scheduled run): clean
+again, no new defect. Self-test passed with no length warnings. All six
+generators reproduce all 203 files under modules/*/pages byte-identical
+(sha256 before/after, zero diff). All 36 tools/check-*.js checkers green;
+check-seo-pattern.js itself reports 177 pages, 0 untyped, 0 failures, the
+same two PINNED cross-town findings as every recent pass (Q71, still open).
+Rather than repeat an already-stress-tested angle, this pass proved a leg
+that had never been isolated by injection: check-seo-pattern.js's OWN
+checkMeta length-bound rule (80 to 165 characters), which duplicates a
+bound check-seo-lengths.js also owns, so defense in depth was previously
+reasoned about but not demonstrated. On a scratch copy outside the tracked
+tree, uti-treatment-fishlocks-ainsdale.html's description was shortened to
+76 characters and, separately, lengthened to 213, and check-seo-pattern.js
+run alone (not check-seo-lengths.js) caught both: "meta under 80 chars" and
+"meta over 165 chars" respectively. File restored between and after tests,
+sha256-confirmed byte-identical to the original; scratch directory deleted;
+tracked repo confirmed untouched throughout. Live half not performed:
+Claude in Chrome reported not connected, no further retry per the
+unattended-run rule; the 2026-09-01 seventh-pass live verdicts
+(fishlockpharmacy.co.uk pattern verbatim, mccannspharmacy.co.uk Q71 page
+still 404) stand as written rather than being restated as re-checked. No
+in-repo defect, no new live finding, no new question. Evidence in
+audits/seo-pattern-check-2026-09-02-eighth.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

@@ -1,3 +1,94 @@
+## 2026-09-02 (unattended scheduled run via Cowork, following the 6.3 fifth-pass run) - Item 3.1 quality pass (eighth): SEO title/H1/meta pattern re-verified clean, checkMeta's own 80-165 length-bound leg proved by injection independently of check-seo-lengths.js for the first time, no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers, generators and the
+scratch-copy injection test. `.agent-lock` absent at start (only the
+long-standing litter of stale `.agent-lock.released-*` files and the
+untracked `C:\Users\rishi\...` scratch directory from an earlier run's
+path mistake, both left untouched as outside this run's scope); lock
+created via the sandbox mount before any repo work began. A fresh
+`.git\index.lock` (zero length) appeared during this run's own `git
+status` calls, same "unable to unlink... Operation not permitted"
+behaviour previous runs have diagnosed as this workspace's filesystem
+blocking unlink() rather than a real concurrent-process conflict; it did
+not block `git status` from reporting clean, and was well under the
+1-hour staleness threshold throughout, so left untouched.
+
+ANSWER PICKUP (step 3). `tabs_context_mcp` reported Claude in Chrome not
+connected before any navigation was attempted. Logged as unavailable per
+the unattended-run rule; no alternative route or retry attempted.
+QUESTIONS.json left exactly as found: 40 open of 91 total, none blocking
+any candidate item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present at the top of this log at the start of the run.
+Proceeded normally; no autonomous decisions taken, no new question needed.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5,
+5.8, 6.1, plus the three under 6.4/6.5/6.6) confirmed [BLOCKED] by direct
+grep. Quality-pass fallback taken. Least-recently-verified item determined
+by parsing each rotation-pool item's own paragraph for "quality pass"
+(case-insensitive) date mentions rather than trusting AGENT_LOG.md header
+text, per the method this log's own recent entries have found necessary.
+Seven items (3.6, 3.8, 3.12, 4.11, 4.13, 5.1, 6.3) already carried a
+2026-09-02 pass from earlier runs today and were excluded. The rest tied
+at "2026-09-01" by date alone; audits/ file mtimes broke the tie, and item
+3.1's last touch (03:06-03:09 on 2026-09-01) was the earliest of the whole
+group. Selected.
+
+WORK DONE. Full standard verification suite: node tools/seo-pattern.js
+self-test passed with no length warnings; all six page generators rebuilt
+all 203 files under modules/*/pages to a byte-identical result (sha256
+before/after, zero diff); all 36 tools/check-*.js checkers exit 0;
+check-seo-pattern.js itself reports 177 pages, 0 untyped, 0 failures, the
+same two PINNED cross-town findings as every recent pass (Q71, still
+open, not a failure).
+
+Fresh injection test, chosen because seven prior passes had already
+stress-tested condition-slug mirroring, the PAGE_TYPES contract,
+town/brand/region source, one-h1, one-line, cross-town absence and
+fitTitle's length rescue: check-seo-pattern.js's own checkMeta length-bound
+leg (80 to 165 characters, applied to every page's real description at
+line 509) duplicates a bound check-seo-lengths.js also owns, and nothing
+in this log shows it proven to fire on its own rather than merely riding
+on check-seo-lengths.js catching the same fault first. On a scratch copy
+of the whole repo outside the tracked tree (rsync to /tmp, excluding .git
+and the lock litter), uti-treatment-fishlocks-ainsdale.html's description
+was shortened to 76 characters and check-seo-pattern.js run ALONE (not
+check-seo-lengths.js) failed it by name: "meta under 80 chars". Restored,
+then lengthened to 213 characters: failed by name again, "meta over 165
+chars". File restored from a saved copy after each test; sha256 of the
+restored file matched the untouched original exactly both times. Scratch
+directory and all temp files deleted immediately after. git status on the
+tracked repo confirmed modules/, tools/ and branches.json untouched
+throughout - the injection only ever touched the untracked scratch copy.
+
+LIVE HALF. Not performed (Chrome not connected, see above). The
+2026-09-01 seventh-pass live verdicts stand as written rather than being
+restated as re-checked: fishlockpharmacy.co.uk/pharmacy-first-fishlocks-
+ainsdale.html served the pattern verbatim; mccannspharmacy.co.uk/pharmacy-
+mccanns-sandringham.html (the pinned Q71 page) returned 404, consistent
+with Q35's landing-page paste still being outstanding.
+
+RESULT. No in-repo defect. No new live finding (live half not performed).
+No new question. Item 3.1's tick line updated in AGENT_WORKLIST.md with
+the eighth-pass summary. Full evidence in
+audits/seo-pattern-check-2026-09-02-eighth.txt.
+
+FILES CHANGED
+- `audits/seo-pattern-check-2026-09-02-eighth.txt` (new)
+- `AGENT_WORKLIST.md` (item 3.1's own paragraph, eighth-pass note appended)
+- `AGENT_LOG.md` (this entry)
+
+QUESTIONS. No question added or changed. 40 open of 91 total, unchanged.
+
+COMMIT (step 9) and PUBLISH (step 10) follow this entry via the
+Windows-MCP PowerShell tool against the real repo path, which holds
+working credentials; see the commit this entry's own hash lands in for
+the exact outcome. `.agent-lock` removed at the end of this run.
+
+---
+
 ## 2026-09-02 (unattended scheduled run via Cowork, following the 3.8 seventh-pass run) - Item 6.3 quality pass (fifth): estate-wide opening hours re-verified both halves, Smartts remains the sole live mismatch (Q55 stands), rule 6 omission guard re-proved by injection, no in-repo defect
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of

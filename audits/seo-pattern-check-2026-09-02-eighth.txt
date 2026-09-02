@@ -1,0 +1,86 @@
+Item 3.1 quality pass (eighth), 2026-09-02, unattended scheduled run via Cowork.
+
+SELECTION METHOD
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, plus the
+three under 6.4/6.5/6.6) confirmed [BLOCKED] by direct grep. Quality-pass
+fallback taken. Least-recently-verified item determined by parsing each
+rotation-pool item's own paragraph in AGENT_WORKLIST.md for lines containing
+"quality pass" (case-insensitive) and extracting the dates on those lines,
+rather than trusting AGENT_LOG.md header text (established as unreliable by
+the 2026-09-01 4.10/4.11 mis-rank and the 3.3/4.10 header-vs-body mismatch
+recorded in this same log on 2026-09-01). Seven items (3.6, 3.8, 3.12, 4.11,
+4.13, 5.1, 6.3) already carried a 2026-09-02 pass from earlier runs today and
+were excluded. Of the remainder, all tied at "2026-09-01" by date alone, so
+audits/ file mtimes were read to get real time-of-day ordering across
+2026-09-01's passes. Item 3.1's last touch (audits/_before-3.1-2026-09-01-
+seventh.sha256 etc, 03:06-03:09) was the earliest timestamp of the whole
+group, making it the genuinely least recently verified item. Selected.
+
+SELF-TEST
+node tools/seo-pattern.js: "Self-test passed." No length warnings, all 16
+buildable branches printed clean.
+
+REGENERATION
+sha256 of all 203 files under modules/*/pages taken before running all six
+page generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) and after. diff: ZERO DIFF, byte-identical.
+(build-audit-status.js was not run as part of this set - it is the portal
+publisher, not a page generator, and needs the Windows-side GitHub
+credentials per established procedure; run separately at step 10.)
+
+CHECKERS
+All 36 tools/check-*.js scripts run individually: 36 pass, 0 fail.
+check-seo-pattern.js itself: 177 pages checked, 0 untyped, 0 failures, the
+same two PINNED McCanns/Scorah cross-town findings as every recent pass
+(Q71, still open, not a failure).
+
+FRESH INJECTION TEST (not previously logged for this checker)
+Seven prior passes stress-tested condition-slug mirroring, the PAGE_TYPES
+contract, town/brand/region source, one-h1, one-line, cross-town absence,
+and fitTitle's length rescue (owned by check-seo-lengths.js). Nothing in the
+log shows check-seo-pattern.js's OWN meta length-bound leg (checkMeta: 80 to
+165 characters, called at line 509 on every page's actual description) ever
+proven by injection specifically against THIS checker, as opposed to
+check-seo-lengths.js which owns the same bound as its own separate rule.
+Since both checkers independently assert the same bound, defense in depth
+only holds if check-seo-pattern.js's copy of the rule genuinely fires on its
+own, not merely never having been exercised because check-seo-lengths.js
+always catches it first.
+
+Method: rsync-copied the whole repo to /tmp/scratch-3.1-inject outside the
+mounted working tree, confirmed the copy's own check-seo-pattern.js passed
+clean (baseline). Edited modules/service/pages/uti-treatment-fishlocks-
+ainsdale.html's "Weebly page SEO description:" line twice, restoring from a
+saved copy between edits and running check-seo-pattern.js ALONE each time
+(not check-seo-lengths.js):
+
+  Test A - description shortened to 76 characters ("UTI treatment in
+  Ainsdale, Fishlocks Chemist."): exit 1, "uti-treatment-fishlocks-
+  ainsdale.html: meta under 80 chars".
+
+  Test B - description lengthened to 213 characters: exit 1, "uti-
+  treatment-fishlocks-ainsdale.html: meta over 165 chars".
+
+Both caught by check-seo-pattern.js on its own, independent of check-seo-
+lengths.js. File restored from the saved copy after each test; sha256 of the
+restored file matched the pre-injection original exactly. Scratch directory
+deleted immediately after (/tmp/scratch-3.1-inject and all temp files). git
+status on the tracked repo confirmed modules/, tools/ and branches.json
+untouched throughout - the injection ran only against the untracked scratch
+copy.
+
+LIVE SAMPLE
+Not performed this run: Claude in Chrome reported "not connected" when
+tabs_context_mcp was called (no further retry attempted, per the
+unattended-run fallback rule). The 2026-09-01 seventh-pass live verdicts
+stand as written rather than being restated as re-checked:
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html served the
+pattern verbatim; mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+(the pinned Q71 page) returned 404, consistent with Q35's landing-page paste
+still being outstanding.
+
+RESULT
+No in-repo defect. No new live finding (live half not performed this run).
+No new question. Both checkMeta length legs are genuinely backstopped by
+check-seo-pattern.js on its own, not merely by check-seo-lengths.js.
