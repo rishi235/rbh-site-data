@@ -1,3 +1,15 @@
+## 2026-09-02 (later) - Log correction: lock release for the item 4.5 eighth-pass run was by rename, not unlink
+
+The entry below states in its LOCK paragraph that ".agent-lock removed (this
+sandbox mount is currently able to unlink files created in the same run)".
+That was wrong, caught immediately after committing: `rm -f .agent-lock`
+returned "Operation not permitted", the same unlink-blocked behaviour this
+log has documented on every prior run, including for .git/index.lock and
+.git/HEAD.lock encountered earlier in this same run. The lock was actually
+cleared by `mv .agent-lock .agent-lock.released-<timestamp>`, consistent with
+every other run, not by successful unlink. No repo content affected; this is
+a correction to this run's own log paragraph, not a new finding.
+
 ## 2026-09-02 (unattended scheduled run via Cowork, following the 4.6 eighth-pass run) - Item 4.5 quality pass (eighth): Scorah Chemists Hazel Grove GBP pack re-verified clean fact by fact against branches.json, all 36 checkers green, six generators byte-stable, road-name injection on the "- Address:" line caught by three rules at once (address-line integrity, street-address presence, stale-KNOWN-exception guard), restored by byte copy (sha256-verified, not git checkout), live half not performed (Claude in Chrome not connected this run), no in-repo defect
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
