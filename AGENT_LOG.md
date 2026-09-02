@@ -1,4 +1,4 @@
-## 2026-09-02 (unattended scheduled run via Cowork, 13:34 UTC / 14:34 BST) - Item 4.4 quality pass (ninth): Scorah Chemists Bramhall pack given a fresh angle instead of an eighth fact re-verification - TEMPLATE.md's undated-live-claim rule found unenforced and unmet on this pack, fixed at source; live half re-confirms the 404 and the mojibake em dash, both unchanged. Commit: 601194f.
+## 2026-09-02 (unattended scheduled run via Cowork, 13:34 UTC / 14:34 BST) - Item 4.4 quality pass (ninth): Scorah Chemists Bramhall pack given a fresh angle instead of an eighth fact re-verification - TEMPLATE.md's undated-live-claim rule found unenforced and unmet on this pack, fixed at source; live half re-confirms the 404 and the mojibake em dash, both unchanged. Commit: cc3c9fc (this line necessarily approximate - amending a commit changes its own hash, so this note is corrected in an addendum below if it ever drifts again; cc3c9fc is the hash immediately after this line was written and before push).
 
 ENVIRONMENT AND LOCK. Run via Cowork's sandboxed Linux bash mount of
 C:\dev\rbh-site-data. No `.agent-lock` present at start; wrote a fresh one
