@@ -2547,6 +2547,68 @@ Done 2026-09-02 (eighth pass).
       and the two mutated-in-scratch page files reconfirmed unchanged
       against the pre-run baseline. No new defect, no new question.
       Evidence in audits/verify-3.9-2026-09-01-seventh.js. Done 2026-09-01
+      Quality pass 2026-09-02 (eighth machine-era pass, 19:04 BST unattended
+      run). REPO HALF ONLY: Claude in Chrome reported not connected at the
+      top of this run (tabs_context_mcp), so nothing live was read and the
+      three standing live findings from the 2026-08-31 sixth pass (header/
+      footer still "Coleman & Leigh Pharmacy" against body copy's correct
+      "Coleman and Leighs Pharmacy"; pfLink still 404, standing Q8; live
+      switch page still the pre-rename paste with a mojibake em dash the
+      repo's own copy does not have) remain unconfirmed for a third
+      consecutive pass. Picked by the standing rotation-pool method (oldest
+      "most recent commit mentioning this item number" among the 36
+      rotation-pool items, all 8 unblocked AGENT_WORKLIST.md lines confirmed
+      [BLOCKED] first): 3.9's last mention, 2026-09-01T21:43:17+01:00, was
+      the oldest of all 36, ahead of 3.10 (22:09) and every item through 3.4
+      (2026-09-02T18:10:44+01:00, the immediately prior run). All 36
+      tools/check-*.js checkers run individually before any change: 36/36
+      pass. All six generators rebuilt; git status --porcelain modules/
+      core/ empty before and after (byte-identical). One untracked
+      _agentscratch/gitlog_rotation2.txt working file (the git-log dump
+      used to compute the rotation) deleted before the checker run, per the
+      standing lesson from six prior passes that such dumps can quote a
+      commit message containing the CH49 1SX narrative postcode and flip
+      check-postcodes.js to a false UNKNOWN; not needed this time, all 36
+      were clean regardless.
+      Wrote an eighth independent extraction, audits/verify-3.9-2026-09-02-
+      eighth.js, sharing no code with tools/ or any prior verify-3.9-*.js.
+      Deliberately covers four families not exercised as independent
+      re-derivations in this item's own seven prior passes: CDN pin values
+      on this branch's 12 pages, re-derived from each generator's own
+      `const PIN` declaration rather than imported; in-page fragment
+      targets (every href="#id" on this branch's own pages resolves to a
+      real id on the same page); URL scheme (no bare http:// anywhere in
+      the 12 pages); and the GBP pack's blood pressure age-cohort wording,
+      yellow fever silence and sister-branch-claim absence, read directly
+      off gbp-packs/coleman-leigh-walton.md rather than through
+      check-pharmacy-first-eligibility.js, check-travel-clinic-copy.js or
+      check-gbp-packs.js. 59 checks across the 12 pages and the pack, 0
+      failures.
+      Instrument proved by four injections against a scratch mirror
+      (_agentscratch/inject-test-3.9/, containing only this branch's own
+      12 pages, branches.json, the five relevant generator sources and the
+      GBP pack; never against the tracked repo files, confirmed by git
+      status --porcelain returning empty for modules/, core/, gbp-packs/,
+      branches.json and tools/ before and after): a CDN pin mismatch on the
+      Pharmacy First overview page CAUGHT (2 failures, one per jsDelivr ref
+      on that page); a foreign fragment target CAUGHT (60 checks, 1
+      failure, correctly one more check than baseline since the new href
+      is itself a new check); a bare http:// link CAUGHT; and the GBP
+      pack's blood pressure cohort rewritten from "aged 40 and over" to
+      "aged over 40" CAUGHT. One process slip caught and corrected before
+      trusting a "clean" result, the same shape recorded on four prior
+      passes across other items: the first fragment-target injection
+      attempt targeted a literal <body> tag, but this branch's generated
+      pages are Weebly embed fragments with no <body> element at all (per
+      CLAUDE.md's module architecture), so the regex replace silently
+      matched nothing and the page was unchanged; caught by checking the
+      file for the injected marker string before trusting the "0 failures"
+      result, corrected by inserting the anchor at the start of the file
+      instead. Scratch mirror deleted after use.
+      No new in-repo defect found this pass. QUESTIONS.json re-read: 94
+      total, 41 open, unchanged; no question specific to item 3.9 is open.
+      Evidence in audits/verify-3.9-2026-09-02-eighth.js and audits/verify-
+      3.9-2026-09-02-eighth-output.txt. Done 2026-09-02
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
