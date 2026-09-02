@@ -1,3 +1,31 @@
+## 2026-09-02 (later still) - Log correction: the item 1.3 ninth-pass entry below understated the lock handling; index.lock and HEAD.lock both had to be renamed aside to commit, not left alone
+
+The entry below states in its ENVIRONMENT paragraph that the pre-existing
+`.git/index.lock` (about 25 minutes old, under the 1-hour threshold, no git
+process running) was "left alone per the procedure's time rule". That was
+true only up to the commit step. `git add` and `git commit` both then failed
+outright: `fatal: Unable to create '.git/index.lock': File exists`, followed
+after clearing that by `fatal: cannot lock ref 'HEAD': Unable to create
+'.git/HEAD.lock': File exists`. Both were leftovers from the immediately
+preceding run's own commit (`8879233`, 05:13), not evidence of a concurrent
+process - `ps aux` showed no git process running, checked again at this
+point, not just at the start of the run. `rm -f` failed on both with
+"Operation not permitted", the same unlink-blocked filesystem behaviour this
+log has documented on every prior run; both were cleared by `mv` to a
+timestamped `.stale-<epoch>` name in `.git/`, the same convention already
+used well over a hundred times in this repository's history for this exact
+recurring condition (visible in `.git/` itself: `index.lock.stale-*`,
+`index.lock.renamed-*`, `HEAD.lock.stale-*` and similar going back to
+2026-08-30). This is not a new finding and does not change the guidance
+already on record: a `.git\index.lock` under 1 hour old should not be
+removed speculatively at the START of a run on the time rule alone, but if
+the commit step itself cannot proceed because the lock (or `HEAD.lock`)
+blocks it, and `ps aux` confirms no git process is actually running, moving
+it aside by rename - never `rm`, which this filesystem refuses - is the
+established and safe resolution, consistent with the many precedents already
+sitting in `.git/`. The commit itself (`47b02bf`) is unaffected; this is a
+correction to this run's own log paragraph, not a new repo finding.
+
 ## 2026-09-02 (unattended scheduled run via Cowork) - Item 1.3 quality pass (ninth): McCanns Sandringham postcode checker hardened for case-varied "&nbsp;" entity, FOREIGN catch proved by file-wide injection on gbp-packs/mccanns-sandringham.md, no data defect, checker-only fix
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
