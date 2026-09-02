@@ -3797,6 +3797,35 @@ hours, no Saturday reappearance. No new defect, no in-repo change beyond
 this note and the audit file. 36/36 checkers pass, all six generators
 untouched. See audits/scorah-hazel-grove-pack-check-2026-09-01.txt. Next
 stalest by the standing projection: 4.6.
+Quality pass 2026-09-02: eighth pass, unattended run, rotation pool
+(least-recently-touched item computed from `git log`'s own commit dates per
+"item N.N" mention, ahead of the standing projection above which predated
+today's other passes). The pack re-verified clean for the eighth time: name,
+street address, postcode, phone, hours including the 24 June Saturday
+closure, review link, catchment order and its five towns (serviceAreaList
+match, same order), hasApp false honoured, pfLink, profile website on its own
+landing page, the sister-branch sentence naming Bramhall correctly (Bramhall
+not disposed, its own seoTown is Bramhall), the bank holiday paster note still
+present and still naming bankHolidays.dates2026 rather than retyped dates, all
+six CLINIC_QUALIFIERS markers present in Post C, and the 712-character
+description re-derived independently at exactly 712. The post town on the
+"- Address:" line is Q64 and was not re-raised. All 36 checkers pass, all six
+generators byte-identical (git status --porcelain -- modules/ empty).
+INJECTION TEST, a rule not previously tried on this specific pack: the
+"- Address:" line's road name changed from "87 Macclesfield Road" to
+"87 Fernhall Road" (house number and postcode left alone). Caught by THREE
+rules at once, one more than expected - the address-line-integrity rule (the
+line no longer contains this branch's own street), the branch-street
+PRESENCE rule (the full string "87 Macclesfield Road" including the house
+number appears nowhere else, only the bare road name does, five times), and
+the stale-KNOWN-exception guard (KNOWN_IDENTITY["scorah_hazel::
+addressPostTown"], the Q64 exception, stopped matching once a second,
+different fault existed). Restored by byte copy from a pre-mutation backup
+(sha256 64fd2ae6...b7a4038 confirmed identical after restore, diff empty);
+all 36 checkers re-ran clean with the Q64 WARN unchanged. Live half not
+performed (Claude in Chrome not connected this run); the 2026-09-01
+seventh-pass live verdicts stand unreconfirmed. No in-repo defect, no new
+question. See audits/scorah-hazel-grove-pack-check-2026-09-02.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

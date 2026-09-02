@@ -1,4 +1,139 @@
-## 2026-09-02 (unattended scheduled run via Cowork, following the 4.3 eighth-pass run) - Item 4.6 quality pass (eighth): McCanns Chemist Aigburth GBP pack re-verified clean fact by fact against branches.json, all 34 available checkers green, six generators byte-stable, phone-number injection caught cleanly and restored by byte copy (sha256-verified, not git checkout), live half not performed (Claude in Chrome not connected this run), no in-repo defect
+## 2026-09-02 (unattended scheduled run via Cowork, following the 4.6 eighth-pass run) - Item 4.5 quality pass (eighth): Scorah Chemists Hazel Grove GBP pack re-verified clean fact by fact against branches.json, all 36 checkers green, six generators byte-stable, road-name injection on the "- Address:" line caught by three rules at once (address-line integrity, street-address presence, stale-KNOWN-exception guard), restored by byte copy (sha256-verified, not git checkout), live half not performed (Claude in Chrome not connected this run), no in-repo defect
+
+ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
+C:\dev\rbh-site-data for file reads/edits, checkers and generators. No
+`.agent-lock` present at start (only the long-standing litter of stale
+`.agent-lock.released-*` files, left untouched, out of scope). Lock created
+04:44 UTC (epoch 1788321886). A `.git\index.lock` from a prior run's own
+git-status calls was found present, about 21 minutes old (well under the
+1-hour staleness threshold) with no git process running (`ps aux`); per the
+procedure this is not old enough to remove on the time rule alone, but git
+plumbing that only reads (status, log, fetch) does not need it and none of
+this run's git operations needed to acquire it until the final commit step,
+by which point it had aged past clearing naturally - see the commit/push
+section below for how it was actually handled. `git fetch`/`pull` against the
+SSH remote failed immediately with "Host key verification failed" (no SSH key
+in this sandbox, consistent with every recent run's finding); worked around
+with a one-off, non-persistent `git fetch https://github.com/rishi235/rbh-site-data.git
+agents/audit-backlog`, which confirmed origin was at 523645a (the 4.3
+eighth-pass commit's parent) while local HEAD was already one commit ahead at
+de84d04 (the unpushed 4.6 eighth-pass commit from the immediately preceding
+run) - local is a clean fast-forward ahead of origin, no merge needed, nothing
+lost.
+
+ANSWER PICKUP (step 3). Loaded the Claude in Chrome tools and called
+`tabs_context_mcp`: "Claude in Chrome is not connected". Per the skill's own
+instruction, no alternative route was attempted and no login was tried.
+Logged as unavailable; QUESTIONS.json left exactly as found, 40 open of 91
+total.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally; no autonomous decisions taken, no new question needed.
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+fallback was taken. Rather than re-deriving rotation order by hand-parsing
+AGENT_LOG.md headers (whose phrasing has drifted across runs - some say
+"Item N.N quality pass", others "item N.N" lower-case, others "Quality pass
+on item N.N", and at least one recent pass, item 4.8's seventh, has no
+matching AGENT_LOG.md header at all despite a full paragraph in
+AGENT_WORKLIST.md, apparently a dropped log entry from an earlier run), this
+run instead parsed `git log --pretty=format:'%ad|%s'` and, for each commit,
+recorded every distinct "item N.N" mention (case-insensitive, all matches per
+line, not just the first - a first pass that used regex .search() instead of
+.finditer() silently mis-attributed a combined "Item 1.3 ... + Item 4.5 ..."
+commit's date only to 1.3, which would have produced a different, wrong
+answer). Commit subjects are a reliable single-line-per-pass record with no
+observed phrasing drift. Taking the first (most recent) commit per item,
+excluding the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) and the eight blocked items, the oldest last-touch timestamp in the
+remaining 36-item pool was 2026-09-01 05:20, tied between items 1.3 and 4.5
+(literally the same commit, a combined pass). Item 4.5 (Scorah Chemists Hazel
+Grove GBP pack) selected; last touched 2026-09-01 (seventh pass).
+
+WORK DONE. Read gbp-packs/scorah-hazel-grove.md in full and cross-checked
+every profile-basics and services fact against branches.json's scorah_hazel
+record by hand: branchName/brandLabel, street address, postalCode, phone,
+googleReviewUrl, hasApp (false, honoured), pfLink, profile website (composed
+from website + townSlug + brandSlug), serviceAreaList order (Hazel Grove,
+Bramhall, Offerton, Great Moor, Poynton - matches in the description, the
+services section and Post B), openingHours (Mon-Fri 09:00-18:00, Saturday and
+Sunday closed, the 24 June 2026 cessation note), the five service widgets
+against the five advertised services, the sister-branch sentence naming
+Bramhall (cross-checked scorah_bramhall's own brandLabel, seoTown and
+disposed status directly rather than trusting the prior write-up - all still
+hold), the bank-holiday paster note (still names bankHolidays.dates2026
+rather than retyping dates), all six CLINIC_QUALIFIERS markers in Post C, and
+the business description length (recomputed independently in Python under the
+paste-join convention: 712 characters, matching the pack's own claim). node
+tools/check-gbp-packs.js: 0 failures, two pre-existing WARNs against this
+pack (Q64 post-town divergence, pfLink live-only-page note), both unchanged.
+All 36 tools/check-*.js run individually: 36/36 exit 0, nothing new. All six
+generators rebuilt: git status --porcelain -- modules/ empty, byte-stable.
+
+INJECTION TEST. sha256 of the pack recorded before mutation
+(64fd2ae6...b7a4038). Chose a rule not previously proved specifically against
+THIS pack (prior passes proved the address/road rules on McCanns Aigburth and
+Hirshmans Ainsdale only): mutated the "- Address:" profile-basics line only,
+changing the road name from "87 Macclesfield Road" to "87 Fernhall Road"
+(house number and postcode left alone). check-gbp-packs.js caught it with
+THREE failures, one more than anticipated going in: (1) the address-line-
+integrity rule, because the line no longer contains this branch's own
+streetAddress; (2) the branch-street-address PRESENCE rule, because the full
+string "87 Macclesfield Road" including the house number turned out to
+appear nowhere else in the pack - only the bare road name "Macclesfield Road"
+recurs (five times, in the description, the photo list, Post B and Post D) -
+so the presence rule requires the exact house-number-plus-road string, not
+just the road name, which this pack's own drafting had not made obvious; and
+(3) the stale-KNOWN-exception guard, because KNOWN_IDENTITY["scorah_hazel::
+addressPostTown"] (the Q64 exception) stopped matching once the mutation
+introduced a second, different profile-basics fault, proving that guard
+engages on this pack too and not only in the abstract. Restored by byte copy
+from a pre-mutation backup (not git checkout, the standing lesson already on
+record in this file); post-restore sha256 matched exactly, diff against the
+backup produced no output, and check-gbp-packs.js and the full 36-checker
+suite both re-ran clean, Q64's WARN present and unchanged.
+git status --porcelain on the file: empty throughout, nothing to commit from
+the test itself.
+
+LIVE HALF. Not performed. Claude in Chrome reported not connected when
+queried at step 3, and the same unavailability applies to any live read for
+this item, so the 2026-09-01 seventh-pass live verdicts (landing page still
+404 awaiting the queued paste run, all four Post A-D targets 200 and
+Hazel-Grove-correct, footer hours agreeing with branches.json's post-24-June
+spec) stand as written and nothing live is re-claimed.
+
+RESULT. No in-repo defect found. No new question raised. QUESTIONS.json
+unchanged, 40 open of 91 total. Worklist item 4.5 updated in place with the
+eighth-pass paragraph (not moved). Evidence:
+audits/scorah-hazel-grove-pack-check-2026-09-02.txt.
+
+STEP 9 (COMMIT/PUSH). Committed locally. Attempted `git push origin
+agents/audit-backlog` over SSH: failed identically to every recent run,
+"Host key verification failed" (no SSH key present in this sandbox). No
+credential was sought, fabricated or entered anywhere, per the hard rule
+against secrets in this workflow. This run's commit sits on the local
+agents/audit-backlog branch behind the previously unpushed 4.6 eighth-pass
+commit (de84d04), both awaiting a future run or Rishi's own machine (which
+holds the real SSH key, per the whole prior history of successful pushes) to
+push them. Not raised as a new question; this is the same standing
+infrastructure gap already recorded (Q87 and the many log entries since).
+
+STEP 10 (PUBLISH STATUS PAGE). Not run. tools/build-audit-status.js shells
+out to the `gh` CLI, which is not installed in this sandbox (confirmed
+separately by the script's own ENOENT on a Windows-style path it expects to
+find locally, C:/Dev/rbh-site-data/AGENT_WORKLIST.md, when invoked from this
+Linux mount - a second, independent reason it cannot run here even with `gh`
+present). Skipped rather than run-to-fail, consistent with the standing
+guidance in this log not to invoke it speculatively without genuine
+publish access.
+
+LOCK. Released. `.agent-lock` removed (this sandbox mount is currently able
+to unlink files created in the same run; where it has not been, prior runs
+have documented renaming aside as the fallback - not needed this run).
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork: sandboxed Linux bash mount of
 C:\dev\rbh-site-data for file reads/edits, checkers and generators. No
