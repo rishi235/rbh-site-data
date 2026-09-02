@@ -366,6 +366,69 @@ same pattern recorded throughout 2026-08-31's entries above.
       re-verified. No new question raised; no worklist item blocked or
       unblocked. Evidence:
       audits/fishlocks-ainsdale-quality-pass-2026-09-01.txt.
+      Quality pass 2026-09-02 (ninth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still
+      [BLOCKED], so this was the fallback quality pass, picked by the
+      standard rotation-pool ranking over the 36-item pool (43 checked items
+      minus the standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+      6.8): item 2.1's newest mention was the eighth pass at
+      2026-09-01T22:39:55+01:00, older than every other pool item (2.1 is
+      not itself in the out-of-rotation set; 2.2 is a different item). Repo
+      half: all 36 checkers pass estate-wide, all six generators rebuild to
+      a byte-identical zero diff against the untouched tree (git status
+      --porcelain modules/ core/ empty before and after). A fresh
+      independent Node.js extraction was written for this pass, sharing no
+      code with tools/ (audits/verify-2.1-2026-09-02-ninth.js, the first
+      checked-in independent script for this item; prior passes logged
+      ad hoc extractions directly into this file without keeping the
+      script): 806 checks across the 13 owned pages (own/foreign postcode,
+      own/foreign phone spaced and digit forms, own seoTown presence,
+      foreign seoTown scoped to title/H1/meta description, singular
+      "Fishlock" and apostrophe near-misses, em/en dash literal and entity,
+      JSON-LD parsed field by field including full address block, Google
+      Maps embed query decode-and-compare, data-branch and data-wa where
+      present, pfLink ownership both directions), 0 failures on the final
+      run. Two false-positive bugs in the instrument itself were found and
+      fixed before trusting that result, not repo defects: (1) the map
+      query regex assumed the URL shape "google.com/maps/embed?...q=", but
+      the live shape confirmed by direct inspection is
+      "google.com/maps?q=...&output=embed", which made all 13 pages read as
+      missing a map embed until the regex was corrected; (2) the first
+      foreign-seoTown rule scanned the whole page body rather than the SEO
+      strings, which flagged the branch landing page's deliberate "Looking
+      for our other branch?" sister-link paragraph (composed by
+      build-branch-landing-pages.js, confirmed by reading the generator
+      source) as a foreign-town claim; rescoped to title/H1/meta
+      description only, matching the scope CLAUDE.md documents for
+      check-seo-pattern.js's own absence rule, since that paragraph is a
+      deliberate cross-navigation feature (same category as
+      check-gbp-packs.js's KNOWN_SISTER exemption), not an SEO claim on
+      Eccleston. Guard effectiveness proved by three injections against
+      travel-clinic-fishlocks-ainsdale.html (untried page for this item's
+      injection testing; the eighth pass used the switch page): a phone
+      swap to Smartts Chemist Bootle's real number (0151 922 4984) caught
+      by check-nap.js (6 mismatches) and by the independent script (2
+      failures); a postcode swap to Smartts' L20 9HH caught by
+      check-postcodes.js's FOREIGN rule and by the independent script's
+      foreign-postcode and JSON-LD rules; an &ndash; entity injected into
+      the street address caught by check-em-dashes.js (2 lines) and by the
+      independent script. All three restored by byte copy from a
+      pre-injection backup, SHA256-confirmed identical to the original
+      after each restoration and again after the final one; backup file
+      deleted afterwards. check-gbp-packs.js against fishlocks-ainsdale.md
+      re-read: 0 failures, the same two known WARNs as the eighth pass
+      (Q72 private-clinic qualifiers, Q64 post-town vs addressLocality),
+      both confirmed still open and estate-wide, not specific to this
+      branch. No in-repo defect found. Live half: not performed this pass,
+      Claude in Chrome reported not connected (checked at the start of the
+      run and again before finishing repo work); Q35 was answered on
+      2026-09-01 (paste the six branch landing pages as their own Weebly
+      job) since the eighth pass, so is no longer an open live finding for
+      this item; Q37 and Q57 remain open and are treated as unchanged
+      rather than re-verified. No new question raised; no worklist item
+      blocked or unblocked. Evidence:
+      audits/verify-2.1-2026-09-02-ninth.js,
+      audits/verify-2.1-2026-09-02-ninth-output.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
