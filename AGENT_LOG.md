@@ -1,4 +1,143 @@
-## 2026-09-02 (unattended scheduled run, following the 4.11 quality-pass run) - Item 5.1 quality pass (ninth): em dashes in switch page copy re-verified clean in-repo; live CDN pin and Cherry Lane paste lag confirmed directly rather than inferred, both already-known blocks, zero in-repo defect, no new question
+## 2026-09-02 (unattended scheduled run, following the 5.1 ninth-pass run) - Item 4.13 quality pass (eighth): Riddings Pharmacy Timperley GBP pack re-verified clean; POST_INSTRUCTION marker regex hardened a second time, this time against leading whitespace, real in-repo defect found and fixed
+
+ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
+C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus
+Windows-MCP PowerShell for git, the same split this log has recorded for many
+runs (Q87). The sandboxed mount's `git fetch origin` failed outright with
+"Host key verification failed" as usual (no ~/.ssh in the sandbox); Windows-MCP
+PowerShell's own `git fetch`/`checkout`/`pull --ff-only` succeeded cleanly and
+confirmed the real repo already on agents/audit-backlog at 8d95d6c, up to date
+with origin. `.agent-lock` absent at start; lock created at
+2026-09-02T00:04:19Z (sandboxed clock reads UTC). A stray `.git/index.lock`
+appeared mid-run after a sandboxed `git status` (the sandbox's connected
+folder blocks unlink(), the mechanism Q87 already documented), but Windows-MCP
+PowerShell's own `git status` completed cleanly despite it and staged the
+change without incident, so it was left alone rather than force-deleted. The
+repo tree still carries the long-standing litter of untracked
+`.agent-lock.released-*` files and other sandbox scratch files from earlier
+runs; out of this item's scope to clean up.
+
+ANSWER PICKUP (step 3). Claude in Chrome reported "not connected" for this
+session (`tabs_context_mcp` returned the extension-unreachable message before
+any navigation was attempted). Per the unattended-run rule, this was logged
+as unavailable rather than retried by any other route (no login, no
+alternative fetch). QUESTIONS.json left exactly as found: 40 open of 91
+total, none of them for this item.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run.
+Proceeded normally; no autonomous decisions taken (not that any were needed:
+the finding this pass was a plain code fix, not a judgement call).
+
+ITEM SELECTION (step 5). All 8 unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, plus the three under the 6.4/6.5/6.6 headings) confirmed [BLOCKED] by a
+direct grep of "^- \[ \]" against AGENT_WORKLIST.md, so the quality-pass
+branch was taken. Re-derived the least-recently-verified completed item with
+the same method recorded by recent runs: bound each top-level "- [x]"/"- [ ]"
+item's own paragraph from its start line to the next top-level item's start
+line, read every date in that block, take the maximum as the item's
+last-touched date. Excluded the same seven items outside the standard
+rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight [BLOCKED]
+lines. Within the remaining 34-item pool, every item's last date was
+2026-09-01 except two: item 4.11 and item 5.1, both freshly touched today
+(2026-09-02) by the two immediately preceding runs, so excluded as the most
+recently, not least recently, verified. That left a 33-way tie at 2026-09-01,
+broken the same way an earlier run recorded doing it: fewest "quality pass"
+context mentions across the whole of AGENT_LOG.md, counting only occurrences
+of the item's own number (word-boundary matched, so "3.1" does not match
+inside "3.10"/"3.11"/...) within 40 characters of the phrase "quality pass".
+Item 4.13 (Riddings Pharmacy Timperley pack) came out lowest at 6 mentions,
+against 8 for the next nearest (3.11, 3.2, 4.14, 6.2). 4.13 selected for this
+run's eighth pass.
+
+REPO HALF. Facts re-verified against branches.json (id riddings_timperley):
+name Riddings Pharmacy, address 38 Riddings Road, Timperley, Altrincham
+WA15 6BP, phone 0161 973 2951, website and review link, hasApp false, single
+Monday to Friday 09:00-18:00 session with Saturday and Sunday closed,
+catchment Timperley/Altrincham/Trafford leading with its own seoTown - all
+match the pack exactly, byte for byte the same as all seven earlier passes
+(description 657 characters, posts 449/319/521/425). All 36 tools/check-*.js
+run individually before any change: 36 of 36 exit 0. All seven build-*.js
+generators re-run: the six page generators produced 203 files under
+modules/service/pages, modules/switch/pages and modules/branch/pages,
+sha256-compared file by file before and after, byte-identical throughout;
+build-audit-status.js failed with its known ENOENT on the hardcoded
+`C:/Dev/rbh-site-data` path when run from the sandboxed shell (Q87's second
+failure mode) - run instead via Windows-MCP PowerShell at step 10, as the
+8d95d6c addendum established.
+
+THE FINDING. Three fresh injections run against a working copy held outside
+the tracked file (never git-checkout-restored, always sha256-verified back to
+the original after each), the same discipline the item 5.2 pass's own log
+entry warned every future harness to use:
+
+1. A real sister branch's phone number (Clear Chemist's 0151 203 6535) added
+   alongside the branch's own correct number in Post B's body, plus the word
+   "Aintree" naming that branch's town. CAUGHT three ways at once: the
+   phone-sister rule ("phone 0151 203 6535 belongs to Clear Chemist, not
+   Riddings Pharmacy"), the published-phone rule (same number, scoped to the
+   post body specifically), and the foreign-town rule ("names \"Aintree\",
+   which is the town of Clear Chemist and Tiffenbergs Chemist"). Exit 1, 3
+   fails.
+2. The same test repeated with a fabricated, non-existent phone number
+   instead of a real branch's. Correctly produced only a WARN
+   ("phone-like number ... is not Riddings Pharmacy's number in
+   branches.json"), not a FAIL, confirming the sister rule is deliberately
+   scoped to numbers that actually belong to another live branch rather than
+   any phone-shaped string. Exit 0, as designed - not a defect.
+3. A single leading space added before the real "STOP - DO NOT POST" marker
+   on Post B. MISSED. check-gbp-packs.js's POST_INSTRUCTION regex
+   (`/^(?:STOP|DO NOT POST)\b/im`), already hardened for case-sensitivity on
+   the seventh pass (2026-09-01), was still anchored to column zero via `^`,
+   so a line starting with a space rather than the letter S stopped it firing
+   a second, distinct way. postsOf() never cut the body at the marker, so the
+   whole ~1,000-character hard-stop instruction block - including the live
+   404 URL the pack exists to warn the paster away from - was counted as
+   Post B's own posted copy again: 1,499 characters of raw block against the
+   true 319, and the full 36-checker suite still exited 0, because 1,499
+   still sits under the 1,500-character GBP post limit. Confirmed by direct
+   instrumentation of postsOf's own split logic (not just the checker's exit
+   code) that the cut genuinely failed to fire.
+
+FIX. POST_INSTRUCTION changed from `/^(?:STOP|DO NOT POST)\b/im` to
+`/^\s*(?:STOP|DO NOT POST)\b/im` in tools/check-gbp-packs.js, tolerating any
+run of leading whitespace before the marker without narrowing the match
+otherwise - `\b` still requires the marker to end on a word boundary, so
+"Stopping" and "Postage" remain unmatched. Verified four ways before
+committing: (a) the leading-space injection now measures Post B's body at
+319 characters again, confirmed by re-running postsOf's own logic against
+the injected copy directly, not just reading the checker's pass/fail line;
+(b) this pass's own foreign-phone/town injection (finding 1 above) still
+caught after the change; (c) the seventh pass's recased-marker injection
+("Stop - do not post") still caught after the change; (d) all 16 pack files
+(15 packs plus TEMPLATE.md) swept for any line newly matching the widened
+regex that did not match the old one. Two lines found - TEMPLATE.md line 58
+and clear-aintree.md line 148 - but both sit outside anywhere the checker
+reads a Post body: TEMPLATE.md's is general rule-explanation prose well
+above its own "## 5. Post drafts" section (line 135); clear-aintree.md's is
+inside its own "Notes for the paster:" block (starting line 129), which
+postsOf() already cuts out of the body before POST_INSTRUCTION is ever
+applied. So nothing that currently passes starts failing. All 36 checkers
+green after the fix; gbp-packs/riddings-timperley.md itself untouched and
+sha256-confirmed byte-identical to the version at the start of this pass
+(8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04); all
+seven build-*.js generators re-run afterward with the same 203-file sha256
+comparison, byte-identical.
+
+LIVE HALF NOT performed: Claude in Chrome was not connected this run (see
+ANSWER PICKUP above), so no live page was fetched and every live-side state
+- Post B's 404, the pre-Phase-3 switch page paste, the branch-specific
+Pharmacy First page's live status, the weight-loss-clinic-timperley.html
+Regime 1 breach tracked under item 5.8 - still rests on the seventh pass's
+2026-09-01 live check. Nothing here contradicts that check.
+
+No new question raised: the marker-whitespace finding was a straightforward,
+well-scoped code fix with no judgement call for Rishi, the same class as the
+seventh pass's casing fix and explicitly not something step 8's QUESTIONS.json
+process exists for. Worklist line updated in place with this pass's findings.
+Done 2026-09-02.
+
+
 
 ENVIRONMENT AND LOCK. Run via Cowork (sandboxed Linux mount of
 C:\Dev\rbh-site-data for file reads/edits, checkers and generators) plus

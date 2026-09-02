@@ -5143,6 +5143,63 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       so step 8's exception did not apply; not needed this pass regardless,
       since the marker-casing finding was a straightforward code fix with no
       judgement call for Rishi. No new question raised. Done 2026-09-01.
+      Eighth quality pass 2026-09-02: pack clean and byte-stable across all
+      eight passes (description 657, posts 449, 319, 521, 425, zero
+      non-ASCII characters, zero em or en dashes), every fact re-verified
+      against branches.json (id riddings_timperley): name Riddings
+      Pharmacy, address 38 Riddings Road, Timperley, Altrincham WA15 6BP,
+      phone 0161 973 2951, website and review link, hasApp false with no
+      app mention, single Monday to Friday 09:00 to 18:00 session with
+      Saturday and Sunday closed, catchment Timperley, Altrincham and
+      Trafford leading with its own seoTown. Post A's repoint to the
+      branch-specific Pharmacy First page (2026-09-01, per Q34/item 5.3)
+      confirmed still in place and matching branches.json's pfLink.
+      All 36 checkers run fresh before any change: all green.
+      Three fresh injections run against a working copy outside the repo
+      (not the tracked file), sha256-confirmed byte-identical restore after
+      each: (1) a real sister branch's phone number (Clear Chemist's 0151
+      203 6535) added alongside the correct one in Post B's body, plus the
+      word "Aintree" - CAUGHT three ways at once (the phone-sister rule,
+      the published-phone rule and the foreign-town rule); (2) the same
+      with a fabricated, non-existent phone number - correctly produced
+      only a WARN, not a FAIL, confirming the sister rule is deliberately
+      scoped to numbers that actually belong to another branch; (3) a
+      single leading space added before the real "STOP - DO NOT POST"
+      marker on Post B - MISSED. check-gbp-packs.js's POST_INSTRUCTION
+      regex (`/^(?:STOP|DO NOT POST)\b/im`), hardened for case on the
+      seventh pass, was still anchored to column zero, so one leading space
+      stopped it firing a second, distinct way: the whole ~1,000-character
+      hard-stop instruction block, including the live 404 URL, was counted
+      as Post B's posted copy again (1,499 characters of raw block against
+      the true 319), and the 36-checker suite still exited 0 because 1,499
+      still sits under the 1,500 ceiling. Fixed at source: POST_INSTRUCTION
+      now reads `/^\s*(?:STOP|DO NOT POST)\b/im`. Verified: the leading-space
+      injection now measures Post B at 319 again (confirmed by direct
+      instrumentation of postsOf's own logic, not just the checker's exit
+      code); the two earlier injections (this pass's own foreign-phone/town
+      test, and the seventh pass's recased marker) both still caught after
+      the change; and all 16 pack files (15 packs plus TEMPLATE.md) swept
+      for any line newly matching the widened regex - two lines found
+      (TEMPLATE.md line 58, clear-aintree.md line 148) but both sit outside
+      any Post body the checker reads (TEMPLATE.md's is general rule prose
+      above the "## 5. Post drafts" section entirely; clear-aintree.md's is
+      inside its own "Notes for the paster:" block, already cut from the
+      body before POST_INSTRUCTION is ever applied), so nothing that
+      currently passes starts failing. All 36 checkers green after the fix,
+      gbp-packs/riddings-timperley.md untouched and sha256-confirmed
+      byte-identical to the version at the start of this pass, all seven
+      build-*.js generators re-run with the 203 files under
+      modules/service/pages, modules/switch/pages and modules/branch/pages
+      byte-identical before and after (sha256-compared file by file).
+      LIVE HALF NOT performed: Claude in Chrome was not connected this run
+      (extension unreachable), so no live page was fetched and every
+      live-side state still rests on the seventh pass's 2026-09-01 check.
+      Answer pickup (step 3) also unavailable for the same reason; per the
+      unattended-run rule this was logged rather than retried by another
+      route. No autonomous window active at the top of AGENT_LOG.md. No new
+      question raised: the marker-whitespace finding was a straightforward,
+      well-scoped code fix with no judgement call for Rishi, the same class
+      as the seventh pass's casing fix. Done 2026-09-02.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

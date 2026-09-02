@@ -714,7 +714,23 @@ function servicesOf(text) {
 // anything: no other pack in the estate carries a line starting "stop" or
 // "do not post" in any case (checked across all 15 packs plus TEMPLATE.md
 // before this change), so nothing that currently passes can start failing.
-const POST_INSTRUCTION = /^(?:STOP|DO NOT POST)\b/im;
+//
+// Item 4.13 eighth quality pass, 2026-09-02: a second, distinct trigger for
+// the identical failure. A single leading space before "STOP" (a plausible
+// accident from reformatting or re-indenting the line in an editor) also
+// stopped the marker firing, because ^ anchors to column zero under /m and
+// a space is not the letter S. Proved the same way: adding one leading
+// space to the real Riddings marker made the whole ~1000-character
+// instruction block, including the live 404 URL, count as Post B's posted
+// copy again (1499 of the raw block, still under the 1,500 ceiling), and
+// the 36-checker suite again exited 0. Closed with \s*, which tolerates any
+// run of leading whitespace (spaces, tabs, or blank lines) before the
+// marker without narrowing the match otherwise: \b still requires the
+// marker to end on a word boundary, so "Stopping" and "Postage" remain
+// unmatched, and no other pack's marker-free copy contains a line matching
+// \s*(?:STOP|DO NOT POST)\b in any case, checked across all 15 packs plus
+// TEMPLATE.md before this change.
+const POST_INSTRUCTION = /^\s*(?:STOP|DO NOT POST)\b/im;
 
 // Split the post drafts section into the individual posts, keeping the
 // post body only (drop the "Button:" line, which is not posted copy, and any
