@@ -865,9 +865,10 @@
       "Leave as-is - keeps a live claim that contradicts the NHS-sourced hours, not recommended"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "branches.json hours were NHS-sourced and confirmed 2026-06-24, so option 1 is recommended unless the branch's real-world lunch practice has changed since."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 02/09/2026, 09:16:38 (UK time): \"Edit the live Smartts pages (hours card, contact page, footer) to the same \"9:00am - 6:00pm (closed 1-2pm)\" wording the other three lunch-closure sites use - right fix if the branch does close for lunch, one short Weebly session\"",
+    "note": "branches.json hours were NHS-sourced and confirmed 2026-06-24, so option 1 is recommended unless the branch's real-world lunch practice has changed since.",
+    "answeredDate": "2026-09-02"
   },
   {
     "id": "Q56",
