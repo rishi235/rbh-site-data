@@ -7373,6 +7373,35 @@ appended to the line. Do not move them; the status page reads them in place.
       audits/mccanns-sandringham-postcode-check-2026-09-02-ninth.txt,
       audits/_before-1.3-ninth-2026-09-02.sha256,
       audits/_after-1.3-ninth-2026-09-02.sha256 (identical).
+      Quality pass 2026-09-03 (tenth pass): data clean again, nothing edited
+      in branches.json, modules/ or core/. All 36 checkers pass, all six
+      generators byte-identical. This pass changed angle rather than widening
+      the separator regex again: the nine prior passes (second through ninth)
+      all re-tested rule 1 (UNKNOWN), rule 3 (FOREIGN) or rule 6 (MISATTRIB)
+      by finding one more whitespace or encoding form PC_RE_LOOSE's separator
+      missed. Rule 4 (DISPOSED) and rule 2's "if (b.disposed) return"
+      exemption had not been individually re-tested since the original
+      six-rule hardening on 2026-08-11, and branches.json today carries no
+      disposed:true record at all - Wilmslow Pharmacy, the one branch that
+      ever carried that flag, was removed from the file entirely under the Q2
+      answer on 5 August 2026 rather than kept as a disposed record. So rule 4
+      has zero live branches to protect right now, which is a fact about the
+      data, not a flaw in the rule: Wilmslow's own git history (3d1cc18,
+      1d8821c) shows the flag-then-remove pattern did happen once and could
+      happen again for a future disposal. Proved on a full rsync scratch copy
+      (0 failures baseline matching tracked repo exactly): added a
+      disposed:true branch record reproducing Wilmslow's real fields
+      (postcode SK9 2TA) to the scratch branches.json only, plus a synthetic
+      OWNED_DIRS page carrying that postcode - fired correctly as DISPOSED on
+      first attempt. Removed the synthetic page with the disposed record still
+      present - rule 2 correctly did not demand the postcode be used anywhere,
+      confirming the disposed-branch exemption holds. Scratch copy discarded,
+      tracked repo untouched throughout. tools/check-postcodes.js changed to
+      add SK9 2TA to NARRATIVE_POSTCODES (this file and AGENT_LOG.md now quote
+      it) and a comment above rule 4 documenting the proof and explaining why
+      the rule currently guards zero branches, so the next pass does not have
+      to re-derive it. No new question. Done 2026-09-03. Evidence:
+      audits/postcode-disposed-rule-reproof-1.3-tenth-2026-09-03.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

@@ -90,7 +90,8 @@ var NARRATIVE_POSTCODES = {
   "SK7 1BJ": "Run 95 (item 1.4 quality pass, 2026-08-12): the foreign postcode injected into Cherry Lane's contraception page to prove check-nap's body-copy blind spot. audits/nap-check-2026-08-12.txt quotes it to record the test.",
   "PR9 0LH": "Run of 2026-08-30 (item 3.10 fifth quality pass): a guessed non-branch postcode used as a first-attempt negative-test value for the pass's independent extractor; it did not fire precisely because it belongs to no branch, and the audit file quotes it to record that test artefact. audits/riddings-build-check-2026-08-30.txt is the only legitimate carrier.",
   "PR7 5SX": "Run 209 (item 4.8 quality pass, 2026-08-14): the one-character-off variant of the Fishlocks Eccleston postcode PR7 5SZ, used as an injection value. Its harness was written into the repo root, so this checker failed on the harness rather than the pack and silently mis-attributed six injections as caught. AGENT_LOG.md quotes the value to record that method fault. Narrative surfaces only: a PR7 5SX typed into a page, pack or branches.json still fails, which matters because it is exactly the single-character error this checker exists to catch.",
-  "L23 6TX": "Item 3.8 quality pass (ninth), 2026-09-02: a foreign postcode injected in place of SK Chemists Bootle's own L20 5DW on shingles-treatment-sk-chemists-bootle.html, to prove the FOREIGN rule and the JSON-LD address rule catch it independently. The page was restored by byte copy before the run ended, but AGENT_LOG.md's write-up quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, which is the gap the 6.3 sixth quality pass (2026-09-03) found and closed."
+  "L23 6TX": "Item 3.8 quality pass (ninth), 2026-09-02: a foreign postcode injected in place of SK Chemists Bootle's own L20 5DW on shingles-treatment-sk-chemists-bootle.html, to prove the FOREIGN rule and the JSON-LD address rule catch it independently. The page was restored by byte copy before the run ended, but AGENT_LOG.md's write-up quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, which is the gap the 6.3 sixth quality pass (2026-09-03) found and closed.",
+  "SK9 2TA": "Item 1.3 quality pass (tenth), 2026-09-03: Wilmslow Pharmacy's real historical postcode, used to re-prove rule 4 (DISPOSED) and rule 2's disposed-branch exemption on a scratch copy, neither individually re-tested since the original six-rule hardening on 2026-08-11. Wilmslow itself carries no branches.json entry today (removed entirely under the Q2 answer, 5 August 2026, rather than kept as a disposed:true record), so rule 4 has zero live branches to protect in the current file and the injection had to add a scratch-only disposed:true entry to exercise it at all. AGENT_LOG.md quotes the value to record that test."
 };
 
 // Files that DECLARE or DOCUMENT a postcode rather than USE it. This
@@ -386,6 +387,23 @@ function checkFile(p) {
       fail("UNKNOWN  " + r + ": postcode " + pc + " is in no branches.json entry");
       return;
     }
+    // Re-proven on the item 1.3 quality pass (tenth), 2026-09-03, not
+    // individually re-tested since the original six-rule hardening on
+    // 2026-08-11. Under the data-management convention this repo actually
+    // follows (a disposal removes the branch from branches.json entirely -
+    // Wilmslow, Q2, 5 August 2026 - rather than keeping the record with
+    // disposed:true set), this rule has zero live branches to protect at any
+    // moment when no disposal is mid-flight. It is not dead code: Wilmslow's
+    // own history (see git log 3d1cc18, 1d8821c) shows the record DID sit in
+    // branches.json with disposed:true for a period before full removal, so a
+    // future disposal following the same pattern would need this rule live
+    // during that window. Re-proven by injection on a scratch copy (a
+    // disposed:true entry added there only, using Wilmslow's own real
+    // historical postcode SK9 2TA, plus a synthetic OWNED_DIRS page carrying
+    // it): fired correctly as DISPOSED, and rule 2 correctly did not demand
+    // the same postcode be used anywhere once the branch was flagged
+    // disposed. Scratch copy discarded; nothing in the tracked repo changed
+    // by this proof.
     if (b.disposed && ownedDir) {
       fail("DISPOSED " + r + ": postcode " + pc + " belongs to disposed branch " + b.id);
       return;

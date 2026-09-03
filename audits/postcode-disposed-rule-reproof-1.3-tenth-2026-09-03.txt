@@ -1,0 +1,81 @@
+Item 1.3 quality pass (tenth), 2026-09-03
+Re-proof of tools/check-postcodes.js rule 4 (DISPOSED) and rule 2's disposed-branch
+exemption, using Wilmslow Pharmacy's real historical postcode SK9 2TA.
+
+BASELINE (tracked repo, before any change)
+git status --porcelain modules/ core/ gbp-packs/ branches.json tools/  -> empty
+node tools/check-postcodes.js                                          -> 0 failures, 3 warnings (standing UNOWNED on gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md, modules/branch/pages/SEO.md)
+All six generators re-run (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js): sha256 of every file under modules/ and core/ identical
+before and after (diff of sorted sha256sum listings: 0 lines).
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+
+WHY THIS ANGLE
+Item 1.3 has had nine prior dedicated quality passes. Every one from the second
+pass onward (2026-08-12 through 2026-09-02) tested rule 1 (UNKNOWN), rule 3
+(FOREIGN) or rule 6 (MISATTRIB) by widening PC_RE_LOOSE's separator to catch a
+new whitespace or encoding form (case, nbsp entity, numeric character
+references, URL escapes, fused/no-separator). None of the nine re-tested rule 4
+(DISPOSED) or rule 2's "if (b.disposed) return" exemption individually; the only
+record of either being proven is the single "six rules negative-tested, all
+fire" line from the original hardening pass on 2026-08-11, before Wilmslow was
+removed from branches.json.
+
+Checked whether rule 4 is still reachable under the data-management convention
+this repo actually follows. branches.json today carries 16 records (15 trading
+branches plus head office), none with disposed:true. git log confirms why:
+Wilmslow Pharmacy (id wilmslow_wilmslow, postcode SK9 2TA) was in branches.json
+WITH disposed:true for a period (see commit 3d1cc18, "disposed-branch guard
+completed across all four hardcoded-BUILD generators"), then removed from the
+file entirely under the Q2 answer, 5 August 2026 (commits b240c32, 1d8821c). So
+today, with no branch mid-disposal, rule 4 has nothing to protect - not because
+it is wrong, but because the transitional state it guards is not currently
+occupied. That is worth proving rather than assuming, and worth doing with the
+one real postcode this exact scenario has already produced once.
+
+METHOD
+Full rsync copy of the tracked repo (excluding .git, node_modules,
+_agentscratch, .agent-lock*) to /tmp/pc-scratch. Baseline run of
+node tools/check-postcodes.js on the scratch copy: 0 failures, 3 warnings,
+matching the tracked-repo baseline exactly.
+
+INJECTION 1 - RULE 4 (DISPOSED). Added a disposed:true branch record to the
+scratch copy's branches.json only, reproducing Wilmslow Pharmacy's real
+pre-removal fields (id wilmslow_wilmslow, brandSlug/townSlug "wilmslow",
+postalCode "SK9 2TA", disposed: true). Added a synthetic OWNED_DIRS file,
+modules/service/pages/wilmslow-pharmacy-first.html, carrying the address text
+"Wilmslow Pharmacy, Unit 2 Summerfields Village, Wilmslow, SK9 2TA."
+Result: node tools/check-postcodes.js -> exit 1, one FAIL:
+"DISPOSED modules/service/pages/wilmslow-pharmacy-first.html: postcode SK9 2TA
+belongs to disposed branch wilmslow_wilmslow". Fired correctly, first attempt.
+
+INJECTION 2 - RULE 2 EXEMPTION. Removed the synthetic page (so SK9 2TA appears
+nowhere in the scratch copy) with the disposed:true branch record still present.
+Result: node tools/check-postcodes.js -> exit 0, 0 failures, same 3 standing
+warnings. Confirms rule 2 ("every live branch postcode must be USED somewhere")
+correctly does not demand a disposed branch's postcode be used anywhere - the
+"if (b.disposed) return" guard on rule 2 held.
+
+Scratch copy discarded after use (/tmp/pc-scratch, outside the working tree,
+never committed). Tracked repo confirmed untouched throughout both injections:
+git status --porcelain modules/ core/ gbp-packs/ branches.json tools/ empty
+before, during (scratch only) and after.
+
+RESULT
+No defect. Rule 4 and rule 2's disposed exemption both behave exactly as
+designed; the reason they had gone untested individually for nine passes is
+that no branch has been mid-disposal in this file since 2026-08-11, not that
+the rule was assumed clean without being checked. tools/check-postcodes.js
+changed to add SK9 2TA to NARRATIVE_POSTCODES (this file and AGENT_LOG.md now
+narrate it) and a comment documenting this proof above rule 4's code, so the
+next reader does not have to re-derive why the rule currently has zero live
+branches to protect. No generated page, generator or branches.json byte
+changed. No new question raised - this is a re-verification of documented
+checker behaviour, not a live-facing or patient-facing decision.
+
+Post-change re-run on the tracked repo: node tools/check-postcodes.js ->
+0 failures, 3 warnings (once AGENT_LOG.md and this file quote SK9 2TA,
+resolving the STALE NARRATIVE_POSTCODES failure the addition briefly produced
+on its own). All 36 checkers re-run clean. All six generators re-run:
+git status --porcelain modules/ core/ empty before and after.
