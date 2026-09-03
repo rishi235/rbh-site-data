@@ -1,0 +1,77 @@
+Item 4.10 - Smartts Chemist Bootle GBP pack - ninth quality pass, 2026-09-03
+(unattended scheduled run via Cowork)
+
+PURPOSE
+Fresh angle: check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js
+had already been proven by injection today against five sister GBP packs
+(Fishlocks Ainsdale 4.1, Scorah Bramhall 4.4, McCanns Sandringham 4.7,
+Gordon Short Crosby 4.14, Hirshmans Ainsdale 1.2, and Fishlocks Eccleston 4.8)
+but never against this pack specifically, across eight prior passes. Same gap
+shape this item's own prior passes have repeatedly found in other rules
+("proved once, assumed everywhere").
+
+BASELINE
+gbp-packs/smartts-bootle.md sha256:
+  541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+All 36 tools/check-*.js run individually on the tracked repo before any work:
+36/36 exit 0.
+
+METHOD
+Full repo copied (cp -r, .git included this time - the item 4.8 pass found
+that excluding .git makes check-cdn-pins.js fail with false "ref does not
+resolve in git" errors on a scratch copy, so this pass carried .git across to
+avoid repeating that method error) to /tmp/audit_run/item410/repo, outside the
+tracked working tree. Scratch copy's smartts-bootle.md sha256-confirmed
+identical to the tracked copy, and all three target checkers re-run clean on
+the scratch copy before any edit.
+
+Four injections run one at a time against the scratch copy only, each
+restored from the saved original (/tmp/audit_run/smartts-bootle.md.orig) and
+sha256-reconfirmed identical before the next:
+
+1. Brand spelling: "Smartts Chemist" changed to "Smarts Chemist" (dropped a
+   "t") in the file's own heading line.
+   CAUGHT by check-brand-spelling.js rule 2:
+   "FAIL gbp-packs/smartts-bootle.md:1: reads "Smarts", a known misspelling.
+   The trading name is "Smartts Chemist"" - correct canonical form named.
+
+2. URL scheme: Post B's button URL changed from https:// to http:// (the
+   switch-prescriptions-smartts-bootle.html link).
+   CAUGHT by check-url-scheme.js rule 1 (INSECURE, published surface):
+   "FAIL INSECURE gbp-packs/smartts-bootle.md: published surface carries
+   http://www.smarttschemist.co.uk/switch-prescriptions-smartts-bootle.html.
+   An insecure estate URL on a live page is a crawlable duplicate of the
+   https page, which is item 6.6."
+
+3. UK spelling: US spelling "traveling" inserted into Post D's opening line
+   ("Going somewhere? Get your travel health sorted before you go." changed
+   to "...before traveling.").
+   CAUGHT by check-uk-spelling.js:
+   "FAIL gbp-packs/smartts-bootle.md:115: reads "traveling". UK English is
+   "travelling""
+
+4. Control (not a real finding): a synthetic paster note added recording a
+   live-page reading in quotation marks - ""Smarts Chemist", quoted here as
+   evidence of what was seen, not a claim." - to confirm the brand-spelling
+   quote-evidence mask works on THIS pack's own copy and not only in theory.
+   PASSED correctly: exit 0, reported only as a NOTE, not a FAIL:
+   "NOTE gbp-packs/smartts-bootle.md:151 records "Smarts" inside quotation
+   marks, read as a note of what a live page says rather than as this file
+   claiming it"
+
+All four behaved exactly as designed; no checker gap found.
+
+RESULT
+No in-repo defect found on item 4.10. Tracked repo confirmed untouched
+throughout: git status --porcelain empty on gbp-packs/, modules/, core/,
+tools/, branches.json, status/ before, during and after this pass's work;
+smartts-bootle.md sha256 identical to the baseline at the end
+(541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b); all 36
+tools/check-*.js re-run on the scratch copy after restore, 36/36 exit 0.
+Scratch directory deleted in full after use.
+
+No generator, page, data field or checker file touched - this pass proved
+existing rules rather than changing any.
+
+QUESTIONS.json unchanged: no pickup available this run (Claude in Chrome not
+connected - see AGENT_LOG.md ANSWER PICKUP note), no new question raised.

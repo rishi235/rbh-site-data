@@ -7137,6 +7137,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       no new question. Evidence in
       audits/smartts-bootle-outcome-promise-reproof-4.10-eighth-2026-09-03.txt.
       Done 2026-09-03.
+      Ninth quality pass 2026-09-03: fresh angle - check-brand-spelling.js,
+      check-url-scheme.js and check-uk-spelling.js had already been proven
+      today against six sister GBP packs (4.1, 4.4, 4.7, 4.14, 1.2, 4.8) but
+      never against this pack specifically across eight prior passes, the
+      same "proved once, assumed everywhere" gap shape. All facts
+      re-verified against branches.json's smartts_bootle record - unchanged.
+      Baseline: 36/36 checkers exit 0, smartts-bootle.md sha256
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b.
+      Method changed from the eighth pass: full repo copied to scratch WITH
+      .git included this time, since the 4.8 ninth pass found that excluding
+      .git makes check-cdn-pins.js fail falsely on a scratch copy. Four
+      injections run one at a time against the scratch copy, each restored
+      and sha256-reconfirmed identical before the next: (1) "Smartts
+      Chemist" dropped to "Smarts Chemist" in the heading line - CAUGHT by
+      check-brand-spelling.js, correct canonical form named; (2) Post B's
+      button URL changed https to http - CAUGHT by check-url-scheme.js as
+      an INSECURE published surface; (3) "traveling" (US spelling) inserted
+      into Post D's opening line - CAUGHT by check-uk-spelling.js, correct
+      UK form named; (4) a control - a synthetic paster note recording
+      ""Smarts Chemist", quoted here as evidence of what was seen, not a
+      claim" - correctly PASSED (exit 0, NOTE only), confirming the
+      brand-spelling quote-evidence mask works on this pack's own copy too.
+      All four behaved exactly as designed; no checker gap found. Tracked
+      repo confirmed untouched throughout (git status --porcelain empty,
+      sha256 identical at the end); all 36 checkers re-run clean on the
+      scratch copy after restore. No generator, page, data field or checker
+      file touched. Live half not performed: Claude in Chrome not connected
+      this run. No in-repo defect, no new question. Evidence in
+      audits/smartts-bootle-brand-url-uk-spelling-4.10-ninth-2026-09-03.txt.
+      Done 2026-09-03.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
