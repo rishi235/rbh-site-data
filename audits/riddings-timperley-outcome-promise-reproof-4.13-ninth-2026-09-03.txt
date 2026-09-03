@@ -1,0 +1,95 @@
+Item 4.13 ninth quality pass, 2026-09-03 (unattended scheduled run via Cowork)
+Subject: gbp-packs/riddings-timperley.md, OUTCOME_PROMISE rule (check-gbp-packs.js,
+tools/outcome-promise-patterns.js), re-proved against this pack's own Post D
+(Travel clinic) for the first time.
+
+BACKGROUND
+OUTCOME_PROMISE was added on the item 4.7 sixth quality pass (2026-08-29) after
+the item 4.7 fifth pass (2026-08-13) recorded, unfixed, that an absolute
+protection guarantee injected into a pack's Post D passed every checker. The
+sixth pass's own proof mutated gbp-packs/mccanns-sandringham.md, not this pack.
+Riddings Timperley carries a travelClinic widget (branches.json) and its own
+Post D is a travel clinic post, so the rule is directly relevant here, but no
+prior pass of this item (eight before this one) had proved it against this
+pack's own copy.
+
+METHOD
+Full copy of the tracked repo (excluding .git, node_modules, _agentscratch) to
+C:\Dev\rbh-scratch-449, so mutation never touched the tracked file. Baseline
+run of node tools/check-gbp-packs.js in the scratch copy: 0 failures, same
+standing WARN set as the tracked repo, including riddings-timperley.md's own
+switch-prescriptions.html live-only-link WARN.
+
+Baseline sha256 of gbp-packs/riddings-timperley.md (tracked and scratch, before
+any injection): 8CC587968D3F6B83A3509AA27151C7DC30172B626B9D0FED824630A775917C04
+
+INJECTION 1 (guarantee wording, expect FAIL)
+Post D edited to read "...no GP visit needed. We guarantee full protection for
+every destination. Book your travel consultation today."
+Result: FAIL, line 137: outcome promise "guarantee" (uses guarantee wording).
+Caught on first attempt.
+
+INJECTION 2 (question form, expect PASS - a question is not a promise)
+Restored from tracked file (sha256-confirmed), then Post D edited to read
+"...no GP visit needed. Wondering if a travel vaccine will fully protect you
+before you fly? Ask the pharmacist at your consultation. Book your travel
+consultation today."
+Result: PASS, 0 failures, only the standing switch-prescriptions.html WARN.
+Confirms the question exemption (line ends "?") holds correctly on this
+pack's own copy, not only on the pack the rule was written against.
+
+INJECTION 3 (declarative "will protect you", expect FAIL)
+Restored from tracked file (sha256-confirmed), then Post D edited to read
+"...no GP visit needed. The right vaccine will protect you for years to come.
+Book your travel consultation today."
+Result: FAIL, line 137: outcome promise "will protect you" (promises
+protection as an outcome). Caught on first attempt.
+
+RESTORE AND VERIFICATION
+File restored from the tracked repo after each injection and at the end;
+sha256 confirmed identical to the baseline value after every restore. Full
+36-checker suite re-run in the scratch copy after final restore: 35/36 exit 0;
+check-cdn-pins.js failed in the scratch copy only, expected and not a real
+defect, because the scratch copy has no .git directory (excluded from the
+copy) and that checker reads git state. The tracked repo was never touched by
+any injection; git status and a direct sha256 comparison both confirm
+gbp-packs/riddings-timperley.md is byte-identical to HEAD throughout. Scratch
+copy deleted after use.
+
+Tracked-repo verification (separate from the scratch work): all 36 checkers
+run individually against the tracked repo before and after this pass's only
+code change, 36/36 exit 0 both times. All seven build-*.js scripts re-run;
+git status --porcelain modules/ core/ empty before and after, confirming
+byte-stable generated output (no branches.json or generator logic changed
+this pass).
+
+RESULT
+No defect. OUTCOME_PROMISE already covered this pack correctly; that was
+previously true only by the rule's general design and its proof against a
+sibling pack, and is now proven directly against Riddings Timperley's own
+Post D, including the question-exemption edge case.
+
+CODE CHANGE
+tools/check-gbp-packs.js: 13-line documentation comment added above the
+OUTCOME_PROMISE block, recording this pass's three injections and their
+results, so a future pass does not have to re-derive that this specific pack
+was tested. No rule logic changed. gbp-packs/riddings-timperley.md: no change
+(mutated only in the scratch copy, never in the tracked file).
+
+LIVE HALF
+Not performed. Claude in Chrome reported not connected
+("mcp__claude-in-chrome__tabs_context_mcp" returned "Claude in Chrome is not
+connected") at the point this pass checked, matching the outcome of the two
+most recent runs logged immediately before this one (items 1.3 and 4.5). Every
+live-side finding for this pack rests on the seventh pass's 2026-09-01 check
+(Post B 404, pre-Phase-3 switch page paste, branch-specific Pharmacy First
+page live and correct, weight-loss-clinic-timperley.html's Regime 1 breach
+per compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md).
+
+ANSWER PICKUP
+Also unavailable for the same reason (Claude in Chrome not connected). No
+alternative route attempted, per the unattended-run rule.
+
+NO NEW QUESTION RAISED. This is a re-verification of documented checker
+behaviour against a specific pack's own copy, not a live-facing or
+patient-facing judgement call.

@@ -6637,6 +6637,47 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       question raised: the marker-whitespace finding was a straightforward,
       well-scoped code fix with no judgement call for Rishi, the same class
       as the seventh pass's casing fix. Done 2026-09-02.
+      Ninth quality pass 2026-09-03: pack clean and byte-stable across all
+      nine passes (description 657, posts 449, 319, 521, 425, zero non-ASCII
+      characters, zero em or en dashes), sha256 confirmed unchanged
+      throughout. All 36 checkers green before and after; all seven
+      build-*.js scripts re-run with git status --porcelain modules/ core/
+      empty before and after. Selected as the stalest item in the 36-item
+      pool (last dedicated commit 2026-09-02T01:13:24+01:00, older than any
+      other item once the search was corrected to match only "item <N>"
+      subjects rather than any bare mention of the number, which had
+      produced a false tie with 4.8 from an incidental name-drop inside the
+      4.10 pass's own commit message).
+      NEW ANGLE. OUTCOME_PROMISE (added item 4.7 sixth pass, 2026-08-29) had
+      only ever been proved by mutation against gbp-packs/mccanns-
+      sandringham.md, the pack the rule was written against. Riddings
+      Timperley carries its own travelClinic widget and its own Post D is a
+      travel clinic post, so the rule is directly relevant here, but none of
+      this item's eight prior passes had tested it against this pack's own
+      copy. Three injections run against a full scratch copy of the repo
+      (C:\Dev\rbh-scratch-449, not the tracked file), sha256-restored after
+      each: "We guarantee full protection for every destination." in Post D
+      - FAILED (guarantee wording); "Wondering if a travel vaccine will
+      fully protect you before you fly?" in Post D - PASSED, confirming the
+      question exemption holds on this pack's own copy and not only on the
+      pack the rule was written against; "The right vaccine will protect
+      you for years to come." in Post D - FAILED (declarative "will protect
+      you"). All three behaved exactly as designed. Tracked file confirmed
+      byte-identical throughout by sha256 and git status. Documentation
+      comment added above the OUTCOME_PROMISE block in
+      tools/check-gbp-packs.js recording the proof; no rule logic changed.
+      No in-repo defect found.
+      LIVE HALF NOT performed: Claude in Chrome not connected this run: all
+      live-side findings still rest on the seventh pass's 2026-09-01 check
+      (Post B 404, pre-Phase-3 switch page paste at the old permalink,
+      branch-specific Pharmacy First page live and correct, weight-loss-
+      clinic-timperley.html's Regime 1 breach per compliance/
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, all unchanged). Answer pickup
+      also unavailable for the same reason. No autonomous window active. No
+      new question raised: this is a re-verification of documented checker
+      behaviour against a specific pack's own copy, not a live-facing or
+      patient-facing decision. Evidence: audits/riddings-timperley-outcome-
+      promise-reproof-4.13-ninth-2026-09-03.txt. Done 2026-09-03.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

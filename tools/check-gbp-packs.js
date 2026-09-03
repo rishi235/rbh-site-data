@@ -1543,6 +1543,19 @@ for (const file of packFiles) {
   // shared with RULE 12 via tools/outcome-promise-patterns.js so the two
   // cannot drift, and the question exemption is RULE 12's own: a question is
   // not a promise.
+  //
+  // Re-proved on the item 4.13 ninth quality pass, 2026-09-03, against
+  // gbp-packs/riddings-timperley.md's own Post D specifically (the only prior
+  // proof was against mccanns-sandringham.md, on the pass that first wrote
+  // this rule). Three injections into Post D, each reverted by sha256-checked
+  // restore, run against a full scratch copy of the repo rather than the
+  // tracked file: "We guarantee full protection for every destination."
+  // (guarantee wording) FAILED; "The right vaccine will protect you for
+  // years to come." (declarative "will protect you") FAILED; "Wondering if
+  // a travel vaccine will fully protect you before you fly?" (a genuine
+  // question ending "?") PASSED, confirming the question exemption holds on
+  // this pack's own copy and not only on the pack the rule was written
+  // against. No defect found; the rule already covered this pack correctly.
   {
     const packLines = text.split(/\r?\n/);
     for (const [re, reason] of OUTCOME_PROMISE) {
