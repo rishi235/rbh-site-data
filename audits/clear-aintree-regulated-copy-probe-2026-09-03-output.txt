@@ -1,0 +1,16 @@
+﻿=== Weight loss page: modules/service/pages/weight-loss-clinic-clear-aintree.html ===
+check-weight-loss-copy.js baseline: clean
+  CAUGHT  RULE 4 private-marks: drop the unique paid-private sentence
+  CAUGHT  RULE 8 medicine name: insert Mounjaro
+  CAUGHT  RULE 9 efficacy claim: insert real results
+
+=== Travel clinic page: modules/service/pages/travel-clinic-clear-aintree.html ===
+check-travel-clinic-copy.js baseline: clean
+  CAUGHT  RULE private (hero): drop the unique private-paid-service sentence
+  CAUGHT  RULE stock: insert always in stock
+  CAUGHT  RULE medicine (rule 8): insert Typhim
+  CAUGHT  RULE outcome (rule 12): insert will protect you
+
+7 caught, 0 missed.
+modules/service/pages/weight-loss-clinic-clear-aintree.html restored clean (sha256-verified).
+modules/service/pages/travel-clinic-clear-aintree.html restored clean (sha256-verified).

@@ -4065,6 +4065,87 @@ Done 2026-09-03 (ninth pass).
       Nothing edited under tools/, modules/, core/ or branches.json; the
       only repo changes this pass are three new audit output files and
       this log entry.
+      Quality pass 2026-09-03 (seventh), unattended scheduled run, Windows
+      PowerShell path throughout for git and generator/checker work (the
+      Cowork sandboxed mount was used only for orientation: lock creation,
+      reading QUESTIONS.json and AGENT_LOG.md, and confirming remote state
+      via origin-https, since origin over SSH fails "Host key verification
+      failed" from that mount, the standing Q87 diagnosis). All 8 unblocked
+      worklist items were [BLOCKED] (confirmed by direct grep), so this was
+      the fallback quality pass, picked by the standing rotation-pool
+      method: git log commit subjects matched against each of the 36
+      rotation-pool item numbers (43 checked items minus the standing
+      out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), oldest
+      most-recent-mention wins. 3.13 was oldest, last touched
+      2026-09-02T17:07:43+01:00, ahead of 6.2 (17:38:31) and 3.4 (18:10:44),
+      confirming the sixth pass's own forward note.
+      REPO HALF: all 36 checkers ran individually. One transient failure on
+      the first run, in the run's own working file rather than the repo:
+      check-postcodes.js failed against a scratch git-log dump this run
+      wrote to _agentscratch/ while deriving the stalest item, which quoted
+      historical commit subjects containing five narrative postcodes,
+      including the McCanns Sandringham correction postcode CLAUDE.md
+      already documents (CH49 1SX). Same shape as the identical finding on
+      the sixth pass one day earlier. Deleted (untracked, never committed);
+      check-postcodes.js re-ran clean, 0 failures, 3 warnings, none new. Not
+      a repo defect. All six generators rebuilt; git status --porcelain on
+      modules/, core/, tools/, branches.json, gbp-packs/ empty both before
+      and after, byte-identical output confirmed. The proven independent
+      instrument (audits/clear-aintree-independent-2026-08-14.js, unchanged,
+      importing nothing from tools/) re-ran clean: 298 checks across the
+      three pages, 0 failures. The nine-fault vacuity probe
+      (audits/clear-aintree-vacuity-probe-2026-09-01.js) re-ran against the
+      switch page: 9 caught, 0 missed, restored clean and byte-verified.
+      FRESH ANGLE (the actual finding of this pass). Across six prior
+      passes, every injection test against this item targeted the switch
+      page (switch-prescriptions-clear-aintree.html) with generic NAP and
+      structural faults. check-weight-loss-copy.js and
+      check-travel-clinic-copy.js - the two regulated-copy checkers holding
+      the eligibility, no-guarantee, no-medicine-name and no-outcome-promise
+      wording - had never been proven by direct injection against this
+      branch's own weight-loss-clinic-clear-aintree.html or
+      travel-clinic-clear-aintree.html in this item's seven-pass history.
+      Both checkers read all 15 pages estate-wide, so Clear's two pages were
+      passing by construction, not by anything this item had tested
+      directly. New instrument written for this pass,
+      audits/clear-aintree-regulated-copy-probe-2026-09-03.js, restoring by
+      fs.writeFileSync byte copy rather than git (the same fix the fifth
+      pass had to apply by hand after a sandboxed-mount index.lock crashed
+      an earlier probe mid-run), sha256-verified after every restore and
+      again at the end. Seven injections, one at a time: on the weight loss
+      page, dropping the unique "This is a paid private service, not an NHS
+      treatment" sentence (RULE 4, private-marks), inserting "Mounjaro"
+      (RULE 8, medicine name) and inserting "real results" (RULE 9, efficacy
+      claim); on the travel clinic page, dropping the unique hero sentence
+      naming it "a private, paid service" (RULE private), inserting "always
+      in stock" (RULE stock), inserting the travel vaccine brand "Typhim"
+      (RULE medicine) and inserting "will protect you completely" (RULE
+      outcome, promised protection). All seven caught first attempt, both
+      files restored clean and sha256-verified byte-identical to their
+      pre-probe hashes throughout. Output saved to
+      audits/clear-aintree-regulated-copy-probe-2026-09-03-output.txt.
+      GBP PACK re-checked (gbp-packs/clear-aintree.md): the one WARN
+      check-gbp-packs.js raises is unchanged and confirmed still narrative,
+      the pack's own dated note recording the Q28 phone change from 0151 203
+      8365 to 6535, not a paste value.
+      LIVE HALF: not read this pass. Claude in Chrome confirmed not
+      connected, checked at this run's own step 3 answer pickup and again
+      before this quality pass's live half; not retried by another route
+      and no login attempted, per procedure.
+      RESULT. No in-repo defect found. check-weight-loss-copy.js and
+      check-travel-clinic-copy.js were already correctly protecting Clear
+      Chemist Aintree's regulated pages on every rule tested; now proven
+      directly by injection against this branch specifically for the first
+      time. Q65 (the pages' walk-in wording against the branch's own
+      no-physical-branch-resource record) remains open and was correctly
+      not touched: a live patient-facing regulatory claim, carved out of
+      autonomous decisions regardless of window state, and no autonomous
+      window was open this run (no "Standing authorisation" heading present
+      at the top of AGENT_LOG.md at the start of the run). Q28 and Q29
+      re-read from QUESTIONS.json: both still "answered", unchanged. Nothing
+      edited under tools/, modules/, core/, branches.json or gbp-packs/; the
+      only repo changes this pass are the new probe instrument, its output
+      file and this log entry.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
