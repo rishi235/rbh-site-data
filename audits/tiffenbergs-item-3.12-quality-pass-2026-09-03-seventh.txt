@@ -1,0 +1,145 @@
+Item 3.12 quality pass (seventh), 2026-09-03
+Tiffenbergs Chemist (Longmoor Lane, Aintree) - tools/check-gbp-packs.js hours-rule
+family proven by injection against this branch's own GBP pack for the first time.
+
+CONTEXT
+Six prior 3.12 passes (2026-08-04 through 2026-09-02, sixth pass) proved the repo
+half by fault injection into Tiffenbergs' own generated SERVICE pages (phone,
+postcode, hard-coded widget id, em dash) and read all 12 live pages at least once.
+None of the six had injected a fault into gbp-packs/tiffenbergs-aintree.md itself.
+Tiffenbergs is one of the seven lunch-closure branches CLAUDE.md and
+check-opening-hours.js's own header both flag as the highest-risk case for GBP
+hours (a wrong or dropped second time range publishes the pharmacy open through
+the hour it is shut). check-opening-hours.js does not reach Tiffenbergs at all -
+it only reads modules/branch/pages, and Tiffenbergs has no branch landing page -
+so gbp-packs/tiffenbergs-aintree.md and tools/check-gbp-packs.js's hours rules are
+the only guard this branch's published hours actually has. That made the pack's
+hours rules the fresh, high-value angle for this pass.
+
+BASELINE
+All 36 tools/check-*.js run individually before any change: 0 failures. All six
+generators (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt first; sha256 of every file under modules/ and
+core/ (216 files) unchanged before and after. git status --porcelain on modules/,
+core/, tools/, branches.json, gbp-packs/, status/ empty throughout.
+
+METHOD
+gbp-packs/tiffenbergs-aintree.md backed up by byte copy (sha256
+59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) before any
+mutation. Each injection below was applied to the real file, checked with
+`node tools/check-gbp-packs.js`, then the file was restored from the byte-copy
+backup and sha256-reconfirmed identical to the pre-injection state before the
+next injection. No injection was layered on the previous one.
+
+INJECTIONS AGAINST THE UNFIXED CHECKER
+
+1. Clock-time rule (the "- Hours:" line, both directions). Changed the Hours
+   line's "9:00am" to "9:15am" only. CAUGHT: three failures at once (own time
+   not in data, data's 09:00 missing from pack, and the time-to-day pairing
+   rule's Monday-through-Friday mismatch). Restored, sha256 confirmed.
+
+2. Day-open/day-closed set rule. Changed the Hours line's "Monday to Friday" to
+   "Monday to Saturday", times unchanged. CAUGHT: "the hours line states the
+   branch is open on Saturday, but branches.json opens it only on Monday,
+   Tuesday, Wednesday, Thursday, Friday." Restored, sha256 confirmed.
+
+3. Time-to-day pairing rule. Inverted the lunch break in the Hours line only,
+   "9:00am to 1:00pm and 2:00pm to 6:00pm" to "9:00am to 2:00pm and 1:00pm to
+   6:00pm" - the identical four times, the identical five days, wrong pairing.
+   CAUGHT, and only by the pairing rule as designed: five failures, one per
+   weekday, each reading "the hours line publishes [Day] as 09:00 to 14:00 and
+   13:00 to 18:00, but branches.json holds [Day] as 09:00 to 13:00 and 14:00 to
+   18:00." The clock-time and day-set rules correctly stayed silent, confirming
+   they are set comparisons only, exactly as this rule's own header states.
+   Restored, sha256 confirmed.
+
+4. "An hours statement ANYWHERE in the pack" rule. Changed the business
+   description's "Open Monday to Friday, closed 1pm to 2pm for lunch." to
+   "...closed 1pm to 3pm for lunch." - a genuine hour-longer closure claim,
+   outside the guarded Hours line, in public copy pasted verbatim into the
+   profile. MISSED. Full suite exit 0, zero failures or warnings naming
+   Tiffenbergs. Restored, sha256 confirmed.
+
+5. Split-day paster-instruction rule. Replaced "GBP hours need two time ranges
+   per weekday (9:00am to 1:00pm and 2:00pm to 6:00pm) to show the lunch
+   closure." with "Hours set correctly on the profile." (removing the only
+   sentence that tells the paster to enter two ranges). CAUGHT: "this branch
+   closes for lunch (Monday appears twice in openingHours), so the pack must
+   tell the paster the profile needs two time ranges for that day rather than
+   one." Restored, sha256 confirmed.
+
+FINDING (injection 4)
+The "anywhere in the pack" rule splits each sentence into comma/semicolon/
+colon-bounded segments and, per segment, requires BOTH a day word and an hours
+or closure claim to be present before it will test anything - a segment with a
+closure claim and no day word of its own is silently skipped. Tiffenbergs' own
+business description states its lunch closure in exactly that shape: the day
+clause ("Open Monday to Friday") and the closure clause ("closed 1pm to 2pm for
+lunch") sit in two different comma-separated segments of the same sentence, so
+the closure segment carries no day word and the rule never reaches it. This is
+not unique to Tiffenbergs: grepping every gbp-packs/*.md for "lunch" found the
+identical construction, word for word ("Open Monday to Friday, closed 1pm to
+2pm for lunch."), in coleman-leigh-walton.md and smartts-bootle.md. Both branches
+were confirmed via branches.json to be genuine split-day (lunch-closure)
+branches with a 13:00-14:00 gap on Monday to Friday, and both packs currently
+state that gap correctly - re-read directly, not assumed - so this closes a
+latent hole across three packs rather than a live breach on any of them.
+Gordon Short Crosby's pack states the same fact with no comma between the day
+clause and the closure clause ("The pharmacy closes for lunch 1:00pm to 2:00pm
+Monday to Saturday"), which is why the item 4.14 pass that built this rule never
+tripped over the gap: the sentence shape it was proved against does not have it.
+
+FIX
+tools/check-gbp-packs.js, the "an hours statement ANYWHERE in the pack" rule
+(the segment loop under the "outside the guarded hours line" comment block).
+Added a sentence-scoped carryDays variable: a segment that names no day of its
+own now inherits the day set from the most recent segment in the SAME sentence
+that did name one, rather than being skipped for want of a day word. carryDays
+is reset for every sentence and is only ever set from a segment's own days,
+never from an inherited value, so it cannot chain a day claim across a sentence
+boundary or manufacture a day nobody stated. Comment added in place explaining
+the defect, the fix, and the two other affected packs, in the file's existing
+narrative style.
+
+VERIFICATION
+Re-ran injection 4 against the fixed checker (same mutation, same byte-copy
+restore-and-hash discipline): CAUGHT, five failures, one per weekday, each
+reading "outside the guarded hours line, this pack states a [Day] closure of
+13:00 to 15:00, but branches.json leaves [Day] closed 13:00 to 14:00." Restored,
+sha256 confirmed identical to the original
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) after
+restoration. Full 36-checker suite re-run on the real, unmodified repo after the
+fix: 0 failures, identical warning set to the baseline (same 17 estate-wide
+human-judgement warnings, none newly naming Tiffenbergs, coleman-leigh-walton.md
+or smartts-bootle.md), confirming the fix does not create a false positive on
+either of the two other packs carrying the same sentence shape. All six
+generators rebuilt again after the fix: sha256 of every file under modules/ and
+core/ unchanged from the pre-pass baseline (216 files), byte-identical - this
+was a checker-only fix, no page, pack, generator or branches.json entry changed.
+git status --porcelain on modules/, core/, branches.json, gbp-packs/, status/
+empty at the end; only tools/check-gbp-packs.js carries a diff.
+
+RESULT
+Real, previously latent defect found and fixed in tools/check-gbp-packs.js: its
+"anywhere in the pack" hours rule could not see a closure claim split from its
+governing day clause by a comma, the exact shape of Tiffenbergs', Coleman and
+Leighs' and Smartts Bootle's own business-description sentences. All three packs
+were correct on the current tree (confirmed by direct read against
+branches.json, not assumed), so this closes a latent hole rather than a live
+breach. No other checker logic changed; no page, pack, generator or
+branches.json entry changed.
+
+LIVE HALF
+Not attempted this pass - Claude in Chrome confirmed not connected at answer
+pickup (mcp__claude-in-chrome__navigate to
+https://data.rbhealth.co.uk/api/feedback returned "the hidden tabs_context_mcp
+lookup did not respond"; a direct follow-up tabs_context_mcp call confirmed the
+extension not connected). The sixth pass (2026-09-02) already brought Tiffenbergs
+to 12-of-12 live page coverage the same day; re-reading it again without new
+information was not repeated this pass. Q56 (branches.json's singular
+Tiffenberg@ against the live plural tiffenbergs@) stands as last confirmed by
+the fifth/sixth passes, not re-verified this pass.
+
+No new question raised. This is a checker widening on data already known
+correct, not a live-facing or patient-facing decision.

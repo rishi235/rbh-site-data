@@ -2758,13 +2758,36 @@ for (const file of packFiles) {
         else buf += ch;
       }
       segs.push(buf);
+      // A day clause and its closure clause are frequently two segments, not
+      // one, because the estate's own house phrasing puts a comma between
+      // them: "Open Monday to Friday, closed 1pm to 2pm for lunch." carries
+      // the day words in the first segment and the closure words in the
+      // second, with none in the second itself. Reading each segment in
+      // isolation therefore finds no day to test the closure segment
+      // against and silently skips it - found on the item 3.12 quality pass
+      // (seventh), 2026-09-03, by injection into tiffenbergs-aintree.md's own
+      // business description, the exact sentence this rule exists to police.
+      // Corrupting "closed 1pm to 2pm for lunch" to "closed 1pm to 3pm for
+      // lunch" passed all 36 checkers, including this one. The same sentence
+      // shape, verbatim, is also in coleman-leigh-walton.md and
+      // smartts-bootle.md; both were re-read and both are currently correct,
+      // so this closes a latent hole rather than a live breach. carryDays
+      // remembers the last segment in THIS sentence that named its own days,
+      // so a following segment with no day words of its own is tested
+      // against that day set rather than skipped. It is sentence-scoped
+      // (reset for every sentence) and only ever set from a segment's own
+      // days, never from a carried value, so it cannot chain a day claim
+      // across a sentence boundary or invent a day nobody stated.
+      let carryDays = [];
       for (const seg of segs) {
         const days = [];
         for (const m of expandDays2(seg).matchAll(new RegExp(DAY_SRC, "gi"))) {
           const i = dayIndexOf(m[1]);
           if (i >= 0 && !days.includes(DAY_NAMES[i])) days.push(DAY_NAMES[i]);
         }
-        const openDays = days.filter((d) => (dRanges[d] || []).length);
+        const daysForSeg = days.length ? days : carryDays;
+        if (days.length) carryDays = days;
+        const openDays = daysForSeg.filter((d) => (dRanges[d] || []).length);
         if (!openDays.length) continue;
         const where = norm(seg).trim().slice(0, 110);
         if (/\bclos(?:ed|es|ure|ing)\b|\blunch\b/i.test(seg)) {

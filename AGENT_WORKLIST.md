@@ -4075,6 +4075,70 @@ Done 2026-09-03 (ninth pass).
       than duplicating it, since it was written and proved the same day;
       injection transcript is this run's own PowerShell session, not
       separately filed. Done 2026-09-02 (sixth pass)
+      Quality pass 2026-09-03, SEVENTH PASS, FRESH ANGLE: tools/check-gbp-
+      packs.js's hours-rule family proven by injection against Tiffenbergs'
+      own GBP pack for the first time (six prior passes injected into the
+      service pages but never into gbp-packs/tiffenbergs-aintree.md itself).
+      Tiffenbergs is one of the seven lunch-closure branches and has no
+      branch landing page, so check-opening-hours.js never reaches it - the
+      pack and check-gbp-packs.js are the only guard on this branch's
+      published hours. Baseline: all 36 checkers 0 failures, all six
+      generators rebuilt first, 216 files under modules/ and core/ sha256-
+      unchanged. Pack backed up by byte copy before mutation, baseline
+      SHA256 59D288C1C32920C05BC9B12479EC2BC8970FFA5639977CCEE10EC9BE9046811B,
+      restored and sha256-reconfirmed identical after every injection.
+      Five injections against the unfixed checker: (1) Hours line time
+      9:00am->9:15am - CAUGHT, three rules at once; (2) Hours line day
+      Monday-Friday->Monday-Saturday - CAUGHT by the day-set rule; (3) Hours
+      line lunch break inverted (9-1/2-6 -> 9-2/1-6, same times, same days) -
+      CAUGHT, and only by the time-to-day pairing rule as designed; (4)
+      business description's "closed 1pm to 2pm for lunch" -> "closed 1pm to
+      3pm for lunch", outside the guarded Hours line - MISSED, full suite
+      exit 0; (5) removed the paster instruction to enter two GBP time ranges
+      - CAUGHT by the split-day rule.
+      FINDING (injection 4). The "anywhere in the pack" hours rule splits
+      each sentence on commas and requires a day word and an hours/closure
+      claim in the SAME segment. Tiffenbergs' own business description states
+      them in two different comma-separated segments ("Open Monday to
+      Friday, closed 1pm to 2pm for lunch."), so the closure segment carries
+      no day word and is silently skipped. Identical wording, word for word,
+      also found in coleman-leigh-walton.md and smartts-bootle.md by grep;
+      both confirmed genuine split-day branches with a 13:00-14:00 gap, both
+      currently correct on re-read, so this is a latent hole across three
+      packs, not a live breach on any of them. Gordon Short Crosby's pack
+      states the same fact with no comma ("closes for lunch 1:00pm to
+      2:00pm Monday to Saturday"), which is why the item 4.14 pass that
+      built this rule never hit the gap - the sentence shape it was proved
+      against does not have it.
+      FIX. tools/check-gbp-packs.js: added a sentence-scoped carryDays
+      variable to the segment loop - a segment with no day word of its own
+      now inherits the day set from the most recent segment in the SAME
+      sentence that named one, instead of being skipped. Reset every
+      sentence, only ever set from a segment's own days, so it cannot chain
+      a day claim across a sentence boundary or invent one nobody stated.
+      VERIFICATION. Re-ran injection 4 against the fixed checker: CAUGHT,
+      five failures (one per weekday), each reading "outside the guarded
+      hours line, this pack states a [Day] closure of 13:00 to 15:00, but
+      branches.json leaves [Day] closed 13:00 to 14:00." Restored, sha256
+      confirmed. Full 36-checker suite re-run on the real repo: 0 failures,
+      identical warning set to baseline (17 estate-wide warnings, none newly
+      naming Tiffenbergs, Coleman and Leighs or Smartts Bootle) - the fix
+      creates no false positive on the two other packs sharing the sentence
+      shape. All six generators rebuilt again: 216 files under modules/ and
+      core/ sha256-unchanged, byte-identical - checker-only fix, no page,
+      pack, generator or branches.json entry touched.
+      RESULT. Real, previously latent defect fixed: the "anywhere in the
+      pack" hours rule could not see a closure claim comma-split from its
+      day clause, the exact shape of three packs' own business descriptions.
+      All three correct on the current tree. No live breach.
+      LIVE HALF not attempted: Claude in Chrome confirmed not connected at
+      answer pickup and again for this item; the sixth pass already brought
+      Tiffenbergs to 12-of-12 live coverage the same day, so nothing new to
+      gain by re-reading it unread. Q56 stands as last confirmed by the
+      fifth/sixth passes. No new question raised - checker widening on data
+      already known correct, not a live-facing decision.
+      Evidence: audits/tiffenbergs-item-3.12-quality-pass-2026-09-03-
+      seventh.txt. Done 2026-09-03 (seventh pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
