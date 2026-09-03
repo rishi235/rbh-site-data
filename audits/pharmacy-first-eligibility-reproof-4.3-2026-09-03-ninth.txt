@@ -1,0 +1,59 @@
+Item 4.3 quality pass (ninth), 2026-09-03
+Re-proof of check-pharmacy-first-eligibility.js rules 9, 10 and 11 against
+gbp-packs/hirshmans-ainsdale.md specifically. These three rules had each been
+proven by injection before (2026-08-12/13), but only against other packs:
+rule 9 against mccanns-sandringham.md, rule 10 against cherry-lane-walton.md,
+rule 11 against sk-chemists-bootle.md. Hirshmans enumerates all seven Pharmacy
+First conditions in Post A and states both pinned cohorts (blood pressure
+"aged 40 and over" in the business description, UTI "aged 16 to 64" in Post A),
+so all three rules are live on this pack's own text and none had been
+individually re-proven against it.
+
+Method: disposable robocopy of the whole tracked repo (excluding .git) to
+%TEMP%\audit-4.3-ninth-scratch. Baseline run of
+node tools/check-pharmacy-first-eligibility.js on the scratch copy: clean,
+exit 0 (98 condition pages, 15 GBP packs, 6 branch landing pages checked).
+Each injection made only inside the scratch copy's gbp-packs/hirshmans-ainsdale.md,
+verified against a pre-injection backup, and restored (Compare-Object showing
+no diff) before the next injection. Tracked repo at C:\Dev\rbh-site-data
+confirmed untouched throughout (git status --porcelain empty before and after
+this whole exercise).
+
+INJECTION 1 (rule 9, wrong age cohorts). "aged 40 and over" -> "aged 30 and
+over" in the business description, and "aged 16 to 64" -> "aged 16 to 65" in
+Post A. Result: FAIL x3 - "states age 30, which is not part of any NHS cohort
+this copy may state (rule 9)", "states age 16... (rule 9)" and "states age 65...
+(rule 9)". Exit 1. Restored; re-run clean, exit 0.
+
+INJECTION 2 (rule 10, enumeration list carries an eighth, non-NHS condition).
+"infected insect bites and uncomplicated" -> "infected insect bites,
+conjunctivitis and uncomplicated" in Post A's condition list (count sentence
+"seven common conditions" left untouched). Result: FAIL - "names
+'conjunctivitis' in its list of Pharmacy First conditions, which is not one of
+the 7 NHS pathways, so the profile advertises an NHS service the pharmacy
+cannot deliver (rule 10)". Exit 1. Restored; re-run clean, exit 0.
+
+INJECTION 3 (rule 11, qualifier sentence removed). Deleted " Age ranges set by
+the NHS apply to each condition." from the end of Post A, leaving the seven-
+condition enumeration and the UTI age unqualified. Result: FAIL - "lists all 7
+Pharmacy First conditions but nowhere says the NHS age ranges apply to each of
+them (rule 11)... Restore 'Age ranges set by the NHS apply to each
+condition.' to the post that carries the list". Exit 1. Restored; re-run
+clean, exit 0.
+
+All three behaved exactly as the checker's own header comments describe.
+Nothing was fixed - this pass adds proof specific to this pack, not
+correction.
+
+Note on scope: after restoring injection 3, the FULL 36-checker suite was also
+run once against the scratch copy as a sanity pass. check-cdn-pins.js failed
+there (WARN/FAIL text referencing a git baseline comparison it could not make),
+which is a scratch-environment artifact, not a real defect: the scratch copy
+was built by robocopy excluding .git, and check-cdn-pins.js's "baseline: main"
+comparison needs a real git repo to resolve against. Re-run of
+node tools/check-cdn-pins.js directly against the tracked repo (which has
+.git) exits 0, clean, with the same 3 warnings and 7 known issues as the
+pre-existing baseline earlier in this run. No defect found; recorded here so
+the discrepancy is not mistaken for a finding on a future pass.
+
+Scratch directory deleted after use.

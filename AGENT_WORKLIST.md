@@ -4395,6 +4395,48 @@ Pharmacy First wording to the NHS service description.
       stock, full eligibility hedging. No in-repo defect found, no new
       question raised. Audit:
       audits/checker-suite-4.3-2026-09-02-eighth.txt. Done 2026-09-02
+      Quality pass 2026-09-03 (ninth pass, repo and live): re-verified as
+      the stalest rotation-pool item (last touched 2026-09-02T04:13:25+01:00,
+      the earliest last-touch time of the 36-item pool once 3.1 and 6.3 were
+      re-passed earlier the same day). All facts re-checked against
+      branches.json (name, address, phone, hours with both lunch closures,
+      website, review link, three-town service area, hasApp false, all five
+      widgets) and nothing wrong. All six generators rebuilt to zero diff
+      (sha256 before/after identical across all 216 modules/core files) and
+      all 36 checkers exit 0 in the tracked repo, no new warnings beyond the
+      standing tracked ones (Q64 post-town, Q72 qualifier wording, Q44 shared
+      H1, plus the pack's own Post A HARD STOP note). New angle: three rules
+      in check-pharmacy-first-eligibility.js (9, wrong NHS age cohort; 10,
+      enumeration list naming a non-NHS condition; 11, missing qualifier
+      sentence) had each been proven by injection before but only against
+      other packs (mccanns-sandringham.md, cherry-lane-walton.md and
+      sk-chemists-bootle.md respectively), never against this pack's own
+      copy even though Hirshmans enumerates all seven conditions and states
+      both pinned cohorts. Proved all three by injection on a disposable
+      robocopy scratch copy of the whole repo: wrong ages (30, 16 to 65)
+      caught by rule 9, an added "conjunctivitis" in Post A's list caught by
+      rule 10, and the deleted qualifier sentence caught by rule 11 - all
+      three FAIL as documented, restored and re-run clean each time. Tracked
+      repo confirmed untouched throughout. See
+      audits/pharmacy-first-eligibility-reproof-4.3-2026-09-03-ninth.txt.
+      Note: a full 36-checker sanity run against the same scratch copy showed
+      check-cdn-pins.js failing there only because the scratch copy has no
+      .git for its main-branch comparison to resolve against; the tracked
+      repo's own check-cdn-pins.js run (before and after) exits 0 clean with
+      the same standing warnings, so this is a scratch-environment artifact,
+      not a finding. Live half, read-only via HTTP GET (Claude in Chrome not
+      connected this run): all four post targets returned 200. Post A
+      (pharmacy-first-service-ainsdale.html, the HARD STOP page) still
+      carries the wrong address, the non-dialling phone 017014577376 and the
+      old "Hirshmans Pharmacy" branding - unchanged, still item 5.3/Q8/Q34,
+      not a new finding. Post B (switch-prescriptions-hirshmans-ainsdale.html)
+      still renders the pre-Q7 em dash as mojibake (a three-byte replacement
+      sequence in place of the intended em dash, in "it usually is not
+      [mojibake] we make the first step quick and easy"), the same
+      live-paste-lag family as Cherry Lane and Coleman and Leighs, unchanged.
+      Post C and Post D targets both returned 200 (not re-read in full text
+      this pass; last confirmed clean on the seventh and eighth passes). No
+      in-repo defect found, no new question raised. Done 2026-09-03
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
