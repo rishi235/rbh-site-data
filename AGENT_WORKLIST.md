@@ -3399,6 +3399,89 @@ Done 2026-09-03 (ninth pass).
       debris from this run. Evidence in
       audits/verify-3.10-2026-09-02-eighth.js and audits/verify-3.10-2026-
       09-02-eighth-output.txt. No new question raised. Done 2026-09-02
+      Quality pass 2026-09-03 (ninth pass, unattended scheduled run via
+      Cowork). Selected as stalest of the 36-item rotation pool (last
+      mentioned 2026-09-02T19:40:46+01:00; item 3.9's ninth pass immediately
+      before this run was most recent at 2026-09-03T14:12:16+01:00), derived
+      by the same block-bounded git-log method as the immediately preceding
+      run and cross-checked against its forward note (exact match: 3.10, then
+      2.1, 5.2, 4.11, 5.1, 3.12, 3.6, 3.8). All 8 unchecked AGENT_WORKLIST.md
+      lines confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+      applied. REPO HALF ONLY: mcp__claude-in-chrome__tabs_context_mcp
+      reported the extension not connected at both step 3 and again
+      independently before the live half; the built-in Claude Browser was
+      also tried (preview_start to riddingspharmacy.co.uk) and denied, the
+      same "no user present to approve a new site" outcome recorded on the
+      3.4 tenth pass a day earlier. Nothing live read this pass; the live
+      findings on record from the fourth through eighth passes (switch banner
+      mojibake close button, Q31-era Cheshire county string, Q22 estate-wide
+      weight loss tagline, pre-repaste pfLink legacy copy) stand unverified
+      for a further pass. FRESH ANGLE. check-opening-hours.js was considered
+      first and ruled out after research: Riddings has no generated branch
+      landing page at all, so that checker's three page-reading rules and its
+      stray-clock-time sweep never run against this branch, and its four
+      remaining data-integrity rules read branches.json directly rather than
+      any Riddings page, so no injection into a Riddings file could exercise
+      them either way - the same "vacuous for this branch specifically" shape
+      the sixth pass already found and named for a different checker.
+      Redirected to tools/check-booking-routes.js instead: the booking chain
+      (branches.json -> filename -> service.js's two tables -> Appointedd
+      widget id -> data-branch/data-service labelling) had been read for this
+      branch across all eight prior passes but never proved by injection
+      against Riddings' own pages specifically, only by the estate-wide
+      177-page sweep. New instrument written fresh
+      (audits/verify-3.10-2026-09-03-ninth.js, no import from tools/ beyond
+      invoking the real checker as a child process): refuses to run if any
+      target file already carries a git diff, restores every mutation by
+      direct fs.writeFileSync immediately after capturing the checker
+      subprocess's output and before any assertion runs, sha256-verified
+      byte-identical before the next injection and again at the end. PART 1:
+      independent re-derivation of all 11 Riddings service-page booking
+      routes straight from branches.json and service.js's SERVICE_WIDGET_KEYS
+      / NO_FALLBACK_SERVICE_KEYS tables (read as data, not imported) - 60
+      checks, 0 failures. PART 2: five injections against Riddings' own
+      files, each restored and hash-verified before the next: (1) shingles
+      page's data-branch swapped for a real, different live branch's name
+      (Smartts Chemist) - CAUGHT, "filed against the wrong pharmacy"; (2)
+      earache page's data-branch attribute removed outright - CAUGHT, "no
+      data-branch on #rbhsv-root"; (3) sore-throat page's data-service
+      removed - CAUGHT, "no data-service on #rbhsv-root"; (4) contraception
+      page's data-service wording changed to diverge from every sister
+      branch's contraception page - CAUGHT, "described 2 different ways in
+      data-service"; (5) branches.json's own riddings_timperley.widgets.
+      contraception blanked to "" (contraception is a NO_FALLBACK service, so
+      this must fail rather than silently falling back to the Pharmacy First
+      diary) - CAUGHT, "needs widgets.contraception ... and there is none
+      (this service must not fall back)". All five caught on the first
+      attempt with the expected message; every target file confirmed
+      byte-identical to its pre-injection sha256 hash after its own injection
+      and again at the end; git status --porcelain on branches.json and
+      modules/ empty throughout. ONE SELF-CAUGHT PROCESS CORRECTION recorded
+      in the script's own header: the first draft asserted each catch by
+      testing the checker's stdout against its internal rule tag (e.g.
+      /branchattr/), but check-booking-routes.js's fail() never prints the
+      tag to the console, only the message - so the first draft reported all
+      four page-level injections as MISSED despite the real checker having
+      caught every one correctly. Fixed by asserting against the actual
+      printed message text; all five then passed. Full 36-checker suite
+      re-run clean after the round (36/36 exit 0), all six generators re-run
+      and rebuilt byte-identical (git status --porcelain on modules/ and
+      core/ empty before and after). RESULT. No defect on item 3.10 itself -
+      tools/check-booking-routes.js was already correctly holding Riddings'
+      own pages and its branches.json widget data to the BRANCHATTR,
+      SERVICEATTR and WIDGET rules; now proven directly by injection for the
+      first time in this item's nine-pass history, alongside a documented
+      structural finding (not a defect) that check-opening-hours.js has no
+      page to check for this specific branch. No checker logic, page,
+      generator or data field changed anywhere in the repo. Evidence in
+      audits/verify-3.10-2026-09-03-ninth.js. No new question raised.
+      Next stalest by the same block-bounded method, for whoever runs the
+      next unattended pass: with 3.10 now freshly touched today (2026-09-03),
+      the next-oldest untouched item in the standing rotation pool at the
+      time of this run's derivation was 2.1 (2026-09-02T20:10:56+01:00), then
+      5.2, 4.11, 5.1, 3.12, 3.6, 3.8, 6.3 - but should be re-derived fresh
+      rather than assumed, since other runs may land in between. Done
+      2026-09-03
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
