@@ -5341,6 +5341,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       item's defect to fix. No in-repo defect found this pass. No new
       question; open question count unchanged at 38 (of 91 total).
       Evidence: audits/mccanns-sandringham-gbp-pack-quality-pass-2026-09-02.txt.
+      Quality pass 2026-09-03 (tenth): re-derived the rotation pick per the
+      established block-bounded method; 2.3 and 3.3 were both completed
+      earlier the same morning (06:34 and 07:12 BST), leaving 4.7 the stalest
+      in the pool at 2026-09-02T10:12:37+01:00, confirming the ninth pass's
+      own forward note. Every fact re-checked against branches.json: address
+      1b Aigburth Road / L17 4JP, phone 0151 727 3076, review link, both
+      weekday hours sessions with the split-day paster note, hasApp false,
+      catchment leading with St Michael's in all three places. Counts
+      re-measured independently via check-gbp-packs.js --verbose rather
+      than trusted: description 713, posts 463/298/518/425, all exact and
+      unchanged from every prior pass. All six generators rebuilt to a
+      zero-diff worktree; all 36 checkers exit 0.
+      Three fresh injections proved rules never before proven against this
+      specific pack, each on the live file, MD5-confirmed byte-identical to
+      the pre-injection baseline after restore: (1) "Vaccination centre"
+      changed to "Vaccination center" - caught by check-uk-spelling.js
+      ("reads \"center\". UK English is \"centre\""); (2) the pack's own
+      heading changed from "McCanns Chemist Sandringham" to "McCann's
+      Chemist Sandringham" - caught by check-brand-spelling.js ("the
+      trading name is \"McCanns Chemist\""); (3) the Post C button target
+      changed from https to http - caught by check-url-scheme.js as an
+      insecure published surface (cross-referenced to item 6.6). All three
+      restored and the full 36-checker suite re-run clean. These three
+      checkers had been proven against other packs and pages in earlier
+      items but never by direct injection against this pack, which the
+      eight prior passes' logged injections (address/postcode/review-link
+      identity, NHS eligibility cohort, catchment order/membership, outcome
+      promise, POM-class allusion, pricing, discount, buy-now CTA, body
+      image) had not covered.
+      Live half performed via read-only HTTPS HEAD requests (Claude in
+      Chrome not connected this run; PowerShell Invoke-WebRequest used as
+      the established fallback). All four findings reconfirmed unchanged
+      from the ninth pass: pharmacy-mccanns-sandringham.html still 404 and
+      absent from the sitemap (Q35); the four post-target pages (Pharmacy
+      First, switch, weight loss, travel clinic) all 200 and present in the
+      sitemap; sitemap lastmod unchanged at 2026-08-14T23:05:25Z throughout,
+      confirming no republish since the ninth pass's own reading. No
+      in-repo defect found this pass. No new question; open question count
+      unchanged at 41 (of 94 total).
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

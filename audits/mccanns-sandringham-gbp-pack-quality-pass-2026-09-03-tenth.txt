@@ -1,0 +1,33 @@
+McCanns Chemist Sandringham GBP pack - tenth quality pass - 2026-09-03
+
+Baseline: 36/36 checkers exit 0. Six generators rebuilt to zero diff.
+
+Fact check against branches.json (mccanns_sandringham): address 1b Aigburth
+Road, Liverpool L17 4JP; phone 0151 727 3076; review link
+https://g.page/r/CbMDr1qOLqnrEAE/review; hasApp false; catchment
+St Michael's, Aigburth, Lark Lane, Dingle; hours both weekday sessions
+09:00-13:00 and 14:00-18:00, closed Saturday and Sunday. All match the pack.
+
+Three fresh injections (backup by full-file byte copy, restored and
+MD5-confirmed identical afterwards):
+1. Vaccination centre -> Vaccination center: check-uk-spelling.js FAIL
+   (reads center, UK English is centre).
+2. McCanns Chemist Sandringham -> McCann's Chemist Sandringham: check-brand-spelling.js
+   FAIL (trading name is McCanns Chemist).
+3. Post C button https -> http: check-url-scheme.js FAIL (insecure published
+   surface, cross-referenced to item 6.6).
+
+Post-restore: git diff on gbp-packs/mccanns-sandringham.md empty; full
+36-checker suite re-run, 0 failures.
+
+Live half (read-only HTTPS HEAD, PowerShell Invoke-WebRequest; Claude in
+Chrome not connected this run):
+pharmacy-first-mccanns-sandringham.html 200
+switch-prescriptions-mccanns-sandringham.html 200
+weight-loss-clinic-mccanns-sandringham.html 200
+travel-clinic-mccanns-sandringham.html 200
+pharmacy-mccanns-sandringham.html 404 (Q35, unchanged)
+sitemap.xml 200, lastmod for all Sandringham URLs 2026-08-14T23:05:25+00:00,
+unchanged from prior passes; landing page absent from sitemap.
+
+No in-repo defect found. No new question.
