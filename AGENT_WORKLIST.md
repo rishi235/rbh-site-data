@@ -740,6 +740,32 @@ same pattern recorded throughout 2026-08-31's entries above.
       loss page rechecked: no medicine names, no superlative claims,
       correct hedging, unchanged. No in-repo defect, no fix made. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-02-eighth.txt.
+      Ninth quality pass 2026-09-03 (unattended run). Repo half clean again:
+      six generators to a zero diff, all 36 checkers exit 0, branches.json
+      fields and the 12-page set re-verified field by field. FRESH ANGLE:
+      tools/check-switch-copy.js had never had its branch-specific rules
+      (RULE 8 town, RULE 6 time-claim, RULE 9 form/sentence agreement)
+      proved by injection against Cherry Lane's own switch page specifically
+      (confirmed by a source search for "cherry" in the checker, zero
+      matches beforehand). Three injections on
+      switch-prescriptions-cherry-lane-walton.html, each restored by byte
+      copy and SHA256-confirmed before the next: (1) trust-bar town swapped
+      Walton for Bootle - caught, 4 failures (verbatim, missing own town,
+      two cross-branch town collisions against smartts_bootle and
+      skchemists_bootle); (2) H1 seconds figure changed 30 to 45 - caught,
+      2 failures (page states two figures; estate now states two figures
+      across 15 pages); (3) mobile input marked required while step 1 still
+      calls it optional - caught, 1 failure. All three caught first
+      attempt, file restored to baseline hash each time, full 36-checker
+      suite clean after final restore. No in-repo defect, no rule or page
+      byte changed. Live half: Chrome unreachable this run (retried once),
+      fell back to HTTPS status-code check only - five pages spot-checked
+      (Pharmacy First overview, switch, weight loss, travel clinic,
+      shingles) all 200; page-content findings from the eighth pass (switch
+      SEO title pre-Phase-3, switch body mojibake em dash, Q36 footer
+      mailbox typo) not re-readable this pass and stand as last recorded.
+      No new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-03-ninth.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
