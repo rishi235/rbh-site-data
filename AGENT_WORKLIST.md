@@ -1062,6 +1062,73 @@ re-read this pass; treated as unchanged rather than re-verified, consistent
 with the eighth pass's own convention when the finding is not new. No new
 live finding, no new question raised - this is a re-verification, not a
 live-facing or patient-facing decision.
+Quality pass 2026-09-03 (tenth pass, unattended scheduled run): clean again,
+no in-repo defect. Self-test passed with no length warnings. All six
+generators reproduce all 193 files under modules/ and core/ byte-identical
+(sha256 before/after, zero diff, git status --porcelain empty throughout).
+All 36 tools/check-*.js checkers green; check-seo-pattern.js itself: 177
+pages, 0 untyped, 0 failures, the same two PINNED cross-town cases as every
+recent pass (Q71, still open).
+Nine prior passes had exercised the exact-match H1 leg, the count leg, the
+data-source leg, the PAGE_TYPES contract and the cross-town/sister-town
+legs, but none had tested the ONE difference between the two H1 regexes in
+check-seo-pattern.js itself: H1_OPEN_RE (the counting rule, line 406) reads
+<h1[^>]*>, matching any h1 including an attributed one, while the exact-match
+extraction (line 440) reads a bare <h1>(...)</h1> only. The file's own
+comment states this is deliberate ("the exact match below deliberately
+keeps its bare <h1> read, so an attributed h1 fails loudly there rather
+than being quietly accepted") but no log entry across nine passes shows it
+proved by injection - a residual claim standing on its own word, the same
+shape of gap this item has closed eight times before on other legs.
+METHOD. modules/service/pages/pharmacy-first-fishlocks-ainsdale.html backed
+up by sha256 first (14bbf91a...29ba1a). Baseline: estate-wide grep confirmed
+all 177 pages carry a bare <h1> today, zero attributed h1 elements, so the
+gap was untested rather than already live. class="hero" added to the page's
+own h1 tag only (<h1>...</h1> to <h1 class="hero">...</h1>), nothing else
+touched.
+RESULT OF INJECTION: check-seo-pattern.js exit 1, 3 failures, all on this
+one file, all by name - "h1 '(no h1)' != 'Pharmacy First at Fishlocks
+Chemist in Ainsdale'", "h1 missing seoTown 'Ainsdale'", "h1 missing service
+words (pharmacy first)". Confirms the documented behaviour rather than
+merely repeating it: the attributed h1 is not silently accepted, it fails
+loudly, exactly as the comment claims. Also confirms the two regexes stay
+independent as designed rather than one gap hiding behind the other - the
+one-h1 COUNT rule still read "177 pages carry exactly one h1" in the same
+run (H1_OPEN_RE correctly counted the attributed tag), so the failure came
+entirely from the content/exact-match leg, not from a count miss. Residual
+worth naming rather than fixing: the failure message reads "(no h1)" for a
+page that does have an h1, which is accurate to what the bare-tag regex
+found but potentially misleading to a human reading the output - a
+diagnostic-wording note, not a coverage gap, and not touched this pass since
+the checker still catches the fault correctly.
+File restored from the sha256 backup; hash reconfirmed identical
+immediately after. Full 36-checker suite re-run clean (36/36 exit 0)
+immediately after restore; all six generators rebuilt a second time, sha256
+of all 193 files under modules/ and core/ unchanged from the pre-pass
+baseline; git status --porcelain modules/ core/ tools/ branches.json
+gbp-packs/ status/ empty throughout and at the end.
+LIVE HALF: Claude in Chrome reported not connected at answer pickup (step
+3), consistent with the standing Q59 cause; not retried by another route
+for the pickup itself, no login attempted. For the live read, fell back to
+the established read-only plain HTTP GET route (curl, GET only, -L to
+follow the http-to-https redirect, no interaction): network egress
+confirmed working first (google.com 200), then
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html read via a
+301 to www.fishlockpharmacy.co.uk, final response HTTP 200, title "Pharmacy
+First at Fishlocks Chemist, Ainsdale" and H1 "Pharmacy First at Fishlocks
+Chemist in Ainsdale", both the pattern verbatim - unchanged from every
+prior pass's live sample, and specifically confirms today's live page still
+carries a bare (unattributed) h1, consistent with the injection finding
+above being a closed gap rather than a live one. The Q71/mccannspharmacy.co.uk
+404 finding was not re-read this pass, treated as unchanged per the eighth
+pass's own convention. No new live finding.
+RESULT. Zero in-repo defects found this pass. One genuinely untested
+residual claim in check-seo-pattern.js proved correct by injection: an
+attributed h1 fails the checker loudly rather than passing silently, and it
+does so without weakening the separate one-h1 count rule. No checker logic
+changed - this was verification only, the documented behaviour already
+being correct. No page, generator, checker or branches.json entry changed.
+No new question raised.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
