@@ -1,0 +1,66 @@
+﻿Item 4.9 quality pass (ninth), 2026-09-03
+Clear Chemist Aintree GBP pack (gbp-packs/clear-aintree.md)
+
+FACTS RE-VERIFIED AGAINST branches.json (clearchemist_aintree):
+- brandLabel/branchName: Clear Chemist - matches
+- streetAddress: Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree - matches
+- addressLocality: Liverpool; postalCode: L9 7AS; addressRegion: Merseyside - matches
+- phone: 0151 203 6535 (Q28) - matches pack and live contact page
+- website: https://www.clearchemist.co.uk - matches
+- googleReviewUrl: https://g.page/r/CYTJCk0EpvxFEAE/review - matches
+- serviceAreaList: Aintree, Fazakerley, Walton, Bootle, North Liverpool - matches, all five
+  towns lead the description and services section
+- hasApp: true - matches app mentions in pack
+- pfBooking: false, no pfLink, widgets = {weightLoss, travelClinic} only - matches pack's
+  "no Pharmacy First / blood pressure / contraception" note and Post A standing in as a
+  local team post
+- No openingHours in branches.json - matches pack's "do not paste or invent hours" line
+
+BASELINE: all 36 tools/check-*.js run individually against the untouched worktree: 36/36
+exit 0.
+
+FRESH ANGLE (this pass): item 5.1's tenth pass (commit 077a551, 2026-09-02T21:43 BST) fixed
+check-em-dashes.js to decode numeric HTML dash entities by value (any digit count/padding)
+rather than matching exact digit strings, proven at the time only against
+modules/switch/pages/SEO.md. Per this repo's own recurring finding ("proved once, assumed
+everywhere"), re-proved directly against gbp-packs/clear-aintree.md's own copy, which had
+never been used to test this specific fix:
+
+  Baseline SHA256: A5B90F586AFC103630BDAEEA7163181E0A1E0D2D2269083AFE83EA63275321F4
+  Injection: replaced "Switching your prescriptions to Clear Chemist takes about 30
+  seconds." (Post B) with a padded hex numeric em dash entity, &#x02014;, in two places
+  in the same sentence.
+  Result: check-em-dashes.js exited 1, line 101, "em dash (HTML numeric entity), which
+  would paste literally" - caught first attempt.
+  Restore: byte copy from backup (not git checkout), SHA256 re-confirmed identical to
+  baseline. git status --porcelain gbp-packs/ empty after restore.
+  Full 36-checker suite re-run after restore: 36/36 exit 0.
+
+SECOND ANGLE: item 4.4's ninth pass (2026-09-02) found TEMPLATE.md's undated-live-claim
+convention unenforced by any checker, and hand-checked all 15 packs, finding
+scorah-bramhall.md, scorah-hazel-grove.md and fishlocks-eccleston.md undated;
+clear-aintree.md was already recorded as one of the 11 compliant packs. Re-read
+clear-aintree.md directly this pass to confirm that finding still holds: every live-state
+claim in the pack (address confirmed 2026-08-10, phone confirmed 2026-08-30 (Q28), hours
+read 2026-08-10, Post B/C/D URLs checked live 2026-08-10) carries an explicit date.
+Confirmed, no defect.
+
+LIVE HALF: Claude in Chrome unreachable this run (tabs_context_mcp reported "not
+connected"), so the established Windows-MCP PowerShell fallback was used instead of a
+plain skip. Invoke-WebRequest against clearchemist.co.uk failed with "the connection was
+closed unexpectedly" on all three post-target URLs (works fine for the contact page); worth
+noting for future runs. curl.exe (bundled with Windows) succeeded where Invoke-WebRequest
+did not:
+  - Contact page (https://www.clearchemist.co.uk/contact-us): HTTP 200. Phone 0151 203 6535
+    found, matches branches.json/Q28, no 8365 anywhere. WhatsApp-shaped number 07512 330 076
+    also present, distinct from the estate-wide hardcoded default 447521775631 (Q21's
+    concrete case) - unchanged.
+  - switch-prescriptions-clear-aintree.html: HTTP 404 (curl.exe -A "Mozilla/5.0")
+  - weight-loss-clinic-clear-aintree.html: HTTP 404
+  - travel-clinic-clear-aintree.html: HTTP 404
+  All three unchanged since every prior pass (Q29); the pack's homepage-button workaround
+  remains correct and necessary.
+
+OUTCOME: no in-repo defect found, no new question raised. gbp-packs/clear-aintree.md
+unchanged (mutated only in a backup copy outside the tracked tree, byte-identical after
+restore). No generated page or branches.json changed.

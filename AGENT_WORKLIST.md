@@ -5675,6 +5675,52 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       audits/clear-aintree-gbp-pack-check-2026-09-01.txt,
       audits/verify-4.9-2026-09-01.js,
       audits/verify-4.9-2026-09-01-output.txt. Done 2026-09-01
+      Eighth quality pass 2026-09-02 (backfilled 2026-09-03, this pass:
+      the eighth-pass commit touched only AGENT_LOG.md and never this
+      file, the same paragraph-lag gap the item 4.10 eighth pass found
+      and backfilled for itself the same day): pack re-verified clean
+      against branches.json's clearchemist_aintree record and against
+      TEMPLATE.md; four checker changes landed since the seventh pass
+      (abbreviation-aware address rules in check-gbp-packs.js from items
+      1.2 and 4.8, an nbsp-aware postcode match in check-postcodes.js
+      from item 1.3, and POST_INSTRUCTION whitespace hardening from item
+      4.13) checked individually and confirmed not to touch this pack:
+      no abbreviated road-type words in its address, zero &nbsp; entities,
+      post instructions already formatted to the hardened marker. All 36
+      checkers exit 0. Q21 (WhatsApp), Q28 (phone) and Q29 (no Weebly
+      paste route) all remain answered and unchanged; the separate open
+      Q65 (walk-in/collection wording) sits against item 3.13, not this
+      pack. branches.json's bankHolidays block intact and still read at
+      paste time, not retyped. LIVE HALF NOT PERFORMED: Claude in Chrome
+      reported not connected. No in-repo defect, no new question. Done
+      2026-09-02
+      Ninth quality pass 2026-09-03: fresh angle rather than a twelfth
+      fact re-verification over ground eight prior passes already
+      covered exhaustively. Item 5.1's tenth pass (2026-09-02, commit
+      077a551) fixed check-em-dashes.js to decode numeric HTML dash
+      entities by value (any digit count or padding) rather than an
+      exact digit-string match, proved at the time only against
+      modules/switch/pages/SEO.md; re-proved here directly against this
+      pack's own copy for the first time, by injecting a padded hex
+      numeric em dash (&#x02014;) into Post B - caught first attempt,
+      restored byte-identical (SHA256-confirmed), full 36-checker suite
+      clean after restore. Second angle: item 4.4's ninth pass found
+      TEMPLATE.md's undated-live-claim convention unenforced by any
+      checker and hand-checked all 15 packs, recording this one as
+      already compliant; re-read clear-aintree.md directly this pass and
+      confirmed every live-state claim (address, phone, hours, the three
+      post-target 404s) still carries its observation date. LIVE HALF:
+      Claude in Chrome unreachable again, so used the established
+      Windows-MCP PowerShell fallback with curl.exe rather than skipping
+      (Invoke-WebRequest failed against clearchemist.co.uk with
+      "connection closed unexpectedly" on the three post-target URLs,
+      a method note for future runs; curl.exe -A "Mozilla/5.0" worked
+      cleanly). Contact page confirms phone 0151 203 6535 (Q28) and
+      WhatsApp 07512 330 076 (Q21's concrete case) both unchanged; all
+      three post-target URLs still 404 (Q29 unchanged, homepage-button
+      workaround still correct). All 36 checkers exit 0 throughout. No
+      in-repo defect found, no new question raised. Evidence:
+      audits/clear-aintree-4.9-ninth-pass-2026-09-03.txt. Done 2026-09-03
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
