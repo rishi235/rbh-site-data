@@ -6433,6 +6433,60 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       trading name across the site, Posts B, C and D resolving, the Q22
       tagline unchanged) stand as written rather than being re-verified.
       No new question, no in-repo defect. Done 2026-09-02.
+      Ninth quality pass 2026-09-03 (unattended run via Cowork; the Linux
+      sandbox's bash tool again could not reach GitHub over SSH, "Host key
+      verification failed", so all git, Node and file work was done via
+      Windows-MCP PowerShell against the canonical C:\Dev\rbh-site-data
+      working copy). Stalest item in the rotation pool, re-derived
+      mechanically with a tightened match requiring each commit subject to
+      START with "Item <N>" rather than merely contain it (a looser
+      "contains" match produces false ties, as the previous run's own
+      forward-note shows: it named 4.15 as next-stalest, but the tightened
+      match confirms 4.12's own eighth-pass commit at
+      2026-09-02T08:13:34+01:00 predates 4.15's 2026-09-02T08:46:01+01:00).
+      4.12 confirmed the unique stalest, no tie. Pack re-verified fact by
+      fact against branches.json a ninth time: name, address 241 Walton
+      Village, Liverpool L4 6TH, phone 0151 525 3522, website, review link,
+      hasApp false with no app mention, both opening-hours sessions and
+      catchment Walton, Liverpool and Sefton in all three places, leading
+      with its own seoTown - all unchanged from every prior pass. All 36
+      checkers exit 0 before any change. NEW ANGLE: the OUTCOME_PROMISE
+      rule (added item 4.7 sixth pass, 2026-08-29, barring protection or
+      immunity outcome promises) has this same run been proved by direct
+      injection against three sibling packs carrying their own travel
+      clinic Post D (riddings-timperley.md, fishlocks-eccleston.md,
+      smartts-bootle.md) but had never been pointed at this pack's own
+      copy across its eight prior dedicated passes - the same "proved
+      once, assumed everywhere" shape this repo's CLAUDE.md names as a
+      recurring finding. Pack backed up by byte copy before mutation;
+      baseline SHA256
+      6C8B9CAC1D70FD6330D9A801B6DD74367C70F973EC54C4FDE9D93BA7EA724D88.
+      INJECTION 1 (Post D closing line, "Book your travel consultation
+      today." appended with "We guarantee full protection for every
+      destination."): FAIL, line 137, outcome promise "guarantee". Caught
+      first attempt. INJECTION 2 (same line replaced with "The right
+      vaccine will protect you for years to come."): FAIL, line 137,
+      outcome promise "will protect you". Caught first attempt. INJECTION
+      3 (same line replaced with a genuine question, "Wondering if a
+      travel vaccine will fully protect you before you fly? Ask the
+      pharmacist at your consultation.", expect PASS): PASS, 0 failures,
+      only the standing pfLink live-only-page WARN, confirming the
+      question exemption holds on this pack's own copy too. File restored
+      by byte copy (not git checkout) after each injection, SHA256
+      reconfirmed identical to baseline every time. Full 36-checker suite
+      re-run after final restore: 36/36 exit 0. All six build-*.js page
+      generators re-run: exit 0 each, git status on modules/ and core/
+      empty before and after, byte-stable. LIVE HALF: Claude in Chrome not
+      connected; fell back to a direct HTTPS status-code check via
+      curl.exe. Post A pfLink still 404, unchanged since 2026-08-10; Posts
+      B, C and D (switch, weight loss, travel clinic) all still 200,
+      unchanged. Status code only, not page content - the fuller
+      2026-09-01 live verdicts (mixed old/new trading name, Q76's
+      sister-branch-name gap, the Q22 tagline) stand as written, not
+      re-verified this pass. No in-repo defect, no new question;
+      QUESTIONS.json unchanged (41 open of 94 total). Evidence:
+      audits/coleman-leigh-walton-outcome-promise-reproof-4.12-ninth-2026-09-03.txt.
+      Done 2026-09-03.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

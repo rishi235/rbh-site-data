@@ -1,0 +1,105 @@
+Item 4.12 quality pass (ninth), 2026-09-03 - Coleman and Leighs Pharmacy Walton GBP pack
+OUTCOME_PROMISE re-proof by direct injection against this pack's own Post D
+
+CONTEXT
+tools/outcome-promise-patterns.js (added item 4.7 sixth pass, 2026-08-29) bars
+protection/immunity outcome promises in GBP pack copy, required by
+check-gbp-packs.js. It has now been proved by direct injection against
+mccanns-sandringham.md (where written), riddings-timperley.md (4.13 ninth
+pass), fishlocks-eccleston.md (4.8 tenth pass) and smartts-bootle.md (4.10
+eighth pass), all earlier the same run of scheduled passes. Coleman and
+Leighs Walton has had eight prior dedicated quality passes and carries its
+own Post D (travel clinic) throughout, but none of those eight passes tested
+this specific rule against this pack's own copy - the same "proved once,
+assumed everywhere" shape this repo's CLAUDE.md names as a recurring finding.
+
+STALEST-ITEM DERIVATION
+All 8 unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three under 6.4/6.5/6.6), so the
+quality-pass fallback applied. Stalest item in the standing 36-item pool (43
+checked items minus the out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) derived by matching each item's own "N.N" against git log commit
+subjects using an anchored pattern requiring the subject to START with
+"Item <N>" (a loose "contains" match produces false ties, as the previous
+run's own forward-note demonstrated: it named 4.15 as next-stalest, but a
+tightened match shows 4.12's own eighth-pass commit at
+2026-09-02T08:13:34+01:00 predates 4.15's 2026-09-02T08:46:01+01:00). 4.12
+(Coleman and Leighs Pharmacy Walton) confirmed as the unique stalest, no tie.
+
+REPO HALF, BASELINE
+git status --porcelain modules/ core/ gbp-packs/ branches.json tools/: clean
+before any change. All 36 tools/check-*.js checkers run individually: 36/36
+exit 0. Facts re-verified directly against branches.json's colemanleigh_liverpool
+record for the ninth time: brandLabel/branchName "Coleman and Leighs
+Pharmacy", streetAddress "241 Walton Village", addressLocality "Liverpool",
+postalCode "L4 6TH", addressRegion "Merseyside", phone "0151 525 3522",
+website "https://www.colemanandleighspharmacy.co.uk", googleReviewUrl
+"https://g.page/r/CVRiXrQr74lLEAE/review", serviceAreaList {Walton,
+Liverpool, Sefton}, hasApp false, pfBooking true, pfLink
+".../pharmacy-first-service-walton.html", widgets {bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic}, two-session Mon-Fri
+hours (09:00-13:00, 14:00-18:00), Saturday/Sunday closed - all match the
+pack, unchanged from every prior pass.
+
+METHOD
+gbp-packs/coleman-leigh-walton.md backed up by byte copy to %TEMP% before
+mutation. Baseline SHA256:
+6C8B9CAC1D70FD6330D9A801B6DD74367C70F973EC54C4FDE9D93BA7EA724D88 (192 lines,
+11110 bytes). Method note: an initial read via [System.IO.File]::ReadAllText
+in one PowerShell invocation returned a 0-length string for reasons not
+resolved (possibly a stream/encoding quirk in that specific call), which
+would have made the following .Replace() silently a no-op against an already
+empty buffer - caught immediately because the file's actual on-disk length
+(11110 bytes, confirmed via Get-Item and matched against the untouched
+backup) and git status (clean) proved nothing had actually been lost, and a
+follow-up read using Get-Content -Raw found the target string correctly at
+index 7381. Switched to Get-Content -Raw / Set-Content -NoNewline for all
+three injections below. File restored by byte copy (not git checkout) after
+each injection and SHA256-reconfirmed identical to baseline every time.
+
+INJECTION 1 (guarantee wording, Post D closing line):
+"Book your travel consultation today." ->
+"Book your travel consultation today. We guarantee full protection for every destination."
+Result: FAIL, line 137, outcome promise "guarantee" (uses guarantee
+wording). Caught first attempt.
+
+INJECTION 2 (declarative "will protect you", replacing the same closing
+line): "The right vaccine will protect you for years to come."
+Result: FAIL, line 137, outcome promise "will protect you" (promises
+protection as an outcome). Caught first attempt.
+
+INJECTION 3 (genuine question, replacing the same closing line, expect
+PASS): "Wondering if a travel vaccine will fully protect you before you fly?
+Ask the pharmacist at your consultation."
+Result: PASS, 0 failures, only the standing pfLink live-only-page WARN.
+Confirms the question exemption (if (/\?$/.test(sentence)) return;) holds on
+this pack's own copy too.
+
+Final restore confirmed byte-identical to baseline SHA256. git status
+--porcelain gbp-packs/: empty after restore. Full 36-checker suite re-run
+after final restore: 36/36 exit 0. All six build-*.js generators re-run:
+exit 0 each, git status --porcelain modules/ core/ empty before and after,
+confirming byte-stable generated output.
+
+LIVE HALF
+Claude in Chrome unreachable this run (tabs_context_mcp reported "not
+connected"). Fell back to a direct HTTPS status-code check via curl.exe
+(established fallback route, confirms status code only, not page content):
+pharmacy-first-service-walton.html (Post A pfLink) -> 404, unchanged, the
+same hard stop recorded on every pass since 2026-08-10; switch-prescriptions,
+weight-loss-clinic and travel-clinic pages (Posts B, C, D) all -> 200,
+unchanged. The fuller 2026-09-01 live verdicts (mixed old/new trading name
+across the live site, Q76's sister-branch-name gap, the Q22 tagline) stand
+as written, not re-verified this pass.
+
+RESULT
+No defect - OUTCOME_PROMISE already covered this pack correctly; that was
+previously true only by the rule's general design and its proof against
+four sibling packs, and is now proven directly against Coleman and Leighs
+Walton's own Post D, including the question-exemption edge case, closing
+the one gap none of this pack's eight prior dedicated passes had left open.
+tools/check-gbp-packs.js unchanged (no rule logic edited this pass).
+gbp-packs/coleman-leigh-walton.md unchanged (mutated only in a backup copy
+outside the tracked tree). No generated page or branches.json byte changed.
+QUESTIONS.json unchanged (41 open of 94 total; no pickup available this run,
+Claude in Chrome not connected).
