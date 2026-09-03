@@ -429,6 +429,66 @@ same pattern recorded throughout 2026-08-31's entries above.
       blocked or unblocked. Evidence:
       audits/verify-2.1-2026-09-02-ninth.js,
       audits/verify-2.1-2026-09-02-ninth-output.txt.
+Quality pass 2026-09-03 (tenth pass): all 8 worklist items still unchecked
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED], so this was
+the fallback quality pass, picked by the standard rotation-pool ranking over
+the 36-item pool (43 checked items minus the standing out-of-rotation set 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8), re-derived fresh from git log rather than
+assumed: item 2.1's newest mention was the ninth pass at
+2026-09-02T20:10:56+01:00, older than every other pool item, exactly matching
+the ninth pass's own forward note. Repo half: all 36 checkers pass
+estate-wide, all six generators rebuild to a byte-identical zero diff against
+the untouched tree (git status --porcelain modules/ core/ tools/
+branches.json gbp-packs/ empty before and after). Fresh angle: of this
+branch's 13 owned pages, the switch page was injection-tested at the eighth
+pass and the travel clinic page at the ninth, but the branch landing page
+itself, modules/branch/pages/pharmacy-fishlocks-ainsdale.html, had never had
+a dedicated injection round for this item, despite carrying more distinct
+machine- and human-read surfaces than any other page type this branch owns:
+JSON-LD opening hours, the visible hours card, data-branch identity, the
+blood pressure eligibility cohort, and the map embed. New instrument written
+fresh (audits/verify-2.1-2026-09-03-tenth.py, no import from tools/ beyond
+invoking the real checkers as child processes): restores by direct file
+write from a saved original immediately after capturing each checker's
+output and before any assertion runs, sha256-verified byte-identical before
+the next injection and again at the end, the same discipline the CLAUDE.md
+item 5.2 note requires ("a test harness must restore by byte copy, not from
+git"). Five injections, each applied to a freshly restored copy of the
+original rather than layered on the previous one: (1) the JSON-LD
+openingHoursSpecification closing time changed from 18:00 to 17:00 for the
+five weekday sessions, leaving the visible card untouched - CAUGHT by
+check-opening-hours.js's JSON-LD-match rule, "JSON-LD opening hours do not
+match branches.json". (2) the visible Saturday row changed from "Closed" to
+"9am to 1pm", leaving the JSON-LD untouched - CAUGHT by the same checker's
+visible-row rule, "Saturday reads '9am to 1pm' but branches.json says
+'Closed'". (3) data-branch swapped from "Fishlocks Chemist Ainsdale" to a
+real, different, live branch's name, "Smartts Chemist Bootle", not an
+invented one - CAUGHT by check-branch-identity.js on both its per-page rule
+and its cross-page "declares 2 different values for data-branch" rule. (4)
+the blood pressure tile's wording changed from "adults aged 40 and over" to
+"adults over 40" - the exact phrasing CLAUDE.md records as the real,
+already-fixed item 5.2 defect (six landing pages once said "if you are over
+40", a year narrower than the NHS service) - CAUGHT by
+check-pharmacy-first-eligibility.js rule 9, "states age 40, which is not
+part of any NHS cohort this copy may state". (5) the map embed's query
+postcode changed from this branch's own PR8 3HN to Smartts Bootle's real
+L20 9HH, leaving the visible contact card and the directions button
+untouched - CAUGHT by check-map-embeds.js on all three of its cross-surface
+rules at once (the address itself, agreement with the contact card, and
+agreement with the directions button). All five injections caught on the
+first run, then the whole script re-run a second time end to end with
+identical results, confirming reproducibility. File confirmed
+byte-identical to its original sha256 before the round, after each
+individual restoration, and after the final one; the real repo's git status
+stayed empty throughout, and the full 36-checker suite re-run clean
+immediately after. No in-repo defect found. Live half: not attempted this
+pass, Claude in Chrome confirmed not connected both at the start of the run
+and again before finishing (checked twice, matching the discipline recent
+passes have used); Q37 and Q57 are treated as unchanged rather than
+re-verified, Q35 remains answered and closed as of the ninth pass. No new
+question raised; no worklist item blocked or unblocked. Evidence:
+audits/verify-2.1-2026-09-03-tenth.py,
+audits/verify-2.1-2026-09-03-tenth-output.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

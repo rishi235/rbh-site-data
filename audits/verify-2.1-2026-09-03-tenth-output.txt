@@ -1,0 +1,83 @@
+orig sha: 52adffe5358fa85cd7b3299e59e6105e6029216d74a7a3cb478f7b2117989209
+[JSONLD-HOURS] checker=tools/check-opening-hours.js exitcode=FAIL(caught)
+[VISIBLE-SATURDAY] checker=tools/check-opening-hours.js exitcode=FAIL(caught)
+[DATA-BRANCH-FOREIGN] checker=tools/check-branch-identity.js exitcode=FAIL(caught)
+[BP-COHORT-WORDING] checker=tools/check-pharmacy-first-eligibility.js exitcode=FAIL(caught)
+[MAP-FOREIGN-POSTCODE] checker=tools/check-map-embeds.js exitcode=FAIL(caught)
+final sha matches orig: True
+
+=== SUMMARY ===
+JSONLD-HOURS: tools/check-opening-hours.js -> CAUGHT
+VISIBLE-SATURDAY: tools/check-opening-hours.js -> CAUGHT
+DATA-BRANCH-FOREIGN: tools/check-branch-identity.js -> CAUGHT
+BP-COHORT-WORDING: tools/check-pharmacy-first-eligibility.js -> CAUGHT
+MAP-FOREIGN-POSTCODE: tools/check-map-embeds.js -> CAUGHT
+
+=== DETAIL (last part of output for each) ===
+--- JSONLD-HOURS (tools/check-opening-hours.js) ---
+check-opening-hours
+  6 landing page(s) checked against 16 trading branches
+  rule 7 swept 88 clock time(s) on those pages, all of which must sit inside the hours card
+  NOTE  bank holidays (item 6.7): 8 date(s) in bankHolidays.dates2026, tradingPolicy "closed". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+  FAIL  modules/branch/pages/pharmacy-fishlocks-ainsdale.html: JSON-LD opening hours do not match branches.json
+  FAIL      page: Friday 08:45-17:00, Monday 08:45-17:00, Thursday 08:45-17:00, Tuesday 08:45-17:00, Wednesday 08:45-17:00
+  FAIL      data: Friday 08:45-18:00, Monday 08:45-18:00, Thursday 08:45-18:00, Tuesday 08:45-18:00, Wednesday 08:45-18:00
+
+check-opening-hours: 3 failure(s).
+
+
+--- VISIBLE-SATURDAY (tools/check-opening-hours.js) ---
+check-opening-hours
+  6 landing page(s) checked against 16 trading branches
+  rule 7 swept 90 clock time(s) on those pages, all of which must sit inside the hours card
+  NOTE  bank holidays (item 6.7): 8 date(s) in bankHolidays.dates2026, tradingPolicy "closed". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+  FAIL  modules/branch/pages/pharmacy-fishlocks-ainsdale.html: Saturday reads "9am to 1pm" but branches.json says "Closed"
+
+check-opening-hours: 1 failure(s).
+
+
+--- DATA-BRANCH-FOREIGN (tools/check-branch-identity.js) ---
+check-branch-identity
+  177 page(s) matched to a branch, 177 with a module root, 177 with a JSON-LD block
+  16 trading branch(es), 3 website(s) shared by a pair
+  198 review link(s), 6 branch landing link(s) and 238 service page link(s) read on those pages
+
+  NOTE  3 brand(s) carried by more than one trading branch, where brandLabel alone cannot identify a shop: Scorah Chemists, McCanns Chemist, Fishlocks Chemist
+  FAIL  modules/branch/pages/pharmacy-fishlocks-ainsdale.html: data-branch="Smartts Chemist Bootle" but the page belongs to fishlocks_ainsdale ("Fishlocks Chemist Ainsdale")
+  FAIL  fishlocks_ainsdale: its pages declare 2 different values for data-branch ("Fishlocks Chemist Ainsdale" on 12 page(s), "Smartts Chemist Bootle" on 1 page(s)), so one branch presents itself as more than one business depending on which generator built the page
+
+check-branch-identity: 2 failure(s).
+
+
+--- BP-COHORT-WORDING (tools/check-pharmacy-first-eligibility.js) ---
+check-pharmacy-first-eligibility
+  7 pinned conditions read from tools/build-service-pages.js
+  98 condition pages checked against them
+  15 GBP packs checked against the pinned cohorts and the 7 pathways
+  6 branch landing pages checked against the pinned cohorts (rule 9)
+
+  FAIL modules/branch/pages/pharmacy-fishlocks-ainsdale.html: states age 40, which is not part of any NHS cohort this copy may state (rule 9)
+         pinned cohorts: women aged 16 to 64; adults aged 40 and over
+         Learn more Blood pressure checks Free NHS blood pressure checks for adults over 40
+
+check-pharmacy-first-eligibility: 1 failure(s).
+
+
+--- MAP-FOREIGN-POSTCODE (tools/check-map-embeds.js) ---
+check-map-embeds
+  16 trading branch(es), 16 map address(es) read from branches.json
+  177 generated page(s), 177 map embed(s), 6 directions button(s)
+  6 generator(s) checked for how the query is composed
+
+FAILURES (3):
+  FAIL  [the address] modules/branch/pages/pharmacy-fishlocks-ainsdale.html: map points at "17 Station Road, Ainsdale, L20 9HH" and branches.json gives this branch "17 Station Road, Ainsdale, PR8 3HN"
+  FAIL  [agreement] modules/branch/pages/pharmacy-fishlocks-ainsdale.html: contact card reads "17 Station Road, Ainsdale, PR8 3HN" and the map underneath it points at "17 Station Road, Ainsdale, L20 9HH"
+  FAIL  [directions] modules/branch/pages/pharmacy-fishlocks-ainsdale.html: directions button routes to "17 Station Road, Ainsdale, PR8 3HN" and the map on the same page shows "17 Station Road, Ainsdale, L20 9HH"
+
+Fix the address in branches.json, or the composition in the generator that owns
+the contact card, then regenerate. Do not edit a page by hand: the map iframe is
+emitted, and the next build overwrites anything typed into a page.
