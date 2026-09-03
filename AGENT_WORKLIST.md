@@ -4726,6 +4726,51 @@ worth a properly scoped rule in a future pass. No new question. Full
 36-checker suite re-run clean after the edit; git diff --stat shows
 exactly gbp-packs/scorah-bramhall.md, 16 insertions, 3 deletions. See
 audits/scorah-bramhall-4.4-pass-2026-09-02.txt.
+Quality pass 2026-09-03 (tenth, unattended scheduled run): baseline was NOT
+clean at the start of this pass, unrelated to this item - tools/check-postcodes.js
+failed on the untouched worktree because the item 3.11 ninth pass (committed
+6d06c42, earlier the same run-day) had injected the postcode L23 3AZ into
+Gordon Short Crosby's pharmacy-first page to prove check-map-embeds.js, then
+restored the page, but AGENT_LOG.md and audits/gordon-short-item-3.11-quality-
+pass-2026-09-03-ninth.txt both quote the injected value in their write-ups
+without adding it to check-postcodes.js's NARRATIVE_POSTCODES allowlist - the
+same gap, on a different postcode, that the item 6.3 sixth quality pass closed
+for L23 6TX the day before (2026-09-02). Fixed at source: L23 3AZ added to
+NARRATIVE_POSTCODES with a reason naming the injection, the two files that
+quote it, and the precedent. All 36 checkers re-run clean after the fix (0
+change to any pack, page or branches.json - the fix is checker-only).
+With a clean baseline restored, fresh angle for this item itself: grepped
+AGENT_LOG.md for check-brand-spelling.js, check-url-scheme.js and
+check-uk-spelling.js alongside "bramhall" - zero hits for all three, so none
+had ever been pointed at gbp-packs/scorah-bramhall.md by direct injection,
+the same class of gap the 1.2 tenth, 4.7 tenth, 4.14 eighth and 4.2 eleventh
+passes closed this week for their own packs. gbp-packs/scorah-bramhall.md
+backed up by MD5 (ae58dd982780a11b808b6df84e29eecf) before any mutation, each
+injection made with the native Edit tool, the targeted checker run, then the
+file restored via Edit and the restore verified byte-for-byte (MD5 match)
+before the next injection.
+INJECTION 1 (check-brand-spelling.js): line 8, "Name on GBP: Scorah Chemists
+Bramhall" changed to "Scorah Chemist Bramhall" (trailing s dropped). Result:
+FAIL, "reads \"Scorah Chemist\". The trading name is \"Scorah Chemists\"".
+Caught first attempt.
+INJECTION 2 (check-url-scheme.js): the Post D (travel clinic, Book button)
+target changed from https to http. Result: FAIL, INSECURE, "published surface
+carries http://... An insecure estate URL on a live page is a crawlable
+duplicate of the https page, which is item 6.6." Caught first attempt,
+correctly cross-referenced to the existing item 6.6 rather than raised as a
+duplicate question.
+INJECTION 3 (check-uk-spelling.js): line 35, "Vaccination centre" changed to
+"Vaccination center". Result: FAIL, "reads \"center\". UK English is
+\"centre\"". Caught first attempt.
+Final restore confirmed byte-identical to the pre-injection original (MD5
+match). Full 36-checker suite re-run after the last restore: 36/36 exit 0.
+git status --porcelain on gbp-packs/, modules/, core/, branches.json empty
+except the intended tools/check-postcodes.js fix. All six page generators
+re-run: git status --porcelain on modules/, core/ empty before and after,
+confirming byte-stable output. No defect on this item - all three rules were
+already correctly protecting this pack; now proven directly by injection for
+the first time. No new question. See audits/scorah-bramhall-4.4-pass-
+2026-09-03-tenth.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

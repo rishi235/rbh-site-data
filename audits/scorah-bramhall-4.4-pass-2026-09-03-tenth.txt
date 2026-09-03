@@ -1,0 +1,86 @@
+Item 4.4 quality pass (tenth), 2026-09-03 (unattended scheduled run)
+Subject: gbp-packs/scorah-bramhall.md
+
+BASELINE (pre-fix)
+tools/check-postcodes.js FAILED on the untouched worktree:
+  UNKNOWN  AGENT_LOG.md: postcode L23 3AZ is in no branches.json entry and is
+  not a named historical value.
+  UNKNOWN  audits/gordon-short-item-3.11-quality-pass-2026-09-03-ninth.txt:
+  postcode L23 3AZ is in no branches.json entry and is not a named historical
+  value.
+
+Cause: the item 3.11 ninth quality pass (commit 6d06c42, earlier the same
+run-day) injected postcode L23 3AZ into Gordon Short Crosby's pharmacy-first
+page map embed to prove check-map-embeds.js, restored the page, but never
+added L23 3AZ to tools/check-postcodes.js's NARRATIVE_POSTCODES allowlist -
+the same gap the item 6.3 sixth quality pass closed for L23 6TX on
+2026-09-02.
+
+FIX
+tools/check-postcodes.js: added
+  "L23 3AZ": "Item 3.11 quality pass (ninth), 2026-09-03: a one-character-off
+  variant of Gordon Short Chemist Crosby's own L23 3AT, injected into the map
+  iframe query on the branch's pharmacy-first page to prove
+  check-map-embeds.js's address rule and its contact-card/map agreement rule
+  both catch it independently. The page was restored by byte copy and
+  MD5-confirmed before the run ended, but AGENT_LOG.md and
+  audits/gordon-short-item-3.11-quality-pass-2026-09-03-ninth.txt both quote
+  the injected value to record the test, which is exactly what
+  NARRATIVE_POSTCODES exists for; the value was committed without being
+  added here, the same gap the 6.3 sixth quality pass closed for L23 6TX the
+  day before. Found and fixed on the item 4.4 tenth quality pass, 2026-09-03."
+
+Result: tools/check-postcodes.js now exits 0. All 36 checkers re-run clean
+(35 were already clean; this fix restored the 36th). No pack, page or
+branches.json content touched by this fix.
+
+ITEM 4.4 FRESH ANGLE (post-fix baseline clean)
+Grepped AGENT_LOG.md for check-brand-spelling.js, check-url-scheme.js and
+check-uk-spelling.js alongside "bramhall": zero hits for all three. None had
+ever been pointed at gbp-packs/scorah-bramhall.md by direct injection before
+this pass.
+
+gbp-packs/scorah-bramhall.md MD5 before any mutation: ae58dd982780a11b808b6df84e29eecf
+
+INJECTION 1 (check-brand-spelling.js)
+Change: line 8, "Scorah Chemists Bramhall" -> "Scorah Chemist Bramhall"
+Result: FAIL
+  gbp-packs/scorah-bramhall.md:8: reads "Scorah Chemist". The trading name is
+  "Scorah Chemists"
+Caught first attempt. Restored; MD5 confirmed ae58dd982780a11b808b6df84e29eecf.
+
+INJECTION 2 (check-url-scheme.js)
+Change: Post D button URL, https -> http
+  (https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html)
+Result: FAIL
+  INSECURE gbp-packs/scorah-bramhall.md: published surface carries
+  http://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html. An
+  insecure estate URL on a live page is a crawlable duplicate of the https
+  page, which is item 6.6.
+Caught first attempt, correctly cross-referenced to item 6.6 rather than
+raised as a new question. Restored; MD5 confirmed ae58dd982780a11b808b6df84e29eecf.
+
+INJECTION 3 (check-uk-spelling.js)
+Change: line 35, "Vaccination centre" -> "Vaccination center"
+Result: FAIL
+  gbp-packs/scorah-bramhall.md:35: reads "center". UK English is "centre"
+Caught first attempt. Restored; MD5 confirmed ae58dd982780a11b808b6df84e29eecf.
+
+FINAL VERIFICATION
+- gbp-packs/scorah-bramhall.md MD5 after final restore: ae58dd982780a11b808b6df84e29eecf (matches original)
+- All 36 tools/check-*.js: 36/36 exit 0
+- git status --porcelain on gbp-packs/, modules/, core/, branches.json: empty
+  (only tools/check-postcodes.js carries an intended diff)
+- All six page generators re-run (build-branch-landing-pages.js,
+  build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+  build-travel-clinic-pages.js, build-weight-loss-pages.js): git status
+  --porcelain on modules/, core/ empty before and after, confirming
+  byte-stable output.
+
+RESULT
+No defect on item 4.4 itself - all three rules were already correctly
+protecting gbp-packs/scorah-bramhall.md; now proven directly by injection for
+the first time. One real defect found and fixed, in tools/check-postcodes.js,
+inherited from the item 3.11 ninth pass earlier the same run-day. No checker
+logic edited beyond the NARRATIVE_POSTCODES addition. No pack content byte
+changed. No new question.
