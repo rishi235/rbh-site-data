@@ -5847,6 +5847,50 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       2026-08-10) is the genuinely stalest item in the pool, older than
       2.3 (2026-08-11), 3.11 (2026-08-14) and 6.2/6.3 (2026-08-13); the
       next run should take 4.11. No new question. Done 2026-09-01.
+      Seventh quality pass 2026-09-02 (unattended run, backfilled here on
+      the eighth pass - the seventh pass's own commit only touched
+      AGENT_LOG.md and an audit sha256 file, and never appended this
+      paragraph, a gap noticed and corrected while re-deriving staleness for
+      the eighth pass rather than left to repeat). Pack re-verified clean:
+      all facts matched branches.json again, all 36 checkers exit 0. Tested
+      three check-gbp-packs.js fixes that had landed since the sixth pass
+      (abbreviation-aware own-street and foreign-street sister rules from
+      item 1.2's eighth pass and item 4.8's ninth pass; POST_INSTRUCTION
+      hard-stop leading-whitespace tolerance from item 4.13's eighth pass)
+      by four injections, all proving correctly on this pack specifically:
+      "42 Fernhill Road" abbreviated to "42 Fernhill Rd" passed (legitimate
+      abbreviation); "Fernhill Road" changed to "Fernhall Road" failed
+      (negative control, genuine error still caught); the SK Chemists
+      cross-reference in the paster notes expanded to include "516 Stanley
+      Road" (both full and abbreviated "Rd" forms) failed both ways (sister
+      street rule fires on this pack's own copy too); a 2,010-character
+      block starting with three leading spaces before "STOP" inserted after
+      Post D failed to leak into counted post copy, confirming the
+      whitespace-tolerant hard-stop marker holds here. No in-repo defect, no
+      new question. Live half not read (Claude in Chrome not connected).
+      Done 2026-09-02.
+      Eighth quality pass 2026-09-03: fresh angle - the OUTCOME_PROMISE rule
+      (added item 4.7 sixth pass, 2026-08-29, and by now proved against
+      mccanns-sandringham.md, riddings-timperley.md and
+      fishlocks-eccleston.md) had never been pointed at this pack's own
+      Post D despite seven prior dedicated passes, the same "proved once,
+      assumed everywhere" gap the 4.8 and 4.13 tenth/ninth passes closed for
+      their own packs. All facts re-verified against branches.json's
+      smartts_bootle record (address, phone, both hours sessions, website,
+      review link, serviceAreaList, hasApp, all five widgets) - unchanged.
+      Baseline: 36/36 checkers exit 0, tree clean. Three injections into
+      Post D's closing line, file restored by byte copy and sha256-verified
+      identical after each: guarantee wording FAILED; declarative "will
+      protect you" FAILED; a genuine question PASSED, confirming the
+      question exemption on this pack's own copy too. tools/check-gbp-packs.js
+      changed: documentation comment only, recording this pass's proof (a
+      fourth pack now proved against). gbp-packs/smartts-bootle.md
+      unchanged. All 36 checkers and byte-stable regeneration (six
+      generators, empty diff) re-confirmed after restore. Live half not
+      performed: Claude in Chrome reported not connected. No in-repo defect,
+      no new question. Evidence in
+      audits/smartts-bootle-outcome-promise-reproof-4.10-eighth-2026-09-03.txt.
+      Done 2026-09-03.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

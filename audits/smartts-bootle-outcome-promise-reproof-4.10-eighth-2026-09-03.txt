@@ -1,0 +1,62 @@
+Item 4.10 quality pass (eighth), 2026-09-03
+Target: gbp-packs/smartts-bootle.md, Post D (travel clinic)
+Rule under test: OUTCOME_PROMISE (tools/outcome-promise-patterns.js), applied
+inside tools/check-gbp-packs.js's "no outcome promises" block.
+
+Prior proofs of this rule: gbp-packs/mccanns-sandringham.md (written against,
+item 4.7 sixth pass, 2026-08-29), gbp-packs/riddings-timperley.md (item 4.13
+ninth pass, 2026-09-03), gbp-packs/fishlocks-eccleston.md (item 4.8 tenth
+pass, 2026-09-03). Never previously proved against Smartts Bootle despite
+seven prior dedicated quality passes on this pack.
+
+Baseline sha256 (gbp-packs/smartts-bootle.md): 541239E0869BC60BFCEB7DD57414C2872A0104A294785A10C8AA2F387003796B
+Baseline: all 36 tools/check-*.js exit 0. git status --porcelain modules/
+core/ gbp-packs/ branches.json tools/ empty. Facts re-verified against
+branches.json's smartts_bootle record: address 42 Fernhill Road, Bootle
+L20 9HH; phone 0151 922 4984; hours Mon-Fri 09:00-13:00 and 14:00-18:00,
+Sat/Sun closed; website https://www.smarttschemist.co.uk; review link
+https://g.page/r/CVzJUbDqQwReEBM/review; serviceAreaList Bootle, Sefton,
+Liverpool; hasApp true; widgets bloodPressure/contraception/pharmacyFirst/
+weightLoss/travelClinic (all five) - all match the pack, unchanged from
+every prior pass.
+
+Method: file backed up by byte copy to %TEMP% before mutation, restored by
+byte copy (not git checkout) after each injection, sha256-confirmed
+identical to baseline after every restore.
+
+INJECTION 1 (guarantee wording, Post D closing line):
+  "Book your travel consultation today." ->
+  "Book your travel consultation today. We guarantee full protection for every destination."
+  Result: FAIL, line 120, outcome promise "guarantee" (uses guarantee
+  wording). Caught first attempt.
+
+INJECTION 2 (declarative "will protect you", Post D closing line):
+  "Book your travel consultation today." ->
+  "The right vaccine will protect you for years to come."
+  Result: FAIL, line 120, outcome promise "will protect you" (promises
+  protection as an outcome). Caught first attempt.
+
+INJECTION 3 (genuine question, Post D closing line, expect PASS):
+  "Book your travel consultation today." ->
+  "Wondering if a travel vaccine will fully protect you before you fly? Ask the pharmacist at your consultation."
+  Result: PASS, 0 failures, only the standing pfLink live-only-page WARN.
+  Confirms the question exemption holds on this pack's own copy.
+
+Final restore confirmed byte-identical to baseline sha256
+(541239E0869BC60BFCEB7DD57414C2872A0104A294785A10C8AA2F387003796B).
+git status --porcelain gbp-packs/ empty after restore.
+
+Post-change verification: all 36 checkers re-run against the tracked repo,
+36/36 exit 0. All six build-*.js generators re-run; git status --porcelain
+modules/ core/ empty before and after, confirming byte-stable generated
+output.
+
+RESULT: no defect. OUTCOME_PROMISE already covered this pack correctly;
+this is now proven directly rather than assumed by the rule's general
+design. tools/check-gbp-packs.js changed: documentation comment only,
+recording this pass's three injections and results. gbp-packs/smartts-bootle.md
+unchanged (mutated only in a backup copy, never the tracked file).
+
+Live half: not performed. Claude in Chrome reported "not connected" when
+checked this run (tabs_context_mcp), consistent with every prior run today.
+No alternative route attempted, per the unattended-run rule.

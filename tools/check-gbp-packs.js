@@ -1570,6 +1570,23 @@ for (const file of packFiles) {
   // "today. Wondering if a travel vaccine will fully protect you before you
   // fly? Ask the pharmacist at your consultation." (a genuine question)
   // PASSED. No defect found.
+  //
+  // Re-proved a fourth time on the item 4.10 eighth quality pass, 2026-09-03,
+  // against gbp-packs/smartts-bootle.md's own Post D. This pack had seven
+  // prior dedicated quality passes (fact verification, a road-name defect
+  // found and fixed on the fourth, checker-regression proofs on the fifth
+  // and seventh) but, like Fishlocks Eccleston before it, had never had this
+  // specific rule pointed at its own copy - only ever assumed correct by the
+  // rule's general design. Same three injections, same method, file backed
+  // up by byte copy and restored after each with sha256 confirming identical
+  // (541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+  // throughout): "Book your travel consultation today. We guarantee full
+  // protection for every destination." (guarantee wording) FAILED; "The
+  // right vaccine will protect you for years to come." (declarative "will
+  // protect you") FAILED; "Wondering if a travel vaccine will fully protect
+  // you before you fly? Ask the pharmacist at your consultation." (a genuine
+  // question) PASSED. No defect found; all 36 checkers and byte-stable
+  // regeneration re-confirmed before and after.
   {
     const packLines = text.split(/\r?\n/);
     for (const [re, reason] of OUTCOME_PROMISE) {
