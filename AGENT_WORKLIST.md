@@ -9785,6 +9785,68 @@ generator.
       this run; all git, Node and file work was done via
       mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
       working copy, the established route recorded on every recent pass.
+      Seventh quality pass, 2026-09-03 (unattended scheduled run). NO NEW
+      DEFECT FOUND. Live half attempted and refused: navigation to
+      riddingspharmacy.co.uk via the built-in browser was denied both on
+      preview_start and a direct retry, consistent with no user present in
+      this unattended session to approve a new site; the four 2026-08-14
+      live findings (Riddings switch permalink, Tiffenbergs book-now.html,
+      Riddings /clinic-prices) are not re-read and not re-claimed this pass,
+      and Q53/Q54 stay open unchanged. All 36 checkers ran individually and
+      passed, one transient false failure ruled out first: check-postcodes.js
+      briefly failed against this run's own git-log scratch dump in
+      _agentscratch (quoting the same narrative postcodes, including the
+      McCanns Sandringham correction CH49 1SX, that CLAUDE.md documents and
+      several prior passes have hit the same way); deleted, not a repo
+      defect, checker re-ran clean. FRESH ANGLE: every one of the six prior
+      6.2 passes widened or re-proved RULE 1's link-shape and host-resolution
+      logic in check-service-links.js; none had tested what that resolution
+      does when a branch is marked disposed in branches.json while its
+      already-generated pages are still sitting on disk unregenerated, which
+      is exactly the shape Wilmslow's disposal took before the generators
+      themselves learned to skip a disposed branch (item 1.4) - but this
+      exercises check-service-links.js's own separate host-attribution code,
+      not the generators' skip logic, and that code had never been tested by
+      any prior pass. METHOD: disposed:true injected onto a real, single-host
+      branch (gordonshorts_crosby, chosen because it shares no domain with a
+      sister branch, so the blast radius is limited to that branch's own 12
+      pages), check-service-links.js run as a real child process, output
+      captured, then branches.json restored by byte copy and sha256-verified
+      identical to its pre-injection hash (904de09bc3118cefcfd7ae3f8e045b9ea
+      1d090c634c70114f135101f0b969e1e, confirmed both before injection and
+      after restore) before any assertion could leave the file mutated on
+      disk - the same discipline every prior 6.2 and the 3.13 seventh-pass
+      injection probe has followed. New instrument:
+      audits/verify-6.2-2026-09-03-seventh.js, no import from tools/ beyond
+      invoking the checker as a subprocess. RESULT: check-service-links.js
+      correctly refused to run rather than silently mis-resolving or quietly
+      ignoring the orphaned pages, failing outright with "page(s) not
+      attributable to a branch host" and naming all 12 of
+      gordonshorts_crosby's generated pages individually (the switch page and
+      all 11 service pages). That is the checker's own "stop rather than
+      quietly weaken the rule" convention, proved for the first time against
+      a live-shaped disposal-in-progress rather than only against a
+      synthetic unattributed filename. Full 36-checker suite and a
+      byte-identical git diff on branches.json/modules/core/tools/gbp-packs
+      re-confirmed clean after restore. No checker logic, page, generator or
+      data field changed. Environment: mcp__workspace__bash (Cowork
+      sandboxed Linux FUSE mount of C:\dev\rbh-site-data) used throughout for
+      orientation, reading, the stalest-item derivation and the injection
+      probe itself; git push is not possible from that mount (HTTPS has no
+      cached username, SSH has no host key - the standing Q87 diagnosis), so
+      this entry's commit and push were done via mcp__Windows-MCP__PowerShell
+      against the canonical C:\Dev\rbh-site-data working copy, which the
+      mount is a live view of the same files. One incidental fix made before
+      the commit: a .git\index.lock left behind by this run's own bash git
+      status call failing to clean up after itself on the FUSE mount (not by
+      a running git process - confirmed via Get-Process before deleting it)
+      was removed via mcp__Windows-MCP__FileSystem, since an unremoved lock
+      file would have blocked every git command on the canonical copy for
+      this and any later run. Two of this run's own stale scratch files
+      (_agentscratch/gitlog_debug.txt, _agentscratch/gitlog_check.txt) were
+      also deleted after use; the wider _agentscratch pile of untracked
+      scratch files from many earlier runs was left alone, out of this
+      item's scope.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
