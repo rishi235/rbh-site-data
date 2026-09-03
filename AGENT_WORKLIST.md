@@ -8058,6 +8058,88 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       behaviour against a specific pack's own copy, not a live-facing or
       patient-facing decision. Evidence: audits/riddings-timperley-outcome-
       promise-reproof-4.13-ninth-2026-09-03.txt. Done 2026-09-03.
+      Tenth quality pass 2026-09-03: pack clean and byte-stable across all
+      ten passes (description 657, posts 449, 319, 521, 425, zero non-ASCII
+      characters, zero em or en dashes), sha256 confirmed unchanged
+      throughout (8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a77
+      5917c04 before and after). Selected as stalest in the 36-item rotation
+      pool by the same commit-subject-date method as recent passes (pattern
+      matched against "item <N>" subjects only, over the pool of 45
+      completed items minus the standing 7 out-of-rotation: 1.1, 1.4, 2.2,
+      5.6, 5.7, 6.7, 6.8); 4.13 came out stalest at 2026-09-03T03:43:53+01:00,
+      matching the ninth pass's own forward note exactly.
+      BASELINE. git status --porcelain empty on gbp-packs/, modules/, core/,
+      tools/, branches.json, status/ at the start. All 36 tools/check-*.js
+      run individually: 36/36 exit 0. node tools/check-gbp-packs.js: 0
+      failures, the same 17 estate-wide WARNs as every recent pass, with
+      Riddings' own only line still the known switch-prescriptions.html
+      live-only WARN.
+      NEW ANGLE. The button-target derivation rule (BUTTON_PAGE, item 4.4
+      pass), the button-label/CTA allowlist rule and the no-lead-pricing rule
+      (both added on the item 4.5 pass, 2026-08-13, proved at the time
+      against scorah-hazel-grove.md and a generic pack) had never been
+      individually injection-tested against this pack's own copy across nine
+      prior passes, despite Riddings running both a weight loss (Post C) and
+      a travel clinic (Post D) widget, which is exactly the POM_POSTS
+      surface those rules exist to protect.
+      METHOD. Full repo copied to a scratch directory
+      (/sessions/nifty-hopeful-ramanujan/scratch/449/repo, outside the
+      tracked working tree), sha256-confirmed byte-identical to the tracked
+      copy before use, checker baseline re-confirmed clean in the scratch
+      copy first. Four injections run one at a time against the scratch
+      copy's gbp-packs/riddings-timperley.md only, sha256-restored via
+      `git checkout --` after each and confirmed byte-identical to the
+      original before the next: (1) Post C's button label changed from
+      "Book" to "Buy now" - CAUGHT, the POM-specific message naming the
+      house standard's Buy-button prohibition; (2) a lead-price sentence
+      ("Weight loss plans from just 49 pounds a month.") added into Post C's
+      body before its Button line - CAUGHT by the pricing rule, naming
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5; (3) a control
+      test, Post B's button label changed from "Learn more" to "Sign up"
+      (Post B is not a POM_POSTS letter) - CAUGHT, but correctly via the
+      generic "not a button label any pack in this repo uses" message rather
+      than the POM-specific one, confirming the rule is scoped by letter and
+      not by wording alone; (4) Post C's button URL changed to Post D's own
+      page (travel-clinic-riddings-timperley.html) - CAUGHT by the BUTTON_PAGE
+      derivation rule, naming the correct expected leaf built from
+      branches.json's brandSlug/townSlug. All four behaved exactly as
+      designed; no checker gap found.
+      METHOD NOTE, worth carrying: injection (3)'s first attempt used a sed
+      pattern targeting the bare URL "switch-prescriptions.html" without
+      the "-riddings-timperley" suffix, which does not appear on Post B's
+      real Button line but does appear inside Post B's own hard-stop
+      paster note (the 404 URL the marker exists to warn about). That first
+      attempt silently edited the WRONG occurrence, left the real Button
+      line untouched, and would have been misread as a checker miss if the
+      result had been trusted without checking what actually changed.
+      Caught by instrumenting buttonsOf() directly against the "injected"
+      file and seeing the original "Learn more" / "-riddings-timperley.html"
+      CTA and URL still intact, before any finding was written up; the
+      injection was then corrected to target the real Button line by its
+      exact surrounding text, and re-run to the CAUGHT result recorded
+      above. The general rule: an injection test proves nothing unless the
+      change is independently confirmed to have landed where intended, not
+      only that the checker's exit code changed (or, here, didn't).
+      Tracked repo confirmed untouched throughout (git status --porcelain
+      empty on all tracked paths; gbp-packs/riddings-timperley.md sha256
+      identical before and after; all 36 checkers re-run on the tracked
+      copy after cleanup, 36/36 exit 0). Scratch directory deleted in full
+      after use.
+      LIVE HALF NOT performed: Claude in Chrome reported not connected this
+      run (tabs_context_mcp returned "not connected"). All live-side
+      findings still rest on the seventh pass's 2026-09-01 check (Post B
+      404, pre-Phase-3 switch page paste at the old permalink, branch-
+      specific Pharmacy First page live and correct, weight-loss-clinic-
+      timperley.html's Regime 1 breach per compliance/
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, all unchanged, and item 5.8's
+      own Q5 answer already sets that fix direction). Answer pickup (step 3)
+      also unavailable for the same reason; QUESTIONS.json unchanged this
+      run (94 total, 41 open). No autonomous window active at the top of
+      AGENT_LOG.md. No new question raised: pure re-verification of
+      documented checker behaviour against this pack's own copy, with no
+      judgement call, no business, legal, pricing or regulatory content
+      changed. Evidence: audits/riddings-timperley-button-rules-4.13-tenth-
+      2026-09-03.txt. Done 2026-09-03.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

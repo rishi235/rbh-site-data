@@ -1,0 +1,145 @@
+Item 4.13 - Riddings Pharmacy Timperley GBP pack - tenth quality pass
+2026-09-03, unattended scheduled run via Cowork
+
+SCOPE
+Prove, by injection against a scratch copy, that three post-button rules in
+tools/check-gbp-packs.js - never before individually tested against this
+pack's own copy across nine prior passes - genuinely catch a breach on
+gbp-packs/riddings-timperley.md:
+  1. BUTTON_PAGE derivation (item 4.4 pass): each post's button must point at
+     THIS branch's own generated page for that post's service.
+  2. Button label / CTA allowlist (item 4.5 pass): Posts C and D (the POM
+     posts) may not carry a transactional CTA ("Buy", "Buy now", "Order
+     online", "Order now", "Shop", "Sign up"); only "Learn more" or "Book"
+     are recognised anywhere.
+  3. No lead pricing in posted copy (item 4.5 pass): no post body may state a
+     price, in numerals or words.
+
+Riddings is a relevant test subject because it runs both a weightLoss and a
+travelClinic widget - the exact POM_POSTS surface (letters C and D) these
+rules exist to protect - and none of the nine prior passes on this item had
+pointed any of the three rules at this pack specifically.
+
+BASELINE
+git status --porcelain empty on gbp-packs/, modules/, core/, tools/,
+branches.json, status/ before any work. All 36 tools/check-*.js run
+individually: 36/36 exit 0. node tools/check-gbp-packs.js: 0 failures, 17
+estate-wide WARNs, unchanged from every recent pass. gbp-packs/riddings-
+timperley.md sha256:
+  8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+
+METHOD
+Full repo copied to a scratch directory outside the tracked working tree
+(/sessions/nifty-hopeful-ramanujan/scratch/449/repo). Scratch copy's
+riddings-timperley.md sha256-confirmed identical to the tracked copy, and
+node tools/check-gbp-packs.js re-run clean in the scratch copy before any
+edit. All edits below were made ONLY in the scratch copy; the tracked repo
+was never touched.
+
+INJECTION 1 - transactional CTA on a POM post
+Changed Post C's Button line from:
+  Button: Book -> https://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html
+to:
+  Button: Buy now -> https://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html
+Result: CAUGHT.
+  FAIL riddings-timperley.md: Post C - Weight loss clinic is the weight loss
+  post and its button is labelled "Buy now". A transactional call to action
+  on a prescription-only service is the "Buy [product]" control the house
+  standards bar, and a Google post sits in the advertising regime where that
+  prohibition is near-total (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md).
+  Use "Book" or "Learn more"
+Restored via `git checkout --`; sha256 confirmed identical to original.
+
+INJECTION 2 - lead pricing in Post C body
+Inserted, immediately before Post C's Button line:
+  Weight loss plans from just 49 pounds a month.
+Result: CAUGHT.
+  FAIL riddings-timperley.md: Post C - Weight loss clinic carries a price
+  written in words in the posted copy ("49 pounds"). A Google post is
+  advertising, not an inner page the customer chose to visit, and the house
+  standards bar lead pricing that encourages entry on price, naming
+  "treatments start from ..." as a ruled breach (compliance/
+  WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Keep price out of the post
+  and let the consultation page carry it
+Restored via `git checkout --`; sha256 confirmed identical to original.
+
+INJECTION 3 - control: transactional CTA on a NON-POM post
+First attempt (INVALID, see METHOD NOTE below): sed targeted the bare URL
+"https://www.riddingspharmacy.co.uk/switch-prescriptions.html" (no
+"-riddings-timperley" suffix). That exact string does not appear on Post B's
+real Button line (which uses the canonical "-riddings-timperley" URL); it
+appears only inside Post B's own hard-stop paster note, which quotes the live
+404 URL as the thing NOT to post. The sed silently edited that note instead
+of the Button line. Confirmed invalid by instrumenting buttonsOf() directly
+against the "injected" file: Post B's parsed cta was still "Learn more" and
+its url was still the canonical "-riddings-timperley" address, i.e. nothing
+had actually changed on the surface the rule reads. Checker exit code was 0,
+which without this check would have been misreported as a genuine miss.
+
+Corrected attempt: sed targeted the real Button line by its exact text,
+changing Post B's Button line from:
+  Button: Learn more -> https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+to:
+  Button: Sign up -> https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+Confirmed landed via buttonsOf() debug output (cta: "Sign up") before
+re-running the checker.
+Result: CAUGHT, correctly via the GENERIC message rather than the POM-specific
+one, confirming the rule is scoped by post letter and not by wording alone:
+  FAIL riddings-timperley.md: Post B - Switch your prescriptions button is
+  labelled "Sign up", which is not a button label any pack in this repo
+  uses. The button is public copy and the only clickable control on the
+  post, so a new label is a new call to action reaching patients. If it is
+  genuinely wanted, add it to RECOGNISED_CTAS in tools/check-gbp-packs.js
+  deliberately, having checked it against the house advertising standards
+  first
+Restored via `git checkout --`; sha256 confirmed identical to original.
+
+INJECTION 4 - BUTTON_PAGE derivation, wrong destination
+Changed Post C's Button line to point at Post D's own generated page:
+  Button: Book -> https://www.riddingspharmacy.co.uk/travel-clinic-riddings-timperley.html
+Result: CAUGHT.
+  FAIL riddings-timperley.md: Post C - Weight loss clinic button goes to
+  "travel-clinic-riddings-timperley.html", but this branch's weight loss
+  clinic page is "weight-loss-clinic-riddings-timperley.html", built as
+  <type>-<brandSlug>-<townSlug>.html from branches.json. On a shared domain
+  a wrong leaf is the sister branch's page, which loads fine and sends the
+  click to the wrong pharmacy
+Restored via `git checkout --`; sha256 confirmed identical to original.
+
+METHOD NOTE
+Injection 3's first attempt is recorded above rather than discarded, because
+it is the finding worth carrying forward: an injection test proves nothing
+until the change is independently confirmed to have landed on the surface
+the rule actually reads. A sed pattern that matches an unintended occurrence
+of the same string elsewhere in the file can produce a false "not caught"
+result that looks identical, from the checker's exit code alone, to a real
+gap. Verified this run by instrumenting buttonsOf() against the edited file
+before trusting any "0 failures" result as meaningful.
+
+RESULT
+All four injections (three genuine breaches, one scoping control) caught
+correctly, with the right message in each case. No checker gap found. No
+in-repo defect. Tracked repo confirmed untouched throughout: git status
+--porcelain empty on gbp-packs/, modules/, core/, tools/, branches.json,
+status/ before, during and after; riddings-timperley.md sha256 identical to
+the recorded baseline at the end; all 36 tools/check-*.js re-run on the
+tracked copy after scratch cleanup, 36/36 exit 0. Scratch directory deleted
+in full after use.
+
+LIVE HALF
+Not performed. Claude in Chrome reported "not connected" this run
+(tabs_context_mcp). All live-side findings rest on the seventh pass's
+2026-09-01 check (Post B 404 on its canonical URL, the live switch page
+still at the pre-Phase-3 permalink, the branch-specific Pharmacy First page
+live and correct, and weight-loss-clinic-timperley.html's Regime 1 breach
+per compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - all previously logged,
+item 5.8's territory, Rishi's Q5 answer already sets the fix direction).
+
+ANSWER PICKUP
+Not performed, same reason (Chrome not connected). QUESTIONS.json unchanged
+this run: 94 total, 41 open.
+
+QUESTIONS RAISED
+None. Pure re-verification of documented checker behaviour against this
+pack's own copy; no judgement call, no business, legal, pricing or
+regulatory content changed.
