@@ -1,0 +1,109 @@
+Item 4.9 - Clear Chemist Aintree GBP pack - tenth quality pass, 2026-09-03
+Fresh angle: prove check-brand-spelling.js, check-url-scheme.js and
+check-uk-spelling.js genuinely catch a breach on THIS pack's own copy.
+None of the prior nine passes had individually tested this trio here,
+despite the same three checkers already being proven this way against
+several sister GBP packs (Fishlocks Ainsdale, Scorah Bramhall, McCanns
+Sandringham, Gordon Short Crosby, Hirshmans Ainsdale, Fishlocks Eccleston,
+Smartts Bootle) on earlier passes of items 4.1, 4.4, 4.7, 4.14, 1.2, 4.8
+and 4.10. Confirmed by grep: no prior AGENT_LOG.md entry mentions
+clear-aintree together with any of these three checker names.
+
+BASELINE
+gbp-packs/clear-aintree.md sha256:
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+All 36 tools/check-*.js exit 0 on the tracked repo before this pass.
+
+METHOD
+Full repo copied (cp -r, .git included, per the item 4.10 ninth-pass METHOD
+NOTE that excluding .git makes check-cdn-pins.js fail falsely with "ref
+does not resolve in git" on a scratch copy) to /tmp/audit_run/item49/repo,
+outside the tracked working tree. Scratch copy's clear-aintree.md sha256
+confirmed identical to the tracked copy before any edit, and all 36
+checkers re-run clean on the scratch copy first. Each injection below was
+made one at a time against the scratch copy only, restored from a saved
+original, and sha256-reconfirmed identical before the next.
+
+INJECTION 1 (self-corrected before reporting - see NOTE below).
+First attempt: the pack's own heading line "# GBP content pack - Clear
+Chemist Aintree" changed to "Clea Chemist Aintree" (dropped the letter
+"r"). Result: check-brand-spelling.js exit 0 - NOT caught.
+
+This is not a checker gap. Reading tools/check-brand-spelling.js's rule 2
+(wordForms()) before drawing that conclusion: near-miss forms are derived
+from the canonical brand only as a trailing "s" added or dropped, an
+apostrophe-s form, "and" written as "&", the shop-type word swapped
+(Chemist/Chemists/Pharmacy/Pharmacies), and an internal capital flattened
+to sentence case. "Clear" has no trailing "s", no "and", no shop-type word
+and no internal capital to flatten, so wordForms("Clear") only ever
+produces "Clear", "Clears" and "Clear's". Dropping a mid-word letter is
+outside every one of those derived families and is not one of the seven
+explicitly listed MISSPELT transliterations (MacCann, Hirschman,
+Tiffenburg, S K Chemists, Mc Cann, Smarts, Ridings) either. The injection
+tested a typo class the rule was never designed to catch, not a hole in
+what it does cover - the same "own-method error, caught before reporting"
+shape several recent passes (4.13 tenth, 3.11 eighth) have recorded for
+themselves. Corrected injection, matching a form the rule actually
+derives:
+
+Heading changed to "# GBP content pack - Clears Chemist Aintree" (trailing
+s added, one of wordForms("Clear")'s two derived near-miss forms).
+Result: CAUGHT.
+  FAIL  gbp-packs/clear-aintree.md:1: reads "Clears Chemist". The trading
+  name is "Clear Chemist"
+Exit code 1. Restored; sha256 back to baseline, confirmed.
+
+INJECTION 2. Post C's (weight loss clinic) button URL changed from
+https://www.clearchemist.co.uk/weight-loss-clinic-clear-aintree.html to
+the same URL with http://. Result: CAUGHT.
+  FAIL  INSECURE gbp-packs/clear-aintree.md: published surface carries
+  http://www.clearchemist.co.uk/weight-loss-clinic-clear-aintree.html. An
+  insecure estate URL on a live page is a crawlable duplicate of the https
+  page, which is item 6.6.
+Exit code 1 (check-url-scheme.js). Restored; sha256 back to baseline,
+confirmed.
+
+INJECTION 3. Post D's (travel clinic) opening line "Get your travel
+health sorted before you go" changed to "Get your travel health organized
+before you go" (US spelling). Result: CAUGHT.
+  FAIL  gbp-packs/clear-aintree.md:120: reads "organized". UK English is
+  "organised"
+Exit code 1 (check-uk-spelling.js). Restored; sha256 back to baseline,
+confirmed.
+
+INJECTION 4 (control). A synthetic paster note added under "Notes for the
+paster": a wrong brand variant wrapped in quotation marks - "referred to
+us as \"Clear Chemists\", quoted here as evidence of what was seen, not a
+claim" - the same convention several other packs use (Fishlocks Eccleston,
+Hirshmans Ainsdale, Gordon Short Crosby, Coleman and Leighs Walton) to
+record a live-page divergence without the pack itself claiming it. Result:
+correctly PASSED.
+  NOTE  gbp-packs/clear-aintree.md:131 records "Clear Chemists" inside
+  quotation marks, read as a note of what a live page says rather than as
+  this file claiming it
+Exit code 0, reported only as a NOTE, confirming the brand-spelling
+quote-evidence mask works on this pack's own copy and not only in theory.
+Restored; sha256 back to baseline, confirmed.
+
+RESULT
+Three genuine breaches caught with the correct message in each case, one
+quoted-evidence control correctly passed, and one self-caught injection
+design error corrected before being reported as a finding (it was never a
+valid test of rule 2's documented scope). No checker gap, no in-repo
+defect. Full 36-checker suite re-run on the scratch copy after the final
+restore: 36/36 exit 0. Tracked repo confirmed untouched throughout:
+git status --porcelain empty on gbp-packs/, modules/, core/, tools/,
+branches.json, status/ before, during and after; clear-aintree.md sha256
+identical to the baseline at the end. Scratch directory deleted in full
+after use.
+
+LIVE HALF NOT PERFORMED. Claude in Chrome reported "not connected" this
+run (mcp__claude-in-chrome__navigate). All live-side findings still rest
+on the ninth pass's 2026-09-03 read via the Windows-MCP PowerShell curl.exe
+fallback (contact page phone 0151 203 6535 / Q28, WhatsApp 07512 330 076 /
+Q21's concrete case, all three post-target URLs still 404 / Q29), all
+unchanged and none re-verified today for lack of a browser session.
+
+No new question raised: this pass proved existing checker rules rather
+than changing any, and needed no business, legal, pricing or regulatory
+judgement call.

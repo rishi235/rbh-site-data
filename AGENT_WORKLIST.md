@@ -6921,6 +6921,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       workaround still correct). All 36 checkers exit 0 throughout. No
       in-repo defect found, no new question raised. Evidence:
       audits/clear-aintree-4.9-ninth-pass-2026-09-03.txt. Done 2026-09-03
+      Tenth quality pass 2026-09-03: fresh angle, proving
+      check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js
+      genuinely catch a breach on this pack's own copy, none of which nine
+      prior passes had individually tested here despite the same trio
+      already proven against several sister GBP packs. Full repo copied
+      with .git included (per the item 4.10 ninth pass's method note) to a
+      scratch directory; four injections run one at a time, each restored
+      and sha256-reconfirmed before the next. First attempt at the brand
+      injection ("Clear" to "Clea" in the heading) was NOT caught, but on
+      reading check-brand-spelling.js's rule 2 this was a self-caught
+      design error, not a checker gap: rule 2 derives near-miss forms only
+      as a trailing s, an apostrophe-s, "and"/"&", a shop-type swap or a
+      case-flatten, and "Clear" has none of the first four and is already
+      sentence case, so its only two derived forms are "Clears" and
+      "Clear's". Corrected to "Clears Chemist Aintree" - CAUGHT, correct
+      message. Second: Post C's button URL downgraded to http:// - CAUGHT
+      by check-url-scheme.js, correct message naming item 6.6. Third:
+      "sorted" changed to "organized" (US spelling) in Post D - CAUGHT by
+      check-uk-spelling.js, correct UK form named. Fourth, a control: a
+      synthetic paster note quoting "Clear Chemists" as a recorded reading
+      of a live page - correctly PASSED as a NOTE, confirming the
+      brand-spelling quote-evidence mask works on this pack's own copy.
+      All four behaved exactly as designed; no checker gap found. Full
+      36-checker suite re-run on the scratch copy after the final restore:
+      36/36 exit 0. Tracked repo confirmed untouched throughout; hash
+      identical to baseline at the end. LIVE HALF NOT PERFORMED: Claude in
+      Chrome reported not connected this run; all live-side findings still
+      rest on the ninth pass's 2026-09-03 read (Q28, Q21's concrete case,
+      Q29 all unchanged). No in-repo defect, no new question raised.
+      Evidence:
+      audits/clear-aintree-brand-url-uk-spelling-4.9-tenth-2026-09-03.txt.
+      Done 2026-09-03
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
