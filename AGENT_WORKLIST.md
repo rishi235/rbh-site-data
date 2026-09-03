@@ -6086,6 +6086,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       eligibility) is not re-raised as it is already open. No new in-repo
       defect, no new question; open question count unchanged at 41 of 94.
       Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-03-ninth.txt.
+      Quality pass 2026-09-03 (unattended run, tenth pass): stalest item in the
+      rotation pool, re-derived mechanically (last touched 2026-09-03T02:10:07+01:00,
+      next stalest 4.5 at 02:40:10, no tie). Pack re-verified: node
+      tools/check-gbp-packs.js 0 failures, same 17 known WARNs as every prior
+      pass. All 36 checkers run individually: 36/36 exit 0. git status empty
+      throughout. NEW ANGLE: the splitDay rule (added item 4.10 pass, 2026-08-10,
+      "a lunch closure must tell the paster to enter TWO ranges") had never been
+      proven by injection against this pack specifically, despite this pack
+      genuinely closing for lunch (Monday appears twice in branches.json's
+      openingHours.specification) and already carrying the required paster
+      note. INJECTION: on a sha256-backed scratch copy, deleted the splitDay
+      sentence from the paster notes, leaving only "Sunday closed." RESULT:
+      exit 1, exactly one FAIL, named precisely as the rule's own message,
+      with all 17 pre-existing WARNs unchanged and no other pack's verdict
+      moved. RESTORED by byte copy (not git checkout); post-restore sha256
+      matched the pre-injection value exactly (fdb1429d...693); re-run clean,
+      36/36 checkers exit 0, tracked repo confirmed untouched throughout.
+      Nothing fixed - this pass adds proof, not correction. LIVE HALF: Claude
+      in Chrome not connected (Q59); fell back to read-only HTTP GET. Profile-
+      website landing page still 404s, unchanged, still awaiting the queued
+      paste run. The other four post targets all 200; full text not re-read
+      this pass (last confirmed clean on the seventh and ninth passes), so
+      this is a status check, and Q83 is not re-raised as it is already open.
+      No new in-repo defect, no new question; open question count unchanged
+      at 41 of 94. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-03-tenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

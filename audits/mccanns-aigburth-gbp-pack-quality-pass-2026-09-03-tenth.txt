@@ -1,0 +1,92 @@
+McCanns Chemist Aigburth GBP pack - quality pass (tenth), 2026-09-03 (unattended run)
+=======================================================================================
+
+Item: 4.6 (McCanns Chemist Aigburth GBP pack)
+Rotation-pool staleness at run start: 4.6 stalest (last touched 2026-09-03T02:10:07+01:00,
+9th pass), next-stalest 4.5 (2026-09-03T02:40:10+01:00), no tie. Re-derived mechanically
+from git log commit subjects against the standing 36-item rotation pool, matching the
+forward note left by the immediately preceding 3.1 tenth-pass entry.
+
+BASELINE
+--------
+gbp-packs/mccanns-aigburth.md sha256 before: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+node tools/check-gbp-packs.js: 0 failures, 17 known WARNs (Q72 qualifier wording x4,
+clear-aintree phone WARN, coleman-leigh/gordon-short/hirshmans/riddings/scorah/smartts
+live-only link-target WARNs, hirshmans phone WARN, fishlocks/hirshmans/scorah Q64
+post-town address-string WARNs). All as previously recorded, nothing new.
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+git status --porcelain on gbp-packs/, modules/, core/, tools/, branches.json, status/: empty.
+
+FRESH ANGLE
+-----------
+This item's nine-pass history read in full first. Rules already proven by injection
+specifically against this pack across passes 4-9: the address PRESENCE/SISTER rule
+(2026-08-13, house-number-on-own-road), the hours-region rule (2026-08-14, four-place
+hours read), the phone WARN+FAIL rule (2026-09-02), the time/day PAIRING rule
+(2026-09-03, ninth pass), and the branch-name-as-place rule for the Sandringham/St
+Michael's sentence (2026-08-10, the run-37 fix).
+
+Not yet proven against this pack specifically: the splitDay rule (check-gbp-packs.js,
+"a lunch closure must tell the paster to enter TWO ranges", added on the item 4.10 pass
+2026-08-10). The rule's own header names only tiffenbergs-aintree.md and
+gordon-short-crosby.md as the two packs known to carry the instruction as of that pass;
+mccanns-aigburth.md in fact carries it too (paster note: "GBP hours need two time ranges
+on every open day to show the lunch closure..."), and branches.json confirms this branch
+genuinely closes for lunch (Monday appears twice in openingHours.specification, 09:00-13:00
+and 14:00-18:00 on weekdays). No dedicated quality pass on this item had pointed the rule
+at this pack's own copy - only ever covered by the estate-wide 36-checker suite passing.
+
+METHOD
+------
+File backed up by byte copy first (sha256 above recorded before touching anything).
+The splitDay paster-note sentence was deleted from the "Notes for the paster" section,
+leaving only "Sunday closed." in its place - the same shape of injection used against
+hirshmans-ainsdale.md earlier today (item 4.3 tenth pass), applied here to prove the rule
+independently on its own named-but-untested pack.
+
+RESULT OF INJECTION
+--------------------
+node tools/check-gbp-packs.js: exit 1, exactly 1 failure, named:
+  FAIL  mccanns-aigburth.md: this branch closes for lunch (Monday appears twice in
+  openingHours), so the pack must tell the paster the profile needs two time ranges for
+  that day rather than one. Google's hours editor offers a single range first, and a
+  single range publishes the pharmacy as open through the hour it is shut
+
+All 17 pre-existing WARNs still present unchanged; no other pack's verdict moved. Confirms
+the injection produced exactly one new failure and disturbed nothing else in the suite.
+
+RESTORE
+-------
+File restored by byte copy (cp from the pre-injection backup, not git checkout - this
+mount's checkout cannot unlink the old file, the standing quirk recorded on multiple
+recent runs). sha256 after restore: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+(identical to the pre-injection value). node tools/check-gbp-packs.js: 0 failures, same 17
+WARNs as baseline. Full 36-checker suite re-run individually: 36/36 exit 0.
+git status --porcelain on gbp-packs/, modules/, core/, tools/, branches.json, status/: empty
+throughout and at the end.
+
+LIVE HALF
+---------
+Claude in Chrome: tabs_context_mcp reported "not connected" (Q59, unchanged). Fell back to
+the established read-only HTTP GET route (curl, GET only, -L to follow redirects, no
+interaction, no login, no submission).
+  404  https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html   (profile-website
+       landing page - still 404, unchanged, still awaiting the queued Weebly paste run,
+       consistent with every prior pass)
+  200  https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html  (Post A)
+  200  https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-aigburth.html  (Post B)
+  200  https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html  (Post C)
+  200  https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html  (Post D)
+Full page text not re-read this pass (last confirmed clean on the seventh and ninth
+passes); this is a status/reachability check only, consistent with the ninth pass's own
+convention when a live finding is not new. Q83 (weight loss booking-block price stated
+ahead of the eligibility section) not re-raised, already open.
+
+RESULT
+------
+Zero in-repo defects found this pass. The splitDay rule proven by injection against this
+pack's own copy for the first time across ten passes, closing the last of this pack's
+provable check-gbp-packs.js rules that had only ever been covered by the general suite
+passing rather than pointed at deliberately. No checker logic changed - verification only.
+No page, generator, checker, branches.json entry or pack changed. No new question raised.
+Open question count unchanged: 41 of 94.
