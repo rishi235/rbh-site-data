@@ -8880,6 +8880,38 @@ appended to the line. Do not move them; the status page reads them in place.
       the rule currently guards zero branches, so the next pass does not have
       to re-derive it. No new question. Done 2026-09-03. Evidence:
       audits/postcode-disposed-rule-reproof-1.3-tenth-2026-09-03.txt.
+      Quality pass 2026-09-03 (eleventh pass): data clean again and not one
+      character of branches.json, modules/ or core/ edited. All 36 checkers
+      pass, all six generators byte-identical (git status --porcelain --
+      modules/ core/ branches.json empty before and after). This pass changed
+      angle for the first time in the item's history: the ten prior passes all
+      tested whether a PAGE, PACK or PASTE BLOCK disagreed with branches.json
+      (nine widened PC_RE_LOOSE's separator, the tenth re-proved the disposed-
+      branch exemption); none had ever asked whether branches.json agreed with
+      ITSELF. rank() (line 237) exists precisely because two entries can
+      legitimately share a postcode - Clear Chemist Aintree and head office,
+      both Unit 20 Brookfield, L9 7AS - but it only picks a display owner when
+      that happens; nothing distinguished that deliberate case from an
+      accidental one. Proved on a scratch copy before writing anything:
+      McCanns Sandringham's own postalCode set to McCanns Aigburth's real
+      L17 7BP, all six generators re-run so all 15 of Sandringham's own pages
+      consistently carried the wrong postcode - the unmodified checker (rules
+      1-6) reported zero FOREIGN, MISATTRIB, DISPOSED or MISSING failures on
+      any of them, because every regenerated file matched the wrong data it
+      was built from and no rule read branches.json's own postalCode column
+      for internal agreement. Fix: new DELIBERATE_SHARED_POSTCODES constant
+      naming the one legitimate case with a reason, and new rule 7 (DUPLICATE)
+      which groups live branches by postcode and fails any postcode shared by
+      two or more whose id set is not exactly excused there, plus a staleness
+      half (same convention as NARRATIVE_POSTCODES) that fails if the excused
+      entry ever stops matching branches.json's actual sharers. Re-tested on
+      the scratch copy: clean baseline unaffected (rule 7 correctly excuses
+      L9 7AS), the injection above now fires DUPLICATE, and a temporarily
+      wrong id in the allowlist fires STALE; scratch discarded afterwards. On
+      the tracked repo: branches.json itself needed no change (only the one
+      deliberate case has ever existed here); all 36 checkers and all six
+      generators re-run clean. No new question. Done 2026-09-03. Evidence:
+      audits/postcode-duplicate-rule-1.3-eleventh-2026-09-03.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

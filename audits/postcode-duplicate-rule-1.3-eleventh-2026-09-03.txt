@@ -1,0 +1,105 @@
+Item 1.3 quality pass (eleventh), 2026-09-03
+McCanns Sandringham postcode sweep - rule 7 (DUPLICATE) added to check-postcodes.js
+
+FRESH ANGLE
+-----------
+Ten prior passes (2026-08-04 to 2026-09-03) all worked the same seam: PC_RE /
+PC_RE_LOOSE's separator handling, widened nine times (case, &nbsp;, numeric
+entities, entity case variants, URL forms, fused/no-separator forms, double
+percent-encoding), plus rule 4/rule 2's disposed-branch exemption re-proven on
+the tenth pass. All of those tested whether a PAGE, PACK or PASTE BLOCK
+disagreed with branches.json. None asked whether branches.json agreed with
+itself.
+
+rank() (line 237) exists specifically because two branches.json entries CAN
+legitimately share a postcode: Clear Chemist Aintree and head office are both
+at Unit 20 Brookfield, L9 7AS, by design. rank() picks which one a message
+should name when that happens - it does not distinguish that deliberate case
+from an accidental one. If a data-entry error ever assigned a live trading
+branch another live branch's real postcode, every one of the six generators
+would propagate it faithfully into that branch's own pages, JSON-LD and map
+queries, and every existing rule (1-6) would read the result as internally
+consistent, because each one only ever compares a file to branches.json, never
+branches.json's postalCode column to itself.
+
+PROOF (scratch copy, /tmp/pc11-scratch, discarded after use; tracked repo
+never edited during the proof)
+-------------------------------------------------------------------------
+1. Full repo copied to a scratch directory. Baseline: node tools/check-
+   postcodes.js (unmodified) -> 0 failures, 3 warnings, matching the tracked
+   repo exactly.
+2. branches.json in the scratch copy only: mccanns_sandringham.postalCode
+   changed from its real L17 4JP to mccanns_aigburth's real L17 7BP (sha256
+   of branches.json recorded before and after the whole exercise).
+3. All six generators re-run against the corrupted scratch branches.json, so
+   all 15 of McCanns Sandringham's own pages (11 service pages, the branch
+   landing page, the switch page, plus INDEX.md/SEO.md rows) consistently
+   carried L17 7BP - fully self-consistent with the (wrong) data, no
+   divergence anywhere for any page-vs-data rule to catch.
+4. node tools/check-postcodes.js (still unmodified, rules 1-6 only) against
+   this fully-regenerated, fully-consistent scratch state: 0 FOREIGN, 0
+   MISATTRIB, 0 DISPOSED, 0 MISSING failures on any Sandringham-owned file.
+   (27 UNKNOWN failures did fire, but every one was the OLD L17 4JP going
+   stale in narrative/audit files and the hand-maintained, unregenerated GBP
+   pack - a side effect of L17 4JP no longer being a real branches.json value
+   anywhere, not detection of the duplicate itself. Confirmed by grep: zero
+   FOREIGN/MISATTRIB/DISPOSED/MISSING lines in the full output.)
+   This is the gap: the duplicate reached every live-equivalent surface for
+   that branch with the existing six rules reporting clean.
+
+FIX
+---
+tools/check-postcodes.js:
+- New var DELIBERATE_SHARED_POSTCODES, named next to rank()/byPostcode,
+  listing the one legitimate case (L9 7AS: clearchemist_aintree +
+  rbh_head_office_aintree) with a reason, same convention as every other
+  KNOWN-style list in this repo (NARRATIVE_POSTCODES, NARRATIVE_FILES).
+- New Rule 7 (DUPLICATE): groups all LIVE branches by normalised postalCode;
+  any postcode held by 2+ live branches whose id set does not exactly match a
+  DELIBERATE_SHARED_POSTCODES entry fails, naming the postcode and the
+  branches sharing it.
+- Staleness half, same convention as the NARRATIVE_POSTCODES stale-exemption
+  check: a DELIBERATE_SHARED_POSTCODES entry whose named ids no longer match
+  branches.json's actual live sharers of that postcode fails as STALE, so a
+  future rename, disposal or address change cannot leave the excuse silently
+  covering something it was never written to permit.
+- Module header's Rules list updated to document rule 7.
+
+RE-TEST (scratch copy)
+-----------------------
+- Fixed checker copied into the same scratch directory. Clean baseline (step
+  1 state): 0 failures, 3 warnings - unchanged, rule 7 correctly excuses the
+  one deliberate L9 7AS case.
+- Injection re-applied (step 2-3 state, Sandringham corrupted to L17 7BP, all
+  six generators re-run): rule 7 fires -
+    DUPLICATE branches.json: postcode L17 7BP is shared by live branches
+    mccanns_aigburth, mccanns_sandringham, with no DELIBERATE_SHARED_POSTCODES
+    entry excusing it. ...
+  alongside the same 27 pre-existing UNKNOWN failures (unrelated side effect,
+  confirmed unchanged).
+- Staleness proven: DELIBERATE_SHARED_POSTCODES's L9 7AS entry temporarily
+  edited in the scratch copy to name a wrong id ("some_wrong_id" in place of
+  rbh_head_office_aintree) against the clean (non-injected) branches.json ->
+  fired STALE naming the mismatch; reverted from a pre-edit backup file,
+  re-ran clean.
+- Scratch directory deleted after use. Tracked repo was not touched by any
+  step of the proof.
+
+RESULT ON THE TRACKED REPO
+---------------------------
+- branches.json: unchanged (no edit made or needed; the real repo has never
+  carried this duplicate - only the deliberate L9 7AS case, which the new
+  rule 7 excuses correctly).
+- All six generators re-run against the tracked repo's real branches.json:
+  193 modules/ and core/ .html/.md files sha256-identical before and after
+  (git status --porcelain -- modules/ core/ branches.json empty throughout).
+- All 36 tools/check-*.js run individually: 36/36 exit 0.
+- node tools/check-postcodes.js --verbose-equivalent tail: "721 text files
+  scanned, 22 distinct postcode(s), 16 live branches: 0 failure(s), 3
+  warning(s)" - identical to every prior pass's clean baseline.
+
+No page, pack, paste block or branches.json entry changed. Only
+tools/check-postcodes.js changed (new DELIBERATE_SHARED_POSTCODES constant,
+new rule 7 and its staleness half, updated header). No new question raised:
+this is a checker hardening with no business decision attached, the same
+class of fix every prior pass on this item made.

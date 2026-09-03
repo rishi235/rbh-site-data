@@ -39,6 +39,13 @@
                 and then checked by nothing but rule 1, which only asks whether
                 a postcode is real - not whether it is on the right branch.
                 That is the item 1.3 failure shape exactly.
+  7. DUPLICATE  two different live branches in branches.json must not share a
+                postcode, unless named in DELIBERATE_SHARED_POSTCODES. Rules 1
+                to 6 all check whether a PAGE agrees with branches.json; this
+                is the only rule that checks branches.json against itself, so
+                a data-entry duplicate at the source - which every generator
+                would then propagate consistently and every other rule would
+                therefore read as clean - has a check at all.
 
   Run:  node tools/check-postcodes.js  [--verbose]
   Exit 0 = clean, 1 = failures. Warnings alone do not fail the run.
@@ -241,6 +248,18 @@ branches.forEach(function (b) {
   if (!pc) return;
   if (!byPostcode[pc] || rank(b) > rank(byPostcode[pc])) byPostcode[pc] = b;
 });
+
+// The one place a shared postcode is meant to happen, named so rule 7 below
+// can tell it apart from a data-entry accident. rank() (above) exists only to
+// pick a display owner when two entries share a value; it treats a deliberate
+// co-location and a genuine duplication error identically, which is exactly
+// the gap rule 7 closes.
+var DELIBERATE_SHARED_POSTCODES = {
+  "L9 7AS": {
+    ids: ["clearchemist_aintree", "rbh_head_office_aintree"],
+    reason: "Unit 20 Brookfield: Clear Chemist Aintree and head office are the same building by design, not a data error."
+  }
+};
 
 // What the loose pass is allowed to report, and the boundary is deliberate.
 // A loose match only counts if it canonicalises to a postcode this repo
@@ -464,6 +483,60 @@ branches.forEach(function (b) {
   if (!seenAsUse[pc]) {
     fail("MISSING  postcode " + pc + " (" + b.id + ") is only declared or narrated (" +
       seenPostcodes[pc].join(", ") + "): no page, pack or paste block carries this branch's address");
+  }
+});
+
+// Rule 7. DUPLICATE. Two different live trading branches must not share a
+// postalCode in branches.json itself. Found on the item 1.3 quality pass
+// (eleventh), 2026-09-03. Every rule above this one checks whether a PAGE
+// agrees with branches.json; none checks whether branches.json agrees with
+// itself. rank() (above) already anticipates two entries sharing a postcode,
+// but only to pick which one a message should name - it does not care whether
+// the sharing is the one deliberate case (Clear Chemist Aintree and head
+// office, same building, DELIBERATE_SHARED_POSTCODES) or a data-entry
+// accident. Proved by injection on a scratch copy, not the tracked repo:
+// McCanns Sandringham's own postalCode set to McCanns Aigburth's real
+// L17 7BP, all six generators re-run so all 15 of Sandringham's own pages,
+// its JSON-LD and its map queries consistently carried the wrong postcode -
+// the unmodified checker (rules 1-6) reported zero failures and zero
+// warnings, because every regenerated file matched the wrong data it was
+// built from and no rule ever looks at branches.json's own postalCode column
+// for internal agreement. This is the same failure shape item 1.3 exists to
+// stop - a real postcode on the wrong branch - just one layer further back,
+// at the source the other six rules all trust rather than on a page that
+// might disagree with it.
+var livePostcodeGroups = {};
+branches.forEach(function (b) {
+  if (b.disposed) return;
+  var pc = norm(b.postalCode);
+  if (!pc) return;
+  (livePostcodeGroups[pc] = livePostcodeGroups[pc] || []).push(b.id);
+});
+Object.keys(livePostcodeGroups).forEach(function (pc) {
+  var ids = livePostcodeGroups[pc].slice().sort();
+  if (ids.length < 2) return;
+  var allowed = DELIBERATE_SHARED_POSTCODES[pc];
+  var excused = allowed && allowed.ids.length === ids.length &&
+    allowed.ids.slice().sort().every(function (id, i) { return id === ids[i]; });
+  if (excused) return;
+  fail("DUPLICATE branches.json: postcode " + pc + " is shared by live branches " + ids.join(", ") +
+    ", with no DELIBERATE_SHARED_POSTCODES entry excusing it. If the branches genuinely occupy the " +
+    "same building, add an entry naming both ids and why; otherwise correct the wrong branch's postalCode.");
+});
+// Staleness half, same convention as NARRATIVE_POSTCODES below: an entry that
+// no longer matches branches.json - because a branch was renamed, disposed,
+// or the address changed - must not keep excusing whatever branches.json now
+// says, or the excuse silently widens to cover a future accident it was never
+// written to permit.
+Object.keys(DELIBERATE_SHARED_POSTCODES).forEach(function (pc) {
+  var allowed = DELIBERATE_SHARED_POSTCODES[pc];
+  var actual = (livePostcodeGroups[pc] || []).slice().sort();
+  var wanted = allowed.ids.slice().sort();
+  var matches = actual.length === wanted.length && wanted.every(function (id, i) { return id === actual[i]; });
+  if (!matches) {
+    fail("STALE    DELIBERATE_SHARED_POSTCODES names " + pc + " as shared by " + wanted.join(", ") +
+      ", but branches.json's live branches at that postcode are now [" + actual.join(", ") +
+      "]. Update or remove the entry.");
   }
 });
 
