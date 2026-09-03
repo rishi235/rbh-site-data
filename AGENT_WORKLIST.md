@@ -1901,6 +1901,49 @@ audits/verify-3.5-2026-09-02-ninth.js,
 audits/verify-3.5-2026-09-02-ninth-output.txt and
 audits/checker-sweep-2026-09-02-item3.5.txt. No in-repo defect found, no new
 question.
+Quality pass 2026-09-03 (tenth): 12 pages clean on a tenth independent
+extraction (audits/verify-3.5-2026-09-03-tenth.js, freshly written, no import
+from tools/), 459 checks, 0 failures. All 35 checkers pass; all six
+generators rebuild byte-identical against 215 sha256-hashed files under
+modules/, git status --porcelain modules/, core/ empty before and after
+regeneration. NEW LEG: the contraception page, never independently verified
+on this item across nine prior passes, checked against RULE 4, 5, 6, 7 and 8
+of check-contraception-copy.js by fresh extraction rather than by calling the
+checker - NHS service name present, free-of-charge line present with the
+negation preserved ("no prescription charge"), no currency amount, consent
+sentence present, no coil/implant offer, no contraceptive named by brand or
+drug name across 8 candidate names. One false positive in this run's own
+harness caught and fixed before commit: an initial blunt regex flagged the
+legitimate "no prescription charge" sentence as if it were a charge being
+stated; corrected to recognise the negation, same class of own-tooling fix as
+the item 3.5 ninth pass's scratch-file false positive and the item 4.1 ninth
+pass's /tmp finding. GUARD RE-PROOF BY INJECTION, on a page type never used
+for injection on this item in nine prior passes (fifth: pharmacy-first;
+seventh: uti-treatment; eighth: weight-loss-clinic; ninth: switch-
+prescriptions) and on a generator family (contraception) never injection-
+tested on this item at all: contraception-hirshmans-ainsdale.html. Round 1,
+two simultaneous injections - foreign seoTown "Bramhall" (outside this
+branch's serviceAreaList) appended to the H1, and a corrupted data-wa - both
+caught (check-seo-pattern.js on the h1 mismatch and the foreign-town rule,
+check-whatsapp-route.js on the WhatsApp mismatch, and the independent
+extraction on both), restored via git checkout, sha256-confirmed byte-
+identical to the pre-injection hash
+(a595d8a370af06379c981ae4e075bdca53fe312622938e8e8b5029fe20ee1fe9). Round 2,
+separate: the free-of-charge FAQ answer rewritten to state "a £9.35
+prescription charge applies", the first time check-contraception-copy.js has
+been injection-proved on this item - caught by its own RULE 3 (verbatim) and
+RULE 5 (free) and by the independent extraction, restored via git checkout,
+sha256-confirmed byte-identical again. Full 35-checker suite and independent
+extraction both re-run clean after each restore; git status --porcelain on
+modules/, core/, gbp-packs/, branches.json, tools/, status/ empty throughout.
+Live half NOT READ this pass: Claude in Chrome reported zero connected
+browsers on two separate checks (before and after the repo-side work), no
+other route attempted, no login attempted. The seventh pass's live-only
+finding (switch page pre-Q7 title/description paste-lag with mojibake em
+dash, under the 5.6 repaste queue) was not re-confirmed and should not be
+assumed unchanged or resolved. Evidence in
+audits/verify-3.5-2026-09-03-tenth.js. No in-repo defect found, no new
+question.
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
