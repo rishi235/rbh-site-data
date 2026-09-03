@@ -10820,6 +10820,63 @@ and the first to find one in the CODE rule rather than the entity rule.
       exemption gap above); zero defects in check-opening-hours.js
       itself. Evidence: this write-up; no new audit file needed since the
       HTTP checks were brief and are quoted here in full.
+      Quality pass (seventh), 2026-09-03 (unattended run, Cowork). REAL COVERAGE
+      GAP FOUND AND CLOSED, in the checker rather than any page or data field.
+      Rules 1 to 7 all scope to the six branch landing pages, the only page
+      family built with an hours card, because that is the surface rule 7 was
+      built to contain. Nothing checked whether the same fault could reach any
+      of the other 171 public pages: the 15 switch pages and the 156
+      service-family pages (Pharmacy First, weight loss, travel clinic,
+      contraception), none of which carries an hours card at all, so nothing
+      in this checker or any of the other 35 had ever swept them for a clock
+      time. A sentence such as "call us weekdays 9am to 6pm" added to a
+      switch-page FAQ or a service-page trust bar would publish an hours claim
+      with nothing in the estate to compare it to branches.json, and every
+      checker would still exit 0 - rule 7's own gap, reopened one layer out.
+      New rule 8 added: an absence rule, not a comparison, since none of these
+      pages has anything to check a clock time against. Swept 177 files: the
+      171 generated switch/service-family pages plus five hand-pasted public
+      copy files that carry the same exposure and are read for the same reason
+      check-em-dashes.js already reads them (as public as a generated page the
+      moment somebody pastes them) - modules/switch/weebly.html,
+      modules/emar/weebly, modules/service/DRAFT-weight-loss-copy.html,
+      modules/service/DRAFT-travel-clinic-copy.html and the two files under
+      modules/service/weebly-paste/. Same KNOWN_TIME_OUTSIDE_ESTATE stale-key-
+      fails exemption contract as rule 7's KNOWN_TIME_OUTSIDE_CARD, and the
+      same coverage-floor guard (fails if the sweep finds zero files, so a
+      broken path cannot pass by reading nothing).
+      INJECTION PROOF, three ways, each backed up by sha256 first and restored
+      byte-for-byte after: "Open 9am to 6pm weekdays." inserted into
+      modules/switch/pages/switch-prescriptions-sk-chemists-bootle.html (a
+      switch page), modules/service/pages/contraception-cherry-lane-walton.html
+      (a service-family page) and modules/switch/weebly.html (a pasted public
+      copy file). All three caught immediately and specifically, two failures
+      each (one per clock time), six failures total, exit 1. All three files
+      restored from their pre-injection backups; sha256 confirmed identical to
+      baseline on each; full 36-checker suite re-run clean (36/36) immediately
+      after; git status --porcelain modules/ empty afterwards. Anti-rot also
+      proved: a stale KNOWN_TIME_OUTSIDE_ESTATE key run against a scratch copy
+      of the checker (never the tracked file) failed correctly and specifically
+      ("nothing matched it"); scratch copy deleted afterwards, tracked checker
+      untouched by that test.
+      Zero pages carry a clock time in this sweep today, so the fix is a no-op
+      on the current estate and closes the gap for the next edit, the same
+      posture rules 6 and 7 were added under. Baseline before any edit: one
+      pre-existing failure in check-postcodes.js, traced to this run's own
+      scratch file (_agentscratch/log_dump.txt, a git-log dump made for the
+      item-selection rotation derivation and left behind after use) carrying
+      postcodes from old commit messages that check-postcodes.js reads because
+      it scans the whole repo; deleted, not a repo defect, checker clean
+      afterwards. All 36 checkers then re-run individually: 36 of 36 exit 0.
+      All six generators (plus build-audit-status.js) rebuilt: sha256 of every
+      file under modules/ and core/ identical before and after, git status
+      --porcelain modules/ core/ branches.json empty throughout. Live half not
+      re-run this pass (repo-only finding; Q55's live Smartts status is
+      unchanged and not re-claimed here). No new question raised - this was a
+      checker-coverage gap with an obvious, low-risk fix (an absence rule with
+      no live breach to weigh), not a judgement call for Rishi. Only
+      tools/check-opening-hours.js changed; no page, generator, data field or
+      patient-facing copy touched.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

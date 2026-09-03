@@ -29,6 +29,9 @@
  *   7. Every clock time printed on a landing page must sit inside the hours
  *      card. A time anywhere else is an hours claim nothing compares to
  *      branches.json.
+ *   8. No switch page, service-family page, or hand-pasted public copy file
+ *      carries a clock time at all, because none of them is built with an
+ *      hours card to compare one to.
  *
  * The defect that prompted rule 6 (found on the 6.3 quality pass, 2026-08-13):
  * rules 1 to 3 compare the page against branches.json, and expectedRow() reads
@@ -78,6 +81,27 @@
  * KNOWN_TIME_OUTSIDE_CARD with the question id that agreed it, on the same
  * stale-key-fails contract the other checkers use.
  *
+ * The gap that prompted rule 8 (found on the 6.3 quality pass, 2026-09-03,
+ * seventh pass on this item): rules 1 to 7 all scope to the six branch
+ * landing pages, the only page family built with an hours card. The switch
+ * pages (15) and the service-family pages (156: Pharmacy First, weight loss,
+ * travel clinic, contraception) carry no hours card at all, and neither this
+ * file nor any of the other 35 checkers ever swept them for a clock time.
+ * That is rule 7's own gap, reopened one layer out: a well-meant sentence
+ * such as "call us weekdays 9am to 6pm" added to a switch-page FAQ or a
+ * service-page trust bar would publish an hours claim with nothing in the
+ * estate to compare it to branches.json, and every checker would still exit
+ * 0. Five hand-pasted public copy files carry the same exposure and are
+ * swept for the same reason check-em-dashes.js already reads them: they are
+ * as public as a generated page the moment somebody pastes them - the switch
+ * and eMAR Weebly paste blocks, the weight loss and travel clinic DRAFT
+ * files, and the weebly-paste replacement blocks. Rule 8 does not compare,
+ * it prohibits: none of these 173 files is generated from an hours card, so
+ * none has anything to check a time against, and any clock time on one is
+ * unproved by construction. Zero pages carried one when this rule landed, so
+ * it is a no-op on the current estate and closes the gap for the next edit,
+ * the same posture rules 6 and 7 were added under.
+ *
  * The expected strings are composed here from branches.json rather than
  * imported from the generator, on purpose. A checker that calls the code it
  * is checking proves nothing.
@@ -112,6 +136,12 @@ var notes = [];
 // into a blanket exemption.
 var KNOWN_TIME_OUTSIDE_CARD = {};
 var seenKnownTime = {};
+
+// Rule 8's exception list, same anti-rot contract, keyed "<relative
+// path>::<time>" rather than by bare filename since these files are not all
+// in one folder.
+var KNOWN_TIME_OUTSIDE_ESTATE = {};
+var seenKnownEstateTime = {};
 
 function fail(msg) { failures.push(msg); }
 
@@ -333,6 +363,65 @@ Object.keys(KNOWN_TIME_OUTSIDE_CARD).forEach(function (k) {
   }
 });
 
+// Rule 8. Switch pages, service-family pages (Pharmacy First, weight loss,
+// travel clinic, contraception) and the hand-pasted public copy files that
+// sit alongside them carry no hours card, so unlike rule 7 this is not a
+// containment check against a known-good surface, it is an absence check:
+// none of these files should carry a clock time at all.
+function collectHtml(dir, into) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir).forEach(function (name) {
+    if (/\.html$/i.test(name)) into.push(path.join(dir, name));
+  });
+}
+var ESTATE_TIME_FILES = [];
+collectHtml(path.join(ROOT, "modules", "switch", "pages"), ESTATE_TIME_FILES);
+collectHtml(path.join(ROOT, "modules", "service", "pages"), ESTATE_TIME_FILES);
+collectHtml(path.join(ROOT, "modules", "service", "weebly-paste"), ESTATE_TIME_FILES);
+[
+  "modules/switch/weebly.html",
+  "modules/emar/weebly",
+  "modules/service/DRAFT-weight-loss-copy.html",
+  "modules/service/DRAFT-travel-clinic-copy.html"
+].forEach(function (rel) {
+  var p = path.join(ROOT, rel.split("/").join(path.sep));
+  if (fs.existsSync(p)) ESTATE_TIME_FILES.push(p);
+});
+
+var estateTimeFilesSwept = 0;
+ESTATE_TIME_FILES.forEach(function (file) {
+  var html = fs.readFileSync(file, "utf8");
+  var rel = path.relative(ROOT, file).replace(/\\/g, "/");
+  estateTimeFilesSwept++;
+  var seenHere = {};
+  var tm;
+  TIME_RE.lastIndex = 0;
+  while ((tm = TIME_RE.exec(html)) !== null) {
+    var t = tm[0].replace(/\s+/g, "").toLowerCase();
+    if (seenHere[t]) continue;
+    seenHere[t] = 1;
+    var key = rel + "::" + t;
+    if (KNOWN_TIME_OUTSIDE_ESTATE[key]) { seenKnownEstateTime[key] = true; continue; }
+    fail(rel + ': "' + tm[0].trim() + '" is a clock time on a page with no hours card to compare it to. ' +
+      "Switch pages, service-family pages and their hand-pasted public copy carry no opening-hours surface at all, so " +
+      "any clock time on one is an unproved hours claim. Remove it, or add it to KNOWN_TIME_OUTSIDE_ESTATE with the question id that agreed it");
+  }
+});
+
+// Anti-rot for rule 8's exception list, same contract as rule 7's.
+Object.keys(KNOWN_TIME_OUTSIDE_ESTATE).forEach(function (k) {
+  if (!seenKnownEstateTime[k]) {
+    fail('KNOWN_TIME_OUTSIDE_ESTATE carries "' + k + '" but nothing matched it. Remove the entry, or restore the copy it was agreed for');
+  }
+});
+
+// Coverage floor for rule 8, same reasoning as rule 7's: a sweep that reads
+// no files passes everything by default, so it must prove it found files
+// before its silence is allowed to mean anything.
+if (estateTimeFilesSwept === 0) {
+  fail("rule 8 found no switch, service-family or pasted public-copy file to sweep. Check the ESTATE_TIME_FILES paths");
+}
+
 // Coverage floor for rule 7. A sweep that reads nothing passes everything, so
 // the rule must prove it actually found the times it is policing before its
 // silence is allowed to mean anything.
@@ -342,6 +431,7 @@ if (checkedPages > 0 && cardTimeCount === 0) {
 
 console.log("  " + checkedPages + " landing page(s) checked against " + branches.length + " trading branches");
 console.log("  rule 7 swept " + cardTimeCount + " clock time(s) on those pages, all of which must sit inside the hours card");
+console.log("  rule 8 swept " + estateTimeFilesSwept + " switch/service-family/pasted-copy file(s) with no hours card, for any clock time at all");
 if (splitDayBranches.length) {
   notes.push("branches with a split day (lunch closure), the case that caused the defect: " + splitDayBranches.join(", "));
 }
