@@ -7359,6 +7359,33 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       directly. No page, pack, generator output or branches.json entry
       changed. Evidence in
       audits/tiffenbergs-aintree-gbp-pack-check-2026-09-02-eighth.txt.
+      Quality pass 2026-09-03 (ninth re-verification, repo half only): pack
+      verified clean again, unchanged since the eighth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b).
+      Every fact re-matched against branches.json for the ninth time (name,
+      address, phone, split weekday hours, website, review link, hasApp
+      false, catchment order, the five-widget set). All 36 checkers exit 0,
+      all six generators byte-stable. Fresh angle: check-gbp-packs.js's
+      OUTCOME_PROMISE rule (added item 4.7 sixth pass, 2026-08-29, the same
+      day RULE 12 was added to check-travel-clinic-copy.js on this item's
+      own fifth pass) had never been proved by direct injection against
+      THIS pack's own Post D, only against four siblings
+      (mccanns-sandringham, riddings-timperley, fishlocks-eccleston,
+      smartts-bootle). Three injections into Post D's closing line, each
+      reverted by byte-copy restore with sha256 confirming identical: "We
+      guarantee full protection for every destination." (guarantee
+      wording) FAILED; "The right vaccine will protect you for years to
+      come." (declarative "will protect you") FAILED; "Wondering if a
+      travel vaccine will fully protect you before you fly? Ask the
+      pharmacist at your consultation." (a genuine question) PASSED,
+      confirming the question exemption holds on this pack's own copy too.
+      No defect found. tools/check-gbp-packs.js changed: a documentation
+      comment recording this pass's injections, matching the convention
+      the 4.13/4.8/4.10 passes established; no rule logic changed. Live
+      half: Claude in Chrome unreachable this run; fell back to a
+      status-code-only curl.exe check of all four post targets, all 200,
+      unchanged from the eighth pass. Evidence in
+      audits/tiffenbergs-aintree-outcome-promise-reproof-4.15-ninth-2026-09-03.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

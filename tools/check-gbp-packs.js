@@ -1587,6 +1587,25 @@ for (const file of packFiles) {
   // you before you fly? Ask the pharmacist at your consultation." (a genuine
   // question) PASSED. No defect found; all 36 checkers and byte-stable
   // regeneration re-confirmed before and after.
+  //
+  // Re-proved a fifth time on the item 4.15 ninth quality pass, 2026-09-03,
+  // against gbp-packs/tiffenbergs-aintree.md's own Post D. This pack had
+  // eight prior dedicated quality passes (fact verification each time, a
+  // fifth-pass estate-wide fix for the switch banner's mojibake close
+  // button, and the RULE 12 addition to check-travel-clinic-copy.js on the
+  // same 2026-08-29 pass that first wrote THIS rule) but, like its four
+  // siblings above, had never had this specific check-gbp-packs.js rule
+  // pointed at its own copy - the RULE 12 work that same day tested the
+  // generated page, not the pack. Same three injections, same method, file
+  // backed up by byte copy and restored after each with sha256 confirming
+  // identical (59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046
+  // 811b throughout): "Book your travel consultation today. We guarantee
+  // full protection for every destination." (guarantee wording) FAILED;
+  // "The right vaccine will protect you for years to come." (declarative
+  // "will protect you") FAILED; "Wondering if a travel vaccine will fully
+  // protect you before you fly? Ask the pharmacist at your consultation."
+  // (a genuine question) PASSED. No defect found; all 36 checkers and
+  // byte-stable regeneration re-confirmed before and after.
   {
     const packLines = text.split(/\r?\n/);
     for (const [re, reason] of OUTCOME_PROMISE) {

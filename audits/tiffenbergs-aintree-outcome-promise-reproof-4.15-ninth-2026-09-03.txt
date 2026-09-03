@@ -1,0 +1,97 @@
+Item 4.15 quality pass (ninth), 2026-09-03
+Subject: gbp-packs/tiffenbergs-aintree.md (Tiffenbergs Chemist Aintree)
+Fresh angle: check-gbp-packs.js's OUTCOME_PROMISE rule (added item 4.7 sixth
+pass, 2026-08-29) re-proved by direct injection against this pack's own
+Post D for the first time. This pack's eight prior dedicated passes had
+tested fact accuracy, the switch-banner mojibake fix, the Q79 bank-holiday
+notesBlock rule and, on the same day OUTCOME_PROMISE was written into
+check-gbp-packs.js, the sibling RULE 12 in check-travel-clinic-copy.js
+(which guards the generated travel clinic PAGE, not this GBP pack) - but
+never this specific pack-side rule against this pack's own copy.
+
+STALEST-ITEM COMPUTATION (independent re-derivation)
+Pool: 36 items (43 checked items minus out-of-rotation set 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8). Matched git log --pretty=format:"%cI|%s" against
+(?i)^item\s+<N>\.<M>\b anchored at the start of each commit subject (the
+convention hardened across the 4.13/4.8/4.10/4.12 ninth-and-later passes
+after an earlier loose match produced false ties). No NONE results, no
+ties. Unique stalest: 4.15 at 2026-09-02T08:46:01+01:00 (its eighth-pass
+commit). Next stalest: 2.3 at 2026-09-02T09:12:26+01:00.
+
+REPO HALF, BASELINE
+git status --porcelain modules/ core/ gbp-packs/ branches.json tools/
+empty before any change. All 36 tools/check-*.js checkers run individually:
+36/36 exit 0. Facts re-verified directly against branches.json's
+tiffenbergs_longmoor record for the ninth time: brandLabel/branchName
+"Tiffenbergs Chemist", streetAddress "388 Longmoor Lane", addressLocality
+"Liverpool", postalCode "L9 9DB", addressRegion "Merseyside", phone
+"0151 525 3462", website "https://www.tiffenbergschemist.co.uk",
+googleReviewUrl "https://g.page/r/CdfQf2a16Bn4EAE/review", serviceAreaList
+{Aintree, Fazakerley, Liverpool}, hasApp false, pfBooking true, pfLink
+".../pharmacy-first-tiffenbergs-aintree.html", widgets {bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic}, two-session
+Mon-Fri hours (09:00-13:00, 14:00-18:00), Saturday/Sunday closed - all
+match the pack, unchanged from every prior pass.
+
+METHOD
+gbp-packs/tiffenbergs-aintree.md backed up by byte copy to %TEMP% before
+mutation. Baseline SHA256:
+59D288C1C32920C05BC9B12479EC2BC8970FFA5639977CCEE10EC9BE9046811B
+(9906 characters, LF line endings, confirmed via Get-Content -Raw after an
+initial [System.IO.File]::ReadAllBytes call returned an apparent 0-length
+read for reasons not resolved - the same read-side artefact the item 4.12
+ninth pass hit and worked around the same way; caught before any write by
+checking the returned length, not trusted).
+
+INJECTION 1 (guarantee wording, Post D closing line): "Book your travel
+consultation today." -> "Book your travel consultation today. We guarantee
+full protection for every destination." Result: FAIL, line 108, outcome
+promise "guarantee" (uses guarantee wording). Caught first attempt.
+
+INJECTION 2 (declarative "will protect you", same line replaced): "The
+right vaccine will protect you for years to come." Result: FAIL, line 108,
+outcome promise "will protect you" (promises protection as an outcome).
+Caught first attempt.
+
+INJECTION 3 (genuine question, same line replaced, expect PASS): "Wondering
+if a travel vaccine will fully protect you before you fly? Ask the
+pharmacist at your consultation." Result: PASS, 0 failures, only the
+standing 17-entry estate-wide WARN set (none naming this pack). Confirms
+the question exemption (if (/\?$/.test(sentence)) return;) holds on this
+pack's own copy too.
+
+File restored by byte copy (not git checkout) after the final injection;
+SHA256 reconfirmed identical to baseline. git status --porcelain gbp-packs/
+empty after restore. Full 36-checker suite re-run after final restore:
+36/36 exit 0. All six build-*.js generators re-run: git status --porcelain
+modules/ core/ empty before and after, confirming byte-stable generated
+output.
+
+RESULT
+No defect - OUTCOME_PROMISE already covered this pack correctly; that was
+previously true only by the rule's general design and its proof against
+four sibling packs (mccanns-sandringham.md, riddings-timperley.md,
+fishlocks-eccleston.md, smartts-bootle.md), and is now proven directly
+against Tiffenbergs Aintree's own Post D, including the question-exemption
+edge case, closing the one gap none of this pack's eight prior dedicated
+passes had left open. tools/check-gbp-packs.js changed: a documentation
+comment added above the OUTCOME_PROMISE block recording this pass's three
+injections and results, matching the convention the 4.13/4.8/4.10 passes
+established; no rule logic changed. gbp-packs/tiffenbergs-aintree.md
+unchanged (mutated only in a backup copy outside the tracked tree). No
+generated page or branches.json byte changed.
+
+LIVE HALF
+Claude in Chrome unreachable this run (tabs_context_mcp reported not
+connected, retried once, still not connected). Fell back to a direct
+HTTPS status-code check via curl.exe (status code only, not page content,
+per the established fallback caveat). All four post targets
+(pharmacy-first-tiffenbergs-aintree.html, switch-prescriptions-
+tiffenbergs-aintree.html, weight-loss-clinic-tiffenbergs-aintree.html,
+travel-clinic-tiffenbergs-aintree.html) returned 200, unchanged from the
+eighth pass (2026-09-02). The fuller 2026-09-02 live findings (switch
+banner mojibake still present despite the 2026-08-15 republish, footer en
+dashes, tiffenbergs@ vs Tiffenberg@ email split under Q56, the two stray
+live-only paste dashes on Posts B and C, and the Regime 1 weight-loss
+nav-link finding cross-referenced into Q58) stand as written, not
+re-verified this pass.
