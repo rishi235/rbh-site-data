@@ -1,0 +1,106 @@
+Item 4.8, tenth quality pass, 2026-09-03 (unattended scheduled run via Cowork)
+Subject: check-gbp-packs.js OUTCOME_PROMISE rule, re-proved by injection
+against gbp-packs/fishlocks-eccleston.md's own Post D (travel clinic)
+
+BACKGROUND
+OUTCOME_PROMISE was added on the item 4.7 sixth quality pass, 2026-08-29,
+after an absolute protection guarantee injected into Post D of
+gbp-packs/mccanns-sandringham.md was found to pass every checker. It had
+since been re-proved once, on the item 4.13 ninth quality pass, 2026-09-03,
+against gbp-packs/riddings-timperley.md's own Post D. Item 4.8
+(gbp-packs/fishlocks-eccleston.md) has had nine prior dedicated quality
+passes and carries its own travel clinic Post D throughout, but a full
+re-read of all nine passes' text (grepped for "outcome promise", "guarantee"
+and "protect") found no dedicated injection proof of this rule against this
+pack - only a general "no efficacy claim" verdict on Post C and D from
+earlier passes, which is a different rule (EFFICACY_FAIL / CLAIM_PATTERNS,
+not OUTCOME_PROMISE).
+
+BASELINE
+Tracked repo: git status --porcelain modules/ core/ gbp-packs/ branches.json
+tools/ empty before any change. All 36 tools/check-*.js checkers run
+individually: 36/36 exit 0. All six page generators rebuilt: sha256 of every
+file under modules/ and core/ identical before and after (Compare-Object on
+Path+Hash, 0 differences); git status --porcelain modules/ core/ empty
+throughout. branches.json's fishlocks_eccleston entry re-verified directly:
+brandLabel "Fishlocks Chemist", branchName "Fishlocks Chemist Eccleston",
+streetAddress "Unit 3 The Carrington Centre, New Mill Street",
+addressLocality "Eccleston", postalCode "PR7 5SZ", addressRegion
+"Lancashire", seoTown "Eccleston", phone "01257 451251", hasApp true, not
+disposed, serviceAreaList {Eccleston, Charnock Richard, Coppull} - all match
+the pack, as recorded on every one of the nine prior passes. node
+tools/check-gbp-packs.js on the tracked repo: 0 failures, only the standing
+WARN set (this pack's own Q64 post-town divergence plus the usual estate-wide
+WARNs on other packs) - unchanged from every prior pass.
+sha256 (tracked, before): 5F2206DB5434A385A131AE3D36F9570E319CC87ADAF5854985E94A3E01001EFA
+
+METHOD
+Full robocopy of the tracked repo (excluding .git, node_modules,
+_agentscratch) to %TEMP%\audit-4.8-tenth-scratch. Baseline run of node
+tools/check-gbp-packs.js on the scratch copy: 0 failures, matching the
+tracked-repo baseline exactly. gbp-packs/fishlocks-eccleston.md backed up by
+byte copy (.bak) inside the scratch copy before mutation. Post D read
+directly (lines 115-124 of the scratch file): the sentence ending "...
+Convenient appointments at The Carrington Centre, no GP visit needed. Book
+your travel consultation today." was the mutation point, matching the
+pattern of the two prior proofs (appending an outcome claim after the
+existing closing sentence).
+
+INJECTION 1 (guarantee wording). Line 123 changed from "today." to "today.
+We guarantee full protection for every destination." Result: FAIL, line 123,
+"outcome promise \"guarantee\" (uses guarantee wording)". Caught first
+attempt.
+
+Restored from .bak; sha256 confirmed identical to the tracked file's own
+hash before injection 2.
+
+INJECTION 2 (declarative protection promise, no guarantee wording). Line 123
+changed from "today." to "today. The right vaccine will protect you for
+years to come." Result: FAIL, line 123, "outcome promise \"will protect
+you\" (promises protection as an outcome)". Caught first attempt.
+
+Restored from .bak.
+
+INJECTION 3 (genuine question, expect PASS). Line 123 changed from "today."
+to "today. Wondering if a travel vaccine will fully protect you before you
+fly? Ask the pharmacist at your consultation." Result: PASS, 0 failures,
+only the standing WARN set. Confirms the question exemption
+(`if (/\?$/.test(sentence)) return;`) holds on this pack's own copy, the
+third pack (after mccanns-sandringham.md and riddings-timperley.md) on which
+it has now been proved directly.
+
+RESTORE AND VERIFY
+File restored from .bak a final time; .bak deleted. sha256 of the restored
+scratch file: 5F2206DB5434A385A131AE3D36F9570E319CC87ADAF5854985E94A3E01001EFA
+- identical to the tracked file's pre-injection hash. node
+tools/check-gbp-packs.js on the restored scratch copy: 0 failures, same
+standing WARN set. Scratch directory deleted after use. Tracked repo
+confirmed untouched throughout: git status --porcelain gbp-packs/ modules/
+core/ branches.json tools/ empty before, during (scratch-only mutation) and
+after.
+
+RESULT
+No defect - OUTCOME_PROMISE already covered this pack correctly; that was
+previously true only by the rule's general design and its proof against two
+sibling packs, and is now proven directly against Fishlocks Eccleston's own
+Post D, including the question-exemption edge case, closing the one gap
+nine prior dedicated passes on this specific pack had left open.
+tools/check-gbp-packs.js changed: a 14-line documentation comment appended
+above the OUTCOME_PROMISE block recording this pass's three injections and
+results (no rule logic changed). gbp-packs/fishlocks-eccleston.md unchanged
+(mutated only in the scratch copy, restored byte-identical). No generated
+page or branches.json byte changed.
+
+Post-change verification: all 36 checkers re-run against the tracked repo,
+36/36 exit 0. All six generators re-run: git status --porcelain modules/
+core/ empty before and after, confirming byte-stable generated output.
+
+LIVE HALF
+Not performed - Claude in Chrome not connected this run
+(mcp__claude-in-chrome__tabs_context_mcp reported the extension unreachable).
+The standing live verdicts for this pack (landing page 404, known queued-
+paste state; Post A/B/C/D all 200 and Eccleston-correct as of the seventh
+pass, 2026-09-01; Post C clean against
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md as a Regime 1 page, including
+the CONSULT_FEE booking-block-ahead-of-eligibility pattern raised as Q88)
+stand unreconfirmed from that pass.

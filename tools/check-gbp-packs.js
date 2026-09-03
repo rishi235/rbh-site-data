@@ -1556,6 +1556,20 @@ for (const file of packFiles) {
   // question ending "?") PASSED, confirming the question exemption holds on
   // this pack's own copy and not only on the pack the rule was written
   // against. No defect found; the rule already covered this pack correctly.
+  //
+  // Re-proved again on the item 4.8 tenth quality pass, 2026-09-03, against
+  // gbp-packs/fishlocks-eccleston.md's own Post D - the third pack this rule
+  // has now been proved against directly (after mccanns-sandringham.md and
+  // riddings-timperley.md), and the first time on a pack whose nine prior
+  // dedicated quality passes had never once tested this rule by injection,
+  // despite carrying its own travel clinic Post D throughout. Same three
+  // injections, same method, run against a full scratch copy so the tracked
+  // file was never touched: "today. We guarantee full protection for every
+  // destination." (guarantee wording) FAILED; "today. The right vaccine will
+  // protect you for years to come." (declarative "will protect you") FAILED;
+  // "today. Wondering if a travel vaccine will fully protect you before you
+  // fly? Ask the pharmacist at your consultation." (a genuine question)
+  // PASSED. No defect found.
   {
     const packLines = text.split(/\r?\n/);
     for (const [re, reason] of OUTCOME_PROMISE) {

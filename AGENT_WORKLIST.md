@@ -5481,6 +5481,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       packs write it in full today, so nothing was failing live). No new
       question. Open question count unchanged, 40 open of 91 total.
       See audits/fishlocks-eccleston-gbp-pack-quality-pass-2026-09-02.txt.
+      Quality pass 2026-09-03 (tenth, unattended run): stalest item in the
+      36-item rotation pool, re-derived independently (git log commit
+      subjects matched by word-boundary "item N.N", first/most recent match
+      per pool item; 4.8 unique stalest at 2026-09-02T06:16:36+01:00, no
+      tie). Repo half only, Claude in Chrome not connected so no live
+      re-check. Baseline: git status clean, all 36 checkers green, all six
+      generators byte-identical, branches.json facts re-verified unchanged
+      for the tenth time. New angle: nine prior dedicated passes on this
+      pack had never tested check-gbp-packs.js's OUTCOME_PROMISE rule
+      (added item 4.7 sixth pass, 2026-08-29; previously proved only against
+      mccanns-sandringham.md and, as of this morning's item 4.13 ninth pass,
+      riddings-timperley.md) against this pack's own Post D, despite it
+      carrying a travel clinic post throughout. Proved by injection on a
+      full scratch copy: "We guarantee full protection for every
+      destination." (guarantee wording) FAILED; "The right vaccine will
+      protect you for years to come." (declarative "will protect you")
+      FAILED; "Wondering if a travel vaccine will fully protect you before
+      you fly? Ask the pharmacist at your consultation." (genuine question)
+      PASSED, confirming the question exemption. File restored byte-
+      identical (sha256-confirmed), scratch copy deleted. No defect found -
+      the rule already covered this pack correctly. check-gbp-packs.js
+      changed: documentation comment only, above the OUTCOME_PROMISE block.
+      gbp-packs/fishlocks-eccleston.md unchanged. Post-change: 36/36
+      checkers green, generators byte-stable. No new question. Open
+      question count 41 open of 94 total (unchanged by this pass).
+      See audits/fishlocks-eccleston-outcome-promise-reproof-4.8-tenth-2026-09-03.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
