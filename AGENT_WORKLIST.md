@@ -1736,6 +1736,55 @@ was caught correctly by both tools/check-em-dashes.js and the verify script.
 Restored by byte copy from a pre-injection backup each time, sha256-confirmed
 identical to the original after the final restoration. No in-repo defect, no
 new question.
+Quality pass 2026-09-03 (tenth): REPO HALF CLEAN, ZERO DEFECTS. Live half not
+read this run: Claude in Chrome not connected (checked once at step 3 answer
+pickup and again independently before this quality pass's live half), and the
+built-in Claude Browser's navigation to cherrylanepharmacy.co.uk was denied or
+failed with no user present in this unattended session to approve a new site,
+the same outcome the ninth pass recorded a day earlier. So for a third
+consecutive pass the seventh pass's two live findings (Q86 cross-branch Scorah
+mailto addresses in the site-wide contact widget; the stale 2026-08-05 wording
+still live on the weight-loss-clinic-walton.html bridge page) and the Q36
+footer typo stand unverified. All 36 tools/check-*.js checkers ran
+individually and passed; all six generators rebuilt with git status --porcelain
+on modules/ and core/ empty before and after (byte-identical).
+The genuinely untested angle this pass closed: every prior injection against
+Cherry Lane's own switch page (seventh, eighth, ninth passes; also the
+sixth's banner self-pointing check) targeted NAP, whatsapp/data-wa, identity
+and character-level rules. tools/check-switch-copy.js's own claim, town, form
+and collection-notice rules (4 through 10) and its banner-ownership rule (11a)
+had never been proven by direct injection against Cherry Lane's own switch
+page or banner file specifically - the page was passing only by construction
+of the estate-wide 15-page sweep, the same "proved by construction, not by
+injection" gap the ninth pass closed for check-nap.js/check-postcodes.js/
+check-em-dashes.js on the travel clinic page. New instrument, no import from
+tools/ beyond invoking the real checker as a subprocess
+(audits/verify-3.4-2026-09-03-tenth.js): refuses to run if either target file
+already carries a git diff, records both files' sha256 before any mutation,
+and restores by direct fs.writeFileSync immediately after capturing the
+checker's output and BEFORE any assertion, so a thrown assertion can never
+leave a file mutated on disk, the same discipline the eighth and ninth passes
+used. Five injections, one at a time, each restored and sha256-verified
+byte-identical before the next: a prescription-only medicine name (Mounjaro)
+inserted into the hero-sub paragraph, caught by RULE 7 no-medicines; the pill
+line's own town changed from Walton to Bootle (a real, different live
+branch's town), caught by RULE 8 town; an undescribed "postcode" field added
+to the form grid with no FIELD_WORDS entry and no mention in step 1, caught by
+RULE 9 form-copy; the privacy/collection-notice paragraph deleted outright,
+caught by RULE 10 collection-notice; and, on the banner file rather than the
+page, Cherry Lane's own SWITCH_URL repointed at Hirshmans Ainsdale's switch
+page (Cherry Lane is single-host, one of the twelve branches NOT caught up in
+the three shared-domain sites already pinned to Q63 in KNOWN, so this cleanly
+exercises 11a alone with no interaction from the 11b entries), caught by
+RULE banner. All five caught first attempt with the expected rule tag; both
+files confirmed byte-identical to their pre-probe sha256 hashes after every
+individual injection and again at the end; the checker's own final run after
+the round was clean. Full 36-checker suite and all six generators re-confirmed
+clean after the round. No in-repo defect, no new question.
+Next stalest by the same block-bounded git-log method, for whoever runs the
+next unattended pass, derived fresh this run against the 36-item rotation
+pool: 3.9 (2026-09-02T19:09:58+01:00), then 3.10, 2.1, 5.2, 4.11, 5.1, 3.12,
+3.6 - re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
