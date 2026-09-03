@@ -1,0 +1,159 @@
+Item 4.6 quality pass (ninth), 2026-09-03 (unattended scheduled run via Cowork)
+McCanns Chemist Aigburth GBP pack - gbp-packs/mccanns-aigburth.md
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied.
+Stalest item re-derived mechanically: git log --pretty=format:"%cI|%s" matched
+against each of the 36 in-rotation pool items (43 completed items minus the
+out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) by word-boundary regex
+on the item's own "N.N" number, first/most recent match per item. 4.6 was
+stalest at 2026-09-02T04:42:57+01:00, exactly matching the immediately
+preceding run's own forward note ("next stalest was 4.6"). Next stalest was
+4.5 at 2026-09-02T05:13:10+01:00. No tie.
+
+ENVIRONMENT
+mcp__workspace__bash (Cowork sandboxed Linux shell) reachable for file
+listing, but `git fetch origin` over SSH failed outright with "Host key
+verification failed" (no SSH key for git@github.com from that sandbox),
+matching every prior run's Q87 diagnosis. All git, Node and file work done
+via mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+working copy, the established route. .agent-lock absent at start; created at
+2026-09-03T02:04:59+01:00. No stale .git\index.lock. git fetch/checkout/pull
+all reported already up to date with origin, HEAD at 54787e3 ("Item 4.3
+quality pass (ninth)..."). Pre-existing untracked debris (.agent-lock.released-*
+files, .lock-test-file, .testfile123.todelete, a malformed literal-path file,
+open_q.txt, qtmp.json, scratchtest*.txt, and other _agentscratch/ and audits/
+side-effect files from prior runs) noted but not touched, out of this item's
+scope.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__tabs_context_mcp reported the
+extension not connected. Logged as unavailable per the unattended-run rule;
+no alternative route, login or retry attempted. QUESTIONS.json re-read: 94
+total, 41 open, unchanged; none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of the run (checked
+directly), so none was open; proceeded normally. Moot regardless - this pass
+needed no judgement call, being a checker-behaviour re-verification.
+
+REPO HALF, BASELINE
+All 36 tools/check-*.js checkers run individually against the tracked repo:
+36/36 exit 0. All six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) rebuilt from
+branches.json: SHA256 of every file under modules/ and core/ identical before
+and after (0 diffs by Compare-Object on Path+Hash), git status --porcelain
+modules/ core/ empty throughout.
+
+FACT RE-VERIFICATION (ninth time against branches.json)
+mccanns_aigburth record read directly: brandLabel "McCanns Chemist",
+branchName "McCanns Chemist Aigburth", streetAddress "112 Aigburth Road",
+addressLocality "Liverpool", postalCode "L17 7BP", addressRegion
+"Merseyside", seoTown "Aigburth", phone "0151 727 3185", hasApp false,
+pfLink present, serviceAreaList {Aigburth, Sefton Park, Mossley Hill,
+Grassendale}, not disposed. All match the pack's profile-basics block. Sister
+branch mccanns_sandringham re-read directly: brandLabel still "McCanns
+Chemist", seoTown still "St Michael's", not disposed - so the pack's sister
+sentence ("McCanns Chemist Sandringham, in St Michael's") still holds both
+ways. Description header states 725 of a 750-character maximum, unchanged;
+node tools/check-gbp-packs.js's own length rule passed with 0 failures rather
+than being recomputed by hand this pass, since that arithmetic is exactly
+what the automated rule already re-proves every run.
+
+node tools/check-gbp-packs.js on the tracked repo: 0 failures, the usual set
+of KNOWN warnings only (Q64 post-town address-locality divergence on five
+packs, Q72 private-clinic qualifier wording on hirshmans-ainsdale.md, and
+five live-only link-target warnings across the estate) - none naming
+mccanns-aigburth.md as a failure.
+
+NEW ANGLE: THE TIME/DAY PAIRING RULE, PROVEN BY INJECTION AGAINST THIS PACK
+FOR THE FIRST TIME
+
+check-gbp-packs.js holds three hours rules layered on the "- Hours:" line:
+a clock-time SET rule (every time on the line is one of the branch's own
+times, and vice versa), a DAY rule (added item 4.1 pass, 2026-08-11: every
+day claimed open/closed matches branches.json), and a PAIRING rule (added
+item 4.14 pass, 2026-08-12, by injection into gordon-short-crosby.md) that
+rebuilds the hours line into per-day ranges and checks each day's own pair of
+times, because the first two rules are both set comparisons and neither binds
+a time to a day - a pack can state every correct time, on the wrong day, and
+satisfy both.
+
+The pairing rule's own header comment names mccanns-aigburth.md as one of six
+branches exposed to it (branches whose weekday and Saturday closing times
+differ: Scorah Bramhall, McCanns Aigburth, Fishlocks Eccleston, Hirshmans
+Ainsdale, Gordon Short Crosby, Cherry Lane) and as the example of the
+"explicit two ranges" grammar the rule parses (as opposed to
+hirshmans-ainsdale.md's envelope-plus-break grammar). Despite being named in
+the rule's own comment, this pack had never had the rule proven against it by
+injection - only Gordon Short Crosby had (item 4.14 pass), and the eight
+prior 4.6 passes covered the clock-time-set rule (twin defect, 2026-08-14)
+and the address-line rule, but not this one.
+
+branches.json's mccanns_aigburth.openingHours.specification: Monday-Friday
+09:00-13:00 and 14:00-18:00; Saturday 09:00-13:00 and 14:00-17:00 - so the
+weekday and Saturday afternoon closes differ (18:00 vs 17:00), exactly the
+condition the pairing rule exists to catch.
+
+METHOD. Disposable robocopy of the whole tracked repo (excluding .git) to
+%TEMP%\audit-4.6-ninth-scratch. Baseline run of node tools/check-gbp-packs.js
+on the scratch copy: 0 failures, matching the tracked-repo baseline above.
+gbp-packs/mccanns-aigburth.md backed up by byte copy before mutation.
+
+INJECTION. The "- Hours:" line's weekday afternoon close (2:00pm to 6:00pm)
+and Saturday afternoon close (2:00pm to 5:00pm) swapped, so the line read
+"Monday to Friday 9:00am to 1:00pm and 2:00pm to 5:00pm (closed 1:00pm to
+2:00pm), Saturday 9:00am to 1:00pm and 2:00pm to 6:00pm, Sunday closed". This
+leaves the claimed day set unchanged (Monday-Friday and Saturday still open,
+Sunday still closed - the day rule stays satisfied) and leaves the claimed
+time set unchanged (09:00, 13:00, 14:00, 17:00 and 18:00 are all still on the
+line and all still in the branch's own data times - the clock-time-set rule
+stays satisfied too). Only the pairing is wrong.
+
+RESULT. node tools/check-gbp-packs.js: exit 1, six FAILs, one per weekday
+plus Saturday - "the hours line publishes Monday as 09:00 to 13:00 and 14:00
+to 17:00, but branches.json holds Monday as 09:00 to 13:00 and 14:00 to
+18:00. Every time here may still be one of this branch's own times and every
+day may still be named, which is why the set-based time and day rules above
+both pass it. A day published longer than the branch works sends patients to
+a locked door, and a day published shorter turns them away while the shop is
+open" (and the mirror-image message for Saturday, published 09:00-13:00 and
+14:00-18:00 against a true 09:00-13:00 and 14:00-17:00). Exactly the fault
+class the rule's header comment describes, now proven on this pack's own
+text rather than only on Gordon Short Crosby's.
+
+RESTORE. gbp-packs/mccanns-aigburth.md restored from the pre-injection byte
+copy (not git checkout). SHA256 after restore: matched the tracked repo's own
+gbp-packs/mccanns-aigburth.md exactly
+(fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693). Re-run of
+node tools/check-gbp-packs.js on the scratch copy: 0 failures again, same
+warning set as the baseline. Tracked repo confirmed untouched throughout -
+git status --porcelain gbp-packs/ modules/ core/ branches.json tools/ empty
+before and after. Scratch directory deleted after use.
+
+Nothing was fixed; this pass adds proof rather than correction, the same
+convention as every prior 4.6 pass that re-ran clean.
+
+LIVE HALF
+Claude in Chrome unreachable (tabs_context_mcp reported not connected,
+checked at answer pickup and not retried). Fell back to the established
+read-only HTTP GET route (Invoke-WebRequest, GET only, no clicks, no forms,
+no login attempted): pharmacy-mccanns-aigburth.html (the profile-website
+landing page) still returns 404, unchanged, still awaiting the queued Weebly
+paste run already recorded on every prior pass. The other four post targets
+(pharmacy-first-service-aigburth.html, switch-prescriptions-mccanns-
+aigburth.html, weight-loss-clinic-mccanns-aigburth.html, travel-clinic-
+mccanns-aigburth.html) all returned 200. Full text of these four not re-read
+this pass (last confirmed clean/unchanged on the 2026-09-01 seventh pass and
+the 2026-08-30 sixth pass for the weight loss Q83 finding specifically); this
+is a status check, not a fresh content re-verification, and Q83 (weight loss
+booking block price ahead of eligibility section) is not re-raised as it is
+already open.
+
+RESULT
+No in-repo defect found. No new question raised. Open question count
+unchanged at 41 of 94. This pass's contribution is closing the one
+documented gap in item 4.6's own coverage history: the pairing rule named
+this pack by number in its own header comment but had never been proven
+against its actual text until now.

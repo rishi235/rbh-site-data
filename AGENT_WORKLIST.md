@@ -4956,6 +4956,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       stand unchanged and nothing live is re-claimed. No new in-repo defect,
       no new question; open question count unchanged at 40 (of 91 total).
       Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-02.txt.
+      Quality pass 2026-09-03 (unattended run, ninth pass): stalest item in
+      the rotation pool, re-derived mechanically (last touched
+      2026-09-02T04:42:57+01:00, next stalest was 4.5 at 05:13:10, no tie).
+      Pack re-verified fact by fact against branches.json a ninth time: name,
+      address, postcode, phone, hours, review link, catchment order, hasApp,
+      pfLink, serviceAreaList, description length (725 of 750, checker-
+      verified rather than hand-recomputed) and the St Michael's
+      sister-branch wording (mccanns_sandringham re-read directly: still
+      "McCanns Chemist" / "St Michael's", not disposed). node
+      tools/check-gbp-packs.js: 0 failures, known warnings only. All 36
+      checkers run individually: 36/36 exit 0. All six generators rebuilt:
+      0 diffs across modules/ and core/, git status empty throughout.
+      NEW ANGLE: the time/day PAIRING rule (added item 4.14 pass,
+      2026-08-12, proven that pass only against gordon-short-crosby.md) had
+      never been proven by injection against this pack, despite the rule's
+      own header comment naming mccanns-aigburth.md as one of six exposed
+      branches and as the example of the explicit-two-ranges grammar it
+      parses. INJECTION: on a scratch copy, swapped the weekday and Saturday
+      afternoon closing times on the "- Hours:" line (2:00pm to 6:00pm and
+      2:00pm to 5:00pm), which leaves the claimed day set and the claimed
+      time set both unchanged (so the day rule and the clock-time-set rule
+      both still pass) and wrongs only the pairing. RESULT: exit 1, six
+      FAILs (Monday through Saturday), each naming the exact wrong pairing
+      and the correct branches.json pairing, worded precisely as the rule's
+      header comment describes. RESTORED by byte copy (not git checkout);
+      post-restore sha256 matched the tracked repo's own file exactly;
+      re-run clean. Tracked repo confirmed untouched throughout. Nothing
+      fixed - this pass adds proof, not correction. LIVE HALF: Claude in
+      Chrome not connected; fell back to read-only HTTP GET. Profile-website
+      landing page still 404s, unchanged, still awaiting the queued paste
+      run. The other four post targets all 200; full text not re-read this
+      pass (last confirmed clean on the seventh and sixth passes), so this
+      is a status check, and Q83 (weight loss booking-block price ahead of
+      eligibility) is not re-raised as it is already open. No new in-repo
+      defect, no new question; open question count unchanged at 41 of 94.
+      Evidence: audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-03-ninth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
