@@ -3022,6 +3022,102 @@ Done 2026-09-03 (ninth pass).
       afterwards, git status empty on the mutated-then-restored file. No
       new defect found; no new question raised. Evidence in
       audits/verify-3.8-2026-09-02-ninth.js.
+      Quality pass 2026-09-03 (tenth, unattended scheduled run via Cowork).
+      Taken because all 8 unchecked AGENT_WORKLIST.md lines confirmed
+      [BLOCKED] by direct grep; item-selection method unchanged (most
+      recent commit-subject mention per item across the standing 36-item
+      rotation pool, stalest wins, re-derived fresh via a Python script
+      rather than assumed from the ninth pass's forward note). 3.8 was
+      uniquely stalest (last touched 2026-09-02T23:09:17+01:00), matching
+      the forward note. Answer pickup (step 3): mcp__claude-in-chrome__
+      tabs_context_mcp reported the extension not connected, matching the
+      standing Q59 diagnosis; logged as unavailable, not retried by
+      another route. No autonomous-window heading present at the top of
+      AGENT_LOG.md, so moot regardless.
+      REPO HALF. Baseline: all 36 tools/check-*.js run individually before
+      any change, 0 failures. Six page generators (build-branch-landing,
+      build-contraception, build-service, build-switch, build-travel-
+      clinic, build-weight-loss) rebuilt; sha256 of all 216 files under
+      modules/ and core/ identical before and after; git status --porcelain
+      on modules/, core/, branches.json, gbp-packs/, tools/, status/ empty
+      throughout.
+      FRESH ANGLE. All nine prior passes re-extracted and re-verified this
+      item's 12 pages against branches.json repeatedly, always zero
+      defects; a tenth pass of the same shape was judged low marginal
+      value. tools/check-app-membership.js (landed on the 3.8-adjacent
+      item 3.6's own tenth pass, 2026-09-03) had never been named against
+      SK Chemists Bootle's own real files across any of the nine prior
+      passes, despite this being the exact pair CLAUDE.md names as the
+      risk case for the hasApp field: "SK Chemists Bootle is not [an app
+      member], and it sits 1.5 miles from Smartts [Bootle, which is], in
+      the same town, on the same postcode prefix, and directly beside it
+      in branches.json. A copy-paste between two adjacent records
+      publishes an app card on the shop that does not run the app." That
+      sentence was never tested against SK Bootle's own switch page. It
+      was this pass.
+      METHOD. modules/switch/pages/switch-prescriptions-sk-chemists-bootle.html
+      backed up by byte copy first (sha256
+      4e1dedc3a1279a30a5836c295afd6dc4eb492e6b4842c579e8e6e5d98d97c7ea);
+      baseline grep confirmed the page carries no actual app-card content
+      (the four "app" substring hits present are all inside "WhatsApp" and
+      "application/ld+json", none an app-card reference), consistent with
+      branches.json's hasApp: false for skchemists_bootle.
+      INJECTION. The app-card block (heading, copy sentence, both real
+      store URLs) copied verbatim from Smartts Chemist Bootle's own switch
+      page, the exact adjacent branch CLAUDE.md names, inserted into SK
+      Bootle's switch page in the same right-stack position it occupies on
+      Smartts' page (immediately before the Google reviews card). CAUGHT
+      by two independent checkers at once, both by name: check-app-
+      membership.js failed with "carries the app card but branches.json
+      says this branch is not an app member"; check-switch-copy.js failed
+      twice on the same page, once per injected line ("the page carries
+      the appCard line ... and this branch does not set b.hasApp, so the
+      page is promising something the data says it does not have"). A
+      full 36-checker run with the injection in place showed exactly these
+      two failures and no others. File restored from the byte backup;
+      sha256 and cmp both confirmed identical to the pre-injection backup;
+      full 36-checker suite re-run clean (36/36) immediately after.
+      FINDING. Not a defect: both guards generalise correctly to this
+      item's own files, and do so redundantly, which is itself worth
+      recording since it had never been proved for this specific pair
+      before. CLAUDE.md's own hasApp section (written before check-app-
+      membership.js existed) frames SK Bootle/Smartts Bootle as the
+      highest-risk adjacency in the estate for exactly this class of copy-
+      paste error; this pass is the first time that named risk was tested
+      against SK Bootle's real page rather than assumed covered by the
+      general estate-wide check-app-membership.js sweep. It held, twice
+      over.
+      GBP PACK. gbp-packs/sk-chemists-bootle.md re-read in full: already
+      carries an explicit paster note, "No app mention anywhere in this
+      pack: branches.json has hasApp false for this branch," so no drift
+      to report there either; the pack's own name, address, phone, hours
+      and review link all still match branches.json field for field.
+      LIVE HALF PERFORMED, read-only GET (curl, no interaction, no login;
+      Claude in Chrome unavailable per the answer-pickup finding above, so
+      the established plain-GET fallback used, same route as the fifth,
+      seventh and ninth passes). Network egress confirmed working (google.
+      com and the branch's own homepage both 200) before drawing any
+      conclusion. switch-prescriptions-sk-chemists-bootle.html live: HTTP
+      200; H1 exact match; phone correct in both the visible and tel:
+      shapes; NO app-card content anywhere in the live HTML (zero matches
+      for "download our app", "app-card", "app store" or "google play"),
+      the first time this item's live half has specifically checked the
+      app dimension and it is clean, live-confirming the fresh-angle
+      finding above rather than only proving it in the repo. Two known,
+      already-tracked live-only gaps reconfirmed unchanged, neither newly
+      found this pass: the browser tab title still renders the Weebly-
+      default "... - SK CHEMIST" suffix instead of the paste sheet's own
+      title (queued 5.3/5.4 repaste); the "usually is not" sentence still
+      carries the pre-Q7/5.1 mojibake em dash (byte-confirmed, matching the
+      same site-wide switch-page repaste-lag pattern already tracked on
+      Cherry Lane, both Scorah branches, Gordon Short Crosby and this same
+      branch on the fifth and seventh passes). No repo action needed for
+      either; both are paste lag only, not a repo defect.
+      RESULT. Zero in-repo defects found this pass. Real gap in test
+      coverage closed (check-app-membership.js and check-switch-copy.js
+      proved against this item's own files for the first time, on
+      CLAUDE.md's own named highest-risk pair), and both guards held, live
+      and in the repo. No checker logic changed. No question raised.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
