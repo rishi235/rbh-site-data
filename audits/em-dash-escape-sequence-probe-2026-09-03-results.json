@@ -1,0 +1,51 @@
+[
+  {
+    "case": "A: JS \\u2014 (4-digit em dash escape) in service.js's real video-card sentence",
+    "exitCode": 1,
+    "caught": true,
+    "expectClean": false,
+    "outputTail": "  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\nFAILURES (1) - dashes, or banner or GBP pack characters, in copy that reaches the public:\n  FAIL  modules/service/service.js line 233 (em dash (JS unicode escape) in live module code): \"See how the free NHS service works \\u2014 no GP appointment or referral needed.</p>\" +\n\nFix at source in the generator, then regenerate. Split the sentence at a\nfull stop rather than swapping in a hyphen where a hyphen would read badly.\n"
+  },
+  {
+    "case": "B: JS \\u{2014} (ES6 code-point em dash escape) in the same real sentence",
+    "exitCode": 1,
+    "caught": true,
+    "expectClean": false,
+    "outputTail": "  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\nFAILURES (1) - dashes, or banner or GBP pack characters, in copy that reaches the public:\n  FAIL  modules/service/service.js line 233 (em dash (JS unicode escape) in live module code): \"See how the free NHS service works \\u{2014} no GP appointment or referral needed.</p>\" +\n\nFix at source in the generator, then regenerate. Split the sentence at a\nfull stop rather than swapping in a hyphen where a hyphen would read badly.\n"
+  },
+  {
+    "case": "C: JS \\u2013 (4-digit en dash escape) in the same real sentence",
+    "exitCode": 1,
+    "caught": true,
+    "expectClean": false,
+    "outputTail": "  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\nFAILURES (1) - dashes, or banner or GBP pack characters, in copy that reaches the public:\n  FAIL  modules/service/service.js line 233 (en dash (JS unicode escape) in live module code): \"See how the free NHS service works \\u2013 no GP appointment or referral needed.</p>\" +\n\nFix at source in the generator, then regenerate. Split the sentence at a\nfull stop rather than swapping in a hyphen where a hyphen would read badly.\n"
+  },
+  {
+    "case": "D: CSS \\2014 (em dash hex escape) appended as a real declaration to switch.css",
+    "exitCode": 1,
+    "caught": true,
+    "expectClean": false,
+    "outputTail": "  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\nFAILURES (1) - dashes, or banner or GBP pack characters, in copy that reaches the public:\n  FAIL  modules/switch/switch.css line 215 (em dash (CSS hex escape) in live module code): .rbh-test-dash-probe::after{content:\"\\2014\"}\n\nFix at source in the generator, then regenerate. Split the sentence at a\nfull stop rather than swapping in a hyphen where a hyphen would read badly.\n"
+  },
+  {
+    "case": "E: CSS \\002013(space) (en dash hex escape, padded + trailing space) appended to switch.css",
+    "exitCode": 1,
+    "caught": true,
+    "expectClean": false,
+    "outputTail": "  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\nFAILURES (1) - dashes, or banner or GBP pack characters, in copy that reaches the public:\n  FAIL  modules/switch/switch.css line 215 (en dash (CSS hex escape) in live module code): .rbh-test-dash-probe-2::after{content:\"\\002013 \"}\n\nFix at source in the generator, then regenerate. Split the sentence at a\nfull stop rather than swapping in a hyphen where a hyphen would read badly.\n"
+  },
+  {
+    "case": "CONTROL 1: JS \\u0041 ('A', not a dash) must NOT be flagged",
+    "exitCode": 0,
+    "caught": false,
+    "expectClean": true,
+    "outputTail": "check-em-dashes: 177 generated pages, 6 non-generated copy file(s), 7 live module code file(s), 15 switch banner(s) held to ASCII only, 16 GBP pack(s) held to ASCII only plus no dash entities, 11 paste sheet(s) discovered, 1 run-time data file(s) (233 files scanned)\n  200 dash(es) inside build or code comments - not public, not a failure\n  591 dash(es) in paste sheet section headings and prose - structure, not pasted values\n  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\ncheck-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.\n"
+  },
+  {
+    "case": "CONTROL 2: JS \\u2014 inside a whole-line // comment must stay clean (comment, not public)",
+    "exitCode": 0,
+    "caught": false,
+    "expectClean": true,
+    "outputTail": "check-em-dashes: 177 generated pages, 6 non-generated copy file(s), 7 live module code file(s), 15 switch banner(s) held to ASCII only, 16 GBP pack(s) held to ASCII only plus no dash entities, 11 paste sheet(s) discovered, 1 run-time data file(s) (233 files scanned)\n  200 dash(es) inside build or code comments - not public, not a failure\n  591 dash(es) in paste sheet section headings and prose - structure, not pasted values\n  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure\n\ncheck-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.\n"
+  }
+]

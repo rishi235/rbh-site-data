@@ -9059,6 +9059,79 @@ widening, not a live-facing or patient-facing decision. Tenth consecutive
 clean pass on the repo half; first of the ten to find a defect in the
 checker's own character-matching logic rather than in a page, pack, sheet or
 generator.
+Quality pass 2026-09-03 (eleventh). UNATTENDED RUN. All 8 remaining unchecked
+AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied via the standing rotation-pool method
+(git log --pretty=format:"%cI|%s" matched by word boundary over the 36-item
+pool); 5.1 came out uniquely stalest again, last touched 2026-09-02
+(the tenth pass), one run after being freshly touched, because the run
+immediately before this one (4.11's tenth pass) advanced a different item.
+Answer pickup unavailable this run (Claude in Chrome not connected at
+tabs_context_mcp; not retried by another route). No standing autonomous
+window present.
+This pass found the SIXTH instance of this item's own recurring fault, one
+level past the tenth pass's numeric-HTML-entity-padding fix and a different
+axis from any of the five before it (files, code-vs-data, sheet files, sheet
+lines, entity padding): a dash written as a SOURCE-LEVEL ESCAPE inside the
+live module code itself, rather than as an HTML-level encoding. A JS string
+or template literal can carry "\u2014" (fixed four hex digits) or the ES6
+code-point form "\u{2014}" (any digit count), and a CSS string value, most
+often a content: property, can carry the CSS Syntax Level 3 hex escape
+"\2014" (one to six hex digits, with a single trailing whitespace
+character consumed as part of the escape). All four decode to the identical
+em or en dash a patient's browser or the JS engine renders once the code runs
+or the stylesheet applies, and none is an HTML entity, so every dash rule in
+this file before this pass - literal character, named entity, numeric entity
+- matched none of them.
+Proved by injection rather than argued, using a fresh instrument
+(audits/em-dash-escape-sequence-probe-2026-09-03.js: refuses to run if either
+target file already carries a diff, records sha256 before mutation, restores
+by direct write-back immediately after each checker run, sha256-verifies the
+restoration every time, never layers one injection on the last). Five real
+cases against the unfixed checker, all missed (exit 0, wrongly clean): the
+4-digit and ES6 code-point JS em dash escape and the 4-digit JS en dash
+escape, each written into modules/service/service.js's own real video-card
+sentence ("See how the free NHS service works..."); the unpadded CSS hex
+escape and a padded-with-trailing-space CSS hex escape for the en dash, each
+appended as a real declaration to modules/switch/switch.css. Two controls
+both stayed correctly clean throughout, proving the eventual fix does not
+overreach: a JS "\u0041" (the letter A, not a dash) was never flagged, and
+the em dash escape written inside a whole-line // comment in service.js
+stayed in the comment-dash notes bucket rather than failing, matching this
+checker's own comment-blanking rule for every other form it reads.
+FIXED IN REPO, no sign-off needed, same as this item's five prior
+checker-widening fixes: tools/check-em-dashes.js now decodes any JS
+"\uXXXX" / "\u{X...}" escape and any CSS "\X{1,6}" hex escape found on a
+comment-blanked line of a .js or .css file under CODE_DIRS, by VALUE rather
+than by spelling, so it is robust to digit count and padding by construction,
+the same "shape not list" fix this file's own history keeps landing on.
+Deliberately scoped to CODE_DIRS only: a JS-style escape has no meaning in an
+HTML page, a markdown sheet or branches.json, and branches.json's string
+values are read post-JSON.parse, which already decodes a genuine JSON
+"\u2014" into the real character before hasDash() ever sees it, so that
+path was never a gap; widening either pattern past .js/.css would risk a
+false positive rather than close a real hole. Re-ran the exact same probe
+script after the fix: all five real cases now CAUGHT (exit 1, correctly named
+"em dash (JS unicode escape) in live module code" / "... (CSS hex escape) ..."
+at the right line), both controls still correctly clean. Files confirmed
+sha256-identical to their pre-probe state after every case and at the end.
+All 36 tools/check-*.js re-run individually after the fix: 36/36 exit 0,
+identical steady-state counts to the tenth pass (233 files scanned, 200
+comment dashes, 591 sheet-heading dashes, 1 data-note dash), confirming the
+fix changes matching logic without changing any verdict on real content. All
+six page generators rebuilt: git status --porcelain modules/ core/ empty
+before and after, so no page, pack or generator was touched and none needed
+to be - this was a checker-only fix, and modules/service/service.js and
+modules/switch/switch.css themselves were clean throughout (confirmed by
+sha256, not only by the checker passing on them).
+Live half not read this run (Claude in Chrome not connected at step 3 and not
+retried at the end either); the ninth pass's two live findings (item
+5.5/Q13/Q45 CDN-pin block, Q36 mailbox typo) stand unchanged and unclaimed by
+this pass. No new question raised - this is a checker widening, not a
+live-facing or patient-facing decision. Eleventh consecutive clean pass on
+the repo half; second of the eleven (after the tenth) to find a defect in the
+checker's own matching logic rather than in a page, pack, sheet or generator,
+and the first to find one in the CODE rule rather than the entity rule.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

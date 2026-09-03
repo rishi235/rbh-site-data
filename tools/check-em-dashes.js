@@ -35,6 +35,12 @@
       from jsDelivr, with comments blanked. Three of those files write
       sentences into the page with innerHTML at run time, so that copy is as
       public as a page and is in no .html file in this repo
+    - the same dash written as a SOURCE-LEVEL ESCAPE inside that live code: a
+      JS unicode escape ("—" or the ES6 "\u{2014}" form) in a .js string
+      or template literal, or a CSS hex escape ("\2014", one to six hex
+      digits, optional trailing whitespace) in a .css string value. Added on
+      the item 5.1 quality pass (eleventh), 2026-09-03 - see "Source-level
+      escape sequences" below
     - a live code folder that yields no .js or .css at all, so the module-code
       rule cannot quietly stop covering anything
     - an em dash or en dash, literal or entity, in a string value in the
@@ -225,6 +231,57 @@ function dashNumericEntities(text){
   let m;
   while ((m = NUMERIC_ENTITY_RE.exec(text)) !== null) {
     const cp = m[1] !== undefined ? parseInt(m[1], 10) : parseInt(m[2], 16);
+    if (cp === EM_CODEPOINT) out.push({ kind: "em", match: m[0] });
+    else if (cp === EN_CODEPOINT) out.push({ kind: "en", match: m[0] });
+  }
+  return out;
+}
+
+// Source-level escape sequences inside the LIVE MODULE CODE only (.js/.css).
+// Found on the item 5.1 quality pass (eleventh), 2026-09-03, one turn past
+// the tenth pass's numeric-HTML-entity-padding fix and the same shape again:
+// a dash can be written in a form that decodes to the real character only
+// when something downstream (the JS engine, or the CSS parser) evaluates it,
+// and every form checked before this only matched an HTML-level encoding
+// (literal character, named entity, numeric entity). A JS string or template
+// literal can carry "—" (fixed four hex digits) or the ES6 code-point
+// form "\u{2014}" (any digit count), and a CSS string value, most often a
+// content: property, can carry the CSS Syntax Level 3 hex escape "\2014"
+// (one to six hex digits, with a single trailing whitespace character
+// consumed as part of the escape if present). All four decode to the
+// identical em or en dash a patient reads once the page runs the code or
+// applies the stylesheet, and none of them is an HTML entity, so this rule is
+// additional to, not a replacement for, the entity checks above.
+//
+// Proved by injection rather than argued: "—", "\u{2014}" and "–"
+// written into the real video-card sentence in modules/service/service.js,
+// and "\2014" and the padded/space-trailing "\002013 " appended as a real
+// declaration to modules/switch/switch.css, all five passed the unfixed
+// checker with exit 0. A control of "A" (the letter A, not a dash) and a
+// control of "—" inside a whole-line // comment both correctly stayed
+// clean, proving the fix below does not overreach past this file's own
+// comment-blanking rule. Restored by direct write-back and sha256-verified
+// after every case; kept at
+// audits/em-dash-escape-sequence-probe-2026-09-03.js.
+//
+// Scoped to CODE_DIRS only. A JS-style "\u" escape has no meaning in an
+// HTML page, a markdown paste sheet or branches.json (and branches.json's
+// values are read post-JSON.parse, which already decodes a genuine JSON
+// "—" escape into the real character before hasDash() ever sees it, so
+// that path was never a gap). A CSS-style bare hex escape is not meaningful
+// outside a .css file either, so applying either pattern more broadly would
+// risk a false positive rather than close a real hole.
+const JS_UNICODE_ESCAPE_RE = /\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]+)\}/g;
+const CSS_HEX_ESCAPE_RE = /\\([0-9a-fA-F]{1,6})(?:\r\n|[ \t\r\n\f])?/g;
+
+function dashSourceEscapes(text, isCss){
+  const out = [];
+  const re = isCss ? CSS_HEX_ESCAPE_RE : JS_UNICODE_ESCAPE_RE;
+  re.lastIndex = 0;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const hex = isCss ? m[1] : (m[1] !== undefined ? m[1] : m[2]);
+    const cp = parseInt(hex, 16);
     if (cp === EM_CODEPOINT) out.push({ kind: "em", match: m[0] });
     else if (cp === EN_CODEPOINT) out.push({ kind: "en", match: m[0] });
   }
@@ -551,6 +608,7 @@ function blankCodeComments(text){
 function checkCodeFile(file){
   const raw = fs.readFileSync(file, "utf8");
   notes.filesScanned++;
+  const isCss = /\.css$/i.test(file);
   const visible = blankCodeComments(raw);
   notes.commentDashes += countDashes(raw) - countDashes(visible);
   visible.split(/\r?\n/).forEach(function(line, i){
@@ -559,6 +617,23 @@ function checkCodeFile(file){
         file: rel(file),
         line: i + 1,
         kind: dashKind(line) + " in live module code",
+        text: line.trim().slice(0, 140)
+      });
+      return;
+    }
+    // Source-level escapes: a JS —/\u{2014} or CSS \2014 style escape,
+    // still on a comment-blanked line so a dash written this way inside a
+    // // or /* */ comment stays a note rather than a failure, same as every
+    // other form this checker reads. See "Source-level escape sequences"
+    // above for why this exists and how it was proved.
+    const escapes = dashSourceEscapes(line, isCss);
+    if (escapes.length) {
+      const label = isCss ? "CSS hex escape" : "JS unicode escape";
+      const kindWord = escapes[0].kind === "em" ? "em dash" : "en dash";
+      failures.push({
+        file: rel(file),
+        line: i + 1,
+        kind: kindWord + " (" + label + ") in live module code",
         text: line.trim().slice(0, 140)
       });
     }
