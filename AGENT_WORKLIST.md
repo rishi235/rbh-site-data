@@ -2560,6 +2560,69 @@ fixed (the scratch-debris false failure above), no copy changed, no new
 question. Evidence in audits/smartts-build-check-2026-09-02-eighth.txt and
 audits/verify-3.7-2026-09-02-eighth.js.
 Done 2026-09-02 (eighth pass).
+Quality pass 2026-09-03 (ninth; unattended scheduled run via Cowork, native
+Windows environment via mcp__Windows-MCP__PowerShell for git, Node and file
+edits, mcp__workspace__bash used only for lock creation and orientation - the
+standing Q87 split). Picked as the least recently verified rotation-pool item
+by the established method (git log commit subjects matched by word boundary
+against each of the 36 rotation-pool item ids): 3.7 last touched
+2026-09-02T16:42:22+01:00, older than every other item; 3.13 was next at
+2026-09-02T17:07:43+01:00, not a tie.
+Baseline: all 36 checkers run individually before any change, 36/36 exit 0;
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/ empty. All six generators rebuilt: sha256 of all 215 modules/ files
+taken before and after, zero diff, git status on modules/ empty.
+Fresh independent extraction (audits/verify-3.7-2026-09-03-ninth.js, no code
+shared with tools/ or any prior pass's script) across all 12 Smartts pages:
+1,655 checks, 0 flags - own postcode, street address and phone present with
+no other live branch's; tel: link present; JSON-LD @type/telephone/full
+PostalAddress field by field; data-branch and data-wa correct where present;
+cross-town seoTown guard; no other live branch's Appointedd widget id
+anywhere on any of the 12 pages; map query decodes to the branch's own
+address; hasApp/app-card consistency on the switch page; no em dash outside
+the build-comment exemption.
+The fresh angle: check-contraception-copy.js had never been proven by direct
+injection against contraception-smartts-bootle.html across any of this
+item's eight prior passes - it was proven against SK Chemists Bootle's
+contraception page when the checker was first written (item 3.6 pass) and
+against Hirshmans Chemist Ainsdale's on the 3.5 tenth pass, but never
+Smartts'. A second, Smartts-specific leg was added to this pass's own
+extraction script checking rules 4 (service name), 5 (free/no price), 6
+(consent direction), 7 (no LARC offer) and 8 (no medicine names) by reading
+the rendered page directly.
+Three injections run against the real checker on contraception-smartts-
+bootle.html, each restored from a byte-copy backup and sha256-confirmed
+identical to the pre-injection original
+(51C65AFE79E807B2ACD0087F98FC7E24F4CF2A1DA050C8F80525027261203AD4) before
+the next: the consent sentence reversed to "We will not tell your GP that
+you have used the service.", caught by check-contraception-copy.js
+(verbatim + consent, both directions) and independently by this pass's own
+script; the no-prescription-charge sentence rewritten to state a 9.35
+pound charge, caught by check-contraception-copy.js (verbatim + free, both
+the missing no-charge line and the stated price) and independently; and two
+named contraceptive medicines (Yasmin, Cerazette) appended to a step
+sentence, caught by check-contraception-copy.js's rule 8 and independently.
+All three caught first attempt by both the real checker and the independent
+script. Final sweep after all three injections and reverts: file sha256
+matches the pre-injection original exactly, git status/diff on the file
+empty, all 36 checkers exit 0, this pass's own script back to 1,655/0.
+Live half not performed - Claude in Chrome reported zero connected browsers
+at the start and end of this run; the built-in Claude Browser pane was
+tried as an alternative for this quality pass's live half only (not for
+step 3 answer pickup, which is Claude-in-Chrome only per the task file) and
+its navigation to smarttschemist.co.uk was denied, consistent with no user
+being present in this unattended session to approve a new site. The sixth
+pass's three live-only findings (hours-card lunch closure omitted on the
+live footer, switch page live tab title a hand-typed variant of the
+paste-sheet title, Q16/5.8 KNOWN_CLAIM services-grid wording) were not
+re-confirmed this pass and should not be assumed unchanged. Answer pickup
+(step 3): Chrome not connected, unavailable; 41 questions open of 94 total
+per QUESTIONS.json at the start of this run, unchanged by this pass. No
+autonomous-window heading present in AGENT_LOG.md at the start of this run,
+so step 4 did not apply.
+No in-repo defect found, no copy changed anywhere in the repo, no new
+question. Evidence in audits/verify-3.7-2026-09-03-ninth.js.
+Done 2026-09-03 (ninth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
