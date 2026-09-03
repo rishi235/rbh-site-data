@@ -4760,6 +4760,28 @@ all 36 checkers re-ran clean with the Q64 WARN unchanged. Live half not
 performed (Claude in Chrome not connected this run); the 2026-09-01
 seventh-pass live verdicts stand unreconfirmed. No in-repo defect, no new
 question. See audits/scorah-hazel-grove-pack-check-2026-09-02.txt.
+Quality pass 2026-09-03: ninth pass, unattended run, rotation pool (4.5 the
+unique stalest, last mentioned 2026-09-02T05:13:10+01:00; next stalest 1.3).
+Facts re-verified against branches.json for the ninth time, all matching:
+name, street address, postcode, phone, hours (no lunch closure, so the item
+4.6 pass's PAIRING-rule angle does not apply to this branch), review link,
+catchment order and its five towns, hasApp false, pfLink, profile website,
+sister-branch sentence naming Bramhall, the bank holiday paster note, and the
+712-character description re-derived independently. All 36 checkers pass, all
+six generators byte-identical. NEW ANGLE: the RECOGNISED_SERVICES/
+RECOGNISED_CATEGORIES allowlist rule (item 4.4 pass, 2026-08-13) had, by its
+own header comment, only ever been proved by injection against
+gbp-packs/scorah-bramhall.md, this pack's own sister on the same brand -
+never against scorah-hazel-grove.md itself. Proved now: injected the same two
+values as the original proof, a "Dental clinic" secondary category and an
+"Ear wax removal: microsuction ear wax removal by appointment." services
+bullet, neither in the recognised vocabulary. Both caught cleanly, two FAILs
+named against this pack specifically, exit 1. Restored by byte copy (sha256
+64fd2ae6...b7a4038 confirmed identical after restore, diff empty); all 36
+checkers re-ran clean. Live half not performed (Claude in Chrome not
+connected this run); the 2026-09-01 seventh-pass live verdicts stand
+unreconfirmed. No in-repo defect, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-03.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

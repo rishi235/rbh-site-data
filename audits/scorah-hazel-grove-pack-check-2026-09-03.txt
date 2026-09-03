@@ -1,0 +1,131 @@
+Item 4.5 quality pass (ninth), 2026-09-03
+Scorah Chemists Hazel Grove GBP pack - gbp-packs/scorah-hazel-grove.md
+
+SCOPE
+Unattended scheduled run via Cowork. mcp__workspace__bash (Cowork sandboxed
+Linux shell) was reachable for basic file listing this run but `git fetch
+origin` over SSH from that mount failed outright with "Host key verification
+failed" (no SSH key for git@github.com there), matching every prior run's Q87
+diagnosis. All git, Node and file work was done via mcp__Windows-MCP__PowerShell
+against the canonical C:\Dev\rbh-site-data working copy, the established route.
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, plus the three
+under 6.4/6.5/6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+fallback applied. Rotation order re-derived the same way as every prior pass:
+`git log --pretty=format:"%cI|%s"` matched each pool item's own "N.N" by word
+boundary (regex-escaped, case-insensitive), first/most recent match per item,
+over the standing 36-item pool (43 checked items minus the out-of-rotation set
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 4.5 was the unique stalest, last
+mentioned 2026-09-02T05:13:10+01:00 (a log-addendum entry about lock-release
+handling from the eighth pass, matched by word boundary same as every prior
+run's method) - exactly matching the immediately preceding (4.6) run's own
+forward note ("next stalest was 4.5"). Next stalest was 1.3 at
+2026-09-02T05:47:17+01:00.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__tabs_context_mcp reported the extension not connected.
+Logged as unavailable per the unattended-run rule; no alternative route, login
+or retry attempted. QUESTIONS.json re-read: 94 total, 41 open, unchanged; none
+answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of the run (checked directly). Proceeded normally.
+Moot regardless: nothing this pass needed a decision.
+
+FACTS RE-VERIFIED AGAINST branches.json (id: scorah_hazel)
+- branchName "Scorah Chemists Hazel Grove", brandLabel "Scorah Chemists" - match
+- streetAddress "87 Macclesfield Road", addressLocality "Hazel Grove",
+  postalCode "SK7 6BG" - match pack's "- Address:" line (post town "Stockport"
+  is the standing Q64 divergence, unchanged, WARN not FAIL)
+- phone "01625 872267" - match
+- googleReviewUrl "https://g.page/r/CZbFKrky9BUsEAE/review" - match
+- hasApp: false - no app mention anywhere in the pack, correct
+- pfLink "https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html"
+  - match, Post A button target
+- website + townSlug "hazel-grove" + brandSlug "scorah" -> profile website
+  "https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html" - match
+- serviceAreaList ["Hazel Grove","Bramhall","Offerton","Great Moor","Poynton"]
+  - match, same order, in the description, services section and Post B
+- openingHours: closedDays Saturday+Sunday, one session Mon-Fri 09:00-18:00
+  (no lunch closure - this branch is not one of the seven split-day branches,
+  so the item 4.6 pass's PAIRING-rule angle does not apply here), note
+  "Saturday trading ceased 24 June 2026" - matches pack's hours line and
+  paster note word for word
+- widgets present for bloodPressure, contraception, pharmacyFirst, weightLoss,
+  travelClinic - matches the five services the pack advertises
+- sister-branch sentence "Our sister branch is in Bramhall" - scorah_bramhall
+  shares brandLabel "Scorah Chemists", is not disposed, own seoTown "Bramhall"
+  - matches
+- bank holiday paster note present, names bankHolidays.dates2026 rather than
+  retyping dates - present, unchanged
+- Business description: independently recomputed at exactly 712 characters
+  under the paste-join convention, matching the pack's own claim
+
+CHECKERS AND GENERATORS (baseline)
+All 36 tools/check-*.js run individually: 36/36 exit 0. Two pre-existing WARNs
+against this pack, both tracked and unchanged: the Q64 addressPostTown
+divergence, and the pfLink live-only-page warning. All six generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages)
+re-run; `git status --porcelain modules/ core/ gbp-packs/ branches.json tools/`
+empty before and after. Byte-identical throughout.
+
+NEW ANGLE - THE ALLOWLIST RULE, NEVER PROVEN AGAINST THIS PACK
+Eight prior passes tested: fact re-verification (repeated every pass), the
+sister-branch guard, the two disagreeing efficacy-claim lists, hasApp on the
+pack surface, bank holidays reaching the pack surface, an address-line-identity
+injection (three rules at once), and a live check via Chrome. Read
+check-gbp-packs.js afresh for a rule this pack specifically had not been used
+to prove. Found one: the RECOGNISED_SERVICES / RECOGNISED_CATEGORIES allowlist
+(added item 4.4 pass, 2026-08-13) was proved by injection only against
+gbp-packs/scorah-bramhall.md - its own header comment says so explicitly
+("Proved against gbp-packs/scorah-bramhall.md: a services bullet reading
+'Ear wax removal...' and a secondary category 'Dental clinic' both walked past
+all 30 checkers clean"). scorah-hazel-grove.md, Bramhall's own sister pack on
+the same brand, same service set and same original drafting batch, had never
+had this specific rule tested against it. (The item 4.5 fifth pass, 2026-08-14,
+mentions an "unrecognised-service rule" firing as an incidental side effect
+while isolating a hasApp injection - not a deliberate, isolated proof of this
+rule with a known, controlled value, so it does not already cover this.)
+
+METHOD
+sha256 recorded before mutation: 64fd2ae6c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038.
+Backup taken by byte copy to _agentscratch\ before editing. Two injections,
+mirroring the original scorah-bramhall.md proof exactly:
+  1. Categories section: added "Dental clinic" to the "Add if not present"
+     line (secondary category not in RECOGNISED_CATEGORIES)
+  2. Services section: added a new bullet "Ear wax removal: microsuction ear
+     wax removal by appointment." (service label not in RECOGNISED_SERVICES)
+
+RESULT OF INJECTION
+`node tools/check-gbp-packs.js` on the mutated file: exit 1, two FAILs named
+against scorah-hazel-grove.md specifically -
+  FAIL scorah-hazel-grove.md: Categories section names "Dental clinic", which
+       is not a category any pack in this repo uses...
+  FAIL scorah-hazel-grove.md: Services section lists "Ear wax removal", which
+       is not a service any pack in this repo uses...
+Both fired as designed, on the first attempt, with no confounding warnings
+from other rules this time (unlike the run 201 hasApp injection, which
+incidentally tripped this same rule alongside a length warning).
+
+RESTORE
+File restored by byte copy (not git checkout) from the pre-mutation backup.
+Post-restore sha256: 64fd2ae6c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038
+- identical to the pre-mutation hash. `git diff -- gbp-packs/scorah-hazel-grove.md`
+empty. Backup file deleted (untracked scratch, never committed).
+Re-ran `node tools/check-gbp-packs.js`: 0 failures, same two standing WARNs as
+baseline. Re-ran all 36 checkers individually: 36/36 exit 0. Re-ran all six
+generators: `git status --porcelain modules/ core/` empty before and after.
+
+LIVE HALF
+Not performed. Claude in Chrome reported not connected (same check as step 3
+above). The 2026-09-01 seventh-pass live verdicts stand unreconfirmed: landing
+page (pharmacy-scorah-hazel-grove.html) 404s (Q35 class, queued paste), all
+four Post A-D targets 200, footer hours agree with branches.json.
+
+RESULT
+No in-repo defect found - the allowlist rule already covers this pack
+correctly, now proven rather than assumed by family resemblance to its
+sister. No new question raised. Worklist item 4.5 updated in place with this
+ninth-pass paragraph (not moved). Next stalest by this run's own computation:
+1.3 (last mentioned 2026-09-02T05:47:17+01:00).
