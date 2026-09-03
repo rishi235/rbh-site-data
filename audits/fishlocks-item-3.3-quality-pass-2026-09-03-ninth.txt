@@ -1,0 +1,97 @@
+﻿Item 3.3 quality pass (ninth), 2026-09-03. Fishlocks Chemist (Ainsdale and Eccleston).
+
+SCOPE OF THIS PASS. Prior eight passes proved SEO pattern (title/H1/description/
+town), sheet-agreement, JSON-LD, meta keywords, phone/postcode, and the
+cross-town/sister-town guard, each by direct injection against Fishlocks'
+own pages. None of the eight had pointed check-app-membership.js at
+Fishlocks by injection. Fishlocks Ainsdale and Fishlocks Eccleston are BOTH
+app members (hasApp true), the only brand in the estate with two app-member
+branches sharing one domain - the shared-domain shape the checker's own
+history flags as its blind spot (rule 7's marker-matching bug was found on a
+Smartts/Hirshmans swap, a different brand pair, never proved against
+Fishlocks). This pass closes that gap.
+
+BASELINE. git status --porcelain modules/ core/ gbp-packs/ branches.json
+tools/ empty before any change. All 36 tools/check-*.js run individually:
+36/36 exit 0. All six build-*.js generators re-run: git status --porcelain
+empty before and after, byte-stable.
+
+INDEPENDENT EXTRACTION (ninth for this item), audits/verify-3.3-2026-09-03.js,
+imports nothing from tools/. Repeats the established legs (one H1 per page,
+own town present, sister town absent, own phone on tel: links, no sister
+postcode) across all Ainsdale and Eccleston service pages, and adds the new
+app-membership leg: switch page app-card presence, landing page app-sentence
+presence, canonical app naming, store URL count, and INDEX.md/SEO.md
+*(app member)* marker presence, all keyed off each branch's own hasApp value
+rather than hardcoded. 158 checks, 0 failures.
+
+INJECTION TESTING against tools/check-app-membership.js, four injections, all
+four caught, all four restored and sha256-confirmed byte-identical to
+baseline:
+
+  1. RULE 2 (switch page app card). class="app-card" renamed to
+     class="app-card-disabled" in switch-prescriptions-fishlocks-ainsdale.html.
+     Result: FAIL - "is an app member in branches.json but the page carries
+     no app card". Caught first attempt.
+
+  2. RULE 3 (landing page app sentence). "Manage everything in the" changed to
+     "Manage nothing in the" in pharmacy-fishlocks-eccleston.html.
+     Result: FAIL - "is an app member in branches.json but the page carries
+     no app sentence". Caught first attempt.
+
+  3. RULE 5 (one name). "RB Healthcare Pharmacy app" changed to
+     "RB Healthcare app" (Pharmacy dropped) in pharmacy-fishlocks-eccleston.html.
+     Result: FAIL - "names the app "RB Healthcare app" but the generator that
+     owns the store buttons calls it "RB Healthcare Pharmacy app"". Caught
+     first attempt.
+
+  4. RULE 7 (paste marker). "*(app member)*" stripped from the Fishlocks
+     Chemist - Eccleston heading in modules/switch/pages/INDEX.md.
+     Result: FAIL - "marks 3 page(s) as app members but branches.json has 4".
+     Caught first attempt. (A first PowerShell string-replace attempt using
+     the literal em dash character silently matched nothing - the em dash in
+     a PowerShell here-string did not survive as typed; redone via a small
+     Node script operating on the file's own bytes, which found and modified
+     the line correctly. No repo content affected by the failed attempt, since
+     nothing was written until the pattern was confirmed found.)
+
+RESULT. No defect. All four rules were already correctly protecting
+Fishlocks' pages; this proves it directly for the one branch pair where the
+checker's own history says its coverage was weakest, rather than only by the
+rule's general design and its proof against SK Chemists/Smartts and the GBP
+packs. tools/check-app-membership.js unchanged - no rule logic edited. No
+page, generator or branches.json byte changed (all four injections restored
+and hash-confirmed; git status --porcelain modules/ empty throughout after
+each restore). Full 36-checker suite re-run clean after the final restore;
+all six generators re-run byte-stable.
+
+LIVE HALF. Claude in Chrome unreachable this run (tabs_context_mcp reported
+not connected, retried once, still not connected - standing Q59). Fell back
+to a direct HTTPS status-code check (status code only, not page content) via
+PowerShell Invoke-WebRequest. Both UTI pages (uti-treatment-fishlocks-ainsdale
+.html, uti-treatment-fishlocks-eccleston.html) and both switch pages
+(switch-prescriptions-fishlocks-ainsdale.html, switch-prescriptions-fishlocks
+-eccleston.html) returned 200. Two guessed landing-page URLs (pharmacy-
+fishlocks-ainsdale.html, pharmacy-fishlocks-eccleston.html) returned 404 on
+the fishlockpharmacy.co.uk host, which matches branches.json's hostMap and
+build-branch-landing-pages.js's own domain logic, so the slug guess itself
+may be wrong rather than the page being absent; not pursued further this
+pass since it is a status-code-only fallback that cannot confirm content
+either way, and no prior 3.3 pass has live-checked the landing pages
+specifically. Worth a follow-up pass with a working browser session rather
+than a guessed URL.
+
+Full working retained in this file. Baseline SHA256 hashes recorded and
+reconfirmed after each restore:
+  switch-prescriptions-fishlocks-ainsdale.html:
+    089116D65BE7135670FBEA0CED052980219DECE750BEEE3C96FED96EA43C44C1
+  switch-prescriptions-fishlocks-eccleston.html:
+    DA7DB015D6A49BB3D6353AA87F6E0E1D53AECD66A20DB78827DD4C4B37E5C9C7
+  pharmacy-fishlocks-ainsdale.html:
+    52ADFFE5358FA85CD7B3299E59E6105E6029216D74A7A3CB478F7B2117989209
+  pharmacy-fishlocks-eccleston.html:
+    1B681B43DC49DBBCC7967CF1AADC13E261FBD6CB14608CC66FC0A1495DA09C05
+  INDEX.md:
+    32378C46CD72978FD590A5DC3423D55C54419A21905A0E83458E735430C384DD
+  SEO.md:
+    73689C3945C7160275DFA62191CAF431710FF89DC38118658B760B3647405FD0

@@ -1447,6 +1447,46 @@ live-facing or patient-facing decision.
       the checkers and generators - that mount's `git fetch origin` again
       failed outright with "Host key verification failed", same as every
       recent run's diagnosis (Q87).
+      Quality pass 2026-09-03 (ninth): clean on both halves, no repo defect,
+      no new question. All 36 checkers green before and after. All six
+      generators rebuilt from branches.json; git status --porcelain empty
+      before and after, byte-stable. A ninth independent extraction
+      (audits/verify-3.3-2026-09-03.js, imports nothing from tools/, own
+      regexes throughout) re-read all Ainsdale and Eccleston service pages
+      plus both switch and landing pages: 158 checks, 0 failures, repeating
+      the established legs and adding a new one - app membership - since
+      Fishlocks Ainsdale and Eccleston are both app members (hasApp true),
+      the only brand in the estate with two app-member branches sharing a
+      domain. THE FRESH ANGLE: eight prior passes had proved SEO pattern,
+      sheets, JSON-LD, meta keywords and the cross-town guard by injection
+      against Fishlocks' own pages, but none had pointed
+      tools/check-app-membership.js at Fishlocks by injection - the shared-
+      domain shape that checker's own history flags as its blind spot (rule
+      7's marker bug was found on a Smartts/Hirshmans swap, not Fishlocks).
+      Four injections run, all four caught, all four restored and
+      sha256-confirmed byte-identical: RULE 2, the app card renamed out of
+      switch-prescriptions-fishlocks-ainsdale.html (FAIL, no app card on an
+      app member); RULE 3, the app sentence altered out of pharmacy-
+      fishlocks-eccleston.html (FAIL, no app sentence on an app member);
+      RULE 5, "RB Healthcare Pharmacy app" shortened to "RB Healthcare app"
+      on the same landing page (FAIL, non-canonical name); RULE 7, the
+      *(app member)* marker stripped from the Fishlocks Eccleston heading in
+      modules/switch/pages/INDEX.md (FAIL, marks 3 of the true 4 app
+      members). No defect - all four rules were already correctly protecting
+      Fishlocks' pages; this proves it directly for the branch pair the
+      checker's own history says was weakest-covered, rather than only by
+      general design and proof against SK Chemists/Smartts and the GBP
+      packs. tools/check-app-membership.js unchanged, no rule logic edited.
+      No page, generator or branches.json byte changed. LIVE HALF: Claude in
+      Chrome unreachable this run (not connected, retried once - standing
+      Q59), fell back to a direct HTTPS status-code check. Both UTI pages
+      and both switch pages returned 200; two guessed landing-page URLs
+      returned 404 on fishlockpharmacy.co.uk, not pursued further since this
+      is a status-code-only fallback and no prior 3.3 pass has live-checked
+      the landing pages specifically - the guess may be wrong rather than
+      the page being absent, worth a follow-up with a working browser
+      session. Evidence in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-03-ninth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
