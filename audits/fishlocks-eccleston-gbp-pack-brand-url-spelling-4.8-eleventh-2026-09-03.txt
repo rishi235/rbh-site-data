@@ -1,0 +1,128 @@
+Item 4.8, eleventh quality pass - Fishlocks Chemist Eccleston GBP pack
+Date: 2026-09-03 (unattended scheduled run via Cowork)
+
+PURPOSE
+Prove check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js
+against gbp-packs/fishlocks-eccleston.md's own copy by injection. Ten prior
+passes (2026-08-04 to 2026-09-03) had re-verified this pack's facts against
+branches.json repeatedly and proved several other rules (foreign-town,
+CLINIC_QUALIFIERS, OWN/FOREIGN-street abbreviation, OUTCOME_PROMISE) against
+this pack's own copy, but this specific trio - proven today against Fishlocks
+Ainsdale (4.1), Scorah Bramhall (4.4), McCanns Sandringham (4.7), Gordon Short
+Crosby (4.14) and Hirshmans Ainsdale (1.2) - had never been pointed at this
+pack directly, only covered by the general 36-checker suite passing.
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, both lines under Q60, 6.6), so the quality-pass
+fallback applied. Stalest item independently re-derived (not assumed from the
+prior run's forward note): for each of the 36 pool items (43 completed minus
+the 7 standing out-of-rotation: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), the most
+recent git log commit subject matching a word-boundary "N.N" pattern was
+found. 4.8 unique stalest at 2026-09-03T04:10:11+01:00 (its tenth pass, which
+proved OUTCOME_PROMISE against this pack's Post D). Next: 4.10 (04:42), 4.9
+(05:12), 4.12 (05:43), 4.15 (06:11), 2.3 (06:46), 3.3 (07:12). Result matches
+the forward note left by the immediately preceding item 4.13 tenth-pass entry
+exactly.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome reported "not connected" when navigating to
+https://data.rbhealth.co.uk/api/feedback. Logged as unavailable per the
+task's own instruction; no other route attempted, nothing clicked or typed.
+41 questions open of 94 total, unchanged by this run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of this run. Moot regardless: this pass's work
+needed no judgement call.
+
+BASELINE
+git status --porcelain empty on gbp-packs/, modules/, core/, tools/,
+branches.json, status/ at the start. All 36 tools/check-*.js run individually
+via a loop checking each exit code on the tracked repo: 36/36 exit 0.
+Fishlocks Eccleston facts re-verified a further time against branches.json:
+address "Unit 3 The Carrington Centre, New Mill Street", PR7 5SZ, phone
+01257 451251, hours Mon-Fri 9-6 / Sat 9-12 / Sun closed, review link
+https://g.page/r/CYyjtWbSXqEkEAE/review, catchment "Eccleston, Charnock
+Richard, Coppull", hasApp true - all unchanged from the tenth pass.
+gbp-packs/fishlocks-eccleston.md sha256
+5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa.
+
+METHOD
+Full repo copied (rsync, .git and .agent-lock* excluded for speed) to a
+scratch directory outside the tracked working tree
+(/sessions/exciting-bold-newton/scratch/item48/repo). Scratch copy's
+fishlocks-eccleston.md sha256-confirmed identical to the tracked copy before
+any edit, and all three target checkers re-run clean on the scratch copy
+first.
+
+Four injections run one at a time, each restored from a saved original copy
+and sha256-reconfirmed identical before the next:
+
+  1. BRAND (rule 2, check-brand-spelling.js). Business description line 24
+     "Fishlocks Chemist trades..." changed to "Fishlock Chemist trades..."
+     (dropped s). CAUGHT: "gbp-packs/fishlocks-eccleston.md:24: reads
+     'Fishlock Chemist'. The trading name is 'Fishlocks Chemist'". Exit 1.
+
+  2. URL SCHEME (rule 1, check-url-scheme.js). Post B's button URL changed
+     from https:// to http:// (switch-prescriptions-fishlocks-eccleston.html).
+     CAUGHT: "INSECURE gbp-packs/fishlocks-eccleston.md: published surface
+     carries http://www.fishlockpharmacy.co.uk/switch-prescriptions-
+     fishlocks-eccleston.html". Exit 1.
+
+  3. UK SPELLING (check-uk-spelling.js). Post D's opening line "Get your
+     travel health sorted before you go." extended to "...before you go,
+     whether you are traveling for business or leisure." (US spelling).
+     CAUGHT: "gbp-packs/fishlocks-eccleston.md:117: reads 'traveling'. UK
+     English is 'travelling'". Exit 1.
+
+  4. CONTROL - quoted evidence (check-brand-spelling.js's quote mask). Added
+     a paster note: '- The live footer currently reads "Fishlock Chemist",
+     which this pack corrects.' (near-miss brand inside quotation marks,
+     the same convention several other packs use to record a live-page
+     divergence). PASSED as designed: exit 0, reported only as a NOTE
+     ("records 'Fishlock Chemist' inside quotation marks, read as a note of
+     what a live page says rather than as this file claiming it"), not a
+     FAIL. Confirms the quote mask correctly distinguishes a recorded
+     reading from a claim on this pack's own copy, not only in theory.
+
+All four behaved exactly as designed: three genuine breaches caught with the
+correct message, one quoted-evidence control correctly passed. No checker
+gap found on this pack.
+
+METHOD NOTE
+After restoring injection 4 and re-running the full 36-checker suite on the
+scratch copy, check-cdn-pins.js failed with 6 failures, all "ref does not
+resolve in git". This is an artefact of the scratch copy's method (rsync
+excluded .git to keep the copy fast), not a repo defect: check-cdn-pins.js
+needs git ref resolution and the scratch copy has no .git directory. Re-run
+directly on the tracked repo (which does have .git): clean, 3 warnings, 7
+known issues, all pre-existing and unchanged (the standing service-module-
+phase1 lag and the @main branches.json runtime-fetch divergence, Q45/Q87).
+Recorded here so a future pass copying only the working tree to scratch
+knows in advance that check-cdn-pins.js needs the tracked repo, not the
+scratch copy, to give a meaningful answer - the same "which files did the
+checker actually read" shape CLAUDE.md names repeatedly.
+
+INCIDENTAL OBSERVATION, OUT OF SCOPE
+An untracked file qtmp.json (299,472 bytes, dated 2026-09-01 17:19, not
+gitignored) sits at the repo root and was flagged as a WARN by
+check-url-scheme.js (carries an insecure McCanns URL, not a published
+surface so does not fail the run). It is debris from a prior run's output
+capture, unrelated to item 4.8 or this pass's scope, and was left alone -
+deleting it is out of scope for a quality pass and the sandbox's known
+unlink() restriction (Q87) means deletion may not succeed cleanly from this
+side anyway. Worth a line in a future infrastructure pass, not raised as a
+new question here since it fails nothing and blocks nothing.
+
+RESULT
+No in-repo defect found on item 4.8. Tracked repo confirmed untouched
+throughout: git status --porcelain empty on gbp-packs/, modules/, core/,
+tools/, branches.json, status/ before, during and after this pass's work;
+fishlocks-eccleston.md sha256 identical to the baseline at the end; all 36
+tools/check-*.js re-run on the tracked copy after scratch cleanup, 36/36
+exit 0. Scratch directory deleted in full after use.
+
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 4.10, then 4.9, 4.12, 4.15, 2.3, 3.3 - should be re-derived
+fresh rather than assumed.
