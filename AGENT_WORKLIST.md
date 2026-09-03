@@ -6881,6 +6881,54 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       and Q81 re-read from QUESTIONS.json, all still open, unchanged. No
       new defect, no new question. Evidence in
       audits/sk-chemists-bootle-gbp-pack-check-2026-09-02-ninth.txt.
+      Tenth quality pass 2026-09-03 (unattended scheduled run, rotation-pool
+      pick, stalest item last mentioned 2026-09-02T21:09:53+01:00, the ninth
+      pass): all branches.json facts re-matched field by field (address,
+      phone, hours, website, review link, serviceAreaList, hasApp, pfLink,
+      widgets), no drift. All 36 checkers exit 0. All six generators
+      rebuilt; git status --porcelain on modules/, core/, tools/,
+      branches.json and gbp-packs/ empty before and after, confirming
+      byte-identical regeneration.
+      Fresh angle: nine prior passes had injection-tested this pack's phone,
+      postcode, Post C link, hours line, UTI cohort and the rule 11 age
+      qualifier, but never the CLINIC_QUALIFIERS, BODY_IMAGE, OUTCOME_PROMISE
+      or POM_CLASS rule families in check-gbp-packs.js, all of which were
+      added and proved on OTHER packs (fishlocks-eccleston.md,
+      gordon-short-crosby.md, mccanns-sandringham.md, riddings-timperley.md)
+      but never against this pack's own Post C or Post D copy. Six
+      injections run against a freshly restored copy each time, byte
+      copy restore before any assertion, sha256-verified: (1) deleting the
+      "private, paid service...not suitable for everyone" sentence from
+      Post C, CAUGHT by both the weightLossPaid and weightLossSuitability
+      qualifiers; (2) deleting "supervised plan" from Post C, CAUGHT by
+      weightLossSupervised; (3) deleting "subject to availability and
+      clinical suitability" from Post D, CAUGHT by travelSuitability;
+      (4) injecting "Ready to start your transformation?" into Post C,
+      CAUGHT by BODY_IMAGE_SELF transformation framing; (5) injecting
+      "We guarantee full protection for every destination." into Post D,
+      CAUGHT by OUTCOME_PROMISE guarantee wording; (6) injecting "The
+      skinny jab clinic at SK Chemists" in place of the pharmacist-led
+      wording in Post C, CAUGHT by POM_CLASS SELF_SCOPING. All six caught
+      on the first run. File sha256-confirmed byte-identical to the
+      original before the round, after each individual restoration, and
+      after the final one. Full 36-checker suite re-run clean after the
+      round.
+      RESULT: no defect on item 4.11 itself. check-gbp-packs.js already
+      correctly held this pack's Post C and Post D to the clinic qualifier,
+      body image, outcome promise and POM class rules; now proven directly
+      by injection for the first time in this item's ten-pass history.
+      No checker logic, pack copy, page, generator or data field changed
+      anywhere in the repo.
+      LIVE HALF: not attempted this pass. Claude in Chrome confirmed not
+      connected at step 3 and again independently before finishing repo
+      work. The ninth pass's live findings (Q34 answered and applied;
+      switch-page paste-lag em dash and weight-loss-clinic.html's item
+      5.8/Q58 regulatory exposure, both unchanged) stand unverified for a
+      further pass rather than re-claimed. Q58, Q80 and Q81 re-read from
+      QUESTIONS.json, all still open, unchanged. No new defect, no new
+      question. Evidence in
+      audits/verify-4.11-2026-09-03-tenth.js and
+      audits/verify-4.11-2026-09-03-tenth-output.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
