@@ -6669,6 +6669,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       checkers green, generators byte-stable. No new question. Open
       question count 41 open of 94 total (unchanged by this pass).
       See audits/fishlocks-eccleston-outcome-promise-reproof-4.8-tenth-2026-09-03.txt.
+      Quality pass 2026-09-03 (eleventh, unattended run): stalest item in the
+      36-item rotation pool, independently re-derived (git log commit subjects
+      matched by word-boundary "N.N", most recent match per pool item; 4.8
+      unique stalest at 2026-09-03T04:10:11+01:00, matching the immediately
+      preceding item 4.13 tenth-pass entry's own forward note). Repo half
+      only, Claude in Chrome not connected so no live re-check (Q59). Baseline:
+      git status clean, all 36 checkers green, facts re-verified against
+      branches.json unchanged for the eleventh time. New angle: eleven prior
+      dedicated passes had never proven check-brand-spelling.js,
+      check-url-scheme.js or check-uk-spelling.js against this pack's own
+      copy by injection - only the general 36-checker suite passing - despite
+      that trio being proven today against five sister packs (4.1, 4.4, 4.7,
+      4.14, 1.2). Proved by four injections on a scratch copy, each restored
+      and sha256-reconfirmed before the next: (1) "Fishlocks Chemist" dropped
+      to "Fishlock Chemist" in the business description - CAUGHT by
+      check-brand-spelling.js rule 2; (2) Post B's button URL changed to
+      http:// - CAUGHT by check-url-scheme.js rule 1 (INSECURE, published
+      surface); (3) "traveling" (US spelling) inserted into Post D - CAUGHT by
+      check-uk-spelling.js; (4) a control - "Fishlock Chemist" wrapped in
+      quotation marks in a paster note, the same convention other packs use to
+      record a live-page divergence - correctly PASSED (reported as a NOTE,
+      not a FAIL), confirming the quote-evidence mask works on this pack's own
+      copy and not only in theory. All four behaved exactly as designed; no
+      checker gap found. METHOD NOTE: the scratch copy (rsync, .git excluded
+      for speed) made check-cdn-pins.js fail with "ref does not resolve in
+      git" after the injections were restored; re-run directly on the tracked
+      repo it was clean, confirming the failure was an artefact of the
+      .git-less scratch copy and not a repo defect - recorded so a future pass
+      knows check-cdn-pins.js needs the tracked repo, not a partial scratch
+      copy, to give a meaningful answer. Incidental, out of scope: an
+      untracked qtmp.json at the repo root (pre-existing debris, unrelated to
+      this item) triggers a WARN in check-url-scheme.js; left alone, not
+      raised as a new question. gbp-packs/fishlocks-eccleston.md unchanged
+      throughout (sha256 identical before and after). No generator, page, data
+      field or checker file changed. No new question. Open question count 41
+      open of 94 total (unchanged by this pass; answer pickup unavailable,
+      Chrome not connected).
+      See audits/fishlocks-eccleston-gbp-pack-brand-url-spelling-4.8-eleventh-2026-09-03.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
