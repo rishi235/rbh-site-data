@@ -1,0 +1,112 @@
+﻿Item 2.3 Cherry Lane Pharmacy Walton - tenth quality pass, 2026-09-04 (unattended run)
+
+BASELINE
+- git status --porcelain empty on gbp-packs/, modules/, core/, tools/, branches.json, status/ at start
+- All 36 tools/check-*.js run individually: 36/36 exit 0
+- Baseline SHA256:
+  modules/service/pages/pharmacy-first-cherry-lane-walton.html: 653A7EA078B4659905ABE3D4A47FBB54EBC2B7316131443C94DE01239955E956
+  modules/service/pages/weight-loss-clinic-cherry-lane-walton.html: 60F65541EF2BA7C2269636C8D89F927A2B978D924255EF8772A2CF6AAD4DF90D
+  modules/switch/pages/switch-prescriptions-cherry-lane-walton.html: A0090A6C2FBECB4B45C5DAEEFC99119763BD95F92B1A626BB9547C665C1A38C6
+
+FRESH ANGLE
+check-brand-spelling.js, check-uk-spelling.js and check-url-scheme.js all scan
+modules/service/pages, modules/switch/pages and modules/branch/pages (confirmed
+by reading each checker's SCAN_DIRS/CODE_DIRS before testing), so all three have
+been passively covering Cherry Lane's own 12 generated pages on every one of the
+prior nine quality passes' full-suite runs. None of the nine prior passes had
+individually PROVEN any of the three would actually catch a defect on Cherry
+Lane's own page content specifically (the ninth pass proved check-switch-copy.js
+rules 6/8/9 this way; the ones proven pack-by-pack across the 4.x GBP-pack items
+had never been pointed at this item's PAGES, only at other branches' GBP packs).
+This pass closes that gap for this item, on a scratch copy, full repo (.git
+included) copied to C:\Users\Admin\AppData\Local\Temp\audit_run_23_20260904004018.
+
+INJECTIONS (each on the scratch copy only, restored by byte copy - not git
+checkout - and SHA256-reconfirmed identical to the baseline above before the
+next injection)
+
+1. check-brand-spelling.js: all 11 occurrences of "Cherry Lane Pharmacy" in
+   pharmacy-first-cherry-lane-walton.html changed to "Cherry Lane Chemist" (a
+   form the checker's own source comments name explicitly as a wrong example).
+   CAUGHT: exit 1, 11 failures, each naming the correct trading name "Cherry
+   Lane Pharmacy". Restored; SHA256 reconfirmed identical.
+
+2. check-uk-spelling.js: weight-loss-clinic-cherry-lane-walton.html line 39
+   "Choose a time that suits you." changed to "We organize a time that suits
+   you." CAUGHT: exit 1, 1 failure at line 39, correct UK form "organise"
+   named. Restored; SHA256 reconfirmed identical.
+
+3. check-url-scheme.js: an insecure link appended to
+   switch-prescriptions-cherry-lane-walton.html: "<p>More details at
+   http://www.cherrylanepharmacy.co.uk/switch-info.</p>". CAUGHT: exit 1, 1
+   failure, correctly flagged as a published surface and linked to item 6.6.
+   Restored; SHA256 reconfirmed identical.
+
+All three behaved exactly as designed. Full 36-checker suite re-run on the
+scratch copy after the final restore: 36/36 exit 0. All three files
+SHA256-reconfirmed byte-identical to the baseline above. Tracked repo
+(C:\Dev\rbh-site-data) never touched - all edits were on the scratch copy only,
+used purely as a restore source. Scratch copy left in place this run (not
+deleted, since Remove-Item -Recurse on this host has intermittently failed on
+other scratch paths this session; noted for whoever cleans temp directories,
+not a repo concern).
+
+Two PowerShell authoring mistakes caught before they became false results, kept
+here as a method note: an early attempt used the `-replace` operator with a
+three-way comma-separated argument list (pattern, replacement, count), which
+PowerShell parses as an array literal for the replacement operand rather than a
+count parameter - the resulting write produced a zero-byte file, caught
+immediately by SHA256 mismatch (hash of an empty file) rather than trusted as a
+real edit. A second attempt used string index arithmetic to insert before
+"</body>" in the switch page, which does not contain that tag (it is a Weebly
+embed fragment, not a full document) - IndexOf returned -1, and the resulting
+Substring call again produced a zero-length result, again caught by SHA256
+before being mistaken for a real injection. Both fixed by switching to a
+simple append/whole-string [regex]::Replace with an explicit "modified longer
+than original" guard before every write.
+
+LIVE HALF
+Claude in Chrome unreachable this run (mcp__claude-in-chrome__navigate reported
+"Claude in Chrome is not connected"), matching the standing Q59 cause. Fell back
+to a raw HTTP fetch (Invoke-WebRequest, no JavaScript execution) of three live
+Cherry Lane pages, all returning 200:
+  https://cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+  https://cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
+  https://cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-lane-walton.html
+
+SIGNIFICANT FINDING (new, raised as Q95): the Pharmacy First overview page is
+again showing five of its seven condition cards - Sinusitis, Earache, Impetigo,
+Shingles, Infected insect bite - as "Page coming soon" with no href, in the raw
+server-rendered HTML (not a JavaScript-rendering artefact of the fallback
+method: the marker text and the empty href are both present directly in the
+fetched HTML). Sore Throat and UTI still render as working links. This is the
+identical fault first found 2026-08-04 (build entry), believed fixed
+2026-08-11, reconfirmed fixed on the eighth pass 2026-09-02 (closing Q89 on
+that evidence), not independently re-tested on the ninth pass 2026-09-03
+(browser unreachable that run too, status-code-only fallback used, which cannot
+see this fault - it only checks HTTP status, not card content). The repo's own
+generated page remains correct (confirmed again this pass, byte-identical to
+the standing baseline, all seven conditions as working links, no "coming soon"
+text). Raised as Q95 rather than repasted, since browser use stays read-only
+and no live-editing route is available in any case; Q95 recommends
+investigating the cause before a third blind repaste, given the second one has
+now visibly failed to hold.
+
+Two other known live-only findings reconfirmed unchanged, both already tracked,
+neither re-raised: the switch page SEO title still reads the pre-Phase-3 string
+"Switch Your Prescriptions - Cherry Lane Pharmacy Walton" (3.1/5.1/Q3), and the
+switch page body still renders a visible mojibake em dash ("ÔÇö", confirmed
+present directly in the raw HTML, not inside an HTML comment) in the "How
+switching to Cherry Lane Pharmacy works" lead paragraph (estate-wide repaste
+backlog). The Q36 NHS mailbox footer typo was NOT observed this pass - the only
+email address in the switch page's raw HTML is the correct Cherry@rbhealth.co.uk
+- consistent with the already-logged "unstable between deploys or caches"
+pattern for that specific fault, not re-raised.
+
+RESULT
+No in-repo defect found. Tracked repo confirmed untouched throughout (git
+status --porcelain empty on gbp-packs/, modules/, core/, tools/, branches.json,
+status/ before and after this pass's work). One new question raised (Q95) for a
+live-only regression that needs Rishi's decision on how to stop it recurring a
+third time. AGENT_WORKLIST.md item 2.3 given a new "Tenth quality pass
+2026-09-04" paragraph. QUESTIONS.json: 95 total, 42 open (was 94/41).

@@ -826,6 +826,41 @@ audits/verify-2.1-2026-09-03-tenth-output.txt.
       mailbox typo) not re-readable this pass and stand as last recorded.
       No new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-03-ninth.txt.
+      Tenth quality pass 2026-09-04 (unattended run). Repo half clean
+      again: six generators to a zero diff, all 36 checkers exit 0,
+      branches.json fields and the 12-page set re-verified field by field.
+      FRESH ANGLE: check-brand-spelling.js, check-uk-spelling.js and
+      check-url-scheme.js all passively scan Cherry Lane's own generated
+      pages on every full-suite run but had never been individually proven
+      by injection against this item's own PAGE content (as opposed to a
+      GBP pack) to actually catch a defect here. Three injections on a
+      scratch copy, each restored by byte copy and SHA256-reconfirmed
+      before the next: (1) all 11 "Cherry Lane Pharmacy" occurrences in the
+      Pharmacy First overview page changed to "Cherry Lane Chemist" -
+      caught by check-brand-spelling.js, 11 failures, correct trading name
+      named; (2) the weight loss page's "Choose a time that suits you."
+      changed to "We organize a time that suits you." - caught by
+      check-uk-spelling.js, correct UK form "organise" named; (3) an
+      insecure http:// link appended to the switch page - caught by
+      check-url-scheme.js as a published-surface breach, linked to item
+      6.6. All three caught first attempt, full 36-checker suite clean
+      after final restore, all three files SHA256-confirmed byte-identical
+      to baseline. No in-repo defect, no rule or page byte changed. LIVE
+      HALF, SIGNIFICANT FINDING: Chrome unreachable again (Q59), fell back
+      to raw HTTP fetch. The Pharmacy First overview page is AGAIN showing
+      five of seven condition cards (Sinusitis, Earache, Impetigo,
+      Shingles, Infected insect bite) as "Page coming soon" with no href -
+      the identical fault closed on the eighth pass (2026-09-02, Q89) and
+      not re-tested on the ninth pass (2026-09-03, status-code-only
+      fallback cannot see this). The repo's own page remains correct.
+      Raised fresh as Q95 rather than repasted (browser read-only, no
+      live-editing route), recommending the cause be investigated before a
+      third blind repaste since the second one has now visibly failed to
+      hold. Two other known live-only faults reconfirmed unchanged (switch
+      SEO title pre-Phase-3; switch body mojibake em dash), neither
+      re-raised. Q36 footer mailbox typo not observed this pass, consistent
+      with its already-logged instability. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-04-tenth.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
