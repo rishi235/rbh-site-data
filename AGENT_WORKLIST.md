@@ -5401,6 +5401,69 @@ Pharmacy First wording to the NHS service description.
       Post C and Post D targets both returned 200 (not re-read in full text
       this pass; last confirmed clean on the seventh and eighth passes). No
       in-repo defect found, no new question raised. Done 2026-09-03
+      Quality pass 2026-09-03 (tenth pass, repo and live): re-verified as the
+      stalest rotation-pool item (last touched 2026-09-03T01:46:25+01:00, the
+      earliest of the 36-item pool re-derived fresh by the same anchored
+      git-log method the ninth pass used, matching the forward note that
+      pass left). All facts re-checked against branches.json (name, address,
+      phone, hours with both lunch closures, website, review link, three-town
+      service area, hasApp false, all five widgets) and nothing wrong. Full
+      36-checker suite run individually: 36/36 exit 0 at baseline. All six
+      generators rebuilt to zero diff (sha256 of all 193 modules/core files
+      identical before and after). New angle: check-gbp-packs.js's splitDay
+      rule (the one requiring a split-day pack to tell the paster the profile
+      needs two GBP time ranges, not one) had been read against this pack six
+      times across nine prior passes but never proven by injection here -
+      only proven by injection against Tiffenbergs, Gordon Short Crosby and
+      the two other split-day packs on today's earlier 3.12 seventh pass.
+      gbp-packs/hirshmans-ainsdale.md backed up by sha256 first
+      (215430cdda8317622b471bc59a34c4e46282283735cca40d6f85fc58d051927b); its
+      "GBP hours need two time ranges..." paster-note bullet was deleted
+      entirely, leaving only "Sunday closed." in its place. check-gbp-packs.js
+      caught it immediately and only, one FAIL by name: "this branch closes
+      for lunch (Monday appears twice in openingHours), so the pack must tell
+      the paster the profile needs two time ranges for that day rather than
+      one." Exit 1, exactly one FAIL line, the standing Q64/Q72 WARNs
+      unchanged alongside it. File restored by byte copy (this mount cannot
+      unlink via git checkout, the standing FUSE quirk); sha256 reconfirmed
+      identical to the pre-injection backup. Full 36-checker suite re-run
+      clean immediately after (36/36 exit 0); git status --porcelain on the
+      file empty. Confirms the splitDay rule genuinely generalises to this
+      pack's own copy rather than being trusted only because the estate-wide
+      sweep passed, closing the last untested check-gbp-packs.js rule this
+      item's own text carries evidence for (road-name rule proven seventh
+      pass, claim-patterns rule proven seventh pass, bank-holiday rule proven
+      eighth pass, splitDay rule proven this pass). Live half, read-only GET
+      (Claude in Chrome not connected this run; network egress confirmed via
+      google.com and the branch homepage, both 200, before drawing any
+      conclusion): all four post targets returned 200.
+      pharmacy-first-service-ainsdale.html (Post A, HARD STOP) still carries
+      the wrong address (64 station Road), the non-dialling phone
+      017014577376 and "Hirshmans Pharmacy" branding in its own hand-pasted
+      body copy - unchanged, still item 5.3/Q8/Q34. Read more closely this
+      pass than before: the CORRECT address (56-62 Sherwood House) and phone
+      (01704 577376) also appear on the same page, in the sitewide footer and
+      JSON-LD block that core/site-data.js renders at runtime from
+      branches.json, separate from the hand-pasted legacy body - so the page
+      is publishing two different addresses and two different phone numbers
+      to a patient reading top to bottom, not one wrong fact repeated. Not a
+      new defect (the sitewide footer/schema half was already known correct
+      and the pasted-body half was already known wrong; this pass just
+      confirmed both live on the one page at once rather than reading only
+      the body), but sharper than any of the nine prior write-ups of this
+      page, so recorded for whoever actions 5.3/Q8/Q34.
+      switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders the
+      pre-Q7 em dash as mojibake ("usually is not \xc3\x94\xc3\x87\xc3\xb6 we
+      make the first step quick and easy"), unchanged, the same live-paste-lag
+      family as Cherry Lane and Coleman and Leighs.
+      weight-loss-clinic-hirshmans-ainsdale.html (Post C) read in full this
+      pass: no medicine name, no superlative or results claim, private
+      consultation framing throughout, clean. travel-clinic-hirshmans-
+      ainsdale.html (Post D) read in full: the only match for "guaranteed" is
+      inside the generator's own HTML build comment ("no vaccine is claimed
+      guaranteed in stock"), not patient-facing copy; the visible page states
+      "subject to availability and clinical suitability", correctly hedged.
+      No in-repo defect found, no new question raised. Done 2026-09-03
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
