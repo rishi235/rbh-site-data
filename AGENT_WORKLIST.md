@@ -3115,6 +3115,104 @@ Done 2026-09-03 (ninth pass).
       total, 41 open, unchanged; no question specific to item 3.9 is open.
       Evidence in audits/verify-3.9-2026-09-02-eighth.js and audits/verify-
       3.9-2026-09-02-eighth-output.txt. Done 2026-09-02
+      Quality pass 2026-09-03 (ninth machine-era pass, unattended run).
+      REPO HALF ONLY: Claude in Chrome reported not connected at the top of
+      this run (tabs_context_mcp); the built-in Claude Browser was not tried
+      this pass since step 3's answer pickup is Claude-in-Chrome-only and no
+      live read was planned for this angle. The three standing live findings
+      from the 2026-08-31 sixth pass remain unconfirmed for a fourth
+      consecutive pass. Picked by the standing rotation-pool method: all 8
+      unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep,
+      so the quality-pass fallback applied; a fresh git-log-match derivation
+      (36-item rotation pool, the standing 7 out-of-rotation items excluded)
+      gave 3.9 as stalest (last touched 2026-09-02T19:09:58+01:00, ahead of
+      3.10 at 19:40:46), independently reproducing the forward note the
+      3.4 tenth-pass entry left this same day. All 36 tools/check-*.js run
+      individually before any change: 36/36 pass. All seven build-*.js
+      generators re-run (build-audit-status.js excluded, it publishes to the
+      portal rather than regenerating pages and needs step 10's own
+      invocation); git status --porcelain on modules/ and core/ empty before
+      and after, as expected since neither a generator nor branches.json was
+      touched this pass.
+
+      Fresh angle: none of the eight prior passes had proved
+      tools/check-gbp-packs.js's DAY-based hours rules (as opposed to its
+      clock-time rules, proved for this branch's Q40/blood-pressure line on
+      the eighth pass but never for the day-presence logic) or its
+      sister-branch-claim rule against gbp-packs/coleman-leigh-walton.md
+      specifically. Coleman and Leighs is one of the seven branches in the
+      estate that closes for lunch, which is exactly the branch shape
+      CLAUDE.md's "A right answer in the wrong unit" section and this
+      checker's own header identify as the estate's most consequential
+      hours defect class (the live smarttschemist.co.uk 9-to-6-straight-
+      through fault this checker's splitDay rule exists to stop reaching
+      another profile the same way).
+
+      Wrote a ninth independent instrument, audits/verify-3.9-2026-09-03-
+      ninth.js, sharing no code with tools/ or any prior verify-3.9-*.js.
+      Two parts. Part 1: independent re-derivation, straight from
+      branches.json, of this branch's open/closed days, its true split-day
+      shape (all five weekdays carry two sessions each, a uniform Mon-Fri
+      lunch closure - the real checker's own splitDay() returns only the
+      first day it finds, "Monday", for its message, confirmed by reading
+      the function rather than assumed, so this is a wording choice in the
+      checker and not a gap) and the absence of any live sibling sharing its
+      brandLabel, cross-checked against what the pack's hours line and
+      paster notes actually say using an independently-worded regex, not
+      imported from check-gbp-packs.js. 10 checks, 0 failures on the first
+      run after one self-caught correction: the first version of this part
+      wrongly asserted the checker's own splitDay() would report all five
+      days, which conflated the DATA shape (five split days) with the
+      MESSAGE-composition shape (one representative day); corrected to
+      assert the data shape directly and note the checker's simplification
+      as deliberate rather than as a defect.
+
+      Part 2: four injections into a scratch-mutated copy of the one pack
+      file this branch owns, each restored via fs.writeFileSync immediately
+      after capturing the checker subprocess's output and before any
+      assertion, and sha256-verified byte-identical before the next
+      injection and again at the end. (1) Friday dropped from the "Monday to
+      Friday" open range - CAUGHT, "does not state Friday as an open day".
+      (2) Saturday falsely claimed open - CAUGHT, "hours line states the
+      branch is open on Saturday". (3) the "GBP hours need two time ranges"
+      paster instruction removed, hours line itself left untouched - CAUGHT,
+      "must tell the paster the profile needs two time ranges". (4) a false
+      "Our sister branch is in Bootle" sentence inserted into the business
+      description - CAUGHT, "no other live branch in branches.json carries
+      the brand". One process correction before trusting the round: the
+      first version of injections 3 and 4 used literal multi-line regexes
+      assuming exact line-wrap positions and matched nothing, so the
+      "unmutated" original silently passed every time (the same class of
+      false-negative six prior passes across other items have hit and
+      logged); caught by having the mutator throw if its regex found no
+      match rather than silently returning the input unchanged, and fixed
+      by matching on \s+ in place of literal newlines, the same discipline
+      check-gbp-packs.js's own comments prescribe for these wrapped pack
+      files. All four injections then caught on the corrected run; the pack
+      file's sha256 matched its pre-probe value after every individual
+      injection and again at the end (fs.readFileSync of the tracked file
+      immediately after, plus git status --porcelain on the single file,
+      confirmed no diff throughout). 22 checks total across both parts, 0
+      failures. Full 36-checker suite re-run clean after the round.
+
+      RESULT. No defect on item 3.9 - check-gbp-packs.js was already
+      correctly holding Coleman and Leighs' own pack to its day-open,
+      day-open-reverse, day-closed, splitDay-warning and sister-branch-
+      absence rules; now proven directly by injection against this branch
+      for the first time in this item's nine-pass history, rather than only
+      by the estate-wide 15-pack sweep. No checker logic, page, generator,
+      pack or data field changed anywhere in the repo.
+
+      No new question raised. QUESTIONS.json re-read before and after: 94
+      total, 41 open, unchanged. Evidence in audits/verify-3.9-2026-09-03-
+      ninth.js. Done 2026-09-03
+
+      Next stalest by the same block-bounded method, for whoever runs the
+      next unattended pass: with 3.9 now freshly touched today (2026-09-03),
+      the next-oldest untouched item in the standing rotation pool was 3.10
+      (2026-09-02T19:40:46+01:00), then 2.1, 5.2, 4.11, 5.1, 3.12, 3.6, 3.8 -
+      but should be re-derived fresh rather than assumed, since other runs
+      may land in between.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
