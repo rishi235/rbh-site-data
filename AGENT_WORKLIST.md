@@ -2394,6 +2394,92 @@ touched, out of this item's scope; nothing created or left behind by this
 run beyond its own two kept audit files. Evidence:
 audits/verify-3.6-2026-09-02-ninth.js,
 audits/verify-3.6-2026-09-02-ninth-output.txt (both committed).
+Quality pass 2026-09-03 (tenth, unattended scheduled run via Cowork).
+Selected as the least recently verified item in the standing 36-item
+rotation pool: all 8 unblocked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep, so the quality-pass fallback applied.
+Rotation re-derived fresh (git log --pretty=format:"%cI|%s" matched per
+item by word boundary, latest touch per pool item, same method as every
+prior pass): 3.6 uniquely stalest at 2026-09-02T22:40:23+01:00, exactly
+matching the forward note the ninth pass left (then 3.8, 6.3, 3.1, 4.3,
+4.6, 4.5).
+BASELINE. All 36 tools/check-*.js re-run individually before any change:
+36/36 exit 0. All six generators rebuilt first: sha256 of all 216 files
+under modules/ and core/ identical before and after, byte-identical
+regeneration confirmed. git status --porcelain on modules/, core/,
+branches.json, gbp-packs/, tools/, status/ empty throughout.
+FRESH ANGLE. Rather than an eleventh independent full-page extraction
+(nine of those already exist for this item and the marginal value of a
+tenth was judged low), this pass targeted two things genuinely untested
+against this item's own real files across all nine prior passes: the
+check-gbp-packs.js hours-day fix that landed in the immediately
+preceding run (item 3.12's seventh pass, commit 893974f), and
+check-app-membership.js, which had never been named in any of this
+item's nine prior passes despite covering a field (hasApp) both McCanns
+branches carry.
+INJECTION 1 (proving the 3.12 fix generalises to this item's own files).
+The 3.12 seventh pass proved its fix only against Tiffenbergs' own pack,
+plus a grep confirming the same comma-split sentence shape existed
+nowhere else with a wrong value; it did not injection-test the fix
+against any other branch's pack directly. Both McCanns branches are
+lunch-closure branches (13:00-14:00 gap, Monday to Friday, confirmed
+fresh from branches.json), the exact class the fix concerns, so this
+pass proved it directly: gbp-packs/mccanns-aigburth.md and
+gbp-packs/mccanns-sandringham.md backed up by sha256
+(fdb1429d...36693 and bc9ab580...893e) before any mutation. A sentence
+in the same broken shape as Tiffenbergs' real one ("Open Monday to
+Friday, closed 1pm to 3pm for lunch" - one hour wrong, comma-splitting
+the day clause from the closure clause) was inserted into each pack's
+business description in turn, never both at once. Both were CAUGHT: five
+day-mismatch failures each (Monday to Friday, "states a closure of 13:00
+to 15:00, but branches.json leaves [Day] closed 13:00 to 14:00"), plus
+two incidental character-count failures from the added sentence pushing
+the description over 750 characters. Each file restored via `git show
+HEAD:<path> > <path>` (this mount's `git checkout --` cannot unlink) and
+sha256-reconfirmed identical to its pre-injection backup before touching
+the other; full 36-checker suite re-run clean after each restore.
+Confirms the fix protects this item's own branches, not only Tiffenbergs,
+Coleman and Leighs and Smartts Bootle.
+INJECTION 2 (check-app-membership.js, untested on this item across nine
+prior passes). Both McCanns branches carry hasApp: false in
+branches.json, confirmed fresh. Baseline: modules/switch/pages/switch-
+prescriptions-mccanns-aigburth.html carries no "app" string of any kind
+(grep clean) and check-app-membership.js reports the estate clean before
+injection. File backed up by sha256 (539caeed...cddf1). An app-card block
+(head, copy sentence, both real store URLs) copied verbatim from
+Smartts Bootle's own switch page, a genuine app member, was inserted into
+the McCanns Aigburth switch page after its form. CAUGHT: "carries the app
+card but branches.json says this branch is not an app member." Restored
+via `git show HEAD:<path> > <path>`, sha256-reconfirmed identical to the
+pre-injection backup (539caeed...cddf1); full 36-checker suite and
+check-app-membership.js specifically re-run clean after restore. git
+status --porcelain on both touched paths empty at the end.
+LIVE HALF. Claude in Chrome confirmed not connected (checked twice: once
+at answer pickup, once again immediately before this item's live check).
+Per procedure not retried by another route for the pickup; for the live
+read itself, fell back to the established plain read-only GET route
+(curl, GET only, no interaction - the same class of fallback the
+seventh, eighth and ninth passes used via Node fetch / Invoke-WebRequest
+when Chrome is unavailable). Five URLs read: the Aigburth UTI page is
+fully correct live (title and H1 both read "Aigburth", HTTP 200, own
+phone x6); the Sandringham UTI page's title and H1 still read
+"Sandringham" rather than "St Michael's" live, matching the repo's
+correct "St Michael's" only in the repo - the queued 5.7/Q15 repaste,
+unchanged since the fourth pass on 2026-08-14 and reconfirmed on every
+pass since; both branch landing pages still return HTTP 404 live (Q35,
+standing queued-paste state, unchanged); the Aigburth switch page is
+correct live (HTTP 200). The known Q39 footer set ("McCann's Pharmacy"
+branding, "Sandrigham Medical Centre" typo) reconfirmed still present
+and unchanged on the Sandringham UTI page. No new live finding.
+RESULT. Zero in-repo defects found this pass; both injections confirm
+existing protection rather than uncovering a gap. No new question raised
+- both injections were verification of already-landed rules against
+this item's own files, not a judgement call. QUESTIONS.json re-read: 94
+total, 41 open, unchanged; none answered by pickup this run. Evidence:
+this paragraph and the sha256 values quoted above (no new audit file
+created - both injections were done and restored in place, matching the
+established practice of not committing throwaway probe artefacts once
+the paragraph itself records the method and hashes).
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
