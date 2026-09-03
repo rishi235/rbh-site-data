@@ -7975,6 +7975,67 @@ appended to the line. Do not move them; the status page reads them in place.
       36-checker output and both injection transcripts captured this run;
       see AGENT_LOG.md for the environment/lock/push handling notes, not
       repeated here. Done 2026-09-02
+      Tenth quality pass 2026-09-03 (unattended scheduled run, rotation pool
+      - item 1.2 was the stalest of the 43 completed items, last touched
+      2026-09-02T13:49 BST, re-derived fresh from `git log` "item N.N"
+      mentions with the standing out-of-rotation set 1.1/1.4/2.2/5.6/5.7/
+      6.7/6.8 excluded; the next four stalest were 3.11, 4.4, 4.1, 3.2, all
+      also touched 2026-09-02, so 1.2 was the clear choice). REPO HALF ONLY;
+      no live check this pass (see ENVIRONMENT note below). Baseline: all 36
+      checkers exit 0 individually, gbp-packs/hirshmans-ainsdale.md MD5
+      84cc37eaf34c48cfaeabd059a5215ae2, git status --porcelain empty on
+      gbp-packs/, modules/, core/, branches.json, tools/, status/.
+      GUARD COVERAGE EXTENDED: check-brand-spelling.js and
+      check-url-scheme.js had never been pointed at
+      gbp-packs/hirshmans-ainsdale.md by direct injection (only implicitly,
+      via the pack passing the full suite each prior pass) - the same class
+      of gap the 4.7 tenth, 4.2 eleventh and 4.14 tenth passes closed for
+      their own packs the same morning. check-uk-spelling.js is different:
+      this exact pack is that checker's own origin case (its file header
+      records the item 4.3 pass on 2026-08-13 planting US spelling into this
+      file to find the gap check-uk-spelling.js was then built to close), so
+      today's injection is a re-proof of regression safety, not a first
+      proof.
+      INJECTION 1 (check-brand-spelling.js): line 13, "Name on GBP:
+      Hirshmans Chemist" changed to "Name on GBP: Hirshman Chemist" (trailing
+      s dropped, the near-miss shape the checker derives automatically).
+      Result: FAIL, "reads \"Hirshman Chemist\". The trading name is
+      \"Hirshmans Chemist\"", correctly distinguishing the injected
+      profile-basics line from the two pre-existing quoted narrative
+      mentions of "Hirshmans Pharmacy" at lines 38 and 124 (the old live GBP
+      listing name), which stayed as NOTEs. Caught first attempt.
+      INJECTION 2 (check-url-scheme.js): the Post D (travel clinic, Book
+      button) target changed from https to http. Result: FAIL, INSECURE,
+      "published surface carries http://... An insecure estate URL on a
+      live page is a crawlable duplicate of the https page, which is item
+      6.6." Caught first attempt, correctly cross-referenced to the existing
+      item 6.6 rather than raised as a duplicate question.
+      INJECTION 3 (check-uk-spelling.js, re-proof): line 37, "Vaccination
+      centre" changed to "Vaccination center". Result: FAIL, "reads
+      \"center\". UK English is \"centre\"". Caught first attempt, confirming
+      no regression since the rule's own origin case.
+      Each injection captured to a byte-for-byte backup before editing and
+      restored from that backup (not `git checkout`), MD5-confirmed
+      identical to the pre-injection file after each restoration and again
+      after all three. Full 36-checker suite re-run clean after the final
+      restore, all six generators re-run with git status --porcelain empty
+      on modules/ and core/ (byte-stable output).
+      ENVIRONMENT NOTE: this run's Cowork sandbox mount again showed the
+      Q87 pattern (SSH fetch fails host-key verification; the FUSE-mounted
+      working copy blocks unlink() on any file, confirmed fresh this run
+      against a plain non-git test file, not just .git internals) - used
+      only for orientation, lock and reading QUESTIONS.json/AGENT_LOG.md/
+      AGENT_WORKLIST.md. All file edits, checker runs, generator runs, git
+      operations and the publish step were done via Windows-MCP PowerShell
+      and the Read/Edit file tools against the canonical C:\Dev\rbh-site-data
+      working copy, the established route from item 4.12's eighth pass
+      onward. No live check performed - list_connected_browsers reported
+      zero Claude in Chrome browsers connected (checked once, covering both
+      answer pickup and this item's live half); the ninth pass's live state
+      (contact-us address, hours, Q41 cosmetics) stands unconfirmed but
+      unchanged.
+      No in-repo defect found, no new question raised. Evidence in
+      audits/hirshmans-address-check-2026-09-03-tenth.txt. Done 2026-09-03
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

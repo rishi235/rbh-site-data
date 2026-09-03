@@ -1,0 +1,76 @@
+Item 1.2 quality pass (tenth) - Hirshmans Chemist Ainsdale
+Run: unattended scheduled Cowork run, 2026-09-03 ~09:10 BST
+Rotation: stalest of 43 completed items, last touched 2026-09-02T13:49 BST (ninth pass)
+
+BASELINE
+--------
+gbp-packs/hirshmans-ainsdale.md MD5: 84cc37eaf34c48cfaeabd059a5215ae2
+All 36 tools/check-*.js run individually: 36/36 exit 0
+git status --porcelain gbp-packs/ modules/ core/ branches.json tools/ status/: empty
+
+FRESH ANGLE
+-----------
+check-brand-spelling.js and check-url-scheme.js had never been injection-tested
+against gbp-packs/hirshmans-ainsdale.md directly (verified by grep across
+AGENT_LOG.md). check-uk-spelling.js's origin case IS this file (item 4.3 pass,
+2026-08-13), so its injection here is a re-proof, not a first proof.
+
+INJECTION 1 - check-brand-spelling.js
+Change: line 13 "Name on GBP: Hirshmans Chemist" -> "Name on GBP: Hirshman Chemist"
+Result: FAIL - gbp-packs/hirshmans-ainsdale.md:13: reads "Hirshman Chemist".
+        The trading name is "Hirshmans Chemist"
+Also confirmed: lines 38 and 124 (quoted narrative mentions of "Hirshmans
+Pharmacy", the old live GBP listing name) correctly stayed as NOTE, not FAIL.
+Caught first attempt. Restored, MD5 confirmed identical.
+
+INJECTION 2 - check-url-scheme.js
+Change: Post D (travel clinic) Book button, https -> http
+Result: FAIL - INSECURE gbp-packs/hirshmans-ainsdale.md: published surface
+        carries http://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-
+        ainsdale.html. An insecure estate URL on a live page is a crawlable
+        duplicate of the https page, which is item 6.6.
+Caught first attempt, correctly cross-referenced to item 6.6. Restored, MD5
+confirmed identical.
+
+INJECTION 3 - check-uk-spelling.js (re-proof)
+Change: line 37 "Vaccination centre" -> "Vaccination center"
+Result: FAIL - gbp-packs/hirshmans-ainsdale.md:37: reads "center". UK English
+        is "centre"
+Caught first attempt. Restored, MD5 confirmed identical.
+
+FINAL VERIFICATION
+-------------------
+gbp-packs/hirshmans-ainsdale.md MD5 after all three restores: 84cc37eaf34c48cfaeabd059a5215ae2
+(matches baseline)
+Full 36-checker suite re-run after final restore: 36/36 exit 0
+All six generators re-run (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js):
+git status --porcelain modules/ core/: empty (byte-stable output)
+
+RESULT
+------
+No defect. All three rules were already correctly protecting this pack; now
+proven directly against it by injection rather than only by general design
+and by the pack passing the full suite. No checker logic edited, no pack
+content byte changed. No new question raised.
+
+ENVIRONMENT NOTE
+-----------------
+This run's Cowork sandbox bash mount (FUSE bridge to C:\dev\rbh-site-data)
+again showed the standing Q87 pattern: SSH fetch to GitHub fails host-key
+verification (anonymous HTTPS fetch works, confirming a network-route issue
+not a general block), and the mounted folder blocks unlink() on ANY file,
+confirmed this run against a fresh plain text file created and immediately
+deleted outside .git entirely (not just git's own lock/temp-object internals,
+which prior passes had already documented). rename() works, which is why the
+repo accumulates .stale-*/.renamed-*/.bak-* debris every run that tries to
+route around this by hand rather than moving off the mount entirely.
+This run used the bash mount only for orientation (lock file, reading
+QUESTIONS.json/AGENT_LOG.md/AGENT_WORKLIST.md/branches.json). All actual file
+edits, checker runs, generator runs, git add/commit/push and the
+build-audit-status.js publish were done via Windows-MCP PowerShell and the
+native Read/Edit file tools against C:\Dev\rbh-site-data directly, which has
+no unlink restriction and pushes/pulls over both SSH and HTTPS without
+incident - the same working route item 4.12's eighth pass established and
+every run since has confirmed still holds.
