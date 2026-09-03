@@ -1,0 +1,99 @@
+Item 4.14 quality pass (tenth), 2026-09-03 (unattended scheduled run via Cowork)
+Subject: gbp-packs/gordon-short-crosby.md
+Fresh angle: prove check-uk-spelling.js, check-brand-spelling.js and check-url-scheme.js
+against this specific pack by direct injection. Nine prior passes (2026-08-10 through
+2026-09-02) covered fact-by-fact verification, the day/time pairing rule, the
+PF_TARGET_HOLD/Q32 hold, the BODY_IMAGE_SELF rule and the live-page name split, but a
+grep of AGENT_LOG.md for these three checker names alongside "gordon" or "4.14" returned
+zero hits before this pass: only implicit coverage via the full suite passing, never a
+direct injection proof - the same gap the 4.7 tenth pass and 4.2 eleventh pass closed for
+their own packs this same morning.
+
+BASELINE
+--------
+File: gbp-packs/gordon-short-crosby.md
+Original MD5: 28f675f809d7d8c5cb286ff861187f17, 11975 bytes
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/, status/: clean
+Full checker suite (35 files under tools/check-*.js): 35/35 exit 0
+
+METHOD
+------
+Node script reading/writing the file's own UTF8 bytes directly (not PowerShell
+here-string literals). Each injection: write mutated file, run the one targeted checker,
+capture result, restore from the in-memory original, verify MD5 match before the next
+injection.
+
+INJECTION 1 - check-uk-spelling.js
+Target: line 31, "Weight loss service, Vaccination centre" -> "...Vaccination center"
+Result: exit 1
+  FAIL  gbp-packs/gordon-short-crosby.md:31: reads "center". UK English is "centre"
+Caught first attempt. Restored, MD5 match: true.
+
+INJECTION 2 - check-brand-spelling.js
+Target: line 1 heading, "# GBP content pack - Gordon Short Chemist Crosby" ->
+"# GBP content pack - Gordon Shorts Chemist Crosby" (the exact real-world confusable
+name found live on this branch's pre-item-1.1 generated pages, per the 2026-08-10 through
+2026-09-02 passes)
+Result: exit 1
+  NOTE (x5, lines 121/142/148/176/192): pre-existing quoted "Gordon Shorts Chemist"
+        narrative mentions, correctly read as evidence of what a live page says rather
+        than as this file's own claim
+  NOTE  188 generated pages/sheets checked for the Q14 shortened-brand exemption
+  FAIL  gbp-packs/gordon-short-crosby.md:1: reads "Gordon Shorts Chemist". The trading
+        name is "Gordon Short Chemist"
+The injected heading was caught by name and correctly distinguished from the five
+pre-existing narrative quotes, which stayed as NOTEs rather than false-failing. Caught
+first attempt. Restored, MD5 match: true.
+
+INJECTION 3 - check-url-scheme.js
+Target: Post C (weight loss, Book button) target URL,
+https://www.gordonshortchemist.co.uk/weight-loss-clinic-gordon-short-crosby.html ->
+http://...
+Result: exit 1
+  FAIL  INSECURE gbp-packs/gordon-short-crosby.md: published surface carries
+        http://www.gordonshortchemist.co.uk/weight-loss-clinic-gordon-short-crosby.html.
+        An insecure estate URL on a live page is a crawlable duplicate of the https page,
+        which is item 6.6.
+  (plus pre-existing WARN-level items unrelated to this pack: qtmp.json and
+  _agentscratch/live312/*.html scratch files carrying http, and the injection script
+  itself while present on disk - none are published surfaces, none fail the run)
+Caught first attempt, correctly cross-referenced to item 6.6 rather than raised as a
+new question. Restored, MD5 match: true.
+
+FINAL VERIFICATION
+-------------------
+gbp-packs/gordon-short-crosby.md final MD5: 28f675f809d7d8c5cb286ff861187f17 (matches
+original). git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/: clean. Full checker suite re-run: 35/35 exit 0. All six page generators
+(build-branch-landing-pages.js, build-contraception-pages.js, build-service-pages.js,
+build-switch-pages.js, build-travel-clinic-pages.js, build-weight-loss-pages.js) re-run:
+git status --porcelain on modules/, core/ empty before and after, byte-stable.
+
+RESULT: no defect. All three rules were already correctly protecting this pack; now
+proven directly against it rather than only by general design and by the pack passing
+the suite. No checker logic edited, no pack content byte changed.
+
+LIVE HALF
+---------
+Claude in Chrome: not connected (retried twice this run, standing Q59). Fell back to
+read-only HTTPS requests via PowerShell Invoke-WebRequest, status codes and sitemap only
+(no page-text reading available without Claude in Chrome, so no fresh content claim is
+made - the ninth pass's content findings, including Q90, stand unre-read this pass):
+
+  pharmacy-first-service-crosby.html                         -> 200
+  switch-prescriptions-gordon-short-crosby.html               -> 200
+  weight-loss-clinic-gordon-short-crosby.html                 -> 200
+  travel-clinic-gordon-short-crosby.html                      -> 200
+  sitemap.xml                                                  -> 200
+
+sitemap.xml lastmod for every Crosby/Gordon Short URL: 2026-08-15T07:41:55+00:00,
+unchanged since the ninth pass's own reading - no republish since the last check.
+weight-loss-clinic-crosby.html (the second live weight-loss URL outside this pack's own
+post targets, subject of Q90) is still present in the sitemap at the same timestamp.
+Not re-examined for content this pass (status-code only); Q90 not re-raised, per the
+standing instruction not to duplicate it.
+
+Next stalest item for whoever runs the next unattended pass (re-derive fresh rather than
+assume, since another run may land in between): with 2.3, 3.3, 4.7, 4.2 and now 4.14 all
+freshly touched today (2026-09-03), and with the out-of-rotation set (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) excluded, re-run the git-log-timestamp derivation over the standing pool.

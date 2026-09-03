@@ -7298,6 +7298,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       correct-looking. No in-repo defect found. No pack copy, page,
       generator, data field or branches.json entry changed. No new question
       raised. Done 2026-09-02.
+      Tenth quality pass 2026-09-03 (unattended scheduled run via Cowork).
+      Fresh angle: check-uk-spelling.js, check-brand-spelling.js and
+      check-url-scheme.js had never been proven against this pack by direct
+      injection, only implicitly by the suite passing each prior pass - the
+      same gap the 4.7 tenth pass and 4.2 eleventh pass closed for their own
+      packs this same morning. Baseline green: 35/35 checkers exit 0, git
+      status clean, pack MD5 28f675f809d7d8c5cb286ff861187f17 (11,975
+      bytes). Three injections, each backed up, run, restored and
+      MD5-verified: "Vaccination centre" to "center" caught by
+      check-uk-spelling.js first attempt; the heading changed to "Gordon
+      Shorts Chemist Crosby" (the exact real-world confusable name this
+      branch's live pre-1.1 pages carry) caught by check-brand-spelling.js,
+      which correctly told the injected heading apart from the five
+      pre-existing quoted narrative mentions of the same wrong name,
+      leaving those as NOTEs rather than false-failing; Post C's target
+      swapped from https to http caught by check-url-scheme.js and
+      correctly cross-referenced to item 6.6 rather than raised as a new
+      question. All three caught first attempt, file restored
+      byte-identical each time (MD5 match), full 35-checker suite clean
+      after the final restore, all six generators rebuilt byte-stable.
+      LIVE HALF: Claude in Chrome not connected (Q59, retried twice). Fell
+      back to read-only HTTPS HEAD requests: all four post targets and
+      sitemap.xml return 200. Sitemap lastmod unchanged at
+      2026-08-15T07:41:55+00:00 throughout, no republish since the ninth
+      pass; weight-loss-clinic-crosby.html (Q90) still present at the same
+      timestamp, not re-examined for content this pass (status-code only),
+      Q90 not re-raised. No in-repo defect found. No pack copy, page,
+      generator, data field or branches.json entry changed. No new question
+      raised. Evidence: audits/gordon-short-item-4.14-quality-pass-2026-09-03-tenth.txt.
+      Done 2026-09-03.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
