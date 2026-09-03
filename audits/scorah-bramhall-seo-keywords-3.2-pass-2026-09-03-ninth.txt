@@ -1,0 +1,109 @@
+Item 3.2 quality pass (ninth), 2026-09-03
+Scorah Chemists (Bramhall and Hazel Grove) - proving check-seo-keywords.js by
+direct injection against this item's own pages for the first time.
+
+CONTEXT
+Item 3.2's nine-pass history (2026-08-04 through 2026-09-02) had proven, by
+direct injection or independent extraction, every leg of "put the town and
+service words into every page title, description and heading" except one:
+the Meta Keywords line. Grepped AGENT_LOG.md across the full history for
+"check-seo-keywords" alongside "scorah", "bramhall" or "hazel": zero hits.
+Grepped the item's own worklist section for "keyword": zero hits. The Meta
+Keywords line is exactly the kind of town-and-service-word public string this
+item is about (item 3.6 quality pass, 2026-08-11, built check-seo-keywords.js
+for exactly this reason - "nothing had ever read what a Meta Keywords line
+SAYS"), and the pass-8 addition of the URL/permalink leg from Build Pack v2
+wording did not touch this field either. Genuine untested angle.
+
+BASELINE
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/: empty before any change. All 36 tools/check-*.js run individually:
+36/36 exit 0. modules/service/pages/SEO.md MD5 before any mutation:
+6B95C8DBD647E3F63B892FEEDD5A0DE4.
+
+METHOD
+Backup of modules/service/pages/SEO.md taken by byte copy before any
+mutation. Each injection made with the native Edit tool directly against the
+canonical working copy (C:\Dev\rbh-site-data), targeting the "Scorah Chemists
+- Bramhall - UTI" block's Meta Keywords line, the targeted checker run, then
+the file restored via Edit and the restore verified byte-for-byte (MD5 match)
+before the next injection.
+
+Original line:
+  - **Meta Keywords:** UTI Bramhall, UTI treatment Bramhall, Pharmacy First
+    Bramhall, pharmacy Bramhall, SK7
+
+INJECTION 1 (RULE 3, presence): "Bramhall" dropped from every keyword phrase
+  -> UTI, UTI treatment, Pharmacy First, pharmacy, SK7
+Result: FAIL, "Meta Keywords do not carry this branch's own seoTown
+'Bramhall'." Caught first attempt.
+
+INJECTION 2 (RULE 4, absence): "Ainsdale" (a live seoTown of
+fishlocks_ainsdale and hirshmans_ainsdale, not in Bramhall's serviceAreaList -
+confirmed against branches.json before injecting: Bramhall's serviceAreaList
+is Bramhall, Cheadle Hulme, Hazel Grove, Handforth, Poynton, which does NOT
+include Ainsdale) appended to the fourth phrase
+  -> ... pharmacy Bramhall Ainsdale, SK7
+Result: FAIL, "Meta Keywords name 'Ainsdale', the seoTown of
+fishlocks_ainsdale and hirshmans_ainsdale, and 'Ainsdale' is not in this
+branch's serviceAreaList." Caught first attempt. Note: "Hazel Grove" was
+deliberately NOT used for this injection, because Bramhall's own
+serviceAreaList legitimately includes Hazel Grove (the sister-branch excuse
+covering the two landing pages' cross-town paragraph, per items 3.2's own
+2026-08-11 and 2026-08-30 history and Q71), so naming it would be excused by
+design rather than caught - the right result, but not a proof of RULE 4.
+
+INJECTION 3 (RULE 5, brand): "Fishlocks Chemist" (another live brand)
+substituted for the fourth phrase's leading word
+  -> ... Fishlocks Chemist Bramhall, SK7
+Result: FAIL, "Meta Keywords name 'Fishlocks Chemist', which is the brand of
+fishlocks_ainsdale and fishlocks_eccleston, not this branch." Caught first
+attempt.
+
+INJECTION 4 (RULE 6, postcode): outward code "SK7" replaced with "L23"
+(Gordon Short Crosby's outward code)
+  -> ... pharmacy Bramhall, L23
+Result: FAIL, "Meta Keywords carry 'L23', which is not this branch's outward
+code 'SK7'." Caught first attempt.
+
+RULE 8 (retired town word) and RULE 7 (claim) not injection-tested against
+this branch: RULE 8 only bites a branch whose townSlug no longer matches its
+seoTown, which today is exclusively McCanns Sandringham (item 5.7's own
+finding), not Scorah Bramhall or Hazel Grove; RULE 7 is already proven
+estate-wide against the weight loss and travel clinic sheets specifically
+(item 3.6 and later passes) where the claim-pattern risk actually lives, and
+this block carries no weight loss or travel clinic wording to inject it into
+without changing what is being tested.
+
+RESTORE AND FULL VERIFICATION
+Each restoration confirmed byte-identical to the pre-injection original (MD5
+match) before the next injection and again after the last: final MD5
+6B95C8DBD647E3F63B892FEEDD5A0DE4, matching the pre-mutation hash exactly.
+Full 36-checker suite re-run after the last restore: 36/36 exit 0.
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/: empty. All six page generators re-run (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages): SHA256 of every file
+under modules/ taken before and after, 0 differences, git status --porcelain
+on modules/, core/ empty both before and after.
+
+RESULT
+No defect on item 3.2 itself. check-seo-keywords.js was already correctly
+protecting the Scorah Chemists Bramhall Meta Keywords line on all four rules
+tested; now proven directly by injection for the first time in this item's
+nine-pass history. No checker logic edited. No pack or page content byte
+changed anywhere in the repo.
+
+LIVE HALF
+Attempted via the Claude Browser (built-in) pane: navigation to
+https://www.scorah-chemists.co.uk and to the UTI Bramhall page was denied by
+the browser tooling in this unattended run (no user present to approve the
+site). Claude in Chrome also returned zero connected browsers
+(list_connected_browsers). Logged as unavailable, consistent with every
+other unattended pass this week (Q59). The two previously logged live-only
+findings (Bramhall/Hazel Grove UTI pages serving Weebly's doubled-brand
+default title, queued under 5.3/5.4; the Bramhall landing page 404, last
+confirmed 2026-08-12/2026-08-31) were NOT re-checked this pass and should not
+be assumed unchanged.
+
+No new question raised.

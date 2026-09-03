@@ -1213,6 +1213,42 @@ live-facing or patient-facing decision.
       audits/verify-3.2-2026-09-02-eighth.js,
       audits/verify-3.2-2026-09-02-eighth-output.txt,
       audits/checker-sweep-2026-09-02-item3.2.txt.
+      Quality pass 2026-09-03 (ninth): REPO HALF ONLY, no defect. All 36
+      checkers green before inspection, git status --porcelain on
+      gbp-packs/, modules/, core/, branches.json, tools/, status/ empty. THE
+      GAP WAS A FIELD NEVER MENTIONED IN THIS ITEM'S OWN HISTORY. Eight prior
+      passes proved title, description, H1 and (pass 8) the permalink/URL
+      leg; none had ever pointed check-seo-keywords.js (added on the item
+      3.6 pass, 2026-08-11, precisely because "nothing had ever read what a
+      Meta Keywords line SAYS") at a Scorah Bramhall or Hazel Grove sheet
+      block by direct injection. Proved by four injections against the
+      "Scorah Chemists - Bramhall - UTI" block in
+      modules/service/pages/SEO.md: dropping "Bramhall" from every keyword
+      phrase failed RULE 3 (presence); appending "Ainsdale" (a live seoTown
+      not in Bramhall's serviceAreaList, deliberately not "Hazel Grove",
+      which Bramhall's own serviceAreaList legitimately excuses) failed RULE
+      4 (absence); substituting "Fishlocks Chemist" for the branch's own
+      brand failed RULE 5 (brand); replacing outward code "SK7" with "L23"
+      failed RULE 6 (postcode). All four caught first attempt. RULE 8
+      (retired town word) does not apply to either Scorah branch (only
+      McCanns Sandringham carries a retired townSlug word today) and RULE 7
+      (claim wording) is already proven against the weight loss and travel
+      clinic sheets specifically, where that risk actually lives; neither
+      was force-fitted onto a block with no matching content. Each
+      restoration confirmed byte-identical by MD5
+      (6B95C8DBD647E3F63B892FEEDD5A0DE4) before the next injection and again
+      after the last. Full 36-checker suite re-run: 36/36 exit 0. All six
+      generators re-run: SHA256 of every file under modules/ before and
+      after, 0 differences. LIVE HALF NOT PERFORMED: Claude in Chrome
+      returned zero connected browsers; the Claude Browser (built-in) pane's
+      navigation to scorah-chemists.co.uk was denied in this unattended
+      session (no user present to approve the site). The two previously
+      logged live-only findings (Bramhall/Hazel Grove UTI pages serving
+      Weebly's doubled-brand default title, queued under 5.3/5.4; the
+      Bramhall landing page 404) were not re-checked this pass and should
+      not be assumed unchanged. No checker logic edited, no pack or page
+      content byte changed anywhere in the repo, no new question. Evidence
+      in audits/scorah-bramhall-seo-keywords-3.2-pass-2026-09-03-ninth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
