@@ -1,0 +1,122 @@
+Item 4.15 quality pass (tenth) - Tiffenbergs Chemist Aintree GBP pack
+Run: unattended scheduled run via Cowork, 2026-09-04 (~00:05-00:35 BST)
+
+PURPOSE
+Prove, by direct injection against this pack's own copy, that
+check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js
+genuinely catch a breach here. Nine prior passes (2026-08-10 to 2026-09-03)
+re-verified branches.json facts, character counts, ASCII purity, post
+targets, the switch-banner mojibake fix, the Pharmacy First cost claim
+rule, and the OUTCOME_PROMISE rule against this pack, but this specific
+trio had only ever been covered by the general 36-checker suite passing,
+not proven individually against THIS pack - the same gap shape already
+closed this run cycle against eight sister packs (Fishlocks Ainsdale 4.1,
+Scorah Bramhall 4.4, McCanns Sandringham 4.7, Gordon Short Crosby 4.14,
+Hirshmans Ainsdale 1.2, Fishlocks Eccleston 4.8, Smartts Bootle 4.10,
+Clear Chemist Aintree 4.9, Coleman and Leighs Walton 4.12).
+
+BASELINE
+git status --porcelain empty on gbp-packs/, modules/, core/, tools/,
+branches.json, status/ at the start (after removing this run's own stray
+scratch files from _agentscratch/, see METHOD NOTE below).
+gbp-packs/tiffenbergs-aintree.md sha256:
+59D288C1C32920C05BC9B12479EC2BC8970FFA5639977CCEE10EC9BE9046811B
+- unchanged since the ninth pass (2026-09-03).
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+
+METHOD NOTE - own baseline pollution caught and corrected before testing.
+This run's own orientation work (a git-log dump used to independently
+re-derive the stalest worklist item) wrote two scratch files into
+_agentscratch/ inside the tracked working tree. _agentscratch/ is
+untracked but still inside the repo directory, and check-postcodes.js is
+the one checker that scans the WHOLE repo rather than a fixed set of page
+directories (see CLAUDE.md, "The postcode, and the difference between
+using a fact and talking about one"). The dump's commit-message text
+happened to contain several genuine postcode strings from old commit
+subjects (L23 3AZ, SK9 2TA, PR9 0LH, SK7 1BJ, CH49 1SX), none of which are
+in branches.json, so check-postcodes.js exited 1 on the very first full
+suite run - a false failure caused entirely by this run's own diagnostic
+debris, not a repo defect. Caught immediately by reading the actual
+check-postcodes.js output rather than trusting the non-zero exit code as
+a finding; the two files were deleted, and check-postcodes.js re-run
+clean (0 failures, same 3 standing warnings every prior pass has
+recorded: TEMPLATE.md and the two modules/branch/pages files, all
+UNOWNED by design). Lesson carried forward: any scratch file written for
+orientation purposes must go outside the tracked working tree entirely
+(or be deleted before running any checker), not into _agentscratch/,
+because that directory sits inside check-postcodes.js's scan surface even
+though it is untracked.
+
+METHOD
+Full repo copied (robocopy-equivalent via Copy-Item -Recurse, .git
+included per the established convention - excluding .git makes
+check-cdn-pins.js fail falsely with "ref does not resolve in git" on a
+scratch copy) to C:\Windows\Temp\audit_run_415, a scratch directory
+outside the tracked working tree. Scratch copy's tiffenbergs-aintree.md
+sha256-confirmed identical to the tracked copy, and all three target
+checkers plus check-postcodes.js and check-cdn-pins.js re-run clean on
+the scratch copy before any edit. Four injections run one at a time
+against the scratch copy only, each restored from a saved original
+(Copy-Item byte copy, not git checkout) and sha256-reconfirmed identical
+before the next.
+
+INJECTIONS
+1. check-brand-spelling.js (rule 2, trailing-s dropped near-miss): Post A
+   line 75 "at Tiffenbergs Chemist in Aintree." changed to "at Tiffenberg
+   Chemist in Aintree." FAIL, first attempt: "gbp-packs/tiffenbergs-
+   aintree.md:75: reads 'Tiffenberg Chemist'. The trading name is
+   'Tiffenbergs Chemist'". Restored; sha256 reconfirmed identical.
+
+2. check-url-scheme.js (rule 1, published surface): Post B button URL
+   downgraded from https:// to http:// (switch-prescriptions link). FAIL,
+   first attempt: "INSECURE gbp-packs/tiffenbergs-aintree.md: published
+   surface carries http://www.tiffenbergschemist.co.uk/switch-
+   prescriptions-tiffenbergs-aintree.html. An insecure estate URL on a
+   live page is a crawlable duplicate of the https page, which is item
+   6.6." Restored; sha256 reconfirmed identical.
+
+3. check-uk-spelling.js: Post B line 85 "the surgery and handle
+   everything else." changed to "the surgery and organize everything
+   else." FAIL, first attempt: "gbp-packs/tiffenbergs-aintree.md:86:
+   reads 'organize'. UK English is 'organise'". Restored; sha256
+   reconfirmed identical.
+
+4. Quoted-evidence control (not a defect probe): a new paster-note bullet
+   added after the existing hours-format note, reading - The live footer
+   copyright line also reads "Tiffenberg Chemist, est. 1985", unchanged
+   since the last read; recorded here as evidence of what the live page
+   currently says, not a claim of this pack's own. Correctly PASSED (exit
+   0), reported only as a NOTE: "gbp-packs/tiffenbergs-aintree.md:129
+   records 'Tiffenberg Chemist' inside quotation marks, read as a note of
+   what a live page says rather than as this file claiming it." Confirms
+   the maskQuotes exemption holds on this pack's own copy, matching the
+   convention already proven on eight sibling packs. Restored; sha256
+   reconfirmed identical.
+
+RESULT
+No in-repo defect found on item 4.15. Tracked repo confirmed untouched
+throughout: git status --porcelain empty on gbp-packs/, modules/, core/,
+tools/, branches.json, status/ before, during and after this pass's
+work; tiffenbergs-aintree.md sha256 identical to the baseline at the end.
+Full 36-checker suite re-run on the scratch copy after the final restore:
+36/36 exit 0. Scratch directory deleted in full after use.
+
+LIVE HALF
+Claude in Chrome unreachable this run ("Claude in Chrome is not
+connected"). Fell back to a status-code-only curl.exe check of all four
+post targets (matching the ninth pass's fallback method): all four
+return 200, unchanged from the eighth/ninth pass.
+  https://www.tiffenbergschemist.co.uk/pharmacy-first-tiffenbergs-aintree.html -> 200
+  https://www.tiffenbergschemist.co.uk/switch-prescriptions-tiffenbergs-aintree.html -> 200
+  https://www.tiffenbergschemist.co.uk/weight-loss-clinic-tiffenbergs-aintree.html -> 200
+  https://www.tiffenbergschemist.co.uk/travel-clinic-tiffenbergs-aintree.html -> 200
+All other live-only findings (switch banner mojibake, footer en dashes,
+tiffenbergs@ vs Tiffenberg@ email split behind Q56, the two stray dashes
+on Posts B and C, the regime-1 weight-loss link-context finding recorded
+in the eighth pass) rest on the eighth pass's 2026-09-02 read; none
+re-verified today for lack of a browser session.
+
+QUESTIONS.json unchanged: 94 total, 41 open. No new question raised.
+No generator, page, data field or checker file touched - this pass
+proved existing rules rather than changing any (git status --porcelain
+-- tools/ modules/ core/ branches.json empty throughout).

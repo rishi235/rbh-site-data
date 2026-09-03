@@ -8853,6 +8853,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       status-code-only curl.exe check of all four post targets, all 200,
       unchanged from the eighth pass. Evidence in
       audits/tiffenbergs-aintree-outcome-promise-reproof-4.15-ninth-2026-09-03.txt.
+      Quality pass 2026-09-04 (tenth re-verification, repo half only): pack
+      verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b).
+      All 36 checkers exit 0. Fresh angle: check-brand-spelling.js,
+      check-url-scheme.js and check-uk-spelling.js had never been proven
+      by direct injection against THIS pack's own copy, only against nine
+      sister packs across today's parallel lineage (Fishlocks Ainsdale,
+      Scorah Bramhall, McCanns Sandringham, Gordon Short Crosby,
+      Hirshmans Ainsdale, Fishlocks Eccleston, Smartts Bootle, Clear
+      Chemist Aintree, Coleman and Leighs Walton) - only ever covered by
+      the general 36-checker suite passing. Four injections on a scratch
+      copy, each restored by byte copy and sha256-reconfirmed identical:
+      (1) Post A's "Tiffenbergs Chemist" dropped to "Tiffenberg Chemist" -
+      CAUGHT by check-brand-spelling.js, correct canonical name named;
+      (2) Post B's button URL downgraded https to http - CAUGHT by
+      check-url-scheme.js rule 1 (INSECURE, published surface, naming
+      item 6.6); (3) Post B's "handle everything else" changed to
+      "organize everything else" - CAUGHT by check-uk-spelling.js,
+      correct UK form named; (4) a quoted-evidence control naming
+      "Tiffenberg Chemist" inside quotation marks as a note of live
+      footer wording - correctly PASSED (exit 0, reported only as a
+      NOTE), confirming the brand-spelling quote mask holds on this
+      pack's own copy too. All four behaved exactly as designed; no
+      checker gap found. Own baseline pollution caught and corrected
+      before testing: this run's own git-log orientation dump had
+      written two scratch files into _agentscratch/ (untracked but
+      inside check-postcodes.js's whole-repo scan surface) containing
+      genuine postcode strings from old commit subjects, which made
+      check-postcodes.js exit 1 falsely on the first suite run; deleted
+      before any checker work, re-ran clean. Live half: Claude in Chrome
+      unreachable this run; fell back to a status-code-only curl.exe
+      check of all four post targets, all 200, unchanged from the eighth
+      and ninth passes. No in-repo defect found, no new question raised.
+      Evidence in
+      audits/tiffenbergs-aintree-brand-url-uk-spelling-4.15-tenth-2026-09-04.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
