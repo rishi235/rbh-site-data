@@ -4123,6 +4123,25 @@ Pharmacy First wording to the NHS service description.
       as last recorded on the eighth pass. No in-repo defect found, no
       fix needed, no new question. See
       audits/fishlocks-ainsdale-4.1-pass-2026-09-02.txt. Done 2026-09-02
+      Quality pass 2026-09-03 (tenth, unattended run): repo half clean, all 36
+      checkers pass, pack re-verified field by field against branches.json,
+      nothing moved since the ninth pass. FRESH ANGLE: check-brand-spelling.js,
+      check-url-scheme.js and check-uk-spelling.js had never been proven
+      against this specific pack by direct injection, the same gap the 1.2,
+      4.14, 4.2, 4.7, 3.11 and 4.4 passes closed this same week for their own
+      packs. Three injections, one per checker: the GBP name dropped its
+      trailing s ("Fishlock Chemist"), Post C's Book button target changed to
+      http, and "Vaccination centre" changed to the US spelling. All three
+      caught first attempt, cross-referencing item 6.6 correctly on the
+      scheme fault. File restored byte-identical (MD5 match) after each
+      injection and again at the end; full 36-checker suite and all six
+      generators re-run clean afterwards. No defect on the item, nothing
+      changed in the repo. LIVE HALF NOT PERFORMED: no Claude in Chrome
+      browser connected this run. Live state stands as last recorded on the
+      ninth pass: profile-website target still 404 (Q35 answered but not yet
+      applied), switch page em dash still live (Q45 answered but not yet
+      applied), Q91 footer misspelling still open. No new question. See
+      audits/fishlocks-ainsdale-4.1-pass-2026-09-03-tenth.txt. Done 2026-09-03
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

@@ -1,0 +1,102 @@
+Item 4.1 quality pass (tenth), 2026-09-03 (unattended scheduled run via Cowork, 10:34 BST)
+Fishlocks Chemist Ainsdale - gbp-packs/fishlocks-ainsdale.md
+
+ENVIRONMENT AND LOCK
+mcp__workspace__bash (Cowork sandboxed Linux FUSE mount of C:\dev\rbh-site-data) used
+throughout: lock creation, reading QUESTIONS.json/AGENT_LOG.md/AGENT_WORKLIST.md, the
+rotation derivation, all checker and generator runs (Node v22.23.2), and file edits via
+the native Read/Edit tools. .agent-lock absent at start; created 2026-09-03T09:34:47Z.
+git fetch origin over SSH from the mount failed with "Host key verification failed" (no
+SSH key on the mount, the standing Q87 diagnosis); git fetch/pull via origin-https
+succeeded and confirmed the mount already level with origin/agents/audit-backlog
+(4.4 tenth pass, landed before this run started). A stray zero-byte .git/index.lock
+appeared after an early git status call and could not be unlinked by the mount (same
+restriction prior passes have noted), but every subsequent git command completed
+normally regardless, so it was left alone rather than forced.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__list_connected_browsers returned zero connected browsers. Logged
+as unavailable per the unattended-run rule; no alternative route attempted. QUESTIONS.json
+re-read: 94 total, 41 open, unchanged; none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of the run. Moot regardless: nothing this pass needed a
+decision.
+
+ITEM SELECTION (step 5)
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, two under Q60, 6.6)
+confirmed [BLOCKED] by direct grep, so the quality-pass fallback applied. Stalest item
+over the 36-item rotation pool (43 completed items minus the standing 7 out-of-rotation:
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) derived fresh via a small Node script matching
+`git log --pretty=format:"%cI|%s"` against an anchored word-boundary <id> pattern per
+candidate, matched against the subject only. Item 4.1 (Fishlocks Chemist Ainsdale) was
+the unique stalest at 2026-09-02T15:15:13+01:00; the next stalest (3.2) was over an
+hour later, so not a tie.
+
+BASELINE
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/, status/
+empty before any change. All 36 tools/check-*.js run individually: 36/36 exit 0.
+
+FRESH ANGLE
+Read this item's full ten-paragraph history in AGENT_WORKLIST.md (2026-08-04 through
+2026-09-02: nine prior passes covering field-by-field NAP verification, TEMPLATE.md
+structural gaps, the hours day-composition rule, an independent 153-check verifier,
+live post-button and profile-website checks, and the Q91 hand-built footer finding).
+Grepped AGENT_LOG.md for check-brand-spelling.js, check-url-scheme.js and
+check-uk-spelling.js alongside "fishlocks-ainsdale": zero hits for all three - none had
+ever been proven against this pack by direct injection, the same class of gap the 1.2
+tenth, 4.14 eighth, 4.2 eleventh, 4.7 tenth, 3.11 ninth and 4.4 tenth passes closed this
+same week for their own packs.
+
+METHOD
+gbp-packs/fishlocks-ainsdale.md MD5 recorded before any mutation:
+d815a88bcfee55d5b97c8a32b846e017. Each injection made with the native Edit tool
+directly against the canonical file, the targeted checker run, then the file restored
+via Edit and the restore verified byte-for-byte (MD5 match) before the next injection.
+
+INJECTION 1 (check-brand-spelling.js): line 8, "Name on GBP: Fishlocks Chemist Ainsdale"
+changed to "Fishlock Chemist Ainsdale" (trailing s dropped, the near-miss shape the
+checker derives automatically from the canonical form). Result: FAIL, "reads \"Fishlock
+Chemist\". The trading name is \"Fishlocks Chemist\"". Caught first attempt.
+
+INJECTION 2 (check-url-scheme.js): the Post C (weight loss clinic, Book button) target
+changed from https to http. Result: FAIL, "INSECURE gbp-packs/fishlocks-ainsdale.md:
+published surface carries http://www.fishlockpharmacy.co.uk/weight-loss-clinic-
+fishlocks-ainsdale.html. An insecure estate URL on a live page is a crawlable duplicate
+of the https page, which is item 6.6." Caught first attempt, correctly cross-referenced
+to the existing item 6.6 rather than raised as a duplicate question.
+
+INJECTION 3 (check-uk-spelling.js): line 34, "Vaccination centre" changed to
+"Vaccination center". Result: FAIL, "reads \"center\". UK English is \"centre\"".
+Caught first attempt.
+
+Final restore confirmed byte-identical to the original (MD5 match:
+d815a88bcfee55d5b97c8a32b846e017) after each restoration and again after all three.
+Full 36-checker suite re-run after the last restore: 36/36 exit 0. git status
+--porcelain on gbp-packs/, modules/, core/, branches.json empty. All six page
+generators re-run (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js): git status --porcelain on modules/, core/ empty before
+and after, confirming byte-stable output.
+
+RESULT
+No defect on item 4.1 itself - all three rules were already correctly protecting
+gbp-packs/fishlocks-ainsdale.md; now proven directly by injection for the first time.
+No pack content byte changed. No repo file changed by this item's work (tools/
+unchanged, unlike the 4.4 pass immediately prior). No new question.
+
+LIVE HALF
+Not performed - no Claude in Chrome browser connected this run (see Answer Pickup
+above). Live state stands as last recorded on the ninth pass (2026-09-02): profile-
+website target pharmacy-fishlocks-ainsdale.html still 404 (Q35, answered "paste the
+six landing pages" but not yet applied - outside this worker's permitted scope);
+switch page em dash still live (Q45, answered "merge agents/audit-backlog to main"
+but not yet applied - outside this worker's permitted scope); Q91 (hand-built site
+footer misspelling "Fishlocks" as "Fishlock") remains open, no repo-side fix
+available.
+
+Next stalest by the same block-bounded method, for whoever runs the next unattended
+pass: with 4.1 now freshly touched today (2026-09-03) alongside 1.2, 2.3, 3.3, 4.7,
+4.2, 4.14, 3.11 and 4.4, the next-oldest untouched item in the standing rotation pool
+should be re-derived fresh rather than assumed, since other runs may land in between.
