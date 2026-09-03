@@ -1,0 +1,16 @@
+Target: modules/branch/pages/SEO.md
+Original sha256: bddc9d45747773543df171309f4f8cd5f4349830955ee1eb42038b3405e0823c
+warning: unable to unlink '/sessions/lucid-keen-dijkstra/mnt/rbh-site-data/.git/index.lock': Operation not permitted
+[1/7] CAUGHT - RULE 1 pairing - blank the Meta Keywords value
+[2/7] CAUGHT - RULE 3 presence - drop own seoTown from the line
+[3/7] CAUGHT - RULE 4 absence - add Aintree (another live branch's seoTown, not in serviceAreaList)
+[4/7] CAUGHT - RULE 5 brand - add Fishlocks Chemist (another live branch's brandLabel)
+[5/7] CAUGHT - RULE 6 postcode - add PR8 (Fishlocks Ainsdale's outward code, not this branch's L17)
+[6/7] CAUGHT - RULE 7 claim - add 'rapid weight loss'
+[7/7] CAUGHT - RULE 8 retired town word - add 'Sandringham', the word item 5.7 retired
+
+Final sha256: bddc9d45747773543df171309f4f8cd5f4349830955ee1eb42038b3405e0823c (matches original)
+git status --porcelain on the target file: clean
+
+SUMMARY: 7/7 injections caught.
+RESULT: PASS - check-seo-keywords.js's rules 1, 3, 4, 5, 6, 7 and 8 all proved by direct injection against McCanns Chemist Sandringham's own Meta Keywords line, the branch whose retired townSlug word makes RULE 8 non-vacuous.

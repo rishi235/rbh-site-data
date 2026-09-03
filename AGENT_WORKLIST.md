@@ -9258,6 +9258,66 @@ generator.
       page, generator, checker or branches.json entry changed, no new
       question raised. Evidence: audits/verify-5.2-2026-09-02-eighth.js
       and audits/verify-5.2-2026-09-02-eighth-output.txt.
+      Quality pass 2026-09-03 (ninth, unattended run, rotation-pool pick):
+      repo half only. Claude in Chrome confirmed not connected at step 3 and
+      again before finishing, so nothing live was read or claimed; the
+      eighth pass's live findings (all six URLs 404, Q35 still open) stand
+      unchanged. All 36 tools/check-*.js checkers ran individually, 36/36
+      clean. All six generators rebuilt; sha256 of every file under
+      modules/branch/pages/ taken before and after: byte-identical, zero
+      diff.
+      NEW ANGLE: of the 36 checkers, tools/check-seo-keywords.js reads
+      modules/branch/pages/SEO.md (it is in the checker's own PAGE_DIRS
+      list) and has been passing clean across all eight prior passes on
+      this item, but no prior pass ever proved BY INJECTION that it
+      actually catches a regression on one of these six pages' Meta
+      Keywords lines, as distinct from never having seen one. McCanns
+      Chemist Sandringham was chosen as the target because it is the one
+      branch estate-wide whose townSlug ("sandringham") no longer matches
+      its seoTown ("St Michael's", moved on item 5.7, 2026-08-10), which is
+      the exact, and otherwise vacuous, condition RULE 8 (retired town
+      word) exists to guard; no prior 5.2 pass had exercised that rule
+      against this branch's own keywords line specifically.
+      METHOD. New instrument written fresh
+      (audits/verify-5.2-2026-09-03-ninth.js, no import from tools/ beyond
+      invoking the real checker as a child process): refuses to run if
+      modules/branch/pages/SEO.md already carries a git diff, records its
+      sha256 before any mutation, and restores by direct
+      fs.writeFileSync immediately after capturing the checker subprocess's
+      output and BEFORE any assertion runs, the same discipline the
+      eighth/ninth passes on other items used. Each injection mutates a
+      freshly restored copy rather than layering on the previous one.
+      INJECTION ROUND. Seven injections against the McCanns Sandringham
+      Meta Keywords line only, one per rule the checker holds: (1) the
+      value blanked - CAUGHT, RULE 1 pairing. (2) both occurrences of "St
+      Michael's" replaced with "chemist" - CAUGHT, RULE 3 presence. (3)
+      "Aintree" appended, a real live seoTown (Clear Chemist Aintree and
+      Tiffenbergs Chemist Longmoor) not in this branch's serviceAreaList -
+      CAUGHT, RULE 4 absence, the same example the checker's own header
+      names. (4) "Fishlocks Chemist" appended, a real live branch's own
+      brandLabel - CAUGHT, RULE 5 brand. (5) "PR8" appended, Fishlocks
+      Chemist Ainsdale's real outward code against this branch's own L17 -
+      CAUGHT, RULE 6 postcode. (6) "rapid weight loss" appended, matching
+      claim-patterns.js's efficacy pattern - CAUGHT, RULE 7 claim. (7)
+      "Sandringham" appended, the exact word item 5.7 retired from this
+      branch's seoTown and which is not in its serviceAreaList - CAUGHT,
+      RULE 8 retired town word. All seven caught on the first run; the
+      whole script was then re-run a second time end to end with identical
+      results, confirming reproducibility. File sha256-confirmed
+      byte-identical to the original before the round, after each
+      individual restoration, and after the final one; git status
+      --porcelain on the target file stayed empty throughout. Full
+      36-checker suite re-run clean after the round; all six generators
+      re-run, git status --porcelain on modules/ empty before and after.
+      RESULT. No defect on item 5.2 itself - tools/check-seo-keywords.js was
+      already correctly holding McCanns Chemist Sandringham's own Meta
+      Keywords line to all seven of its content rules, now proven directly
+      by injection for the first time in this item's nine-pass history,
+      including the one rule (RULE 8) that only this branch can make
+      non-vacuous. No checker logic, page, generator or data field changed
+      anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-03-ninth.js and
+      audits/verify-5.2-2026-09-03-ninth-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
