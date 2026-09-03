@@ -1,0 +1,59 @@
+﻿Item 4.2 quality pass (eleventh), 2026-09-03 (unattended scheduled run via Cowork).
+
+Fresh angle: check-uk-spelling.js, check-brand-spelling.js and check-url-scheme.js
+all read gbp-packs/ generally but had never been proven by direct injection against
+gbp-packs/cherry-lane-walton.md specifically (grep of AGENT_LOG.md for each checker
+name alongside "cherry" returns zero hits across all ten prior passes). This is the
+same class of gap the 4.7 tenth pass (2026-09-03, same morning) closed for
+McCanns Sandringham; this pass closes it for Cherry Lane.
+
+Baseline: git status --porcelain on modules/, core/, gbp-packs/, branches.json,
+tools/, status/ empty before any change. All 36 tools/check-*.js run individually:
+36/36 exit 0. All six page generators re-run (excluding build-audit-status.js):
+git status --porcelain empty before and after, confirming byte-stable output.
+
+Backup: gbp-packs/cherry-lane-walton.md backed up by byte copy before any mutation
+(8,370 bytes, MD5 3749907A9151B9DE88E22D4A5711EC52). Each injection made against
+the in-memory original via a small script (not raw here-string literals, per this
+repo's standing note on encoding reliability), the targeted checker run, then the
+file restored from the original bytes and the restore verified byte-for-byte
+(MD5 match) before the next injection.
+
+INJECTION 1 (check-uk-spelling.js): line 47, "Weight loss service, Vaccination
+centre" changed to "...Vaccination center". Result: FAIL, gbp-packs/cherry-lane-
+walton.md:47: reads "center". UK English is "centre". Caught first attempt.
+
+INJECTION 2 (check-brand-spelling.js): the pack's own heading "Cherry Lane
+Pharmacy" changed to "Cherry Lanes Pharmacy" (spurious trailing s, the same near-
+miss shape this checker derives automatically from the canonical form). Result:
+FAIL, gbp-packs/cherry-lane-walton.md:1: reads "Cherry Lanes Pharmacy". The
+trading name is "Cherry Lane Pharmacy". Caught first attempt.
+
+INJECTION 3 (check-url-scheme.js): Post B (switch) button target changed from
+https to http. Result: FAIL, INSECURE gbp-packs/cherry-lane-walton.md: published
+surface carries http://.../switch-prescriptions-cherry-lane-walton.html. An
+insecure estate URL on a live page is a crawlable duplicate of the https page,
+which is item 6.6. Caught first attempt, correctly cross-referenced to the
+existing item 6.6 rather than raising a duplicate question.
+
+Final integrity check: restored file byte-identical to the pre-injection original
+(MD5 match confirmed after each injection and again at the end). Full 36-checker
+suite re-run after the last restore: 36/36 exit 0. git status --porcelain on
+gbp-packs/ empty.
+
+RESULT: no defect - all three rules were already correctly protecting this pack;
+now proven directly against it rather than only by general design and by its
+passing the suite. No checker logic edited, no pack content byte changed.
+
+LIVE HALF: Claude in Chrome not connected this run (standing Q59). Fell back to
+read-only HTTPS HEAD checks via PowerShell Invoke-WebRequest against the four
+post targets: pharmacy-first-cherry-lane-walton.html, switch-prescriptions-
+cherry-lane-walton.html, weight-loss-clinic-cherry-lane-walton.html, travel-
+clinic-cherry-lane-walton.html - all four return 200. Status-code only, does not
+confirm content; the Q92 finding (live en-dash divergence on the weight loss
+page) was not re-read this pass since that needs page content, not just a status
+code, and no new live check was attempted beyond availability.
+
+Files changed this pass: none in modules/, core/, gbp-packs/, branches.json,
+tools/ (all three injections restored and hash-confirmed). AGENT_WORKLIST.md and
+AGENT_LOG.md updated with this pass's record. New evidence file: this one.

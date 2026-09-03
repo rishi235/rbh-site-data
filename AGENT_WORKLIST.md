@@ -4241,6 +4241,24 @@ Pharmacy First wording to the NHS service description.
       applies, since no generator or data file reaches a live Weebly
       paste. Files changed this pass: gbp-packs/cherry-lane-walton.md.
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-02-tenth.txt.
+      Quality pass 2026-09-03 (eleventh, unattended run): fresh angle - proved
+      check-uk-spelling.js, check-brand-spelling.js and check-url-scheme.js
+      directly against this pack by injection, the same three checkers the
+      item 4.7 tenth pass proved against McCanns Sandringham this same
+      morning; no prior pass on this item had pointed any of the three at
+      cherry-lane-walton.md specifically. Baseline clean (36/36 checkers,
+      zero-diff regeneration). Three injections, each restored and MD5-
+      confirmed before the next: "Vaccination centre" to "Vaccination center"
+      (caught by check-uk-spelling.js), "Cherry Lane Pharmacy" to "Cherry
+      Lanes Pharmacy" (caught by check-brand-spelling.js), and the Post B
+      switch button target https to http (caught by check-url-scheme.js,
+      correctly cross-referenced to item 6.6 rather than raised as a new
+      question). All three caught first attempt. No defect - all three rules
+      already protected this pack; now proven directly rather than only by
+      general design. No checker logic edited, no pack content byte changed.
+      Live half: browser unavailable (Q59), fell back to HTTPS HEAD checks on
+      all four post targets - all 200. Files changed: none (all injections
+      restored). Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-03-eleventh.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
