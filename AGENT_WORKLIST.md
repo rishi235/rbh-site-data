@@ -7797,6 +7797,51 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       QUESTIONS.json unchanged (41 open of 94 total). Evidence:
       audits/coleman-leigh-walton-outcome-promise-reproof-4.12-ninth-2026-09-03.txt.
       Done 2026-09-03.
+      Tenth quality pass 2026-09-03 (unattended run via Cowork; the Linux
+      sandbox's bash tool again failed SSH to GitHub with "Host key
+      verification failed" though HTTPS fetch worked, so all git, Node and
+      file work went via Windows-MCP PowerShell against the canonical
+      C:\Dev\rbh-site-data working copy, the established route). FRESH ANGLE:
+      check-url-scheme.js and check-uk-spelling.js, two-thirds of the
+      standing trio (with check-brand-spelling.js) being proven pack by pack
+      across recent passes on sibling files (4.9, 4.14, 4.8, 4.13 and
+      others), had never been pointed at this pack's own copy across nine
+      prior dedicated passes. Pack backed up by byte copy before each
+      mutation; baseline SHA256
+      6C8B9CAC1D70FD6330D9A801B6DD74367C70F973EC54C4FDE9D93BA7EA724D88,
+      unchanged from the ninth pass. Baseline: all 36 checkers exit 0 before
+      any change. INJECTION 1 (check-url-scheme.js Rule 1, Post D closing
+      line: appended "More details at
+      http://www.colemanandleighspharmacy.co.uk/travel-info."): FAIL,
+      "published surface carries http://...", caught first attempt; restored
+      by byte copy, SHA256 reconfirmed identical. INJECTION 2
+      (check-uk-spelling.js Rule 1, Post B: "handle everything else" changed
+      to "organize everything else"): FAIL, line 115, reads "organize", UK
+      English is "organise", caught first attempt; restored, SHA256
+      reconfirmed identical. INJECTION 3, a quoted-evidence control matching
+      the pattern this pack's own paster notes already use to quote live-page
+      wording (added a new quoted sentence: the live footer also still reads
+      "please organize your repeat prescription two working days ahead",
+      unchanged since the paste): correctly PASSED (exit 0), reported only as
+      a NOTE recording "organize" inside quotation marks as a reading of what
+      a live page says rather than this file claiming it, confirming the
+      maskQuotes exemption holds on this pack's own copy too, not only on the
+      sibling packs where it was proven before. INJECTION 4, a light
+      reconfirmation of check-brand-spelling.js (Post B: trading name swapped
+      for the pre-correction "Coleman & Leigh Pharmacy"): FAIL, line 113,
+      caught first attempt, confirming the trio's third member still holds
+      here too; restored, SHA256 reconfirmed identical. Full 36-checker suite
+      re-run after final restore: 36/36 exit 0. All seven build-*.js page
+      generators re-run: exit 0 each, git status on modules/ and core/ empty
+      before and after, byte-stable. Q76's sister-branch-name substitution
+      gap was not re-run this pass, already reconfirmed four times running on
+      this pack; re-running a fifth identical proof added no new information
+      within this pass's chosen angle. LIVE HALF: not attempted, Claude in
+      Chrome reported not connected at step 3. The 2026-09-01 live verdicts
+      (mixed old/new trading name across the site, Q76's sister-branch-name
+      gap, the Q22 tagline, Post A's pfLink 404) stand as written, not
+      re-verified this pass. No in-repo defect, no new question;
+      QUESTIONS.json unchanged (41 open of 94 total). Done 2026-09-03.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
