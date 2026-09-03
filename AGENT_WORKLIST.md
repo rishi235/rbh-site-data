@@ -5854,6 +5854,31 @@ checkers re-ran clean. Live half not performed (Claude in Chrome not
 connected this run); the 2026-09-01 seventh-pass live verdicts stand
 unreconfirmed. No in-repo defect, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-03.txt.
+Quality pass 2026-09-03 (unattended run, ~20:38 BST): tenth pass, rotation
+pool (4.5 the unique stalest at 2026-09-02T05:13:10+01:00; 3.1, 4.3 and 4.6
+dropped out of contention, all done by earlier runs the same day). Facts
+re-verified against branches.json for the tenth time, all matching: name,
+street address, postcode, phone, hours (no lunch closure), review link,
+catchment order and its five towns, hasApp false, pfLink, profile website,
+sister-branch sentence naming Bramhall, the bank holiday paster note, and the
+712-character description re-derived independently. The post town on the
+"- Address:" line is the standing Q64 exception and was not re-raised. All
+36 checkers pass (0 failures, 17 pre-existing estate-wide warnings), all six
+generators byte-identical. NEW ANGLE: the "another branch's TOWN must not
+appear in the pasted copy" rule (added item 4.8 pass, 2026-08-13, by
+injection into fishlocks-eccleston.md) had never been individually proved
+against this pack. Proved by injection: Post B's catchment sentence changed
+from "...Great Moor and Poynton." to "...Great Moor, Poynton and Aigburth"
+(McCanns Chemist Aigburth's own town, a live branch, not in this branch's
+serviceAreaList). Caught by TWO rules at once - the catchment-list membership
+rule and the foreign-town rule - the same "one more than expected" pattern
+the eighth pass found on its address-line injection, and confirmed the two
+rules are not redundant (each catches a shape the other would miss). Restored
+by byte copy (sha256 64fd2ae6...b7a4038 confirmed identical, diff empty); all
+36 checkers re-ran clean. Live half not performed (Claude in Chrome not
+connected this run); the 2026-09-01 seventh-pass live verdicts stand
+unreconfirmed. No in-repo defect, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-03-tenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

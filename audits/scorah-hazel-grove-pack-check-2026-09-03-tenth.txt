@@ -1,0 +1,103 @@
+Item 4.5 quality pass, tenth pass, 2026-09-03 (unattended scheduled run via
+Cowork, ~20:38 BST)
+
+SCOPE
+gbp-packs/scorah-hazel-grove.md (Scorah Chemists Hazel Grove, branch id
+scorah_hazel), re-verified against branches.json and tools/check-gbp-packs.js
+for the tenth time. Selected as the stalest item in the standing 36-item
+rotation pool by the established method: match git log --pretty=format:
+"%cI|%s" against an anchored item-number pattern per pool candidate, take the
+oldest last-touched commit. 4.5 was stalest at 2026-09-02T05:13:10+01:00 (per
+this run's own re-derivation, matching the forward note the ninth pass left);
+3.1, 4.3 and 4.6 had all been done by earlier runs today and dropped out of
+contention.
+
+FACTS RE-VERIFIED AGAINST branches.json (tenth time, all matching)
+Name, street address (87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG),
+postcode, phone (01625 872267), hours (Monday to Friday 9:00am to 6:00pm,
+Saturday and Sunday closed, no lunch closure so the PAIRING-rule angle used on
+branches with a split day does not apply here), the 24 June Saturday-closure
+paster note, review link, catchment order and its five towns (Hazel Grove,
+Bramhall, Offerton, Great Moor, Poynton - matching serviceAreaList exactly, in
+order), profile website pointed at the branch's own landing page
+(pharmacy-scorah-hazel-grove.html, not the shared domain root), hasApp false
+honoured (no app mention anywhere in the pack), pfLink (the shared Hazel
+Grove/Bramhall Pharmacy First page, correctly flagged in the paster notes as
+shared rather than branch-specific), the sister-branch sentence naming
+Bramhall correctly (Bramhall is a live branch on the same brandLabel, its own
+seoTown is Bramhall), the bank holiday paster note (still present, still
+naming bankHolidays.dates2026 rather than retyped dates), and the
+712-character business description re-derived independently under the
+checker's paste-join convention.
+
+The post town on the "- Address:" line ("Hazel Grove Stockport" vs
+branches.json's addressLocality "Hazel Grove") is the standing Q64 exception
+and was not re-raised.
+
+Baseline run: node tools/check-gbp-packs.js -> 0 failures, 17 warnings
+estate-wide (all pre-existing and accounted for: Q72 clinic-qualifier
+exceptions, Q64 post-town exceptions including this pack's own, two
+live-only link-target warnings, one phone-mismatch warning on a different
+pack). Nothing specific to this pack beyond the standing Q64 WARN.
+
+NEW ANGLE THIS PASS
+The "another branch's TOWN must not appear in the pasted copy" rule (added on
+the item 4.8 quality pass, 2026-08-13, by injection into
+fishlocks-eccleston.md) had, by its own header comment, never been
+individually proved by injection against gbp-packs/scorah-hazel-grove.md.
+Ninth-pass proved the RECOGNISED_SERVICES/CATEGORIES allowlist against this
+pack; eighth-pass proved the address-line-integrity and branch-street
+PRESENCE rules; this pass closes the foreign-town gap.
+
+INJECTION
+sha256 before: 64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038
+
+Post B's closing catchment sentence changed from:
+  "Serving Hazel Grove, Bramhall, Offerton, Great Moor and Poynton."
+to:
+  "Serving Hazel Grove, Bramhall, Offerton, Great Moor, Poynton and
+   Aigburth."
+
+Aigburth is McCanns Chemist Aigburth's own town (addressLocality and
+seoTown), a live, non-disposed branch, and is nowhere in scorah_hazel's own
+serviceAreaList (confirmed against branches.json before injecting).
+
+RESULT
+node tools/check-gbp-packs.js -> 2 failures, both against this pack, nothing
+else disturbed:
+  FAIL scorah-hazel-grove.md: catchment list names "Aigburth" ... (the
+       catchment-membership rule, line ~1305)
+  FAIL scorah-hazel-grove.md: the Post B ... names "Aigburth", which is the
+       town of McCanns Chemist Aigburth ... (the foreign-town rule, line
+       ~2934)
+
+Caught by TWO rules at once, the same "one more than expected" pattern the
+eighth pass found on an address-line injection: the catchment-list rule
+(which checks the list against this branch's own serviceAreaList) and the
+foreign-town rule (which checks pasted copy against every OTHER live
+branch's town) both fire on the same sentence, because "Serving X, Y and Z"
+is simultaneously a catchment claim and a piece of pasted copy naming a
+place. Confirms the two rules are not redundant with each other even though
+they overlapped on this specific injection: the catchment rule would not
+catch a foreign town named outside the catchment-list sentence (e.g. buried
+in the business description's opening clause, the original 4.8-pass finding
+against fishlocks-eccleston.md), and the foreign-town rule would not catch a
+catchment list padded with a town that happens to belong to no branch at all
+(a typo rather than a leak).
+
+RESTORE
+git show HEAD:gbp-packs/scorah-hazel-grove.md > gbp-packs/scorah-hazel-grove.md
+sha256 after: 64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038
+(identical). git diff -- gbp-packs/scorah-hazel-grove.md empty. Re-ran
+node tools/check-gbp-packs.js -> 0 failures, same 17 warnings as baseline.
+
+LIVE HALF
+Not performed. Claude in Chrome reported not connected this run (consistent
+with the standing Q59 diagnosis). The 2026-09-01 seventh-pass live verdicts
+stand unreconfirmed: landing page (pharmacy-scorah-hazel-grove.html) 404s as
+the paster note anticipates, all four Post A-D button targets return 200,
+site footer hours agree with branches.json post-24-June hours.
+
+CONCLUSION
+No in-repo defect. No new question. Pack remains clean for the tenth time.
+Generators untouched (git status --porcelain -- modules/ empty throughout).
