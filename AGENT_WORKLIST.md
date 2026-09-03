@@ -3416,6 +3416,41 @@ Done 2026-09-02 (eighth pass).
       Zero in-repo defects. One question raised, Q93 (does not block this
       item). Evidence: audits/verify-3.11-2026-09-02-booking-chain.js.
       Done 2026-09-02
+      Ninth quality pass 2026-09-03 (unattended run), fresh angle only. This
+      was the oldest of the 36 rotation-pool items: git log parsed in full for
+      an "item N.N"-shaped commit subject per candidate, excluding the
+      standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8); 3.11
+      last touched 2026-09-02T14:17:05+01:00, over 25 minutes before the next
+      stalest (4.4) and clearly ahead of the rest of the pool.
+      REPO HALF ONLY, no browser available (Claude in Chrome not connected).
+      Eight prior passes had covered NAP, JSON-LD, spelling, the eligible/
+      safety-net/symptoms triad, live-page compliance and the booking chain.
+      Neither check-whatsapp-route.js nor check-map-embeds.js had been proven
+      by direct injection against this branch's own pages before, only via
+      the pack passing the full suite - the same class of gap other items'
+      recent passes (1.2 tenth, 4.14 tenth, 4.2 eleventh, 4.7 tenth) closed
+      for check-brand-spelling.js and check-url-scheme.js on their own packs.
+      Baseline: all 36 checkers exit 0, git status clean. Both files backed
+      up by byte copy before mutation (this branch's pharmacy-first page and
+      its switch page).
+      Four injections, all caught first attempt, all restored and MD5-
+      confirmed byte-identical to backup: (1) pharmacy-first page's data-wa
+      changed to a wrong number - check-whatsapp-route.js failed correctly,
+      naming the page and the disagreement; (2) pharmacy-first page's map
+      query postcode changed (3AT to 3AZ) - check-map-embeds.js failed on
+      both its address-vs-branches.json rule and its contact-card-vs-map
+      agreement rule; (3) switch page's data-wa changed to a different wrong
+      number - check-whatsapp-route.js failed correctly; (4) switch page's
+      map query street name changed ("College Road" to "College Street",
+      postcode left correct to isolate the street mismatch) - check-map-
+      embeds.js failed on both rules again.
+      Final verification: full 36-checker suite re-run clean, git status
+      clean on modules/, core/, branches.json, tools/, status/, gbp-packs/.
+      All six generators re-run, output byte-stable (git status clean on
+      modules/, core/ before and after).
+      Zero in-repo defects. No new question. Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-03-ninth.txt.
+      Done 2026-09-03
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

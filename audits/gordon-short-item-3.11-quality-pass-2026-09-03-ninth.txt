@@ -1,0 +1,75 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - ninth quality pass - 2026-09-03
+
+SCOPE: fresh angle only. Eight prior passes (2026-08-04 through 2026-09-02)
+already covered NAP/JSON-LD/spelling (repeatedly), eligibleYes/ageNote,
+eligibleNo safety net, symptoms block, live-page compliance, and the
+booking chain (widget ids, data-branch, data-service). This pass targeted
+two estate-wide checkers never before proven by direct injection against
+THIS branch's pages: check-whatsapp-route.js and check-map-embeds.js.
+
+BASELINE (before any change): all 36 tools/check-*.js exit 0. git status
+--porcelain on modules/, core/, branches.json, tools/, status/, gbp-packs/
+empty. Target files backed up by byte copy before mutation:
+  modules/service/pages/pharmacy-first-gordon-short-crosby.html
+    MD5 1DE07226564C0D15ABEDC3A51BDD21DD
+  modules/switch/pages/switch-prescriptions-gordon-short-crosby.html
+    MD5 222B5B5B27BE1DACFFD11565DBA2B30E
+
+INJECTION 1 (check-whatsapp-route.js, pharmacy-first page): data-wa
+changed from 447521775631 to 447000000000.
+Result: FAIL - "[page agreement] ...: data-wa=\"447000000000\" but
+branches.json agrees on 447521775631". Caught first attempt. Restored;
+MD5 confirmed identical to backup. Full check-whatsapp-route.js re-run
+clean.
+
+INJECTION 2 (check-map-embeds.js, pharmacy-first page): map iframe query
+postcode changed from L23 3AT to L23 3AZ.
+Result: FAIL, two rules - "[the address] ... map points at \"...L23 3AZ\"
+and branches.json gives this branch \"...L23 3AT\"" and "[agreement] ...
+contact card reads \"...L23 3AT\" and the map underneath it points at
+\"...L23 3AZ\"". Caught first attempt, both rules. Restored; MD5 confirmed
+identical to backup. Full check-map-embeds.js re-run clean.
+
+INJECTION 3 (check-whatsapp-route.js, switch page): data-wa changed from
+447521775631 to 447111111111.
+Result: FAIL - "[page agreement] ...: data-wa=\"447111111111\" but
+branches.json agrees on 447521775631". Caught first attempt. Restored;
+MD5 confirmed identical to backup.
+
+INJECTION 4 (check-map-embeds.js, switch page): map iframe query street
+changed from "College Road" to "College Street" (postcode left correct,
+to isolate the street-name mismatch rather than repeat injection 2's
+postcode shape).
+Result: FAIL, two rules - "[the address] ... map points at \"159 College
+Street, Liverpool, L23 3AT\" and branches.json gives this branch \"159
+College Road, Liverpool, L23 3AT\"" and "[agreement] ... contact card
+reads \"159 College Road...\" and the map underneath it points at \"159
+College Street...\"". Caught first attempt, both rules. Restored; MD5
+confirmed identical to backup.
+
+FINAL VERIFICATION. Both backup files deleted. Full 36-checker suite
+re-run on the fully restored worktree: 36/36 exit 0. git status --porcelain
+on modules/, core/, branches.json, tools/, status/, gbp-packs/ empty.
+All six generators re-run (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js): all exit 0, git
+status --porcelain on modules/, core/ empty, confirming byte-stable output.
+
+RESULT: no defect. Both checkers were already correctly protecting this
+branch's WhatsApp routing and map embed on both the service-family page and
+the switch page; now proven directly by injection rather than only by
+general design and by the pack passing the full suite. No checker logic
+edited, no page content byte changed. No new question raised.
+
+LIVE HALF: not performed this pass - Claude in Chrome not connected
+(zero connected browsers), and this pass's scope (data-wa attribute value,
+map iframe query string) is generated-page-only content with no live
+equivalent worth a plain-fetch check beyond what the eighth pass's live
+half already covered for this branch (homepage phone/postcode/email,
+pfLink page). Not repeated to avoid re-litigating settled ground.
+
+Environment note: performed entirely via mcp__Windows-MCP__PowerShell and
+native Read/Edit tools against the canonical C:\Dev\rbh-site-data working
+copy, per the established route (Q87) - the Cowork sandbox mount cannot
+unlink files it creates, so byte-copy restoration and git operations use
+the native host throughout.
