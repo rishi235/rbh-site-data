@@ -62,6 +62,8 @@ WORKLIST AND COMMIT. AGENT_WORKLIST.md item 4.7 updated in place: appended this 
 
 Next stalest by the same block-bounded method, for whoever runs the next unattended pass: with 2.3, 3.3 and 4.7 all now freshly touched this morning, the next-oldest untouched item in the standing rotation pool should be re-derived fresh rather than assumed, since this pass did not carry out that full re-derivation (it reused the prior run's still-current computation for its own pick and did not extend the search further).
 
+PUBLISH (step 10). node tools\build-audit-status.js run from the canonical C:\Dev\rbh-site-data working copy via mcp__Windows-MCP__PowerShell: succeeded, "Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)", exit 0. This confirms the Q87 diagnosis directly: the script's hardcoded "C:/Dev/rbh-site-data" path only fails from the Cowork sandboxed bash mount (a different filesystem root); run from the native Windows host it resolves correctly and the publish step works exactly as designed, and git push (also done from the native host) landed cleanly with an independent ls-remote confirming origin matches local HEAD (a3f3555). Q87 remains open since the underlying architecture question (should this task run natively vs. in the sandbox) is Rishi's decision either way, but this run is further evidence that option 1 (native host) is not just a workaround - it removes both failure modes entirely, with no code change and no credential provisioning needed.
+
 ---
 ## 2026-09-03 (unattended scheduled run via Cowork, 07:04 BST) - Item 3.3 quality pass (ninth): prove check-app-membership.js rules 2/3/5/7 against Fishlocks Ainsdale/Eccleston by injection; no defect found
 
