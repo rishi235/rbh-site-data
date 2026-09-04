@@ -8793,6 +8793,60 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       generator, data field or branches.json entry changed. No new question
       raised. Evidence: audits/gordon-short-item-4.14-quality-pass-2026-09-03-tenth.txt.
       Done 2026-09-03.
+      Eleventh quality pass 2026-09-04 (unattended scheduled run via Cowork).
+      Fresh angle: check-pharmacy-first-cost.js rule 6 and check-app-
+      membership.js rules 8a/8d had never been proven against this pack by
+      direct injection, the same gap the 4.2 twelfth and 4.7 tenth/eleventh
+      passes closed for their own packs earlier the same run. Baseline
+      green on the canonical copy: 36/36 checkers exit 0, git status clean
+      at HEAD e745ff4, pack MD5 28f675f809d7d8c5cb286ff861187f17 (11,975
+      bytes), byte-stable across eleven passes. Full repo copied to a
+      scratch directory (robocopy, .git excluded); both target checkers
+      re-run clean there before any edit.
+      Injection 1: "free" stripped from all three Pharmacy-First-naming
+      sentences (business description, Services section, Post A). First
+      attempt used CRLF as the join between wrapped lines and silently
+      matched nothing, because this pack's specific line wraps in these
+      three sentences use a bare LF, not CRLF like most of the file -
+      caught by a changed/unchanged check before running the checker, not
+      mistaken for a clean result. Redone with the correct separator: all
+      three changed. CAUGHT: check-pharmacy-first-cost.js exit 1, rule
+      "free", naming the pack.
+      Injection 2: an app claim sentence appended to the Services section
+      (gordonshorts_crosby confirmed hasApp false). Unlike McCanns
+      Sandringham (tested on the 4.7 tenth pass), this pack's paster notes
+      DO carry the exact phrase "No app mention anywhere in this pack", so
+      one injection caught both rule 8a (public copy against the field) and
+      rule 8d (the note against the pack) at once, naming the pack and the
+      branch both times - fuller coverage than the McCanns test achieved.
+      Both restores done by copying the pre-injection backup over the
+      scratch file (not git checkout), MD5-reconfirmed
+      28f675f809d7d8c5cb286ff861187f17 each time. Full 36-checker suite
+      re-run on the scratch copy after both restores: 35/36 exit 0, the one
+      failure being check-cdn-pins.js's documented no-.git scratch-copy
+      artefact (recorded on the 4.2 twelfth pass this same run), not a repo
+      defect.
+      Fact re-verification against branches.json's gordonshorts_crosby
+      entry, read fresh rather than trusted from the checker: name,
+      address, phone, website, review link, hasApp false, catchment order,
+      pfLink and both opening-hours sessions on all six trading days all
+      exact matches, eleventh pass running with zero drift.
+      LIVE HALF: Claude in Chrome not connected (Q59, retried once). Fell
+      back to read-only HTTPS requests via PowerShell on the canonical
+      host. All four post-linked pages and sitemap.xml return 200. Sitemap
+      lastmod unchanged at 2026-08-15T07:41:55+00:00, no republish since
+      the tenth pass. pharmacy-first-gordon-short-crosby.html still reads
+      "Gordon Shorts Chemist" 16 times (the exact count the ninth pass
+      recorded), so the STOP and PF_TARGET_HOLD/Q32 remain correctly in
+      force. The switch page's "How switching...works" heading correctly
+      reads the singular "Gordon Short Chemist"; its lead paragraph still
+      renders the mojibake em dash ("ÔÇö"), unchanged since the sixth pass.
+      Weight loss and travel clinic pages checked for status only (200)
+      this pass, content not re-read.
+      No in-repo defect found. No pack copy, page, generator, data field or
+      branches.json entry changed. No new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-04-eleventh.txt.
+      Done 2026-09-04.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

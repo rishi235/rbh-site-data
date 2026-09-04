@@ -1,0 +1,145 @@
+Item 4.14 quality pass (eleventh), 2026-09-04
+Gordon Short Chemist Crosby GBP pack (gbp-packs/gordon-short-crosby.md)
+Unattended scheduled run via Cowork audit-backlog-worker.
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6), so the quality-pass
+fallback applied. Stalest item independently re-derived (not assumed from
+the twelfth pass's forward note on item 4.2) via
+`git log --pretty=format:"%cI|||%s"` over the candidate pool (1.2, 2.1, 2.3,
+3.2-3.13, 4.1-4.15), matched with a regex anchored to "^Item <n> " at the
+start of the commit subject, most recent match per candidate taken. Result:
+4.14 uniquely stalest at 2026-09-03T08:42:28+01:00 (tenth pass), ahead of
+1.2, 3.11, 4.4, 4.1 - matching the note left by the item 4.2 twelfth pass
+earlier this run. No false-tie correction needed this time.
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json status
+empty on the canonical working copy (C:\Dev\rbh-site-data) at the start.
+HEAD e745ff4a53681d77307837f21f8c809315ef7856 on agents/audit-backlog,
+matching origin-https/agents/audit-backlog (already up to date, no fetch
+needed). All 36 tools/check-*.js run individually against the canonical
+copy: 36/36 exit 0. Pack MD5 28F675F809D7D8C5CB286FF861187F17 (11,975
+bytes), identical to the tenth pass's recorded value - byte-stable across
+eleven passes running.
+
+Environment note: the Linux/Cowork mount could not delete a stale, empty
+.git/index.lock left from a prior git status call on this session's own
+mount (Operation not permitted despite matching uid) - the same environment
+quirk the 2026-08-31 AGENT_LOG.md entry records for this repo. Switched to
+mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+working copy for all git and file-lock operations from that point, which
+cleared the lock and confirmed no git process was holding it.
+
+FRESH ANGLE
+This item's full ten-pass history (2026-08-04 to 2026-09-03) read before
+choosing where to look, via the file's own bounded block (lines 8439-8795).
+check-uk-spelling.js, check-brand-spelling.js and check-url-scheme.js were
+proven against this pack by injection on the tenth pass. check-gbp-packs.js
+itself, and its PF_TARGET_HOLD/Q32 rule specifically, had been proven
+repeatedly (fourth, eighth, ninth passes). Nothing in this pack's own
+ten-pass history had ever proven check-pharmacy-first-cost.js rule 6 or
+check-app-membership.js rules 8a/8d against THIS pack specifically, despite
+both checkers existing since mid-August and both reading every pack
+including this one - the identical gap the 4.2 eleventh/twelfth and 4.7
+tenth/eleventh passes closed for their own packs earlier this same run.
+
+Full repo copied to a disposable scratch directory outside the tracked tree
+(C:\Users\Admin\AppData\Local\Temp\audit_run_414_20260904023616) via
+robocopy, .git excluded. Both target checkers re-run clean on the scratch
+copy before any edit (cost-baseline-exit:0, app-baseline-exit:0).
+
+INJECTION 1 - check-pharmacy-first-cost.js rule 6 (the positive free claim)
+The pack's three sentences that name Pharmacy First itself - the business
+description ("Pharmacy First, the free NHS service where a pharmacist can
+assess"), the Services section ("NHS Pharmacy First: free NHS assessment
+and, where appropriate, treatment") and Post A ("Pharmacy First is a free
+NHS service at Gordon Short Chemist") - each had "free" stripped.
+First attempt used `r`n (CRLF) as the join between the wrapped lines and
+silently matched nothing (0 of 3 changed), because this file mixes line
+endings: the two line-wrap points inside these specific sentences are bare
+`n, not `r`n, unlike most of the file. Caught by an explicit
+before/after-changed boolean check on each replace before running the
+checker, not mistaken for a clean result. Redone with `n and all three
+sentences changed (desc-changed: True, svc-changed: True, posta-changed:
+True).
+CAUGHT: check-pharmacy-first-cost.js exit 1, one failure:
+  [free] gbp-packs/gordon-short-crosby.md: advertises NHS Pharmacy First
+  but never calls it free (rule 6).
+Restored by copying the pre-injection backup over the scratch file (not
+git checkout), MD5 reconfirmed 28F675F809D7D8C5CB286FF861187F17, checker
+re-run clean (exit 0).
+
+INJECTION 2 - check-app-membership.js rules 8a and 8d together
+"- Manage your prescriptions on the go with our app." appended to the
+Services section (gordonshorts_crosby confirmed hasApp: false). Unlike the
+McCanns Sandringham pack tested on the 4.7 tenth pass, THIS pack's paster
+notes carry the exact phrase "No app mention anywhere in this pack:
+branches.json has hasApp false for this branch" (line 136), so both 8a
+(the public copy against the field) and 8d (the note against the pack it
+describes) were live and testable in the same injection, not just 8a.
+CAUGHT: check-app-membership.js exit 1, two failures, both naming the pack
+and the branch:
+  [gbp packs] gbp-packs/gordon-short-crosby.md: the copy pasted into the
+  public Google profile claims an app, but branches.json has hasApp false
+  for gordonshorts_crosby.
+  [gbp packs] gbp-packs/gordon-short-crosby.md: the paster note says there
+  is no app mention anywhere in this pack, but the pasted copy carries one.
+Restored by copying the pre-injection backup over the scratch file, MD5
+reconfirmed 28F675F809D7D8C5CB286FF861187F17, checker re-run clean
+(exit 0).
+
+Full 36-checker suite re-run on the scratch copy after both restores:
+35/36 exit 0. The one failure, check-cdn-pins.js, is the documented
+scratch-copy artefact recorded on the item 4.2 twelfth pass earlier this
+run: the copy has no .git to resolve refs against, so the checker's own
+git-ref resolution fails; confirmed by reading its output (six "does not
+resolve in git" KNOWN-list entries plus generic git errors, no page,
+pack or generator content flagged). Not a repo defect. Both target
+checkers, and the full canonical-copy baseline, were already independently
+confirmed 36/36 clean before the scratch copy was made.
+
+FACT RE-VERIFICATION
+gordonshorts_crosby read fresh from branches.json (not from the checker):
+name Gordon Short Chemist, 159 College Road, Liverpool L23 3AT, phone
+0151 924 3449, website https://www.gordonshortchemist.co.uk, review link
+https://g.page/r/CZcVDM6emi6OEAE/review, hasApp false, catchment Crosby,
+Waterloo, Sefton in that order, pfLink
+https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html,
+both opening-hours sessions on all six trading days (09:00-13:00 and
+14:00-18:00 Monday-Friday, 09:00-13:00 and 14:00-17:00 Saturday) plus
+Sunday in closedDays. All exact matches against the pack, eleventh pass
+running with zero drift.
+
+LIVE HALF
+Claude in Chrome not connected this run (retried once, same as the answer-
+pickup check at step 3; Q59). Fell back to read-only HTTPS GET/HEAD via
+mcp__Windows-MCP__PowerShell Invoke-WebRequest, the same fallback the
+tenth pass used. All four post-linked pages plus sitemap.xml return 200.
+Sitemap lastmod unchanged at 2026-08-15T07:41:55+00:00 across every entry
+checked, no republish since the tenth pass. pharmacy-first-gordon-short-
+crosby.html (the branch-specific page Post A must not be repointed to)
+still carries "Gordon Shorts Chemist" 16 times against the correct
+"Gordon Short Chemist" - the exact count recorded on the ninth pass -
+so the STOP and PF_TARGET_HOLD/Q32 remain correctly in force, unchanged.
+switch-prescriptions-gordon-short-crosby.html's "How switching to Gordon
+Short Chemist works" heading correctly uses the singular form; the lead
+paragraph beneath it still renders the mojibake three-byte sequence
+"ÔÇö" where the intended em dash belongs, unchanged since the sixth pass.
+Content was not read for the other two live-linked pages this pass
+(weight-loss-clinic and travel-clinic, status-code-only, 200 each); no
+claim made about their body content this run. No new live-only finding
+raised.
+
+RESULT
+No in-repo defect found. No pack copy, page, generator, data field or
+branches.json entry changed. No new question raised - both checkers
+already correctly guard this pack; this proves it directly for the first
+time on this specific file's own bytes, rather than by passive coverage
+via the full-suite pass alone (the same standard the 4.2 and 4.7 passes
+set earlier this run). check-app-membership.js's coverage here is fuller
+than on McCanns Sandringham, because rule 8d had a real note to test
+against.
+
+Evidence: this file.
