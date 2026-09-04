@@ -1,0 +1,181 @@
+Item 3.6 quality pass (eleventh), 2026-09-04, unattended scheduled run via Cowork.
+
+SELECTION. All 8 unblocked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh from
+AGENT_WORKLIST.md's own checked items: scanning for `- [x] <n>.<n>`
+anywhere in the line (not just at line-start, since 2.2 sits mid-line)
+found 43 checkbox items, minus the 6 standing out-of-rotation items
+(1.1, 1.4, 5.6, 5.7, 6.7, 6.8), leaving the standing 37-item pool.
+Matched per candidate against an anchored `(^|[^0-9.])(item\s+)?<id>\b`
+pattern (case-insensitive) over `git log --pretty=format:"%cI|||%s" --
+AGENT_WORKLIST.md AGENT_LOG.md` (686 lines at the time of this run, via
+`git fetch origin-https` + `git log`). Result: 3.6 uniquely stalest at
+2026-09-03T17:42:09+01:00 (tenth pass), exactly matching the tie the
+immediately preceding run (3.12's eighth pass) recorded and resolved in
+3.12's favour that run; with 3.12 now freshly touched today, 3.6 is
+unambiguously stalest. Next: 3.8 (18:11:39), 6.3 (18:43:58), 3.1 (19:10:52).
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" before any repo work began. Logged as unavailable per the
+unattended-run rule; no alternative route attempted, nothing clicked,
+typed or submitted, no login attempted. QUESTIONS.json read in full: 95
+total, 42 open, none answered by pickup this run. Standing Q59 remains
+the recorded cause.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous
+window" heading present in the first 60 lines of AGENT_LOG.md at the
+start of this run. Moot regardless: this pass raised no question and
+made no judgement call requiring one.
+
+SELF-INFLICTED FALSE ALARM, caught before touching anything tracked (the
+same shape the 4.11 eleventh and 2.2 seventh passes hit). This run's own
+item-selection scratch file, `_agentscratch/gitlog_items2.txt`, contained
+raw git-log commit subjects with postcode-shaped substrings from
+historical narrative commit messages, so `check-postcodes.js` (which
+scans the whole tree, tracked and untracked alike) failed with 5 UNKNOWN
+lines against it. The standing no-delete restriction on this sandbox
+mount (`rm` returns "Operation not permitted" on files the mount itself
+created) meant the file could not be unlinked; renamed aside to
+`_agentscratch/gitlog_items2.txt.scratch-cleared` and truncated to zero
+bytes instead, which the mount does allow. `check-postcodes.js` returned
+to its standing clean state (0 failures, 3 pre-existing UNOWNED warnings)
+immediately after.
+
+BASELINE. All 36 `tools/check-*.js` checkers then run individually
+before any repo change: 36/36 exit 0. All six generators rebuilt
+(build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js;
+build-audit-status.js excluded, run separately at step 10): combined
+sha256 of every .html/.md/.js/.css/.txt under modules/ and core/ was
+identical before and after regeneration
+(a57922b6354b5f4baada2b83aa8b375c9f54b00a9c457639faa5a1dee29e7088,
+matching the hash recorded by the tenth pass), confirming zero drift
+since the prior pass. `git status --porcelain -- modules core` empty
+throughout.
+
+FRESH ANGLE AND METHOD. Read this item's full ten-pass history (lines
+2485-2911 of AGENT_WORKLIST.md) and grepped it for every `check-*.js`
+name it names: check-app-membership.js, check-em-dashes.js,
+check-gbp-packs.js, check-jsonld.js, check-nap.js, check-postcodes.js,
+check-seo-pattern.js, check-whatsapp-route.js. `check-branch-links.js` -
+which owns odsCode uniqueness, nhsEmail format, nhsReviewUrl format,
+googleReviewUrl format and uniqueness, website format, and pfLink
+ownership across shared-domain branches - had never been named against
+this item's own files in any of its ten prior passes, despite the
+checker's own file header naming "the two McCanns branches" by name as
+one of three shared-domain pairs (alongside Fishlocks and Scorah) whose
+pfLink field the ownership rule exists to protect, and despite its worked
+injection example in the header using Fishlocks Ainsdale, never McCanns.
+Confirmed real data first, not assumed: both mccanns_aigburth and
+mccanns_sandringham share `website: "https://www.mccannspharmacy.co.uk"`
+in branches.json, so the host-only half of the pfLink rule is genuinely
+blind between them and the ownership-resolution half (added by the item
+2.1 quality pass, 2026-08-12) is the only thing that can tell their two
+Pharmacy First pages apart - exactly the shared-domain shape this pass
+targeted.
+
+INDEPENDENT FIELD-BY-FIELD RE-VERIFICATION (no injection, real data as
+committed). Read both branches' relevant fields directly from
+branches.json and checked each against check-branch-links.js's own
+documented rules by hand: odsCode FA428 / FAP24, distinct, unique across
+all 16 live branches (confirmed against the checker's own odsSeen output,
+which raised no duplicate). nhsEmail "pharmacy.FA428@nhs.net" /
+"pharmacy.FAP24@nhs.net", both exactly "pharmacy.<odsCode>@nhs.net".
+nhsReviewUrl both exactly
+"https://www.nhs.uk/services/pharmacy/mccanns-pharmacy/X<odsCode>/leave-a-review"
+with the branch's own ODS code embedded and ending "/leave-a-review".
+googleReviewUrl "https://g.page/r/CdDj9KyelDVyEAE/review" (Aigburth) vs
+"https://g.page/r/CbMDr1qOLqnrEAE/review" (Sandringham), both matching
+the https://g.page/r/<id>/review pattern and distinct from each other and
+from every other live branch. website
+"https://www.mccannspharmacy.co.uk" on both, bare https host, no
+trailing slash, no path. pfLink
+".../pharmacy-first-mccanns-aigburth.html" and
+".../pharmacy-first-mccanns-sandringham.html" respectively, both on the
+shared host, both ending .html, both resolving via
+branchFromPageName() to their own branch id, not the sister's. All
+correct as committed.
+
+PROOF BY INJECTION, three rounds, each on a fresh restore rather than
+layered, each backed up and sha256-verified byte-identical before and
+after restoration. branches.json pre-injection sha256:
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+(backed up to _agentscratch/branches.json.bak-pre-3.6-eleventh, kept
+uncommitted, matches CLAUDE.md: branches.json has one canonical location
+and this is a throwaway local backup, not a second copy of the file).
+
+(1) PFLINK OWNERSHIP, the centrepiece and the rule the checker's own
+header names this exact branch pair for but had never actually tried
+against them. mccanns_aigburth.pfLink swapped from its own
+"pharmacy-first-mccanns-aigburth.html" to
+"pharmacy-first-mccanns-sandringham.html" - a real page, on the shared
+host, ending .html, so every rule except ownership resolution would pass
+it. CAUGHT, exit 1: "a Pharmacy First page belonging to
+mccanns_sandringham (\"McCanns Chemist Sandringham\"), not to this
+branch (\"McCanns Chemist Aigburth\"). Both branches are served from
+https://www.mccannspharmacy.co.uk, so the link resolves and every
+Pharmacy First route this field feeds - the landing page and the GBP
+pack button - quietly books the patient into the wrong pharmacy."
+Restored by byte copy from the pre-injection backup, sha256-reconfirmed
+identical (904de09b...969e1e).
+
+(2) GOOGLEREVIEWURL DUPLICATE, untested on this item across all ten
+prior passes. mccanns_sandringham.googleReviewUrl overwritten with
+mccanns_aigburth's own value. CAUGHT, exit 1: "is the same link as
+mccanns_aigburth, so a review meant for one branch would land on the
+other's listing." Restored by byte copy, sha256-reconfirmed identical.
+
+(3) NHSREVIEWURL TRUNCATED AT THE ODS CODE, the exact original
+Gordon Short Crosby fault this checker was built to catch (item 3.8,
+2026-08-10) - never tried against McCanns. mccanns_sandringham.nhsReviewUrl
+shortened from ".../XFAP24/leave-a-review" to ".../XFAP24", which lands a
+patient on the NHS profile page instead of the review form. CAUGHT, exit
+1: "Anything short of /leave-a-review lands the patient on the profile
+page instead of the review form." Restored by byte copy, sha256-
+reconfirmed identical.
+
+Full 36-checker suite re-run clean after the final restoration: 36/36
+exit 0 (check-branch-links.js itself: "clean, every link field in
+branches.json resolves to the branch that owns it (1 warning(s), 0 known
+issue(s))" - the one pre-existing warning is Clear Chemist Aintree's
+deliberate missing nhsReviewUrl, unrelated to this item). `git status
+--porcelain -- branches.json` empty. All six generators re-rebuilt;
+combined sha256 unchanged (a57922b6...e7088); `git status --porcelain --
+modules core` empty.
+
+LIVE HALF. Claude in Chrome confirmed not connected (checked at answer
+pickup). Per procedure not retried by another route for pickup; for this
+item's live check, fell back to the established plain read-only GET
+route (curl, GET only, no interaction), the same class of fallback the
+seventh through tenth passes used. Four URLs read, tied directly to this
+pass's own fresh angle: the Aigburth pfLink page
+(pharmacy-first-mccanns-aigburth.html) resolves live, HTTP 200, title
+"Pharmacy First at McCanns Chemist, Aigburth"; the Sandringham pfLink
+page (pharmacy-first-mccanns-sandringham.html) resolves live, HTTP 200,
+title "Pharmacy First at McCanns Chemist, Sandringham" - confirming the
+two branches' real pfLink values route to two distinct live pages in
+production, not just in branches.json, which is the fact the injection
+above proves the data guards. The Aigburth UTI page is fully correct
+live (title "UTI treatment in Aigburth - McCanns Chemist", HTTP 200); the
+Sandringham UTI page's title still reads "UTI treatment in Sandringham"
+rather than "St Michael's" live, matching the repo's correct "St
+Michael's" only in the repo - the queued 5.7/Q15 repaste, unchanged
+since the fourth pass on 2026-08-14 and reconfirmed on every pass since,
+not a new finding.
+
+RESULT. Zero in-repo defects found this pass: both branches' link fields
+in branches.json were already correct on every rule check-branch-links.js
+holds, now proven directly by injection for the first time in this
+item's eleven-pass history rather than left to keep being correct by
+construction alone - the same "which files/rules did the last ten passes
+actually try" discipline this item's own history has applied to itself
+repeatedly (JSON-LD name vs brandLabel on the fifth pass, the widget-id
+false-positive on the ninth). No page, generator, pack or branches.json
+byte changed anywhere in the repo; only this evidence file and the
+worklist paragraph were added. No new question raised.
+
+QUESTIONS.json re-read: 95 total, 42 open, unchanged; none answered by
+pickup this run.

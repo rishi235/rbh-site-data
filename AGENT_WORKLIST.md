@@ -2909,6 +2909,61 @@ this paragraph and the sha256 values quoted above (no new audit file
 created - both injections were done and restored in place, matching the
 established practice of not committing throwaway probe artefacts once
 the paragraph itself records the method and hashes).
+Quality pass 2026-09-04 (eleventh, unattended scheduled run via Cowork).
+Selected as the least recently verified item in the standing 37-item
+rotation pool (all 8 unblocked worklist lines confirmed [BLOCKED]; 3.6
+uniquely stalest at 2026-09-03T17:42:09+01:00, the tenth pass, once
+3.12's eighth pass earlier today removed 3.12 from contention). BASELINE:
+one self-inflicted false alarm caught and cleared before touching
+anything tracked (this run's own item-selection scratch file carried
+postcode-shaped commit-message substrings, tripping check-postcodes.js;
+renamed aside and truncated, the same shape the 2.2 seventh and 4.11
+eleventh passes hit). All 36 checkers then re-run individually before
+any change: 36/36 exit 0. All six generators rebuilt; combined sha256 of
+every file under modules/ and core/ identical before and after
+(a57922b6...e7088, matching the tenth pass's own hash, zero drift since).
+FRESH ANGLE: this item's own ten-pass history names eight checkers by
+name (check-app-membership, check-em-dashes, check-gbp-packs,
+check-jsonld, check-nap, check-postcodes, check-seo-pattern,
+check-whatsapp-route) but never check-branch-links.js, despite that
+checker's own file header naming "the two McCanns branches" by name as
+one of three shared-domain pairs its pfLink ownership rule exists to
+protect, and despite its worked injection example using Fishlocks
+Ainsdale, never McCanns. Confirmed both branches genuinely share
+website "https://www.mccannspharmacy.co.uk" in branches.json, so the
+host-only half of the pfLink rule is blind between them and only the
+ownership-resolution half (added by item 2.1's 2026-08-12 pass) can
+tell their two Pharmacy First pages apart. All six fields
+(odsCode, nhsEmail, nhsReviewUrl, googleReviewUrl, website, pfLink) on
+both branches independently re-verified by hand against the checker's
+documented rules first: all correct as committed. THREE INJECTIONS on
+branches.json, each on a fresh restore, each backed up and sha256-
+verified byte-identical (904de09b...969e1e) before and after
+restoration: (1) mccanns_aigburth.pfLink swapped to Sandringham's own
+real, live, .html-ending page on the shared host - the centrepiece,
+exactly the shared-domain shape the checker's header names this pair
+for but had never tried - CAUGHT, "quietly books the patient into the
+wrong pharmacy"; (2) mccanns_sandringham.googleReviewUrl overwritten
+with Aigburth's own value - CAUGHT, "a review meant for one branch
+would land on the other's listing"; (3) mccanns_sandringham.nhsReviewUrl
+truncated at the ODS code, the original Gordon Short Crosby fault this
+checker was built for (item 3.8, 2026-08-10) - CAUGHT, "lands the
+patient on the profile page instead of the review form." All three
+restored by byte copy, sha256-reconfirmed identical each time; full
+36-checker suite re-run clean after the final restore; git status on
+branches.json and modules/core empty throughout. LIVE HALF: Claude in
+Chrome not connected, fell back to plain read-only GET (curl). Both
+branches' real pfLink pages resolve live to two distinct pages (HTTP
+200, "Pharmacy First at McCanns Chemist, Aigburth" / "...Sandringham"),
+confirming production routes exactly as the injection proves the data
+guards; the Aigburth UTI page is fully correct live; the Sandringham UTI
+page's title/H1 still read "Sandringham" rather than "St Michael's"
+live, the standing queued 5.7/Q15 repaste, not a new finding. RESULT:
+zero in-repo defects; both branches' link fields were already correct
+on every rule, now proven by injection for the first time in this
+item's eleven-pass history. No page, generator, pack or branches.json
+byte changed; only this paragraph and an evidence file were added. No
+new question. Evidence: audits/verify-3.6-2026-09-04-eleventh.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
