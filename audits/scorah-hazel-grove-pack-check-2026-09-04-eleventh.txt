@@ -1,0 +1,140 @@
+Scorah Chemists Hazel Grove GBP pack - quality pass, 2026-09-04 (eleventh pass)
+Unattended scheduled run via Cowork. Item 4.5, rotation pool (least-recently
+mentioned item computed from git log's own commit dates per "item N.N"
+mention over AGENT_WORKLIST.md and AGENT_LOG.md).
+
+ROTATION. All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1,
+the two under Q60, 6.6) confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied. Pool re-derived fresh from AGENT_WORKLIST.md's
+own checked items, minus the six standing out-of-rotation items (1.1, 1.4,
+5.6, 5.7, 6.7, 6.8): 36-item pool. Matched per candidate against an anchored
+"(^|[^0-9.])(item\s+)?<id>\b" pattern (case-insensitive) over
+`git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`
+(694 lines at the time of this run). Result: 4.5 uniquely stalest at
+2026-09-03T20:40:15+01:00 (its own tenth pass), ahead of 1.3 (21:14:59),
+4.13 (21:43:02), 4.8 (22:13:39) - matching the forward-looking projection
+left by the immediately preceding run (item 4.6's eleventh pass, which named
+4.5 as next-stalest after itself).
+
+BASELINE. One self-inflicted false alarm caught and cleared before touching
+anything tracked: this run's own git-log scratch files (written first to a
+repo-relative _agentscratch/ path, matching the pattern several prior runs
+have hit) carried postcode-shaped substrings from historical commit
+messages and tool output, tripping check-postcodes.js on 5 UNKNOWN lines.
+Moved out of the checker's scan scope (renamed aside; the mount does not
+permit delete). check-postcodes.js returned to its standing clean state (0
+failures, 3 pre-existing UNOWNED warnings) once cleared. Confirmed on this
+run, unlike several recent ones, that /tmp writes succeed and persist
+(tested directly), so all further scratch work this pass was kept in /tmp
+rather than the repo, avoiding the class of false alarm above entirely for
+the rest of the run. All 36 tools/check-*.js run individually before any
+tracked change: 36/36 exit 0. git status --porcelain -- gbp-packs modules
+core branches.json empty (after clearing a stray fresh .git/index.lock the
+mount's own git-status call left behind, renamed aside per the standing
+convention, zero effect on git's behaviour).
+
+FACTS RE-VERIFIED (eleventh time) against branches.json (id scorah_hazel):
+name (Scorah Chemists Hazel Grove), street address (87 Macclesfield Road),
+postcode (SK7 6BG), phone (01625 872267), hours (Monday-Friday 09:00-18:00,
+Saturday and Sunday in closedDays, confirmed 2026-06-24, Saturday trading
+ceased note), review link (g.page/r/CZbFKrky9BUsEAE/review), catchment order
+and its five towns (Hazel Grove, Bramhall, Offerton, Great Moor, Poynton,
+exact match to serviceAreaList, same order in the description and in
+services section), hasApp false honoured (no app mention anywhere in the
+pack), pfLink (shared Hazel Grove / Bramhall Pharmacy First page), profile
+website pointed at the branch's own landing page rather than the shared
+domain, the sister-branch sentence ("Our sister branch is in Bramhall") -
+scorah_bramhall confirmed live, not disposed, own brandLabel "Scorah
+Chemists", own seoTown "Bramhall" - and the bank holiday paster note still
+present and still naming bankHolidays.dates2026 rather than retyped dates.
+The 712-character business description re-derived independently in Node
+using the checker's own descriptionOf()/join convention: 712, matching the
+heading's own stated count exactly. The post town on the "- Address:" line
+("Hazel Grove, Stockport") remains the standing Q64 exception (Royal Mail
+post town vs branches.json's addressLocality) and was not re-raised.
+
+NEW ANGLE. Ten prior passes had proven, by injection against THIS pack's own
+copy: the sister-branch-in-prose rule (first pass, 2026-08-11), the
+CLAIM_PATTERNS/EFFICACY advertising-compliance rule (fourth pass, run 160),
+the hasApp rule 8a-8d (fifth pass, run 201), the bank-holiday paster-note
+rule (sixth pass, 2026-08-30), the address-line-integrity and branch-street
+PRESENCE and stale-KNOWN-exception rules together (eighth pass, 2026-09-02,
+via a road-name mutation), the RECOGNISED_SERVICES/RECOGNISED_CATEGORIES
+allowlist rule (ninth pass, 2026-09-03), and the foreign-town / catchment-
+list-membership rule (tenth pass, 2026-09-03). None of the ten had proven
+the day-presence rule (check-gbp-packs.js "the hours line names the right
+DAYS, not just the right times", added item 4.1 quality pass 2026-08-11,
+lines ~2471-2559) against this pack's own Hours line, despite Hazel Grove's
+ceased-Saturday history being the worked example CLAUDE.md itself cites for
+why the rule exists ("scorah-hazel-grove.md exists to stop exactly that, and
+states both closed days explicitly"). The immediately preceding run (item
+4.3's eleventh pass) proved the same rule for the first time against
+Hirshmans Chemist Ainsdale; this pass closes the equivalent gap for the pack
+CLAUDE.md's own write-up names as the reference case, which had itself never
+been tested against it.
+
+PROOF BY INJECTION, three rounds directly on the tracked
+gbp-packs/scorah-hazel-grove.md, each restored to a fresh sha256-backed copy
+before the next round (/tmp/rbh_45/scorah-hazel-grove.md.bak-pre-4.5-eleventh,
+sha256 64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038 -
+the same hash every prior pass since the eighth has confirmed for this file,
+so it has not drifted across three passes now) rather than layered.
+
+(1) "Saturday closed" changed to "Saturday 9:00am to 6:00pm", deliberately
+reusing two times (09:00, 18:00) already in this branch's own weekday
+data-time set so the clock-time rule could not also fire and the day rule's
+own catch would stand alone. CAUGHT: exit 1, exactly one FAIL, naming
+Saturday as wrongly claimed open against branches.json's own Monday-Friday
+opening days.
+
+(2) "Monday to Friday" changed to "Monday to Thursday" (times left alone),
+dropping Friday from the claimed open days while leaving every stated clock
+time untouched and still correct. CAUGHT: exit 1, exactly one FAIL, naming
+Friday as a day branches.json opens that the hours line fails to claim.
+
+(3) "Sunday closed" deleted outright, leaving Sunday named on neither the
+open list nor the closed list. CAUGHT: exit 1, exactly one FAIL, naming
+Sunday as a closed day the pack fails to state.
+
+All three rounds produced exactly one FAIL each (no side-effect failures
+from the other four hours rules sharing the same bullet), confirming the
+day-presence rule catches each of its three legs in isolation on this pack.
+All three restored by direct byte copy (cp; this mount cannot unlink via git
+checkout) and sha256-reconfirmed identical to the pre-injection backup after
+every round (diff empty). Full 36-checker suite re-run clean after the final
+restore: 36/36 exit 0. git status --porcelain -- gbp-packs modules core
+branches.json empty throughout and afterwards. This pack is not a generator
+input, so modules/core were never touched by this pass.
+
+RESULT. Zero in-repo defect: this pack's own Hours line was already stating
+every one of its open and closed days correctly, now proven directly by
+injection across all three legs of the day-presence rule for the first time
+in this item's eleven-pass history.
+
+LIVE HALF. Claude in Chrome confirmed not connected
+(list_connected_browsers returned an empty array). Fell back to the
+established read-only GET route (curl, GET only, no interaction, no login;
+network egress confirmed working first against google.com, 200). The
+landing page (pharmacy-scorah-hazel-grove.html) still 404s exactly as the
+paster note anticipates (Q35 class), unchanged across every pass since
+drafting. All four Post A-D button targets return 200
+(pharmacy-first-service-hazel-grove-bramhall.html,
+switch-prescriptions-scorah-hazel-grove.html,
+weight-loss-clinic-scorah-hazel-grove.html,
+travel-clinic-scorah-hazel-grove.html). Status check only (200/404 codes),
+not a full re-read of page text - the 2026-09-01 seventh-pass close reading
+(site footer hours, switch-page em-dash paste lag) stands unreconfirmed this
+pass. No new live finding, no new question raised.
+
+WORKLIST AND COMMIT. AGENT_WORKLIST.md item 4.5 given a new "Quality pass
+2026-09-04 (eleventh pass)" paragraph, inserted after the tenth pass's own
+text and before the 4.6 entry, checkbox left [x] (quality pass, not first
+completion). QUESTIONS.json unchanged (96 total, 43 open; no pickup
+available this run - list_connected_browsers empty before any repo work
+began, logged per the unattended-run rule, no alternative route attempted;
+no new question raised this pass).
+
+NEXT STALEST BY THIS RUN'S OWN PROJECTION: 1.3 (last mentioned
+2026-09-03T21:14:59+01:00), ahead of 4.13 (21:43:02) and 4.8 (22:13:39),
+unless an earlier answer-pickup or a fresher rotation-pool run changes the
+picture first.

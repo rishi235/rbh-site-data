@@ -7092,6 +7092,39 @@ by byte copy (sha256 64fd2ae6...b7a4038 confirmed identical, diff empty); all
 connected this run); the 2026-09-01 seventh-pass live verdicts stand
 unreconfirmed. No in-repo defect, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-03-tenth.txt.
+Quality pass 2026-09-04 (eleventh pass, unattended scheduled run via
+Cowork): rotation pool (4.5 the unique stalest at 2026-09-03T20:40:15+01:00,
+matching the forward-looking projection left by item 4.6's own eleventh
+pass earlier the same day; next stalest 1.3). Facts re-verified against
+branches.json for the eleventh time, all matching: name, street address,
+postcode, phone, hours (Monday-Friday 09:00-18:00, Saturday and Sunday
+closed), review link, catchment order and its five towns, hasApp false,
+pfLink, profile website on its own landing page, the sister-branch sentence
+naming Bramhall (scorah_bramhall confirmed live, not disposed, own
+seoTown Bramhall), the bank holiday paster note, and the 712-character
+description re-derived independently. The post town on the "- Address:"
+line is the standing Q64 exception and was not re-raised. All 36 checkers
+pass (0 failures, 17 pre-existing estate-wide warnings). NEW ANGLE: the
+"hours line names the right DAYS, not just the right times" rule (added
+item 4.1 pass, 2026-08-11) had never been proved by injection against this
+pack specifically, despite this pack being the worked example CLAUDE.md's
+own write-up of that rule cites for why it exists. Proved by injection, three
+rounds, each restored before the next: (1) "Saturday closed" changed to
+"Saturday 9:00am to 6:00pm" reusing this branch's own weekday times so the
+clock-time rule could not also fire - caught alone, exit 1, Saturday named
+as wrongly claimed open; (2) "Monday to Friday" changed to "Monday to
+Thursday", times untouched - caught alone, exit 1, Friday named as an open
+day the line fails to state; (3) "Sunday closed" deleted outright, leaving
+Sunday on neither list - caught alone, exit 1, Sunday named as a closed day
+the line fails to state. Each round produced exactly one FAIL, confirming
+all three legs fire independently on this pack. Restored by byte copy
+(sha256 64fd2ae6...b7a4038 confirmed identical, diff empty); all 36
+checkers re-ran clean. Live half: Claude in Chrome not connected; fell back
+to a read-only GET check (curl, status codes only) - the landing page still
+404s as the paster note anticipates (Q35 class), all four Post A-D targets
+return 200, unchanged from the seventh pass's fuller live read, which
+stands unreconfirmed this pass. No in-repo defect, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-04-eleventh.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
