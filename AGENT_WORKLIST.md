@@ -1411,6 +1411,46 @@ No new question raised.
       not be assumed unchanged. No checker logic edited, no pack or page
       content byte changed anywhere in the repo, no new question. Evidence
       in audits/scorah-bramhall-seo-keywords-3.2-pass-2026-09-03-ninth.txt.
+      Quality pass 2026-09-04 (tenth): REPO HALF ONLY (Claude in Chrome not
+      connected this run; see the log). Nine prior passes proved title,
+      description, H1, permalink/URL and meta keywords; none had ever read
+      data-branch or the JSON-LD "name" on Scorah's own 26 pages, although
+      tools/check-branch-identity.js exists specifically for the three
+      shared-brand, shared-host pairs in the estate (Fishlocks, McCanns,
+      Scorah) and had been proven by injection against Smartts Bootle,
+      Cherry Lane and Fishlocks pages before, never against Scorah's. A new
+      independent extraction (audits/verify-3.2-2026-09-04-tenth.js, own
+      regexes, imports nothing from tools/) read all 26 Scorah pages (13
+      Bramhall, 13 Hazel Grove): 57 checks, 0 failures - both branches carry
+      their own branchName (never the bare shared brandLabel "Scorah
+      Chemists") on data-branch and JSON-LD name, each field is consistent
+      across every page of its own branch, and Bramhall and Hazel Grove
+      never declare the same JSON-LD name as each other. Proved the guard
+      still bites with two injections: (1)
+      modules/branch/pages/pharmacy-scorah-bramhall.html's JSON-LD name
+      changed from "Scorah Chemists Bramhall" to the bare "Scorah Chemists"
+      - check-branch-identity.js caught it immediately (rule 4, AMBIGUOUS,
+      "also the name of this branch's sister shop"); (2)
+      modules/service/pages/uti-treatment-scorah-hazel-grove.html's
+      data-branch changed the same way - caught immediately on the same
+      rule, confirming it fires on both fields independently. Both restored
+      using a binary-safe Node script (fs.writeFileSync of `git show
+      HEAD:<path>` as a Buffer) rather than PowerShell's `Out-File`, because
+      this pass found `Out-File -Encoding utf8` (the method implied by
+      earlier passes' "git show HEAD:<path>" note) silently corrupts the
+      restore via a BOM and CRLF normalisation - SHA256 mismatched the
+      baseline on the first attempt. The binary-safe restore matched
+      baseline SHA256 exactly on both files. Full 36-checker suite re-run
+      after both restores: 36/36 exit 0. git status --porcelain -- gbp-packs
+      modules tools core branches.json status empty throughout. No checker
+      logic, generator, pack or page content changed in the tracked tree.
+      No in-repo defect, no new fault class, no new question. LIVE HALF NOT
+      PERFORMED: Claude in Chrome unreachable this run (checked before this
+      section); the previously logged live-only findings (Bramhall/Hazel
+      Grove UTI pages serving Weebly's doubled-brand default title, queued
+      under 5.3/5.4; the Bramhall landing page 404) were not re-checked and
+      should not be assumed unchanged. Evidence in
+      audits/verify-3.2-2026-09-04-tenth.js and this AGENT_LOG.md entry.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
