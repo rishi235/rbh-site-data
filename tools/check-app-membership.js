@@ -62,6 +62,22 @@
       branches.json does not hold; or the note says the pack mentions no app
       and the pasted copy does. Added on the item 4.5 quality pass,
       2026-08-14. See the block above RULE 8 for why.
+    - RULE 8e, the missing positive: 8a-8d all guard the FALSE-CLAIM direction
+      only, a pack claiming an app it should not have. Nothing asked whether a
+      pack whose branch IS an app member actually carries the app mention at
+      all, so a member's app copy could be deleted from its pack - by a paste
+      slip, a rewrite, anything - and passing 8a-8d says nothing about it,
+      because those rules only fire on the opposite branches.json value.
+      Rule 2 and Rule 3 already hold this "if and only if" bidirectionally for
+      the generated pages; the packs had only ever had the false-claim half.
+      Found on the item 4.1 quality pass (eleventh), 2026-09-04, while looking
+      for a rule not yet proven against this item's own pack by injection - the
+      same shape as the 3.11/1.2/4.4/4.14/4.2/4.7 passes finding
+      check-pharmacy-first-cost and check-app-membership's OWN existing rules
+      unproven against their item, except here the gap was in the rule itself,
+      not just in proof of it. All four current app-member packs (Fishlocks
+      Ainsdale, Fishlocks Eccleston, Clear Chemist Aintree, Smartts Bootle)
+      already carry the mention, so this was latent, not a live breach.
     - a stale KNOWN key, same convention as KNOWN_DRIFT in check-cdn-pins.js.
 
   Run:  node tools/check-app-membership.js
@@ -516,6 +532,22 @@ if (fs.existsSync(PACK_DIR)) {
           rule: "gbp packs",
           where: where,
           text: "the paster note says there is no app mention anywhere in this pack, but the pasted copy carries one"
+        });
+      }
+
+      // 8e - the missing positive. 8a-8d only ever fire on the false-claim
+      // direction (a non-member's copy or note claiming an app). Nothing
+      // asked the opposite question: does a MEMBER branch's pack actually
+      // carry the app mention its profile is meant to publish. Mirrors the
+      // "if and only if" that Rules 2 and 3 already hold for the generated
+      // pages, applied here to the pack for the first time.
+      if (isMember && !packClaimsApp(published)) {
+        failures.push({
+          rule: "gbp packs",
+          where: where,
+          text: "branches.json has hasApp true for " + b.id
+            + ", but the copy pasted into the public Google profile carries no app mention, "
+            + "so the profile would omit a feature the branch actually offers"
         });
       }
     });

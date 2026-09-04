@@ -5081,6 +5081,36 @@ Pharmacy First wording to the NHS service description.
       applied), switch page em dash still live (Q45 answered but not yet
       applied), Q91 footer misspelling still open. No new question. See
       audits/fishlocks-ainsdale-4.1-pass-2026-09-03-tenth.txt. Done 2026-09-03
+      Quality pass 2026-09-04 (eleventh, unattended run): repo half clean at the
+      start, all 36 checkers pass, pack re-verified field by field against
+      branches.json, nothing moved since the tenth pass. FRESH ANGLE:
+      check-pharmacy-first-cost.js and check-app-membership.js had never been
+      proven against this specific pack, the same gap the 1.2/3.11/4.4/4.14/4.2/4.7
+      passes closed this same week for their own packs. Reading check-app-membership.js
+      in full found this was not merely unproven coverage but a REAL GAP: Rule 8
+      (the GBP packs) only ever guards the false-claim direction (a non-member's
+      pack claiming an app), never the opposite - whether a MEMBER branch's pack
+      (fishlocks_ainsdale is one of only four) actually carries the app mention its
+      profile is meant to publish, although Rules 2 and 3 already hold that "if and
+      only if" bidirectionally for the generated pages. Confirmed latent, not live:
+      all four current app-member packs already carry the mention. FIXED:
+      tools/check-app-membership.js now has Rule 8e, mirroring Rules 2/3's
+      bidirectional logic for packs. Proved by injection on this item's own file:
+      the pack's one app mention ("...repeats through our app.") changed to
+      "...repeats through our system.", caught first attempt naming this exact
+      pack; restored byte-identical (MD5 match) and full 36-checker suite re-run
+      clean. No pack content left changed - only tools/check-app-membership.js
+      carries a tracked change. No new question, the fix mirrors existing logic
+      rather than requiring a judgement call. LIVE HALF: no Claude in Chrome
+      browser connected, fell back to read-only PowerShell fetch. Profile-website
+      target still 404 (Q35, answered but not yet applied). Switch page fetched
+      200 but its prose intro (carrying the Q45 mojibake dash in prior findings)
+      was not present in the raw HTML at all, consistent with that content being
+      rendered client-side at runtime - recorded as a method limitation, this pass
+      neither confirms nor refutes Q45's live state. Q91 footer misspelling
+      ("Fishlock Pharmacy"/"Fishlock Chemist") reconfirmed present, unchanged, no
+      repo-side fix available. See
+      audits/fishlocks-ainsdale-4.1-pass-2026-09-04-eleventh.txt. Done 2026-09-04
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

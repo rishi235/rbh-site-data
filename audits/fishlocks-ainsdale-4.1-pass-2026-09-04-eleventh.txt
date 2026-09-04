@@ -1,0 +1,155 @@
+Item 4.1 quality pass (eleventh), 2026-09-04 (unattended scheduled run via Cowork)
+Fishlocks Chemist Ainsdale - gbp-packs/fishlocks-ainsdale.md
+
+ENVIRONMENT AND LOCK
+mcp__workspace__bash (Cowork sandboxed Linux FUSE mount of C:\dev\rbh-site-data) used
+for orientation only this run: confirmed no ssh key (git fetch origin over SSH failed
+"Host key verification failed", the standing Q87 diagnosis), confirmed git fetch via
+origin-https works read-only, confirmed no gh CLI and no GitHub token present in the
+sandbox environment (env scan clean, build-audit-status.js's own header confirms it
+shells out to the gh CLI). Concluded the sandbox cannot push or publish, so all
+write work - lock, git, file edits, checker runs, commit, push, publish - went via
+mcp__Windows-MCP__PowerShell and the native Read/Edit tools against the canonical
+C:\Dev\rbh-site-data working copy, the established route recorded in this item's own
+eighth through tenth passes and in the 3.11/4.4 passes' log entries. .agent-lock
+absent at start; created 2026-09-04T05:06:22+01:00 (via PowerShell Get-Date). No
+.git\index.lock present.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__tabs_context_mcp reported "Claude in Chrome is not connected".
+Logged as unavailable per the unattended-run rule; no alternative route attempted,
+nothing clicked, typed or submitted. QUESTIONS.json re-read: 95 total, 42 open,
+unchanged; none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of the run. Moot regardless: the fix made this pass is a
+mechanical, unambiguous checker-logic correction (a missing bidirectional test,
+mirroring an existing bidirectional rule elsewhere in the same file), not a business,
+legal, pricing or regulatory judgement call.
+
+ITEM SELECTION (step 5)
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, two under Q60, 6.6)
+confirmed [BLOCKED] by direct grep, so the quality-pass fallback applied. Stalest item
+over the 36-item rotation pool (43 completed items minus the standing 7 out-of-rotation:
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) derived independently via a small Node script
+matching `git log --pretty=format:"%cI|||%s"` (scoped to AGENT_WORKLIST.md and
+AGENT_LOG.md) against an anchored word-boundary <id> pattern per candidate, taking each
+item's most recent mention and sorting by it. Result: 4.1 uniquely stalest at
+2026-09-03T10:39:18+01:00, ahead of 3.2 (11:11:07) and 3.5 (11:43:14) - independently
+confirming, not merely trusting, the forward note left by the tenth pass on this same
+item.
+
+BASELINE
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/, status/
+empty before any change. All 36 tools/check-*.js run individually: 36/36 exit 0.
+
+FRESH ANGLE
+Read this item's full ten-paragraph history (2026-08-04 through 2026-09-03) in
+AGENT_WORKLIST.md: field-by-field NAP verification, TEMPLATE.md structural gaps, the
+hours day-composition rule, an independent 153-check verifier, live post-button and
+profile-website checks, the Q91 hand-built footer finding, and (ninth/tenth passes)
+check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js all proven by
+injection against this pack. Grepped AGENT_LOG.md and this item's own history for
+check-pharmacy-first-cost.js and check-app-membership.js: zero hits against
+fishlocks-ainsdale specifically, the same gap this week's 1.2/3.11/4.4/4.14/4.2/4.7
+passes closed for their own packs by injection. Read both checkers in full before
+choosing an injection.
+
+RESULT: A GENUINE GAP, NOT JUST UNPROVEN COVERAGE
+check-pharmacy-first-cost.js: fishlocks_ainsdale's pack states Pharmacy First is free
+in ordinary phrasing; a trial reasoning-through of rule 6 (the positive free claim,
+asked only of a pack whose branch runs Pharmacy First) found no reason it would not
+already hold, so this was deferred in favour of the finding below, which turned out to
+be a real gap rather than unproven coverage of an already-sound rule.
+
+check-app-membership.js RULE 8 (the GBP packs) reads four things (8a-8d), and every one
+of them fires only in the FALSE-CLAIM direction: a non-member's copy claiming an app,
+a non-member's shot list claiming one, a paster note stating the wrong hasApp value,
+or a note claiming "no app mention" while the copy carries one. fishlocks_ainsdale is
+an app MEMBER (hasApp: true, one of only four in the estate). No existing rule ever
+asked the opposite, and equally real, question: does a member branch's pack actually
+CARRY the app mention its profile is meant to publish. Rules 2 and 3 already hold this
+"if and only if" bidirectionally for the generated switch and landing pages; Rule 8
+had only ever had the false-claim half for packs. A member's app paragraph could be
+silently deleted from its own pack - by a rewrite, a paste slip, anything - and 8a-8d
+would say nothing, because all four only trigger on hasApp false.
+
+Confirmed this was latent, not live: a small Node script re-using the checker's own
+packSection/packClaimsApp logic was run read-only against all four current app-member
+packs (Fishlocks Ainsdale, Fishlocks Eccleston, Clear Chemist Aintree, Smartts Bootle).
+All four already carry the app mention in their published copy today. No pack was
+non-compliant; the gap was in the rule, not in any pack's content.
+
+FIX
+tools/check-app-membership.js: added Rule 8e immediately after 8d - if a branch is an
+app member and its pack's published copy (description + services + post drafts, same
+extraction as 8a, buttons and notes excluded) carries no app mention, fail naming the
+pack and branch. Header comment block updated to document 8e alongside 8a-8d, crediting
+this item's own pass and explaining the asymmetry found. KNOWN stayed empty - no pack
+needed an exception.
+
+PROOF BY INJECTION on this item's own file
+gbp-packs/fishlocks-ainsdale.md MD5 recorded before any mutation:
+D815A88BCFEE55D5B97C8A32B846E017. Injection made with a small Node script (learned
+from prior passes' PowerShell -replace and literal-string mishaps: use a script,
+verify the match applied before writing, re-grep afterwards) against the canonical
+file: the pack's only app mention, "...repeats through our app.", changed to
+"...repeats through our system." (line 28, business description section).
+
+Result: check-app-membership.js exited 1, one failure, naming gbp-packs/
+fishlocks-ainsdale.md exactly - "branches.json has hasApp true for fishlocks_ainsdale,
+but the copy pasted into the public Google profile carries no app mention, so the
+profile would omit a feature the branch actually offers." Caught first attempt.
+
+Restored by byte copy from the pre-injection backup; MD5 reconfirmed
+D815A88BCFEE55D5B97C8A32B846E017, matching baseline exactly. check-app-membership.js
+re-run clean (0 failures, 0 known exceptions). Full 36-checker suite re-run after
+restore: 36/36 exit 0. git status --porcelain on gbp-packs/, modules/, core/,
+branches.json empty throughout, confirming no pack content was left changed - only
+tools/check-app-membership.js carries a tracked change from this pass.
+
+RESULT
+One real, if latent, gap found and fixed: check-app-membership.js could not previously
+have caught a member branch's pack silently losing its app mention. Now it can, proven
+by injection against this item's own file. No pack content changed; no branches.json
+field changed. No new question - the fix is a mechanical mirror of Rules 2/3's existing
+bidirectional logic, not a judgement call.
+
+LIVE HALF
+Claude in Chrome unreachable this run (reconfirmed before this section). Fell back to
+read-only PowerShell Invoke-WebRequest, the established fallback used by prior passes
+on this and other items.
+
+- Profile-website target (pharmacy-fishlocks-ainsdale.html): 404, unchanged since
+  first found 2026-08-12 (Q35, answered "paste the six landing pages" but not yet
+  applied - outside this worker's permitted scope).
+- Switch page (switch-prescriptions-fishlocks-ainsdale.html): 200. The "How switching
+  works" intro paragraph that carries the Q45 mojibake em dash in prior passes' findings
+  was not present anywhere in the raw HTML response at all - this page's prose content
+  appears to be rendered client-side at runtime (consistent with this repo's own
+  documented switch.js/service.js widget model, which fetches branches.json and renders
+  mounts after page load), so a plain HTTP fetch without JavaScript execution cannot see
+  it. Recorded as a METHOD LIMITATION, not a live finding either way: this pass neither
+  confirms nor refutes whether Q45's mojibake dash is still present. Do not read the
+  absence of a match as the fault being fixed; the correct HTML text is decoded through
+  JS the fetch never runs. A page footer string was found in the same raw response
+  (Fishlock Pharmacy / Fishlock Chemist, see below), confirming that some but not all of
+  the page's visible content is present in the raw HTML - the dash paragraph specifically
+  falls outside that static portion.
+- Q91 footer misspelling ("Fishlock Pharmacy" / "Fishlock Chemist", dropping item 1.1's
+  standardised trailing s): reconfirmed present in the raw HTML response. Unchanged,
+  still open, still no repo-side fix available (hand-built Weebly footer, outside
+  anything this repo generates or checks).
+
+WORKLIST AND COMMIT
+AGENT_WORKLIST.md item 4.1 given a new "Quality pass 2026-09-04 (eleventh)" paragraph.
+New evidence file: this one. QUESTIONS.json unchanged (95 total, 42 open; no pickup
+available this run, no new question raised). Files changed: tools/check-app-membership.js
+(the fix), AGENT_WORKLIST.md, AGENT_LOG.md, this audits/ file.
+node tools\build-audit-status.js to be run immediately after commit, to publish the
+status page. .agent-lock to be deleted before exit.
+
+Next stalest by this run's own computation, for whoever runs the next unattended pass:
+3.2 (2026-09-03T11:11:07+01:00), then 3.5, then 3.7 - should be re-derived fresh using
+the per-item-most-recent-mention method above, not assumed.
