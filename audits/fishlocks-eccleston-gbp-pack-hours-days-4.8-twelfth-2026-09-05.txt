@@ -1,0 +1,113 @@
+Item 4.8 quality pass (twelfth), unattended scheduled run via Cowork, 2026-09-05
+Pack: gbp-packs/fishlocks-eccleston.md
+Branch: fishlocks_eccleston (Fishlocks Chemist Eccleston)
+
+PURPOSE
+Twelve prior dedicated passes on this pack (2026-08-04 through 2026-09-03,
+eleven quality passes) had proven, by injection against this pack's own
+copy: profile-basics presence, the reverse service/category widget rule
+(Q27), the foreign-town leak rule (Q64-adjacent fix, 2026-08-13), the
+CLINIC_QUALIFIERS Regime 1 wording rule (2026-08-14), the road-name
+abbreviation fix to the address-line and post-town rules (2026-09-02), the
+OUTCOME_PROMISE travel-clinic rule (2026-09-03, tenth pass), and
+check-brand-spelling.js / check-url-scheme.js / check-uk-spelling.js
+(2026-09-03, eleventh pass). None of the twelve had proven the
+"hours line names the right DAYS, not just the right times" rule in
+tools/check-gbp-packs.js (added item 4.1 quality pass, 2026-08-11) against
+this pack's own Hours line, despite that rule having already been proven on
+five sister packs this run cycle (4.3, 4.5, 4.13, and referenced against
+4.6's own sister rule work). This pass closes that gap for Fishlocks
+Chemist Eccleston.
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools status: empty.
+sha256(gbp-packs/fishlocks-eccleston.md) = 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+node tools/check-gbp-packs.js: 0 failures, 17 known warnings (unchanged
+estate-wide set, including this pack's own standing Q64 address/post-town
+KNOWN warning).
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0.
+
+DATA CONFIRMED (branches.json, fishlocks_eccleston.openingHours)
+specification: Monday-Friday 09:00-18:00, Saturday 09:00-12:00.
+closedDays: ["Sunday"].
+No lunch split (single unbroken weekday session), so the separate
+time/day-pairing (splitDay) rule has nothing to bind per day here, the same
+position item 4.13's eleventh pass recorded for Riddings Timperley.
+
+PACK'S OWN HOURS LINE (before any injection)
+"Monday to Friday 9:00am to 6:00pm, Saturday 9:00am to 12:00pm, Sunday closed"
+
+METHOD
+Backed up gbp-packs/fishlocks-eccleston.md to /tmp/rbh_48/fishlocks-eccleston.md.bak
+(sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa)
+before any edit. Three injections direct on the tracked file, each restored
+to the sha256-confirmed backup by byte copy (not git checkout) before the
+next round.
+
+ROUND 1 - claim Sunday open, reusing Saturday's own times (09:00/12:00,
+already in this branch's own weekday/Saturday time set) so the clock-time
+rule could not also fire and the day rule's own catch would stand alone.
+"Sunday closed" -> "Sunday 9:00am to 12:00pm".
+RESULT: CAUGHT. node tools/check-gbp-packs.js: exit 1, exactly one FAIL:
+"the hours line states the branch is open on Sunday, but branches.json
+opens it only on Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.
+A profile that publishes a day the shop is shut sends patients to a locked
+door". Restored; sha256 reconfirmed identical.
+
+ROUND 2 - drop Friday from the claim, every stated clock time left
+untouched and still correct. "Monday to Friday" -> "Monday to Thursday".
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json opens this branch
+on Friday, but the hours line does not state Friday as an open day, so the
+profile would be set from an incomplete picture and that day would be
+published wrong or left as Google has it". Restored; sha256 reconfirmed
+identical.
+
+ROUND 3 - delete "Sunday closed" entirely, leaving Sunday named on neither
+the open list nor the closed list.
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json holds Sunday as a
+closed day, but the hours line does not state Sunday as closed. GBP keeps
+whatever the profile already shows for a day the paster is not told about,
+so a closure the group has made never reaches the listing". Restored; sha256
+reconfirmed identical.
+
+Each round produced exactly one FAIL with no side-effect failures from the
+clock-time rule or any other rule sharing the same bullet, confirming all
+three legs of the day-presence rule fire independently on this pack, exactly
+as already proven on hirshmans-ainsdale.md (4.3), scorah-hazel-grove.md
+(4.5) and riddings-timperley.md (4.13).
+
+RESULT
+Zero in-repo defect. This pack's own Hours line was already stating every
+open and closed day correctly; now proven directly by injection across all
+three legs of the day-presence rule for the first time in this item's
+twelve-pass history.
+
+REGRESSION SWEEP
+File restored byte-identical after round 3, sha256 and diff both confirmed
+against the pre-injection backup. All 36 tools/check-*.js re-run
+individually: 36/36 exit 0. node tools/check-em-dashes.js: clean (public
+copy scan; build/code comments, paste-sheet headings and one runtime-notes
+dash all excluded as designed, none of them touched by this pass anyway).
+git status --porcelain -- gbp-packs modules core branches.json tools status:
+empty throughout and after. gbp-packs/ is not a generator input, so no
+build-*.js script was re-run and no generated page was touched.
+
+LIVE HALF
+Not performed. mcp__claude-in-chrome__list_connected_browsers returned an
+empty array before any repo work began - Chrome not connected, same as
+every recent run (standing Q59 cause). No alternative route attempted,
+nothing clicked, typed or submitted. Last confirmed live state remains the
+2026-09-01 seventh pass (landing page 404, known queued-paste state 5.3/5.4;
+Post B switch-page title still serving Weebly's default construction, same
+5.3/5.4 coverage; Post C weight loss booking block reading the CONSULT_FEE
+construction ahead of eligibility, raised as Q88, cross-referenced to Q83;
+Post D clean). No new live finding this pass.
+
+QUESTIONS
+No new question raised. QUESTIONS.json unchanged: 96 total, 43 open.
+Answer pickup unavailable this run (Chrome not connected, standing Q59).
+
+FILES CHANGED BY THIS PASS
+AGENT_WORKLIST.md (item 4.8 new paragraph), AGENT_LOG.md (new entry), this
+audit file. gbp-packs/fishlocks-eccleston.md, branches.json, tools/,
+modules/ and core/ all untouched (confirmed by git status throughout).

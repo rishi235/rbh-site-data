@@ -8055,6 +8055,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       open of 94 total (unchanged by this pass; answer pickup unavailable,
       Chrome not connected).
       See audits/fishlocks-eccleston-gbp-pack-brand-url-spelling-4.8-eleventh-2026-09-03.txt.
+      Quality pass 2026-09-05 (twelfth, unattended run): stalest item in the
+      36-item rotation pool, re-derived independently (git log commit
+      subjects matched by word-boundary "item N.N", most recent match per
+      pool item; 4.8 unique stalest at 2026-09-03T22:13:39+01:00, matching
+      the immediately preceding item 4.13 eleventh-pass entry's own forward
+      note). Repo half only, Claude in Chrome not connected so no live
+      re-check (Q59). Baseline: git status clean, all 36 checkers green,
+      sha256 of the pack confirmed against the eleventh pass's own hash. New
+      angle: twelve prior dedicated passes had never proven
+      check-gbp-packs.js's "hours line names the right DAYS, not just the
+      right times" rule (added item 4.1 quality pass, 2026-08-11) against
+      this pack's own Hours line, despite that rule already being proven
+      this run cycle on three sister packs (4.3, 4.5, 4.13). branches.json
+      confirms Monday-Friday 09:00-18:00, Saturday 09:00-12:00, Sunday
+      closed, no lunch split, so the separate splitDay time/day-pairing rule
+      has nothing to bind per day here, the same position 4.13's eleventh
+      pass recorded. Proved by three injections direct on the tracked file,
+      each restored to a sha256-backed copy before the next round: (1)
+      Sunday closed -> Sunday 9:00am to 12:00pm, reusing Saturday's own
+      times so the clock-time rule could not also fire - CAUGHT, exactly
+      one FAIL naming Sunday wrongly claimed open; (2) Monday to Friday ->
+      Monday to Thursday, every clock time left correct - CAUGHT, exactly
+      one FAIL naming Friday as a day branches.json opens that the line
+      fails to state; (3) "Sunday closed" deleted outright, Sunday named on
+      neither list - CAUGHT, exactly one FAIL naming Sunday as a closed day
+      the line fails to state. All three restored by byte copy and sha256
+      reconfirmed identical to the pre-injection backup after each round and
+      at the end. No checker gap found: all three legs of the day-presence
+      rule fire independently on this pack, exactly as already proven on
+      the three sister packs. No in-repo defect. Full 36-checker suite
+      re-run clean after the final restore (36/36 exit 0); check-em-dashes.js
+      clean; git status --porcelain -- gbp-packs modules core branches.json
+      tools status empty throughout and afterwards. This pack is not a
+      generator input, so no build script was re-run and no generated page
+      was touched. No new question. Open question count 43 open of 96 total
+      (unchanged by this pass; answer pickup unavailable, Chrome not
+      connected).
+      See audits/fishlocks-eccleston-gbp-pack-hours-days-4.8-twelfth-2026-09-05.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
