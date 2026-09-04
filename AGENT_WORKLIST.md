@@ -11702,6 +11702,69 @@ and the first to find one in the CODE rule rather than the entity rule.
       also deleted after use; the wider _agentscratch pile of untracked
       scratch files from many earlier runs was left alone, out of this
       item's scope.
+      Eighth quality pass, 2026-09-04 (unattended scheduled run). NO NEW
+      DEFECT FOUND. Live half not read this pass: Claude in Chrome reported
+      not connected, and the built-in browser pane required a new-site
+      approval for riddingspharmacy.co.uk with no user present in this
+      unattended session to grant it, so request_access was not called and
+      nothing was clicked, typed or submitted. The four 2026-08-14 findings
+      (Riddings switch permalink, Riddings /clinic-prices, Tiffenbergs
+      book-now.html) are not re-read and not re-claimed; Q53 and Q54 stay
+      open unchanged.
+      FRESH ANGLE: tools/check-service-links.js carries two "stop rather
+      than quietly weaken the rule" fail-safes that no prior 6.2 pass had
+      ever exercised (confirmed by grepping AGENT_WORKLIST.md for
+      "missingExtra", "missingJsCopy", "not present", "listed in
+      tools/extra-public-copy-files" and "listed in EXTRA_JS_COPY_FILES"
+      before starting: zero matches other than one unrelated line on item
+      4.2). A listed EXTRA_FILE (one of the six non-generated public-copy
+      files) or EXTRA_JS_COPY_FILE (service.js, switch.js) going missing is
+      meant to fail the run outright rather than silently narrowing RULE 2
+      and RULE 3 back down to PAGE_DIRS-only. Every prior pass proved what
+      the checker catches inside a file it reads; none proved the checker
+      notices when a file it is supposed to read has disappeared - the same
+      class of gap the seventh pass closed for the separate
+      unattributed-page fail-safe by injecting a disposed branch, applied
+      here to the two fail-safes that pass did not touch.
+      METHOD: audits/verify-6.2-2026-09-04-eighth.js (own script, invokes
+      the real checker as a child process, imports nothing from tools/
+      beyond the checker itself and its own extra-public-copy-files.js
+      list). Baseline confirmed clean (exit 0); working tree confirmed
+      clean via git status --porcelain first. Each of the eight listed
+      files renamed away one at a time with fs.renameSync (never deleted),
+      the real checker run as a child process, then the file renamed back
+      immediately and its restored bytes sha256-compared against a Buffer
+      read before the rename, before any assertion could leave the repo
+      mutated. RESULT: all eight caught first attempt - the six EXTRA_FILES
+      each failed with "file(s) listed in tools/extra-public-copy-files.js
+      but not present", naming the correct file, and both
+      EXTRA_JS_COPY_FILES failed with "file(s) listed in EXTRA_JS_COPY_FILES
+      but not present", naming the correct file - and all eight restored
+      byte-identical (sha256-confirmed) with the working tree clean
+      throughout. Both fail-safes work exactly as designed; zero in-repo
+      defect. Full 36-checker suite re-run individually after the probes:
+      36/36 exit 0. All six generators rebuilt: git status --porcelain --
+      modules core tools branches.json gbp-packs empty before and after,
+      byte-identical output confirmed. No checker logic, generator, page,
+      banner or data field changed in the tracked tree at any point. Output
+      saved to audits/verify-6.2-2026-09-04-eighth-output.txt.
+      Environment: mcp__workspace__bash (Cowork sandboxed Linux FUSE mount
+      of C:/dev/rbh-site-data) used for orientation, the lock, the
+      QUESTIONS.json read and the independent stalest-item computation (git
+      log matched per candidate against the standing 36-item rotation pool:
+      6.2 uniquely stalest at 2026-09-03T13:14:57+01:00, matching and
+      confirming the 3.13 eighth pass's own forward note). git fetch/pull
+      origin-https succeeded read-only and confirmed the mount level with
+      origin at bac9338 (the 3.13 eighth pass's own commit), no divergence;
+      git push is not possible from the sandbox mount (HTTPS has no cached
+      username, SSH fails host key verification - the standing Q87
+      diagnosis), so the verification script, this entry and the
+      commit/push were done via mcp__Windows-MCP__PowerShell and native
+      file tools against the canonical C:\Dev\rbh-site-data working copy,
+      the established route given Q87's unresolved sandbox-push blocker.
+      QUESTIONS.json re-read in full: 95 total, 42 open, no pickup
+      available this run (Claude in Chrome not connected), no new question
+      raised. .agent-lock deleted before exit.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

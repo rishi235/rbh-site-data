@@ -1,0 +1,66 @@
+=== verify-6.2-2026-09-04-eighth ===
+before any probe: git status --porcelain = ""
+Baseline run: exit 0
+
+PROBE: EXTRA_FILES missing (modules/switch/weebly.html)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 a5b0479807c36a58fbdb64cbb664905dfb67d3db269cde49e127e9bbb4326376): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_FILES missing (modules/emar/weebly)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 2f23a558ffc54fd9ec32e3497022753925f1cc9726f73b49caf9cb6cc1958272): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_FILES missing (modules/service/DRAFT-weight-loss-copy.html)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 aab52b1893d5aae9736697ead45cfe33fd40bdbec4dd20e0c76e2e987f5874d0): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_FILES missing (modules/service/DRAFT-travel-clinic-copy.html)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 6738c42387bd155f6da30cb554ccd8b54523ec6e08098711b055e3295be78f5d): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_FILES missing (modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 dd5fdcf06489f99f3a9190b5d1d4bfc064a16fbd83306d607096f4cece1ee88d): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_FILES missing (modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 9195c3ddf979387fcf64776dd3b5eee3975fcc2d7bf9da37a0afc8e20ea28d42): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_JS_COPY_FILES missing (modules/service/service.js)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 eb9c47212719f7d5592b42faf4083c7ac233085303373d0da4397ba9a3930d6a): true
+  RESULT: CAUGHT and restored cleanly
+
+PROBE: EXTRA_JS_COPY_FILES missing (modules/switch/switch.js)
+  exit code: 1 (expected 1)
+  message fragment present: true
+  filename named in output: true
+  restored byte-identical (sha256 3a1d7df1b5c52d8a388a6387cbfd4d2a50156b6efd62fe3087fa2dbcde312393): true
+  RESULT: CAUGHT and restored cleanly
+
+=== Final state ===
+Final check-service-links.js run: exit 0 (expected 0, matching baseline)
+after all probes and restores: git status --porcelain = ""
+
+SUMMARY: 8 caught and restored cleanly, 0 NOT caught or NOT restored, out of 8 files probed.
+VERIFY: PASS
