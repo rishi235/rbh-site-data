@@ -1,0 +1,114 @@
+Item 3.8 quality pass (eleventh), 2026-09-04 - SK Chemists Bootle
+Fresh angle: prove tools/check-branch-links.js against this item's own
+branches.json fields for the first time in its eleven-pass history.
+
+WHY THIS ANGLE
+Ten prior passes re-verified SK Bootle's 12 generated pages against
+branches.json repeatedly (NAP, JSON-LD, map embeds, postcode, SEO pattern,
+WhatsApp routing, app membership, switch-page copy), always zero defects.
+None of the ten ever named tools/check-branch-links.js, the checker that
+reads the link FIELDS in branches.json itself (odsCode, nhsEmail,
+nhsReviewUrl, googleReviewUrl, website, pfLink) rather than the pages those
+fields feed. SK Chemists Bootle has no same-host sister branch (unlike
+Fishlocks, McCanns and Scorah), so the checker's shared-domain pfLink
+ownership rule had only ever been exercised in its SAME-HOST form (item 2.1's
+original proof, item 3.6's eleventh pass on McCanns). The cross-host branch
+of that same rule - "It also sits off this branch's own host." - had never
+fired in this audit's history at all, confirmed by grep across
+AGENT_WORKLIST.md before writing anything.
+
+BASELINE
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0
+(one self-inflicted false alarm caught and cleared first: this run's own
+item-selection scratch file, _agentscratch/gitlog_items_run20260904b.txt,
+tripped check-postcodes.js on postcode-shaped substrings in historical
+commit-message text; truncated and renamed aside per the standing
+sandbox-mount convention, rm/unlink returns "Operation not permitted" on
+this mount, mv is the only tool that clears the literal filename). All six
+generators rebuilt: combined sha256 of every .html/.md/.js/.css/.txt under
+modules/ and core/, a57922b6354b5f4baada2b83aa8b375c9f54b00a9c457639faa5a1dee29e7088,
+identical before and after and matching the standing hash recorded by prior
+passes. git status --porcelain -- modules core branches.json empty
+throughout.
+
+PROOF BY INJECTION
+Three rounds on branches.json, each on a fresh restore rather than layered,
+backed up first (_agentscratch/branches.json.bak-pre-3.8-eleventh) and
+sha256-verified byte-identical before and after every round
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e). Restored
+by direct byte copy (cp), not by re-serialising the JSON, after the first
+round's injection was found to reformat an unrelated array
+(bankHolidays.dates2026) when written back via JSON.stringify - later
+rounds used direct string replacement on the exact field line to avoid this
+entirely.
+
+(1) PFLINK CROSS-HOST OWNERSHIP - skchemists_bootle.pfLink swapped from its
+own page to https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html,
+a real, live, .html-ending Pharmacy First page belonging to a DIFFERENT
+branch on a DIFFERENT host (chosen deliberately: unlike Smartts Bootle's own
+pfLink, which uses the legacy "pharmacy-first-service-<town>" naming that
+resolves to no branch and would not have tripped the ownership rule at all).
+CAUGHT, exit 1, two independent failures at once: the host-format rule
+("which is not on this branch's own site") and the ownership-resolution
+rule ("a Pharmacy First page belonging to riddings_timperley..., not to this
+branch... It also sits off this branch's own host.") - the first time the
+off-host branch of that message has fired in this audit's history.
+
+(2) GOOGLEREVIEWURL DUPLICATE - skchemists_bootle.googleReviewUrl
+overwritten with smartts_bootle's own value, the exact adjacent-branch pair
+CLAUDE.md names as the estate's highest-risk copy-paste adjacency (1.5
+miles apart, same town, same postcode prefix, directly beside each other in
+branches.json) - CAUGHT, exit 1: "is the same link as smartts_bootle, so a
+review meant for one branch would land on the other's listing."
+
+(3) NHSREVIEWURL TRUNCATED - skchemists_bootle.nhsReviewUrl shortened to
+drop /leave-a-review, the original Gordon Short Crosby fault (item 3.8's
+own originating finding, 2026-08-10) this checker exists to catch, applied
+to SK Bootle's own record for the first time - CAUGHT, exit 1: "Anything
+short of /leave-a-review lands the patient on the profile page instead of
+the review form."
+
+All three files restored and sha256-reconfirmed byte-identical to the
+pre-injection backup after each round. Full 36-checker suite re-run clean
+after the final restore (36/36 exit 0, check-branch-links.js's own one
+pre-existing warning - Clear Chemist Aintree's deliberate missing
+nhsReviewUrl - unrelated to this item). All six generators re-rebuilt,
+combined sha256 unchanged (a57922b6...). git status --porcelain -- modules
+core branches.json empty.
+
+RESULT
+No in-repo defect: SK Chemists Bootle's link fields were already correct on
+every rule, now proven directly by injection for the first time rather than
+left to keep being correct by construction alone.
+
+LIVE HALF
+Claude in Chrome confirmed not connected (list_connected_browsers returned
+an empty array), matching the standing Q59 diagnosis. Fell back to the
+established plain read-only GET route (curl, GET only, no interaction, no
+login). Network egress confirmed working first (google.com 200).
+
+- SK Bootle's own live pfLink page: HTTP 200, H1 "Pharmacy First at SK
+  Chemists in Bootle" - correct.
+- The cross-host injection target's live page (riddingspharmacy.co.uk):
+  HTTP 200, H1 "Pharmacy First at Riddings Pharmacy in Timperley" -
+  confirms it is a real, resolvable, different-branch page, exactly the
+  shape the injection needed to prove the ownership rule against.
+- SK Bootle's Google review link: HTTP 200 (redirects resolve).
+- SK Bootle's NHS review link (.../XFH575/leave-a-review): HTTP 410 (Gone),
+  both with and without a browser-shaped User-Agent header. NOT treated as
+  an SK-specific or in-repo defect: the identical /leave-a-review path for
+  mccanns_aigburth (confirmed correct on today's earlier 3.6 eleventh pass)
+  returns the same HTTP 410 under the same conditions, while the base NHS
+  profile page (without /leave-a-review) returns 200 for SK. This reads as
+  either an NHS.uk anti-bot response on that specific sub-path or a
+  site-wide URL-scheme change, not something curl alone can diagnose, and
+  not unique to this branch. Flagged here for whoever next has a working
+  browser session (Q59) to re-check with an actual click-through rather
+  than assumed as a repo defect; no question raised this pass since it is
+  not unique to item 3.8 and does not change any conclusion about
+  branches.json's own correctness (check-branch-links.js validates the URL
+  *shape*, not live reachability, and the shape is correct).
+
+No page, generator, pack or branches.json byte changed anywhere in the
+repo; only this evidence file and the AGENT_WORKLIST.md paragraph were
+added.

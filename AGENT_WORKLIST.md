@@ -3677,6 +3677,75 @@ Done 2026-09-04 (tenth pass).
       proved against this item's own files for the first time, on
       CLAUDE.md's own named highest-risk pair), and both guards held, live
       and in the repo. No checker logic changed. No question raised.
+      Quality pass 2026-09-04 (eleventh, unattended scheduled run via
+      Cowork). Taken because all 8 unchecked AGENT_WORKLIST.md lines
+      confirmed [BLOCKED] by direct grep; item-selection method unchanged
+      (most recent commit-subject mention per item across the standing
+      37-item rotation pool, stalest wins, re-derived fresh via a Python
+      script). 3.8 was uniquely stalest, last touched 2026-09-03T18:11:39+01:00
+      (its own tenth pass). Answer pickup (step 3): list_connected_browsers
+      returned an empty array, matching the standing Q59 diagnosis; logged
+      as unavailable, not retried by another route. No autonomous-window
+      heading present at the top of AGENT_LOG.md, so moot regardless.
+      FRESH ANGLE. Ten prior passes re-verified this item's 12 pages
+      against branches.json repeatedly but never named
+      tools/check-branch-links.js, the checker that reads the link FIELDS
+      in branches.json itself (odsCode, nhsEmail, nhsReviewUrl,
+      googleReviewUrl, website, pfLink) rather than the pages those fields
+      feed. SK Chemists Bootle has no same-host sister branch, so this
+      pass exercised the checker's cross-host pfLink ownership branch
+      ("It also sits off this branch's own host") for the first time in
+      the audit's history, alongside two field-format rules on SK's own
+      record for the first time.
+      BASELINE. All 36 checkers pass before any change (one self-inflicted
+      false alarm cleared first: this run's own item-selection scratch
+      file tripped check-postcodes.js on postcode-shaped commit-message
+      text; truncated and renamed aside per the standing sandbox no-unlink
+      convention). All six generators rebuilt, combined sha256 of
+      modules/+core/ identical before and after
+      (a57922b6354b5f4baada2b83aa8b375c9f54b00a9c457639faa5a1dee29e7088).
+      PROOF BY INJECTION, three rounds on branches.json, each on a fresh
+      restore, sha256-verified byte-identical before and after
+      (904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e).
+      (1) PFLINK CROSS-HOST - skchemists_bootle.pfLink swapped to Riddings
+      Pharmacy Timperley's own real, live, .html pfLink page on a
+      different host (chosen because Smartts Bootle's own pfLink uses the
+      legacy naming that resolves to no branch and would not have tripped
+      the rule) - CAUGHT, exit 1, two failures at once: the host-format
+      rule and the ownership rule, the latter firing its off-host message
+      for the first time in this audit's history. (2) GOOGLEREVIEWURL
+      DUPLICATE - overwritten with Smartts Bootle's own value, the exact
+      adjacent-branch pair CLAUDE.md names as the estate's highest-risk
+      copy-paste adjacency - CAUGHT, exit 1: "the same link as
+      smartts_bootle". (3) NHSREVIEWURL TRUNCATED - shortened to drop
+      /leave-a-review, the original Gordon Short Crosby fault this checker
+      exists to catch, applied to SK Bootle's own record for the first
+      time - CAUGHT, exit 1. All three restored by byte copy (not
+      re-serialised JSON, which was found on round 1 to reformat an
+      unrelated array) and sha256-reconfirmed identical. Full 36-checker
+      suite and all six generators re-run clean after the final restore;
+      git status --porcelain -- modules core branches.json empty.
+      RESULT. Zero in-repo defect: SK Chemists Bootle's link fields were
+      already correct on every rule, now proven directly by injection for
+      the first time rather than left to keep being correct by
+      construction alone.
+      LIVE HALF. Claude in Chrome not connected; fell back to the
+      established plain read-only GET route (curl). SK Bootle's own live
+      pfLink page: HTTP 200, correct H1. The cross-host injection target's
+      live page: HTTP 200, confirming it is a real different-branch page.
+      Google review link: HTTP 200. NHS review link
+      (.../XFH575/leave-a-review): HTTP 410 both with and without a
+      browser User-Agent - NOT read as an SK-specific or in-repo defect,
+      since the identical /leave-a-review path for mccanns_aigburth
+      (confirmed correct on today's earlier 3.6 eleventh pass) returns the
+      same 410 under the same conditions, while SK's base NHS profile page
+      returns 200. Reads as an estate-wide NHS.uk anti-bot response or
+      URL-scheme change, not diagnosable by curl alone and not unique to
+      this branch; flagged for whoever next has a working browser session
+      (Q59) rather than assumed as a defect. check-branch-links.js
+      validates the URL shape, not live reachability, and the shape is
+      correct. No new question raised. Evidence in
+      audits/verify-3.8-2026-09-04-eleventh.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
