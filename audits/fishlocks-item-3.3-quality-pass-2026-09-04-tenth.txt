@@ -1,0 +1,77 @@
+Item 3.3 quality pass (tenth), 2026-09-04
+Fishlocks Chemist (Ainsdale and Eccleston)
+
+PURPOSE
+Nine prior passes (2026-08-04 to 2026-09-03) proved check-seo-pattern.js,
+check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js and
+check-app-membership.js against this item's own 26 pages by injection. The
+standing trio check-brand-spelling.js, check-uk-spelling.js and
+check-url-scheme.js had been proven repeatedly against sister GBP packs
+(the 4.x item lineage) but never individually against Fishlocks' own
+GENERATED PAGES specifically, the same fresh-angle gap the Cherry Lane 2.3
+tenth pass closed the same day for its item. This pass closes it for 3.3.
+
+BASELINE
+All 36 tools/check-*.js run individually on the canonical C:\Dev\rbh-site-data
+working copy: 36/36 exit 0. git status --porcelain -- modules tools core
+branches.json status: empty, before and after this pass's work.
+
+METHOD
+Full repo (.git included) copied to a scratch directory outside the tracked
+tree (C:\Windows\Temp\audit_run_33_<timestamp>). check-brand-spelling.js,
+check-uk-spelling.js and check-url-scheme.js re-run clean on the scratch copy
+before any edit. Three injections run one at a time against the scratch copy
+only, each restored from a saved .orig byte copy and sha256-reconfirmed
+identical before the next.
+
+INJECTION 1 - brand spelling. "Fishlocks Chemist" -> "Fishlock Chemist"
+(trailing s dropped) throughout modules/service/pages/pharmacy-first-
+fishlocks-ainsdale.html (11 occurrences). CAUGHT: check-brand-spelling.js
+exit 1, 12 failures (one line carries two matches), every failure naming the
+correct canonical trading name "Fishlocks Chemist". Restored by byte copy;
+sha256 matched the pre-injection file exactly; check-brand-spelling.js
+re-run clean (exit 0).
+
+INJECTION 2 - url scheme. The https://fonts.googleapis.com/css2 stylesheet
+link on modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html
+downgraded to http://. CAUGHT: check-url-scheme.js exit 1, FAIL naming the
+page and the full insecure URL, correctly identified as a published-surface
+breach linked to item 6.6. (Pre-existing WARN-level noise from unrelated
+scratch debris left in the tracked working tree by an earlier run -
+_agentscratch/live312/*.html and qtmp.json - was also visible in this run's
+output; these are warnings, not failures, are not part of Fishlocks' own
+pages, and are outside this item's scope, so were left untouched.) Restored
+by byte copy; sha256 matched exactly; check-url-scheme.js re-run clean
+(exit 0, only the same pre-existing unrelated warnings).
+
+INJECTION 3 - UK spelling. "not a call centre" -> "not a call center" on
+modules/service/pages/weight-loss-clinic-fishlocks-eccleston.html (the
+address-field "Carrington Centre" occurrences were left untouched to keep
+the injection isolated to the trust-bar sentence). CAUGHT:
+check-uk-spelling.js exit 1, FAIL naming line 53, "reads center. UK English
+is centre". Restored by byte copy; sha256 matched exactly; check-uk-
+spelling.js re-run clean (exit 0).
+
+RESULT
+No in-repo defect found. All three .orig backup files removed. Full 36-
+checker suite re-run on the scratch copy after the final restore: 36/36
+exit 0. Scratch directory deleted in full after use. Canonical working copy
+untouched throughout (git status --porcelain empty before, during and
+after).
+
+LIVE HALF
+Claude in Chrome unreachable this run (checked at step 3 for answer pickup,
+reconfirmed here - "Claude in Chrome is not connected", not a login/Access
+wall). Fell back to a status-code-only Invoke-WebRequest check (no page
+content visible by this method): all four Fishlocks URLs return 200 -
+https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html,
+.../switch-prescriptions-fishlocks-ainsdale.html,
+.../uti-treatment-fishlocks-eccleston.html,
+.../switch-prescriptions-fishlocks-eccleston.html. No page content read;
+the standing Q37 footer-widget finding (singular "Fishlock Pharmacy"/
+"Fishlock Chemist" branding, abbreviated "17 Station Rd") from the eighth
+pass was not re-verified this run for lack of a working browser session.
+
+QUESTIONS
+None raised. No new defect, no live-only finding beyond the already-tracked
+Q37 set (not independently re-observed this pass, see LIVE HALF above).

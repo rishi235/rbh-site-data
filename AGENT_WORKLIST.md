@@ -1685,6 +1685,38 @@ No new question raised.
       the page being absent, worth a follow-up with a working browser
       session. Evidence in
       audits/fishlocks-item-3.3-quality-pass-2026-09-03-ninth.txt.
+      Quality pass 2026-09-04 (tenth): clean on both halves, no repo
+      defect, no new question. All 36 checkers green before and after.
+      git status --porcelain -- modules tools core branches.json status
+      empty throughout. THE FRESH ANGLE: nine prior passes had proved
+      check-seo-pattern.js, check-seo-sheets.js, check-jsonld.js,
+      check-seo-keywords.js and check-app-membership.js against this
+      item's own 26 pages by injection, but the standing trio check-
+      brand-spelling.js, check-uk-spelling.js and check-url-scheme.js had
+      only ever been proven against sister GBP packs (the 4.x item
+      lineage), never against Fishlocks' own generated PAGES specifically
+      - the same gap shape the Cherry Lane 2.3 tenth pass closed for its
+      own item the same day. Three injections run against a full scratch
+      copy (.git included), one at a time, each restored by byte copy and
+      sha256-reconfirmed before the next: brand spelling ("Fishlocks
+      Chemist" to "Fishlock Chemist", 11 occurrences, the pharmacy-first
+      page) CAUGHT, 12 failures, correct canonical name named; url scheme
+      (the fonts.googleapis.com stylesheet link on the switch page
+      downgraded to http://) CAUGHT, exit 1, published-surface breach
+      named and linked to item 6.6; UK spelling ("not a call centre" to
+      "not a call center" on the weight loss page, the address-field
+      "Carrington Centre" occurrences left untouched to keep the
+      injection isolated) CAUGHT, correct UK form named. All three
+      restores sha256-confirmed byte-identical to baseline; full 36-
+      checker suite re-run clean after the final restore. No in-repo
+      defect found; all three rules already correctly protect Fishlocks'
+      own pages, this proves it directly rather than only by general
+      design and by proof against sister packs. LIVE HALF: Claude in
+      Chrome unreachable this run (standing Q59), fell back to a status-
+      code-only check: both UTI pages and both switch pages return 200 on
+      www.fishlockpharmacy.co.uk. No page content read by this method, so
+      the standing Q37 footer set was not re-verified this pass. Evidence
+      in audits/fishlocks-item-3.3-quality-pass-2026-09-04-tenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
