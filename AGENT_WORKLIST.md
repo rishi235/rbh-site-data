@@ -8360,6 +8360,79 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       question. Evidence in
       audits/verify-4.11-2026-09-03-tenth.js and
       audits/verify-4.11-2026-09-03-tenth-output.txt.
+      Eleventh quality pass 2026-09-04 (unattended scheduled run, rotation-
+      pool pick, stalest item last mentioned 2026-09-03T16:11:03+01:00, the
+      tenth pass itself): all branches.json facts re-matched field by field
+      (address, phone, hours, website, review link, serviceAreaList, hasApp,
+      pfLink, widgets), no drift. All 36 checkers exit 0. All six generators
+      rebuilt; git status --porcelain on modules/, core/, tools/,
+      branches.json and gbp-packs/ empty before and after, confirming
+      byte-identical regeneration.
+      Fresh angle: ten prior passes had injection-tested this pack's phone,
+      postcode, Post C link, hours line, UTI cohort, the rule 11 age
+      qualifier and the CLINIC_QUALIFIERS/BODY_IMAGE/OUTCOME_PROMISE/
+      POM_CLASS rule families, but never CATEGORY_RULES, SERVICE_RULES, the
+      services and categories vocabulary allowlists, or the photo shot list
+      rules against this pack's own text - all six proven elsewhere in the
+      estate (the vocabulary allowlist against scorah-bramhall.md on the
+      item 4.4 pass; the photo shot list rules against mccanns-sandringham.md
+      on the item 4.3 pass) but never against SK Chemists Bootle's own pack.
+      Confirmed via branches.json that this branch earns all five service
+      widgets and both applicable category rules (pharmacyFirst,
+      bloodPressure, contraception, weightLoss, travelClinic all present),
+      so the reverse "not earned" half of CATEGORY_RULES and SERVICE_RULES
+      cannot be exercised against this branch without editing branches.json
+      itself, which is out of scope for an injection test; the omission
+      (forward) half of both, plus the two vocabulary allowlists and two
+      photo shot list rules, were the six genuinely testable gaps and all
+      six were targeted.
+      New instrument written fresh (audits/verify-4.11-2026-09-04-eleventh.js,
+      invokes the real checker as a child process only, no import from
+      tools/): refuses to run if the target already carries a git diff,
+      restores by direct byte write from an in-memory Buffer immediately
+      after capturing the checker's output and before any assertion,
+      sha256-confirms byte-identical before the round, after each individual
+      restoration, and again at the end. Baseline check-gbp-packs.js
+      confirmed clean before any mutation. Six injections in turn, each
+      applied to a freshly restored copy rather than layered on the
+      previous one: (1) CATEGORY_RULES omission - "Travel clinic" deleted
+      from section 2's add-if-not-present line - CAUGHT, exit 1, "does not
+      list \"Travel clinic\""; (2) SERVICE_RULES omission - the NHS
+      contraception service bullet deleted from section 3 - CAUGHT, exit 1,
+      "does not list \"NHS contraception service\""; (3) services vocabulary
+      allowlist - a fabricated "Ear wax removal: microsuction ear wax
+      removal by appointment." bullet added to section 3, the same wording
+      proven against scorah-bramhall.md on the item 4.4 pass but never
+      against this pack - CAUGHT, exit 1, "not a service any pack in this
+      repo uses"; (4) categories vocabulary allowlist - a fabricated
+      "Dental clinic" category added to section 2 - CAUGHT, exit 1, "not a
+      category any pack in this repo uses"; (5) photo shot list count - one
+      of the ten shot-list bullets deleted, dropping the count to 9, on a
+      pack that (per CLAUDE.md's own note) sits exactly on the PHOTO_MIN=10
+      floor with no headroom - CAUGHT, exit 1, "names 9 shots"; (6) photo
+      shot list vinyl mention - "Vinyl" reworded out of the first bullet -
+      CAUGHT, exit 1, "does not mention the vinyl storefront". All six
+      caught on the first run; the full harness re-run a second time end to
+      end, identical results both times. File sha256-confirmed byte-identical
+      to the committed original after each restoration and again at the end
+      (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      matching git show HEAD throughout both rounds). Full 36-checker suite
+      re-run clean after the round (36/36); all six generators re-run,
+      git status --porcelain -- modules core empty before and after.
+      RESULT: no in-repo defect. check-gbp-packs.js was already correctly
+      holding this pack to all six rules tested, now proven directly by
+      injection for the first time in this item's eleven-pass history. No
+      checker logic, pack copy, page, generator or data field changed
+      anywhere in the repo.
+      LIVE HALF: not attempted this pass. Claude in Chrome confirmed not
+      connected (list_connected_browsers returned an empty array) before
+      any repo work began. The tenth pass's own unread live findings
+      (Q34 already answered and applied; switch-page paste-lag em dash and
+      weight-loss-clinic.html's item 5.8/Q58 regulatory exposure, both
+      unchanged as of the sixth pass's last live check) stand unverified
+      for a further pass rather than re-claimed. Q58, Q80 and Q81 re-read
+      from QUESTIONS.json, all still open, unchanged. No new defect, no new
+      question. Evidence in audits/verify-4.11-2026-09-04-eleventh.js.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
