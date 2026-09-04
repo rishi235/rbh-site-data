@@ -3861,6 +3861,110 @@ Done 2026-09-04 (tenth pass).
       (2026-09-02T19:40:46+01:00), then 2.1, 5.2, 4.11, 5.1, 3.12, 3.6, 3.8 -
       but should be re-derived fresh rather than assumed, since other runs
       may land in between.
+
+      Quality pass 2026-09-04 (tenth machine-era pass, unattended run).
+      BOTH HALVES - first successful live read on this item since the
+      2026-08-31 sixth pass (four consecutive passes in between found
+      Claude in Chrome not connected and stopped there). Picked by the
+      standing rotation-pool method: all 8 unchecked AGENT_WORKLIST.md
+      lines confirmed [BLOCKED] by direct grep, so the quality-pass
+      fallback applied; a fresh git-log-match derivation over the
+      36-item rotation pool gave 3.9 as stalest (last touched
+      2026-09-03T14:12:16+01:00), independently reproducing the forward
+      note both the ninth pass and the same-day 3.4 eleventh pass left.
+      All 36 tools/check-*.js run individually before any change: 36/36
+      pass. All six generators rebuilt; git status --porcelain modules/
+      core/ empty before and after.
+
+      Fresh angle (repo half): tools/check-branch-identity.js had never
+      been proven by injection against Coleman and Leighs' own pages in
+      nine prior passes (confirmed by grepping this item's own section
+      before starting - zero mentions of check-branch-identity or
+      check-jsonld). Notable given the checker's own file header cites
+      the real 2026-08-12 Cherry Lane defect (a Pharmacy First tile
+      repointed at "Coleman and Leighs' equivalent page") as the reason
+      RULE SERVICELINK exists, yet the checker had never been tested the
+      other way round, against this branch's own pages. Adapted the
+      same-day Cherry Lane eleventh pass's proven template. Wrote
+      audits/verify-3.9-2026-09-04-tenth.js, sharing no code with tools/
+      or any prior verify-3.9-*.js. Five injections, one target file
+      each (AMBIGUOUS and SISTERLINK skipped as structurally
+      inapplicable: this branch shares no brandLabel or website host
+      with a sister branch): (1) RULE IDENTITY - data-branch emptied on
+      contraception-coleman-leigh-walton.html, CAUGHT; (2) RULE OWNER -
+      data-branch swapped to "Smartts Chemist" on earache-treatment-
+      coleman-leigh-walton.html, CAUGHT, both the specific-page message
+      and the cross-check that the branch now declared two different
+      data-branch values; (3) RULE SCHEMANAME - JSON-LD name swapped to
+      "Smartts Chemist" on sore-throat-treatment-coleman-leigh-walton.html,
+      CAUGHT, same two-values cross-check; (4) RULE OUTBOUND - the Google
+      review link on shingles-treatment-coleman-leigh-walton.html
+      swapped for Smartts Chemist's, CAUGHT, "a patient following it
+      rates the wrong shop"; (5) RULE SERVICELINK - the shingles
+      condition tile on pharmacy-first-coleman-leigh-walton.html
+      repointed at Smartts' equivalent page (cross-host, the same shape
+      as the real 2026-08-12 defect), CAUGHT, "so it 404s and the
+      service route is dead". All five caught first attempt with the
+      expected message, all five files restored byte-identical
+      (sha256-reconfirmed) before the next probe. One process correction
+      before trusting the round: the first version of the IDENTITY and
+      OWNER mutators used a regex assuming a line-wrap inside the
+      data-branch attribute value that terminal display had suggested
+      but the file does not actually contain; caught by the script's own
+      "mutator found no match, refusing to report a false pass" guard
+      rather than producing a false catch, fixed by switching to a plain
+      string match. Final checker re-run after all restores: exit 0.
+      Full 36-checker suite re-run individually after the round: 36/36
+      exit 0. Zero in-repo defect - check-branch-identity.js was already
+      correctly holding this branch to all five applicable rules, now
+      proven directly by injection for the first time in ten passes.
+      Evidence in audits/verify-3.9-2026-09-04-tenth.js and its output
+      file.
+
+      Live half. Claude in Chrome reported not connected (fifth
+      consecutive pass); the built-in Claude Browser pane was tried this
+      time rather than skipped, and requires a one-time site approval
+      that no user is present in this unattended session to grant
+      (request_access would have blocked on a human who is not there,
+      so it was not called, consistent with the standing browser-read-
+      only rule). Fell back to a read-only PowerShell Invoke-WebRequest
+      sweep instead of leaving the live half unread for a fifth
+      consecutive pass, the same substitution the same-day 3.4 eleventh
+      pass used. This reconfirmed all three standing findings first
+      recorded on 2026-08-31, unconfirmed for the four passes since: the
+      visible body of the homepage still carries both "Coleman & Leigh
+      Pharmacy" (wrong) and "Coleman and Leighs Pharmacy" (correct) side
+      by side; pfLink (pharmacy-first-service-walton.html) still returns
+      404; and the live switch page (switch-prescriptions-coleman-leigh-
+      walton.html) still carries a mojibake rendering of an em dash in
+      "it usually is not [mojibake] we make the first step", which the
+      repo's own generated copy does not contain. Also reconfirmed: the
+      standing Q22 homepage weight loss line ("Innovative solutions that
+      deliver results...Now try the best") is still live, unchanged. One
+      addition to the standing record, not previously logged by any
+      prior pass on this item: the homepage's own og:site_name meta tag
+      reads "COLEMANS & LEIGHS PHARMACY", a third brand variant distinct
+      from both the correct trading name and the "Coleman & Leigh" seen
+      in the header/footer (added s on Coleman, ampersand, all caps).
+      Low visibility (surfaces only in social-share link previews, not
+      to a browsing patient) so not raised as a new question, but noted
+      here as a more complete picture of how many divergent forms the
+      pre-rename paste left behind on this one domain. No repo action
+      possible on any of this - it is standing evidence that the live
+      Weebly site has not been repasted since the 2026-08-04 rename and
+      the em-dash cleanup, not something this repo's tooling can reach.
+      No new question raised; all findings were already recorded and
+      this pass is reconfirmation, now via a route that works even when
+      Claude in Chrome is unavailable.
+
+      QUESTIONS.json re-read before and after: 95 total, 42 open,
+      unchanged; no question specific to item 3.9 is open. Done 2026-09-04
+
+      Next stalest by this run's own computation, for whoever runs the
+      next unattended pass: 3.10 (2026-09-03T14:43:36+01:00), then 2.1
+      (15:12:13), then 5.2 (15:40:58), then 4.11 (16:11:03) - should be
+      re-derived fresh using the per-item-most-recent-mention method
+      above, not assumed.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

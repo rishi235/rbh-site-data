@@ -1,0 +1,14 @@
+﻿BASELINE: exit 0 (expect 0)
+RULE IDENTITY injection (empty data-branch on contraception page): exit 1, caught=true
+  ->   FAIL  modules/service/pages/contraception-coleman-leigh-walton.html carries a module root but no data-branch, so an enquiry from it is labelled "our pharmacy"
+RULE OWNER injection (data-branch swapped to Smartts Chemist on earache page): exit 1, caught=true
+  ->   FAIL  modules/service/pages/earache-treatment-coleman-leigh-walton.html: data-branch="Smartts Chemist" but the page belongs to colemanleigh_liverpool ("Coleman and Leighs Pharmacy") - that is smartts_bootle's name, so an enquiry from this page is filed against the wrong pharmacy |   FAIL  colemanleigh_liverpool: its pages declare 2 different values for data-branch ("Coleman and Leighs Pharmacy" on 11 page(s), "Smartts Chemist" on 1 page(s)), so one branch presents itself as more than one business depending on which generator built the page
+RULE SCHEMANAME injection (JSON-LD name swapped to Smartts Chemist on sore-throat page): exit 1, caught=true
+  ->   FAIL  modules/service/pages/sore-throat-treatment-coleman-leigh-walton.html: JSON-LD name "Smartts Chemist" but the page belongs to colemanleigh_liverpool ("Coleman and Leighs Pharmacy") - that is smartts_bootle's name, so Google is told this address belongs to another pharmacy |   FAIL  colemanleigh_liverpool: its pages declare 2 different values for JSON-LD name ("Coleman and Leighs Pharmacy" on 11 page(s), "Smartts Chemist" on 1 page(s)), so one branch presents itself as more than one business depending on which generator built the page
+RULE OUTBOUND injection (Google review link swapped to Smartts Chemist's on shingles page): exit 1, caught=true
+  ->   198 review link(s), 6 branch landing link(s) and 238 service page link(s) read on those pages |   FAIL  modules/service/pages/shingles-treatment-coleman-leigh-walton.html: publishes the Google review link "https://g.page/r/CVzJUbDqQwReEBM/review", which belongs to smartts_bootle ("Smartts Chemist"), but the page belongs to colemanleigh_liverpool ("Coleman and Leighs Pharmacy"). A patient following it rates the wrong shop, on a third-party profile neither this repo nor a repaste can move the review back off
+RULE SERVICELINK injection (shingles tile on PF overview repointed at Smartts' equivalent page): exit 1, caught=true
+  ->   FAIL  modules/service/pages/pharmacy-first-coleman-leigh-walton.html: links to "shingles-treatment-smartts-bootle.html", a service page belonging to smartts_bootle ("Smartts Chemist"), but the page belongs to colemanleigh_liverpool ("Coleman and Leighs Pharmacy"). smartts_bootle is served from www.smarttschemist.co.uk and the link is relative, so it 404s and the service route is dead.
+ALL FILES BYTE-IDENTICAL AFTER RESTORE: true
+FINAL checker re-run after all restores: exit 0 (expect 0)
+RESULT: allCaught=true, allRestored=true, finalClean=true
