@@ -1,0 +1,141 @@
+Item 1.2 quality pass (eleventh), 2026-09-04, unattended scheduled run via Cowork
+Hirshmans Chemist Ainsdale - address verification
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the two under
+Q60, 6.6) confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+applied. Stalest item independently re-derived via
+`git log --pretty=format:"%cI|||%s"`, matched with a regex anchored to
+"|||Item <n> " (equivalent to "Item <n> " at the start of the commit subject).
+Result: 1.2 uniquely stalest at 2026-09-03T09:12:44+01:00, ahead of 3.11
+(09:41:52), 4.4 (10:13:50), 4.1 (10:39:18) and the rest of the pool - matching
+the forward note left by the item 4.14 eleventh pass earlier the same
+sequence of runs.
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json status
+empty on the canonical working copy at the start. All 36 tools/check-*.js run
+individually: 36/36 exit 0. Baseline SHA256 of gbp-packs/hirshmans-ainsdale.md:
+215430CDDA8317622B471BC59A34C4E46282283735CCA40D6F85FC58D051927B.
+
+FRESH ANGLE AND METHOD
+This item's full ten-pass history (2026-08-04 to 2026-09-03) read before
+choosing where to look. check-nap.js, check-postcodes.js, check-gbp-packs.js
+(day rule, phone, street, postcode, brand-spelling text, url-scheme text),
+check-jsonld.js, check-map-embeds.js, check-brand-spelling.js and
+check-url-scheme.js (both against the pack) and check-uk-spelling.js had all
+been proven against this branch's own surfaces by injection across the ten
+prior passes. check-pharmacy-first-cost.js rule 6 (the positive free claim)
+and check-app-membership.js rule 8a (the pack copy against the hasApp field)
+had not - both exist since mid-August, both read every pack including this
+one, and both had only ever covered Hirshmans passively via the full-suite
+pass, the same gap shape closed for Gordon Short Crosby, McCanns Sandringham
+and Cherry Lane Walton earlier this same sequence of runs.
+
+Full repo (.git included) copied to a disposable scratch directory outside
+the tracked tree (C:\Windows\Temp\audit_run_hir_20260904). Scratch copy's
+gbp-packs/hirshmans-ainsdale.md SHA256-confirmed identical to the tracked
+copy before any edit; both target checkers re-run clean there first.
+
+INJECTION 1, check-pharmacy-first-cost.js rule 6 (the positive free claim):
+"free" stripped from the three sentences naming Pharmacy First itself in
+gbp-packs/hirshmans-ainsdale.md - the business description ("Under the free
+NHS Pharmacy First service"), the Services section ("NHS Pharmacy First:
+free NHS assessment") and Post A ("Pharmacy First is a free NHS service").
+File uses bare LF line endings throughout (confirmed by byte inspection, 0
+CRLF); a Node.js script with literal-string replacement was used rather than
+a line-wrap-sensitive pattern, since all three target strings sit on a single
+physical line each. All three changed on the first attempt.
+CAUGHT: check-pharmacy-first-cost.js exit 1, rule "free", naming
+gbp-packs/hirshmans-ainsdale.md and explaining the GBP-profile stakes.
+
+INJECTION 2, check-app-membership.js rule 8a (public copy against the field):
+a new bullet, "Manage your prescriptions on the go with our free app.",
+inserted into the Services section (hirshmans_ainsdale confirmed hasApp:
+false in branches.json). Rule 8d (the paster-note-vs-pack contradiction) was
+not testable on this pack: unlike Gordon Short Crosby, this pack's Notes for
+the paster section does not carry the exact phrase "No app mention anywhere
+in this pack" that rule 8d checks for, confirmed by direct read before
+attempting the injection.
+CAUGHT: check-app-membership.js exit 1, rule "gbp packs", naming
+gbp-packs/hirshmans-ainsdale.md and hirshmans_ainsdale, correctly identifying
+the app claim as inconsistent with hasApp false.
+
+Both restores done by copying the pre-injection file back over the scratch
+copy and SHA256-reconfirming 215430CDDA8317622B471BC59A34C4E46282283735CCA
+40D6F85FC58D051927B before continuing, plus a clean re-run of the OTHER
+target checker each time so neither restore was assumed. Full 36-checker
+suite re-run on the scratch copy after the final restore: 36/36 exit 0. No
+checker logic edited, no pack content byte changed in the scratch tree's
+final state.
+
+No in-repo defect found by either injection - both checkers already
+correctly guard this pack; this proves it directly for the first time rather
+than by passive coverage via the full-suite pass alone.
+
+LIVE HALF
+Claude in Chrome not connected this run (mcp__claude-in-chrome__tabs_context_mcp,
+checked once at answer pickup, step 3). Logged as unavailable per the
+unattended-run rule; no alternative route attempted, nothing clicked, typed
+or submitted. Fell back to a read-only PowerShell Invoke-WebRequest sweep
+against hirshmanspharmacy.co.uk, matching the established fallback method.
+
+sitemap.xml: 200, lastmod unchanged at 2026-08-14T16:09:17+00:00 across every
+URL, confirming no publish on this site since the sixth pass first recorded
+this timestamp on 2026-08-30.
+
+contact-us.html: 200. Address exact - "56-62 Sherwood House, Station Road,
+Ainsdale, PR8 3HW" appears in the visible contact block and in JSON-LD, no
+"PR8 3HN" (Fishlocks Ainsdale's postcode) anywhere on the page. Branding
+exact - "Hirshmans Chemist" x6, zero "Hirshmans Pharmacy" or "Hirshman"
+near-misses on this page.
+
+pharmacy-first-hirshmans-ainsdale.html (the generated replacement page Post A
+should point at): 200. Phone "01704 577376" / "01704577376" both present and
+correct, address exact including PR8 3HW, branding "Hirshmans Chemist" x21,
+zero near-misses. Reconfirms the pack's own claim that this page is "already
+live and correct".
+
+pharmacy-first-service-ainsdale.html (the OLD hand-built page the pack's HARD
+STOP note names, Post A must not point at it): 200. SIGNIFICANT LIVE-STATE
+CHANGE from the note's last-checked date (2026-08-12): the phone number
+017014577376 (does not dial) is still present, and "Hirshmans Pharmacy"
+still appears 9 times against 6 correct "Hirshmans Chemist" mentions on the
+same page, so two of the note's three original faults are unchanged. The
+third, the street address, is NOT unchanged: the page now reads "56-62
+Sherwood House, Station Road, Ainsdale, PR8 3HW" throughout (three
+occurrences checked: visible text, a second visible mention, and JSON-LD),
+with no "64 Station Road" anywhere. This address fault has evidently been
+corrected on the live page at some point between 2026-08-12 and today without
+any change to this repo (which cannot write to that page; it is the old
+hand-built one the group is trying to retire, not a generated one).
+
+FIX APPLIED
+The pack's HARD STOP note repeated the stale claim, so it was corrected in
+place to state current live fact rather than 2026-08-12's fact: the address
+fault is recorded as fixed (with today's re-verified correct string quoted),
+the two still-open faults (phone, branding) are kept and re-dated, and the
+note now says explicitly that either fault alone is sufficient to keep the
+HARD STOP in force, so a reader does not need all three to still hold for the
+recommendation to stand. The underlying recommendation is unchanged: do not
+post Post A with the current link, the repoint decision is still Q8/Q34, item
+5.3. This is a narrative-accuracy fix to a hand-authored pack file, not a
+generated-output edit, so no regeneration was needed or performed.
+
+Verified after editing: all 36 checkers exit 0 (check-brand-spelling.js's
+quoted-evidence exemption correctly treats the two "Hirshmans Pharmacy" and
+one "Hirshmans Chemist" quotations in the edited note as evidence, not a
+claim, matching the convention already used elsewhere in this and sibling
+packs), git diff confined to the one paragraph inside
+gbp-packs/hirshmans-ainsdale.md, zero non-ASCII characters in the new text,
+git status --porcelain -- gbp-packs modules tools core branches.json status
+empty except for the one intended file.
+
+No new question raised (the Q8/Q34 repoint decision this note supports was
+already open and is unchanged by this correction). No worklist item blocked
+or unblocked.
+
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.11 (2026-09-03T09:41:52+01:00), then 4.4, then 4.1, then
+3.2 - re-derive fresh rather than assumed, per the standing lesson in this
+log about false ties from bare substring matches.

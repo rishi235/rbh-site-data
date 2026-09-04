@@ -9622,6 +9622,58 @@ appended to the line. Do not move them; the status page reads them in place.
       unchanged.
       No in-repo defect found, no new question raised. Evidence in
       audits/hirshmans-address-check-2026-09-03-tenth.txt. Done 2026-09-03
+      Eleventh quality pass 2026-09-04 (unattended scheduled run, rotation
+      pool - item 1.2 was the stalest of the rotation pool, last touched
+      2026-09-03T09:12:44+01:00, re-derived fresh from `git log` "Item N.N "
+      mentions anchored to the start of the commit subject; the next four
+      stalest were 3.11, 4.4, 4.1, 3.2, all also touched 2026-09-03). REPO
+      HALF: address itself clean for the eleventh consecutive pass,
+      branches.json's hirshmans_ainsdale record unchanged. All 36 checkers
+      exit 0 both before and after this pass's one edit.
+      GUARD COVERAGE EXTENDED: check-pharmacy-first-cost.js rule 6 (the
+      positive free claim) and check-app-membership.js rule 8a (pack copy
+      against hasApp) had never been pointed at
+      gbp-packs/hirshmans-ainsdale.md by direct injection, only covered
+      passively by the full-suite pass, the same gap shape the item 4.14
+      eleventh, 4.2 twelfth and 4.7 eleventh passes closed for their own
+      packs the same week. Injection 1: "free" stripped from the three
+      sentences naming Pharmacy First itself (business description, Services
+      section, Post A). CAUGHT: check-pharmacy-first-cost.js exit 1, rule
+      "free", naming the pack. Injection 2: "Manage your prescriptions on
+      the go with our free app." added to the Services section
+      (hirshmans_ainsdale confirmed hasApp false). CAUGHT:
+      check-app-membership.js exit 1, rule 8a, naming the pack and the
+      branch. Rule 8d not testable here: this pack's paster notes do not
+      carry the exact phrase "No app mention anywhere in this pack" rule 8d
+      checks for. Both injections run on a disposable scratch copy outside
+      the tracked tree, restored by byte copy and SHA256-reconfirmed
+      identical before continuing, full 36-checker suite clean after the
+      final restore. No in-repo defect found by either injection.
+      LIVE HALF, read-only via PowerShell Invoke-WebRequest (Claude in
+      Chrome not connected, checked once at answer pickup). sitemap.xml
+      lastmod unchanged at 2026-08-14T16:09:17+00:00, no publish since the
+      sixth pass. contact-us.html and the generated replacement page
+      (pharmacy-first-hirshmans-ainsdale.html) both address- and
+      brand-exact, matching branches.json. SIGNIFICANT FINDING on the OLD
+      hand-built page the pack's HARD STOP note names
+      (pharmacy-first-service-ainsdale.html): the note's phone and branding
+      faults are unchanged (017014577376 still does not dial, "Hirshmans
+      Pharmacy" still appears 9 times), but its street-address fault has
+      been silently corrected on the live page since the note was last
+      checked 2026-08-12 - the page now reads "56-62 Sherwood House, Station
+      Road, Ainsdale, PR8 3HW" throughout, with no "64 Station Road" left.
+      FIX APPLIED: the note was rewritten to state today's re-verified fact
+      rather than repeat the stale one, recording the address fault as fixed
+      and the phone/branding faults as still open and independently
+      sufficient to keep the HARD STOP in force. This is a narrative
+      correction to a hand-authored pack, not a generated-output edit, so no
+      regeneration was needed. The underlying recommendation (do not post
+      Post A with the current link; repoint via Q8/Q34, item 5.3) is
+      unchanged. Verified after editing: all 36 checkers exit 0, git diff
+      confined to the one paragraph, zero non-ASCII characters added, no
+      other tracked file touched. No new question raised, no worklist item
+      blocked or unblocked. Evidence:
+      audits/hirshmans-address-check-2026-09-04-eleventh.txt. Done 2026-09-04
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
