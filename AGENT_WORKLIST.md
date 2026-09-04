@@ -6561,6 +6561,88 @@ Pharmacy First wording to the NHS service description.
       guaranteed in stock"), not patient-facing copy; the visible page states
       "subject to availability and clinical suitability", correctly hedged.
       No in-repo defect found, no new question raised. Done 2026-09-03
+      Quality pass 2026-09-04 (eleventh pass, unattended scheduled run via
+      Cowork): re-verified as the stalest rotation-pool item (last touched
+      2026-09-03T19:41:44+01:00, the earliest of the 37-item pool re-derived
+      fresh by the same anchored git-log method the tenth pass used). All
+      facts re-checked against branches.json (name, address, phone, hours
+      with both lunch closures on both the weekday and Saturday legs,
+      website, review link, three-town service area, hasApp false, all five
+      widgets) and nothing wrong. Full 36-checker suite run individually
+      before any change: 36/36 exit 0 (one self-inflicted false alarm caught
+      and cleared first, the same recurring shape - this run's own
+      item-selection scratch file, _agentscratch/gitlog_items_run20260904d.txt,
+      carried postcode-shaped substrings from historical commit messages,
+      tripping check-postcodes.js on 5 UNKNOWN lines; renamed aside, mount
+      rejects delete, checker returned to its standing clean state
+      immediately after).
+      NEW ANGLE: check-gbp-packs.js's day-presence rule (three checks - a day
+      claimed open must be open in branches.json, every day branches.json
+      opens must be claimed open, and every day branches.json holds closed
+      must be claimed closed, added on the item 4.1 quality pass, 2026-08-11,
+      to stop a GBP profile publishing the wrong DAYS even when every clock
+      time is correct) had never been proven by injection against this
+      pack's own copy in ten prior passes, which had exercised the road-name
+      rule, the claim-patterns rule, the bank-holiday rule and the splitDay
+      time-range rule here but not this one. Confirmed absent from this
+      item's own text by grep before writing anything.
+      PROOF BY INJECTION, three rounds directly on the tracked
+      gbp-packs/hirshmans-ainsdale.md, each restored to a fresh sha256-backed
+      copy before the next round rather than layered
+      (_agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-eleventh,
+      94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8).
+      (1) DAY CLAIMED OPEN THAT ISN'T: "Sunday closed" changed to "Sunday
+      9:00am to 1:00pm", deliberately reusing two times (09:00, 13:00)
+      already in this branch's own time set so the clock-time rule could not
+      also fire and the day rule's own catch stood alone - CAUGHT, exit 1,
+      exactly one FAIL: "the hours line states the branch is open on Sunday,
+      but branches.json opens it only on Monday, Tuesday, Wednesday,
+      Thursday, Friday, Saturday." (2) A REAL OPEN DAY NOT CLAIMED: the whole
+      Saturday clause deleted from the days claim - CAUGHT, exit 1, the day
+      rule fired ("branches.json opens this branch on Saturday, but the
+      hours line does not state Saturday as an open day") alongside two
+      clock-time FAILs for the 09:00 and 17:30 times the same deletion also
+      removed, both expected side effects of removing a whole day's clause
+      rather than a second finding. (3) A REAL CLOSED DAY NOT CLAIMED: "Sunday
+      closed" deleted outright, leaving Sunday named on neither list -
+      CAUGHT, exit 1, exactly one FAIL: "branches.json holds Sunday as a
+      closed day, but the hours line does not state Sunday as closed." All
+      three restored by direct byte copy (cp) from the pre-injection backup
+      each time (this mount cannot unlink via git checkout, the standing
+      FUSE quirk - byte copy is the established restoration method); sha256
+      reconfirmed identical to the pre-injection backup after every round.
+      Full 36-checker suite re-run clean after the final restore (36/36 exit
+      0); git status --porcelain -- gbp-packs empty throughout and
+      afterwards. This pack is not a generator input, so modules/core were
+      not touched by this pass, confirmed by git status --porcelain -- modules
+      core branches.json staying empty across the whole run.
+      RESULT. Zero in-repo defect: this pack's own Hours line was already
+      stating every one of its open and closed days correctly, now proven
+      directly by injection across all three legs of the day-presence rule
+      for the first time in this item's eleven-pass history, closing the
+      last untested check-gbp-packs.js hours mechanism this item's own text
+      carries evidence for (clock-time set proven on earlier passes,
+      splitDay time-range proven tenth pass, day-presence proven this pass).
+      LIVE HALF, read-only GET (Claude in Chrome confirmed not connected
+      this run via list_connected_browsers, empty array; not retried by
+      another route per procedure; network egress confirmed working first).
+      All five targets returned 200: the four Post buttons plus the
+      generated pharmacy-first-hirshmans-ainsdale.html replacement.
+      pharmacy-first-service-ainsdale.html (Post A, HARD STOP) read in full
+      again: still carries the non-dialling phone 017014577376 alongside the
+      correct 01704 577376 (3 correct mentions to 1 wrong), still "Hirshmans
+      Pharmacy" branding 9 times against 6 correct "Hirshmans Chemist"
+      mentions, and still both addresses on the one page (56-62 Sherwood
+      House twice including the site-wide footer, and the legacy "64 station
+      Road" once in the hand-pasted body) - unchanged from the tenth pass's
+      own closer read, still item 5.3/Q8/Q34, not a new finding.
+      switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders the
+      pre-Q7 em dash as mojibake ("usually is not \xc3\x94\xc3\x87\xc3\xb6 we
+      make the first step quick and easy"), unchanged, the same
+      live-paste-lag family as Cherry Lane and Coleman and Leighs. Post C and
+      Post D targets returned 200, not re-read in full text this pass (last
+      confirmed clean tenth pass). No in-repo defect found, no new question
+      raised. Done 2026-09-04
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
