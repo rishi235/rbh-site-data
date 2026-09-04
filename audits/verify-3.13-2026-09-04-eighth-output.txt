@@ -1,0 +1,66 @@
+﻿Baseline page sha256:  96DB1824436B7F8C4E37BC576FE539F48F7A9FDBD30DEBFCCB3C6A6DD5DD78F9
+Baseline banner sha256: 2571EE4C5AEF032718A73536AD81DB7D5F2E829F27995C3C9B61A8D806C1A63E
+Baseline check-switch-copy.js: exit 0 (clean), proceeding.
+
+node : check-switch-copy: 2 failure(s)
+At line:1 char:132
++ ... -site-data; node audits\verify-3.13-2026-09-04-eighth.js 2>&1 | Out-F ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (check-switch-copy: 2 failure(s):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+  [verbatim] modules/switch/pages/switch-prescriptions-clear-aintree.html: the generator writes "Clear Chemist is a 
+local NHS pharmacy in Aintree. Switching your prescriptions to us is quick, free, and means" and the page does not 
+carry it. Either the page is a stale build or a branch value has been resolved wrongly.
+  [no-medicines] modules/switch/pages/switch-prescriptions-clear-aintree.html: the switch page names wegovy. This is 
+public advertising copy for a page about moving prescriptions, and naming a prescription-only medicine on it is not 
+permitted.
+CAUGHT: RULE 7 no-medicines (hero-sub names Wegovy) (exit 1, tag "no-medicines" present)
+check-switch-copy: 4 failure(s)
+
+  [verbatim] modules/switch/pages/switch-prescriptions-clear-aintree.html: the generator writes "Your local 
+independent pharmacy in Aintree" and the page does not carry it. Either the page is a stale build or a branch value 
+has been resolved wrongly.
+  [town] modules/switch/pages/switch-prescriptions-clear-aintree.html: the pill does not name Aintree, which is this 
+branch's own town in the generator's CONFIG.
+  [town] modules/switch/pages/switch-prescriptions-clear-aintree.html: the body copy names Walton, which is 
+colemanleigh_liverpool's town, not this branch's. On a shared domain that is how two branches end up competing for one 
+place.
+  [town] modules/switch/pages/switch-prescriptions-clear-aintree.html: the body copy names Walton, which is 
+cherrylane_liverpool's town, not this branch's. On a shared domain that is how two branches end up competing for one 
+place.
+CAUGHT: RULE 8 town (pill renamed Aintree -> Walton) (exit 1, tag "town" present)
+check-switch-copy: 1 failure(s)
+
+  [form-copy] modules/switch/pages/switch-prescriptions-clear-aintree.html: the form grid could not be read, so the 
+fields this page asks a patient for are outside this rule while the sentence describing them is not.
+CAUGHT: RULE 9 form-copy (undescribed nhs_number field added) (exit 1, tag "form-copy" present)
+check-switch-copy: 2 failure(s)
+
+  [verbatim] modules/switch/pages/switch-prescriptions-clear-aintree.html: the generator writes "We will only use your 
+details to help process your switch request." and the page does not carry it. Either the page is a stale build or a 
+branch value has been resolved wrongly.
+  [collection-notice] modules/switch/pages/switch-prescriptions-clear-aintree.html: the form collects a name, a date 
+of birth and contact details and the page carries no statement of what they are used for at the point of collection.
+CAUGHT: RULE 10 collection-notice (privacy paragraph deleted) (exit 1, tag "collection-notice" present)
+check-switch-copy: 1 failure(s)
+
+  [banner] modules/switch/pages/banners/switch-prescriptions-clear-aintree.txt: SWITCH_URL is 
+'/switch-prescriptions-cherry-lane-walton.html' but this banner belongs to clearchemist_aintree, whose switch page is 
+'/switch-prescriptions-clear-aintree.html'. The site-wide header would send every visitor on that site to another 
+branch's page.
+CAUGHT: RULE 11a banner (SWITCH_URL repointed at Cherry Lane) (exit 1, tag "banner" present)
+
+=== SUMMARY ===
+Caught: 5  Missed: 0  Total: 5
+ - CAUGHT: RULE 7 no-medicines (hero-sub names Wegovy)
+ - CAUGHT: RULE 8 town (pill renamed Aintree -> Walton)
+ - CAUGHT: RULE 9 form-copy (undescribed nhs_number field added)
+ - CAUGHT: RULE 10 collection-notice (privacy paragraph deleted)
+ - CAUGHT: RULE 11a banner (SWITCH_URL repointed at Cherry Lane)
+
+Final page sha256:   96DB1824436B7F8C4E37BC576FE539F48F7A9FDBD30DEBFCCB3C6A6DD5DD78F9 (matches baseline)
+Final banner sha256: 2571EE4C5AEF032718A73536AD81DB7D5F2E829F27995C3C9B61A8D806C1A63E (matches baseline)
+
+Final check-switch-copy.js run: exit 0 (clean)

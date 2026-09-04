@@ -5036,6 +5036,128 @@ Done 2026-09-04 (tenth pass).
       edited under tools/, modules/, core/, branches.json or gbp-packs/; the
       only repo changes this pass are the new probe instrument, its output
       file and this log entry.
+      Quality pass 2026-09-04 (eighth), unattended scheduled run, Cowork
+      sandboxed shell for orientation and lock handling, Windows PowerShell
+      path throughout for all file work, generators, checkers and git network
+      operations (the standing Q87 split: sandboxed git fetch/pull over
+      origin-https works read-only, but push has no stored credential from
+      the sandbox, so all writes and the push go via the canonical
+      C:\Dev\rbh-site-data working copy). All 8 unblocked worklist items
+      confirmed [BLOCKED] by direct grep, so this was the fallback quality
+      pass, picked by the standing rotation-pool method: git log commit
+      subjects matched against each of the 36 rotation-pool item numbers (43
+      checked items minus the standing out-of-rotation set 1.1, 1.4, 2.2,
+      5.6, 5.7, 6.7, 6.8), oldest most-recent-mention wins. 3.13 was oldest,
+      last touched 2026-09-03T12:42:20+01:00, ahead of 6.2 (13:14:57) and 3.4
+      (13:41:45), independently confirming the seventh pass's own forward
+      note.
+      BASELINE. All 36 checkers ran individually. One transient failure on
+      the first run, in this run's own working file rather than the repo:
+      check-postcodes.js failed against a scratch file
+      (_agentscratch/item313.txt) this run had written while reading this
+      item's own history, which quoted this section's earlier prose
+      containing the McCanns Sandringham correction postcode CLAUDE.md
+      already documents (CH49 1SX) - the same shape as the identical finding
+      on the sixth and seventh passes one and two days earlier. Deleted
+      (untracked, never committed); check-postcodes.js re-ran clean, 0
+      failures, 3 warnings, none new. Not a repo defect. All six generators
+      rebuilt; git status --porcelain on modules/, core/, tools/,
+      branches.json, gbp-packs/ empty both before and after, byte-identical
+      output confirmed, including switch-prescriptions-clear-aintree.html
+      matching its standing sha256
+      (96DB1824436B7F8C4E37BC576FE539F48F7A9FDBD30DEBFCCB3C6A6DD5DD78F9,
+      unchanged since the fifth pass first recorded it on 2026-09-01).
+      FRESH ANGLE (the actual finding of this pass). Across seven prior
+      passes, every fact about this item's three pages was verified through
+      a separate custom instrument
+      (audits/clear-aintree-independent-2026-08-14.js) and its own
+      nine-fault vacuity probe, which proves that INSTRUMENT is not vacuous -
+      it has never once run the real repo checker, tools/check-switch-copy.js,
+      against Clear's own switch page by injection. The seventh pass closed
+      the equivalent gap for check-weight-loss-copy.js and
+      check-travel-clinic-copy.js against Clear's other two pages;
+      check-switch-copy.js against switch-prescriptions-clear-aintree.html
+      was the one page/checker pairing for this item left unproven by direct
+      injection against the real checker. Closed this pass with a new
+      instrument, audits/verify-3.13-2026-09-04-eighth.js (own sha256
+      baseline of both the page and its banner captured before any mutation,
+      restore by fs.writeFileSync from an in-memory Buffer rather than git,
+      sha256-reconfirmed after every restore, matching the discipline the
+      3.2 tenth, 3.5 eleventh and 3.7 tenth passes established). Five
+      injections, one at a time, on five different rules: RULE 7
+      no-medicines (the hero-sub's "means your medication comes to a
+      pharmacy team you can actually speak to" changed to name "Wegovy"),
+      RULE 8 town (the pill's own town changed from Aintree to Walton, a
+      real, different live branch's town rather than an invented one - both
+      colemanleigh_liverpool and cherrylane_liverpool hold it), RULE 9
+      form-copy (an undescribed "nhs_number" text input added to the form
+      grid, no FIELD_WORDS entry, no mention in step 1), RULE 10
+      collection-notice (the privacy paragraph deleted outright), and RULE
+      11a banner (switch-prescriptions-clear-aintree.txt's own SWITCH_URL
+      repointed at Cherry Lane's switch page). All five caught first
+      attempt, each with the correct rule tag in the checker's own output
+      ([no-medicines], [town] twice over (correctly naming both
+      colemanleigh_liverpool and cherrylane_liverpool as the genuine holders
+      of Walton), [form-copy], [collection-notice], [banner]), both files
+      restored and sha256-reconfirmed byte-identical to their pre-injection
+      baselines throughout, final check-switch-copy.js run exit 0. Output
+      saved to audits/verify-3.13-2026-09-04-eighth-output.txt.
+      ONE FAULT FOUND AND FIXED IN THIS PASS'S OWN NEW INSTRUMENT, NOT THE
+      REPO. The first run of the new script reported all five injections as
+      MISSED despite the checker correctly exiting 1 with the correct
+      finding on every one: the script's own tag-match compared the
+      checker's output against the rule NUMBER ("7", "8", "9", "10", "11")
+      rather than the bracket tag the checker actually prints
+      ([no-medicines], [town], [form-copy], [collection-notice], [banner]).
+      Fixed by matching against the real tags; re-run confirmed 5 caught, 0
+      missed, same shape as the stale-literal and restore-by-git faults the
+      fifth and prior passes found and fixed in their own instruments rather
+      than the repo.
+      LIVE HALF. Claude in Chrome confirmed not connected, checked at this
+      run's own step 3 answer pickup and again immediately before this
+      section; not retried by another route and no login attempted, per
+      procedure. Fell back to the established read-only PowerShell route.
+      The site root (https://www.clearchemist.co.uk/) loaded cleanly and
+      consistently, 200, across every attempt this pass. The three
+      unpublished slugs this item covers
+      (switch-prescriptions-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html,
+      travel-clinic-clear-aintree.html) did NOT reproduce the clean
+      200-with-the-store's-own-404-body response the 2026-08-30 and
+      2026-08-31 passes recorded: repeated attempts this pass returned three
+      different results depending on the HTTP client signature used (curl.exe
+      403 on all four URLs including the root; PowerShell's default .NET
+      client, "connection closed unexpectedly" on the three slugs but a clean
+      200 on the root; a browser-spoofed user agent, 500 on the three slugs,
+      still 200 on the root), and a final isolated retry of the switch slug
+      after a 20 second pause still returned a connection abort. Reported
+      as an observation, not raised as a defect and not turned into a
+      question: nothing in branches.json or this repo asserts anything about
+      these unpublished slugs' live HTTP behaviour beyond Q29's standing
+      answer (leave generated and unpublished), the pattern (root stable,
+      three specific deep paths unstable, varying by client fingerprint
+      across repeated automated requests in a short window) is consistent
+      with WAF or bot-protection behaviour rather than an origin-server
+      fault, and this pass already probed these same three URLs more than
+      once in quick succession, which is exactly the kind of traffic such
+      protection is built to react to. Flagged here so a future pass with a
+      working browser session, which reads a real rendered page rather than
+      a raw HTTP client, checks whether this reproduces.
+      RESULT. No in-repo defect found. check-switch-copy.js was already
+      correctly protecting Clear Chemist Aintree's switch page and banner on
+      every rule tested; now proven directly by injection against this
+      branch specifically for the first time, closing the last unproven
+      page/checker pairing in this item's history. Q65 (the pages' walk-in
+      wording against the branch's own no-physical-branch-resource record)
+      remains open and was correctly not touched: a live patient-facing
+      regulatory claim, carved out of autonomous decisions regardless of
+      window state, and no autonomous window was open this run (no "Standing
+      authorisation" heading present at the top of AGENT_LOG.md at the start
+      of the run). Q28 and Q29 re-read from QUESTIONS.json: both still
+      "answered", unchanged. No new question raised. Nothing edited under
+      tools/, modules/, core/, branches.json or gbp-packs/; the only repo
+      changes this pass are the new probe instrument, its output file and
+      this log entry.
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
