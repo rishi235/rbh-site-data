@@ -11170,6 +11170,62 @@ and the first to find one in the CODE rule rather than the entity rule.
       anywhere in the repo. No new question raised. Evidence:
       audits/verify-5.2-2026-09-03-ninth.js and
       audits/verify-5.2-2026-09-03-ninth-output.txt.
+      Quality pass 2026-09-04 (tenth, unattended run, rotation-pool pick):
+      repo half only. Claude in Chrome confirmed not connected
+      (list_connected_browsers returned empty) at the start of the run, so
+      nothing live was read or claimed; the ninth pass's live findings (all
+      six URLs 404, Q35 still open) stand unchanged. Baseline: git status
+      --porcelain on modules/core/tools/branches.json/gbp-packs empty before
+      any work. All 36 tools/check-*.js checkers ran individually, 36/36
+      clean. All six generators rebuilt from branches.json before
+      inspection: git status --porcelain -- modules core empty before and
+      after, byte-identical.
+      NEW ANGLE. Of the 36 checkers, tools/check-brand-spelling.js reads
+      modules/branch/pages (it is in both its SCAN_DIRS and its
+      SHORT_SCAN_DIRS) and has passed clean across all nine prior passes on
+      this item, but no prior pass on item 5.2, and no prior pass on the
+      checker itself, had proven BY INJECTION that it actually catches a
+      brand-spelling regression specifically inside one of these six
+      landing pages' own visible copy, as distinct from never having seen
+      one there. Three of the checker's rules were targeted because each
+      exercises a different mechanism: rule 2 (VARIANT, derived near
+      misses), rule 2's case-drift extension (added by the eighth 1.1 pass,
+      2026-08-31, never exercised against a landing page), and rule 4
+      (MISSPELT, listed transliterations).
+      METHOD. New scratch harness written fresh
+      (audits/_scratch-inject-test-5.2-tenth.js, deleted immediately after
+      use; imports nothing from tools/ beyond invoking the real checker as
+      a child process): refuses to run if any of the three target landing
+      pages already carries a git diff, records each one's sha256 before
+      any mutation, and restores by direct fs.writeFileSync immediately
+      after capturing the checker subprocess's output and before any
+      assertion runs, the same discipline the eighth and ninth passes used.
+      INJECTION ROUND, one per target, each into visible hand-typed prose
+      rather than an attribute already guarded by check-nap or
+      check-branch-identity: (1) Scorah Chemists Hazel Grove's
+      hero-help-row changed from "Scorah Chemists" to "Scorah Pharmacy" (a
+      shop-type swap, rule 2) - CAUGHT. Scorah was chosen because it carries
+      no MISSPELT entry, isolating rule 2 cleanly. (2) McCanns Chemist
+      Aigburth's hero-help-row changed from "McCanns Chemist" to "Mccanns
+      Chemist" (the internal capital flattened, rule 2's case-drift
+      extension) - CAUGHT. (3) McCanns Chemist Sandringham's hero-sub
+      paragraph changed from "McCanns Chemist" to "MacCann" (a listed
+      transliteration, rule 4) - CAUGHT. All three caught on the first run;
+      the whole harness was then re-run a second time end to end with
+      identical results, confirming reproducibility. All three files
+      sha256-confirmed byte-identical to their originals after each
+      individual restoration; git status --porcelain on the three target
+      files stayed empty throughout both rounds. Full 36-checker suite
+      re-run clean after the round; all six generators re-run, git status
+      --porcelain on modules/ and core/ empty before and after.
+      RESULT. No defect on item 5.2 itself - tools/check-brand-spelling.js
+      was already correctly holding all three tested surfaces to its brand
+      rules, now proven directly by injection for the first time against
+      any of this item's six landing pages, exercising a mechanism (rule 2)
+      that none of the nine prior passes had aimed at this checker at all.
+      No checker logic, page, generator or data field changed anywhere in
+      the repo. No new question raised. Scratch harness deleted after use
+      per its own header; nothing under audits/ was added by this pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
