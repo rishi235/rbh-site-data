@@ -4199,6 +4199,52 @@ Done 2026-09-03 (ninth pass).
       Zero in-repo defects. No new question. Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-03-ninth.txt.
       Done 2026-09-03
+      Tenth quality pass 2026-09-04 (unattended run), fresh angle only. Oldest
+      of the 36 rotation-pool items, independently re-derived via
+      `git log --pretty=format:"%cI|||%s"` over the full candidate pool,
+      matching the forward note left by the 1.2 eleventh pass earlier the
+      same run sequence.
+      REPO HALF ONLY (Claude in Chrome not connected). Nine prior passes had
+      covered NAP, JSON-LD, spelling, the Pharmacy First eligibility/safety-
+      net/symptoms triad, the booking chain, check-whatsapp-route.js and
+      check-map-embeds.js, all by injection against this item's own pages.
+      Neither check-pharmacy-first-cost.js nor check-app-membership.js had
+      been proved by direct injection against this branch's own generated
+      pages before, only via the full-suite pass - the same gap this week's
+      1.2/4.14/4.2/4.7 passes closed for their own GBP packs.
+      Baseline: all 34 checkers exit 0, git status clean. Target:
+      modules/service/pages/pharmacy-first-gordon-short-crosby.html, SHA256
+      61A2227C9625F7FC6F21CA879D493397DEEE87D69D1FF08FE966425376170A83.
+      Injection 1: all seven "free NHS" occurrences swapped to "low-cost
+      NHS". CAUGHT: check-pharmacy-first-cost.js, 6 failures (rule 2 and
+      rule 4), naming the file. Restored, SHA256-reconfirmed, re-run clean.
+      Injection 2: a first attempt (PowerShell -replace targeting a "</p>"
+      tag the page does not use) silently matched nothing and a follow-on
+      PowerShell statement then truncated the live file to 0 bytes by
+      accident, unrelated to any checker or generator. Caught immediately by
+      hash comparison before any checker was run against the corrupted
+      state; restored at once from a pre-injection backup and
+      SHA256-reconfirmed before continuing. Redone with a Node script:
+      inserted an app sentence naming "RB Healthcare Pharmacy app" before
+      "Book your Pharmacy First appointment". CAUGHT: check-app-membership.js
+      rule "absence elsewhere", naming the file, correct since
+      gordonshorts_crosby is hasApp: false. Restored, SHA256-reconfirmed,
+      re-run clean.
+      Full 34-checker suite re-run clean; build-service-pages.js and
+      build-switch-pages.js rebuilt byte-identical (git status clean on
+      modules/, core/). No checker, generator or page content changed in the
+      tracked tree at any point.
+      LIVE HALF, read-only (Claude in Chrome unavailable, PowerShell
+      Invoke-WebRequest fallback). sitemap.xml lastmod unchanged at
+      2026-08-15T07:41:55+00:00, no republish. pharmacy-first-service-
+      crosby.html (the live pfLink target, Q93's hand-built page): 200, no
+      app mention or store URL anywhere (consistent with hasApp: false), no
+      cost qualifier. A raw-text scan flagged one "GBP" hit, which on
+      inspection was the Weebly platform's own storeCurrency script
+      variable, not visible copy - a fetch-method caveat, not a finding.
+      Zero in-repo defects. No new question. Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-04-tenth.txt. Done
+      2026-09-04
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

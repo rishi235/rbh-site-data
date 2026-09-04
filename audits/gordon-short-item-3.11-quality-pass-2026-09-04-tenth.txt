@@ -1,0 +1,136 @@
+Item 3.11 quality pass (tenth), 2026-09-04, unattended scheduled run via Cowork.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the two
+under Q60, 6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+fallback applied. Stalest item independently re-derived via
+`git log --pretty=format:"%cI|||%s"` over the standing rotation pool (1.2,
+2.1, 2.3, 3.2-3.13, 4.1-4.15), taking the first (most recent) occurrence of
+each item id in the newest-first log and then the minimum of those per-item
+most-recent timestamps. Result: 3.11 uniquely stalest, most recently touched
+2026-09-03T09:41:52+01:00 (ninth pass), ahead of 4.4 (10:13:50), 4.1
+(10:39:18) and the rest of the pool. Matches the forward note left by the
+1.2 eleventh pass earlier the same run sequence; independently re-derived
+rather than trusted blind.
+
+ENVIRONMENT AND LOCK
+mcp__workspace__bash (Cowork sandboxed Linux FUSE mount of C:/dev/rbh-site-data)
+used for orientation: .agent-lock absent at start, git status showed HEAD
+already level with origin/agents/audit-backlog at d023d2e (the 1.2 eleventh
+pass's own commit). git fetch/pull origin (SSH) failed "Host key
+verification failed" from this sandbox; origin-https fetch/pull succeeded,
+confirmed already up to date, no divergence. All real work then went via
+mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+working copy, the established route: same HEAD confirmed, no
+.git\index.lock present, .agent-lock readable with the timestamp the mount
+wrote (2026-09-04T03:04:10Z), confirming both routes see the same physical
+file.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__tabs_context_mcp reported "Claude in Chrome is not
+connected". Logged as unavailable per the unattended-run rule; no
+alternative route attempted, nothing clicked, typed or submitted.
+QUESTIONS.json read in full: 95 total, 42 open, none answered by pickup this
+run. Standing Q59 remains the recorded cause.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top
+of AGENT_LOG.md at the start of this run. Moot regardless: this pass's work
+needed no judgement call, a pure checker-effectiveness proof with no
+business, legal, pricing or regulatory content requiring a decision.
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json status
+empty on the canonical working copy at the start. All 34 tools/check-*.js
+run individually: 34/34 exit 0.
+
+FRESH ANGLE
+Nine prior passes (2026-08-04 to 2026-09-03) had covered NAP, JSON-LD,
+brand/UK spelling, the Pharmacy First eligibility/safety-net/symptoms triad,
+the booking chain, check-whatsapp-route.js and check-map-embeds.js, all
+proved by injection against this item's own 12 generated pages. Neither
+check-pharmacy-first-cost.js (rules 2-5, the free claim, the
+prescription-charge caveat, cost qualifiers, price patterns) nor
+check-app-membership.js (rule 4, absence of app copy on a non-member branch)
+had been proved by direct injection against Gordon Short Chemist Crosby's
+own generated pages specifically, only via the full-suite estate-wide run -
+the same gap this week's 1.2/4.14/4.2/4.7 passes closed for their own GBP
+packs, and the same class the 3.3 ninth pass closed for check-app-membership
+rules 2/3/5/7 on Fishlocks (an app member; this item, Gordon Short, is not,
+so rule 4's absence direction is the relevant one).
+
+Target: modules/service/pages/pharmacy-first-gordon-short-crosby.html.
+Baseline SHA256: 61A2227C9625F7FC6F21CA879D493397DEEE87D69D1FF08FE966425376170A83
+
+INJECTION 1 - check-pharmacy-first-cost.js
+Every case-insensitive "free NHS" occurrence on the page (7 instances)
+replaced with "low-cost NHS" via a Node script (not PowerShell -replace, to
+avoid encoding/quoting issues). CAUGHT: check-pharmacy-first-cost.js exited
+1 with 6 failures, all naming this file: rule 2 (never says free), and rule
+4 (qualifier "low-cost") firing on five separate sentences. Restored by
+byte copy from a pre-injection backup and SHA256-reconfirmed identical to
+the baseline. Re-run clean (exit 0) after restore.
+
+INJECTION 2 - check-app-membership.js rule 4
+First attempt used a PowerShell -replace targeting a "</p>" tag; the page
+uses no "</p>" tags at all (confirmed 0 occurrences), so the substitution
+silently matched nothing, and a follow-on PowerShell statement then
+truncated the live file to 0 bytes (an unrelated PowerShell array-argument
+mishap, not a checker or generator fault). Caught immediately by hash
+comparison before running any checker on it: current SHA256
+(e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855, the
+empty-string hash) did not match the pre-edit backup. Restored at once by
+byte copy from the pre-injection .bak2 file and SHA256-reconfirmed 61A222...
+identical to baseline before continuing. No checker was run against the
+corrupted state and no corrupted state was ever committed or pushed; caught
+by this pass's own discipline of hashing before trusting a result, the same
+lesson recorded repeatedly elsewhere in this repo ("ask which text a
+checker read" / "restore by byte copy, not git checkout, then reconfirm").
+
+Second attempt used a Node script: inserted "Manage your prescriptions on
+the go with our RB Healthcare Pharmacy app." immediately before the text
+"Book your Pharmacy First appointment" (confirmed present in the page).
+CAUGHT: check-app-membership.js exited 1, one failure, rule "absence
+elsewhere", naming this exact file: "mentions the app or carries a store
+URL, and no page in this family is meant to" - correct, gordonshorts_crosby
+is hasApp: false in branches.json. Restored by byte copy from the
+pre-injection backup, SHA256-reconfirmed 61A222... identical to baseline.
+Re-run clean (exit 0) after restore.
+
+FINAL VERIFICATION
+Full 34-checker suite re-run individually: 34/34 exit 0. build-service-pages.js
+and build-switch-pages.js re-run: git status --porcelain -- modules core
+empty, byte-identical rebuild. git status --porcelain -- gbp-packs modules
+tools core branches.json status empty throughout and immediately before
+this evidence file and the worklist/log entries were written. No checker
+logic edited, no generator edited, no page content changed in the tracked
+tree at any point.
+
+LIVE HALF
+Claude in Chrome unreachable this run (reconfirmed at step 3, not
+independently retried mid-pass). Fell back to read-only PowerShell
+Invoke-WebRequest, the established fallback.
+
+sitemap.xml: 200, every lastmod still 2026-08-15T07:41:55+00:00, unchanged
+since the sixth pass first recorded this timestamp - no republish since.
+
+pharmacy-first-service-crosby.html (the live pfLink target, a hand-built
+page this repo does not generate, per Q93): 200. No "RB Healthcare app"
+mention and no App Store/Google Play URL anywhere in the raw HTML -
+consistent with hasApp: false, matching this pass's own repo-side finding.
+"free" wording present; no low-cost/affordable/cheap/discount qualifier
+found. A raw-text scan for a currency symbol did return one hit, but on
+inspection it was the Weebly platform's own `_W.storeCurrency = "GBP"`
+script variable, not visible copy or a price claim - a fetch-method
+limitation of scanning raw HTML without stripping script blocks (the
+repo's own checker strips script/style before scanning; a plain regex over
+the raw response does not), not a live finding. No new question raised;
+this is a caveat on this pass's own method, recorded so a future pass does
+not mistake a platform script variable for a live defect.
+
+CONCLUSION
+Zero in-repo defects. No new question. Both checkers proved effective by
+injection against this item's own generated pages for the first time,
+closing the same class of gap closed this week for sibling items' GBP
+packs and for check-app-membership's positive-membership direction on
+Fishlocks.
