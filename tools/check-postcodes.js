@@ -351,6 +351,28 @@ function ownerOf(relPath) {
   return best ? best.b : null;
 }
 
+// Rule 6's informal-shorthand alias. See the comment above the rule 6 block
+// in checkFile() for the full rationale and the item 1.3 twelfth-pass proof.
+// Derived once per branch and cached, not recomputed per file.
+var GENERIC_SUFFIX = /\s+(Chemists?|Pharmacy)$/i;
+var aliasOf = (function () {
+  var cache = {};
+  return function (b) {
+    if (Object.prototype.hasOwnProperty.call(cache, b.id)) return cache[b.id];
+    var stem = (b.brandLabel || "").replace(GENERIC_SUFFIX, "").trim();
+    var town = null;
+    if (b.branchName && b.brandLabel && b.branchName !== b.brandLabel &&
+        b.branchName.indexOf(b.brandLabel) === 0) {
+      town = b.branchName.slice(b.brandLabel.length).trim();
+    } else if (b.seoTown) {
+      town = b.seoTown;
+    }
+    var alias = (stem && town) ? (stem + " " + town) : null;
+    cache[b.id] = alias;
+    return alias;
+  };
+})();
+
 var failures = [];
 var warnings = [];
 var seenPostcodes = {};      // postcode -> [every file carrying it]
@@ -448,10 +470,57 @@ function checkFile(p) {
   // line names exactly one branch, so a page that merely mentions a
   // neighbouring branch is never accused. Narrative and declaring files are
   // exempt for the usual reason: they quote the wrong value on purpose.
+  // Rule 6 also recognises the informal shorthand this repo's own narrative
+  // prose actually uses for a branch, not just the literal branchName field.
+  // Found on the item 1.3 quality pass (twelfth), 2026-09-04, proved first on
+  // compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, a real, tracked,
+  // non-narrative, non-declaring file that discusses named branches, and is
+  // outside OWNED_DIRS so rules 3, 4 and 5 never apply to it at all. Injected
+  // a line reading "Riddings Timperley's registered pharmacy address postcode
+  // is L20 9HH" (Smartts Bootle's real postcode, wrong for Riddings, whose
+  // own is WA15 6BP): passed all 36 checkers in total silence, because
+  // "Riddings Timperley" does not contain this branch's branchName field,
+  // "Riddings Pharmacy", as a substring. That shorthand is not an edge case:
+  // it is the exact phrasing CLAUDE.md and this same compliance file already
+  // use throughout for ten of the sixteen branches ("Scorah Bramhall",
+  // "Fishlocks Ainsdale", "McCanns Sandringham", "Smartts Bootle", "Riddings
+  // Timperley", "Gordon Short Crosby", "Cherry Lane Walton", "Coleman and
+  // Leighs Walton", "Tiffenbergs Aintree", "Hirshmans Ainsdale") - none of
+  // which contain their own branchName as a substring, so a wrong postcode on
+  // any one of those exact lines, in any file outside OWNED_DIRS, had zero
+  // rule covering it. aliasOf() derives the shorthand from data rather than a
+  // hand-written list, the "shape, not list" convention this repo has needed
+  // repeatedly (claim-patterns.js, the generator-less module-folder scan in
+  // check-cdn-pins.js): brandLabel with its trailing generic word ("Chemist",
+  // "Chemists" or "Pharmacy") dropped, plus the town word branchName itself
+  // already carries for the six shared-brand branches (so mccanns_sandringham
+  // correctly resolves to "Sandringham", the identifier this repo's own prose
+  // and file paths use, and NOT "St Michael's", the current seoTown a page
+  // title shows - seoTown moves, per item 5.7, and the branch's own
+  // branchName is what stayed put), falling back to seoTown only for the ten
+  // branches whose branchName carries no town of its own. Negative-tested:
+  // the injection above now fails as MISATTRIB after the fix and passed
+  // silently before it; reverted by byte copy from the pre-injection backup
+  // (sha256-verified identical), then the fix applied to the tracked checker
+  // and re-verified there too. Full 36-checker suite and all six generators
+  // re-run clean afterwards. A repo-wide scan compared old (branchName-only)
+  // against new (branchName-or-alias) matching on every line of every
+  // in-scope file: 10 lines move from exactly one match to two or more, all
+  // of them genuine multi-branch sentences the old substring-only match had
+  // been under-counting by luck (e.g. "Fishlocks Ainsdale, Fishlocks
+  // Eccleston, Clear Chemist Aintree and Smartts Bootle" matched only "Clear
+  // Chemist" before), so the new behaviour - correctly refusing to attribute
+  // an ambiguous line to a single branch - is more correct, not a regression;
+  // confirmed none of the 10 carries a postcode today, so nothing on the
+  // tracked repo was being protected by the old, wrong single-match reading.
   if (!isNarrative && DECLARING.indexOf(r) === -1) {
     text.split(/\r?\n/).forEach(function (line, idx) {
-      var named = branches.filter(function (b) {
-        return b.branchName && line.indexOf(b.branchName) !== -1;
+      var namedIds = {};
+      var named = [];
+      branches.forEach(function (b) {
+        var hit = (b.branchName && line.indexOf(b.branchName) !== -1) ||
+                  (aliasOf(b) && line.indexOf(aliasOf(b)) !== -1);
+        if (hit && !namedIds[b.id]) { namedIds[b.id] = 1; named.push(b); }
       });
       if (named.length !== 1) return;
       var b = named[0];

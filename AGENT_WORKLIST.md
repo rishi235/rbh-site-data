@@ -10649,6 +10649,46 @@ appended to the line. Do not move them; the status page reads them in place.
       deliberate case has ever existed here); all 36 checkers and all six
       generators re-run clean. No new question. Done 2026-09-03. Evidence:
       audits/postcode-duplicate-rule-1.3-eleventh-2026-09-03.txt.
+      Quality pass 2026-09-04 (twelfth pass): a real, previously-latent gap
+      found and fixed, zero defect in branches.json or any tracked page, pack
+      or paste block. The eleven prior passes all tested whether PC_RE_LOOSE
+      could be widened further, or re-proved rules 4 and 7; this pass asked
+      instead whether rules 3 (FOREIGN), 4 (DISPOSED) and the rule 5 (UNOWNED)
+      warning protect anything outside the five hardcoded OWNED_DIRS
+      directories - they do not, by design, so the only rule standing between
+      a wrong postcode and a real, tracked, branch-discussing document outside
+      those five directories is rule 6 (MISATTRIB), which required the
+      postcode to sit on a line carrying the branch's literal branchName
+      field. Proved on compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (real,
+      tracked, non-narrative, non-declaring, outside OWNED_DIRS, already names
+      branches throughout): a line reading "Riddings Timperley's registered
+      pharmacy address postcode is L20 9HH" (Smartts Chemist Bootle's real
+      postcode, wrong for Riddings Pharmacy Timperley, whose own is
+      WA15 6BP) passed all 36 checkers in total silence, because "Riddings
+      Timperley" does not contain the branchName field "Riddings Pharmacy" as
+      a substring - and that shorthand is not invented for the test, it is
+      the exact phrasing CLAUDE.md and this same compliance file already use
+      for ten of the sixteen branches. Fix: a new aliasOf() helper, derived
+      from data rather than a hand-written list (brandLabel with its trailing
+      "Chemist"/"Chemists"/"Pharmacy" dropped, plus the town word branchName
+      itself already carries for the six shared-brand branches, or seoTown for
+      the other ten), checked alongside branchName in rule 6's per-line match,
+      deduped by branch id. Verified directly for all 16 branches: 15
+      non-null aliases, pairwise distinct, matching real usage exactly
+      (Scorah Bramhall, Fishlocks Ainsdale, McCanns Sandringham - resolved via
+      branchName's own "Sandringham", correctly not the current seoTown
+      "St Michael's" - and so on). Negative-tested: the injection above now
+      fails as MISATTRIB after the fix and passed silently before it;
+      restored by byte copy and sha256-reconfirmed identical both times. Full
+      36-checker suite and all six generators re-run clean afterwards
+      (compliance/ is not a generator input). A repo-wide before/after
+      comparison of every line's branch-naming match found 10 lines moving
+      from exactly one match to two or more; every one examined is a genuine
+      multi-branch sentence the old branchName-only substring match had been
+      under-counting by luck, none carries a postcode today, so the new,
+      more conservative behaviour is a correctness improvement, not a
+      coverage loss. No new question. Done 2026-09-04. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-04-twelfth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
