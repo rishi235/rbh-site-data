@@ -4234,6 +4234,93 @@ Done 2026-09-04 (tenth pass).
       5.2, 4.11, 5.1, 3.12, 3.6, 3.8, 6.3 - but should be re-derived fresh
       rather than assumed, since other runs may land in between. Done
       2026-09-03
+      Quality pass 2026-09-04 (tenth pass, unattended scheduled run via
+      Cowork). Selected as stalest of the 36-item rotation pool (last
+      mentioned 2026-09-03T14:43:36+01:00), independently re-derived by the
+      block-bounded git-log method over the standing pool (43 completed
+      items minus the 7 standing out-of-rotation: 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8) and matching the ninth pass's own forward note exactly: 3.10,
+      then 2.1, 5.2, 4.11, 5.1, 3.6, 3.12, 3.8. All 8 unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+      quality-pass fallback applied. BASELINE: git status --porcelain on
+      modules/core/tools/branches.json/gbp-packs was empty before any work,
+      except one self-inflicted false alarm caught and cleared before it
+      touched anything tracked - a scratch file this run's own item-selection
+      computation had written into the pre-existing untracked _agentscratch/
+      directory happened to contain postcode-shaped text from historical
+      commit messages, which made check-postcodes.js fail with 5 UNKNOWN
+      lines; deleted the scratch file (not a repo change, nothing tracked was
+      touched) and the checker returned to its usual 0 failures, 3 warnings.
+      All 36 checkers then ran clean individually (36/36 exit 0) and all six
+      generators rebuilt byte-identical (git status --porcelain on modules/
+      and core/ empty before and after). FRESH ANGLE: this item's own
+      AGENT_WORKLIST.md section was grepped for "branch-identity" before
+      starting - the twelve hits in the whole file are all Scorah, McCanns,
+      Fishlocks, Cherry Lane or Coleman and Leighs, none of them Riddings, so
+      despite nine prior passes proving check-nap, check-em-dashes,
+      check-service-links (JS-injected copy), check-booking-routes
+      (BRANCHATTR/SERVICEATTR/WIDGET), check-switch-copy and the
+      postcode/seoTown/map/JSON-LD field-for-field rules against Riddings'
+      own pages, tools/check-branch-identity.js had never been proven against
+      this branch specifically - the same class of gap the 3.4 and 3.9 tenth
+      passes closed for Cherry Lane and Coleman and Leighs two runs earlier
+      today. Confirmed via branches.json that Riddings' brandLabel equals its
+      branchName and no sister branch shares riddingspharmacy.co.uk, so rules
+      4 (AMBIGUOUS), 5 (SITEUNIQUE) and 9 (SISTERLINK) are structurally
+      inapplicable here; the five rules that do apply (1 IDENTITY, 2 OWNER, 3
+      SCHEMANAME, 8 OUTBOUND, 10 SERVICELINK) were targeted instead, the same
+      shape used for the other two non-shared-brand branches. INDEPENDENT
+      INSTRUMENT AND PROOF BY INJECTION
+      (audits/verify-3.10-2026-09-04-tenth.js, invokes the real checker as a
+      child process, refuses to run if any target file already carries a git
+      diff, restores from an in-memory Buffer immediately after capturing the
+      checker's output and before any assertion, sha256-confirms each
+      restore): five injections in turn, one target file each, none
+      previously used for injection testing on this item (earache, sore
+      throat, shingles, sinusitis and the Pharmacy First overview pages): (1)
+      RULE IDENTITY - data-branch emptied on
+      earache-treatment-riddings-timperley.html's module root, caught,
+      "carries a module root but no data-branch"; (2) RULE OWNER -
+      data-branch swapped to Smartts Chemist's name on
+      sore-throat-treatment-riddings-timperley.html, caught, "filed against
+      the wrong pharmacy"; (3) RULE SCHEMANAME - JSON-LD name swapped to
+      Hirshmans Chemist's on
+      shingles-treatment-riddings-timperley.html, caught, "Google is told
+      this address belongs to another pharmacy"; (4) RULE OUTBOUND - the
+      Google review link on sinusitis-treatment-riddings-timperley.html
+      swapped for Smartts Chemist's, caught, "A patient following it rates
+      the wrong shop"; (5) RULE SERVICELINK - the shingles condition tile on
+      pharmacy-first-riddings-timperley.html repointed at Smartts' equivalent
+      page (cross-host: riddingspharmacy.co.uk against
+      www.smarttschemist.co.uk), caught, "so it 404s and the service route is
+      dead". All five caught first attempt with the expected message, all
+      five files restored byte-identical (sha256-reconfirmed) before the next
+      probe and again at the end; git status --porcelain on the five target
+      files empty throughout. Final checker re-run after all restores: exit
+      0. Full 36-checker suite re-run individually after the round: 36/36
+      exit 0, all six generators rebuilt byte-identical. No in-repo defect -
+      check-branch-identity.js was already correctly holding this branch to
+      all five applicable rules; now proven directly for the first time in
+      ten passes. Evidence in audits/verify-3.10-2026-09-04-tenth.js and
+      audits/verify-3.10-2026-09-04-tenth-output.txt. LIVE HALF - Claude in
+      Chrome confirmed not connected (tabs_context_mcp); the built-in browser
+      pane was not tried, per the standing finding that no user is present in
+      this unattended session to grant a new-site approval. Fell back to a
+      read-only PowerShell Invoke-WebRequest sweep of
+      www.riddingspharmacy.co.uk rather than leaving the live half unread:
+      homepage returns 200 with own phone (0161 973 2951), own email
+      (Riddings@rbhealth.co.uk) and Timperley all present; the standing
+      Q31-era "Cheshire" county string is still live (branches.json holds
+      Greater Manchester for addressRegion; the live page has no "Greater
+      Manchester" string at all), matching the finding recorded on every
+      prior pass since the second; the Q22 estate-wide weight loss tagline
+      ("Now try the best") is still live, unchanged, itself unresolved on the
+      portal; pfLink (pharmacy-first-riddings-timperley.html on the live
+      site) returns 200, consistent with the pre-repaste legacy-copy finding
+      already on record as part of the estate-wide repaste backlog, not
+      re-verified word for word this pass. No new finding; all live
+      observations reconfirm existing standing state. No new question
+      raised. Done 2026-09-04
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

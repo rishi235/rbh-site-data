@@ -1,0 +1,28 @@
+Preflight: all 5 target files git-diff-empty.
+Baseline check-branch-identity.js: exit 0 (clean, as expected before any mutation)
+--- IDENTITY (modules\service\pages\earache-treatment-riddings-timperley.html) ---
+  checker exit: 1, expected substring found: true
+  matched line:   FAIL  modules/service/pages/earache-treatment-riddings-timperley.html carries a module root but no data-branch, so an enquiry from it is labelled "our pharmacy"
+  restored byte-identical: true (sha256 4546a82e0dcd74fe31a3988170ed963e7cc00d94921d1edaeb457eb48faeecd7)
+--- OWNER (modules\service\pages\sore-throat-treatment-riddings-timperley.html) ---
+  checker exit: 1, expected substring found: true
+  matched line:   FAIL  modules/service/pages/sore-throat-treatment-riddings-timperley.html: data-branch="Smartts Chemist" but the page belongs to riddings_timperley ("Riddings Pharmacy") - that is smartts_bootle's name, so an enquiry from this page is filed against the wrong pharmacy
+  restored byte-identical: true (sha256 581d225eaa266e726f22178b787f944bf1123720af7be8456f1eb0754fdadf72)
+--- SCHEMANAME (modules\service\pages\shingles-treatment-riddings-timperley.html) ---
+  checker exit: 1, expected substring found: true
+  matched line:   FAIL  modules/service/pages/shingles-treatment-riddings-timperley.html: JSON-LD name "Hirshmans Chemist" but the page belongs to riddings_timperley ("Riddings Pharmacy") - that is hirshmans_ainsdale's name, so Google is told this address belongs to another pharmacy
+  restored byte-identical: true (sha256 a6a9890e30057771ab0fb73d77d64efb7023757ab72331a28b1d8088bc7be98a)
+--- OUTBOUND (modules\service\pages\sinusitis-treatment-riddings-timperley.html) ---
+  checker exit: 1, expected substring found: true
+  matched line:   FAIL  modules/service/pages/sinusitis-treatment-riddings-timperley.html: publishes the Google review link "https://g.page/r/CVzJUbDqQwReEBM/review", which belongs to smartts_bootle ("Smartts Chemist"), but the page belongs to riddings_timperley ("Riddings Pharmacy"). A patient following it rates the wrong shop, on a third-party profile neither this repo nor a repaste can move the review back off
+  restored byte-identical: true (sha256 40997654012821ba00a286c52faefe451dde5eda6d66cb9bf1851f7d00cb4e64)
+--- SERVICELINK (modules\service\pages\pharmacy-first-riddings-timperley.html) ---
+  checker exit: 1, expected substring found: true
+  matched line:   FAIL  modules/service/pages/pharmacy-first-riddings-timperley.html: links to "shingles-treatment-smartts-bootle.html", a service page belonging to smartts_bootle ("Smartts Chemist"), but the page belongs to riddings_timperley ("Riddings Pharmacy"). smartts_bootle is served from www.smarttschemist.co.uk and the link is relative, so it 404s and the service route is dead.
+  restored byte-identical: true (sha256 e6dcc42e54155d56b12564738f14cf6fd2f0e10c22c61dd0612b3c3aa54906b7)
+
+Final check-branch-identity.js after all restores: exit 0
+All 5 target files git-diff-empty after run: true
+
+SUMMARY: 5 probes, 5 caught, 5 restored byte-identical.
+RESULT: PASS - all five rules caught the injection, all files restored, tree clean.
