@@ -1,0 +1,137 @@
+Item 4.7 - McCanns Chemist Sandringham GBP pack
+Quality pass 2026-09-04 (eleventh) - unattended scheduled run via Cowork
+
+ROTATION PICK CORRECTION
+A first regex sweep of git log commit subjects by item number (matching the
+bare item number anywhere in the subject line) produced a false tie between
+4.2 and 4.7 at 2026-09-03T08:13:28+01:00. Investigation showed this was a
+single log-correction commit for item 4.2 ("Item 4.2 pass: log correction -
+... relocate the PUBLISH note from the 4.7 entry ...") that happened to name
+4.7 in its own message text, not a genuine 4.7 pass. Restricting the match to
+commit subjects that begin "Item <n> " (anchored at the start) removed the
+false hit:
+
+  4.7   2026-09-03T07:45:54+01:00  Item 4.7 quality pass (tenth)
+  4.2   2026-09-03T08:09:57+01:00  Item 4.2 quality pass (eleventh)
+  4.14  2026-09-03T08:42:28+01:00  Item 4.14 quality pass (tenth)
+  1.2   2026-09-03T09:12:44+01:00  Item 1.2 quality pass (tenth)
+  3.11  2026-09-03T09:41:52+01:00  Item 3.11 quality pass (ninth)
+  4.4   2026-09-03T10:13:50+01:00  Item 4.4 quality pass (tenth)
+  4.1   2026-09-03T10:39:18+01:00  Item 4.1 quality pass (tenth)
+  3.2   2026-09-03T11:11:07+01:00  Item 3.2 quality pass (ninth)
+
+4.7 confirmed uniquely stalest, its own tenth pass, ahead of 4.2's genuine
+eleventh pass by 24 minutes.
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json status
+empty on the canonical working copy at the start.
+All 36 tools/check-*.js run individually against the canonical copy: 36/36
+exit 0.
+Full repo copied to a disposable scratch directory
+(%TEMP%\audit_run_47_fixed) outside the tracked tree. All 36 checkers
+re-run clean on the scratch copy before any edit.
+Baseline MD5 of gbp-packs/mccanns-sandringham.md: 1FDAB7C3402DB5B18DFCDA0D4BD59BB4
+
+FACT RE-CHECK AGAINST branches.json (mccanns_sandringham)
+- Address: 1b Aigburth Road, Liverpool L17 4JP - matches
+- Phone: 0151 727 3076 - matches
+- Review link: https://g.page/r/CbMDr1qOLqnrEAE/review - matches
+- Hours: both weekday sessions (9:00am-1:00pm, 2:00pm-6:00pm), Sat/Sun
+  closed, split-day paster note present - matches
+- hasApp: false, no app mention anywhere in the pasted copy at baseline -
+  matches
+- Catchment: "St Michael's, Aigburth, Lark Lane and Dingle" leading with
+  St Michael's in all three places (description, services, Post B) -
+  matches item 5.7's Q15 correction
+- Counts re-measured via check-gbp-packs.js --verbose: description 713,
+  posts 463/298/518/425 - all exact, unchanged from every prior pass
+
+GENERATOR REBUILD
+All six generators rebuilt to a zero-diff worktree on the scratch copy.
+All 36 checkers exit 0 both before and after rebuild.
+
+INJECTIONS (fresh angle: checkers that read gbp-packs/ but had never been
+proven by injection against this specific pack across ten prior passes -
+identified by grepping tools/check-*.js for "gbp-packs" and cross-referencing
+against this item's full ten-pass log history, which had proven
+check-gbp-packs.js's own rules, check-pharmacy-first-eligibility.js rule 9,
+check-postcodes.js's FOREIGN rule, check-brand-spelling.js,
+check-uk-spelling.js, check-url-scheme.js, and check-travel-clinic-copy.js's
+shared outcome-promise-patterns, but never check-pharmacy-first-cost.js or
+check-app-membership.js against this pack)
+
+Injection 1 - tools/check-pharmacy-first-cost.js rule 6 (the positive "free"
+claim)
+  Attempt A: stripped "free" from only the description sentence ("Pharmacy
+  First, free on the NHS, allows..." -> "Pharmacy First allows..."). Full
+  suite still passed (exit 0). This is correct checker behaviour, not a
+  miss: rule 6 reads every sentence in the pack that names Pharmacy First
+  itself and requires the free claim to survive somewhere across all of
+  them, not sentence by sentence, and two other Pharmacy-First-naming
+  sentences (the Services section line and Post A's opening line) still
+  called it free.
+  Attempt B: stripped "free" from all three Pharmacy-First-naming sentences:
+    - "Pharmacy First, free on the NHS, allows" -> "Pharmacy First allows"
+    - "NHS Pharmacy First: free NHS assessment" -> "NHS Pharmacy First: NHS
+      assessment"
+    - "Pharmacy First is a free NHS service" -> "Pharmacy First is an NHS
+      service"
+  CAUGHT: check-pharmacy-first-cost.js exit 1, rule "free":
+    "gbp-packs/mccanns-sandringham.md: advertises NHS Pharmacy First but
+    never calls it free (rule 6). This pack is pasted into a Google Business
+    Profile, which for most patients is the first and only page about the
+    pharmacy they read, so the claim has to survive the trip off the
+    website."
+  Restored by copying the canonical file back over the scratch copy.
+  MD5 reconfirmed 1FDAB7C3402DB5B18DFCDA0D4BD59BB4 (byte-identical).
+  check-pharmacy-first-cost.js re-run clean (exit 0).
+
+Injection 2 - tools/check-app-membership.js rules 8a and 8d (app claims
+against hasApp, and the paster note against the pasted copy)
+  Added one line to the Services section: "- Manage your prescriptions on
+  the go with our free app." (a plausible real paste error, since this
+  branch's own paster note already discusses the app and other estate
+  branches do carry such a line).
+  CAUGHT: check-app-membership.js exit 1, 2 failures:
+    "gbp-packs/mccanns-sandringham.md: the copy pasted into the public
+    Google profile claims an app, but branches.json has hasApp false for
+    mccanns_sandringham. A profile advertising an app the branch does not
+    run sends a patient to a store for nothing" (rule 8a)
+    "gbp-packs/mccanns-sandringham.md: the paster note says there is no app
+    mention anywhere in this pack, but the pasted copy carries one" (rule 8d)
+  Restored by copying the canonical file back over the scratch copy.
+  MD5 reconfirmed 1FDAB7C3402DB5B18DFCDA0D4BD59BB4 (byte-identical).
+  Full 36-checker suite re-run clean (36/36 exit 0).
+
+NO IN-REPO DEFECT FOUND. Both checkers already correctly guard this pack;
+this proves it directly for the first time rather than by passive coverage
+via the full-suite pass alone.
+
+LIVE HALF
+Claude in Chrome not connected this run (Q59, standing cause unchanged).
+PowerShell Invoke-WebRequest used as the established fallback, HEAD requests
+only, no login, no clicks, no form submission.
+
+  https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html -> 404
+  https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html -> 200
+  https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html -> 200
+  https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-sandringham.html -> 200
+  https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-sandringham.html -> 200
+  https://www.mccannspharmacy.co.uk/sitemap.xml -> 200, lastmod
+    2026-08-14T23:05:25+00:00 throughout, landing page absent from it
+
+All findings reconfirmed unchanged from the tenth pass: the profile-website
+landing page still 404s and is absent from the sitemap (Q35, unchanged, the
+pack still holds the paster back on that field); the four post-target pages
+all 200 and present in the sitemap; no republish since the tenth pass's own
+reading.
+
+QUESTIONS
+No pickup available this run (Q59). No new question raised. Open question
+count unchanged at 42 (of 95 total).
+
+CONCLUSION
+Eleventh consecutive clean pass on this pack. Two checkers that read
+gbp-packs/ proven by injection against this specific pack for the first
+time. No in-repo defect. No live regression beyond the standing Q35 finding.

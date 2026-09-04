@@ -6504,6 +6504,61 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       confirming no republish since the ninth pass's own reading. No
       in-repo defect found this pass. No new question; open question count
       unchanged at 41 (of 94 total).
+      Quality pass 2026-09-04 (eleventh): re-derived the rotation pick with a
+      corrected method rather than trusting the tenth pass's own forward
+      note verbatim. A first regex sweep of git log by item number produced a
+      false tie between 4.2 and 4.7, because a log-correction commit for 4.2
+      happened to name 4.7 in its own message text; restricting the match to
+      commit subjects that begin "Item <n> " removed the false hit and put
+      4.7 uniquely stalest at 2026-09-03T07:45:54+01:00 (its own tenth pass),
+      ahead of 4.2's genuine eleventh pass at 08:09:57 the same morning, then
+      4.14, then 1.2. Every fact re-checked against branches.json: address 1b
+      Aigburth Road / L17 4JP, phone 0151 727 3076, review link, both weekday
+      hours sessions with the split-day paster note, hasApp false, catchment
+      leading with St Michael's in all three places. Counts re-measured
+      independently via check-gbp-packs.js --verbose rather than trusted:
+      description 713, posts 463/298/518/425, all exact and unchanged from
+      every prior pass. All six generators rebuilt to a zero-diff worktree;
+      all 36 checkers exit 0 on a full scratch copy before any edit.
+      Two fresh injections proved checkers that read gbp-packs/ but had never
+      once been tested by injection against this specific pack across ten
+      prior passes, both on a disposable scratch copy of the whole repo
+      (not the tracked tree), restored by plain file copy and MD5-confirmed
+      byte-identical to baseline (1FDAB7C3402DB5B18DFCDA0D4BD59BB4) before
+      and after each injection: (1) tools/check-pharmacy-first-cost.js rule
+      6 - stripped "free" from all three sentences in the pack that name
+      Pharmacy First itself (the description, the Services section line, and
+      Post A's opening line; a single sentence was tried first and correctly
+      did not fail, since the rule reads the free claim across every
+      Pharmacy-First-naming sentence in the pack, not sentence by sentence) -
+      caught, rule 6, "advertises NHS Pharmacy First but never calls it
+      free"; (2) tools/check-app-membership.js rules 8a and 8d - added "-
+      Manage your prescriptions on the go with our free app." to the
+      Services section, a plausible real paste error given this branch's
+      sister (Aigburth) and other estate branches do carry such a line -
+      caught both rules at once: the published copy claims an app for a
+      hasApp-false branch, and the paster note's own "No app mention
+      anywhere in this pack" statement is contradicted by the copy it
+      describes. Full 36-checker suite re-run clean after each restore.
+      No in-repo defect found - both checkers already correctly guard this
+      pack, proven directly rather than by passive coverage for the first
+      time.
+      Live half: Claude in Chrome not connected this run (Q59, unchanged);
+      PowerShell Invoke-WebRequest used as the established fallback, HEAD
+      requests only. All findings reconfirmed unchanged from the tenth pass:
+      pharmacy-mccanns-sandringham.html still 404 and absent from the
+      sitemap (Q35); the four post-target pages (Pharmacy First, switch,
+      weight loss, travel clinic) all 200 and present in the sitemap;
+      sitemap lastmod unchanged at 2026-08-14T23:05:25Z throughout,
+      confirming no republish since the tenth pass's own reading. No new
+      question; open question count unchanged at 42 (of 95 total).
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-04-eleventh.txt.
+      Next stalest by this run's own computation, for whoever runs the next
+      unattended pass: 4.2 (eleventh pass 2026-09-03T08:09:57+01:00), then
+      4.14, then 1.2, then 3.11/4.4 (tied) - should be re-derived fresh with
+      the subject-anchored match ("Item <n> " at the start of the commit
+      subject), not the bare-substring match that produced the false 4.2/4.7
+      tie this run corrected.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
