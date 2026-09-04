@@ -5821,6 +5821,40 @@ confirming byte-stable output. No defect on this item - all three rules were
 already correctly protecting this pack; now proven directly by injection for
 the first time. No new question. See audits/scorah-bramhall-4.4-pass-
 2026-09-03-tenth.txt.
+Quality pass 2026-09-04 (eleventh, unattended scheduled run): clean. All 36 checkers re-run against
+the untouched worktree, 36/36 pass. Fresh angle: grepped this item's full ten-pass history for
+check-pharmacy-first-cost.js and check-app-membership.js - zero hits for both, so neither had ever
+been pointed at this pack by direct injection, only covered passively via the full-suite pass, the
+same gap class this week's 1.2 eleventh, 3.11 tenth, 4.7 eleventh and 4.2 twelfth passes closed for
+their own packs. gbp-packs/scorah-bramhall.md backed up by MD5 (ae58dd982780a11b808b6df84e29eecf)
+before any mutation.
+INJECTION 1 (check-pharmacy-first-cost.js rule 6): "free" stripped from the three sentences naming
+Pharmacy First itself (business description, Services section, Post A). First attempt used literal
+single-line string matches and silently missed two of the three because the pack hard-wraps prose
+across newlines; caught by re-grepping for "free" after the run rather than trusting a clean exit,
+restored, and redone with whitespace-tolerant regexes that matched all three. Result: FAIL, rule
+"free", naming the pack: "advertises NHS Pharmacy First but never calls it free (rule 6)". Caught
+on the corrected attempt.
+INJECTION 2 (check-app-membership.js rules 8a and 8d): one line added to the Services section,
+"Manage your prescriptions on the go with our RB Healthcare Pharmacy app." (scorah_bramhall
+confirmed hasApp: false; the pack's own paster note already states "No app mention anywhere in
+this pack", making rule 8d directly testable here too). Result: FAIL, two failures, both naming
+the pack - rule 8a ("the copy pasted into the public Google profile claims an app, but
+branches.json has hasApp false") and rule 8d ("the paster note says there is no app mention
+anywhere in this pack, but the pasted copy carries one"). Both fired together on the single
+injection, as expected.
+Both restores done by MD5-verified byte copy from the pre-injection backup
+(ae58dd982780a11b808b6df84e29eecf reconfirmed each time), each followed by a clean re-run of the
+injected checker. Full 36-checker suite re-run after the final restore: 36/36 exit 0. No checker
+logic edited. No in-repo defect - both checkers already correctly guard this pack; proven directly
+by injection for the first time rather than by passive full-suite coverage alone.
+Live half, read-only fallback (Claude in Chrome unreachable this run, reconfirmed immediately
+before this section): all five URLs unchanged from the ninth/tenth passes' own findings - profile
+website pharmacy-scorah-bramhall.html still 404 (unchanged since 2026-08-11); Post B switch page
+resolves (200) with the same pre-Q7 mojibake em dash in its intro, already recorded as
+live-paste-lag in the pack's own note, not a repo defect; Posts A (branch PF page), C (weight loss)
+and D (travel clinic) all resolve (200) and read correctly. No new finding, no new question. See
+audits/scorah-bramhall-4.4-pass-2026-09-04-eleventh.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

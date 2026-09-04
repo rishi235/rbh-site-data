@@ -1,0 +1,84 @@
+﻿Item 4.4 quality pass, eleventh, 2026-09-04 (unattended scheduled run via Cowork)
+Target: gbp-packs/scorah-bramhall.md (Scorah Chemists Bramhall)
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json status: empty at start.
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+Baseline MD5 of gbp-packs/scorah-bramhall.md: AE58DD982780A11B808B6DF84E29EECF (matches the tenth
+pass's own recorded hash, confirming no drift since 2026-09-03).
+
+FRESH ANGLE
+Full ten-pass history of this item read from AGENT_WORKLIST.md before choosing where to look.
+check-gbp-packs.js, check-gbp-pharmacy-first.js, claim-patterns.js (the outcome-claim word-number
+gap), check-brand-spelling.js, check-url-scheme.js and check-uk-spelling.js have all been proven
+against this pack by direct injection across passes five through ten. check-pharmacy-first-cost.js
+rule 6 (the positive free claim) and check-app-membership.js rules 8a/8d (pack copy against the
+hasApp field, and the paster note's own "no app mention" claim against the copy) had not: grepped
+the full item 4.4 history for both checker names, zero hits. Both checkers exist since mid-August
+and both read every pack including this one, so both had only ever covered Bramhall passively via
+the full-suite pass - the exact gap shape closed this week for Gordon Short Crosby (3.11 tenth),
+Hirshmans Ainsdale (1.2 eleventh), McCanns Sandringham (4.7 eleventh) and Cherry Lane Walton
+(4.2 twelfth)'s own packs/pages.
+
+branches.json confirms scorah_bramhall: hasApp false, brandLabel "Scorah Chemists", branchName
+"Scorah Chemists Bramhall". The pack's own paster note (line 147) states "No app mention anywhere
+in this pack", so rule 8d is directly testable here, not just 8a.
+
+INJECTION 1, check-pharmacy-first-cost.js rule 6
+First attempt: literal single-line string replacement targeting three PF-naming sentences failed
+silently on two of the three, because the pack hard-wraps prose across physical newlines and the
+literal search strings assumed single-space joins. Caught immediately by re-grepping the file for
+"free" after the "successful" script run and finding two of the three target phrases still present
+(the Services-section phrase alone had matched). File restored from the pre-injection backup and
+MD5-reconfirmed AE58DD982780A11B808B6DF84E29EECF before retrying.
+Second attempt used whitespace-tolerant regexes (\s+ in place of literal spaces) across the same
+three targets: "seven common conditions ... free of charge, no GP appointment needed." (business
+description), "NHS Pharmacy First: ... free NHS assessment" (Services section), and "Pharmacy First
+is a ... free NHS service" (Post A). All three matched and were stripped of "free" on this attempt.
+Confirmed by re-grep: the only remaining "free" occurrences in the file were the unrelated blood
+pressure check claim (twice) and "judgement-free" - none naming Pharmacy First.
+Result: check-pharmacy-first-cost.js exit 1, one failure, rule "free", naming
+gbp-packs/scorah-bramhall.md exactly: "advertises NHS Pharmacy First but never calls it free
+(rule 6)". Caught on the corrected attempt.
+Restored by byte copy from the pre-injection backup. MD5 reconfirmed AE58DD982780A11B808B6DF84E29EECF.
+check-pharmacy-first-cost.js re-run clean (exit 0) after restore.
+
+INJECTION 2, check-app-membership.js rules 8a and 8d
+One line added to the Services section (private services list): "- Manage your prescriptions on
+the go with our RB Healthcare Pharmacy app." (scorah_bramhall confirmed hasApp: false).
+Result: check-app-membership.js exit 1, two failures, both naming gbp-packs/scorah-bramhall.md:
+rule "gbp packs" for 8a ("the copy pasted into the public Google profile claims an app, but
+branches.json has hasApp false for scorah_bramhall") and rule "gbp packs" for 8d ("the paster note
+says there is no app mention anywhere in this pack, but the pasted copy carries one"). Both rules
+fired together on the single injection, as expected given the pack's own note text.
+Restored by byte copy from the pre-injection backup. MD5 reconfirmed AE58DD982780A11B808B6DF84E29EECF.
+check-app-membership.js re-run clean (exit 0) after restore. Backup file deleted.
+
+FULL SUITE
+All 36 tools/check-*.js re-run individually after both restores: 36/36 exit 0.
+git status --porcelain -- gbp-packs modules tools core branches.json status: empty.
+No checker logic, generator or page content changed in the tracked tree at any point.
+
+LIVE HALF
+Claude in Chrome unreachable this run (tabs_context_mcp: "Claude in Chrome is not connected"),
+reconfirmed once more immediately before the live half. Fell back to read-only PowerShell
+Invoke-WebRequest against scorah-chemists.co.uk, the established fallback.
+- pharmacy-scorah-bramhall.html (profile website target): 404, unchanged since first found
+  2026-08-11 and reconfirmed on every pass since (2026-08-12, 2026-08-31, 2026-09-01, 2026-09-02).
+  Matches the pack's own paster note.
+- switch-prescriptions-scorah-bramhall.html (Post B): 200. The "How switching works" intro still
+  renders the pre-Q7 em dash as mojibake ("â€"" for U+00E2 U+20AC U+201D) in "...it usually is not
+  [mojibake] we make the first step quick and easy" - unchanged from the ninth pass's own finding,
+  already recorded in the pack's own Post B note as live-paste-lag, not a repo defect (source and
+  paste sheet both hold a correct plain em dash).
+- pharmacy-first-scorah-bramhall.html (Post A's branch-specific alternative, per the paster note):
+  200.
+- weight-loss-clinic-scorah-bramhall.html (Post C): 200.
+- travel-clinic-scorah-bramhall.html (Post D): 200.
+No new live finding; all five results match what the pack's own notes already state as of the
+ninth/tenth passes. No repo defect.
+
+CONCLUSION
+No in-repo defect. Both checkers already correctly guard this pack; this pass proves it directly
+by injection for the first time, closing the same passive-coverage-only gap closed this week for
+four sibling items. No new question.
