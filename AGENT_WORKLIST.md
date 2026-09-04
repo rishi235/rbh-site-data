@@ -2227,6 +2227,65 @@ dash, under the 5.6 repaste queue) was not re-confirmed and should not be
 assumed unchanged or resolved. Evidence in
 audits/verify-3.5-2026-09-03-tenth.js. No in-repo defect found, no new
 question.
+
+Quality pass 2026-09-04 (eleventh): NEW LEG, the travel clinic page, never
+independently verified on this item across ten prior passes despite
+tools/check-travel-clinic-copy.js existing since 2026-08-11 and reading all 15
+travel clinic pages including this branch's own on every full-suite run
+(confirmed by grep: 27 mentions of check-travel-clinic-copy in AGENT_LOG.md,
+none combined with "hirshmans"). Independent extraction
+(audits/verify-3.5-2026-09-04-eleventh.js, freshly written, no import from
+tools/) read travel-clinic-hirshmans-ainsdale.html against the same eleven
+checks check-travel-clinic-copy.js enforces: 20 checks, 0 failures - private
+and paid stated in the hero, no NHS or Pharmacy First framing, NHS funding
+statements hedged, no stock guarantee and the availability hedge present,
+book-ahead window 6 to 8 weeks stated twice and consistently, no vaccine or
+antimalarial brand named (8-name sample), all four safety cohorts named,
+trust bar names Ainsdale and not a sister branch's town, and the yellow fever
+KNOWN-entry gap (Q48) reconfirmed unresolved rather than assumed. GUARD
+RE-PROOF BY INJECTION, on a page type (travel clinic) never used for
+injection on this item across ten prior passes (fifth: pharmacy-first;
+seventh: uti-treatment; eighth: weight-loss-clinic; ninth:
+switch-prescriptions; tenth: contraception) and on a checker
+(check-travel-clinic-copy.js) never proven against this item's own page
+before. Baseline SHA256 F6829E9388F2F34F52EB7DE0B36919C3DB771044E1481E15E683B174FBED7BBA
+recorded first, via a Node script rather than PowerShell -replace, learning
+from the 3.2 tenth pass's own PowerShell Out-File BOM/CRLF restore-corruption
+finding earlier this same run sequence. Injection 1: the hero-sub's governing
+sentence ("This is a private, paid service, not an NHS-funded appointment...")
+changed to "This is a free NHS service, not a private appointment..." after
+the script confirmed the target string matched. CAUGHT: check-travel-clinic-copy.js
+exit 1, three failures - rule verbatim (the page no longer matches the
+generator's line), rule private (the hero no longer states "private, paid
+service"), and the explicit NOT_PRIVATE pattern (the page now calls the
+clinic a free NHS service) - all naming this exact file. Restored by
+fs.writeFileSync from the pre-injection backup copy, SHA256-reconfirmed
+identical to baseline. Injection 2, a different rule and a different part of
+the page: "Havrix" (a hepatitis A vaccine brand) appended to the Hepatitis A
+and B vaccine-grid card's description. CAUGHT: check-travel-clinic-copy.js
+exit 1, one failure, rule medicine, naming the file and the exact brand name.
+Restored the same way, SHA256-reconfirmed identical to baseline. Full
+36-checker suite re-run after each restore: 36/36 exit 0 both times. git
+status --porcelain -- gbp-packs modules tools core branches.json status
+empty throughout; no checker logic, generator or page content changed in the
+tracked tree at any point. LIVE HALF: Claude in Chrome unreachable this run
+(checked at step 3 and reconfirmed before this section). Fell back to
+read-only PowerShell Invoke-WebRequest against hirshmanspharmacy.co.uk, the
+established fallback. travel-clinic-hirshmans-ainsdale.html: 200, carries
+"private, paid service" in visible text, no medicine brand name found (same
+8-name sample), book-ahead window "6 to 8 weeks" present alongside the
+unrelated "1 to 2 weeks" short-notice cohort line, correctly distinct per
+Rule 7's own exemption - matches the repo-side state exactly, no live-only
+finding. sitemap.xml: 200, every lastmod still 2026-08-14T16:09:17+00:00,
+unchanged since the sixth pass first recorded this timestamp, no republish.
+Evidence in audits/verify-3.5-2026-09-04-eleventh.js: the extraction script
+itself was written by an earlier, interrupted run of this same scheduled
+task, which created the script and a .agent-lock but did not run it, commit
+it or log it; found at this run's start with its .agent-lock past the
+45-minute staleness threshold and correctly treated as abandoned per the
+task's own lock rule (see ENVIRONMENT note in AGENT_LOG.md). No in-repo
+defect found, no new question.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
