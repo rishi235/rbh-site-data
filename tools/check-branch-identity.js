@@ -84,6 +84,34 @@
                   the two branches share a host the link resolves and books
                   the wrong pharmacy silently; where they do not it 404s and
                   the service route is simply dead.
+   11. SISTERLABEL the visible TEXT of a sister-branch link matches what
+                  build-branch-landing-pages.js's own sisterNote() would
+                  render for it: the sister's branchName, with " in
+                  <seoTown>" appended only when branchName does not already
+                  end with that town (case-insensitive, word-boundary
+                  anchored). Rule 9 proves the href always resolves to the
+                  right sister; it says nothing about the label a patient
+                  actually reads. A patient does not see the href - they see
+                  "McCanns Chemist Sandringham in St Michael's" or just
+                  "Fishlocks Chemist Eccleston", and a future seoTown or
+                  branchName edit (seoTown already moved once, on McCanns
+                  Sandringham, item 5.7) could leave that label stale, either
+                  dropping a town that is genuinely needed to disambiguate or
+                  wrongly duplicating one, while rule 9 stays green because
+                  the link itself still resolves.
+
+  Rule 11 was added on the 2026-09-04 quality pass of item 2.2 (seventh
+  pass), after checking whether anything already covered the text a rule-9
+  sisterlink prints alongside its (already-verified) href, and finding rule
+  9 reads only the href. Proven correct on today's data first, not assumed:
+  all three shared-domain pairs' sister links were read directly off the
+  generated pages, and the one case that exercises the "does not end with
+  town" branch of sisterNote()'s own regex in production - McCanns
+  Sandringham, whose branchName still ends "Sandringham" while its seoTown
+  moved to "St Michael's" under item 5.7 - already renders correctly today
+  ("McCanns Chemist Sandringham in St Michael's" on the Aigburth page).
+  Nothing was broken; the gap was that nothing would have caught it if a
+  future edit broke it, since rule 9's own href check would stay green.
 
   Rule 10 was added on the 2026-08-12 quality pass of item 2.3, after the
   Pharmacy First link on a Cherry Lane service page was repointed at Coleman
@@ -213,6 +241,21 @@ branches.forEach(function (b) { if (b.brandSlug) brandSlugs[b.brandSlug] = true;
 var reviewLinksRead = 0;
 var landingLinksRead = 0;
 var serviceLinksRead = 0;
+var sisterLabelsRead = 0;
+
+// Rule 11: does b's own branchName already end with its own seoTown? Mirrors
+// build-branch-landing-pages.js's sisterNote() regex exactly (word-boundary,
+// case-insensitive, anchored at the end), so a change to that generator's
+// logic and a change to this check drift apart loudly rather than silently.
+function endsWithOwnTown(b) {
+  var town = String(b.seoTown || "");
+  if (!town) return false;
+  var reSrc = "\\b" + town.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$";
+  return new RegExp(reSrc, "i").test(String(b.branchName || ""));
+}
+function expectedSisterLabel(sister) {
+  return endsWithOwnTown(sister) ? sister.branchName : sister.branchName + " in " + sister.seoTown;
+}
 
 // Rule 10: a generated service page is "<service>-<brandSlug>-<townSlug>.html",
 // so the branch is the longest branch key the filename ends with. Longest wins
@@ -446,6 +489,38 @@ pages.forEach(function (p) {
         ". The link is relative, so it cannot reach another website and 404s");
     }
   });
+
+  // Rule 11: the visible text of a sister-branch link, checked against what
+  // build-branch-landing-pages.js's own sisterNote() would render for it.
+  // A separate pass over p.html because the text sits between the anchor
+  // tags, not in an attribute, so the generic hrefRe sweep above cannot see
+  // it. Matches only a bare "<a href=\"pharmacy-...html\">text</a>" with no
+  // nested markup, which is the exact shape sisterNote() emits and not the
+  // shape of the service tiles (those carry a class attribute and nested
+  // <strong>/<span> tags), so this cannot cross-match a service-grid tile.
+  var sisterAnchorRe = /<a href="(pharmacy-[a-z0-9][a-z0-9-]*\.html)">([^<]*)<\/a>/g;
+  var sm;
+  while ((sm = sisterAnchorRe.exec(p.html)) !== null) {
+    var slHref = sm[1];
+    var slText = sm[2];
+    var slMatch = /^pharmacy-([a-z0-9]+(?:-[a-z0-9-]+)?)\.html$/.exec(slHref);
+    if (!slMatch) continue;
+    var slFirstToken = slMatch[1].split("-")[0];
+    if (!brandSlugs[slFirstToken]) continue;   // not a landing link
+    var sisterB = byKey[slMatch[1]];
+    if (!sisterB || sisterB.id === b.id) continue;   // rule 9 already reports this
+    sisterLabelsRead++;
+    var expectedLabel = expectedSisterLabel(sisterB);
+    if (slText !== expectedLabel) {
+      fail(slug, "sisterlabel", rel(p.path) + ': its link to "' + slHref +
+        '" reads "' + slText + '", but build-branch-landing-pages.js\'s own ' +
+        'sisterNote() logic would render "' + expectedLabel + '" for ' +
+        sisterB.id + ' (branchName "' + sisterB.branchName +
+        '" against seoTown "' + sisterB.seoTown + '"). A patient reads the ' +
+        "label, not the href, so a stale one still misdirects even though " +
+        "rule 9 confirms the link itself resolves correctly");
+    }
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -525,8 +600,9 @@ console.log("  " + branches.length + " trading branch(es), " +
   Object.keys(byHost).filter(function (h) { return byHost[h].length > 1; }).length +
   " website(s) shared by a pair");
 console.log("  " + reviewLinksRead + " review link(s), " + landingLinksRead +
-  " branch landing link(s) and " + serviceLinksRead +
-  " service page link(s) read on those pages");
+  " branch landing link(s), " + serviceLinksRead +
+  " service page link(s) and " + sisterLabelsRead +
+  " sister-link label(s) read on those pages");
 console.log("");
 
 warnings.forEach(function (w) { console.log("  WARN  " + w); });

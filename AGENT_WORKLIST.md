@@ -681,6 +681,46 @@ audits/verify-2.1-2026-09-04-eleventh-output.txt.- [x] 2.2 Fishlocks shared-doma
       audits/fishlocks-branch-landing-check-2026-08-31.txt,
       audits/checker-results-2.2-2026-08-31.txt,
       audits/_before-2.2-2026-08-31.sha256, audits/_after-2.2-2026-08-31.sha256.
+      Quality pass 2026-09-04 (seventh): a genuine gap closed, not just
+      proven. Baseline clean first: all 36 checkers exit 0, all six
+      generators rebuilt to a byte-identical tree (sha256 of every
+      modules/core file unchanged), git status empty throughout. Six prior
+      passes had tested NAP, the SISTERLINK/OUTBOUND link targets (rules
+      8/9, added on this item's own third pass), the Pharmacy First cost
+      claim and the WhatsApp-by-design absence on these six shared-domain
+      landing pages, but never the visible TEXT of the "looking for our
+      other branch?" sister link that rule 9 sits beside - rule 9 proves
+      the href resolves to the right sister branch and says nothing about
+      the label a patient actually reads. That label is generated once, by
+      sisterNote() in build-branch-landing-pages.js: the sister's
+      branchName, with " in <seoTown>" appended only when branchName does
+      not already end with that town. Checked against real production data
+      first, not a synthetic case: McCanns Sandringham's seoTown moved to
+      "St Michael's" under item 5.7 while its branchName still ends
+      "Sandringham", so the McCanns Aigburth landing page already exercises
+      the "append the town" branch of that logic today, and reads correctly
+      ("McCanns Chemist Sandringham in St Michael's") - correct, but nothing
+      was guarding it. tools/check-branch-identity.js gains rule 11
+      (SISTERLABEL): the sister-link anchor text on a branch landing page
+      must equal what sisterNote()'s own regex would render for that
+      sister, computed from branches.json alone (nothing imported from the
+      generator). Proven by injection both directions on a fresh restore
+      each time, sha256-verified byte-identical before, after each
+      restoration and at the end: (1) McCanns Aigburth's label stripped of
+      its " in St Michael's" suffix - CAUGHT; (2) Fishlocks Ainsdale's label
+      given a spurious " in Eccleston" it should not carry - CAUGHT. Full
+      36-checker suite and a full generator rebuild re-run clean after the
+      change (36/36, byte-identical tree). No copy, page or branches.json
+      byte changed anywhere in the repo; only the checker gained a rule. No
+      new question: the correct behaviour was already fully defined by the
+      existing generator logic, so closing the gap needed no decision from
+      Rishi. Live half not read: Claude in Chrome not connected
+      (list_connected_browsers returned an empty array), matching the
+      standing Q59/Q87 diagnosis; the sixth pass's own live findings (both
+      pages still 404, Q35 and Q69 unchanged) stand unclaimed by this pass.
+      Evidence: audits/verify-2.2-2026-09-04-seventh.js (self-contained, no
+      import from tools/ beyond invoking the real checker as a child
+      process; re-runnable).
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
