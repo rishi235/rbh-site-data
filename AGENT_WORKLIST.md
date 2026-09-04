@@ -12809,6 +12809,80 @@ for the record).
       no live breach to weigh), not a judgement call for Rishi. Only
       tools/check-opening-hours.js changed; no page, generator, data field or
       patient-facing copy touched.
+      Quality pass (eighth), 2026-09-04 (unattended run, Cowork). RULE 5 PROVED
+      BY INJECTION FOR THE FIRST TIME IN THIS ITEM'S EIGHT-PASS HISTORY. Rules 1,
+      4, 6, 7 and 8 have each been proved by injection on an earlier pass of this
+      item; rule 5 ("a session must close after it opens", checker line 271,
+      `if (!(s.closes > s.opens)) fail(...)`) had never been exercised - confirmed
+      by grepping every "rule 5" mention across AGENT_WORKLIST.md and AGENT_LOG.md
+      before writing anything, all of which belong to other checkers' own rule 5
+      (check-weight-loss-copy.js, check-contraception-copy.js, check-seo-keywords.js
+      etc.), none to this one.
+      BASELINE. One self-inflicted false alarm caught before touching anything
+      tracked, the same shape several prior passes have hit: this run's own
+      item-selection scratch file (_agentscratch/gitlog_items_run_verify.txt, a
+      git-log dump used to re-derive the rotation) carried postcode-shaped
+      substrings from historical commit subjects, tripping check-postcodes.js (5
+      UNKNOWN lines). The standing no-delete restriction on this sandbox mount
+      (rm returns "Operation not permitted") meant it could not be unlinked;
+      renamed aside instead, checker returned to its standing clean state (0
+      failures, 3 pre-existing UNOWNED warnings). All 36 tools/check-*.js then run
+      individually: 36/36 exit 0.
+      PROOF BY INJECTION, three rounds on branches.json, each on a fresh restore
+      rather than layered, backed up first (_agentscratch/branches.json.bak-pre-
+      6.3-eighth) and sha256-verified byte-identical before and after each round
+      (904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e, matching
+      the standing hash every recent pass on this branch has recorded, confirming
+      branches.json was untouched between passes). (1) riddings_timperley's single
+      Mon-Fri session (09:00-18:00, the plainest single-session branch in the
+      estate) had its opens/closes swapped to 18:00-09:00 - CAUGHT, exit 1:
+      "riddings_timperley: session 18:00 to 09:00 does not close after it opens".
+      (2) Same session, boundary case: closes set equal to opens (09:00 to 09:00,
+      rather than before it) to prove the rule is a strict inequality
+      (`closes > opens`, not `>=`) rather than merely catching a reversed pair -
+      CAUGHT, exit 1: "session 09:00 to 09:00 does not close after it opens". (3)
+      mccanns_aigburth's SECOND session on a split day (the 14:00-18:00 afternoon
+      leg of its Mon-Fri lunch closure, one of the seven split-day branches CLAUDE.md
+      names) swapped to 18:00-14:00, proving the rule iterates every session in
+      specification rather than only the first per branch or per day - CAUGHT,
+      exit 1: "mccanns_aigburth: session 18:00 to 14:00 does not close after it
+      opens". All three restored from the pre-injection backup by direct byte copy
+      (cp, never JSON.stringify re-serialisation, per the CLAUDE.md item 5.2
+      lesson - "a test harness must restore by byte copy, not from git" - applied
+      here to sha256-verified cp rather than git checkout, for the same reason);
+      sha256-confirmed byte-identical to the committed original after each
+      restoration and again at the end. Full 36-checker suite re-run clean after
+      the round (36/36 exit 0); all six generators (build-branch-landing-pages,
+      build-contraception-pages, build-service-pages, build-switch-pages,
+      build-travel-clinic-pages, build-weight-loss-pages) rebuilt, combined sha256
+      of all 215 files under modules/ and core/ identical before and after,
+      git status --porcelain modules/ core/ branches.json empty throughout.
+      LIVE HALF, first re-run since 2026-09-02 (2 days stale at the start of this
+      pass). tools/check-live-hours.js run directly from this sandbox via Node's
+      native fetch (network egress confirmed first via a 200 from google.com; no
+      browser needed, Claude in Chrome not checked as this route already works),
+      evidence audits/live-hours-check-2026-09-04.json. Bank holiday note correctly
+      flagged 2026-08-31 (Summer bank holiday, 4 days before this run) as within
+      the 14-day window. All 14 branches' snippets read against branches.json:
+      thirteen match exactly, including all seven lunch-closure branches read in
+      full this pass (mccanns_aigburth, mccanns_sandringham, hirshmans_ainsdale,
+      colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor, and
+      smartts_bootle as the exception below) and both split-domain pairs (Scorah,
+      Fishlocks) read by address. Smartts remains the sole live mismatch: homepage
+      hours card, contact page and footer widget all still publish straight-through
+      "9:00am - 6:00pm" / "09:00 - 18:00" with no lunch closure, unchanged since
+      first found 2026-08-11. Q55 (raised 2026-08-11, answered by Rishi via the
+      portal 2026-09-02 choosing option 1, edit the live Smartts pages) stands as
+      answered-but-not-yet-actioned - the live Weebly edit is outside this worker's
+      write scope (browser use stays read-only) - not re-raised.
+      RESULT. Zero in-repo defect: check-opening-hours.js's rule 5 was already
+      correctly enforcing "closes after opens" on every branch and every session,
+      now proven directly by injection (including the strict-inequality boundary
+      and a non-first session on a split day) for the first time in this item's
+      eight-pass history rather than left to keep being correct by construction
+      alone. No new question. Only branches.json touched and fully restored; no
+      page, generator, data field or patient-facing copy left changed. Evidence:
+      audits/live-hours-check-2026-09-04.json.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
