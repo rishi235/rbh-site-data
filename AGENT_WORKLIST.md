@@ -2019,6 +2019,104 @@ Next stalest by the same block-bounded git-log method, for whoever runs the
 next unattended pass, derived fresh this run against the 36-item rotation
 pool: 3.9 (2026-09-02T19:09:58+01:00), then 3.10, 2.1, 5.2, 4.11, 5.1, 3.12,
 3.6 - re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-04 (eleventh): REPO HALF CLEAN, ZERO DEFECTS. Stalest
+item independently re-derived via the established git-log block method (677
+commits touching AGENT_WORKLIST.md/AGENT_LOG.md at the point this pass began,
+36-item rotation pool): 3.4 uniquely stalest at 2026-09-03T13:41:45+01:00,
+ahead of 3.9 (14:12:16) and 3.10 (14:43:36), matching the tenth pass's own
+forward note. All 36 tools/check-*.js checkers ran individually and passed;
+all six generators rebuilt via their own build-*.js scripts with git status
+--porcelain on modules/ and core/ empty before and after (byte-identical).
+An earlier, interrupted run of this same scheduled task had already begun
+this pass: audits/verify-3.4-2026-09-04-eleventh.js existed at run start
+(written and last run at 09:41 BST, before this run's own lock was created),
+but no worklist paragraph, log entry or commit followed, consistent with a
+run terminated shortly after writing and executing the script - the same
+shape the 3.5 eleventh pass documented on 2026-09-04 for its own recovered
+script. The script was read in full before use (proper discipline: shells
+out to the real checker as a child process, no import from tools/, refuses
+to run if any target already carries a git diff, restores from an in-memory
+Buffer immediately after capturing output and before any assertion, sha256-
+reconfirms). Rather than trust the orphaned output file blind, it was re-run
+fresh against the current tree (confirmed clean via git status --porcelain
+first) rather than assumed current.
+The genuinely untested angle this pass closed: ten prior passes (third
+through tenth) proved check-nap.js, check-postcodes.js, check-em-dashes.js,
+check-whatsapp-route.js, check-service-links.js and check-switch-copy.js
+against Cherry Lane's own pages by direct injection, but tools/check-branch-
+identity.js - whose own file header records that its RULE servicelink was
+born from a real Cherry Lane defect found on item 2.3 (2026-08-12: a
+Pharmacy First condition tile was repointed at Coleman and Leighs, the other
+Walton branch, and all 29 checkers of the day exited 0) - had never been
+proven by injection against Cherry Lane's own pages specifically. That the
+2.3 fix has held since is not the same claim as this item's own instrument
+having proved it.
+Five injections, one at a time, each restored by direct fs.writeFileSync from
+an in-memory Buffer and sha256-reconfirmed before the next: (1) RULE identity
+- data-branch emptied on contraception-cherry-lane-walton.html's module root,
+caught ("carries a module root but no data-branch"); (2) RULE owner -
+data-branch on earache-treatment-cherry-lane-walton.html swapped for Smartts
+Chemist's name, caught, correctly also flagging that Cherry Lane's own pages
+now declared two different data-branch values; (3) RULE schemaname - JSON-LD
+name on sore-throat-treatment-cherry-lane-walton.html swapped for Hirshmans
+Chemist's, caught, same two-values cross-check; (4) RULE outbound - the
+Google review link on shingles-treatment-cherry-lane-walton.html swapped for
+Smartts Chemist's, caught ("A patient following it rates the wrong shop");
+(5) RULE servicelink - the shingles condition tile on pharmacy-first-cherry-
+lane-walton.html repointed at Coleman and Leighs' equivalent page (the exact
+shape of the real 2026-08-12 defect, cross-host since Coleman and Leighs is
+served from a different domain), caught ("so it 404s and the service route
+is dead"). All five caught first attempt with the expected message; final
+checker run after all restores exit 0; all five target files git-diff-empty
+throughout. Full 36-checker suite re-run individually after the round: 36/36
+exit 0. Output: audits/verify-3.4-2026-09-04-eleventh-output.txt (regenerated
+this run in UTF-8; the orphaned copy from the interrupted run had been
+captured via a PowerShell redirection that produced UTF-16, unreadable as
+plain text - a fresh instance of the same encoding gotcha the 3.5 eleventh
+pass hit and fixed on 2026-09-04 for its own gitlog capture, not a defect in
+the script's own logic).
+LIVE HALF, PARTIAL. Claude in Chrome confirmed not connected (checked at
+step 3 and again independently before this section, a fourth consecutive
+pass without it). Fell back to the established read-only PowerShell
+Invoke-WebRequest route rather than leaving the live half entirely unread for
+a fourth time. uti-treatment-cherry-lane-walton.html and pharmacy-first-
+cherry-lane-walton.html both 200, own postcode (L4 8SG), own phone (0151 226
+2051) and Walton all present, matching repo state exactly - no drift on the
+two pages every pass reconfirms. pharmacy-first-service-walton.html (the
+independent bridge page with its own Appointedd widget) still carries widget
+id 66b20ae6609c16953de3e0cf, Cherry Lane's own Pharmacy First diary - no
+wrong-diary risk, unchanged since the seventh pass first read it.
+weight-loss-clinic-walton.html RECONFIRMS the seventh pass's Q86 finding
+still live and uncorrected: the page still reads "...Walton, Liverpool L4
+8SG" (matched verbatim), the 2026-08-05 wording, not the 2026-08-13 repo fix
+("Cherry Lane, Liverpool L4 8SG", absent) - now 22 days since the repo was
+corrected with the live paste never refreshed. THE OTHER HALF OF Q86, THE
+SITE-WIDE CONTACT WIDGET'S CROSS-BRANCH SCORAH MAILTO ADDRESSES, COULD NOT BE
+CHECKED EITHER WAY THIS PASS AND IS NOT CLAIMED FIXED: a raw
+Invoke-WebRequest fetch of the homepage contained no "mailto:" string at all
+anywhere in 73,163 characters of HTML (not even the correct
+Cherry@rbhealth.co.uk one, though "Cherry@rbhealth" appears as visible text
+elsewhere on the page), consistent with the seventh pass's own note that this
+widget was invisible even to rendered-text extraction and only readable by
+inspecting actual href attributes in a live DOM - something a raw HTTP GET
+with no JavaScript execution cannot do at all, a stricter limitation than
+Claude in Chrome being disconnected, not evidence either way. Q36's footer
+typo (pharmacy.FA226@mhs.net) also not reconfirmed by the same limitation (no
+"mhs.net" string found, but the whole footer element may not be in the raw
+HTML this method can see). Both stand unverified rather than reconfirmed or
+cleared; Q86 not re-raised, no new question.
+WORKLIST AND COMMIT. This paragraph. check-em-dashes.js re-run after the
+edit: clean. New evidence file this run: audits/verify-3.4-2026-09-04-
+eleventh.js (recovered from the interrupted run, read in full, re-run fresh
+rather than trusted) and its regenerated UTF-8 output file. QUESTIONS.json
+unchanged (95 total, 42 open; no pickup available this run - Claude in Chrome
+not connected, standing Q59 - no new question raised). Files changed and
+committed: AGENT_WORKLIST.md, the two audits/ files, and AGENT_LOG.md - no
+generator, page, data field or checker file touched in the tracked tree,
+reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-02T19:09:58+01:00), then 3.10, 2.1 - re-derive
+rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.

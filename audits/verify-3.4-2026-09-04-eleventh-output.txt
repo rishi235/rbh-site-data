@@ -1,0 +1,30 @@
+﻿Baseline: check-branch-identity.js clean (exit 0). Proceeding with five injections.
+
+RESULTS
+  CAUGHT  1. identity (empty data-branch)
+    file: modules/service/pages/contraception-cherry-lane-walton.html
+    exit: 1  expectTag: [carries a module root but no data-branch]  restoredOk: true
+      FAIL  modules/service/pages/contraception-cherry-lane-walton.html carries a module root but no data-branch, so an enquiry from it is labelled "our pharmacy"
+  CAUGHT  2. owner (data-branch -> Smartts Chemist)
+    file: modules/service/pages/earache-treatment-cherry-lane-walton.html
+    exit: 1  expectTag: [an enquiry from this page is filed against the wrong pharmacy]  restoredOk: true
+      FAIL  modules/service/pages/earache-treatment-cherry-lane-walton.html: data-branch="Smartts Chemist" but the page belongs to cherrylane_liverpool ("Cherry Lane Pharmacy") - that is smartts_bootle's name, so an enquiry from this page is filed against the wrong pharmacy |   FAIL  cherrylane_liverpool: its pages declare 2 different values for data-branch ("Cherry Lane Pharmacy" on 11 page(s), "Smartts Chemist" on 1 page(s)), so one branch presents itself as more than one business depending on which generator built the page
+  CAUGHT  3. schemaname (JSON-LD name -> Hirshmans Chemist)
+    file: modules/service/pages/sore-throat-treatment-cherry-lane-walton.html
+    exit: 1  expectTag: [Google is told this address belongs to another pharmacy]  restoredOk: true
+      FAIL  modules/service/pages/sore-throat-treatment-cherry-lane-walton.html: JSON-LD name "Hirshmans Chemist" but the page belongs to cherrylane_liverpool ("Cherry Lane Pharmacy") - that is hirshmans_ainsdale's name, so Google is told this address belongs to another pharmacy |   FAIL  cherrylane_liverpool: its pages declare 2 different values for JSON-LD name ("Cherry Lane Pharmacy" on 11 page(s), "Hirshmans Chemist" on 1 page(s)), so one branch presents itself as more than one business depending on which generator built the page
+  CAUGHT  4. outbound (Google review link -> Smartts Chemist's)
+    file: modules/service/pages/shingles-treatment-cherry-lane-walton.html
+    exit: 1  expectTag: [A patient following it rates the wrong shop]  restoredOk: true
+      FAIL  modules/service/pages/shingles-treatment-cherry-lane-walton.html: publishes the Google review link "https://g.page/r/CVzJUbDqQwReEBM/review", which belongs to smartts_bootle ("Smartts Chemist"), but the page belongs to cherrylane_liverpool ("Cherry Lane Pharmacy"). A patient following it rates the wrong shop, on a third-party profile neither this repo nor a repaste can move the review back off
+  CAUGHT  5. servicelink (shingles tile -> Coleman and Leighs)
+    file: modules/service/pages/pharmacy-first-cherry-lane-walton.html
+    exit: 1  expectTag: [so it 404s and the service route is dead]  restoredOk: true
+      FAIL  modules/service/pages/pharmacy-first-cherry-lane-walton.html: links to "shingles-treatment-coleman-leigh-walton.html", a service page belonging to colemanleigh_liverpool ("Coleman and Leighs Pharmacy"), but the page belongs to cherrylane_liverpool ("Cherry Lane Pharmacy"). colemanleigh_liverpool is served from www.colemanandleighspharmacy.co.uk and the link is relative, so it 404s and the service route is dead.
+
+Final checker run after all restores: exit 0 (clean)
+All five target files git-diff-empty after restore: true
+
+SUMMARY: 5 injection(s), 5 caught, 0 missed. All restored byte-identical: true.
+
+PASS: all five rules of check-branch-identity.js proved by injection against Cherry Lane's own pages; all files restored byte-identical; checker clean throughout.
