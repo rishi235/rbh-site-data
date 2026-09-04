@@ -489,7 +489,65 @@ re-verified, Q35 remains answered and closed as of the ninth pass. No new
 question raised; no worklist item blocked or unblocked. Evidence:
 audits/verify-2.1-2026-09-03-tenth.py,
 audits/verify-2.1-2026-09-03-tenth-output.txt.
-- [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
+Quality pass 2026-09-04 (eleventh pass): all 8 worklist items still unchecked
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED], so this was
+the fallback quality pass, picked by the standard rotation-pool ranking over
+the 36-item pool (43 checked items minus the standing out-of-rotation set 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8), re-derived fresh from git log rather than
+assumed: item 2.1's newest mention was the tenth pass at
+2026-09-03T15:12:13+01:00, older than every other pool item (5.2, 4.11, 5.1,
+3.6 and 3.12 tied, 3.8, 6.3 all newer), exactly matching the tenth pass's own
+forward note. Repo half: all 36 checkers pass estate-wide, all six generators
+rebuild to a byte-identical zero diff against the untouched tree (git status
+--porcelain modules/ core/ empty before and after). Fresh angle: of this
+branch's 13 owned pages, the switch page (eighth pass), the travel clinic page
+(ninth pass) and the branch landing page (tenth pass) had each been
+injection-tested, but the weight-loss-clinic page - the single most
+compliance-sensitive page type this branch owns - had never had a dedicated
+injection round for this item. New instrument written fresh
+(audits/verify-2.1-2026-09-04-eleventh.js, no import from tools/ beyond
+invoking the real checker as a child process): refuses to run if the target
+file already carries a git diff, restores by direct file write from a saved
+original immediately after capturing the checker's output and before any
+assertion, sha256-verified byte-identical before the next injection and again
+at the end. Five injections, each applied to a freshly restored copy of the
+original: (1) RULE 4 (private, paid, not NHS) - "This is a paid private
+service, not an NHS treatment," replaced with "This is a fantastic new
+service," - CAUGHT. (2) RULE 5 (eligibility) - the "Adults aged 18 and over"
+screening line changed to 16 and over - CAUGHT. (3) RULE 6 (no guarantee) -
+the page's own no-guarantee sentence replaced with a guarantee claim - CAUGHT.
+(4) RULE 8 (no medicine named) - the prescription-only medication sentence
+replaced with one naming Mounjaro and Wegovy - CAUGHT. (5) RULE 9 (no efficacy
+or results claim) - the consultation sentence prefixed with a "real results,
+lose weight fast" claim - CAUGHT. All five caught on exit code 1, all five
+restored byte-identical (sha256-reconfirmed), file confirmed byte-identical to
+its original hash before the round, after each restoration, and after the
+final one; the real repo's git status stayed empty throughout, and
+check-weight-loss-copy.js re-run clean (exit 0) immediately after. Full
+36-checker suite re-run clean. One process note, not a repo defect: a
+follow-up manual re-check attempted directly through this session's own
+PowerShell command channel, rather than through the Node.js instrument,
+silently failed to reproduce the RULE 6 match and reported a false "OK" -
+traced to how that inline command string was transmitted, not to the checker
+or the file (the Node.js script's own guard, which refuses and exits if a
+mutation string is not found, never fired for any of the five injections, so
+all five ran against genuinely mutated content); the manual re-check is
+discarded and the Node.js result stands as the record. No in-repo defect
+found. Live half: PowerShell Invoke-WebRequest sweep of
+fishlockpharmacy.co.uk (Claude in Chrome confirmed not connected), the first
+live reconfirmation for this item since the seventh pass on 2026-08-31, four
+passes ago. Q37 (the Weebly-native contact block naming the business "Fishlock
+Pharmacy" and "Fishlock Chemist", and abbreviating the Ainsdale address to "17
+Station Rd") reconfirmed still live and unchanged on contact.html. Q57 (the
+old shared page weight-loss-services-eccleston-ainsdale.html, homepage-linked
+and outside the inner-page exemption) reconfirmed still live and unchanged:
+the "Real Results" heading and all three POM names (Mounjaro, Wegovy,
+Orlistat) still present. The site's sitemap lastmod is still fixed at
+2026-08-14T17:32:10, unchanged since the sixth pass, now three weeks without a
+publish. No new question raised; both findings are reconfirmation of existing
+standing state, not new faults. Evidence:
+audits/verify-2.1-2026-09-04-eleventh.js,
+audits/verify-2.1-2026-09-04-eleventh-output.txt.- [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
       pharmacy-fishlocks-ainsdale.html and pharmacy-fishlocks-eccleston.html
