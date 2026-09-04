@@ -1262,6 +1262,88 @@ does so without weakening the separate one-h1 count rule. No checker logic
 changed - this was verification only, the documented behaviour already
 being correct. No page, generator, checker or branches.json entry changed.
 No new question raised.
+Quality pass 2026-09-04 (eleventh pass, unattended scheduled run): clean
+again, no in-repo defect. Baseline: all 36 tools/check-*.js checkers green,
+self-test passed with no length warnings, all six generators reproduce all
+215 files under modules/ and core/ byte-identical (sha256 before/after,
+zero diff), git status --porcelain modules/ core/ tools/ branches.json
+empty throughout. One self-inflicted false alarm cleared first, the same
+shape several prior passes have hit: this run's own item-selection scratch
+file (_agentscratch/gitlog_items_run20260904c.txt, raw git-log commit
+subjects) carried postcode-shaped substrings from historical commit
+messages, tripping check-postcodes.js on 5 UNKNOWN lines; renamed aside
+(mount rejects rm, mv permitted) and the checker returned to its standing
+clean state (0 failures, 3 pre-existing UNOWNED warnings) before any other
+work began.
+Ten prior passes had exercised the exact-match legs, the count legs, the
+data-source legs, the PAGE_TYPES contract (both directions, including its
+own KNOWN_NON_PAGE_BUILDER stale-key rule on the ninth pass) and the
+cross-town/sister-town legs (including item 3.3's 2026-08-14 pass proving
+KNOWN_SISTER_TOWN's own stale-key rule by injection). None had exercised
+the checker's THIRD and last untested list mechanism: KNOWN_NON_PAGE, the
+list that excuses a legitimately untyped file. The ninth pass (2026-09-03)
+proved the unlisted-file-fails half by injection, but KNOWN_NON_PAGE itself
+has stood empty in every pass across this item's whole history, so neither
+the list's own legitimate-excuse path nor its stale-key path (lines 560-565,
+"is no longer an untyped file. Remove it") had ever fired.
+METHOD. A full scratch copy of tools/, branches.json and the three page
+directories was made outside the tracked working tree (/tmp, not the
+mounted repo), matching the ninth pass's own convention of using a scratch
+copy for edits to tools/ itself rather than the tracked repo. The scratch
+copy's own baseline run matched the tracked repo's exactly (177 pages, 0
+untyped, 0 failures, exit 0) before any mutation.
+THREE ROUNDS, each building on the last within the scratch copy only.
+(1) UNLISTED UNTYPED FILE: modules/service/pages/
+totally-unrecognised-page-11th-pass.html added (a bare HTML stub matching
+no expectationsFor() pattern) - CAUGHT, exit 1, "FAIL untyped file -
+totally-unrecognised-page-11th-pass.html: this checker cannot type it",
+untyped count 0 to 1, consistent with the ninth pass's own finding on a
+different filename, re-confirmed here as the control case before testing
+the two legs that pass has never reached. (2) LEGITIMATE EXCUSE WORKS: a
+KNOWN_NON_PAGE entry naming the same file was added to the scratch copy's
+tools/check-seo-pattern.js (the list's first-ever non-empty state in this
+item's history) - the file was correctly excused rather than failed: exit
+0, "177 pages checked, 1 untyped (1 excused by KNOWN_NON_PAGE), 0
+failures." This is the genuinely new proof: the excuse mechanism had only
+ever been read, reasoned about and left empty before this pass, never
+exercised to confirm it actually suppresses a failure rather than merely
+being wired to look like it does. (3) STALE KEY FAILS: the injected file
+was then removed while the KNOWN_NON_PAGE key was left in place - CAUGHT,
+exit 1, "FAIL stale KNOWN_NON_PAGE key - totally-unrecognised-page-11th-pass.html
+is no longer an untyped file. Remove it," the third and final stale-key
+rule in this checker (after KNOWN_SISTER_TOWN and KNOWN_NON_PAGE_BUILDER,
+both proved on earlier passes) now also proved by injection rather than
+resting on its own comment.
+The KNOWN_NON_PAGE key was then reverted and the scratch copy re-run: exit
+0, byte-identical output to the pre-mutation baseline (177/0/0). The
+scratch directory was deleted entirely after use. Tracked repo confirmed
+untouched throughout and afterwards: git status --porcelain modules/ core/
+tools/ branches.json empty both before the scratch work began and after it
+ended, and the full 36-checker suite re-run on the tracked repo itself
+(not the scratch copy) came back clean, check-seo-pattern.js reporting the
+same standing "0 excused by KNOWN_NON_PAGE" it always has, because the
+tracked repo's own KNOWN_NON_PAGE list was never touched.
+LIVE HALF: Claude in Chrome reported not connected at answer pickup (step
+3, navigate attempt returned "not connected"); not retried by another
+route per procedure, no login attempted. Fell back to the established
+read-only GET route (curl, GET only, -L to follow redirects; network
+egress confirmed first via a 200 from google.com):
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html returned
+HTTP 200, title "Pharmacy First at Fishlocks Chemist, Ainsdale" and H1
+"Pharmacy First at Fishlocks Chemist in Ainsdale", both the pattern
+verbatim - unchanged from every prior pass's live sample. The
+Q71/mccannspharmacy.co.uk 404 finding was not re-read this pass, treated
+as unchanged per the established convention when the finding is not new.
+No new live finding.
+RESULT. Zero in-repo defects found this pass. One genuinely untested
+mechanism in check-seo-pattern.js proved correct by injection across all
+three of its states for the first time in this item's eleven-pass history:
+a legitimately listed KNOWN_NON_PAGE entry excuses its file rather than
+merely being trusted to, and a stale entry whose file has gone fails the
+run rather than being trusted to. No checker logic changed - this was
+verification only, the documented behaviour already being correct. No
+page, generator, checker or branches.json entry changed outside the
+deleted scratch copy. No new question raised.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
