@@ -1,0 +1,140 @@
+Item 4.2 quality pass (twelfth) - Cherry Lane Pharmacy Walton GBP pack
+Run: 2026-09-04 (unattended scheduled run via Cowork, audit-backlog-worker)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6), so the quality-pass
+fallback applied. Stalest item independently re-derived via
+git log --pretty=format:"%cI|||%s" over the standing branch/pack item
+pool (1.2, 2.1, 2.3, 3.2-3.13, 4.1-4.15), matched with a regex anchored
+to "^Item <n> quality pass" at the start of the commit subject rather
+than a bare substring match - the eleventh pass on item 4.7 found that a
+bare match produces a false hit on log-correction commits that merely
+name another item in their own text (its own 4.2/4.7 tie was exactly
+this). Re-running that corrected method here independently confirmed
+item 4.2's genuine eleventh pass ("Item 4.2 quality pass (eleventh): prove
+check-uk-spelling.js...", 2026-09-03T08:09:57+01:00) as uniquely stalest,
+ahead of 4.14, 1.2, 3.11, 4.4 - matching the eleventh pass's own forward
+note. A later same-morning commit ("Item 4.2 pass: log correction - fix
+missing newline...", 08:13:28) was inspected and confirmed to be exactly
+the same false-hit shape (a maintenance edit to the 4.2 log entry, not a
+new content pass) and excluded by the "quality pass" anchor.
+
+BASELINE
+git status --porcelain -- gbp-packs modules tools core branches.json
+empty on the canonical C:\Dev\rbh-site-data working copy. All 36
+tools/check-*.js run individually: 36/36 exit 0. Baseline SHA256 of
+gbp-packs/cherry-lane-walton.md: 831E72C18EF9007D7FD760E9AFCD1CE60513AC
+99A42BDF1FF4E014FCEF052EC2.
+
+FRESH ANGLE AND METHOD
+This item's full eleven-pass history (2026-08-04 to 2026-09-03) read
+before choosing where to look. check-gbp-packs.js, check-pharmacy-first-
+eligibility.js rule 10, check-uk-spelling.js, check-brand-spelling.js and
+check-url-scheme.js had all been proven against this specific pack by
+injection across the eleven prior passes (the last three on the eleventh
+pass, 2026-09-03), but check-pharmacy-first-cost.js and check-app-
+membership.js - both existing since mid-August and both reading every
+pack including this one - had never been proven against cherry-lane-
+walton.md specifically, exactly the gap the item 4.7 eleventh pass (this
+same morning, McCanns Sandringham) closed for its own pack. Same method
+applied here for the first time on Cherry Lane's own copy.
+
+Full repo copied to a scratch directory outside the tracked tree
+(C:\Windows\Temp\audit_run_42_20260904020838). Both target checkers
+re-run clean on the scratch copy before any edit (check-cdn-pins.js
+correctly fails there with 6 "does not resolve in git" errors because
+the scratch copy has no .git directory to resolve refs against - an
+artefact of the copy method, not a repo defect; reconfirmed 36/36 clean
+on the canonical copy with .git present, both before and after this
+pass's edits).
+
+INJECTION 1 - check-pharmacy-first-cost.js rule 6 (pack must call
+Pharmacy First free somewhere)
+First attempt used PowerShell -replace with literal multi-word strings
+and silently matched only 1 of 3 target sentences, because the pack's
+hard-wrapped lines put real newlines where the literal pattern expected
+spaces ("We offer\nthree free NHS services" not "We offer three free
+NHS services"). Caught by hash/line inspection before running the
+checker, not by a false pass. Redone with \s+ standing in for literal
+spaces in the match pattern, which correctly crosses the wrap points.
+"free" stripped from all three sentences in the pack that name Pharmacy
+First (the business description's "three free NHS services: Pharmacy
+First", the Services section's "NHS Pharmacy First: free NHS
+assessment", and Post A's "Pharmacy First is a free NHS service") -
+matching the same three-sentence scope the 4.7 pass found on McCanns
+Sandringham this same morning. CAUGHT: check-pharmacy-first-cost.js
+exit 1, "FAIL [free] gbp-packs/cherry-lane-walton.md: advertises NHS
+Pharmacy First but never calls it free (rule 6)". Restored by copying
+the canonical file back over the scratch copy; SHA256 reconfirmed
+831E72C18EF9007D7FD760E9AFCD1CE60513AC99A42BDF1FF4E014FCEF052EC2; checker
+re-run clean.
+
+INJECTION 2 - check-app-membership.js rule 8a (pasted copy must not
+claim an app for a hasApp-false branch)
+cherrylane_liverpool confirmed hasApp: false in branches.json. Appended
+"Manage your prescriptions on the go with our free app." to the end of
+the NHS prescription dispensing bullet in the Services section (a
+plausible real paste error, matching the exact sentence and method the
+4.7 pass used on McCanns Sandringham). CAUGHT: check-app-membership.js
+exit 1, "FAIL [gbp packs] gbp-packs/cherry-lane-walton.md: the copy
+pasted into the public Google profile claims an app, but branches.json
+has hasApp false for cherrylane_liverpool". Rule 8d not testable on this
+pack: unlike McCanns Sandringham, Cherry Lane's paster notes do not carry
+the exact phrase "No app mention anywhere in this pack" that 8d checks
+for, so only 8a was exercised here. Restored by copying the canonical
+file back over the scratch copy; SHA256 reconfirmed
+831E72C18EF9007D7FD760E9AFCD1CE60513AC99A42BDF1FF4E014FCEF052EC2; checker
+re-run clean.
+
+Both restores also reconfirmed by a clean re-run of the OTHER target
+checker against the same file (cost checker after the app-membership
+restore and vice versa), so neither injection's cleanup was assumed.
+No checker logic edited, no pack content byte changed in the tracked
+tree at any point: git status --porcelain -- gbp-packs modules tools
+core branches.json empty throughout, reconfirmed immediately before
+commit. Final full-suite reconfirmation on the canonical copy: 36/36
+exit 0.
+
+LIVE HALF
+Claude in Chrome unreachable this run (mcp__claude-in-chrome__
+tabs_context_mcp: "Claude in Chrome is not connected"), reconfirmed at
+step 3, standing Q59 cause. Fell back to PowerShell Invoke-WebRequest
+against the four live post-target pages: all 200
+(pharmacy-first-cherry-lane-walton.html, switch-prescriptions-cherry-
+lane-walton.html, weight-loss-clinic-cherry-lane-walton.html,
+travel-clinic-cherry-lane-walton.html, all on www.cherrylanepharmacy.
+co.uk).
+
+SIGNIFICANT: read the Pharmacy First overview page's raw HTML directly
+(not status-only). Five of seven condition cards (Sinusitis, Earache,
+Impetigo, Shingles, Infected insect bite - same five as the 2.3 tenth
+pass found the same morning on the identical page) still render
+"Page coming soon" with an empty href, server-side, unchanged since that
+finding a few hours earlier today. This is the fault already raised
+fresh as Q95 on the 2.3 pass rather than a new discovery; not
+duplicated here, but recorded in this pack's own worklist paragraph
+since Post A's own button links directly to this page and the pack's
+own preamble currently states the caveat is cleared ("verified live
+2026-08-30 ... all seven conditions show normally"), which Q95 has now
+shown to be stale for a second time. The pack's preamble text was left
+unedited pending Q95's answer, per this run's scope (fresh checker
+proof, not a content edit) and because editing it now would risk a third
+blind edit of the same paragraph Q89 and Q95 already track.
+
+Weight loss clinic page and switch page spot-checked for the standing
+Q92 (live dash paste-lag) and Q36 (footer mailbox typo) findings: not
+independently reconfirmed this pass. The weight loss page's raw HTML
+contains no literal U+2013 en dash and no NHS-mailbox string in the
+fetched markup at all (likely a rendering/fetch-method limitation of a
+raw HTTP GET against a client-assembled Weebly page, not evidence either
+finding has cleared); flagging the limitation rather than asserting a
+status change. Neither Q92 nor Q36 re-raised or closed on this evidence.
+
+WORKLIST AND COMMIT
+AGENT_WORKLIST.md item 4.2 given a new "Quality pass 2026-09-04
+(twelfth)" paragraph, inserted immediately after the eleventh-pass
+paragraph and before the 4.3 entry. QUESTIONS.json unchanged (95 total,
+42 open at start; no pickup available this run; no new question raised,
+Q95 cross-referenced rather than duplicated). No generator, page, data
+field or checker file touched in the tracked tree at any point.

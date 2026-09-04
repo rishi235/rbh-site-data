@@ -5206,6 +5206,35 @@ Pharmacy First wording to the NHS service description.
       Live half: browser unavailable (Q59), fell back to HTTPS HEAD checks on
       all four post targets - all 200. Files changed: none (all injections
       restored). Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-03-eleventh.txt.
+      Quality pass 2026-09-04 (twelfth, unattended run): fresh angle - proved
+      check-pharmacy-first-cost.js rule 6 and check-app-membership.js rule 8a
+      against this pack by injection for the first time, the same gap the
+      item 4.7 eleventh pass closed for McCanns Sandringham this same
+      morning; no prior pass on this item had pointed either checker at
+      cherry-lane-walton.md specifically. Baseline clean (36/36 checkers,
+      SHA256 831E72C18EF9007D7FD760E9AFCD1CE60513AC99A42BDF1FF4E014FCEF052EC2).
+      Two injections, each restored and SHA256-reconfirmed before the next:
+      "free" stripped from all three sentences naming Pharmacy First
+      (caught by check-pharmacy-first-cost.js rule 6, first attempt failed
+      silently on a line-wrap/whitespace mismatch, caught before running the
+      checker and redone with a wrap-safe pattern); "Manage your
+      prescriptions on the go with our free app." appended to the Services
+      section (caught by check-app-membership.js rule 8a; rule 8d not
+      testable here, this pack's notes lack the exact phrase 8d checks for,
+      unlike McCanns Sandringham). Both caught first corrected attempt. No
+      defect - both checkers already protected this pack; now proven
+      directly. No checker logic edited, no pack content byte changed.
+      SIGNIFICANT LIVE FINDING (not new, cross-referenced): the Pharmacy
+      First overview page still shows five of seven condition cards as
+      "Page coming soon", the same fault the 2.3 tenth pass raised fresh as
+      Q95 earlier the same day; this pack's own preamble still claims the
+      caveat cleared 2026-08-30, which Q95 has now shown stale a second
+      time. Not re-raised as a new question, not edited pending Q95's
+      answer. All four post targets otherwise 200. Q92 and Q36 not
+      independently reconfirmed this pass (fetch-method limitation on the
+      weight loss page, noted rather than asserted). Files changed: none
+      (all injections restored).
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-04-twelfth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
