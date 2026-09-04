@@ -5062,6 +5062,42 @@ Done 2026-09-04 (tenth pass).
       already known correct, not a live-facing decision.
       Evidence: audits/tiffenbergs-item-3.12-quality-pass-2026-09-03-
       seventh.txt. Done 2026-09-03 (seventh pass)
+      Quality pass 2026-09-04, EIGHTH PASS, FRESH ANGLE: tools/check-branch-
+      identity.js proven by injection against Tiffenbergs' own pages for the
+      first time in this item's eight-pass history (seven prior passes had
+      exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+      check-booking-routes.js and, on the seventh pass, check-gbp-packs.js,
+      but never the checker that owns data-branch, the JSON-LD name and
+      service-page link targets). Baseline: all 36 checkers 0 failures, all
+      six generators rebuilt first, 215 files under modules/ and core/
+      combined-sha256-unchanged
+      (A3DAAC21E00FEC63040549ADFA79A8F891C34E72A95142FB12C75C210C2261BB)
+      throughout. Three injections, each on a page untried for injection in
+      any prior 3.12 pass, each restored by byte copy from a pre-injection
+      backup and sha256-confirmed identical immediately after: (1) OWNER -
+      insect-bite-treatment-tiffenbergs-aintree.html's data-branch swapped to
+      "Smartts Chemist Bootle" - CAUGHT, two failures at once (OWNER and
+      SPLIT); (2) SCHEMANAME - sore-throat-treatment-tiffenbergs-aintree.html's
+      JSON-LD name swapped to "Gordon Short Chemist" - CAUGHT, two failures at
+      once (SCHEMANAME and SPLIT); (3) SERVICELINK - pharmacy-first-
+      tiffenbergs-aintree.html's own shingles link repointed at Smartts
+      Bootle's shingles page - CAUGHT, "the link is relative, so it 404s and
+      the service route is dead", exactly the Cherry Lane defect (item 2.3,
+      2026-08-12) this rule was built to catch. All three files sha256-
+      confirmed byte-identical to their pre-injection state after
+      restoration. Full 36-checker suite re-run clean after (36/36); 215-file
+      combined sha256 re-confirmed unchanged; git status --porcelain on
+      modules/ and core/ empty throughout. Zero in-repo defect: the checker
+      was already correctly holding this branch's identity fields, now
+      proven directly rather than left to keep being correct by construction
+      alone. No page, generator, pack or branches.json byte changed; only
+      this evidence file was added. Live half not attempted: Claude in
+      Chrome confirmed not connected at step 3 (answer pickup), matching the
+      standing Q59/Q87 diagnosis; full 12-of-12 live coverage already stands
+      from the fifth/sixth passes and was not re-read this pass. No new
+      question raised. Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-09-04-eighth.txt. Done
+      2026-09-04 (eighth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

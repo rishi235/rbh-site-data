@@ -1,0 +1,103 @@
+Item 3.12 quality pass (eighth), 2026-09-04
+Tiffenbergs Chemist (Aintree) - fresh angle: tools/check-branch-identity.js
+
+WHY THIS ANGLE
+Seven prior passes (2026-08-04 through 2026-09-03) proved check-nap.js,
+check-postcodes.js, check-em-dashes.js, check-booking-routes.js (hard-coded
+widget id) and, on the seventh pass, check-gbp-packs.js's hours rule (finding
+and fixing a genuine comma-split defect) against this branch's own files.
+check-branch-identity.js - which owns data-branch, the JSON-LD "name" and
+service-page link targets - had never been injection-tested against any of
+Tiffenbergs' 12 pages in any of the seven prior passes (confirmed by search:
+zero mentions of "check-branch-identity" inside item 3.12's own
+AGENT_WORKLIST.md block). Tiffenbergs is not one of the three shared-brand
+branches (brandLabel equals branchName, "Tiffenbergs Chemist"), so rules 4
+(AMBIGUOUS), 9 (SISTERLINK) and 11 (SISTERLABEL) do not apply to it (no
+landing page, no shared brand). Rules 1 (IDENTITY), 2 (OWNER), 3 (SCHEMANAME),
+6 (SPLIT) and 10 (SERVICELINK) do apply across its 11 service-family pages and
+1 switch page, and rule 10 in particular was born from a real defect on
+another branch (Cherry Lane, item 2.3, 2026-08-12) - a service link repointed
+at the wrong branch that every other checker missed - making it a meaningful,
+previously-untried test for this branch specifically.
+
+BASELINE
+All 36 tools/check-*.js run individually before any change: 0 failures.
+All six generators rebuilt first (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js;
+build-audit-status.js excluded, run separately at step 10). 215 files under
+modules/ and core/ (*.html, *.md, *.js, *.css, *.txt) SHA256-hashed
+individually and combined into one hash before and after regeneration:
+combined hash A3DAAC21E00FEC63040549ADFA79A8F891C34E72A95142FB12C75C210C2261BB
+both times, byte-identical. git status --porcelain -- modules core empty
+throughout.
+
+INJECTIONS (three, each on a page untried for injection in any of the seven
+prior 3.12 passes; each applied to a fresh restore, not layered; each
+restored by byte copy from a pre-injection backup and SHA256-confirmed
+identical to the original immediately after restoration)
+
+1. OWNER (rule 2) - modules/service/pages/insect-bite-treatment-tiffenbergs-
+   aintree.html. data-branch="Tiffenbergs Chemist" changed to
+   data-branch="Smartts Chemist Bootle".
+   Pre-injection SHA256: DC55F1D7A5803570B3DC918E48CD6D7C3090DC6520C80F746E807FA6A9A7A98B
+   Result: CAUGHT, exit 1, two failures at once -
+     "data-branch=\"Smartts Chemist Bootle\" but the page belongs to
+      tiffenbergs_longmoor (\"Tiffenbergs Chemist\")" (rule 2, OWNER)
+     "its pages declare 2 different values for data-branch ... so one branch
+      presents itself as more than one business depending on which generator
+      built the page" (rule 6, SPLIT)
+   Restored; SHA256 re-confirmed identical to pre-injection value.
+
+2. SCHEMANAME (rule 3) - modules/service/pages/sore-throat-treatment-
+   tiffenbergs-aintree.html. JSON-LD "name": "Tiffenbergs Chemist" changed to
+   "name": "Gordon Short Chemist".
+   Pre-injection SHA256: AC89BC878F2C88E3D6D818621505B4A935CBCAF0EBE073BDCE3E8719525B6D06
+   Result: CAUGHT, exit 1, two failures at once -
+     "JSON-LD name \"Gordon Short Chemist\" but the page belongs to
+      tiffenbergs_longmoor (\"Tiffenbergs Chemist\") - that is
+      gordonshorts_crosby's name, so Google is told this address belongs to
+      another pharmacy" (rule 3, SCHEMANAME)
+     "its pages declare 2 different values for JSON-LD name ..." (rule 6,
+      SPLIT)
+   Restored; SHA256 re-confirmed identical to pre-injection value.
+
+3. SERVICELINK (rule 10) - modules/service/pages/pharmacy-first-tiffenbergs-
+   aintree.html. The Pharmacy First hub's own link to its shingles condition
+   page, href="shingles-treatment-tiffenbergs-aintree.html", repointed to
+   href="shingles-treatment-smartts-bootle.html" (a real, live-generated page
+   belonging to a different branch on a different host).
+   Pre-injection SHA256: 9D68E5C3651C0D4DEF9B429B6DF7AEE8DC7E593CECFCEAE442AB80FE0D16267C
+   Result: CAUGHT, exit 1 -
+     "links to \"shingles-treatment-smartts-bootle.html\", a service page
+      belonging to smartts_bootle (\"Smartts Chemist\"), but the page belongs
+      to tiffenbergs_longmoor (\"Tiffenbergs Chemist\"). smartts_bootle is
+      served from www.smarttschemist.co.uk and the link is relative, so it
+      404s and the service route is dead."
+   Restored; SHA256 re-confirmed identical to pre-injection value.
+
+POST-CHECK
+Full 36-checker suite re-run after all three restorations: 0 failures.
+215-file combined SHA256 across modules/ and core/ re-verified identical to
+the baseline value above. git status --porcelain -- modules core empty.
+
+RESULT
+No in-repo defect. check-branch-identity.js was already correctly holding
+Tiffenbergs' data-branch, JSON-LD name and service-page link targets, now
+proven directly by injection for the first time in this item's eight-pass
+history rather than left to keep being correct by construction alone. No
+page, generator, pack or branches.json byte changed anywhere in the repo;
+only this evidence file was added.
+
+LIVE HALF
+Not attempted this pass. Claude in Chrome confirmed not connected at step 3
+(answer pickup) via mcp__claude-in-chrome__navigate, which returned "not
+connected"; no alternative route attempted, matching the standing Q59/Q87
+diagnosis. Full 12-of-12 live page coverage for this branch was already
+completed by the fifth pass (2026-09-02) and last reconfirmed unchanged
+across pages read by the sixth pass the same day; nothing in this pass
+required or attempted re-reading it. Q56 (branches.json's singular
+"Tiffenberg@" address against the live footer's plural "tiffenbergs@")
+stands as last confirmed by the fifth/sixth passes, not re-verified this run.
+
+No new question raised for Rishi.
