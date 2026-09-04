@@ -3051,6 +3051,81 @@ so step 4 did not apply.
 No in-repo defect found, no copy changed anywhere in the repo, no new
 question. Evidence in audits/verify-3.7-2026-09-03-ninth.js.
 Done 2026-09-03 (ninth pass).
+Quality pass 2026-09-04 (tenth; unattended scheduled run via Cowork, native
+Windows environment via mcp__Windows-MCP__PowerShell and FileSystem for git,
+Node and file writes, mcp__workspace__bash used only for lock handling and
+orientation - the standing Q87 split). Picked as the least recently verified
+rotation-pool item, independently re-derived by the established method (git
+log commit subjects for AGENT_WORKLIST.md and AGENT_LOG.md matched by word
+boundary against each of the 36 rotation-pool item ids, most recent mention
+per item, sorted ascending): 3.7 last touched 2026-09-03T12:13:34+01:00,
+oldest of the 36, ahead of 3.13 (12:42:20) and 6.2 (13:14:57) - confirming the
+ninth pass's own forward note.
+Baseline: all 36 checkers run individually before any change, 36/36 exit 0;
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/ empty. All six generators rebuilt: git status --porcelain -- modules
+empty afterwards, zero diff.
+FRESH ANGLE: none of the nine prior passes ever proved tools/check-switch-
+copy.js - the eleven-rule checker for the highest-commitment page family in
+the estate - against Smartts's own switch page or banner file, confirmed by a
+source search for "smartts" in that checker returning zero matches beforehand.
+The nine passes proved check-nap.js, check-postcodes.js, check-em-dashes.js
+and check-contraception-copy.js against Smartts specifically; check-switch-
+copy.js itself, proven twice elsewhere this week (item 2.3's ninth pass on
+Cherry Lane, rules 6/8/9; item 3.4's tenth pass on Cherry Lane, rules
+7/8/9/10/11a), had never touched this item. This pass repeats the fuller
+five-rule sweep against Smartts's own switch page and banner.
+Fresh independent extraction (audits/verify-3.7-2026-09-04-tenth.js, no code
+shared with tools/ or any prior pass's script) across all 12 Smartts pages:
+1,479 checks, 0 flags - own postcode, street address and phone present on
+every page; no other live branch's postcode, ODS code or Appointedd widget id
+anywhere; cross-town seoTown guard (no other live branch's town without a
+serviceAreaList excuse); no em dash outside the build-comment exemption;
+hasApp/app-card consistency on the switch page (Smartts is a member, the app
+card is present).
+Five injections run against the real check-switch-copy.js on switch-
+prescriptions-smartts-bootle.html and its banner file, each restored by direct
+Buffer write (not a text pipeline) and sha256-confirmed identical to the
+pre-injection original before the next: a prescription-only weight loss
+medicine name (Wegovy) added to the hero-sub paragraph, caught by RULE 7
+no-medicines; the pill line's own town changed from Bootle to Walton (a real,
+different live branch's town), caught by RULE 8 town, and instructively so -
+Walton is named as a foreign town twice, once each against colemanleigh_
+liverpool and cherrylane_liverpool, the two branches that genuinely share that
+town, confirming the rule reports every foreign match rather than stopping at
+the first; an undescribed "nhs_number" field added to the form grid with no
+FIELD_WORDS entry and no mention in step 1, caught by RULE 9 form-copy; the
+privacy/collection-notice paragraph deleted outright, caught by RULE 10
+collection-notice; and, on the banner file rather than the page, Smartts's own
+SWITCH_URL repointed at Cherry Lane's switch page (Smartts is single-host, not
+one of the three shared-domain sites pinned to Q63 in KNOWN, so this cleanly
+exercises rule 11a alone), caught by the banner rule. All five caught first
+attempt with the expected rule tag; both files confirmed byte-identical to
+their pre-probe sha256 hashes after every individual injection and again at
+the end; the checker's own final run after the round was clean. Full
+36-checker suite re-run individually after the round: 36/36 exit 0. git status
+--porcelain on gbp-packs/, modules/, core/, branches.json, tools/, status/
+empty throughout. No checker logic, generator, page or banner content changed
+in the tracked tree at any point.
+Live half: Claude in Chrome reported not connected (retried at answer pickup
+and again for this item); the built-in Claude Browser pane was denied
+navigating a new site, consistent with no user present in this unattended
+session to approve it; mcp__workspace__web_fetch declined the URL as outside
+its provenance set. Fell back to a read-only PowerShell Invoke-WebRequest
+against smarttschemist.co.uk/switch-prescriptions-smartts-bootle.html: 200,
+own postcode, own phone, the "30 seconds" time claim and the collection-notice
+sentence ("only use your details") all present in the live response, matching
+the repo-side state exactly. The banner itself (site-wide Weebly Header Code)
+was not independently re-read live this pass; the sixth pass's three
+live-only findings (hours-card lunch closure, switch page live tab title, the
+Q16/5.8 KNOWN_CLAIM services-grid wording) were not re-confirmed and should
+not be assumed unchanged. Answer pickup (step 3): Chrome not connected,
+unavailable; 42 questions open of 95 total per QUESTIONS.json at the start of
+this run, unchanged by this pass. No autonomous-window heading present in
+AGENT_LOG.md at the start of this run, so step 4 did not apply.
+No in-repo defect found, no copy changed anywhere in the repo, no new
+question. Evidence in audits/verify-3.7-2026-09-04-tenth.js.
+Done 2026-09-04 (tenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
