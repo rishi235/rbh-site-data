@@ -10936,6 +10936,61 @@ live-facing or patient-facing decision. Eleventh consecutive clean pass on
 the repo half; second of the eleven (after the tenth) to find a defect in the
 checker's own matching logic rather than in a page, pack, sheet or generator,
 and the first to find one in the CODE rule rather than the entity rule.
+Quality pass 2026-09-04 (twelfth). UNATTENDED RUN, Cowork sandboxed shell.
+Claude in Chrome checked via list_connected_browsers (empty array, not
+connected); per procedure not retried by another route, answer pickup logged
+unavailable. No standing autonomous window present. Baseline: git status
+--porcelain on modules/core/tools/branches.json/gbp-packs empty; all 36
+tools/check-*.js run individually, 36/36 exit 0; check-em-dashes.js reports
+the identical steady state every pass since the eighth has shown (233 files
+scanned, 200 comment dashes, 591 sheet-heading dashes, 1 data-note dash, zero
+failures); all six generators rebuilt, sha256 of every .html/.md/.js/.css/.txt
+under modules/ and core/ identical before and after, git status empty. Nothing
+has drifted since the eleventh pass.
+This pass looked for a thirteenth axis and, for the first time in this item's
+history, did not find a new one, closing a genuine hypothesis by injection
+rather than only by argument. modules/service/service.js, modules/switch/
+switch.js and modules/emar/emar.js all build a WhatsApp pre-filled message
+(and emar.js a mailto: subject/body) by concatenating static label strings
+with branchName/serviceName and passing the result through
+encodeURIComponent() before writing it into a wa.me or mailto: URL. A dash in
+that URL would render as UTF-8 percent-encoding (%E2%80%94 / %E2%80%93) -
+bytes that match none of this checker's existing rules (literal character,
+HTML entity, numeric entity, JS/CSS source escape), so on the face of it this
+looked like a strong candidate for a seventh axis, the same shape as the
+prior six ("ask which form the copy is in, not only which file"). Read
+service.js/switch.js/emar.js in full: every static label ("Pharmacy: ",
+"Mobile: ", etc.) is a plain string literal on a line checkCodeFile already
+scans; branchName and serviceName in service.js/switch.js are read at runtime
+via getAttribute("data-branch")/getAttribute("data-service"), not from
+branches.json directly, and that attribute is written as literal text into
+the generated page by the generator, on a line checkHtmlFile already scans
+(confirmed against a real page: modules/service/pages/
+contraception-cherry-lane-walton.html line 11, data-branch="Cherry Lane
+Pharmacy"); the remaining fields (p.name, p.email, p.notes, d.mobile, etc.)
+are patient-typed form input, not this repo's copy, and irrelevant to the
+house rule. So every component reaching encodeURIComponent() is already
+covered upstream, by construction, before the encoding step. Proved by
+injection rather than left as argument alone (audits/verify-5.1-2026-09-04-
+twelfth.js, refuses to run on an already-dirty target, restores by direct
+write-back before any assertion, sha256-verified): an em dash written into
+that exact data-branch attribute on that exact page - the value
+buildWhatsAppText() reads at runtime and would otherwise pass unnoticed
+through encodeURIComponent() - was caught by the existing page rule (exit 1,
+"em dash", line 11) before it could ever reach the encoding step, and the
+file was restored byte-identical (sha256 ea235b56...ad8a378 before and
+after). Also re-verified EXTRA_HTML file discovery is still complete: a fresh
+filesystem search for *weebly*, *paste* and DRAFT-* under modules/ found
+exactly the same six files tools/extra-public-copy-files.js already lists,
+no seventh file missing. RESULT: no in-repo defect, no checker change - the
+encodeURIComponent() axis is not a gap, and this is now proven rather than
+assumed. Twelfth consecutive clean pass on the repo half; first of the twelve
+to end in a hypothesis tested and ruled out rather than a new defect or a
+newly-proven-but-already-correct rule. Live half not read this run (Chrome
+not connected); the ninth pass's two live findings stand unchanged. No new
+question. Evidence: audits/verify-5.1-2026-09-04-twelfth.js (write-up copy;
+the working script ran from a temp path this session and is reproduced here
+for the record).
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
