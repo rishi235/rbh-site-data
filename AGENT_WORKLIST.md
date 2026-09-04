@@ -9706,6 +9706,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       judgement call, no business, legal, pricing or regulatory content
       changed. Evidence: audits/riddings-timperley-button-rules-4.13-tenth-
       2026-09-03.txt. Done 2026-09-03.
+      Eleventh quality pass 2026-09-05: pack clean and byte-stable across all
+      eleven passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0
+      fed824630a775917c04 before and after, unchanged since the tenth pass).
+      Selected as stalest in the 36-item rotation pool by the same
+      commit-subject-date method as recent passes. All 36 checkers green
+      before any change; git status --porcelain empty on gbp-packs/,
+      modules/, core/, branches.json, tools/, status/ throughout.
+      NEW ANGLE. The Hours line ("Monday to Friday 9:00am to 6:00pm,
+      Saturday and Sunday closed") had been verified as fact against
+      branches.json across all ten prior passes but never proven by
+      injection against the DAY-presence rule in tools/check-gbp-packs.js
+      (added item 4.1 quality pass, 2026-08-11), the same gap the 4.3 and
+      4.5 eleventh passes closed for their own packs this run cycle. Three
+      injections run directly on the tracked file, restored by byte copy
+      (this mount rejects unlink) and sha256-reconfirmed identical before
+      the next round: (1) "Saturday and Sunday closed" changed to
+      "Saturday 9:00am to 6:00pm, Sunday closed", reusing the branch's own
+      weekday times so the clock-time rule alone could not also fire -
+      CAUGHT, naming Saturday as wrongly claimed open; (2) "Monday to
+      Friday" changed to "Monday to Thursday", every clock time left
+      untouched and still correct - CAUGHT, naming Friday as a day
+      branches.json opens that the line fails to claim; (3) "Saturday and
+      Sunday closed" changed to "Saturday closed", dropping Sunday from
+      both the open and closed lists - CAUGHT, naming Sunday as a closed
+      day the line fails to state. All three legs of the rule fire
+      independently on this pack's own copy. Riddings' hours are the
+      simplest shape in the estate (single unbroken weekday session, no
+      lunch split), so the separate day/time-pairing rule has nothing to
+      bind per day and stays out of scope here, as the first pass already
+      noted for the split-hours rule. Restored and sha256-reconfirmed
+      identical after each round and at the end; all 36 checkers re-run
+      clean after final restore; gbp-packs/ is not a generator input so no
+      build script was re-run. No in-repo defect: rule proven, not changed.
+      LIVE HALF NOT performed: Claude in Chrome not connected
+      (list_connected_browsers empty, tabs_context_mcp confirmed "not
+      connected"). All live-side findings still rest on the seventh pass's
+      2026-09-01 check (Post B 404, pre-Phase-3 switch page paste at the
+      old permalink, branch-specific Pharmacy First page live and correct,
+      weight-loss-clinic-timperley.html's Regime 1 breach per compliance/
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, item 5.8's own Q5 answer already
+      sets that fix direction, GBP pack's own Post C not implicated).
+      Answer pickup (step 3) also unavailable for the same reason;
+      QUESTIONS.json unchanged this run (96 total, 43 open). No
+      autonomous window active at the top of AGENT_LOG.md. No new question
+      raised: pure re-verification of documented checker behaviour against
+      this pack's own copy, no business, legal, pricing or regulatory
+      content changed, no judgement call for Rishi. Evidence: audits/
+      riddings-timperley-hours-days-4.13-eleventh-2026-09-05.txt.
+      Done 2026-09-05.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

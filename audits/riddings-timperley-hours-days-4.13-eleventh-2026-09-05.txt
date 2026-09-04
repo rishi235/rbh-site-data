@@ -1,0 +1,91 @@
+Item 4.13 quality pass (eleventh), 2026-09-05 (unattended scheduled run via Cowork)
+Pack: gbp-packs/riddings-timperley.md
+Branch id: riddings_timperley
+
+BASELINE
+- git status --porcelain -- gbp-packs modules core branches.json tools status : empty
+- All 36 tools/check-*.js run individually before any change: 36/36 exit 0
+- node tools/check-gbp-packs.js: 0 failures, 17 known estate-wide warnings (unchanged set); riddings-timperley.md's own line is the standing switch-prescriptions.html live-only WARN
+- gbp-packs/riddings-timperley.md sha256 before this pass:
+  8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+  (matches the tenth pass's own recorded hash exactly - byte-stable across all eleven passes)
+
+NEW ANGLE
+Across ten prior passes this item's Hours line ("Monday to Friday 9:00am to
+6:00pm, Saturday and Sunday closed") had been verified as a FACT against
+branches.json but never proven by injection against the DAY-presence rule in
+tools/check-gbp-packs.js (added item 4.1 quality pass, 2026-08-11, "the hours
+line names the right DAYS, not just the right times", lines ~2471-2559). The
+rule was proven for the first time against Hirshmans Ainsdale (item 4.3,
+eleventh pass) and Scorah Hazel Grove (item 4.5, eleventh pass) earlier this
+run cycle; this pass closes the same gap for Riddings Timperley, whose hours
+are the simplest shape in the estate (single unbroken weekday session, no
+lunch split, so the separate day/time-PAIRING rule at lines 2561-2667 has
+nothing to bind per-day and was already out of scope here, as the first pass
+correctly noted for the split-hours rule).
+
+METHOD
+Backed up the tracked file to /tmp/rbh_413/riddings-timperley.md.orig first
+(sha256 as above). Three injections run directly on the tracked file, one at
+a time, restored by byte copy (cp; this mount rejects unlink, so never `git
+checkout`) and sha256-reconfirmed identical to the backup before the next
+round.
+
+ROUND 1 - claim Saturday open, reusing this branch's own weekday times so the
+clock-time rule alone could not also fire:
+  "Saturday and Sunday closed" -> "Saturday 9:00am to 6:00pm, Sunday closed"
+  RESULT: CAUGHT. node tools/check-gbp-packs.js -> 1 failure:
+  "the hours line states the branch is open on Saturday, but branches.json
+  opens it only on Monday, Tuesday, Wednesday, Thursday, Friday. A profile
+  that publishes a day the shop is shut sends patients to a locked door"
+  Restored; sha256 reconfirmed identical to backup.
+
+ROUND 2 - drop Friday silently, every stated clock time left untouched and
+still correct (Friday's times are the same as every other weekday's, so the
+clock-time rule cannot see a missing day):
+  "Monday to Friday" -> "Monday to Thursday"
+  RESULT: CAUGHT. node tools/check-gbp-packs.js -> 1 failure:
+  "branches.json opens this branch on Friday, but the hours line does not
+  state Friday as an open day, so the profile would be set from an
+  incomplete picture and that day would be published wrong or left as
+  Google has it"
+  Restored; sha256 reconfirmed identical to backup.
+
+ROUND 3 - drop Sunday from the closed statement entirely, leaving Sunday
+named on neither the open list nor the closed list:
+  "Saturday and Sunday closed" -> "Saturday closed"
+  RESULT: CAUGHT. node tools/check-gbp-packs.js -> 1 failure:
+  "branches.json holds Sunday as a closed day, but the hours line does not
+  state Sunday as closed. GBP keeps whatever the profile already shows for
+  a day the paster is not told about, so a closure the group has made never
+  reaches the listing"
+  Restored; sha256 reconfirmed identical to backup.
+
+All three legs of the day-presence rule (open-claimed-but-shut,
+open-but-not-claimed, closed-but-not-stated) fire independently on this
+pack's own copy, exactly as designed.
+
+RESTORE AND FINAL VERIFICATION
+- gbp-packs/riddings-timperley.md sha256 after final restore:
+  8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 (identical)
+- All 36 tools/check-*.js re-run individually after restore: 36/36 exit 0
+- git status --porcelain -- gbp-packs modules core branches.json tools status : empty
+- No generator or page touched: gbp-packs/ is not a generator input, so no
+  build-*.js script was re-run; nothing to regenerate.
+
+LIVE HALF
+NOT performed. mcp__claude-in-chrome__list_connected_browsers returned an
+empty array; tabs_context_mcp confirmed "Claude in Chrome is not connected".
+No alternative route attempted (no click, type, submit or login anywhere).
+All live-side findings still rest on the seventh pass's 2026-09-01 check
+(Post B canonical URL 404, live switch page at the old pre-Phase-3 permalink,
+branch-specific Pharmacy First page live and correct, weight-loss-clinic-
+timperley.html's Regime 1 breach per compliance/
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - item 5.8's territory, Q5 answer already
+sets the fix direction, GBP pack's own Post C not implicated).
+
+RESULT
+No in-repo defect. Rule proven, not changed. No new question raised: this is
+a re-verification of documented, already-shipped checker behaviour against
+one pack's own copy, no business, legal, pricing or regulatory content
+changed, no judgement call for Rishi.
