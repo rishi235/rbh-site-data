@@ -2899,8 +2899,64 @@ for (const file of packFiles) {
   // name that sister's seoTown. Reading is sentence-bounded and whitespace
   // is collapsed first, for the CRLF reason set out above and because both
   // live examples wrap mid-sentence.
-  const flatForSister = text.replace(/\s+/g, " ");
-  const sisterSentences = (flatForSister.match(/[^.]*\bsister branch(?:es)?\b[^.]*\./gi) || []);
+  //
+  // Two defects found and fixed here on the item 4.6 quality pass
+  // (eleventh), 2026-09-04, by injection, both against mccanns-aigburth.md.
+  //
+  // First, the trigger pattern was too narrow. It looked only for the
+  // exact adjacent phrase "sister branch", which matches
+  // scorah-hazel-grove.md ("our sister branch is in Bramhall") and
+  // scorah-bramhall.md ("our sister branch in Hazel Grove"), but neither
+  // McCanns pack's published description actually writes that phrase:
+  // mccanns-aigburth.md says "a second branch, McCanns Chemist
+  // Sandringham, in St Michael's" and mccanns-sandringham.md says "Our
+  // sister McCanns branch is further along Aigburth Road" - the brand
+  // name sits between "sister"/"second" and "branch" in both. So this
+  // rule had never fired on either McCanns pack's own business
+  // description, despite the foreign-town rule below explicitly trusting
+  // it to: that rule's own comment says a sister claim "is governed by
+  // the rule directly above, which already proves the town named is a
+  // real live sister's" and reads both "sister branch" and "second
+  // branch" phrasings for its OWN exemption, but this rule read only the
+  // first. Changing "in St Michael's" (the real sister's seoTown) to "in
+  // Timperley" (Riddings Pharmacy's real, unrelated seoTown) passed all 36
+  // checkers clean on the first injection attempt, because the exemption
+  // fired on the "second branch" wording while this rule never fired at
+  // all. The pattern now allows words between "sister" and "branch" (so
+  // "sister McCanns branch" matches) and reads "second branch"/"second
+  // branches" as its own trigger, matching the phrasing the exemption
+  // rule already reads.
+  //
+  // Second, widening the pattern exposed a genuine second defect rather
+  // than just closing the first: mccanns-aigburth.md's "Notes for the
+  // paster" section also contains the words "sister-branch sentence",
+  // which the widened pattern now matches too, and that note correctly
+  // names "St Michael's" even while the injected description sentence
+  // above it was made to say "Timperley". The check was "at least one
+  // matched sentence names a valid sister town", so the note's correct
+  // wording silently covered for the description's wrong one, and the
+  // repeat injection with the widened pattern still passed 0 failures.
+  // A paster note is an instruction, never pasted into the public
+  // profile, so it should not be read for this at all, the same
+  // instructions-versus-published-copy distinction the foreign-town rule
+  // below already draws with its own townScopes. The scan is now confined
+  // to the business description, the services section and the four post
+  // bodies via descriptionOf()/servicesOf()/postsOf(), and every matched
+  // sentence within that scope must individually name a valid sister
+  // town, not merely at least one across the whole pack. Re-run with both
+  // fixes: the Timperley injection now fails with exactly one FAIL naming
+  // the wrong sentence, and the true content restores to 0 failures.
+  // No pack was wrong: the live text in both McCanns packs already names
+  // the correct sister and the correct town, now proven rather than
+  // assumed.
+  const sisterScopeParts = [];
+  const descForSister = descriptionOf(text);
+  if (descForSister) sisterScopeParts.push(descForSister);
+  const servicesForSister = servicesOf(text);
+  if (servicesForSister) sisterScopeParts.push(servicesForSister);
+  for (const p of postsOf(text)) sisterScopeParts.push(p.body);
+  const flatForSister = sisterScopeParts.join(" ").replace(/\s+/g, " ");
+  const sisterSentences = (flatForSister.match(/[^.]*\b(?:sister\b[^.]{0,30}?\bbranch(?:es)?\b|second\s+branch(?:es)?\b)[^.]*\./gi) || []);
   if (sisterSentences.length) {
     const sisters = branches.filter(
       (o) => isPackable(o) && o.id !== b.id && o.brandLabel && o.brandLabel === b.brandLabel
@@ -2908,14 +2964,14 @@ for (const file of packFiles) {
     const key = `${b.id}::sisterBranch`;
     const known = KNOWN_SISTER[key];
     const towns = sisters.map((o) => o.seoTown).filter(Boolean);
-    const named = sisterSentences.filter((s) =>
-      towns.some((t) => new RegExp(`\\b${escapeRe(t)}\\b`, "i").test(s))
+    const unnamed = sisterSentences.filter((s) =>
+      !towns.some((t) => new RegExp(`\\b${escapeRe(t)}\\b`, "i").test(s))
     );
     let breach = null;
     if (!sisters.length) {
-      breach = `the pack claims a sister branch, but no other live branch in branches.json carries the brand ${b.brandLabel}. A pack description is pasted verbatim into a public Google profile, so this would send patients to a pharmacy the group does not have`;
-    } else if (!named.length) {
-      breach = `the pack claims a sister branch but names no town belonging to one. This branch's live sisters are ${sisters.map((o) => `${o.branchName} (${o.seoTown})`).join(", ")}, and the sentence reads "${sisterSentences[0].trim()}"`;
+      breach = `the pack claims a sister or second branch, but no other live branch in branches.json carries the brand ${b.brandLabel}. A pack description is pasted verbatim into a public Google profile, so this would send patients to a pharmacy the group does not have`;
+    } else if (unnamed.length) {
+      breach = `the pack claims a sister or second branch but names no town belonging to one. This branch's live sisters are ${sisters.map((o) => `${o.branchName} (${o.seoTown})`).join(", ")}, and the sentence reads "${unnamed[0].trim()}"`;
     }
     if (breach) {
       if (known) {

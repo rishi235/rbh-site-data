@@ -7350,6 +7350,53 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       No new in-repo defect, no new question; open question count unchanged
       at 41 of 94. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-03-tenth.txt.
+      Quality pass 2026-09-04 (unattended run, eleventh pass): stalest item
+      in the rotation pool, re-derived mechanically (last touched
+      2026-09-03T20:10:34+01:00, next stalest 4.5 at 20:40:15, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; all 36 checkers individually 36/36 exit 0; git status on
+      modules/core/branches.json empty. NEW ANGLE: the "sister branch named
+      in prose must be a real, live sister" rule had never been proven
+      against this pack across ten prior passes, despite this pack's own
+      description naming its sister (McCanns Chemist Sandringham, in St
+      Michael's) since the Q26 fix. TWO REAL DEFECTS FOUND AND FIXED, both
+      in the checker, not the pack. (1) The rule's trigger regex matched
+      only the exact adjacent phrase "sister branch", but this pack's
+      description says "a second branch, McCanns Chemist Sandringham" -
+      the word "sister" never appears - so the rule had literally never
+      fired on this pack, even though the neighbouring foreign-town rule
+      explicitly trusts it to have done so and already reads both "sister
+      branch" and "second branch" phrasings for its own exemption.
+      INJECTION: on a sha256-backed scratch copy, changed "in St Michael's"
+      (the real sister's real seoTown) to "in Timperley" (Riddings
+      Pharmacy's real, unrelated seoTown) - passed all 36 checkers clean,
+      proving the gap. (2) Widening the trigger to also catch "second
+      branch" phrasing exposed a second bug: the rule scanned the whole
+      file rather than published copy only, so a paster note using the
+      words "sister-branch sentence" (harmless prose about the description)
+      still correctly named "St Michael's" and the check only required at
+      least one matched sentence to be correct, not every one - so the
+      correct note masked the corrupted description and the same injection
+      still passed 0 failures on the first fix attempt. Fixed by confining
+      the scan to descriptionOf()/servicesOf()/postsOf() (the same
+      published-copy scope the foreign-town rule already uses) and changing
+      the check from "at least one correct" to "every matched sentence must
+      be correct". Re-run: the Timperley injection now fails with exactly
+      one FAIL naming the wrong sentence and the real sister and town;
+      restored by byte copy, sha256 reconfirmed identical
+      (fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693).
+      Cross-checked against mccanns-sandringham.md, whose own description
+      ("Our sister McCanns branch is further along Aigburth Road") is now
+      also genuinely validated for the first time rather than passing on
+      the strength of an unrelated paster-note match elsewhere in the same
+      file. All 36 checkers re-run clean after the fix; no generator, page
+      or data file touched (gbp-packs is not a generator input). LIVE HALF:
+      Claude in Chrome not connected (Q59); read-only HTTP GET status check
+      only (not a full re-read, unchanged since the seventh/ninth passes) -
+      all four post targets 200, profile-website landing page still 404s
+      awaiting the queued paste run, Q83 not re-raised. No new question;
+      open question count unchanged at 43 of 96. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-04-eleventh.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

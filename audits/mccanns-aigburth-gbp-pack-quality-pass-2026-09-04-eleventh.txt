@@ -1,0 +1,144 @@
+Item 4.6 quality pass (eleventh), 2026-09-04, unattended scheduled run via Cowork.
+
+STALEST ITEM SELECTION
+All unchecked AGENT_WORKLIST.md items (5.3, 5.4, 5.5, 5.8, 6.1, both under Q60,
+6.6) confirmed [BLOCKED] by direct grep, so the quality-pass fallback applied.
+Rotation pool re-derived fresh from AGENT_WORKLIST.md's own checked items: 36
+items (42 checkbox items minus the 6 standing out-of-rotation: 1.1, 1.4, 5.6,
+5.7, 6.7, 6.8). Per-item last-touched date computed from
+git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md (693
+lines), matched per candidate against an anchored (^|[^0-9.])(item\s+)?<id>\b
+pattern. Result: 4.6 uniquely stalest at 2026-09-03T20:10:34+01:00 (its own
+tenth pass), ahead of 4.5 (20:40:15), 1.3 (21:14:59), 4.13 (21:43:02).
+
+BASELINE
+node tools/check-gbp-packs.js: 0 failures, 17 known warnings (unchanged set).
+All 36 tools/check-*.js run individually: 36/36 exit 0. Six generators not
+touched (gbp-packs is not a generator input); git status on modules/ core/
+branches.json empty throughout.
+
+NEW ANGLE
+Read tools/check-gbp-packs.js's own "--- ..." section headers to find a
+mechanism never proven by injection against this specific pack across its ten
+prior passes (branch-name-as-place, address dual-mention/sister, hours-
+anywhere, phone digit mutation, time/day pairing, splitDay - all already
+proven here). The "a sister branch named in prose must be a real, live
+sister" rule (then at line 2872) had only ever been described in CLAUDE.md
+against scorah-hazel-grove.md and scorah-bramhall.md; mccanns-aigburth.md was
+never named as a worked example despite carrying the exact fact class the
+rule exists to guard (its business description names another live branch and
+its town, post the Q26 fix on 2026-08-10 from "Sandringham" read as a place to
+"McCanns Chemist Sandringham, in St Michael's").
+
+INJECTION ROUND 1 (found the defect)
+On a sha256-backed scratch copy (fdb1429d9701399ab9c2139db858a826d72efb5fe6
+307520476d0a4ba3c36693), changed the description's "in St Michael's" (the
+real sister mccanns_sandringham's real seoTown) to "in Timperley" (Riddings
+Pharmacy Timperley's real, unrelated seoTown - confirmed via branches.json
+that Timperley is in neither mccanns_aigburth's seoTown, addressLocality nor
+serviceAreaList, so it qualifies as a genuine foreign town). Also updated the
+description-length heading from 725 to 722 characters in the same edit, to
+keep the already-proven length rule from producing an unrelated side-effect
+failure and isolate the mechanism under test.
+RESULT: node tools/check-gbp-packs.js: 0 failures. The wrong sister town
+passed clean. Cross-checked against the full 36-checker suite (one
+self-inflicted false alarm cleared first: this run's own git-log scratch file
+under _agentscratch/ carried postcode-shaped substrings from historical
+commit messages, tripping check-postcodes.js on 5 UNKNOWN lines exactly as
+several prior passes have also hit and documented; renamed aside, checker
+returned to 0 failures/3 known warnings). 36/36 clean with the injection still
+in place, confirming no other checker in the estate catches this class of
+error either.
+ROOT CAUSE: two independent bugs, both in the sister-branch rule.
+  1. Its trigger regex matched only the exact adjacent phrase "sister
+     branch"/"sister branches". mccanns-aigburth.md's actual published
+     sentence reads "a second branch, McCanns Chemist Sandringham, in St
+     Michael's" - it never contains the word "sister" in the description at
+     all - so the rule had literally never fired on this pack's own business
+     description in any of its ten prior passes. The foreign-town rule
+     immediately below it explicitly trusts the sister rule to have already
+     validated any "second branch" phrasing (its own comment: "a sentence
+     making a sister claim is governed by the rule directly above") and
+     reads both "sister branch" and "second branch" wording for its OWN
+     exemption, but the sister rule itself read only the first, so the
+     exemption fired while nothing checked the town it was exempting.
+  2. The rule scanned the WHOLE file text, not published copy only, so a
+     paster note using the literal words "sister-branch sentence" (a false
+     match on the first fix attempt, since the hyphen breaks a literal-space
+     match but the widened word-gap pattern catches it) still correctly
+     names "St Michael's" even when the description above it is corrupted,
+     and the check only required that AT LEAST ONE matched sentence name a
+     valid town, not that EVERY one does. The correct paster note silently
+     covered for the wrong description sentence.
+Restored gbp-packs/mccanns-aigburth.md by byte copy from the pre-injection
+backup; sha256 reconfirmed identical (fdb1429d...693).
+
+FIX (tools/check-gbp-packs.js)
+- Trigger pattern widened to /[^.]*\b(?:sister\b[^.]{0,30}?\bbranch(?:es)?\b
+  |second\s+branch(?:es)?\b)[^.]*\./gi - allows words between "sister" and
+  "branch" (catches "sister McCanns branch") and reads "second branch"/
+  "second branches" as its own trigger, matching the phrasing the
+  neighbouring foreign-town rule already reads for its exemption.
+- Scan scope confined to descriptionOf()/servicesOf()/postsOf() - the same
+  published-copy scope the foreign-town rule already uses - rather than the
+  whole file, so a "Notes for the paster" instruction is never read as if it
+  were pasted copy.
+- Logic changed from "at least one matched sentence names a valid town"
+  (named.filter, `!named.length`) to "every matched sentence within scope
+  must individually name a valid town" (unnamed.filter, `unnamed.length`),
+  so a correct sentence can no longer mask a wrong one.
+- Breach messages reworded from "claims a sister branch" to "claims a sister
+  or second branch" to stay accurate for both phrasings.
+
+INJECTION ROUND 1, RE-RUN AFTER THE FIX
+Same Timperley substitution re-applied. RESULT: exit 1, exactly one FAIL,
+naming the exact corrupted sentence and this branch's real sister and town
+("McCanns Chemist Sandringham (St Michael's)"). Restored by byte copy;
+sha256 reconfirmed identical to the pre-injection backup.
+
+INJECTION ROUND 2 (fabricated sister name, informational)
+Replaced "Sandringham" with a fabricated branch name ("Speke") while leaving
+"St Michael's" in place. The rule as designed validates the TOWN named, not
+the sister's exact display name, so this does not exercise the rule under
+test and was not pursued as a finding; the run it produced also carried an
+unrelated description-length side effect (heading declares 725, actual
+became 719) from the character-count change, confirming the already-proven
+length rule still catches an unmatched heading independently. Restored by
+byte copy; sha256 reconfirmed identical. Not raised as a question: whether a
+fabricated sister NAME (as opposed to a wrong town) should also be guarded is
+a separate, smaller-scope enhancement, not a defect in what this rule
+currently promises to check.
+
+CROSS-CHECK: mccanns-sandringham.md
+Confirmed the widened, rescoped rule still passes cleanly against
+mccanns-sandringham.md's own description sentence ("Our sister McCanns
+branch is further along Aigburth Road."), which previously relied on the
+paster note elsewhere in the same file (a literal "sister branch" match) to
+pass unnoticed while its own description sentence was never actually
+checked. Both packs are now genuinely validated for the first time.
+
+FULL SUITE AFTER THE FIX
+All 36 tools/check-*.js run individually: 36/36 exit 0. git status --porcelain
+-- gbp-packs modules core branches.json empty (gbp-packs/mccanns-aigburth.md
+restored byte-identical; no generator, page or data file touched). Only
+tracked change this pass: tools/check-gbp-packs.js.
+
+LIVE HALF
+Claude in Chrome: mcp__claude-in-chrome__list_connected_browsers returned []
+(not connected), consistent with every recent run (Q59). Fell back to
+read-only HTTP GET (network egress confirmed working first, 200 from
+google.com). Status check only, not a full re-read (last full text read on
+the seventh/ninth passes, unchanged since): pharmacy-first-mccanns-aigburth.
+html, switch-prescriptions-mccanns-aigburth.html, weight-loss-clinic-mccanns-
+aigburth.html and travel-clinic-mccanns-aigburth.html all 200. The
+profile-website landing page (pharmacy-mccanns-aigburth.html) still 404s,
+unchanged, still awaiting the queued Weebly paste run. No new live finding;
+Q83 (weight loss booking-block price ahead of eligibility) not re-raised, it
+is already open.
+
+RESULT
+One real defect found and fixed, in the checker (two compounding bugs in one
+rule), not in any pack: both live packs already state their sister branch and
+its town correctly; this is now proven by injection for the first time
+rather than assumed from a comment. No page, generator or data change. No new
+question; open question count unchanged at 43 of 96.
