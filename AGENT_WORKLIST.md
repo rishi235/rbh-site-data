@@ -12588,6 +12588,47 @@ and the first to find one in the CODE rule rather than the entity rule.
       swallow a real defect. Demonstrated live this run: 2026-08-31 is two
       days out and audits/live-hours-check-2026-08-29.json carries the
       label.
+      Quality pass 2026-09-04 (first pass since 2026-08-29, the stalest
+      completed item in the 42-item pool: nothing else had gone longer
+      without a re-check). Data first: fetched gov.uk/bank-holidays live
+      (fetched today, page itself last updated 2026-09-02) and confirmed
+      all eight dates in branches.json's bankHolidays.dates2026 against its
+      published "Past bank holidays in England and Wales 2026" and
+      "Upcoming bank holidays in England and Wales 2026" tables exactly:
+      1 Jan, 3 Apr, 6 Apr, 4 May, 25 May, 31 Aug, 25 Dec, 28 Dec (the last
+      being the Boxing Day substitute day, 26 Dec falling on a Saturday).
+      No drift since Q79. check-opening-hours.js run clean against the
+      tracked repo (6 landing pages, rule 7's 88 clock-time sweep, rule 8's
+      177-file no-hours-card sweep, all pass) and check-live-hours.js run
+      live: today (2026-09-04) sits 4 days after the 31 August bank
+      holiday, so nearThisRun correctly returned ["2026-08-31"] for the
+      first time this item has had a real near-date to exercise rather
+      than a synthetic one; read every live Closed snippet in the fresh
+      report and none is a one-off Monday closure near that date, only the
+      standing weekly Saturday/Sunday pattern, so no defect was
+      silently mislabelled as a holiday. This item's four original
+      negative tests (bad date, bad policy, duplicate date, genuine
+      mismatch survives) had stood since 2026-08-29 without ever being
+      re-proven, so this pass re-ran all four plus two more by injection on
+      a disposable robocopy scratch copy outside the tracked tree (PowerShell
+      against the canonical C:\Dev\rbh-site-data working copy; this
+      sandbox's read-only mount was used only for analysis, matching Q87):
+      an invalid ISO date ("2026-13-03") FAILed by name, a duplicated date
+      FAILed by name, an invalid tradingPolicy ("sometimes") FAILed by
+      name, an emptied dates2026 array FAILed by name (block present but
+      vacuous is always wrong), the whole bankHolidays block deleted
+      degraded correctly to a NOTE and exit 0 rather than a FAIL (a
+      genuinely absent block is a known degraded state, not a defect), and
+      a genuine Tuesday hours mismatch injected into
+      modules/branch/pages/pharmacy-mccanns-aigburth.html (a split-day,
+      bank-holiday-adjacent branch) still FAILed on rule 7 with the exact
+      mismatch quoted, proving the bank-holiday exemption cannot swallow a
+      real defect. Scratch copy deleted after each restoration; sha256 of
+      the tracked branches.json confirmed identical before and after
+      (904de09b...969e1e); git status --porcelain on the touched tracked
+      files was empty throughout. Full 36-checker suite re-run against the
+      tracked repo after: 36/36 exit 0. Zero in-repo defect found, no new
+      question raised.
 
 - [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
