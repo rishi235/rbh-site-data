@@ -143,6 +143,31 @@ core/, branches.json or gbp-packs/; the only repo changes this pass are the
 new probe instrument and the two AGENT_WORKLIST.md/AGENT_LOG.md log
 entries.
 
+PUSH/PUBLISH (steps 9-10). `git add` + `git commit` succeeded locally as
+527a13b ("Item 3.13 quality pass (ninth, Clear Chemist Aintree)..."), local
+agents/audit-backlog now 6 commits ahead of origin/origin-https (this
+pass's own commit plus the five pre-existing unpushed commits from the two
+earlier runs today, items 3.5 and 3.7). `git push origin agents/audit-
+backlog` (SSH) failed "Host key verification failed"; `git push origin-
+https agents/audit-backlog` also failed, "could not read Username for
+'https://github.com': No such device or address" - no credential of any
+kind available in this session, exactly the standing Q96 finding. `node
+tools/build-audit-status.js` failed `ENOENT: no such file or directory,
+open 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'` - exactly the standing Q87
+finding (the script's hardcoded Windows path does not resolve inside this
+Linux sandbox). Not patched this run, for the same reason the eleventh and
+twelfth passes gave: Q87 already raises the __dirname-relative fix as a
+recommended, low-risk option pending Rishi's decision, and unilaterally
+changing it here would pre-empt that decision rather than implement it. No
+new question raised for either gap - both already open, already
+recommended, already fully diagnosed in Q96 and Q87. This run's own six
+commits remain local-only pending either a credential being provisioned in
+this session type or the task running on Rishi's own host, per Q96/Q87
+option 1.
+
+.agent-lock deleted (renamed, per the standing Q87 workaround) at the end
+of this run.
+
 ---
 
 ## 2026-09-05 (unattended scheduled run via Cowork, second run today) - Item 3.7 quality pass (eleventh, Smartts Chemist Bootle): FRESH ANGLE, tools/check-booking-routes.js (the Appointedd widget-id chain checker) never proven against Smartts specifically in ten prior passes, closed this run. Independent extraction script (697 checks, 0 flags) plus four targeted injections against the real checker - data-branch mislabelled to the real neighbouring SK Chemists Bootle (RULE 4), data-service wording changed on the sinusitis page (RULE 5), smartts_bootle's pharmacyFirst widget id deleted from branches.json via single-line sed surgery, not a JSON re-serialise (RULE 3, caught on all 8 dependent pages at once), and smartts_bootle's bloodPressure widget id overwritten to equal its own pharmacyFirst id (RULE 7 diary) - all four caught first attempt with the correct rule tag, all touched files sha256-confirmed byte-identical after every revert. Full 35-checker suite and all six generators clean before and after. Live half not performed: Claude in Chrome not connected, mcp__workspace__web_fetch declined the URL as outside its provenance set, and unlike the preceding run this session's own tool-use rules were read as prohibiting a curl/PowerShell fallback once web_fetch has declined a URL, so no live page was read this pass (see full entry below for the reasoning). Zero in-repo defect; no new question; push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap - no new question raised for a finding already fully covered by Q96 and Q87.
