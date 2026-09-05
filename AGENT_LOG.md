@@ -1,3 +1,150 @@
+## 2026-09-05 (unattended scheduled run via Cowork, third run today) - Item 3.13 quality pass (ninth, Clear Chemist Aintree): FRESH ANGLE, tools/check-jsonld.js (the JSON-LD/map-embed "silent fault" checker) never proven against this branch's three pages in eight prior passes, closed this run. Independent extraction instrument (36 checks, 0 failures) plus six injections against the real checker - @type widened to MedicalBusiness, name lengthened, url repointed at a different branch's page, postalCode changed to a real different branch's own postcode, telephone respaced with digits unchanged, and the map-iframe postcode changed independently of the JSON-LD address - all six caught first attempt with the correct field named in the checker's own output, all three pages sha256-confirmed byte-identical after every restore. Two faults found and fixed in this pass's own new instrument, not the repo: a substring tag-match bug (looked for "addr.postalCode", the checker prints "address.postalCode") and an invented postcode ("L9 8ZZ") written into the committed script, caught by this repo's own check-postcodes.js once the file existed in the working tree, fixed by using a real branch's real postcode instead. Full 36-checker suite and all six generators clean before and after. Live half not performed: Claude in Chrome not connected, mcp__workspace__web_fetch declined the URL as outside its provenance set, no curl fallback attempted per the standing reasoning the eighth pass on this item recorded. Zero in-repo defect; no new question; push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap.
+
+LOCK CHECK (step 1). No .agent-lock present at run start. A .git/index.lock
+dated 33 seconds after the last local commit (c28ed0a, itself the third run's
+own prior push-outcome log entry) was present, `ps aux` showed no git
+process, and `rm` failed "Operation not permitted" - the standing Q87
+mount-unlink() restriction and its established workaround. Cleared by
+rename to `.git/index.lock.released-<epoch>`, the same litter this repo has
+recorded roughly 100 times before. It reappeared and was cleared the same
+way once more after a `git status` call mid-run; nothing it did touched
+tracked content. A fresh .agent-lock was written at 2026-09-05T10:34:52Z.
+
+GIT SYNC (step 2). `git fetch origin` (SSH) failed "Host key verification
+failed" - the standing Q87/Q96 finding, unchanged. `git fetch origin-https`
+succeeded anonymously. Local agents/audit-backlog was 5 commits ahead of
+origin-https/agents/audit-backlog (46919a9), all pre-existing from the two
+earlier runs today (items 3.5 and 3.7), nothing new to pull. Confirmed via
+`git rev-list --left-right --count` (5 ahead, 0 behind) rather than relying
+on the porcelain status line alone.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" before any page load - the standing Q59 finding, unchanged.
+Logged and carried on; no alternative route attempted, nothing clicked,
+typed, submitted or signed in anywhere. QUESTIONS.json read in full: 96
+total, 43 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Moot: this
+pass raised no new question.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6),
+so the quality-pass fallback applied. Rotation pool re-derived independently
+in Python from `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md`, matching "item <id>" word-boundary (not followed by another
+digit, so "3.1" does not match inside "3.13") against the 36-item pool (42
+checked items minus the standing out-of-rotation set 1.1, 1.4, 5.6, 5.7,
+6.7, 6.8). Result: 3.13 stalest at 2026-09-04T08:42:57+01:00, ahead of 6.2
+(09:13:34), 3.4 (12:41:10) and 3.9 (13:17:57) - independently confirming the
+eleventh 3.7 pass's own forward-looking note from earlier today.
+
+FRESH ANGLE AND WORK DONE. Full detail in AGENT_WORKLIST.md's own item 3.13
+paragraph for this pass (search "ninth"). Summary: across eight prior
+passes, tools/check-switch-copy.js, tools/check-weight-loss-copy.js and
+tools/check-travel-clinic-copy.js were all proven against Clear Chemist
+Aintree's three pages by direct injection (seventh and eighth passes).
+tools/check-jsonld.js - the checker CLAUDE.md itself calls out as guarding
+"the one part of the page written for a machine rather than a person",
+because a wrong @type, name, url, address, telephone or map-iframe query is
+invisible to every text-based checker while the page still reads correctly
+to a visitor - had never been touched on this item: zero mentions of
+"check-jsonld.js" anywhere in the item's own AGENT_WORKLIST.md section, the
+only checker in that position (check-nap.js had one narrative-only mention;
+check-map-embeds.js, check-branch-identity.js and check-cdn-pins.js had
+none either, but check-jsonld.js was picked as the sharpest single gap
+given its own file header's explicit "silent fault" framing). Wrote
+audits/verify-3.13-2026-09-05-ninth.js (fresh, no shared code with tools/
+or any prior instrument): PART A, an independent extraction of all three
+pages' JSON-LD and map query against branches.json, 36 checks, 0 failures.
+PART B, six injections directly against the real check-jsonld.js, one rule
+at a time, sha256 baseline of all three files taken before any mutation and
+restore via fs.writeFileSync from the in-memory buffer rather than git,
+re-confirmed byte-identical after every restore: RULE 2 @type (weight loss
+page, "Pharmacy" to "MedicalBusiness" - the exact defect shape the 3.10
+pass originally found and fixed estate-wide), RULE 3 name (travel page,
+"Clear Chemist" lengthened to an invented form), RULE 4 url (switch page,
+filename repointed at Cherry Lane Liverpool's own switch page rather than
+an invented path), RULE 5 address.postalCode (weight loss page, L9 7AS to
+McCanns Sandringham's own real postcode L17 4JP), RULE 6 telephone (travel
+page, "0151 203 6535" respaced to "01512036535" with every digit
+unchanged, proving the checker's own documented "compared as typed, not
+normalised" behaviour), and RULE 8 map query (switch page, only the
+iframe's postcode changed to Gordon Shorts Crosby's own real postcode
+L23 3AT, the JSON-LD address left untouched, proving the checker reads the
+two independently as its file header claims). All six caught on first
+attempt, each with the correct field named in the checker's own FAIL
+output, both files restored and sha256-reconfirmed byte-identical
+throughout, final check-jsonld.js run exit 0. Full 36-checker suite and all
+six generators run individually before and after this pass's own work:
+36/36 exit 0 both times, git status --porcelain on modules/, core/, tools/,
+branches.json, gbp-packs/ empty throughout, and all three pages under test
+confirmed sha256-identical to their standing values recorded by the fifth
+pass on 2026-09-01 (switch-prescriptions-clear-aintree.html unchanged at
+96DB1824436B7F8C4E37BC576FE539F48F7A9FDBD30DEBFCCB3C6A6DD5DD78F9).
+
+TWO FAULTS FOUND AND FIXED IN THIS PASS'S OWN NEW INSTRUMENT, NOT THE REPO,
+the same shape as the fifth, eighth and prior passes' own self-correction
+of their own tooling rather than the audited system. First: the initial
+run of the new script reported RULE 5 as MISSED even though the real
+checker correctly exited 1 with "FAIL ... address.postalCode is ...",
+because the script's own substring match looked for the literal
+"addr.postalCode" rather than the checker's actual printed string
+"address.postalCode" (the latter is not a superset match of the former,
+since "address" and "addr" differ after the fourth character). Fixed by
+matching the real string; re-run confirmed 6/6 caught. Second, found only
+because this repo's own tooling caught it: the first version of RULE 8
+used an invented postcode, "L9 8ZZ", written directly into the committed
+.js file as a code comment. tools/check-postcodes.js, run as part of this
+pass's own full-suite re-check after committing the new instrument to the
+working tree, correctly flagged it as "UNKNOWN ... postcode L9 8ZZ is in
+no branches.json entry and is not a named historical value" - exactly the
+narrative-postcode rule CLAUDE.md documents, applied here to an audit
+instrument rather than a GBP pack for the first time this pass has
+recorded. Fixed by using a real, different branch's own postcode (Gordon
+Shorts Crosby, L23 3AT) instead of an invented one, the same convention
+the eighth pass had already set for its own Walton-town injection;
+check-postcodes.js re-ran clean, 0 failures, the same 3 pre-existing
+UNOWNED warnings (TEMPLATE.md and the two branch-landing paste sheets,
+none related to this pass) as before this pass touched anything.
+
+LIVE HALF. Claude in Chrome confirmed not connected, checked at this run's
+own step 3 answer pickup and again immediately before this section; not
+retried by another route and no login attempted, per procedure.
+mcp__workspace__web_fetch declined
+https://www.clearchemist.co.uk/weight-loss-clinic-clear-aintree.html as
+"URL not in provenance set. web_fetch can only retrieve URLs that appeared
+in a user message, a prior web_fetch result, or a WebSearch result" - the
+same restriction the eighth pass on this item hit against
+smarttschemist.co.uk. Per that pass's own recorded reasoning and this
+session's tool-use rules, no curl, PowerShell or other fallback was
+attempted once web_fetch declined the URL, so no live page was read this
+pass. The eighth pass's own live observations for this branch (root stable
+at 200, the three unpublished slugs behaving inconsistently across
+different HTTP client fingerprints) were not re-tested this run and should
+not be assumed unchanged or resolved.
+
+RESULT. No in-repo defect found. check-jsonld.js was already correctly
+protecting Clear Chemist Aintree's three pages on every rule tested against
+it; now proven directly by injection against this branch specifically for
+the first time in nine passes on this item, closing the last major
+unproven checker/page pairing this item's own history names (check-nap.js,
+check-map-embeds.js, check-branch-identity.js, check-app-membership.js and
+check-cdn-pins.js remain unproven by injection for this branch and are
+candidates for a future pass). Q65 (the pages' walk-in wording against the
+branch's own no-physical-branch-resource record) re-read from
+QUESTIONS.json: still "answered", unchanged, correctly not re-litigated -
+a live patient-facing regulatory claim is carved out of autonomous
+decisions regardless of window state, and no autonomous window was open
+this run in any case. Q28 and Q29 also re-read: both still "answered",
+unchanged. No new question raised. Nothing edited under tools/, modules/,
+core/, branches.json or gbp-packs/; the only repo changes this pass are the
+new probe instrument and the two AGENT_WORKLIST.md/AGENT_LOG.md log
+entries.
+
+---
+
 ## 2026-09-05 (unattended scheduled run via Cowork, second run today) - Item 3.7 quality pass (eleventh, Smartts Chemist Bootle): FRESH ANGLE, tools/check-booking-routes.js (the Appointedd widget-id chain checker) never proven against Smartts specifically in ten prior passes, closed this run. Independent extraction script (697 checks, 0 flags) plus four targeted injections against the real checker - data-branch mislabelled to the real neighbouring SK Chemists Bootle (RULE 4), data-service wording changed on the sinusitis page (RULE 5), smartts_bootle's pharmacyFirst widget id deleted from branches.json via single-line sed surgery, not a JSON re-serialise (RULE 3, caught on all 8 dependent pages at once), and smartts_bootle's bloodPressure widget id overwritten to equal its own pharmacyFirst id (RULE 7 diary) - all four caught first attempt with the correct rule tag, all touched files sha256-confirmed byte-identical after every revert. Full 35-checker suite and all six generators clean before and after. Live half not performed: Claude in Chrome not connected, mcp__workspace__web_fetch declined the URL as outside its provenance set, and unlike the preceding run this session's own tool-use rules were read as prohibiting a curl/PowerShell fallback once web_fetch has declined a URL, so no live page was read this pass (see full entry below for the reasoning). Zero in-repo defect; no new question; push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap - no new question raised for a finding already fully covered by Q96 and Q87.
 
 LOCK CHECK (step 1). No .agent-lock present at run start (the twelfth pass's

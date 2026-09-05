@@ -6156,6 +6156,96 @@ Done 2026-09-05 (eleventh pass).
       tools/, modules/, core/, branches.json or gbp-packs/; the only repo
       changes this pass are the new probe instrument, its output file and
       this log entry.
+      Quality pass 2026-09-05 (ninth), unattended scheduled run, Cowork
+      sandboxed shell throughout (git network operations via origin-https,
+      the standing Q87/Q96 credential gap, unchanged). All 8 unblocked
+      worklist items confirmed [BLOCKED] by direct grep, so this was the
+      fallback quality pass, picked by the standing rotation-pool method:
+      36-item pool (42 checked items minus the standing out-of-rotation set
+      1.1, 1.4, 5.6, 5.7, 6.7, 6.8), oldest most-recent-mention of "item
+      <id>" in the AGENT_WORKLIST.md/AGENT_LOG.md commit history wins. 3.13
+      was oldest at 2026-09-04T08:42:57+01:00, ahead of 6.2, 3.4 and 3.9,
+      independently confirming the eleventh 3.7 pass's own forward note.
+      BASELINE. All 36 checkers ran clean individually before any work. All
+      six generators rebuilt; git status --porcelain on modules/, core/,
+      tools/, branches.json, gbp-packs/ empty both before and after, and the
+      three pages under test confirmed byte-identical to their standing
+      sha256 values throughout (switch-prescriptions-clear-aintree.html
+      still 96DB1824436B7F8C4E37BC576FE539F48F7A9FDBD30DEBFCCB3C6A6DD5DD78F9,
+      unchanged since the fifth pass first recorded it).
+      FRESH ANGLE. Eight prior passes proved tools/check-switch-copy.js,
+      tools/check-weight-loss-copy.js and tools/check-travel-clinic-copy.js
+      against this branch's three pages by direct injection (the seventh and
+      eighth passes). None of the eight ever touched tools/check-jsonld.js:
+      a grep of this item's own section for "check-jsonld.js" returned zero
+      hits, against one narrative-only mention of check-nap.js and zero for
+      check-map-embeds.js, check-branch-identity.js and check-cdn-pins.js.
+      check-jsonld.js is this repo's own "silent fault" checker (CLAUDE.md):
+      the one block on a page written for a machine rather than a person, so
+      a wrong value there is invisible to every text-based checker while the
+      page still reads correctly to a visitor. Closed this pass with a new,
+      two-part instrument, audits/verify-3.13-2026-09-05-ninth.js. PART A: an
+      independent extraction of all three pages' JSON-LD and map-iframe
+      query, own regexes, no shared code with tools/check-jsonld.js, compared
+      field by field to branches.json - 36 checks (12 per page), 0 failures.
+      PART B: six injections against the REAL check-jsonld.js, one rule at a
+      time, sha256 baseline of all three files captured before any mutation,
+      restored by fs.writeFileSync from the in-memory buffer (not git) and
+      sha256-reconfirmed after every restore: RULE 2 @type (weight loss page,
+      Pharmacy to MedicalBusiness), RULE 3 name (travel page, "Clear Chemist"
+      to an invented longer form), RULE 4 url (switch page, filename
+      repointed at Cherry Lane Liverpool's own switch page), RULE 5
+      address.postalCode (weight loss page, L9 7AS to McCanns Sandringham's
+      own real postcode L17 4JP, a real different branch rather than an
+      invented value, matching the eighth pass's own Walton-town convention),
+      RULE 6 telephone (travel page, spacing stripped from "0151 203 6535"
+      while the digits stayed the same, proving the checker's own
+      documented "compared as typed, not normalised" behaviour), and RULE 8
+      map query (switch page, only the iframe's postcode changed to Gordon
+      Shorts Crosby's own real postcode L23 3AT, the JSON-LD address left
+      alone, proving the two are checked independently as the checker's file
+      header claims). All six caught first attempt, all three files restored
+      byte-identical (sha256-confirmed) after every injection, final
+      check-jsonld.js run exit 0.
+      ONE FAULT FOUND AND FIXED IN THIS PASS'S OWN NEW INSTRUMENT, NOT THE
+      REPO, the same shape as the eighth pass's own tag-match bug. First run:
+      RULE 5 was reported MISSED even though the real checker correctly
+      exited 1 with "FAIL address.postalCode is...", because the script's own
+      substring match looked for "addr.postalCode" rather than the checker's
+      actual "address.postalCode" text. Fixed by matching the real string;
+      re-run confirmed 6/6 caught. SECOND FAULT, same run, in the same new
+      instrument: the first version of RULE 8 used an invented postcode,
+      "L9 8ZZ", written into the committed .js file as a comment/label. This
+      repo's own tools/check-postcodes.js scans narrative files for
+      postcode-shaped strings and correctly flagged it as UNKNOWN once the
+      file was committed to the working tree - exactly the rule CLAUDE.md
+      documents ("the checker was itself scanned"). Fixed by using a real,
+      different branch's own postcode (Gordon Shorts Crosby, L23 3AT) instead
+      of an invented one, the same convention the eighth pass had already set
+      for its own town injection; check-postcodes.js re-ran clean, 0
+      failures, the same 3 pre-existing UNOWNED warnings (TEMPLATE.md and the
+      two branch-landing paste sheets) as before this pass touched anything.
+      LIVE HALF. Claude in Chrome confirmed not connected (checked at this
+      run's own step 3 answer pickup and again here). mcp__workspace__web_fetch
+      declined https://www.clearchemist.co.uk/weight-loss-clinic-clear-
+      aintree.html as "URL not in provenance set", the same restriction the
+      eighth pass hit against smarttschemist.co.uk. Per that pass's own
+      reasoning and this session's tool-use rules, no curl or other fallback
+      was attempted once web_fetch declined the URL. No live page was read
+      this pass; the eighth pass's own live observations (root stable, the
+      three unpublished slugs behaving inconsistently under different HTTP
+      client fingerprints) were not re-tested and should not be assumed
+      unchanged or resolved.
+      RESULT. No in-repo defect found. check-jsonld.js was already correctly
+      protecting Clear Chemist Aintree's three pages on every rule tested;
+      now proven directly by injection against this branch specifically for
+      the first time in nine passes on this item. Q65 (the pages' walk-in
+      wording) re-read from QUESTIONS.json: still "answered" with the
+      standing carve-out reasoning unchanged, correctly not re-litigated
+      here. No new question raised. Nothing edited under tools/, modules/,
+      core/, branches.json or gbp-packs/; the only repo changes this pass are
+      the new probe instrument and this log entry.
+      Evidence: audits/verify-3.13-2026-09-05-ninth.js (run clean, exit 0).
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
