@@ -1,0 +1,106 @@
+Item 3.11 quality pass, eleventh, 2026-09-05 (unattended scheduled run via Cowork)
+Branch: Gordon Short Chemist, Crosby (gordonshorts_crosby)
+Fresh angle: tools/check-switch-copy.js proven by direct injection against this
+branch's OWN switch page for the first time in eleven passes. Ten prior passes
+had covered NAP, JSON-LD, brand spelling, em-dashes, the Pharmacy First
+eligible/safety-net/symptoms triad, the booking chain, check-whatsapp-route.js,
+check-map-embeds.js, check-pharmacy-first-cost.js and check-app-membership.js,
+all by injection against this item's own pages - never check-switch-copy.js,
+which was only exercised generically when it was built (item 3.12 pass,
+2026-08-11) and has otherwise only ever passed passively as part of the
+estate-wide full-suite sweep, the same "proves it did not fire, not that it
+can" gap this week's other items closed for their own checkers.
+
+BASELINE
+Target: modules/switch/pages/switch-prescriptions-gordon-short-crosby.html
+SHA256: cac5149905744c8c99dd5a39c2bae62ba1bae37e86afe8b365805e54fa8ace47
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0. tools/check-switch-copy.js alone: "OK - 15 switch page(s),
+33 line(s) of body copy, 15 banner(s) read for where they send people, 11
+rules, 5 accepted breach(es) pinned to a question."
+
+METHOD
+Full repo copied with .git included to a scratch directory
+(/sessions/admiring-hopeful-sagan/scratch/repo-copy), the established method
+(excluding .git makes check-cdn-pins.js fail falsely on a scratch copy). All
+injections against the scratch copy's own switch-prescriptions-gordon-short-
+crosby.html only; the tracked repo at C:\dev\rbh-site-data was never opened
+for writing this pass, confirmed by SHA256 before, during and after. Restored
+by byte copy from a pre-injection backup after each injection, not git
+checkout (this mount's documented unlink() restriction), and SHA256-confirmed
+identical to the backup before the next round.
+
+Five injections, each caught first attempt on its intended rule and no other,
+each restored and SHA256-reconfirmed byte-identical before the next round:
+
+1. RULE 6 (time claim consistency). form-sub's "This takes about 30 seconds."
+   changed to "45 seconds" only on this page, title and SEO description left
+   at 30. CAUGHT: two failures - [verbatim] (the exact sentence no longer on
+   the page) and [time-claim] (30 and 45 both present on the page, and the
+   estate now states two different figures: "30 on 15 page(s), 45 on 1
+   page(s)").
+
+2. RULE 3 (verbatim), attempted as a rule 8 test. hero-sub's "Gordon Short
+   Chemist is a local NHS pharmacy in Crosby." changed to name Bootle instead.
+   CAUGHT: [verbatim], because the town is interpolated into a static
+   generator line, so most town corruption on this page trips verbatim before
+   rule 8 gets a look. Recorded as a method note, not a defect: it means rule
+   3 already covers REPLACING this branch's own town in its usual spots.
+
+3. RULE 8 (town), isolated from rule 3 by ADDING a new trust-bar item rather
+   than editing an existing one, so the required verbatim line stayed intact:
+   inserted "<div class="trust-item"><strong>Also near Bootle</strong>
+   <span>Handy for patients travelling from Bootle too</span></div>" after the
+   existing four trust items. CAUGHT: two failures, one per branch that
+   genuinely owns Bootle - "the body copy names Bootle, which is
+   smartts_bootle's town, not this branch's" and the same for
+   skchemists_bootle. Confirms rule 8 checks every OTHER branch's town
+   independently, not just the first match.
+
+4. RULE 9 (form and sentence agreement). Added a new required field, "NHS
+   number" (name="nhs_number"), directly after the date-of-birth input,
+   without touching step 1's sentence. CAUGHT: [form-copy], naming the exact
+   field: "the form asks for a field named nhs_number that this rule has no
+   wording for."
+
+5. RULE 10 (collection notice). Removed the privacy sentence ("We will only
+   use your details to help process your switch request.") from the form
+   entirely. CAUGHT: two failures - [verbatim] (the line is also one of the
+   generator's static lines) and [collection-notice] ("the form collects a
+   name, a date of birth and contact details and the page carries no
+   statement of what they are used for at the point of collection"), proving
+   the dedicated rule fires independently of the verbatim rule that happens to
+   also cover this line's text.
+
+REGRESSION SWEEP
+Scratch copy's switch-prescriptions-gordon-short-crosby.html confirmed
+SHA256-identical to the pre-injection backup after the final restore. Full 36
+tools/check-*.js re-run individually against the scratch copy: 36/36 exit 0.
+tools/build-switch-pages.js re-run against the scratch copy: byte-identical
+output, git status --porcelain -- modules/ core/ empty. Tracked repo's own
+copy of the page reconfirmed SHA256-identical to the original baseline
+throughout (cac5149905744c8c99dd5a39c2bae62ba1bae37e86afe8b365805e54fa8ace47),
+never opened for writing at any point in this pass.
+
+LIVE HALF
+Claude in Chrome not connected this session (tabs_context_mcp reported not
+connected outright). Fell back to read-only curl (UA "Mozilla/5.0") from the
+sandbox shell, which had working outbound network access this run.
+switch-prescriptions-gordon-short-crosby.html: 200. "This takes about 30
+seconds" present once, no second seconds figure. Collection notice sentence
+present verbatim. Zero occurrences of "nhs_number" or "Bootle" anywhere on the
+live page - none of this pass's injected defects have ever reached the live
+site. 26 correct "Crosby" hits. The known mojibake em dash ("ÔÇö", pre-repaste)
+still present, 4 occurrences, unchanged from every prior pass - not a new
+finding. pharmacy-first-gordon-short-crosby.html (the branch-specific page Post
+A must not be repointed to, per the standing STOP/Q32): 200, status only, not
+re-read word for word this pass. sitemap.xml: every lastmod still
+2026-08-15T07:41:55+00:00 estate-wide (single distinct value across the whole
+file), no republish since the sixth pass.
+
+OUTCOME
+Zero in-repo defects. No new question. tools/check-switch-copy.js is now
+proven by direct injection against this branch's own page, on top of the ten
+checkers proven on earlier passes, closing the last checker-shaped gap this
+item's rotation had identified as untested-by-injection for Gordon Short
+specifically. Evidence: this file.

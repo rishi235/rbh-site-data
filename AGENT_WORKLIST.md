@@ -5087,6 +5087,68 @@ Done 2026-09-04 (tenth pass).
       Zero in-repo defects. No new question. Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-04-tenth.txt. Done
       2026-09-04
+      Eleventh quality pass 2026-09-05 (unattended run), fresh angle only.
+      Oldest of the 36 rotation-pool items, independently re-derived via
+      `git log --pretty=format:"%cI|||%s"` over the full candidate pool
+      (excluding the standing out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7,
+      6.8): 3.11 last touched 2026-09-04T04:10:51+01:00 (its own tenth pass),
+      ahead of 4.4, 4.1, 3.2, 3.5, 3.7 and the rest of the pool - matching the
+      forward projection left by both the 4.2 thirteenth and 1.2 twelfth
+      passes earlier in the same run sequence.
+      REPO HALF ONLY (Claude in Chrome not connected). Ten prior passes had
+      covered NAP, JSON-LD, brand spelling, em-dashes, the Pharmacy First
+      eligibility/safety-net/symptoms triad, the booking chain,
+      check-whatsapp-route.js, check-map-embeds.js,
+      check-pharmacy-first-cost.js and check-app-membership.js, all by
+      injection against this item's own pages. tools/check-switch-copy.js had
+      never been proven by direct injection against this branch's own switch
+      page - only exercised generically when it was built (item 3.12 pass,
+      2026-08-11) and otherwise only ever passed passively as part of the
+      full-suite sweep, the same gap this week's other items' recent passes
+      closed for their own checkers.
+      Baseline: all 36 checkers exit 0, git status clean. Target:
+      modules/switch/pages/switch-prescriptions-gordon-short-crosby.html,
+      SHA256
+      cac5149905744c8c99dd5a39c2bae62ba1bae37e86afe8b365805e54fa8ace47. Full
+      repo copied with .git to a scratch directory (established method); all
+      injections against the scratch copy only, tracked repo never opened for
+      writing this pass.
+      Five injections, each caught first attempt and restored, SHA256-
+      reconfirmed identical to backup before the next round: (1) the
+      form-sub's "30 seconds" changed to "45" on this page only - CAUGHT by
+      [verbatim] and [time-claim] (rule 6), naming both the page-level
+      contradiction and the estate-wide split, "30 on 15 page(s), 45 on 1
+      page(s)"; (2) hero-sub's own-town sentence changed to name Bootle
+      instead of Crosby - CAUGHT by [verbatim], since the town is interpolated
+      into a static generator line, so most town corruption trips rule 3
+      before rule 8 is reached; (3) rule 8 isolated by ADDING a new trust-bar
+      item naming Bootle rather than editing an existing one, leaving the
+      required verbatim line intact - CAUGHT by [town], two separate
+      failures, one per branch that actually owns Bootle (smartts_bootle and
+      skchemists_bootle), confirming the rule checks every other branch's
+      town independently; (4) an "NHS number" field added to the form without
+      updating step 1's sentence - CAUGHT by [form-copy], naming the field
+      "nhs_number"; (5) the collection-notice sentence removed from the form
+      entirely - CAUGHT by [verbatim] and [collection-notice], the second
+      firing independently of the first even though both cover the same
+      missing sentence.
+      Full 36-checker suite re-run clean on the scratch copy after the final
+      restore; tracked repo's own copy reconfirmed SHA256-identical to
+      baseline throughout, never opened for writing. build-switch-pages.js
+      re-run against the scratch copy: byte-identical (git status --porcelain
+      -- modules/ core/ empty).
+      LIVE HALF, read-only, curl fallback (Claude in Chrome not connected).
+      switch-prescriptions-gordon-short-crosby.html: 200, "30 seconds" present
+      once with no second figure, the collection-notice sentence present
+      verbatim, zero occurrences of "nhs_number" or "Bootle" anywhere on the
+      live page - none of this pass's injected defects have ever reached the
+      live site. 26 correct Crosby hits. Known states reconfirmed unchanged:
+      the mojibake em dash ("ÔÇö", pre-repaste), 4 occurrences; sitemap.xml
+      still a single lastmod value estate-wide, 2026-08-15T07:41:55+00:00, no
+      republish since the sixth pass.
+      Zero in-repo defects. No new question. Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-05-eleventh.txt.
+      Done 2026-09-05
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
