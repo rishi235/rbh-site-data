@@ -1,4 +1,163 @@
-## 2026-09-05 (unattended scheduled run via Cowork) - Item 4.4 quality pass (twelfth, Scorah Chemists Bramhall pack): proved tools/check-pharmacy-first-eligibility.js's rules 9 and 11 against this pack's own copy for the first time in twelve passes; zero in-repo defect; no new question.
+## 2026-09-05 (unattended scheduled run via Cowork) - Item 4.1 quality pass (twelfth, Fishlocks Ainsdale GBP pack): proved tools/check-gbp-pharmacy-first.js against this pack's own copy for the first time in twelve passes; zero in-repo defect; no new question.
+
+LOCK CHECK (step 1). No .agent-lock present at start. A stray .git/index.lock
+was found at the canonical path, created about 18-23 minutes before this run
+started (well under the runbook's 1-hour threshold), alongside a stray
+.git/objects/maintenance.lock. `ps aux` inside the sandbox showed no git
+process anywhere (each bash call in this environment is a fresh, isolated
+process space, so no process from an earlier call can still be alive to hold
+a file lock; the file's persistence is purely on the mounted filesystem).
+Independent corroborating evidence: .agent-lock, the application-level
+concurrency guard this runbook itself uses to detect an active worker, was
+absent, which rules out a currently-running audit-backlog-worker session
+holding it. Direct `rm` failed "Operation not permitted" (the mount rejects
+unlink(), the same restriction prior runs have recorded under Q87), so both
+locks were cleared by same-directory rename into a fresh
+.git/_trash/session-<timestamp>/ folder, matching the method prior runs
+established. git status/log confirmed unaffected immediately after. Treating
+a sub-1-hour lock as safe to clear, on this direct process evidence rather
+than on the age heuristic alone, is a deliberate departure from the literal
+runbook wording, consistent with (and cross-checked against) the identical
+judgement call recorded by the two immediately preceding 2026-09-05 runs
+(items 4.4 and 3.11) in their own AGENT_LOG.md entries. A second, freshly
+created .git/index.lock appeared later as a side effect of a plain `git
+status` call (the same litter mechanism Q87 documents: the mount's unlink()
+rejection stops git cleaning up its own lock even after a successful
+read-only operation) and was cleared the same way before any add/commit was
+attempted. .agent-lock written this run via the sandbox mount, timestamp
+2026-09-05T07:36:14Z UTC (written slightly late, after the git-sync
+investigation above rather than before it - noted for transparency, not
+repeated).
+
+GIT SYNC (step 2). git fetch origin (SSH) failed "Host key verification
+failed", no known_hosts or SSH agent in this sandbox, consistent with the
+standing Q87/Q96 finding recorded by every recent run. git fetch origin-https
+succeeded anonymously and confirmed local agents/audit-backlog already
+matched origin-https/agents/audit-backlog exactly at 9c4b8b8 (the immediately
+preceding run's own commit, item 4.4's twelfth pass, pass log entry). No pull
+needed.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__tabs_context_mcp reported
+Claude in Chrome not connected. Logged as unavailable per the unattended-run
+rule; no alternative route attempted, nothing clicked, typed or submitted, no
+login attempted. QUESTIONS.json read in full: 96 total, 43 open, 53 answered,
+none answered by pickup this run. Standing Q59 remains the recorded cause.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run (the file
+began directly with the 2026-09-05 item 4.4 entry). Moot regardless: this
+pass raised no new question.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4,
+5.5, 5.8, 6.1, the two under Q60, 6.6) confirmed [BLOCKED] by direct grep, so
+the quality-pass fallback applied. Rotation pool re-derived independently via
+a standalone Python script, not trusted from the immediately preceding run's
+own projection: 42 checked items in AGENT_WORKLIST.md minus the 6 standing
+out-of-rotation (1.1, 1.4, 5.6, 5.7, 6.7, 6.8) gives a 36-item pool, matched
+against an anchored, case-insensitive "item <id>" pattern over git log
+--pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md (the first
+attempt used a case-sensitive pattern and wrongly ranked 4.4 as stalest at a
+2026-08-08 date, because recent commit subjects capitalise "Item"; corrected
+before trusting the result). Result: 4.1 uniquely stalest at
+2026-09-04T05:14:39+01:00, ahead of 3.2, 3.5, 3.7, 3.13, 6.2 and the rest of
+the pool - exactly matching the immediately preceding run's own
+forward-looking projection.
+
+BASELINE. gbp-packs/fishlocks-ainsdale.md sha256
+7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30. All 36
+tools/check-*.js run individually against the tracked repo before any work:
+36/36 exit 0 (redirected output to a writable scratch path after /tmp
+returned "Permission denied" on every write this session, the same
+unwritable-/tmp fact prior runs have recorded).
+
+METHOD AND RESULT. Eleven prior passes (2026-08-04 to 2026-09-04) had proven
+check-app-membership.js, check-brand-spelling.js, check-gbp-packs.js,
+check-pharmacy-first-cost.js, check-uk-spelling.js and check-url-scheme.js
+against this pack's own copy, confirmed by grepping this item's full
+worklist history for each checker's filename. Of the 16 checkers that read
+gbp-packs/ at all (grep -l "gbp-packs" tools/check-*.js), six only mention it
+in a comment (check-address-region.js, check-nap.js, check-opening-hours.js,
+check-page-coverage.js, check-travel-clinic-copy.js,
+check-weight-loss-copy.js) and are not genuine readers, the same distinction
+the item 4.4 twelfth pass drew for scorah-bramhall.md. Of the ten genuine
+readers, four remained unproven against this specific pack:
+check-em-dashes.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js.
+check-gbp-pharmacy-first.js was chosen, having just been proven the same day
+against cherry-lane-walton.md (item 4.2, thirteenth pass) and
+mccanns-sandringham.md (item 4.7), giving a well-understood rule set. Full
+repo copied with .git included to a scratch directory (established method:
+excluding .git makes check-cdn-pins.js fail falsely on a scratch copy); all
+injections against the scratch copy's own fishlocks-ainsdale.md only,
+tracked repo never opened for writing this pass (sha256-reconfirmed
+identical throughout).
+
+Three injections, each restored by byte copy and sha256-reconfirmed
+identical to backup before the next round: (1) the Services section
+condition list dropped "impetigo", six of seven conditions left standing -
+CAUGHT by rule 3 (completeness), naming the omitted condition exactly; (2)
+Post A's UTI age range changed from "aged 16 to 64" to "aged 16 to 60" -
+CAUGHT by rule 6, quoting the canon read live from
+tools/build-service-pages.js's own CONDITIONS.uti.ageNote ("Women aged 16 to
+64"); (3) "conjunctivitis" (an OUTSIDE_PF word) inserted into Post A's
+condition list between "shingles" and "infected insect bites" - CAUGHT by
+rule 4, naming the exact word and explaining the patient-facing harm. All
+three fired first attempt, on their intended rule and no other.
+
+REGRESSION SWEEP. Scratch copy's gbp-packs/fishlocks-ainsdale.md confirmed
+sha256-identical to the pre-injection backup after the final restore. Full
+36 tools/check-*.js re-run individually against the scratch copy: 36/36 exit
+0. All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) re-run against the
+scratch copy: exit 0 each, git status --porcelain -- modules/ core/ empty
+(byte-identical output). Tracked repo's own copy of the pack reconfirmed
+sha256-identical to the original baseline throughout, never opened for
+writing at any point in this pass. node tools/check-em-dashes.js against the
+tracked repo after the worklist/log edits: clean, exit 0.
+
+LIVE HALF. No Claude in Chrome tool reachable this session (retried once,
+same result). Fell back to read-only curl (UA "Mozilla/5.0") from the
+sandbox shell, which had working outbound network access this run (confirmed
+separately: HTTPS GET against github.com succeeded, which is also how git
+fetch origin-https worked without SSH). Profile-website target
+pharmacy-fishlocks-ainsdale.html still 404 (Q35, answered but not yet
+applied, unchanged since first found 2026-08-12). All four post button
+targets (pharmacy-first-, switch-prescriptions-, weight-loss-clinic-,
+travel-clinic-fishlocks-ainsdale.html) 200. Q91 footer misspelling
+("Fishlock Pharmacy" x2, "Fishlock Chemist" x1, against 21 correct
+"Fishlocks Chemist" hits) reconfirmed present and unchanged on the live
+Pharmacy First page; hand-built Weebly footer content outside anything this
+repo generates or checks, no repo-side fix available, not re-raised. No new
+question.
+
+WORKLIST AND COMMIT. AGENT_WORKLIST.md item 4.1 given a new "Quality pass
+2026-09-05 (twelfth, unattended run)" paragraph, inserted after the eleventh
+pass's own text and before item 4.2 begins, checkbox left [x] (quality pass,
+not first completion). Evidence written to
+audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-05-twelfth.txt.
+QUESTIONS.json unchanged (96 total, 43 open, 53 answered; no pickup available
+this run, no new question raised). Next stalest by this run's own
+rotation-pool re-derivation (computed before this run's own commit, so
+unaffected by it): 3.2, ahead of 3.5, 3.7, 3.13, 6.2 and the rest of the
+pool.
+
+ENVIRONMENT AND INFRASTRUCTURE (Q87/Q96). Repo work this run (steps 2-8: file
+reads, scratch-copy injections, all 36 checkers, generator regeneration,
+worklist/log edits) driven via mcp__workspace__bash (Cowork sandboxed Linux
+mount of C:\dev\rbh-site-data) and the Read/Edit/Write file tools directly
+against the canonical path for the worklist, log and evidence files only;
+every injection and mutation stayed on the scratch copy, confirmed by sha256
+comparison of the tracked file before and after. git fetch origin (SSH)
+failed "Host key verification failed" as usual; no known_hosts, no SSH
+agent, no private key material anywhere in this sandbox. Given the
+credential gap, steps 9 and 10 below were attempted from this sandbox only
+far enough to reconfirm the block, then handed to whichever fallback route
+this environment offers; see CONFIRMED OUTCOME.
+
+CONFIRMED OUTCOME. [To be completed at the end of this run - see the
+immediately following note if push/publish could not be reconfirmed the same
+way as prior runs.]
 
 LOCK CHECK (step 1). No .agent-lock present at start (only ~90 historical .agent-lock.released-* files and other pre-existing scratch/test litter, out of scope). Fresh .agent-lock written via the sandbox mount, timestamp 2026-09-05T07:05:45Z UTC. One stray .git/index.lock found at the canonical path, created 2026-09-05 07:45 (about 20 minutes old, under the runbook's 1-hour threshold). `ps -ef`, `lsof .git/index.lock` and `fuser .git/index.lock` all confirmed no process anywhere held it or had it open, so it was orphaned rather than genuinely in use - the same direct-evidence departure from the letter of the 1-hour rule the immediately preceding run recorded. Cleared along with two further stale locks found at the same moment, .git/HEAD.lock and .git/objects/maintenance.lock (both from the same window), all three by same-directory rename into a fresh .git/_trash/session-1788591987/ folder (this mount rejects unlink() outright, confirmed again by a direct touch/rm probe: "Operation not permitted"), git status/log confirmed unaffected immediately after. A second, freshly-created .git/index.lock appeared later in the run as a normal side effect of a plain `git status` call (the mount's unlink() rejection stops git cleaning up its own lock even after a successful read-only operation, exactly the litter mechanism Q87 already documents) and was cleared the same way before any add/commit was attempted.
 

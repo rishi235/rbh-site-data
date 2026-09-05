@@ -1,0 +1,102 @@
+Item 4.1 (Fishlocks Ainsdale GBP pack) - twelfth quality pass, 2026-09-05
+Unattended scheduled run via Cowork (audit-backlog-worker).
+
+SCOPE OF THIS PASS
+Fresh angle: check-gbp-pharmacy-first.js had never been proven by direct
+injection against gbp-packs/fishlocks-ainsdale.md specifically in eleven
+prior passes on this item. Of the 16 checkers that read gbp-packs/ at all
+(grep -l "gbp-packs" tools/check-*.js), six only mention it in a comment
+(check-address-region.js, check-nap.js, check-opening-hours.js,
+check-page-coverage.js, check-travel-clinic-copy.js, check-weight-loss-copy.js)
+and are not genuine readers. Of the ten genuine readers, six had already been
+proven against this specific pack across passes 10 and 11
+(check-app-membership.js, check-brand-spelling.js, check-gbp-packs.js,
+check-pharmacy-first-cost.js, check-uk-spelling.js, check-url-scheme.js).
+Four remained unproven against THIS pack: check-em-dashes.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-eligibility.js,
+check-postcodes.js. check-gbp-pharmacy-first.js was chosen: it had just been
+proven the same day against cherry-lane-walton.md (item 4.2, thirteenth pass)
+and mccanns-sandringham.md (item 4.7), giving a well-understood rule set to
+test against a third pack.
+
+BASELINE
+sha256 of gbp-packs/fishlocks-ainsdale.md before any work:
+7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+All 36 tools/check-*.js run individually against the tracked repo: 36/36
+exit 0.
+
+METHOD
+Full repo copied with .git included to a scratch directory
+(/sessions/.../scratch/rbh-scratch-41) - established method, excluding .git
+makes check-cdn-pins.js fail falsely on a scratch copy. All injections
+against the scratch copy's own gbp-packs/fishlocks-ainsdale.md only. Tracked
+repo never opened for writing this pass; sha256-reconfirmed identical at the
+end.
+
+THREE INJECTIONS, each restored by byte copy and sha256-reconfirmed identical
+to the pre-injection backup before the next round:
+
+1. Services section "NHS Pharmacy First" bullet: dropped "impetigo" from the
+   condition list ("sinusitis, sore throat, earache, impetigo, shingles,
+   infected insect" -> "...earache, shingles, infected insect"), six of seven
+   conditions left standing. CAUGHT by rule 3 (completeness): "names 6 of the
+   7 Pharmacy First conditions and omits impetigo." First attempt, correct
+   rule, no other rule fired.
+
+2. Post A: UTI age range "aged 16 to 64" changed to "aged 16 to 60"
+   (canon in tools/build-service-pages.js is "Women aged 16 to 64"). CAUGHT
+   by rule 6 (age ranges read from the canon): "publishes the urinary tract
+   infection service for 'women aged 16 to 60', but the canon holds 'Women
+   aged 16 to 64'." First attempt, correct rule, no other rule fired.
+
+3. Post A: inserted "conjunctivitis" (an OUTSIDE_PF word) into the condition
+   list, between "shingles" and "infected insect bites". CAUGHT by rule 4:
+   "names 'conjunctivitis' inside the Pharmacy First copy, but it is not one
+   of the 7 conditions in the NHS service." First attempt, correct rule, no
+   other rule fired.
+
+All three caught on the first attempt, on their intended rule, and no other
+rule fired incorrectly alongside it.
+
+REGRESSION SWEEP
+Scratch copy's gbp-packs/fishlocks-ainsdale.md confirmed sha256-identical to
+the pre-injection backup after the final restore:
+7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+Full 36 tools/check-*.js re-run individually against the scratch copy:
+36/36 exit 0.
+All six generators (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) re-run against the
+scratch copy: exit 0 each, git status --porcelain -- modules/ core/ empty
+(byte-identical output).
+Tracked repo's own copy of the pack reconfirmed sha256-identical to the
+original baseline throughout, never opened for writing at any point in this
+pass.
+
+RESULT
+No defect found. check-gbp-pharmacy-first.js already protected this pack
+correctly on all three tested rules; this pass proves it directly for the
+first time rather than only by general design. No checker logic edited, no
+pack content byte changed. No new question.
+
+LIVE HALF
+Claude in Chrome not connected this session (retried once, same result).
+Fell back to read-only curl (UA "Mozilla/5.0") from the sandbox shell, which
+had working outbound network access this run.
+
+Profile website target: https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+  -> 404 (Q35, answered but not yet applied - unchanged since first found
+  2026-08-12).
+Four post button targets, all 200:
+  - pharmacy-first-fishlocks-ainsdale.html (Post A)
+  - switch-prescriptions-fishlocks-ainsdale.html (Post B)
+  - weight-loss-clinic-fishlocks-ainsdale.html (Post C)
+  - travel-clinic-fishlocks-ainsdale.html (Post D)
+
+Q91 footer misspelling reconfirmed present and unchanged on the live
+Pharmacy First page: "Fishlock Pharmacy" (2 occurrences) and "Fishlock
+Chemist" (1 occurrence) alongside 21 correct "Fishlocks Chemist" hits. This
+is hand-built Weebly footer content outside anything this repo generates or
+checks; no repo-side fix exists. Not re-raised, Q91 already covers it.
+
+No new question. No in-repo defect. No pack content changed.

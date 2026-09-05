@@ -6173,6 +6173,36 @@ Pharmacy First wording to the NHS service description.
       ("Fishlock Pharmacy"/"Fishlock Chemist") reconfirmed present, unchanged, no
       repo-side fix available. See
       audits/fishlocks-ainsdale-4.1-pass-2026-09-04-eleventh.txt. Done 2026-09-04
+      Quality pass 2026-09-05 (twelfth, unattended run): repo half clean at the
+      start, all 36 checkers pass, pack re-verified sha256-stable against the
+      eleventh pass's own baseline. FRESH ANGLE: check-gbp-pharmacy-first.js
+      had never been proven against this pack's own copy in eleven prior
+      passes, the same gap the item 4.2 thirteenth pass closed for cherry-lane-
+      walton.md the same day. Of the 16 checkers reading gbp-packs/ at all, six
+      only mention it in a comment; of the ten genuine readers, six had already
+      been proven against this pack (app-membership, brand-spelling, gbp-packs,
+      pharmacy-first-cost, uk-spelling, url-scheme, passes ten and eleven).
+      Three injections against check-gbp-pharmacy-first.js, each restored and
+      sha256-reconfirmed before the next: "impetigo" dropped from the Services
+      section condition list, six of seven left standing (caught by rule 3,
+      completeness); Post A's UTI age range changed from "16 to 64" to "16 to
+      60" (caught by rule 6 against the canon read live from
+      tools/build-service-pages.js's own CONDITIONS.uti.ageNote);
+      "conjunctivitis" (an OUTSIDE_PF word) inserted into Post A's condition
+      list (caught by rule 4). All three caught first attempt, on their
+      intended rule and no other. No defect - the checker already protected
+      this pack; now proven directly. No checker logic edited, no pack content
+      byte changed. Full 36-checker suite and all six generators re-run clean
+      after the final restore; tracked repo confirmed sha256-unchanged
+      throughout (7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30).
+      LIVE HALF: no Claude in Chrome browser connected, fell back to read-only
+      curl. Profile-website target still 404 (Q35, answered but not yet
+      applied). Four post button targets all 200. Q91 footer misspelling
+      ("Fishlock Pharmacy"/"Fishlock Chemist") reconfirmed present on the live
+      Pharmacy First page, unchanged, no repo-side fix available. No new
+      question. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-05-twelfth.txt.
+      Done 2026-09-05
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
