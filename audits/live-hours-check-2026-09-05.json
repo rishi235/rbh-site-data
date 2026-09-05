@@ -1,0 +1,437 @@
+{
+  "date": "2026-09-05",
+  "note": "Snippets are raw text around weekday mentions on live pages. Expected rows composed from branches.json. Verdicts are made by the reader, not this tool.",
+  "branches": [
+    {
+      "id": "scorah_bramhall",
+      "branchName": "Scorah Chemists Bramhall",
+      "website": "https://www.scorah-chemists.co.uk",
+      "expected": {
+        "Monday": "9am to 6pm",
+        "Tuesday": "9am to 6pm",
+        "Wednesday": "9am to 6pm",
+        "Thursday": "9am to 6pm",
+        "Friday": "9am to 6pm",
+        "Saturday": "9am to 1pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.scorah-chemists.co.uk/",
+          "snippets": [
+            "Weight Loss Clinic (Bramhall) | Weight Loss Clinic (Hazel Grove) | Travel Clinic (Bramhall) | Travel Clinic (Hazel Grove) | Scorah Chemists &middot; two local NHS pharmacies in Bramhall & Hazel Grove | Bramhall: 61 North Park Road, Bramhall, SK7 3LQ &middot; 0161 439 3744 &middot; Switch your prescriptions | Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed | Hazel Grove: 87 Macclesfield Road, Hazel Grove, SK7 6BG &middot; 01625 872267 &middot; Switch your prescriptions | Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed | Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.scorah-chemists.co.uk/contactus.html",
+          "snippets": [
+            "(Fiveways) | Hazel Grove SK7 6BG | t: 01625 872267 | f: 01625 872267 | e: [email&#160;protected] | Opening Hours | Mon 9am - 6:00pm | Tue 9am - 6:00pm | Wed 9am - 6:00pm | Thu 9am - 6:00pm | Fri 9am - 6:00pm | Sat - Closed | Sun - Closed | Scorah | Bramhall",
+            "Bramhall | Cheshire SK7 3LQ | t: 0161 439 3744 | f: 0161 439 4157 | e: [email&#160;protected] | Opening Hours | Mon 9am - 6:00pm | Tue 9am - 6:00pm | Wed 9am - 6:00pm | Thu 9am - 6:00pm | Fri 9am - 6:00pm | Sat - 9am - 1:00pm | Sun - Closed | Scorah | Hazel Grove",
+            "Weight Loss Clinic (Bramhall) | Weight Loss Clinic (Hazel Grove) | Travel Clinic (Bramhall) | Travel Clinic (Hazel Grove) | Scorah Chemists &middot; two local NHS pharmacies in Bramhall & Hazel Grove | Bramhall: 61 North Park Road, Bramhall, SK7 3LQ &middot; 0161 439 3744 &middot; Switch your prescriptions | Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed | Hazel Grove: 87 Macclesfield Road, Hazel Grove, SK7 6BG &middot; 01625 872267 &middot; Switch your prescriptions | Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed | Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scorah_hazel",
+      "branchName": "Scorah Chemists Hazel Grove",
+      "website": "https://www.scorah-chemists.co.uk",
+      "expected": {
+        "Monday": "9am to 6pm",
+        "Tuesday": "9am to 6pm",
+        "Wednesday": "9am to 6pm",
+        "Thursday": "9am to 6pm",
+        "Friday": "9am to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.scorah-chemists.co.uk/",
+          "snippets": [
+            "Weight Loss Clinic (Bramhall) | Weight Loss Clinic (Hazel Grove) | Travel Clinic (Bramhall) | Travel Clinic (Hazel Grove) | Scorah Chemists &middot; two local NHS pharmacies in Bramhall & Hazel Grove | Bramhall: 61 North Park Road, Bramhall, SK7 3LQ &middot; 0161 439 3744 &middot; Switch your prescriptions | Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed | Hazel Grove: 87 Macclesfield Road, Hazel Grove, SK7 6BG &middot; 01625 872267 &middot; Switch your prescriptions | Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed | Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.scorah-chemists.co.uk/contactus.html",
+          "snippets": [
+            "(Fiveways) | Hazel Grove SK7 6BG | t: 01625 872267 | f: 01625 872267 | e: [email&#160;protected] | Opening Hours | Mon 9am - 6:00pm | Tue 9am - 6:00pm | Wed 9am - 6:00pm | Thu 9am - 6:00pm | Fri 9am - 6:00pm | Sat - Closed | Sun - Closed | Scorah | Bramhall",
+            "Bramhall | Cheshire SK7 3LQ | t: 0161 439 3744 | f: 0161 439 4157 | e: [email&#160;protected] | Opening Hours | Mon 9am - 6:00pm | Tue 9am - 6:00pm | Wed 9am - 6:00pm | Thu 9am - 6:00pm | Fri 9am - 6:00pm | Sat - 9am - 1:00pm | Sun - Closed | Scorah | Hazel Grove",
+            "Weight Loss Clinic (Bramhall) | Weight Loss Clinic (Hazel Grove) | Travel Clinic (Bramhall) | Travel Clinic (Hazel Grove) | Scorah Chemists &middot; two local NHS pharmacies in Bramhall & Hazel Grove | Bramhall: 61 North Park Road, Bramhall, SK7 3LQ &middot; 0161 439 3744 &middot; Switch your prescriptions | Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed | Hazel Grove: 87 Macclesfield Road, Hazel Grove, SK7 6BG &middot; 01625 872267 &middot; Switch your prescriptions | Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed | Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mccanns_aigburth",
+      "branchName": "McCanns Chemist Aigburth",
+      "website": "https://www.mccannspharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "9am to 1pm, 2pm to 5pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.mccannspharmacy.co.uk/",
+          "snippets": [
+            "Call in and see us today, or telephone us on 0151 727 3185 or 0151 727 3076 | The McCann's Pharmacy team | (McCann's Pharmacy - Aigburth Road & Sandringham Medical Centre) | Contact Us | McCann's Pharmacy - Aigburth | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6pm | Tuesday 9am - 1pm, 2pm - 6pm | Wednesday 9am - 1pm, 2pm - 6pm | Thursday 9am - 1pm, 2pm - 6pm | Friday 9am - 1pm, 2pm - 6pm | Saturday 9am - 1pm, 2pm - 5pm | Sunday Closed | Address | 112 Aigburth Rd",
+            "Liverpool | &#8203;L17 7BP | T: 0151 727 3185 | E: [email&#160;protected] | McCann's Pharmacy - Sandringham Medical Centre | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6:00pm | Tuesday 9am - 1pm, 2pm - 6:00pm | Wednesday 9am - 1pm, 2pm - 6:00pm | Thursday 9am - 1pm, 2pm - 6:00pm | Friday 9am - 1pm, 2pm - 6:00pm | Saturday Closed | Sunday Closed | Address | 1B Aigburth Road (in Sandrigham Medical Centre)"
+          ]
+        },
+        {
+          "url": "https://www.mccannspharmacy.co.uk/contactus.html",
+          "snippets": [
+            "T: 0151 727 3076 | E: [email&#160;protected] | &#8203; | Contact Us | McCann's Pharmacy - Aigburth | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6pm | Tuesday 9am - 1pm, 2pm - 6pm | Wednesday 9am - 1pm, 2pm - 6pm | Thursday 9am - 1pm, 2pm - 6pm | Friday 9am - 1pm, 2pm - 6pm | Saturday 9am - 1pm, 2pm - 5pm | Sunday Closed | Address | 112 Aigburth Rd",
+            "Liverpool | &#8203;L17 7BP | T: 0151 727 3185 | E: [email&#160;protected] | McCann's Pharmacy - Sandringham Medical Centre | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6:00pm | Tuesday 9am - 1pm, 2pm - 6:00pm | Wednesday 9am - 1pm, 2pm - 6:00pm | Thursday 9am - 1pm, 2pm - 6:00pm | Friday 9am - 1pm, 2pm - 6:00pm | Saturday Closed | Sunday Closed | Address | 1B Aigburth Road (in Sandrigham Medical Centre)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mccanns_sandringham",
+      "branchName": "McCanns Chemist Sandringham",
+      "website": "https://www.mccannspharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.mccannspharmacy.co.uk/",
+          "snippets": [
+            "Call in and see us today, or telephone us on 0151 727 3185 or 0151 727 3076 | The McCann's Pharmacy team | (McCann's Pharmacy - Aigburth Road & Sandringham Medical Centre) | Contact Us | McCann's Pharmacy - Aigburth | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6pm | Tuesday 9am - 1pm, 2pm - 6pm | Wednesday 9am - 1pm, 2pm - 6pm | Thursday 9am - 1pm, 2pm - 6pm | Friday 9am - 1pm, 2pm - 6pm | Saturday 9am - 1pm, 2pm - 5pm | Sunday Closed | Address | 112 Aigburth Rd",
+            "Liverpool | &#8203;L17 7BP | T: 0151 727 3185 | E: [email&#160;protected] | McCann's Pharmacy - Sandringham Medical Centre | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6:00pm | Tuesday 9am - 1pm, 2pm - 6:00pm | Wednesday 9am - 1pm, 2pm - 6:00pm | Thursday 9am - 1pm, 2pm - 6:00pm | Friday 9am - 1pm, 2pm - 6:00pm | Saturday Closed | Sunday Closed | Address | 1B Aigburth Road (in Sandrigham Medical Centre)"
+          ]
+        },
+        {
+          "url": "https://www.mccannspharmacy.co.uk/contactus.html",
+          "snippets": [
+            "T: 0151 727 3076 | E: [email&#160;protected] | &#8203; | Contact Us | McCann's Pharmacy - Aigburth | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6pm | Tuesday 9am - 1pm, 2pm - 6pm | Wednesday 9am - 1pm, 2pm - 6pm | Thursday 9am - 1pm, 2pm - 6pm | Friday 9am - 1pm, 2pm - 6pm | Saturday 9am - 1pm, 2pm - 5pm | Sunday Closed | Address | 112 Aigburth Rd",
+            "Liverpool | &#8203;L17 7BP | T: 0151 727 3185 | E: [email&#160;protected] | McCann's Pharmacy - Sandringham Medical Centre | &#8203; Opening Hours | Monday 9am - 1pm, 2pm - 6:00pm | Tuesday 9am - 1pm, 2pm - 6:00pm | Wednesday 9am - 1pm, 2pm - 6:00pm | Thursday 9am - 1pm, 2pm - 6:00pm | Friday 9am - 1pm, 2pm - 6:00pm | Saturday Closed | Sunday Closed | Address | 1B Aigburth Road (in Sandrigham Medical Centre)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fishlocks_ainsdale",
+      "branchName": "Fishlocks Chemist Ainsdale",
+      "website": "https://www.fishlockpharmacy.co.uk",
+      "expected": {
+        "Monday": "8.45am to 6pm",
+        "Tuesday": "8.45am to 6pm",
+        "Wednesday": "8.45am to 6pm",
+        "Thursday": "8.45am to 6pm",
+        "Friday": "8.45am to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.fishlockpharmacy.co.uk/",
+          "snippets": [
+            "As a family business, we pride ourselves on strong ethics and a deep dedication to our community. Our knowledgeable staff, safe procedures, and state-of-the-art pharmacy technology ensure you receive top-quality care. | Choosing a pharmacy is an important decision. At Fishlocks Pharmacy, we treat you as a person, not just a patient. We look forward to meeting you soon and supporting your health for years to come. | Contact Us Today and Experience the Difference at Fishlocks Pharmacy in Ainsdale and Eccleston. | Contact Us &#8203; | Fishlock Pharmacy, Eccleston, Chorley | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday 9:00am - 12:00pm | Sunday Closed | Address | Unit 3 The Carrington Centre",
+            "Chorley | PR7 5SZ | E: eccleston@ rbhealth.co.uk | T: 01257 451251 | Fishlock Pharmacy, Ainsdale, Southport | Opening Hours | Monday 8.45am - 6:00pm | Tuesday 8.45am - 6:00pm | Wednesday 8.45am - 6:00pm | Thursday 8.45am - 6:00pm | Friday 8.45am - 6:00pm | Saturday Closed | Sunday Closed | Address | 17 Station Rd"
+          ]
+        },
+        {
+          "url": "https://www.fishlockpharmacy.co.uk/contact.html",
+          "snippets": [
+            "E: [email&#160;protected] | T: 01704 575478 | &#8203; | Contact Us &#8203; | Fishlock Pharmacy, Eccleston, Chorley | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday 9:00am - 12:00pm | Sunday Closed | Address | Unit 3 The Carrington Centre",
+            "Chorley | PR7 5SZ | E: eccleston@ rbhealth.co.uk | T: 01257 451251 | Fishlock Pharmacy, Ainsdale, Southport | Opening Hours | Monday 8.45am - 6:00pm | Tuesday 8.45am - 6:00pm | Wednesday 8.45am - 6:00pm | Thursday 8.45am - 6:00pm | Friday 8.45am - 6:00pm | Saturday Closed | Sunday Closed | Address | 17 Station Rd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fishlocks_eccleston",
+      "branchName": "Fishlocks Chemist Eccleston",
+      "website": "https://www.fishlockpharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 6pm",
+        "Tuesday": "9am to 6pm",
+        "Wednesday": "9am to 6pm",
+        "Thursday": "9am to 6pm",
+        "Friday": "9am to 6pm",
+        "Saturday": "9am to 12pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.fishlockpharmacy.co.uk/",
+          "snippets": [
+            "As a family business, we pride ourselves on strong ethics and a deep dedication to our community. Our knowledgeable staff, safe procedures, and state-of-the-art pharmacy technology ensure you receive top-quality care. | Choosing a pharmacy is an important decision. At Fishlocks Pharmacy, we treat you as a person, not just a patient. We look forward to meeting you soon and supporting your health for years to come. | Contact Us Today and Experience the Difference at Fishlocks Pharmacy in Ainsdale and Eccleston. | Contact Us &#8203; | Fishlock Pharmacy, Eccleston, Chorley | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday 9:00am - 12:00pm | Sunday Closed | Address | Unit 3 The Carrington Centre",
+            "Chorley | PR7 5SZ | E: eccleston@ rbhealth.co.uk | T: 01257 451251 | Fishlock Pharmacy, Ainsdale, Southport | Opening Hours | Monday 8.45am - 6:00pm | Tuesday 8.45am - 6:00pm | Wednesday 8.45am - 6:00pm | Thursday 8.45am - 6:00pm | Friday 8.45am - 6:00pm | Saturday Closed | Sunday Closed | Address | 17 Station Rd"
+          ]
+        },
+        {
+          "url": "https://www.fishlockpharmacy.co.uk/contact.html",
+          "snippets": [
+            "E: [email&#160;protected] | T: 01704 575478 | &#8203; | Contact Us &#8203; | Fishlock Pharmacy, Eccleston, Chorley | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday 9:00am - 12:00pm | Sunday Closed | Address | Unit 3 The Carrington Centre",
+            "Chorley | PR7 5SZ | E: eccleston@ rbhealth.co.uk | T: 01257 451251 | Fishlock Pharmacy, Ainsdale, Southport | Opening Hours | Monday 8.45am - 6:00pm | Tuesday 8.45am - 6:00pm | Wednesday 8.45am - 6:00pm | Thursday 8.45am - 6:00pm | Friday 8.45am - 6:00pm | Saturday Closed | Sunday Closed | Address | 17 Station Rd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smartts_bootle",
+      "branchName": "Smartts Chemist",
+      "website": "https://www.smarttschemist.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.smarttschemist.co.uk/",
+          "snippets": [
+            "Contact Us Today | &#8203; | Experience the difference at Smartts Chemist. Our friendly team looks forward to meeting you and supporting your health in the years to come. | Contact Us | Smartts Chemist - Bootle | Opening hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed | Sunday Closed | AI Information | Address",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Bootle) | Travel Clinic (Bootle) | Smartts Chemist &middot; 42 Fernhill Road, Bootle, L20 9HH &middot; 0151 922 4984 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.smarttschemist.co.uk/contact-us.html",
+          "snippets": [
+            "Weight Loss Clinic (Bootle) | Travel Clinic (Bootle) | Search | Let's Chat | Hours | &#8203; Weekdays / 09:00 - 18:00 | Saturday / Closed | &#8203;Sunday / Closed | Location | 42 Fernhill Road,",
+            "Contact Info | Phone: 0151 922 4984 | Email: [email&#160;protected] | Contact Us | Smartts Chemist - Bootle | Opening hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed | Sunday Closed | AI Information | Address",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Bootle) | Travel Clinic (Bootle) | Smartts Chemist &middot; 42 Fernhill Road, Bootle, L20 9HH &middot; 0151 922 4984 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hirshmans_ainsdale",
+      "branchName": "Hirshmans Chemist",
+      "website": "https://www.hirshmanspharmacy.co.uk",
+      "expected": {
+        "Monday": "8.30am to 1pm, 2pm to 6pm",
+        "Tuesday": "8.30am to 1pm, 2pm to 6pm",
+        "Wednesday": "8.30am to 1pm, 2pm to 6pm",
+        "Thursday": "8.30am to 1pm, 2pm to 6pm",
+        "Friday": "8.30am to 1pm, 2pm to 6pm",
+        "Saturday": "9am to 1pm, 2pm to 5.30pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.hirshmanspharmacy.co.uk/",
+          "snippets": [
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Ainsdale) | Travel Clinic (Ainsdale) | Hirshmans Chemist &middot; 56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW &middot; 01704 577376 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.hirshmanspharmacy.co.uk/contact-us.html",
+          "snippets": [
+            "Road | &#8203;Ainsdale | Southport | t: 01704577376 | e: [email&#160;protected] | Opening Hours | Mon 8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm) | Tue 8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm) | Wed 8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm) | Thu 8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm) | Fri 8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm) | Sat - 9 am - 1pm, 2pm - 5:30pm (Closed 1pm-2pm) | Sun - Closed | Hirshmans Chemist | 56-62 Sherwood House, Station Road",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Ainsdale) | Travel Clinic (Ainsdale) | Hirshmans Chemist &middot; 56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW &middot; 01704 577376 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skchemists_bootle",
+      "branchName": "SK Chemists",
+      "website": "https://www.skchemist.co.uk",
+      "expected": {
+        "Monday": "9am to 6pm",
+        "Tuesday": "9am to 6pm",
+        "Wednesday": "9am to 6pm",
+        "Thursday": "9am to 6pm",
+        "Friday": "9am to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.skchemist.co.uk/",
+          "snippets": [
+            "Private Consultation Room: Receive free advice on your medications in a private and confidential setting. | As a family business, we pride ourselves on strong ethics and a deep dedication to our community. Our knowledgeable staff, safe procedures, and state-of-the-art pharmacy technology ensure you receive top-quality care. | Choosing a pharmacy is an important decision. At SK Chemists, we treat you as a person, not just a patient. We look forward to meeting you soon and supporting your health for years to come. | &#8203; | Contact Us Today and Experience the Difference at SK Chemists in Bootle, Liverpool. | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed&#8203; | &#8203; | Sunday Closed | &#8203; Contact Us | 516 Stanley Road,",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Bootle) | Travel Clinic (Bootle) | SK Chemists &middot; 516 Stanley Road, Bootle, L20 5DW &middot; 0151 944 1013 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.skchemist.co.uk/contactus.html",
+          "snippets": [
+            "Bootle, | Liverpool, | L20 5DW | E: [email&#160;protected] | T: 0151 944 1013 | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed&#8203; | &#8203; | Sunday Closed | &#8203; Contact Us | 516 Stanley Road,",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Bootle) | Travel Clinic (Bootle) | SK Chemists &middot; 516 Stanley Road, Bootle, L20 5DW &middot; 0151 944 1013 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "colemanleigh_liverpool",
+      "branchName": "Coleman and Leighs Pharmacy",
+      "website": "https://www.colemanandleighspharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.colemanandleighspharmacy.co.uk/",
+          "snippets": [
+            "Contact Us Today | &#8203; | Experience the difference at Coleman and Leighs Pharmacy . Our friendly team looks forward to meeting you and supporting your health in the years to come. | Contact Us | Coleman and Leighs Pharmacy - Walton | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday Closed | Sunday Closed | Address | &#8203;Coleman and Leighs Pharmacy",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Walton) | Travel Clinic (Walton) | Coleman & Leigh Pharmacy &middot; 241 Walton Village, Liverpool, L4 6TH &middot; 0151 525 3522 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.colemanandleighspharmacy.co.uk/contact-us.html",
+          "snippets": [
+            "Weight Loss Clinic (Walton) | Travel Clinic (Walton) | Search | Let's Chat | Hours | &#8203; Weekdays / 09:00 - 18:00 (closed 1pm -2pm Lunch) | Saturday / Closed | &#8203;Sunday / Closed | Location | 241 Walton Village",
+            "Contact Info | Phone: 0151 525 3522 | Email: [email&#160;protected] | Contact Us | Coleman and Leighs Pharmacy - Walton | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday Closed | Sunday Closed | Address | &#8203;Coleman and Leighs Pharmacy",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Walton) | Travel Clinic (Walton) | Coleman & Leigh Pharmacy &middot; 241 Walton Village, Liverpool, L4 6TH &middot; 0151 525 3522 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "riddings_timperley",
+      "branchName": "Riddings Pharmacy",
+      "website": "https://www.riddingspharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 6pm",
+        "Tuesday": "9am to 6pm",
+        "Wednesday": "9am to 6pm",
+        "Thursday": "9am to 6pm",
+        "Friday": "9am to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.riddingspharmacy.co.uk/",
+          "snippets": [
+            "Private Consultation Room: Free advice on your medications in a private and confidential setting. | &#8203; | As a family business, we uphold strong ethics and a dedication to our community. Our knowledgeable staff, safe procedures, and the latest pharmacy technology ensure you receive the best care possible. | Choosing a pharmacy is a crucial decision. At Riddings Pharmacy and Clinic, we treat you as a person, not just a patient. We look forward to meeting you soon and supporting your health in the years to come. | Contact Us Today and Experience the Difference at Riddings Pharmacy and Clinic. | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed | Sunday Closed | Contact Us | &#8203;Riddings Pharmacy",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Timperley) | Travel Clinic (Timperley) | Riddings Pharmacy &middot; 38 Riddings Road, Timperley, Altrincham, WA15 6BP &middot; 0161 973 2951 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.riddingspharmacy.co.uk/contactus.html",
+          "snippets": [
+            "Timperley | Cheshire | &#8203;WA15 6BP | E: [email&#160;protected] | T: 0161 973 2951 | Opening Hours | Monday 9:00am - 6:00pm | Tuesday 9:00am - 6:00pm | Wednesday 9:00am - 6:00pm | Thursday 9:00am - 6:00pm | Friday 9:00am - 6:00pm | Saturday Closed | Sunday Closed | Contact Us | &#8203;Riddings Pharmacy",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Timperley) | Travel Clinic (Timperley) | Riddings Pharmacy &middot; 38 Riddings Road, Timperley, Altrincham, WA15 6BP &middot; 0161 973 2951 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm, Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gordonshorts_crosby",
+      "branchName": "Gordon Short Chemist",
+      "website": "https://www.gordonshortchemist.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "9am to 1pm, 2pm to 5pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.gordonshortchemist.co.uk/",
+          "snippets": [
+            "Contact Us Today | &#8203; | Experience the difference at Gordon Short Chemist. Our friendly team looks forward to meeting you and supporting your health in the years to come. | Contact Us | Gordon Short Chemist - Crosby | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday 9:00am - 5:00pm (closed 1-2pm) | Sunday Closed | Address | &#8203;Gordon Short Chemist",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic Gordon Short Crosby | Travel Clinic Gordon Short Crosby | Gordon Short Chemist &middot; 159 College Road, Liverpool, L23 3AT &middot; 0151 924 3449 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat 9am-5pm (closed 1-2pm), Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.gordonshortchemist.co.uk/contact-us.html",
+          "snippets": [
+            "Weight Loss Clinic Gordon Short Crosby | Travel Clinic Gordon Short Crosby | Search | Let's Chat | Hours | &#8203; Weekdays / 09:00 - 18:00 (closed 1pm -2pm Lunch) | Saturday / 09:00 - 17:00 (closed 1pm -2pm Lunch) | &#8203;Sunday / Closed | Location | 159 College Road",
+            "Contact Info | Phone: 0151 924 3449 | Email: [email&#160;protected] | Contact Us | Gordon Short Chemist - Crosby | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday 9:00am - 5:00pm (closed 1-2pm) | Sunday Closed | Address | &#8203;Gordon Short Chemist",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic Gordon Short Crosby | Travel Clinic Gordon Short Crosby | Gordon Short Chemist &middot; 159 College Road, Liverpool, L23 3AT &middot; 0151 924 3449 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat 9am-5pm (closed 1-2pm), Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cherrylane_liverpool",
+      "branchName": "Cherry Lane Pharmacy",
+      "website": "https://www.cherrylanepharmacy.co.uk",
+      "expected": {
+        "Monday": "9am to 6.30pm",
+        "Tuesday": "9am to 6.30pm",
+        "Wednesday": "9am to 6.30pm",
+        "Thursday": "9am to 6.30pm",
+        "Friday": "9am to 6.30pm",
+        "Saturday": "9am to 5pm",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.cherrylanepharmacy.co.uk/",
+          "snippets": [
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Walton) | Travel Clinic (Walton) | Cherry Lane Pharmacy &middot; 202 Cherry Lane, Liverpool, L4 8SG &middot; 0151 226 2051 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.cherrylanepharmacy.co.uk/contact-us.html",
+          "snippets": [
+            "Liverpool | L4 8SG | &#8203; | t: 0151 226 2051 | e: [email&#160;protected] | Opening Hours | Mon 9am - 6:30pm | Tue 9am - 6:30pm | Wed 9am - 6:30pm | Thu 9am - 6:30pm | Fri 9am - 6:30pm | Sat - 9am - 5pm | Sun - Closed | Leave a Review | Click below to make an appointment at any store",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic (Walton) | Travel Clinic (Walton) | Cherry Lane Pharmacy &middot; 202 Cherry Lane, Liverpool, L4 8SG &middot; 0151 226 2051 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiffenbergs_longmoor",
+      "branchName": "Tiffenbergs Chemist",
+      "website": "https://www.tiffenbergschemist.co.uk",
+      "expected": {
+        "Monday": "9am to 1pm, 2pm to 6pm",
+        "Tuesday": "9am to 1pm, 2pm to 6pm",
+        "Wednesday": "9am to 1pm, 2pm to 6pm",
+        "Thursday": "9am to 1pm, 2pm to 6pm",
+        "Friday": "9am to 1pm, 2pm to 6pm",
+        "Saturday": "Closed",
+        "Sunday": "Closed"
+      },
+      "pages": [
+        {
+          "url": "https://www.tiffenbergschemist.co.uk/",
+          "snippets": [
+            "Contact Us Today | &#8203; | Experience the difference at Tiffenbergs Chemist. Our friendly team looks forward to meeting you and supporting your health in the years to come. | Contact Us | Tiffenbergs Chemist - Aintree | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday Closed | Sunday Closed | Address | &#8203;Tiffenbergs Chemist",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic Tiffenbergs Aintree | Travel Clinic Tiffenbergs Aintree | Tiffenbergs Chemist &middot; 388 Longmoor Lane, Liverpool, L9 9DB &middot; 0151 525 3462 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        },
+        {
+          "url": "https://www.tiffenbergschemist.co.uk/contact-us.html",
+          "snippets": [
+            "Weight Loss Clinic Tiffenbergs Aintree | Travel Clinic Tiffenbergs Aintree | Search | Let's Chat | Hours | &#8203; Weekdays / 09:00 - 18:00 (closed 1pm -2pm Lunch) | Saturday / Closed | &#8203;Sunday / Closed | Location | 388 Longmoor Lane",
+            "Contact Info | Phone: 0151 525 3462 | Email: [email&#160;protected] | Contact Us | Tiffenbergs Chemist - Aintree | Opening hours | Monday 9:00am - 6:00pm (closed 1-2pm) | Tuesday 9:00am - 6:00pm (closed 1-2pm) | Wednesday 9:00am - 6:00pm (closed 1-2pm) | Thursday 9:00am - 6:00pm (closed 1-2pm) | Friday 9:00am - 6:00pm (closed 1-2pm) | Saturday Closed | Sunday Closed | Address | &#8203;Tiffenbergs Chemist",
+            "Shingles | Infected insect bite | Contraception | Weight Loss Clinic Tiffenbergs Aintree | Travel Clinic Tiffenbergs Aintree | Tiffenbergs Chemist &middot; 388 Longmoor Lane, Liverpool, L9 9DB &middot; 0151 525 3462 &middot; [email&#160;protected] &middot; Switch your prescriptions | Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed &middot; Superintendent Pharmacist: Dr S K Kochhar (GPhC 2039034 ) &middot; Owned and operated by RB Healthcare Ltd &middot; Company No 06223421"
+          ]
+        }
+      ]
+    }
+  ],
+  "bankHolidays": {
+    "region": "England and Wales",
+    "tradingPolicy": "closed",
+    "withinDays": 14,
+    "nearThisRun": [
+      "2026-08-31"
+    ],
+    "readerNote": "The dates in nearThisRun fall within 14 days of this run. tradingPolicy is \"closed\" estate-wide (Q79, answered 2026-08-27), so a live page or listing showing a one-off Closed day at or around those dates is very likely the bank holiday, not a weekly-hours defect. Check the date before raising a mismatch on any Closed snippet."
+  }
+}

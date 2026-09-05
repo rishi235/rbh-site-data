@@ -15105,6 +15105,65 @@ type - not re-raised as a new question.
       alone. No new question. Only branches.json touched and fully restored; no
       page, generator, data field or patient-facing copy left changed. Evidence:
       audits/live-hours-check-2026-09-04.json.
+      Quality pass (ninth), 2026-09-05 (unattended run, Cowork). RULES 2 AND 3
+      PROVED BY INJECTION FOR THE FIRST TIME IN THIS ITEM'S NINE-PASS HISTORY,
+      PLUS THE VISIBLE-ROW __DUPLICATE__ PATH. Rules 1, 4, 5, 6, 7 and 8 had
+      each been proved by injection on an earlier pass; rules 2 and 3 - the
+      two comparison rules this checker was originally built for on
+      2026-08-10 (the McCanns lunch-closure defect) - had never themselves
+      been exercised by deliberate injection, confirmed by grepping every
+      "RULE 2" and "RULE 3" mention across this file and AGENT_LOG.md first:
+      zero hits for either. The visible-row __DUPLICATE__ detection
+      (checker line 176/318) had likewise never been exercised.
+      BASELINE. All 36 checkers 0 failures, combined sha256 of 216 files
+      under modules/ and core/ matching the standing hash every recent pass
+      has recorded (76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329),
+      git status --porcelain on modules/, core/, branches.json, tools/,
+      gbp-packs/, status/ empty (only pre-existing untracked scratch/test
+      debris present, unrelated, left untouched).
+      FOUR INJECTIONS, each on a fresh sha256-backed-up file, each restored
+      by direct byte copy and reconfirmed identical immediately after: (1)
+      pharmacy-fishlocks-ainsdale.html's Monday visible row changed from
+      "8.45am to 6pm" to "9am to 6pm" (still well-formed, still inside the
+      card, isolating rule 2 from rule 7) - CAUGHT by rule 2, exact mismatch
+      message; (2) pharmacy-scorah-bramhall.html's JSON-LD Saturday session
+      (09:00-13:00) removed entirely - CAUGHT by rule 3, "no fewer" side,
+      page/data session lists printed differing by exactly the removed
+      entry; (3) same file, fresh restore first, a fabricated Sunday
+      10:00-14:00 session added to the JSON-LD that exists nowhere in
+      branches.json - CAUGHT by rule 3, "no more" side, confirming both
+      directions of "no more and no fewer" rather than assuming the second
+      from the first; (4) pharmacy-mccanns-sandringham.html's Tuesday hours-
+      card row duplicated immediately after itself - CAUGHT by the
+      __DUPLICATE__ path, exactly one failure, "Tuesday appears more than
+      once in the hours card". All four caught first attempt with the
+      expected rule-specific message. Full 36-checker suite re-run clean
+      after all four restores (36/36); all six generators rebuilt, combined
+      sha256 of all 216 files under modules/ and core/ identical to
+      baseline, git status --porcelain on modules/, core/, branches.json
+      empty throughout. Zero in-repo defect: the checker's own founding
+      comparison rules were already correctly holding page and schema to
+      branches.json, now proven directly by injection rather than left
+      correct by six generators' construction alone. Full detail and exact
+      messages in audits/verify-6.3-2026-09-05-ninth.txt.
+      LIVE HALF. Claude in Chrome confirmed not connected at answer pickup
+      and again for this item; fell back to direct outbound network access
+      from the sandbox (Node's native fetch and curl both confirmed working
+      this run, 200 responses throughout, nothing clicked, typed or
+      submitted). tools/check-live-hours.js re-run fresh across all 14
+      trading branches, evidence audits/live-hours-check-2026-09-05.json.
+      Bank holiday note correctly flagged 2026-08-31 as within the 14-day
+      window. All seven split-day branches read: mccanns_aigburth and
+      mccanns_sandringham correctly show "9am - 1pm, 2pm - 6pm" live;
+      colemanleigh_liverpool, gordonshorts_crosby and tiffenbergs_longmoor
+      correctly show "9:00am-6:00pm (closed 1-2pm)" live; hirshmans_ainsdale
+      unchanged from prior passes. smartts_bootle remains the sole live
+      mismatch, straight-through "9:00am - 6:00pm" with no lunch closure
+      shown on homepage, contact page and footer widget, unchanged since
+      2026-08-11. Q55 (answered by Rishi 2026-09-02, option 1, edit the live
+      Smartts pages) stands as answered-but-not-yet-actioned - the live
+      Weebly edit is outside this worker's write scope - not re-raised. No
+      new live finding, no new question raised. Done 2026-09-05.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

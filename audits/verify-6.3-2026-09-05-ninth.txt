@@ -1,0 +1,123 @@
+Item 6.3 quality pass (ninth), 2026-09-05 (unattended scheduled run via Cowork)
+tools/check-opening-hours.js RULES 2 AND 3 PROVED BY INJECTION FOR THE FIRST TIME
+IN THIS ITEM'S NINE-PASS HISTORY, PLUS THE VISIBLE-ROW __DUPLICATE__ PATH.
+
+CONTEXT
+Rules 1, 4, 6, 7 and 8 had each been proved by injection on an earlier pass of
+this item (2026-08-11 to 2026-09-03). Rule 5 was proved on the eighth pass
+(2026-09-04). Rules 2 and 3 are the two comparison rules the checker was
+originally built for on 2026-08-10 (the McCanns lunch-closure defect: page and
+JSON-LD disagreeing with branches.json) and, despite being the checker's
+founding purpose, had never themselves been exercised by deliberate injection
+in any of the eight prior passes - confirmed by grepping every "RULE 2" and
+"RULE 3" mention across AGENT_WORKLIST.md and AGENT_LOG.md before writing
+anything: zero hits for either, against 1/3/5/4/6 hits for rules 1/4/5/6/7/8
+respectively. The visible-row duplicate-detection path (visibleRows() marking
+a repeated day "__DUPLICATE__", checker line 176/318) had likewise never been
+exercised: zero hits for "DUPLICATE" anywhere in the item's history.
+
+BASELINE
+All 36 tools/check-*.js run individually: 36/36 exit 0. Combined sha256 of
+every file under modules/ and core/ (216 files): matches the standing hash
+every recent pass has recorded:
+  76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329
+git status --porcelain against modules/, core/, branches.json, tools/,
+gbp-packs/, status/ empty before any edit (only pre-existing untracked
+scratch/test debris present, unrelated to this pass, left untouched).
+
+INJECTION 1 - RULE 2 (visible row must equal branches.json)
+File: modules/branch/pages/pharmacy-fishlocks-ainsdale.html (backed up first,
+sha256 52adffe5358fa85cd7b3299e59e6105e6029216d74a7a3cb478f7b2117989209).
+Changed the Monday visible row from "8.45am to 6pm" to "9am to 6pm" (still a
+well-formed time, still inside the hours card, so this isolates rule 2 from
+rule 7's containment check). CAUGHT, exit 1, first attempt:
+  "pharmacy-fishlocks-ainsdale.html: Monday reads "9am to 6pm" but
+   branches.json says "8.45am to 6pm""
+Restored by direct byte copy (cp, not re-serialisation); sha256 reconfirmed
+identical to the pre-injection backup immediately after.
+
+INJECTION 2 - RULE 3, "no fewer" (JSON-LD must carry every session in data)
+File: modules/branch/pages/pharmacy-scorah-bramhall.html (backed up first,
+sha256 28bd52e908d4deaeeb5a4e18427fd92da0970e3eaa41c1cf50624f42937cff07).
+Removed the Saturday OpeningHoursSpecification entry (09:00-13:00) from the
+page's JSON-LD block entirely, leaving valid JSON and the Mon-Fri sessions
+untouched. CAUGHT, exit 1, first attempt, page/data session lists printed and
+differing by exactly the removed Saturday entry:
+  "pharmacy-scorah-bramhall.html: JSON-LD opening hours do not match
+   branches.json"
+  page: Friday 09:00-18:00, Monday 09:00-18:00, Thursday 09:00-18:00,
+        Tuesday 09:00-18:00, Wednesday 09:00-18:00
+  data: Friday 09:00-18:00, Monday 09:00-18:00, Saturday 09:00-13:00,
+        Thursday 09:00-18:00, Tuesday 09:00-18:00, Wednesday 09:00-18:00
+Restored by direct byte copy; sha256 reconfirmed identical.
+
+INJECTION 3 - RULE 3, "no more" (JSON-LD must not carry a session absent from
+data)
+Same file, fresh restore first (sha256 reconfirmed identical before this
+injection, not layered on injection 2). Added a fabricated Sunday
+10:00-14:00 OpeningHoursSpecification entry that exists nowhere in
+branches.json, valid JSON, all six real sessions left untouched. CAUGHT,
+exit 1, first attempt, page/data lists differing by exactly the fabricated
+Sunday entry:
+  "pharmacy-scorah-bramhall.html: JSON-LD opening hours do not match
+   branches.json"
+  page: ... Saturday 09:00-13:00, Sunday 10:00-14:00, Thursday ...
+  data: ... Saturday 09:00-13:00, Thursday ...
+This confirms rule 3 catches an extra session as well as a missing or altered
+one - "no more and no fewer" proved in both directions, not assumed from the
+missing-session case alone.
+Restored by direct byte copy; sha256 reconfirmed identical to the original
+pre-injection backup.
+
+INJECTION 4 (bonus) - visible-row __DUPLICATE__ detection
+File: modules/branch/pages/pharmacy-mccanns-sandringham.html (backed up
+first, sha256 49cb571b4b7ad7b31c8d5bb522fe6e89f2b334fbbf9e98f3926bbc5adf2909b2).
+Duplicated the Tuesday hours-card row immediately after itself (two
+"<strong>Tuesday:</strong> 9am to 1pm, 2pm to 6pm</p>" rows on one page).
+CAUGHT, exit 1, first attempt, exactly one failure:
+  "pharmacy-mccanns-sandringham.html: Tuesday appears more than once in the
+   hours card"
+Restored by direct byte copy; sha256 reconfirmed identical.
+
+ALL FOUR CAUGHT FIRST ATTEMPT WITH THE EXPECTED RULE-SPECIFIC MESSAGE.
+
+POST-RESTORE VERIFICATION
+Combined sha256 of all 216 files under modules/ and core/ after all four
+restores: 76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329
+(identical to baseline). git status --porcelain on modules/, core/,
+branches.json empty. Full 36-checker suite re-run individually: 36/36 exit 0.
+All six generators (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt: combined sha256 of every file under
+modules/ and core/ unchanged from baseline, confirming byte-identical output.
+
+RESULT
+Zero in-repo defect: rules 2 and 3 - the checker's original founding
+purpose - and the visible-row duplicate guard were already correctly
+enforcing "the card and the schema each say what branches.json says, no
+more, no fewer, and no day printed twice", now proven directly by injection
+for the first time in this item's nine-pass history rather than left correct
+by six generators' construction and the checker's own comparison logic alone.
+No page, generator or data field left changed. No new question raised.
+
+LIVE HALF
+Claude in Chrome confirmed not connected this run (navigate to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" at answer pickup; not re-tried for this item). Fell back to
+direct outbound network access from the sandbox shell (Node's native fetch
+and curl both confirmed working this run, 200 responses throughout, nothing
+clicked, typed or submitted anywhere). Ran tools/check-live-hours.js fresh
+across all 14 trading branches - evidence audits/live-hours-check-2026-09-05.json.
+Bank holiday note correctly flagged 2026-08-31 (Summer bank holiday) as
+within the 14-day window. All seven split-day (lunch closure) branches read:
+mccanns_aigburth and mccanns_sandringham correctly show "9am - 1pm, 2pm -
+6pm" live; colemanleigh_liverpool, gordonshorts_crosby and
+tiffenbergs_longmoor correctly show "9:00am-6:00pm (closed 1-2pm)" live;
+hirshmans_ainsdale unchanged from prior passes. smartts_bootle remains the
+sole live mismatch - homepage hours card, contact page and footer widget all
+still publish straight-through "9:00am - 6:00pm" with no lunch closure shown,
+unchanged since first found 2026-08-11. Q55 (raised 2026-08-11, answered by
+Rishi via the portal 2026-09-02 choosing option 1, edit the live Smartts
+pages) stands as answered-but-not-yet-actioned - the live Weebly edit is
+outside this worker's write scope (browser use stays read-only) - not
+re-raised. No new live finding.
