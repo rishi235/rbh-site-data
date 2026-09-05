@@ -8462,6 +8462,61 @@ to a read-only GET check (curl, status codes only) - the landing page still
 return 200, unchanged from the seventh pass's fuller live read, which
 stands unreconfirmed this pass. No in-repo defect, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-04-eleventh.txt.
+Quality pass 2026-09-05 (twelfth pass, unattended scheduled run via Cowork):
+rotation pool re-derived independently from `git log --pretty=format:
+"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`, word-boundary matched against
+the 38-item pool (44 checked AGENT_WORKLIST.md items minus the 6 declared
+out-of-rotation: 1.1, 1.4, 5.6, 5.7, 6.7, 6.8); 4.5 came out stalest at
+2026-09-04T23:11:47+01:00, ahead of 1.3 (23:48:49) and the rest all later
+still. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] first, so
+the quality-pass fallback applied. Facts re-verified against branches.json
+for the twelfth time, all matching: name, street address, postcode, phone,
+hours (Monday-Friday 09:00-18:00, Saturday and Sunday closed, the 24 June
+Saturday closure), review link, catchment order and its five towns,
+hasApp false, pfLink, profile website on its own landing page, the
+sister-branch sentence naming Bramhall, the bank holiday paster note, and
+the 712-character description re-derived independently. The post town on
+the "- Address:" line is the standing Q64 exception and was not re-raised.
+Baseline: all 36 checkers 0 failures, 17 pre-existing estate-wide warnings.
+NEW ANGLE: check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule (the "no
+lead pricing or offer wording in the posted copy" rule) had never been
+proven against this pack specifically, and its own mojibake-corrupted £
+literal was fixed only an hour earlier the same run, on item 4.6's twelfth
+pass, against mccanns-aigburth.md - this pass re-proves the fixed rule
+against a second, different pack rather than trusting the first proof
+generalises. sha256 of gbp-packs/scorah-hazel-grove.md backed up first
+(64fd2ae6...b7a4038, matching every prior pass). Injection, directly on the
+tracked file: Post C's closing sentence changed from "Confidential and
+judgement-free. Book your consultation today." to "Confidential and
+judgement-free. Plans start from £39.99 a month. Book your consultation
+today." - this branch's own live wording, verbatim (see live half below).
+RESULT: exit 1, exactly one new FAIL naming Post C and the ruled breach
+(compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5); all 17
+pre-existing WARNs unchanged. Restored by byte copy; sha256 reconfirmed
+identical (64fd2ae6...b7a4038), diff empty. Full 36-checker suite re-run
+clean immediately after (36/36); git status --porcelain on modules/, core/,
+branches.json and the pack itself empty throughout. Confirms the fix from
+the 4.6 twelfth pass generalises across packs rather than being specific to
+the one pack it was found on. LIVE HALF: Claude in Chrome not connected
+(standing Q59, unchanged); fell back to read-only curl. Landing page
+(pharmacy-scorah-hazel-grove.html) still 404s (Q35 class); all four Post
+A-D targets return 200. TWO LIVE FINDINGS, both new: (1) the correct
+generated weight-loss-clinic-scorah-hazel-grove.html page itself carries
+"from £39.99" in its booking block ahead of the eligibility section - the
+third confirmed instance of the Q88 generator-level lead-price pattern
+(McCanns Aigburth, Fishlocks Eccleston, now this branch), which is what the
+checker-side injection above reproduced word for word; (2) the shared
+scorah-chemists.co.uk homepage also links to a THIRD weight-loss URL,
+weight-loss-clinic-hazel-grove-bramhall.html, matching neither branch's own
+naming convention, which carries the full old legacy template (named
+Wegovy/Mounjaro/Orlistat, "Real Results" superlative claim, outcome slider,
+treatment picker, lead price above the fold) - the NINTH confirmed instance
+of the Q16/Q85 legacy-page exposure, and the first shared by two branches
+(Bramhall and Hazel Grove) through one page. Neither finding touches this
+pack: Post C carries no price and was restored unchanged. Raised as Q98,
+cross-referencing Q16/Q85 (legacy page) and Q83/Q88 (lead price). Full
+detail in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the
+2026-09-05 addition. See audits/scorah-hazel-grove-pack-check-2026-09-05-twelfth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
@@ -14410,6 +14465,24 @@ type - not re-raised as a new question.
       severity. Full evidence in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
       under the 2026-08-30 addition for Hirshmans. gbp-packs/hirshmans-ainsdale.md
       itself is unaffected and was not touched. Item 5.8 stays [BLOCKED].
+      2026-09-05 (twelfth pass on item 4.5, Scorah Chemists Hazel Grove): a
+      NINTH live instance found, weight-loss-clinic-hazel-grove-bramhall.html
+      on scorah-chemists.co.uk, the first shared by two branches (Bramhall
+      and Hazel Grove trade on one Weebly site) through one page rather than
+      one page per branch, so a fix here clears the exposure for both 4.4
+      and 4.5 at once. All six elements present (named Wegovy/Mounjaro/
+      Orlistat, superlative Mounjaro claim under a "Real Results" heading,
+      outcome slider, treatment picker, lead price "From £39.99" above the
+      fold); the shared homepage links to it alongside, not in place of,
+      both branches' correct generated pages. Raised as Q98, recommending
+      folding into this item's eventual fix alongside the other eight.
+      Separately, weight-loss-clinic-scorah-hazel-grove.html (the correct
+      generated page) confirmed a THIRD instance of the unrelated Q88
+      lead-price pattern (booking block reads "from £39.99" ahead of its
+      eligibility section) - narrower issue, not a new root cause, folded
+      into Q98's note rather than raised separately. Full evidence in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05
+      addition for Scorah Chemists. Item 5.8 stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

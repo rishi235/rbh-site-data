@@ -548,3 +548,87 @@ itself (gbp-packs/tiffenbergs-aintree.md) is unaffected: Post C already
 links to the correct generated page and was not touched. Cross-referenced
 into Q58's note rather than raised as a new question, since Q58 already
 asks the operative question this evidence answers.
+
+## ADDITION 2026-09-05: Scorah Chemists (Bramhall and Hazel Grove) - a ninth legacy-template instance, shared across two branches on one domain, plus a third confirmed Q88 lead-price instance on the clean generated page
+
+Read live, read only, during the twelfth quality pass of item 4.5 (Scorah
+Chemists Hazel Grove GBP pack). scorah-chemists.co.uk had never been read
+against the house weight loss advertising standard before this pass; every
+prior pass on items 4.4 and 4.5 verified the GBP pack copy against
+branches.json but did not read the live weight loss pages themselves.
+
+### The shared legacy page: a ninth instance, and a new shape
+
+The shared homepage (scorah-chemists.co.uk/) links to three separate weight
+loss URLs at once: weight-loss-clinic-scorah-hazel-grove.html and
+weight-loss-clinic-scorah-bramhall.html (the two compliant, repo-generated
+inner pages, one per branch) and a third, weight-loss-clinic-hazel-grove-
+bramhall.html, which matches neither branch's own brandSlug-townSlug naming
+convention and is not a page this repo generates.
+
+That third page is the same old template already found at Cherry Lane (Q5,
+fixed), the original five under Q16 (Smartts Bootle, Gordon Short Crosby,
+Tiffenbergs Aintree, Riddings Timperley, Coleman and Leighs Walton),
+Fishlocks (Q57), SK Chemists (Q58) and Hirshmans (Q85). This is the NINTH
+confirmed instance, and the first one shared by two branches through a
+single page rather than one page per branch: because Bramhall and Hazel
+Grove trade on one Weebly site, one legacy page carries the exposure for
+both, and the homepage link count below is a link count against both
+branches at once, not one.
+
+All six elements the 2026-08-10 assessment identified as breaches on the
+original five are present: a "Real Results with Mounjaro" heading claims
+Mounjaro is "one of the most effective weight loss treatments available"
+and can help lose "up to 22.5%" of body weight over 72 weeks; an
+interactive slider under "How much weight could you lose?" returns a
+personalised kilogram figure from a dragged starting weight; a named
+treatment picker under "Explore treatments" lists Wegovy (semaglutide),
+Mounjaro (tirzepatide) and Orlistat; and a lead price, "From £39.99", sits
+above the fold ahead of any eligibility content. Confirmed by direct
+read-only GET (curl, UA "Mozilla/5.0", no interaction, no login) since
+Claude in Chrome was not connected this run, the same standing gap (Q59)
+every other pass today has recorded.
+
+### Link context: both branches exposed by one link slot
+
+The homepage's weight-loss-clinic-hazel-grove-bramhall.html link sits
+alongside, not in place of, the two correct branch-specific links, the same
+"orphaned compliant page" shape Hirshmans showed (Q85) rather than
+Tiffenbergs' partial one - all three links were found on the one homepage
+read, so which of the three a visitor actually follows depends on which
+link text or tile they click, not on being funnelled into only the legacy
+one. This still meets the Q58 test for the stricter regime (the homepage
+itself proactively links to the page, so the exposure does not depend on
+proving ad spend), and it applies to both branches simultaneously since one
+homepage serves both.
+
+### The separate, cleaner finding: Q88's lead price confirmed a third time
+
+weight-loss-clinic-scorah-hazel-grove.html itself, the correct generated
+page the GBP pack's Post C button links to, was also read. It is clean of
+all six legacy-template elements (no medicine named, no results heading, no
+slider, no treatment picker) and its eligibility section carries the same
+"Individual results vary" and "not a guarantee" wording the compliant
+template always has. But its booking block states "Private consultation at
+Scorah Chemists, from £39.99. Choose a time that suits you," ahead of the
+eligibility section, word for word the Q88 generator pattern
+(tools/build-weight-loss-pages.js's CONSULT_FEE constant) already confirmed
+at McCanns Aigburth (Q83) and Fishlocks Eccleston. This is the third
+confirmed instance, not a new root cause: it does not change what Q88 asks,
+it adds one more branch to the "presumed, unverified" list its note already
+carries.
+
+This finding is also what the checker-side half of this pass proved
+directly: check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule, fixed on
+the mojibake-corrupted £ literal earlier the same run (item 4.6's twelfth
+pass), was proven by injection against gbp-packs/scorah-hazel-grove.md
+itself using this exact live wording ("Plans start from £39.99 a month"),
+confirming the fixed rule now catches the precise phrasing this branch's
+own live page carries in its booking block, had it been pasted into the
+GBP post. It has not: the pack's own Post C carries no price, unaffected by
+either finding.
+
+No page or repo content changed; this file only records what was read and
+what the checker proved. Raised as Q98, cross-referencing Q16/Q85 for the
+legacy-page instance and Q83/Q88 for the lead-price instance. Item 5.8
+stays [BLOCKED].
