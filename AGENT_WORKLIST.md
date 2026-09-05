@@ -9916,6 +9916,69 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       for a further pass rather than re-claimed. Q58, Q80 and Q81 re-read
       from QUESTIONS.json, all still open, unchanged. No new defect, no new
       question. Evidence in audits/verify-4.11-2026-09-04-eleventh.js.
+      Twelfth quality pass 2026-09-05 (unattended scheduled run via Cowork,
+      rotation-pool pick, stalest item last mentioned 2026-09-04T16:41:25+01:00,
+      the eleventh pass itself, ahead of 5.1, 2.2, 3.12 and 3.6, re-derived
+      independently via `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+      AGENT_LOG.md` matched word-boundary against each item id in the standing
+      37-item pool). Baseline: all 36 checkers exit 0 on the tracked repo
+      before any work; pack sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      matching the eleventh pass's own recorded hash, byte-stable across
+      twelve passes; all six generators rebuilt, git status --porcelain --
+      modules/ core/ empty before and after.
+      Fresh angle: tools/check-gbp-pharmacy-first.js (12 rules plus two
+      coverage guards, written on the item 4.4 pass 2026-08-14 to guard the
+      Pharmacy First clinical copy in every GBP pack) had never been proven
+      by direct injection against this pack in eleven prior passes, only
+      covered passively as part of every "all checkers clean" sweep - the
+      same gap shape the item 4.7, 4.2, 4.14 and 1.2 passes closed for their
+      own packs earlier this week, confirmed absent from this item's own
+      eleven-pass history by direct grep before starting.
+      Full repo copied (gbp-packs/*.md, branches.json,
+      tools/build-service-pages.js, tools/check-gbp-pharmacy-first.js,
+      tools/seo-pattern.js - the minimal set the checker's loadCanon() and
+      requires need) to a scratch directory; the tracked repo was never
+      opened for writing during the injection round. Scratch baseline: OK,
+      7 pathways read from the generator, 28 Pharmacy First blocks across
+      14 packs, all clean. Three injections against a freshly restored copy
+      each time, sha256-reconfirmed identical before the next: (1)
+      "impetigo" dropped from Post A's condition list, six of seven left
+      standing - CAUGHT by rule 3 (completeness); (2) Post A's UTI age
+      range changed from "16 to 64" to "16 to 60" - CAUGHT by rule 6 against
+      the canon read live from tools/build-service-pages.js's own
+      CONDITIONS.uti.ageNote; (3) "conjunctivitis" (an OUTSIDE_PF word)
+      inserted into the Services section condition list - CAUGHT by rule 4.
+      All three caught first attempt, each on its intended rule only. Final
+      scratch re-run clean, pack sha256-identical to the original throughout.
+      RESULT: no in-repo defect. check-gbp-pharmacy-first.js already
+      correctly held this pack's clinical copy to its completeness,
+      age-accuracy and scope rules; now proven directly by injection for
+      the first time in this item's twelve-pass history. No checker logic,
+      pack copy, page, generator or data field changed anywhere in the
+      repo. Full 36-checker suite re-run clean after the round (36/36);
+      tracked repo confirmed untouched throughout.
+      LIVE HALF: Claude in Chrome confirmed not connected
+      (list_connected_browsers returned an empty array) - standing Q59,
+      unchanged. Fell back to a direct read-only curl GET sweep of
+      www.skchemist.co.uk: homepage 200; pharmacy-first-sk-chemists-bootle.html
+      (the pack's own Post A target) 200, in the sitemap; sitemap still
+      dated 2026-08-14T18:12:51, unchanged since the sixth pass, no
+      republish. pharmacy-first-service-bootle.html (the old live-only page
+      item 5.3/Q34 concerned) is 200 and its <title> now correctly reads
+      "Bootle", but its H2 heading still reads "Pharmacy First Service in
+      Bottle, Liverpool" - the misspelling persists in the visible heading
+      even though the title tag was corrected since the eighth pass. This
+      page is outside the repo (live-only Weebly paste) and is no longer
+      this pack's own Post A target (confirmed: the pack's button already
+      points at the correctly-spelled generated page), so this is a
+      residual live fact worth recording rather than a new finding
+      requiring a decision; not re-raised as a new question. weight-loss-
+      clinic.html still live (200), still names Mounjaro, Wegovy and
+      Orlistat - the standing item 5.8/Q58 regulatory exposure, unchanged,
+      not fixed here. No new defect, no new question. Q58, Q80 and Q81
+      re-read from QUESTIONS.json, all still open, unchanged. Evidence in
+      audits/verify-4.11-2026-09-05-twelfth.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

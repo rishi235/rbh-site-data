@@ -1,0 +1,103 @@
+Item 4.11 (SK Chemists Bootle GBP pack) - twelfth quality pass, 2026-09-05
+Unattended scheduled run via Cowork sandbox shell.
+
+BASELINE
+- Full 36-checker suite run individually against the tracked repo before any
+  work: 36/36 exit 0.
+- gbp-packs/sk-chemists-bootle.md sha256:
+  637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+  (matches the eleventh pass's own recorded hash - byte-stable across twelve
+  passes).
+- All six generators (build-branch-landing-pages, build-contraception-pages,
+  build-service-pages, build-switch-pages, build-travel-clinic-pages,
+  build-weight-loss-pages) rebuilt; git status --porcelain -- modules/ core/
+  empty before and after (byte-identical, build-audit-status.js excluded per
+  convention).
+
+FRESH ANGLE
+tools/check-gbp-pharmacy-first.js (12 rules plus two coverage guards,
+written on the item 4.4 pass 2026-08-14 to guard the Pharmacy First
+clinical copy - which conditions a pack names, the ages attached to them,
+and the promise made about them) had never been proven by direct injection
+against gbp-packs/sk-chemists-bootle.md in eleven prior passes, only
+covered passively as part of every "all checkers clean" sweep. This is the
+same gap shape the item 4.7 (McCanns Sandringham), 4.2 (Cherry Lane
+Walton), 4.14 (Gordon Short Crosby) and 1.2 (Hirshmans Ainsdale) passes
+closed for their own packs earlier this week - confirmed by direct grep of
+AGENT_WORKLIST.md before starting that SK Chemists Bootle's own eleven-pass
+history never mentions check-gbp-pharmacy-first.js.
+
+METHOD
+Full repo copied (gbp-packs/*.md, branches.json, tools/build-service-pages.js,
+tools/check-gbp-pharmacy-first.js, tools/seo-pattern.js - the minimal set the
+checker's loadCanon() and requires need) to a scratch directory outside the
+tracked tree. All injections applied and reverted there; the tracked repo
+was never opened for writing during the injection round, confirmed by
+sha256 and git status --porcelain both before and after.
+
+Scratch baseline: check-gbp-pharmacy-first.js OK - 7 pathways read from the
+generator, 28 Pharmacy First blocks across 14 packs, all clean.
+
+THREE INJECTIONS, each on a freshly restored copy, each restored and
+sha256-reconfirmed (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac
+2144e8a6f222da) before the next:
+
+1. "impetigo" dropped from Post A's condition list, six of seven left
+   standing.
+   CAUGHT (rule 3, completeness): "Post A names 6 of the 7 Pharmacy First
+   conditions and omits impetigo."
+
+2. Post A's UTI age range changed from "16 to 64" to "16 to 60" (a
+   plausible-looking paste slip).
+   CAUGHT (rule 6, against the canon read live from
+   tools/build-service-pages.js's own CONDITIONS.uti.ageNote): "Post A
+   publishes the urinary tract infection service for 'women aged 16 to
+   60', but the canon holds 'Women aged 16 to 64'."
+
+3. "conjunctivitis" (an OUTSIDE_PF word, not one of the seven Pharmacy
+   First conditions) inserted into the Services section condition list.
+   CAUGHT (rule 4): "Services section 'NHS Pharmacy First' bullet names
+   'conjunctivitis' inside the Pharmacy First copy, but it is not one of
+   the 7 conditions in the NHS service."
+
+All three caught on the first attempt, each on its intended rule and no
+other. Final scratch re-run after the round: baseline clean again, pack
+sha256-identical to the original.
+
+RESULT
+No in-repo defect. check-gbp-packs.js-family coverage (specifically
+check-gbp-pharmacy-first.js) already correctly held this pack's clinical
+Pharmacy First copy to its completeness, age-accuracy and scope rules; now
+proven directly by injection for the first time in this item's twelve-pass
+history. No checker logic, pack copy, page, generator or data field
+changed anywhere in the repo. Full 36-checker suite re-run clean after the
+round (36/36); tracked repo confirmed untouched throughout (git status
+--porcelain -- gbp-packs/ tools/ modules/ core/ branches.json empty).
+
+LIVE HALF
+Claude in Chrome confirmed not connected (list_connected_browsers returned
+an empty array) - standing Q59, unchanged. Fell back to a direct read-only
+curl GET sweep of www.skchemist.co.uk (no browser tool, nothing clicked,
+typed or submitted):
+- Homepage: 200.
+- pharmacy-first-sk-chemists-bootle.html (the pack's own Post A target):
+  200, in the sitemap.
+- Sitemap: 200, still dated 2026-08-14T18:12:51, unchanged since the sixth
+  pass - no republish.
+- pharmacy-first-service-bootle.html (the old live-only page item 5.3/Q34
+  concerned): 200. Its <title> tag now correctly reads "Bootle", but its H2
+  heading still reads "Pharmacy First Service in Bottle, Liverpool" -
+  the misspelling persists in the visible heading even though the <title>
+  was corrected at some point since the eighth pass. This page is outside
+  the repo (live-only Weebly paste) and Q34 was already answered and
+  applied on the ninth pass in the sense that mattered to this item: the
+  pack's own Post A button already points at the correct, correctly-spelled,
+  sitemap-listed generated page, not this one. Not re-raised as a new
+  question - the residual live misspelling on a page this item's own pack
+  no longer links to is a fact worth recording, not a new finding requiring
+  a decision.
+- weight-loss-clinic.html: still live (200), still names Mounjaro, Wegovy
+  and Orlistat - the standing item 5.8/Q58 regulatory exposure, unchanged,
+  not fixed here (blocked pending Rishi's decision).
+
+No new question raised.
