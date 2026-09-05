@@ -5142,6 +5142,88 @@ Done 2026-09-05 (eleventh pass).
       re-verified word for word this pass. No new finding; all live
       observations reconfirm existing standing state. No new question
       raised. Done 2026-09-04
+      Quality pass 2026-09-05 (eleventh pass, unattended scheduled run via
+      Cowork). Selected as stalest of the 36-item rotation pool: independently
+      re-derived by the same block-bounded git-log method used on every prior
+      pass (42 completed items minus the standing 6 out-of-rotation: 1.1, 1.4,
+      5.6, 5.7, 6.7, 6.8), 3.10 stalest at 2026-09-04T13:43:24+01:00, ahead of
+      2.1 (15:28:09), 5.2 (16:10:35), 4.11 (16:41:25) - exactly matching the
+      eleventh pass on item 3.9's own forward note from earlier today. All 9
+      unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so
+      the quality-pass fallback applied. ANSWER PICKUP (step 3, this run):
+      mcp__claude-in-chrome__navigate to
+      https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is
+      not connected" - standing Q59, unchanged; logged and carried on, no
+      alternative route attempted. QUESTIONS.json read in full: 97 total, 44
+      open, none answered by pickup this run. AUTONOMOUS WINDOW (step 4): no
+      "Standing authorisation" heading present at the top of AGENT_LOG.md at
+      run start, not applicable. FRESH ANGLE: ten prior passes had proven
+      check-nap, check-em-dashes, check-service-links (JS-injected copy),
+      check-postcodes, check-branch-identity (5 rules), check-booking-routes
+      (BRANCHATTR/SERVICEATTR/WIDGET, twice), check-switch-copy,
+      check-contraception-copy and check-travel-clinic-copy against Riddings'
+      own pages by injection, and ruled check-opening-hours structurally
+      inapplicable (Riddings has no branch landing page). tools/check-jsonld.js
+      had never been named or injection-tested against this branch
+      specifically, despite its fields (type, name, url, address block,
+      telephone, map query) being read by independent re-derivation on earlier
+      passes - the same class of gap the 3.9 eleventh pass closed for
+      check-jsonld.js against Coleman and Leighs the same day. WORK DONE:
+      wrote audits/verify-3.10-2026-09-05-eleventh.js, sharing no code with
+      tools/check-jsonld.js beyond invoking it as a child process; refuses to
+      run if any of its 7 target files already carries a git diff, restores
+      each from an in-memory Buffer immediately after capturing the checker's
+      output and before any assertion, SHA256-reconfirmed byte-identical
+      before the next injection and again at the end. Baseline clean, then 7
+      injections across 7 different Riddings pages, one rule each: a
+      duplicated JSON-LD block on earache-treatment (RULE 1, "expected exactly
+      one JSON-LD block"); @type changed to MedicalBusiness on sore-throat-
+      treatment, the exact historical defect this checker was built for (RULE
+      2, caught); name swapped to Smartts Chemist's on sinusitis-treatment
+      (RULE 3, caught, "filed against the wrong pharmacy" class message);
+      url's filename broken on impetigo-treatment (RULE 4, caught); address-
+      Region corrupted to Cheshire on uti-treatment, the same class of fault
+      as the Wirral postcode CLAUDE.md documents for McCanns Sandringham
+      (RULE 5, caught); telephone swapped to a different live branch's number
+      on the switch page, spacing intact (RULE 6, caught); and the Google Maps
+      iframe query repointed at a different branch's address on shingles-
+      treatment, the one address on the page no text search can read (RULE 8,
+      caught). All 7 caught first attempt with the expected message, all 7
+      files restored byte-identical (SHA256-reconfirmed) before the next probe
+      and again at the end; git status --porcelain on all 7 target files empty
+      throughout. Rule 7 (email/areaServed) reconfirmed structurally
+      inapplicable: neither field appears on any of Riddings' 12 pages,
+      checked directly before writing the instrument. Final checker re-run
+      after all restores: exit 0. ONE REAL DEFECT FOUND AND FIXED, in
+      tools/check-postcodes.js, not in check-jsonld.js: the same recurring
+      gap this list has now closed four times (L23 6TX, L23 3AZ, L9 8ZZ, and
+      this one) - the item 3.9 eleventh pass earlier today narrated an
+      injection postcode ("L4 7TH", the map-query corruption of Coleman and
+      Leighs' own L4 6TH) in both AGENT_WORKLIST.md and its own
+      audits/verify-3.9-2026-09-05-eleventh.js header comment, but never added
+      it to NARRATIVE_POSTCODES, leaving check-postcodes.js failing on the
+      committed tree with 2 UNKNOWN failures. Fixed with the standard
+      reason-and-question-id-style entry (dated and attributed to this pass);
+      check-postcodes.js returned to its usual baseline (0 failures, 3
+      pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md and the branch
+      INDEX/SEO sheets). Full 36-checker suite re-run individually after the
+      fix: 36/36 exit 0. All six generators (build-audit-status.js excluded
+      per convention) rebuilt from their own build-*.js scripts; git status
+      --porcelain on modules/ and core/ empty before and after, confirming
+      byte-identical regeneration of all 177 pages. LIVE HALF: Claude in
+      Chrome confirmed not connected (checked twice, step 3 and again before
+      the live half); the built-in Claude Browser was not tried, per the
+      standing finding recorded on every prior pass that no user is present in
+      this unattended session to grant a new-site approval. Fell back to a
+      direct read-only curl sweep of www.riddingspharmacy.co.uk (no browser
+      tool involved, nothing clicked, typed or submitted): homepage 200 with
+      own phone (0161 973 2951), own email (Riddings@rbhealth.co.uk) and
+      Timperley all present; pfLink page (pharmacy-first-riddings-
+      timperley.html) 200. Not re-read word for word against the Q31 Cheshire
+      county string, the Q22 weight loss tagline or the switch banner mojibake
+      already on record from earlier passes; no new live finding, no
+      contradiction of the standing state either. No new question raised.
+      Evidence in audits/verify-3.10-2026-09-05-eleventh.js. Done 2026-09-05
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
