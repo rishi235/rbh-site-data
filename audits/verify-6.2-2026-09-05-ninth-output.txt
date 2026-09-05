@@ -1,0 +1,61 @@
+Baseline branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+
+=== BASELINE RUN (no injection) ===
+exit code: 0
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
+  KNOWN www.smarttschemist.co.uk/blood-testing.html (1 reference(s)): Q16: live-only service page. Blood tests are not a branches.json widget, so no generator owns this page.
+
+=== TEST A: disposed:true on cherrylane_liverpool ===
+exit code: 1
+check-service-links
+  FAIL  page(s) not attributable to a branch host: switch-prescriptions-cherry-lane-walton.html, contraception-cherry-lane-walton.html, earache-treatment-cherry-lane-walton.html, impetigo-treatment-cherry-lane-walton.html, insect-bite-treatment-cherry-lane-walton.html, pharmacy-first-cherry-lane-walton.html, shingles-treatment-cherry-lane-walton.html, sinusitis-treatment-cherry-lane-walton.html, sore-throat-treatment-cherry-lane-walton.html, travel-clinic-cherry-lane-walton.html, uti-treatment-cherry-lane-walton.html, weight-loss-clinic-cherry-lane-walton.html
+Restored sha256 matches original: true 
+Caught by the top-level PAGE_DIRS unattributed guard as hypothesised: true
+Ever printed the EXTRA_FILES summary line (would mean EXTRA_LINK_HOST_SLUG's line was reached): false
+
+=== TEST B: townSlug rename, walton -> walton-ninthtest, on cherrylane_liverpool ===
+exit code: 1
+check-service-links
+  FAIL  page(s) not attributable to a branch host: switch-prescriptions-cherry-lane-walton.html, contraception-cherry-lane-walton.html, earache-treatment-cherry-lane-walton.html, impetigo-treatment-cherry-lane-walton.html, insect-bite-treatment-cherry-lane-walton.html, pharmacy-first-cherry-lane-walton.html, shingles-treatment-cherry-lane-walton.html, sinusitis-treatment-cherry-lane-walton.html, sore-throat-treatment-cherry-lane-walton.html, travel-clinic-cherry-lane-walton.html, uti-treatment-cherry-lane-walton.html, weight-loss-clinic-cherry-lane-walton.html
+Restored sha256 matches original: true 
+Caught by the top-level PAGE_DIRS unattributed guard as hypothesised: true
+Ever printed the EXTRA_FILES summary line (would mean EXTRA_LINK_HOST_SLUG's line was reached): false
+
+=== TEST C: typo in EXTRA_LINK_HOST_SLUG's own slug value (checker source, not data) ===
+exit code: 1
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 422 of them to our own 13 branch domains
+  KNOWN www.smarttschemist.co.uk/blood-testing.html (1 reference(s)): Q16: live-only service page. Blood tests are not a branches.json widget, so no generator owns this page.
+  KNOWN www.smarttschemist.co.uk/vaccinations.html (2 reference(s)): Q16: live-only service page, used by both the Vaccinations tile and the Travel Clinic tile. The repo does generate travel-clinic-smartts-bootle.html, so the Travel Clinic tile has a generated page to point at.
+  KNOWN www.smarttschemist.co.uk/weight-loss-clinic-bootle.html (1 reference(s)): Q16: old live-only weight loss page naming Wegovy, Mounjaro and Orlistat with a 22.5% claim and a price. The compliant replacement weight-loss-clinic-smartts-bootle.html is generated here but the tile still points at the old page. Repointing it needs the new page pasted live first, so it is Rishi's call.
+  KNOWN www.smarttschemist.co.uk/pharmacy-first-service-bootle.html (1 reference(s)): Q8/Q16: old live-only Pharmacy First page. Same class as the 11 GBP pack links held under item 5.3, which is blocked because the repo change is tied to a Weebly paste.
+  KNOWN www.smarttschemist.co.uk/medical-cannabis.html (1 reference(s)): Q16: live-only service page. No generator owns it; wording is held to eligibility only.
+  KNOWN CLAIM Support that delivers results. in modules/switch/pages/switch-prescriptions-smartts-bootle.html: Q16: the Weight Loss Clinic tile on the Smartts switch page promises an outcome, which the house rule on weight loss copy does not allow. It is hardcoded in the CONFIG block of tools/build-switch-pages.js and is the only claim of its kind in the estate. Not rewritten autonomously because it is patient-facing regulatory copy, which is Rishi's call; the replacement wording is offered in Q16.
+
+FAILURES (1):
+  FAIL  [unattributed relative link] modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html: relative href "/pharmacy-first-cherry-lane-walton.html" but this file has no single branch host to check it against
+
+Fix at source in the generator, then regenerate. A tile that promises an
+outcome, or points at a page this repo cannot keep compliant, is the two
+ways a weight loss service ends up advertising what it must not.
+Checker restored sha256 matches original: true
+Fallback fired correctly, naming only the typoed file's own relative href: true
+The other EXTRA_LINK_HOST_SLUG entry (untouched key) stayed unaffected: true
+Cherry Lane's own PAGE_DIRS pages were NOT caught up in this failure: true
+
+=== FINAL RE-CONFIRM: clean baseline after both injections restored ===
+exit code: 0
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
+  KNOWN www.smarttschemist.co.uk/blood-testing.html (1 reference(s)): Q16: live-only service page. Blood tests are not a branches.json widget, so no generator owns this page.
+Final branches.json sha256 matches original: true
+
+=== SUMMARY ===
+Test A (disposed):     {"caughtAsHypothesised":true,"reachedExtraFilesSection":false}
+Test B (slug rename):  {"caughtAsHypothesised":true,"reachedExtraFilesSection":false}
+Test C (checker typo): {"exitCode":1,"onlyTargetFileFailed":true,"otherFileUnaffected":true,"noTopLevelUnattributedExit":true,"checkerRestoredOk":true}
+Data-drift hypothesis confirmed (EXTRA_LINK_HOST_SLUG's || null fallback is unreachable via branches.json changes to cherry-lane-walton, because the earlier PAGE_DIRS unattributed guard always fires first): true
+Fallback proven reachable and correct via a checker-source typo (Test C): true
+Clean re-run after restore, exit 0: true
+branches.json restored byte-identical throughout: true

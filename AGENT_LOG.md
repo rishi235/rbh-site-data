@@ -1,3 +1,167 @@
+## 2026-09-05 (unattended scheduled run via Cowork, fourth run today) - Item 6.2 quality pass (ninth, broken internal links / check-service-links.js): FRESH ANGLE, EXTRA_LINK_HOST_SLUG (the small lookup resolving the two Cherry Lane "old page" replacement files against their own branch host) never exercised in eight prior passes, closed this run. Three injections: disposed:true on cherrylane_liverpool, and a townSlug rename (walton -> walton-ninthtest), both caught by the EARLIER, already-proven PAGE_DIRS "not attributable to a branch host" guard before the EXTRA_FILES loop containing EXTRA_LINK_HOST_SLUG was ever reached - so that fallback is currently unreachable via realistic branches.json drift on this branch, not a live breach, just a previously unrecorded fact. A third injection, a one-character typo in the checker's OWN EXTRA_LINK_HOST_SLUG value (checker source, not data), proved the fallback is not dead: it fired correctly and in isolation, naming only the typoed file's own relative href, leaving the untouched sibling entry and Cherry Lane's own pages unaffected. All three tests' files sha256-restored and reconfirmed. ONE REAL DEFECT FOUND AND FIXED, in tools/check-postcodes.js, not in check-service-links.js: the item 3.13 ninth pass earlier today narrated an invented postcode ("L9 8ZZ") in AGENT_LOG.md/AGENT_WORKLIST.md but never added it to NARRATIVE_POSTCODES, leaving check-postcodes.js failing on the committed tree - the same gap this list has already closed twice before (L23 6TX, L23 3AZ). Fixed with the standard reason-and-question-id entry; check-postcodes.js and the full 36-checker suite both re-ran clean, all six generators reproduced every page byte-identical. Live half not performed: Claude in Chrome not connected, checked at step 3 and again before the live-findings section; the four 2026-08-14 findings are not re-read and not re-claimed, Q53/Q54 stay open. No new question raised (both this pass's own finding and the credential gap below are already fully covered by existing questions); push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap.
+
+LOCK CHECK (step 1). No .agent-lock present at run start. A .git/index.lock
+dated roughly 20 minutes old was present, `ps aux` showed no git process
+(consistent with the standing Q87 mount-unlink() restriction: this sandboxed
+shell cannot legitimately hold a live lock across separate tool calls
+anyway), left alone rather than removed since it was under the 45
+minute/1 hour thresholds and every git command (status, fetch) worked
+normally despite its presence; it did not block any operation this run. A
+fresh .agent-lock was written at 2026-09-05T11:05:47Z.
+
+GIT SYNC (step 2). `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, unchanged; confirmed directly this run with
+`ssh -T git@github.com` (Permission denied, publickey) and `gh --version`
+(command not found). `git fetch origin-https` succeeded anonymously. Local
+agents/audit-backlog was 7 commits ahead of origin-https/agents/audit-
+backlog (all pre-existing from the three earlier runs today), nothing new
+to pull.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback and `tabs_context_mcp` both
+returned "Claude in Chrome is not connected" - standing Q59, unchanged.
+Logged and carried on; no alternative route attempted, nothing clicked,
+typed, submitted or signed in anywhere. QUESTIONS.json read in full: 96
+total, 43 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Moot: this
+pass raised no new question.
+
+ITEM SELECTION (step 5). All unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6),
+so the quality-pass fallback applied. Rotation pool re-derived independently
+in Node from `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md`, matching "item <id>" word-boundary against the 36-item pool
+(42 checked items minus the standing out-of-rotation set 1.1, 1.4, 5.6, 5.7,
+6.7, 6.8). Result: 6.2 stalest at 2026-09-04T09:13:34+01:00, ahead of 3.4
+(12:41:10), 3.9 (13:17:57) and 3.10 (13:43:24) - independently confirming
+the 3.13 ninth pass's own forward-looking note from earlier today.
+
+FRESH ANGLE AND WORK DONE. Full detail in AGENT_WORKLIST.md's own item 6.2
+paragraph for this pass (search "Ninth quality pass"). Summary: read
+tools/check-service-links.js in full and checked its own AGENT_WORKLIST.md
+history for every table and fail-safe already proven (RULE 1's three link
+shapes and host resolution, RULE 2/RULE 3 claims and POM names, the six
+EXTRA_FILES and two EXTRA_JS_COPY_FILES, both "file(s) listed but not
+present" fail-safes, the PAGE_DIRS "not attributable to a branch host"
+guard). EXTRA_LINK_HOST_SLUG - the two-entry table resolving the Cherry Lane
+"old page" replacement files against their own branch host by slug - had
+never been touched. Wrote audits/verify-6.2-2026-09-05-ninth.js (fresh, no
+shared code with tools/ beyond invoking the real checker as a child
+process). TEST A (disposed:true on cherrylane_liverpool) and TEST B
+(townSlug rename, walton -> walton-ninthtest) both hit the SAME earlier
+guard - "FAIL page(s) not attributable to a branch host," naming all twelve
+of Cherry Lane's own generated pages - and the script exited before the
+EXTRA_FILES loop containing EXTRA_LINK_HOST_SLUG ever ran, confirmed
+directly by checking the captured output never printed the EXTRA_FILES
+summary line. Both injections restored from an in-memory buffer and
+sha256-reconfirmed identical to the pre-injection hash
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e) before
+any conclusion was drawn. TEST C then asked the follow-on question directly:
+a one-character typo written into the checker's OWN EXTRA_LINK_HOST_SLUG
+value (cherry-lane-walton -> cherry-lane-waltn, on the pharmacy-first
+replacement file's key only), leaving branches.json completely untouched.
+This fired the fallback exactly as designed - one failure only,
+"[unattributed relative link] ... cherry-lane-old-pharmacy-first-
+replacement.html: relative href \"/pharmacy-first-cherry-lane-walton.html\"
+but this file has no single branch host to check it against" - while the
+OTHER EXTRA_LINK_HOST_SLUG entry (weight-loss replacement file, untouched
+key) stayed unaffected and Cherry Lane's own PAGE_DIRS pages were not caught
+up in it. The checker source was restored from an in-memory buffer and
+sha256-reconfirmed identical to its pre-injection hash before any
+conclusion was drawn, the same discipline the fifth and eighth passes used
+restoring service.js/switch.js after their own injections.
+
+ONE REAL DEFECT FOUND AND FIXED, in tools/check-postcodes.js, discovered
+only because this pass's own full-36-checker-suite verification step (run
+as standard practice before and after every 6.2 pass) found it failing on
+the committed tree before this pass touched anything. The item 3.13 ninth
+pass earlier today (this file's own preceding entry) narrated, in prose,
+its own discovery of an invented postcode "L9 8ZZ" left in a draft
+verification script and fixed before that pass committed - but per
+CLAUDE.md's documented convention, and check-postcodes.js's own printed
+instruction ("If the audit legitimately quotes it, add it to
+NARRATIVE_POSTCODES with a reason"), the narrated value should have been
+added to NARRATIVE_POSTCODES in the same commit and was not, leaving
+check-postcodes.js failing with "UNKNOWN ... postcode L9 8ZZ is in no
+branches.json entry" on both AGENT_LOG.md and AGENT_WORKLIST.md - the exact
+same gap this list has already closed twice before, for L23 6TX (6.3 sixth
+quality pass) and L23 3AZ (4.4 tenth quality pass). Fixed by adding the
+"L9 8ZZ" entry with the same reason-and-question-id convention as every
+other NARRATIVE_POSTCODES entry; check-postcodes.js re-ran clean (0
+failures, the same 3 pre-existing UNOWNED warnings as before, unrelated to
+this fix). This is a fix to a DIFFERENT checker than the one item 6.2 is
+about, made because leaving a known checker red would have misrepresented
+this pass's own "all 36 checkers green" verification claim, and because the
+fix itself is the exact, unambiguous, single-line remedy the failing
+checker's own output already named - not new scope invented beyond
+verification and fixing what verification found broken.
+
+Full 36-checker suite re-run individually after all of the above: 36/36
+exit 0. All six generators (build-service-pages, build-switch-pages,
+build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages) rebuilt: git status
+--porcelain -- modules core empty both before and after, byte-identical
+output confirmed. No checker LOGIC changed in check-service-links.js
+itself, no generator, page, banner or data field changed anywhere in the
+tracked tree; the only tracked-tree changes from this pass are the
+one-entry NARRATIVE_POSTCODES addition in tools/check-postcodes.js, the new
+audit instrument and its output file, and this pass's own log entries.
+
+LIVE HALF. Claude in Chrome confirmed not connected, checked at this run's
+own step 3 answer pickup and again immediately before writing this section;
+not retried by another route and no login attempted, per procedure. The
+four 2026-08-14 findings (Riddings switch permalink, Riddings
+/clinic-prices, Tiffenbergs book-now.html) are not re-read and not
+re-claimed this pass. Q53 and Q54 stay open, nothing new to add to either.
+
+RESULT. No in-repo defect found in check-service-links.js itself - RULE 1,
+RULE 2, RULE 3 and both existing fail-safes it already carries continue to
+behave correctly, and the newly-tested EXTRA_LINK_HOST_SLUG fallback is
+proven both correct (Test C) and currently unreachable via branch data
+drift specifically (Tests A and B), a nuance worth carrying into any future
+pass that considers this table "done": it is correct, but the realistic
+failure mode it guards against (a slug typo in the checker's own source,
+not a branches.json change) is different from what its neighbouring
+fail-safes guard against. One real defect found and fixed in a different
+checker (tools/check-postcodes.js), as described above. No new question
+raised: the EXTRA_LINK_HOST_SLUG finding is a nuance, not a defect needing
+Rishi's decision, and the credential gap below is already fully covered by
+Q96 and Q87.
+
+PUSH/PUBLISH (steps 9-10). `git add` + `git commit` succeeded locally as
+0a93ba1, after two rounds of the standing Q87 lock litter (.git/index.lock
+and .git/HEAD.lock, both created within the same second as this run's own
+`git add`/`git commit` calls, `ps aux` showing no git process either time;
+cleared by rename to `.git/index.lock.released-<epoch>` /
+`.git/HEAD.lock.released-<epoch>`, the same workaround this file has
+recorded roughly 100 times before). Local agents/audit-backlog is now 8
+commits ahead of origin-https/agents/audit-backlog (this pass's own commit
+plus the seven pre-existing unpushed commits from the three earlier runs
+today). `git push origin agents/audit-backlog` (SSH) failed "Permission
+denied (publickey)"; `git push origin-https agents/audit-backlog` failed
+"could not read Username for 'https://github.com': No such device or
+address" - no credential of any kind available in this session, exactly
+the standing Q96 finding. `node tools/build-audit-status.js` was run as
+instructed (run it even if nothing else changed, so the status page stays
+honest) and failed `ENOENT: no such file or directory, open
+'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'` - exactly the standing Q87
+finding, the script's hardcoded Windows path not resolving inside this
+Linux sandbox. Not patched this run, for the same reason recent passes have
+given: Q87 already raises the __dirname-relative fix as a recommended,
+low-risk option pending Rishi's decision, and changing it unilaterally here
+would pre-empt that decision. No new question raised for either gap - both
+already open, already recommended, already fully diagnosed in Q96 and Q87.
+This run's own commit remains local-only pending either a credential being
+provisioned in this session type or the task running on Rishi's own host,
+per Q96/Q87 option 1.
+
+.agent-lock deleted (renamed, per the standing Q87 workaround where a
+direct unlink is refused) at the end of this run.
+
+---
+
 ## 2026-09-05 (unattended scheduled run via Cowork, third run today) - Item 3.13 quality pass (ninth, Clear Chemist Aintree): FRESH ANGLE, tools/check-jsonld.js (the JSON-LD/map-embed "silent fault" checker) never proven against this branch's three pages in eight prior passes, closed this run. Independent extraction instrument (36 checks, 0 failures) plus six injections against the real checker - @type widened to MedicalBusiness, name lengthened, url repointed at a different branch's page, postalCode changed to a real different branch's own postcode, telephone respaced with digits unchanged, and the map-iframe postcode changed independently of the JSON-LD address - all six caught first attempt with the correct field named in the checker's own output, all three pages sha256-confirmed byte-identical after every restore. Two faults found and fixed in this pass's own new instrument, not the repo: a substring tag-match bug (looked for "addr.postalCode", the checker prints "address.postalCode") and an invented postcode ("L9 8ZZ") written into the committed script, caught by this repo's own check-postcodes.js once the file existed in the working tree, fixed by using a real branch's real postcode instead. Full 36-checker suite and all six generators clean before and after. Live half not performed: Claude in Chrome not connected, mcp__workspace__web_fetch declined the URL as outside its provenance set, no curl fallback attempted per the standing reasoning the eighth pass on this item recorded. Zero in-repo defect; no new question; push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap.
 
 LOCK CHECK (step 1). No .agent-lock present at run start. A .git/index.lock

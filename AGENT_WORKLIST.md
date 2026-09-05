@@ -13668,6 +13668,107 @@ for the record).
       QUESTIONS.json re-read in full: 95 total, 42 open, no pickup
       available this run (Claude in Chrome not connected), no new question
       raised. .agent-lock deleted before exit.
+      Ninth quality pass, 2026-09-05 (unattended scheduled run, fourth run
+      today). NO NEW DEFECT in check-service-links.js itself, but one real
+      defect found and fixed in a DIFFERENT checker, discovered only because
+      this pass's own full-suite verification step ran it. Live half not
+      read this pass: Claude in Chrome reported not connected at both the
+      step 3 pickup and again immediately before the live-findings section;
+      the four 2026-08-14 findings (Riddings switch permalink, Riddings
+      /clinic-prices, Tiffenbergs book-now.html) are not re-read and not
+      re-claimed, and Q53/Q54 stay open unchanged.
+      FRESH ANGLE: every prior 6.2 pass that proved a "stop rather than
+      quietly weaken the rule" fail-safe used a branch with no special role
+      in the checker's own hardcoded tables - the seventh pass (2026-09-03)
+      disposed gordonshorts_crosby to prove the PAGE_DIRS "not attributable
+      to a branch host" guard; the eighth pass (2026-09-04) renamed away the
+      six EXTRA_FILES and two EXTRA_JS_COPY_FILES to prove the "file(s)
+      listed ... but not present" guards. No pass had ever touched
+      EXTRA_LINK_HOST_SLUG, the small lookup (checker lines ~168-171) that
+      resolves the two Cherry Lane "old page" replacement files
+      (modules/service/weebly-paste/cherry-lane-old-*-replacement.html)
+      against their own branch host by slug, via
+      `slug ? (hostOfSlug.get(slug) || null) : null`. That `|| null` exists
+      so a relative href in either file degrades to "unattributed relative
+      link" (reported, not silently mis-resolved) if cherry-lane-walton's
+      slug ever stops resolving.
+      METHOD: audits/verify-6.2-2026-09-05-ninth.js (own script, invokes the
+      real checker as a child process, no import from tools/ beyond that).
+      Baseline confirmed clean first. TEST A: disposed:true written onto
+      cherrylane_liverpool in branches.json, checker run, output captured,
+      branches.json restored from an in-memory buffer and sha256-reconfirmed
+      identical to the pre-injection hash (904de09b...) before any
+      conclusion was drawn. TEST B: the same, but a townSlug rename
+      (walton -> walton-ninthtest, the exact seoTown-moves shape CLAUDE.md
+      documents for McCanns Sandringham) instead of disposal. RESULT: both
+      tests were caught by the EARLIER, already-proven PAGE_DIRS
+      unattributed guard - "FAIL page(s) not attributable to a branch host,"
+      naming all twelve of Cherry Lane's own generated pages - and the run
+      exited before ever reaching the EXTRA_FILES loop that contains the
+      EXTRA_LINK_HOST_SLUG line under test. So the finding from A and B is
+      that EXTRA_LINK_HOST_SLUG's own fallback is CURRENTLY UNREACHABLE via
+      any realistic branches.json data drift on cherry-lane-walton, because
+      disposing or renaming the one branch that line depends on always trips
+      the earlier guard first. Not a live breach (the script still correctly
+      stops the run rather than mis-resolving or silently passing anything),
+      but a fresh, previously unrecorded fact about this item's own
+      fail-safes: one of them cannot fire via the data-drift route every
+      other pass has used to test its siblings.
+      TEST C, added to answer the obvious follow-on question (is the line
+      simply dead, or can it fire at all): a one-character typo written
+      directly into check-service-links.js's own EXTRA_LINK_HOST_SLUG value
+      ("cherry-lane-walton" to "cherry-lane-waltn" on the pharmacy-first
+      replacement file's key only), leaving cherrylane_liverpool itself
+      completely untouched in branches.json. This is a mutation of the
+      CHECKER SOURCE, restored and sha256-reconfirmed the same way the fifth
+      and eighth passes restored service.js/switch.js after their own
+      injections. RESULT: the fallback fired exactly as designed - one
+      failure only, naming the typoed file's own relative href
+      ("unattributed relative link ... this file has no single branch host
+      to check it against"), the OTHER EXTRA_LINK_HOST_SLUG entry (whose key
+      was untouched) stayed unaffected, and Cherry Lane's own PAGE_DIRS
+      pages were not caught up in it. So the line is not dead: it protects
+      correctly against the one realistic way it CAN be triggered, a
+      maintenance typo in the checker's own hardcoded slug string, just not
+      against the branch itself being disposed or renamed, because a
+      different guard gets there first for that scenario. All three tests'
+      files restored and sha256-confirmed byte-identical; full output in
+      audits/verify-6.2-2026-09-05-ninth-output.txt.
+      ONE REAL DEFECT FOUND AND FIXED, in tools/check-postcodes.js, not in
+      check-service-links.js and not part of this item's own territory, but
+      surfaced only because this pass's standard full-36-checker-suite
+      verification step ran it and it was failing on the committed tree
+      before this pass touched anything. The item 3.13 ninth quality pass
+      earlier today wrote up, in prose in AGENT_LOG.md and AGENT_WORKLIST.md,
+      its own discovery of an invented postcode ("L9 8ZZ") left in a draft
+      verification script, fixed before that pass committed - but per
+      CLAUDE.md's own documented convention (and check-postcodes.js's own
+      output: "If the audit legitimately quotes it, add it to
+      NARRATIVE_POSTCODES with a reason") the narrated value should have
+      been added to NARRATIVE_POSTCODES in the same commit and was not,
+      leaving tools/check-postcodes.js failing on the committed tree with
+      "UNKNOWN ... postcode L9 8ZZ is in no branches.json entry." The exact
+      same gap this list has already closed twice before, for L23 6TX (6.3
+      sixth quality pass) and L23 3AZ (4.4 tenth quality pass). Fixed by
+      adding the "L9 8ZZ" entry to NARRATIVE_POSTCODES with the same
+      reason-and-question-id convention as every other entry in that list;
+      check-postcodes.js re-ran clean (0 failures, the same 3 pre-existing
+      UNOWNED warnings as before, unrelated to this fix).
+      Full 36-checker suite re-run individually after all of the above:
+      36/36 exit 0. All six generators rebuilt: git status --porcelain --
+      modules core empty before and after, byte-identical output confirmed.
+      No checker LOGIC changed in check-service-links.js itself, no page,
+      generator, banner or data field changed; the only tracked-tree change
+      from this pass is the one-entry addition to
+      tools/check-postcodes.js's NARRATIVE_POSTCODES, the new audit
+      instrument, and this pass's own log entries.
+      Environment: mcp__workspace__bash (Cowork sandboxed Linux mount of
+      C:\dev\rbh-site-data) used throughout. git push is not possible from
+      this mount for either remote (SSH fails host key verification, HTTPS
+      has no cached credential) - the standing Q96/Q87 diagnosis, unchanged
+      and not re-litigated with a new question. QUESTIONS.json re-read in
+      full: 96 total, 43 open, no pickup available this run (Claude in
+      Chrome not connected), no new question raised.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
