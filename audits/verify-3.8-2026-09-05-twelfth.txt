@@ -1,0 +1,107 @@
+Item 3.8 quality pass (twelfth), 2026-09-05, unattended scheduled run via Cowork
+Branch: SK Chemists Bootle (skchemists_bootle)
+Fresh angle: tools/check-jsonld.js proven by injection against this branch's
+own pages for the first time (eleven prior passes proved check-app-membership,
+check-nap, check-postcodes, check-seo-pattern, check-switch-copy,
+check-whatsapp-route, check-contraception-copy and check-branch-links; JSON-LD
+had only ever been read by eye or via independent extraction scripts).
+
+BASELINE
+  All 36 tools/check-*.js checkers: 0 failures.
+  All six generators rebuilt from branches.json.
+  sha256 of all 216 files under modules/ and core/, before and after:
+    76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329 (identical)
+  git status --porcelain -- modules core branches.json: empty throughout.
+
+12 pages owned by this branch (no branch landing page; SK Chemists Bootle has
+none):
+  modules/service/pages/contraception-sk-chemists-bootle.html
+  modules/service/pages/earache-treatment-sk-chemists-bootle.html
+  modules/service/pages/impetigo-treatment-sk-chemists-bootle.html
+  modules/service/pages/insect-bite-treatment-sk-chemists-bootle.html
+  modules/service/pages/pharmacy-first-sk-chemists-bootle.html
+  modules/service/pages/shingles-treatment-sk-chemists-bootle.html
+  modules/service/pages/sinusitis-treatment-sk-chemists-bootle.html
+  modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html
+  modules/service/pages/travel-clinic-sk-chemists-bootle.html
+  modules/service/pages/uti-treatment-sk-chemists-bootle.html
+  modules/service/pages/weight-loss-clinic-sk-chemists-bootle.html
+  modules/switch/pages/switch-prescriptions-sk-chemists-bootle.html
+
+INJECTION ROUND 1 - RULE 3 (name)
+  File: modules/service/pages/sinusitis-treatment-sk-chemists-bootle.html
+  Backup sha256 (pre): 534686ec31717b5cbcfbeb72200fb47cecb0abad14aee799a650bd8305bb3f62
+  Change: JSON-LD "name" "SK Chemists" -> "Smartts Chemist"
+  node tools/check-jsonld.js result: exit 1
+    FAIL  modules/service/pages/sinusitis-treatment-sk-chemists-bootle.html:
+    "name" is "Smartts Chemist" but a service page must declare branchName,
+    which branches.json gives as "SK Chemists".
+  Restored by byte copy. sha256 after restore: 534686ec31717b5cbcfbeb72200fb47cecb0abad14aee799a650bd8305bb3f62 (matches)
+  Re-run: check-jsonld.js clean.
+
+INJECTION ROUND 2 - RULE 5 (address)
+  File: modules/service/pages/shingles-treatment-sk-chemists-bootle.html
+  Backup sha256 (pre): a7e4b1d402b0e0ba13ffbaeb83caeafe61d6295563021980390e767289fa453c
+  Change: JSON-LD address.postalCode "L20 5DW" -> "L21 8JG"
+  node tools/check-jsonld.js result: exit 1
+    FAIL  modules/service/pages/shingles-treatment-sk-chemists-bootle.html:
+    address.postalCode is "L21 8JG" but branches.json says "L20 5DW"
+  Restored by byte copy. sha256 after restore: a7e4b1d402b0e0ba13ffbaeb83caeafe61d6295563021980390e767289fa453c (matches)
+  Re-run: check-jsonld.js clean.
+
+INJECTION ROUND 3 - RULE 8 (map query), isolated from rule 5
+  File: modules/service/pages/weight-loss-clinic-sk-chemists-bootle.html
+  Backup sha256 (pre): 3e23d3a7e9b7e333aa1dda9251e45749baecb80e7f883f1eef9de418ff9ee20d
+  Change: Google Maps iframe query changed from
+    "516%20Stanley%20Road%2C%20Bootle%2C%20L20%205DW" to
+    "45%20Stanley%20Road%2C%20Bootle%2C%20L20%203ER"; JSON-LD block left
+    untouched.
+  node tools/check-jsonld.js result: exit 1, ONE failure only
+    FAIL  modules/service/pages/weight-loss-clinic-sk-chemists-bootle.html:
+    the map iframe points at "45 Stanley Road, Bootle, L20 3ER" but
+    branches.json gives "516 Stanley Road, Bootle, L20 5DW"
+  Confirms the checker's documented separation of the JSON-LD address check
+  (rule 5) from the map query check (rule 8): no rule 5 failure fired since
+  the JSON-LD address was never touched.
+  Restored by byte copy. sha256 after restore: 3e23d3a7e9b7e333aa1dda9251e45749baecb80e7f883f1eef9de418ff9ee20d (matches)
+  Re-run: check-jsonld.js clean.
+
+POST-INJECTION FULL SUITE
+  All 36 checkers re-run individually: 0 failures.
+  git status --porcelain -- modules core branches.json: empty.
+
+RESULT: zero in-repo defect. All three of check-jsonld.js's rules exercised
+above were already correctly holding SK Chemists Bootle's data; now proven
+directly by injection against the official checker rather than left correct
+by generator construction and informal reads alone.
+
+LIVE HALF (Claude in Chrome not connected; direct outbound curl from the
+sandbox shell used instead, read-only GET requests only)
+  https://www.skchemist.co.uk/uti-treatment-sk-chemists-bootle.html
+    HTTP 200. JSON-LD @type Pharmacy, name/telephone/address/url all match
+    branches.json exactly. Map query matches.
+  https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html
+    HTTP 200. JSON-LD @type Pharmacy.
+  https://www.skchemist.co.uk/travel-clinic-sk-chemists-bootle.html
+    HTTP 200. JSON-LD @type Pharmacy.
+  https://www.skchemist.co.uk/switch-prescriptions-sk-chemists-bootle.html
+    HTTP 200.
+  https://www.skchemist.co.uk/weight-loss-clinic-sk-chemists-bootle.html
+    HTTP 200. JSON-LD @type MedicalBusiness (LIVE FINDING, see below).
+
+LIVE FINDING: the live weight-loss-clinic page for SK Chemists Bootle still
+declares "@type": "MedicalBusiness" in its JSON-LD, not "Pharmacy". This is
+the exact defect tools/build-weight-loss-pages.js was fixed for estate-wide
+on the item 3.10 quality pass, 2026-08-10 (see check-jsonld.js's own file
+header). The repo's generated copy of this same page, rebuilt and
+sha256-confirmed above, correctly declares Pharmacy, and the generator source
+(tools/build-weight-loss-pages.js line 183) reads `"@type": "Pharmacy"`. The
+other four live pages checked this pass all declare Pharmacy correctly. This
+is the standing "pre-repaste legacy copy" pattern (the fix is in the repo and
+the generator; this specific live page has not been repasted into Weebly
+since). Not treated as a new class of finding or a new question: it needs a
+repaste, not a decision, and the general repaste backlog already tracks this
+class of gap elsewhere in the worklist. First confirmation that this
+particular page, for this particular branch, is affected.
+
+No new question raised this pass.

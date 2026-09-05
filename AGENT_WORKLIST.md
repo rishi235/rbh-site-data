@@ -4508,6 +4508,111 @@ Done 2026-09-05 (eleventh pass).
       validates the URL shape, not live reachability, and the shape is
       correct. No new question raised. Evidence in
       audits/verify-3.8-2026-09-04-eleventh.txt.
+      Quality pass 2026-09-05 (twelfth, unattended scheduled run via
+      Cowork). Taken because all 8 unchecked AGENT_WORKLIST.md lines
+      confirmed [BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both
+      under Q60, 6.6); item-selection method unchanged (most recent
+      commit-subject mention per item across the standing 37-item
+      rotation pool, out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7, 6.8
+      excluded, stalest wins, re-derived fresh via a Python script reading
+      `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+      AGENT_LOG.md` word-boundary matched per item id). 3.8 was uniquely
+      stalest at 2026-09-04T20:43:47+01:00, ahead of 6.3 (21:14:14), 3.1
+      (21:40:46) and the rest all later still. LOCK CHECK (step 1): no
+      .agent-lock present at run start; a fresh one written
+      2026-09-05T18:04:15Z. This sandbox mount's .git/index.lock
+      reappeared after routine git commands and could not be removed with
+      `rm` ("Operation not permitted") - the same standing constraint
+      Q87/Q96 document; left in place since every git command still
+      worked normally regardless (git pull, generator rebuilds and commit
+      all succeeded with it present). GIT SYNC (step 2): `git fetch
+      origin` (SSH) failed "Host key verification failed" - standing
+      Q87/Q96, unchanged; `git fetch origin-https` succeeded, local
+      agents/audit-backlog already at origin-https HEAD (d01d736, the
+      twelfth 3.6 pass's own commit), nothing to pull. ANSWER PICKUP (step
+      3): `mcp__claude-in-chrome__tabs_context_mcp` returned "Claude in
+      Chrome is not connected" - standing Q59, unchanged; logged and
+      carried on, no alternative route attempted, nothing clicked or
+      submitted. QUESTIONS.json read in full: 97 total, 44 open, none
+      answered by pickup this run. AUTONOMOUS WINDOW (step 4): no
+      "Standing authorisation - autonomous window" heading present at the
+      top of AGENT_LOG.md at run start, confirmed directly by reading line
+      1, so not applicable.
+      SELF-CORRECTION: writing the two fabricated injection values below
+      (L21 8JG, L20 3ER) into this pass's own write-up and evidence file
+      tripped tools/check-postcodes.js on the next full-suite re-run - the
+      same recurring gap this list has now closed six times (L23 6TX,
+      L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, and these two). Fixed by adding both
+      to NARRATIVE_POSTCODES with a reason and this pass's own name before
+      anything was committed; full 36-checker suite and all six generators
+      re-confirmed clean and byte-identical after the fix.
+      FRESH ANGLE. Eleven prior passes had proven check-app-membership,
+      check-nap, check-postcodes, check-seo-pattern, check-switch-copy,
+      check-whatsapp-route, check-contraception-copy and check-branch-links
+      against SK Chemists Bootle's own 12 pages, but never
+      tools/check-jsonld.js directly by injection against the OFFICIAL
+      checker - the fourth, sixth and ninth passes had read JSON-LD fields
+      by eye or via independent extraction scripts and found them correct,
+      but none had planted a fault and watched check-jsonld.js itself catch
+      it on this branch's own files.
+      BASELINE. All 36 checkers pass before any change. All six generators
+      rebuilt from branches.json; combined sha256 of all 216 files under
+      modules/ and core/ identical before and after
+      (76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329);
+      git status --porcelain -- modules core branches.json empty
+      throughout.
+      PROOF BY INJECTION, three rounds, each on a fresh sha256-backed-up
+      file, each restored by byte copy (not git checkout) and
+      sha256-reconfirmed identical immediately after: (1) RULE 3 (name) -
+      sinusitis-treatment-sk-chemists-bootle.html's JSON-LD name swapped
+      from "SK Chemists" to "Smartts Chemist" (its adjacent same-town,
+      different-brand neighbour on Stanley Road, the exact class of
+      copy-paste adjacency CLAUDE.md names as highest-risk for this pair)
+      - CAUGHT, exit 1: "a service page must declare branchName, which
+      branches.json gives as SK Chemists". (2) RULE 5 (address) -
+      shingles-treatment-sk-chemists-bootle.html's JSON-LD postalCode
+      corrupted from L20 5DW to L21 8JG - CAUGHT, exit 1:
+      "address.postalCode is L21 8JG but branches.json says L20 5DW". (3)
+      RULE 8 (map query) - weight-loss-clinic-sk-chemists-bootle.html's
+      Google Maps iframe query changed to a fabricated address with the
+      JSON-LD block left untouched - CAUGHT, exit 1, isolated cleanly to
+      the map rule only (one failure, not two), confirming the checker's
+      own documented separation of the JSON-LD address check from the map
+      check. All three caught first attempt with the expected rule-specific
+      message. Full 36-checker suite and all six generators re-run clean
+      after all three restores; sha256 of modules/+core/ reconfirmed
+      identical to the baseline value above; git status --porcelain --
+      modules core branches.json empty throughout.
+      RESULT. Zero in-repo defect: SK Chemists Bootle's JSON-LD and map
+      data were already correct on every rule, now proven directly by
+      injection against the official checker for the first time rather
+      than left correct by six generators' construction and prior
+      independent-script reads alone.
+      LIVE HALF. Claude in Chrome confirmed not connected at answer pickup
+      and again for this item; fell back to a direct outbound curl sweep
+      from the sandbox shell (confirmed working this run, 200 responses on
+      every page tried). Read the JSON-LD block and map query on five live
+      pages: uti-treatment (200, JSON-LD and map both match branches.json
+      exactly, @type Pharmacy), pharmacy-first (200, @type Pharmacy),
+      travel-clinic (200, @type Pharmacy), switch-prescriptions (200) and
+      weight-loss-clinic (200). ONE LIVE FINDING: the live
+      weight-loss-clinic page's JSON-LD still declares "@type":
+      "MedicalBusiness", not "Pharmacy" - the exact defect item 3.10 fixed
+      in tools/build-weight-loss-pages.js estate-wide on 2026-08-10. The
+      repo copy of this same page (regenerated and byte-confirmed above)
+      correctly declares Pharmacy, and the other four live pages checked
+      this pass all correctly declare Pharmacy, so this is isolated to the
+      one page family the original defect touched. Not an in-repo defect
+      and not a new class of finding - this is the standing "pre-repaste
+      legacy copy" pattern this worklist already documents elsewhere (e.g.
+      3.10's own live findings): the fix landed in the generator and the
+      repo's generated file, but this specific live page has not been
+      repasted into Weebly since. Flagged here as the first confirmation
+      that SK Chemists Bootle's weight-loss-clinic page specifically is
+      still on pre-fix schema live; no new question raised, since it needs
+      a repaste rather than a decision and the general repaste backlog is
+      already tracked. No other live discrepancy found on the five pages
+      read. Evidence in audits/verify-3.8-2026-09-05-twelfth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
