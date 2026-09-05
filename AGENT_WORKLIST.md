@@ -2416,6 +2416,134 @@ reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-02T19:09:58+01:00), then 3.10, 2.1 - re-derive
 rather than assume, since other runs may land in between.
+Quality pass 2026-09-05 (twelfth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Stalest item re-derived via the established git-log block method (36-item
+rotation pool): 3.4 uniquely stalest at 2026-09-04T12:41:10+01:00, ahead of
+3.9 (13:17:57), 3.10 (13:43:24) and 2.1 (15:28:09), matching the eleventh
+pass's own forward note.
+LOCK CHECK (step 1). No .agent-lock present at run start. A .git/index.lock
+roughly 48 minutes old at run start was present, ps aux showed no git
+process; left in place through the working half of the run since it was
+under the 1 hour threshold (the same standing Q87-adjacent shape eleven
+prior runs have recorded), re-checked immediately before this commit and
+removed only once it had genuinely passed 60 minutes with no git process
+running.
+GIT SYNC (step 2). git fetch origin (SSH) failed "Host key verification
+failed" - standing Q87/Q96, unchanged. git fetch origin-https succeeded.
+Local agents/audit-backlog was 8 commits ahead of origin-https/agents/audit-
+backlog, nothing to pull.
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__tabs_context_mcp returned
+"Claude in Chrome is not connected" - standing Q59, unchanged. Logged and
+carried on; no alternative route attempted for the answer fetch specifically,
+nothing clicked, typed, submitted or signed in anywhere. QUESTIONS.json read
+in full: 96 total, 43 open, none answered by pickup this run.
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so step 4 does not
+apply; the new finding below is raised as a normal open question rather than
+decided autonomously.
+THE GENUINELY UNTESTED ANGLE THIS PASS CLOSED. Eleven prior passes proved, by
+direct injection against Cherry Lane's own pages and branch record,
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-whatsapp-
+route.js, check-service-links.js, check-switch-copy.js and check-branch-
+identity.js. tools/check-booking-routes.js - the checker guarding the chain
+from branches.json's widgets block through to the actual Appointedd diary a
+patient lands in, and the one CLAUDE.md's own "booking chain" section names
+directly - had never been exercised against Cherry Lane specifically. Prior
+passes' "no hard-coded widget id" and "no foreign widget id" checks are a
+different claim from this checker's own five per-page rules (ROUTE, BRANCH,
+WIDGET, BRANCHATTR, SERVICEATTR) and its estate-wide RULE 9 (FALLBACK) having
+been proved by injection on this branch's own data and pages.
+New instrument, no import from tools/ beyond invoking the real checker as a
+child process (audits/verify-3.4-2026-09-05-twelfth.js): refuses to run if
+any target already carries a git diff, records every target's sha256 before
+mutation, restores by direct fs.writeFileSync from an in-memory buffer
+immediately after capturing the checker's output and before any assertion.
+Five tests, one at a time, each restored and sha256-reconfirmed before the
+next: (1) RULE branch - cherrylane_liverpool's townSlug renamed in
+branches.json, caught ("matches no trading branch"); (2) RULE widget,
+NO_FALLBACK service - Cherry Lane's own travelClinic widget id removed
+entirely, caught ("needs widgets.travelClinic ... this service must not fall
+back"); (3) RULE widget, Pharmacy First condition, POSITIVE test - Cherry
+Lane's own earache widget id removed (earache is linked from the branch's own
+Pharmacy First overview, so it is allowed to fall back): checker stayed
+clean, correctly proving the fallback path itself works for this branch
+rather than only proving NO_FALLBACK services are blocked from it; (4) RULE
+branchattr - data-branch on insect-bite-treatment-cherry-lane-walton.html
+(untried page for Cherry Lane injection testing in this checker; prior
+passes used UTI, switch, Pharmacy First, weight-loss-clinic, travel-clinic,
+earache, sore-throat and shingles) swapped for Smartts Chemist, caught ("so
+an enquiry from this page is filed against the wrong pharmacy"); (5) RULE
+serviceattr - data-service on sinusitis-treatment-cherry-lane-walton.html
+(also untried for this checker) reworded so it disagreed with every other
+branch's sinusitis page, caught ("is described ... different ways"). All
+five caught first attempt with the expected rule tag; all four target files
+(branches.json, the two page files) confirmed git-diff-empty and sha256-
+identical to their pre-test hashes throughout and after. Full 35-checker
+suite re-run individually after the round: 35/35 exit 0. All six generators
+rebuilt via their own build-*.js scripts with git status --porcelain on
+modules/ and core/ empty before and after (byte-identical) - no in-repo
+defect, nothing to fix.
+LIVE HALF, AND ONE GENUINE NEW FINDING. Claude in Chrome confirmed not
+connected (checked at step 3 and independently again before this section).
+The built-in Claude Browser's preview_start on cherrylanepharmacy.co.uk was
+refused pending site approval, the same outcome as the tenth and eleventh
+passes with no user present in this unattended session to grant it. Fell
+back to a direct read-only curl GET (this run's equivalent of the tenth/
+eleventh passes' PowerShell Invoke-WebRequest route) rather than leaving the
+live half unread for a sixth consecutive pass.
+uti-treatment-cherry-lane-walton.html and pharmacy-first-cherry-lane-
+walton.html both 200; #rbhsv-root on both carries data-branch="Cherry Lane
+Pharmacy", the correct data-service ("UTI treatment" / "Pharmacy First") and
+data-wa="447521775631", matching branches.json exactly, and both pages load
+service.js pinned to service-module-phase1 as documented - no drift on the
+booking-mount attributes every prior pass's other checkers have already
+proved server-side.
+Pulling on the "service.js fetches branches.json from @main at runtime"
+thread CLAUDE.md's CDN-pins section already documents (the chain's second
+hop): fetched https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@main/
+branches.json directly and diffed Cherry Lane's record against this branch's
+checked-out branches.json. Confirmed by git (git fetch origin-https main;
+git merge-base --is-ancestor origin-https/main agents/audit-backlog fails):
+main carries one commit, ff7ac76 ("Add flu widget IDs to 14 branches; fix
+out-of-date lastUpdated", 2026-08-15, authored by rishi235), that is NOT an
+ancestor of agents/audit-backlog. The two branches forked at a1a9591
+(2026-08-08); everything on this side since is the audit's own work
+(including the em-dash and Q17-contraception fixes to service.js already
+correctly ahead of main and expected); ff7ac76 is main's own, separate,
+one-off addition that this branch never picked up. It adds a "flu" key to
+the widgets block of 14 of the 16 trading branches (all except rbh_head
+_office_aintree and clearchemist_aintree, which is consistent with those two
+never carrying a Pharmacy First-style booking suite) and bumps
+lastUpdated to 2026-08-15 - both absent from this branch's branches.json,
+which instead carries its own newer lastUpdated (2026-09-01) from unrelated
+work. Checked whether this is live-consequential before treating it as
+urgent: neither main's nor this branch's modules/service/service.js declares
+a "flu" entry in SERVICE_WIDGET_KEYS (confirmed by reading main's copy via
+git show), so nothing routes to it and no live page currently renders or
+could render this widget - the data is dormant, not a wrong-diary risk today.
+It is still a genuine, previously unknown divergence: three weeks of this
+audit's own booking-routes and widget-diary verification (this pass included)
+has been running against a branches.json that main quietly moved past on
+2026-08-15, and if item 5.5 (Q13, fast-forwarding service-module-phase1 to
+main) or any future merge back to main happens without reconciling this, the
+flu widget ids and the correct lastUpdated ordering both need deciding, not
+silently dropped or silently overwritten. Recorded as Q97 rather than fixed:
+merging main's data into this branch is a real decision (does a flu
+vaccination service exist or is coming, does it need its own generator,
+SERVICE_WIDGET_KEYS entry and GBP pack category the way weight loss and
+travel clinic do) that this run should not make unilaterally with no
+autonomous window open. Does not block item 3.4 or any other worklist item
+today; flagged for whoever handles Q13/5.5.
+WORKLIST AND COMMIT. This paragraph. New evidence file this run:
+audits/verify-3.4-2026-09-05-twelfth.js. QUESTIONS.json: 96 total plus one
+new (Q97), 44 open (43 standing plus Q97); no pickup available this run -
+Claude in Chrome not connected, standing Q59. Files changed and committed:
+AGENT_WORKLIST.md, QUESTIONS.json, the new audits/ file, and AGENT_LOG.md -
+no generator, page, data field or checker file touched in the tracked tree,
+reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-04T13:17:57+01:00), then 3.10, 2.1, 5.2 -
+re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
