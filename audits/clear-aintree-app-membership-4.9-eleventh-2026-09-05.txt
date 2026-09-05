@@ -1,0 +1,79 @@
+﻿Item 4.9 eleventh quality pass, 2026-09-05
+Clear Chemist Aintree GBP pack (gbp-packs/clear-aintree.md)
+Fresh angle: check-app-membership.js rules 8c, 8d, 8e proven against this
+pack's own copy by injection, for the first time in eleven passes.
+
+BASELINE
+- node tools\check-app-membership.js: 0 failures, 4 app members listed
+  (fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree, smartts_bootle)
+- Full 35 tools\check-*.js suite: 0 failures
+- gbp-packs\clear-aintree.md sha256:
+  a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+
+METHOD
+Full repo copied WITH .git to C:\Dev\_scratch-4.9-eleventh-<timestamp>
+(per item 4.10 ninth pass's own method note: excluding .git makes
+check-cdn-pins.js fail falsely on a scratch copy). All injections and
+checker runs against the scratch copy only. Tracked file never opened
+for writing. Each injection restored by byte copy from the live file
+and sha256-reconfirmed before the next round.
+
+INJECTION 1 (rule 8e - the missing positive; branches.json has hasApp
+true for clearchemist_aintree, so its published copy must carry an app
+mention). Stripped every "app" word from the description, Services
+section and Post A/Post B text (leaving the "Notes for the paster"
+section, which is excluded by design, untouched).
+RESULT: CAUGHT.
+  FAIL [gbp packs] gbp-packs/clear-aintree.md: branches.json has hasApp
+  true for clearchemist_aintree, but the copy pasted into the public
+  Google profile carries no app mention, so the profile would omit a
+  feature the branch actually offers
+
+INJECTION 2 (rule 8c - paster note against the field). Restored, then
+changed "App mentions are fine for this branch: branches.json has
+hasApp true." to "...hasApp false." while the field itself stays true.
+RESULT: CAUGHT.
+  FAIL [gbp packs] gbp-packs/clear-aintree.md: the paster note tells the
+  paster branches.json has hasApp false, but it has true for
+  clearchemist_aintree, so the branch's own app would be kept off its
+  profile
+
+INJECTION 3 (rule 8d - the note against the pack it describes).
+Restored, then changed the same note to "No app mention anywhere in
+this pack: branches.json has hasApp true." while the published copy
+still carries an app mention.
+RESULT: CAUGHT.
+  FAIL [gbp packs] gbp-packs/clear-aintree.md: the paster note says
+  there is no app mention anywhere in this pack, but the pasted copy
+  carries one
+
+All three fire independently on this pack's own copy. No checker gap
+found.
+
+REGRESSION SWEEP
+- Final restore: gbp-packs\clear-aintree.md sha256 in scratch matches
+  the live file exactly:
+  a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+- Full 35 tools\check-*.js suite re-run on the scratch copy after
+  restore: 0 failures
+- Live tracked repo confirmed untouched throughout: git status --porcelain
+  -- gbp-packs modules core branches.json tools status empty; hash
+  unchanged before, during and after
+- Scratch directory deleted after the run
+
+LIVE HALF
+Claude in Chrome reported not connected this run (tabs_context_mcp).
+Used the established Windows-MCP PowerShell curl.exe fallback (proven
+working on the item 4.9 ninth pass, 2026-09-03) instead of skipping.
+- https://www.clearchemist.co.uk/contact-us.html: phone 0151 203 6535
+  (Q28, confirmed 2026-08-30) unchanged; address Unit 20 Brookfield
+  Trade Centre, Brookfield Drive, Aintree, L9 7AS unchanged; WhatsApp
+  https://wa.me/447512330076 (07512 330 076, Q21's concrete case)
+  unchanged and still distinct from the estate-wide hardcoded
+  447521775631.
+- switch-prescriptions-clear-aintree.html: 404
+- weight-loss-clinic-clear-aintree.html: 404
+- travel-clinic-clear-aintree.html: 404
+  (Q29 unchanged, homepage-button workaround in the pack still correct)
+
+No in-repo defect found. No new question raised.

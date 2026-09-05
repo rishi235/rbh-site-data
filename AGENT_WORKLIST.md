@@ -8339,6 +8339,36 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Evidence:
       audits/clear-aintree-brand-url-uk-spelling-4.9-tenth-2026-09-03.txt.
       Done 2026-09-03
+      Eleventh quality pass 2026-09-05: fresh angle, proving
+      check-app-membership.js's rules against this pack's own copy for the
+      first time in eleven passes, since none of the prior ten tested it
+      despite Clear Aintree being one of only four branches with hasApp
+      true. Full repo copied with .git included to a scratch directory;
+      three injections run one at a time, each restored by byte copy and
+      sha256-reconfirmed before the next round, live repo untouched
+      throughout. First: stripped every "app" word from the published
+      copy (description, Services section, Post A and Post B) while
+      branches.json keeps hasApp true for this branch - CAUGHT by rule
+      8e, the "if and only if" mirror for member branches, correct
+      message naming the branch. Second: changed the paster note's
+      "branches.json has hasApp true" to "hasApp false" while the field
+      itself stays true - CAUGHT by rule 8c, correct message. Third:
+      changed the same note to read "No app mention anywhere in this
+      pack" while the published copy still carries one - CAUGHT by rule
+      8d, correct message. All three fire independently on this pack's
+      own copy; no checker gap found. Full 35-checker suite re-run on the
+      scratch copy after the final restore: 35/35 exit 0. Tracked repo
+      hash unchanged throughout (sha256
+      a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4).
+      LIVE HALF: Claude in Chrome unreachable again this run; used the
+      established Windows-MCP PowerShell curl.exe fallback instead.
+      Contact page confirms phone 0151 203 6535 (Q28) and WhatsApp 07512
+      330 076 (Q21's concrete case) both unchanged; all three
+      post-target URLs still return 404 (Q29 unchanged, homepage-button
+      workaround still correct). No in-repo defect found, no new
+      question raised. Evidence:
+      audits/clear-aintree-app-membership-4.9-eleventh-2026-09-05.txt.
+      Done 2026-09-05
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
