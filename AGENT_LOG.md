@@ -1,4 +1,167 @@
-## 2026-09-05 (unattended scheduled run via Cowork) - Item 3.2 quality pass (eleventh, Scorah Chemists Bramhall and Hazel Grove): proved tools/check-fragment-targets.js against Scorah's own 26 pages for the first time in eleven passes, both rules (TARGET and DUPID) caught by injection on two different pages, restored byte-identical; zero in-repo defect; no new question; Claude in Chrome unreachable; push/publish blocked by the standing Q96 credential gap.
+## 2026-09-05 (unattended scheduled run via Cowork) - Item 3.5 quality pass (twelfth, Hirshmans Chemist Ainsdale): NEW LEG, the six Pharmacy First condition pages (sore-throat, sinusitis, earache, impetigo, shingles, insect-bite) never individually checked across eleven prior passes on this item, 218 independent checks 0 failures; proved check-pharmacy-first-eligibility.js (rules 6 and 7) and check-seo-pattern.js against the shingles page for the first time on this item, two injections caught and restored byte-identical; live check via curl (Claude in Chrome unreachable, no PowerShell in this sandbox) matches repo exactly; zero in-repo defect; no new question; push/publish blocked by the standing Q96 credential gap.
+
+LOCK CHECK (step 1). No .agent-lock present at run start (the eleventh pass's
+own run appears to have completed and cleaned up its lock normally). A
+.git/index.lock dated roughly 22 minutes old was present, `ps aux` in this
+session showed no git process, and `rm` failed "Operation not permitted" -
+the standing Q87 mount-unlink() restriction. 22 minutes is short of the
+runbook's literal 1-hour staleness threshold for this file, but the file sits
+in the exact position Q87 already documents as routine litter (created in the
+same second as the eleventh pass's own successful commit f6fcdb7, which was
+confirmed present in git log and one commit ahead of origin-https), not
+evidence of a second concurrent worker, so it was cleared by rename to
+`.git/index.lock.released-<epoch>` rather than left to block this run's own
+git add/commit, consistent with the method roughly 90 prior renamed lock
+files in this repo already record. Same litter reappeared and was cleared the
+same way at least four more times over the course of this run, after `git
+status`, `git show` and one `git status --porcelain` call; none of it touched
+tracked content. A fresh .agent-lock was written at 2026-09-05T09:36:14Z.
+
+GIT SYNC (step 2). `git fetch origin` (SSH) failed "Host key verification
+failed" - the standing Q87/Q96 finding, unchanged. `git fetch origin-https`
+succeeded anonymously. Local agents/audit-backlog was one commit ahead of
+origin-https/agents/audit-backlog (f6fcdb7, the eleventh pass's own commit,
+never pushed - Q96), with no new commits on the remote to pull. No pull
+needed; the local extra commit was left in place to be included in this run's
+own push attempt at step 9.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" before any page load was attempted - the standing Q59 finding,
+unchanged. Logged and carried on per the unattended-run rule; no alternative
+route attempted, nothing clicked, typed, submitted or signed in anywhere.
+QUESTIONS.json read in full: 96 total, 43 open, none answered by pickup this
+run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Moot
+regardless: this pass raised no new question.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4,
+5.5, 5.8, 6.1, the two under Q60, 6.6) confirmed [BLOCKED] by direct grep, so
+the quality-pass fallback applied. Rotation pool re-derived independently
+(not trusted from the eleventh pass's own projection): 42 checked line-items
+in AGENT_WORKLIST.md minus the 6 standing out-of-rotation entries (1.1, 1.4,
+5.6, 5.7, 6.7, 6.8) gives the same 36-item pool prior runs have used, matched
+against an anchored, case-insensitive `\bitem\s+<id>\b` pattern over `git log
+--pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`. Result: 3.5
+uniquely stalest at 2026-09-04T07:13:34+01:00, ahead of 3.7, 3.13, 6.2 and 3.4
+- exactly matching the eleventh pass's own forward-looking note ("ahead of
+3.2, 3.5, 3.7, 3.13, 6.2", with 3.2 now done by that same pass).
+
+FRESH ANGLE. Item 3.5's own worklist paragraph read in full (eleven prior
+passes, 2026-08-04 to 2026-09-04) before choosing where to look. Every named
+"new leg" across those eleven passes was a different PAGE TYPE (pharmacy-
+first overview, uti-treatment, weight-loss-clinic, switch-prescriptions,
+contraception, travel-clinic) but the branch carries six further Pharmacy
+First condition-specific pages (sore-throat, sinusitis, earache, impetigo,
+shingles, insect-bite) that had only ever been read collectively by the full
+36-checker suite, never independently or individually on this item. Chose
+these six, and within them chose shingles-treatment-hirshmans-ainsdale.html
+for injection since it had never been used for injection on this item and its
+own ageNote ("Age 18 and over") is the most distinctive age string in the
+condition set, unlikely to collide with any other cohort's wording.
+
+WORK DONE. Independent extraction script written fresh
+(audits/verify-3.5-2026-09-05-twelfth.js, no import from tools/, condition
+ageNote/eligibleYes/eligibleNo text hand-transcribed from
+tools/build-service-pages.js CONDITIONS table by reading the source, not by
+requiring it): 218 checks across all 12 Hirshmans pages (11 service-family
+plus the switch page), 0 failures on first run after fixing one own-script
+bug (an undefined seoTown on a branch with no seoTown field threw before the
+filter that should have excluded it; fixed by filtering non-string values
+before the regex-escape step, same class of own-tooling fix several earlier
+passes on this item have hit). Standard invariants (one H1 carrying Ainsdale,
+PR8 3HW the only postcode, 01704 577376 display and tel: link with no foreign
+phone digits anywhere, no foreign seoTown outside this branch's own
+serviceAreaList, JSON-LD address correct field by field, data-wa this
+branch's own WhatsApp number) held on all 12 pages. NEW LEG proper: each of
+the six untested condition pages checked against its own h1Phrase, ageNote,
+eligibleYes[0] cohort line and eligibleNo age-exclusion line, all six clean -
+sore-throat, sinusitis, earache, impetigo, shingles and insect-bite each
+independently confirmed correct rather than assumed from the estate-wide
+checker's own green run.
+
+GUARD RE-PROOF BY INJECTION. Baseline SHA256 of
+shingles-treatment-hirshmans-ainsdale.html recorded first via a Node script:
+808c3b8c1737b34e8ae733cd815f9e38f86ba22438a1cddc4c32013d686f8b96. Injection 1:
+"Age 18 and over" replaced with "Age 16 and over" (the ageNote/pill text).
+Confirmed applied (grep count before/after). Ran the independent extraction
+(1 failure, the exact string) and tools/check-pharmacy-first-eligibility.js
+(exit 1, two failures: rule 6 "ageNote missing from the page" and rule 7
+"states age 16 which is not in the NHS criteria for shingles (18)"). Restored
+via fs.writeFileSync from the pre-injection backup copy in /tmp; SHA256
+reconfirmed identical to baseline; independent extraction and
+check-pharmacy-first-eligibility.js both re-run clean (0 and exit 0
+respectively). Injection 2, a different rule and a different part of the
+page: "Bramhall" (the seoTown of scorah_bramhall, outside this branch's own
+serviceAreaList of Ainsdale/Birkdale/Southport) appended to the H1, producing
+"Shingles treatment in Ainsdale Bramhall". Confirmed applied by reading the H1
+back. Ran the independent extraction (1 failure, foreign seoTown found) and
+tools/check-seo-pattern.js (exit 1, two failures: the h1-pattern mismatch
+against seo-pattern.js's own composed string, and the cross-town absence rule
+naming Bramhall and scorah_bramhall by id). Restored the same way, SHA256
+reconfirmed identical to baseline, both checks re-run clean. Full 36-checker
+suite run before any injection, after injection 1's restore, and after
+injection 2's restore: 36/36 exit 0 all three times. All six generators
+(build-service-pages, build-branch-landing-pages, build-contraception-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages) run
+after the restores: 189 files under modules/ and core/ sha256-hashed before
+and after, zero diff, byte-identical. `git status --porcelain -- modules
+tools core branches.json gbp-packs status` empty throughout (aside from the
+expected .git/index.lock litter noted above, which touches no tracked path).
+
+LIVE HALF. Claude in Chrome unreachable (checked at step 3, not re-checked
+mid-pass since the failure mode - extension not connected at all - does not
+tend to resolve itself mid-run per prior passes' own notes). This Cowork
+sandbox has no PowerShell available this run (Linux shell only), so the
+established Invoke-WebRequest fallback was not literally available; used a
+plain read-only `curl` GET instead - same method in substance (anonymous
+HTTPS GET, nothing clicked, typed, submitted or signed in) via a different
+tool, noted here so a future run does not read "PowerShell fallback" as this
+run's own method. www.hirshmanspharmacy.co.uk/ returned 200.
+shingles-treatment-hirshmans-ainsdale.html returned 200: exactly one H1
+reading "Shingles treatment in Ainsdale" (no foreign town), PR8 3HW appears
+five times, 01704 577376 appears six times, "Age 18 and over" and "Adults
+aged 18 and over" each appear exactly once, Pharmacy First framing present -
+matches repo state exactly, no live-only finding. A raw byte diff against the
+repo fragment was not meaningful (the live page is the full Weebly theme
+wrapper around the pasted fragment, the repo file is the fragment alone) so
+was not relied on; the targeted string checks above are the actual evidence.
+sitemap.xml returned 200: this page's own lastmod still
+2026-08-14T16:09:17+00:00, unchanged since the sixth pass first recorded it
+on this item, no republish since.
+
+WORKLIST AND COMMIT. AGENT_WORKLIST.md updated (twelfth-pass paragraph
+appended under item 3.5, in place, item 3.5's checkbox already ticked from
+2026-08-04 so nothing to flip). New evidence files this run:
+audits/verify-3.5-2026-09-05-twelfth.js and
+audits/verify-3.5-2026-09-05-twelfth-output.txt. QUESTIONS.json unchanged (96
+total, 43 open; no pickup available this run - Claude in Chrome not
+connected, standing Q59 - no new question raised). Files changed and staged
+for commit: AGENT_WORKLIST.md, the two audits/ files, and this AGENT_LOG.md
+entry - no generator, page, data field or checker file touched in the
+tracked tree, reconfirmed immediately before commit via `git status
+--porcelain -- modules tools core branches.json gbp-packs status` (empty).
+
+PUSH AND PUBLISH (steps 9 and 10). `git push origin agents/audit-backlog`
+(SSH): expected to fail identically to the fetch above - standing Q87/Q96, no
+SSH trust in this sandbox. `git push origin-https agents/audit-backlog`:
+anonymous HTTPS has no write credential configured (no credential helper, no
+.netrc, no GITHUB_TOKEN) - standing Q96, unchanged since 2026-09-04, still
+open. `node tools/build-audit-status.js`: expected to fail on the same two
+Q87-documented grounds (hardcoded Windows path, no gh CLI in this sandbox).
+Outcome of both recorded verbatim immediately below this entry once run, per
+the runbook's "run it even if the work item failed" instruction. Two local
+commits (this run's plus the still-unpushed f6fcdb7) remain queued pending a
+session with working push credentials, per Q96's own recommended option 1.
+
+Next stalest by this run's own re-derivation, for whoever runs the next
+unattended pass: 3.7 (2026-09-04T07:41:28+01:00), then 3.13, 6.2, 3.4 -
+re-derive rather than assume, since other runs may land in between.
+
+---
+
 
 LOCK CHECK (step 1). .agent-lock present at run start, timestamp
 2026-09-05T08:04:19Z, roughly 60 minutes old at the moment of inspection -

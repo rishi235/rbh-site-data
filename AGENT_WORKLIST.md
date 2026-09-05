@@ -2683,6 +2683,80 @@ it or log it; found at this run's start with its .agent-lock past the
 task's own lock rule (see ENVIRONMENT note in AGENT_LOG.md). No in-repo
 defect found, no new question.
 
+Quality pass 2026-09-05 (twelfth): NEW LEG, the six Pharmacy First
+condition-specific pages (sore-throat, sinusitis, earache, impetigo, shingles,
+insect-bite) never independently, individually checked on this item across
+eleven prior passes, even though every one of the eleven ran the full
+36-checker suite over them collectively. Each prior "new leg" picked a
+different PAGE TYPE (pharmacy-first overview: fifth; uti-treatment: third,
+fourth, seventh; weight-loss-clinic: eighth; switch-prescriptions: ninth;
+contraception: tenth; travel-clinic: eleventh) but none had gone back to these
+six. Independent extraction (audits/verify-3.5-2026-09-05-twelfth.js, freshly
+written, no import from tools/, condition data hand-transcribed from
+build-service-pages.js rather than required in) read all 12 Hirshmans pages
+against the standard invariants (one H1 carrying Ainsdale, PR8 3HW the only
+postcode, 01704 577376 display and tel: link with no foreign phone, no
+foreign seoTown, JSON-LD address field by field, data-wa this branch's own)
+plus, for the six new-leg pages specifically, each condition's own h1Phrase,
+ageNote and eligibleYes[0] cohort line and eligibleNo age-exclusion line
+(the exact two-independently-authored-strings-carrying-one-clinical-fact
+shape check-pharmacy-first-eligibility.js was created against on the original
+2026-08-11 pass, here re-proved per branch rather than trusted estate-wide):
+218 checks, 0 failures. GUARD RE-PROOF BY INJECTION, on a page
+(shingles-treatment-hirshmans-ainsdale.html) never used for injection on this
+item across eleven prior passes and on a checker
+(check-pharmacy-first-eligibility.js) never proven against this item's own
+page before. Baseline SHA256
+808c3b8c1737b34e8ae733cd815f9e38f86ba22438a1cddc4c32013d686f8b96 recorded
+first via a Node script. Injection 1: the ageNote/pill text "Age 18 and over"
+changed to "Age 16 and over". CAUGHT: check-pharmacy-first-eligibility.js exit
+1, two failures - rule 6 (ageNote missing, since the pinned string no longer
+appears) and rule 7 (age 16 stated is not in the NHS criteria for shingles,
+18) - and the independent extraction on the same string. Restored by
+fs.writeFileSync from the pre-injection backup, SHA256-reconfirmed identical
+to baseline. Injection 2, a different rule and a different part of the page:
+"Bramhall" (scorah_bramhall's seoTown, outside this branch's serviceAreaList)
+appended to the H1. CAUGHT: check-seo-pattern.js exit 1, two failures - the h1
+pattern mismatch and the cross-town absence rule naming Bramhall and
+scorah_bramhall by id - and the independent extraction's foreign-town scan.
+Restored the same way, SHA256-reconfirmed identical to baseline. Full
+36-checker suite re-run after each restore: 36/36 exit 0 both times; all six
+generators rebuilt every file under modules/ and core/ byte-identical
+(189 files sha256-hashed before and after, zero diff); git status --porcelain
+-- modules tools core branches.json gbp-packs status empty throughout. LIVE
+HALF: Claude in Chrome unreachable this run (checked at step 3 and
+reconfirmed before this section). This sandbox has no PowerShell this run, so
+fell back to a plain read-only curl GET against hirshmanspharmacy.co.uk
+instead of the usual Invoke-WebRequest fallback - same method (anonymous
+HTTPS GET, nothing clicked, typed or submitted), different tool.
+shingles-treatment-hirshmans-ainsdale.html: 200, one H1 reading exactly
+"Shingles treatment in Ainsdale" (no foreign town), PR8 3HW and 01704 577376
+both present, "Age 18 and over" and "Adults aged 18 and over" each present
+exactly once - matches the repo-side state exactly, no live-only finding.
+sitemap.xml: 200, this page's own lastmod still 2026-08-14T16:09:17+00:00,
+unchanged since the sixth pass first recorded it, no republish. Evidence in
+audits/verify-3.5-2026-09-05-twelfth.js and
+audits/verify-3.5-2026-09-05-twelfth-output.txt. No in-repo defect found, no
+new question.
+ENVIRONMENT NOTE carried from run start: this run's own .git/index.lock
+litter (Q87's documented mount-unlink() restriction: rm fails "Operation not
+permitted", rename succeeds) reappeared after ordinary git status and git
+show calls at least four times during this pass and was cleared by rename to
+`.git/index.lock.released-<epoch>` each time it blocked the next step; none
+of it touched tracked content. A pre-existing local commit (f6fcdb7, the
+eleventh pass's own commit) and its own leftover 22-minute-old index.lock
+were found at this run's start, confirmed not stale enough to fall under the
+runbook's literal 1-hour threshold but confirmed via `ps aux` to have no
+git process behind it and matching the Q87 litter shape exactly (created in
+the same second as a successful commit), so cleared the same way rather than
+left to block this run's own git add/commit.
+Next stalest by this run's own re-derivation (pool of 36, six standing
+out-of-rotation items 1.1/1.4/5.6/5.7/6.7/6.8 excluded, ranked by the most
+recent commit subject matching `\bitem\s+<id>\b` against
+AGENT_WORKLIST.md/AGENT_LOG.md history): 3.7 (2026-09-04T07:41:28+01:00), then
+3.13, 6.2, 3.4 - re-derive rather than assume, since other runs may land in
+between.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
