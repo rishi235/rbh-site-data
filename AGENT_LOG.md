@@ -85,7 +85,32 @@ already fully covered by Q96 and Q87, and raising a third near-duplicate
 would only add noise to an already-open, already-recommended decision.
 Evidence: audits/verify-3.7-2026-09-05-eleventh.js.
 
-PUSH/PUBLISH (steps 9-10) - recorded after the attempt, see below.
+PUSH/PUBLISH (steps 9-10). `git add` + `git commit` succeeded locally as
+6e22f44 ("Item 3.7 quality pass (eleventh, Smartts Chemist Bootle)..."),
+local agents/audit-backlog now 4 commits ahead of origin/origin-https (this
+pass's own commit plus the twelfth pass's three from earlier today).
+`git push origin agents/audit-backlog` (SSH) failed "Host key verification
+failed"; `git push origin-https agents/audit-backlog` also failed, "could
+not read Username for 'https://github.com': No such device or address" -
+no credential of any kind available in this session, exactly the standing
+Q96 finding. `node tools/build-audit-status.js` failed
+`ENOENT: no such file or directory, open 'C:/Dev/rbh-site-data/
+AGENT_WORKLIST.md'` - exactly the standing Q87 finding (the script's
+hardcoded Windows path does not resolve inside this Linux sandbox). Not
+patched this run: Q87 already raises the __dirname-relative fix as a
+recommended, low-risk option pending Rishi's decision, and unilaterally
+changing it here would pre-empt that decision rather than implement it.
+No new question raised for either gap - both are already open, already
+recommended, and already carry full diagnostic detail in Q96 and Q87; a
+third near-duplicate entry would not add information, only noise, and
+QUESTIONS.json's own convention (a stale KNOWN-style entry fails a checker
+run) argues against multiplying entries that say the same thing. This run's
+own four commits (86b9dc8's three plus 6e22f44) remain local-only pending
+either a credential being provisioned in this session type or the task
+running on Rishi's own host, per Q96/Q87 option 1.
+
+.agent-lock deleted (renamed, per the standing Q87 workaround) at the end
+of this run.
 
 ---
 
