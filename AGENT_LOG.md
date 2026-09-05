@@ -155,9 +155,31 @@ credential gap, steps 9 and 10 below were attempted from this sandbox only
 far enough to reconfirm the block, then handed to whichever fallback route
 this environment offers; see CONFIRMED OUTCOME.
 
-CONFIRMED OUTCOME. [To be completed at the end of this run - see the
-immediately following note if push/publish could not be reconfirmed the same
-way as prior runs.]
+CONFIRMED OUTCOME. Commit landed locally as 299d1b1. git push origin
+agents/audit-backlog and git push origin-https agents/audit-backlog from the
+sandbox both failed identically to the standing Q96/Q87 blocker, reconfirmed
+rather than assumed: SSH "Host key verification failed" (no known_hosts, no
+agent, no key material), HTTPS "could not read Username for
+'https://github.com'" (no credential helper, no .netrc, no GITHUB_TOKEN).
+mcp__Windows-MCP__PowerShell was available this session (loaded via
+ToolSearch): used first read-only to confirm the native checkout at the
+canonical C:\Dev\rbh-site-data already showed the same 299d1b1 HEAD (same
+underlying file as the sandbox mount, "ahead of origin/agents/audit-backlog
+by 1 commit"), then ran git push origin agents/audit-backlog from there. It
+succeeded (9c4b8b8..299d1b1 agents/audit-backlog -> agents/audit-backlog;
+PowerShell's CLIXML wrapping again put git's normal stderr ref-update line
+under a "NativeCommandError" that reads like a failure at a glance) -
+confirmed landed by a follow-up git fetch origin + git log -1 --oneline
+origin/agents/audit-backlog from the same native session, showing 299d1b1
+and "branch is up to date with 'origin/agents/audit-backlog'". Step 10 run
+the same way: node tools/build-audit-status.js from the native
+C:\Dev\rbh-site-data succeeded outright, "Published
+reports/digital/Digital_Audit_Status.html (42/48 done, 88%)". Both steps 9
+and 10 completed successfully this run, via the same Windows-MCP PowerShell
+fallback route established by prior runs.
+
+---
+
 
 LOCK CHECK (step 1). No .agent-lock present at start (only ~90 historical .agent-lock.released-* files and other pre-existing scratch/test litter, out of scope). Fresh .agent-lock written via the sandbox mount, timestamp 2026-09-05T07:05:45Z UTC. One stray .git/index.lock found at the canonical path, created 2026-09-05 07:45 (about 20 minutes old, under the runbook's 1-hour threshold). `ps -ef`, `lsof .git/index.lock` and `fuser .git/index.lock` all confirmed no process anywhere held it or had it open, so it was orphaned rather than genuinely in use - the same direct-evidence departure from the letter of the 1-hour rule the immediately preceding run recorded. Cleared along with two further stale locks found at the same moment, .git/HEAD.lock and .git/objects/maintenance.lock (both from the same window), all three by same-directory rename into a fresh .git/_trash/session-1788591987/ folder (this mount rejects unlink() outright, confirmed again by a direct touch/rm probe: "Operation not permitted"), git status/log confirmed unaffected immediately after. A second, freshly-created .git/index.lock appeared later in the run as a normal side effect of a plain `git status` call (the mount's unlink() rejection stops git cleaning up its own lock even after a successful read-only operation, exactly the litter mechanism Q87 already documents) and was cleared the same way before any add/commit was attempted.
 
