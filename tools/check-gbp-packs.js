@@ -2025,9 +2025,9 @@ for (const file of packFiles) {
   // "free NHS assessment" and "free blood pressure checks", which is the
   // correct description of an NHS service and the opposite of a promotion.
   const PRICE_PATTERNS = [
-    [/Ã‚Â£\s?\d/, "a price"],
+    [/£\s?\d/, "a price"],
     [/\b\d+(?:\.\d{1,2})?\s*(?:pounds|quid|gbp)\b/i, "a price written in words"],
-    [/\bfrom\s+(?:just\s+|only\s+)?\d/i, 'a "from" lead price'],
+    [/\bfrom\s+(?:just\s+|only\s+)?£?\s?\d/i, 'a "from" lead price'],
   ];
   const OFFER_PATTERNS = [
     [/\bspecial offers?\b/i, "a special offer"],
@@ -2035,7 +2035,7 @@ for (const file of packFiles) {
     [/\bdiscount(?:ed|s)?\b/i, "a discount"],
     [/\b\d+\s*%\s*off\b/i, "a percentage discount"],
     [/\bthis week only\b|\blimited time\b|\bwhile stocks last\b/i, "a time-limited offer"],
-    [/\bsave\s+Ã‚Â£?\s?\d/i, "a saving claim"],
+    [/\bsave\s+£?\s?\d/i, "a saving claim"],
   ];
   // Section 3 joins the four post bodies on the item 4.11 pass, 2026-08-14:
   // see the note on servicesOf() above. A Services entry is pushed onto the

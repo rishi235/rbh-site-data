@@ -1,0 +1,154 @@
+Item 4.6 quality pass (twelfth), 2026-09-05 (unattended scheduled run via Cowork,
+audit-backlog-worker)
+
+ROTATION. All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the
+two lines under Q60, 6.6) confirmed [BLOCKED] by direct grep, 0 unblocked, so
+the quality-pass fallback applied. Rotation pool: 37 completed items (43 checked
+AGENT_WORKLIST.md lines minus the 6 declared out-of-rotation one-offs: 1.1, 1.4,
+5.6, 5.7, 6.7, 6.8). Staleness re-derived mechanically from AGENT_LOG.md header
+dates: for each of the 37 pool items, the most recent dated header mentioning a
+quality pass on that item was located by grep, then the oldest of those 37 dates
+was taken. Every other pool item had already received a pass on 2026-09-05
+(today); item 4.6 (McCanns Chemist Aigburth GBP pack) was last touched
+2026-09-04 (eleventh pass, "Item 4.6 quality pass (eleventh)", AGENT_LOG.md line
+1421 at run start) and was the sole item not yet touched today, no tie.
+
+BASELINE. node tools/check-gbp-packs.js before any change: 0 failures, 17 known
+WARNs (the standing Q64 address-locality warnings, the four live-only link-target
+warnings, and hirshmans-ainsdale's Q72 qualifier warning), unchanged from the
+eleventh pass. All 36 checkers run individually: 36/36 exit 0. git status on
+modules/ and core/ empty. sha256 of gbp-packs/mccanns-aigburth.md:
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693, matching every
+prior pass's recorded value - the pack itself has not moved since 2026-08-04.
+
+FRESH ANGLE. Eleven prior passes had proven, by direct injection against this
+specific pack, the branch-name-as-place rule, the address-stated-more-than-once
+rule (and the "every house number on the branch's own road" rule it produced),
+the hours-stated-anywhere-in-the-pack rule, the time/day pairing rule, the
+lunch-closure split-day rule, the sister-branch-named-in-prose rule, and a phone
+digit-swap. Read tools/check-gbp-packs.js's full rule inventory (34 "--- ... ---"
+section headers) and cross-referenced against this pack's eleven-pass history:
+the "no lead pricing or offer wording in the posted copy" rule (PRICE_PATTERNS /
+OFFER_PATTERNS, added item 4.11 pass 2026-08-14, itself the direct checker-side
+counterpart to this pack's own live Q83 finding - the weight loss clinic booking
+block on the real Weebly page states "from £39.99" ahead of its eligibility
+section) had never been proven by injection against mccanns-aigburth.md's own
+pack copy. Given Q83 is specifically about this branch's live pricing wording,
+this is the most on-topic untested rule available.
+
+REAL DEFECT FOUND AND FIXED, in the checker, not the pack. Before designing the
+injection, the rule's own source was read to choose a realistic phrase, and its
+first pattern, meant to catch a literal pound sign, is:
+
+    [/Ã‚Â£\s?\d/, "a price"]
+
+Ã‚Â£ is not a pound sign. hexdump confirmed the actual bytes are the UTF-8
+encoding of the four characters A-tilde, single-low-9-quote, A-circumflex,
+pound-sign (c3 83 e2 80 9a c3 82 c2 a3) - a double mojibake corruption of a
+single real £ (U+00A3, UTF-8 C2 A3), not the character itself. grep -rl for the
+correct C2 A3 byte pair across every file in tools/ found it in no other checker,
+so there was no working example to have copied this from; the corruption sits
+only in this one file, in two places (the same broken sequence recurs at line
+2038, "\bsave\s+Ã‚Â£?\s?\d/i", the saving-claim pattern).
+
+Proved empirically before touching any pack: extracted the live PRICE_PATTERNS
+array from the running source with node and matched it against three realistic
+phrases, including the pack's own live wording, "Weight loss from just £39.99 a
+month." All three produced NO PATTERN MATCHED. The reason is two-fold. Pattern 1
+(the £ pattern) cannot match a real £ because its literal is corrupted. Pattern 3
+(/\bfrom\s+(?:just\s+|only\s+)?\d/i, the "from" lead-price pattern) also missed
+it, because the £ symbol sits between "from " and the digit and \s+ does not
+match a currency symbol, so "from £39.99" never reaches a \d in that pattern's
+required position either. The two patterns that exist specifically to catch a
+lead price both miss the single most realistic way of writing one in British
+pharmacy copy - a plain £ sign - and this is not hypothetical: it is the exact
+wording already live on this branch's own weight loss page per Q83.
+
+FIX. tools/check-gbp-packs.js, two edits: replaced the corrupted "Ã‚Â£" with a
+real £ (U+00A3) in the PRICE_PATTERNS "a price" pattern and in the OFFER_PATTERNS
+"a saving claim" pattern; widened the "from" lead-price pattern to
+/\bfrom\s+(?:just\s+|only\s+)?£?\s?\d/i so an optional £ between "from"/"just"/
+"only" and the digit no longer blocks the match. No other pattern touched. sha256
+of tools/check-gbp-packs.js before: (not recorded, pre-existing corrupted file,
+git history holds it); after the two edits the file's git diff is a 3-line/3-line
+change confined to the two regex literals and the one widened pattern, verified
+with `git diff --stat -- tools/check-gbp-packs.js`.
+
+REGRESSION CHECK AFTER THE FIX, BEFORE INJECTION. node tools/check-gbp-packs.js:
+0 failures, same 17 known WARNs, byte-for-byte the same set as the pre-fix
+baseline - confirming the fix alone introduces no new failure against any of the
+15 packs as they stand today (none currently states a real price or offer).
+
+INJECTION. On the tracked pack file itself (restored by byte copy afterwards, not
+git checkout - this mount's checkout cannot reliably unlink the old file, the
+standing quirk recorded on multiple recent runs), Post C's closing sentence was
+changed from "Confidential and judgement-free. Book your consultation today." to
+"Confidential and judgement-free. Plans start from £39.99 a month. Book your
+consultation today." - the pack's own live Q83 wording, verbatim. sha256 of the
+pack before injection reconfirmed fdb1429d...693; after injection,
+9e89a416...6ed (differs, confirming the edit landed).
+
+RESULT. node tools/check-gbp-packs.js: exit 1, exactly one new FAIL:
+"mccanns-aigburth.md: Post C - Weight loss clinic carries a price in the posted
+copy ("£3"). A Google post is advertising, not an inner page the customer chose
+to visit, and the house standards bar lead pricing that encourages entry on
+price, naming "treatments start from ..." as a ruled breach
+(compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Keep price out of
+the post and let the consultation page carry it." All 17 pre-existing WARNs
+present unchanged (verified by count: 17 WARN lines, 1 FAIL line), confirming
+the injection produced exactly one new failure and disturbed nothing else in the
+other 14 packs.
+
+RESTORE. File restored by byte copy from the pre-injection backup (not git
+checkout); sha256 reconfirmed fdb1429d9701399ab9c2139db858a826d72efb5fe6307520
+476d0a4ba3c36693, identical to the pre-injection value and to every prior pass's
+recorded figure. `git status --short` and `git diff` on gbp-packs/mccanns-
+aigburth.md both empty. Full 36-checker suite re-run individually immediately
+after: 36/36 exit 0. `git status --short modules/ core/` empty throughout - no
+generator, page or data file touched; gbp-packs is not a generator input and the
+checker fix does not change what any generator writes.
+
+SCOPE OF THE FIX. Estate-wide, not local to this pack: the corrupted regex sat
+in the shared checker, so every one of the 15 packs was equally unprotected
+against a plain £ sign before this fix, not only mccanns-aigburth.md. No other
+pack in the estate currently states a price (confirmed by the unchanged 0-
+failure baseline before injection), so this closes a latent estate-wide gap
+rather than a live breach - the same shape as several prior findings in this
+audit (the map-embed encoding check, the meta-keywords file discovery, the
+WhatsApp seven-copy problem): a rule existed, was even proven once before
+(2026-08-13, against a different pack's Post C, using ASCII-only test strings
+"99 pounds" and spelled-out wording that never exercised the £ literal), and
+nobody had checked it against the specific character a UK pharmacy would
+actually type.
+
+LIVE HALF. Claude in Chrome: list_connected_browsers returned an empty array (no
+browser connected), consistent with Q59; not retried by another route for the
+pickup itself, per procedure. Live verification used the established read-only
+GET fallback (curl, GET only, -L to follow redirects, no interaction, no login).
+Profile-website landing page (pharmacy-mccanns-aigburth.html): 404, unchanged,
+still awaiting the queued Weebly paste run. The four post targets (Pharmacy
+First, switch, weight loss clinic, travel clinic): all 200, unchanged. Full post
+text not re-read this pass (last confirmed clean on the seventh and ninth
+passes), so this is a status/reachability check, not a fresh content read. Q83
+(the live weight loss booking block still stating "from £39.99" ahead of its
+eligibility section) not re-raised, already open, and this pass's finding is the
+checker-side proof that a future repaste correcting Q83 - or a regression
+re-introducing it - would now actually be caught by the pack checker rather than
+only by a human reading the live page.
+
+QUESTIONS. No new in-repo defect requiring Rishi's decision - the mojibake fix
+corrects the regex to match what its own name, comment and neighbouring patterns
+already establish it was always meant to catch (a literal £), so this is a bug
+fix, not a policy choice, and was made directly per CLAUDE.md's convention for
+checker-side defects found during a quality pass. No new question raised; open
+question count unchanged at 44 of 97.
+
+ANSWER PICKUP. Attempted at step 3 via the same list_connected_browsers call
+above; empty, so no portal answers were collected this run (consistent with
+Q59). QUESTIONS.json read directly: 97 total, 44 open, none answered by pickup
+this run.
+
+Evidence retained: this file, plus the exact injected/restored diffs described
+above (not separately saved as a patch, since both edits are fully reproduced in
+text here and the restore was verified byte-for-byte against the pack's
+long-standing recorded sha256).

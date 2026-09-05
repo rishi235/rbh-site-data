@@ -8767,6 +8767,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       awaiting the queued paste run, Q83 not re-raised. No new question;
       open question count unchanged at 43 of 96. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-04-eleventh.txt.
+      Quality pass 2026-09-05 (unattended run, twelfth pass): stalest item
+      in the rotation pool, re-derived mechanically (all 36 other pool
+      items already touched today; 4.6 last touched 2026-09-04, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; all 36 checkers individually 36/36 exit 0; sha256 of the
+      pack fdb1429d...693, unchanged since 2026-08-04. FRESH ANGLE: of
+      eleven prior injection angles proven against this pack, the "no lead
+      pricing or offer wording in the posted copy" rule (PRICE_PATTERNS,
+      item 4.11 pass 2026-08-14) had never been tested against it, despite
+      being the direct checker-side counterpart of this pack's own live
+      Q83 finding (the weight loss booking block states "from £39.99"
+      ahead of its eligibility section). REAL DEFECT FOUND AND FIXED, in
+      the checker. The rule's own literal-£ pattern was
+      "/Ã‚Â£\s?\d/" - hexdump confirmed this is a double-mojibake
+      corruption of a real £ (U+00A3), not the character itself, found
+      nowhere else in tools/. Proved empirically before touching any pack:
+      the live PRICE_PATTERNS array matched against "Weight loss from just
+      £39.99 a month." (this branch's own live wording) returned no match
+      at all - the £ pattern is corrupted and the separate "from" lead-
+      price pattern also misses it, because the £ symbol sits between
+      "from " and the digit and blocks that pattern's own \d match.
+      FIXED: corrected the mojibake to a real £ in both the price and the
+      saving-claim patterns, and widened the "from" pattern to allow an
+      optional £ before the digit. Regression check before injection:
+      still 0 failures, same 17 WARNs, confirming no pack currently states
+      a price so the fix alone changes nothing live. INJECTION: on a
+      sha256-backed scratch copy, Post C's closing sentence gained "Plans
+      start from £39.99 a month." (this branch's own live Q83 wording,
+      verbatim). RESULT: exit 1, exactly one new FAIL naming this pack and
+      quoting the price and the compliance section it breaches; all 17
+      pre-existing WARNs unchanged. RESTORED by byte copy; sha256
+      reconfirmed identical (fdb1429d...693); re-run clean, 36/36 checkers
+      exit 0; git diff on the pack empty; git status on modules/ and
+      core/ empty throughout - no generator, page or data file touched.
+      Estate-wide, not local: the corrupted regex sat in the shared
+      checker, so all 15 packs were equally unprotected against a plain £
+      sign before this fix; none currently states one. LIVE HALF: Claude
+      in Chrome not connected (list_connected_browsers empty, Q59); fell
+      back to read-only HTTP GET. Profile-website landing page still
+      404s, unchanged, still awaiting the queued paste run. The four post
+      targets all 200, unchanged; full text not re-read this pass (last
+      confirmed clean on the seventh/ninth passes), status check only. Q83
+      not re-raised, already open - this pass is the checker-side proof
+      that a future repaste correcting Q83, or a regression re-introducing
+      it, would now actually be caught here rather than only by a human
+      reading the live page. No new question (a mojibake fix matching the
+      rule's own stated intent, not a policy choice); open question count
+      unchanged at 44 of 97. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-05-twelfth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
