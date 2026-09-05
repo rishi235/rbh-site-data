@@ -1,0 +1,186 @@
+Item 4.10 quality pass (eleventh), unattended scheduled run via Cowork, 2026-09-06
+Pack: gbp-packs/smartts-bootle.md
+Branch: smartts_bootle (Smartts Chemist Bootle)
+
+PURPOSE
+Ten prior dedicated passes on this pack (2026-08-04 through 2026-09-05) had
+proven, by injection or direct verification against this pack's own copy:
+profile-basics presence and every fact against branches.json, the split-day
+lunch-guidance paster note, the road-name address-line rule, the
+medicine-name / outcome-claim / postcode-sister / catchment-order checks,
+the abbreviation-aware own-street and foreign-street sister rules, the
+POST_INSTRUCTION whitespace-tolerant hard-stop, the OUTCOME_PROMISE
+travel-clinic rule, check-brand-spelling.js / check-url-scheme.js /
+check-uk-spelling.js, and (tenth pass, 2026-09-05) the hours-line
+DAY-presence rule in check-gbp-packs.js. None of the ten had proven
+tools/check-app-membership.js's RULE 8e (the "missing positive": a pack
+whose branch IS an app member must actually carry an app mention in the
+copy pasted to the public profile) against this pack's own copy, despite
+Smartts Bootle being one of only four app-member branches in the estate and
+this pack being one of only four packs that actively publish app copy. This
+pass closes that gap.
+
+Chosen because the least-recently-verified item in the 37-item rotation
+pool (1.2, 1.3, 2.1-2.3, 3.1-3.13, 4.1-4.15, 5.1, 5.2, 6.2, 6.3; excludes
+the six declared-out-of-rotation items 1.1, 1.4, 5.6, 5.7, 6.7, 6.8) was
+independently re-derived from `git log --pretty=format:"%cI|||%s" --
+AGENT_WORKLIST.md AGENT_LOG.md`, word-boundary matched against the pool:
+4.10 came out stalest at 2026-09-05T01:13:12+01:00, ahead of 4.9
+(01:46:57) and 4.12 (02:12:28), every other pool item having already been
+re-touched later the same day. All eight currently unchecked
+AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep (5.3, 5.4, 5.5,
+5.8, 6.1 x2, 6.4/6.5, 6.6), so the quality-pass fallback applied per step 5.
+
+WHY RULE 8e SPECIFICALLY
+tools/check-app-membership.js's own header comment records an injection
+against this exact pack from the rule's origin (item 4.5 pass, 2026-08-14):
+"every app claim stripped from the posts of smartts-bootle.md (hasApp
+true): ALL 36 PASSED." That result predates Rule 8e, which was only added
+on the item 4.1 eleventh pass (2026-09-04). Because that historical
+injection touched only the post body and the pack's business description
+and services section both independently carry their own app mention, the
+combined "published" text the checker reads (description + services +
+posts, joined) never went empty - so even with 8e in place today, that
+specific historical injection would not exercise it. Ten passes on this
+pack have never isolated Rule 8e's own true test: stripping the app
+mention from ALL THREE published sections at once, so the combined text
+genuinely carries none.
+
+DATA CONFIRMED (branches.json, smartts_bootle)
+hasApp: true. This branch is one of four app members (fishlocks_ainsdale,
+fishlocks_eccleston, clearchemist_aintree, smartts_bootle), confirmed
+directly from check-app-membership.js's own run output this pass.
+
+PACK'S OWN APP MENTIONS (before any injection), by section
+- Business description (## 1): "You can order repeat prescriptions through
+  our app." (part of the published copy Rule 8 reads)
+- Services section (## 3): "...with repeat ordering through the Smartts
+  app." (published)
+- Post B (## 5): "Order repeats through our app and collect from a local
+  team..." (published)
+- Photo shot list (## 4): two mentions, an app-screen shot line. NOT part
+  of "published" under Rule 8/8e - only Rule 8b reads the shot list, and
+  8b only fires in the opposite (non-member) direction.
+- Paster notes: "App mention is allowed in this pack: branches.json has
+  hasApp true for this branch." NOT part of "published" - the notes block
+  is deliberately excluded from Rules 8a/8e for the same reason
+  check-gbp-packs.js's town rule excludes it (paster instructions are
+  never pasted to the public profile).
+
+METHOD
+Full repo copied to a scratch directory (/tmp/rbh-scratch2) WITH .git
+included, per the item 4.10 ninth pass's own method note that excluding
+.git makes check-cdn-pins.js fail falsely on a scratch copy. sha256 of
+gbp-packs/smartts-bootle.md confirmed identical to the tracked repo before
+any edit: 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+matching every prior pass's recorded hash exactly - unchanged since
+2026-08-04. All injections and checker runs performed against the scratch
+copy only; the tracked file at gbp-packs/smartts-bootle.md was never
+opened for writing this pass. A clean backup of the original file was kept
+and the file restored to it by full-file byte copy (not git checkout)
+after each round, then sha256-reconfirmed identical before the next.
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools:
+empty (tracked repo). All 36 tools/check-*.js run individually on the
+scratch copy before any change: 36/36 exit 0. check-app-membership.js's
+own summary: 4 app members of 16 branches, 15 GBP packs read for app
+claims, clean.
+
+INJECTION A (control) - strip the app mention from Post B only, leaving
+the description and services section untouched.
+"Order repeats through our app and collect from a local team on Fernhill
+Road you can actually speak to." -> "Collect from a local team on Fernhill
+Road you can actually speak to."
+RESULT: NOT CAUGHT (correctly) - all 36 checkers exit 0. This reproduces
+the original 2026-08-14 injection's result and confirms why: the
+description and services section still carry "app", so the combined
+published text Rule 8/8e reads is still non-empty of the word. This is the
+expected behaviour, not a gap - Rule 8e is deliberately a whole-pack test,
+not a per-section one, the same design as check-gbp-packs.js reading a
+post's own multi-line body as one block rather than line by line. Restored
+by byte copy; sha256 reconfirmed identical to
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b.
+
+INJECTION B (the real test) - strip the app mention from ALL THREE
+published sections at once (description, services, Post B), leaving the
+photo shot list and the paster note untouched exactly as they were (both
+still mention the app throughout).
+- Description: "cannabis treatment. You can order repeat prescriptions
+  through our app." -> "cannabis treatment."
+- Services: "...serving Bootle, Sefton and Liverpool, with repeat ordering
+  through the Smartts app." -> "...serving Bootle, Sefton and Liverpool."
+- Post B: same edit as Injection A.
+RESULT: CAUGHT. node tools/check-app-membership.js: exit 1, exactly one
+FAIL against this pack: "gbp-packs/smartts-bootle.md: branches.json has
+hasApp true for smartts_bootle, but the copy pasted into the public Google
+profile carries no app mention, so the profile would omit a feature the
+branch actually offers." This is Rule 8e firing exactly as designed, for
+the first time proven against this pack's own copy.
+Side effect (expected, not a masking issue): shortening the description
+also broke check-gbp-packs.js's own stated-character-count rule
+("description heading claims 710 characters, actual is 658"), an
+unrelated, independently-correct rule reacting to the same edit. The two
+failures are distinct and both individually explicable; neither masks the
+other. 34 of 36 checkers still passed clean.
+Restored by byte copy; sha256 reconfirmed identical to
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b; full
+diff against the pre-injection backup confirmed clean.
+
+RESULT
+Zero in-repo defect. Rule 8e already correctly guards this pack; this pass
+proves it directly against Smartts Bootle's own copy for the first time in
+this item's eleven-pass history, isolating it from the description-length
+rule that its own injection incidentally also triggers.
+tools/check-app-membership.js unchanged: rule proven, not changed.
+gbp-packs/smartts-bootle.md unchanged.
+
+REGRESSION SWEEP
+Scratch copy's gbp-packs/smartts-bootle.md restored byte-identical after
+both rounds, sha256 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+reconfirmed and diffed clean against the pre-injection backup. All 36
+tools/check-*.js re-run individually on the scratch copy after restore:
+36/36 exit 0. Tracked repo confirmed untouched throughout: sha256 of
+gbp-packs/smartts-bootle.md unchanged at
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b and git
+status --porcelain -- gbp-packs modules core branches.json tools empty
+before, during and after. gbp-packs/ is not a generator input, so no
+build-*.js script was run and no generated page was touched.
+
+LIVE HALF
+Not performed. mcp__claude-in-chrome__tabs_context_mcp reported "Claude in
+Chrome is not connected" before any repo work began, same as recent runs
+(standing Q59 cause - two signed-in extension instances block the call for
+an unattended session with nobody to choose between them). No alternative
+route attempted, nothing clicked, typed or submitted, no login attempted.
+Last confirmed live state remains the 2026-09-01 sixth pass (Q55
+website-hours contradiction unchanged; Q16 weight-loss tile claim still
+held in KNOWN_CLAIM; Q51/Q83/Q88 lead-price-position finding and its
+separate pre-3.9-fix en dash still queued for repaste; Q48 yellow fever gap
+unchanged; Post A's live-only pharmacy-first-service-bootle.html unchanged
+under Q8/Q16). No new live finding this pass.
+
+INFRASTRUCTURE NOTE (step 1/9/10 context, not specific to this item)
+Cowork sandbox git remote "origin" (SSH, git@github.com) still fails host
+key verification with no workaround attempted, consistent with the
+standing constraint recorded under Q87/Q96. The "origin-https" remote
+fetches and pulls without a credential (public read). Local HEAD was
+already level with origin-https/agents/audit-backlog (a1ef258) at run
+start, meaning the previous run's push (via the real-host Windows-MCP
+route recorded in its own log entry) had already landed successfully. Push
+credential availability for this run's own commit is exercised at step 9;
+if the sandbox push again fails, the commit is made locally and the
+gap is logged rather than escalated again, per Q87/Q96/the process note in
+those questions - both remain open, unanswered, Rishi's call to make, and
+this run adds no new instance of the underlying question, only a status
+note against it.
+
+QUESTIONS
+No new question raised. QUESTIONS.json unchanged going into this pass: 98
+total, 45 open. Answer pickup unavailable this run (Chrome not connected,
+standing Q59).
+
+FILES CHANGED BY THIS PASS
+AGENT_WORKLIST.md (item 4.10 new paragraph), AGENT_LOG.md (new entry), this
+audit file. gbp-packs/smartts-bootle.md, branches.json, tools/, modules/
+and core/ all untouched (confirmed by git status and sha256 throughout).

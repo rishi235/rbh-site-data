@@ -10169,6 +10169,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       No new question. Evidence in
       audits/smartts-bootle-hours-days-4.10-tenth-2026-09-05.txt.
       Done 2026-09-05.
+      Eleventh quality pass 2026-09-06 (unattended scheduled run via
+      Cowork): fresh angle - tools/check-app-membership.js's RULE 8e (the
+      "missing positive": a pack whose branch IS an app member must
+      actually carry an app mention in the copy pasted to the public
+      profile, added item 4.1 eleventh pass, 2026-09-04) had never been
+      proven against this pack's own copy across ten prior passes, despite
+      Smartts Bootle being one of only four app-member branches in the
+      estate. The rule's own origin comment records a 2026-08-14 injection
+      against this exact pack (every app claim stripped from Post B only)
+      that passed all 36 checkers, but that predates rule 8e and only
+      touched one of the three published sections; the description and
+      services section both independently carry their own app mention, so
+      that historical test could never have emptied the combined text 8e
+      reads. branches.json confirmed hasApp true for smartts_bootle, one of
+      four members (fishlocks_ainsdale, fishlocks_eccleston,
+      clearchemist_aintree, smartts_bootle). Baseline: 36/36 checkers exit
+      0 on a full-repo scratch copy (with .git, per the ninth pass's method
+      note), sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly. Two injections,
+      each restored by byte copy and sha256-reconfirmed before the next:
+      (1) control, app mention stripped from Post B only, description and
+      services untouched - NOT caught (correctly), all 36 exit 0,
+      reproducing and explaining the 2026-08-14 result; (2) app mention
+      stripped from ALL THREE published sections (description, services,
+      Post B) at once, leaving the photo shot list and paster note
+      untouched - CAUGHT, check-app-membership.js exit 1 with exactly the
+      expected message ("branches.json has hasApp true for smartts_bootle,
+      but the copy pasted into the public Google profile carries no app
+      mention..."). A side effect on the same injection - check-gbp-packs.js's
+      stated-character-count rule also failed, since shortening the
+      description broke its declared 710-character count - is a distinct,
+      independently correct rule reacting to the same edit, not a masking
+      of rule 8e. No in-repo defect: rule 8e proven, not changed.
+      tools/check-app-membership.js and gbp-packs/smartts-bootle.md both
+      unchanged. Regression: scratch copy restored byte-identical (sha256
+      reconfirmed both times), all 36 checkers re-run clean; tracked repo
+      confirmed untouched throughout by sha256 and git status. Live half
+      not performed: Claude in Chrome not connected this run (standing
+      Q59). No new question. Evidence in
+      audits/smartts-bootle-app-membership-8e-4.10-eleventh-2026-09-06.txt.
+      Done 2026-09-06.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
