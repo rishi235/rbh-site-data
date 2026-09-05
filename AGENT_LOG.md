@@ -144,17 +144,23 @@ entry - no generator, page, data field or checker file touched in the
 tracked tree, reconfirmed immediately before commit via `git status
 --porcelain -- modules tools core branches.json gbp-packs status` (empty).
 
-PUSH AND PUBLISH (steps 9 and 10). `git push origin agents/audit-backlog`
-(SSH): expected to fail identically to the fetch above - standing Q87/Q96, no
-SSH trust in this sandbox. `git push origin-https agents/audit-backlog`:
-anonymous HTTPS has no write credential configured (no credential helper, no
-.netrc, no GITHUB_TOKEN) - standing Q96, unchanged since 2026-09-04, still
-open. `node tools/build-audit-status.js`: expected to fail on the same two
-Q87-documented grounds (hardcoded Windows path, no gh CLI in this sandbox).
-Outcome of both recorded verbatim immediately below this entry once run, per
-the runbook's "run it even if the work item failed" instruction. Two local
-commits (this run's plus the still-unpushed f6fcdb7) remain queued pending a
+PUSH AND PUBLISH (steps 9 and 10), actual outcomes. `git push origin
+agents/audit-backlog` (SSH): "Host key verification failed. fatal: Could not
+read from remote repository." exit 128 - standing Q87/Q96, unchanged. `git
+push origin-https agents/audit-backlog`: "fatal: could not read Username for
+'https://github.com': No such device or address" exit 128 - anonymous HTTPS
+has no write credential configured (no credential helper, no .netrc, no
+GITHUB_TOKEN) - standing Q96, unchanged since 2026-09-04, still open. `node
+tools/build-audit-status.js`: "Error: ENOENT: no such file or directory, open
+'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'" exit 1 - the hardcoded Windows
+`const REPO` path from Q87's own note, unresolved on this Linux sandbox, run
+even though it could not succeed, per the runbook's "run it even if the work
+item failed" instruction, so the failure itself is on record rather than
+silently skipped. Two local commits (this run's 6806513 plus the previously
+unpushed f6fcdb7, now both on agents/audit-backlog) remain queued pending a
 session with working push credentials, per Q96's own recommended option 1.
+Neither Q87 nor Q96 re-raised as a new question; both are already open and
+unchanged.
 
 Next stalest by this run's own re-derivation, for whoever runs the next
 unattended pass: 3.7 (2026-09-04T07:41:28+01:00), then 3.13, 6.2, 3.4 -
