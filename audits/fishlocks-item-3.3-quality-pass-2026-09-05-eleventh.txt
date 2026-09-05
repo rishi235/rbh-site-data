@@ -1,0 +1,139 @@
+Item 3.3 quality pass (eleventh) - Fishlocks Chemist (Ainsdale and Eccleston)
+Date: 2026-09-05 (unattended scheduled run via Cowork)
+Fresh angle: tools/check-branch-identity.js proven against Fishlocks' own pages
+by injection for the first time in eleven passes.
+
+WHY THIS CHECKER, THIS ITEM
+----------------------------
+check-branch-identity.js's own file header names Fishlocks Chemist (Ainsdale /
+Eccleston, fishlockpharmacy.co.uk) as one of only three shared-brand pairs in
+the estate it exists to protect (the other two are McCanns Chemist and Scorah
+Chemists). Ten prior quality passes on this item (2026-08-04 to 2026-09-04)
+proved check-seo-pattern.js, check-seo-lengths.js (rule 4, H1 pairs),
+check-seo-sheets.js (duplicate-label rule), check-jsonld.js,
+check-seo-keywords.js, check-app-membership.js, check-brand-spelling.js,
+check-uk-spelling.js, check-url-scheme.js and check-switch-copy.js (rule 11,
+banner routing) against Fishlocks' own copy by injection. A systematic sweep
+of this pass (whitespace-stripped substring match of every tools/check-*.js
+filename against the item's full worklist entry) confirmed
+check-branch-identity.js had never been named there, despite being the
+checker most specifically written for this branch pair's exact risk: a bare
+brandLabel ("Fishlocks Chemist") cannot say which of two shops a page belongs
+to.
+
+BASELINE
+--------
+sha256 of the three files this pass would touch, confirmed matching the
+tracked repo before any work:
+  modules/service/pages/uti-treatment-fishlocks-ainsdale.html
+    4aa1d4bf31099c2231762d8c4b49b99d1c080394d9be0480544cde57f1e07e84
+  modules/service/pages/uti-treatment-fishlocks-eccleston.html
+    cc8a955e0d0cb5080fa6d2a9d9c4535a5621b1182f483511b930c5fc6fba0b47
+  modules/branch/pages/pharmacy-fishlocks-ainsdale.html
+    52adffe5358fa85cd7b3299e59e6105e6029216d74a7a3cb478f7b2117989209
+
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0. All six generators re-run against the tracked repo
+afterwards: byte-identical, git status --porcelain -- modules core empty.
+
+METHOD
+------
+Full repo copied with .git included to /tmp/scratch-33 (established method:
+excluding .git makes check-cdn-pins.js fail falsely on a scratch copy). All
+injections and checker runs against the scratch copy only; the tracked repo
+was never opened for writing this pass. Four injections run one at a time,
+each restored by byte copy and sha256-reconfirmed before the next:
+
+1. RULE 4 (AMBIGUOUS). data-branch on the Ainsdale UTI page changed from
+   "Fishlocks Chemist Ainsdale" to the bare brandLabel "Fishlocks Chemist".
+   CAUGHT: "data-branch read \"Fishlocks Chemist\", which is also the name of
+   this branch's sister shop on the same website. It cannot say which of the
+   two this page is; branchName (\"Fishlocks Chemist Ainsdale\") can." Note
+   rule 2 (OWNER) alone would NOT have caught this, since a bare brandLabel is
+   an accepted OWNER value in general; rule 4 exists specifically because the
+   brand is shared here, confirming the checker's own docstring claim that
+   rule 4 is "the rule that matters" for exactly this branch pair.
+
+2. RULE 10 (SERVICELINK). The "See all conditions covered by Pharmacy First"
+   link on the Ainsdale UTI page repointed from
+   pharmacy-first-fishlocks-ainsdale.html to
+   pharmacy-first-fishlocks-eccleston.html (the sister branch's own Pharmacy
+   First page, same host, so the link resolves). CAUGHT: "links to
+   \"pharmacy-first-fishlocks-eccleston.html\", a service page belonging to
+   fishlocks_eccleston (...), but the page belongs to fishlocks_ainsdale
+   (...). Both branches are served from www.fishlockpharmacy.co.uk, so the
+   link resolves and the patient is quietly booked into the wrong pharmacy's
+   service."
+
+3. RULE 11 (SISTERLABEL). The visible text of the sister-branch link on the
+   Ainsdale landing page changed from "Fishlocks Chemist Eccleston" to the
+   bare "Fishlocks Chemist" (href left untouched, still correctly pointing at
+   pharmacy-fishlocks-eccleston.html). CAUGHT: "its link to
+   \"pharmacy-fishlocks-eccleston.html\" reads \"Fishlocks Chemist\", but
+   build-branch-landing-pages.js's own sisterNote() logic would render
+   \"Fishlocks Chemist Eccleston\"... A patient reads the label, not the
+   href, so a stale one still misdirects even though rule 9 confirms the
+   link itself resolves correctly." Confirms rule 9 (href) and rule 11
+   (label) are deliberately separate checks, not duplicates.
+
+4. RULE 3 / 5 / 6 (SCHEMANAME / SITEUNIQUE / SPLIT), one injection catching
+   three rules at once. JSON-LD "name" on the Eccleston UTI page changed from
+   "Fishlocks Chemist Eccleston" to the sister's branchName "Fishlocks
+   Chemist Ainsdale". CAUGHT three ways simultaneously:
+     - rule 3 (SCHEMANAME): "JSON-LD name \"Fishlocks Chemist Ainsdale\" but
+       the page belongs to fishlocks_eccleston (...) - that is
+       fishlocks_ainsdale's name, so Google is told this address belongs to
+       another pharmacy"
+     - rule 6 (SPLIT): "fishlocks_eccleston: its pages declare 2 different
+       values for JSON-LD name (...), so one branch presents itself as more
+       than one business depending on which generator built the page"
+     - rule 5 (SITEUNIQUE): "www.fishlockpharmacy.co.uk: branches
+       fishlocks_ainsdale and fishlocks_eccleston both publish JSON-LD name
+       \"Fishlocks Chemist Ainsdale\" on one website, at PR8 3HN and PR7 5SZ,
+       so Google is handed two Pharmacy records with one name and two
+       addresses and has to guess whether they are one business or two"
+   This demonstrates the three rules are not redundant: SCHEMANAME catches
+   the page against its own owning branch, SPLIT catches the owning branch's
+   internal inconsistency across its own pages, and SITEUNIQUE catches the
+   estate-wide host-level collision - all three fire from one single-field
+   edit because they read the same fact from three different angles.
+
+All four restores byte copy from the pre-injection backup, sha256-reconfirmed
+exactly matching the baseline hashes above after each restore. Full 36-checker
+suite re-run individually against the restored scratch copy after the final
+restore: 36/36 exit 0. git status --porcelain -- modules tools core
+branches.json on the scratch copy: empty after the final restore.
+
+RESULT
+------
+No in-repo defect. check-branch-identity.js already correctly protects
+Fishlocks' own pages on all four legs tested (rules 3, 4, 5, 6, 10, 11 across
+four injections); this proves it directly against this specific branch pair
+for the first time, rather than only by general design and by proof against
+McCanns and Scorah (which check-branch-identity.js's own docstring history,
+under Q18, records as the checker's original motivating cases). No page,
+generator or branches.json byte changed.
+
+REGRESSION SWEEP
+-----------------
+Tracked repo's three relevant files confirmed sha256-identical to baseline
+throughout (never opened for writing). Full 36 tools/check-*.js suite re-run
+individually against the tracked repo: 36/36 exit 0. All six generators
+re-run against the tracked repo: byte-identical, git status --porcelain --
+modules core empty. node tools/check-em-dashes.js: clean, no em or en dashes
+in public copy, literal or HTML entity.
+
+LIVE HALF
+---------
+mcp__claude-in-chrome__list_connected_browsers returned an empty array
+(standing Q59). No live check performed this pass; no live claim made or
+withdrawn. The most recent live read of Fishlocks (ninth pass, 2026-09-03)
+remains the last live evidence on file for this item.
+
+ANSWER PICKUP AND ENVIRONMENT
+------------------------------
+See AGENT_LOG.md entry for this run for the full lock-check, git-sync,
+answer-pickup and push/publish narrative, including the standing sandbox/
+credential gap (Q87/Q96) and this run's use of mcp__Windows-MCP__PowerShell
+against the canonical C:\Dev\rbh-site-data for git push and the status-page
+publish.

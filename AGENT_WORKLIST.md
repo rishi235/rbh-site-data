@@ -1971,6 +1971,47 @@ deleted scratch copy. No new question raised.
       www.fishlockpharmacy.co.uk. No page content read by this method, so
       the standing Q37 footer set was not re-verified this pass. Evidence
       in audits/fishlocks-item-3.3-quality-pass-2026-09-04-tenth.txt.
+      Quality pass 2026-09-05 (eleventh): clean, no repo defect, no new
+      question. THE FRESH ANGLE: ten prior passes had proved check-seo-
+      pattern.js, check-seo-lengths.js (rule 4), check-seo-sheets.js,
+      check-jsonld.js, check-seo-keywords.js, check-app-membership.js,
+      check-brand-spelling.js, check-uk-spelling.js, check-url-scheme.js
+      and check-switch-copy.js (rule 11) against Fishlocks' own pages by
+      injection, but tools/check-branch-identity.js had never been named
+      in this item's own entry, despite its file header naming Fishlocks
+      Ainsdale/Eccleston as one of only three shared-brand pairs in the
+      estate it exists to protect (found by a systematic whitespace-
+      stripped substring sweep of every tools/check-*.js filename against
+      this item's full entry, not by memory). Full repo copied with .git
+      included to /tmp/scratch-33; all injections against the scratch
+      copy only, tracked repo never opened for writing. Four injections,
+      each restored by byte copy and sha256-reconfirmed before the next:
+      (1) data-branch on the Ainsdale UTI page changed to the bare
+      brandLabel "Fishlocks Chemist" - CAUGHT by rule 4 (AMBIGUOUS), which
+      rule 2 (OWNER) alone would have missed since a bare brandLabel is an
+      accepted OWNER value where the brand is not shared; (2) the Pharmacy
+      First link on the same page repointed at the Eccleston branch's own
+      Pharmacy First page (same host, resolves) - CAUGHT by rule 10
+      (SERVICELINK); (3) the visible text of the sister-branch link on the
+      Ainsdale landing page changed to the bare "Fishlocks Chemist" with
+      the href left correct - CAUGHT by rule 11 (SISTERLABEL), confirming
+      rules 9 and 11 are deliberately separate (href versus label); (4)
+      the JSON-LD name on the Eccleston UTI page swapped for the sister's
+      branchName - CAUGHT three ways at once, by rule 3 (SCHEMANAME, this
+      page against its own branch), rule 6 (SPLIT, the branch's pages now
+      disagree with each other) and rule 5 (SITEUNIQUE, the host now has
+      two branches claiming one JSON-LD name), demonstrating the three
+      rules read the same fact from three different angles rather than
+      duplicating one another. All four restores sha256-confirmed
+      byte-identical to baseline; full 36-checker suite re-run clean after
+      the final restore. No in-repo defect: check-branch-identity.js
+      already correctly protects Fishlocks' own pages on every rule
+      tested; this proves it directly against this branch pair for the
+      first time rather than only against McCanns and Scorah, its original
+      motivating cases under Q18. LIVE HALF: Claude in Chrome unreachable
+      this run (standing Q59); no live check performed, no live claim made
+      or withdrawn this pass. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-05-eleventh.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
