@@ -1,0 +1,82 @@
+Item 4.15 quality pass (eleventh), 2026-09-05 (unattended scheduled run via Cowork)
+Subject: gbp-packs/tiffenbergs-aintree.md (branch id tiffenbergs_longmoor)
+Angle: prove the hours-line DAY-presence rule (check-gbp-packs.js, added item 4.1
+quality pass 2026-08-11) against this pack's own copy by direct injection. This
+rule had been proven this run cycle against six sister packs (4.3, 4.5, 4.8,
+4.10, 4.12, 4.13) but never against Tiffenbergs Aintree's own copy across ten
+prior passes.
+
+BASELINE
+- gbp-packs/tiffenbergs-aintree.md sha256:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+  (matches the ninth and tenth passes' own recorded hash exactly - file
+  unchanged since 2026-09-03)
+- All 36 tools/check-*.js run individually against a full scratch copy
+  (repo copied WITH .git to /tmp/scratch-415, per the established method note
+  that excluding .git makes check-cdn-pins.js fail falsely on a scratch copy):
+  36/36 exit 0.
+- branches.json (branch id tiffenbergs_longmoor): Monday-Friday 09:00-13:00 and
+  14:00-18:00 (uniform lunch closure every weekday, same time every day),
+  Saturday and Sunday in closedDays. This branch is NOT one of the six
+  split-time branches (Scorah Bramhall, McCanns Aigburth, Fishlocks Eccleston,
+  Hirshmans Ainsdale, Gordon Short Crosby, Cherry Lane), so the separate
+  time/day-PAIRING rule has nothing to bind here - same position Smartts
+  Bootle (4.10) and Coleman and Leighs Walton (4.12) recorded for their own
+  uniform-hours packs.
+
+METHOD
+Three injections into the scratch copy's gbp-packs/tiffenbergs-aintree.md only,
+each restored by byte copy from a pre-injection backup and sha256-reconfirmed
+identical before the next round. Tracked repo (rbh-site-data, not the scratch
+copy) never opened for writing at any point.
+
+1. Claim Saturday open, reusing an existing weekday time so the clock-time
+   rule alone could not also fire:
+   "Monday to Saturday 9:00am to 1:00pm and 2:00pm to 6:00pm (closed for lunch
+   1:00pm to 2:00pm), Sunday closed"
+   Result: FAIL - "the hours line states the branch is open on Saturday, but
+   branches.json opens it only on Monday, Tuesday, Wednesday, Thursday,
+   Friday." CAUGHT.
+
+2. Drop Friday silently, every stated time left correct:
+   "Monday to Thursday 9:00am to 1:00pm and 2:00pm to 6:00pm (closed for lunch
+   1:00pm to 2:00pm), Saturday and Sunday closed"
+   Result: FAIL - "branches.json opens this branch on Friday, but the hours
+   line does not state Friday as an open day." CAUGHT.
+
+3. Drop Sunday from the closed statement entirely:
+   "Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm (closed for lunch
+   1:00pm to 2:00pm), Saturday closed"
+   Result: FAIL - "branches.json holds Sunday as a closed day, but the hours
+   line does not state Sunday as closed." CAUGHT.
+
+All three legs of the rule fire independently on this pack's own copy. No
+checker gap found.
+
+REGRESSION SWEEP
+Scratch copy's gbp-packs/tiffenbergs-aintree.md restored byte-identical after
+round 3 (diff clean, sha256 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee1
+0ec9be9046811b reconfirmed). Full 36 tools/check-*.js suite re-run individually
+on the scratch copy after restore: 36/36 exit 0. Tracked repo confirmed
+untouched throughout: sha256 unchanged and git status --porcelain -- gbp-packs
+modules core branches.json tools status empty before, during and after.
+gbp-packs/ is not a generator input, so no build-*.js script was re-run.
+
+LIVE HALF
+Claude in Chrome not connected (list_connected_browsers returned an empty
+array). Fell back to the established mcp__Windows-MCP__PowerShell curl.exe
+status-code-only check of all four post target URLs:
+- pharmacy-first-tiffenbergs-aintree.html -> 200
+- switch-prescriptions-tiffenbergs-aintree.html -> 200
+- weight-loss-clinic-tiffenbergs-aintree.html -> 200
+- travel-clinic-tiffenbergs-aintree.html -> 200
+All unchanged from the eighth, ninth and tenth passes. Known live-only
+findings (switch banner mojibake fix reconfirmed present at source since
+2026-08-10, footer en dashes, tiffenbergs@ vs Tiffenberg@ email split under
+Q56, the two stray dashes on Posts B/C, and the regime-1 live homepage
+weight-loss link finding recorded in the eighth pass and cross-referenced into
+Q58) not re-tested this pass; no new live finding.
+
+CONCLUSION
+No in-repo defect found. No page, pack, generator output or branches.json
+entry changed. No new question raised.

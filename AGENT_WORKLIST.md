@@ -10550,6 +10550,31 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       and ninth passes. No in-repo defect found, no new question raised.
       Evidence in
       audits/tiffenbergs-aintree-brand-url-uk-spelling-4.15-tenth-2026-09-04.txt.
+      Quality pass 2026-09-05 (eleventh re-verification, repo half only): pack
+      verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: the hours-line DAY-presence rule
+      (check-gbp-packs.js, added item 4.1 quality pass, 2026-08-11) had been
+      proven this run cycle against six sister packs (4.3, 4.5, 4.8, 4.10,
+      4.12, 4.13) but never against THIS pack's own copy across ten prior
+      passes. branches.json confirms Monday-Friday 09:00-13:00 and 14:00-18:00
+      (uniform lunch closure every weekday) and Saturday/Sunday closed, so the
+      separate time/day-PAIRING rule has nothing to bind here, the same
+      position Smartts Bootle (4.10) and Coleman and Leighs Walton (4.12)
+      recorded for their own uniform-hours packs. Full repo copied with .git
+      included to a scratch directory; all injections and checker runs against
+      the scratch copy only, tracked file never opened for writing. Three
+      injections, each restored by byte copy and sha256-reconfirmed identical
+      before the next round: claiming Saturday open reusing an existing
+      weekday time so the clock-time rule alone could not also fire - CAUGHT;
+      dropping Friday silently, every stated time left correct - CAUGHT;
+      dropping Sunday from the closed statement entirely - CAUGHT. All three
+      legs of the rule fire independently on this pack's own copy. No checker
+      gap found; no in-repo defect. Live half: Claude in Chrome unreachable
+      this run; fell back to a status-code-only curl.exe check of all four
+      post targets, all 200, unchanged from the eighth, ninth and tenth
+      passes. No new question raised. Evidence in
+      audits/tiffenbergs-aintree-hours-days-4.15-eleventh-2026-09-05.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
