@@ -11383,6 +11383,54 @@ appended to the line. Do not move them; the status page reads them in place.
       other tracked file touched. No new question raised, no worklist item
       blocked or unblocked. Evidence:
       audits/hirshmans-address-check-2026-09-04-eleventh.txt. Done 2026-09-04
+      Twelfth quality pass 2026-09-05 (unattended scheduled run via Cowork,
+      rotation pool - item 1.2 re-confirmed uniquely stalest, last touched
+      2026-09-04T03:12:54+01:00, ahead of 3.11, 4.4, 4.1, 3.2, 3.5, 3.7 and
+      3.13). REPO HALF: address itself clean for the twelfth consecutive
+      pass, branches.json's hirshmans_ainsdale record unchanged. All 36
+      checkers exit 0 both before and after this pass.
+      GUARD COVERAGE EXTENDED: tools/check-gbp-pharmacy-first.js (12 rules
+      guarding the Pharmacy First clinical copy in every GBP pack) had never
+      been pointed at gbp-packs/hirshmans-ainsdale.md by direct injection in
+      eleven prior passes, only covered passively by the full-suite sweep,
+      the same gap shape the item 4.14 twelfth, 4.2 thirteenth and 4.7
+      twelfth passes closed for their own packs the same week. Three
+      injections on a disposable scratch copy (tracked repo never opened for
+      writing this pass), each restored by byte copy and sha256-reconfirmed
+      identical before the next round: (1) "impetigo" dropped from Post A's
+      condition list only, six of seven left standing - CAUGHT by rule 3
+      (completeness): "Post A names 6 of the 7 Pharmacy First conditions and
+      omits impetigo"; (2) Post A's UTI age range changed from "16 to 64" to
+      "16 to 60" - CAUGHT by rule 6 against the canon read live from tools/
+      build-service-pages.js's own CONDITIONS.uti.ageNote ("Women aged 16 to
+      64"); (3) "conjunctivitis" (an OUTSIDE_PF word - plausible pharmacy
+      advice but not one of the NHS Pharmacy First seven) inserted into the
+      Services section's Pharmacy First bullet - CAUGHT by rule 4, naming
+      the pack and the word. All three fired first attempt, on their
+      intended rule and no other. Full 36-checker suite re-run clean on the
+      scratch copy after the final restore. No checker gap found; no
+      in-repo defect.
+      REGRESSION SWEEP. Tracked repo's gbp-packs/hirshmans-ainsdale.md
+      confirmed sha256-identical to baseline throughout. Full 36
+      tools/check-*.js re-run individually against the tracked repo: 36/36
+      exit 0. All six generators re-run against the tracked repo:
+      byte-identical, git status --porcelain -- modules core empty.
+      node tools/check-em-dashes.js: clean (233 files scanned).
+      LIVE HALF. Claude in Chrome not connected this session (no browser
+      tools reachable). Fell back to read-only curl (UA "Mozilla/5.0") from
+      the sandbox shell, which had working outbound network access this run.
+      All findings reconfirmed unchanged from the eleventh pass:
+      pharmacy-first-hirshmans-ainsdale.html and switch-prescriptions-
+      hirshmans-ainsdale.html both 200, address and brand exact; sitemap.xml
+      lastmod unchanged at 2026-08-14T16:09:17+00:00, no publish since the
+      sixth pass; the old hand-built page (pharmacy-first-service-
+      ainsdale.html) reconfirmed 200 with its address fault still fixed
+      (matching the eleventh pass) and its phone ("017014577376", still
+      non-dialable) and branding ("Hirshmans Pharmacy") faults still open
+      and unchanged, so the HARD STOP against Q8/Q34 (item 5.3) remains
+      correctly in force. No new live finding. No new question raised, no
+      worklist item blocked or unblocked. Evidence:
+      audits/hirshmans-address-check-2026-09-05-twelfth.txt. Done 2026-09-05
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
