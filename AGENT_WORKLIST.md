@@ -13082,6 +13082,79 @@ for the record).
       No checker logic, page, generator or data field changed anywhere in
       the repo. No new question raised. Scratch harness deleted after use
       per its own header; nothing under audits/ was added by this pass.
+      Quality pass 2026-09-05 (eleventh, unattended run, rotation-pool pick):
+      repo half only. Claude in Chrome confirmed not connected
+      (tabs_context_mcp returned "not connected"), so the live check fell
+      back to a direct read-only curl sweep of all six landing URLs rather
+      than being skipped: all six still return 404, unchanged since
+      2026-08-10, now 26 days queued (Q35 remains the open decision on how
+      they go live). Baseline: all 36 tools/check-*.js checkers ran
+      individually, 36/36 clean, before any work began. All six generators
+      rebuilt from branches.json: git status --porcelain -- modules core
+      empty before and after, byte-identical.
+      NEW ANGLE. Of the ten prior passes on this item, none ever mentions
+      tools/check-weight-loss-copy.js, even though that checker's own header
+      names RULE 11 as existing specifically for "the six branch landing
+      pages in modules/branch/pages, which are Regime 1 rather than Regime 2
+      and were read by none of the ten rules above" (rules 1-10 read
+      modules/service/pages only). RULE 11 is also the single most
+      compliance-sensitive rule touching this item's own pages: every one of
+      the fifteen gbp-packs/*.md files sets a Google Business Profile
+      website field to one of these six URLs, which is exactly the
+      "proactively linked landing page" AI\RBH_WeightLoss_Advertising_
+      Standards.md treats as near-total prohibition rather than the looser
+      inner-page regime the fifteen weight-loss-clinic-*.html pages sit in.
+      All 36 checkers passing every prior pass has always covered RULE 11's
+      result on these six pages, but no pass had proved BY INJECTION that it
+      actually catches a regression on one of them, as distinct from never
+      having seen one.
+      METHOD. New instrument written fresh (audits/verify-5.2-2026-09-05-
+      eleventh.js, no import from tools/ beyond invoking the real checker as
+      a child process; refuses to run if any of the six target pages already
+      carries a git diff; restores each target from an in-memory buffer
+      immediately after capturing the checker subprocess's output and before
+      any assertion runs, sha256-reconfirmed byte-identical before the next
+      injection and again at the end - the same discipline the ninth and
+      tenth passes on this item used). Unlike the ninth pass (one target file
+      for all seven injections), this round spread across five of the six
+      pages plus one repeat, so the whole item's own page set was exercised
+      rather than one branch standing in for all six.
+      INJECTION ROUND, eight injections, one per distinct failure path RULE
+      11 holds: (1) Fishlocks Ainsdale, a medicine name ("Mounjaro") written
+      into a title attribute on the Get Directions link rather than visible
+      text, proving the rule reads raw markup including hover text and small
+      print as its own header claims - CAUGHT. (2) Fishlocks Eccleston, the
+      POM-class self-scoping phrase "skinny jab" added to the hero-sub
+      sentence - CAUGHT. (3) McCanns Aigburth, "Add to Basket" added to the
+      weight loss tile's blurb - CAUGHT. (4) McCanns Sandringham, the
+      POM-class in-context phrase "weekly injections" added within the same
+      sentence that names weight loss - CAUGHT. (5) Scorah Bramhall, a new
+      sentence "Weight loss patients often lose two stone in just 8 weeks."
+      appended to the hero-sub paragraph - CAUGHT, the rate-of-loss-within-a-
+      period pattern. (6) Scorah Hazel Grove, a new sentence "Weight loss
+      consultations have a special offer this month." appended the same way
+      - CAUGHT, the offer/discount pattern. (7) Fishlocks Ainsdale, a second
+      injection on a freshly restored copy, "Our weight loss clinic delivers
+      results for every patient." appended to the hero-sub - CAUGHT, the
+      efficacy/results claim pattern from claim-patterns.js. (8) McCanns
+      Aigburth, a second injection on a freshly restored copy, the word
+      "consultation" removed from the weight loss tile's own blurb - CAUGHT,
+      the positive consultation floor. All eight caught on the first attempt
+      with the expected rule-specific message; the whole script was then
+      re-run a second time end to end with identical results, confirming
+      reproducibility. All six target files sha256-confirmed byte-identical
+      to their originals after every individual restoration and again at the
+      end; git status --porcelain on all six stayed empty throughout both
+      rounds. Full 36-checker suite re-run clean after the round; all six
+      generators re-run, git status --porcelain on modules/ and core/ empty
+      before and after.
+      RESULT. No defect on item 5.2 itself - tools/check-weight-loss-copy.js
+      RULE 11 was already correctly holding all six landing pages to the
+      Regime 1 standard, now proven directly by injection for the first time
+      in this item's eleven-pass history, against a checker none of the
+      prior ten passes had ever exercised at all. No checker logic, page,
+      generator or data field changed anywhere in the repo. No new question
+      raised. Evidence: audits/verify-5.2-2026-09-05-eleventh.js.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
