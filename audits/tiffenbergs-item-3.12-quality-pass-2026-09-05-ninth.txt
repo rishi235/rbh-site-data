@@ -1,0 +1,150 @@
+Item 3.12 quality pass, 2026-09-05, NINTH PASS
+Branch: Tiffenbergs Chemist Aintree (id: tiffenbergs_longmoor)
+Fresh angle: tools/check-map-embeds.js proven by injection against Tiffenbergs'
+own pages for the first time in this item's nine-pass history. Eight prior
+passes exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+check-booking-routes.js, check-jsonld.js (telephone/postalCode legs),
+check-gbp-packs.js and check-branch-identity.js, but never the checker that
+owns the Google Maps embed and the "Get directions" agreement.
+
+CONTEXT (unattended scheduled run via Cowork)
+LOCK CHECK (step 1): no .agent-lock present at run start; fresh one written
+2026-09-05T17:04:02Z.
+GIT SYNC (step 2): git fetch origin (SSH) failed "Host key verification
+failed" - standing Q87/Q96, confirmed directly again; git fetch origin-https
+succeeded, local agents/audit-backlog already at origin-https HEAD (da91eba,
+prior run's item 2.2 commit), nothing to pull.
+LOCK DEBRIS (unrelated, noted not acted on): .git/index.lock reappears after
+almost every git invocation and cannot be removed with rm/os.remove
+("Operation not permitted"), only renamed - the same sandbox-mount constraint
+Q87 already documents. Hundreds of historical .agent-lock.released-* and
+.git/index.lock.* debris files already litter the repo root from prior runs'
+workarounds; left untouched this run as out of scope for a single worklist
+item (not this item's defect, and cleaning ~300 debris files is its own
+piece of work, not a side effect of a map-embeds pass).
+ANSWER PICKUP (step 3): mcp__claude-in-chrome__navigate returned "Claude in
+Chrome is not connected" - standing Q59, unchanged; logged and carried on,
+no alternative route attempted, nothing clicked or submitted. QUESTIONS.json
+read in full: 97 total, 44 open, none answered by pickup this run.
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start; not applicable.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both under Q60, 6.6), so
+the quality-pass fallback applied. Rotation pool independently re-derived in
+Python from `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md`, word-boundary matched against the real 37-item pool read
+directly off AGENT_WORKLIST.md's own checked items (44 checked minus the
+6 declared out-of-rotation: 1.1, 1.4, 5.6, 5.7, 6.7, 6.8; note an earlier
+draft of this pool with 2.4/2.5/2.6 substituted for 5.1/5.2 was checked
+against AGENT_WORKLIST.md directly and found to reference no real items -
+those numbers do not exist in this worklist - corrected before use). 3.12
+came out stalest at 2026-09-04T18:16:19+01:00, matching exactly the eighth
+pass's own forward note ("3.12 stalest ... ahead of 3.6, 3.8 and the rest").
+
+BASELINE
+All 36 tools/check-*.js checkers re-run individually before any change:
+0 failures. git status --porcelain on modules/, core/, gbp-packs/,
+branches.json, tools/: empty.
+
+branches.json record read directly: tiffenbergs_longmoor - 388 Longmoor Lane,
+Liverpool, L9 9DB, Merseyside, phone 0151 525 3462, hasApp false, no branch
+landing page (one of the seven lunch-closure branches with no landing page,
+per the existing 3.7-pass note), so tools/check-map-embeds.js RULE 6
+("Get directions" button) has no surface to test on this branch - the
+directions button only exists on the six branch landing pages, and
+Tiffenbergs is not one of them. This is a genuine coverage gap for THIS
+branch, not a defect: RULE 6 is estate-wide and was already proven on the
+six landing-page branches when the checker was built (item 3.9, 2026-08-11).
+
+13 Tiffenbergs files carry a contact card and a map embed: 11 modules/service/
+pages (contraception, earache, impetigo, insect-bite, pharmacy-first,
+shingles, sinusitis, sore-throat, travel-clinic, uti, weight-loss-clinic) and
+modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html (the
+banners/*.txt file is not HTML and carries no map). check-map-embeds.js
+confirms 177 generated pages estate-wide, 177 map embeds, 6 directions
+buttons (the six branch landing pages only) - all clean before injection.
+
+INJECTIONS (3), each on a page/rule combination untried for map-embed
+injection against Tiffenbergs, each backed up by byte copy to
+_agentscratch/312-mapembeds-backup/ before mutation and SHA256-reconfirmed
+identical to the pre-injection backup immediately after restoration:
+
+(1) RULE 3 + RULE 4, weight-loss-clinic-tiffenbergs-aintree.html: map query
+    swapped from "388 Longmoor Lane, Liverpool, L9 9DB" to a fabricated
+    "Unit 20 Brookfield Drive, Liverpool, L9 7AS" (Clear Chemist Aintree's
+    real postcode, the same shared L9 district other 3.12 passes have used
+    to prove cross-branch isolation). CAUGHT, two failures at once:
+    [the address] "map points at ... and branches.json gives this branch
+    ..."; [agreement] "contact card reads 388 Longmoor Lane ... and the map
+    underneath it points at Unit 20 Brookfield Drive ...". Restored;
+    SHA256 c3270effc18e610c18dd0a31b4b7093437757e5cf9e1e1e6fcb8c4a4c4aec058
+    confirmed identical before and after.
+
+(2) RULE 5, travel-clinic-tiffenbergs-aintree.html: map query's %2C and %20
+    encoding partially reverted to raw commas and spaces
+    ("388 Longmoor Lane%2C Liverpool%2C L9 9DB"), leaving the address value
+    itself correct. CAUGHT: [encoding] "map query carries a raw space or
+    comma, which breaks the embed". Confirms the checker separates the value
+    check from the encoding check, as documented in the checker's own header
+    ("these two fail in different ways"). Restored; SHA256
+    4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+    confirmed identical before and after.
+
+(3) RULE 4, uti-treatment-tiffenbergs-aintree.html: only the visible
+    contact-card address text changed (L9 9DB -> L9 9AA), map iframe left
+    untouched. CAUGHT, isolated cleanly to one rule as designed: [agreement]
+    only, "contact card reads ... L9 9AA and the map underneath it points at
+    ... L9 9DB" - RULE 3 correctly did not also fire, since the map itself
+    still matches branches.json exactly; only the words above it went wrong.
+    Restored; SHA256
+    7e37332f86485c239ae5e13ed6557902ca08a4d69353b2efecae064f92a68a6f
+    confirmed identical before and after.
+
+VERIFICATION
+Full 36-checker suite re-run clean after all three restorations (36/36).
+All six generators rebuilt (build-service-pages.js, build-switch-pages.js,
+build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js): every .html/.txt
+file under modules/ SHA256-hashed before and after, byte-identical, 0 diff.
+git status --porcelain on modules/, core/: empty throughout and at the end.
+
+Zero in-repo defects. The checker was already correctly holding this
+branch's map and directions data; now proven directly by injection rather
+than left correct by six generators' construction alone, matching the
+methodology already used on the checker's other rules for other branches.
+
+LIVE HALF, read-only, direct outbound curl from the sandbox (Claude in
+Chrome confirmed not connected at answer pickup and again for this item; no
+click, type or submit attempted anywhere). Fetched four of Tiffenbergs' 12
+live pages not previously read specifically for map-embed agreement
+(weight-loss-clinic, travel-clinic, uti-treatment, pharmacy-first; all four
+already had full-page live coverage from the fifth/sixth passes, this pass
+re-reads them narrowly for the map/contact-card pair). All four: map query
+decodes to "388 Longmoor Lane, Liverpool, L9 9DB", contact card reads the
+identical string, encoding is intact (%2C/%20 throughout, no raw
+punctuation) - live matches the repo and matches branches.json on every
+page sampled. No new question raised; Q56 (branches.json's singular
+Tiffenberg@ against the live plural tiffenbergs@ email) not re-examined
+this pass, out of this checker's scope.
+
+SELF-CORRECTION. Writing "L9 9AA" (the fabricated postcode used in
+injection 3) into this evidence file tripped tools/check-postcodes.js's own
+rule 1: audits/ is a narrative directory by convention, but a quoted
+postcode still has to be named in NARRATIVE_POSTCODES with a reason, and
+L9 9AA was not. Caught by re-running the full 36-checker suite after
+writing this file, before committing - the same gap the L23 6TX, L23 3AZ,
+L9 8ZZ and L4 7TH entries already record being closed for other passes.
+Fixed by adding an L9 9AA entry to NARRATIVE_POSTCODES in
+tools/check-postcodes.js, in the same style as those four. Full 36-checker
+suite re-run clean after the fix; all six generators re-rebuilt, byte-
+identical, confirming this was a checker-only change with no page, pack or
+branches.json entry touched.
+
+No new question raised for Rishi. Files changed this pass: this evidence
+file, tools/check-postcodes.js (the NARRATIVE_POSTCODES entry above), and
+the AGENT_WORKLIST.md / AGENT_LOG.md entries for this pass.
+
+Evidence: this file; _agentscratch/312-mapembeds-backup/ (pre-injection
+backups, working copy only, not committed); _agentscratch/live312-mapembeds/
+(four live page fetches, working copy only, not committed).
+Done 2026-09-05 (ninth pass)

@@ -6089,6 +6089,45 @@ Done 2026-09-05 (eleventh pass).
       question raised. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-09-04-eighth.txt. Done
       2026-09-04 (eighth pass)
+      Quality pass 2026-09-05, NINTH PASS, FRESH ANGLE: tools/check-map-
+      embeds.js proven by injection against Tiffenbergs' own pages for the
+      first time in this item's nine-pass history (eight prior passes had
+      exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+      check-booking-routes.js, check-jsonld.js, check-gbp-packs.js and
+      check-branch-identity.js, but never the checker that owns the Google
+      Maps embed and the "Get directions" agreement). Baseline: all 36
+      checkers 0 failures, git status clean. Tiffenbergs has no branch
+      landing page (one of the seven lunch-closure branches), so RULE 6
+      (directions button) has no surface on this branch - a genuine coverage
+      gap for this branch specifically, already proven estate-wide on the
+      six landing-page branches when the checker was built. Three
+      injections, each on a page/rule pair untried for map-embed injection
+      here, each restored by byte copy and SHA256-reconfirmed identical:
+      (1) weight-loss-clinic page's map query swapped to a fabricated Clear
+      Chemist Aintree postcode (L9 7AS) - CAUGHT twice at once, [the
+      address] and [agreement]; (2) travel-clinic page's map query partly
+      un-percent-encoded (raw comma/space) with the address value left
+      correct - CAUGHT by [encoding] only, confirming the checker separates
+      the value check from the encoding check; (3) uti-treatment page's
+      visible contact-card address changed with the map left untouched -
+      CAUGHT by [agreement] only, cleanly isolated from [the address] since
+      the map itself still matched branches.json. Full 36-checker suite
+      re-run clean after all three restores; all six generators rebuilt,
+      every modules/ file SHA256-unchanged. Zero in-repo defects. Live half,
+      read-only via direct curl (Claude in Chrome not connected): four live
+      pages (weight-loss-clinic, travel-clinic, uti-treatment,
+      pharmacy-first) re-read narrowly for the map/contact-card pair, all
+      four agree with the repo and branches.json. SELF-CORRECTION: writing
+      the fabricated "L9 9AA" injection value into this pass's evidence file
+      tripped check-postcodes.js's own rule 1 (audits/ is narrative by
+      directory but a quoted postcode must still be named in
+      NARRATIVE_POSTCODES); caught by re-running the full suite before
+      committing, fixed by adding an L9 9AA entry in the same style as
+      L23 6TX, L23 3AZ, L9 8ZZ and L4 7TH. 36-checker suite and all six
+      generators re-confirmed clean/byte-identical after the fix. No new
+      question raised. Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-09-05-ninth.txt. Done
+      2026-09-05 (ninth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
