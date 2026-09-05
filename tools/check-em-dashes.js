@@ -217,9 +217,38 @@ const EN = "–";
 // (U+2014, U+2013) rather than matching a spelling. That is robust to any
 // amount of padding by construction, the same "shape not list" fix this
 // file's own history keeps landing on for other gaps.
+//
+// The trailing semicolon is OPTIONAL, one turn past padding and found on the
+// item 5.1 quality pass (thirteenth), 2026-09-05. The tenth pass's fix still
+// required a literal ";" at the end of the reference, because that is the
+// well-formed shape and every real example in this estate carries one. The
+// WHATWG HTML parsing algorithm does not require it for a NUMERIC character
+// reference: the "numeric character reference end state" consumes and
+// translates the reference whether or not a ";" follows, and only records a
+// parse error (not a rendering difference) when it is missing. That is a
+// different rule from NAMED references such as &mdash;/&ndash;, which are
+// outside the small legacy list of names a browser still resolves without a
+// semicolon and so correctly stay exact-match above. Proved empirically
+// rather than argued: parse5 (a spec-conformant WHATWG HTML5 tokenizer, the
+// same parsing algorithm class jsdom and real browsers implement, not a
+// hand-rolled regex) decodes "left&#8212right" to "left—right" and
+// "left&#x2014right" the same way, while "left&mdashright" (no semicolon)
+// stays literal text - confirming the semicolon-optional behaviour is
+// specific to the numeric form this pattern already targets. Proved against
+// this checker by injection: "&#8212" with no trailing semicolon, appended to
+// the real Page Permalink value for Smartts Chemist Bootle in
+// modules/switch/pages/SEO.md, passed the un-fixed checker with exit 0 - the
+// same silent-miss shape the tenth pass's padding fix closed one digit
+// earlier. Restored by byte copy afterwards, sha256-reconfirmed identical to
+// the pre-injection file (73689c39...45fd0, matching the tenth pass's own
+// recorded hash, proving the file has not drifted since). The digit-capture
+// groups already stop at the first non-digit (decimal) or non-hex-digit (hex)
+// character by construction, exactly as the HTML tokenizer's own digit
+// accumulation does, so making the semicolon optional introduces no new
+// ambiguity about where a reference ends.
 const EM_NAMED_RE = /&mdash;/;
 const EN_NAMED_RE = /&ndash;/;
-const NUMERIC_ENTITY_RE = /&#(\d+);|&#[xX]([0-9a-fA-F]+);/g;
+const NUMERIC_ENTITY_RE = /&#(\d+);?|&#[xX]([0-9a-fA-F]+);?/g;
 const EM_CODEPOINT = 0x2014;
 const EN_CODEPOINT = 0x2013;
 

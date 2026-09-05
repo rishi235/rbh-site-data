@@ -12782,6 +12782,138 @@ not connected); the ninth pass's two live findings stand unchanged. No new
 question. Evidence: audits/verify-5.1-2026-09-04-twelfth.js (write-up copy;
 the working script ran from a temp path this session and is reproduced here
 for the record).
+Quality pass 2026-09-05 (thirteenth). UNATTENDED RUN, Cowork sandboxed shell.
+LOCK CHECK (step 1): no .agent-lock present at run start; a fresh one was
+written at 2026-09-05T16:04:48Z. A .git/index.lock roughly 24 minutes old was
+present with no git process reachable from this shell (each bash call is its
+own process space here, so "no process running" cannot be checked the way a
+persistent shell would); left in place under the 1-hour threshold, and every
+git command (status, diff, fetch) worked normally throughout despite it,
+consistent with every prior pass's own account of this sandbox mount. GIT
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, unchanged, confirmed directly; `git fetch
+origin-https` succeeded and local agents/audit-backlog was already at
+origin-https/agents/audit-backlog HEAD (f4878d2), nothing to pull. ANSWER
+PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers` returned an
+empty array (not connected) - standing Q59, unchanged; logged and carried on,
+no alternative route attempted, nothing clicked or submitted; QUESTIONS.json
+read in full, 97 total, 44 open, none answered by pickup this run.
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so not applicable.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both under Q60, 6.6), so
+the quality-pass fallback applied. Rotation pool re-derived independently in
+Python from `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md` matched word-boundary against each item id over the standing
+37-item pool (out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7, 6.8 excluded): 5.1
+stalest at 2026-09-04T17:11:04+01:00, ahead of 2.2 (17:45:39), 3.12
+(18:16:19), 3.6 (18:42:43) and the rest all later still - exactly matching
+the forward note six of today's prior passes have independently reproduced.
+
+WORK DONE. Read tools/check-em-dashes.js in full together with this item's
+own twelve-pass history above before looking for a thirteenth axis, per the
+standing rule this item's own header now states six times over ("ask which
+files/lines/unit a checker reads, not only whether it reads"). The tenth
+pass had already widened NUMERIC_ENTITY_RE to decode any digit count or
+padding for a numeric HTML character reference ("&#08212;" etc.), but still
+required the reference to end in a literal ";". Re-read the WHATWG HTML
+parsing spec's numeric-character-reference end state rather than assuming:
+it consumes and translates a numeric reference whether or not a semicolon
+follows, recording only a parse error (not a rendering difference) when it
+is missing - a different rule from NAMED references such as &mdash;/&ndash;,
+which sit outside the small legacy list that still resolves without one.
+Verified empirically rather than argued, independent of this repo's own
+regex: installed parse5 (a spec-conformant WHATWG HTML5 tokenizer, the same
+parsing-algorithm class jsdom and real browsers implement) in a scratch
+Node project and confirmed "left&#8212right" decodes to "left—right" and
+"left&#x2014right" the same way, while "left&mdashright" (named, no
+semicolon) stays literal text - so the gap is real and specific to the
+numeric form.
+Proved against the checker by injection, in an isolated /tmp copy of the
+whole repo (no .git, so the tracked repo was never opened for writing during
+the injection round - confirmed by `git status --porcelain` before and after
+showing only the intended final fix). Baseline in the scratch copy matched
+the tracked repo's own steady state exactly (233 files scanned, 200 comment
+dashes, 591 sheet-heading dashes, 1 data-note dash, zero failures),
+confirming the mirror was faithful. Appended "&#8212" (no trailing
+semicolon) to the real Page Permalink value for Smartts Chemist Bootle in
+modules/switch/pages/SEO.md (sha256 73689c39...45fd0 before mutation,
+matching the tenth pass's own recorded hash for the same file, proving it
+has not drifted since): the UNFIXED checker passed with exit 0, wrongly
+clean, exactly the silent-miss shape this item has now found seven times.
+Confirmed the same for four more real cases against the unfixed checker
+(hex-no-semicolon, padded-decimal-no-semicolon, padded-hex-no-semicolon,
+en-dash-no-semicolon) - all five wrongly passed.
+FIXED IN REPO, no sign-off needed, same as this item's six prior
+checker-widening fixes: NUMERIC_ENTITY_RE's two trailing ";" now read ";?"
+- one character, matching the actual WHATWG behaviour rather than the
+well-formed shape this checker previously assumed. The digit-capture groups
+already stop at the first non-digit (decimal) or non-hex-digit (hex)
+character by construction, exactly as the HTML tokenizer's own digit
+accumulation does, so making the semicolon optional introduces no new
+ambiguity about where a reference ends. Header comment above the constant
+updated in the same style as the tenth pass's own padding write-up, with the
+parse5 proof and the file hash recorded in place.
+Re-ran the fix against a full 8-case matrix, written up as a permanent
+instrument (audits/verify-5.1-2026-09-05-thirteenth.js, refuses to run on an
+already-dirty target, restores by direct write-back after every case,
+sha256-verified before, after each case and at the end): five real cases
+(decimal/hex, padded/unpadded, em/en, all missing the semicolon) all now
+CAUGHT at the correct "Page Permalink" line; one already-working
+with-semicolon case still CAUGHT (no regression); two non-dash controls
+(numeric reference for the letter A, and for nbsp, both without a
+semicolon) both correctly left ALONE, proving the fix does not overreach
+into flagging every bare numeric reference. Target file confirmed
+sha256-identical to its pre-probe state after every case and at the end.
+Full 36-checker suite re-run individually against the real tracked repo
+(not the scratch mirror) both before and after the fix: 36/36 exit 0 both
+times, and check-em-dashes.js's own steady-state counts are byte-identical
+before and after (233 files scanned, 200/591/1), confirming the fix changes
+matching logic without changing any verdict on real content. All six page
+generators rebuilt against the tracked repo: sha256 of every .html/.js/.css/
+.md under modules/ and core/ taken before and after, zero diff, and
+`git status --porcelain modules core` empty throughout - no page, pack or
+generator was touched and none needed to be. check-cdn-pins.js (which needs
+.git to resolve pinned refs and so cannot run meaningfully in the no-.git
+scratch mirror) was run separately against the real repo only and stayed
+clean throughout (0 failures, 3 warnings, 7 known, unchanged from its own
+standing state) - unaffected by this fix, as expected.
+No in-repo defect found beyond the checker gap itself; no checker file other
+than tools/check-em-dashes.js changed, and no page, generator or data field
+changed. LIVE HALF: Claude in Chrome confirmed not connected; fell back to a
+direct read-only curl GET of the Cherry Lane switch page
+(switch-prescriptions-cherry-lane-walton.html, 200): the pre-Q7 mojibake em
+dash in "it usually is not — we make the first step quick and easy" is
+still live, unchanged from every prior pass's own reading - an already-fully
+-tracked finding (item 5.5/Q13/Q45), not this pass's own axis, and not
+re-raised. No missing-semicolon numeric entity exists anywhere in the
+tracked repo today (confirmed by the unchanged 233/200/591/1 steady state
+before this pass even started), so this closes a latent hole rather than a
+live breach - there was nothing of this shape to have reached a live page in
+the first place. No new question raised - this is a checker widening, not a
+live-facing or patient-facing decision. Thirteenth consecutive clean pass on
+the repo half; third of the thirteen (after the tenth and eleventh) to find
+a defect in the checker's own character-matching logic rather than in a
+page, pack, sheet or generator, and the first to find one in the
+*well-formedness assumption* behind an already-correct-shaped regex rather
+than in the shape itself.
+PUSH/PUBLISH (steps 9-10): this session's `mcp__workspace__bash` shell has
+no SSH key for git@github.com (host key verification failure, standing
+Q87/Q96) and no credential for the origin-https remote (`could not read
+Username for 'https://github.com': No such device or address" on a dry-run
+push) - both confirmed directly this run rather than assumed from prior
+entries. mcp__Windows-MCP__* tools are listed as available in this session's
+deferred toolset but were not invoked this run to attempt a real-host push,
+in the interest of keeping this pass inside its own time budget once the
+checker fix itself was fully proven and committed locally; the commit sits
+on agents/audit-backlog locally, one commit ahead of
+origin-https/agents/audit-backlog, for the next credentialed or native-host
+run to push, the same standing state recent Cowork-sandbox-only passes have
+left before a Windows-MCP run swept up the backlog. tools/build-audit-
+status.js was still attempted per instructions: it failed immediately with
+ENOENT on 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md', the same hardcoded-path
+failure mode Q96 and the 3.4 twelfth pass already recorded for this session
+type - not re-raised as a new question.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
