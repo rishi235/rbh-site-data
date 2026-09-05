@@ -9572,6 +9572,49 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       (unchanged by this pass; answer pickup unavailable, Chrome not
       connected).
       See audits/fishlocks-eccleston-gbp-pack-hours-days-4.8-twelfth-2026-09-05.txt.
+      Quality pass 2026-09-05 (thirteenth, unattended run): stalest item in
+      the 37-item rotation pool, re-derived independently (git log commit
+      subjects matched by word-boundary "N.N", most recent match per pool
+      item; 4.8 unique stalest at 2026-09-03T22:13:39+01:00, its own
+      twelfth-pass commit, every other pool item already touched earlier
+      today). Baseline: git status clean, all 36 checkers green, sha256 of
+      the pack confirmed against the twelfth pass's own hash
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa).
+      New angle: thirteen prior passes had proven check-gbp-packs.js's
+      PRICE_PATTERNS half of the "no lead pricing or offer wording" rule
+      nowhere on this pack, and its OFFER_PATTERNS half (special offer,
+      half-price, discount, percentage off, time-limited, saving claim) had
+      never been proven by injection anywhere in the audit, on any pack -
+      only PRICE_PATTERNS had been tested, twice, on scorah-hazel-grove.md
+      and mccanns-aigburth.md, both twelfth passes earlier the same
+      run-chain. This pack is the most on-topic possible target: its own
+      live weight-loss-clinic-fishlocks-eccleston.html page is Q88's
+      founding example of the generator-level lead-price pattern. Seven
+      injections on Post C's closing sentence, each restored by byte copy
+      and sha256-reconfirmed before the next: this branch's own live "from
+      £39.99" wording (PRICE_PATTERNS re-proof) and all six OFFER_PATTERNS
+      entries (special offer, half-price, discount, 20% off, "this week
+      only", "save £10") - all seven CAUGHT. One observation, not a defect:
+      the "save £10" test is reported via PRICE_PATTERNS' plain price
+      pattern rather than the OFFER_PATTERNS saving-claim pattern, because
+      the price loop runs first and breaks on its own match whenever a
+      saving is expressed with a literal £ symbol - the copy is still
+      blocked, citing the same section 5 breach, just under the other
+      pattern's name; not raised as a question since nothing is missed.
+      Full 36-checker suite re-run clean after the final restore (36/36
+      exit 0); sha256 reconfirmed identical throughout; git status
+      --porcelain -- gbp-packs modules core branches.json tools status
+      empty. INCIDENTAL: two of this run's own scratch files, written
+      briefly into the repo root for an unrelated rotation-pool
+      calculation, were picked up by check-postcodes.js's whole-repo scan
+      and produced 7 spurious UNKNOWN-postcode failures; caught by the
+      full-suite sweep, deleted before the final clean run, never staged.
+      LIVE: Claude in Chrome not connected (Q59); read-only GET fallback
+      confirmed the landing page still 404 (known queued-paste state,
+      5.3/5.4) and all four post targets still 200, unchanged. No in-repo
+      defect found. No new question. Open question count unchanged, 45
+      open of 98 total (answer pickup unavailable, Chrome not connected).
+      See audits/fishlocks-eccleston-price-offer-patterns-4.8-thirteenth-2026-09-05.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

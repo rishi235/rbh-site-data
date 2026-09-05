@@ -1,0 +1,188 @@
+Item 4.8 quality pass (thirteenth, unattended run), 2026-09-05
+Subject: gbp-packs/fishlocks-eccleston.md
+Fresh angle: tools/check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule
+("no lead pricing or offer wording in the posted copy"), proving OFFER_PATTERNS
+by injection for the first time anywhere in this audit's history (PRICE_PATTERNS
+alone had already been proven, twelfth pass, against scorah-hazel-grove.md and
+mccanns-aigburth.md).
+
+ROTATION SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1 x2, 6.6), so the quality-pass fallback applied.
+Rotation pool re-derived independently in Python from
+`git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`,
+word-boundary matched against the 37-item pool (43 checked AGENT_WORKLIST.md
+items minus the 6 declared out-of-rotation: 1.1, 1.4, 5.6, 5.7, 6.7, 6.8):
+4.8 came out stalest at 2026-09-03T22:13:39+01:00 (its own twelfth-pass
+commit), ahead of every other pool item, all already touched today
+(2026-09-05) by the twelve-plus passes recorded earlier in this run-chain.
+
+INFRASTRUCTURE NOTE
+This run started in the Cowork Linux sandbox (mcp__workspace__bash), where
+git fetch/push over SSH fails ("Host key verification failed") and there is
+no HTTPS credential, no GH_TOKEN and no gh CLI - confirmed empty this run,
+consistent with every entry in this file's own history recording the same
+constraint (Q87/Q96). One local commit (b8d86d7, the item 4.13 twelfth pass)
+was sitting unpushed on origin from an earlier sandbox run. Per Q87/Q96's own
+recommendation, this run switched to mcp__Windows-MCP__PowerShell against the
+real ProDesk host (C:\Dev\rbh-site-data is the same on-disk repo the Cowork
+mount points at - confirmed identical untracked debris and identical ahead-
+by-one-commit state on first check) for the rest of the run. On the real
+host: git fetch/checkout/pull all worked normally over SSH, and the pending
+commit pushed cleanly (`cc0ec5c..b8d86d7 agents/audit-backlog ->
+agents/audit-backlog`), so origin and HEAD are back in sync before this
+item's own work began.
+
+LOCK CHECK (step 1)
+No .agent-lock present on the real host at run start; fresh one written
+2026-09-05T23:37:56+01:00. .git/index.lock and .git/HEAD.lock were both
+present, dated 23:14:18, 23 minutes old at first check and confirmed via
+Get-Process that no git process was running - left in place under the
+1-hour/no-git-process threshold rather than removed early, per procedure.
+They did not block git status, fetch, checkout or pull; add/commit are
+deferred to the end of this item, by which point more time has passed.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__navigate to https://data.rbhealth.co.uk/api/feedback
+returned "Claude in Chrome is not connected" - the standing Q59 finding,
+unchanged. Logged and carried on; no alternative route attempted, nothing
+clicked or submitted. QUESTIONS.json read directly: 98 total, 45 open, none
+answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4)
+Line 1 of AGENT_LOG.md at run start (the item 4.13 twelfth-pass entry)
+carries no "Standing authorisation - autonomous window" heading. Not
+applicable; moot regardless, since no new question is raised this pass.
+
+BASELINE
+node tools/check-gbp-packs.js on the untouched tracked repo: 0 failures, 18
+warnings (17 standing + one added since the twelfth pass's own count, all
+consistent with recent history - Q64 post-town x4, Q72 qualifier wording,
+several live-only link-target warnings, Q98's own trail). All 36
+tools/check-*.js run individually: 36/36 exit 0. sha256 of
+gbp-packs/fishlocks-eccleston.md:
+5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa.
+git status --porcelain -- gbp-packs modules core branches.json tools status
+empty.
+
+WHY THIS ANGLE
+Twelve prior passes on this item had proven the reverse-services rule (its
+own birth, 2026-08-10), the foreign-town-in-description rule (its own birth,
+fourth pass), CLINIC_QUALIFIERS (its own birth, fifth pass), the
+lastStreetMatch abbreviation fix (its own finding, ninth pass), OUTCOME_PROMISE
+(tenth pass), check-brand-spelling.js/check-url-scheme.js/check-uk-spelling.js
+(eleventh pass) and the hours-days three-leg presence rule (twelfth pass)
+against this pack's own copy - but never PRICE_PATTERNS/OFFER_PATTERNS. That
+rule was proven for PRICE_PATTERNS only, twice, earlier the same run-chain
+(scorah-hazel-grove.md and mccanns-aigburth.md, both twelfth passes), using
+each branch's own live lead-price wording from Q83/Q88. This pack is the
+most on-topic possible target for that same test: this branch's OWN live
+weight-loss-clinic-fishlocks-eccleston.html page is Q88's own founding
+example of the generator-level lead-price pattern (tools/build-weight-loss-
+pages.js's CONSULT_FEE constant, "Private consultation at Fishlocks
+Chemist, from £39.99."). Grepping AGENT_WORKLIST.md for OFFER_PATTERNS,
+"half-price", "special offer" and "saving claim" found no prior proof of
+check-gbp-packs.js's OFFER_PATTERNS array anywhere in the audit (a different
+hit, item 5.2's check-weight-loss-copy.js "offer/discount pattern", is a
+different checker's rule entirely) - so this pass closes that gap for the
+first time, chosen against this pack specifically because of its direct Q88
+relevance.
+
+METHOD
+Post C (Weight loss clinic)'s closing sentence, "Confidential and
+judgement-free. Book your consultation today.", was used as the injection
+point throughout, one test at a time, on the tracked file directly (this
+checker's only inputs are the pack file plus branches.json, neither a
+generator input, so an in-place edit with byte-copy restore between rounds
+is the established safe method for this shape of test - matching every
+prior pass's approach). A Python harness (deleted after use, see CLEANUP
+below) wrote each variant, ran `node tools/check-gbp-packs.js`, captured the
+first FAIL line naming this file, restored the original bytes from an
+in-memory copy, and reconfirmed the sha256 before moving to the next test.
+
+SEVEN INJECTIONS, ALL SEVEN CAUGHT
+1. PRICE_PATTERNS re-proof, this branch's own live Q88 wording: "Plans start
+   from £39.99 a month." -> FAIL, Post C, "carries a price in the posted
+   copy". Confirms the rule (fixed for the mojibake £ literal on item 4.6's
+   twelfth pass, same run-chain) generalises to a THIRD pack, not just the
+   two it was proven against immediately after the fix.
+2. OFFER_PATTERNS "special offer": "Ask about our special offer this
+   month." -> FAIL, "carries a special offer".
+3. OFFER_PATTERNS "half-price": "Your first consultation is half-price."
+   -> FAIL, "carries a half-price offer".
+4. OFFER_PATTERNS "discount": "A discount applies to returning patients."
+   -> FAIL, "carries a discount".
+5. OFFER_PATTERNS "percentage off": "Get 20% off your first consultation."
+   -> FAIL, "carries a percentage discount".
+6. OFFER_PATTERNS "time-limited": "This week only, book your consultation
+   today." -> FAIL, "carries a time-limited offer".
+7. OFFER_PATTERNS "saving claim": "Book now and save £10 on your
+   consultation today." -> FAIL, but reported as "carries a price ... (\"£1\")"
+   via PRICE_PATTERNS' plain £-digit pattern rather than via the OFFER_PATTERNS
+   saving-claim pattern - see OBSERVATION below. Still caught, still blocks
+   the paste, still cites compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+   section 5.
+
+All seven restored by byte copy and sha256-reconfirmed identical
+(5f2206db...01efa) immediately after each test; git diff/git status on the
+pack empty throughout and at the end.
+
+OBSERVATION, NOT A DEFECT
+Test 7 shows the OFFER_PATTERNS "saving claim" pattern
+(`/\bsave\s+£?\s?\d/i`) is only reachable in its own right when a saving is
+stated WITHOUT a literal £ symbol (e.g. "save 10%" with no "off", or "save
+10 points") - because the PRICE_PATTERNS loop runs first for each scope and
+its own plain `£\s?\d` pattern matches "save £10" before the OFFER_PATTERNS
+loop is reached, and the code `break`s on the first PRICE_PATTERNS hit. The
+practical effect is a wrong RULE NAME in the failure message (a price,
+not a saving claim) for the single most natural way to write a discounted
+price in British pharmacy copy, but not a missed breach: both patterns exist
+to enforce the same prohibition (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+section 5) and the copy is blocked either way. Recorded for completeness,
+in the same spirit as this repo's "ask which files/lines a checker actually
+read" convention, but not raised as a question or a fix: unlike the item
+4.6 mojibake bug (which caused a genuine silent miss), this is message
+attribution only and every tested string is still caught.
+
+FULL SUITE RE-CHECK
+All 36 tools/check-*.js re-run individually after the final restore: 36/36
+exit 0 (one incidental finding and fix along the way - see CLEANUP). git
+status --porcelain -- gbp-packs modules core branches.json tools status
+empty. No generator, page or data field touched; only this audit file,
+AGENT_WORKLIST.md and AGENT_LOG.md are new/changed by this item.
+
+CLEANUP, logged for transparency
+Two scratch files this run wrote directly into the repo root
+(_rotation_calc.py, _rotation_log.txt, used for the rotation-pool
+calculation above) were picked up by check-postcodes.js's whole-repo text
+scan - the same "reads everything, so an allowlist has to be about VALUES
+not FILES" behaviour CLAUDE.md already documents for that checker - and
+produced 7 spurious UNKNOWN-postcode failures (postcodes quoted inside old
+commit-message subjects the log query pulled in). Caught immediately by
+noticing check-postcodes.js was the one checker returning nonzero in the
+full-suite sweep; both scratch files (plus the injection-test harness,
+_4.8_injection_test.py) deleted from the repo root before the final
+suite re-run, which then came back 36/36 clean. None of the three was ever
+staged or committed. This is the same class of lesson as the item 3.1
+twelfth pass's own _agentscratch-inside-the-tree mistake two runs earlier
+in this chain: a scratch file for THIS run's own bookkeeping must live
+outside the tree, or check-postcodes.js will read it as if it were part of
+the estate.
+
+LIVE HALF
+Claude in Chrome not connected (per answer pickup above); read-only GET
+fallback via PowerShell Invoke-WebRequest (GET only, no interaction, no
+login, no submission) against the pack's own five URLs. Landing page
+(pharmacy-fishlocks-eccleston.html): still 404, the known queued-paste
+state (5.3/5.4), unchanged. The four post targets (Pharmacy First, switch,
+weight loss clinic, travel clinic): all 200, unchanged. Full text not
+re-read this pass (the 2026-09-01 seventh pass already did that in depth
+and raised Q88 from it; this pass's own subject is the checker-side rule,
+already proven relevant to this exact live page by that earlier pass).
+
+RESULT
+No in-repo defect found (the observation above is not one). Rule proven,
+for the first time anywhere, in both its PRICE_PATTERNS and OFFER_PATTERNS
+halves, against the pack most directly relevant to why the rule exists.
+No new question. Open question count unchanged, 45 open of 98 total
+(answer pickup unavailable, Chrome not connected).
