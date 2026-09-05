@@ -10446,6 +10446,51 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       branches.json entry changed. No new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-04-eleventh.txt.
       Done 2026-09-04.
+      Twelfth quality pass 2026-09-05 (unattended scheduled run via Cowork).
+      Fresh angle: tools/check-gbp-pharmacy-first.js had never been proven
+      against this pack by direct injection in eleven passes, only
+      passively as part of every "all checkers clean" sweep - the same gap
+      the 4.2 thirteenth and 4.7 twelfth passes closed for their own packs
+      the same week. Baseline green: 36/36 checkers exit 0, pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      byte-stable across twelve passes. Full repo copied with .git to a
+      scratch directory; all injections against the scratch copy only.
+      One process error caught and corrected mid-run: the first attempt at
+      the impetigo injection was made with the Edit tool against the
+      canonical path instead of the scratch copy. Caught immediately by a
+      post-edit sha256 check, reverted from a pre-injection backup, and
+      reconfirmed sha256-identical to baseline and git-status-clean before
+      any further work; no injection reached the tracked repo. Three
+      injections then run correctly on the scratch copy: (1) "impetigo"
+      dropped from Post A's condition list only, six of seven left
+      standing - CAUGHT by rule 3 (completeness); (2) Post A's UTI age
+      range changed from "16 to 64" to "16 to 60" - CAUGHT by rule 6
+      against the canon read live from tools/build-service-pages.js's own
+      CONDITIONS.uti.ageNote; (3) "conjunctivitis" (an OUTSIDE_PF word)
+      inserted into the Services section's Pharmacy First bullet - CAUGHT
+      by rule 4. All three fired first attempt, on their intended rule and
+      no other. Full 36-checker suite re-run clean after the final
+      restore; tracked repo confirmed sha256-unchanged throughout. All six
+      generators re-run against the tracked repo: byte-identical. No
+      checker gap found; no in-repo defect.
+      LIVE HALF: Claude in Chrome not connected. Fell back to read-only
+      curl from the sandbox shell. All findings reconfirmed unchanged:
+      pfLink (pharmacy-first-service-crosby.html) still reads Gordon Short
+      Chemist 12 times with no wrong-name occurrence, remains safe as
+      written; switch-prescriptions-gordon-short-crosby.html's "How
+      switching...works" heading correctly reads the singular name, its
+      mojibake em dash ("ÔÇö", 4 occurrences) unchanged since the sixth
+      pass; pharmacy-first-gordon-short-crosby.html still reads "Gordon
+      Shorts Chemist" 16 times against 5 correct, the exact count the
+      ninth, tenth and eleventh passes recorded, so the STOP and
+      PF_TARGET_HOLD/Q32 remain correctly in force; sitemap still dated
+      2026-08-15T07:41:55+00:00 throughout, no republish since the sixth
+      pass, still lists weight-loss-clinic-crosby.html (Q90) at 200,
+      content not re-read this pass (status only). No new live finding.
+      No pack copy, page, generator, data field or branches.json entry
+      changed. No new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-05-twelfth.txt.
+      Done 2026-09-05.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

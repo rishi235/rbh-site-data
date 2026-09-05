@@ -1,0 +1,96 @@
+Item 4.14 quality pass (twelfth), 2026-09-05, unattended scheduled run via Cowork.
+
+SELECTION. All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1,
+the two under Q60, 6.6) confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied. Rotation pool re-derived independently:
+42 checked items in AGENT_WORKLIST.md minus the 6 standing out-of-rotation
+(1.1, 1.4, 5.6, 5.7, 6.7, 6.8) gives a 36-item pool, matched against a
+commit-subject "item <id>" pattern over git log --pretty=format:"%cI|||%s"
+-- AGENT_WORKLIST.md AGENT_LOG.md. Result: 4.14 uniquely stalest at
+2026-09-04T02:39:46+01:00 (its own eleventh pass), ahead of 1.2, 3.11, 4.4,
+4.1 and 3.2, exactly matching the thirteenth pass on item 4.2's own
+forward-looking projection recorded the same morning.
+
+BASELINE. gbp-packs/gordon-short-crosby.md sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+matching all eleven prior passes' own recorded MD5/facts. All 36
+tools/check-*.js run individually against the tracked repo before any
+change: 36/36 exit 0.
+
+FRESH ANGLE. Eleven prior passes (2026-08-04 to 2026-09-04) proved
+check-gbp-packs.js (multiple rules), check-uk-spelling.js,
+check-brand-spelling.js, check-url-scheme.js, check-pharmacy-first-cost.js
+(rule "free") and check-app-membership.js (rules 8a/8d) against this
+pack's own copy, confirmed by a text search of the item's own worklist
+entry for each checker's filename. tools/check-gbp-pharmacy-first.js reads
+gbp-packs/ (one of 16 checkers that do) and gordonshorts_crosby carries a
+pharmacyFirst widget (confirmed against branches.json), so its 12 rules
+apply here, but it had never once been proven by injection against this
+specific pack in twelve passes - only passively, as part of every
+"all checkers clean" sweep, which proves it did not fire, not that it can.
+This is the same gap the 4.2 thirteenth pass and 4.7 twelfth pass closed
+for their own packs the same week.
+
+METHOD. Full repo copied WITH .git to a scratch directory
+(/sessions/dazzling-beautiful-fermat/scratch-414); all injections against
+the scratch copy only, tracked repo confirmed untouched by sha256 before,
+between and after every injection. One process error caught and corrected
+mid-run: the first attempt at injection 1 was made with the Edit tool
+against the canonical path (C:\dev\rbh-site-data\gbp-packs\gordon-short-
+crosby.md) rather than the scratch copy, in violation of the established
+"tracked repo never opened for writing" method. Caught immediately by a
+post-edit sha256 check, reverted from a pre-injection backup, and
+reconfirmed sha256-identical to baseline and git-status-clean before any
+further work. No injection or defect from that misstep reached the tracked
+repo at any point; all three real injections below were then performed
+correctly, on the scratch copy only, via direct file operations rather
+than the Edit tool.
+
+Three injections, each backed up, run, restored and sha256-verified:
+(1) "impetigo" dropped from Post A's condition list only (Services section
+    left untouched, six of seven left standing in Post A) - CAUGHT by rule
+    3 (completeness): "Post A names 6 of the 7 Pharmacy First conditions
+    and omits impetigo."
+(2) Post A's UTI age range changed from "16 to 64" to "16 to 60" - CAUGHT
+    by rule 6 against the canon read live from tools/build-service-
+    pages.js's own CONDITIONS.uti.ageNote ("Women aged 16 to 64").
+(3) "conjunctivitis" (an OUTSIDE_PF word, plausible pharmacy advice but not
+    one of the NHS Pharmacy First seven) inserted into the Services
+    section's Pharmacy First bullet - CAUGHT by rule 4, naming the pack
+    and the word.
+All three fired first attempt, on their intended rule and no other. Full
+36-checker suite re-run clean on the scratch copy after the final restore.
+No checker gap found; no in-repo defect.
+
+REGRESSION SWEEP. Tracked repo's gbp-packs/gordon-short-crosby.md
+confirmed sha256-identical to baseline throughout (49acd885...), never
+opened for writing after the corrected restore. Full 36 tools/check-*.js
+re-run individually against the tracked repo: 36/36 exit 0. All six
+generators re-run against the tracked repo: byte-identical, git status
+--porcelain -- modules core empty. node tools/check-em-dashes.js: clean
+(233 files scanned), including this log entry and the new worklist
+paragraph.
+
+LIVE HALF. Claude in Chrome not connected (tabs_context_mcp reported not
+connected at all this session). Fell back to read-only curl (UA
+"Mozilla/5.0") from the sandbox shell, which has outbound network access
+this session. All findings reconfirmed unchanged from the eleventh pass:
+pfLink (pharmacy-first-service-crosby.html), Post A's real target, 200 and
+reads "Gordon Short Chemist" 12 times with no wrong-name occurrence,
+remains safe as written; switch-prescriptions-gordon-short-crosby.html 200
+and its "How switching...works" heading correctly reads the singular name,
+but its lead paragraph still renders the mojibake em dash as "ÔÇö" (4
+occurrences), unchanged since the sixth pass; pharmacy-first-gordon-short-
+crosby.html, the branch-specific page Post A must not be repointed to,
+still reads "Gordon Shorts Chemist" 16 times against 5 correct, the exact
+count the ninth, tenth and eleventh passes recorded, so the STOP and
+PF_TARGET_HOLD/Q32 remain correctly in force; the sitemap is still dated
+2026-08-15T07:41:55+00:00 throughout, no republish since the sixth pass,
+and still lists weight-loss-clinic-crosby.html (Q90), reconfirmed present
+at 200, content not re-read this pass (status only, per the tenth and
+eleventh passes' own convention). No new live finding.
+
+RESULT. No in-repo defect found. No pack copy, page, generator, data field
+or branches.json entry changed. No new question raised. The Edit-tool
+misstep is recorded above in full because it is a process finding worth
+carrying forward for future runs, not because it reached the tracked repo.
