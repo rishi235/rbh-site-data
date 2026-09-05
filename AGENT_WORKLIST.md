@@ -11435,6 +11435,96 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       content changed, no judgement call for Rishi. Evidence: audits/
       riddings-timperley-hours-days-4.13-eleventh-2026-09-05.txt.
       Done 2026-09-05.
+      Twelfth quality pass 2026-09-05: pack clean and byte-stable across
+      all twelve passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b6
+      26b9d0fed824630a775917c04 before and after, unchanged since the
+      tenth pass). Selected as stalest in the 37-item rotation pool by the
+      same commit-subject-date method as the eleventh pass (pattern
+      matched against "item <N>" subjects only, over the pool of 43
+      completed items minus the standing 6 out-of-rotation: 1.1, 1.4,
+      5.6, 5.7, 6.7, 6.8); 4.13 came out stalest at
+      2026-09-05T00:12:41+01:00, ahead of 4.8 (00:42:49), 4.10 (01:13:12)
+      and the rest all later still.
+      NEW ANGLE. CLINIC_QUALIFIERS (tools/check-gbp-packs.js, the "the
+      qualifiers on the two private clinics" rule, added item 4.8 quality
+      pass, 2026-08-14) had, across all eleven prior passes on this item,
+      never been injection-tested against gbp-packs/riddings-timperley.md
+      specifically. The rule was proved once at birth against
+      fishlocks-eccleston.md and separately re-proved against
+      sk-chemists-bootle.md (item 4.11 tenth pass), but Riddings runs both
+      a weightLoss and a travelClinic widget - exactly the surface this
+      rule exists to guard - and had never had it proven on its own copy,
+      the same gap the ninth pass closed for OUTCOME_PROMISE and the tenth
+      pass closed for BUTTON_PAGE/button-label/lead-pricing.
+      BASELINE. node tools/check-gbp-packs.js on the untouched tracked
+      repo: 0 failures, 17 standing WARNs (Q64 post-town x4, Q72
+      qualifier-exemption x3, live-only link-target warnings, one
+      phone-like-number warning), unchanged from the eleventh pass. All 36
+      tools/check-*.js run individually on the tracked repo: 36/36 exit 0.
+      git status --porcelain on gbp-packs/, modules/, core/, tools/,
+      branches.json, status/ empty throughout.
+      METHOD. Full repo copied to a scratch directory outside the tracked
+      working tree (a first copy of only gbp-packs/, tools/ and
+      branches.json produced 45 false failures, because check-gbp-packs.js
+      cross-references modules/*/pages/*.html to know which link targets
+      this repo generates - caught immediately by comparing scratch and
+      tracked exit codes rather than trusting the scratch run, and fixed
+      by copying the whole repo, excluding only .git, before any real test
+      began). Scratch copy re-confirmed 0 failures, sha256-identical to
+      the tracked file, before any injection. Six injections run one at a
+      time against the scratch copy's gbp-packs/riddings-timperley.md
+      only, restored by byte copy and sha256-reconfirmed identical to the
+      original before the next: (1) the whole "This is a private, paid
+      service and it is not right for everyone - the pharmacist will
+      advise." sentence cut from Post C - CAUGHT, two named FAILs at once
+      (weightLossPaid and weightLossSuitability, since one sentence
+      carries both markers); (2) "as part of a supervised plan alongside
+      diet and lifestyle changes" cut from Post C - CAUGHT
+      (weightLossSupervised); (3) the same "supervised plan" wording cut
+      from the Services section's weight loss bullet - CAUGHT
+      (servicesWeightLossSupervised); (4) "subject to availability and
+      clinical suitability" cut from Post D - CAUGHT (travelSuitability);
+      (5) the same wording cut from the Services section's travel bullet -
+      CAUGHT (servicesTravelSuitability); (6) "private, paid service"
+      reworded to "free service" in Post C, advertising a paid clinic as
+      free - CAUGHT (weightLossPaid again, via the wording check rather
+      than the sentence's presence). All six CLINIC_QUALIFIERS entries
+      proven in one pass, each producing exactly the named diagnostic and
+      no other pack's result changing. No in-repo defect: the rule holds
+      on Riddings' own copy exactly as it does on the pack it was born
+      against. Scratch copy's full 36-checker suite re-run after restore:
+      35/36 exit 0, the one exception (check-cdn-pins.js) failing only
+      because the scratch copy has no .git directory to resolve pinned
+      refs against - an artefact of testing outside a git working tree,
+      not a finding, confirmed by the tracked repo's own check-cdn-pins.js
+      passing cleanly throughout (it was never touched). Tracked repo
+      re-confirmed clean after: all 36 checkers 0 exit, sha256 of
+      gbp-packs/riddings-timperley.md unchanged
+      (8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04),
+      git status --porcelain on all tracked paths empty. Scratch directory
+      deleted after use.
+      LIVE HALF: Claude in Chrome not connected this run (navigate
+      returned "not connected", standing Q59); read-only curl fallback
+      confirmed riddingspharmacy.co.uk, its weight-loss-clinic page and
+      its travel-clinic page all still return 200, consistent with every
+      recent pass. This pass's own subject has no live equivalent to check
+      against: CLINIC_QUALIFIERS governs wording posted directly to a
+      Google Business Profile, which is not a URL this repo can fetch, the
+      same point the item 4.3 twelfth pass made about its own
+      services/categories allowlist subject. All previously logged live
+      findings (Post B 404, pre-Phase-3 switch page paste, weight-loss-
+      clinic-timperley.html's Regime 1 breach per compliance/
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, item 5.8's own Q5 answer
+      already setting that fix direction) stand unchanged from the
+      seventh pass's 2026-09-01 check. Answer pickup (step 3) also
+      unavailable for the same reason; QUESTIONS.json read in full (98
+      total, 45 open), none answered by pickup this run. No autonomous
+      window active at the top of AGENT_LOG.md. No new question raised:
+      pure re-verification of documented checker behaviour against this
+      pack's own copy, no business, legal, pricing or regulatory content
+      changed, no judgement call for Rishi. Evidence: audits/riddings-
+      timperley-clinic-qualifiers-4.13-twelfth-2026-09-05.txt.
+      Done 2026-09-05.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
