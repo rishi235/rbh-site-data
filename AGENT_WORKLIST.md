@@ -1665,6 +1665,50 @@ deleted scratch copy. No new question raised.
       under 5.3/5.4; the Bramhall landing page 404) were not re-checked and
       should not be assumed unchanged. Evidence in
       audits/verify-3.2-2026-09-04-tenth.js and this AGENT_LOG.md entry.
+      Quality pass 2026-09-05 (eleventh, unattended scheduled run via
+      Cowork): REPO HALF ONLY (Claude in Chrome unreachable this run; see the
+      log). Ten prior passes proved title, description, H1, the cross-town
+      rule, service words, H1 counting, duplicate title/description lines,
+      the permalink/URL leg, meta keywords and (tenth pass) data-branch plus
+      the JSON-LD "name"; none had ever proved check-fragment-targets.js -
+      the checker guarding the #book / #switch-form-card same-page CTA
+      wiring, added on the item 3.7 fifth pass specifically because a
+      renamed booking-card id breaks the revenue path silently while every
+      other checker stays green - against Scorah's own 26 pages by
+      injection. A fresh independent extraction
+      (audits/verify-3.2-2026-09-05-eleventh.js, own regexes, imports
+      nothing from tools/) read all 26 Scorah pages (13 Bramhall, 13 Hazel
+      Grove): 78 checks, 0 failures on first run once the script's own CTA
+      rule was corrected to exempt the two branch landing pages exactly as
+      check-fragment-targets.js's own CTA_EXEMPT_FAMILIES does (landing
+      pages signpost out to the service pages and carry no booking card of
+      their own - not a repo defect, a gap in this pass's own first draft of
+      the extraction script, fixed before the result was trusted). Proved
+      the guard bites with two injections on two different Scorah pages:
+      (1) switch-prescriptions-scorah-bramhall.html's hero CTA href changed
+      from "#switch-form-card" to "#switch-form-cards" - check-fragment-targets.js
+      caught it immediately (TARGET rule, exit 1); (2) a second
+      id="book" added to pharmacy-first-scorah-hazel-grove.html - caught
+      immediately on the same run (DUPID rule, exit 1). Both restored via
+      `git show HEAD:<path>` (redirected to the file directly in this Linux
+      session, not PowerShell's Out-File, so the BOM/CRLF corruption the
+      tenth pass found does not apply here), sha256-confirmed byte-identical
+      to the pre-injection baseline both times. Full 36-checker suite
+      re-run after both restores: 36/36 exit 0. All six generators rebuilt
+      from branches.json: sha256 of every file under modules/ before and
+      after (193 files), byte-identical, git status --porcelain on
+      gbp-packs/modules/tools/core/branches.json/status empty throughout. No
+      checker logic, generator, pack or page content changed in the tracked
+      tree. No in-repo defect, no new fault class, no new question. LIVE
+      HALF NOT PERFORMED: Claude in Chrome reported not connected at the
+      start of this run (checked before step 3's answer-pickup attempt, per
+      standing Q59); the previously logged live-only findings
+      (Bramhall/Hazel Grove UTI pages serving Weebly's doubled-brand default
+      title, queued under 5.3/5.4; the Bramhall landing page 404) were not
+      re-checked this pass and should not be assumed unchanged. Evidence in
+      audits/verify-3.2-2026-09-05-eleventh.js,
+      audits/verify-3.2-2026-09-05-eleventh-output.txt and
+      audits/checker-sweep-2026-09-05-item3.2-eleventh.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

@@ -1,4 +1,155 @@
-## 2026-09-05 (unattended scheduled run via Cowork) - Item 4.1 quality pass (twelfth, Fishlocks Ainsdale GBP pack): proved tools/check-gbp-pharmacy-first.js against this pack's own copy for the first time in twelve passes; zero in-repo defect; no new question.
+## 2026-09-05 (unattended scheduled run via Cowork) - Item 3.2 quality pass (eleventh, Scorah Chemists Bramhall and Hazel Grove): proved tools/check-fragment-targets.js against Scorah's own 26 pages for the first time in eleven passes, both rules (TARGET and DUPID) caught by injection on two different pages, restored byte-identical; zero in-repo defect; no new question; Claude in Chrome unreachable; push/publish blocked by the standing Q96 credential gap.
+
+LOCK CHECK (step 1). .agent-lock present at run start, timestamp
+2026-09-05T08:04:19Z, roughly 60 minutes old at the moment of inspection -
+over the runbook's 45-minute threshold, so treated as stale. A .git/index.lock
+dated roughly 57 minutes old was also present with no git process running in
+this session (each bash call here is a fresh, isolated process, so no earlier
+call's process could still be holding it). Both were over or close to their
+respective thresholds and corroborated each other (a genuinely active worker
+would have a fresh .agent-lock, not a 60-minute-old one), so both were treated
+as stale. Direct `rm` failed "Operation not permitted" on both (the mount
+rejects unlink(), the standing Q87 restriction), so both were cleared by
+rename to `.agent-lock.released-<epoch>` and `.git/index.lock.released-<epoch>`
+respectively, the method every recent run has used. A fresh .agent-lock was
+then written (2026-09-05T09:04:52Z). Further .git/index.lock and
+.git/objects/tmp_obj_* litter reappeared several times over the course of this
+run as a side effect of ordinary read (`git status`) and write (`git add`)
+calls - the same Q87 mechanism, the mount blocking git's own crash-safety
+unlink() of its temp files - and was cleared the same way each time it blocked
+the next step; none of this touched tracked content.
+
+GIT SYNC (step 2). git fetch origin (SSH) failed "Host key verification
+failed", no known_hosts or SSH agent in this sandbox - the standing Q87/Q96
+finding. git fetch origin-https succeeded anonymously and confirmed local
+agents/audit-backlog already matched origin-https/agents/audit-backlog exactly
+at 46919a9 (the immediately preceding run's own commit, item 4.1's twelfth
+pass). No pull needed.
+
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__navigate to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" before any page load was attempted. Logged as unavailable per the
+unattended-run rule; no alternative route attempted, nothing clicked, typed,
+submitted or signed in anywhere. QUESTIONS.json read in full: 96 total, 43
+open, none answered by pickup this run. Standing Q59 remains the recorded
+cause (this run's specific failure mode - extension not connected at all -
+differs from Q59's own two-instances description, but the net effect and the
+required response are identical: log and carry on).
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run (the file
+began directly with the 2026-09-05 item 4.1 entry). Moot regardless: this pass
+raised no new question.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4,
+5.5, 5.8, 6.1, the two under Q60, 6.6) confirmed [BLOCKED] by direct grep
+("grep -n \"^\\- \\[ \\]\" AGENT_WORKLIST.md | grep -v BLOCKED" returned
+nothing), so the quality-pass fallback applied. Rotation pool re-derived
+independently via a standalone Python script (not trusted from the
+immediately preceding run's own projection): 42 checked line-items in
+AGENT_WORKLIST.md minus the 6 standing out-of-rotation entries (1.1, 1.4, 5.6,
+5.7, 6.7, 6.8) gives the same 36-item pool prior runs have used, matched
+against an anchored, case-insensitive "\bitem\s+<id>\b" pattern over `git log
+--pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`. Result: 3.2
+uniquely stalest at 2026-09-04T05:40:55+01:00, ahead of 3.5, 3.7, 3.13 and 6.2
+- exactly matching the immediately preceding run's own forward-looking note
+("ahead of 3.2, 3.5, 3.7, 3.13, 6.2").
+
+FRESH ANGLE. Item 3.2's own worklist paragraph read in full (ten prior passes,
+2026-08-04 to 2026-09-04) before choosing where to look: title, description,
+H1, the cross-town absence rule, service words on all three legs, H1 counting,
+duplicate title/description lines, the permalink/URL leg (Build Pack v2's
+third element), check-seo-keywords.js by direct injection, and (tenth pass)
+check-branch-identity.js on data-branch and the JSON-LD "name". To find what
+had NOT yet been proven, every tools/check-*.js filename was checked for
+genuine co-occurrence with "Scorah" across AGENT_LOG.md's full entry-level
+history (split on "## " headers, not line-level, to avoid counting a filename
+and "Scorah" that only share a baseline "36 checkers green" paragraph as a
+proof). check-fragment-targets.js came back with exactly one entry, and
+reading it showed it was a passing mention inside an unrelated item 3.7 pass
+about Smartts Bootle, not a proof against Scorah's own pages. That made it the
+gap: check-fragment-targets.js exists specifically because a renamed booking
+card id or a typo'd href silently breaks a page's #book / #switch-form-card
+call-to-action while every other checker (title, NAP, JSON-LD, map, phone)
+stays green, and it had never been pointed at either Scorah branch directly.
+
+BASELINE. All 36 tools/check-*.js run individually before any work: 36/36
+exit 0 (output in _agentscratch/baseline_*.txt, scratch workspace, not
+committed). All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) re-run from
+branches.json: sha256 of all 193 files under modules/ taken before and after,
+byte-identical, git status --porcelain on gbp-packs/modules/tools/core/
+branches.json/status empty.
+
+METHOD AND RESULT. A fresh independent extraction
+(audits/verify-3.2-2026-09-05-eleventh.js, own regexes throughout, imports
+nothing from tools/check-fragment-targets.js) read all 26 Scorah pages (13
+Bramhall, 13 Hazel Grove: 11 service pages, 1 landing page, 1 switch page per
+branch): 78 checks (duplicate-id check, fragment-target-resolution check per
+href, and a CTA-presence check, all per page). First run reported 2 failures,
+both false positives in the script's own first draft - the two branch landing
+pages (pharmacy-scorah-bramhall.html, pharmacy-scorah-hazel-grove.html) carry
+no same-page fragment link at all, which is correct and by design: landing
+pages signpost out to the service pages and carry no booking card of their
+own, exactly the exemption check-fragment-targets.js's own CTA_EXEMPT_FAMILIES
+constant already documents for the "branch" family. The extraction script was
+corrected to apply the same exemption before its result was trusted; re-run
+clean, 78/78. THE GUARD PROVED TO BITE, by injection on two different pages so
+both rules under test were exercised on Scorah's own copy rather than
+elsewhere in the estate: (1) switch-prescriptions-scorah-bramhall.html's hero
+CTA changed from href="#switch-form-card" to href="#switch-form-cards" (a
+one-character typo of exactly the kind the checker exists to catch) -
+check-fragment-targets.js caught it immediately, TARGET rule, exit 1; restored
+via `git show HEAD:<path>` redirected straight to the file (this is a Linux
+bash session, not PowerShell, so the BOM/CRLF corruption the item 3.2 tenth
+pass found in `Out-File -Encoding utf8` does not apply here - confirmed by
+sha256 matching the pre-injection baseline exactly). (2) A second id="book"
+inserted into pharmacy-first-scorah-hazel-grove.html - caught immediately on
+the same rerun, DUPID rule, exit 1; restored and sha256-confirmed
+byte-identical the same way. Full 36-checker suite re-run after both restores:
+36/36 exit 0. No checker logic, generator, pack or page content changed in the
+tracked tree. No in-repo defect, no new fault class, no new question on item
+3.2 itself.
+
+LIVE HALF NOT PERFORMED. Claude in Chrome reported not connected at the start
+of this run (see ANSWER PICKUP above); not retried for the live half either,
+per the same read-only, no-alternative-route rule. The previously logged
+live-only findings (Bramhall and Hazel Grove UTI pages serving Weebly's
+doubled-brand default title, queued under 5.3/5.4; the Bramhall landing page
+404) were not re-checked this pass and should not be assumed unchanged.
+
+WORKLIST AND COMMIT. AGENT_WORKLIST.md item 3.2 given a new "Quality pass
+2026-09-05 (eleventh, unattended scheduled run via Cowork)" paragraph,
+inserted immediately after the tenth-pass paragraph and before the "- [x] 3.3"
+line (checkbox left [x] as it already was). New evidence files:
+audits/verify-3.2-2026-09-05-eleventh.js,
+audits/verify-3.2-2026-09-05-eleventh-output.txt,
+audits/checker-sweep-2026-09-05-item3.2-eleventh.txt (this last filename was
+already present untracked at run start, apparently written by an earlier
+crashed session that shared the same stale .agent-lock found in step 1 and
+never got past step 1 itself - grepped AGENT_WORKLIST.md and AGENT_LOG.md for
+any "Item 3.2 quality pass (eleventh)" text before starting and found none, so
+no work was duplicated or lost; the stray file was simply overwritten with
+this run's own sweep output). QUESTIONS.json unchanged (96 total, 43 open; no
+pickup available this run per step 3, no new question raised on item 3.2).
+
+PUSH AND PUBLISH (steps 9-10). git add/commit succeeded locally. git push
+origin (SSH) and origin-https (anonymous HTTPS, no credential configured -
+checked: no credential.helper, no ~/.netrc, no GITHUB_TOKEN-shaped env var, no
+gh CLI installed) both fail for the reasons Q96 (2026-09-04, still open)
+already records in full; not re-raised as a duplicate question. Step 10's
+`node tools/build-audit-status.js` was run regardless, per the runbook's own
+instruction to run it even when a step fails, and failed for the separate,
+also-already-open reason Q87 records (its hardcoded `const REPO =
+'C:/Dev/rbh-site-data'` does not resolve inside this Linux sandbox). Net
+effect, identical to every recent unattended Cowork run: this run's commit
+sits locally, ahead of origin/agents/audit-backlog, until a session with
+working push credentials (or a run on the native Windows host, Q87's
+recommended option) lands the queue. .agent-lock released by rename before
+exit.
+
+
 
 LOCK CHECK (step 1). No .agent-lock present at start. A stray .git/index.lock
 was found at the canonical path, created about 18-23 minutes before this run

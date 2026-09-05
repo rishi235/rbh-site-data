@@ -1,0 +1,387 @@
+=== checker sweep for record ===
+check-address-region
+  16 trading branches checked against 4 permitted counties, their seoTown against their own serviceAreaList, and the lead entry of that list against every other branch's seoTown
+  1 accepted exception(s) checked against the values each one was granted for, so an exception cannot widen to cover a value nobody approved
+  WARN  KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of seoTown "St Michael's" (would be "st-michaels"). Q15: townSlug is deliberately held at 'sandringham' while seoTown reads 'St Michael's'. Rishi's answer moved the local word in the copy but kept the permalinks, so no live URL breaks and no redirects are needed. The title and the URL naming different places is the accepted cost.
+  WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
+
+check-address-region: clean, every addressRegion is a county (2 warning(s)).
+tools/check-address-region.js exit=0
+check-app-membership
+  4 app member(s) of 16 branch(es): fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree, smartts_bootle
+  canonical name: "RB Healthcare Pharmacy app" (read from build-switch-pages.js)
+  2 store URL(s) declared in one generator, hardcoded nowhere else
+  21 page(s) in the two families that render hasApp, 6 carrying the app
+  15 GBP pack(s) read for app claims in the copy pasted to the public profile
+
+check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+tools/check-app-membership.js exit=0
+check-booking-routes
+  156 page(s) with a booking mount, 156 routed to a branch
+  service.js routes 11 service slug(s); 3 may not fall back to the Pharmacy First diary
+  7 Pharmacy First condition(s) read from the overview pages
+  6 widget id(s) shared between sister branches (one diary per pair, expected)
+
+check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+tools/check-booking-routes.js exit=0
+check-branch-identity
+  177 page(s) matched to a branch, 177 with a module root, 177 with a JSON-LD block
+  16 trading branch(es), 3 website(s) shared by a pair
+  198 review link(s), 6 branch landing link(s), 238 service page link(s) and 6 sister-link label(s) read on those pages
+
+  NOTE  3 brand(s) carried by more than one trading branch, where brandLabel alone cannot identify a shop: Scorah Chemists, McCanns Chemist, Fishlocks Chemist
+check-branch-identity: clean, every page names the branch it belongs to.
+tools/check-branch-identity.js exit=0
+check-branch-links
+  16 branch record(s) read from branches.json
+  WARN  clearchemist_aintree.nhsReviewUrl: trading branch with an ODS code but no NHS review link, so nothing can point patients at its NHS reviews.
+check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 0 known issue(s) awaiting a decision).
+tools/check-branch-links.js exit=0
+check-brand-spelling
+  16 trading branch(es), 13 distinct trading name(s) pinned
+  225 file(s) of public copy scanned for near-miss spellings and 7 known misspelling(s), banners included
+  7 live module code file(s) under modules/ and core/ scanned for the same, comments blanked - this is the copy a browser writes into the page at run time
+
+  NOTE  gbp-packs/coleman-leigh-walton.md:28 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:168 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:172 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:121 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:142 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:148 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:176 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:192 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:38 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:123 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  0 hardcoded brand string(s) found in build-switch-pages.js CONFIG (expect 0, post-Q19), brand read from branches.json: true
+  NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
+  NOTE  188 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 12 shortenable trading name(s): Scorah, McCanns, Fishlocks, Clear, Smartts, Hirshmans, SK, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane, Tiffenbergs
+check-brand-spelling: clean, every trading name is spelled the one way, 10 quoted reading(s) of a live page read as evidence.
+tools/check-brand-spelling.js exit=0
+check-cdn-pins
+  baseline: origin/main
+  348 pin reference(s) across 177 generated page(s), 2 distinct ref(s): 6a275e1, service-module-phase1
+  plus 12 reference(s) in 9 non-generated file(s): 6 public paste, 3 runtime asset(s)
+  KNOWN modules/switch/switch.js @6a275e1 differs from origin/main (Q13, raised 2026-08-09): Pinned commit still carries DESTINATION rishi@rbhealth.co.uk; main says helpdesk@rbhealth.co.uk. Fixing it needs a new pin plus a Weebly repaste of all 15 switch pages, which an unattended run cannot do.
+  KNOWN modules/switch/weebly.html pins modules/switch/switch.css @main, not the generator's ref (Q45, raised 2026-08-11): The shared switch paste template pins @main while build-switch-pages.js pins the immutable 6a275e1. switch.css is byte-identical at both refs today, so nothing renders differently and changing it would need a repaste of every branch running a pasted switch embed. Which ref the template should carry is Rishi's call, raised as Q45.
+  KNOWN modules/switch/weebly.html loads core/site-data.js @main, a core asset no generator declares a PIN for, so nothing composes an expected ref for it. Reported so the reference is at least visible.
+  KNOWN modules/switch/weebly.html pins modules/switch/switch.js @main, not the generator's ref (Q45, raised 2026-08-11): This one is not cosmetic and it sharpens Q13. The pasted embed loads switch.js from @main, whose DESTINATION is helpdesk@rbhealth.co.uk. The 15 GENERATED switch pages load it from @6a275e1, whose DESTINATION is rishi@rbhealth.co.uk. So the same module is running two destinations in public at once, split by whether a branch got the paste or the generated page, and the paste half is the half that is already correct. Q13 fixes the generated half; this entry records that the split existed and was read by nothing until 2026-08-11.
+  KNOWN modules/emar/weebly loads modules/emar/emar.css @main, a modules/emar asset no generator declares a PIN for, so nothing composes an expected ref for it. Reported so the reference is at least visible.
+  KNOWN modules/emar/weebly loads core/site-data.js @main, a core asset no generator declares a PIN for, so nothing composes an expected ref for it. Reported so the reference is at least visible.
+  KNOWN modules/emar/weebly loads modules/emar/emar.js @main, a modules/emar asset no generator declares a PIN for, so nothing composes an expected ref for it. Reported so the reference is at least visible.
+  WARN  branch ref 'service-module-phase1' is 64 commit(s) behind origin/main and carries 318 page reference(s). It is pinned as a MUTABLE ref so that one push updates live pages without a repaste; while it sits behind main, that no longer happens.
+  WARN  modules/service/service.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
+  WARN  core/site-data.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
+
+check-cdn-pins: clean, 3 warning(s), 7 known issue(s) awaiting a decision.
+tools/check-cdn-pins.js exit=0
+check-contraception-copy
+  14 contraception page(s) read against tools/build-contraception-pages.js
+  22 line(s) of service copy pinned, 5 FAQ pair(s)
+  presence rules read crawlable text only (scripts and comments stripped, Build Pack v2 section 5.1); absence rules read the whole page
+  1 accepted breach(es), each with a reason in KNOWN:
+    safeguarding::no under-16 step on any page
+  OK - no failures
+tools/check-contraception-copy.js exit=0
+check-editor-snapshot
+  embedded snapshot: 16 branches, lastUpdated 2026-09-01
+  branches.json:     16 branches, lastUpdated 2026-09-01
+
+check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+tools/check-editor-snapshot.js exit=0
+check-em-dashes: 177 generated pages, 6 non-generated copy file(s), 7 live module code file(s), 15 switch banner(s) held to ASCII only, 16 GBP pack(s) held to ASCII only plus no dash entities, 11 paste sheet(s) discovered, 1 run-time data file(s) (233 files scanned)
+  200 dash(es) inside build or code comments - not public, not a failure
+  591 dash(es) in paste sheet section headings and prose - structure, not pasted values
+  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure
+
+check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.
+tools/check-em-dashes.js exit=0
+
+check-fragment-targets
+  177 generated page(s) read, 1536 id(s) declared
+  186 same-page fragment link(s) resolved against them, 187 JS-driven href="#" button(s) exempted
+  0 held under KNOWN
+
+check-fragment-targets: clean, every fragment link lands on an element that exists.
+tools/check-fragment-targets.js exit=0
+check-gbp-packs: 15 packs, 15 live branches in branches.json
+
+17 warning(s) - human judgement, not automatic failures:
+  WARN  cherry-lane-walton.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  clear-aintree.md: phone-like number 0151 203 8365 is not Clear Chemist's number in branches.json
+  WARN  coleman-leigh-walton.md: link target "pharmacy-first-service-walton.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  fishlocks-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  fishlocks-ainsdale.md: KNOWN the "- Address:" line reads "17 Station Road, Ainsdale, Southport PR8 3HN", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  fishlocks-eccleston.md: KNOWN the "- Address:" line reads "Unit 3 The Carrington Centre, New Mill Street, Eccleston, Chorley PR7 5SZ", so the post town between the street and the postcode is "Eccleston Chorley", but branches.json holds addressLocality as "Eccleston". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  gordon-short-crosby.md: link target "pharmacy-first-service-crosby.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  hirshmans-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  hirshmans-ainsdale.md: phone-like number 017014577376 is not Hirshmans Chemist's number in branches.json
+  WARN  hirshmans-ainsdale.md: link target "pharmacy-first-service-ainsdale.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  hirshmans-ainsdale.md: KNOWN the "- Address:" line reads "56-62 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  riddings-timperley.md: link target "switch-prescriptions.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-bramhall.md: link target "pharmacy-first-service-hazel-grove-bramhall.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  scorah-hazel-grove.md: link target "pharmacy-first-service-hazel-grove-bramhall.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-hazel-grove.md: KNOWN the "- Address:" line reads "87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG", so the post town between the street and the postcode is "Hazel Grove Stockport", but branches.json holds addressLocality as "Hazel Grove". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  smartts-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+
+0 failures.
+tools/check-gbp-packs.js exit=0
+check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14 packs, all clean.
+tools/check-gbp-pharmacy-first.js exit=0
+check-jsonld
+  177 generated page(s) checked against 16 trading branches
+  177 map iframe address(es) decoded and compared
+  @type declared: Pharmacy x177
+  name checked per family: branch:branchName x6, service:branchName x156, switch:branchName x15
+
+check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+tools/check-jsonld.js exit=0
+check-live-hours: 14 branch(es), report written to audits/live-hours-check-2026-09-05.json
+  NOTE  bank holiday within 14 days of this run: 2026-08-31 (tradingPolicy closed). A one-off Closed day near these dates is the holiday, not a weekly-hours defect.
+  scorah_bramhall: 2 page(s), 4 snippet group(s)
+  scorah_hazel: 2 page(s), 4 snippet group(s)
+  mccanns_aigburth: 2 page(s), 4 snippet group(s)
+  mccanns_sandringham: 2 page(s), 4 snippet group(s)
+  fishlocks_ainsdale: 2 page(s), 4 snippet group(s)
+  fishlocks_eccleston: 2 page(s), 4 snippet group(s)
+  smartts_bootle: 2 page(s), 5 snippet group(s)
+  hirshmans_ainsdale: 2 page(s), 3 snippet group(s)
+  skchemists_bootle: 2 page(s), 4 snippet group(s)
+  colemanleigh_liverpool: 2 page(s), 5 snippet group(s)
+  riddings_timperley: 2 page(s), 4 snippet group(s)
+  gordonshorts_crosby: 2 page(s), 5 snippet group(s)
+  cherrylane_liverpool: 2 page(s), 3 snippet group(s)
+  tiffenbergs_longmoor: 2 page(s), 5 snippet group(s)
+tools/check-live-hours.js exit=0
+check-map-embeds
+  16 trading branch(es), 16 map address(es) read from branches.json
+  177 generated page(s), 177 map embed(s), 6 directions button(s)
+  6 generator(s) checked for how the query is composed
+
+check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+tools/check-map-embeds.js exit=0
+Checked 177 pages and 3 paste block(s) against 16 branches.json entries: 0 mismatch(es), 0 warning(s).
+tools/check-nap.js exit=0
+check-opening-hours
+  6 landing page(s) checked against 16 trading branches
+  rule 7 swept 88 clock time(s) on those pages, all of which must sit inside the hours card
+  rule 8 swept 177 switch/service-family/pasted-copy file(s) with no hours card, for any clock time at all
+  NOTE  bank holidays (item 6.7): 8 date(s) in bankHolidays.dates2026, tradingPolicy "closed". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+check-opening-hours: clean, every visible and structured opening time matches branches.json.
+tools/check-opening-hours.js exit=0
+check-page-coverage
+  branches.json: 16 branches, 16 trading, 0 disposed
+  conditions:    7 built
+  Pharmacy First   earns 14 branches, list holds 14
+  Contraception    earns 14 branches, list holds 14
+  Travel clinic    earns 15 branches, list holds 15
+  Weight loss      earns 15 branches, list holds 15
+  Switch           earns 15 branches, list holds 15
+  Branch landing   earns  6 branches, list holds  6
+  expected page set: 177 pages across 3 folders
+
+check-page-coverage: clean, 177 pages accounted for
+tools/check-page-coverage.js exit=0
+check-pharmacy-first-cost
+  112 Pharmacy First page(s) checked for the free claim, the prescription-charge caveat, cost qualifiers and prices
+  16 GBP pack(s) checked for cost qualifiers, prices and the free claim
+  6 branch landing page(s) checked, 6 of them advertising Pharmacy First and held to the free claim, cost qualifiers and prices
+
+check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+tools/check-pharmacy-first-cost.js exit=0
+check-pharmacy-first-eligibility
+  7 pinned conditions read from tools/build-service-pages.js
+  98 condition pages checked against them
+  15 GBP packs checked against the pinned cohorts and the 7 pathways
+  6 branch landing pages checked against the pinned cohorts (rule 9)
+
+check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
+tools/check-pharmacy-first-eligibility.js exit=0
+check-pharmacy-first-safety-net
+  7 ready conditions read from tools/build-service-pages.js
+  98 condition pages checked against their own safety net
+  WARN impetigo: safety net names no urgent route. The impetigo safety net names a GP twice but no urgent route. Whether NHS impetigo copy should carry a red flag is a clinical call on live patient-facing copy, so it is raised, not decided. (Q61)
+
+check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+tools/check-pharmacy-first-safety-net.js exit=0
+check-pharmacy-first-symptoms
+  7 ready pathways read from tools/build-service-pages.js
+  98 condition pages checked against their own symptoms list
+  82 medicine names read from tools/pom-names.js for rule 8
+
+check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.
+tools/check-pharmacy-first-symptoms.js exit=0
+WARN  UNOWNED gbp-packs/TEMPLATE.md carries PR8 3HN but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/INDEX.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+WARN  UNOWNED modules/branch/pages/SEO.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+
+845 text files scanned, 22 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+tools/check-postcodes.js exit=0
+check-seo-keywords: 177 Meta Keywords line(s) across 11 paste sheet(s), against 15 live branches
+  presence and absence over 11 live seoTowns, 12 brand names, and each branch's own outward code
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+tools/check-seo-keywords.js exit=0
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 48 sharing an H1 with a page at another pharmacy
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-cherry-lane-walton.html and contraception-coleman-leigh-walton.html
+         NHS contraception service in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-fishlocks-ainsdale.html and contraception-hirshmans-ainsdale.html
+         NHS contraception service in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-sk-chemists-bootle.html and contraception-smartts-bootle.html
+         NHS contraception service in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-cherry-lane-walton.html and earache-treatment-coleman-leigh-walton.html
+         Earache treatment for children in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-fishlocks-ainsdale.html and earache-treatment-hirshmans-ainsdale.html
+         Earache treatment for children in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-sk-chemists-bootle.html and earache-treatment-smartts-bootle.html
+         Earache treatment for children in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-cherry-lane-walton.html and impetigo-treatment-coleman-leigh-walton.html
+         Impetigo treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-fishlocks-ainsdale.html and impetigo-treatment-hirshmans-ainsdale.html
+         Impetigo treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-sk-chemists-bootle.html and impetigo-treatment-smartts-bootle.html
+         Impetigo treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-cherry-lane-walton.html and insect-bite-treatment-coleman-leigh-walton.html
+         Infected insect bite treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-fishlocks-ainsdale.html and insect-bite-treatment-hirshmans-ainsdale.html
+         Infected insect bite treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-sk-chemists-bootle.html and insect-bite-treatment-smartts-bootle.html
+         Infected insect bite treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-cherry-lane-walton.html and shingles-treatment-coleman-leigh-walton.html
+         Shingles treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-fishlocks-ainsdale.html and shingles-treatment-hirshmans-ainsdale.html
+         Shingles treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-sk-chemists-bootle.html and shingles-treatment-smartts-bootle.html
+         Shingles treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-cherry-lane-walton.html and sinusitis-treatment-coleman-leigh-walton.html
+         Sinusitis treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-fishlocks-ainsdale.html and sinusitis-treatment-hirshmans-ainsdale.html
+         Sinusitis treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-sk-chemists-bootle.html and sinusitis-treatment-smartts-bootle.html
+         Sinusitis treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-cherry-lane-walton.html and sore-throat-treatment-coleman-leigh-walton.html
+         Sore throat treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-fishlocks-ainsdale.html and sore-throat-treatment-hirshmans-ainsdale.html
+         Sore throat treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-sk-chemists-bootle.html and sore-throat-treatment-smartts-bootle.html
+         Sore throat treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-cherry-lane-walton.html and uti-treatment-coleman-leigh-walton.html
+         UTI treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-fishlocks-ainsdale.html and uti-treatment-hirshmans-ainsdale.html
+         UTI treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-sk-chemists-bootle.html and uti-treatment-smartts-bootle.html
+         UTI treatment in Bootle
+
+check-seo-lengths: clean, every title and description fits and is unique. 24 warning(s).
+tools/check-seo-lengths.js exit=0
+OK   Cherry Lane Pharmacy - 12 pages
+OK   Clear Chemist - 3 pages
+OK   Coleman and Leighs Pharmacy - 12 pages
+OK   Fishlocks Chemist - 26 pages
+OK   Gordon Short Chemist - 12 pages
+OK   Hirshmans Chemist - 12 pages
+OK   McCanns Chemist - 26 pages, 1 pinned (awaiting an answer, not a failure)
+       pharmacy-mccanns-sandringham.html: PINNED description names 'Aigburth', the seoTown of mccanns_aigburth, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - McCanns Sandringham (St Michael's) lists neighbouring Aigburth, the seoTown of its sister branch on www.mccannspharmacy.co.uk
+OK   Riddings Pharmacy - 12 pages
+OK   SK Chemists - 12 pages
+OK   Scorah Chemists - 26 pages, 2 pinned (awaiting an answer, not a failure)
+       pharmacy-scorah-bramhall.html: PINNED description names 'Hazel Grove', the seoTown of scorah_hazel, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - Scorah Bramhall lists neighbouring Hazel Grove, the seoTown of its sister branch on www.scorah-chemists.co.uk
+       pharmacy-scorah-hazel-grove.html: PINNED description names 'Bramhall', the seoTown of scorah_bramhall, which shares a domain with this branch. Two branches on one host compete for one catchment, and serviceAreaList does not excuse that. Q71 - Scorah Hazel Grove lists neighbouring Bramhall, the seoTown of its sister branch on www.scorah-chemists.co.uk
+OK   Smartts Chemist - 12 pages
+OK   Tiffenbergs Chemist - 12 pages
+
+7 ready conditions read from build-service-pages.js: uti, sore-throat, sinusitis, earache, impetigo, shingles, insect-bite
+PAGE_TYPES contract: 14 title/H1 leg(s) verified across 6 generator(s), 1 non-page builder(s) excused.
+service-word rule: 177 pages had title, h1 and meta all read against their page type's service words.
+one-h1 rule: 177 pages carry exactly one h1, so the pattern, seoTown, service-word and cross-town rules read the whole heading of every page.
+one-line rule: 177 pages carry exactly one SEO title line and one SEO description line, so the title and description rules read the only line the paster can paste.
+data-source rule: 15 branches had seo-pattern pick() checked against branches.json seoTown/brandLabel
+       and the region leg against seoRegion/addressRegion, 8 with addressLocality differing from seoTown, 1 with seoRegion differing from addressRegion.
+cross-town rule: 177 pages read against 11 live seoTowns (Bramhall, Hazel Grove, Aigburth, St Michael's, Ainsdale, Eccleston, Aintree, Bootle, Walton, Timperley, Crosby), serviceAreaList excusing the branch's own catchment.
+177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+tools/check-seo-pattern.js exit=0
+check-seo-sheets
+  177 SEO-sheet entries and 163 INDEX-sheet entries across 11 discovered sheets
+  177 generated pages compared
+  163 pages also compared against an INDEX sheet, 14 with no INDEX row (the contraception family has no INDEX sheet)
+
+check-seo-sheets: clean, every page and its paste sheet agree.
+tools/check-seo-sheets.js exit=0
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
+  KNOWN www.smarttschemist.co.uk/blood-testing.html (1 reference(s)): Q16: live-only service page. Blood tests are not a branches.json widget, so no generator owns this page.
+  KNOWN www.smarttschemist.co.uk/vaccinations.html (2 reference(s)): Q16: live-only service page, used by both the Vaccinations tile and the Travel Clinic tile. The repo does generate travel-clinic-smartts-bootle.html, so the Travel Clinic tile has a generated page to point at.
+  KNOWN www.smarttschemist.co.uk/weight-loss-clinic-bootle.html (1 reference(s)): Q16: old live-only weight loss page naming Wegovy, Mounjaro and Orlistat with a 22.5% claim and a price. The compliant replacement weight-loss-clinic-smartts-bootle.html is generated here but the tile still points at the old page. Repointing it needs the new page pasted live first, so it is Rishi's call.
+  KNOWN www.smarttschemist.co.uk/pharmacy-first-service-bootle.html (1 reference(s)): Q8/Q16: old live-only Pharmacy First page. Same class as the 11 GBP pack links held under item 5.3, which is blocked because the repo change is tied to a Weebly paste.
+  KNOWN www.smarttschemist.co.uk/medical-cannabis.html (1 reference(s)): Q16: live-only service page. No generator owns it; wording is held to eligibility only.
+  KNOWN CLAIM Support that delivers results. in modules/switch/pages/switch-prescriptions-smartts-bootle.html: Q16: the Weight Loss Clinic tile on the Smartts switch page promises an outcome, which the house rule on weight loss copy does not allow. It is hardcoded in the CONFIG block of tools/build-switch-pages.js and is the only claim of its kind in the estate. Not rewritten autonomously because it is patient-facing regulatory copy, which is Rishi's call; the replacement wording is offered in Q16.
+
+check-service-links: clean, 6 known issue(s) awaiting a decision.
+tools/check-service-links.js exit=0
+check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where they send people, 11 rules, 5 accepted breach(es) pinned to a question.
+tools/check-switch-copy.js exit=0
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+  OK - no failures
+tools/check-travel-clinic-copy.js exit=0
+check-uk-spelling
+  167 US spelling(s) held against their UK forms, floor 120
+  198 page/paste/banner file(s), 27 pack/sheet file(s), 4 live script(s), 3 stylesheet(s), 1 data file(s)
+  copy read: markup 557171 chars, markdown 237622, script strings 5999, stylesheet content 2, data strings 8896
+
+check-uk-spelling: clean, the public copy is written in UK English.
+tools/check-uk-spelling.js exit=0
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/baseline_check-url-scheme.txt carries http://www.mccannspharmacy.co.uk/contact-us.html,.. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/earache-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/impetigo-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/shingles-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/sinusitis-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/sore-throat-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE _agentscratch/live312/uti-treatment-tiffenbergs-aintree.html carries http://www. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+  WARN  INSECURE qtmp.json carries http://www.mccannspharmacy.co.uk/contact-us.html,. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 14 insecure URL(s) outside narrative surfaces, 55 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 14 warning(s).
+tools/check-url-scheme.js exit=0
+check-weight-loss-copy
+  15 weight loss page(s) read against tools/build-weight-loss-pages.js
+  21 line(s) of service copy pinned, 7 FAQ pair(s), 6 screening statement(s)
+  21 medicine name(s) barred from tools/pom-names.js, 18 claim pattern(s) from tools/claim-patterns.js
+  consultation fee: "from £39.99", the same on all 15 page(s)
+  6 branch landing page(s) read as Regime 1, 6 of them advertising the clinic and held to no medicine name, no POM class reference, no purchase wording, no results, rate-of-loss or body-part claim, no offer, and the consultation floor
+  2 Weebly paste block(s) read as Regime 1, 1 of them weight loss copy and held to the same prohibitions plus a live route into the weight loss page
+  OK - no failures
+tools/check-weight-loss-copy.js exit=0
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+tools/check-whatsapp-route.js exit=0
+check-widget-diaries: 79 widget id(s) across 16 live branches, 73 distinct
+  3 multi-site brand(s): scorahs, mccanns, fishlocks
+  shared brand diaries : travelClinic, weightLoss
+  per-site diaries     : bloodPressure, contraception, pharmacyFirst
+  6 id(s) shared between sister sites, 0 permitted across brands
+
+check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.
+tools/check-widget-diaries.js exit=0
