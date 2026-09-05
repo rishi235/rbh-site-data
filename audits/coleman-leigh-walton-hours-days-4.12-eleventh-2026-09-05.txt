@@ -1,0 +1,102 @@
+Item 4.12 - Coleman and Leighs Pharmacy Walton GBP pack - eleventh quality pass
+2026-09-05 (unattended scheduled run via Cowork)
+
+SCOPE
+Prove the hours-line DAY-presence rule in tools/check-gbp-packs.js (added item
+4.1 quality pass, 2026-08-11) against gbp-packs/coleman-leigh-walton.md's own
+copy for the first time. Ten prior passes (2026-08-04 to 2026-09-03) proved
+OUTCOME_PROMISE, check-url-scheme.js, check-uk-spelling.js,
+check-brand-spelling.js, check-em-dashes.js, check-postcodes.js,
+check-app-membership.js, the description/post character-count exactness rule
+and the medicine-name union, all against this pack's own copy, but never this
+rule, despite it being proven this run cycle against five sister packs
+(4.3, 4.5, 4.8, 4.10, 4.13).
+
+BRANCH DATA (branches.json, id colemanleigh_liverpool)
+openingHours.specification: Monday-Friday 09:00-13:00 and Monday-Friday
+14:00-18:00 (uniform lunch closure every weekday, same shape as Smartts
+Bootle and Riddings Timperley). closedDays: Saturday, Sunday.
+
+Note: this branch DOES carry a lunch split (unlike 4.8/4.10/4.13's uniform
+single-session packs), so the separate time/day-PAIRING rule (the one after
+the day-presence rule in check-gbp-packs.js) was also considered. That rule
+only has something to catch on the six branches whose lunch-split or weekday
+times DIFFER from day to day (Scorah Bramhall, McCanns Aigburth, Fishlocks
+Eccleston, Hirshmans Ainsdale, Gordon Short Crosby, Cherry Lane, per the
+rule's own comment in check-gbp-packs.js). Coleman's two weekday ranges are
+identical every day Monday to Friday, so - like Smartts Bootle's tenth pass
+- there is nothing for the pairing rule to distinguish here. The day-presence
+rule was therefore the correct fresh angle, not the pairing rule.
+
+The pack's own paster note (line 141) already states "GBP hours need two time
+ranges per weekday", so the split-day two-range warning CLAUDE.md's "A right
+answer in the wrong unit" section calls for is already present and correct;
+this was checked and confirmed, not found as a gap.
+
+BASELINE
+node tools/check-gbp-packs.js: 0 failures, 17 known warnings (unchanged
+estate-wide set, including this pack's own standing pfLink live-only-page
+WARN). All 36 tools/check-*.js run individually before any change: 36/36 exit
+0. gbp-packs/coleman-leigh-walton.md sha256
+6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, matching
+every prior pass's own recorded hash exactly (unchanged across eleven passes).
+
+METHOD
+Backed the tracked file up to /tmp/rbh412/baseline.md (Linux sandbox mount of
+the canonical C:\Dev\rbh-site-data). Each injection made directly on the
+tracked file, restored by byte copy (not git checkout) and sha256-reconfirmed
+identical before the next round.
+
+INJECTION 1 - claim Saturday open, reusing an existing weekday time so the
+clock-time rule alone could not also fire:
+  "Saturday and Sunday closed" -> "Saturday 9:00am to 1:00pm, Sunday closed"
+Result: FAIL, exit 1. "the hours line states the branch is open on Saturday,
+but branches.json opens it only on Monday, Tuesday, Wednesday, Thursday,
+Friday." CAUGHT, first attempt.
+
+INJECTION 2 - drop Friday silently, every stated time left correct:
+  "Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm"
+  -> "Monday to Thursday 9:00am to 1:00pm and 2:00pm to 6:00pm"
+Result: FAIL, exit 1. "branches.json opens this branch on Friday, but the
+hours line does not state Friday as an open day, so the profile would be set
+from an incomplete picture and that day would be published wrong or left as
+Google has it." CAUGHT, first attempt.
+
+INJECTION 3 - drop Sunday from the closed statement entirely:
+  "Saturday and Sunday closed" -> "Saturday closed"
+Result: FAIL, exit 1. "branches.json holds Sunday as a closed day, but the
+hours line does not state Sunday as closed. GBP keeps whatever the profile
+already shows for a day the paster is not told about, so a closure the group
+has made never reaches the listing." CAUGHT, first attempt.
+
+All three legs of the rule fire independently on this pack's own copy, with
+no side-effect failures from the other hours rules sharing the same bullet.
+
+REGRESSION SWEEP
+gbp-packs/coleman-leigh-walton.md sha256-reconfirmed identical
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88) after the
+final restore. Full 36 tools/check-*.js re-run individually after restore:
+36/36 exit 0. git status --porcelain -- gbp-packs modules core branches.json
+tools status: empty before, during and after. gbp-packs/ is not a generator
+input, so no build-*.js script was re-run.
+
+RESULT
+No in-repo defect. Rule proven against this pack's own copy for the first
+time in eleven passes. No new question. QUESTIONS.json unchanged this run
+(96 total, 43 open) - Claude in Chrome not connected, answer pickup
+unavailable, same as every recent run.
+
+LIVE HALF
+Not performed. Claude in Chrome (list_connected_browsers) returned an empty
+array at the start of this run. All live-side findings from the 2026-09-01
+seventh pass stand as written and were not re-verified this pass: Post A's
+pfLink 404 (paster hard stop), the mixed old/new trading name across the
+live site, Q76's sister-branch-name substitution gap (Cherry Lane in Post C,
+still MISSED by every checker, unresolved and awaiting a scope decision -
+not re-run a fifth time this pass, already reconfirmed four times), and the
+Q22 homepage weight-loss tagline.
+
+Rotation pool next stalest (independently re-derived this run by exact
+git-log commit timestamp over AGENT_WORKLIST.md/AGENT_LOG.md, matching each
+candidate against an anchored "item <id>" pattern): 4.15, last touched
+2026-09-04T00:13:22+01:00.

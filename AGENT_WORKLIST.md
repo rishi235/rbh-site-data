@@ -9363,6 +9363,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       gap, the Q22 tagline, Post A's pfLink 404) stand as written, not
       re-verified this pass. No in-repo defect, no new question;
       QUESTIONS.json unchanged (41 open of 94 total). Done 2026-09-03.
+      Eleventh quality pass 2026-09-05 (unattended run via Cowork). FRESH
+      ANGLE: the hours-line DAY-presence rule in tools/check-gbp-packs.js
+      (added item 4.1 quality pass, 2026-08-11) had been proven this run
+      cycle against five sister packs (4.3, 4.5, 4.8, 4.10, 4.13) but never
+      against this pack's own copy across ten prior dedicated passes.
+      branches.json confirms Monday-Friday 09:00-13:00 and 14:00-18:00
+      (uniform lunch closure every weekday) and Saturday/Sunday closed. This
+      branch does carry a lunch split, unlike the four uniform-hours sister
+      packs already proven, so the separate time/day-PAIRING rule was also
+      considered; it only binds on the six branches whose split or weekday
+      times differ day to day (Scorah Bramhall, McCanns Aigburth, Fishlocks
+      Eccleston, Hirshmans Ainsdale, Gordon Short Crosby, Cherry Lane, per
+      the rule's own comment), and Coleman's two weekday ranges are
+      identical every day, so - as with Smartts Bootle's tenth pass - there
+      is nothing for the pairing rule to distinguish here; the day-presence
+      rule was the correct angle. Pack backed up by byte copy before each
+      mutation; baseline SHA256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      unchanged from every prior pass. Three injections, each restored by
+      byte copy and sha256-reconfirmed before the next round: claiming
+      Saturday open reusing an existing weekday time (9:00am to 1:00pm) so
+      the clock-time rule alone could not also fire - CAUGHT; dropping
+      Friday silently, every stated time left correct - CAUGHT; dropping
+      Sunday from the closed statement entirely - CAUGHT. All three legs of
+      the rule fire independently on this pack's own copy. Confirmed in
+      passing, not as a gap: the pack's own paster note already states "GBP
+      hours need two time ranges per weekday" (line 141), so the split-day
+      two-range warning is already present and correct. Full 36-checker
+      suite re-run clean after the final restore (36/36 exit 0); git status
+      on gbp-packs/modules/core/branches.json/tools/status empty throughout.
+      No in-repo defect: rule proven, not changed. Evidence:
+      audits/coleman-leigh-walton-hours-days-4.12-eleventh-2026-09-05.txt.
+      LIVE HALF not performed: Claude in Chrome not connected
+      (list_connected_browsers returned empty). The 2026-09-01 seventh
+      pass's live verdicts stand as written, including Q76's own
+      sister-branch-name gap, not re-run a fifth time this pass. No new
+      question; QUESTIONS.json unchanged (96 total, 43 open). Done
+      2026-09-05.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
