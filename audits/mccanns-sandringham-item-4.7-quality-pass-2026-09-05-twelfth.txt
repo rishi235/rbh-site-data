@@ -1,0 +1,126 @@
+Item 4.7 quality pass (twelfth), 2026-09-05
+McCanns Chemist Sandringham GBP pack (gbp-packs/mccanns-sandringham.md)
+
+ROTATION PICK
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6), so the quality-pass
+fallback applied. Rotation pool re-derived independently: 42 checked items
+in AGENT_WORKLIST.md minus the 6 standing out-of-rotation items (1.1, 1.4,
+5.6, 5.7, 6.7, 6.8) gives a 36-item pool. Matched each candidate against a
+commit-subject-anchored pattern (subject must START "item <id>", case
+insensitive) over git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md, via a standalone Python script, per the corrected method the
+eleventh pass on this same item established (a bare-substring match had
+produced a false tie with 4.2 the prior run). Result: 4.7 uniquely stalest
+at 2026-09-04T01:43:33+01:00 (its own eleventh pass), ahead of 4.2, 4.14,
+1.2, 3.11 and the rest of the pool - exactly matching the eleventh pass's
+own forward-looking projection.
+
+BASELINE
+gbp-packs/mccanns-sandringham.md sha256:
+bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e
+All 36 tools/check-*.js run individually against the tracked repo before
+any work: 36/36 exit 0.
+
+METHOD
+Eleven prior passes (2026-08-04 to 2026-09-04) proved check-gbp-packs.js
+(multiple rules including the address/postcode/review-link identity guard
+added on this item's own first pass), check-pharmacy-first-eligibility.js
+rule 9, check-postcodes.js's FOREIGN rule, check-gbp-packs.js's own
+outcome-promise RULE 12, check-uk-spelling.js, check-brand-spelling.js,
+check-url-scheme.js, check-pharmacy-first-cost.js rule 6, and
+check-app-membership.js rules 8a/8c/8d/8e against this specific pack's own
+copy, confirmed by a text search of the item's own full AGENT_WORKLIST.md
+entry for each checker's filename.
+
+tools/check-gbp-pharmacy-first.js reads gbp-packs/ (confirmed: `grep -l
+"gbp-packs" tools/check-*.js` lists it among 16 checkers that do) and this
+branch carries a pharmacyFirst widget, so its 12 rules apply to this pack,
+but no injection against this specific pack had ever proven it across
+eleven prior passes - the checker's own coverage has been passive only
+(part of every "all 36 checkers clean" sweep, which proves it did not fire,
+not that it can).
+
+Full repo copied with .git included to a scratch directory (/tmp/scratch-47
+this run; excluding .git makes check-cdn-pins.js fail falsely on a scratch
+copy per the established method note). All injections and checker runs
+against the scratch copy only; the tracked repo was never opened for
+writing this pass.
+
+Three injections, each restored by byte copy from a saved baseline and
+sha256-reconfirmed identical (bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb
+9ba9f5882bd65e1a893e) before the next round:
+
+1. Post A's condition list had "impetigo" removed (six of seven named,
+   every other word left correct) - CAUGHT by RULE 3 (completeness):
+   "Post A names 6 of the 7 Pharmacy First conditions and omits impetigo."
+
+2. Post A's UTI age range changed from "16 to 64" to "16 to 55" (a
+   plausible paste slip, still a valid-looking range) - CAUGHT by RULE 6
+   (canon age-range mismatch, read from tools/build-service-pages.js's own
+   CONDITIONS.uti.ageNote): "Post A publishes the urinary tract infection
+   service for 'women aged 16 to 55', but the canon holds 'Women aged 16 to
+   64'."
+
+3. Services section Pharmacy First bullet had "conjunctivitis" (an
+   OUTSIDE_PF word - a condition a pharmacy plausibly advises on but which
+   is not one of the NHS Pharmacy First seven) inserted into the middle of
+   the condition list - CAUGHT by RULE 4: "names 'conjunctivitis' inside
+   the Pharmacy First copy, but it is not one of the 7 conditions in the
+   NHS service."
+
+All three fired first attempt, on their intended rule and no other. Full
+36-checker suite re-run clean after the final restore. No checker gap
+found; no in-repo defect. This proves rules 3, 4 and 6 by injection against
+this pack for the first time in twelve passes; rules 2, 5, 7, 8, 9, 11 and
+12 remain proven only passively (they did not fire on the clean baseline,
+which is correct, but were not independently forced this pass either).
+
+REGRESSION SWEEP
+Tracked repo's gbp-packs/mccanns-sandringham.md confirmed sha256-identical
+to baseline throughout (never opened for writing this pass):
+bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e
+Full 36 tools/check-*.js suite re-run individually against the tracked
+repo: 36/36 exit 0.
+All six generators re-run against the tracked repo: build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages all exit 0;
+git status --porcelain -- modules core empty (zero-diff rebuild).
+node tools/check-em-dashes.js: clean (591 dashes in paste-sheet prose
+correctly excluded as structure not pasted values, 200 in build/code
+comments, 1 in runtime data maintenance notes - none in public copy).
+
+LIVE HALF
+mcp__claude-in-chrome__tabs_context_mcp reported Claude in Chrome not
+connected this run (Q59, unchanged). Fell back to
+mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data,
+using curl.exe -A "Mozilla/5.0" (Invoke-WebRequest -Method Head returned a
+".NET Object reference not set" error on this host for these URLs; curl.exe
+was used instead and returned clean status codes, consistent with earlier
+runs' own method notes about this host's unreliable native HTTP cmdlets).
+
+Findings, all reconfirmed unchanged from the eleventh pass:
+- https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+  (the profile-website landing page) -> 404, and confirmed absent from
+  sitemap.xml. Q35, unchanged; the pack already holds the paster back on
+  this field.
+- pharmacy-first-mccanns-sandringham.html -> 200. sitemap lastmod
+  unchanged at 2026-08-14T23:05:25+00:00. Page title still reads "Pharmacy
+  First at McCanns Chemist, Sandringham - MCCANNS PHARMACY" (the unpasted
+  default construction) and the page body still carries no "St Michael's"
+  string, confirming the queued-repaste lag every prior pass has recorded
+  (the repo-generated copy correctly leads with St Michael's; the live
+  paste has not caught up).
+- switch-prescriptions-mccanns-sandringham.html -> 200.
+- weight-loss-clinic-mccanns-sandringham.html -> 200.
+- travel-clinic-mccanns-sandringham.html -> 200.
+
+No new live finding.
+
+CONCLUSION
+No in-repo defect found this pass. check-gbp-pharmacy-first.js's rules 3,
+4 and 6 proven by injection against this specific pack for the first time.
+No new question; standing Q35, Q59 unchanged.
+
+Next stalest by this run's own rotation-pool re-derivation (subject-anchored
+match): 4.2, ahead of 4.14, 1.2, 3.11 and the rest of the pool.

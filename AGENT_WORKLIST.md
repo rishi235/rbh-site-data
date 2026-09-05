@@ -7860,6 +7860,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       the subject-anchored match ("Item <n> " at the start of the commit
       subject), not the bare-substring match that produced the false 4.2/4.7
       tie this run corrected.
+      Quality pass 2026-09-05 (twelfth): re-derived the rotation pick
+      independently with the subject-anchored method the eleventh pass
+      established (commit subject must start "item <id>"), confirming 4.7
+      uniquely stalest at 2026-09-04T01:43:33+01:00 (its own eleventh pass),
+      ahead of 4.2, 4.14, 1.2 and 3.11. All 36 checkers ran clean on the
+      tracked repo before any work; all six generators rebuilt to a
+      zero-diff worktree; check-em-dashes.js clean.
+      tools/check-gbp-pharmacy-first.js reads gbp-packs/ and this branch
+      carries a pharmacyFirst widget, but eleven prior passes had proven it
+      only passively (present in every "all checkers clean" sweep, never
+      fired by injection against this specific pack). Three fresh
+      injections on a full scratch copy of the repo (not the tracked tree),
+      each restored by byte copy and sha256-reconfirmed identical to
+      baseline (bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a
+      893e) before the next round: (1) "impetigo" dropped from Post A's
+      condition list, six of seven left standing - caught by rule 3
+      (completeness); (2) Post A's UTI age range changed from "16 to 64" to
+      "16 to 55", a plausible-looking paste slip - caught by rule 6 against
+      the canon in tools/build-service-pages.js; (3) "conjunctivitis" (not
+      one of the Pharmacy First seven) inserted into the Services section
+      condition list - caught by rule 4. All three fired first attempt on
+      their intended rule only. Full 36-checker suite re-run clean after
+      the final restore; tracked repo confirmed sha256-unchanged throughout.
+      No checker gap found; no in-repo defect.
+      Live half: Claude in Chrome not connected (Q59, unchanged);
+      PowerShell fallback used, curl.exe rather than Invoke-WebRequest
+      (the latter's -Method Head threw a .NET null-reference error on this
+      host for these URLs). All findings reconfirmed unchanged from the
+      eleventh pass: pharmacy-mccanns-sandringham.html still 404 and absent
+      from the sitemap (Q35); the four post-target pages (Pharmacy First,
+      switch, weight loss, travel clinic) all 200 and present in the
+      sitemap; sitemap lastmod unchanged at 2026-08-14T23:05:25Z; the
+      Pharmacy First page title still reads the unpasted default
+      construction with no "St Michael's" string in its body, the same
+      queued-repaste lag recorded on every prior pass. No new question.
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-05-twelfth.txt.
+      Next stalest by this run's own rotation-pool re-derivation: 4.2,
+      ahead of 4.14, 1.2, 3.11 and the rest of the pool.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
