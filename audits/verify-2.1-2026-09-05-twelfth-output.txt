@@ -1,0 +1,22 @@
+verify-2.1-2026-09-05-twelfth: proving check-contraception-copy.js against modules/service/pages/contraception-fishlocks-ainsdale.html
+Original file captured in memory, sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e, 10828 bytes.
+Baseline: check-contraception-copy.js exits 0 on the untouched tree. OK.
+[RULE 4 servicename (wrong name injected)] exit=1 expected-substring-found=true -> CAUGHT
+  restored byte-identical (sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e) after RULE 4 servicename (wrong name injected)
+[RULE 5 free (consultation fee wording injected)] exit=1 expected-substring-found=true -> CAUGHT
+  restored byte-identical (sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e) after RULE 5 free (consultation fee wording injected)
+[RULE 6 consent (reversed)] exit=1 expected-substring-found=true -> CAUGHT
+  restored byte-identical (sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e) after RULE 6 consent (reversed)
+[RULE 7 larc (coil-fitting offer injected)] exit=1 expected-substring-found=true -> CAUGHT
+  restored byte-identical (sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e) after RULE 7 larc (coil-fitting offer injected)
+[RULE 8 medicine (brand name injected)] exit=1 expected-substring-found=true -> CAUGHT
+  restored byte-identical (sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e) after RULE 8 medicine (brand name injected)
+Final sha256 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e (matches original 986835c91936dc3dc61895774040b64948828f3b542d0b4ef273445fa563ae6e).
+Final re-run of check-contraception-copy.js: exit 0 (OK)
+
+Summary: 5/5 injections caught.
+  CAUGHT RULE 4 servicename (wrong name injected)
+  CAUGHT RULE 5 free (consultation fee wording injected)
+  CAUGHT RULE 6 consent (reversed)
+  CAUGHT RULE 7 larc (coil-fitting offer injected)
+  CAUGHT RULE 8 medicine (brand name injected)

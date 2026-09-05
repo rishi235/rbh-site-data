@@ -547,7 +547,71 @@ Orlistat) still present. The site's sitemap lastmod is still fixed at
 publish. No new question raised; both findings are reconfirmation of existing
 standing state, not new faults. Evidence:
 audits/verify-2.1-2026-09-04-eleventh.js,
-audits/verify-2.1-2026-09-04-eleventh-output.txt.- [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
+audits/verify-2.1-2026-09-04-eleventh-output.txt.
+Quality pass 2026-09-05 (twelfth pass): all 47 unchecked worklist lines
+confirmed still [BLOCKED] (grepped directly), so this was the fallback
+quality pass, picked by the standard rotation-pool ranking re-derived fresh
+from git log over the 36-item pool (43 checked items minus the standing
+out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7, 6.8; 2.2 is in the pool this
+time, unlike prior passes' notes, but was not the winner): item 2.1's newest
+mention was the eleventh pass at 2026-09-04T15:28:09+01:00, older than every
+other pool item (5.2, 4.11, 5.1, 3.12, 3.6, 3.8, 6.3, 3.1 and the rest all
+newer). Repo half: all 36 checkers pass estate-wide, all six generators
+rebuild to a byte-identical zero diff against the untouched tree (git status
+--porcelain modules/ core/ tools/ branches.json gbp-packs/ empty before and
+after, sha256 of every modules/core file unchanged). Fresh angle: of this
+branch's 13 owned pages, the switch page (eighth pass), the travel clinic
+page (ninth pass), the branch landing page (tenth pass) and the
+weight-loss-clinic page (eleventh pass) had each been injection-tested for
+this item, but the seven Pharmacy First condition pages, the Pharmacy First
+overview page and the contraception page had not, across all eleven prior
+passes. check-contraception-copy.js itself was written on 2026-08-14 against
+a different branch and had never been proven against this item's own page.
+New instrument written fresh (audits/verify-2.1-2026-09-05-twelfth.js, no
+import from tools/ beyond invoking the real checker as a child process):
+refuses to run if the target file already carries a git diff, captures a
+baseline pass, restores by direct file write from an in-memory buffer
+immediately after each check, sha256-reconfirms byte-identical restoration
+before the next injection and again at the end. Five injections against
+modules/service/pages/contraception-fishlocks-ainsdale.html, each applied to
+a freshly restored copy of the original: (1) RULE 4 (service name) - a wrong
+name for the service, "NHS Contraception Service", spliced into the hero-sub
+sentence alongside the correct name - CAUGHT. (2) RULE 5 (free) - "A
+consultation fee applies for this service." appended to the form's privacy
+line - CAUGHT. (3) RULE 6 (consent, reversed) - the confidentiality FAQ
+answer's consent sentence replaced with "Your GP will be told about your
+visit automatically." - CAUGHT on both the missing-consent-sentence and the
+reversed-phrase sub-rules. (4) RULE 7 (long-acting offer) - the "we will
+advise where to get this locally" signposting line for a coil or implant
+replaced with an offer to fit one, "we can fit the coil in a same-day
+appointment" - CAUGHT. (5) RULE 8 (no medicine names) - "currently stocking
+Microgynon" appended to the "Seen privately by your local Ainsdale team"
+bullet - CAUGHT. All five caught on exit code 1 with the expected rule tag
+in the output; the whole script re-run a second time end to end with
+identical results (5/5 caught both times). File confirmed byte-identical to
+its original sha256 (986835c9...63ae6e) before the round, after each
+individual restoration, and after the final one; the real repo's git status
+stayed empty throughout, and the full 36-checker suite re-run clean
+immediately after (36/36). Checked but not a defect: check-contraception-
+copy.js's KNOWN entry for Q47 (safeguarding wording for under-16 readers)
+is still active on this and all 14 contraception pages, and Q47 was answered
+on 2026-09-01 recommending the wording be added and signed off by the
+superintendent pharmacist, but the checker's own removal condition is both
+"the answer lands and the wording is on the pages", not the answer alone -
+the wording is not on any of the 14 pages yet (confirmed on this branch's
+page by direct read), so the KNOWN entry is correctly still live rather than
+stale, and the full 36-checker pass (which fails on any genuinely stale
+KNOWN/NARRATIVE key) corroborates that no exception list in the estate is
+stale today. No in-repo defect found. Live half: read-only curl GET against
+fishlockpharmacy.co.uk (Claude in Chrome confirmed not connected again),
+checking for regression only rather than re-litigating: sitemap.xml still
+200 with every lastmod fixed at 2026-08-14T17:32:10 (Q35's underlying
+non-publish, unchanged), and contact.html still names the business "Fishlock
+Pharmacy" and "Fishlock Chemist" (Q37, unchanged). No new question raised;
+both are reconfirmation of existing standing state. No worklist item blocked
+or unblocked. Evidence: audits/verify-2.1-2026-09-05-twelfth.js,
+audits/verify-2.1-2026-09-05-twelfth-output.txt.
+- [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
       pharmacy-fishlocks-ainsdale.html and pharmacy-fishlocks-eccleston.html
