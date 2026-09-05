@@ -1502,6 +1502,64 @@ run rather than being trusted to. No checker logic changed - this was
 verification only, the documented behaviour already being correct. No
 page, generator, checker or branches.json entry changed outside the
 deleted scratch copy. No new question raised.
+
+Quality pass (twelfth), 2026-09-05 (unattended scheduled run, via Windows-MCP
+PowerShell on the real machine rather than the Cowork sandbox - see the
+process note in this run's AGENT_LOG.md entry). Read the full 819-line
+checker afresh against the eleven prior passes' own accounts rather than
+assuming coverage: eight distinct injection proofs recorded (condition-slug
+mirroring, the untyped-file-fails rule, the PAGE_TYPES forward call-check,
+its reverse half, the stale-KNOWN_NON_PAGE_BUILDER-key path, the town/brand
+data-source rule, the region leg and its vacuity guard, and checkMeta's
+length-bound rule), plus the eleventh pass's KNOWN_NON_PAGE three-state
+proof. Not on record anywhere: the readConditions() fail() path itself
+(build-service-pages.js line ~297-299) - a condition block marked
+ready:true but missing metaCondition/h1Phrase has never been made to exist
+and shown to abort the checker with its own named diagnostic, as opposed to
+the "eighth condition added cleanly" mirroring proof already logged, which
+exercises the SUCCESS path of the same function.
+METHOD. Built a scratch copy at C:\Dev\rbh-site-data\_agentscratch\
+audit-3.1-twelfth (tools/*.js, branches.json, and the three page
+directories - everything check-seo-pattern.js reads via its own
+path.join(__dirname, ...) calls), inside the repo working tree rather than
+the Windows temp folder so the file-editing tool could reach it directly
+rather than via a PowerShell string (the ninth pass's own recorded lesson:
+PowerShell here-string/expandable-string escaping can silently corrupt
+prose containing backticks; this pass hit the same class of fault a
+different way when a first attempt at editing the scratch file via a
+PowerShell double-quoted string with escaped quotes truncated it to zero
+bytes, caught immediately by checking the file length before running
+anything against it, fixed by deleting and rebuilding the scratch copy and
+switching to the file-editing tool for the injection itself). Baseline
+confirmed clean first: all 36 live checkers 0 failures, and the unmodified
+scratch copy also read 177 pages/0 failures, matching the live repo
+exactly. Two injections, one file, both restored by simply deleting the
+whole scratch copy afterwards (nothing in the live repo was ever touched):
+(1) a new "testcondition" entry added to CONDITIONS with ready: true and a
+slug but no metaCondition or h1Phrase - CAUGHT immediately, exit 1, exact
+message "condition 'testcondition' in build-service-pages.js is ready:true
+but does not declare slug, metaCondition and h1Phrase, so its pages cannot
+be typed"; (2) the same entry with ready: false - correctly IGNORED, exit
+0, 177/0 failures unchanged, confirming the flush() guard skips a
+not-ready condition without demanding the three fields, so a work-in-
+progress condition block does not need placeholder values just to avoid
+tripping this rule. Both directions proved rather than assuming the second
+from the first, the same discipline the eleventh pass applied to
+KNOWN_NON_PAGE. Scratch copy deleted afterwards; `git status --porcelain
+-- modules core branches.json tools` empty throughout and after; live
+36-checker suite re-run clean (36/36) with the scratch copy already gone.
+LIVE HALF. Direct outbound HTTPS from the real machine (no browser
+needed): https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-
+ainsdale.html returned 200, H1 "UTI treatment in Ainsdale", SEO title
+comment "UTI treatment in Ainsdale - Fishlocks Chemist" - both the pattern
+verbatim, unchanged from every prior pass's live sample. No new live
+finding.
+RESULT. Zero in-repo defects found this pass. The readConditions() fail()
+path - present since the item's original 2026-08-11 construction and never
+exercised by name in any of the eleven prior quality passes - proved
+correct by injection in both directions. No checker logic changed. No
+page, generator, checker or branches.json entry changed outside the
+deleted scratch copy. No new question raised.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
