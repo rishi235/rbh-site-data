@@ -1,0 +1,93 @@
+Item 1.3 quality pass (thirteenth), 2026-09-05
+Rotation pool: independently re-derived from git log (%cI|||%s over AGENT_WORKLIST.md
+and AGENT_LOG.md), word-boundary matched against the 37-item pool (43 checked
+AGENT_WORKLIST.md items minus the 6 declared out-of-rotation: 1.1, 1.4, 5.6, 5.7,
+6.7, 6.8). 1.3 came out stalest, last touched 2026-09-04T23:48:49+01:00, ahead of
+4.13 (2026-09-05T00:12:41+01:00) and the rest all later still.
+
+BASELINE (tracked repo, before any change):
+  node tools/check-postcodes.js -> 0 failures, 3 warnings (all three standing
+  UNOWNED: gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md, SEO.md).
+  All 35 other checkers (check-live-hours.js excluded, needs network) exit 0.
+  git status --porcelain -- modules core branches.json: empty.
+
+FRESH ANGLE: twelve prior passes on this item all tested whether a PAGE, PACK or
+PASTE BLOCK disagreed with branches.json (rules 1/UNKNOWN, 3/FOREIGN, 6/MISATTRIB
+widened nine times for encoding/case/separator forms; rule 4/DISPOSED and rule
+7/DUPLICATE proven on scratch copies at the tenth and eleventh passes). Rule 2
+(MISSING) - the rule stating that every live branch's postcode must be USED
+somewhere, not just declared or narrated - had never been proven by injection in
+this item's history or anywhere else in the repo (grep for "seenAsUse",
+"appears nowhere in the repo" and "only declared or narrated" across
+AGENT_WORKLIST.md and AGENT_LOG.md: zero hits before this pass).
+
+TEST 1 (rule 2, second failure mode - "only declared or narrated"):
+  Scratch copy built OUTSIDE the repo tree (C:\rbh-audit-scratch\t1 - the first
+  attempt used _agentscratch inside the repo root and was itself scanned by the
+  checker, producing 188 spurious failures; caught immediately, deleted, redone
+  outside the tree). Baseline on the scratch copy matched the tracked repo
+  exactly (0 failures, 3 warnings). Every occurrence of gordonshorts_crosby's
+  real postcode (L23 3AT) was stripped from every file EXCEPT branches.json,
+  using a flexible pattern covering every separator form check-postcodes.js
+  itself recognises (plain space, %20, %2B, +, -, &nbsp; named/numeric, fused) -
+  47 files, one branch's postcode. Re-running node tools/check-postcodes.js:
+  exactly one new failure,
+    "MISSING  postcode L23 3AT (gordonshorts_crosby) is only declared or
+    narrated (branches.json): no page, pack or paste block carries this
+    branch's address"
+  all three standing warnings unchanged. Proves rule 2's second message fires
+  correctly on a realistic "postcode quietly vanished from every real page"
+  scenario.
+
+TEST 2 (rule 2, first failure mode - "appears nowhere in the repo" - reachability):
+  Second scratch copy (C:\rbh-audit-scratch\t2), fresh baseline confirmed clean.
+  Traced the code first: branches.json is itself scanned by checkFile() like any
+  other text file, and seenPostcodes[pc] is populated unconditionally (line 422)
+  regardless of narrative/declaring status - so as long as branches.json's own
+  JSON text contains a well-formed UK-postcode-shaped string for a branch, rule
+  2's FIRST message can never fire for that branch, because branches.json alone
+  always satisfies seenPostcodes[pc]. Proved by malforming, not removing:
+  gordonshorts_crosby's postalCode changed from "L23 3AT" to "L23" (outward code
+  only, missing the inward code PC_RE and PC_RE_LOOSE both require). Result:
+    - 47 UNKNOWN failures, one per file still correctly reading "L23 3AT" (now
+      unrecognised, since byPostcode only knows the malformed "L23" key)
+    - "MISSING  postcode L23 (gordonshorts_crosby) appears nowhere in the repo"
+      - which is the intended message firing correctly, but reads backwards:
+      the postcode appears in all 47 files, just not the malformed key.
+  Confirms message 1 IS reachable, but only via a malformed source value, and a
+  human reading the un-fixed checker's output would see 48 near-identical lines
+  before reaching the one that names the real defect.
+
+FIX APPLIED (tools/check-postcodes.js only; no live branch is malformed today,
+so this closes a latent gap rather than a live breach):
+  New rule 0 (MALFORMED), running before scan() so it reports first: every live
+  branch's own postalCode field must match a full UK postcode shape
+  (^[A-Z]{1,2}[0-9][A-Z0-9]?\s[0-9][A-Z]{2}$ after norm()). A malformed value
+  fails immediately, by name, before it can cause the 47-line UNKNOWN cascade
+  and the backwards-reading MISSING message. Header comment (rules list) and a
+  block comment above the new check both document the rationale and this
+  pass's proof.
+
+RE-VERIFICATION AFTER THE FIX (both tests re-run against the fixed checker, on
+fresh scratch copies outside the repo tree):
+  Test 1 (message 2): unchanged - one new failure, same message, same three
+    warnings. The fix does not touch rule 2's logic, only adds a new rule 0.
+  Test 2 (malformed postalCode): the new MALFORMED failure appears FIRST,
+    immediately after the three standing warnings and before any of the 47
+    UNKNOWN lines and the MISSING line - exactly the ordering the fix exists to
+    produce.
+
+CLEAN-UP AND FINAL STATE:
+  Both scratch trees deleted (C:\rbh-audit-scratch entirely, and the earlier
+  in-tree _agentscratch\rule2test / rule2test2 removed as soon as the
+  contamination was spotted). Tracked repo re-checked clean: node
+  tools/check-postcodes.js -> 0 failures, 3 warnings (same three as baseline).
+  All 35 other checkers (check-live-hours.js excluded) re-run individually:
+  35/35 exit 0. git status --porcelain -- modules core branches.json: empty -
+  no generator, page or data field touched. Only tools/check-postcodes.js
+  modified in the tracked repo.
+
+No new question raised: this is a checker-side clarity fix (a rule that could
+already fire, now reporting first and unambiguously instead of last and
+backwards), not a policy decision, the same class as the item 4.6 twelfth
+pass's mojibake-pound-sign fix earlier the same day.

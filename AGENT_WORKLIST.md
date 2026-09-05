@@ -12488,6 +12488,61 @@ appended to the line. Do not move them; the status page reads them in place.
       more conservative behaviour is a correctness improvement, not a
       coverage loss. No new question. Done 2026-09-04. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-04-twelfth.txt.
+      Quality pass 2026-09-05 (thirteenth pass): a real, previously-latent gap
+      found and fixed in check-postcodes.js; no in-repo data defect, no live
+      branch affected. The twelve prior passes all tested whether a PAGE, PACK
+      or PASTE BLOCK disagreed with branches.json; this pass asked instead
+      whether rule 2 (MISSING - every live branch's postcode must be USED
+      somewhere, not just declared or narrated) had ever been proven by
+      injection anywhere in the repo's history. It had not (grep for
+      "seenAsUse", "appears nowhere in the repo" and "only declared or
+      narrated" across both AGENT_WORKLIST.md and AGENT_LOG.md: zero hits).
+      Proved on two scratch copies built OUTSIDE the repo tree (a first
+      attempt using _agentscratch inside the repo root was itself scanned by
+      the checker and produced 188 spurious failures; caught immediately,
+      deleted, redone outside the tree - a live demonstration of the exact
+      "ask which files it read" lesson this worklist has recorded five times
+      before). TEST 1: every occurrence of gordonshorts_crosby's real postcode
+      (L23 3AT) stripped from all 47 files carrying it except branches.json,
+      using a pattern covering every separator form the checker itself
+      recognises (plain space, %20, %2B, +, -, &nbsp; named/numeric, fused) -
+      caught cleanly as rule 2's second message, "is only declared or
+      narrated (branches.json): no page, pack or paste block carries this
+      branch's address", exactly one new failure, all three standing warnings
+      unchanged. TEST 2: traced the code before touching anything - since
+      branches.json is itself scanned like any other text file and
+      seenPostcodes[pc] is populated unconditionally, rule 2's FIRST message
+      ("appears nowhere in the repo") can never fire for a live branch as long
+      as branches.json's own postalCode field is a well-formed UK postcode, no
+      matter how thoroughly the postcode is stripped from every real page -
+      branches.json alone always satisfies it. Proved by malforming rather
+      than removing: gordonshorts_crosby's postalCode changed from "L23 3AT"
+      to "L23" (outward code only). Result: the message DOES fire, but only
+      after 47 UNKNOWN failures (one per file still correctly reading the real
+      "L23 3AT", now unrecognised against the malformed "L23" key) - and its
+      own wording then reads backwards, since the postcode in fact appears in
+      all 47 places, just not under the malformed key. A human reading the
+      unfixed checker's output would see 48 near-identical lines before
+      reaching the one naming the actual defect. FIX: new rule 0 (MALFORMED),
+      running before scan() so it is reported first, checks every live
+      branch's own postalCode field against a full UK postcode shape
+      (outward plus inward) and fails immediately, by name, before it can
+      cause the cascade. Header rules list and a block comment above the new
+      check both document the rationale and this pass's proof. RE-VERIFIED
+      after the fix, on fresh scratch copies outside the tree: test 1
+      unchanged (the fix only adds rule 0, does not touch rule 2's logic);
+      test 2 now shows the MALFORMED failure first, immediately after the
+      three standing warnings and before any UNKNOWN or MISSING line. Full
+      36-checker suite re-run clean on the tracked repo afterwards (35/35,
+      check-live-hours.js excluded as it needs network); git status
+      --porcelain -- modules core branches.json empty throughout - no
+      generator, page or data field touched, only tools/check-postcodes.js.
+      No live branch is malformed today, so this closes a latent gap rather
+      than a live breach. No new question: a checker-side clarity fix (a rule
+      that could already fire, now reporting first and unambiguously instead
+      of last and backwards), the same class as the item 4.6 twelfth pass's
+      mojibake-pound-sign fix earlier the same day. Done 2026-09-05. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-05-thirteenth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

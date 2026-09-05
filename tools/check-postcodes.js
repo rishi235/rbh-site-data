@@ -18,6 +18,20 @@
 
   Rules
   -----
+  0. MALFORMED  every live branch's OWN postalCode field in branches.json must
+                be shaped like a real UK postcode. Found on the item 1.3
+                quality pass (thirteenth), 2026-09-05: PC_RE and PC_RE_LOOSE
+                both require a full outward-plus-inward pair, so a truncated
+                or otherwise malformed postalCode value can never be
+                re-extracted from branches.json's own text either, and every
+                rule below it then disagrees with every real page, pack and
+                paste block that still (correctly) carries the full postcode -
+                rule 1 fails each of them as UNKNOWN, one at a time, and rule
+                2's own MISSING message arrives last, reading backwards ("appears
+                nowhere in the repo") when the postcode in fact appears
+                everywhere except under the malformed key. This rule runs
+                first and names the one real defect before it can cause that
+                cascade.
   1. UNKNOWN    every postcode in the repo must belong to a branches.json
                 entry. The only exception is a NAMED historical value quoted
                 in one of the narrative files that document the audit, and a
@@ -540,6 +554,31 @@ function checkFile(p) {
     });
   }
 }
+
+// Rule 0. MALFORMED. Runs before the scan so it is reported first, ahead of
+// any cascade it would otherwise cause. See the header comment for the full
+// rationale and the item 1.3 (thirteenth pass) proof: a postalCode value that
+// does not match a full UK postcode shape (outward plus inward) can never be
+// re-extracted from branches.json's own text by PC_RE or PC_RE_LOOSE, so
+// every other rule below disagrees with every real page, pack and paste
+// block that still (correctly) carries the branch's real address, and rule
+// 2's own MISSING message ends up reading backwards. Proved by injection on a
+// scratch copy: gordonshorts_crosby's real "L23 3AT" truncated to "L23"
+// produced 47 UNKNOWN failures (one per file still correctly reading
+// "L23 3AT") plus a MISSING message reading "appears nowhere in the repo"
+// even though the postcode appeared in all 47 - restored, not applied to the
+// tracked repo, no live branch is malformed today.
+branches.forEach(function (b) {
+  if (b.disposed) return;
+  var raw = b.postalCode;
+  if (!raw) return; // the "NO POSTCODE" warning below already covers an empty field
+  var pc = norm(raw);
+  if (!/^[A-Z]{1,2}[0-9][A-Z0-9]?\s[0-9][A-Z]{2}$/.test(pc)) {
+    fail("MALFORMED branches.json: " + b.id + "'s postalCode \"" + raw +
+      "\" is not shaped like a UK postcode, so no rule below can match it against " +
+      "any page, pack or paste block. Correct the value at source.");
+  }
+});
 
 scan(ROOT);
 
