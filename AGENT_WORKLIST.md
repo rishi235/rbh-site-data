@@ -785,6 +785,66 @@ audits/verify-2.1-2026-09-05-twelfth-output.txt.
       Evidence: audits/verify-2.2-2026-09-04-seventh.js (self-contained, no
       import from tools/ beyond invoking the real checker as a child
       process; re-runnable).
+      Quality pass 2026-09-05 (eighth): a fresh angle proven, not a defect.
+      Baseline clean first: all 36 checkers exit 0, all six generators
+      rebuilt from branches.json to a byte-identical tree (200 files under
+      modules/ and core/, sha256 unchanged), git status empty throughout.
+      Seven prior passes had tested NAP, hours, JSON-LD (as a side effect of
+      foreign-fact injection on the third and fourth passes), the
+      SISTERLINK/OUTBOUND link targets, the SISTERLABEL text and the
+      Pharmacy First cost claim on these two pages, but the hasApp gating -
+      "the app sentence is correctly gated on hasApp" - had only ever been
+      checked by OBSERVATION across all seven passes, never by injection
+      against tools/check-app-membership.js itself. Fishlocks Ainsdale and
+      Eccleston are two of only four app members in the whole estate
+      (CLAUDE.md's own "hasApp" section), so this item sits squarely inside
+      the exact copy-paste-risk field that section warns about, and it had
+      never been proven for this item specifically.
+      Proved against an ISOLATED SCRATCH COPY of the repo, built with
+      `git archive HEAD | tar -x`, never against the tracked working tree -
+      the tracked repo was confirmed untouched throughout by sha256 and
+      `git status --porcelain modules core` returning empty before, during
+      and after. Four injections, each on a freshly rebuilt scratch copy,
+      restored from an in-memory buffer and sha256-reconfirmed before the
+      next: (1) the app sentence stripped from Fishlocks Ainsdale's own page
+      (hasApp true) - CAUGHT ("carries no app sentence"); (2) the app
+      sentence appended to McCanns Aigburth's page (hasApp false, a
+      non-member sister-pair landing page used as the negative control) -
+      CAUGHT ("carries the app sentence but branches.json says this branch
+      is not an app member"); (3) the same strip repeated on Fishlocks
+      Eccleston's own page - CAUGHT; (4) the canonical app name corrupted
+      from "RB Healthcare Pharmacy app" to "RB Healthcare app" on the
+      Ainsdale page (the exact wording gap CLAUDE.md records was found and
+      fixed at source on the item 3.8 pass, never proven here) - CAUGHT by
+      RULE 5 ("one name"). All four caught first attempt with the expected
+      rule-specific message; all three touched files (Ainsdale mutated
+      twice, on a fresh restore each time) sha256-identical to their
+      originals throughout. One harness correction worth recording: the
+      first attempt at injection (2) used a `</body>` marker to insert the
+      sentence, which silently no-opped because these branch landing pages
+      are Weebly-paste fragments with no `<html>`/`<body>` wrapper (same
+      shape as several other page families in this repo) - caught by
+      re-checking the mutated file's own content before trusting a clean
+      checker run, not by the checker failing to notice, and corrected to a
+      plain end-of-file append before the real test ran. Final scratch
+      re-run clean. Full 36-checker suite re-run individually against the
+      real tracked repo both before and after: 36/36 exit 0 both times. All
+      six generators rebuilt a second time: sha256 of every .html/.js/.css/
+      .md under modules/ and core/ identical before and after, git status
+      --porcelain modules core empty throughout. No in-repo defect found; no
+      page, generator or data field changed - a proof gap closed, not a
+      live breach. LIVE HALF: Claude in Chrome confirmed not connected
+      (tabs_context_mcp) - standing Q59, unchanged; fell back to a direct
+      read-only curl sweep (nothing clicked, typed or submitted): both
+      pages still 404 after following the http->https/www redirect chain,
+      sitemap.xml still dated 2026-08-14T17:32:10, neither landing page
+      listed - unchanged since every pass since the 14th. Q35 and Q69
+      re-read against current live state and both still accurately describe
+      it. No new live finding, no contradiction of standing state. No new
+      question raised. Evidence: audits/verify-2.2-2026-09-05-eighth.js
+      (self-contained, no import from tools/ beyond invoking the real
+      checker as a child process against its own scratch copy; re-runnable
+      standalone, builds its own scratch mirror via `git archive HEAD`).
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
