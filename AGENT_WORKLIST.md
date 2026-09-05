@@ -4704,6 +4704,88 @@ Done 2026-09-05 (eleventh pass).
       (15:12:13), then 5.2 (15:40:58), then 4.11 (16:11:03) - should be
       re-derived fresh using the per-item-most-recent-mention method
       above, not assumed.
+
+      Quality pass 2026-09-05 (eleventh machine-era pass, unattended run,
+      via mcp__Windows-MCP__PowerShell running natively on the ProDesk
+      host rather than the Cowork Linux sandbox - see AGENT_LOG.md for why
+      this matters this run). Picked by the standing rotation-pool method:
+      all unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct
+      grep, so the quality-pass fallback applied; a fresh git-log-match
+      derivation over the 36-item rotation pool gave 3.9 as stalest (last
+      touched 2026-09-04T13:17:57+01:00), matching the tenth pass's own
+      forward note exactly. All 36 tools/check-*.js run individually
+      before any change: 36/36 pass. All six generators rebuilt; git
+      status --porcelain modules/ core/ empty before and after
+      (byte-identical).
+
+      Fresh angle: the tenth pass explicitly recorded, before it started,
+      that this item's own section carried zero mentions of either
+      check-branch-identity.js or check-jsonld.js in nine prior passes. The
+      tenth pass closed the first gap (check-branch-identity.js, five
+      rules, all caught by injection). check-jsonld.js was left untouched
+      and remained untouched after the tenth pass - confirmed again by
+      grep before starting this one. Closed this run.
+
+      check-jsonld.js carries 8 named rules (one JSON-LD block per page;
+      @type Pharmacy; @context schema.org; name = branchName; url = website
+      + filename; PostalAddress field-for-field; telephone spacing-exact;
+      email/areaServed where present; Google Maps iframe query decodes to
+      the branch's own address). Proved all 8 by injection against an
+      isolated scratch mirror (_agentscratch/inject-test-3.9-jsonld/,
+      containing only this branch's own 12 real pages, branches.json and
+      an unmodified copy of tools/check-jsonld.js - never against the
+      tracked repo files, so git status --porcelain modules/ was empty
+      throughout and no restoration of tracked content was ever needed).
+      Baseline clean (exit 0) before the first mutation and after the
+      last. Eight mutations, one per rule, each applied fresh from the
+      real page, run against the real (unmodified) checker, and reverted
+      in the mirror before the next: @type -> MedicalBusiness on
+      pharmacy-first (CAUGHT); JSON-LD name -> "Smartts Chemist" on
+      earache-treatment (CAUGHT, cites branchName); url filename swapped
+      to a non-existent page on shingles-treatment (CAUGHT);
+      addressRegion -> "Cheshire" on sinusitis-treatment (CAUGHT);
+      telephone spacing stripped on sore-throat-treatment (CAUGHT);
+      @context rewritten to http:// on impetigo-treatment (CAUGHT); the
+      Google Maps query postcode corrupted (L4 6TH -> L4 7TH) on
+      uti-treatment (CAUGHT); a duplicate JSON-LD block inserted on
+      insect-bite-treatment (CAUGHT, "found 2"). All eight caught first
+      attempt with the expected rule-specific message. Rule 7 (email/
+      areaServed) is structurally inapplicable to this item: none of its
+      12 pages carries either field, confirmed by reading the raw block on
+      every page before mutating anything (this branch has no branch-
+      landing page and the service/switch generators do not emit either
+      field) - noted rather than silently skipped, the same convention as
+      AMBIGUOUS/SISTERLINK being skipped on the tenth pass.
+
+      RESULT: no in-repo defect. check-jsonld.js was already correctly
+      holding Coleman and Leighs Pharmacy's own pages to all 7 applicable
+      rules; now proven directly by injection for the first time in this
+      item's eleven-pass history. No checker logic, page, generator or
+      data field changed. Evidence, including a runnable reconstruction of
+      the mirror and all eight mutations, in
+      audits/verify-3.9-2026-09-05-eleventh.js (re-run this run to confirm
+      it reproduces cleanly: exit 0, all 8 injections report CAUGHT).
+
+      Live half: Claude in Chrome not connected (checked via
+      tabs_context_mcp); the built-in Claude Browser's preview_start was
+      refused pending site approval with no user present to grant it, so
+      request_access was not called, consistent with the standing
+      browser-read-only rule. Fell back to a direct read-only PowerShell
+      Invoke-WebRequest sweep: pfLink (pharmacy-first-service-walton.html)
+      still 404, standing 5.3/Q8 state, unchanged; the homepage still
+      carries both "Coleman & Leigh Pharmacy" (wrong) and "Coleman and
+      Leighs Pharmacy" (correct) side by side, standing state since
+      2026-08-31, unchanged. No new live finding; reconfirmation only.
+
+      QUESTIONS.json re-read before and after: 97 total, 44 open; no
+      question specific to item 3.9 is open. No new question raised.
+      Done 2026-09-05
+
+      Next stalest by this run's own computation, for whoever runs the
+      next unattended pass: 3.10 (2026-09-03T14:43:36+01:00), then 2.1,
+      5.2, 4.11 - unchanged from the tenth pass's own note since this
+      pass touched only item 3.9 - re-derive fresh rather than assume,
+      since other runs may land in between.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
