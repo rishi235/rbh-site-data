@@ -6979,6 +6979,33 @@ worth a properly scoped rule in a future pass. No new question. Full
 36-checker suite re-run clean after the edit; git diff --stat shows
 exactly gbp-packs/scorah-bramhall.md, 16 insertions, 3 deletions. See
 audits/scorah-bramhall-4.4-pass-2026-09-02.txt.
+Quality pass 2026-09-05 (twelfth, unattended scheduled run): clean. All 36 checkers re-run against
+the untouched worktree, 36/36 pass. Fresh angle: of the 16 checkers that actually read gbp-packs/
+(confirmed by grep, then by reading each candidate's source rather than trusting the grep hit alone),
+this item's eleven-pass history had never named check-pharmacy-first-eligibility.js, the checker that
+pins the NHS Pharmacy First age cohorts and the blood-pressure-check cohort (rules 9, 10, 11) - the
+same gap class this week's 1.2, 3.11, 4.7, 4.2 and 4.14 passes closed for their own checkers.
+gbp-packs/scorah-bramhall.md backed up by MD5 (ae58dd982780a11b808b6df84e29eecf, unchanged since the
+eleventh pass) before any mutation; all injections against a full scratch copy (repo plus .git), tracked
+repo never opened for writing.
+INJECTION 1 (rule 9): the business description's "adults aged 40 and over" (blood pressure cohort)
+changed to "aged 30 and over", leaving the Services section's own restatement of the same cohort at 40
+untouched, to test the rule is sentence-bounded. Result: FAIL, "states age 30, which is not part of any
+NHS cohort this copy may state (rule 9)", quoting the broken sentence. Caught first attempt.
+INJECTION 2 (rule 11): Post A's closing sentence "Age ranges set by the NHS apply to each condition."
+removed, enumeration and UTI cohort otherwise intact. Result: FAIL, "lists all 7 Pharmacy First
+conditions but nowhere says the NHS age ranges apply to each of them (rule 11)". Caught first attempt.
+Both restored by MD5-verified byte copy from the tracked file, reconfirmed identical before the next
+round and after the final restore. Full 36-checker suite and all six generators re-run clean on the
+scratch copy after the final restore; tracked repo's copy MD5-identical to baseline throughout.
+Live half, read-only fallback (Claude in Chrome unavailable this run): all six referenced URLs
+unchanged from the ninth to eleventh passes' own findings - landing page pharmacy-scorah-bramhall.html
+still 404 (unchanged since 2026-08-11); Post B switch page 200, NAP correct, still carries the pre-Q7
+mojibake em dash (Q43, live-paste-lag, not a repo defect); Posts A (shared pfLink), C, D and the
+branch-specific PF page all 200 and correct; shared PF page's address line correct. No new finding, no
+new question. No checker gap found; no in-repo defect - check-pharmacy-first-eligibility.js already
+correctly guards this pack; proven directly by injection for the first time. See
+audits/scorah-bramhall-item-4.4-quality-pass-2026-09-05-twelfth.txt.
 Quality pass 2026-09-03 (tenth, unattended scheduled run): baseline was NOT
 clean at the start of this pass, unrelated to this item - tools/check-postcodes.js
 failed on the untouched worktree because the item 3.11 ninth pass (committed

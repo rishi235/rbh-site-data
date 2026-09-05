@@ -1,0 +1,129 @@
+Item 4.4 quality pass (twelfth), unattended scheduled run, 2026-09-05
+Branch: agents/audit-backlog
+Pack: gbp-packs/scorah-bramhall.md
+Baseline MD5: ae58dd982780a11b808b6df84e29eecf (unchanged since the eleventh pass, 2026-09-04)
+
+ROTATION SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the two under
+Q60, 6.6) confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+applied. Rotation pool independently re-derived via a standalone Python
+script: 42 checked items in AGENT_WORKLIST.md minus the 6 standing
+out-of-rotation items (1.1, 1.4, 5.6, 5.7, 6.7, 6.8) gives a 36-item pool,
+matched against an anchored "item <id>" pattern over
+git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md.
+Result: 4.4 uniquely stalest at 2026-09-04T04:39:20+01:00 (its own eleventh
+pass), ahead of 4.1, 3.2, 3.5, 3.7, 3.13, 6.2 and the rest of the pool -
+matching the eleventh pass's own forward-looking projection exactly.
+
+BASELINE
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0.
+
+METHOD AND FRESH ANGLE
+Eleven prior passes (2026-08-04 to 2026-09-04) had proven check-gbp-packs.js
+(button-target derivation, sister-branch, PF condition completeness,
+word-number outcome claim, weekday/Saturday hours, bank holiday note),
+check-gbp-pharmacy-first.js, check-em-dashes.js, check-brand-spelling.js,
+check-url-scheme.js, check-uk-spelling.js, check-pharmacy-first-cost.js and
+check-app-membership.js against this pack's own copy, confirmed by grepping
+this item's full history for each checker's filename.
+
+Of the 16 checkers that read gbp-packs/ at all (confirmed by
+`grep -l "gbp-packs" tools/check-*.js`), seven had never been named in this
+item's history: check-address-region.js, check-nap.js, check-opening-hours.js,
+check-page-coverage.js, check-pharmacy-first-eligibility.js,
+check-travel-clinic-copy.js, check-weight-loss-copy.js. Reading each of those
+seven source files directly (not trusting the grep hit alone) showed that
+six of the seven only MENTION gbp-packs/ in a comment and do not actually
+read the directory (check-address-region.js, check-nap.js,
+check-opening-hours.js, check-page-coverage.js, check-travel-clinic-copy.js,
+check-weight-loss-copy.js), leaving exactly one real, previously-untested
+reader: check-pharmacy-first-eligibility.js, which declares
+`var PACK_DIR = path.join(ROOT, "gbp-packs");` and applies its rules 9, 10
+and 11 to every file in it. Its own header names three prior
+injections proving rules 9, 10 and 11 against three OTHER packs
+(mccanns-sandringham.md, cherry-lane-walton.md, sk-chemists-bootle.md,
+2026-08-12 and 2026-08-13) but never against scorah-bramhall.md - the same
+"proves it did not fire, not that it can" gap this week's other items (1.2,
+3.11, 4.7, 4.2, 4.14) closed for their own checkers.
+
+scorah-bramhall.md carries the shape rules 9 and 11 both need: the blood
+pressure cohort ("adults aged 40 and over") stated twice, in the business
+description and again in the Services section, and Post A enumerates all
+seven Pharmacy First conditions with the UTI cohort ("women aged 16 to 64")
+and the rule-11 caveat sentence ("Age ranges set by the NHS apply to each
+condition.").
+
+Full repo copied with .git included to a scratch directory (established
+method: excluding .git makes check-cdn-pins.js fail falsely on a scratch
+copy, per prior passes' own notes); all injections against the scratch
+copy's own gbp-packs/scorah-bramhall.md only. Tracked repo's copy confirmed
+MD5-identical to the baseline throughout (never opened for writing this
+pass).
+
+INJECTION 1 (rule 9). The business description's blood pressure sentence
+changed from "adults aged 40 and over" to "adults aged 30 and over",
+leaving the Services section's own restatement of the same cohort (line
+45-46) untouched at 40, to test that the rule is sentence-bounded rather
+than satisfied by the correct number appearing anywhere in the file.
+Result: FAIL, exit 1, naming the pack: "states age 30, which is not part
+of any NHS cohort this copy may state (rule 9)", quoting the exact broken
+sentence. Caught first attempt.
+
+INJECTION 2 (rule 11). Post A's closing caveat sentence, "Age ranges set
+by the NHS apply to each condition.", removed entirely, leaving the
+seven-condition enumeration and the UTI age cohort otherwise intact.
+Result: FAIL, exit 1, naming the pack: "lists all 7 Pharmacy First
+conditions but nowhere says the NHS age ranges apply to each of them
+(rule 11)", with the checker's own full explanatory sentence about the
+other six pathways reading as open to anyone. Caught first attempt.
+
+Both injections restored by byte copy from the tracked repo's own file
+(not git checkout, this mount's documented unlink() restriction) and
+MD5-reconfirmed identical (ae58dd982780a11b808b6df84e29eecf) before the
+next round and after the final restore.
+
+REGRESSION SWEEP
+Full 36 tools/check-*.js re-run individually against the scratch copy after
+the final restore: 36/36 exit 0. All six generators
+(build-service-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages,
+build-branch-landing-pages) re-run against the scratch copy: byte-identical
+output, git status --porcelain -- modules/ core/ empty. Tracked repo's own
+gbp-packs/scorah-bramhall.md reconfirmed MD5-identical to baseline
+throughout, never opened for writing at any point in this pass.
+
+LIVE HALF
+Claude in Chrome not available this session (tools not present in the
+toolset). Fell back to read-only curl (UA "Mozilla/5.0") from the sandbox
+shell, which had working outbound network access this run. All six URLs
+the pack references, checked:
+  - pharmacy-scorah-bramhall.html: 404, unchanged since first found
+    2026-08-11 and reconfirmed on every pass since (2026-08-12, 2026-08-31,
+    2026-09-01, 2026-09-02, 2026-09-04). Do not set the profile website
+    until this resolves (pack's own note).
+  - pharmacy-first-service-hazel-grove-bramhall.html (Post A's current
+    pfLink target): 200.
+  - switch-prescriptions-scorah-bramhall.html (Post B): 200. NAP correct
+    (phone "0161 439 3744" x7, address "61-63 North Park Road" x3). The
+    "How switching works" intro still renders the pre-Q7 em dash as
+    mojibake (3 occurrences of the double-encoded sequence), unchanged
+    live-paste-lag already recorded under Q43 and the pack's own Post B
+    note - not a repo defect, source and paste sheet both already clean.
+  - weight-loss-clinic-scorah-bramhall.html (Post C): 200.
+  - travel-clinic-scorah-bramhall.html (Post D): 200.
+  - pharmacy-first-scorah-bramhall.html (the branch-specific PF page the
+    pack's own note says to swap Post A onto once confirmed pasted): 200.
+  - Shared PF page's address line ("North Park Road") present and correct,
+    4 occurrences.
+No new live finding. No new question.
+
+OUTCOME
+No checker gap found; no in-repo defect. check-pharmacy-first-eligibility.js
+already correctly guards this pack on rules 9 and 11; proven directly by
+injection against scorah-bramhall.md for the first time in twelve passes,
+rather than only passively via the full-suite sweep.
+
+Next stalest by this run's own rotation-pool re-derivation (computed before
+this run's commit, so unaffected by it): 4.1, ahead of 3.2, 3.5, 3.7, 3.13,
+6.2 and the rest of the pool.
