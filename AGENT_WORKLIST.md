@@ -959,6 +959,40 @@ audits/verify-2.1-2026-09-04-eleventh-output.txt.- [x] 2.2 Fishlocks shared-doma
       re-raised. Q36 footer mailbox typo not observed this pass, consistent
       with its already-logged instability. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-04-tenth.txt.
+      Eleventh quality pass 2026-09-05 (unattended run). Repo half clean
+      again: six generators to a zero diff, all 36 checkers exit 0. FRESH
+      ANGLE: tools/check-booking-routes.js had never been proven by
+      injection against Cherry Lane's own pages in ten prior passes (zero
+      matches for the checker's name anywhere in this item's text, despite
+      passing on every full-suite sweep, which only shows it did not fire,
+      not that it can). Three injections on a scratch copy, each restored by
+      byte copy and SHA256-reconfirmed before the next: (1) removed the
+      weightLoss widget id from Cherry Lane in branches.json - caught, the
+      widget/fallback rule correctly refusing to fall back to the Pharmacy
+      First diary for a barred service; (2) changed data-branch on the UTI
+      page to another real branch's name - caught by this checker's own
+      branchattr rule (an enquiry-routing concern) and independently by
+      check-branch-identity (an entity-resolution concern), confirming two
+      rules deliberately guard the same fact for two different reasons; (3)
+      changed data-service on the UTI page to non-standard wording - caught
+      as an estate-wide consistency break against all 13 other UTI pages'
+      identical wording. All three caught first attempt, tracked repo never
+      opened for writing, full 36-checker suite clean after final restore.
+      No in-repo defect, no rule or page byte changed. LIVE HALF: Chrome
+      still not connected; fell back to a read-only HTTPS fetch via
+      Windows-MCP PowerShell against the canonical path's live site. Q95's
+      fault (five of seven Pharmacy First condition cards still showing
+      "Page coming soon" with no href in the overview page's own picker
+      grid) is confirmed STILL LIVE, unchanged since the tenth pass, with
+      one refinement: all seven condition pages remain reachable via the
+      site's own navigation dropdown menu, so this is a broken picker on one
+      page rather than a total dead end. The switch page's pre-Phase-3 SEO
+      title and its mojibake em dash (raw bytes confirmed C3 94 C3 87 C3 B6)
+      are both reconfirmed unchanged at byte level. Q36 footer mailbox
+      typo not observed this pass (neither form present), consistent with
+      its logged instability. No new question; Q95 and Q36 both remain open
+      with this pass adding evidence only. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-05-eleventh.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

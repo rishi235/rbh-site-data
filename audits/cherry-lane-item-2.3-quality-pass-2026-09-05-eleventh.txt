@@ -1,0 +1,171 @@
+Item 2.3 (Cherry Lane) - Eleventh quality pass - 2026-09-05 (unattended scheduled run via Cowork)
+====================================================================================================
+
+SELECTION
+---------
+All 8 unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, the two Q60 lines, 6.6), so the quality-pass fallback
+applied. Rotation pool re-derived independently (36 checked items minus the 6
+standing out-of-rotation: 1.1, 1.4, 5.6, 5.7, 6.7, 6.8), matched against an
+anchored "(^|[^0-9.])(item\s+)?<id>([^0-9]|$)" pattern over
+git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md (707
+commits), via a standalone Python script. Result: 2.3 uniquely stalest at
+2026-09-04T00:47:24+01:00, ahead of 3.3, 4.7, 4.2, 4.14, 1.2 and 3.11 - exactly
+matching the tenth pass's own forward-looking projection.
+
+BASELINE
+--------
+sha256 of the three files this pass touches on a scratch copy, matching the
+tracked repo exactly before and after:
+  branches.json:
+    904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+  modules/service/pages/weight-loss-clinic-cherry-lane-walton.html:
+    60f65541ef2ba7c2269636c8d89f927a2b978d924255ef8772a2cf6aad4df90d
+  modules/service/pages/uti-treatment-cherry-lane-walton.html:
+    a6971686f13c2a6d645754298943243570a9cfbd394825b8a81afb62d962789c
+
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0. All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) re-run against the tracked
+repo: byte-identical, git status --porcelain -- modules core empty after.
+node tools/check-em-dashes.js: clean, 233 files scanned.
+
+FRESH ANGLE
+-----------
+Ten prior passes (2026-08-04 to 2026-09-04) had proven check-nap,
+check-pharmacy-first-eligibility, check-branch-identity (rule 10 SERVICELINK),
+check-brand-spelling.js, check-uk-spelling.js, check-url-scheme.js and
+check-switch-copy.js (rules 6, 8, 9) against Cherry Lane's own copy
+specifically, confirmed by a text search of the full item 2.3 entry in
+AGENT_WORKLIST.md (239 lines) for each checker's filename. tools/
+check-booking-routes.js had never been proven against this branch: zero
+matches for "check-booking-routes" anywhere in the item's own text across all
+ten passes, despite running clean as part of every "all 36 checkers pass"
+baseline sweep, which only proves the checker did not fire, not that it can.
+
+METHOD
+------
+Full repo copied with .git included to /tmp/scratch-23 (established method:
+excluding .git makes check-cdn-pins.js fail falsely on a scratch copy). All
+injections and checker runs against the scratch copy only; the tracked repo
+was never opened for writing this pass (confirmed below).
+
+Three injections, each targeting a distinct rule inside check-booking-routes.js
+that is unique to this checker (not a passive side effect of another one),
+each restored by byte copy and sha256-reconfirmed clean before the next round:
+
+1. WIDGET / FALLBACK (rule 3, cross-referenced with rule 9's
+   NO_FALLBACK_SERVICE_KEYS). Removed the "weightLoss" key from Cherry Lane's
+   (cherrylane_liverpool) widgets object in branches.json on the scratch copy.
+   Weight Loss is barred from falling back to the Pharmacy First diary
+   (service.js's own NO_FALLBACK_SERVICE_KEYS = { weightLoss, travelClinic,
+   contraception }), so removing it should leave the page with no usable
+   widget at all rather than silently falling back to the wrong diary.
+   CAUGHT, first attempt:
+     FAIL  weight-loss-clinic-cherry-lane-walton.html needs
+     widgets.weightLoss on cherrylane_liverpool and there is none (this
+     service must not fall back), so the booking box renders empty
+   Restored: branches.json sha256 reconfirmed identical to baseline.
+   check-booking-routes.js re-run clean.
+
+2. BRANCHATTR (rule 4). Changed data-branch on
+   uti-treatment-cherry-lane-walton.html from "Cherry Lane Pharmacy" to
+   "Coleman and Leighs Pharmacy" (a real, different trading branch's
+   branchName), leaving data-service untouched. CAUGHT, first attempt:
+     FAIL  uti-treatment-cherry-lane-walton.html: data-branch="Coleman and
+     Leighs Pharmacy" but the URL resolves to cherrylane_liverpool ("Cherry
+     Lane Pharmacy"), so an enquiry from this page is filed against the
+     wrong pharmacy
+   Also fired, as expected and not a defect: check-branch-identity.js caught
+   the same injection independently via its own two rules (the page's
+   data-branch naming another branch's name, and the branch's pages then
+   declaring two different data-branch values across its own 12 pages). This
+   is deliberate resilience, not duplication to fix: check-booking-routes
+   guards the fact because a wrong value misfiles a booking enquiry;
+   check-branch-identity guards the same fact because a wrong value confuses
+   entity resolution. Two independent rules protecting the same fact for two
+   different reasons is the correct shape, per CLAUDE.md's own account of why
+   both checkers read data-branch.
+   Restored: file sha256 reconfirmed identical to baseline. Both checkers
+   re-run clean.
+
+3. SERVICEATTR (rule 5). Changed data-service on the same UTI page from
+   "UTI treatment" to "Urine infection treatment". Confirmed first that all
+   14 trading branches' UTI pages say "UTI treatment" verbatim (grep sweep),
+   so this is a genuine estate-wide consistency break, not a false positive.
+   CAUGHT, first attempt:
+     FAIL  service "uti-treatment" is described 2 different ways in
+     data-service, so the same service reaches the helpdesk under different
+     names: "Urine infection treatment" x1, "UTI treatment" x13
+   Restored: file sha256 reconfirmed identical to baseline. Checker re-run
+   clean.
+
+All three caught first attempt. Full 36-checker suite re-run on the scratch
+copy after final restore: 36/36 exit 0. Scratch copy's three touched files
+sha256-reconfirmed byte-identical to the tracked repo's own hashes (diff -rq
+clean on all three). Tracked repo git status --porcelain -- gbp-packs modules
+core branches.json tools empty throughout - never touched for writing.
+
+REGRESSION SWEEP (tracked repo)
+--------------------------------
+All 36 tools/check-*.js re-run individually against the tracked repo after
+the scratch-copy work: 36/36 exit 0. All six generators re-run against the
+tracked repo: byte-identical, git status --porcelain -- modules core empty.
+node tools/check-em-dashes.js: clean, 233 files scanned, including the new
+worklist paragraph and log entry.
+
+LIVE HALF
+---------
+Claude in Chrome not connected (list_connected_browsers returned an empty
+array). mcp__workspace__web_fetch blocked by provenance restrictions (no
+prior user-supplied URL in this session). Fell back to
+mcp__Windows-MCP__PowerShell (Invoke-WebRequest) against the canonical
+C:\Dev\rbh-site-data's live site, the same fallback route used by this
+session's other recent runs, read-only throughout (no click, type or submit).
+
+1. Pharmacy First overview
+   (cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html): 200.
+   Q95's fault (opened tenth pass, 2026-09-04) is STILL LIVE, unchanged: five
+   of seven condition cards (Sinusitis, Earache, Impetigo, Shingles, Infected
+   insect bite) render "Page coming soon" as a plain <em> tag with no href in
+   the page's own condition-picker grid. REFINEMENT on this pass: all seven
+   condition pages ARE still reachable from this same page, but only via the
+   site's Weebly navigation dropdown menu (confirmed hrefs
+   /sinusitis-treatment-cherry-lane-walton.html etc. present inside a
+   <ul class="wsite-menu"> nav block, not inside the condition-card grid
+   itself, contrasted directly against the UTI card's own working href in the
+   same nav block for the same page). So this is not a total dead end for a
+   patient who uses the site menu, but the overview page's own advertised
+   picker still fails for 5 of 7 conditions exactly as recorded on the
+   seventh, tenth and now eleventh passes. Q95 remains open (no answer
+   available via pickup this run either - Chrome not connected); not
+   re-raised, this pass only adds the navigation-menu refinement as a note
+   under the existing question.
+2. Switch page (switch-prescriptions-cherry-lane-walton.html): 200. Two known
+   live-only faults reconfirmed unchanged, byte-level:
+   - SEO title still the pre-Phase-3 string "Switch Your Prescriptions -
+     Cherry Lane Pharmacy Walton" (paste sheet's correct value is "Switch
+     Your Prescriptions to Cherry Lane Pharmacy, Walton").
+   - The "How switching to Cherry Lane Pharmacy works" lead paragraph still
+     renders the pre-Q7 em dash as visible mojibake: raw bytes confirmed as
+     C3 94 C3 87 C3 B6 ("usually is not ÔÇö we make the first step..."),
+     matching the double-encoded em dash first identified on the 2026-08-11
+     pass and reconfirmed on every live check since.
+   Footer NHS mailbox (Q36): neither the typo'd pharmacy.FA226@mhs.net nor
+   the correct pharmacy.FA226@nhs.net form was found on this page this pass -
+   consistent with the already-logged "unstable between deploys or caches"
+   pattern, not a new state, not re-raised.
+
+No new question raised. Q95 and Q36 remain open exactly as before, this pass
+only adds evidence.
+
+RESULT
+------
+No in-repo defect found. tools/check-booking-routes.js proven, by injection,
+to independently catch all three of its own core per-page rules (WIDGET/
+FALLBACK, BRANCHATTR, SERVICEATTR) against Cherry Lane's own generated pages
+for the first time in eleven passes on this item. Repo half clean throughout;
+tracked repo untouched. Live half reconfirms the two standing live-only
+faults (Q95, switch title/mojibake) unchanged, with one refinement to Q95's
+evidence (nav-menu reachability) recorded above.
