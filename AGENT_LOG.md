@@ -1,3 +1,94 @@
+## 2026-09-05 (unattended scheduled run via Cowork, second run today) - Item 3.7 quality pass (eleventh, Smartts Chemist Bootle): FRESH ANGLE, tools/check-booking-routes.js (the Appointedd widget-id chain checker) never proven against Smartts specifically in ten prior passes, closed this run. Independent extraction script (697 checks, 0 flags) plus four targeted injections against the real checker - data-branch mislabelled to the real neighbouring SK Chemists Bootle (RULE 4), data-service wording changed on the sinusitis page (RULE 5), smartts_bootle's pharmacyFirst widget id deleted from branches.json via single-line sed surgery, not a JSON re-serialise (RULE 3, caught on all 8 dependent pages at once), and smartts_bootle's bloodPressure widget id overwritten to equal its own pharmacyFirst id (RULE 7 diary) - all four caught first attempt with the correct rule tag, all touched files sha256-confirmed byte-identical after every revert. Full 35-checker suite and all six generators clean before and after. Live half not performed: Claude in Chrome not connected, mcp__workspace__web_fetch declined the URL as outside its provenance set, and unlike the preceding run this session's own tool-use rules were read as prohibiting a curl/PowerShell fallback once web_fetch has declined a URL, so no live page was read this pass (see full entry below for the reasoning). Zero in-repo defect; no new question; push/publish attempted and its outcome logged below per the standing Q96/Q87 credential gap - no new question raised for a finding already fully covered by Q96 and Q87.
+
+LOCK CHECK (step 1). No .agent-lock present at run start (the twelfth pass's
+own run, item 3.5, appears to have completed and cleaned up its lock
+normally). A .git/index.lock dated roughly 19-20 minutes old was present,
+created within 15 seconds of that run's own successful commit 86b9dc8 (git
+log timestamp comparison), `ps aux` showed no git process, and `mv` was used
+in place of `rm` to clear it to `.git/index.lock.released-<epoch>` - the
+standing Q87 mount-unlink() restriction and its established workaround, not
+evidence of a second concurrent worker. Same litter reappeared and was
+cleared the same way twice more over the run, after routine git status/add
+calls; none of it touched tracked content. A fresh .agent-lock was written
+at 2026-09-05T10:05:37Z.
+
+GIT SYNC (step 2). `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, unchanged. `git fetch origin-https` succeeded
+anonymously. Local agents/audit-backlog was 3 commits ahead of
+origin-https/agents/audit-backlog (46919a9) - the twelfth pass's own three
+unpushed commits from item 3.5 earlier today - with nothing new to pull.
+
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" before any page load - standing Q59, unchanged. Logged and
+carried on; no alternative route attempted, nothing clicked, typed,
+submitted or signed in anywhere. QUESTIONS.json: 96 total, 43 open, none
+answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of this file at the start of the run. Moot: this
+pass raised no new question.
+
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60, 6.6),
+so the quality-pass fallback applied. Rotation pool re-derived independently:
+42 checked line-items minus the 6 standing out-of-rotation entries (1.1, 1.4,
+5.6, 5.7, 6.7, 6.8) gives the same 36-item pool, matched by word-boundary
+`item <id>` against `git log --pretty=format:"%cI|||%s"` for
+AGENT_WORKLIST.md and AGENT_LOG.md. Result: 3.7 stalest at
+2026-09-04T07:41:28+01:00, ahead of 3.13, 6.2, 3.4 and 3.9 - matching the
+tenth pass's own forward-looking note.
+
+FRESH ANGLE AND WORK DONE. Full detail in AGENT_WORKLIST.md's own item 3.7
+paragraph for this pass (search "eleventh"). Summary: tools/
+check-booking-routes.js, which guards the branches.json -> filename ->
+service.js -> Appointedd-widget-id chain, had never been proven against
+Smartts by injection in ten prior passes on this item (only discussed
+narratively when the item's own second pass created check-widget-diaries.js
+for the related Smartts/SK-Chemists-Bootle adjacency risk). Wrote
+audits/verify-3.7-2026-09-05-eleventh.js (fresh, no shared code with tools/
+or any prior script): 697 checks across all 12 Smartts pages, 0 flags. Then
+ran four injections directly against the real checker, each restored and
+sha256-verified byte-identical before the next: data-branch on the
+sore-throat page changed to "SK Chemists" (RULE 4 branchattr, caught); the
+sinusitis page's data-service changed to a unique wording (RULE 5
+serviceattr, caught, correctly counted 13-vs-1); smartts_bootle's
+pharmacyFirst widget id removed from branches.json by single-line sed
+deletion, not a JSON.parse/stringify round-trip (RULE 3 widget, caught on
+all 8 dependent pages - the Pharmacy First overview plus its seven condition
+pages - simultaneously); smartts_bootle's bloodPressure widget id set equal
+to its pharmacyFirst id (RULE 7 diary, caught). All four caught on first
+attempt with the correct rule tag. Full 35-checker suite run individually
+before and after: 35/35 exit 0 both times. All six generators rebuilt before
+the injection round: zero diff. git status --porcelain on gbp-packs/,
+modules/, core/, branches.json, tools/, status/ empty throughout (index.lock
+litter aside, cleared per Q87 as above).
+
+LIVE HALF. Claude in Chrome not connected (retried at answer pickup and
+again here). mcp__workspace__web_fetch declined
+https://www.smarttschemist.co.uk/... as "URL not in provenance set" and
+explicitly instructed against any alternative fetch method once declined.
+This session's system-level tool-use rules (distinct from, and stricter
+than, what at least one earlier pass on this same item did via a native
+PowerShell Invoke-WebRequest fallback) read that instruction as covering
+curl too, so unlike several earlier passes on this item no live page was
+read this run. The tenth pass's live confirmations (own postcode, own
+phone, the "30 seconds" claim, the collection-notice sentence) and the sixth
+pass's three live-only findings (hours-card lunch closure, switch page live
+tab title, the Q16/5.8 KNOWN_CLAIM services-grid wording) were not
+re-confirmed this pass and should not be assumed unchanged.
+
+RESULT. No in-repo defect found, no copy changed anywhere in the repo
+outside this pass's own AGENT_WORKLIST.md/AGENT_LOG.md paragraphs and the
+new evidence file. No new question raised: the push/publish gap below is
+already fully covered by Q96 and Q87, and raising a third near-duplicate
+would only add noise to an already-open, already-recommended decision.
+Evidence: audits/verify-3.7-2026-09-05-eleventh.js.
+
+PUSH/PUBLISH (steps 9-10) - recorded after the attempt, see below.
+
+---
+
 ## 2026-09-05 (unattended scheduled run via Cowork) - Item 3.5 quality pass (twelfth, Hirshmans Chemist Ainsdale): NEW LEG, the six Pharmacy First condition pages (sore-throat, sinusitis, earache, impetigo, shingles, insect-bite) never individually checked across eleven prior passes on this item, 218 independent checks 0 failures; proved check-pharmacy-first-eligibility.js (rules 6 and 7) and check-seo-pattern.js against the shingles page for the first time on this item, two injections caught and restored byte-identical; live check via curl (Claude in Chrome unreachable, no PowerShell in this sandbox) matches repo exactly; zero in-repo defect; no new question; push/publish blocked by the standing Q96 credential gap.
 
 LOCK CHECK (step 1). No .agent-lock present at run start (the eleventh pass's

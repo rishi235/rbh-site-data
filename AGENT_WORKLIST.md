@@ -3652,6 +3652,120 @@ AGENT_LOG.md at the start of this run, so step 4 did not apply.
 No in-repo defect found, no copy changed anywhere in the repo, no new
 question. Evidence in audits/verify-3.7-2026-09-04-tenth.js.
 Done 2026-09-04 (tenth pass).
+Quality pass 2026-09-05 (eleventh; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash). Picked as the least recently
+verified rotation-pool item, independently re-derived by the established
+method (git log commit subjects for AGENT_WORKLIST.md and AGENT_LOG.md
+matched by word boundary against each of the 36 rotation-pool item ids, most
+recent mention per item, sorted ascending): 3.7 last touched
+2026-09-04T07:41:28+01:00, oldest of the 36, ahead of 3.13 (08:42:57), 6.2
+(09:13:34), 3.4 (12:41:10) and 3.9 (13:17:57) - confirming the tenth pass's
+own forward note.
+LOCK CHECK (step 1). No .agent-lock present at run start. A .git/index.lock
+dated roughly 19-20 minutes old was present, created within 15 seconds of the
+prior run's own successful commit 86b9dc8 (confirmed by git log timestamp
+comparison), `ps aux` showed no git process, and `mv` (not `rm`) was used to
+clear it to `.git/index.lock.released-<epoch>`, the standing Q87 mount-
+unlink() restriction and its established workaround - `rm`/unlink fails
+"Operation not permitted" on this mount, rename does not. The same litter
+reappeared and was cleared the same way twice more over the course of this
+run, after routine `git status`/`git add` calls; none of it touched tracked
+content. A fresh .agent-lock was written at 2026-09-05T10:05:37Z.
+GIT SYNC (step 2). `git fetch origin` (SSH) failed "Host key verification
+failed" - the standing Q87/Q96 finding, unchanged, no ~/.ssh, no key material
+anywhere in this session. `git fetch origin-https` succeeded anonymously.
+Local agents/audit-backlog was 3 commits ahead of origin-https (46919a9),
+all three from the twelfth pass on item 3.5 earlier today, never pushed
+(Q96); no new commits on the remote to pull. No pull needed; the three local
+commits were left in place to be included in this run's own push attempt at
+step 9, alongside this pass's own commit.
+ANSWER PICKUP (step 3). `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - the standing Q59 finding, unchanged. Logged and carried on per
+the unattended-run rule; no alternative route attempted, nothing clicked,
+typed, submitted or signed in anywhere. QUESTIONS.json read in full: 96
+total, 43 open, none answered by pickup this run.
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at the start of this run. Moot
+regardless: this pass raised no new question.
+ITEM SELECTION (step 5). All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4,
+5.5, 5.8, 6.1, the two under Q60, 6.6) confirmed [BLOCKED] by direct grep, so
+the quality-pass fallback applied, consistent with every recent pass's own
+reading of step 5.
+Baseline: all 35 checkers in tools/ run individually before any change,
+35/35 exit 0; git status --porcelain on gbp-packs/, modules/, core/,
+branches.json, tools/, status/ empty (index.lock litter aside, cleared per
+Q87 as above). All six generators rebuilt: git status --porcelain -- modules
+empty afterwards, zero diff.
+FRESH ANGLE. Ten prior passes on this item proved check-nap.js,
+check-postcodes.js, check-em-dashes.js, check-contraception-copy.js,
+check-jsonld.js, check-map-embeds.js, check-fragment-targets.js,
+check-seo-sheets.js, check-widget-diaries.js and (tenth pass, five of its
+eleven rules) check-switch-copy.js against Smartts specifically. tools/
+check-booking-routes.js - the checker guarding the widget-id chain from
+branches.json through to the live Appointedd diary, the exact chain whose gap
+this item's own second pass found and fixed by writing check-widget-diaries.js
+- had only ever been discussed narratively for this branch (the second pass's
+own paragraph: "Smartts is a single-site brand sitting directly above SK
+Chemists Bootle... check-booking-routes guards that chain in one direction
+only"), never proven against Smartts's own pages by injection, confirmed by a
+source search for "smartts" in that checker returning zero matches
+beforehand. This pass closes that gap.
+Fresh independent extraction (audits/verify-3.7-2026-09-05-eleventh.js, no
+code shared with tools/ or any prior pass's script) across all 12 Smartts
+pages: 697 checks, 0 flags - own street address, postcode and phone (display
+and tel:) present on every page; no other live branch's postcode or phone
+digits anywhere; own seoTown present; no foreign live branch's seoTown
+without a serviceAreaList excuse; no em dash outside the build-comment
+exemption; JSON-LD address and telephone correct field by field; map query
+resolves to the branch's own address; hasApp=true correctly produces the app
+card on the switch page; data-branch on the module root names Smartts on
+every page carrying one.
+Four injections run against the real check-booking-routes.js, each restored
+either by direct text write (page HTML) or targeted single-line sed surgery
+(branches.json, never a full JSON re-serialise) and sha256-confirmed
+byte-identical to the pre-injection original before the next: (1) data-branch
+on sore-throat-treatment-smartts-bootle.html changed from "Smartts Chemist"
+to "SK Chemists" - the real, directly adjacent different Bootle brand named in
+this item's own second-pass paragraph as the exact danger case - caught by
+RULE 4 branchattr; (2) data-service on sinusitis-treatment-smartts-bootle.html
+changed from "Sinusitis treatment" to "Sinusitis NHS Consultation" - caught by
+RULE 5 serviceattr, correctly counting 13 pages still saying "Sinusitis
+treatment" against the 1 changed; (3) smartts_bootle's own pharmacyFirst
+widget id deleted from branches.json (a single-line sed removal, not a
+JSON.parse/stringify round-trip, so the rest of the file's formatting was
+untouched) - caught by RULE 3 widget on all 8 dependent pages simultaneously
+(the pharmacy-first overview plus its seven NHS condition pages), confirming
+by injection for the first time that this branch's whole Pharmacy First page
+family depends on that one field with no page-level fallback of its own; (4)
+smartts_bootle's bloodPressure widget id overwritten to equal its
+pharmacyFirst id (one branch, two services, one diary) - caught by RULE 7
+diary. All four caught first attempt with the expected rule tag; all touched
+files confirmed byte-identical to their pre-injection sha256 hashes after
+every individual injection and again at the end. Full checker suite re-run
+individually after the round: 35/35 exit 0. git status --porcelain on
+gbp-packs/, modules/, core/, branches.json, tools/, status/ empty throughout
+(index.lock litter aside). No checker logic, generator, page or
+branches.json content changed in the tracked tree at any point.
+Live half: Claude in Chrome reported not connected (retried at answer pickup
+and again for this item); mcp__workspace__web_fetch declined the URL as
+outside its provenance set. No PowerShell or curl fallback attempted this
+run - this session's own standing tool restrictions prohibit fetching a URL
+by an alternative method once web_fetch/WebSearch has declined it, so unlike
+some earlier passes in a native-Windows session type, this pass did not read
+the live site at all. The tenth pass's live findings (own postcode, own
+phone, the "30 seconds" time claim and the collection-notice sentence all
+present live) were not re-confirmed and should not be assumed unchanged; nor
+should the sixth pass's three live-only findings (hours-card lunch closure,
+switch page live tab title, the Q16/5.8 KNOWN_CLAIM services-grid wording).
+Answer pickup (step 3): Chrome not connected, unavailable; 43 questions open
+of 96 total per QUESTIONS.json at the start of this run, unchanged by this
+pass.
+No in-repo defect found, no copy changed anywhere in the repo, no new
+question. Evidence in audits/verify-3.7-2026-09-05-eleventh.js. Push/publish
+outcome recorded separately in AGENT_LOG.md per the standing Q96/Q87
+credential gap.
+Done 2026-09-05 (eleventh pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
