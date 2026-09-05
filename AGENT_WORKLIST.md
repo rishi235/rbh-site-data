@@ -6311,6 +6311,35 @@ Pharmacy First wording to the NHS service description.
       weight loss page, noted rather than asserted). Files changed: none
       (all injections restored).
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-04-twelfth.txt.
+      Quality pass 2026-09-05 (thirteenth, unattended run): fresh angle -
+      proved check-gbp-pharmacy-first.js against this pack by injection for
+      the first time in thirteen passes, the same gap the item 4.7
+      eleventh/twelfth passes closed for McCanns Sandringham the two
+      preceding days. Baseline clean (36/36 checkers,
+      sha256 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2).
+      Three injections, each restored and sha256-reconfirmed before the next:
+      "impetigo" dropped from the Services section condition list, six of
+      seven left standing (caught by rule 3, completeness); Post A's UTI age
+      range changed from "16 to 64" to "16 to 60" (caught by rule 6 against
+      the canon read live from tools/build-service-pages.js's own
+      CONDITIONS.uti.ageNote); "conjunctivitis" (an OUTSIDE_PF word) inserted
+      into Post A's condition list (caught by rule 4). All three caught first
+      attempt, on their intended rule and no other. No defect - the checker
+      already protected this pack; now proven directly. No checker logic
+      edited, no pack content byte changed. Full 36-checker suite and all six
+      generators re-run clean after the final restore; tracked repo confirmed
+      sha256-unchanged throughout.
+      LIVE FINDING (cross-referenced, not new): reconfirmed independently
+      that "coming soon" still appears 5 times on the live
+      pharmacy-first-cherry-lane-walton.html page, contradicting this pack's
+      own preamble claim that the caveat was cleared 2026-08-30 - the same
+      Q95 fault the twelfth pass had only cited without independently
+      reconfirming the live count. All four post targets 200 and in the
+      sitemap. Old weight loss page reconfirmed clean (no medicine names).
+      Q36 mailbox typo not observed this pass (unstable, as before). Not
+      re-raised: Q95 already covers this exact live fault. No new question.
+      Files changed: none (all injections restored).
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-05-thirteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

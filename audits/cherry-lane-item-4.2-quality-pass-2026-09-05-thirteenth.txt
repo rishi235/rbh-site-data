@@ -1,0 +1,121 @@
+Item 4.2 quality pass (thirteenth, unattended run via Cowork), 2026-09-05
+Subject: gbp-packs/cherry-lane-walton.md
+Fresh angle: tools/check-gbp-pharmacy-first.js proven against this pack by
+injection for the first time in thirteen passes.
+
+BASELINE
+sha256 of gbp-packs/cherry-lane-walton.md: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+Matches every prior pass's own recorded fact, including the twelfth pass
+(2026-09-04) that recorded the same hash in upper case.
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0.
+
+METHOD
+Full repo copied with .git included to /tmp/scratch-42 (established method:
+excluding .git makes check-cdn-pins.js fail falsely on a scratch copy). All
+injections and checker runs performed against the scratch copy only; the
+tracked repo (/sessions/.../mnt/rbh-site-data) was never opened for writing
+this pass.
+
+Checker selection: of the 16 checkers that read gbp-packs/ (confirmed by
+grep -l "gbp-packs" tools/check-*.js), a text search of item 4.2's full
+worklist entry (lines 6114-6313 of AGENT_WORKLIST.md at the start of this
+pass) for each checker's filename showed seven already proven against this
+specific pack by injection across the prior twelve passes: check-gbp-packs.js,
+check-brand-spelling.js, check-uk-spelling.js, check-url-scheme.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-cost.js and
+check-app-membership.js. check-gbp-pharmacy-first.js had never been pointed at
+this pack specifically - only passively, as part of every "all checkers clean"
+sweep, which proves it did not fire, not that it can. The same gap was closed
+for McCanns Sandringham's pack (item 4.7's eleventh/twelfth passes) the
+preceding two days; this pass closes it for Cherry Lane.
+
+Cherry Lane carries a pharmacyFirst widget in branches.json
+(cherrylane_liverpool, widgets.pharmacyFirst = 66b20ae6609c16953de3e0cf), so
+the checker's clinical rules apply to this pack's two Pharmacy First blocks:
+the Services section "NHS Pharmacy First" bullet and Post A.
+
+INJECTIONS (three, each restored by byte copy from the tracked repo and
+sha256-reconfirmed 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+before the next round):
+
+1. Dropped "impetigo" from the Services section bullet's condition list
+   (six of seven left standing). CAUGHT first attempt by rule 3
+   (completeness): "Services section "NHS Pharmacy First" bullet names 6 of
+   the 7 Pharmacy First conditions and omits impetigo."
+
+2. Changed Post A's UTI age range from "women aged 16 to 64" to "women aged
+   16 to 60" - a plausible paste slip rather than an obvious typo. CAUGHT
+   first attempt by rule 6, checked against the canon read live from
+   tools/build-service-pages.js's own CONDITIONS.uti.ageNote ("Women aged 16
+   to 64"): "Post A publishes the urinary tract infection service for
+   "women aged 16 to 60", but the canon holds "Women aged 16 to 64""
+
+3. Inserted "conjunctivitis" (an OUTSIDE_PF word - plausible pharmacy advice
+   but not one of the NHS Pharmacy First seven) into Post A's condition list.
+   CAUGHT first attempt by rule 4: "Post A names "conjunctivitis" inside the
+   Pharmacy First copy, but it is not one of the 7 conditions in the NHS
+   service"
+
+All three fired on the first corrected attempt, on their intended rule and no
+other. No checker logic edited, no pack content byte changed.
+
+REGRESSION SWEEP
+Scratch copy restored to baseline after the third injection, sha256-confirmed
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2. Full 36
+tools/check-*.js suite re-run individually against the scratch copy: 36/36
+exit 0. Tracked repo's gbp-packs/cherry-lane-walton.md confirmed
+sha256-identical throughout this pass (831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+never opened for writing). All six generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) re-run against the
+tracked repo: byte-identical, git status --porcelain -- modules core empty
+before and after. node tools/check-em-dashes.js included in the 36-checker
+sweep: clean.
+
+No in-repo defect found. No checker gap found. check-gbp-pharmacy-first.js is
+now proven, not merely passively clean, against this pack.
+
+LIVE HALF
+Claude in Chrome not connected this session (list_connected_browsers
+returned an empty array). Fell back to mcp__Windows-MCP__PowerShell
+(curl.exe -A "Mozilla/5.0", read-only) against the canonical live site, the
+established fallback route.
+
+All four Post A-D targets 200:
+- pharmacy-first-cherry-lane-walton.html -> 200
+- switch-prescriptions-cherry-lane-walton.html -> 200
+- weight-loss-clinic-cherry-lane-walton.html -> 200
+- travel-clinic-cherry-lane-walton.html -> 200
+All four present in sitemap.xml (first lastmod read: 2026-08-14T16:45:45+00:00).
+
+SIGNIFICANT LIVE FINDING (not new, cross-referenced against Q95): the pack's
+own preamble (lines 10-13) claims the Pharmacy First overview embed caveat
+"is cleared: verified live 2026-08-30 ... all seven conditions show normally
+with no 'coming soon' placeholder text anywhere on the page." Live check this
+pass found the opposite still true: "coming soon" appears 5 times on
+pharmacy-first-cherry-lane-walton.html today, matching the same fault Q95
+raised fresh from the 2.3 tenth pass (2026-09-04) for a different branch's
+overview page and the twelfth pass on this same item (2026-09-04) already
+cross-referenced without independent reconfirmation. This pass independently
+reconfirms the live count (5 "coming soon" instances) rather than merely
+citing the twelfth pass's note. All seven condition words themselves are
+present somewhere on the page (sinusitis, sore throat, earache, impetigo,
+shingles, insect bite, UTI each matched at least 4 times), consistent with
+five cards showing the placeholder while the surrounding page copy still
+names the conditions in prose. Not re-raised as a new question: Q95 already
+covers this exact live fault and a pack-preamble edit is not made pending
+Q95's answer (per the twelfth pass's own stated approach, carried forward
+unchanged).
+
+Old weight loss page (weight-loss-clinic-walton.html) reconfirmed live: 200,
+no medicine names found (Mounjaro, Wegovy, Orlistat, Saxenda all zero
+matches), consistent with the pack's claim that the Q5 signpost edit holds.
+Q36 footer mailbox typo (pharmacy.FA226@mhs.net) not observed this pass on
+this page (neither the typo'd nor the correct form's pattern matched), the
+same instability prior passes have already logged; not re-raised.
+
+CONCLUSION
+Thirteenth pass on item 4.2. Zero in-repo defect. One live finding, fully
+cross-referenced against the already-open Q95 rather than duplicated. No new
+question raised.
