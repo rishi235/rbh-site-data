@@ -8585,6 +8585,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       this run. No in-repo defect, no new question. Evidence in
       audits/smartts-bootle-brand-url-uk-spelling-4.10-ninth-2026-09-03.txt.
       Done 2026-09-03.
+      Tenth quality pass 2026-09-05 (unattended scheduled run via Cowork):
+      fresh angle - the hours-line DAY-presence rule in
+      tools/check-gbp-packs.js (added item 4.1 quality pass, 2026-08-11) had
+      already been proven this run cycle against four sister packs (4.3,
+      4.5, 4.8, 4.13) but never against this pack's own copy across nine
+      prior passes, the same "proved once, assumed everywhere" gap shape.
+      branches.json confirms Monday-Friday 09:00-13:00 and 14:00-18:00 (the
+      lunch closure, identical times every weekday) and Saturday/Sunday
+      closed, so the separate time/day-pairing (splitDay) rule has nothing
+      to bind per day here, the same position recorded for Riddings
+      Timperley and Fishlocks Eccleston on their own uniform-hours packs;
+      the day-presence rule is the one that applies. Baseline: 36/36
+      checkers exit 0, smartts-bootle.md sha256
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching the ninth pass's own recorded hash exactly. Method: full repo
+      copied to scratch WITH .git included (per the ninth pass's own method
+      note), all injections and checker runs against the scratch copy only,
+      tracked file never opened for writing. Three injections, each
+      restored and sha256-reconfirmed before the next: (1) claiming
+      Saturday open reusing the branch's own weekday times so the
+      clock-time rule alone could not also fire - CAUGHT; (2) dropping
+      Friday silently, every time left correct - CAUGHT; (3) dropping
+      Sunday from the closed statement entirely - CAUGHT. All three legs of
+      the rule fire independently on this pack's own copy. No in-repo
+      defect: rule proven, not changed. tools/check-gbp-packs.js unchanged.
+      Regression: scratch copy restored byte-identical (sha256
+      reconfirmed), all 36 checkers re-run clean; tracked repo confirmed
+      untouched throughout by sha256 and git status. Live half not
+      performed: Claude in Chrome not connected this run (standing Q59).
+      No new question. Evidence in
+      audits/smartts-bootle-hours-days-4.10-tenth-2026-09-05.txt.
+      Done 2026-09-05.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

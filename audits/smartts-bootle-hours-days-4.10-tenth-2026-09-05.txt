@@ -1,0 +1,138 @@
+Item 4.10 quality pass (tenth), unattended scheduled run via Cowork, 2026-09-05
+Pack: gbp-packs/smartts-bootle.md
+Branch: smartts_bootle (Smartts Chemist Bootle)
+
+PURPOSE
+Nine prior dedicated passes on this pack (2026-08-04 through 2026-09-03,
+eight quality passes) had proven, by injection or direct verification
+against this pack's own copy: profile-basics presence and every fact
+against branches.json, the split-day lunch-guidance paster note (added by
+this item's own first pass, 2026-08-10), the road-name address-line rule
+(fourth pass, 2026-08-14, the road-name twin of the house-number fault),
+the medicine-name, outcome-claim, postcode-sister and catchment-order
+checks (fifth pass, 2026-08-30), the abbreviation-aware own-street and
+foreign-street sister rules plus the POST_INSTRUCTION whitespace-tolerant
+hard-stop (seventh pass, 2026-09-02), the OUTCOME_PROMISE travel-clinic
+rule (eighth pass, 2026-09-03), and check-brand-spelling.js /
+check-url-scheme.js / check-uk-spelling.js (ninth pass, 2026-09-03). None
+of the nine had proven the "hours line names the right DAYS, not just the
+right times" rule in tools/check-gbp-packs.js (added item 4.1 quality
+pass, 2026-08-11) against this pack's own Hours line, despite that rule
+having already been proven this run cycle on four sister packs (4.3, 4.5,
+4.8, 4.13). This pass closes that gap for Smartts Chemist Bootle.
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools status: empty.
+sha256(gbp-packs/smartts-bootle.md) =
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching
+the ninth pass's own recorded hash exactly - unchanged since.
+node tools/check-gbp-packs.js: 0 failures (only the pack's own standing
+live-only pfLink WARN, unchanged estate-wide set).
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0.
+
+DATA CONFIRMED (branches.json, smartts_bootle.openingHours)
+specification: two Monday-Friday sessions, 09:00-13:00 and 14:00-18:00
+(the lunch closure), identical times on all five weekdays.
+closedDays: ["Saturday", "Sunday"].
+Because the lunch-closure times are uniform across every weekday, the
+separate time/day-pairing (splitDay) rule has nothing to bind per day here
+in the way it does on the six branches whose times differ BETWEEN days
+(Scorah Bramhall, McCanns Aigburth, Fishlocks Eccleston, Hirshmans
+Ainsdale, Gordon Short Crosby, Cherry Lane) - the same position recorded
+for Riddings Timperley (4.13) and Fishlocks Eccleston (4.8) on their own
+uniform-hours packs. The DAY-presence rule is the one that applies and had
+not yet been proven here.
+
+PACK'S OWN HOURS LINE (before any injection)
+"Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, Saturday and
+Sunday closed"
+
+METHOD
+Full repo copied to /tmp/rbh-scratch WITH .git included (per the item 4.10
+ninth pass's own method note: excluding .git makes check-cdn-pins.js fail
+falsely on a scratch copy), sha256 of gbp-packs/smartts-bootle.md confirmed
+identical to the tracked repo before any edit. All three injections and
+checker runs performed against the scratch copy only; the tracked file at
+C:\dev\rbh-site-data\gbp-packs\smartts-bootle.md was never opened for
+writing. A clean backup of the original line was kept and the file
+restored to it by full-file byte copy (not git checkout) before each next
+round, then sha256-reconfirmed identical to the pre-injection hash.
+
+ROUND 1 - claim Saturday open, reusing the branch's own weekday times
+(9:00am/1:00pm/2:00pm/6:00pm, already in this branch's own time set) so the
+clock-time rule could not also fire and the day rule's own catch would
+stand alone. "Monday to Friday ... Saturday and Sunday closed" ->
+"Monday to Saturday ... Sunday closed" (identical weekday times retained).
+RESULT: CAUGHT. node tools/check-gbp-packs.js: exit 1, exactly one FAIL
+against this pack (plus the pack's own standing pfLink WARN, unaffected):
+"the hours line states the branch is open on Saturday, but branches.json
+opens it only on Monday, Tuesday, Wednesday, Thursday, Friday. A profile
+that publishes a day the shop is shut sends patients to a locked door".
+Restored; sha256 reconfirmed identical to
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b.
+
+ROUND 2 - drop Friday from the claim, every stated clock time left
+untouched and still correct. "Monday to Friday" -> "Monday to Thursday".
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json opens this branch
+on Friday, but the hours line does not state Friday as an open day, so the
+profile would be set from an incomplete picture and that day would be
+published wrong or left as Google has it". Restored; sha256 reconfirmed
+identical.
+
+ROUND 3 - drop Sunday from the closed statement, leaving Sunday named on
+neither the open list nor the closed list. "Saturday and Sunday closed" ->
+"Saturday closed".
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json holds Sunday as a
+closed day, but the hours line does not state Sunday as closed. GBP keeps
+whatever the profile already shows for a day the paster is not told about,
+so a closure the group has made never reaches the listing". Restored;
+sha256 reconfirmed identical.
+
+Each round produced exactly one FAIL against this pack, with no
+side-effect failure from the clock-time rule or any other rule sharing the
+same profile-basics bullet, confirming all three legs of the day-presence
+rule fire independently on this pack, exactly as already proven on
+hirshmans-ainsdale.md (4.3), scorah-hazel-grove.md (4.5),
+fishlocks-eccleston.md (4.8) and riddings-timperley.md (4.13).
+
+RESULT
+Zero in-repo defect. This pack's own Hours line was already stating every
+open and closed day correctly; now proven directly by injection across all
+three legs of the day-presence rule for the first time in this item's
+ten-pass history. tools/check-gbp-packs.js unchanged: rule proven, not
+changed.
+
+REGRESSION SWEEP
+Scratch copy's gbp-packs/smartts-bootle.md restored byte-identical after
+round 3, sha256 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+reconfirmed and diffed clean against the pre-injection backup. All 36
+tools/check-*.js re-run individually on the scratch copy after restore:
+36/36 exit 0. Tracked repo confirmed untouched throughout: sha256 of
+C:\dev\rbh-site-data\gbp-packs\smartts-bootle.md unchanged at
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b and
+git status --porcelain -- gbp-packs modules core branches.json tools status
+empty before, during and after. gbp-packs/ is not a generator input, so no
+build-*.js script was run and no generated page was touched.
+
+LIVE HALF
+Not performed. mcp__claude-in-chrome__tabs_context_mcp reported "Claude in
+Chrome is not connected" before any repo work began, same as every recent
+run (standing Q59 cause). No alternative route attempted, nothing clicked,
+typed or submitted, no login attempted. Last confirmed live state remains
+the 2026-09-01 sixth pass (Q55 website-hours contradiction unchanged - the
+site still prints 9:00am-6:00pm with no lunch closure against this pack's
+own split-hours facts; Q16 "Support that delivers results" weight-loss
+tile claim still held in check-service-links.js's KNOWN_CLAIM; Q51/Q83/Q88
+lead-price-position finding on the weight-loss page and its separate
+pre-3.9-fix en dash still queued for repaste; Q48 yellow fever gap
+unchanged; Post A's live-only pharmacy-first-service-bootle.html unchanged
+under Q8/Q16). No new live finding this pass.
+
+QUESTIONS
+No new question raised. QUESTIONS.json unchanged: 96 total, 43 open.
+Answer pickup unavailable this run (Chrome not connected, standing Q59).
+
+FILES CHANGED BY THIS PASS
+AGENT_WORKLIST.md (item 4.10 new paragraph), AGENT_LOG.md (new entry), this
+audit file. gbp-packs/smartts-bootle.md, branches.json, tools/, modules/
+and core/ all untouched (confirmed by git status and sha256 throughout).
