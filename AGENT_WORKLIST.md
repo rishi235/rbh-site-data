@@ -3491,6 +3491,127 @@ on every rule, now proven by injection for the first time in this
 item's eleven-pass history. No page, generator, pack or branches.json
 byte changed; only this paragraph and an evidence file were added. No
 new question. Evidence: audits/verify-3.6-2026-09-04-eleventh.txt.
+Quality pass 2026-09-05 (twelfth, unattended scheduled run via Cowork).
+Selected as the least recently verified item in the standing 37-item
+rotation pool: all 8 unblocked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both under Q60, 6.6), so the
+quality-pass fallback applied. Rotation re-derived independently in Python
+from `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`,
+word-boundary matched against the real 37-item pool read directly off
+AGENT_WORKLIST.md's own checked items minus the 6 declared out-of-rotation
+(1.1, 1.4, 5.6, 5.7, 6.7, 6.8): 3.6 came out stalest at
+2026-09-04T18:42:43+01:00, exactly matching the ninth and tenth passes'
+own forward notes naming 3.6 as next in line once 2.2/3.12 dropped out of
+contention.
+LOCK CHECK (step 1): no .agent-lock present at run start; fresh one
+written 2026-09-05T17:34:01Z. This sandbox mount's .git/index.lock
+reappears after almost every git-writing command and cannot be removed
+with `rm`/`os.remove` ("Operation not permitted") - only `mv`/rename
+succeeds, the same constraint every recent pass records (Q87/Q96); worked
+around by renaming it aside before each git command that needed to write.
+GIT SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, unchanged; `git fetch origin-https` succeeded
+and confirmed local agents/audit-backlog already at origin-https HEAD
+(53dd107, the eleventh pass's own commit), nothing to pull.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - standing Q59, unchanged; logged and carried on, no
+alternative route attempted, nothing clicked or submitted. QUESTIONS.json
+read: 97 total, 44 open, none answered by pickup this run.
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at run start, so not
+applicable.
+FRESH ANGLE: this item's own eleven-pass history names nine checkers by
+name as already proven by injection against McCanns's own files
+(check-app-membership, check-em-dashes, check-gbp-packs, check-jsonld
+(as a side effect), check-nap, check-postcodes, check-seo-pattern,
+check-whatsapp-route, check-branch-links), but never
+tools/check-branch-identity.js, despite that checker's own file header
+naming "McCanns Chemist Aigburth / Sandringham" as one of only three
+brand-and-website-sharing pairs its rules 4 (AMBIGUOUS) and 11
+(SISTERLABEL) exist specifically to protect - the same "named in the
+header, never tried" gap the eleventh pass closed for
+check-branch-links.js.
+BASELINE. All 36 tools/check-*.js re-run individually before any change:
+36/36 exit 0. All six generators (branch landing, contraception, service,
+switch, travel clinic, weight loss) rebuilt: sha256 of all 200 files under
+modules/ and core/ identical before and after, confirmed byte-identical
+regeneration; git status --porcelain on modules/, core/, branches.json,
+gbp-packs/, tools/, status/ empty throughout.
+THREE INJECTIONS, each on a fresh sha256-backed-up file, each restored by
+direct byte copy from backup and sha256-reconfirmed identical before the
+next (this mount's git checkout/reset cannot reliably unlink, per the
+established workaround):
+(1) RULE 4 AMBIGUOUS - modules/branch/pages/pharmacy-mccanns-aigburth.html
+(sha256 0a565da2...384841): data-branch swapped from the branchName
+"McCanns Chemist Aigburth" to the bare shared brandLabel "McCanns
+Chemist" - CAUGHT: "data-branch read 'McCanns Chemist', which is also the
+name of this branch's sister shop on the same website. It cannot say
+which of the two this page is." This is "the rule that matters" per the
+checker's own header, on the one pair it exists for, and had never been
+tried against McCanns in eleven prior passes.
+(2) RULE 3 SCHEMANAME (plus RULE 6 SPLIT and RULE 5 SITEUNIQUE, all three
+firing at once) - modules/service/pages/sinusitis-treatment-mccanns-
+aigburth.html (sha256 d5b4ae5a...2909b2): JSON-LD "name" swapped from
+Aigburth's own branchName to Sandringham's real branchName (a genuine
+sister-branch identity, not a fabricated string) - CAUGHT three ways in
+one run: "JSON-LD name ... but the page belongs to mccanns_aigburth ...
+that is mccanns_sandringham's name, so Google is told this address
+belongs to another pharmacy" (rule 3); "its pages declare 2 different
+values for JSON-LD name ... one branch presents itself as more than one
+business depending on which generator built the page" (rule 6, SPLIT);
+and "branches mccanns_aigburth and mccanns_sandringham both publish
+JSON-LD name 'McCanns Chemist Sandringham' on one website ... Google is
+handed two Pharmacy records with one name and two addresses" (rule 5,
+SITEUNIQUE). tools/check-jsonld.js independently caught the same fault
+("a service page must declare branchName, which branches.json gives as
+'McCanns Chemist Aigburth'"), confirming the two checkers' overlapping
+but non-duplicate coverage recorded in CLAUDE.md's own branch-identity
+section.
+(3) RULE 11 SISTERLABEL - modules/branch/pages/pharmacy-mccanns-
+aigburth.html again (same pre-injection hash as (1), re-backed-up before
+this injection): the visible anchor text of the sister-branch link left
+its href untouched ("pharmacy-mccanns-sandringham.html") but its label
+shortened from "McCanns Chemist Sandringham in St Michael's" to bare
+"McCanns Chemist Sandringham" - CAUGHT: "its link ... reads 'McCanns
+Chemist Sandringham', but build-branch-landing-pages.js's own
+sisterNote() logic would render 'McCanns Chemist Sandringham in St
+Michael's' ... A patient reads the label, not the href, so a stale one
+still misdirects even though rule 9 confirms the link itself resolves
+correctly." Confirmed isolated from rule 9 (SISTERLINK): no sisterlink
+failure was raised, since the href itself was never touched - proving
+this checker's own documented separation between the two rules on this
+item's own files for the first time (rule 11 was proven generically on
+the item 2.2 seventh pass, but never against McCanns specifically).
+All three files restored by byte copy from their pre-injection backups
+and sha256-reconfirmed identical immediately after each restore. Full
+36-checker suite re-run clean after all three restores (36/36); all six
+generators rebuilt again and sha256 of every file under modules/ and
+core/ confirmed unchanged from the pre-injection baseline; git status
+--porcelain on modules/, core/, branches.json, gbp-packs/, tools/,
+status/ empty throughout - zero tracked drift at any point.
+LIVE HALF: Claude in Chrome confirmed not connected at answer pickup and
+again for this item; fell back to a direct read-only curl GET (no login,
+nothing clicked or submitted). Four URLs read: the Aigburth UTI page is
+fully correct live (title and H1 both read "Aigburth", HTTP 200); the
+Sandringham UTI page's title and H1 still read "Sandringham" rather than
+"St Michael's" live, matching the repo's correct "St Michael's" only in
+the repo - the queued 5.7/Q15 repaste, unchanged since the fourth pass on
+2026-08-14 and reconfirmed on every pass since; both branch landing pages
+still return HTTP 404 live (Q35, standing queued-paste state, unchanged).
+No new live finding.
+RESULT: zero in-repo defects found this pass. All three injected faults
+were caught first attempt with the expected, rule-specific message;
+check-branch-identity.js's four hardest-to-exercise rules on this item
+(the AMBIGUOUS rule the checker's header calls "the rule that matters",
+plus SCHEMANAME, SPLIT, SITEUNIQUE and SISTERLABEL) are now proven
+directly against McCanns's own files for the first time in twelve
+passes, rather than left correct by six generators' construction and
+Q18's fix alone. No page, generator, pack or branches.json byte changed;
+only this paragraph and this log entry were added - following the tenth
+pass's established practice, no separate throwaway probe script was
+committed since the method, the hashes and the exact failure messages
+are recorded in full above. No new question raised.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
