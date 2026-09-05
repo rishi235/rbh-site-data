@@ -7900,6 +7900,59 @@ Pharmacy First wording to the NHS service description.
       Post D targets returned 200, not re-read in full text this pass (last
       confirmed clean tenth pass). No in-repo defect found, no new question
       raised. Done 2026-09-04
+      Quality pass 2026-09-05 (twelfth pass, repo and live): re-verified as
+      the stalest rotation-pool item (last touched 2026-09-04T22:12:59+01:00,
+      the earliest of the 37-item pool re-derived fresh from
+      `git log --pretty=format:"%cI|||%s"`, matching the eleventh pass's own
+      forward note that 4.3 was next). All facts re-checked against
+      branches.json (name, address, phone, hours with both lunch closures,
+      website, review link, three-town service area, hasApp false, all five
+      widgets) and nothing wrong. New angle: check-gbp-packs.js's services/
+      categories allowlist rule (RECOGNISED_SERVICES / RECOGNISED_CATEGORIES,
+      born on the item 4.4 quality pass, 2026-08-13) had never been proven
+      by injection against this pack's own copy, only against
+      scorah-bramhall.md at birth. Notable because this pack's own Categories
+      section carries one of only two "NOTE:" exemption bullets in the
+      estate (the other is cherry-lane-walton.md), named specifically in the
+      rule's own code comment, so the exemption path had more context here
+      than on most packs even though the FAIL path itself had never been
+      exercised against this file. PROOF BY INJECTION, both made together
+      directly on the tracked gbp-packs/hirshmans-ainsdale.md (sha256
+      94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8,
+      matching every prior pass's recorded hash): ", Dental clinic" appended
+      to the Categories "Add if not present" list, and a new Services bullet
+      added, "- Ear wax removal: microsuction ear wax removal by
+      appointment." (the exact example the rule's own comment uses, reused
+      deliberately). Result: exactly two new FAILs, one per injection, named
+      by string ("Dental clinic", "Ear wax removal"), the 17 standing
+      warnings (Q64 post-town, Q72 qualifier wording, this pack's own phone-
+      like-number and live-only-link warnings) unchanged alongside them, and
+      the pack's own NOTE bullet still correctly skipped throughout, so the
+      exemption and the FAIL path were proven at the same time rather than
+      one at the other's expense. File restored by byte copy (this mount
+      cannot unlink via git checkout, the standing FUSE quirk); sha256
+      reconfirmed identical to the pre-injection backup. Full 36-checker
+      suite re-run clean immediately after (every tools/check-*.js exit 0);
+      git status --porcelain on the file empty. This pack is not a generator
+      input, so modules/core were not touched, confirmed empty throughout.
+      Closes the last named-but-unproven check-gbp-packs.js rule this item's
+      own text carries evidence for (road-name rule proven fifth pass,
+      claim-patterns rule proven seventh pass, bank-holiday rule proven
+      eighth pass, pharmacy-first-eligibility rules 9/10/11 proven ninth
+      pass, splitDay rule proven tenth pass, day-presence rule proven
+      eleventh pass, services/categories allowlist proven this pass). LIVE
+      HALF, read-only HTTP GET (no browser tool connected this run; network
+      egress confirmed working first): all five targets on
+      hirshmanspharmacy.co.uk returned 200 - the Post A HARD STOP page, Post
+      B (switch), Post C (weight loss), Post D (travel clinic), and the
+      generated Pharmacy First replacement page. Not re-read in full text
+      this pass (last confirmed clean at depth on the tenth and eleventh
+      passes; this pass's own subject, a Google-profile-only claims
+      allowlist, has no corresponding live webpage to check against, since
+      GBP categories and services live on the profile itself, not a URL this
+      repo can fetch). No in-repo defect found, no new question raised.
+      Evidence: audits/allowlist-reproof-4.3-2026-09-05-twelfth.txt. Done
+      2026-09-05
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

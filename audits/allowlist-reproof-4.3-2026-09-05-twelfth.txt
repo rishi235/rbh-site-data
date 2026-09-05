@@ -1,0 +1,67 @@
+Item 4.3 quality pass (twelfth), 2026-09-05
+Re-proof of check-gbp-packs.js's "claims outside the known vocabulary"
+allowlist rule (RECOGNISED_SERVICES / RECOGNISED_CATEGORIES, born on the
+item 4.4 quality pass, 2026-08-13, first proved by injection against
+gbp-packs/scorah-bramhall.md) against gbp-packs/hirshmans-ainsdale.md
+specifically. Eleven prior passes on this item had proven the road-name rule
+(fifth pass), the claim-patterns outcome-claim rule (seventh pass), the
+bank-holiday special-hours rule (eighth pass), check-pharmacy-first-
+eligibility.js rules 9/10/11 (ninth pass), the splitDay two-time-range rule
+(tenth pass) and the day-presence rule (eleventh pass) against this pack's
+own copy, but never the services/categories allowlist, even though this
+pack's own Categories section carries a "NOTE:" bullet the rule's comment
+names by name as one of only two packs in the estate that use that
+exemption (the other being cherry-lane-walton.md), which made it a natural
+next candidate: the exemption path had context here that most other packs
+do not carry, but the FAIL path itself had never been exercised against
+this specific file.
+
+Method: sha256 backup of the tracked file before touching anything
+(94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8, matches
+every prior pass's recorded hash for this file, confirming no drift since
+the tenth pass's own injection test). Baseline run of
+node tools/check-gbp-packs.js on the untouched tracked repo: 17 warnings (all
+standing, all previously recorded - Q64 post-town x4, Q72 qualifier wording
+x3, two link-target live-only-page warnings, one phone-like-number warning,
+plus Hirshmans's own three), 0 failures, exit 0.
+
+INJECTION (both made together, directly on the tracked file, restored
+afterwards - this mount cannot unlink via git checkout, so restoration is by
+byte copy from the pre-injection backup, the standing method every recent
+pass on this repo uses). (1) Categories section: "Add if not present
+(nearest GBP picker name): Travel clinic, Weight loss service, Vaccination
+centre" appended with ", Dental clinic". (2) Services section, under
+"Private services:": new bullet added, "- Ear wax removal: microsuction ear
+wax removal by appointment." (the exact example the rule's own code comment
+uses, reused deliberately so this pass proves the documented example against
+this pack rather than an invented one).
+
+Result: exactly 2 new FAILs, nothing else changed. "Categories section names
+"Dental clinic", which is not a category any pack in this repo uses...";
+"Services section lists "Ear wax removal", which is not a service any pack
+in this repo uses...". Exit 1. All 17 standing warnings still present
+unchanged alongside the two new FAILs (confirmed by diff against the
+baseline run's output). The pack's existing "NOTE:" bullet under Categories
+continued to be skipped correctly throughout (no false FAIL on it), proving
+the note-exemption still holds at the same time as the allowlist itself
+fires on a genuine new claim.
+
+Restoration: byte copy from /tmp/hirshmans-ainsdale.md.orig (sha256
+confirmed identical to the pre-injection hash after restore). git status
+--porcelain -- gbp-packs empty afterwards. Full 36-checker suite (every
+tools/check-*.js run individually) re-run clean after restoration: 0 exits
+nonzero. This pack is not a generator input (no build-*.js reads
+gbp-packs/), so modules/core were not touched and no regeneration was
+needed; confirmed by git status --porcelain -- modules core branches.json
+staying empty throughout.
+
+LIVE HALF: read-only HTTP GET (no browser tool connected this run), five
+targets on hirshmanspharmacy.co.uk - the Post A HARD STOP page, Post B
+(switch), Post C (weight loss), Post D (travel clinic), and the generated
+Pharmacy First replacement page - all returned 200. Not re-read in full
+text this pass (last confirmed clean at depth on the tenth and eleventh
+passes; nothing in this pass's own subject matter, a Google-profile-only
+claims allowlist, has a corresponding live webpage to check against, since
+GBP categories and services live on the Google Business Profile itself, not
+on a URL this repo can fetch). No in-repo defect found, no new question
+raised.
