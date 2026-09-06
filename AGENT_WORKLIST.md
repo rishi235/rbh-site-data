@@ -16148,6 +16148,89 @@ type - not re-raised as a new question.
       and not re-litigated with a new question. QUESTIONS.json re-read in
       full: 96 total, 43 open, no pickup available this run (Claude in
       Chrome not connected), no new question raised.
+      Tenth quality pass, 2026-09-06 (unattended scheduled run). NO NEW
+      DEFECT FOUND. Live half not attempted: Claude in Chrome reported not
+      connected at answer pickup; the built-in browser pane refused
+      riddingspharmacy.co.uk pending a new-site approval with no user
+      present in this unattended session to grant it, so request_access was
+      not called and nothing was clicked, typed or submitted. The four
+      2026-08-14 findings (Riddings switch permalink, Riddings
+      /clinic-prices, Tiffenbergs book-now.html) are not re-read and not
+      re-claimed; Q53/Q54 stay open unchanged.
+      FRESH ANGLE: grepped this item's own nine-pass history in
+      AGENT_WORKLIST.md for "stale KNOWN key", "no longer applies" and "no
+      longer fires" before starting - zero matches. Every prior pass proved
+      a rule or a "stop rather than quietly weaken the rule" fail-safe that
+      catches a NEW defect (a bad link shape, an unattributed page, a
+      missing EXTRA_FILE); none had proven the opposite direction - that
+      check-service-links.js's "stale KNOWN key" check (lines ~508-511,
+      527-531) actually fires and fails the run once a KNOWN, KNOWN_CLAIM or
+      KNOWN_POM entry stops matching, which is the mechanism keeping this
+      checker's three exception lists honest once the underlying fix lands.
+      This matters more here than for a typical KNOWN list (check-cdn-pins.js's
+      KNOWN_DRIFT, check-seo-lengths.js's KNOWN) because KNOWN and
+      KNOWN_CLAIM both hold live regulatory findings under Q16, feeding
+      Q53/Q54/Q58/Q85: a false-clean "stale entry" check is the only thing
+      that would stand between a quietly-dropped compliance exception and
+      the run staying green regardless.
+      METHOD: all three tests run against a scratch copy (cp -a, including
+      .git, this item's established method), never the live tree, since two
+      of the three mutate real generated-page bytes rather than only data or
+      checker constants. Confirmed by grep first that all five KNOWN link
+      entries and the one KNOWN_CLAIM entry live on exactly one file,
+      modules/switch/pages/switch-prescriptions-smartts-bootle.html, sourced
+      from tools/build-switch-pages.js's CONFIG block. New instrument:
+      audits/verify-6.2-2026-09-06-tenth.js (own script, invokes the real
+      checker as a child process, no import from tools/ beyond that).
+      TEST A: the blood-testing.html KNOWN link retargeted, on the scratch
+      copy only, to a compliant generated page (contraception-smartts-
+      bootle.html), simulating that one Q16 fix landing. Caught immediately
+      and precisely: "FAIL stale KNOWN key: www.smarttschemist.co.uk/
+      blood-testing.html", with the other four KNOWN entries and the one
+      KNOWN_CLAIM entry still printed as normal matched hits, not swept up
+      as stale.
+      TEST B: the KNOWN_CLAIM tile text "Support that delivers results."
+      reworded to compliant copy, simulating that fix landing. Caught
+      immediately and precisely: "FAIL stale KNOWN key: modules/switch/
+      pages/switch-prescriptions-smartts-bootle.html::Support that delivers
+      results.", with all five KNOWN link entries unaffected.
+      TEST C: KNOWN_POM is empty in the live checker (no generated page
+      names a medicine today), so there is no real stale case to observe
+      without a synthetic entry. Mutated the CHECKER SOURCE on the scratch
+      copy only (const KNOWN_POM = {}; replaced with one synthetic entry
+      naming a medicine absent from the estate), the same class of
+      source-only mutation-and-restore the ninth pass's own Test C used on
+      EXTRA_LINK_HOST_SLUG. Caught immediately and precisely: "FAIL stale
+      KNOWN key: modules/switch/pages/switch-prescriptions-smartts-
+      bootle.html::Mounjaro", with the five KNOWN link entries and the
+      KNOWN_CLAIM entry unaffected. Checker source restored and
+      sha256-reconfirmed byte-identical before any conclusion was drawn.
+      RESULT: all three dictionaries (KNOWN, KNOWN_CLAIM, KNOWN_POM) are
+      correctly protected by the same "stale KNOWN key" fail-safe, each
+      catching precisely its own entry with no cross-firing on an unrelated
+      one. The mechanism that would have caught nine hypothetical
+      compliance-tracking regressions (had any of the six live findings this
+      item's history has accumulated been quietly "fixed" without the
+      matching exception being deleted) works as designed. Page and checker
+      source restored and sha256-reconfirmed byte-identical throughout;
+      scratch copy diffed against the live tree (modules, core, tools,
+      branches.json) and found identical before deletion. Full 36-checker
+      suite re-run individually on the live repo after the scratch work: all
+      36 exit 0. No checker logic, generator, page, banner or data field
+      changed in the tracked tree; git status --porcelain -- modules core
+      tools branches.json gbp-packs status empty before and after.
+      Environment: mcp__workspace__bash (Cowork sandboxed Linux mount of
+      C:\dev\rbh-site-data) used throughout, including running the new
+      instrument. git fetch origin (SSH) failed "Host key verification
+      failed", the standing Q96 sandbox constraint; git fetch origin-https
+      confirmed local HEAD already matched origin-https/agents/audit-backlog
+      exactly (675b161), no divergence to pull. git push is not possible
+      from this mount for either remote - unchanged, not re-litigated with a
+      new question; this pass's commit and push were completed via
+      mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+      working copy, the established route per Q96/Q87. QUESTIONS.json
+      re-read in full: 98 total, 45 open, no pickup available this run
+      (Claude in Chrome not connected), no new question raised.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
