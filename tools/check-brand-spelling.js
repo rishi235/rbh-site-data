@@ -43,14 +43,23 @@
                 rather than listed: a trailing s added or dropped on any
                 word, an apostrophe-s form, "and" written as "&", the
                 shop-type word swapped for any other (Chemist, Chemists,
-                Pharmacy, Pharmacies), and (added by the eighth 1.1 pass,
-                2026-08-31) a word's own internal capital flattened to
-                sentence case (McCanns to Mccanns, SK to Sk, RB to Rb). So
-                "Fishlock Chemist", "Fishlock's Chemist", "Gordon Shorts
-                Chemist", "Coleman & Leigh Pharmacy", "Hirshmans Pharmacy",
-                "Cherry Lane Chemist", "Mccanns Chemist" and "Sk Chemists"
-                are all caught without anyone having thought of them in
-                advance.
+                Pharmacy, Pharmacies), a word's own internal capital
+                flattened to sentence case (added by the eighth 1.1 pass,
+                2026-08-31: McCanns to Mccanns, SK to Sk, RB to Rb), and
+                (added by the ninth 1.1 pass, 2026-09-06) any word set
+                entirely in capitals (Cherry Lane Pharmacy to CHERRY LANE
+                PHARMACY). So "Fishlock Chemist", "Fishlock's Chemist",
+                "Gordon Shorts Chemist", "Coleman & Leigh Pharmacy",
+                "Hirshmans Pharmacy", "Cherry Lane Chemist", "Mccanns
+                Chemist", "Sk Chemists" and "CHERRY LANE PHARMACY" are all
+                caught without anyone having thought of them in advance. The
+                one deliberate, derived exception is masked rather than
+                excepted by name: every generated page's own leading HTML
+                comment opens with store.brand.toUpperCase() (or
+                b.branchName.toUpperCase() on the branch landing pages), and
+                that one generator-authored line is blanked by
+                maskGeneratedHeading before this rule runs, by its position
+                and shape, not by naming the brand.
     3. CONFIG   the brand strings hardcoded in the CONFIG table of
                 tools/build-switch-pages.js match branches.json. That table
                 is the one place a brand is typed rather than read, and it
@@ -252,6 +261,22 @@ function flattenCase(w) {
   return flat !== w ? flat : null;
 }
 
+// Full uppercase, added by the ninth 1.1 pass (2026-09-06) after "CHERRY
+// LANE PHARMACY" typed into a hand-pasted switch banner (the CONFIG line a
+// human edits per branch) passed all 36 checkers by injection. The
+// 2026-08-31 pass fixed case drift in one direction only: it derives the
+// LOWERED form of a word that already carries an internal capital (McCanns
+// to Mccanns). It does nothing for an ordinary word set entirely in
+// capitals, which is exactly what a hand typist reaching for Caps Lock, or
+// copying an old all-caps Google listing into a GBP pack, produces. Guarded
+// the same way as every other rule 2 form: a word already all-caps (SK, RB,
+// a bare "&") upper-cases to itself and adds nothing, so this cannot widen
+// into a false positive on a symbol or an already-capitalised abbreviation.
+function upperForm(w) {
+  var up = w.toUpperCase();
+  return up !== w ? up : null;
+}
+
 function wordForms(w) {
   var forms = [w];
   if (/s$/.test(w)) {
@@ -267,10 +292,13 @@ function wordForms(w) {
   }
   // Applied over every form already collected, not just the base word, so
   // the dropped-s form (McCann) and the apostrophe form (McCann's) are each
-  // covered too, not only the plural (McCanns).
+  // covered too, not only the plural (McCanns), and now the all-caps form
+  // of each of those too (MCCANN, MCCANN'S), not only the plural (MCCANNS).
   forms.slice().forEach(function (f) {
     var flat = flattenCase(f);
     if (flat && forms.indexOf(flat) === -1) forms.push(flat);
+    var up = upperForm(f);
+    if (up && forms.indexOf(up) === -1) forms.push(up);
   });
   return forms;
 }
@@ -416,6 +444,27 @@ function blankCodeComments(text) {
   }).join("\n");
 }
 
+// Blank the generator's own derived heading, added alongside upperForm by
+// the ninth 1.1 pass. All six generators write the first line of a
+// generated page's leading HTML comment as store.brand.toUpperCase() (or
+// b.branchName.toUpperCase() on the branch landing pages) plus " - " or
+// " -- ", never typed by a human, so upperForm's new derivation would
+// otherwise flag every single one of the 177 generated pages as a "variant"
+// of its own correct brand. Anchored to the exact position all six
+// generators write to - the start of the file's first comment - so it can
+// only ever blank that one generated line, never a hand-typed all-caps
+// error appearing anywhere else on the same page or in a hand-pasted file
+// (a banner .txt or a GBP pack does not open with an all-caps heading in
+// this shape, so this mask is a no-op there and the new rule still catches
+// a hand-typed all-caps brand in full). Shape, not a brand list: it matches
+// any run of capitals/digits/punctuation up to the dash, not a name.
+function maskGeneratedHeading(text) {
+  return text.replace(/^(<!--\s*\r?\n\s*)([A-Z0-9&'.,()]+(?:\s[A-Z0-9&'.,()]+)*)(\s+[–—-]\s)/,
+    function (m, pre, heading, sep) {
+      return pre + heading.replace(/[^\r\n]/g, " ") + sep;
+    });
+}
+
 function flat(s) { return s.replace(/\s+/g, " ").trim(); }
 
 function lineOf(text, index) {
@@ -433,7 +482,7 @@ targets.forEach(function (t) {
   var p = t.p;
   var raw = fs.readFileSync(p, "utf8");
   var isMd = !t.code && /\.md$/i.test(p);
-  var text = t.code ? blankCodeComments(raw) : (isMd ? maskQuotes(raw) : raw);
+  var text = t.code ? blankCodeComments(raw) : (isMd ? maskQuotes(raw) : maskGeneratedHeading(raw));
   if (t.code) codeScanned++; else scanned++;
 
   brandPatterns.forEach(function (bp) {
