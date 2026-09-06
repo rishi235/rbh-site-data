@@ -5530,6 +5530,124 @@ Done 2026-09-06 (twelfth pass).
       5.2, 4.11 - unchanged from the tenth pass's own note since this
       pass touched only item 3.9 - re-derive fresh rather than assume,
       since other runs may land in between.
+
+      Quality pass 2026-09-06 (twelfth machine-era pass, unattended run
+      via Cowork mcp__workspace__bash sandbox). Picked by the standing
+      rotation-pool method: all 8 unchecked AGENT_WORKLIST.md lines
+      confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+      applied. Rotation pool independently derived: 43 checked items minus
+      the six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7, 6.7, 6.8)
+      = 37 items, matched by header line and paragraph range with a Python
+      script computing each item's own git-log block range. Item 3.9 came
+      out stalest at 2026-09-05T13:46:27+01:00, clear of the next item,
+      3.10, at 14:11:07 (25 minutes later) and every other pool item.
+      Chosen: 3.9 (Coleman and Leighs Pharmacy, Walton).
+
+      WORK DONE: grepped this item's own AGENT_WORKLIST.md section (this
+      paragraph range) against every one of the 36 tools/check-*.js
+      filenames. The tenth pass (2026-09-04) closed check-branch-identity.js
+      and the eleventh pass (2026-09-05) closed check-jsonld.js - both
+      confirmed still present in the grep. tools/check-seo-pattern.js -
+      the flagship title/H1/description pattern checker the whole 3.1-3.13
+      worklist series exists to define and roll out - had zero mentions
+      anywhere in eleven prior passes on this item, the sharpest possible
+      gap: this branch is also the ORIGIN case for Q14/fitTitle() (the
+      longest trading name in the estate, "Coleman and Leighs Pharmacy",
+      meeting the longest NHS condition name, "Infected insect bite
+      treatment", at 70 characters before the 2026-08-10 fix), so the one
+      checker never proven here is also the one this branch is the load-
+      bearing test case for.
+
+      Baseline: `node tools/check-seo-pattern.js` clean on the live repo
+      (177 pages, 0 untyped, 0 failures, "OK Coleman and Leighs Pharmacy -
+      12 pages" among the estate). Full 36-checker suite on the live repo:
+      0 failures.
+
+      New instrument: audits/verify-3.9-2026-09-06-twelfth.js, own script,
+      invokes the real checker as a child process, no import from tools/
+      beyond that for Part A. Run directly against the live tree (not a
+      scratch copy) for Part A, since every mutation is self-restoring and
+      immediately sha256-verified from an in-memory buffer, refuses to run
+      if a target file already carries a git diff, and re-confirms the
+      restored hash and an empty git diff before drawing any conclusion -
+      the same discipline the 3.4 thirteenth-pass and 3.13 tenth-pass
+      instruments used for the same reason.
+
+      PART A - four standard injections, one at a time, each on a
+      different Coleman and Leighs page: (1) EXACT TITLE MATCH - "- Now
+      Open Weekends" appended to the Weebly SEO title line on
+      pharmacy-first-coleman-leigh-walton.html - caught immediately; (2)
+      CROSS-TOWN ABSENCE - "Also serving patients from Ainsdale." appended
+      to the description on sinusitis-treatment-coleman-leigh-walton.html
+      (Ainsdale is a live seoTown held by Fishlocks Ainsdale and Hirshmans
+      Ainsdale, not in Coleman and Leighs' own serviceAreaList of
+      Walton/Liverpool/Sefton) - caught immediately, naming Ainsdale and
+      confirming absence from serviceAreaList; (3) ONE H1 - a second
+      "<h1>Pharmacy in Ainsdale</h1>" appended directly after the genuine
+      heading on sore-throat-treatment-coleman-leigh-walton.html - caught
+      immediately ("2 h1 elements, expected exactly 1"); (4) ONE TITLE
+      LINE - a second "Weebly page SEO title: Pharmacy in Ainsdale" line
+      inserted immediately after the genuine one in the head comment of
+      switch-prescriptions-coleman-leigh-walton.html - caught immediately
+      ("2 'Weebly page SEO title' lines, expected exactly 1"). All four
+      caught on their intended rule, first attempt, with no cross-firing
+      on an unrelated rule or an unrelated brand; all four target files
+      confirmed git-diff-empty and sha256-identical to their pre-test
+      hashes throughout and after every individual restoration. Full
+      36-checker suite re-run clean after Part A.
+
+      PART B - a boundary-specific test of fitTitle()/switchTitle()/
+      searchTitle() in isolation, no file mutation at all: calls the real
+      exported functions from tools/seo-pattern.js with synthetic branch
+      objects, never written to any tracked file. Not yet done by any
+      prior pass on this item. This branch's real switch title ("Switch
+      Your Prescriptions to Coleman and Leighs Pharmacy, Walton") is 64
+      characters - one character under the 65-character limit fitTitle
+      enforces, the tightest margin of any title in the estate and the
+      brand fitTitle exists to protect (per seo-pattern.js's own header
+      comment). Three synthetic checks: the real branch confirmed to
+      compose at 64 chars with the FULL brand, fitTitle correctly not
+      firing; a synthetic seoTown one character longer confirmed to
+      compose at exactly 65 chars, still with the full brand, confirming
+      fitTitle's condition is "over 65", not "65 or more"; a synthetic
+      seoTown two characters longer confirmed to compose over the limit
+      and correctly trigger the shortener, dropping " Pharmacy" to
+      "Coleman and Leighs". A fourth check re-ran searchTitle() (family A,
+      the actual Q14 origin page type) against the real branch and the
+      real "Infected insect bite treatment" phrase, confirming the live
+      insect-bite page's title still composes with the shortened brand as
+      designed - the regression Q14 itself was raised to prevent. All four
+      behaved correctly.
+
+      RESULT: no in-repo defect. check-seo-pattern.js was already
+      correctly protecting Coleman and Leighs Pharmacy's twelve pages on
+      every rule tested, and the fitTitle() mechanism this branch exists
+      to stress-test is holding at 64, 65 and 66 characters. Both now
+      proven directly for the first time in twelve passes on this item.
+      No checker logic, generator, page or branches.json content changed
+      in the tracked repo; `git status --porcelain -- modules core tools
+      branches.json gbp-packs status` empty before and after.
+
+      LIVE HALF: not attempted. `mcp__claude-in-chrome__tabs_context_mcp`
+      reported Claude in Chrome not connected (checked at answer pickup
+      and reconfirmed before this section). Not re-attempted with the
+      built-in browser pane or a raw curl GET this pass, since this
+      item's own tenth and eleventh passes already reconfirmed the
+      standing live findings (pfLink still 404, the dual-spelling
+      homepage banner) within the last two days; not re-claimed or
+      re-checked this run.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full
+      before and after: 98 total, 45 open, unchanged.
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph, no checkbox
+      change - already [x]); AGENT_LOG.md (mirrored entry);
+      audits/verify-3.9-2026-09-06-twelfth.js (new).
+
+      Next stalest by this run's own computation, for whoever runs the
+      next unattended pass: 3.10 (2026-09-05T14:11:07+01:00), then 2.1
+      (15:42:23), 5.2 (16:13:13), 4.11 (16:39:52) - re-derive fresh rather
+      than assume, since other runs may land in between. Done 2026-09-06
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
