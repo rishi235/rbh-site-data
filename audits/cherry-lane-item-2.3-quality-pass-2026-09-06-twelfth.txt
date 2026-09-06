@@ -1,0 +1,103 @@
+Item 2.3 quality pass (twelfth), Cherry Lane Pharmacy Walton
+2026-09-06, unattended scheduled run (audit-backlog-worker)
+
+FRESH ANGLE
+tools/check-jsonld.js had never been proven by injection against Cherry
+Lane's own pages in eleven prior passes on this item. It is the only checker
+that reads the JSON-LD block (the machine-facing schema) and the encoded
+Google Maps query on each page, both invisible to check-nap's plain-text
+scan. Chosen deliberately: this checker's own header records the fault it
+was created to catch (build-weight-loss-pages.js declaring "@type":
+"MedicalBusiness" instead of "Pharmacy") and the entity-name collapse from
+Q18/Rule 3, neither of which had ever been tested by injection specifically
+on this branch's copy.
+
+METHOD
+Full repo copied with .git to /tmp/rbh-scratch-23 (excluding .git makes
+check-cdn-pins.js fail falsely, per the established method note from the
+item 4.9 ninth pass). Baseline: all 36 checkers exit 0. SHA256 of every
+Cherry Lane page recorded before any edit:
+
+  ea235b569fc3f3f74fa25b2f8fc261b640062e2c5bf8d7eaebffa1215ad8a378  contraception-cherry-lane-walton.html
+  8fe98cd8ce07c4b7fc1dff55efe24b81f63517e79c4191335f31ade5d31c6dea  earache-treatment-cherry-lane-walton.html
+  3d9d7478bb2f391fe7b86109f42fdabc2337b91ec7c8ea46fde58f09b11d1392  impetigo-treatment-cherry-lane-walton.html
+  5b66a5b1e719fc444db8e1e2924a6297986bc538f764125c448303a5a5a40d15  insect-bite-treatment-cherry-lane-walton.html
+  653a7ea078b4659905abe3d4a47fbb54ebc2b7316131443c94de01239955e956  pharmacy-first-cherry-lane-walton.html
+  773d9610351aed87a1bbf72262094f1cb200fc4ac6e0f3f588b9c2a2b3df7fa1  shingles-treatment-cherry-lane-walton.html
+  879823e382936903e1f7faaff8df6557f11734543b87aadbecfef0f9c8f4566d  sinusitis-treatment-cherry-lane-walton.html
+  881cccf630e6ea83bea57a104d885444a7008c41930aa640248ea1307c7ccb7b  sore-throat-treatment-cherry-lane-walton.html
+  b74c70e340bd2b750b9f7c10fb84c35b8a1323bc77e72096c00655baa26b6588  travel-clinic-cherry-lane-walton.html
+  a6971686f13c2a6d645754298943243570a9cfbd394825b8a81afb62d962789c  uti-treatment-cherry-lane-walton.html
+  60f65541ef2ba7c2269636c8d89f927a2b978d924255ef8772a2cf6aad4df90d  weight-loss-clinic-cherry-lane-walton.html
+  a0090a6c2fbecb4b45c5daeefc99119763bd95f92b1a626bb9547c665c1a38c6  switch-prescriptions-cherry-lane-walton.html
+
+Four injections on the scratch copy, each restored by byte copy and
+SHA256-reconfirmed identical to the table above before the next injection:
+
+1. Rule 3 (name). JSON-LD "name" on uti-treatment-cherry-lane-walton.html
+   changed from "Cherry Lane Pharmacy" to "Cherry Lane Chemist" - CAUGHT:
+   "a service page must declare branchName, which branches.json gives as
+   'Cherry Lane Pharmacy'".
+
+2. Rule 5 (address field). "addressRegion" on
+   pharmacy-first-cherry-lane-walton.html changed from "Merseyside" (the
+   schema.org county, per CLAUDE.md's own warning never to put a borough in
+   this field) to "Liverpool" (the locality) - CAUGHT: "address.addressRegion
+   is 'Liverpool' but branches.json says 'Merseyside'".
+
+3. Rule 6 (telephone). "telephone" on
+   switch-prescriptions-cherry-lane-walton.html changed from "0151 226 2051"
+   to the same digits with no spaces, "01512262051" - CAUGHT, confirming the
+   rule compares as typed (spacing included), not normalised: "'telephone' is
+   '01512262051' but branches.json says '0151 226 2051'".
+
+4. Rule 8 (map iframe). The encoded map query on
+   weight-loss-clinic-cherry-lane-walton.html changed from
+   "202%20Cherry%20Lane..." to "204%20Cherry%20Lane..." (a one-digit street
+   number change, invisible to any visible-text check since the string is
+   URL-encoded) - CAUGHT: "the map iframe points at '204 Cherry Lane,
+   Liverpool, L4 8SG' but branches.json gives '202 Cherry Lane, Liverpool,
+   L4 8SG'".
+
+All four caught on first attempt, each on its intended rule only. Full
+36-checker suite re-run clean after the final restore (36/36 exit 0). Every
+Cherry Lane page SHA256-reconfirmed identical to the baseline table above.
+The tracked repo (not the scratch copy) was never opened for writing at any
+point: `git status --porcelain -- gbp-packs modules core branches.json
+tools` empty before, during and after.
+
+No in-repo defect found. Rules proven, nothing changed.
+
+LIVE HALF
+Claude in Chrome not connected again this run (standing Q59, re-tried at
+run start, same result). Fell back to the established read-only curl GET
+(UA "Mozilla/5.0", GET only, nothing clicked or submitted) against three
+live URLs on cherrylanepharmacy.co.uk:
+
+- uti-treatment-cherry-lane-walton.html: HTTP 200. Live JSON-LD name,
+  telephone and full address (including addressRegion "Merseyside") match
+  branches.json exactly. Live map query decodes to "202 Cherry Lane,
+  Liverpool, L4 8SG", matching branches.json exactly.
+- pharmacy-first-cherry-lane-walton.html: HTTP 200. Same result: JSON-LD and
+  map query both match branches.json exactly.
+- switch-prescriptions-cherry-lane-walton.html: HTTP 200. Two previously
+  logged live-only faults reconfirmed unchanged: the SEO <title> still reads
+  the pre-Phase-3 string "Switch Your Prescriptions - Cherry Lane Pharmacy
+  Walton" (paste sheet says "Switch Your Prescriptions to Cherry Lane
+  Pharmacy, Walton"), and the mojibake byte sequence C3 94 C3 87 C3 B6 is
+  still present in the page bytes at the same location. Neither is new;
+  neither re-raised.
+
+No new question raised. QUESTIONS.json unchanged: 98 total, 45 open. Q95
+(Pharmacy First overview picker showing five of seven conditions as "coming
+soon") and Q36 (footer NHS mailbox typo, intermittent) were not re-checked
+this pass; this pass's chosen angle was the JSON-LD/map schema, not the
+overview picker or the footer, and re-reading them was outside this pass's
+scope.
+
+TRACKED-FILE CHANGES THIS PASS
+AGENT_WORKLIST.md (item 2.3 paragraph, twelfth pass), this audit file,
+AGENT_LOG.md. Pre-existing untracked debris in the repo root (many
+.agent-lock.released-*/test/scratch files, a literal C:/ folder, assorted
+root-level probes) confirmed unchanged and left alone, out of this item's
+scope.

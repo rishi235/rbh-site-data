@@ -1117,6 +1117,31 @@ audits/verify-2.1-2026-09-05-twelfth-output.txt.
       its logged instability. No new question; Q95 and Q36 both remain open
       with this pass adding evidence only. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-05-eleventh.txt.
+      Twelfth quality pass 2026-09-06 (unattended run). Repo half clean
+      again: all 36 checkers exit 0. FRESH ANGLE: tools/check-jsonld.js had
+      never been proven by injection against Cherry Lane's own pages in
+      eleven prior passes. Four injections on a scratch copy, each restored
+      by byte copy and SHA256-reconfirmed before the next: (1) JSON-LD
+      "name" on the UTI page changed to "Cherry Lane Chemist" - caught by
+      Rule 3; (2) "addressRegion" on the Pharmacy First page changed from
+      "Merseyside" to "Liverpool" - caught by Rule 5, confirming the
+      county-not-borough rule holds on this branch's own copy too; (3)
+      "telephone" on the switch page changed to unspaced digits - caught by
+      Rule 6, confirming the comparison is spacing-sensitive; (4) the
+      encoded map query on the weight loss page changed by one street-number
+      digit - caught by Rule 8, the one fact on the page no visible-text
+      check can read. All four caught first attempt, tracked repo never
+      opened for writing, full 36-checker suite clean after final restore.
+      No in-repo defect, no rule or page byte changed. LIVE HALF: Chrome
+      still not connected (standing Q59); fell back to a read-only curl GET
+      against three live pages. UTI and Pharmacy First pages: JSON-LD and
+      map query both match branches.json exactly, including addressRegion.
+      Switch page: the two previously logged live-only faults (pre-Phase-3
+      SEO title; mojibake em dash at the same byte offset) both reconfirmed
+      unchanged. Q95 and Q36 not re-checked this pass, out of this pass's
+      chosen scope. No new question; QUESTIONS.json unchanged (98 total, 45
+      open). Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-06-twelfth.txt.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
