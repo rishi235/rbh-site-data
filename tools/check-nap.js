@@ -66,6 +66,16 @@
       (Road/Rd, Street/St, Lane/Ln, Drive/Dr, Avenue/Ave); the house number
       and the rest of the name still have to match exactly, so this narrows
       a real gap without loosening the rule into false positives.
+    - the SHARED paste template (modules/switch/weebly.html) is now swept for
+      a street address too. Added on the item 1.4 quality pass, 2026-09-06.
+      That template's rule has been "carries no branch fact at all" since it
+      was first read on 2026-08-14, and phone, postcode, name and email were
+      each tested against every branch, but the street was not, so one
+      branch's own street sitting in the template with no postcode or name
+      beside it published on every branch that pastes it. Proved by
+      injection: "42 Fernhill Road" and its abbreviation "42 Fernhill Rd"
+      (Smartts Bootle's own street) both passed unread. Reuses the same
+      streetPattern() abbreviation rule as the per-branch sweep above.
   Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
   question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
@@ -832,8 +842,12 @@ for (const dir of PASTE_DIRS) {
 // in any list. That is the exclusion-by-nobody-thinking-about-it case
 // CLAUDE.md names. The rule that fits a shared template is the opposite of
 // the per-branch one: it must carry NO branch fact at all, because a phone
-// number, a postcode or a branch name typed into it is published on every
-// branch at once.
+// number, a postcode, a branch name or a street address typed into it is
+// published on every branch at once. The street rule was added last, on the
+// item 1.4 quality pass of 2026-09-06: phone, postcode, name and email were
+// each swept against every branch from the day this section was written,
+// but the street address, the fifth fact, was not, so it read as "no branch
+// fact at all" while actually checking four of five.
 const SHARED_PASTE_FILES = [
   path.join(ROOT, "modules", "switch", "weebly.html"),
 ];
@@ -870,6 +884,23 @@ for (const abs of SHARED_PASTE_FILES) {
         bad(rel, 'shared template names "' + name + '", so it is not shared: ' +
           "every other branch pasting it would publish that branch's name");
     }
+  }
+  // Phone, postcode, name and email were each tested against every branch,
+  // but the street address, the other half of the A in NAP, was not, so a
+  // shared template could carry one branch's own street with no postcode or
+  // name beside it and still pass every rule above. Proved by injection on
+  // the item 1.4 quality pass, 2026-09-06: "42 Fernhill Road" (Smartts
+  // Bootle's own street), and its abbreviation "42 Fernhill Rd", both added
+  // to modules/switch/weebly.html's body, and this file exited 0 on both.
+  // Reuses streetPattern() so the abbreviated form (Road/Rd, Street/St,
+  // Lane/Ln, Drive/Dr, Avenue/Ave) cannot slip through here either, the same
+  // rule the per-branch street sweep has used since 2026-08-31.
+  for (const b of branches) {
+    if (b.disposed || !b.streetAddress) continue;
+    if (streetPattern(b.streetAddress).test(text))
+      bad(rel, 'shared template carries street address "' + b.streetAddress +
+        '" (' + b.branchName + "), which would publish one branch's address " +
+        "on every branch that pastes it");
   }
   EMAIL_RE.lastIndex = 0;
   while ((m = EMAIL_RE.exec(text)) !== null) {
