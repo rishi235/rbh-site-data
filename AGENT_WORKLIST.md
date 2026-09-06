@@ -7422,6 +7422,53 @@ Pharmacy First wording to the NHS service description.
       question. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-05-twelfth.txt.
       Done 2026-09-05
+      Quality pass 2026-09-06 (thirteenth, unattended run): least recently
+      verified rotation-pool item, picked by git blame on each item's own
+      line range in AGENT_WORKLIST.md (--date=iso-strict) rather than the
+      day-only dates in the item text, since several items share one
+      calendar date from a bulk pass; 4.1's block last changed
+      2026-09-05T08:42:23, the earliest in the pool. Baseline sha256 of
+      gbp-packs/fishlocks-ainsdale.md matched the twelfth pass's value
+      (7592bad...) before any injection; pack re-verified field by field
+      against branches.json, clean, nothing moved. FRESH ANGLE: of the 16
+      checkers whose source mentions gbp-packs/, ten are genuine readers (a
+      PACK_DIR constant or an OWNED_DIRS/scan-list entry) and six only
+      mention it in a comment (check-address-region, check-nap,
+      check-opening-hours, check-page-coverage, check-travel-clinic-copy,
+      check-weight-loss-copy - confirmed by grep this pass rather than
+      assumed). Of the ten genuine readers, seven had already been proven by
+      injection against this specific pack by the twelfth pass. Three
+      injections this pass, each restored and sha256-reconfirmed before the
+      next: check-postcodes.js rule 3, the profile postcode changed from
+      "PR8 3HN" to SK Chemists Bootle's own "L20 5DW", caught first attempt
+      as FOREIGN; check-em-dashes.js, an em dash inserted into the business
+      description, caught first attempt on line 20; check-pharmacy-first-
+      eligibility.js rule 11, the "Age ranges set by the NHS apply to each
+      condition." sentence deleted from Post A with the seven-condition list
+      left standing, caught first attempt. All three caught on their
+      intended rule, first attempt. This closes the set: all ten genuine
+      gbp-packs/ readers are now proven by direct injection against
+      fishlocks-ainsdale.md by name, across the tenth, eleventh, twelfth and
+      this pass. Final sha256 confirmed identical to the pre-injection
+      value; git diff and git status both confirm zero change to the
+      tracked file. Full sweep: all 35 tools/check-*.js scripts run
+      individually, all exit 0, zero failures (check-url-scheme.js's one
+      WARN is the pre-existing, unrelated qtmp.json scratch-file reference).
+      No checker logic edited, no pack content byte changed, no generator
+      run. LIVE HALF NOT PERFORMED: Claude in Chrome reported "not
+      connected" (Q59); mcp__workspace__web_fetch was tried directly on the
+      profile-website target and refused on its own provenance gate; per
+      the standing rule against working around a blocked fetch, no
+      curl/bash alternative was used. Live state stands as last recorded on
+      the twelfth pass: profile-website target still 404 (Q35, answered but
+      not yet applied), Q91 footer misspelling still open, no repo-side fix
+      available. No new question. A future pass on this item should look
+      for a different angle: the ten-strong genuine-reader set is now fully
+      proven, so either re-verify the live half once a browser is
+      available, or check whether a new checker has since been added to
+      that set. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-06-thirteenth.txt.
+      Done 2026-09-06
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

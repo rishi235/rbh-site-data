@@ -1,0 +1,117 @@
+Item 4.1 quality pass (thirteenth), 2026-09-06 (unattended scheduled run)
+Pack: gbp-packs/fishlocks-ainsdale.md
+Branch: fishlocks_ainsdale
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback
+applied. Rotation pool derived the same way as prior passes: 43 checked
+items minus the six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7,
+6.7, 6.8) = 37 items. Least-recently-verified determined by git blame on
+each item's own line range in AGENT_WORKLIST.md (--date=iso-strict), not
+by the day-only dates in the item text, because several items share the
+same calendar date from a bulk pass. Item 4.1's block last changed
+2026-09-05T08:42:23, the earliest timestamp in the pool (next earliest
+was 3.2 at 10:13:04 the same day), so 4.1 was picked.
+
+REPO HALF
+Baseline sha256 of gbp-packs/fishlocks-ainsdale.md: matched the value
+quoted in the twelfth pass
+(7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30) before
+any injection, confirming nothing has moved since 2026-09-05.
+
+Pack re-verified field by field against the fishlocks_ainsdale entry in
+branches.json: name "Fishlocks Chemist Ainsdale", address 17 Station
+Road, Ainsdale, Southport PR8 3HN (Southport is the post-town convention,
+addressLocality is Ainsdale), phone 01704 575478, hours Monday to Friday
+08:45-18:00 with Saturday and Sunday closed, review link, catchment
+Ainsdale/Birkdale/Southport, the app line earned on hasApp true, the
+profile website pointed at its own landing page, and the five widgets
+(bloodPressure, contraception, pharmacyFirst, travelClinic, weightLoss)
+matching the five services the pack advertises as widgeted. Clean,
+nothing has changed since the twelfth pass.
+
+FRESH ANGLE: of the 16 checkers whose source mentions gbp-packs/ at all,
+ten are genuine readers (a directory constant such as PACK_DIR or an entry
+in an OWNED_DIRS/scan list) and six only mention it in a comment
+(check-address-region, check-nap, check-opening-hours, check-page-coverage,
+check-travel-clinic-copy, check-weight-loss-copy - confirmed this pass by
+grepping each file for PACK_DIR/OWNED_DIRS/a literal directory-list entry,
+rather than trusting the comment mentions). Of the ten genuine readers, by
+the twelfth pass seven had been proven by direct injection against this
+specific pack (check-gbp-packs.js during the template fixes,
+check-brand-spelling, check-url-scheme, check-uk-spelling on the tenth
+pass, check-app-membership and check-pharmacy-first-cost on the eleventh
+pass, check-gbp-pharmacy-first on the twelfth pass). Confirmed by grepping
+AGENT_WORKLIST.md that check-postcodes.js, check-em-dashes.js and
+check-pharmacy-first-eligibility.js were the three still untested against
+fishlocks-ainsdale.md by name.
+
+Three injections this pass, one per checker, each restored and
+sha256-reconfirmed byte-identical before the next:
+
+1. check-postcodes.js, rule 3 (OWNED_DIRS / FOREIGN): the profile address
+   postcode changed from "Southport PR8 3HN" to "Southport L20 5DW" (SK
+   Chemists Bootle's own postcode). Caught first attempt:
+   "FOREIGN  gbp-packs/fishlocks-ainsdale.md: owned by fishlocks_ainsdale
+   (PR8 3HN) but carries L20 5DW (skchemists_bootle)". Restored; checker
+   back to 0 failures.
+
+2. check-em-dashes.js: an em dash inserted into the business description
+   ("Southport. We dispense" -> "Southport — we dispense"). Caught first
+   attempt: "FAIL gbp-packs/fishlocks-ainsdale.md line 20 (in GBP pack
+   (non-ASCII U+2014))". Restored; checker back to clean.
+
+3. check-pharmacy-first-eligibility.js, rule 11: the qualifying sentence
+   "Age ranges set by the NHS apply to each condition." deleted from
+   Post A, list of all seven conditions left untouched. Caught first
+   attempt: "FAIL gbp-packs/fishlocks-ainsdale.md: lists all 7 Pharmacy
+   First conditions but nowhere says the NHS age ranges apply to each of
+   them (rule 11)". Restored; checker back to clean.
+
+All three caught on their intended rule, first attempt, no false
+positives on any other checker in between. Final sha256 of
+gbp-packs/fishlocks-ainsdale.md after the third restore:
+7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30 (matches
+the pre-injection value). git diff and git status both confirm zero
+change to the tracked file.
+
+Full sweep: all 35 tools/check-*.js scripts run individually, all exit 0,
+all report zero failures (check-url-scheme.js's one WARN is the
+pre-existing INSECURE reference on the untracked scratch file qtmp.json,
+unrelated and unchanged, already recorded by the item 6.8 pass earlier
+today).
+
+No checker logic edited, no pack content byte changed, no generator run
+(the pack is hand-authored copy, not generated output).
+
+LIVE HALF
+Claude in Chrome reported "not connected" (standing Q59). Per the
+standing rule against working around a blocked browser or fetch,
+mcp__workspace__web_fetch was tried directly on the profile-website
+target and refused on its own provenance gate ("URL not in provenance
+set"); no curl/bash alternative was used. Live state stands as last
+recorded on the twelfth pass (2026-09-05): profile-website target
+pharmacy-fishlocks-ainsdale.html still returns 404 (Q35, answered
+2026-08-xx but not yet applied - paste the six landing pages, outside
+this worker's permitted scope); Q91 (shared Weebly footer misspelling
+"Fishlock Pharmacy"/"Fishlock Chemist" on both Fishlocks branches) still
+open, no repo-side fix available; Q45 (switch page em dash / live vs
+audit code line divergence) still answered but not yet applied.
+
+RESULT
+No defect found in this pack or in TEMPLATE.md. Three more genuine
+gbp-packs/ readers now proven by direct injection against this specific
+file (check-postcodes.js, check-em-dashes.js,
+check-pharmacy-first-eligibility.js). That closes the set: all TEN
+checkers that genuinely read gbp-packs/ have now been proven by direct
+injection against fishlocks-ainsdale.md by name, across the tenth,
+eleventh, twelfth and this thirteenth pass. The six remaining checkers
+that mention gbp-packs (check-address-region.js, check-nap.js,
+check-opening-hours.js, check-page-coverage.js,
+check-travel-clinic-copy.js, check-weight-loss-copy.js) do so only in a
+comment and do not themselves read the directory, so they are not
+candidates for this style of proof; a future pass on this item should
+look for a different angle (eg re-verifying the live half once a browser
+is available, or checking whether any NEW checker has been added to the
+ten-strong genuine-reader set since this pass). No new question raised.
