@@ -14829,6 +14829,43 @@ type - not re-raised as a new question.
       exactly and already recommends the repaste. Evidence gathered inline
       this run (document.title, H1 and meta description read via JavaScript
       in the live page), not saved to a separate audit file.
+      Quality pass 2026-09-06 (seventh pass, unattended, Cowork sandboxed
+      shell): stalest completed item re-derived directly from AGENT_LOG.md's
+      own "Item X.Y quality pass" mentions (a one-off script scanning the log
+      top-down per item, since the log is prepended and now runs to tens of
+      thousands of lines), which put 5.6 at 2026-08-31, the oldest of any
+      completed item bar none. Fresh angle, not a re-run of the sixth pass:
+      every prior pass proved the CURRENT estate has no title over 65
+      characters (true again this run: all 36 checkers green, all six
+      generators reproduced every page and paste sheet byte-identical, git
+      diff empty after regeneration). None had proved what happens when
+      fitTitle's own rescue is NOT enough, which is exactly the risk Q24
+      already named ("the estate is one character from the wall on two
+      titles") but only as a measurement, never as a checker-injection proof.
+      PROVED BY INJECTION: modules/service/pages/SEO.md's Coleman and Leighs
+      insect-bite Page Title (the one title in the estate the Q14 rule
+      exists to rescue) was changed from the real 61-character rescued form
+      to "Infected insect bite treatment in Walton - Coleman and Leighs
+      Limited", 69 characters, simulating a future rescue that still
+      overruns rather than a title that was never rescued at all.
+      check-seo-lengths.js failed correctly: "title is 69 characters, over
+      the 65 limit, so Google truncates it", with KNOWN empty so nothing
+      could have absorbed it silently. check-seo-sheets.js failed
+      independently and for a different reason (page/sheet title drift,
+      since only the sheet was edited), confirming the two checkers give
+      defence in depth rather than one covering for a gap in the other.
+      Reverted with the same edit tool immediately after both runs; git diff
+      on the file is empty, confirming a byte-exact revert, and both
+      checkers plus check-seo-pattern.js (177 pages, 0 failures) ran clean
+      again afterwards. No repo defect found - this was a proof that the
+      safety net behind Q14/Q24 actually holds, not a defect fix, so nothing
+      else changed. LIVE HALF UNAVAILABLE: Claude in Chrome reported not
+      connected at all this run (a different failure mode from the
+      two-signed-in-instances block Q59 already describes, but the same
+      practical result), so the live Weebly title repaste for this page
+      remains unconfirmed for an eighth run running, still exactly Q14's
+      outstanding fix. No new question: Q59 already covers browser
+      unavailability and Q14 already covers the repaste.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
