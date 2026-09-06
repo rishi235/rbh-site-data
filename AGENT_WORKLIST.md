@@ -11387,6 +11387,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Walton/Aintree town-rule fix. Evidence:
       audits/clear-aintree-pharmacy-first-scope-4.9-twelfth-2026-09-06.txt.
       Done 2026-09-06
+      Thirteenth quality pass 2026-09-07: fresh angle, proving
+      check-gbp-packs.js's "branch with no openingHours must say so" rule
+      (lines 2450-2469, born on this item's first quality pass 2026-08-10)
+      by injection against this pack's own copy for the first time in
+      thirteen passes. Clear Chemist Aintree is the ONLY trading branch
+      with no openingHours.specification in branches.json (confirmed this
+      pass against all 15 other trading branches), so it is the only pack
+      that ever exercises this rule's else-if branch; every prior pass
+      re-verified the pack's wording was correct but none had broken it to
+      prove the checker actually catches a breach. Full repo copied with
+      .git to a scratch directory; tracked pack untouched throughout
+      (sha256 a5b90f58...321f4 unchanged). Baseline clean, 36/36 checkers.
+      Four injections: (1) dropped "not recorded in branches.json", kept
+      "do not paste or invent" - CAUGHT, exact expected FAIL message; (2)
+      kept "not recorded in branches.json", dropped the paste/invent/guess
+      instruction - CAUGHT, same message; (3) fabricated a full plausible
+      set of invented hours in place of the caveat, the actual real-world
+      fault the rule exists to stop - CAUGHT, same message; (4) control, a
+      compliant paraphrase using "guess" rather than "paste"/"invent" -
+      correctly PASSED, proving the rule's alternation genuinely works
+      rather than matching one literal string. All four behaved exactly as
+      designed; the pack's standing Q28 phone-number WARN present and
+      unchanged throughout; no in-repo defect found. Full 36-checker suite
+      re-run clean after the final restore. LIVE HALF NOT PERFORMED:
+      Claude in Chrome not connected (standing Q59); the sandbox
+      web_fetch tool refused both the contact page and the post-target
+      URLs as out of provenance; the Windows-MCP PowerShell curl.exe/
+      Invoke-WebRequest fallback used successfully by the ninth and
+      eleventh passes returned "Status Code: 0" with no content both
+      times this run, so the connection itself did not complete. All
+      live-side findings (Q28, Q21's concrete case, Q29) stand as last
+      verified on the eleventh pass, 2026-09-05. No new question raised.
+      Evidence:
+      audits/clear-aintree-no-hours-branch-wording-4.9-thirteenth-2026-09-07.txt.
+      Done 2026-09-07
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

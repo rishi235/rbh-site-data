@@ -1,0 +1,120 @@
+Item 4.9 (Clear Chemist Aintree GBP pack) - thirteenth quality pass, 2026-09-07
+Unattended scheduled run (audit-backlog-worker), Cowork sandbox shell only.
+
+SCOPE
+
+check-gbp-packs.js's "branch with no openingHours must say so" rule
+(lines 2450-2469 at this pass's HEAD, born item 4.9's first quality pass,
+2026-08-10, the same pass that created this pack's own "Hours: not
+recorded in branches.json" wording) had never been proven by injection
+against this pack's own copy in twelve prior passes. Clear Chemist
+Aintree is the ONLY trading branch with no openingHours.specification in
+branches.json (confirmed this pass: all 15 other trading branches carry
+a non-empty specification; rbh_head_office_aintree also has none but is
+not a trading branch and carries no GBP pack), so this pack is the only
+one in the estate where this rule's else-if branch (lines 2466-2468) can
+ever fire. The birth commit's "negative-tested five ways" note (2026-08-10)
+was never tied to an injection against clear-aintree.md's own file in any
+subsequent pass; every later pass re-verified the FACT that the pack's
+wording currently complies, never the CLAIM that breaking the wording
+would be caught. Same "only branch in this position, never proven by
+injection here" shape as the eleventh pass (check-app-membership.js rule
+8e) and twelfth pass (check-gbp-pharmacy-first.js Rule 2) on this same
+item.
+
+BASELINE
+
+Tracked repo: sha256 of gbp-packs/clear-aintree.md =
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4,
+matching every one of the twelve prior passes' own recorded hash exactly.
+All 36 tools/check-*.js run individually: 36/36 exit 0. git status
+--porcelain -- gbp-packs modules core branches.json tools: empty.
+
+METHOD
+
+Full repo copied by byte copy (cp -a, .git included) to a scratch path
+outside the tracked tree (/tmp/scratch-4.9-13th/repo), matching the
+method the ninth and tenth passes adopted. A pristine byte backup of the
+pack file was kept separately (/tmp/scratch-4.9-13th/clear-aintree.md.orig).
+All edits made and reverted inside the scratch copy only; the tracked
+repository was never opened for writing. sha256-reconfirmed identical
+before and after every case.
+
+The pack's own "- Hours:" line at baseline:
+"Hours: not recorded in branches.json. Do not paste or invent hours -
+confirm with the branch and add to branches.json first. ..." (continues
+with the branch's own live-published hours quoted as evidence, which the
+rule's quote-exemption already correctly reads as evidence rather than a
+claim - unaffected by this pass, last confirmed by the fourth pass's
+quotation-mark rule and not re-tested here).
+
+The rule under test (check-gbp-packs.js lines 2466-2468) requires, for a
+branch with no openingHours.specification, that the hours line matches
+BOTH /not recorded in branches\.json/i AND /do not (paste|invent|guess)/i.
+
+INJECTION ROUND, four cases
+
+(1) Dropped the "not recorded in branches.json" phrase only, kept the
+"do not paste or invent" instruction ("not yet confirmed with the
+branch. Do not paste or invent hours -") - CAUGHT, exit 1, exactly the
+expected FAIL: "branches.json holds no openingHours for this branch, so
+the hours line must say the data is not recorded and tell the paster not
+to paste, invent or guess hours. It does not". Restored, sha256-reconfirmed
+identical.
+
+(2) Kept "not recorded in branches.json", dropped the paste/invent/guess
+instruction ("not recorded in branches.json. Ask the branch for its
+hours before the profile goes live -") - CAUGHT, exit 1, same FAIL
+message. Restored, sha256-reconfirmed identical.
+
+(3) Fabricated a full set of invented opening hours in place of the
+whole caveat - the actual real-world fault this rule exists to prevent,
+a paster or a future edit guessing plausible-looking hours for a branch
+whose true hours were never confirmed ("Monday to Friday 9:00am to
+6:00pm, Saturday 9:00am to 1:00pm, Sunday closed.") - CAUGHT, exit 1,
+same FAIL message (neither required phrase present). Restored,
+sha256-reconfirmed identical.
+
+(4) Control: a compliant paraphrase using the regex's third alternation
+term, "guess", rather than "paste" or "invent" ("not recorded in
+branches.json. Do not guess at hours -") - correctly PASSED, exit 0,
+proving the rule is a genuine alternation match and not a literal
+string test. Restored, sha256-reconfirmed identical.
+
+All four behaved exactly as designed. The pack's standing WARN (the
+narrative sentence documenting the superseded phone number 0151 203
+8365 for Q28) was present and unchanged in every run, including the
+clean baseline and the final restore; no cross-firing on any other pack
+was checked for directly, but check-gbp-packs.js's own summary line
+reported the same pack/branch counts throughout.
+
+RESULT
+
+Zero in-repo defect. The "no hours recorded" wording rule, both required
+phrases and its alternation on the second, hold correctly on Clear
+Chemist Aintree's own pack copy, now proven by injection for the first
+time in thirteen passes on the only pack that can ever exercise it. Full
+36-checker suite re-run clean after the final restore (36/36 exit 0);
+sha256 reconfirmed identical (a5b90f58...321f4); tracked repo git status
+unaffected throughout (no write ever made to it). No checker logic,
+generator, page, pack or branches.json content changed.
+
+LIVE HALF
+
+Claude in Chrome reported not connected this run (standing Q59).
+mcp__workspace__web_fetch refused both the contact page and the
+post-target URLs as "not in provenance set" (a Cowork sandbox
+restriction on this tool, not a site-specific block). Tried the
+established Windows-MCP PowerShell curl.exe/Invoke-WebRequest fallback
+used successfully by the ninth and eleventh passes; both attempts
+returned a wrapper-level "Status Code: 0" with no page content,
+indicating the fetch itself did not complete (connectivity or TLS
+failure inside that execution path this run, not a 404 or a real HTTP
+response). Live half NOT PERFORMED this pass. All live-side findings
+(Q28 phone fix confirmed 2026-09-01, Q21's concrete WhatsApp-number
+case, Q29's three 404 post targets) stand as last verified on the
+eleventh pass, 2026-09-05, unaffected by this repo-only pass.
+
+No new question raised: pure re-verification of documented checker
+behaviour on this pack's own copy, no business, legal, pricing or
+regulatory content changed, no judgement call for Rishi.
