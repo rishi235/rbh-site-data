@@ -1,0 +1,135 @@
+Item 3.7 quality pass (twelfth), Smartts Chemist Bootle - 2026-09-06
+Unattended scheduled run via Cowork mcp__workspace__bash sandbox.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied.
+Rotation pool independently derived: 43 checked items (grep ^- \[x\]) minus the
+six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7, 6.7, 6.8) = 37 items.
+Least-recently-verified picked by `git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md`
+run individually on all 37 pool items' own paragraph ranges (from the item's own
+header line to the line before the next item's header). 3.7 came out stalest at
+2026-09-05T11:13:02+01:00, well ahead of the next item, 3.13, at 11:43:26+01:00
+(30 minutes later) and every other pool item. Chosen: 3.7 (Smartts Chemist Bootle).
+
+FRESH ANGLE
+Read AGENT_WORKLIST.md's full eleven-pass history for item 3.7 (lines 3871-4397)
+and grepped it against every one of the 36 tools/check-*.js filenames (minus the
+.js extension, case sensitive and then case-insensitive) to find which checkers
+had literally never been named against this branch. 24 of 36 had never been
+named at all. Of those, tools/check-seo-pattern.js stood out: it is the
+generator-derived checker for the exact title/H1 pattern that the whole 3.x
+series of worklist items (3.1 through 3.13) exists to define and roll out, and
+across eleven prior passes on this specific item it had never once been proven
+against Smartts's own pages by direct injection into the real checker - only
+narratively, via independent extraction scripts checking "one H1 per page
+carrying Bootle" and similar, never against check-seo-pattern.js itself. This
+closes that gap.
+
+BASELINE
+node tools/check-seo-pattern.js clean on the live repo: 177 pages checked, 0
+untyped, 0 failures, "OK Smartts Chemist - 12 pages". Full 36-checker sweep on
+the live repo: 0 failures (`for f in tools/check-*.js; do node "$f"; done`, all
+exit 0). Scratch copy made with `cp -a` (including .git, the established
+method - excluding it makes check-cdn-pins.js fail falsely) to
+/tmp/scratch-37-seopattern. Full 36-checker sweep re-run on the copy: 0
+failures, confirming it matches the live repo exactly.
+
+INJECTIONS
+Four injections on the scratch copy, each restored via `git checkout --` and
+sha256-reconfirmed byte-identical to its pre-injection baseline before the
+next. All four target rules of check-seo-pattern.js that had never been
+exercised against a Smartts page before.
+
+1. EXACT TITLE MATCH (line ~478 of the checker). On
+   pharmacy-first-smartts-bootle.html, the "Weebly page SEO title:" line was
+   changed from "Pharmacy First at Smartts Chemist, Bootle" to the same string
+   plus " - Now Open Weekends". Caught immediately:
+   "title 'Pharmacy First at Smartts Chemist, Bootle - Now Open Weekends' !=
+   'Pharmacy First at Smartts Chemist, Bootle'". sha256 before:
+   ac90b31efe392268d2a5a89e708c5228054449a61d7fdef0c4a953f8fd5107f1, confirmed
+   identical after restore.
+
+2. CROSS-TOWN ABSENCE RULE. On sinusitis-treatment-smartts-bootle.html, the
+   description had "Also serving patients from Timperley." inserted mid-sentence
+   (Timperley is Riddings Pharmacy's seoTown, a single-owner live town not in
+   Smartts's serviceAreaList of Bootle/Sefton/Liverpool). Caught immediately:
+   "description names 'Timperley', the seoTown of riddings_timperley, and
+   'Timperley' is not in this branch's serviceAreaList" - plus an expected
+   collateral "meta over 165 chars" from the sentence lengthening the
+   description past the limit, a different rule in the same file firing
+   correctly alongside the intended one. sha256 before:
+   d7467856bda8daa03203ee7e531d23c02cee9dd7b5ff191e4320c38bc58ec984, confirmed
+   identical after restore.
+
+3. ONE H1 RULE. On uti-treatment-smartts-bootle.html, a second
+   "<h1>Pharmacy in Ainsdale</h1>" was appended immediately after the genuine
+   "<h1>UTI treatment in Bootle</h1>" (naming a live seoTown, Ainsdale, that is
+   not in Smartts's serviceAreaList, the same style of injection the item 3.2
+   pass used to first prove this rule on Scorah Bramhall). Caught immediately:
+   "2 h1 elements, expected exactly 1. Every h1 rule in this repo reads the
+   first h1 only, so the others go unchecked by the pattern match, the seoTown
+   and service-word rules and the cross-town rule." sha256 before:
+   095f530abb0a514a97fc48f454517fbce8de273bdb87a56d234b22f4f27806a7, confirmed
+   identical after restore.
+
+4. ONE TITLE LINE RULE. On contraception-smartts-bootle.html, a second
+   "Weebly page SEO title:       Pharmacy in Ainsdale" line was inserted
+   immediately after the genuine title line in the head comment. Caught
+   immediately: "2 'Weebly page SEO title' lines, expected exactly 1. Every
+   title rule in this file reads the first line only, and the paster reads
+   them all." sha256 before:
+   51c65afe79e807b2acd0087f98fc7e24f4cf2a1da050c8f80525027261203ad4, confirmed
+   identical after restore.
+
+All four caught on their intended rule, first attempt, with the expected
+layered defence (injection 2's collateral length flag) and no unexpected
+cross-firing on an unrelated rule or unrelated brand. Full 36-checker suite
+re-run clean after the final restore. `git status --porcelain -- modules
+gbp-packs core tools branches.json status` on the scratch copy: empty
+throughout. No checker logic, generator, page or branches.json content changed
+in the tracked repo at any point. No branches.json or generator edit, so no
+regeneration needed or performed.
+
+NOT YET PROVEN BY INJECTION AGAINST SMARTTS (for the next pass)
+check-seo-pattern.js also carries a service-word rule, an H1-exact-match rule
+distinct from the title rule, and the PAGE_TYPES/data-source rules (those last
+two are estate-wide by construction, not branch-specific, and were exercised
+as part of this pass's baseline sweep without needing a Smartts-specific
+injection). A future pass could target the H1 exact-match and service-word
+rules specifically on a Smartts page not yet used for an injection in this
+item's history (contraception-smartts-bootle.html and
+sinusitis-treatment-smartts-bootle.html have now had one injection each;
+earache, impetigo, insect-bite, shingles, sore-throat, travel-clinic,
+weight-loss-clinic and switch-prescriptions remain untried for this checker).
+
+Of the 24 checkers never named against Smartts before this pass, 23 remain:
+check-address-region.js, check-app-membership.js, check-branch-identity.js,
+check-branch-links.js, check-brand-spelling.js, check-cdn-pins.js,
+check-editor-snapshot.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-live-hours.js, check-opening-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-seo-lengths.js, check-travel-clinic-copy.js,
+check-uk-spelling.js, check-url-scheme.js, check-weight-loss-copy.js,
+check-whatsapp-route.js. (check-service-links.js had 1 incidental mention and
+check-gbp-packs.js/gbp-pharmacy-first apply to gbp-packs/smartts-bootle.md,
+which is item 4.10's own scope, not this item's - noted for completeness, not
+picked up here.)
+
+LIVE HALF
+Not performed. `mcp__claude-in-chrome__tabs_context_mcp` reported "Claude in
+Chrome is not connected" (standing Q59). `mcp__workspace__web_fetch` on
+https://www.smarttschemist.co.uk/pharmacy-first-service-bootle.html refused on
+its own provenance gate ("URL not in provenance set"). Per the standing rule
+this item's own eleventh pass recorded (no curl/PowerShell workaround once
+web_fetch/Chrome have both declined, in this sandboxed-shell session type), no
+alternative fetch was attempted. The tenth pass's live findings (own postcode,
+own phone, the "30 seconds" time claim and the collection-notice sentence all
+present live) and the sixth pass's three live-only findings (hours-card lunch
+closure, switch page live tab title, the Q16/5.8 KNOWN_CLAIM services-grid
+wording) were not re-confirmed this pass and should not be assumed unchanged.
+
+RESULT
+No in-repo defect found. No checker logic edited. No new fault class in any
+checker. No new question raised; QUESTIONS.json unchanged (98 total, 45 open).

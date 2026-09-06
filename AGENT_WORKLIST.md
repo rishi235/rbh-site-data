@@ -4395,6 +4395,61 @@ question. Evidence in audits/verify-3.7-2026-09-05-eleventh.js. Push/publish
 outcome recorded separately in AGENT_LOG.md per the standing Q96/Q87
 credential gap.
 Done 2026-09-05 (eleventh pass).
+Quality pass 2026-09-06 (twelfth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash). Picked as the least recently
+verified rotation-pool item, independently re-derived by the established
+method (`git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md` on each of the
+37 rotation-pool items' own paragraph range): 3.7 last touched
+2026-09-05T11:13:02+01:00, oldest of the 37, ahead of 3.13 (11:43:26+01:00, the
+next stalest) and every other pool item.
+FRESH ANGLE. Grepped this item's full eleven-pass history against all 36
+tools/check-*.js filenames: 24 had never been named against Smartts at all.
+tools/check-seo-pattern.js - the generator-derived checker for the exact
+title/H1 pattern that the whole 3.x series exists to define and roll out -
+stood out as the sharpest gap: eleven prior passes had verified Smartts's
+titles and H1s narratively, via independent extraction scripts, but never once
+proved the real checker against a Smartts page by direct injection.
+Baseline: check-seo-pattern.js clean on the live repo (177 pages, 0 untyped, 0
+failures, "OK Smartts Chemist - 12 pages"). Full 36-checker sweep on the live
+repo: 0 failures. Scratch copy made with `cp -a` (including .git, the
+established method) to /tmp/scratch-37-seopattern; full 36-checker sweep on
+the copy: 0 failures, confirming it matches the live repo exactly.
+Four injections on the scratch copy, each restored via `git checkout --` and
+sha256-reconfirmed byte-identical before the next: (1) EXACT TITLE MATCH -
+" - Now Open Weekends" appended to the SEO title line on pharmacy-first-
+smartts-bootle.html - caught immediately by the exact-match rule; (2)
+CROSS-TOWN ABSENCE - "Also serving patients from Timperley." inserted into
+sinusitis-treatment-smartts-bootle.html's description (Timperley is Riddings
+Pharmacy's seoTown, not in Smartts's serviceAreaList) - caught immediately,
+naming riddings_timperley, plus an expected collateral meta-length flag from
+the same edit; (3) ONE H1 - a second "<h1>Pharmacy in Ainsdale</h1>" appended
+on uti-treatment-smartts-bootle.html - caught immediately ("2 h1 elements,
+expected exactly 1"); (4) ONE TITLE LINE - a second "Weebly page SEO title:"
+line inserted on contraception-smartts-bootle.html - caught immediately ("2
+'Weebly page SEO title' lines, expected exactly 1"). All four caught on their
+intended rule, first attempt, with the expected layered defence and no
+cross-firing on an unrelated rule or brand. Full 36-checker suite re-run clean
+after the final restore. `git status --porcelain -- modules gbp-packs core
+tools branches.json status` on the scratch copy: empty throughout. No checker
+logic, generator, page or branches.json content changed in the tracked repo.
+No regeneration needed or performed.
+Not yet proven by injection against Smartts, for a future pass:
+check-seo-pattern.js's service-word and H1-exact-match rules specifically, and
+23 of the 24 previously-unnamed checkers (check-service-links.js had 1
+incidental mention this item; check-gbp-packs.js and
+check-gbp-pharmacy-first.js apply to gbp-packs/smartts-bootle.md, which is
+item 4.10's own scope, not this item's, so noted rather than picked up here).
+Full list in audits/smartts-item-3.7-quality-pass-2026-09-06-twelfth.txt.
+Live half not performed. Claude in Chrome reported not connected (standing
+Q59); mcp__workspace__web_fetch declined the live URL on its own provenance
+gate ("URL not in provenance set"). Per this item's own eleventh-pass rule (no
+curl/PowerShell workaround once web_fetch/Chrome have both declined, in this
+sandboxed-shell session type), no alternative fetch was attempted. The tenth
+and sixth passes' live-only findings were not re-confirmed this pass and
+should not be assumed unchanged.
+No in-repo defect found, no copy changed anywhere in the repo, no new
+question. Evidence in audits/smartts-item-3.7-quality-pass-2026-09-06-twelfth.txt.
+Done 2026-09-06 (twelfth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
