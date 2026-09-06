@@ -14362,6 +14362,30 @@ appended to the line. Do not move them; the status page reads them in place.
       of last and backwards), the same class as the item 4.6 twelfth pass's
       mojibake-pound-sign fix earlier the same day. Done 2026-09-05. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-05-thirteenth.txt.
+      Quality pass 2026-09-06 (fourteenth pass): zero in-repo defect, checker
+      logic unchanged. The thirteen prior passes proved every numbered rule
+      (0 to 7) and the NARRATIVE_POSTCODES staleness check in both directions,
+      but never the sibling staleness check on NARRATIVE_FILES itself (lines
+      672-676: a listed file that no longer exists in the repo fails). The
+      comment recording status/index.html's removal from the list on
+      2026-09-01 (per Q42) shows the list has been edited once in response to
+      a file leaving the repo, but that edit was proactive, made before the
+      rule could fire, and no audit file anywhere records the STALE
+      NARRATIVE_FILES message ever firing. On a git-archive scratch copy
+      outside the tracked tree (751 files, 0 failures, 3 warnings baseline,
+      matching the tracked repo's own 812-file baseline apart from untracked
+      litter): confirmed CHANGELOG.md quotes no postcode, deleted it from the
+      scratch copy only, sha256 recorded first. CAUGHT, exit 1, exactly one
+      new failure, "STALE NARRATIVE_FILES names CHANGELOG.md, which is not in
+      the repo. Remove the entry or restore the file," files-scanned count
+      dropping by exactly one, the three standing UNOWNED warnings unchanged.
+      Restored by copy from the tracked repo and sha256-reconfirmed identical;
+      re-run matched the pre-injection baseline exactly. Tracked repo
+      untouched throughout (git status --porcelain empty before and after);
+      full 36-checker suite re-run clean afterwards; six-generator rebuild
+      byte-identical (combined sha256 a051e64d...4daad7, matching the same
+      day's 3.1 pass). No new question. Done 2026-09-06. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-06-fourteenth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

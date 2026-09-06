@@ -1,0 +1,133 @@
+Item 1.3 quality pass (fourteenth pass), 2026-09-06
+Checker under test: tools/check-postcodes.js
+Chosen via the established rotation method: all 8 unchecked AGENT_WORKLIST.md
+items confirmed [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4 Q60,
+6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool: 43
+checked items minus the six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7,
+6.7, 6.8) = 37-item pool, each item's own
+`git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md` date
+taken. Item 1.3 came out stalest at 2026-09-05T22:44:59+01:00, clear of the
+next item (4.13, 2026-09-05T23:14:12+01:00) and every other pool item, because
+the seven items this checker's rotation had already worked through today
+(4.5, 4.6, 4.3, 3.1, 6.3, 3.8, 3.6) had all moved later in the same session.
+Chosen: 1.3.
+
+METHOD. Read the item's full thirteen-pass history in AGENT_WORKLIST.md and
+the current tools/check-postcodes.js (695 lines) end to end. All eight of the
+checker's numbered rules (0 MALFORMED, 1 UNKNOWN, 2 MISSING, 3 FOREIGN,
+4 DISPOSED, 5 UNOWNED by data discovery, 6 MISATTRIB including the aliasOf()
+shorthand, 7 DUPLICATE plus its own staleness half) have been proved by
+injection at least once across the thirteen prior passes, along with the
+NARRATIVE_POSTCODES staleness rule in both directions (a named value that has
+left the repo, and a named value that has since become a real branch
+postcode). One rule had not: the sibling staleness check on NARRATIVE_FILES
+itself (lines 672-676), which fails if a file named in that list no longer
+exists in the repo -
+
+    NARRATIVE_FILES.forEach(function (f) {
+      if (!fs.existsSync(path.join(ROOT, f))) {
+        fail("STALE    NARRATIVE_FILES names " + f + ", which is not in the
+             repo. Remove the entry or restore the file.");
+      }
+    });
+
+Confirmed by grep across AGENT_WORKLIST.md, AGENT_LOG.md and every
+audits/mccanns-sandringham-postcode-check-*.txt and
+audits/postcode-*-rule-*.txt file for "STALE    NARRATIVE_FILES" and for
+"STALE NARRATIVE_FILES": zero hits anywhere. The comment at line 106-107 of
+the checker itself records that "status/index.html was removed from this list
+2026-09-01: the file it named was retired per Q42" - so the list has already
+been edited once in response to a file leaving the repo, but that edit was
+made proactively, before the rule could ever have fired, and AGENT_LOG.md's
+own account of that edit (line 8152-8153, the run that also touched
+check-url-scheme.js's identical convention) says only that the entries were
+"edited to remove" the stale name, not that this checker's own STALE message
+was seen firing first. The rule has existed, unexercised, since the file's
+original six-rule hardening on 2026-08-11.
+
+BASELINE, on the tracked repo, before any mutation: all 36 tools/check-*.js
+run individually, 36/36 exit 0. check-postcodes.js itself: 812 text files
+scanned, 27 distinct postcodes, 16 live branches, 0 failures, 3 warnings (the
+three standing UNOWNED warnings on gbp-packs/TEMPLATE.md and
+modules/branch/pages/INDEX.md and SEO.md, unchanged from every prior pass).
+All six generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt from branches.json: combined sha256 of
+every file under modules/ and core/ (sorted, sha256sum piped to sha256sum) was
+a051e64de6ed9aca89fd6b428b37d5df3424056bfc5a4170d846aa0c5c4daad7 both before
+and after, matching the value recorded by the item 3.1 thirteenth pass earlier
+the same day; `git status --porcelain -- modules core branches.json gbp-packs
+tools` empty throughout.
+
+SCRATCH COPY, isolated from the tracked tree per the established convention:
+`git archive HEAD | tar -x` into a scratch directory outside the repo (this
+pass used the sandbox's own home directory rather than the repo-adjacent
+_agentscratch/ path some earlier passes used, since a tracked-tree-adjacent
+scratch copy has itself been caught being scanned by mistake before - see the
+item 1.3 thirteenth pass's own "ask which files it read" note about a first
+attempt inside the repo root producing 188 spurious failures). Baseline
+re-confirmed on the scratch copy: 751 text files scanned (fewer than the
+tracked repo's 812 because git archive carries only tracked files, so the
+standing `.agent-lock.released-*` litter and other untracked scratch debris
+noted by recent passes are absent), 27 distinct postcodes, 16 live branches,
+0 failures, 3 warnings - the same three UNOWNED warnings, confirming the
+scratch copy is a faithful copy before any mutation.
+
+INJECTION. Confirmed first that CHANGELOG.md (the smallest and least
+cross-referenced of the seven NARRATIVE_FILES entries) quotes no postcode
+itself (`grep -oE` for the UK postcode shape against it: zero matches), so
+deleting it could not also trip the separate NARRATIVE_POSTCODES staleness
+rule and confuse the result. sha256 of the scratch copy's CHANGELOG.md taken
+first (2c0200bd585093247b175a09e5fbbad48d92b00427d41335f8812c8be58adfbb),
+then the file deleted from the scratch copy only. Re-ran check-postcodes.js
+against the scratch copy:
+
+  STALE    NARRATIVE_FILES names CHANGELOG.md, which is not in the repo.
+  Remove the entry or restore the file.
+
+  750 text files scanned, 27 distinct postcode(s), 16 live branches:
+  1 failure(s), 3 warning(s).
+
+Caught on the first attempt, with exactly the rule's own message, exactly one
+new failure over baseline, the three standing UNOWNED warnings unchanged, and
+the scanned-file count dropping by exactly one (751 to 750), consistent with
+one fewer text file existing to scan. No cross-firing on any other rule: the
+NARRATIVE_POSTCODES staleness checks did not fire, because CHANGELOG.md
+carried no postcode for their narrativeQuotes bookkeeping to lose.
+
+RESTORE. Copied CHANGELOG.md back into the scratch copy from the tracked
+repo's own working copy and re-hashed: sha256
+2c0200bd585093247b175a09e5fbbad48d92b00427d41335f8812c8be58adfbb, identical to
+the pre-deletion value. Re-ran check-postcodes.js against the restored scratch
+copy: 751 text files scanned, 27 distinct postcodes, 16 live branches, 0
+failures, 3 warnings - byte-for-byte the same baseline as before the
+injection. Scratch directory then deleted entirely.
+
+TRACKED REPO CONFIRMED UNTOUCHED throughout: `git status --porcelain --
+modules core branches.json gbp-packs tools CHANGELOG.md README.md CLAUDE.md
+QUESTIONS.json AGENT_LOG.md AGENT_WORKLIST.md` empty both before and after the
+injection round, since every mutation happened on the disposable scratch copy
+only. Full 36-checker suite re-run on the tracked repo after the round: 36/36
+exit 0, no change from the pre-round baseline.
+
+RESULT. Zero in-repo defect. All seven files named in NARRATIVE_FILES exist
+today and the rule guarding that fact was already correct; it is now proven
+by injection for the first time in this item's fourteen-pass history,
+completing every distinct rule and staleness half check-postcodes.js carries.
+No checker logic, generator, page, pack, paste block or branches.json content
+changed. No new question raised: this was a checker-completeness proof, not a
+data or copy defect, the same class as several of this item's prior passes
+(rules 4 and 7's own re-proofs, the NARRATIVE_POSTCODES staleness proofs).
+
+LIVE HALF. Claude in Chrome reported not connected at the start of this run
+(mcp__claude-in-chrome__tabs_context_mcp, standing Q59); not retried by
+another route, nothing clicked, typed, submitted or signed in anywhere. No
+live-site check performed this pass: this pass's finding concerns a repo-only
+staleness guard over the audit's own narrative files (AGENT_LOG.md,
+AGENT_WORKLIST.md, QUESTIONS.json, CHANGELOG.md, README.md, CLAUDE.md,
+tools/check-postcodes.js itself), none of which is a live surface, so there is
+no live check this specific finding would motivate beyond what recent passes
+on this item have already covered (the thirteenth pass's read of the live
+Pharmacy First page and both McCanns contact blocks, unchanged).
+
+Evidence: this file. No other files changed.
