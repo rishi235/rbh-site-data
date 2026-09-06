@@ -106,7 +106,14 @@
        places - the business description states the number and names no
        conditions, Post A does both - so a number can drift on its own.
 
-   11. On the GBP packs, a pack that enumerates the conditions also says the
+   12. On the Pharmacy First OVERVIEW page (the "all seven conditions" hub each
+      branch owns), every condition tile states its ageNote verbatim and no
+      age outside its own pinned set. This is a THIRD surface, on top of the
+      condition page (rules 5-8) and the packs/landing pages (rule 9), that
+      states these ages, and it sat unread. See the rule's own comment further
+      down for the injection that proved the gap.
+
+  11. On the GBP packs, a pack that enumerates the conditions also says the
        NHS age ranges apply to each of them. Rules 9 and 10 pin the ages a
        pack states and the list it prints, and a pack can satisfy both and
        still advertise an unqualified offer, because a pack prints an age for
@@ -262,10 +269,11 @@ marks.forEach(function (mark, i) {
   var end = i + 1 < marks.length ? marks[i + 1].at : table.length;
   var block = table.slice(mark.at, end);
   var ready = /ready:\s*true/.test(block);
+  var name = (block.match(/name:\s*"([^"]*)"/) || [])[1];
   var ageNote = (block.match(/ageNote:\s*"([^"]*)"/) || [])[1];
   var yesTitle = (block.match(/eligibleYes:\s*\{[\s\S]*?title:\s*"([^"]*)"/) || [])[1];
   var yesFirst = (block.match(/eligibleYes:\s*\{[\s\S]*?points:\s*\[\s*"([^"]*)"/) || [])[1];
-  conditions[mark.key] = { key: mark.key, ready: ready, ageNote: ageNote, yesTitle: yesTitle, yesFirst: yesFirst };
+  conditions[mark.key] = { key: mark.key, ready: ready, name: name, ageNote: ageNote, yesTitle: yesTitle, yesFirst: yesFirst };
 });
 
 // Every pinned condition must exist in the generator, and vice versa.
@@ -420,6 +428,129 @@ pages.forEach(function (p) {
     failures.push(name + ": the safety redirect for the excluded cohort is missing (rule 8)\n" +
       "         expected to match: " + pin.excluded);
   }
+});
+
+// ---------------------------------------------------------------------------
+// Rule 12, on the Pharmacy First OVERVIEW pages.
+// ---------------------------------------------------------------------------
+// Added on the item 2.1 quality pass (thirteenth), 2026-09-06. Rules 5 to 8
+// read every condition page, and rule 9 was widened to the GBP packs and the
+// branch landing pages, but a THIRD surface states these same ages and had
+// never been read by anything: the Pharmacy First overview page (the "see all
+// seven conditions" hub each branch owns, modules/service/pages/pharmacy-first-
+// <brandSlug>-<townSlug>.html). Its own generator, tools/build-service-pages.js
+// (see overviewPage(), the condition-card tile body), prints every condition's
+// c.ageNote a SECOND time, once per tile, on top of the copy rules 5 and 6
+// already guard on that condition's own page.
+//
+// Proved by injection before this rule existed: changing the shingles tile's
+// age text on pharmacy-first-fishlocks-ainsdale.html from "Age 18 and over" to
+// "Age 16 and over" (16 is not the NHS shingles cohort) walked past the full
+// checker suite clean, because rules 5-8 only ever open a file whose name
+// starts "<cond>-treatment-", which an overview page's filename never does,
+// and rule 9 only reads gbp-packs/ and modules/branch/pages/, neither of which
+// this file is in. The live copy is correct today only because both tiles are
+// composed from the SAME c.ageNote string in one generator function - correct
+// by construction, not by any rule, the same shape as the map-embed query and
+// the WhatsApp number this repo has already found unguarded elsewhere.
+//
+// Scope: files in PAGE_DIR whose name starts "pharmacy-first-", which is
+// exactly the set rules 5-8's own filter excludes (no condition slug starts
+// that way), so a page can never be read by both. Extraction reads the
+// <div class="condition-grid"> ... </section> block, splits it on <strong>
+// (each tile opens with <strong>{condition name}</strong>), and matches each
+// tile to a condition by that name string. The tile's own age span
+// (`style="color:#6b7280;font-size:13px;"`, the exact class the generator
+// emits for this element and nothing else on the page) must equal that
+// condition's ageNote VERBATIM - the same bar rule 6 holds the condition page
+// itself to - and the tile text must carry no age number outside that
+// condition's pinned NHS set, the same sweep rule 7 runs, bounded to this one
+// tile so a neighbouring tile's different (and equally correct) age cannot
+// excuse it. A condition named in the generator's table but never found as a
+// tile on a page fails rather than being skipped, the same "an unchecked page
+// is not a passing page" convention every KNOWN/EXTRA list in this repo
+// already keeps.
+// ---------------------------------------------------------------------------
+var overviewPages = [];
+if (fs.existsSync(PAGE_DIR)) {
+  fs.readdirSync(PAGE_DIR).forEach(function (f) {
+    if (/^pharmacy-first-.*\.html$/.test(f)) overviewPages.push(path.join(PAGE_DIR, f));
+  });
+}
+if (!overviewPages.length) {
+  failures.push("modules/service/pages: no Pharmacy First overview pages found (rule 12)");
+}
+
+var TILE_AGE_SPAN = /<span style="color:#6b7280;font-size:13px;">([\s\S]*?)<\/span>/g;
+
+overviewPages.forEach(function (file) {
+  var name = rel(file);
+  var html = fs.readFileSync(file, "utf8");
+
+  var gridAt = html.indexOf('<div class="condition-grid">');
+  if (gridAt === -1) {
+    failures.push(name + ": no condition-grid block found, so rule 12 could not read its tiles (rule 12)");
+    return;
+  }
+  var closeAt = html.indexOf("</section>", gridAt);
+  var grid = closeAt === -1 ? html.slice(gridAt) : html.slice(gridAt, closeAt);
+
+  var chunks = grid.split("<strong>").slice(1); // first slice is pre-tile junk
+  var seenNames = {};
+
+  chunks.forEach(function (chunk) {
+    var nm = (chunk.match(/^([^<]*)<\/strong>/) || [])[1];
+    if (!nm) return;
+    seenNames[nm] = true;
+
+    var cond = null;
+    Object.keys(conditions).forEach(function (k) {
+      if (conditions[k].name === nm) cond = conditions[k];
+    });
+    if (!cond) {
+      failures.push(name + ": tile \"" + nm + "\" does not match any condition name in " +
+        rel(GENERATOR) + " (rule 12)");
+      return;
+    }
+    var pin = NHS[cond.key];
+    if (!pin || !cond.ageNote) return; // rules 1-4 already fail an unpinned/note-less condition
+
+    var ageMatch = TILE_AGE_SPAN.exec(chunk);
+    TILE_AGE_SPAN.lastIndex = 0;
+    var tileAge = ageMatch ? norm(ageMatch[1]) : null;
+
+    if (tileAge === null) {
+      failures.push(name + ": tile \"" + nm + "\" has no age span for rule 12 to read");
+      return;
+    }
+    if (tileAge !== cond.ageNote) {
+      failures.push(name + ": overview tile for \"" + nm + "\" states \"" + tileAge +
+        "\", but the pinned ageNote is \"" + cond.ageNote + "\" (rule 12)");
+    }
+
+    var allowed = {};
+    pin.ages.forEach(function (n) { allowed[n] = true; });
+    var mm;
+    AGE_IN_TEXT.lastIndex = 0;
+    while ((mm = AGE_IN_TEXT.exec(chunk)) !== null) {
+      [mm[1], mm[2], mm[3], mm[4]].forEach(function (raw) {
+        if (raw === undefined) return;
+        var n = Number(raw);
+        if (!allowed[n]) {
+          failures.push(name + ": overview tile for \"" + nm + "\" states age " + n +
+            " which is not in the NHS criteria for " + cond.key +
+            " (" + pin.ages.join(" to ") + ") (rule 12)");
+        }
+      });
+    }
+  });
+
+  Object.keys(NHS).forEach(function (k) {
+    var c = conditions[k];
+    if (c && c.name && !seenNames[c.name]) {
+      failures.push(name + ": no tile found for \"" + c.name + "\" (rule 12)");
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -733,6 +864,7 @@ packs.forEach(function (file) {
 console.log("check-pharmacy-first-eligibility");
 console.log("  " + checked + " pinned conditions read from " + rel(GENERATOR));
 console.log("  " + pages.length + " condition pages checked against them");
+console.log("  " + overviewPages.length + " Pharmacy First overview pages checked tile by tile (rule 12)");
 console.log("  " + packs.length + " GBP packs checked against the pinned cohorts and the " +
   PATHWAYS.length + " pathways");
 console.log("  " + landingPages.length + " branch landing pages checked against the pinned cohorts (rule 9)");

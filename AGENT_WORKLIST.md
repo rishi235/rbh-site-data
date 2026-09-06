@@ -639,6 +639,77 @@ Pharmacy" and "Fishlock Chemist" (Q37, unchanged). No new question raised;
 both are reconfirmation of existing standing state. No worklist item blocked
 or unblocked. Evidence: audits/verify-2.1-2026-09-05-twelfth.js,
 audits/verify-2.1-2026-09-05-twelfth-output.txt.
+Quality pass 2026-09-06 (thirteenth pass): all 8 worklist items still
+unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED]
+by direct grep, so this was the fallback quality pass, picked by the standard
+rotation-pool ranking re-derived fresh from git log over the 37-item pool (43
+checked items minus the standing out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7,
+6.8): item 2.1's newest mention was the twelfth pass at
+2026-09-05T15:42:23+01:00, older than every other pool item (4.11 next oldest
+at 16:39:52, nearly an hour later, then every other item newer still).
+Fresh angle: of this branch's 13 owned pages, the switch page (eighth pass),
+the travel clinic page (ninth), the branch landing page (tenth), the
+weight-loss-clinic page (eleventh) and the contraception page (twelfth) had
+each had a dedicated injection round for this item, but the seven Pharmacy
+First condition pages and the Pharmacy First overview page had not, and
+check-pharmacy-first-eligibility.js - the checker pinning the NHS cohort ages
+the whole item 5.2/CLAUDE.md "eligibility ages" thread exists to protect - had
+never been proven against this branch's own pages across twelve prior passes.
+PART A/B: baseline clean, then four injections against this branch's own
+condition pages, each restored byte-identical immediately after: (1) RULE
+6/7, sinusitis-treatment-fishlocks-ainsdale.html, hero pill "Age 12 and over"
+to "Age 10 and over" - CAUGHT. (2) RULE 8,
+earache-treatment-fishlocks-ainsdale.html, the "Babies under 1 should see a
+GP" redirect removed - CAUGHT. (3) RULE 5,
+shingles-treatment-fishlocks-ainsdale.html, "Adults aged 18 and over"
+reworded to "Grown-ups aged 18 and over" (same numbers) - CAUGHT. (4) RULE 7,
+uti-treatment-fishlocks-ainsdale.html, "Women aged 16 to 64" drifted to
+"Women aged 16 to 74", the exact range-tail regression class the checker's
+own header names - CAUGHT. All four on the first attempt, on the intended
+rule, with byte-identical restoration confirmed by sha256 after each.
+PART C: a genuine, previously-unread gap found, not merely re-proved.
+pharmacy-first-fishlocks-ainsdale.html (the "all seven conditions" overview
+page) states every condition's age a second time, once per condition-grid
+tile, composed in build-service-pages.js's overviewPage() from the same
+c.ageNote string as the condition page's own pill. Proved missing BEFORE any
+fix: changing the overview page's shingles tile from "Age 18 and over" to
+"Age 16 and over" and running the full 36-checker suite returned 0 failures,
+because rules 5-8 only open a file named "<cond>-treatment-*" (an overview
+page's filename never is) and rule 9 only reads gbp-packs/ and
+modules/branch/pages/. The live copy was correct only by construction, one
+generator function composing one string twice, not by any rule - the same
+shape this repo has already found at the map-embed query (check-jsonld.js)
+and the WhatsApp number (check-whatsapp-route.js).
+FIX: check-pharmacy-first-eligibility.js gained RULE 12. It reads every
+modules/service/pages/pharmacy-first-*.html file (14 estate-wide), matches
+each condition-grid tile to its condition by name, and requires the tile's
+own age span to equal that condition's pinned ageNote verbatim, plus the same
+stray-age-number sweep rule 7 already runs, bounded to that one tile so a
+neighbouring tile's different (and correct) age cannot excuse it. A
+condition named in the generator but never found as a tile fails rather than
+being skipped.
+PART D: the same three injection shapes re-run against the OVERVIEW page
+post-fix (shingles age, UTI range tail, earache cohort wording), all three
+now CAUGHT by rule 12 on the first attempt, all three restored
+byte-identical (sha256-reconfirmed). Full 36-checker suite re-run clean
+(36/36) on the untouched tree; all six generators rebuilt to a
+byte-identical zero diff against modules/ and core/ (git status --porcelain
+empty before and after). check-pharmacy-first-eligibility.js is the only
+tracked file changed.
+No copy, page or branches.json content changed anywhere in the estate; this
+is a tooling fix closing a verification gap, not a content correction, so it
+needed no superintendent or business decision and none was sought.
+Live half: Claude in Chrome confirmed not connected (checked at step 3 and
+again before this section). Fell back to a direct read-only GET (no browser
+tool, nothing clicked, typed or submitted): sitemap.xml still 200 with every
+lastmod fixed at 2026-08-14T17:32:10 (Q35's underlying non-publish,
+unchanged, now three and a half weeks); contact.html still names the
+business "Fishlock Pharmacy" and "Fishlock Chemist" (Q37, unchanged). Q57 not
+re-read this pass to keep within the run's time budget given the depth of
+Parts A-D; no reason to believe it has changed. No new question raised; no
+worklist item blocked or unblocked. Evidence:
+audits/verify-2.1-2026-09-06-thirteenth.js,
+audits/verify-2.1-2026-09-06-thirteenth-output.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
