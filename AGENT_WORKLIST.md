@@ -11707,6 +11707,43 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Q59). No new question. Evidence in
       audits/smartts-bootle-app-membership-8e-4.10-eleventh-2026-09-06.txt.
       Done 2026-09-06.
+      Twelfth quality pass 2026-09-06 (unattended scheduled run via Cowork
+      sandbox shell only; no Windows-MCP tools invoked this run): fresh
+      angle - the category/service ALLOWLIST rule in tools/check-gbp-packs.js
+      (RECOGNISED_SERVICES/RECOGNISED_CATEGORIES, born item 4.4 pass
+      2026-08-13 against scorah-bramhall.md, proved a second time on item
+      4.13's thirteenth pass earlier the same day against
+      riddings-timperley.md) had never been proven against this pack's own
+      copy across eleven prior passes, confirmed by grep across the whole
+      paragraph history above. Smartts Bootle exercises more of the
+      vocabulary than most packs: four named categories and ten labelled
+      service bullets, three of which (Blood tests, Vaccinations, Medical
+      cannabis consultation) have no branches.json widget at all and are
+      covered only by the allowlist, not by the earlier blocklist rules.
+      Baseline: 36/36 checkers exit 0, smartts-bootle.md sha256
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly. Method: full repo
+      copied to scratch WITH .git included (per the ninth pass's own method
+      note), all injections and checker runs against the scratch copy only,
+      tracked file never opened for writing. Three injections, each restored
+      by byte copy and sha256-reconfirmed before the next: (1) an
+      unrecognised service bullet, "Ear wax removal" (the rule's own origin
+      example), appended to the Services section - CAUGHT, exit 1, exactly
+      one failure naming RECOGNISED_SERVICES; (2) an unrecognised category,
+      "Dental clinic", appended to the Categories line - CAUGHT, exit 1,
+      exactly one failure naming RECOGNISED_CATEGORIES; (3) a control - the
+      same two terms named inside a "- NOTE:" bullet as evidence, not a
+      claim - correctly PASSED, exit 0, 0 failures, confirming the
+      NOTE-bullet exemption holds on this pack's own copy too. No in-repo
+      defect: the allowlist rule and its exemption both proven, not changed.
+      tools/check-gbp-packs.js and gbp-packs/smartts-bootle.md both
+      unchanged. Regression: scratch copy restored byte-identical (sha256
+      reconfirmed each time), all 36 checkers re-run clean; tracked repo
+      confirmed untouched throughout by sha256 and git status. Live half not
+      performed: Claude in Chrome not connected this run (standing Q59). No
+      new question. Evidence in
+      audits/smartts-bootle-category-service-allowlist-4.10-twelfth-2026-09-06.txt.
+      Done 2026-09-06.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

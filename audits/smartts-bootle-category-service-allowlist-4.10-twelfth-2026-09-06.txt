@@ -1,0 +1,112 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack) - twelfth quality pass, 2026-09-06
+(unattended scheduled run via Cowork sandbox shell only; no Windows-MCP tools invoked this run)
+
+FRESH ANGLE
+The category/service ALLOWLIST rule in tools/check-gbp-packs.js (RECOGNISED_SERVICES /
+RECOGNISED_CATEGORIES, born item 4.4 quality pass 2026-08-13 against scorah-bramhall.md,
+proved a second time on item 4.13's thirteenth pass 2026-09-06 against
+riddings-timperley.md) had never been proven against gbp-packs/smartts-bootle.md's own
+copy across eleven prior passes. Confirmed by grep across this item's full paragraph
+history (AGENT_WORKLIST.md lines 11390-11709) for RECOGNISED_SERVICES, RECOGNISED_CATEGORIES,
+CATEGORY_RULES, SERVICE_RULES, allowlist, CLINIC_QUALIFIERS, POM_CLASS, BUTTON_PAGE,
+lead-pricing and POST_INSTRUCTION: only POST_INSTRUCTION (hard-stop leading-whitespace
+tolerance, tested seventh pass) and a lead-price mention (in the LIVE half's reconfirmation
+of the Q51/Q83/Q88 weight-loss-page finding, not this pack) appeared. The allowlist rule
+itself had never been pointed at this pack.
+
+Smartts Bootle is a strong candidate for this rule specifically: its Categories section
+carries four named categories (Pharmacy, Travel clinic, Weight loss service, Vaccination
+centre, Blood testing service) and its Services section carries ten labelled bullets
+spanning four NHS services and six private ones (including three - Blood tests,
+Vaccinations, Medical cannabis consultation - that have no branches.json widget at all
+and are covered only by the allowlist, not by the earlier CATEGORY_RULES/SERVICE_RULES
+blocklist), so it exercises more of the vocabulary than most packs.
+
+BASELINE
+Tracked repo: 36/36 tools/check-*.js exit 0 individually. sha256(gbp-packs/smartts-bootle.md)
+= 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching every one of
+the eleven prior passes' recorded hash exactly. git status --porcelain -- gbp-packs modules
+core branches.json tools status: empty.
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to a scratch path outside the tracked
+tree (/sessions/intelligent-great-cray/scratch/repo-4.10-12th on the sandbox), matching the
+method the ninth pass adopted after finding an excluded .git makes check-cdn-pins.js fail
+falsely on a scratch copy. sha256 of the scratch copy's own smartts-bootle.md confirmed
+identical to the tracked copy before any mutation. A pristine byte backup of the file was
+also kept at scratch/smartts-bootle.md.orig. Edits were made only inside the scratch copy;
+the tracked repository at /sessions/intelligent-great-cray/mnt/rbh-site-data was never
+opened for writing. Restored by byte copy from the backup after each case, sha256-reconfirmed
+identical before the next.
+
+INJECTIONS (three cases, each restored and reconfirmed before the next)
+
+1. Unrecognised SERVICE bullet appended to the Services section: "- Ear wax removal:
+   microsuction ear wax removal by appointment." (the exact example named in the rule's
+   own origin comment, added after the existing "Private consultation room" bullet).
+   CAUGHT. node tools/check-gbp-packs.js exit 1, exactly one new failure:
+   "Services section lists "Ear wax removal", which is not a service any pack in this
+   repo uses. This section is pasted into a public Google profile, so an unrecognised
+   service is a promise to a patient who then makes a journey for it. If the branch
+   genuinely offers it, add it to RECOGNISED_SERVICES in tools/check-gbp-packs.js
+   deliberately". The 17 standing warnings (including this pack's own live-only pfLink
+   target note) were present and unchanged. Restored; sha256 reconfirmed identical.
+
+2. Unrecognised CATEGORY appended to the Categories "Add if not present" line: ", Dental
+   clinic" added after "Blood testing service". CAUGHT. node tools/check-gbp-packs.js exit
+   1, exactly one new failure: "Categories section names "Dental clinic", which is not a
+   category any pack in this repo uses. A secondary category puts the profile into map
+   searches for that service, so an unrecognised one advertises something no RBH branch
+   is known to run. If the branch genuinely offers it, add it to RECOGNISED_CATEGORIES in
+   tools/check-gbp-packs.js deliberately". Restored; sha256 reconfirmed identical.
+
+3. Control - a "- NOTE:" bullet naming the same two unrecognised terms as evidence, not a
+   claim: "- NOTE: the branch does not offer ear wax removal or a dental clinic; do not
+   add either." appended to the Services section. Correctly PASSED: node
+   tools/check-gbp-packs.js exit 0, 0 failures, the same 17 standing warnings only. Full
+   36-checker suite also run against this control state: 36/36 exit 0. Confirms the
+   NOTE-bullet exemption (the same exemption clear-aintree.md's own prose note relies on)
+   holds on this pack's own copy too, and that the allowlist rule reads only claim bullets,
+   not paster notes.
+
+REGRESSION
+Scratch copy restored byte-identical after the final case (sha256 reconfirmed:
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b); full 36-checker suite
+re-run clean on the restored scratch copy (36/36 exit 0); git status --porcelain on the
+scratch copy empty for gbp-packs/modules/core/branches.json/tools/status. Tracked repo
+confirmed untouched throughout: sha256 identical before and after, git status --porcelain
+empty on the same paths.
+
+RESULT
+No in-repo defect. The allowlist rule (both the service half and the category half) and
+its NOTE-bullet exemption all hold correctly on Smartts Bootle's own pack copy, now proven
+by injection for a third pack (Scorah Bramhall at birth, Riddings Timperley thirteenth
+pass, Smartts Bootle here) rather than only assumed from the birth-pack proof. No checker
+logic, generator, page, pack or branches.json content changed. No new question: pure
+re-verification of documented checker behaviour, no business, legal, pricing or regulatory
+content changed, no judgement call for Rishi.
+
+LIVE HALF
+Claude in Chrome reported not connected this run (mcp__claude-in-chrome__tabs_context_mcp
+returned the "not connected" state) - standing Q59, confirmed again. No live-site check
+performed and no other route attempted, per the read-only browser constraint. This rule
+governs pack copy pasted by a human into Google Business Profile category/service picker
+fields, not a URL any read-only fetch can verify directly, the same point recorded on this
+item's tenth/twelfth-equivalent passes for other GBP-field rules.
+
+ANSWER PICKUP
+Same Claude-in-Chrome unavailability applies to the QUESTIONS.json answer-pickup fetch
+(https://data.rbhealth.co.uk/api/feedback); not attempted by another route. QUESTIONS.json
+read directly: 98 total, 45 open, unchanged by pickup this run.
+
+GIT/SANDBOX STATE
+git fetch origin (SSH) failed "Host key verification failed" - standing Q96, confirmed
+again; git fetch origin-https succeeded and showed local HEAD one commit ahead of
+origin-https/agents/audit-backlog at run start (commit 7795057, the immediately preceding
+run's item 4.8 fourteenth-pass commit, already logged by that run as stuck local-only for
+the same push-credential reason). A `.git/index.lock` was present on the sandbox mount at
+run start, dated about 23 minutes old with no git process running (ps aux confirmed empty),
+consistent with the standing FUSE-mount lock litter this repo's recent runs have already
+documented (Q87/Q96); git status/log/fetch all worked normally around it and it was left in
+place rather than removed, matching the convention recorded on the immediately preceding
+run's own lock-check note.
