@@ -43,6 +43,11 @@
       escape sequences" below
     - a live code folder that yields no .js or .css at all, so the module-code
       rule cannot quietly stop covering anything
+    - the same source-level escape, JS or CSS, inside an INLINE <style> or
+      <script> block embedded directly in an .html page (as opposed to an
+      external .js/.css file loaded by a <script src="..."> or <link>). Added
+      on the item 5.1 quality pass (fourteenth), 2026-09-06 - see "Inline
+      <style>/<script> blocks" below
     - an em dash or en dash, literal or entity, in a string value in the
       RUN-TIME DATA the live code fetches, meaning branches.json, which
       core/site-data.js pulls from jsDelivr and modules/emar/emar.js renders
@@ -293,15 +298,121 @@ function dashNumericEntities(text){
 // after every case; kept at
 // audits/em-dash-escape-sequence-probe-2026-09-03.js.
 //
-// Scoped to CODE_DIRS only. A JS-style "\u" escape has no meaning in an
-// HTML page, a markdown paste sheet or branches.json (and branches.json's
+// Scoped to CODE_DIRS and, since the item 5.1 quality pass (fourteenth),
+// 2026-09-06, to the inner text of an inline <style> or <script> block
+// embedded in an .html page - see "Inline <style>/<script> blocks" below. A
+// JS-style "\u" escape has no meaning in a plain HTML page outside such a
+// block, in a markdown paste sheet or in branches.json (and branches.json's
 // values are read post-JSON.parse, which already decodes a genuine JSON
 // "—" escape into the real character before hasDash() ever sees it, so
 // that path was never a gap). A CSS-style bare hex escape is not meaningful
-// outside a .css file either, so applying either pattern more broadly would
-// risk a false positive rather than close a real hole.
+// outside a .css file or a <style> block either, so applying either pattern
+// more broadly than that would risk a false positive rather than close a
+// real hole.
 const JS_UNICODE_ESCAPE_RE = /\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]+)\}/g;
 const CSS_HEX_ESCAPE_RE = /\\([0-9a-fA-F]{1,6})(?:\r\n|[ \t\r\n\f])?/g;
+
+// Inline <style>/<script> blocks embedded directly in a generated .html page
+// or in one of the EXTRA_HTML files (a hand-pasted Weebly block or a DRAFT
+// copy template). Found on the item 5.1 quality pass (fourteenth),
+// 2026-09-06, one turn past the eleventh pass's source-level-escape fix and
+// the same shape again: that pass widened this checker to decode a JS or CSS
+// escape, but only inside an EXTERNAL .js/.css file read via checkCodeFile.
+// checkHtmlFile, which reads every generated page and every EXTRA_HTML file,
+// never calls dashSourceEscapes at all - it only ever tests hasDash(), which
+// matches a literal character or an HTML entity, neither of which is what a
+// JS or CSS escape looks like on the page. An inline <style> block is CSS
+// text sitting inside an .html file rather than a .css file, and an inline
+// <script> block (including a type="application/ld+json" block, which uses
+// the identical "\uXXXX" JSON escape syntax as a JS string) is JS/JSON text
+// sitting inside an .html file rather than a .js file. Neither had ever been
+// read for a source-level escape.
+//
+// No generated page and no EXTRA_HTML file carries an inline <style> or a
+// <script> block with an actual body today (every <script> in the estate is
+// either external, via src=, or a JSON-LD block written by JSON.stringify(),
+// which never emits a "\uXXXX" escape for a dash since JSON.stringify does
+// not escape non-ASCII characters), so this closes a latent hole rather than
+// a live breach. It is a real hole rather than a hypothetical one: proved by
+// injection in an isolated /tmp mirror of this repo (no .git, so the tracked
+// repo was never opened for writing), by adding a real inline
+// <style>.rbhsw-test::before{content:"\2014 ";}</style> block to a copy of
+// modules/switch/pages/switch-prescriptions-cherry-lane-walton.html and
+// running the real, unfixed check-em-dashes.js against the mirror: it exited
+// 0, "clean, no em or en dashes in public copy", exactly the same wrongly-
+// clean signature this item has now found eight times. A literal em dash
+// added on a separate line in the same file, as a control, was correctly
+// caught (exit 1) in the same run, proving the miss was specific to the
+// escape sitting inside the <style> block and not a broken test harness.
+//
+// FIXED by extracting the inner text of every <style>...</style> and
+// <script ...>...</script> block (comments blanked with the same
+// blankCodeComments() rule checkCodeFile already applies, so a dash written
+// inside a // or /* */ comment inside the block stays a note rather than a
+// failure, exactly as it does for an external .js/.css file) and running
+// dashSourceEscapes() over it in the matching mode - CSS for <style>, JS/JSON
+// for <script> - reporting the correct absolute line number in the page. A
+// <script> with no inline body (src= only) contributes nothing, since there
+// is no text to scan. This runs in addition to, not instead of, the existing
+// hasDash() line scan every HTML file already gets, so a literal dash or an
+// HTML entity inside the same block is still caught exactly as before.
+const STYLE_BLOCK_RE = /<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi;
+const SCRIPT_BLOCK_RE = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
+
+function countNewlines(text, uptoIndex){
+  let count = 0;
+  for (let i = 0; i < uptoIndex; i++) {
+    if (text.charCodeAt(i) === 10) count++;
+  }
+  return count;
+}
+
+// Scans the inner text of every inline <style> and <script> block in an HTML
+// document for a source-level JS/CSS dash escape and pushes a failure for
+// each one found, at the correct absolute line number in the whole file.
+function checkEmbeddedBlocks(text, filePath){
+  let m;
+  STYLE_BLOCK_RE.lastIndex = 0;
+  while ((m = STYLE_BLOCK_RE.exec(text)) !== null) {
+    const inner = m[1];
+    if (!inner || !inner.trim()) continue;
+    const blockStart = m.index + m[0].indexOf(inner);
+    const startLine = countNewlines(text, blockStart);
+    const blanked = blankCodeComments(inner);
+    blanked.split(/\r?\n/).forEach(function (line, j) {
+      const escapes = dashSourceEscapes(line, true);
+      if (escapes.length) {
+        const kindWord = escapes[0].kind === "em" ? "em dash" : "en dash";
+        failures.push({
+          file: rel(filePath),
+          line: startLine + j + 1,
+          kind: kindWord + " (CSS hex escape) in inline <style> block",
+          text: line.trim().slice(0, 140)
+        });
+      }
+    });
+  }
+  SCRIPT_BLOCK_RE.lastIndex = 0;
+  while ((m = SCRIPT_BLOCK_RE.exec(text)) !== null) {
+    const inner = m[2];
+    if (!inner || !inner.trim()) continue;
+    const blockStart = m.index + m[0].indexOf(inner);
+    const startLine = countNewlines(text, blockStart);
+    const blanked = blankCodeComments(inner);
+    blanked.split(/\r?\n/).forEach(function (line, j) {
+      const escapes = dashSourceEscapes(line, false);
+      if (escapes.length) {
+        const kindWord = escapes[0].kind === "em" ? "em dash" : "en dash";
+        failures.push({
+          file: rel(filePath),
+          line: startLine + j + 1,
+          kind: kindWord + " (JS/JSON unicode escape) in inline <script> block",
+          text: line.trim().slice(0, 140)
+        });
+      }
+    });
+  }
+}
 
 function dashSourceEscapes(text, isCss){
   const out = [];
@@ -543,6 +654,11 @@ function checkHtmlFile(file){
       });
     }
   });
+  // Inline <style>/<script> blocks: see "Inline <style>/<script> blocks"
+  // above. Read from the HTML-comment-blanked text so a block commented out
+  // with <!-- --> is not scanned, same convention as the hasDash() pass just
+  // above.
+  checkEmbeddedBlocks(visible, file);
 }
 
 function checkPasteSheet(file){

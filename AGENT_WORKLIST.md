@@ -15053,6 +15053,176 @@ status.js was still attempted per instructions: it failed immediately with
 ENOENT on 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md', the same hardcoded-path
 failure mode Q96 and the 3.4 twelfth pass already recorded for this session
 type - not re-raised as a new question.
+Quality pass 2026-09-06 (fourteenth). UNATTENDED RUN, Cowork sandboxed shell.
+LOCK CHECK (step 1): no .agent-lock present at run start; wrote a fresh one
+at 2026-09-06T15:34:24Z. No .git/index.lock present at start; one appeared
+later, mid-run, after a routine `git status` (the standing FUSE-mount unlink
+fault this file's own history documents repeatedly), timestamped seconds old
+when checked, well under the 1-hour threshold, and every git command kept
+working normally around it, so it was left rather than force-cleared. GIT
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, confirmed directly, unchanged. `git fetch
+origin-https` succeeded and local HEAD already matched
+origin-https/agents/audit-backlog exactly at 91a4d2c before this run touched
+anything, so no pull was needed. ANSWER PICKUP (step 3):
+`mcp__claude-in-chrome__tabs_context_mcp` reported Claude in Chrome not
+connected - standing Q59, unchanged; logged and carried on, nothing clicked,
+typed, submitted or signed in anywhere. A direct `mcp__workspace__web_fetch`
+of a live branch URL was also tried as a read-only alternative for the live
+half of this pass and was refused ("URL not in provenance set"), a
+restriction of that tool rather than of the browsing rule, so the live half
+went unread this run the same way it has on several recent passes; not
+retried by a further route. QUESTIONS.json read directly: 98 total, 45 open,
+unchanged by pickup this run. AUTONOMOUS WINDOW (step 4): checked the top of
+AGENT_LOG.md; no "Standing authorisation - autonomous window" heading
+present, not applicable. ITEM SELECTION (step 5): both remaining unchecked
+AGENT_WORKLIST.md items outside the 5.x/6.x tail were already accounted for;
+all 8 unchecked lines confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied. Rotation pool re-derived independently in
+Node (git log -L per item's own header-to-next-header line range, over the
+standing 37-item pool, out-of-rotation set 1.1/1.4/5.6/5.7/6.7/6.8 excluded,
+plus 4.11 excluded as done in the immediately preceding run today): 5.1
+stalest at 2026-09-05T17:14:55+01:00, ahead of 2.2 (17:42:37), 3.12
+(18:14:13) and the rest all later still - the same item the thirteenth pass
+had already flagged as next in line before it ran out of budget.
+
+WORK DONE. Read tools/check-em-dashes.js in full (937 lines) together with
+this item's own thirteen-pass history before looking for a fourteenth axis,
+per the standing rule this item's header has now stated seven times over.
+Traced every place a dash could reach a generated .html page and asked,
+file-shape by file-shape, which of the checker's own functions actually
+scans it: checkHtmlFile (pages, EXTRA_HTML) calls only hasDash() - literal
+character, named HTML entity, numeric HTML entity - and never
+dashSourceEscapes(), the JS/CSS source-level escape decoder the eleventh
+pass added. dashSourceEscapes() is called only from checkCodeFile, which
+only ever runs against EXTERNAL .js/.css files under CODE_DIRS (modules/,
+core/). An INLINE <style> or <script> block sitting directly inside an
+.html file is CSS or JS/JSON text by the same rules as an external file, but
+it is read by checkHtmlFile, not checkCodeFile, so a source-level escape
+written inside one had never been decoded - the eleventh pass closed the gap
+between "HTML-level encoding" and "source-level encoding" for the .js/.css
+half of the estate and stopped one file-shape short of the .html half.
+
+Checked whether this is hypothetical before treating it as a gap: a fresh
+grep of all 177 generated pages and the six EXTRA_HTML files for `<style`
+found zero inline style blocks anywhere in the estate today, and the only
+`<script` bodies that are not a bare `src=` reference are the
+`type="application/ld+json"` blocks each generator writes with
+JSON.stringify(), which does not escape non-ASCII characters and therefore
+never emits a "\uXXXX" escape for a dash on its own. So this is a latent
+hole, the same standing as six of this item's seven prior fixes, not a live
+breach - but a real one, not merely hypothetical, because JSON's own escape
+grammar accepts a hand-typed "\uXXXX" exactly as JS does, and nothing stops
+a future generator, or a hand-pasted Weebly block, from adding a real inline
+<style> block or a non-JSON-LD <script> body carrying one.
+
+Proved by injection rather than argued, in an isolated /tmp mirror of
+tools/, modules/, core/, gbp-packs/ and branches.json (no .git, so the
+tracked repo was never opened for writing during the injection round -
+confirmed by `git status --porcelain` before and after the whole exercise
+showing only the intended final checker edit). Baseline in the mirror
+matched the tracked repo's own steady state exactly (233 files scanned, 200
+comment dashes, 591 sheet-heading dashes, 1 data-note dash, zero failures),
+confirming the mirror was faithful. Prepended a real
+`<style>.rbhsw-test::before{content:"\2014 ";}</style>` block (a CSS hex
+escape for the em dash) to a copy of
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html and ran
+the real, unfixed check-em-dashes.js against the mirror: exit 0, "clean, no
+em or en dashes in public copy, literal or HTML entity" - wrongly clean, the
+identical signature this item has now found eight times. A literal em dash
+added on a separate line in the same file as a sanity control was correctly
+caught (exit 1) in the same run, proving the miss was specific to the escape
+inside the <style> block and not a broken harness. Confirmed the equivalent
+miss for a <script> body: a real JS "\u2014" em dash escape inside an inline
+`<script>` block, and a real "\u2013" en dash written as a JSON escape
+inside a `<script type="application/ld+json">` block, both passed the
+unfixed checker with exit 0 in the same mirror.
+
+FIXED IN REPO, no sign-off needed, same as this item's seven prior
+checker-widening fixes: checkHtmlFile now also extracts the inner text of
+every <style>...</style> and <script ...>...</script> block on the page
+(via STYLE_BLOCK_RE / SCRIPT_BLOCK_RE), blanks JS/CSS-style comments in that
+inner text with the same blankCodeComments() rule checkCodeFile already
+uses (so a dash escape sitting inside a // or /* */ comment inside the
+block stays a note, not a failure, exactly as it does in an external
+.js/.css file), and runs dashSourceEscapes() over what remains in the
+matching mode: CSS for <style>, JS/JSON for <script>, since JSON's "\uXXXX"
+escape is syntactically identical to JS's fixed-width form. Failures report
+the correct absolute line number in the page via a newline count from the
+block's start offset. A <script> with no inline body (src= only)
+contributes nothing, since there is no text to scan. This runs in addition
+to, not instead of, the existing hasDash() line scan every HTML file already
+gets, so a literal dash or an HTML entity inside the same block is still
+caught exactly as before.
+
+Re-ran the fixed checker against the same isolated mirror with the same
+injected cases: the <style> CSS-escape case, the inline <script> JS-escape
+case and the <script type="application/ld+json"> JSON-escape case were all
+now CAUGHT, each at the correct line, each correctly worded ("... in inline
+<style> block" / "... in inline <script> block"). Four controls in the same
+run stayed correctly clean: a non-dash JS/CSS escape ("\u0041", the letter
+A) inside both a <style> and a <script> block; a dash escape sitting inside
+a whole-line CSS /* */ comment inside a <style> block; and a dash escape
+sitting inside a whole-line JS // comment inside a <script> block - proving
+the fix does not overreach past this file's own established comment-blanking
+convention. A regression check in the same mirror confirmed a literal em
+dash and a literal dash inside a <script> body are both still caught by the
+pre-existing hasDash() line scan, unaffected by the new code, with no
+double-counting. Mirror files were never part of the tracked repo, so no
+sha256 restoration was needed for them; the tracked repo's own copy of
+switch-prescriptions-cherry-lane-walton.html was never touched by any of
+this pass's injections and `git status --porcelain` confirms it is unchanged.
+
+Full 36-checker suite re-run individually against the real tracked repo
+both before and after the fix: 36/36 exit 0 both times, and
+check-em-dashes.js's own steady-state counts are byte-identical before and
+after (233 files scanned, 200/591/1), confirming the fix changes matching
+logic without changing any verdict on real content - no generated page, GBP
+pack or EXTRA_HTML file in the estate currently carries an inline <style> or
+a non-JSON-LD <script> body, so nothing that was passing starts failing. All
+six page generators rebuilt against the tracked repo: sha256 of every
+.html/.md/.js/.css file under modules/ taken before and after, zero diff,
+confirming no page or generator was touched and none needed to be - this was
+a checker-only fix. check-cdn-pins.js re-run separately, unaffected, stayed
+at its own standing state (0 failures, 3 warnings, 7 known).
+
+No in-repo defect found beyond the checker gap itself; no generator,
+branches.json, page, pack or paste sheet changed. LIVE HALF: unread this run
+(Claude in Chrome not connected; the direct web_fetch alternative refused by
+its own provenance rule rather than by the browsing restriction). The ninth
+pass's two live findings (item 5.5/Q13/Q45 CDN-pin block, Q36 mailbox typo)
+stand unchanged and unclaimed by this pass. No new question raised - this is
+a checker widening, not a live-facing or patient-facing decision. Fourteenth
+consecutive clean pass on the repo half; fourth of the fourteen (after the
+tenth, eleventh and thirteenth) to find a defect in the checker's own
+matching logic rather than in a page, pack, sheet or generator, and the
+first to find one in WHICH PART OF AN HTML FILE the existing rules are
+applied to, rather than in the character-matching regex itself.
+
+Housekeeping note, not part of this item's own fix: running
+build-service-pages.js during the generator-rebuild verification above
+wrote its "paste packs" output to a hardcoded Windows OneDrive path
+(`C:/Users/rishi/OneDrive - RB Healthcare Ltd/Downloads/cowork/PASTE_PACK`),
+which this Linux sandbox resolved as a literal relative directory named
+"C:" at the repo root, adding roughly 50 new untracked files under it. This
+is the same pre-existing "C:/" litter Q87's 2026-09-01 update already
+documented (the FUSE-mount unlink() restriction blocks deleting it; only
+rename is possible), now larger. Attempted `rm -rf "C:"` to clean it up:
+every file inside failed with "Operation not permitted", confirming the
+same standing constraint rather than a new one. Left in place, untracked, so
+it cannot reach a commit; not re-raised as a new question since Q87 already
+covers it and the fix would be a sandbox/host decision, not a repo one.
+
+PUSH/PUBLISH (steps 9-10): this session's `mcp__workspace__bash` shell has
+no SSH key for git@github.com (host key verification failure, standing
+Q87/Q96) and read-only access to origin-https (fetch succeeds, push needs a
+credential this shell does not carry). Following the standing Q96 workaround
+the immediately preceding run today (item 4.11) recorded using, the write
+half of this run (commit and push, and the status-page publish) was carried
+out via mcp__Windows-MCP__PowerShell against the real, canonical
+C:\Dev\rbh-site-data working copy on the host, rather than left queued
+locally in the sandbox - see the top of AGENT_LOG.md for the exact commands
+and their output.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
