@@ -11663,6 +11663,74 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       not fixed here. No new defect, no new question. Q58, Q80 and Q81
       re-read from QUESTIONS.json, all still open, unchanged. Evidence in
       audits/verify-4.11-2026-09-05-twelfth.txt.
+      Thirteenth quality pass 2026-09-06 (unattended scheduled run via
+      Cowork, rotation-pool pick, stalest item last mentioned
+      2026-09-05T16:39:52+01:00, the twelfth pass itself, ahead of 5.1, 2.2,
+      3.12 and 3.6; independently re-derived via a Node.js script parsing
+      every worklist header into its own paragraph range and taking
+      `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` on the
+      37-item pool, excluding the six standing out-of-rotation items 1.1,
+      1.4, 5.6, 5.7, 6.7, 6.8). Baseline: all 36 checkers exit 0; pack
+      sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      matching the eleventh and twelfth passes' own recorded hash, byte-
+      stable across thirteen passes; all six generators rebuilt,
+      git status --porcelain -- modules core empty before and after.
+      Fresh angle: tools/check-app-membership.js's Rule 8 (the GBP content
+      pack app-claim guard, added on the item 4.5 quality pass 2026-08-14)
+      had, per its own header comment, only ever been proven by injection
+      against scorah-hazel-grove.md and smartts-bootle.md - never against
+      this branch's own pack in twelve prior passes. Worth doing here
+      specifically: CLAUDE.md's own "hasApp" section names SK Chemists
+      Bootle as the standing non-member sitting 1.5 miles from Smartts
+      Bootle, the member, and warns a copy-paste between two adjacent
+      records is exactly how the field goes wrong silently, which is the
+      fault Rule 8 exists to catch on the pack side of that same pair.
+      New instrument written fresh (audits/verify-4.11-2026-09-06-thirteenth.js,
+      invokes the real checker as a child process only; refuses to run if
+      the target already carries a git diff; restores by direct byte write
+      from an in-memory Buffer immediately after capturing the checker's
+      output and before any assertion; sha256-reconfirms byte-identical
+      after each restoration and again at the end). Four injections, each
+      applied to a freshly restored copy: (1) an app-ordering sentence
+      inserted into Post B's body copy - CAUGHT on two counts
+      simultaneously, Rule 8a (published copy claims an app against hasApp
+      false) and Rule 8d (the paster note says "No app mention anywhere in
+      this pack" while the pasted copy now carries one); (2) the "Team
+      photo behind the counter" shot reworded to also ask for the app
+      download screen on the counter iPad, shot count left at ten so the
+      PHOTO_MIN floor this pack already sits on was not disturbed - CAUGHT
+      by Rule 8b; (3) the paster note's own "hasApp false" flipped to
+      "hasApp true" with the pasted copy left untouched - CAUGHT by Rule 8c
+      (the note-versus-field branch); (4) a second, contradictory "hasApp
+      true" sentence added alongside the existing correct "hasApp false"
+      line, so the note asserts both - CAUGHT by Rule 8c's dedicated
+      both-stated branch, the one sub-case the single-line flip in (3)
+      cannot exercise. All four caught on the first attempt with the
+      expected rule-specific message; the pack file sha256-confirmed
+      byte-identical to the committed original after each individual
+      restoration and again at the end
+      (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+      throughout). Full 36-checker suite re-run clean after the round
+      (36/36); all six generators re-run, git status --porcelain --
+      modules core empty before and after.
+      RESULT: no in-repo defect. check-app-membership.js's Rule 8 was
+      already correctly holding this pack to all four app-claim mechanisms
+      tested, now proven directly by injection against SK Chemists
+      Bootle's own pack for the first time since the rule was written. No
+      checker logic, pack copy, page, generator or data field changed
+      anywhere in the repo.
+      LIVE HALF: not attempted this pass. `mcp__claude-in-chrome__tabs_context_mcp`
+      reported Claude in Chrome not connected (standing Q59) before any
+      repo work began. The twelfth pass's own live findings (Post A's
+      generated target correct and live; pharmacy-first-service-bootle.html
+      still misspelling "Bottle" in its H2 though its title tag is now
+      corrected, item 5.3/Q34, no decision needed; weight-loss-clinic.html
+      still live naming Mounjaro, Wegovy and Orlistat, item 5.8/Q58,
+      unchanged, not fixed here) stand unverified for a further pass rather
+      than re-claimed. Q58, Q80 and Q81 re-read from QUESTIONS.json, all
+      still open, unchanged. No new defect, no new question raised this
+      pass. Evidence in audits/verify-4.11-2026-09-06-thirteenth.js and
+      audits/verify-4.11-2026-09-06-thirteenth-output.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

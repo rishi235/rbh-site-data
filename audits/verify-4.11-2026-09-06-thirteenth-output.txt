@@ -1,0 +1,51 @@
+Baseline sha256: 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+Baseline checker exit: 0 (expect 0)
+check-app-membership
+  4 app member(s) of 16 branch(es): fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree, smartts_bootle
+  canonical name: "RB Healthcare Pharmacy app" (read from build-switch-pages.js)
+  2 store URL(s) declared in one generator, hardcoded nowhere else
+  21 page(s) in the two families that render hasApp, 6 carrying the app
+  15 GBP pack(s) read for app claims in the copy pasted to the public profile
+
+check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+
+--- Injection: 8a+8d (Post B app claim) ---
+  checker exit: 1 (expect non-zero)
+FAILURES (2):
+  FAIL  [gbp packs] gbp-packs/sk-chemists-bootle.md: the copy pasted into the public Google profile claims an app, but branches.json has hasApp false for skchemists_bootle. A profile advertising an app the branch does not run sends a patient to a store for nothing
+  FAIL  [gbp packs] gbp-packs/sk-chemists-bootle.md: the paster note says there is no app mention anywhere in this pack, but the pasted copy carries one
+  CAUGHT: true
+  restored after 8a+8d (Post B app claim): sha256 MATCHES original
+
+--- Injection: 8b (shot list app mention) ---
+  checker exit: 1 (expect non-zero)
+FAILURES (1):
+  FAIL  [gbp packs] gbp-packs/sk-chemists-bootle.md: the photo shot list asks for an app shot, but branches.json has hasApp false for skchemists_bootle
+  CAUGHT: true
+  restored after 8b (shot list app mention): sha256 MATCHES original
+
+--- Injection: 8c (note says hasApp true) ---
+  checker exit: 1 (expect non-zero)
+FAILURES (1):
+  FAIL  [gbp packs] gbp-packs/sk-chemists-bootle.md: the paster note tells the paster branches.json has hasApp true, but it has false for skchemists_bootle, so the note invites an app claim onto a profile that must not carry one
+  CAUGHT: true
+  restored after 8c (note says hasApp true): sha256 MATCHES original
+
+--- Injection: 8c (note states both true and false) ---
+  checker exit: 1 (expect non-zero)
+FAILURES (1):
+  FAIL  [gbp packs] gbp-packs/sk-chemists-bootle.md: the paster notes state both hasApp true and hasApp false for this branch
+  CAUGHT: true
+  restored after 8c (note states both true and false): sha256 MATCHES original
+
+=== SUMMARY ===
+CAUGHT  8a+8d (Post B app claim)
+CAUGHT  8b (shot list app mention)
+CAUGHT  8c (note says hasApp true)
+CAUGHT  8c (note states both true and false)
+
+Final sha256: 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da (MATCHES)
+Final git status --porcelain: (clean)
+Final check-app-membership.js exit: 0 (expect 0)
+
+ALL CAUGHT: true
