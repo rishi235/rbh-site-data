@@ -207,6 +207,37 @@ function pfScopes(text) {
   return out;
 }
 
+// publishedCopy() - the text that actually reaches the public Google
+// profile: the Services section and every Post body, Button: lines cut,
+// preamble and Notes for the paster excluded. Deliberately the same
+// extraction check-app-membership.js's Rule 8 already uses (packSection over
+// "## 3. Services" and "## 5. Post drafts"), reimplemented here for Rule 2's
+// non-PF branch only; see the comment at that rule for why. Not used by
+// pfScopes() above, which locates the Pharmacy First blocks specifically
+// rather than all published copy, and is unaffected by this function.
+function packSection(text, headingRe) {
+  const m = text.match(headingRe);
+  if (!m) return "";
+  const rest = text.slice(m.index + m[0].length);
+  return rest.split(/^## /m)[0];
+}
+function publishedCopy(text) {
+  let svc = packSection(text, /^## 3\. Services[^\n]*\n/m);
+  // Clear Chemist Aintree's Services section carries its own inline
+  // "Note: branches.json shows no Pharmacy First..." paragraph, a
+  // paster-facing aside in the same spirit as the top-level "Notes for the
+  // paster:" block but written inline rather than under its own heading -
+  // the only pack in the estate that does this (checked estate-wide,
+  // 2026-09-06: no other pack's Services section starts a line "Note:").
+  // Cut on the same paragraph boundary (a blank line) so it is excluded
+  // here exactly as a top-level paster note is excluded from `posts` below.
+  svc = svc.split(/\n^Note:/m)[0];
+  let posts = packSection(text, /^## 5\. Post drafts[^\n]*\n/m);
+  posts = posts.split(/^Notes for the paster:/m)[0];
+  posts = posts.split(/\r?\n/).filter((l) => !/^\s*Button:/.test(l)).join("\n");
+  return svc + "\n" + posts;
+}
+
 const flat = (s) => s.replace(/\s+/g, " ").trim();
 const namesAny = (key, s) => {
   const c = CONDITIONS[key];
@@ -283,9 +314,32 @@ for (const file of packFiles) {
     continue;
   }
   if (!hasPf) {
-    const stray = CONDITION_ORDER.filter((k) => namesAny(k, flat(text)));
+    // SCOPE (item 4.9 quality pass, twelfth, 2026-09-06). This is the only
+    // branch of Rule 2 that ever runs against raw `text` rather than a
+    // located scope, because Clear Chemist Aintree is the one pack in the
+    // estate with no pharmacyFirst widget, so pfScopes() finds nothing to
+    // hand it. Scanning the whole file - preamble, "Profile basics (for
+    // checking, not pasting)" and "Notes for the paster:" included - means a
+    // future, accurate disclaimer explaining WHY a condition is absent (the
+    // same shape as this pack's own existing "Note: branches.json shows no
+    // Pharmacy First..." sentence, extended to name a specific condition)
+    // would fail here, the same false-positive class check-app-membership.js
+    // Rule 8 was scoped against from the start ("the preamble and the Notes
+    // for the paster block are excluded... because they are never pasted").
+    // Proved by injection: adding "Note: ... does not offer a shingles or
+    // earache service" to this pack's own preamble failed this rule
+    // unchanged under the old `flat(text)` scan. publishedCopy() below is
+    // the same extraction check-app-membership.js already uses (packSection
+    // over "## 3. Services" and "## 5. Post drafts", Button: lines and
+    // Notes for the paster cut), reimplemented here rather than required
+    // in, because the two files check different things and a shared
+    // require was judged out of scope for a single quality-pass item; the
+    // duplication is the same shape as the seven hardcoded WhatsApp numbers
+    // this repo has already flagged, and a future pass should consider
+    // extracting one shared helper.
+    const stray = CONDITION_ORDER.filter((k) => namesAny(k, flat(publishedCopy(text))));
     if (stray.length) {
-      fail(rel, `branches.json gives this branch no pharmacyFirst widget, but the pack names ${stray.join(", ")}. A Google profile advertising a free NHS assessment the branch cannot deliver sends patients to the wrong counter`);
+      fail(rel, `branches.json gives this branch no pharmacyFirst widget, but the pack names ${stray.join(", ")} in its published copy. A Google profile advertising a free NHS assessment the branch cannot deliver sends patients to the wrong counter`);
     }
     continue;
   }

@@ -1,0 +1,83 @@
+Item 4.9 quality pass (twelfth), 2026-09-06
+Clear Chemist Aintree GBP pack (gbp-packs/clear-aintree.md, branch id clearchemist_aintree)
+Fresh angle: tools/check-gbp-pharmacy-first.js, proven against this pack for the first time
+in twelve passes. Clear Aintree is the ONLY branch in the estate with no pharmacyFirst
+widget (b.widgets.pharmacyFirst falsy), so it is the only pack that ever exercises Rule 2's
+"must not advertise" direction (the !hasPf branch). No prior pass on this item, and no other
+checker file, had tested that branch of the rule by injection; the one existing mention (item
+4.4's original creation commit) was a hand-check at build time, not a proof.
+
+METHOD. Full repo copied with .git to /tmp/rbh-scratch-4.9-12th. All edits made and reverted
+inside the scratch copy only; the tracked repo's gbp-packs/clear-aintree.md was never touched
+(sha256 a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4 confirmed unchanged
+before, during and after this pass). The checker fix described below WAS applied to the
+tracked repo (tools/ is code, not patient-facing content, and the fix is what this pass exists
+to deliver).
+
+BASELINE. node tools/check-gbp-pharmacy-first.js against the unmodified pack:
+  check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First
+  blocks across 14 packs, all clean.
+
+TEST 1 - Services-section injection (published copy). Added a new bullet to the "Private
+services:" list in section 3: "- Shingles treatment: fast NHS Pharmacy First assessment and
+treatment for shingles, no appointment needed." CAUGHT on the first run, before any checker
+fix, correct message naming the branch and "shingles". Confirms Rule 2 catches a real
+false-service-claim injected into published copy, which is the fault this rule exists to stop.
+
+TEST 2 - preamble/negation injection (the finding). Section 3 already ends with an inline,
+non-pasted aside: "Note: branches.json shows no Pharmacy First, blood pressure or
+contraception service for this branch (no pfLink, pfBooking false, no widgets for those
+services). Do not add them to GBP unless branches.json is updated first." Extended it, in
+place, to also name two of the seven Pharmacy First conditions by name ("...blood pressure,
+contraception, shingles or earache service for this branch..."), an accurate, protective
+sentence explaining why the branch carries none of those services. Before any fix, this FAILED
+Rule 2 ("the pack names earache, shingles"), because the rule scanned flat(text), the entire
+raw pack file, with no distinction between a condition named as an offered service and a
+condition named only to say it is NOT offered. This is the same false-positive class
+check-app-membership.js's Rule 8 was explicitly scoped against at the time it was written
+("the preamble and the Notes for the paster block are excluded... because they are never
+pasted"): Rule 2 in this file had never been given the same scoping, because it is the only
+rule in the file whose match runs against the whole raw text rather than a located scope.
+Not a live defect today (the real pack's Note names no condition), but a genuine latent gap:
+any future, correct edit to this exact sentence, in the exact style this pack already uses to
+explain its absent Pharmacy First, blood pressure and contraception services, would have been
+blocked by the checker meant to protect it.
+
+FIX (tools/check-gbp-pharmacy-first.js). Added publishedCopy(text), the same packSection-based
+extraction check-app-membership.js's Rule 8 already uses (Services section + Post bodies,
+Button: lines cut, Notes-for-the-paster excluded), reimplemented in this file rather than
+required in (a shared module was judged out of scope for a single quality-pass item; flagged
+in-code as the same duplication shape as the seven hardcoded WhatsApp numbers, for a future
+pass to consider unifying). Rule 2's stray-check now scans flat(publishedCopy(text)) instead
+of flat(text). One further, pack-specific problem surfaced immediately: publishedCopy()'s
+Services-section extraction still swallowed the inline "Note:" paragraph, because that aside
+sits inside the "## 3. Services section content" heading block rather than under its own
+heading (checked estate-wide: clear-aintree.md is the only pack in gbp-packs/*.md whose
+Services section contains a line starting "Note:"). publishedCopy() now cuts everything from
+that inline "Note:" line to the end of the Services section, the same paragraph-boundary
+exclusion the top-level "Notes for the paster:" block already gets.
+
+RE-TEST after the fix, all in the scratch copy:
+  - Baseline (unmodified pack): OK, unchanged.
+  - Services-bullet "Shingles treatment" injection: still CAUGHT, same message (now reading
+    "...in its published copy").
+  - Note:-paragraph naming "shingles, earache": now correctly PASSES. No false positive.
+  - Control: injected "We also treat sinusitis under NHS Pharmacy First." into Post A's body
+    (published copy, not a note): CAUGHT, correct message naming "sinusitis". Confirms the fix
+    narrowed the scan to published copy without blinding it to a genuine Post-body injection.
+
+Full 36-checker suite run on the scratch copy after every restore: 36/36 exit 0 throughout.
+Full 36-checker suite re-run on the TRACKED repo with the fix applied and the pack untouched:
+36/36 exit 0. gbp-packs/clear-aintree.md sha256 reconfirmed a5b90f58... identical to the value
+recorded at the end of the tenth and eleventh passes. No other file touched.
+
+LIVE HALF: Claude in Chrome reported "not connected" this run (mcp__claude-in-chrome__
+tabs_context_mcp), the standing Q59 condition, unchanged across many prior runs. No
+alternative browser or fetch route attempted (per procedure: log and carry on, no substitute
+route). All prior live findings (Q28 phone fixed and confirmed 2026-09-01, Q21's concrete
+WhatsApp-number case, Q29 the three post-target 404s) stand as last verified on the ninth
+pass, 2026-09-03, and are unaffected by this pass, which touched no live surface.
+
+No new question raised: the finding was fixed in-repo (a checker scoping gap with no
+patient-facing content changed) rather than needing Rishi's decision, following the same
+convention as the item 4.9 fourth pass's Walton/Aintree town-rule fix.

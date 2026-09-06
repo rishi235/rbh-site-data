@@ -9891,6 +9891,56 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       question raised. Evidence:
       audits/clear-aintree-app-membership-4.9-eleventh-2026-09-05.txt.
       Done 2026-09-05
+      Twelfth quality pass 2026-09-06: fresh angle, proving
+      check-gbp-pharmacy-first.js's Rule 2 against this pack for the first
+      time in twelve passes. Clear Aintree is the ONLY branch with no
+      pharmacyFirst widget, so it is the only pack that ever runs Rule 2's
+      "must not advertise" direction; nothing had tested that branch by
+      injection before (the sole prior mention was a hand-check at the
+      checker's creation on item 4.4). Full repo copied with .git to a
+      scratch directory; all edits made and reverted there only, tracked
+      pack untouched throughout (sha256 a5b90f58... unchanged). Baseline
+      clean. Injecting a false Pharmacy First bullet into the Services
+      section ("Shingles treatment...") was CAUGHT correctly. Injecting the
+      same condition names into the pack's own existing, accurate,
+      non-pasted "Note: branches.json shows no Pharmacy First..." aside
+      (extended to also name shingles and earache, the same style the pack
+      already uses for its three genuinely absent services) was WRONGLY
+      CAUGHT before any fix: Rule 2 scanned the whole raw file with no
+      distinction between a condition offered and a condition denied, the
+      same false-positive class check-app-membership.js's Rule 8 was
+      already scoped against ("preamble and Notes for the paster excluded,
+      because they are never pasted"), which Rule 2 had never been given.
+      Not a live defect (the real Note names no condition), but a genuine
+      latent gap: a correct future edit in this pack's own established
+      style would have failed the checker meant to protect it. FIXED:
+      tools/check-gbp-pharmacy-first.js now scans Rule 2's non-PF branch
+      against a new publishedCopy(text) helper (Services section + Post
+      bodies only, Button: lines and Notes-for-the-paster cut, the same
+      packSection extraction check-app-membership.js's Rule 8 already
+      uses, reimplemented here rather than required in - flagged in-code
+      as the same duplication shape as the seven hardcoded WhatsApp
+      numbers for a future pass to unify). A second, pack-specific gap
+      surfaced immediately: the Services-section extraction still swallowed
+      the inline "Note:" paragraph, because it sits inside the "## 3."
+      heading block rather than under its own heading (the only pack in
+      the estate with this inline pattern, checked estate-wide). Cut on
+      the same paragraph boundary. Re-tested after the fix: baseline clean;
+      the Services-bullet injection still caught; the Note:-paragraph
+      injection now correctly PASSES; a control injection into Post A's
+      body ("...treat sinusitis under NHS Pharmacy First.") still CAUGHT,
+      confirming the narrower scope did not blind the rule to a genuine
+      published-copy breach. Full 36-checker suite: 36/36 exit 0 on the
+      scratch copy throughout and on the tracked repo with the fix applied.
+      No other file changed; pack sha256 reconfirmed identical. LIVE HALF
+      NOT PERFORMED: Claude in Chrome reported not connected (standing
+      Q59); all live findings (Q28 fixed and confirmed 2026-09-01, Q21's
+      concrete case, Q29) stand as last verified on the ninth pass,
+      2026-09-03, unaffected by this repo-only pass. No new question
+      raised; fixed in-repo, same convention as the fourth pass's
+      Walton/Aintree town-rule fix. Evidence:
+      audits/clear-aintree-pharmacy-first-scope-4.9-twelfth-2026-09-06.txt.
+      Done 2026-09-06
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
