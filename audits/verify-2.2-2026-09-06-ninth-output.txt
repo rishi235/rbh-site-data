@@ -1,0 +1,40 @@
+Building isolated scratch copy via git archive HEAD ...
+Scratch built at /tmp/scratch-2.2-verify-ninth
+
+=== Baseline: check-jsonld.js clean before any mutation ===
+baseline clean (exit 0)
+
+[PASS] 1. Ainsdale @type Pharmacy -> MedicalBusiness (rule 2)
+    expected CAUGHT, got caught (exit 1)
+    expected snippet: "\"@type\" is \"MedicalBusiness\"" -> found
+    file restored byte-identical: true
+
+[PASS] 2. Eccleston name -> bare brandLabel 'Fishlocks Chemist' (rule 3, Q18 shape)
+    expected CAUGHT, got caught (exit 1)
+    expected snippet: "It is this branch's other name" -> found
+    file restored byte-identical: true
+
+[PASS] 3. Ainsdale url -> sister's filename (rule 4)
+    expected CAUGHT, got caught (exit 1)
+    expected snippet: "\"url\" is" -> found
+    file restored byte-identical: true
+
+[PASS] 4. Eccleston addressRegion Lancashire -> Merseyside (rule 5, region field specifically)
+    expected CAUGHT, got caught (exit 1)
+    expected snippet: "addressRegion" -> found
+    file restored byte-identical: true
+
+[PASS] 5. Ainsdale email -> Eccleston's mailbox (rule 7)
+    expected CAUGHT, got caught (exit 1)
+    expected snippet: "\"email\" is" -> found
+    file restored byte-identical: true
+
+[PASS] 6. [control] Ainsdale telephone gains a double space -> must stay clean (tidy() rule 6)
+    expected clean, got clean (exit 0)
+    file restored byte-identical: true
+
+[PASS] 7. [control] Ainsdale opening hours 'opens' changed -> outside check-jsonld's 8 rules, must stay clean
+    expected clean, got clean (exit 0)
+    file restored byte-identical: true
+
+ALL CASES BEHAVED AS EXPECTED

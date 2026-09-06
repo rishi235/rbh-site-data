@@ -944,6 +944,61 @@ audits/verify-2.1-2026-09-06-thirteenth-output.txt.
       (self-contained, no import from tools/ beyond invoking the real
       checker as a child process against its own scratch copy; re-runnable
       standalone, builds its own scratch mirror via `git archive HEAD`).
+      Quality pass 2026-09-06 (ninth): a proof gap closed, not a defect.
+      Baseline clean first: all 36 checkers exit 0 individually, all six
+      generators rebuilt from branches.json to a byte-identical tree (200
+      files under modules/ and core/, sha256 unchanged), git status empty
+      throughout. Eight prior passes had proved NAP, the SISTERLINK/OUTBOUND
+      link targets (rules 8/9), the SISTERLABEL text (rule 11), the Pharmacy
+      First cost claim, the WhatsApp-by-design absence, and hasApp gating on
+      these two pages by injection against the real checker, but
+      check-jsonld.js had only ever caught something on these two pages as a
+      SIDE EFFECT of a foreign-fact injection aimed at a different checker
+      (a swapped service-area town on the third pass, which happens to also
+      be areaServed) - never a direct injection proving its own remaining
+      rules: "@type" (rule 2), "name" (rule 3, the exact shape of the Q18
+      defect this checker exists to catch - a branch landing page falling
+      back to the bare shared brandLabel "Fishlocks Chemist" instead of its
+      own branchName), "url" (rule 4), addressRegion specifically (rule 5 -
+      previously only streetAddress/addressLocality/postalCode were
+      exercised via the map/service-area injections, never the region field
+      itself), and "email" (rule 7).
+      Proved against an ISOLATED SCRATCH COPY built via `git archive HEAD`,
+      never against the tracked working tree (confirmed untouched throughout
+      by `git status --porcelain modules core branches.json tools` returning
+      empty before, during and after). Seven cases, each mutated then
+      restored from the original string immediately after capturing the
+      checker's own output, sha256-reconfirmed byte-identical before the
+      next: (1) Ainsdale's "@type" demoted from "Pharmacy" to
+      "MedicalBusiness" - CAUGHT by rule 2; (2) Eccleston's "name" replaced
+      with the bare shared brandLabel "Fishlocks Chemist" - CAUGHT by rule 3
+      with the exact Q18 wording ("It is this branch's other name, which is
+      why the old either/or rule passed it"); (3) Ainsdale's "url" swapped
+      for Eccleston's own filename - CAUGHT by rule 4; (4) Eccleston's
+      "addressRegion" changed from its real "Lancashire" to Ainsdale's
+      "Merseyside" - CAUGHT by rule 5; (5) Ainsdale's "email" swapped for
+      Eccleston's mailbox - CAUGHT by rule 7. Two negative controls
+      confirmed no overreach: (6) an insignificant double space inserted
+      into Ainsdale's telephone stayed clean, proving tidy() still collapses
+      whitespace correctly for rule 6; (7) Ainsdale's opening hours "opens"
+      time changed stayed clean, confirming hours sit outside check-jsonld's
+      eight rules entirely (they are check-opening-hours.js's job). All
+      seven cases behaved exactly as expected on the first attempt; both
+      touched files sha256-confirmed byte-identical to their originals after
+      each individual restoration. Full 36-checker suite and a full
+      generator rebuild re-run clean after the round (36/36, byte-identical
+      tree, git status empty). No in-repo defect found; no page, generator
+      or data field changed anywhere in the repo - a proof gap closed, not a
+      live breach. No new question: the correct behaviour was already fully
+      defined by the existing checker logic. LIVE HALF not read this pass:
+      Claude in Chrome confirmed not connected (tabs_context_mcp) - standing
+      Q59, unchanged; Q35 (both pages still 404 pending the Weebly paste,
+      answered 2026-09-01 but not yet actioned) and Q69 (the "Free NHS
+      treatment" wording, still open) stand unclaimed by this pass. Evidence:
+      audits/verify-2.2-2026-09-06-ninth.js (self-contained, no import from
+      tools/ beyond invoking the real checker as a child process against its
+      own scratch copy; re-runnable standalone, builds its own scratch
+      mirror via `git archive HEAD`), audits/verify-2.2-2026-09-06-ninth-output.txt.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
