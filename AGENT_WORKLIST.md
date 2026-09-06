@@ -2263,6 +2263,41 @@ deleted scratch copy. No new question raised.
       this run (standing Q59); no live check performed, no live claim made
       or withdrawn this pass. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-05-eleventh.txt.
+      Quality pass 2026-09-06 (twelfth): clean, no repo defect, no new
+      question. THE FRESH ANGLE: eleven prior passes had proved check-seo-
+      pattern.js, check-seo-lengths.js (rule 4), check-seo-sheets.js,
+      check-jsonld.js, check-seo-keywords.js, check-app-membership.js,
+      check-brand-spelling.js, check-uk-spelling.js, check-url-scheme.js,
+      check-switch-copy.js (rule 11) and check-branch-identity.js against
+      Fishlocks' own pages by injection, but tools/check-map-embeds.js had
+      never been named in this item's own entry, despite Fishlocks running
+      26 generated pages ending on a contact card map iframe, two of them
+      also carrying the "Get directions" button. Full repo copied with .git
+      included to /tmp/scratch-33-mapembeds; baseline all 34 checkers exit
+      0; SHA256 of all 26 Fishlocks pages recorded before any edit. Three
+      injections against the scratch copy only, each restored by byte copy
+      and SHA256-reconfirmed before the next: (1) the map query on the
+      Ainsdale UTI page changed by one street number - CAUGHT twice, by
+      rule 3 (the address, against branches.json) and rule 4 (agreement,
+      against the page's own contact card), confirming the two rules read
+      the same fact from different sources; (2) the "Get directions"
+      destination on the Ainsdale landing page changed to the sister
+      branch's own Eccleston address, map left correct - CAUGHT on its own
+      by rule 6, the realistic shared-brand-pair fault of a patient being
+      driven to the wrong shop while the map on the same page still reads
+      right; (3) the map src on the Eccleston UTI page stripped of
+      percent-encoding and output=embed - CAUGHT by rule 5. All three
+      restores SHA256-confirmed byte-identical; full 26-page SHA256 sweep
+      and full 34-checker suite both clean after the final restore; `git
+      status --porcelain` against the tracked repo empty throughout. No
+      in-repo defect: check-map-embeds.js already correctly protects
+      Fishlocks' own pages on rules 3, 4, 5 and 6, proven directly against
+      this branch pair for the first time. LIVE HALF: Claude in Chrome
+      unreachable this run (standing Q59); fell back to a read-only curl
+      GET against four live URLs - both UTI pages 200, both branch landing
+      pages 404, matching the standing Q35 finding already on record for
+      this item, not new. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-06-twelfth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

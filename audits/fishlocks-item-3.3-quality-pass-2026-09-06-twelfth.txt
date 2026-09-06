@@ -1,0 +1,84 @@
+Item 3.3 quality pass (twelfth) - Fishlocks Chemist Ainsdale/Eccleston
+Run: 2026-09-06, unattended scheduled run via Cowork mcp__workspace__bash sandbox
+
+FRESH ANGLE
+Eleven prior passes proved check-seo-pattern.js, check-seo-lengths.js (rule 4),
+check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+check-url-scheme.js, check-switch-copy.js (rule 11) and
+check-branch-identity.js against Fishlocks' own pages by injection. A sweep of
+every tools/check-*.js filename against this item's own entry (grep -oE
+"check-[a-z-]+\.js" over the item 3.3 block in AGENT_WORKLIST.md) confirmed
+tools/check-map-embeds.js had never been named there, despite Fishlocks
+carrying 26 generated pages (13 per branch including the landing page) each
+ending on a contact card with a Google Maps iframe, and the two landing pages
+each also carrying a "Get directions" button - the one surface in the estate
+that drives a patient to an address rather than only displaying one.
+
+METHOD
+Full repo copied with .git included to /tmp/scratch-33-mapembeds. Baseline:
+all 34 tools/check-*.js exit 0. SHA256 of all 26 Fishlocks pages (12 Ainsdale
+service pages + pharmacy-first, 12 Eccleston service pages + pharmacy-first,
+2 landing pages) recorded before any edit. Three injections against the
+scratch copy only, tracked repo never opened for writing, each restored by
+byte copy from the real mount and SHA256-reconfirmed before the next.
+
+INJECTION 1 - the address (rule 3) and agreement (rule 4)
+uti-treatment-fishlocks-ainsdale.html: map iframe query changed from
+"17 Station Road, Ainsdale, PR8 3HN" to "19 Station Road, Ainsdale, PR8 3HN",
+contact card left untouched.
+Result: CAUGHT twice in one run - rule 3 (the address) named the mismatch
+against branches.json, and rule 4 (agreement) separately named the mismatch
+against the page's own visible contact card, confirming the two rules read
+the same fact from two different sources rather than duplicating each other.
+Restored; SHA256 reconfirmed byte-identical.
+
+INJECTION 2 - directions (rule 6), isolated from the map
+pharmacy-fishlocks-ainsdale.html: "Get directions" destination changed to the
+sister branch's own address (Unit 3 The Carrington Centre, New Mill Street,
+Eccleston, PR7 5SZ), map iframe left untouched and still correct.
+Result: CAUGHT on its own - rule 6 named the mismatch between the directions
+button and the map on the same page. This is the realistic fault shape for a
+shared-brand pair: a patient pressing "Get directions" at Ainsdale would have
+been driven to Eccleston instead, with the map on the same page still showing
+the right address.
+Restored; SHA256 reconfirmed byte-identical.
+
+INJECTION 3 - encoding (rule 5)
+uti-treatment-fishlocks-eccleston.html: map iframe src changed from
+"...PR7%205SZ&output=embed" to a raw, unencoded, un-suffixed query
+("...PR7 5SZ", output=embed dropped), two faults in one edit.
+Result: CAUGHT - rule 5 named the src as not matching the required shape
+(https://www.google.com/maps?q=<encoded>&output=embed).
+Restored; SHA256 reconfirmed byte-identical.
+
+VERIFICATION
+All three restores SHA256-confirmed byte-identical to baseline individually;
+a final full 26-page SHA256 sweep also came back byte-identical to the
+original baseline file in one pass. Full 34-checker suite re-run clean after
+the final restore (all exit 0). `git status --porcelain` against modules,
+core, branches.json, tools and gbp-packs on the real tracked repo came back
+empty throughout, confirming the tracked copy was never touched.
+
+NO IN-REPO DEFECT. check-map-embeds.js already correctly protects Fishlocks'
+own pages on rules 3, 4, 5 and 6; this proves it directly against this branch
+pair for the first time rather than only against its original motivating
+branches. Rules 1 (generator composition) and 2 (coverage) were not
+injection-tested this pass, consistent with the established convention of
+testing per-page rules against a specific branch and leaving generator-level
+rules to the items that test the generators directly.
+
+LIVE HALF
+Claude in Chrome unreachable this run (standing Q59, tabs_context_mcp
+reported "Claude in Chrome is not connected"). Fell back to a read-only
+curl GET (UA "Mozilla/5.0") against four live URLs:
+  - uti-treatment-fishlocks-ainsdale.html: 200
+  - uti-treatment-fishlocks-eccleston.html: 200
+  - pharmacy-fishlocks-ainsdale.html (landing): 404
+  - pharmacy-fishlocks-eccleston.html (landing): 404
+Both landing-page 404s match the standing Q35 finding already recorded
+against this item (both branch landing pages await paste) - not a new
+finding, no in-repo defect, no new question raised.
+
+FILES CHANGED THIS PASS: AGENT_WORKLIST.md (item 3.3 paragraph, twelfth
+pass), AGENT_LOG.md, this file.
