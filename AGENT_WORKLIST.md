@@ -13420,6 +13420,67 @@ appended to the line. Do not move them; the status page reads them in place.
       correctly in force. No new live finding. No new question raised, no
       worklist item blocked or unblocked. Evidence:
       audits/hirshmans-address-check-2026-09-05-twelfth.txt. Done 2026-09-05
+      Thirteenth quality pass 2026-09-06 (unattended scheduled run via
+      Cowork, rotation pool - item 1.2 re-confirmed uniquely stalest, last
+      touched 2026-09-05T07:15:51+01:00, ahead of 3.11, 4.4, 4.1, 3.2, 3.5,
+      3.7, 3.13, 6.2 and 3.4; the six standing out-of-rotation one-offs
+      1.1, 1.4, 2.2, 5.6, 5.7 and 6.7/6.8 excluded per 5.7's own 2026-08-30
+      correction note). REPO HALF: address itself clean for the thirteenth
+      consecutive pass, branches.json's hirshmans_ainsdale record
+      unchanged. All 36 checkers exit 0 both before and after this pass.
+      GUARD COVERAGE EXTENDED: tools/check-address-region.js (addressRegion
+      against the four-county allow-list, and seoTown/townSlug/
+      serviceAreaList consistency) had never been pointed at
+      hirshmans_ainsdale by direct injection in twelve prior passes, only
+      covered passively by the full-suite sweep, the same gap shape the
+      item 4.14, 4.2 and 4.7 quality passes closed for their own GBP packs
+      the same week. Five injections on a disposable scratch copy
+      (C:\Dev\scratch-1.2-addressregion-13th, tracked repo never opened
+      for writing this pass), each restored by byte copy and
+      sha256-reconfirmed identical before the next: (1) addressRegion
+      "Merseyside" to "Sefton" (the real borough, not a county) - CAUGHT,
+      "not one of the counties"; (2) addressRegion to "Ainsdale" (the
+      branch's own addressLocality), aimed at the separate
+      region-equals-locality rule - CAUGHT, but on the same
+      not-a-county rule as (1), since no valid county name can also equal
+      a real addressLocality, so that second rule is structurally
+      unreachable today - an observation, not a defect, and not worth
+      narrowing the allow-list to fix; (3) "Ainsdale" dropped from the
+      head of serviceAreaList, leaving [Birkdale, Southport] - CAUGHT,
+      "seoTown ... does not appear in its own serviceAreaList"; (4)
+      serviceAreaList reordered to lead with "Bootle" (smartts_bootle and
+      skchemists_bootle's own seoTown, a different domain to Hirshmans) -
+      CAUGHT, naming both branches, confirming the lead-entry rule fails
+      (not merely warns) even across different domains; (5) townSlug
+      changed to "ainsdale-village" - CAUGHT, "not the slug of seoTown
+      \"Ainsdale\"". All five fired first attempt on their intended rule.
+      Domain-collision rule not testable from this branch: Hirshmans is
+      the only branch on its own domain. Full 36-checker suite and all
+      seven generators re-run clean on the scratch copy after the final
+      restore, byte-identical, tracked repo's branches.json
+      sha256-unchanged throughout. METHOD NOTE: an unqualified
+      tools/build-*.js glob on the scratch copy incidentally re-ran
+      build-audit-status.js, which publishes cross-repo regardless of
+      working copy - harmless here since branches.json had already been
+      restored to the tracked baseline first, but future scratch-copy
+      passes should run generators individually rather than by glob to
+      avoid an accidental premature publish.
+      LIVE HALF: Claude in Chrome not connected (Q59, unchanged); fell
+      back to read-only PowerShell Invoke-WebRequest. contact-us.html
+      carries the full canonical address string with no PR8 3HN anywhere;
+      sitemap.xml lastmod unchanged at 2026-08-14T16:09:17+00:00 (no
+      republish since the sixth pass); the old hand-built page
+      (pharmacy-first-service-ainsdale.html) reconfirmed 200 with its
+      address fault still fixed (no "64 Station Road" found, confirmed by
+      five repeated checks after an initial PowerShell `-match` read gave
+      a spurious true positive later contradicted and superseded - treated
+      as a tooling read error, not a finding) and its phone
+      ("017014577376") and branding ("Hirshmans Pharmacy" x9) faults still
+      open, so the HARD STOP against Q8/Q34 (item 5.3) remains correctly
+      in force. No new question raised, no worklist item blocked or
+      unblocked. Evidence:
+      audits/hirshmans-address-check-2026-09-06-thirteenth.txt.
+      Done 2026-09-06
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

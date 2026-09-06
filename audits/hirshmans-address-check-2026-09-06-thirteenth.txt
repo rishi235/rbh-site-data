@@ -1,0 +1,181 @@
+Item 1.2 quality pass (thirteenth), 2026-09-06
+Hirshmans Chemist Ainsdale (hirshmans_ainsdale) - address verification
+Run: unattended scheduled run via Cowork (mcp__workspace__bash sandbox for
+research and rotation derivation, mcp__Windows-MCP__PowerShell on the real
+ProDesk host for the scratch copy, node checker/generator runs, live reads,
+commit, push and publish)
+
+ROTATION DERIVATION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three under item 6 numbered against Q60/Q66:
+6.4, 6.5, 6.6), so the quality-pass fallback applied. Rotation pool derived
+independently via `git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md
+AGENT_LOG.md` matched per item against a `\bitem\s+<id>\b` pattern in Python,
+over the 43 completed items, EXCLUDING the six standing out-of-rotation
+one-offs recorded under item 5.7's own 2026-08-30 correction note: 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8. (5.7 itself was last touched 2026-08-13 and would
+otherwise have ranked stalest by three weeks; excluded correctly per that
+note, which a 2026-08-30 pass had itself already reached by picking 5.7
+before checking the exclusion list and self-corrected.) Within the pool,
+item 1.2 (Hirshmans Chemist Ainsdale address) ranked stalest, last touched
+2026-09-05T07:15:51+01:00, ahead of 3.11, 4.4, 4.1, 3.2, 3.5, 3.7, 3.13, 6.2,
+3.4 and the rest. None of today's prior runs (4.10, 4.9, 4.12, 4.15, 2.3,
+3.3, 6.8, 1.1, 1.4, 4.2, 4.7, 4.14, per AGENT_LOG.md's own entries for
+2026-09-06) had touched 1.2. Chosen: 1.2, thirteenth quality pass.
+
+FRESH ANGLE
+Item 1.2 has twelve prior quality passes. Checkers already proven against
+this specific branch/pack by direct injection across those twelve passes
+(read from the worklist paragraph itself): check-nap, check-postcodes,
+check-jsonld, check-map-embeds, check-brand-spelling, check-em-dashes,
+check-gbp-packs, check-uk-spelling, check-url-scheme, check-app-membership,
+check-pharmacy-first-cost, check-gbp-pharmacy-first. Never pointed at this
+branch by direct injection in any of the twelve: check-address-region.js,
+which is directly on-topic for an "address" item (it guards addressRegion
+against the four-county allow-list, and seoTown/townSlug/serviceAreaList
+consistency against the same branch record) and had only ever covered this
+branch passively, inside the "all checkers clean" sweep.
+
+METHOD
+Full repo copied WITH .git via robocopy on the real host to
+C:\Dev\scratch-1.2-addressregion-13th (copying without .git makes
+check-cdn-pins.js fail falsely, per this item's own established method
+note). Baseline: all 36 tools/check-*.js exit 0 on the scratch copy.
+branches.json sha256 recorded (904de09bc3118cefcfd7ae3f8e045b9ea1d090c634
+c70114f135101f0b969e1e1 truncated for width; full hash below) and confirmed
+identical to the tracked repo's own branches.json before any edit.
+
+Full SHA256 of branches.json (baseline, and after every restore):
+904DE09BC3118CEFCFD7AE3F8E045B9EA1D090C634C70114F135101F0B969E1E
+
+Four injections against hirshmans_ainsdale's own record on the scratch
+copy, each restored by byte copy from a saved baseline file and
+sha256-reconfirmed identical before the next:
+
+1. addressRegion changed from "Merseyside" to "Sefton" (the real
+   metropolitan borough Ainsdale sits in, not a county) - CAUGHT:
+   "addressRegion is \"Sefton\", which is not one of the counties this
+   group trades in (Merseyside, Greater Manchester, Lancashire,
+   Cheshire)." Rule fires on the borough-not-county check.
+
+2. addressRegion changed from "Merseyside" to "Ainsdale" (the branch's own
+   addressLocality), intended to test the separate
+   "addressRegion equals addressLocality" rule (lines 67-73 of the
+   checker) - CAUGHT, but on the SAME rule as injection 1 ("not one of
+   the counties"), because "Ainsdale" is also not a valid county and the
+   county check runs first and returns early. OBSERVATION, not a defect:
+   the equals-locality rule is structurally unreachable for this branch
+   (and for any branch) under the current four-county allow-list, because
+   no value that passes the county check can simultaneously equal a real
+   addressLocality - no county name in the allow-list is also a town name
+   in this estate. The rule is defensive dead code today, not a gap;
+   worth knowing rather than worth fixing, since narrowing the allow-list
+   is not warranted and the rule causes no harm sitting unreachable.
+
+3. "Ainsdale" removed from the head of serviceAreaList, leaving
+   ["Birkdale", "Southport"] - CAUGHT: "seoTown \"Ainsdale\" does not
+   appear in its own serviceAreaList [Birkdale, Southport]." Also
+   correctly produced the expected knock-on warning ("seoTown ... is in
+   serviceAreaList but not first") from the lead-entry rule, which did
+   not fire as a failure because no other branch owns "Birkdale" as its
+   seoTown - correct per the rule's own design (ordering warning, not a
+   fault, when no owner conflict exists).
+
+4. serviceAreaList reordered to lead with "Bootle" (owned by
+   smartts_bootle and skchemists_bootle as their seoTown, on a different
+   domain to Hirshmans) ahead of Ainsdale and Birkdale - CAUGHT:
+   "serviceAreaList leads with \"Bootle\", which is the seoTown of
+   smartts_bootle (\"Smartts Chemist\") and skchemists_bootle (\"SK
+   Chemists\"), not of this branch." Confirms the lead-entry rule fires
+   as a FAILURE (not merely a warning) even across different domains,
+   matching the code's actual severity (domain only changes the wording,
+   not whether it fails).
+
+5. townSlug changed from "ainsdale" to "ainsdale-village" (seoTown left
+   at "Ainsdale") - CAUGHT: "townSlug \"ainsdale-village\" is not the
+   slug of seoTown \"Ainsdale\" (expected \"ainsdale\")."
+
+All five fired first attempt, each on its intended rule (injection 2 fired
+on injection 1's rule for the structural reason explained above, not a
+test failure), no cross-firing on any other branch's data. Domain-collision
+rule (two branches sharing a domain and a seoTown) not tested from this
+branch's side: Hirshmans is the sole branch on hirshmanspharmacy.co.uk, so
+no same-domain pair exists to inject against without editing another
+branch's record, which is out of scope for this item.
+
+All restores sha256-confirmed byte-identical
+(904DE09BC3118CEFCFD7AE3F8E045B9EA1D090C634C70114F135101F0B969E1E) before
+the next injection and after the final one. Full 36-checker suite re-run
+clean on the scratch copy after the final restore (0 failures). All seven
+tools/build-*.js generators re-run on the scratch copy: exit 0 each,
+git status --porcelain -- modules core and git diff --stat -- modules core
+both empty, confirming byte-identical regeneration. The tracked repo's own
+copy of branches.json was never opened for writing this pass.
+
+METHOD NOTE: the glob run of tools/build-*.js on the scratch copy
+inadvertently included build-audit-status.js, which shells out to the
+GitHub API and publishes reports/digital/Digital_Audit_Status.html on the
+real rbh-data-portal repo regardless of which working copy it is run from.
+This ran twice against real branches.json data that had already been
+restored to the exact tracked-repo baseline at that point, so the content
+published was accurate (43/49 done, 88%) and not corrupted by any
+injection, but it was a premature, redundant publish from a disposable
+scratch copy rather than the intended step 10 publish from the tracked
+repo. No defect in the script and no harm done, but future passes should
+run build-*.js checkers/generators individually rather than by an
+unqualified glob when working from a scratch copy, to avoid an
+accidental cross-repo write mid-pass. Step 10 was still run for real at
+the end of this pass, from the tracked repo, after this run's own log and
+worklist edits landed.
+
+LIVE HALF
+Claude in Chrome not connected this session (tabs_context_mcp/navigate
+returned "Claude in Chrome is not connected", the standing Q59
+constraint). Logged and carried on; nothing clicked, typed, submitted or
+signed in anywhere. Fell back to read-only PowerShell Invoke-WebRequest
+(UA "Mozilla/5.0 ... AppleWebKit/537.36") on the real host, which had
+working outbound network access this run.
+
+- contact-us.html: 200. Full canonical address string "56-62 Sherwood
+  House, Station Road, Ainsdale, PR8 3HW" present as one match; no
+  PR8 3HN (Fishlocks Ainsdale's postcode) anywhere on the page.
+- pharmacy-first-hirshmans-ainsdale.html (generated replacement page):
+  200.
+- switch-prescriptions-hirshmans-ainsdale.html: 200.
+- sitemap.xml: 200, single lastmod 2026-08-14T16:09:17+00:00 across all
+  entries, unchanged since the sixth pass (2026-08-30) - no republish.
+- pharmacy-first-service-ainsdale.html (the OLD hand-built page the GBP
+  pack's HARD STOP note names): 200. Re-confirmed the eleventh pass's
+  2026-09-04 finding: the street-address fault is fixed (page now reads
+  "56-62 Sherwood House" throughout; "64 Station Road" is absent,
+  confirmed by five repeated .Contains() checks after an initial
+  PowerShell `-match` read returned a spurious true positive - see METHOD
+  ERROR below), while the phone fault (017014577376, still
+  non-dialable) and the branding fault ("Hirshmans Pharmacy" appearing 9
+  times) remain open and unchanged. The HARD STOP against posting Post A
+  with the current pfLink (Q8/Q34, item 5.3) remains correctly in force
+  on independently sufficient grounds.
+
+METHOD ERROR CAUGHT MID-RUN: a first read of the old hand-built page used
+PowerShell's `-match` operator (`$t -match "64 Station Road"`) inside a
+script that also ran two other `-match` tests in sequence, and returned
+`True` for a string that does not appear on the page - contradicting a
+follow-up `.Contains()` check on freshly re-fetched content. Re-tested
+five times in a loop with `.Contains()` on freshly fetched content each
+time: all five agree, "64 Station Road" is absent. Root cause not fully
+isolated (possibly variable/session state left over between commands in
+this PowerShell tool's session, since `$matches` and `-match` behaviour
+can be affected by prior pipeline state); treated as a tooling read error
+on the first attempt rather than a real finding, and superseded by the
+repeated, consistent `.Contains()` result. Recorded here per this item's
+own convention (5.7's 2026-08-14 pass logged two similar method errors
+caught and corrected mid-run rather than reported as findings) so a
+future pass does not waste time re-investigating the same read.
+
+RESULT
+No in-repo defect found. No checker logic edited, no branch data, page,
+generator or patient-facing copy changed. No new question raised;
+QUESTIONS.json unchanged (98 total, 45 open). check-address-region.js's
+five fireable rule paths are now proven directly against
+hirshmans_ainsdale for the first time, rather than only covered passively
+by "all checkers clean" sweeps.
