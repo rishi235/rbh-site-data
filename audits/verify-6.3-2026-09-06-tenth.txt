@@ -1,0 +1,149 @@
+Item 6.3 quality pass (tenth), 2026-09-06 (unattended scheduled run via Cowork;
+sandbox git read access via origin-https, HEAD matched origin exactly at
+26bbdce before any work; write half via mcp__Windows-MCP__PowerShell against
+the canonical C:\Dev\rbh-site-data working copy, per the standing Q96
+workaround - sandbox carries no push credentials, confirmed again this run:
+no SSH key, no GH_TOKEN, no gh CLI, no .netrc in the sandbox).
+
+SELECTION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, the two Q60 lines under 6.4/6.5, 6.6),
+so the quality-pass fallback applied. Rotation pool re-derived: 43 checked
+items minus the six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7, 6.7,
+6.8) = 37-item pool, each item's own git log -1 --format=%cI -L<range> date
+taken. Item 6.3 came out stalest at 2026-09-05T19:44:47+01:00, ahead of every
+other pool item (3.1 next at 20:46:26 the same evening). Chosen: 6.3.
+
+FRESH ANGLE. Read this item's full nine-pass history in AGENT_WORKLIST.md
+(2026-08-11 build through 2026-09-05 ninth) before choosing where to look.
+Between the eighth and ninth passes, every numbered rule in
+tools/check-opening-hours.js (1 through 8) and the visible-row __DUPLICATE__
+path had been proved by deliberate injection at least once. Read the checker
+source end to end anyway rather than assuming that closes the item, and found
+three code paths that produce their own FAIL message but had never been
+exercised by any of the nine prior passes:
+  (a) rule 1's "no visible row for <day>" path (a day's row deleted from the
+      page entirely, distinct from the "row present but wrong" case rule 2
+      already covers and the duplicate-row case the ninth pass already
+      covers);
+  (b) rule 3's "branches.json carries opening hours but the page has no
+      openingHoursSpecification" path (the JSON-LD block's
+      openingHoursSpecification key entirely absent, distinct from the "no
+      more and no fewer" comparison the ninth pass proved both directions
+      of);
+  (c) rule 7's own KNOWN_TIME_OUTSIDE_CARD anti-rot check (a stale exemption
+      key that matches nothing). The seventh pass (2026-09-03) proved rule
+      8's sibling list, KNOWN_TIME_OUTSIDE_ESTATE, goes stale-key-fails on a
+      scratch copy of the checker; rule 7's own list, present in the file
+      since 2026-08-14, had never had the same proof run against it.
+Confirmed by grepping "no visible row", "has no openingHoursSpecification"
+and "KNOWN_TIME_OUTSIDE_CARD" across AGENT_WORKLIST.md and AGENT_LOG.md before
+writing anything: no prior pass description matches any of the three.
+
+BASELINE. All 36 tools/check-*.js run individually before any change: 36 of
+36 exit 0. All six generators (build-branch-landing-pages, build-contraception-
+pages, build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt from branches.json: sha256 of all 200 files
+under modules/ and core/ identical before and after
+(_agentscratch/before-6.3-tenth.sha256 vs after-6.3-tenth.sha256, zero diff).
+git status --porcelain -- modules core branches.json gbp-packs tools status
+empty throughout.
+
+INJECTION ROUND, three cases, one per untested path, each backed up first and
+restored byte-for-byte afterwards.
+
+(1) RULE 1 "no visible row". pharmacy-fishlocks-eccleston.html's Monday
+contact-line row (<div class="contact-line"><p><strong>Monday:</strong> 9am to
+6pm</p></div>) deleted entirely, a fresh, previously page-content-untargeted
+branch chosen over the ninth pass's own Fishlocks Ainsdale target. Backed up
+first (sha256 1b681b43dc49dbbcc7967cf1aadc13e261fbd6cb14608cc66fc0a1495da09c05).
+CAUGHT, exit 1: "modules/branch/pages/pharmacy-fishlocks-eccleston.html: no
+visible row for Monday". Restored by direct byte copy from the pre-injection
+backup; sha256 reconfirmed identical to the baseline value above.
+
+(2) RULE 3 "no openingHoursSpecification". pharmacy-mccanns-aigburth.html's
+entire "openingHoursSpecification": [ ... ] key deleted from its JSON-LD block
+(lines 143-184, the four OpeningHoursSpecification objects covering the
+Mon-Fri lunch-closure split and the Saturday split), leaving the rest of the
+JSON-LD object well-formed and parseable (confirmed by JSON.parse before
+running the checker). Chosen over the ninth pass's Scorah Bramhall JSON-LD
+target, which removed and added single sessions rather than the whole key.
+Backed up first (sha256 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841).
+CAUGHT, exit 1: "modules/branch/pages/pharmacy-mccanns-aigburth.html:
+branches.json carries opening hours but the page has no
+openingHoursSpecification". Restored by direct byte copy; sha256 reconfirmed
+identical.
+
+Both (1) and (2) run together in one checker invocation, both failures
+reported simultaneously with no cross-firing, confirming rule 1 and rule 3
+still isolate correctly from each other when two different pages are broken
+at once. Re-run after restoring both: check-opening-hours.js clean again
+("6 landing page(s) checked ... clean, every visible and structured opening
+time matches branches.json"), git status --porcelain modules/branch empty.
+
+(3) RULE 7 KNOWN_TIME_OUTSIDE_CARD anti-rot. Scratch copy of the checker made
+at _agentscratch/check-opening-hours-stalekey.js (one directory below repo
+root, so its own ROOT = path.resolve(__dirname, "..") still resolves to the
+real repo root and it reads the genuine tracked branches.json and landing
+pages - never a copy). A fake entry,
+"pharmacy-fishlocks-ainsdale.html::9.99am": 1, added to
+KNOWN_TIME_OUTSIDE_CARD on the SCRATCH copy only (confirmed by diff against
+the tracked tools/check-opening-hours.js immediately before running it: one
+line differs, the KNOWN_TIME_OUTSIDE_CARD declaration, nothing else). Run
+against the real tracked tree. CAUGHT, exit 1: 'KNOWN_TIME_OUTSIDE_CARD
+carries "pharmacy-fishlocks-ainsdale.html::9.99am" but nothing on that page
+matched it. Remove the entry, or restore the copy it was agreed for'. The
+tracked tools/check-opening-hours.js was never opened for writing; confirmed
+unchanged against HEAD by diff after the test (zero difference). Scratch file
+renamed aside afterwards (this sandbox mount rejects unlink() on any file,
+the standing Q87/Q96 constraint; rename is the only available cleanup route),
+not left executable in a location any build script or checker sweep reads.
+
+RESULT. All three previously-unexercised fail paths caught first attempt with
+the exact expected message, no cross-firing, no false positive on the fourth
+(intact) landing pages or the other 15 branches' data-level rules throughout.
+Full 36-checker suite re-run clean after every restore (36/36 exit 0 at each
+checkpoint). All six generators rebuilt a second time after the full round:
+sha256 of all 200 files under modules/ and core/ identical to the pre-round
+baseline. git status --porcelain -- modules core branches.json gbp-packs
+tools status empty throughout the whole pass.
+
+Zero in-repo defect: tools/check-opening-hours.js was already correctly
+catching all three conditions, now proven directly by injection for the first
+time in this item's ten-pass history, rather than left correct by the
+generators' own construction alone. No checker logic, generator, page,
+branches.json content or patient-facing copy changed at any point.
+
+LIVE HALF. Claude in Chrome checked via tabs_context_mcp: reported not
+connected (standing Q59, unchanged). Fell back to the established direct
+network route (curl / Node fetch, GET only, no browser needed, confirmed
+working via a 200 from google.com first). tools/check-live-hours.js re-run
+fresh across all 14 trading branches, evidence
+audits/live-hours-check-2026-09-06.json (this run's own fresh survey,
+overwriting the same-day file an earlier run today had already produced for
+a different item; same tool, same date, expected). Bank holiday note
+correctly flagged 2026-08-31 (Summer bank holiday, tradingPolicy "closed") as
+within the 14-day window. Read by hand: Scorah (Bramhall Sat 9am-1pm, Hazel
+Grove Sat Closed - correct on both the homepage widget and the per-branch
+contact-page cards), McCanns Aigburth (9am-1pm/2pm-6pm Mon-Fri, matching the
+same session split this pass's own rule-3 injection targeted), Hirshmans
+Ainsdale (8:30am-1pm/2pm-6pm, closed 1-2pm, matching its distinct opening
+time) and Gordon Short Crosby (9am-6pm closed 1-2pm on the homepage widget,
+9:00am-6:00pm (closed 1-2pm) on the contact page) all match branches.json
+exactly. Smartts Chemist Bootle remains the sole live mismatch: homepage
+hours card ("Monday 9:00am - 6:00pm" through Friday, no lunch break), site
+footer widget ("Open Mon-Fri 9am-6pm, Sat & Sun closed") and contact page
+("Weekdays / 09:00 - 18:00") all still publish straight-through hours with no
+lunch closure, against branches.json's NHS-sourced 09:00-13:00/14:00-18:00
+split - unchanged since first found 2026-08-11 and every pass since,
+including this one. Q55 (raised 2026-08-11, answered by Rishi via the portal
+2026-09-02, option 1: edit the live Smartts pages to the lunch-closure
+wording) stands as answered-but-not-yet-actioned - implementing it is a
+Weebly session outside this worker's write scope (browser use stays
+read-only) - not re-raised as a new question, no live edit attempted.
+
+No new question raised this pass. Evidence:
+_agentscratch/before-6.3-tenth.sha256, _agentscratch/after-6.3-tenth.sha256
+(identical), audits/live-hours-check-2026-09-06.json (this pass's live
+survey; sha256 backups of the two injected pages and the checker scratch copy
+left in _agentscratch/ with a ".done"/".done-tenth-pass" suffix, renamed
+rather than deleted per the standing Q87/Q96 unlink restriction).

@@ -17578,6 +17578,54 @@ and their output.
       Smartts pages) stands as answered-but-not-yet-actioned - the live
       Weebly edit is outside this worker's write scope - not re-raised. No
       new live finding, no new question raised. Done 2026-09-05.
+      Quality pass (tenth), 2026-09-06 (unattended run, Cowork). THREE
+      NEVER-BEFORE-EXERCISED FAIL PATHS IN tools/check-opening-hours.js
+      PROVED BY INJECTION. By the end of the ninth pass every numbered rule
+      (1-8) and the visible-row __DUPLICATE__ path had been proved at least
+      once; reading the checker source end to end anyway found three
+      distinct FAIL messages none of the nine prior passes had exercised:
+      rule 1's "no visible row for <day>" path (a day's row deleted from the
+      page entirely, distinct from "row present but wrong" and the
+      duplicate-row case); rule 3's "branches.json carries opening hours but
+      the page has no openingHoursSpecification" path (the whole
+      openingHoursSpecification key absent from the JSON-LD, distinct from
+      the "no more and no fewer" comparison the ninth pass proved both
+      directions of); and rule 7's own KNOWN_TIME_OUTSIDE_CARD anti-rot
+      check, whose sibling list (rule 8's KNOWN_TIME_OUTSIDE_ESTATE) was
+      proved stale-key-fails on the seventh pass but whose own list, present
+      since 2026-08-14, never had. Confirmed by grepping all three phrases
+      across this file and AGENT_LOG.md first: no hits.
+      BASELINE: 36/36 checkers clean; six generators rebuilt, sha256 of 200
+      files under modules/ and core/ identical before and after; git status
+      --porcelain on modules, core, branches.json, gbp-packs, tools, status
+      empty throughout.
+      THREE INJECTIONS, each backed up and restored byte-for-byte: (1)
+      pharmacy-fishlocks-eccleston.html's Monday row deleted entirely -
+      CAUGHT, "no visible row for Monday"; (2)
+      pharmacy-mccanns-aigburth.html's whole openingHoursSpecification key
+      deleted from its JSON-LD (still valid JSON) - CAUGHT, "branches.json
+      carries opening hours but the page has no openingHoursSpecification";
+      both run together, both failures reported with no cross-firing,
+      restored, checker clean again. (3) a scratch copy of the checker (one
+      directory below repo root so it still reads the real tracked data) with
+      a fake KNOWN_TIME_OUTSIDE_CARD entry added on the scratch copy only -
+      CAUGHT, exact stale-key message; tracked checker confirmed unchanged by
+      diff against HEAD throughout.
+      RESULT: all three caught first attempt with the expected message, zero
+      in-repo defect - the checker was already correctly catching all three
+      conditions, now proven by injection for the first time in this item's
+      ten-pass history. Full 36-checker suite and six-generator rebuild
+      re-confirmed clean/identical after the round. No page, generator, data
+      field or patient-facing copy changed.
+      LIVE HALF: Claude in Chrome not connected (Q59, unchanged); fell back
+      to direct network access. tools/check-live-hours.js re-run across all
+      14 branches, evidence audits/live-hours-check-2026-09-06.json. Scorah,
+      McCanns Aigburth, Hirshmans Ainsdale and Gordon Short Crosby all read
+      correctly against branches.json. Smartts Chemist Bootle remains the
+      sole live mismatch, straight-through hours unchanged since 2026-08-11.
+      Q55 stands as answered-but-not-yet-actioned (Weebly edit outside this
+      worker's write scope), not re-raised. No new question. Evidence:
+      audits/verify-6.3-2026-09-06-tenth.txt. Done 2026-09-06.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
