@@ -3204,6 +3204,67 @@ AGENT_WORKLIST.md/AGENT_LOG.md history): 3.7 (2026-09-04T07:41:28+01:00), then
 3.13, 6.2, 3.4 - re-derive rather than assume, since other runs may land in
 between.
 
+Quality pass 2026-09-06 (thirteenth): NEW LEG, tools/check-opening-hours.js,
+never mentioned once across twelve prior passes (confirmed by grep of every
+tools/check-*.js basename against this item's full history block; 25
+checkers had never been named on this item at all). Picked because Hirshmans
+Ainsdale is one of only seven branches carrying a split lunch-closure day in
+branches.json (mccanns_aigburth, mccanns_sandringham, smartts_bootle,
+hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby,
+tiffenbergs_longmoor), the exact defect shape this checker was built to guard
+(item 3.6, 2026-08-10), and had never been proven against this branch's own
+record. Confirmed Hirshmans carries no branch landing page (only the item
+5.2 six do), so rules 1, 2, 3 and 7 never reach it, the same position Gordon
+Short Crosby was confirmed in on the item 3.11 twelfth pass; rules 4, 5 and 6
+apply directly to the branches.json record and rule 8 sweeps this branch's
+switch and service-family pages for the absence of any clock time at all.
+Baseline: branches.json's Hirshmans record covers all seven days once across
+closedDays/specification with no contradiction and every session closing
+after it opens; full 36-checker suite clean on the live repo and on a `cp -a`
+scratch copy at /tmp/scratch-35-openinghours. Four injections on the scratch
+copy, each restored via `git checkout --` and sha256-reconfirmed identical to
+baseline before the next: (1) RULE 6 - both Saturday sessions removed from
+specification without adding Saturday to closedDays - caught immediately
+("Saturday is in neither closedDays nor specification..."), plus expected
+collateral catches from check-editor-snapshot.js (DRIFT) and
+check-gbp-packs.js (three FAILs, the pack's stated times and Saturday opening
+no longer matching); (2) RULE 4 - "Saturday" appended to closedDays while its
+two sessions stayed in specification - caught ("Saturday is listed in
+closedDays and also carries opening times"); (3) RULE 5 - the second Mon-Fri
+session's closes changed from 18:00 to 13:30, before its own 14:00 open -
+caught ("session 14:00 to 13:30 does not close after it opens"); (4) RULE 8 -
+"Call us weekdays 9am to 6pm for help with your switch." inserted into the
+switch page before the WhatsApp button - caught, "9am" and "6pm" flagged
+separately, naming the file. All four caught on their intended rule, first
+attempt, with the expected layered defence and no cross-firing. Full
+36-checker suite re-run clean after the final restore; `git status
+--porcelain -- modules core branches.json tools gbp-packs status` on the
+scratch copy empty throughout. No branches.json or generator edit, so no
+regeneration needed or performed.
+LIVE HALF: Claude in Chrome unreachable ("not connected"), checked at answer
+pickup and reconfirmed before this section. Fell back to a plain anonymous
+curl GET (nothing clicked, typed or submitted), the established fallback.
+switch-prescriptions-hirshmans-ainsdale.html: 200; the site-wide Weebly
+footer strip reads exactly "Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm,
+2pm-5:30pm, Sun closed" - every clock time and every day matches
+branches.json field for field, no live-only hours defect found. The strip's
+en dashes are the same known, unchanged, pre-repaste estate-wide footer
+characteristic already recorded on this item's seventh pass (2026-08-31);
+reconfirmed, not new. This footer sits outside check-opening-hours.js's rule
+8 sweep by construction (a site-wide theme element, not a repo-generated
+page), the same "out of scope by construction, not a gap" position recorded
+for Gordon Short Crosby on the item 3.11 twelfth pass. sitemap.xml: lastmod
+still 2026-08-14T16:09:17+00:00, unchanged since the sixth pass, no
+republish. Evidence in
+audits/hirshmans-item-3.5-quality-pass-2026-09-06-thirteenth.txt. No in-repo
+defect found, no new question.
+Next stalest by this run's own re-derivation (pool of 37, six standing
+out-of-rotation items excluded, ranked by `git log -L` on each item's own
+AGENT_WORKLIST.md paragraph range rather than commit-subject matching): 3.7
+(2026-09-05T11:13:02+01:00), then 3.13 (2026-09-05T11:43:26+01:00), 6.2
+(2026-09-05T12:16:10+01:00), 3.4 (2026-09-05T13:18:41+01:00). Re-derive
+rather than assume, since other runs may land in between.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

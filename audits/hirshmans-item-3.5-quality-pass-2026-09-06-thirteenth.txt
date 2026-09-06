@@ -1,0 +1,100 @@
+Item 3.5 quality pass (thirteenth), Hirshmans Chemist Ainsdale
+Run: unattended scheduled task, 2026-09-06
+
+FRESH ANGLE
+Twelve prior passes (2026-08-04 to 2026-09-05) never mentioned tools/check-opening-hours.js
+against this item, confirmed by grepping every tools/check-*.js basename against the item's
+full history block in AGENT_WORKLIST.md (lines 2867-3206 at run start). 25 checkers were never
+named on this item at all; check-opening-hours.js was picked because Hirshmans Ainsdale is one
+of only seven branches carrying a split (lunch-closure) day in branches.json
+(mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale,
+colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor) - the exact defect shape
+check-opening-hours.js was built to guard (McCanns landing pages once rendered a 2pm open for a
+9am branch, item 3.6, 2026-08-10) - and had never been proven against this branch's own record.
+
+BRANCHES.JSON RECORD CONFIRMED
+hirshmans_ainsdale: closedDays ["Sunday"], specification: Mon-Fri 08:30-13:00, Mon-Fri
+14:00-18:00, Saturday 09:00-13:00, Saturday 14:00-17:30. All seven days covered exactly once
+across the two lists, no contradiction, every session closes after it opens - a clean baseline
+before any injection.
+
+NO BRANCH LANDING PAGE
+Confirmed by `find modules -path "*branch*pages*" -iname "*.html"`: only six branches carry one
+(fishlocks-ainsdale, fishlocks-eccleston, mccanns-aigburth, mccanns-sandringham,
+scorah-bramhall, scorah-hazel-grove - item 5.2's set). Hirshmans is not among them, so
+check-opening-hours.js rules 1, 2, 3 and 7 (all gated on modules/branch/pages/pharmacy-
+<brandSlug>-<townSlug>.html existing) never reach this branch, the same position Gordon Short
+Crosby was confirmed in on the item 3.11 twelfth pass. Rules 4, 5 and 6 apply directly to the
+branches.json record; rule 8 sweeps this branch's switch and service-family pages for the
+absence of any clock time at all.
+
+BASELINE
+Full 36-checker suite on the live repo: 0 failures. Scratch copy made with `cp -a` (including
+.git, the established method - excluding it makes check-cdn-pins.js fail falsely) to
+/tmp/scratch-35-openinghours; full 36-checker suite on the copy: 0 failures, confirming it
+matches the live repo exactly. sha256 of branches.json recorded first:
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e (matches the value recorded
+independently on the item 3.11 thirteenth pass the same run-sequence, for a different branch's
+unrelated check, confirming no drift on the file since). sha256 of
+modules/switch/pages/switch-prescriptions-hirshmans-ainsdale.html recorded first:
+6eaa21b533fb36a22e62f5ad0959d1044fbf3b7b93d8f671b32de1def17a1bd1.
+
+FOUR INJECTIONS on the scratch copy, each restored via `git checkout --` and sha256-reconfirmed
+byte-identical to baseline before the next:
+
+1. RULE 6 (day in neither list) - both Saturday sessions removed from specification without
+   adding Saturday to closedDays. CAUGHT immediately: "hirshmans_ainsdale: Saturday is in
+   neither closedDays nor specification. An unstated day is published as \"Closed\"...". Full
+   suite with the injection still active also fired two expected collateral checks naming the
+   branch correctly: check-editor-snapshot.js (DRIFT, showing the missing two sessions) and
+   check-gbp-packs.js (three FAILs - the pack's stated 09:00, 17:30 and Saturday opening no
+   longer match anything in the mutated data). Restored, sha256 confirmed identical
+   (904de09b...).
+
+2. RULE 4 (day in both lists) - "Saturday" appended to closedDays while its two specification
+   sessions were left standing. CAUGHT immediately: "Saturday is listed in closedDays and also
+   carries opening times". Restored, sha256 confirmed identical.
+
+3. RULE 5 (session closes before it opens) - the second Mon-Fri session's closes changed from
+   18:00 to 13:30 (before its own 14:00 open). CAUGHT immediately: "session 14:00 to 13:30 does
+   not close after it opens". Restored, sha256 confirmed identical.
+
+4. RULE 8 (clock time on a page with no hours card) - the sentence "Call us weekdays 9am to 6pm
+   for help with your switch." inserted into
+   modules/switch/pages/switch-prescriptions-hirshmans-ainsdale.html immediately before the
+   WhatsApp button. CAUGHT immediately, both times flagged separately: "\"9am\" is a clock time
+   on a page with no hours card to compare it to" and "\"6pm\" is a clock time...". Restored,
+   sha256 confirmed identical to 6eaa21b5...d1def17a1bd1.
+
+All four caught on their intended rule, first attempt, with the expected layered defence (rule
+6's collateral catches) and no cross-firing on an unrelated rule. Full 36-checker suite re-run
+clean after the final restore (0 failures). `git status --porcelain -- modules core
+branches.json tools gbp-packs status` on the scratch copy: empty. No checker logic, generator,
+pack or page content changed in the tracked repo. No branches.json or generator edit, so no
+regeneration needed or performed.
+
+LIVE HALF (read-only)
+Claude in Chrome unreachable ("not connected"), checked at answer pickup and reconfirmed before
+this section. Fell back to a plain anonymous curl GET, the established fallback (nothing
+clicked, typed or submitted). switch-prescriptions-hirshmans-ainsdale.html: 200. The site-wide
+Weebly footer strip (class "rbh-line2", present on every page on the domain, not generated by
+any tool in this repo) reads exactly "Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm,
+2pm-5:30pm, Sun closed" - every clock time and every day matches branches.json's specification
+and closedDays field for field, no live-only hours defect found. The en dashes in that strip are
+the same known, unchanged, pre-repaste estate-wide footer characteristic already recorded on
+this item's seventh pass (2026-08-31); reconfirmed, not new. This footer sits outside
+check-opening-hours.js's rule 8 sweep by construction (rule 8 covers modules/switch/pages,
+modules/service/pages and named hand-pasted files only, not a site-wide Weebly theme element),
+the same "out of scope by construction, not a gap" position recorded for Gordon Short Crosby on
+the item 3.11 twelfth pass. sitemap.xml: this page's lastmod still 2026-08-14T16:09:17+00:00,
+unchanged since the sixth pass first recorded it, confirming no republish.
+
+RESULT
+No in-repo defect found. No checker logic edited. No new fault class. No new question raised;
+QUESTIONS.json unchanged.
+
+NEXT STALEST (re-derived this run, pool of 37, six standing out-of-rotation items
+1.1/1.4/5.6/5.7/6.7/6.8 excluded, ranked by git log -L on each item's own AGENT_WORKLIST.md
+paragraph range): 3.7 (2026-09-05T11:13:02+01:00), then 3.13 (2026-09-05T11:43:26+01:00), 6.2
+(2026-09-05T12:16:10+01:00), 3.4 (2026-09-05T13:18:41+01:00). Re-derive rather than assume,
+since other runs may land in between.
