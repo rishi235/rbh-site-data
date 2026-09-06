@@ -11078,6 +11078,47 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       sister-branch-name gap, not re-run a fifth time this pass. No new
       question; QUESTIONS.json unchanged (96 total, 43 open). Done
       2026-09-05.
+      Twelfth quality pass 2026-09-06 (unattended scheduled run via Cowork,
+      rotation-pool pick, stalest item last touched 2026-09-05T02:12:28+01:00,
+      its own eleventh pass, ahead of every other pool item). FRESH ANGLE:
+      eleven prior passes proved OUTCOME_PROMISE, check-url-scheme.js,
+      check-uk-spelling.js, check-brand-spelling.js and the hours-day-presence
+      rule against this pack's own copy, but tools/check-gbp-pharmacy-first.js
+      (12 rules plus two coverage guards) had never been proven by injection
+      against THIS pack specifically. Widened before choosing: every prior
+      check-gbp-pharmacy-first.js proof anywhere in the audit (items 4.7, 4.2,
+      4.14, 1.2, 4.11) had only ever exercised rule 3 (completeness), rule 4
+      (OUTSIDE_PF) and rule 6 (age ranges); rules 5 (count claim), 7 (the
+      "where appropriate" hedge) and 8 (free, no price) had never been proven
+      by injection against any pack in the whole 15-pack audit, so this pass
+      closes a gap wider than just this one pack. Full repo copied (with
+      .git) to a scratch directory; tracked pack never opened for writing,
+      confirmed unchanged throughout (sha256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all eleven prior passes). Baseline: all 36 checkers exit 0.
+      Four injections, each restored by byte copy and sha256-reconfirmed
+      before the next: (1) rule 5, "seven" changed to "eight" in the Business
+      description (outside both located PF scopes) - CAUGHT, also confirming
+      rule 5 deliberately scans all published copy rather than only the two
+      PF blocks; (2) rule 7, "where appropriate," removed from Post A's
+      treatment sentence - CAUGHT; (3) rule 8 (price direction), ", from £5"
+      appended inside Post A's condition list - CAUGHT; (4) rule 8
+      (missing-free direction), "free NHS service" changed to "convenient NHS
+      service" in Post A, confirmed by the mutation script's own assertion
+      that no other occurrence of "free" or "no charge" remained in that
+      scope - CAUGHT. All four caught first attempt, each on its intended
+      rule only. Full 36-checker suite re-run clean after the final restore
+      (36/36 exit 0); pack sha256 reconfirmed identical to baseline; git
+      status on gbp-packs/modules/core/branches.json/tools empty throughout.
+      No in-repo defect: rules proven, nothing changed. Evidence:
+      audits/coleman-leigh-walton-pf-rules578-4.12-twelfth-2026-09-06.txt.
+      LIVE HALF: Claude in Chrome not connected (standing Q59, unchanged).
+      Read-only curl GET status-code fallback: homepage 200; Post A's pfLink
+      still 404, unchanged since 2026-08-10; Posts B, C and D all still 200,
+      unchanged. Status code only; the fuller 2026-09-01 live verdicts
+      (mixed old/new trading name, Q76's sister-branch-name gap, the Q22
+      tagline) stand as written, not re-verified this pass. No new question;
+      QUESTIONS.json unchanged (98 total, 45 open). Done 2026-09-06.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
