@@ -12341,6 +12341,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       changed. No new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-05-twelfth.txt.
       Done 2026-09-05.
+      Thirteenth quality pass 2026-09-06 (unattended scheduled run via
+      Cowork). Fresh angle: check-gbp-pharmacy-first.js rules 5, 7 and 8 had
+      never been proven against this pack by direct injection (the twelfth
+      pass proved rules 3, 4 and 6), the same gap the 4.7 thirteenth pass
+      closed the same day for McCanns Sandringham. Baseline green: 36/36
+      checkers, pack sha256 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800
+      e4b7e05b59f281f9, byte-stable across thirteen passes. Full repo copied
+      to a scratch directory; all injections against the scratch copy only.
+      Four injections: (1) business description "seven common conditions"
+      changed to "eight" - CAUGHT by rule 5, naming the pack, Post A and the
+      Services bullet left correctly saying "seven"; (2) Post A's "where
+      appropriate" hedge removed - CAUGHT by rule 7, naming Post A, the
+      Services bullet's own hedge untouched; (3) a price ("from £5") inserted
+      into Post A - CAUGHT by rule 8, naming Post A, the £ sign verified
+      byte-correct (UTF-8 C2 A3) both in the injection and in the checker's
+      own failure message; (4) Post A's "free NHS service" changed to
+      "convenient NHS service" - CAUGHT by rule 8's missing-free direction,
+      naming Post A, the pack's five other "free" mentions unaffected. All
+      four caught first attempt, on their intended rule only, no
+      cross-firing. One line-wrap gotcha (bare LF, not CRLF, at each edit
+      point) caught by reading the target string back before building the
+      regex, the same class the eleventh pass on this pack flagged. All
+      restores sha256-confirmed byte-identical to baseline before the next
+      injection and after the final one; tracked repo's own copy of the pack
+      confirmed sha256-unchanged throughout, never opened for writing.
+      33/34 checkers clean on the scratch copy after the final restore (the
+      one failure being check-cdn-pins.js's documented no-.git scratch-copy
+      artefact, not a defect); all six generators re-run against the tracked
+      repo confirmed a zero-diff worktree. No checker gap found; no in-repo
+      defect.
+      LIVE HALF: Claude in Chrome not connected (Q59). Fell back to
+      read-only HTTPS requests. All four post-linked pages and sitemap.xml
+      return 200. Sitemap lastmod unchanged at 2026-08-15T07:41:55+00:00,
+      no republish since the sixth pass. pharmacy-first-gordon-short-
+      crosby.html still reads "Gordon Shorts Chemist" 16 times against 5
+      correct, the same count every pass since the ninth has recorded, so
+      the STOP and PF_TARGET_HOLD/Q32 remain correctly in force. No new
+      live finding.
+      No pack copy, page, generator, data field or branches.json entry
+      changed. No new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-06-thirteenth.txt.
+      Done 2026-09-06.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

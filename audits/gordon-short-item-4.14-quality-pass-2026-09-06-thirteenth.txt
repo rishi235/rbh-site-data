@@ -1,0 +1,122 @@
+Item 4.14 quality pass (thirteenth), 2026-09-06 (unattended scheduled run via Cowork).
+
+FRESH ANGLE: tools/check-gbp-pharmacy-first.js rules 5, 7 and 8 had never been
+proven against gbp-packs/gordon-short-crosby.md by direct injection. The
+twelfth pass (2026-09-05) proved rules 3, 4 and 6 on this pack (impetigo drop,
+outside-PF word, UTI age range) but left 5, 7 and 8 as passive-only coverage,
+the same gap the 4.7 thirteenth pass closed the same day for
+gbp-packs/mccanns-sandringham.md. This pass closes it for Gordon Short Crosby.
+
+METHOD. Full repo copied (robocopy, .git and node_modules excluded) to
+C:\Dev\rbh-scratch-414-pharmacyfirst. Baseline confirmed clean before any
+edit: node tools\check-gbp-pharmacy-first.js -> "OK - 7 pathways read from the
+generator, 28 Pharmacy First blocks across 14 packs, all clean." Pack sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9, matching the
+value recorded on the eleventh and twelfth passes exactly - byte-stable across
+thirteen passes. All four injections made and reverted on the scratch copy
+only; the tracked repo's own copy of the pack was confirmed sha256-unchanged
+before, during and after (never opened for writing).
+
+One line-wrap gotcha hit and corrected before it could cause a false pass, the
+same class the eleventh pass on this same pack already flagged: this pack's
+sentence wraps in the business description ("...assess and, where\nappropriate,
+treat seven common conditions...") and in Post A ("...can assess and, where\n
+appropriate, treat..." and "...is a free NHS service\nat Gordon Short Chemist
+in Crosby.") use a bare LF, not CRLF, at exactly the point a literal-string
+match would need to span. Each injection's target string was read back from
+the file first (IndexOf + Substring) to confirm the actual wrap before
+building a whitespace-tolerant regex, rather than assuming CRLF and matching
+nothing silently.
+
+INJECTION 1 - RULE 5 (count claim, read across all published copy).
+Business description only: "treat seven common conditions without a GP
+appointment" -> "treat eight common conditions...". Post A and the Services
+section bullet both left saying "seven" (verified: one remaining "seven common
+conditions" match after the edit).
+CAUGHT: check-gbp-pharmacy-first.js exit 1 - "published copy says \"eight
+common conditions\", but the canon in tools/build-service-pages.js holds 7
+Pharmacy First pathways (\"seven\"). The pack then lists them, so the profile
+contradicts its own sentence."
+Restored from baseline copy, sha256-reconfirmed 49acd885...f281f9, checker
+re-run clean before the next injection.
+
+INJECTION 2 - RULE 7 (the hedge).
+Post A only: "Our pharmacists can assess and, where appropriate, treat seven
+common conditions" -> "Our pharmacists can assess and treat seven common
+conditions" (hedge removed). Services section bullet's own "where appropriate"
+left untouched (verified: exactly one "where appropriate" occurrence remained
+after the edit, in the Services bullet).
+CAUGHT: check-gbp-pharmacy-first.js exit 1 - "Post A promises treatment for
+the Pharmacy First conditions without the \"where appropriate\" qualifier.
+Pharmacy First is a free NHS assessment that may or may not lead to a supply,
+and the pharmacist may refer instead, so unqualified copy on a public profile
+promises an outcome no clinician has reached."
+Restored from baseline copy, sha256-reconfirmed, checker re-run clean.
+
+INJECTION 3 - RULE 8, price direction.
+Post A only: "No GP appointment or referral needed - book or just walk in."
+-> "...book or just walk in, from £5." The pound sign was written via
+[char]0x00A3 in the injection script rather than typed as a literal, because
+this remote PowerShell transport visibly mangles non-ASCII characters in
+terminal echo (confirmed separately by reading the actual checker source with
+the Read tool and comparing UTF-8 bytes: the source's own price regex uses a
+correctly-encoded £, and a raw byte check of the injected pack file confirmed
+C2 A3 - correct single UTF-8 encoding, not doubled/mojibake).
+CAUGHT: check-gbp-pharmacy-first.js exit 1 - "Post A carries a price (\"from
+£\") inside the Pharmacy First copy. This is a free NHS service, so a price on
+the public profile both contradicts the service and reads as a charge for NHS
+care." (failure message itself rendered the £ correctly, confirming the
+injected byte sequence round-tripped through the checker's own regex intact).
+Restored from baseline copy, sha256-reconfirmed, checker re-run clean.
+
+INJECTION 4 - RULE 8, missing-free direction.
+Post A only: "Pharmacy First is a free NHS service at Gordon Short Chemist in
+Crosby." -> "...is a convenient NHS service at Gordon Short Chemist in
+Crosby." Estate-wide "free" count in the pack dropped from 6 to 5, confirming
+exactly one instance removed (the Post A one; the Services bullet's "free NHS
+assessment" and the business description's "Free NHS prescriptions" / "Free
+NHS blood pressure checks" all survived unchanged).
+CAUGHT: check-gbp-pharmacy-first.js exit 1 - "Post A does not say the Pharmacy
+First service is free. It is a free NHS service and TEMPLATE.md requires the
+wording to stay close to the NHS service description, so a profile that omits
+it loses the one fact that sends a patient to the pharmacy instead of the GP."
+Restored from baseline copy, sha256-reconfirmed 49acd885...f281f9 (matches
+every prior pass's recorded value) - byte-identical, confirmed a final time
+after this fourth and last injection.
+
+All four injections caught first attempt, each on its own intended rule and
+naming "Post A" (or, for rule 5, the pack file) specifically - no cross-firing
+onto the Services section bullet, which was never touched by any of the four
+edits.
+
+FULL SUITE. All 34 check-*.js scripts run against the scratch copy after the
+final restore: 33/34 exit 0, the sole failure being check-cdn-pins.js's
+documented no-.git scratch-copy artefact (recorded on the 4.2 twelfth pass
+this same week), not a repo defect. All six generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages)
+re-run against the TRACKED repo directly (nothing there had been touched, so
+this proves idempotency rather than reverting an edit): `git status --porcelain
+-- modules branches.json core` empty, `git diff --stat -- modules branches.json
+core` empty. No checker gap found; no in-repo defect.
+
+LIVE HALF. Claude in Chrome not connected (Q59, unchanged). Fell back to
+read-only HTTPS requests via PowerShell on the canonical host (GET only, no
+click, no submit, no login). All four post-linked pages
+(pharmacy-first-service-crosby.html, switch-prescriptions-gordon-short-
+crosby.html, weight-loss-clinic-gordon-short-crosby.html, travel-clinic-
+gordon-short-crosby.html) and sitemap.xml returned 200. Sitemap lastmod
+unchanged at 2026-08-15T07:41:55+00:00 across the sampled entries, no
+republish since the sixth pass. pharmacy-first-gordon-short-crosby.html
+(the branch-specific Pharmacy First page, NOT the pfLink Post A points at)
+still reads "Gordon Shorts Chemist" 16 times against 5 correct occurrences of
+"Gordon Short Chemist" - the exact count the ninth, tenth, eleventh and
+twelfth passes all recorded, so the STOP on repointing Post A to it and
+PF_TARGET_HOLD/Q32 remain correctly in force, unchanged. No new live finding.
+Weight loss and travel clinic page content and the switch page's mojibake em
+dash were not re-read this pass (status-code only); no change assumed.
+
+No pack copy, page, generator, data field or branches.json entry changed
+during this pass. No new question raised; QUESTIONS.json unchanged (98 total,
+45 open). Scratch directory C:\Dev\rbh-scratch-414-pharmacyfirst removed after
+this evidence file was written.
