@@ -13392,6 +13392,58 @@ appended to the line. Do not move them; the status page reads them in place.
       standing note. Blocks nothing, no new question - this is the same
       mechanical widening item 1.1 has needed on five of its eight passes.
       Done 2026-08-31.
+      Quality pass 2026-09-06 (ninth, repo half only, unattended run - stalest
+      item in the rotation pool, last touched 2026-09-01): all 36 checker
+      scripts exited 0 and all six generators rebuilt to a byte-identical
+      diff before this pass touched anything, confirming the repo was clean
+      going in. THE NINTH DIMENSION, AND IT IS THE MIRROR OF THE EIGHTH:
+      2026-08-31 taught the rule that an internal capital can be flattened
+      DOWN to sentence case (McCanns to Mccanns); nothing taught it that an
+      ordinary word can be pushed UP to full capitals. Proved by injection:
+      "CHERRY LANE PHARMACY" typed into the switch banner's CONFIG line (the
+      one line a human actually edits per branch) and "MCCANNS CHEMIST"
+      typed into a GBP pack heading each passed all 36 checkers, while every
+      pre-existing control (Smartt Chemist, Mccanns Chemist, Gordon Shorts
+      Chemist) still correctly failed in the same run. Fixed in rule 2
+      (VARIANT), same as the case-flattening fix, by adding upperForm() and
+      applying it over every form wordForms() already builds, guarded the
+      same way: a form already all-caps (SK, RB, a bare &) upper-cases to
+      itself and adds nothing, so this cannot widen into a false positive on
+      an existing abbreviation.
+      That derivation would have failed all 177 generated pages on the spot,
+      because every one of the six generators writes
+      store.brand.toUpperCase() (or b.branchName.toUpperCase() on the branch
+      landing pages) as the very first line of the page's own leading HTML
+      comment - confirmed by reading the relevant line out of all six
+      tools/build-*.js files rather than assuming it. That line is composed,
+      never typed, and it is not a hand-typed near miss to catch: it is the
+      one place the new rule would otherwise flag correct, derived output as
+      a variant, the exact shape of every previous false-positive risk this
+      item has had to guard against. Closed with maskGeneratedHeading(),
+      which blinds only that exact position (immediately after the file's
+      opening <!--) and shape (a run of capitals up to its own em dash or
+      hyphen) - not a brand name list, so it cannot rot the way a named
+      exception would.
+      Negative-tested three ways: the two injections above now fail, naming
+      the correct branch and trading name in each case; and a third
+      injection - a genuine letter-drop typo ("MCANNS CHEMIST") placed
+      inside the masked heading position itself - confirmed the mask does
+      not overreach, because it only matches an ALL-CAPS run and a
+      mixed-case near miss at that same position is unaffected and still
+      caught. That third case is the one residual gap the mask accepts: an
+      arbitrary letter error occurring inside an all-caps string at that
+      exact generator-owned position would go uncaught. Judged an acceptable,
+      not merely assumed, gap: the position is provably unreachable by a
+      human, because CLAUDE.md forbids hand-editing generated HTML output and
+      a regeneration overwrites it, and the only way the derived text itself
+      could be wrong is if branches.json's brandLabel were already wrong,
+      which rule 1 (CANON) fails independently before rule 2 is ever reached.
+      Re-ran all 36 checkers and all six generators after the fix: still
+      36/36 and byte-identical. Live side not re-read this pass (repo-half
+      only, unattended run). Blocks nothing, no new question. Push to
+      origin/origin-https both failed in this sandbox as before (Q87/Q96,
+      no credentials available here); commit 6c50e0e is local-only pending a
+      sync from a machine that holds the GitHub credential. Done 2026-09-06.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
