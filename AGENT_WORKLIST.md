@@ -2863,6 +2863,89 @@ reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-04T13:17:57+01:00), then 3.10, 2.1, 5.2 -
 re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-06 (thirteenth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Stalest item re-derived via the established git-log block method (37-item
+rotation pool, six standing out-of-rotation items excluded): 3.4 uniquely
+stalest at 2026-09-05T13:18:41+01:00, ahead of 3.9 (13:46:27), 3.10
+(14:11:07) and 2.1 (15:42:23), matching the twelfth pass's own forward note.
+THE GENUINELY UNTESTED ANGLE THIS PASS CLOSED. Twelve prior passes proved,
+by direct injection against Cherry Lane's own pages and branch record,
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-whatsapp-
+route.js, check-service-links.js, check-switch-copy.js, check-branch-
+identity.js and check-booking-routes.js. tools/check-seo-pattern.js - the
+flagship Phase 3 checker that defines the exact title/H1/description
+pattern the whole 3.1 to 3.13 worklist series exists to roll out, and the
+checker this item's own worklist entry exists to satisfy - had never once
+been proven by direct injection against Cherry Lane's own pages, the same
+gap the 3.7 twelfth pass and the 3.13 tenth pass each found and closed for
+their own branches.
+New instrument, no import from tools/ beyond invoking the real checker as a
+child process (audits/verify-3.4-2026-09-06-thirteenth.js): refuses to run
+if any target already carries a git diff, captures each target's sha256
+before mutation, restores by direct fs.writeFileSync from an in-memory
+buffer immediately after capturing the checker's output and before any
+assertion, sha256-reconfirms after every restore. Four injections, one at a
+time, on two untried Cherry Lane pages for this checker (contraception and
+impetigo had never been touched by any injection test on this item before
+this pass) plus two previously-used pages exercising a different rule each:
+(1) EXACT TITLE MATCH - " - Now Open Weekends" appended to the Weebly page
+SEO title line on contraception-cherry-lane-walton.html, caught ("title
+'...Now Open Weekends' != ..."); (2) CROSS-TOWN ABSENCE - "Also serving
+patients from Ainsdale." inserted into impetigo-treatment-cherry-lane-
+walton.html's description (Ainsdale is a live seoTown held by Fishlocks
+Ainsdale and Hirshmans Ainsdale, not in Cherry Lane's own serviceAreaList of
+Liverpool/Walton/Everton, and Cherry Lane is single-host so no sister-town
+excuse applies either), caught, naming Ainsdale and confirming it is not in
+serviceAreaList; (3) ONE H1 - a second "<h1>Pharmacy in Ainsdale</h1>"
+appended directly after the genuine heading on pharmacy-first-cherry-lane-
+walton.html, caught ("2 h1 elements, expected exactly 1"); (4) ONE TITLE
+LINE - a second "Weebly page SEO title: Pharmacy in Ainsdale" line inserted
+immediately after the genuine one in the head comment of switch-
+prescriptions-cherry-lane-walton.html, caught ("2 'Weebly page SEO title'
+lines, expected exactly 1"). All four caught on their intended rule, first
+attempt, with no cross-firing on an unrelated rule or an unrelated brand;
+all four target files confirmed git-diff-empty and sha256-identical to
+their pre-test hashes throughout and after. Baseline and final runs of
+check-seo-pattern.js both clean ("OK Cherry Lane Pharmacy - 12 pages"). Full
+36-checker suite re-run individually before and after the round: 36/36 exit
+0 both times. All six generators rebuilt via their own build-*.js scripts
+with git status --porcelain on modules/, core/, tools/, branches.json,
+gbp-packs/ and status/ empty before and after (byte-identical) - no in-repo
+defect, nothing to fix.
+LIVE HALF, PARTIAL. Claude in Chrome confirmed not connected (checked at
+step 3 and independently again before this section, matching the standing
+Q59 pattern). Fell back to a direct read-only curl GET (this run's
+equivalent of prior passes' PowerShell Invoke-WebRequest route) rather than
+leaving the live half unread. The two pages this pass's injections targeted
+that no prior pass on this item had ever read live -
+contraception-cherry-lane-walton.html and impetigo-treatment-cherry-lane-
+walton.html - both 200, both carry the exact expected title, H1 and postal
+details: "NHS contraception service in Walton - Cherry Lane Pharmacy" /
+"<h1>NHS contraception service in Walton</h1>" and "Impetigo treatment in
+Walton - Cherry Lane Pharmacy" / "<h1>Impetigo treatment in Walton</h1>",
+own phone 0151 226 2051 and own postcode L4 8SG on both, matching
+branches.json and the repo-generated pages exactly - no drift on either
+page, now confirmed live for the first time. weight-loss-clinic-walton.html
+RECONFIRMS the seventh pass's Q86 finding still live and uncorrected 24
+days on: the page now carries BOTH the corrected JSON-LD address ("202
+Cherry Lane","addressLocality":"Liverpool") AND the stale prose address
+("202 Cherry Lane, Walton, Liverpool L4 8SG") in the same document, so the
+schema and the human-readable text on one live page now disagree with each
+other as well as with the repo fix - not re-raised as a new question, Q86
+already covers it. The homepage's site-wide contact widget mailto addresses
+(the other half of Q86) could not be checked either way by a raw GET, the
+same JavaScript-rendering limitation the eleventh pass recorded; not
+claimed fixed or unfixed.
+WORKLIST AND COMMIT. This paragraph. New evidence file this run:
+audits/verify-3.4-2026-09-06-thirteenth.js. QUESTIONS.json re-read in full:
+98 total, 45 open, unchanged by pickup this run (Claude in Chrome not
+connected, standing Q59; no new question raised). Files changed and
+committed: AGENT_WORKLIST.md, the new audits/ file, and AGENT_LOG.md - no
+generator, page, data field or checker file touched in the tracked tree,
+reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-05T13:46:27+01:00), then 3.10, 2.1, 5.2 -
+re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
