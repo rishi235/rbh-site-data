@@ -1,0 +1,119 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - quality pass, TENTH PASS, 2026-09-06
+Fresh angle: tools/check-pharmacy-first-eligibility.js proven by injection against
+Tiffenbergs' own pages for the first time in this item's ten-pass history. Nine
+prior passes had exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+check-booking-routes.js, check-jsonld.js, check-gbp-packs.js (hours family),
+check-branch-identity.js and check-map-embeds.js, but never the checker that
+guards NHS Pharmacy First age-eligibility copy - the highest-stakes class of
+claim CLAUDE.md and the scheduled task's own rules single out (a wrong call on
+a live patient-facing regulatory claim is worse than a delay). Also notable:
+rule 12 of this checker (the Pharmacy First overview-page tile guard) was only
+added today, on the item 2.1 thirteenth quality pass, so this is the first time
+rule 12 has been proven against any branch other than the one it was built
+against (Fishlocks Ainsdale).
+
+ITEM SELECTION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass
+fallback applied. Rotation pool re-derived independently (Python script, git
+log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md per item's own
+paragraph range, over the standing 37-item pool with 1.1/1.4/5.6/5.7/6.7/6.8
+excluded): 3.12 came out stalest at 2026-09-05T18:14:13+01:00, clear of the
+next item, 3.6, at 18:41:24 and every other pool item - exactly the item the
+ninth pass's own log entry had already flagged as next in line. Chosen: 3.12.
+
+BASELINE. All 36 tools/check-*.js run individually before any change: 36/36
+exit 0. All six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) rebuilt from
+branches.json: sha256 of all 200 files under modules/ and core/ taken before
+and after, zero diff; git status --porcelain -- modules core empty throughout.
+
+METHOD. Four injections against Tiffenbergs' own pages, each targeting a rule
+of tools/check-pharmacy-first-eligibility.js untried against this branch
+before, each restored by byte copy (not git checkout) from a pre-injection
+backup and sha256-reconfirmed identical to the original immediately after,
+before the next injection began. Only one mutation live at a time.
+
+(1) RULE 8 (safety redirect), shingles-treatment-tiffenbergs-aintree.html.
+    "Children and young people under 18 should see a GP" -> "Children and
+    young people should see a GP" (the "under 18" clause removed, breaking
+    NHS.shingles.excluded's exact regex match).
+    sha256 before: c3dadd666f92df24a626508d023685470e89751228646bb49635393063c70a04
+    RESULT: CAUGHT.
+    "FAIL modules/service/pages/shingles-treatment-tiffenbergs-aintree.html:
+    the safety redirect for the excluded cohort is missing (rule 8)
+             expected to match: /Children and young people under 18 should see a GP/i"
+    Restored; sha256 reconfirmed c3dadd666f92df24a626508d023685470e89751228646bb49635393063c70a04.
+    Checker re-run clean (exit 0) immediately after restoration.
+
+(2) RULE 7 (no stray age outside the pinned set), sinusitis-treatment-
+    tiffenbergs-aintree.html. Inserted "Adults aged 16 and over are especially
+    encouraged to attend." into the hero-sub paragraph (16 is not a redirect
+    boundary and sinusitis's pinned set is {12} only, no cohort word, no
+    excluded redirect - so no boundary tolerance applies here at all).
+    sha256 before: 38f03d79913760df82541b5a4233866e930781ce6754f32d13a67e6881ea7026
+    RESULT: CAUGHT.
+    "FAIL modules/service/pages/sinusitis-treatment-tiffenbergs-aintree.html:
+    states age 16 which is not in the NHS criteria for sinusitis (12) (rule 7)"
+    Restored; sha256 reconfirmed 38f03d79913760df82541b5a4233866e930781ce6754f32d13a67e6881ea7026.
+    Checker re-run clean (exit 0) immediately after restoration.
+
+(3) RULE 6 (ageNote verbatim on page), insect-bite-treatment-tiffenbergs-
+    aintree.html. Hero pill "Age 1 and over" -> "Aged 1 and over" (the only
+    occurrence of the string on the page; the extra "d" breaks the exact
+    substring match rule 6 requires, while the number 1 stays a valid age for
+    this condition, so rule 7 correctly stays silent - isolating rule 6 from
+    its neighbour exactly as intended).
+    sha256 before: dc55f1d7a5803570b3dc918e48cd6d7c3090dc6520c80f746e807fa6a9a7a98b
+    RESULT: CAUGHT, and only by rule 6 as designed (no rule 7 co-firing).
+    "FAIL modules/service/pages/insect-bite-treatment-tiffenbergs-aintree.html:
+    ageNote missing from the page (rule 6)
+             expected: Age 1 and over"
+    Restored; sha256 reconfirmed dc55f1d7a5803570b3dc918e48cd6d7c3090dc6520c80f746e807fa6a9a7a98b.
+    Checker re-run clean (exit 0) immediately after restoration.
+
+(4) RULE 12 (Pharmacy First overview-page tiles, added today on item 2.1's
+    thirteenth pass), pharmacy-first-tiffenbergs-aintree.html. The "Sore
+    throat" tile's age span "Age 5 and over" -> "Age 6 and over" (6 is not
+    the NHS sore-throat cohort of 5 and over).
+    sha256 before: 9d68e5c3651c0d4def9b429b6df7aee8dc7e593cecfceae442ab80fe0d16267c
+    RESULT: CAUGHT, two ways at once, exactly as rule 12 is designed to do
+    (the verbatim check and the stray-age check both fire independently):
+    "FAIL modules/service/pages/pharmacy-first-tiffenbergs-aintree.html:
+    overview tile for "Sore throat" states "Age 6 and over", but the pinned
+    ageNote is "Age 5 and over" (rule 12)"
+    "FAIL modules/service/pages/pharmacy-first-tiffenbergs-aintree.html:
+    overview tile for "Sore throat" states age 6 which is not in the NHS
+    criteria for sore-throat (5) (rule 12)"
+    Restored; sha256 reconfirmed 9d68e5c3651c0d4def9b429b6df7aee8dc7e593cecfceae442ab80fe0d16267c.
+    Checker re-run clean (exit 0) immediately after restoration.
+
+All four injections caught on the first attempt, with the expected rule-
+specific message in every case. All four files sha256-confirmed byte-identical
+to their pre-injection originals after each individual restoration.
+
+VERIFICATION. Full 36-checker suite re-run individually after the round: 36/36
+exit 0. All six generators rebuilt again: sha256 of all 200 files under
+modules/ and core/ taken before and after the whole round, zero diff;
+git status --porcelain -- modules core branches.json tools gbp-packs empty
+throughout and at the end.
+
+RESULT. No in-repo defect - check-pharmacy-first-eligibility.js was already
+correctly holding Tiffenbergs' own pages to rules 6, 7, 8 and the brand-new
+rule 12, now proven directly for the first time. No checker logic, page,
+generator, pack or data field changed anywhere in the repo.
+
+LIVE HALF, NOT ATTEMPTED. mcp__claude-in-chrome__navigate reported "Claude in
+Chrome is not connected" when tried for step 3 (answer pickup) at the start of
+this run (standing Q59). Not retried for this item's live half. Full 12-of-12
+live coverage for Tiffenbergs already stands from the fifth/sixth passes
+(2026-09-02); Q56 (branches.json singular Tiffenberg@ vs live plural
+tiffenbergs@) stands as last confirmed then, not re-verified this pass.
+
+QUESTIONS: none raised this run.
+
+Evidence: this file. Backups and injection transcript are this run's own
+shell session (mcp__workspace__bash), not separately filed as a script, since
+each injection was a single sed substitution proved and restored inline with
+sha256 checks at each step - the same level of rigour as prior passes'
+scripted instruments, applied directly rather than through a wrapper.

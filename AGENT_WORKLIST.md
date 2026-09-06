@@ -7161,6 +7161,45 @@ Done 2026-09-06 (twelfth pass).
       question raised. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-09-05-ninth.txt. Done
       2026-09-05 (ninth pass)
+      Quality pass 2026-09-06, TENTH PASS, FRESH ANGLE: tools/check-pharmacy-
+      first-eligibility.js proven by injection against Tiffenbergs' own pages
+      for the first time in this item's ten-pass history (nine prior passes
+      had exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+      check-booking-routes.js, check-jsonld.js, check-gbp-packs.js,
+      check-branch-identity.js and check-map-embeds.js, but never the checker
+      guarding NHS Pharmacy First age-eligibility copy - the highest-stakes
+      claim class the scheduled task's own rules single out). Rule 12 of this
+      checker (the overview-page tile guard) was only added today on the item
+      2.1 thirteenth pass, so this is also the first time rule 12 has been
+      proven against any branch other than the one it was built against.
+      Baseline: all 36 checkers 0 failures, all six generators rebuilt first,
+      200 files under modules/ and core/ sha256-unchanged. Four injections,
+      each restored by byte copy and sha256-reconfirmed identical
+      immediately after: (1) shingles page's safety redirect "Children and
+      young people under 18 should see a GP" had "under 18" removed - CAUGHT
+      by rule 8; (2) sinusitis page's hero-sub given a stray "Adults aged 16
+      and over are especially encouraged to attend" (16 outside sinusitis's
+      pinned {12}, no redirect boundary applies) - CAUGHT by rule 7; (3)
+      insect-bite page's hero pill "Age 1 and over" changed to "Aged 1 and
+      over" (breaks the exact ageNote substring while the number 1 stays
+      valid, isolating rule 6 from rule 7 by design) - CAUGHT by rule 6 only,
+      no rule 7 co-firing; (4) the Pharmacy First overview page's "Sore
+      throat" tile age span "Age 5 and over" changed to "Age 6 and over" -
+      CAUGHT twice at once by rule 12 (verbatim mismatch and stray-age-6).
+      All four caught on the first attempt with the expected rule-specific
+      message; all four files sha256-confirmed byte-identical to their
+      originals after each individual restoration. Full 36-checker suite and
+      all six generators re-run clean after the round; git status --porcelain
+      on modules/, core/, branches.json, tools/ and gbp-packs/ empty
+      throughout. No in-repo defect - all four rules were already correctly
+      holding Tiffenbergs' own pages, now proven directly for the first time.
+      No checker logic, page, generator, pack or data field changed anywhere
+      in the repo. Live half not attempted: Claude in Chrome confirmed not
+      connected at step 3 (answer pickup); full 12-of-12 live coverage
+      already stands from the fifth/sixth passes, not re-read this pass. No
+      new question raised. Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-09-06-tenth.txt. Done
+      2026-09-06 (tenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
