@@ -18,10 +18,10 @@ LIVE HALF: not performed. `mcp__claude-in-chrome__tabs_context_mcp` reported "Cl
 
 No in-repo defect found. No checker logic edited. No new fault class in any checker. No new question raised; QUESTIONS.json unchanged (98 total, 45 open).
 
-FILES CHANGED: AGENT_WORKLIST.md (item 3.7 twelfth-pass paragraph appended in place), AGENT_LOG.md (this entry), audits/smartts-item-3.7-quality-pass-2026-09-06-twelfth.txt (new). No file under modules/, gbp-packs/, core/, tools/ or branches.json changed; scratch copy at /tmp/scratch-37-seopattern to be deleted after this run.
+FILES CHANGED: AGENT_WORKLIST.md (item 3.7 twelfth-pass paragraph appended in place), AGENT_LOG.md (this entry), audits/smartts-item-3.7-quality-pass-2026-09-06-twelfth.txt (new). No file under modules/, gbp-packs/, core/, tools/ or branches.json changed; scratch copy at /tmp/scratch-37-seopattern deleted after use.
 
-COMMIT/PUSH/PUBLISH (steps 9-10): to be completed below once staged and committed.
-STEP 11: `.agent-lock` to be removed from the sandbox path before exiting.
+COMMIT/PUSH/PUBLISH (steps 9-10): committed locally as cbf28d6. `.git/index.lock` and `.git/HEAD.lock` were each hit at least once during `git add`/`git commit` (0 bytes, freshly created by this run's own commands, no git process running); `rm`/`unlink` failed "Operation not permitted" on every attempt (the standing mount-wide constraint), `mv` succeeded every time and was used instead, per the established convention. Sandbox push failed exactly as the standing Q96 finding predicts: `git push origin` (SSH) "Host key verification failed"; `git push origin-https` "could not read Username for 'https://github.com': No such device or address" (no credential helper configured in this sandbox). Fell back to `mcp__Windows-MCP__PowerShell` against the real ProDesk host's C:\Dev\rbh-site-data working copy, the established route: confirmed the host's own clone already showed HEAD at cbf28d6 with no separate commit needed (same underlying files via the shared mount), ran `git push origin agents/audit-backlog` (PowerShell surfaced git's normal stderr progress line as a "NativeCommandError" with a false non-zero status, but the output itself read "1aee5c7..cbf28d6 agents/audit-backlog -> agents/audit-backlog"), then ran `git fetch origin` + `git log -1 --oneline origin/agents/audit-backlog` which confirmed cbf28d6 had landed on origin, ruling out a false-success read. STEP 10: `node tools\build-audit-status.js` run via the same PowerShell route, exit 0, "Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)".
+STEP 11: `.agent-lock` removed from the sandbox path before exiting (renamed, not unlinked, per the standing mount constraint).
 
 
 
