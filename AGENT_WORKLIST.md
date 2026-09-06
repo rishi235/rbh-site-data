@@ -10162,6 +10162,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       rule's own stated intent, not a policy choice); open question count
       unchanged at 44 of 97. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-05-twelfth.txt.
+      Quality pass 2026-09-06 (unattended run, thirteenth pass): stalest item
+      in the rotation pool, re-derived mechanically (last touched
+      2026-09-05T21:44:12+01:00, next stalest 4.5 at 22:15:36, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; all 36 checkers individually 36/36 exit 0; all six
+      generators rebuilt, sha256 of 189 files under modules/ and core/
+      identical before and after; sha256 of the pack itself
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693,
+      unchanged since 2026-08-04. NEW ANGLE: of the many injection angles
+      already proven against this pack across twelve prior passes (Q26
+      branch-name-as-place, the address-repeated-four-times rule, the
+      hours-in-four-places rule, the time/day pairing rule, the splitDay
+      rule, the sister-branch-in-prose rule, PRICE_PATTERNS lead pricing),
+      the "GBP profile website on a shared domain" rule had never been
+      proven by injection against this pack specifically, despite this
+      branch being one of exactly six on a shared website host
+      (www.mccannspharmacy.co.uk, with McCanns Sandringham) and despite its
+      own Website line already being the rule's positive case. INJECTION,
+      two cases, each restored by byte copy and sha256-reconfirmed before
+      the next: (1) the Website URL changed from the branch's own landing
+      page to the bare shared homepage - CAUGHT, exit 1, exact message
+      naming pharmacy-mccanns-aigburth.html and "www.mccannspharmacy.co.uk
+      carries 2 live branches". (2) the whole "- Website" line deleted -
+      CAUGHT, exit 1, exact "no \"- Website\" line" message. Both caught
+      first attempt with the expected rule-specific wording, all 17
+      pre-existing WARNs unchanged, no cross-firing on any other pack.
+      RESTORED by byte copy; sha256 reconfirmed identical
+      (fdb1429d...693) after each case and at the end of the round; full
+      36-checker suite and generator rebuild re-run clean; git status on
+      modules/core/branches.json/gbp-packs/tools/status empty throughout.
+      Nothing fixed - this pass adds proof, not correction. LIVE HALF:
+      Claude in Chrome not connected (Q59); fell back to read-only HTTP GET.
+      Profile-website landing page (pharmacy-mccanns-aigburth.html) still
+      404s, unchanged, still awaiting the queued paste run. The four post
+      targets all 200; full text not re-read this pass (last confirmed
+      clean on the seventh, ninth and twelfth passes), status check only.
+      Q83 not re-raised, already open. No new in-repo defect, no new
+      question; open question count unchanged at 45 of 98. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-06-thirteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

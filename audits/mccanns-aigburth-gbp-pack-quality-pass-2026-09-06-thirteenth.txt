@@ -1,0 +1,148 @@
+Item 4.6 quality pass, thirteenth pass, 2026-09-06 (unattended scheduled run via Cowork sandbox shell only)
+Pack: gbp-packs/mccanns-aigburth.md
+Checker: tools/check-gbp-packs.js
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, the two Q60 lines under 6.4/6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh via a Python
+script mirroring the established method: git log -1 --format=%cI --no-patch
+-L<start>,<end>:AGENT_WORKLIST.md taken for each of the 37-item pool (43
+checked items minus the six standing out-of-rotation items: 1.1, 1.4, 5.6,
+5.7, 6.7, 6.8). Item 4.6 came out stalest at 2026-09-05T21:44:12+01:00, clear
+of the next item, 4.5, at 22:15:36 the same evening - exactly the item the
+prior (4.3) pass's own log entry had already flagged as next in line.
+
+SYNC
+Sandbox `git fetch origin` (SSH) failed "Host key verification failed" -
+standing Q96, confirmed again (no SSH key material, no GH_TOKEN-shaped
+env var, no .netrc, no gh CLI in this sandbox). `git fetch origin-https`
+succeeded; local HEAD (db6c2a6) already 2 commits ahead of
+origin-https/agents/audit-backlog (b74728f) with 0 behind, so no pull
+needed - those 2 commits are the prior run's own work that could not be
+pushed for the same credential reason, recorded in its own log entry.
+
+ANSWER PICKUP
+mcp__claude-in-chrome__tabs_context_mcp reported Claude in Chrome not
+connected - standing Q59. Logged and carried on; nothing clicked, typed,
+submitted or signed in anywhere. QUESTIONS.json read directly: 98 total,
+45 open, unchanged by pickup this run.
+
+AUTONOMOUS WINDOW
+Checked the top of AGENT_LOG.md before starting work: no "Standing
+authorisation - autonomous window" heading present. Not applicable this run.
+
+BASELINE
+node tools/check-gbp-packs.js: 0 failures, 17 known WARNs (identical set to
+every recent pass). All 36 tools/check-*.js run individually: 36/36 exit 0.
+All six generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt from branches.json: sha256 of all 189
+files under modules/ and core/ identical before and after. git status
+--porcelain -- modules core branches.json gbp-packs tools status empty
+throughout. gbp-packs/mccanns-aigburth.md sha256
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693, unchanged
+since 2026-08-04 and matching every prior pass's recorded hash. Backup taken
+at (sandbox scratch, outside the repo) mccanns-aigburth.md.bak-pre-4.6-
+thirteenth, sha256 identical.
+
+NEW ANGLE
+Of the many injection angles already proven against this pack across twelve
+prior passes (branch-name-as-place/Q26, the address-mentioned-more-than-once
+rule, the hours-stated-in-four-places rule, the time/day pairing rule, the
+splitDay two-ranges rule, the sister-branch-named-in-prose rule, and the
+PRICE_PATTERNS lead-pricing rule), the "GBP profile website on a shared
+domain" rule (tools/check-gbp-packs.js lines 896-960) had never been proven
+by injection against this pack specifically, despite this pack being one of
+exactly six branches on a shared website host (www.mccannspharmacy.co.uk,
+shared with McCanns Sandringham) and despite its own Website line already
+being the positive case the rule exists to require: pointing at
+pharmacy-mccanns-aigburth.html rather than the shared homepage. Confirmed by
+grep across this item's own AGENT_WORKLIST.md history, AGENT_LOG.md and
+audits/mccanns-aigburth-*.txt for "shared domain", "profile website" and
+"landing page" as a rule name (all matches were baseline fact-checks - "the
+pack verified... profile website pointed at its own landing page" - never an
+injection proof).
+
+METHOD
+Byte-copy backup taken outside the repo before any mutation (sandbox scratch
+directory, not a repo path). Only sed -i targeting the exact "- Website" line
+number, never a full file rewrite. Restored by byte copy (cp from the
+backup), never `git checkout`, and sha256-reconfirmed identical to the
+pre-injection hash before the next case and after the round.
+
+INJECTION ROUND, two cases, both against the exact rule this pack is meant to
+satisfy (sharesHost && slug && GENERATED.has(slug), lines 909-915), each
+restored and sha256-reconfirmed identical before the next case:
+
+(1) Line 14's Website URL changed from
+"https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html" to the
+bare shared homepage "https://www.mccannspharmacy.co.uk/" - CAUGHT, exit 1,
+exactly one FAIL: "profile website does not point at this branch's landing
+page pharmacy-mccanns-aigburth.html. www.mccannspharmacy.co.uk carries 2 live
+branches, so pointing the profile at the shared homepage gives both listings
+the same page (Master Plan v2 section 3)". All 17 pre-existing WARNs
+unchanged, no other pack's verdict moved.
+
+(2) Restored, then the whole "- Website" line deleted outright - CAUGHT,
+exit 1, exactly one FAIL: "no \"- Website\" line in the profile basics, so
+the paster has nothing telling them to use the pharmacy-mccanns-aigburth.html
+landing page". All 17 pre-existing WARNs unchanged, no cross-firing.
+
+Both cases caught on the first attempt with the exact expected, rule-specific
+message. Tracked file confirmed sha256-identical to the pre-round baseline
+(fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693) after each
+individual restoration and again at the end of the round. Full 36-checker
+suite and full six-generator rebuild re-run clean after the whole round
+(36/36 exit 0, all 189 files under modules/ and core/ byte-identical to the
+pre-round baseline); git status --porcelain -- modules core branches.json
+gbp-packs tools status empty throughout.
+
+RESULT
+Zero in-repo defect. This pack was already correctly satisfying the
+shared-domain profile-website rule on both its failure branches (wrong
+target, missing line), now proven directly by injection for the first time
+in this item's thirteen-pass history. No checker logic, generator, page or
+branches.json content changed at any point.
+
+LIVE HALF
+Claude in Chrome not connected (Q59), not retried by another route, nothing
+clicked, typed or submitted anywhere. Fell back to the established read-only
+HTTP GET route (network egress confirmed via a 200 from api.github.com):
+- pharmacy-mccanns-aigburth.html (the profile-website landing page the rule
+  above is about): HTTP 404 - unchanged, still awaiting the queued Weebly
+  paste run, consistent with every prior pass since the seventh.
+- pharmacy-first-service-aigburth.html (Post A): HTTP 200.
+- switch-prescriptions-mccanns-aigburth.html (Post B): HTTP 200.
+- weight-loss-clinic-mccanns-aigburth.html (Post C): HTTP 200.
+- travel-clinic-mccanns-aigburth.html (Post D): HTTP 200.
+Full text of the four 200 targets not re-read this pass beyond status code;
+last confirmed clean at depth on the seventh, ninth and twelfth passes. Q83
+(weight loss booking-block price ahead of eligibility) is not re-raised, it
+is already open and unchanged. No new live finding.
+
+QUESTIONS
+None raised this run. QUESTIONS.json re-read in full before and after: 98
+total, 45 open, unchanged.
+
+FILES CHANGED
+AGENT_WORKLIST.md (item 4.6 thirteenth-pass paragraph appended in place, no
+checkbox change - already [x]); AGENT_LOG.md (new entry at top); this file
+(new).
+
+PUSH/PUBLISH
+Sandbox has no push credentials for either remote this run (SSH host key
+verification fails; the HTTPS remote has no stored username, no credential
+helper, no GITHUB_TOKEN-shaped env var, no .netrc; no gh CLI present) -
+standing Q96, confirmed again. Committed locally only. Per the most recent
+prior pass's own explicit reasoning (item 4.3, this same day): Q96 and Q87
+both record that standardising on mcp__Windows-MCP__PowerShell as a push
+workaround is "Rishi's call, not mine... worth his explicit sign-off rather
+than a quiet default", and no "Standing authorisation - autonomous window"
+heading was present at the top of AGENT_LOG.md at the start of this run. This
+run does not use Windows-MCP to complete the write half either, for the same
+reason: treating a prior run's unminuted practice as sign-off would itself be
+the "quiet default" those two questions were raised to prevent. This commit
+therefore stays local-only, on top of the prior run's own unpushed commits.
+tools/build-audit-status.js could not have run from this sandbox in any case
+(it shells out to gh and hardcodes a Windows-only path, `C:/Dev/rbh-site-data`).
