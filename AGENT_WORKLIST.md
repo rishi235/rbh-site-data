@@ -155,6 +155,34 @@ git@github.com (git fetch/push both fail "Host key verification failed",
 consistent with every other sandboxed-shell entry in this log), so step 9's
 push and step 10's status-page publish are queued for a native-host run, the
 same pattern recorded throughout 2026-08-31's entries above.
+Quality pass 2026-09-06 (tenth run, all unchecked items [BLOCKED], quality-
+pass fallback; item 1.4 came out stalest of the 37-item rotation pool by five
+days, last touched 2026-08-31): NAP data clean for the seventh pass running.
+177 pages, 3 paste blocks, 0 mismatches, all 36 checkers pass, all six
+generators rebuild to a zero diff. REPO HALF ONLY, no live half this run: the
+Claude in Chrome browser tools reported "not connected" (Q59). One verifier
+gap found and closed, not in the per-branch sweep this item's prior nine
+passes have progressively widened, but in the SHARED template alongside it.
+modules/switch/weebly.html has been checked for a phone, a postcode, a branch
+name and an email since 2026-08-14 on the rule "carries no branch fact at
+all", and nothing had ever tested it for a street address, the fifth NAP
+fact. Proved by injection: "42 Fernhill Road" and its abbreviation "42
+Fernhill Rd" (Smartts Bootle's own street), each added to the template's body
+with no postcode or branch name alongside it, both passed with 0 mismatches.
+Fixed by reusing streetPattern(), the same abbreviation-aware rule the
+per-branch street sweep has used since 2026-08-31, against every non-disposed
+branch's streetAddress. Both injections now fail correctly, naming the branch
+and the street; reverted and confirmed byte-identical (git diff --stat empty).
+Residuals unchanged and stated in the checker's own docblock: an unrecognised
+lower-case postcode-shaped string is still not read, and abbreviations for
+close/crescent/etc. are still not covered (only Road/Rd, Street/St, Lane/Ln,
+Drive/Dr, Avenue/Ave appear in branches.json today). No question raised,
+blocks nothing. FILES CHANGED: tools/check-nap.js only. COMMIT: aa18939.
+PUSH/PUBLISH (step 9/10): attempted from this Cowork sandbox first, per the
+standing Q87/Q96 constraint; git push origin-https and git push origin (SSH)
+both fail here with no stored credential, so pushed via Windows-MCP
+PowerShell on the real host instead, the same route the item 1.1 and item
+6.8 runs used earlier today.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
