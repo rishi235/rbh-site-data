@@ -1,0 +1,179 @@
+Item 3.8 (SK Chemists Bootle) - thirteenth quality pass, 2026-09-06
+Unattended scheduled run via Cowork. Sandbox git access via origin-https
+(read only); write/push/publish via mcp__Windows-MCP__PowerShell against the
+canonical C:\Dev\rbh-site-data working copy, per the standing Q96 workaround
+(sandbox carries no push credentials; verified this run - no SSH key, no
+GH_TOKEN, no gh CLI, no .netrc in the sandbox; git@github.com SSH fetch fails
+"Host key verification failed", origin-https fetch works read-only).
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the two
+under Q60 for 6.4/6.5, 6.6) confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied. Rotation pool re-derived fresh via a Python
+script: for each of the 43 checked items, git log -1 --format=%cI on its own
+paragraph's line range (bounded by the next item's header line), excluding
+the six standing out-of-rotation items (1.1, 1.4, 5.6, 5.7, 6.7, 6.8), giving
+the standing 37-item pool. Item 3.8 came out stalest at
+2026-09-05T19:16:58+01:00, clear of the next stalest (6.3, 19:44:47) and
+every other pool item by at least 27 minutes.
+
+ANSWER PICKUP (step 3)
+mcp__claude-in-chrome__tabs_context_mcp reported Claude in Chrome not
+connected - standing Q59, unchanged. Logged and carried on; nothing clicked,
+typed, submitted or signed in anywhere. QUESTIONS.json: 45 open of the total
+at run start, unchanged by pickup this run.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" heading present at the top
+of AGENT_LOG.md at run start. Not applicable.
+
+BASELINE (tracked repo)
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0.
+All six page generators (build-branch-landing-pages, build-contraception-
+pages, build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt from branches.json: sha256 of all 189
+tracked files under modules/ and core/ identical before and after (combined
+hash fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3);
+git status --porcelain -- modules core branches.json gbp-packs tools status
+empty throughout.
+
+FRESH ANGLE
+Twelve prior passes on item 3.8 had proven, by injection against the real
+checker, check-contraception-copy.js, check-nap.js, check-seo-pattern.js,
+check-whatsapp-route.js, check-app-membership.js, check-switch-copy.js,
+check-branch-links.js and check-jsonld.js against SK Chemists Bootle's own
+12 real pages. tools/check-booking-routes.js - the checker guarding the
+booking chain from branches.json's widgets through the generated filename to
+the live Appointedd diary, and the specific checker item 3.7's own eleventh
+pass proved for the first time against Smartts Chemist Bootle (the adjacent,
+different-brand neighbour CLAUDE.md names as the estate's highest-risk
+copy-paste pair) - had never been proven against SK Chemists Bootle's own
+files, confirmed by grep across this item's full twelve-pass history
+returning zero mentions of "check-booking-routes" or "booking-routes"
+before this pass. This closes that gap from SK's side, completing the pair
+Smartts/SK for this specific checker.
+
+METHOD
+Isolated scratch copy only: `git archive HEAD | tar -x` into
+/tmp/scratch-3.8, so the tracked working tree was never opened for writing
+during the injection round (the tracked repo has no .git inside the scratch
+copy, which later caused one expected false failure in check-cdn-pins.js,
+see FALSE ALARM below - unrelated to this pass's injections). Baseline
+confirmed on the scratch copy: check-booking-routes.js clean (156 booking
+mounts, 156 routed, 11 service slugs, 3 no-fallback services, 7 Pharmacy
+First conditions, 6 cross-sister shared ids, 0 failures). sha256 of
+branches.json and all 12 SK Bootle files taken before any injection
+(branches.json 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e,
+matching the hash already on record from item 3.8's eleventh pass and item
+3.6's own passes, confirming the scratch copy is the same content).
+
+INJECTION ROUND, four cases, one per rule, each against SK Chemists Bootle's
+own real widget ids and pages, each restored by direct file copy (or a
+single-line sed edit for branches.json, never a full JSON re-serialise) and
+sha256-reconfirmed byte-identical before the next:
+
+(1) RULE 4 branchattr - uti-treatment-sk-chemists-bootle.html's
+data-branch changed from "SK Chemists" to "Smartts Chemist" (the real,
+directly adjacent, different-brand Bootle pharmacy named in CLAUDE.md and in
+item 3.7's own paragraph as the highest-risk copy-paste adjacency in the
+estate) - CAUGHT, exit 1: "data-branch=\"Smartts Chemist\" but the URL
+resolves to skchemists_bootle (\"SK Chemists\"), so an enquiry from this page
+is filed against the wrong pharmacy". Restored, sha256 reconfirmed identical
+(b123272e58d4237211d65d22d286a9da336b6ec5264bcbe85097daefa9d9aad4).
+
+(2) RULE 3 widget - skchemists_bootle's own pharmacyFirst widget id deleted
+from branches.json (single-line sed deletion of the whole "pharmacyFirst":
+"..." line, JSON re-validated with json.load before running the checker) -
+CAUGHT, exit 1, on all 8 dependent pages simultaneously (the Pharmacy First
+overview plus its seven NHS condition pages: earache, impetigo,
+insect-bite, pharmacy-first, shingles, sinusitis, sore-throat, uti),
+confirming by injection for the first time that SK Bootle's whole Pharmacy
+First page family depends on that one field with no page-level fallback of
+its own - the same shape item 3.7's eleventh pass proved for Smartts.
+Restored, sha256 reconfirmed identical
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e).
+
+(3) RULE 5 serviceattr - shingles-treatment-sk-chemists-bootle.html's
+data-service changed from "Shingles treatment" to "Shingles NHS
+Consultation" - CAUGHT, exit 1: "service \"shingles-treatment\" is
+described 2 different ways in data-service ... \"Shingles treatment\" x13,
+\"Shingles NHS Consultation\" x1", correctly counting every other
+shingles-treatment page across the estate against the one changed. Restored,
+sha256 reconfirmed identical
+(a7e4b1d402b0e0ba13ffbaeb83caeafe61d6295563021980390e767289fa453c).
+
+(4) RULE 7 diary - skchemists_bootle's bloodPressure widget id overwritten
+to equal its own pharmacyFirst id (one branch, two services, one diary;
+single-line sed, first match only) - CAUGHT, exit 1: "skchemists_bootle:
+services bloodPressure and pharmacyFirst share one Appointedd id
+(66b9d657d71f677c6d5e602b), so a booking for one lands in the other's
+diary". Restored, sha256 reconfirmed identical to the RULE 3 restore value
+above.
+
+All four caught first attempt with the expected rule-specific message and no
+cross-firing on an unrelated rule or branch. Full 36-checker suite re-run on
+the scratch copy after all four restores: 35/36 clean, one expected false
+alarm (see below). sha256 of branches.json and all 12 SK Bootle files after
+the round matches the pre-round baseline file for file (diff empty).
+
+FALSE ALARM (not a defect)
+check-cdn-pins.js failed on the scratch copy's post-round re-run with six
+"does not resolve in git" failures. Root cause confirmed: the scratch copy
+was made with `git archive HEAD | tar -x`, which produces a working tree
+with no .git directory at all ("fatal: not a git repository"), so the
+checker's own git-ref-resolution calls (which shell out to git to confirm
+service-module-phase1, 6a275e1 and main all resolve) fail categorically -
+unrelated to any of this pass's four injections, all of which targeted only
+branches.json and two SK Bootle HTML files, never touched by check-cdn-pins
+at all. Confirmed by re-running check-cdn-pins.js directly on the real
+tracked repository (which does have .git and full ref history): exit 0,
+clean, matching this pass's own pre-round baseline above. Recorded here so
+a future pass reusing git-archive scratch copies does not mistake this for
+a live finding.
+
+RESULT
+Zero in-repo defect: SK Chemists Bootle's booking chain (branches.json
+widgets -> generated filename -> service.js routing -> data-branch ->
+data-service) was already correct on every rule this pass exercised, now
+proven directly by injection against the official checker for the first
+time, completing the Smartts/SK pair CLAUDE.md names as the estate's
+highest-risk booking-chain adjacency. No checker logic, generator, page or
+branches.json content changed in the tracked tree at any point.
+
+GBP PACK
+gbp-packs/sk-chemists-bootle.md re-read in full: name, address, phone,
+hours (Monday to Friday 9:00am to 6:00pm, Saturday and Sunday closed),
+website and review link all still match branches.json field for field. No
+sister-branch claim, correctly (SK Chemists Bootle has no same-brand sister
+in this estate). Known open items unchanged from the prior pass's own
+reading: Post A repointed correctly (5.3/Q34), Post C's weight-loss button
+destination guarded by an explicit paster warning (5.8/Q58, not fixed here
+as it is live patient-facing regulatory copy an unattended run may not
+decide), site republish/repaste backlog unchanged. No new drift.
+
+LIVE HALF
+Claude in Chrome not connected (checked at answer pickup and again here);
+this run has genuine PowerShell access to the real ProDesk host via
+mcp__Windows-MCP__PowerShell, so used that for a read-only GET (Invoke-
+WebRequest, no interaction, no login, no POST) rather than declining the
+live half outright. Three URLs, focused on this pass's own theme (the
+booking-chain attributes):
+- pharmacy-first-sk-chemists-bootle.html: HTTP 200, data-branch="SK
+  Chemists", data-service="Pharmacy First", data-wa="447521775631" - all
+  correct, live-confirming RULE 4/5 held on the actual live page, not just
+  the repo copy.
+- uti-treatment-sk-chemists-bootle.html: HTTP 200, data-branch="SK
+  Chemists", data-service="UTI treatment", data-wa="447521775631" - correct;
+  this is the same page RULE 4 was injected against in the repo copy above,
+  now confirmed correct live too.
+- switch-prescriptions-sk-chemists-bootle.html: HTTP 200, data-branch="SK
+  Chemists", data-wa="447521775631", data-service absent - correct and
+  expected: switch pages use #rbhsw-root (switch.js), carry no Appointedd
+  booking mount and no data-service, confirmed against the repo source
+  before treating the empty value as a finding rather than a defect.
+No live discrepancy found on the three pages read. Prior passes' other
+live-only findings (pfLink page pre-5.3/Q34 repaste history, switch-page
+mojibake em dash, weight-loss-clinic live schema) were not re-checked this
+pass and should not be assumed unchanged or resolved.
+
+No new question raised. No checker, generator, page or data file changed.

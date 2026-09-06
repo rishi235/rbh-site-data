@@ -5194,6 +5194,81 @@ Done 2026-09-06 (twelfth pass).
       a repaste rather than a decision and the general repaste backlog is
       already tracked. No other live discrepancy found on the five pages
       read. Evidence in audits/verify-3.8-2026-09-05-twelfth.txt.
+      Quality pass 2026-09-06 (thirteenth, unattended scheduled run via
+      Cowork). Taken because all 8 unchecked AGENT_WORKLIST.md lines
+      confirmed [BLOCKED] by direct grep; item-selection method unchanged
+      (most recent commit-subject mention per item across the standing
+      37-item rotation pool, out-of-rotation set 1.1, 1.4, 5.6, 5.7, 6.7,
+      6.8 excluded, stalest wins, re-derived fresh via a Python script).
+      3.8 was uniquely stalest at 2026-09-05T19:16:58+01:00, clear of the
+      next stalest (6.3, 19:44:47) and every other pool item. Answer
+      pickup (step 3): Claude in Chrome not connected, standing Q59
+      unchanged; logged and carried on. No autonomous-window heading
+      present at the top of AGENT_LOG.md, so moot regardless.
+      BASELINE. All 36 checkers pass before any change. All six generators
+      rebuilt from branches.json; sha256 of all 189 files under modules/
+      and core/ identical before and after; git status --porcelain --
+      modules core branches.json gbp-packs tools status empty throughout.
+      FRESH ANGLE. Twelve prior passes proved check-contraception-copy,
+      check-nap, check-seo-pattern, check-whatsapp-route,
+      check-app-membership, check-switch-copy, check-branch-links and
+      check-jsonld against SK Chemists Bootle's own files, but never
+      tools/check-booking-routes.js - the checker guarding the chain from
+      branches.json's widgets through to the live Appointedd diary, and
+      the same checker item 3.7's own eleventh pass proved for the first
+      time against Smartts Chemist Bootle, the adjacent different-brand
+      neighbour CLAUDE.md names as the estate's highest-risk copy-paste
+      pair. This pass closes that gap from SK's side, completing the
+      Smartts/SK pair for this checker.
+      METHOD. Isolated scratch copy via `git archive HEAD | tar -x` into
+      /tmp/scratch-3.8, tracked tree never opened for writing. Four
+      injections against SK's own real widget ids and pages, each restored
+      by byte copy or single-line sed (never a full JSON re-serialise) and
+      sha256-reconfirmed identical before the next: (1) RULE 4 branchattr -
+      uti-treatment-sk-chemists-bootle.html's data-branch changed to
+      "Smartts Chemist" (the real adjacent different-brand neighbour) -
+      CAUGHT, exit 1, "an enquiry from this page is filed against the
+      wrong pharmacy". (2) RULE 3 widget - skchemists_bootle's own
+      pharmacyFirst id deleted from branches.json - CAUGHT, exit 1, on all
+      8 dependent pages at once (the Pharmacy First overview plus its
+      seven condition pages), the same shape found for Smartts on item
+      3.7's eleventh pass. (3) RULE 5 serviceattr -
+      shingles-treatment-sk-chemists-bootle.html's data-service changed to
+      "Shingles NHS Consultation" - CAUGHT, exit 1, correctly counting 13
+      pages still correct against the 1 changed. (4) RULE 7 diary -
+      skchemists_bootle's bloodPressure id overwritten to equal its own
+      pharmacyFirst id - CAUGHT, exit 1, "a booking for one lands in the
+      other's diary". All four caught first attempt with the expected
+      rule-specific message. Full 36-checker suite re-run after all
+      restores: 35/36 clean, one expected false alarm in check-cdn-pins.js
+      caused by the git-archive scratch copy having no .git directory at
+      all (its git-ref-resolution calls fail categorically, unrelated to
+      any injection here); re-run directly on the tracked repo confirmed
+      exit 0, clean. sha256 of branches.json and all 12 SK files matches
+      the pre-round baseline file for file throughout.
+      RESULT. Zero in-repo defect: SK Chemists Bootle's booking chain was
+      already correct on every rule this pass exercised, now proven by
+      injection against the official checker for the first time,
+      completing the Smartts/SK pair for check-booking-routes.js. No
+      checker, generator, page or branches.json content changed.
+      GBP PACK re-read in full: name, address, phone, hours, website and
+      review link all still match branches.json field for field; no
+      sister claim, correctly; known open items (5.3/Q34, 5.8/Q58, repaste
+      backlog) unchanged.
+      LIVE HALF PERFORMED via mcp__Windows-MCP__PowerShell (Invoke-
+      WebRequest, read-only, no interaction, no login), since this run had
+      genuine access to the real ProDesk host and Claude in Chrome was
+      unavailable. Three URLs focused on this pass's own theme: pharmacy-
+      first-sk-chemists-bootle.html and uti-treatment-sk-chemists-bootle.html
+      both HTTP 200 with correct data-branch, data-service and data-wa,
+      live-confirming rules 4 and 5 held on the actual live pages, not
+      just the repo copy; switch-prescriptions-sk-chemists-bootle.html
+      HTTP 200 with correct data-branch and data-wa and no data-service,
+      which is correct and expected since switch pages carry no booking
+      mount. No live discrepancy found. Prior passes' other live-only
+      findings not re-checked this pass and should not be assumed
+      unchanged. No new question raised. Evidence in
+      audits/verify-3.8-2026-09-06-thirteenth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
