@@ -6086,6 +6086,105 @@ Done 2026-09-06 (twelfth pass).
       already on record from earlier passes; no new live finding, no
       contradiction of the standing state either. No new question raised.
       Evidence in audits/verify-3.10-2026-09-05-eleventh.js. Done 2026-09-05
+      Quality pass 2026-09-06 (twelfth pass, unattended scheduled run via
+      Cowork). Selected as stalest of the 37-item rotation pool: independently
+      re-derived by the same block-bounded git-log method used on every prior
+      pass (43 completed items minus the standing 6 out-of-rotation: 1.1, 1.4,
+      5.6, 5.7, 6.7, 6.8), 3.10 stalest at 2026-09-05T14:11:07+01:00, ahead of
+      2.1 (15:42:23), 5.2 (16:13:13), 4.11 (16:39:52) and every other pool
+      item. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+      direct grep, so the quality-pass fallback applied. ANSWER PICKUP (step
+      3): mcp__claude-in-chrome__tabs_context_mcp reported Claude in Chrome
+      not connected - standing Q59, unchanged; logged and carried on, no
+      alternative route attempted. QUESTIONS.json read in full: 98 total, 45
+      open, none answered by pickup this run. AUTONOMOUS WINDOW (step 4): no
+      "Standing authorisation" heading present at the top of AGENT_LOG.md at
+      run start, not applicable. FRESH ANGLE: eleven prior passes had proven
+      check-nap, check-em-dashes, check-service-links (JS-injected copy),
+      check-postcodes, check-branch-identity (5 rules), check-booking-routes
+      (twice), check-switch-copy, check-contraception-copy,
+      check-travel-clinic-copy and check-jsonld (7 of 8 rules) against
+      Riddings' own pages by injection, and ruled check-opening-hours
+      structurally inapplicable (Riddings has no branch landing page).
+      tools/check-seo-pattern.js - the checker that defines and verifies the
+      title/H1/description pattern the whole 3.1-3.13 worklist series exists
+      to roll out - had zero mentions in eleven prior passes on this item,
+      the same gap the 3.4 thirteenth pass and 3.9 twelfth pass each closed
+      for their own branches earlier today. WORK DONE: wrote
+      audits/verify-3.10-2026-09-06-twelfth.js, sharing no code with
+      tools/check-seo-pattern.js beyond invoking it as a child process;
+      refuses to run if any target file already carries a git diff, restores
+      each from an in-memory Buffer immediately after capturing the
+      checker's output and before any assertion, SHA256-reconfirmed
+      byte-identical before the next injection and again at the end. Ran
+      directly against the live tree (every mutation self-restoring and
+      immediately verified), the same choice the 3.4 thirteenth-pass and 3.9
+      twelfth-pass audits made. Baseline: node tools/check-seo-pattern.js
+      clean ("OK Riddings Pharmacy - 12 pages", 177 pages checked
+      estate-wide, 0 untyped, 0 failures). Four injections, one at a time,
+      targeting two Riddings pages never used for any injection test on this
+      item before (insect-bite-treatment - also the Q14/fitTitle() family-A
+      page type, the same class of page the 3.9 twelfth pass tested at its
+      own origin case - and travel-clinic, one of the 15 highest-commitment
+      paid-service pages in the estate) plus two previously-used pages
+      exercising a different rule of a different checker each time
+      (sore-throat-treatment, switch-prescriptions): (1) EXACT TITLE MATCH -
+      " - Now Open Weekends" appended to the Weebly page SEO title line on
+      insect-bite-treatment-riddings-timperley.html, caught immediately on
+      the exact-string mismatch; (2) CROSS-TOWN ABSENCE - "Also serving
+      patients from Ainsdale." appended to travel-clinic-riddings-
+      timperley.html's description (Ainsdale is a live seoTown held by
+      Fishlocks Ainsdale and Hirshmans Ainsdale, not in Riddings' own
+      serviceAreaList of Timperley/Altrincham/Trafford; Riddings is
+      single-host, so no SISTER_TOWNS excuse applies either), caught
+      immediately, naming Ainsdale and confirming absence from
+      serviceAreaList; (3) ONE H1 - a second "<h1>Pharmacy in
+      Ainsdale</h1>" appended directly after the genuine heading on
+      sore-throat-treatment-riddings-timperley.html, caught immediately ("2
+      h1 elements, expected exactly 1"); (4) ONE TITLE LINE - a second
+      "Weebly page SEO title: Pharmacy in Ainsdale" line inserted
+      immediately after the genuine one in the head comment of
+      switch-prescriptions-riddings-timperley.html, caught immediately ("2
+      'Weebly page SEO title' lines, expected exactly 1"). All four caught
+      on their intended rule, first attempt, with no cross-firing on an
+      unrelated rule or an unrelated brand; all four target files confirmed
+      git-diff-empty and sha256-identical to their pre-test hashes
+      throughout and after every individual restoration. Full 36-checker
+      suite re-run individually after the round: 36/36 exit 0. All six
+      generators (build-branch-landing-pages.js, build-contraception-
+      pages.js, build-service-pages.js, build-switch-pages.js,
+      build-travel-clinic-pages.js, build-weight-loss-pages.js) rebuilt via
+      their own scripts; git status --porcelain -- modules core tools
+      branches.json gbp-packs status empty before and after (byte-
+      identical). RESULT: no in-repo defect. check-seo-pattern.js was
+      already correctly protecting Riddings Pharmacy's twelve pages on every
+      rule tested; now proven directly by injection against this branch
+      specifically for the first time in twelve passes on this item. No
+      checker logic, generator, page or branches.json content changed in
+      the tracked repo. LIVE HALF, PARTIAL. Claude in Chrome confirmed not
+      connected (checked at step 3 and again before this section); the
+      built-in Claude Browser was tried (preview_start on
+      riddingspharmacy.co.uk) and refused pending a new-site approval, the
+      same "no user present to grant one" outcome recorded on every prior
+      unattended pass on this item since the third - request_access was not
+      called. Fell back to a direct read-only curl GET (nothing clicked,
+      typed, submitted or signed in anywhere; no non-GET request made to any
+      site): the insect-bite-treatment page (one of the two pages newly
+      proven by injection this pass) is live at 200, with the exact expected
+      <title> and <h1> ("Infected insect bite treatment in Timperley -
+      Riddings Pharmacy" / matching h1), confirming the injection target
+      itself is correct in production, not only in the repo; homepage 200
+      with own phone (0161 973 2951) and own email (Riddings@rbhealth.co.uk)
+      both present. Not re-read against the standing Q31 Cheshire county
+      string, the Q22 weight loss tagline or the switch banner mojibake
+      already on record from earlier passes; no new live finding, no
+      contradiction of the standing state either. QUESTIONS: none raised or
+      answered this run. QUESTIONS.json re-read in full before and after: 98
+      total, 45 open, unchanged. FILES CHANGED: AGENT_WORKLIST.md (this
+      paragraph); AGENT_LOG.md (new entry);
+      audits/verify-3.10-2026-09-06-twelfth.js (new). Evidence in
+      audits/verify-3.10-2026-09-06-twelfth.js and
+      audits/verify-3.10-2026-09-06-twelfth-output.txt. Done 2026-09-06
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

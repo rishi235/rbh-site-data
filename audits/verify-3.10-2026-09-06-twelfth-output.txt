@@ -1,0 +1,14 @@
+=== check-seo-pattern.js injections against Riddings Pharmacy (Timperley) ===
+
+Baseline before any mutation: exit 0
+[CAUGHT] EXACT TITLE MATCH (modules/service/pages/insect-bite-treatment-riddings-timperley.html)
+[CAUGHT] CROSS-TOWN ABSENCE (Ainsdale, not in Timperley/Altrincham/Trafford) (modules/service/pages/travel-clinic-riddings-timperley.html)
+[CAUGHT] ONE H1 (modules/service/pages/sore-throat-treatment-riddings-timperley.html)
+[CAUGHT] ONE TITLE LINE (modules/switch/pages/switch-prescriptions-riddings-timperley.html)
+
+Full check-seo-pattern.js re-check after all four injections:
+exit 0
+
+=== RESULT ===
+All 4 injections caught on first attempt.
+No checker logic, generator, page or branches.json content changed in the tracked repo.
