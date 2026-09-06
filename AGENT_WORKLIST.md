@@ -9408,6 +9408,46 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-05-twelfth.txt.
       Next stalest by this run's own rotation-pool re-derivation: 4.2,
       ahead of 4.14, 1.2, 3.11 and the rest of the pool.
+      Quality pass 2026-09-06 (thirteenth): re-derived the rotation pick
+      independently (37-item pool, subject-anchored match); 4.7 last touched
+      2026-09-04T01:43:33+01:00 (its eleventh pass), and none of today's nine
+      prior runs (4.10, 4.9, 4.12, 4.15, 2.3, 3.3, 6.8, 1.1, 1.4, 4.2) had
+      touched it, confirming it uniquely stalest. All 36 checkers clean on a
+      full scratch copy before any edit; sha256 of the pack
+      (bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e)
+      matched the twelfth pass's own recorded value exactly, confirming no
+      drift.
+      tools/check-gbp-pharmacy-first.js rules 3, 4 and 6 were proven against
+      this pack's own copy on the twelfth pass; rules 5, 7 and 8 had only ever
+      been proven against a different pack (Coleman and Leighs, item 4.12).
+      Four fresh injections on the scratch copy, each restored by byte copy
+      and sha256-reconfirmed identical to baseline before the next: (1) rule
+      5, count claim - the business description's "seven common conditions"
+      changed to "eight" (Post A and the Services bullet left saying "seven")
+      - caught, confirming rule 5 reads the business description and not only
+      the two Pharmacy First scopes on this pack; (2) rule 7, the hedge -
+      "where appropriate, " removed from Post A's "can assess and, where
+      appropriate, treat seven common conditions" - caught, Services bullet's
+      own hedge untouched and correctly silent; (3) rule 8, price direction -
+      ", from £5" inserted into Post A - caught; (4) rule 8, missing-free
+      direction - Post A's "is a free NHS service" changed to "is a convenient
+      NHS service", with zero "free"/"no charge" tokens confirmed remaining in
+      that scope before running the checker - caught. All four fired first
+      attempt, each on its own intended rule, no cross-firing. Full 36-checker
+      suite re-run clean after the final restore; pack sha256 reconfirmed
+      identical to baseline; tracked repo's own copy never opened for writing.
+      All six page generators rebuilt to a zero-diff worktree
+      (`git status --porcelain -- modules core` empty). No in-repo defect -
+      rules 5, 7 and 8 already protect this pack; now proven directly rather
+      than only by passive coverage.
+      Live half: Claude in Chrome not connected (Q59, unchanged); plain
+      read-only curl GET used as the fallback (working outbound network this
+      run). All findings reconfirmed unchanged from the twelfth pass:
+      pharmacy-mccanns-sandringham.html still 404 (Q35); the four post-target
+      pages (Pharmacy First, switch, weight loss, travel clinic) all 200;
+      sitemap lastmod unchanged at 2026-08-14T23:05:25Z, confirming no
+      republish since the twelfth pass's own reading. No new question.
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-06-thirteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

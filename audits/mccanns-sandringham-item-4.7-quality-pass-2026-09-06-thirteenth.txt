@@ -1,0 +1,83 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - thirteenth quality pass, 2026-09-06
+Unattended scheduled run, Cowork mcp__workspace__bash sandbox.
+
+ROTATION: pool of 37 (1.2,1.3,2.1-2.3,3.1-3.13,4.1-4.15,5.1,5.2,6.2,6.3; out-of-
+rotation 1.1,1.4,5.6,5.7,6.7,6.8 excluded), re-derived from
+`git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md`, subject
+matched on \bitem\s+<id>\b. 4.7 last touched 2026-09-04T01:43:33+01:00 (its own
+eleventh pass, referenced by the twelfth pass's own commit), and no run today
+(2026-09-06: 4.10, 4.9, 4.12, 4.15, 2.3, 3.3, 6.8, 1.1, 1.4, 4.2) touched it.
+Chosen as stalest, confirming the twelfth pass's own forward note.
+
+BASELINE: full repo copied with .git to /tmp/rbh-scratch-47-13th (excluding
+.git makes check-cdn-pins.js fail falsely, per this item's own established
+method note). All 36 tools/check-*.js exit 0 before any edit. sha256 of
+gbp-packs/mccanns-sandringham.md recorded before any edit:
+bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e - matches the
+value recorded on the twelfth pass exactly, confirming no drift since.
+
+FRESH ANGLE: tools/check-gbp-pharmacy-first.js rules 3, 4 and 6 were proven
+against this pack's own copy on the twelfth pass. Rules 5, 7 and 8 had only
+ever been proven against a different pack (Coleman and Leighs, item 4.12,
+thirteenth pass) - never by injection against McCanns Sandringham specifically
+across twelve prior passes. This pass closes that gap.
+
+FOUR INJECTIONS, each on the scratch copy only, restored by byte copy from a
+saved baseline file and sha256-reconfirmed identical
+(bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e) before the
+next:
+
+1. RULE 5 (count claim, read across all published copy, not just the two PF
+   blocks). Section 1 business description: "assess and treat seven common
+   conditions" changed to "...eight common conditions" (Post A and the
+   Services bullet left untouched, still saying "seven"). CAUGHT: "published
+   copy says \"eight common conditions\", but the canon ... holds 7 Pharmacy
+   First pathways (\"seven\")." Confirms rule 5 reads the business description,
+   not only the two PF scopes, on this specific pack.
+
+2. RULE 7 (the hedge). Post A: "Our pharmacists can assess and, where
+   appropriate, treat seven common conditions" had "where appropriate, "
+   removed, leaving "...can assess and treat seven common conditions" (the
+   Services bullet's own "where appropriate" left untouched). CAUGHT: "Post A
+   promises treatment for the Pharmacy First conditions without the \"where
+   appropriate\" qualifier."
+
+3. RULE 8, price direction. Post A: ", from £5" inserted after "No GP
+   appointment or referral needed". CAUGHT: "Post A carries a price (\"from
+   £\") inside the Pharmacy First copy."
+
+4. RULE 8, missing-free direction. Post A: "Pharmacy First is a free NHS
+   service" changed to "...is a convenient NHS service" (confirmed
+   programmatically zero remaining "free" or "no charge" tokens in the Post A
+   scope before running the checker, so the failure could only come from the
+   intended sentence). CAUGHT: "Post A does not say the Pharmacy First service
+   is free."
+
+All four caught first attempt, each on its own intended rule, no cross-firing
+(the Services bullet's independent copy of the hedge/free wording was never
+touched and never fired).
+
+RESTORE AND RE-VERIFICATION: pack file byte-restored and sha256-reconfirmed
+identical to baseline after the final injection. Full 36-checker suite re-run
+clean (36/36 exit 0). All six page generators (branch-landing, contraception,
+service, switch, travel-clinic, weight-loss) rebuilt: all exit 0,
+`git status --porcelain -- modules core` and `git diff --stat -- modules core`
+both empty on the scratch copy (zero-diff worktree). tracked repo's own copy of
+the pack never opened for writing throughout this pass.
+
+NO IN-REPO DEFECT FOUND. check-gbp-pharmacy-first.js's rules 5, 7 and 8 already
+protect this pack correctly; now proven directly for the first time rather than
+only by passive coverage in "all checkers clean" sweeps.
+
+LIVE HALF: Claude in Chrome not connected (standing Q59 constraint, confirmed
+this run via tabs_context_mcp). Fell back to a plain read-only curl GET (no
+login, no click, no submit) from the sandbox shell, which has working outbound
+network access this run. All findings reconfirmed unchanged from the twelfth
+pass: pharmacy-mccanns-sandringham.html (the profile-website landing page)
+still 404 (Q35, unchanged, the pack already holds the paster back on this
+field); the four post-target pages (Pharmacy First, switch, weight loss
+clinic, travel clinic) all 200; sitemap lastmod unchanged at
+2026-08-14T23:05:25+00:00 throughout, confirming no republish since the
+twelfth pass's own reading.
+
+QUESTIONS: none raised this pass; QUESTIONS.json unchanged.
