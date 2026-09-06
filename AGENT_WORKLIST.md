@@ -9113,6 +9113,62 @@ Pharmacy First wording to the NHS service description.
       repo can fetch). No in-repo defect found, no new question raised.
       Evidence: audits/allowlist-reproof-4.3-2026-09-05-twelfth.txt. Done
       2026-09-05
+      Quality pass 2026-09-06 (thirteenth pass, unattended scheduled run via
+      Cowork): re-verified as the stalest rotation-pool item (last touched
+      2026-09-05T21:16:31+01:00, the earliest of the 37-item pool re-derived
+      fresh via the established `git log -1 --format=%cI --no-patch
+      -L<start>,<end>:AGENT_WORKLIST.md` method, clear of the next item, 4.6,
+      at 21:44:12 the same evening). NEW ANGLE: check-gbp-packs.js's post
+      button LABEL rule (RECOGNISED_CTAS/TRANSACTIONAL_CTAS) and its lead-
+      pricing/offer rule (PRICE_PATTERNS/OFFER_PATTERNS), both born on the
+      item 4.5 quality pass, 2026-08-13, by injection against scorah-hazel-
+      grove.md at birth, had never been proven by injection against this
+      pack's own copy across the first twelve passes. Confirmed absent by
+      grep first.
+      BASELINE: all 36 checkers run individually, 36/36 exit 0.
+      gbp-packs/hirshmans-ainsdale.md sha256
+      94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8,
+      matching every prior pass's recorded hash. Backup taken at
+      _agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-thirteenth.
+      PROOF BY INJECTION, two rounds, each restored to the pre-injection
+      backup and sha256-reconfirmed before the next: (1) Post C's button
+      changed from "Book" to "Buy now" - CAUGHT, exit 1, exactly one FAIL,
+      "a transactional call to action on a prescription-only service is the
+      'Buy [product]' control the house standards bar... Use 'Book' or
+      'Learn more'". (2) Post C's closing sentence had "Treatments start
+      from just £49 a month." appended - CAUGHT, exit 1, exactly one FAIL,
+      "carries a price in the posted copy... the house standards bar lead
+      pricing that encourages entry on price". Both caught first attempt
+      with the expected rule-specific message, the four standing warnings
+      (Q72 qualifier wording, Post A phone-like-number, Post A live-only-
+      link, Q64 post-town) unchanged alongside each, no cross-firing. File
+      restored by byte copy both times (this mount cannot unlink via git
+      checkout, the standing FUSE quirk); sha256 reconfirmed identical to
+      the pre-injection backup after each round and after the pass.
+      RESULT: zero in-repo defect. This pack's own Post C button label and
+      posted copy already carried no transactional CTA and no lead price or
+      offer wording, now proven directly by injection against both rules
+      for the first time in this item's thirteen-pass history. Full
+      36-checker suite re-run clean after the final restore (36/36 exit 0);
+      git status --porcelain -- gbp-packs empty throughout. This pack is
+      not a generator input, so modules/core were not touched, confirmed
+      empty throughout.
+      LIVE HALF: Claude in Chrome not connected this run (checked via
+      navigate, not retried by another route, nothing clicked, typed,
+      submitted or signed in anywhere). Fell back to direct read-only HTTP
+      GET (network egress confirmed working first): all five targets on
+      hirshmanspharmacy.co.uk returned 200 - the four Post buttons plus the
+      generated pharmacy-first-hirshmans-ainsdale.html replacement. Not
+      re-read in full text this pass beyond status code; last confirmed
+      clean at depth on the tenth and eleventh passes. Post A HARD STOP
+      (item 5.3/Q8/Q34) and Post B's live em-dash mojibake (item 5.1/Q7,
+      the same live-paste-lag family as Cherry Lane and Coleman and Leighs)
+      remain the only two outstanding live findings, both already tracked,
+      neither actionable from this repo (a Weebly paste, outside this
+      worker's write scope). No in-repo defect found, no new question
+      raised. Evidence:
+      audits/button-price-reproof-4.3-2026-09-06-thirteenth.txt. Done
+      2026-09-06
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

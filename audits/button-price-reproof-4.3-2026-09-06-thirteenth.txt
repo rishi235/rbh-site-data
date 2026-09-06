@@ -1,0 +1,87 @@
+Item 4.3 quality pass (thirteenth), 2026-09-06 - button-label and lead-price rule reproof
+============================================================================
+
+SUBJECT: tools/check-gbp-packs.js's post button LABEL rule (line ~1946,
+RECOGNISED_CTAS / TRANSACTIONAL_CTAS) and the lead-pricing/offer rule
+(line ~1999, PRICE_PATTERNS / OFFER_PATTERNS), both born on the item 4.5
+quality pass, 2026-08-13, by injection against gbp-packs/scorah-hazel-grove.md
+at birth. Neither had been proven by injection against Hirshmans's own copy
+across the item's first twelve passes, which had instead proven: road-name
+(5th, 7th), claim-patterns/outcome-wording (7th), bank-holiday (8th),
+pharmacy-first-eligibility rules 9/10/11 in the sibling checker (9th),
+splitDay time-range (10th), day-presence three legs (11th), services/
+categories allowlist (12th). Confirmed absent from this item's own text by
+grep across AGENT_WORKLIST.md's item 4.3 paragraph before writing anything:
+no hit for "button label" or "lead pric" or "Buy now" in that history.
+
+BASELINE: all 36 tools/check-*.js run individually before any change, 36/36
+exit 0. gbp-packs/hirshmans-ainsdale.md sha256
+94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8, matching
+every prior pass's recorded hash (unchanged since the file was last touched
+on the eleventh pass, 2026-09-04). Backup taken at
+_agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-thirteenth, sha256
+identical, before either injection.
+
+INJECTION 1 (button label rule): Post C's button line changed from
+"Button: Book -> .../weight-loss-clinic-hirshmans-ainsdale.html" to
+"Button: Buy now -> .../weight-loss-clinic-hirshmans-ainsdale.html".
+CAUGHT, exit 1, exactly one new FAIL: "Post C - Weight loss clinic is the
+weight loss post and its button is labelled \"Buy now\". A transactional
+call to action on a prescription-only service is the \"Buy [product]\"
+control the house standards bar, and a Google post sits in the advertising
+regime where that prohibition is near-total
+(compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md). Use \"Book\" or
+\"Learn more\"". The four standing WARNs (Q72 qualifier wording, the
+Post A phone-like-number warning, the Post A live-only-link warning, Q64
+post-town) were present and unchanged alongside it. File restored by byte
+copy from the pre-injection backup (this mount cannot unlink via git
+checkout, the standing FUSE quirk); sha256 reconfirmed identical to the
+backup immediately after restoration.
+
+INJECTION 2 (lead-pricing rule), on a fresh restored copy, run separately
+so neither injection could mask the other: Post C's closing sentence
+"Book your consultation today." had "Treatments start from just £49 a
+month." appended. CAUGHT, exit 1, exactly one new FAIL: "Post C - Weight
+loss clinic carries a price in the posted copy (\"£4\"). A Google post is
+advertising, not an inner page the customer chose to visit, and the house
+standards bar lead pricing that encourages entry on price, naming
+\"treatments start from ...\" as a ruled breach
+(compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Keep price out
+of the post and let the consultation page carry it". Same four standing
+WARNs present and unchanged. File restored by byte copy; sha256
+reconfirmed identical to the backup.
+
+RESTORE CONFIRMATION: after both rounds, sha256 of gbp-packs/hirshmans-
+ainsdale.md matched 94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5
+cdab3a3faf8 exactly. git status --porcelain -- gbp-packs empty. Full
+36-checker suite re-run clean: 36/36 exit 0, no new warnings, the four
+standing ones present as before. git status --porcelain -- modules core
+branches.json gbp-packs tools status empty throughout and afterwards; this
+pack is not a generator input, so no rebuild was needed for this pass.
+
+RESULT: zero in-repo defect. This pack's own Post C button label ("Book")
+and its posted copy already carried no transactional CTA and no lead price
+or offer wording, now proven directly by injection against both rules for
+the first time in this item's thirteen-pass history. Closes two of the
+remaining named-but-unproven-against-Hirshmans check-gbp-packs.js rules
+(button label, lead-pricing/offer).
+
+LIVE HALF: Claude in Chrome not connected this run (checked via
+mcp__claude-in-chrome__navigate before falling back; not retried by
+another route, nothing clicked, typed, submitted or signed in anywhere).
+Fell back to direct read-only HTTP GET (network egress confirmed working
+via api.github.com returning 200 earlier in this run). All five targets on
+hirshmanspharmacy.co.uk returned HTTP 200: pharmacy-first-service-
+ainsdale.html (Post A, HARD STOP, still item 5.3/Q8/Q34, not re-read in
+full text this pass, last confirmed at depth on the eleventh pass),
+switch-prescriptions-hirshmans-ainsdale.html (Post B), weight-loss-clinic-
+hirshmans-ainsdale.html (Post C), travel-clinic-hirshmans-ainsdale.html
+(Post D), and pharmacy-first-hirshmans-ainsdale.html (the generated
+Pharmacy First replacement). Not re-read in full text this pass beyond
+status code; last confirmed clean at depth on the tenth/eleventh/twelfth
+passes and unlikely to have changed given the item 5.1 live-paste-lag
+(Q7/em dash) and item 5.3/Q8/Q34 (Post A HARD STOP) remain the only two
+outstanding live findings, both already tracked and neither re-actionable
+by this worker (outside its write scope: a Weebly paste, not a repo file).
+
+No in-repo defect found. No new question raised.
