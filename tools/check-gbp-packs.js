@@ -2956,7 +2956,41 @@ for (const file of packFiles) {
   if (servicesForSister) sisterScopeParts.push(servicesForSister);
   for (const p of postsOf(text)) sisterScopeParts.push(p.body);
   const flatForSister = sisterScopeParts.join(" ").replace(/\s+/g, " ");
-  const sisterSentences = (flatForSister.match(/[^.]*\b(?:sister\b[^.]{0,30}?\bbranch(?:es)?\b|second\s+branch(?:es)?\b)[^.]*\./gi) || []);
+  // The sentence-bounded match used to hand the WHOLE sentence to the town
+  // check below, both before and after the trigger phrase. Found wrong on
+  // the item 4.4 thirteenth quality pass, 2026-09-06, by injection against
+  // scorah-bramhall.md: its description reads "Patients come to us from
+  // Bramhall, Cheadle Hulme, Hazel Grove, Handforth and Poynton, and our
+  // sister branch in Hazel Grove is close by." as ONE sentence, so "Hazel
+  // Grove" appears twice - once as a catchment town in the list, once as
+  // the actual sister town right after "sister branch in". Changing only
+  // the second occurrence to a fake town ("our sister branch in Cheadle is
+  // close by") still passed clean, because the town check scanned the
+  // ENTIRE sentence and found the untouched "Hazel Grove" sitting earlier
+  // in the same sentence as the catchment list, nowhere near the actual
+  // claim. The rule was proving a valid town shares a sentence with the
+  // claim, not that it is the town the claim names.
+  // Fixed by matching from the START OF THE TRIGGER PHRASE forward to the
+  // end of that sentence only, never text that precedes "sister"/"second
+  // branch". Checked against all three real packs that carry this
+  // sentence before landing the fix: scorah-hazel-grove.md ("Our sister
+  // branch is in Bramhall.") and mccanns-sandringham.md ("Our sister
+  // McCanns branch is further along Aigburth Road.") both name their town
+  // immediately after the trigger with nothing else in front of it, so
+  // the fix cannot affect them; mccanns-aigburth.md ("There is a second
+  // branch, McCanns Chemist Sandringham, in St Michael's further along
+  // Aigburth Road.") names its town after the trigger too, so the
+  // forward-only window still reaches it. All four re-ran clean after the
+  // fix; the injected Cheadle sentence now fails correctly. Full detail in
+  // AGENT_WORKLIST.md item 4.4's thirteenth pass.
+  const sisterTriggerRe = /\b(?:sister\b[^.]{0,30}?\bbranch(?:es)?\b|second\s+branch(?:es)?\b)/gi;
+  const sisterSentences = [];
+  let sisterTriggerMatch;
+  while ((sisterTriggerMatch = sisterTriggerRe.exec(flatForSister)) !== null) {
+    const restFromTrigger = flatForSister.slice(sisterTriggerMatch.index);
+    const nextFullStop = restFromTrigger.indexOf(".");
+    sisterSentences.push(nextFullStop === -1 ? restFromTrigger : restFromTrigger.slice(0, nextFullStop + 1));
+  }
   if (sisterSentences.length) {
     const sisters = branches.filter(
       (o) => isPackable(o) && o.id !== b.id && o.brandLabel && o.brandLabel === b.brandLabel

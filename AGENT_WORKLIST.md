@@ -8443,6 +8443,81 @@ resolves (200) with the same pre-Q7 mojibake em dash in its intro, already recor
 live-paste-lag in the pack's own note, not a repo defect; Posts A (branch PF page), C (weight loss)
 and D (travel clinic) all resolve (200) and read correctly. No new finding, no new question. See
 audits/scorah-bramhall-4.4-pass-2026-09-04-eleventh.txt.
+Quality pass 2026-09-06 (thirteenth, unattended scheduled run): ONE IN-REPO DEFECT FOUND AND FIXED
+in tools/check-gbp-packs.js, not in this pack, which was and remains correct. Baseline: all 36
+checkers clean on the untouched worktree before any mutation. gbp-packs/scorah-bramhall.md backed up by MD5
+(ae58dd982780a11b808b6df84e29eecf, unchanged since the fourth pass) before any mutation, all edits
+made with the native Edit tool, each followed by the targeted checker, then restored and the
+restore MD5-confirmed before the next step.
+Fresh angle: cross-referenced this item's full twelve-pass history against every checker that
+actually reads gbp-packs/ as a directory (fs.readdirSync/PACK_DIR, not merely mentioned in a
+comment - confirmed by reading each of the sixteen grep hits individually rather than trusting the
+grep count, since six of them were later found to be comment-only mentions of gbp-packs.js or
+gbp-packs/ file paths and do not scan the directory at all: check-address-region.js,
+check-nap.js, check-opening-hours.js, check-page-coverage.js, check-travel-clinic-copy.js and
+check-weight-loss-copy.js). Ten checkers genuinely scan
+gbp-packs/: check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js and
+check-url-scheme.js - and all ten had already been proven by direct injection against this
+specific pack across the twelve prior passes. So the fresh angle this pass was not a new checker
+but a granular RULE within one already-proven checker: check-gbp-packs.js's sister-branch rule
+(CLAUDE.md, "The one fact in a pack that is about another branch"), which the sixth pass had only
+"checked against branches.json rather than assumed" in the independent verifier, never proven
+against this pack's own copy by injection against the live checker rule itself.
+INJECTION 1 (sister-branch rule): the description's "our sister branch in Hazel Grove is close by"
+changed to "our sister branch in Cheadle is close by" (Cheadle is not a live sister's seoTown; the
+heading's character count was also corrected from 742 to 738 for the duration of this injection
+only, to isolate the sister rule from the unrelated character-count rule, which would otherwise
+fail first on the four-character length change and mask the result). Result: 0 failures, PASSED
+CLEAN - the injected fake sister town was NOT caught. This is the pack's own description,
+unedited, so the paragraph is worth quoting in full: "Patients come to us from Bramhall, Cheadle
+Hulme, Hazel Grove, Handforth and Poynton, and our sister branch in [Cheadle/Hazel Grove] is close
+by." is ONE sentence, and "Hazel Grove" appears in it TWICE - once naming a catchment town in the
+list, once naming the actual sister branch. The checker's sister-branch rule matched the whole
+sentence (from the period before "Patients" to the period after "by") and asked only whether a
+valid sister town appeared ANYWHERE in it, so the untouched catchment-list "Hazel Grove" satisfied
+the rule even after the actual sister claim was changed to name a town with no live branch at all.
+The rule was proving a valid town shares a sentence with the claim, not that it is the town the
+claim names - the same "which words did it actually read" shape as the em-dash label list, the
+meta-keywords line reader and the hours-unit fault CLAUDE.md already documents for other
+checkers, now found in this one.
+FIXED in tools/check-gbp-packs.js: the sentence-bounded match now starts scanning from the START
+of the "sister"/"second branch" trigger phrase forward to the end of that sentence only, never
+text that precedes the trigger. Checked against all three real packs carrying this sentence before
+landing the fix: scorah-hazel-grove.md ("Our sister branch is in Bramhall.") and
+mccanns-sandringham.md ("Our sister McCanns branch is further along Aigburth Road.") both name
+their town immediately after the trigger with nothing in front of it, so the fix cannot affect
+them; mccanns-aigburth.md ("There is a second branch, McCanns Chemist Sandringham, in St
+Michael's further along Aigburth Road.") names its town after the trigger too, so the forward-only
+window still reaches it. Re-ran the Cheadle injection against the fixed checker: FAIL, "the pack
+claims a sister or second branch but names no town belonging to one... the sentence reads \"sister
+branch in Cheadle is close by.\"" - caught correctly. Re-ran the full 36-checker suite: 36/36 exit
+0, with the fix in place and no other file touched, confirming no collateral effect on the McCanns
+or Hazel Grove packs' own legitimate sister sentences (0 new FAILs beyond the one expected).
+scorah-bramhall.md restored and MD5-confirmed byte-identical to baseline (ae58dd982780a11b808b6df84e29eecf) after this injection.
+INJECTION 2 (hours-days rule, against the now-fixed checker): the "- Hours:" line changed from
+"Monday to Friday 9:00am to 6:00pm, Saturday 9:00am to 1:00pm, Sunday closed" to "Monday to
+Saturday 9:00am to 6:00pm", dropping the Sunday-closed statement and overstating Saturday's
+closing time by five hours. Result: three separate FAILs, all naming the pack correctly - the
+missing 13:00 time ("branches.json has this branch opening or closing at 13:00, but that time does
+not appear in the pack's hours line"), the missing Sunday-closed statement ("branches.json holds
+Sunday as a closed day, but the hours line does not state Sunday as closed"), and the Saturday
+range mismatch ("the hours line publishes Saturday as 09:00 to 18:00, but branches.json holds
+Saturday as 09:00 to 13:00"). Caught first attempt, all three. Restored and MD5-confirmed
+byte-identical to baseline. No defect here - the day rules and the per-day time rule were already
+correctly guarding this pack, now proven directly by injection for the first time.
+Full 36-checker suite re-run clean after the final restore. git status --porcelain confirms
+gbp-packs/scorah-bramhall.md carries no diff (fully restored) and tools/check-gbp-packs.js carries
+exactly the one intended fix; no page generator touched (this fix is checker-only, no
+branches.json or generator change, so no regeneration was needed).
+Live half: not attempted this run. mcp__workspace__web_fetch refused the profile URL
+("URL not in provenance set" - a different failure mode from the "Claude in Chrome unreachable"
+seen in the ninth to twelfth passes, but the same practical outcome), and Claude in Chrome itself
+confirmed unreachable again (Q59, standing). Per the house rule against working around a blocked
+fetch tool, no other route was attempted. All five live-URL findings are carried forward unchanged
+from the eleventh/twelfth passes. No new question raised for the live half. See
+AGENT_LOG.md, 2026-09-06, for the fuller transcript of this pass.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
