@@ -7308,6 +7308,103 @@ Done 2026-09-06 (twelfth pass).
       core/, branches.json or gbp-packs/; the only repo changes this pass are
       the new probe instrument and this log entry.
       Evidence: audits/verify-3.13-2026-09-05-ninth.js (run clean, exit 0).
+      Quality pass 2026-09-06 (tenth), unattended scheduled run, Cowork
+      sandboxed shell throughout for file work; a leftover 0-byte
+      .git/index.lock from the FUSE mount's standing unlink restriction
+      (documented at the top of this file's own AGENT_LOG.md entries and in
+      CLAUDE.md's Q87 material) was cleared by mv to
+      .git/index.lock.cleared-<epoch>, not rm, the established workaround; no
+      git process was running and origin (SSH) failed "Host key verification
+      failed" as usual, origin-https confirmed local HEAD already matched
+      origin-https/agents/audit-backlog exactly. All 8 unblocked worklist
+      items confirmed [BLOCKED] by direct grep, so this was the fallback
+      quality pass, picked by the standing rotation-pool method: 37-item pool
+      (43 checked items minus the standing out-of-rotation set 1.1, 1.4, 5.6,
+      5.7, 6.7, 6.8), each item's own paragraph range read with `git log -1
+      -L<start>,<end>:AGENT_WORKLIST.md` rather than a commit-subject text
+      match. 3.13 came out stalest at 2026-09-05T11:43:26+01:00, clear of the
+      next item, 6.2, at 12:16:10 (33 minutes later) and every other pool
+      item.
+      BASELINE. All 36 checkers ran individually, 0 failures. All six page
+      generators rebuilt; `git status --porcelain -- modules core tools
+      branches.json gbp-packs` empty both before and after, and all three of
+      this item's pages confirmed byte-identical to their standing sha256
+      values (switch-prescriptions-clear-aintree.html still
+      96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9,
+      unchanged since the fifth pass first recorded it).
+      FRESH ANGLE. Nine prior passes proved tools/check-switch-copy.js,
+      tools/check-weight-loss-copy.js, tools/check-travel-clinic-copy.js and
+      tools/check-jsonld.js against this branch's three pages by direct
+      injection. A grep of this item's own section for "check-seo-pattern.js"
+      across all nine returned zero hits, against a full-repo baseline of 35
+      or 36 checkers passing clean every pass - passing estate-wide is not
+      the same as being proven against THIS branch, and check-seo-pattern.js
+      is the flagship Phase 3.x checker (its own header: "Phase 3 verifier,
+      worklist items 3.2 to 3.13"), never once pointed at Clear Chemist
+      Aintree specifically in nine passes. The same gap, closed the same way,
+      as the item 3.7 twelfth pass (Smartts Chemist Bootle) one day earlier.
+      Closed this pass with a new instrument,
+      audits/verify-3.13-2026-09-06-tenth.js (own sha256 baseline of all
+      three pages captured before any mutation, restored by
+      fs.writeFileSync from an in-memory buffer, not git, sha256-reconfirmed
+      after every restore). Four injections, the same four rule-shapes the
+      3.7 twelfth pass used: (1) EXACT TITLE MATCH - " - Now Open Weekends"
+      appended to the Weebly SEO title line on
+      switch-prescriptions-clear-aintree.html - caught immediately ("title
+      '...Now Open Weekends' != 'Switch Your Prescriptions to Clear Chemist,
+      Aintree'"); (2) CROSS-TOWN ABSENCE - "Also serving patients from
+      Ainsdale." inserted into weight-loss-clinic-clear-aintree.html's
+      description (Ainsdale is a live seoTown held by Fishlocks Ainsdale and
+      Hirshmans Ainsdale, not in Clear's own serviceAreaList of
+      Aintree/Fazakerley/Walton/Bootle/North Liverpool) - caught immediately,
+      naming both fishlocks_ainsdale and hirshmans_ainsdale, plus an expected
+      collateral "meta over 165 chars" flag from the same lengthened
+      sentence, the same layered-defence pattern the 3.7 pass's equivalent
+      injection produced; (3) ONE H1 - a second "<h1>Pharmacy in
+      Ainsdale</h1>" appended directly after the genuine heading on
+      travel-clinic-clear-aintree.html - caught immediately ("2 h1 elements,
+      expected exactly 1"); (4) ONE TITLE LINE - a second "Weebly page SEO
+      title: Pharmacy in Ainsdale" line inserted immediately after the
+      genuine one in the head comment of
+      switch-prescriptions-clear-aintree.html - caught immediately ("2
+      'Weebly page SEO title' lines, expected exactly 1"). All four caught on
+      their intended rule, first attempt, with the expected collateral
+      length flag on injection 2 and no cross-firing on an unrelated rule or
+      an unrelated brand. All three files restored via fs.writeFileSync and
+      sha256-reconfirmed byte-identical to their pre-injection baselines
+      throughout; final check-seo-pattern.js run exit 0. Full 36-checker
+      suite re-run clean after the final restore;
+      `git status --porcelain -- modules core tools branches.json` empty
+      throughout. Output saved to
+      audits/verify-3.13-2026-09-06-tenth-output.txt.
+      An earlier attempt at the pre-injection scratch-copy verification step
+      this pass produced 36 spurious FAILs from a bug in this run's own
+      throwaway shell test harness (a reused `/tmp/out_$$.txt` redirect
+      target whose `rm -f` failed "Operation not permitted" on this sandbox's
+      /tmp mount, leaving stale output from one checker's run appearing to
+      "belong" to every subsequent checker in the loop) rather than any real
+      checker failure; re-run with the same command-substitution pattern
+      already used successfully for this run's own live-repo baseline
+      confirmed the scratch copy genuinely clean (36/36) and byte-identical
+      to the live repo (diff -rq empty). Not a repo defect - a fault in a
+      disposable one-off test script, never committed, the same class of
+      finding CLAUDE.md already documents for test harnesses on this mount
+      ("a test harness must restore by byte copy, not from git").
+      LIVE HALF: not read this pass. Claude in Chrome confirmed not connected
+      at this run's own step 3 answer pickup (tabs_context_mcp reported the
+      extension unreachable); not retried by another route and no login
+      attempted, per procedure.
+      RESULT. No in-repo defect found. check-seo-pattern.js was already
+      correctly protecting Clear Chemist Aintree's three pages on every rule
+      tested; now proven directly by injection against this branch
+      specifically for the first time in ten passes on this item. Q65 (the
+      pages' walk-in wording against the branch's own
+      no-physical-branch-resource record) re-read from QUESTIONS.json: still
+      "answered", correctly not re-litigated here. No new question raised.
+      Nothing edited under tools/, modules/, core/, branches.json or
+      gbp-packs/; the only repo changes this pass are the new probe
+      instrument, its output file and this log entry.
+      Evidence: audits/verify-3.13-2026-09-06-tenth.js (run clean, exit 0).
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

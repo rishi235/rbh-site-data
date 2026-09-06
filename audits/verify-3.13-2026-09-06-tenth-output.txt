@@ -1,0 +1,17 @@
+Baseline sha256:
+  switchPage 96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9 (/sessions/elegant-zen-rubin/mnt/rbh-site-data/modules/switch/pages/switch-prescriptions-clear-aintree.html)
+  weightLoss bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa (/sessions/elegant-zen-rubin/mnt/rbh-site-data/modules/service/pages/weight-loss-clinic-clear-aintree.html)
+  travel a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796 (/sessions/elegant-zen-rubin/mnt/rbh-site-data/modules/service/pages/travel-clinic-clear-aintree.html)
+Baseline check-seo-pattern.js: exit 0 (clean).
+
+
+=== RESULTS ===
+CAUGHT  exact-title-match  (switchPage, exit 1)
+CAUGHT  cross-town-absence  (weightLoss, exit 1)
+CAUGHT  one-h1  (travel, exit 1)
+CAUGHT  one-title-line  (switchPage, exit 1)
+
+All files restored byte-identical: YES
+Final check-seo-pattern.js run: exit 0 (clean)
+
+PASS: 4/4 caught, all restores verified, checker clean after.
