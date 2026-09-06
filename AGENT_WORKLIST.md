@@ -4077,6 +4077,67 @@ only this paragraph and this log entry were added - following the tenth
 pass's established practice, no separate throwaway probe script was
 committed since the method, the hashes and the exact failure messages
 are recorded in full above. No new question raised.
+Quality pass 2026-09-06 (thirteenth, unattended scheduled run via Cowork).
+Selected as the least recently verified item in the standing 37-item
+rotation pool (43 checked items minus the six standing out-of-rotation
+items 1.1, 1.4, 5.6, 5.7, 6.7, 6.8): all 8 unblocked AGENT_WORKLIST.md
+lines confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+applied. Rotation re-derived independently via git log -L over each
+pool item's own header-to-next-header range: 3.6 came out stalest at
+2026-09-05T18:41:24+01:00, clear of the next item, 3.8, at 19:16:58 -
+exactly the item the twelfth pass's own forward note had already flagged.
+FRESH ANGLE: twelve prior passes had named ten checkers as directly
+injection-tested against McCanns's own files (check-app-membership,
+check-branch-identity, check-branch-links, check-em-dashes,
+check-gbp-packs, check-jsonld as a side effect, check-nap,
+check-postcodes, check-seo-pattern, check-whatsapp-route), but never
+tools/check-widget-diaries.js, despite its own file header describing
+exactly McCanns's situation: weightLoss and travelClinic are shared
+brand diaries across McCanns's two sites, bloodPressure, pharmacyFirst
+and contraception are per-site, confirmed directly from branches.json
+before starting (Aigburth and Sandringham hold identical weightLoss and
+travelClinic ids, distinct ids for the other three services).
+BASELINE: all 36 tools/check-*.js run individually, 36/36 clean. All six
+generators rebuilt: sha256 of all 216 files under modules/ and core/
+identical before and after; git status --porcelain on modules/, core/,
+branches.json, gbp-packs/, tools/, status/ empty throughout.
+METHOD: isolated scratch copy only, via `git archive HEAD` into
+/tmp/scratch-3.6, so the tracked working tree was never opened for
+writing during the injection round (confirmed by git status and a direct
+sha256 match on the tracked branches.json before, during and after).
+FOUR INJECTIONS against McCanns's own real widget ids, each restored and
+sha256-reconfirmed identical before the next: (1) RULE 1 format -
+Sandringham's contraception id truncated to 23 characters - CAUGHT with
+the exact "is not 24 lowercase hex characters" message. (2) RULE 2
+crossbrand - Aigburth's pharmacyFirst id replaced with Fishlocks
+Ainsdale's real pharmacyFirst id - CAUGHT: "held by 2 different brands
+... a booking made on one brand's page would land in another brand's
+diary." (3) RULE 3 consistent - McCanns's own contraception id made
+SHARED between Aigburth and Sandringham while contraception stays
+per-site at Scorahs and Fishlocks - CAUGHT: "service \"contraception\"
+is a shared brand diary at mccanns and a per-site diary at scorahs,
+fishlocks... needs a decision rather than a guess" - the first time rule
+3 has been exercised using McCanns as the outlier brand. (4) RULE 4
+sharedservice, the rule the checker's own header calls invisible to
+every other checker in the repo - Aigburth's bloodPressure id replaced
+with McCanns's own real shared travelClinic id - CAUGHT: "held under 2
+different service keys... a booking for one service arrives filed as
+the other," proven directly on McCanns for the first time. All four
+caught on the first attempt with the exact expected, rule-specific
+message. Full 36-checker suite and full generator rebuild re-confirmed
+clean after the round (36/36 exit 0, byte-identical tree, git status
+empty).
+RESULT: no defect found - check-widget-diaries.js was already correctly
+holding McCanns's own widget ids to all four of its rules, now
+demonstrated directly for the first time in thirteen passes. No checker
+logic, page, generator, pack or data field changed anywhere in the repo.
+LIVE HALF, NOT ATTEMPTED. Claude in Chrome confirmed not connected at
+answer pickup and again for this item (standing Q59); the twelfth pass's
+own live findings stand unclaimed, not re-verified - this item's data-
+layer checker has no live-page surface in any case, since no generated
+page ever carries a widget id (service.js resolves it at run time).
+QUESTIONS: none raised this run. Evidence:
+audits/verify-3.6-2026-09-06-thirteenth.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

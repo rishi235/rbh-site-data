@@ -1,0 +1,109 @@
+Item 3.6 quality pass (thirteenth), 2026-09-06 (unattended scheduled run via Cowork)
+McCanns Chemist (Aigburth and Sandringham) - check-widget-diaries.js injection round
+
+CONTEXT
+Twelve prior passes on this item had named ten checkers as directly
+injection-tested against McCanns's own files: check-app-membership,
+check-branch-identity (twelfth pass), check-branch-links, check-em-dashes,
+check-gbp-packs, check-jsonld (as a side effect of a foreign-fact injection),
+check-nap, check-postcodes, check-seo-pattern, check-whatsapp-route.
+tools/check-widget-diaries.js had never been named, despite its own file
+header describing exactly McCanns's situation: weightLoss and travelClinic
+are shared brand diaries across McCanns's two sites (one private clinic diary
+per brand), while bloodPressure, pharmacyFirst and contraception are per-site
+at every multi-site brand including McCanns. Confirmed directly from
+branches.json before choosing this checker: mccanns_aigburth and
+mccanns_sandringham hold identical weightLoss ids (66bb29f1328f6dafbb88971b)
+and identical travelClinic ids (66b61b3d5e6c5e79f623b3e3), and distinct
+bloodPressure, pharmacyFirst and contraception ids.
+
+BASELINE
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0.
+All six generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt: sha256 of all 216 files under modules/
+and core/ identical before and after. git status --porcelain on modules/,
+core/, branches.json, gbp-packs/, tools/, status/ empty throughout.
+
+METHOD
+Isolated scratch copy only: `git archive HEAD | tar -x` into /tmp/scratch-3.6,
+sha256 of the scratch branches.json recorded (904de09b...). All four
+injections and restorations happened against that scratch copy's
+branches.json only, via a Python script that holds the original file text in
+memory, writes a mutated copy, invokes the real tools/check-widget-diaries.js
+as a child process against the scratch tree (cwd set so __dirname resolves
+inside /tmp/scratch-3.6), then rewrites the original text back and
+sha256-reconfirms it matches before the next case. The tracked working tree
+under /sessions/quirky-stoic-bohr/mnt/rbh-site-data was never opened for
+writing during the injection round; confirmed by git status --porcelain and a
+direct sha256 match on the tracked branches.json before, during and after.
+
+FOUR INJECTIONS, each against McCanns's own real widget ids, each restored
+and sha256-reconfirmed identical before the next:
+
+(1) RULE 1 format - mccanns_sandringham's contraception id
+"6a4791ca51c51dd528f210fd" truncated to 23 characters
+("6a4791ca51c51dd528f210f") - CAUGHT: "widget id
+\"6a4791ca51c51dd528f210f\" (mccanns_sandringham.contraception) is not 24
+lowercase hex characters. Appointedd ids are, so this one renders an empty
+booking box rather than a diary."
+
+(2) RULE 2 crossbrand - mccanns_aigburth's pharmacyFirst id
+(66b61b8583640d066a95622e) replaced with fishlocks_ainsdale's real
+pharmacyFirst id (66b1f5b59c1e2182b14fac3a) - CAUGHT: "widget id
+\"66b1f5b59c1e2182b14fac3a\" is held by 2 different brands
+(mccanns/mccanns_aigburth.pharmacyFirst, fishlocks/fishlocks_ainsdale.
+pharmacyFirst). A booking made on one brand's page would land in another
+brand's diary."
+
+(3) RULE 3 consistent - McCanns's own contraception id made SHARED between
+Aigburth and Sandringham (Sandringham's contraception id overwritten with
+Aigburth's) while contraception stays per-site at Scorahs and Fishlocks -
+CAUGHT: "service \"contraception\" is a shared brand diary at mccanns and a
+per-site diary at scorahs, fishlocks. One of the two is wrong and the data
+cannot say which, so it needs a decision rather than a guess..." This
+exercises rule 3 using McCanns specifically as the outlier brand, which no
+prior pass on this item had done (rule 3 had not been named against McCanns
+before).
+
+(4) RULE 4 sharedservice - mccanns_aigburth's bloodPressure id
+(66b61bcabea374dfa684f189) replaced with McCanns's own real shared
+travelClinic id (66b61b3d5e6c5e79f623b3e3, already legitimately held by both
+branches under travelClinic) - CAUGHT: "widget id
+\"66b61b3d5e6c5e79f623b3e3\" is held under 2 different service keys
+(mccanns_aigburth.bloodPressure, mccanns_aigburth.travelClinic,
+mccanns_sandringham.travelClinic). Two different services are pointing at one
+diary across two branches, so a booking for one service arrives filed as the
+other." This is the rule the checker's own header calls out as invisible to
+every other checker (rule 2 does not see it because the brand is the same,
+rule 3 does not see it because both keys stay shared at that brand, and
+check-booking-routes rule 7 does not see it because the collision is across
+two branches rather than inside one) - proven directly on McCanns for the
+first time.
+
+All four cases caught on the first attempt with the exact expected,
+rule-specific message. branches.json in the scratch copy sha256-confirmed
+identical to its pre-injection original after each individual restoration
+and again at the end of the round. Full 36-checker suite re-run clean on the
+tracked repo after the whole round (36/36 exit 0); all six generators
+rebuilt again with sha256 of every file under modules/ and core/ confirmed
+unchanged from the pre-injection baseline; git status --porcelain on
+modules/, core/, branches.json, gbp-packs/, tools/, status/ empty throughout.
+
+RESULT: no defect found. check-widget-diaries.js was already correctly
+holding McCanns's own widget ids to all four of its rules, now demonstrated
+directly for the first time in this item's thirteen-pass history. No
+checker logic, page, generator, pack or data field changed anywhere in the
+repo.
+
+LIVE HALF, NOT ATTEMPTED. mcp__claude-in-chrome__tabs_context_mcp confirmed
+Claude in Chrome not connected before any repo work began this run (standing
+Q59). The twelfth pass's own live findings (Aigburth UTI page correct live;
+Sandringham UTI page still serving "Sandringham" rather than "St Michael's"
+pending the queued 5.7/Q15 repaste; both branch landing pages still 404
+pending paste, Q35) stand unclaimed by this pass, not re-verified - this
+item's data-layer checker (widget diaries) has no live-page surface to check
+in any case, since no generated page ever carries a widget id (service.js
+resolves it at run time, per this checker's own header).
+
+QUESTIONS: none raised this run.
