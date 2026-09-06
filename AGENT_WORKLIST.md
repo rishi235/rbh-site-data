@@ -11016,6 +11016,51 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       defect found. No new question. Open question count unchanged, 45
       open of 98 total (answer pickup unavailable, Chrome not connected).
       See audits/fishlocks-eccleston-price-offer-patterns-4.8-thirteenth-2026-09-05.txt.
+      Quality pass 2026-09-06 (fourteenth, unattended run): stalest item in
+      the 37-item rotation pool, re-derived independently (per-item last-
+      touched date via `git log -1 --format=%cI --no-patch
+      -L<start>,<end>:AGENT_WORKLIST.md` over each item's own paragraph
+      range; 4.8 stalest at 2026-09-05T23:46:10+01:00, clear of the
+      runner-up, 4.10, at 2026-09-06T00:12:25+01:00 by about 26 minutes).
+      Baseline: git status clean, all 36 checkers green, sha256 of the pack
+      confirmed unchanged against the thirteenth pass's own hash
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa).
+      New angle: thirteen prior passes had never proven check-gbp-packs.js's
+      "GBP profile website on a shared domain" rule (lines 896-960, born
+      item 4.2 quality pass 2026-08-11, first proven against a pack other
+      than its birth pack on today's item 4.6 thirteenth pass using McCanns
+      Aigburth) against this pack's own copy, despite Fishlocks Eccleston
+      genuinely sharing fishlockpharmacy.co.uk with Ainsdale and already
+      pointing its profile at the generated landing page. Two injections on
+      the tracked file, each restored by byte copy from a sha256-backed
+      backup before the next: (1) the Website line's URL changed from the
+      branch's own landing page to the bare shared homepage - CAUGHT,
+      exactly one FAIL naming the landing page and "www.fishlockpharmacy.
+      co.uk carries 2 live branches, so pointing the profile at the shared
+      homepage gives both listings the same page (Master Plan v2 section
+      3)"; (2) the whole Website line and its continuation deleted outright
+      - CAUGHT, exactly one FAIL: "no \"- Website\" line in the profile
+      basics, so the paster has nothing telling them to use the
+      pharmacy-fishlocks-eccleston.html landing page". Both caught first
+      attempt with the expected rule-specific message; the 17 standing WARNs
+      (including this pack's own Q64 post-town WARN) present and unchanged
+      alongside each; no cross-firing on any other pack. File restored,
+      sha256 reconfirmed identical; full 36-checker suite re-run clean after
+      the final restore (36/36 exit 0); git status --porcelain -- gbp-packs
+      modules core branches.json tools status empty throughout. No in-repo
+      defect found: the pack already satisfied both failure branches of the
+      rule, now proven directly by injection rather than only by reading it.
+      Completes the rule's proof on a second shared-domain pack; Scorah
+      Bramhall/Hazel Grove and Fishlocks Ainsdale remain unproven by
+      injection for this rule specifically, a candidate for a future pass.
+      No checker logic, generator, page, pack or branches.json content
+      changed. No new question raised. LIVE: Claude in Chrome not connected
+      (Q59), not retried; no live-site check performed, since this rule
+      governs pack copy pasted by a human into a Google Business Profile
+      field, not a URL any read-only fetch can verify. Open question count
+      unchanged, 45 open of 98 total (answer pickup unavailable, Chrome not
+      connected).
+      See audits/fishlocks-eccleston-shared-domain-website-4.8-fourteenth-2026-09-06.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
