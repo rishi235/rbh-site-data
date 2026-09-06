@@ -1944,6 +1944,55 @@ deleted scratch copy. No new question raised.
       audits/verify-3.2-2026-09-05-eleventh.js,
       audits/verify-3.2-2026-09-05-eleventh-output.txt and
       audits/checker-sweep-2026-09-05-item3.2-eleventh.txt.
+      Quality pass 2026-09-06 (twelfth, unattended scheduled run via Cowork):
+      BOTH HALVES. Eleven prior passes proved title, description, H1, the
+      cross-town rule, service words, H1 counting, duplicate title/description
+      lines, the permalink/URL leg, meta keywords, data-branch plus the
+      JSON-LD "name" field (via check-branch-identity.js), and
+      check-fragment-targets.js against Scorah's own 26 pages by injection;
+      check-jsonld.js had never been pointed at a Scorah page at all (zero
+      hits in this item's history). Full 36-checker baseline clean on the live
+      repo and on a scratch copy (/tmp/scratch-32-jsonld, made with `cp -a`
+      including .git). Four injections, each a realistic cross-branch swap
+      (Bramhall value onto a Hazel Grove page or vice versa) rather than an
+      arbitrary string, each restored via `git show HEAD:<path>` and
+      sha256-reconfirmed byte-identical before the next: (1) rule 5, JSON-LD-
+      only postalCode on uti-treatment-scorah-bramhall.html changed to Hazel
+      Grove's SK7 6BG - caught, plus expected collateral catches from
+      check-nap.js/check-postcodes.js; (2) rule 8, the map iframe query on
+      pharmacy-first-scorah-hazel-grove.html changed to Bramhall's address -
+      caught by check-jsonld.js and check-map-embeds.js both; (3) rule 6,
+      JSON-LD-only telephone on earache-treatment-scorah-bramhall.html changed
+      to Hazel Grove's number - caught, plus check-nap.js; (4) rule 2, "@type"
+      on the branch landing page pharmacy-scorah-hazel-grove.html changed from
+      Pharmacy to MedicalBusiness (the original item-3.10 fault class, never
+      before proven against Scorah) - caught, no other checker fires since
+      only check-jsonld.js reads @type. All four caught first attempt, on
+      their intended rule only. Final `git status --porcelain` on the scratch
+      copy empty; no checker logic, generator, pack or page content changed in
+      the tracked repo; no branches.json or generator edit, so no
+      regeneration needed. LIVE HALF completed via a read-only curl GET
+      (Claude in Chrome not connected; the sandbox shell had working outbound
+      network access, the established fallback). Sitemap lastmod unchanged at
+      2026-08-14T17:07:16+00:00 on every entry, confirming no republish since
+      then. Both branch landing pages confirmed 404 live (previously only
+      Hazel Grove's, then Bramhall's, had been checked on separate passes; now
+      both confirmed together). NEW FINDING: six live Scorah pages sampled
+      across both branches and three page families all declare JSON-LD
+      "name": "Scorah Chemists" (the bare shared brandLabel), not the
+      branch-specific branchName the repo has generated since the Q18 fix
+      landed 2026-08-30 (confirmed correct in the repo's own
+      uti-treatment-scorah-bramhall.html: "Scorah Chemists Bramhall"). Address,
+      phone and URL on the live pages are otherwise correct per branch, so
+      this is the entity-NAME field only - but it means the exact entity-merge
+      risk Q18/rule 3 exist to prevent (two addresses on one domain both
+      telling Google they are "Scorah Chemists") is live right now, not
+      theoretical. Same root cause as the standing 5.3/5.4/paste-run backlog
+      (no live republish since mid-August); no new question raised, but
+      recorded as sharpened evidence for whoever picks up that item. No
+      in-repo defect found, no new fault class in the checker itself, no new
+      question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-06-twelfth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
