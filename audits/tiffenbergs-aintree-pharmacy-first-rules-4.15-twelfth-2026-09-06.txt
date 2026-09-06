@@ -1,0 +1,117 @@
+Item 4.15 quality pass (twelfth) - Tiffenbergs Chemist Aintree GBP pack
+Run: 2026-09-06 (unattended scheduled run, Cowork mcp__workspace__bash sandbox)
+
+ROTATION POOL SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5, 6.6), so the quality-pass fallback applied.
+Rotation pool re-derived from `git log --pretty=format:"%cI %s" -- AGENT_WORKLIST.md
+AGENT_LOG.md`, word-boundary matched against the 37-item pool (43 completed
+items minus the 6 declared out-of-rotation: 1.1, 1.4, 5.6, 5.7, 6.7, 6.8).
+Most recent commit at run start: "Item 4.12 twelfth pass" at
+2026-09-06T01:43:42+01:00. Item 4.12 itself therefore excluded (just touched);
+the next stalest was item 4.15, last touched 2026-09-05T02:42:39+01:00
+(eleventh pass), confirmed by `git log ... | grep -i "4\.15"` returning no
+later commit. Chosen.
+
+FRESH ANGLE
+Eleven prior passes on this item verified branches.json facts, byte-stability,
+and progressively proved: the Q79 bank-holiday notesBlock rule (7th), the
+OUTCOME_PROMISE rule in check-gbp-packs.js (9th), check-brand-spelling.js /
+check-url-scheme.js / check-uk-spelling.js (10th), and the hours-line
+DAY-presence rule (11th) - all by direct injection against THIS pack's own
+copy. tools/check-gbp-pharmacy-first.js (added item 4.4 quality pass,
+2026-08-14) had never been proved against this pack's own copy across any of
+the eleven prior passes, despite being proved today against sibling packs
+4.9 (Clear Chemist Aintree, rule 2 scope) and 4.12 (Coleman and Leighs Walton,
+rules 5, 7, 8). Closing that gap for Tiffenbergs Aintree.
+
+METHOD
+Full repo copied (rsync-equivalent cp -r) to /tmp/rbh-scratch-415. All
+injections and checker runs performed against the scratch copy only; the
+tracked repo's gbp-packs/tiffenbergs-aintree.md was never opened for writing.
+
+Baseline: tracked repo sha256 of gbp-packs/tiffenbergs-aintree.md
+= 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+(unchanged since the ninth pass, 2026-09-03). Scratch copy baseline:
+check-gbp-pharmacy-first.js -> "OK - 7 pathways read from the generator, 28
+Pharmacy First blocks across 14 packs, all clean." Full 36-checker suite
+against the tracked repo: 36/36 exit 0.
+
+FOUR INJECTIONS, each restored by byte copy from the tracked original and
+sha256-reconfirmed identical (59d288c1...) before the next:
+
+1. RULE 3 (completeness). Dropped "impetigo" from the Services section's
+   "NHS Pharmacy First" bullet, leaving 6 of 7 conditions.
+   CAUGHT: "Services section 'NHS Pharmacy First' bullet names 6 of the 7
+   Pharmacy First conditions and omits impetigo."
+
+2. RULE 4 (no condition outside NHS scope). Inserted "conjunctivitis" (an
+   OUTSIDE_PF word) into Post A's condition list.
+   CAUGHT: "Post A names 'conjunctivitis' inside the Pharmacy First copy,
+   but it is not one of the 7 conditions in the NHS service."
+
+3. RULE 6 (age ranges, read from the canon). Changed Post A's UTI age range
+   from "aged 16 to 64" to "aged 16 to 60".
+   CAUGHT: "Post A publishes the urinary tract infection service for
+   'women aged 16 to 60', but the canon holds 'Women aged 16 to 64'."
+
+4. RULE 8 (free, no price). Appended ", from £5" to Post A's "No GP
+   appointment or referral needed" sentence.
+   CAUGHT: "Post A carries a price ('from £') inside the Pharmacy First
+   copy."
+
+All four caught on first attempt, each on its intended rule and no other.
+No checker gap found; no in-repo defect. No checker logic changed. No pack,
+page, generator or branches.json content changed (all injections were on the
+scratch copy, deleted/overwritten before the next).
+
+REGRESSION SWEEP
+After the final restore: gbp-packs/tiffenbergs-aintree.md sha256 on the
+tracked repo re-confirmed 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+(unchanged). `git status --porcelain -- gbp-packs modules core branches.json
+tools` empty. Full 36-checker suite re-run against the tracked repo
+individually: 36/36 exit 0. All six page generators (branch-landing,
+contraception, service, switch, travel-clinic, weight-loss) rebuilt against
+the tracked repo: all exit 0, `git status --porcelain -- modules core` and
+`git diff --stat -- modules core` both empty (zero diff).
+
+LIVE HALF
+Claude in Chrome MCP unreachable this run (tabs_context_mcp reported "not
+connected"); fell back to read-only curl (UA "Mozilla/5.0") from the sandbox
+shell, which had working outbound network access. This pass went further
+than the prior "status-code-only" curl fallback by reading page content, not
+just HTTP status:
+
+- All four post targets (Pharmacy First, Switch, Weight Loss Clinic, Travel
+  Clinic pages) returned HTTP 200.
+- pharmacy-first-tiffenbergs-aintree.html: 0 occurrences of "coming soon"
+  (unlike the Q95 fault tracked on Cherry Lane's equivalent page); all seven
+  Pharmacy First condition words present (sinusitis, sore throat, earache,
+  impetigo, shingles, insect bite, and the UTI/water-infection wording); "aged
+  16" present. Title tag: "Pharmacy First at Tiffenbergs Chemist, Aintree".
+- Switch banner mojibake RECONFIRMED STILL LIVE on both the Pharmacy First
+  and Switch pages: the close button renders as "├ù" (the same
+  byte-mangled sequence recorded on every prior pass since 2026-08-10), so
+  the run-44 source fix (tools/build-switch-pages.js, &times; entity) still
+  has not reached this site via a Weebly repaste. Not a repo defect - the
+  generated page and generator both already emit the correct entity.
+- Email: both pages publish "tiffenbergs@rbhealth.co.uk" (plural), matching
+  branches.json's ALREADY-TRACKED discrepancy (Q56, confirmed still open in
+  QUESTIONS.json, status "open", unchanged). Not re-raised.
+- Footer en-dash hours (a live-only finding from the 2026-08-30 pass): NOT
+  detected in this pass's raw HTML fetch (0 en-dash characters found in
+  either fetched page). This is a narrower instrument than a full browser
+  render (Weebly may inject site-wide footer/header content via a mechanism
+  not fully captured by a bare curl of the page URL), so this is recorded as
+  "not detected this pass" rather than "fixed" - not asserted either way
+  pending a real browser read.
+
+No new question raised. Q56 re-confirmed open and unchanged. No worklist item
+blocked or unblocked.
+
+RESULT
+Zero in-repo defects found this pass. check-gbp-pharmacy-first.js's rules 3,
+4, 6 and 8 all proved directly against Tiffenbergs Chemist Aintree's own copy
+for the first time in twelve passes on this item. No checker logic changed.
+No page, generator, checker, pack or branches.json entry changed outside the
+deleted scratch copy.

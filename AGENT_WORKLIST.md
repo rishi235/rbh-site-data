@@ -12428,6 +12428,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       post targets, all 200, unchanged from the eighth, ninth and tenth
       passes. No new question raised. Evidence in
       audits/tiffenbergs-aintree-hours-days-4.15-eleventh-2026-09-05.txt.
+      Quality pass 2026-09-06 (twelfth re-verification, unattended run): pack
+      verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: tools/check-gbp-pharmacy-first.js (added
+      item 4.4 quality pass, 2026-08-14) had never been proved by direct
+      injection against THIS pack's own copy across eleven prior passes,
+      despite being proved today against sibling packs 4.9 and 4.12. Full
+      repo copied to a scratch directory; all injections and checker runs
+      against the scratch copy only, tracked file never opened for writing.
+      Four injections, each restored by byte copy and sha256-reconfirmed
+      identical before the next: (1) Rule 3, completeness - "impetigo"
+      dropped from the Services section's condition list, six of seven left
+      standing - CAUGHT; (2) Rule 4, no condition outside NHS scope -
+      "conjunctivitis" (an OUTSIDE_PF word) inserted into Post A's condition
+      list - CAUGHT; (3) Rule 6, age ranges read from the canon - Post A's
+      UTI age range changed from "16 to 64" to "16 to 60" - CAUGHT against
+      tools/build-service-pages.js's own CONDITIONS.uti.ageNote; (4) Rule 8,
+      free and no price - ", from £5" appended to Post A's "no GP
+      appointment or referral needed" sentence - CAUGHT. All four caught
+      first attempt, each on its intended rule and no other. No checker gap
+      found; no in-repo defect. Full 36-checker suite and all six generators
+      re-run clean against the tracked repo after the final restore
+      (git status --porcelain and git diff --stat on modules/core both
+      empty). Live half: Claude in Chrome unreachable this run (tabs_context_mcp
+      reported "not connected"); fell back to read-only curl from the
+      sandbox shell, going further than a status-code-only check by reading
+      page content: all four post targets 200; pharmacy-first-tiffenbergs-
+      aintree.html carries 0 "coming soon" occurrences (unlike the Q95 fault
+      tracked on Cherry Lane's equivalent page), all seven Pharmacy First
+      conditions and "aged 16" present. Switch banner mojibake ("├ù" close
+      button) reconfirmed still live on both the Pharmacy First and Switch
+      pages, unchanged since 2026-08-10 - a Weebly repaste-lag issue, not a
+      repo defect. Email still publishes tiffenbergs@rbhealth.co.uk
+      (plural) against branches.json's Tiffenberg@ (singular); Q56
+      re-confirmed open and unchanged, not re-raised. The 2026-08-30 pass's
+      footer-en-dash finding was NOT detected in this pass's raw curl fetch
+      (0 en-dash characters in either page); recorded as "not detected this
+      pass" rather than "fixed", since a bare curl of the page URL may not
+      capture everything a full browser render would (Weebly site-wide
+      footer injection). No new question raised, no worklist item blocked
+      or unblocked. Evidence in
+      audits/tiffenbergs-aintree-pharmacy-first-rules-4.15-twelfth-2026-09-06.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
