@@ -1739,6 +1739,42 @@ exercised by name in any of the eleven prior quality passes - proved
 correct by injection in both directions. No checker logic changed. No
 page, generator, checker or branches.json entry changed outside the
 deleted scratch copy. No new question raised.
+Quality pass (thirteenth), 2026-09-06 (unattended scheduled run via Cowork).
+Read the full 819-line checker against all twelve prior passes' own accounts
+rather than repeat an angle. Found one sub-branch of the PAGE_TYPES forward
+contract check (lines 626-670) never exercised by injection across the
+item's history: a title/h1 expression naming no function (fnMatch failing),
+described in the original 2026-08-13 fix's own prose but absent from that
+pass's "negative-tested eight ways" list and from every subsequent pass,
+confirmed by grep across AGENT_LOG.md, AGENT_WORKLIST.md, QUESTIONS.json and
+audits/*.txt for "which names no"/"names no function" (zero hits before this
+pass). Baseline: self-test passed with no length warnings, all 36 checkers
+green, all six generators rebuilt with sha256 of every file under modules/
+and core/ identical before and after, git status --porcelain empty
+throughout. Method: git archive HEAD into /tmp/scratch-3.1-13th so the
+tracked tree was never opened for writing; scratch baseline matched the
+tracked repo exactly (177/0/0) before any mutation. Two injections against
+the switch entry's own title field, each restored via git show HEAD and
+sha256-reconfirmed before the next: (1) "switchTitle(b)" changed to the bare
+identifier "switchTitle" - CAUGHT, exact message "PAGE_TYPES 'switch' title
+is 'switchTitle', which names no function", contract line correctly dropped
+from 14 to 13 legs; (2) title changed to "" (the falsy-fallback path through
+the same guard) - CAUGHT, exact message "PAGE_TYPES 'switch' title is '',
+which names no function". Both caught first attempt, no cross-firing. Scratch
+directory deleted after use; tracked repo re-confirmed clean (36/36
+checkers, 177/0/0, sha256 unchanged) with the scratch copy already gone.
+RESULT: zero in-repo defect, the last untested failure branch of the
+PAGE_TYPES forward contract now proven in both its non-empty and
+empty-string forms. No checker, page, generator or branches.json entry
+changed. LIVE HALF: Claude in Chrome not connected (standing Q59), not
+retried by another route; fell back to the established read-only curl GET
+route (network egress confirmed via a 200 from google.com):
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html HTTP 200,
+title and H1 both the pattern verbatim, unchanged from every prior pass;
+mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html HTTP 404, consistent
+with Q35's outstanding landing-page paste backlog, unchanged. No new live
+finding, no new question raised. Evidence in
+audits/seo-pattern-check-2026-09-06-thirteenth.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
