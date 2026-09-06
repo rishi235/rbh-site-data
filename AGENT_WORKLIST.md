@@ -7581,6 +7581,62 @@ Pharmacy First wording to the NHS service description.
       re-raised: Q95 already covers this exact live fault. No new question.
       Files changed: none (all injections restored).
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-05-thirteenth.txt.
+      Quality pass 2026-09-06 (fourteenth, unattended run): fresh angle -
+      proved tools/check-postcodes.js against this pack by injection for the
+      first time in fourteen passes (searched audits/ and the checker's own
+      source for any prior "cherry-lane" mention; none found - every other
+      pack this checker has been proven against by name is mccanns-
+      sandringham, sk-chemists-bootle, gordon-shorts-crosby, coleman-and-
+      leighs, tiffenbergs-aintree and riddings). Rotation pick re-derived
+      independently from `git log --pretty=format:"%cI|||%s" --
+      AGENT_WORKLIST.md AGENT_LOG.md`, matched against the 37-item pool
+      (checked items minus the six standing out-of-rotation: 1.1, 1.4, 5.6,
+      5.7, 6.7, 6.8) with a subject-anchored `\bitem\s+<id>\b` pattern: item
+      4.7 came out nominally stalest (last touched 2026-09-04, its eleventh
+      pass) but that pass's own forward note and this run's independent
+      derivation both point to 4.2 as next once 4.7's own twelfth pass
+      (2026-09-05) is counted, ahead of 4.14, 1.2 and 3.11. Chosen: 4.2.
+      Full repo copied with .git to /tmp/scratch-42-postcodes (excluding
+      .git makes check-cdn-pins.js fail falsely, per the established method
+      note); baseline 36/36 checkers exit 0; sha256 of the pack recorded
+      before any edit (831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e0
+      14fcef052ec2, matching every prior pass's own recorded value, so no
+      drift since the thirteenth pass).
+      Two injections on the scratch copy, each restored by byte copy from
+      the real mount and sha256-reconfirmed identical to baseline before the
+      next: (1) rule 3 (FOREIGN) - the Profile basics Address line's own
+      postcode swapped from L4 8SG to SK Chemists Bootle's real L20 5DW,
+      with no branch named on that line - caught immediately ("owned by
+      cherrylane_liverpool (L4 8SG) but carries L20 5DW (skchemists_bootle)"),
+      and independently by check-gbp-packs.js's own address rule at the same
+      time (own postcode absent; foreign postcode correctly attributed to
+      the right sister checker's namesake, SK Chemists), confirming
+      check-postcodes.js gives cover beyond check-gbp-packs.js on this pack
+      specifically, not just in general; (2) rule 6 (MISATTRIB) - a new
+      sentence naming the branch by its own branchName, "Cherry Lane
+      Pharmacy also welcomes patients travelling from nearby postcode
+      L23 3AT for the travel clinic." (Gordon Shorts Crosby's real
+      postcode), inserted before the paster-note block - caught on both
+      rules at once, FOREIGN (file-level) and MISATTRIB (line-level, naming
+      the branch correctly and the wrong postcode). Both injections caught
+      first attempt, on their intended rules. All restores sha256-confirmed
+      byte-identical (831e72c1...052ec2) before the next injection and
+      after the final one. Full 36-checker suite re-run clean on the scratch
+      copy after the final restore; all six generators rebuilt to a
+      zero-diff worktree (`git status --porcelain -- modules core
+      branches.json gbp-packs tools` empty on the scratch copy); the
+      tracked repo's own copy of the pack confirmed sha256-unchanged
+      throughout and never opened for writing.
+      No defect found - check-postcodes.js already protects this pack on
+      both rules; now proven directly for the first time rather than only
+      by passive coverage in "all checkers clean" sweeps. No checker logic
+      edited, no pack content byte changed. Live half not performed this
+      pass (Claude in Chrome not connected, Q59 unchanged; scope this pass
+      was the repo-side checker proof only). No new question; QUESTIONS.json
+      unchanged (98 total, 45 open).
+      Files changed: none (all injections restored; this worklist paragraph
+      and the log entry are the only tracked changes this pass).
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-06-fourteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

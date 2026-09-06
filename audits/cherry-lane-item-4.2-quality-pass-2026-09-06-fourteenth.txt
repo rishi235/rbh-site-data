@@ -1,0 +1,94 @@
+Item 4.2 quality pass (fourteenth), 2026-09-06 - Cherry Lane Pharmacy Walton GBP pack
+Unattended scheduled run, audit-backlog-worker.
+
+SCOPE
+Prove tools/check-postcodes.js against gbp-packs/cherry-lane-walton.md by
+injection for the first time. Searched audits/ and check-postcodes.js's own
+source comments for any prior mention of "cherry-lane" against this checker:
+none found. Every pack this checker's rules have previously been proven
+against by name is mccanns-sandringham, sk-chemists-bootle, gordon-shorts-
+crosby, coleman-and-leighs, tiffenbergs-aintree and riddings - not Cherry
+Lane, despite this pack having thirteen prior quality passes covering other
+checkers (check-gbp-packs.js, check-pharmacy-first-eligibility.js,
+check-uk-spelling.js, check-brand-spelling.js, check-url-scheme.js,
+check-pharmacy-first-cost.js, check-app-membership.js,
+check-gbp-pharmacy-first.js).
+
+METHOD
+Full repo copied with .git to /tmp/scratch-42-postcodes (excluding .git makes
+check-cdn-pins.js fail falsely, per the established method note in this
+item's own log history). All work performed on the scratch copy; the tracked
+repo was never opened for writing.
+
+BASELINE
+36/36 tools/check-*.js exit 0 on the scratch copy before any edit.
+sha256 of gbp-packs/cherry-lane-walton.md:
+  831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+(matches every prior pass's own recorded value - no drift since the
+thirteenth pass, 2026-09-05).
+
+INJECTION 1 - rule 3 (FOREIGN)
+Changed the Profile basics "- Address:" line's postcode from the branch's own
+L4 8SG to SK Chemists Bootle's real L20 5DW, on a line naming no branch.
+node tools/check-postcodes.js --verbose:
+  FOREIGN  gbp-packs/cherry-lane-walton.md: owned by cherrylane_liverpool
+  (L4 8SG) but carries L20 5DW (skchemists_bootle)
+  1 failure(s), 3 warning(s) (the 3 warnings are the pre-existing Q64
+  post-town UNOWNED/KNOWN items on other packs, unrelated to this change).
+Cross-check, node tools/check-gbp-packs.js:
+  2 failure(s):
+  FAIL  cherry-lane-walton.md: branch postcode L4 8SG does not appear
+  anywhere in the pack
+  FAIL  cherry-lane-walton.md: postcode L205DW belongs to SK Chemists, not
+  Cherry Lane Pharmacy
+Both checkers caught the injection independently, confirming
+check-postcodes.js gives cover beyond check-gbp-packs.js on this specific
+pack, not only in general across the estate.
+Restored: cp from the real mount. sha256 reconfirmed
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 (identical).
+node tools/check-postcodes.js afterwards: 0 failure(s), 3 warning(s)
+(same pre-existing Q64 warnings).
+
+INJECTION 2 - rule 6 (MISATTRIB)
+Inserted a new sentence before the paster-note block, naming the branch by
+its own branchName and carrying a different branch's real postcode:
+  "Cherry Lane Pharmacy also welcomes patients travelling from nearby
+  postcode L23 3AT for the travel clinic."
+(L23 3AT is Gordon Shorts Crosby's real postcode.)
+node tools/check-postcodes.js:
+  FOREIGN   gbp-packs/cherry-lane-walton.md: owned by cherrylane_liverpool
+  (L4 8SG) but carries L23 3AT (gordonshorts_crosby)
+  MISATTRIB gbp-packs/cherry-lane-walton.md:95: line names Cherry Lane
+  Pharmacy (L4 8SG) but carries L23 3AT (gordonshorts_crosby)
+  2 failure(s), 3 warning(s).
+Both rules fired on the single injection, as expected given gbp-packs/ is an
+OWNED_DIRS directory (rule 3 applies file-wide) and the line separately names
+exactly one branch by its branchName (rule 6 applies line-wise).
+Restored: cp from the real mount. sha256 reconfirmed
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 (identical).
+
+FINAL VERIFICATION
+Full 36-checker suite re-run on the scratch copy after the final restore:
+36/36 exit 0.
+All six tools/build-*.js generators rebuilt on the scratch copy:
+`git status --porcelain -- modules core branches.json gbp-packs tools` empty
+(zero-diff regeneration).
+Real tracked repo's gbp-packs/cherry-lane-walton.md reconfirmed sha256
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2, unchanged
+throughout - the tracked file was never opened for writing at any point in
+this pass.
+
+RESULT
+No defect found. check-postcodes.js's rules 3 (FOREIGN) and 6 (MISATTRIB)
+already protect this pack correctly; now proven directly by injection for the
+first time rather than only by passive coverage in "all checkers clean"
+sweeps. No checker logic edited, no pack content byte changed.
+
+LIVE HALF
+Not performed this pass. Claude in Chrome reported "not connected" (standing
+Q59 constraint); this pass's scope was the repo-side checker proof only, and
+the live half has been reconfirmed clean on the twelfth and thirteenth passes
+within the preceding two days, so it was not repeated here.
+
+QUESTIONS
+None raised. QUESTIONS.json unchanged: 98 total, 45 open.
