@@ -15421,6 +15421,68 @@ type - not re-raised as a new question.
       prior ten passes had ever exercised at all. No checker logic, page,
       generator or data field changed anywhere in the repo. No new question
       raised. Evidence: audits/verify-5.2-2026-09-05-eleventh.js.
+      Quality pass 2026-09-06 (twelfth, unattended run, rotation-pool pick):
+      repo half only. Claude in Chrome confirmed not connected
+      (tabs_context_mcp returned "not connected"); the standard read-only web
+      fetch tool in this run's environment also refused all six landing URLs
+      as outside its provenance set, so the live half was not read or
+      claimed this pass rather than falling back to an uncontrolled fetch
+      method; the eleventh pass's live findings (all six URLs 404, 26+ days
+      queued, Q35 still open) stand unchanged. Baseline: all 34
+      tools/check-*.js checkers ran individually, 34/34 clean, before any
+      work began. All six generators rebuilt from branches.json: git status
+      --porcelain -- modules core empty before and after, byte-identical.
+      NEW ANGLE. Of the twelve passes on this item, tools/check-nap.js - the
+      one checker in the estate that reads a phone, postcode, email, name
+      and street against branches.json at all, and the checker CLAUDE.md
+      devotes its single longest section to - had never been proven by
+      injection against these six pages using the REAL checker binary. The
+      eighth pass (2026-09-02) tested the same surfaces but through a
+      home-grown script with "own regexes", not by invoking check-nap.js
+      itself as a subprocess, which is not the same claim this item's own
+      ninth, tenth and eleventh passes established as the standard of proof.
+      METHOD. New instrument written fresh (audits/verify-5.2-2026-09-06-
+      twelfth.js, invokes the real tools/check-nap.js as a child process;
+      refuses to run if modules/branch/pages already carries a git diff;
+      restores each target from an in-memory buffer immediately after
+      capturing the checker subprocess's output and before any assertion
+      runs; sha256-reconfirmed byte-identical after every restoration and
+      again at the end, the same discipline the ninth, tenth and eleventh
+      passes used).
+      INJECTION ROUND, six injections, one per landing page, each isolating
+      a distinct check-nap.js mechanism: (1) Fishlocks Ainsdale, JSON-LD
+      telephone swapped to SK Chemists Bootle's real phone - CAUGHT (JSON-LD
+      telephone mismatch, plus the phone sweep independently flagging it as
+      SK Chemists' number). (2) Fishlocks Eccleston, mailto href swapped to
+      Smartts Bootle's real inbox with the visible text left unchanged -
+      CAUGHT on three counts simultaneously: mailto ownership, mailto
+      text-vs-href mismatch, and the estate-wide email sweep. (3) McCanns
+      Aigburth, Scorah Chemists Bramhall's postcode inserted into hero-sub
+      body copy in lower case ("sk7 3lq") - CAUGHT by the case-insensitive
+      foreign-postcode sweep specifically (the upper-case sweep alone would
+      have missed it). (4) McCanns Sandringham, Fishlocks Chemist Ainsdale's
+      phone inserted into hero-sub body copy in a dotted-separator shape
+      ("01704.575.478"), nowhere near "Call" or a tel: href - CAUGHT by the
+      PHONE_RE sweep, not the narrow tel:/Call readers. (5) Scorah Chemists
+      Bramhall, Smartts Chemist's brand name written into hero-sub body copy
+      - CAUGHT by the name sweep. (6) Scorah Chemists Hazel Grove, Smartts
+      Chemist's street address inserted ABBREVIATED ("42 Fernhill Rd" for
+      "42 Fernhill Road") into hero-sub body copy - CAUGHT by the street
+      sweep's abbreviation-tolerant pattern. All six caught on the first
+      attempt, each restored to sha256-confirmed byte-identical immediately
+      after, one target mutated at a time, never layered. Full 34-checker
+      suite re-run clean after the round; all six generators re-run, git
+      status --porcelain on modules/branch/pages, and on modules/core more
+      broadly, empty before and after.
+      RESULT. No defect on item 5.2 itself - tools/check-nap.js was already
+      correctly holding all six landing pages to every one of the six
+      mechanisms exercised, now proven directly by the real checker binary
+      for the first time in this item's twelve-pass history, closing the
+      gap the eighth pass's home-grown reimplementation could not close on
+      its own. No checker logic, page, generator or data field changed
+      anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-06-twelfth.js and
+      audits/verify-5.2-2026-09-06-twelfth-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
