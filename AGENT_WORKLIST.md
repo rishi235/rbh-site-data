@@ -16070,6 +16070,34 @@ type - not re-raised as a new question.
       remains unretrofitted. Any future question added to QUESTIONS.json
       still needs the same "Decision needed:" opening under the standing
       rule near the top of this file; this is not a one-off any more.
+      Quality pass 2026-09-06: all 37 pool items and all non-blocked
+      worklist items confirmed complete or blocked, so 6.8 came up again as
+      the least recently touched (last verified 2026-08-31). Re-checked the
+      standing rule against the current state of QUESTIONS.json rather than
+      assuming the 2026-08-31 all-clear still held: ten questions added
+      between 2026-08-31 and 2026-09-05 (Q86, Q87, Q88, Q90, Q91, Q92, Q94,
+      Q95, Q96, Q97) had been raised without the "Decision needed:" opening
+      the rule requires, the same drift already seen once before with Q83.
+      Read each of the ten in full, including its options and note, and
+      prepended one plain-English sentence stating the choice and the
+      recommended option, with the full original question text preserved
+      verbatim straight after, same convention as every prior retrofit. No
+      technical detail, option or note was shortened, softened or dropped.
+      Verified programmatically that all 45 currently open questions now
+      open with "Decision needed:" and that JSON.parse still succeeds.
+      check-em-dashes.js, check-postcodes.js and check-url-scheme.js, the
+      three checkers that read QUESTIONS.json, all still pass (0 failures;
+      the pre-existing UNOWNED postcode warnings on modules/branch/pages and
+      the pre-existing INSECURE URL warning on the untracked scratch file
+      qtmp.json are both unrelated to this change and unchanged by it). No
+      page regenerated, nothing else in the repo touched. Thirteenth
+      confirmation this item's own instruction can drift out of date exactly
+      as easily as any other worklist note if nobody re-checks it: the same
+      "genuinely complete" claim was true on 2026-08-31 and false by
+      2026-09-05 purely because new questions kept arriving. Future passes
+      on this item should keep re-checking the live count rather than
+      trusting the last pass's "no open question remains unretrofitted"
+      line at face value.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
