@@ -13441,9 +13441,13 @@ appended to the line. Do not move them; the status page reads them in place.
       Re-ran all 36 checkers and all six generators after the fix: still
       36/36 and byte-identical. Live side not re-read this pass (repo-half
       only, unattended run). Blocks nothing, no new question. Push to
-      origin/origin-https both failed in this sandbox as before (Q87/Q96,
-      no credentials available here); commit 6c50e0e is local-only pending a
-      sync from a machine that holds the GitHub credential. Done 2026-09-06.
+      origin/origin-https both failed from the Linux sandbox as before
+      (Q87/Q96, no credentials there); pushed successfully instead from the
+      real host via the Windows-MCP PowerShell route this run also used for
+      the status-page publish, so commits 6c50e0e and 31a2544 (and the two
+      commits already ahead from the item 6.8 run, aa4f30c and a097ae7) all
+      reached origin/agents/audit-backlog in this run, not left local-only.
+      Done 2026-09-06.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
