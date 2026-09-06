@@ -9808,6 +9808,37 @@ pack: Post C carries no price and was restored unchanged. Raised as Q98,
 cross-referencing Q16/Q85 (legacy page) and Q83/Q88 (lead price). Full
 detail in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the
 2026-09-05 addition. See audits/scorah-hazel-grove-pack-check-2026-09-05-twelfth.txt.
+Quality pass 2026-09-06 (thirteenth pass, unattended run): rotation pool
+re-derived from git log -L per-item line-range dates against the 38-item
+pool (44 checked items minus the six standing out-of-rotation items); 4.5
+came out stalest at 2026-09-05T22:15:36+01:00, clear of the runner-up, 1.3,
+at 2026-09-05T22:44:59+01:00 by about 29 minutes. All 8 unchecked lines
+re-confirmed [BLOCKED] first. Baseline: 36/36 checkers clean. Backup by
+byte copy to _agentscratch/scorah-hazel-grove.md.bak-pre-4.5-thirteenth,
+sha256 64fd2ae6...b7a4038 matching every prior pass. NEW ANGLE: the
+OUTCOME_PROMISE rule in check-gbp-packs.js (no pack may promise protection
+or immunity as an outcome; a question is exempt) had been proved by
+injection on five other packs - mccanns-sandringham, riddings-timperley,
+fishlocks-eccleston, smartts-bootle, tiffenbergs-aintree - but never on
+this one, confirmed by grep returning zero hits for "outcome promise" or
+"protection"/"immun" across this pack's own eleven prior audit files,
+despite Post D carrying travel clinic copy throughout. Three injections
+into Post D, each restored by byte copy and sha256-reconfirmed before the
+next: "We guarantee full protection for every destination." (guarantee
+wording) FAILED naming line 114; "The right vaccine will protect you for
+years to come." (declarative promise) FAILED naming line 113; "Wondering
+if a travel vaccine will fully protect you before you fly? Ask the
+pharmacist at your consultation." (a genuine question) PASSED, all 17
+pre-existing warnings unchanged, confirming the question exemption holds
+on this pack's own copy rather than being assumed to generalise from the
+other five. Full 36-checker suite re-run clean after final restore;
+git status --porcelain on modules/, core/, branches.json, gbp-packs/ and
+tools/ empty throughout. Live half: Claude in Chrome not connected
+(standing Q59); curl fallback: the landing page (pharmacy-scorah-hazel
+-grove.html) still 404s (Q35 class, unchanged since the seventh pass), the
+travel clinic page returns 200. No in-repo defect, no new question. The
+rule is now proved on six of the fifteen packs rather than five. See
+audits/scorah-hazel-grove-pack-check-2026-09-06-thirteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

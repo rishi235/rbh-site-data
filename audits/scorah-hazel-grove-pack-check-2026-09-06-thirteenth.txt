@@ -1,0 +1,125 @@
+SCORAH CHEMISTS HAZEL GROVE - GBP PACK QUALITY PASS
+Item 4.5, thirteenth pass, 2026-09-06 (unattended autonomous run)
+
+SELECTION
+Rotation pool: 38 checked AGENT_WORKLIST.md items (44 total [x] items minus
+the six standing out-of-rotation items 1.1, 1.4, 5.6, 5.7, 6.7, 6.8). For
+each pool item, last-touched date computed with
+  git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md
+against that item's own paragraph line range (start of its "- [x]" line to
+one line before the next entry's line, or end of file for the last item).
+
+Stalest: 4.5 Scorah Chemists Hazel Grove pack, last touched
+2026-09-05T22:15:36+01:00.
+Runner-up: 1.3 Sweep all pages for the McCanns Sandringham postcode error,
+last touched 2026-09-05T22:44:59+01:00 (about 29 minutes clear).
+All other pool items last touched later on 2026-09-06.
+
+All 8 unchecked AGENT_WORKLIST.md lines re-confirmed [BLOCKED] before this
+selection (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4 Q60, 6.5 Q60,
+6.6 Q66), so the quality-pass fallback applied as it has on every prior run.
+
+PRIOR HISTORY READ
+Twelve prior dedicated passes (2026-08-12 through 2026-09-05, twelfth pass),
+audits/scorah-hazel-grove-pack-check-2026-08-12.txt through
+-2026-09-05-twelfth.txt, plus the item 4.5 paragraph in AGENT_WORKLIST.md in
+full. Angles already proved by injection against this specific pack: the
+sister-branch guard (wrong town), the CLAIM_PATTERNS/EFFICACY_FAIL
+divergence fix, hasApp rule 8a-8d, the bank-holiday paster note, the
+address-line-integrity + branch-street-presence + stale-KNOWN-guard triple
+catch (road name changed), the RECOGNISED_SERVICES/RECOGNISED_CATEGORIES
+allowlist, the foreign-town-in-catchment rule, the hours DAYS-not-just-TIMES
+rule (three rounds), and the PRICE_PATTERNS/OFFER_PATTERNS lead-pricing rule.
+
+NEW ANGLE IDENTIFIED
+The OUTCOME_PROMISE rule in tools/check-gbp-packs.js (around line 1609-1620,
+sharing tools/outcome-promise-patterns.js with RULE 12 of
+check-travel-clinic-copy.js: no pack may promise protection or immunity as
+an outcome, with a genuine question exempted) had never been proved by
+injection against gbp-packs/scorah-hazel-grove.md specifically. Confirmed by
+grep before starting: `grep -rn "outcome promise\|protection.*immunity" audits/scorah-hazel-grove*.txt`
+returned zero hits, and `grep -l "RULE 12\|protect\|immun" audits/scorah-hazel-grove*.txt`
+returned nothing. The rule's own code comments record it proved against
+mccanns-sandringham.md (where it was written), riddings-timperley.md,
+fishlocks-eccleston.md, smartts-bootle.md and tiffenbergs-aintree.md - five
+packs, none of them this one, despite this pack carrying its own Post D
+travel clinic content throughout every one of its twelve prior passes.
+
+BASELINE
+`for f in tools/check-*.js; do node "$f"; done` - 36/36 exit 0 before any
+change. This pack is a GBP pack, not a generator input, so no generator
+regeneration or modules/core sha256 tree comparison was needed; confirmed
+this reasoning is consistent with all twelve prior passes on this item,
+none of which regenerated pages either.
+
+Backup: gbp-packs/scorah-hazel-grove.md copied by byte copy (cp, not git
+checkout) to _agentscratch/scorah-hazel-grove.md.bak-pre-4.5-thirteenth.
+sha256: 64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038
+- matches the value quoted in every prior pass's audit note, confirming the
+file has not moved since the twelfth pass.
+
+INJECTION ROUND 1 - guarantee wording
+Post D's closing line "Book your travel consultation today." had the
+sentence "We guarantee full protection for every destination." appended.
+RESULT: node tools/check-gbp-packs.js exited 1 with exactly one new line:
+  FAIL scorah-hazel-grove.md: line 114: outcome promise "guarantee" (uses
+  guarantee wording), from the shared tools/outcome-promise-patterns.js
+  that RULE 12 of check-travel-clinic-copy.js applies to the generated
+  pages. No pack may promise protection or immunity as an outcome...
+  Context: We guarantee full protection for every destination.
+The two pre-existing WARNs for this pack (the pfLink live-only link target,
+and the Q64 address post-town KNOWN exception) were unchanged.
+Restored by byte copy from the backup; sha256 reconfirmed identical
+(64fd2ae6...b7a4038), diff against the backup empty.
+
+INJECTION ROUND 2 - declarative "will protect you"
+Post D's line was changed to insert "The right vaccine will protect you for
+years to come." before "Book your travel consultation today."
+RESULT: exit 1, exactly one new FAIL:
+  FAIL scorah-hazel-grove.md: line 113: outcome promise "will protect you"
+  (promises protection as an outcome)...
+  Context: Macclesfield Road, no GP visit needed. The right vaccine will
+  protect you
+Same two pre-existing WARNs unchanged.
+Restored by byte copy; sha256 reconfirmed identical, diff empty.
+
+INJECTION ROUND 3 - genuine question (exemption check)
+Post D's line was changed to insert "Wondering if a travel vaccine will
+fully protect you before you fly? Ask the pharmacist at your consultation."
+before "Book your travel consultation today."
+RESULT: node tools/check-gbp-packs.js exited 0. Full output: "15 packs, 15
+live branches in branches.json", 17 warning(s) (all 17 pre-existing,
+including this pack's two), "0 failures." Confirms the question exemption
+("a question is not a promise") holds on this pack's own copy, matching the
+behaviour already proved on the five other packs, and not merely assumed to
+generalise.
+Restored by byte copy; sha256 reconfirmed identical (64fd2ae6...b7a4038),
+diff against the backup empty.
+
+POST-INJECTION VERIFICATION
+Full 36-checker suite re-run clean: 0 failures across all 36 scripts.
+`git status --porcelain -- modules/ core/ branches.json gbp-packs/ tools/`
+returned empty - no tracked-file drift from the round-trip.
+
+LIVE HALF
+Claude in Chrome not connected this run (standing Q59, unchanged). Fell
+back to a read-only curl status check on the two URLs most relevant to this
+pack's history:
+  https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html -> 404
+  (Q35 class, matching every prior pass since the seventh)
+  https://www.scorah-chemists.co.uk/travel-clinic-scorah-hazel-grove.html
+  -> 200
+No new live finding. The 2026-09-05 twelfth pass's fuller live findings
+(Q98: generated page lead-price wording, and the shared
+weight-loss-clinic-hazel-grove-bramhall.html legacy page) stand
+unreconfirmed this pass; neither touches Post D or the rule tested here.
+
+RESULT
+No in-repo defect found. The OUTCOME_PROMISE rule is now proved by direct
+injection against six of the fifteen packs (mccanns-sandringham,
+riddings-timperley, fishlocks-eccleston, smartts-bootle,
+tiffenbergs-aintree, and now scorah-hazel-grove), confirming it generalises
+rather than being coincidentally correct on the packs it happened to be
+tested against first. No page, pack or data field left changed; the pack
+file is byte-identical to its pre-pass state
+(64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038).
