@@ -24,8 +24,8 @@ QUESTIONS: none raised this run. QUESTIONS.json re-read in full before and after
 
 FILES CHANGED: AGENT_WORKLIST.md (item 3.9 twelfth-pass paragraph appended in place, no checkbox change - already [x]); AGENT_LOG.md (this entry); audits/verify-3.9-2026-09-06-twelfth.js (new).
 
-COMMIT/PUSH/PUBLISH (steps 9-10): to be completed below once staged and committed.
-STEP 11: `.agent-lock` to be removed from the sandbox path before exiting.
+COMMIT/PUSH/PUBLISH (steps 9-10): sandbox `git add`/`git commit` both hit `.git/index.lock` and `.git/HEAD.lock` (0 bytes each, no git process running, the standing FUSE-mount finding - `unlink()` fails "Operation not permitted" on this mount, `mv` does not): cleared each with `mv .git/index.lock(.HEAD.lock) .git/index.lock.cleared-<epoch>`, never `rm`; both commands then succeeded, committed as 9b3916f (AGENT_WORKLIST.md, AGENT_LOG.md, audits/verify-3.9-2026-09-06-twelfth.js only - none of the leftover lock-test scratch files staged). Sandbox push failed exactly as the standing Q96/Q87 finding predicts: `git push origin` (SSH) "Host key verification failed"; `git push origin-https` "could not read Username for 'https://github.com': No such device or address". Switched to `mcp__Windows-MCP__PowerShell` against the canonical C:\Dev\rbh-site-data working copy (the same underlying files as the sandbox mount): confirmed 9b3916f already present and the branch "ahead 1" before pushing, so the sandbox commit was genuinely visible on the real host. `git push origin agents/audit-backlog` returned exit 0; independently reconfirmed with a fresh `git fetch origin` plus `git log -1 --oneline origin/agents/audit-backlog` (9b3916f) and `git status -sb` reporting the branch even with origin - ruling out a false-success read. STEP 10: `node tools\build-audit-status.js` run via the same PowerShell session, exit 0, "Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)".
+STEP 11: `.agent-lock` removed from the sandbox path before exiting.
 
 
 
