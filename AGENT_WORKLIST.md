@@ -13170,6 +13170,78 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       changed, no judgement call for Rishi. Evidence: audits/riddings-
       timperley-clinic-qualifiers-4.13-twelfth-2026-09-05.txt.
       Done 2026-09-05.
+      Thirteenth quality pass 2026-09-06: pack clean and byte-stable across
+      all thirteen passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b6
+      26b9d0fed824630a775917c04 before and after, unchanged since the tenth
+      pass). Selected as stalest in the 37-item rotation pool by the same
+      commit-subject-date method as recent passes, once item 1.3 (verified
+      earlier the same day) dropped out of contention; 4.13 came out
+      stalest at its own twelfth-pass timestamp, 2026-09-05T00:12:41+01:00.
+      BASELINE. git status --porcelain empty on gbp-packs/, modules/,
+      core/, tools/, branches.json, status/. All 36 tools/check-*.js run
+      individually: 36/36 exit 0.
+      NEW ANGLE. The category/service ALLOWLIST rule (RECOGNISED_SERVICES /
+      RECOGNISED_CATEGORIES, item 4.4 quality pass, 2026-08-13, proved at
+      birth against scorah-bramhall.md) had never been injection-tested
+      against this pack's own copy across twelve prior passes. The
+      BLOCKLIST half of the same code region (CATEGORY_RULES/SERVICE_RULES,
+      the "branch doesn't earn this widget" direction) cannot be
+      meaningfully tested on Riddings at all: it holds all five widgets
+      (pharmacyFirst, bloodPressure, contraception, weightLoss,
+      travelClinic per branches.json), so nothing is unearned. The
+      allowlist is the separate INVENTED-LABEL direction and was the
+      genuinely untested surface.
+      METHOD. Full repo copied to a scratch directory outside the tracked
+      working tree, excluding only .git, per the twelfth pass's own lesson
+      that a partial copy produces false failures (check-gbp-packs.js
+      cross-references modules/*/pages/*.html for link targets). Scratch
+      baseline re-confirmed: sha256-identical to the tracked file, 0
+      failures, the same 17 estate-wide WARNs as every recent pass. Three
+      injections run one at a time against the scratch copy only, restored
+      by byte copy and sha256-reconfirmed identical before the next: (1)
+      "- Ear wax removal: microsuction ear wax removal by appointment."
+      added as a new Services bullet - CAUGHT, naming the label and
+      pointing at RECOGNISED_SERVICES, the same message shape as the rule's
+      birth-pack proof; (2) ", Dental clinic" appended to the Categories
+      "Add if not present" bullet - CAUGHT, naming the label and pointing
+      at RECOGNISED_CATEGORIES; (3) a control test, the same unrecognised
+      "Ear wax removal" label but written as "- NOTE: the live listing may
+      show Ear wax removal from an older paste; do not treat as
+      authoritative." - PASSED, confirming the NOTE-bullet exemption
+      (written for clear-aintree.md's own prose note about a service it
+      does NOT offer) holds correctly on this pack's own copy too, not only
+      on the pack it was written against. All three behaved exactly as
+      designed; no checker gap found. Scratch copy's full 36-checker suite
+      re-run after final restore: 35/36 exit 0, the one exception
+      (check-cdn-pins.js) failing only because the scratch copy has no .git
+      directory to resolve pinned refs against, the same known artefact the
+      twelfth pass recorded, confirmed by the tracked repo's own
+      check-cdn-pins.js passing cleanly throughout (never touched). Tracked
+      repo re-confirmed clean after: all 36 checkers 0 exit, sha256 of
+      gbp-packs/riddings-timperley.md unchanged, git status --porcelain
+      empty on all tracked paths. Scratch directory deleted after use.
+      No in-repo defect: the rule holds on Riddings' own copy exactly as it
+      does on the pack it was proved against at birth.
+      LIVE HALF NOT performed: Claude in Chrome not connected this run
+      (tabs_context_mcp reported "not connected", standing Q59). All
+      live-side findings still rest on the seventh pass's 2026-09-01 check
+      (Post B 404, pre-Phase-3 switch page paste at the old permalink,
+      branch-specific Pharmacy First page live and correct, weight-loss-
+      clinic-timperley.html's Regime 1 breach per compliance/
+      WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, item 5.8's own Q5 answer already
+      setting that fix direction, GBP pack's own Post C not implicated).
+      This pass's own subject governs wording pasted directly into a
+      Google Business Profile field, which is not a URL this repo can
+      fetch, the same point made about CLINIC_QUALIFIERS on the twelfth
+      pass. Answer pickup (step 3) also unavailable for the same reason;
+      QUESTIONS.json read directly (98 total, 45 open), unchanged by
+      pickup this run. No autonomous window active at the top of
+      AGENT_LOG.md. No new question raised: pure re-verification of
+      documented checker behaviour against this pack's own copy, no
+      business, legal, pricing or regulatory content changed, no judgement
+      call for Rishi. Evidence: audits/riddings-timperley-category-service-
+      allowlist-4.13-thirteenth-2026-09-06.txt.
+      Done 2026-09-06.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
