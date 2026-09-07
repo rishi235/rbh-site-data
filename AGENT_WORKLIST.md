@@ -8745,6 +8745,41 @@ Pharmacy First wording to the NHS service description.
       Files changed: none (all injections restored; this worklist paragraph
       and the log entry are the only tracked changes this pass).
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-06-fourteenth.txt.
+      Quality pass 2026-09-07 (fifteenth, unattended run): fresh angle - proved
+      tools/check-em-dashes.js's gbp-packs PACK_DIR sweep against this pack by
+      injection for the first time in fifteen passes (it had only ever
+      appeared in this item's passive 36-checker baseline sweep, tenth and
+      thirteenth passes; check-address-region.js, check-opening-hours.js,
+      check-page-coverage.js, check-travel-clinic-copy.js, check-nap.js and
+      check-weight-loss-copy.js were checked and ruled out as candidates -
+      each mentions "gbp-packs" only in a comment, none reads pack content as
+      data). Baseline clean (36/36 checkers; sha256 831e72c18ef9007d7fd760e9a
+      fcd1ce60513ac99a42bdf1ff4e014fcef052ec2, matching every prior pass, no
+      drift since the tenth pass's Q40 rename edit). Full repo copied by byte
+      copy to an isolated scratch path outside the mount; tracked repo never
+      opened for writing.
+      Four cases against the rule's two independent detection paths: (1) a
+      literal em dash (U+2014) replacing the description's closing full stop -
+      caught by the non-ASCII sweep; (2) a pure-ASCII "&mdash;" entity in the
+      Services section, which the non-ASCII sweep cannot see - caught solely
+      by the named-entity path, proving it is independent code rather than
+      redundant; (3) a decimal numeric entity "&#8212;" in Post D - caught by
+      the numeric-entity decoder; (4) a control, an ordinary ASCII hyphen
+      added correctly ("pharmacist-led, evidence-based") - correctly passed,
+      confirming the rule tells a hyphen from a dash rather than flagging any
+      punctuation. All four behaved exactly as designed first attempt, each
+      restored and sha256-reconfirmed before the next. No defect - the rule
+      already protects this pack on all three detection paths; now proven
+      directly. No checker logic edited, no pack content byte changed. Full
+      36-checker suite and all six generators re-run clean on the scratch copy
+      after the final restore; tracked repo confirmed sha256-unchanged
+      throughout. Live half not performed (Claude in Chrome not connected,
+      standing Q59; this checker governs plain-text copy pasted into GBP's own
+      fields, not something a read-only fetch could verify regardless). No new
+      question; QUESTIONS.json unchanged (98 total, 45 open). Files changed:
+      none inside gbp-packs/modules/core/tools/branches.json (all injections
+      restored on the scratch copy only).
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-07-fifteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

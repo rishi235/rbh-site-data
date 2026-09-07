@@ -1,0 +1,141 @@
+Item 4.2 quality pass (fifteenth, unattended scheduled run via Cowork sandbox
+shell only; Claude in Chrome not connected, standing Q59; no Windows-MCP tools
+invoked) - Cherry Lane Pharmacy (Walton) GBP pack, gbp-packs/cherry-lane-walton.md
+Run date: 2026-09-07
+
+ROTATION SELECTION
+37-item pool (43 checked worklist items minus the six standing out-of-rotation
+items 1.1, 1.4, 5.6, 5.7, 6.7, 6.8), computed by regex over AGENT_WORKLIST.md
+checklist markers (^- \[[xX ]\]\s+(?:\[BLOCKED\]\s+)?(\d+\.\d+)), each item's own
+paragraph range dated via `git log -1 --format=%cI --no-patch -L<start>,<end>:
+AGENT_WORKLIST.md`. Item 4.2 came out stalest at 2026-09-06T06:12:29+01:00,
+ahead of the runner-up (4.7 at 2026-09-06T06:41:14+01:00) and every other pool
+item later still. Chosen: 4.2.
+
+FRESH ANGLE
+Read the item's fourteen-pass history in full (AGENT_WORKLIST.md lines
+8463-8747) and cross-checked against every audits/cherry-lane-item-4.2-*.txt
+file. Of the sixteen checkers that actually read gbp-packs/*.md content as data
+(confirmed by `grep -l "gbp-packs" tools/check-*.js` then reading each match to
+separate genuine pack-content readers from files that merely mention
+"gbp-packs" in a comment): check-gbp-packs.js, check-pharmacy-first-eligibility.js
+(rules 9/10), check-uk-spelling.js, check-brand-spelling.js, check-url-scheme.js,
+check-pharmacy-first-cost.js (rule 6), check-app-membership.js (rule 8a),
+check-gbp-pharmacy-first.js and check-postcodes.js (rules 3/6) had each already
+been proven against this pack specifically by direct injection across passes
+three, eleven, twelve, thirteen and fourteen. check-em-dashes.js had only ever
+appeared in this item's passive "36-checker suite runs clean" baseline sweep
+(tenth and thirteenth passes) - never injected against cherry-lane-walton.md
+directly. check-address-region.js, check-opening-hours.js, check-page-coverage.js
+and check-travel-clinic-copy.js were confirmed NOT genuine candidates: each
+mentions "gbp-packs" only in a comment referencing check-gbp-packs.js by name,
+not as a directory it reads itself. check-nap.js and check-weight-loss-copy.js
+likewise mention "gbp-packs" only in prose comments, not as actual pack-content
+readers. check-em-dashes.js was therefore the correct fresh angle: it has a real
+PACK_DIR = gbp-packs/ constant (line 564) and a dedicated checkPackFile()
+function (line 710) that scans every pack line for two independent things at
+once - any non-ASCII character (not dashes alone) via NON_ASCII_RE, and any dash
+written as an HTML entity (named &mdash;/&ndash; or numeric &#8212;/&#x2014; etc.)
+via EM_NAMED_RE/EN_NAMED_RE/dashNumericEntities - because a Google Business
+Profile field is plain text and resolves no entity, so an entity would paste
+literally rather than rendering as a dash.
+
+BASELINE
+Tracked repo: all 36 tools/check-*.js run individually, 36/36 exit 0.
+sha256 of gbp-packs/cherry-lane-walton.md: 831e72c18ef9007d7fd760e9afcd1ce
+60513ac99a42bdf1ff4e014fcef052ec2 - matches every one of the fourteen prior
+passes' own recorded value exactly, so no drift since the pack was last touched
+(tenth pass, 2026-09-02, the Q40 rename edit).
+git status --porcelain -- gbp-packs modules core branches.json tools status:
+empty (aside from the standing untracked debris at repo root, out of scope,
+Q87).
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included, matching the established
+convention that excluding .git makes check-cdn-pins.js fail falsely even though
+it is not one of the checkers under test here) to a scratch path outside the
+mounted rbh-site-data folder (/sessions/admiring-stoic-dijkstra/scratch-42-
+emdash/repo), since that mount rejects unlink on scratch files the same way it
+does on .agent-lock. A separate pristine byte backup of the pack file was kept
+outside both trees. Edits made only inside the scratch copy; each restored by
+byte copy from the pristine backup and sha256-reconfirmed identical before the
+next case. The tracked repository was never opened for writing at any point.
+
+INJECTION ROUND, four cases against the rule's two independent detection paths
+plus one negative control:
+
+1. LITERAL EM DASH (non-ASCII path): the description's closing sentence
+   "...know the area. Come and see us." changed to "...know the area — come
+   and see us." (U+2014 em dash replacing the full stop). CAUGHT, exit 1,
+   exactly one FAIL: "line 42 (in GBP pack (non-ASCII U+2014))".
+
+2. HTML NAMED ENTITY (pure ASCII, entity path only): the Services section's
+   "Blister packs: weekly packs that organise your medicines by day and time."
+   changed to "...organise your medicines by day &mdash; and time." - this
+   string contains no non-ASCII byte, so NON_ASCII_RE cannot fire; only the
+   entity-specific test can. CAUGHT, exit 1, exactly one FAIL: "line 70 (in GBP
+   pack (em dash (HTML entity), which would paste literally))", confirming the
+   entity-detection path is genuinely independent code, not merely redundant
+   with the non-ASCII sweep.
+
+3. HTML NUMERIC ENTITY (decimal, decodes to em dash): Post D's "Going
+   somewhere? Get your jabs sorted before you go." changed to "...before you go
+   &#8212; we can help." CAUGHT, exit 1, exactly one FAIL: "line 128 (in GBP
+   pack (em dash (HTML numeric entity), which would paste literally))",
+   confirming dashNumericEntities() correctly decodes a decimal numeric
+   character reference (8212 = 0x2014) rather than only matching the named
+   entity forms.
+
+4. CONTROL (should PASS): the Services section's "Weight loss clinic:
+   pharmacist-led private consultations..." changed to "...pharmacist-led,
+   evidence-based private consultations..." - an ordinary ASCII hyphen used
+   correctly in "pharmacist-led" and "evidence-based", no dash character or
+   entity of any kind. Correctly PASSED, exit 0, same three summary lines as
+   baseline (200 comment dashes, 591 heading/prose dashes, 1 data-note dash,
+   all reported as non-failures) plus "check-em-dashes: clean, no em or en
+   dashes in public copy, literal or HTML entity." Confirms the rule
+   distinguishes a real hyphen from a real dash rather than flagging any
+   punctuation mark on the line.
+
+All four cases behaved exactly as designed on the first attempt, on their
+intended detection path and no other. Each restore confirmed byte-identical to
+the pristine baseline by sha256 before the next injection and after the final
+one (831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 throughout).
+
+RESULT
+Zero in-repo defect. check-em-dashes.js's PACK_DIR sweep - the non-ASCII path,
+the named-entity path and the numeric-entity path - all correctly protect
+Cherry Lane Pharmacy's own GBP pack copy, now proven directly by injection for
+the first time in fifteen passes on this item, rather than only passively
+observed as part of the "all 36 checkers pass" baseline sweep every prior pass
+recorded. Full 36-checker suite re-run clean on the scratch copy after the
+final restore (36/36 exit 0); all six build-*.js page generators re-run against
+the scratch copy, exit 0 each, git status --porcelain -- modules core
+branches.json gbp-packs tools empty before and after (zero diff). The tracked
+repo's own copy of the pack reconfirmed sha256-unchanged throughout and was
+never opened for writing. No checker logic edited, no pack content byte
+changed, no generator, page or branches.json content changed.
+
+LIVE HALF
+Not performed this pass. Claude in Chrome checked via tabs_context_mcp before
+any decision was reached (not assumed): reported not connected, standing Q59,
+consistent with every recent unattended run. This checker governs plain-text
+copy pasted into a Google Business Profile field, not a URL a read-only fetch
+could meaningfully verify (an em dash or HTML entity typed into GBP's own
+description/services/posts fields is invisible to any HTTP GET against the
+public listing or the branch website). Scope this pass was the repo-side
+checker proof only, matching the convention set by the eleventh through
+fourteenth passes on this same item when the same tool was unavailable. No live
+verdict changed; the fourteenth pass's live findings (none recorded that pass,
+repo-only scope) stand unmodified.
+
+QUESTIONS
+None raised this run. QUESTIONS.json unchanged (98 total, 45 open). No
+business, legal, pricing or regulatory content changed; no judgement call for
+Rishi.
+
+FILES CHANGED THIS PASS
+None inside gbp-packs/, modules/, core/, tools/ or branches.json (all
+injections made and restored on an isolated scratch copy only). Tracked
+changes: this audit file, the fifteenth-pass paragraph appended to
+AGENT_WORKLIST.md item 4.2, and the corresponding AGENT_LOG.md entry.
