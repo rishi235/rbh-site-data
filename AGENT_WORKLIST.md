@@ -7094,6 +7094,58 @@ Done 2026-09-06 (twelfth pass).
       total, 45 open). Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-06-twelfth.txt.
       Done 2026-09-06
+      Thirteenth quality pass 2026-09-07 (unattended run), fresh angle only.
+      Oldest of the 36 rotation-pool items: git log parsed in full for an
+      "item N.N"-shaped commit subject per candidate, excluding the standing
+      out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8); 3.11 last
+      touched 2026-09-06T09:12:25+01:00 (its own twelfth pass), ahead of 4.4
+      and the rest of the pool. All eight unchecked AGENT_WORKLIST.md items
+      confirmed [BLOCKED] by direct grep before falling back to the rotation.
+      REPO HALF ONLY (Claude in Chrome not connected, zero browsers per
+      list_connected_browsers). Twelve prior passes had covered NAP, JSON-LD,
+      brand spelling, em-dashes, the Pharmacy First eligibility/safety-net/
+      symptoms triad, the booking chain, check-whatsapp-route.js,
+      check-map-embeds.js, check-pharmacy-first-cost.js,
+      check-app-membership.js, check-switch-copy.js and
+      check-opening-hours.js. tools/check-contraception-copy.js had never
+      been named once across those twelve passes, despite this branch
+      holding a contraception widget and therefore a generated contraception
+      page - the same class of gap prior passes closed in turn for other
+      checkers.
+      Baseline: all 36 checkers exit 0. sha256 of
+      modules/service/pages/contraception-gordon-short-crosby.html recorded
+      before any edit. Full repo copied by byte copy (with .git) to a
+      scratch directory, the established method; every injection on the
+      scratch copy only, tracked repo never opened for writing.
+      Five injections, each caught first attempt on its intended rule only,
+      no cross-firing: (1) rule 5, the free FAQ answer's "no prescription
+      charge" changed to "a £9.90 prescription charge" - CAUGHT, 3 failures
+      (verbatim, free-absence, price-detected); (2) rule 6, the consent
+      sentence reversed to "We will always tell your GP" - CAUGHT, 3
+      failures (verbatim, consent-absence, reversed-phrase); (3) rule 7, "We
+      offer the coil fitting service here" prepended to a bullet - CAUGHT, 3
+      failures, one per overlapping LARC_OFFERS phrase; (4) rule 8,
+      "Microgynon" named in a bullet - CAUGHT, 1 failure naming the
+      medicine; (5) rule 4, "Pharmacy Contraception Scheme" added alongside
+      the correct name (isolating servicename from verbatim) - CAUGHT, 1
+      failure naming the wrong form. All five restored by byte copy and
+      sha256/cmp-reconfirmed identical before the next.
+      Full 36-checker suite re-run clean on the scratch copy after the final
+      restore; build-contraception-pages.js re-run against the scratch copy,
+      byte-identical (git status --porcelain -- modules core branches.json
+      empty). Tracked repo's own copy of the target page reconfirmed
+      sha256-unchanged throughout, never opened for writing.
+      LIVE HALF, read-only, curl fallback (Claude in Chrome not connected).
+      contraception-gordon-short-crosby.html: 200, the no-charge line and
+      consent sentence both present verbatim once each, zero hits for any
+      reversed-consent phrase, LARC-offer phrase or medicine name, correct
+      NHS service name present 5 times, zero price-pattern hits. sitemap.xml
+      lastmod unchanged at 2026-08-15T07:41:55+00:00, no republish since the
+      sixth pass. None of this pass's injected defects are present live.
+      Zero in-repo defects. No new question; QUESTIONS.json unchanged (98
+      total, 45 open). Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-07-thirteenth.txt.
+      Done 2026-09-07
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

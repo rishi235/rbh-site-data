@@ -1,0 +1,104 @@
+Item 3.11 - Gordon Short Chemist Crosby - thirteenth quality pass, 2026-09-07
+Unattended scheduled run (Cowork sandbox shell only; Claude in Chrome not connected
+- list_connected_browsers returned []).
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep (5.3 Q8,
+5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass fallback
+applied. Rotation pool: every `- [x] <N.N>` marker read from AGENT_WORKLIST.md (43
+checked), minus the standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+= 36-item pool. Each item's paragraph range dated via
+`git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md`. Item 3.11
+came out stalest at 2026-09-06T09:12:25+01:00, clear of the runner-up (4.4 at
+2026-09-06T09:47:18+01:00). Chosen: 3.11 (Gordon Short Chemist Crosby).
+
+FRESH ANGLE
+Twelve prior passes on this item covered: NAP/JSON-LD/spelling/em-dashes (via
+independent extraction, not by injecting the actual repo checkers check-nap.js /
+check-jsonld.js / check-em-dashes.js), the Pharmacy First eligibility/safety-net/
+symptoms triad, the booking chain, check-whatsapp-route.js, check-map-embeds.js,
+check-pharmacy-first-cost.js, check-app-membership.js, check-switch-copy.js and
+check-opening-hours.js, all by direct injection against this branch's own pages.
+tools/check-contraception-copy.js had never been named once across twelve prior
+passes on this item, despite gordonshorts_crosby holding a contraception widget
+and therefore a generated contraception page
+(modules/service/pages/contraception-gordon-short-crosby.html) - the same class of
+gap the item's own eighth, ninth, tenth and eleventh passes closed for other
+checkers in turn.
+
+BASELINE
+sha256 of modules/service/pages/contraception-gordon-short-crosby.html on the
+tracked repo before any edit: 1720dae7f212fb676de14bdd2c1eac2fad04190c5b6f53346ea
+408a2fe031e8f. All 36 tools/check-*.js run individually against the tracked repo:
+0 failures.
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to /tmp/scratch-3.11, the
+established convention (this mount's git checkout cannot unlink an old file
+cleanly, the documented FUSE restriction, so restoration is a plain byte copy each
+time). A separate pristine byte backup of the target page was kept outside both
+trees at /tmp/pristine-contraception-gordon-short-crosby.html. Every injection was
+made on the scratch copy only; the tracked repository was never opened for
+writing. Each injection restored by byte copy from the pristine backup and
+reconfirmed sha256-identical (and cmp-identical) before the next.
+
+FIVE INJECTIONS, each caught first attempt on its intended rule and no other:
+
+1. RULE 5 (free/price) - the "Is it free?" FAQ answer's "there is no prescription
+   charge" changed to "there is a £9.90 prescription charge". CAUGHT: 3 failures -
+   [verbatim] (the generator's exact FAQ-answer line no longer present),
+   [free] absence of the no-prescription-charge phrase, [free] a price pattern
+   detected ("£9"). Restored, sha256- and cmp-confirmed identical, re-run clean.
+
+2. RULE 6 (consent, reversed) - "We will only tell your GP that you have used the
+   service if you give your consent." changed to "We will always tell your GP
+   that you have used the service." CAUGHT: 3 failures - [verbatim], [consent]
+   absence of the required consent sentence, [consent] the reversed phrase "we
+   will always tell your gp" detected. Restored, reconfirmed, re-run clean.
+
+3. RULE 7 (long-acting offer) - "We offer the coil fitting service here. "
+   prepended to the first <li>. CAUGHT: 3 failures, one per overlapping phrase
+   in LARC_OFFERS ("fitting service", "coil fitting", "we offer the coil"), all
+   on rule [larc] only, no cross-firing into any other rule. Restored,
+   reconfirmed, re-run clean.
+
+4. RULE 8 (medicine name) - "We can supply Microgynon if suitable. " prepended
+   to the first <li>. CAUGHT: 1 failure, [medicine], naming "microgynon" by name
+   and file. Restored, reconfirmed, re-run clean.
+
+5. RULE 4 (service name) - "Also known as the Pharmacy Contraception Scheme. "
+   prepended to the first <li>, correct service name left untouched elsewhere on
+   the page (isolates rule 4's wrongNames check from rule 3's verbatim
+   requirement, which only demands the generator's own lines are present, not
+   that no other string appears). CAUGHT: 1 failure, [servicename], naming the
+   wrong form used and the correct NHS name. Restored, reconfirmed, re-run clean.
+
+All five behaved exactly as designed on the first attempt, each firing only its
+intended rule, no unintended cross-firing between rules.
+
+FINAL VERIFICATION
+Target file sha256 after the fifth restore: 1720dae7f212fb676de14bdd2c1eac2fad04
+190c5b6f53346ea408a2fe031e8f - identical to the pre-injection baseline. Full
+36-checker suite re-run clean on the scratch copy after the final restore (36/36
+exit 0). tools/build-contraception-pages.js re-run against the scratch copy:
+exit 0, `git status --porcelain -- modules core branches.json` empty (byte-
+identical output). Tracked repo's own copy of the target page reconfirmed
+sha256-unchanged throughout and never opened for writing; `git status --porcelain
+-- modules core branches.json tools gbp-packs` on the tracked repo empty.
+
+LIVE HALF, read-only, curl fallback (Claude in Chrome not connected, zero browsers
+per list_connected_browsers)
+https://www.gordonshortchemist.co.uk/contraception-gordon-short-crosby.html: 200,
+77252 bytes. "no prescription charge" present once; the consent sentence present
+verbatim once; zero hits for any reversed-consent phrase, any LARC-offer phrase or
+any of the fourteen medicine names checked; "NHS Pharmacy Contraception Service"
+present 5 times, correctly; zero price-pattern hits. sitemap.xml: lastmod
+unchanged at 2026-08-15T07:41:55+00:00, no republish since the item's own sixth
+pass (2026-08-31). None of this pass's five injected defects, nor any related
+fault, are present on the live page.
+
+RESULT
+Zero in-repo defects. No new question raised: check-contraception-copy.js's rules
+4 through 8 are now proven directly against Gordon Short Chemist Crosby's own
+contraception page for the first time in thirteen passes, matching the live page's
+own content exactly.
