@@ -14068,6 +14068,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       changed. No new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-06-thirteenth.txt.
       Done 2026-09-06.
+      Quality pass 2026-09-07 (fourteenth, unattended scheduled run, Cowork
+      sandbox shell only). Taken because all 8 unchecked worklist lines are
+      [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, confirmed by direct
+      grep); item-selection method unchanged - most recent "item X.Y" mention
+      in a commit subject across the 36-item rotation pool (43 completed
+      items minus the out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+      4.14 was stalest, last mentioned 2026-09-06T08:18:09+01:00 (its own
+      thirteenth pass), no tie; full ranking recorded in this pass's evidence
+      file. Baseline: all 36 checkers clean before any edit (after truncating
+      two stray scratch files this run's own ranking step had left in the
+      repo root, which check-postcodes.js had picked up as unrecognised
+      postcode strings; the FUSE mount would not permit deleting them, only
+      truncating, matching standing Q87/Q96); pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9 matches
+      every prior pass, no drift. FRESH ANGLE: the twelfth and thirteenth
+      passes proved rules 3, 4, 5, 6, 7 and 8 of check-gbp-pharmacy-first.js
+      against this pack; rules 2, 2b and 9 (the three remaining PER-PACK
+      rules in that checker - rules 1, 10, 11, 12 are estate-wide invariants)
+      had never been injection-tested against this pack specifically, the
+      same gap shape the 4.7 fourteenth pass closed the same day for McCanns
+      Sandringham. Three injections on the real file, each restored by byte
+      copy and sha256/cmp-reconfirmed before the next: (1) rule 2b, the
+      Services section's condition list replaced with "a range of common
+      ailments" leaving Post A untouched - caught, "was located but names
+      none of the 7 Pharmacy First conditions"; (2) rule 9, ", including
+      private shingles vaccination consultations" appended to the Private
+      consultation room bullet - the exact legitimate-vaccination
+      hypothetical the rule's own comment describes - caught, "names
+      \"shingles\" outside the Pharmacy First blocks"; (3) rule 2's "hasPf
+      true, no scope located" branch, reached by relabelling both "- NHS
+      Pharmacy First:" and "### Post A - Pharmacy First" at once so
+      pfScopes() finds neither - caught, "has neither an \"- NHS Pharmacy
+      First:\" service bullet nor a \"### Post A\" body", with the expected
+      secondary trip of the estate-wide Rule 11 coverage guard as a direct
+      consequence of the same single defect, not a separate cross-firing
+      rule. All three fired first attempt, each on its intended rule. Full
+      36-checker suite re-run clean after final restore; pack byte-identical
+      to baseline confirmed by cmp and sha256; git status on the file empty
+      throughout. Zero in-repo defect - all nine per-pack rules in this
+      checker (2, 2b, 3, 4, 5, 6, 7, 8, 9) now proven directly against this
+      pack across the twelfth, thirteenth and this pass. Live half not
+      repeated this pass (Claude in Chrome not loaded; the thirteenth pass's
+      live read of the four post-linked pages and sitemap.xml stands
+      unchanged and was judged disproportionate to repeat every single pass
+      within the 30-45 minute budget); the STOP/PF_TARGET_HOLD (Q32) on this
+      branch's stale live "Gordon Shorts Chemist" page remains open and
+      unaffected. No new question. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-07-fourteenth.txt.
+      Done 2026-09-07.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

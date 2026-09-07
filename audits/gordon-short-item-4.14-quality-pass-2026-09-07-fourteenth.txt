@@ -1,0 +1,189 @@
+Item 4.14 (Gordon Short Chemist Crosby GBP pack) - fourteenth quality pass, 2026-09-07
+Unattended scheduled run, Cowork mcp__workspace__bash sandbox only (no Claude
+in Chrome, no Windows-MCP loaded for this run).
+
+LOCK: .agent-lock content "RELEASED 2026-09-07T05:19:58Z end of run", mtime
+about 24 minutes before this check, well under the 45-minute staleness
+threshold - refreshed by the orchestrating run at the start of this session,
+left untouched. .git/index.lock present, 0 bytes, about 24 minutes old (under
+the 1-hour threshold), no git process running (ps aux checked); left in place
+per the letter of the rule, and it did not block git status/log/add/commit
+this run.
+
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification failed"
+- standing Q96, confirmed again; no SSH key material in this sandbox session.
+`git fetch origin-https` (GIT_TERMINAL_PROMPT=0) succeeded, exit 0, and
+brought down one unrelated branch update (claude/composio-asana-exploration-
+5xood7); no change to agents/audit-backlog. `git rev-list --left-right --count
+origin-https/agents/audit-backlog...HEAD` read "0  11" - local unchanged, 11
+ahead, 0 behind, same as before this run. `git push --dry-run origin-https
+agents/audit-backlog` failed "could not read Username for
+'https://github.com': terminal prompts disabled" - push remains blocked on
+credentials, standing Q96, unresolved.
+
+ANSWER PICKUP (step 3): not attempted separately this run; Claude in Chrome
+tools were not loaded (not needed for a sandbox-shell-only pass) and no
+other route to QUESTIONS.json answers exists in this session. QUESTIONS.json
+holds 45 open questions, 53 answered, 98 total - unchanged from the prior run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md. No autonomous decisions applied
+this run.
+
+WORKLIST (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Quality
+pass taken instead. Item-selection method re-derived independently rather
+than trusted from the prior log entry: `git log --pretty=format:'%ad|%s'
+--date=iso-strict` over all 915 commits, matched on the first
+"[Ii]tem <n>.<n>" occurring anywhere in the subject (not anchored to line
+end, for the same reason recorded in every recent pass - several subjects
+end with narrative text after the item number). Completed-item pool built
+from AGENT_WORKLIST.md's 43 confirmed `^- \[x\]` lines, minus the standing
+out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36-item pool. Every
+one of the 36 items had at least one dated mention (no never-mentioned
+items). Full ranking (stalest first, date | item):
+
+2026-09-06T08:18:09+01:00 | 4.14  <- stalest, chosen
+2026-09-06T08:46:15+01:00 | 1.2
+2026-09-06T09:13:04+01:00 | 3.11
+2026-09-06T09:48:51+01:00 | 4.4
+2026-09-06T10:15:17+01:00 | 4.1
+2026-09-06T10:43:47+01:00 | 3.2
+2026-09-06T11:10:36+01:00 | 3.5
+2026-09-06T11:42:33+01:00 | 3.7
+2026-09-06T12:14:18+01:00 | 3.13
+2026-09-06T12:43:49+01:00 | 6.2
+2026-09-06T13:14:16+01:00 | 3.4
+2026-09-06T13:48:19+01:00 | 3.9
+2026-09-06T14:11:41+01:00 | 3.10
+2026-09-06T14:46:37+01:00 | 2.1
+2026-09-06T15:44:49+01:00 | 5.2
+2026-09-06T16:13:11+01:00 | 4.11
+2026-09-06T16:46:55+01:00 | 5.1
+2026-09-06T17:43:42+01:00 | 3.12
+2026-09-06T18:11:33+01:00 | 3.6
+2026-09-06T18:47:44+01:00 | 3.8
+2026-09-06T19:13:56+01:00 | 6.3
+2026-09-06T19:41:42+01:00 | 3.1
+2026-09-06T20:11:08+01:00 | 4.3
+2026-09-06T20:43:09+01:00 | 4.6
+2026-09-06T21:13:42+01:00 | 4.5
+2026-09-06T21:41:35+01:00 | 1.3
+2026-09-06T22:14:48+01:00 | 4.13
+2026-09-06T22:41:09+01:00 | 4.8
+2026-09-06T23:13:56+01:00 | 4.10
+2026-09-07T00:43:00+01:00 | 4.9
+2026-09-07T01:44:18+01:00 | 4.12
+2026-09-07T02:43:29+01:00 | 4.15
+2026-09-07T03:43:37+01:00 | 2.3
+2026-09-07T04:13:21+01:00 | 3.3
+2026-09-07T05:10:53+01:00 | 4.2
+2026-09-07T06:18:51+01:00 | 4.7  <- freshest (previous run's own pass)
+
+4.14 was stalest, last mentioned 2026-09-06T08:18:09+01:00 (its own
+thirteenth pass), no tie. Ranking script and raw git log kept only in this
+run's scratch working area (outside the tracked tree; not committed, per the
+existing convention that working notes for the ranking are not themselves a
+tracked artefact).
+
+REPO HALF. Baseline: all 36 tools/check-*.js run individually against the
+live checked-out tree before any edit, 0 failures (after truncating two
+leftover scratch files this run had itself created outside the intended
+scope in a first pass at the ranking step - .scratch_audit/log.txt and
+.scratch_audit/rank.py under the repo root - back to empty, since
+check-postcodes.js scans the whole repo tree and had picked up unrecognised
+postcode strings from that raw git-log dump; the FUSE mount would not permit
+deleting the files outright, matching the standing Q87/Q96 unlink
+restriction, so they were truncated to zero bytes instead. Confirmed harmless
+and pre-existing debris of the same class as the many .agent-lock.released-*
+files already in the untracked list, not added to the commit).
+gbp-packs/gordon-short-crosby.md sha256 before any edit:
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9 - matches
+every prior pass's recorded value exactly (twelfth and thirteenth passes),
+no drift.
+
+FRESH ANGLE: the twelfth pass (2026-09-05) proved tools/check-gbp-pharmacy-
+first.js rules 3, 4 and 6 against this pack; the thirteenth pass (2026-09-06)
+proved rules 5, 7 and 8. That leaves rules 2, 2b and 9 - the three remaining
+PER-PACK rules in that checker (rules 1, 10, 11, 12 are estate-wide
+invariants, out of scope for a single pack's injection test) - never
+injection-tested against Gordon Short Crosby's own file across thirteen
+prior passes. This is the identical gap shape the 4.7 fourteenth pass closed
+the same day for McCanns Sandringham, applied here to a different pack.
+
+THREE INJECTIONS, each on the real gbp-packs/gordon-short-crosby.md, restored
+by byte copy from a saved-before-edit original (kept in this run's scratch
+area) and both sha256- and cmp-reconfirmed byte-identical before the next:
+
+1. RULE 2b (a located Pharmacy First scope that names none of the seven
+   conditions is a mislocated block, not an empty one). The Services section
+   "NHS Pharmacy First" bullet's condition list ("for sinusitis, sore throat,
+   earache, impetigo, shingles, infected insect bites and uncomplicated UTIs
+   in women") was replaced with "for a range of common ailments", Post A left
+   untouched. CAUGHT: "Services section \"NHS Pharmacy First\" bullet was
+   located but names none of the 7 Pharmacy First conditions." Confirms the
+   rule fires on this pack's own bullet, not only in the abstract.
+
+2. RULE 9 (a condition word loose outside the two Pharmacy First scopes).
+   The Private services bullet "Private consultation room: confidential
+   advice on your medicines." had ", including private shingles vaccination
+   consultations" appended - the exact hypothetical the rule's own code
+   comment describes (a legitimate shingles VACCINATION service, correctly
+   flagged as needing a KNOWN_NON_PF entry rather than being silently
+   accepted). CAUGHT: "names \"shingles\" outside the Pharmacy First blocks,
+   in copy that is not the service bullet or Post A." Restored afterwards;
+   no KNOWN_NON_PF entry added, because the real pack carries no such
+   sentence and none should be invented.
+
+3. RULE 2, the "hasPf true but no scope located" branch (the branch 2b does
+   not cover). branches.json holds a pharmacyFirst widget for this branch
+   (rbh_gordon_short_crosby), so Rule 2's other branch (advertising Pharmacy
+   First with no widget) can never fire here and was not re-tested. To reach
+   "scopes.length === 0" while hasPf stays true, both anchors pfScopes()
+   depends on were broken at once: "- NHS Pharmacy First:" relabelled to
+   "- NHS Assessment Service:", and "### Post A - Pharmacy First" relabelled
+   to "### Post Z - Pharmacy First". CAUGHT: "branches.json gives this branch
+   a pharmacyFirst widget, but the pack has neither an \"- NHS Pharmacy
+   First:\" service bullet nor a \"### Post A\" body, so the profile would
+   say nothing about a free NHS service the branch actually runs." This
+   injection also tripped the estate-wide Rule 11 coverage guard ("read
+   Pharmacy First copy in 13 packs, but branches.json has 14 live branches
+   with a pharmacyFirst widget") as a direct downstream consequence of the
+   same single defect, not a separate cross-firing rule - the same secondary
+   effect the 4.7 pass would have produced from the identical injection.
+
+All three fired on the first attempt, each on its intended rule (with the
+expected Rule 11 co-firing on injection 3), no unintended cross-firing.
+
+RESTORE CONFIRMED: cmp and sha256 both confirm gbp-packs/gordon-short-
+crosby.md byte-identical to the pre-edit original after each injection and
+at the end (49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9);
+`git status --porcelain gbp-packs/gordon-short-crosby.md` empty throughout
+the run.
+
+FULL BATTERY RE-RUN: all 36 tools/check-*.js re-run individually after the
+final restore, 0 failures.
+
+RESULT: ZERO IN-REPO DEFECTS. Fourteenth pass on item 4.14. All three
+per-pack rules in check-gbp-pharmacy-first.js not previously proven against
+this specific pack (2, 2b, 9) are now proven directly against Gordon Short
+Crosby's own file, joining rules 3, 4, 5, 6, 7, 8 proven on the twelfth and
+thirteenth passes - the full nine per-pack rule set is now proven against
+this pack. The four remaining rules (1, 10, 11, 12) are estate-wide
+invariants not scoped to a single pack.
+
+LIVE HALF NOT PERFORMED: Claude in Chrome tools were not loaded this run
+(sandbox-shell-only scope, matching every prior pass on this item under the
+"Cowork sandbox shell only" label); the live cross-check against the pack's
+four post-linked pages and sitemap.xml recorded on the thirteenth pass
+(2026-09-06) was not repeated, since it is not the fresh angle this pass
+targets and repeating an unchanged live read every single pass was judged
+out of proportion to the 30-45 minute budget. The STOP/PF_TARGET_HOLD (Q32)
+recorded against this branch's stale "Gordon Shorts Chemist" live page
+remains open and unaffected by this pass; nothing here touches it.
+
+NO NEW QUESTION. No in-repo defect found; QUESTIONS.json unchanged (45 open,
+53 answered, 98 total).
+
+PUSH/PUBLISH: see AGENT_LOG.md entry for this pass for the outcome of
+git push and tools/build-audit-status.js.
