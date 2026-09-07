@@ -3650,6 +3650,52 @@ AGENT_WORKLIST.md paragraph range rather than commit-subject matching): 3.7
 (2026-09-05T12:16:10+01:00), 3.4 (2026-09-05T13:18:41+01:00). Re-derive
 rather than assume, since other runs may land in between.
 
+Quality pass 2026-09-07 (fourteenth): NEW LEG, tools/check-map-embeds.js,
+never mentioned once across thirteen prior passes on this item (confirmed by
+grep of every tools/check-*.js basename against this item's full history
+block), picked over check-branch-links.js because item 1.2's own fourteenth
+pass earlier the same day (commit 0044893) had already proven
+check-branch-links.js against this exact branch by injection, and repeating
+it here would have been pure duplication. Independent extraction
+(audits/verify-3.5-2026-09-07-fourteenth.py, freshly written, no import from
+tools/, __dirname-relative) read all 12 Hirshmans pages against
+check-map-embeds.js rules 2 to 6: exactly one map embed per page, correct
+shape, no raw space or comma, proper percent-encoding, decoded query equals
+this branch's own address, contact card agrees with the map, no directions
+button present (correct, Hirshmans has no branch landing page). 108 checks,
+0 failures. All 36 checkers pass; all six generators already agree with the
+tracked tree, nothing to regenerate. GUARD RE-PROOF BY INJECTION, on
+earache-treatment-hirshmans-ainsdale.html, never used for injection on this
+item across thirteen prior passes, worked entirely on a scratch copy outside
+the tracked tree: (1) map query postcode changed PR8 3HW to PR8 3HN, contact
+card untouched - caught on both RULE 3 (the address) and RULE 4 (agreement)
+at once, the correct cascade; (2) restored, then only the contact card's
+locality changed to Birkdale, map untouched - caught on RULE 4 alone, RULE 3
+correctly silent, proving the two rules are independent; (3) restored, then
+one %20 reverted to a literal space in the map query - caught on RULE 5
+(encoding) alone. All three caught first attempt, isolating exactly the
+intended rule(s) each time. Restored and SHA256-reconfirmed identical to
+baseline after each injection; scratch directory deleted at the end. Tracked
+repo confirmed untouched throughout (git status --porcelain on modules,
+core, branches.json, tools, gbp-packs, status empty); full 36-checker suite
+re-run clean after the scratch work. LIVE HALF: Claude in Chrome unreachable
+(Q59 unchanged), fell back to anonymous curl GET. Six pages not read live on
+any prior pass (sore-throat-treatment, sinusitis-treatment, earache-
+treatment, impetigo-treatment, insect-bite-treatment, switch-prescriptions)
+all HTTP 200, one map embed each, decoded query and contact card both read
+"56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW" - matches the
+repo-side state exactly, no live-only finding. sitemap.xml lastmod
+unchanged since the sixth pass, no republish. Evidence in
+audits/hirshmans-item-3.5-quality-pass-2026-09-07-fourteenth.txt,
+audits/verify-3.5-2026-09-07-fourteenth.py and
+audits/verify-3.5-2026-09-07-fourteenth-output.txt. No in-repo defect found,
+no new question.
+Next stalest by this run's own re-derivation (pool of 36, seven standing
+out-of-rotation items excluded, ranked by `git log -1 -L<range>` on each
+item's own AGENT_WORKLIST.md paragraph): 3.7 (2026-09-06T11:41:47+01:00),
+then 3.13, 6.2, 3.4. Re-derive rather than assume, since other runs may land
+in between.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

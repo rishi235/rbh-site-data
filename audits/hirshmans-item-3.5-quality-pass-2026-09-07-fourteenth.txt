@@ -1,0 +1,134 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - fourteenth quality pass, 2026-09-07
+(unattended scheduled run via Cowork sandbox shell; Claude in Chrome not
+connected, Q59 unchanged).
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass
+fallback applied. Rotation pool re-derived fresh: every checked `- [x] <N.N>`
+line in AGENT_WORKLIST.md, its own paragraph range bounded by the next
+checklist marker line, dated via `git log -1 --format=%cI --no-patch
+-L<start>,<end>:AGENT_WORKLIST.md`. 43 checked items minus the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36-item pool. Item
+3.5 came out stalest at 2026-09-06T11:10:36+01:00, clear of the runner-up
+(3.7 at 2026-09-06T11:41:47+01:00, about 31 minutes later) and every other
+pool item later still. This matches the immediately preceding run's own
+re-derivation note at the end of the thirteenth-pass paragraph below.
+
+Item 1.2's own fourteenth pass earlier today (commit 0044893, 08:13) had
+already proven tools/check-branch-links.js against this same branch
+(hirshmans_ainsdale) by injection - item 1.2 and item 3.5 both track this one
+branch under different original taskings (1.2: address verification; 3.5:
+"same treatment" general quality pass) and have converged on the same
+NEW-LEG methodology. Repeating check-branch-links.js here would have been
+pure duplication with no new information. Picked tools/check-map-embeds.js
+instead: never mentioned once across this item's own thirteen prior passes
+(confirmed by grep of every tools/check-*.js basename against this item's
+full AGENT_WORKLIST.md history block - only covered passively by the
+full-suite sweep every pass already runs), and covers ground genuinely
+distinct from item 1.2's fourteenth pass (page-level map iframe and contact
+card agreement, not branches.json's own link fields).
+
+BASELINE
+branches.json's hirshmans_ainsdale record unchanged from every prior pass.
+Independent extraction (audits/verify-3.5-2026-09-07-fourteenth.py, freshly
+written, no import from tools/, __dirname-relative rather than a hardcoded
+path) read all 12 Hirshmans pages against check-map-embeds.js's own rules 2
+to 6: exactly one map embed per page, correct https://www.google.com/maps?q=
+...&output=embed shape, no raw space or comma in the query, the query is the
+proper percent-encoding of its own decoded value, the decoded query equals
+this branch's own streetAddress/addressLocality/postalCode joined with ", ",
+the contact card prints the same address the map underneath it uses, and any
+directions button destination agrees with the map (none found, expected:
+Hirshmans carries no branch landing page, confirmed again this pass, the
+same position recorded for it on items 1.2/3.11/thirteenth's own opening-
+hours pass). 108 checks, 0 failures. All 36 checkers run individually
+against the tracked repo: 36/36 exit 0. All six generators (branch landing,
+contraception, service, switch, travel clinic, weight loss) already agree
+with the tracked tree; git status --porcelain on modules/, core/, tools/,
+branches.json and status/ empty before and after this pass's work; no
+generator or data edit made, so no regeneration was needed.
+
+GUARD RE-PROOF BY INJECTION
+Page: earache-treatment-hirshmans-ainsdale.html - never used for injection on
+this item across thirteen prior passes (fifth: pharmacy-first; seventh:
+uti-treatment; eighth: weight-loss-clinic; ninth: switch-prescriptions;
+tenth: contraception; eleventh: travel-clinic; twelfth: shingles-treatment;
+thirteenth: switch-prescriptions again, opening-hours rule 8). All work done
+on a full scratch copy of tools/, modules/ and branches.json at
+/tmp/scratch-35-mapembeds, outside the tracked tree; the tracked repository
+was never opened for writing this pass. Baseline SHA256 of the untouched page
+528f849267ed0da599548ec3b8bc16c2f1b4784f0db18c6b3083fbe5544ffa78 recorded
+first; the scratch copy's own check-map-embeds.js run confirmed clean before
+any injection (177 pages, 177 map embeds, 6 directions buttons estate-wide,
+0 failures).
+
+Injection 1, RULE 3 (the address) and RULE 4 (agreement) together: the map
+query's postcode changed from PR8 3HW to PR8 3HN, contact card left
+untouched. CAUGHT, two failures, both naming the exact file: "[the address]
+... map points at ...PR8 3HN and branches.json gives this branch
+...PR8 3HW"; "[agreement] ... contact card reads ...PR8 3HW and the map
+underneath it points at ...PR8 3HN" - the correct cascade, since breaking the
+map's own address also breaks its agreement with the (untouched) contact
+card, not two independent faults.
+
+Injection 2, RULE 4 only, isolated: restored to baseline, then only the
+contact card's locality changed from Ainsdale to Birkdale, the map iframe
+left untouched. CAUGHT, exactly one failure this time, confirming the two
+rules are independent: "[agreement] ... contact card reads ...Birkdale...
+and the map underneath it points at ...Ainsdale...". Rule 3 correctly did
+not fire, since the map itself still matched branches.json.
+
+Injection 3, RULE 5 (encoding), isolated: restored to baseline, then one
+%20 in the map query reverted to a literal space ("Sherwood House" ->
+"Sherwood House" with an unencoded space where %20 belonged). CAUGHT, exactly
+one failure: "[encoding] ... map query carries a raw space or comma, which
+breaks the embed". Rules 3 and 4 correctly did not fire, since the raw-space
+check runs and returns before either comparison.
+
+All three injections caught on their intended rule(s), first attempt, with
+the expected layered behaviour on injection 1 and clean isolation on
+injections 2 and 3 - no cross-firing beyond what the rule logic itself
+predicts. Restored to baseline each time; final SHA256 of the page
+reconfirmed identical to the pre-injection hash
+(528f849267ed0da599548ec3b8bc16c2f1b4784f0db18c6b3083fbe5544ffa78). Scratch
+copy's own check-map-embeds.js re-run clean after the final restore (177
+pages, 0 failures). Tracked repository confirmed untouched throughout:
+`git status --porcelain -- modules core branches.json tools gbp-packs status`
+on the real repo empty before, during and after this pass (only the
+long-standing untracked `.agent-lock.released-*`/scratch-file debris this
+item's own recent passes have already recorded, out of scope, standing Q87,
+not re-raised). Full 36-checker suite re-run against the tracked repo after
+the scratch work: 36/36 exit 0. Scratch directory deleted at the end of this
+pass.
+
+LIVE HALF
+Claude in Chrome unreachable this run (checked at answer pickup and
+reconfirmed before this section: `tabs_context_mcp` returned "Claude in
+Chrome is not connected"). Fell back to a plain anonymous curl GET (nothing
+clicked, typed or submitted), the established fallback. Six of Hirshmans'
+twelve pages read live (the six not already read on a prior pass's live
+half, to maximise fresh coverage in one run): sore-throat-treatment,
+sinusitis-treatment, earache-treatment, impetigo-treatment, insect-bite-
+treatment, switch-prescriptions, all hirshmans-ainsdale, all HTTP 200. On
+every one: exactly one map embed, its decoded query equals "56-62 Sherwood
+House, Station Road, Ainsdale, PR8 3HW", and the contact card above it prints
+the identical string - matches the repo-side state exactly, no live-only
+finding. sitemap.xml: lastmod on the two pages checked (impetigo-treatment,
+earache-treatment) still 2026-08-14T16:09:17+00:00, unchanged since the
+sixth pass first recorded this timestamp for this branch, no republish.
+
+RESULT
+No in-repo defect found. No new question raised. No page, generator, data
+field or patient-facing copy changed in the tracked tree. Pure
+re-verification plus one new guard-coverage proof (check-map-embeds.js
+proven against this item's own pages and generators for the first time
+across fourteen passes). Evidence in
+audits/verify-3.5-2026-09-07-fourteenth.py and
+audits/verify-3.5-2026-09-07-fourteenth-output.txt.
+
+Next stalest by this run's own re-derivation (pool of 36, seven standing
+out-of-rotation items excluded, ranked by `git log -1 -L<range>` on each
+item's own AGENT_WORKLIST.md paragraph): 3.7 (2026-09-06T11:41:47+01:00),
+then 3.13, 6.2, 3.4. Re-derive rather than assume, since other runs may land
+in between.

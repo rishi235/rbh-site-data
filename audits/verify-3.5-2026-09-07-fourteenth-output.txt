@@ -1,0 +1,5 @@
+hirshmans_ainsdale check-map-embeds independent verification (12 pages)
+checks run: 108
+directions buttons found (expect 0, no branch landing page for this branch): 0
+failures: 0
+RESULT: clean
