@@ -14212,6 +14212,39 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       footer injection). No new question raised, no worklist item blocked
       or unblocked. Evidence in
       audits/tiffenbergs-aintree-pharmacy-first-rules-4.15-twelfth-2026-09-06.txt.
+      Quality pass 2026-09-07 (thirteenth re-verification, repo half only):
+      pack verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: check-gbp-packs.js's category/service
+      ALLOWLIST rule (RECOGNISED_SERVICES/RECOGNISED_CATEGORIES, born item 4.4
+      quality pass 2026-08-13, since proven against Riddings Timperley,
+      Smartts Bootle and, earlier the same day, Coleman and Leighs Walton) had
+      never been proven by injection against THIS pack's own copy across
+      twelve prior passes. Categories (Pharmacy; Travel clinic, Weight loss
+      service, Vaccination centre) and all seven Services bullets were
+      already inside both allowlists, so a clean candidate. Full repo copied
+      to a scratch directory outside the tracked tree; all injections and
+      checker runs against the scratch copy only, tracked file never opened
+      for writing. Three injections, each restored by byte copy and
+      sha256-reconfirmed identical before the next: (1) an unrecognised
+      service, "Ear wax removal", appended to the Services section - CAUGHT,
+      exit 1, exactly one FAIL naming RECOGNISED_SERVICES; (2) an
+      unrecognised category, "Dental clinic", appended to the Categories "Add
+      if not present" line - CAUGHT, exit 1, exactly one FAIL naming
+      RECOGNISED_CATEGORIES; (3) a control naming both terms inside a
+      "- NOTE:" bullet as evidence about a competitor rather than a claim
+      about this branch - correctly PASSED, exit 0, 0 failures, 17 warnings
+      unchanged, confirming the NOTE-bullet exemption holds on this pack's
+      own copy too. All three behaved exactly as designed on first attempt.
+      No checker gap found; no in-repo defect. Full 36-checker suite and all
+      six generators re-run clean against the tracked repo after the final
+      restore; sha256 reconfirmed identical; diff against modules/, core/,
+      tools/, gbp-packs/ and branches.json all empty. Live half NOT
+      performed: Claude in Chrome confirmed not connected this run (standing
+      Q59); this rule governs pack copy pasted into GBP's picker fields, not
+      a URL a fetch could verify regardless. The twelfth pass's live verdicts
+      stand, not re-verified this pass. No new question raised. Evidence in
+      audits/tiffenbergs-aintree-category-service-allowlist-4.15-thirteenth-2026-09-07.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

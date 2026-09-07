@@ -1,0 +1,154 @@
+Item 4.15 - Tiffenbergs Chemist Aintree GBP pack
+Quality pass 2026-09-07 (thirteenth re-verification, repo half only, unattended
+scheduled run via Cowork sandbox shell only)
+
+CONTEXT
+Twelve prior passes on this item (2026-08-10 through 2026-09-06) proved: every
+branches.json fact, the split weekday hours in all three places, the switch
+banner mojibake fix (run-44), the Q79 bank-holiday notesBlock rule, the
+OUTCOME_PROMISE rule against Post D, check-brand-spelling.js /
+check-url-scheme.js / check-uk-spelling.js against this pack's own copy, the
+hours-line day-presence rule, and check-gbp-pharmacy-first.js rules 3, 4, 6
+and 8. The category/service ALLOWLIST rule in tools/check-gbp-packs.js
+(RECOGNISED_SERVICES / RECOGNISED_CATEGORIES, born item 4.4 quality pass
+2026-08-13 against scorah-bramhall.md, since proven against Riddings
+Timperley, Smartts Bootle and, the previous run today, Coleman and Leighs
+Walton) had never been proven by direct injection against THIS pack's own
+copy. Confirmed by grep across every audits/tiffenbergs-*.txt file and the
+item's own AGENT_WORKLIST.md paragraph history before starting.
+
+ROTATION AND SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), so the
+quality-pass fallback applied. Rotation pool: 43 checked-item headers found
+by regex over AGENT_WORKLIST.md, minus the six standing out-of-rotation items
+(1.1, 1.4, 5.6, 5.7, 6.7, 6.8) = 37-item pool. Per-item last-touched date
+computed via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` over
+each item's own paragraph range, bounded by the next checklist marker line
+(checked, unchecked or blocked) read directly. Item 4.15 came out stalest at
+2026-09-06T02:18:52+01:00, clear of the runner-up (2.3 at
+2026-09-06T02:41:06+01:00) and every other pool item later still. Chosen:
+4.15 (Tiffenbergs Chemist Aintree GBP pack).
+
+LOCK AND SYNC
+.agent-lock present at run start, content "RELEASED 2026-09-07T00:45:02Z end
+of run", mtime about 49 minutes before run start - past the 45-minute
+threshold, treated as stale. `rm` returned "Operation not permitted" (standing
+FUSE-mount restriction); `mv` to a new name succeeded and was used instead,
+then a fresh lock written by shell redirection. `.git/index.lock` (0 bytes,
+about 50 minutes old, `ps aux` found no git process running) blocked git
+operations at the first attempt; `rm` failed the same way, `mv` succeeded.
+`git fetch origin` (SSH) failed "Host key verification failed" - standing
+Q96, confirmed again. `git fetch origin-https` succeeded; already on
+`agents/audit-backlog`; `git rev-list --left-right --count
+HEAD...origin-https/agents/audit-backlog` read 6 ahead, 0 behind before this
+run's own commit - local HEAD already carried everything origin-https had,
+consistent with the last several runs' recorded inability to push from this
+sandbox. No pull needed.
+
+ANSWER PICKUP (step 3): mcp__claude-in-chrome__tabs_context_mcp reported
+Claude in Chrome not connected - standing Q59. Logged and carried on; nothing
+clicked, typed, submitted or signed in anywhere. QUESTIONS.json read
+directly: 45 open questions, unchanged by pickup this run.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md for a "Standing
+authorisation - autonomous window" heading before this entry was written;
+none present. Not applicable this run.
+
+BASELINE
+sha256 of gbp-packs/tiffenbergs-aintree.md: matched the last four prior
+passes' own recorded hash exactly
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b), confirming
+the file is unchanged since the ninth pass. All 36 tools/check-*.js run
+individually against the tracked repo: 36/36 exit 0. node
+tools/check-gbp-packs.js: 15 packs, 15 live branches, 17 warning(s) (the same
+standing set every recent pass has recorded), 0 failures. git status
+--porcelain -- gbp-packs modules core branches.json tools was empty (aside
+from the pre-existing untracked lock/scratch debris every recent pass already
+notes under standing Q87).
+
+CONFIRMED IN THIS PACK'S OWN COPY BEFORE INJECTION
+Categories section: Primary "Pharmacy"; "Add if not present" line names
+"Travel clinic, Weight loss service, Vaccination centre" - all four terms
+already inside RECOGNISED_CATEGORIES. Services section: seven bullets (NHS
+prescription dispensing, NHS Pharmacy First, NHS blood pressure check, NHS
+contraception service, Travel clinic, Weight loss clinic, Private
+consultation room) - all seven already inside RECOGNISED_SERVICES. A clean
+candidate for injection: nothing in the pack's real copy is currently on
+either allowlist's edge, so an injected unrecognised term proves the rule
+rather than merely re-stating an existing failure.
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to a scratch path
+outside the tracked tree (/sessions/gracious-relaxed-goodall/scratch/repo-415
+on this sandbox's own writable filesystem, since the mounted rbh-site-data
+folder itself rejects unlink on scratch/test files - the same FUSE
+restriction affecting .agent-lock). A separate pristine byte copy of the pack
+file was kept alongside. Edits made only inside the scratch copy; restored by
+byte copy and sha256-reconfirmed identical before each next case. The tracked
+repository was never opened for writing.
+
+INJECTION ROUND, three cases against the allowlist rule's two halves
+1. Unrecognised service: appended "- Ear wax removal: private micro-suction
+   ear wax removal by appointment." to the Services section, after the
+   Private consultation room bullet. CAUGHT: exit 1, exactly one FAIL naming
+   RECOGNISED_SERVICES ("Services section lists \"Ear wax removal\"...").
+   Restored; sha256 reconfirmed identical to the pristine copy.
+2. Unrecognised category: appended ", Dental clinic" to the "Add if not
+   present" categories line. CAUGHT: exit 1, exactly one FAIL naming
+   RECOGNISED_CATEGORIES ("Categories section names \"Dental clinic\"...").
+   Restored; sha256 reconfirmed identical.
+3. Control: a "- NOTE:" bullet appended to the Services section naming both
+   unrecognised terms as evidence about a competitor rather than a claim
+   about this branch ("a competitor two doors down advertises \"Ear wax
+   removal\" and \"Dental clinic\" on its own profile; this branch offers
+   neither"), the same shape clear-aintree.md's and hirshmans-ainsdale.md's
+   own NOTE bullets already rely on. Correctly PASSED: exit 0, 0 failures,
+   17 warnings unchanged, confirming the NOTE-bullet exemption holds on this
+   pack's own copy too. Restored; sha256 reconfirmed identical.
+
+All three behaved exactly as designed on first attempt; the 17 standing
+warnings (including this pack's own known set) were present and unchanged
+throughout; no cross-firing observed on any other pack in any of the three
+runs (spot-checked scorah-bramhall.md, scorah-hazel-grove.md and
+smartts-bootle.md warning lines, all unchanged from baseline).
+
+RESULT
+Zero in-repo defect. The allowlist rule, both the service half and the
+category half, and its NOTE-bullet exemption, all hold correctly on
+Tiffenbergs Chemist Aintree's own pack copy, now proven by injection for a
+fifth pack (Scorah Bramhall at birth; Riddings Timperley and Smartts Bootle
+earlier in the rotation; Coleman and Leighs Walton and Tiffenbergs Aintree in
+today's two runs). Full 36-checker suite re-run clean after the final
+restore (36/36 exit 0); sha256 reconfirmed identical
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b); all six
+build-*.js page generators re-run against the scratch copy, exit 0 each,
+`diff -rq` against the tracked repo's modules/, core/, tools/ and
+gbp-packs/ directories and branches.json all empty before and after, so the
+generated output and every source file are byte-stable. No checker logic,
+generator, page, pack or branches.json content changed. No new question
+raised: pure re-verification of documented checker behaviour, no business,
+legal, pricing or regulatory content changed, no judgement call for Rishi.
+
+LIVE HALF
+Not performed, for the same reason recorded on this item's ninth, tenth,
+eleventh and (repo-half) other recent passes: Claude in Chrome is not
+connected this run (confirmed via tabs_context_mcp before this decision was
+reached, not assumed). This rule also governs pack copy pasted by a human
+into Google Business Profile's Categories/Services picker fields, not a URL
+a read-only fetch could verify even with a browser connected - the same
+position the twelfth pass recorded for the equivalent rule on this pack. The
+2026-09-06 twelfth-pass live verdicts (all four post targets 200, no "coming
+soon" text, switch banner mojibake still live, tiffenbergs@ vs Tiffenberg@
+email split still open under Q56) stand as written, not re-verified this
+pass.
+
+WORKLIST AND COMMIT (steps 7, 9)
+Appended this thirteenth-pass paragraph under item 4.15 in AGENT_WORKLIST.md
+in place (already [x], no checkbox change); added this audit file; the
+AGENT_LOG.md entry. git status --porcelain confirmed only these tracked
+files changed, plus the pre-existing untracked debris already noted by every
+recent pass (standing Q87), left untouched and not added.
+
+PUSH/PUBLISH (steps 9-10)
+See AGENT_LOG.md for the outcome recorded after this file was written.
