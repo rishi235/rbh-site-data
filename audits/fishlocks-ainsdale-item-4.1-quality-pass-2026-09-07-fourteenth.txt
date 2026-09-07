@@ -1,0 +1,115 @@
+Item 4.1 quality pass (fourteenth), 2026-09-07 - Fishlocks Chemist Ainsdale GBP pack
+Unattended scheduled run (audit-backlog-worker), Cowork sandbox shell only. Claude in Chrome
+not connected (list_connected_browsers returned []).
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied.
+Rotation pool: every `- [x] <N.N>` marker read directly from AGENT_WORKLIST.md (43 checked
+markers), minus the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+= 36-item pool. Ranked by last mention of "item N.N" anywhere in a commit subject
+(git log --pretty=format:'%ad|%s' --date=iso-strict, first/most-recent match kept per item,
+since log is newest-first). Item 4.1 came out stalest at 2026-09-06T10:15:17+01:00 (its own
+thirteenth pass), ahead of the runner-up (3.2 at 2026-09-06T10:43:47+01:00) and every other
+pool item later still. Chosen: 4.1 (Fishlocks Chemist Ainsdale GBP pack).
+
+FRESH-ANGLE RATIONALE
+The thirteenth pass (2026-09-06) closed out all ten checkers that genuinely read gbp-packs/
+as a directory (of 16 files mentioning the string "gbp-packs" at all; six only reference it
+in a comment naming check-gbp-packs.js, confirmed again this pass by grep -l - the file count
+and the six-comment-only / ten-genuine-reader split are unchanged since the thirteenth pass).
+That pass's own closing note recorded the next fresh angle should be either the live half
+once a browser is available, or a new checker if one had been added to the genuine-reader set
+since. Checked both this pass:
+  - No new checker exists: `find tools -maxdepth 1 -name "check-*.js"` returns exactly 35
+    files, matching the count implied by every recent 2026-09-07 pass elsewhere in the log;
+    the newest tools/check-*.js by first-added git date is check-fragment-targets.js
+    (2026-08-14T08:41:43+01:00) - nothing has been added since the thirteenth pass.
+  - Claude in Chrome remains not connected, so the live half is not available either.
+
+Instead, the same GRANULAR-RULE shape used by the item 4.4 fifteenth pass (2026-09-07,
+against gbp-packs/scorah-bramhall.md, the entry immediately above this one in AGENT_LOG.md)
+applied here: check-gbp-packs.js's own header comments (tools/check-gbp-packs.js lines
+1535-1608) record the OUTCOME_PROMISE rule (tools/outcome-promise-patterns.js, added
+2026-08-29, shared with RULE 12 of check-travel-clinic-copy.js) as proven by direct injection
+against five sibling packs - mccanns-sandringham.md (the pack the rule was first written
+against), riddings-timperley.md, fishlocks-eccleston.md, smartts-bootle.md and
+tiffenbergs-aintree.md - and, as of today's 4.4 pass, a sixth, scorah-bramhall.md. Despite
+gbp-packs/fishlocks-ainsdale.md carrying its own travel clinic Post D throughout (confirmed:
+"### Post D - Travel clinic" at line 108, "Book your travel consultation today." closing it),
+and despite this being the single most quality-passed item in the whole backlog (thirteen
+prior dedicated passes), this specific rule had never been pointed at this pack's own copy -
+only ever assumed correct by the rule's general design, the same gap every prior pack in that
+list carried before its own turn.
+
+BASELINE
+sha256 of gbp-packs/fishlocks-ainsdale.md before any edit:
+  7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+- matches the twelfth and thirteenth passes' own recorded value exactly, no drift since the
+twelfth pass. All 35 tools/check-*.js run individually against the tracked repo: 0 failures.
+git status --porcelain on gbp-packs/modules/core/branches.json/tools: clean (aside from the
+standing untracked lock/debris files, Q87, out of scope).
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to a scratch path outside the mount
+(/sessions/upbeat-dreamy-gauss/scratch-4.1-outcomepromise/repo), the established convention
+for this mount (git checkout cannot cleanly unlink an old file here). A separate pristine
+byte copy of the pack was kept outside the scratch repo tree. Each injection was applied to
+the scratch copy only, checked, then restored by byte copy and reconfirmed byte-identical by
+both sha256sum and cmp before the next. The tracked repository (/sessions/upbeat-dreamy-gauss/
+mnt/rbh-site-data) was never opened for writing at any point.
+
+INJECTIONS (all three against Post D's closing sentence, "Book your\ntravel consultation
+today." - the pack hard-wraps at that point, so the match spans the line break)
+
+1. Guarantee wording appended: "travel consultation today. We guarantee full protection for
+   every destination." - CAUGHT first attempt.
+   FAIL fishlocks-ainsdale.md: line 113: outcome promise "guarantee" (uses guarantee wording)
+   ...No pack may promise protection or immunity as an outcome...
+   Restored; sha256 and cmp both confirmed byte-identical to baseline.
+
+2. Declarative protection claim prefixed onto the line before "Book your": "Convenient
+   appointments on Station Road, no GP visit needed. The right vaccine will protect you for
+   years to come. Book your\ntravel consultation today." - CAUGHT first attempt.
+   FAIL fishlocks-ainsdale.md: line 112: outcome promise "will protect you" (promises
+   protection as an outcome)...
+   Restored; sha256 and cmp both confirmed byte-identical to baseline.
+
+3. Control - a genuine question appended: "travel consultation today. Wondering if a travel
+   vaccine will fully protect you before you fly? Ask the pharmacist at your consultation." -
+   correctly PASSED. Full check-gbp-packs.js run exited 0; only the two pre-existing WARNs
+   present (Q72 private-clinic qualifier wording, Q64 address post-town divergence), no new
+   FAIL - confirming the question exemption (sentence ending "?" is not read as a promise)
+   holds on this pack's own copy and not only on the packs the rule was previously proven
+   against. Restored; sha256 and cmp both confirmed byte-identical to baseline.
+
+All three fired on their intended rule and no other, first attempt, matching the pattern
+every sibling-pack proof in this rule's history has recorded.
+
+POST-INJECTION VERIFICATION
+Full 35-checker suite re-run clean on the scratch copy after the final restore (0 failures).
+git status --porcelain -- gbp-packs on the scratch copy: clean. Tracked repo's own copy of
+the pack reconfirmed sha256-unchanged (7592bad3...) and git status --porcelain empty
+throughout; never opened for writing. Scratch directory deleted after the pass completed.
+
+RESULT
+Zero in-repo defect. All ten genuine gbp-packs/ readers remain proven against this pack by
+direct injection (nine from the tenth-thirteenth passes, plus this pass's granular proof of
+check-gbp-packs.js's OUTCOME_PROMISE rule specifically, which the checker-level proof in the
+tenth pass did not itself exercise). The rule set is not exhausted in the abstract - only in
+the set of checkers that exist today - so a future pass should watch for either a new checker
+touching gbp-packs/, a new granular rule added to an already-proven checker (the same shape
+this pass and the 4.4 fifteenth pass both used), or a Claude in Chrome connection becoming
+available to re-verify the live half (last confirmed on the twelfth pass, 2026-09-05:
+profile-website target still 404, Q35 answered but not yet applied; Q91 footer misspelling
+still open, no repo-side fix available).
+
+LIVE HALF NOT ATTEMPTED
+Claude in Chrome not connected this run (list_connected_browsers returned []).
+mcp__workspace__web_fetch was tried once against the profile-website target
+(https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html) and refused on its own
+provenance gate ("URL not in provenance set"). Per the standing rule against working around a
+blocked fetch, no curl/bash alternative was used. Live state stands as last recorded on the
+twelfth pass (2026-09-05).
+
+NO NEW QUESTION. QUESTIONS.json unchanged (45 open, 53 answered, 98 total).

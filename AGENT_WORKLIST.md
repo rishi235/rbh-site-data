@@ -8512,6 +8512,45 @@ Pharmacy First wording to the NHS service description.
       that set. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-06-thirteenth.txt.
       Done 2026-09-06
+      Quality pass 2026-09-07 (fourteenth, unattended run): least recently
+      verified rotation-pool item again, ranked the same way as every recent
+      pass (stalest "item N.N" mention by commit date across the 36-item
+      pool); 4.1 came out stalest at 2026-09-06T10:15:17+01:00. Baseline
+      sha256 of gbp-packs/fishlocks-ainsdale.md unchanged since the twelfth
+      pass (7592bad3...); all 35 checkers pass at the start. FRESH ANGLE:
+      the thirteenth pass had closed out all ten genuine gbp-packs/ readers
+      at the CHECKER level and left the next angle as either the live half
+      or a new checker if one had been added - neither applied (35
+      checkers, same as the thirteenth pass; no new file; Claude in Chrome
+      still not connected). Instead, the same granular-RULE shape the item
+      4.4 fifteenth pass used the same day: check-gbp-packs.js's
+      OUTCOME_PROMISE rule (tools/outcome-promise-patterns.js, added
+      2026-08-29) had been proven by injection against six sibling packs
+      (mccanns-sandringham, riddings-timperley, fishlocks-eccleston,
+      smartts-bootle, tiffenbergs-aintree, scorah-bramhall) but never
+      against this pack's own Post D, despite Fishlocks Ainsdale carrying
+      one throughout and being the single most quality-passed item in the
+      backlog. Three injections on a scratch copy (tracked repo never
+      opened for writing), each restored and sha256/cmp-reconfirmed
+      identical before the next: guarantee wording appended to Post D's
+      close - CAUGHT ("outcome promise \"guarantee\""); a declarative "will
+      protect you for years to come" prefixed onto the same sentence -
+      CAUGHT ("outcome promise \"will protect you\""); a control genuine
+      question appended - correctly PASSED (exit 0, only the two
+      pre-existing WARNs, Q72 and Q64, no new FAIL), confirming the
+      question exemption holds on this pack's own copy too. All three fired
+      on the first attempt, on their intended rule and no other. Full
+      35-checker suite re-run clean after the final restore; tracked repo
+      reconfirmed sha256-unchanged and git status empty throughout. No
+      in-repo defect. LIVE HALF NOT ATTEMPTED: Claude in Chrome not
+      connected; mcp__workspace__web_fetch tried once against the
+      profile-website target and refused on its own provenance gate, not
+      worked around per the standing rule. Live state stands as last
+      recorded on the twelfth pass (2026-09-05): profile-website target
+      still 404 (Q35, answered but not yet applied), Q91 footer
+      misspelling still open. No new question. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-07-fourteenth.txt.
+      Done 2026-09-07
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
