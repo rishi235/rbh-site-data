@@ -1296,6 +1296,50 @@ audits/verify-2.1-2026-09-06-thirteenth-output.txt.
       chosen scope. No new question; QUESTIONS.json unchanged (98 total, 45
       open). Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-06-twelfth.txt.
+      Thirteenth quality pass 2026-09-07 (unattended run, Cowork Linux sandbox
+      shell only). Repo half clean again: all 36 checkers exit 0, all six
+      generators rebuilt to a zero diff. FRESH ANGLE: tools/check-weight-loss-
+      copy.js, the most compliance-sensitive checker in the repo, had never
+      been proven by injection against Cherry Lane's own weight loss page or
+      its Weebly paste block in twelve prior passes (zero matches for the
+      checker's name in this item's own text beforehand). Four injections on
+      an isolated scratch mirror (branches.json, the 15 real weight loss
+      pages, the 6 branch landing pages, both weebly-paste blocks, and an
+      unmodified copy of the checker plus the five tools/ files it reads),
+      each restored by byte copy and SHA256-reconfirmed before the next,
+      tracked repo never opened for writing throughout (git status --porcelain
+      modules/ branches.json tools/ empty before and after): (1) "Wegovy"
+      inserted into the page hero - caught by rule 8, names the file and the
+      medicine; (2) "This is a professional judgement, not a guarantee."
+      removed from step 2 - caught by rule 6, quotes the missing sentence; (3)
+      the consultation fee changed from "from £39.99" to "from £29.99" in all
+      three places on the page - caught TWICE, rule 7's per-page fee check and
+      its estate-wide drift check (29.99 on 3 occurrences, 39.99 on the
+      remaining 42); (4) "Mounjaro" inserted into cherry-lane-old-weight-loss-
+      replacement.html, the Weebly "old page moved" paste block - caught by
+      rule 12, citing the Regime 1/entry-point reasoning. All four caught
+      first attempt. Rule 11 (branch landing pages) confirmed structurally
+      inapplicable: Cherry Lane has no branch landing page. Reproducible
+      script: audits/verify-2.3-2026-09-07-thirteenth.js (re-run this session,
+      exits 0, all four CAUGHT). No in-repo defect found, no rule or page byte
+      changed. LIVE HALF: Claude in Chrome not connected (standing Q59);
+      fell back to a read-only curl GET from the Cowork sandbox shell against
+      three live pages. The weight loss page is clean: no medicine name found
+      (11-name sweep), both private/paid marks present, the fee reads "from
+      £39.99" (matches CONSULT_FEE, no drift), and the no-guarantee sentence
+      is present verbatim - the live page matches what the checker holds the
+      repo copy to. Three previously logged live-only faults reconfirmed
+      unchanged, none in copy this repo owns: Q95's fault (5 of 7 Pharmacy
+      First condition cards still "Page coming soon" with no link on the
+      overview page); the switch page's pre-Phase-3 SEO title
+      ("Switch Your Prescriptions - Cherry Lane Pharmacy Walton"); and its
+      mojibake em dash, reconfirmed at the same raw bytes (C3 94 C3 87 C3 B6)
+      in the "How switching to Cherry Lane Pharmacy works" lead paragraph. The
+      Q36 footer NHS mailbox typo was not observed this pass (absent, not
+      typo'd), consistent with its already-logged instability; not re-raised.
+      No new question. Evidence: audits/verify-2.3-2026-09-07-thirteenth.js
+      (script and inline run output; see AGENT_LOG.md for the full transcript
+      including the live curl output).
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
