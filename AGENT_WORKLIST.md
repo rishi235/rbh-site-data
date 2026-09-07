@@ -9699,6 +9699,38 @@ confirmed unreachable again (Q59, standing). Per the house rule against working 
 fetch tool, no other route was attempted. All five live-URL findings are carried forward unchanged
 from the eleventh/twelfth passes. No new question raised for the live half. See
 AGENT_LOG.md, 2026-09-06, for the fuller transcript of this pass.
+Quality pass 2026-09-07 (fifteenth, unattended scheduled run): clean. All 36 checkers re-run
+against the untouched worktree, 36/36 pass. All ten checkers that genuinely scan gbp-packs/ as a
+directory have now been proven against this pack by direct injection across the fourteen prior
+passes, so the fresh angle this pass was a granular rule within an already-proven checker never
+pointed at this pack specifically - the same shape the thirteenth pass used for the sister-branch
+sentence. check-gbp-packs.js's OUTCOME_PROMISE rule (tools/outcome-promise-patterns.js, shared
+with RULE 12 of check-travel-clinic-copy.js) had been proven against mccanns-sandringham.md,
+riddings-timperley.md, fishlocks-eccleston.md, smartts-bootle.md and tiffenbergs-aintree.md, but
+never against Scorah Bramhall's own Post D travel clinic copy despite this pack carrying one
+throughout. gbp-packs/scorah-bramhall.md backed up by MD5 (ae58dd982780a11b808b6df84e29eecf,
+unchanged since the fourth pass) before any mutation; all three injections run against a full
+scratch copy (repo plus .git), tracked repo never opened for writing.
+INJECTION 1 (guarantee wording): Post D's closing sentence "Book your travel consultation today."
+appended with "We guarantee full protection for every destination." Result: FAIL, "outcome
+promise \"guarantee\" (uses guarantee wording)". Caught first attempt.
+INJECTION 2 (declarative protection claim): the same sentence prefixed with "The right vaccine
+will protect you for years to come." Result: FAIL, "outcome promise \"will protect you\" (promises
+protection as an outcome)". Caught first attempt.
+INJECTION 3 (control, question exemption): the sentence replaced with "Wondering if a travel
+vaccine will fully protect you before you fly? Ask the pharmacist at your consultation." Result:
+correctly PASSED, exit 0, only the two pre-existing WARNs (live-only Post A link, Q64 address
+post-town) present, no new FAIL - confirms the question exemption holds on this pack's own copy.
+All three fired on the first attempt, on their intended path only. Final restore MD5-confirmed
+byte-identical (ae58dd982780a11b808b6df84e29eecf); full 36-checker suite re-run clean on the
+scratch copy after the final restore; tracked repo's own copy reconfirmed MD5-unchanged and
+git status --porcelain empty throughout, never opened for writing.
+RESULT: zero in-repo defect. check-gbp-packs.js's OUTCOME_PROMISE rule already correctly protects
+Scorah Chemists Bramhall's own pack; now proven directly by injection for the sixth time across
+the estate and the first time against this specific pack. Live half not attempted (Claude in
+Chrome not connected, standing Q59; this rule governs a GBP post field a read-only HTTP fetch
+cannot see, matching every prior pass's convention on this rule). No new question. See
+audits/scorah-bramhall-item-4.4-quality-pass-2026-09-07-fifteenth.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

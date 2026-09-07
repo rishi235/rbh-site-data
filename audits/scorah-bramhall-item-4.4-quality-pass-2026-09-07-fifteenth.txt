@@ -1,0 +1,124 @@
+Item 4.4 quality pass (fifteenth), 2026-09-07, unattended scheduled run (Cowork sandbox shell only, Claude in Chrome not connected)
+
+ITEM: Scorah Chemists Bramhall GBP pack (gbp-packs/scorah-bramhall.md)
+
+ROTATION: all 8 unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] (5.3 Q8,
+5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Quality-pass fallback
+applied. Rotation pool re-derived independently: every `- [x] N.N` marker line
+in AGENT_WORKLIST.md, paragraph range per item dated via
+`git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md`, minus
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+36-item pool. Item 4.4 (Scorah Chemists Bramhall pack) came out stalest at
+2026-09-06T09:47:18+01:00, ahead of the runner-up (4.1 at 2026-09-06T10:14:03
++01:00) and every other pool item later still. This matches the thirteenth
+pass on item 3.11 (2026-09-07, same day) recording 4.4 as its own runner-up at
+the same timestamp, confirming 4.4 had not been touched since.
+
+PRIOR COVERAGE: fourteen prior passes on this item (2026-08-04 build,
+2026-08-11 through 2026-09-06). All ten checkers that genuinely scan
+gbp-packs/ as a directory (check-app-membership.js, check-brand-spelling.js,
+check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-postcodes.js, check-uk-spelling.js, check-url-scheme.js) have already
+been proven against this specific pack by direct injection. The thirteenth
+pass (2026-09-06) found and fixed a real defect in check-gbp-packs.js's
+sister-branch sentence-bounded match, and also re-proved the hours-days rule.
+
+FRESH ANGLE: not a new checker (all ten are exhausted) but a granular RULE
+within an already-proven checker never pointed at this pack specifically -
+the same shape the thirteenth pass itself used. check-gbp-packs.js's
+OUTCOME_PROMISE rule (tools/outcome-promise-patterns.js, added 2026-08-29 on
+the item 4.7 sixth pass, shared with RULE 12 of check-travel-clinic-copy.js)
+bars any pack from promising protection or immunity as an outcome in its
+travel clinic Post D. Grepped AGENT_LOG.md and AGENT_WORKLIST.md for
+"outcome promise" and "OUTCOME_PROMISE" against "bramhall": zero hits. The
+rule has been proven by injection against mccanns-sandringham.md (where it
+was written), riddings-timperley.md (4.13 ninth pass), fishlocks-eccleston.md
+(4.8 tenth pass), smartts-bootle.md (4.10 eighth pass) and
+tiffenbergs-aintree.md (4.15 ninth pass) - five packs, never Scorah Bramhall,
+despite this pack carrying its own travel clinic Post D throughout (Scorah's
+travel and weight loss pages are private paid services per this item's own
+2026-08-04 build note).
+
+BASELINE: all 36 tools/check-*.js run individually against the tracked repo
+before any edit, 36/36 exit 0. gbp-packs/scorah-bramhall.md hashes recorded
+before any mutation:
+  MD5    ae58dd982780a11b808b6df84e29eecf  (unchanged since the fourth pass,
+                                             matches every prior pass's own
+                                             recorded value exactly)
+  SHA256 e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c
+git status --porcelain -- gbp-packs modules core branches.json tools: empty.
+
+METHOD: full repo copied by byte copy (cp -a, .git included) to
+/sessions/jolly-beautiful-gates/scratch-44/repo, matching the established
+convention (this mount's git checkout cannot cleanly unlink an old file, so
+restoration is a plain byte copy each time). A separate pristine byte backup
+of the pack file was kept outside the scratch tree
+(pristine-scorah-bramhall.md). Tracked repository never opened for writing.
+Post D text before any injection (lines 106-113):
+
+  ### Post D - Travel clinic
+  Going somewhere? Get your travel health sorted before you go. The travel
+  clinic at Scorah Chemists in Bramhall offers a private consultation
+  covering your destination, itinerary and medical history, with the
+  vaccinations and malaria prevention that are right for your trip, subject
+  to availability and clinical suitability. Convenient appointments on North
+  Park Road, no GP visit needed. Book your travel consultation today.
+  Button: Book -> https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html
+
+THREE INJECTIONS against the scratch copy's Post D, the same trio used on
+every prior pack this rule has been proved against, each restored by byte
+copy from the pristine backup and MD5/cmp-reconfirmed identical before the
+next:
+
+(1) Guarantee wording. "Book your travel consultation today." appended with
+    "We guarantee full protection for every destination."
+    RESULT: CAUGHT. check-gbp-packs.js exit 1, one new FAIL: "line 112:
+    outcome promise \"guarantee\" (uses guarantee wording) ... Context: ...
+    Book your travel consultation today. We guarantee full prot[ection...]".
+
+(2) Declarative protection claim. "Book your travel consultation today."
+    prefixed with "The right vaccine will protect you for years to come."
+    RESULT: CAUGHT. check-gbp-packs.js exit 1, one new FAIL: "line 112:
+    outcome promise \"will protect you\" (promises protection as an
+    outcome) ... Context: ... The right vaccine will protect you for years
+    to come. Book [your travel...]".
+
+(3) CONTROL - question exemption. "Book your travel consultation today."
+    replaced with "Wondering if a travel vaccine will fully protect you
+    before you fly? Ask the pharmacist at your consultation."
+    RESULT: correctly PASSED, exit 0. Only the two pre-existing WARNs
+    (live-only Post A link target, Q64 address post-town) appeared, both
+    already present in the untouched baseline - no new FAIL. Confirms the
+    "a question is not a promise" exemption holds on this pack's own copy
+    and not only on the pack the rule was first written against.
+
+All three fired on their intended rule and no other, first attempt. Final
+restore reconfirmed MD5-identical (ae58dd982780a11b808b6df84e29eecf) and
+byte-identical by cmp. Full 36-checker suite re-run clean on the scratch copy
+after the final restore (36/36 exit 0); git status --porcelain on the scratch
+copy's gbp-packs/modules/core/branches.json/tools empty.
+
+TRACKED REPO: reconfirmed MD5-unchanged (ae58dd982780a11b808b6df84e29eecf)
+and git status --porcelain clean throughout - never opened for writing at any
+point in this pass. Scratch directory deleted after the pass completed.
+
+RESULT: zero in-repo defect. check-gbp-packs.js's OUTCOME_PROMISE rule (the
+protection/immunity outcome-promise guard on GBP pack Post D copy) already
+correctly protects Scorah Chemists Bramhall's own pack; now proven directly
+by injection for the sixth time across the estate and the first time against
+this specific pack, closing the last pack this particular rule had not yet
+been pointed at by name among the packs recorded to date.
+
+LIVE HALF: not attempted this run. Claude in Chrome confirmed not connected
+(list_connected_browsers returned empty, standing Q59). This rule governs
+plain-text copy pasted into a Google Business Profile post field; a promise
+of protection typed into GBP's own Post D field is invisible to a read-only
+HTTP fetch against the branch website, so no live check would be meaningful
+regardless of browser availability, matching the convention every prior pass
+on this rule has recorded. The five live-URL findings already on record for
+this pack from the ninth through thirteenth passes (profile website 404,
+Post B switch page mojibake em dash, Posts A/C/D otherwise correct) are not
+repeated here as they are unrelated to this pass's fresh angle.
+
+NO NEW QUESTION. QUESTIONS.json unchanged (45 open, 53 answered, 98 total).
