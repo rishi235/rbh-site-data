@@ -4942,6 +4942,50 @@ should not be assumed unchanged.
 No in-repo defect found, no copy changed anywhere in the repo, no new
 question. Evidence in audits/smartts-item-3.7-quality-pass-2026-09-06-twelfth.txt.
 Done 2026-09-06 (twelfth pass).
+Quality pass 2026-09-07 (thirteenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash, Claude in Chrome not
+connected). Picked as the stalest rotation-pool item by the established method
+(`git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md` on each of the 36
+pool items' own paragraph range): 3.7 last touched 2026-09-06T11:41:47+01:00,
+ahead of the runner-up (3.13 at 12:13:26+01:00) and every other pool item.
+FRESH ANGLE: tools/check-opening-hours.js, one of the 23 checkers the twelfth
+pass named as never proven against Smartts, is the one checker in the estate
+built specifically for a split-day (lunch closure) branch, and smartts_bootle
+is confirmed one of only seven such branches in branches.json (09:00-13:00 and
+14:00-18:00 Monday-Friday). Smartts carries no branch landing page (only the
+six BUILD-listed branches in build-branch-landing-pages.js do), so this
+checker's rules 1-7 do not apply to it at all; rule 8 - no clock time anywhere
+on a switch page or service-family page, since neither carries an hours card
+to compare a time against - is the only genuinely applicable surface, and it
+had never been exercised against Smartts either. Baseline: all 36 checkers
+clean on the tracked repo; sha256 of the three target files and of the checker
+itself recorded before any edit. Full repo byte-copied (`cp -a`, with .git) to
+/tmp/scratch-37-hours, outside the tracked tree; four injections against the
+scratch copy only, each restored via `git checkout --` and sha256-reconfirmed
+before the next: (1) a clock time range added to a switch-page FAQ answer
+(switch-prescriptions-smartts-bootle.html) - CAUGHT, both times named; (2) a
+clock time range added to the weight-loss-clinic-smartts-bootle.html booking
+card, a different service family - CAUGHT, both times named; (3) a stale
+Smartts-keyed entry added to the checker's own KNOWN_TIME_OUTSIDE_ESTATE list
+with nothing to match it - CAUGHT by the anti-rot rule, naming the stale key;
+(4) control, "aged 16 to 64" added to sinusitis-treatment-smartts-bootle.html
+- correctly PASSED, confirming the rule's stated bare-numeral exclusion holds
+on Smartts's own copy. All four fired on the intended path only, first
+attempt. Full 36-checker suite re-run clean on the scratch copy after the
+final restore; tracked repo's own copies of all four touched files
+sha256-reconfirmed unchanged throughout, `git status --porcelain -- modules
+gbp-packs core tools branches.json status` on the tracked repo empty. No
+checker logic, generator, page or branches.json content changed in the
+tracked tree. Live half not performed: Claude in Chrome not connected, a
+single web_fetch attempt against the live switch page was refused on its own
+provenance gate, and per this item's own eleventh-pass rule and this
+session's platform rules, no curl/PowerShell workaround was attempted; this
+rule's fault class (a stray clock time in hand-written copy) would in any
+case be invisible to a live read unless the exact injected sentence were
+already live. No in-repo defect found, no copy changed anywhere in the repo,
+no new question. Evidence in
+audits/smartts-item-3.7-quality-pass-2026-09-07-thirteenth.txt.
+Done 2026-09-07 (thirteenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

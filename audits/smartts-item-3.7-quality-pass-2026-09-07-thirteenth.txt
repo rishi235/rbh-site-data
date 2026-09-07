@@ -1,0 +1,167 @@
+Item 3.7 quality pass (thirteenth), Smartts Chemist Bootle - 2026-09-07
+Unattended scheduled run via Cowork mcp__workspace__bash sandbox. Claude in
+Chrome not connected.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), so the
+quality-pass fallback applied. Rotation pool independently re-derived: every
+`- [x] <N.N>` marker read directly from AGENT_WORKLIST.md (43 checked) minus
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) =
+36-item pool. Each item's own paragraph range (bounded by the next checklist
+marker line) dated via `git log -1 --format=%cI --no-patch -L<start>,<end>:
+AGENT_WORKLIST.md`. Item 3.7 came out stalest at 2026-09-06T11:41:47+01:00,
+clear of the runner-up (3.13 at 2026-09-06T12:13:26+01:00, about 32 minutes
+later) and every other pool item - consistent with the immediately preceding
+run's own paragraph (item 3.5, fourteenth pass) naming 3.7 as its own runner-up
+at the identical timestamp. Chosen: 3.7 (Smartts Chemist Bootle).
+
+FRESH ANGLE
+The twelfth pass (2026-09-06) closed its own paragraph with an explicit list of
+23 checkers never named against Smartts across all twelve prior passes, plus
+two check-seo-pattern.js rules not yet exercised. tools/check-opening-hours.js
+stood out from that list: Smartts is one of only seven branches in the whole
+estate carrying a split day (lunch closure) in branches.json - confirmed fresh
+this pass (openingHours.specification holds two Monday-Friday sessions, 09:00-
+13:00 and 14:00-18:00, closedDays Saturday/Sunday) - which is exactly the shape
+of branch this checker exists to protect (the McCanns lunch-closure defect that
+prompted it, item 3.6/2026-08-10). Despite that, check-opening-hours.js had
+never been named once in this item's twelve-pass history.
+
+Smartts itself carries no branch landing page (only the six BUILD-listed
+branches in tools/build-branch-landing-pages.js do: both Fishlocks, both
+McCanns, both Scorah), so rules 1-7 of check-opening-hours.js, which read the
+landing-page hours card and its JSON-LD, do not apply to Smartts at all - there
+is no landing page to misread. Rule 8 is the one rule in this checker that DOES
+reach Smartts: it sweeps every switch page and every service-family page (the
+two families Smartts's own 12 generated pages belong to) for any clock time at
+all, on the basis that neither family carries an hours card to compare a time
+against, so any clock time on one is an unproved hours claim by construction.
+This pass targets rule 8 and its anti-rot contract, the only genuinely
+applicable surface of this checker for this specific branch.
+
+BASELINE
+All 36 tools/check-*.js exit 0 individually on the tracked repo before any
+work (`for f in tools/check-*.js; do node "$f"; done`). node tools/check-
+opening-hours.js alone: "6 landing page(s) checked against 16 trading
+branches... rule 8 swept 177 switch/service-family/pasted-copy file(s)...
+clean", and its own NOTE line lists smartts_bootle among the seven split-day
+branches. sha256 recorded before any edit:
+  modules/switch/pages/switch-prescriptions-smartts-bootle.html
+    b1479bea2970d285632a6769d415a5ba234dca64ab9e51ad3bb7814d2dc4db7c
+  modules/service/pages/weight-loss-clinic-smartts-bootle.html
+    9581ee4f2e214e6df6b148cb7ede6edb4a52d24a14372acb7036acf9b8b146dd
+  modules/service/pages/sinusitis-treatment-smartts-bootle.html
+    d7467856bda8daa03203ee7e531d23c02cee9dd7b5ff191e4320c38bc58ec984
+  tools/check-opening-hours.js
+    9b2433371baf3ecea2cb1496533e54b210c9a8f62dee24468106c44243ebf5a1
+(the last of these matches the exact string recorded by the twelfth pass for
+this file, confirming it is unchanged since.)
+
+Full repo copied by byte copy (`cp -a`, including .git, the established method
+for this mount) to /tmp/scratch-37-hours, outside the tracked tree. Full
+36-checker sweep re-run on the copy: 0 failures, confirming it matches the
+tracked repo exactly. Tracked repo never opened for writing at any point in
+this pass.
+
+INJECTIONS (all against the scratch copy only; each restored via `git
+checkout --` and sha256-reconfirmed byte-identical to its baseline before the
+next; tracked repo untouched throughout, confirmed by `git status --porcelain
+-- modules gbp-packs core tools branches.json status` empty on the tracked
+repo at the end)
+
+1. RULE 8, switch-page family, never used for injection on this item before.
+   modules/switch/pages/switch-prescriptions-smartts-bootle.html: the FAQ
+   answer "Call us on 0151 922 4984, request a callback, or send a WhatsApp
+   message instead." changed to "Call us on 0151 922 4984 between 8am and 7pm,
+   request a callback, or send a WhatsApp message instead." CAUGHT, two
+   failures, one per time: "8am" and "7pm" each flagged as "a clock time on a
+   page with no hours card to compare it to". Restored, sha256-reconfirmed
+   b1479bea2970d285632a6769d415a5ba234dca64ab9e51ad3bb7814d2dc4db7c.
+
+2. RULE 8, service-family page, a different family (weight loss, a paid
+   private service with its own booking card) to prove the rule is not
+   switch-page-specific. modules/service/pages/weight-loss-clinic-smartts-
+   bootle.html: the booking-sub line "Private consultation at Smartts Chemist,
+   from £39.99. Choose a time that suits you." changed to "...Appointments
+   available 9am to 8pm, choose a time that suits you." CAUGHT, two failures,
+   "9am" and "8pm", same message shape. Restored, sha256-reconfirmed
+   9581ee4f2e214e6df6b148cb7ede6edb4a52d24a14372acb7036acf9b8b146dd.
+
+3. RULE 8's anti-rot contract on the KNOWN_TIME_OUTSIDE_ESTATE exception list,
+   never exercised against a Smartts-keyed entry before. Added a stale entry
+   to the checker itself: `"modules/service/pages/pharmacy-first-smartts-
+   bootle.html::9am": "stale test entry, Q999"` with no matching text anywhere
+   in that file. CAUGHT: "KNOWN_TIME_OUTSIDE_ESTATE carries
+   \"modules/service/pages/pharmacy-first-smartts-bootle.html::9am\" but
+   nothing matched it. Remove the entry, or restore the copy it was agreed
+   for" - proving the list cannot quietly rot even when the stale key names a
+   Smartts file specifically. Restored, sha256-reconfirmed
+   9b2433371baf3ecea2cb1496533e54b210c9a8f62dee24468106c44243ebf5a1.
+
+4. CONTROL, to confirm no over-firing on the estate's own residual exclusion
+   (bare numerals in an age range are not read as clock times).
+   modules/service/pages/sinusitis-treatment-smartts-bootle.html: hero-sub
+   sentence extended with ", for patients aged 16 to 64" (a genuine NHS
+   Pharmacy First cohort phrase already used elsewhere in the estate).
+   Correctly PASSED, exit 0, no failure - "16 to 64" is not matched by TIME_RE
+   (which requires an am/pm suffix), confirming the rule's stated residual
+   scope holds on Smartts's own copy and not only on the estate in general.
+   Restored, sha256-reconfirmed
+   d7467856bda8daa03203ee7e531d23c02cee9dd7b5ff191e4320c38bc58ec984.
+
+All four fired on their intended path and no other, first attempt. Full
+36-checker suite re-run clean on the scratch copy after the final restore
+(`git status --porcelain -- modules gbp-packs core tools branches.json status`
+on the scratch copy: empty). Scratch directory deleted after the pass
+completed. No checker logic, generator, page or branches.json content changed
+in the tracked tree at any point; no branches.json or generator edit made, so
+no regeneration needed or performed.
+
+NOT YET PROVEN BY INJECTION AGAINST SMARTTS (for a future pass)
+check-opening-hours.js rules 1-7 do not apply to Smartts (no branch landing
+page) and cannot be meaningfully exercised against it - noted so a future pass
+does not waste time looking for that surface. Of the twelfth pass's list of 23
+previously-unnamed checkers, 22 remain untried against Smartts: check-address-
+region.js, check-app-membership.js, check-branch-identity.js, check-branch-
+links.js, check-brand-spelling.js, check-cdn-pins.js, check-editor-snapshot.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-live-hours.js, check-
+page-coverage.js, check-pharmacy-first-cost.js, check-pharmacy-first-
+eligibility.js, check-pharmacy-first-safety-net.js, check-pharmacy-first-
+symptoms.js, check-seo-keywords.js, check-seo-lengths.js, check-travel-clinic-
+copy.js, check-uk-spelling.js, check-url-scheme.js, check-weight-loss-copy.js,
+check-whatsapp-route.js (check-gbp-packs.js and check-gbp-pharmacy-first.js
+apply to gbp-packs/smartts-bootle.md, item 4.10's own scope, noted for
+completeness only). check-seo-pattern.js's service-word and H1-exact-match
+rules also remain unexercised on Smartts specifically (contraception and
+sinusitis pages have each now had one injection - sinusitis's for check-
+opening-hours this pass, not check-seo-pattern - so a future check-seo-pattern
+pass should prefer earache, impetigo, insect-bite, shingles, sore-throat,
+travel-clinic, uti, weight-loss-clinic or switch-prescriptions).
+
+LIVE HALF
+Not performed. `mcp__claude-in-chrome__list_connected_browsers` returned `[]`
+- Claude in Chrome not connected this run (standing Q59). A single
+`mcp__workspace__web_fetch` attempt against
+https://www.smarttschemist.co.uk/switch-prescriptions-smartts-bootle.html was
+refused on its own provenance gate ("URL not in provenance set... continue
+without this page and report the blocked URL"). Per this item's own eleventh-
+pass rule (no curl/PowerShell workaround once web_fetch/Chrome have both
+declined, in this sandboxed-shell session type) and this session's own
+platform-level rule against working around a WebFetch/WebSearch refusal via
+bash/curl, no alternative fetch was attempted. This rule (clock times outside
+an hours card) is invisible to a live HTTP read in any case unless the exact
+injected sentence were live, so the live half would not have added anything
+against this pass's specific fresh angle even had a browser been available.
+The tenth pass's live findings and the sixth pass's three live-only findings
+were not re-confirmed this pass and should not be assumed unchanged.
+
+ANSWER PICKUP / AUTONOMOUS WINDOW
+Chrome not connected, so no answer pickup attempted. QUESTIONS.json: 98 total,
+45 open, 53 answered, unchanged from the run immediately preceding this one.
+No "Standing authorisation - autonomous window" heading present at the top of
+AGENT_LOG.md at the start of this run; moot regardless, no new question raised.
+
+RESULT
+No in-repo defect found. No checker logic edited. No new fault class in any
+checker. No new question raised.
