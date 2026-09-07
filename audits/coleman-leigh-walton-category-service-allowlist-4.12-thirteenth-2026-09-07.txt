@@ -1,0 +1,112 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton GBP pack) - thirteenth quality pass
+2026-09-07 (unattended scheduled run, audit-backlog-worker)
+
+SCOPE
+Twelve prior passes on this pack proved: basic branches.json facts (name,
+address, phone, website, review link, hasApp, hours, catchment), the
+description/post character-count exactness rule, the medicine-name union
+(tools/pom-names.js), OUTCOME_PROMISE (ninth pass), check-url-scheme.js Rule 1
+and check-uk-spelling.js Rule 1 and the quoted-evidence maskQuotes exemption
+(tenth pass), check-brand-spelling.js (tenth and seventh passes),
+check-app-membership.js and check-em-dashes.js (seventh/eighth passes), the
+hours-line DAY-presence rule (eleventh pass), and check-gbp-pharmacy-first.js
+rules 5, 7 and 8 (twelfth pass). Not one of the twelve had ever pointed the
+category/service ALLOWLIST rule in tools/check-gbp-packs.js
+(RECOGNISED_SERVICES / RECOGNISED_CATEGORIES, born item 4.4 quality pass
+2026-08-13 against scorah-bramhall.md) at this pack's own copy. That rule has
+now been proven against three sibling packs elsewhere in the rotation
+(Scorah Bramhall at birth, Riddings Timperley on item 4.13's thirteenth pass,
+Smartts Bootle on item 4.10's twelfth pass) but never on Coleman and Leighs
+Walton. Confirmed by grep across every audits/coleman-*.txt file and this
+item's own AGENT_WORKLIST.md paragraph before choosing this angle.
+
+BASELINE
+All 36 tools/check-*.js run individually against the tracked repo before any
+change: 36/36 exit 0. sha256 of gbp-packs/coleman-leigh-walton.md:
+6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, matching all
+twelve prior passes' own recorded hash exactly. node tools/check-gbp-packs.js:
+15 packs, 15 live branches, 17 warning(s) (the same standing set every recent
+pass has recorded, including this pack's own standing WARN naming Post A's
+pfLink as a live-only page), 0 failures. git status --porcelain -- gbp-packs
+modules core branches.json tools status: empty (against the tracked repo).
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to a scratch path outside
+the tracked tree (/tmp/scratch-4.12-13th/repo), matching the method the ninth,
+tenth and twelfth passes on this item adopted. A separate pristine byte backup
+of the pack file was kept at /tmp/scratch-4.12-13th/pristine-coleman-leigh-walton.md.
+Edits were made only inside the scratch copy; each was restored by byte copy
+from the pristine backup and sha256-reconfirmed identical before the next case.
+The tracked repository (/sessions/dazzling-nice-curie/mnt/rbh-site-data) was
+never opened for writing. Scratch baseline independently confirmed: all 36
+checkers exit 0, sha256 identical to the tracked copy, 17 warnings/0 failures
+on check-gbp-packs.js.
+
+INJECTION ROUND, three cases against the allowlist rule (tools/check-gbp-packs.js,
+the RECOGNISED_SERVICES/RECOGNISED_CATEGORIES block):
+
+(1) Services-section case. Appended a new bullet, "- Ear wax removal:
+microsuction ear wax removal by appointment." (the rule's own origin example
+from its 2026-08-13 birth comment against scorah-bramhall.md), directly after
+the existing "Private consultation room" bullet in section 3. Result: CAUGHT,
+exit 1, exactly one FAIL: "Services section lists \"Ear wax removal\", which is
+not a service any pack in this repo uses ... If the branch genuinely offers
+it, add it to RECOGNISED_SERVICES in tools/check-gbp-packs.js deliberately".
+Restored by byte copy, sha256 reconfirmed identical
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88).
+
+(2) Categories-section case. Appended ", Dental clinic" to the existing
+"Weight loss service, Vaccination centre" line in section 2's "Add if not
+present" list. Result: CAUGHT, exit 1, exactly one FAIL: "Categories section
+names \"Dental clinic\", which is not a category any pack in this repo uses ...
+If the branch genuinely offers it, add it to RECOGNISED_CATEGORIES in
+tools/check-gbp-packs.js deliberately". Restored by byte copy, sha256
+reconfirmed identical.
+
+(3) Control. Appended a "- NOTE: the live listing has never advertised \"Ear
+wax removal\" or a \"Dental clinic\" category; neither is an RBH service, do
+not add them." bullet to section 3, naming both unrecognised terms as evidence
+for the paster rather than as a claim - the same shape clear-aintree.md's own
+prose note and this pack's own live-name notes already rely on. Result:
+correctly PASSED, exit 0, 0 failures, full 36-checker suite also re-run clean
+on this control state, and the warning count held at 17 (no new WARN
+introduced), confirming the NOTE-bullet exemption holds on this pack's own
+copy too, not only on Smartts Bootle where it was proven on item 4.10's
+twelfth pass. Restored by byte copy, sha256 reconfirmed identical.
+
+All three behaved exactly as designed on first attempt. The 17 standing
+warnings (including this pack's own Post A pfLink live-only-page WARN) were
+present and unchanged throughout every case; no cross-firing observed against
+any other pack's own copy in the same run.
+
+RESULT
+Zero in-repo defect. The allowlist rule, both the service half and the
+category half, and its NOTE-bullet exemption, all hold correctly on Coleman
+and Leighs Pharmacy Walton's own pack copy, now proven directly by injection
+for a fourth pack in the estate (Scorah Bramhall at birth, then Riddings
+Timperley and Smartts Bootle earlier in the rotation, now Coleman and Leighs
+Walton) rather than only assumed from the birth-pack proof. Full 36-checker
+suite re-run clean after the final restore (36/36 exit 0); sha256 reconfirmed
+identical (6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88);
+all six build-*.js page generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) re-run against the scratch
+copy, all exit 0, git status --porcelain -- modules core empty before and
+after, byte-stable. No checker logic, generator, page, pack or branches.json
+content changed. No new question raised: pure re-verification of documented
+checker behaviour, no business, legal, pricing or regulatory content changed,
+no judgement call for Rishi.
+
+LIVE HALF
+Not performed, for the same reason item 4.10's twelfth pass recorded for this
+identical rule: the allowlist governs pack copy pasted by a human into
+Google Business Profile's Categories/Services picker fields, not a URL any
+read-only fetch can verify. Claude in Chrome was checked and reported not
+connected (standing Q59) before this decision was reached, so the choice not
+to attempt a live check is not itself a consequence of that outage. The
+2026-09-01 seventh-pass live verdicts for this pack (Post A pfLink 404 unchanged
+since 2026-08-10, Posts B/C/D all resolving, the mixed old/new trading-name
+state across the site, Q76's own sister-branch-name substitution gap, the Q22
+homepage tagline) stand as written, not re-verified this pass.
+
+QUESTIONS.json unchanged this pass: 98 total, 45 open.

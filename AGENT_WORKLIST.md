@@ -12705,6 +12705,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       (mixed old/new trading name, Q76's sister-branch-name gap, the Q22
       tagline) stand as written, not re-verified this pass. No new question;
       QUESTIONS.json unchanged (98 total, 45 open). Done 2026-09-06.
+      Thirteenth quality pass 2026-09-07 (unattended scheduled run,
+      audit-backlog-worker; rotation-pool pick, stalest item last touched
+      2026-09-06T01:42:10+01:00, its own twelfth pass, ahead of every other
+      pool item). FRESH ANGLE: twelve prior passes proved branches.json facts,
+      the character-count exactness rule, the medicine-name union,
+      OUTCOME_PROMISE, check-url-scheme.js, check-uk-spelling.js,
+      check-brand-spelling.js, check-app-membership.js, check-em-dashes.js,
+      the hours-day-presence rule and check-gbp-pharmacy-first.js rules 5, 7
+      and 8 against this pack's own copy, but the category/service ALLOWLIST
+      rule in tools/check-gbp-packs.js (RECOGNISED_SERVICES/
+      RECOGNISED_CATEGORIES, born item 4.4 quality pass 2026-08-13) had never
+      been pointed at THIS pack specifically, though it has now been proven
+      against three siblings elsewhere in the rotation (Scorah Bramhall at
+      birth, Riddings Timperley on item 4.13's thirteenth pass, Smartts
+      Bootle on item 4.10's twelfth pass). Full repo copied (with .git) to a
+      scratch directory; tracked pack never opened for writing, confirmed
+      unchanged throughout (sha256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all twelve prior passes). Baseline: all 36 checkers exit 0.
+      Three injections, each restored by byte copy and sha256-reconfirmed
+      before the next: (1) an unrecognised service, "Ear wax removal" (the
+      rule's own origin example), appended to the Services section - CAUGHT,
+      exit 1, one FAIL naming RECOGNISED_SERVICES; (2) an unrecognised
+      category, "Dental clinic", appended to the Categories "Add if not
+      present" line - CAUGHT, exit 1, one FAIL naming RECOGNISED_CATEGORIES;
+      (3) a control naming both terms inside a "- NOTE:" bullet as evidence
+      rather than a claim - correctly PASSED, exit 0, 0 failures, warning
+      count held at 17. All three caught or passed first attempt, each on its
+      intended rule only. Full 36-checker suite re-run clean after the final
+      restore (36/36 exit 0); pack sha256 reconfirmed identical to baseline;
+      all six build-*.js page generators re-run against the scratch copy,
+      exit 0 each, git status on modules/core empty before and after. No
+      in-repo defect: the allowlist rule, both halves and its NOTE-bullet
+      exemption, proven correct on a fourth pack. Evidence:
+      audits/coleman-leigh-walton-category-service-allowlist-4.12-thirteenth-2026-09-07.txt.
+      LIVE HALF: not performed, same reasoning as item 4.10's twelfth pass for
+      this identical rule - it governs pack copy pasted into a GBP picker
+      field, not a URL any read-only fetch can verify. Claude in Chrome
+      checked and confirmed not connected (standing Q59) before that decision
+      was reached. The 2026-09-01 seventh-pass live verdicts for this pack
+      stand as written, not re-verified this pass. No new question;
+      QUESTIONS.json unchanged (98 total, 45 open). Done 2026-09-07.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
