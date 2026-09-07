@@ -2581,6 +2581,54 @@ audits/seo-pattern-check-2026-09-06-thirteenth.txt.
       pages 404, matching the standing Q35 finding already on record for
       this item, not new. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-06-twelfth.txt.
+      Quality pass 2026-09-07 (thirteenth): clean, no repo defect, no new
+      question. THE FRESH ANGLE: twelve prior passes had proved check-seo-
+      pattern.js, check-seo-lengths.js (rule 4), check-seo-sheets.js,
+      check-jsonld.js, check-seo-keywords.js, check-app-membership.js,
+      check-brand-spelling.js, check-uk-spelling.js, check-url-scheme.js,
+      check-switch-copy.js (rule 11), check-branch-identity.js and
+      check-map-embeds.js against Fishlocks' own pages by injection, but
+      tools/check-nap.js had never been named in this item's own entry,
+      despite its file header naming a shared-brand pair on one domain as
+      exactly its worst-case shape. Baseline: all 36 checkers exit 0
+      (check-nap.js itself: 177 pages, 3 paste blocks, 0 mismatches); all
+      six generators rebuilt from branches.json, git status --porcelain
+      empty before and after; sha256 of all 28 Fishlocks files (26 pages
+      plus 2 switch banners) recorded before any edit. Four injections
+      against the tracked repo directly, each backed up first, restored by
+      byte copy and sha256-reconfirmed before the next: (1) Ainsdale's own
+      phone replaced with Eccleston's across the header button, contact-
+      line and JSON-LD on the Ainsdale UTI page - CAUGHT 5 ways (tel link
+      x2, visible phone x2, JSON-LD telephone, phone-sweep naming the
+      sister branch); (2) the switch page FAQ's "Call us on <number>" line,
+      which sits outside the visible-phone reader by construction, changed
+      to Scorah Bramhall's own number in a bracketed/full-stop format -
+      CAUGHT by the wide PHONE_RE sweep alone, proving the separator
+      tolerance still resolves correctly on a Fishlocks page; (3) Ainsdale's
+      postcode added to the Eccleston landing page's parking FAQ in lower
+      case with no space ("pr83hn") - CAUGHT by the case-insensitive
+      bare-form postcode rule, invisible to the plain upper-case sweep; (4)
+      the Ainsdale UTI page's map iframe src emptied, everything else on
+      the page left correct - CAUGHT by the four-surfaces-must-be-present
+      rule. All four restores sha256-confirmed byte-identical to baseline;
+      full 36-checker suite and full 28-file sha256 sweep both clean after
+      the final restore; git status --porcelain empty against every tracked
+      file. No in-repo defect: check-nap.js already correctly protects
+      Fishlocks' own pages on the phone/tel/JSON-LD triangle, the wide
+      phone sweep, the bare-postcode sweep and the surface-presence rule,
+      proven directly against this branch pair for the first time. NOT
+      COVERED THIS PASS (residual): check-nap.js's NAME sweep, STREET sweep
+      and EMAIL sweep were not separately injected against Fishlocks this
+      run: a candidate for a future pass is Hirshmans Chemist's name (the
+      other Ainsdale-town pharmacy already flagged under Q44) or
+      Eccleston's street address injected into an Ainsdale page. LIVE HALF:
+      Claude in Chrome unreachable this run (standing Q59); fell back to a
+      read-only curl GET against four live URLs on fishlockpharmacy.co.uk -
+      both UTI pages and both switch pages returned 200; no page content
+      read by this method, so the standing Q37 footer set and the standing
+      Q35 landing-page 404s were neither re-confirmed nor contradicted.
+      Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-07-thirteenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

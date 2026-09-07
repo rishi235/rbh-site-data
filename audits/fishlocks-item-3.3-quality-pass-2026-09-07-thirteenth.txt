@@ -1,0 +1,149 @@
+Item 3.3 quality pass (thirteenth), 2026-09-07
+Fishlocks Chemist (Ainsdale and Eccleston) - shared-domain branch pair
+Run: unattended scheduled run (audit-backlog-worker), Cowork sandbox shell only,
+no Windows-MCP tools invoked, no browser control tool available this run.
+
+SCOPE
+Twelve prior passes on this item had proved, by deliberate injection against
+Fishlocks' own 26 generated pages (11 Ainsdale service pages, 11 Eccleston
+service pages, 2 switch pages, 2 landing pages) plus its two switch banners:
+check-seo-pattern.js, check-seo-lengths.js (rule 4, cross-branch H1
+uniqueness), check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+check-url-scheme.js, check-switch-copy.js (rule 11, banner routing) and
+check-branch-identity.js (eleventh pass), then check-map-embeds.js (twelfth
+pass). tools/check-nap.js had never been named in this item's own entry,
+despite being the one checker that sweeps phone, postcode, email, name and
+street facts across every published surface, and despite its own file header
+naming its worst-case shape as exactly a shared-brand pair on one domain
+publishing a sister branch's fact. This pass closes that gap for Fishlocks
+specifically.
+
+BASELINE (before any injection)
+- All 36 tools/check-*.js run individually: all exit 0.
+  check-nap.js itself: "Checked 177 pages and 3 paste block(s) against 16
+  branches.json entries: 0 mismatch(es), 0 warning(s)."
+- All six generators (build-service-pages.js, build-switch-pages.js,
+  build-branch-landing-pages.js, build-contraception-pages.js,
+  build-travel-clinic-pages.js, build-weight-loss-pages.js) re-run from
+  branches.json. `git status --porcelain -- modules tools core branches.json
+  status` empty before and after: byte-identical, no diff.
+- sha256 of all 28 Fishlocks-branded files (26 pages + 2 switch banner .txt
+  files) recorded to /tmp/fishlocks-sha-before-sfm.txt before any generator
+  run or injection.
+
+INJECTIONS (each on the tracked repo directly, one at a time; each preceded
+by a byte-copy backup under _agentscratch/, each restored by byte copy
+immediately after being caught, each restore sha256-reconfirmed against the
+pre-injection backup, full check-nap.js re-run clean after each restore)
+
+1. PHONE (tel link + visible phone + JSON-LD telephone + phone-sweep,
+   realistic shared-domain copy-paste fault): on
+   modules/service/pages/uti-treatment-fishlocks-ainsdale.html, all three
+   occurrences of Ainsdale's own number (01704 575478 / 01704575478) - the
+   header Call button, the contact-line Phone: link, and the JSON-LD
+   telephone field - replaced with sister branch Eccleston's number
+   (01257 451251 / 01257451251).
+   CAUGHT: 5 mismatches - tel link (x2, header button and contact-line),
+   visible phone (x2), JSON-LD telephone (x1), plus the phone-sweep naming
+   the number to "Fishlocks Chemist Eccleston, not Fishlocks Chemist
+   Ainsdale" three times over. Restored; sha256 matched baseline exactly.
+
+2. PHONE, WIDE SWEEP ONLY (the documented "Call us on" gap, proved on a
+   different branch's number in an unusual separator format to isolate the
+   sweep from the visible-phone reader, which only matches a number sat
+   directly after the word "Call"): on
+   modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html, the
+   FAQ line "Call us on 01704 575478, request a callback..." changed to
+   "Call us on (0161) 439.3744, request a callback..." - Scorah Chemists
+   Bramhall's own number, written with brackets and a full stop rather than
+   spaces. The visible-phone reader's regex requires "Call" followed
+   immediately by whitespace then digits, so "Call us on..." sits outside it
+   by design (the tel: href and contact-line Phone: line were left
+   untouched, so this exercises the wide PHONE_RE sweep alone).
+   CAUGHT: 1 mismatch - "phone \"0161) 439.3744\" belongs to Scorah Chemists
+   Bramhall, not Fishlocks Chemist Ainsdale". Confirms the widened separator
+   tolerance (space, hyphen, full stop, brackets) still resolves a
+   Fishlocks page correctly rather than only working on the estate's other
+   branches. Restored; sha256 matched baseline exactly.
+
+3. FOREIGN POSTCODE, LOWER CASE, NO SPACE (the case-insensitive bare-form
+   rule, distinct from the upper-case PC_RE sweep already proven elsewhere):
+   on modules/branch/pages/pharmacy-fishlocks-eccleston.html, the "Where do
+   I park?" FAQ answer had a sentence appended: "Free roadside parking is
+   also usually available near pr83hn." - Ainsdale's own postcode (PR8 3HN),
+   written lower case with the space removed, so the plain upper-case PC_RE
+   sweep could not see it and only the dedicated case-insensitive bare-form
+   rule could.
+   CAUGHT: 1 mismatch - "postcode \"pr83hn\" belongs to Fishlocks Chemist
+   Ainsdale, not Fishlocks Chemist Eccleston. Written in mixed or lower
+   case, so the upper-case postcode sweep could not see it". Restored;
+   sha256 matched baseline exactly.
+
+4. SURFACE PRESENCE (the "all four NAP surfaces must exist" rule, distinct
+   from every fact-agreement rule above, which only fires when its surface
+   is found at all): on
+   modules/service/pages/uti-treatment-fishlocks-ainsdale.html, the contact
+   card's Google Maps iframe src attribute emptied (kept the tag, removed
+   only the query), simulating a lost map embed with everything else on the
+   page - including the correct phone and address - untouched.
+   CAUGHT: 1 mismatch - "carries no map query, so nothing on this page was
+   checked for it against branches.json". Confirms an otherwise-perfect page
+   missing one surface still fails outright rather than passing by default.
+   Restored; sha256 matched baseline exactly.
+
+RESULT
+All four injections caught on the first run, none required a second attempt
+or a rule change. No in-repo defect: check-nap.js already correctly protects
+Fishlocks' own pages across the phone/tel/JSON-LD triangle, the wide
+separator-tolerant phone sweep, the case-insensitive bare-postcode sweep, and
+the four-surface presence rule. This proves those five rule-families
+directly against the branch pair for the first time, the same shape as the
+eleventh and twelfth passes did for check-branch-identity.js and
+check-map-embeds.js.
+
+POST-INJECTION VERIFICATION
+- sha256 of all 28 Fishlocks files re-checked against
+  /tmp/fishlocks-sha-before-sfm.txt: all match, byte-identical.
+- All 36 tools/check-*.js re-run individually: all exit 0.
+- `git status --porcelain` shows zero changes to any tracked file (only the
+  standing untracked debris from prior runs' own lock-mechanics testing,
+  out of scope for this item, per standing Q87).
+
+NOT COVERED BY THIS PASS (residual, for a future pass)
+- check-nap.js's NAME sweep and STREET sweep were not separately injected
+  against Fishlocks this run (time budget); the PHONE, POSTCODE and SURFACE
+  rules above were prioritised as the least-proven angles. A future pass
+  could inject Hirshmans Chemist's name (the other Ainsdale-town pharmacy,
+  already the source of the identical-H1 finding under Q44) or Eccleston's
+  street address into an Ainsdale page to close that residual.
+- check-nap.js's EMAIL sweep (plain-text foreign inbox) was not injected
+  against Fishlocks this run for the same reason.
+
+LIVE HALF
+Claude in Chrome unreachable this run (not connected, standing Q59) - no
+browser control tool used, nothing clicked, typed or submitted anywhere.
+Fell back to a read-only curl GET (status code only, same convention as the
+ninth and tenth passes' fallback): all four checked live URLs on
+www.fishlockpharmacy.co.uk returned 200 -
+uti-treatment-fishlocks-ainsdale.html, uti-treatment-fishlocks-eccleston.html,
+switch-prescriptions-fishlocks-ainsdale.html and
+switch-prescriptions-fishlocks-eccleston.html. No page content was read by
+this method, so the standing Q37 footer-widget set and the standing Q35
+branch-landing-page 404s were neither re-confirmed nor contradicted this
+pass.
+
+NOTE ON RUN CONDITIONS
+Executed entirely via the Cowork sandbox shell. `git fetch origin` (SSH)
+failed "Host key verification failed" (no SSH key material in this sandbox);
+`git fetch origin-https` succeeded and confirmed the local branch already
+carries everything origin-https/agents/audit-backlog has (0 behind). Local
+branch was 8 ahead of origin-https before this run's own commit, all from
+prior runs unable to push in this sandbox - `git push origin-https
+agents/audit-backlog` failed "could not read Username for
+'https://github.com': No such device or address" (no credential helper, no
+GITHUB_TOKEN, no .netrc, no gh CLI), the standing Q96 gap, confirmed again
+this run. This run's own commit is therefore also local-only for now.
+A stray `.git/index.lock` about the expected shape from this mount's own
+internal-unlink restriction (Q87) was moved aside by rename rather than
+deleted, the same workaround every recent run has used.
