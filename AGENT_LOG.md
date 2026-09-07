@@ -40,6 +40,21 @@ RESULT: no defect found. Full method and evidence recorded in
 AGENT_WORKLIST.md's item 4.11 fourteenth-pass paragraph rather than
 duplicated here. Evidence files: audits/verify-4.11-2026-09-08-fourteenth.js
 and audits/verify-4.11-2026-09-08-fourteenth-output.txt.
+COMMIT/PUSH/PUBLISH (steps 9-10): committed locally as 31778e2. `git push
+origin-https agents/audit-backlog` failed "could not read Username for
+'https://github.com': No such device or address" (no credential helper, no
+.netrc, no GITHUB_TOKEN); `git push origin` (SSH) failed "Host key
+verification failed" (no ~/.ssh, confirmed via a fresh `ssh -T git@github.com`
+this run). Both failures are the identical standing gap already raised as
+Q87 and Q96 - not re-raised as a third question. `node
+tools/build-audit-status.js` was run anyway per step 10's "run it even if
+the work item failed" instruction: failed with ENOENT on its own hardcoded
+`const REPO = 'C:/Dev/rbh-site-data'` (line 11), which does not resolve in
+this Linux sandbox - the exact failure Q87 already documents. Net effect,
+unchanged from every other sandbox run: this pass's work is committed
+locally on agents/audit-backlog but has not reached origin, and the portal
+status page was not republished. Local HEAD now sits one commit ahead of
+origin-https/agents/audit-backlog (e3c0f0a) at 31778e2.
 INFRASTRUCTURE NOTE: hit a transient FUSE-mount fault this run not seen in
 prior logs - a freshly-written file (audits/verify-4.11-2026-09-08-
 fourteenth.js) was briefly unreadable from the bash sandbox side (`cat`/`wc`
