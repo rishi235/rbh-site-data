@@ -18211,6 +18211,83 @@ and their output.
       working copy, the established route per Q96/Q87. QUESTIONS.json
       re-read in full: 98 total, 45 open, no pickup available this run
       (Claude in Chrome not connected), no new question raised.
+      Eleventh quality pass, 2026-09-07 (unattended scheduled run). ONE REAL
+      DEFECT FOUND AND FIXED, in shared infrastructure rather than in
+      check-service-links.js's own rule logic. Live half not attempted:
+      Claude in Chrome reported no connected browsers (list_connected_
+      browsers returned []); the four 2026-08-14 findings (Riddings switch
+      permalink, Riddings /clinic-prices, Tiffenbergs book-now.html) are not
+      re-read and not re-claimed, Q53/Q54 stay open unchanged.
+      FRESH ANGLE: read the full check-service-links.js source rather than
+      only its ten-pass history, since every prior pass had proved a rule or
+      a fail-safe but none had examined the medicine-name MATCHING FUNCTION
+      itself. tools/pom-names.js's findMedicine() (called by RULE 3 here and
+      by check-weight-loss-copy.js) builds "\b" + name + "\b". \b is a
+      transition between a \w character - which includes digits - and a
+      non-\w character, so no boundary exists between a name and an
+      immediately following dosage number with no separator: "Mounjaro5mg",
+      "orlistat120", "amoxicillin500" and "semaglutide2.4mg" all read as one
+      unbroken \w run and are invisible to \bname\b, while the same names
+      followed by a space are caught correctly. check-switch-copy.js and
+      check-travel-clinic-copy.js each re-implement the identical \b
+      construction inline rather than calling findMedicine, so the gap sat
+      in three places, not one. tools/check-gbp-packs.js's own findTerms()
+      (line ~814) had already, independently, arrived at the safer
+      `(^|[^a-z])name([^a-z]|$)` shape, which treats a digit as a valid
+      boundary on either side, so that checker alone was never exposed.
+      METHOD: audits/verify-6.2-2026-09-07-eleventh.js, read-only against
+      the live tree for parts A/B/D, a single-file scratch injection for
+      part C. Part A reproduced the blind spot against the unmodified
+      pom-names.js: all five dosage-adjacent cases returned null while the
+      same names with a space were caught, and the documented "alli"/
+      "usually" and "proguanil inside a longer word" non-matches held.
+      Part B swept the real 212-file corpus (177 generated pages, six
+      EXTRA_FILES, two EXTRA_JS_COPY_FILES, fifteen gbp-packs) for any
+      digit-adjacent medicine name already live: zero, so the gap was
+      latent, not a live breach, the same shape every 6.2 finding before
+      this one has taken. Part D ran the OLD regex against the NEW regex
+      line by line across the same 212 files (36,310 lines): zero
+      divergences, proving the fix is a pure widening with no behaviour
+      change on real content, before it was applied to the tracked files.
+      FIX: pom-names.js's findMedicine() changed to
+      `(?:^|[^a-z])name(?:[^a-z]|$)`, matching check-gbp-packs.js's own
+      shape; check-switch-copy.js and check-travel-clinic-copy.js's inline
+      \b constructions changed the same way (the travel-clinic one gained
+      the same special-character escaping the others already had, harmless
+      today since no TRAVEL_VACCINES/ANTIMALARIALS name contains a regex
+      metacharacter). Proved live after landing: "Mounjaro5mg" appended to
+      switch-prescriptions-smartts-bootle.html and run through the real
+      check-service-links.js as a child process failed correctly ("FAIL
+      [medicine] ... names \"mounjaro\" in visible copy", exit 1); file
+      restored and sha256-confirmed byte-identical
+      (b1479bea2970d285632a6769d415a5ba234dca64ab9e51ad3bb7814d2dc4db7c)
+      before and after. Full 36-checker suite re-run individually before and
+      after the fix: 36/36 exit 0 both times, identical exit-code table. All
+      six generators rebuilt after the fix: git status --porcelain --
+      modules core empty, byte-identical output confirmed, since the fix
+      touches only checker logic in tools/, no generator or data field.
+      Environment: mcp__workspace__bash (Cowork sandboxed Linux mount of
+      C:\dev\rbh-site-data) used throughout. This mount permits file
+      creation and rename-to-a-new-name but rejects unlink() and same-name
+      overwrite-then-delete on any file, the standing constraint recorded
+      elsewhere in this file (Q87's 2026-09-01 update): rm, mv and
+      fs.rmSync/fs.renameSync-to-delete all returned EPERM on .agent-lock,
+      on .git/index.lock and .git/HEAD.lock (both pre-existing from the
+      prior run, under the 1-hour staleness threshold and no git process
+      running, so left in place per the standing instruction), and on this
+      pass's own empty _agentscratch/verify-6.2-eleventh-scratch directory;
+      .agent-lock was overwritten in place with a fresh timestamp instead of
+      deleted, which is functionally equivalent for the mtime-based
+      staleness check the next run performs. git fetch/pull origin-https
+      succeeded read-only; git push is not possible from this mount for
+      either remote (SSH host key verification fails, HTTPS has no cached
+      credential - the standing Q96/Q87 diagnosis, unchanged and not
+      re-litigated with a new question), so this entry's commit and push
+      were completed via mcp__Windows-MCP__PowerShell against the canonical
+      C:\Dev\rbh-site-data working copy, the established route per Q96/Q87.
+      QUESTIONS.json re-read in full: 98 total, 45 open, no pickup available
+      this run (list_connected_browsers returned no connected browsers), no
+      new question raised. Evidence: audits/verify-6.2-2026-09-07-eleventh.js.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

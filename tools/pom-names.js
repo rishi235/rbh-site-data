@@ -88,13 +88,31 @@ function union() {
 }
 
 // Returns the first name in `names` that appears in `text` as a whole word,
-// or null. Matching is word-boundary, never substring, so "alli" does not
+// or null. Matching is letter-boundary, never substring, so "alli" does not
 // fire on "usually" and "proguanil" does not fire inside a longer word.
+//
+// NOT \b. \b is a transition between a \w character (letters, digits AND
+// underscore) and a non-\w character, so a digit counts as a word character
+// to \b and no boundary exists between a name and an immediately following
+// dosage number: "Mounjaro5mg", "orlistat120" and "amoxicillin500" all read
+// as one unbroken \w run and were invisible to \bname\b. Found on the item
+// 6.2 quality pass (eleventh), 2026-09-07: zero occurrences in the live
+// estate when found (latent, not a live breach), but a real blind spot in
+// shared infrastructure five checkers rely on (this function, plus the two
+// checkers below that re-implement the same \b construction inline rather
+// than calling this one). tools/check-gbp-packs.js's own findTerms() had
+// already, independently, arrived at the safer shape used here -
+// `(^|[^a-z])name([^a-z]|$)` - which treats a digit as a valid boundary on
+// either side, so that checker was never exposed to this gap. Proved a pure
+// widening, not a behaviour change, by running old-vs-new against every
+// line of the real 212-file corpus (177 generated pages, six EXTRA_FILES,
+// two EXTRA_JS_COPY_FILES, fifteen gbp-packs) before landing: 0 divergences
+// on 36,310 lines. See audits/verify-6.2-2026-09-07-eleventh.js.
 function findMedicine(text, names) {
   const s = String(text == null ? "" : text);
   for (let i = 0; i < names.length; i++) {
     const n = String(names[i]).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    if (new RegExp("\\b" + n + "\\b", "i").test(s)) return names[i];
+    if (new RegExp("(?:^|[^a-z])" + n + "(?:[^a-z]|$)", "i").test(s)) return names[i];
   }
   return null;
 }

@@ -653,7 +653,12 @@ var CLINICAL = [
 Object.keys(pages).forEach(function (id) {
   var p = pages[id];
   POM.forEach(function (name) {
-    if (new RegExp("\\b" + rx(name) + "\\b", "i").test(p.text)) {
+    // Letter-boundary, not \b: see tools/pom-names.js findMedicine() for why
+    // \b misses a name immediately followed by a dosage digit ("Mounjaro5mg").
+    // Fixed on the item 6.2 quality pass (eleventh), 2026-09-07, alongside
+    // the shared function and check-travel-clinic-copy.js's own copy of the
+    // same construction.
+    if (new RegExp("(?:^|[^a-z])" + rx(name) + "(?:[^a-z]|$)", "i").test(p.text)) {
       fail("no-medicines", id + " names " + name, rel(p.file) + ": the switch " +
         "page names " + name + ". This is public advertising copy for a page " +
         "about moving prescriptions, and naming a prescription-only medicine on " +

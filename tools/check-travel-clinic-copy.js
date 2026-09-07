@@ -516,7 +516,11 @@ pages.forEach(function (p) {
   var name = rel(p.file);
   var text = plain(p.raw);
   MEDICINE_NAMES.forEach(function (m) {
-    if (new RegExp("\\b" + m + "\\b", "i").test(text)) {
+    // Letter-boundary, not \b: see tools/pom-names.js findMedicine() for why
+    // \b misses a name immediately followed by a dosage digit. Fixed on the
+    // item 6.2 quality pass (eleventh), 2026-09-07, alongside the shared
+    // function and check-switch-copy.js's own copy of the same construction.
+    if (new RegExp("(?:^|[^a-z])" + m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:[^a-z]|$)", "i").test(text)) {
       fail("medicine", name + "|" + m, name + ' names "' + m + '", a prescription-only ' +
         "medicine, in public advertising copy. Name the disease the vaccine or " +
         "tablet is for, never the product.");
