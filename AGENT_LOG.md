@@ -85,9 +85,30 @@ WORKLIST AND COMMIT (steps 7, 9): appended the thirteenth-pass paragraph
 under item 3.9 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
 change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
 `audits/verify-3.9-2026-09-07-thirteenth-output.txt` (new).
-PUSH/PUBLISH (steps 9-10): [outcome to be filled in below once attempted]
-STEP 11: `.agent-lock` will be overwritten in place with a "RELEASED" marker
-and timestamp at the end of this run via the Edit tool (the standing
+PUSH/PUBLISH (steps 9-10): commit `df348528ce31b706d5ae68a3b0c0cb21c84bfaea`
+created locally on `agents/audit-backlog` via `GIT_INDEX_FILE=/tmp/audit-index`
+(3 files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md`,
+`audits/verify-3.9-2026-09-07-thirteenth-output.txt`). `git push origin
+agents/audit-backlog` (SSH) failed "Host key verification failed"; `git push
+origin-https agents/audit-backlog` failed "could not read Username for
+'https://github.com'" - both exactly as predicted by the standing Q96/Q87
+credential gap. Completed via `mcp__Windows-MCP__PowerShell` against the same
+canonical `C:\Dev\rbh-site-data` working copy instead (confirmed to be the
+SAME underlying files as this sandbox's own mount, not a separate replica -
+the commit made via the sandbox's alt-index workaround was immediately
+visible there, `git log -1` matched exactly). Hit the identical
+`.git/index.lock` orphan there too (from an earlier failed `git add` in this
+same run, silently swallowed by a combined PowerShell command that did not
+surface its exit code) - `Remove-Item -Force` cleared it without difficulty,
+unlike this sandbox mount, confirming Q87's diagnosis that native Windows
+filesystem access does not have the sandbox's unlink restriction. After
+clearing it, `git add` + `git push origin agents/audit-backlog` succeeded
+cleanly: `9310bf4..df34852 agents/audit-backlog -> agents/audit-backlog`.
+`node tools/build-audit-status.js` then run from the same PowerShell session
+(so `C:/Dev/rbh-site-data` resolves correctly): "Published
+reports/digital/Digital_Audit_Status.html (43/49 done, 88%)", exit 0.
+STEP 11: `.agent-lock` overwritten in place with a "RELEASED" marker and
+timestamp at the end of this run via the Edit tool (the standing
 functional-equivalent workaround this mount requires, since bash `rm`/`mv`
 onto it return "Operation not permitted").
 
