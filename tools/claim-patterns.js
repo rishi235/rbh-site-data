@@ -26,7 +26,31 @@
 const CLAIM_PATTERNS = [
   [/delivers results/i, "promises results"],
   [/proven results/i, "promises results"],
-  [/guaranteed results|results guaranteed/i, "guarantees results"],
+  [/guaranteed\b[^.\n]{0,30}?\bresults\b|results\b[^.\n]{0,30}?\bguaranteed\b/i, "guarantees results"],
+  // Widened on the item 3.13 quality pass (eleventh, Clear Chemist Aintree),
+  // 2026-09-07. The fixed two-word phrase above only ever matched "guaranteed
+  // results" or "results guaranteed" back to back, so the plainest way of
+  // inserting an outcome noun between them walked straight through: injected
+  // into Clear Chemist Aintree's own weight-loss Meta Keywords line,
+  // "guaranteed weight loss results" passed check-seo-keywords.js RULE 7
+  // (and would equally have passed check-service-links.js on a generated
+  // page, since both read this same shared list). Same class of gap the
+  // 2026-08-13, 2026-08-14 and 2026-08-30 notes above already record for the
+  // superlative, outcome and word-number rules; this is the fixed-phrase
+  // "guarantee" rule's turn. Widened to a 30-character gap either side of
+  // "guaranteed", matching the gap tolerance already used elsewhere in this
+  // file, and deliberately anchored on "guaranteed" (not bare "guarantee"),
+  // because the four standing no-guarantee disclaimer sentences on every
+  // generated weight loss page ("does not guarantee eligibility, treatment
+  // or results", "not a guarantee", "We cannot guarantee that any particular
+  // product...", "Nothing below is a guarantee of treatment... Individual
+  // results vary") all use the bare verb "guarantee", never "guaranteed",
+  // and would fail this rule if the anchor were widened to catch it. Proved
+  // safe by injection: "guaranteed weight loss results" now caught; all four
+  // disclaimer sentences and the governance NOTE "no vaccine is claimed
+  // guaranteed in stock" (present on all sixteen travel clinic pages) tested
+  // directly against findClaim() and confirmed NOT caught; full checker
+  // suite re-run clean afterwards.
   [/real results/i, "promises results"],
   [/lose up to/i, "quantified weight loss claim"],
   [/\d+(\.\d+)?\s*%\s*of your body/i, "quantified weight loss claim"],

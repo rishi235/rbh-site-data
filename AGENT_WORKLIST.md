@@ -8324,6 +8324,93 @@ Done 2026-09-07 (thirteenth pass).
       gbp-packs/; the only repo changes this pass are the new probe
       instrument, its output file and this log entry.
       Evidence: audits/verify-3.13-2026-09-06-tenth.js (run clean, exit 0).
+      Quality pass 2026-09-07 (eleventh), unattended scheduled run via Cowork
+      sandbox shell only (Claude in Chrome not connected). FRESH ANGLE. Ten
+      prior passes proved tools/check-switch-copy.js, tools/check-weight-loss-
+      copy.js, tools/check-travel-clinic-copy.js, tools/check-jsonld.js and
+      (tenth pass) tools/check-seo-pattern.js against this branch's three
+      pages by direct injection. A grep of this item's own section for
+      "check-seo-keywords.js" across all ten returned zero hits: the checker
+      that reads the fourth Weebly SEO field (Meta Keywords) - added item
+      3.6, 2026-08-11 - had never once been pointed at Clear Chemist Aintree
+      specifically, against a full-repo baseline of 177 lines, 0 failures
+      every pass. Rotation: 36-item pool (43 checked minus the standing seven
+      out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), each item's
+      paragraph dated via `git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md`
+      run across the whole pool; 3.13 came out stalest at
+      2026-09-06T12:13:26+01:00, exactly matching the tenth pass's own
+      recorded runner-up for itself.
+      Full repo copied by byte copy (cp -a, with .git) to
+      /tmp/scratch-313-keywords, outside the tracked tree; full 34-checker
+      sweep run clean on the copy first. Six injections against the Clear
+      Chemist Aintree block of modules/switch/pages/SEO.md and modules/
+      service/pages/WEIGHT-LOSS-SEO.md, each restored via fs.writeFileSync
+      from an in-memory buffer (not git) and sha256-reconfirmed byte-
+      identical before the next: (1) RULE 3 presence - "Aintree" stripped
+      from the switch keywords line - caught, "Meta Keywords do not carry
+      this branch's own seoTown 'Aintree'"; (2) RULE 4 absence - "Eccleston"
+      appended (Fishlocks Eccleston's seoTown, not in Clear's serviceAreaList
+      of Aintree/Fazakerley/Walton/Bootle/North Liverpool) - caught, naming
+      fishlocks_eccleston; (3) RULE 5 brand - "Fishlocks Chemist" appended -
+      caught, naming both fishlocks_ainsdale and fishlocks_eccleston; (4)
+      RULE 6 postcode - "PR8" appended (Ainsdale's outward code, not Clear's
+      own L9) - caught; (5) RULE 7 claim - "guaranteed weight loss results"
+      appended to the weight-loss keywords line - NOT CAUGHT on first run,
+      exit 0; (6) CONTROL - "Aintree pharmacy" appended (own town restated) -
+      correctly passed clean, confirming no false positive from a harmless
+      restatement.
+      THE FINDING IS IN INJECTION 5. tools/claim-patterns.js line 29 read
+      `/guaranteed results|results guaranteed/i`, a fixed two-word phrase, so
+      inserting one ordinary noun between the two words - "guaranteed weight
+      loss results", the plainest way an actual paster would write the same
+      promise - walked straight through RULE 7 on both check-seo-keywords.js
+      (paste sheets) and check-service-links.js (the 177 generated pages,
+      since both read the same shared list). Same class of gap the
+      2026-08-13, 2026-08-14 and 2026-08-30 notes already logged in that file
+      for the superlative, outcome and word-number rules; this was the fixed-
+      phrase "guarantee" rule's own turn, closed the same way as those three.
+      FIXED AT SOURCE, not raised as a question: this is a coverage gap in an
+      already-approved, already-narrow rule (RULE 7 already bans "guaranteed
+      results" outright; the gap was only ever in the exact wording, not in
+      whether the class of claim is allowed), the same kind of mechanical
+      widening the four prior notes in that file record being made directly
+      by a quality pass without escalation. Widened to
+      `/guaranteed\b[^.\n]{0,30}?\bresults\b|results\b[^.\n]{0,30}?\bguaranteed\b/i`,
+      a 30-character gap either side matching the tolerance already used
+      elsewhere in the same file, deliberately anchored on "guaranteed" (not
+      bare "guarantee") because a repo-wide grep for every "guarant*"
+      occurrence found the four standing no-guarantee disclaimer sentences
+      that stand on every generated weight-loss page - "does not guarantee
+      eligibility, treatment or results", "not a guarantee", "We cannot
+      guarantee that any particular product...", "Nothing below is a
+      guarantee of treatment... Individual results vary" - and the travel
+      clinic governance NOTE "no vaccine is claimed guaranteed in stock" (16
+      pages) all use the bare verb "guarantee", never the past-tense
+      "guaranteed", so anchoring on the past tense leaves all of them
+      untouched. Regression-tested directly against findClaim(): all four
+      disclaimer sentences and the NOTE confirmed NOT caught; the original
+      "guaranteed weight loss results" injection re-run and confirmed caught,
+      "Efficacy and results wording is not allowed in public copy." Full 34-
+      checker suite re-run clean on both the scratch copy and the tracked
+      repo after the fix. No generator or page content changed (claim-
+      patterns.js is a shared pattern file the checkers import, not a
+      generator), so no regeneration was needed and no generated .html page
+      differs.
+      Baseline sha256 recorded before any mutation for both touched sheets
+      (modules/switch/pages/SEO.md and modules/service/pages/WEIGHT-LOSS-
+      SEO.md); both confirmed byte-identical to baseline after every restore
+      and at the end of the run. `git status --porcelain -- modules gbp-
+      packs core branches.json` empty throughout (only tools/claim-
+      patterns.js, this log entry and the two new audits/ files change).
+      LIVE HALF NOT ATTEMPTED: Claude in Chrome confirmed not connected this
+      run (`list_connected_browsers` returned `[]`), standing Q59.
+      NO NEW QUESTION. This is a mechanical pattern-coverage fix with the
+      same standing and the same precedent as the four prior widenings
+      logged in tools/claim-patterns.js itself, not a new judgement about
+      what weight-loss copy may say.
+      Evidence: audits/verify-3.13-2026-09-07-eleventh.js and its saved
+      output, audits/verify-3.13-2026-09-07-eleventh-output.txt (both run
+      clean, exit 0).
 
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.

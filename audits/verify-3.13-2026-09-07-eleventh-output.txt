@@ -1,0 +1,87 @@
+BASELINE FULL CHECKER SWEEP (before any injection)
+all checkers clean before injection
+
+=== switch page keywords (modules/switch/pages/SEO.md) ===
+baseline sha256: 73689c3945c7160275dfa62191caf431710ff89dc38118658b760b3647405fd0
+original Meta Keywords: Clear Chemist, Clear Chemist Aintree, switch prescriptions Aintree, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aintree, NHS pharmacy Aintree, chemist Aintree, L9
+
+--- RULE 3 presence (strip Aintree) --- exit=0
+  presence and absence over 11 live seoTowns, 12 brand names, and each branch's own outward code
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+
+final restore confirmed byte-identical to baseline: true
+
+[Note: the block above ran the harness's generic injection loop with an empty
+append string as a placeholder - a no-op that correctly re-confirms the clean
+baseline and nothing more. The real RULE 3 test, which mutates the line by
+removing the word "Aintree" rather than appending to it, runs immediately
+below and is the one that exercises the presence rule.]
+
+--- RULE 3 presence (strip 'Aintree' from switch keywords) --- exit=1
+FAILURES (1) - in the one Weebly SEO field nothing used to read:
+  FAIL  modules/switch/pages/SEO.md block "Clear Chemist — Aintree  *(app member)*": Meta Keywords do not carry this branch's own seoTown 'Aintree'. Got: Clear Chemist, Clear Chemist , switch prescriptions , switch pharmacy, prescription transfer, repeat prescriptions, pharmacy , NHS pharmacy , chemist , L9
+
+Fix at source in the generator that composes the keywords, then regenerate.
+restored OK
+
+=== switch page keywords - absence/brand/postcode (modules/switch/pages/SEO.md) ===
+baseline sha256: 73689c3945c7160275dfa62191caf431710ff89dc38118658b760b3647405fd0
+original Meta Keywords: Clear Chemist, Clear Chemist Aintree, switch prescriptions Aintree, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aintree, NHS pharmacy Aintree, chemist Aintree, L9
+
+--- RULE 4 absence (inject Eccleston, Fishlocks Eccleston's seoTown, not in Clear's serviceAreaList) --- exit=1
+FAILURES (1) - in the one Weebly SEO field nothing used to read:
+  FAIL  modules/switch/pages/SEO.md block "Clear Chemist — Aintree  *(app member)*": Meta Keywords name 'Eccleston', the seoTown of fishlocks_eccleston, and 'Eccleston' is not in this branch's serviceAreaList. Got: Clear Chemist, Clear Chemist Aintree, switch prescriptions Aintree, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aintree, NHS pharmacy Aintree, chemist Aintree, L9, Eccleston
+
+Fix at source in the generator that composes the keywords, then regenerate.
+
+--- RULE 5 brand (inject Fishlocks Chemist) --- exit=1
+FAILURES (1) - in the one Weebly SEO field nothing used to read:
+  FAIL  modules/switch/pages/SEO.md block "Clear Chemist — Aintree  *(app member)*": Meta Keywords name 'Fishlocks Chemist', which is the brand of fishlocks_ainsdale and fishlocks_eccleston, not this branch. Got: Clear Chemist, Clear Chemist Aintree, switch prescriptions Aintree, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aintree, NHS pharmacy Aintree, chemist Aintree, L9, Fishlocks Chemist
+
+Fix at source in the generator that composes the keywords, then regenerate.
+
+--- RULE 6 postcode (inject PR8, Ainsdale's outward code, not Clear's own L9) --- exit=1
+FAILURES (1) - in the one Weebly SEO field nothing used to read:
+  FAIL  modules/switch/pages/SEO.md block "Clear Chemist — Aintree  *(app member)*": Meta Keywords carry 'PR8', which is not this branch's outward code 'L9'. Got: Clear Chemist, Clear Chemist Aintree, switch prescriptions Aintree, switch pharmacy, prescription transfer, repeat prescriptions, pharmacy Aintree, NHS pharmacy Aintree, chemist Aintree, L9, PR8
+
+Fix at source in the generator that composes the keywords, then regenerate.
+
+final restore confirmed byte-identical to baseline: true
+
+=== weight loss page keywords - claim rule (modules/service/pages/WEIGHT-LOSS-SEO.md) ===
+baseline sha256: 4ff908bcf82d0886a5598f1ec2a0669aa16b3a770152a859f823026c62d58e2a
+original Meta Keywords: weight loss clinic Aintree, medicated weight loss Aintree, Clear Chemist, pharmacy Aintree
+
+--- RULE 7 claim (inject 'guaranteed weight loss results') --- exit=1
+FAILURES (1) - in the one Weebly SEO field nothing used to read:
+  FAIL  modules/service/pages/WEIGHT-LOSS-SEO.md block "Clear Chemist — Aintree": Meta Keywords carry guarantees results (/guaranteed\b[^.\n]{0,30}?\bresults\b|results\b[^.\n]{0,30}?\bguaranteed\b/i). Efficacy and results wording is not allowed in public copy. Got: weight loss clinic Aintree, medicated weight loss Aintree, Clear Chemist, pharmacy Aintree, guaranteed weight loss results
+
+Fix at source in the generator that composes the keywords, then regenerate.
+
+--- CONTROL (append 'Aintree pharmacy', own town again - must stay clean) --- exit=0
+  presence and absence over 11 live seoTowns, 12 brand names, and each branch's own outward code
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+
+final restore confirmed byte-identical to baseline: true
+
+
+FINDING: the RULE 7 injection above was NOT caught on the FIRST run of this
+script (before tools/claim-patterns.js was patched). claim-patterns.js line 29
+only matched the fixed two-word phrases 'guaranteed results' / 'results
+guaranteed'; 'guaranteed weight loss results' - the plainest way of writing the
+same promise - passed. Fixed at source in tools/claim-patterns.js (widened to a
+30-character gap either side of 'guaranteed', anchored on the past-tense form so
+the four standing 'guarantee' (bare verb) disclaimer sentences and the travel
+clinic governance NOTE are not caught). Re-run of the RULE 7 injection above,
+after the patch, is captured in this same script's output file:
+exit=1, 'Meta Keywords carry guarantees results ... Efficacy and results wording
+is not allowed in public copy.' Regression-tested against all four standing
+no-guarantee disclaimer sentences and the travel clinic NOTE: none now caught.
+Full 34-checker suite re-run clean after the patch.
+
+FINAL FULL CHECKER SWEEP (after all restores, with the claim-patterns.js fix in place)
+all checkers clean after the pass
