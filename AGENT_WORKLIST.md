@@ -17424,6 +17424,85 @@ and their output.
       anywhere in the repo. No new question raised. Evidence:
       audits/verify-5.2-2026-09-06-twelfth.js and
       audits/verify-5.2-2026-09-06-twelfth-output.txt.
+      Quality pass 2026-09-07 (thirteenth, unattended run, rotation-pool
+      pick, independently re-derived: stalest of the 36-item pool at
+      2026-09-06T15:44:49+01:00, ahead of 4.11, 5.1 and 3.12, matching the
+      twelfth pass's own forward note). Repo half only. Claude in Chrome
+      confirmed not connected (list_connected_browsers returned []); the
+      standard web_fetch tool refused all six landing URLs as outside its
+      provenance set, the same restriction the twelfth pass hit, so the live
+      half was not read or claimed this pass either; the eleventh pass's live
+      findings (all six URLs 404, 26+ days queued, Q35 still open) stand
+      unchanged. Baseline: all 36 tools/check-*.js checkers ran individually,
+      36/36 clean, before any work began. All six generators rebuilt from
+      branches.json: git status --porcelain -- modules core empty before and
+      after, byte-identical.
+      NEW ANGLE. Of the thirteen passes on this item, tools/check-branch-
+      identity.js - the checker whose own header exists specifically because
+      Fishlocks Chemist, McCanns Chemist and Scorah Chemists each run two
+      shops on one shared domain, which is exactly this item's own six pages
+      - had never been proven by injection using the REAL checker binary
+      against them. The seventh pass (2026-09-01) tested the same JSON-LD
+      name / data-branch / app-card surfaces, but through a home-grown script
+      with "own regexes", not by invoking tools/check-branch-identity.js
+      itself as a subprocess, which is the standard of proof this item's
+      ninth through twelfth passes established (check-seo-keywords,
+      check-brand-spelling, check-weight-loss-copy RULE 11, check-nap, each
+      proven via the real checker as a child process).
+      METHOD. New instrument written fresh
+      (audits/verify-5.2-2026-09-07-thirteenth.js, invokes the real
+      tools/check-branch-identity.js as a child process; refuses to run if
+      modules/branch/pages already carries a git diff; records each target's
+      sha256 before any mutation; restores by direct fs.writeFileSync
+      immediately after capturing the checker subprocess's output and BEFORE
+      any assertion runs, the same discipline the ninth through twelfth
+      passes used; one target mutated at a time, never layered).
+      INJECTION ROUND, six injections, one per landing page, each isolating a
+      distinct rule of check-branch-identity.js's eleven: (1) Fishlocks
+      Ainsdale, data-branch swapped to SK Chemists Bootle's real branchName -
+      CAUGHT, RULE 2 OWNER, plus the estate-wide RULE 6 SPLIT firing
+      simultaneously (the branch now declares two different data-branch
+      values across its own pages). (2) Fishlocks Eccleston, JSON-LD name
+      swapped to the bare, shared brandLabel "Fishlocks Chemist" - CAUGHT,
+      RULE 4 AMBIGUOUS, the rule this checker exists for. (3) McCanns
+      Aigburth, its sister-link href repointed at Scorah Bramhall's landing
+      page on a different host - CAUGHT twice over: RULE 9 SISTERLINK (the
+      relative link 404s across domains) and, as a genuine side effect of
+      only mutating the href, RULE 11 SISTERLABEL fired too, because the
+      untouched visible text ("McCanns Chemist Sandringham in St Michael's")
+      no longer matches what sisterNote() renders for the new (wrong) target.
+      That second catch was not designed in; it is the two rules correctly
+      overlapping on one bad edit, exactly as rule 11's own header predicts.
+      (4) McCanns Sandringham, its sister-link visible text shortened from
+      "McCanns Chemist Aigburth" to the bare "McCanns Chemist" while the href
+      was left correct - CAUGHT, RULE 11 SISTERLABEL, proving the label rule
+      independently of the href it sits beside. (5) Scorah Bramhall, its
+      Pharmacy First link repointed at Scorah Hazel Grove's own Pharmacy
+      First page (same host, so it resolves) - CAUGHT, RULE 10 SERVICELINK,
+      naming the silent wrong-branch booking risk. (6) Scorah Hazel Grove,
+      its Google review link swapped for Scorah Bramhall's own - CAUGHT,
+      RULE 8 OUTBOUND. All six caught on the first attempt with the expected
+      rule-specific wording; the whole script was then re-run a second time
+      end to end with byte-identical console output, confirming
+      reproducibility. All six target files sha256-confirmed byte-identical
+      to their originals after every individual restoration and again at the
+      end; git status --porcelain on modules/branch/pages stayed empty
+      throughout both rounds. Full 36-checker suite re-run clean after the
+      round; all six generators re-run, git status --porcelain on modules/
+      and core/ empty before and after.
+      RESULT. No defect on item 5.2 itself - tools/check-branch-identity.js
+      was already correctly holding all six landing pages to seven of its
+      eleven rules (2, 4, 6, 8, 9, 10, 11), now proven directly by the real
+      checker binary for the first time in this item's thirteen-pass history,
+      closing the gap the seventh pass's home-grown reimplementation could
+      not close on its own. Rules 1, 3, 5 and 7 remain unproven by injection
+      against this item specifically (1 and 3 are the same mechanism as 2 and
+      4 with the value blanked rather than swapped; 5 and 7 need a
+      cross-branch or branches.json-level injection this item's own page set
+      cannot exercise alone) and are a candidate angle for a future pass. No
+      checker logic, page, generator or data field changed anywhere in the
+      repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-07-thirteenth.js.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

@@ -1,3 +1,107 @@
+## 2026-09-07 (unattended scheduled run, second run today, Cowork sandbox mcp__workspace__bash throughout, Claude in Chrome not connected) - Item 5.2 quality pass (thirteenth, six branch landing pages): proved tools/check-branch-identity.js - never exercised with the real checker binary against these pages despite its own header naming exactly this item's shared-brand shape (Fishlocks/McCanns/Scorah) as the reason it exists - by six injections, one per page, each isolating a distinct rule (2 OWNER, 4 AMBIGUOUS, 8 OUTBOUND, 9 SISTERLINK, 10 SERVICELINK, 11 SISTERLABEL); all six caught, one catching two rules at once as a genuine side effect; no defect found, no live half read (Claude in Chrome not connected, web_fetch refused the URLs as outside provenance, same as the twelfth pass).
+LOCK CHECK (step 1): `.agent-lock` at run start held "RELEASED
+2026-09-07T21:44:40Z end of run", about 49 minutes old at run start - past
+the 45-minute threshold. `rm`/`os.remove` both returned "Operation not
+permitted" on this mount (the standing restriction, Q87/Q96); confirmed by a
+fresh probe this run that `mv` (rename) DOES succeed on this mount where `rm`
+(unlink) does not - moving `.agent-lock` to `.agent-lock.stale-test` left the
+original name free, and a plain redirect (`date ... > .agent-lock`) then
+created a fresh file there, functionally equivalent to the standing overwrite
+workaround. The same unlink restriction hit `.git/index.lock`: a fresh
+0-byte lock left behind by this run's own first `git status` call blocked
+every subsequent git command ("fatal: Unable to create ... index.lock: File
+exists") until renamed out of the way; from that point on, every git
+invocation in this run was preceded by `mv .git/index.lock
+.git/index.lock.pre-<timestamp> 2>/dev/null` before the real command, since
+each git call that touches the index leaves a fresh stale lock behind that
+blocks the next one. NEW OBSERVATION, scale only, not a new question: the
+junk population from this same restriction has grown to 404
+`.git/index.lock.*` files and 11 root-level scratch/test files (on top of the
+`.agent-lock.*` population logged as "well over 100" yesterday), all dated
+across the last eight days of scheduled runs. Left untouched - cleanup is out
+of scope for a single worklist item and the standing question (Q87/Q96)
+already covers the underlying restriction; flagging only that the count is
+climbing daily and a dedicated cleanup pass will eventually be worth
+scheduling.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q96/Q87, reconfirmed again. `git fetch origin-https`
+succeeded; local HEAD (`fbc6741`) already matched
+`origin-https/agents/audit-backlog` exactly, confirmed via `git log --oneline
+-5` on both, nothing to pull.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - Claude in Chrome not connected this run, standing Q59. No
+fetch attempted against the portal, no alternative route tried, nothing
+clicked or typed.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+independently re-derived from scratch (not merely trusted from the previous
+run's note): parsed every `- [x]`/`- [ ]` heading in AGENT_WORKLIST.md by
+regex, built each item's own paragraph line-range, filtered to the 36-item
+pool (43 completed items minus the standing 7 out-of-rotation: 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8), then ran `git log -1 --format=%cI -L<start>,<end>` on
+each item's own range. Result matched the fourteenth 2.1 pass's own forward
+note exactly: 5.2 stalest at 2026-09-06T15:44:49+01:00, ahead of 4.11
+(16:13:11), 5.1 (16:46:55), 3.12 (17:43:42). Chosen: 5.2 (six branch landing
+pages).
+RESULT: no defect found; one genuine verification-coverage gap closed by
+proof (check-branch-identity.js's real binary now proven against these six
+pages for the first time in the item's thirteen-pass history). Full method
+and evidence recorded in AGENT_WORKLIST.md's item 5.2 thirteenth-pass
+paragraph rather than duplicated here.
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 clean. All six generators (`build-service-pages`,
+`build-switch-pages`, `build-weight-loss-pages`, `build-travel-clinic-pages`,
+`build-contraception-pages`, `build-branch-landing-pages`) rebuilt from
+branches.json: `git status --porcelain -- modules core` empty before and
+after, byte-identical.
+LIVE HALF: not read or claimed. `list_connected_browsers` returned `[]`
+before starting; `mcp__workspace__web_fetch` on one of the six landing URLs
+was refused ("URL not in provenance set"), the identical restriction the
+twelfth pass hit with its own web-fetch tool. The eleventh pass's live
+findings (all six URLs 404, 26+ days queued, Q35 still open) stand
+unchanged; not re-verified this pass.
+METHOD AND INJECTION ROUND: see AGENT_WORKLIST.md item 5.2 for full detail.
+Summary: a fresh instrument (`audits/verify-5.2-2026-09-07-thirteenth.js`)
+invoking the real `tools/check-branch-identity.js` as a child process,
+refusing to run against a dirty tree, restoring each of the six target pages
+by direct `fs.writeFileSync` immediately after capturing the checker's
+output and before any assertion, sha256-reconfirmed byte-identical after
+every restoration. Six injections, one per landing page: (1) Fishlocks
+Ainsdale data-branch swapped to SK Chemists Bootle's real name - CAUGHT
+(RULE 2 OWNER + RULE 6 SPLIT). (2) Fishlocks Eccleston JSON-LD name swapped
+to the bare shared brandLabel "Fishlocks Chemist" - CAUGHT (RULE 4
+AMBIGUOUS). (3) McCanns Aigburth's sister-link href repointed at Scorah
+Bramhall (different host) - CAUGHT twice (RULE 9 SISTERLINK for the 404, and
+RULE 11 SISTERLABEL as a genuine side effect since the untouched label text
+no longer matched the new target). (4) McCanns Sandringham's sister-link
+visible text shortened while its href stayed correct - CAUGHT (RULE 11
+SISTERLABEL in isolation). (5) Scorah Bramhall's Pharmacy First link
+repointed at Scorah Hazel Grove's own page (same host, resolves) - CAUGHT
+(RULE 10 SERVICELINK). (6) Scorah Hazel Grove's Google review link swapped
+for Scorah Bramhall's own - CAUGHT (RULE 8 OUTBOUND). All six caught first
+attempt; script re-run a second time end to end with byte-identical console
+output. Full 36-checker suite and all six generators re-run clean after the
+round; `git status --porcelain` on `modules/branch/pages`, `modules/` and
+`core/` empty throughout.
+SCOPE NOTE for a future pass: rules 1, 3, 5 and 7 of check-branch-identity.js
+remain unproven by injection against this item specifically (1 and 3 are the
+same mechanism as 2 and 4 with a value blanked rather than swapped; 5 SITE-
+UNIQUE and 7 DATA need a cross-branch or branches.json-level injection this
+item's own six-page set cannot exercise alone).
+NO NEW QUESTION RAISED. No page, generator, checker or branches.json entry
+changed; the six landing pages remain byte-identical to the committed
+originals throughout.
+PUSH/PUBLISH: `audits/verify-5.2-2026-09-07-thirteenth.js` added;
+AGENT_WORKLIST.md (item 5.2 paragraph) and this file updated. Committed and
+pushed to `origin-https/agents/audit-backlog` (SSH `origin` still blocked by
+the standing host-key failure). `tools/build-audit-status.js` run to publish
+the portal status page; see its own console output for the commit hash and
+publish result, filled in below if the run failed partway.
+
 ## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout for the working half, mcp__Windows-MCP__PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 2.1 quality pass (fourteenth, Fishlocks Ainsdale): found and fixed a stale-narrative false alarm in tools/check-postcodes.js (the fabricated "WA14 9ZZ" the previous run's own log write-up quoted, added to NARRATIVE_POSTCODES); then proved tools/check-app-membership.js - never named once across thirteen prior passes on this item despite Fishlocks Ainsdale being one of only four app-member branches in the estate - by five injections against this branch's own switch page, landing page, a service-family page and its own GBP pack, all caught first attempt; no live-copy defect found; live half reconfirms all three standing findings (Q35, Q37, Q57) unchanged.
 LOCK CHECK (step 1): `.agent-lock` was present at run start, content
 "RELEASED 2026-09-07T20:44:09Z end of run", about 50 minutes old at run start
