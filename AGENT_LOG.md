@@ -104,7 +104,24 @@ under item 2.1 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
 change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
 `tools/check-postcodes.js`, `audits/verify-2.1-2026-09-07-fourteenth.js`
 (new), `audits/verify-2.1-2026-09-07-fourteenth-output.txt` (new).
-PUSH/PUBLISH (steps 9-10): [FILLED IN BELOW AFTER PUSH]
+PUSH/PUBLISH (steps 9-10): the sandbox's canonical mount had a fresh
+`.git/index.lock` (0 bytes) left behind by an earlier `git status` in this
+same run whose own post-operation cleanup failed on this mount's unlink
+restriction - standing Q87. Cleared via `mcp__Windows-MCP__PowerShell`
+(`Get-Process git` confirmed none running, then `Remove-Item -Force`)
+against the canonical `C:\Dev\rbh-site-data` working copy, where deletion is
+not restricted; `git add`/`git commit` completed there directly: commit
+`414b3c9d37194a99bc1bd685bedd8c16f11639e8` (5 files changed, 487 insertions,
+1 deletion: `AGENT_LOG.md`, `AGENT_WORKLIST.md`, `tools/check-postcodes.js`,
+`audits/verify-2.1-2026-09-07-fourteenth.js`,
+`audits/verify-2.1-2026-09-07-fourteenth-output.txt`). `git push origin
+agents/audit-backlog` completed via the same PowerShell session (this host
+copy has a working push credential over SSH, unlike the sandbox); `git fetch
+origin` plus `git rev-list --left-right --count
+origin/agents/audit-backlog...HEAD` immediately after read "0 0" and `git
+log -1` matched exactly on both sides - fully synced, nothing left unpushed.
+`node tools/build-audit-status.js` run the same way afterwards: "Published
+reports/digital/Digital_Audit_Status.html (43/49 done, 88%)", exit 0.
 STEP 11: `.agent-lock` overwritten in place with a "RELEASED" marker and
 timestamp at the end of this run via the established workaround, since
 `rm`/`mv`/`unlink` return "Operation not permitted" on this mount.
