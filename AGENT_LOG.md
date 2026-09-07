@@ -96,11 +96,28 @@ NO NEW QUESTION RAISED. No page, generator, checker or branches.json entry
 changed; the six landing pages remain byte-identical to the committed
 originals throughout.
 PUSH/PUBLISH: `audits/verify-5.2-2026-09-07-thirteenth.js` added;
-AGENT_WORKLIST.md (item 5.2 paragraph) and this file updated. Committed and
-pushed to `origin-https/agents/audit-backlog` (SSH `origin` still blocked by
-the standing host-key failure). `tools/build-audit-status.js` run to publish
-the portal status page; see its own console output for the commit hash and
-publish result, filled in below if the run failed partway.
+AGENT_WORKLIST.md (item 5.2 paragraph) and this file updated. Committed as
+`b15cbc2` via the sandbox's own git (mcp__workspace__bash). SSH `origin`
+push from the sandbox mount was not attempted (standing host-key failure,
+Q87/Q96) and HTTPS push from the sandbox failed outright ("could not read
+Username for 'https://github.com'" - no credentials on that mount, a
+sharper failure than the anonymous-read-only fetch that has worked all
+along). Pushed instead via `mcp__Windows-MCP__PowerShell` against the
+canonical `C:\Dev\rbh-site-data` working copy on the user's own machine,
+which already had `b15cbc2` (same underlying files, FUSE-mounted) and
+pushed clean over `origin` (SSH) to GitHub: `git push origin
+agents/audit-backlog` printed `fbc6741..b15cbc2 agents/audit-backlog ->
+agents/audit-backlog` on stderr (PowerShell reports git's normal push
+summary as an "Error" stream, not a real failure - confirmed by `git fetch
+origin` immediately after, showing `origin/agents/audit-backlog` at
+`b15cbc2` and `git status` reporting "up to date"). `tools/build-audit-
+status.js` run the same way: published `reports/digital/
+Digital_Audit_Status.html`, 43/49 done (88%), exit 0.
+LOCK RELEASE (step 11): `.agent-lock` overwritten in place with "RELEASED
+2026-09-07T22:44:49Z end of run" via the sandbox bash mount (`rm` still not
+permitted on this mount, the standing workaround); this is the current run's
+own start time recorded loosely, filled in from the wall clock at the point
+of writing this line.
 
 ## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout for the working half, mcp__Windows-MCP__PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 2.1 quality pass (fourteenth, Fishlocks Ainsdale): found and fixed a stale-narrative false alarm in tools/check-postcodes.js (the fabricated "WA14 9ZZ" the previous run's own log write-up quoted, added to NARRATIVE_POSTCODES); then proved tools/check-app-membership.js - never named once across thirteen prior passes on this item despite Fishlocks Ainsdale being one of only four app-member branches in the estate - by five injections against this branch's own switch page, landing page, a service-family page and its own GBP pack, all caught first attempt; no live-copy defect found; live half reconfirms all three standing findings (Q35, Q37, Q57) unchanged.
 LOCK CHECK (step 1): `.agent-lock` was present at run start, content
