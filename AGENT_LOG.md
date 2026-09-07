@@ -1,3 +1,96 @@
+## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout for both the working half and the commit/push attempt against this session's own mount of C:\dev\rbh-site-data; Claude in Chrome not connected) - Item 3.9 quality pass (thirteenth, Coleman and Leighs Pharmacy Walton): proved tools/check-brand-spelling.js rules 1, 2, 3 and 6 by injection against this branch's own pages/records for the first time in thirteen passes; rule 5 confirmed structurally inapplicable; no in-repo defect found, one documentation-precision note on the checker's own docstring (zero live risk); live half reconfirms all four standing findings unchanged.
+LOCK CHECK (step 1): `.agent-lock` was present at run start, content
+"2026-09-07T17:34:30Z", about 89-90 minutes old at run start (17:34:30Z
+content vs run start ~19:04Z) - well past the 45-minute threshold. `rm`
+returned "Operation not permitted" (the standing sandbox-mount restriction -
+this session used the Edit tool, not bash, to clear/refresh lock files
+throughout, since Edit can overwrite in place where bash unlink cannot); the
+Edit tool was used instead to overwrite the stale content with a fresh
+timestamp, the established functional-equivalent workaround this mount
+requires. `.git/index.lock` was found freshly created (0 bytes, ~1 minute
+old, from this run's own earlier `git status`) and could not be unlinked by
+bash either; rather than fight it, git operations that need to write the
+index (add/commit) were run with `GIT_INDEX_FILE=/tmp/audit-index` pointed at
+a scratch path outside the protected mount, seeded from a copy of the real
+`.git/index` first - the index.lock this creates lives in /tmp and can be
+unlinked normally, and the resulting commit is identical to one made against
+the real index. Documented here as a reusable technique for a run that hits
+the same wall.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, reconfirmed again. `git fetch origin-https`
+succeeded (anonymous HTTPS read); local `agents/audit-backlog` was already at
+`origin-https/agents/audit-backlog` HEAD (`9310bf4`), nothing to pull.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` and
+`mcp__claude-in-chrome__tabs_context_mcp` both reported Claude in Chrome not
+connected/not reachable - standing Q59, unchanged. No fetch attempted against
+the portal, no alternative route tried, nothing clicked, typed or signed in.
+QUESTIONS.json read in full: 98 total, 45 open, unchanged by pickup this run.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+re-derived independently in Python from `git log --pretty=format:"%cI|||%s"
+-- AGENT_WORKLIST.md AGENT_LOG.md` matched word-boundary per item id over
+the standing 37-item pool (43 completed items minus the six standing
+out-of-rotation one-offs 1.1, 1.4, 5.6, 5.7, 6.7, 6.8): 3.9 uniquely stalest
+at 2026-09-06T13:48:19+01:00, ahead of 3.10 (14:11:41), 2.1 (14:46:55), 5.2
+(15:44:49), 4.11 (16:13:11) - matching the twelfth pass's own forward note
+exactly.
+RESULT: no in-repo defect found. Full method, all four injections (rule 2
+VARIANT, rule 6 SHORT, rule 1 CANON plus a follow-up test of the checker's
+own "every checker still green" docstring claim, and rule 3 CONFIG
+substituted for the structurally-inapplicable rule 5 FALLBACK) and their
+exact caught-and-restored output are recorded in AGENT_WORKLIST.md's item 3.9
+thirteenth-pass paragraph rather than duplicated here; full raw output in
+`audits/verify-3.9-2026-09-07-thirteenth-output.txt`. Summary: rules 1, 2, 3
+and 6 of tools/check-brand-spelling.js all proved directly against Coleman
+and Leighs' own pages/records for the first time in this item's history; rule
+5 confirmed structurally inapplicable (core/site-data.js's FALLBACK carries
+only the head-office record, no per-branch table); rule 4 has no MISSPELT
+entry for this branch's surname, also inapplicable. One documentation note
+raised and NOT fixed: check-seo-pattern.js's H1 comparison would fail on a
+literal "&" in a brand name even when the page correctly HTML-entity-encodes
+it, but every canonical brand is deliberately "&"-free and rule 1 already
+catches an unauthorised rename before this quirk is ever reached in
+practice - zero live risk, not a functional defect. All mutations (two page
+files, branches.json, tools/build-switch-pages.js) restored byte-identical,
+sha256-confirmed at every step; all six generators re-run twice (once against
+the rule-1 injection to test the propagation claim, once at the very end) to
+confirm byte-identical regeneration each time; all 36 tools/check-*.js run
+individually at baseline and after every restore, 36/36 exit 0 throughout;
+`git status --porcelain -- modules core tools branches.json` empty at the
+end.
+LIVE HALF. Claude in Chrome confirmed not connected (checked at step 3 and
+independently again before this section). Fell back to a direct read-only
+`curl` GET from the sandbox shell (network egress confirmed first via a 200
+from google.com), the same established route prior passes have used when the
+browser is unreachable - first live recheck for this item since the eleventh
+pass (2026-09-05), since the twelfth pass explicitly skipped it. All four
+standing findings reconfirmed unchanged: pfLink
+(pharmacy-first-service-walton.html) still 404 (Q8/5.3); the homepage banner
+still carries "Coleman & Leigh Pharmacy" in the header/footer and
+GA4/consent-banner comments alongside the correct spelling in body copy; the
+`og:site_name` meta tag still reads "COLEMANS & LEIGHS PHARMACY"; the live
+switch page still carries the mojibake em dash ("ÔÇö") in "it usually is not
+[mojibake] we make the first step". None fixable from this repo (Weebly-side
+paste, outside this worker's read-only browsing scope); none re-raised as
+new questions.
+NO NEW QUESTION raised. The docstring finding is a precision note about what
+a checker's own comment claims, not a judgement call for Rishi, and changes
+nothing about what to do - the estate is already correctly protected in
+multiple overlapping ways regardless of which checker gets there first.
+WORKLIST AND COMMIT (steps 7, 9): appended the thirteenth-pass paragraph
+under item 3.9 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
+change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
+`audits/verify-3.9-2026-09-07-thirteenth-output.txt` (new).
+PUSH/PUBLISH (steps 9-10): [outcome to be filled in below once attempted]
+STEP 11: `.agent-lock` will be overwritten in place with a "RELEASED" marker
+and timestamp at the end of this run via the Edit tool (the standing
+functional-equivalent workaround this mount requires, since bash `rm`/`mv`
+onto it return "Operation not permitted").
+
 ## 2026-09-07 (unattended scheduled run, Cowork sandbox shell for the working half, mcp__Windows-MCP__PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 3.4 quality pass (fourteenth pass, Cherry Lane Pharmacy Walton): proved tools/check-jsonld.js - never named once across thirteen prior passes on this item - by injection against five Cherry Lane pages, one per rule; no in-repo defect found; live half reconfirms the standing Q86 finding still live and uncorrected.
 LOCK CHECK (step 1): `.agent-lock` was present at run start, content "RELEASED 2026-09-07T15:49:03Z end of run", about 45 minutes 2 seconds old at run start (15:49:03Z content vs run start 16:34:05Z, precisely 45m2s) - just past the 45-minute threshold, and its own content independently confirmed the prior run had finished cleanly rather than crashed. `rm` reproduced "Operation not permitted" on this mount for the pre-existing file AND for a brand-new file created and immediately targeted in the same bash session (confirmed fresh this run, not assumed from precedent), matching the standing `CLAUDE.md`-documented "cannot be deleted or renamed once written" restriction; `mv` (rename) DID succeed on this mount this run - a genuinely new data point worth recording, since several recent entries describe the restriction as blocking rename too. Cleared by overwriting `.agent-lock` in place with a fresh active-run timestamp (the standing workaround). Found 58 accumulated `.agent-lock.released-*`/`.agent-lock.old-*` debris files at repo root from prior runs' own rename-based workarounds, plus a large population of other untracked scratch/probe files and a `.git/index.lock` (0 bytes, fresh, created by this run's own `git status` call and left behind when git's own post-operation cleanup hit the same restriction) - all standing Q87-adjacent debris, left untouched, out of scope for a single worklist item, not re-raised.
 SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification failed" - standing Q96, reconfirmed again. `git fetch origin-https` succeeded (anonymous HTTPS read): `3c9097d..8fe99a8 agents/audit-backlog -> origin-https/agents/audit-backlog`. `git rev-list --left-right --count origin-https/agents/audit-backlog...HEAD` read "0 0" - local HEAD (8fe99a8) exactly matches origin-https HEAD, fully synced, no divergence and nothing unpushed at run start. This confirms the most recent prior run (item 6.2 eleventh pass) succeeded in clearing the entire standing Q96/Q87 unpushed-commit backlog via Windows-MCP, as its own log entry claimed. `git checkout agents/audit-backlog` confirmed already on the branch.

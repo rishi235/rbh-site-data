@@ -6261,6 +6261,108 @@ Done 2026-09-07 (thirteenth pass).
       next unattended pass: 3.10 (2026-09-05T14:11:07+01:00), then 2.1
       (15:42:23), 5.2 (16:13:13), 4.11 (16:39:52) - re-derive fresh rather
       than assume, since other runs may land in between. Done 2026-09-06
+
+      Quality pass (thirteenth), 2026-09-07 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). All 8 unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+      quality-pass fallback applied. Rotation pool re-derived independently
+      (git log --pretty=format:"%cI|||%s" -- AGENT_WORKLIST.md AGENT_LOG.md
+      matched word-boundary per item id, standing 37-item pool, out-of-
+      rotation set 1.1/1.4/5.6/5.7/6.7/6.8 excluded): 3.9 uniquely stalest at
+      2026-09-06T13:48:19+01:00, ahead of 3.10 (14:11:41), 2.1 (14:46:55),
+      5.2 (15:44:49), 4.11 (16:13:11) and the rest all later still - matching
+      the twelfth pass's own forward note exactly.
+
+      TARGET: tools/check-brand-spelling.js, never proven by injection
+      against this branch's own pages/records in twelve prior passes
+      (confirmed by reading the full history first), despite this branch
+      being the checker's own worked example in two places - rule 2's
+      docstring names "Coleman & Leigh Pharmacy" as a caught near-miss, and
+      rule 6 exists specifically because this branch is the Q14 origin case
+      (longest trading name, only branch whose SEO title is ever shortened
+      by fitTitle()).
+
+      Baseline: git status --porcelain clean, sha256 recorded for every file
+      about to be mutated, 36/36 checkers green.
+
+      FOUR INJECTIONS, each on real pages/records, each restored byte-
+      identical (sha256-confirmed) immediately after its catch was confirmed:
+      (1) RULE 2 VARIANT - "Coleman & Leigh Pharmacy" (the literal pre-Q1
+      wrong spelling) into hero-sub body copy on the earache page - CAUGHT,
+      naming the file, line and correct trading name; not composed data, so
+      check-nap/check-branch-identity could not have caught this, only a
+      text-scanning rule can. (2) RULE 6 SHORT - the shortened form "Coleman
+      and Leighs" (the one this generator actually manufactures, for this
+      branch only) into a non-title line on the shingles page - CAUGHT,
+      naming the exact leak. (3) RULE 1 CANON - branches.json brandLabel
+      "Coleman & Leighs Pharmacy" with branchName deliberately left
+      unchanged - CAUGHT, both the canon mismatch and the resulting
+      branchName/brandLabel qualifier divergence. (4) RULE 5 FALLBACK found
+      STRUCTURALLY INAPPLICABLE: core/site-data.js's FALLBACK object carries
+      only rbh_head_office_aintree, no per-branch table, so there is no
+      Coleman and Leighs record to mutate (confirmed by grep, zero matches).
+      Substituted RULE 3 CONFIG instead, which is branch-specific: a literal
+      brand string injected into this branch's own (post-Q19, deliberately
+      empty) CONFIG entry in tools/build-switch-pages.js - CAUGHT, naming the
+      branch and citing Q19.
+
+      FOLLOW-UP beyond the four planned tests, on rule 1's own claim. Both
+      the checker's docstring and its rule-1 failure message assert that a
+      branches.json rename "propagates to 177 pages with every [other]
+      checker still green" - tested directly with test (3)'s injection still
+      in place rather than taken on trust. All six generators re-run against
+      the injected branches.json (git diff confined to this branch's own 12
+      pages plus five shared multi-branch index sheets, each gaining only a
+      Coleman & Leighs Pharmacy line - no other branch moved). Re-ran all 36
+      checkers: 5 failed, not 1. check-branch-identity and check-gbp-packs
+      failed for reasons traced to this injection being deliberately
+      inconsistent (branchName and the GBP pack prose were left unedited),
+      not counter-evidence for a fully-propagated rename. check-editor-
+      snapshot fires on any branches.json edit that skips the editor cache,
+      unrelated to spelling. check-seo-pattern failed for a genuine, narrow
+      reason: its H1 comparison uses the brand's literal "&" while the
+      generator correctly HTML-entity-encodes it to "&amp;" on the page, so
+      any brand containing a literal ampersand would always fail this
+      specific comparison. NOT FIXED: every canonical brand is deliberately
+      written without "&" (rule 2 itself bans it as a near-miss of "and"),
+      so this state is unreachable except through an unauthorised
+      branches.json edit, which rule 1 already catches immediately and
+      definitively, before this comparison quirk is ever exercised in
+      practice - zero live risk. Documentation-precision note only, not
+      raised as a question: the docstring's claim is accurate about what
+      CANONICAL exists to prevent, but several other checkers also happen to
+      react to a rename for their own unrelated reasons, so rule 1 is the
+      first line of defence, not the only one. All mutations restored
+      byte-identical (sha256-confirmed) and all six generators re-run to
+      confirm byte-identical regeneration; 36/36 checkers clean afterward.
+
+      LIVE HALF, first live recheck for this item since the eleventh pass
+      (2026-09-05) - the twelfth pass explicitly skipped it. Claude in
+      Chrome not connected (standing Q59); fell back to a direct read-only
+      curl GET from this sandbox (network egress confirmed via a 200 from
+      google.com first). All four standing findings reconfirmed unchanged:
+      pfLink (pharmacy-first-service-walton.html) still 404 (Q8/5.3);
+      homepage banner still carries "Coleman & Leigh Pharmacy" in the
+      header/footer and GA4/consent comments alongside the correct spelling
+      in body copy; og:site_name meta tag still "COLEMANS & LEIGHS
+      PHARMACY"; live switch page still carries the mojibake em dash
+      ("ÔÇö") in "it usually is not [mojibake] we make the first step". None
+      fixable from this repo (Weebly-side, outside read-only browsing
+      scope); none re-raised.
+
+      RESULT: no in-repo defect. Rules 1, 2, 3 and 6 of check-brand-
+      spelling.js all proven directly against this branch for the first
+      time; rule 5 confirmed structurally inapplicable; rule 4 has no entry
+      naming this branch's surname family, also inapplicable, not tested.
+      QUESTIONS.json re-read in full: 98 total, 45 open, unchanged (no
+      pickup - Chrome not connected). Evidence:
+      audits/verify-3.9-2026-09-07-thirteenth-output.txt.
+
+      Next stalest by this run's own computation, for whoever runs the next
+      unattended pass: 3.10 (2026-09-06T14:11:41+01:00), then 2.1
+      (14:46:55), 5.2 (15:44:49), 4.11 (16:13:11), 5.1 (16:46:55) - re-derive
+      fresh rather than assume, since other runs may land in between. Done
+      2026-09-07.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

@@ -1,0 +1,172 @@
+Item 3.9 quality pass (thirteenth), 2026-09-07 (unattended scheduled run, Cowork
+sandbox mcp__workspace__bash). Target: tools/check-brand-spelling.js, proven by
+injection against Coleman and Leighs' own pages/records for the first time in
+this item's thirteen-pass history (confirmed absent from the twelve-pass
+history read before starting; the checker itself has been proven on other
+branches - McCanns, SK, Cherry Lane, Smartts, Riddings - since 2026-08-13, but
+never on the branch its own rule 6 docstring literally uses as its worked
+example).
+
+BASELINE. git status --porcelain clean on all tracked paths before starting.
+sha256 recorded for every file about to be mutated:
+  branches.json                    904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+  core/site-data.js                8ba4a00c528c6b212ba79ec6e2bc9d3003a679fd845f4cca8690e9e4343574ec
+  tools/build-switch-pages.js      abb6cdb0e7f7b26e05a563dc1ffe1fe5314f965e8c61cfbe26dcc5badc9046d8
+  earache-treatment-coleman-leigh-walton.html
+                                    ae23cd19440246488b4485a4d4057e8d056cc27defffc66b6d7670e545ed0ca8
+  shingles-treatment-coleman-leigh-walton.html
+                                    bd44397c794458dd1fc418f397674793e35a3fd5735423774b8dfaf12e0ba89c
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+
+TEST A - RULE 2 (VARIANT). Injected "Coleman & Leigh Pharmacy" (the literal
+pre-Q1 wrong spelling) into the hero-sub paragraph of
+modules/service/pages/earache-treatment-coleman-leigh-walton.html line 23 -
+body copy, not a composed data-branch/JSON-LD attribute, so check-nap and
+check-branch-identity cannot see it; only a text-scanning rule can.
+CAUGHT, exit 1:
+  FAIL  modules/service/pages/earache-treatment-coleman-leigh-walton.html:23:
+  reads "Coleman & Leigh Pharmacy". The trading name is
+  "Coleman and Leighs Pharmacy"
+Restored byte-identical (sha256 confirmed ae23cd19...). check-brand-spelling
+re-run clean.
+
+TEST B - RULE 6 (SHORT leak). Coleman and Leighs is the estate's Q14 origin
+case (the longest trading name on the longest NHS condition name produced the
+70-character title that created the fitTitle() shortening rule), so this is
+the one branch where the shortened form "Coleman and Leighs" is actually
+manufactured by the generator - and, per the checker's own rule-6 docstring,
+the one place that manufactured form must never leak outside a title line.
+Injected the shortened form into a NON-title line: booking-sub paragraph of
+modules/service/pages/shingles-treatment-coleman-leigh-walton.html line 32,
+"Coleman and Leighs Pharmacy" -> "Coleman and Leighs".
+CAUGHT, exit 1:
+  FAIL  modules/service/pages/shingles-treatment-coleman-leigh-walton.html:32:
+  reads "Coleman and Leighs" without its shop-type word, on a line that is not
+  the page SEO title. [...] data-branch and the JSON-LD name are guarded by
+  check-nap, check-jsonld and check-branch-identity; visible copy is guarded
+  only here
+Restored byte-identical (sha256 confirmed bd44397c...). check-brand-spelling
+re-run clean.
+
+TEST C - RULE 1 (CANON), WITH FULL-ESTATE PROPAGATION CHECK. Injected
+branches.json colemanleigh_liverpool.brandLabel: "Coleman and Leighs Pharmacy"
+-> "Coleman & Leighs Pharmacy" (branchName deliberately left unchanged, to
+also exercise the branchName/brandLabel qualifier check in the same rule).
+CAUGHT, exit 1, both halves of rule 1 fired:
+  FAIL  colemanleigh_liverpool: brandLabel is "Coleman & Leighs Pharmacy" but
+  the canonical trading name is "Coleman and Leighs Pharmacy". [...]
+  FAIL  colemanleigh_liverpool: branchName "Coleman and Leighs Pharmacy" is
+  neither the brand "Coleman & Leighs Pharmacy" nor that brand followed by a
+  qualifier [...]
+
+FOLLOW-UP, not part of the four planned tests: check-brand-spelling.js's own
+docstring and rule-1 failure message both say a branches.json rename
+"propagates to 177 pages with every [other] checker still green". Tested this
+directly rather than taking it on trust. With the injected branches.json still
+in place, ran all other 35 checkers: check-branch-identity failed immediately
+(qualifier mismatch, expected - only brandLabel was changed, not branchName,
+so this is correct behaviour for an inconsistent edit, not evidence against
+the claim). Then ran all six generators to regenerate every page from the
+injected branches.json (git diff confined to colemanleigh_liverpool's own 12
+pages plus the five shared multi-branch paste-sheet index files, each only
+gaining a Coleman & Leighs Pharmacy line - no other branch's output moved).
+Re-ran all 36 checkers against the regenerated tree: check-brand-spelling,
+check-branch-identity, check-editor-snapshot, check-gbp-packs and
+check-seo-pattern all failed (5 of 36, not 1 of 36). Read each failure:
+  - check-branch-identity: still the branchName/brandLabel qualifier mismatch
+    (I did not rename branchName - an intentionally inconsistent edit, so this
+    is the checker doing its job, not counter-evidence).
+  - check-editor-snapshot: tools/branches-editor.html's cached DATA snapshot
+    now disagrees with branches.json - fires on ANY branches.json edit that
+    skips refreshing the snapshot, unrelated to spelling specifically.
+  - check-gbp-packs: gbp-packs/coleman-leigh-walton.md still reads the OLD
+    spelling "Coleman and Leighs Pharmacy" in its own prose; once
+    branches.json's brandLabel changed, the pack's self-reference no longer
+    matches literally, so the checker's "is this string a recognised place"
+    fallback fired on it - again a consequence of the pack file being left
+    unedited, not evidence against the docstring for a fully-propagated
+    rename.
+  - check-seo-pattern: FAILED FOR A GENUINE, NARROW REASON - the four H1s that
+    include the brand render "Coleman &amp; Leighs Pharmacy" (correctly
+    HTML-entity-encoded by the generator) but the checker's own composed
+    comparison string uses the literal "&" and compares it as-is, so any
+    brand containing a literal ampersand would always fail this specific
+    comparison even on a page that rendered it perfectly. NOTED, not fixed:
+    every canonical brand name in CANONICAL is deliberately written without
+    an ampersand (check-brand-spelling rule 2 itself bans "&" as a near-miss
+    of "and"), so this state can only be reached by an unauthorised
+    branches.json edit - one that check-brand-spelling rule 1 already catches
+    immediately and definitively, before this comparison quirk is ever
+    reached in practice. Zero live risk. Worth a line in case a future
+    branch's trading name legitimately contains "&".
+CONCLUSION: the docstring's "every checker still green" is accurate as a
+description of what CANONICAL exists to prevent (silent SPELLING drift with
+nothing else complaining), but is an overstatement taken literally - several
+other checkers also react to a branches.json rename, for their own unrelated
+reasons, and check-brand-spelling rule 1 is not actually the LAST line of
+defence, it is one of several, and empirically the FIRST since it fires
+before any regeneration is even needed. Not raised as a question: this is a
+documentation precision note about a checker's own header comment, not a
+judgement call, and does not change what to do (nothing - the estate is
+already correctly protected in multiple overlapping ways).
+Restored: branches.json brandLabel reverted, sha256 confirmed
+904de09bc3118c... All six generators re-run; git status --porcelain -- modules
+core branches.json empty afterwards (byte-identical regeneration). 36/36
+checkers clean.
+
+TEST D - RULE 5 (FALLBACK) - STRUCTURALLY INAPPLICABLE, SUBSTITUTED WITH RULE 3
+(CONFIG). Checked core/site-data.js's FALLBACK object first: it carries only
+ONE branch record, rbh_head_office_aintree (the head-office offline fallback),
+not a per-branch table - colemanleigh_liverpool does not appear in it at all,
+so there is no FALLBACK value for this branch to mutate. Confirmed by grep
+(zero matches for "colemanleigh_liverpool" or "Coleman" in core/site-data.js).
+Noted as inapplicable to this branch, same convention as check-app-membership
+being inapplicable to non-member branches - not a gap, a scope boundary.
+Substituted RULE 3 (CONFIG), which IS specific to this branch: injected a
+hardcoded brand literal into this branch's own (post-Q19, deliberately empty)
+CONFIG entry in tools/build-switch-pages.js line 35:
+  colemanleigh_liverpool: {}, -> colemanleigh_liverpool: { brand: "Coleman & Leighs Pharmacy" },
+CAUGHT, exit 1:
+  FAIL  tools/build-switch-pages.js CONFIG types a literal
+  brand: "Coleman & Leighs Pharmacy" for colemanleigh_liverpool again. Q19
+  moved this to branches.json's brandLabel [...]
+Restored byte-identical (sha256 confirmed abb6cdb0...). check-brand-spelling
+re-run clean.
+
+FINAL STATE. sha256 of branches.json, core/site-data.js and
+tools/build-switch-pages.js all match their recorded baseline. git status
+--porcelain -- modules core tools branches.json empty. All 36 checkers run
+individually: 36/36 exit 0. All six generators re-run as a final confirmation:
+git status --porcelain -- modules core still empty (byte-identical).
+
+LIVE HALF. Claude in Chrome: mcp__claude-in-chrome__tabs_context_mcp reported
+not connected (standing Q59). Fell back to a direct read-only curl GET from
+the sandbox shell (network egress confirmed via a 200 from google.com first),
+same established route prior passes have used when the browser is
+unreachable. Four standing findings re-confirmed unchanged, first live
+recheck for this item since the eleventh pass (2026-09-05), i.e. the twelfth
+pass explicitly skipped it:
+  - pharmacy-first-service-walton.html (pfLink): still 404. Standing Q8/5.3.
+  - Homepage banner: still carries "Coleman & Leigh Pharmacy" (wrong,
+    header/footer banner and GA4/consent-banner comments) alongside the
+    correct "Coleman and Leighs Pharmacy" in body copy - unchanged since
+    first found.
+  - og:site_name meta tag: still "COLEMANS & LEIGHS PHARMACY" (the third
+    brand variant, first found on the tenth pass, 2026-09-04) - unchanged.
+  - Live switch page: still carries the mojibake em dash "ÔÇö" in "it usually
+    is not ÔÇö we make the first step" - unchanged since first found.
+  None of these are fixable from this repo (Weebly-side paste, outside this
+  worker's read-only browsing scope); all already recorded, none re-raised as
+  new questions.
+
+QUESTIONS: none raised this run. QUESTIONS.json re-read in full before and
+after work: 98 total, 45 open, unchanged by this pass (no pickup - Chrome not
+connected).
+
+RESULT: no in-repo defect. check-brand-spelling.js's rules 1, 2, 3 and 6
+all proven directly against Coleman and Leighs' own pages/records for the
+first time; rule 5 confirmed structurally inapplicable to this branch; rule 4
+(MISSPELT) has no entry naming this branch's own surname family, also
+structurally inapplicable, not tested. One documentation-precision note
+raised (the docstring's "every checker still green" overstatement, zero live
+risk, not requiring a fix) rather than a functional defect.
