@@ -1,0 +1,166 @@
+Item 1.2 (Hirshmans Chemist Ainsdale, 56-62 Sherwood House, Station Road,
+Ainsdale, PR8 3HW) - fourteenth quality pass, 2026-09-07 (unattended scheduled
+run via Cowork sandbox shell; Claude in Chrome not connected, Q59 unchanged).
+
+ITEM SELECTION
+Rotation pool re-derived fresh via the established method: every checked
+`- [x] <N.N>` marker line in AGENT_WORKLIST.md read by script, its own
+paragraph range bounded by the next checklist marker line (checked,
+unchecked or blocked), dated via
+`git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md`.
+43 checked items minus the seven standing out-of-rotation items (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8, per 5.7's own 2026-08-30 correction note and the
+most recent prior pass's wording) = 36-item pool. Item 1.2 came out stalest
+at 2026-09-06T08:46:15+01:00, clear of the runner-up (3.11 at
+2026-09-06T09:12:25+01:00, about 26 minutes later) and every other pool item
+later still. Full ranking of all 36 items:
+
+1.2      2026-09-06T08:46:15+01:00
+3.11     2026-09-06T09:12:25+01:00
+4.4      2026-09-06T09:47:18+01:00
+4.1      2026-09-06T10:14:03+01:00
+3.2      2026-09-06T10:42:53+01:00
+3.5      2026-09-06T11:10:36+01:00
+3.7      2026-09-06T11:41:47+01:00
+3.13     2026-09-06T12:13:26+01:00
+6.2      2026-09-06T12:43:12+01:00
+3.4      2026-09-06T13:13:18+01:00
+3.9      2026-09-06T13:47:25+01:00
+3.10     2026-09-06T14:11:21+01:00
+2.1      2026-09-06T14:46:55+01:00
+5.2      2026-09-06T15:44:49+01:00
+4.11     2026-09-06T16:13:11+01:00
+5.1      2026-09-06T16:46:55+01:00
+3.12     2026-09-06T17:43:42+01:00
+3.6      2026-09-06T18:11:33+01:00
+3.8      2026-09-06T18:47:44+01:00
+6.3      2026-09-06T19:13:56+01:00
+3.1      2026-09-06T19:41:42+01:00
+4.3      2026-09-06T20:10:19+01:00
+4.6      2026-09-06T20:43:09+01:00
+4.5      2026-09-06T21:13:42+01:00
+1.3      2026-09-06T21:41:35+01:00
+4.13     2026-09-06T22:14:48+01:00
+4.8      2026-09-06T22:41:39+01:00
+4.10     2026-09-06T23:12:43+01:00
+4.9      2026-09-07T00:42:19+01:00
+4.12     2026-09-07T01:44:18+01:00
+4.15     2026-09-07T02:43:29+01:00
+2.3      2026-09-07T03:43:37+01:00
+3.3      2026-09-07T04:13:21+01:00
+4.2      2026-09-07T05:11:40+01:00
+4.7      2026-09-07T06:19:50+01:00
+4.14     2026-09-07T07:45:59+01:00
+
+BASELINE
+branches.json's hirshmans_ainsdale record unchanged from every prior pass
+(56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW, 01704 577376, ODS
+FW378, review link, both lunch-closure hour sessions). sha256 of tracked
+branches.json: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+- identical to every prior pass since the 2026-08-30 twelfth pass reading.
+All 36 tools/check-*.js run individually against the tracked repo: 36/36
+exit 0 (check-live-hours.js included; this sandbox had working outbound
+HTTPS this run). All six build-*.js page generators (branch landing,
+contraception, service, switch, travel clinic, weight loss) re-run against
+the tracked repo: git status --porcelain on modules/, core/, tools/,
+branches.json and status/ empty before and after, byte-identical.
+build-audit-status.js was not run as part of this baseline (it is the
+orchestrator's own step 10, and fails in this sandbox on its own hardcoded
+Windows path per Q87 - see AGENT_LOG.md).
+
+GUARD COVERAGE EXTENDED
+tools/check-branch-links.js (odsCode uniqueness, nhsEmail derivation,
+nhsReviewUrl shape, googleReviewUrl shape and uniqueness, website shape,
+pfLink host and extension) had never been pointed at hirshmans_ainsdale by
+direct injection across thirteen prior passes on this item, only covered
+passively by the full-suite sweep - the same gap shape the item 4.14, 4.2,
+4.7 and 1.2's own earlier passes have each closed once for their own subject
+before moving to the next untested checker. Chosen because it reads
+branches.json's link fields directly rather than any generated page, and a
+wrong value there (as the checker's own file header records, from the
+Gordon Short Crosby review-link fault found on the item 3.8 pass) is
+invisible until it has already been printed onto a page or a pack - exactly
+this item's own theme (a fact wrong at source, not caught until it reaches
+a patient-facing surface).
+
+Baseline run against a scratch copy (tools/ and branches.json copied to
+/tmp/scratch-1.2, outside the tracked tree; the tracked repo was never opened
+for writing this pass): clean, 1 warning (clearchemist_aintree has no
+nhsReviewUrl, a pre-existing, already-recorded WARN unrelated to this item),
+0 failures.
+
+Three injections, each made on the scratch copy only, each restored from a
+byte-identical backup (branches.json.orig, copied before the first
+injection) and sha256-reconfirmed identical before the next:
+
+(1) hirshmans_ainsdale.odsCode changed from FW378 to FK848 (Fishlocks
+Ainsdale's real ODS code) - a duplicate-ODS injection, the rule the
+checker's own header names as its primary purpose. CAUGHT on three rules at
+once, correctly cross-referencing the real sibling branch: "odsCode: duplicate
+of fishlocks_ainsdale (FK848)"; "nhsEmail: is pharmacy.FW378@nhs.net,
+expected pharmacy.FK848@nhs.net" (the email rule correctly re-derives from
+the NEW odsCode and flags the old email as stale against it); "nhsReviewUrl:
+... Expected .../XFK848/leave-a-review" (same cascade). This is the correct
+behaviour, not three independent bugs: odsCode is the fact everything else
+derives from, so changing it correctly invalidates both dependents in the
+same pass, on the branch's own real data for the first time.
+
+(2) hirshmans_ainsdale.nhsReviewUrl truncated to stop at the ODS code
+(".../XFW378", dropping "/leave-a-review") - the exact historical Gordon
+Short Crosby fault (found item 3.8, 2026-08-10) reproduced on Hirshmans' own
+url for the first time. CAUGHT: "Anything short of /leave-a-review lands the
+patient on the profile page instead of the review form."
+
+(3) hirshmans_ainsdale.pfLink changed to
+https://www.fishlockpharmacy.co.uk/pharmacy-first-service-ainsdale.html (a
+different branch's real host, same filename) - tests the pfLink-own-host
+rule added by the item 2.1 pass on 2026-08-12 after the Fishlocks
+same-domain sibling-swap finding; Hirshmans has no domain sibling, so this
+pass tests the cross-domain half of the same rule for the first time on this
+item. CAUGHT: "is ... which is not on this branch's own site
+(https://www.hirshmanspharmacy.co.uk)."
+
+All three fired on their intended rule and no other, first attempt. Final
+scratch re-check after all three restores: clean again, identical to
+baseline (1 warning, 0 failures). Tracked repo's branches.json
+sha256-reconfirmed unchanged (904de09b...969e1e) throughout; git status
+--porcelain on modules/, core/, tools/, branches.json and status/ empty
+after. Full 36-checker suite re-run against the tracked repo after the
+scratch work: 36/36 exit 0.
+
+METHOD NOTE (not a repo defect): a first attempt to re-run the 36-checker
+loop with per-file output captured to /tmp/out_$$.txt hit a leftover file
+this sandbox's shell would not let the loop unlink between iterations
+(same "Operation not permitted" on unlink() already documented for the
+FUSE-mounted repo folder, evidently a sandbox-wide restriction and not
+specific to that mount), so every iteration's "FAILED" line printed the
+previous iteration's stale content rather than a real failure. Re-run
+without any temp file (output captured directly into a shell variable)
+gave the correct result (36/36 pass) immediately. No file in the repo was
+touched by the broken first attempt; noted here only so a future run does
+not mistake this shell artefact for 36 real failures if it reads this file.
+
+LIVE HALF (read-only curl from the sandbox shell; outbound HTTPS worked this
+run; Claude in Chrome not connected)
+- sitemap.xml lastmod: 2026-08-14T16:09:17+00:00, unchanged since the sixth
+  pass - no republish.
+- contact-us.html: address reads "56-62 Sherwood House, Station Road,
+  Ainsdale, PR8 3HW" (3 occurrences of PR8 3HW, 0 of PR8 3HN).
+- pharmacy-first-hirshmans-ainsdale.html (generated page): HTTP 200, 5
+  occurrences of PR8 3HW, 0 of PR8 3HN.
+- switch-prescriptions-hirshmans-ainsdale.html: HTTP 200.
+- pharmacy-first-service-ainsdale.html (the OLD hand-built page the pack's
+  HARD STOP note names): HTTP 200. Address fault remains fixed (0
+  occurrences of "64 Station Road", 3 of the correct "56-62 Sherwood
+  House"). Phone fault still open (1 occurrence of the non-dialable
+  "017014577376"). Branding fault still open (9 occurrences of "Hirshmans
+  Pharmacy", matching the eleventh/twelfth/thirteenth passes' own count
+  exactly). HARD STOP against Q8/Q34 (item 5.3) remains correctly in force.
+
+No new live finding; every figure matches the thirteenth pass exactly.
+
+RESULT
+No in-repo defect found. No new question raised. No page, generator, data
+field or patient-facing copy changed. Pure re-verification plus one new
+guard-coverage proof (check-branch-links.js against this item's own data,
+fourteenth checker proven this way for item 1.2 across fourteen passes).

@@ -15272,6 +15272,69 @@ appended to the line. Do not move them; the status page reads them in place.
       unblocked. Evidence:
       audits/hirshmans-address-check-2026-09-06-thirteenth.txt.
       Done 2026-09-06
+      Fourteenth quality pass 2026-09-07 (unattended scheduled run via
+      Cowork sandbox shell; Claude in Chrome not connected, Q59 unchanged;
+      rotation pool - item 1.2 re-confirmed uniquely stalest, last touched
+      2026-09-06T08:46:15+01:00, ahead of 3.11, 4.4, 4.1, 3.2, 3.5, 3.7,
+      3.13, 6.2, 3.4, 3.9, 3.10, 2.1, 5.2, 4.11, 5.1, 3.12, 3.6, 3.8, 6.3,
+      3.1, 4.3, 4.6, 4.5, 1.3, 4.13, 4.8, 4.10, 4.9, 4.12, 4.15, 2.3, 3.3,
+      4.2, 4.7 and 4.14; the seven standing out-of-rotation one-offs 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded per 5.7's own 2026-08-30
+      correction note). REPO HALF: address itself clean for the fourteenth
+      consecutive pass, branches.json's hirshmans_ainsdale record
+      unchanged, sha256 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f
+      135101f0b969e1e identical throughout. All 36 checkers exit 0
+      individually both before and after this pass (check-live-hours.js
+      included; outbound HTTPS worked this run), all six generators
+      byte-identical, git status --porcelain empty on modules/, core/,
+      tools/, branches.json and status/.
+      GUARD COVERAGE EXTENDED: tools/check-branch-links.js (odsCode
+      uniqueness, nhsEmail derivation, nhsReviewUrl shape, pfLink host)
+      had never been pointed at hirshmans_ainsdale by direct injection in
+      thirteen prior passes, only covered passively by the full-suite
+      sweep, the same gap shape every recent pass on this item has closed
+      once per pass. Three injections on a disposable scratch copy
+      (/tmp/scratch-1.2, tracked repo never opened for writing this pass),
+      each restored by byte copy and sha256-reconfirmed identical before
+      the next: (1) odsCode changed to Fishlocks Ainsdale's real FK848 -
+      CAUGHT on three rules at once (odsCode duplicate, nhsEmail and
+      nhsReviewUrl both correctly re-derived and flagged stale against the
+      new code), proving the cascade is correct rule behaviour rather than
+      three separate bugs; (2) nhsReviewUrl truncated at the ODS code,
+      reproducing the historical Gordon Short Crosby fault (item 3.8,
+      2026-08-10) on Hirshmans' own url for the first time - CAUGHT,
+      "lands the patient on the profile page instead of the review form";
+      (3) pfLink pointed at Fishlocks' real host with the same filename -
+      CAUGHT, "not on this branch's own site". All three fired on their
+      intended rule and no other, first attempt. Final scratch re-check
+      clean (1 pre-existing unrelated warning, 0 failures); full
+      36-checker suite re-run against the tracked repo after: 36/36 exit
+      0.
+      METHOD NOTE (not a repo defect): a first attempt at the post-check
+      re-verification loop, using a per-file temp output redirect, hit a
+      leftover file this sandbox would not let the loop unlink between
+      iterations (the same unlink() restriction already documented for
+      the FUSE-mounted repo folder, evidently sandbox-wide rather than
+      mount-specific), so every "FAILED" line printed stale content from
+      the previous iteration rather than a real failure. Re-run capturing
+      output directly into a shell variable, with no temp file, gave the
+      correct result (36/36 pass) immediately; no tracked file was
+      touched by the broken first attempt.
+      LIVE HALF: read-only curl from the sandbox shell (outbound HTTPS
+      worked this run; Claude in Chrome not connected). Every figure
+      matches the thirteenth pass exactly: sitemap.xml lastmod unchanged
+      at 2026-08-14T16:09:17+00:00 (no republish since the sixth pass);
+      contact-us.html and the generated pharmacy-first page both carry
+      PR8 3HW with no PR8 3HN; the switch page returns 200; the old
+      hand-built page (pharmacy-first-service-ainsdale.html) reconfirmed
+      200 with its address fault still fixed (0 "64 Station Road", 3
+      correct "56-62 Sherwood House") and its phone ("017014577376", 1
+      occurrence) and branding ("Hirshmans Pharmacy", 9 occurrences)
+      faults still open, so the HARD STOP against Q8/Q34 (item 5.3)
+      remains correctly in force. No new question raised, no worklist
+      item blocked or unblocked. Evidence:
+      audits/hirshmans-address-check-2026-09-07-fourteenth.txt.
+      Done 2026-09-07
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
