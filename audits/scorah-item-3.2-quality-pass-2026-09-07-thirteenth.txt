@@ -1,0 +1,124 @@
+Item 3.2 quality pass, thirteenth pass, 2026-09-07
+Scorah Chemists (Bramhall and Hazel Grove)
+Unattended scheduled run via Cowork sandbox shell only; Claude in Chrome not connected.
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5, 6.6). Quality-pass fallback applied.
+Rotation pool: 43 confirmed "- [x]" items minus the standing out-of-rotation
+set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36. Per-item last-touched date taken
+via `git log -1 --format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md`
+over each item's own paragraph range (computed with a Python script over the
+"- [x]"/"- [ ]" marker line numbers, matching the method recorded in several
+recent entries). Item 3.2 came out stalest at 2026-09-06T10:42:53+01:00 (its
+own twelfth-pass edit), clear of the next item, 3.5, at 11:10:36+01:00 (about
+28 minutes later) and every other pool item. Chosen: 3.2 (Scorah Chemists,
+Bramhall and Hazel Grove).
+
+Note on method: an initial pass at this ranking used AGENT_LOG.md header-line
+text matching ("Item N.M quality pass" in the "## " header) and wrongly
+produced 3.2 as stale since 2026-09-04 (tenth pass) - the eleventh
+(2026-09-05) and twelfth (2026-09-06) passes on this item exist and are
+recorded in AGENT_WORKLIST.md's own paragraph for 3.2, but their AGENT_LOG.md
+header lines are not phrased in a way the header-matching regex caught. The
+git-log-on-worklist-paragraph-range method is more reliable and is what
+produced the correct answer (3.2, twelfth pass 2026-09-06) above; flagging for
+whoever next writes an item-selection script that a pure AGENT_LOG.md
+header-text match is not a safe substitute for reading the worklist's own
+paragraph history.
+
+SCOPE CHECK AGAINST PRIOR PASSES
+Checkers explicitly named against Scorah's own pages across the prior twelve
+passes on this item: check-seo-pattern.js (title/H1/description/cross-town/
+service-words/H1-counting), check-seo-lengths.js (duplicate title/description/
+H1), check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js
+(data-branch, JSON-LD name), check-fragment-targets.js, check-jsonld.js (all
+rules, twelfth pass), check-nap.js and check-postcodes.js and check-map-embeds.js
+(collateral catches during the jsonld injections, not direct target proofs).
+check-opening-hours.js had never been named once in this item's twelve-pass
+history, despite both Scorah landing pages carrying a full hours card and
+JSON-LD openingHoursSpecification block and the checker existing specifically
+because a shared-domain, similar-structure branch pair (McCanns) hid the
+original defect. Chosen as this pass's target.
+
+BASELINE
+Tracked repo: all 35 checkers under tools/check-*.js exit 0 individually before
+any work. sha256 recorded for branches.json and both Scorah landing pages:
+  branches.json                                     904de09b...969e1e
+  modules/branch/pages/pharmacy-scorah-bramhall.html      28bd52e9...cff07
+  modules/branch/pages/pharmacy-scorah-hazel-grove.html   89159a1b...5c0d
+check-opening-hours.js on the tracked repo: clean, 6 landing pages checked,
+rule 7 swept 88 clock times, rule 8 swept 177 files, 0 failures.
+
+METHOD
+Full repo copied by byte copy (cp -a, including .git) to /tmp/scratch-32-hours,
+the established method on this mount (the FUSE mount's git checkout cannot
+cleanly unlink an old file, so restoration is a plain byte copy/git-show-redirect
+each time). All three injections below made against the scratch copy only; the
+tracked repo was never opened for writing this pass (confirmed by sha256
+re-check and `git status --porcelain` on modules/core/tools/branches.json/
+gbp-packs at the end, both empty/unchanged).
+
+INJECTION 1 - rule 6 (omission; data-only, no regeneration needed)
+scorah_bramhall's openingHours.closedDays changed from ["Sunday"] to [] in the
+scratch branches.json, leaving Sunday absent from both closedDays and
+specification. CAUGHT first attempt, rule 6 only:
+  "scorah_bramhall: Sunday is in neither closedDays nor specification. An
+   unstated day is published as 'Closed', which tells patients the branch is
+   shut. State it either way"
+Restored via `git show HEAD:branches.json > branches.json`; sha256
+reconfirmed byte-identical to the pre-injection baseline. check-opening-hours.js
+re-run clean.
+
+INJECTION 2 - rule 7 (stray clock time outside the hours card)
+pharmacy-scorah-bramhall.html's "Do you deliver prescriptions?" FAQ answer had
+" Our delivery van goes out at 4.30pm." appended. CAUGHT first attempt, rule 7
+only:
+  "modules/branch/pages/pharmacy-scorah-bramhall.html: '4.30pm' is printed
+   outside the opening hours card. ..."
+Full 35-checker sweep run alongside (excluding check-opening-hours.js itself,
+already shown failing on its own target rule): no other checker fired on this
+injection - no cross-fire. Restored via `git show HEAD:<path>`; sha256
+reconfirmed byte-identical. check-opening-hours.js re-run clean.
+
+INJECTION 3 - rule 3 (JSON-LD vs branches.json mismatch, the checker's
+original defect class, reproduced on Scorah specifically for the first time)
+pharmacy-scorah-hazel-grove.html's JSON-LD openingHoursSpecification "closes"
+time changed from "18:00" to "18:30" for the Monday-Friday session, leaving the
+visible hours card untouched. CAUGHT first attempt, rule 3 only:
+  "modules/branch/pages/pharmacy-scorah-hazel-grove.html: JSON-LD opening
+   hours do not match branches.json"
+  "    page: Friday 09:00-18:30, Monday 09:00-18:30, Thursday 09:00-18:30,
+   Tuesday 09:00-18:30, Wednesday 09:00-18:30"
+  "    data: Friday 09:00-18:00, Monday 09:00-18:00, Thursday 09:00-18:00,
+   Tuesday 09:00-18:00, Wednesday 09:00-18:00"
+Full 35-checker sweep run alongside: no cross-fire (rules 1/2, the visible
+card, are untouched by a JSON-LD-only edit, and no other checker reads
+openingHoursSpecification). Restored via `git show HEAD:<path>`; sha256
+reconfirmed byte-identical. check-opening-hours.js re-run clean.
+
+FINAL STATE
+Full 35-checker sweep re-run on the scratch copy after all three restores:
+0 failures. `git status --porcelain` on the scratch copy: clean (no diff
+against its own HEAD). Tracked repo's branches.json and both Scorah landing
+pages sha256-reconfirmed unchanged throughout and never opened for writing.
+No checker logic, generator, pack or page content changed in the tracked tree.
+No in-repo defect found. No new fault class found. No new question raised.
+
+LIVE HALF - NOT ATTEMPTED, different reason to the usual one. Claude in Chrome
+confirmed not connected (`list_connected_browsers` returned []), the standing
+Q59 gap. Unlike several recent passes, no read-only curl fallback was used
+this time: `mcp__workspace__web_fetch` against a live Scorah URL was refused
+on its own provenance gate ("URL not in provenance set... continue without
+this page and report the blocked URL"), and the platform-level restriction
+this Cowork session operates under is explicit that a WebFetch/WebSearch
+refusal must not be worked around via bash/curl. That restriction supersedes
+the informal curl fallback several prior passes recorded using from this same
+sandbox. Live state for Scorah therefore stands as last recorded on the
+twelfth pass (2026-09-06): both branch landing pages 404 live, six sampled
+live pages across both branches still declaring JSON-LD "name": "Scorah
+Chemists" (the bare shared brandLabel) rather than the branch-specific
+branchName, both already queued under the standing 5.3/5.4/paste-run backlog
+- not re-verified this pass, should not be assumed unchanged either way.
+
+Evidence: this file, plus the interactive session's own tool-call record.

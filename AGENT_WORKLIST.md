@@ -2199,6 +2199,54 @@ audits/seo-pattern-check-2026-09-06-thirteenth.txt.
       in-repo defect found, no new fault class in the checker itself, no new
       question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-06-twelfth.txt.
+      Quality pass 2026-09-07 (thirteenth, unattended scheduled run via
+      Cowork): REPO HALF ONLY. Twelve prior passes had proved
+      check-seo-pattern.js, check-seo-lengths.js, check-seo-sheets.js,
+      check-seo-keywords.js, check-branch-identity.js, check-fragment-targets.js
+      and check-jsonld.js against Scorah's own pages, plus collateral catches
+      from check-nap.js/check-postcodes.js/check-map-embeds.js;
+      check-opening-hours.js had never been named once, despite both Scorah
+      landing pages carrying a full hours card and JSON-LD
+      openingHoursSpecification block. Baseline: all 35 checkers exit 0 on
+      the tracked repo; sha256 of branches.json and both Scorah landing pages
+      recorded before any edit. Full repo copied by byte copy (with .git) to
+      /tmp/scratch-32-hours, the established method (this mount's git
+      checkout cannot cleanly unlink an old file, so restoration is a plain
+      byte copy/git-show-redirect each time, sha256-confirmed identical
+      before the next injection). Three injections against the scratch copy
+      only, tracked repo never opened for writing: (1) rule 6 (omission) -
+      scorah_bramhall's Sunday removed from closedDays without adding it to
+      specification - CAUGHT, "Sunday is in neither closedDays nor
+      specification"; (2) rule 7 (stray time outside the hours card) - "Our
+      delivery van goes out at 4.30pm." appended to a Bramhall FAQ answer -
+      CAUGHT, "'4.30pm' is printed outside the opening hours card", no
+      cross-fire on the full 35-checker sweep; (3) rule 3 (JSON-LD vs
+      branches.json mismatch, the checker's original defect class,
+      reproduced on Scorah for the first time) - Hazel Grove's JSON-LD
+      closing time changed from 18:00 to 18:30 with the visible card left
+      untouched - CAUGHT, "JSON-LD opening hours do not match
+      branches.json", no cross-fire. All three fired on their intended rule
+      and no other, first attempt; each restored by git-show redirect and
+      sha256/cmp-reconfirmed identical before the next. Full 35-checker
+      suite re-run clean on the scratch copy after the final restore;
+      tracked repo's branches.json and both landing pages reconfirmed
+      sha256-unchanged throughout and never opened for writing. LIVE HALF
+      NOT ATTEMPTED: Claude in Chrome not connected (standing Q59); unlike
+      several recent passes, no read-only curl fallback was used this time,
+      since a direct web_fetch attempt against a live Scorah URL was refused
+      on its own provenance gate and this session's platform-level rules
+      forbid working around a WebFetch/WebSearch refusal via bash/curl. Live
+      state stands as last recorded on the twelfth pass (both landing pages
+      404, six sampled pages still declaring the bare shared brandLabel in
+      JSON-LD "name"), not re-verified this pass. No in-repo defect, no new
+      question. Item-selection method note: an AGENT_LOG.md header-text
+      match wrongly read this item as stale since the tenth pass (2026-09-04)
+      because the eleventh and twelfth passes' log headers are not phrased
+      to match a simple "Item N.M quality pass" regex; the
+      git-log-on-worklist-paragraph-range method gave the correct answer
+      (stale since the twelfth pass, 2026-09-06) and is the one that should
+      be trusted going forward. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-07-thirteenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
