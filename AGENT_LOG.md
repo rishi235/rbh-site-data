@@ -1,3 +1,107 @@
+## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash for the working half, Windows-MCP PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 3.10 quality pass (thirteenth, Riddings Pharmacy Timperley): proved tools/check-map-embeds.js - never named once across twelve prior passes on this item, despite CLAUDE.md calling its subject "the address no text search can read" - by injection against four Riddings pages, one rule each (coverage, address, agreement, encoding); RULE 6 (directions) confirmed structurally inapplicable (no branch landing page for this branch) and RULE 1 (generators) independently re-derived rather than injected, being estate-wide rather than branch-specific; no in-repo defect found. One self-caught process correction: the first draft of the RULE 4 injection used a fabricated postcode that tripped a fresh check-postcodes.js UNKNOWN against the committed audit script itself - fixed before committing by reusing a real branch postcode instead, the same shape of self-inflicted false alarm the tenth pass on this item already logged once. Live half (read-only curl, Claude in Chrome not connected) reconfirms the injection target correct in production.
+LOCK CHECK (step 1): `.agent-lock` was present at run start, content
+"RELEASED 2026-09-07T20:20:00Z end of run", about 74 minutes old at run
+start (21:34 BST) - past the 45-minute threshold, and its own content
+independently confirmed the prior run had finished cleanly. `rm` returned
+"Operation not permitted" on this mount, the standing restriction;
+overwritten in place with a fresh active-run timestamp instead (the
+standing functional-equivalent workaround). No `.git/index.lock` present at
+run start. The standing population of `.agent-lock.released-*` /
+`.agent-lock.old-*` / assorted scratch and probe debris at repo root (now
+well over 100 untracked files, all previously logged against standing Q87)
+was confirmed still present and left untouched, out of scope for a single
+worklist item.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q96/Q87, reconfirmed again. `git fetch origin-https`
+succeeded (anonymous HTTPS read); local HEAD (`9db12395118c935f294f06bfb797846d8d479e69`)
+already matched `origin-https/agents/audit-backlog` exactly, nothing to
+pull, confirmed via `git rev-list --left-right --count
+origin-https/agents/audit-backlog...HEAD` reading "0 0".
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__tabs_context_mcp` and
+`mcp__claude-in-chrome__list_connected_browsers` both reported Claude in
+Chrome not connected - standing Q59, reconfirmed again. No fetch attempted
+against the portal, no alternative route tried, nothing clicked or typed.
+QUESTIONS.json read in full: 98 total, 45 open, unchanged by pickup this
+run.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+re-derived independently over the standing 36-item pool (43 completed items
+minus the 7 standing out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8), each item's own paragraph range dated via `git log -1 --format=%cI
+-L<start>,<end>:AGENT_WORKLIST.md`: 3.10 stalest at
+2026-09-06T14:11:21+01:00, ahead of 2.1 (14:46:55), 5.2 (15:44:49), 4.11
+(16:13:11), 5.1 (16:46:55) - matching the twelfth pass's own forward note
+exactly, since 3.9 has since been processed and dropped out of the stalest
+position. Chosen: 3.10 (Riddings Pharmacy, Timperley).
+RESULT: no in-repo defect found. Full method and evidence recorded in
+AGENT_WORKLIST.md's item 3.10 thirteenth-pass paragraph rather than
+duplicated here; summary: `tools/check-map-embeds.js`, guarding the Google
+Maps iframe every generated page ends its contact card with, had never been
+named once across twelve prior passes on this item. New instrument
+`audits/verify-3.10-2026-09-07-thirteenth.js`: refuses to run if any of its
+4 target files already carries a git diff, restores each from an in-memory
+Buffer immediately after capturing the checker's output and before any
+assertion, SHA256- and git-diff-reconfirmed clean before the next injection
+and again at the end. Four injections across four Riddings service pages,
+one rule each: RULE 2 coverage (duplicated map iframe on
+contraception-riddings-timperley.html) caught; RULE 3 the address (map
+query and contact card both changed together to a different
+self-consistent address on impetigo-treatment-riddings-timperley.html)
+caught; RULE 4 agreement (only the contact card changed, map left correct,
+on earache-treatment-riddings-timperley.html) caught; RULE 5 encoding (a
+raw comma spliced into the map query on
+insect-bite-treatment-riddings-timperley.html) caught. All four caught
+first attempt with the expected rule and message; all four files restored
+byte-identical (git-diff-empty, SHA256-reconfirmed) throughout and after.
+RULE 6 (directions) confirmed structurally inapplicable: Riddings has no
+branch landing page, the same shape as the ninth pass's check-opening-hours
+finding. RULE 1 (generators) independently re-derived rather than
+injection-tested, since it inspects generator source rather than any
+branch's output and is therefore not branch-specific: all six generators
+still join streetAddress/addressLocality/postalCode through
+encodeURIComponent. ONE SELF-CAUGHT PROCESS CORRECTION: the first draft of
+the RULE 4 injection used a fabricated postcode ("WA14 9ZZ") not in any
+branch record, which made `tools/check-postcodes.js` fail with a fresh
+UNKNOWN the moment the audit script itself was saved under `audits/` - a
+self-inflicted false alarm, the same shape the tenth pass on this item
+already found and fixed once via a different mechanism (a leftover scratch
+file). Fixed before committing by rewriting that one injection to reuse
+Riddings' own real postcode (WA15 6BP) with a wrong street name instead,
+which still exercises RULE 4 cleanly; `check-postcodes.js` reconfirmed back
+to its usual baseline (0 failures, 3 pre-existing UNOWNED warnings) before
+proceeding. Full 36-checker suite re-run individually after the round:
+36/36 exit 0. All six generators rebuilt from their own build-*.js scripts;
+`git status --porcelain -- modules core tools branches.json gbp-packs`
+empty before and after (byte-identical regeneration).
+LIVE HALF. Claude in Chrome confirmed not connected (checked at step 3 and
+again independently before this section). Fell back to a direct read-only
+`curl` GET from the sandbox shell (network egress confirmed; nothing
+clicked, typed or submitted anywhere): homepage 200;
+impetigo-treatment-riddings-timperley.html (one of this pass's four
+injection targets) 200, with the map iframe query decoding to exactly "38
+Riddings Road, Timperley, Altrincham, WA15 6BP", matching branches.json and
+the repo-generated page. Own phone (0161 973 2951) present. Not re-read
+against the standing Q31 Cheshire county string, the Q22 weight loss
+tagline or the switch banner mojibake already on record from earlier
+passes; no new live finding, no contradiction of the standing state either.
+NO NEW QUESTION raised. This pass proved an existing checker against a
+branch it had not yet been proven against and found it already correct,
+and fixed a self-inflicted scratch-postcode false alarm before it ever
+reached a commit - neither is a judgement call for Rishi.
+WORKLIST AND COMMIT (steps 7, 9): appended the thirteenth-pass paragraph
+under item 3.10 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
+change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
+`audits/verify-3.10-2026-09-07-thirteenth.js` (new),
+`audits/verify-3.10-2026-09-07-thirteenth-output.txt` (new).
+PUSH/PUBLISH (steps 9-10): [to fill in after commit/push]
+STEP 11: `.agent-lock` overwritten in place with a "RELEASED" marker and
+timestamp at the end of this run via the established workaround, since
+`rm`/`mv`/`unlink` return "Operation not permitted" on this mount.
+
 ## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout for both the working half and the commit/push attempt against this session's own mount of C:\dev\rbh-site-data; Claude in Chrome not connected) - Item 3.9 quality pass (thirteenth, Coleman and Leighs Pharmacy Walton): proved tools/check-brand-spelling.js rules 1, 2, 3 and 6 by injection against this branch's own pages/records for the first time in thirteen passes; rule 5 confirmed structurally inapplicable; no in-repo defect found, one documentation-precision note on the checker's own docstring (zero live risk); live half reconfirms all four standing findings unchanged.
 LOCK CHECK (step 1): `.agent-lock` was present at run start, content
 "2026-09-07T17:34:30Z", about 89-90 minutes old at run start (17:34:30Z

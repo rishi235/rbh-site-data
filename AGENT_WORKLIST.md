@@ -6900,6 +6900,126 @@ Done 2026-09-07 (thirteenth pass).
       audits/verify-3.10-2026-09-06-twelfth.js (new). Evidence in
       audits/verify-3.10-2026-09-06-twelfth.js and
       audits/verify-3.10-2026-09-06-twelfth-output.txt. Done 2026-09-06
+      Quality pass 2026-09-07 (thirteenth pass, unattended scheduled run via
+      Cowork sandbox shell, with a stale-lock recovery note first). LOCK
+      CHECK (step 1): .agent-lock at run start held "RELEASED
+      2026-09-07T20:20:00Z end of run", about 74 minutes old at run start
+      (21:34 BST) - past the 45-minute threshold. bash rm returned
+      "Operation not permitted" on this mount, the standing restriction;
+      overwriting the file in place with a fresh timestamp worked (the
+      standing functional-equivalent workaround) and was used instead. No
+      .git/index.lock present at run start. SYNC (step 2): git fetch origin
+      (SSH) failed "Host key verification failed" - standing Q96/Q87,
+      reconfirmed again. git fetch origin-https succeeded; local HEAD
+      already matched origin-https/agents/audit-backlog exactly
+      (9db12395...), nothing to pull. ANSWER PICKUP (step 3):
+      mcp__claude-in-chrome__tabs_context_mcp and list_connected_browsers
+      both reported Claude in Chrome not connected - standing Q59,
+      reconfirmed again. No fetch attempted against the portal, no
+      alternative route tried, nothing clicked or typed. QUESTIONS.json read
+      in full: 98 total, 45 open, unchanged by pickup this run. AUTONOMOUS
+      WINDOW (step 4): no "Standing authorisation - autonomous window"
+      heading present at the top of AGENT_LOG.md at run start; not
+      applicable. ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md
+      lines confirmed [BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8
+      Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback
+      applied. Rotation pool re-derived independently via a block-bounded
+      git-log method over the standing 36-item pool (43 completed items
+      minus the 7 standing out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8), dating each item's own paragraph range with git log -1
+      --format=%cI -L<start>,<end>:AGENT_WORKLIST.md: 3.10 stalest at
+      2026-09-06T14:11:21+01:00, ahead of 2.1 (14:46:55), 5.2 (15:44:49),
+      4.11 (16:13:11), 5.1 (16:46:55) - matching the twelfth pass's own
+      forward note exactly (3.9 having since been processed and dropped out
+      of the stalest position). FRESH ANGLE: twelve prior passes had proven
+      check-nap, check-em-dashes, check-service-links (JS-injected copy),
+      check-postcodes, check-branch-identity (5 rules), check-booking-routes
+      (twice), check-switch-copy, check-contraception-copy,
+      check-travel-clinic-copy, check-jsonld (7 of 8 rules) and
+      check-seo-pattern against Riddings' own pages by injection, and ruled
+      check-opening-hours structurally inapplicable (no branch landing page
+      for this branch). A grep of this item's own section for
+      "check-map-embeds.js" across all twelve passes returned zero hits,
+      despite CLAUDE.md itself naming this checker's subject - the map
+      iframe address - "the address no text search can read". WORK DONE:
+      wrote audits/verify-3.10-2026-09-07-thirteenth.js, sharing no code
+      with tools/check-map-embeds.js beyond invoking it as a child process;
+      refuses to run if any of its 4 target files already carries a git
+      diff, restores each from an in-memory Buffer immediately after
+      capturing the checker's output and before any assertion, SHA256- and
+      git-diff-reconfirmed clean before the next injection and again at the
+      end. Baseline clean (16 branches, 177 pages, 177 embeds, 6 directions
+      buttons, 6 generators). Four injections, one rule each, across four
+      Riddings service pages never previously used for a map-related
+      injection test: RULE 2 coverage - the map iframe duplicated verbatim
+      on contraception-riddings-timperley.html, caught, "carries 2 map
+      embed(s), expected exactly 1"; RULE 3 the address - both the map query
+      and the contact-card text on impetigo-treatment-riddings-timperley.html
+      changed together to a different, internally self-consistent address
+      (Smartts Chemist Bootle's real postcode L20 9HH, so this does not
+      introduce a fresh postcode-shaped string check-postcodes.js has never
+      seen), caught, "map points at ... and branches.json gives this branch
+      ..."; RULE 4 agreement - only the contact-card text on
+      earache-treatment-riddings-timperley.html changed (map query left
+      correct, wrong street but Riddings' own real postcode WA15 6BP for the
+      same postcode-hygiene reason), caught, "contact card reads ... and the
+      map underneath it points at ..."; RULE 5 encoding - a raw comma
+      spliced into the map query on
+      insect-bite-treatment-riddings-timperley.html, caught, "map query
+      carries a raw space or comma". All four caught on first attempt with
+      the expected rule and message; all four target files confirmed
+      git-diff-empty and SHA256-identical to their pre-injection hashes
+      throughout and after every individual restore. RULE 6 (directions)
+      independently confirmed structurally inapplicable to this branch:
+      modules/branch/pages holds no Riddings file, the same shape as the
+      ninth pass's check-opening-hours finding. RULE 1 (generators, not
+      branch-specific since it inspects generator source rather than any
+      branch's output) independently re-derived rather than injected: all
+      six generators (build-service-pages.js, build-switch-pages.js,
+      build-weight-loss-pages.js, build-travel-clinic-pages.js,
+      build-contraception-pages.js, build-branch-landing-pages.js) still
+      join streetAddress/addressLocality/postalCode and pass the result
+      through encodeURIComponent. ONE SELF-CAUGHT PROCESS CORRECTION,
+      same shape as the tenth pass's own scratch-file finding: the first
+      draft of the RULE 4 injection used a fabricated postcode
+      ("WA14 9ZZ") that is in no branch record, which made
+      tools/check-postcodes.js fail with a fresh UNKNOWN against the
+      committed audit script itself (a self-inflicted false alarm, not a
+      live defect) the moment the script was saved to audits/. Fixed before
+      committing by rewriting that one injection to reuse Riddings' own real
+      postcode with a wrong street name instead, which still exercises RULE
+      4 (agreement) cleanly without adding any new postcode-shaped string to
+      the estate; check-postcodes.js confirmed back to its usual baseline
+      (0 failures, 3 pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md
+      and the branch INDEX/SEO sheets) before proceeding. Full 36-checker
+      suite re-run individually after the round: 36/36 exit 0. All six
+      generators rebuilt from their own build-*.js scripts; git status
+      --porcelain -- modules core tools branches.json gbp-packs empty before
+      and after (byte-identical regeneration). RESULT: no in-repo defect.
+      check-map-embeds.js was already correctly protecting Riddings
+      Pharmacy's pages on every applicable rule; now proven directly by
+      injection against this branch specifically for the first time in
+      thirteen passes on this item. LIVE HALF. Claude in Chrome confirmed
+      not connected (checked at step 3 and again independently before this
+      section). Fell back to a direct read-only curl GET from the sandbox
+      shell (no browser tool involved, nothing clicked, typed or
+      submitted): homepage 200; impetigo-treatment-riddings-timperley.html
+      (one of the four pages this pass's injections targeted) 200, with the
+      map iframe query decoding to exactly "38 Riddings Road, Timperley,
+      Altrincham, WA15 6BP", matching branches.json and the repo-generated
+      page - confirming the injection target is correct in live production,
+      not only in the repo. Own phone (0161 973 2951) present. Not re-read
+      against the standing Q31 Cheshire county string, the Q22 weight loss
+      tagline or the switch banner mojibake already on record from earlier
+      passes; no new live finding, no contradiction of the standing state
+      either. NO NEW QUESTION raised: this pass proved an existing checker
+      against a branch it had not yet been proven against and found it
+      already correct, and fixed a self-inflicted scratch-postcode false
+      alarm before it ever reached a commit - neither is a judgement call
+      for Rishi. FILES CHANGED: AGENT_WORKLIST.md (this paragraph);
+      AGENT_LOG.md (new entry); audits/verify-3.10-2026-09-07-thirteenth.js
+      (new); audits/verify-3.10-2026-09-07-thirteenth-output.txt (new).
+      Evidence in those two audit files. Done 2026-09-07
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

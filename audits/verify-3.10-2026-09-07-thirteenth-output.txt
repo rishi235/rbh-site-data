@@ -1,0 +1,30 @@
+PRECHECK: all 4 target files git-diff-empty at start.
+
+BASELINE: exit 0
+check-map-embeds
+  16 trading branch(es), 16 map address(es) read from branches.json
+  177 generated page(s), 177 map embed(s), 6 directions button(s)
+  6 generator(s) checked for how the query is composed
+
+
+INJECTION RESULTS:
+  CAUGHT  RULE 2 coverage (duplicate embed) (modules/service/pages/contraception-riddings-timperley.html) exit 1
+  CAUGHT  RULE 3 the address (self-consistent wrong address) (modules/service/pages/impetigo-treatment-riddings-timperley.html) exit 1
+  CAUGHT  RULE 4 agreement (contact card diverges from map) (modules/service/pages/earache-treatment-riddings-timperley.html) exit 1
+  CAUGHT  RULE 5 encoding (raw comma in query) (modules/service/pages/insect-bite-treatment-riddings-timperley.html) exit 1
+
+FINAL RE-RUN after all restores: exit 0
+
+RULE 6 (directions button) structural check: modules/branch/pages does NOT contain a Riddings landing page - rule is structurally inapplicable to this branch, consistent with the ninth-pass finding for check-opening-hours.
+  RULE 1 build-service-pages.js: joins=true encodes=true
+  RULE 1 build-switch-pages.js: joins=true encodes=true
+  RULE 1 build-weight-loss-pages.js: joins=true encodes=true
+  RULE 1 build-travel-clinic-pages.js: joins=true encodes=true
+  RULE 1 build-contraception-pages.js: joins=true encodes=true
+  RULE 1 build-branch-landing-pages.js: joins=true encodes=true
+
+=== SUMMARY ===
+Injections: 4/4 caught first attempt.
+RULE 1 (generators, estate-wide, not branch-specific): OK, all six generators compose correctly.
+RULE 6 (directions): structurally inapplicable to Riddings (no landing page).
+RESULT: PASS - all applicable rules proven, no in-repo defect.
