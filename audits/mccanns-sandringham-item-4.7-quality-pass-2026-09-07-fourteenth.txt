@@ -1,0 +1,114 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - fourteenth quality pass, 2026-09-07
+Unattended scheduled run, Cowork mcp__workspace__bash sandbox only (no Claude
+in Chrome, no Windows-MCP loaded for this run).
+
+LOCK: .agent-lock found at 2026-09-07T04:11:48Z content "RELEASED ... end of
+run", 52 minutes old at start of this run, over the 45-minute staleness
+threshold, treated as stale and replaced. .git/index.lock present, 52 minutes
+old (under the 1-hour threshold) with no git process running (ps aux checked);
+left in place per the letter of the rule, and git status/log/add/commit all
+worked normally regardless, so it was not blocking anything.
+
+ANSWER PICKUP (step 3): mcp__claude-in-chrome__list_connected_browsers
+returned an empty list and tabs_context_mcp reported "Claude in Chrome is not
+connected". Logged as unavailable, not retried by another route, per the
+unattended-run rule. QUESTIONS.json has 45 open questions; none could be
+checked against portal answers this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md. No autonomous decisions applied
+this run.
+
+WORKLIST (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Quality
+pass taken instead, per the established method: most recent "item X.Y"
+mention in a commit subject, per item, across the 43 completed items minus
+the standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), giving a
+36-item pool. Method re-derived independently this run via
+`git log --pretty=format:"%ad|%s" --date=iso-strict`, matched on the first
+"[Ii]tem <n>.<n>" occurring anywhere in the subject (not anchored to line
+end - an anchored-to-end variant tried first under-counted, because several
+subjects end with narrative text after the item number, e.g. "...against SK
+Chemists Bootle's own real files for the first time"; the anchored version
+silently dropped those and would have misidentified the stalest item).
+4.7 last mentioned 2026-09-06T06:42:02+01:00 (its own thirteenth pass's log
+entry), stalest in the 36-item pool with no tie.
+
+BASELINE: all 36 tools/check-*.js run individually against the live checked-
+out tree before any edit, 0 failures. sha256 of gbp-packs/mccanns-sandringham.md
+recorded before any edit: bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e
+- matches every prior pass's recorded value exactly, confirming no drift
+since the twelfth and thirteenth passes.
+
+FRESH ANGLE: the twelfth pass proved tools/check-gbp-pharmacy-first.js rules
+3, 4 and 6 against this pack; the thirteenth proved rules 5, 7 and 8. That
+leaves rules 2, 2b and 9 - the three PER-PACK rules in that checker - never
+injection-tested against McCanns Sandringham's own file across thirteen prior
+passes (rules 1, 10, 11 and 12 are estate-wide/file-level invariants, not
+per-pack, so they are out of scope for a single pack's injection test). This
+pass closes that gap.
+
+THREE INJECTIONS, each on the real gbp-packs/mccanns-sandringham.md, restored
+by byte copy from a saved-before-edit original and both sha256- and cmp-
+reconfirmed byte-identical before the next:
+
+1. RULE 2b (a located Pharmacy First scope that names none of the seven
+   conditions is a mislocated block, not an empty one). The Services section
+   "NHS Pharmacy First" bullet's condition list ("for sinusitis, sore throat,
+   earache, impetigo, shingles, infected insect bites and uncomplicated UTIs
+   in women") was replaced with "for a range of common ailments", Post A left
+   untouched. CAUGHT: "Services section \"NHS Pharmacy First\" bullet was
+   located but names none of the 7 Pharmacy First conditions." Confirms the
+   rule fires on this pack's own bullet, not only in the abstract.
+
+2. RULE 9 (a condition word loose outside the two Pharmacy First scopes).
+   The Private services bullet "Private consultation room: confidential
+   advice on your medicines." had ", including private shingles vaccination
+   consultations" appended - the exact hypothetical the rule's own code
+   comment describes (a legitimate shingles VACCINATION service, correctly
+   flagged as needing a KNOWN_NON_PF entry rather than being silently
+   accepted). CAUGHT: "names \"shingles\" outside the Pharmacy First blocks,
+   in copy that is not the service bullet or Post A." Restored afterwards;
+   no KNOWN_NON_PF entry added, because the real pack carries no such
+   sentence and none should be invented.
+
+3. RULE 2, the "hasPf true but no scope located" branch (the branch 2b does
+   not cover). branches.json holds a pharmacyFirst widget for this branch, so
+   Rule 2's other branch (advertising Pharmacy First with no widget) can never
+   fire here and was not re-tested. To reach "scopes.length === 0" while
+   hasPf stays true, both anchors pfScopes() depends on were broken at once:
+   "- NHS Pharmacy First:" relabelled to "- NHS Assessment Service:", and
+   "### Post A - Pharmacy First" relabelled to "### Post Z - Pharmacy First".
+   CAUGHT: "branches.json gives this branch a pharmacyFirst widget, but the
+   pack has neither an \"- NHS Pharmacy First:\" service bullet nor a
+   \"### Post A\" body, so the profile would say nothing about a free NHS
+   service the branch actually runs."
+
+RESTORE CONFIRMED: cmp and sha256 both confirm gbp-packs/mccanns-sandringham.md
+byte-identical to the pre-edit original after each injection and at the end
+(bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e); `git status
+--porcelain gbp-packs/mccanns-sandringham.md` empty throughout the run.
+
+FULL BATTERY RE-RUN: all 36 tools/check-*.js re-run individually after the
+final restore, 0 failures.
+
+RESULT: ZERO IN-REPO DEFECTS. Fourteenth pass on item 4.7. All three per-pack
+rules in check-gbp-pharmacy-first.js are now proven against every one of this
+pack's own live conditions at least once (rules 3,4,5,6,7,8,2,2b,9 across the
+twelfth, thirteenth and this pass); the four remaining rules (1, 10, 11, 12)
+are estate-wide invariants not scoped to a single pack.
+
+LIVE HALF NOT PERFORMED: mcp__claude-in-chrome list_connected_browsers
+returned empty and tabs_context_mcp reported the extension not connected at
+the start of this run, matching the standing Q59 diagnosis (two extension
+copies signed in at once). Logged as unavailable, not retried by another
+route. Windows-MCP (which could in principle reach the Build Pack v2
+reference document on Rishi's OneDrive) was not loaded for this run, matching
+prior passes' "Cowork sandbox shell only" scope; cross-checking this pack
+against RBH_DIGITAL_BUILD_PACK_v2.md was therefore not performed, as in every
+prior pass on this item.
+
+NO NEW QUESTION. No in-repo defect found; QUESTIONS.json unchanged.
+
+PUSH/PUBLISH: see AGENT_LOG.md entry for this pass for the outcome of
+git push and tools/build-audit-status.js.

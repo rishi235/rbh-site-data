@@ -10792,6 +10792,48 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       sitemap lastmod unchanged at 2026-08-14T23:05:25Z, confirming no
       republish since the twelfth pass's own reading. No new question.
       Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-06-thirteenth.txt.
+      Quality pass 2026-09-07 (fourteenth, unattended scheduled run, Cowork
+      sandbox shell only). Taken because all 8 unchecked worklist lines are
+      [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, confirmed by direct
+      grep); item-selection method unchanged - most recent "item X.Y" mention
+      in a commit subject across the 36-item rotation pool (43 completed
+      items minus the out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+      4.7 was stalest, last mentioned 2026-09-06T06:42:02+01:00 (its own
+      thirteenth pass), no tie. Answer pickup attempted first: Claude in
+      Chrome not connected (list_connected_browsers empty, tabs_context_mcp
+      reports not connected), logged as unavailable, not retried by another
+      route. No autonomous-window heading present in AGENT_LOG.md, so no
+      autonomous decisions applied. Baseline: all 36 checkers clean before
+      any edit; pack sha256 bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e
+      matches every prior pass, no drift. FRESH ANGLE: the twelfth and
+      thirteenth passes proved rules 3, 4, 5, 6, 7 and 8 of
+      check-gbp-pharmacy-first.js against this pack; rules 2, 2b and 9 (the
+      three remaining PER-PACK rules in that checker - rules 1, 10, 11, 12
+      are estate-wide invariants, out of scope for a single pack) had never
+      been injection-tested against this pack specifically. Three injections
+      on the real file, each restored by byte copy and sha256/cmp-reconfirmed
+      before the next: (1) rule 2b, the Services section's condition list
+      replaced with "a range of common ailments" leaving Post A untouched -
+      caught, "was located but names none of the 7 Pharmacy First
+      conditions"; (2) rule 9, ", including private shingles vaccination
+      consultations" appended to the Private consultation room bullet - the
+      exact legitimate-vaccination hypothetical the rule's own comment
+      describes - caught, "names \"shingles\" outside the Pharmacy First
+      blocks"; (3) rule 2's "hasPf true, no scope located" branch, reached by
+      relabelling both "- NHS Pharmacy First:" and "### Post A - Pharmacy
+      First" at once so pfScopes() finds neither - caught, "has neither an
+      \"- NHS Pharmacy First:\" service bullet nor a \"### Post A\" body".
+      All three fired first attempt, each on its intended rule. Full
+      36-checker suite re-run clean after final restore; pack byte-identical
+      to baseline confirmed by cmp and sha256; git status on the file empty
+      throughout. Zero in-repo defect - all nine per-pack rules in this
+      checker (2, 2b, 3, 4, 5, 6, 7, 8, 9) now proven directly against this
+      pack across three passes. Live half not performed: Claude in Chrome
+      not connected at the start of this run (matches standing Q59);
+      Windows-MCP not loaded this run, so no cross-check against
+      RBH_DIGITAL_BUILD_PACK_v2.md was possible, as in every prior pass on
+      this item. No new question. Evidence:
+      audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-07-fourteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
