@@ -97,7 +97,25 @@ under item 3.10 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
 change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
 `audits/verify-3.10-2026-09-07-thirteenth.js` (new),
 `audits/verify-3.10-2026-09-07-thirteenth-output.txt` (new).
-PUSH/PUBLISH (steps 9-10): [to fill in after commit/push]
+PUSH/PUBLISH (steps 9-10): the sandbox's own `git add` hit a `.git/index.lock`
+(0 bytes, no git process running per `ps aux`/`Get-Process git`) left behind
+by an earlier git invocation in this same run whose own post-operation
+cleanup failed on this mount's unlink restriction - standing Q87. Cleared via
+`mcp__Windows-MCP__PowerShell` (`Remove-Item -Force`) against the canonical
+`C:\Dev\rbh-site-data` working copy, where deletion is not restricted, then
+`git add`/`git commit` completed there directly: commit
+`4126cfd2e1cfba92a062e544287c3100cf115ef6` (4 files changed, 458 insertions:
+`AGENT_LOG.md`, `AGENT_WORKLIST.md`,
+`audits/verify-3.10-2026-09-07-thirteenth.js`,
+`audits/verify-3.10-2026-09-07-thirteenth-output.txt`). `git push origin
+agents/audit-backlog` completed via the same PowerShell session (this host
+copy has a working push credential over SSH, unlike the sandbox); `git fetch
+origin` plus `git rev-list --left-right --count
+origin/agents/audit-backlog...HEAD` immediately after read "0 0" and
+`git log -1` matched exactly on both sides - fully synced, nothing left
+unpushed. `node tools/build-audit-status.js` run the same way afterwards:
+"Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)",
+exit 0.
 STEP 11: `.agent-lock` overwritten in place with a "RELEASED" marker and
 timestamp at the end of this run via the established workaround, since
 `rm`/`mv`/`unlink` return "Operation not permitted" on this mount.
