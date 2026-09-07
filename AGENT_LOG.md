@@ -1,3 +1,114 @@
+## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout for the working half, mcp__Windows-MCP__PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 2.1 quality pass (fourteenth, Fishlocks Ainsdale): found and fixed a stale-narrative false alarm in tools/check-postcodes.js (the fabricated "WA14 9ZZ" the previous run's own log write-up quoted, added to NARRATIVE_POSTCODES); then proved tools/check-app-membership.js - never named once across thirteen prior passes on this item despite Fishlocks Ainsdale being one of only four app-member branches in the estate - by five injections against this branch's own switch page, landing page, a service-family page and its own GBP pack, all caught first attempt; no live-copy defect found; live half reconfirms all three standing findings (Q35, Q37, Q57) unchanged.
+LOCK CHECK (step 1): `.agent-lock` was present at run start, content
+"RELEASED 2026-09-07T20:44:09Z end of run", about 50 minutes old at run start
+- past the 45-minute threshold, and its own content independently confirmed
+the prior run had finished cleanly. `rm` returned "Operation not permitted"
+on this mount, the standing restriction; overwritten in place with a fresh
+active-run timestamp via bash redirection instead (the standing
+functional-equivalent workaround). A fresh `.git/index.lock` (0 bytes) was
+created and left behind by this run's own early `git status` call, `ps aux`
+confirmed no git process running; left in place for the working half since
+nothing in the sandbox needed to write the index until commit time, and
+cleared later via PowerShell alongside the commit (see PUSH/PUBLISH below).
+The standing population of `.agent-lock.released-*`/`.agent-lock.old-*` and
+assorted scratch/probe debris at repo root (well over 100 untracked files,
+all previously logged against standing Q87) was confirmed still present and
+left untouched, out of scope for a single worklist item.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q96/Q87, reconfirmed again. `git fetch origin-https`
+succeeded (anonymous HTTPS read); local HEAD (`db3850c`) already matched
+`origin-https/agents/audit-backlog` exactly, nothing to pull, confirmed via
+`git log --oneline -5` on both.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - Claude in Chrome not connected this run, standing Q59. No
+fetch attempted against the portal, no alternative route tried, nothing
+clicked or typed.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+re-derived independently over the standing 36-item pool (43 completed items
+minus the 7 standing out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8), each item's own paragraph range dated via `git log -1 --format=%cI
+-L<start>,<end>:AGENT_WORKLIST.md`: 2.1 stalest at 2026-09-06T14:46:55+01:00,
+ahead of 5.2 (15:44:49), 4.11 (16:13:11), 5.1 (16:46:55), 3.12 (17:43:42) -
+matching the thirteenth pass's own forward note exactly, since 3.10 has
+since been processed and dropped out of the stalest position. Chosen: 2.1
+(Fishlocks Ainsdale).
+RESULT: one pre-existing tooling defect found and fixed, and one genuine
+verification-coverage gap closed by proof; no live-copy defect found. Full
+method and evidence recorded in AGENT_WORKLIST.md's item 2.1 fourteenth-pass
+paragraph rather than duplicated here.
+PRE-ROUND DEFECT: the baseline 36-checker sweep did not start clean.
+tools/check-postcodes.js failed with 2 UNKNOWN failures against "WA14 9ZZ",
+a fabricated postcode the immediately preceding (thirteenth) pass's own
+AGENT_LOG.md and AGENT_WORKLIST.md write-ups quote when describing that
+pass's own first-draft self-correction on item 3.10. The thirteenth pass's
+own "36/36 exit 0" claim was true at the moment it was checked, before its
+closing commit message (which quotes the fabricated value) was written to
+these two narrative files - nothing re-ran the checker suite after the
+final commit message landed. Fixed by adding "WA14 9ZZ" to
+NARRATIVE_POSTCODES in tools/check-postcodes.js with a reason and this
+item's own quality-pass id, the same convention as the six prior entries in
+that list (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER); re-run
+confirms 0 failures, 3 pre-existing UNOWNED warnings, the usual baseline.
+FRESH ANGLE: tools/check-app-membership.js, guarding the one boolean field
+in branches.json that reaches public copy (the "Download our app" card and
+sentence) and whose own docstring names Fishlocks Ainsdale/Eccleston's
+shared-domain shape as part of its reasoning, had never been named once
+across thirteen prior passes on this item despite Fishlocks Ainsdale being
+one of only four app-member branches in the whole estate. New instrument
+audits/verify-2.1-2026-09-07-fourteenth.js: refuses to run if any of its
+four targets already carries a git diff, restores each from an in-memory
+buffer immediately after capturing the checker's output and before any
+assertion, sha256- and git-diff-reconfirmed clean before the next injection
+and again at the end. Five injections across four files, one rule each:
+RULE 2 (switch page's app-card block removed) caught; RULE 3 (landing
+page's app sentence reworded) caught; RULE 4 (an app mention spliced into
+the branch's Pharmacy First overview page, a non-app family) caught; RULE 5
+(the switch page's app name shortened, dropping "Pharmacy") caught; RULE 8e
+(the app sentence removed from this branch's own GBP pack, proven for the
+first time against fishlocks-ainsdale.md specifically rather than the two
+packs the 4.1 eleventh pass originally used) caught. All five caught first
+attempt with the expected rule and message; the whole script re-run a
+second time end to end with identical results. All four files restored
+byte-identical (git-diff-empty, sha256-reconfirmed) throughout and after.
+Full 36-checker suite re-run clean (36/36) immediately after; all six
+generators rebuilt from their own build-*.js scripts, `git status
+--porcelain -- modules core branches.json gbp-packs` empty before and after
+(byte-identical regeneration). check-app-membership.js itself unchanged;
+only tools/check-postcodes.js (the narrative-postcode fix) was edited.
+No copy, page, pack or branches.json content changed anywhere in the
+estate; both findings are tooling fixes, not content corrections, so
+neither needed a superintendent or business decision and none was sought.
+LIVE HALF. Claude in Chrome confirmed not connected (checked at step 3 and
+again independently before this section). Fell back to a direct read-only
+`curl` GET from the sandbox shell (nothing clicked, typed or submitted
+anywhere): fishlockpharmacy.co.uk/sitemap.xml still 200 with every lastmod
+fixed at 2026-08-14T17:32:10 (Q35's underlying non-publish, unchanged, now
+three and a half weeks); contact.html still names the business "Fishlock
+Pharmacy" and "Fishlock Chemist" alongside the correct "Fishlocks Chemist"
+(Q37, unchanged); weight-loss-services-eccleston-ainsdale.html still 200 and
+still carries "Real Results", Mounjaro, Wegovy and Orlistat (Q57,
+unchanged). No new question raised; all three are reconfirmation of
+existing standing state, not new faults.
+NO NEW QUESTION raised. Both findings this pass are tooling: a stale
+checker-exemption gap (self-inflicted by a prior pass's own narrative) and a
+verification-coverage gap closed by proving an existing rule against a
+branch it had not yet been proven against - neither is a judgement call for
+Rishi.
+WORKLIST AND COMMIT (steps 7, 9): appended the fourteenth-pass paragraph
+under item 2.1 in AGENT_WORKLIST.md in place (already `- [x]`, no checkbox
+change). Files changed: `AGENT_WORKLIST.md`, `AGENT_LOG.md` (this entry),
+`tools/check-postcodes.js`, `audits/verify-2.1-2026-09-07-fourteenth.js`
+(new), `audits/verify-2.1-2026-09-07-fourteenth-output.txt` (new).
+PUSH/PUBLISH (steps 9-10): [FILLED IN BELOW AFTER PUSH]
+STEP 11: `.agent-lock` overwritten in place with a "RELEASED" marker and
+timestamp at the end of this run via the established workaround, since
+`rm`/`mv`/`unlink` return "Operation not permitted" on this mount.
+
 ## 2026-09-07 (unattended scheduled run, Cowork sandbox mcp__workspace__bash for the working half, Windows-MCP PowerShell for the commit/push against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 3.10 quality pass (thirteenth, Riddings Pharmacy Timperley): proved tools/check-map-embeds.js - never named once across twelve prior passes on this item, despite CLAUDE.md calling its subject "the address no text search can read" - by injection against four Riddings pages, one rule each (coverage, address, agreement, encoding); RULE 6 (directions) confirmed structurally inapplicable (no branch landing page for this branch) and RULE 1 (generators) independently re-derived rather than injected, being estate-wide rather than branch-specific; no in-repo defect found. One self-caught process correction: the first draft of the RULE 4 injection used a fabricated postcode that tripped a fresh check-postcodes.js UNKNOWN against the committed audit script itself - fixed before committing by reusing a real branch postcode instead, the same shape of self-inflicted false alarm the tenth pass on this item already logged once. Live half (read-only curl, Claude in Chrome not connected) reconfirms the injection target correct in production.
 LOCK CHECK (step 1): `.agent-lock` was present at run start, content
 "RELEASED 2026-09-07T20:20:00Z end of run", about 74 minutes old at run

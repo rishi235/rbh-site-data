@@ -710,6 +710,93 @@ Parts A-D; no reason to believe it has changed. No new question raised; no
 worklist item blocked or unblocked. Evidence:
 audits/verify-2.1-2026-09-06-thirteenth.js,
 audits/verify-2.1-2026-09-06-thirteenth-output.txt.
+Quality pass 2026-09-07 (fourteenth pass): all 8 worklist items still
+unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still [BLOCKED]
+by direct grep, so this was the fallback quality pass, picked by the standard
+rotation-pool ranking re-derived fresh from git log (via git log -1
+--format=%cI -L<range> for each of the 36 pool items) over the 36-item pool
+(43 checked items minus the standing out-of-rotation set 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8): item 2.1's newest mention was the thirteenth pass at
+2026-09-06T15:42:23+01:00, older than every other pool item (5.2 next oldest
+at 15:44:49, then every other item newer still), exactly matching the
+thirteenth pass's own forward note.
+PRE-EXISTING DEFECT FOUND AND FIXED BEFORE THE ROUND: the full 36-checker
+suite did not start clean. tools/check-postcodes.js failed with 2 UNKNOWN
+failures, both against the fabricated postcode "WA14 9ZZ" that the previous
+(thirteenth) pass's own narrative in AGENT_LOG.md and AGENT_WORKLIST.md
+quotes when describing its own first-draft self-correction on item 3.10 -
+exactly the class of self-inflicted false alarm CLAUDE.md's postcode section
+and this list's own L9 8ZZ/L4 7TH/L21 8JG entries already document, and the
+same gap the 6.3 sixth pass and the item 4.4 tenth pass each closed once
+before for a different value. The thirteenth pass's own "36/36 exit 0"
+claim was true when it was checked, before its own write-up (quoting the
+fabricated value) was committed to these two narrative files - the checker
+was never re-run after the final commit message was written. Fixed by adding
+"WA14 9ZZ" to NARRATIVE_POSTCODES in tools/check-postcodes.js with a reason
+and this item's own quality-pass id, the established convention; re-run
+confirms 0 failures, 3 pre-existing UNOWNED warnings, the usual baseline.
+Lesson for future passes, matching CLAUDE.md's own "test harness" note: a
+checker suite run before the closing commit message is written cannot see
+what that commit message will say, so a narrative quoting a fabricated value
+for the record should be added to the relevant KNOWN/NARRATIVE list in the
+same commit, not left for the next pass to trip over.
+FRESH ANGLE: tools/check-app-membership.js had never been named once across
+thirteen prior passes on this item, despite Fishlocks Ainsdale being one of
+only four app-member branches in the whole estate (with Fishlocks Eccleston,
+Clear Chemist Aintree and Smartts Bootle) and despite the checker's own
+docstring using this exact branch pair's shared-domain shape
+(fishlockpharmacy.co.uk, Ainsdale and Eccleston) as part of the reasoning for
+why the field needs a rule at all. New instrument
+audits/verify-2.1-2026-09-07-fourteenth.js: refuses to run if any of its four
+targets already carries a git diff, captures each file's original bytes
+before mutation, restores by direct fs.writeFileSync from the in-memory
+buffer immediately after capturing the checker's output and before any
+assertion, sha256-reconfirms byte-identical restoration before the next
+injection and again at the end. Five injections, each on a freshly restored
+copy: (1) RULE 2 (switch pages) - the app-card block removed from
+switch-prescriptions-fishlocks-ainsdale.html - CAUGHT, "is an app member in
+branches.json but the page carries no app card". (2) RULE 3 (landing pages)
+- the app sentence's identifying phrase reworded on
+pharmacy-fishlocks-ainsdale.html - CAUGHT, "carries no app sentence". (3)
+RULE 4 (absence elsewhere) - an app mention spliced into
+pharmacy-first-fishlocks-ainsdale.html, a service-family page neither of the
+two app-rendering families - CAUGHT, "mentions the app or carries a store
+URL, and no page in this family is meant to". (4) RULE 5 (one name) - "RB
+Healthcare Pharmacy app" shortened to "RB Healthcare app" on the switch page
+- CAUGHT, "names the app... but the generator... calls it 'RB Healthcare
+Pharmacy app'". (5) RULE 8e (the GBP pack positive, added on the 4.1 eleventh
+pass and, per that pass's own note, proven only against
+scorah-hazel-grove.md and smartts-bootle.md, never against this branch's own
+pack) - the app sentence removed from gbp-packs/fishlocks-ainsdale.md's
+business description - CAUGHT, "branches.json has hasApp true for
+fishlocks_ainsdale, but the copy pasted into the public Google profile
+carries no app mention". All five caught first attempt with the expected
+rule and message; the whole script re-run a second time end to end with
+identical results (5/5 caught both times). All four target files confirmed
+byte-identical (sha256-reconfirmed) and git-diff-empty throughout and after.
+Full 36-checker suite re-run clean immediately after (36/36, including the
+postcode fix above); all six generators rebuilt from their own build-*.js
+scripts, git status --porcelain -- modules core branches.json gbp-packs
+empty before and after (byte-identical regeneration). check-app-membership.js
+itself unchanged; only tools/check-postcodes.js (the narrative-postcode fix
+above) was edited.
+No copy, page, pack or branches.json content changed anywhere in the estate;
+both findings this pass are tooling (a stale checker exemption gap, and a
+verification-coverage gap now closed by proof rather than by rule change),
+so neither needed a superintendent or business decision and none was sought.
+LIVE HALF. Claude in Chrome confirmed not connected (checked via
+list_connected_browsers at the start of the run and returned []). Fell back
+to a direct read-only curl GET from the sandbox shell (nothing clicked,
+typed or submitted anywhere). fishlockpharmacy.co.uk/sitemap.xml still 200
+with every lastmod fixed at 2026-08-14T17:32:10 (Q35's underlying
+non-publish, unchanged, now three and a half weeks). contact.html still
+names the business "Fishlock Pharmacy" and "Fishlock Chemist" alongside the
+correct "Fishlocks Chemist" (Q37, unchanged). Q57's page,
+weight-loss-services-eccleston-ainsdale.html, still 200 and still carries
+"Real Results", Mounjaro, Wegovy and Orlistat (unchanged). No new question
+raised; all three are reconfirmation of existing standing state, not new
+faults. Evidence: audits/verify-2.1-2026-09-07-fourteenth.js,
+audits/verify-2.1-2026-09-07-fourteenth-output.txt.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

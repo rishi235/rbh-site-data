@@ -1,0 +1,38 @@
+=== BASELINE ===
+exit=0
+Baseline clean (exit 0). Proceeding.
+
+=== INJECTION 1: RULE 2 (switch pages) - remove the app card ===
+exit=1
+  FAIL  [switch pages] modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html: is an app member in branches.json but the page carries no app card
+CAUGHT
+
+=== INJECTION 2: RULE 3 (landing pages) - reword the app sentence ===
+exit=1
+  FAIL  [landing pages] modules/branch/pages/pharmacy-fishlocks-ainsdale.html: is an app member in branches.json but the page carries no app sentence
+CAUGHT
+
+=== INJECTION 3: RULE 4 (absence elsewhere) - app mention on the PF overview page ===
+exit=1
+  FAIL  [absence elsewhere] modules/service/pages/pharmacy-first-fishlocks-ainsdale.html: mentions the app or carries a store URL, and no page in this family is meant to
+CAUGHT
+
+=== INJECTION 4: RULE 5 (one name) - drop "Pharmacy" from the app name ===
+exit=1
+  FAIL  [one name] modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html: names the app "RB Healthcare app" but the generator that owns the store buttons calls it "RB Healthcare Pharmacy app"
+CAUGHT
+
+=== INJECTION 5: RULE 8e (GBP pack positive) - remove the app sentence from the pack ===
+exit=1
+  FAIL  [gbp packs] gbp-packs/fishlocks-ainsdale.md: branches.json has hasApp true for fishlocks_ainsdale, but the copy pasted into the public Google profile carries no app mention, so the profile would omit a feature the branch actually offers
+CAUGHT
+
+=== FINAL STATE ===
+  switchPage: byte-identical, git-clean
+  landingPage: byte-identical, git-clean
+  overviewPage: byte-identical, git-clean
+  pack: byte-identical, git-clean
+
+Final check-app-membership.js re-run: exit=0 (clean)
+
+ALL 5 INJECTIONS CAUGHT, ALL FILES RESTORED CLEAN.
