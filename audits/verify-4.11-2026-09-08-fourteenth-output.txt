@@ -1,0 +1,13 @@
+Target: /sessions/clever-laughing-edison/mnt/rbh-site-data/gbp-packs/sk-chemists-bootle.md
+Original sha256: 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+Baseline: both checkers exit 0.
+
+=== RESULTS ===
+CAUGHT: false sister-branch claim (no sister exists for this brand) (exit 1)
+  FAIL  sk-chemists-bootle.md: the pack claims a sister or second branch, but no other live branch in branches.json carries the brand SK Chemists. A pack description is pasted verbatim into a public Google profile, so this would send patients to a pharmacy the group does not have
+CAUGHT: MISSPELT brand pattern: 'S K Chemists' in place of 'SK Chemists' (exit 1)
+  FAIL  gbp-packs/sk-chemists-bootle.md:16: reads "S K Chemists", a known misspelling. The trading name is "SK Chemists"
+
+File sha256 after full round: 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da (matches original)
+
+Full suite after round: 36 checkers, all clean

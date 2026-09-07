@@ -13151,6 +13151,71 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       still open, unchanged. No new defect, no new question raised this
       pass. Evidence in audits/verify-4.11-2026-09-06-thirteenth.js and
       audits/verify-4.11-2026-09-06-thirteenth-output.txt.
+      Fourteenth quality pass 2026-09-08 (unattended scheduled run via
+      Cowork, rotation-pool pick, stalest item last mentioned
+      2026-09-06T16:13:11+01:00, the thirteenth pass itself, ahead of 5.1,
+      3.12, 3.6 and 3.8; independently re-derived via a Python script
+      parsing every worklist header into its own paragraph range and taking
+      `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` on the
+      36-item pool, excluding the seven standing out-of-rotation items 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Baseline: all 36 checkers exit 0; pack
+      sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      matching all thirteen prior passes' own recorded hash, byte-stable
+      across fourteen passes; all six generators rebuilt, git status
+      --porcelain -- modules core empty before and after.
+      Fresh angle: two rules that plainly apply to this pack had never been
+      injection-tested against it in thirteen prior passes. (1)
+      check-gbp-packs.js's sister-branch claim rule - every prior
+      sister-branch injection in the estate (items 3.2/4.4 on Scorah,
+      3.6/4.7 on McCanns) targeted a branch that DOES have a real sister, so
+      only the "names no town belonging to one" breach path had been
+      exercised; SK Chemists is a unique brandLabel with no live sister, so
+      this pack is the estate's clearest case of the OTHER breach path, "no
+      other live branch carries the brand". (2) check-brand-spelling.js's
+      MISSPELT list carries a pattern written specifically for this brand,
+      "S K Chemists" (spaced initials) -> "SK Chemists", never proven
+      against this pack's own file in either this item's history or the
+      1.1 item's own passes (which tested "Sk Chemists" case-drift on the
+      2026-08-31 pass, a different rule).
+      New instrument written fresh
+      (audits/verify-4.11-2026-09-08-fourteenth.js, invokes both real
+      checkers as child processes only; refuses to run if the target
+      already carries a git diff; restores by direct byte write from an
+      in-memory Buffer immediately after capturing each checker's output
+      and before any assertion; sha256-reconfirms byte-identical after each
+      restoration and again at the end). Two injections, each applied to a
+      freshly restored copy: (1) "Our sister branch in Southport is close
+      by." inserted at the start of the business description - CAUGHT by
+      check-gbp-packs.js, "no other live branch in branches.json carries
+      the brand SK Chemists"; (2) "SK Chemists" respelled as "S K Chemists"
+      (spaced) in the same sentence - CAUGHT by check-brand-spelling.js,
+      "reads \"S K Chemists\", a known misspelling. The trading name is
+      \"SK Chemists\"". Both caught on the first attempt with the expected
+      rule-specific message; the pack file sha256-confirmed byte-identical
+      to the committed original after each individual restoration and
+      again at the end (637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+      throughout). Full 36-checker suite re-run clean after the round
+      (36/36); all six generators re-run, git status --porcelain --
+      modules core empty before and after.
+      RESULT: no in-repo defect. check-gbp-packs.js's sister-branch rule and
+      check-brand-spelling.js's MISSPELT list were already correctly
+      holding this pack to both mechanisms tested, now proven directly by
+      injection against SK Chemists Bootle's own pack for the first time.
+      No checker logic, pack copy, page, generator or data field changed
+      anywhere in the repo.
+      LIVE HALF: not attempted this pass. `mcp__claude-in-chrome__tabs_context_mcp`
+      reported Claude in Chrome not connected (standing Q59), checked once
+      before repo work began and again after finishing. The thirteenth
+      pass's own live findings (Post A's generated target correct and live;
+      pharmacy-first-service-bootle.html still misspelling "Bottle" in its
+      H2 though its title tag is corrected, item 5.3/Q34, no decision
+      needed; weight-loss-clinic.html still live naming Mounjaro, Wegovy
+      and Orlistat, item 5.8/Q58, unchanged, not fixed here) stand
+      unverified for a further pass rather than re-claimed. Q58, Q80 and
+      Q81 re-read from QUESTIONS.json, all still open, unchanged. No new
+      defect, no new question raised this pass. Evidence in
+      audits/verify-4.11-2026-09-08-fourteenth.js and
+      audits/verify-4.11-2026-09-08-fourteenth-output.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

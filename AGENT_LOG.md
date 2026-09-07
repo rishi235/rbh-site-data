@@ -1,3 +1,59 @@
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout, Claude in Chrome not connected) - Item 4.11 quality pass (fourteenth, SK Chemists Bootle GBP pack): proved two rules that plainly apply to this pack but had never been injection-tested against it in thirteen prior passes - check-gbp-packs.js's sister-branch claim rule (SK Chemists is a unique brandLabel with no live sister, so this is the estate's clearest case of the "no other live branch carries the brand" breach path, untested elsewhere because every prior sister-branch injection targeted a branch that does have a real sister) and check-brand-spelling.js's MISSPELT pattern written specifically for this brand ("S K Chemists" -> "SK Chemists"). Both injections caught on the first attempt with the expected rule-specific message; no defect found; no live half read (Claude in Chrome not connected, checked before and after repo work, standing Q59).
+LOCK CHECK (step 1): `.agent-lock` at run start held a timestamp about 50
+minutes old - past the 45-minute threshold. `rm` returned "Operation not
+permitted" on this mount (the standing restriction, Q87/Q96); overwrote the
+file in place with a fresh timestamp instead (the established workaround -
+this mount permits rename and overwrite but not unlink). `.git/index.lock`
+was present but only ~50 minutes old, under the 1-hour threshold, and no
+git process was running; left in place per the letter of the instruction,
+and it did not in practice block any git command this run.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q96/Q87, reconfirmed again. `git fetch origin-https`
+succeeded; local HEAD (`e3c0f0a`) already matched
+`origin-https/agents/audit-backlog` exactly, confirmed via `git log
+--oneline -5` on both, nothing to pull. Set the local branch's upstream to
+`origin-https/agents/audit-backlog` so future fetch/pull default correctly.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` reported Claude in
+Chrome not connected - standing Q59. No fetch attempted against the portal,
+no alternative route tried, nothing clicked or typed.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 7 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool independently re-derived from
+scratch: parsed every `- [x]`/`- [ ]` heading in AGENT_WORKLIST.md by regex,
+built each item's own paragraph line-range, filtered to the 36-item pool (43
+completed items minus the standing 7 out-of-rotation: 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8), then ran `git log -1 --format=%cI -L<start>,<end>` on each
+item's own range. Result: 4.11 stalest at 2026-09-06T16:13:11+01:00, ahead
+of 5.1 (16:46:55), 3.12 (17:43:42), 3.6 (18:11:33), matching the thirteenth
+5.2 pass's own forward note exactly. Chosen: 4.11 (SK Chemists Bootle GBP
+pack).
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 clean. Pack sha256
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da, matching
+all thirteen prior passes. All six generators rebuilt from branches.json:
+`git status --porcelain -- modules core` empty before and after,
+byte-identical.
+RESULT: no defect found. Full method and evidence recorded in
+AGENT_WORKLIST.md's item 4.11 fourteenth-pass paragraph rather than
+duplicated here. Evidence files: audits/verify-4.11-2026-09-08-fourteenth.js
+and audits/verify-4.11-2026-09-08-fourteenth-output.txt.
+INFRASTRUCTURE NOTE: hit a transient FUSE-mount fault this run not seen in
+prior logs - a freshly-written file (audits/verify-4.11-2026-09-08-
+fourteenth.js) was briefly unreadable from the bash sandbox side (`cat`/`wc`
+returned EINVAL, then "No such file or directory", while the Write-tool
+side also reported the file absent) even though the Write tool had reported
+success. Re-issuing the identical Write call produced a file that read back
+cleanly on the next attempt, a few seconds later. Not raised as a new
+question - one occurrence, self-resolved on retry, no data lost - but
+flagged here in case a future run hits the same fault repeatedly and needs
+to search for a prior instance.
+QUESTIONS.json: 45 open questions surveyed at answer-pickup (step 3); none
+newly answered this run (Claude in Chrome not connected). No new question
+raised.
+
 ## 2026-09-07 (unattended scheduled run, second run today, Cowork sandbox mcp__workspace__bash throughout, Claude in Chrome not connected) - Item 5.2 quality pass (thirteenth, six branch landing pages): proved tools/check-branch-identity.js - never exercised with the real checker binary against these pages despite its own header naming exactly this item's shared-brand shape (Fishlocks/McCanns/Scorah) as the reason it exists - by six injections, one per page, each isolating a distinct rule (2 OWNER, 4 AMBIGUOUS, 8 OUTBOUND, 9 SISTERLINK, 10 SERVICELINK, 11 SISTERLABEL); all six caught, one catching two rules at once as a genuine side effect; no defect found, no live half read (Claude in Chrome not connected, web_fetch refused the URLs as outside provenance, same as the twelfth pass).
 LOCK CHECK (step 1): `.agent-lock` at run start held "RELEASED
 2026-09-07T21:44:40Z end of run", about 49 minutes old at run start - past
