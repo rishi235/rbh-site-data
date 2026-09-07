@@ -3248,6 +3248,91 @@ reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-05T13:46:27+01:00), then 3.10, 2.1, 5.2 -
 re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-07 (fourteenth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Stalest item re-derived via the established git-log block method (36-item
+rotation pool, all eight currently-unchecked items confirmed [BLOCKED] by
+direct grep: 5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66,
+so the quality-pass fallback applies): 3.4 uniquely stalest at
+2026-09-06T13:13:18+01:00, ahead of 3.9 (13:47:25), 3.10 (14:11:21) and 2.1
+(14:46:37), matching the thirteenth pass's own forward note.
+THE GENUINELY UNTESTED ANGLE THIS PASS CLOSED. Thirteen prior passes proved,
+by direct injection against Cherry Lane's own pages and branch record,
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-whatsapp-
+route.js, check-service-links.js, check-switch-copy.js, check-branch-
+identity.js, check-booking-routes.js and check-seo-pattern.js.
+tools/check-jsonld.js - the checker guarding the one part of every page
+written for a machine rather than a person, and the one CLAUDE.md's own "The
+JSON-LD block, and the address no text search can read" section names
+directly - had never been proven by injection against Cherry Lane's own
+pages, confirmed by a grep of this item's entire section (2680-3251, all
+thirteen prior passes) for "check-jsonld" returning zero hits.
+New instrument, no import from tools/ beyond invoking the real checker as a
+child process (audits/verify-3.4-2026-09-07-fourteenth.js): refuses to run
+if any target already carries a git diff, records every target's sha256
+before mutation, restores by direct fs.writeFileSync from an in-memory
+Buffer immediately after capturing the checker's output and before any
+assertion, sha256-reconfirms after every restore. Five injections, one at a
+time, across five Cherry Lane pages, each covering a different rule: (1)
+RULE 2 @type - Pharmacy changed to LocalBusiness (a real, valid, vaguer
+schema.org type, the exact shape of the original 3.10-pass defect this
+checker was built to catch) on the UTI page, caught; (2) RULE 6 telephone -
+the JSON-LD telephone field only (not the visible tel: link, isolating this
+checker's own rule from check-nap.js's) swapped for Smartts Chemist
+Bootle's real number on the earache page, caught; (3) RULE 5
+address.addressRegion - Merseyside changed to Cheshire (a real county used
+elsewhere in the estate, e.g. Riddings Timperley) on the sore-throat page,
+caught, naming the branch and both values; (4) RULE 4 url - the JSON-LD url
+swapped for a different, real, live Cherry Lane page's own url (so only the
+url-to-filename correspondence breaks, not the domain) on the shingles page,
+caught; (5) RULE 8 map iframe, the field CLAUDE.md itself calls "the address
+no text search can read" - the Google Maps query's town swapped from
+Liverpool to Bootle (the exact citation-consistency shape, a foreign town
+inside the postal address, that this item's own fourth-pass defect was) on
+the insect-bite page, caught, naming the wrong query. All five caught on
+first attempt with the expected rule and message; all five target files
+confirmed git-diff-empty and sha256-identical to their pre-test baseline
+throughout and after. Baseline and final runs of check-jsonld.js both clean
+("177 generated page(s) checked ... 0 failures"). Full 34-checker suite
+re-run individually before and after the round: 34/34 exit 0 both times
+(count reflects the current tools/check-*.js population; some earlier
+passes' "35" or "36" counts predate later consolidations, not a discrepancy
+in this run's own sweep). All six generators rebuilt via their own
+build-*.js scripts with git status --porcelain on modules/ and core/ empty
+before and after (byte-identical) - no in-repo defect, nothing to fix.
+LIVE HALF. Claude in Chrome confirmed not connected
+(mcp__claude-in-chrome__list_connected_browsers returned []), standing Q59,
+checked at step 3 and independently again before this section. Fell back to
+a direct read-only curl GET (this run's equivalent of prior passes'
+PowerShell Invoke-WebRequest route) rather than leaving the live half
+unread. All five pages this pass's injections targeted read live for the
+first time against these exact JSON-LD fields: uti-treatment,
+earache-treatment, sore-throat-treatment, shingles-treatment and
+insect-bite-treatment (all cherry-lane-walton.html) all 200, all declaring
+"@type":"Pharmacy", "telephone":"0151 226 2051", "addressRegion":"Merseyside"
+and a map query of "202 Cherry Lane, Liverpool, L4 8SG" - matching
+branches.json and the repo-generated pages exactly on every field this
+pass's injections exercised, no drift found. weight-loss-clinic-walton.html
+RECONFIRMS the seventh pass's Q86 finding still live and uncorrected, now 34
+days since the repo fix: the page carries both the correct JSON-LD
+addressLocality ("Liverpool") and the stale prose address ("202 Cherry Lane,
+Walton, Liverpool L4 8SG") in the same document, unchanged since the
+thirteenth pass's own reconfirmation. The homepage's site-wide contact
+widget (the other half of Q86, JS-rendered mailto addresses) and the Q36
+footer typo could not be checked either way by a raw GET (no "mailto:" or
+"mhs.net" string found in the raw HTML of the pages fetched this run), the
+same JavaScript-rendering limitation every prior curl/Invoke-WebRequest pass
+has recorded; not claimed fixed or unfixed. Q86 not re-raised, no new
+question.
+WORKLIST AND COMMIT. This paragraph. New evidence file this run:
+audits/verify-3.4-2026-09-07-fourteenth.js. QUESTIONS.json re-read in full:
+98 total, 45 open, unchanged by pickup this run (Claude in Chrome not
+connected, standing Q59; no new question raised). Files changed and
+committed: AGENT_WORKLIST.md, the new audits/ file, and AGENT_LOG.md - no
+generator, page, data field or checker file touched in the tracked tree,
+reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-06T13:47:25+01:00), then 3.10, 2.1, 5.2 -
+re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
