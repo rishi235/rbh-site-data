@@ -9365,6 +9365,55 @@ Done 2026-09-08 (fourteenth pass).
       output, audits/verify-3.13-2026-09-07-eleventh-output.txt (both run
       clean, exit 0).
 
+      Quality pass 2026-09-08 (twelfth), unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash for reads plus mcp__Windows-MCP__PowerShell
+      against the real C:\Dev\rbh-site-data checkout for git/lock/build work
+      (both available this session). Grepped this item's full eleven-pass
+      history for every tools/check-*.js basename: check-branch-links.js had
+      never been named against Clear Chemist Aintree, despite being proven
+      this same week against Scorah (item 3.2) and Gordon Short (the original
+      item 3.8 find). It is the checker that reads the link fields inside
+      branches.json itself (odsCode uniqueness, nhsEmail format, nhsReviewUrl
+      shape, googleReviewUrl shape/uniqueness, website shape, pfLink
+      host/ownership) rather than a generated page, so a fresh angle none of
+      the eleven prior passes had aimed at this branch.
+      Baseline: all 36 tools/check-*.js run individually, 36/36 exit 0; sha256
+      of branches.json recorded (904de09b...969e1e) before any mutation.
+      Independent extraction (audits/verify-3.13-2026-09-08-twelfth.js, no
+      import from tools/) against Clear Chemist Aintree's own record: 9
+      checks, 0 flags. Confirms Clear Chemist Aintree deliberately carries no
+      nhsReviewUrl (the standing exception this checker's own header names)
+      and no pfLink (private/paid brand, no NHS Pharmacy First page), while
+      odsCode (FD553), nhsEmail, googleReviewUrl and website are all present
+      and correctly formed.
+      Five injections against the REAL tools/check-branch-links.js (not a
+      copy), via audits/verify-3.13-2026-09-08-twelfth-injection.js, which
+      mutates a fresh in-memory copy of branches.json, writes it to the
+      tracked file, runs the checker as a child process, then restores the
+      original buffer and sha256-reconfirms an exact match before the next
+      injection - nothing layered, nothing committed mid-test. (1) odsCode set
+      to Scorah Bramhall's own FL495 - CAUGHT (duplicate ODS code), with the
+      expected collateral nhsEmail mismatch since it derives from odsCode. (2)
+      nhsEmail set to a value that does not match the branch's own odsCode -
+      CAUGHT. (3) googleReviewUrl's trailing "/review" stripped - CAUGHT
+      (malformed shape). (4) googleReviewUrl set to Scorah Bramhall's own
+      review link - CAUGHT (duplicate review link, one branch's reviews
+      landing on the other's listing). (5) website given a trailing slash -
+      CAUGHT. All five caught on the first attempt, each on its intended rule;
+      branches.json sha256-reconfirmed byte-identical to baseline after every
+      restore and again at the end.
+      VERIFICATION. Full 36-checker suite re-run individually after the
+      round: 36/36 exit 0. git status --porcelain -- gbp-packs modules core
+      branches.json tools status: empty apart from the pre-existing untouched
+      gbp-packs/.fuse_hidden0000000400000001 (standing Q87, out of scope). No
+      checker logic, generator, data field or page changed anywhere in the
+      repo; no regeneration needed since nothing in branches.json or any
+      generator was touched. Zero in-repo defect, no new question. Evidence:
+      audits/verify-3.13-2026-09-08-twelfth.js and
+      audits/verify-3.13-2026-09-08-twelfth-injection.js.
+      LIVE HALF: not performed. mcp__claude-in-chrome__tabs_context_mcp
+      reported "Claude in Chrome is not connected" (standing Q59). Live state
+      not re-confirmed this pass and should not be assumed unchanged.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section
