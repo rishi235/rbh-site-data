@@ -1,3 +1,90 @@
+## 2026-09-08 (unattended scheduled run, fourth run today, Cowork sandbox mcp__workspace__bash for all read/edit and all git/node work this run, Claude in Chrome not connected) - Item 3.6 quality pass (fourteenth, McCanns Chemist Aigburth/Sandringham): found and fixed a tense/person gap in the shared tools/claim-patterns.js that let a plain results claim ("Our patients have lost up to 15% of their body weight") walk through check-weight-loss-copy.js in silence
+
+LOCK CHECK (step 1): `.agent-lock` at run start held a stale marker
+(2026-09-08T02:22:59Z / "RELEASED - item 3.12 eleventh quality pass done and
+pushed"), about 71 minutes old at the time of the check - over the 45-minute
+threshold, so treated as stale. `rm` failed with "Operation not permitted"
+(standing Q87/Q96 - this mount allows in-place overwrite but not unlink),
+so the file was overwritten in place with a fresh timestamp rather than
+adding to the ~90-file pile of `.agent-lock.*` debris already in the repo
+root from prior runs' identical workaround. A `.git/index.lock` reappeared
+during routine `git status` (0 bytes, freshly created, no git process
+running per `ps aux`) and was left in place rather than removed, since it
+was not yet stale and, confirmed this run, does not actually block further
+git commands from completing (only its own post-command unlink fails, with
+a warning, not an error).
+
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed", standing Q87/Q96, no `~/.ssh` in this sandbox. `git fetch
+origin-https` succeeded and confirmed local HEAD (`12488f4`) already
+matched `origin-https/agents/audit-backlog` exactly - no pull needed,
+nothing to fast-forward.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - standing Q59, unchanged. Logged and carried on; no
+alternative route attempted, nothing clicked, typed or submitted.
+QUESTIONS.json re-read: 98 total, 45 open, none answered by pickup this
+run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of this file at run start, so not
+applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5 both under Q60,
+6.6), so the quality-pass fallback applied. Rotation pool re-derived from
+the 36 checked items minus the standing 7 out-of-rotation items (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8), using `git log -1 --format=%cI
+-L<start>,<end>:AGENT_WORKLIST.md` per item's own header-to-next-header
+line range (line ranges parsed fresh from a `grep -n` of every `- [x]`/
+`- [ ]` heading, not reused from any prior run's note). Stalest: 3.6
+(McCanns Chemist), 2026-09-06T18:11:33+01:00, clear of the next item, 3.8,
+at 2026-09-06T18:47:44+01:00. Chosen: 3.6, fourteenth pass.
+
+WORK: see the fourteenth-pass paragraph appended in place to AGENT_WORKLIST.md
+under item 3.6, and audits/verify-3.6-2026-09-08-fourteenth.txt, for full
+method, exact injected strings, checker output, sha256 values and the
+safety sweep run before widening. Summary: baseline 36/36 checkers clean,
+byte-identical regeneration confirmed (216 files under modules/ and core/,
+sha256 76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329,
+matching before and after the whole pass). Fresh angle: check-weight-loss-
+copy.js had never been injection-tested against McCanns's own weight-loss
+pages across this item's thirteen prior passes. First injection (medicine
+name into the pinned hero-sub sentence, Aigburth) caught cleanly on two
+rules and restored. Second injection (a plain results-percentage claim
+into the hero-proof line, Sandringham) was NOT caught - a genuine gap in
+tools/claim-patterns.js's shared CLAIM_PATTERNS list, not a fluke of the
+injection wording: "lose up to" only matches present tense, never "lost";
+"% of your body" only matches the second-person possessive, never a
+third-person one. Confirmed by a repo-wide grep that no real, currently-
+passing copy anywhere in modules/, gbp-packs/ or the two DRAFT-*.html files
+relies on either narrow form, so widening both patterns cost nothing. Fixed
+in tools/claim-patterns.js only (21 insertions, 2 deletions); re-ran the
+still-injected file and confirmed the fix catches it; restored the injected
+page by byte copy and sha256-confirmed identical to the pre-injection
+original; full 36-checker suite and full six-generator rebuild re-confirmed
+clean and byte-identical afterwards. Because tools/check-gbp-packs.js,
+tools/check-service-links.js and tools/check-seo-keywords.js all import the
+same shared list rather than copying it, this single fix also closes the
+identical gap on the 15 GBP packs' Post copy (the strictest, Regime 1
+public-advertising surface) and on every page's Meta Keywords line, without
+touching any other file - confirmed by reading check-gbp-packs.js directly
+rather than assumed. No page, generator, pack or branches.json byte
+changed; the only tracked change is tools/claim-patterns.js plus the
+worklist/log/audit entries for this run. No new question raised - a plain,
+no-judgement-call pattern widening in the file's own established style
+(this is at least its fourth such widening on record).
+
+LIVE HALF: not attempted, Claude in Chrome not connected (checked at
+pickup and confirmed unchanged before this item's own live section);
+no alternative route tried. Nothing live claimed this run; the twelfth/
+thirteenth passes' live findings for this item stand unclaimed and
+unchanged.
+
+COMMIT/PUSH/PUBLISH (steps 9-10): see below this entry for outcome (filled
+in after the push completes).
+
 ## 2026-09-08 (unattended scheduled run, third run today, Cowork sandbox mcp__workspace__bash for read/edit/analysis, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 3.12 quality pass (eleventh, Tiffenbergs Chemist, check-weight-loss-copy.js)
 
 LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from

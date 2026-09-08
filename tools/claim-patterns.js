@@ -52,8 +52,27 @@ const CLAIM_PATTERNS = [
   // directly against findClaim() and confirmed NOT caught; full checker
   // suite re-run clean afterwards.
   [/real results/i, "promises results"],
-  [/lose up to/i, "quantified weight loss claim"],
-  [/\d+(\.\d+)?\s*%\s*of your body/i, "quantified weight loss claim"],
+  // Tense and person widened on the item 3.6 quality pass (fourteenth,
+  // McCanns Chemist), 2026-09-08. Both fixed forms below only ever matched
+  // present-tense "lose" addressed to the reader in the second person
+  // ("your body"), so the same claim written as a PATIENT-OUTCOME STATISTIC
+  // rather than a promise to the reader walked straight through: injected
+  // into McCanns Sandringham's own weight-loss-clinic page,
+  // "Our patients have lost up to 15% of their body weight." passed
+  // check-weight-loss-copy.js in complete silence. Two separate misses in
+  // one sentence: "lose up to" is anchored to the present-tense verb only,
+  // and never matches "lost" or "losing"; "% of your body" is anchored to
+  // the second-person possessive only, and never matches a third-person
+  // possessive naming somebody else's outcome, which is the more natural
+  // way to write a results statistic about other patients rather than a
+  // promise to the reader. Widened to the verb's three forms and to every
+  // possessive this repo could plausibly carry (your/their/his/her/our/its/
+  // the patient's), proved safe by a repo-wide sweep before widening (see
+  // AGENT_LOG.md for this pass): no legitimate copy anywhere in
+  // modules/, gbp-packs/ or the two DRAFT-*.html files uses either shape,
+  // so nothing that currently passes for a real reason is put at risk.
+  [/los(?:e|es|t|ing)\s+up\s+to/i, "quantified weight loss claim"],
+  [/\d+(\.\d+)?\s*%\s*of\s+(?:your|their|his|her|our|its|the\s+patient'?s?)\s+body/i, "quantified weight loss claim"],
   [/most effective (weight loss|treatment)/i, "comparative efficacy claim"],
   [/rapid weight loss|fast weight loss/i, "efficacy claim"],
   [/that actually works|treatment that works/i, "efficacy claim"],

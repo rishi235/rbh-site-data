@@ -4532,6 +4532,76 @@ layer checker has no live-page surface in any case, since no generated
 page ever carries a widget id (service.js resolves it at run time).
 QUESTIONS: none raised this run. Evidence:
 audits/verify-3.6-2026-09-06-thirteenth.txt.
+Quality pass 2026-09-08 (fourteenth, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout for read, edit and all git/node work).
+Selected as the least recently verified item in the standing 36-item
+rotation pool (all 8 unblocked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep, so the quality-pass fallback applied); rotation re-derived
+via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` over each
+pool item's own header-to-next-header range: 3.6 came out stalest at
+2026-09-06T18:11:33+01:00, clear of the next item, 3.8.
+BASELINE: all 36 tools/check-*.js re-run individually before any change,
+36/36 exit 0. All six generators rebuilt: combined sha256 of all 216 files
+under modules/ and core/ identical before and after
+(76c85168935d9db8d2cb9003fe7273cc8d81e446d17bc3004eb040ab9f63c329); git
+status --porcelain on modules/, core/, branches.json, gbp-packs/, tools/
+empty throughout.
+FRESH ANGLE: thirteen prior passes had proven eleven checkers by injection
+against McCanns's own files but never tools/check-weight-loss-copy.js,
+despite both branches carrying a live weight-loss-clinic page and sharing
+one brand weightLoss diary (confirmed on the thirteenth pass). Continues
+the line of work the immediately preceding run (item 3.12, Tiffenbergs)
+opened for this checker against a different branch.
+INJECTION 1 (RULE 8 medicine name, plus RULE 2 pinned copy incidentally):
+"such as Mounjaro" inserted into weight-loss-clinic-mccanns-aigburth.html's
+pinned hero-sub sentence - CAUGHT twice, restored by byte copy, sha256-
+reconfirmed identical (8279d206...552361f46).
+INJECTION 2 (RULE 9 efficacy/results claim) - THE FINDING. "Our patients
+have lost up to 15% of their body weight." appended to weight-loss-clinic-
+mccanns-sandringham.html's hero-proof line. check-weight-loss-copy.js
+reported OK, no failures - a plain, natural-English results claim walked
+straight through. ROOT CAUSE in the shared tools/claim-patterns.js (used by
+check-weight-loss-copy.js, check-service-links.js, check-seo-keywords.js
+and check-gbp-packs.js): [/lose up to/i] is anchored to the present tense
+only and never matches "lost" (used here) or "losing"; [/%\s*of your
+body/i] is anchored to the second-person possessive only and never matches
+a third-person possessive ("their", used here), which is the more natural
+phrasing for a claim about other patients' outcomes. Same shape of gap this
+file's own history already records repeatedly (tense/person/word-number
+widenings on the 3.13, 4.4 and 4.8/4.12/4.13 passes). SAFETY SWEEP before
+widening: grepped the whole repo for both narrow gaps outside this pass's
+own injected text and this file's own pattern/comment; no hit in modules/,
+gbp-packs/ or the two DRAFT-*.html files, so widening costs nothing. FIX:
+both patterns widened to catch all three verb forms
+(lose/loses/lost/losing) and all six plausible possessives
+(your/their/his/her/our/its/the patient's). Re-run against the still-
+injected file: CAUGHT - "makes quantified weight loss claim: 'lost up
+to'". SCOPE: confirmed by reading check-gbp-packs.js directly that it runs
+the same shared CLAIM_PATTERNS against pack text alongside its own separate
+EFFICACY_FAIL list ("Both run" per its own comment), so this one fix also
+closes the gap for the 15 GBP packs' Post copy (Regime 1 public
+advertising) without needing to touch EFFICACY_FAIL separately;
+check-service-links.js and check-seo-keywords.js import the same shared
+list and are fixed the same way. Four checkers fixed by one change.
+RESTORE: weight-loss-clinic-mccanns-sandringham.html restored by byte copy,
+sha256-reconfirmed identical (4a6477f016...ab035b54eaf9b50). Full
+36-checker suite re-run clean (36/36); all six generators rebuilt again,
+combined sha256 of all 216 files under modules/ and core/ unchanged from
+the pre-injection baseline - only tools/claim-patterns.js changed (21
+insertions, 2 deletions per git diff --stat); git status --porcelain on
+modules/, core/, branches.json, gbp-packs/ empty throughout.
+LIVE HALF: not attempted, Claude in Chrome not connected (standing Q59);
+no other route tried. This pass's finding is entirely in the shared
+checker layer with no live-page surface of its own; the twelfth/thirteenth
+passes' live findings stand unclaimed and unchanged (Sandringham UTI page
+still reads "Sandringham" live rather than "St Michael's", queued 5.7/Q15;
+both branch landing pages still 404 live, Q35).
+RESULT: one real, estate-wide latent defect found and fixed (no live copy
+found to actually carry either narrow gap, per the safety sweep) - a
+shared claim-detection pattern with a tense and person gap, now closed
+across all four checkers that use it. No new question raised: a plain,
+no-judgement-call pattern widening following the file's own established
+convention. Evidence: audits/verify-3.6-2026-09-08-fourteenth.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
