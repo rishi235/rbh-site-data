@@ -1,0 +1,143 @@
+Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) - fourteenth quality pass
+2026-09-08, unattended scheduled run via Cowork (mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy; the Cowork sandbox
+mcp__workspace__bash mount cannot unlink its own files, standing Q87/Q96, so
+this run used Windows-MCP for every write and delete from the outset).
+
+SELECTION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass
+fallback applied. Rotation pool re-derived fresh: every "- [x] <N.N>" marker
+line read directly (43 checked), each item's own paragraph range dated via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`, run across the
+36 pool items (43 checked minus the seven standing out-of-rotation items
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, and minus 3.1 which the previous run today
+had just re-passed). Item 4.3 came out stalest at 2026-09-06T20:10:19+01:00,
+the earliest of the pool.
+
+NEW ANGLE. Read tools/check-gbp-packs.js in full (3607 lines) against this
+item's own thirteen-pass history (grepping AGENT_WORKLIST.md for every rule
+name and injection already proven against THIS pack's own copy: road-name
+rule (5th pass), claim-patterns/outcome-claim rule (7th pass), bank-holiday
+special-hours rule (8th pass), check-pharmacy-first-eligibility.js rules
+9/10/11 (9th pass), splitDay time-range rule (10th pass), day-presence rule's
+three legs (11th pass), services/categories allowlist rule (12th pass), post
+button CTA-label rule and lead-pricing/offer rule (13th pass), plus the
+third-pass fact injections: sister street, sister phone, sister review link,
+POM medicine name, efficacy claim, branch-name-as-place).
+
+Found one genuinely untested rule with direct textual evidence in this pack:
+the "every house number stated on the branch's own road" rule (streetNumber,
+born on the item 4.6 quality pass against mccanns-aigburth.md, 2026-08-13,
+extended to unit addresses on the item 4.9 pass against clear-aintree.md,
+2026-08-14). The rule's own code comment names Hirshmans Ainsdale directly as
+one of the hyphenated-range addresses it is written to cover ("56-62 Sherwood
+House, Station Road"), but no prior pass records proving it here by
+injection - the thirteen prior passes tested the ROAD NAME text ("Station
+Road" to "Shakespeare Road", 5th pass) but never the HOUSE NUMBER on that
+same road, which is the number the paster sets the Google Maps pin from and
+which the road-name rule cannot see (it matches on the road string, not the
+number in front of it).
+
+BASELINE. gbp-packs/hirshmans-ainsdale.md sha256
+94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8, matching
+every prior pass's recorded hash - confirmed unchanged since the thirteenth
+pass. Backup taken at
+_agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-fourteenth (same sha256).
+Grepped the pack first: the branch's own full street text ("NUMBER Sherwood
+House, Station Road") appears with a number in exactly two places - the
+"- Address:" line (line 14) and a parenthetical quoting the LIVE page's
+correct text back (line 128, "the page now reads '56-62 Sherwood House,
+Station Road,...'"), which shares the branch's own number so the rule's
+sameNumber() check would skip it regardless. Line 126 mentions "64 Station
+Road" but without "Sherwood House" so it does not match this rule's anchored
+road string at all. So the "- Address:" line was the only live injection
+point for this rule in this pack, same shape as the rule's own birth case
+(mccanns-aigburth.md's "- Address:" line).
+
+INJECTION. Changed only the house number on the "- Address:" line: "56-62"
+to "58-64" (a range matching no other branch's address), leaving every other
+mention of the branch's address, including the quoted line 128, untouched.
+Applied directly to the tracked file (not a scratch copy this pass, since the
+established byte-copy-restore method is proven reliable and faster for a
+single-line change); backup taken first as above.
+
+RESULT: node tools/check-gbp-packs.js exited 1 with exactly three new lines
+plus the three standing WARNs unchanged (Q72 six missing qualifier terms,
+Post A's known phone-like number, Post A's known live-only link target):
+
+1. FAIL streetNumber (the rule under test): "the pack states '58-64 Sherwood
+   House, Station Road', but branches.json puts this branch at '56-62
+   Sherwood House, Station Road'. The branch's own address appears elsewhere
+   in the pack, which is why the presence rule passes, and this number is no
+   branch's address, which is why the sister rule passes. A pack is
+   pasted straight into Google Business Profile, so a wrong house number on
+   the right road moves the map pin to the wrong building"
+
+2. FAIL addressLine (a second, separate rule: the "- Address:" line must
+   itself carry the branch's own street): "the '- Address:' line reads
+   '58-64 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW', which
+   does not contain this branch's street address '56-62 Sherwood House,
+   Station Road' from branches.json. The presence rule passes because the
+   street is spelled correctly elsewhere in the pack, and the sister rule
+   passes because what the line actually states is no branch's address.
+   That line is the one the paster sets the Google Maps pin from, so the
+   profile would publish a street this branch is not on, and the post town
+   rule below is switched off by the same edit because it finds the post
+   town by locating the street inside this line."
+
+3. FAIL stale exception: KNOWN_IDENTITY["hirshmans_ainsdale::addressPostTown"]
+   no longer matches a pack with a profile-basics fault in its name, street
+   address, address line street, post town, review link or website (Q64's
+   standing post-town WARN entry), because the post-town rule was silently
+   disabled by the same edit exactly as predicted in (2), so the checker's
+   own staleness self-check on the KNOWN list fired as a THIRD, expected,
+   knock-on FAIL rather than a confusing fourth defect. This is the
+   anti-rot mechanism in check-gbp-packs.js's KNOWN handling working exactly
+   as designed, not a new problem.
+
+All three are explained by one edit and the rule's own documented mechanics;
+no unexpected cross-firing.
+
+CONTAINMENT. Full 35-checker suite (every tools/check-*.js) run individually
+with the injection live: only check-gbp-packs.js exited non-zero (1); the
+other 34 all exited 0, including check-postcodes.js and check-nap.js which
+read overlapping address facts but were unaffected because the postcode and
+phone on the line were untouched.
+
+RESTORE. File restored by byte copy from the pre-injection backup (this
+mount cannot unlink via git checkout, the standing FUSE quirk raised in
+Q87/Q96 - byte copy is the established restoration method). sha256
+reconfirmed identical to the pre-injection backup
+(94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8).
+check-gbp-packs.js re-run alone: exit 0. `git status --porcelain --
+gbp-packs modules core branches.json` empty throughout and after. This pack
+is not a generator input, so no generator was run and no page was rebuilt
+this pass.
+
+RESULT: zero in-repo defect. This pack's own "- Address:" line, and every
+other mention of its street, was already correct; the streetNumber rule, the
+address-line rule and the KNOWN-list staleness guard are now all proven by
+injection against this pack's own text for the first time in its
+fourteen-pass history, closing the last named-but-unproven check-gbp-packs.js
+rule with direct textual evidence in this item (road-name rule proven fifth
+pass, claim-patterns rule proven seventh pass, bank-holiday rule proven
+eighth pass, pharmacy-first-eligibility rules 9/10/11 proven ninth pass,
+splitDay rule proven tenth pass, day-presence rule proven eleventh pass,
+services/categories allowlist proven twelfth pass, CTA-label and
+lead-pricing rules proven thirteenth pass, streetNumber/addressLine/KNOWN-
+staleness proven this pass).
+
+LIVE HALF: Claude in Chrome not connected this run (tabs_context_mcp
+returned "not connected"; not retried by another route; nothing clicked,
+typed or submitted anywhere). Fell back to direct read-only HTTP GET
+(network egress confirmed working): all five targets on
+hirshmanspharmacy.co.uk returned 200 - the four Post buttons plus the
+generated pharmacy-first-hirshmans-ainsdale.html replacement. Not re-read in
+full text this pass (last confirmed clean at depth on the tenth and eleventh
+passes); Post A's HARD STOP (item 5.3/Q8/Q34) and Post B's live em-dash
+mojibake (item 5.1/Q7, the same live-paste-lag family as Cherry Lane and
+Coleman and Leighs) remain the only two outstanding live findings, both
+already tracked, neither actionable from this repo (a Weebly paste, outside
+this worker's write scope).
+
+No in-repo defect found, no new question raised.

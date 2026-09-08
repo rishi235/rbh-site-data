@@ -10262,6 +10262,59 @@ Pharmacy First wording to the NHS service description.
       raised. Evidence:
       audits/button-price-reproof-4.3-2026-09-06-thirteenth.txt. Done
       2026-09-06
+      Quality pass 2026-09-08 (fourteenth pass, unattended scheduled run via
+      Cowork): re-verified as the stalest rotation-pool item (last touched
+      2026-09-06T20:10:19+01:00, the earliest of the 36-item pool re-derived
+      fresh via the established `git log -1 --format=%cI
+      -L<start>,<end>:AGENT_WORKLIST.md` method). NEW ANGLE:
+      check-gbp-packs.js's streetNumber rule (born on the item 4.6 quality
+      pass against mccanns-aigburth.md, 2026-08-13, extended to unit
+      addresses on the item 4.9 pass) had never been proven by injection
+      against this pack's own copy across thirteen prior passes, even though
+      its own code comment names Hirshmans Ainsdale directly as one of the
+      hyphenated-range addresses it exists to cover ("56-62 Sherwood House,
+      Station Road"). The road-name rule proven on the fifth pass tests the
+      ROAD text; this rule tests the HOUSE NUMBER in front of it, the digit
+      the paster sets the Google Maps pin from.
+      BASELINE: sha256 94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8,
+      matching every prior pass. Backup taken at
+      _agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-fourteenth.
+      PROOF BY INJECTION: the "- Address:" line's house number changed from
+      "56-62" to "58-64" (a range matching no other branch), every other
+      mention of the branch's own address left untouched. CAUGHT: exit 1,
+      three explained lines - the streetNumber FAIL itself; a second,
+      separate addressLine FAIL ("the '- Address:' line... does not contain
+      this branch's street address"), confirming the rule's own documented
+      warning that one wrong digit also silently disables the post-town
+      rule below it; and a third knock-on FAIL from the checker's own
+      KNOWN-list staleness guard, correctly flagging the Q64 post-town
+      exception as no longer matching a live fault once the post-town rule
+      stopped firing. All three explained by one edit; the three standing
+      WARNs (Q72 qualifiers, Post A phone-like number, Post A live-only
+      link) unchanged alongside them. Full 35-checker suite run with the
+      injection live: only check-gbp-packs.js failed, the other 34 exit 0,
+      including check-postcodes.js and check-nap.js which read overlapping
+      address facts but were unaffected. File restored by byte copy (mount
+      cannot unlink via git checkout, standing FUSE quirk); sha256
+      reconfirmed identical; check-gbp-packs.js re-run clean (exit 0);
+      git status --porcelain -- gbp-packs modules core branches.json empty
+      throughout. Not a generator input, so no rebuild needed.
+      RESULT: zero in-repo defect, closing the last named-but-unproven
+      check-gbp-packs.js rule with direct textual evidence in this item
+      (road-name fifth pass, claim-patterns seventh, bank-holiday eighth,
+      pharmacy-first-eligibility 9/10/11 ninth, splitDay tenth,
+      day-presence eleventh, services/categories allowlist twelfth,
+      CTA-label and lead-pricing thirteenth, streetNumber/addressLine/
+      KNOWN-staleness this pass). LIVE HALF: Claude in Chrome not connected
+      this run; fell back to read-only HTTP GET (network egress confirmed):
+      all five targets on hirshmanspharmacy.co.uk returned 200, not re-read
+      in full text this pass (last confirmed clean at depth tenth and
+      eleventh passes). Post A HARD STOP (5.3/Q8/Q34) and Post B's live
+      em-dash mojibake (5.1/Q7) remain the only outstanding live findings,
+      both already tracked, neither actionable from this repo. No in-repo
+      defect found, no new question raised. Evidence:
+      audits/streetnumber-reproof-4.3-2026-09-08-fourteenth.txt. Done
+      2026-09-08
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

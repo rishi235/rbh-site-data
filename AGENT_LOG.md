@@ -1,3 +1,128 @@
+## 2026-09-08 (unattended scheduled run, eighth run today, via mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy - the Cowork sandbox mcp__workspace__bash mount cannot unlink its own files, standing Q87/Q96, confirmed again at the top of this run, so it switched to Windows-MCP for every write and delete from the outset) - Item 4.3 quality pass (fourteenth, Hirshmans Chemist Ainsdale GBP pack): proved the check-gbp-packs.js streetNumber rule, its documented address-line/post-town knock-on, and the KNOWN-list staleness guard, all for the first time against this pack's own copy, by injecting a wrong house number on the "- Address:" line ("56-62" to "58-64"); zero in-repo defect, no new question
+
+LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker
+from the seventh run today (item 3.1 fourteenth pass), timestamped
+08:15:56, 48 minutes 22 seconds before this run's start at 09:04:56 - over
+the 45-minute threshold, so treated as stale. Deleted via
+mcp__Windows-MCP__PowerShell (the Cowork sandbox bash mount confirmed unable
+to unlink even a harmless probe file at the start of this run, "Operation
+not permitted", the standing FUSE quirk under Q87/Q96), overwritten with a
+fresh timestamp. No `.git\index.lock`, `.git\HEAD.lock` or
+`.git\ORIG_HEAD.lock` present; no git process running.
+
+SYNC (step 2): `git fetch origin` / `git checkout agents/audit-backlog` /
+`git pull --ff-only origin agents/audit-backlog` all succeeded
+("Already up to date"); local HEAD (62e8195) already matched
+`origin/agents/audit-backlog` exactly (the SSH remote), confirming the
+seventh run's own push had landed. `origin-https` (the HTTPS mirror
+remote) is two commits behind, which is expected and harmless - all prior
+runs push to SSH `origin` only.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected. Fell back to the established read-only
+`Invoke-WebRequest` GET against https://data.rbhealth.co.uk/api/feedback,
+which returned HTTP 200 but a Cloudflare Access sign-in page rather than
+JSON - standing Q59, unchanged. Logged and carried on; no alternative route
+attempted, nothing clicked, typed or submitted anywhere. QUESTIONS.json
+re-read: 99 total, 46 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh the same way
+as every recent run: every "- [x] <N.N>" marker line read directly (43
+checked), each item's own paragraph range dated via `git log -1
+--format=%cI -L<start>,<end>:AGENT_WORKLIST.md`, run individually across
+the 36 pool items (43 checked minus the seven standing out-of-rotation
+items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, and minus 3.1, re-passed by the
+seventh run earlier today). Item 4.3 came out stalest at
+2026-09-06T20:10:19+01:00, the earliest of the pool - the previous run
+today (item 3.1) had been a separate, more recent item throughout its own
+history. Chosen: 4.3 (Hirshmans Chemist Ainsdale GBP pack).
+
+WORK. Read tools/check-gbp-packs.js in full (3607 lines) against all
+thirteen prior passes' own logged accounts (grepping this pack's own
+AGENT_WORKLIST.md entry for every rule name and injection already proven
+against ITS OWN copy specifically, not just proven anywhere in the estate)
+to find a genuinely untested angle. Found one: the streetNumber rule (born
+item 4.6 pass against mccanns-aigburth.md, 2026-08-13; extended to unit
+addresses item 4.9 pass), which the rule's own code comment names Hirshmans
+Ainsdale as a direct example of ("56-62 Sherwood House, Station Road", a
+hyphenated range), but which thirteen prior passes had never proven by
+injection here - only the ROAD NAME text (Station Road to Shakespeare Road,
+fifth pass), never the HOUSE NUMBER in front of it.
+
+Confirmed gbp-packs/hirshmans-ainsdale.md sha256
+94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8 unchanged
+since the thirteenth pass. Backed up to
+_agentscratch/hirshmans-ainsdale.md.bak-pre-4.3-fourteenth. Grepped the pack
+for every numbered mention of the branch's road and found only two: the
+"- Address:" line and a parenthetical quoting the live page's own correct
+text back (which shares the branch's number so would not have been caught
+regardless), so the "- Address:" line was the only live injection point,
+the same shape as the rule's own birth case.
+
+Changed the "- Address:" line's house number from "56-62" to "58-64" (a
+range matching no other branch), leaving every other mention of the
+branch's address untouched, applied directly to the tracked file with a
+sha256-verified backup taken first. node tools/check-gbp-packs.js exited 1
+with exactly three new lines, all explained by the one edit: the
+streetNumber FAIL itself; a second, separate addressLine FAIL confirming
+the rule's own documented warning that a wrong digit also silently disables
+the post-town rule beneath it; and a third knock-on FAIL from the checker's
+own KNOWN-list staleness guard correctly flagging the Q64 post-town
+exception as no longer matching a live fault once that rule stopped firing.
+The three standing WARNs (Q72 qualifiers, Post A's known phone-like number,
+Post A's known live-only link) were unchanged alongside them.
+
+CONTAINMENT: ran the full 35-checker suite (every tools/check-*.js)
+individually with the injection live. Only check-gbp-packs.js exited
+non-zero; the other 34, including check-postcodes.js and check-nap.js which
+read overlapping address facts, all exited 0.
+
+RESTORE: file restored by byte copy from the pre-injection backup (git
+checkout cannot be used to restore on this mount, the standing FUSE
+unlink quirk); sha256 reconfirmed identical to the backup
+(94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8).
+check-gbp-packs.js re-run alone: exit 0. `git status --porcelain --
+gbp-packs modules core branches.json` empty throughout and after. This
+pack is not a generator input, so no generator was run and nothing needed
+rebuilding.
+
+RESULT: zero in-repo defect. Closes the last named-but-unproven
+check-gbp-packs.js rule with direct textual evidence in this item's own
+copy (road-name rule proven fifth pass, claim-patterns rule proven seventh,
+bank-holiday rule proven eighth, pharmacy-first-eligibility rules 9/10/11
+proven ninth, splitDay rule proven tenth, day-presence rule proven
+eleventh, services/categories allowlist proven twelfth, post button
+CTA-label and lead-pricing rules proven thirteenth, streetNumber/
+addressLine/KNOWN-staleness proven this pass). Full detail in
+AGENT_WORKLIST.md's item 4.3 entry and in
+audits/streetnumber-reproof-4.3-2026-09-08-fourteenth.txt.
+
+LIVE HALF: Claude in Chrome not connected (same cause as step 3); fell back
+to the established read-only `Invoke-WebRequest` GET route. All five
+targets on hirshmanspharmacy.co.uk returned HTTP 200: the four Post
+buttons (pharmacy-first-service-ainsdale.html, switch-prescriptions-
+hirshmans-ainsdale.html, weight-loss-clinic-hirshmans-ainsdale.html,
+travel-clinic-hirshmans-ainsdale.html) plus the generated
+pharmacy-first-hirshmans-ainsdale.html replacement. Not re-read in full
+text this pass; last confirmed clean at depth on the tenth and eleventh
+passes. Post A's HARD STOP (wrong address, non-dialling phone, old
+branding - item 5.3/Q8/Q34) and Post B's live em-dash mojibake (item
+5.1/Q7, the same live-paste-lag family as Cherry Lane and Coleman and
+Leighs) remain the only two outstanding live findings, both already
+tracked, neither actionable from this repo (a Weebly paste, outside this
+worker's write scope).
+
+QUESTIONS: none raised this pass.
+
+STATUS PAGE: published via tools/build-audit-status.js (step 10) after
+commit and push.
+
+LOCK: deleted before exit (step 11), via mcp__Windows-MCP__PowerShell.
 ## 2026-09-08 (unattended scheduled run, seventh run today, via mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy - the Cowork sandbox mcp__workspace__bash mount could not delete its own stale .agent-lock ("Operation not permitted", standing Q87/Q96) so this run switched directly to the real host for the whole run, read and write both) - Item 3.1 quality pass (fourteenth, SEO title/H1 pattern): proved four never-before-exercised branches of tools/check-seo-pattern.js by injection, all at the "zero" boundary of rules previously proved only at their "two" (duplicate) boundary - h1Count===0, titleLineCount===0, descLineCount===0 (plus the separate dm-null "no SEO description line" path), and the data-source rule's third vacuity guard sourceChecked===0 ("read no buildable branch"); zero in-repo defect, no new question, live half unchanged (Fishlocks Ainsdale pattern verbatim)
 
 LOCK CHECK (step 1): `.agent-lock` on the real host at run start held a
