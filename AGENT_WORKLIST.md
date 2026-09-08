@@ -7778,6 +7778,151 @@ Done 2026-09-08 (fourteenth pass).
       AGENT_LOG.md (new entry); audits/verify-3.10-2026-09-07-thirteenth.js
       (new); audits/verify-3.10-2026-09-07-thirteenth-output.txt (new).
       Evidence in those two audit files. Done 2026-09-07
+      Quality pass 2026-09-09 (fourteenth pass, unattended scheduled run via
+      Cowork sandbox shell). LOCK CHECK (step 1): no .agent-lock present at
+      run start. A fresh, self-created .git/index.lock (0 bytes) appeared
+      after this run's own first `git status` call and could not be
+      unlinked directly on this FUSE mount ("Operation not permitted",
+      standing Q87/Q96); worked around by renaming it aside
+      (`mv .git/index.lock .git/index.lock.bak`), which succeeded where a
+      direct rm/chattr did not - confirmed git operated normally afterwards.
+      GIT SYNC (step 2): local branch tracking was pointed at a stale
+      "origin-https" remote showing "ahead by 1 commit", but the real
+      "origin" remote (git fetch origin) already carried that exact commit
+      (c02b60a) as its tip - the prior run's work had reached GitHub via a
+      different route than its own tracking branch recorded. Repointed the
+      tracking branch to origin/agents/audit-backlog and confirmed
+      `git pull --ff-only` reported already up to date; nothing lost, no
+      merge needed. ANSWER PICKUP (step 3): mcp__claude-in-chrome__navigate
+      to https://data.rbhealth.co.uk/api/feedback timed out on the hidden
+      tab lookup, then tabs_context_mcp explicitly reported "Claude in
+      Chrome is not connected" - standing Q59, unchanged. Logged and carried
+      on; no alternative route attempted, nothing clicked, typed or
+      submitted anywhere. QUESTIONS.json read directly: 100 total (before
+      this pass's own addition), 46 open. AUTONOMOUS WINDOW (step 4): no
+      "Standing authorisation - autonomous window" heading present at the
+      top of AGENT_LOG.md at run start; not applicable. ITEM SELECTION (step
+      5): all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+      direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60 [6.4, 6.5],
+      6.6), so the quality-pass fallback applied. Rotation pool re-derived
+      independently via the standard block-bounded git-log method over the
+      36-item pool (43 completed items minus the 7 standing out-of-rotation
+      items: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), dating each item's own
+      paragraph range with `git log -1 --format=%cI -L<start>,<end>`. Since
+      this run landed on a new calendar day with nothing yet touched today,
+      all 36 items were genuinely live candidates rather than the usual
+      handful; 3.10 came out stalest at 2026-09-07T21:43:21+01:00, ahead of
+      2.1 (22:43:49), 5.2 (23:43:07), 4.11 (2026-09-08T00:43:34+01:00) and
+      every other pool item - exactly matching the thirteenth pass's own
+      forward note. FRESH ANGLE: thirteen prior passes had proven check-nap,
+      check-em-dashes, check-service-links (JS-injected copy),
+      check-postcodes, check-branch-identity (5 applicable rules),
+      check-booking-routes (twice), check-switch-copy,
+      check-contraception-copy, check-travel-clinic-copy, check-jsonld (7 of
+      8 rules), check-seo-pattern and check-map-embeds (4 of 6 rules)
+      against Riddings' own pages/data by injection, and ruled
+      check-opening-hours structurally inapplicable (no branch landing page
+      for this branch). A grep of this item's full fourteen-pass section
+      against all 36 tools/check-*.js filenames returned zero hits for
+      tools/check-branch-links.js - never exercised against Riddings' own
+      branches.json record, the same class of gap the 3.9 fourteenth pass
+      closed for Coleman and Leighs Pharmacy the day before. Confirmed
+      Riddings carries every field this checker reads (odsCode, nhsEmail,
+      nhsReviewUrl, googleReviewUrl, website, pfLink) and has no sister
+      branch (single host), so all six rule families apply. WORK DONE. New
+      instrument, audits/verify-3.10-2026-09-09-fourteenth.js, matching the
+      discipline of every prior instrument on this item: shells out to the
+      real checker as a child process (no import from tools/), refuses to
+      run if branches.json already carries a git diff, records the
+      pre-mutation buffer and its sha256 once, restores from the in-memory
+      buffer immediately after capturing output and before any assertion,
+      sha256-reconfirms and re-checks `git status --porcelain --
+      branches.json` after every restore. Baseline clean: 16 branches, 1
+      pre-existing WARN (Clear Chemist Aintree's missing nhsReviewUrl,
+      standing and deliberate). Nine injections on Riddings' own record
+      (riddings_timperley), each restored byte-identical before the next:
+      (1) odsCode swapped to Smartts Chemist's real code (FQN70) - CAUGHT,
+      duplicate flagged, plus the resulting nhsEmail and nhsReviewUrl
+      mismatches this one edit also creates correctly fired as a bonus,
+      three FAILs from one mutation; (2) nhsEmail rewritten to an unrelated
+      address with odsCode left correct - CAUGHT; (3) nhsReviewUrl
+      truncated to stop at the ODS code, the exact Gordon Short Crosby
+      historical defect this checker exists to catch - CAUGHT; (4)
+      googleReviewUrl rewritten to a malformed shape missing "/r/" and
+      "/review" - CAUGHT; (5) googleReviewUrl set equal to Smartts Chemist's
+      real link - CAUGHT, "a review meant for one branch would land on the
+      other's listing"; (6) website given a path segment ("/shop") rather
+      than the trailing-slash shape an earlier pass used on a different
+      branch - CAUGHT, both the website-shape failure and the knock-on
+      pfLink-host failure it causes; (7) pfLink repointed at Smartts
+      Chemist's own Pharmacy First page (cross-host) - CAUGHT, but only the
+      host rule fired, not the ownership rule, because Smartts' pfLink uses
+      the legacy "pharmacy-first-service-<town>" naming that resolves to no
+      owner by design (Q8/5.3) - a genuine, correctly-behaved nuance worth
+      recording, not a miss; (8) pfLink rewritten to drop ".html" - CAUGHT;
+      (9) added specifically to reach the ownership rule's "else" branch
+      that (7) could not - pfLink repointed at Fishlocks Ainsdale's own page
+      instead, whose filename DOES resolve via the brandSlug-townSlug
+      suffix convention - CAUGHT, both the host rule and the ownership rule
+      together ("a Pharmacy First page belonging to fishlocks_ainsdale ...
+      It also sits off this branch's own host"), confirming the cross-host,
+      non-null-owner case fires correctly. All nine caught first attempt
+      with the expected field-specific message; branches.json confirmed
+      sha256-identical to its pre-test baseline and git-diff-empty after
+      every individual restoration and again at the end. Final re-run of
+      check-branch-links.js: exit 0, output identical to baseline. Full
+      36-checker suite re-run individually after the round: 36/36 exit 0.
+      All six generators (build-branch-landing-pages.js,
+      build-contraception-pages.js, build-service-pages.js,
+      build-switch-pages.js, build-travel-clinic-pages.js,
+      build-weight-loss-pages.js; build-audit-status.js excluded per
+      convention) rebuilt via their own scripts, all exit 0; `git status
+      --porcelain -- modules/ core/` empty before and after. RESULT: no
+      in-repo defect. check-branch-links.js was already correctly holding
+      Riddings' own branches.json record to all six rule families; now
+      proven directly by injection for the first time in fourteen passes.
+      LIVE HALF - NEW FINDING, NOT A REPO DEFECT. Claude in Chrome confirmed
+      not connected (see ANSWER PICKUP). Fell back to direct read-only curl
+      GETs (no browser tool involved, nothing clicked, typed or submitted):
+      homepage 200, pfLink page 200, googleReviewUrl 200. nhsReviewUrl,
+      fetched live for the first time on this item's own fourteen-pass
+      history (and, so far as this run could establish, for the first time
+      on this checker's series generally) with a browser-shaped User-Agent
+      and --compressed: Riddings' own link
+      (.../riddings-pharmacy/XFDW90/leave-a-review) returned HTTP 410 Gone,
+      page title "The 'Ratings and Reviews' service is no longer available -
+      NHS". Spot-checked four more branches on different NHS profile slugs
+      (Scorah Bramhall, Gordon Short Crosby, Tiffenbergs, Smartts Bootle) -
+      all four returned the identical 410 and title, confirming this is an
+      NHS-side platform retirement affecting the whole estate, not a
+      Riddings-specific or repo-side fault; the underlying NHS profile page
+      itself (without /leave-a-review) still returns 200 normally. Nothing
+      in branches.json is wrong by this checker's own rule - the URL shape
+      is exactly what NHS specified, the shape has simply stopped working.
+      This is not decorative data: build-branch-landing-pages.js prints this
+      link on six live branch landing pages (both Fishlocks, both McCanns,
+      both Scorah), and it is set for all fourteen branches with an
+      odsCode. A quick attempt to fetch the review-link button directly off
+      two of those six live pages (guessed URLs
+      fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html and
+      mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html) both 404'd - the
+      live paste filenames evidently differ from the repo's generated
+      filenames, so this did not confirm or deny the button in situ; raised
+      as a known gap in the question rather than guessed at further, to
+      keep this run inside its time budget. Raised as Q100 (new question,
+      recommended option: leave the six pages and branches.json unchanged
+      for now pending confirmation this is a permanent NHS retirement,
+      since removing a live button needs a supervised Weebly session per
+      CLAUDE.md's convention and is not a data-only repo change). FILES
+      CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md (new
+      entry); QUESTIONS.json (Q100 appended); the new
+      audits/verify-3.10-2026-09-09-fourteenth.js - no generator, page, data
+      field or checker file touched in the tracked tree, reconfirmed via
+      `git status --porcelain -- modules/ core/ tools/ branches.json
+      gbp-packs/` immediately before commit. Next stalest by this run's own
+      computation, for whoever runs the next unattended pass: 2.1
+      (2026-09-07T22:43:49+01:00), then 5.2, 4.11, 5.1 - re-derive rather
+      than assume, since other runs may land in between. Done 2026-09-09
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
