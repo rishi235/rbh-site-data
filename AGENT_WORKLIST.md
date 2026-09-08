@@ -3602,6 +3602,113 @@ reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-06T13:47:25+01:00), then 3.10, 2.1, 5.2 -
 re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-08 (fifteenth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Stalest item re-derived via the established git-log block method (36-item
+rotation pool, all eight currently-unchecked items confirmed [BLOCKED] by
+direct grep: 5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60 [6.4, 6.5], 6.6, so
+the quality-pass fallback applies): thirty-one of the thirty-six pool items had
+already been touched earlier the same day; of the five remaining candidates
+(2.1, 3.4, 3.9, 3.10, 5.2), 3.4 came out uniquely stalest at
+2026-09-07T17:42:14+01:00, ahead of 3.9 (20:21:08), 3.10 (21:43:21), 2.1
+(22:43:49) and 5.2 (2026-09-08T01:15:39+01:00).
+LOCK CHECK (step 1). No .agent-lock present via the Cowork sandbox mount at
+run start; created fresh. A fresh, self-created .git/index.lock (0 bytes,
+zero seconds old) appeared after this run's own first `git status` call and
+could not be unlinked from the FUSE mount ("Operation not permitted"), the
+same standing Q87/Q96 shape every recent pass has recorded; confirmed no git
+process running and left in place through the working half of the run,
+cleared via the PowerShell route immediately before commit.
+GIT SYNC (step 2). Both remotes (origin, origin-https - same URL, duplicate
+remote noise several recent passes have already flagged) fetched clean via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data checkout.
+Local HEAD matched both remotes exactly at run start, nothing to pull.
+Windows-MCP PowerShell also proved this run that `git push` succeeds
+cleanly from the real host with credentials already configured there (two
+commits queued by the day's earlier runs pushed without incident on first
+try) - consistent with, not a fresh finding beyond, the 2026-09-05 update
+already recorded on Q96/Q87. Those two questions are left open rather than
+self-answered: whether every future run should standardise on Windows-MCP
+over the sandbox shell for git/build work remains Rishi's call per their own
+note, not something this run should decide by quietly defaulting to it
+every time without his sign-off.
+ANSWER PICKUP (step 3). mcp__claude-in-chrome__list_connected_browsers
+returned [] - standing Q59, unchanged. Logged and carried on; no alternative
+route attempted for the answer fetch specifically, nothing clicked, typed,
+submitted or signed in anywhere. QUESTIONS.json read in full: 99 total, 46
+open, unchanged by pickup this run.
+AUTONOMOUS WINDOW (step 4). No "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start. Not applicable.
+THE GENUINELY UNTESTED ANGLE THIS PASS CLOSED. Fourteen prior passes proved,
+by direct injection against Cherry Lane's own pages and branch record,
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-whatsapp-
+route.js, check-service-links.js, check-switch-copy.js, check-branch-
+identity.js, check-booking-routes.js, check-seo-pattern.js and check-jsonld.js.
+tools/check-map-embeds.js - the checker guarding the one element on a page
+that does not merely tell a patient where the shop is but can drive them
+there, and the checker CLAUDE.md's own "The map at the bottom of every page"
+section names directly - had never been proven by injection against Cherry
+Lane's own pages, confirmed by a grep of this item's entire section (lines
+2949-3605, all fourteen prior passes) for "check-map-embeds" returning zero
+hits.
+New instrument, no import from tools/ beyond invoking the real checker as a
+child process (audits/verify-3.4-2026-09-08-fifteenth.js): refuses to run if
+any target already carries a git diff, records every target's sha256 before
+mutation, restores by direct fs.writeFileSync from an in-memory Buffer
+immediately after capturing the checker's output and before any assertion,
+sha256-reconfirms after every restore. Four injections, one at a time, on
+four Cherry Lane pages never used for injection testing on this checker
+before (contraception, impetigo, sinusitis and the switch page), each
+covering a different rule: (1) RULE the address - the map query's town
+changed from Liverpool to Bootle on the contraception page, the exact
+citation-consistency shape CLAUDE.md documents for this item's own
+fourth-pass defect and the same shape the fourteenth pass proved separately
+for check-jsonld's own map-query rule, caught, naming both the branch's own
+address and the wrong one the map now showed; (2) RULE agreement - the
+contact card's printed address changed to Bootle while the map underneath it
+was left alone, on the impetigo page, caught, quoting both the card text and
+the map's own value; (3) RULE encoding - a raw comma introduced into the map
+query on the sinusitis page (the "correct address, broken embed" fault
+CLAUDE.md's own file header calls out as the quieter failure mode), caught;
+(4) RULE coverage - a second, duplicate map iframe pasted onto the switch
+page, caught, naming the page and the embed count found (2, expected
+exactly 1). All four caught on first attempt with the expected rule tag; all
+four target files confirmed git-diff-empty and sha256-identical to their
+pre-test baseline throughout and after. Baseline and final runs of
+check-map-embeds.js both clean. Full 36-checker suite re-run individually
+before and after the round: 36/36 exit 0 both times. All six generators
+rebuilt via their own build-*.js scripts with git status --porcelain on
+modules/, core/, branches.json, gbp-packs/ and status/ empty before and
+after (byte-identical, aside from one pre-existing untracked FUSE artifact
+this run did not create) - no in-repo defect, nothing to fix.
+LIVE HALF. Claude in Chrome confirmed not connected
+(list_connected_browsers returned []), standing Q59. Fell back to a direct
+read-only curl GET (this run's equivalent of prior passes' PowerShell
+Invoke-WebRequest route) rather than leaving the live half unread. All four
+pages this pass's injections targeted read live for the first time against
+these exact map/contact-card fields: contraception, impetigo, sinusitis and
+switch-prescriptions (all cherry-lane-walton.html) all 200, all carrying map
+query "202 Cherry Lane, Liverpool, L4 8SG" and the identical contact-card
+line, matching branches.json and the repo-generated pages exactly - no drift
+found on any of the four. weight-loss-clinic-walton.html RECONFIRMS the
+seventh pass's Q86 finding still live and uncorrected, now 36 days since the
+repo fix: the page carries both the correct JSON-LD address ("Liverpool")
+and the stale prose address ("202 Cherry Lane, Walton, Liverpool L4 8SG") in
+the same document, unchanged since the fourteenth pass's own
+reconfirmation. The homepage's site-wide contact widget mailto addresses
+(the other half of Q86) again returned no "mailto:" string in a raw GET, the
+same JavaScript-rendering limitation every prior curl/Invoke-WebRequest pass
+has recorded; not claimed fixed or unfixed. Q86 not re-raised, no new
+question.
+WORKLIST AND COMMIT. This paragraph. New evidence file this run:
+audits/verify-3.4-2026-09-08-fifteenth.js. QUESTIONS.json re-read in full: 99
+total, 46 open, unchanged by pickup this run (Claude in Chrome not
+connected, standing Q59; no new question raised). Files changed and
+committed: AGENT_WORKLIST.md, the new audits/ file, and AGENT_LOG.md - no
+generator, page, data field or checker file touched in the tracked tree,
+reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-07T20:21:08+01:00), then 3.10, 2.1, 5.2 -
+re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
