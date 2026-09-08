@@ -15865,6 +15865,39 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       a URL a fetch could verify regardless. The twelfth pass's live verdicts
       stand, not re-verified this pass. No new question raised. Evidence in
       audits/tiffenbergs-aintree-category-service-allowlist-4.15-thirteenth-2026-09-07.txt.
+      Quality pass 2026-09-08 (fourteenth re-verification, repo half only):
+      pack verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: check-gbp-packs.js's photo shot list rule
+      (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates; born item 4.5
+      pass, 2026-08-30) had never been proven by direct injection against
+      THIS pack's own copy across thirteen prior passes, despite being
+      proven today against sibling packs riddings-timperley.md,
+      fishlocks-eccleston.md, smartts-bootle.md and coleman-leigh-walton.md
+      (items 4.13, 4.8, 4.10, 4.12). Full repo copied to a scratch directory
+      outside the tracked tree; all injections and checker runs against the
+      scratch copy only, tracked file never opened for writing. Three
+      injections, each restored by byte copy and sha256-reconfirmed
+      identical before the next: (1) the final photo bullet ("Hours notice
+      on the door...") removed, dropping the count from 10 to 9 - CAUGHT as
+      photoCount, first attempt; (2) "Vinyl" removed from the first bullet -
+      CAUGHT as photoVinyl, first attempt; (3) the pending-Google-updates
+      reminder removed from the section's intro line - CAUGHT as
+      photoGoogleUpdates, first attempt. All three legs fire independently
+      on this pack's own copy; no checker gap found. Full 35-checker suite
+      (excl. cdn-pins) re-run clean on the scratch copy after the final
+      restore; pack sha256 reconfirmed identical to baseline; tracked
+      repo's own copy confirmed byte-identical throughout, and
+      check-cdn-pins.js re-run separately against the tracked repo (needs
+      live git ref resolution): clean, 3 warnings, 7 known issues,
+      unchanged. Live half NOT performed: no browser connected
+      (list_connected_browsers empty, standing Q59); this rule governs pack
+      copy pasted into GBP's picker fields during a photo upload, not a URL
+      any read-only fetch could verify regardless, the same position the
+      identical rule's passes on 4.8, 4.10, 4.12 and 4.13 recorded today.
+      The eighth pass's live verdicts (2026-09-02) stand, not re-verified
+      this pass. No new question raised. Evidence in
+      audits/tiffenbergs-aintree-photo-shot-list-4.15-fourteenth-2026-09-08.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

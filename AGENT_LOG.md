@@ -1,3 +1,101 @@
+## 2026-09-08 (unattended scheduled run, twelfth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; switching to mcp__Windows-MCP__PowerShell for the commit/push and publish steps against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.15 quality pass (fourteenth, Tiffenbergs Chemist Aintree GBP pack): photo shot list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates) proved by injection against this pack's own copy for the first time in fourteen passes; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount. Created fresh at 2026-09-08T13:34:32Z (unix 1788870872). No
+`.git/index.lock` present at start; one appeared later purely as a
+side-effect warning of this sandbox's own read-only `git status`/`git
+diff --stat` calls ("Operation not permitted" on unlink, the standing
+Q87/Q96 FUSE restriction) and did not block any read command.
+
+SYNC (step 2): sandbox `git fetch origin` (SSH) not attempted this run;
+`git fetch origin-https` (HTTPS, anonymous read) succeeded and `git pull
+--ff-only origin-https agents/audit-backlog` reported already up to date -
+local HEAD already matched origin-https/agents/audit-backlog, confirming the
+previous eleven runs today reached origin successfully. Confirmed the sandbox
+has no push credentials for HTTPS (`git push origin-https ... --dry-run`
+fails "could not read Username for 'https://github.com'"), so the write half
+(commit/push, and the status-page publish) goes via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy, the same route the last several runs today used.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array - Claude in Chrome not connected (standing Q59,
+unchanged). Logged and carried on; no alternative route attempted, nothing
+clicked, typed or submitted anywhere. QUESTIONS.json read directly: 99 total,
+46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool: 43 completed items minus 7
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 11
+items already re-verified earlier today by this run-chain's own predecessors
+(4.12, 4.9, 4.10, 4.8, 4.13, 1.3, 3.1, 3.6, 3.12, 5.1, 4.11) = 25 remaining
+candidates. Each candidate's own AGENT_WORKLIST.md paragraph range (own
+checkbox line to the line before the next item's checkbox line) dated via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`. Item 4.15
+(Tiffenbergs Chemist Aintree) confirmed least recently touched at
+2026-09-07T02:43:29+01:00, exactly matching the eleventh run's own forward
+note ("next-nearest candidate (4.15, 2026-09-07T02:43:29+01:00)").
+
+WORK DONE: see AGENT_WORKLIST.md's own fourteenth-pass paragraph under item
+4.15 and audits/tiffenbergs-aintree-photo-shot-list-4.15-fourteenth-2026-09-08.txt
+for full detail. In short: full repo copied via rsync (excluding .git, the
+stray "C:/" literal-path folder, _agentscratch/ and this session's own
+scratch directory) to a scratch directory outside the tracked tree; the
+tracked pack (gbp-packs/tiffenbergs-aintree.md) never opened for writing this
+pass, confirmed unchanged throughout by sha256
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b, matching
+all thirteen prior passes since the ninth) both before and after. Baseline:
+35 of 36 checkers run individually against the scratch copy, all exit 0
+(check-cdn-pins.js excluded from the scratch sweep, needs live git ref
+resolution; run separately against the real tracked repo instead, confirmed
+clean: 0 failures, 3 warnings, 7 known issues awaiting a decision,
+unchanged). check-gbp-packs.js baseline on the tracked repo: 0 failures, 17
+warnings (standing known-exception set), unchanged. Chose the photo shot
+list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates; born item
+4.5 pass, 2026-08-30, proven this run-chain against riddings-timperley.md,
+fishlocks-eccleston.md, smartts-bootle.md and coleman-leigh-walton.md on
+items 4.13, 4.8, 4.10 and 4.12 earlier today) as the fresh angle, since it
+had never been injection-tested against this pack's own copy across thirteen
+prior passes on item 4.15 itself. This pack's shot list sits exactly on the
+PHOTO_MIN=10 floor (ten bullets, no headroom), matching the estate-wide
+pattern CLAUDE.md records. Three injections run against the scratch copy
+only, each restored from a byte-copy backup and sha256-reconfirmed identical
+before the next: (1) the final photo bullet ("Hours notice on the door...")
+removed, dropping the count to 9 - CAUGHT as photoCount, first attempt; (2)
+"Vinyl" removed from the first bullet - CAUGHT as photoVinyl, first attempt;
+(3) the pending-Google-updates reminder removed from the section's intro
+line - CAUGHT as photoGoogleUpdates, first attempt. All three legs fire
+independently on this pack's own copy; no checker gap found. Full
+35-checker suite (excl. cdn-pins) re-run clean on the scratch copy after the
+final restore; pack sha256 reconfirmed identical to baseline; tracked
+repo's own copy of the pack confirmed byte-identical throughout by the same
+sha256, checked before and after, and via `git status --porcelain --
+gbp-packs/tiffenbergs-aintree.md` returning empty. check-cdn-pins.js
+re-run on the tracked repo after this pass's work: clean, 3 warnings, 7
+known issues, byte-identical to the pre-pass baseline. No generator writes
+gbp-packs/, so nothing to regenerate; the pack itself was never modified.
+
+LIVE HALF: Claude in Chrome not connected (standing Q59, confirmed via
+`list_connected_browsers` returning empty). Not performed for this specific
+angle regardless, same reasoning as item 4.10's twelfth/thirteenth passes,
+item 4.13's fourteenth pass and item 4.12's fourteenth pass for this
+identical rule: the photo shot list governs copy pasted into a GBP picker
+field during a photo upload, not a URL a fetch could verify regardless. The
+2026-09-02 eighth-pass live verdicts for this pack stand, not re-verified
+this pass.
+
+RESULT: no in-repo defect found on this item's own subject. No new question
+raised; QUESTIONS.json unchanged at 99 total, 46 open. AGENT_WORKLIST.md
+updated in place (new paragraph appended under item 4.15, checkbox and
+original "Done 2026-08-04" date untouched, matching convention). Next: git
+add, commit, push via mcp__Windows-MCP__PowerShell against
+C:\Dev\rbh-site-data, then publish the status page via
+tools/build-audit-status.js, then release .agent-lock.
+
 ## 2026-09-08 (unattended scheduled run, eleventh run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; switched to mcp__Windows-MCP__PowerShell only for the commit/push and publish steps against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.12 quality pass (fourteenth, Coleman and Leighs Pharmacy Walton GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; plus an incidental fix, adding the previous run's own ZZ99 9ZZ probe value to check-postcodes.js's NARRATIVE_POSTCODES, closing a real 3-failure gap the run left behind
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork

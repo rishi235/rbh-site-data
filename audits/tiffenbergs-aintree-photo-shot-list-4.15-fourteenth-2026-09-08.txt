@@ -1,0 +1,91 @@
+Item 4.15 quality pass (fourteenth), 2026-09-08
+Tiffenbergs Chemist Aintree GBP pack (gbp-packs/tiffenbergs-aintree.md)
+
+Angle: tools/check-gbp-packs.js photo shot list rule (PHOTO_MIN/photoCount,
+photoVinyl, photoGoogleUpdates) - proved against this pack's own copy for the
+first time across thirteen prior passes. The rule had already been proven
+against riddings-timperley.md, fishlocks-eccleston.md, smartts-bootle.md and
+coleman-leigh-walton.md earlier in this run-chain (items 4.13, 4.8, 4.10,
+4.12) but never pointed at this pack. Confirmed by direct read of the thirteen
+prior pass write-ups under this item in AGENT_WORKLIST.md: "photo" appears
+once, in passing ("carried through to the photo shot list"), never as a
+dedicated injection.
+
+ITEM SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass
+fallback applied. Rotation pool: 43 completed items minus 7 standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 11 items
+already re-verified earlier today by this run-chain's own predecessors (4.12,
+4.9, 4.10, 4.8, 4.13, 1.3, 3.1, 3.6, 3.12, 5.1, 4.11) = 25 remaining
+candidates. Each candidate's own AGENT_WORKLIST.md paragraph range (from its
+own checkbox line to the line before the next item's checkbox line) dated via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`. Item 4.15 (this
+pack) confirmed least recently touched at 2026-09-07T02:43:29+01:00, matching
+the eleventh run's own forward note exactly ("next-nearest candidate (4.15,
+2026-09-07T02:43:29+01:00)").
+
+METHOD: full repo copied via rsync (excluding .git, C:/ literal-path folder,
+_agentscratch/ and this session's own scratch directory) to a scratch
+directory outside the tracked tree; the tracked pack was never opened for
+writing this pass, confirmed unchanged throughout by sha256
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b, matching
+all thirteen prior passes since the ninth) both before and after. Baseline: 35
+of 36 checkers run individually against the scratch copy, all exit 0
+(check-cdn-pins.js excluded from the scratch sweep only because it needs live
+git ref resolution and the scratch copy has no .git; run separately against
+the real tracked repo instead, where it is clean: 0 failures, 3 warnings, 7
+known issues awaiting a decision - unchanged). check-gbp-packs.js baseline on
+the tracked repo: 0 failures, 17 warnings (the standing known-exception set),
+unchanged.
+
+Three injections, each on the scratch copy's own file, each restored by
+direct file copy and sha256-reconfirmed identical
+(59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) before the
+next:
+
+INJECTION 1 (photoCount): removed the final photo bullet ("Hours notice on
+the door, close enough that the weekday lunch closure (1:00pm to 2:00pm) and
+the Saturday and Sunday closure are legible.") from the shot list, dropping
+the count from 10 (this pack's own count, matching the estate-wide "every
+pack sits exactly on 10, one on 11" pattern CLAUDE.md records) to 9. CAUGHT:
+"Photo shot list names 9 shots, and Build Pack v2 4.1 asks for at least 10."
+First attempt.
+
+INJECTION 2 (photoVinyl): removed the word "Vinyl" from the first bullet
+("Vinyl storefront lead shot where fitted..." became "Storefront lead shot
+where fitted..."). CAUGHT: "Photo shot list does not mention the vinyl
+storefront..." First attempt.
+
+INJECTION 3 (photoGoogleUpdates): removed the pending-Google-updates reminder
+from the section's intro line ("(Build Pack 4.1: at least 10 photos. While in
+the profile, also action any pending Google updates.)" became "(Build Pack
+4.1: at least 10 photos.)"). CAUGHT: "Photo shot list does not remind the
+paster to action any pending Google updates..." First attempt.
+
+All three legs of the rule fire independently on this pack's own copy. No
+checker gap found. Full 35-checker suite (excl. check-cdn-pins.js) re-run
+clean on the scratch copy after the final restore: 35/35 exit 0. Pack sha256
+reconfirmed identical to baseline. Tracked repo's own copy of the pack
+confirmed byte-identical throughout (same sha256, checked before and after
+this pass's work, and via `git status --porcelain -- gbp-packs/
+tiffenbergs-aintree.md` returning empty). No generator writes gbp-packs/, so
+nothing to regenerate.
+
+check-cdn-pins.js re-run on the tracked repo after this pass's work: clean, 3
+warnings, 7 known issues - byte-identical to the pre-pass baseline, confirming
+this pass's scratch-only work left the tracked repo untouched.
+
+LIVE HALF: no browser connected (`list_connected_browsers` returned an empty
+array, standing Q59). Not performed for this specific angle regardless, same
+reasoning as item 4.10's twelfth/thirteenth passes, item 4.13's fourteenth
+pass and item 4.12's fourteenth pass for the identical rule: the photo shot
+list governs copy pasted into a GBP picker field during a photo upload, not a
+URL any read-only fetch can verify. The 2026-09-02 eighth-pass live verdicts
+for this pack (switch banner mojibake, footer en dashes, tiffenbergs@ vs
+Tiffenberg@ email split (Q56, still open), the two stray live-only dashes on
+Posts B and C, and the regime-1 weight loss nav finding cross-referenced into
+Q58) stand as written, not re-verified this pass.
+
+No in-repo defect found on this item's own subject (the pack itself, or the
+photo shot list rule). No new question raised. QUESTIONS.json unchanged: 99
+total, 46 open.
