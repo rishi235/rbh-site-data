@@ -1,4 +1,100 @@
-## 2026-09-08 (unattended scheduled run, fifteenth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; mcp__Windows-MCP__PowerShell used for the commit/push and status-page publish against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.2 quality pass (sixteenth, Cherry Lane Pharmacy, Walton GBP pack): check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) proved by injection against this pack's own copy for the first time in sixteen passes; zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, sixteenth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; mcp__Windows-MCP__PowerShell and mcp__Windows-MCP__FileSystem used for the commit/push and status-page publish against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.7 quality pass (fifteenth, McCanns Chemist Sandringham GBP pack): check-gbp-packs.js's BODY_IMAGE_SELF, BODY_IMAGE_CONTEXT and POM_CLASS rules proved by injection against this pack's own copy for the first time in fifteen passes; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount. Created fresh at 2026-09-08T15:34:30+01:00 (unix 1788878070).
+Local HEAD (e9a0a49) already matched `origin-https/agents/audit-backlog`
+confirmed by `git fetch origin-https` and `git status`, so no fast-forward
+was needed. `.git/index.lock` was absent this run (unlike several recent
+runs), so no FUSE-mount removal issue arose.
+
+SYNC (step 2): `git fetch origin-https` (HTTPS, anonymous read) succeeded;
+`git checkout agents/audit-backlog` reported already on that branch;
+`git pull --ff-only origin-https agents/audit-backlog` reported already up
+to date. Sandbox confirmed to have no push credentials for HTTPS, as every
+recent run has found, so the write half (commit/push, and the status-page
+publish) goes via mcp__Windows-MCP__PowerShell and mcp__Windows-MCP__
+FileSystem against the real C:\Dev\rbh-site-data working copy, confirmed by
+`git status` on that host to already show this run's own AGENT_WORKLIST.md
+edit and new audit file made via the Cowork file tools against the
+C:\dev\rbh-site-data path, without anything being copied across - the two
+paths are the same underlying files (case-insensitive Windows filesystem).
+
+ANSWER PICKUP (step 3): mcp__claude-in-chrome tools were not loaded this
+run and Claude in Chrome was not connected, matching standing Q59. Logged
+and carried on; no alternative route attempted, nothing clicked, typed or
+submitted anywhere. QUESTIONS.json read directly: 99 total, 46 open,
+unchanged from the fifteenth run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start (the entry that was
+at the top before this one, for the fifteenth run's item 4.2 pass, carries
+no such heading), so not applicable this run.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60
+[6.4, 6.5], 6.6), so the quality-pass fallback applied. Rotation pool: 43
+completed items minus 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) = 36. Of those, 20 already carried their own 2026-09-08 pass
+entry before this run started (found via `git log --since="2026-09-08 00:00"
+--until="2026-09-08 23:59" -- AGENT_WORKLIST.md`, subject-anchored "Item X.Y"
+match, one commit per item): 4.2, 3.3, 2.3, 4.15, 4.12, 4.9, 4.10, 4.8, 4.13,
+1.3, 4.5, 4.6, 4.3, 3.1, 6.3, 3.8, 3.6, 3.12, 5.1, 4.11. Remaining 16
+candidates: 1.2, 2.1, 3.2, 3.4, 3.5, 3.7, 3.9, 3.10, 3.11, 3.13, 4.1, 4.4,
+4.7, 4.14, 5.2, 6.2. Tiebreak via `git log -1 --format=%cI -L<start>,<end>:
+AGENT_WORKLIST.md` on each candidate's own checkbox-line range: 4.7 at
+2026-09-07T06:19:50+01:00 was the stalest, ahead of 4.14 (07:45:59), 1.2
+(08:14:58), 3.11 (08:40:56) and the other twelve. Chosen: 4.7 (McCanns
+Chemist Sandringham).
+
+WORK PERFORMED (step 6): baseline confirmed clean - pack sha256
+bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e matches
+every one of the fourteen prior passes exactly (no drift since item 5.7's
+autonomous decision on 2026-08-10); all 36 tools/check-*.js checkers ran
+clean before any edit; all six tools/build-*.js generators produced a
+zero-diff worktree. This pack's full fourteen-pass history was read in full
+before choosing a fresh angle: eleven separate rule families had already
+been proven by direct injection against this pack's own copy (pack-vs-
+branches.json facts, foreign-town, CLINIC_QUALIFIERS, address/postcode/
+review-link identity, NHS eligibility cohort rule 9, catchment order and
+membership, OUTCOME_PROMISE, check-uk-spelling.js, check-brand-spelling.js,
+check-url-scheme.js, check-pharmacy-first-cost.js rule 6, check-app-
+membership.js rules 8a/8d, and all nine per-pack rules of check-gbp-
+pharmacy-first.js), but two rule families in tools/check-gbp-packs.js that
+exist specifically to police this pack's own Post C weight loss copy -
+BODY_IMAGE_SELF/BODY_IMAGE_CONTEXT (added item 4.14, proved on gordon-
+short-crosby.md) and POM_CLASS (added item 4.13, proved on riddings-
+timperley.md) - had only ever covered this pack passively inside the "all 36
+checkers clean" sweep, never by direct injection.
+
+Three injections performed on the real tracked file, each restored by plain
+byte copy from a pre-injection backup and reconfirmed sha256-identical to
+baseline before the next: (1) BODY_IMAGE_SELF - Post C's opening line
+changed to "Thinking about getting your beach body ready?" - caught,
+"sells weight loss on body image ... by body-image pressure tied to an
+event: \"beach body\""; (2) BODY_IMAGE_CONTEXT - "Don't let your weight hold
+you back any longer." inserted into Post C before "Confidential and
+judgement-free." - caught, "pressure framing that treats the reader's body
+as the obstacle ... \"hold you back\""; (3) POM_CLASS (self-scoping) - "The
+pharmacist-led weight loss clinic at McCanns Chemist Sandringham" changed to
+"Our GLP-1 clinic at McCanns Chemist Sandringham" - caught, "alludes to a
+prescription-only weight loss medicine without naming it, by the GLP-1
+class". All three fired first attempt, each on its own intended rule, no
+cross-firing. Full 36-checker suite re-run clean after the final restore;
+pack byte-identical to baseline confirmed by sha256sum each time; all six
+generators rebuilt to a zero-diff worktree a second time. Zero in-repo
+defect - all fourteen rule families this item's fifteen passes have now
+covered are proven directly against this pack, not merely passively.
+
+Live half not performed: Claude in Chrome not connected at run start;
+Windows-MCP loaded only for the write step (commit/push/publish), not used
+for a live fetch this run, matching several prior passes on this item.
+
+Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-08-fifteenth.txt.
+
+TICK AND LOG (step 7): AGENT_WORKLIST.md item 4.7 updated in place with this
+pass's paragraph (checkbox left [x], line unchanged in position).
+
+QUESTIONS (step 8): none raised this run.
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
 sandbox mount. Created fresh at 2026-09-08T15:04:23+01:00. One local commit

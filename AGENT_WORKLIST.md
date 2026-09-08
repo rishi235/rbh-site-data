@@ -12098,6 +12098,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       RBH_DIGITAL_BUILD_PACK_v2.md was possible, as in every prior pass on
       this item. No new question. Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-07-fourteenth.txt.
+      Quality pass 2026-09-08 (fifteenth, unattended scheduled run, Cowork
+      sandbox shell only). Taken because all 8 unchecked worklist lines are
+      [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60, 6.6, confirmed
+      by direct grep); item-selection method unchanged - subject-anchored
+      "Item X.Y" match across the 36-item rotation pool. 4.7 was stalest, last
+      touched 2026-09-07T06:19:50+01:00 (its own fourteenth pass), ahead of
+      4.14, 1.2 and 3.11. Baseline: all 36 checkers clean before any edit;
+      pack sha256 bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1
+      a893e matches every prior pass, no drift. FRESH ANGLE: fourteen prior
+      passes had proven eleven separate rule families against this pack's own
+      copy by injection, but never BODY_IMAGE_SELF, BODY_IMAGE_CONTEXT or
+      POM_CLASS in tools/check-gbp-packs.js, both added on other items
+      (4.14 and 4.13) and proven on other packs, and both existing
+      specifically to police this pack's own Post C weight loss copy. Three
+      injections on the real file, each restored by byte copy and sha256-
+      reconfirmed before the next: (1) BODY_IMAGE_SELF - Post C's opening
+      line changed to "Thinking about getting your beach body ready?" -
+      caught, "sells weight loss on body image ... by body-image pressure
+      tied to an event"; (2) BODY_IMAGE_CONTEXT - "Don't let your weight hold
+      you back any longer." inserted into Post C - caught, "pressure framing
+      that treats the reader's body as the obstacle"; (3) POM_CLASS - "The
+      pharmacist-led weight loss clinic" changed to "Our GLP-1 clinic" -
+      caught, "alludes to a prescription-only weight loss medicine without
+      naming it, by the GLP-1 class". All three fired first attempt, each on
+      its intended rule. Full 36-checker suite re-run clean after final
+      restore; pack byte-identical to baseline confirmed by sha256; all six
+      generators rebuilt to a zero-diff worktree. Zero in-repo defect - all
+      fourteen rule families now proven directly against this pack across
+      fifteen passes. Live half not performed: Claude in Chrome not connected
+      (Q59, unchanged); Windows-MCP not loaded this run. No new question.
+      Evidence:
+      audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-08-fifteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

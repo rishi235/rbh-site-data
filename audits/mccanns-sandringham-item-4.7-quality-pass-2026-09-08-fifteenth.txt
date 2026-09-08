@@ -1,0 +1,109 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - quality pass, fifteenth,
+2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash
+throughout; Claude in Chrome not connected - Q59, unchanged; Windows-MCP not
+loaded this run).
+
+ROTATION SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60 [6.4, 6.5], 6.6), so the
+quality-pass fallback applied per step 5. Rotation pool: 43 completed items
+minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+= 36. Of those, 20 already carried their own 2026-09-08 pass entry before this
+run started, confirmed via `git log --since="2026-09-08 00:00" --until=
+"2026-09-08 23:59" -- AGENT_WORKLIST.md` (one commit per item, subject-
+anchored "Item X.Y" match): 4.2, 3.3, 2.3, 4.15, 4.12, 4.9, 4.10, 4.8, 4.13,
+1.3, 4.5, 4.6, 4.3, 3.1, 6.3, 3.8, 3.6, 3.12, 5.1, 4.11. Remaining 16
+candidates: 1.2, 2.1, 3.2, 3.4, 3.5, 3.7, 3.9, 3.10, 3.11, 3.13, 4.1, 4.4, 4.7,
+4.14, 5.2, 6.2. Tiebreak via `git log -1 --format=%cI -L<start>,<end>:
+AGENT_WORKLIST.md` on each candidate's own checkbox-line-to-next-checkbox-line
+range: 4.7 at 2026-09-07T06:19:50+01:00 was the stalest, ahead of 4.14
+(07:45:59), 1.2 (08:14:58), 3.11 (08:40:56) and the other twelve. Chosen: 4.7
+(McCanns Chemist Sandringham).
+
+BASELINE
+`sha256sum gbp-packs/mccanns-sandringham.md` = bc9ab580dd9a5532a3fec55d05c599f
+9d5fc98f3a3bb9ba9f5882bd65e1a893e - matches every one of the fourteen prior
+passes' recorded value exactly, confirming no drift since the pack was last
+touched (item 5.7's autonomous decision, 2026-08-10). All 36 tools/check-*.js
+checkers run clean on the tracked tree before any edit. All six page
+generators (tools/build-*.js) rebuilt to a zero-diff worktree
+(`git status --porcelain -- modules core` empty after running every
+generator).
+
+FRESH ANGLE
+The pack's full fourteen-pass history was read end to end before choosing
+where to look. Rules already proven by direct injection against this pack's
+own copy across the fourteen prior passes: pack-vs-branches.json fact checks
+(every pass), the foreign-town rule (fourth pass), CLINIC_QUALIFIERS (fifth
+pass), the OWN/FOREIGN-street abbreviation-aware address rule and review-link
+identity (second, eighth and ninth passes), the NHS eligibility cohort rule 9
+in check-pharmacy-first-eligibility.js (third and eighth passes), the
+catchment order and membership rules (thirteenth and eighth passes),
+OUTCOME_PROMISE against this pack's own Post D (sixth pass, and this rule
+family was originally added on this item), check-uk-spelling.js,
+check-brand-spelling.js and check-url-scheme.js (tenth pass),
+check-pharmacy-first-cost.js rule 6 and check-app-membership.js rules 8a/8d
+(eleventh pass), and all nine per-pack rules of check-gbp-pharmacy-first.js -
+rules 2, 2b, 3, 4, 5, 6, 7, 8, 9 (twelfth, thirteenth and fourteenth passes).
+
+Two rule families in tools/check-gbp-packs.js were never once tested by
+injection against THIS pack, despite both existing specifically to police
+Post C on this pack (a weight loss clinic post): BODY_IMAGE_SELF/
+BODY_IMAGE_CONTEXT (added item 4.14 quality pass, proved by injection on
+gordon-short-crosby.md) and POM_CLASS (added item 4.13 quality pass, proved
+by injection on riddings-timperley.md). Both had only ever covered this pack
+passively, inside the "all 36 checkers clean" sweep every pass runs, the same
+coverage-vs-proof gap this item's own prior passes have repeatedly closed for
+other rule families.
+
+INJECTIONS (three, each on the real tracked file, restored by plain byte copy
+from a pre-injection backup and reconfirmed sha256-identical to baseline
+before the next)
+
+1. BODY_IMAGE_SELF. Post C's opening line "Thinking about losing weight with
+   proper support?" changed to "Thinking about getting your beach body
+   ready?" - CAUGHT by check-gbp-packs.js: "this pack sells weight loss on
+   body image rather than on the service, by body-image pressure tied to an
+   event: \"beach body\"."
+   Restored; sha256 reconfirmed bc9ab580...893e.
+
+2. BODY_IMAGE_CONTEXT. "Don't let your weight hold you back any longer."
+   inserted into Post C immediately before "Confidential and judgement-free."
+   - CAUGHT by check-gbp-packs.js: "this pack uses pressure framing that
+   treats the reader's body as the obstacle in its weight loss copy: \"hold
+   you back\"."
+   Restored; sha256 reconfirmed bc9ab580...893e.
+
+3. POM_CLASS (self-scoping). Post C's "The pharmacist-led weight loss clinic
+   at McCanns Chemist Sandringham" changed to "Our GLP-1 clinic at McCanns
+   Chemist Sandringham" - CAUGHT by check-gbp-packs.js: "this pack alludes to
+   a prescription-only weight loss medicine without naming it, by the GLP-1
+   class: \"GLP-1\"."
+   Restored; sha256 reconfirmed bc9ab580...893e.
+
+All three fired first attempt, each on its own intended rule, no cross-firing
+and no other checker firing. Full 36-checker suite re-run clean after the
+final restore. All six generators rebuilt to a zero-diff worktree a second
+time. `git status --porcelain -- gbp-packs modules core tools` empty
+throughout (excluding this run's own untracked .agent-lock artefacts, which
+are outside this item's scope).
+
+RESULT
+No in-repo defect found. BODY_IMAGE_SELF, BODY_IMAGE_CONTEXT and POM_CLASS now
+proven directly against this pack for the first time, alongside the eleven
+other rule families already proven across the prior fourteen passes. No new
+question.
+
+LIVE HALF
+Not performed. Claude in Chrome not connected at run start (list_connected_
+browsers/tabs_context_mcp both report no browser, matching standing Q59);
+Windows-MCP not loaded this run, so no PowerShell fallback and no cross-check
+against RBH_DIGITAL_BUILD_PACK_v2.md, matching several prior passes on this
+item (fourteenth pass had the same gap).
+
+NEXT STALEST for whoever runs the next unattended pass, per this run's own
+tiebreak computation: 4.14 (2026-09-07T07:45:59+01:00), then 1.2 (08:14:58),
+then 3.11 (08:40:56), then 4.4 (09:52:42) - should be re-derived fresh with
+the subject-anchored commit-subject method, not trusted verbatim, since a
+same-day pass on any of these before the next run starts would change the
+pick.
