@@ -20217,6 +20217,62 @@ of AGENT_LOG.md for the exact commands and their output.
       QUESTIONS.json re-read in full: 98 total, 45 open, no pickup available
       this run (list_connected_browsers returned no connected browsers), no
       new question raised. Evidence: audits/verify-6.2-2026-09-07-eleventh.js.
+      Twelfth quality pass, 2026-09-08 (unattended scheduled run). ONE REAL
+      DEFECT FOUND AND FIXED, in shared infrastructure, not in
+      check-service-links.js's own rule logic. Live half not attempted:
+      Claude in Chrome reported not connected. The four 2026-08-14 findings
+      (Riddings switch permalink, Riddings /clinic-prices, Tiffenbergs
+      book-now.html) are not re-read and not re-claimed, Q53/Q54 stay open
+      unchanged.
+      FRESH ANGLE: check-service-links.js's own header states RULE 3's
+      medicine union "stops outright on an empty union so a silently empty
+      list can never present itself as a clean estate (the run-151 lesson)".
+      Grepped this item's eleven-pass history for "POM name union",
+      "POM_NAMES.length" and "empty POM": zero matches. That fail-safe had
+      never been proven, and no pass had asked whether tools/pom-names.js's
+      OTHER four consumers (check-pharmacy-first-symptoms.js,
+      check-weight-loss-copy.js, check-travel-clinic-copy.js,
+      check-switch-copy.js) share the same protection.
+      METHOD: full-repo scratch copy (never the live tree). Control run:
+      all five consumers exit 0 on the unmutated copy. INJECTION: all five
+      source arrays in the scratch copy's tools/pom-names.js (WEIGHT_LOSS,
+      PHARMACY_FIRST, CONTRACEPTION, TRAVEL_VACCINES, ANTIMALARIALS) emptied.
+      RESULT BEFORE FIX: check-service-links.js and
+      check-pharmacy-first-symptoms.js both correctly failed;
+      check-weight-loss-copy.js, check-travel-clinic-copy.js and
+      check-switch-copy.js all stayed at exit 0, reporting "OK - no
+      failures" and "0 medicine name(s) barred" as if by design - a real,
+      previously undiscovered gap in three of five consumers of shared
+      infrastructure.
+      FIX: a matching "stop rather than silently pass" guard added to each
+      of the three gap checkers, same convention as the two that already had
+      one. check-travel-clinic-copy.js checks its own
+      pom.union(TRAVEL_VACCINES, ANTIMALARIALS) for emptiness;
+      check-switch-copy.js checks its own pom.union(WEIGHT_LOSS,
+      PHARMACY_FIRST, CONTRACEPTION); check-weight-loss-copy.js checks
+      pom.WEIGHT_LOSS directly, since it calls no union() and reuses that one
+      array across all three of its RULE 8 passes (page copy, branch landing
+      pages, Weebly paste blocks).
+      VERIFICATION: fresh scratch copy from the fixed live tree, control
+      clean, same injection re-run - all five checkers now correctly fail,
+      each firing only its own guard, no cross-contamination. Self-contained
+      evidence script (audits/verify-6.2-2026-09-08-twelfth.js: builds its
+      own os.tmpdir() scratch copy, controls, injects, re-checks, restores
+      and deletes the scratch copy, never touches the live tree) run
+      directly against the live repo: exit 0, all five caught. Full
+      36-checker suite re-run individually after the fix: 36/36 exit 0.
+      git status --porcelain -- gbp-packs modules core branches.json tools
+      status: only the three intended checker files plus the new audit
+      script changed, apart from the pre-existing untouched
+      gbp-packs/.fuse_hidden0000000400000001 (standing Q87).
+      sha256sum tools/pom-names.js unchanged - the fix touches only the
+      three consumer checkers, not the shared list file. No generator, page,
+      branches.json field or patient-facing copy changed; no regeneration
+      needed. Never fires on the live tree today: MEDICINE_NAMES (travel) is
+      51 names, POM (switch) is 31 names, pom.WEIGHT_LOSS is 21 names, all
+      populated - a latent-gap closure, not a live breach, the same shape
+      every 6.2 finding before this one has taken. No new question raised.
+      Evidence: audits/verify-6.2-2026-09-08-twelfth.js.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

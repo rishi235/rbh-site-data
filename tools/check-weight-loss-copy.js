@@ -551,6 +551,25 @@ if (feeStrings.length > 1) {
 // WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md. If the house position on inner pages is
 // ever relaxed, relax it in the generator header and here together.
 // ---------------------------------------------------------------------------
+// Stop rather than silently pass on an emptied source list. Added on the item
+// 6.2 quality pass (twelfth), 2026-09-08: check-service-links.js and
+// check-pharmacy-first-symptoms.js already refuse to run on an empty POM
+// list (the run-151 lesson - a silently empty list must never present itself
+// as a clean estate), but this checker's own use of pom.WEIGHT_LOSS (here and
+// again at the landing-page and Weebly-paste-block checks below) had no
+// equivalent guard, so a mistake that emptied tools/pom-names.js's
+// WEIGHT_LOSS array would have left every one of rule 8's three passes
+// silently checking nothing and reporting "0 medicine name(s) barred" as
+// clean. Proved by injection against a scratch copy before this fix: the
+// same WEIGHT_LOSS/PHARMACY_FIRST/CONTRACEPTION/TRAVEL_VACCINES/ANTIMALARIALS
+// emptying that correctly fails check-service-links.js left this checker at
+// exit 0. Never fires today: pom.WEIGHT_LOSS is 21 names long on the live
+// tree.
+if (!pom.WEIGHT_LOSS.length) {
+  fail("medicine-union", "empty", "tools/pom-names.js's WEIGHT_LOSS list is empty, " +
+    "so rule 8 covered nothing on any of the three page/copy checks it runs against");
+}
+
 // Every name is reported, not just the first: a page that has drifted has
 // usually drifted more than once, and a checker that stops at the first hit
 // makes that look like a one-word fix.

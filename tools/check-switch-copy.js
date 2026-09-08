@@ -646,6 +646,24 @@ if (figures.length > 1) {
 // each list was typed.
 var pom = require("./pom-names.js");
 var POM = pom.union(pom.WEIGHT_LOSS, pom.PHARMACY_FIRST, pom.CONTRACEPTION);
+
+// Stop rather than silently pass on an emptied source list. Added on the item
+// 6.2 quality pass (twelfth), 2026-09-08: check-service-links.js and
+// check-pharmacy-first-symptoms.js already refuse to run on an empty POM
+// union (the run-151 lesson - a silently empty list must never present
+// itself as a clean estate), but this checker's own POM had no equivalent
+// guard, so a mistake that emptied tools/pom-names.js's source arrays would
+// have left this checker reporting "OK" with zero medicine checks performed
+// rather than stopping the run. Proved by injection against a scratch copy
+// before this fix: emptying WEIGHT_LOSS/PHARMACY_FIRST/CONTRACEPTION/
+// TRAVEL_VACCINES/ANTIMALARIALS in tools/pom-names.js left this checker at
+// exit 0 while check-service-links.js correctly failed. Never fires today:
+// POM is 31 names long on the live tree.
+if (!POM.length) {
+  fail("medicine-union", "empty", "the medicine list read from tools/pom-names.js " +
+    "(WEIGHT_LOSS + PHARMACY_FIRST + CONTRACEPTION) is empty, so the medicine-name rule covered nothing");
+}
+
 var CLINICAL = [
   { re: /\b(?:cure|cures|guaranteed results|clinically proven|proven to)\b/i, what: "an outcome claim" },
   { re: /\bbetter (?:health|outcomes) (?:if|when) you switch\b/i, what: "a health outcome tied to switching" }
