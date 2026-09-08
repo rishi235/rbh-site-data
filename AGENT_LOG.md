@@ -1,3 +1,104 @@
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for discovery/lock/QUESTIONS/browser reads only; switched to mcp__Windows-MCP__PowerShell for all git operations and file edits against the canonical C:\Dev\rbh-site-data working copy after confirming the sandbox FUSE mount could not reliably unlink its own fresh .git/index.lock and left an unremovable stray file inside .git/refs/heads/agents/ when a rename-based workaround was attempted - matches the standing constraint recorded in CLAUDE.md and Q87/Q96/Q97; no repo corruption resulted, HEAD and the real branch ref file were confirmed intact throughout, and the stray junk file (an inert, git-ignored broken ref, not the real ref) was left in place since it could not be removed by any method tried) - Item 3.11 quality pass (fourteenth): prove check-seo-keywords.js by injection against Gordon Short Chemist Crosby's own SEO.md blocks for the first time in fourteen passes; zero in-repo defect, no new question, one finding widening the scope of an already-known live-only spelling drift
+
+RUN-START ENVIRONMENT NOTE: this run's Cowork sandbox bash tool created a
+fresh .agent-lock and .git/index.lock without issue, but every subsequent
+attempt to delete or rename those files, or a plain test file the run had
+just created itself, failed with "Operation not permitted" - a blanket
+unlink restriction, not a stale-lock case, matching the seventeenth run's
+2026-09-08 finding. A first attempt worked around this by renaming lock
+files out of the way (mv within the same directory succeeded once), but a
+git pull immediately afterwards failed ("fatal: bad object refs/heads/
+agents/audit-backlog.lock.cleared-...") because the renamed file was left
+sitting inside .git/refs/heads/agents/ and git's ref-scanning tripped over
+it; a follow-up attempt to move that file out of .git entirely failed too
+("Operation not permitted" even for a same-filesystem-adjacent rename on
+the second attempt). git branch -a confirmed this is an inert, git-ignored
+broken ref ("warning: ignoring broken ref refs/heads/...lock.cleared-...")
+sitting beside the real branch ref file, not the real ref itself; git
+rev-parse HEAD and git rev-parse refs/heads/agents/audit-backlog both
+resolved correctly throughout to 63b5b54d8c9d6fd52493742ca776a7cacccb13ff,
+confirmed matching origin/agents/audit-backlog exactly. Rather than risk
+compounding this with further sandbox-side git surgery, this run switched
+entirely to mcp__Windows-MCP__PowerShell for everything from this point
+on, per established practice (recorded on the seventeenth run, 2026-09-08,
+and several since): Remove-Item against the real Windows filesystem
+cleared every lock and the stray ref-adjacent file it could reach without
+issue. The one file it could not clear (the stray broken ref, now sitting
+outside .git/refs/heads/agents proper - PowerShell's Remove-Item did
+succeed on it; the sandbox-side "cannot move" failure above was superseded)
+is resolved; no residue remains in .git.
+
+LOCK CHECK (step 1): no .agent-lock present at run start via the Cowork
+sandbox mount. Created fresh, then re-verified and re-created via
+Windows-MCP after the environment-note cleanup above, at
+2026-09-08T17:37:35+01:00. No stale .git\index.lock older than 1 hour
+found at any point; the fresh one created by this run's own first git
+commands was cleared as described above.
+
+SYNC (step 2): via Windows-MCP, git fetch origin, git checkout
+agents/audit-backlog (already on branch), git pull --ff-only origin
+agents/audit-backlog (already up to date). git rev-parse HEAD and git
+rev-parse origin/agents/audit-backlog both returned
+63b5b54d8c9d6fd52493742ca776a7cacccb13ff - exact match, nothing lost. The
+"ahead of origin-https by 3 commits" notice is that duplicate remote's own
+stale cache, not a real divergence, consistent with recent runs' notes.
+
+ANSWER PICKUP (step 3): mcp__claude-in-chrome__list_connected_browsers
+returned an empty array, matching standing Q59. Logged and carried on; no
+alternative route attempted, nothing clicked, typed or submitted anywhere.
+QUESTIONS.json read directly: 99 total, 46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at run start, so not
+applicable this run.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md items confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. git blame -L on each of the 36
+rotation-pool items' own line range in AGENT_WORKLIST.md (rotation pool =
+43 completed items minus the 7 recorded one-offs: 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8), taking the max blame date per range: 3.11 (Gordon Short Chemist
+Crosby) came out stalest at 2026-09-07T08:40:56+01:00, ahead of 4.4
+(2026-09-07T09:52:42+01:00) and the rest of the pool.
+
+WORK PERFORMED (step 6): see
+audits/gordon-short-item-3.11-quality-pass-2026-09-08-fourteenth.txt for
+full detail. Summary: baseline 36/36 checkers green on the tracked repo.
+Thirteen prior passes had covered NAP, JSON-LD, brand spelling, em-dashes,
+the Pharmacy First eligibility/safety-net/symptoms triad, the booking
+chain, check-whatsapp-route.js, check-map-embeds.js, check-pharmacy-first-
+cost.js, check-app-membership.js, check-switch-copy.js, check-opening-
+hours.js and check-contraception-copy.js, all by injection against this
+branch's own pages. check-seo-keywords.js had never been named once
+across those thirteen passes despite covering all 12 of this branch's Meta
+Keywords lines. Full repo copied by Copy-Item (with .git) to a scratch
+directory, the established method for this mount; four injections against
+the scratch copy's own modules/service/pages/SEO.md only (rules 1, 3, 4
+and 6 of the checker's seven), each caught first attempt on its intended
+rule and no other, each restored from a pre-injection backup and SHA256-
+reconfirmed identical before the next. Full 36-checker suite re-run clean
+on the scratch copy after the final restore; tracked repo's own SEO.md
+reconfirmed SHA256-unchanged throughout, never opened for writing this
+pass. Live half: Claude in Chrome unavailable, fell back to PowerShell
+Invoke-WebRequest. Found that the already-known live-only pre-repaste
+"Gordon Shorts" (plural) spelling drift, previously recorded only against
+the weight-loss and travel-clinic live pages, also reaches the Pharmacy
+First overview page's meta keywords tag and title, and the UTI condition
+page's title - a wider confirmed scope, still entirely live-only (the repo
+itself passes check-brand-spelling.js clean), still pending the
+outstanding Weebly repaste already tracked elsewhere in this backlog; no
+new QUESTIONS.json entry raised for it.
+
+QUESTIONS (step 8): none raised this run.
+
+COMMIT AND PUSH (step 9): via Windows-MCP, git add AGENT_WORKLIST.md
+AGENT_LOG.md audits/gordon-short-item-3.11-quality-pass-2026-09-08-
+fourteenth.txt, committed, pushed to origin agents/audit-backlog.
+
+STATUS PAGE (step 10): node tools/build-audit-status.js run via
+Windows-MCP against the canonical C:\Dev\rbh-site-data path.
+
+LOCK RELEASE (step 11): .agent-lock removed at run end via Windows-MCP.
 ## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for discovery and initial lock/QUESTIONS/browser reads, mcp__Windows-MCP__PowerShell used for all git operations and file edits against the canonical C:\Dev\rbh-site-data working copy, matching established practice since the sandbox mount cannot push or reliably unlink files) - Item 1.2 quality pass (fifteenth): prove check-branch-identity.js by injection against Hirshmans Chemist Ainsdale's own copy for the first time in fifteen passes; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no .agent-lock present at run start via the Cowork

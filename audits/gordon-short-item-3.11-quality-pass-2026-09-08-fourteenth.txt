@@ -1,0 +1,115 @@
+﻿Item 3.11 fourteenth quality pass, 2026-09-08 (unattended scheduled run)
+Gordon Short Chemist Crosby (gordonshorts_crosby)
+
+SELECTION: all 8 unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass
+fallback applied. Rotation pool = 43 completed items minus the 7 recorded
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36 items. git blame -L on
+each item's own line range in AGENT_WORKLIST.md, max blame date per range:
+3.11 stalest at 2026-09-07T08:40:56+01:00, ahead of 4.4 (2026-09-07T09:52:42)
+and the rest of the pool. This is 3.11's own thirteenth-pass commit
+timestamp, so nothing else has touched this item's block since.
+
+PRIOR COVERAGE (thirteen passes): NAP, JSON-LD, brand spelling, em-dashes,
+the Pharmacy First eligibility/safety-net/symptoms triad, the booking
+chain, check-whatsapp-route.js, check-map-embeds.js,
+check-pharmacy-first-cost.js, check-app-membership.js,
+check-switch-copy.js, check-opening-hours.js and check-contraception-copy.js
+had all been proven by direct injection against this branch's own pages.
+check-seo-keywords.js had never been named once across those thirteen
+passes, despite covering all 12 of this branch's Meta Keywords lines in
+modules/service/pages/SEO.md - the same class of gap prior passes closed
+in turn for other checkers on this same item.
+
+BASELINE: all 36 tools/check-*.js exit 0 on the untouched, tracked working
+copy at C:\Dev\rbh-site-data (confirmed before any edit).
+
+METHOD: full repo copied by Copy-Item (with .git) to a scratch directory,
+the established method for this mount (this environment's Cowork sandbox
+FUSE bridge cannot reliably unlink files; the canonical C:\Dev\rbh-site-data
+working copy was reached this run via mcp__Windows-MCP__PowerShell
+throughout, which is unaffected). All injections against the scratch
+copy's own modules/service/pages/SEO.md only; the tracked repo's own copy
+was never opened for writing. SHA256 of the tracked copy's SEO.md recorded
+before the scratch copy was made: 9423D51BA5CEA6D4909C8D4FFA61DC1BD52A7DBA916AA771F64C186275180B1D.
+
+Four injections against this branch's own SEO.md blocks, each caught first
+attempt on its intended rule only, each restored by copy from a pre-injection
+backup and SHA256-reconfirmed identical before the next:
+
+  1) RULE 1 (pairing): blanked the Sinusitis page's Meta Keywords value.
+     CAUGHT: "has a Page Permalink but no Meta Keywords value. Weebly's
+     fourth SEO field would be pasted blank."
+
+  2) RULE 3 (presence): removed Crosby from the UTI page's keywords line
+     entirely (replaced with generic, town-free wording).
+     CAUGHT: "Meta Keywords do not carry this branch's own seoTown 'Crosby'."
+
+  3) RULE 4 (absence): added "Bootle" (the seoTown of smartts_bootle and
+     skchemists_bootle, neither in this branch's own serviceAreaList of
+     Crosby/Waterloo/Sefton) into the Sore throat page's keywords line
+     alongside the correct Crosby.
+     CAUGHT: "Meta Keywords name 'Bootle', the seoTown of smartts_bootle
+     and skchemists_bootle, and 'Bootle' is not in this branch's
+     serviceAreaList."
+
+  4) RULE 6 (postcode): swapped this branch's own outward code L23 for
+     L20 (Bootle's) on the Earache page's keywords line.
+     CAUGHT: "Meta Keywords carry 'L20', which is not this branch's
+     outward code 'L23'."
+
+Rules 2 (resolution), 5 (brand) and 7 (claim) not separately injected this
+pass: rule 2 would require corrupting the permalink itself, which check-
+seo-sheets.js and check-seo-pattern.js already prove against this branch
+by a different route; rule 5 and rule 7 are not reachable on the Pharmacy
+First sheet blocks touched here without a materially different scratch
+setup, and are left for a future pass on this item, consistent with this
+audit's practice of one fresh, cleanly-scoped angle per pass rather than
+exhausting every rule in one sitting.
+
+RESTORE: modules/service/pages/SEO.md restored to the pre-injection backup
+after each injection and after the final one; SHA256 reconfirmed identical
+to the original tracked-copy hash (9423D51B...) throughout. Full 36-checker
+suite re-run clean on the scratch copy after the final restore (0 failing /
+36). git status --porcelain on the tracked repo's own modules, core,
+branches.json and tools directories empty throughout - the tracked copy
+was never opened for writing this pass.
+
+LIVE HALF, read-only. Claude in Chrome: list_connected_browsers returned
+an empty array (standing Q59, unchanged); fell back to PowerShell
+Invoke-WebRequest, the established fallback.
+
+  - pharmacy-first-gordon-short-crosby.html: 200. Meta keywords tag
+    present, reads "Pharmacy First Crosby, NHS Pharmacy First, Gordon
+    Shorts Chemist, pharmacy Crosby, L23" - Crosby and L23 both correct,
+    but the brand token is "Gordon Shorts Chemist" (plural), not this
+    repo's corrected "Gordon Short Chemist" (item 1.1, 2026-08-04). Body
+    carries a mix of both spellings ("Gordon Short": 14, "Gordon Shorts":
+    15 hits sampled on the UTI page). No Bootle mention anywhere (0 hits).
+
+  - uti-treatment-gordon-short-crosby.html: 200. Meta keywords line itself
+    is clean ("UTI Crosby, UTI treatment Crosby, Pharmacy First Crosby,
+    pharmacy Crosby, L23", exactly matching the sheet). Page <title> reads
+    "UTI treatment in Crosby - Gordon Shorts Chemist" - same plural drift.
+
+  - sitemap.xml: single lastmod value estate-wide, 2026-08-15T07:41:55+00:00,
+    unchanged since the sixth pass (2026-08-31), no republish.
+
+FINDING, not a new question: this is the SAME known, previously recorded,
+live-only pre-repaste "Gordon Shorts" spelling drift already logged on this
+item's earlier passes (most explicitly the seventh pass, 2026-09-01, for
+the weight-loss and travel-clinic live pages specifically, "unchanged since
+2026-08-10; the STOP against repointing Post A stands"). This pass extends
+the confirmed scope: the drift also reaches the Pharmacy First overview
+page's <meta name="keywords"> tag, its <title>, and the UTI condition
+page's <title>, not only the two service pages previously named. Nothing
+in this repo says "Gordon Shorts" anywhere (check-brand-spelling.js
+enforces the canonical form against branches.json's own pin and passes
+clean); the drift is entirely live-only, pending the Weebly repaste this
+audit has repeatedly flagged as outstanding and outside an unattended
+run's authorisation. No new QUESTIONS.json entry raised; this reconfirms
+and widens the evidence behind the existing repaste backlog rather than
+opening a new decision point.
+
+Zero in-repo defects. No new question. QUESTIONS.json unchanged (99 total,
+46 open).

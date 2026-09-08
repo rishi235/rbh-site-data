@@ -7980,6 +7980,62 @@ Done 2026-09-07 (thirteenth pass).
       total, 45 open). Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-07-thirteenth.txt.
       Done 2026-09-07
+      Fourteenth quality pass 2026-09-08 (unattended run), fresh angle only.
+      Oldest of the 36 rotation-pool items: git blame -L on each item's own
+      line range in AGENT_WORKLIST.md, max blame date per range; 3.11
+      stalest at 2026-09-07T08:40:56+01:00 (its own thirteenth pass), ahead
+      of 4.4 and the rest of the pool. All eight unchecked AGENT_WORKLIST.md
+      items confirmed [BLOCKED] by direct grep before falling back to the
+      rotation.
+      REPO HALF ONLY (Claude in Chrome reported zero connected browsers,
+      standing Q59). Thirteen prior passes had covered NAP, JSON-LD, brand
+      spelling, em-dashes, the Pharmacy First eligibility/safety-net/
+      symptoms triad, the booking chain, check-whatsapp-route.js,
+      check-map-embeds.js, check-pharmacy-first-cost.js,
+      check-app-membership.js, check-switch-copy.js, check-opening-hours.js
+      and check-contraception-copy.js. tools/check-seo-keywords.js had never
+      been named once across those thirteen passes, despite covering all 12
+      of this branch's Meta Keywords lines in modules/service/pages/SEO.md.
+      Baseline: all 36 checkers exit 0. Full repo copied by Copy-Item (with
+      .git) to a scratch directory, the established method; every injection
+      on the scratch copy's own SEO.md only, tracked repo never opened for
+      writing. SHA256 of the tracked copy's SEO.md recorded before copying:
+      9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d.
+      Four injections against this branch's own SEO.md blocks, each caught
+      first attempt on its intended rule only, each restored from a
+      pre-injection backup and SHA256-reconfirmed identical before the
+      next: (1) rule 1, pairing - blanked the Sinusitis page's Meta
+      Keywords value - CAUGHT, "has a Page Permalink but no Meta Keywords
+      value"; (2) rule 3, presence - removed Crosby from the UTI page's
+      keywords line - CAUGHT, "do not carry this branch's own seoTown
+      'Crosby'"; (3) rule 4, absence - added Bootle (the seoTown of
+      smartts_bootle and skchemists_bootle, not in this branch's own
+      serviceAreaList) into the Sore throat page's keywords alongside the
+      correct Crosby - CAUGHT, naming both offending sister branches; (4)
+      rule 6, postcode - swapped this branch's own outward code L23 for
+      L20 (Bootle's) on the Earache page - CAUGHT, naming the wrong code.
+      Rules 2, 5 and 7 not injected this pass, left for a future one.
+      Full 36-checker suite re-run clean on the scratch copy after the
+      final restore; tracked repo's own SEO.md reconfirmed SHA256-unchanged
+      throughout, never opened for writing.
+      LIVE HALF, read-only, PowerShell Invoke-WebRequest fallback (Claude
+      in Chrome unavailable, zero connected browsers). pharmacy-first-
+      gordon-short-crosby.html and uti-treatment-gordon-short-crosby.html:
+      both 200. The UTI page's Meta Keywords line itself matches the sheet
+      exactly. FINDING, not a new question: the same known, previously
+      recorded, live-only pre-repaste "Gordon Shorts" (plural) spelling
+      drift already logged on this item's seventh pass for the weight-loss
+      and travel-clinic pages also reaches the Pharmacy First overview
+      page's meta keywords tag and title, and the UTI condition page's
+      title - a wider confirmed scope than previously recorded, still
+      entirely live-only (check-brand-spelling.js passes clean against the
+      repo), still pending the outstanding Weebly repaste, no new
+      QUESTIONS.json entry. sitemap.xml lastmod unchanged at
+      2026-08-15T07:41:55+00:00, no republish since the sixth pass.
+      Zero in-repo defects. No new question; QUESTIONS.json unchanged (99
+      total, 46 open). Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-08-fourteenth.txt.
+      Done 2026-09-08
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
