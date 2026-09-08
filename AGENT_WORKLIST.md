@@ -12750,6 +12750,39 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Evidence:
       audits/clear-aintree-no-hours-branch-wording-4.9-thirteenth-2026-09-07.txt.
       Done 2026-09-07
+      Fourteenth quality pass 2026-09-08: fresh angle, proving
+      tools/check-postcodes.js against this pack's own copy for the first time
+      in fourteen passes, despite that checker being proven repeatedly
+      elsewhere in the estate (mccanns-sandringham.md, sk-chemists-bootle.md,
+      riddings-timperley.md and others). Full repo copied with .git to a
+      scratch directory; tracked pack untouched throughout (sha256
+      a5b90f58...321f4 unchanged, reconfirmed after every restore). Baseline
+      clean, 36/36 checkers. Three injections: (1) the pack's own postcode
+      L9 7AS changed to SK Chemists Bootle's real L20 5DW in the
+      profile-basics address line - CAUGHT as FOREIGN, correct owner and
+      offending branch named; (2) the same line changed to a postcode
+      matching no branch at all, ZZ99 9ZZ - CAUGHT as UNKNOWN (reported twice,
+      once per extraction regex, a cosmetic double-count rather than a missed
+      defect); (3) SK Chemists Bootle's postcode fused and lowercased
+      ("l205dw", zero separator) written into Post A's body copy, the same
+      obfuscated shape proven elsewhere but never on this pack - CAUGHT as
+      FOREIGN with the same correct message, confirming PC_RE_LOOSE's
+      case-insensitive zero-separator matching holds here too. All three
+      caught on the first attempt; no checker gap found. Full 36-checker
+      suite re-run clean on the scratch copy after the final restore, and
+      separately re-run directly on the tracked repo (never touched by any
+      injection): 36/36 exit 0, same steady-state totals as before (892 text
+      files, 28 distinct postcodes, 16 live branches, 0 failures, 3 warnings).
+      No generator writes gbp-packs/, so nothing to regenerate. LIVE HALF:
+      Claude in Chrome not connected (standing Q59); used the established
+      Windows-MCP PowerShell curl.exe fallback. Contact page still 200 with
+      phone 0151 203 6535 only (Q28 unchanged) and WhatsApp 07512 330 076
+      still distinct from the estate-wide default (Q21's concrete case,
+      unchanged); all three post-target URLs still 404 (Q29 unchanged,
+      homepage-button workaround still correct). No in-repo defect found, no
+      new question raised. Evidence:
+      audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt.
+      Done 2026-09-08
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

@@ -1,3 +1,94 @@
+## 2026-09-08 (unattended scheduled run, tenth run today, Cowork sandbox mcp__workspace__bash used for read/lock/discovery/injection testing, switched to mcp__Windows-MCP__PowerShell for the live half and for the git write half) - Item 4.9 quality pass (fourteenth, Clear Chemist Aintree GBP pack): check-postcodes.js proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount (previous run's lock had been renamed away per the standing
+Q87/Q96 unlink() restriction). Created fresh, timestamped 1788867260 (Unix
+epoch, per this sandbox's own convention this run used - 2026-09-08T11:34:20Z).
+No stale `.git/index.lock` found.
+
+SYNC (step 2): sandbox `git fetch origin` (SSH) failed with "Host key
+verification failed", the standing Q87/Q96 condition. `git fetch origin-https`
+(HTTPS, anonymous read) succeeded; `git checkout agents/audit-backlog` (already
+on it) and `git pull --ff-only origin-https agents/audit-backlog` reported
+already up to date. HEAD at run start matched origin-https/agents/audit-backlog
+exactly, no divergence to reconcile.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected (standing Q59, unchanged). Logged and carried on; no alternative
+route attempted, nothing clicked, typed or submitted anywhere. QUESTIONS.json
+read directly: 99 total, 46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, plus the three Q60/Q66
+lines: 6.4, 6.5, 6.6), so the quality-pass fallback applied. Rotation pool: 43
+completed items minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) minus the 9 items already re-verified earlier today by this
+run's own predecessors (4.10, 4.8, 4.13, 1.3, 3.1, 3.6, 3.12, 5.1, 4.11) = 27
+remaining candidates. Each candidate's own paragraph range dated via `git log
+-1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`. Item 4.9 (Clear Chemist
+Aintree GBP pack) confirmed least recently touched at
+2026-09-07T00:42:19+01:00, ahead of the next-nearest candidate (4.12,
+2026-09-07T01:44:18+01:00) by over an hour.
+
+WORK DONE: see AGENT_WORKLIST.md's own fourteenth-pass paragraph under item 4.9
+and audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt for full
+detail. In short: baseline confirmed clean (36/36 checkers on a full-repo
+scratch copy under /tmp with .git included, sha256 of gbp-packs/clear-aintree.md
+unchanged since the tenth pass). Chose tools/check-postcodes.js as the new
+angle - proven repeatedly against sibling packs (mccanns-sandringham.md,
+sk-chemists-bootle.md, riddings-timperley.md) across many prior passes on
+OTHER items, but never once injection-tested against this pack specifically in
+fourteen passes on item 4.9 itself. Three injections run against the scratch
+copy only (tracked file never opened for writing), each restored from a
+pre-injection backup and sha256-reconfirmed identical before the next: (1) the
+pack's own postcode L9 7AS changed to SK Chemists Bootle's real L20 5DW -
+CAUGHT as FOREIGN, correct owner and offending branch named; (2) changed to a
+postcode matching no branch at all, ZZ99 9ZZ - CAUGHT as UNKNOWN (reported
+twice, once per extraction regex - a cosmetic double-count noted but not a
+missed defect); (3) SK Chemists Bootle's postcode fused and lowercased
+("l205dw", zero separator) written into Post A's body copy, the same
+obfuscated shape proven on sibling packs but never on this one - CAUGHT as
+FOREIGN with the same correct message. All three caught on the first attempt;
+no checker gap found. Full 36-checker suite re-run clean on the scratch copy
+after the final restore, and separately re-run directly on the tracked repo
+(never touched by any injection): 36/36 exit 0, same steady-state totals as
+before (892 text files, 28 distinct postcodes, 16 live branches, 0 failures, 3
+warnings - the standing UNOWNED warnings on modules/branch/pages, unrelated).
+No generator writes gbp-packs/, so nothing to regenerate; the pack itself was
+never modified.
+
+LIVE HALF: Claude in Chrome not connected (standing Q59). Used the established
+Windows-MCP PowerShell curl.exe fallback (prior precedent: ninth and eleventh
+passes on this item). Contact page (https://www.clearchemist.co.uk/contact-us)
+still HTTP 200 with phone 0151 203 6535 only, no trace of the old 0151 203
+8365 (Q28 remains fixed), and WhatsApp 07512 330 076 present and still
+distinct from the estate-wide hardcoded default 447521775631 (Q21's concrete
+case, unchanged). All three post-target URLs (switch-prescriptions,
+weight-loss-clinic, travel-clinic, all -clear-aintree.html) still return 404
+(Q29 unchanged, homepage-button workaround in the pack still correct and
+necessary).
+
+QUESTIONS: none raised. Open question count unchanged, 46 open of 99 total.
+
+COMMIT/PUSH (step 9): sandbox git push confirmed (again) that this session
+cannot authenticate to GitHub for a write (standing Q87/Q96 sandbox credential
+gap). Switched to `mcp__Windows-MCP__PowerShell` against the real
+C:\Dev\rbh-site-data working copy for the write half, the established pattern
+from every run today that reached this step.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the real
+working copy.
+
+LOCK RELEASE (step 11): `.agent-lock` to be renamed to
+`.agent-lock.released-<ts>` from the sandbox side once this entry is
+committed (this mount still rejects true deletion; rename is the established
+workaround per Q87/Q96).
+
+---
+
 ## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash used throughout for read, lock, discovery, injection testing and this log entry; Claude in Chrome not connected) - Item 4.10 quality pass (thirteenth, Smartts Chemist Bootle GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox

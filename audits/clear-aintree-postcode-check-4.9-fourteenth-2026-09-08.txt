@@ -1,0 +1,74 @@
+Item 4.9 quality pass (fourteenth), 2026-09-08 - tools/check-postcodes.js proved
+against gbp-packs/clear-aintree.md's own copy for the first time in fourteen passes
+
+METHOD: full repo copied with .git to a scratch directory (/tmp/rbh-scratch-49);
+all injections made and reverted there only. Tracked file never opened for
+writing. sha256 of gbp-packs/clear-aintree.md held constant throughout:
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+
+BASELINE: all 36 checkers exit 0 on the scratch copy before any injection.
+
+WHY THIS ANGLE: check-postcodes.js has been proven repeatedly across the estate
+(mccanns-sandringham.md, sk-chemists-bootle.md, riddings-timperley.md, and others)
+but never once by injection against gbp-packs/clear-aintree.md specifically,
+despite this pack being one of only 15 files in OWNED_DIRS and the one pack
+whose branch is co-located with head office at the same postcode (a fact prior
+passes confirmed was "not a leak" but never stress-tested with a genuinely
+wrong value).
+
+INJECTION 1 - FOREIGN rule: changed the pack's own postcode "L9 7AS" to SK
+Chemists Bootle's real postcode "L20 5DW" in the profile-basics address line.
+Result: CAUGHT.
+  FOREIGN  gbp-packs/clear-aintree.md: owned by clearchemist_aintree (L9 7AS)
+  but carries L20 5DW (skchemists_bootle)
+Exit code 1, 1 failure. Restored from backup, sha256-reconfirmed identical,
+re-run clean (0 failures).
+
+INJECTION 2 - UNKNOWN rule: changed the same line to a postcode matching no
+branch at all, "ZZ99 9ZZ". Result: CAUGHT (reported twice, once per regex pass
+PC_RE and PC_RE_LOOSE, both correctly flagging the same value - not a checker
+gap, both extraction paths independently found it and neither has a dedup step,
+which is a cosmetic double-count, not a missed defect).
+  UNKNOWN  gbp-packs/clear-aintree.md: postcode ZZ99 9ZZ is in no branches.json
+  entry
+Exit code 1, 1 failure. Restored, sha256-reconfirmed identical, re-run clean.
+
+INJECTION 3 - PC_RE_LOOSE widened-separator form: rather than the exact-case,
+correctly-spaced form used in injections 1 and 2, wrote SK Chemists Bootle's
+postcode fused and lowercase ("l205dw", zero separator) into Post A's body
+copy, the same obfuscated shape prior passes proved against
+mccanns-sandringham.md but never against this pack. Result: CAUGHT, same
+FOREIGN message and branch attribution as injection 1, confirming the loose
+regex's case-insensitive, zero-separator matching works on this pack's own
+copy and not just on the packs it was originally proven against.
+Exit code 1, 1 failure. Restored, sha256-reconfirmed identical, re-run clean.
+
+FINAL STATE: full 36-checker suite re-run on the scratch copy after the last
+restore: 36/36 exit 0. Full 36-checker suite also re-run directly on the
+tracked repo (never touched by any injection): 36/36 exit 0, check-postcodes.js
+reporting the same steady-state totals as before this pass (892 text files
+scanned, 28 distinct postcodes, 16 live branches, 0 failures, 3 warnings - the
+three standing UNOWNED warnings on modules/branch/pages, unrelated to this
+pack). No generator writes gbp-packs/, so no regeneration was needed or run for
+this pass; the pack itself was never modified.
+
+No in-repo defect found. No checker gap found. No new question raised.
+
+LIVE HALF: Claude in Chrome reported not connected (standing Q59). Used the
+established Windows-MCP PowerShell curl.exe fallback (prior precedent: ninth
+and eleventh passes on this item). Findings unchanged from the eleventh pass,
+2026-09-05:
+  - https://www.clearchemist.co.uk/contact-us: HTTP 200, phone 0151 203 6535
+    only (no trace of the old 0151 203 8365 - Q28 remains fixed), WhatsApp
+    07512 330 076 present and still distinct from the estate-wide hardcoded
+    default 447521775631 (Q21's concrete case, unchanged).
+  - switch-prescriptions-clear-aintree.html: 404
+  - weight-loss-clinic-clear-aintree.html: 404
+  - travel-clinic-clear-aintree.html: 404
+  All three post-target URLs unchanged (Q29 unchanged, homepage-button
+  workaround in the pack still correct and necessary).
+
+Evidence: this file, plus scratch-copy console output captured during the run
+(not separately retained - injections and restores were verified live via
+sha256 and checker exit codes at each step, per the method every prior pass on
+this item has used).
