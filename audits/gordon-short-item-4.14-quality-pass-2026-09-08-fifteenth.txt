@@ -1,0 +1,127 @@
+Item 4.14 quality pass (fifteenth), 2026-09-08
+Gordon Short Chemist Crosby GBP pack (gbp-packs/gordon-short-crosby.md)
+Unattended scheduled run. Native Windows host (mcp__Windows-MCP__PowerShell /
+FileSystem) used throughout for git and file operations, matching the
+seventh pass onward, because the Cowork sandbox shell's FUSE mount cannot
+delete or reliably clear .git/index.lock (standing Q87/Q96/Q97).
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep:
+5.3, 5.4, 5.5, 5.8, 6.1, 6.4 (under Q60), 6.5 (under Q60), 6.6.
+Quality-pass fallback applied. Rotation pool: 43 completed items minus 7
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36.
+21 already carried a 2026-09-08 pass entry before this run (confirmed via
+`git log --since="2026-09-08 00:00" --until="2026-09-08 23:59" -- AGENT_WORKLIST.md`):
+4.7, 4.2, 3.3, 2.3, 4.15, 4.12, 4.9, 4.10, 4.8, 4.13, 1.3, 4.5, 4.6, 4.3,
+3.1, 6.3, 3.8, 3.6, 3.12, 5.1, 4.11.
+Remaining 15 candidates: 1.2, 2.1, 3.2, 3.4, 3.5, 3.7, 3.9, 3.10, 3.11,
+3.13, 4.1, 4.4, 4.14, 5.2, 6.2.
+Tiebreak via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`
+on each candidate's own item-block range (own checkbox line to the line
+before the next item's checkbox), not just the checkbox line itself:
+
+  4.14  2026-09-07T07:45:59+01:00   <- stalest, chosen
+  3.11  2026-09-07T08:40:56+01:00
+  1.2   2026-09-07T08:14:58+01:00
+  4.4   2026-09-07T09:52:42+01:00
+  4.1   2026-09-07T11:43:30+01:00
+  3.2   2026-09-07T13:45:41+01:00
+  3.5   2026-09-07T14:15:06+01:00
+  3.7   2026-09-07T15:14:09+01:00
+  3.13  2026-09-07T15:47:39+01:00
+  6.2   2026-09-07T16:48:14+01:00
+  3.4   2026-09-07T17:42:14+01:00
+  3.9   2026-09-07T20:21:08+01:00
+  3.10  2026-09-07T21:43:21+01:00
+  2.1   2026-09-07T22:43:49+01:00
+  5.2   2026-09-07T23:43:07+01:00
+
+Chosen: 4.14 Gordon Short Chemist Crosby pack.
+
+BASELINE
+All 36 tools/check-*.js checkers run individually via `node <file>`:
+36/36 exit 0. Pack SHA256 before any change:
+49ACD88584A9D20B3D7E0B5AFC045B8D24EAA5F24B0B8800E4B7E05B59F281F9
+(11,975 bytes) - matches every one of the fourteen prior passes' recorded
+hash exactly; byte-stable across fifteen passes.
+
+FRESH ANGLE
+The photo shot list rule (photoCount / photoVinyl / photoGoogleUpdates,
+tools/check-gbp-packs.js) had been proven by direct injection against eight
+sibling packs this week (items 4.2, 4.3, 4.5, 4.8, 4.10, 4.12, 4.13, 4.15)
+but never against this pack. Confirmed by reading this item's full
+fourteen-pass block in AGENT_WORKLIST.md end to end: no prior pass mentions
+"photo" anywhere.
+
+INJECTIONS (each against the real file gbp-packs/gordon-short-crosby.md,
+backed up to %TEMP%\gordon-short-crosby.md.baseline before the first
+injection, restored by byte copy and SHA256-reconfirmed before the next)
+
+1. Deleted the bullet "- Team photo behind the counter." (count 10 -> 9).
+   New hash: BB3C66AC5591D37522533ACC8FFEBA031A1E3C15E4080ED76C72BC94EDCC87EF
+   node tools/check-gbp-packs.js -> exit 1
+   FAIL gordon-short-crosby.md: Photo shot list names 9 shots, and Build
+   Pack v2 4.1 asks for at least 10. The pack is the only sheet telling the
+   paster how many photos to take, so a short list is a short profile
+   Restored. Hash back to baseline, reconfirmed. 0 failures.
+
+2. Reworded the vinyl-storefront bullet to drop the word "vinyl", keeping
+   the same shot and the same bullet count (10 unchanged):
+   "- Vinyl storefront lead shot where fitted; otherwise the best
+   straight-on frontage shot." -> "- Storefront lead shot, the best
+   straight-on frontage available."
+   New hash: 89151EC72F423A31E6B29A0E7B24A4970F24F37CA224708DD4D741C0C0D7F993
+   node tools/check-gbp-packs.js -> exit 1
+   FAIL gordon-short-crosby.md: Photo shot list does not mention the vinyl
+   storefront, which Build Pack v2 4.1 asks for in the photo set and
+   TEMPLATE.md section 4 repeats.
+   photoCount did NOT fire (count still 10, confirming the two rules are
+   independent). Restored. Hash back to baseline, reconfirmed. 0 failures.
+
+3. Dropped "also action any pending Google updates" from the section's
+   opening parenthetical:
+   "(Build Pack 4.1: at least 10 photos. While in the profile, also action
+   any pending Google updates.)" -> "(Build Pack 4.1: at least 10 photos.)"
+   New hash: 401898EAA442B8C16C3B4777AAC1B3AC3722129D47680C165F3600357A7D5290
+   node tools/check-gbp-packs.js -> exit 1
+   FAIL gordon-short-crosby.md: Photo shot list does not remind the paster
+   to action any pending Google updates while they are in the profile
+   (TEMPLATE.md section 4).
+   Restored. Hash back to baseline, reconfirmed.
+
+RESULT
+All three injections fired first attempt, on their intended rule only, no
+cross-firing between the three photo rules or with any other checker.
+Final restore SHA256: 49ACD88584A9D20B3D7E0B5AFC045B8D24EAA5F24B0B8800E4B7E05B59F281F9
+(matches baseline exactly). `git status --porcelain gbp-packs/gordon-short-crosby.md`
+empty. Full 36-checker suite re-run after final restore: 0 failures
+(0 fails / 36 tools run, 17 pre-existing warnings unrelated to this pack).
+Generator rebuild not repeated: nothing in branches.json or any generator
+input was touched by this pass, so no generated page could have changed;
+GBP packs are a separate governance channel (see CLAUDE.md).
+
+LIVE HALF
+Claude in Chrome not connected this run (mcp__claude-in-chrome__list_connected_browsers
+returned an empty array - Q59). Fell back to read-only HTTPS HEAD/GET
+requests via PowerShell (Invoke-WebRequest) on the canonical host, status
+only, consistent with the lighter live checks several recent passes used
+within the 30-45 minute budget:
+
+  pharmacy-first-service-crosby.html               -> 200
+  switch-prescriptions-gordon-short-crosby.html     -> 200
+  pharmacy-first-gordon-short-crosby.html           -> 200
+  weight-loss-clinic-gordon-short-crosby.html       -> 200
+  travel-clinic-gordon-short-crosby.html            -> 200
+  sitemap.xml                                       -> 200
+
+sitemap.xml lastmod for this branch's URLs: 2026-08-15T07:41:55+00:00
+throughout - unchanged since the sixth pass, no republish.
+
+Content of pharmacy-first-gordon-short-crosby.html was NOT re-read this
+pass (status-only check). The STOP / PF_TARGET_HOLD (Q32) on that page's
+stale "Gordon Shorts Chemist" naming is therefore carried forward unchanged
+from the fourteenth pass's confirmed reading, not freshly reconfirmed this
+pass - noted explicitly rather than implied.
+
+No in-repo defect found. No pack copy, page, generator, data field or
+branches.json entry changed. No new question raised.

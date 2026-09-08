@@ -15692,6 +15692,69 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unaffected. No new question. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-07-fourteenth.txt.
       Done 2026-09-07.
+      Fifteenth quality pass 2026-09-08 (unattended scheduled run; native
+      Windows host used throughout for git and file operations, matching the
+      seventh pass onward, because the Cowork sandbox shell's FUSE mount
+      cannot delete or reliably lock files - standing Q87/Q96/Q97). Taken
+      because all 8 unchecked worklist lines are still [BLOCKED] (5.3, 5.4,
+      5.5, 5.8, 6.1, 6.4, 6.5, 6.6, confirmed by direct grep); item-selection
+      method unchanged from the fourteenth pass - block-bounded last-touch
+      date across the 36-item rotation pool (43 completed items minus the
+      out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), read via
+      git log -L on each candidate's own item block rather than its
+      checkbox line alone (the checkbox line itself is rarely re-touched;
+      the pass notes appended below it are). 21 items had already been
+      quality-passed earlier today by prior runs (4.7, 4.2, 3.3, 2.3, 4.15,
+      4.12, 4.9, 4.10, 4.8, 4.13, 1.3, 4.5, 4.6, 4.3, 3.1, 6.3, 3.8, 3.6,
+      3.12, 5.1, 4.11) and were excluded. Of the 15 remaining candidates,
+      4.14 was stalest at 2026-09-07T07:45:59+01:00 (its own fourteenth
+      pass), ahead of 3.11 (08:40:56) and 1.2 (08:14:58). Chosen: 4.14.
+      Baseline: all 36 checkers exit 0 before any change; pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+      matches every one of the fourteen prior passes exactly, byte-stable
+      across fifteen. FRESH ANGLE: the photo shot list rule
+      (photoCount/photoVinyl/photoGoogleUpdates in tools/check-gbp-packs.js)
+      had been proven by direct injection against eight sibling packs this
+      week (4.2, 4.3, 4.5, 4.8, 4.10, 4.12, 4.13, 4.15) but never against
+      this one - the pack's own fourteen-pass history was read in full
+      before choosing, and no prior pass here mentions "photo" at all, so
+      this was a genuine gap rather than a rerun. Three injections on the
+      real file (gbp-packs/gordon-short-crosby.md), each backed up first and
+      SHA256-restored and reconfirmed before the next: (1) the "Team photo
+      behind the counter" bullet deleted, dropping the count from 10 to 9 -
+      CAUGHT by photoCount, "names 9 shots...asks for at least 10"; (2) the
+      vinyl storefront bullet reworded to drop the word "vinyl" while
+      keeping the same shot ("Storefront lead shot, the best straight-on
+      frontage available") - CAUGHT by photoVinyl, count unaffected by this
+      one since the bullet was reworded not removed; (3) the "also action
+      any pending Google updates" clause dropped from the section's opening
+      parenthetical - CAUGHT by photoGoogleUpdates. All three fired first
+      attempt, exactly one failure each, no cross-firing between the three
+      photo rules or with any other checker. Final restore SHA256-confirmed
+      byte-identical to baseline (49acd885...), git status on the file
+      empty, and the full 36-checker suite re-run clean (0 failures, 17
+      warnings, all pre-existing human-judgement items unrelated to this
+      pack). Generator rebuild not repeated this pass: nothing in
+      branches.json or any generator input was touched, GBP packs are a
+      separate governance channel from the six page generators (see
+      CLAUDE.md), so a rebuild would have proven nothing the file-level
+      restore check had not already proven; noted here rather than skipped
+      silently.
+      LIVE HALF: Claude in Chrome not connected (Q59, list_connected_
+      browsers returned empty). Fell back to read-only HTTPS requests via
+      PowerShell on the canonical host, status-only, matching the lighter
+      checks several recent passes used within the time budget: all four
+      post-linked pages and sitemap.xml return 200. Sitemap lastmod
+      unchanged at 2026-08-15T07:41:55+00:00 throughout, no republish since
+      the sixth pass; content of pharmacy-first-gordon-short-crosby.html not
+      re-read this pass (status only), so the STOP/PF_TARGET_HOLD (Q32) on
+      the stale "Gordon Shorts Chemist" page is carried forward unchanged
+      from the fourteenth pass rather than freshly reconfirmed - flagged
+      here rather than silently implied. No in-repo defect found. No pack
+      copy, page, generator, data field or branches.json entry changed. No
+      new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-08-fifteenth.txt.
+      Done 2026-09-08.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

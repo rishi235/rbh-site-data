@@ -1,4 +1,91 @@
-## 2026-09-08 (unattended scheduled run, sixteenth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; mcp__Windows-MCP__PowerShell and mcp__Windows-MCP__FileSystem used for the commit/push and status-page publish against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.7 quality pass (fifteenth, McCanns Chemist Sandringham GBP pack): check-gbp-packs.js's BODY_IMAGE_SELF, BODY_IMAGE_CONTEXT and POM_CLASS rules proved by injection against this pack's own copy for the first time in fifteen passes; zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, seventeenth run today; Cowork sandbox mcp__workspace__bash used briefly at run start for discovery, then abandoned for all write work after its FUSE mount refused to unlink a fresh, self-created .git/index.lock and a fresh, self-created plain test file with "Operation not permitted" in both cases - not merely a stale-lock case, an unlink-never-works case; mcp__Windows-MCP__PowerShell and mcp__Windows-MCP__FileSystem used for all git operations, the checker runs, the injections and the commit/push against the canonical C:\Dev\rbh-site-data working copy, matching the seventh pass onward; Claude in Chrome not connected, list_connected_browsers returned empty) - Item 4.14 quality pass (fifteenth, Gordon Short Chemist Crosby GBP pack): check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) proved by injection against this pack's own copy for the first time in fifteen passes; zero in-repo defect, no new question
+
+RUN-START ENVIRONMENT NOTE: this run's Cowork sandbox bash tool
+(mcp__workspace__bash) could create files on the FUSE-mounted repo but
+could not delete ANY file it had just created itself, including a plain
+zero-byte test file in a directory it owned - `rm -f`, Python `os.remove`
+and a direct unlink all returned "Operation not permitted" identically.
+This matches the standing constraint already recorded in this repo's own
+CLAUDE.md ("Files in C:\dev\rbh-site-data cannot be deleted or renamed once
+written") and in Q96/Q87/Q97, but this run is the first to have confirmed
+it is not a stale-lock-specific problem: it is a blanket inability to
+unlink anything on that mount, from this session, regardless of the file's
+age or who wrote it. A .git/index.lock left over from an earlier attempt
+was hit immediately (see LOCK CHECK below) and could not be cleared via
+the sandbox shell at all. Rather than working around this with a rename
+(the convention several recent runs used for stale locks under the old
+FUSE-unlink workaround), this run switched entirely to
+mcp__Windows-MCP__PowerShell, which operates on the real Windows
+filesystem directly and is unaffected: `Remove-Item .git\index.lock -Force`
+succeeded immediately, and every subsequent git, checker and file
+operation this run performed went through that route instead. `git status`
+via Windows-MCP also showed local HEAD already matching origin/agents/
+audit-backlog at 2add458aa (the fourteenth run's Item 4.7 commit), so
+nothing was lost; the sandbox-side `git status` earlier in this run had
+shown a stale "ahead by 1 commit" only because its own cached refs were
+out of date, not because anything was genuinely unpushed. No change made
+to worklist/log methodology as a result; noted here because it is a
+sharper diagnosis than prior runs reached, not a new blocker.
+
+LOCK CHECK (step 1): via the Cowork sandbox mount, no `.agent-lock` was
+present at run start; created fresh. `.git/index.lock` WAS present, fresh
+(same timestamp as the run start, so almost certainly created by this
+run's own first `git status`/`git push` attempt rather than a leftover
+from a prior run), and could not be removed via the sandbox shell for the
+reason above. Cleared via `mcp__Windows-MCP__PowerShell` (`Remove-Item
+.git\index.lock -Force`), confirmed gone, before any further git command.
+
+SYNC (step 2): via Windows-MCP, `git fetch origin` then `git rev-parse HEAD`
+and `git rev-parse origin/agents/audit-backlog` both returned
+2add458aa341c61b7333a0f5718162c741b82ce8 - already in sync, no
+fast-forward needed. `git checkout agents/audit-backlog` confirmed already
+on that branch.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array - no browser connected, matching standing Q59.
+Logged and carried on; no alternative route attempted, nothing clicked,
+typed or submitted anywhere. QUESTIONS.json read directly: 99 total, 46
+open, unchanged from the sixteenth run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading was present at the top of AGENT_LOG.md at run start (the
+entry that was at the top before this one, the sixteenth run's item 4.7
+pass, carries no such heading), so not applicable this run.
+
+ITEM SELECTION (step 5) and WORK PERFORMED (step 6): see
+audits/gordon-short-item-4.14-quality-pass-2026-09-08-fifteenth.txt for
+full detail. Summary: all 8 unchecked worklist lines confirmed [BLOCKED]
+by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Of 36 rotation-pool items minus 7
+out-of-rotation minus 21 already passed today, 15 candidates remained;
+4.14 (Gordon Short Chemist Crosby) was stalest by item-block last-touch
+date (2026-09-07T07:45:59+01:00). Baseline: 36/36 checkers green, pack
+sha256 unchanged across fifteen passes. Fresh angle: the photo shot list
+rule (photoCount/photoVinyl/photoGoogleUpdates) had been proven against
+eight sibling packs this week but never against this one. Three
+injections (bullet count dropped to 9, "vinyl" word stripped from its
+bullet, the Google-updates reminder dropped from the section header) each
+caught first attempt on their own rule only, no cross-firing, each
+restored and SHA256-reconfirmed before the next. Final restore confirmed
+byte-identical to baseline; full 36-checker suite clean after. Generator
+rebuild not repeated (no generator input touched by this pass). Live half:
+Claude in Chrome unavailable, fell back to read-only HTTPS status checks
+on all four post-linked pages and sitemap.xml (all 200, sitemap unchanged
+since the sixth pass, no republish); page content not re-read this pass,
+so the STOP/PF_TARGET_HOLD (Q32) is carried forward unchanged rather than
+freshly reconfirmed. Zero in-repo defect. No new question.
+
+QUESTIONS (step 8): none raised this run.
+
+COMMIT AND PUSH (step 9): via Windows-MCP, `git add AGENT_WORKLIST.md
+AGENT_LOG.md audits/gordon-short-item-4.14-quality-pass-2026-09-08-fifteenth.txt`,
+committed, pushed to `origin agents/audit-backlog`. See commit hash below
+this entry once pushed.
+
+STATUS PAGE (step 10): `node tools/build-audit-status.js` run via
+Windows-MCP against the canonical C:\Dev\rbh-site-data path.
+
+LOCK RELEASE (step 11): `.agent-lock` removed at run end via Windows-MCP.
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
 sandbox mount. Created fresh at 2026-09-08T15:34:30+01:00 (unix 1788878070).
