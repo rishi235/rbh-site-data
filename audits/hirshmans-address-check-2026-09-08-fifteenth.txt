@@ -1,0 +1,71 @@
+﻿Item 1.2 quality pass (fifteenth), Hirshmans Chemist Ainsdale, 2026-09-08
+===========================================================================
+
+SELECTION METHOD
+Correcting the ad hoc header-regex method used earlier in this run (which
+under-counted and would have wrongly reselected 4.1, the single most
+quality-passed item in the backlog), item selection was redone using the
+method this repo's own log records as authoritative: git blame -L on each
+rotation-pool item's own line range in AGENT_WORKLIST.md, taking the max
+blame date per range. Rotation pool = 43 completed worklist items minus the
+7 recorded one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36 items. Item 1.2
+came out stalest, last touched 2026-09-07T08:14:58+01:00 (fourteenth pass),
+ahead of the next stalest (3.11, 2026-09-07T08:40:56+01:00).
+
+BASELINE
+All 36 tools/check-*.js checkers run individually against the tracked repo
+at run start: 36/36 exit 0. No generator input touched this pass, so no
+regeneration was needed or performed.
+
+FRESH ANGLE
+Fourteen prior passes on this item had proven check-address-region.js,
+check-app-membership.js, check-branch-links.js, check-brand-spelling.js,
+check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-live-hours.js, check-nap.js, check-pharmacy-first-cost.js,
+check-uk-spelling.js and check-url-scheme.js by injection against Hirshmans
+Ainsdale's own copy, but never check-branch-identity.js (JSON-LD name /
+data-branch), confirmed by a text search of the item's full worklist history
+returning zero mentions of "branch-identity". Hirshmans Ainsdale is a
+brandLabel == branchName branch ("Hirshmans Chemist" both), so the
+shared-brandLabel rule does not apply here, but the core rules do: filename
+resolves to exactly one branch, and data-branch / JSON-LD name both equal
+that branch's own name.
+
+INJECTIONS (both against modules/service/pages/pharmacy-first-hirshmans-ainsdale.html,
+tracked file edited in place and restored via git checkout -- before the
+next, sha256-reconfirmed identical to the pre-injection baseline
+0B6B326A47232B46FA1969C66AF3267673200F2E95DBFB4AD7759723C999A58B after each
+restore):
+
+1. data-branch="Hirshmans Chemist" changed to data-branch="Smartts Chemist"
+   (a real sibling branch's brandLabel). CAUGHT on two rules at once: the
+   per-page rule ("data-branch=\"Smartts Chemist\" but the page belongs to
+   hirshmans_ainsdale... that is smartts_bootle's name, so an enquiry from
+   this page is filed against the wrong pharmacy") and the estate-wide
+   per-branch rule ("its pages declare 2 different values for data-branch").
+   Both fired on first attempt, on their intended rule, no cross-firing.
+
+2. JSON-LD "name": "Hirshmans Chemist" changed to "Hirshmans Pharmacy" (a
+   plausible near-miss, not a real sibling name). CAUGHT the same way: the
+   per-page JSON-LD-name rule and the estate-wide "2 different values for
+   JSON-LD name" rule both fired, first attempt, no cross-firing.
+
+Both injections restored; final sha256 matched baseline both times; git
+status --short -- modules/ branches.json tools/ empty after. Full
+36-checker suite re-run after final restore: 36/36 exit 0.
+
+LIVE HALF
+Claude in Chrome not connected (list_connected_browsers returned []),
+matching standing Q59. Read-only HTTPS via Invoke-WebRequest on the real
+host instead: sitemap.xml lastmod unchanged at 2026-08-14T16:09:17+00:00
+(no republish since the sixth pass, matching every prior pass's recorded
+value exactly); switch-prescriptions-hirshmans-ainsdale.html returns 200
+and still carries the correct address ("56-62 Sherwood House") with no
+occurrence of the historical wrong postcode PR8 3HN. No new finding; this
+reconfirms the fourteenth pass's live reading rather than changing it.
+
+RESULT
+Zero in-repo defect. No new question. No worklist item blocked or
+unblocked. Guard coverage for this item now extends to 13 of 36 checkers
+proven by direct injection against Hirshmans Ainsdale's own copy
+specifically (the twelve listed above plus check-branch-identity.js).

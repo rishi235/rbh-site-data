@@ -1,3 +1,102 @@
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for discovery and initial lock/QUESTIONS/browser reads, mcp__Windows-MCP__PowerShell used for all git operations and file edits against the canonical C:\Dev\rbh-site-data working copy, matching established practice since the sandbox mount cannot push or reliably unlink files) - Item 1.2 quality pass (fifteenth): prove check-branch-identity.js by injection against Hirshmans Chemist Ainsdale's own copy for the first time in fifteen passes; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no .agent-lock present at run start via the Cowork
+sandbox mount. Created fresh at 2026-09-08T16:04:18Z. No .git/index.lock
+present.
+
+SYNC (step 2): via Windows-MCP against C:\Dev\rbh-site-data, git fetch
+origin, git checkout agents/audit-backlog (already on branch), git pull
+--ff-only origin agents/audit-backlog (already up to date). Local HEAD
+f688fd9 confirmed matching origin/agents/audit-backlog exactly (the
+"ahead by 2" reported against the origin-https remote is that remote's
+own stale cache, not a real divergence, consistent with recent runs'
+notes). gh auth status confirmed an authenticated rishi235 token with
+repo/workflow scopes on this host, and git push credentials are
+configured, matching the 2026-09-05 finding recorded against Q96 (both
+left open per that entry's note: whether to standardise on Windows-MCP
+is Rishi's call).
+
+ANSWER PICKUP (step 3): mcp__claude-in-chrome__list_connected_browsers
+returned an empty array, matching standing Q59. Logged and carried on; no
+alternative route attempted, nothing clicked, typed or submitted anywhere.
+QUESTIONS.json read directly: 99 total, 46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at run start, so not
+applicable this run.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. An initial header-regex scan of AGENT_LOG.md
+("## DATE ... Item X.Y quality pass") undercounted passes for several items
+and would have wrongly picked 4.1 (Fishlocks Ainsdale GBP pack, already the
+single most quality-passed item in the backlog at fourteen passes) as
+stalest; caught by reading item 4.1's own worklist block directly and
+seeing its true fourteenth-pass date of 2026-09-07, not 2026-09-04. Redone
+using this repo's own recorded authoritative method: git blame -L on each
+of the 36 rotation-pool items' own line range in AGENT_WORKLIST.md
+(rotation pool = 43 completed items minus the 7 recorded one-offs: 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8), taking the max blame date per range. Item
+1.2 (Hirshmans Chemist Ainsdale address verification) came out stalest at
+2026-09-07T08:14:58+01:00, ahead of 3.11 (2026-09-07T08:40:56+01:00).
+
+WORK PERFORMED (step 6): see
+audits/hirshmans-address-check-2026-09-08-fifteenth.txt for full detail.
+Summary: baseline 36/36 checkers green, no generator input touched.
+check-branch-identity.js had never been proven by injection against this
+branch's own copy in fourteen prior passes; two injections on
+modules/service/pages/pharmacy-first-hirshmans-ainsdale.html (data-branch
+changed to a sibling branch's name; JSON-LD name changed to a near-miss),
+each caught on both the per-page and estate-wide rules, first attempt,
+each restored via git checkout -- and sha256-reconfirmed identical before
+the next. Full 36-checker suite re-run clean after final restore. Live
+half: Claude in Chrome unavailable, fell back to read-only HTTPS via
+Invoke-WebRequest on the real host; sitemap.xml lastmod and the switch
+page's address both unchanged from the fourteenth pass, no new finding.
+
+METHOD NOTE (not a repo defect, caught and corrected mid-run, TWICE): (1)
+the first attempt at appending this pass's writeup to AGENT_WORKLIST.md
+used PowerShell's Get-Content -Raw / Set-Content without an explicit
+byte-safe encoding, which silently re-encoded the whole file (added a
+UTF-8 BOM, double-encoded existing pound-sign and mojibake byte sequences
+elsewhere in the file into different mangled bytes), producing a 148-line
+diff instead of a clean append. Caught by checking git diff --stat before
+committing (89 insertions / 59 deletions where a pure append should show
+insertions only), reverted with git checkout --, redone using a byte-level
+Latin-1 (ISO-8859-1, a 1:1 byte-to-char mapping that round-trips every
+byte value including invalid-UTF-8 and already-mangled sequences without
+alteration) read-splice-write, verified by an explicit round-trip byte
+comparison before use and a clean 30-insertions-only git diff after. (2)
+the first attempt at prepending this very log entry with the same
+Latin-1 method used a relative path ("AGENT_LOG.md") with .NET's
+System.IO.File methods inside a script that had also run PowerShell's own
+"cd C:\Dev\rbh-site-data": PowerShell's Set-Location only changes
+PowerShell's own provider location, not the process-level working
+directory .NET's File class resolves relative paths against, so the read
+silently opened a nonexistent 0-byte file and the write created a new
+1-byte AGENT_LOG.md in C:\Users\Admin, never touching the tracked file
+(confirmed unmodified throughout: git status clean, length unchanged at
+4522159 bytes). Caught immediately by checking the tracked file's own
+size and git status straight after, before treating the operation as
+done; the stray file deleted. Both faults are the same underlying class
+recorded against the 2026-08-14 and 2026-08-30 passes on other items
+("PowerShell re-encoding a sheet and mangling its em dashes") plus a new
+one (relative-path resolution silently targeting the wrong directory);
+worth carrying forward as a standing method note: any .NET File-class
+call in this environment must use a fully-qualified absolute path, never
+a bare relative filename, regardless of any preceding PowerShell cd.
+
+QUESTIONS (step 8): none raised this run.
+
+COMMIT AND PUSH (step 9): via Windows-MCP, git add AGENT_WORKLIST.md
+AGENT_LOG.md audits/hirshmans-address-check-2026-09-08-fifteenth.txt,
+committed, pushed to origin agents/audit-backlog.
+
+STATUS PAGE (step 10): node tools/build-audit-status.js run via
+Windows-MCP against the canonical C:\Dev\rbh-site-data path.
+
+LOCK RELEASE (step 11): .agent-lock removed at run end.
+
 ## 2026-09-08 (unattended scheduled run, seventeenth run today; Cowork sandbox mcp__workspace__bash used briefly at run start for discovery, then abandoned for all write work after its FUSE mount refused to unlink a fresh, self-created .git/index.lock and a fresh, self-created plain test file with "Operation not permitted" in both cases - not merely a stale-lock case, an unlink-never-works case; mcp__Windows-MCP__PowerShell and mcp__Windows-MCP__FileSystem used for all git operations, the checker runs, the injections and the commit/push against the canonical C:\Dev\rbh-site-data working copy, matching the seventh pass onward; Claude in Chrome not connected, list_connected_browsers returned empty) - Item 4.14 quality pass (fifteenth, Gordon Short Chemist Crosby GBP pack): check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) proved by injection against this pack's own copy for the first time in fifteen passes; zero in-repo defect, no new question
 
 RUN-START ENVIRONMENT NOTE: this run's Cowork sandbox bash tool

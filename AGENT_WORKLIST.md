@@ -17031,6 +17031,36 @@ appended to the line. Do not move them; the status page reads them in place.
       item blocked or unblocked. Evidence:
       audits/hirshmans-address-check-2026-09-07-fourteenth.txt.
       Done 2026-09-07
+      Quality pass 2026-09-08 (fifteenth, unattended run): least recently
+      verified rotation-pool item by git blame max-date on each item's own
+      line range (correcting an earlier header-regex method this same run
+      had tried first, which would have wrongly reselected 4.1, already the
+      single most quality-passed item in the backlog); 1.2 came out stalest
+      at 2026-09-07T08:14:58+01:00, ahead of 3.11 (2026-09-07T08:40:56+01:00).
+      Baseline: all 36 checkers pass at run start, no generator input
+      touched. FRESH ANGLE: check-branch-identity.js had never been proven
+      by injection against this branch's own copy in fourteen prior passes
+      (zero mentions in this item's full history), despite being clean by
+      the passive full-suite sweep throughout. Two injections on
+      modules/service/pages/pharmacy-first-hirshmans-ainsdale.html (tracked
+      file, restored via git checkout -- and sha256-reconfirmed before the
+      next): (1) data-branch changed to a real sibling branch's name
+      ("Smartts Chemist") - CAUGHT on both the per-page rule and the
+      estate-wide "2 different values for data-branch" rule; (2) JSON-LD
+      name changed to a plausible near-miss ("Hirshmans Pharmacy") - CAUGHT
+      on both the per-page JSON-LD rule and the estate-wide "2 different
+      values for JSON-LD name" rule. Both fired first attempt, on their
+      intended rule only. Final restore sha256-confirmed identical; full
+      36-checker suite re-run clean after. LIVE HALF: Claude in Chrome not
+      connected (Q59); read-only HTTPS instead. sitemap.xml lastmod
+      unchanged at 2026-08-14T16:09:17+00:00 (no republish since the sixth
+      pass); switch-prescriptions-hirshmans-ainsdale.html still 200 with
+      the correct address and no PR8 3HN. No new finding, reconfirms the
+      fourteenth pass's live reading. No in-repo defect, no new question.
+      Guard coverage for this item now extends to 13 of 36 checkers proven
+      by direct injection against this branch's own copy. Evidence:
+      audits/hirshmans-address-check-2026-09-08-fifteenth.txt.
+      Done 2026-09-08
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
