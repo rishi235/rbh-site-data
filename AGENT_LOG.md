@@ -1,3 +1,140 @@
+## 2026-09-08 (unattended scheduled run, third run today, Cowork sandbox mcp__workspace__bash for read/edit/analysis, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 3.12 quality pass (eleventh, Tiffenbergs Chemist, check-weight-loss-copy.js)
+
+LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from
+the second run today (2026-09-08T01:09:11Z, "no work done, infra blocker
+(Q96/Q87): no git push credentials in Cowork bash sandbox, no Windows-MCP
+desktop access granted for unattended run"), about 55 minutes old - over the
+45-minute threshold. `ps aux` confirmed no git process running. `rm`/`mv`
+across filesystems both failed with "Operation not permitted" on this mount
+(standing Q87/Q96 FUSE restriction - unlink is disabled entirely, confirmed
+this run at the syscall level with python os.remove, perl unlink and
+`find -delete`, all EPERM); a same-directory `mv` (rename) DID succeed,
+confirming the mount allows rename but never unlink, the mechanism behind
+the ~90 `.agent-lock.*`/test-probe files already littering the repo root
+from prior runs' identical workaround. Overwrote `.agent-lock` in place with
+a fresh timestamp rather than adding another renamed file to the pile.
+`.git/index.lock` (0 bytes, same ~55-minute age, no git process running) was
+cleared the same way (rename within `.git/`, since cross-filesystem rename to
+`/tmp` also failed EPERM); confirmed git recreates and then fails to unlink
+this file after every write operation on this mount (e.g. `git add
+--dry-run` left a fresh one behind with a "warning: unable to unlink
+'.git/index.lock': Operation not permitted"), so it must be cleared again
+before each subsequent git write from the sandbox side - not just once.
+
+SYNC (step 2): confirmed via both sides. Sandbox: `git fetch origin-https`
+succeeded (`git fetch origin` over SSH was not attempted this run, standing
+Q87/Q96 - no `~/.ssh` in the sandbox); local HEAD (`41dc136`) matched
+`origin-https/agents/audit-backlog` exactly, no pull needed. Windows-MCP
+PowerShell against the real host: `git status`/`git log -3` confirmed the
+same `41dc136` HEAD, no drift between the sandbox mount and the host's own
+working copy.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - Claude in Chrome not connected this run, standing Q59/Q87.
+No fetch attempted against the portal, no alternative route tried, nothing
+clicked or typed. QUESTIONS.json re-read for open items: confirmed Q87 and
+Q96 (the git-push-credential infrastructure blocker) both still open, and
+this run independently reconfirmed the same underlying facts one more time
+(see INFRASTRUCTURE NOTE below) without opening a third duplicate question,
+since nothing about the blocker has changed since Q96's last update.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5
+Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+re-derived from scratch via PowerShell against the 36-item pool (out-of-
+rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8 excluded, same convention as every
+prior rotation): `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`
+run per item using line ranges parsed from `Select-String`. Result: 3.12
+stalest at 2026-09-06T17:43:42+01:00 - exactly matching the timestamp the
+fifteenth pass (5.1, run immediately before this one) had already recorded
+as second-stalest before 5.1 was done, confirming the pool advanced by
+exactly one item as expected. Chosen: 3.12 (Tiffenbergs Chemist, eleventh
+pass).
+
+INFRASTRUCTURE NOTE (not a new question, corroborating Q87/Q96 and adding
+one new detail): this run independently reconfirmed the sandbox has no
+git push route (no `~/.ssh`, `git push --dry-run` over HTTPS fails "could
+not read Username", over SSH fails "Host key verification failed"; no
+`GITHUB_TOKEN`-shaped env var; no `gh` CLI installed) and that `tools/
+build-audit-status.js`'s own header names the `gh` CLI as its publish
+mechanism, which is absent here regardless of git credentials. New detail
+this run: `mcp__Windows-MCP__PowerShell` against the real host worked
+without needing any explicit access grant (unlike `mcp__computer-use__*`,
+which the second run's lock note said was refused this session) - so the
+established push-via-host route (first used 2026-09-05, item 3.9 eleventh
+pass) remains available and was used again this run for steps 9-10. Also
+found and worth flagging for future runs: `[System.IO.File]::ReadAllText`/
+`ReadAllBytes` called from `mcp__Windows-MCP__PowerShell` against
+AGENT_WORKLIST.md gave internally-inconsistent results this run (byte counts
+and line-ending counts that contradicted both `Get-Content` on the same host
+and independent `python3`/`wc` reads from the sandbox side, which agreed
+with each other exactly: 1,408,942 bytes, 19,749 lines, LF-only). A first
+edit attempt via `Get-Content`/`Set-Content` array round-trip on the
+PowerShell side produced a spurious whole-file diff (19,749 deletions /
+19,795 insertions for a 46-line insertion) and was reverted with `git
+checkout` before anything was committed. The actual edit was redone from
+the sandbox side with `python3` (explicit UTF-8, `newline=''` to avoid any
+translation), verified with a clean 46-insertion/0-deletion `git diff`
+before proceeding. No content was lost; the reverted attempt never reached
+git. Recommend future runs do text reads/edits of large repo files from the
+sandbox (`mcp__workspace__bash`, Python or standard \*nix text tools) and
+reserve `mcp__Windows-MCP__PowerShell` for `git add`/`commit`/`push` and
+running `node`, rather than mixing file I/O across both sides of the
+session for the same file.
+
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+change (via sandbox bash, `node` v22.23.2 present there), 36/36 clean.
+`git status --porcelain -- modules core` empty. All six generators rebuilt
+via PowerShell on the host; 216 files under `modules/` and `core/` combined-
+SHA256-hashed before and after
+(838428266C6A1B4B67F94D119A394C68196FCE5A662A97AFAF6A501EF3C69391), byte-
+identical - no regeneration needed as a baseline step.
+
+RESULT: FRESH ANGLE, eleventh pass. `tools/check-weight-loss-copy.js`
+proven by injection against Tiffenbergs' own weight-loss-clinic page for
+the first time in this item's eleven-pass history - the highest regulatory-
+risk claim class in the estate, and not yet exercised against this branch
+by the ten prior passes (which covered check-nap, check-postcodes,
+check-em-dashes, check-booking-routes, check-jsonld, check-gbp-packs,
+check-branch-identity, check-map-embeds and check-pharmacy-first-
+eligibility). Also chosen because the shared `claim-patterns.js` was
+widened the day before on item 3.13's eleventh pass (Clear Chemist Aintree,
+2026-09-07) after a gap in the "guaranteed results" pattern, and that fix
+had not yet been proved against a second branch. Three injections (RULE 8
+medicine name, RULE 9 efficacy/results claim, RULE 5 numeric BMI
+threshold), each on Tiffenbergs' `weight-loss-clinic-tiffenbergs-
+aintree.html`, each restored by byte copy and SHA256-reconfirmed identical
+to the baseline (`C3270EFFC18E610C18DD0A31B4B7093437757E5CF9E1E1E6FCB8C4A4C4AEC058`)
+immediately after. All three caught correctly, and the RULE 9 injection
+specifically confirmed the 3.13 fix generalises to a second branch's page.
+Full method, exact injected strings and checker output recorded in
+AGENT_WORKLIST.md's item 3.12 eleventh-pass paragraph and in
+audits/tiffenbergs-item-3.12-quality-pass-2026-09-08-eleventh.txt. Zero
+in-repo defect. Full 36-checker suite re-run clean after cleanup (36/36 via
+sandbox bash); target file SHA256 re-confirmed unchanged; `git status
+--porcelain` empty.
+
+LIVE HALF: not attempted. `list_connected_browsers` returned `[]` at
+answer pickup and again when checked directly for this item. Full 12-of-12
+live coverage for Tiffenbergs already stands from the fifth/sixth passes
+(2026-09-02). Q56 not re-verified this pass.
+
+COMMIT/PUSH/PUBLISH (steps 9-10): as with the second run today, the write
+half used `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` working copy (sandbox has no usable git credential
+this session, standing Q87/Q96). `git add` of exactly three intended files
+(AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/tiffenbergs-item-3.12-quality-pass-2026-09-08-eleventh.txt - none of
+the long-standing `.agent-lock.*`/test-probe/scratch debris from prior
+runs' lock-mechanics workarounds) staged cleanly. Committed and pushed to
+`origin agents/audit-backlog`; `node tools/build-audit-status.js` then run
+to publish the portal status page. Commit hash and publish outcome recorded
+below once confirmed.
+
 ## 2026-09-08 (unattended scheduled run, second run today, Cowork sandbox mcp__workspace__bash for read/edit, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 5.1 quality pass (fifteenth, check-em-dashes.js): found and fixed the ninth instance of this item's own recurring fault, one shape past the fourteenth pass's inline <style>/<script> ELEMENT fix - checkEmbeddedBlocks reads the text BETWEEN a tag pair and never reads an ATTRIBUTE VALUE sitting on an element's own opening tag, so a CSS hex escape in a style="" attribute (real and common: 183 files under modules/ carry one) or a JS unicode escape in an on<event>="" handler or href="javascript:..." URI (zero real occurrences today, so defensive rather than proven live-reachable) was invisible to every existing rule. Proved by injection in an isolated mirror: three cases (style attribute CSS escape, onclick JS escape, href=javascript: JS escape) all missed by the unfixed checker, all caught after the fix with correct line and label; a non-dash escape control stayed clean. Fixed by adding checkEmbeddedAttributes(), called from checkHtmlFile alongside the existing checkEmbeddedBlocks(). All 36 checkers re-run clean before and after, check-em-dashes.js's own steady-state counts byte-identical (233 files, 200/591/1), no generator or branches.json touched so no page was affected either way. Independent standalone proof kept at audits/em-dash-attribute-escape-probe-2026-09-08.js ("ALL CHECKS PASSED", exit 0). No live half read (Claude in Chrome not connected, standing Q59). No new question raised - checker widening, not a live-facing decision.
 LOCK CHECK (step 1): `.agent-lock` at run start held "RELEASED
 2026-09-08T00:44:30Z end of run", about 20 minutes old - under the

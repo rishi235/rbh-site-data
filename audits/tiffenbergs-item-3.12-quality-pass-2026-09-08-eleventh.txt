@@ -1,0 +1,89 @@
+Item 3.12 quality pass, 2026-09-08, ELEVENTH PASS - evidence transcript
+=========================================================================
+
+FRESH ANGLE: tools/check-weight-loss-copy.js proven by injection against
+Tiffenbergs' own weight-loss-clinic-tiffenbergs-aintree.html for the first
+time in this item's eleven-pass history. Ten prior passes exercised
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js and check-pharmacy-first-eligibility.js against this
+branch, but never the checker guarding the weight loss service description -
+the highest regulatory-risk claim class in the estate (compliance/
+WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, item 5.8, Q22 still open on the live-only
+pages this generator replaces).
+
+Chosen also because tools/check-weight-loss-copy.js and its shared
+claim-patterns.js were just widened the day before, on the item 3.13
+eleventh pass (Clear Chemist Aintree, 2026-09-07), after a gap was found in
+the "guaranteed results" pattern. That fix has not previously been proved
+against a second branch's page. This pass proves it holds on Tiffenbergs too.
+
+BASELINE
+--------
+All 36 tools/check-*.js checkers run individually before any change: 0
+failures. All six page generators rebuilt first (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages); 216 files under
+modules/ and core/ combined-SHA256-hashed before and after:
+838428266C6A1B4B67F94D119A394C68196FCE5A662A97AFAF6A501EF3C69391, identical
+both times. git status --porcelain on modules/ and core/ empty throughout.
+
+TARGET FILE
+-----------
+modules/service/pages/weight-loss-clinic-tiffenbergs-aintree.html
+Baseline SHA256: C3270EFFC18E610C18DD0A31B4B7093437757E5CF9E1E1E6FCB8C4A4C4AEC058
+Backed up by byte copy before any mutation; restored by byte copy (not git
+checkout) after each injection; SHA256-reconfirmed identical to the baseline
+above after every restoration and again after the last.
+
+INJECTIONS (three, each on a rule/page pair untried for injection against
+Tiffenbergs in any of the ten prior 3.12 passes)
+--------------------------------------------------------------------------
+1. RULE 8 (no medicine named). hero-sub sentence "Medically-supported weight
+   loss, assessed and supervised by a pharmacist." had ", with Mounjaro"
+   appended before the full stop. CAUGHT: two failures, RULE 2 (pinned
+   sentence no longer matches verbatim, expected side effect of editing the
+   sentence itself) and RULE 8 ("names \"mounjaro\"").
+
+2. RULE 9 (no efficacy or results claim, claim-patterns.js). Same sentence
+   had ", with guaranteed weight loss results" appended. CAUGHT: RULE 2 (same
+   expected side effect) and RULE 9 ("makes guarantees results: \"guaranteed
+   weight loss results\""), confirming the item 3.13 eleventh-pass widening
+   of this exact phrase (2026-09-07, Clear Chemist Aintree) holds correctly
+   on a second branch's page, not just the one it was fixed against.
+
+3. RULE 5 (eligibility integrity - no numeric BMI threshold). The pinned
+   sentence "A qualified pharmacist or clinician will review your health
+   history and, where it is clinically appropriate, prescription-only
+   weight-loss medication can be supplied as part of a supervised plan
+   alongside diet and lifestyle changes." had " for a BMI over 30" inserted
+   after "health history". CAUGHT: RULE 2 (same expected side effect) and
+   RULE 5 ("states a numeric BMI threshold: \"BMI over 30\"").
+
+All three restored by byte copy and SHA256-reconfirmed identical to the
+baseline hash above immediately after each restoration. Backup file
+(weight-loss-clinic-tiffenbergs-aintree.html.bak-3.12-eleventh) deleted
+after the final restore.
+
+RESULT
+------
+Zero in-repo defect. All three rules already correctly held Tiffenbergs' own
+weight loss page, now proven directly by injection for the first time, and
+the item 3.13 claim-pattern widening independently confirmed to generalise
+beyond the branch it was fixed against. Full 36-checker suite re-run clean
+after cleanup (36/36); git status --porcelain empty; target file SHA256
+re-confirmed C3270EFFC18E610C18DD0A31B4B7093437757E5CF9E1E1E6FCB8C4A4C4AEC058,
+matching the baseline exactly. No page, generator, checker, pack or
+branches.json byte changed.
+
+LIVE HALF
+---------
+Not attempted. mcp__claude-in-chrome__list_connected_browsers returned []
+at answer pickup (step 3) and again when checked directly for this item -
+standing Q59/Q87, reconfirmed. Full 12-of-12 live coverage for Tiffenbergs
+already stands from the fifth/sixth passes (2026-09-02). Q56 (branches.json's
+singular Tiffenberg@ against the live plural tiffenbergs@ footer) not
+re-verified this pass.
+
+No new question raised - checker widening confirmation and cross-branch
+proof of an existing fix, not a live-facing decision.

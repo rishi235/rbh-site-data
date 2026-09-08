@@ -8048,6 +8048,52 @@ Done 2026-09-07 (thirteenth pass).
       new question raised. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-09-06-tenth.txt. Done
       2026-09-06 (tenth pass)
+      Quality pass 2026-09-08, ELEVENTH PASS, FRESH ANGLE: tools/check-weight-
+      loss-copy.js proven by injection against Tiffenbergs' own weight-loss-
+      clinic-tiffenbergs-aintree.html for the first time in this item's
+      eleven-pass history (ten prior passes exercised check-nap.js,
+      check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+      check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+      check-map-embeds.js and check-pharmacy-first-eligibility.js against
+      this branch, but never the checker guarding the weight loss service
+      description - the highest regulatory-risk claim class in the estate
+      (item 5.8, Q22 still open on the live-only pages this generator
+      replaces). Also chosen because check-weight-loss-copy.js's shared
+      claim-patterns.js was widened the day before on the item 3.13 eleventh
+      pass (Clear Chemist Aintree, 2026-09-07) after a gap in the
+      "guaranteed results" pattern, and that fix had not yet been proved
+      against a second branch's page.
+      Baseline: all 36 checkers 0 failures, all six generators rebuilt
+      first, 216 files under modules/ and core/ combined-sha256-unchanged
+      (838428266C6A1B4B67F94D119A394C68196FCE5A662A97AFAF6A501EF3C69391).
+      Target file backed up by byte copy, baseline SHA256
+      C3270EFFC18E610C18DD0A31B4B7093437757E5CF9E1E1E6FCB8C4A4C4AEC058.
+      Three injections, each on a rule/page pair untried for injection
+      against Tiffenbergs in any prior 3.12 pass, each restored by byte copy
+      and sha256-reconfirmed identical immediately after: (1) RULE 8, "with
+      Mounjaro" appended to the hero-sub sentence - CAUGHT, two failures at
+      once (RULE 2 pinned-sentence mismatch, the expected side effect of
+      editing the sentence itself, and RULE 8 naming "mounjaro"); (2) RULE 9,
+      "with guaranteed weight loss results" appended to the same sentence -
+      CAUGHT (RULE 2 and RULE 9), independently confirming the item 3.13
+      eleventh-pass claim-pattern widening generalises to a second branch's
+      page, not only the one it was fixed against; (3) RULE 5, "for a BMI
+      over 30" inserted into the eligibility sentence - CAUGHT (RULE 2 and
+      RULE 5 numeric-BMI-threshold). All three files sha256-confirmed byte-
+      identical to the baseline hash above after restoration. Full
+      36-checker suite re-run clean after (36/36); target file sha256
+      re-confirmed unchanged; git status --porcelain empty throughout. Zero
+      in-repo defect - all three rules already correctly held Tiffenbergs'
+      own weight loss page, now proven directly for the first time, and the
+      3.13 fix independently confirmed to generalise. No page, generator,
+      checker, pack or branches.json byte changed. Live half not attempted:
+      Claude in Chrome not connected (list_connected_browsers returned []
+      at answer pickup and again for this item, standing Q59/Q87); full
+      12-of-12 live coverage already stands from the fifth/sixth passes
+      (2026-09-02), not re-read this pass. No new question raised - checker
+      widening confirmation and cross-branch proof of an existing fix, not a
+      live-facing decision. Evidence: audits/tiffenbergs-item-3.12-quality-
+      pass-2026-09-08-eleventh.txt. Done 2026-09-08 (eleventh pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
