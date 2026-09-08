@@ -1,3 +1,84 @@
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for read/lock/discovery, switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the write half) - Item 4.13 quality pass (fourteenth, Riddings Pharmacy Timperley GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
+mount. Created fresh, timestamped 2026-09-08T10:04:18Z. No `.git\index.lock` present
+initially either, but one appeared mid-run, created by the sandbox's own `git fetch`/
+`git status` calls, and could not be unlinked from the sandbox side (`rm` returned
+"Operation not permitted"; a fresh probe file could not be removed either) - the
+standing FUSE unlink quirk under Q87/Q96. This time it blocked `git add` outright (not
+just `git checkout` as the day's first run found), so this run switched to
+`mcp__Windows-MCP__PowerShell` against the real working copy for the rest of the run,
+as every recent run's log records doing. `Remove-Item .git\index.lock -Force` cleared
+it without issue from there, confirming the lock, the repo and the real Windows
+working copy are the same underlying files.
+
+SYNC (step 2): from the real working copy, `git fetch origin`: succeeded (SSH working
+on the host). `git pull --ff-only origin agents/audit-backlog`: already up to date,
+HEAD unchanged at 420412e (matching the fifteenth-pass item 1.3 commit from earlier
+today).
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not connected
+(standing Q59). Logged and carried on; no alternative route attempted, nothing
+clicked, typed or submitted anywhere. QUESTIONS.json read directly: 99 total, 46 open,
+unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" heading
+present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback
+applied. Rotation pool: 43 completed items minus the 7 standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus item 1.3 (already re-verified earlier today
+by this run's own predecessor) = 34 candidates. Each dated via `git log -1
+--format=%cI -L<start>,<end>:AGENT_WORKLIST.md` over its own paragraph range (line
+ranges taken from the ordered bullet-line list). Item 4.13 (Riddings Pharmacy
+Timperley GBP pack) came out least recently touched, last committed
+2026-09-06T22:14:48+01:00, ahead of the next-oldest (4.8, 2026-09-06T22:41:39+01:00),
+matching the ninth pass's own forward note exactly.
+
+WORK DONE: see AGENT_WORKLIST.md's own fourteenth-pass paragraph under item 4.13 and
+audits/riddings-timperley-photo-shot-list-4.13-fourteenth-2026-09-08.txt for full
+detail. In short: baseline confirmed clean (36/36 checkers, sha256 of
+gbp-packs/riddings-timperley.md unchanged since the tenth pass). Chose the photo shot
+list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates; item 4.5 pass,
+2026-08-30, proved at birth on scorah-hazel-grove.md) as the new angle, since it had
+never been injection-tested against Riddings' own copy across the item's thirteen
+prior passes, and Riddings' shot list happens to sit at exactly 10 bullets, the
+PHOTO_MIN floor itself - the sharpest possible boundary case for that leg of the rule
+in the estate. Three injections run directly on the tracked file, restored via `git
+checkout --` (available on this host, unlike the Cowork sandbox mount) and
+sha256-reconfirmed identical before the next: removing the tenth bullet (9 shots) -
+CAUGHT; removing the word "vinyl" from the first bullet - CAUGHT; removing the phrase
+"pending Google updates" from the intro line - CAUGHT. Two of the three line-level
+edits left a slightly malformed leftover fragment from the line they targeted (noted
+honestly in both the worklist paragraph and the evidence file); this does not weaken
+either result, since both rules read the whole flattened section text rather than
+individual lines, and the word or phrase was genuinely and completely absent from the
+injected copy. All three restored, sha256-reconfirmed identical to baseline, full
+36-checker suite re-run clean after final restore. No checker gap found; no in-repo
+defect; rule proven, not changed.
+
+Live half: Claude in Chrome not connected; read-only `Invoke-WebRequest -Method Head`
+calls used as a fallback (status codes only, nothing clicked, typed or submitted),
+consistent with this item's own twelfth-pass precedent for the same situation.
+switch-prescriptions-riddings-timperley.html still 404, switch-prescriptions.html
+still 200, pharmacy-first-riddings-timperley.html still 200, sitemap.xml still
+reachable - no change from the seventh pass's 2026-09-01 full check. This pass's own
+subject (a physical photo shot list and paster on-the-day actions inside the GBP
+profile) has no live URL to verify regardless.
+
+No in-repo defect found. No new question. AGENT_WORKLIST.md updated with the
+fourteenth-pass paragraph under item 4.13 (item was already [x]; this was
+verification only). One own scratch file (blame_dates.tmp.txt, created during item
+selection's date research) deleted before commit; the large pre-existing pile of
+`.agent-lock.*`/`*.tmp`/`*probe*` debris from earlier runs' own quirk investigations
+left untouched, out of this run's scope.
+
+Files changed: AGENT_WORKLIST.md,
+audits/riddings-timperley-photo-shot-list-4.13-fourteenth-2026-09-08.txt.
+
+
+
 ## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used throughout) - Item 1.3 quality pass (fifteenth, McCanns Sandringham postcode sweep): re-verified clean, no in-repo defect
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start. Created fresh,

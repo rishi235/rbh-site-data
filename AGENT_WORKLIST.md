@@ -14758,6 +14758,66 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       call for Rishi. Evidence: audits/riddings-timperley-category-service-
       allowlist-4.13-thirteenth-2026-09-06.txt.
       Done 2026-09-06.
+      Fourteenth quality pass 2026-09-08: pack clean and byte-stable across
+      all fourteen passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b6
+      26b9d0fed824630a775917c04 before and after, unchanged since the tenth
+      pass). Selected as stalest in the 34-candidate rotation pool (43
+      completed items minus the standing 7 out-of-rotation: 1.1, 1.4, 2.2,
+      5.6, 5.7, 6.7, 6.8, minus item 1.3, verified earlier the same day);
+      4.13 came out stalest at 2026-09-06T22:14:48+01:00, ahead of 4.8
+      (22:41:39) and the rest all later still.
+      BASELINE. git status --porcelain empty on gbp-packs/, modules/,
+      core/, tools/, branches.json, status/. All 36 tools/check-*.js run
+      individually: 36/36 exit 0. node tools/check-gbp-packs.js: 0
+      failures, the same 17 estate-wide WARNs as every recent pass.
+      NEW ANGLE. The photo shot list rule (PHOTO_MIN/photoCount,
+      photoVinyl, photoGoogleUpdates, item 4.5 quality pass, 2026-08-30,
+      proved at birth against scorah-hazel-grove.md) had never been
+      injection-tested against this pack's own copy across thirteen prior
+      passes. Riddings is a sharp test of the photoCount leg specifically:
+      its shot list carries exactly 10 bullets, the PHOTO_MIN floor
+      itself, not the comfortable margin most other packs run.
+      Three injections run directly on the tracked file, restored via
+      `git checkout --` (this mount permits it, unlike the Cowork sandbox's
+      FUSE mount) and sha256-reconfirmed identical before the next: (1) the
+      tenth and final bullet removed, leaving 9 - CAUGHT, naming 9 shots
+      against the 10 the rule requires, the smallest possible injection
+      that can flip this pack's own boundary; (2) the word "vinyl" removed
+      from the first bullet's wording - CAUGHT (photoVinyl); (3) the phrase
+      "pending Google updates" removed from the section's intro line -
+      CAUGHT (photoGoogleUpdates). Method note: injections (2) and (3) were
+      applied as single-line replacements against a two-line bullet and a
+      two-line intro sentence respectively, so each left one original
+      physical line of the pair in place, producing a slightly malformed
+      fragment in the injected copy rather than a clean rewritten sentence.
+      This does not weaken either result: both rules read the whole
+      flattened photo section for a word or phrase, not per-line, and the
+      word or phrase was genuinely and completely absent from the injected
+      section either way. All three restored and sha256-reconfirmed
+      identical to the baseline hash above, both immediately after each
+      restore and again at the end. Full 36-checker suite re-run after
+      final restore: 36/36 exit 0. No checker gap found; no in-repo
+      defect: rule proven, not changed.
+      LIVE HALF: Claude in Chrome not connected this run (tabs_context_mcp
+      reported "not connected", standing Q59); read-only HTTP HEAD requests
+      used as a fallback, consistent with the twelfth pass's own precedent,
+      confirming status codes only, nothing clicked, typed or submitted.
+      No change from the seventh pass's 2026-09-01 full check: Post B's
+      canonical URL still 404, the old permalink switch-prescriptions.html
+      still 200, the branch-specific Pharmacy First page still 200, the
+      sitemap still reachable. This pass's own subject, the physical photo
+      shot list and the paster's on-the-day actions inside the GBP profile,
+      has no live URL this repo can fetch or verify, the same point made
+      about CLINIC_QUALIFIERS (twelfth pass) and the category/service
+      allowlist (thirteenth pass). Answer pickup (step 3) also unavailable
+      for the same reason; QUESTIONS.json read directly (99 total, 46
+      open), unchanged by pickup this run. No autonomous window active at
+      the top of AGENT_LOG.md. No new question raised: pure
+      re-verification of documented checker behaviour against this pack's
+      own copy, no business, legal, pricing or regulatory content changed,
+      no judgement call for Rishi. Evidence: audits/riddings-timperley-
+      photo-shot-list-4.13-fourteenth-2026-09-08.txt.
+      Done 2026-09-08.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

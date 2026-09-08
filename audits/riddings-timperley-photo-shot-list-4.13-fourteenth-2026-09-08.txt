@@ -1,0 +1,97 @@
+Item 4.13 (Riddings Pharmacy Timperley GBP pack), fourteenth quality pass, 2026-09-08
+Subject: the photo shot list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates
+in tools/check-gbp-packs.js), proved at birth on the item 4.5 quality pass (2026-08-30)
+against gbp-packs/scorah-hazel-grove.md, never individually injection-tested against
+gbp-packs/riddings-timperley.md's own copy across the item's thirteen prior passes.
+
+BASELINE
+git status --porcelain gbp-packs/ modules/ core/ tools/ branches.json status/: empty.
+All 36 tools/check-*.js run individually: 36/36 exit 0.
+node tools/check-gbp-packs.js: 0 failures, 17 warnings (the same standing estate-wide
+set every recent pass records: Q64 post-town x4, Q72 qualifier-exemption x3, live-only
+link-target warnings, one phone-like-number warning).
+sha256 of gbp-packs/riddings-timperley.md before any change:
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+(unchanged since the tenth pass, 2026-09-03).
+
+NOTE ON WHY THIS PACK IS A GOOD TEST OF PHOTO_MIN SPECIFICALLY: Riddings' Photo shot
+list carries exactly 10 bullets, the PHOTO_MIN floor itself, not comfortable margin
+above it the way most other packs run. That makes it the sharpest available boundary
+case in the estate for the photoCount leg of this rule: one bullet removed is the
+smallest possible injection that can flip the result.
+
+METHOD
+Three injections run one at a time directly against the tracked file (this mount
+permits git checkout --, unlike the Cowork Linux sandbox's FUSE mount, so restore used
+`git checkout -- gbp-packs/riddings-timperley.md` after each round, sha256-reconfirmed
+identical to the baseline hash above before the next injection began).
+
+(1) photoCount: removed the tenth and final bullet ("Hours notice on the door, close
+enough that the 9am to 6pm weekday hours and the Saturday and Sunday closure are
+legible."), leaving 9. CAUGHT:
+  FAIL riddings-timperley.md: Photo shot list names 9 shots, and Build Pack v2 4.1
+  asks for at least 10. ...
+Confirms the floor fires exactly one bullet below the boundary this pack itself sits
+on, not just on packs with several bullets of margin.
+
+(2) photoVinyl: reworded the first bullet from "Vinyl storefront lead shot where
+fitted; otherwise the best straight-on frontage shot." to "Storefront lead shot, best
+straight-on frontage angle.", removing the word "vinyl" from the section. CAUGHT:
+  FAIL riddings-timperley.md: Photo shot list does not mention the vinyl storefront...
+Method note: the line-level replace targeted only the bullet's first physical line and
+left the original second line ("  frontage shot.") in place underneath the reworded
+first line, producing a slightly malformed two-line bullet in the injected copy rather
+than a single clean sentence. This does not weaken the test: photoVinyl reads the whole
+flattened photo section for the word "vinyl", not per-bullet, so the section-level
+absence is what the rule is checking and what was genuinely absent. Restored
+byte-identical afterwards regardless, confirmed by sha256.
+
+(3) photoGoogleUpdates: reworded the intro line "pending Google updates.)" to remove
+the phrase, replacing it with wording that keeps the sentence grammatical but drops
+"google" entirely. CAUGHT:
+  FAIL riddings-timperley.md: Photo shot list does not remind the paster to action any
+  pending Google updates while they are in the profile...
+Method note: the same line-level replace left the original preceding line ("(Build
+Pack 4.1: at least 10 photos. While in the profile, also action any") untouched above
+the new line, producing a duplicated, malformed intro fragment in the injected copy.
+Again this does not weaken the test: the rule checks for the phrase anywhere in the
+flattened section text, and the phrase was genuinely and completely absent from the
+injected copy. Restored byte-identical afterwards, confirmed by sha256.
+
+All three legs of the rule fire independently on Riddings' own copy, matching the
+behaviour proved at birth on scorah-hazel-grove.md. No checker gap found; no in-repo
+defect; rule proven, not changed.
+
+RESTORE CONFIRMATION
+sha256 of gbp-packs/riddings-timperley.md after all three injections and restores:
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 (matches baseline).
+git status --porcelain gbp-packs/ modules/ core/ tools/ branches.json status/: empty.
+Full 36-checker suite re-run after final restore: 36/36 exit 0.
+
+LIVE HALF
+Claude in Chrome: tabs_context_mcp reported "not connected" (standing Q59). Read-only
+HTTP HEAD requests used as a fallback, consistent with the item 4.13 twelfth pass's own
+precedent, to confirm status codes only - nothing clicked, typed, submitted or logged
+into:
+  switch-prescriptions-riddings-timperley.html -> 404 (unchanged, still the Post B hard
+    stop's subject)
+  switch-prescriptions.html                     -> 200 (unchanged, still the live
+    pre-Phase-3 paste at the old permalink)
+  pharmacy-first-riddings-timperley.html         -> 200 (unchanged, still live and
+    correct, matching Post A's repoint)
+  sitemap.xml                                    -> 200 (reachable; full content not
+    re-parsed this pass since no fact this pass tests depends on it)
+No change from the seventh pass's 2026-09-01 full check on any of these. This pass's
+own subject, the photo shot list, governs the physical photos taken for a Google
+Business Profile and the paster's own on-the-day actions inside that profile, neither
+of which is a URL this repo can fetch or verify live - the same point made about
+CLINIC_QUALIFIERS (twelfth pass) and the category/service allowlist (thirteenth pass).
+
+Answer pickup (step 3): Claude in Chrome not connected, same reason as above; no
+alternative route attempted per the standing rule. QUESTIONS.json read directly, 99
+total, 46 open, unchanged by pickup this run.
+
+No autonomous window active at the top of AGENT_LOG.md at run start. No new question
+raised: pure re-verification of documented checker behaviour against this pack's own
+copy, no business, legal, pricing or regulatory content changed, no judgement call for
+Rishi.
