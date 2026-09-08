@@ -48,6 +48,11 @@
       external .js/.css file loaded by a <script src="..."> or <link>). Added
       on the item 5.1 quality pass (fourteenth), 2026-09-06 - see "Inline
       <style>/<script> blocks" below
+    - the same source-level escape inside an INLINE ATTRIBUTE VALUE: a CSS hex
+      escape in a style="" attribute, or a JS unicode escape in an
+      on<event>="" handler or an href="javascript:..." URI. Added on the item
+      5.1 quality pass (fifteenth), 2026-09-08 - see "Inline attribute
+      values" below
     - an em dash or en dash, literal or entity, in a string value in the
       RUN-TIME DATA the live code fetches, meaning branches.json, which
       core/site-data.js pulls from jsDelivr and modules/emar/emar.js renders
@@ -359,6 +364,17 @@ const CSS_HEX_ESCAPE_RE = /\\([0-9a-fA-F]{1,6})(?:\r\n|[ \t\r\n\f])?/g;
 const STYLE_BLOCK_RE = /<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi;
 const SCRIPT_BLOCK_RE = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
 
+// Inline attribute values: a style="" attribute is CSS text and an
+// on<event>="" / href="javascript:..." attribute is JS text, exactly as much
+// as an element's own <style>/<script> body is, and a browser evaluates a
+// source-level escape inside either one the same way. checkEmbeddedBlocks
+// above reads element BODIES; this reads ATTRIBUTE VALUES, which is a
+// different shape the same fix does not already cover. See "Inline
+// attribute values" below.
+const STYLE_ATTR_RE = /\sstyle\s*=\s*"([^"]*)"|\sstyle\s*=\s*'([^']*)'/gi;
+const EVENT_ATTR_RE = /\son[a-z]+\s*=\s*"([^"]*)"|\son[a-z]+\s*=\s*'([^']*)'/gi;
+const JS_HREF_RE = /\shref\s*=\s*"javascript:([^"]*)"|\shref\s*=\s*'javascript:([^']*)'/gi;
+
 function countNewlines(text, uptoIndex){
   let count = 0;
   for (let i = 0; i < uptoIndex; i++) {
@@ -412,6 +428,75 @@ function checkEmbeddedBlocks(text, filePath){
       }
     });
   }
+}
+
+// Inline attribute values: style="" (CSS), on<event>="" and
+// href="javascript:..." (JS). Found on the item 5.1 quality pass
+// (fifteenth), one turn past the fourteenth pass's inline <style>/<script>
+// ELEMENT fix and the same shape again: checkEmbeddedBlocks reads the text
+// BETWEEN a <style>/<script> tag pair, and never looks at an attribute VALUE
+// sitting on the opening tag of any element. A style="" attribute is CSS
+// text by the same rule an external .css file or an inline <style> block is,
+// and it is real and common in this estate: 183 of the files under modules/
+// carry at least one. A CSS hex escape typed into one ("\2014" in a
+// font-family or similar declaration) decodes to the identical em dash a
+// <style> block's own escape does, and checkHtmlFile never read it. The same
+// applies to any place a browser evaluates an attribute VALUE as
+// JavaScript - an on<event>="" handler or an href="javascript:..." URI -
+// though neither currently appears anywhere in this estate (confirmed by a
+// fresh grep across modules/ and gbp-packs/ for both shapes: zero hits), so
+// that half is defensive rather than proven live-reachable the way the style
+// attribute half is.
+//
+// Proved by injection rather than argued, in an isolated mirror (no .git, so
+// the tracked repo was never opened for writing during the injection round):
+// appended " font-family:'\2014Test';" to a real, pre-existing style=""
+// attribute on a copy of
+// modules/switch/pages/switch-prescriptions-cherry-lane-walton.html and ran
+// the real, unfixed checker against the mirror: exit 0, wrongly clean - the
+// same signature this item has now found nine times. The onclick and
+// href="javascript:" cases were proved the same way, and separately
+// confirmed against the actual unfixed checker (not merely the fixed one
+// with the new code disabled), using a literal 6-character backslash-u-2014
+// string built with chr(92) to rule out the injection script's own shell/
+// Python quoting decoding it into a real dash before the checker ever saw
+// it, which a first draft of this test did by accident. All three were
+// caught after the fix, at the correct line, with the correct label; a
+// non-dash escape ("\0041", the letter A) inside the same style attribute
+// stayed correctly clean, and the tracked repo's own copy of the target file
+// was restored by direct write-back and sha256-reconfirmed identical
+// throughout, never left mid-injection.
+//
+// FIXED by extracting every style="" / on<event>="" / href="javascript:..."
+// attribute value from the comment-blanked page text and running
+// dashSourceEscapes() over each one in the matching mode: CSS for style, JS
+// for the other two. This runs in addition to, not instead of, both the
+// existing hasDash() line scan and checkEmbeddedBlocks(), so a literal dash
+// or an HTML entity inside an attribute is still caught exactly as before.
+function checkEmbeddedAttributes(text, filePath){
+  function scanAttr(re, isCss, label){
+    let m;
+    re.lastIndex = 0;
+    while ((m = re.exec(text)) !== null) {
+      const value = m[1] !== undefined ? m[1] : m[2];
+      if (!value) continue;
+      const escapes = dashSourceEscapes(value, isCss);
+      if (escapes.length) {
+        const valueStart = m.index + m[0].indexOf(value);
+        const line = countNewlines(text, valueStart) + 1;
+        const kindWord = escapes[0].kind === "em" ? "em dash" : "en dash";
+        failures.push({
+          file: rel(filePath),
+          line: line,
+          kind: kindWord + " (" + (isCss ? "CSS hex escape" : "JS unicode escape") + ") in inline " + label + " attribute",
+          text: m[0].trim().slice(0, 140)
+        });
+      }
+    }
+  }
+  scanAttr(STYLE_ATTR_RE, true, "style");
+  scanAttr(EVENT_ATTR_RE, false, "event-handler");
+  scanAttr(JS_HREF_RE, false, "href=\"javascript:\"");
 }
 
 function dashSourceEscapes(text, isCss){
@@ -659,6 +744,10 @@ function checkHtmlFile(file){
   // with <!-- --> is not scanned, same convention as the hasDash() pass just
   // above.
   checkEmbeddedBlocks(visible, file);
+  // Inline style="" / on<event>="" / href="javascript:..." attribute
+  // values: see "Inline attribute values" above. Same comment-blanked text,
+  // same convention.
+  checkEmbeddedAttributes(visible, file);
 }
 
 function checkPasteSheet(file){

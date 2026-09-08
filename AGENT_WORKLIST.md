@@ -16991,6 +16991,152 @@ out via mcp__Windows-MCP__PowerShell against the real, canonical
 C:\Dev\rbh-site-data working copy on the host, rather than left queued
 locally in the sandbox - see the top of AGENT_LOG.md for the exact commands
 and their output.
+
+Quality pass 2026-09-08 (fifteenth). UNATTENDED SCHEDULED RUN, Cowork sandbox
+`mcp__workspace__bash` for read/edit work, `mcp__Windows-MCP__PowerShell`
+against the real C:\Dev\rbh-site-data working copy for the git write half
+(same underlying files, confirmed identical `git status`/`git log` on both
+sides before any edit this run). `.agent-lock` at run start held "RELEASED"
+content about 20 minutes old - under the 45-minute threshold, and its own
+content independently confirmed the prior run (item 4.11, fourteenth pass)
+had finished cleanly, matching the recurring "released-content marker under
+threshold" pattern this file's own recent entries have repeatedly logged and
+left untouched; overwritten with a fresh active-run timestamp per the
+standing workaround (`rm` unavailable on this mount). `.git/HEAD.lock` was
+present (orphaned from the prior run's own cleanup step failing the same
+way); `ps aux` confirmed no git process running, cleared by `mv` to a
+`.stale-<epoch>` suffix. `git fetch origin` (SSH) failed "Host key
+verification failed", standing Q87/Q96; `git fetch origin-https` succeeded,
+confirmed local HEAD already matched `origin-https/agents/audit-backlog`
+before this run's own commits. `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - not connected, standing Q59; no answer pickup attempted by
+another route. No "Standing authorisation - autonomous window" heading
+present at the top of AGENT_LOG.md, so no autonomous decisions applied.
+ITEM SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep, so the quality-pass fallback applied. Rotation pool
+re-derived from scratch (regex-parsed every `- [x]` heading, built each
+item's own header-to-next-header line range, filtered to the standing
+36-item pool, out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8 excluded), then
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` per item. Result
+matched the fourteenth pass's own forward note exactly: 5.1 stalest at
+2026-09-06T16:46:55+01:00, ahead of 3.12 (17:43:42), 3.6 (18:11:33), 3.8
+(18:47:44) and the rest of the pool. Chosen: 5.1.
+
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 exit 0. `git status --porcelain -- modules core` empty (no
+generator or branches.json touched by the immediately preceding run), so no
+regeneration was needed as a baseline step.
+
+WORK DONE. Read tools/check-em-dashes.js in full (1053 lines, up from the
+937 the fourteenth pass read) together with this item's own fourteen-pass
+history before looking for a fifteenth axis. The fourteenth pass had closed
+the gap between an EXTERNAL .js/.css file (read by checkCodeFile via
+dashSourceEscapes) and an INLINE <style>/<script> ELEMENT BODY sitting
+directly in an .html page (read by checkEmbeddedBlocks, added that pass).
+Traced what checkEmbeddedBlocks actually reads: STYLE_BLOCK_RE and
+SCRIPT_BLOCK_RE both match the text BETWEEN an opening and closing tag. A
+style="" attribute, or an on<event>="" handler, or an href="javascript:..."
+URI, is CSS or JS text sitting on an element's OPENING TAG rather than
+between a tag pair - a different shape from the one the fourteenth pass
+fixed, evaluated by the same browser mechanisms (the CSS cascade for
+style="", the DOM event system for on<event>="", the javascript: URI scheme
+for href), and read by neither checkEmbeddedBlocks nor checkCodeFile nor the
+plain hasDash() line scan for a source-level escape (hasDash only matches a
+literal character or an HTML entity, not a JS/CSS escape).
+
+Checked whether this is hypothetical before treating it as a gap: a fresh
+grep of every file under modules/ found 183 files carrying at least one
+style="" attribute - real and common, not an edge case - while a matching
+grep for on<event>= and javascript: across modules/ and gbp-packs/ found
+zero real occurrences anywhere in the estate today. So the style="" half of
+this fix closes a genuinely reachable shape (the same standing as ten of
+this item's eleven prior fixes: latent, not live, because no generator has
+ever written an escape into one), and the event-handler/href half is
+defensive rather than proven live-reachable, added for the same reason the
+JS/CSS escape rule itself was added to checkCodeFile: because a browser
+evaluates it the same way it evaluates a <script> body, and this checker's
+own stated job is to catch a dash wherever a browser would render one, not
+only where one has been written so far.
+
+Proved by injection rather than argued, in an isolated mirror (no .git, so
+the tracked repo was never opened for writing during the injection round;
+`git status --porcelain -- modules core` confirmed empty before and after
+the whole exercise). Baseline in the mirror matched the tracked repo's own
+steady state exactly (233 files scanned, 200/591/1, zero failures). Three
+cases against the UNFIXED checker, all missed (exit 0, wrongly clean): (a) a
+CSS hex escape ("\2014") appended to a real, pre-existing style="" attribute
+on a copy of
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html; (b) a JS
+unicode escape (the literal 6-character text backslash-u-2014, deliberately
+NOT a real em dash - built with `chr(92)` in the injection script to remove
+any risk of shell or Python string-escape processing silently decoding it
+into a real character before the checker ever saw it, a mistake a first
+draft of this test made by accident and caught by re-checking what the
+injected bytes actually were) inside a newly added onclick="" attribute; (c)
+the same literal escape text inside a newly added href="javascript:..."
+attribute. A non-dash escape control ("\0041", the letter A) inside the same
+style="" attribute stayed correctly clean in the same run, and the tracked
+repo's own copy of the target page was confirmed byte-identical
+(sha256 a0090a6c...c1a38c6) before, during and after every injection.
+
+FIXED IN REPO, no sign-off needed, same as this item's eleven prior
+checker-widening fixes: added STYLE_ATTR_RE, EVENT_ATTR_RE and JS_HREF_RE,
+and a new checkEmbeddedAttributes() function, called from checkHtmlFile
+alongside the existing checkEmbeddedBlocks() call, which extracts each
+matching attribute's value and runs the same dashSourceEscapes() the
+fourteenth pass already wrote, in the matching mode (CSS for style, JS for
+the other two), reporting the correct line via the same countNewlines()
+helper. This runs in addition to, not instead of, hasDash() and
+checkEmbeddedBlocks(), so a literal dash or an HTML entity inside an
+attribute is still caught exactly as before.
+
+Re-ran the fixed checker against the same isolated mirror with the same
+three injected cases: all three now CAUGHT, each at the correct line, each
+correctly worded ("... (CSS hex escape) in inline style attribute" / "...
+(JS unicode escape) in inline event-handler attribute" / "... (JS unicode
+escape) in inline href=\"javascript:\" attribute"). The non-dash control
+stayed correctly clean. An independent, standalone probe script
+(audits/em-dash-attribute-escape-probe-2026-09-08.js) repeats all three
+catches, the control and the scope confirmation as one self-contained run
+against the tracked repo's own real checker (never against the tracked
+target page - it copies into its own temp mirror, injects and restores
+there, confirmed by the tracked file's own sha256 being unchanged after the
+script exits): `node audits/em-dash-attribute-escape-probe-2026-09-08.js`
+prints "ALL CHECKS PASSED" and exits 0.
+
+Full 36-checker suite re-run individually against the real tracked repo both
+before and after the fix: 36/36 exit 0 both times, and check-em-dashes.js's
+own steady-state counts are byte-identical before and after (233 files
+scanned, 200/591/1), confirming the fix changes matching logic without
+changing any verdict on real content - no generated page, GBP pack, paste
+sheet or EXTRA_HTML file in the estate currently carries a style="" escape,
+an on<event>= handler or a javascript: href, so nothing that was passing
+starts failing. No generator or branches.json touched, so regeneration was
+not re-run as a baseline step; `git status --porcelain -- modules core`
+confirmed empty both before this pass started and after the fix landed,
+proving no page was affected either way.
+
+No further defect found beyond the attribute-escape gap itself; no
+generator, branches.json, page, pack or paste sheet changed. LIVE HALF: not
+read this run (Claude in Chrome not connected, standing Q59). No new
+question raised - this is a checker widening, not a live-facing or
+patient-facing decision. Fifteenth consecutive clean pass on the repo half;
+fifth of the fifteen (after the tenth, eleventh, thirteenth and fourteenth)
+to find a defect in the checker's own matching or scanning logic rather than
+in a page, pack, sheet or generator, and the second in a row (after the
+fourteenth) to find one in WHICH PART OF AN HTML FILE the existing
+escape-decoding logic reaches, rather than in a wholly new file type or a
+wholly new character form. Evidence: this paragraph, the in-place
+check-em-dashes.js comments, and
+audits/em-dash-attribute-escape-probe-2026-09-08.js as an independently
+re-runnable proof.
+
+PUSH/PUBLISH (steps 9-10): this session's `mcp__workspace__bash` shell again
+has no usable git credential (SSH host-key failure, HTTPS fetch-only),
+standing Q87/Q96. The write half (add, commit, push, and the status-page
+publish) was carried out via `mcp__Windows-MCP__PowerShell` against the
+real, canonical C:\Dev\rbh-site-data working copy on the host - see the top
+of AGENT_LOG.md for the exact commands and their output.
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

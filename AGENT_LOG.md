@@ -1,3 +1,67 @@
+## 2026-09-08 (unattended scheduled run, second run today, Cowork sandbox mcp__workspace__bash for read/edit, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 5.1 quality pass (fifteenth, check-em-dashes.js): found and fixed the ninth instance of this item's own recurring fault, one shape past the fourteenth pass's inline <style>/<script> ELEMENT fix - checkEmbeddedBlocks reads the text BETWEEN a tag pair and never reads an ATTRIBUTE VALUE sitting on an element's own opening tag, so a CSS hex escape in a style="" attribute (real and common: 183 files under modules/ carry one) or a JS unicode escape in an on<event>="" handler or href="javascript:..." URI (zero real occurrences today, so defensive rather than proven live-reachable) was invisible to every existing rule. Proved by injection in an isolated mirror: three cases (style attribute CSS escape, onclick JS escape, href=javascript: JS escape) all missed by the unfixed checker, all caught after the fix with correct line and label; a non-dash escape control stayed clean. Fixed by adding checkEmbeddedAttributes(), called from checkHtmlFile alongside the existing checkEmbeddedBlocks(). All 36 checkers re-run clean before and after, check-em-dashes.js's own steady-state counts byte-identical (233 files, 200/591/1), no generator or branches.json touched so no page was affected either way. Independent standalone proof kept at audits/em-dash-attribute-escape-probe-2026-09-08.js ("ALL CHECKS PASSED", exit 0). No live half read (Claude in Chrome not connected, standing Q59). No new question raised - checker widening, not a live-facing decision.
+LOCK CHECK (step 1): `.agent-lock` at run start held "RELEASED
+2026-09-08T00:44:30Z end of run", about 20 minutes old - under the
+45-minute threshold, and its own content independently confirmed the prior
+run (item 4.11, fourteenth pass) had finished cleanly rather than crashed,
+matching the recurring "released-content marker under threshold" pattern
+this file's own recent entries have repeatedly logged and left untouched.
+Overwritten in place with a fresh active-run timestamp (`rm` unavailable on
+this mount, standing FUSE restriction, Q87/Q96). `.git/HEAD.lock` (0 bytes)
+was present, same ~20-minute age; `ps aux` confirmed no git process
+running; cleared by `mv` to a `.stale-<epoch>` suffix. No `.git/index.lock`
+was present at the very start, but one appeared during later `git status`
+calls in this run (the same standing pattern every recent run has
+recorded) and was cleared the same way immediately before each subsequent
+git command that needed it.
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed" - standing Q87/Q96, reconfirmed again. `git fetch origin-https`
+succeeded; local HEAD (`238747c`) already matched
+`origin-https/agents/audit-backlog`... local was actually 2 commits AHEAD
+of origin-https at run start (`31778e2`, `238747c`), carried over unpushed
+from the two preceding runs today (items 4.11 and its AGENT_LOG fixup),
+confirmed via `git log --oneline -5` on both sides.
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - Claude in Chrome not connected this run, standing Q59. No
+fetch attempted against the portal, no alternative route tried, nothing
+clicked or typed.
+AUTONOMOUS WINDOW (step 4): checked the top of this file before writing
+anything; no "Standing authorisation - autonomous window" heading present.
+No autonomous decisions applied or needed this run.
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), so the quality-pass fallback applied. Rotation pool
+independently re-derived from scratch: parsed every `- [x]` heading in
+AGENT_WORKLIST.md by regex, built each item's own paragraph line-range,
+filtered to the standing 36-item pool (out-of-rotation set 1.1/1.4/2.2/
+5.6/5.7/6.7/6.8 excluded), then ran `git log -1 --format=%cI
+-L<start>,<end>` on each item's own range. Result: 5.1 stalest at
+2026-09-06T16:46:55+01:00, ahead of 3.12 (17:43:42), 3.6 (18:11:33), 3.8
+(18:47:44) and the rest of the pool, matching the fourteenth pass's own
+forward note exactly. Chosen: 5.1 (check-em-dashes.js).
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 clean. `git status --porcelain -- modules core` empty (no
+generator or branches.json drift carried over), so no regeneration was
+needed as a baseline step.
+RESULT: one real, previously latent gap found and fixed in
+tools/check-em-dashes.js itself (the ninth such gap in this item's
+now-fifteen-pass history). Full method, injection cases and evidence
+recorded in AGENT_WORKLIST.md's item 5.1 fifteenth-pass paragraph rather
+than duplicated here. Evidence file:
+audits/em-dash-attribute-escape-probe-2026-09-08.js (run it directly:
+`node audits/em-dash-attribute-escape-probe-2026-09-08.js`, prints "ALL
+CHECKS PASSED" and exits 0).
+COMMIT/PUSH/PUBLISH (steps 9-10): `mcp__workspace__bash` has no usable git
+credential this session (SSH host-key failure, HTTPS fetch-only, standing
+Q87/Q96). The write half was carried out via
+`mcp__Windows-MCP__PowerShell` against the real, canonical
+C:\Dev\rbh-site-data working copy on the host (same underlying files as
+the sandbox mount, confirmed identical `git status`/`git log` before any
+edit this run). Commit hash and push/publish outcome: see below, filled in
+after the PowerShell commands ran.
+QUESTIONS.json: 45 open questions surveyed at answer-pickup (step 3); none
+newly answered this run (Claude in Chrome not connected). No new question
+raised.
+
 ## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout, Claude in Chrome not connected) - Item 4.11 quality pass (fourteenth, SK Chemists Bootle GBP pack): proved two rules that plainly apply to this pack but had never been injection-tested against it in thirteen prior passes - check-gbp-packs.js's sister-branch claim rule (SK Chemists is a unique brandLabel with no live sister, so this is the estate's clearest case of the "no other live branch carries the brand" breach path, untested elsewhere because every prior sister-branch injection targeted a branch that does have a real sister) and check-brand-spelling.js's MISSPELT pattern written specifically for this brand ("S K Chemists" -> "SK Chemists"). Both injections caught on the first attempt with the expected rule-specific message; no defect found; no live half read (Claude in Chrome not connected, checked before and after repo work, standing Q59).
 LOCK CHECK (step 1): `.agent-lock` at run start held a timestamp about 50
 minutes old - past the 45-minute threshold. `rm` returned "Operation not
