@@ -1,0 +1,159 @@
+Item 3.1 quality pass (fourteenth), 2026-09-08 (unattended scheduled run, via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy - the Cowork sandbox mcp__workspace__bash mount could not delete its own
+stale .agent-lock ("Operation not permitted") and has no working route to
+GitHub, standing Q87/Q96).
+
+SELECTION. All 8 remaining unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh: every
+"- [x] <N.N>" marker line read directly from AGENT_WORKLIST.md (43 checked),
+each item's own paragraph range dated via `git log -1 --format=%cI -L<s>,<e>`,
+run across all 36 pool items (43 checked minus the seven standing
+out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 3.1 came out
+stalest at 2026-09-06T19:41:42+01:00 (item 6.3, the previous stalest, was
+verified by the prior run today and dropped to the top of the freshness
+order). Chosen: 3.1 (Define the title/H1 pattern once, in the generator).
+
+BASELINE. All 36 tools/check-*.js checkers green before any mutation. All six
+generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt via their own scripts; git status
+--porcelain -- modules core tools branches.json gbp-packs status empty both
+before and after (byte-identical, 216 files under modules/ and core/).
+check-seo-pattern.js itself: 177 pages, 0 untyped, 0 failures.
+
+WHY THIS ANGLE. Thirteen prior passes (2026-08-04 through 2026-09-06) have
+proved, by injection, every leg this checker's own comments claim to guard:
+condition-slug mirroring and its fail() path (both ready:true/false), the
+untyped-file-fails rule, KNOWN_NON_PAGE in all three states, the PAGE_TYPES
+forward contract (missing builder, no require, function names none, function
+not exported, function never called, empty contract) and its reverse
+(unlisted generator, stale KNOWN_NON_PAGE_BUILDER key both directions), the
+town/brand/region data-source rule and its two vacuity guards
+(sourceDiffering=0, regionDiffering=0), the cross-town absence rule, the
+sister-town exception and its stale-key rule, the empty-service-words guard,
+and the ONE H1 / ONE TITLE LINE / ONE DESCRIPTION LINE counting rules at their
+"2" (duplicate) boundary. Re-reading the 819-line checker end to end against
+all thirteen accounts by grep (searching AGENT_LOG.md, AGENT_WORKLIST.md and
+QUESTIONS.json for "never calls", "does not export", "exports no PAGE_TYPES",
+"declares no service words", "read no buildable branch", "0 h1 elements",
+"'Weebly page SEO title'... 0", "no SEO description line") found four
+genuinely untested branches, all at the "zero" boundary rather than the
+"duplicate" boundary the counting rules had been proved at:
+
+  1. h1Count === 0 (a page with NO h1 at all) - only h1Count === 2 had ever
+     been injected.
+  2. titleLineCount === 0 (the "Weebly page SEO title:" label removed
+     entirely) - only the duplicate-line case had been injected.
+  3. descLineCount === 0 AND the separate dm-null "no SEO description line"
+     check (two different code paths reacting to the same missing line,
+     lines 471-474 and 504-506) - neither had been injected.
+  4. sourceChecked === 0, the data-source rule's own "read no buildable
+     branch" vacuity guard (lines 786-789) - distinct from sourceDiffering=0
+     and regionDiffering=0, both already proved on 2026-08-14/08-30. This
+     guard fires only if literally every live branch fails the loop's own
+     `!b.seoTown || !b.brandLabel` filter, which had never been engineered.
+
+METHOD. A full scratch copy was made via `git archive HEAD -o scratch.zip
+--format=zip` and `Expand-Archive`, outside the tracked working tree
+(C:\Dev\rbh-site-data\_agentscratch\audit-3.1-14th, deleted entirely at the
+end). The first extraction attempt via `git archive | tar -x` silently
+produced an empty directory (no error surfaced, caught immediately by
+checking branches.json existed before running anything against it) - the
+zip route was used instead and verified to extract branches.json and
+tools/check-seo-pattern.js correctly before any test began. Scratch baseline
+confirmed clean and matching the live repo exactly (177/0/0) before every
+round.
+
+Four rounds, each restored and reconfirmed byte-identical before the next
+via sha256 (files) or a live `git show HEAD:<path>` byte copy (branches.json,
+via `cmd /c "git show HEAD:branches.json > path"` rather than any
+PowerShell text-based reconstruction - see the note below on why):
+
+(1) H1Count=0. modules/service/pages/pharmacy-first-gordon-short-crosby.html
+    (sha256 61a2227c...170a83) had its bare <h1>...</h1> removed entirely via
+    regex. CAUGHT: "0 h1 elements, expected exactly 1", plus the expected
+    collateral (the count check does not short-circuit the content checks):
+    "h1 '(no h1)' != 'Pharmacy First at Gordon Short Chemist in Crosby'",
+    "h1 missing seoTown 'Crosby'", "h1 missing service words (pharmacy
+    first)" - 4 failures, all on this one file, all by name. Restored;
+    sha256 reconfirmed identical; re-run clean (177/0/0).
+
+(2) TitleLineCount=0. modules/service/pages/uti-treatment-tiffenbergs-
+    aintree.html (sha256 7e37332f...a68a6f) had its entire "Weebly page SEO
+    title:" line deleted. CAUGHT: "0 'Weebly page SEO title' lines, expected
+    exactly 1", plus the collateral exact-match cascade ("(no SEO title
+    line)" != expected, missing seoTown, missing service words) - 4
+    failures, and the one-line rule's own counter correctly dropped from 177
+    to 176 pages carrying exactly one of each line. Restored; sha256
+    reconfirmed; re-run clean.
+
+(3) DescLineCount=0 + the separate missing-line check. modules/service/pages/
+    contraception-hirshmans-ainsdale.html (sha256 a595d8a3...ee20ee1fe9) had
+    its entire "Weebly page SEO description:" line deleted. CAUGHT: both
+    "0 'Weebly page SEO description' lines, expected exactly 1" (the count
+    rule) AND, separately, "no SEO description line" (the dm-null branch) -
+    2 failures from two independent code paths reacting to the one deletion,
+    confirming they are not the same check twice: with dm null, gotDesc stays
+    null and pat.checkMeta is never called at all, so the content-length and
+    service-word rules correctly assert nothing about a description that does
+    not exist, rather than crashing or silently comparing against an empty
+    string. Restored; sha256 reconfirmed; re-run clean.
+
+(4) sourceChecked=0. First attempt blanked EVERY live branch's seoTown via a
+    Node.js mutation script (avoiding PowerShell's ConvertTo-Json, which
+    writes a UTF-8 BOM that broke Node's own JSON.parse on the very first
+    attempt - caught immediately when check-seo-pattern.js threw
+    "Unexpected token '\ufeff'" instead of printing a report; branches.json
+    was restored via `git show HEAD:branches.json` piped through cmd rather
+    than any PowerShell string round-trip after that, since PowerShell's own
+    text encoding was the cause). Blanking every seoTown tripped an EARLIER
+    guard instead of the intended one: check-seo-pattern.js builds
+    townOwners (and so OTHER_TOWNS, the cross-town rule's own input) from
+    b.seoTown at module load, before the data-source loop ever runs, so the
+    module aborted immediately with "branches.json yields no live seoTown,
+    so the cross-town rule would check nothing" - a real guard, just not the
+    one under test, and useful confirmation that the two vacuity guards are
+    independent rather than one masking the other.
+    Second attempt blanked every live branch's brandLabel instead (seoTown
+    left untouched, so OTHER_TOWNS and SISTER_TOWNS stay populated and the
+    earlier guards do not fire). CAUGHT, cleanly: "FAIL the data-source rule
+    read no buildable branch, so it asserts nothing about where
+    seo-pattern.js takes its town and brand from" and "data-source rule: 0
+    branches had seo-pattern pick() checked...". 243 total failures in this
+    run (the expected cascade: every one of 177 pages fails its title/H1
+    exact match against an empty-brand expectation, since the live page
+    files were not regenerated to match the corrupted data - correct
+    behaviour, not a new fault). Confirmed the two related vacuity guards do
+    not double-report: with sourceChecked itself at 0, the code's own
+    `else if (!sourceDiffering)` branch correctly does not also fire, and the
+    separate `if (sourceChecked && !regionDiffering)` guard correctly stays
+    silent too. branches.json restored via the same git-show-to-file route;
+    sha256 reconfirmed identical (904de09b...969e1e, matching the live
+    tracked file); re-run clean (177/0/0).
+
+RESULT. Zero in-repo defects found this pass. Four genuinely untested
+branches of check-seo-pattern.js - the zero-count boundary on all three
+"exactly one" rules, and the data-source rule's third and last vacuity guard
+- all proved correct by injection for the first time in this item's
+fourteen-pass history. No checker logic changed - this was verification
+only, the documented behaviour already being correct in every case. Scratch
+directory deleted entirely after use; tracked repo confirmed untouched
+throughout (git status --porcelain -- modules core tools branches.json
+gbp-packs status empty before, during and after) and reconfirmed clean at
+the end: full 36-checker suite green, all six generators byte-identical.
+
+LIVE HALF. Claude in Chrome reported "not connected" at answer pickup
+(step 3); not retried by another route per procedure, no login attempted.
+Fell back to the established read-only curl/Invoke-WebRequest GET route:
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html returned HTTP
+200, title "Pharmacy First at Fishlocks Chemist, Ainsdale" and H1 "Pharmacy
+First at Fishlocks Chemist in Ainsdale", both the pattern verbatim -
+unchanged from every prior pass's live sample. The Q71/
+mccannspharmacy.co.uk 404 finding was not re-read this pass, treated as
+unchanged per the established convention when the finding is not new. No
+new live finding.
+
+No page, generator, checker or branches.json entry changed in the tracked
+repo. No new question raised.

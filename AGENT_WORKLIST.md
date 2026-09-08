@@ -1906,6 +1906,53 @@ mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html HTTP 404, consistent
 with Q35's outstanding landing-page paste backlog, unchanged. No new live
 finding, no new question raised. Evidence in
 audits/seo-pattern-check-2026-09-06-thirteenth.txt.
+Quality pass (fourteenth), 2026-09-08 (unattended scheduled run, via
+Windows-MCP PowerShell on the real machine - the Cowork sandbox mount could
+not delete its own stale .agent-lock, standing Q87/Q96). Baseline: all 36
+checkers green, all six generators byte-identical (216 files, zero diff),
+git status --porcelain empty throughout. Re-read the full 819-line checker
+against all thirteen prior passes' own accounts and found four genuinely
+untested branches, all at the "zero" boundary of a rule previously proved
+only at its "two" (duplicate) boundary: h1Count===0, titleLineCount===0,
+descLineCount===0 (plus the separate dm-null "no SEO description line"
+path), and the data-source rule's third vacuity guard, sourceChecked===0
+("read no buildable branch"), distinct from the sourceDiffering=0 and
+regionDiffering=0 guards already proved on 2026-08-14/08-30.
+METHOD: scratch copy via `git archive HEAD --format=zip` + Expand-Archive
+outside the tracked tree (the tar-pipe route used by earlier passes produced
+a silently empty directory this time, caught before any test ran and
+replaced with the zip route). Four rounds: (1) bare <h1> removed from
+pharmacy-first-gordon-short-crosby.html - caught, "0 h1 elements, expected
+exactly 1" plus the expected content-check cascade; (2) the "Weebly page SEO
+title:" line deleted from uti-treatment-tiffenbergs-aintree.html - caught,
+"0 'Weebly page SEO title' lines" plus cascade, one-line counter correctly
+176/177; (3) the "Weebly page SEO description:" line deleted from
+contraception-hirshmans-ainsdale.html - caught on BOTH the count rule and
+the separate dm-null "no SEO description line" rule at once, confirming
+pat.checkMeta is correctly never called against a description that does not
+exist; (4) every branch's brandLabel blanked via a Node.js mutation script
+(a first attempt blanking seoTown instead tripped an EARLIER, different
+guard - the cross-town rule's own OTHER_TOWNS vacuity check at module load -
+useful confirmation the two guards are independent; a PowerShell
+ConvertTo-Json round-trip on the first attempt also briefly wrote a UTF-8
+BOM that broke Node's JSON.parse, caught immediately and fixed by restoring
+branches.json via `git show HEAD:branches.json` piped through cmd rather
+than any PowerShell text reconstruction) - caught, "FAIL the data-source
+rule read no buildable branch" and "data-source rule: 0 branches", with the
+related sourceDiffering/regionDiffering guards correctly staying silent
+rather than double-reporting. All four restored and sha256-reconfirmed
+byte-identical before the next; scratch deleted entirely after use; tracked
+repo confirmed untouched throughout and reconfirmed clean at the end
+(36/36 checkers, six generators byte-identical). RESULT: zero in-repo
+defect, all four zero-boundary/vacuity branches proven correct by injection
+for the first time in this item's history. No checker, page, generator or
+branches.json entry changed. LIVE HALF: Claude in Chrome not connected
+(standing Q59); fell back to the established read-only GET route -
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html HTTP 200,
+title and H1 both the pattern verbatim, unchanged from every prior pass. The
+Q71/mccannspharmacy.co.uk 404 finding not re-read this pass, treated as
+unchanged. No new live finding, no new question raised. Evidence in
+audits/seo-pattern-check-2026-09-08-fourteenth.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

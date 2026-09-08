@@ -1,4 +1,88 @@
-## 2026-09-08 (unattended scheduled run, sixth run today, Cowork sandbox mcp__workspace__bash for all read/edit/analysis and git read half, git write half attempted from the sandbox first per usual, Claude in Chrome not connected) - Item 6.3 quality pass (eleventh, opening hours): proved three never-before-exercised fail paths in tools/check-opening-hours.js by injection (day-of-week typo validation, rule 7's own coverage floor, rule 8's own coverage floor); re-confirmed item 6.7's own bankHolidays block validation directly against the tracked tree; zero in-repo defect, no new question, live half unchanged (Smartts Chemist Bootle remains the sole mismatch, Q55 answered-but-not-yet-actioned)
+## 2026-09-08 (unattended scheduled run, seventh run today, via mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy - the Cowork sandbox mcp__workspace__bash mount could not delete its own stale .agent-lock ("Operation not permitted", standing Q87/Q96) so this run switched directly to the real host for the whole run, read and write both) - Item 3.1 quality pass (fourteenth, SEO title/H1 pattern): proved four never-before-exercised branches of tools/check-seo-pattern.js by injection, all at the "zero" boundary of rules previously proved only at their "two" (duplicate) boundary - h1Count===0, titleLineCount===0, descLineCount===0 (plus the separate dm-null "no SEO description line" path), and the data-source rule's third vacuity guard sourceChecked===0 ("read no buildable branch"); zero in-repo defect, no new question, live half unchanged (Fishlocks Ainsdale pattern verbatim)
+
+LOCK CHECK (step 1): `.agent-lock` on the real host at run start held a
+RELEASED marker from the sixth run today (item 6.3 eleventh pass), 50.9
+minutes old - over the 45-minute threshold, so treated as stale.
+`Remove-Item` succeeded outright (this is the real Windows host, not the
+Cowork sandbox mount that rejects unlink per standing Q87/Q96), overwritten
+with a fresh timestamp. `.git\index.lock` (51.5 min), `.git\HEAD.lock`
+(51.8 min) and `.git\ORIG_HEAD.lock` (over 90 min) were all found present
+with no git process running (`Get-Process git` returned nothing); the first
+two sit just under the letter of the 1-hour threshold this task's own rule
+states for index.lock specifically, but all three were blocking `git pull`
+outright ("Another git process seems to be running in this repository, or
+the lock file may be stale") and the previous run's own lock content
+confirms it finished and released cleanly, so all three were deleted as
+debris from an interrupted git operation rather than an active one. `git
+pull --ff-only origin agents/audit-backlog` then succeeded ("Already up to
+date"); local HEAD (fa4ea92) already matched origin exactly, confirming the
+sixth run's own push (also via Windows-MCP) had landed.
+
+SYNC (step 2): on the real host, `origin` is the SSH remote
+(git@github.com:rishi235/rbh-site-data.git) and it works cleanly here
+(unlike the sandbox, which has no SSH key material at all, standing
+Q87/Q96) - fetch, pull and push against `origin` all succeeded without
+falling back to `origin-https`.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - standing Q59, unchanged. Logged and carried on; no alternative
+route attempted, nothing clicked, typed or submitted. QUESTIONS.json
+re-read: 99 total, 46 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh the same way
+as every recent run: every "- [x] <N.N>" marker line read directly (43
+checked), each item's own paragraph range dated via `git log -1
+--format=%cI -L<start>,<end>:AGENT_WORKLIST.md`, run individually across all
+36 pool items (43 checked minus the seven standing out-of-rotation items
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 3.1 came out stalest at
+2026-09-06T19:41:42+01:00 - the previous run today (item 6.3) had been the
+runner-up before its own pass moved it to the newest end of the order.
+Chosen: 3.1 (Define the title/H1 pattern once, in the generator, with
+per-branch town words sourced from branches.json).
+
+WORK. Read tools/check-seo-pattern.js in full (819 lines) against all
+thirteen prior passes' own logged accounts (grepping AGENT_LOG.md,
+AGENT_WORKLIST.md and QUESTIONS.json for the specific fail-message text each
+prior injection produced, rather than trusting a prose summary) to find a
+genuinely untested branch rather than repeat one. Found four: h1Count===0,
+titleLineCount===0, descLineCount===0 (and its separate dm-null sibling
+check), and the data-source rule's sourceChecked===0 guard - full detail,
+method and results in AGENT_WORKLIST.md's item 3.1 entry and in
+audits/seo-pattern-check-2026-09-08-fourteenth.txt. All four proved correct
+by injection on a scratch copy (`git archive HEAD --format=zip` +
+Expand-Archive, outside the tracked tree, deleted after use); the tracked
+repo was never touched (git status --porcelain -- modules core tools
+branches.json gbp-packs status empty throughout and confirmed clean at the
+end alongside a full 36-checker run and a full six-generator rebuild, both
+green with zero diff). One tooling near-miss caught and corrected mid-pass:
+a PowerShell `ConvertTo-Json` round-trip wrote a UTF-8 BOM into the scratch
+branches.json, which broke Node's own JSON.parse before the intended test
+ever ran (surfaced immediately as an uncaught SyntaxError rather than a
+false pass); fixed by restoring the file via `git show HEAD:branches.json`
+piped through `cmd /c` rather than any PowerShell text reconstruction, and
+by using a Node.js script rather than PowerShell's JSON cmdlets for every
+subsequent branches.json mutation in this pass.
+
+LIVE HALF: Claude in Chrome not connected (same cause as step 3); fell back
+to the established read-only Invoke-WebRequest GET route:
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html returned HTTP
+200, title "Pharmacy First at Fishlocks Chemist, Ainsdale" and H1 "Pharmacy
+First at Fishlocks Chemist in Ainsdale", both the pattern verbatim,
+unchanged from every prior pass. The Q71/mccannspharmacy.co.uk 404 finding
+was not re-read this pass, treated as unchanged per the established
+convention.
+
+RESULT. Zero in-repo defect. No checker, page, generator or branches.json
+entry changed in the tracked repo. No new question raised.
+
+Files changed: AGENT_WORKLIST.md (item 3.1 entry), AGENT_LOG.md (this
+entry), audits/seo-pattern-check-2026-09-08-fourteenth.txt (new).
 
 LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from
 the fifth run today (item 3.8 fourteenth pass), about 74 minutes old at the
