@@ -1,0 +1,124 @@
+Item 4.2 quality pass (sixteenth), 2026-09-08, unattended scheduled run
+Pack: gbp-packs/cherry-lane-walton.md
+Agent: Cowork sandbox (mcp__workspace__bash) for all read/discovery/injection
+work; file tools (Read/Write/Edit) used for the tracked-repo AGENT_WORKLIST.md
+and AGENT_LOG.md edits after the injection work concluded. Claude in Chrome
+not connected (mcp__claude-in-chrome__list_connected_browsers returned []).
+
+ROTATION
+QUESTIONS.json: 99 total, 46 open, unchanged from the fifteenth pass.
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback
+applied. Candidate pool: 43 completed items minus 7 standing out-of-rotation
+items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36. Of those, 19 already carried
+a 2026-09-08 pass before this run started (confirmed via
+`git log --since="2026-09-08 00:00" --until="2026-09-08 23:59" -- AGENT_WORKLIST.md`):
+2.3, 3.1, 3.3, 3.6, 3.8, 3.12, 4.3, 4.5, 4.6, 4.8, 4.9, 4.10, 4.11, 4.12,
+4.13, 4.15, 1.3, 5.1, 6.3. Remaining 17 candidates: 2.1, 3.2, 3.4, 3.5, 3.7,
+3.9, 3.10, 3.11, 3.13, 4.1, 4.2, 4.4, 4.7, 4.14, 1.2, 5.2, 6.2. Tiebreak via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` on each
+candidate's own paragraph range (own checkbox line to the line before the
+next item's checkbox line): 4.2 at 2026-09-07T05:11:40+01:00 was the
+stalest, ahead of 4.7 (06:19), 4.14 (07:45), 1.2 (08:14) and the other
+thirteen. Chosen: 4.2 (Cherry Lane Pharmacy, Walton).
+
+FRESH ANGLE
+Item 4.2 has had fifteen prior quality passes (2026-08-11 through
+2026-09-07), exhaustively covering: branches.json fact-by-fact verification,
+TEMPLATE.md rule-by-rule verification, check-gbp-packs.js's profile-basics,
+Categories/Q40 rename, road-name rule, catchment order, character/dash
+sweeps (check-em-dashes.js), UK spelling, brand spelling, URL scheme,
+postcode FOREIGN/MISATTRIB rules, pharmacy-first-cost rule 6,
+app-membership rule 8a, gbp-pharmacy-first rules 3/4/6, and
+pharmacy-first-eligibility rule 10. A full-text search of this item's own
+sixteen-pass history (grep -in "photo" across the whole item 4.2 block, line
+9521 to 9840) returned zero hits: the photo shot list rule
+(photoCount/photoVinyl/photoGoogleUpdates), proven this same run-chain today
+against Tiffenbergs (4.15), Coleman and Leighs (4.12), Riddings (4.13),
+Fishlocks Eccleston (4.8) and Scorah Hazel Grove (4.5), and on earlier dates
+against Smartts Bootle (4.10) and SK Chemists Bootle (4.11), had never been
+injection-tested against Cherry Lane's own copy across sixteen prior passes.
+Chosen as this pass's fresh angle.
+
+BASELINE
+Full repo byte-copied (cp -a, .git included so check-cdn-pins.js resolves
+live git refs correctly, per the established method note from the
+fourteenth/fifteenth passes) to /tmp/scratch-42-photo, a scratch directory
+outside the tracked tree. Tracked repo never opened for writing this pass.
+sha256 of gbp-packs/cherry-lane-walton.md recorded before any edit:
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+- matches every one of the fifteen prior passes' own recorded value, so no
+drift since the tenth pass's Q40 rename edit.
+All 36 tools/check-*.js run individually against the scratch copy: 0/36
+failing.
+
+The pack's own photo section (## 4. Photo shot list) carries exactly 10
+bullets (no headroom, matching the estate-wide pattern CLAUDE.md records),
+the word "vinyl" twice (once in the Build Pack 4.1 parenthetical intro line,
+once in the lead-shot bullet), and the pending-Google-updates paster note.
+
+INJECTIONS (all against the scratch copy only, each restored by byte copy
+from the real mount and sha256-reconfirmed identical to baseline before the
+next injection and after the last)
+
+1. photoCount: removed the final bullet ("Hours notice by the door, current
+   and legible."), dropping the count from 10 to 9. CAUGHT first attempt:
+   "Photo shot list names 9 shots, and Build Pack v2 4.1 asks for at least
+   10." Restored; sha256 reconfirmed 831e72c1...052ec2.
+
+2. photoVinyl, two attempts: the first attempt removed "vinyl" only from the
+   lead-shot bullet ("New vinyl storefront" -> "New storefront") and did NOT
+   fire, because the section's own intro parenthetical
+   ("Build Pack 4.1: at least 10 photos, vinyl storefront included where
+   fitted.") is inside the same captured section text (the regex captures
+   everything between the "## 4. Photo shot list" heading and the next "##"
+   heading) and still legitimately named vinyl - correct behaviour, not a
+   checker gap, and a residual worth recording since no prior pass had
+   exercised this: the rule reads the WHOLE section, not just the bullet
+   list, so a pack can restate "vinyl" in its intro line and pass even with
+   a vinyl-less bullet. Second attempt removed "vinyl" from both the intro
+   line and the lead-shot bullet - CAUGHT: "Photo shot list does not mention
+   the vinyl storefront...". Restored; sha256 reconfirmed 831e72c1...052ec2.
+
+3. photoGoogleUpdates: removed the paster note ("Paster note: while in the
+   profile, action any pending Google updates (suggested edits) before
+   adding photos."). CAUGHT first attempt: "Photo shot list does not remind
+   the paster to action any pending Google updates...". Restored; sha256
+   reconfirmed 831e72c1...052ec2.
+
+All three rule branches fire correctly on this pack's own copy, each on its
+intended message and no other. No checker gap, no in-repo defect. No
+checker logic edited, no pack content byte changed.
+
+RESTORE CONFIRMATION
+Final sha256 of gbp-packs/cherry-lane-walton.md on the scratch copy:
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 (matches
+baseline). Full 36-checker suite re-run on the scratch copy after the final
+restore: 0/36 failing, check-gbp-packs.js output byte-identical to the
+pre-injection baseline run. Tracked repo (/sessions/.../mnt/rbh-site-data,
+same underlying files as C:\Dev\rbh-site-data): sha256 of
+gbp-packs/cherry-lane-walton.md confirmed 831e72c1...052ec2 throughout;
+`git status --porcelain -- gbp-packs/ modules/ core/ tools/ branches.json`
+empty before and after. No generator writes gbp-packs/, so no regeneration
+was needed or performed; the pack itself was never modified on the tracked
+copy.
+
+LIVE HALF
+Claude in Chrome not connected (list_connected_browsers returned []),
+standing Q59, unchanged. This rule governs plain-text copy pasted into a
+Google Business Profile photo-upload field during a manual paste session,
+not a URL a fetch could verify regardless (same reasoning as every other
+photo-shot-list pass this run-chain has used for 4.15, 4.13, 4.12, 4.10,
+4.8, 4.5, 4.6, 4.3). A light reachability check only: both
+cherrylanepharmacy.co.uk and its Pharmacy First page returned HTTP 200.
+No further live verification performed for this angle; the fifteenth pass's
+live findings (Q92 weight loss page dash lag, Q95 Pharmacy First "coming
+soon" cross-reference, Q36 mailbox typo instability) stand, not
+re-verified this pass.
+
+RESULT
+No in-repo defect found. No new question raised; QUESTIONS.json unchanged
+at 99 total, 46 open. Files changed on the tracked repo: none inside
+gbp-packs/modules/core/tools/branches.json (all injections restored on the
+scratch copy only). AGENT_WORKLIST.md and AGENT_LOG.md are the only tracked
+changes this pass.

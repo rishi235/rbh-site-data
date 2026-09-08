@@ -9838,6 +9838,55 @@ Pharmacy First wording to the NHS service description.
       none inside gbp-packs/modules/core/tools/branches.json (all injections
       restored on the scratch copy only).
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-07-fifteenth.txt.
+      Quality pass 2026-09-08 (sixteenth, unattended run): fresh angle - proved
+      tools/check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl,
+      photoGoogleUpdates) against this pack's own copy for the first time in
+      sixteen passes (a full-text search of every prior pass's own paragraph
+      for "photo" returned zero hits; the same rule had already been proven
+      this run-chain against Tiffenbergs, Coleman and Leighs, Riddings,
+      Fishlocks Eccleston and Scorah Hazel Grove, but never against Cherry
+      Lane specifically). Baseline clean (36/36 checkers; sha256
+      831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching every prior pass, no drift since the tenth pass's Q40 rename
+      edit). Full repo byte-copied with .git to /tmp/scratch-42-photo, a
+      scratch directory outside the tracked tree; tracked repo never opened
+      for writing this pass. This pack's shot list sits exactly on the
+      PHOTO_MIN=10 floor, no headroom.
+      Three injections against the scratch copy, each restored by byte copy
+      and sha256-reconfirmed identical before the next: (1) the final photo
+      bullet ("Hours notice by the door...") removed, dropping the count to
+      9 - CAUGHT as photoCount, first attempt; (2) "vinyl" removed from the
+      lead-shot bullet only - did NOT fire, because the section's own intro
+      parenthetical ("Build Pack 4.1: at least 10 photos, vinyl storefront
+      included where fitted.") is inside the same regex-captured section
+      text and still legitimately named vinyl, so the pack correctly passed
+      on a vinyl-less bullet while still restating vinyl in its intro line -
+      correct behaviour, not a checker gap, but a residual worth recording
+      since no prior pass had exercised it: the rule reads the WHOLE
+      section, not just the bullet list. Second attempt removed "vinyl"
+      from both the intro line and the bullet - CAUGHT as photoVinyl; (3)
+      the pending-Google-updates paster note removed from the section's
+      close - CAUGHT as photoGoogleUpdates, first attempt. All three legs
+      fire independently on this pack's own copy; no checker gap, no
+      in-repo defect. Full 36-checker suite re-run clean on the scratch copy
+      after the final restore; pack sha256 reconfirmed identical to
+      baseline; tracked repo's own copy confirmed byte-identical throughout
+      by the same sha256, checked before and after, and via
+      `git status --porcelain -- gbp-packs/cherry-lane-walton.md` returning
+      empty. No generator writes gbp-packs/, so nothing to regenerate; the
+      pack itself was never modified.
+      LIVE HALF: Claude in Chrome not connected (standing Q59, confirmed via
+      `list_connected_browsers` returning empty). Not performed for this
+      specific angle regardless, same reasoning as every other
+      photo-shot-list pass this run-chain has used: the rule governs copy
+      pasted into a GBP picker field during a photo upload, not a URL a
+      fetch could verify regardless. A light reachability check only: both
+      cherrylanepharmacy.co.uk and its Pharmacy First page returned HTTP
+      200. The fifteenth pass's live findings (Q92, Q95 cross-reference,
+      Q36 instability) stand, not re-verified this pass.
+      No in-repo defect found. No new question raised; QUESTIONS.json
+      unchanged at 99 total, 46 open.
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-08-sixteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

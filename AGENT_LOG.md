@@ -1,3 +1,128 @@
+## 2026-09-08 (unattended scheduled run, fifteenth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; mcp__Windows-MCP__PowerShell used for the commit/push and status-page publish against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.2 quality pass (sixteenth, Cherry Lane Pharmacy, Walton GBP pack): check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) proved by injection against this pack's own copy for the first time in sixteen passes; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount. Created fresh at 2026-09-08T15:04:23+01:00. One local commit
+(1b0f517) was found ahead of `origin-https/agents/audit-backlog` at run
+start; `git fetch origin-https` confirmed it had already reached origin (the
+fourteenth run's own push), so nothing further was needed there. A
+`.git/index.lock` appeared during this run's own `git fetch`/`git status`
+calls on the sandbox mount and could not be removed by `rm` ("Operation not
+permitted" on unlink) - the standing Q87/Q96 FUSE-mount restriction,
+reconfirmed; it did not block any subsequent read command (`git status`,
+`git log`) on the sandbox mount. Not actioned further, per every recent
+run's note that a proper cleanup belongs in a dedicated supervised session
+on the Windows host.
+
+SYNC (step 2): sandbox `git fetch origin`/`git fetch origin-https` (HTTPS,
+anonymous read) succeeded; local HEAD (1b0f517) already matched
+`origin-https/agents/audit-backlog`, confirming the fourteenth run reached
+origin successfully. `git checkout agents/audit-backlog` failed on the
+sandbox mount ("Unable to create .git/index.lock: File exists", the same
+Q87/Q96 restriction), but was unnecessary in substance since the sandbox was
+already on that branch and up to date (`git branch --show-current` and
+`git status` both confirmed this before and after the failed checkout
+attempt). Confirmed again this run that the sandbox has no push credentials
+for HTTPS (`git push origin[-https] agents/audit-backlog --dry-run` fails
+"could not read Username for 'https://github.com'"), so the write half
+(commit/push, and the status-page publish) goes via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy, confirmed to share the same underlying files as the sandbox mount
+(this run's own AGENT_WORKLIST.md edit and new audit file, made via the
+Cowork file tools against the C:\dev\rbh-site-data path, were both visible
+immediately via PowerShell `git status` against C:\Dev\rbh-site-data without
+being copied across).
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array - Claude in Chrome not connected (standing Q59,
+unchanged). Logged and carried on; no alternative route attempted, nothing
+clicked, typed or submitted anywhere. QUESTIONS.json read directly: 99
+total, 46 open, unchanged from the fourteenth run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60
+[6.4, 6.5], 6.6), so the quality-pass fallback applied. Rotation pool: 43
+completed items minus 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) = 36. Of those, 19 already carried their own 2026-09-08 pass
+entry before this run started (`git log --since="2026-09-08 00:00"
+--until="2026-09-08 23:59" -- AGENT_WORKLIST.md`, one commit subject per
+item): 2.3, 3.1, 3.3, 3.6, 3.8, 3.12, 4.3, 4.5, 4.6, 4.8, 4.9, 4.10, 4.11,
+4.12, 4.13, 4.15, 1.3, 5.1, 6.3. Remaining 17 candidates: 2.1, 3.2, 3.4, 3.5,
+3.7, 3.9, 3.10, 3.11, 3.13, 4.1, 4.2, 4.4, 4.7, 4.14, 1.2, 5.2, 6.2. Tiebreak
+via last-commit date on each candidate's own AGENT_WORKLIST.md paragraph
+range (`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`, range =
+own checkbox line to the line before the next item's checkbox line): 4.2 at
+2026-09-07T05:11:40+01:00 was the stalest, ahead of 4.7 (06:19), 4.14
+(07:45), 1.2 (08:14) and the other thirteen, matching the fourteenth run's
+own note ("ahead of 4.2 (05:11)"). Chosen: 4.2 (Cherry Lane Pharmacy,
+Walton).
+
+WORK DONE: see AGENT_WORKLIST.md's own sixteenth-pass paragraph under item
+4.2 and audits/cherry-lane-item-4.2-quality-pass-2026-09-08-sixteenth.txt
+for full detail. In short: full repo byte-copied with .git to
+/tmp/scratch-42-photo, a scratch directory outside the tracked tree; the
+tracked pack (gbp-packs/cherry-lane-walton.md) never opened for writing this
+pass, confirmed unchanged throughout by sha256
+(831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2, matching
+all fifteen prior passes) both before and after, and by
+`git status --porcelain -- gbp-packs/cherry-lane-walton.md` (empty) against
+the real tracked repo. Baseline: 36/36 checkers exit 0 against the scratch
+copy. Fresh angle: item 4.2 has had fifteen prior quality passes and a
+full-text search of the item's own history for "photo" returned zero hits -
+the photo shot list rule (photoCount/photoVinyl/photoGoogleUpdates), already
+proven this run-chain today against five other packs, had never been
+injection-tested against Cherry Lane's own copy. Three injections against
+the scratch copy, each restored by byte copy and sha256-reconfirmed before
+the next: (1) the final photo bullet removed, dropping the count to 9 -
+CAUGHT as photoCount, first attempt; (2) "vinyl" removed from the lead-shot
+bullet only - did NOT fire on the first attempt, because the section's own
+intro parenthetical also names vinyl and sits inside the same
+regex-captured section text, so the pack correctly passed on a vinyl-less
+bullet while still restating vinyl in its intro line; this is correct
+behaviour, not a checker gap, but a residual worth recording since no prior
+pass had exercised it - the rule reads the whole section, not just the
+bullet list. Removing "vinyl" from both the intro line and the bullet then
+CAUGHT as photoVinyl; (3) the pending-Google-updates paster note removed -
+CAUGHT as photoGoogleUpdates, first attempt. All three legs fire
+independently on this pack's own copy; no checker gap, no in-repo defect.
+Full 36-checker suite re-run clean on the scratch copy after the final
+restore; pack sha256 reconfirmed identical to baseline; tracked repo's own
+copy confirmed byte-identical throughout. No generator writes gbp-packs/, so
+nothing to regenerate; the pack itself was never modified.
+
+LIVE HALF: Claude in Chrome not connected; not performed for this specific
+angle, same reasoning as every other photo-shot-list pass this run-chain has
+used (4.15, 4.13, 4.12, 4.10, 4.8, 4.5, 4.6, 4.3 for this identical rule):
+the rule governs copy pasted into a GBP picker field during a photo upload,
+not a URL a fetch could verify regardless. A light read-only reachability
+check only: cherrylanepharmacy.co.uk and its Pharmacy First page both
+returned HTTP 200. The fifteenth pass's live findings (Q92 weight loss page
+dash lag, Q95 Pharmacy First "coming soon" cross-reference, Q36 mailbox
+typo instability) stand, not re-verified this pass.
+
+ENVIRONMENT NOTE, not part of item 4.2: the accumulated test/probe/scratch
+debris in the repo root and the renamed `.agent-lock.*`/`.git/index.lock.*`
+files (Q87/Q96) were reconfirmed present and untouched by this run, plus one
+new stray untracked path noted for the first time by this run's own
+`git status` output on the canonical working copy: a literal `"C:\357\200\272/"`
+directory (a mangled colon, likely from an earlier probe's path handling) -
+all untracked, none affecting any checker, not actioned further since a
+proper cleanup is a larger job than this run's single-item mandate allows
+and belongs in a dedicated supervised session on the Windows host, per every
+recent run's note.
+
+COMMIT: staged AGENT_WORKLIST.md, AGENT_LOG.md and the new
+audits/cherry-lane-item-4.2-quality-pass-2026-09-08-sixteenth.txt via
+mcp__Windows-MCP__PowerShell against the canonical C:\Dev\rbh-site-data
+working copy, committed and pushed to origin/agents/audit-backlog.
+
+PUBLISH (step 10): node tools/build-audit-status.js run against the
+canonical working copy after the push.
+
+LOCK RELEASE (step 11): .agent-lock deleted at end of run.
+
 ## 2026-09-08 (unattended scheduled run, fourteenth run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; mcp__Windows-MCP__PowerShell used for the commit/push and status-page publish against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 3.3 quality pass (fourteenth, Fishlocks Chemist Ainsdale/Eccleston): tools/check-nap.js NAME sweep, STREET sweep and EMAIL sweep proved by injection against Fishlocks' own pages for the first time, closing the residual the thirteenth pass named; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox mount (`ls .agent-lock` returned "No such file or directory"). Created fresh at 2026-09-08T13:34:12Z (unix 1788867252). No `.git/index.lock` present at start; one appeared later during this run's own `git status` calls on the sandbox mount and could not be removed by `rm` ("Operation not permitted" on unlink) - the standing Q87/Q96 FUSE-mount restriction, reconfirmed; a retry of the same `git status --porcelain` call succeeded with empty output despite the warning, so it did not block this run's read-only checks. Not actioned further (per the standing recommendation, a proper cleanup belongs in a dedicated supervised session on the Windows host).
