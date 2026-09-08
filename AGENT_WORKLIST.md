@@ -4050,6 +4050,33 @@ item's own AGENT_WORKLIST.md paragraph): 3.7 (2026-09-06T11:41:47+01:00),
 then 3.13, 6.2, 3.4. Re-derive rather than assume, since other runs may land
 in between.
 
+Quality pass 2026-09-08 (fifteenth): NEW LEG, tools/check-jsonld.js, never
+mentioned once across fourteen prior passes on this item (confirmed by grep
+of every tools/check-*.js basename against the item's full history block).
+Baseline: all 35 checkers clean; independent extraction (audits/verify-3.5-
+2026-09-08-fifteenth.js, freshly written, no import from tools/) read all 12
+Hirshmans pages against check-jsonld.js's 8 rules, 144 checks, 0 failures.
+GUARD RE-PROOF BY INJECTION on impetigo-treatment-hirshmans-ainsdale.html,
+never used for injection on this item across fourteen prior passes: (1)
+@type changed Pharmacy to MedicalBusiness - CAUGHT, rule 2; (2) JSON-LD
+postalCode changed to a foreign SK7 postcode - CAUGHT, rule 5; (3) the map
+iframe query's locality changed Ainsdale to Birkdale while the JSON-LD
+address and visible contact card were left untouched - CAUGHT, rule 8, the
+invisible-to-text-scan fault this checker exists to guard. All three caught
+first attempt, each on its intended rule only; restored and sha256-
+reconfirmed identical to baseline after each; full 35-checker suite and the
+independent extraction both re-run clean. No checker, generator, data field
+or page changed; no regeneration needed. LIVE HALF: Claude in Chrome
+reported zero connected browsers (Q59); fell back to read-only PowerShell
+Invoke-WebRequest. Four pages never live-read on this item before (impetigo-
+treatment, sinusitis-treatment, sore-throat-treatment, insect-bite-
+treatment): all HTTP 200, JSON-LD and map query matching the repo-side state
+exactly, no live-only finding. sitemap.xml lastmod unchanged since the sixth
+pass, no republish. Evidence in audits/hirshmans-item-3.5-quality-pass-2026-
+09-08-fifteenth.txt, audits/verify-3.5-2026-09-08-fifteenth.js and
+audits/verify-3.5-2026-09-08-fifteenth-output.txt. No in-repo defect found,
+no new question.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

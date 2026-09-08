@@ -1,0 +1,89 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - fifteenth quality pass, 2026-09-08
+============================================================================
+
+NEW LEG: tools/check-jsonld.js, never mentioned once across fourteen prior
+passes on this item (confirmed by grepping every tools/check-*.js basename
+against the item's full AGENT_WORKLIST.md history block; 22 checkers had
+never been named on this item at all). check-jsonld.js is the checker built
+on the item 3.10 pass specifically because a wrong JSON-LD @type/name/address
+or a wrong Google Maps iframe query is invisible to any text-based scan
+(check-nap reads visible text only), so it was a natural gap to close given
+that history: the sixth pass (2026-08-30) verified JSON-LD address fields by
+an independent extraction, but no pass had run the real checker against this
+branch by injection, and no pass had touched rules 2 (@type), 3 (name), 4
+(url) or 7 (email/areaServed) at all.
+
+BASELINE: all 35 tools/check-*.js run individually against the tracked repo,
+0 failures (audits/checksweep logs, this run). Independent extraction
+(audits/verify-3.5-2026-09-08-fifteenth.js, freshly written, no import from
+tools/) read all 12 Hirshmans pages against check-jsonld.js's 8 rules:
+144 checks, 0 failures. One JSON-LD block per page that parses; @type
+Pharmacy on all 12; name "Hirshmans Chemist" (branchName, which equals
+brandLabel here since this is not one of the six shared-brand branches);
+url = website + filename; PostalAddress matching branches.json field by
+field including addressRegion "Merseyside" and addressCountry "GB";
+telephone "01704 577376" exactly as typed; email/areaServed where present;
+map iframe query decoding to "56-62 Sherwood House, Station Road, Ainsdale,
+PR8 3HW" on every page.
+
+GUARD RE-PROOF BY INJECTION, on impetigo-treatment-hirshmans-ainsdale.html,
+never used for injection on this item across fourteen prior passes (fifth:
+pharmacy-first; seventh: uti-treatment; eighth: weight-loss-clinic; ninth:
+switch-prescriptions; tenth: contraception; eleventh: travel-clinic; twelfth:
+shingles-treatment; fourteenth: earache-treatment). Baseline sha256
+cd3f3b437c284e9ee0637ac6337cfe01d520a2c448812bcfb8d842daec31543c recorded
+first.
+
+Injection 1 (rule 2): "@type": "Pharmacy" changed to "MedicalBusiness" - the
+exact fault shape this checker was built against on the original 3.10 pass
+(one weight loss generator once typed itself more vaguely than the rest).
+CAUGHT: check-jsonld.js exit 1, one failure naming the file and explaining
+Pharmacy is never less accurate. Restored by copying back the pre-injection
+backup; sha256-reconfirmed identical to baseline.
+
+Injection 2 (rule 5): JSON-LD address.postalCode changed from "PR8 3HW" to
+"SK7 3AB" (a foreign postcode, Scorah Bramhall's own SK7 area). CAUGHT:
+check-jsonld.js exit 1, one failure naming the exact field and both values.
+Restored the same way, sha256-reconfirmed identical to baseline.
+
+Injection 3 (rule 8, the invisible one this checker exists for): the Google
+Maps iframe query's locality changed from "Ainsdale" to "Birkdale" (a real
+town in this branch's own serviceAreaList, so a text scan of the page would
+not flag it as foreign), while the JSON-LD address block and the visible
+contact card text were both left untouched. CAUGHT: check-jsonld.js exit 1,
+one failure naming the map iframe's wrong query against branches.json's
+correct one. This is the rule the checker's own header names as the one
+element on the page that can point a patient at another building while
+every visible line still reads correctly - now proven directly on this
+branch for the first time.
+
+All three injections caught on the first attempt, each firing only its
+intended rule, no cross-contamination. Full 35-checker suite and the
+independent extraction both re-run clean after the final restore (35/35
+exit 0; 144/144 checks pass). git status --porcelain -- modules core
+branches.json tools gbp-packs status: empty apart from the pre-existing
+untouched gbp-packs/.fuse_hidden0000000400000001 (out of scope, standing
+Q87 note). No checker logic, generator, data field or page content changed
+anywhere in the tracked tree. No regeneration needed since nothing in
+branches.json or any generator was touched.
+
+LIVE HALF: Claude in Chrome reported zero connected browsers (list_connected_
+browsers returned []), matching standing Q59. Fell back to read-only
+PowerShell Invoke-WebRequest (mcp__Windows-MCP__PowerShell) against
+hirshmanspharmacy.co.uk - anonymous GETs only, nothing clicked, typed or
+submitted. Four pages never live-read on this item before (impetigo-
+treatment, sinusitis-treatment, sore-throat-treatment, insect-bite-treatment):
+all HTTP 200, JSON-LD @type Pharmacy, name "Hirshmans Chemist", postal
+"PR8 3HW", telephone "01704 577376" on every one - matches the repo-side
+state exactly. impetigo-treatment's map iframe query decodes to "56-62
+Sherwood House, Station Road, Ainsdale, PR8 3HW", also matching. sitemap.xml
+lastmod still 2026-08-14T16:09:17+00:00, unchanged since the sixth pass, no
+republish. No live-only finding.
+
+RESULT: zero in-repo defect. check-jsonld.js's rules 2, 5 and 8 all
+independently and correctly protect Hirshmans Chemist Ainsdale's own pages;
+now proven directly by injection for the first time across fifteen passes on
+this item, closing the last checker gap that was purely a "never named"
+absence rather than a suspected fault.
+
+NO NEW QUESTION. QUESTIONS.json unchanged (99 total, 46 open).
