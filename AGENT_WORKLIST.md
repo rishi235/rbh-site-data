@@ -2860,6 +2860,49 @@ audits/seo-pattern-check-2026-09-08-fourteenth.txt.
       Q35 landing-page 404s were neither re-confirmed nor contradicted.
       Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-07-thirteenth.txt.
+      Quality pass 2026-09-08 (fourteenth): clean, no repo defect, no new
+      question. THE FRESH ANGLE: the thirteenth pass named its own residual
+      - check-nap.js's NAME sweep, STREET sweep and EMAIL sweep had never
+      been separately injection-tested against Fishlocks' own pages, and
+      suggested Hirshmans Chemist's name or Eccleston's street address as
+      candidates. This pass closes it and adds the EMAIL sweep as a third
+      leg. Full repo copied (.git excluded) to /tmp/scratch-33-nap; baseline
+      34 of 36 checkers exit 0 (cdn-pins and live-hours excluded, standing
+      convention); sha256 of the Ainsdale UTI page recorded before any edit.
+      Three injections against the scratch copy only, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) "Hirshmans Chemist"
+      added to the step-2 paragraph - CAUGHT by the NAME sweep, first
+      attempt; (2) Eccleston's own street address ("Unit 3 The Carrington
+      Centre, New Mill Street") added to the step-3 paragraph - CAUGHT by
+      the STREET sweep, first attempt, confirming the STREET sweep carries
+      NO sister-brand exemption the way the NAME sweep does (only an
+      identical street string is exempt, per the file's own Clear
+      Chemist/Head Office case), which is correct behaviour rather than a
+      gap since a wrong street is wrong regardless of brand; (3) Hirshmans'
+      email address added as plain text (no mailto: anchor) to the callback
+      confirmation paragraph - CAUGHT by the EMAIL sweep, first attempt.
+      All three restores sha256-confirmed byte-identical to baseline; full
+      34-checker suite re-run clean after the final restore; `git status
+      --porcelain -- modules tools core branches.json` against the real
+      tracked repo empty throughout (checked via mcp__Windows-MCP__PowerShell
+      against C:\Dev\rbh-site-data, since the sandbox mount's own git status
+      hit the standing Q87/Q96 index.lock unlink restriction on a lock left
+      by an earlier run). No in-repo defect: check-nap.js already correctly
+      protects Fishlocks Ainsdale's own pages on all three sweeps, proven
+      directly for the first time rather than only against Cherry Lane
+      (the sweeps' original 2026-08-13 motivating case). Residual for a
+      future pass: only the Ainsdale UTI page was injected this run: the
+      Eccleston-side page and the switch/landing pages were not. LIVE HALF:
+      Claude in Chrome not connected (standing Q59); fell back to a
+      read-only curl GET. Both UTI pages return 200. Both carry a
+      site-wide @graph JSON-LD block naming both branches correctly (a
+      Weebly template feature, not per-page-generated, and accurate against
+      branches.json on both entries, so not a NAP mismatch) - consistent
+      with the seventh pass's "correct second trust-bar block" note. The
+      standing Q37 footer set (singular "Fishlock Pharmacy"/"Fishlock
+      Chemist" branding, "17 Station Rd" abbreviation) reconfirmed present
+      and unchanged. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-08-fourteenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
