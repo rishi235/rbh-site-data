@@ -9574,6 +9574,42 @@ Pharmacy First wording to the NHS service description.
       misspelling still open. No new question. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-07-fourteenth.txt.
       Done 2026-09-07
+      Quality pass 2026-09-08 (fifteenth, unattended run): baseline sha256 of
+      gbp-packs/fishlocks-ainsdale.md unchanged since the twelfth pass
+      (7592bad3...); all 36 checkers pass at the start. LIVE HALF ATTEMPTED
+      FIRST via a route not tried on this item before: the built-in browser
+      pane (mcp__Claude_Browser__preview_start), separate from Claude in
+      Chrome. It refused navigation to the profile-website target outright,
+      requiring request_access from a person who is not present on an
+      unattended run - same shape as the ninth/thirteenth/fourteenth passes'
+      Claude in Chrome and web_fetch refusals, just a different tool hitting
+      the same unattended-session wall. Live state stands as last recorded on
+      the twelfth pass (2026-09-05): profile-website target still 404 (Q35,
+      answered but not yet applied), Q91 footer misspelling still open.
+      FRESH ANGLE: check-gbp-packs.js's photo shot list rule (photoCount,
+      photoVinyl, photoGoogleUpdates; already proven this same week against
+      4.2, 4.5, 4.8, 4.10, 4.12, 4.13, 4.14, 4.15 and the item 4.4 sixteenth
+      pass's scorah-bramhall.md) had never been proven against this pack's
+      own copy across fourteen prior passes - confirmed by grep, zero "photo"
+      matches in this item's own paragraph range before this pass. Three
+      injections, each restored and sha256-reconfirmed identical before the
+      next: the "Team photo behind the counter." bullet deleted, dropping the
+      list to 9 shots - CAUGHT ("Photo shot list names 9 shots"). The word
+      "vinyl" replaced only inside the affected bullet, leaving the section's
+      intro sentence carrying it too - correctly PASSED, because the rule
+      matches "vinyl" anywhere in the section text, not the bullet alone, and
+      the intro line is a genuine mention; re-run with every "vinyl" in the
+      whole section replaced - CAUGHT ("does not mention the vinyl
+      storefront"). The Google-updates reminder paragraph deleted from the
+      end of the section - CAUGHT ("does not remind the paster to action any
+      pending Google updates"). All three rules now proven directly against
+      this pack. No in-repo defect; the near-miss on the vinyl rule is a note
+      on its matching scope, not a fault, since a mention in the section's
+      intro line is a genuine mention. Full 36-checker suite re-run clean
+      after the final restore; sha256 and git status both confirm zero
+      tracked change. No new question. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-08-fifteenth.txt.
+      Done 2026-09-08
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

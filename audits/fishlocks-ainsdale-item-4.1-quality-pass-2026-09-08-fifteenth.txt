@@ -1,0 +1,71 @@
+Item 4.1 (Fishlocks Ainsdale GBP pack) - fifteenth quality pass, 2026-09-08, unattended run
+=============================================================================================
+
+Baseline
+--------
+sha256 of gbp-packs/fishlocks-ainsdale.md before any injection:
+  7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+(unchanged since the twelfth pass, 2026-09-05)
+All 36 tools/check-*.js scripts run individually against the tracked repo: 0 failures.
+
+Live half attempted first
+--------------------------
+The built-in browser pane (mcp__Claude_Browser__preview_start) was tried against
+https://fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html. It refused with
+"the person hasn't allowed the browser pane to use this site yet" and requires
+request_access, which needs a person present to approve - this is an unattended
+run with nobody to grant it, so it was not pursued further (same shape as the
+Claude in Chrome "not connected" and web_fetch provenance-gate refusals recorded
+on the ninth, thirteenth and fourteenth passes). Live state stands as last
+recorded on the twelfth pass (2026-09-05): profile-website target still 404
+(Q35, answered but not yet applied), Q91 footer misspelling still open, no
+repo-side fix available for either.
+
+Fresh angle: the photo shot list rule, never proven against this pack
+-----------------------------------------------------------------------
+check-gbp-packs.js's photo shot list rule (photoCount, photoVinyl,
+photoGoogleUpdates; the same rule family the item 4.4 sixteenth pass proved
+against scorah-bramhall.md the same day, and which had already been proven
+against 4.2, 4.5, 4.8, 4.10, 4.12, 4.13, 4.14 and 4.15) had never been proven
+against gbp-packs/fishlocks-ainsdale.md's own copy across fourteen prior
+passes on this item - confirmed by grepping this item's own AGENT_WORKLIST.md
+paragraph range (lines 9221-9576) for "photo", zero matches.
+
+Three injections on the tracked file, each restored and sha256-reconfirmed
+identical before the next (working copy only; nothing committed mid-test):
+
+1. photoCount: deleted the "Team photo behind the counter." bullet, dropping
+   the list from 10 to 9 shots. CAUGHT first attempt: "Photo shot list names
+   9 shots, and Build Pack v2 4.1 asks for at least 10."
+
+2. photoVinyl, first attempt (informative near-miss): replaced only the
+   bullet's "vinyl" wording, leaving the section's intro line ("Build Pack
+   4.1 asks for at least 10 photos, including the new vinyl storefront where
+   fitted.") untouched. PASSED - because the rule tests the word "vinyl"
+   anywhere in the whole section text, not the bullet specifically, and the
+   intro line still carried it. This is correct behaviour against the rule as
+   written ("does not mention the vinyl storefront" - a mention anywhere in
+   the section counts), not a defect. Re-run replacing every instance of
+   "vinyl" in the section (bullet and intro line both) with "shopfront":
+   CAUGHT, "Photo shot list does not mention the vinyl storefront." Restored
+   and sha256-reconfirmed between the two attempts.
+
+3. photoGoogleUpdates: deleted the "While in the profile: action any pending
+   Google updates..." paragraph from the end of the section. CAUGHT first
+   attempt: "Photo shot list does not remind the paster to action any pending
+   Google updates while they are in the profile."
+
+All three rules now proven directly against this pack's own copy. No in-repo
+defect - the checker already protected this pack; the one near-miss above is
+a note on how the rule scopes its match, not a finding requiring a fix, since
+the intro sentence is genuine text in the paster-facing section and a mention
+there is a mention.
+
+Verification after final restore
+---------------------------------
+sha256 of gbp-packs/fishlocks-ainsdale.md: unchanged
+  (7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30)
+git status --porcelain on the file and on tools/check-gbp-packs.js: empty.
+All 36 tools/check-*.js scripts re-run individually: 0 failures.
+
+No new question. No pack content or checker logic changed this pass.
