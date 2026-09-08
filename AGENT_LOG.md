@@ -74,9 +74,15 @@ QUESTIONS.json Q99 (recommended: check the remaining fourteen live sites
 before deciding what, if anything, to change, since only two of sixteen
 were sampled this pass).
 
-COMMIT/PUSH/PUBLISH (steps 9-10): sandbox `git push origin-https` failed
-("could not read Username for 'https://github.com'" - no HTTPS credential
-in this sandbox, standing Q87/Q96), so the write half used
+COMMIT/PUSH/PUBLISH (steps 9-10): committed locally as `924cb05` (4 files,
+324 insertions). Committing itself required renaming away three separate
+stale/regenerated lock files in turn (`.git/index.lock` twice,
+`.git/HEAD.lock` once) between retries, each left behind by the previous
+git command's own inability to unlink its lock on exit (warning, not
+error) rather than by any concurrent process - `pgrep -fa git` confirmed no
+other git process running throughout. Sandbox `git push origin-https`
+failed ("could not read Username for 'https://github.com'" - no HTTPS
+credential in this sandbox, standing Q87/Q96), so the write half used
 `mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
 working copy, the same route the fourth run today used.
 
