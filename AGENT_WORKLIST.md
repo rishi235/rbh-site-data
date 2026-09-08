@@ -10895,6 +10895,36 @@ the estate and the first time against this specific pack. Live half not attempte
 Chrome not connected, standing Q59; this rule governs a GBP post field a read-only HTTP fetch
 cannot see, matching every prior pass's convention on this rule). No new question. See
 audits/scorah-bramhall-item-4.4-quality-pass-2026-09-07-fifteenth.txt.
+Quality pass 2026-09-08 (sixteenth pass): fresh angle, the photo shot list rule
+(photoCount/photoVinyl/photoGoogleUpdates in tools/check-gbp-packs.js) proved by
+injection against gbp-packs/scorah-bramhall.md's own copy for the first time.
+This rule had already been proven by injection against several sibling packs
+earlier today and on prior passes (including 4.2, 4.5, 4.8, 4.10, 4.12, 4.13,
+4.14, 4.15) but never this one, across fifteen prior passes on this item - the
+same "proven elsewhere in the estate but never here" gap the item 4.11 tenth
+pass closed for SK Chemists Bootle. Baseline: all
+36 tools/check-*.js run individually against the tracked repo, 0 failures.
+sha256 of gbp-packs/scorah-bramhall.md before any edit: e592ab24164aeb093cd9b1
+bd58a2ee52ac809e01bd822678dafe95843ad1bb2c. THREE INJECTIONS, each restored
+by byte copy from the pre-edit backup and sha256-reconfirmed identical before
+the next: (1) the parenthetical's "While in the profile, also action any
+pending Google updates." sentence deleted - CAUGHT, exit 1, "does not remind
+the paster to action any pending Google updates"; (2) "Vinyl storefront lead
+shot where fitted; otherwise the best straight-on frontage shot." replaced
+with "Storefront lead shot, best straight-on frontage angle." (drops the word
+"vinyl" only) - CAUGHT, exit 1, "does not mention the vinyl storefront"; (3)
+the last two bullets (team photo, blood pressure check) deleted, dropping the
+list from 10 to 8 - CAUGHT, exit 1, "Photo shot list names 8 shots... asks for
+at least 10". All three fired on the first attempt, each on its intended rule
+only, no cross-firing. Full 36-checker suite re-run clean after the final
+restore; gbp-packs/scorah-bramhall.md reconfirmed byte-identical to baseline
+by diff and cmp; git status --porcelain empty on the file throughout, aside
+from the standing untracked debris (Q87). RESULT: zero in-repo defect - all
+three photo shot list rules already correctly protect this pack; now proven
+directly by injection for the first time in sixteen passes rather than only
+passively observed in the "all 36 checkers pass" baseline. No new question;
+QUESTIONS.json unchanged. No checker logic, generator, page, pack or
+branches.json content changed.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
