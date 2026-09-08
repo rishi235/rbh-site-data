@@ -56,8 +56,28 @@ Q87/Q96). The write half was carried out via
 `mcp__Windows-MCP__PowerShell` against the real, canonical
 C:\Dev\rbh-site-data working copy on the host (same underlying files as
 the sandbox mount, confirmed identical `git status`/`git log` before any
-edit this run). Commit hash and push/publish outcome: see below, filled in
-after the PowerShell commands ran.
+edit this run). A stale 0-byte `.git\index.lock` (from this run's own
+earlier read-only `git status` calls on the sandbox side, `ps`/`Get-Process`
+confirmed no git process running) blocked the first `git add` attempt on
+the host side too; cleared with `Remove-Item -Force` (unlike the sandbox
+FUSE mount, unlink works normally on the host's own filesystem). `git add`
+of exactly the four intended files (tools/check-em-dashes.js,
+AGENT_WORKLIST.md, AGENT_LOG.md,
+audits/em-dash-attribute-escape-probe-2026-09-08.js - none of the
+long-standing `.agent-lock.*`/test-probe/scratch debris from prior runs'
+lock-mechanics workarounds) then staged cleanly. Committed as `cff610f`.
+`git push origin agents/audit-backlog` succeeded on the first attempt (SSH
+works from the host's own credential store, unlike the sandboxed shell) -
+confirmed by a fresh `git fetch origin` afterwards showing
+`origin/agents/audit-backlog` at the identical `cff610f`. `node
+tools/build-audit-status.js` then ran successfully against the real path
+its own hardcoded `C:/Dev/rbh-site-data` constant expects (this being the
+one write this run made from the host rather than the sandbox, so the
+ENOENT this checker hits from the Linux sandbox, standing Q87, did not
+apply): "Published reports/digital/Digital_Audit_Status.html (43/49 done,
+88%)", exit 0. Net effect, unlike every sandbox-only run logged above this
+one: this pass's work reached origin and the portal status page was
+actually republished, not merely committed locally.
 QUESTIONS.json: 45 open questions surveyed at answer-pickup (step 3); none
 newly answered this run (Claude in Chrome not connected). No new question
 raised.
