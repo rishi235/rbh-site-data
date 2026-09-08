@@ -12353,6 +12353,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unchanged, 45 open of 98 total (answer pickup unavailable, Chrome not
       connected).
       See audits/fishlocks-eccleston-shared-domain-website-4.8-fourteenth-2026-09-06.txt.
+      Quality pass 2026-09-08 (fifteenth, unattended run): stalest item in the
+      33-item rotation pool, re-derived independently (git log -1 --format=%cI -L
+      over each item's own paragraph range; 4.8 stalest at
+      2026-09-06T22:41:39+01:00, clear of the runner-up, 4.10, at
+      2026-09-06T23:12:43+01:00 by about 31 minutes; item 4.13, done immediately
+      before this run started today, correctly excluded from the pool). Baseline:
+      git status clean, all 36 checkers green, sha256 of the pack confirmed
+      unchanged against the fourteenth pass's own hash
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa). New
+      angle: fourteen prior dedicated passes had never proven check-gbp-packs.js's
+      photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates; born item
+      4.7 sixth pass, 2026-08-29) against this pack's own copy, despite it being
+      proven against two sister packs earlier today (4.5 scorah-hazel-grove.md,
+      4.13 riddings-timperley.md). This pack's own shot list sits exactly on the
+      PHOTO_MIN=10 floor, the same sharp boundary case as riddings-timperley.md.
+      Three injections direct on the tracked file, each restored from a
+      pre-injection byte copy and sha256-reconfirmed before the next: (1) deleted
+      the tenth (final) bullet, dropping the list to 9 shots - CAUGHT, exactly one
+      FAIL naming "9 shots"; (2) removed the word "Vinyl" from the first bullet -
+      CAUGHT, exactly one FAIL naming the missing vinyl storefront reminder; (3)
+      removed "also action any pending Google updates." from the section's intro
+      parenthetical - CAUGHT, exactly one FAIL naming the missing reminder. The
+      standing Q64 post-town WARN present and unchanged throughout all three. File
+      restored, sha256 reconfirmed identical; full 36-checker suite re-run clean
+      after the final restore (36/36 exit 0); git status --porcelain -- gbp-packs
+      modules core branches.json tools empty throughout. No checker gap found; no
+      in-repo defect; rule proven, not changed. LIVE: Claude in Chrome not
+      connected (Q59), not retried; no live-site check performed, since this rule
+      governs pack copy pasted by a human into a Google Business Profile field,
+      not a URL a read-only fetch can verify. ANSWER PICKUP: same Chrome
+      unavailability; QUESTIONS.json read directly, 99 total, 46 open, unchanged
+      by this pass. No new question raised. Forward note: the rule remains
+      unproven by injection against its own copy on the remaining packs beyond
+      scorah-hazel-grove.md, riddings-timperley.md and this one - a candidate set
+      for a future pass.
+      See audits/fishlocks-eccleston-gbp-pack-photo-shot-list-4.8-fifteenth-2026-09-08.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

@@ -1,0 +1,78 @@
+Item 4.8 quality pass (fifteenth, unattended run, 2026-09-08)
+Pack: gbp-packs/fishlocks-eccleston.md
+Rule under test: check-gbp-packs.js "Photo shot list" rule (photoCount, photoVinyl,
+photoGoogleUpdates - PHOTO_MIN block, lines ~1187-1205), born on the item 4.7 sixth
+pass (2026-08-29) and first proven against a pack other than its birth pack earlier
+today on item 4.5 (scorah-hazel-grove.md) and item 4.13 (riddings-timperley.md).
+Never proven by injection against fishlocks-eccleston.md's own copy across the pack's
+fourteen prior dedicated passes.
+
+BASELINE
+- git status --porcelain -- gbp-packs modules core branches.json tools: empty
+- sha256 of gbp-packs/fishlocks-eccleston.md: unchanged from the fourteenth pass's
+  own recorded hash, 5F2206DB5434A385A131AE3D36F9570E319CC87ADAF5854985E94A3E01001EFA
+- Full 36-checker suite run individually: 36/36 exit 0, no failures
+
+PACK'S OWN PHOTO SECTION AT BASELINE
+Section 4 lists exactly 10 shots: vinyl storefront lead shot, shopfront at the
+Carrington Centre, street-context angle, entrance, shop floor, dispensary counter,
+private consultation room, team photo, blood pressure check, hours board. Sits
+exactly on the PHOTO_MIN=10 floor, the same sharp boundary case item 4.13's pack hit
+this morning. The intro parenthetical carries the "action any pending Google
+updates" reminder; the first bullet carries "Vinyl".
+
+METHOD
+Three injections on the tracked file (not a scratch copy), each applied by exact
+string replace, checked, then restored from a pre-injection byte-copy backup
+(Copy-Item to %TEMP%) and sha256-reconfirmed identical to the baseline hash before
+the next injection began.
+
+1. Deleted the tenth (final) bullet, "Hours board or door sign...are not caught
+   out.", dropping the list to 9 shots.
+   Result: CAUGHT. node tools/check-gbp-packs.js exit 1, exactly one new FAIL on
+   this pack: "Photo shot list names 9 shots, and Build Pack v2 4.1 asks for at
+   least 10...". The pre-existing standing WARN (Q64 post-town address divergence)
+   present and unchanged alongside it; no other pack affected.
+   Restored; sha256 reconfirmed 5F2206DB5434A385A131AE3D36F9570E319CC87ADAF5854985E94A3E01001EFA.
+
+2. Removed the word "Vinyl" from the first bullet ("Vinyl storefront lead shot..."
+   -> "Storefront lead shot...").
+   Result: CAUGHT. Exactly one new FAIL: "Photo shot list does not mention the
+   vinyl storefront, which Build Pack v2 4.1 asks for in the photo set...". Same
+   standing Q64 WARN present, unchanged.
+   Restored; sha256 reconfirmed identical.
+
+3. Removed "also action any pending Google updates." from the section's intro
+   parenthetical, leaving "(Build Pack 4.1: at least 10 photos.)".
+   Result: CAUGHT. Exactly one new FAIL: "Photo shot list does not remind the
+   paster to action any pending Google updates while they are in the profile...".
+   Same standing Q64 WARN present, unchanged.
+   Restored; sha256 reconfirmed identical.
+
+FINAL STATE
+- gbp-packs/fishlocks-eccleston.md: byte-identical to baseline, sha256 confirmed
+  5F2206DB5434A385A131AE3D36F9570E319CC87ADAF5854985E94A3E01001EFA
+- git status --porcelain -- gbp-packs modules core branches.json tools: empty
+- Full 36-checker suite re-run after final restore: 36/36 exit 0, no failures
+- No checker, generator, page, pack or branches.json content changed by this pass
+
+VERDICT
+No checker gap found; no in-repo defect. All three legs of the photo shot list rule
+fire correctly and independently against this pack's own copy, proven for the first
+time. This closes the same rule-proof gap already closed today against
+scorah-hazel-grove.md (4.5) and riddings-timperley.md (4.13); the remaining packs
+where this rule has not yet been proven by injection against their own copy are a
+candidate set for a future pass.
+
+LIVE HALF
+Claude in Chrome not connected (tabs_context_mcp reported "not connected"; standing
+Q59, two browser extension instances signed in at once, an unattended run cannot
+choose between them and made no attempt to). No live-site check performed. This
+rule governs pack copy pasted by a human into a Google Business Profile photo
+section, not a URL a read-only fetch could verify in any case.
+
+ANSWER PICKUP (step 3)
+Same Chrome unavailability as above. QUESTIONS.json read directly: 99 total, 46
+open, unchanged by this pass.
+
+No new question raised.

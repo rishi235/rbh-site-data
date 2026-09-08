@@ -1,3 +1,89 @@
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for read/lock/discovery, switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the write half) - Item 4.8 quality pass (fifteenth, Fishlocks Chemist Eccleston GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
+mount (previous run's lock had been renamed away, not deleted - the standing
+Q87/Q96 unlink() restriction on this mount, confirmed again this run: `rm` on a
+fresh probe file in the sandbox returned "Operation not permitted", `mv`/rename
+succeeded). Created fresh, timestamped 2026-09-08T11:36:00+01:00. A stray
+`.git/index.lock` appeared in the sandbox mid-session from the sandbox's own
+`git status`/`git fetch` calls and could not be unlinked from that side either;
+did not block sandbox `git status` (git's own rename-based lock handling
+tolerated it) so no PowerShell `Remove-Item` intervention was needed for it this
+run.
+
+SYNC (step 2): sandbox `git fetch origin` (SSH) failed immediately with "Host key
+verification failed", as documented under Q96/Q87 - this sandbox has no SSH trust
+and no push credential. `git fetch origin-https` (HTTPS, anonymous read) worked
+and revealed the previous run's commit c623113 was already on the remote (fetched
+via the real host in that run, per its own log entry), so this run's apparent
+"ahead by 1" at the very start was a stale cached tracking ref, not a real
+divergence - confirmed in sync (`origin-https/agents/audit-backlog` ==
+`agents/audit-backlog` == c623113) once refreshed. Confirmed via a dry-run push
+attempt that this sandbox session genuinely cannot authenticate to GitHub at all
+("fatal: could not read Username for 'https://github.com': No such device or
+address") - consistent with, not a new instance of, Q96. Switched to
+`mcp__Windows-MCP__PowerShell` against the real working copy for the write half,
+as the immediately preceding run's own log recorded doing. From there: same
+`.agent-lock` file (confirmed byte-identical, same underlying mount as Q87/Q96
+already established), `git status` clean and up to date with
+`origin-https/agents/audit-backlog` at c623113, no divergence to reconcile.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected (standing Q59, unchanged). Logged and carried on; no alternative route
+attempted, nothing clicked, typed or submitted anywhere. QUESTIONS.json read
+directly: 99 total, 46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied, as it has every recent run. Rotation pool: 43
+completed items minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) minus item 4.13 (completed immediately before this run by its own
+predecessor earlier today) = 33 candidates (previous run's own pool was 34,
+including 4.13; this run's pool is that minus the item just done). Each item's
+own paragraph range dated via `git log -1 --format=%cI -L<start>,<end>
+:AGENT_WORKLIST.md`. Item 4.8 (Fishlocks Chemist Eccleston GBP pack) came out
+least recently touched, last committed 2026-09-06T22:41:39+01:00, ahead of the
+next-oldest (4.10, 2026-09-06T23:12:43+01:00) - exactly matching the prior run's
+own forward note, which had already identified 4.8 as next in line once 4.13 was
+done.
+
+WORK DONE: see AGENT_WORKLIST.md's own fifteenth-pass paragraph under item 4.8
+and audits/fishlocks-eccleston-gbp-pack-photo-shot-list-4.8-fifteenth-2026-09-08.txt
+for full detail. In short: baseline confirmed clean (36/36 checkers, sha256 of
+gbp-packs/fishlocks-eccleston.md unchanged since the fourteenth pass). Chose the
+photo shot list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates) as
+the new angle, the same rule proven for the first time today against two sister
+packs (4.5, 4.13) but never yet against this pack's own copy across its fourteen
+prior passes; this pack's own shot list also sits exactly on the PHOTO_MIN=10
+floor, the same sharp boundary as riddings-timperley.md. Three injections run
+directly on the tracked file, restored via byte copy from a pre-injection backup
+and sha256-reconfirmed identical before the next: deleting the tenth (final)
+bullet (9 shots) - CAUGHT; removing the word "Vinyl" from the first bullet -
+CAUGHT; removing the phrase "also action any pending Google updates." from the
+intro line - CAUGHT. All three restored, sha256-reconfirmed identical to
+baseline (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), full
+36-checker suite re-run clean after final restore. No checker gap found; no
+in-repo defect; rule proven, not changed. No live-site check performed (Chrome
+not connected); this rule governs pack copy pasted into a Google Business
+Profile field, not a URL a read-only fetch can verify in any case.
+
+QUESTIONS: none raised. Open question count unchanged, 46 open of 99 total.
+
+COMMIT/PUSH (step 9): committed locally from the real working copy via
+Windows-MCP PowerShell (working git credentials on that host, per Q87/Q96's own
+2026-09-05 update). Hash filled in below once pushed.
+
+PUBLISH (step 10): tools/build-audit-status.js run from the real working copy.
+
+LOCK RELEASE (step 11): `.agent-lock` renamed to `.agent-lock.released-<ts>`
+(this mount still rejects true deletion; rename is the established workaround
+per Q87/Q96, consistent with every prior run's own log entries).
+
+---
+
 ## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for read/lock/discovery, switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the write half) - Item 4.13 quality pass (fourteenth, Riddings Pharmacy Timperley GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
