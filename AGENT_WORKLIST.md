@@ -5437,6 +5437,91 @@ already live. No in-repo defect found, no copy changed anywhere in the repo,
 no new question. Evidence in
 audits/smartts-item-3.7-quality-pass-2026-09-07-thirteenth.txt.
 Done 2026-09-07 (thirteenth pass).
+Quality pass 2026-09-08 (fourteenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash). Picked as the stalest
+rotation-pool item not already touched today: 27 of the 36 pool items already
+carried a 2026-09-08 pass before this run started (via git log on
+AGENT_WORKLIST.md); of the remaining 9 (2.1, 3.4, 3.7, 3.9, 3.10, 3.13, 5.2,
+6.2), a `git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md` tiebreak on each
+candidate's own paragraph put 3.7 stalest at 2026-09-07T15:14:09+01:00, ahead
+of 3.13 (15:47:39), 6.2 (16:48:14), 3.4 (17:42:14), 3.9 (20:21:08), 3.10
+(21:43:21), 2.1 (22:43:49) and 5.2 (23:43:07).
+PRE-EXISTING DEFECT FOUND AND FIXED BEFORE ANY ITEM WORK: baseline sweep of
+all 36 tools/check-*.js found check-postcodes.js failing (2 UNKNOWN
+failures), left over from an earlier run today's item 3.5 fifteenth pass,
+which injected the foreign postcode SK7 3AB into
+impetigo-treatment-hirshmans-ainsdale.html's JSON-LD to prove check-jsonld.js
+rule 5, restored the page correctly, but committed AGENT_LOG.md and
+audits/hirshmans-item-3.5-quality-pass-2026-09-08-fifteenth.txt quoting the
+injected value without adding it to check-postcodes.js's own
+NARRATIVE_POSTCODES list - the ninth time this exact gap has recurred (after
+L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ and
+ZZ99 9ZZ). Added SK7 3AB to NARRATIVE_POSTCODES with the same reason format
+as the other eight entries; check-postcodes.js returned to 0 failures. This
+is not this pass's own worklist work (it belongs to item 3.5), logged here
+because it was found and fixed before item 3.7's own baseline was taken.
+Baseline (post-fix): all 36 checkers run individually, 36/36 exit 0; git
+status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/,
+status/ empty apart from the pre-existing untouched
+gbp-packs/.fuse_hidden0000000400000001 (standing Q87 note) and the pending
+check-postcodes.js edit itself.
+FRESH ANGLE. Grepped this item's full thirteen-pass history (lines 4814-5439)
+for every tools/check-*.js basename: tools/check-branch-identity.js - the
+checker that decides which pharmacy a page says it is, via data-branch, the
+JSON-LD name, and outbound review links, built specifically because a
+shared-brandLabel branch's bare brand name cannot say which of two sister
+shops a page belongs to - had never been named against Smartts across any of
+the thirteen prior passes. Smartts is a single-site brand (brandLabel ===
+branchName === "Smartts Chemist", not shared with any sister), so the
+checker's ambiguous-brand rules (4/5/6/7) do not apply to it, but rules 1-3
+(identity/owner/schemaname) and rule 8 (outbound review link) apply to every
+page regardless and had never been proven against Smartts's own copy by
+injection.
+Fresh independent extraction (audits/verify-3.7-2026-09-08-fourteenth.js, no
+code shared with tools/ or any prior pass's script) across all 12 Smartts
+pages, written against check-branch-identity.js's own rules 1/2/3/8 from
+scratch: 37 checks, 0 flags - data-branch present and equal to "Smartts
+Chemist" on every module root; JSON-LD name equal to "Smartts Chemist" on
+every page; every review link on the switch page (the only page carrying one)
+matching Smartts's own googleReviewUrl, none matching another branch's.
+Three injections run against the real tools/check-branch-identity.js, each
+restored by byte-copy from a saved original and sha256-confirmed identical
+before the next: (1) data-branch on impetigo-treatment-smartts-bootle.html
+changed from "Smartts Chemist" to "SK Chemists Bootle" - the real, directly
+adjacent different Bootle brand named as the danger case in this item's own
+second pass - CAUGHT by rule 2 (owner), plus the expected collateral rule 6
+(split) flag naming the 11-vs-1 page split; (2) the same page's JSON-LD name
+changed to "Hirshmans Chemist", a non-adjacent branch, to prove rule 3 fires
+on any foreign name rather than only a geographic neighbour - CAUGHT by rule
+3 (schemaname), again with the expected collateral rule 6 flag; (3) the
+switch page's Google review link swapped for SK Chemists Bootle's own
+googleReviewUrl - untried for injection on this item across all thirteen
+prior passes - CAUGHT by rule 8 (outbound), naming skchemists_bootle and the
+irreversible-third-party-review risk. All three caught first attempt on the
+intended rule; both touched files confirmed byte-identical to their
+pre-injection sha256 hashes after every individual injection and again at
+the end. Final sweep after all three injections and restores: 36/36 checkers
+exit 0. git status --porcelain on gbp-packs/, modules/, core/, branches.json,
+tools/, status/ showed only the intended check-postcodes.js edit and the
+new audit script, apart from the pre-existing untouched FUSE artifact. No
+generator, page or branches.json content changed anywhere in the repo; no
+regeneration needed.
+Live half not performed: mcp__claude-in-chrome__tabs_context_mcp reported
+"Claude in Chrome is not connected" both at answer pickup and when retried
+for this item's live half. Thirteenth pass's live-only note (three
+long-standing live-only gaps - hours-card lunch closure, switch page live
+tab title, Q16/5.8 KNOWN_CLAIM services-grid wording - last reconfirmed
+2026-08-31, sixth pass) was not re-confirmed this pass and should not be
+assumed unchanged. Answer pickup (step 3): Chrome not connected, unavailable;
+99 questions total, 46 open per QUESTIONS.json at the start of this run,
+unchanged by this pass. No autonomous-window heading present in AGENT_LOG.md
+at the start of this run, so step 4 did not apply.
+No in-repo defect found in Smartts's own pages; one pre-existing repo-hygiene
+defect found and fixed before item work began (the NARRATIVE_POSTCODES gap
+above, properly item 3.5's business but fixed here since it blocked a clean
+baseline for every item). No copy changed anywhere in the repo, no new
+question. Evidence in audits/verify-3.7-2026-09-08-fourteenth.js.
+Done 2026-09-08 (fourteenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
