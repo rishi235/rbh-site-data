@@ -1,4 +1,4 @@
-## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash used throughout for read, lock, discovery, injection testing and this log entry; Claude in Chrome not connected) - Item 4.10 quality pass (thirteenth, Smartts Chemist Bootle GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question; commit hash recorded below after push
+## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash used throughout for read, lock, discovery, injection testing and this log entry; Claude in Chrome not connected) - Item 4.10 quality pass (thirteenth, Smartts Chemist Bootle GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
 mount. Created fresh, timestamped 2026-09-08T11:04:14Z. `.git/index.lock` was absent
@@ -72,8 +72,28 @@ authenticate to GitHub at all ("fatal: could not read Username for
 'https://github.com': No such device or address" on `git push --dry-run
 origin-https`), consistent with the standing Q87/Q96 sandbox credential gap. Switched
 to `mcp__Windows-MCP__PowerShell` against the real C:\Dev\rbh-site-data working copy
-for the write half. [commit hash and push/publish result to be recorded here once
-completed]
+for the write half. One obstruction on the way: `git add` failed with "Unable to
+create '.git/index.lock': File exists" - a stray lock this run's own sandbox-side
+`git status` calls had left behind (see LOCK CHECK above), a few minutes old with no
+git process running (`Get-Process git` empty); cleared with `Remove-Item
+.git\index.lock -Force` from PowerShell. Re-ran `git add` clean, then committed as
+dc6c98d ("Item 4.10 quality pass (thirteenth): prove check-gbp-packs.js photo shot
+list rule..."), 3 files changed. Pushed with `git push origin agents/audit-backlog`
+(SSH, working credentials on this host): exit 0. Verified via a fresh `git fetch
+origin-https` afterwards that both remotes (`origin` SSH and `origin-https` HTTPS)
+report dc6c98d, matching local HEAD exactly.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the real working copy:
+"Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)", exit 0.
+
+LOCK RELEASE (step 11): `.agent-lock` to be renamed to `.agent-lock.released-<ts>`
+from the sandbox side once this entry is committed (this mount still rejects true
+deletion; rename is the established workaround per Q87/Q96, consistent with every
+prior run's own log entries).
+
+---
+
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for read/lock/discovery, switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the write half) - Item 4.8 quality pass (fifteenth, Fishlocks Chemist Eccleston GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
 mount (previous run's lock had been renamed away, not deleted - the standing
