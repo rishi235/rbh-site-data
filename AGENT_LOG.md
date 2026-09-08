@@ -116,13 +116,23 @@ edited), AGENT_WORKLIST.md (item 4.12's fourteenth-pass paragraph), the new
 audits/coleman-leigh-walton-photo-shot-list-4.12-fourteenth-2026-09-08.txt,
 and this log entry.
 
-PUBLISH (step 10): `node tools/build-audit-status.js` run from the real
-working copy.
+Committed as b974f0d. `git push origin agents/audit-backlog` printed the same
+CLIXML-wrapped "error" false-failure the item 1.3 thirteenth pass's ADDENDUM
+and the item 4.8 thirteenth pass both record for this exact command
+(PowerShell's stderr stream wraps git's normal ref-update line,
+"0c2e933..b974f0d agents/audit-backlog -> agents/audit-backlog", as if it were
+an error) - re-checked with `git fetch origin-https` + comparing
+`origin-https/agents/audit-backlog`, `origin/agents/audit-backlog` and local
+HEAD, all three at b974f0d, confirming the push had in fact succeeded and
+ruling out a false failure read.
 
-LOCK RELEASE (step 11): `.agent-lock` to be renamed to
-`.agent-lock.released-<ts>` from the sandbox side once this entry is
-committed (this mount still rejects true deletion; rename is the established
-workaround per Q87/Q96).
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the real
+working copy; published reports/digital/Digital_Audit_Status.html (43/49
+done, 88%).
+
+LOCK RELEASE (step 11): `.agent-lock` renamed to
+`.agent-lock.released-1788869730` from the sandbox side (this mount still
+rejects true deletion; rename is the established workaround per Q87/Q96).
 
 ---
 
