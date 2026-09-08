@@ -1,0 +1,77 @@
+Item 4.12 quality pass (fourteenth), 2026-09-08
+Coleman and Leighs Pharmacy Walton GBP pack (gbp-packs/coleman-leigh-walton.md)
+Angle: tools/check-gbp-packs.js photo shot list rule (PHOTO_MIN/photoCount,
+photoVinyl, photoGoogleUpdates) - proved against this pack's own copy for the
+first time in fourteen passes. The rule had already been proven against
+riddings-timperley.md, fishlocks-eccleston.md and smartts-bootle.md earlier
+in this run-chain (items 4.13, 4.8, 4.10) but never pointed at this pack.
+
+INCIDENTAL FIX BEFORE THIS PASS'S OWN WORK: establishing the baseline 36-checker
+sweep found tools/check-postcodes.js failing with 3 real FAILures on the
+tracked repo (not scratch noise): AGENT_LOG.md, AGENT_WORKLIST.md and
+audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt all quote
+"ZZ99 9ZZ" (the invented, non-branch postcode used as injection 2 of the item
+4.9 fourteenth pass, earlier the same run-chain today) as UNKNOWN, because
+that pass committed the write-up without adding the value to
+NARRATIVE_POSTCODES - the exact gap this list has now closed eight times
+(L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG, L20 3ER, WA14 9ZZ). Fixed
+by adding a "ZZ99 9ZZ" entry to tools/check-postcodes.js's NARRATIVE_POSTCODES
+with a reason referencing the item 4.9 fourteenth pass. Re-ran
+check-postcodes.js on the tracked repo: 0 failures, 3 warnings (the standing
+UNOWNED class), down from 3 failures. No page, generator, branches.json entry
+or GBP pack was touched by this fix - tools/check-postcodes.js only.
+
+METHOD (this item's own work): full repo copied (excluding .git, C:/ and
+_agentscratch/) to a scratch directory under /tmp; the tracked pack was never
+opened for writing this pass, confirmed unchanged throughout by sha256
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, matching
+all thirteen prior passes) both before and after. Baseline: 35 of 36 checkers
+run individually against the scratch copy, all exit 0 (check-cdn-pins.js
+excluded from the scratch sweep only because it needs live git ref resolution
+and the scratch copy has no .git; run separately against the real tracked
+repo instead, where it is clean: 0 failures, 3 warnings, 7 known issues
+awaiting a decision - unchanged).
+
+Three injections, each on the scratch copy's own byte-backed-up file, each
+restored by direct file copy and sha256-reconfirmed identical
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88) before the
+next:
+
+INJECTION 1 (photoCount): removed the final photo bullet ("Hours notice on
+the door...") from the shot list, dropping the count from 10 (this pack's own
+count, matching the estate-wide "every pack sits exactly on 10, one on 11"
+pattern CLAUDE.md records) to 9. CAUGHT: "Photo shot list names 9 shots, and
+Build Pack v2 4.1 asks for at least 10." First attempt.
+
+INJECTION 2 (photoVinyl): removed the word "Vinyl" from the first bullet
+("Vinyl storefront lead shot where fitted..." became "Storefront lead shot
+where fitted..."). CAUGHT: "Photo shot list does not mention the vinyl
+storefront..." First attempt.
+
+INJECTION 3 (photoGoogleUpdates): removed the pending-Google-updates reminder
+from the section's intro line ("(Build Pack 4.1: at least 10 photos. While in
+the profile, also action any pending Google updates.)" became "(Build Pack
+4.1: at least 10 photos.)"). CAUGHT: "Photo shot list does not remind the
+paster to action any pending Google updates..." First attempt.
+
+All three legs of the rule fire independently on this pack's own copy. No
+checker gap found. Full 35-checker suite (excl. check-cdn-pins.js) re-run
+clean on the scratch copy after the final restore: 35/35 exit 0. Pack sha256
+reconfirmed identical to baseline. Tracked repo's own copy of the pack
+confirmed byte-identical throughout (same sha256, checked before and after
+this pass's work). No generator writes gbp-packs/, so nothing to regenerate.
+
+LIVE HALF: no browser connected (list_connected_browsers returned empty,
+standing Q59). Not performed for this specific angle regardless, same
+reasoning as item 4.10's twelfth/thirteenth passes and item 4.13's fourteenth
+pass for the identical rule: the photo shot list governs copy pasted into a
+GBP picker field during a photo upload, not a URL any read-only fetch can
+verify. The 2026-09-01 seventh-pass live verdicts for this pack (Post A pfLink
+404, mixed old/new trading name across the site, Q76's sister-branch-name
+substitution gap in Post C, the Q22 estate-wide tagline) stand as written, not
+re-verified this pass.
+
+No in-repo defect on item 4.12's own subject (the pack itself); one in-repo
+defect found and fixed on a different item's aftermath (the ZZ99 9ZZ
+NARRATIVE_POSTCODES gap, above). No new question raised. QUESTIONS.json
+unchanged: 99 total, 46 open.

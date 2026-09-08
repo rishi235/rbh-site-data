@@ -14205,6 +14205,59 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       was reached. The 2026-09-01 seventh-pass live verdicts for this pack
       stand as written, not re-verified this pass. No new question;
       QUESTIONS.json unchanged (98 total, 45 open). Done 2026-09-07.
+      Fourteenth quality pass 2026-09-08 (unattended scheduled run,
+      rotation-pool pick, stalest item last touched 2026-09-07T01:44:18+01:00,
+      its own thirteenth pass, ahead of every other pool item). FRESH ANGLE:
+      thirteen prior passes proved branches.json facts, the character-count
+      exactness rule, the medicine-name union, OUTCOME_PROMISE,
+      check-url-scheme.js, check-uk-spelling.js, check-brand-spelling.js,
+      check-app-membership.js, check-em-dashes.js, the hours-day-presence
+      rule, check-gbp-pharmacy-first.js rules 5/7/8 and the category/service
+      allowlist against this pack's own copy, but the photo shot list rule
+      (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates; already proven
+      this run-chain against riddings-timperley.md, fishlocks-eccleston.md
+      and smartts-bootle.md on items 4.13, 4.8 and 4.10) had never been
+      pointed at THIS pack specifically. INCIDENTAL FIX before this pass's own
+      work: the baseline sweep found tools/check-postcodes.js failing with 3
+      real failures on the tracked repo (AGENT_LOG.md, AGENT_WORKLIST.md and
+      audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt all
+      quoting "ZZ99 9ZZ", the invented postcode from the item 4.9 fourteenth
+      pass's own injection 2, earlier the same run-chain today) - the same
+      gap this list has now closed eight times before it. Fixed by adding a
+      "ZZ99 9ZZ" entry to NARRATIVE_POSTCODES with a reason; re-ran
+      check-postcodes.js clean afterwards (0 failures, 3 warnings). No page,
+      generator, branches.json entry or GBP pack touched by that fix. Full
+      repo copied (excl. .git) to a scratch directory; tracked pack never
+      opened for writing, confirmed unchanged throughout (sha256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all thirteen prior passes). Baseline: 35 of 36 checkers exit 0
+      on the scratch copy (check-cdn-pins.js excluded from the scratch sweep,
+      needs live git ref resolution the .git-free scratch copy cannot
+      provide; run separately against the real tracked repo instead, clean:
+      0 failures, 3 warnings, 7 known issues). Three injections, each restored
+      by byte copy and sha256-reconfirmed before the next: (1) removed the
+      final photo bullet, dropping the count from this pack's own 10 (no
+      headroom, matching the estate pattern) to 9 - CAUGHT as photoCount; (2)
+      removed "Vinyl" from the first bullet - CAUGHT as photoVinyl; (3)
+      removed the pending-Google-updates reminder from the section's intro
+      line - CAUGHT as photoGoogleUpdates. All three legs fire independently
+      on this pack's own copy; no checker gap found. Full 35-checker suite
+      (excl. cdn-pins) re-run clean after the final restore; pack sha256
+      reconfirmed identical to baseline; tracked repo's own copy confirmed
+      byte-identical throughout. Evidence:
+      audits/coleman-leigh-walton-photo-shot-list-4.12-fourteenth-2026-09-08.txt.
+      LIVE HALF: no browser connected (list_connected_browsers returned
+      empty, standing Q59); not performed regardless, same reasoning as item
+      4.10's twelfth/thirteenth passes and item 4.13's fourteenth pass for
+      this identical rule - it governs pack copy pasted into a GBP picker
+      field, not a URL any read-only fetch can verify. The 2026-09-01
+      seventh-pass live verdicts for this pack (Post A pfLink 404, mixed
+      old/new trading name, Q76's sister-branch-name gap in Post C, the Q22
+      tagline) stand as written, not re-verified this pass. No in-repo defect
+      on this item's own pack; one in-repo defect found and fixed on a
+      different item's aftermath (the ZZ99 9ZZ NARRATIVE_POSTCODES gap,
+      above). No new question; QUESTIONS.json unchanged (99 total, 46 open).
+      Done 2026-09-08.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

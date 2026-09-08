@@ -1,3 +1,131 @@
+## 2026-09-08 (unattended scheduled run, eleventh run today, Cowork sandbox mcp__workspace__bash used throughout for read/lock/discovery/injection testing; switched to mcp__Windows-MCP__PowerShell only for the commit/push and publish steps against the canonical C:\Dev\rbh-site-data working copy; Claude in Chrome not connected) - Item 4.12 quality pass (fourteenth, Coleman and Leighs Pharmacy Walton GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; plus an incidental fix, adding the previous run's own ZZ99 9ZZ probe value to check-postcodes.js's NARRATIVE_POSTCODES, closing a real 3-failure gap the run left behind
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount (previous run's lock had been renamed away per the standing
+Q87/Q96 unlink() restriction). Created fresh at 2026-09-08T12:04:21Z. A
+`.git/index.lock` (0 bytes) appeared later in the run as a side effect of this
+sandbox's own `git status`/`git pull` calls (the standing Q87/Q96 FUSE
+unlink() restriction: git could not clean up its own lock file). Fresh, well
+under the 1-hour staleness threshold, `ps aux` confirmed no git process
+running; `mv` (rename) succeeded where `rm`/`git`'s own unlink() failed with
+"Operation not permitted", the established workaround, and read commands
+continued to work regardless.
+
+SYNC (step 2): sandbox `git fetch origin` (SSH) failed "Host key verification
+failed", the standing Q87/Q96 condition. `git fetch origin-https` (HTTPS,
+anonymous read) succeeded; local HEAD (0c2e933) already matched
+origin-https/agents/audit-backlog exactly via `git pull --ff-only
+origin-https agents/audit-backlog` - no divergence to reconcile, confirming
+the previous ten runs today reached origin successfully (via the established
+Windows-MCP PowerShell route for their own write halves).
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__list_connected_browsers`
+returned an empty array - Claude in Chrome not connected (standing Q59,
+unchanged). Logged and carried on; no alternative route attempted, nothing
+clicked, typed or submitted anywhere. QUESTIONS.json read directly: 99 total,
+46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of AGENT_LOG.md at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool: 43 completed items minus 7
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 10
+items already re-verified earlier today by this run's own predecessors (4.9,
+4.10, 4.8, 4.13, 1.3, 3.1, 3.6, 3.12, 5.1, 4.11) = 26 remaining candidates.
+Each candidate's own AGENT_WORKLIST.md paragraph range dated via `git log -1
+--format=%cI -L<start>,<end>:AGENT_WORKLIST.md` (a header-text grep was tried
+first and produced a false read - it missed several items whose most recent
+pass header does not literally contain "Item <N> " as its leading subject -
+so the git-log-on-line-range method, matching the established convention from
+several prior passes' own write-ups, was used instead for all 25 dated
+candidates). Item 4.12 (Coleman and Leighs Pharmacy Walton GBP pack)
+confirmed least recently touched at 2026-09-07T01:44:18+01:00, ahead of the
+next-nearest candidate (4.15, 2026-09-07T02:43:29+01:00) by about an hour,
+matching the tenth pass's own forward note exactly.
+
+WORK DONE: see AGENT_WORKLIST.md's own fourteenth-pass paragraph under item
+4.12 and audits/coleman-leigh-walton-photo-shot-list-4.12-fourteenth-2026-09-08.txt
+for full detail. In short: establishing the baseline found tools/check-postcodes.js
+failing with 3 real failures on the TRACKED repo (not scratch noise) -
+AGENT_LOG.md, AGENT_WORKLIST.md and
+audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt all quoting
+"ZZ99 9ZZ", the invented postcode this run's own predecessor (item 4.9
+fourteenth pass, above) used as its injection 2, committed without adding the
+value to NARRATIVE_POSTCODES - the same gap this list has now closed eight
+times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG, L20 3ER,
+WA14 9ZZ). Fixed directly on the tracked repo (tools/check-postcodes.js only,
+no page, generator, branches.json entry or GBP pack touched): added a
+"ZZ99 9ZZ" entry to NARRATIVE_POSTCODES with a reason citing the item 4.9
+fourteenth pass. Re-ran check-postcodes.js on the tracked repo: 0 failures, 3
+warnings (down from 3 failures), the standing UNOWNED class unchanged.
+
+Then this item's own work: full repo copied (excluding .git, the stray "C:/"
+literal-path folder and _agentscratch/) to a scratch directory under /tmp;
+the tracked pack (gbp-packs/coleman-leigh-walton.md) was never opened for
+writing this pass, confirmed unchanged throughout by sha256
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, matching
+all thirteen prior passes) both before and after. Baseline: 35 of 36 checkers
+run individually against the scratch copy, all exit 0 (check-cdn-pins.js
+excluded from the scratch sweep only because it needs live git ref resolution
+and the .git-free scratch copy cannot provide it; run separately against the
+real tracked repo instead, confirmed clean: 0 failures, 3 warnings, 7 known
+issues awaiting a decision, unchanged). Chose the photo shot list rule
+(PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates; born item 4.5 pass,
+2026-08-30, proven this run-chain against riddings-timperley.md,
+fishlocks-eccleston.md and smartts-bootle.md on items 4.13, 4.8 and 4.10
+earlier today) as the fresh angle, since it had never been injection-tested
+against this pack's own copy across thirteen prior passes on item 4.12
+itself. This pack's shot list sits exactly on the PHOTO_MIN=10 floor (ten
+bullets, no headroom), matching the estate-wide pattern CLAUDE.md records.
+Three injections run against the scratch copy only, each restored from a
+byte-copy backup and sha256-reconfirmed identical before the next: (1) the
+final photo bullet ("Hours notice on the door...") removed, dropping the
+count to 9 - CAUGHT as photoCount, first attempt; (2) "Vinyl" removed from
+the first bullet - CAUGHT as photoVinyl, first attempt; (3) the
+pending-Google-updates reminder removed from the section's intro line -
+CAUGHT as photoGoogleUpdates, first attempt. All three legs fire
+independently on this pack's own copy; no checker gap found. Full
+35-checker suite (excl. cdn-pins) re-run clean on the scratch copy after the
+final restore; pack sha256 reconfirmed identical to baseline; tracked repo's
+own copy of the pack confirmed byte-identical throughout by the same sha256,
+checked before and after. No generator writes gbp-packs/, so nothing to
+regenerate; the pack itself was never modified.
+
+LIVE HALF: Claude in Chrome not connected (standing Q59, confirmed via
+`list_connected_browsers` returning empty). Not performed for this specific
+angle regardless, same reasoning as item 4.10's twelfth/thirteenth passes and
+item 4.13's fourteenth pass for this identical rule: the photo shot list
+governs copy pasted into a GBP picker field during a photo upload, not a URL
+any read-only fetch can verify. The 2026-09-01 seventh-pass live verdicts for
+this pack (Post A pfLink 404, mixed old/new trading name across the site,
+Q76's sister-branch-name substitution gap in Post C, the Q22 estate-wide
+tagline) stand as written, not re-verified this pass.
+
+QUESTIONS: none raised. Open question count unchanged, 46 open of 99 total.
+
+COMMIT/PUSH (step 9): sandbox git push confirmed (again) that this session
+cannot authenticate to GitHub for a write (standing Q87/Q96 sandbox
+credential gap). Switched to `mcp__Windows-MCP__PowerShell` against the real
+C:\Dev\rbh-site-data working copy for the write half, the established pattern
+from every run today that reached this step. Files changed: tools/check-postcodes.js
+(the NARRATIVE_POSTCODES fix), gbp-packs/coleman-leigh-walton.md (untouched,
+confirmed by sha256 - listed here only to record that it was checked, not
+edited), AGENT_WORKLIST.md (item 4.12's fourteenth-pass paragraph), the new
+audits/coleman-leigh-walton-photo-shot-list-4.12-fourteenth-2026-09-08.txt,
+and this log entry.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the real
+working copy.
+
+LOCK RELEASE (step 11): `.agent-lock` to be renamed to
+`.agent-lock.released-<ts>` from the sandbox side once this entry is
+committed (this mount still rejects true deletion; rename is the established
+workaround per Q87/Q96).
+
+---
+
 ## 2026-09-08 (unattended scheduled run, tenth run today, Cowork sandbox mcp__workspace__bash used for read/lock/discovery/injection testing, switched to mcp__Windows-MCP__PowerShell for the live half and for the git write half) - Item 4.9 quality pass (fourteenth, Clear Chemist Aintree GBP pack): check-postcodes.js proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
