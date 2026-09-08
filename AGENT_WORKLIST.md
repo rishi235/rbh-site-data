@@ -1427,6 +1427,55 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       No new question. Evidence: audits/verify-2.3-2026-09-07-thirteenth.js
       (script and inline run output; see AGENT_LOG.md for the full transcript
       including the live curl output).
+      Fourteenth quality pass 2026-09-08 (unattended scheduled run, Cowork
+      sandbox shell). All 8 unchecked AGENT_WORKLIST.md lines confirmed
+      [BLOCKED] by direct grep, so the quality-pass fallback applied. Item
+      selection: the 19 items in today's rotation pool not yet re-verified
+      today (43 completed items minus the 7 standing out-of-rotation items 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8, minus the 17 items this run-chain's own
+      predecessors had already re-verified today by direct evidence in this
+      file) were all last touched on 2026-09-07; ranked by the exact commit
+      time of each item's own thirteenth pass, 2.3 (03:43) was the stalest,
+      ahead of 3.3 (04:13) and the rest. FRESH ANGLE:
+      tools/check-travel-clinic-copy.js had never been proven by injection
+      against Cherry Lane's own travel clinic page in thirteen prior passes
+      (the checker's name is absent from this item's own text beforehand,
+      confirmed by direct grep). Baseline: all 35 checkers (check-cdn-pins.js
+      excluded, needs live git ref resolution) exit 0 on a full repo copy in a
+      scratch directory (rsync, .git and known scratch debris excluded);
+      travel-clinic-cherry-lane-walton.html sha256
+      b74c70e340bd2b750b9f7c10fb84c35b8a1323bc77e72096c00655baa26b6588. Three
+      injections on the scratch copy, each restored by byte copy and
+      sha256-reconfirmed before the next and after the last, tracked repo file
+      confirmed byte-identical throughout (git status --porcelain empty): (1)
+      the hero paragraph's "This is a private, paid service, not an NHS-funded
+      appointment" rewritten to "This is provided by our own team, not an
+      NHS-funded appointment" - caught by rule 4 (private), naming the page,
+      plus rule 3 (verbatim) on the same sentence; (2) "Malarone" inserted into
+      the malaria prevention card text - caught by rule 8 (medicine), naming
+      the page and the drug; (3) the trust bar's "Local Walton team" changed to
+      "Local Bootle team" - caught by rule 10 (town), naming the branch's real
+      seoTown. All three fired first attempt, on their intended rule, with the
+      expected rule 3 verbatim co-failure on the first injection and no other
+      cross-firing. Full 35-checker suite re-run clean after the final restore.
+      No checker gap found; no in-repo defect.
+      LIVE HALF PERFORMED (Claude in Chrome not connected, standing Q59;
+      read-only curl GET from the Cowork sandbox shell, no click, no submit, no
+      login). The live travel clinic page matches the repo exactly: "private,
+      paid service" present twice, "Local Walton team" correct, "subject to
+      availability" present, book-ahead window 6 to 8 weeks (plus the exempt "1
+      to 2 weeks" short-notice mention), zero of 24 barred medicine names found
+      in a full sweep. Three previously logged live-only faults reconfirmed
+      unchanged, none in copy this repo owns: Q95's fault (5 of 7 Pharmacy
+      First overview condition cards still showing "Page coming soon"); the
+      switch page's pre-Phase-3 SEO title ("Switch Your Prescriptions - Cherry
+      Lane Pharmacy Walton"); and its mojibake marker in the "How switching to
+      Cherry Lane Pharmacy works" lead paragraph (4 occurrences). The Q36
+      footer NHS mailbox typo was not observed this pass (absent, not typo'd),
+      consistent with its already-logged instability; not re-raised. No new
+      question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-08-fourteenth.txt. Done
+      2026-09-08.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

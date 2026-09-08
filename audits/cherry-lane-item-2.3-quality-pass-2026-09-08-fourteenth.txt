@@ -1,0 +1,142 @@
+Item 2.3 (Cherry Lane, cherrylane_liverpool) - fourteenth quality pass
+Run: 2026-09-08, unattended scheduled run (audit-backlog-worker), Cowork sandbox shell only.
+Claude in Chrome: not connected (standing Q59).
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback
+applied.
+
+Rotation pool: 43 completed items minus 7 standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36. Of those, 17 already carried a
+2026-09-08 pass entry in AGENT_WORKLIST.md before this run started (checked
+by direct grep for "2026-09-08" inside each item's own block boundaries):
+4.11, 5.1, 3.12, 3.6, 3.8, 6.3, 3.1, 4.3, 4.6, 4.5, 1.3, 4.13, 4.8, 4.10,
+4.9, 4.12, 4.15 (confirmed via `git log --since="2026-09-08 00:00" ... --
+AGENT_WORKLIST.md`, 17 commit subjects). That leaves 19 candidates, all
+last touched 2026-09-07 per the same block-scoped date extraction:
+2.1, 2.3, 3.2, 3.3, 3.4, 3.5, 3.7, 3.9, 3.10, 3.11, 3.13, 4.1, 4.2, 4.4,
+4.7, 4.14, 1.2, 5.2, 6.2.
+
+Tiebreak: exact commit time of each candidate's own 2026-09-07 pass, via
+`git log --since="2026-09-07 00:00" --until="2026-09-07 23:59" --format="%ad
+%s" --date=format:'%H:%M' -- AGENT_WORKLIST.md`. Among the 19 candidates the
+earliest (stalest) was 2.3 at 03:43, ahead of 3.3 (04:13), 4.2 (05:10), 4.7
+(06:18), 4.14 (07:45), 1.2 (08:14), 3.11 (08:40), 4.4 (09:52), 4.1 (11:43),
+3.2 (13:45), 3.5 (14:15), 3.7 (15:14), 3.13 (15:47), 6.2 (16:48), 3.4
+(17:42), 3.9 (20:21), 3.10 (21:43), 2.1 (22:43), 5.2 (23:43). Chosen: 2.3.
+
+FRESH ANGLE
+tools/check-travel-clinic-copy.js had never been proven by injection against
+Cherry Lane's own travel clinic page in thirteen prior passes (checker name
+absent from item 2.3's own text beforehand, confirmed by direct grep of
+lines 1089-1435 of AGENT_WORKLIST.md against "check-travel-clinic-copy").
+
+BASELINE
+Full repo copied via rsync to /tmp/scratch23 (.git, _agentscratch,
+.scratch_audit and the stray "C:" literal-path folder excluded). All 35
+checkers other than check-cdn-pins.js (needs live git ref resolution, not
+meaningful against a scratch copy with no .git) run clean: exit 0 on every
+one. check-travel-clinic-copy.js baseline output:
+
+  check-travel-clinic-copy
+    15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+    61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+    15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+    book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+    1 accepted breach(es), each with a reason in KNOWN:
+      yellowfever::no branch declares yellowFeverCentre
+    OK - no failures
+
+modules/service/pages/travel-clinic-cherry-lane-walton.html sha256:
+b74c70e340bd2b750b9f7c10fb84c35b8a1323bc77e72096c00655baa26b6588
+
+INJECTIONS (all against the scratch copy only; tracked repo never opened
+for writing this pass, confirmed by `git status --porcelain modules/
+branches.json tools/` empty before and after, and by the file's sha256
+matching before and after)
+
+1. Rule 4 (private). Hero sentence "This is a private, paid service, not an
+   NHS-funded appointment" rewritten to "This is provided by our own team,
+   not an NHS-funded appointment".
+   Result: FAIL - 2 problems.
+     [verbatim] ... does not carry the generator line "Cherry Lane Pharmacy
+     offers a private travel health consultation service in Walton. ...
+     This is a private, paid service, not an NHS-funded appointment, ..."
+     [private] ... does not say "private, paid service" in the hero.
+   Restored, sha256 reconfirmed b74c70e3... (baseline match). Re-run: OK.
+
+2. Rule 8 (medicine). "Advice and tablets suited to your destination and
+   travel dates." (malaria prevention card) changed to "Advice and tablets
+   such as Malarone suited to your destination and travel dates."
+   Result: FAIL - 2 problems.
+     [verbatim] ... does not carry the generator line "Advice and tablets
+     suited to your destination and travel dates."
+     [medicine] ... names "malarone", a prescription-only medicine, in
+     public advertising copy.
+   Restored, sha256 reconfirmed b74c70e3... (baseline match). Re-run: OK.
+
+3. Rule 10 (town). Trust bar "<strong>Local Walton team</strong>" changed
+   to "<strong>Local Bootle team</strong>".
+   Result: FAIL - 2 problems.
+     [verbatim] ... does not carry the generator line "Local Walton team".
+     [town] ... says "Local Bootle team" but this branch's seoTown is
+     Walton. On a shared domain that is the sister branch's town on this
+     branch's page.
+   Restored, sha256 reconfirmed b74c70e3... (baseline match). Re-run: OK.
+
+All three fired on the first attempt, on their intended rule, with the
+expected rule 3 (verbatim) co-failure since each injection also breaks the
+word-for-word match to the generator's own copy. No cross-firing on an
+unintended rule. Full 35-checker suite re-run clean after the final
+restore. No checker gap found; no in-repo defect. No pack, page, generator,
+data field or branches.json entry changed.
+
+LIVE HALF (read-only curl GET from the Cowork sandbox shell; Claude in
+Chrome not connected, standing Q59; no click, no submit, no login,
+anywhere)
+
+Fetched https://www.cherrylanepharmacy.co.uk/travel-clinic-cherry-lane-walton.html
+(200, 69,178 bytes):
+  - "private, paid service": 3 occurrences (hero + FAQ), matches repo.
+  - "Local Walton team": present, correct town.
+  - "subject to availability": 3 occurrences, present.
+  - Book-ahead window: "6 to 8 weeks" (plus the exempt "1 to 2 weeks"
+    short-notice mention, a different statement per the checker's own
+    rule 7 comment).
+  - Medicine name sweep (24 names: 15 travel vaccine brands relevant to a
+    quick spot list plus antimalarials): zero found.
+
+Fetched https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+(200): "coming soon" appears 5 times - Q95's fault is STILL LIVE, unchanged
+since the tenth pass (2026-09-04).
+
+Fetched https://www.cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
+(200):
+  - <title> is "Switch Your Prescriptions - Cherry Lane Pharmacy Walton",
+    the pre-Phase-3 string, unchanged (tracked under 3.1/5.1/Q3).
+  - "How switching to Cherry Lane Pharmacy works" heading present; the
+    mojibake marker ("ÔÇö"-class byte sequence) appears 4 times on the page,
+    consistent with prior passes' finding of a mojibake em dash near this
+    heading.
+  - Footer: only "Cherry@rbhealth.co.uk" found, no "pharmacy.FA226@..."
+    address on this fetch - the Q36 footer NHS mailbox typo was NOT
+    observed this pass (absent, not typo'd), consistent with its
+    already-logged instability across passes (present on some fetches,
+    absent on others). Not re-raised.
+
+No new question. QUESTIONS.json unchanged by this pass (99 total, 46 open).
+
+ENVIRONMENT NOTE (not part of item 2.3, recorded here and in AGENT_LOG.md)
+At run start, a `.git/index.lock` appeared after this run's own read/fetch
+commands and could not be removed with `rm` ("Operation not permitted" on
+unlink, even as the owning user with rwx permissions) - the standing
+Q87/Q96 FUSE-mount restriction. `mv` (rename) succeeded where `rm`
+(unlink) did not, clearing the path for further git operations without
+adding to the large number of renamed `.agent-lock.*` / `.git/index.lock.*`
+debris files already left in the repo root and `.git/` by prior runs
+hitting the same restriction. That debris (several hundred untracked
+files) was not cleaned up this run: it is untracked (does not affect git
+history or any committed file) and cleaning it is a larger, separate task
+than this run's 30-45 minute budget and single-item mandate allow: not
+actioned further.
