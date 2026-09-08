@@ -130,10 +130,11 @@ this session, standing Q87/Q96). `git add` of exactly three intended files
 (AGENT_WORKLIST.md, AGENT_LOG.md,
 audits/tiffenbergs-item-3.12-quality-pass-2026-09-08-eleventh.txt - none of
 the long-standing `.agent-lock.*`/test-probe/scratch debris from prior
-runs' lock-mechanics workarounds) staged cleanly. Committed and pushed to
-`origin agents/audit-backlog`; `node tools/build-audit-status.js` then run
-to publish the portal status page. Commit hash and publish outcome recorded
-below once confirmed.
+runs' lock-mechanics workarounds) staged cleanly. Committed as `e6362853e3d73b968c6a127318611df105df4fe4` and pushed to
+`origin agents/audit-backlog` - confirmed by a fresh `git fetch` afterwards
+showing `origin/agents/audit-backlog` at the identical hash. `node
+tools/build-audit-status.js` then published
+`reports/digital/Digital_Audit_Status.html` (43/49 done, 88%), exit 0.
 
 ## 2026-09-08 (unattended scheduled run, second run today, Cowork sandbox mcp__workspace__bash for read/edit, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 5.1 quality pass (fifteenth, check-em-dashes.js): found and fixed the ninth instance of this item's own recurring fault, one shape past the fourteenth pass's inline <style>/<script> ELEMENT fix - checkEmbeddedBlocks reads the text BETWEEN a tag pair and never reads an ATTRIBUTE VALUE sitting on an element's own opening tag, so a CSS hex escape in a style="" attribute (real and common: 183 files under modules/ carry one) or a JS unicode escape in an on<event>="" handler or href="javascript:..." URI (zero real occurrences today, so defensive rather than proven live-reachable) was invisible to every existing rule. Proved by injection in an isolated mirror: three cases (style attribute CSS escape, onclick JS escape, href=javascript: JS escape) all missed by the unfixed checker, all caught after the fix with correct line and label; a non-dash escape control stayed clean. Fixed by adding checkEmbeddedAttributes(), called from checkHtmlFile alongside the existing checkEmbeddedBlocks(). All 36 checkers re-run clean before and after, check-em-dashes.js's own steady-state counts byte-identical (233 files, 200/591/1), no generator or branches.json touched so no page was affected either way. Independent standalone proof kept at audits/em-dash-attribute-escape-probe-2026-09-08.js ("ALL CHECKS PASSED", exit 0). No live half read (Claude in Chrome not connected, standing Q59). No new question raised - checker widening, not a live-facing decision.
 LOCK CHECK (step 1): `.agent-lock` at run start held "RELEASED
