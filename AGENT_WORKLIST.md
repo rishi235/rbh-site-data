@@ -7014,6 +7014,113 @@ Done 2026-09-08 (fourteenth pass).
       (14:46:55), 5.2 (15:44:49), 4.11 (16:13:11), 5.1 (16:46:55) - re-derive
       fresh rather than assume, since other runs may land in between. Done
       2026-09-07.
+
+      Quality pass (fourteenth), 2026-09-08 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). All 8 unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+      quality-pass fallback applied. Rotation pool re-derived independently:
+      43 completed items minus the 7 standing out-of-rotation items (1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36. Of those, 32 already carried a
+      2026-09-08 pass by the time this run started (via `git log
+      --since="2026-09-08 00:00" --until="2026-09-08 23:59" --format=%s --
+      AGENT_WORKLIST.md`). Remaining 4 candidates: 2.1, 3.9, 3.10, 5.2.
+      Tiebreak via `git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md` on
+      each candidate's own paragraph range: 3.9 came out stalest at
+      2026-09-07T20:21:08+01:00, ahead of 3.10 (21:43:21), 2.1 (22:43:49) and
+      5.2 (23:43:07). Chosen: 3.9 (Coleman and Leighs Pharmacy, Walton).
+
+      ANSWER PICKUP (step 3): Claude in Chrome reported not connected
+      (tabs_context_mcp timed out, then explicitly "not connected" on
+      retry) - standing Q59, unchanged. Logged and carried on; no
+      alternative route attempted, nothing clicked, typed or submitted
+      anywhere. QUESTIONS.json read directly: 46 open, unchanged.
+
+      TARGET: tools/check-branch-links.js, never proven by injection against
+      this branch's own branches.json record in thirteen prior passes
+      (confirmed by grepping this item's full section for every one of the
+      36 tools/check-*.js filenames before starting - it was the only
+      well-defined, clearly-scoped checker with zero mentions; the eighth
+      pass's 2026-09-02 mention of "CDN pin values" was an independent
+      re-derivation from generator PIN constants, not an exercise of the
+      real check-cdn-pins.js, so that checker remains open too, but
+      check-branch-links.js was the cleaner, more clear-cut gap).
+
+      Baseline: `git status --porcelain -- branches.json` clean, sha256 of
+      branches.json recorded, `node tools/check-branch-links.js` clean (16
+      branches, one pre-existing WARN on Clear Chemist Aintree's missing
+      nhsReviewUrl, standing and correct per the checker's own design). Full
+      36-checker suite: 0 failures.
+
+      New instrument, audits/verify-3.9-2026-09-08-fourteenth.js: shells out
+      to the real checker as a child process (no import from tools/),
+      refuses to run if branches.json already carries a git diff, mutates
+      the branch's own record in memory, writes it, runs the checker,
+      restores from an in-memory buffer captured before the first mutation,
+      and sha256-verifies the restore before the next mutation - same
+      discipline as today's 3.2 and 3.13 passes against check-branch-links.js
+      on other branches.
+
+      NINE injections, each on the branch's own record, each restored
+      byte-identical (sha256-confirmed) immediately after its catch: (1)
+      odsCode swapped to Fishlocks Ainsdale's (FK848) - CAUGHT, duplicate
+      flagged, plus the resulting nhsEmail and nhsReviewUrl mismatches this
+      one edit now created also correctly fired; (2) nhsEmail rewritten to
+      an unrelated address with odsCode left correct - CAUGHT; (3)
+      nhsReviewUrl truncated to stop at the ODS code, short of
+      /leave-a-review (the exact Gordon Short Crosby defect this checker was
+      written to catch) - CAUGHT; (4) googleReviewUrl rewritten to a
+      malformed shape missing "/r/" and "/review" - CAUGHT; (5)
+      googleReviewUrl set equal to Fishlocks Ainsdale's real link - CAUGHT,
+      "a review meant for one branch would land on the other's listing"; (6)
+      website given a trailing slash - CAUGHT, both the website-shape
+      failure and the knock-on pfLink-host failure it causes (pfLink is
+      compared against website + "/", so a website already carrying that
+      slash breaks the prefix match); (7) pfLink repointed at Fishlocks
+      Ainsdale's own website and page entirely (off-host) - CAUGHT, both the
+      host rule and the ownership rule, correctly noting "It also sits off
+      this branch's own host"; (8) pfLink rewritten to drop ".html" - CAUGHT;
+      (9) pfLink repointed at a real page belonging to Fishlocks Ainsdale
+      while still using this branch's own site prefix trick reversed (i.e.
+      the destination is fully cross-host) - CAUGHT, same ownership+host
+      message as (7), confirming the "else" branch of the ownership message
+      (no shared host) fires correctly and had never been exercised for this
+      branch before. All nine caught first attempt with the expected
+      field-specific message; branches.json confirmed sha256-identical to
+      its pre-test baseline and `git status --porcelain -- branches.json`
+      empty after every individual restoration and again at the end. Final
+      re-run of check-branch-links.js: exit 0, identical output to baseline.
+      Full 36-checker suite re-run individually after the round: 36/36 exit
+      0. No generator, page, pack or branches.json content changed in the
+      tracked tree.
+
+      RESULT: no in-repo defect. check-branch-links.js was already correctly
+      holding Coleman and Leighs Pharmacy's own branches.json record to all
+      six rule families (odsCode uniqueness, nhsEmail, nhsReviewUrl,
+      googleReviewUrl shape and uniqueness, website shape, pfLink host/
+      extension/ownership including the cross-host case), now proven
+      directly by injection for the first time in this item's
+      fourteen-pass history.
+
+      LIVE HALF: not attempted. Claude in Chrome confirmed not connected at
+      the top of this run (see ANSWER PICKUP above); no alternative browser
+      route was tried this pass since the standing live findings (pfLink
+      still 404 on the legacy pharmacy-first-service-walton.html path,
+      standing Q8/5.3; the dual-spelling homepage banner; the mojibake
+      switch-page em dash; the og:site_name variant) were all reconfirmed as
+      recently as the thirteenth pass two days ago and this pass's own
+      target was a repo-only checker with no live-page surface of its own.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full before
+      and after: 46 open, unchanged.
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph, no checkbox change -
+      already [x]); AGENT_LOG.md (mirrored entry); audits/verify-3.9-2026-09-
+      08-fourteenth.js (new).
+
+      Next stalest by this run's own computation, for whoever runs the next
+      unattended pass: 3.10 (2026-09-07T21:43:21+01:00), then 2.1
+      (22:43:49), 5.2 (23:43:07) - re-derive fresh rather than assume, since
+      other runs may land in between. Done 2026-09-08.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
