@@ -1,0 +1,105 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack), thirteenth quality pass, 2026-09-08
+Subject: the photo shot list rule (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates
+in tools/check-gbp-packs.js), proved at birth on the item 4.5 quality pass (2026-08-30)
+against gbp-packs/scorah-hazel-grove.md and proved this run cycle against
+gbp-packs/riddings-timperley.md (item 4.13, fourteenth pass) and
+gbp-packs/fishlocks-eccleston.md (item 4.8, fifteenth pass), never individually
+injection-tested against gbp-packs/smartts-bootle.md's own copy across the item's
+twelve prior passes despite twelve passes' worth of other rules already covering it.
+
+BASELINE
+git status --porcelain gbp-packs/smartts-bootle.md tools/check-gbp-packs.js (tracked
+repo, real mount): empty throughout this pass.
+All 36 tools/check-*.js run individually against a full-repo scratch copy (copied WITH
+.git, per the item 4.10 ninth pass's own method note, since excluding .git makes
+check-cdn-pins.js fail falsely on a scratch copy): 36/36 exit 0.
+sha256 of gbp-packs/smartts-bootle.md before any change:
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+(unchanged since the fifth pass, 2026-08-30, and every pass since).
+
+NOTE ON THE PACK: Smartts Bootle's Photo shot list carries 11 bullets, one above the
+PHOTO_MIN=10 floor, not sitting exactly on the boundary the way Riddings Timperley and
+Fishlocks Eccleston do. The photoCount injection below therefore removes two bullets,
+not one, to bring the count under the floor.
+
+METHOD
+Three injections run one at a time against the scratch copy only (the Cowork Linux
+sandbox's FUSE mount does not permit git checkout -- reliably against the tracked repo,
+per the standing Q87/Q96 note, so this pass worked entirely on a scratch copy under
+/tmp, restoring from a pre-injection backup file and sha256-reconfirming identical
+before each next injection). Tracked file at gbp-packs/smartts-bootle.md on the real
+mount was never opened for writing this pass.
+
+(1) photoCount: removed the tenth and eleventh (final two) bullets ("Hours notice on
+the door, close enough that the weekday lunch closure (1:00pm to 2:00pm) and the
+Saturday and Sunday closure are legible." and "A phone showing the Smartts app repeat
+ordering screen (no patient data visible) to support the app message."), leaving 9.
+CAUGHT:
+  FAIL smartts-bootle.md: Photo shot list names 9 shots, and Build Pack v2 4.1 asks
+  for at least 10. The pack is the only sheet telling the paster how many photos to
+  take, so a short list is a short profile
+Confirms the floor fires correctly even on a pack that normally carries one bullet of
+margin above it, once that margin plus one more bullet is removed.
+
+(2) photoVinyl: reworded the first bullet from "Vinyl storefront lead shot where
+fitted; otherwise the best straight-on frontage shot." to "Storefront lead shot where
+fitted; otherwise the best straight-on frontage shot.", removing only the word
+"Vinyl". CAUGHT:
+  FAIL smartts-bootle.md: Photo shot list does not mention the vinyl storefront, which
+  Build Pack v2 4.1 asks for in the photo set and TEMPLATE.md section 4 repeats. It is
+  the shot that makes the listing look current and the one nobody takes unless the
+  sheet says so
+This injection replaced the bullet cleanly (single-line match), so no malformed
+duplicate line was left behind, unlike the multi-line replace method the item 4.13
+fourteenth pass had to note around.
+
+(3) photoGoogleUpdates: reworded the intro parenthetical from "(Build Pack 4.1: at
+least 10 photos. While in the profile, also action any pending Google updates.)" to
+"(Build Pack 4.1: at least 10 photos.)", removing the Google-updates reminder
+entirely and cleanly. CAUGHT:
+  FAIL smartts-bootle.md: Photo shot list does not remind the paster to action any
+  pending Google updates while they are in the profile (TEMPLATE.md section 4).
+  Google's own suggested edits to hours, categories and the address publish
+  themselves if nobody clears them, and loading the photos is the one visit where
+  clearing them is free
+
+All three legs of the rule fire independently on Smartts Bootle's own copy, matching
+the behaviour proved at birth on scorah-hazel-grove.md and reproved this run cycle on
+riddings-timperley.md and fishlocks-eccleston.md. No checker gap found; no in-repo
+defect; rule proven, not changed. tools/check-gbp-packs.js and
+gbp-packs/smartts-bootle.md both unchanged on the tracked repo throughout.
+
+RESTORE CONFIRMATION
+sha256 of the scratch copy's gbp-packs/smartts-bootle.md after all three injections
+and restores: 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+(matches baseline). Full 36-checker suite re-run against the restored scratch copy:
+36/36 exit 0. Tracked repo (real mount) sha256 of gbp-packs/smartts-bootle.md checked
+before and after the whole pass: unchanged, 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+both times; git status --porcelain on gbp-packs/, tools/, modules/, core/,
+branches.json empty throughout (aside from the estate's own standing untracked debris
+files under Q87/Q96, none of which this pass touched).
+
+LIVE HALF
+Claude in Chrome: tabs_context_mcp reported not connected (standing Q59). Read-only
+HTTP HEAD requests used as a fallback, consistent with the item 4.13 fourteenth pass's
+own precedent this run cycle, to confirm status codes only - nothing clicked, typed,
+submitted or logged into anywhere:
+  switch-prescriptions-smartts-bootle.html -> 200
+  weight-loss-clinic-smartts-bootle.html   -> 200
+  travel-clinic-smartts-bootle.html        -> 200
+  pharmacy-first-service-bootle.html       -> 200 (the known live-only Post A target,
+    unchanged, still held under Q8/Q16)
+All four post-link targets resolve live, matching every prior pass's own finding. This
+pass's own subject, the photo shot list, governs the physical photos taken for a
+Google Business Profile and the paster's own on-the-day actions inside that profile,
+neither of which is a URL this repo can fetch or verify live - the same point made on
+the item 4.13 fourteenth pass and item 4.8 fifteenth pass for the same rule.
+
+Answer pickup (step 3): Claude in Chrome not connected, same reason as above; no
+alternative route attempted per the standing rule. QUESTIONS.json read directly, 99
+total, 46 open, unchanged by pickup this run.
+
+No autonomous window active at the top of AGENT_LOG.md at run start. No new question
+raised: pure re-verification of documented checker behaviour against this pack's own
+copy, no business, legal, pricing or regulatory content changed, no judgement call for
+Rishi.

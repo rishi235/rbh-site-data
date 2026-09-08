@@ -13107,6 +13107,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       new question. Evidence in
       audits/smartts-bootle-category-service-allowlist-4.10-twelfth-2026-09-06.txt.
       Done 2026-09-06.
+      Thirteenth quality pass 2026-09-08 (unattended scheduled run via Cowork
+      sandbox mcp__workspace__bash for research, injection testing and this
+      paragraph, Windows-MCP not needed this pass since no tracked file
+      required changing): fresh angle - the photo shot list rule
+      (PHOTO_MIN/photoCount, photoVinyl, photoGoogleUpdates in
+      tools/check-gbp-packs.js; born item 4.5 pass, 2026-08-30, against
+      scorah-hazel-grove.md; reproved this run cycle against
+      riddings-timperley.md and fishlocks-eccleston.md earlier today) had
+      never been individually injection-tested against this pack's own copy
+      across twelve prior passes. Baseline: 36/36 checkers exit 0 on a
+      full-repo scratch copy (with .git, per the ninth pass's method note),
+      sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly. Smartts Bootle's
+      shot list carries 11 bullets, one above the PHOTO_MIN=10 floor rather
+      than sitting on it, so the photoCount injection removed two bullets
+      rather than one. Three injections against the scratch copy only, each
+      restored by byte copy and sha256-reconfirmed before the next: (1) the
+      final two bullets (hours-notice photo, app-screen photo) removed,
+      leaving 9 - CAUGHT, exact photoCount message; (2) "Vinyl" removed from
+      the first bullet - CAUGHT, exact photoVinyl message; (3) the Google
+      updates reminder removed from the intro parenthetical - CAUGHT, exact
+      photoGoogleUpdates message. All three legs fire independently on this
+      pack's own copy. No in-repo defect: rule proven, not changed.
+      tools/check-gbp-packs.js and gbp-packs/smartts-bootle.md both
+      unchanged on the tracked repo throughout (sha256 and git status
+      confirmed before and after). Live half: Claude in Chrome not
+      connected (standing Q59); read-only HTTP HEAD fallback confirmed all
+      four post-link targets still resolve live (200 each), including the
+      known live-only Post A target under Q8/Q16. No new question. Evidence
+      in audits/smartts-bootle-photo-shot-list-4.10-thirteenth-2026-09-08.txt.
+      Done 2026-09-08.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

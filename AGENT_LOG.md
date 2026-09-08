@@ -1,4 +1,79 @@
-## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used for read/lock/discovery, switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the write half) - Item 4.8 quality pass (fifteenth, Fishlocks Chemist Eccleston GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash used throughout for read, lock, discovery, injection testing and this log entry; Claude in Chrome not connected) - Item 4.10 quality pass (thirteenth, Smartts Chemist Bootle GBP pack): photo shot list rule proved by injection against this pack's own copy for the first time; zero in-repo defect, no new question; commit hash recorded below after push
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
+mount. Created fresh, timestamped 2026-09-08T11:04:14Z. `.git/index.lock` was absent
+at start; one appeared later in the run as a side effect of this sandbox's own `git
+status` calls (the standing Q87/Q96 FUSE unlink() restriction: `git status` could not
+clean up its own lock file after use), 0 bytes, a few minutes old - well under the
+1-hour staleness threshold and with no evidence of a stuck process, so left alone per
+the lock-check rule rather than force-cleared; `git status` continued to work despite
+it, consistent with every prior run's own note that read operations tolerate this.
+
+SYNC (step 2): sandbox `git fetch origin` (SSH) failed immediately with "Host key
+verification failed", the standing Q87/Q96 condition (no SSH trust, no push
+credential in this sandbox). `git fetch origin-https` (HTTPS, anonymous read)
+succeeded; `git checkout agents/audit-backlog` (already on it) and `git pull --ff-only
+origin-https agents/audit-backlog` reported already up to date. HEAD at run start:
+cbdcfc8, matching origin-https/agents/audit-backlog exactly - no divergence to
+reconcile.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not connected
+(standing Q59, unchanged). Logged and carried on; no alternative route attempted,
+nothing clicked, typed or submitted anywhere. QUESTIONS.json read directly: 99 total,
+46 open, unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" heading
+present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, plus the three Q60/Q66 lines: 6.4, 6.5, 6.6),
+so the quality-pass fallback applied. Rotation pool: 43 completed items minus the 7
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus the 8 items
+already re-verified earlier today by this run's own predecessors (4.11, 5.1, 3.12,
+3.6, 3.1, 1.3, 4.13, 4.8) = 28 remaining candidates. Each candidate's own paragraph
+range dated via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`. Item
+4.10 (Smartts Chemist Bootle GBP pack) confirmed least recently touched at
+2026-09-06T23:12:43+01:00, matching the immediately preceding run's own forward note
+exactly; spot-checked seven other candidates not mentioned in any 2026-09-06/07/08 log
+entry (3.2, 3.5, 4.1, 4.3, 4.12, 5.2, 6.3) and all were newer (earliest
+2026-09-07T01:44:18+01:00), confirming 4.10 as the genuine minimum.
+
+WORK DONE: see AGENT_WORKLIST.md's own thirteenth-pass paragraph under item 4.10 and
+audits/smartts-bootle-photo-shot-list-4.10-thirteenth-2026-09-08.txt for full detail.
+In short: baseline confirmed clean (36/36 checkers on a full-repo scratch copy under
+/tmp with .git included, sha256 of gbp-packs/smartts-bootle.md unchanged since the
+fifth pass). Chose the photo shot list rule (PHOTO_MIN/photoCount, photoVinyl,
+photoGoogleUpdates; born item 4.5 pass, 2026-08-30, and reproved this run cycle
+against riddings-timperley.md and fishlocks-eccleston.md earlier today) as the new
+angle, since it had never been injection-tested against this pack's own copy across
+twelve prior passes. Smartts Bootle's shot list runs to 11 bullets, one above the
+PHOTO_MIN=10 floor rather than sitting on it, so the photoCount injection removed the
+final two bullets rather than one. Three injections run against the scratch copy
+only (the tracked file on the real mount was never opened for writing), each restored
+from a pre-injection backup and sha256-reconfirmed identical before the next: removing
+the final two photo bullets (leaving 9) - CAUGHT; removing "Vinyl" from the first
+bullet - CAUGHT; removing the Google-updates reminder from the intro line - CAUGHT.
+All three legs fire independently on this pack's own copy. No checker gap found; no
+in-repo defect; rule proven, not changed. Full 36-checker suite re-run clean on the
+restored scratch copy; tracked repo confirmed untouched throughout by sha256 and git
+status.
+
+LIVE HALF: Claude in Chrome not connected (standing Q59). Read-only HTTP HEAD
+requests used as a fallback (curl, via the sandbox's own network access, no browser
+involved), consistent with the immediately preceding runs' own precedent this cycle:
+all four post-link targets on smarttschemist.co.uk (switch-prescriptions,
+weight-loss-clinic, travel-clinic, and the live-only pharmacy-first-service-bootle.html
+under Q8/Q16) returned 200. No change from prior passes' own findings.
+
+QUESTIONS: none raised. Open question count unchanged, 46 open of 99 total.
+
+COMMIT/PUSH (step 9): sandbox dry-run push confirmed (again) that this session cannot
+authenticate to GitHub at all ("fatal: could not read Username for
+'https://github.com': No such device or address" on `git push --dry-run
+origin-https`), consistent with the standing Q87/Q96 sandbox credential gap. Switched
+to `mcp__Windows-MCP__PowerShell` against the real C:\Dev\rbh-site-data working copy
+for the write half. [commit hash and push/publish result to be recorded here once
+completed]
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork sandbox
 mount (previous run's lock had been renamed away, not deleted - the standing
