@@ -74,9 +74,24 @@ QUESTIONS: none raised. Open question count unchanged, 46 open of 99 total.
 
 COMMIT/PUSH (step 9): committed locally from the real working copy via
 Windows-MCP PowerShell (working git credentials on that host, per Q87/Q96's own
-2026-09-05 update). Hash filled in below once pushed.
+2026-09-05 update). One obstruction on the way: `git add` on the new audits file
+failed with "Unable to create '.git/index.lock': File exists" - the stray lock
+this run's own sandbox-side `git status`/`git fetch` calls had left behind (see
+LOCK CHECK above), now blocking the real host too, confirming again that the
+sandbox mount and the real working copy are the same underlying files. No git
+process running (`Get-Process git` empty); cleared with `Remove-Item
+.git\index.lock -Force` from PowerShell, which the sandbox side cannot do (Q87/
+Q96 unlink() restriction) but the real host can. Re-ran `git add` clean, then
+committed as 7b2c34c ("Item 4.8 quality pass (fifteenth): prove
+check-gbp-packs.js photo shot list rule..."), 3 files changed. Pushed with `git
+push origin agents/audit-backlog` (SSH, working credentials on this host):
+exit 0. Verified via a fresh `git fetch origin-https` afterwards that both
+remotes (`origin` SSH and `origin-https` HTTPS) now report 7b2c34c, matching
+local HEAD exactly.
 
-PUBLISH (step 10): tools/build-audit-status.js run from the real working copy.
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the real working
+copy: "Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)",
+exit 0.
 
 LOCK RELEASE (step 11): `.agent-lock` renamed to `.agent-lock.released-<ts>`
 (this mount still rejects true deletion; rename is the established workaround
