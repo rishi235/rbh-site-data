@@ -1,3 +1,85 @@
+## 2026-09-08 (unattended scheduled run, fifth run today, Cowork sandbox mcp__workspace__bash for all read/edit/analysis and git read half, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 3.8 quality pass (fourteenth, SK Chemists Bootle): proved tools/check-weight-loss-copy.js by injection against this branch for the first time (both a medicine name and the tense/person claim variant fixed earlier today on item 3.6); found and raised Q99, a new live-only finding that skchemist.co.uk and smarttschemist.co.uk inner pages both carry a second, site-wide JSON-LD Pharmacy block no generator here writes or any checker can see
+
+LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from
+the fourth run today, about 47.5 minutes old at the time of the check - over
+the 45-minute threshold, so treated as stale. `rm` failed with "Operation not
+permitted" (standing Q87/Q96 - this mount permits create and rename but not
+unlink), so the stale file was renamed to `.agent-lock.old` (adding to the
+existing pile of similar debris already in the repo root from prior runs'
+identical workaround; confirmed by `python3 os.remove` and `find -delete`
+both also failing with the identical "Operation not permitted" on a
+zero-byte test file, so this is a hard mount limitation, not a shell
+quirk) and a fresh lock written under the original name. No `.git/index.lock`
+present this run.
+
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed", standing Q87/Q96, no `~/.ssh` in this sandbox. `git fetch
+origin-https` succeeded and confirmed local HEAD (`b39241a`) already matched
+`origin-https/agents/audit-backlog` exactly - no pull needed.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - standing Q59, unchanged. Logged and carried on; no alternative
+route attempted, nothing clicked, typed or submitted. QUESTIONS.json
+re-read: 98 total, 45 open before this run's own Q99, none answered by
+pickup this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep, so the quality-pass fallback applied. Rotation
+pool re-derived fresh (36 checked items minus the standing 7 out-of-rotation
+items). Stalest: 3.8 (SK Chemists Bootle), 2026-09-06T18:47:44+01:00 - the
+item that was second-stalest on the immediately preceding run, now stalest
+since that run's item (3.6) was itself just touched. Chosen: 3.8, fourteenth
+pass.
+
+WORK: see the fourteenth-pass paragraph appended in place to
+AGENT_WORKLIST.md under item 3.8, and audits/verify-3.8-2026-09-08-
+fourteenth.txt, for full method and exact injected strings. Summary:
+baseline 36/36 checkers clean, byte-identical regeneration confirmed (189
+files under modules/ and core/, sha256
+fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3, matching
+before and after the whole pass). Fresh angle: check-weight-loss-copy.js had
+never been injection-tested against SK Chemists Bootle's own weight-loss
+page across this item's thirteen prior passes. Two injections, both caught
+on first attempt and both restored by byte copy with sha256/cmp
+reconfirmation: (1) a medicine name ("Mounjaro") swapped into the pinned
+hero-sub sentence, caught by check-weight-loss-copy.js (rules 2 and 8) and
+check-service-links.js independently; (2) the exact tense/person claim
+variant ("Our patients have lost up to 15% of their body weight.") that item
+3.6's own fourteenth pass, earlier today, proved was NOT caught before
+tools/claim-patterns.js was widened - caught cleanly here, confirming that
+fix generalises to a second branch. No checker, generator, page or
+branches.json byte changed by this pass itself.
+
+LIVE HALF: Claude in Chrome not connected (checked at pickup and again for
+this item); the built-in browser pane (mcp__Claude_Browser__navigate) asked
+for per-site access approval mid-run, which an unattended run cannot grant,
+so was not used either - no click, type, submit or login attempted on
+either browser. Fell back to a direct outbound curl sweep from the sandbox
+shell (network egress confirmed working this run). Read
+weight-loss-clinic-sk-chemists-bootle.html live: no medicine name, no
+claim-pattern phrase, H1 and fee correct. One already-known finding
+reconfirmed unchanged (the page's JSON-LD still declares "@type":
+"MedicalBusiness", matching the twelfth pass, needs a repaste not a repo
+action). ONE NEW FINDING: every live inner page on skchemist.co.uk (and,
+checked to rule out a one-branch fluke, smarttschemist.co.uk too) carries a
+SECOND, site-wide JSON-LD "Pharmacy" block that no generator in this repo
+writes and no checker here can see, whose "url" is always the site homepage
+regardless of which page it sits on - so every inner page currently
+declares two Pharmacy entities at the same address to Google. Raised as
+QUESTIONS.json Q99 (recommended: check the remaining fourteen live sites
+before deciding what, if anything, to change, since only two of sixteen
+were sampled this pass).
+
+COMMIT/PUSH/PUBLISH (steps 9-10): sandbox `git push origin-https` failed
+("could not read Username for 'https://github.com'" - no HTTPS credential
+in this sandbox, standing Q87/Q96), so the write half used
+`mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
+working copy, the same route the fourth run today used.
+
 ## 2026-09-08 (unattended scheduled run, fourth run today, Cowork sandbox mcp__workspace__bash for all read/edit and all git/node work this run, Claude in Chrome not connected) - Item 3.6 quality pass (fourteenth, McCanns Chemist Aigburth/Sandringham): found and fixed a tense/person gap in the shared tools/claim-patterns.js that let a plain results claim ("Our patients have lost up to 15% of their body weight") walk through check-weight-loss-copy.js in silence
 
 LOCK CHECK (step 1): `.agent-lock` at run start held a stale marker

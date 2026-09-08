@@ -1531,5 +1531,21 @@
     "status": "open",
     "answer": null,
     "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05 addition for Scorah Chemists. The checker-side half (check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule, fixed for a mojibake-corrupted £ literal on item 4.6's twelfth pass earlier the same run) was proven by injection against gbp-packs/scorah-hazel-grove.md using this exact live wording; the pack itself carries no price and was restored byte-identical after the test."
+  },
+  {
+    "id": "Q99",
+    "date": "2026-09-08",
+    "item": "quality pass on 3.8 (fourteenth, SK Chemists Bootle) - finding, does not block any item",
+    "question": "Decision needed: every live inner page on skchemist.co.uk carries TWO separate JSON-LD schema.org blocks describing the same business, and the same shape was found on smarttschemist.co.uk too, so it looks like a Weebly site-wide template fact rather than something specific to one branch. Block one is this repo's own per-page schema (check-jsonld.js already holds this one to branches.json field by field, correctly, and it is the only block the repo generates or can see). Block two is a compact, differently-formatted \"@type\":\"Pharmacy\" object that Weebly appears to inject into every page's head, carrying the same name, phone and address but with \"url\" set to the site HOMEPAGE rather than the page it actually sits on, plus an email field and opening hours the per-page block does not carry. So every inner page currently tells Google there are two Pharmacy entities at the same address: one whose url is itself, one whose url is the homepage. No generator in this repo writes the second block and no checker here can see it, because every checker reads the tracked file, not the merged live page, so this has never been caught before. Found while reading skchemist.co.uk live for item 3.8's fourteenth quality pass; confirmed on smarttschemist.co.uk's uti-treatment page too before raising this, specifically to check it was not a one-branch fluke. Only two of the sixteen live sites were checked. What do you want done, if anything?",
+    "options": [
+      "Leave it as is: two schema.org Pharmacy declarations for the same business on one page is unlikely to actively harm rankings, and touching whatever Weebly manages centrally to inject this risks breaking it on every page at once for an uncertain benefit.",
+      "At the next supervised Weebly session, change the SITE-WIDE block's own @type from Pharmacy to Organization (or WebSite), so each inner page carries exactly one Pharmacy entity (the page-specific one this repo already gets right) and one Organization/WebSite entity, removing the duplicate-entity ambiguity without touching the url or content Google already indexes.",
+      "At the next supervised Weebly session, remove the site-wide block entirely on inner pages and let only this repo's own per-page schema represent the business there, since a block whose url points at the homepage on every inner page may be a stronger wrong-entity signal to Google than the page-specific one is a right one.",
+      "Check all sixteen live sites (not just the two sampled this pass, skchemist.co.uk and smarttschemist.co.uk) before deciding anything, since the fix if any would be applied per-site and the pattern, or its absence, may vary by which Weebly template each site uses."
+    ],
+    "recommended": 3,
+    "status": "open",
+    "answer": null,
+    "note": "Not a repo defect: check-jsonld.js is correct about the one block it can see and was not widened, because widening it to also read a live-merged page is a much larger change (a live HTTP fetch inside a repo checker) that was not made unattended. Raised in the same spirit as CLAUDE.md's CDN-pin \"second hop\" section and Q37/Q43: a live layer sitting above what any generator or checker here can see. Full detail, both domains' block contents and the homepage-vs-inner-page pattern, in AGENT_WORKLIST.md under item 3.8's fourteenth pass and audits/verify-3.8-2026-09-08-fourteenth.txt."
   }
 ]

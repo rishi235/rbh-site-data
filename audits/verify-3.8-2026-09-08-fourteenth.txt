@@ -1,0 +1,133 @@
+Item 3.8 quality pass (fourteenth, SK Chemists Bootle) - 2026-09-08
+Unattended scheduled run (audit-backlog-worker), fifth run today.
+
+SCOPE
+Twelve prior passes proved check-app-membership.js, check-nap.js,
+check-postcodes.js, check-seo-pattern.js, check-switch-copy.js,
+check-whatsapp-route.js, check-contraception-copy.js, check-branch-links.js,
+check-jsonld.js and check-booking-routes.js against SK Chemists Bootle's own
+12 pages, but never tools/check-weight-loss-copy.js (RULE 8, no medicine
+named; RULE 9, no efficacy/results claim) against this branch's own
+weight-loss-clinic-sk-chemists-bootle.html. This pass closes that gap, and
+does so on the same day tools/claim-patterns.js was widened (item 3.6's
+fourteenth pass, earlier today) for a tense/person gap in the results-claim
+pattern, so the second injection below also proves that fix generalises to
+this branch.
+
+BASELINE
+All 36 tools/check-*.js run individually before any change: 0 failures.
+All six page generators rebuilt from branches.json (build-branch-landing-
+pages, build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages). Combined sha256 of
+every .html/.js/.css file under modules/ and core/ (189 files) identical
+before and after rebuild:
+  fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3
+git status --porcelain -- modules core branches.json gbp-packs tools status:
+empty throughout.
+
+File under test:
+modules/service/pages/weight-loss-clinic-sk-chemists-bootle.html
+sha256 (baseline, unchanged throughout this pass):
+3e23d3a7e9b7e333aa1dda9251e45749baecb80e7f883f1eef9de418ff9ee20d
+Backed up by byte copy to /tmp/sk-3.8-backup/ before any edit.
+
+INJECTION 1 - medicine name (RULE 8)
+Changed the hero-sub sentence's "prescription-only weight-loss medication"
+to "Mounjaro" (the exact class of copy-paste CLAUDE.md's pom-names.js header
+warns against). CAUGHT on first attempt by two checkers:
+  - check-weight-loss-copy.js: RULE 2 (pinned copy missing, since the
+    pinned sentence no longer matches word for word) and RULE 8 ("names
+    'mounjaro'... no brand-name medicine is named anywhere").
+  - check-service-links.js: "FAIL [medicine] ...weight-loss-clinic-sk-
+    chemists-bootle.html: line 24: names 'mounjaro' in visible copy".
+Full 36-checker sweep with the injection in place showed exactly these two
+files failing (tools/check-weight-loss-copy.js, tools/check-service-links.js)
+and no others. Restored by byte copy; sha256 reconfirmed identical to the
+pre-injection backup; cmp reported no differences.
+
+INJECTION 2 - tense/person claim variant (RULE 9), proving today's fix
+generalises
+Appended "Our patients have lost up to 15% of their body weight." to the
+hero-proof paragraph - the identical sentence the item 3.6 fourteenth pass
+(earlier today) proved was NOT caught before tools/claim-patterns.js was
+widened for past tense and third-person possessives. CAUGHT on first
+attempt: check-weight-loss-copy.js exit 1, "makes quantified weight loss
+claim: 'lost up to'. Weight loss copy carries no promise about an outcome."
+Full 36-checker sweep showed the same two files failing as injection 1
+(check-weight-loss-copy.js, check-service-links.js) and no others. Restored
+by byte copy; sha256 and cmp both confirmed identical to the pre-injection
+backup.
+
+POST-RESTORE CONFIRMATION
+Full 36-checker suite re-run individually: 36/36 pass (ALL CHECKERS PASS).
+git status --porcelain -- modules core branches.json gbp-packs tools status:
+empty. Combined sha256 of all 189 files under modules/ and core/ after
+restore: fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3 -
+identical to the pre-injection baseline value above.
+
+RESULT
+Zero in-repo defect: SK Chemists Bootle's weight loss copy was already
+compliant on both rules exercised, now proven by injection against the
+official checker for the first time, and this pass also confirms the item
+3.6 fourteenth pass's claim-pattern widening from earlier today holds on a
+second branch. No checker, generator, page or branches.json content
+changed by this pass itself.
+
+LIVE HALF
+Claude in Chrome: not connected (checked via mcp__claude-in-chrome__
+navigate against the standing answer-pickup URL, standing Q59 diagnosis).
+The built-in browser pane (mcp__Claude_Browser__navigate) asked for
+per-site access approval, which an unattended run cannot grant, so that
+route was not used either; no click, type, submit or login was attempted on
+either browser. Fell back to a direct outbound curl sweep from the sandbox
+shell (network egress confirmed working: google.com and the branch's own
+homepage both 200).
+
+Read https://www.skchemist.co.uk/weight-loss-clinic-sk-chemists-bootle.html
+live (HTTP 200):
+  - No medicine name found (wegovy/ozempic/mounjaro/orlistat/saxenda all
+    absent).
+  - No claim-pattern phrase found (lost/lose up to, delivers/proven/real
+    results, most effective, rapid/fast weight loss all absent).
+  - H1 exact match: "Weight Loss Clinic at SK Chemists in Bootle".
+  - Fee correct: "from £39.99".
+  - ONE RECONFIRMED, ALREADY-KNOWN LIVE FINDING (not new): the page-specific
+    JSON-LD block still declares "@type": "MedicalBusiness", not "Pharmacy"
+    - the exact pre-item-3.10-fix schema this branch's twelfth pass
+      (2026-09-05) already found and flagged as pre-repaste legacy copy.
+    Unchanged since that pass; still needs a repaste, not a repo action.
+
+ONE NEW FINDING, RAISED AS Q99 (does not block any worklist item)
+Every live inner page on skchemist.co.uk in fact carries TWO separate
+JSON-LD script blocks, not one:
+  1. The page-specific block (the one check-jsonld.js and the twelfth pass
+     both already read) - correctly formatted with 2-space indentation,
+     matching this repo's own generator output style.
+  2. A second, compact (no whitespace) "@type":"Pharmacy" block, present on
+     EVERY page checked including the homepage, carrying the same name,
+     phone and address as the page-specific block but with "url" set to
+     the site HOMEPAGE regardless of which page it appears on, plus an
+     "email" field and "openingHoursSpecification" that the page-specific
+     block does not carry.
+Confirmed this is not specific to SK's own site or to this one page, before
+raising it:
+  - https://www.skchemist.co.uk/ (homepage): 1 block (the compact one,
+    url = homepage - consistent, since the repo generates no homepage).
+  - https://www.skchemist.co.uk/uti-treatment-sk-chemists-bootle.html:
+    2 blocks (page-specific @type Pharmacy, url = own page; plus the
+    compact block, url = homepage).
+  - https://www.smarttschemist.co.uk/ (homepage, different brand and
+    domain): 1 block (compact, url = homepage).
+  - https://www.smarttschemist.co.uk/uti-treatment-smartts-bootle.html:
+    2 blocks, identical shape to SK's.
+So the pattern holds across at least two different brands/domains and looks
+like a Weebly site-wide template fact rather than anything SK-specific or
+anything any generator in this repo writes or any checker here can see
+(every checker reads the tracked file, never a live merged page). Only 2 of
+the 16 live sites were checked this pass. Raised as QUESTIONS.json Q99,
+recommended option: check the remaining fourteen sites before deciding
+whether/how to change the site-wide block, since the pattern's scope needs
+confirming before any fix is chosen.
+
+No question raised for the reconfirmed MedicalBusiness/pre-repaste finding
+(already tracked, needs a repaste not a decision). Q99 is genuinely new.

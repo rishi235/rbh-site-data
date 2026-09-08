@@ -5777,6 +5777,99 @@ Done 2026-09-07 (thirteenth pass).
       findings not re-checked this pass and should not be assumed
       unchanged. No new question raised. Evidence in
       audits/verify-3.8-2026-09-06-thirteenth.txt.
+      Quality pass 2026-09-08 (fourteenth, unattended scheduled run via
+      Cowork, fifth run today). Taken because all 8 unchecked AGENT_WORKLIST.md
+      lines confirmed [BLOCKED] by direct grep; item-selection method
+      unchanged (per-item last-touching-commit timestamp across the standing
+      36-item rotation pool, out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+      6.8 excluded, stalest wins, re-derived fresh via a Python script reading
+      `git log -1 --format=%cI -L<range>:AGENT_WORKLIST.md` per item). 3.8 was
+      uniquely stalest at 2026-09-06T18:47:44+01:00, clear of the next stalest
+      (3.1, 19:41:42) and every other pool item; 3.6, previously second
+      stalest, dropped out after its own fourteenth pass earlier today.
+      LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker
+      about 47.5 minutes old, over the 45-minute threshold, so treated as
+      stale. `rm` failed with "Operation not permitted" (standing Q87/Q96
+      constraint - this mount permits create and rename but not unlink); `mv`
+      to a distinct name succeeded, then a fresh lock was created under the
+      original name, rather than overwriting in place, to avoid ambiguity
+      about which marker is current. GIT SYNC (step 2): `git fetch origin`
+      (SSH) failed "Host key verification failed", standing Q87/Q96
+      unchanged; `git fetch origin-https` succeeded, local HEAD already
+      matched `origin-https/agents/audit-backlog` (b39241a), nothing to pull.
+      ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against the
+      standing portal URL returned "Claude in Chrome is not connected" -
+      standing Q59, unchanged; logged and carried on, no alternative route
+      attempted. QUESTIONS.json read in full: 98 total, 45 open, none
+      answered by pickup this run. AUTONOMOUS WINDOW (step 4): no "Standing
+      authorisation - autonomous window" heading present at the top of
+      AGENT_LOG.md at run start, so not applicable.
+      FRESH ANGLE. Thirteen prior passes proved check-app-membership,
+      check-nap, check-postcodes, check-seo-pattern, check-switch-copy,
+      check-whatsapp-route, check-contraception-copy, check-branch-links,
+      check-jsonld and check-booking-routes against SK Chemists Bootle's own
+      12 pages, but never tools/check-weight-loss-copy.js - and this pass
+      landed the same day tools/claim-patterns.js was widened for a
+      tense/person gap (item 3.6's own fourteenth pass, earlier today), so it
+      also tests whether that fix generalises to a second branch.
+      BASELINE. All 36 checkers pass before any change. All six generators
+      rebuilt from branches.json; combined sha256 of all 189 files under
+      modules/ and core/ identical before and after
+      (fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3);
+      git status --porcelain -- modules core branches.json gbp-packs tools
+      status empty throughout.
+      INJECTION 1 (RULE 8, medicine name). weight-loss-clinic-sk-chemists-
+      bootle.html's hero-sub sentence had "prescription-only weight-loss
+      medication" swapped for "Mounjaro" - CAUGHT on first attempt by
+      check-weight-loss-copy.js (RULE 2, pinned copy no longer matches word
+      for word; RULE 8, names "mounjaro") and independently by check-
+      service-links.js ("FAIL [medicine] ... names 'mounjaro' in visible
+      copy"). Full 36-checker sweep showed exactly these two files failing
+      and no others. Restored by byte copy; sha256 and cmp both confirmed
+      identical to the pre-injection backup.
+      INJECTION 2 (RULE 9, tense/person claim variant). The same hero-proof
+      paragraph had "Our patients have lost up to 15% of their body weight."
+      appended - the identical sentence the item 3.6 fourteenth pass proved
+      was NOT caught before today's claim-patterns.js widening. CAUGHT on
+      first attempt: check-weight-loss-copy.js, "makes quantified weight loss
+      claim: 'lost up to'". Same two files failed on the full sweep as
+      injection 1, no others. Restored by byte copy; sha256 and cmp both
+      confirmed identical to the pre-injection backup.
+      RESULT. Zero in-repo defect: SK Chemists Bootle's weight loss copy was
+      already compliant on both rules, now proven by injection for the first
+      time, and this pass confirms the item 3.6 fourteenth pass's claim-
+      pattern widening from earlier today generalises to a second branch.
+      Post-restore: full 36-checker suite clean, combined sha256 of
+      modules/+core/ identical to the pre-injection baseline, git status
+      empty throughout. No checker, generator, page or branches.json content
+      changed.
+      LIVE HALF. Claude in Chrome not connected (checked at pickup and again
+      for this item); the built-in browser pane asked for per-site access
+      approval, which an unattended run cannot grant, so was not used either -
+      no click, type, submit or login attempted on either browser. Fell back
+      to a direct outbound curl sweep from the sandbox shell (network egress
+      confirmed working). Read weight-loss-clinic-sk-chemists-bootle.html
+      live (HTTP 200): no medicine name, no claim-pattern phrase, H1 exact
+      match, fee correct ("from £39.99"). ONE RECONFIRMED, ALREADY-KNOWN
+      FINDING: the page's JSON-LD still declares "@type": "MedicalBusiness",
+      matching the twelfth pass's 2026-09-05 finding unchanged; still needs a
+      repaste, not a repo action.
+      ONE NEW FINDING, RAISED AS Q99 (does not block any worklist item).
+      Every live inner page on skchemist.co.uk in fact carries TWO JSON-LD
+      script blocks: the page-specific one (the one check-jsonld.js and
+      prior passes already read) plus a second, compact "@type":"Pharmacy"
+      block present on every page including the homepage, carrying the same
+      name/phone/address but with "url" always set to the site homepage
+      regardless of which page it sits on, plus an email field and opening
+      hours the page-specific block does not carry. Confirmed not SK-specific
+      before raising it: the identical two-blocks-on-inner-pages,
+      one-block-on-homepage shape was found on smarttschemist.co.uk too (a
+      different brand and domain). No generator in this repo writes the
+      second block and no checker here can see it, since every checker reads
+      the tracked file, never a live merged page. Only 2 of 16 live sites
+      checked. Recommended option in Q99: check the remaining fourteen sites
+      before deciding whether/how to change the site-wide block. Evidence in
+      audits/verify-3.8-2026-09-08-fourteenth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
