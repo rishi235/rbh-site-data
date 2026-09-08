@@ -1,4 +1,122 @@
-## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash for read/edit/analysis throughout; mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for git sync, the index.lock clear-up, and the sha256 cross-check, after the sandbox mount hit the standing FUSE unlink quirk mid-suite, Q87/Q96) - Item 4.6 quality pass (fourteenth, McCanns Chemist Aigburth GBP pack): proved check-pharmacy-first-eligibility.js's rule 9 (GBP pack age-cohort pinning) for the first time against this pack's own copy, by injecting a wrong UTI cohort ("16 to 64" to "16 to 74") and a wrong blood pressure cohort ("40 and over" to "30 and over") in two separate, independently restored mutations; zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, tenth run today, Cowork sandbox mcp__workspace__bash used for initial discovery only, then switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the lock clear-up, all git operations, the injection tests and the sha256 cross-checks, after the sandbox mount hit the standing FUSE unlink quirk on its own fresh index.lock, Q87/Q96) - Item 4.5 quality pass (fourteenth, Scorah Chemists Hazel Grove GBP pack): proved check-gbp-packs.js's Photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) for the first time against this pack, by three separate injections (a bullet deleted, "vinyl" removed from the storefront bullet, the pending-Google-updates reminder removed), each restored and sha256-reconfirmed before the next; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
+sandbox mount. Created fresh, timestamped 2026-09-08T09:04:59Z. The sandbox
+mount's own `.git/index.lock` (a fresh lock the mount's own `git status`
+call had just created, not stale) could not be unlinked from the sandbox
+side - `rm` returned "Operation not permitted", and a same-second probe file
+created in the sandbox could not be removed either, confirming the standing
+FUSE unlink quirk (Q87/Q96) rather than a genuine stuck process (`ps aux`
+showed no other git process). Switched to `mcp__Windows-MCP__PowerShell`
+against the real working copy for the rest of the run, as every recent run's
+log records doing. From there, `Remove-Item .git\index.lock -Force` and the
+sandbox's own leftover test probe both cleared without issue, confirming the
+lock, the repo and the real Windows working copy are the same underlying
+files, only the sandbox's FUSE mount cannot unlink its own writes. Left the
+large pre-existing pile of `.agent-lock.*`/`*.tmp`/`*probe*` debris files
+from earlier runs' own quirk investigations untouched (out of this run's
+scope; noted here rather than cleaned, since cleaning 70-odd untracked files
+is not this run's worklist item).
+
+SYNC (step 2): `git fetch origin` (SSH, from the real working copy) and
+`git fetch origin-https` both succeeded; local HEAD (4357139) already
+matched both remotes' `agents/audit-backlog`, confirming the ninth run's own
+push had landed and nothing was ahead or behind. No pull needed.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected (standing Q59). Logged and carried on; no alternative route
+attempted, nothing clicked, typed or submitted anywhere.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived mechanically: all 44
+"- [x]" items read directly by line number, minus the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36 candidates,
+each dated via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`
+over its own paragraph range, ranges computed fresh this run from the
+ordered bullet-line list rather than reused from any stale scratch file.
+4.5 came back stalest, last touched 2026-09-06T21:13:42+01:00, ahead of the
+next stalest (1.3, 2026-09-06T21:41:35+01:00) by about 28 minutes, no tie.
+Chosen: 4.5 (Scorah Chemists Hazel Grove GBP pack).
+
+WORK. Read gbp-packs/scorah-hazel-grove.md and its full AGENT_WORKLIST.md
+history (thirteen prior quality passes) to find an angle none of them had
+proven against this pack. Found one: tools/check-gbp-packs.js's Photo shot
+list rule (photoCount, photoVinyl, photoGoogleUpdates) had never been
+exercised against this pack at all, by presence check or injection - a grep
+of all thirteen prior audit files for "photo" returns only 2 incidental
+hits, versus 6 for "qualifier" (a rule at least re-confirmed present on an
+earlier pass).
+
+Confirmed sha256 64FD2AE61C8AE0CA7AC5565A9F6CC2AD4485869A465B98A691093C8B2B7A4038,
+unchanged since 2026-08-04. Backed up to
+_agentscratch/scorah-hazel-grove.md.bak-pre-4.5-fourteenth (sha256-verified).
+Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs; all 36
+checkers individually 36/36 exit 0 (35 file-based checkers plus the live
+probe, see below).
+
+INJECTION 1 (photoCount): deleted the "Team photo behind the counter."
+bullet, dropping the shot list from 10 to 9. node tools/check-gbp-packs.js
+exited 1 with one FAIL naming the 9-shot count. Restored by byte copy;
+sha256 reconfirmed identical; re-run clean.
+
+INJECTION 2 (photoVinyl): reworded the first bullet to drop the word
+"vinyl" ("Vinyl storefront lead shot..." to "Storefront lead shot..."),
+bullet count left at 10. node tools/check-gbp-packs.js exited 1 with one
+FAIL naming the missing vinyl mention. Restored by byte copy; sha256
+reconfirmed identical; re-run clean.
+
+INJECTION 3 (photoGoogleUpdates): removed the "While in the profile, also
+action any pending Google updates." sentence from the section preamble.
+node tools/check-gbp-packs.js exited 1 with one FAIL naming the missing
+reminder. Restored by byte copy; sha256 reconfirmed identical; re-run
+clean.
+
+Each injection restored and sha256-reconfirmed before the next was applied.
+All three fired in isolation with exactly one FAIL each, confirming the
+three sub-rules are independent and none cross-fires into an unrelated
+rule (address, hours, sister-branch, etc. all stayed silent throughout).
+
+CONTAINMENT: full 36-checker suite re-run individually after final restore:
+35/35 file-based checkers exit 0; `git diff --stat -- gbp-packs/scorah-hazel-grove.md`
+empty; `git status --porcelain` on modules/, core/, branches.json and tools/
+empty throughout. gbp-packs is not a generator input, so no generator was
+run and nothing needed rebuilding.
+
+RESULT: zero in-repo defect. Nothing fixed - this pass adds proof, not
+correction. Closes the last completely-unexercised rule family in
+check-gbp-packs.js as applied to this pack. Evidence:
+audits/scorah-hazel-grove-pack-check-2026-09-08-fourteenth.txt.
+
+LIVE HALF: Claude in Chrome not connected (Q59, checked again this run,
+unchanged). Fell back to a read-only HTTP HEAD check via PowerShell
+Invoke-WebRequest (no browser tool, nothing clicked or typed) against the
+pack's five named URLs: the landing page (pharmacy-scorah-hazel-grove.html)
+still 404s exactly as the paster note anticipates (Q35 class, unchanged
+since the seventh pass); all four Post A-D button targets
+(pharmacy-first-service-hazel-grove-bramhall.html,
+switch-prescriptions-scorah-hazel-grove.html,
+weight-loss-clinic-scorah-hazel-grove.html,
+travel-clinic-scorah-hazel-grove.html) return 200. No new live finding.
+
+QUESTIONS: none raised this run. All 46 pre-existing open questions
+reviewed at step 3 for portal answers; pickup unavailable (Q59), none
+otherwise resolved this run.
+
+FILES CHANGED: AGENT_WORKLIST.md (4.5 fourteenth-pass paragraph appended),
+AGENT_LOG.md (this entry), audits/scorah-hazel-grove-pack-check-2026-09-08-fourteenth.txt
+(new). gbp-packs/scorah-hazel-grove.md itself untouched (byte-identical
+throughout, confirmed by sha256 and git diff).
+
+COMMIT: see push output / next log correction if the hash needs filling in.
+
+STATUS PAGE: published via tools/build-audit-status.js (step 10) after
+commit and push.
+
+LOCK: .agent-lock deleted at end of run.
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start (checked via both
 the Cowork sandbox mount and confirmed identical via PowerShell against the

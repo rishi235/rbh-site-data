@@ -1,0 +1,97 @@
+Item 4.5 quality pass, fourteenth pass, 2026-09-08 (unattended scheduled run
+via Cowork)
+
+ROTATION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] first (5.3, 5.4,
+5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied. Pool
+re-derived mechanically: 44 checked "- [x]" AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36
+candidates in this run's count. Each candidate's own paragraph range computed
+fresh from the ordered bullet-line list (not reused from any prior scratch
+file), then dated via `git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md`.
+4.5 came out the unique stalest at 2026-09-06T21:13:42+01:00, ahead of the
+runner-up, 1.3, at 2026-09-06T21:41:35+01:00 by about 28 minutes. Chosen: 4.5
+(Scorah Chemists Hazel Grove GBP pack).
+
+BASELINE
+sha256 of gbp-packs/scorah-hazel-grove.md confirmed
+64FD2AE61C8AE0CA7AC5565A9F6CC2AD4485869A465B98A691093C8B2B7A4038, matching
+every prior pass since 2026-08-04. Backed up by byte copy to
+_agentscratch/scorah-hazel-grove.md.bak-pre-4.5-fourteenth (sha256-verified
+identical). node tools/check-gbp-packs.js: 0 failures, 17 pre-existing
+estate-wide warnings, none naming this pack beyond the two standing WARNs
+(Q64 post-town exception, Q35-class live-only Post A link target). Full
+36-checker suite run individually beforehand: 35/35 exit 0 (36th,
+check-live-hours.js, is a live-network probe and was run separately as part
+of the live half below).
+
+NEW ANGLE
+The Photo shot list rule in tools/check-gbp-packs.js (photoCount, photoVinyl,
+photoGoogleUpdates - added item 4.8 quality pass era, section "the photo shot
+list" around line 1157) had never been exercised against this pack at all,
+by presence check or by injection: a grep of all thirteen prior
+scorah-hazel-grove audit files for "photo" returns only 2 hits, both
+incidental, versus e.g. 6 hits for "qualifier" (the CLINIC_QUALIFIERS rule,
+whose presence was at least re-confirmed on the eighth pass, 2026-09-02).
+This pack's own Photo shot list section carries exactly 10 bullets, the
+vinyl-storefront shot, and the "action any pending Google updates" reminder,
+so all three sub-rules pass today - but passing and being proved are not the
+same thing, the standing lesson this repo's checkers keep re-learning.
+
+INJECTION 1 (photoCount): deleted the "Team photo behind the counter." bullet,
+dropping the list from 10 to 9 shots. node tools/check-gbp-packs.js exited 1
+with exactly one FAIL: "Photo shot list names 9 shots, and Build Pack v2 4.1
+asks for at least 10." Restored by byte copy from the pre-injection backup;
+sha256 reconfirmed identical; re-run clean (0 failures, 17 warnings).
+
+INJECTION 2 (photoVinyl): reworded the first bullet from "Vinyl storefront
+lead shot where fitted..." to "Storefront lead shot where fitted...",
+removing the word "vinyl" while leaving the bullet count at 10. node
+tools/check-gbp-packs.js exited 1 with exactly one FAIL: "Photo shot list
+does not mention the vinyl storefront...". Restored by byte copy; sha256
+reconfirmed identical; re-run clean.
+
+INJECTION 3 (photoGoogleUpdates): removed the "While in the profile, also
+action any pending Google updates." sentence from the section preamble,
+leaving "(Build Pack 4.1: at least 10 photos.)" and the bullet count
+untouched. node tools/check-gbp-packs.js exited 1 with exactly one FAIL:
+"Photo shot list does not remind the paster to action any pending Google
+updates...". Restored by byte copy; sha256 reconfirmed identical; re-run
+clean.
+
+Each injection was restored and sha256-reconfirmed before the next was
+applied, so no two ran concurrently. All three fired in isolation with
+exactly one FAIL each, confirming the three sub-rules are independent
+(none is a side effect of another) and none cross-fires into an unrelated
+rule (address, hours, sister-branch, etc. all stayed silent throughout).
+
+CONTAINMENT
+Final restore confirmed sha256-identical to the baseline
+(64FD2AE6...B7A4038); `git diff --stat -- gbp-packs/scorah-hazel-grove.md`
+empty. Full 36-checker suite re-run individually after the final restore:
+35/35 exit 0 (check-live-hours.js run separately, see below). gbp-packs is
+not a generator input, so no generator was run and nothing needed
+rebuilding; `git status --porcelain` on modules/, core/, branches.json and
+tools/ confirmed empty throughout.
+
+LIVE HALF
+Claude in Chrome not connected (standing Q59, checked again this run via
+tabs_context_mcp, unchanged). Fell back to a read-only HTTP HEAD check
+(PowerShell Invoke-WebRequest against the real working machine, no browser
+tool, nothing clicked, typed or submitted) against the five URLs the pack
+names:
+  https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html -> 404
+  https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html -> 200
+  https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-hazel-grove.html -> 200
+  https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-hazel-grove.html -> 200
+  https://www.scorah-chemists.co.uk/travel-clinic-scorah-hazel-grove.html -> 200
+Unchanged from every prior pass since the seventh (2026-09-01): the landing
+page still 404s exactly as the pack's own paster note anticipates (Q35
+class), all four Post A-D button targets return 200. No new live finding.
+
+RESULT
+Zero in-repo defect. Nothing fixed - this pass adds proof, not correction.
+Closes the last completely-unexercised rule family in check-gbp-packs.js as
+applied to this specific pack (the photo shot list, all three sub-rules),
+proved for the first time by injection rather than by re-reading. No new
+question.

@@ -11017,6 +11017,38 @@ tools/ empty throughout. Live half: Claude in Chrome not connected
 travel clinic page returns 200. No in-repo defect, no new question. The
 rule is now proved on six of the fifteen packs rather than five. See
 audits/scorah-hazel-grove-pack-check-2026-09-06-thirteenth.txt.
+Quality pass 2026-09-08 (fourteenth pass, unattended scheduled run):
+rotation pool re-derived from git log -L per-item line-range dates against
+the 36-item pool (44 checked items minus the seven standing out-of-rotation
+items); 4.5 came out stalest at 2026-09-06T21:13:42+01:00, ahead of the
+runner-up, 1.3, by about 28 minutes. All 8 unchecked lines re-confirmed
+[BLOCKED] first. Baseline: sha256 64FD2AE6...B7A4038, matching every prior
+pass; 36-checker suite 0 failures, 17 pre-existing estate-wide warnings.
+NEW ANGLE: the Photo shot list rule (photoCount, photoVinyl,
+photoGoogleUpdates) had never been exercised against this pack at all, by
+presence check or by injection - a grep of all thirteen prior audit files
+for "photo" returns only 2 incidental hits. This pack's list carries 10
+bullets, the vinyl storefront shot and the pending-Google-updates reminder.
+Three injections, each restored and sha256-reconfirmed before the next:
+(1) deleted the "Team photo behind the counter" bullet, dropping the count
+to 9 - caught alone, exit 1, naming the 9-shot count; (2) reworded "Vinyl
+storefront lead shot..." to "Storefront lead shot...", removing the word
+"vinyl" - caught alone, exit 1, naming the missing vinyl mention; (3) removed
+the "action any pending Google updates" sentence from the section preamble -
+caught alone, exit 1, naming the missing reminder. Each fired in isolation
+with exactly one FAIL, confirming the three sub-rules are independent and
+none cross-fires into an unrelated rule. Restored by byte copy; sha256
+reconfirmed identical (64FD2AE6...B7A4038); git diff on the pack empty. Full
+36-checker suite re-run clean after final restore (35/35 individually,
+check-live-hours.js run separately below); gbp-packs is not a generator
+input, nothing rebuilt. LIVE HALF: Claude in Chrome not connected (standing
+Q59, unchanged); fell back to a read-only HTTP HEAD check (PowerShell, no
+browser tool, nothing clicked or typed) against all five pack URLs -
+unchanged from every prior pass since the seventh: the landing page still
+404s (Q35 class), all four Post A-D targets return 200. No new live finding.
+No in-repo defect, no new question. Closes the last completely-unexercised
+rule family in check-gbp-packs.js as applied to this pack. See
+audits/scorah-hazel-grove-pack-check-2026-09-08-fourteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
