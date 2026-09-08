@@ -2430,6 +2430,49 @@ audits/seo-pattern-check-2026-09-08-fourteenth.txt.
       (stale since the twelfth pass, 2026-09-06) and is the one that should
       be trusted going forward. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-07-thirteenth.txt.
+      Quality pass 2026-09-08 (fourteenth, unattended scheduled run via
+      Cowork, independently re-derived as stalest of the 36-item rotation
+      pool via git-log-on-worklist-paragraph-range: 3.2 at 13:45:41+01:00,
+      ahead of 3.5, 3.7, 3.13, 6.2, 3.4, 3.9, 3.10, 2.1 and 5.2). REPO HALF
+      ONLY (Claude in Chrome not connected this run). Thirteen prior passes
+      had proved check-seo-pattern.js, check-seo-lengths.js,
+      check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js and check-opening-hours.js
+      against Scorah's own pages, plus collateral catches from check-nap.js,
+      check-postcodes.js and check-map-embeds.js; check-branch-links.js -
+      the checker that reads the link fields inside branches.json itself
+      rather than a generated page - had never been named once in this
+      item's history. Baseline: all 36 checkers exit 0 before any work;
+      sha256 of branches.json recorded. Six injections against
+      scorah_bramhall and scorah_hazel's own fields, one per rule the
+      checker holds, each on a mutated in-memory copy written to the
+      tracked branches.json, checked, then restored byte-identical
+      (sha256-reconfirmed before the next): (1) scorah_hazel.odsCode set to
+      scorah_bramhall's own FL495 - CAUGHT, duplicate ODS code, with the
+      expected collateral nhsEmail/nhsReviewUrl mismatches since both derive
+      from odsCode. (2) scorah_bramhall.nhsEmail set to a wrong address -
+      CAUGHT. (3) scorah_hazel.nhsReviewUrl truncated to drop
+      "/leave-a-review" (the original Gordon Short Crosby fault shape this
+      checker exists to catch) - CAUGHT. (4) scorah_hazel.googleReviewUrl
+      set to scorah_bramhall's own review link - CAUGHT, duplicate review
+      link. (5) scorah_bramhall.website given a trailing slash - CAUGHT,
+      with the expected collateral pfLink host-prefix failure. (6)
+      scorah_bramhall.pfLink repointed at Riddings Pharmacy Timperley's own
+      generated page, a real different non-sister branch - CAUGHT,
+      cross-branch ownership. All six caught on the first attempt on their
+      intended rule. INCIDENTAL, NOT A DEFECT: both Scorah branches still
+      share one pfLink today, the legacy "hazel-grove-bramhall" page, which
+      resolves to no live branch and is correctly not flagged - this is the
+      standing 5.3/Q8 backlog, not a new finding. Full 36-checker suite
+      re-run clean after the round; all six page generators rebuilt from
+      branches.json, sha256 of all 188 tracked files under modules/ taken
+      before and after: byte-identical, zero diff. No checker logic, data
+      field, page or pack changed anywhere in the repo. Live half not read
+      this pass; state stands as last recorded on the twelfth pass
+      (2026-09-06): both landing pages 404, six sampled live pages still
+      declaring the bare shared brandLabel in JSON-LD name. No new
+      question. Evidence in audits/verify-3.2-2026-09-08-fourteenth.txt and
+      audits/verify-3.2-2026-09-08-fourteenth.js.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

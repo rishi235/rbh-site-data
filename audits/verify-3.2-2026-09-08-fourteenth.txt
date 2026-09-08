@@ -1,0 +1,103 @@
+Item 3.2 quality pass (fourteenth), 2026-09-08 (unattended scheduled run via Cowork)
+Target: check-branch-links.js, never named once in this item's first thirteen
+passes, proven by injection against scorah_bramhall and scorah_hazel's own
+branches.json fields for the first time.
+
+BASELINE
+All 36 tools/check-*.js run individually before any work: 36/36 exit 0.
+sha256 of branches.json before any mutation:
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+
+METHOD
+Script: (run inline via mcp__workspace__bash, reproduced below) reads
+branches.json into memory once, then for each injection: parses a fresh copy
+of the original buffer, mutates one field on scorah_bramhall or scorah_hazel,
+writes it to the tracked branches.json, runs the real tools/check-branch-links.js
+as a child process, captures output and exit code, then restores the original
+buffer byte-for-byte via fs.writeFileSync and re-confirms sha256 match before
+the next injection. Nothing is layered; each injection starts from the
+untouched original.
+
+INJECTION ROUND, six injections, one per rule check-branch-links.js holds:
+
+(1) odsCode duplicate: scorah_hazel.odsCode set to scorah_bramhall's own
+    "FL495". CAUGHT - "scorah_hazel.odsCode: duplicate of scorah_bramhall
+    (FL495)". Expected collateral: nhsEmail and nhsReviewUrl both derive from
+    odsCode, so both also failed on scorah_hazel in the same run (the two
+    rules are working exactly as designed, not double-counting a shared
+    fault).
+
+(2) nhsEmail mismatch: scorah_bramhall.nhsEmail set to
+    "pharmacy.WRONG@nhs.net". CAUGHT - "scorah_bramhall.nhsEmail: is
+    ...WRONG..., expected pharmacy.FL495@nhs.net".
+
+(3) nhsReviewUrl truncated at the ODS code (the original Gordon Short Crosby
+    fault shape this checker was built to catch): scorah_hazel.nhsReviewUrl
+    shortened to drop "/leave-a-review". CAUGHT - "Expected .../XFKD04/leave-
+    a-review. Anything short of /leave-a-review lands the patient on the
+    profile page instead of the review form."
+
+(4) googleReviewUrl duplicate: scorah_hazel.googleReviewUrl set to
+    scorah_bramhall's own review link. CAUGHT - "is the same link as
+    scorah_bramhall, so a review meant for one branch would land on the
+    other's listing."
+
+(5) website malformed: scorah_bramhall.website given a trailing slash.
+    CAUGHT - "Expected https, a bare host, no trailing slash and no path."
+    Collateral: pfLink's own host-prefix test also failed in the same run,
+    correctly, since it compares against the now-malformed website field.
+
+(6) pfLink cross-branch ownership: scorah_bramhall.pfLink repointed at
+    Riddings Pharmacy Timperley's own generated Pharmacy First page (a real,
+    different, non-sister branch, deliberately not the shared legacy Scorah
+    page both branches currently point at). CAUGHT - "a Pharmacy First page
+    belonging to riddings_timperley (\"Riddings Pharmacy\"), not to this
+    branch (\"Scorah Chemists Bramhall\"). It also sits off this branch's own
+    host."
+
+All six caught on the first attempt, each on its intended rule (plus the
+documented collateral effects of odsCode and website, which are expected
+consequences of those fields' own derivation rules, not a checker fault).
+branches.json restored to the original buffer after each injection;
+sha256-reconfirmed 904de09b...969e1e (identical to baseline) after every
+individual restore and again at the end.
+
+INCIDENTAL OBSERVATION, NOT A DEFECT: both scorah_bramhall and scorah_hazel
+carry the SAME pfLink today, the shared legacy page
+"pharmacy-first-service-hazel-grove-bramhall.html", which resolves to no live
+branch under branchFromPageName()'s suffix match (neither "-scorah-bramhall"
+nor "-scorah-hazel-grove"), so check-branch-links.js correctly does not flag
+it - this is the standing item 5.3/Q8 backlog (11 branches still pointing at
+old Post A Pharmacy First pages), already tracked there, not a new finding.
+
+RESULT
+No defect on item 3.2 itself - tools/check-branch-links.js was already
+correctly holding all six of its rules against Scorah Chemists Bramhall and
+Hazel Grove's own branches.json fields, now proven directly by injection for
+the first time in this item's fourteen-pass history. No checker logic, data
+field, page or pack changed anywhere in the repo.
+
+VERIFICATION AFTER RESTORE
+- Full 36-checker suite re-run individually: 36/36 exit 0.
+- All six page generators (build-branch-landing-pages, build-contraception-
+  pages, build-service-pages, build-switch-pages, build-travel-clinic-pages,
+  build-weight-loss-pages) re-run from branches.json; sha256 of all 188
+  tracked files under modules/ taken before and after: byte-identical, zero
+  diff. (tools/build-audit-status.js is not a page generator and is run
+  separately at step 10 against the real Windows path; its ENOENT against the
+  sandbox's own path is expected and unrelated to this item, per the standing
+  Q87 diagnosis.)
+- git status --porcelain -- branches.json gbp-packs modules tools core status:
+  empty (one pre-existing, untouched FUSE artifact at
+  gbp-packs/.fuse_hidden0000000400000001, timestamped before this run started,
+  left alone per the standing Q87 note on out-of-scope debris).
+
+LIVE HALF: Claude in Chrome tools reported not connected this run
+(tabs_context_mcp: "Claude in Chrome is not connected"). Live state stands
+unchanged from the twelfth pass (2026-09-06): both landing pages 404, six
+sampled live pages across both branches still declaring the bare shared
+brandLabel "Scorah Chemists" in JSON-LD name rather than the branch-specific
+branchName the repo generates (queued evidence for whoever picks up the
+5.3/5.4/paste-run backlog). Not re-verified this pass.
+
+No new question raised.
