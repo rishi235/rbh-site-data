@@ -19675,6 +19675,62 @@ of AGENT_LOG.md for the exact commands and their output.
       Q55 stands as answered-but-not-yet-actioned (Weebly edit outside this
       worker's write scope), not re-raised. No new question. Evidence:
       audits/verify-6.3-2026-09-06-tenth.txt. Done 2026-09-06.
+      Quality pass (eleventh), 2026-09-08 (unattended run, Cowork). THREE
+      NEVER-BEFORE-EXERCISED FAIL PATHS PROVED BY INJECTION. Read
+      tools/check-opening-hours.js end to end and grepped every FAIL message
+      fragment against this file and AGENT_LOG.md first: zero hits across all
+      ten prior passes for line 273 ("<day>" is not a day of the week - a
+      dayOfWeek typo in branches.json), rule 7's own coverage floor (line
+      428-429, checkedPages>0 but cardTimeCount===0), and rule 8's own
+      coverage floor (line 421-423, estateTimeFilesSwept===0).
+      BASELINE: 36/36 checkers clean; branches.json sha256 904de09b...969e1e
+      (standing hash); generated tree 189 files, sha256 fec0ef2e...31fa3
+      (matching today's earlier 3.8 fourteenth-pass hash); git status
+      --porcelain empty on all tracked paths.
+      FOUR INJECTIONS on branches.json, each on a fresh restore, backed up
+      first and restored by byte copy with sha256 reconfirmation after every
+      round: (1) bankHolidays.dates2026 emptied - CAUGHT, "dates2026 is
+      missing or empty"; (2) a non-existent calendar date ("2026-02-30") plus
+      a duplicated existing date pushed together - CAUGHT, two distinct
+      failures, one per condition, no cross-firing; (3) tradingPolicy set to
+      "sometimes" - CAUGHT, "must be closed, reduced or normal"; (4) NEW
+      GROUND: riddings_timperley's Monday changed to the typo "Mondey" -
+      CAUGHT on the new "is not a day of the week" path, plus rule 6 firing
+      as a correct side effect (Monday now genuinely unstated once "Mondey"
+      stops matching it) - both messages consistent with the single typo, not
+      cross-firing. Tests (1)-(3) re-confirm item 6.7's own 2026-08-29/09-04
+      bankHolidays validation work, here run directly against the tracked
+      checker and tracked branches.json rather than 6.7's disposable scratch
+      copy - noted as overlapping re-confirmation, not claimed as new ground.
+      TWO SCRATCH-COPY TESTS (NEW GROUND), tracked checker never touched
+      (confirmed via git diff --stat, empty, both times): copied
+      check-opening-hours.js outside the tracked tree, pointed its ROOT at
+      the real repo (read-only), then broke exactly one thing per copy - (1)
+      TIME_RE replaced with a never-matching pattern - CAUGHT, "rule 7 read 6
+      landing page(s) and found no clock time on any of them", with
+      checkedPages=6 and cardTimeCount=0 confirming the floor fires
+      independently of rules 1-3, which still ran and passed; (2)
+      ESTATE_TIME_FILES's three collectHtml() calls and four named paste/
+      draft files redirected to non-existent paths - CAUGHT, "rule 8 found no
+      switch, service-family or pasted public-copy file to sweep", with rule
+      7 (unaffected) still correctly sweeping 88 times in the same run,
+      confirming the two floors are independent of each other.
+      RESULT: zero in-repo defect across all six tests. Full 36-checker suite
+      and generated-tree hash re-confirmed clean/identical after every round.
+      No page, generator, data field or patient-facing copy changed.
+      LIVE HALF: Claude in Chrome not connected (checked twice); fell back to
+      direct network access (curl confirmed egress). check-live-hours.js
+      re-run across all 14 branches, evidence
+      audits/live-hours-check-2026-09-08.json. Bank holiday note correctly
+      flagged 2026-08-31 as within the 14-day window. All 14 branches read
+      against branches.json by address/phone where snippet interleaving
+      requires it: thirteen match exactly, including all seven lunch-closure
+      branches and both split-domain pairs. Smartts Chemist Bootle remains
+      the sole live mismatch, straight-through hours unchanged since
+      2026-08-11 across all eleven passes. Q55 stands as
+      answered-but-not-yet-actioned (Weebly edit outside this worker's write
+      scope), not re-raised. No new question. Evidence:
+      audits/verify-6.3-2026-09-08-eleventh.txt. Done 2026-09-08.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

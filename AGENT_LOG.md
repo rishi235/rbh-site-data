@@ -1,4 +1,116 @@
-## 2026-09-08 (unattended scheduled run, fifth run today, Cowork sandbox mcp__workspace__bash for all read/edit/analysis and git read half, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 3.8 quality pass (fourteenth, SK Chemists Bootle): proved tools/check-weight-loss-copy.js by injection against this branch for the first time (both a medicine name and the tense/person claim variant fixed earlier today on item 3.6); found and raised Q99, a new live-only finding that skchemist.co.uk and smarttschemist.co.uk inner pages both carry a second, site-wide JSON-LD Pharmacy block no generator here writes or any checker can see
+## 2026-09-08 (unattended scheduled run, sixth run today, Cowork sandbox mcp__workspace__bash for all read/edit/analysis and git read half, git write half attempted from the sandbox first per usual, Claude in Chrome not connected) - Item 6.3 quality pass (eleventh, opening hours): proved three never-before-exercised fail paths in tools/check-opening-hours.js by injection (day-of-week typo validation, rule 7's own coverage floor, rule 8's own coverage floor); re-confirmed item 6.7's own bankHolidays block validation directly against the tracked tree; zero in-repo defect, no new question, live half unchanged (Smartts Chemist Bootle remains the sole mismatch, Q55 answered-but-not-yet-actioned)
+
+LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from
+the fifth run today (item 3.8 fourteenth pass), about 74 minutes old at the
+time of the check - over the 45-minute threshold, so treated as stale. `rm`
+failed with "Operation not permitted" (standing Q87/Q96 - this mount permits
+create and overwrite but not unlink), so the file was overwritten in place
+with a fresh timestamp rather than adding to the existing pile of
+`.agent-lock.*` debris in the repo root from prior runs' identical
+workaround. No `.git/index.lock` present at the start of this run (one
+reappeared transiently during a later `git status` call, addressed at
+step 9 below).
+
+SYNC (step 2): `git fetch origin` (SSH) failed "Host key verification
+failed", standing Q87/Q96, no `~/.ssh` in this sandbox. `git fetch
+origin-https` succeeded and confirmed local HEAD (`893fff0`) already
+matched `origin-https/agents/audit-backlog` exactly - no pull needed.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__navigate` against
+https://data.rbhealth.co.uk/api/feedback returned "Claude in Chrome is not
+connected" - standing Q59, unchanged. Logged and carried on; no alternative
+route attempted, nothing clicked, typed or submitted. QUESTIONS.json
+re-read: 99 total, 46 open, none answered by pickup this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5 both under Q60,
+6.6), so the quality-pass fallback applied. Rotation pool re-derived fresh:
+every `- [x] <N.N>` marker line read directly from AGENT_WORKLIST.md (43
+checked, confirmed by direct line count), each item's own paragraph range
+(bounded by the next checklist marker line) dated via `git log -1
+--format=%cI --no-patch -L<start>,<end>:AGENT_WORKLIST.md`, run individually
+across all remaining items. 43 checked minus the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36-item pool,
+matching every recent run's own count. Item 6.3 came out stalest at
+2026-09-06T19:13:56+01:00, clear of the runner-up (3.1 at
+2026-09-06T19:41:42+01:00) and every other pool item later still. Chosen:
+6.3 (Opening hours vs branches.json, shared-domain and multi-branch sites).
+
+WORK: see the eleventh-pass paragraph appended in place to
+AGENT_WORKLIST.md under item 6.3, and
+audits/verify-6.3-2026-09-08-eleventh.txt, for full method, exact injected
+values, checker output and sha256 values. Summary: baseline 36/36 checkers
+clean, branches.json sha256 904de09b...969e1e (standing hash) and generated
+tree (189 files under modules/ and core/) sha256 fec0ef2e...31fa3, both
+matching hashes already recorded earlier today on item 3.8's fourteenth
+pass. Read tools/check-opening-hours.js end to end (449 lines) and grepped
+every one of its FAIL message fragments across this file and
+AGENT_WORKLIST.md before starting: zero hits, across this item's ten prior
+passes, for the "is not a day of the week" path (line 273), rule 7's own
+coverage floor (line 428-429), and rule 8's own coverage floor (line
+421-423). Four further fail paths (the bankHolidays block's own
+missing/empty, bad-date, duplicate-date and bad-tradingPolicy validation)
+were also unmentioned within this item's own history, but are already
+covered by item 6.7's 2026-08-29/2026-09-04 passes on a disposable scratch
+copy - re-run here anyway, directly against the tracked checker and tracked
+branches.json, and reported honestly as overlapping re-confirmation rather
+than new ground.
+
+SIX TESTS, each backed up and restored byte-for-byte (branches.json
+rounds) or run from a scratch copy that never touched the tracked checker
+(coverage-floor rounds), sha256-reconfirmed after every round: (1)
+dates2026 emptied - CAUGHT, "dates2026 is missing or empty"; (2) a
+non-existent calendar date ("2026-02-30") plus a duplicated existing date,
+together - CAUGHT, two distinct failures, no cross-firing; (3)
+tradingPolicy set to "sometimes" - CAUGHT, "must be closed, reduced or
+normal"; (4) NEW GROUND: riddings_timperley's Monday typo'd to "Mondey" -
+CAUGHT on the new "is not a day of the week" path, plus rule 6 firing
+correctly as a genuine side effect, both consistent with the one injected
+typo; (5) NEW GROUND, scratch copy: TIME_RE replaced with a
+never-matching pattern - CAUGHT, "rule 7 read 6 landing page(s) and found
+no clock time on any of them", checkedPages=6/cardTimeCount=0 confirming
+the floor fires independently of rules 1-3 (which still ran clean); (6)
+NEW GROUND, scratch copy: ESTATE_TIME_FILES's collection redirected to
+non-existent paths - CAUGHT, "rule 8 found no switch, service-family or
+pasted public-copy file to sweep", with rule 7 (unaffected) still
+correctly sweeping 88 times in the same run. `git diff --stat
+tools/check-opening-hours.js` empty throughout both scratch tests,
+confirming the tracked checker itself was never touched. Full 36-checker
+suite and generated-tree hash re-confirmed clean/identical after every
+round; git status --porcelain confirmed empty on branches.json, modules/,
+core/, tools/ and gbp-packs/ at the end. Zero in-repo defect found across
+all six tests; no page, generator, data field or patient-facing copy
+changed by this pass.
+
+LIVE HALF: Claude in Chrome not connected (checked at pickup and again for
+this item); fell back to direct outbound network access (curl confirmed
+egress with a 301 from smarttschemist.co.uk). tools/check-live-hours.js
+re-run across all 14 trading branches, evidence
+audits/live-hours-check-2026-09-08.json. Bank holiday note correctly
+flagged 2026-08-31 as within the 14-day window. All 14 branches read
+against branches.json, by address/phone where the known Fishlocks/SK
+Chemists/Riddings snippet interleaving requires it: thirteen match
+exactly, including all seven lunch-closure branches and both split-domain
+pairs (Scorah, Fishlocks). Smartts Chemist Bootle remains the sole live
+mismatch, straight-through "9:00am - 6:00pm" hours with no lunch closure,
+unchanged since first found 2026-08-11 and across all eleven passes of
+this item. Q55 (answered by Rishi 2026-09-02, option 1, edit the live
+Smartts pages) stands as answered-but-not-yet-actioned - the Weebly edit is
+outside this worker's write scope - not re-raised. No new question this
+pass.
+
+COMMIT/PUSH/PUBLISH (steps 9-10): a transient `.git/index.lock` (0 bytes,
+freshly created, no git process running per `ps aux`) appeared during a
+routine `git status` call and was left in place rather than removed, since
+it does not actually block further git commands from completing (only its
+own post-command unlink fails, with a warning, not an error) - the same
+observation several recent passes on this item and others have already
+recorded. Sandbox `git push origin-https` failed ("could not read Username
+for 'https://github.com'" - no HTTPS credential in this sandbox, standing
+Q87/Q96).
 
 LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker from
 the fourth run today, about 47.5 minutes old at the time of the check - over

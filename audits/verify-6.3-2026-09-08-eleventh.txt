@@ -1,0 +1,167 @@
+Item 6.3 quality pass (eleventh), 2026-09-08 (unattended scheduled run, fifth run
+today would be next in sequence; Cowork sandbox mcp__workspace__bash for all
+read/edit/analysis and the checker run itself)
+
+SELECTION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct
+grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Quality-pass fallback applied.
+Rotation pool re-derived fresh: every `- [x] <N.N>` marker line read directly
+from AGENT_WORKLIST.md (43 checked), each item's own paragraph range (bounded by
+the next checklist marker line) dated via `git log -1 --format=%cI --no-patch
+-L<start>,<end>:AGENT_WORKLIST.md`, run individually across all items. 43 checked
+minus the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) = 36-item pool. Item 6.3 came out stalest at 2026-09-06T19:13:56+01:00,
+clear of the runner-up (3.1 at 2026-09-06T19:41:42+01:00). Chosen: 6.3 (Opening
+hours vs branches.json, shared-domain and multi-branch sites).
+
+FRESH-ANGLE CHECK. Read tools/check-opening-hours.js end to end (449 lines) and
+grepped every one of its FAIL message fragments against AGENT_LOG.md and
+AGENT_WORKLIST.md before starting, the same discipline the ninth and tenth
+passes on this item used. Confirmed zero prior hits for three of its fail
+paths across this item's ten-pass history:
+  - line 273, `"<day>" is not a day of the week` (a dayOfWeek entry in
+    branches.json that is not one of the seven day names) - never tested.
+  - line 428-429, rule 7's own coverage floor (`checkedPages > 0 &&
+    cardTimeCount === 0`) - never tested.
+  - line 421-423, rule 8's own coverage floor (`estateTimeFilesSwept === 0`)
+    - never tested.
+Also zero prior hits, WITHIN THIS ITEM, for the four bankHolidays block
+validation fail paths (missing/empty dates2026, a non-ISO date, a duplicate
+date, an invalid tradingPolicy). These four ARE covered by item 6.7's own
+2026-08-29 and 2026-09-04 passes (bad date, bad policy, duplicate date, empty
+array, all proved on a disposable scratch/robocopy copy outside the tracked
+tree). Re-run here anyway, directly against the TRACKED checker and TRACKED
+branches.json rather than a scratch reproduction, as a genuine but partially
+overlapping re-confirmation - noted honestly rather than claimed as new ground,
+per this item's own convention of cross-referencing overlapping coverage (see
+the 3.5 pass's note on item 1.2).
+
+BASELINE. All 36 tools/check-*.js run individually: 36/36 exit 0.
+branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+(matches the standing hash every recent pass has recorded). Generated tree:
+189 files under modules/ and core/, combined sha256
+fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3 (matches the
+14th-pass-on-3.8 standing hash from earlier today). git status --porcelain
+confirmed empty on branches.json, modules/, core/, tools/, gbp-packs/ (only
+pre-existing untracked scratch/test debris present in the repo root, unrelated
+to this pass, left untouched).
+
+INJECTION ROUND 1 (bankHolidays.dates2026 emptied). branches.json backed up to
+/tmp/6.3-eleventh/branches.json.bak first, sha256-confirmed
+904de09b...969e1e. dates2026 set to []. check-opening-hours.js: CAUGHT, exit 1,
+exactly one failure - "bankHolidays: block is present but dates2026 is missing
+or empty. Either carry the gov.uk dates or remove the block". Restored by byte
+copy from the backup; sha256 reconfirmed 904de09b...969e1e; checker re-run
+clean.
+
+INJECTION ROUND 2 (bad ISO date + duplicate date, together). Fresh restore
+confirmed first. Pushed "2026-02-30" (a calendar date that does not exist -
+February never reaches the 30th) and a second copy of "2026-01-01" (already
+present) onto dates2026. check-opening-hours.js: CAUGHT, exit 1, two failures,
+each naming its own date and nothing else - "bankHolidays: "2026-02-30" is not
+a real ISO yyyy-mm-dd date..." and "bankHolidays: "2026-01-01" is listed
+twice". No cross-firing between the two conditions. Restored by byte copy;
+sha256 reconfirmed 904de09b...969e1e; checker re-run clean.
+
+INJECTION ROUND 3 (invalid tradingPolicy). Fresh restore confirmed first.
+tradingPolicy changed from "closed" to "sometimes". check-opening-hours.js:
+CAUGHT, exit 1, exactly one failure - "bankHolidays: tradingPolicy is
+"sometimes" but must be "closed", "reduced" or "normal"...". Restored by byte
+copy; sha256 reconfirmed 904de09b...969e1e; checker re-run clean.
+
+INJECTION ROUND 4 (day-of-week typo, NEVER TESTED IN THIS ITEM'S TEN PRIOR
+PASSES). Fresh restore confirmed first. riddings_timperley's single Mon-Fri
+session had its dayOfWeek[0] changed from "Monday" to "Mondey" (a typo, not a
+removal). check-opening-hours.js: CAUGHT, exit 1, two failures: (1) the new
+path, "riddings_timperley: "Mondey" is not a day of the week"; (2) rule 6
+firing as a genuine, correctly-reasoned side effect - with "Mondey" no longer
+recognised as "Monday", Monday is now truly absent from both closedDays and
+specification, so "riddings_timperley: Monday is in neither closedDays nor
+specification..." also fires. Both messages are consistent with the single
+injected typo, not a false positive or cross-firing between unrelated rules.
+Restored by byte copy; sha256 reconfirmed 904de09b...969e1e; checker re-run
+clean; git status --porcelain branches.json confirmed empty afterwards.
+
+SCRATCH TEST 1 - rule 7 coverage floor (NEVER TESTED IN THIS ITEM'S TEN PRIOR
+PASSES). Copied tools/check-opening-hours.js to a scratch location outside the
+tracked tree (/tmp/6.3-eleventh/scratch/check-opening-hours-rule7floor.js),
+never touching the tracked file. Patched only two things on the scratch copy:
+ROOT hardcoded to the real repo path (so it still reads the real, unmodified,
+tracked branches.json and landing pages - read-only), and TIME_RE replaced
+with a pattern that can never match
+(/ZZZNEVERMATCHZZZ/gi) so rule 7's own clock-time sweep necessarily finds
+nothing. Ran against the real tracked landing pages: CAUGHT, exit 1, exactly
+one failure - "rule 7 read 6 landing page(s) and found no clock time on any of
+them, so its sweep is not reaching the hours card. Check TIME_RE and the card
+markup" - with checkedPages=6 (correctly still finding the pages) and
+cardTimeCount=0 (correctly finding no times, since the pattern cannot match).
+Rules 1-3 (which use visibleRows()'s own separate regex, not TIME_RE) still
+ran and passed normally, confirming the floor is independent of the
+comparison rules and fires purely on its own condition. Scratch file and its
+containing directory never became part of the tracked tree; tools/check-
+opening-hours.js confirmed untouched via `git diff --stat` (empty output)
+throughout.
+
+SCRATCH TEST 2 - rule 8 coverage floor (NEVER TESTED IN THIS ITEM'S TEN PRIOR
+PASSES). Same method: fresh copy to
+/tmp/6.3-eleventh/scratch/check-opening-hours-rule8floor.js, ROOT hardcoded to
+the real repo path, and the three collectHtml() calls plus the four named
+paste/draft files redirected to non-existent module folders and an empty
+array, so ESTATE_TIME_FILES can never be populated regardless of what the real
+tree actually contains. Ran read-only: CAUGHT, exit 1, exactly one failure -
+"rule 8 found no switch, service-family or pasted public-copy file to sweep.
+Check the ESTATE_TIME_FILES paths" - with estateTimeFilesSwept=0 while rule 7
+(unaffected by this patch) still correctly swept 88 clock times on the six
+landing pages in the same run, confirming the two floors are independent.
+tools/check-opening-hours.js confirmed untouched via `git diff --stat` (empty
+output) throughout.
+
+POST-INJECTION CONFIRMATION. `git diff --stat tools/check-opening-hours.js`
+empty (checker never touched by any of the six tests). branches.json sha256
+904de09b...969e1e (unchanged from baseline). Full 36-checker suite re-run
+individually: 36/36 exit 0. Generated tree re-hashed: 189 files, combined
+sha256 fec0ef2e...31fa3, identical to the pre-pass baseline (diff against the
+before-hash file: no output). git status --porcelain confirms no tracked file
+under branches.json, modules/, core/, tools/ or gbp-packs/ was left changed.
+
+LIVE HALF. Claude in Chrome confirmed not connected (tested at answer pickup
+and again for this item - both attempts returned "Claude in Chrome is not
+connected"). Per procedure, not retried by another route and nothing clicked,
+typed or submitted. Fell back to the established direct-network route: a curl
+sweep confirmed outbound HTTPS egress (301 from smarttschemist.co.uk), then
+tools/check-live-hours.js run fresh across all 14 trading branches via Node's
+native fetch, evidence audits/live-hours-check-2026-09-08.json. Bank holiday
+note correctly flagged 2026-08-31 (Summer bank holiday, tradingPolicy closed)
+as within the 14-day window, so a Closed snippet near that date is read in
+context rather than as a defect (none was found near it this pass).
+
+All 14 branches' live snippets read against branches.json's expected values,
+by address/phone rather than by trailing section label where the known
+Fishlocks/SK Chemists/Riddings snippet interleaving requires it (the same
+reading hazard the 2026-09-02 fifth pass first described): scorah_bramhall,
+scorah_hazel, mccanns_aigburth, mccanns_sandringham, fishlocks_ainsdale,
+fishlocks_eccleston, hirshmans_ainsdale, skchemists_bootle,
+colemanleigh_liverpool, riddings_timperley, gordonshorts_crosby,
+cherrylane_liverpool and tiffenbergs_longmoor all match branches.json exactly,
+including all seven lunch-closure (split-day) branches and both split-domain
+pairs (Scorah, Fishlocks) read by their own address/phone.
+
+smartts_bootle remains the sole live mismatch: the homepage hours card, the
+contact page and the site footer widget all still publish straight-through
+"9:00am - 6:00pm" / "09:00 - 18:00" with no lunch closure, against
+branches.json's NHS-sourced 09:00-13:00/14:00-18:00 split - unchanged since
+first found 2026-08-11, and unchanged across all eleven passes of this item.
+Q55 (raised 2026-08-11, answered by Rishi via the portal 2026-09-02 choosing
+option 1, edit the live Smartts pages) stands as answered-but-not-yet-actioned:
+implementing it is a Weebly session outside this worker's write scope (browser
+use stays read-only). Not re-raised as a new question.
+
+RESULT. Zero in-repo defect found across all six injection/scratch tests -
+tools/check-opening-hours.js was already correctly enforcing all six
+conditions, now proven directly by injection for the first time (three of the
+six: day-of-week validation, rule 7's coverage floor, rule 8's coverage floor)
+or re-confirmed directly against the tracked tree rather than a scratch
+reproduction (the other three: the bankHolidays block's own validation,
+already covered by item 6.7). No new question raised. No page, generator, data
+field or patient-facing copy left changed by this pass. Only
+/tmp/6.3-eleventh/* (outside the tracked tree) and this evidence file plus the
+day's audits/live-hours-check-2026-09-08.json were created.
