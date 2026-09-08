@@ -111,7 +111,7 @@ AGENT_LOG.md (this entry), audits/scorah-hazel-grove-pack-check-2026-09-08-fourt
 (new). gbp-packs/scorah-hazel-grove.md itself untouched (byte-identical
 throughout, confirmed by sha256 and git diff).
 
-COMMIT: see push output / next log correction if the hash needs filling in.
+COMMIT: e8ba42271b93dfd780db22cdbf2eef9b993452fe
 
 STATUS PAGE: published via tools/build-audit-status.js (step 10) after
 commit and push.
