@@ -82,8 +82,16 @@ no alternative route tried. Nothing live claimed this run; the twelfth/
 thirteenth passes' live findings for this item stand unclaimed and
 unchanged.
 
-COMMIT/PUSH/PUBLISH (steps 9-10): see below this entry for outcome (filled
-in after the push completes).
+COMMIT/PUSH/PUBLISH (steps 9-10): sandbox `git push origin-https` failed
+("could not read Username for 'https://github.com'" - no HTTPS credential
+in this sandbox, standing Q87/Q96), so the write half used
+`mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
+working copy (same shared mount, already carrying the sandbox's own commit
+`48a81fd` since both sides see the same working tree). Pushed from there:
+`origin-https/agents/audit-backlog` confirmed at `48a81fd67f5a53fd45376eb152240dfbae1c5ada`
+by a fresh `git fetch` immediately afterwards, matching HEAD exactly.
+`node tools/build-audit-status.js` then published
+`reports/digital/Digital_Audit_Status.html` (43/49 done, 88%), exit 0.
 
 ## 2026-09-08 (unattended scheduled run, third run today, Cowork sandbox mcp__workspace__bash for read/edit/analysis, mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the git write half, Claude in Chrome not connected) - Item 3.12 quality pass (eleventh, Tiffenbergs Chemist, check-weight-loss-copy.js)
 
