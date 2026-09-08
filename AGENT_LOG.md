@@ -1,4 +1,92 @@
-## 2026-09-08 (unattended scheduled run, tenth run today, Cowork sandbox mcp__workspace__bash used for initial discovery only, then switched to mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for the lock clear-up, all git operations, the injection tests and the sha256 cross-checks, after the sandbox mount hit the standing FUSE unlink quirk on its own fresh index.lock, Q87/Q96) - Item 4.5 quality pass (fourteenth, Scorah Chemists Hazel Grove GBP pack): proved check-gbp-packs.js's Photo shot list rule (photoCount, photoVinyl, photoGoogleUpdates) for the first time against this pack, by three separate injections (a bullet deleted, "vinyl" removed from the storefront bullet, the pending-Google-updates reminder removed), each restored and sha256-reconfirmed before the next; zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, Cowork sandbox mcp__workspace__bash used throughout) - Item 1.3 quality pass (fifteenth, McCanns Sandringham postcode sweep): re-verified clean, no in-repo defect
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start. Created fresh,
+timestamped 2026-09-08T09:34:11Z. No `.git\index.lock` present at run start
+either. A fresh `.git/index.lock` did appear mid-run (created by the
+sandbox's own `git status` and `git checkout` calls) and could not be
+unlinked from the sandbox side (`rm` returned "Operation not permitted") -
+the standing FUSE unlink quirk recorded under Q87/Q96. Unlike prior runs'
+logs, this run did not switch to mcp__Windows-MCP__PowerShell to work
+around it: the lock turned out to block only `git checkout` specifically,
+not `git status`, `git show`, `git add` or `git commit`, all of which
+succeeded on retry against the sandbox mount. Noted here because it
+narrows Q87/Q96 rather than confirming the earlier logs' broader claim
+that the whole mount was unusable once the lock appeared.
+
+SYNC (step 2): `git fetch origin-https` (the sandbox has no working SSH
+host key for `origin`, HTTPS remote used instead, consistent with recent
+runs) then `git checkout agents/audit-backlog` and `git pull --ff-only
+origin-https agents/audit-backlog`: already up to date, HEAD unchanged.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected (standing Q59). Logged and carried on; no alternative route
+attempted, nothing clicked, typed or submitted anywhere.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of this file at run start, so not
+applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool: all 43 "- [x]" items read by
+line number, minus the seven standing out-of-rotation items (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) = 36 candidates. Each dated via `git log --format
+=%cI -L<start>,<end>:AGENT_WORKLIST.md` over its own full paragraph range
+(computed fresh from the ordered bullet-line list, not capped - an
+earlier attempt in this same run capped ranges at 400 lines to keep the
+git calls fast and got a wrong answer for item 3.6 as a result, caught
+by cross-checking against a direct, uncapped run before trusting it).
+Item 1.3 (McCanns Sandringham postcode sweep) came out least recently
+touched, last committed 2026-09-06T21:41:35+01:00 against its fourteenth
+pass, ahead of the next-oldest (4.13, 2026-09-06T22:14:48+01:00).
+
+WORK DONE: ran tools/check-postcodes.js standalone first - clean, 0
+failures, 3 warnings (the three standing UNOWNED notices, unchanged from
+the fourteenth pass). Confirmed by direct grep that "CH49 1SX" appears in
+exactly four files (AGENT_LOG.md, AGENT_WORKLIST.md, CLAUDE.md, and
+tools/check-postcodes.js's own NARRATIVE_POSTCODES exemption list) and
+nowhere else - no page, GBP pack or paste block. Confirmed branches.json
+holds L17 4JP for mccanns_sandringham, and confirmed by grep that L17 4JP
+is in active use across the branch landing page, 9 service pages, the
+switch page, the GBP pack, both external OneDrive paste-pack copies, the
+two shared multi-branch sheets and the branches editor - 18 files in all.
+
+Guard re-proved by injection rather than assumed: set
+branches.json → branches[mccanns_sandringham].postalCode to CH49 1SX,
+sha256 of the pre-injection file recorded first (904de09b...b969e1e).
+check-postcodes.js correctly failed, 54 failures: UNKNOWN on every one of
+the 11 live pages still carrying the now-orphaned L17 4JP, MISSING on the
+newly-injected CH49 1SX (no page, pack or paste block carries it), and
+STALE on the checker's own NARRATIVE_POSTCODES entry (no longer excusing
+an unused value once CH49 1SX became a real branches.json postcode).
+Restore hit the FUSE lock noted above: `git checkout -- branches.json`
+failed ("Unable to create '.git/index.lock': File exists"), so the
+restore used the read-only `git show HEAD:branches.json` instead (reading
+a git object needs no index lock), redirected over branches.json.
+sha256-confirmed byte-identical to the pre-injection hash both
+immediately after restore and again after the checker re-run confirmed
+clean (0 failures, 3 warnings, matching the pre-injection baseline
+exactly).
+
+Ran the full checker suite standalone (`for f in tools/check-*.js; do
+node "$f"; done`): all 36 checkers exit 0. One unrelated, pre-existing
+item noted in passing and NOT acted on, to avoid scope creep beyond item
+1.3: check-url-scheme.js reports "1 insecure URL(s) outside narrative
+surfaces" as a warning (0 failures, so the checker itself is not
+flagging a defect needing a fix this run) - belongs to whichever item
+that checker guards, not 1.3, and is left for that item's own next pass.
+
+Also noted, not acted on: an untracked `C:/Users/...` directory sitting
+inside the repo working copy root (0 files tracked by git under it per
+`git ls-files`), containing what look like OneDrive paste-pack copies.
+Harmless clutter, out of this run's scope; flagging so a future run
+doesn't mistake it for tracked content.
+
+No in-repo defect found. No new question. No item ticked or unblocked
+(1.3 was already [x]; this was verification only). AGENT_WORKLIST.md
+updated with the fifteenth-pass paragraph under item 1.3.
+
+
 
 LOCK CHECK (step 1): no `.agent-lock` present at run start via the Cowork
 sandbox mount. Created fresh, timestamped 2026-09-08T09:04:59Z. The sandbox

@@ -16056,6 +16056,31 @@ appended to the line. Do not move them; the status page reads them in place.
       byte-identical (combined sha256 a051e64d...4daad7, matching the same
       day's 3.1 pass). No new question. Done 2026-09-06. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-06-fourteenth.txt.
+      Quality pass 2026-09-08 (fifteenth pass, unattended scheduled run):
+      re-verified clean, no in-repo defect. check-postcodes.js standalone:
+      0 failures, 3 warnings, unchanged (the three standing UNOWNED notices
+      for gbp-packs/TEMPLATE.md and the two shared branch-family sheets,
+      modules/branch/pages/INDEX.md and SEO.md, each covering six branches).
+      CH49 1SX confirmed confined to four files (AGENT_LOG.md,
+      AGENT_WORKLIST.md, CLAUDE.md, and tools/check-postcodes.js's own
+      NARRATIVE_POSTCODES exemption); no page, GBP pack or paste block
+      carries it. L17 4JP confirmed correct in branches.json for
+      mccanns_sandringham and in active use across 18 files (the branch
+      landing page, 9 service pages, the switch page, the GBP pack, both
+      external paste-pack copies, the two shared sheets and the editor).
+      Guard re-proved by injection: mccanns_sandringham's postalCode set to
+      CH49 1SX in branches.json, checker correctly failed with 54 failures
+      (UNKNOWN on every page still carrying the superseded L17 4JP, MISSING
+      on the newly-injected CH49 1SX, STALE on NARRATIVE_POSTCODES no longer
+      excusing an unused value). Restore hit the standing sandbox FUSE
+      unlink quirk (Q87/Q96): a fresh, unremovable .git/index.lock blocked
+      `git checkout`, so the restore used the read-only `git show
+      HEAD:branches.json` instead, sha256-confirmed byte-identical to the
+      pre-injection file (904de09b...b969e1e) both immediately after restore
+      and again after the full checker re-run. Full 36-checker suite re-run
+      clean, 0 failures across all. Live half not read (Claude in Chrome not
+      connected this run, standing Q59); nothing live re-claimed. No new
+      question.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
