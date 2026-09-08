@@ -797,6 +797,91 @@ weight-loss-services-eccleston-ainsdale.html, still 200 and still carries
 raised; all three are reconfirmation of existing standing state, not new
 faults. Evidence: audits/verify-2.1-2026-09-07-fourteenth.js,
 audits/verify-2.1-2026-09-07-fourteenth-output.txt.
+      Quality pass 2026-09-09 (fifteenth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed still
+      [BLOCKED] by direct grep, so this was the fallback quality pass, picked
+      by the standard rotation-pool ranking re-derived fresh from git log
+      (via git log -1 --format=%cI -L<range> for each of the 36 pool items)
+      over the 36-item pool (43 checked items minus the standing
+      out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8): item 2.1's
+      newest mention was the fourteenth pass at 2026-09-07T22:43:49+01:00,
+      older than every other pool item (5.2 next oldest, then 4.11, then
+      5.1), matching the fourteenth pass's own forward note.
+      FRESH ANGLE: tools/check-booking-routes.js had never been named once
+      across fourteen prior passes on this item, despite it being the
+      checker CLAUDE.md itself names as guarding the estate's most silent
+      fault class (an empty booking box, or a patient booked into the wrong
+      branch's diary, while every visible line on the page still reads
+      correctly), and despite this branch owning 11 of the 156 estate-wide
+      pages with a booking mount (contraception, all seven Pharmacy First
+      condition pages plus the overview, travel clinic, weight loss clinic).
+      New instrument, audits/verify-2.1-2026-09-09-fifteenth.js: refuses to
+      run if branches.json or either target page already carries a git
+      diff, captures each original's bytes and sha256 before any mutation,
+      restores by direct fs.writeFileSync from the in-memory buffer
+      immediately after capturing the checker's output and before any
+      assertion, sha256-reconfirms byte-identical restoration before the
+      next injection and again at the end.
+      Four injections, each targeting a different one of the checker's five
+      per-page rules, on a freshly restored copy each time: (1) RULE
+      route - a real page's content copied into a new file,
+      notarealservice-fishlocks-ainsdale.html, whose filename does not parse
+      under service.js's own routing regex - CAUGHT, "carries a booking
+      mount but its filename does not parse... the page shows an empty
+      booking box". (2) RULE widget - branches.json's own
+      widgets.contraception removed for fishlocks_ainsdale, a service in
+      NO_FALLBACK_SERVICE_KEYS per Q17 (answered 2026-08-28) so it may not
+      fall back to the Pharmacy First diary - CAUGHT, "needs
+      widgets.contraception on fishlocks_ainsdale and there is none (this
+      service must not fall back)". (3) RULE branchattr - data-branch on
+      travel-clinic-fishlocks-ainsdale.html swapped from "Fishlocks Chemist
+      Ainsdale" to a different real, live branch's name, "Smartts Chemist
+      Bootle" - CAUGHT, "data-branch=... but the URL resolves to
+      fishlocks_ainsdale..., so an enquiry from this page is filed against
+      the wrong pharmacy". (4) RULE serviceattr - data-service stripped from
+      uti-treatment-fishlocks-ainsdale.html's #rbhsv-root - CAUGHT, "has a
+      booking mount but no data-service... labelled 'Pharmacy service'".
+      All four caught first attempt with the expected rule and message; the
+      whole script re-run a second time end to end with identical results
+      (4/4 caught both times). branches.json, the travel clinic page and the
+      UTI page all confirmed byte-identical (sha256-reconfirmed) and
+      git-diff-empty throughout and after. Full 36-checker suite re-run
+      clean both before and after (36/36); all six generators rebuilt from
+      their own build-*.js scripts, git status --porcelain -- modules core
+      branches.json gbp-packs empty before and after (byte-identical
+      regeneration).
+      ENVIRONMENT NOTE, not a repo defect: the route-rule injection's new
+      file could not be unlinked on this session's FUSE mount
+      ("EPERM: operation not permitted"), the same standing quirk
+      AGENT_LOG.md already records for .git/index.lock and .git/HEAD.lock
+      (Q87/Q96) - rename succeeds where delete does not. Worked around by
+      truncating the file to 0 bytes and renaming it to
+      notarealservice-fishlocks-ainsdale.html.bak, which matches no *.html
+      glob any checker scans (confirmed: all 36 checkers and all six
+      generators stayed clean with it present) and was never `git add`-ed,
+      so it carries no git status footprint. It is a leftover empty file on
+      the Windows filesystem at
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak and
+      needs a plain manual `rm` next time someone is on that machine;
+      nothing patient-facing or tracked is affected.
+      No copy, page, pack or branches.json content changed anywhere in the
+      estate; this pass closed a verification-coverage gap by proof, not by
+      rule change, so it needed no superintendent or business decision and
+      none was sought.
+      LIVE HALF. Claude in Chrome confirmed not connected
+      (list_connected_browsers returned []). Fell back to a direct
+      read-only curl GET with -L to follow the site's non-www to www
+      redirect (nothing clicked, typed or submitted anywhere).
+      fishlockpharmacy.co.uk/sitemap.xml still 200 with every lastmod fixed
+      at 2026-08-14T17:32:10 (Q35's underlying non-publish, unchanged, now
+      nearly four weeks). contact.html still names the business "Fishlock
+      Pharmacy" (x4) and "Fishlock Chemist" (x1) alongside the correct
+      "Fishlocks Chemist" (x5) (Q37, unchanged). Q57's page,
+      weight-loss-services-eccleston-ainsdale.html, still 200 and still
+      carries "Real Results" plus all three POM names, Mounjaro, Orlistat
+      and Wegovy (unchanged). No new question raised; all three are
+      reconfirmation of existing standing state, not new faults. Evidence:
+      audits/verify-2.1-2026-09-09-fifteenth.js.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
