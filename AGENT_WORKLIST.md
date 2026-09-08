@@ -11410,6 +11410,46 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Q83 not re-raised, already open. No new in-repo defect, no new
       question; open question count unchanged at 45 of 98. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-06-thirteenth.txt.
+      Quality pass 2026-09-08 (unattended run, fourteenth pass): stalest item
+      in the rotation pool, re-derived mechanically (last touched
+      2026-09-06T20:43:09+01:00, next stalest 4.5 at 21:13:42, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; node tools/check-pharmacy-first-eligibility.js clean; all 36
+      checkers individually 36/36 exit 0; sha256 of the pack
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693,
+      unchanged since 2026-08-04. NEW ANGLE: of thirteen prior injection
+      angles proven against this pack, check-pharmacy-first-eligibility.js's
+      rule 9 (GBP pack age-cohort pinning) had never been proven against it,
+      despite this pack carrying both pinned cohort phrases the rule
+      recognises in one file - "women aged 16 to 64" (Post A, UTI pathway)
+      and "adults aged 40 and over" (business description and services
+      section, NHS blood pressure check) - and despite the rule's own header
+      comment recording proof only against the sister pack (mccanns-
+      sandringham.md, 2026-08-12) and against unrelated packs for rules 10
+      and 11. TWO INJECTIONS, each on a sha256-backed scratch backup, each
+      restored by byte copy and reconfirmed before the next: (1) Post A's UTI
+      cohort changed from "aged 16 to 64" to "aged 16 to 74" - CAUGHT, exit 1,
+      two FAILs (age 16 and age 74, both now outside any pinned phrase,
+      because matching is by whole phrase not bare number). (2) the business
+      description's blood pressure cohort changed from "aged 40 and over" to
+      "aged 30 and over" (services-section restatement left untouched) -
+      CAUGHT, exit 1, one FAIL naming age 30; check-gbp-packs.js re-run
+      alongside this injection stayed at 0 failures, confirming no cross-fire
+      into the address/hours/sister-branch rules that checker owns. Both
+      restores verified by sha256
+      (fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693) via
+      both the Cowork sandbox mount and, after the sandbox's git briefly hit
+      the standing FUSE index.lock unlink quirk mid-suite (Q87/Q96, cleared
+      via PowerShell), independently via Get-FileHash against the real
+      C:\Dev\rbh-site-data working copy. Full 36-checker suite re-run clean
+      after final restore; git status on gbp-packs/modules/core/branches.json
+      empty throughout. Nothing fixed - this pass adds proof, not correction.
+      gbp-packs is not a generator input, so no generator was run. LIVE HALF:
+      Claude in Chrome not connected (Q59); no alternative route attempted.
+      Prior live verdicts (profile-website landing page 404, four post
+      targets 200, Q83 not re-raised) stand unchanged, not re-claimed this
+      pass. No new in-repo defect, no new question. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-08-fourteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

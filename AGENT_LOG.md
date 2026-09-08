@@ -1,4 +1,114 @@
-## 2026-09-08 (unattended scheduled run, eighth run today, via mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy - the Cowork sandbox mcp__workspace__bash mount cannot unlink its own files, standing Q87/Q96, confirmed again at the top of this run, so it switched to Windows-MCP for every write and delete from the outset) - Item 4.3 quality pass (fourteenth, Hirshmans Chemist Ainsdale GBP pack): proved the check-gbp-packs.js streetNumber rule, its documented address-line/post-town knock-on, and the KNOWN-list staleness guard, all for the first time against this pack's own copy, by injecting a wrong house number on the "- Address:" line ("56-62" to "58-64"); zero in-repo defect, no new question
+## 2026-09-08 (unattended scheduled run, ninth run today, Cowork sandbox mcp__workspace__bash for read/edit/analysis throughout; mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working copy for git sync, the index.lock clear-up, and the sha256 cross-check, after the sandbox mount hit the standing FUSE unlink quirk mid-suite, Q87/Q96) - Item 4.6 quality pass (fourteenth, McCanns Chemist Aigburth GBP pack): proved check-pharmacy-first-eligibility.js's rule 9 (GBP pack age-cohort pinning) for the first time against this pack's own copy, by injecting a wrong UTI cohort ("16 to 64" to "16 to 74") and a wrong blood pressure cohort ("40 and over" to "30 and over") in two separate, independently restored mutations; zero in-repo defect, no new question
+
+LOCK CHECK (step 1): no `.agent-lock` present at run start (checked via both
+the Cowork sandbox mount and confirmed identical via PowerShell against the
+real working copy). Created fresh, timestamped 2026-09-08T08:34:10Z (bash
+write succeeded; the sandbox mount can write and rename but not unlink its
+own files, standing Q87/Q96 - confirmed again this run by a harmless probe
+file that `rm` refused with "Operation not permitted" while `mv` succeeded).
+No `.git\index.lock`, `.git\HEAD.lock` or `.git\ORIG_HEAD.lock` present at
+start; no git process running.
+
+SYNC (step 2): `git fetch origin` / `git checkout agents/audit-backlog` /
+`git pull --ff-only origin agents/audit-backlog`, run via PowerShell against
+the real working copy, all succeeded ("Already up to date"); local HEAD
+(1eba524) already matched `origin/agents/audit-backlog` (the SSH remote),
+confirming the eighth run's own push had landed. `origin-https` two commits
+behind, expected and harmless, as every prior run has noted. One pre-existing
+uncommitted change found on arrival, unrelated to this run's own work:
+audits/live-hours-check-2026-09-08.json modified (two McCanns contactus.html
+entries showing "error": "HTTP 400" in place of prior good snippets, from an
+earlier interrupted live-hours probe). Left untouched rather than restored or
+committed, since it belongs to a different worklist thread and this run's own
+commit only touches the files listed below.
+
+ANSWER PICKUP (step 3): `tabs_context_mcp` reported Claude in Chrome not
+connected (standing Q59). Logged and carried on; no alternative route
+attempted, nothing clicked, typed or submitted anywhere.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading present at the top of this file at run start, so not applicable.
+
+ITEM SELECTION (step 5): all 8 unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool re-derived mechanically: all 43
+"- [x]" items read directly, minus the seven standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 34 candidates, each dated via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` over its own
+paragraph range (line ranges computed fresh this run rather than reused from
+a stale scratch file, after a first attempt using a pre-existing
+/tmp/ranges.txt from an earlier session produced a corrupted result for one
+item - 4.4 read back at exactly the 4.3 commit timestamp, indicating stale
+line-number drift - and was discarded in favour of a freshly written range
+file under a session-unique name). 4.6 came back stalest, last touched
+2026-09-06T20:43:09+01:00, ahead of the next stalest (4.5,
+2026-09-06T21:13:42+01:00), no tie. Chosen: 4.6 (McCanns Chemist Aigburth GBP
+pack).
+
+WORK. Read gbp-packs/mccanns-aigburth.md and its full AGENT_WORKLIST.md
+history (thirteen prior quality passes) to find an angle none of them had
+proven against this pack specifically. Found one: tools/check-pharmacy-
+first-eligibility.js's rule 9 (GBP pack age-cohort pinning), whose own header
+comment records proof by injection only against the sister pack (mccanns-
+sandringham.md, 2026-08-12) and separately against unrelated packs for rules
+10 and 11 - never against mccanns-aigburth.md, despite this pack carrying
+BOTH pinned cohort phrases the rule recognises: "women aged 16 to 64" (Post
+A, UTI pathway) and "adults aged 40 and over" (business description and
+services section, NHS blood pressure check).
+
+Confirmed sha256 fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c
+36693, unchanged since 2026-08-04. Backed up to _agentscratch/mccanns-
+aigburth.md.bak-pre-4.6-fourteenth (sha256-verified). Baseline: node
+tools/check-gbp-packs.js 0 failures, 17 known WARNs; node tools/check-
+pharmacy-first-eligibility.js clean; all 36 checkers individually 36/36
+exit 0.
+
+INJECTION 1: Post A's "in women aged 16 to 64" changed to "in women aged 16
+to 74". node tools/check-pharmacy-first-eligibility.js exited 1 with two
+FAILs (age 16 and age 74, both now unmatched to any pinned phrase - matching
+is by whole phrase, so breaking the range invalidated both ends). Restored by
+byte copy from the pre-injection backup; sha256 reconfirmed identical;
+re-run clean.
+
+INJECTION 2: the business description's "adults aged 40 and over" changed to
+"adults aged 30 and over" (the services-section restatement two lines below
+left untouched). node tools/check-pharmacy-first-eligibility.js exited 1
+with one FAIL naming age 30. node tools/check-gbp-packs.js run alongside the
+live injection stayed at 0 failures, confirming no cross-fire into the
+address/hours/sister-branch rules that checker owns. Restored by byte copy;
+sha256 reconfirmed identical; re-run clean.
+
+CONTAINMENT: full 36-checker suite re-run individually after final restore:
+36/36 exit 0. Mid-suite, the Cowork sandbox mcp__workspace__bash mount's own
+git reported "unable to unlink '.git/index.lock' - Operation not permitted"
+(the standing FUSE quirk, Q87/Q96) while computing `git status`; the stale
+lock was removed via mcp__Windows-MCP__PowerShell against the real working
+copy and `git status --porcelain` re-run clean (empty) for gbp-packs,
+modules, core, branches.json and tools. Independently, Get-FileHash via
+PowerShell against the real C:\Dev\rbh-site-data working copy confirmed
+gbp-packs/mccanns-aigburth.md sha256 FDB1429D9701399AB9C2139DB858A826D72EFB5
+FE6307520476D0A4BA3C36693, matching the pre-run value exactly. gbp-packs is
+not a generator input, so no generator was run and nothing needed
+rebuilding.
+
+RESULT: zero in-repo defect. Nothing fixed - this pass adds proof, not
+correction. Closes the last-named-but-unproven-against-this-pack instance of
+rule 9, and is the first time rule 9 has been proven against a pack carrying
+both pinned cohort phrases in one file. Evidence: audits/mccanns-aigburth-
+gbp-pack-quality-pass-2026-09-08-fourteenth.txt.
+
+LIVE HALF: Claude in Chrome not connected (Q59), checked again at this
+point; no alternative route attempted. Prior live verdicts (profile-website
+landing page 404 awaiting the queued paste run, four post targets 200, Q83
+weight loss booking-block price-ahead-of-eligibility finding) stand
+unchanged from the seventh/ninth/twelfth passes and are not re-claimed this
+run.
+
+No new question raised; open question count unchanged. QUESTIONS.json not
+modified this run (no answers pending pickup, no new question needed).
+
+---
+
 
 LOCK CHECK (step 1): `.agent-lock` at run start held a RELEASED marker
 from the seventh run today (item 3.1 fourteenth pass), timestamped

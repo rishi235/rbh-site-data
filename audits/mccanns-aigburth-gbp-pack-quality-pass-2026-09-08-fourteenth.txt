@@ -1,0 +1,117 @@
+Item 4.6 quality pass, fourteenth, 2026-09-08 (unattended scheduled run, ninth
+run today)
+
+Target: gbp-packs/mccanns-aigburth.md (McCanns Chemist Aigburth)
+
+Rotation selection
+------------------
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied.
+Rotation pool re-derived mechanically: all 43 "- [x]" items read directly out
+of AGENT_WORKLIST.md, minus the seven standing out-of-rotation items (1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 34 candidates dated individually via
+`git log -1 --format=%cI -L<start>,<end>:AGENT_WORKLIST.md` over each item's
+own paragraph range. 4.6 came back stalest, last touched
+2026-09-06T20:43:09+01:00, ahead of the next stalest (4.5, 2026-09-06T21:13:42
++01:00), no tie. Chosen: 4.6.
+
+Baseline
+--------
+sha256 of gbp-packs/mccanns-aigburth.md: unchanged since 2026-08-04
+  fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+node tools/check-gbp-packs.js: 0 failures, 17 known WARNs (unchanged set).
+node tools/check-pharmacy-first-eligibility.js: clean - 98 condition pages,
+14 overview pages, 15 GBP packs, 6 branch landing pages all pass.
+Full 36-checker suite (every tools/check-*.js run individually): 36/36 exit 0.
+
+New angle
+---------
+Of thirteen prior passes' proven injection angles against this specific pack
+(branch-name-as-place/Q26, address-stated-four-times, hours-stated-four-
+places, time/day pairing, splitDay, sister-branch-named-in-prose, PRICE_
+PATTERNS lead pricing, GBP-website-on-shared-domain), none had exercised
+tools/check-pharmacy-first-eligibility.js's rule 9 (GBP pack age-cohort
+pinning) against this pack's own copy. The rule's own header comment records
+it as proven by injection on 2026-08-12 against gbp-packs/mccanns-
+sandringham.md (this branch's sister pack) and separately against sk-
+chemists-bootle.md (rule 11) and cherry-lane-walton.md (rule 10) - never
+against mccanns-aigburth.md itself, despite this pack carrying BOTH pinned
+cohort phrases the rule recognises: "women aged 16 to 64" (Post A, the UTI
+pathway) and "adults aged 40 and over" (business description and services
+section, the NHS blood pressure check).
+
+Injection 1: UTI cohort
+------------------------
+On the tracked file, with a sha256-verified backup taken first
+(_agentscratch/mccanns-aigburth.md.bak-pre-4.6-fourteenth), changed Post A's
+"in women aged 16 to 64" to "in women aged 16 to 74" (the NHS-correct upper
+bound is 64; 74 is not part of any pinned cohort).
+
+RESULT: node tools/check-pharmacy-first-eligibility.js exited 1, two FAILs:
+  FAIL gbp-packs/mccanns-aigburth.md: states age 16, which is not part of
+    any NHS cohort this copy may state (rule 9)
+  FAIL gbp-packs/mccanns-aigburth.md: states age 74, which is not part of
+    any NHS cohort this copy may state (rule 9)
+Both quote the mutated sentence and the pinned cohort list. Matching is by
+whole phrase, not bare number, so breaking the phrase invalidated both ends
+of the range, not just the wrong one.
+
+Restored by byte copy from the pre-injection backup (not git checkout, per
+the standing FUSE unlink note); sha256 reconfirmed identical
+(fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693);
+check-pharmacy-first-eligibility.js re-run: clean.
+
+Injection 2: blood pressure cohort
+-----------------------------------
+Same file, same backup convention. Changed the business description's
+"adults aged 40 and over" to "adults aged 30 and over" (the services-section
+restatement of the same fact, two lines below, was left untouched).
+
+RESULT: node tools/check-pharmacy-first-eligibility.js exited 1, one FAIL:
+  FAIL gbp-packs/mccanns-aigburth.md: states age 30, which is not part of
+    any NHS cohort this copy may state (rule 9)
+Quotes the mutated sentence and the pinned cohort list. node
+tools/check-gbp-packs.js re-run alongside the live injection: still 0
+failures, 17 known WARNs unchanged, confirming no cross-firing into the
+address/hours/sister-branch rules that checker owns.
+
+Restored by byte copy; sha256 reconfirmed identical
+(fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693);
+check-pharmacy-first-eligibility.js re-run: clean.
+
+Containment
+-----------
+Full 36-checker suite run individually after final restore: 36/36 exit 0.
+git status --porcelain on gbp-packs, modules, core, branches.json, tools:
+empty (checked via mcp__Windows-MCP__PowerShell after the Cowork sandbox
+mcp__workspace__bash mount reported "unable to unlink .git/index.lock -
+Operation not permitted" mid-suite, the standing FUSE quirk, Q87/Q96; the
+stale lock was removed via PowerShell and git status re-run clean).
+Get-FileHash (PowerShell, independent of the sandbox mount) on the real
+C:\Dev\rbh-site-data working copy confirmed gbp-packs/mccanns-aigburth.md
+sha256 FDB1429D9701399AB9C2139DB858A826D72EFB5FE6307520476D0A4BA3C36693,
+matching the pre-run value exactly. gbp-packs is not a generator input, so
+no generator was run and nothing needed rebuilding.
+
+RESULT: zero in-repo defect. Nothing fixed - this pass adds proof, not
+correction. Closes the last-named-but-unproven-against-this-pack instance of
+check-pharmacy-first-eligibility.js rule 9, and is the first time rule 9 has
+been proven against a pack carrying both pinned cohort phrases in one file.
+
+LIVE HALF
+---------
+Claude in Chrome: tabs_context_mcp reported "Claude in Chrome is not
+connected" (standing Q59). Per the scheduled-task rule, no alternative route
+attempted, nothing clicked, typed or submitted anywhere. Prior live verdicts
+(profile-website landing page 404 awaiting the queued paste run; four post
+targets 200; Q83 weight loss booking-block price-ahead-of-eligibility
+finding) are not re-claimed this pass and stand as last recorded on the
+seventh, ninth and twelfth passes.
+
+ANSWER PICKUP
+-------------
+Claude in Chrome not connected at step 3 either. Logged and carried on per
+the scheduled-task rule (do not try any other route). QUESTIONS.json not
+re-read for new answers this run.
+
+No new in-repo defect, no new question.
