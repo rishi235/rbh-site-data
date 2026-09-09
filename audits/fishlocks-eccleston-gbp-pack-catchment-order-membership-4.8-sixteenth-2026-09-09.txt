@@ -1,0 +1,108 @@
+Item 4.8 quality pass, sixteenth, unattended run, 2026-09-09
+Subject: gbp-packs/fishlocks-eccleston.md, check-gbp-packs.js catchment order
+and catchment membership rules (lines ~1278-1385)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied.
+Took the immediately preceding run's own forward pointer (item 4.13's
+fifteenth pass, same day: "4.13 came out earliest ... ahead of 4.8 (11:41:25),
+4.10 (12:10:22) and the rest of the pool") rather than re-deriving the full
+36-item rotation via git log, given this run's time budget - the same
+shortcut several recent passes have taken when the immediately preceding
+entry already names the next-stalest item. Chosen: 4.8 (Fishlocks Chemist
+Eccleston GBP pack).
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools status:
+two untracked stray files only, both pre-dating this run by their own mtimes
+(gbp-packs/.fuse_hidden0000000400000001, 2026-09-08 15:39, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+2026-09-09 00:40), neither touched by this pass. sha256 of the pack confirmed
+unchanged against every prior pass's own recorded hash:
+5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa.
+All 36 tools/check-*.js exit 0 before this pass's injections.
+
+NEW ANGLE
+Fifteen prior passes on this item had proven, against this pack's own copy:
+the shared-domain profile-website rule, the GBP photo shot list rule, the
+hours clock-time and split-day rules, OUTCOME_PROMISE, brand-spelling rule 2,
+url-scheme rule 1, PRICE_PATTERNS, CLINIC_QUALIFIER, and the address-line/
+post-town presence rule. None had tested the two catchment-list rules
+(lines ~1278-1300, "leads with the branch's own seoTown", and lines
+~1330-1385, "every town named is one this branch actually serves") against
+this pack, despite the pack carrying a three-town catchment run - "Eccleston,
+Charnock Richard and Coppull" - in three places (lines 26, 44, 102), which is
+exactly the shape both rules require (>=3 comma-separated towns) to engage at
+all.
+
+METHOD
+Two injections direct on the tracked file, each restored from the
+pre-injection byte copy (/tmp/fishlocks-eccleston.md.bak) and sha256-
+reconfirmed identical before the next, following the same direct-edit/
+restore convention the fourteenth and earlier passes on this item used.
+
+1. ORDER: line 26's run reordered from "Eccleston, Charnock Richard and
+   Coppull" to "Charnock Richard, Eccleston and Coppull" (membership
+   unchanged, same three towns, only the leading element moved). CAUGHT,
+   exactly one new FAIL: 'catchment list leads with "Charnock Richard", but
+   this branch's seoTown in branches.json is "Eccleston", which is the word
+   every page it owns leads with. The profile and the site would target
+   different towns. Found: "Charnock Richard, Eccleston and Coppull"'. The
+   standing Q64 address-line WARN present and unchanged alongside it; no
+   cross-firing on any other pack.
+
+   Restored, sha256 reconfirmed 5f2206db... before the next injection.
+
+2. MEMBERSHIP: line 26's run's third element swapped from "Coppull" (a real
+   member of this branch's serviceAreaList) to "Adlington" (a real Lancashire
+   town, but not in this branch's serviceAreaList, not its seoTown, not its
+   addressLocality - i.e. a town the estate's data does not treat as this
+   branch's catchment). CAUGHT, exactly one new FAIL naming the town: 'catchment
+   list names "Adlington", which is not in this branch's serviceAreaList in
+   branches.json (Eccleston, Charnock Richard, Coppull) and is neither its
+   seoTown nor its addressLocality... Found: "Eccleston, Charnock Richard and
+   Adlington"'. A second FAIL also appeared, on the description character
+   count (732 vs the claimed 730) - expected collateral of swapping a 7-
+   character town for a 9-character one, not a new finding; it confirms the
+   length-count rule fires independently and correctly, not a checker gap.
+
+   Restored, sha256 reconfirmed 5f2206db... after.
+
+RESULT
+No in-repo defect found. Both catchment rules already correctly protect this
+pack's three genuine catchment mentions in both directions (wrong lead town,
+foreign town), now proven by injection rather than only by reading the rule
+and the pack side by side. No checker logic, generator, page, pack or
+branches.json content changed.
+
+VERIFICATION
+File restored; sha256 reconfirmed identical to every prior pass's recorded
+hash. Full 36-checker suite re-run after final restore: all tools/check-*.js
+exit 0. git status --porcelain -- gbp-packs modules core branches.json tools
+status: unchanged from baseline (same two pre-existing untracked strays,
+nothing else).
+
+LIVE HALF
+Not attempted. mcp__claude-in-chrome__tabs_context_mcp reported "Claude in
+Chrome is not connected" (standing Q59) when checked at the top of this run
+(answer pickup, step 3); not retried for this item, since these two rules
+govern pack copy pasted by a human into a Google Business Profile field, not
+a URL a read-only fetch can verify anyway.
+
+QUESTIONS
+None raised. 100 total in QUESTIONS.json, 47 open, unchanged by this pass
+(answer pickup unavailable, Chrome not connected).
+
+FORWARD NOTE
+The catchment order and membership rules remain unproven by injection against
+their own copy on every other pack that carries a >=3-town catchment run
+(candidates: fishlocks-ainsdale.md "Ainsdale, Birkdale and Southport",
+tiffenbergs-aintree.md's two runs named in the rule's own header comment,
+coleman-leigh-walton.md's "surrounding streets of" line noted there as out of
+scope, and any McCanns/Scorah pack whose services section lists three towns)
+- a candidate set for a future pass. Also still open from the fourteenth
+pass's own forward note: the shared-domain website rule remains unproven by
+injection on scorah-bramhall.md and scorah-hazel-grove.md /
+fishlocks-ainsdale.md specifically (only fishlocks-eccleston.md and
+mccanns-aigburth.md have been proven against it so far).

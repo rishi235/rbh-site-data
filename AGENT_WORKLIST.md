@@ -13684,6 +13684,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       scorah-hazel-grove.md, riddings-timperley.md and this one - a candidate set
       for a future pass.
       See audits/fishlocks-eccleston-gbp-pack-photo-shot-list-4.8-fifteenth-2026-09-08.txt.
+      Quality pass 2026-09-09 (sixteenth, unattended run): stalest item per the
+      immediately preceding run's own forward pointer (item 4.13's fifteenth
+      pass, same day, named 4.8 next after itself). Baseline: git status clean
+      of anything but two pre-existing untracked strays neither touched by this
+      pass; sha256 of the pack confirmed unchanged against all fifteen prior
+      passes' recorded hash (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985
+      e94a3e01001efa); all 36 checkers green beforehand. New angle: fifteen
+      prior passes had never tested check-gbp-packs.js's two catchment-list
+      rules (leads with the branch's own seoTown; every named town is one this
+      branch actually serves) against this pack's own copy, despite it carrying
+      a three-town catchment run - "Eccleston, Charnock Richard and Coppull" -
+      in three places, exactly the shape both rules require to engage. Two
+      injections direct on the tracked file, each restored from a
+      pre-injection byte copy and sha256-reconfirmed before the next: (1) the
+      run reordered to "Charnock Richard, Eccleston and Coppull" - CAUGHT,
+      exactly one FAIL naming the wrong lead town against the branch's own
+      seoTown; (2) "Coppull" swapped for "Adlington", a real town but not in
+      this branch's serviceAreaList - CAUGHT, exactly one FAIL naming
+      "Adlington" as not this branch's catchment (plus an expected collateral
+      FAIL on the description character count, an artefact of the two-
+      character length change, not a new finding). Standing Q64 address-line
+      WARN present and unchanged throughout; no cross-firing on any other pack.
+      File restored, sha256 reconfirmed identical; full 36-checker suite
+      re-run clean after the final restore. No in-repo defect found: both
+      catchment rules already correctly protect this pack's genuine catchment
+      mentions in both directions, now proven by injection. No checker logic,
+      generator, page, pack or branches.json content changed. LIVE: Claude in
+      Chrome not connected (Q59), not retried; these rules govern pack copy
+      pasted by a human into a Google Business Profile field, not a URL a
+      read-only fetch can verify. QUESTIONS: none raised, 100 total, 47 open,
+      unchanged. Forward note: the two catchment rules remain unproven by
+      injection against every other pack carrying a >=3-town catchment run
+      (candidates: fishlocks-ainsdale.md, tiffenbergs-aintree.md, and any
+      McCanns/Scorah pack whose services section lists three towns) - a
+      candidate set for a future pass.
+      See audits/fishlocks-eccleston-gbp-pack-catchment-order-membership-4.8-sixteenth-2026-09-09.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
