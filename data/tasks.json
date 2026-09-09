@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-08T06:10:55Z",
+  "generated_at": "2026-09-09T06:10:32Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 39,
-    "overdue": 19,
+    "total": 36,
+    "overdue": 16,
     "due_next_7_days": 0,
     "no_due_date": 17
   },
@@ -59,16 +59,6 @@
         "Rishi WORK"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217113772351270"
-    },
-    {
-      "gid": "1217436227606267",
-      "name": "Add SpeedButton (private prescribing) to the monthly board pack, monthly portal page and commission tracker",
-      "due_on": "2026-08-13",
-      "overdue": true,
-      "projects": [
-        "Rishi WORK"
-      ],
-      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217436227606267"
     },
     {
       "gid": "1214136972182247",
@@ -175,22 +165,6 @@
         "Rishi WORK"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373771172802"
-    },
-    {
-      "gid": "1217891833570271",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-08-28",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217891833570271"
-    },
-    {
-      "gid": "1218138727890542",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-09-04",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218138727890542"
     },
     {
       "gid": "1218234843096380",
