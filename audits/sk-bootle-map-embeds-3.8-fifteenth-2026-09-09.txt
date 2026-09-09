@@ -1,0 +1,135 @@
+Item 3.8 quality pass (fifteenth), SK Chemists Bootle - tools/check-map-embeds.js
+Run: 2026-09-09 (unattended scheduled run via Cowork sandbox mcp__workspace__bash)
+
+BASELINE (self-correction before this pass's own work began)
+- Full 36-checker sweep at run start found check-postcodes.js failing: the
+  immediately preceding run (item 3.6 quality pass, fifteenth, committed
+  earlier the same day) had quoted two fabricated injection postcodes,
+  L17 7BX and L17 9BP, in audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt
+  without adding them to tools/check-postcodes.js's NARRATIVE_POSTCODES list -
+  the same recurring self-correction class this repo has now hit ten times
+  (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG, L20 3ER, WA14 9ZZ,
+  ZZ99 9ZZ, SK7 3AB, and now these two). Fixed by adding both entries with a
+  reason and this pass's name before doing any of this item's own work.
+  Confirmed clean afterwards: 0 failures, 3 pre-existing UNOWNED warnings
+  unrelated to this fix.
+
+BASELINE (this item)
+- sha256(branches.json) = 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+- Full 36-checker suite run individually: 0 failures (after the postcode fix above).
+- 217 files under modules/ and core/ sha256-hashed before any generator rebuild.
+
+FRESH ANGLE
+Fourteen prior passes on this item proved check-app-membership, check-nap,
+check-postcodes, check-seo-pattern, check-switch-copy, check-whatsapp-route,
+check-contraception-copy, check-branch-links, check-jsonld,
+check-booking-routes, check-weight-loss-copy and check-service-links against
+SK Chemists Bootle's own 12 pages, but never tools/check-map-embeds.js
+directly by injection against the official checker - the twelfth pass proved
+check-jsonld.js's own map-query rule (its rule 8) on this branch, but the
+dedicated six-rule map-embeds checker itself (coverage, address, agreement,
+encoding, directions, generators) had never been exercised here. This closes
+that gap, completing the same checker item 3.6's own fifteenth pass proved
+today against McCanns' two shared-domain branch landing pages, now proved
+against a single-branch, non-shared-domain page set instead.
+
+METHOD
+Backups taken by byte copy first (not git checkout), each restored the same
+way and sha256-reconfirmed identical before the next round:
+  uti-treatment-sk-chemists-bootle.html:            b123272e58d4237211d65d22d286a9da336b6ec5264bcbe85097daefa9d9aad4
+  weight-loss-clinic-sk-chemists-bootle.html:       3e23d3a7e9b7e333aa1dda9251e45749baecb80e7f883f1eef9de418ff9ee20d
+  switch-prescriptions-sk-chemists-bootle.html:     4e1dedc3a1279a30a5836c295afd6dc4eb492e6b4842c579e8e6e5d98d97c7ea
+
+Four injections, each on a freshly restored file:
+
+(1) RULE 3 + RULE 4 together. uti-treatment-sk-chemists-bootle.html's map
+    query changed from SK's own 516 Stanley Road, Bootle, L20 5DW to Smartts
+    Chemist Bootle's own real address (42 Fernhill Road, Bootle, L20 9HH) -
+    the exact adjacent different-brand neighbour CLAUDE.md names as the
+    estate's highest-risk copy-paste pair - with the contact card left
+    untouched. CAUGHT, exit 1, two simultaneous failures: [the address]
+    naming branches.json's real value, and [agreement] naming the
+    disagreement between the contact card and the map. Restored, sha256
+    reconfirmed identical.
+
+(2) RULE 3 alone. Same page, same foreign address, but this time written
+    into BOTH the map query and the contact card, so the two agree with
+    each other and only disagree with branches.json. CAUGHT, exit 1, exactly
+    one failure this time: [the address] only, confirming rule 4 (agreement)
+    stays silent when the two visible facts on the page agree with each
+    other, isolating rule 3 cleanly for the first time on this branch.
+    Restored, sha256 reconfirmed identical.
+
+(3) RULE 5 (encoding). weight-loss-clinic-sk-chemists-bootle.html's map
+    query de-encoded back to raw spaces and a raw comma
+    (q=516 Stanley Road, Bootle, L20 5DW instead of the percent-encoded
+    form). CAUGHT, exit 1: [encoding] "map query carries a raw space or
+    comma, which breaks the embed". Restored, sha256 reconfirmed identical.
+
+(4) RULE 2 (coverage). switch-prescriptions-sk-chemists-bootle.html's single
+    map iframe duplicated verbatim immediately after itself. CAUGHT, exit 1:
+    [coverage] "carries 2 map embed(s), expected exactly 1". Restored,
+    sha256 reconfirmed identical.
+
+All four caught on the first attempt with the expected rule-specific
+message. RULE 6 (directions button) was not exercised: SK Chemists Bootle
+has no branch landing page (it is not one of the six shared-domain
+branches), so no "Get directions" button exists on any of its 12 pages to
+inject against - already proven for the branches that do carry one (the six
+branch landing pages) on item 3.6's own fifteenth pass earlier today. RULE 1
+(generators) was read, not injected: all six generators still compose the
+query from [b.streetAddress, b.addressLocality, b.postalCode] and pass it
+through encodeURIComponent, confirmed by the checker's own generator scan
+(0 failures on that half both before and after this pass's work).
+
+POST-INJECTION VERIFICATION
+- All three target files confirmed sha256-identical to their pre-round
+  backups after every restore (shown above, matched each time).
+- Full 36-checker suite re-run individually: 36/36 exit 0.
+- All six generators rebuilt (build-branch-landing-pages.js,
+  build-contraception-pages.js, build-service-pages.js,
+  build-switch-pages.js, build-travel-clinic-pages.js,
+  build-weight-loss-pages.js): combined sha256 of every file under modules/
+  and core/ (217 files) identical before and after, byte for byte (diff
+  produced no output).
+- git status --porcelain -- modules core branches.json gbp-packs tools:
+  empty except for the deliberate tools/check-postcodes.js NARRATIVE_POSTCODES
+  addition described above.
+
+RESULT
+Zero in-repo defect in SK Chemists Bootle's map data. All six rules of
+check-map-embeds.js were already correctly holding this branch's pages,
+including the two isolated address/agreement cases and the encoding and
+coverage rules, none of which had been proven against this branch's own
+files before. One genuine pre-existing checker-narrative gap found and
+fixed (the missing NARRATIVE_POSTCODES entries left by the immediately
+preceding run), not a page, pack, sheet, generator or branches.json defect.
+
+LIVE HALF
+Claude in Chrome confirmed not connected at answer pickup and again for
+this item (mcp__claude-in-chrome__navigate returned "Claude in Chrome is
+not connected"). Fell back to the established plain read-only GET route
+(curl, no interaction, no login). Network egress confirmed working
+(google.com and the branch's own homepage both 200) before drawing any
+conclusion. Three live pages read:
+  - uti-treatment-sk-chemists-bootle.html: HTTP 200, exactly one map embed,
+    map query and contact card both read "516 Stanley Road, Bootle, L20 5DW",
+    matching branches.json.
+  - switch-prescriptions-sk-chemists-bootle.html: HTTP 200, exactly one map
+    embed, same address, matching.
+  - weight-loss-clinic-sk-chemists-bootle.html: HTTP 200, exactly one map
+    embed, same address, matching.
+No live map discrepancy found on any of the three pages read. Two already-
+known, already-tracked live-only gaps reconfirmed unchanged (neither newly
+found this pass, neither a repo action): the weight-loss-clinic page's live
+JSON-LD still declares "@type": "MedicalBusiness" rather than "Pharmacy"
+(the item 3.10 generator fix has not been repasted into this specific live
+page, matching the twelfth pass's 2026-09-05 finding and the fourteenth
+pass's Q99 note about a second, site-wide JSON-LD block this repo cannot
+see); the switch page's "usually is not" sentence still carries the
+pre-Q7/5.1 mojibake em dash (matching the fifth, seventh, ninth and tenth
+passes' own reconfirmations of the same estate-wide switch-page repaste-lag
+pattern). No new question raised.
+
+No checker logic changed beyond the NARRATIVE_POSTCODES self-correction. No
+generator, page, pack, sheet or branches.json content changed.

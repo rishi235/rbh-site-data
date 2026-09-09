@@ -6414,6 +6414,113 @@ Done 2026-09-08 (fourteenth pass).
       checked. Recommended option in Q99: check the remaining fourteen sites
       before deciding whether/how to change the site-wide block. Evidence in
       audits/verify-3.8-2026-09-08-fourteenth.txt.
+      Quality pass 2026-09-09 (fifteenth, unattended scheduled run via
+      Cowork). Taken because all 8 unchecked AGENT_WORKLIST.md lines confirmed
+      [BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both items under Q60
+      [6.4, 6.5], 6.6); item-selection method unchanged (per-item last-
+      touching-commit timestamp across the standing rotation pool, out-of-
+      rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded, stalest wins,
+      re-derived via `git log -1 --format=%ad -L<range>:AGENT_WORKLIST.md`
+      per item). 3.8 was stalest at 2026-09-06T18:47:44+01:00, clear of 6.3
+      (2026-09-06T19:44:47+01:00, the only other candidate checked closely)
+      and every item already touched today (3.6, 3.12, 5.1, 4.11). Answer
+      pickup (step 3): mcp__claude-in-chrome__navigate against the standing
+      portal URL returned "Claude in Chrome is not connected" - standing
+      Q59, unchanged; logged and carried on, no alternative route attempted.
+      QUESTIONS.json read in full: 100 total, 47 open, none answered by
+      pickup this run. AUTONOMOUS WINDOW (step 4): no "Standing authorisation
+      - autonomous window" heading present at the top of AGENT_LOG.md at run
+      start, so not applicable.
+      SELF-CORRECTION BEFORE THIS ITEM'S OWN WORK. The run-start full
+      36-checker sweep found tools/check-postcodes.js failing: the
+      immediately preceding run today (item 3.6's own fifteenth pass) had
+      committed audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt
+      quoting two fabricated injection postcodes, L17 7BX and L17 9BP,
+      without adding them to NARRATIVE_POSTCODES - the same recurring gap
+      this list has now closed ten times (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH,
+      L9 9AA, L21 8JG, L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, and now these
+      two together). Fixed first, before any of this pass's own work, by
+      adding both entries with a reason and this pass's name; check-
+      postcodes.js confirmed clean afterwards (0 failures, 3 pre-existing
+      UNOWNED warnings unrelated).
+      BASELINE (this item). sha256(branches.json) =
+      904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e. Full
+      36-checker suite run individually after the postcode fix: 0 failures.
+      217 files under modules/ and core/ sha256-hashed before any generator
+      rebuild.
+      FRESH ANGLE. Fourteen prior passes proved check-app-membership, check-
+      nap, check-postcodes, check-seo-pattern, check-switch-copy, check-
+      whatsapp-route, check-contraception-copy, check-branch-links, check-
+      jsonld, check-booking-routes, check-weight-loss-copy and check-
+      service-links against SK Chemists Bootle's own 12 pages, but never
+      tools/check-map-embeds.js directly by injection against the official
+      checker - the twelfth pass proved check-jsonld.js's own map-query rule
+      (rule 8) here, but the dedicated six-rule map-embeds checker itself
+      (coverage, address, agreement, encoding, directions, generators) had
+      never been exercised on this branch. This closes that gap, the same
+      checker item 3.6's own fifteenth pass proved today against McCanns'
+      shared-domain branch landing pages, now proved against a single-
+      branch, non-shared-domain page set instead.
+      METHOD. Byte-copy backups taken first (not git checkout), each
+      restored the same way and sha256-reconfirmed identical before the
+      next round. Four injections: (1) RULE 3 + RULE 4 together - uti-
+      treatment-sk-chemists-bootle.html's map query changed to Smartts
+      Chemist Bootle's own real address (42 Fernhill Road, Bootle, L20 9HH),
+      the exact adjacent different-brand neighbour CLAUDE.md names as the
+      estate's highest-risk copy-paste pair, contact card left untouched -
+      CAUGHT, exit 1, two simultaneous failures ([the address] naming
+      branches.json's real value; [agreement] naming the contact-card/map
+      disagreement). (2) RULE 3 alone - same foreign address written into
+      BOTH the map query and the contact card so the two agree with each
+      other and only disagree with branches.json - CAUGHT, exit 1, exactly
+      one failure this time ([the address] only), isolating rule 3 cleanly
+      from rule 4 for the first time on this branch. (3) RULE 5 (encoding) -
+      weight-loss-clinic-sk-chemists-bootle.html's map query de-encoded back
+      to raw spaces and a raw comma - CAUGHT, exit 1: "map query carries a
+      raw space or comma, which breaks the embed". (4) RULE 2 (coverage) -
+      switch-prescriptions-sk-chemists-bootle.html's single map iframe
+      duplicated verbatim - CAUGHT, exit 1: "carries 2 map embed(s),
+      expected exactly 1". All four caught first attempt with the expected
+      rule-specific message; all three target files sha256-reconfirmed
+      identical to their pre-round backups after every restore. RULE 6
+      (directions) not exercised: SK Bootle has no branch landing page (not
+      one of the six shared-domain branches), so no "Get directions" button
+      exists on any of its 12 pages - already proven on the branches that do
+      carry one by item 3.6's own fifteenth pass earlier today. RULE 1
+      (generators) read, not injected: all six still compose the query from
+      the three address fields through encodeURIComponent (0 failures on
+      that half throughout).
+      POST-INJECTION. Full 36-checker suite re-run individually: 36/36 exit
+      0. All six generators rebuilt; combined sha256 of all 217 files under
+      modules/ and core/ identical before and after, byte for byte. git
+      status --porcelain -- modules core branches.json gbp-packs tools:
+      empty except the deliberate check-postcodes.js NARRATIVE_POSTCODES
+      addition above.
+      RESULT. Zero in-repo defect in SK Chemists Bootle's map data: all six
+      rules of check-map-embeds.js were already correctly holding this
+      branch's pages, including the two isolated address/agreement cases
+      and the encoding and coverage rules, none proven against this branch
+      before. One genuine pre-existing checker-narrative gap found and
+      fixed (the missing NARRATIVE_POSTCODES entries left by the
+      immediately preceding run), not a page, pack, sheet, generator or
+      branches.json defect.
+      LIVE HALF. Claude in Chrome confirmed not connected at answer pickup
+      and again for this item; fell back to the established plain read-only
+      GET route (curl, no interaction, no login). Network egress confirmed
+      working (google.com and the branch's own homepage both 200) before
+      drawing any conclusion. Three live pages read, all HTTP 200 with
+      exactly one map embed each and the map query and contact card both
+      reading "516 Stanley Road, Bootle, L20 5DW", matching branches.json:
+      uti-treatment, switch-prescriptions, weight-loss-clinic. No live map
+      discrepancy found. Two already-known, already-tracked live-only gaps
+      reconfirmed unchanged, neither newly found: the weight-loss-clinic
+      page's live JSON-LD still declares "@type": "MedicalBusiness" rather
+      than "Pharmacy" (matching the twelfth pass's 2026-09-05 finding and
+      the fourteenth pass's Q99 note); the switch page's "usually is not"
+      sentence still carries the pre-Q7/5.1 mojibake em dash (matching the
+      fifth, seventh, ninth and tenth passes' own reconfirmations). No new
+      question raised. Evidence in
+      audits/sk-bootle-map-embeds-3.8-fifteenth-2026-09-09.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
