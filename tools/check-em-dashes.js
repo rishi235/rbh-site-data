@@ -53,6 +53,11 @@
       on<event>="" handler or an href="javascript:..." URI. Added on the item
       5.1 quality pass (fifteenth), 2026-09-08 - see "Inline attribute
       values" below
+    - the same source-level escape inside a SWITCH BANNER's own inline
+      <style>/<script> blocks and attributes, not only the ASCII-only line
+      scan every banner already got. Added on the item 5.1 quality pass
+      (sixteenth), 2026-09-09 - see "A banner ALSO carries..." above
+      checkBannerFile
     - an em dash or en dash, literal or entity, in a string value in the
       RUN-TIME DATA the live code fetches, meaning branches.json, which
       core/site-data.js pulls from jsDelivr and modules/emar/emar.js renders
@@ -772,6 +777,56 @@ function checkPasteSheet(file){
 // page, nothing here is invisible to the paste: the whole file is typed into
 // one field, and a character that field cannot carry is a rendering fault
 // wherever in the file it sits.
+//
+// A banner ALSO carries a real inline <style> block and a real inline
+// <script> block - it is pasted whole into Weebly's site-wide Header Code
+// field, so both are live HTML, CSS and JS the moment somebody pastes it,
+// exactly as much as an inline <style>/<script> block or a style=""/
+// on<event>="" attribute on a generated page is. Found on the item 5.1
+// quality pass (sixteenth), 2026-09-09, one turn past the fourteenth pass's
+// inline-block fix and the fifteenth pass's inline-attribute fix and the same
+// shape both times over: checkBannerFile only ever ran the ASCII-only line
+// scan above. It never called checkEmbeddedBlocks or checkEmbeddedAttributes,
+// so a JS unicode escape ("—") or a CSS hex escape ("\2014") written
+// inside a banner's own <style> block, <script> block, or a style=""
+// attribute on an element it builds, is PURE ASCII by construction - the
+// whole reason those escape forms were added as a rule in the first place -
+// so the ASCII-only test cannot see it, and nothing else in this function
+// was reading the block or attribute text at all.
+//
+// It is not hypothetical. Every one of the 15 banner files carries a real
+// <style> block (the fixed header bar) and a real <script> block that builds
+// a per-branch sentence with innerHTML ("Change to " + BRAND + " in 30
+// seconds."), the identical pattern service.js was found doing on the item
+// 5.1 quality pass (2026-08-11) that started this item's run of findings.
+//
+// Proved by injection rather than argued, in an isolated mirror (no .git, so
+// the tracked repo was never opened for writing during the injection round):
+// (a) a CSS hex escape ("\2014") added as a new declaration inside the real
+// <style> block of modules/switch/pages/banners/switch-prescriptions-cherry-
+// lane-walton.txt; (b) a JS unicode escape (the literal 6-character text
+// backslash-u-2014, built with chr(92) to rule out the injection script's own
+// string-escape handling silently decoding it first) added inside the real
+// innerHTML string in the same file's <script> block. Both passed the
+// unfixed checker with exit 0, wrongly clean - the same signature this item
+// has now found across pages, live module code, inline blocks and inline
+// attributes, this time on the one file type held to a stricter, ASCII-only
+// rule rather than a dash rule. Restored by direct write-back and
+// sha256-reconfirmed identical to the pre-injection file
+// (02a7a8b328b5b29b3e559cb5a9a6231acca5dbb3ad9556b70d87b42c374b5e01) after
+// each case, and the full 233-file baseline count reconfirmed byte-identical
+// before and after the whole exercise.
+//
+// FIXED by running checkEmbeddedBlocks and checkEmbeddedAttributes over the
+// banner text in addition to, not instead of, the existing ASCII-only line
+// scan - the same two functions checkHtmlFile already calls for a generated
+// page. Read from the HTML-comment-blanked text, same convention as
+// checkHtmlFile, so the leading build comment naming the paste destination is
+// not itself scanned for a source-level escape (it has none today; blanking
+// it only keeps this consistent with every other file type). The ASCII-only
+// scan above still runs on the raw, un-blanked text exactly as before, so a
+// literal non-ASCII character anywhere, including inside a comment, still
+// fails the run precisely as it always has.
 function checkBannerFile(file){
   const raw = fs.readFileSync(file, "utf8");
   notes.filesScanned++;
@@ -789,6 +844,9 @@ function checkBannerFile(file){
       text: line.trim().slice(0, 140)
     });
   });
+  const visible = blankComments(raw);
+  checkEmbeddedBlocks(visible, file);
+  checkEmbeddedAttributes(visible, file);
 }
 
 // A GBP pack fails on ANY non-ASCII character and on ANY dash entity. The

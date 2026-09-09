@@ -18899,6 +18899,121 @@ standing Q87/Q96. The write half (add, commit, push, and the status-page
 publish) was carried out via `mcp__Windows-MCP__PowerShell` against the
 real, canonical C:\Dev\rbh-site-data working copy on the host - see the top
 of AGENT_LOG.md for the exact commands and their output.
+
+Quality pass 2026-09-09 (sixteenth). UNATTENDED SCHEDULED RUN, Cowork sandbox
+`mcp__workspace__bash` for read/edit work and injection proofs;
+`mcp__Windows-MCP__PowerShell` against the real C:\Dev\rbh-site-data working
+copy for the git write half, since the sandbox's own FUSE mount left a
+non-stale-by-age but process-free `.git/index.lock` (and, earlier, a
+`.git/HEAD.lock`) behind after normal read commands, matching the standing
+Q87/Q96 lock-quirk this file has recorded for prior passes; `ps aux`/
+`Get-Process` confirmed no git process running on either side before either
+lock was cleared by rename/removal. `mcp__claude-in-chrome__list_connected_browsers`
+returned `[]` - not connected, standing Q59; no answer pickup attempted by
+another route (47 open questions, unchanged). No "Standing authorisation -
+autonomous window" heading present at the top of AGENT_LOG.md, so no
+autonomous decisions applied.
+
+ITEM SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep, so the quality-pass fallback applied. `git log --format="%ad
+%s" --date=iso -- AGENT_WORKLIST.md` filtered to items outside the standing
+out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) showed 5.1 last
+touched 2026-09-08T01:15:39+01:00, ahead of 3.12 (03:22:25) and 3.6
+(04:45:13), matching the fifteenth pass's own forward note exactly. Chosen:
+5.1.
+
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 exit 0. `git status --porcelain -- modules core` empty, so no
+regeneration was needed as a baseline step.
+
+WORK DONE. Read tools/check-em-dashes.js in full (1142 lines) together with
+this item's own fifteen-pass history before looking for a sixteenth axis. The
+fourteenth and fifteenth passes had closed the gap between an inline
+<style>/<script> ELEMENT BODY and an inline ATTRIBUTE VALUE on a GENERATED
+PAGE. Neither had looked at the one file type in this checker held to a
+different rule altogether: a switch banner (modules/switch/pages/banners/
+*.txt), pasted whole into Weebly's site-wide Header Code field. Read all 15
+banner files and confirmed each carries a real <style> block (the fixed
+header bar CSS) and a real <script> block that builds a per-branch sentence
+with innerHTML ("Change to " + BRAND + " in 30 seconds.") - the identical
+runtime-innerHTML pattern service.js was found doing on the very first item
+5.1 pass, 2026-08-11. checkBannerFile only ever ran the ASCII-only line scan;
+it never called checkEmbeddedBlocks or checkEmbeddedAttributes, so a JS
+unicode escape or a CSS hex escape written inside a banner's own <style>/
+<script> text or a style="" attribute is pure ASCII by construction - the
+whole reason those escape forms exist as a rule - and would pass the
+ASCII-only test silently, then decode to a real dash the moment a browser
+evaluates the CSS or runs the JS.
+
+Proved by injection rather than argued, in an isolated mirror (no .git, so
+the tracked repo was never opened for writing during the injection round;
+`git status --porcelain -- modules gbp-packs branches.json core` confirmed
+empty before and after, and the target banner's own sha256
+(02a7a8b328b5b29b3e559cb5a9a6231acca5dbb3ad9556b70d87b42c374b5e01) unchanged
+throughout). Baseline in the mirror matched the tracked repo's own steady
+state exactly (233 files scanned, 200/591/1, zero failures). Two cases
+against the UNFIXED checker, both missed (exit 0, wrongly clean): (a) a CSS
+hex escape ("\2014") added as a new declaration inside the real <style>
+block of switch-prescriptions-cherry-lane-walton.txt; (b) a JS unicode escape
+(the literal 6-character text backslash-u-2014, built with chr(92) to rule
+out the injection script's own string-escape handling silently decoding it
+first, the same precaution the fifteenth pass's own test needed) added inside
+the real innerHTML string in the same file's <script> block. A control of a
+non-dash escape ("\0041", the letter A) in the same style block stayed
+correctly clean in the same run.
+
+FIXED IN REPO, no sign-off needed, same as this item's fourteen prior
+checker-widening fixes: checkBannerFile now also calls checkEmbeddedBlocks
+and checkEmbeddedAttributes - the same two functions checkHtmlFile already
+calls for a generated page - over the HTML-comment-blanked banner text, in
+addition to, not instead of, the existing ASCII-only line scan, which still
+runs on the raw un-blanked text exactly as before.
+
+Re-ran the fixed checker against the same isolated mirror with the same two
+injected cases: both now CAUGHT, each at the correct line, each correctly
+worded ("... (CSS hex escape) in inline <style> block" / "... (JS/JSON
+unicode escape) in inline <script> block"). The non-dash control stayed
+correctly clean. An independent, standalone probe script
+(audits/em-dash-banner-embedded-probe-2026-09-09.js) repeats both catches,
+the control and the tracked-file-untouched confirmation as one
+self-contained run against the tracked repo's own real checker: `node
+audits/em-dash-banner-embedded-probe-2026-09-09.js` prints "ALL CHECKS
+PASSED" and exits 0.
+
+Full 36-checker suite re-run individually against the real tracked repo both
+before and after the fix: 36/36 exit 0 both times, and check-em-dashes.js's
+own steady-state counts are byte-identical before and after (233 files
+scanned, 200/591/1), confirming the fix changes matching logic without
+changing any verdict on real content - none of the 15 banner files currently
+carries a style="" escape, an on<event>= handler, an href="javascript:" URI,
+or an escape inside its <style>/<script> block. No generator or
+branches.json touched, so regeneration was not re-run as a baseline step;
+`git status --porcelain -- modules core` confirmed empty both before this
+pass started and after the fix landed.
+
+No further defect found beyond the banner-embedded-content gap itself; no
+generator, branches.json, page, pack or paste sheet changed. LIVE HALF: not
+read this run (Claude in Chrome not connected, standing Q59). No new
+question raised - this is a checker widening, not a live-facing or
+patient-facing decision. Sixteenth consecutive clean pass on the repo half,
+and another (after the fifth, sixth, seventh, tenth, eleventh, thirteenth,
+fourteenth and fifteenth passes) to find a defect in the checker's own
+matching or scanning logic rather than in a page, pack, sheet or generator -
+one whole file TYPE uncovered this time (the banner) rather than one part of
+an HTML file. Evidence:
+this paragraph, the in-place check-em-dashes.js comments, and
+audits/em-dash-banner-embedded-probe-2026-09-09.js as an independently
+re-runnable proof.
+
+PUSH/PUBLISH (steps 9-10): same route as the fifteenth pass -
+`mcp__workspace__bash` has no usable git credential this session (SSH
+host-key failure), so the write half (add, commit, push, and the status-page
+publish) was carried out via `mcp__Windows-MCP__PowerShell` against the
+real, canonical C:\Dev\rbh-site-data working copy, after clearing that same
+host's own orphaned `.git/index.lock` (0 bytes, created moments earlier by
+this run's own read commands, no git process running) by direct removal -
+see the top of AGENT_LOG.md for the exact commands and their output.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
