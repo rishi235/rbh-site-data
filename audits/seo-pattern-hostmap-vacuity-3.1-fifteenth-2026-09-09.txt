@@ -1,0 +1,91 @@
+Item 3.1 quality pass (fifteenth), 2026-09-09 - unattended scheduled run
+tools/check-seo-pattern.js - hostMap vacuity guards, proved by injection for
+the first time in fifteen passes.
+
+CONTEXT
+Fourteen prior passes had proved: the pattern itself clean on every
+regeneration; the condition-slug mirror replaced by data-under-test reading
+from build-service-pages.js; the "untyped file fails" rule; the cross-town
+absence rule (including its own OTHER_TOWNS vacuity guard, hit incidentally
+during the fourteenth pass's brandLabel-blanking round); the ONE H1 rule;
+the service-word assertion on title and H1; and, on the fourteenth pass, four
+zero-boundary guards (h1Count===0, titleLineCount===0, descLineCount===0,
+dm-null, sourceChecked===0).
+
+Re-read the full 819-line checker end to end against all fourteen prior
+passes' own accounts (grepped for every fail() message text this item's
+history already names). Two guards had never been deliberately exercised:
+line 158-159 ("branches.json declares no hostMap, so the shared-domain
+sister-town rule cannot be derived") and line 182-186 ("hostMap yields no
+host serving two live branches, so the sister-town rule would assert
+nothing..."). Both are vacuity guards on the sister-town (cross-town) rule's
+own hostMap derivation, distinct from the OTHER_TOWNS vacuity guard already
+proved on the fourteenth pass.
+
+METHOD
+The checker reads branches.json via path.join(__dirname, "..", "branches.json"),
+always the real tracked file, so proving it needed a full scratch copy rather
+than a parameter override. Built at
+/sessions/vibrant-modest-dirac/scratch_31 (tools/, modules/, core/,
+branches.json copied from the tracked repo; no .git, no other repo files).
+Note for future passes: this run's Cowork sandbox blocks writes to /tmp
+("Permission denied" on mkdir/write, apparently persistent debris from many
+prior sessions already occupying it) as well as deletes inside the mounted
+rbh-site-data working copy itself (the standing Q87/Q96 quirk). A location
+directly under /sessions/vibrant-modest-dirac/ (outside both mtmp and the
+mounted repo) was writable and used instead.
+
+Baseline in the scratch copy: node tools/check-seo-pattern.js -> 177 pages
+checked, 0 untyped, 0 failures - matching the tracked repo exactly.
+sha256(branches.json) = 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e,
+matching the tracked file.
+
+Round 1: deleted the hostMap key entirely from the scratch branches.json via
+a small Node mutation script. CAUGHT on the first attempt: exactly the
+expected message, "check-seo-pattern FAIL: branches.json declares no
+hostMap, so the shared-domain sister-town rule cannot be derived", and the
+run halted before reaching any per-page check (no spurious "0 pages
+checked" line printed after it, since fail() at module load level runs
+before DIRS.forEach).
+
+Restored from the tracked repo's branches.json, sha256-reconfirmed
+identical to baseline before round 2.
+
+Round 2: kept hostMap present but rewrote every host's id array down to a
+single id, so sharedHosts stays 0 (the rule's own definition of "no host
+serving two live branches"). CAUGHT on the first attempt: exactly the
+expected message, "check-seo-pattern FAIL: hostMap yields no host serving
+two live branches, so the sister-town rule would assert nothing. Three
+shared domains existed when this rule was written. Either the derivation is
+broken, or the domains have genuinely been split and this guard should be
+removed on purpose."
+
+Restored again, sha256-reconfirmed identical, re-ran the checker in the
+scratch copy: 177 pages checked, 0 untyped, 0 failures, matching baseline
+exactly.
+
+TRACKED REPO
+sha256(branches.json) in the tracked working copy confirmed identical
+before and after this pass's work (904de09b...969e1e both times). No file
+under the tracked tree was ever opened for writing during either injection
+round - only the scratch copy was mutated.
+
+FULL SUITE
+All 36 tools/check-*.js run individually against the tracked repo after this
+pass's work: 0 failures across the board.
+
+RESULT
+Zero in-repo defect. Both hostMap vacuity guards were already correctly
+written and fire exactly as documented; now proven by injection for the
+first time in this item's fifteen-pass history. No checker, page, generator
+or branches.json entry changed.
+
+LIVE HALF
+Not attempted this pass. Claude in Chrome was not loaded/available in this
+session in a form that could be confirmed connected without an interactive
+approval; no browser read was attempted. Prior passes' live findings for
+this item (Q71 sister-town pins, Q64 address post-town question) stand
+unchanged, not re-claimed.
+
+QUESTIONS
+None raised this pass.

@@ -2087,6 +2087,20 @@ title and H1 both the pattern verbatim, unchanged from every prior pass. The
 Q71/mccannspharmacy.co.uk 404 finding not re-read this pass, treated as
 unchanged. No new live finding, no new question raised. Evidence in
 audits/seo-pattern-check-2026-09-08-fourteenth.txt.
+Quality pass (fifteenth), 2026-09-09 (unattended scheduled run, Cowork
+sandbox): proved tools/check-seo-pattern.js's two hostMap vacuity guards by
+injection for the first time in fifteen passes - "declares no hostMap" and
+"hostMap yields no host serving two live branches" (lines 158-159 and
+182-186), both distinct from the OTHER_TOWNS vacuity guard the fourteenth
+pass already exercised. Baseline: scratch copy of the checker plus
+modules/core/branches.json matched the tracked repo exactly (177 pages, 0
+failures, branches.json sha256 904de09b...969e1e). Two rounds in the scratch
+copy only (hostMap deleted; hostMap present but every host cut to one id),
+each restored and sha256-reconfirmed before the next: both caught on the
+first attempt with the exact documented message. Tracked repo's
+branches.json confirmed byte-identical throughout; full 36-checker suite
+clean before and after. Zero in-repo defect, no new question. Evidence in
+audits/seo-pattern-hostmap-vacuity-3.1-fifteenth-2026-09-09.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
