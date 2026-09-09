@@ -10626,6 +10626,67 @@ Pharmacy First wording to the NHS service description.
       tracked change. No new question. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-08-fifteenth.txt.
       Done 2026-09-08
+      Quality pass 2026-09-09 (sixteenth, unattended run): baseline sha256 of
+      gbp-packs/fishlocks-ainsdale.md unchanged since the twelfth pass
+      (7592bad3...); all 36 checkers pass at the start. FRESH ANGLE: the
+      thirteenth pass had closed out all ten genuine gbp-packs/ readers at
+      the checker level; the fourteenth and fifteenth passes moved to
+      granular rules within check-gbp-packs.js (OUTCOME_PROMISE, photo shot
+      list). This pass did the same for the two catchment-list rules
+      (areaOrder lead-town, membership), proven the same day against Scorah
+      Chemists Bramhall's own pack on the item 4.4 seventeenth pass but never
+      against this pack's own copy across fifteen prior passes - confirmed
+      by grep, zero hits for "areaOrder" or "catchment list" in this item's
+      own history. This pack carries three genuine catchment runs (business
+      description, Services section, Post B), all reading "Ainsdale,
+      Birkdale and Southport" or "across"/"around" variants, matching
+      branches.json's serviceAreaList exactly. Three injections on a
+      .git-less tar scratch copy at
+      /sessions/brave-confident-ride/mnt/outputs/scratch-41 (the sandbox's
+      /tmp was at 98% full), each restored from a byte-for-byte backup and
+      sha256/cmp-reconfirmed identical before the next: (1) AREAORDER -
+      description's run reordered to lead with "Birkdale" instead of
+      "Ainsdale" - CAUGHT first attempt, "catchment list leads with
+      \"Birkdale\", but this branch's seoTown ... is \"Ainsdale\"...". (2)
+      MEMBERSHIP - Services section's run had its last town changed to
+      "Bootle", a real town belonging to Smartts Chemist and SK Chemists but
+      not this branch's serviceAreaList - CAUGHT first attempt by TWO
+      independent rules at once: the membership rule itself and, because
+      Bootle is a real sister branch's town rather than an unowned place,
+      the separate foreign-branch-town rule too - both correctly and
+      independently, not a conflict. (3) CONTROL - Post B's run had its
+      non-lead elements reordered (lead town and set membership both left
+      intact) - correctly PASSED, exit 0, only the two pre-existing WARNs
+      (Q72, Q64), confirming both rules are scoped exactly as documented:
+      areaOrder cares only about the first element, membership cares only
+      about set membership, order elsewhere is unpoliced. All three fired or
+      passed on the first attempt, on their intended rule(s) only, with no
+      cross-firing on the two untouched catchment runs each time. Final
+      restore sha256/cmp-reconfirmed identical to baseline. FULL SUITE,
+      POST-RESTORE: 35 of 36 checkers re-run individually against the
+      scratch copy, 0 failures; check-cdn-pins.js failed on the scratch copy
+      only ("does not resolve in git", the same .git-less-copy artefact the
+      item 4.4 seventeenth pass recorded the same day), separately re-run
+      directly against the tracked repo where it exits 0. Tracked repo
+      `git status --porcelain -- gbp-packs/fishlocks-ainsdale.md
+      tools/check-gbp-packs.js` empty both before and after. No generator
+      writes gbp-packs/, so no regeneration needed. LIVE HALF via the
+      built-in Claude Browser MCP (read-only, no click/type/submit/login):
+      pharmacy-fishlocks-ainsdale.html (profile-website target) still 404
+      (Q35, answered but not yet applied); pharmacy-first-fishlocks-
+      ainsdale.html (Post A's target) 200 and reads correctly (phone,
+      address, all seven Pharmacy First conditions and NHS age ranges
+      correct); site footer reconfirms the standing Q91 misspelling
+      ("Fishlock Pharmacy"/"Fishlock Chemist") unchanged, still no
+      repo-side fix available; footer hours line matches branches.json
+      exactly, no drift; sitemap.xml lastmod for every fishlocks-ainsdale
+      URL still 2026-08-14T17:32:10+00:00, unchanged, confirming no
+      republish. RESULT: zero in-repo defect. Both catchment-list rules and
+      the foreign-branch-town rule already correctly protect this pack; now
+      proven directly by injection for the first time in sixteen passes. No
+      new question. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-09-sixteenth.txt.
+      Done 2026-09-09
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

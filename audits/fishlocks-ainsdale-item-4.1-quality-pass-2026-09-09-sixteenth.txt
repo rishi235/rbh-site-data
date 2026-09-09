@@ -1,0 +1,145 @@
+ITEM 4.1 QUALITY PASS (SIXTEENTH) - Fishlocks Chemist Ainsdale GBP pack
+Date: 2026-09-09 (unattended scheduled run, audit-backlog-worker)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Rotation pool re-derived from first
+principles: grepped `^- \[x\]` headers for the 43 checked items, subtracted
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8),
+giving the same 36-item pool prior runs use. `git log -1 --format=%aI --all
+--grep="Item N.N " -i -- AGENT_WORKLIST.md` per item across all 36: 4.1 came
+out stalest at 2026-09-08T18:40:05+01:00, ahead of 3.2 (19:10:36), matching
+the preceding run's (item 4.4 seventeenth pass) own forward note exactly.
+Chosen: 4.1 (Fishlocks Chemist Ainsdale GBP pack).
+
+BASELINE
+gbp-packs/fishlocks-ainsdale.md sha256: matched every prior pass exactly
+(7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30). Full
+36-checker suite run clean before any change (0 failures, 17 pre-existing
+WARNs across the estate, including this pack's own two standing WARNs, Q72
+and Q64).
+
+FRESH ANGLE
+The thirteenth pass (2026-09-06) closed out all ten genuine gbp-packs/
+readers at the checker level for this pack. The fourteenth and fifteenth
+passes moved to granular RULES within check-gbp-packs.js not yet proven
+against this pack specifically: OUTCOME_PROMISE (fourteenth) and the photo
+shot list rule (fifteenth). This pass took the same granular-rule approach
+for the two catchment-list rules (areaOrder lead-town, membership), proven
+this same day against Scorah Chemists Bramhall's own pack on the item 4.4
+seventeenth pass but never against this pack's own copy across fifteen prior
+passes - confirmed by grep of this item's own history for "areaOrder",
+"catchment list leads" and "catchment list names": zero hits.
+
+Fishlocks Ainsdale's pack carries three genuine catchment runs, all matching
+branches.json's fishlocks_ainsdale.serviceAreaList (Ainsdale, Birkdale,
+Southport) in the same order: the business description ("serving Ainsdale,
+Birkdale and Southport", line 20), the Services section ("around Ainsdale,
+Birkdale and Southport", line 39) and Post B ("across Ainsdale, Birkdale and
+Southport", line 94).
+
+METHOD
+Scratch copy made via `tar --exclude='.git'` to
+/sessions/brave-confident-ride/mnt/outputs/scratch-41 (24MB, the sandbox's
+root filesystem was found at 98% full with 211MB free, so /tmp was avoided
+for the bulk copy per the item 4.4 seventeenth pass's own method note; the
+tracked repo itself was never opened for writing). Baseline sha256 confirmed
+identical on the scratch copy before any injection. Each injection was
+restored from a byte-for-byte backup at /tmp/fishlocks-baseline-backup.md and
+sha256/cmp-reconfirmed identical before the next.
+
+INJECTION 1, areaOrder rule - description's catchment run reordered to lead
+with "Birkdale" instead of "Ainsdale" ("serving Birkdale, Ainsdale and
+Southport"), membership and the other two runs left untouched. CAUGHT first
+attempt: "catchment list leads with \"Birkdale\", but this branch's seoTown
+in branches.json is \"Ainsdale\", which is the word every page it owns leads
+with... Found: \"Birkdale, Ainsdale and Southport\"".
+
+Restored, sha256/cmp-reconfirmed identical.
+
+INJECTION 2, membership rule - Services section's run had its last town
+changed from "Southport" to "Bootle", a real place belonging to two other
+branches (Smartts Chemist and SK Chemists) but nowhere in this branch's own
+serviceAreaList, lead town and the other two runs left untouched. CAUGHT
+first attempt, and by TWO independent rules at once rather than one: the
+membership rule itself ("catchment list names \"Bootle\", which is not in
+this branch's serviceAreaList in branches.json (Ainsdale, Birkdale,
+Southport)...") and, because Bootle happens to be a real sister branch's own
+town rather than an unowned place, the separate foreign-branch-town rule
+("the services section names \"Bootle\", which is the town of Smartts
+Chemist and SK Chemists..."). This is not a conflict: the membership rule is
+scoped to catchment membership regardless of whether the foreign word
+belongs to anyone, and the foreign-branch-town rule is scoped to any
+branch-owned word regardless of catchment context; a word that is both
+triggers both, correctly and independently.
+
+Restored, sha256/cmp-reconfirmed identical.
+
+CONTROL - Post B's run had its non-lead elements reordered ("across
+Ainsdale, Birkdale and Southport" -> "across Ainsdale, Southport and
+Birkdale"), lead town and set membership both left intact. Correctly PASSED,
+exit 0, no new FAIL beyond the two pre-existing WARNs (Q72, Q64) - confirms
+both rules are scoped exactly as documented: areaOrder cares only about the
+first element, membership cares only about set membership, order elsewhere
+is unpoliced.
+
+Final restore sha256/cmp-reconfirmed identical to baseline.
+
+All three injections (plus the control) fired or passed on the first
+attempt, on their intended rule(s) only, with no cross-firing on the two
+untouched catchment runs in the same file each time.
+
+FULL SUITE, POST-RESTORE
+35 of 36 checkers re-run individually against the scratch copy, 0 failures.
+check-cdn-pins.js failed on the scratch copy only, with "does not resolve in
+git" errors on the two CDN-pinned refs and the two runtime branches.json
+fetches - the same .git-less-copy artefact the item 4.4 seventeenth pass
+recorded the same day, not a defect: re-run directly against the tracked
+repo (which has .git), it exits 0 (confirmed, see below). Tracked repo
+`git status --porcelain -- gbp-packs/fishlocks-ainsdale.md
+tools/check-gbp-packs.js`: empty (untouched) both before and after. No
+generator writes gbp-packs/, so no regeneration needed.
+
+check-cdn-pins.js against the tracked repo directly: exit 0, 3 warnings, 7
+known issues awaiting a decision (all pre-existing and unrelated to this
+pack).
+
+LIVE HALF, read-only via the built-in Claude Browser MCP (preview_start /
+navigate / get_page_text; no click, type, submit or login of any kind):
+
+- pharmacy-fishlocks-ainsdale.html (the profile-website target the pack
+  holds back from pasting): still 404 (Q35, answered but not yet applied,
+  unchanged since the third pass on 2026-08-12).
+- pharmacy-first-fishlocks-ainsdale.html (Post A's target): 200, reads
+  correctly - phone 01704 575478, address 17 Station Road Ainsdale PR8 3HN,
+  all seven Pharmacy First conditions and their NHS age ranges present and
+  correct (UTI women 16-64, sore throat 5+, sinusitis 12+, earache 1-17,
+  impetigo 1+, shingles 18+, insect bite 1+).
+- Site footer reconfirmed carrying the standing Q91 finding unchanged: "Fishlock
+  Pharmacy, Ainsdale, Southport" and "Fishlock Chemist (GPHC no. ...)",
+  dropping the "s" item 1.1 standardised into every generated page. This
+  footer is hand-built Weebly content outside anything this repo generates
+  or checks (grep -rl "rbh-seo-footer" modules/ and equivalent both return
+  nothing for the branch/service page templates), so no repo-side fix
+  exists; already tracked under Q91, no new finding.
+- Ainsdale's hours line in the same footer reads "8.45am - 6:00pm" Mon-Fri,
+  Saturday and Sunday both "Closed" - matches branches.json exactly, no
+  drift.
+- sitemap.xml lastmod for every fishlocks-ainsdale URL still reads
+  2026-08-14T17:32:10+00:00, unchanged since prior passes' own reading,
+  confirming no republish since.
+
+RESULT
+Zero in-repo defect. Both catchment-list rules (areaOrder, membership) and
+the foreign-branch-town rule already correctly protect Fishlocks Chemist
+Ainsdale's own pack; now proven directly by injection for the first time in
+sixteen passes, closing the same gap the item 4.4 seventeenth pass closed
+for Scorah Chemists Bramhall the same day. No new question. QUESTIONS.json
+unchanged (101 total, 48 open).
+
+ANSWER PICKUP
+Built-in Claude Browser MCP against https://data.rbhealth.co.uk/api/feedback
+succeeded directly, no Cloudflare Access redirect. Newest portal entry
+present was still "AUDIT ANSWER Q52" (2026-09-01T22:44:51Z), matching every
+recent run's own finding. Nothing new to apply.
