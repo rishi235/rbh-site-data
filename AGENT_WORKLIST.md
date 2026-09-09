@@ -5003,6 +5003,64 @@ shared claim-detection pattern with a tense and person gap, now closed
 across all four checkers that use it. No new question raised: a plain,
 no-judgement-call pattern widening following the file's own established
 convention. Evidence: audits/verify-3.6-2026-09-08-fourteenth.txt.
+Quality pass 2026-09-09 (fifteenth, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout). Selected as the least recently
+verified item in the standing rotation pool (all 8 unblocked AGENT_WORKLIST.md
+lines confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+applied); the immediately preceding run's own "next stalest: 3.6, then 3.8,
+then 6.3" note (item 3.12's twelfth pass, this same day) was re-derived and
+confirmed rather than assumed.
+BASELINE: git status --porcelain -- modules core branches.json tools gbp-packs
+clean aside from two pre-existing untracked artifacts this pass did not
+create. Full 36-checker suite run individually: 36/36 exit 0.
+sha256(pharmacy-mccanns-aigburth.html) =
+0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841;
+sha256(pharmacy-mccanns-sandringham.html) =
+49cb571b4b7ad7b31c8d5bb522fe6e89f2b334fbbf9e98f3926bbc5adf2909b2.
+FRESH ANGLE: fourteen prior passes had proven eleven checkers against
+McCanns's own files but never tools/check-map-embeds.js, despite McCanns
+being one of only three shared-domain brands that gets a branch landing page
+carrying the "Get directions" button - the surface the checker's own header
+calls the one that drives a patient somewhere rather than just naming a
+shop.
+Full repo copied to /tmp scratch (no .git operations, so no injection touched
+the tracked file, avoiding the standing Q87/Q96 index.lock quirk). Six
+injections against the two McCanns branch landing pages, each restored by
+byte copy and sha256-reconfirmed identical before the next: (1) map query
+swapped to a fabricated Sandringham-shaped address while the contact card and
+directions button stayed at Aigburth's own - CAUGHT, three FAILs at once
+(address, agreement, directions), proving the three rules fire independently
+when only the map moves; (2) RULE 4 alone - contact card address changed by
+one character, map and directions untouched - CAUGHT, exactly one
+[agreement] FAIL; (3) RULE 6 alone - directions destination changed by one
+character, map and contact card untouched - CAUGHT, exactly one [directions]
+FAIL; (4) RULE 5 - a raw comma and space reintroduced into the map query -
+CAUGHT, exactly one [encoding] FAIL, caught before any value comparison as
+the checker's own design intends; (5) RULE 2, on Sandringham's page instead -
+the real map iframe block duplicated in place - CAUGHT, exactly one
+[coverage] FAIL, "carries 2 map embed(s)". Building injection 5 surfaced an
+address that reads oddly (Sandringham's page map decodes to "1b Aigburth
+Road, Liverpool, L17 4JP") - checked against branches.json directly before
+treating it as a finding: genuinely correct, both McCanns branches sit on
+the same road under different building numbers, not a defect.
+RESTORE: both files byte-copy restored and sha256-reconfirmed identical to
+baseline after every round and at the end. Full 36-checker suite re-run
+clean (36/36). All six generators rebuilt on the scratch copy: all exit 0,
+combined sha256 of the 189 files under modules/ and core/ byte-identical
+before and after. git status --porcelain -- modules core branches.json tools
+gbp-packs empty throughout (aside from the same two pre-existing untracked
+artifacts).
+RESULT: zero in-repo defect. check-map-embeds.js was already correctly
+holding all six of its rules against McCanns's two shared-domain landing
+pages, now demonstrated by injection for the first time in fifteen passes,
+including two rules (4 and 6) proven in isolation from each other and from
+rule 3 for the first time on this branch.
+LIVE HALF: not attempted. Claude in Chrome confirmed not connected at answer
+pickup (standing Q59); no other route tried, nothing clicked, typed or
+submitted anywhere. Prior passes' live findings for McCanns stand unclaimed
+and unchanged this pass.
+QUESTIONS: none raised this pass (47 open, unchanged). Evidence:
+audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

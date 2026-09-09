@@ -1,0 +1,114 @@
+Item 3.6 quality pass (fifteenth), 2026-09-09 - McCanns Chemist (Aigburth and Sandringham)
+tools/check-map-embeds.js proven by injection against McCanns for the first time in fifteen passes
+
+CONTEXT
+Fourteen prior passes had exercised eleven other checkers against McCanns's own
+files (check-branch-links, check-branch-identity, check-nap, check-jsonld,
+check-postcodes, check-seo-pattern, check-seo-keywords, check-em-dashes,
+check-service-links, check-whatsapp-route, check-app-membership,
+check-gbp-packs, check-widget-diaries, check-weight-loss-copy) but never
+check-map-embeds.js, despite McCanns being one of only three shared-domain
+brands (with Fishlocks and Scorah) that gets a branch landing page carrying
+the "Get directions" button - the one surface check-map-embeds.js's own header
+calls out as driving a patient somewhere, not just telling them where a shop
+is.
+
+BASELINE
+- git status --porcelain -- modules core branches.json tools gbp-packs: clean
+  aside from pre-existing untracked artifacts this pass did not create
+  (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+  notarealservice-fishlocks-ainsdale.html.bak).
+- Full 36-checker suite run individually before any change: 36/36 exit 0.
+- sha256(modules/branch/pages/pharmacy-mccanns-aigburth.html) =
+  0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841
+- sha256(modules/branch/pages/pharmacy-mccanns-sandringham.html) =
+  49cb571b4b7ad7b31c8d5bb522fe6e89f2b334fbbf9e98f3926bbc5adf2909b2
+- check-map-embeds.js baseline: 16 trading branches, 16 map addresses, 177
+  generated pages, 177 map embeds, 6 directions buttons, 6 generators
+  checked, 0 known exceptions, clean.
+
+METHOD
+Full repo copied to /tmp/rbh-scratch2 (with working tree, no .git operations
+needed) so no injection touched the tracked file, avoiding the standing
+Q87/Q96 index.lock quirk. Six injection rounds against McCanns Aigburth's and
+Sandringham's own branch landing pages, each restored by byte copy from a
+pre-round backup and sha256-reconfirmed identical to the baseline values
+above before the next round.
+
+INJECTIONS (all against modules/branch/pages/pharmacy-mccanns-aigburth.html
+unless noted)
+
+1. RULE 3 + cascading RULES 4 and 6 - map embed query changed to the sister
+   branch Sandringham's real address ("1 Sandringham Drive, Liverpool, L10
+   1LN", fabricated to differ from Sandringham's actual "1b Aigburth Road,
+   Liverpool, L17 4JP" so as not to be coincidentally valid) while the
+   contact card and directions button were left at Aigburth's own address.
+   CAUGHT: three FAILs at once - [the address] map does not match
+   branches.json; [agreement] contact card and map disagree; [directions]
+   directions button and map disagree. Demonstrates the three rules are
+   independent and all fire together when only the map moves.
+
+2. RULE 4 in isolation - contact card address altered by one character
+   (L17 7BP -> L17 7BX), map and directions button left untouched. CAUGHT:
+   exactly one FAIL, [agreement] only, confirming rule 4 does not depend on
+   rule 3 or 6 firing.
+
+3. RULE 6 in isolation - directions button destination altered by one
+   character (L17 7BP -> L17 9BP), map and contact card left untouched.
+   CAUGHT: exactly one FAIL, [directions] only.
+
+4. RULE 5 - encoding. A raw comma and space reintroduced into the map query
+   ("112%20Aigburth%20Road, Liverpool%2C%20L17%207BP"). CAUGHT: exactly one
+   FAIL, [encoding], "carries a raw space or comma, which breaks the embed" -
+   caught before the value comparison even runs, as the checker's own
+   comment says it should (a query that will not decode cannot be compared
+   to anything).
+
+5. RULE 2 - coverage, against modules/branch/pages/
+   pharmacy-mccanns-sandringham.html this time for variety. The real map
+   iframe block duplicated in place (two identical embeds on one page).
+   CAUGHT: exactly one FAIL, [coverage], "carries 2 map embed(s), expected
+   exactly 1".
+
+   Incidental confirmation while building this injection: Sandringham's own
+   map query decodes to "1b Aigburth Road, Liverpool, L17 4JP", which reads
+   oddly (an Aigburth Road address on the Sandringham page) but is genuinely
+   correct - branches.json's own mccanns_sandringham record carries
+   streetAddress "1b Aigburth Road", confirmed by direct read before treating
+   it as a finding. Not a defect; both McCanns branches happen to sit on the
+   same road under different building numbers, which is exactly the kind of
+   coincidence check-map-embeds.js's own header warns a text-only town check
+   would miss and this data-driven one does not.
+
+RESTORE AND RE-VERIFY
+Both target files restored by byte copy after every round; sha256 confirmed
+identical to the two baseline values above after each restore and again at
+the end. Full 36-checker suite re-run individually after the round: 36/36
+exit 0. git status --porcelain -- modules core branches.json tools gbp-packs
+empty (aside from the same two pre-existing untracked artifacts).
+
+GENERATOR REBUILD
+All six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) rebuilt on the
+scratch copy: all exit 0. Combined file list under modules/ and core/ (189
+files, *.html/*.js/*.css) sha256-hashed before and after: 0 differences.
+Full 36-checker suite re-run individually post-regeneration: 36/36 exit 0.
+
+RESULT
+Zero in-repo defect. check-map-embeds.js was already correctly holding all
+six of its rules against McCanns's two shared-domain landing pages, now
+demonstrated by injection for the first time in this item's fifteen-pass
+history, including two rules (4 and 6) proven in isolation from each other
+and from rule 3, which fourteen prior passes across other branches had not
+previously separated in a single injection set.
+
+LIVE HALF
+Not attempted. mcp__claude-in-chrome__tabs_context_mcp returned "Claude in
+Chrome is not connected" at the top of this run (see AGENT_LOG.md ANSWER
+PICKUP, standing Q59). No other route tried; nothing clicked, typed or
+submitted anywhere. Prior passes' live findings for McCanns stand unclaimed
+and unchanged this pass.
+
+QUESTIONS
+None raised this pass. 47 open, unchanged.
