@@ -1,0 +1,69 @@
+Item 4.5 quality pass (fifteenth), 2026-09-09, unattended scheduled run
+gbp-packs/scorah-hazel-grove.md
+
+Purpose: re-verification pass. Every named rule family in check-gbp-packs.js
+had already been exercised against this pack by injection across the first
+fourteen passes (OUTCOME_PROMISE closed on the thirteenth pass, 2026-09-06;
+the photo shot list rule closed on the fourteenth pass, 2026-09-08), so this
+pass did straight fact re-verification and a live re-read rather than
+manufacture a fifteenth synthetic injection angle, matching the precedent
+set by item 4.3's own fifteenth pass the same day.
+
+Baseline
+- sha256 gbp-packs/scorah-hazel-grove.md: 64fd2ae61c8ae0ca7ac5565a9f6cc2ad
+  4485869a465b98a691093c8b2b7a4038 - matches every prior pass, no drift.
+- No edit made to the pack this run.
+
+Fact-by-fact re-check against branches.json (id scorah_hazel)
+- Name: "Scorah Chemists Hazel Grove" - matches branchName.
+- Address: 87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG - matches
+  streetAddress/addressLocality/postalCode (addressRegion Greater
+  Manchester, not printed on the GBP address line, correct - GBP address
+  fields do not carry county).
+- Phone: 01625 872267 - matches.
+- Hours: Monday to Friday 09:00-18:00, Saturday and Sunday closed - matches
+  openingHours.specification and closedDays; the 24 June 2026 Saturday
+  cessation note still present and correctly worded against
+  openingHours.note.
+- Review link: https://g.page/r/CZbFKrky9BUsEAE/review - matches
+  googleReviewUrl exactly.
+- Profile website: pharmacy-scorah-hazel-grove.html (own landing page, not
+  the shared scorah-chemists.co.uk homepage) - correct per the
+  shared-domain sister-branch rule.
+- Sister branch claim: "Our sister branch is in Bramhall" - Bramhall is a
+  live branch sharing brandLabel "Scorah Chemists"; correct per
+  check-gbp-packs.js's sister-claim rule.
+- Catchment/serviceAreaList order: Hazel Grove, Bramhall, Offerton, Great
+  Moor, Poynton - matches branches.json exactly, same order, in the
+  description and in Post A/B copy.
+- hasApp: false in branches.json; pack correctly carries no app mention
+  anywhere.
+- Widgets: bloodPressure, contraception, pharmacyFirst, weightLoss,
+  travelClinic all present - matches the five services named in Categories
+  and Services sections (Pharmacy First, blood pressure, contraception,
+  travel clinic, weight loss clinic).
+- pfLink: shared Hazel Grove/Bramhall Pharmacy First page - matches Post A's
+  button URL and the paster note explaining the branch-specific page swap.
+- Bank holiday paster note (added 4.5 pass, 2026-08-30) still present and
+  reads bankHolidays from branches.json rather than retyping dates.
+
+Checker suite
+- All tools/check-*.js run individually against the tracked repo: 0
+  failures across the full set. No warnings specific to this pack beyond
+  the estate-wide standing ones already tracked elsewhere (Q35 landing-page
+  404 class, Q43 live-paste-lag family).
+
+Live half (read-only HTTP status check; Claude in Chrome connectivity not
+confirmed this run, curl fallback used per established precedent)
+- pharmacy-scorah-hazel-grove.html (profile website / Post landing target):
+  404 - unchanged, same Q35-class finding recorded on every pass since the
+  seventh.
+- pharmacy-first-service-hazel-grove-bramhall.html (Post A): 200.
+- switch-prescriptions-scorah-hazel-grove.html (Post B): 200.
+- weight-loss-clinic-scorah-hazel-grove.html (Post C): 200.
+- travel-clinic-scorah-hazel-grove.html (Post D): 200.
+No new live finding. Not a full text re-read this pass (status code only).
+
+Result: zero in-repo defect, zero new live finding, no new question. Pack
+and its branches.json source data remain correct on the sixteenth
+consecutive verification (counting the original draft).

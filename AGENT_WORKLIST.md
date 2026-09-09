@@ -12253,6 +12253,26 @@ unchanged from every prior pass since the seventh: the landing page still
 No in-repo defect, no new question. Closes the last completely-unexercised
 rule family in check-gbp-packs.js as applied to this pack. See
 audits/scorah-hazel-grove-pack-check-2026-09-08-fourteenth.txt.
+Quality pass 2026-09-09 (fifteenth pass, unattended scheduled run): every
+named rule family in check-gbp-packs.js had already been proved against
+this pack by injection across the first fourteen passes (OUTCOME_PROMISE
+closed thirteenth pass 2026-09-06, the photo shot list rule closed
+fourteenth pass 2026-09-08), so this pass did straight re-verification
+rather than a fifteenth synthetic injection angle, matching item 4.3's own
+fifteenth-pass precedent the same day. sha256 unchanged
+(64fd2ae6...b7a4038); every fact re-checked field by field against
+branches.json (name, address, phone, hours including the 24 June Saturday
+cessation, review link, profile website pointed at the branch's own
+landing page rather than the shared domain, sister-branch claim naming
+Bramhall, catchment order, hasApp false, all five widgets against the
+Categories/Services sections, pfLink, the bank-holiday paster note) -
+all correct, nothing to fix. Full checker suite (all tools/check-*.js) run
+individually against the tracked repo: 0 failures. Live half: Claude in
+Chrome connectivity not confirmed this run, curl HTTP-status fallback used;
+landing page (pharmacy-scorah-hazel-grove.html) still 404s (Q35 class,
+unchanged since the seventh pass), all four Post A-D targets still 200.
+No in-repo defect, no new live finding, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-09-fifteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
