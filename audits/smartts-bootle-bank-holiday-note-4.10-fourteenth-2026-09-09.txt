@@ -1,0 +1,111 @@
+Item 4.10, fourteenth quality pass, 2026-09-09 (unattended scheduled run via Cowork)
+Fresh angle: the bank holiday special-hours paster-note rule in tools/check-gbp-packs.js
+(born item 4.5 quality pass, 2026-08-30, against scorah-hazel-grove.md, following Q79's
+answer that all RB Healthcare stores close on bank holidays) had never been proven
+against this pack's own copy across thirteen prior passes on this item, despite the
+fifth pass (2026-08-30) recording the note's mere PRESENCE as one of many facts
+re-verified. Presence is not the same as proof: this pass isolates and injection-tests
+each of the rule's three independent legs on smartts-bootle.md's own text for the first
+time.
+
+RULE UNDER TEST (tools/check-gbp-packs.js, "bank holiday special hours on the pack
+surface" block): when branches.json bankHolidays.tradingPolicy is "closed" (true
+estate-wide, no branch exception), the "Notes for the paster:" block must satisfy all
+three of:
+  1. /bank holiday/i present
+  2. /special hours/i present
+  3. the literal string "bankHolidays.dates2026" present
+A pack failing any one of the three fails with the same message naming all three
+requirements together.
+
+BASELINE
+sha256(gbp-packs/smartts-bootle.md) =
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+- matches every one of the thirteen prior passes' recorded hash exactly. No edit to
+  this pack across fourteen passes now spanning 2026-08-04 to 2026-09-09.
+node tools/check-gbp-packs.js on the tracked repo: 0 failures, 17 warnings (all
+pre-existing and unrelated to this pack bar the one standing smartts-bootle.md WARN on
+the live-only pfLink target, unchanged).
+
+METHOD
+Full repo rsync'd to /tmp/scratch-4.10 WITH .git included (per the ninth pass's own
+method note - excluding .git makes check-cdn-pins.js false-fail on a scratch copy with
+no ref to resolve pins against). All four injections and all checker runs performed
+against the scratch copy only. The tracked file gbp-packs/smartts-bootle.md was never
+opened for writing; confirmed by git status --porcelain and sha256 before and after
+this pass, both empty/unchanged.
+
+INJECTIONS (each restored from a saved baseline byte copy and sha256-reconfirmed
+identical before the next)
+
+1. Whole-bullet removal. Deleted the entire "- Bank holiday special hours: ... Added on
+   the item 4.5 quality pass, 2026-08-30." bullet from the Notes for the paster block,
+   leaving every other note untouched.
+   RESULT: CAUGHT. Exactly one FAIL, exact expected message naming all three
+   requirements ("has no bank holiday special-hours instruction ... must name
+   bankHolidays.dates2026 rather than retype the dates").
+
+2. Literal-token removal only. Kept the bullet, kept the words "bank holiday" and
+   "special hours" throughout, but replaced the literal "bankHolidays.dates2026" phrase
+   with retyped dates ("26 Dec, 28 Dec") and removed the closing "not retyped ... read
+   them from branches.json" sentence.
+   RESULT: CAUGHT. Same FAIL message, confirming leg 3 (the literal-string check) fires
+   independently even when legs 1 and 2 (the two /i regexes) are both still satisfied.
+   This is the leg the rule's own header comment identifies as the point of the rule
+   ("must name bankHolidays.dates2026 rather than retype the dates so they cannot
+   drift") - proven to actually fire on its own, not merely present in the message text
+   as a description of intent.
+
+3. Phrase removal only. Restored the bullet, then replaced both contiguous occurrences
+   of the literal phrase "special hours" ("Bank holiday special hours:" heading and
+   "unless special hours say otherwise") with "custom hours", leaving "bank holiday"
+   and "bankHolidays.dates2026" both untouched. Note: a third apparent occurrence,
+   "Google's special\n  hours" (wrapped across the line break inserted by the pack's own
+   ~70-character wrapping), is NOT a contiguous "special hours" substring so is
+   unaffected by either the injection or the checker's own non-multiline regex - left as
+   in the original text.
+   RESULT: CAUGHT. Same FAIL message, confirming leg 2 (/special hours/i) fires
+   independently of legs 1 and 3.
+
+CONTROL
+Restored to baseline, then rephrased the bullet without removing any of the three
+required elements: moved the bankHolidays.dates2026 reference into a parenthetical in
+the heading and reworded the second sentence ("open Google's special hours panel and
+mark every remaining 2026 date as Closed") while keeping "bank holiday", "special
+hours" and "bankHolidays.dates2026" all present somewhere in the block.
+RESULT: PASSED correctly - 0 failures, the one pre-existing pfLink WARN only. Confirms
+the rule does not fire on a paraphrase that still satisfies its three textual
+requirements, i.e. it is checking for the required content, not for the exact original
+wording.
+
+REGRESSION
+File restored to the saved baseline byte-for-byte after each injection and after the
+control; sha256 reconfirmed identical to the pre-pass hash
+(541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b) at every restore
+point, including the final one. Full 36-file tools/check-*.js suite re-run on the
+scratch copy after the final restore (check-live-hours.js excluded, needs network):
+every one exited 0. Tracked repo confirmed untouched throughout: git status --porcelain
+-- gbp-packs/ tools/ core/ modules/ branches.json empty (bar the two pre-existing,
+unrelated untracked strays already on record from earlier runs -
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak); sha256 of the
+tracked gbp-packs/smartts-bootle.md unchanged.
+
+RESULT
+No in-repo defect. All three legs of the bank holiday special-hours rule fire
+independently and correctly on this pack's own copy, and the rule correctly tolerates a
+paraphrase that keeps the required content. tools/check-gbp-packs.js and
+gbp-packs/smartts-bootle.md both unchanged by this pass.
+
+LIVE HALF
+Not performed. Claude in Chrome reported "not connected" (standing Q59, unchanged) when
+checked at the start of this run. This rule governs a paster instruction inside a
+Google Business Profile special-hours panel, which is not a URL a read-only fetch could
+verify regardless of browser connectivity.
+
+QUESTIONS
+None raised this pass. Standing Q59 (Claude in Chrome not connected) and Q96 (no
+git push / gh CLI credentials in this sandbox) both remain open, unchanged, and are not
+re-raised per established precedent across every recent run.
+
+Done 2026-09-09.

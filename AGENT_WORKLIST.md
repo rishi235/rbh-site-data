@@ -14503,6 +14503,44 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       known live-only Post A target under Q8/Q16. No new question. Evidence
       in audits/smartts-bootle-photo-shot-list-4.10-thirteenth-2026-09-08.txt.
       Done 2026-09-08.
+      Fourteenth quality pass 2026-09-09 (unattended scheduled run via
+      Cowork sandbox mcp__workspace__bash throughout; no tracked file
+      required changing): fresh angle - the bank holiday special-hours
+      paster-note rule in tools/check-gbp-packs.js (born item 4.5 pass,
+      2026-08-30, following Q79's answer that all RB Healthcare stores
+      close on bank holidays) had only ever had its NOTE'S PRESENCE
+      recorded on this pack (fifth pass, 2026-08-30, as one fact among
+      many) rather than each of its three independent legs proven by
+      injection, across thirteen prior passes. Baseline: 36/36 checkers
+      exit 0 on a full-repo scratch copy (with .git, per the ninth pass's
+      method note), sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly. Three injections
+      against the scratch copy only, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) the whole bank holiday
+      bullet removed - CAUGHT, exact three-part message; (2) bullet kept,
+      "bank holiday" and "special hours" wording both left intact, but the
+      literal "bankHolidays.dates2026" token replaced with retyped dates -
+      CAUGHT, proving the anti-drift leg fires on its own; (3) bullet kept,
+      "bank holiday" and "bankHolidays.dates2026" both left intact, the two
+      contiguous "special hours" occurrences reworded to "custom hours" -
+      CAUGHT, proving the second leg fires independently (a third,
+      line-wrapped "Google's special\n  hours" occurrence is not a
+      contiguous match for either the injection or the checker's own
+      non-multiline regex, and was correctly left alone by both). Control:
+      the bullet paraphrased while keeping all three required elements
+      present somewhere in the block - correctly PASSED, 0 failures,
+      confirming the rule checks for required content, not exact original
+      wording. No in-repo defect: all three legs proven, none changed.
+      tools/check-gbp-packs.js and gbp-packs/smartts-bootle.md both
+      unchanged on the tracked repo throughout (sha256 and git status
+      confirmed before and after). Full 36-checker suite re-run clean on
+      the scratch copy after final restore. Live half not performed:
+      Claude in Chrome not connected this run (standing Q59); this rule
+      governs a GBP special-hours panel instruction, not a URL a read-only
+      fetch could verify regardless. No new question. Evidence
+      in audits/smartts-bootle-bank-holiday-note-4.10-fourteenth-2026-09-09.txt.
+      Done 2026-09-09.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
