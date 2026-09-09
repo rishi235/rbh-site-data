@@ -11430,6 +11430,65 @@ Pharmacy First wording to the NHS service description.
       defect found, no new question raised. Evidence:
       audits/streetnumber-reproof-4.3-2026-09-08-fourteenth.txt. Done
       2026-09-08
+      Quality pass 2026-09-09 (fifteenth pass, unattended scheduled run via
+      Cowork): re-verified as the stalest rotation-pool item (last touched
+      2026-09-08T09:18:15+01:00, earliest of the 36-item pool re-derived
+      fresh via `git log -1 --format=%ai -L<start>,<end>:AGENT_WORKLIST.md`
+      per item). All fourteen prior passes have already proven every named
+      check-gbp-packs.js rule against this pack's own file by injection
+      (road-name, claim-patterns, bank-holiday, pharmacy-first-eligibility,
+      splitDay, day-presence, services/categories allowlist, CTA-label,
+      lead-pricing, streetNumber/addressLine/KNOWN-staleness), so this pass
+      did not invent a fifteenth synthetic injection angle - nothing named
+      in the checker's own rule set remains unproven against this file, and
+      manufacturing another edit would test the checker again rather than
+      the pack. Instead did a straight re-verification: facts, checker
+      suite, and the live site.
+      FACTS: gbp-packs/hirshmans-ainsdale.md sha256
+      94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8,
+      unchanged since the pack's creation and matching every one of the
+      fourteen prior passes' recorded hash - no edit this pass. Read the
+      branches.json entry for hirshmans_ainsdale field by field against the
+      pack: name, both addresses lines, postcode, phone, both review links,
+      website, hours (both lunch closures on the weekday and Saturday legs,
+      Sunday closed), three-town service area, hasApp false, all five
+      widget services. Nothing wrong.
+      CHECKER SUITE: all 36 tools/check-*.js run individually, 36/36 exit 0.
+      LIVE HALF: Claude in Chrome confirmed not connected (tabs_context_mcp
+      returned "not connected"); fell back to direct HTTP GET, network
+      egress confirmed working first. All five live targets on
+      hirshmanspharmacy.co.uk read again in full text this pass (not just
+      status code, unlike the twelfth to fourteenth passes): Post A
+      (pharmacy-first-service-ainsdale.html, the HARD STOP page) still
+      carries the non-dialling phone 017014577376 once against three correct
+      01704 577376 mentions, still 9 "Hirshmans Pharmacy" against 6 correct
+      "Hirshmans Chemist" mentions, and still both addresses on the page
+      (56-62 Sherwood House three times including the footer, the legacy
+      "64 station Road" once in the hand-pasted body) - unchanged from the
+      tenth pass's own closer read, still item 5.3/Q8/Q34, not a new finding.
+      switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders the
+      pre-Q7 em dash as mojibake ("usually is not \xc3\x94\xc3\x87\xc3\xb6 we
+      make the first step quick and easy"), unchanged, same live-paste-lag
+      family as Cherry Lane and Coleman and Leighs (item 5.1/Q7). Post C
+      (weight-loss-clinic-hirshmans-ainsdale.html), Post D
+      (travel-clinic-hirshmans-ainsdale.html) and the generated
+      pharmacy-first-hirshmans-ainsdale.html replacement all returned 200,
+      not re-read in full text this pass (last confirmed clean at depth on
+      the tenth and eleventh passes). One transient false alarm in this
+      pass's own working method, not a site defect: an initial live-check
+      URL guessed as weight-loss-hirshmans-ainsdale.html 404'd; the correct
+      generated filename is weight-loss-clinic-hirshmans-ainsdale.html
+      (confirmed against modules/service/pages/), which returns 200 - this
+      run's own typo, not logged as a finding.
+      RESULT: zero in-repo defect, zero new live finding. Post A HARD STOP
+      (5.3/Q8/Q34) and Post B's live em-dash mojibake (5.1/Q7) remain the
+      only two outstanding live findings, both already tracked, neither
+      actionable from this repo (a Weebly paste, outside this worker's write
+      scope). No new question raised. This item's own checker-rule coverage
+      is now complete across fourteen passes; future passes should verify
+      facts and the live site rather than search for further named rules to
+      prove, unless a new rule is added to check-gbp-packs.js. Done
+      2026-09-09
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
