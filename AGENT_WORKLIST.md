@@ -16340,6 +16340,64 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       no judgement call for Rishi. Evidence: audits/riddings-timperley-
       photo-shot-list-4.13-fourteenth-2026-09-08.txt.
       Done 2026-09-08.
+      Fifteenth quality pass 2026-09-09: pack clean and byte-stable across
+      all fifteen passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b6
+      26b9d0fed824630a775917c04 before and after, unchanged since the tenth
+      pass). Selected as stalest in the rotation pool by git log -L on each
+      candidate item's own line range in AGENT_WORKLIST.md, breaking a
+      2026-09-08 same-day tie against 4.8, 4.10, 4.9 and the rest; 4.13's
+      last touch (2026-09-08T11:11:34+01:00) was earliest of the pool.
+      BASELINE. git status --porcelain empty. All 36 tools/check-*.js run
+      individually: 36/36 exit 0.
+      NEW ANGLE. Fourteen prior passes on this item had only ever proven
+      check-gbp-packs.js against this pack's own copy. Of the ten genuine
+      gbp-packs/ readers, check-brand-spelling.js had never been
+      injection-tested here, and this pack is one of the two (with
+      coleman-leigh-walton.md) the checker's own header comment names by
+      name as the STREET ADDRESSES mask case, since Riddings is both a
+      shortened brand and the street the shop stands on (38 Riddings
+      Road), giving this pass a genuine two-sided test: does the checker
+      catch a real variant, and does it leave the pack's six genuine
+      "Riddings Road" mentions alone. Full repo copied to a scratch
+      directory (excluding only .git, per this item's own established
+      method note). Three injections, each restored from a saved baseline
+      and sha256-reconfirmed identical before the next: (1) Rule 2
+      (VARIANT), trailing s added to the opening business-description
+      sentence, "Riddings Pharmacy" to "Riddings Pharmacys" - CAUGHT first
+      attempt, exact expected message; (2) Rule 4 (MISSPELT), the "Ridings"
+      single-d misspelling in the Profile basics "Name on GBP" line -
+      CAUGHT first attempt; (3) Rule 2 (VARIANT), shop-type word swap on
+      the same line, "Riddings Pharmacy" to "Riddings Chemist" - CAUGHT
+      first attempt. All three fired on the intended rule only. CONTROL:
+      restored to baseline and re-run with no injection - the pack's six
+      genuine "Riddings Road" mentions confirmed not to false-positive on
+      either rule, since both require a shop-type word or apostrophe-s
+      directly after "Riddings" and "Road" is neither; sha256 after
+      restore matched the recorded baseline exactly. No checker gap found;
+      no in-repo defect: the rule already protects this pack, now proven
+      directly for the first time in fifteen passes. Scratch copy's full
+      36-checker suite re-run after final restore: 35/36 exit 0, the one
+      exception (check-cdn-pins.js) failing only because the scratch copy
+      has no .git directory to resolve pinned refs against, the same known
+      artefact recorded on the twelfth and thirteenth passes. Tracked
+      repo's own 36-checker suite re-run clean; gbp-packs/riddings-
+      timperley.md confirmed sha256-unchanged and git status --porcelain
+      empty throughout and after. Scratch directory deleted after use.
+      LIVE HALF NOT performed: Claude in Chrome reported "not connected"
+      this run (tabs_context_mcp, standing Q59). No alternative route
+      attempted; nothing clicked, typed or submitted anywhere. This pass's
+      own subject has no live URL to verify beyond what prior passes
+      already established (Post B 404 at the canonical permalink, old
+      permalink still live, branch-specific Pharmacy First page live), not
+      re-claimed here. Answer pickup (step 3) also unavailable for the
+      same reason; QUESTIONS.json read directly (100 total, 47 open),
+      unchanged by pickup this run. No autonomous window active at the top
+      of AGENT_LOG.md. No new question raised: pure re-verification of
+      documented checker behaviour against this pack's own copy, no
+      business, legal, pricing or regulatory content changed, no judgement
+      call for Rishi. Evidence: audits/riddings-timperley-brand-spelling-
+      4.13-fifteenth-2026-09-09.txt.
+      Done 2026-09-09.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

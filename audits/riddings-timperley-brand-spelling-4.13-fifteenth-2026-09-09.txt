@@ -1,0 +1,92 @@
+Item 4.13 quality pass (fifteenth), 2026-09-09 - Riddings Pharmacy Timperley GBP pack
+Checker under test: tools/check-brand-spelling.js
+Target file: gbp-packs/riddings-timperley.md
+
+WHY THIS ANGLE
+Fourteen prior passes on this item had only ever proven tools/check-gbp-packs.js
+by injection against this pack (photo shot list rule, twelfth-pass CLINIC_QUALIFIERS,
+thirteenth-pass category/service allowlist, fourteenth-pass photo shot list). Of the
+16 checkers whose source mentions "gbp-packs", 10 are genuine readers (a PACK_DIR
+constant or scan-list entry) and 6 only mention it in a comment - the same split
+item 4.1's twelfth pass established. check-brand-spelling.js is one of the 10
+genuine readers (SCAN_DIRS includes gbp-packs, tools/check-brand-spelling.js line
+351) and had never been injection-tested against this pack's own copy. It is also
+one of the two packs (with coleman-leigh-walton.md) the checker's own header
+comment names by name as the "STREET ADDRESSES" mask case: Riddings is both a
+shortened brand and the street the shop stands on (38 Riddings Road), so this pack
+carries six genuine "Riddings Road" mentions that must NOT be mistaken for a brand
+variant.
+
+BASELINE
+sha256 of gbp-packs/riddings-timperley.md: 8cc587968d3f6b83a3509aa27151c7dc30172b6
+26b9d0fed824630a775917c04 - unchanged since the tenth pass, matches every prior
+pass's recorded value.
+Scratch copy: full repo rsynced to /tmp/scratch413 (excluding .git only, per this
+item's own established method note that a partial copy produces false failures).
+node tools/check-brand-spelling.js on the scratch baseline: clean, "every trading
+name is spelled the one way", 10 quoted readings of a live page read as evidence
+(none of them this pack).
+
+METHOD
+Three injections, each on the scratch copy only, restored from a saved baseline
+copy and sha256-reconfirmed identical before the next. The tracked repo file was
+never opened for writing.
+
+1. Rule 2 (VARIANT), trailing s added to the canonical brand in the business
+   description's opening sentence: "Riddings Pharmacy is an independent NHS
+   pharmacy" -> "Riddings Pharmacys is an independent NHS pharmacy".
+   CAUGHT first attempt: gbp-packs/riddings-timperley.md:29: reads "Riddings
+   Pharmacys". The trading name is "Riddings Pharmacy".
+
+2. Rule 4 (MISSPELT), the "Ridings" single-d misspelling (already listed in
+   MISSPELT specifically because "Smarts Chemist" and "Ridings Pharmacy" once
+   passed all 36 checkers by injection on the seventh 1.1 pass) in the Profile
+   basics "Name on GBP" line: "Name on GBP: Riddings Pharmacy" -> "Name on GBP:
+   Ridings Pharmacy".
+   CAUGHT first attempt: gbp-packs/riddings-timperley.md:21: reads "Ridings", a
+   known misspelling. The trading name is "Riddings Pharmacy".
+
+3. Rule 2 (VARIANT), shop-type word swap, same line: "Name on GBP: Riddings
+   Pharmacy" -> "Name on GBP: Riddings Chemist".
+   CAUGHT first attempt: gbp-packs/riddings-timperley.md:21: reads "Riddings
+   Chemist". The trading name is "Riddings Pharmacy".
+
+CONTROL
+Restored to baseline and re-run without any injection. The pack's own six genuine
+"Riddings Road" street mentions were confirmed NOT to false-positive: "Riddings
+Road" never matches Rule 2's or Rule 4's patterns because both require a
+shop-type word (Pharmacy/Chemist/Chemists/Pharmacies) or an apostrophe-s directly
+after "Riddings", and "Road" is neither. check-brand-spelling.js: clean, same
+result as the pre-injection baseline. sha256 after restore: 8cc587968d3f6b83a35
+09aa27151c7dc30172b626b9d0fed824630a775917c04 - byte-identical to the recorded
+baseline.
+
+RESULT
+All three injections caught cleanly, on the intended rule, first attempt, with
+the exact expected message. The genuine street-name text was confirmed not to
+trip either rule. No checker gap found. No in-repo defect: the rule already
+protects this pack; now proven directly for the first time in fifteen passes.
+
+FULL SWEEP
+Scratch copy, all tools/check-*.js run individually after the final restore:
+35/36 exit 0; the one exception, check-cdn-pins.js, fails only because the
+scratch copy has no .git directory to resolve pinned refs against - the same
+known, already-documented artefact recorded on the twelfth and thirteenth
+passes of this item, not a real failure.
+Tracked repo, all 36 tools/check-*.js run individually: 36/36 exit 0.
+Tracked gbp-packs/riddings-timperley.md confirmed sha256-unchanged and
+git status --porcelain empty throughout and after this pass. Scratch directory
+deleted after use.
+
+LIVE HALF
+Not attempted this pass. Claude in Chrome MCP was called (tabs_context_mcp) and
+reported "Claude in Chrome is not connected" - standing Q59, unchanged. No
+alternative route attempted; nothing clicked, typed or submitted anywhere. This
+pass's own subject (a checker proof against a pack's typed copy) has no live URL
+to verify beyond what prior passes already established (Post B 404 at the
+canonical permalink, old permalink still live, branch-specific Pharmacy First
+page live, all unchanged and already tracked, not re-claimed here).
+
+QUESTIONS
+None raised. No business, legal, pricing or regulatory content changed; no
+judgement call for Rishi.
