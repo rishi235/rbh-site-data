@@ -1,0 +1,129 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - fifteenth quality pass, 2026-09-09
+============================================================================
+
+SELECTION: all 8 unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] by direct
+grep. Rotation pool re-derived from first principles: 43 checked items minus the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36-item
+pool. git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md per
+item: 3.2 stalest at 2026-09-08T19:10:36+01:00, matching the preceding run's own
+forward note exactly, ahead of 3.5 (19:41), 3.7 (20:11) and the rest.
+
+HISTORY CHECK: fourteen prior passes (2026-08-04 through 2026-09-08) had proved
+check-seo-pattern.js, check-seo-lengths.js, check-seo-sheets.js,
+check-seo-keywords.js, check-branch-identity.js, check-fragment-targets.js,
+check-jsonld.js, check-opening-hours.js and check-branch-links.js against
+Scorah's own 26 pages / branches.json entries by direct injection, plus
+collateral catches from check-nap.js, check-postcodes.js and check-map-embeds.js.
+Searched the item's own history and the rest of the checker list: check-booking-
+routes.js - the checker documented in CLAUDE.md as guarding "the booking chain,
+filename to diary" - had never been named once against Scorah specifically in
+fourteen passes.
+
+BASELINE: tracked repo, all 36 checkers exit 0 before any work. sha256 recorded:
+  branches.json:                                                 904de09b...969e1e
+  modules/service/pages/uti-treatment-scorah-bramhall.html:      f9e78df7...524e0bb
+  modules/service/pages/contraception-scorah-hazel-grove.html:   6cfac8e2...315dc4
+
+METHOD: root filesystem at 98% capacity (201MB free), matching prior passes'
+own finding, so the injection copy was made under
+/sessions/wizardly-cool-feynman/mnt/outputs/scratch-3.2 (tar --exclude='.git',
+24MB) rather than /tmp. The tracked repo was never opened for writing. This
+outputs mount also refused unlink (EPERM), the same restriction previously
+found only on the repo's own FUSE mount; mv (rename) to a separate directory
+worked where rm/unlink did not, so file-level injections were undone by mv
+rather than rm.
+
+FOUR INJECTIONS against Scorah's own data/pages on the scratch copy, each
+restored and sha256-reconfirmed byte-identical before the next:
+
+(1) RULE "branch" - renamed uti-treatment-scorah-bramhall.html to
+    uti-treatment-scorah-nowhereville.html (a routing key, "scorah-nowhereville",
+    that resolves to no trading branch). CAUGHT first attempt: "routes to
+    branch key \"scorah-nowhereville\", which matches no trading branch in
+    branches.json, so no widget is rendered". Full-suite sweep showed sensible
+    collateral from every other filename-identity checker (branch-identity,
+    map-embeds, nap, page-coverage, seo-keywords, seo-lengths, seo-pattern,
+    seo-sheets, service-links) plus the expected check-cdn-pins.js .git-less-
+    copy artefact (documented by prior passes, not a defect). Restored via mv
+    (rm/unlink refused with EPERM on this mount too); sha256-reconfirmed
+    identical to baseline.
+
+(2) RULE "widget" - deleted scorah_bramhall.widgets.weightLoss from
+    branches.json (weightLoss is in service.js's own NO_FALLBACK_SERVICE_KEYS,
+    so removing it leaves no usable widget, no fallback). CAUGHT first attempt:
+    "weight-loss-clinic-scorah-bramhall.html needs widgets.weightLoss on
+    scorah_bramhall and there is none (this service must not fall back)".
+    Sensible collateral only: check-gbp-packs.js (the pack still claims a
+    weight loss service the branch no longer has a widget for),
+    check-page-coverage.js (NOT_EARNED / ORPHAN_PAGE), check-editor-snapshot.js
+    (branches-editor.html's embedded snapshot now disagrees with branches.json
+    - a real, independent, always-fires-on-any-branches.json-edit check, not
+    specific to this injection). Restored via cp from the pre-injection
+    backup; sha256-reconfirmed identical.
+
+(3) RULE "branchattr" - changed contraception-scorah-hazel-grove.html's
+    data-branch from "Scorah Chemists Hazel Grove" to "Scorah Chemists
+    Bramhall" (the sister branch's own name - the same fault shape the
+    tenth pass proved against check-branch-identity.js, now proved against
+    check-booking-routes.js's own independent rule reading the same
+    attribute). CAUGHT first attempt: "data-branch=\"Scorah Chemists
+    Bramhall\" but the URL resolves to scorah_hazel (\"Scorah Chemists Hazel
+    Grove\"), so an enquiry from this page is filed against the wrong
+    pharmacy". Sensible collateral: check-branch-identity.js (both its
+    per-page and per-branch-consistency rules) and check-nap.js (its own
+    data-branch/branchName mismatch rule). Restored via cp; sha256-
+    reconfirmed identical.
+
+(4) RULE "diary" - set scorah_bramhall.widgets.contraception equal to
+    scorah_bramhall.widgets.pharmacyFirst (two different services sharing one
+    Appointedd id within the same branch). CAUGHT first attempt:
+    "scorah_bramhall: services contraception and pharmacyFirst share one
+    Appointedd id (6a439fa3...), so a booking for one lands in the other's
+    diary". Sensible collateral: check-widget-diaries.js (a checker that
+    exists specifically to guard the same widget-id field from a different
+    angle - two services on one id) and check-editor-snapshot.js (same
+    branches.json-edit drift note as injection 2). Restored via cp; sha256-
+    reconfirmed identical.
+
+All four fired on their intended rule only, first attempt, with only
+sensible/expected collateral from checkers that independently guard the same
+field or filename from a different angle - no unexplained cross-firing.
+
+RULES NOT INJECTED THIS PASS: "route" (1) is structurally the same class of
+fault as "branch" (2) - both are caught by the same ROUTE_RE/byKey lookup
+chain reading a mangled filename, so rule 2's injection already exercises that
+code path; "keyunique" (6) and "tables" (8) are estate-wide rules not specific
+to one branch pair and were judged out of scope for a Scorah-focused pass;
+"serviceattr" (5) and "fallback" (9) were not reached this pass within the
+time budget and remain open for a future pass to close.
+
+VERIFICATION: full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded per the established convention - live/network dependency and the
+.git-less scratch copy's own ref-resolution artefact) re-run clean after the
+final restore. branches.json and both touched pages sha256-reconfirmed
+identical to baseline on the scratch copy. Tracked repo (/sessions/wizardly-
+cool-feynman/mnt/rbh-site-data) confirmed untouched throughout: git status
+--porcelain on gbp-packs/modules/tools/core/branches.json/status empty
+(besides pre-existing untracked strays, not this pass's scope); sha256 of
+branches.json and both pages on the tracked repo matches the pre-work baseline
+exactly. No generator or checker logic edited; no branches.json or page
+content changed anywhere in the tracked tree.
+
+LIVE HALF NOT PERFORMED. Three routes attempted, all blocked or unavailable
+this run: (a) built-in Claude Browser MCP - request_access to
+scorahchemists.co.uk was declined (unattended session, nobody present to
+approve); (b) read-only curl from the sandbox shell - "Could not resolve
+host: scorahchemists.co.uk" (NXDOMAIN), unlike several recent passes where
+curl had working outbound resolution; (c) mcp__workspace__web_fetch - refused
+with "URL not in provenance set", the same session-level restriction prior
+passes have hit. State stands as last recorded on the twelfth pass
+(2026-09-06): both Scorah landing pages 404, six sampled live pages still
+declaring the bare shared brandLabel "Scorah Chemists" in JSON-LD name
+(queued under the standing 5.3/5.4/paste-run backlog); not re-verified this
+pass and should not be assumed unchanged.
+
+RESULT: zero in-repo defect. check-booking-routes.js's "branch", "widget",
+"branchattr" and "diary" rules already correctly and independently protect
+Scorah Chemists Bramhall and Hazel Grove's own pages and branches.json
+entries; now proven directly by injection for the first time in fifteen
+passes. No new question. QUESTIONS.json unchanged (101 total, 48 open).

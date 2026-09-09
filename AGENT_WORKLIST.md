@@ -2613,6 +2613,49 @@ audits/seo-pattern-hostmap-vacuity-3.1-fifteenth-2026-09-09.txt.
       declaring the bare shared brandLabel in JSON-LD name. No new
       question. Evidence in audits/verify-3.2-2026-09-08-fourteenth.txt and
       audits/verify-3.2-2026-09-08-fourteenth.js.
+      Quality pass 2026-09-09 (fifteenth, unattended scheduled run via Cowork,
+      independently re-derived as stalest of the 36-item rotation pool via
+      git-log-on-worklist-paragraph-range: 3.2 at 2026-09-08T19:10:36+01:00,
+      ahead of 3.5, 3.7 and the rest). REPO HALF ONLY (browser access declined
+      automatically, unattended session; curl had no DNS resolution this run;
+      web_fetch refused on its provenance gate - see the log). Fourteen prior
+      passes had proved check-seo-pattern.js, check-seo-lengths.js,
+      check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js, check-opening-hours.js and
+      check-branch-links.js against Scorah's own pages/data, plus collateral
+      catches from check-nap.js, check-postcodes.js and check-map-embeds.js;
+      check-booking-routes.js - "the booking chain, filename to diary" - had
+      never been named once in this item's history. Baseline: all 36 checkers
+      exit 0 on the tracked repo; sha256 of branches.json and two Scorah pages
+      recorded. Four injections on a scratch copy (tar --exclude='.git' to
+      /sessions/.../mnt/outputs, root filesystem at 98% capacity so /tmp was
+      avoided), each restored and sha256-reconfirmed byte-identical before the
+      next, tracked repo never opened for writing: (1) rule "branch" -
+      uti-treatment-scorah-bramhall.html renamed so its routing key resolves
+      to no branch - CAUGHT, plus sensible collateral from every other
+      filename-identity checker; (2) rule "widget" -
+      scorah_bramhall.widgets.weightLoss deleted (a NO_FALLBACK service) -
+      CAUGHT, plus sensible collateral from check-gbp-packs.js,
+      check-page-coverage.js and check-editor-snapshot.js; (3) rule
+      "branchattr" - contraception-scorah-hazel-grove.html's data-branch
+      changed to the sister branch's own name - CAUGHT, plus sensible
+      collateral from check-branch-identity.js and check-nap.js; (4) rule
+      "diary" - scorah_bramhall.widgets.contraception set equal to its own
+      pharmacyFirst id - CAUGHT, plus sensible collateral from
+      check-widget-diaries.js and check-editor-snapshot.js. All four fired on
+      their intended rule only, first attempt, no unexplained cross-firing.
+      Rules "route", "keyunique" and "tables" judged out of scope (same code
+      path as "branch", or estate-wide rather than Scorah-specific); rules
+      "serviceattr" and "fallback" not reached this pass, left for a future
+      one. Full 34-checker suite (check-cdn-pins.js, check-live-hours.js
+      excluded, established convention) clean after the final restore;
+      tracked repo confirmed untouched by sha256 and git status --porcelain.
+      LIVE HALF NOT PERFORMED (all three routes unavailable this run, see
+      above); state stands as last recorded on the twelfth pass (2026-09-06):
+      both landing pages 404, six sampled live pages still declaring the bare
+      shared brandLabel in JSON-LD name - not re-verified this pass. No
+      in-repo defect, no new question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-09-fifteenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
