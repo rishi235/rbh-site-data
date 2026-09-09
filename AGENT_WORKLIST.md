@@ -18786,6 +18786,52 @@ appended to the line. Do not move them; the status page reads them in place.
       by direct injection against this branch's own copy. Evidence:
       audits/hirshmans-address-check-2026-09-08-fifteenth.txt.
       Done 2026-09-08
+      Sixteenth quality pass 2026-09-09 (unattended scheduled run, rotation
+      pool - item 1.2 re-confirmed uniquely stalest, last touched
+      2026-09-08T17:15:35+01:00, ahead of 3.11). REPO HALF: FRESH ANGLE -
+      tools/check-opening-hours.js had never been pointed at this branch in
+      fifteen prior passes. Hirshmans has no branch landing page (that
+      family only covers the three shared-brand pairs), so this checker's
+      card/JSON-LD rules do not reach it; its four data- and estate-level
+      rules do. Four injections on a disposable scratch copy (tracked repo
+      never opened for writing), each restored by byte copy and
+      sha256-reconfirmed: (1) both Saturday sessions removed from
+      specification without adding Saturday to closedDays - CAUGHT, rule 6
+      (day omission); (2) "Sunday" appended to a weekday session's
+      dayOfWeek while Sunday stayed in closedDays - CAUGHT, rule 4
+      (clash); (3) the Saturday afternoon session's closes set before its
+      own opens - CAUGHT, rule 5; (4) an hours sentence added to the
+      switch page's FAQ - CAUGHT, rule 8 (two failures, 9am and 6pm), the
+      first time rule 8 has fired on this branch's own switch page. All
+      four fired first attempt, on their intended rule only. Full
+      34-checker suite and all six generators re-run clean after the final
+      restore; scratch copy's modules/ byte-identical to the tracked
+      repo's; tracked repo git status empty throughout (one pre-existing
+      unrelated untracked stray left untouched).
+      LIVE HALF, read-only curl (browser access declined automatically,
+      unattended session). sitemap.xml and the three usual pages
+      reconfirmed unchanged since the sixth pass, address clean on all
+      surfaces, matching the fifteenth pass. NEW ESTATE-WIDE FINDING: every
+      Hirshmans page carries a site-wide footer ("rbh-seo-footer") with
+      name, address, phone, email, an hours line and the superintendent
+      pharmacist's GPhC number, sourced from nothing in this repo (zero
+      hits for "rbh-seo-footer" under modules/), so no checker here can see
+      it. Its hours line is written in en dashes. Swept all 13 unique live
+      branch domains: 9 single-brand sites carry the same footer with the
+      same en-dashed hours line (content itself correct against
+      branches.json on the two spot-checked), 2 dual-brand sites carry the
+      footer with no hours line at all, 2 sites (head office, Clear
+      Chemist) carry no such footer. Separately, on tiffenbergschemist.
+      co.uk only (checked on two pages), the footer's enclosing <div> is
+      missing, so its CSS likely does not apply, unlike every other
+      single-brand site checked. No in-repo fix possible for either finding
+      - nothing here generates, declares or pastes this element. Raised as
+      Q101, cross-referenced to Q41 (a different live footer element on
+      the same Hirshmans page, already answered) and Q39 (the answered
+      "one supervised Weebly furniture sweep" this should ride alongside).
+      No worklist item blocked or unblocked. Guard coverage for this item
+      now extends to 17 of 35 checkers proven by direct injection. Evidence:
+      audits/hirshmans-address-check-2026-09-09-sixteenth.txt. Done 2026-09-09
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

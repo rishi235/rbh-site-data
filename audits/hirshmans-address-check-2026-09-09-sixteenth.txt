@@ -1,0 +1,146 @@
+Item 1.2 - Hirshmans Chemist Ainsdale - sixteenth quality pass - 2026-09-09
+Unattended scheduled run, audit-backlog-worker, Cowork sandbox (mcp__workspace__bash).
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied. Rotation pool re-derived from `git log -1 --format=%aI --all
+--grep="Item N.N " -- AGENT_WORKLIST.md` across the 36-item pool (43 checked
+items minus the seven standing out-of-rotation ones: 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8). 1.2 was stalest at 2026-09-08T17:15:35+01:00, ahead of 3.11
+(2026-09-08T17:45:20+01:00) and the rest of the pool.
+
+REPO HALF: FRESH ANGLE
+tools/check-opening-hours.js had never been pointed at hirshmans_ainsdale by
+direct injection in fifteen prior passes. Hirshmans has no branch landing page
+(that page family is only built for the three shared-brand pairs: Fishlocks,
+McCanns, Scorah), so this checker's rules 1, 2, 3 and 7 (visible hours card,
+JSON-LD sessions, time-outside-card containment) do not reach this branch at
+all - confirmed by listing modules/branch/pages (8 files: INDEX.md, SEO.md and
+six pages, none of them Hirshmans). Rules 4, 5 and 6 (session ordering,
+closedDays/specification clash, day-omission) apply to branches.json directly
+for every branch including Hirshmans, and rule 8 (no clock time on any switch
+or service-family page) sweeps Hirshmans' own eleven service pages and its
+switch page. These four rules were the reachable fresh ground for this item.
+
+Work done on a disposable byte-copy of the working tree (/tmp/scratch-1.2-
+openinghours, tar-copied excluding .git; tracked repo never opened for
+writing). Baseline: branches.json sha256
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e, matching the
+fourteenth and fifteenth passes' recorded hash. check-opening-hours.js clean
+at baseline (6 landing pages checked, 88 card times swept, 177 estate files
+swept for rule 8, hirshmans_ainsdale correctly named among the seven
+split-day branches).
+
+INJECTION 1 (rule 6, day omission): removed both Saturday sessions from
+hirshmans_ainsdale.openingHours.specification without adding Saturday to
+closedDays. CAUGHT first attempt: "hirshmans_ainsdale: Saturday is in neither
+closedDays nor specification. An unstated day is published as \"Closed\"...".
+Restored from a byte-copy backup, sha256-reconfirmed identical
+(904de09b...), re-run clean.
+
+INJECTION 2 (rule 4, closedDays/specification clash): appended "Sunday" to the
+dayOfWeek array of hirshmans_ainsdale's first Monday-Friday session, leaving
+Sunday in closedDays too. CAUGHT first attempt: "hirshmans_ainsdale: Sunday is
+listed in closedDays and also carries opening times". Restored and
+sha256-reconfirmed.
+
+INJECTION 3 (rule 5, session ordering): changed the Saturday afternoon
+session's closes from 17:30 to 13:00 (before its own 14:00 open). CAUGHT first
+attempt: "hirshmans_ainsdale: session 14:00 to 13:00 does not close after it
+opens". Restored and sha256-reconfirmed.
+
+INJECTION 4 (rule 8, no clock time outside an hours-card page): appended
+"Our team is available Monday to Friday, 9am to 6pm." to one FAQ answer on
+modules/switch/pages/switch-prescriptions-hirshmans-ainsdale.html (a tracked
+file within the scratch copy, backed up first). CAUGHT first attempt, two
+failures (9am, 6pm) each naming the file and quoting the rule 8 explanation.
+Restored from the byte-copy backup, sha256-reconfirmed identical to baseline
+(6eaa21b533fb36a22e62f5ad0959d1044fbf3b7b93d8f671b32de1def17a1bd1).
+
+All four injections fired on their intended rule and no other. Full
+check-opening-hours.js re-run clean after each restore. Full 34-checker suite
+(all tools/check-*.js except check-cdn-pins.js and check-live-hours.js, the
+standing convention) re-run individually against the scratch copy after the
+final restore: 0 failures. All six generators re-run against the scratch
+copy; `diff -rq` of the scratch copy's modules/ against the tracked repo's
+modules/ came back empty (byte-identical). Tracked repo `git status
+--porcelain -- branches.json modules/ tools/check-opening-hours.js
+gbp-packs/hirshmans-ainsdale.md` empty both before and after (one pre-existing
+unrelated untracked stray, modules/service/pages/notarealservice-fishlocks-
+ainsdale.html.bak, left untouched, not created by this pass).
+
+LIVE HALF: browser unavailable, ESTATE-WIDE FINDING
+Claude in Chrome tools were not loaded this run's browser step; the built-in
+Claude Browser MCP's request_access for hirshmanspharmacy.co.uk was declined
+automatically (unattended session, nobody to approve), so fell back to
+read-only curl from the sandbox shell, matching the established pattern for
+this item.
+
+sitemap.xml lastmod for every hirshmanspharmacy.co.uk URL checked (index,
+contact-us, prescriptions, all eleven service pages) unchanged at
+2026-08-14T16:09:17+00:00, confirming no republish since the sixth pass.
+switch-prescriptions-hirshmans-ainsdale.html, pharmacy-first-hirshmans-
+ainsdale.html and contact-us.html all 200. contact-us.html carries the
+canonical address (56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW) on
+all three surfaces read (contact block, footer, JSON-LD), zero "PR8 3HN".
+
+NEW FINDING (not previously scoped estate-wide; a one-line note on the third
+pass, 2026-08-12, flagged it on Hirshmans alone and it was never followed up
+or turned into a question): every page on hirshmanspharmacy.co.uk carries a
+site-wide footer block, class "rbh-seo-footer" / "rbh-line2" / "rbh-name",
+with branch name, address, phone, a Cloudflare-obfuscated email link, a
+"Switch your prescriptions" link, an hours line and the superintendent
+pharmacist's GPhC number. `grep -rl "rbh-seo-footer" modules/` on the tracked
+repo returns nothing - this element is not sourced from any generator, paste
+file or DRAFT file in this repo, so check-em-dashes.js and every other
+checker here is structurally blind to it, the same shape of gap the switch
+and eMAR Weebly paste blocks were found to be in (CLAUDE.md, "The copy that
+reaches the public without being generated").
+
+Swept all 13 unique live branch website domains in branches.json (excluding
+disposed Wilmslow) for this footer:
+
+  - 9 single-brand domains carry it WITH an hours line written in en dashes
+    throughout: scorah-chemists.co.uk, smarttschemist.co.uk,
+    hirshmanspharmacy.co.uk, skchemist.co.uk,
+    colemanandleighspharmacy.co.uk, riddingspharmacy.co.uk,
+    gordonshortchemist.co.uk, cherrylanepharmacy.co.uk,
+    tiffenbergschemist.co.uk. Example (Hirshmans, verbatim from the live
+    page): "Open Mon&ndash;Fri 8:30am&ndash;1pm, 2pm&ndash;6pm, Sat
+    9am&ndash;1pm, 2pm&ndash;5:30pm, Sun closed". The hours content ITSELF
+    is correct against branches.json on every domain spot-checked
+    (Hirshmans, Tiffenbergs), including the split-day sessions; the fault is
+    the dash character, not the times.
+  - 2 dual-brand domains (mccannspharmacy.co.uk, fishlockpharmacy.co.uk)
+    carry the same footer shape but with two address blocks (one per
+    sister branch) and no hours line at all, so no dash to find on those
+    two.
+  - 2 domains show no such footer on the pages checked: rbhealth.co.uk
+    (head office) and clearchemist.co.uk (Clear Chemist, a different site
+    type).
+
+SEPARATE MARKUP DEFECT, tiffenbergschemist.co.uk only: on both the homepage
+and switch-prescriptions-tiffenbergs-aintree.html, the footer's <style> block
+and an HTML comment ("<!-- RBH SEO footer (Tiffenbergs) -->") are present but
+the content is NOT wrapped in the enclosing <div class="rbh-seo-footer">
+every other single-brand domain has (confirmed present on cherrylanepharmacy.
+co.uk by contrast). The CSS rules therefore likely have nothing to apply to,
+so the block may render as plain unstyled text rather than the navy footer
+bar every other site shows. Content itself (name, address, phone, hours) is
+present and factually correct on both pages checked; this is a styling/markup
+gap, not a wrong-fact gap.
+
+No in-repo fix is possible for either finding: nothing in this repo generates,
+declares or pastes this footer, so there is no generator to change and no
+file to regenerate. Raised as Q101 (new), cross-referenced to Q41 (this
+item's existing standing-cosmetics question, already answered, which covers a
+DIFFERENT live footer element on the same page - the email-address duplicate
+- and does not mention dashes or this markup gap) and to Q39 (the already-
+answered "one supervised Weebly furniture sweep across all 14 sites" decision
+this finding should logically ride alongside).
+
+No worklist item newly blocked or unblocked. No credential encountered.
+Guard coverage for this item now extends to 17 of the 35 in-repo checkers
+proven by direct injection against this branch's own copy (13 recorded at
+the fifteenth pass, plus check-opening-hours.js's four rules this pass).
