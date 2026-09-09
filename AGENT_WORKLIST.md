@@ -17759,6 +17759,49 @@ appended to the line. Do not move them; the status page reads them in place.
       clean, 0 failures across all. Live half not read (Claude in Chrome not
       connected this run, standing Q59); nothing live re-claimed. No new
       question.
+      Quality pass 2026-09-09 (sixteenth pass, unattended scheduled run): a
+      real, previously-latent gap found and fixed in check-postcodes.js; no
+      in-repo data defect, no live branch affected. All fifteen prior passes
+      found a postcode PC_RE or PC_RE_LOOSE could not read INSIDE a file that
+      was already being scanned; this pass found a file the scanner never
+      visits at all. TEXT_EXT (line 151) is an extension test
+      (html|md|js|json|txt|css|ps1), and modules/emar/weebly - one of the six
+      files tools/extra-public-copy-files.js exists specifically to name,
+      because it carries live estate copy without being a generated page -
+      has no extension at all (see CLAUDE.md, "The fifth public-copy file the
+      pin checker didn't know about": check-em-dashes.js already had to learn
+      this file was as public as modules/switch/weebly.html, twenty days
+      after it should have). Proved by injection on a scratch copy outside
+      the tracked tree (rsync of the full repo to /tmp/pcscratch, 927 files
+      scanned, 0 failures, 3 warnings baseline matching the tracked repo
+      exactly): appended a line naming McCanns Chemist Aigburth's own real
+      postcode, L17 7BP, to modules/emar/weebly. The unmodified checker
+      reported the identical 927-files-scanned, 0-failure result before and
+      after - not even a files-scanned count increase - proving the file was
+      invisible to the scanner rather than merely exempt from one rule. Fix:
+      a new EXTRA_FORCE_INCLUDE set, built from the shared
+      extra-public-copy-files.js list check-em-dashes.js and check-cdn-pins.js
+      already require, force-includes those exact paths in scan() regardless
+      of extension. Widening TEXT_EXT itself was rejected: this sandbox
+      leaves dozens of extension-less lock-test and scratch artefacts lying
+      around (.agent-lock.released-*, .locktest_probe, and similar) which are
+      noise, not public copy, and would all start being scanned too.
+      Re-verified on the same scratch copy with a second, unambiguous
+      injection: a fabricated, non-branch postcode, AA1 1AA, appended to
+      modules/emar/weebly. Before the fix: 927 files scanned, 0 failures,
+      identical whether the line was present or not. After the fix: 928 files
+      scanned (one more - the file is now visible at all) and the injection
+      failed as "UNKNOWN modules/emar/weebly: postcode AA1 1AA is in no
+      branches.json entry". Restored by byte copy and sha256-reconfirmed
+      identical both times (2f23a558...58272, matching the tracked repo).
+      Applied to the tracked checker and re-verified there too; AA1 1AA also
+      added to NARRATIVE_POSTCODES with a reason, since the fix's own header
+      comment quotes it to record the test. Full 36-checker suite re-run
+      clean afterwards (36/36 exit 0); no generator, page, pack, paste block
+      or branches.json touched (only tools/check-postcodes.js changed; git
+      status --porcelain -- modules/ core/ branches.json empty throughout).
+      No postcode appears in modules/emar/weebly today, so this closes a
+      latent gap, not a live breach. No new question. Done 2026-09-09.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

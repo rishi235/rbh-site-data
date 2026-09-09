@@ -123,7 +123,8 @@ var NARRATIVE_POSTCODES = {
   "ZZ99 9ZZ": "Item 4.9 quality pass (fourteenth), 2026-09-08: a fabricated, non-branch postcode used as injection 2 of that pass's tools/check-postcodes.js proof against gbp-packs/clear-aintree.md's own copy, to confirm the UNKNOWN rule catches a postcode-shaped value matching no branch at all (as distinct from injection 1's FOREIGN case). The pack was restored by byte copy and reconfirmed identical before the pass ended, but AGENT_LOG.md's and AGENT_WORKLIST.md's write-ups, plus audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt, all quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed seven times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ). Found and fixed on the item 4.12 quality pass (fourteenth), 2026-09-08.",
   "SK7 3AB": "Item 3.5 quality pass (fifteenth), 2026-09-08: a foreign postcode injected into the JSON-LD address.postalCode on impetigo-treatment-hirshmans-ainsdale.html, in place of Hirshmans Chemist Ainsdale's own PR8 3HW, to prove check-jsonld.js's rule 5 (address) catches it directly. The page was restored by byte copy and sha256-reconfirmed identical before the pass ended, but AGENT_LOG.md's write-up and audits/hirshmans-item-3.5-quality-pass-2026-09-08-fifteenth.txt both quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed eight times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ). Found and fixed on the item 3.7 quality pass (fourteenth), 2026-09-08.",
   "L17 7BX": "Item 3.6 quality pass (fifteenth), 2026-09-09: a one-character-off variant of McCanns Chemist Aigburth's own L17 7BP, injected into the Google Maps iframe query and directions button on that branch's own landing page, with the contact card left untouched, to prove check-map-embeds.js's RULE 3 (the address) and RULE 6 (directions/map agreement) both catch it. The page was restored by byte copy and sha256-reconfirmed identical before the pass ended, but audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed nine times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB). Found and fixed on the item 3.8 quality pass (fifteenth), 2026-09-09.",
-  "L17 9BP": "Item 3.6 quality pass (fifteenth), 2026-09-09: a one-character-off variant of McCanns Chemist Aigburth's own L17 7BP, injected into the same branch's map query with the contact card left untouched, to prove check-map-embeds.js's RULE 4 (map/contact-card agreement) catches it in isolation from RULE 3. The page was restored by byte copy and sha256-reconfirmed identical before the pass ended, but audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap as L17 7BX above, found and fixed together on the item 3.8 quality pass (fifteenth), 2026-09-09."
+  "L17 9BP": "Item 3.6 quality pass (fifteenth), 2026-09-09: a one-character-off variant of McCanns Chemist Aigburth's own L17 7BP, injected into the same branch's map query with the contact card left untouched, to prove check-map-embeds.js's RULE 4 (map/contact-card agreement) catches it in isolation from RULE 3. The page was restored by byte copy and sha256-reconfirmed identical before the pass ended, but audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap as L17 7BX above, found and fixed together on the item 3.8 quality pass (fifteenth), 2026-09-09.",
+  "AA1 1AA": "Item 1.3 quality pass (sixteenth), 2026-09-09: a fabricated, non-branch postcode injected into a scratch copy of modules/emar/weebly to prove the EXTRA_FORCE_INCLUDE fix (see the comment above TEXT_EXT) makes that extension-less file visible to rule 1 (UNKNOWN) at all. The scratch injection was discarded and the tracked modules/emar/weebly was never touched, but this file's own header comment quotes the value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; written into the comment in the same commit as the fix it documents, rather than left to be found the next day, unlike every prior entry in this list."
 };
 
 // Files that DECLARE or DOCUMENT a postcode rather than USE it. This
@@ -149,6 +150,52 @@ var OWNED_DIRS = [
 
 var SKIP_DIRS = { ".git": 1, "node_modules": 1, ".vscode": 1 };
 var TEXT_EXT = /\.(html|md|js|json|txt|css|ps1)$/i;
+
+// Found on the item 1.3 quality pass (sixteenth), 2026-09-09. TEXT_EXT is an
+// extension test, and modules/emar/weebly - one of the six files
+// tools/extra-public-copy-files.js exists specifically to name, because it
+// carries live estate copy without being a generated page - has NO extension
+// at all (see CLAUDE.md, "The fifth public-copy file the pin checker didn't
+// know about": check-em-dashes.js already had to learn this file was as
+// public as modules/switch/weebly.html, twenty days after it should have).
+// So every rule below (0 to 7) is structurally unable to see this one file:
+// fs.readdirSync's own filter in scan() drops it before checkFile() ever
+// runs, which is a different failure shape from every prior pass on this
+// item - those all found a postcode PC_RE or PC_RE_LOOSE could not read
+// inside a file that WAS being scanned; this is a file the scanner never
+// visits at all. Proved by injection on a scratch copy outside the tracked
+// tree: appended a line naming a real, foreign branch postcode (McCanns
+// Chemist Aigburth's own L17 7BP, which belongs to no branch this file's
+// content could legitimately discuss) to modules/emar/weebly. The
+// unmodified checker reported the identical 927-files-scanned, 32-distinct-
+// postcode, 0-failure baseline before and after the injection - not even a
+// files-scanned count increase - proving the file was invisible to rule 1
+// (UNKNOWN) rather than merely exempt from it. A second injection using the
+// already-narrative-exempt ZZ99 9ZZ confirmed the same silent pass. Both
+// injections discarded, scratch copy never touched the tracked repo. Fix:
+// explicitly force-include every EXTRA_HTML_SEGMENTS path (the shared list
+// check-em-dashes.js and check-cdn-pins.js already require) regardless of
+// extension, rather than widening TEXT_EXT itself - widening the extension
+// list would also start reading the dozens of extension-less lock-test and
+// scratch artefacts this sandbox leaves lying around
+// (.agent-lock.released-*, .locktest_probe, and similar), which are noise,
+// not public copy. Re-verified after the fix on the same scratch copy, with
+// a second, unambiguous injection: a fabricated, non-branch postcode
+// ("AA1 1AA", belonging to no branches.json entry and not in
+// NARRATIVE_POSTCODES) appended to modules/emar/weebly. Before the fix:
+// 927 files scanned, 0 failures, identical whether the line was present or
+// not. After the fix: 928 files scanned (one more - the file is now visible
+// at all) and the injection fails as "UNKNOWN modules/emar/weebly: postcode
+// AA1 1AA is in no branches.json entry". Restored by byte copy and
+// sha256-reconfirmed identical both times (2f23a558...58272). Full checker
+// suite re-run clean on the tracked repo afterwards. No postcode appears in
+// modules/emar/weebly today, so this closes a latent gap, not a live
+// breach.
+var EXTRA_FORCE_INCLUDE = {};
+require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS.forEach(function (segs) {
+  EXTRA_FORCE_INCLUDE[segs.join("/")] = 1;
+});
+
 var PC_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?)\s?([0-9][A-Z]{2})\b/g;
 
 // The scanner, and the blind spot under all six rules. Found on the item 1.3
@@ -411,7 +458,7 @@ function scan(dir) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
     var p = path.join(dir, e.name);
     if (e.isDirectory()) { if (!SKIP_DIRS[e.name]) scan(p); return; }
-    if (!TEXT_EXT.test(e.name)) return;
+    if (!TEXT_EXT.test(e.name) && !EXTRA_FORCE_INCLUDE[rel(p)]) return;
     checkFile(p);
   });
 }

@@ -1,0 +1,53 @@
+Item 1.3 quality pass (sixteenth), 2026-09-09
+check-postcodes.js: modules/emar/weebly invisible to the scanner (extension gap)
+
+BASELINE (scratch copy at /tmp/pcscratch, rsync of tracked repo minus .git):
+  node tools/check-postcodes.js
+  927 text files scanned, 32 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+
+INJECTION 1 (proves the file is invisible, not merely exempt):
+  Appended "<!-- test injection: L17 7BP -->" (McCanns Chemist Aigburth's own
+  real, live branch postcode) to modules/emar/weebly.
+  Result with unmodified checker: identical output, 927 files scanned, 0
+  failures - no change at all, not even a files-scanned increase.
+
+INJECTION 2 (unambiguous non-branch value, run against the fixed checker):
+  Appended "<!-- test injection: AA1 1AA -->" (fabricated, matches no
+  branches.json entry, not in NARRATIVE_POSTCODES) to modules/emar/weebly.
+  Before fix: 927 files scanned, 0 failures, identical whether present or not.
+  After fix: 928 files scanned, 1 failure:
+    UNKNOWN  modules/emar/weebly: postcode AA1 1AA is in no branches.json entry
+
+RESTORE: both injections reverted by copying from the pre-injection backup;
+sha256 reconfirmed identical to the tracked repo throughout
+(2f23a558ffc54fd9ec32e3497022753925f1cc9726f73b49caf9cb6cc1958272).
+
+ROOT CAUSE: TEXT_EXT (tools/check-postcodes.js line 151) is an extension
+test (html|md|js|json|txt|css|ps1). modules/emar/weebly has no extension at
+all, so fs.readdirSync's own filter in scan() drops it before checkFile()
+ever runs. It is one of the six files tools/extra-public-copy-files.js
+exists to name as carrying live estate copy without being a generated page
+(see CLAUDE.md, "The fifth public-copy file the pin checker didn't know
+about").
+
+FIX: new EXTRA_FORCE_INCLUDE set built from extra-public-copy-files.js's
+EXTRA_HTML_SEGMENTS (the shared list check-em-dashes.js and
+check-cdn-pins.js already require), force-included in scan()'s inclusion
+test regardless of extension. TEXT_EXT itself was not widened: this sandbox
+leaves dozens of extension-less lock-test and scratch artefacts in the repo
+root (.agent-lock.released-*, .locktest_probe, and similar) that are noise,
+not public copy, and a blanket widening would start scanning all of them.
+
+RESULT ON TRACKED REPO: 928 text files scanned, 33 distinct postcode(s), 16
+live branches: 0 failure(s), 3 warning(s) (same 3 standing UNOWNED warnings
+as before). Full 36-checker suite re-run clean (35/35 excluding
+check-live-hours.js, which needs network). No postcode appears in
+modules/emar/weebly today, so this closes a latent gap, not a live breach.
+AA1 1AA added to NARRATIVE_POSTCODES with a reason, since the fix's own
+header comment quotes it.
+
+Files changed: tools/check-postcodes.js only. git status --porcelain --
+modules/ core/ branches.json empty before and after (aside from one
+pre-existing untracked scratch file predating this run,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, not
+touched by this pass).
