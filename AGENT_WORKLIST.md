@@ -8895,6 +8895,59 @@ Done 2026-09-08 (fourteenth pass).
       total, 46 open). Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-08-fourteenth.txt.
       Done 2026-09-08
+      Fifteenth quality pass 2026-09-09 (unattended run), fresh angle only.
+      Stalest of the rotation pool by git log --grep per candidate (3.11 at
+      2026-09-08T17:45:20+01:00, ahead of 3.7, 4.4, 4.1, 3.2, 6.2, 3.4, 3.9
+      and 3.13, all also 2026-09-08), excluding the established one-off list
+      (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). All eight unchecked
+      AGENT_WORKLIST.md items confirmed [BLOCKED] first.
+      CLOSED THE GAP THE FOURTEENTH PASS LEFT OPEN. That pass proved
+      check-seo-keywords.js rules 1, 3, 4 and 6 by injection against this
+      branch's own SEO.md and explicitly deferred rules 2 (resolution), 5
+      (brand) and 7 (claim). This pass proved all three, completing full
+      8-rule coverage against Gordon Short Chemist Crosby (rule 8, retired
+      town word, structurally cannot fire on this branch, since townSlug
+      already equals seoTown; it only applies to McCanns Sandringham,
+      already proved on 5.7's own passes). Method: full repo copied
+      (including .git) to an isolated /tmp scratch directory outside the
+      sandbox's FUSE-mounted tracked repo, so the injection touched no file
+      this checker's own working tree tracks. SHA256 of SEO.md recorded
+      before copying (9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d,
+      matching the fourteenth pass's own recorded hash) and reconfirmed
+      identical after every restore. Three injections, each on the scratch
+      copy only, each restored and SHA256-reconfirmed before the next: (1)
+      rule 2, resolution - Sore throat permalink changed to
+      "sore-throat-treatment-gordon-short-nowhereville" - CAUGHT, "does not
+      end in any live branch's <brandSlug>-<townSlug>"; (2) rule 5, brand -
+      "McCanns Chemist" inserted into the Impetigo keywords line - CAUGHT,
+      naming both owning branches "mccanns_aigburth and
+      mccanns_sandringham"; (3) rule 7, claim - "that delivers results"
+      appended to the Shingles keywords line - CAUGHT, "promises results
+      (/delivers results/i)". All three caught first attempt on the
+      intended rule only. Full 36-checker suite re-run clean on the scratch
+      copy after the final restore; all six generators rebuilt
+      byte-identical (git status --porcelain -- modules core tools
+      branches.json empty before and after, aside from the pre-existing
+      untracked .bak stray). Tracked repo's own SEO.md reconfirmed
+      SHA256-unchanged throughout, never opened for writing.
+      LIVE HALF, read-only (curl). Three pages not individually read
+      alongside their own keywords line by any prior 3.11 pass -
+      sore-throat-treatment-gordon-short-crosby.html,
+      impetigo-treatment-gordon-short-crosby.html and
+      shingles-treatment-gordon-short-crosby.html - all 200, all three meta
+      keywords lines match the sheet exactly. FINDING, not a new question:
+      all three <title> tags read "Gordon Shorts Chemist" (plural), widening
+      the already-recorded live-only pre-repaste spelling drift (seventh and
+      fourteenth passes) to three more pages; still live-only
+      (check-brand-spelling.js clean against the repo), still pending the
+      same outstanding Weebly repaste, no new QUESTIONS.json entry.
+      sitemap.xml lastmod unchanged at 2026-08-15T07:41:55+00:00, no
+      republish since the sixth pass. Zero in-repo defects. No new question;
+      QUESTIONS.json unchanged (101 total, 48 open; portal answer pickup
+      checked, newest entry still Q52, nothing new past what is already
+      recorded). Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-09-fifteenth.txt.
+      Done 2026-09-09
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

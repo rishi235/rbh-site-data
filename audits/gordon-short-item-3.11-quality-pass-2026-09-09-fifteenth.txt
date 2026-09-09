@@ -1,0 +1,123 @@
+Item 3.11 quality pass (fifteenth), Gordon Short Chemist Crosby, 2026-09-09
+Unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout.
+
+SELECTION. All eight unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] by
+direct grep before falling back to the rotation. Rotation-pool stalest item
+derived from git log --grep="Item <n>" -i -1 per candidate, excluding the
+established one-off list (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, recorded on
+5.7's 2026-08-30 entry as not part of the rotation pool). Ten candidates tied
+on 2026-09-08 by a coarse text-date scan of AGENT_WORKLIST.md; git log broke
+the tie:
+
+  3.11  2026-09-08T17:45:20+01:00   <- stalest
+  3.7   2026-09-08T20:12:11+01:00
+  4.4   2026-09-08T18:11:11+01:00
+  4.1   2026-09-08T18:40:55+01:00
+  3.2   2026-09-08T19:10:59+01:00
+  6.2   2026-09-08T22:42:33+01:00
+  3.4   2026-09-08T23:12:25+01:00
+  3.9   2026-09-08T23:40:16+01:00
+  3.13  2026-09-08T22:16:46+01:00
+  3.5   (no direct commit; folded into 3.7's commit that day)
+
+3.11 (Gordon Short Chemist Crosby) selected.
+
+SCOPE. The fourteenth pass (2026-09-08) proved tools/check-seo-keywords.js
+rules 1 (pairing), 3 (presence), 4 (absence) and 6 (postcode) by injection
+against this branch's own modules/service/pages/SEO.md, and explicitly left
+rules 2 (resolution), 5 (brand) and 7 (claim) for a future pass. This pass
+closes that gap: all three remaining rules proved by injection against the
+same branch's own sheet, completing full 8-rule coverage of
+check-seo-keywords.js against Gordon Short Chemist Crosby specifically (rule
+8, retired town word, structurally cannot fire on this branch, since its
+townSlug "crosby" already equals its seoTown "Crosby" - that rule only
+applies to the one branch in the estate with a held townSlug, McCanns
+Sandringham, already proved on item 5.7's own passes).
+
+METHOD. Full repo copied (cp -r, including .git) to an isolated scratch
+directory under /tmp (outside the Cowork sandbox's FUSE mount of the tracked
+repo, so no unlink-permission quirk applies to the injection itself). SHA256
+of the tracked repo's modules/service/pages/SEO.md recorded before copying:
+9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d
+- matches the hash the fourteenth pass itself recorded, confirming the file
+is unchanged since that pass. All work below was done on the scratch copy
+only; the tracked repo was never opened for writing. Three injections, each
+on the scratch copy's SEO.md only, each restored from a byte-for-byte backup
+and SHA256-reconfirmed identical to baseline before the next:
+
+(1) RULE 2, resolution. Sore throat block's Page Permalink changed from
+"sore-throat-treatment-gordon-short-crosby" to
+"sore-throat-treatment-gordon-short-nowhereville" (a permalink that does not
+end in any live branch's <brandSlug>-<townSlug>). CAUGHT first attempt:
+"permalink 'sore-throat-treatment-gordon-short-nowhereville' does not end in
+any live branch's <brandSlug>-<townSlug>, so its keywords cannot be checked
+against a branch." Restored; SHA256 reconfirmed 9423d51b... before the next
+injection.
+
+(2) RULE 5, brand. Impetigo block's Meta Keywords line had "McCanns Chemist"
+inserted (a live branch's brandLabel, not Gordon Short's own). CAUGHT first
+attempt, naming both owning branches: "Meta Keywords name 'McCanns Chemist',
+which is the brand of mccanns_aigburth and mccanns_sandringham, not this
+branch." Restored; SHA256 reconfirmed 9423d51b... before the next injection.
+
+(3) RULE 7, claim. Shingles block's Meta Keywords line had "that delivers
+results" appended to "Shingles treatment Crosby" (a phrase in
+tools/claim-patterns.js). CAUGHT first attempt: "Meta Keywords carry
+promises results (/delivers results/i). Efficacy and results wording is not
+allowed in public copy." Restored; SHA256 reconfirmed 9423d51b... afterwards.
+
+All three caught on the intended rule only, no other rule fired
+unexpectedly, and no other block in the 177-line sheet was disturbed.
+
+VERIFICATION AFTER FINAL RESTORE.
+- modules/service/pages/SEO.md: SHA256 9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d
+  on the scratch copy, matching the tracked repo's own copy exactly (also
+  reconfirmed 9423d51b... after all injection work finished).
+- Full 36-checker suite re-run individually on the scratch copy: 36/36 exit 0.
+- All six generators rebuilt on the scratch copy
+  (build-branch-landing-pages.js, build-contraception-pages.js,
+  build-service-pages.js, build-switch-pages.js,
+  build-travel-clinic-pages.js, build-weight-loss-pages.js): git status
+  --porcelain -- modules core tools branches.json empty before and after,
+  aside from the pre-existing untracked
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak (a known
+  stray from an earlier pass's own cleanup limitation, not this run's
+  scope). Byte-identical output confirmed.
+- Tracked repo (C:\Dev\rbh-site-data, mounted read/write in this sandbox)
+  confirmed untouched throughout: SHA256 of its own SEO.md checked before
+  the scratch copy was made and again at the end, unchanged; git status
+  --porcelain -- modules tools branches.json shows only the same
+  pre-existing stray file, no modification to any tracked file.
+
+LIVE HALF, read-only (curl from the sandbox shell; Claude in Chrome not
+attempted this pass since the sandbox shell route already answers the
+question directly). Three pages read that no prior 3.11 pass had fetched
+individually alongside their own keywords line:
+- sore-throat-treatment-gordon-short-crosby.html: 200, meta keywords
+  "Sore throat Crosby, Sore throat treatment Crosby, Pharmacy First Crosby,
+  pharmacy Crosby, L23" - matches the sheet exactly.
+- impetigo-treatment-gordon-short-crosby.html: 200, meta keywords
+  "Impetigo Crosby, Impetigo treatment Crosby, Pharmacy First Crosby,
+  pharmacy Crosby, L23" - matches the sheet exactly.
+- shingles-treatment-gordon-short-crosby.html: 200, meta keywords
+  "Shingles Crosby, Shingles treatment Crosby, Pharmacy First Crosby,
+  pharmacy Crosby, L23" - matches the sheet exactly.
+FINDING, not a new question: all three <title> tags read "... - Gordon
+Shorts Chemist" (plural), the same known, previously recorded, live-only
+pre-repaste spelling drift already logged on this item's seventh pass for
+the weight-loss and travel-clinic pages, and widened on the fourteenth pass
+to the Pharmacy First overview and UTI pages. This pass confirms it also
+reaches the sore throat, impetigo and shingles page titles - a wider
+confirmed scope again, still entirely live-only (check-brand-spelling.js
+passes clean against the repo), still pending the same outstanding Weebly
+repaste, no new QUESTIONS.json entry.
+sitemap.xml lastmod unchanged at 2026-08-15T07:41:55+00:00, confirming no
+republish since the sixth pass.
+
+RESULT. Zero in-repo defects. Full 8-rule coverage of
+check-seo-keywords.js now proven by injection against this branch
+specifically (rules 1, 3, 4, 6 on the fourteenth pass; rules 2, 5, 7 this
+pass; rule 8 structurally inapplicable to this branch, already proven
+elsewhere against its one live branch). No new question; QUESTIONS.json
+unchanged (101 total, 48 open before this run's answer-pickup check, which
+found no new portal answers past the already-recorded Q52).
