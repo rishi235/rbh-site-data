@@ -1,0 +1,92 @@
+Item 4.9 quality pass, fifteenth, 2026-09-09
+Pack: gbp-packs/clear-aintree.md
+Checker under test: tools/check-pharmacy-first-cost.js, rules 4 and 5, against
+this pack's own copy, for the first time in fifteen passes.
+
+Why this angle
+--------------
+Fourteen prior passes had exercised check-gbp-packs.js (multiple rules),
+check-em-dashes.js, check-brand-spelling.js, check-url-scheme.js,
+check-uk-spelling.js, check-app-membership.js, check-gbp-pharmacy-first.js
+Rule 2, and check-postcodes.js against this pack by injection. A grep of
+AGENT_WORKLIST.md's full history for "pharmacy-first-cost" confirmed every
+prior injection against that checker landed on other packs (Fishlocks
+Eccleston, Scorah, McCanns, and others) - never on clear-aintree.md.
+check-pharmacy-first-cost.js's own rule 6 (the positive free-NHS claim) does
+not apply here, because Clear Aintree runs no Pharmacy First (no pfLink, no
+widget) - that early-return was already implicitly proven safe by every prior
+pass finding no rule-6 failure. Untested until now: rules 4 and 5, which scan
+the WHOLE pack (TEMPLATE.md included, by the checker's own design) for any
+block that names Pharmacy First, including a branch that does not run it,
+because a pack can still describe the absent service in a way that misprices
+it. Clear Aintree's pack carries two such blocks: the "Note: branches.json
+shows no Pharmacy First..." line in section 3, and the "Notes for the paster:
+No Pharmacy First post for this branch..." line near Post A. Neither had ever
+been broken to prove the checker actually reads them.
+
+Method
+------
+Full repo copied with .git to /tmp/scratch-49 (per the established method
+note from the item 4.10 ninth pass). All edits and restores performed there;
+the tracked repo at C:\Dev\rbh-site-data was never opened for writing.
+gbp-packs/clear-aintree.md sha256 confirmed unchanged before, between, and
+after every injection: a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4.
+Restored by byte copy from a pre-injection snapshot before each new injection,
+never by git checkout.
+
+Baseline: node tools/check-pharmacy-first-cost.js exits 0 clean (112 pages,
+16 packs, 6 landing pages). Full 36-file check-*.js sweep also clean.
+
+Injection 1 (rule 4, cost qualifier): the section-3 note
+  "Note: branches.json shows no Pharmacy First, blood pressure or
+   contraception service for this branch"
+was changed to
+  "Note: branches.json shows no affordable Pharmacy First, blood pressure or
+   contraception service for this branch".
+CAUGHT. check-pharmacy-first-cost exits 1:
+  FAIL [qualifier] gbp-packs/clear-aintree.md: describes NHS Pharmacy First as
+  "affordable", which prices a service that is free at the point of use
+  (rule 4)...
+Exactly one failure, correct rule, correct pack, correct quoted phrase.
+
+Injection 2 (rule 5, price): restored to baseline, then the paster note
+  "- No Pharmacy First post for this branch: branches.json has no pfLink,
+    pfBooking false and no Pharmacy First widget."
+had "Consultations from 25 pounds." appended in the same sentence run.
+CAUGHT. check-pharmacy-first-cost exits 1:
+  FAIL [price] gbp-packs/clear-aintree.md: states "25 pounds" on NHS
+  Pharmacy First copy (rule 5)...
+Exactly one failure, correct rule, correct pack, correct quoted phrase.
+
+Control (private-service exclusion inside a PF-flagged block): restored to
+baseline, then "Travel clinic consultations from 25 pounds." appended to the
+same paster note used in injection 2. This block still names "Pharmacy
+First" so it is still in scope for scanning, but the appended sentence names
+a private service (travel clinic) and not Pharmacy First itself, which is
+exactly the PRIVATE_SERVICE exclusion the checker's own comments describe.
+Correctly PASSED: check-pharmacy-first-cost exits 0, no failure. Confirms the
+exclusion holds on THIS pack's own copy, not only on the packs where it was
+originally proven.
+
+Restore and final checks
+-------------------------
+gbp-packs/clear-aintree.md restored from the pre-injection snapshot;
+sha256 reconfirmed identical to baseline
+(a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4) and to a
+direct diff against the original file, which reported no differences.
+Full 36-file check-*.js sweep re-run clean on the scratch copy after the
+final restore. The tracked repo's own gbp-packs/clear-aintree.md was
+separately re-hashed at the end and matches the same value; it was never
+opened for writing during this pass.
+
+Result
+------
+Zero in-repo defect. check-pharmacy-first-cost.js's rules 4 and 5 correctly
+read and correctly guard this pack's own copy for the first time proven by
+injection, including the one block (the no-PF explanatory note) that only
+this branch's pack carries in this particular shape, and the private-service
+exclusion inside a PF-flagged block was also proven correct rather than
+assumed. No new question raised. All standing questions against this pack
+(Q21's concrete case, Q28, Q29) unaffected by this repo-only pass; not
+re-verified live this run since no browser route was available (see
+AGENT_LOG.md this run's Answer Pickup / live-half note).

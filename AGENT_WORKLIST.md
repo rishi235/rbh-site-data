@@ -14114,6 +14114,43 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       new question raised. Evidence:
       audits/clear-aintree-postcode-check-4.9-fourteenth-2026-09-08.txt.
       Done 2026-09-08
+      Fifteenth quality pass 2026-09-09: fresh angle, proving
+      tools/check-pharmacy-first-cost.js rules 4 and 5 against this pack's own
+      copy for the first time in fifteen passes. A grep of this file's full
+      history for "pharmacy-first-cost" confirmed every prior injection
+      against that checker landed on other packs, never on clear-aintree.md;
+      rule 6 (the positive free claim) does not apply here because Clear
+      Aintree runs no Pharmacy First, but rules 4 and 5 still scan the whole
+      pack for any block naming Pharmacy First, and this pack carries two such
+      blocks purely to explain its absence (the branches.json note in section
+      3, and the paster note near Post A). Full repo copied with .git to a
+      scratch directory; tracked pack untouched throughout (sha256
+      a5b90f58...321f4 unchanged, reconfirmed after every restore). Baseline
+      clean, 36/36 checkers. Two
+      injections, each restored by byte copy before the next: (1) "affordable"
+      inserted into the section-3 note ("no affordable Pharmacy First...") -
+      CAUGHT by rule 4, exact expected qualifier message; (2) "Consultations
+      from 25 pounds." appended to the Post A paster note - CAUGHT by rule 5,
+      exact expected price message. Control: "Travel clinic consultations
+      from 25 pounds." appended to the same paster note (still inside a block
+      that names Pharmacy First, but the price sentence itself names a
+      private service, not Pharmacy First) - correctly PASSED, confirming the
+      checker's PRIVATE_SERVICE exclusion holds on this pack's own copy and
+      not only on the packs where it was first proven. All three behaved
+      exactly as designed; no checker gap found. Full 36-checker suite
+      re-run clean on the scratch copy after the final restore, and the
+      tracked repo's own pack separately re-hashed identical at the end.
+      LIVE HALF NOT PERFORMED: this is an unattended run and the built-in
+      browser pane requires a one-time site access grant from a person before
+      it can load any page, so data.rbhealth.co.uk (answer pickup) and
+      clearchemist.co.uk (live verification) were both left unfetched rather
+      than requesting access with nobody present to approve it - the same
+      standing Q59 gap other passes hit via Claude in Chrome, encountered here
+      via a different browser tool. All live-side findings (Q28, Q21's
+      concrete case, Q29) stand as last verified on the fourteenth pass,
+      2026-09-08. No in-repo defect found, no new question raised. Evidence:
+      audits/clear-aintree-pharmacy-first-cost-4.9-fifteenth-2026-09-09.txt.
+      Done 2026-09-09
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
