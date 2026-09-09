@@ -1,0 +1,142 @@
+Item 4.14 quality pass (sixteenth, Gordon Short Chemist Crosby GBP pack)
+Date: 2026-09-09
+Run: unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash throughout
+
+SUBJECT
+Prove tools/check-pharmacy-first-eligibility.js rules 9, 10 and 11 (the pinned
+age cohorts, the seven-condition list, and the age-ranges caveat sentence) by
+direct injection against gbp-packs/gordon-short-crosby.md's own copy for the
+first time in fifteen prior passes on this item. This item's own worklist
+section and its fifteen prior audits/ files were searched for "eligib", "rule
+9", "rule 10", "rule 11" before choosing: zero hits, confirming this specific
+checker's pack-reading rules had never been pointed at this pack, although the
+same three rules had already been proven this week against sibling packs
+(Coleman and Leighs Pharmacy Walton, item 4.12 fifteenth pass; Tiffenbergs
+Chemist Aintree, item 4.15 fifteenth pass). This pass mirrors that same method
+exactly, on this pack.
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Pool re-derived from first principles:
+grepped `^- \[x\]` headers in AGENT_WORKLIST.md for the 43 checked items,
+subtracted the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) to get the same 36-item pool prior runs use, then ran
+`git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md` per
+item across all 36. Item 4.14 was stalest at 2026-09-08T16:41:52+01:00 (its
+own fifteenth pass), matching the immediately preceding run's own forward
+note exactly, ahead of 1.2 (2026-09-08T17:15:35+01:00) and the rest of the
+pool. Chosen: 4.14 (Gordon Short Chemist Crosby GBP pack).
+
+BASELINE
+sha256 of gbp-packs/gordon-short-crosby.md before this pass:
+  49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+Matches the value recorded on every one of the fourteen prior passes since the
+fourteenth pass introduced the photo-shot-list proof, byte-stable across all
+sixteen. Full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, standing convention) run against the tracked repo before any work
+began: all 34 exit 0.
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to /tmp/scratch-414. All
+injections and checker runs performed against the scratch copy only; the
+tracked repo's gbp-packs/gordon-short-crosby.md was never opened for writing.
+A pristine byte copy of the pack was kept outside the scratch tree
+(/tmp/gordon-short-crosby.pristine.md) and used to restore before each new
+round, with sha256 reconfirmed identical to the baseline after every restore.
+
+ROUND 1 - rule 9, UTI cohort age
+Changed Post A's "uncomplicated water infections in women aged 16 to 64" to
+"...aged 16 to 65", leaving every other occurrence untouched (this pack states
+the UTI age only once, in Post A). CAUGHT: two failures, ages 16 and 65, both
+flagged as "not part of any NHS cohort this copy may state (rule 9)". Restored;
+sha256 reconfirmed identical; checker re-run clean.
+
+ROUND 2 - rule 9, blood pressure cohort age
+Changed only the Services section's "adults aged 40 and over" to "adults aged
+35 and over", leaving the description's own occurrence of "40 and over"
+untouched to isolate the mutation. CAUGHT: one failure, age 35, naming the
+exact mutated sentence; the description's unchanged "40 and over" correctly
+not re-flagged. Restored; sha256 reconfirmed identical; checker re-run clean.
+
+ROUND 3 - rule 10, condition-list completeness
+Dropped "impetigo" from the Services section's NHS Pharmacy First bullet
+("...for sinusitis, sore throat, earache, impetigo, shingles..." ->
+"...for sinusitis, sore throat, earache, shingles..."), leaving Post A's own
+enumeration (which also lists impetigo) untouched. CAUGHT: one failure naming
+the omission of impetigo and stating the profile now advertises "6 of the 7
+NHS pathways this branch is commissioned for". Restored; sha256 reconfirmed
+identical; checker re-run clean.
+
+ROUND 4 - rule 11, age-ranges caveat sentence
+Removed "Age ranges set by the NHS apply to each condition." from the end of
+Post A, leaving the seven-condition enumeration and the UTI cohort intact.
+CAUGHT: one failure quoting the rule's own explanation in full ("lists all 7
+Pharmacy First conditions but nowhere says the NHS age ranges apply to each of
+them (rule 11)..."). Restored; sha256 reconfirmed identical; checker re-run
+clean.
+
+ROUND 5 - CONTROL, parenthetical exemption
+Appended "(not conjunctivitis, which needs a separate referral)" as a
+parenthetical directly after the Services section's NHS Pharmacy First
+bullet, mirroring the Cherry Lane, Coleman-Leigh-Walton and Tiffenbergs
+Aintree parenthetical-exemption findings. "conjunctivitis" is a
+NOT_PHARMACY_FIRST word. Correctly PASSED: exit 0, no new failure, confirming
+the stripParens() exemption holds on this pack's own copy too, not only on
+the packs it was previously proven against.
+
+RESULT
+All five rounds fired or correctly passed on the first attempt, each on its
+intended rule only, with no side-effect failures anywhere else in the 34-
+checker suite. Rules 9, 10 and 11 of check-pharmacy-first-eligibility.js were
+already correctly and independently enforced against this pack's own copy, in
+both directions on the age rules, on the condition-completeness rule, on the
+caveat-sentence rule, and with the parenthetical exemption intact. Zero
+in-repo defect.
+
+FINAL VERIFICATION
+Full 34-checker suite re-run against the scratch copy after the final
+restore: all 34 exit 0. sha256 of gbp-packs/gordon-short-crosby.md on the
+scratch copy reconfirmed 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+identical to baseline. diff -rq of gbp-packs/ and tools/ between the scratch
+copy and the tracked repo: no differences. Tracked repo's own copy of the
+pack separately re-hashed after the pass: identical. git status --porcelain
+on the tracked repo shows no changes to either file from this pass. Scratch
+directory deleted after the pass completed.
+
+LIVE HALF
+Claude in Chrome MCP tools were loaded via ToolSearch but tabs_context_mcp
+reported "Claude in Chrome is not connected" (standing Q59). The built-in
+Claude Browser MCP was used for the QUESTIONS.json answer-pickup fetch in
+step 3 instead (see ANSWER PICKUP below) but mcp__workspace__web_fetch itself
+refused the four live gordonshortchemist.co.uk URLs directly ("URL not in
+provenance set"), so status-only checks were made instead via read-only curl
+GET/HEAD from the sandbox shell, matching the fourteenth and fifteenth
+passes' fallback approach within the time budget; no login, click, form
+submission or write of any kind was attempted anywhere. All four
+post-linked pages return 200: pharmacy-first-service-crosby.html,
+switch-prescriptions-gordon-short-crosby.html,
+weight-loss-clinic-gordon-short-crosby.html and
+travel-clinic-gordon-short-crosby.html. sitemap.xml lastmod for every
+gordon-short-crosby URL still reads 2026-08-15T07:41:55+00:00, unchanged
+since the sixth pass, confirming no republish since any prior pass's own
+reading. Page body content (the "Gordon Shorts Chemist" naming STOP, the
+mojibake em dash on the switch page, the footer en dashes) was not re-read
+this pass (status-only), so those standing findings are carried forward
+unchanged from the fifteenth pass rather than freshly reconfirmed - flagged
+here rather than silently implied, matching the fifteenth pass's own
+convention.
+
+QUESTIONS
+No new question raised this pass; this checker's rules 9-11 govern GBP pack
+copy pasted into Google's profile fields and this branch's own pack already
+passes every rule, so there is no business, legal, pricing or regulatory
+judgement call for Rishi here. QUESTIONS.json: 100 total, 47 open at run
+start; answer pickup (step 3) via the built-in Claude Browser MCP against
+https://data.rbhealth.co.uk/api/feedback succeeded and returned the full
+feedback JSON, but every "AUDIT ANSWER Q<n>" entry present already matches
+QUESTIONS.json's current recorded status (the two still-open questions, Q37
+and Q43, both already carry a note that their most recent portal reply does
+not select one of the listed options, and no reply postdating those notes
+was present) - nothing new to apply. Still 47 open, none newly answered.
+No credential encountered in any file touched.

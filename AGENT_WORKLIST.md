@@ -17335,6 +17335,61 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-08-fifteenth.txt.
       Done 2026-09-08.
+      Sixteenth quality pass 2026-09-09 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). Taken because all 8
+      unchecked worklist lines are still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+      and the three Q60/Q66 lines under 6.4/6.5/6.6); item-selection method
+      unchanged - the 36-item rotation pool's last-touch dates re-derived via
+      git log -1 --format=%aI --all --grep per item, and 4.14 was stalest at
+      2026-09-08T16:41:52+01:00 (its own fifteenth pass), matching the
+      preceding run's own forward note. FRESH ANGLE: this item's own fifteen-
+      pass history and thirteen prior audits/ files were searched for
+      "eligib", "rule 9", "rule 10", "rule 11" - zero hits, so
+      tools/check-pharmacy-first-eligibility.js's rules 9, 10 and 11 (the
+      pinned age cohorts, the seven-condition list, and the age-ranges
+      caveat sentence) had never been pointed at this pack by injection,
+      although the same three rules had already been proven this week
+      against Coleman and Leighs Pharmacy Walton (item 4.12, fifteenth pass)
+      and Tiffenbergs Chemist Aintree (item 4.15, fifteenth pass). Baseline:
+      pack sha256 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all fifteen prior passes exactly; full 34-checker suite
+      (check-cdn-pins.js and check-live-hours.js excluded, standing
+      convention) exit 0 before any change. Five rounds on a byte copy of
+      the repo (/tmp/scratch-414), each restored from a pristine copy and
+      SHA256-reconfirmed before the next: (1) Post A's UTI cohort "aged 16
+      to 64" changed to "aged 16 to 65" - CAUGHT, two failures (ages 16 and
+      65) under rule 9; (2) the Services section's blood pressure cohort
+      "aged 40 and over" changed to "aged 35 and over", the description's
+      own occurrence left untouched - CAUGHT, one failure naming the mutated
+      sentence only, under rule 9; (3) "impetigo" dropped from the Services
+      section's condition list, Post A's own enumeration left untouched -
+      CAUGHT, one failure under rule 10 ("advertises 6 of the 7 NHS
+      pathways"); (4) "Age ranges set by the NHS apply to each condition."
+      deleted from the end of Post A - CAUGHT, one failure under rule 11
+      quoting the rule's own explanation in full; (5) CONTROL - a
+      parenthetical "(not conjunctivitis, which needs a separate referral)"
+      appended after the Services section's Pharmacy First bullet -
+      correctly PASSED (exit 0), confirming the parenthetical-strip
+      exemption holds on this pack too. All five rounds fired or passed on
+      the first attempt, each on its own intended rule only, no cross-
+      firing. Zero in-repo defect: rules 9, 10 and 11 already correctly and
+      independently protect this pack. Full 34-checker suite re-run clean
+      after the final restore; pack sha256 and cmp both reconfirmed
+      identical to baseline; git status --porcelain on the tracked repo
+      empty throughout. Scratch directory deleted after use.
+      LIVE HALF: Claude in Chrome not connected (Q59). mcp__workspace__web_fetch
+      refused the live URLs directly (provenance-set restriction in this
+      session), so fell back to read-only curl GET from the sandbox shell,
+      status-only: all four post-linked pages (Pharmacy First, switch,
+      weight loss clinic, travel clinic) return 200; sitemap.xml lastmod for
+      every gordon-short-crosby URL unchanged at 2026-08-15T07:41:55+00:00,
+      no republish since the sixth pass. Page body content (the "Gordon
+      Shorts Chemist" naming STOP, the switch-page mojibake em dash, the
+      footer en dashes) not re-read this pass, so those standing findings
+      are carried forward unchanged rather than freshly reconfirmed. No new
+      question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-09-sixteenth.txt.
+      Done 2026-09-09.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
