@@ -10942,6 +10942,46 @@ Pharmacy First wording to the NHS service description.
       No in-repo defect found. No new question raised; QUESTIONS.json
       unchanged at 99 total, 46 open.
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-08-sixteenth.txt.
+      Quality pass 2026-09-09 (seventeenth, unattended run): fresh angle - proved
+      tools/check-gbp-packs.js's "claims outside the known vocabulary" allowlist rule
+      (RECOGNISED_SERVICES / RECOGNISED_CATEGORIES) against this pack's own copy for
+      the first time in seventeen passes; the rule's own header names only
+      scorah-bramhall.md as its original proof. Baseline clean (34/34 checkers,
+      check-cdn-pins.js and check-live-hours.js excluded per standing convention;
+      sha256 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2, matching
+      every prior pass, no drift since the tenth pass's Q40 rename edit). Full repo
+      byte-copied with .git to /tmp/scratch-42-allowlist; tracked repo never opened for
+      writing during the injection phase.
+      Three cases against the rule's two detection paths plus a control, each restored
+      from a saved byte copy and sha256-reconfirmed identical before the next: (1)
+      categories FAIL - "Dental clinic" appended to the categories bullet alongside the
+      three genuine categories - CAUGHT first attempt, matching the rule's own
+      Scorah Bramhall precedent wording; (2) services FAIL - "Ear wax removal:
+      microsuction ear wax removal by appointment." appended to the Private services
+      list - CAUGHT first attempt, same wording as the rule's own header cites; (3)
+      CONTROL - "Blood tests: same-day finger-prick blood tests, results within 48
+      hours." appended after the existing "Blood testing" bullet, a genuinely
+      recognised but differently-worded label - correctly PASSED (exit 0, only the
+      pre-existing Q72 known-exception WARN), proving the rule matches the recognised
+      label itself rather than memorised exact wording already present in the file, a
+      distinction no prior pass on any pack had exercised for this rule. All three
+      cases fired or passed on the first attempt, each on its intended path only, no
+      cross-firing elsewhere in the suite. No checker logic edited, no pack content
+      byte changed. Full 34-checker suite re-run clean on the scratch copy after the
+      final restore; pack sha256 reconfirmed identical to baseline; tracked repo's own
+      copy confirmed sha256-unchanged and git-status-clean throughout.
+      No in-repo defect found - the allowlist rule already protects this pack on both
+      detection paths and discriminates correctly between recognised and unrecognised
+      labels; now proven directly for the first time.
+      LIVE HALF: access to https://data.rbhealth.co.uk was granted this run for the
+      answer-pickup step but redirected to the Cloudflare Access login page, which the
+      task's own rules say to leave alone; not performed for Cherry Lane's own live
+      site this pass regardless, since this rule governs copy pasted into a GBP
+      picker/services field during manual paste, not something a fetch could verify.
+      The sixteenth pass's live findings (Q92, Q95 cross-reference, Q36 instability)
+      stand, not re-verified this pass.
+      No new question raised; QUESTIONS.json unchanged at 100 total, 47 open.
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-09-seventeenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
