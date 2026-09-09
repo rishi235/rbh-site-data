@@ -4407,6 +4407,52 @@ pass, no republish. Evidence in audits/hirshmans-item-3.5-quality-pass-2026-
 audits/verify-3.5-2026-09-08-fifteenth-output.txt. No in-repo defect found,
 no new question.
 
+Quality pass 2026-09-09 (sixteenth): NEW LEG, tools/check-seo-keywords.js,
+never mentioned once across fifteen prior passes on this item (confirmed by
+grep of every tools/check-*.js basename against the item's full history
+block). Baseline: all sheets clean, `node tools/check-seo-keywords.js`
+reports 177 Meta Keywords lines across 11 sheets, 15 live branches, 0
+failures; branches.json sha256 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634
+c70114f135101f0b969e1e, matching every prior pass. Independent extraction
+(audits/verify-3.5-2026-09-09-sixteenth.py, freshly written, no import from
+tools/) parsed all five SEO.md sheets carrying a Hirshmans Chemist Ainsdale
+block and re-implemented rules 1, 3-8 directly against branches.json: found
+and checked all 12 expected blocks, 0 failures. Rule 8 (retired town word)
+logged as correctly inert for this branch: townSlug "ainsdale" equals
+seoTown "Ainsdale", so there is no retired word here to guard (the one
+branch where this rule fires today is McCanns Chemist Sandringham, per
+item 5.7). GUARD RE-PROOF BY INJECTION on a scratch copy (this sandbox's
+root filesystem was at 99% capacity, 183MB free, the same recurring finding
+several prior passes have recorded; scratch work moved to the outputs
+mount), seven injections against the Hirshmans Chemist Ainsdale UTI block,
+each restored and cmp-reconfirmed identical to a byte-for-byte baseline
+before the next: (1) RULE 1 pairing - Meta Keywords blanked, caught first
+attempt ("has a Page Permalink but no Meta Keywords value"); (2) RULE 2
+resolution - permalink changed to "uti-treatment-hirshmans-nowhereville",
+caught first attempt; (3) RULE 3 presence - "Ainsdale" removed from the
+keywords, caught first attempt; (4) RULE 4 absence - "Bootle" (seoTown of
+Smartts Chemist Bootle and SK Chemists Bootle, not in Hirshmans'
+serviceAreaList) appended, caught first attempt, correctly naming both real
+owners; (5) RULE 5 brand - "McCanns Chemist" substituted in, caught first
+attempt, correctly naming both McCanns branches; (6) RULE 6 postcode - "PR8"
+swapped for "L20" (SK Chemists Bootle's outward code), caught first attempt;
+(7) RULE 7 claim - "guaranteed results" inserted, caught first attempt. All
+seven caught on their intended rule only, first attempt, with no
+cross-firing onto any other block or branch. `node tools/check-seo-
+keywords.js` re-run clean on the scratch copy after the final restore.
+Tracked repo confirmed untouched throughout (`git status --porcelain --
+modules tools branches.json` empty; branches.json sha256 unchanged both
+before and after). No generator, checker or page content edited; no
+regeneration needed or performed. LIVE HALF NOT PERFORMED: Claude in Chrome
+unreachable ("not connected"); `mcp__workspace__web_fetch` refused ("URL not
+in provenance set"), not routed around via curl/bash per the standing
+instruction not to bypass a web-fetch refusal. State stands as last
+recorded on the fifteenth pass (2026-09-08), not re-verified this pass.
+Evidence in audits/hirshmans-item-3.5-quality-pass-2026-09-09-sixteenth.txt,
+audits/verify-3.5-2026-09-09-sixteenth.py and
+audits/verify-3.5-2026-09-09-sixteenth-output.txt. No in-repo defect found,
+no new question.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

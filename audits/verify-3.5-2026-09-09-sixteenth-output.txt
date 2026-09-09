@@ -1,0 +1,16 @@
+Found 12 Hirshmans Chemist Ainsdale Meta Keywords blocks across 5 sheets
+  (RULE8 correctly inert for pharmacy-first-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for uti-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for sore-throat-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for sinusitis-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for earache-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for impetigo-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for shingles-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for insect-bite-treatment-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for contraception-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for travel-clinic-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for weight-loss-clinic-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+  (RULE8 correctly inert for switch-prescriptions-hirshmans-ainsdale: townSlug 'ainsdale' equals seoTown 'Ainsdale', no retired word)
+Checked 12 Meta Keywords line(s) for Hirshmans Chemist Ainsdale
+
+All clear: every Hirshmans Chemist Ainsdale Meta Keywords line independently verified against rules 1, 3-8.

@@ -1,0 +1,112 @@
+Item 3.5 quality pass (sixteenth) - Hirshmans Chemist, Ainsdale
+Date: 2026-09-09 (unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash throughout; Claude in Chrome attempted for step 3 and the live half)
+
+SELECTION
+Fifteen prior passes had proven check-branch-links.js, check-contraception-copy.js,
+check-editor-snapshot.js, check-gbp-packs.js, check-jsonld.js, check-live-hours.js,
+check-map-embeds.js, check-nap.js, check-opening-hours.js, check-pharmacy-first-
+eligibility.js, check-postcodes.js, check-seo-pattern.js, check-seo-sheets.js,
+check-travel-clinic-copy.js and check-whatsapp-route.js against Hirshmans Chemist
+Ainsdale's own pages/branches.json entry, by grep of every tools/check-*.js
+basename against this item's full AGENT_WORKLIST.md history block. check-seo-
+keywords.js (the Meta Keywords field; see CLAUDE.md "The fourth SEO field")
+had never been mentioned once. Picked as this pass's new leg.
+
+BASELINE
+branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+(matches every prior pass's own recorded baseline - unchanged).
+Tracked repo: `node tools/check-seo-keywords.js` clean - 177 Meta Keywords
+lines across 11 paste sheets, 15 live branches, 0 failures.
+Hirshmans Chemist Ainsdale entry: brandLabel = branchName = "Hirshmans
+Chemist" (not one of the six brand-sharing branches), seoTown "Ainsdale",
+townSlug "ainsdale" (equal to seoTown, so RULE 8 is correctly inert for this
+branch - see below), postcode "PR8 3HW" (outward PR8), serviceAreaList
+["Ainsdale", "Birkdale", "Southport"].
+
+INDEPENDENT EXTRACTION
+audits/verify-3.5-2026-09-09-sixteenth.py, written fresh, imports nothing
+from tools/. Parses the five SEO.md sheets that carry a Hirshmans Chemist
+Ainsdale block (modules/service/pages/SEO.md, CONTRACEPTION-SEO.md,
+TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md, modules/switch/pages/SEO.md) by
+scanning for permalinks ending "-hirshmans-ainsdale", and re-implements
+rules 1, 3-8 against branches.json directly. Found and checked all 12
+expected blocks (8 Pharmacy First family + contraception + travel clinic +
+weight loss + switch = 12, matching the 12 live Hirshmans pages), 0
+failures. RULE 8 logged as correctly inert on all 12 blocks (townSlug
+"ainsdale" equals seoTown "Ainsdale", so there is no retired word for this
+rule to guard here - the one branch in the estate where it fires today is
+McCanns Chemist Sandringham, per the checker's own item 5.7 note).
+
+GUARD RE-PROOF BY INJECTION
+Scratch copy at /sessions/beautiful-inspiring-lovelace/mnt/outputs/
+scratch-35-16b (this sandbox's root filesystem was at 99% capacity, 183MB
+free - the same recurring finding several prior passes have recorded -
+so scratch work was done on the outputs mount instead). Copied only what
+check-seo-keywords.js reads: tools/check-seo-keywords.js, tools/claim-
+patterns.js, branches.json, and the full modules/branch/pages,
+modules/service/pages, modules/switch/pages directories (both .html and
+.md - the checker's own `generated` set is built by reading .html
+filenames, so an .md-only scratch copy would have failed every RULE 2
+resolution check vacuously; caught and corrected before any injection was
+run). Baseline run on the scratch copy matched the tracked repo exactly
+(177 lines, 11 sheets, 15 branches, 0 failures) before any injection.
+
+All 7 injections targeted the Hirshmans Chemist Ainsdale UTI block (line 256
+of the scratch copy's modules/service/pages/SEO.md), each restored from a
+byte-for-byte backup (SEO.md.baseline, sha256
+9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d) and
+cmp-reconfirmed identical before the next:
+
+1. RULE 1 pairing - Meta Keywords blanked, Page Permalink left intact.
+   CAUGHT first attempt: "has a Page Permalink but no Meta Keywords value."
+2. RULE 2 resolution - Page Permalink changed to
+   "uti-treatment-hirshmans-nowhereville". CAUGHT first attempt: "does not
+   end in any live branch's <brandSlug>-<townSlug>".
+3. RULE 3 presence - "Ainsdale" removed from the keywords entirely. CAUGHT
+   first attempt: "do not carry this branch's own seoTown 'Ainsdale'".
+4. RULE 4 absence - "Bootle" (the seoTown of Smartts Chemist Bootle and SK
+   Chemists Bootle, neither in Hirshmans' serviceAreaList) appended. CAUGHT
+   first attempt, correctly naming both real owners:
+   "the seoTown of smartts_bootle and skchemists_bootle".
+5. RULE 5 brand - "McCanns Chemist" substituted into the keywords. CAUGHT
+   first attempt, correctly naming both McCanns branches:
+   "the brand of mccanns_aigburth and mccanns_sandringham".
+6. RULE 6 postcode - "PR8" replaced with "L20" (SK Chemists Bootle's
+   outward code). CAUGHT first attempt: "not this branch's outward code
+   'PR8'".
+7. RULE 7 claim - "guaranteed results" inserted. CAUGHT first attempt,
+   correctly matching the guaranteed/results claim pattern.
+
+Each injection produced exactly one FAILURES line, on its intended rule
+only, with no cross-firing onto any other Hirshmans block or any other
+branch. RULE 8 not injected: correctly inert for this branch by construction
+(see above) and altering it meaningfully would mean editing branches.json's
+townSlug/seoTown pairing, a change to the single source of truth out of
+scope for a verification pass.
+
+VERIFICATION
+`node tools/check-seo-keywords.js` re-run clean on the scratch copy after
+the final restore (177 lines, 0 failures). Tracked repo untouched
+throughout - `git status --porcelain -- modules tools branches.json` empty
+before and after; branches.json sha256 unchanged
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e). No
+generator, checker or page content edited; no regeneration needed.
+
+LIVE HALF
+Claude in Chrome: `tabs_context_mcp` returned "not connected" (checked at
+answer pickup, step 3, and reconfirmed here). `mcp__workspace__web_fetch`
+against https://www.hirshmanspharmacy.co.uk/uti-treatment-hirshmans-
+ainsdale.html was refused: "URL not in provenance set" - this session's own
+platform rule, not attempted via curl/bash per the standing instruction not
+to route around a web-fetch refusal (the same restriction the fourteenth
+and fifteenth passes record hitting and respecting). No live check performed
+this pass; state stands as last recorded on the fifteenth pass
+(2026-09-08), not re-verified here and should not be assumed unchanged.
+
+RESULT
+Zero in-repo defect. check-seo-keywords.js's rules 1-7 already correctly
+and independently protect Hirshmans Chemist Ainsdale's own Meta Keywords
+lines across all five sheets that carry them; now proven directly by
+injection for the first time in sixteen passes. Rule 8 confirmed correctly
+inert for this branch, not a gap. No new question. QUESTIONS.json unchanged
+(101 total, 48 open).
