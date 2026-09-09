@@ -1,0 +1,101 @@
+Item 4.4 quality pass, seventeenth, 2026-09-09 (unattended scheduled run, Cowork sandbox mcp__workspace__bash throughout)
+Subject: gbp-packs/scorah-bramhall.md
+Fresh angle: tools/check-gbp-packs.js's two catchment-list rules (the "areaOrder"
+lead-town rule at ~line 1300, and the "membership" rule at ~line 1387) had been
+proven by injection on other packs (Tiffenbergs, McCanns Sandringham per the
+checker's own code comments) but never against this specific pack's copy in
+sixteen prior passes, despite this pack carrying three separate catchment runs
+("Bramhall, Cheadle Hulme, Hazel Grove, Handforth and Poynton") across its
+description, Services section and Post A.
+
+BASELINE
+sha256 of gbp-packs/scorah-bramhall.md before any edit:
+e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c
+branches.json scorah_bramhall: seoTown "Bramhall", addressLocality "Bramhall",
+serviceAreaList ["Bramhall","Cheadle Hulme","Hazel Grove","Handforth","Poynton"].
+Full 36-checker suite run against the tracked repo before any change: 0 failures
+(check-cdn-pins.js separately confirmed exit 0 on the tracked repo).
+
+METHOD
+This sandbox's root filesystem (/tmp) was found to be at 98% capacity this run
+(220MB free) and refused several file writes with "Permission denied" mid-baseline
+sweep. Scratch work was moved to /sessions/brave-beautiful-tesla/scratch instead
+(7.1GB free on that mount), and the repo copy for injection work excluded .git
+(tar --exclude='.git') to keep the copy small (24MB vs 381MB with .git), since the
+injection work itself only needs the working tree, not git history. This is a
+methodology change from several recent passes that copied .git too (to run
+check-cdn-pins.js on the scratch copy); the effect and its one side finding are
+recorded below.
+
+Tracked repo (C:\dev\rbh-site-data, mounted at
+/sessions/brave-beautiful-tesla/mnt/rbh-site-data) never opened for writing at any
+point in this pass.
+
+THREE INJECTIONS on the .git-less scratch copy, each restored from a byte-for-byte
+backup and sha256-reconfirmed identical to baseline before the next:
+
+(1) AREAORDER RULE. The Services section's run "serving Bramhall, Cheadle Hulme,
+Hazel Grove, Handforth and Poynton" had its first two towns swapped to "serving
+Cheadle Hulme, Bramhall, Hazel Grove, Handforth and Poynton" (membership
+unchanged, only the lead town). CAUGHT first attempt:
+"catchment list leads with \"Cheadle Hulme\", but this branch's seoTown in
+branches.json is \"Bramhall\", which is the word every page it owns leads with.
+... Found: \"Cheadle Hulme, Bramhall, Hazel Grove, Handforth and Poynton\""
+
+(2) MEMBERSHIP RULE. Post A's run "Serving Bramhall, Cheadle Hulme, Hazel Grove,
+Handforth and Poynton" had its last town changed to a real place with no live
+branch connection: "Serving Bramhall, Cheadle Hulme, Hazel Grove, Handforth and
+Warrington" (lead town and every other element unchanged). CAUGHT first attempt:
+"catchment list names \"Warrington\", which is not in this branch's
+serviceAreaList in branches.json (Bramhall, Cheadle Hulme, Hazel Grove,
+Handforth, Poynton) and is neither its seoTown nor its addressLocality. ...
+Found: \"Serving Bramhall, Cheadle Hulme, Hazel Grove, Handforth and Warrington\""
+
+(3) CONTROL. The description's run "Bramhall, Cheadle Hulme, Hazel Grove,
+Handforth and Poynton" had its four NON-lead towns reordered to "Bramhall,
+Handforth, Poynton, Hazel Grove and Cheadle Hulme" (lead town unchanged, every
+town still a genuine member of this branch's serviceAreaList). Correctly PASSED,
+exit 0, no new FAIL beyond the two pre-existing WARNs (live-only Post A link,
+Q64 address post-town) - confirms both rules are scoped exactly as documented:
+areaOrder cares only about the first element, membership cares only about set
+membership, and neither polices the order of the remaining elements.
+
+All three fired or passed on the first attempt, on their intended rule only, with
+no cross-firing on the two untouched catchment runs in the same file each time.
+Final restore sha256-reconfirmed e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c,
+matching baseline and the tracked repo's own copy (diff clean).
+
+FULL SUITE, POST-RESTORE
+35 of 36 checkers re-run individually against the scratch copy: 0 failures.
+check-cdn-pins.js failed on the scratch copy only, with 6 "does not resolve in
+git" errors on the two CDN-pinned refs and the two runtime branches.json fetches
+- an artefact of this pass's own .git-less copy method (nothing to resolve refs
+against), not a defect: separately re-run directly against the tracked repo
+(which does have .git), it exits 0. Recorded here rather than silently
+excluded, since a prior pass's convention of excluding check-cdn-pins.js from
+the scratch sweep was for a different reason (live/network dependency); this
+run's exclusion reason is the .git-less copy specifically and should not be
+read as a repeat of that convention without this note.
+
+Tracked repo git status --porcelain on gbp-packs/scorah-bramhall.md and
+tools/check-gbp-packs.js: empty (untouched) both before and after this pass.
+No generator writes gbp-packs/, so no regeneration needed.
+
+LIVE HALF
+Not attempted. Both catchment rules govern the pack's business description and
+Post A copy, which are Google Business Profile fields pasted by hand and never
+published to the generated website - the same reasoning prior passes recorded
+for the sister-branch and OUTCOME_PROMISE rules ("a GBP post field a read-only
+HTTP fetch cannot see"). Incidental note, not this pass's scope: a grep for
+"Cheadle Hulme" across modules/*/pages also matched
+modules/branch/pages/pharmacy-scorah-bramhall.html, meaning the generated branch
+landing page carries its own, separately-sourced catchment/service-area
+statement. That page's wording is governed by check-address-region.js and the
+seoTown/serviceAreaList rules described in CLAUDE.md, not by check-gbp-packs.js,
+and was not read or altered this pass.
+
+RESULT: zero in-repo defect. Both catchment-list rules already correctly
+protect Scorah Chemists Bramhall's own pack; now proven directly by injection
+for the first time in seventeen passes. No new question. QUESTIONS.json
+unchanged (101 total, 48 open). No checker logic, generator, page, pack or
+branches.json content changed.

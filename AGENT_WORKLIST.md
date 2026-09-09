@@ -12076,6 +12076,46 @@ directly by injection for the first time in sixteen passes rather than only
 passively observed in the "all 36 checkers pass" baseline. No new question;
 QUESTIONS.json unchanged. No checker logic, generator, page, pack or
 branches.json content changed.
+Quality pass 2026-09-09 (seventeenth pass, unattended scheduled run): fresh
+angle, check-gbp-packs.js's two catchment-list rules (the areaOrder lead-town
+rule and the membership rule) proved by injection against this pack's own
+copy for the first time in seventeen passes, despite the pack carrying three
+separate catchment runs across its description, Services section and Post A.
+Baseline sha256 e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c,
+matching all prior passes; full 36-checker suite 0 failures beforehand.
+Sandbox /tmp was found at 98% capacity this run, so scratch work moved to
+/sessions/brave-beautiful-tesla/scratch and the repo copy excluded .git to
+keep it small - a methodology note, not a defect (see below). THREE
+INJECTIONS on the scratch copy, each restored and sha256-reconfirmed before
+the next: (1) areaOrder - Services section run reordered to lead with
+"Cheadle Hulme" instead of "Bramhall" - CAUGHT first attempt, "catchment list
+leads with \"Cheadle Hulme\", but this branch's seoTown ... is \"Bramhall\"";
+(2) membership - Post A's run had its last town changed to "Warrington", a
+real place with no connection to this branch - CAUGHT first attempt,
+"catchment list names \"Warrington\", which is not in this branch's
+serviceAreaList"; (3) control - the description's run had its four non-lead
+towns reordered with the lead town and set membership both left intact -
+correctly PASSED, confirming both rules are scoped exactly as documented
+(lead town only; set membership only, order elsewhere unpoliced). All three
+fired or passed on the first attempt, on their intended rule only, no
+cross-firing on the two untouched catchment runs in the same file. Final
+restore sha256-reconfirmed identical to baseline. Full suite re-run: 35/36
+checkers 0 failures on the scratch copy; check-cdn-pins.js failed there only
+because the .git-less scratch copy cannot resolve CDN refs (an artefact of
+this pass's own copy method, not a defect), separately reconfirmed exit 0
+against the tracked repo directly. Tracked repo git status --porcelain on
+gbp-packs/scorah-bramhall.md and tools/check-gbp-packs.js empty throughout.
+No generator writes gbp-packs/, so no regeneration needed. Live half not
+attempted: both rules govern Google Business Profile fields (description,
+Post A) never published to the generated website, matching prior passes'
+reasoning for the sister-branch and OUTCOME_PROMISE rules. Incidental,
+out of scope: modules/branch/pages/pharmacy-scorah-bramhall.html also
+carries its own catchment wording, governed by check-address-region.js, not
+touched this pass. RESULT: zero in-repo defect - both catchment rules
+already correctly protect this pack; now proven directly by injection for
+the first time. No new question; QUESTIONS.json unchanged (101 total, 48
+open). No checker logic, generator, page, pack or branches.json content
+changed. See audits/scorah-bramhall-item-4.4-quality-pass-2026-09-09-seventeenth.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
