@@ -1,0 +1,127 @@
+Item 4.12 quality pass (fifteenth), Coleman and Leighs Pharmacy Walton GBP pack
+Run: 2026-09-09 (unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash throughout)
+
+FRESH ANGLE
+-----------
+Fourteen prior passes proved: branches.json facts, the character-count exactness
+rule, the medicine-name union, OUTCOME_PROMISE, check-url-scheme.js,
+check-uk-spelling.js, check-brand-spelling.js, check-app-membership.js,
+check-em-dashes.js, the hours-day-presence rule in check-gbp-packs.js,
+check-gbp-pharmacy-first.js rules 5/7/8, the category/service allowlist rule,
+and the photo shot list rule - all against this pack's own copy.
+
+tools/check-pharmacy-first-eligibility.js had never been named in this item's
+history at all, despite reading gbp-packs/ directly (rules 9, 10 and 11) and
+despite this pack enumerating all seven Pharmacy First conditions in three
+places (business description, Services section, Post A) and stating both
+pinned cohorts (UTI "women aged 16 to 64" in Post A; blood pressure "adults
+aged 40 and over" in the description and Services section). This is a
+different file from check-gbp-pharmacy-first.js, which twelve prior passes did
+already exercise (rules 5/7/8) - the two checkers are separate and this pass
+closes the one that was never touched.
+
+METHOD
+------
+Full repo copied (cp -a, .git included) to /tmp/scratch-412. All mutation and
+re-verification done on the scratch copy; the tracked file was never opened
+for writing. Baseline sha256 of gbp-packs/coleman-leigh-walton.md:
+6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88
+- matches all fourteen prior passes exactly. Confirmed unchanged on the
+tracked repo before, during and after this pass (byte-diff identical to the
+scratch copy at the end).
+
+Baseline: full 36-checker suite run individually on the scratch copy before
+any mutation - 36/36 exit 0.
+
+INJECTIONS (each restored from a saved pre-injection byte copy and
+sha256-reconfirmed identical before the next round)
+-----------------------------------------------------------------
+1. Rule 9 (UTI cohort, top of range): "women aged 16 to 64" in Post A changed
+   to "women aged 16 to 65" (top-of-range only, matching the AGE_IN_TEXT
+   range-tail concern the checker's own header documents). CAUGHT: exit 1,
+   two failures, ages 16 and 65 both flagged as "not part of any NHS cohort
+   this copy may state (rule 9)", quoting the mutated sentence verbatim.
+
+2. Rule 9 (blood pressure cohort): "adults aged 40 and over" in the Services
+   section (section 3) changed to "adults aged 35 and over" (description's
+   own "aged 40" left untouched, isolating the Services-section occurrence).
+   CAUGHT: exit 1, one failure, age 35 flagged as not part of any pinned
+   cohort, quoting the mutated bullet verbatim.
+
+3. Rule 10 (condition list, drop one): "impetigo" removed from the seven-item
+   enumeration in the NHS Pharmacy First Services bullet, leaving the other
+   six intact and grammatically sound. CAUGHT: exit 1, one failure, "lists
+   the Pharmacy First conditions but omits impetigo, so the profile
+   advertises 6 of the 7 NHS pathways this branch is commissioned for".
+
+4. Rule 11 (age caveat sentence): "Age ranges set by the NHS apply to each
+   condition." removed from the end of Post A, leaving the seven-condition
+   enumeration and the UTI cohort sentence otherwise intact. CAUGHT: exit 1,
+   one failure, quoting the rule's own explanation in full ("lists all 7
+   Pharmacy First conditions but nowhere says the NHS age ranges apply to
+   each of them...").
+
+5. CONTROL (rule 10 parenthetical exemption): "conjunctivitis" (a
+   NOT_PHARMACY_FIRST name) added inside a parenthetical note directly after
+   the Services-section Pharmacy First bullet ("(NOTE: does not cover
+   conjunctivitis, ask patients with red or sticky eyes to see a GP or
+   optometrist instead.)"), mirroring the Cherry Lane finding that a
+   parenthetical is a note to the paster, not a claim by the pack. Correctly
+   PASSED: exit 0, 0 failures - proving the exemption holds on this pack's
+   own copy too, not only on Cherry Lane where it was first written.
+
+All five rounds fired (or correctly did not fire) on the first attempt, each
+on its intended rule only, with no side-effect failure on any other rule or
+any other pack. File restored and sha256-reconfirmed identical after every
+round.
+
+FINAL VERIFICATION
+-------------------
+Scratch copy's file restored to baseline; sha256 reconfirmed
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88). Full
+36-checker suite re-run individually on the scratch copy after the final
+restore: 36/36 exit 0. git status --porcelain on modules/core/gbp-packs/
+branches.json/tools in the scratch copy: clean apart from the two pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+created or touched by this pass. Tracked repo's own copy of
+gbp-packs/coleman-leigh-walton.md byte-diffed against the scratch copy at the
+end: identical.
+
+RESULT
+------
+No in-repo defect. check-pharmacy-first-eligibility.js's rules 9, 10 and 11
+were already correctly and independently enforced against this pack's own
+copy, in both directions (age drift and missing caveat) and both wrong-cohort
+shapes (top-of-range drift, wrong service). The parenthetical exemption for
+rule 10 also holds correctly here. No checker logic, pack copy, page,
+generator or data field changed anywhere in the repo.
+
+LIVE HALF
+---------
+Claude in Chrome MCP tools not present in this session at all (not even as a
+deferred "not connected" state). The built-in Claude Browser MCP was tried as
+the closest available substitute for the QUESTIONS.json answer-pickup fetch
+(step 3): preview_start on https://data.rbhealth.co.uk/api/feedback returned
+"The person hasn't allowed the browser pane to use https://data.rbhealth.co.uk
+yet." This is an unattended run with nobody present to grant that access, and
+the task's own rules forbid any alternative route or login, so the fetch was
+left undone rather than escalated (standing Q59-shaped gap, encountered this
+run via a different browser tool than usual, matching the 2026-09-09 4.9
+fifteenth-pass entry earlier in AGENT_LOG.md the same day).
+
+Read-only curl GET status-code fallback against the five URLs this pack's own
+copy names, matching the method used on prior passes when no browser session
+is available: homepage 200; Post A's pfLink 404 (unchanged since 2026-08-10);
+Post B, C and D all 200; the replacement Pharmacy First page
+(pharmacy-first-coleman-leigh-walton.html) 200. Status code only - the fuller
+2026-08-12 live verdicts (mixed old/new trading name across the site, Post A's
+hard stop, the Q22 tagline) stand as written, not re-verified this pass.
+
+QUESTIONS
+---------
+None raised this pass. QUESTIONS.json unchanged. Q8/5.3 (Post A repaste,
+blocked), Q59 (no browser session in unattended runs) and Q96 (push/publish
+credential gap) all re-confirmed open and unchanged, not re-raised.
+
+No credential encountered in any file touched.

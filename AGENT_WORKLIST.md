@@ -15737,6 +15737,62 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       different item's aftermath (the ZZ99 9ZZ NARRATIVE_POSTCODES gap,
       above). No new question; QUESTIONS.json unchanged (99 total, 46 open).
       Done 2026-09-08.
+      Fifteenth quality pass 2026-09-09 (unattended scheduled run,
+      audit-backlog-worker; rotation-pool pick, re-derived via
+      `git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md`
+      across the in-rotation pool, this item's own fourteenth pass
+      2026-09-08T13:17:03+01:00 the earliest of all 36, ahead of every other
+      pool item). FRESH ANGLE: fourteen prior passes proved branches.json
+      facts, the character-count exactness rule, the medicine-name union,
+      OUTCOME_PROMISE, check-url-scheme.js, check-uk-spelling.js,
+      check-brand-spelling.js, check-app-membership.js, check-em-dashes.js,
+      the hours-day-presence rule, check-gbp-pharmacy-first.js rules 5/7/8,
+      the category/service allowlist and the photo shot list rule against
+      this pack's own copy, but tools/check-pharmacy-first-eligibility.js -
+      a different file from check-gbp-pharmacy-first.js - had never been
+      named in this item's history at all, despite reading gbp-packs/
+      directly on rules 9, 10 and 11, and despite this pack enumerating all
+      seven Pharmacy First conditions in three places and stating both
+      pinned cohorts. Full repo copied (with .git) to a scratch directory;
+      tracked pack never opened for writing, confirmed unchanged throughout
+      (sha256 6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all fourteen prior passes). Baseline: all 36 checkers exit 0.
+      Five rounds on the scratch copy, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) rule 9, "women aged 16 to 64"
+      changed to "16 to 65" in Post A - CAUGHT, two failures naming ages 16
+      and 65; (2) rule 9, "adults aged 40 and over" changed to "35 and over"
+      in the Services section (description's own occurrence left untouched)
+      - CAUGHT, one failure naming age 35; (3) rule 10, "impetigo" dropped
+      from the seven-condition Services enumeration, the other six left
+      intact - CAUGHT, one failure naming the omitted condition; (4) rule
+      11, "Age ranges set by the NHS apply to each condition." removed from
+      the end of Post A, the enumeration and UTI cohort left intact -
+      CAUGHT, one failure quoting the rule's own explanation; (5) CONTROL,
+      "conjunctivitis" (a NOT_PHARMACY_FIRST name) added inside a
+      parenthetical note after the Services bullet, mirroring the Cherry
+      Lane exemption - correctly PASSED, exit 0, proving the parenthetical
+      exemption holds on this pack's own copy too. All five rounds fired or
+      correctly passed first attempt, each on its intended rule only, no
+      side-effect failures. Full 36-checker suite re-run clean after the
+      final restore; pack sha256 reconfirmed identical to baseline; tracked
+      repo's own copy byte-diffed identical to the scratch copy at the end.
+      No in-repo defect: rules 9, 10 and 11, and the parenthetical
+      exemption, all proven correct on this pack for the first time.
+      Evidence:
+      audits/coleman-leigh-walton-pf-eligibility-4.12-fifteenth-2026-09-09.txt.
+      LIVE HALF: Claude in Chrome not present in this session at all (not
+      even as a deferred "not connected" state); the built-in Claude
+      Browser MCP was tried as a substitute for the answer-pickup fetch and
+      returned "the person hasn't allowed the browser pane to use
+      data.rbhealth.co.uk yet" - no person present to grant it in an
+      unattended run, so left undone rather than escalated (standing Q59
+      shape). Read-only curl GET status-code fallback against this pack's
+      own five URLs: homepage 200; Post A's pfLink still 404, unchanged
+      since 2026-08-10; Posts B, C, D and the replacement Pharmacy First
+      page all 200. Status code only; the fuller 2026-08-12 live verdicts
+      stand as written, not re-verified this pass. No new question;
+      QUESTIONS.json unchanged (100 total, 47 open; Q8/5.3, Q59 and Q96 all
+      reconfirmed open, not re-raised). Done 2026-09-09.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
