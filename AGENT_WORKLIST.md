@@ -21750,6 +21750,60 @@ see the top of AGENT_LOG.md for the exact commands and their output.
       answered-but-not-yet-actioned (Weebly edit outside this worker's write
       scope), not re-raised. No new question. Evidence:
       audits/verify-6.3-2026-09-08-eleventh.txt. Done 2026-09-08.
+      Quality pass (twelfth), 2026-09-09 (unattended run, Cowork sandbox
+      mcp__workspace__bash throughout). LAST NEVER-EXERCISED FAIL PATH IN
+      tools/check-opening-hours.js PROVED BY INJECTION, closing out the
+      file's fail-path coverage. Read the checker end to end (449 lines)
+      and catalogued all 20 fail() call sites against this item's
+      eleven-pass history (grepping every message fragment first, as prior
+      passes have): nineteen already proven, one never touched -
+      schemaSessions()'s malformed-JSON branch (line 194, "JSON-LD block
+      does not parse as JSON"), untested since the checker's 2026-08-10
+      creation.
+      BASELINE: 35/35 static checkers (all of tools/check-*.js except
+      check-live-hours.js) clean; combined sha256 of modules/+core/
+      fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3,
+      matching the standing hash every pass today has recorded; git status
+      --porcelain empty on all tracked paths (two pre-existing untracked
+      scratch files only, both left untouched).
+      ONE INJECTION, backed up and restored by byte copy, sha256
+      reconfirmed both before and after: a single trailing comma added
+      after pharmacy-scorah-hazel-grove.html's Friday session in its
+      ld+json block (never used for a JSON-LD-shape injection on this item
+      before), keeping every brace balanced while making the JSON invalid.
+      CAUGHT: "JSON-LD block does not parse as JSON (Expected
+      double-quoted property name in JSON at position 741 (line 29 column
+      5))", plus a correctly-worded second failure ("branches.json carries
+      opening hours but the page has no openingHoursSpecification") as the
+      documented consequence of schemaSessions() returning null on a parse
+      failure, not a double-count. Cross-firing checked deliberately: three
+      other checkers also failed on the same file for the same root cause,
+      each in its own words (check-jsonld.js, check-nap.js,
+      check-branch-identity.js), confirming all four parse the same
+      ld+json block independently; no other checker fired.
+      RESTORE: byte copy back, sha256 matched pre-injection value exactly;
+      35/35 static checkers clean again; all six generators rebuilt,
+      combined sha256 of modules/+core/ identical to baseline. No page,
+      generator, data field, checker or patient-facing copy left changed.
+      RESULT: zero in-repo defect. The malformed-JSON path was already
+      correct; now proven by injection for the first time, closing the
+      last untested fail path in the file.
+      LIVE HALF: Claude in Chrome not connected (checked, Q59 unchanged);
+      fell back to direct network access as prior passes have.
+      tools/check-live-hours.js re-run across all 14 branches, evidence
+      audits/live-hours-check-2026-09-09.json. Bank holiday note correctly
+      flagged 2026-08-31 as within the 14-day window. All seven
+      lunch-closure branches read correctly live (mccanns_aigburth,
+      mccanns_sandringham, hirshmans_ainsdale, colemanleigh_liverpool,
+      gordonshorts_crosby, tiffenbergs_longmoor, smartts_bootle excepted).
+      smartts_bootle remains the sole live mismatch, straight-through
+      "9:00am - 6:00pm" hours unchanged since 2026-08-11 across all twelve
+      passes. Q55 (answered by Rishi 2026-09-02, option 1: edit the live
+      Smartts pages) stands as answered-but-not-yet-actioned, live Weebly
+      edit outside this worker's write scope, not re-raised. No new
+      question. Evidence:
+      audits/opening-hours-jsonld-parse-6.3-twelfth-2026-09-09.txt. Done
+      2026-09-09.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

@@ -1,0 +1,152 @@
+Item 6.3 quality pass (twelfth), 2026-09-09 (unattended run, Cowork sandbox
+mcp__workspace__bash throughout).
+
+SCOPE OF THIS PASS: prove tools/check-opening-hours.js's one remaining
+never-exercised FAIL path by injection - the malformed-JSON branch of
+schemaSessions() (checker line 194, "JSON-LD block does not parse as JSON").
+Confirmed genuinely new ground first by grepping "does not parse as JSON"
+across AGENT_WORKLIST.md and AGENT_LOG.md: zero hits in either file before
+this run. Read the checker source end to end (449 lines) and catalogued
+every fail() call site against the item's eleven-pass history:
+
+  line 240  dates2026 missing/empty                    tested (11th pass)
+  line 249  not a real ISO date                          tested (11th pass)
+  line 250  date listed twice                            tested (11th pass)
+  line 255  tradingPolicy invalid                        tested (11th pass)
+  line 268  closedDays/specification clash (rule 4)       tested (multiple)
+  line 271  session closes before it opens (rule 5)       tested (earlier)
+  line 273  not a day of the week                         tested (11th pass)
+  line 288  neither closedDays nor specification (rule 6) tested (multiple)
+  line 317  no visible row for a day (rule 1)              tested (10th pass)
+  line 318  __DUPLICATE__ visible row                     tested (9th pass)
+  line 319  visible row mismatch (rule 2)                 tested (9th pass)
+  line 340  clock time outside the hours card (rule 7)    tested (multiple)
+  line 349  no openingHoursSpecification present          tested (10th pass)
+  line 351  JSON-LD sessions mismatch (rule 3)             tested (9th pass)
+  line 194  JSON-LD block does not parse as JSON           NEVER TESTED
+  line 362  KNOWN_TIME_OUTSIDE_CARD stale key             tested (10th pass)
+  line 405  clock time on a no-hours-card file (rule 8)    tested (7th pass)
+  line 414  KNOWN_TIME_OUTSIDE_ESTATE stale key           tested (7th pass)
+  line 422  rule 8 coverage floor (no files swept)         tested (11th pass)
+  line 429  rule 7 coverage floor (no clock times found)   tested (11th pass)
+
+Line 194 was the sole gap left after eleven passes.
+
+BASELINE. All 35 static checkers (all of tools/check-*.js except
+check-live-hours.js, which is a live network sweep, not a repo-state check)
+run individually: 35/35 exit 0. Combined sha256 of every .html/.js/.css file
+under modules/ and core/: fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c
+81049da2b31fa3 - matching the standing hash recorded by every recent pass
+today (3.6, 3.8, 3.12, 4.11, 5.1, 5.2, this item's own eleventh pass).
+git status --porcelain on modules/, core/, branches.json, tools/, gbp-packs/,
+status/: two pre-existing untracked scratch files only (gbp-packs/.fuse_hidden...
+and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), both
+left over from earlier runs, both untouched by this pass, neither a tracked
+file.
+
+INJECTION. Target: modules/branch/pages/pharmacy-scorah-hazel-grove.html
+(not previously used for a JSON-LD-shape injection on this item; earlier
+passes used Fishlocks Ainsdale, Fishlocks Eccleston, Scorah Bramhall, McCanns
+Aigburth and McCanns Sandringham for other rules). Backed up first
+(sha256 89159a1b1c7a60e6c4f5da457435a6feb25de374b61962cf6940b44fa67e5c0d).
+Added a single trailing comma after the Friday session's "closes": "18:00"
+line inside the ld+json block, immediately before the closing "}" of that
+session object - the smallest possible change that keeps every brace and
+bracket balanced (so a naive well-formedness scan would not catch it) while
+making the JSON invalid per spec.
+
+  node tools/check-opening-hours.js
+
+CAUGHT, exactly as designed:
+
+  FAIL  modules/branch/pages/pharmacy-scorah-hazel-grove.html: JSON-LD block
+        does not parse as JSON (Expected double-quoted property name in JSON
+        at position 741 (line 29 column 5))
+  FAIL  modules/branch/pages/pharmacy-scorah-hazel-grove.html: branches.json
+        carries opening hours but the page has no openingHoursSpecification
+
+Two failures from one injection, not a double-count: schemaSessions() catches
+the JSON.parse exception, calls fail() with the parse-error message, and
+returns without ever assigning `out`. The caller then sees onPage === null
+and, because inData.length is non-zero for this branch, fires the "no
+openingHoursSpecification" fail as a second, correctly-worded consequence of
+the same root cause - the same cascade the 6.3 defect notes call the
+"absent vs malformed" pair, and consistent with the coded behaviour rather
+than a surprise.
+
+CROSS-FIRING CHECKED DELIBERATELY, not assumed clean. Re-ran all 35 static
+checkers with the injection still in place: three others also failed on the
+same file, all for the same underlying cause and each in that checker's own
+words, confirming they parse the identical <script type="application/ld+json">
+block independently rather than sharing a cache:
+
+  check-jsonld.js:            "JSON-LD block does not parse as JSON
+                                (Expected double-quoted property name in
+                                JSON at position 741 (line 29 column 5))"
+  check-nap.js:                "MISMATCH ... JSON-LD does not parse:
+                                Expected double-quoted property name in
+                                JSON at position 740 (line 28 column 5)"
+  check-branch-identity.js:    "the JSON-LD block has no usable \"name\", so
+                                the structured data names no business"
+
+No other checker fired. check-opening-hours.js, check-jsonld.js and
+check-nap.js all agree on the exact JSON.parse error text and line number
+(off by one character position between the two, since check-nap.js's own
+string trimming differs slightly before parsing - a cosmetic difference in
+error-offset reporting, not a disagreement about what failed or where).
+
+RESTORE. Copied the pre-injection backup back over the file (not a
+line-level undo), sha256 reconfirmed
+89159a1b1c7a60e6c4f5da457435a6feb25de374b61962cf6940b44fa67e5c0d, matching
+the pre-injection value exactly. git status --porcelain on modules/, core/,
+branches.json, tools/, gbp-packs/, status/: unchanged from baseline (same two
+pre-existing untracked scratch files, no tracked file touched).
+
+POST-RESTORE VERIFICATION. All 35 static checkers re-run individually:
+35/35 exit 0. All six generators rebuilt fresh
+(build-branch-landing-pages.js, build-service-pages.js,
+build-switch-pages.js, build-weight-loss-pages.js,
+build-travel-clinic-pages.js, build-contraception-pages.js). Combined sha256
+of every .html/.js/.css file under modules/ and core/ after rebuild:
+fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3 - identical
+to the pre-injection baseline, byte for byte.
+
+RESULT: zero in-repo defect. check-opening-hours.js's malformed-JSON path
+was already correct; it is now proven by injection for the first time in
+this item's twelve-pass history, closing the last untested fail path in the
+file. No page, generator, data field, checker or patient-facing copy
+changed.
+
+LIVE HALF. Claude in Chrome not connected (checked via
+mcp__claude-in-chrome__navigate against the standing portal URL first, per
+step 3 of the run procedure; separately confirmed unavailable for this
+item's own live sweep). Fell back to direct network access, as every recent
+pass has: tools/check-live-hours.js executed directly, evidence
+audits/live-hours-check-2026-09-09.json. Bank holiday note correctly flagged
+2026-08-31 (Summer bank holiday, tradingPolicy closed) as within the 14-day
+window. Read against branches.json by address/phone where snippet
+interleaving requires it (Scorah, McCanns, both split-domain pairs):
+
+  - mccanns_aigburth: live "Monday 9am - 1pm, 2pm - 6pm" etc, matches split
+    hours in branches.json exactly, both pages.
+  - hirshmans_ainsdale: live "8:30am - 1pm, 2pm - 6pm (Closed 1pm-2pm)",
+    matches branches.json's 8.30am split day exactly.
+  - colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor: all
+    three publish "9:00am - 6:00pm (closed 1-2pm)" live, matching
+    branches.json's split hours exactly.
+  - smartts_bootle: REMAINS THE SOLE LIVE MISMATCH, unchanged across all
+    twelve passes since first found 2026-08-11. Both the homepage hours
+    card ("Monday 9:00am - 6:00pm") and the contact page ("Weekdays /
+    09:00 - 18:00") still publish straight-through hours with no lunch
+    closure, against branches.json's NHS-sourced 09:00-13:00/14:00-18:00
+    split. Q55 (answered by Rishi 2026-09-02, option 1: edit the live
+    Smartts pages) stands as answered-but-not-yet-actioned - the live
+    Weebly edit sits outside this worker's write scope - not re-raised.
+
+No new live finding, no new question raised.
+
+FILES CHANGED BY THIS PASS: AGENT_WORKLIST.md (item 6.3's twelfth-pass
+paragraph), AGENT_LOG.md (this run's entry), this audits file, and
+audits/live-hours-check-2026-09-09.json (the live sweep's own report). No
+generator, page, data field, pack or checker file left changed - reconfirmed
+by sha256 and git status immediately before commit.
