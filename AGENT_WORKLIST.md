@@ -3086,6 +3086,46 @@ audits/seo-pattern-hostmap-vacuity-3.1-fifteenth-2026-09-09.txt.
       Chemist" branding, "17 Station Rd" abbreviation) reconfirmed present
       and unchanged. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-08-fourteenth.txt.
+      Quality pass 2026-09-09 (fifteenth): clean, no repo defect, no new
+      question. THE FRESH ANGLE: the fourteenth pass closed check-nap.js's
+      NAME, STREET and EMAIL sweeps against Fishlocks by injection, but only
+      on the Ainsdale side, naming its own residual - the Eccleston-side
+      page and the switch/landing pages had not been separately injected.
+      This pass closes it. Full repo copied (.git included) to
+      /tmp/scratch-33-nap15; baseline 34 of 36 checkers exit 0 (cdn-pins and
+      live-hours excluded, standing convention); sha256 of the Eccleston UTI
+      page, switch page and landing page recorded before any edit. Three
+      injections against the scratch copy only, each restored by byte copy
+      and sha256-reconfirmed before the next: (1) NAME sweep, "Hirshmans
+      Chemist" added to the Eccleston UTI page's step-2 paragraph - CAUGHT,
+      first attempt, names the wrong-branch pharmacy and this page's own
+      branch; (2) STREET sweep, Ainsdale's own street "17 Station Road"
+      added to the Eccleston switch page's step-2 paragraph - CAUGHT, first
+      attempt, confirming the STREET sweep carries no sister-brand exemption
+      on the Eccleston side either, matching the fourteenth pass's Ainsdale
+      finding; (3) EMAIL sweep, Ainsdale's own email added as plain text (no
+      mailto: anchor) to the Eccleston landing page's parking/delivery FAQ -
+      CAUGHT, first attempt. All three restores sha256-confirmed
+      byte-identical to baseline; full 34-checker suite re-run clean on the
+      scratch copy after the final restore. Tracked repo confirmed untouched
+      throughout (git status --porcelain against modules/tools/core/
+      branches.json/gbp-packs showed only the two long-standing pre-existing
+      untracked strays); all six generators rebuilt against the tracked
+      repo, zero diff; full 34-checker suite re-run against the tracked repo,
+      34/34 exit 0. No in-repo defect: check-nap.js's NAME, STREET and EMAIL
+      sweeps were already correctly protecting Fishlocks Eccleston's own
+      pages on all three legs, closing the residual the fourteenth pass
+      named so all three sweeps are now proven by injection on BOTH sides of
+      this shared-brand pair. LIVE HALF: the built-in Claude Browser MCP was
+      reachable this run (request_access on www.fishlockpharmacy.co.uk
+      granted immediately), read-only get_page_text on both the Eccleston
+      UTI page and switch page: exact pattern title/H1, own phone and
+      address correct on both, no injected fault present live (as expected,
+      injections were scratch-only), and the standing Q37 footer set
+      (singular "Fishlock Pharmacy"/"Fishlock Chemist" naming, "17 Station
+      Rd" abbreviation) reconfirmed present and unchanged on both branches -
+      nothing new. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-09-fifteenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

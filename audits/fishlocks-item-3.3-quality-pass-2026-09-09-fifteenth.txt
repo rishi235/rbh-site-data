@@ -1,0 +1,108 @@
+Item 3.3 quality pass (fifteenth), 2026-09-09
+Fishlocks Chemist (Ainsdale and Eccleston)
+
+FRESH ANGLE
+The fourteenth pass (2026-09-08) closed check-nap.js's NAME, STREET and EMAIL
+sweeps against Fishlocks by injection, but only on the Ainsdale UTI page, and
+named its own residual: the Eccleston-side page and the switch/landing pages
+had not been separately injected. This pass closes that residual: NAME sweep
+on the Eccleston UTI page, STREET sweep on the Eccleston switch page, EMAIL
+sweep on the Eccleston landing page.
+
+BASELINE
+Full repo copied (cp -a, .git included) to /tmp/scratch-33-nap15; tracked
+repo never opened for writing during the injection phase. Baseline: 34 of 36
+checkers exit 0 (check-cdn-pins.js and check-live-hours.js excluded per
+standing convention, needs live git ref / live hours resolution). sha256 of
+the three target files recorded before any edit:
+  cc8a955e0d0cb5080fa6d2a9d9c4535a5621b1182f483511b930c5fc6fba0b47
+    modules/service/pages/uti-treatment-fishlocks-eccleston.html
+  da7db015d6a49bb3d6353aa87f6e0e1d53aecd66a20db78827dd4c4b37e5c9c7
+    modules/switch/pages/switch-prescriptions-fishlocks-eccleston.html
+  1b681b43dc49dbbcc7967cf1aadc13e261fbd6cb14608cc66fc0a1495da09c05
+    modules/branch/pages/pharmacy-fishlocks-eccleston.html
+
+INJECTIONS (scratch copy only, each restored by byte copy and sha256
+reconfirmed before the next)
+
+(1) NAME sweep, Eccleston UTI page. "Hirshmans Chemist" (the other
+    Ainsdale-town pharmacy, the same brand named on the fourteenth pass's
+    Ainsdale injection) added to the step-2 paragraph: "...checks whether
+    this service is right for you, the same way Hirshmans Chemist does
+    nearby." CAUGHT, first attempt:
+      MISMATCH modules/service/pages/uti-treatment-fishlocks-eccleston.html:
+      names another pharmacy "Hirshmans Chemist" (hirshmans_ainsdale) in
+      page copy, but this page belongs to Fishlocks Chemist Eccleston
+    Restored from byte copy; sha256 reconfirmed identical to baseline;
+    check-nap.js re-run clean (exit 0).
+
+(2) STREET sweep, Eccleston switch page. Ainsdale's own street address
+    ("17 Station Road") added to the step-2 paragraph: "...guides the next
+    step to move your prescriptions across, the same way the team at 17
+    Station Road does in Ainsdale." CAUGHT, first attempt:
+      MISMATCH modules/switch/pages/switch-prescriptions-fishlocks-eccleston.html:
+      carries another branch's street address "17 Station Road"
+      (fishlocks_ainsdale), but this page belongs to Fishlocks Chemist
+      Eccleston at "Unit 3 The Carrington Centre, New Mill Street"
+    Confirms the STREET sweep carries no sister-brand exemption on the
+    Eccleston side either, matching the fourteenth pass's finding on the
+    Ainsdale side. Restored from byte copy; sha256 reconfirmed identical;
+    check-nap.js re-run clean.
+
+(3) EMAIL sweep, Eccleston landing page. Ainsdale's own email address added
+    as plain text (no mailto: anchor) to the "Do you deliver prescriptions?"
+    FAQ answer: "...Ask in store or call us, or email
+    Ainsdale@rbhealth.co.uk and the team will explain...". CAUGHT, first
+    attempt:
+      MISMATCH modules/branch/pages/pharmacy-fishlocks-eccleston.html:
+      email "Ainsdale@rbhealth.co.uk" belongs to fishlocks_ainsdale, not
+      fishlocks_eccleston
+    Restored from byte copy; sha256 reconfirmed identical; check-nap.js
+    re-run clean.
+
+RESTORE CONFIRMATION
+All three files' sha256 after final restore matched the pre-injection
+baseline exactly (verified with `sha256sum` diff against the recorded
+baseline list, byte for byte). Full 34-checker suite re-run clean on the
+scratch copy after the final restore (34/34 exit 0).
+
+TRACKED REPO CONFIRMATION
+`git status --porcelain -- modules tools core branches.json gbp-packs`
+against the real tracked repo showed only the two long-standing pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) - no edit
+was ever made to the tracked repo, only to the /tmp scratch copy. All six
+generators (build-service-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages,
+build-branch-landing-pages) rebuilt against the tracked repo: zero diff. Full
+34-checker suite re-run against the tracked repo after regeneration: 34/34
+exit 0.
+
+RESULT
+No in-repo defect. check-nap.js's NAME, STREET and EMAIL sweeps were already
+correctly protecting Fishlocks Eccleston's own pages (UTI service page,
+switch page and branch landing page) on all three legs; this closes the
+residual the fourteenth pass named, so all three sweeps are now proven by
+injection on BOTH sides of this shared-brand pair.
+
+LIVE HALF
+The built-in Claude Browser MCP was reachable this run (request_access on
+https://www.fishlockpharmacy.co.uk granted immediately - unlike most recent
+runs, which found no browser session or Claude in Chrome unavailable).
+Read-only throughout: get_page_text only, no click, no submit, no form
+interaction, no login.
+  - UTI page (uti-treatment-fishlocks-eccleston.html): exact pattern title
+    and H1 ("UTI treatment in Eccleston - Fishlocks Chemist" /
+    "UTI treatment in Eccleston"), own phone (01257 451251) and own address
+    correct, no injected fault present live (as expected, since the
+    injections were scratch-only).
+  - Switch page (switch-prescriptions-fishlocks-eccleston.html): correct
+    title ("Switch Your Prescriptions - Fishlocks Chemist Eccleston"), own
+    phone and address correct, no injected fault present live.
+  - Both pages: the standing Q37 footer set (singular "Fishlock
+    Pharmacy"/"Fishlock Chemist" naming, "17 Station Rd" abbreviation)
+    reconfirmed present and unchanged on both branches' footer blocks -
+    nothing new, consistent with every prior pass on this item.
+
+QUESTIONS
+None raised this pass. No credential encountered in any file touched.
