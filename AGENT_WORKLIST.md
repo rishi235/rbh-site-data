@@ -13373,6 +13373,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       (Q59, unchanged); Windows-MCP not loaded this run. No new question.
       Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-08-fifteenth.txt.
+      Quality pass 2026-09-09 (sixteenth, unattended scheduled run, Cowork sandbox
+      shell only). Taken because all 8 unchecked worklist lines are [BLOCKED] (5.3,
+      5.4, 5.5, 5.8, 6.1, both items under Q60, 6.6, confirmed by direct grep);
+      item-selection method unchanged - subject-anchored "Item X.Y" match across the
+      36-item rotation pool. 4.7 was stalest, last touched 2026-09-08T15:43:25+01:00
+      (its own fifteenth pass), matching the seventeenth pass on item 4.2's own
+      forward note. Baseline: all 34 checkers clean before any edit; pack sha256
+      bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e matches every
+      prior pass, no drift. FRESH ANGLE: fifteen prior passes proved fourteen rule
+      families in check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-eligibility.js, check-pharmacy-first-cost.js,
+      check-postcodes.js, check-uk-spelling.js, check-brand-spelling.js and
+      check-url-scheme.js against this pack's own copy by injection, but every one
+      of them verified check-em-dashes.js's guard over gbp-packs/ only passively
+      ("pure ASCII", "no em dash", "check-em-dashes.js clean") - never by injection
+      against this specific pack. Three injections on the real file, each restored
+      by byte copy and sha256/cmp-reconfirmed identical to baseline before the next:
+      (1) a literal em dash (U+2014) added to the sister-branch sentence - caught,
+      "in GBP pack (non-ASCII U+2014)"; (2) the named HTML entity "&mdash;" typed as
+      literal text in the same sentence - caught on its own detection path, "em dash
+      (HTML entity), which would paste literally"; (3) the numeric HTML entity
+      "&#8212;" typed as literal text - caught on the third and last detection path,
+      "em dash (HTML numeric entity)". A CONTROL using a plain ASCII hyphen in the
+      same sentence correctly passed, proving the rule matches the specific dash
+      forms rather than any punctuation change. All three injections fired first
+      attempt, each on its own intended detection path, no cross-firing. Full
+      34-checker suite re-run clean after the final restore; pack sha256 and cmp
+      reconfirmed identical to baseline; `git status --porcelain` on the pack and the
+      checker empty throughout. All six generators rebuilt to a zero-diff worktree.
+      Zero in-repo defect - check-em-dashes.js's three pack-file detection paths now
+      proven directly against this pack for the first time in sixteen passes.
+      Live half performed via plain read-only curl GET/HEAD (Claude in Chrome not
+      connected this run, retried twice). All five findings reconfirmed unchanged:
+      pharmacy-mccanns-sandringham.html still 404 and absent from sitemap.xml (Q35);
+      the four post-target pages (Pharmacy First, switch, weight loss, travel
+      clinic) all 200; sitemap lastmod unchanged at 2026-08-14T23:05:25Z throughout,
+      confirming no republish since the fifteenth pass's own reading. No new
+      question. Evidence:
+      audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-09-sixteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

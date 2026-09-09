@@ -1,0 +1,119 @@
+Item 4.7 quality pass (sixteenth), 2026-09-09
+McCanns Chemist Sandringham GBP pack (gbp-packs/mccanns-sandringham.md)
+Unattended scheduled run, audit-backlog-worker, Cowork sandbox (mcp__workspace__bash)
+throughout; Claude in Chrome MCP tools were not connected this session (retried twice,
+both times "Claude in Chrome is not connected"); the built-in Claude Browser MCP was
+used for the step 3 answer-pickup attempt, and plain curl HTTP GET was used for the
+live half.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep (5.3, 5.4,
+5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied. Rotation pick re-derived independently: enumerated the 43 checked
+worklist items by grepping "^- [x]" headers, subtracted the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) to get the same 36-item pool
+prior runs use, then ran `git log -1 --format=%aI --all --grep="Item N.N " -- \
+AGENT_WORKLIST.md` per item. 4.7 was uniquely stalest at 2026-09-08T15:43:25+01:00
+(its own fifteenth pass), matching the immediately preceding run's (item 4.2,
+seventeenth pass) forward note exactly. Chosen: 4.7 (McCanns Chemist Sandringham
+GBP pack).
+
+BASELINE
+Pack sha256 bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e, matching
+every one of the fifteen prior passes exactly - no drift. Full 34-checker suite
+(check-cdn-pins.js and check-live-hours.js excluded, standing convention) run clean,
+0 failures, before any edit. Injections were made directly on the tracked file, each
+restored by byte copy (cp) from a saved baseline and reconfirmed identical by both
+sha256 and cmp before the next injection - the pack was never left in a modified
+state between rounds.
+
+FRESH ANGLE
+Fifteen prior passes proved fourteen separate rule families in check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-cost.js, check-postcodes.js, check-uk-spelling.js,
+check-brand-spelling.js and check-url-scheme.js against this specific pack, by
+injection. None had ever pointed check-em-dashes.js at this pack by injection - every
+prior pass verified the pack's clean state passively ("pure ASCII", "no em dash",
+"check-em-dashes.js clean") rather than proving the checker would actually catch a
+violation here. check-em-dashes.js's own checkPackFile() function (tools/check-em-
+dashes.js line 857) holds gbp-packs/ to a stricter rule than any other file family in
+the repo: ANY non-ASCII character fails, and ANY dash entity (literal, named HTML
+entity, or numeric HTML entity) fails, read across the WHOLE file including paster
+notes, because a pack is copied by hand with no build step to strip anything.
+
+INJECTIONS (three, each on the real file, each restored and sha256/cmp-reconfirmed
+identical to baseline before the next)
+
+1. Literal em dash (U+2014). Line 35-36's sentence "Our sister McCanns branch is
+   further along Aigburth Road. Everyone is welcome." changed to "...Aigburth Road
+   -- five minutes by car. Everyone is welcome." with a literal "-" character (em
+   dash, U+2014). CAUGHT first attempt: "FAIL gbp-packs/mccanns-sandringham.md line
+   36 (in GBP pack (non-ASCII U+2014))". Detection path: the NON_ASCII_RE sweep.
+
+2. Named HTML entity. Same sentence, "&mdash;" typed as literal text instead of the
+   dash character. CAUGHT first attempt: "FAIL ... (in GBP pack (em dash (HTML
+   entity), which would paste literally))". Detection path: EM_NAMED_RE, independent
+   of the non-ASCII sweep above (the entity is pure ASCII text).
+
+3. Numeric HTML entity. Same sentence, "&#8212;" typed as literal text. CAUGHT first
+   attempt: "FAIL ... (in GBP pack (em dash (HTML numeric entity), which would paste
+   literally))". Detection path: dashNumericEntities(), the third and last of the
+   checker's three independent pack-file detection routes.
+
+CONTROL
+Same sentence, plain ASCII hyphen ("...Aigburth Road - five minutes by car...").
+Correctly PASSED (exit 0, no FAIL line), proving the rule fires on the specific dash
+characters and entities rather than on any punctuation change to the sentence.
+
+All three injections fired on their own intended detection path only, no cross-firing,
+no unrelated FAIL lines in any of the four runs (three injections plus the control).
+Each restore reconfirmed byte-identical to baseline by both sha256 and cmp before the
+next round began.
+
+RESULT
+Zero in-repo defect. check-em-dashes.js's three independent pack-file detection paths
+(literal non-ASCII, named entity, numeric entity) all already correctly protect
+McCanns Sandringham's own pack; now proven directly for the first time in sixteen
+passes, closing the one checker among those reading gbp-packs/ that fourteen prior
+passes had covered only passively. Full 34-checker suite re-run clean after the final
+restore. Pack sha256 reconfirmed identical to baseline. `git status --porcelain --
+gbp-packs/mccanns-sandringham.md tools/check-em-dashes.js` empty both before and
+after. All six page generators (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt to a zero-diff worktree (only the standing untracked
+stray modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak present,
+unrelated and pre-existing).
+
+LIVE HALF
+Claude in Chrome not connected (retried at run start and again before the live half;
+both times "Claude in Chrome is not connected" - extension unreachable this session,
+not merely an unapproved domain). Fell back to plain read-only curl GET/HEAD, no
+login, no form interaction, no POST. All five standing findings reconfirmed unchanged
+from the fifteenth pass:
+  - https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html (the profile-
+    website field the pack sets) still returns 404 and is absent from sitemap.xml
+    (Q35, unchanged, the pack's own paster note already holds this field back).
+  - The four post-target pages (pharmacy-first, switch-prescriptions, travel-clinic,
+    weight-loss-clinic, all -mccanns-sandringham.html) all return 200.
+  - sitemap.xml lastmod for every mccanns-sandringham URL still reads
+    2026-08-14T23:05:25+00:00, confirming no republish since any prior pass's own
+    reading.
+No new live finding.
+
+ANSWER PICKUP (step 3, performed once at run start, applies to the whole run not just
+this item)
+Claude in Chrome not connected. Fell back to the built-in Claude Browser MCP against
+https://data.rbhealth.co.uk/api/feedback: this run, unlike several recent runs, the
+fetch succeeded directly (no Cloudflare Access redirect encountered) and returned the
+full feedback JSON. Checked every "AUDIT ANSWER Q<n>" entry against QUESTIONS.json:
+of the distinct question ids with a portal reply, only two (Q37, Q43) are still
+"open" in QUESTIONS.json, and both already carry a note from a prior run recording
+that their most recent portal reply is not a clean decision (Q37: "i need further
+explanation..."; Q43: "Unsure...need advise..."), so status correctly stays open per
+the task's own rule that only a genuine option selection moves a question to
+"answered". No new reply postdating those notes was present. Nothing to apply this
+run. QUESTIONS.json: 100 total, 47 open, unchanged.
+
+QUESTIONS
+No new question raised this pass. 47 open questions unchanged. No credential
+encountered in any file touched.
