@@ -1,0 +1,112 @@
+Item 3.12 quality pass, TWELFTH PASS, 2026-09-09
+Branch: tiffenbergs_longmoor (Tiffenbergs Chemist, Aintree)
+Fresh angle: tools/check-branch-links.js, proven by injection against this
+branch's own branches.json link fields for the first time in this item's
+twelve-pass history. Eleven prior passes exercised check-nap.js,
+check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js, check-pharmacy-first-eligibility.js,
+check-weight-loss-copy.js and check-opening-hours.js (incidentally, via the
+generic verify-3.12 instrument), but never the checker that owns the link
+fields inside branches.json itself: odsCode, nhsEmail, nhsReviewUrl,
+googleReviewUrl, website and pfLink.
+
+BASELINE
+- git status --porcelain on modules/, core/, branches.json, tools/,
+  gbp-packs/ empty at run start (aside from one pre-existing untracked
+  .bak artifact this run did not create).
+- sha256(branches.json) = 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114
+  f135101f0b969e1e
+- All 36 tools/check-*.js checkers run individually: 0 failures.
+- 189 files under modules/ and core/ sha256-hashed before any generator
+  rebuild.
+
+INJECTIONS
+Each round mutated only the tiffenbergs_longmoor record in branches.json,
+ran check-branch-links.js, then restored branches.json from a byte-for-byte
+backup taken before round 1 and re-confirmed the sha256 above before the
+next round.
+
+1. odsCode set to cherrylane_liverpool's real code (FA226). CAUGHT: three
+   failures at once - odsCode duplicate, and the resulting nhsEmail and
+   nhsReviewUrl mismatches this branch's own odsCode field no longer
+   supports, since both those rules are derived from odsCode. Restored,
+   sha256 confirmed unchanged.
+2. nhsEmail changed to pharmacy.FAX36X@nhs.net (odsCode untouched). CAUGHT:
+   exactly one failure (nhsEmail only), confirming the rules fire
+   independently rather than as one blob. Restored, sha256 confirmed
+   unchanged.
+3. nhsReviewUrl shortened to stop at the ODS code, dropping
+   /leave-a-review (the exact Gordon Short Crosby defect the checker was
+   built against, item 3.8, 2026-08-10). CAUGHT: one failure naming the
+   expected full URL and stating explicitly that anything short of
+   /leave-a-review lands the patient on the profile page instead of the
+   review form. Restored, sha256 confirmed unchanged.
+4. googleReviewUrl overwritten with cherrylane_liverpool's real review
+   link. CAUGHT: one failure, "is the same link as cherrylane_liverpool".
+   Restored, sha256 confirmed unchanged.
+5. website given a trailing slash. CAUGHT: two failures at once - the
+   website shape rule itself, and a cascading pfLink failure, because the
+   pfLink-on-own-host check compares against website + "/" and a website
+   that already ends in "/" breaks that comparison. This is a genuine
+   interaction between two rules not previously exercised for this branch
+   (or noted in the checker's own header comment) - both rules did their
+   job correctly, the second one as a direct consequence of the first,
+   not a false positive. Restored, sha256 confirmed unchanged.
+6a. FIRST ATTEMPT (recorded for completeness, not a defect): pfLink
+    rewritten to name "pharmacy-first-cherrylane-liverpool.html" while
+    remaining on Tiffenbergs' own host. This passed with exit 0. Diagnosis:
+    the slug I used for Cherry Lane was wrong - Cherry Lane's actual
+    brandSlug-townSlug pair is "cherry-lane-walton", not
+    "cherrylane-liverpool" - so the filename resolved to no known branch
+    key at all. branchFromPageName() returning null for an unresolvable
+    name is the checker's own documented, deliberate behaviour (its
+    comment: "A name that resolves to nothing is one of the legacy
+    pharmacy-first-service-<town> links Q8/item 5.3 owns, and is
+    deliberately left alone here"), so this is a confirmation of
+    intentional design, not a missed catch. Restored, sha256 confirmed
+    unchanged before repeating with the correct slug.
+6b. SECOND ATTEMPT, corrected: pfLink rewritten to
+    "https://www.tiffenbergschemist.co.uk/pharmacy-first-cherry-lane-walton.html"
+    - Cherry Lane's real page, hosted on Tiffenbergs' own domain so the
+    host rule alone cannot see the fault (this is the same class of
+    injection item 2.1 originally used to justify adding the ownership
+    rule on 2026-08-12, now proven against a different branch pair).
+    CAUGHT: "a Pharmacy First page belonging to cherrylane_liverpool
+    ('Cherry Lane Pharmacy'), not to this branch ('Tiffenbergs Chemist').
+    It also sits off this branch's own host." Restored, sha256 confirmed
+    unchanged.
+
+Not tried: the same-host sister-branch pfLink case (fishlocks_ainsdale to
+fishlocks_eccleston, scorah_bramhall to scorah_hazel, mccanns_aigburth to
+mccanns_sandringham) does not apply to Tiffenbergs, which is the sole
+branch on its brand and host - already noted as such in the checker's own
+header comment and in the 5.2 fourteenth-pass evidence against Scorah
+Bramhall, not repeatable here.
+
+POST-INJECTION VERIFICATION
+- sha256(branches.json) after final restore: identical to baseline,
+  confirmed by diff against the pre-round-1 backup (no output, exit 0).
+- Full 36-checker suite re-run individually: 0 failures.
+- All six generators (build-branch-landing-pages.js,
+  build-contraception-pages.js, build-service-pages.js,
+  build-switch-pages.js, build-travel-clinic-pages.js,
+  build-weight-loss-pages.js) rebuilt: all exit 0, and the combined sha256
+  set of every file under modules/ and core/ (189 files) is byte-identical
+  before and after.
+- git status --porcelain on modules/ and core/ empty after rebuild (aside
+  from the same pre-existing untracked .bak artifact noted above).
+
+RESULT: zero in-repo defect. check-branch-links.js was already correctly
+holding every one of Tiffenbergs' six link fields, including a rule
+interaction (website trailing slash cascading into pfLink) not previously
+observed on this branch, and a deliberately-designed null-owner path was
+confirmed intentional rather than a gap. No page, generator, pack,
+checker or branches.json byte changed.
+
+LIVE HALF: not attempted this pass. Claude in Chrome confirmed not
+connected at step 3 (answer pickup) and not re-checked separately for
+this item; full 12-of-12 live coverage for Tiffenbergs already stands from
+the fifth/sixth passes (2026-09-02) and was not re-read this pass.
+
+QUESTIONS: none raised this pass.

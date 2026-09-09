@@ -9051,6 +9051,61 @@ Done 2026-09-08 (fourteenth pass).
       widening confirmation and cross-branch proof of an existing fix, not a
       live-facing decision. Evidence: audits/tiffenbergs-item-3.12-quality-
       pass-2026-09-08-eleventh.txt. Done 2026-09-08 (eleventh pass)
+      Quality pass 2026-09-09, TWELFTH PASS, FRESH ANGLE: tools/check-
+      branch-links.js proven by injection against Tiffenbergs' own
+      branches.json link fields for the first time in this item's
+      twelve-pass history (eleven prior passes exercised check-nap.js,
+      check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+      check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+      check-map-embeds.js, check-pharmacy-first-eligibility.js and
+      check-weight-loss-copy.js, but never the checker that owns odsCode,
+      nhsEmail, nhsReviewUrl, googleReviewUrl, website and pfLink).
+      Baseline: all 36 checkers 0 failures, 189 files under modules/ and
+      core/ sha256-hashed before any change, branches.json sha256
+      904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+      Six injections against tiffenbergs_longmoor's own record, each
+      restored by byte copy and sha256-reconfirmed identical before the
+      next: (1) odsCode overwritten with cherrylane_liverpool's real code
+      - CAUGHT, three failures at once (odsCode duplicate plus the
+      cascading nhsEmail and nhsReviewUrl mismatches both rules derive
+      from odsCode); (2) nhsEmail mismatched with odsCode untouched -
+      CAUGHT, exactly one failure, confirming the rules fire
+      independently; (3) nhsReviewUrl shortened to stop at the ODS code,
+      the exact Gordon Short Crosby defect class (item 3.8, 2026-08-10) -
+      CAUGHT, naming the expected full /leave-a-review URL; (4)
+      googleReviewUrl overwritten with cherrylane_liverpool's real review
+      link - CAUGHT, "is the same link as cherrylane_liverpool"; (5)
+      website given a trailing slash - CAUGHT, two failures at once (the
+      website shape rule, and a cascading pfLink failure since the
+      pfLink-on-own-host check is built on website + "/"), a rule
+      interaction not previously exercised for this branch; (6) pfLink
+      rewritten to name a sister branch's Pharmacy First page while
+      staying on Tiffenbergs' own host, so the host check alone cannot
+      see it (the same class item 2.1 used to justify this rule,
+      2026-08-12, now proven against a different branch pair) - first
+      attempt used the wrong slug for Cherry Lane and resolved to no
+      known branch key at all, which is the checker's own documented
+      deliberate behaviour for an unresolvable legacy filename (confirmed
+      intentional, not a gap); corrected second attempt with Cherry
+      Lane's real brandSlug-townSlug pair CAUGHT, naming
+      cherrylane_liverpool by branch name and noting it also sits off
+      Tiffenbergs' own host. Not tried: the same-host sister-branch pfLink
+      case does not apply, since Tiffenbergs is the sole branch on its
+      brand and host. Post-injection: branches.json sha256 confirmed
+      identical to baseline; full 36-checker suite re-run clean (36/36);
+      all six generators rebuilt, 189-file combined hash byte-identical;
+      git status --porcelain on modules/ and core/ empty throughout aside
+      from a pre-existing untracked artifact this run did not create.
+      Zero in-repo defect - check-branch-links.js was already correctly
+      holding all six of Tiffenbergs' link fields, including a rule
+      interaction not previously observed on this branch, and a
+      deliberate null-owner design path confirmed intentional. No page,
+      generator, pack, checker or branches.json byte changed. Live half
+      not attempted: Claude in Chrome confirmed not connected at answer
+      pickup (standing Q59); full 12-of-12 live coverage already stands
+      from the fifth/sixth passes (2026-09-02), not re-read this pass. No
+      new question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
+      pass-2026-09-09-twelfth.txt. Done 2026-09-09 (twelfth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
