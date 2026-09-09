@@ -1561,6 +1561,47 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-08-fourteenth.txt. Done
       2026-09-08.
+      Fifteenth quality pass 2026-09-09 (unattended scheduled run, Cowork sandbox
+      shell, this run also had the built-in Claude Browser MCP available). Repo
+      half clean again: six generators to a zero diff, all 35 checkers (check-
+      cdn-pins.js excluded, needs live git ref resolution) exit 0. FRESH ANGLE:
+      tools/check-seo-pattern.js, the Phase 3 title/H1/description pattern
+      verifier and arguably the single most central checker to this build-from-
+      near-zero item, had never been proven by injection against Cherry Lane's
+      own pages in fourteen prior passes. Full repo copied to a scratch
+      directory, tracked repo never opened for writing. Three injections, each
+      restored by byte copy and SHA256-reconfirmed before the next: (1) the UTI
+      page's h1 changed from "UTI treatment in Walton" to "UTI treatment",
+      dropping the town - caught, two failures (exact-match and seoTown-
+      presence); (2) the Pharmacy First overview page's SEO description had
+      "and nearby Bootle" inserted, Bootle being a live seoTown not in Cherry
+      Lane's own serviceAreaList - caught by the cross-town absence rule, plus
+      an expected side-effect meta-length failure from the added text; (3) a
+      second h1 inserted on the switch page - caught by the one-h1 rule, citing
+      its own documented rationale verbatim. All three caught first attempt, on
+      their intended rule, full 35-checker suite clean after final restore,
+      scratch copy confirmed byte-identical to the tracked repo at the end. No
+      in-repo defect, no rule or page byte changed.
+      LIVE HALF PERFORMED (built-in Claude Browser MCP available and used this
+      run, read-only throughout, no click/submit/login). UTI page title and
+      copy match the repo exactly. SIGNIFICANT FINDING: Q95's fault (five of
+      seven Pharmacy First condition cards showing "Page coming soon" with no
+      link) is GONE live again - all seven cards now render "Learn more" as a
+      real anchor to that condition's own page, confirmed by DOM inspection of
+      the href, not just visible text. This is the second time this exact
+      fault has been seen fixed (also fixed on the eighth pass, 2026-09-02,
+      then found broken again on the tenth and eleventh), so this pass treats
+      it as "fixed again, not proven durable" rather than closing Q95 - the
+      note was appended to Q95 with this evidence, status left open. Two
+      previously-logged live-only faults on the switch page reconfirmed
+      unchanged: the pre-Phase-3 SEO title, and the "How switching to Cherry
+      Lane Pharmacy works" paragraph's em dash still rendering as mojibake
+      (read via DOM character codes this pass: U+00D4 U+00C7 U+00F6). The Q36
+      footer NHS mailbox typo (pharmacy.FA226@mhs.net) was observed present on
+      both pages read this pass, consistent with its already-logged
+      instability; not re-raised. No new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-09-fifteenth.txt. Done
+      2026-09-09.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

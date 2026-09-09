@@ -1,0 +1,131 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - fifteenth quality pass, 2026-09-09
+Unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash
+throughout; this run also had the built-in Claude Browser MCP available and used it
+for the live half (Claude in Chrome not present in this session).
+
+SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct
+grep (5.3, 5.4, 5.5, 5.8, 6.1, plus the three Q60/Q66 lines), so the quality-pass
+fallback applied. Rotation ordering re-derived via
+  git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md
+across the 36-item in-rotation pool (excluding the out-of-rotation set 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8). Item 2.3 last touched 2026-09-08T14:17:01+01:00, the
+earliest of the pool, ahead of 3.3 (14:39:40) and the rest - matches the immediately
+preceding run's own forward note. Chosen: 2.3 (Cherry Lane Pharmacy, Walton).
+
+REPO HALF BASELINE: all six generators (build-service-pages, build-branch-landing-
+pages, build-contraception-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) run against the tracked repo, zero diff (git status
+--porcelain modules/ tools/ branches.json empty afterwards, aside from the
+pre-existing untracked notarealservice-fishlocks-ainsdale.html.bak stray). Full
+35-checker suite (check-cdn-pins.js excluded per established convention, needs live
+git ref resolution) run directly against the tracked repo: 35/35 exit 0.
+
+FRESH ANGLE: tools/check-seo-pattern.js - the Phase 3 title/H1/description pattern
+verifier, and arguably the single most central checker to this "build-from-near-
+zero" item - had never been proven by injection against Cherry Lane's own pages in
+fourteen prior passes (confirmed by grep of the item's full history text; the
+fourth pass proved rule 7 of check-pharmacy-first-eligibility.js's age pattern via
+a Cherry Lane injection, which is a different file).
+
+Full repo copied (cp -a, .git included) to /tmp/scratch-23 (since deleted).
+Tracked repo file never opened for writing at any point. Baseline on the scratch
+copy: 35/35 checkers exit 0 (matching the tracked-repo baseline above). SHA256 of
+the three target files recorded before any injection:
+  uti-treatment-cherry-lane-walton.html
+    a6971686f13c2a6d645754298943243570a9cfbd394825b8a81afb62d962789c
+  pharmacy-first-cherry-lane-walton.html
+    653a7ea078b4659905abe3d4a47fbb54ebc2b7316131443c94de01239955e956
+  switch-prescriptions-cherry-lane-walton.html
+    a0090a6c2fbecb4b45c5daeefc99119763bd95f92b1a626bb9547c665c1a38c6
+
+Three injections, each restored from a saved byte copy and SHA256-reconfirmed
+identical before the next injection and after the last:
+
+(1) EXACT-MATCH / seoTown-PRESENCE rule. uti-treatment-cherry-lane-walton.html's
+    <h1>UTI treatment in Walton</h1> changed to <h1>UTI treatment</h1>, dropping
+    the town. CAUGHT: real exit code 1 (confirmed separately from the piped-tail
+    invocation, which had masked it on first attempt), two failures on the
+    injected page only - "h1 'UTI treatment' != 'UTI treatment in Walton'" and
+    "h1 missing seoTown 'Walton'". Every other branch in the run ("OK" lines)
+    unaffected. Restored; SHA256 reconfirmed a69716... before injection 2; full
+    suite re-run clean.
+
+(2) CROSS-TOWN / ABSENCE rule. pharmacy-first-cherry-lane-walton.html's SEO
+    description had "and nearby Bootle" inserted after "in Walton" - Bootle is a
+    live seoTown (owned by smartts_bootle and skchemists_bootle) and is NOT in
+    Cherry Lane's serviceAreaList (Liverpool, Walton, Everton). CAUGHT: exit 1,
+    two failures on the injected page - "description names 'Bootle', the seoTown
+    of smartts_bootle and skchemists_bootle, and 'Bootle' is not in this branch's
+    serviceAreaList" (the intended rule) plus an expected side-effect "meta over
+    165 chars" from the inserted text pushing the description past the length
+    cap - both consequences of the single edit, no unrelated failure elsewhere.
+    Restored; SHA256 reconfirmed 653a7e... before injection 3; full suite re-run
+    clean.
+
+(3) ONE-H1 rule. switch-prescriptions-cherry-lane-walton.html had a second
+    <h1>Switch your prescriptions today</h1> inserted immediately after the
+    real one. CAUGHT: exit 1, one failure - "2 h1 elements, expected exactly 1.
+    Every h1 rule in this repo reads the first h1 only, so the others go
+    unchecked by the pattern match, the seoTown and service-word rules and the
+    cross-town rule" (the checker's own documented rationale for the rule,
+    quoted verbatim in its failure message). Restored; SHA256 reconfirmed
+    a0090a... afterwards.
+
+All three injections caught on the first attempt, each on its intended rule
+(with one expected, correctly-attributed side-effect on injection 2), no
+cross-firing anywhere else in the 15-branch, 177-page estate. Full 35-checker
+suite re-run clean on the scratch copy after the final restore. Scratch copy
+confirmed byte-identical to the tracked repo at the end (diff -rq modules/ and
+tools/ against the live rbh-site-data checkout, no differences). Tracked repo's
+own git status reconfirmed clean (no unintended edit landed anywhere).
+
+RESULT: zero in-repo defect. check-seo-pattern.js's exact-match, seoTown-presence,
+cross-town-absence and one-h1 rules are all independently and correctly enforced
+against Cherry Lane's own twelve pages, proven by injection for the first time in
+fifteen passes on this item.
+
+LIVE HALF: browser access to cherrylanepharmacy.co.uk was available this run (the
+built-in Claude Browser MCP; request_access granted on this domain). Read-only
+throughout - no click, no submit, no login, no form interaction.
+
+  - uti-treatment-cherry-lane-walton.html: page title "UTI treatment in Walton -
+    Cherry Lane Pharmacy" matches the repo exactly; H1, service description and
+    NHS age range all correct.
+  - pharmacy-first-cherry-lane-walton.html: SIGNIFICANT FINDING, Q95's fault is
+    now GONE. All seven condition cards (UTI, sore throat, sinusitis, earache,
+    impetigo, shingles, infected insect bite) render "Learn more" as a real <a>
+    anchor pointing at that condition's own page (confirmed by DOM inspection,
+    not just visible text - each <em>Learn more</em> sits inside an <a href=
+    "...-cherry-lane-walton.html">), not the "Page coming soon" no-href state
+    logged on the tenth and reconfirmed on the eleventh pass. This matches the
+    "repaste happened" pattern already recorded once before on this item (eighth
+    pass, 2026-09-02) after the same fault reappeared on the tenth. Given the
+    fault's now-documented history of reappearing after being fixed (eighth pass
+    fixed it, tenth pass found it back, eleventh pass reconfirmed it still broken,
+    twelfth/thirteenth/fourteenth passes did not re-check this specific page),
+    this finding should be treated as "fixed again, not guaranteed to hold" rather
+    than closed outright - Q95 left open with this evidence appended rather than
+    marked answered, since the same evidence type (a repaste holding) was true
+    once before and did not last.
+  - switch-prescriptions-cherry-lane-walton.html: two previously-logged live-only
+    faults both reconfirmed unchanged, neither in copy this repo owns - the SEO
+    title is still the pre-Phase-3 string "Switch Your Prescriptions - Cherry
+    Lane Pharmacy Walton" (against the paste sheet's "Switch Your Prescriptions
+    to Cherry Lane Pharmacy, Walton"), and the "How switching to Cherry Lane
+    Pharmacy works" section's first paragraph still renders its em dash as
+    mojibake - this pass read the raw character codes via the DOM rather than
+    relying on visible glyphs: U+00D4 U+00C7 U+00F6 ("ÔÇö"), the same fault
+    shape logged on every prior pass that checked it (a different mojibake
+    encoding than the raw-byte description on some earlier passes, but the same
+    underlying live-only defect, not owned by this repo).
+  - The Q36 footer NHS mailbox typo (pharmacy.FA226@mhs.net, missing the "n" in
+    nhs.net) was observed on both pages read this pass (UTI and Pharmacy First
+    overview), reconfirming the pattern already logged as unstable across prior
+    passes (present on some passes, absent on others). Not re-raised as a new
+    question; Q36 already covers it and is awaiting the next supervised Weebly
+    session.
+
+QUESTIONS: none raised this pass. Q95 left open, not marked answered, with this
+run's evidence appended to it directly (see QUESTIONS.json). 47 open questions
+before this run's own Q95 note; the note does not change the open/answered count.
+No credential encountered in any file touched.
