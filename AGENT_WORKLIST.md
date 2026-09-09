@@ -17554,6 +17554,53 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       The eighth pass's live verdicts (2026-09-02) stand, not re-verified
       this pass. No new question raised. Evidence in
       audits/tiffenbergs-aintree-photo-shot-list-4.15-fourteenth-2026-09-08.txt.
+      Quality pass 2026-09-09 (fifteenth re-verification, repo half only):
+      pack verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: check-pharmacy-first-eligibility.js's
+      rules 9 (pinned age cohorts), 10 (the seven-condition list) and 11 (the
+      age-ranges caveat sentence) had never been proven by direct injection
+      against THIS pack's own copy across fourteen prior passes, despite
+      rules 6, 7, 8 and 12 of the same checker being proven against this
+      branch's generated pages on an earlier item (3.12, ninth pass), and
+      despite rules 9-11 being proven today against sibling pack
+      coleman-leigh-walton.md (item 4.12, fifteenth pass, immediately before
+      this run). Full repo copied by byte copy (with .git) to a scratch
+      directory outside the tracked tree; all injections and checker runs
+      against the scratch copy only, tracked file never opened for writing.
+      Four injections plus one control, each restored by byte copy and
+      sha256-reconfirmed identical before the next: (1) rule 9, Post A's
+      "women aged 16 to 64" changed to "16 to 65" - CAUGHT, two failures
+      (ages 16 and 65); (2) rule 9, the Services section's "adults aged 40
+      and over" changed to "35 and over", the description's own occurrence
+      left untouched to isolate it - CAUGHT, one failure (age 35); (3) rule
+      10, "impetigo" dropped from the Services section's seven-condition
+      enumeration, Post A's own enumeration left intact - CAUGHT, one
+      failure naming the omission and the resulting 6-of-7 count; (4) rule
+      11, "Age ranges set by the NHS apply to each condition." removed from
+      the end of Post A, the enumeration and UTI cohort left intact -
+      CAUGHT, one failure quoting the rule's own explanation in full; (5)
+      CONTROL, "conjunctivitis" (a NOT_PHARMACY_FIRST name) added inside a
+      parenthetical note directly after the Services section's Pharmacy
+      First bullet, mirroring the Coleman-Leigh-Walton and Cherry Lane
+      parenthetical-exemption findings - correctly PASSED, exit 0, proving
+      the exemption holds on this pack's own copy too. All five rounds fired
+      or correctly passed on the first attempt, each on its intended rule
+      only, no side-effect failures anywhere else in the suite. Full
+      36-checker suite re-run clean after the final restore; pack sha256
+      reconfirmed identical to baseline; tracked repo's own copy confirmed
+      byte-identical to the scratch copy at the end (diff -rq of gbp-packs/
+      and tools/, no differences). No in-repo defect found, no page, pack,
+      generator output or branches.json entry changed, no new question
+      raised. Live half not attempted: Claude in Chrome not connected this
+      session; the built-in Claude Browser MCP was tried as a substitute for
+      the step 3 answer-pickup fetch and returned "the person hasn't allowed
+      the browser pane to use this site yet", expected for an unattended run
+      with nobody present to grant access. This checker's rules 9-11 govern
+      GBP pack copy pasted into Google's profile fields, not a URL a
+      read-only fetch could verify regardless; the fourteenth pass's live
+      verdicts stand, not re-verified this pass. Evidence in
+      audits/tiffenbergs-aintree-pharmacy-first-eligibility-4.15-fifteenth-2026-09-09.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

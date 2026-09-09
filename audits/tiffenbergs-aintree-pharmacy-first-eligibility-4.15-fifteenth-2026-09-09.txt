@@ -1,0 +1,108 @@
+Item 4.15 quality pass (fifteenth, Tiffenbergs Chemist Aintree GBP pack)
+Date: 2026-09-09
+Run: unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash throughout
+
+SUBJECT
+Prove tools/check-pharmacy-first-eligibility.js rules 9, 10 and 11 (the pinned
+age cohorts, the seven-condition list, and the age-ranges caveat sentence) by
+direct injection against gbp-packs/tiffenbergs-aintree.md's own copy for the
+first time in fourteen prior passes on this item. Rules 6, 7, 8 and 12 of this
+same checker had already been proven against this branch's generated pages on
+an earlier pass (item 3.12, ninth pass), but rules 9/10/11, which read
+gbp-packs/ specifically, had never been pointed at this pack. This mirrors the
+item 4.12 fifteenth-pass work done immediately before this run, on a different
+sibling pack (Coleman and Leighs Pharmacy Walton).
+
+BASELINE
+sha256 of gbp-packs/tiffenbergs-aintree.md before this pass:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+Matches the value recorded on every prior pass since the ninth (2026-09-03).
+Full 36-checker suite run against the tracked repo before any work began:
+all 36 exit 0.
+
+METHOD
+Full repo copied by byte copy (cp -a, .git included) to /tmp/scratch-415. All
+injections and checker runs performed against the scratch copy only; the
+tracked repo's gbp-packs/tiffenbergs-aintree.md was never opened for writing.
+A pristine byte copy of the pack was kept outside the scratch tree
+(/tmp/tiffenbergs-aintree.pristine.md) and used to restore before each new
+round, with sha256 reconfirmed identical to the baseline after every restore.
+
+ROUND 1 - rule 9, UTI cohort age
+Changed Post A's "uncomplicated water infections in women aged 16 to 64" to
+"...aged 16 to 65". CAUGHT: two failures, ages 16 and 65, both flagged as
+"not part of any NHS cohort this copy may state (rule 9)". Restored; sha256
+reconfirmed identical; checker re-run clean.
+
+ROUND 2 - rule 9, blood pressure cohort age
+Changed only the Services section's "adults aged 40 and over" to "adults aged
+35 and over", leaving the description's own occurrence of "40 and over"
+untouched to isolate the mutation. CAUGHT: one failure, age 35, naming the
+exact mutated sentence. Restored; sha256 reconfirmed identical; checker
+re-run clean.
+
+ROUND 3 - rule 10, condition-list completeness
+Dropped "impetigo" from the Services section's NHS Pharmacy First bullet
+("...for sinusitis, sore throat, earache, impetigo, shingles..." ->
+"...for sinusitis, sore throat, earache, shingles..."), leaving Post A's own
+enumeration (which also lists impetigo) untouched. CAUGHT: one failure naming
+the omission of impetigo and stating the profile now advertises "6 of the 7
+NHS pathways this branch is commissioned for". Restored; sha256 reconfirmed
+identical; checker re-run clean.
+
+ROUND 4 - rule 11, age-ranges caveat sentence
+Removed "Age ranges set by the NHS apply to each condition." from the end of
+Post A, leaving the seven-condition enumeration and the UTI cohort intact.
+CAUGHT: one failure quoting the rule's own explanation in full ("lists all 7
+Pharmacy First conditions but nowhere says the NHS age ranges apply to each
+of them (rule 11)..."). Restored; sha256 reconfirmed identical; checker
+re-run clean.
+
+ROUND 5 - CONTROL, parenthetical exemption
+Appended "(not conjunctivitis, which needs a separate referral)" as a
+parenthetical directly after the Services section's NHS Pharmacy First
+bullet, mirroring the Cherry Lane and Coleman-Leigh-Walton parenthetical
+exemption findings. "conjunctivitis" is a NOT_PHARMACY_FIRST word. Correctly
+PASSED: exit 0, no new failure, confirming the stripParens() exemption holds
+on this pack's own copy too, not only on the packs it was previously proven
+against.
+
+RESULT
+All five rounds fired or correctly passed on the first attempt, each on its
+intended rule only, with no side-effect failures anywhere else in the 36-
+checker suite. Rules 9, 10 and 11 of check-pharmacy-first-eligibility.js were
+already correctly and independently enforced against this pack's own copy,
+in both directions on the age rules, on the condition-completeness rule, on
+the caveat-sentence rule, and with the parenthetical exemption intact. Zero
+in-repo defect.
+
+FINAL VERIFICATION
+Full 36-checker suite re-run against the scratch copy after the final
+restore: all 36 exit 0. sha256 of gbp-packs/tiffenbergs-aintree.md on the
+scratch copy reconfirmed 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b,
+identical to baseline. diff -rq of gbp-packs/ and tools/ between the scratch
+copy and the tracked repo: no differences. Tracked repo's own copy of the
+pack separately re-hashed after the pass: identical. git status --porcelain
+on the tracked repo shows no changes to any tracked file from this pass
+(only the pre-existing untracked strays already recorded in AGENT_LOG.md).
+Scratch directory deleted after the pass completed.
+
+LIVE HALF
+Not attempted this pass. Claude in Chrome MCP tools were not connected in
+this session (tabs_context_mcp: "Claude in Chrome is not connected"). The
+built-in Claude Browser MCP was tried as a substitute for the QUESTIONS.json
+answer-pickup fetch in step 3 (preview_start against
+https://data.rbhealth.co.uk/api/feedback) and returned "The person hasn't
+allowed the browser pane to use this site yet" - expected for an unattended
+run with nobody present to grant access, so no further route was attempted
+per the task's own rules. This checker's rules 9-11 govern GBP pack copy
+pasted into Google's profile fields, not a URL a read-only fetch could verify
+regardless. The fourteenth pass's live verdicts (2026-09-08, and the
+underlying live state confirmed on earlier passes: switch banner mojibake,
+footer en dashes, tiffenbergs@ vs Tiffenberg@ email split under Q56) stand,
+not re-verified this pass.
+
+QUESTIONS
+None raised this pass. QUESTIONS.json: 100 total, 47 open before this run;
+answer pickup unavailable (see LIVE HALF above), so still 47 open, none
+newly answered. No credential encountered in any file touched.
