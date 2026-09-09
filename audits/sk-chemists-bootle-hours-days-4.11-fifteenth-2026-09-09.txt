@@ -1,0 +1,151 @@
+Item 4.11 quality pass (fifteenth), unattended scheduled run via Cowork, 2026-09-09
+Pack: gbp-packs/sk-chemists-bootle.md
+Branch: skchemists_bootle (SK Chemists Bootle)
+
+PURPOSE
+Fourteen prior dedicated passes on this pack (2026-08-04 through 2026-09-08)
+had proven, by injection or direct verification against this pack's own
+copy: every profile-basics fact against branches.json, the item 5.3/Q34
+Post A repoint finding, the item 5.8/Q58 legacy weight-loss-clinic.html
+finding, rule 11's age-cohort qualifier, the CLINIC_QUALIFIERS/BODY_IMAGE/
+OUTCOME_PROMISE/POM_CLASS rule families, CATEGORY_RULES/SERVICE_RULES and
+both vocabulary allowlists, the photo shot list count and vinyl mention,
+check-gbp-pharmacy-first.js's completeness/age-accuracy/scope rules,
+check-app-membership.js Rule 8's four claim mechanisms, and (fourteenth
+pass) the sister-branch-claim rule plus check-brand-spelling.js's MISSPELT
+list. None of the fourteen had proven the "hours line names the right DAYS,
+not just the right times" rule in tools/check-gbp-packs.js (added on the
+item 4.1 quality pass, 2026-08-11) against this pack's own Hours line,
+despite that rule having already been proven this run cycle on six sister
+packs (4.3 hirshmans-ainsdale, 4.5 scorah-hazel-grove, 4.8
+fishlocks-eccleston, 4.10 smartts-bootle, 4.12 coleman-leigh-walton, 4.13
+riddings-timperley, 4.15 tiffenbergs-aintree). Confirmed absent from this
+item's own fourteen-pass history and from every other item's history by
+direct grep of AGENT_WORKLIST.md for "hoursDays"/"day the specification"
+before starting. This pass closes that gap for SK Chemists Bootle.
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools: empty
+except the two standing untracked artifacts this run did not create
+(modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+gbp-packs/.fuse_hidden0000000400000001).
+sha256(gbp-packs/sk-chemists-bootle.md) =
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da, matching
+all fourteen prior passes' own recorded hash exactly - byte-stable across
+fifteen passes.
+node tools/check-gbp-packs.js: 0 failures, no WARN against this pack
+(estate has 17 standing WARNs against other packs, all pre-existing and
+unrelated).
+All 36 tools/check-*.js run individually before any change: 36/36 exit 0.
+
+DATA CONFIRMED (branches.json, skchemists_bootle.openingHours)
+specification: one Monday-to-Friday session, 09:00-18:00, identical times
+on all five weekdays. closedDays: ["Saturday", "Sunday"]. No lunch closure,
+so the separate splitDay time/day-pairing rule has nothing to bind here, the
+same position already recorded for Riddings Timperley (4.13), Fishlocks
+Eccleston (4.8) and Smartts Bootle (4.10) on their own uniform-hours packs.
+The DAY-presence rule is the one that applies and had not yet been proven
+against this pack.
+
+PACK'S OWN HOURS LINE (before any injection)
+"Monday to Friday 9:00am to 6:00pm, Saturday and Sunday closed"
+
+METHOD
+Full repo copied to /tmp/rbh-scratch WITH .git included (per the item 4.10
+tenth pass's own method note: excluding .git makes check-cdn-pins.js fail
+falsely on a scratch copy), sha256 of gbp-packs/sk-chemists-bootle.md
+confirmed identical to the tracked repo before any edit. All three
+injections and checker runs performed against the scratch copy only; the
+tracked file at C:\dev\rbh-site-data\gbp-packs\sk-chemists-bootle.md was
+never opened for writing. Restored by full-file byte copy from the known-
+good hash (not git checkout, since a stale .git/index.lock on this FUSE
+mount made git-based restore unreliable this session - the same standing
+quirk recorded under Q87/Q96) before each next round, sha256-reconfirmed
+identical after each restore.
+
+ROUND 1 - claim Saturday open, reusing the branch's own weekday times
+(9:00am/6:00pm, already in this branch's own time set) so the clock-time
+rule could not also fire and the day rule's own catch would stand alone.
+"Monday to Friday ... Saturday and Sunday closed" -> "Monday to Saturday
+... Sunday closed" (identical weekday times retained).
+RESULT: CAUGHT. node tools/check-gbp-packs.js: exit 1, exactly one FAIL
+against this pack: "the hours line states the branch is open on Saturday,
+but branches.json opens it only on Monday, Tuesday, Wednesday, Thursday,
+Friday. A profile that publishes a day the shop is shut sends patients to a
+locked door". Restored; sha256 reconfirmed identical to
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da.
+
+ROUND 2 - drop Friday from the claim, every stated clock time left
+untouched and still correct. "Monday to Friday" -> "Monday to Thursday".
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json opens this branch
+on Friday, but the hours line does not state Friday as an open day, so the
+profile would be set from an incomplete picture and that day would be
+published wrong or left as Google has it". Restored; sha256 reconfirmed
+identical.
+
+ROUND 3 - drop Sunday from the closed statement, leaving Sunday named on
+neither the open list nor the closed list. "Saturday and Sunday closed" ->
+"Saturday closed".
+RESULT: CAUGHT. Exit 1, exactly one FAIL: "branches.json holds Sunday as a
+closed day, but the hours line does not state Sunday as closed. GBP keeps
+whatever the profile already shows for a day the paster is not told about,
+so a closure the group has made never reaches the listing". Restored;
+sha256 reconfirmed identical.
+
+Each round produced exactly one FAIL against this pack, with no side-effect
+failure from the clock-time rule or any other rule sharing the same
+profile-basics bullet, confirming all three legs of the day-presence rule
+fire independently on this pack, exactly as already proven on
+hirshmans-ainsdale.md (4.3), scorah-hazel-grove.md (4.5),
+fishlocks-eccleston.md (4.8), smartts-bootle.md (4.10),
+coleman-leigh-walton.md (4.12), riddings-timperley.md (4.13) and
+tiffenbergs-aintree.md (4.15).
+
+RESULT
+Zero in-repo defect. This pack's own Hours line was already stating every
+open and closed day correctly; now proven directly by injection across all
+three legs of the day-presence rule for the first time in this item's
+fifteen-pass history. tools/check-gbp-packs.js unchanged: rule proven, not
+changed.
+
+REGRESSION SWEEP
+Scratch copy's gbp-packs/sk-chemists-bootle.md restored byte-identical
+after round 3, sha256
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+reconfirmed and diff-clean against the tracked file. All 36
+tools/check-*.js re-run individually on the scratch copy after restore:
+36/36 exit 0. Tracked repo confirmed untouched throughout: sha256 of
+C:\dev\rbh-site-data\gbp-packs\sk-chemists-bootle.md unchanged and
+git status --porcelain -- gbp-packs modules core branches.json tools empty
+before, during and after (aside from the two pre-existing untracked
+artifacts this run did not create or touch). gbp-packs/ is not a generator
+input, but all six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js,
+build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) were rebuilt on the scratch copy regardless per
+the task's own convention: all six exit 0, git status --porcelain --
+modules core empty after (aside from the same pre-existing untracked
+.bak file).
+
+LIVE HALF
+Not performed. mcp__claude-in-chrome__list_connected_browsers returned an
+empty array, checked once before repo work began and again after
+finishing (standing Q59 cause, unchanged). No alternative route attempted,
+nothing clicked, typed or submitted, no login attempted. The fourteenth
+pass's own live findings stand unverified for a further pass rather than
+re-claimed: Post A's generated target (pharmacy-first-sk-chemists-
+bootle.html) correct and live as of the twelfth pass's own curl sweep;
+pharmacy-first-service-bootle.html still misspelling "Bottle" in its H2
+though its title tag is corrected, item 5.3/Q34, no decision needed;
+weight-loss-clinic.html still live naming Mounjaro, Wegovy and Orlistat,
+item 5.8/Q58, unchanged, not fixed here.
+
+QUESTIONS
+No new question raised. QUESTIONS.json unchanged: 100 total, 47 open.
+Answer pickup unavailable this run (Chrome not connected, standing Q59).
+
+FILES CHANGED BY THIS PASS
+AGENT_WORKLIST.md (item 4.11 new paragraph), AGENT_LOG.md (new entry), this
+audit file. gbp-packs/sk-chemists-bootle.md, branches.json, tools/,
+modules/ and core/ all untouched (confirmed by git status and sha256
+throughout).

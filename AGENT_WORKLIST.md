@@ -14641,6 +14641,79 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       defect, no new question raised this pass. Evidence in
       audits/verify-4.11-2026-09-08-fourteenth.js and
       audits/verify-4.11-2026-09-08-fourteenth-output.txt.
+      Fifteenth quality pass 2026-09-09 (unattended scheduled run via
+      Cowork, rotation-pool pick, stalest item last mentioned
+      2026-09-08T00:43:34+01:00, the fourteenth pass itself, ahead of 5.1
+      and 3.12; independently re-derived via a Python script parsing every
+      worklist header into its own paragraph range and taking
+      `git log --format="%ad %s" --date=iso -- AGENT_WORKLIST.md` for
+      2026-09-08, confirming 4.11's fourteenth pass was the earliest
+      commit that day at 00:43, ahead of 5.1 (01:15) and 3.12 (03:22), on
+      the 36-item pool excluding the seven standing out-of-rotation items
+      1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Baseline: all 36 checkers exit 0;
+      pack sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      matching all fourteen prior passes' own recorded hash, byte-stable
+      across fifteen passes; all six generators rebuilt, git status
+      --porcelain -- modules core empty before and after.
+      Fresh angle: check-gbp-packs.js's "hours line names the right DAYS,
+      not just the right times" rule (added item 4.1 quality pass,
+      2026-08-11) had been proven this run cycle on six sister packs
+      (4.3, 4.5, 4.8, 4.10, 4.12, 4.13, 4.15) but never against this
+      pack's own Hours line in fourteen prior passes, confirmed absent by
+      direct grep of "hoursDays"/"day the specification" across the whole
+      worklist before starting. SK Chemists Bootle's hours are a single
+      uniform Monday-to-Friday 9-to-6 session with no lunch closure, so
+      the day-presence rule (not the splitDay time/day-pairing rule) is
+      the one that applies here, the same position already recorded for
+      Riddings Timperley, Fishlocks Eccleston and Smartts Bootle on their
+      own uniform-hours packs.
+      Full repo copied to a scratch directory WITH .git included (per the
+      item 4.10 tenth pass's own method note); sha256 of
+      gbp-packs/sk-chemists-bootle.md confirmed identical to the tracked
+      repo before any edit; the tracked file was never opened for writing.
+      Restored by full-file byte copy from the known-good hash (a stale
+      .git/index.lock on this FUSE mount made git-based restore
+      unreliable this session, the standing Q87/Q96 quirk) before each
+      next round, sha256-reconfirmed identical after each restore. Three
+      injections, each applied to a freshly restored copy: (1) claim
+      Saturday open, reusing the branch's own weekday times so the
+      clock-time rule could not also fire - CAUGHT, "the hours line
+      states the branch is open on Saturday, but branches.json opens it
+      only on Monday, Tuesday, Wednesday, Thursday, Friday"; (2) drop
+      Friday from the open claim, every stated clock time left untouched -
+      CAUGHT, "branches.json opens this branch on Friday, but the hours
+      line does not state Friday as an open day"; (3) drop Sunday from the
+      closed statement, leaving Sunday named on neither list - CAUGHT,
+      "branches.json holds Sunday as a closed day, but the hours line does
+      not state Sunday as closed". Each round produced exactly one FAIL
+      against this pack with no side-effect failure from the clock-time
+      rule or any other rule sharing the same profile-basics bullet, all
+      three legs firing independently exactly as already proven on the
+      six sister packs above. File sha256-confirmed byte-identical to the
+      tracked original after each individual restoration and again at the
+      end. Full 36-checker suite re-run clean after the round (36/36); all
+      six generators re-run on the scratch copy, git status --porcelain --
+      modules core empty after (aside from the pre-existing untracked
+      .bak artifact this run did not create).
+      RESULT: no in-repo defect. check-gbp-packs.js's day-presence rule
+      was already correctly holding this pack's Hours line on all three
+      legs; now proven directly by injection against SK Chemists Bootle's
+      own pack for the first time in this item's fifteen-pass history. No
+      checker logic, pack copy, page, generator or data field changed
+      anywhere in the repo.
+      LIVE HALF: not attempted this pass. `mcp__claude-in-chrome__list_connected_browsers`
+      returned an empty array, checked once before repo work began and
+      again after finishing (standing Q59, unchanged). The fourteenth
+      pass's own live findings (Post A's generated target correct and
+      live; pharmacy-first-service-bootle.html still misspelling "Bottle"
+      in its H2 though its title tag is corrected, item 5.3/Q34, no
+      decision needed; weight-loss-clinic.html still live naming
+      Mounjaro, Wegovy and Orlistat, item 5.8/Q58, unchanged, not fixed
+      here) stand unverified for a further pass rather than re-claimed.
+      Q58, Q80 and Q81 re-read from QUESTIONS.json, all still open,
+      unchanged. No new defect, no new question raised this pass. Evidence
+      in audits/sk-chemists-bootle-hours-days-4.11-fifteenth-2026-09-09.txt.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
