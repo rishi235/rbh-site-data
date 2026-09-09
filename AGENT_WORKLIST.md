@@ -19403,6 +19403,81 @@ of AGENT_LOG.md for the exact commands and their output.
       checker logic, page, generator or data field changed anywhere in the
       repo. No new question raised. Evidence:
       audits/verify-5.2-2026-09-07-thirteenth.js.
+      Quality pass 2026-09-09 (fourteenth, unattended run, rotation-pool
+      pick: stalest of the 36-item pool with nothing touched today when this
+      run started, ahead of 4.11, 5.1 and 3.12 per the thirteenth pass's own
+      forward note). Repo half only, no browser available (Claude in Chrome
+      list_connected_browsers returned []; standing Q59, unchanged); a direct
+      read-only curl GET (browser-shaped User-Agent, no browser tool
+      involved, nothing clicked or submitted) confirmed both Scorah
+      pharmacy-first pages and both McCanns pharmacy-first pages this item's
+      four landing pages point at still resolve 200 live, unchanged.
+      NEW ANGLE. tools/check-branch-links.js had zero mentions across this
+      item's thirteen prior passes, despite this item owning two of the
+      three shared-domain sister pairs in the estate (Scorah Bramhall/Hazel
+      Grove, McCanns Aigburth/Sandringham) that the checker's pfLink
+      ownership rule exists specifically to catch, and despite CLAUDE.md's
+      "link fields inside branches.json" section naming this exact checker
+      and this exact risk.
+      METHOD. New instrument, audits/verify-5.2-2026-09-09-fourteenth.js,
+      matching the discipline the 3.9 and 3.10 passes established against
+      this same checker: shells out to the real tools/check-branch-links.js
+      as a child process, refuses to run if branches.json already carries a
+      git diff, records the pre-mutation buffer and its sha256 once,
+      restores from the in-memory buffer immediately after capturing each
+      injection's output and before any assertion, sha256-reconfirms and
+      re-checks git status after every restore.
+      INJECTION ROUND, nine injections on Scorah Bramhall's own record
+      (scorah_bramhall), each restored byte-identical before the next: (1)
+      odsCode swapped to Riddings Pharmacy's real code (FDW90) - CAUGHT,
+      duplicate flagged plus the resulting nhsEmail and nhsReviewUrl
+      mismatches this one edit also creates, three FAILs from one mutation;
+      (2) nhsEmail rewritten to an unrelated address, odsCode left correct -
+      CAUGHT; (3) nhsReviewUrl truncated to stop at the ODS code, the exact
+      Gordon Short Crosby historical defect this checker exists to catch -
+      CAUGHT; (4) googleReviewUrl rewritten to a malformed shape missing
+      "/r/" and "/review" - CAUGHT; (5) googleReviewUrl set equal to Scorah
+      Hazel Grove's real link, its own sister branch - CAUGHT, "a review
+      meant for one branch would land on the other's listing"; (6) website
+      given a trailing slash - CAUGHT, both the website-shape failure and
+      the knock-on pfLink-host failure it causes; (7) pfLink repointed at a
+      real Fishlocks Ainsdale page, off-host - CAUGHT, both the host rule
+      and the ownership rule together; (8) pfLink rewritten to drop ".html" -
+      CAUGHT; (9) pfLink repointed at Scorah Hazel Grove's own REAL
+      generated Pharmacy First page (pharmacy-first-scorah-hazel-grove.html,
+      same host, so it resolves) - CAUGHT, both the host-agreement pass and
+      the ownership rule firing together, quoting "Both branches are served
+      from https://www.scorah-chemists.co.uk, so the link resolves and every
+      Pharmacy First route this field feeds - the landing page and the GBP
+      pack button - quietly books the patient into the wrong pharmacy",
+      which is the precise same-host sister-branch scenario this item's own
+      two Scorah pages create and the checker's own header names. Baseline
+      pfLink for both Scorah branches is still the shared legacy
+      "pharmacy-first-service-hazel-grove-bramhall.html" link (Q8/5.3), which
+      resolves to no owner under the checker's brandSlug-townSlug naming
+      convention and is deliberately left alone by rule design; injection
+      (9) proves the ownership rule fires correctly the moment either
+      branch's pfLink is pointed at a real, resolvable page instead of the
+      shared legacy one. All nine caught first attempt with the expected
+      field-specific message; the whole script re-run a second time end to
+      end with identical results (9/9 caught both times). branches.json
+      confirmed sha256-identical and git-diff-empty throughout and after.
+      Full 36-checker suite re-run clean immediately after (36/36); all six
+      generators rebuilt via their own scripts, all exit 0;
+      git status --porcelain -- modules/ core/ empty before and after
+      (aside from the pre-existing untracked
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak and
+      gbp-packs/.fuse_hidden0000000400000001 artifacts this run did not
+      create and did not touch).
+      RESULT: no in-repo defect. check-branch-links.js was already correctly
+      holding Scorah Bramhall's own branches.json record to all six rule
+      families - odsCode uniqueness, nhsEmail, nhsReviewUrl, googleReviewUrl
+      shape and uniqueness, website shape, and pfLink host/extension/
+      ownership including the same-host sister-branch case - now proven
+      directly by injection for the first time in this item's fourteen-pass
+      history. No checker logic, page, generator or data field changed
+      anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-09-fourteenth.js.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
