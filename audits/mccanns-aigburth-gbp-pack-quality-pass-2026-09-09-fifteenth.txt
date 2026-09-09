@@ -1,0 +1,129 @@
+Item 4.6 quality pass (fifteenth) - McCanns Chemist Aigburth GBP pack
+Run: 2026-09-09 (unattended scheduled run, Cowork sandbox mcp__workspace__bash)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so the quality-pass fallback applied.
+Rotation ordering re-derived independently via
+`git log -1 --format=%ai -L<start>,<end>:AGENT_WORKLIST.md` per item across
+the 34-item rotation pool (excluding the out-of-rotation set 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8). Full result, ten earliest:
+  2026-09-08 09:41:46 +0100  4.6
+  2026-09-08 10:10:32 +0100  4.5
+  2026-09-08 10:50:54 +0100  1.3
+  2026-09-08 11:11:34 +0100  4.13
+  2026-09-08 11:41:25 +0100  4.8
+  2026-09-08 12:10:22 +0100  4.10
+  2026-09-08 12:42:23 +0100  4.9
+  2026-09-08 13:17:03 +0100  4.12
+  2026-09-08 13:42:41 +0100  4.15
+  2026-09-08 14:17:01 +0100  2.3
+4.6 confirmed stalest, no tie. Matches the fourteenth pass's own forward
+pointer exactly. Chosen: 4.6 (McCanns Chemist Aigburth GBP pack).
+
+BASELINE
+sha256(branches.json)              = 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+sha256(gbp-packs/mccanns-aigburth.md) = fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+(both unchanged since 2026-08-04 and every prior pass)
+node tools/check-gbp-packs.js: 0 failures, 17 known WARNs (list matches
+every prior pass exactly, see run output below).
+All 36 checkers run individually against the tracked repo: 36/36 exit 0.
+
+FRESH ANGLE
+Catalogued all fourteen prior injection angles already proven against this
+pack (branch-name-as-place/Q26, address-repeated-four-times, hours-in-four-
+places, time/day pairing, splitDay, sister-branch-in-prose, PRICE_PATTERNS
+lead pricing, GBP-profile-website-on-shared-domain, phone digit mutation,
+pharmacy-first-eligibility rule 9 age-cohort pinning). The categories/
+services rules in check-gbp-packs.js (lines 962-1155: the per-widget
+earned/not-earned blocklist, and the RECOGNISED_SERVICES/RECOGNISED_
+CATEGORIES allowlist added on the item 4.4 pass, 2026-08-13, and proven then
+only against scorah-bramhall.md) had never been proven by injection against
+this pack specifically, despite mccanns_aigburth holding all five widgets
+this checker reads (bloodPressure, contraception, pharmacyFirst, weightLoss,
+travelClinic) and the pack's own Categories and Services sections claiming
+every one of them.
+
+Scratch environment built at /tmp/gbp-4.6-pass15 (tools/, modules/, core/,
+gbp-packs/, branches.json copied from the tracked repo; check-gbp-packs.js
+resolves branches.json relative to its own __dirname, so this is required
+for any branches.json-side injection). Baseline run in the scratch copy
+matched the tracked repo exactly before any injection: 0 failures, the same
+17 WARNs.
+
+INJECTION 1 (blocklist / earned-widget direction, branches.json side).
+Removed mccanns_aigburth's travelClinic widget from the scratch
+branches.json only, leaving gbp-packs/mccanns-aigburth.md completely
+unchanged (its Categories section still lists "Travel clinic" and
+"Vaccination centre", its Services section still lists "Travel clinic").
+RESULT: exit 1, three FAILs, each naming the pack and quoting the exact
+rule text:
+  FAIL  mccanns-aigburth.md: Categories section lists "Travel clinic", but
+        branches.json does not give this branch the widget that earns it...
+  FAIL  mccanns-aigburth.md: Categories section lists "Vaccination centre",
+        but branches.json does not give this branch the widget that earns
+        it...
+  FAIL  mccanns-aigburth.md: Services section lists "Travel clinic", but
+        branches.json gives this branch no travelClinic widget...
+All three fired on the first attempt, worded exactly as the rule's own
+source. RESTORED by overwriting the scratch branches.json with a fresh copy
+of the tracked file; sha256 reconfirmed identical
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e); re-run
+in scratch: 0 failures, 17 WARNs, unchanged.
+
+INJECTION 2 (allowlist direction, pack side). Added an unrecognised
+secondary category ("Dental clinic", appended to the Categories bullet) and
+an unrecognised service bullet ("Ear wax removal: microsuction ear wax
+removal by appointment.", appended to the Services section) to the scratch
+copy of gbp-packs/mccanns-aigburth.md only, mirroring the exact class of
+injection the item 4.4 pass used against scorah-bramhall.md, but never
+tried against this pack. RESULT: exit 1, two FAILs, each naming the pack
+and the offending term:
+  FAIL  mccanns-aigburth.md: Categories section names "Dental clinic",
+        which is not a category any pack in this repo uses...
+  FAIL  mccanns-aigburth.md: Services section lists "Ear wax removal",
+        which is not a service any pack in this repo uses...
+Both fired on the first attempt. RESTORED by overwriting the scratch pack
+file with a fresh copy of the tracked file; sha256 reconfirmed identical
+(fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693); re-run
+in scratch: 0 failures, 17 WARNs, unchanged.
+
+POST-INJECTION VERIFICATION
+Tracked repo (not the scratch copy) confirmed untouched throughout: git
+status --porcelain on branches.json, gbp-packs/, modules/, core/, tools/
+showed only two pre-existing untracked artifacts this run did not create
+(gbp-packs/.fuse_hidden0000000400000001, dated 2026-09-08 15:39, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, dated
+2026-09-09 00:40 - both predate this run's start and are the same class of
+FUSE-mount/prior-run debris earlier passes have already logged, not
+investigated further here as out of scope for this item). sha256 of
+branches.json and gbp-packs/mccanns-aigburth.md in the tracked repo
+unchanged throughout: 904de09b...969e1e and fdb1429d...693 respectively.
+Full 36-checker suite re-run individually against the tracked repo after
+this pass's scratch-only work: 36/36 exit 0. gbp-packs is not a generator
+input, so no generator rebuild was needed or performed (matches the
+fourteenth pass's own convention).
+
+RESULT: zero in-repo defect. Both the earned-widget blocklist direction and
+the allowlist direction of check-gbp-packs.js's categories/services rules
+were already correctly enforced against this pack; now proven by injection
+for the first time in fifteen passes.
+
+LIVE HALF
+Claude in Chrome: mcp__claude-in-chrome__list_connected_browsers returned
+[] - not connected, standing Q59, unchanged. No alternative route
+attempted; nothing clicked, typed or submitted anywhere. Fell back to a
+read-only status check via direct HTTP GET (status code only, not a full
+text re-read - last full text re-read was the seventh/ninth/twelfth passes):
+  404  pharmacy-mccanns-aigburth.html (profile-website landing page, still
+       awaiting the queued Weebly paste run - unchanged from every prior
+       pass)
+  200  pharmacy-first-service-aigburth.html (Post A)
+  200  switch-prescriptions-mccanns-aigburth.html (Post B)
+  200  weight-loss-clinic-mccanns-aigburth.html (Post C)
+  200  travel-clinic-mccanns-aigburth.html (Post D)
+Q83 (weight loss booking-block price ahead of eligibility section) not
+re-raised - already open and not re-verified this pass.
+
+QUESTIONS: none raised this pass; open question count unchanged (47 of
+100 at run start).

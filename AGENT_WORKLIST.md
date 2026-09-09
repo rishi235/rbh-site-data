@@ -12686,6 +12686,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       targets 200, Q83 not re-raised) stand unchanged, not re-claimed this
       pass. No new in-repo defect, no new question. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-08-fourteenth.txt.
+      Quality pass 2026-09-09 (unattended run, fifteenth pass): stalest item
+      in the rotation pool, re-derived mechanically (last touched
+      2026-09-08T09:41:46+01:00, next stalest 4.5 at 10:10:32, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; all 36 checkers individually 36/36 exit 0; sha256 of the
+      pack fdb1429d...693 and of branches.json 904de09b...969e1e, both
+      unchanged. NEW ANGLE: of fourteen prior injection angles proven
+      against this pack, the categories/services rules (the per-widget
+      earned/not-earned blocklist and the RECOGNISED_SERVICES/
+      RECOGNISED_CATEGORIES allowlist, added item 4.4 pass 2026-08-13 and
+      proven then only against scorah-bramhall.md) had never been proven
+      against this pack, despite it holding all five widgets the checker
+      reads and its own Categories and Services sections claiming every
+      one. TWO INJECTIONS in a scratch copy (/tmp, no .git operations, sha256
+      confirmed identical to the tracked repo before and after, restored by
+      overwrite between rounds): (1) travelClinic widget deleted from
+      mccanns_aigburth in a scratch branches.json only, pack left unchanged
+      - CAUGHT, exit 1, three FAILs (Categories "Travel clinic", Categories
+      "Vaccination centre", Services "Travel clinic"), each naming the pack
+      and the exact rule text. (2) an unrecognised category ("Dental
+      clinic") and an unrecognised service ("Ear wax removal") added to a
+      scratch copy of the pack, branches.json untouched - CAUGHT, exit 1,
+      two FAILs naming both terms, the same injection class the item 4.4
+      pass used against scorah-bramhall.md but never tried on this pack.
+      Both rounds caught on the first attempt with the exact expected
+      wording. RESTORED by overwrite from the tracked files; sha256
+      reconfirmed identical both times; full 36-checker suite re-run
+      against the tracked repo after: 36/36 exit 0. Tracked repo confirmed
+      untouched throughout (git status showed only two pre-existing
+      untracked artifacts predating this run, not investigated further).
+      gbp-packs is not a generator input, so no generator rebuild was
+      needed. Nothing fixed - this pass adds proof, not correction. LIVE
+      HALF: Claude in Chrome not connected (Q59); fell back to a read-only
+      HTTP status check (not a full text re-read). Profile-website landing
+      page still 404s, unchanged, still awaiting the queued paste run. The
+      four post targets all 200, unchanged. Q83 not re-raised, already
+      open. No new in-repo defect, no new question; open question count
+      unchanged at 47 of 100. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-09-fifteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
