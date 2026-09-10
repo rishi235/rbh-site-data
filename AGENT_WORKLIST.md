@@ -20702,6 +20702,115 @@ host's own orphaned `.git/index.lock` (0 bytes, created moments earlier by
 this run's own read commands, no git process running) by direct removal -
 see the top of AGENT_LOG.md for the exact commands and their output.
 
+Quality pass 2026-09-10 (seventeenth). UNATTENDED SCHEDULED RUN, Cowork
+sandbox `mcp__workspace__bash` throughout. All 8 unchecked AGENT_WORKLIST.md
+items confirmed [BLOCKED] by direct grep, so the quality-pass fallback
+applied. Rotation pool re-derived from first principles: 43 [x] items minus
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+minus the nine items already touched earlier today (4.11, 5.2, 2.1, 3.10,
+3.9, 3.4, 6.2, 3.13, 3.7) = 27 candidates. `git log -1 --format=%aI --all
+--grep="Item N " -- AGENT_WORKLIST.md` run individually across all 27: item
+5.1 came out uniquely stalest at 2026-09-09T02:11:04+01:00, exactly matching
+the sixteenth pass's own forward note. Chosen: 5.1.
+
+BASELINE: all 36 `tools/check-*.js` checkers run individually, 36/36 exit 0.
+`node tools/check-em-dashes.js` reports the same steady-state counts as
+every prior pass (177 generated pages, 6 non-generated copy files, 7 live
+module code files, 15 banners, 16 GBP packs, 11 paste sheets, 1 run-time
+data file, 233 files scanned; 200 comment dashes, 591 sheet-structure
+dashes, 1 maintenance-note dash, zero failures). `git status --porcelain --
+modules core branches.json gbp-packs` empty except the two pre-existing
+untracked files neither created nor touched by this pass
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak).
+
+FRESH ANGLE: sixteen prior passes on this item had exhaustively widened
+check-em-dashes.js against the REPO side (pages, sheets, banners, live
+module code, run-time data, GBP packs), but every LIVE-side check across the
+whole sixteen-pass history had read exactly one branch's switch page, Cherry
+Lane, repeatedly reconfirming the same pre-Q7 mojibake em dash there and
+extrapolating "the same pre-Q7 pasted em dash as every prior pass" to the
+estate. No pass had ever actually fetched a second branch's live switch page
+to test that assumption. This pass did, reading all 15 (branches.json minus
+the disposed Wilmslow and the head office, which carries no switch page).
+The built-in Claude Browser MCP read Cherry Lane directly
+(`preview_start`/`get_page_text`); `request_access` for a second domain
+(smarttschemist.co.uk) was declined, expected in an unattended run with no
+person to approve the prompt, so the remaining 14 were read with a
+plain anonymous `curl -L` (read-only, nothing clicked, typed or submitted,
+the same established fallback recorded by several prior runs on other
+items), then classified by exact byte inspection (Python, reading the raw
+response bytes rather than trusting a text decode) around the "usually is
+not" sentence.
+
+FINDING: the live encoding is NOT uniform across the estate the way sixteen
+passes assumed. Fourteen of the fifteen switch pages resolved 200 and fall
+into three DIFFERENT categories, not one:
+  - CLEAN, correctly-encoded UTF-8 em dash (U+2014, bytes e2 80 94) - still a
+    house-style breach (em dashes are banned outright) but not garbled on
+    the page: mccanns_aigburth, mccanns_sandringham, fishlocks_ainsdale,
+    fishlocks_eccleston, smartts_bootle, tiffenbergs_longmoor, scorah_hazel
+    (7 branches).
+  - The CP1252-style mojibake this item's log has repeatedly called "ÔÇö"
+    (raw bytes 94 c3 87 c3 b6 following the shared "usually is not "
+    prefix): hirshmans_ainsdale, skchemists_bootle, colemanleigh_liverpool,
+    gordonshorts_crosby, cherrylane_liverpool (5 branches, Cherry Lane
+    included - confirming this pass's own direct browser read of Cherry
+    Lane, unchanged from every prior pass).
+  - A THIRD, different mangled form, never before recorded on this item
+    (raw bytes a2 e2 82 ac e2 80 9d, rendering as "â‚¬"" rather than "ÔÇö"):
+    scorah_bramhall (1 branch) alone.
+  - riddings_timperley (1 branch): NO em dash at all live, but not because
+    it carries the generator's current Q7-fixed wording either. The live
+    paragraph reads "Most people put this off because they assume it will
+    be a hassle. Usually it is not. The aim is to make the first step quick
+    and easy." - this repo's own generated output for the same branch
+    (modules/switch/pages/switch-prescriptions-riddings-timperley.html)
+    reads "Most people put off switching pharmacy because they assume it
+    will be a hassle. With Riddings Pharmacy in Timperley, it usually is
+    not. We make the first step quick and easy." Different wording
+    throughout, not a byte match, so this page was pasted from some other
+    source or hand-edited after pasting, not from this repo's generator at
+    all. It passes item 5.1's own em-dash rule (no dash, literal or entity)
+    but is flagged here because it means a future repaste of "the switch
+    pages" cannot treat Riddings as already-correct just because it has no
+    dash - it needs a full repaste like the others, arguably more urgently
+    since none of its copy currently matches the approved generator output.
+  - clearchemist_aintree: 404 live, both via curl and via a retried fetch
+    with a browser user agent, and absent from the domain's own
+    sitemap.xml. NOT a new finding - this matches Q29's already-answered
+    position ("Leave the three pages generated and unpublished, keep the
+    homepage buttons, and revisit when the store is next worked on"),
+    reconfirmed rather than rediscovered.
+
+No in-repo defect follows from this: check-em-dashes.js has no live-page
+surface to widen (its rules read the repo's own generated pages, sheets,
+banners and code, not what a Weebly paste actually rendered), and the
+generated switch page for every branch checked here (including Riddings)
+already carries the Q7-fixed, dash-free wording in the repo, confirmed by
+`git status --porcelain -- modules/switch` staying empty throughout this
+pass. The gap is entirely on the live/paste side, which no tool in this
+repo can reach or correct - the same "out of scope by construction"
+position this item has recorded before, just now evidenced across the whole
+estate rather than assumed from one branch. Worth carrying for whoever
+scopes the eventual Weebly repaste (blocked behind item 5.5's CDN pin
+fast-forward, and possibly the Q39 furniture-sweep session): it needs to
+treat this as at least three distinct live-content problems, not one
+copy-paste job repeated fifteen times, and Riddings needs the full page
+repasted rather than only its em dash removed. No new QUESTIONS.json entry
+raised - this refines the already-open Q7 "needs repasting" note and the
+already-blocked item 5.5 remedy path rather than requiring a new decision.
+
+WORKLIST AND COMMIT: this paragraph appended in place; item 5.1's `[x]` line
+not moved. AGENT_LOG.md entry added at the top. QUESTIONS.json unchanged
+(101 total, 48 open). No generator, page, branches.json field or checker
+changed. Next stalest for whoever runs next, re-derived after excluding 5.1
+as now touched today (alongside today's other nine touched items): re-run
+`git log -1 --format=%aI --all --grep="Item N " -- AGENT_WORKLIST.md` fresh
+rather than assume, since other runs may land in between - as computed by
+this pass, 3.12 (2026-09-09T02:42:32+01:00) is next stalest, then 3.6
+(03:10:03), then 3.8 (03:43:18).
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
