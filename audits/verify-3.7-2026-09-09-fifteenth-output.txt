@@ -1,0 +1,4 @@
+Smartts Chemist Bootle: hasApp = true (expect true)
+SK Chemists Bootle (adjacent record): hasApp = false (expect false), id=skchemists_bootle
+
+34 checks, 0 flags

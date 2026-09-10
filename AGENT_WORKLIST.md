@@ -5956,6 +5956,65 @@ above, properly item 3.5's business but fixed here since it blocked a clean
 baseline for every item). No copy changed anywhere in the repo, no new
 question. Evidence in audits/verify-3.7-2026-09-08-fourteenth.js.
 Done 2026-09-08 (fourteenth pass).
+Quality pass 2026-09-09 (fifteenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash). Picked as the stalest
+rotation-pool item not already touched today: 3.7 last touched
+2026-09-08T20:11:25+01:00, ahead of 3.13 (22:11:54) and every other pool item.
+FRESH ANGLE. tools/check-app-membership.js - the checker guarding hasApp, the
+one boolean deciding whether Smartts's switch page carries the "Download our
+app" card - had never been named against Smartts once in fourteen prior passes
+(confirmed: `grep -c smartts -i tools/check-app-membership.js` returned 0
+beforehand). Smartts is one of only four hasApp:true branches and sits
+directly beside SK Chemists Bootle (hasApp:false) in branches.json and in the
+same town, the exact adjacent-record danger case the checker's own header
+names as the reason it exists.
+Baseline: all 35 checkers clean on the tracked repo. Root filesystem at 99%
+capacity (165MB free), the same recurring finding; scratch work moved to the
+outputs mount (tar --exclude='.git', 328MB free), baseline re-confirmed
+matching on the scratch copy before any injection.
+Fresh independent extraction (audits/verify-3.7-2026-09-09-fifteenth.js, no
+code shared with tools/ or any prior pass's script): 34 checks, 0 flags -
+smartts_bootle.hasApp literally true, SK Chemists Bootle's literally false,
+the switch page carries exactly one app-card/app-copy/Apple-link/Google-link,
+all 11 non-switch Smartts pages carry no app mention, no branch landing page
+exists for Smartts, and both INDEX.md and SEO.md mark only Smartts's own
+heading as an app member.
+Five injections against the real checker, each restored and sha256-reconfirmed
+before the next: (1) RULE 2 - app-card class removed from Smartts's switch
+page, CAUGHT first attempt ("carries no app card"); (2) RULE 4 - the canonical
+app sentence appended to uti-treatment-smartts-bootle.html, CAUGHT first
+attempt ("mentions the app... no page in this family is meant to"); (3) RULE 5
+- "RB Healthcare Pharmacy app" shortened to "RB Healthcare app" on Smartts's
+switch page, the exact historical Fishlocks-landing fault this checker's own
+header records, CAUGHT first attempt; (4) RULE 6 - Smartts's Apple Store link
+swapped for an undeclared URL, CAUGHT first attempt; (5) RULE 7 - the
+"*(app member)*" marker slid from Smartts's own INDEX.md heading to SK
+Chemists Bootle's heading (marker COUNT unchanged at 4, so only the brand+town
+identity sub-rule could catch it), CAUGHT first attempt by that sub-rule
+specifically - confirms by direct injection, for the first time against this
+exact pair, the scenario the checker's own source comment describes as "found
+by its own negative test." All five caught on their intended rule only, first
+attempt, no cross-firing.
+Full 35-checker suite re-run after final restore: 34/35 exit 0 on the scratch
+copy, check-cdn-pins.js failing only on the documented .git-less-copy artefact
+(re-run clean, 0 failures, directly against the tracked repo). Tracked repo
+confirmed untouched throughout (git status --porcelain and sha256 of all three
+touched files unchanged before and after). No generator, checker, page or
+branches.json content changed; no regeneration needed.
+Live half not performed: Claude Browser request_access to smarttschemist.co.uk
+explicitly declined (unattended session, nobody to approve);
+mcp__workspace__web_fetch refused ("URL not in provenance set"). Per this
+item's own eleventh-pass rule, no curl/PowerShell workaround attempted. State
+stands as last recorded on the sixth/thirteenth passes, not re-verified.
+Rule 8/8e (gbp-packs/smartts-bootle.md) remains item 4.10's own scope, not
+picked up here; check-switch-copy.js's remaining 6/11 rules, check-seo-
+pattern.js's service-word/H1-exact-match rules, and seventeen other
+checkers listed in audits/smartts-item-3.7-quality-pass-2026-09-09-fifteenth.txt
+remain untested against Smartts for a future pass.
+No in-repo defect found, no copy changed anywhere in the repo, no new
+question. Evidence in audits/smartts-item-3.7-quality-pass-2026-09-09-fifteenth.txt
+and audits/verify-3.7-2026-09-09-fifteenth.js.
+Done 2026-09-09 (fifteenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
