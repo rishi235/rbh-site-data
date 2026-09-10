@@ -23672,6 +23672,65 @@ this pass, 3.12 (2026-09-09T02:42:32+01:00) is next stalest, then 3.6
       question. Evidence:
       audits/opening-hours-jsonld-parse-6.3-twelfth-2026-09-09.txt. Done
       2026-09-09.
+      Quality pass (thirteenth), 2026-09-10 (unattended run, Cowork sandbox
+      mcp__workspace__bash unreachable at the infrastructure level this run -
+      "No space left on device" on three consecutive attempts before any repo
+      work began, not the usual Q96 credential gap - so all git/node/
+      PowerShell operations went via mcp__Windows-MCP__PowerShell against the
+      real host instead). FRESH ANGLE: the `disposed` branch-exclusion filter
+      (line 216, data.branches.filter(b => !b.disposed)), never proved by
+      injection in this item's twelve-pass history and, right now, unused by
+      any real branch - Wilmslow was removed from branches.json outright
+      rather than soft-flagged, so the filter has never fired for real either.
+      BASELINE: 36/36 checkers clean; six generators rebuilt, combined sha256
+      of 217 files under modules/+core/ d665e871300af237d4014a8d292b84b461a0a189daaa0be14577552799ba1cd4;
+      branches.json sha256 904de09b...969e1e (standing hash), backed up
+      byte-for-byte before any edit. THREE-STAGE INJECTION on
+      fishlocks_ainsdale (one of the six branches with a landing page, so
+      both halves of the filter could be tested together): (A) disposed:true
+      added alone - "6 landing page(s) checked against 16 trading branches"
+      became "5 ... against 15", checker stayed clean; (B) with disposed
+      still true, a rule-4 clash added (Monday into closedDays, already in
+      specification, the same shape proved on gordonshorts_crosby in the
+      sixth pass) - still "5 ... against 15", still clean, 0 failures,
+      proving the filter suppresses rules 1-7 together, not just the
+      data-level ones; (C) control - disposed flipped back to false, the
+      clash left in place - "6 ... against 16" returned and two failures
+      fired exactly as rule 4 and rule 2 are documented to
+      ("Monday is listed in closedDays and also carries opening times";
+      "Monday reads \"8.45am to 6pm\" but branches.json says \"Closed\""),
+      proving the flag itself, not an artefact of the edit sequence, was
+      what suppressed stages A and B. One false start caught before drawing
+      any conclusion: an initial attempt to write the injection via
+      PowerShell's ConvertTo-Json wrote a UTF-8 BOM that broke every
+      checker's JSON.parse; caught immediately, restored from the untouched
+      backup, redone with the Edit tool directly against the tracked file.
+      RESTORE: branches.json restored by byte copy, sha256 reconfirmed
+      identical (904de09b...969e1e); 36/36 checkers clean again; six
+      generators rebuilt, combined sha256 identical to baseline
+      (d665e871...9ba2cd4, 217 files); git status --porcelain -- modules
+      core branches.json tools gbp-packs empty except the two pre-existing
+      untracked scratch files, neither touched. RESULT: zero in-repo defect -
+      the filter was already doing exactly what its one line says, now
+      proven by injection for the first time. Side note, not actioned: only
+      this checker was tested; whether every other checker's own `disposed`
+      handling (where present) behaves the same way is untested, and stays
+      untested until a future branch disposal actually exercises it for real.
+      LIVE HALF: browser answer pickup (step 3) redirected to Cloudflare
+      Access; request_access declined (unattended, nobody present); logged
+      as unavailable, not retried by another route, per procedure.
+      tools/check-live-hours.js run directly via Node from the real host
+      (network egress confirmed, nothing clicked/typed/submitted). Bank
+      holiday note correctly flagged 2026-08-31 as within the 14-day window.
+      All 14 branches read against branches.json: thirteen match exactly,
+      including all seven lunch-closure branches and both split-domain
+      pairs. smartts_bootle remains the sole live mismatch, straight-through
+      hours unchanged since 2026-08-11 across all thirteen passes. Q55
+      (answered 2026-09-02, option 1) stands as answered-but-not-yet-actioned,
+      live Weebly edit outside this worker's write scope, not re-raised. No
+      new question. Evidence:
+      audits/opening-hours-disposed-filter-6.3-thirteenth-2026-09-10.txt,
+      audits/live-hours-check-2026-09-10.json. Done 2026-09-10.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

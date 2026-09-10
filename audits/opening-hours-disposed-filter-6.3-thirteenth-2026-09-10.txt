@@ -1,0 +1,142 @@
+Item 6.3, quality pass (thirteenth), 2026-09-10 (unattended run, audit-backlog-worker).
+Cowork sandbox mcp__workspace__bash unreachable this run at the infrastructure
+level ("No space left on device" on three consecutive attempts before any repo
+work was attempted, not the usual Q96 credential gap), so all git/node/
+PowerShell operations went via mcp__Windows-MCP__PowerShell against the real
+ProDesk host instead, matching the route several of today's earlier runs used
+for the same reason.
+
+FRESH ANGLE: the `disposed` branch-exclusion filter.
+
+By the end of the twelfth pass (2026-09-09), every numbered rule (1-8), the
+bank-holiday block checks, the visible-row duplicate path, and both anti-rot
+exemption-list checks in tools/check-opening-hours.js had been proved by
+injection at least once (12 own-item passes plus one cross-item proof under
+item 3.2 for the JSON-LD-mismatch path). Reading the checker source end to end
+found one piece of logic that had never been exercised by any pass of this
+item, or apparently by any other checker's history either: line 216,
+
+    var branches = data.branches.filter(function (b) { return !b.disposed; });
+
+which excludes a disposed branch from every rule in the file, both the
+data-level rules (4, 5, 6, the bank-holiday block) and the page-level rules
+(1, 2, 3, 7). Confirmed by grep across AGENT_WORKLIST.md and AGENT_LOG.md
+before writing anything: "disposed" appears nowhere in either file in
+connection with check-opening-hours.js or item 6.3.
+
+The filter is also, right now, dead code in a stronger sense than usual: no
+branch in the tracked branches.json carries `disposed` at all. Wilmslow (the
+CLAUDE.md-documented 1 June 2026 disposal, "16 trading sites today, 15 from 1
+June 2026") is not a soft-flagged record in this file; it was removed outright,
+leaving 16 entries (15 trading pharmacy branches plus rbh_head_office_aintree,
+which itself carries no disposed field). So this filter has never fired for a
+real branch and had never been proved for a hypothetical one either.
+
+BASELINE: all 36 tools/check-*.js run individually, 36 of 36 exit 0. All six
+generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt; combined sha256 of all 217 files under
+modules/ and core/: d665e871300af237d4014a8d292b84b461a0a189daaa0be14577552799ba1cd4.
+git status --porcelain -- modules core branches.json tools gbp-packs empty
+except the two pre-existing untracked files (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. branches.json sha256 before any edit: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+(the standing hash recorded by every recent pass on this branch), copied
+byte-for-byte to branches.json.bak-pre-6.3-thirteenth before any edit.
+
+THREE-STAGE INJECTION on fishlocks_ainsdale (chosen because it is one of the
+six branches with a generated landing page, so both the data-level and
+page-level halves of the filter could be tested together). All edits made
+with the Edit tool directly against the tracked file (not round-tripped
+through PowerShell's ConvertTo-Json, which was tried first and rejected after
+it wrote a UTF-8 BOM that broke every checker's JSON.parse - caught
+immediately, before any assertion was drawn from it, and restored from the
+untouched backup before continuing).
+
+  Stage A - "disposed": true added to fishlocks_ainsdale, no other change.
+  Result: console line changed from the baseline "6 landing page(s) checked
+  against 16 trading branches" to "5 landing page(s) checked against 15
+  trading branches"; checker stayed clean (0 failures). Confirms the branch
+  is dropped from both the page-check count and the trading-branch count by
+  the flag alone.
+
+  Stage B - with disposed still true, added "Monday" to fishlocks_ainsdale's
+  closedDays (which already carries a Monday session in specification, i.e.
+  rule 4's exact clash condition, the same shape proved on gordonshorts_crosby
+  in the sixth pass). Result: still "5 landing page(s) checked against 15
+  trading branches", still clean, 0 failures. Confirms the filter suppresses
+  rule 4 (and, since the branch is dropped from the forEach entirely, rules 1,
+  2, 3, 5, 6 and 7 as well) even when the branch's own data would otherwise
+  fail loudly.
+
+  Stage C (control) - disposed flipped back to false, the Monday clash left
+  in place unchanged. Result: "6 landing page(s) checked against 16 trading
+  branches" again, and two failures:
+    FAIL  fishlocks_ainsdale: Monday is listed in closedDays and also carries
+          opening times
+    FAIL  modules/branch/pages/pharmacy-fishlocks-ainsdale.html: Monday reads
+          "8.45am to 6pm" but branches.json says "Closed"
+  This is the same clash from stage B, now firing exactly as rule 4 and rule 2
+  are documented to, proving the disposed flag itself was what suppressed it
+  in stages A and B, not some unrelated side effect of the edit sequence.
+
+RESTORE: branches.json restored from branches.json.bak-pre-6.3-thirteenth by
+byte copy; sha256 reconfirmed 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e,
+identical to the pre-injection value. check-opening-hours.js re-run clean
+("6 landing page(s) checked against 16 trading branches", 0 failures). Full
+36-checker suite re-run individually: 36 of 36 exit 0. All six generators
+rebuilt again: combined sha256 of modules/+core/ identical to baseline
+(d665e871...9ba2cd4, 217 files). git status --porcelain -- modules core
+branches.json tools gbp-packs empty except the same two pre-existing
+untracked files. Backup file branches.json.bak-pre-6.3-thirteenth deleted
+after the restore was confirmed byte-identical.
+
+RESULT: zero in-repo defect. The `disposed` filter was already doing exactly
+what its one line of code says: fully removing a disposed branch from every
+rule in this checker, both data-level and page-level, with no partial
+exclusion and no accidental leak. Now proven by injection for the first time,
+closing a piece of untested (and currently unused in real data) logic that
+the checker's own architecture depends on for the day it is next needed - the
+next branch disposal, or a future re-flagging of Wilmslow's successor record
+if the group ever needs the soft-flag path instead of a hard delete.
+
+Side note, not a defect and not actioned: because Wilmslow was deleted outright
+rather than flagged disposed, this run cannot say whether every OTHER checker
+in the estate correctly filters on `disposed` the same way - only this one was
+tested, because it is this item's own subject. Worth a future item's attention
+if the group ever disposes of another branch via the soft-flag path rather than
+a hard delete, since that is the only way most of the other 35 checkers' own
+`disposed` handling (where present) would be exercised for real.
+
+LIVE HALF: browser answer pickup (step 3) attempted first via the built-in
+Claude Browser MCP against https://data.rbhealth.co.uk/api/feedback; it
+redirected to https://rbhealth.cloudflareaccess.com (Cloudflare Access login),
+request_access was declined (unattended session, nobody present to approve),
+so per procedure this was logged as unavailable and not retried by another
+route. No answer pickup this run.
+
+tools/check-live-hours.js run directly via Node from the real host (network
+egress confirmed working, nothing clicked, typed or submitted; this is the
+same fallback several recent passes of this item have used when Claude in
+Chrome/the built-in browser was not available), evidence
+audits/live-hours-check-2026-09-10.json (note: this filename is the script's
+own hardcoded output path and was already present today from an earlier run;
+this pass's read confirms the same 14-branch sweep, re-run fresh). Bank
+holiday note correctly flagged 2026-08-31 as within the 14-day window of this
+run (10 days prior). All 14 branches read against branches.json by hand:
+thirteen match exactly, including all seven lunch-closure branches
+(mccanns_aigburth, mccanns_sandringham, hirshmans_ainsdale,
+colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor - all
+correctly publish their split-day hours live) and both split-domain pairs
+(Scorah, McCanns) read correctly by branch. smartts_bootle remains the sole
+live mismatch: homepage, contact page and footer widget all still publish
+straight-through "9:00am - 6:00pm" (or "09:00 - 18:00") with no lunch closure,
+against branches.json's NHS-sourced 09:00-13:00/14:00-18:00 split, unchanged
+since first found 2026-08-11 across all thirteen passes. Q55 (answered by
+Rishi 2026-09-02, option 1: edit the live Smartts pages) stands as
+answered-but-not-yet-actioned - the live Weebly edit is outside this worker's
+write scope - not re-raised. No new question raised.
+
+No page, generator, data field, checker or patient-facing copy left changed.
+Only this evidence file plus the AGENT_WORKLIST.md paragraph and the
+AGENT_LOG.md entry were added.
