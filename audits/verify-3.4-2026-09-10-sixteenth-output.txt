@@ -1,0 +1,50 @@
+=== PRECONDITION: refuse to run if any target already carries a diff ===
+  clean: modules/service/pages/SEO.md
+  clean: modules/service/pages/WEIGHT-LOSS-SEO.md
+
+=== BASELINE: check-seo-keywords.js on the clean tree ===
+exit 0
+
+=== INJECTION: RULE 1 pairing - Overview block's Meta Keywords blanked (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'no Meta Keywords value': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 2 resolution - UTI block's Page Permalink corrupted (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'does not end in any live branch': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 3 presence - Sore throat block's keywords drop Walton (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'do not carry this branch's own seoTown': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 4 absence - Sinusitis block's keywords gain Bootle (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'is not in this branch's serviceAreaList': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 5 brand - Earache block's keywords gain Smartts Chemist (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'which is the brand of': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 6 postcode - Impetigo block's keywords gain L20 (modules/service/pages/SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'is not this branch's outward code': true
+  restored byte-identical: true
+
+=== INJECTION: RULE 7 claim - weight loss block's keywords gain 'rapid weight loss' (modules/service/pages/WEIGHT-LOSS-SEO.md) ===
+  checker exit: 1 (expect 1)
+  caught expected fragment 'Efficacy and results wording is not': true
+  restored byte-identical: true
+
+=== FINAL: check-seo-keywords.js re-run after all restores ===
+exit 0
+
+=== FINAL sha256 confirmation, both targets byte-identical to baseline ===
+  modules/service/pages/SEO.md: OK
+  modules/service/pages/WEIGHT-LOSS-SEO.md: OK
+
+ALL PASSED: 7/7 injections (rules 1-7) caught by check-seo-keywords.js on first attempt, all targets restored byte-identical. Rule 8 not applicable to Cherry Lane (townSlug equals seoTown, no orphaned word to inject against).

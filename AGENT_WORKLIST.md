@@ -3932,6 +3932,95 @@ reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-07T20:21:08+01:00), then 3.10, 2.1, 5.2 -
 re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-10 (sixteenth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Stalest item re-derived via the established git-log block method (36-item
+rotation pool minus 6.2, touched earlier today by the same day's own
+worklist run: 35 candidates): 3.4 came out uniquely stalest at
+2026-09-08T23:12:25+01:00, ahead of 3.9 (23:40:16), 3.10 (2026-09-09
+00:13:32), 2.1 (00:44:07) and every other pool item.
+THE GENUINELY UNTESTED ANGLE THIS PASS CLOSED. Fifteen prior passes proved,
+by direct injection against Cherry Lane's own pages and paste sheets,
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-whatsapp-
+route.js, check-service-links.js, check-switch-copy.js, check-branch-
+identity.js, check-booking-routes.js, check-seo-pattern.js, check-jsonld.js
+and check-map-embeds.js. tools/check-seo-keywords.js - the checker for the
+fourth Weebly SEO field, Meta Keywords, which CLAUDE.md's own "The fourth
+SEO field" section names as the field nine hand-checks had to cover before
+any rule existed behind it - had never been proven by injection against
+Cherry Lane's own paste sheets, confirmed by a grep of this item's entire
+section (all fifteen prior passes) for "check-seo-keywords" (allowing for
+markdown line-wrap) returning zero hits.
+New instrument, no import from tools/ beyond invoking the real checker as a
+child process (audits/verify-3.4-2026-09-10-sixteenth.js): refuses to run if
+any target already carries a git diff, records every target's sha256 before
+mutation, restores by direct fs.writeFileSync from an in-memory Buffer
+immediately after capturing the checker's output and before any assertion,
+sha256-reconfirms after every restore. Seven injections, one at a time,
+across six different Cherry Lane blocks in two paste sheets (modules/
+service/pages/SEO.md and WEIGHT-LOSS-SEO.md), each covering a different
+rule: (1) RULE 1 pairing - the Overview block's Meta Keywords value blanked,
+caught; (2) RULE 2 resolution - the UTI block's Page Permalink corrupted to
+resolve to no live branch, caught; (3) RULE 3 presence - the Sore throat
+block's keywords rewritten to drop "Walton" entirely, caught; (4) RULE 4
+absence - the Sinusitis block's keywords gained "Bootle", the seoTown of
+Smartts Chemist and SK Chemists, neither named in Cherry Lane's own
+serviceAreaList (Liverpool, Walton, Everton), caught; (5) RULE 5 brand - the
+Earache block's keywords gained "Smartts Chemist", another live branch's
+brandLabel, caught; (6) RULE 6 postcode - the Impetigo block's keywords
+gained "L20", Smartts Chemist and SK Chemists' own outward code, not Cherry
+Lane's L4, caught; (7) RULE 7 claim - the weight loss block's keywords
+gained "rapid weight loss Walton", the exact shape check-seo-keywords.js's
+own file header names as the reason this rule exists, caught. All seven
+caught on first attempt with the expected rule's own failure message; all
+target files confirmed git-diff-empty and sha256-identical to their
+pre-test baseline throughout and after. RULE 8 (retired town word)
+deliberately not exercised: it only fires for a branch whose townSlug no
+longer spells its own seoTown, and Cherry Lane's townSlug ("walton") and
+seoTown ("Walton") are the same word, so there is no orphaned word to
+inject against on this branch - McCanns Sandringham is where that rule
+bites, and is outside this item's scope. Baseline and final runs of
+check-seo-keywords.js both clean. Full 36-checker suite re-run individually
+before and after the round: 36/36 exit 0 both times. All six generators
+rebuilt via their own build-*.js scripts with git status --porcelain on
+modules/, core/, branches.json, gbp-packs/ and status/ empty before and
+after (byte-identical, aside from two pre-existing untracked FUSE/backup
+artifacts this run did not create) - no in-repo defect, nothing to fix.
+LIVE HALF. The built-in Claude Browser MCP (mcp__Claude_Browser__*) was
+available and used this run (Claude in Chrome not attempted; standing Q59
+concerns Claude in Chrome specifically). Three Cherry Lane pages read live
+via document.querySelector against the actual rendered DOM rather than a
+raw GET: pharmacy-first-cherry-lane-walton.html's <meta name="keywords">
+reads "Pharmacy First Walton, NHS Pharmacy First, Cherry Lane Pharmacy,
+pharmacy Walton, L4", matching the sheet and branches.json exactly, no
+drift; contraception-cherry-lane-walton.html's likewise matches its own
+sheet exactly ("contraceptive pill Walton, NHS contraception Walton, pill
+without prescription Walton, pharmacy Walton, L4"); but
+weight-loss-clinic-cherry-lane-walton.html carries NO <meta name="keywords">
+tag at all live, while its own paste sheet holds a correct value ("weight
+loss clinic Walton, medicated weight loss Walton, Cherry Lane Pharmacy,
+pharmacy Walton"). Not raised as a new question: SEO.md's own header states
+"Meta keywords are ignored by Google/Bing (kept for completeness only)", so
+this is a paste-execution gap on one page with no ranking consequence, not
+a repo defect and not a citation-consistency fault of the kind this item's
+own fourth-pass Q86 finding is - the sheet value is correct and ready to
+paste whenever that page is next worked on. Recorded here so it is not
+mistaken for something this checker should have caught: check-seo-keywords.js's
+job is the sheet, which is correct; whether Weebly has been pasted from it is
+outside every checker's reach, the same standing caveat every prior pass's
+live half already carries. Q86 (the weight-loss-clinic-walton.html address
+divergence) not re-checked this run - not this pass's injection target - and
+not re-raised.
+WORKLIST AND COMMIT. This paragraph. New evidence files this run:
+audits/verify-3.4-2026-09-10-sixteenth.js and its
+-output.txt. QUESTIONS.json re-read in full: 101 total, 48 open, unchanged by
+pickup this run (fetched successfully via the built-in Claude Browser MCP;
+newest portal entry remains Q52, 2026-09-01, standing Q59; no new question
+raised). Files changed and committed: AGENT_WORKLIST.md, the two new audits/
+files, and AGENT_LOG.md - no generator, page, data field or checker file
+touched in the tracked tree, reconfirmed immediately before commit.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.9 (2026-09-08T23:40:16+01:00), then 3.10, 2.1, 5.2 -
+re-derive rather than assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
