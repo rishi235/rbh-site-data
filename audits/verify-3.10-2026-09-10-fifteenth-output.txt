@@ -1,0 +1,27 @@
+verify-3.10-2026-09-10-fifteenth: check-weight-loss-copy.js against Riddings Pharmacy
+
+Baseline read: modules/service/pages/weight-loss-clinic-riddings-timperley.html (13604 bytes, sha256 adc7bdaef738...)
+Baseline checker run: clean (exit 0).
+
+[rule2-pinned-copy] CAUGHT (rule 2), restored byte-identical (sha256 confirmed).
+
+[rule3-faq-answer] CAUGHT (rule 3), restored byte-identical (sha256 confirmed).
+
+[rule4-free-offer] CAUGHT (rule 4), restored byte-identical (sha256 confirmed).
+
+[rule5-bmi-number] CAUGHT (rule 5), restored byte-identical (sha256 confirmed).
+
+[rule6-no-guarantee] CAUGHT (rule 6), restored byte-identical (sha256 confirmed).
+
+[rule7-price-led] CAUGHT (rule 7), restored byte-identical (sha256 confirmed).
+
+[rule8-medicine-name] CAUGHT (rule 8), restored byte-identical (sha256 confirmed).
+
+[rule9-claim] CAUGHT (rule 9), restored byte-identical (sha256 confirmed).
+
+[rule10-governance] CAUGHT (rule 10), restored byte-identical (sha256 confirmed).
+
+Final restore check: OK, byte-identical to baseline
+Final check-weight-loss-copy.js run: clean (exit 0)
+
+SUMMARY: 9 injection(s) caught as expected, 0 problem(s).

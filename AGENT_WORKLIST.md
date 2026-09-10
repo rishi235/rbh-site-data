@@ -8617,6 +8617,70 @@ Done 2026-09-09 (fifteenth pass).
       computation, for whoever runs the next unattended pass: 2.1
       (2026-09-07T22:43:49+01:00), then 5.2, 4.11, 5.1 - re-derive rather
       than assume, since other runs may land in between. Done 2026-09-09
+
+      Quality pass 2026-09-10 (fifteenth): fourteen prior passes had proven
+      check-booking-routes.js, check-branch-identity.js,
+      check-branch-links.js, check-contraception-copy.js, check-em-dashes.js,
+      check-jsonld.js, check-map-embeds.js, check-nap.js,
+      check-opening-hours.js, check-postcodes.js, check-seo-pattern.js,
+      check-service-links.js, check-switch-copy.js and
+      check-travel-clinic-copy.js against Riddings' own data, but never
+      check-weight-loss-copy.js, confirmed by grepping this item's entire
+      section for all 35 checker filenames before starting - zero hits on
+      check-weight-loss-copy.js. Riddings offers the service
+      (branches.json widgets.weightLoss is set) and has its own generated
+      page, modules/service/pages/weight-loss-clinic-riddings-timperley.html,
+      so this was a real gap rather than an inapplicable checker. Riddings
+      has no branch landing page and no Weebly paste block of its own
+      (confirmed by directory listing before starting), so this checker's
+      rules 11 and 12 (the Regime 1 landing-page and paste-block copy) could
+      not be exercised against Riddings specifically; rules 2 to 10, which
+      all read Riddings' own generated page, were the target.
+
+      Built a fresh instrument (audits/verify-3.10-2026-09-10-fifteenth.js,
+      no import from tools/ beyond invoking the real checker as a child
+      process, refuses to run on a pre-existing diff, sha256-verified
+      restore after every injection) covering nine of the checker's ten
+      page-level rules against Riddings' own weight loss page. NINE
+      injections, each restored byte-identical (sha256-confirmed)
+      immediately after its catch: (1) rule 2, removed the pinned
+      "Private Weight Loss Clinic" label - CAUGHT ("missing pinned service
+      copy"); (2) rule 3, dropped the "No." that separates a consultation
+      from an automatic prescription in the FAQ answer - CAUGHT ("without
+      the part that carries the promise"); (3) rule 4, inserted "Enjoy a
+      free consultation this month" into the hero paragraph - CAUGHT
+      ("free consultation"); (4) rule 5, gave the BMI framing a numeric
+      threshold ("BMI over 30") - CAUGHT ("states a numeric BMI
+      threshold"); (5) rule 6, removed the "Individual results vary
+      depending on factors..." sentence - CAUGHT ("lost a no-guarantee
+      statement"); (6) rule 7, inserted "Special offer this week" beside
+      the consultation fee - CAUGHT ("uses price-led wording"); (7) rule 8,
+      named Wegovy in the "which medication" FAQ answer - CAUGHT (the
+      medicine name, quoted); (8) rule 9, appended "Our clinic delivers
+      results" to the hero-proof line - CAUGHT ("delivers results"); (9)
+      rule 10, shortened the paste-comment governance note to drop the
+      superintendent sign-off sentence - CAUGHT ("lost part of its
+      paste-comment governance note"). All nine caught first attempt with
+      the expected message and rule; the target file confirmed
+      sha256-identical to its pre-test baseline after every individual
+      restore and again at the end. Full 35-checker suite re-run
+      individually before and after: 35/35 exit 0 both times. NO IN-REPO
+      DEFECT FOUND - unlike several recent passes on other items, this
+      checker was already correct against Riddings' own copy on every rule
+      tested; this closes the "never proven against this branch" gap
+      without needing a fix. LIVE HALF: not attempted this pass; this
+      checker has no live-page surface distinct from the repo-generated
+      page it reads. FILES CHANGED: AGENT_WORKLIST.md (this paragraph);
+      AGENT_LOG.md (new entry); the new
+      audits/verify-3.10-2026-09-10-fifteenth.js and its own -output.txt -
+      no generator, page, data field or checker file touched, reconfirmed
+      via `git status --porcelain -- modules core tools branches.json
+      gbp-packs` immediately before commit (only long-standing untracked
+      debris present, none of it created or touched by this run). No new
+      question raised. Next stalest by this run's own computation, for
+      whoever runs the next unattended pass: 2.1 (2026-09-09T00:44:07+01:00),
+      then 5.2, 4.11, 5.1 - re-derive rather than assume, since other runs
+      may land in between. Done 2026-09-10
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
