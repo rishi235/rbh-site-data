@@ -1,0 +1,108 @@
+Item 3.6 quality pass (sixteenth, 2026-09-10, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout). FRESH ANGLE: tools/check-booking-routes.js,
+proven by injection against McCanns Chemist's own pages for the first time in this
+item's sixteen-pass history.
+
+WHY THIS CHECKER, WHY NOW
+--------------------------
+Fifteen prior passes on this item had proven fourteen other checkers by injection
+against McCanns's own files (check-app-membership, check-branch-identity,
+check-branch-links, check-em-dashes, check-gbp-packs, check-jsonld, check-map-embeds,
+check-nap, check-postcodes, check-seo-keywords, check-seo-pattern, check-service-links,
+check-weight-loss-copy, check-whatsapp-route, check-widget-diaries) but never
+tools/check-booking-routes.js - despite CLAUDE.md's own "booking chain" section citing
+McCanns-shaped risk directly (a branch falling back to the wrong diary, or a booking
+misfiled to the wrong branch) and despite fifteen passes repeating "widget diary policy
+holds: weightLoss and travelClinic shared across the brand, three NHS diaries unique
+per site" without ever proving check-booking-routes.js itself would catch a fault in
+that exact arrangement. check-widget-diaries.js (already proven, twelfth pass) checks a
+related but different thing - that no widget id belonging to another brand's diary
+leaks onto a page. check-booking-routes.js checks the routing chain itself: filename to
+branch key, branch key to widget, data-branch labelling, data-service wording, and
+(estate-wide) whether the Pharmacy First fallback is used correctly.
+
+BASELINE
+--------
+git status --porcelain -- modules core branches.json tools gbp-packs: clean aside from
+the two pre-existing untracked artefacts every recent run has recorded
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/notarealservice-
+fishlocks-ainsdale.html.bak), neither created nor touched by this pass.
+Full 36-checker suite run individually before any change: 36/36 exit 0.
+All six page generators rebuilt (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js): combined sha256 of every
+file under modules/ and core/ before and after rebuild identical
+(fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3), matching the value
+recorded by the immediately preceding run (item 3.12, thirteenth pass) earlier today -
+confirms no drift across the day's runs.
+Baseline check-booking-routes.js run: clean. 156 pages with a booking mount estate-wide,
+156 routed. 22 of those 156 belong to McCanns (11 per branch: contraception, earache,
+impetigo, insect-bite, pharmacy-first, shingles, sinusitis, sore-throat, travel-clinic,
+uti-treatment, weight-loss-clinic).
+McCanns's own branches.json widgets confirmed: mccanns_aigburth and mccanns_sandringham
+each hold their own bloodPressure, contraception and pharmacyFirst ids, and share one
+weightLoss id and one travelClinic id between the pair - matching every prior pass's
+"widget diary policy" description exactly.
+
+INJECTIONS - two directly on tracked pages, two on a full /tmp scratch copy of the repo
+(tools + modules + core + branches.json) to keep the two estate-level rules (WIDGET,
+DIARY) off the tracked branches.json entirely, avoiding this sandbox's standing
+.git/index.lock FUSE-mount quirk (Q87/Q96). All four caught on the first attempt with
+the expected rule and message; none needed a second attempt.
+
+(1) RULE 4 BRANCHATTR, on the tracked file modules/service/pages/contraception-mccanns-
+aigburth.html: data-branch changed from "McCanns Chemist Aigburth" to "McCanns Chemist
+Sandringham" (the sister branch's own name, not a fabricated value) - CAUGHT: "data-
+branch=\"McCanns Chemist Sandringham\" but the URL resolves to mccanns_aigburth (\"McCanns
+Chemist Aigburth\"), so an enquiry from this page is filed against the wrong pharmacy".
+Restored by byte copy from a pre-injection backup; sha256 reconfirmed identical
+(7d1f5c6886eaee4258b24de44dce3502a232780d60f1b9714c7d336042bc2026) before continuing.
+
+(2) RULE 5 SERVICEATTR, on the tracked file modules/service/pages/uti-treatment-mccanns-
+sandringham.html: data-service changed from "UTI treatment" to "Urinary infection
+consultation" - CAUGHT: "service \"uti-treatment\" is described 2 different ways in
+data-service ... \"UTI treatment\" x13, \"Urinary infection consultation\" x1" - proving
+the rule reads all 14 estate uti-treatment pages, not just the McCanns pair. Restored by
+byte copy; sha256 reconfirmed identical
+(97ffa0f30f3afbca286398201ed4a87b8bb5abc8b0e7460be408fb9cf2e9e8df) before continuing.
+
+(3) RULE 3 WIDGET, on the /tmp scratch copy only: mccanns_aigburth's "contraception"
+widget id deleted from branches.json - CAUGHT: "contraception-mccanns-aigburth.html
+needs widgets.contraception on mccanns_aigburth and there is none (this service must
+not fall back), so the booking box renders empty" - directly proving the Q17 decision
+(contraception must not fall back to the Pharmacy First diary, recorded in
+NO_FALLBACK_SERVICE_KEYS) holds specifically for McCanns. Scratch copy discarded after;
+the real tracked branches.json was never touched by this injection.
+
+(4) RULE 7 DIARY, on the /tmp scratch copy only: mccanns_aigburth's "bloodPressure"
+widget id overwritten with its own "contraception" id (two different services made to
+share one Appointedd diary within the one branch) - CAUGHT: "mccanns_aigburth: services
+bloodPressure and contraception share one Appointedd id (6a4790dae25e32949a70c14b), so a
+booking for one lands in the other's diary". Scratch copy discarded after; the real
+tracked branches.json was never touched.
+
+RESTORE AND RE-VERIFICATION
+----------------------------
+After both tracked-file injections: git status --porcelain -- modules core branches.json
+tools gbp-packs showed only the same two pre-existing untracked artefacts, nothing else.
+Final combined sha256 of every file under modules/ and core/: fec0ef2eaa82008691eea0f9d5e24
+b37161239d2ab8ff38b4c81049da2b31fa3, identical to the baseline taken before this pass
+touched anything. Full 36-checker suite re-run individually at the end: 36/36 exit 0.
+
+RESULT: no in-repo defect found. tools/check-booking-routes.js was already correctly
+holding McCanns's own booking chain to all four rules tested (BRANCHATTR, SERVICEATTR,
+WIDGET, DIARY), now demonstrated by injection for the first time in this item's
+sixteen-pass history. No generator, page, branches.json field or checker changed.
+
+LIVE HALF: attempted, unavailable. mcp__Claude_Browser__navigate to
+https://www.mccannspharmacy.co.uk declined access (no person present in an unattended
+run to approve the prompt); per the tool's own instruction the request was not retried.
+This pass's fresh angle is a repo-only verification with no live-page surface of its
+own (service.js's routing and the Appointedd widget ids are not independently
+observable from a live GET the way a title or an address is), matching the scope
+decision the fifteenth pass on this item and the fifteenth pass on item 5.2 made for the
+same reason. Prior passes' live findings for McCanns (Sandringham UTI page still reading
+"Sandringham" rather than "St Michael's" live, queued 5.7/Q15; both branch landing pages
+still 404 live, Q35; the Q39 footer set) stand unclaimed and unchanged by this pass.
+
+QUESTIONS: none raised. QUESTIONS.json unchanged: 101 total, 48 open.

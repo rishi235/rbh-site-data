@@ -5417,6 +5417,71 @@ submitted anywhere. Prior passes' live findings for McCanns stand unclaimed
 and unchanged this pass.
 QUESTIONS: none raised this pass (47 open, unchanged). Evidence:
 audits/mccanns-map-embeds-3.6-fifteenth-2026-09-09.txt.
+Quality pass 2026-09-10 (sixteenth, unattended scheduled run via Cowork, sandbox
+mcp__workspace__bash throughout). Selected as the least recently verified item in
+the standing rotation pool: all 8 unblocked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] by direct grep, so the quality-pass fallback applied. Rotation pool
+re-derived from first principles (44 [x] items minus the seven standing
+out-of-rotation items minus the eleven items already touched today per `git log
+--since "2026-09-10 00:00"`: 3.12, 5.1, 4.11, 5.2, 2.1, 3.10, 3.9, 3.4, 6.2, 3.13,
+3.7) = 25 candidates; `git log -1 --format=%aI --all --grep="Item N.N " --
+AGENT_WORKLIST.md` run per candidate confirmed 3.6 uniquely stalest
+(2026-09-09T03:10:03+01:00), ahead of 3.8 (03:43:18) and 6.3 (04:13:04), exactly
+matching the item 3.12 thirteenth pass's own forward note.
+BASELINE: git status clean aside from the two standing pre-existing untracked
+artefacts. Full 36-checker suite run individually: 36/36 exit 0. All six
+generators rebuilt: combined sha256 of every file under modules/ and core/
+identical before and after (fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81
+049da2b31fa3), matching the value recorded by today's earlier item 3.12 pass.
+FRESH ANGLE: fifteen prior passes had proven fourteen other checkers by injection
+against McCanns's own files but never tools/check-booking-routes.js - the checker
+guarding the exact chain (branches.json widgets -> filename -> branch key ->
+Appointedd id -> data-branch/data-service) that CLAUDE.md's own "booking chain"
+section names as the one nothing checked past the permalink, and the one most
+relevant to McCanns given its shared-brand, split-diary arrangement (weightLoss
+and travelClinic shared across the pair, bloodPressure/contraception/
+pharmacyFirst unique per site) that every prior pass on this item has described
+but never proven this specific checker against.
+FOUR INJECTIONS, all caught first attempt with the expected rule and message: (1)
+RULE 4 BRANCHATTR - contraception-mccanns-aigburth.html's data-branch changed to
+the sister branch's own real name "McCanns Chemist Sandringham" - CAUGHT, "filed
+against the wrong pharmacy"; (2) RULE 5 SERVICEATTR - uti-treatment-mccanns-
+sandringham.html's data-service changed to "Urinary infection consultation" -
+CAUGHT, "described 2 different ways ... UTI treatment x13, Urinary infection
+consultation x1", proving the rule reads all 14 estate uti-treatment pages, not
+just the McCanns pair; (3) RULE 3 WIDGET, on a full /tmp scratch copy of the repo
+only (tracked branches.json never touched, avoiding this sandbox's standing
+.git/index.lock quirk) - mccanns_aigburth's contraception widget id deleted -
+CAUGHT, "needs widgets.contraception on mccanns_aigburth and there is none (this
+service must not fall back)", directly proving the Q17 NO_FALLBACK decision holds
+for McCanns; (4) RULE 7 DIARY, same scratch copy - mccanns_aigburth's
+bloodPressure id overwritten with its own contraception id - CAUGHT,
+"bloodPressure and contraception share one Appointedd id ... a booking for one
+lands in the other's diary".
+RESTORE: both tracked-file injections restored by byte copy from pre-injection
+backups, sha256-reconfirmed identical to baseline
+(contraception-mccanns-aigburth.html: 7d1f5c6886eaee4258b24de44dce3502a232780d60
+f1b9714c7d336042bc2026; uti-treatment-mccanns-sandringham.html:
+97ffa0f30f3afbca286398201ed4a87b8bb5abc8b0e7460be408fb9cf2e9e8df); the two
+scratch-only injections never touched the tracked repo and were discarded. Full
+36-checker suite re-run clean (36/36); combined sha256 of modules/ and core/
+unchanged from baseline; git status --porcelain empty aside from the same two
+pre-existing untracked artefacts throughout.
+RESULT: no in-repo defect found. check-booking-routes.js was already correctly
+holding McCanns's own booking chain across all four rules tested, now proven by
+injection for the first time in this item's sixteen-pass history. No generator,
+page, branches.json field or checker changed.
+LIVE HALF: attempted, unavailable. mcp__Claude_Browser__navigate to
+mccannspharmacy.co.uk was declined (no person present in an unattended run to
+approve); not retried, per the tool's own instruction. This pass's fresh angle
+has no live-page surface of its own (Appointedd routing is not independently
+observable from a plain GET), matching the scope decision made on this item's own
+fifteenth pass and on item 5.2's fifteenth pass for the same reason. Prior
+passes' live findings (Sandringham UTI page still "Sandringham" not "St
+Michael's" live, queued 5.7/Q15; both branch landing pages still 404, Q35; Q39
+footer set) stand unclaimed and unchanged.
+QUESTIONS: none raised this pass (48 open, unchanged). Evidence:
+audits/mccanns-booking-routes-3.6-sixteenth-2026-09-10.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
