@@ -10374,6 +10374,34 @@ Done 2026-09-09 (fifteenth pass).
       LIVE HALF: not performed. mcp__claude-in-chrome__tabs_context_mcp
       reported "Claude in Chrome is not connected" (standing Q59). Live state
       not re-confirmed this pass and should not be assumed unchanged.
+      Quality pass 2026-09-10 (thirteenth): tools/check-app-membership.js
+      proven by injection against Clear Chemist Aintree's own switch page and
+      GBP pack for the first time in thirteen passes. Clear is one of only
+      four hasApp:true branches (with Fishlocks Ainsdale, Fishlocks Eccleston
+      and Smartts Bootle, the last proven for the first time on the
+      immediately preceding run, item 3.7 fifteenth pass) and this checker
+      had never been named against it. Three injections, all reverted and
+      sha256-confirmed byte-identical: (1) renamed the app-card class on
+      Clear's switch page, hasApp left true - caught, "is an app member ...
+      but the page carries no app card"; (2) flipped hasApp true->false on
+      the clearchemist_aintree record only - caught as 7 failures across
+      three rules simultaneously (switch page card, both paste-marker files'
+      count and named heading, and the GBP pack's published copy plus its
+      paster note), the exact cross-surface cascade this checker's own header
+      exists to catch, demonstrated against Clear's own record for the first
+      time; (3) stripped all four app mentions from clear-aintree.md's
+      published sections (description, services, Post A, Post B), hasApp
+      left true, Notes-for-the-paster line left untouched - caught rule 8e in
+      isolation (1 failure only), "carries no app mention ... would omit a
+      feature the branch actually offers." Full 35-checker suite re-run
+      clean after every revert; all six generators rebuilt, git status
+      --porcelain modules/ core/ gbp-packs/ empty (two pre-existing untracked
+      artefacts from earlier sessions aside, neither touched here). Zero
+      in-repo defect found; no checker, page, generator or data field
+      changed. No new question raised. Evidence:
+      audits/clear-aintree-item-3.13-thirteenth-pass-app-membership-2026-09-10.txt.
+      LIVE HALF: not performed this pass either; live state remains
+      unconfirmed since the last live read.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

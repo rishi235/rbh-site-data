@@ -1,0 +1,75 @@
+Item 3.13 quality pass (thirteenth, Clear Chemist Aintree) - 2026-09-10
+Checker under test: tools/check-app-membership.js
+First time this checker has been proven by injection against Clear Chemist
+Aintree's own switch page and GBP pack. Twelve prior passes on this item
+proved check-branch-links.js, check-jsonld.js, check-postcodes.js,
+check-seo-pattern.js, check-switch-copy.js, check-travel-clinic-copy.js,
+check-weight-loss-copy.js, check-branch-identity.js, check-cdn-pins.js,
+check-em-dashes.js, check-gbp-packs.js, check-map-embeds.js, check-nap.js,
+check-seo-keywords.js and check-service-links.js against Clear; hasApp and
+check-app-membership.js had never been named against this branch, despite
+Clear being one of only four hasApp:true branches in the estate (the other
+three: Fishlocks Ainsdale, Fishlocks Eccleston, Smartts Bootle - the last of
+which was proven for the first time on the immediately preceding run, item
+3.7 fifteenth pass, 2026-09-10 01:13-01:14).
+
+BASELINE: node tools/check-app-membership.js clean before any change -
+4 app members (fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree,
+smartts_bootle), 21 pages checked in the switch/landing families, 6 carrying
+the app, 15 GBP packs read, 0 known exceptions.
+
+Three files backed up before any edit (sha256 recorded in
+_agentscratch/item-3.13-thirteenth-pass/baseline.sha256, scratch dir not
+committed): modules/switch/pages/switch-prescriptions-clear-aintree.html,
+branches.json, gbp-packs/clear-aintree.md.
+
+INJECTION 1 - Rule 2, positive-missing direction (member with no card).
+Renamed class="app-card" to class="app-card-TESTINJECT" on Clear's own
+switch page, hasApp left true. Result: 1 failure, correctly naming Clear's
+own page: "is an app member in branches.json but the page carries no app
+card." Reverted; sha256 confirmed byte-identical.
+
+INJECTION 2 - hasApp true -> false on the clearchemist_aintree record only
+(page and pack left untouched). Result: 7 failures across three rules at
+once, all correctly naming Clear -
+  - [switch pages] carries the app card but branches.json says not a member
+  - [paste markers] INDEX.md and SEO.md each: count now disagrees (4 marked,
+    3 true in branches.json) AND "Clear Chemist - Aintree" named directly as
+    the marked-but-not-a-member heading
+  - [gbp packs] the published copy claims an app but hasApp is false; the
+    paster note still says hasApp true, which would send a paster the wrong
+    instruction
+This is the cascade the checker's own header describes (one boolean flip on
+an adjacent record silently breaking three independent surfaces at once) and
+it had never been demonstrated against Clear's own record before. Reverted;
+sha256 confirmed byte-identical.
+
+INJECTION 3 - Rule 8e, the missing-positive direction (member's pack with no
+app mention). This is the newest rule in the file (added on the item 4.1
+eleventh pass, 2026-09-04) and the file's own docblock names Clear as one of
+the four packs it was confirmed clean against on that occasion, but that was
+Fishlocks Ainsdale's own pass, not a first-hand injection against Clear.
+Stripped all four app mentions from clear-aintree.md's PUBLISHED sections
+only (business description line 34, services line 52, Post A line 95, Post B
+line 104), leaving the "Notes for the paster" line 154 ("App mentions are
+fine for this branch: branches.json has hasApp true") untouched since that
+line is excluded from the published-copy scan by design. Result: exactly 1
+failure, isolated as expected: "branches.json has hasApp true for
+clearchemist_aintree, but the copy pasted into the public Google profile
+carries no app mention, so the profile would omit a feature the branch
+actually offers." Reverted; sha256 confirmed byte-identical.
+
+VERIFICATION: full 35-checker suite run individually after all three
+injections were reverted - 35/35 clean. All six page generators
+(build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) re-run; `git status --porcelain modules/ core/
+gbp-packs/` empty except two pre-existing untracked artefacts from earlier
+sessions (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched by this pass.
+
+RESULT: zero in-repo defect found. check-app-membership.js's rules 2, 7 and
+8 (8a/8c/8e) all proven to fire correctly, specifically, and only on the
+injected fault when tested against Clear Chemist Aintree's own data for the
+first time. No new question raised.
