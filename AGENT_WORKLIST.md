@@ -7001,6 +7001,36 @@ Done 2026-09-09 (fifteenth pass).
       fifth, seventh, ninth and tenth passes' own reconfirmations). No new
       question raised. Evidence in
       audits/sk-bootle-map-embeds-3.8-fifteenth-2026-09-09.txt.
+      Quality pass 2026-09-10 (sixteenth, unattended scheduled run; this
+      run's Cowork sandbox shell failed at the infrastructure level from the
+      first call, "No space left on device", identically three times, with
+      no route to the repo through it at all - not the usual Q96 credential
+      gap, a harder failure. All git/node/PowerShell operations this run
+      went via mcp__Windows-MCP__PowerShell against the real ProDesk host,
+      the only route able to complete even step 1. Pushed the 12-commit
+      backlog left by today's twelve earlier sandbox-only runs and
+      published the status page, both blocked all day otherwise). FRESH
+      ANGLE: tools/check-seo-keywords.js, the Meta Keywords checker,
+      proved by injection against SK Chemists Bootle's own lines in
+      modules/service/pages/SEO.md for the first time in this item's
+      sixteen-pass history. BASELINE: 34/34 checkers clean, all six
+      generators rebuilt, combined sha256 of modules/+core/ (217 files)
+      unchanged (7cc088eec3374045c48d60835c236ee88362e465c50d2d0653945a812
+      4395ac3). Three injections on the UTI, sore throat and sinusitis
+      Meta Keywords lines, each restored and sha256-reconfirmed before the
+      next: (1) own seoTown swapped to Aigburth (McCanns', outside SK
+      Bootle's serviceAreaList) - CAUGHT; (2) own brand swapped to "Smartts
+      Chemist", the CLAUDE.md-named highest-risk adjacent-branch pair -
+      CAUGHT; (3) own outward postcode L20 swapped to L23 (Gordon Short
+      Crosby's) - CAUGHT. All three first attempt, expected rule and
+      message each time. NO IN-REPO DEFECT. LIVE HALF: skchemist.co.uk
+      access requested and granted this run (unlike every prior pass's
+      finding that no person is present to approve it); live meta keywords
+      tag on the UTI page read byte-identical to the repo's own line,
+      description and H1 also matching; known Weebly title-suffix gap
+      (queued 5.3/5.4) reconfirmed unchanged. No new question raised.
+      Evidence in
+      audits/sk-bootle-item-3.8-quality-pass-2026-09-10-sixteenth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

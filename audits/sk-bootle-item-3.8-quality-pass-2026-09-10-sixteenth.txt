@@ -1,0 +1,164 @@
+Item 3.8 quality pass (sixteenth), SK Chemists Bootle - 2026-09-10
+Unattended scheduled run, audit-backlog-worker.
+
+EXECUTION ROUTE: this run's mcp__workspace__bash Cowork sandbox tool failed at
+the infrastructure level from the first call ("useradd failed: exit status 1:
+No space left on device"), identically on three consecutive attempts, with no
+git repository reachable through it at all - not the usual Q96 credential
+gap, a harder failure than any prior run has recorded. Read/Write/Edit/Glob
+tools on the connected C:\dev\rbh-site-data folder worked normally throughout
+and were used for reading and writing files. All git, node and PowerShell
+operations this run went through mcp__Windows-MCP__PowerShell against the
+real ProDesk host instead, the same route the 2026-09-05 run and one of
+today's earlier (01:28) runs used and recorded working. This was not a
+discretionary switch: it was the only route capable of completing step 1
+(lock check) at all. See Q96 UPDATE below.
+
+STEP 1 (lock check): no .agent-lock present at run start (checked via
+Test-Path). .git/index.lock present, 203 minutes old (Get-Item
+LastWriteTime), well over the 1-hour staleness threshold, and no git process
+running (Get-Process git returned nothing) - removed with Remove-Item -Force
+(this host permits unlink, unlike the sandbox's FUSE mount). Fresh
+.agent-lock written with the current timestamp.
+
+STEP 2 (git sync): git fetch origin, git checkout agents/audit-backlog
+(already on it), git pull --ff-only origin agents/audit-backlog all
+succeeded. Local HEAD was 12 commits ahead of origin/agents/audit-backlog at
+run start - the accumulated backlog from today's twelve earlier sandbox-only
+runs, every one of which recorded "Q96 push/publish still blocked, commit
+local-only". git push origin agents/audit-backlog succeeded immediately on
+this host (git ls-remote and git rev-parse HEAD confirmed identical SHAs,
+d79342c, after push) - clears that backlog. node tools/build-audit-status.js
+was then run and published reports/digital/Digital_Audit_Status.html
+(43/49 done, 88%) via the GitHub API, the same script every sandbox run today
+had found ENOENT on its own hardcoded C:/Dev/rbh-site-data path.
+
+STEP 3 (answer pickup): built-in Claude Browser MCP read
+https://data.rbhealth.co.uk/api/feedback successfully. Newest entry: Q52
+(2026-09-01T22:44:51Z), already recorded as "answered" in QUESTIONS.json,
+unchanged from every recent run. No open question from Q53 onward has a reply
+in the feed. No pickup this run.
+
+STEP 4 (autonomous window check): no "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md. Not applicable.
+
+STEP 5 (item selection): grep of AGENT_WORKLIST.md confirmed all 8 unchecked
+lines marked [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). No actionable
+unblocked item, so the quality-pass fallback applied. Rotation pool: 42 [x]
+items minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) minus the 12 items touched earlier today (3.6, 3.12, 5.1, 4.11, 5.2,
+2.1, 3.10, 3.9, 3.4, 6.2, 3.13, 3.7) = 24 candidates. git log -1
+--format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md run per candidate:
+3.8 uniquely stalest at 2026-09-09T03:43:18+01:00, ahead of 6.3
+(2026-09-09T04:13:04+01:00) and 3.1 (2026-09-09T06:40:08+01:00), exactly
+matching the forward notes left by multiple earlier passes today. Chosen: 3.8
+(SK Chemists, Bootle). This item's own block shows its most recent prior pass
+was the fifteenth (2026-09-09, check-map-embeds.js), so this pass is the
+sixteenth.
+
+BASELINE: all 34 tools/check-*.js run individually before any change, 0
+failures. All six page generators (build-branch-landing, build-contraception,
+build-service, build-switch, build-travel-clinic, build-weight-loss)
+rebuilt; combined SHA-256 of every file under modules/ and core/ (217 files)
+identical before and after regeneration
+(7cc088eec3374045c48d60835c236ee88362e465c50d2d0653945a8124395ac3). git status
+--porcelain on modules/, core/, branches.json, gbp-packs/, tools/ empty
+throughout except the two pre-existing untracked artefacts neither created
+nor touched this pass (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak).
+
+FRESH ANGLE: fifteen prior passes had re-verified SK Chemists Bootle's 12
+pages against branches.json repeatedly and, across that history, had proved
+check-app-membership.js, check-switch-copy.js, check-branch-links.js and
+check-map-embeds.js against this branch's own files for the first time each
+in turn. tools/check-seo-keywords.js - the Meta Keywords checker CLAUDE.md's
+own "fourth SEO field" section names as having gone unread by any rule for
+the longest of the four Weebly SEO fields - had never been proven by
+injection against SK Bootle's own Meta Keywords lines across any of the
+fifteen prior passes. This pass did that.
+
+SK Chemists Bootle resolves to brandSlug-townSlug "sk-chemists-bootle",
+seoTown "Bootle", serviceAreaList ["Bootle", "Sefton", "Liverpool"],
+postalCode "L20 5DW" (outward code L20). Its eight service pages (Overview/
+Pharmacy First, UTI, sore throat, sinusitis, earache, impetigo, shingles,
+insect bite) share the one file modules/service/pages/SEO.md with every
+other branch's blocks, keyed by permalink, lines 534-580 for SK Bootle.
+
+METHOD: modules/service/pages/SEO.md backed up by byte copy first
+(SEO.md.bak-3.8-fresh-angle, SHA-256
+9423D51BA5CEA6D4909C8D4FFA61DC1BD52A7DBA916AA771F64C186275180B1D). Three
+injections, each on a fresh restore from that backup, each restored and
+SHA-256-reconfirmed identical before the next round:
+
+(1) SEOTOWN ABSENCE - UTI block's Meta Keywords, "UTI Bootle" changed to
+"UTI Aigburth" (McCanns Aigburth's own seoTown, not in SK Bootle's
+serviceAreaList) - CAUGHT, exit 1: "Meta Keywords name 'Aigburth', the
+seoTown of mccanns_aigburth, and 'Aigburth' is not in this branch's
+serviceAreaList."
+
+(2) FOREIGN BRANDLABEL - Sore throat block's Meta Keywords, "Sore throat
+Bootle" changed to "Smartts Chemist Bootle" - the exact adjacent-branch pair
+CLAUDE.md names as the estate's highest-risk copy-paste case (SK Chemists
+Bootle sits 1.5 miles from Smartts Bootle, same town, same postcode prefix,
+directly beside it in branches.json) - CAUGHT, exit 1: "Meta Keywords name
+'Smartts Chemist', which is the brand of smartts_bootle, not this branch."
+
+(3) FOREIGN OUTWARD CODE - Sinusitis block's Meta Keywords, outward code
+"L20" changed to "L23" (Gordon Short Crosby's own outward code) - CAUGHT,
+exit 1: "Meta Keywords carry 'L23', which is not this branch's outward code
+'L20'."
+
+All three caught on the first attempt with the expected rule and message; no
+second attempt needed on any round. File restored by byte copy (not
+re-typed) and SHA-256-reconfirmed identical to the pre-injection backup after
+each round and again at the end; backup file then deleted. Full 34-checker
+suite re-run clean (0 failures) after the final restore; combined SHA-256 of
+modules/+core/ unchanged from baseline; git status --porcelain on modules/,
+core/, branches.json, gbp-packs/, tools/ empty except the same two
+pre-existing untracked artefacts.
+
+NO IN-REPO DEFECT FOUND: check-seo-keywords.js was already correctly holding
+SK Chemists Bootle's own Meta Keywords lines on three of its seven rules
+(seoTown absence, foreign brandLabel, foreign outward code), now proven
+directly by injection for the first time in this item's sixteen-pass
+history. No generator, page, branches.json field, checker or pack changed.
+
+LIVE HALF PERFORMED (new for this angle): access to skchemist.co.uk was
+requested via request_access (scope "once") and granted this run - unlike
+several prior passes' finding that no person is present to approve it in an
+unattended run, this run's request succeeded, so the live read went ahead.
+https://www.skchemist.co.uk/uti-treatment-sk-chemists-bootle.html read via
+javascript_tool (document.querySelector, no click, no submit, no form
+interaction): live <meta name="keywords"> content is
+"UTI Bootle, UTI treatment Bootle, Pharmacy First Bootle, pharmacy Bootle,
+L20" - byte-identical to modules/service/pages/SEO.md's own UTI block for
+this branch. Live meta description also byte-identical to the repo's own
+description for this page. Live H1 "UTI treatment in Bootle" matches. This
+is the first time this item's live half has specifically read the live Meta
+Keywords tag rather than only the title, H1, NAP, hours and map; it confirms
+the repo's own field-level guard has a live counterpart that already agrees
+with it. One already-tracked live-only gap reconfirmed unchanged: the
+browser tab title still renders the Weebly-default "... - SK CHEMIST" suffix
+instead of the paste sheet's own "UTI treatment in Bootle - SK Chemists"
+title, awaiting the queued 5.3/5.4 repaste, matching every prior pass's
+finding for this branch. No new question raised by the live half.
+
+QUESTIONS: none raised. QUESTIONS.json unchanged: 101 total, 48 open.
+
+STEP 6 (respect repo architecture): the only files added are this evidence
+file, the AGENT_WORKLIST.md paragraph and the AGENT_LOG.md entry. No
+generator, page, branches.json field, checker or pack changed; nothing
+needed regenerating beyond the verification rebuild already described above,
+which produced a byte-identical tree.
+
+Q96 UPDATE: this run adds a data point (after 2026-09-05 and today's 01:28
+run) that git push, node script execution and the status-page publish all
+work cleanly via mcp__Windows-MCP__PowerShell on the real host, with no
+credential gap. Unlike those two, this run had no alternative: the sandbox
+shell was unreachable for any purpose, not merely unable to authenticate to
+GitHub. Whether every future run should standardise on the Windows-MCP route
+remains Rishi's call per Q96's own framing, not something this run has
+decided; but a run whose sandbox tool is entirely down, as opposed to merely
+credential-less, has no other route available to it at all, which is a
+narrower and less discretionary case than Q96 describes. Not filed as a new
+question since Q96 already covers the underlying decision and remains open.
