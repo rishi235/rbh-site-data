@@ -21272,6 +21272,89 @@ see the top of AGENT_LOG.md for the exact commands and their output.
       history. No checker logic, page, generator or data field changed
       anywhere in the repo. No new question raised. Evidence:
       audits/verify-5.2-2026-09-09-fourteenth.js.
+      Quality pass 2026-09-10 (fifteenth, unattended run, rotation-pool pick:
+      re-derived fresh via git log -1 --grep="Item N.N " across all 29
+      eligible pool candidates - the 37-item completed pool minus the seven
+      standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+      minus the seven items already touched earlier today per today's own
+      AGENT_LOG.md headers (2.1, 3.4, 3.7, 3.9, 3.10, 3.13, 6.2) - 5.2 came
+      out uniquely stalest at 2026-09-09T01:13:02+01:00, ahead of 4.11
+      (01:42:56) and 5.1 (02:11:04), matching the fourteenth pass's own
+      forward note exactly).
+      NEW ANGLE. Of the fourteen prior passes on this item, none had ever
+      run tools/check-jsonld.js itself against any of item 5.2's own four
+      pages (McCanns Aigburth, McCanns Sandringham, Scorah Bramhall, Scorah
+      Hazel Grove) and proven it by injection - despite this checker's own
+      header naming this exact page family as the reason Rule 3 was
+      tightened on the item 3.6 pass (2026-08-14, Q18): a branch landing
+      page falling back to the bare shared brandLabel ("McCanns Chemist")
+      instead of its own branchName is precisely the entity-merge fault
+      this page family exists to prevent. The seventh, eighth and twelfth
+      passes had proven JSON-LD name/telephone/email fields against these
+      pages, but only with bespoke scripts parsing the block by hand, never
+      by running the real checker and proving its own failure messages fire.
+      METHOD. New instrument, audits/verify-5.2-2026-09-10-fifteenth.js,
+      same discipline as the fourteenth pass and today's 3.9/3.10/6.2
+      passes: shells out to the real tools/check-jsonld.js as a child
+      process, refuses to run if the target page already carries a git
+      diff, records the pre-mutation buffer and its sha256 once, restores
+      from the in-memory buffer immediately after capturing each
+      injection's output and before any assertion, sha256-reconfirms and
+      re-checks git status after every restore. Target:
+      modules/branch/pages/pharmacy-mccanns-aigburth.html.
+      INJECTION ROUND, eight injections, one per rule the checker holds,
+      each restored byte-identical before the next: (1) a second, bogus
+      JSON-LD block appended after the real one's closing </script> -
+      CAUGHT, "expected exactly one JSON-LD block, found 2"; (2) "@type"
+      changed from Pharmacy to MedicalBusiness, the exact item 3.6 original
+      defect - CAUGHT; (3) "name" changed from "McCanns Chemist Aigburth" to
+      the bare shared "McCanns Chemist", the Q18 entity-merge fault this
+      page family exists to prevent - CAUGHT; (4) "url" repointed at the
+      sister branch's own filename (pharmacy-mccanns-sandringham.html) -
+      CAUGHT; (5) "addressRegion" changed from the county "Merseyside" to
+      the borough "Liverpool", the exact schema fault CLAUDE.md's
+      addressRegion note warns against - CAUGHT; (6) "telephone" swapped to
+      Scorah Bramhall's real number - CAUGHT; (7) "email" rewritten to an
+      unrelated address - CAUGHT; (8) the map iframe query's postcode
+      changed to sister branch McCanns Sandringham's own real postcode
+      (L17 4JP), which would silently point a patient's map at the wrong
+      building while every visible line of copy still read correctly -
+      CAUGHT. All eight caught first attempt with the expected message; the
+      whole script re-run a second time end to end with byte-identical
+      output. Two process slips caught and corrected before the recorded
+      run: the first Rule 1 injection assumed a closing </body> tag that
+      this Weebly paste fragment does not carry, so the mutation was a
+      no-op - caught by the instrument's own no-op guard rather than
+      silently passing, and fixed to append after the JSON-LD block's own
+      </script> instead; and the first Rule 8 injection used a fabricated
+      postcode ("L1 1AA") which correctly tripped the separate
+      check-postcodes.js as an unrecognised value when the full suite was
+      re-run, so it was replaced with a real branch's own postcode (the
+      same "use another real branch's real value" convention every prior
+      injection on this item already follows for phone numbers and brand
+      labels). Neither slip was a defect in check-jsonld.js.
+      File confirmed sha256-identical to the original before the round,
+      after each individual restoration, and after the final one; git
+      status --porcelain on the target file stayed empty throughout. Full
+      36-checker suite re-run clean before and after (36/36, including
+      confirming the corrected Rule 8 injection no longer trips
+      check-postcodes.js). All six page generators rebuilt from
+      branches.json; sha256 of all 177 generated .html files under
+      modules/*/pages/ taken before and after: byte-identical, zero diff.
+      git status --porcelain -- modules core branches.json gbp-packs empty
+      before and after, aside from the two pre-existing untracked artefacts
+      (gbp-packs/.fuse_hidden0000000400000001 and
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak)
+      neither created nor touched by this pass.
+      RESULT: no in-repo defect. check-jsonld.js was already correctly
+      holding McCanns Chemist Aigburth's own generated page to all eight of
+      its rules - including Rule 3's Q18 entity-merge protection and Rule 8's
+      silent map-address fault, both cited by name in the checker's own
+      header as the reasons it exists - now proven directly by injection for
+      the first time in this item's fifteen-pass history. No checker logic,
+      page, generator or data field changed anywhere in the repo. No new
+      question raised. Evidence: audits/verify-5.2-2026-09-10-fifteenth.js
+      and audits/verify-5.2-2026-09-10-fifteenth-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

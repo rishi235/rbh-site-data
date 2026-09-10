@@ -1,0 +1,48 @@
+verify-5.2-2026-09-10-fifteenth: proving check-jsonld.js against modules/branch/pages/pharmacy-mccanns-aigburth.html
+
+baseline sha256 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841 (9865 bytes)
+baseline checker exit code: 0 (expect 0)
+
+INJECTION ROUND (8 injections, one per rule, each restored byte-identical before the next):
+  [RULE 1 blocks] second JSON-LD block appended - CAUGHT
+  [RULE 2 type] "@type" changed to MedicalBusiness - CAUGHT
+  [RULE 3 name] "name" changed to bare brandLabel "McCanns Chemist" - CAUGHT
+  [RULE 4 url] "url" pointed at a different filename - CAUGHT
+  [RULE 5 address] "addressRegion" changed from Merseyside to Liverpool (borough, not county) - CAUGHT
+  [RULE 6 telephone] "telephone" swapped to Scorah Bramhall's real number - CAUGHT
+  [RULE 7 email] "email" rewritten to an unrelated address - CAUGHT
+  [RULE 8 map] map iframe query changed to sister branch McCanns Sandringham's real postcode - CAUGHT
+
+8 passed, 0 failed (of 8 injections)
+final sha256 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841 (byte-identical to baseline: true)
+final git diff clean: true
+checker exit code after full round: 0 (expect 0)
+
+All 8 rules of check-jsonld.js proven by injection against modules/branch/pages/pharmacy-mccanns-aigburth.html. File restored byte-identical throughout.
+
+--- Run repeated a second time end to end: identical output, diff clean. ---
+
+--- Full 36-checker suite (tools/check-*.js), run individually, before and after this instrument: 36/36 clean both times. ---
+
+--- All six page generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) rebuilt from branches.json: sha256 of all 177 generated
+.html files under modules/*/pages/ taken before and after: byte-identical, zero diff.
+git status --porcelain -- modules core branches.json gbp-packs empty before and after
+except two pre-existing untracked files, neither created by this pass:
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak. ---
+
+Note: the first version of this instrument's Rule 1 injection assumed a </body>
+closing tag; this page fragment (a Weebly paste block) has none, so the injection
+was a no-op on the first attempt (correctly detected and reported by the
+instrument's own no-op guard, not silently missed) and was fixed to append after
+the JSON-LD block's own closing </script> instead. Also, the first version of the
+Rule 8 injection used a fabricated postcode ("L1 1AA") which is not a real branch
+postcode and is not in check-postcodes.js's NARRATIVE_POSTCODES list, so it
+correctly tripped that separate checker as an UNKNOWN postcode when the full suite
+was run - not a bug in check-jsonld.js or in this instrument's logic, but a
+reminder that an injected value should itself be a real branch fact wherever
+possible rather than an invented one. Fixed by using McCanns Sandringham's own
+real postcode (its sister branch on the same shared domain) instead. Both fixes
+were made before the recorded run above; the checker itself was correct throughout.
