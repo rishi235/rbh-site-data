@@ -1,0 +1,32 @@
+scratch dir: /sessions/relaxed-keen-keller/mnt/outputs/verify-6.2-13th-8vecuh
+
+=== BASELINE (unmutated scratch copy) ===
+  check-service-links: exit 0
+  check-seo-keywords: exit 0
+  check-gbp-packs: exit 0
+  check-weight-loss-copy: exit 0
+
+original tools/claim-patterns.js sha256: cbb1e8213a063866d7163d011f9e1304bfdf00e0e86f4ba944ea2ccb322d0045
+
+=== INJECTION: CLAIM_PATTERNS emptied ===
+  check-service-links: exit 1 - CAUGHT
+  check-seo-keywords: exit 1 - CAUGHT
+  check-gbp-packs: exit 1 - CAUGHT
+  check-weight-loss-copy: exit 1 - CAUGHT
+
+restored tools/claim-patterns.js sha256: cbb1e8213a063866d7163d011f9e1304bfdf00e0e86f4ba944ea2ccb322d0045  (matches original)
+
+=== POST-RESTORE CONTROL ===
+  check-service-links: exit 0
+  check-seo-keywords: exit 0
+  check-gbp-packs: exit 0
+  check-weight-loss-copy: exit 0
+All four clean again after restore.
+
+=== SUMMARY ===
+  check-service-links: caught the empty list
+  check-seo-keywords: caught the empty list
+  check-gbp-packs: caught the empty list
+  check-weight-loss-copy: caught the empty list
+
+Done. Scratch copy at /sessions/relaxed-keen-keller/mnt/outputs/verify-6.2-13th-8vecuh left in place (delete refused by this mount; harmless, no unique content).

@@ -590,6 +590,22 @@ const VERBOSE = process.argv.includes("--verbose");
 const fail = (file, msg) => fails.push(`${file}: ${msg}`);
 const warn = (file, msg) => warns.push(`${file}: ${msg}`);
 
+// Stop rather than silently pass on an emptied source list, the same
+// convention as check-service-links.js's POM_NAMES guard. Added on the item
+// 6.2 quality pass (thirteenth), 2026-09-10: this checker's own use of
+// CLAIM_PATTERNS (in the pack claim scan below) had no equivalent guard, so a
+// mistake that emptied tools/claim-patterns.js's list would have left the
+// claim rule silently checking nothing across all fifteen packs and reporting
+// "0 failures" as clean. Proved by injection against a scratch copy before
+// this fix: emptying CLAIM_PATTERNS left this checker at exit 0 on the same
+// tree that check-service-links.js only happened to still fail because a live
+// KNOWN_CLAIM entry went stale (a coincidental defence, not a real one).
+// Never fires today: CLAIM_PATTERNS is populated on the live tree.
+if (!CLAIM_PATTERNS.length) {
+  fail("check-gbp-packs", "empty CLAIM_PATTERNS list from tools/claim-patterns.js, "
+    + "so the shared claim rule covered nothing across every pack");
+}
+
 // A branch is expected to have a pack if it is a real trading branch:
 // not disposed, and not the head office (which has no phone or ODS code).
 const isPackable = (b) =>

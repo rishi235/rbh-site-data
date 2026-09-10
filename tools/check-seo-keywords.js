@@ -78,7 +78,8 @@
 */
 const fs = require("fs");
 const path = require("path");
-const findClaim = require("./claim-patterns.js").findClaim;
+const CLAIM_PATTERNS_MODULE = require("./claim-patterns.js");
+const findClaim = CLAIM_PATTERNS_MODULE.findClaim;
 
 const REPO = path.join(__dirname, "..");
 
@@ -93,6 +94,22 @@ const KNOWN = {};
 
 const failures = [];
 const knownHits = {};
+
+// Stop rather than silently pass on an emptied source list, the same
+// convention as check-service-links.js's POM_NAMES guard. Added on the item
+// 6.2 quality pass (thirteenth), 2026-09-10: this checker's own use of
+// findClaim (via tools/claim-patterns.js) had no equivalent guard, so a
+// mistake that emptied CLAIM_PATTERNS would have left the claim check on the
+// Meta Keywords line silently passing every sheet. Proved by injection
+// against a scratch copy before this fix: emptying CLAIM_PATTERNS left this
+// checker at exit 0, "clean", on the same tree that check-service-links.js
+// only happened to still fail because a live KNOWN_CLAIM entry went stale (a
+// coincidental defence, not a real one). Never fires today: CLAIM_PATTERNS is
+// populated on the live tree.
+if (!CLAIM_PATTERNS_MODULE.CLAIM_PATTERNS.length) {
+  failures.push("tools/claim-patterns.js's CLAIM_PATTERNS list is empty, so the shared "
+    + "claim rule covered nothing on any Meta Keywords line.");
+}
 
 function rel(p) { return path.relative(REPO, p).replace(/\\/g, "/"); }
 

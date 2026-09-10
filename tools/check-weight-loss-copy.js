@@ -593,7 +593,25 @@ pages.forEach(function (p) {
 // again here on purpose: this is the page family the list was written for, and
 // a rule that lives only in a checker about LINKS is a rule nobody looking at
 // weight loss copy would think to run.
+//
+// Stop rather than silently pass on an emptied source list, the same
+// convention as the pom.WEIGHT_LOSS guard above. Added on the item 6.2
+// quality pass (thirteenth), 2026-09-10: this checker's own use of
+// claims.CLAIM_PATTERNS (here and again at the landing-page and
+// Weebly-paste-block claim checks below) had no equivalent guard, so a
+// mistake that emptied tools/claim-patterns.js's list would have left rule 9
+// silently checking nothing on all three passes. Proved by injection against
+// a scratch copy before this fix: emptying CLAIM_PATTERNS left this checker
+// at exit 0, "OK - no failures", on the same tree that check-service-links.js
+// only happened to still fail because a live KNOWN_CLAIM entry went stale (a
+// coincidental defence, not a real one). Never fires today: CLAIM_PATTERNS is
+// populated on the live tree (see the pattern count reported below).
 // ---------------------------------------------------------------------------
+if (!claims.CLAIM_PATTERNS.length) {
+  fail("claim-list", "empty", "tools/claim-patterns.js's CLAIM_PATTERNS list is empty, " +
+    "so rule 9 covered nothing on any of the three page/copy checks it runs against");
+}
+
 pages.forEach(function (p) {
   const hit = claims.findClaim(p.text);
   if (hit) {

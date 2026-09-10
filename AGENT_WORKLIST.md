@@ -22238,6 +22238,79 @@ see the top of AGENT_LOG.md for the exact commands and their output.
       populated - a latent-gap closure, not a live breach, the same shape
       every 6.2 finding before this one has taken. No new question raised.
       Evidence: audits/verify-6.2-2026-09-08-twelfth.js.
+      Thirteenth quality pass, 2026-09-10 (unattended scheduled run). ONE
+      REAL DEFECT FOUND AND FIXED, in shared infrastructure, the same class
+      as the eleventh and twelfth passes rather than in
+      check-service-links.js's own rule logic. Live half not attempted this
+      pass (repo-only work; no browser step was needed for this angle). The
+      four 2026-08-14 findings (Riddings switch permalink, Riddings
+      /clinic-prices, Tiffenbergs book-now.html) are not re-read and not
+      re-claimed, Q53/Q54 stay open unchanged.
+      FRESH ANGLE: the twelfth pass (2026-09-08) proved that
+      tools/pom-names.js's medicine lists are shared by five checkers and
+      that three of them had no "stop rather than silently pass" guard
+      against an emptied source list. Its own write-up never asked the same
+      question of the OTHER shared list this checker depends on:
+      tools/claim-patterns.js's CLAIM_PATTERNS, required by
+      check-service-links.js (RULE 2), check-seo-keywords.js, check-gbp-
+      packs.js and check-weight-loss-copy.js (RULE 9). Grepped all four for a
+      length guard on CLAIM_PATTERNS before starting: zero matches, versus
+      check-service-links.js's own explicit POM_NAMES guard sitting nine
+      lines below the CLAIM_PATTERNS import in the same file.
+      METHOD: a from-scratch instrument, audits/verify-6.2-2026-09-10-
+      thirteenth.js, no import from tools/ beyond invoking each checker as a
+      real child process. It builds its own scratch copy of the repo (no
+      .git) in a temp directory (TMPDIR pointed at the outputs mount, since
+      the sandbox's / filesystem is at 100% capacity and os.tmpdir()
+      otherwise resolves there), confirms all four checkers clean on the
+      unmutated copy, empties CLAIM_PATTERNS in the SCRATCH COPY's own
+      tools/claim-patterns.js only, re-runs all four as child processes, then
+      restores the file from an in-memory buffer and sha256-confirms it
+      byte-identical to the pre-injection hash before drawing any
+      conclusion, then re-runs all four a third time as a control.
+      RESULT BEFORE THE FIX: check-service-links.js still failed on the
+      empty list, but NOT because of a dedicated guard - it has none. It
+      failed only because the one live KNOWN_CLAIM entry ("Support that
+      delivers results." on the Smartts switch page, held under Q16) stopped
+      matching and tripped the separate "stale KNOWN key" fail-safe instead.
+      That is a coincidental defence: it depends on KNOWN_CLAIM staying
+      non-empty, which is exactly the state the estate will be in the day
+      the Q16 fix lands and that entry is removed - at which point this
+      checker would have had the identical, previously-undiscovered gap.
+      check-seo-keywords.js, check-gbp-packs.js and check-weight-loss-copy.js
+      had no such coincidental protection at all and simply exited 0 on the
+      emptied list, printing "clean" / "0 failures" / "OK - no failures" as
+      if by design - the same three-of-four shape the twelfth pass found on
+      the POM_NAMES side.
+      FIX: an explicit "stop rather than silently pass" guard added to each
+      of the four files, each following that file's own existing fail
+      convention rather than a new one: check-service-links.js gets an
+      immediate console.log-and-process.exit(1), matching its own POM_NAMES
+      guard nine lines below; check-weight-loss-copy.js gets a
+      fail("claim-list", "empty", ...) call using its existing fail()
+      helper, matching its own pom.WEIGHT_LOSS guard; check-gbp-packs.js
+      gets a fail("check-gbp-packs", ...) call using its existing
+      fails.push() helper; check-seo-keywords.js now imports CLAIM_PATTERNS
+      itself (previously it imported only findClaim) and pushes to its own
+      failures array. Re-ran the same instrument against the FIXED live tree
+      (copying the live tools/ into its own fresh scratch copy): all four
+      now correctly fail on the injection, each naming its own list by name,
+      and all four restored clean afterwards - see
+      audits/verify-6.2-2026-09-10-thirteenth-output.txt.
+      VERIFICATION: full 36-checker suite run individually on the live tree
+      after the fix: 36/36 exit 0, no regression. All six generators
+      rebuilt: git status --porcelain -- modules core gbp-packs branches.json
+      empty before and after (the two pre-existing untracked strays,
+      gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak, present both times,
+      neither created nor touched by this pass) - confirms the fix touches
+      only tools/, no generator, page, branches.json field or patient-facing
+      copy, so no regeneration was needed. Never fires on the live tree
+      today: CLAIM_PATTERNS holds a full list of patterns on all four
+      checkers. Latent-gap closure, not a live breach, the same shape every
+      6.2 finding before this one has taken. No new question raised.
+      Evidence: audits/verify-6.2-2026-09-10-thirteenth.js and
+      audits/verify-6.2-2026-09-10-thirteenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

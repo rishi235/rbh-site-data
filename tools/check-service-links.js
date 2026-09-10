@@ -217,6 +217,26 @@ const KNOWN_CLAIM = {
 // check-seo-keywords.js (which reads the Meta Keywords lines on the paste
 // sheets) apply one list rather than two copies of it.
 const CLAIM_PATTERNS = require("./claim-patterns.js").CLAIM_PATTERNS;
+// Stop outright on an empty list, the same convention as the POM_NAMES guard
+// below, added on the item 6.2 quality pass (thirteenth), 2026-09-10. Proved
+// by injection first: emptying CLAIM_PATTERNS on a scratch copy left RULE 2
+// silently checking nothing, and this checker only happened to still fail
+// because the live KNOWN_CLAIM entry for Smartts Bootle's weight loss tile
+// went stale and tripped the separate "stale KNOWN key" guard - a real
+// defence, but one that depends on KNOWN_CLAIM staying non-empty, which is
+// exactly the state it will be in the day the Q16 fix lands and that entry
+// is removed. check-seo-keywords.js, check-gbp-packs.js and
+// check-weight-loss-copy.js all had no guard at all and stayed at exit 0
+// with "0 failures"/"OK" on the same injection, the same shape the item 6.2
+// twelfth pass found across three of five POM_NAMES consumers. This guard is
+// the direct, unconditional protection for this checker; the matching guards
+// added to the other three are the same fix applied where it was missing
+// outright.
+if (!CLAIM_PATTERNS.length) {
+  console.log("check-service-links");
+  console.log("  FAIL empty CLAIM_PATTERNS list from tools/claim-patterns.js");
+  process.exit(1);
+}
 
 // RULE 3 names: one list, defined once in tools/pom-names.js. The run stops
 // outright on an empty union so a silently empty list can never present
