@@ -1,0 +1,102 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - quality pass, 2026-09-10, THIRTEENTH PASS
+FRESH ANGLE: tools/check-switch-copy.js proven by injection against Tiffenbergs'
+own switch page for the first time in this item's thirteen-pass history.
+
+CONTEXT
+Twelve prior passes exercised check-nap.js, check-postcodes.js, check-em-dashes.js,
+check-booking-routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js, check-pharmacy-first-eligibility.js, check-weight-loss-copy.js and
+check-branch-links.js against Tiffenbergs' own pages, but never check-switch-copy.js -
+the checker guarding the highest-commitment page in the estate (CLAUDE.md, "The page
+that asks for the most, and the two answers it gives"). check-switch-copy.js has been
+proven extensively elsewhere in the audit (Fishlocks, Smartts, and others), but never
+specifically against Tiffenbergs' own switch-prescriptions-tiffenbergs-aintree.html.
+Chosen because item 3.12 was re-derived as uniquely stalest in the rotation pool
+(git log -1 --format=%aI --all --grep="Item 3.12 " -- AGENT_WORKLIST.md ->
+2026-09-09T02:42:32+01:00, ahead of 3.6 at 03:10:03 and 3.8 at 03:43:18), and this
+checker was the clearest untried surface for this branch.
+
+BASELINE
+All 36 tools/check-*.js checkers re-run individually before any change: 0 failures.
+All six generators rebuilt first (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages): combined sha256 of every .html/.js/.css file under modules/
+and core/ unchanged before and after
+(fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3), confirming the
+tree was already at generator output before any mutation. git status --porcelain on
+modules, core, branches.json, gbp-packs and tools empty except the two pre-existing
+untracked artefacts neither created nor touched by this pass
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak).
+
+Target file: modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html
+Baseline sha256: 29f26683c9a26a4ef7d59ac4dcf28f60dd91a11d32438f7cf490fb3ea826ef68
+Backed up by byte copy to /tmp/tiffenbergs-switch-baseline.html before any mutation.
+
+THREE INJECTIONS, each restored by byte copy (not git checkout) from the backup and
+sha256-reconfirmed identical to the baseline hash above immediately after, before the
+next injection was made:
+
+(1) RULE 6, the time claim. form-sub sentence "This takes about 30 seconds." changed
+to "This takes about 45 seconds." (H1 and SEO-comment "30 seconds" left untouched, so
+the page now states two different figures). CAUGHT, three failures at once:
+  - [verbatim] page no longer carries the generator's exact form-sub sentence
+    (the expected side effect of editing the sentence itself, same pattern every
+    prior 3.12 injection against a verbatim-guarded line has produced)
+  - [time-claim] "the page states 30 and 45 seconds in different places"
+  - [time-claim], estate-wide: "the estate states more than one seconds figure:
+    30 on 15 page(s), 45 on 1 page(s)"
+Restored; sha256 confirmed identical to baseline (29f26683...) immediately after.
+
+(2) RULE 7, no medicines and no clinical claim. Step 2 paragraph "Our Aintree team
+checks your details and guides the next step to move your prescriptions across."
+had ", including Mounjaro." appended. CAUGHT, two failures at once:
+  - [verbatim] the expected side effect of editing the sentence
+  - [no-medicines] "the switch page names mounjaro. This is public advertising copy
+    for a page about moving prescriptions, and naming a prescription-only medicine
+    on it is not permitted."
+Restored; sha256 confirmed identical to baseline immediately after.
+
+(3) RULE 8, town. The pill "Your local independent pharmacy in Aintree" changed to
+name "Bootle" instead. CAUGHT, four failures at once - a genuinely new observation
+for this item, since Bootle is the one town in the estate shared by two branches
+(Smartts Bootle and SK Chemists Bootle), and the injection tripped the cross-town
+check against BOTH of them independently rather than just one:
+  - [verbatim] the expected side effect of editing the pill
+  - [town] "the pill does not name Aintree, which is this branch's own town"
+  - [town] "the body copy names Bootle, which is smartts_bootle's town, not this
+    branch's"
+  - [town] "the body copy names Bootle, which is skchemists_bootle's town, not this
+    branch's"
+Restored; sha256 confirmed identical to baseline immediately after.
+
+All three injections caught on the first attempt with the expected rule-specific
+message; no injection needed a second attempt or a corrected value.
+
+POST-ROUND VERIFICATION
+Full 36-checker suite re-run individually after the round: 0 failures. All six
+generators rebuilt again: combined modules/+core/ sha256 unchanged
+(fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3), byte-identical to
+the pre-round baseline. Target file sha256 re-confirmed
+29f26683c9a26a4ef7d59ac4dcf28f60dd91a11d32438f7cf490fb3ea826ef68 - identical to the
+original. git status --porcelain on modules, core, branches.json, gbp-packs and tools
+empty throughout aside from the same two pre-existing untracked artefacts.
+
+RESULT
+Zero in-repo defect. check-switch-copy.js was already correctly holding Tiffenbergs'
+own switch page across rules 3 (verbatim), 6 (time claim), 7 (no medicines/clinical
+claim) and 8 (town), now proven directly by injection for the first time in this
+item's thirteen-pass history. The town injection additionally confirmed, for the
+first time on any branch in this item's history, that the cross-town check correctly
+fires against every OTHER branch sharing the injected town's name, not just the
+first one found. No page, generator, checker, pack or branches.json byte changed.
+
+LIVE HALF
+Not attempted this pass. Full 12-of-12 live coverage of Tiffenbergs' live pages
+already stands from the fifth/sixth passes (2026-09-02) and was not re-read here;
+this pass's scope was a repo-only injection proof, the same scope decision several
+prior passes on this and sibling items have made when the new angle is a checker
+proof rather than a live-facing question. No new question raised.
+
+QUESTIONS
+None raised. QUESTIONS.json unchanged (101 total, 48 open).

@@ -9915,6 +9915,46 @@ Done 2026-09-09 (fifteenth pass).
       from the fifth/sixth passes (2026-09-02), not re-read this pass. No
       new question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
       pass-2026-09-09-twelfth.txt. Done 2026-09-09 (twelfth pass)
+      Quality pass 2026-09-10, THIRTEENTH PASS, FRESH ANGLE: tools/check-
+      switch-copy.js proven by injection against Tiffenbergs' own switch
+      page for the first time in this item's thirteen-pass history (twelve
+      prior passes exercised check-nap.js, check-postcodes.js,
+      check-em-dashes.js, check-booking-routes.js, check-jsonld.js,
+      check-gbp-packs.js, check-branch-identity.js, check-map-embeds.js,
+      check-pharmacy-first-eligibility.js, check-weight-loss-copy.js and
+      check-branch-links.js against this branch, but never the checker
+      guarding the highest-commitment page in the estate). Baseline: all 36
+      checkers 0 failures, all six generators rebuilt first, combined
+      sha256 of every file under modules/ and core/ unchanged
+      (fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3).
+      Target file switch-prescriptions-tiffenbergs-aintree.html backed up
+      by byte copy, baseline sha256
+      29f26683c9a26a4ef7d59ac4dcf28f60dd91a11d32438f7cf490fb3ea826ef68.
+      Three injections, each restored by byte copy and sha256-reconfirmed
+      identical immediately after: (1) RULE 6, form-sub "30 seconds"
+      changed to "45 seconds" - CAUGHT, three failures at once (verbatim,
+      own-page two-figures, and the estate-wide "30 on 15 page(s), 45 on 1
+      page(s)" figure); (2) RULE 7, ", including Mounjaro." appended to the
+      step 2 paragraph - CAUGHT, two failures at once (verbatim and
+      no-medicines naming mounjaro); (3) RULE 8, the pill's "Aintree"
+      changed to "Bootle" - CAUGHT, four failures at once (verbatim, own
+      town missing, and - a genuinely new observation for this item -
+      the cross-town check firing independently against BOTH branches that
+      share the town Bootle, smartts_bootle and skchemists_bootle, not
+      just the first match). All three caught on the first attempt with
+      the expected rule-specific message; no injection needed correcting.
+      Full 36-checker suite and all six generators re-run/rebuilt clean
+      after; combined sha256 unchanged; target file sha256 unchanged;
+      git status --porcelain on modules, core, branches.json, gbp-packs
+      and tools empty throughout aside from the same two pre-existing
+      untracked artefacts every recent pass has recorded. Zero in-repo
+      defect - check-switch-copy.js was already correctly holding
+      Tiffenbergs' own page across rules 3, 6, 7 and 8. No page, generator,
+      checker, pack or branches.json byte changed. Live half not
+      attempted: full 12-of-12 live coverage already stands from the
+      fifth/sixth passes (2026-09-02), not re-read this pass. No new
+      question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
+      pass-2026-09-10-thirteenth.txt. Done 2026-09-10 (thirteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
