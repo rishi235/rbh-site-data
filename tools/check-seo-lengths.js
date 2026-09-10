@@ -166,12 +166,23 @@ entries.forEach(function (e) {
 // each other in the same result set instead of ranking for their own town.
 // ---------------------------------------------------------------------------
 function duplicates(field, label) {
+  // The identifier pushed here must always be able to tell two colliding
+  // entries apart. Pushing e.permalink worked for the title and description
+  // duplicate checks, because the permalink differs even when the title or
+  // description does not - but this same function also runs with field set
+  // to "permalink" itself, and when the PERMALINK is what collides, e.permalink
+  // equals the grouping key on both sides, so the old message named the same
+  // string twice ("shared by 2 pages: x, x") and could not say which two
+  // sheet entries actually held it. Using the entry's own heading and sheet
+  // path instead is always distinct, for every field this function checks,
+  // and reads better for title/description duplicates too. Found by
+  // injection on item 3.9's fifteenth quality pass, 2026-09-10.
   var map = {};
   entries.forEach(function (e) {
     var v = e[field];
     if (!v) return;
     if (!map[v]) map[v] = [];
-    map[v].push(e.permalink);
+    map[v].push(e.heading + " (" + e.sheet + ")");
   });
   Object.keys(map).forEach(function (v) {
     if (map[v].length < 2) return;

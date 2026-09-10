@@ -1,0 +1,73 @@
+=== PRE-FLIGHT ===
+git status clean on all 4 target files - confirmed.
+sha256 baseline recorded for all 4 target files.
+Baseline run: exit 0 (expect 0)
+Baseline warning line: check-seo-lengths: clean, every title and description fits and is unique. 24 warning(s).
+
+=== INJECTION: Rule 1, title too long (Coleman and Leighs Pharmacy First overview) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  FAIL pharmacy-first-coleman-leigh-walton (modules/service/pages/SEO.md): title is 76 characters, over the 65 limit, so Google truncates it
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 2, description too short (Coleman and Leighs UTI page) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-cherry-lane-walton.html and uti-treatment-coleman-leigh-walton.html
+  FAIL uti-treatment-coleman-leigh-walton (modules/service/pages/SEO.md): description is only 37 characters, under the 80 minimum
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 2, description too long (Coleman and Leighs sore throat page) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-cherry-lane-walton.html and sore-throat-treatment-coleman-leigh-walton.html
+  FAIL sore-throat-treatment-coleman-leigh-walton (modules/service/pages/SEO.md): description is 230 characters, over the 165 limit, so Google cuts it mid-sentence
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 3, duplicate title (sinusitis title copied onto earache) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-cherry-lane-walton.html and earache-treatment-coleman-leigh-walton.html
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-cherry-lane-walton.html and sinusitis-treatment-coleman-leigh-walton.html
+  FAIL duplicate title shared by 2 pages: Coleman and Leighs Pharmacy — Walton — Sinusitis (modules/service/pages/SEO.md), Coleman and Leighs Pharmacy — Walton — Earache (modules/service/pages/SEO.md)
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 3, duplicate permalink (earache permalink copied onto impetigo's sheet entry) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-cherry-lane-walton.html and earache-treatment-coleman-leigh-walton.html
+  FAIL duplicate permalink shared by 2 pages: Coleman and Leighs Pharmacy — Walton — Earache (modules/service/pages/SEO.md), Coleman and Leighs Pharmacy — Walton — Impetigo (modules/service/pages/SEO.md)
+         earache-treatment-coleman-leigh-walton
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 4a, same branch repeats an H1 on two of its own pages (impetigo H1 copied onto insect-bite's page) ===
+CAUGHT (as expected) exit=1
+Relevant output line(s):
+  FAIL one branch uses the same H1 on two of its own pages - colemanleigh_liverpool: impetigo-treatment-coleman-leigh-walton.html and insect-bite-treatment-coleman-leigh-walton.html
+Restore sha256-confirmed: true
+
+=== INJECTION: Rule 4c negative control (de-duplicate shingles H1 from Cherry Lane's) ===
+Warning present before mutation: true (expect true)
+Checker exit after de-dup mutation: 0 (expect 0, still clean - rule 4c only warns)
+Specific Q44 warning still present after de-dup: false (expect false)
+Warning reappears after restore: true (expect true)
+CONFIRMED: rule 4c warning is computed live, not a static list.
+
+=== FINAL VERIFICATION ===
+Final check-seo-lengths.js run: exit 0 (expect 0)
+All 4 target files sha256-identical to baseline: true
+git status --porcelain on target files after run: clean
+
+=== FULL SUITE ===
+36 checkers run individually, 0 failed (expect 0 failed).
+
+=== SUMMARY ===
+  PASS / restore ok  Rule 1, title too long (Coleman and Leighs Pharmacy First overview)
+  PASS / restore ok  Rule 2, description too short (Coleman and Leighs UTI page)
+  PASS / restore ok  Rule 2, description too long (Coleman and Leighs sore throat page)
+  PASS / restore ok  Rule 3, duplicate title (sinusitis title copied onto earache)
+  PASS / restore ok  Rule 3, duplicate permalink (earache permalink copied onto impetigo's sheet entry)
+  PASS / restore ok  Rule 4a, same branch repeats an H1 on two of its own pages (impetigo H1 copied onto insect-bite's page)
+  PASS / restore ok  Rule 4c negative control
+
+OVERALL: ALL INJECTIONS CAUGHT, ALL RESTORES CONFIRMED, FULL SUITE CLEAN.

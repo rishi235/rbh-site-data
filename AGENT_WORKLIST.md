@@ -7703,6 +7703,118 @@ Done 2026-09-09 (fifteenth pass).
       unattended pass: 3.10 (2026-09-07T21:43:21+01:00), then 2.1
       (22:43:49), 5.2 (23:43:07) - re-derive fresh rather than assume, since
       other runs may land in between. Done 2026-09-08.
+
+      Quality pass (fifteenth), 2026-09-10 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). All 8 unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+      quality-pass fallback applied. Rotation pool re-derived independently:
+      43 completed items minus the 7 standing out-of-rotation items (1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36, minus 4 items already carrying a
+      pass earlier today (3.7, 3.13, 6.2, 3.4) = 32 candidates.
+      `git log -1 --format=%aI --all --grep="Item N " -i -- AGENT_WORKLIST.md`
+      run individually across all 32: 3.9 came out stalest at
+      2026-09-08T23:40:16+01:00, clear of the next candidate (3.10,
+      2026-09-09T00:13:32+01:00) and every other pool item, matching the
+      fourteenth pass's own forward note exactly. Chosen: 3.9 (Coleman and
+      Leighs Pharmacy, Walton).
+
+      ANSWER PICKUP (step 3): built-in Claude Browser MCP read
+      https://data.rbhealth.co.uk/api/feedback successfully (Claude in
+      Chrome not attempted). Newest entry unchanged: Q52
+      (2026-09-01T22:44:51Z). QUESTIONS.json read in full: 101 total, 48
+      open; no id from Q53 onward has a reply in the feed. No pickup.
+
+      TARGET: tools/check-seo-lengths.js, never proven by injection against
+      this branch in fourteen prior passes (grepped this item's full section
+      for every one of the 36 tools/check-*.js filenames beforehand - zero
+      mentions of check-seo-lengths.js by name, and zero for the shorter
+      keywords "check-seo-lengths"/"check-seo-sheets"/"check-seo-keywords"
+      too). Well-chosen gap: Coleman and Leighs is one of the four town pairs
+      CLAUDE.md names specifically for this checker (Walton, alongside
+      Cherry Lane Pharmacy), so its rule 3 (title/description/permalink
+      uniqueness) and rule 4c (cross-host H1 sharing, reported against Q44)
+      both have live, real exposure through this exact branch today - the
+      live tree already carries 8 of the checker's 24 standing Q44 warnings
+      against Coleman and Leighs' own pages, paired with Cherry Lane.
+
+      Baseline: `git status --porcelain` clean on the 4 target files
+      (modules/service/pages/SEO.md and three of the branch's own H1 pages -
+      insect-bite, impetigo, shingles), sha256 recorded for each.
+      `node tools/check-seo-lengths.js` clean: 24 warnings, all pre-existing
+      and unchanged.
+
+      New instrument, audits/verify-3.9-2026-09-10-fifteenth.js: shells out
+      to the real checker as a child process (no import from tools/),
+      refuses to run if any target file already carries a diff, mutates one
+      file at a time, restores from an in-memory buffer immediately after
+      each run, and sha256-verifies the restore before the next injection.
+
+      SEVEN injections, each restored byte-identical (sha256-confirmed)
+      immediately after its catch: (1) rule 1, the Pharmacy First overview
+      title lengthened to 76 characters - CAUGHT, naming the permalink and
+      "over the 65 limit"; (2) rule 2 low, the UTI description shortened to
+      37 characters - CAUGHT, "under the 80 minimum"; (3) rule 2 high, the
+      sore throat description lengthened to 230 characters - CAUGHT, "over
+      the 165 limit"; (4) rule 3, the sinusitis title copied onto the
+      earache entry - CAUGHT, "duplicate title"; (5) rule 3, the earache
+      permalink copied onto the impetigo entry - CAUGHT, "duplicate
+      permalink"; (6) rule 4a, the impetigo page's own H1 copied onto the
+      insect-bite page (same branch, two pages) - CAUGHT, "one branch uses
+      the same H1 on two of its own pages - colemanleigh_liverpool"; (7) a
+      negative control on rule 4c - the shingles H1 was reworded just enough
+      to stop matching Cherry Lane's identical shingles H1, and the specific
+      standing Q44 warning for that pair was confirmed to DISAPPEAR (checker
+      stayed exit 0, rule 4c only warns) while the checker was still clean
+      overall, then the file was restored and the warning was confirmed to
+      REAPPEAR - proving rule 4c's Q44 warnings are computed live from
+      current file content on every run, not a static or cached list. All
+      seven caught on first attempt with the expected message; all four
+      target files sha256-confirmed byte-identical to baseline after every
+      individual restore and again at the end. Full 36-checker suite re-run
+      clean before and after.
+
+      ONE REAL DEFECT FOUND AND FIXED, in tools/check-seo-lengths.js itself.
+      Injection (5) surfaced it: the duplicate-permalink failure message
+      read "duplicate permalink shared by 2 pages: earache-treatment-
+      coleman-leigh-walton, earache-treatment-coleman-leigh-walton" - the
+      same string twice, unable to say which two distinct sheet entries
+      actually collided. Cause: the shared `duplicates(field, label)`
+      helper always pushed `e.permalink` as the identifier for each
+      colliding entry, which correctly distinguishes entries when the
+      COLLIDING field is title or description (their permalinks still
+      differ), but is circular and useless when the colliding field is the
+      permalink itself, since `e.permalink` then equals the very value being
+      grouped on both sides. Fixed by pushing `e.heading + " (" + e.sheet +
+      ")"` instead, which is always a distinct, human-readable identifier
+      regardless of which field collides - re-running injection (4) and (5)
+      afterwards confirmed the title-duplicate message now reads "...
+      Sinusitis (modules/service/pages/SEO.md), ... Earache (modules/
+      service/pages/SEO.md)" and the permalink-duplicate message now reads
+      "... Earache (modules/service/pages/SEO.md), ... Impetigo (modules/
+      service/pages/SEO.md)" - both correctly naming two distinct entries.
+      Never fires on the live tree today (0 duplicates of any kind
+      currently exist), so this was a latent reporting gap, not a live
+      breach; full 36-checker suite re-run clean after the fix; `git status
+      --porcelain -- modules core branches.json` empty, confirming no
+      generator, page or data field was touched, only the checker.
+
+      LIVE HALF: not attempted. The standing findings for this branch
+      (pfLink 404 on Q8/5.3; dual-spelling header/footer; mojibake switch-
+      page em dash; og:site_name variant) were last reconfirmed on the
+      thirteenth pass (2026-09-07) and this pass's own target was a
+      repo-only checker with no live-page surface of its own.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full
+      before and after: 101 total, 48 open, unchanged.
+
+      FILES CHANGED: tools/check-seo-lengths.js (the fix); AGENT_WORKLIST.md
+      (this paragraph); AGENT_LOG.md (mirrored entry);
+      audits/verify-3.9-2026-09-10-fifteenth.js and its -output.txt (new).
+
+      Next stalest for whoever runs next: 3.10 (2026-09-09T00:13:32+01:00),
+      then 2.1 (00:44:07), 5.2 (01:13:02), 4.11 (01:42:56) - re-derive fresh
+      rather than assume, since other runs may land in between. Done
+      2026-09-10.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
