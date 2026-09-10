@@ -1,0 +1,54 @@
+=== Pre-flight: tree must be clean before any injection ===
+clean.
+
+=== Baseline: full checker run before any injection ===
+  PASS baseline check-page-coverage.js exits 0
+check-page-coverage
+  branches.json: 16 branches, 16 trading, 0 disposed
+  conditions:    7 built
+  Pharmacy First   earns 14 branches, list holds 14
+  Contraception    earns 14 branches, list holds 14
+  Travel clinic    earns 15 branches, list holds 15
+
+=== Injection 1: NOT_BUILT (build-service-pages.js BUILD list) ===
+  PASS mutation actually changed the file
+  PASS build-service-pages.js byte-identical after restore
+  PASS checker exits 1 with fishlocks_ainsdale dropped from BUILD
+  PASS failure code is NOT_BUILT
+  PASS message names fishlocks_ainsdale
+  PASS message names the Pharmacy First rule
+FAILURES (1):
+check-page-coverage: FAILED
+
+=== Injection 2: PAGE_MISSING (page removed from disk) ===
+  PASS target page exists before injection
+  PASS target page is off disk during injection
+  PASS target page restored
+  PASS restored page byte-identical (sha256)
+  PASS checker exits 1 with the page missing
+  PASS failure code is PAGE_MISSING
+  PASS message names the missing file
+  PASS message names fishlocks_ainsdale as the earning branch
+FAILURES (1):
+check-page-coverage: FAILED
+
+=== Injection 3: LANDING_NOT_BUILT (build-branch-landing-pages.js BUILD list) ===
+  PASS mutation actually changed the file
+  PASS build-branch-landing-pages.js byte-identical after restore
+  PASS warning code is LANDING_NOT_BUILT
+  PASS message names fishlocks_ainsdale
+  PASS message references item 2.2 by name
+  LANDING_NOT_BUILT: fishlocks_ainsdale shares www.fishlockpharmacy.co.uk with another trading branch but has no branch landing page, and is not in the BUILD list of tools/build-branch-landing-pages.js. Item 2.2 built these for Fishlocks for exactly this reason.
+
+=== Post-flight: full checker run after all injections, tree re-verified clean ===
+  PASS tree clean after all three injections and restores
+  PASS checker exits 0 again after full restore
+  PASS checker output byte-identical to the pre-injection baseline
+check-page-coverage
+  branches.json: 16 branches, 16 trading, 0 disposed
+  conditions:    7 built
+  Pharmacy First   earns 14 branches, list holds 14
+  Contraception    earns 14 branches, list holds 14
+  Travel clinic    earns 15 branches, list holds 15
+
+ALL CHECKS PASSED (16 assertions, 0 failures).

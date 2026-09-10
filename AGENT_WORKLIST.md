@@ -882,6 +882,89 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       and Wegovy (unchanged). No new question raised; all three are
       reconfirmation of existing standing state, not new faults. Evidence:
       audits/verify-2.1-2026-09-09-fifteenth.js.
+      Quality pass 2026-09-10 (sixteenth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) confirmed [BLOCKED],
+      so the quality-pass fallback applied. Rotation ordering re-derived via
+      `git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md`
+      over the 36-item pool (43 checked items minus the standing out-of-
+      rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8): item 2.1's newest
+      mention was the fifteenth pass at 2026-09-07T22:43:49+01:00, older than
+      every other pool item (5.2 next, then 4.11, then 5.1), matching the
+      fifteenth pass's own forward note.
+      FRESH ANGLE: tools/check-page-coverage.js had never been named once
+      across fifteen prior passes on this item, despite it being the checker
+      that proves the item's very first claim ("page set complete", the
+      2026-08-04 audit) and despite every pass since repeating "13 pages" and
+      "byte-identical regeneration" without ever proving by injection that
+      the coverage checker would actually catch it if Fishlocks Ainsdale lost
+      a page from a generator's BUILD list, lost a page from disk, or lost
+      its branch-landing-page entry (the exact fault class item 2.2 built the
+      landing pages to fix).
+      New instrument, audits/verify-2.1-2026-09-10-sixteenth.js: refuses to
+      run on a dirty tree, captures original bytes and sha256 before any
+      mutation, restores by direct fs.writeFileSync immediately after
+      capturing the checker's output and before any assertion, sha256-
+      reconfirms byte-identical restoration after every injection and again
+      at the end.
+      Three injections, each targeting a different check-page-coverage.js
+      rule, on a freshly restored copy each time: (1) RULE NOT_BUILT -
+      "fishlocks_ainsdale" removed from the BUILD array in
+      tools/build-service-pages.js (branches.json untouched, so the branch
+      still earns Pharmacy First pages) - CAUGHT, "branch fishlocks_ainsdale
+      earns pages (widgets.pharmacyFirst is set) but is not in the BUILD list
+      of tools/build-service-pages.js. No page will ever be generated for it
+      and no other checker will notice." (2) RULE PAGE_MISSING -
+      shingles-treatment-fishlocks-ainsdale.html renamed off disk (not
+      deleted - direct delete is refused on this session's FUSE mount, the
+      same standing Q87/Q96 quirk the fifteenth pass hit; rename worked) -
+      CAUGHT, "earned by fishlocks_ainsdale but is not on disk. Re-run
+      tools/build-service-pages.js." (3) RULE LANDING_NOT_BUILT (a warning,
+      not a failure) - "fishlocks_ainsdale" removed from the BUILD array in
+      tools/build-branch-landing-pages.js - CAUGHT as a warning rather than a
+      failure, exactly as designed: "fishlocks_ainsdale shares
+      www.fishlockpharmacy.co.uk with another trading branch but has no
+      branch landing page... Item 2.2 built these for Fishlocks for exactly
+      this reason" - the checker's own message ties straight back to this
+      item's sister item by name.
+      All three caught first attempt with the expected code and message.
+      build-service-pages.js and build-branch-landing-pages.js both confirmed
+      byte-identical (sha256) after restore; the parked page file confirmed
+      byte-identical after being renamed back. Full 36-checker suite clean
+      both before and after (36/36, matching this pass's own baseline run of
+      all tools/check-*.js). All six generators (branch landing,
+      contraception, service, switch, travel clinic, weight loss) rebuilt
+      from their own build-*.js scripts; git status --porcelain -- modules
+      core branches.json gbp-packs empty before and after regeneration
+      except two pre-existing untracked files neither created by this pass
+      and neither ever git-added: the fifteenth pass's own documented
+      notarealservice-fishlocks-ainsdale.html.bak, and
+      gbp-packs/.fuse_hidden0000000400000001 (dated 2026-09-08, a FUSE
+      artifact from an earlier session's file operation, first noticed this
+      pass only because this pass's git status call was the first in item
+      2.1's history to include gbp-packs in its path list).
+      No copy, page, pack or branches.json content changed anywhere in the
+      estate; this pass closed a verification-coverage gap by proof, not by
+      rule change, so it needed no superintendent or business decision and
+      none was sought.
+      LIVE HALF. Read-only curl GET with -L (nothing clicked, typed or
+      submitted anywhere). fishlockpharmacy.co.uk/sitemap.xml still 200 with
+      every lastmod fixed at 2026-08-14T17:32:10 (Q35's underlying
+      non-publish, unchanged, now 26 days). pharmacy-fishlocks-ainsdale.html
+      still 404 (Q35). contact.html still names the business "Fishlock
+      Pharmacy" (x4, plus "FISHLOCK PHARMACY" all-caps x2 in what reads as a
+      footer/logo element, not previously itemised separately) and "Fishlock
+      Chemist" (x1) alongside the correct "Fishlocks Chemist" (x5) and the
+      abbreviated "17 Station Rd" (x2) (Q37, unchanged). Q57's page,
+      weight-loss-services-eccleston-ainsdale.html, still 200 and still
+      carries "Real Results" plus all three POM names, Mounjaro, Orlistat and
+      Wegovy (unchanged). No new question raised; all findings are
+      reconfirmation of existing standing state, not new faults. Evidence:
+      audits/verify-2.1-2026-09-10-sixteenth.js.
+      FORWARD NOTE: next stalest by this run's own re-derivation (36-item
+      rotation pool minus item 2.1, now at the back of the queue): 5.2,
+      timestamped 2026-09-09T01:13:02+01:00, ahead of 4.11 (01:42:56), 5.1
+      (02:11:04) and the rest. Other runs may land in between before the
+      next pass.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
