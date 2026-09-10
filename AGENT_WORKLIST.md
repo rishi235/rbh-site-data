@@ -16012,6 +16012,88 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       decision needed; weight-loss-clinic.html still live naming
       Mounjaro, Wegovy and Orlistat, item 5.8/Q58, unchanged, not fixed
       here) stand unverified for a further pass rather than re-claimed.
+      Sixteenth quality pass 2026-09-10 (unattended scheduled run via
+      Cowork, rotation-pool pick, re-derived fresh via
+      `git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md`
+      per candidate across the 28-item pool remaining after excluding the
+      seven standing out-of-rotation items and the eight items already
+      touched earlier today, 2026-09-10, 2026-09-10 (5.2, 2.1, 3.10, 3.9,
+      3.4, 6.2, 3.13, 3.7): 4.11 came out stalest at
+      2026-09-09T01:42:56+01:00, ahead of 5.1 (02:11:04) and 3.12
+      (02:42:32), matching the fifteenth pass's own forward note.
+      Pre-flight baseline before touching this item's own pack: pack
+      sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      byte-identical to all fifteen prior passes. Ran the full 36-checker
+      suite as the standard pre-flight step and it was NOT clean: 35/36,
+      tools/check-postcodes.js failing with three UNKNOWN hits on postcode
+      "L1 1AA" in AGENT_LOG.md, AGENT_WORKLIST.md and
+      audits/verify-5.2-2026-09-10-fifteenth-output.txt. This is a live,
+      real, currently-failing defect, not this item's own pack and not
+      this item's own pages, so it was fixed here rather than left for
+      whichever item happened to be picked next.
+      ROOT CAUSE: today's own item 5.2 fifteenth pass (the run
+      immediately before this one) recorded, in its own committed
+      write-up, that its first RULE 8 injection attempt used a fabricated
+      postcode ("L1 1AA") which is not a real branch postcode, that this
+      correctly failed check-postcodes.js when the full suite was run
+      mid-pass, and that the pass fixed the injection to reuse McCanns
+      Sandringham's own real postcode before finishing. What that
+      write-up did not do was add "L1 1AA" itself to
+      tools/check-postcodes.js's NARRATIVE_POSTCODES list before
+      committing the narrative text that quotes it - the exact same gap
+      this list has now closed twelve times before today (L23 6TX,
+      L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG, L20 3ER, WA14 9ZZ,
+      ZZ99 9ZZ, SK7 3AB, L17 7BX, L17 9BP, AA1 1AA), each one caused by
+      the same sequence: a pass fixes its own injection value mid-run,
+      confirms 36/36 clean at that point, then writes the fabricated
+      value into AGENT_LOG.md/AGENT_WORKLIST.md to document the
+      self-correction afterwards, without re-running the suite after that
+      final documentation edit. The "36/36 clean" claims recorded by
+      passes that hit this gap are true at the moment they were checked
+      and false by the time the commit lands, because the last edit made
+      before committing is the one that is never re-verified.
+      FIX: "L1 1AA" added to NARRATIVE_POSTCODES in
+      tools/check-postcodes.js with the reason above, attributing it to
+      the item 5.2 fifteenth pass and this item's sixteenth pass as the
+      fix, the same convention as every entry before it. Full 36-checker
+      suite re-run immediately after: 36/36 clean, check-postcodes.js now
+      reporting "0 failure(s), 3 warning(s)" (the three warnings are the
+      standing UNOWNED entries in gbp-packs/TEMPLATE.md and
+      modules/branch/pages/INDEX.md and SEO.md, pre-existing and
+      unrelated). No generator, page, branches.json field or pack copy
+      changed; only tools/check-postcodes.js's own exemption list, which
+      is checker tooling, not public copy.
+      This item's own pack (gbp-packs/sk-chemists-bootle.md) was not
+      re-verified fact by fact this pass beyond the sha256 match above,
+      since the fifteen prior passes have already exhausted every rule of
+      every checker that reads it and the pre-flight full-suite run
+      (which includes this pack) came back clean once the unrelated
+      defect above was fixed.
+      LIVE HALF: not attempted. The built-in Claude Browser MCP declined
+      site access when requested for skchemist.co.uk (no person present
+      in an unattended run to approve it), and
+      `mcp__workspace__web_fetch` refused the same URL as outside its
+      provenance set (it can only retrieve a URL that has already
+      appeared in a user message, a prior web_fetch result or a
+      WebSearch result). Both of this session's live-read routes were
+      therefore unavailable this run; the fourteenth pass's live findings
+      stand unverified for a further pass rather than re-claimed, same as
+      the fifteenth pass recorded for the same reason (there,
+      `list_connected_browsers` returned empty; here, the built-in
+      browser's access prompt had nobody to answer it).
+      WORTH FLAGGING BEYOND THIS ITEM: this is the thirteenth time the
+      same NARRATIVE_POSTCODES gap has been found and fixed by a
+      following pass rather than by the pass that caused it. The pattern
+      is now well-established enough to be a process defect in its own
+      right, not a sequence of thirteen unrelated coincidences: any pass
+      that documents a fabricated/corrected injection value in
+      AGENT_LOG.md or AGENT_WORKLIST.md should add that value to
+      NARRATIVE_POSTCODES (or confirm no postcode-shaped string needs
+      it) as part of its own STEP 9, before committing, rather than
+      relying on whichever pass happens to run next to catch it. No
+      worklist item currently owns fixing the process itself, only its
+      symptoms; recorded here rather than opening a fourteenth silent
+      recurrence.
       Q58, Q80 and Q81 re-read from QUESTIONS.json, all still open,
       unchanged. No new defect, no new question raised this pass. Evidence
       in audits/sk-chemists-bootle-hours-days-4.11-fifteenth-2026-09-09.txt.
