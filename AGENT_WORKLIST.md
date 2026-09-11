@@ -17203,6 +17203,59 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       stand as written, not re-verified this pass. No new question;
       QUESTIONS.json unchanged (100 total, 47 open; Q8/5.3, Q59 and Q96 all
       reconfirmed open, not re-raised). Done 2026-09-09.
+      Sixteenth quality pass 2026-09-11 (unattended scheduled run,
+      audit-backlog-worker; rotation-pool pick, re-derived fresh: 43 [x]
+      items minus 7 standing out-of-rotation items minus 9 items touched
+      earlier today (3.1, 4.3, 4.6, 4.5, 1.3, 4.13, 4.8, 4.10, 4.9); 4.12
+      uniquely stalest at 2026-09-09T12:41:22+01:00, ahead of 4.15
+      (13:11:59) by about 30 minutes, matching the ninth run's own forward
+      note, no tie). FRESH ANGLE: fifteen prior passes proved branches.json
+      facts, the character-count exactness rule, the medicine-name union,
+      OUTCOME_PROMISE, check-url-scheme.js, check-uk-spelling.js,
+      check-brand-spelling.js, check-app-membership.js, check-em-dashes.js,
+      the hours-day-presence rule, check-gbp-pharmacy-first.js rules 5/7/8,
+      the category/service allowlist, the photo shot list rule and
+      check-pharmacy-first-eligibility.js rules 9/10/11 against this pack's
+      own copy, but tools/check-pharmacy-first-cost.js's rules 4, 5 and 6
+      (cost qualifiers, price patterns and the positive free claim) had
+      never been pointed at this pack by direct injection, confirmed by
+      grepping this item's full history for "pharmacy-first-cost" - zero
+      hits. Unlike Clear Aintree (item 4.9's fifteenth pass), rule 6
+      genuinely applies here: this branch carries widgets.pharmacyFirst.
+      Full repo copied (with .git) to a scratch directory; tracked pack
+      never opened for writing, confirmed unchanged throughout (sha256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all fifteen prior passes). Baseline: all 36 checkers exit 0.
+      Four rounds on the scratch copy, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) rule 6, "free" removed from
+      all three sentences naming Pharmacy First (description, Services
+      section, Post A) - CAUGHT, "advertises NHS Pharmacy First but never
+      calls it free"; (2) rule 4, "It is an affordable way to be seen
+      quickly." inserted into Post A - CAUGHT, quoting "affordable"; (3)
+      rule 5, "Consultations from 5 pounds." appended to Post A - CAUGHT,
+      quoting "5 pounds"; (4) CONTROL, "Affordable consultations
+      available." inserted into Post C (weight loss, a genuinely private
+      paid service, names no Pharmacy First condition) - correctly PASSED,
+      confirming the block-scoping private-service exemption holds on this
+      pack's own copy too. All four rounds fired or passed first attempt,
+      each on its intended rule only. Full 36-checker suite re-run clean
+      after the final restore; pack sha256 reconfirmed identical to
+      baseline; tracked repo's own copy byte-identical throughout; no
+      generator, page or branches.json field touched (gbp-packs/ is not a
+      generator input, no rebuild needed). No in-repo defect: rules 4, 5, 6
+      and the private-service exclusion all proven correct on this pack for
+      the first time. Evidence:
+      audits/coleman-leigh-walton-pf-cost-4.12-sixteenth-2026-09-11.txt.
+      LIVE HALF: Claude in Chrome not connected (standing Q59); not
+      retried by any other route, no login attempted. Read-only curl
+      status-code fallback (network reachable this run): Post A's pfLink
+      still 404, unchanged since 2026-08-10; Posts B, C, D and the
+      replacement Pharmacy First page all still 200, unchanged from every
+      prior pass. Status code only; the fuller 2026-09-01 live verdicts
+      (mixed old/new trading name, Q76's sister-branch-name gap, the Q22
+      tagline) stand as written, not re-verified this pass. No new
+      question; QUESTIONS.json unchanged (101 total, 48 open). Done
+      2026-09-11.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
