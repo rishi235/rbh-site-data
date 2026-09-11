@@ -1,0 +1,122 @@
+Item 3.7 quality pass (sixteenth), Smartts Chemist Bootle - 2026-09-11
+Run: twenty-first unattended scheduled run of the day, audit-backlog-worker.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied. Rotation pool re-derived independently via a python pass
+reading the last 2026-09-dated string inside each item block (bounded by the
+next itemised AGENT_WORKLIST.md line, whichever item), excluding the
+established one-off pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). 20 items already
+touched today (git log --since=2026-09-11T00:00:00 -- AGENT_WORKLIST.md):
+3.5, 3.2, 3.11, 1.2, 4.14, 4.7, 4.2, 3.3, 2.3, 4.15, 4.12, 4.9, 4.10, 4.8,
+4.13, 1.3, 4.5, 4.6, 4.3, 3.1. Within the genuine rotation pool the stalest
+untouched-today items, all last touched 2026-09-09, were 3.7, 4.1 and 4.4 -
+matching the twentieth run's own forward note exactly. Chosen: 3.7, lowest
+item number as tiebreak.
+
+FRESH ANGLE
+Fifteen prior passes on item 3.7 have covered check-postcodes.js (13
+mentions), check-nap.js, check-contraception-copy.js, check-em-dashes.js,
+check-widget-diaries.js, check-switch-copy.js, check-seo-pattern.js,
+check-jsonld.js, check-branch-identity.js, check-seo-sheets.js,
+check-map-embeds.js, check-fragment-targets.js, check-booking-routes.js and
+check-app-membership.js, plus assorted others (check-service-links.js,
+check-opening-hours.js, check-gbp-pharmacy-first.js, check-gbp-packs.js,
+check-cdn-pins.js). tools/check-pharmacy-first-safety-net.js had never once
+been the deliberately targeted checker against Smartts, despite Smartts
+carrying all seven ready Pharmacy First condition pages (earache, impetigo,
+insect-bite, shingles, sinusitis, sore-throat, uti) - the exact page family
+this checker exists to guard. This is the highest-consequence class of copy
+on the branch: the "When to get different help" block tells an EXCLUDED
+patient where to go instead, including three 999/urgent-help points across
+the seven Smartts pages (earache, insect-bite x2, sinusitis, sore-throat all
+carry a 999 or A&E escalation).
+
+BASELINE
+Full repo tar --exclude='.git' copied to
+/sessions/.../mnt/outputs/scratch-37-safetynet, entirely outside the tracked
+tree. sha256 of tools/build-service-pages.js and all 9 Smartts
+modules/service/pages/*.html files recorded before any edit. check-
+pharmacy-first-safety-net.js run clean on the tracked repo before starting:
+7 ready conditions, 98 condition pages checked, one WARN (impetigo names no
+urgent route, KNOWN exception Q61, unchanged). Full 36-checker sweep on the
+TRACKED repo: 36/36 exit 0.
+
+INJECTIONS (all on the scratch copy only, restored and sha256-reconfirmed
+after each before the next)
+
+1. RULE 6 (page verbatim), sinusitis-treatment-smartts-bootle.html: heading
+   changed from "When to get different help" to "When to get help
+   elsewhere". CAUGHT first attempt: "the safety-net heading is missing from
+   the page (rule 6), expected: When to get different help". Restored,
+   sha256 confirmed identical to baseline.
+
+2. RULE 6+7 (page verbatim / contamination), insect-bite-treatment-smartts-
+   bootle.html: insect-bite's own third bullet ("Spreading redness with a
+   high temperature or feeling very unwell needs urgent help, call NHS 111")
+   replaced with sore-throat's own point ("Difficulty breathing, drooling or
+   a muffled voice need urgent help, call 999 or go to A&E"). CAUGHT first
+   attempt, two failures as expected: rule 6 (insect-bite's own point now
+   missing) and rule 7 ("carries a safety-net point that belongs to the
+   sore-throat pathway, not this one"). No cross-firing on any other branch.
+   Restored, sha256 confirmed identical to baseline.
+
+3. RULE 3 (lower boundary, generator-level), tools/build-service-pages.js,
+   impetigo CONDITIONS.eligibleNo: "Babies under 1 should see a GP" changed
+   to "Babies should see a GP". CAUGHT first attempt: "impetigo: NHS covers
+   this pathway from age 1 and the safety net never names the excluded side
+   as \"under 1\" (rule 3)". Expected cascade also fired correctly: every
+   live impetigo page (Scorah Bramhall, Scorah Hazel Grove, SK Chemists
+   Bootle, Smartts Bootle, Tiffenbergs Aintree) failed rule 6 (own point now
+   missing) and rule 7 (the unchanged page text "Babies under 1 should see a
+   GP" now literally matches earache/insect-bite's own owned point, correctly
+   read as contamination) - confirms rules 1-5 read the generator directly
+   (condition-level, estate-wide) while rules 6-7 read each page
+   independently, exactly as the checker's own header states. Restored,
+   sha256 confirmed identical to baseline (773246dd7b002fa46a2ccd845bb936f
+   435a0b53071cb94aa9f47ed0f02ef766b).
+
+4. RULE 5 (emergency wording), tools/build-service-pages.js, earache
+   CONDITIONS.eligibleNo: "call 999 or NHS 111" changed to "999 or NHS 111"
+   (word "call" dropped). CAUGHT first attempt: "earache: a safety-net point
+   names 999 without instructing the reader to call it (rule 5)". Restored,
+   sha256 confirmed identical to baseline.
+
+All four injections fired on their own intended rule, first attempt, no
+cross-firing beyond the correctly-expected generator-level cascade in
+injection 3. Full 36-checker suite re-run on the scratch copy after the
+final restore: 35/36 exit 0, check-cdn-pins.js failing only on the
+documented .git-less scratch-copy artefact (six FAILs, all "does not resolve
+in git" / branches.json @main fetch - the scratch copy has no .git
+directory, tar excluded it) - re-run directly against the TRACKED repo:
+clean, 0 failures. Tracked repo confirmed untouched throughout: sha256 of
+tools/build-service-pages.js and all 9 Smartts pages unchanged, git status
+--porcelain showed no new modifications to any tracked file.
+
+LIVE HALF (read-only; Claude in Chrome MCP tried once via
+tabs_context_mcp/navigate, reported not connected, Q59, logged and not
+retried by any other route; curl used instead)
+https://www.smarttschemist.co.uk/impetigo-treatment-smartts-bootle.html:
+200, "When to get different help" block byte-for-byte matches the repo
+(three points, same order, same wording). sitemap.xml: 200, this page's
+lastmod 2026-08-15T07:36:26+00:00. earache-treatment-smartts-bootle.html:
+200, safety-net block also matches the repo exactly, including "call 999 or
+NHS 111". No drift between repo and live for either page checked.
+
+VERDICT
+No in-repo defect found. No copy changed anywhere in the tracked repo. No
+regeneration needed. No new question. check-pharmacy-first-safety-net.js
+now proven directly against Smartts Bootle for the first time in sixteen
+passes, covering rules 3, 5, 6 and 7 of its seven rules by injection (rules
+1, 2 and 4 remain unproven against this branch specifically - rule 1 needs a
+missing eligibleNo block or fewer than 3 points, rule 2 needs a condition
+with no onward route at all, rule 4 needs a condition with an upper age
+boundary, none of which Smartts's own seven conditions currently exercise
+differently from the estate as a whole - a future pass could target those
+three against a different branch/condition pairing).
+
+Files changed this pass: audits/smartts-item-3.7-quality-pass-2026-09-11-
+sixteenth.txt (new), AGENT_WORKLIST.md (item 3.7 paragraph appended),
+AGENT_LOG.md (this run's entry). No changes to gbp-packs/, modules/, core/,
+tools/ or branches.json.

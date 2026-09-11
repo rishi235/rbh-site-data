@@ -6468,6 +6468,27 @@ No in-repo defect found, no copy changed anywhere in the repo, no new
 question. Evidence in audits/smartts-item-3.7-quality-pass-2026-09-09-fifteenth.txt
 and audits/verify-3.7-2026-09-09-fifteenth.js.
 Done 2026-09-09 (fifteenth pass).
+Quality pass 2026-09-11 (sixteenth): fresh angle, tools/check-pharmacy-first-
+safety-net.js had never been the deliberately targeted checker against
+Smartts despite the branch carrying all seven ready Pharmacy First condition
+pages, the highest-consequence copy family on the branch. Four injections on
+a scratch copy (tar --exclude='.git', tracked repo never opened for
+writing): a heading swap and a cross-condition safety-net point both on
+Smartts's own pages (insect-bite/sore-throat), plus a lower-boundary removal
+and an emergency-wording defect on the shared generator (impetigo, earache),
+covering rules 3, 5, 6 and 7 of the checker's seven rules. All four CAUGHT
+first attempt on their own intended rule; injection 3's generator-level edit
+correctly cascaded rule 6/7 failures across every branch serving impetigo,
+confirming rules 1-5 read the generator directly while 6-7 read each page
+independently, exactly as documented. Full 36-checker suite: 35/36 on the
+scratch copy (check-cdn-pins.js fails only on the documented .git-less
+scratch-copy artefact, clean against the tracked repo). Tracked repo
+confirmed untouched by sha256 throughout. Live half, read-only (curl, Chrome
+unavailable per Q59): impetigo and earache Smartts pages both 200, safety-net
+blocks byte-for-byte matching the repo, no drift. No in-repo defect, no
+regeneration needed, no new question. Full detail in
+audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
+4 remain unproven against this branch specifically for a future pass.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
