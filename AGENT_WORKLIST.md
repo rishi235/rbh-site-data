@@ -15801,6 +15801,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       fetch could verify regardless. No new question. Evidence
       in audits/smartts-bootle-bank-holiday-note-4.10-fourteenth-2026-09-09.txt.
       Done 2026-09-09.
+      Fifteenth quality pass 2026-09-11 (unattended scheduled run via Cowork
+      sandbox mcp__workspace__bash for research and injection testing; bash
+      git left an unlinkable .git\index.lock on this pass's own git status
+      call - "Operation not permitted", confirmed no real git process running
+      via mcp__Windows-MCP__Process - so git add/commit/push went via
+      mcp__Windows-MCP__PowerShell instead, clearing the stray lock first;
+      Claude in Chrome MCP tried first for the answer-pickup and reported not
+      connected, not retried by any other route, no login attempted): fresh
+      angle - the CLINIC_QUALIFIERS rule (born item 4.8 pass, 2026-08-14,
+      proved by injection against fishlocks-eccleston.md at birth) had never
+      been individually proved against this pack's own copy across fourteen
+      prior passes, confirmed by grepping this item's full paragraph history
+      for "qualifier", "supervised plan" and "subject to availability" -
+      none found outside a live-page re-read. Smartts Bootle carries both
+      weightLoss and travelClinic widgets and is not in KNOWN_CLINIC_QUALIFIER,
+      so all six qualifier rules genuinely apply. Baseline: 36/36 checkers
+      exit 0, sha256(smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass exactly. Six injections against a full-repo
+      scratch copy (with .git, per the ninth pass's method note), each
+      restored and sha256-reconfirmed before the next: weightLossPaid,
+      weightLossSuitability, weightLossSupervised and travelSuitability
+      removed one at a time from Posts C and D, and
+      servicesWeightLossSupervised and servicesTravelSuitability removed one
+      at a time from the Services section bullets - ALL SIX CAUGHT, each
+      with the exact expected message. REAL DEFECT FOUND AND FIXED, in the
+      checker rather than the pack: a documented honest-rewrite control
+      ("not right for everyone" -> "not suitable for everyone") correctly
+      passed, but reordering "private, paid service" to "paid, private
+      service" - the identical substantive claim, worded the way a paster
+      might naturally write it - FAILED INCORRECTLY, in direct tension with
+      this rule block's own comment that wording is "matched loosely enough
+      to survive an honest rewrite". Fixed by widening weightLossPaid's
+      regex from /private,?\s+paid\s+service/i to
+      /(?:private,?\s+(?:and\s+)?paid|paid,?\s+(?:and\s+)?private)\s+service/i,
+      accepting either word order with or without "and". Re-verified against
+      the tracked repo (pack backed up and byte-restored after every edit,
+      sha256-reconfirmed): both reordered forms now pass; a genuine removal
+      of "paid" entirely still fails with the same message as before; full
+      36-checker suite re-run clean (36/36); git status --porcelain on
+      modules/, core/, branches.json and gbp-packs/ empty bar the
+      pre-existing untracked FUSE stray. gbp-packs/ is not a generator input,
+      so no rebuild was needed; only tools/check-gbp-packs.js changed. Q75
+      (medical cannabis benefit/availability claims, still open) not
+      re-raised or extended here - a separate, judgement-based gap this
+      mechanical fix does not touch. Live half not performed: Claude in
+      Chrome not connected (standing Q59). No new question. Evidence in
+      audits/smartts-bootle-clinic-qualifiers-4.10-fifteenth-2026-09-11.txt.
+      Done 2026-09-11.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

@@ -1,0 +1,123 @@
+Item 4.10 quality pass (fifteenth), 2026-09-11
+Pack: gbp-packs/smartts-bootle.md
+Rule under test: CLINIC_QUALIFIERS in tools/check-gbp-packs.js (born item 4.8
+quality pass, 2026-08-14, proved by injection against
+gbp-packs/fishlocks-eccleston.md at birth; never individually proved against
+this pack's own copy across fourteen prior passes on this item, confirmed by
+grepping the item's full paragraph history for "qualifier", "supervised
+plan", "not right for everyone" and "subject to availability" - none found
+outside a live-page re-read on the sixth pass).
+
+Smartts Bootle carries both weightLoss and travelClinic widgets in
+branches.json (confirmed: weightLoss 66c86882ec8717372992a309, travelClinic
+6a5bf199f1b6a563bc42908c) and is NOT listed in KNOWN_CLINIC_QUALIFIER, so all
+six CLINIC_QUALIFIERS entries genuinely apply to this pack rather than being
+exempted.
+
+BASELINE: node tools/check-gbp-packs.js exit 0, 0 failures, one pre-existing
+WARN naming this pack (live-only pfLink target, unchanged from every prior
+pass). sha256(gbp-packs/smartts-bootle.md) =
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching
+every one of the fourteen prior passes' recorded hash exactly. Full 36-checker
+suite: 36/36 exit 0.
+
+METHOD: full repo copied to /tmp/scratch410 WITH .git included (per the ninth
+pass's own method note, avoiding the false check-cdn-pins.js failure a .git-
+less scratch copy produces). All six qualifier injections run against the
+scratch copy only; the two follow-up findings (control test and the fix) were
+proved directly against the tracked repo since they required editing
+tools/check-gbp-packs.js itself, with the pack file backed up and byte-
+restored after every pack-side edit and sha256-reconfirmed before the next.
+
+SIX INJECTIONS (scratch copy), each restored by byte copy and sha256-
+reconfirmed identical before the next:
+
+1. weightLossPaid - "This is a private, paid service" shortened to "This is a
+   service" in Post C. CAUGHT: "does not state that the weight loss clinic is
+   a private, paid service."
+
+2. weightLossSuitability - "and it is not right for everyone - the
+   pharmacist will advise" removed from Post C. CAUGHT: "does not state that
+   the weight loss clinic is not right for everyone, or that the pharmacist
+   will advise."
+
+3. weightLossSupervised - "as part of a supervised plan" removed from Post
+   C's "we support you at every step..." sentence. CAUGHT: "does not state
+   that the weight loss clinic is a supervised plan."
+
+4. travelSuitability - "subject to availability and clinical suitability"
+   removed from Post D. CAUGHT: "does not state that travel vaccinations are
+   subject to availability and clinical suitability."
+
+5. servicesWeightLossSupervised - "as part of a supervised plan" removed from
+   the Services section's weight loss bullet. CAUGHT: "Services section does
+   not state that the weight loss clinic is a supervised plan."
+
+6. servicesTravelSuitability - "subject to availability and clinical
+   suitability" removed from the Services section's travel clinic bullet.
+   CAUGHT: "Services section does not state that travel vaccinations are
+   subject to availability and clinical suitability."
+
+All six legs fire independently on this pack's own copy, matching the
+established pattern.
+
+CONTROL AND THE FINDING (proved against the tracked repo, pack restored after
+each edit):
+
+Test B (documented honest-rewrite case): "it is not right for everyone" ->
+"it is not suitable for everyone", nothing else changed. PASSED (exit 0),
+confirming the weightLossSuitability regex's documented either-wording
+allowance holds on this pack's own copy.
+
+Test A (undocumented case): "This is a private, paid service" -> "This is a
+paid, private service", nothing else changed - the identical substantive
+claim (the clinic is both private and paid), reordered the way a paster might
+naturally write it. FAILED INCORRECTLY (exit 1): "does not state that the
+weight loss clinic is a private, paid service." The weightLossPaid regex,
+/private,?\s+paid\s+service/i, required "private" before "paid" and rejected
+the reverse order outright - a false positive on an honest rewrite, the same
+shape as the abbreviation and case-sensitivity gaps this file's other rules
+have already been widened for, and in direct tension with this rule block's
+own comment ("Wording is matched loosely enough to survive an honest
+rewrite").
+
+Test A2 (same finding, "and" variant): "private, paid service" -> "private and
+paid service". FAILED INCORRECTLY before the fix for the same reason (word
+order untouched here, but confirms the joining-word rigidity was part of the
+same gap once the fix was designed to cover both).
+
+FIX applied to tools/check-gbp-packs.js: widened weightLossPaid's regex from
+/private,?\s+paid\s+service/i to
+/(?:private,?\s+(?:and\s+)?paid|paid,?\s+(?:and\s+)?private)\s+service/i.
+Accepts "private, paid service", "private paid service", "private and paid
+service", "paid, private service", "paid private service" and "paid and
+private service"; still requires both words together with "service", so it
+cannot be satisfied by either word alone (re-proved below).
+
+POST-FIX VERIFICATION (tracked repo, pack restored after each):
+- Test A re-run: PASSED (exit 0).
+- Test A2 re-run: PASSED (exit 0).
+- Negative control - "private, paid service" shortened to "private service"
+  (removing "paid" entirely, not just reordering it): still FAILED correctly,
+  identical message to injection 1, confirming the widened regex has not been
+  loosened into accepting a pack that never mentions "paid" at all.
+- Pack file confirmed byte-identical to the pre-session baseline throughout
+  (sha256 541239e0...003796b unchanged; diff empty).
+- Full 36-checker suite re-run clean: 36/36 exit 0, same single pre-existing
+  WARN.
+- git status --porcelain -- modules/ core/ branches.json gbp-packs/: empty
+  (bar the pre-existing untracked gbp-packs/.fuse_hidden... stray already
+  noted on an earlier run and out of scope here). gbp-packs/ is not a
+  generator input, so no page regeneration was needed; only
+  tools/check-gbp-packs.js changed.
+
+NO CONTENT CHANGED: gbp-packs/smartts-bootle.md, every other pack, every
+generator and branches.json are all untouched. This is a mechanical widening
+of one checker's own regex to stop it rejecting an honest rewrite it should
+accept, not a business, legal, pricing or regulatory decision. Q75 (medical
+cannabis benefit/availability claims, raised on this item's fourth pass,
+2026-08-14) remains open and untouched; CLINIC_QUALIFIERS does not cover
+medical cannabis and this pass does not extend it there, since that requires
+Rishi's decision on which wording to require, not a mechanical fix.
+
+No new question raised.

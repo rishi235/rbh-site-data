@@ -346,13 +346,27 @@ const BODY_IMAGE_CONTEXT = [
 // for everyone" and "not suitable for everyone" are both live and both count,
 // and the pharmacist-will-advise clause satisfies the same requirement on its
 // own.
+//
+// weightLossPaid's word order was not one of those honest-rewrite allowances
+// until the item 4.10 fifteenth quality pass, 2026-09-11. The regex accepted
+// only "private, paid service" and silently rejected "paid, private service"
+// - the identical substantive claim (the clinic is both private and paid),
+// reordered the way a paster might naturally write it. Proved by injection
+// directly against gbp-packs/smartts-bootle.md's own Post C: swapping the
+// two words and nothing else failed the pack outright, the same false-
+// positive shape as the abbreviation and case-sensitivity gaps this file's
+// other rules have already been widened for. Fixed by accepting either
+// order, with or without "and" joining the two words, so "private and paid",
+// "paid and private", "paid, private" and the original "private, paid" all
+// count; the rule still requires both words and "service" together, so it
+// cannot be satisfied by either word alone.
 const CLINIC_QUALIFIERS = [
   {
     key: "weightLossPaid",
     widget: "weightLoss",
     where: "post",
     postRe: /weight loss/i,
-    re: /private,?\s+paid\s+service/i,
+    re: /(?:private,?\s+(?:and\s+)?paid|paid,?\s+(?:and\s+)?private)\s+service/i,
     what: "that the weight loss clinic is a private, paid service",
     why:
       "a GBP post is an advertisement, and a private weight loss clinic " +
