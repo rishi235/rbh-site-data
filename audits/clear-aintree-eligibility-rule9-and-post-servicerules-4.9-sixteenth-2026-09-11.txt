@@ -1,0 +1,175 @@
+Item 4.9 quality pass (sixteenth), 2026-09-11
+Pack: gbp-packs/clear-aintree.md (Clear Chemist Aintree, branch id clearchemist_aintree)
+Run: ninth unattended scheduled run of the day (audit-backlog-worker)
+
+ROTATION SELECTION
+-------------------
+43 [x] AGENT_WORKLIST.md items minus 7 standing out-of-rotation items (1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 8 items touched earlier today per
+`git log --since=2026-09-11T00:00:00 -- AGENT_WORKLIST.md` (3.1, 4.3, 4.6,
+4.5, 1.3, 4.13, 4.8, 4.10) = 28 candidates. `git log -1 --format=%aI --all
+--grep="Item N.N " -- AGENT_WORKLIST.md` run per candidate; 4.9 uniquely
+stalest at 2026-09-09T12:11:51+01:00, matching the eighth run's own forward
+note exactly (runner-up 4.12 at 12:41:22). All 8 unchecked AGENT_WORKLIST.md
+lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] first.
+
+BASELINE
+--------
+sha256 of gbp-packs/clear-aintree.md before any change:
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+(matches every one of the fifteen prior passes on this item exactly)
+node tools/check-pharmacy-first-eligibility.js: exit 0, clean.
+node tools/check-gbp-packs.js: exit 0, 0 failures, pre-existing WARNs only.
+Full check-*.js sweep (34 files): 0 nonzero exits.
+
+NEW ANGLE
+---------
+Fifteen prior passes on this item have proven a long list of checkers against
+this pack's own copy (check-gbp-packs.js's hours/postcode/town/no-hours-
+caveat rules, check-em-dashes.js, check-brand-spelling.js, check-url-
+scheme.js, check-uk-spelling.js, check-app-membership.js, check-gbp-
+pharmacy-first.js Rule 2, check-postcodes.js, check-pharmacy-first-cost.js
+Rules 4/5), but grepping this item's full paragraph history for
+"eligibility", "pharmacy-first-eligibility", "safety-net", "symptoms",
+"branch-links", "address-region", "live-hours" and "widget-diaries" returned
+nothing: tools/check-pharmacy-first-eligibility.js's Rule 9 (the NHS age-
+cohort pin that scans every GBP pack) had never been individually proven by
+injection against clear-aintree.md, despite Rule 9's own header naming
+gbp-packs/mccanns-sandringham.md as its birth-proof and this pack as one of
+only two packs (with TEMPLATE.md) explicitly exempted from the neighbouring
+Rule 11 because it "names no conditions and so makes no claim to qualify".
+Rule 9 itself carries no such exemption for this pack: it fires on ANY age
+number the copy states, not only on an enumerated condition list, so it was
+still live territory to test.
+
+check-pharmacy-first-safety-net.js and check-pharmacy-first-symptoms.js were
+confirmed by reading their own source to scan only modules/service/pages
+(PAGE_DIR), never gbp-packs/, so neither applies to a pack at all and neither
+was a valid injection target here. check-branch-links.js, check-address-
+region.js and check-live-hours.js were confirmed to read only branches.json,
+not any pack file, so they are not pack-content checkers either despite their
+comments referencing gbp-packs.js in passing.
+
+METHOD
+------
+Full repo copied with .git included to a scratch directory (/tmp/elig_scratch,
+matching the ninth pass's own method note); tracked pack untouched during the
+three rule-9 injections below (sha256 reconfirmed a5b90f58...321f4 unchanged
+before and after). Baseline on the scratch copy reproduced exactly (clean,
+0 failures).
+
+Three injections into the scratch copy's Post A ("Order through our website
+or app, or call us on 0151 203 6535 and speak to a person." was extended),
+each restored to the pre-injection text before the next:
+
+  1. Appended "This offer is for adults aged 25 and over." - age 25 matches
+     neither pinned cohort (women 16-64, adults 40+). CAUGHT:
+       FAIL gbp-packs/clear-aintree.md: states age 25, which is not part of
+       any NHS cohort this copy may state (rule 9)
+
+  2. Appended "This offer is for adults aged 40 and over." - the pinned
+     blood-pressure age with no "blood pressure" word in the same sentence.
+     CAUGHT on both of rule 9's branches, exactly as the code's own two-branch
+     shape predicts (the context test fails first, so the number is never
+     marked "accounted" and also fails the generic unaccounted-age check):
+       FAIL ...: states "aged 40 and over" in a sentence that never names the
+       NHS blood pressure check service, so a pinned cohort is attached to
+       the wrong service (rule 9)
+       FAIL ...: states age 40, which is not part of any NHS cohort this
+       copy may state (rule 9)
+
+  3. Control: appended "We also offer an NHS blood pressure check for adults
+     aged 40 and over." - correct age, correct context. Rule 9 correctly
+     PASSED (no failure), confirming the rule accepts well-formed copy and
+     is not simply matching "40" anywhere.
+
+All three behaved exactly as the rule's own design predicts; no gap found in
+rule 9 itself against this pack.
+
+REAL DEFECT FOUND AND FIXED (in a different checker, surfaced by injection 3)
+------------------------------------------------------------------------
+Injection 3's control sentence is a literal false claim: Clear Aintree has no
+bloodPressure widget in branches.json (confirmed - Note in the pack's own
+Section 3 says so explicitly), so "we also offer an NHS blood pressure check"
+is exactly the class of promise-the-branch-cannot-keep this repo's
+SERVICE_RULES reverse check in tools/check-gbp-packs.js exists to catch. That
+check DID exist (added item 4.8 pass, 2026-08-13) but only ever read
+svcBullets - the bulleted lines of Section 3, Services section content. Post
+A is Section 5. Running the full 34-file check-*.js sweep against the
+scratch copy with injection 3 still applied: ALL 34 EXIT 0. A false NHS
+service claim, sitting in the single most-read part of a Google Business
+Profile (Google surfaces Posts on the profile itself), passed every checker
+in the repo silently.
+
+Read tools/check-gbp-packs.js's own comment on the existing svcBullets rule:
+it deliberately reads bullets only, "because a correct pack may say in a note
+that a service is NOT offered: clear-aintree.md does exactly that" - so this
+pack's own Section 3 Note (naming Pharmacy First, blood pressure and
+contraception as absent) is the documented reason the existing rule is
+scoped the way it is. Posts were never brought into that scope at all.
+
+FIX: added a second reverse-SERVICE_RULES loop in tools/check-gbp-packs.js,
+immediately after the existing svcBullets loop, using the file's own
+postsOf() helper (already used by five other rules) to read each post's body
+with its Button: line and any paster note/STOP instruction already stripped.
+Same KNOWN_NOT_OFFERED exception map, keyed
+"<branch id>::serviceNotOfferedInPost::<service key>" so it cannot collide
+with the existing Section-3 key shape.
+
+Verified BEFORE landing: a read-only sweep of all 15 real packs' post bodies
+against all five SERVICE_RULES (reverse direction only, i.e. branch does not
+have the widget) returned ZERO matches - every existing pack was already
+clean, so this closes a latent hole rather than correcting a live breach, the
+same shape as the run 164 town rule and the item 4.5 seventeenth pass's
+paragraph-wrap fix.
+
+Verified AFTER landing, on the TRACKED repo (not the scratch copy):
+  - node -c tools/check-gbp-packs.js: syntax OK
+  - Clean tracked repo: exit 0, 0 failures (matches the zero-match sweep)
+  - Injected "We also offer an NHS blood pressure check for adults aged 40
+    and over." into Post A of the TRACKED gbp-packs/clear-aintree.md (backed
+    up first) - CAUGHT:
+      FAIL clear-aintree.md: Post A - Meet the team behind Clear Chemist
+      (replaces Pharmacy First) claims "NHS blood pressure check", but
+      branches.json gives this branch no bloodPressure widget, so the post
+      would advertise a service the branch does not run. Remove it, or add
+      the service to branches.json first
+  - Restored gbp-packs/clear-aintree.md from the pre-injection byte copy;
+    sha256 reconfirmed a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea
+    63275321f4, byte-diff empty.
+  - Full check-*.js sweep re-run on the tracked repo after restore: 0 nonzero
+    exits (34/34 clean).
+  - `git status --porcelain -- modules/ core/ branches.json gbp-packs/
+    tools/ status/` shows only tools/check-gbp-packs.js modified; the two
+    pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+    modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) are
+    unchanged debris already noted on earlier runs, left untouched.
+
+gbp-packs/ is not a generator input, so no page regeneration was needed for
+this fix; only tools/check-gbp-packs.js changed.
+
+LIVE HALF
+---------
+Claude in Chrome MCP: tabs_context_mcp returned "Claude in Chrome is not
+connected" (standing Q59). Fell back to a direct read-only curl (network
+reachable this run):
+  - https://www.clearchemist.co.uk -> 200
+  - Contact page: phone reads 0151 203 6535 three times, 8365 nowhere (Q28
+    unchanged, confirmed fixed 2026-09-01) and WhatsApp 07512 330 076 present
+    (Q21's concrete case, unchanged)
+  - All three post-target URLs still 404: switch-prescriptions-clear-
+    aintree.html, weight-loss-clinic-clear-aintree.html, travel-clinic-
+    clear-aintree.html (Q29 unchanged, homepage-button workaround in the
+    pack still correct and necessary)
+
+No new live finding; Q21, Q28 (fixed) and Q29 all stand exactly as last
+verified.
+
+NO NEW QUESTION RAISED
+-----------------------
+The gap found and fixed is a mechanical checker-scope widening with zero
+pre-existing hits across the estate (a preventive fix, not a live-copy
+correction), the same class of fix as the item 4.5 seventeenth pass and the
+item 4.9 fourth and twelfth passes, none of which needed Rishi's decision.
+No pricing, medicine name, efficacy claim or other regulatory copy was
+touched or found.

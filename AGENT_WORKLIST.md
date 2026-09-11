@@ -15374,6 +15374,62 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       2026-09-08. No in-repo defect found, no new question raised. Evidence:
       audits/clear-aintree-pharmacy-first-cost-4.9-fifteenth-2026-09-09.txt.
       Done 2026-09-09
+      Sixteenth quality pass 2026-09-11: fresh angle, proving
+      tools/check-pharmacy-first-eligibility.js's rule 9 (the NHS age-cohort
+      pin) against this pack's own copy for the first time in sixteen
+      passes, confirmed by grepping this item's full history for
+      "eligibility", "safety-net" and "symptoms" - none found. Full repo
+      copied with .git to a scratch directory; tracked pack untouched
+      throughout (sha256 a5b90f58...321f4 unchanged, reconfirmed after every
+      restore). Baseline clean, 34/34 checkers. Three injections into Post A,
+      each restored before the next: (1) "aged 25 and over" (no pinned
+      cohort) - CAUGHT, "not part of any NHS cohort this copy may state";
+      (2) "aged 40 and over" with no "blood pressure" wording nearby (the
+      pinned age, wrong context) - CAUGHT on both of rule 9's branches, as
+      its two-part design predicts; (3) control, "We also offer an NHS
+      blood pressure check for adults aged 40 and over" (correct age,
+      correct context) - correctly PASSED rule 9. Rule 9 itself has no gap
+      against this pack.
+      REAL DEFECT FOUND AND FIXED, in a different checker, surfaced by the
+      control injection: that sentence is a literal false service claim (no
+      bloodPressure widget in branches.json, confirmed by this pack's own
+      Section 3 Note), and running the full 34-checker sweep with it still
+      applied returned 34/34 exit 0. tools/check-gbp-packs.js's SERVICE_RULES
+      reverse check (born item 4.8 pass, 2026-08-13, "a Services entry for
+      something the branch does not run is a promise made to a patient who
+      then makes a journey for it") only ever read svcBullets, Section 3's
+      bullet lines, because its own comment names this exact pack as the
+      reason it is scoped that way: "a correct pack may say in a note that a
+      service is NOT offered: clear-aintree.md does exactly that". Posts
+      (Section 5) were never brought into that scope, although Google
+      surfaces Posts on the profile itself, more prominently than the
+      Services section. FIXED: added a second reverse-SERVICE_RULES loop
+      using the file's own postsOf() helper (Button: line and paster notes
+      already stripped, the same extraction five other rules already trust),
+      same KNOWN_NOT_OFFERED map with a distinct key shape
+      (serviceNotOfferedInPost). Verified before landing: swept all 15 real
+      packs' post bodies against all five SERVICE_RULES in the reverse
+      direction - zero matches, so every existing pack was already clean and
+      this closes a latent hole rather than a live breach. Verified after
+      landing on the tracked repo: clean run unaffected (34/34); the same
+      control sentence injected directly into the tracked pack (backed up
+      first) now CAUGHT correctly, naming Post A, the service and the
+      missing widget; restored, sha256 reconfirmed identical
+      (a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4);
+      full 34-checker suite re-run clean. `git status --porcelain` on
+      modules/, core/, branches.json, gbp-packs/, tools/, status/ shows only
+      tools/check-gbp-packs.js changed. gbp-packs/ is not a generator input,
+      so no rebuild was needed. LIVE: Claude in Chrome not connected
+      (standing Q59); read-only curl fallback (network reachable this run)
+      confirmed the contact page still reads 0151 203 6535 with 8365 nowhere
+      (Q28, fixed and unchanged) and WhatsApp 07512 330 076 still distinct
+      from the estate default (Q21's concrete case, unchanged); all three
+      post-target URLs still 404 (Q29 unchanged, homepage-button workaround
+      still correct and necessary). No new question raised: a mechanical,
+      zero-pre-existing-hit checker widening, not a live-copy or regulatory
+      decision. Evidence:
+      audits/clear-aintree-eligibility-rule9-and-post-servicerules-4.9-sixteenth-2026-09-11.txt.
+      Done 2026-09-11
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

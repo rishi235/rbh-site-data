@@ -1147,6 +1147,37 @@ for (const file of packFiles) {
     fail(file, `Services section lists "${rule.name}", but branches.json gives this branch no ${rule.key} widget, so the profile would advertise a service the branch does not run. Remove it, or add the service to branches.json first`);
   }
 
+  // And the same reverse rule again, on the POST BODIES, found on the item 4.9
+  // quality pass (sixteenth, 2026-09-11) while proving check-pharmacy-first-
+  // eligibility.js's rule 9 against clear-aintree.md by injection. That
+  // injection added a false NHS blood pressure claim to Post A and every one
+  // of the 36 checkers passed except the one rule 9 injection was aimed at:
+  // the reverse SERVICE_RULES check above only ever read svcBullets, Section
+  // 3's bullet lines, so a false service claim placed in a Post instead of the
+  // Services section was invisible to it. A Post is posted copy in exactly
+  // the same sense a Services bullet is, and it is read by more patients,
+  // since Google surfaces posts on the profile itself rather than behind a
+  // "See more" tap. Scoped to postsOf()'s own p.body (Button: line and any
+  // paster note or STOP/DO NOT POST instruction block already stripped, the
+  // same extraction check-app-membership.js's Rule 8 and the phone-in-
+  // published-copy rule already trust), so a paster note explaining why a
+  // service is absent - the exact shape clear-aintree.md's own Section 3 Note
+  // already uses, and the reason bulletsOf() above reads bullets only rather
+  // than the whole section - cannot trip this either. Verified against all 15
+  // real packs before landing: zero matches, so every existing pack was
+  // already clean and this closes a latent hole rather than correcting a live
+  // breach, the same shape as the run 164 town rule and the item 4.5
+  // seventeenth pass's paragraph-wrap fix.
+  for (const p of postsOf(text)) {
+    for (const rule of SERVICE_RULES) {
+      if (widgets[rule.key]) continue;
+      if (!rule.re.test(p.body)) continue;
+      const key = `${b.id}::serviceNotOfferedInPost::${rule.key}`;
+      if (KNOWN_NOT_OFFERED[key]) { seenNotOfferedKnown[key] = true; continue; }
+      fail(file, `${p.label} claims "${rule.name}", but branches.json gives this branch no ${rule.key} widget, so the post would advertise a service the branch does not run. Remove it, or add the service to branches.json first`);
+    }
+  }
+
   // --- claims outside the known vocabulary --------------------------------
   // Found on the item 4.4 quality pass, 2026-08-13, by injection.
   //
