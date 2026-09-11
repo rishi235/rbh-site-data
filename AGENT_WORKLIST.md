@@ -14547,6 +14547,45 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       confirming no republish since the fifteenth pass's own reading. No new
       question. Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-09-sixteenth.txt.
+      Quality pass 2026-09-11 (seventeenth, unattended scheduled run, Cowork sandbox
+      shell only). Taken because all 8 unchecked worklist lines are [BLOCKED] (5.3,
+      5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6, confirmed by
+      direct grep). Rotation pick re-derived from first principles this pass: 36-item
+      pool (43 checked items minus the seven standing out-of-rotation one-offs 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8), minus today's fourteen already-touched items, then
+      ranked the remainder by true git-log last-touch timestamp rather than a text
+      date scan. 4.7 was uniquely stalest at 2026-09-09T15:45:04+01:00 (its own
+      sixteenth pass), ahead of 4.14, 1.2, 3.11, 4.4, 4.1, 3.2 and 3.5, all also last
+      touched 2026-09-09. Baseline: pack sha256
+      bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e matches every
+      prior pass, no drift; full 34-checker suite clean on a scratch copy
+      (/tmp/scratch47, via git archive) before any edit. FRESH ANGLE: sixteen prior
+      passes proved fourteen rule families against this pack, but the photo shot list
+      rules in check-gbp-packs.js (photoCount, photoVinyl, photoGoogleUpdates, added
+      on the item 4.3 pass, 2026-08-11) had never been named once in this item's own
+      history, despite the checker's own comment recording that this exact pack was
+      the one found missing the pending-Google-updates reminder when the rule was
+      written. Three injections on the scratch copy, each restored by byte copy and
+      sha256/cmp-reconfirmed before the next: (1) removed the tenth photo bullet,
+      dropping the count to 9 - caught, "Photo shot list names 9 shots ... asks for at
+      least 10"; (2) collapsed the vinyl bullet to drop the word "vinyl" while holding
+      the bullet count at 10 - caught on its own rule only, no photoCount cross-fire;
+      (3) removed the pending-Google-updates sentence from section 4 only, leaving
+      the near-identical reminder in the paster notes untouched - caught, confirming
+      the rule is correctly scoped to section 4 and not satisfied by the same words
+      appearing elsewhere in the file. All three fired first attempt, no cross-firing.
+      Full 34-checker suite re-run clean after final restore; pack sha256 and cmp
+      reconfirmed identical to baseline; tracked repo's own copy never opened for
+      writing; `git status --porcelain` on gbp-packs/, tools/, modules/, core/ and
+      branches.json shows only two pre-existing, unrelated untracked strays. Zero
+      in-repo defect - all three photo shot list rules now proven directly against
+      this pack for the first time in seventeen passes. Live half performed via plain
+      curl GET/HEAD (Claude in Chrome not connected, Q59, not retried). All findings
+      reconfirmed unchanged: pharmacy-mccanns-sandringham.html still 404 and absent
+      from the sitemap (Q35); the four post-target pages all 200; sitemap lastmod
+      unchanged at 2026-08-14T23:05:25Z, confirming no republish since the sixteenth
+      pass's own reading. No new question. Evidence:
+      audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-11-seventeenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
