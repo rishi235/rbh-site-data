@@ -2225,6 +2225,39 @@ first attempt with the exact documented message. Tracked repo's
 branches.json confirmed byte-identical throughout; full 36-checker suite
 clean before and after. Zero in-repo defect, no new question. Evidence in
 audits/seo-pattern-hostmap-vacuity-3.1-fifteenth-2026-09-09.txt.
+Quality pass (sixteenth), 2026-09-11 (unattended scheduled run, via
+Windows-MCP PowerShell on the real machine - the Cowork sandbox was
+unreachable at the infrastructure level, "No space left on device", before
+any repo work began). Baseline: all 36 checkers clean, all six generators
+byte-identical (217 files under modules/+core/, sha256
+5827b582dde9f953c619b8bab287c1754cbd21dc6dffb48e94ad692eedc44530 unchanged),
+git status --porcelain clean but for the two pre-existing untracked scratch
+artefacts. Re-read the full 773-line checker and the full 391-line
+tools/seo-pattern.js against all fifteen prior passes' own accounts and found
+one genuinely untested angle: fitTitle()'s own defensive comparison,
+`retry.length < full.length ? retry : full`, never proven to actually reject
+a bad rescue because today's shortenBrand() only ever shortens. On a scratch
+copy (git archive zip route, outside the tracked tree), shortenBrand() was
+changed to LENGTHEN the brand instead of trimming it (simulating a future
+regression rather than the rescue simply not firing). Result: the guard held
+at every level checked - the self-test, the real regenerated page
+(insect-bite-treatment-coleman-leigh-walton.html), and check-seo-pattern.js
+(177/0/0) all still showed the full, un-shortened brand, never the injected
+string; check-seo-lengths.js correctly caught the resulting over-length title
+by name ("70 characters, over the 65 limit"), the same pre-Q14 shape as the
+sixth pass's opposite-direction test. So fitTitle's comparison is a real
+regression guard against a future broken shortenBrand(), not a formality,
+now proven by injection. File restored by direct byte copy (the scratch copy
+has no .git), sha256-reconfirmed identical
+(727fc93818e0df7f6efafce5c151c26dcb4656dc8f4b86ef8ee7911e058f9025); scratch
+deleted; tracked repo reconfirmed byte-identical and all 36 checkers clean
+afterwards. Zero in-repo defect, no checker/page/generator/branches.json
+entry changed. LIVE HALF: no browser access available unattended (declined);
+fell back to a direct HTTPS GET of
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html - HTTP 200,
+title and H1 both the pattern verbatim, unchanged from every prior pass. No
+new question. Evidence in
+audits/seo-pattern-fittitle-guard-3.1-sixteenth-2026-09-11.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
