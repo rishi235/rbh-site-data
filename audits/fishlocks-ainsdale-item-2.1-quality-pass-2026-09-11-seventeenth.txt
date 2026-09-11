@@ -1,0 +1,133 @@
+Item 2.1 quality pass, seventeenth pass, 2026-09-11 (unattended run).
+Branch: Fishlocks Chemist Ainsdale (fishlocks_ainsdale).
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Rotation pool re-derived via a Python pass
+over every itemised block's own last 2026-09-dated string, bounded by the
+next itemised line (49 itemised blocks; one-off pool 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8 excluded before ranking; blocked items excluded from the eligible
+pool). Result: twelve items tied at 2026-09-10 as the stalest date (2.1, 3.4,
+3.6, 3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3). Chosen: 2.1, lowest
+item number as tiebreak.
+
+FRESH ANGLE
+tools/check-seo-lengths.js had never been named once across sixteen prior
+passes on this item, despite Fishlocks Ainsdale being one of the three
+shared-domain branch pairs (with Fishlocks Eccleston, on
+fishlockpharmacy.co.uk) that CLAUDE.md's "town rules" and "heading nothing
+compared" sections both name as the exact shape this checker's rules 3 and 4
+exist to protect, and despite the checker's own docstring using this
+branch's own shingles-treatment page as its worked example of a deliberately
+brand-free family A H1. Every prior pass on this item that touched SEO
+copy did so via check-seo-pattern.js, check-seo-sheets.js or check-seo-
+keywords.js (which prove pattern-match, sheet-agreement and keyword content)
+or check-em-dashes.js (which proves no dash reaches the copy) - none of
+those proves a title actually fits 65 characters, a description actually
+fits its 80-165 window, or that two pages cannot share a title, description,
+permalink or H1. That gap is exactly what check-seo-lengths.js exists to
+close, and it had not been proven against this branch's own copy by direct
+injection.
+
+INSTRUMENT
+New script: audits/verify-2.1-2026-09-11-seventeenth.js. Operates only on a
+scratch copy (tar --exclude='.git' to
+/sessions/gifted-busy-albattani/mnt/outputs/scratch-21; root filesystem at
+93% full, avoided; tracked repo never opened for writing). Refuses to run if
+the baseline checker run on the scratch copy is not already clean. Captures
+each target file's exact bytes and sha256 before any mutation, restores by
+direct fs.writeFileSync immediately after capturing the checker's output and
+before any assertion, sha256-reconfirms byte-identical restoration after
+every injection and again at the end.
+
+Baseline (scratch copy, before any injection):
+  SEO.md sha256:     9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1d
+  earache.html sha256: de880868cfdac24d6e8ba58b011a905ddfac46c4d6870d3639b3b39ed2ca118c
+  check-seo-lengths.js baseline run: exit 0, clean.
+  Full 35-checker suite on the scratch copy (34 check-*.js scripts, excluding
+  the copy itself): 34/35 clean; check-cdn-pins.js fails only on the .git-less
+  scratch copy's inability to resolve CDN refs (documented artefact of this
+  copy method since earlier passes), separately reconfirmed exit 0 against
+  the tracked repo directly, both before and after this pass's work.
+
+FIVE INJECTIONS, each restored and sha256-reconfirmed identical before the
+next:
+
+  [1] RULE 1 (title length) - modules/service/pages/SEO.md, Fishlocks
+      Ainsdale UTI title lengthened from 64 to 83 characters ("UTI treatment
+      and cystitis treatment in Ainsdale near Southport - Fishlocks
+      Chemist"). CAUGHT first attempt: "uti-treatment-fishlocks-ainsdale
+      (modules/service/pages/SEO.md): title is 83 characters, over the 65
+      limit, so Google truncates it."
+
+  [2] RULE 2 (description length) - Fishlocks Ainsdale Sore throat
+      description shortened from 173 to 42 characters ("Sore throat
+      treatment, Fishlocks Ainsdale."). CAUGHT first attempt: "sore-throat-
+      treatment-fishlocks-ainsdale (modules/service/pages/SEO.md):
+      description is only 42 characters, under the 80 minimum."
+
+  [3] RULE 3 (permalink uniqueness) - Fishlocks Eccleston's own Sinusitis
+      permalink overwritten with Fishlocks Ainsdale's Sinusitis permalink,
+      the shared-domain self-competition shape CLAUDE.md's "town rules"
+      section names this pair as one of three examples of. CAUGHT first
+      attempt: "duplicate permalink shared by 2 pages: Fishlocks Chemist -
+      Ainsdale - Sinusitis (modules/service/pages/SEO.md), Fishlocks Chemist
+      - Eccleston - Sinusitis (modules/service/pages/SEO.md)."
+
+  [4] RULE 4a (H1, same branch) - Fishlocks Ainsdale's own earache page H1
+      ("Earache treatment for children in Ainsdale") overwritten with its
+      own shingles page's H1 ("Shingles treatment in Ainsdale"), one branch
+      declaring the same heading on two of its own pages. CAUGHT first
+      attempt: "one branch uses the same H1 on two of its own pages -
+      fishlocks_ainsdale: earache-treatment-fishlocks-ainsdale.html and
+      shingles-treatment-fishlocks-ainsdale.html."
+
+  [5] CONTROL - the UTI and Sore throat entries in Fishlocks Ainsdale's own
+      block swapped in position, no value changed. Correctly PASSED, exit 0,
+      confirming rule 3's duplicate-detection is keyed on value not
+      position and the swap alone introduces no false positive.
+
+All five fired or passed on their own intended rule, first attempt, no
+unexpected cross-firing. Final restore sha256-reconfirmed identical to
+baseline for both files. Full 35-checker suite re-run on the scratch copy
+after the final restore: 34/35 clean, same single .git-less artefact as the
+baseline. Tracked repo's modules/service/pages/SEO.md,
+modules/service/pages/earache-treatment-fishlocks-ainsdale.html and
+tools/check-seo-lengths.js confirmed untouched throughout via
+`git status --porcelain` (empty) and sha256 (unchanged, matching the
+baseline values above). No generator writes gbp-packs/ or paste sheets by
+hand at runtime, and no regeneration was needed since nothing tracked
+changed.
+
+LIVE HALF (read-only curl; Claude in Chrome and the built-in browser pane
+both unreachable this run, matching the twenty-third and twenty-fourth
+runs' own findings - not re-tested):
+Fetched the six live pages this pass's injections targeted or referenced
+(uti-treatment-fishlocks-ainsdale, sore-throat-treatment-fishlocks-ainsdale,
+sinusitis-treatment-fishlocks-ainsdale, earache-treatment-fishlocks-ainsdale,
+shingles-treatment-fishlocks-ainsdale, sinusitis-treatment-fishlocks-
+eccleston) from www.fishlockpharmacy.co.uk. All six returned 200. Every
+<title> and meta description matched the repo's SEO.md entries byte for
+byte, no truncation and no drift. The four H1s read live (earache,
+shingles, sinusitis-ainsdale, sinusitis-eccleston) matched the repo exactly
+and, critically, Ainsdale's and Eccleston's sinusitis H1s are still distinct
+live ("Sinusitis treatment in Ainsdale" vs "...in Eccleston"), so the
+shared-domain collision proven possible by injection 3 is not the live
+reality today - confirms the checker is protecting a real risk on a pair
+that is currently clean, not chasing a hypothetical one.
+
+RESULT
+Zero in-repo defect. tools/check-seo-lengths.js already correctly protects
+Fishlocks Ainsdale's own title length, description length, permalink
+uniqueness and same-branch H1 reuse; now proven directly by injection for
+the first time in seventeen passes on this item. No new question raised -
+Q37, Q57 and every other standing finding on this item stand unchanged.
+
+FORWARD NOTE for the next unattended run on this item: rule 4b (two branches
+on the SAME host sharing an H1 - a FAIL, not the WARN rule 4c already
+exercised via the Hirshmans/Smartts/SK cross-host findings referenced in
+this pass's own checker output) has still never been proven by direct
+injection against Fishlocks Ainsdale specifically, i.e. copying an Ainsdale
+H1 onto Fishlocks Eccleston's own page rather than onto a same-branch page.
+That is a natural next angle for this item's eighteenth pass.

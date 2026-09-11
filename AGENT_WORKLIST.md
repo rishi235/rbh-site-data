@@ -965,6 +965,69 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       timestamped 2026-09-09T01:13:02+01:00, ahead of 4.11 (01:42:56), 5.1
       (02:11:04) and the rest. Other runs may land in between before the
       next pass.
+      Quality pass 2026-09-11 (seventeenth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+      6.4/6.5/6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+      fallback applied. Rotation pool re-derived fresh: twelve items tied at
+      2026-09-10 as the stalest date (2.1, 3.4, 3.6, 3.8, 3.9, 3.10, 3.12,
+      3.13, 4.11, 5.1, 6.2, 6.3). Chosen: 2.1, lowest item number as
+      tiebreak.
+      FRESH ANGLE: tools/check-seo-lengths.js had never been named once
+      across sixteen prior passes on this item, despite Fishlocks Ainsdale
+      being one of the three shared-domain branch pairs (with Fishlocks
+      Eccleston, on fishlockpharmacy.co.uk) that CLAUDE.md names as the
+      exact shape this checker's rules 3 and 4 exist to protect, and
+      despite the checker's own docstring using this branch's shingles page
+      as its worked example.
+      New instrument, audits/verify-2.1-2026-09-11-seventeenth.js: refuses
+      to run on a dirty baseline, captures original bytes and sha256 before
+      any mutation, restores by direct fs.writeFileSync immediately after
+      capturing the checker's output and before any assertion, sha256-
+      reconfirms byte-identical restoration after every injection and again
+      at the end. Scratch copy via tar --exclude='.git' to
+      /sessions/gifted-busy-albattani/mnt/outputs/scratch-21 (root
+      filesystem at 93% full, avoided; tracked repo never opened for
+      writing).
+      Five injections, each restored and sha256-reconfirmed identical
+      before the next: (1) RULE 1 title length - Fishlocks Ainsdale's UTI
+      title lengthened to 83 characters - CAUGHT first attempt. (2) RULE 2
+      description length - Fishlocks Ainsdale's Sore throat description
+      shortened to 42 characters - CAUGHT first attempt. (3) RULE 3
+      permalink uniqueness - Fishlocks Eccleston's own Sinusitis permalink
+      overwritten with Fishlocks Ainsdale's - CAUGHT first attempt, the
+      shared-domain self-competition shape CLAUDE.md names this pair as an
+      example of. (4) RULE 4a H1 same-branch reuse - Fishlocks Ainsdale's
+      own earache H1 overwritten with its own shingles H1 - CAUGHT first
+      attempt. (5) CONTROL - the UTI and Sore throat sheet entries swapped
+      in position, no value changed - correctly PASSED. All five fired or
+      passed on their own intended rule, first attempt, no unexpected
+      cross-firing. Full 35-checker suite (34 check-*.js scripts) clean
+      before and after on the scratch copy bar the documented .git-less
+      check-cdn-pins.js artefact, separately reconfirmed exit 0 against the
+      tracked repo throughout. Tracked repo's SEO.md, the earache page and
+      the checker itself confirmed untouched via git status --porcelain
+      (empty) and sha256 (unchanged) throughout. Full detail: audits/
+      fishlocks-ainsdale-item-2.1-quality-pass-2026-09-11-seventeenth.txt.
+      LIVE HALF (read-only curl; Claude in Chrome and the built-in browser
+      pane both unreachable this run): all six live pages this pass
+      touched or referenced (uti, sore-throat, sinusitis and earache
+      Ainsdale; shingles Ainsdale; sinusitis Eccleston) returned 200 with
+      titles and descriptions matching SEO.md byte for byte and H1s
+      matching the repo exactly; Ainsdale's and Eccleston's sinusitis H1s
+      remain distinct live, so the shared-domain collision proven possible
+      by injection 3 is not today's live reality.
+      RESULT: zero in-repo defect. check-seo-lengths.js already correctly
+      protects this branch's title length, description length, permalink
+      uniqueness and same-branch H1 reuse; now proven directly by injection
+      for the first time in seventeen passes. No new question - Q37 and
+      Q57 stand unchanged.
+      FORWARD NOTE: rule 4b (two branches on the SAME host sharing an H1,
+      a FAIL rather than the WARN rule 4c already exercised via other
+      branches' cross-host findings) has still not been proven by direct
+      injection against Fishlocks Ainsdale specifically - copying an
+      Ainsdale H1 onto Fishlocks Eccleston's own page rather than onto a
+      same-branch page is the natural next angle for this item's
+      eighteenth pass. Done 2026-09-11.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
