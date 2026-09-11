@@ -19358,6 +19358,52 @@ appended to the line. Do not move them; the status page reads them in place.
       status --porcelain -- modules/ core/ branches.json empty throughout).
       No postcode appears in modules/emar/weebly today, so this closes a
       latent gap, not a live breach. No new question. Done 2026-09-09.
+      Quality pass 2026-09-11 (seventeenth pass, unattended scheduled run): a
+      real, previously-latent gap found and fixed in check-postcodes.js; no
+      in-repo data defect, no live branch affected. All sixteen prior passes
+      widened or re-proved the POSTCODE half of rule 6 (MISATTRIB) and the
+      other rules; none had tested the BRANCH-NAME half of rule 6, which uses
+      plain case-sensitive line.indexOf(b.branchName) and
+      line.indexOf(aliasOf(b)) to decide which single branch a line is
+      "about" before checking its postcode. Proved on a scratch copy outside
+      the tracked tree: a line reading "riddings timperley's registered
+      address postcode is l20 5dw, not this branch's own wa15 6bp" (Riddings
+      Pharmacy Timperley's real postcode is WA15 6BP; L20 5DW is SK Chemists
+      Bootle's real postcode) appended to
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - the same real,
+      tracked, non-narrative, non-declaring file the twelfth pass proved the
+      alias fix on - passed all 36 checkers in total silence, the line
+      invisible to rule 6 entirely because neither "Riddings Pharmacy" nor
+      "Riddings Timperley" appears under a case-sensitive match. Fix: the
+      line and every candidate branchName/alias are now compared in lower
+      case for matching purposes only; the failure message still names the
+      branch via its real-cased branchName field. Verified repo-wide before
+      applying, the same convention as the twelfth pass's alias-widening
+      proof: comparing old (case-sensitive) to new (case-insensitive)
+      matching on every line of every in-scope file found 74 lines moving
+      from zero matches to exactly one, all of them the ALL-CAPS
+      build-comment header line this repo's own six generators write at the
+      top of every generated page and PASTE_PACK file (e.g. "FISHLOCKS
+      CHEMIST AINSDALE - branch landing page"); none carries a postcode
+      today, so this is a correctness improvement, not a coverage loss.
+      Re-verified after the fix on the scratch copy: the injection above now
+      fails as MISATTRIB, naming Riddings Pharmacy and the foreign L20 5DW;
+      restored by byte copy and sha256-reconfirmed identical both times.
+      Applied to the tracked checker: 974 files scanned, 0 failures, 3
+      warnings, unchanged from the pre-fix baseline; all 36 checkers exit 0;
+      git status --porcelain -- modules/ core/ branches.json empty
+      throughout, no generator, page, pack, paste block or branches.json
+      field touched, no rebuild needed. In passing, the repo-wide scan
+      surfaced an untracked stray directory literally named "C:" at the repo
+      root (OneDrive PASTE_PACK files from a past sandbox path-confusion
+      artefact, Q87/Q96 family), untracked and carrying no postcode
+      mismatch; left untouched, out of scope for this item, noted for
+      whoever next does repo hygiene. Live half: network reachable this run;
+      https://www.mccannspharmacy.co.uk/pharmacy-first-service-aigburth.html
+      returned HTTP 200 with both correct postcodes (L17 7BP Aigburth, L17
+      4JP Sandringham), no CH49 1SX. No new question. Done 2026-09-11.
+      Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-11-seventeenth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

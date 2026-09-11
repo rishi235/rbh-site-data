@@ -587,11 +587,47 @@ function checkFile(p) {
   // tracked repo was being protected by the old, wrong single-match reading.
   if (!isNarrative && DECLARING.indexOf(r) === -1) {
     text.split(/\r?\n/).forEach(function (line, idx) {
+      // Found on the item 1.3 quality pass (seventeenth), 2026-09-11. Every
+      // rule that reads a POSTCODE in this file has been made case-insensitive
+      // over sixteen prior passes (PC_RE_LOOSE, the &nbsp; forms, the URL
+      // escapes); the branch-NAME half of rule 6 never was. line.indexOf()
+      // below is case-sensitive, so a line naming a branch in lower case, or
+      // in the ALL-CAPS build-comment header style this repo's own generators
+      // write ("CHERRY LANE PHARMACY -- Weight Loss Clinic..."), matches
+      // neither branchName nor aliasOf(b), named.length comes out 0, and the
+      // line is skipped before extract() is even called - not reported
+      // UNOWNED, not reported ambiguous, simply never looked at. Proved on a
+      // scratch copy outside the tracked tree: a line reading "riddings
+      // timperley's registered address postcode is l20 5dw, not this
+      // branch's own wa15 6bp" (Riddings Pharmacy Timperley's real postcode is
+      // WA15 6BP; L20 5DW is SK Chemists Bootle's real postcode) appended to
+      // compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - the same real,
+      // tracked, non-narrative, non-declaring file the twelfth pass proved the
+      // alias fix on - passed all 36 checkers in total silence, because
+      // neither "Riddings Pharmacy" nor "Riddings Timperley" appears in the
+      // line under a case-sensitive match. Fix: compare the line and every
+      // candidate name in lower case for MATCHING purposes only; the message
+      // still names the branch via its real-cased b.branchName, unchanged.
+      // Verified repo-wide before applying: comparing old (case-sensitive) to
+      // new (case-insensitive) matching on every line of every in-scope file
+      // found 74 lines moving from zero matches to exactly one, all of them
+      // the ALL-CAPS build-comment header this repo's own six generators
+      // write at the top of every generated page and paste-pack file (e.g.
+      // "FISHLOCKS CHEMIST AINSDALE - branch landing page") - genuine single-
+      // branch lines the old case-sensitive match had been skipping entirely,
+      // none carrying a postcode today, so tightening this is a correctness
+      // improvement and not a coverage loss, the same shape of confirmation
+      // the twelfth pass ran for the alias widening. Restored by byte copy
+      // from the pre-injection backup and sha256-reconfirmed identical; the
+      // injection now fails as MISATTRIB after the fix. Full 36-checker suite
+      // and all six generators re-run clean afterwards.
+      var lineLower = line.toLowerCase();
       var namedIds = {};
       var named = [];
       branches.forEach(function (b) {
-        var hit = (b.branchName && line.indexOf(b.branchName) !== -1) ||
-                  (aliasOf(b) && line.indexOf(aliasOf(b)) !== -1);
+        var alias = aliasOf(b);
+        var hit = (b.branchName && lineLower.indexOf(b.branchName.toLowerCase()) !== -1) ||
+                  (alias && lineLower.indexOf(alias.toLowerCase()) !== -1);
         if (hit && !namedIds[b.id]) { namedIds[b.id] = 1; named.push(b); }
       });
       if (named.length !== 1) return;
