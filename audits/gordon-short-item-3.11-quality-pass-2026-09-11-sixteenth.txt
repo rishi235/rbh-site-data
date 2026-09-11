@@ -1,0 +1,96 @@
+Item 3.11 quality pass (sixteenth), 2026-09-11, unattended run
+Branch: Gordon Short Chemist Crosby (gordonshorts_crosby)
+
+CONTEXT
+Fifteen prior passes on this item (2026-08-04 to 2026-09-09) proved full
+8-rule coverage of check-seo-keywords.js against this branch's own SEO.md
+sheets, plus one-off proofs of check-booking-routes.js, check-app-
+membership.js, check-brand-spelling.js and several others. check-nap.js had
+never been named against this branch in any of the fifteen prior passes,
+despite being the only checker in the repo that sweeps a generated page's
+name, address and phone against branches.json across all four published
+surfaces (contact line, map query, tel:/visible phone, JSON-LD) plus a
+name/street/postcode/email sweep of the whole page body.
+
+BASELINE
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+standing convention) run against the tracked repo before any edit: all 34
+exit 0. check-nap.js baseline: "Checked 177 pages and 3 paste block(s)
+against 16 branches.json entries: 0 mismatch(es), 0 warning(s)."
+
+METHOD
+Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch311,
+entirely outside the tracked tree (no .git, so restores were done by byte
+copy from the tracked repo rather than `git checkout`). SHA256 of the three
+target pages recorded before any edit:
+  pharmacy-first-gordon-short-crosby.html:
+    61a2227c9625f7fc6f21ca879d493397deee87d69d1ff08fe966425376170a83
+  sore-throat-treatment-gordon-short-crosby.html:
+    6af59a0b694b1c98ea21f468c94375df046195bf62bf74d3b4cfb07994a53725
+  impetigo-treatment-gordon-short-crosby.html:
+    9d952662666a1e89d856efc4e93090ef6bb83c0b417be927f30d8c2d7ad964ab
+Each injection was made on the scratch copy only, node run from within the
+scratch copy (so __dirname resolves ROOT to the scratch tree, not the
+tracked repo), then the file restored by copying the tracked repo's own
+pristine version back and reconfirming the SHA256 before the next injection.
+
+INJECTIONS, ALL THREE CAUGHT FIRST ATTEMPT, EACH ON ITS OWN RULE ONLY
+1. JSON-LD addressRegion changed from "Merseyside" to "Lancashire" on
+   pharmacy-first-gordon-short-crosby.html.
+   CAUGHT: 'JSON-LD addressRegion "Lancashire" vs "Merseyside"'.
+2. Foreign pharmacy name inserted into body copy of sore-throat-treatment-
+   gordon-short-crosby.html: "You can also visit Smartts Chemist for this
+   service."
+   CAUGHT: 'names another pharmacy "Smartts Chemist" (smartts_bootle) in
+   page copy, but this page belongs to Gordon Short Chemist'.
+3. Foreign street address inserted into body copy of impetigo-treatment-
+   gordon-short-crosby.html, abbreviated AND lower-cased simultaneously:
+   "Our sister site is at 42 fernhill rd if this branch is busy" (Smartts
+   Bootle's own street, "42 Fernhill Road").
+   CAUGHT: 'carries another branch's street address "42 Fernhill Road"
+   (smartts_bootle), but this page belongs to Gordon Short Chemist at "159
+   College Road"'. Both the abbreviation-matching rule (2026-08-31) and the
+   case-insensitive matching (2026-08-14) held together on the first
+   attempt.
+
+No cross-firing observed: each injection produced exactly one MISMATCH line,
+on the file and rule it targeted.
+
+RESTORE AND RE-VERIFY
+All three files restored by byte copy from the tracked repo; SHA256
+reconfirmed identical to the pre-injection baseline for all three. Full
+34-checker suite re-run on the scratch copy after the final restore: no
+FAIL lines, all exit 0. Tracked repo's own copies of modules/, core/,
+tools/ and branches.json never opened for writing at any point (git status
+--porcelain against those paths shows only the pre-existing, unrelated
+notarealservice-fishlocks-ainsdale.html.bak stray, documented in earlier
+passes and Q87/Q96, not touched this run).
+
+LIVE HALF, read-only (curl; Claude in Chrome not connected this run)
+pharmacy-first-service-crosby.html and sitemap.xml both 200. Sitemap
+lastmod for this branch's URLs (uti-treatment, nhs-free-blood-pressure-
+check, pharmacy-first, sinusitis, travel-clinic, earache, insect-bite, and
+by extension the rest) still 2026-08-15T07:41:55+00:00, matching the
+fifteenth pass's own reading exactly - no republish since the sixth pass.
+No new finding on the live half.
+
+VERDICT: zero in-repo defect. check-nap.js's JSON-LD-county rule, name
+sweep and case-insensitive/abbreviated street sweep are now proven directly
+against Gordon Short Chemist Crosby for the first time in sixteen passes.
+No new QUESTIONS.json entry.
+
+RUN NOTES
+This run began blocked by a stray .git/index.lock (created 2026-09-11
+11:09:51 BST, ~25-30 minutes before this run started, predating this run's
+own git commands). Confirmed via both `ps aux` in the Cowork sandbox and
+`Get-Process git` on the native ProDesk host that no git process was
+running. Consistent with every prior run's documented experience this
+month (Q87/Q96: this sandbox's mounted view of the repo cannot unlink a
+file, so its own read-only git calls routinely leave orphaned index/HEAD
+locks that block the next git command), this lock was cleared - via
+Remove-Item on the native host, a genuine delete rather than the sandbox's
+usual rename-workaround, since the native filesystem has no unlink
+restriction - after independently confirming no concurrent git process on
+both the sandbox and the host. Not treated as a new question; same standing
+mechanism as Q87/Q96, just caught for once before it blocked a whole run
+rather than only steps 9/10.

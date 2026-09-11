@@ -9675,6 +9675,55 @@ Done 2026-09-09 (fifteenth pass).
       recorded). Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-09-fifteenth.txt.
       Done 2026-09-09
+      Sixteenth quality pass 2026-09-11 (unattended run), fresh angle only.
+      Stalest of the rotation pool by git log, re-derived fresh: 17 items
+      already touched today (1.2, 4.14, 4.7, 4.2, 3.3, 2.3, 4.15, 4.12, 4.9,
+      4.10, 4.8, 4.13, 1.3, 4.5, 4.6, 4.3, 3.1); 3.11 confirmed next-stalest,
+      untouched today, matching the seventeenth run's own forward note. All
+      eight unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] first.
+      FRESH ANGLE: check-nap.js had never once been named against this
+      branch across fifteen prior passes, despite being the only checker
+      that sweeps a generated page's name, address and phone against
+      branches.json on all four published surfaces plus a name/street/
+      postcode/email body-copy sweep. Full repo exported via
+      `git archive HEAD | tar -x` to /tmp/scratch311, entirely outside the
+      tracked tree. Three injections, each on the scratch copy only
+      (node run from within the scratch copy so ROOT resolves there, not
+      the tracked repo), each restored by byte copy from the tracked repo
+      and SHA256-reconfirmed before the next: (1) JSON-LD addressRegion
+      "Merseyside" changed to "Lancashire" on the Pharmacy First page -
+      CAUGHT first attempt, naming both counties; (2) "You can also visit
+      Smartts Chemist for this service" inserted into the Sore throat page
+      - CAUGHT first attempt by the NAME sweep, naming the foreign branch;
+      (3) "42 fernhill rd" (Smartts Bootle's own street, abbreviated AND
+      lower-cased at once) inserted into the Impetigo page - CAUGHT first
+      attempt by the STREET sweep, proving the abbreviation rule and the
+      case-insensitive rule hold together, not just separately. All three
+      fired on their own intended rule only, no cross-firing. Full
+      34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+      standing convention) clean on the tracked repo before any edit and
+      clean on the scratch copy after the final restore; tracked repo's own
+      modules/, core/, tools/ and branches.json never opened for writing
+      (git status --porcelain showed only the pre-existing, unrelated
+      notarealservice-fishlocks-ainsdale.html.bak stray). Zero in-repo
+      defect - check-nap.js's JSON-LD county rule, name sweep and street
+      sweep (abbreviation and case together) now proven directly against
+      Gordon Short Chemist Crosby for the first time in sixteen passes.
+      LIVE HALF, read-only (curl; Claude in Chrome not connected this run):
+      pharmacy-first-service-crosby.html and sitemap.xml both 200; sitemap
+      lastmod for this branch's URLs still 2026-08-15T07:41:55+00:00, no
+      republish since the sixth pass, matching the fifteenth pass's own
+      reading exactly. No new question; QUESTIONS.json unchanged (101
+      total, 48 open; Claude in Chrome not connected, pickup unavailable,
+      not retried by any other route per the task's own rule). RUN NOTE:
+      this run started blocked by a stray .git/index.lock left over from
+      the seventeenth run (created 11:09:51 BST, no concurrent git process
+      on either the sandbox or the native host), cleared via Remove-Item on
+      the native ProDesk host once no-process was confirmed on both, a
+      genuine delete rather than the sandbox's usual rename-workaround;
+      same standing Q87/Q96 mechanism, not re-raised. Evidence:
+      audits/gordon-short-item-3.11-quality-pass-2026-09-11-sixteenth.txt.
+      Done 2026-09-11
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
