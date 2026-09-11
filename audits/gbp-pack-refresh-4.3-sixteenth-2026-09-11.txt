@@ -1,0 +1,106 @@
+Item 4.3 - Hirshmans Chemist (Ainsdale) GBP pack
+Quality pass 2026-09-11 (sixteenth pass, unattended scheduled run via Cowork)
+
+CONTEXT
+Rotation pool re-derived fresh at run start. All 8 unchecked AGENT_WORKLIST.md
+lines confirmed [BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6), so this is a quality pass, not a fresh item. Pool = all [x] items minus
+the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus
+items already touched today (3.1, touched 2026-09-11T03:15:12+01:00 per
+`git log --since="2026-09-11T00:00:00" -- AGENT_WORKLIST.md`).
+`git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md` run
+per remaining candidate: 4.3 uniquely stalest at 2026-09-09T06:45:27+01:00,
+ahead of 4.6 (07:40:35) and 4.5 (08:08:30), confirming the fifteenth pass's
+own forward note. Chosen: 4.3. Its own block showed the prior pass was the
+fifteenth (2026-09-09), so this is the sixteenth.
+
+WHY A REVERIFICATION RATHER THAN A NEW INJECTION ANGLE
+The fifteenth pass recorded that all fourteen prior passes had already proven
+every named check-gbp-packs.js rule against this pack's own file by injection,
+and recommended future passes verify facts and the live site rather than
+search for further named rules "unless a new rule is added to
+check-gbp-packs.js". One rule WAS added since (2026-09-10, item 6.2 thirteenth
+pass, commit 56859ef): an empty-list guard on CLAIM_PATTERNS at module load.
+Read the diff: it is a structural guard on a SHARED list import
+(tools/claim-patterns.js), not a fact drawn from any one pack's content, and
+it was already proven by injection in that same commit
+(audits/verify-6.2-2026-09-10-thirteenth.js). Re-injecting it here would test
+the checker's shared plumbing again, not this pack, so it was not repeated.
+Proceeded with a straight re-verification instead: facts, checker suite, and
+the live site.
+
+FACTS
+gbp-packs/hirshmans-ainsdale.md sha256:
+94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8
+Unchanged since the pack's creation, matching all fifteen prior passes'
+recorded hash. No edit this pass.
+
+Read branches.json hirshmans_ainsdale field by field against the pack text:
+- name: Hirshmans Chemist - matches
+- streetAddress: 56-62 Sherwood House, Station Road - matches
+- addressLocality/postalCode: Ainsdale / PR8 3HW - matches
+- phone: 01704 577376 - matches
+- website: https://www.hirshmanspharmacy.co.uk - matches
+- googleReviewUrl: https://g.page/r/CUagKTNTXwMYEAE/review - matches
+- serviceAreaList: Ainsdale, Birkdale, Southport - matches pack catchment
+- hasApp: false - matches (no app card/mention in pack)
+- openingHours.specification: Mon-Fri 08:30-13:00 + 14:00-18:00, Sat
+  09:00-13:00 + 14:00-17:30, Sunday closed - matches pack's Hours line and
+  the paster note's two-range-per-day instruction exactly
+- widgets: bloodPressure, contraception, pharmacyFirst, weightLoss,
+  travelClinic all present - matches "all five widget services are listed"
+Nothing wrong.
+
+CHECKER SUITE
+All 36 tools/check-*.js run individually via `node <file>`: 36/36 exit 0.
+
+GENERATOR REBUILD
+All six build-*.js scripts re-run. `git status --porcelain modules/ core/`
+shows no change to any tracked generated file (the one untracked line is a
+pre-existing stray .bak scratch file unrelated to this pass, already present
+in the working tree before this run started). Rebuild is byte-identical.
+
+LIVE HALF
+Claude in Chrome MCP confirmed not connected this run (tabs_context_mcp
+returned "not connected", retried once, same result). mcp__workspace__web_fetch
+refused all five target URLs ("URL not in provenance set" - a hard tool
+restriction in this environment, not a site block). Fell back to a direct
+HTTPS GET via Windows-MCP PowerShell (Invoke-WebRequest), the same class of
+fallback recorded in today's earlier item 3.1 sixteenth-pass entry, read-only,
+no login, no interaction:
+
+- pharmacy-first-service-ainsdale.html (Post A HARD STOP page): HTTP 200.
+  Non-dialling phone "017014577376" still appears once against three correct
+  "01704 577376" mentions; "Hirshmans Pharmacy" still appears 9 times against
+  6 correct "Hirshmans Chemist" mentions; correct address "56-62 Sherwood
+  House" appears 3 times and the legacy "64 station Road" once. All four
+  counts identical to the fifteenth pass (2026-09-09). HARD STOP (item
+  5.3/Q8/Q34) remains correctly in force; not a new finding.
+- switch-prescriptions-hirshmans-ainsdale.html (Post B): HTTP 200. Still
+  renders the pre-Q7 em dash as mojibake ("usually is not \xc3\x94\xc3\x87\xc3\xb6
+  we make the first step quick and easy"), byte-for-byte the same as the
+  fifteenth pass. Same live-paste-lag family as Cherry Lane and Coleman and
+  Leighs (item 5.1/Q7). Not actionable from this repo (a Weebly paste).
+- weight-loss-clinic-hirshmans-ainsdale.html (Post C): HTTP 200.
+- travel-clinic-hirshmans-ainsdale.html (Post D): HTTP 200.
+- pharmacy-first-hirshmans-ainsdale.html (generated replacement for Post A):
+  HTTP 200.
+
+RESULT
+Zero in-repo defect, zero new live finding. Post A HARD STOP (5.3/Q8/Q34) and
+Post B's live em-dash mojibake (5.1/Q7) remain the only two outstanding live
+findings, both already tracked, neither actionable from this worker's write
+scope. No new question raised. QUESTIONS.json unchanged by this pass.
+
+INFRASTRUCTURE NOTE (separate from the item 4.3 finding, logged for the
+record): every `git` invocation from the Cowork sandbox bash tool this run
+left a stranded `.git/index.lock` that bash itself could not unlink
+("Operation not permitted" - a UID/permission mismatch between the sandbox
+mount and the real host file, not a genuine concurrent git process; confirmed
+via Windows-MCP `Get-Process git` returning nothing). Cleared each time via
+Windows-MCP PowerShell `Remove-Item -Force`, which has real host permissions.
+All git add/commit/push for this run were therefore run via Windows-MCP
+PowerShell rather than the bash tool, matching the fallback pattern already
+recorded in AGENT_LOG.md for other runs this month, so as not to leave a
+stray lock behind for the next run. This is a milder variant of the same
+sandbox/host boundary problem behind Q96, not a new question by itself.

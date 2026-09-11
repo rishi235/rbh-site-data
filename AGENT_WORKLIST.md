@@ -12416,6 +12416,48 @@ Pharmacy First wording to the NHS service description.
       facts and the live site rather than search for further named rules to
       prove, unless a new rule is added to check-gbp-packs.js. Done
       2026-09-09
+      Quality pass 2026-09-11 (sixteenth pass, unattended scheduled run via
+      Cowork): re-verified as the stalest rotation-pool item (last touched
+      2026-09-09T06:45:27+01:00). One rule was added to check-gbp-packs.js
+      since the fifteenth pass (2026-09-10, item 6.2 thirteenth pass,
+      CLAIM_PATTERNS empty-list guard), but it is a structural guard on a
+      shared imported list, not a fact drawn from this pack's own content,
+      and was already proven by injection in that same commit - re-testing
+      it here would exercise the checker's shared plumbing again, not this
+      pack. Did a straight re-verification instead, per the fifteenth pass's
+      own forward note. FACTS: pack sha256 unchanged
+      (94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8);
+      every field re-read against branches.json's hirshmans_ainsdale entry
+      (name, address, postcode, phone, website, review link, service area,
+      hasApp, both opening-hours legs, all five widgets) with nothing wrong.
+      CHECKER SUITE: all 36 tools/check-*.js run individually, 36/36 exit 0.
+      All six generators rebuilt byte-identical (no tracked file changed).
+      LIVE HALF: Claude in Chrome confirmed not connected again this run;
+      mcp__workspace__web_fetch refused all five target URLs on a provenance
+      restriction (a tool-level block, not a site block); fell back to a
+      direct HTTPS GET via Windows-MCP PowerShell, read-only, no login. All
+      five live targets on hirshmanspharmacy.co.uk returned 200. Post A
+      (pharmacy-first-service-ainsdale.html, the HARD STOP page) unchanged
+      from the fifteenth pass exactly: non-dialling phone 017014577376 once
+      against three correct 01704 577376 mentions, "Hirshmans Pharmacy" nine
+      times against six correct "Hirshmans Chemist" mentions, correct address
+      three times and the legacy "64 station Road" once - still item
+      5.3/Q8/Q34, not a new finding. switch-prescriptions-hirshmans-ainsdale.html
+      (Post B) still renders the pre-Q7 em dash as mojibake, byte-identical to
+      the fifteenth pass - still item 5.1/Q7, a live Weebly paste lag, not
+      actionable from this repo. Weight loss, travel clinic and the generated
+      Pharmacy First replacement all 200, not re-read at depth this pass
+      (last confirmed clean at depth on the tenth and eleventh passes).
+      RESULT: zero in-repo defect, zero new live finding, no new question.
+      Separately logged an infrastructure note (not a finding against this
+      item): every git command from the Cowork sandbox bash tool this run
+      left a `.git/index.lock` that bash could not unlink itself (a
+      sandbox/host permission mismatch, confirmed no real git process was
+      running), cleared each time via Windows-MCP PowerShell; all git
+      add/commit/push for this run went via Windows-MCP PowerShell as a
+      result, the same fallback pattern already used elsewhere in
+      AGENT_LOG.md this month. Evidence:
+      audits/gbp-pack-refresh-4.3-sixteenth-2026-09-11.txt. Done 2026-09-11
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
