@@ -17794,6 +17794,76 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       call for Rishi. Evidence: audits/riddings-timperley-brand-spelling-
       4.13-fifteenth-2026-09-09.txt.
       Done 2026-09-09.
+      Sixteenth quality pass 2026-09-11: pack clean and byte-stable across
+      all sixteen passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b6
+      26b9d0fed824630a775917c04 before and after, unchanged since the tenth
+      pass). Selected as stalest in the 36-item rotation pool by the same
+      commit-subject-date method as recent passes; 4.13 uniquely stalest at
+      2026-09-09T09:40:25+01:00, matching the fifteenth pass's own forward
+      note exactly.
+      BASELINE. All 36 tools/check-*.js run individually: 36/36 exit 0.
+      node tools/check-gbp-pharmacy-first.js: OK, 7 pathways, 28 Pharmacy
+      First blocks across 14 packs, all clean.
+      NEW ANGLE. Of the genuine gbp-packs/ readers in this repo, tools/
+      check-gbp-pharmacy-first.js - which guards the CLINICAL content of the
+      Pharmacy First blocks (which conditions, ages, the free/no-charge
+      wording, the "where appropriate" hedge) rather than the structural
+      facts check-gbp-packs.js already owns - had never been individually
+      proven by injection against this pack's own copy across any of the
+      fifteen prior passes, confirmed by grepping this item's own block for
+      "pharmacy-first"/"gbp-pharmacy-first": zero mentions. Riddings
+      publishes the full seven-condition list twice (Services bullet, Post
+      A), so this is a directly relevant, previously untested surface.
+      METHOD. Five injections run directly on the tracked file, restored by
+      byte copy from a saved baseline (this mount rejects unlink) and
+      sha256-reconfirmed identical before the next: (1) Rule 3
+      (completeness), dropped "shingles" from Post A only - CAUGHT, "names 6
+      of the 7... and omits shingles"; (2) Rule 4 (OUTSIDE_PF), added
+      "conjunctivitis" to the Services NHS Pharmacy First bullet - CAUGHT,
+      named as not one of the 7 conditions; (3) Rule 6 (UTI age range read
+      from the canon), Post A's "women aged 16 to 64" to "18 to 64" -
+      CAUGHT, named against the canon's "16 to 64"; (4) Rule 8 (free, no
+      price), added "from £5 per consultation" to Post A - CAUGHT, priced
+      copy named; (5) Rule 9 (condition words outside the PF blocks), added
+      "advice on shingles" to Post C - CAUGHT, named as outside both scopes.
+      All five behaved exactly as designed; no checker gap found.
+      File restored and sha256-reconfirmed identical to baseline after the
+      fifth injection; control run with no injection reported the same
+      clean baseline; full 36-checker suite re-run clean; git status
+      --porcelain on gbp-packs/, modules/, core/, tools/, branches.json,
+      status/ confirmed empty of any change from this pass. gbp-packs/ is
+      not a generator input, so no build script was re-run. No in-repo
+      defect: five rules proven directly for the first time in sixteen
+      passes rather than only proven against the packs they were written
+      against.
+      STRAY FILES NOTED, NOT TOUCHED: gbp-packs/.fuse_hidden0000000400000001
+      (dated 2026-09-08, confirmed by diff to be orphaned debris from an
+      earlier run's edit of gbp-packs/mccanns-sandringham.md, the same
+      FUSE-artefact class as Q87/Q96 and the stray "C:" directory the 1.3
+      seventeenth pass noted) and modules/service/pages/notarealservice-
+      fishlocks-ainsdale.html.bak. Both out of scope for this item, left
+      untouched, noted for whoever next does repo hygiene.
+      LIVE HALF. Claude in Chrome not connected (standing Q59); built-in
+      Claude Browser MCP refused the answer-pickup fetch pending
+      request_access for the Cloudflare Access redirect, not called
+      (unattended, no person to approve). Logged as unavailable, not
+      retried by another route, no login attempted; no pickup this run, 48
+      questions remain open. Network reachable via direct read-only curl
+      GET, so this item's live half was checked that way, status only:
+      Post B canonical (switch-prescriptions-riddings-timperley.html) still
+      404; Post A branch page and the old switch permalink
+      (switch-prescriptions.html) both still 200; Posts C and D both still
+      200; weight-loss-clinic-timperley.html (item 5.8's own Regime 1
+      breach territory) still 200, status only, not re-read in full;
+      sitemap.xml still lastmod 2026-08-14T22:45:05+00:00 throughout, still
+      no switch-prescriptions-riddings-timperley.html entry. No new
+      live-side finding; nothing clicked, typed or submitted anywhere.
+      No new question raised: pure re-verification of documented checker
+      behaviour against this pack's own copy on a previously untested
+      checker file, no business, legal, pricing or regulatory content
+      changed, no judgement call for Rishi. Evidence: audits/riddings-
+      timperley-pharmacy-first-copy-4.13-sixteenth-2026-09-11.txt.
+      Done 2026-09-11.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

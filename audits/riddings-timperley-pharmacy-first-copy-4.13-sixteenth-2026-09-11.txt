@@ -1,0 +1,155 @@
+Item 4.13 (Riddings Pharmacy Timperley GBP pack) - sixteenth quality pass
+Date: 2026-09-11
+Run: sixth unattended scheduled run of the day, audit-backlog-worker
+
+SELECTION
+Rotation pool re-derived fresh: 43 [x] AGENT_WORKLIST.md items minus the 7
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 5
+items touched earlier today per `git log --since="2026-09-11T00:00:00" --
+AGENT_WORKLIST.md` (3.1, 4.3, 4.6, 4.5, 1.3) = 31 candidates. `git log -1
+--format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md` run per candidate
+across all 36 pool items (not just the 31, as a cross-check): 4.13 uniquely
+stalest at 2026-09-09T09:40:25+01:00, ahead of 4.8 (11:09:27) and 4.10
+(11:40:13). Matches the fifteenth pass's own forward note exactly. All 8
+unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] first (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) - quality pass, not a fresh worklist item.
+
+BASELINE
+sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04,
+unchanged since the tenth pass (2026-09-03). All 36 tools/check-*.js run
+individually on the tracked repo: 36/36 exit 0. node
+tools/check-gbp-pharmacy-first.js: "OK - 7 pathways read from the generator,
+28 Pharmacy First blocks across 14 packs, all clean." git status --porcelain
+on gbp-packs/, modules/, core/, tools/, branches.json, status/ empty at the
+start (two pre-existing untracked stray files noted below, neither touched by
+this pass).
+
+NEW ANGLE
+Fifteen prior passes on this item had proven, by injection, rules inside
+tools/check-gbp-packs.js (DAY-presence, CLINIC_QUALIFIERS,
+RECOGNISED_CATEGORIES, photoVinyl/photoGoogleUpdates, BUTTON_PAGE,
+button-label allowlist, no-lead-pricing, OUTCOME_PROMISE, POST_INSTRUCTION
+marker casing and leading whitespace, pom-class-patterns, claim-patterns) and
+tools/check-brand-spelling.js (VARIANT and MISSPELT rules). Of the genuine
+gbp-packs/ readers in this repo (checkers that open PACK_DIR and read pack
+files directly, as distinct from files that only mention gbp-packs/ in
+comments), tools/check-gbp-pharmacy-first.js had never been individually
+proven by injection against gbp-packs/riddings-timperley.md across any of the
+fifteen prior passes (confirmed by grepping this item's own AGENT_WORKLIST.md
+block for "pharmacy-first" and "gbp-pharmacy-first": zero mentions). This
+checker exists specifically to guard the CLINICAL content of the Pharmacy
+First blocks (which conditions, what ages, the free/no-charge wording, the
+"where appropriate" hedge) rather than the structural/factual checks
+check-gbp-packs.js already owns, and Riddings publishes the full seven-
+condition Pharmacy First list twice (Services bullet and Post A), so it is a
+directly relevant, previously untested surface.
+
+METHOD
+All five injections run directly on the tracked file
+(gbp-packs/riddings-timperley.md), restored by byte copy from a saved
+baseline (/tmp/riddings-timperley.md.baseline, this sandbox mount rejects
+unlink so git checkout was avoided in favour of a direct overwrite) and
+sha256-reconfirmed identical to 8cc587968d3f6b83a3509aa27151c7dc30172b6
+26b9d0fed824630a775917c04 before the next injection. Each injection targeted
+a distinct rule in tools/check-gbp-pharmacy-first.js:
+
+1. RULE 3 (completeness). Dropped "shingles" from Post A's condition list
+   only, leaving it intact in the Services bullet. CAUGHT: "Post A names 6 of
+   the 7 Pharmacy First conditions and omits shingles."
+
+2. RULE 4 (OUTSIDE_PF blocklist). Added "conjunctivitis" inside the Services
+   section's NHS Pharmacy First bullet. CAUGHT: "names "conjunctivitis"
+   inside the Pharmacy First copy, but it is not one of the 7 conditions in
+   the NHS service."
+
+3. RULE 6 (UTI age range, read from the canon). Changed Post A's "women aged
+   16 to 64" to "women aged 18 to 64". CAUGHT: "publishes the urinary tract
+   infection service for "women aged 18 to 64", but the canon holds "Women
+   aged 16 to 64"."
+
+4. RULE 8 (free NHS service, no price). Added "from £5 per consultation" into
+   Post A's Pharmacy First body. CAUGHT: "carries a price ("from £") inside
+   the Pharmacy First copy."
+
+5. RULE 9 (condition words outside the Pharmacy First blocks). Added "advice
+   on shingles" into Post C (the weight loss clinic post, outside both PF
+   scopes). CAUGHT: "names "shingles" outside the Pharmacy First blocks, in
+   copy that is not the service bullet or Post A."
+
+All five behaved exactly as designed, each naming the correct rule and
+location. No checker gap found; no in-repo defect.
+
+CONTROL AND RESTORE
+File restored to baseline after the fifth injection; sha256 reconfirmed
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04, matching
+the pre-pass value exactly. Control run with no injection:
+"check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28
+Pharmacy First blocks across 14 packs, all clean." Full 36-checker suite
+re-run after final restore: 36/36 exit 0. git status --porcelain on
+gbp-packs/, modules/, core/, tools/, branches.json, status/ confirmed empty
+of any change from this pass (the file was never left in a mutated state
+between the working tree and any commit).
+
+gbp-packs/ is not a generator input, so no build script was re-run (same
+convention recorded by every prior pass on this item).
+
+STRAY FILES NOTED, NOT TOUCHED
+Two pre-existing untracked files sit in the tree, neither created by this
+pass and neither relevant to it: gbp-packs/.fuse_hidden0000000400000001
+(dated 2026-09-08, confirmed by diff to be orphaned debris from an earlier
+run's edit of gbp-packs/mccanns-sandringham.md that this sandbox's mount
+could not fully unlink after replacement - the same FUSE-artefact class
+already recorded against Q87/Q96 and the stray "C:" directory noted on the
+1.3 seventeenth pass) and modules/service/pages/notarealservice-fishlocks-
+ainsdale.html.bak. Both left untouched as out of scope for this item; noted
+for whoever next does repo hygiene.
+
+LIVE HALF
+Claude in Chrome MCP: tabs_context_mcp returned "not connected" (standing
+Q59). Built-in Claude Browser MCP: navigated to
+https://data.rbhealth.co.uk/api/feedback, refused pending request_access for
+the https://rbhealth.cloudflareaccess.com redirect; not called, since this is
+an unattended session with no person present to approve it. Logged as
+unavailable per procedure, not retried by any other route, no login
+attempted. No answer pickup this run; 48 questions remain open in
+QUESTIONS.json, none actioned.
+
+Network reachable via a direct read-only curl GET (no login, no cookies, no
+form interaction), so this item's own live half was checked that way instead,
+status codes only:
+- switch-prescriptions-riddings-timperley.html (Post B canonical): 404,
+  unchanged since 2026-08-10. The hard stop in the pack remains necessary.
+- pharmacy-first-riddings-timperley.html (Post A, repointed per Q34): 200,
+  unchanged.
+- switch-prescriptions.html (old permalink, pre-Phase-3 paste): 200,
+  unchanged.
+- weight-loss-clinic-riddings-timperley.html (Post C): 200, unchanged.
+- travel-clinic-riddings-timperley.html (Post D): 200, unchanged.
+- weight-loss-clinic-timperley.html (the Regime 1 breach page, item 5.8's own
+  territory): 200, status check only, not re-read in full - already fully
+  documented in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md.
+- sitemap.xml: single lastmod 2026-08-14T22:45:05+00:00 across the sample
+  checked, still no switch-prescriptions-riddings-timperley.html entry, still
+  only the old switch-prescriptions.html permalink present. Unchanged since
+  the sixth pass (2026-08-30): the site has not been republished with this
+  branch's switch paste since.
+
+No new live-side finding; nothing clicked, typed or submitted anywhere. Item
+5.8's own Q5 answer already sets the fix direction for the weight-loss-
+clinic-timperley.html breach, so it is not re-raised here.
+
+QUESTIONS
+None raised. This pass proved existing checker behaviour against this pack's
+own copy on a genuinely untested surface (a different checker file, not a
+different rule inside an already-proven one); no business, legal, pricing or
+regulatory content was changed and no judgement call for Rishi arose.
+QUESTIONS.json unchanged (101 total, 48 open).
+
+CONCLUSION
+No in-repo defect found. tools/check-gbp-pharmacy-first.js already correctly
+guards gbp-packs/riddings-timperley.md's own copy across all five rules
+tested (completeness, the outside-scope condition blocklist, the UTI age
+range read from the canon, the free/no-price rule, and stray condition words
+outside the Pharmacy First blocks), now proven directly for the first time in
+sixteen passes rather than only proven against the packs the rules were
+originally written against.
