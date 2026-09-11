@@ -1,0 +1,120 @@
+Item 4.4 quality pass (eighteenth), Scorah Chemists Bramhall GBP pack
+Run: 2026-09-11, twenty-third unattended scheduled run of the day
+Worker: audit-backlog-worker (Cowork sandbox mcp__workspace__bash)
+
+BASELINE
+- gbp-packs/scorah-bramhall.md sha256 (tracked repo, before any mutation):
+  e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c
+  (matches every prior pass since the fourth, 2026-08-14)
+- Full 36 tools/check-*.js run individually against the tracked repo: 0
+  failures, all exit 0.
+- branches.json widgets for scorah_bramhall confirmed: bloodPressure,
+  contraception, pharmacyFirst, weightLoss, travelClinic all present, so
+  this branch EARNS all three CATEGORY_RULES entries in
+  tools/check-gbp-packs.js (Travel clinic, Vaccination centre, Weight loss
+  service).
+
+FRESH ANGLE
+Across seventeen prior passes on this item, all ten checkers that genuinely
+scan gbp-packs/ as a directory have been proven against this specific pack,
+and within check-gbp-packs.js itself the sister-branch sentence rule (13th
+pass), the OUTCOME_PROMISE rule (15th pass), the photo shot list rule (16th
+pass) and the two catchment-list rules (17th pass) have each been proven by
+direct injection against this pack's own copy. Two rules inside
+check-gbp-packs.js's Categories block (lines 1046-1109) had NOT: the primary
+category rule ("Categories section does not set Pharmacy as the primary
+category", line 1057) and the omission direction of CATEGORY_RULES
+("Categories section does not list X, but the branch has widget Y", lines
+1065-1069). The only prior touch on this area was the 2026-08-13 pass that
+discovered the ALLOWLIST rule (an unrelated invented-service/category check)
+by injecting "Ear wax removal" and "Dental clinic" into this same pack, and a
+passive string check in audits/verify-4.4-2026-09-01.js ("Primary: Pharmacy"
+present) that only reads the pack, never exercises the live checker rule by
+injection. Confirmed by grepping every prior audits/scorah-bramhall*.txt and
+verify-4.4*.js file for "Categories section does not list" and "primary
+category" before choosing this angle - no injection against either rule was
+recorded for this pack.
+
+METHOD
+Scratch copy made via tar --exclude='.git' from the tracked repo to
+/sessions/affectionate-trusting-einstein/mnt/outputs/scratch-44 (root
+filesystem at 93% full, /tmp avoided for the copy itself though a small
+pristine backup of the single pack file was kept at
+/tmp/scorah-bramhall.pristine.md, sha256-verified after every restore).
+Tracked repo never opened for writing. Each injection restored from the
+pristine backup and sha256-reconfirmed identical before the next.
+
+INJECTION 1 (primary category rule): "- Primary: Pharmacy" changed to
+"- Primary: Chemist". Result: TWO fails fired, both correct and both on
+their own intended rule with no confusion between them -
+  FAIL scorah-bramhall.md: Categories section does not set Pharmacy as the
+  primary category
+  FAIL scorah-bramhall.md: Categories section names "Chemist", which is not
+  a category any pack in this repo uses...
+The second FAIL is the pre-existing ALLOWLIST rule (proven against this pack
+since 2026-08-13) firing correctly alongside the new target, because the
+allowlist scans the whole Categories section text rather than only the
+secondary-category bullet line - expected behaviour, not cross-firing into a
+different pack or a different section. Restored; sha256 confirmed identical
+to baseline.
+
+INJECTION 2 (CATEGORY_RULES omission direction): "Vaccination centre"
+removed from the "Add if not present" bullet, leaving only "Travel clinic,
+Weight loss service". Result: FAIL scorah-bramhall.md: Categories section
+does not list "Vaccination centre", but the branch's travel clinic gives
+vaccinations per branches.json (Build Pack v2 section 4.1). Caught first
+attempt, exactly the intended rule, no other FAIL introduced. Restored;
+sha256 confirmed identical to baseline.
+
+INJECTION 3 (control): the same bullet reordered only - "Vaccination centre,
+Travel clinic, Weight loss service" instead of "Travel clinic, Weight loss
+service, Vaccination centre" - no category added or removed. Result:
+correctly PASSED, exit 0, only the two pre-existing standing WARNs present
+(the live-only Post A link target, and the Q64 address post-town finding).
+Confirms the omission rule is genuinely a set-membership check, not
+order-sensitive, matching the same scope finding the 17th pass made for the
+separate catchment-order rule (which governs town order in a different
+section, not category order here) - a useful distinction to have proven
+rather than assumed, since the two rules sit in the same file and are easy to
+conflate.
+
+All three fired or passed on their own intended rule, first attempt, no
+cross-firing beyond the expected allowlist co-fire in injection 1.
+
+RESTORE AND VERIFY
+Final restore confirmed byte-identical to baseline by sha256
+(e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c). Full
+36-checker suite re-run on the scratch copy after the final restore: 35/36
+clean, check-cdn-pins.js fails only because the .git-less scratch copy
+cannot resolve CDN refs (a known artefact of this copy method, not a
+defect - separately reconfirmed exit 0 against the tracked repo directly,
+both before and after this pass's work). Tracked repo's own copy of
+gbp-packs/scorah-bramhall.md and tools/check-gbp-packs.js confirmed
+untouched throughout: git status --porcelain on both paths empty, and the
+tracked pack's sha256 unchanged.
+
+RESULT
+Zero in-repo defect. Both the primary-category rule and the CATEGORY_RULES
+omission direction already correctly protect this pack; now proven directly
+by injection for the first time in eighteen passes. No new question raised;
+QUESTIONS.json unchanged (101 total, 48 open).
+
+LIVE HALF
+Not attempted. Claude in Chrome MCP tried once this run for step 3 (answer
+pickup), reported "Claude in Chrome is not connected", not retried by any
+other route, no login attempted. Both rules tested this pass govern the
+Google Business Profile Categories section, a field never published to any
+page this repo generates, so a live HTTP fetch could not confirm or refute
+either rule regardless - matching the reasoning the 13th and 15th passes on
+this item already gave for the sister-branch and OUTCOME_PROMISE rules. No
+new live-half finding recorded this pass; the five standing live findings
+(landing page 404, Post A shared pfLink pending swap, Post B mojibake
+repaste lag, Q64 address post-town divergence, Q79 bank holiday hours) all
+carry forward unchanged from the eleventh/twelfth passes, last reconfirmed
+2026-09-02.
+
+FILES CHANGED THIS PASS
+- audits/scorah-bramhall-item-4.4-quality-pass-2026-09-11-eighteenth.txt (new)
+- AGENT_WORKLIST.md (item 4.4 paragraph appended, "Done 2026-09-11")
+- AGENT_LOG.md (dated entry appended to top)
+No changes to gbp-packs/, modules/, core/, tools/ or branches.json.

@@ -13244,6 +13244,40 @@ already correctly protect this pack; now proven directly by injection for
 the first time. No new question; QUESTIONS.json unchanged (101 total, 48
 open). No checker logic, generator, page, pack or branches.json content
 changed. See audits/scorah-bramhall-item-4.4-quality-pass-2026-09-09-seventeenth.txt.
+Quality pass 2026-09-11 (eighteenth pass, unattended scheduled run): fresh
+angle, check-gbp-packs.js's Categories-block primary-category rule and the
+omission direction of CATEGORY_RULES proved by injection against this pack's
+own copy for the first time in eighteen passes, despite the earlier
+allowlist rule (invented service/category names) having been discovered on
+this exact pack back on 2026-08-13. Baseline sha256
+e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c, matching
+every prior pass; full 36-checker suite 0 failures beforehand. Scratch copy
+via tar --exclude='.git' to /sessions/.../mnt/outputs/scratch-44, tracked
+repo never opened for writing. THREE INJECTIONS, each restored from a
+pristine backup and sha256-reconfirmed before the next: (1) "Primary:
+Pharmacy" changed to "Primary: Chemist" - CAUGHT, two correct FAILs (the new
+primary-category rule plus the pre-existing allowlist rule co-firing as
+expected, since the allowlist scans the whole section rather than one
+bullet); (2) "Vaccination centre" dropped from the earned-categories bullet
+- CAUGHT first attempt, "Categories section does not list \"Vaccination
+centre\", but the branch's travel clinic gives vaccinations"; (3) CONTROL,
+the same bullet reordered with nothing added or removed - correctly PASSED,
+confirming the omission rule is a set-membership check, not order-sensitive,
+distinct from the separate town catchment-order rule proved on the 17th
+pass. All three fired or passed on the first attempt, on their intended rule
+only. Final restore sha256-confirmed identical to baseline; full suite
+re-run 35/36 on the scratch copy (check-cdn-pins.js fails only on the
+.git-less scratch artefact, separately reconfirmed clean against the tracked
+repo); tracked repo git status --porcelain on gbp-packs/scorah-bramhall.md
+and tools/check-gbp-packs.js empty throughout. No generator writes
+gbp-packs/, so no regeneration needed. Live half not attempted (Claude in
+Chrome unreachable, Q59 standing; both rules govern a GBP field no generated
+page carries, matching the 13th/15th passes' reasoning). RESULT: zero
+in-repo defect - both rules already correctly protect this pack; now proven
+directly by injection for the first time. No new question; QUESTIONS.json
+unchanged (101 total, 48 open). No checker logic, generator, page, pack or
+branches.json content changed. See
+audits/scorah-bramhall-item-4.4-quality-pass-2026-09-11-eighteenth.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
