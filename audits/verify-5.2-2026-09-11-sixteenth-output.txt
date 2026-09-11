@@ -1,0 +1,45 @@
+Pre-flight git status: clean (only the two known standing untracked artefacts present).
+Baseline sha256 of modules/branch/pages/pharmacy-mccanns-aigburth.html: 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841
+
+--- BASELINE RUN (before any injection) ---
+exit code: 0
+check-map-embeds.js passes cleanly on the unmodified tree.
+
+--- INJECTION: RULE 2 coverage (duplicate embed) ---
+exit code: 1
+expected substring found: true
+matched line: FAIL  [coverage] modules/branch/pages/pharmacy-mccanns-aigburth.html: carries 2 map embed(s), expected exactly 1
+
+--- INJECTION: RULE 3 the address (sister branch postcode) ---
+exit code: 1
+expected substring found: true
+matched line: FAIL  [the address] modules/branch/pages/pharmacy-mccanns-aigburth.html: map points at "112 Aigburth Road, Liverpool, L17 4JP" and branches.json gives this branch "112 Aigburth Road, Liverpool, L17 7BP"
+
+--- INJECTION: RULE 4 agreement (contact card diverges from map) ---
+exit code: 1
+expected substring found: true
+matched line: FAIL  [agreement] modules/branch/pages/pharmacy-mccanns-aigburth.html: contact card reads "112 Aigburth Road, Liverpool, L17 4JP" and the map underneath it points at "112 Aigburth Road, Liverpool, L17 7BP"
+
+--- INJECTION: RULE 5 encoding (raw space in query) ---
+exit code: 1
+expected substring found: true
+matched line: FAIL  [encoding] modules/branch/pages/pharmacy-mccanns-aigburth.html: map query carries a raw space or comma, which breaks the embed: 112%20Aigburth Road%2C%20Liverpool%2C%20L17%207BP
+
+--- INJECTION: RULE 6 directions (destination diverges from map) ---
+exit code: 1
+expected substring found: true
+matched line: FAIL  [directions] modules/branch/pages/pharmacy-mccanns-aigburth.html: directions button routes to "112 Aigburth Road, Liverpool, L17 4JP" and the map on the same page shows "112 Aigburth Road, Liverpool, L17 7BP"
+
+--- FINAL STATE ---
+Final sha256 of target: 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841 (matches baseline: true)
+git status after restore, unexpected entries: 0
+
+--- SUMMARY ---
+  CAUGHT: RULE 2 coverage (duplicate embed)
+  CAUGHT: RULE 3 the address (sister branch postcode)
+  CAUGHT: RULE 4 agreement (contact card diverges from map)
+  CAUGHT: RULE 5 encoding (raw space in query)
+  CAUGHT: RULE 6 directions (destination diverges from map)
+
+All injections caught as expected: true
+Target file confirmed byte-identical to baseline.

@@ -22733,6 +22733,84 @@ this pass, 3.12 (2026-09-09T02:42:32+01:00) is next stalest, then 3.6
       page, generator or data field changed anywhere in the repo. No new
       question raised. Evidence: audits/verify-5.2-2026-09-10-fifteenth.js
       and audits/verify-5.2-2026-09-10-fifteenth-output.txt.
+      Quality pass 2026-09-11 (sixteenth, unattended run, rotation-pool
+      pick): 5.2 was named "next stalest" in item 2.1's own sixteenth-pass
+      forward note (2026-09-10) and confirmed still unmoved by this run's
+      own re-scan of every itemised block's last 2026-09-dated string
+      (thirteen items tied at 2026-09-10, 5.2 the only one of those thirteen
+      carrying an explicit same-day forward note pointing at it).
+      NEW ANGLE: of the fifteen prior passes, none had ever run
+      tools/check-map-embeds.js itself against any of this item's four pages
+      and proven it by injection, despite the checker's own header naming
+      branch landing pages as its primary reason for existing: they are the
+      only page family carrying a second copy of the map query, in the "Get
+      directions" button, and RULE 6 (directions) has no equivalent on any
+      other page family. check-whatsapp-route.js and check-app-membership.js
+      were also untested against this item but apply only trivially to
+      branch pages (no module root, no WhatsApp button, no app card, by
+      generator design); check-map-embeds.js was the substantive gap.
+      METHOD. New instrument, audits/verify-5.2-2026-09-11-sixteenth.js,
+      same discipline as the fourteenth and fifteenth passes: refuses to run
+      on a dirty tree, captures the target's original bytes and sha256
+      before any mutation, restores by direct fs.writeFileSync immediately
+      after capturing each injection's output and before any assertion,
+      sha256-reconfirms byte-identical restoration after every injection and
+      again at the end. Shells out to the real tools/check-map-embeds.js as
+      a child process. Target: modules/branch/pages/pharmacy-mccanns-
+      aigburth.html.
+      FIVE INJECTIONS, one per page-level rule the checker holds (RULE 1,
+      the generators, was read but not injection-tested this pass - it
+      targets tools/build-*.js source, not a generated page, and is out of
+      scope for a page-targeted injection), each restored byte-identical
+      before the next: (1) RULE 2 coverage - the map iframe duplicated -
+      CAUGHT, "carries 2 map embed(s), expected exactly 1"; (2) RULE 3 the
+      address - the map query repointed at sister branch McCanns
+      Sandringham's own real postcode (L17 4JP), the exact silent-wrong-
+      building fault the checker's header names by name - CAUGHT, "map
+      points at ... branches.json gives this branch ..."; (3) RULE 4
+      agreement - only the contact-card printed address changed, the map
+      left untouched, so the two disagree - CAUGHT, "contact card reads ...
+      the map underneath it points at ..."; (4) RULE 5 encoding - a raw
+      space inserted into the map query - CAUGHT, "carries a raw space or
+      comma, which breaks the embed"; (5) RULE 6 directions - the "Get
+      directions" destination repointed away from the map query on the same
+      page - CAUGHT, "directions button routes to ... the map on the same
+      page shows ...". All five caught first attempt with the expected
+      message; target file confirmed sha256-identical to baseline after
+      every restore and at the end. Full 36-checker suite clean before and
+      after (36/36). All six page generators (branch landing, contraception,
+      service, switch, travel clinic, weight loss) rebuilt from their own
+      build-*.js scripts; sha256 of all 177 generated .html files under
+      modules/*/pages/ taken before and after: byte-identical, zero diff.
+      git status --porcelain -- modules core branches.json gbp-packs audits
+      empty before and after aside from the two pre-existing untracked
+      artefacts already logged on prior passes
+      (gbp-packs/.fuse_hidden0000000400000001 and
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+      neither created nor touched by this pass) plus this pass's own two new
+      evidence files.
+      LIVE HALF. Read-only curl GET with -L (nothing clicked, typed or
+      submitted anywhere). All four of this item's own landing URLs still
+      404, unchanged from every prior pass: mccannspharmacy.co.uk/pharmacy-
+      mccanns-aigburth.html, /pharmacy-mccanns-sandringham.html, and
+      scorah-chemists.co.uk/pharmacy-scorah-bramhall.html, /pharmacy-scorah-
+      hazel-grove.html. Not a new finding, reconfirmation of the item's own
+      standing OUTSTANDING note only.
+      RESULT: no in-repo defect. check-map-embeds.js was already correctly
+      holding McCanns Chemist Aigburth's own generated page to all five
+      page-level rules tested - including Rule 6's directions-button check,
+      unique to this page family and never exercised against it before -
+      now proven directly by injection for the first time in this item's
+      sixteen-pass history. No checker logic, page, generator or data field
+      changed anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-11-sixteenth.js and
+      audits/verify-5.2-2026-09-11-sixteenth-output.txt.
+      FORWARD NOTE: next stalest by this run's own re-derivation (rotation
+      pool minus item 5.2, now at the back of the queue): the remaining
+      twelve items last touched 2026-09-10 in document order - 3.4, 3.6,
+      3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3 - none carrying a more
+      specific same-day forward note as of this pass. Other runs may land in
+      between before the next pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
