@@ -9460,6 +9460,45 @@ audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
       whoever runs the next unattended pass: 2.1 (2026-09-09T00:44:07+01:00),
       then 5.2, 4.11, 5.1 - re-derive rather than assume, since other runs
       may land in between. Done 2026-09-10
+      Quality pass 2026-09-11 (sixteenth, unattended scheduled run). Fifteen
+      prior passes had proven 15 of the 35 checkers by injection against
+      Riddings' own files but had never named tools/check-gbp-packs.js at
+      all, despite gbp-packs/riddings-timperley.md existing since the item's
+      original build and carrying the identity facts (name, address, phone,
+      postcode, hours, categories, bank holiday guidance) that reach a live
+      public Google Business Profile the moment it is pasted; the eighth
+      pass had read the pack narratively but never proved the checker
+      script catches a wrong value by injection. Baseline: git status
+      --porcelain clean (two pre-existing untracked artefacts left alone);
+      all 35 checkers 35/35 exit 0; pristine sha256 of the pack recorded
+      before any mutation. SIX INJECTIONS PLUS ONE CONTROL, each restored
+      byte-identical (sha256-confirmed) before the next: (1) primary
+      category "Pharmacy" swapped to "Chemist" - CAUGHT, two FAILs; (2)
+      "Vaccination centre" dropped from the category-omission bullet
+      despite the branch's own travel clinic widget - CAUGHT; (3) hours
+      line rewritten to falsely open the branch on Saturday - CAUGHT,
+      "sends patients to a locked door"; (4) own phone swapped for Gordon
+      Short Chemist Crosby's real number - CAUGHT; (5) own postcode WA15
+      6BP swapped for Gordon Short's real L23 3AT - CAUGHT, two FAILs; (6)
+      the whole bank holiday special-hours paragraph deleted from the
+      paster notes - CAUGHT, "no bank holiday special-hours instruction";
+      (7) CONTROL, two NHS services bullets reordered with nothing changed
+      - correctly PASSED, exit 0. All seven fired or passed on their own
+      intended rule, first attempt, no unexpected cross-firing. Final
+      restore sha256-reconfirmed identical to baseline; full 35-checker
+      suite re-run clean after (35/35 exit 0); tracked repo git status
+      --porcelain empty throughout aside from the two pre-existing
+      untracked artefacts. RESULT: no in-repo defect - check-gbp-packs.js
+      was already correctly holding Riddings' pack to all six rule
+      directions tested, now proven by injection for the first time in
+      this item's history. LIVE HALF: not attempted (Claude in Chrome not
+      connected, standing Q59, one attempt no retry); prior live findings
+      (NHS review link 410, pfLink pre-repaste legacy copy, switch banner
+      mojibake, Q31-era Cheshire county, Q22 weight loss tagline) neither
+      re-checked nor contradicted. No new question raised. Evidence in
+      audits/verify-3.10-2026-09-11-sixteenth.txt. Next stalest by this
+      run's own computation, re-derive rather than assume: 3.12, 3.13,
+      4.11, 5.1, 6.2, 6.3, all tied at 2026-09-10. Done 2026-09-11
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

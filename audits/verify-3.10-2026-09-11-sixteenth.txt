@@ -1,0 +1,176 @@
+ITEM 3.10 QUALITY PASS (SIXTEENTH), RIDDINGS PHARMACY (TIMPERLEY)
+Run: 2026-09-11, unattended scheduled run (audit-backlog-worker), Cowork sandbox
+mcp__workspace__bash for all repo work.
+
+FRESH ANGLE
+Fifteen prior passes on this item had proven check-booking-routes.js,
+check-branch-identity.js, check-branch-links.js, check-contraception-copy.js,
+check-em-dashes.js, check-jsonld.js, check-map-embeds.js, check-nap.js,
+check-opening-hours.js, check-postcodes.js, check-seo-pattern.js,
+check-service-links.js, check-switch-copy.js, check-travel-clinic-copy.js and
+check-weight-loss-copy.js by injection against Riddings' own files (confirmed
+by grepping this item's entire AGENT_WORKLIST.md block, lines 8597-9462, for
+all 35 checker filenames - see the count table below). tools/check-gbp-packs.js
+had never been named in this item's section at all, despite
+gbp-packs/riddings-timperley.md existing since the item's original build
+(2026-08-04, confirmed by directory listing) and carrying identity facts
+(name, address, phone, postcode, hours, categories, bank holiday guidance)
+that reach a live, public Google Business Profile the moment somebody pastes
+it. Earlier passes (the eighth, 2026-09-02) had READ the pack in full and
+compared it narratively to branches.json, but that is not the same as proving
+the checker script itself catches a wrong value by injection - the same
+distinction item 3.8's seventeenth pass drew on the same day against a
+different branch's pack.
+
+Checker-mention count across the full 3.10 block before this pass (21 of 35
+checkers never named at all; only the ones with the fewest mentions shown):
+  0  check-address-region, check-app-membership, check-brand-spelling,
+     check-cdn-pins, check-editor-snapshot, check-fragment-targets,
+     check-gbp-packs, check-gbp-pharmacy-first, check-live-hours,
+     check-page-coverage, check-pharmacy-first-cost,
+     check-pharmacy-first-eligibility, check-pharmacy-first-safety-net,
+     check-pharmacy-first-symptoms, check-seo-keywords, check-seo-lengths,
+     check-seo-sheets, check-uk-spelling, check-url-scheme,
+     check-whatsapp-route, check-widget-diaries
+  2  check-weight-loss-copy
+  4  check-branch-links
+  5  check-map-embeds
+  (etc.)
+check-gbp-packs.js was chosen because, unlike most of the other zero-mention
+checkers, it has a real, hand-drafted, branch-specific file to test
+(gbp-packs/riddings-timperley.md) and CLAUDE.md names it as guarding "profile
+basics" that reach a public Google listing directly, the same class of silent
+fault (map iframe, WhatsApp route, phone shape) this repo's audit trail keeps
+finding under checkers that were assumed to already cover something they did
+not.
+
+BASELINE
+git status --porcelain -- modules core tools branches.json gbp-packs clean
+before starting (confirmed again at the end): two pre-existing untracked
+artefacts this run did not create - gbp-packs/.fuse_hidden0000000400000001
+and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak - left
+alone throughout. All 35 tools/check-*.js run individually beforehand: 35/35
+exit 0 (including tools/check-gbp-packs.js itself, 0 failures estate-wide, 17
+pre-existing WARN-level notices unrelated to Riddings or unchanged by this
+run). Pristine sha256 of gbp-packs/riddings-timperley.md recorded and a
+byte-for-byte backup taken to /tmp/riddings-gbp-backup/pristine.md before any
+mutation:
+  8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+
+METHOD
+Each injection mutated gbp-packs/riddings-timperley.md directly (a single
+hand-drafted markdown file with no generator - GBP packs are pasted by hand,
+not built), ran `node tools/check-gbp-packs.js`, captured the Riddings-
+specific lines of output, then restored the file from the pristine backup and
+re-confirmed sha256 identical before the next injection. No other file was
+touched at any point.
+
+SIX INJECTIONS PLUS ONE CONTROL
+
+1. Primary category swap. "- Primary: Pharmacy" -> "- Primary: Chemist".
+   CAUGHT, two FAILs first attempt: "Categories section does not set
+   Pharmacy as the primary category" and "Categories section names
+   \"Chemist\", which is not a category any pack in this repo uses ...".
+
+2. Category-omission. Dropped "Vaccination centre" from the "Add if not
+   present" bullet in section 2, despite the branch's own travelClinic
+   widget in branches.json. CAUGHT first attempt: "Categories section does
+   not list \"Vaccination centre\", but the branch's travel clinic gives
+   vaccinations per branches.json (Build Pack v2 section 4.1)".
+
+3. Hours day-rule. "Monday to Friday 9:00am to 6:00pm, Saturday and Sunday
+   closed" rewritten to falsely open the branch on Saturday ("Monday to
+   Saturday 9:00am to 6:00pm, Sunday closed"). CAUGHT first attempt: "the
+   hours line states the branch is open on Saturday, but branches.json
+   opens it only on Monday, Tuesday, Wednesday, Thursday, Friday. A profile
+   that publishes a day the shop is shut sends patients to a locked door".
+
+4. Phone swap. Riddings' own 0161 973 2951 (profile-basics line only, Post
+   B's own body copy left untouched) swapped for Gordon Short Chemist
+   Crosby's real number 0151 924 3449. CAUGHT first attempt: "phone
+   0151 924 3449 belongs to Gordon Short Chemist, not Riddings Pharmacy".
+
+5. Postcode swap. Riddings' own WA15 6BP swapped for Gordon Short Chemist
+   Crosby's real L23 3AT inside the Address line. CAUGHT first attempt, two
+   FAILs: "branch postcode WA15 6BP does not appear anywhere in the pack"
+   and "postcode L233AT belongs to Gordon Short Chemist, not Riddings
+   Pharmacy".
+
+6. Bank holiday section removal. Deleted the whole "Bank holiday special
+   hours" paragraph under "Notes for the paster:" (added on the item 4.5
+   pass, 2026-08-30, per Q79). CAUGHT first attempt: "the \"Notes for the
+   paster:\" block has no bank holiday special-hours instruction ... the
+   paster must be told to mark every remaining date in branches.json
+   bankHolidays.dates2026 as Closed ...".
+
+7. CONTROL. Swapped the order of the "NHS blood pressure check" and "NHS
+   contraception service" bullets in section 3 (Services), no wording,
+   fact or value added, removed or changed. Correctly PASSED, exit 0, only
+   the pre-existing riddings-timperley.md WARN (switch-prescriptions.html
+   live-only link target) present - confirming the checker reacts to
+   content, not to line order.
+
+All seven fired or passed on their own intended rule, first attempt, no
+unexpected cross-firing and no other branch's pack affected. Final restore
+sha256-reconfirmed identical to the pristine baseline after every individual
+injection and again at the end. Full 35-checker suite re-run individually
+after the last restore: 35/35 exit 0. Tracked repo `git status --porcelain --
+modules core tools branches.json gbp-packs` empty throughout aside from the
+two pre-existing untracked artefacts noted above, confirmed unchanged by
+this run.
+
+RESULT: no in-repo defect. tools/check-gbp-packs.js was already correctly
+holding gbp-packs/riddings-timperley.md to all six rule directions tested
+(primary category, category omission against a live widget, the hours
+day-rule, phone, postcode and the bank holiday special-hours instruction),
+now proven directly by injection for the first time in this item's
+sixteen-pass history.
+
+LIVE HALF: not attempted this pass. Claude in Chrome reported not connected
+at step 3 (standing Q59, one attempt, no retry per the task's own rule); this
+run's target was a repo-only checker proof with no live-page surface of its
+own beyond what the fourteenth and prior passes already read (the NHS review
+link 410, the pfLink pre-repaste legacy copy, the switch banner mojibake, the
+Q31-era Cheshire county string, the Q22 weight loss tagline) - none of those
+findings were re-checked this pass and none are reconfirmed or contradicted.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.10's block, this pass appended in
+place); AGENT_LOG.md (new entry); this file
+(audits/verify-3.10-2026-09-11-sixteenth.txt) - no generator, page, data
+field, checker file or gbp-packs file left touched in the tracked tree,
+reconfirmed via `git status --porcelain -- modules core tools branches.json
+gbp-packs` immediately before commit.
+
+No new question raised.
+
+FORWARD NOTE for the next unattended run: re-derive the rotation pool fresh
+rather than trusting this note (other runs may land in between). Using this
+run's own (major, minor) integer-tuple method, with 3.10 now touched today,
+the next-stalest untouched-today candidates were the remaining six items
+still tied at 2026-09-10: 3.12, 3.13, 4.11, 5.1, 6.2, 6.3.
+
+INFRASTRUCTURE NOTE (not part of the worklist item, logged for visibility):
+this run's own step 1 lock check found a pre-existing .git/index.lock, age
+about 23-30 minutes at first sight (created 2026-09-11 19:41 BST, this run
+started c. 20:04 BST), with no git process visible via `ps aux` in this
+sandbox. Left untouched throughout per the task's own literal 1-hour
+threshold for that specific lock (it never blocked this run's own git
+operations, since `git fetch` and `git pull --ff-only` both succeeded without
+needing to write the index - the branch was already up to date and no
+checkout was required). Separately, this run's own freshly-written
+`.agent-lock` could not be removed via `rm -f` (EPERM, "Operation not
+permitted") nor via the cowork file-delete permission tool (auto-declined,
+"no one was available to approve it during this scheduled run" - expected in
+an unattended session), matching the standing Q87/Q96 finding recorded by
+numerous prior runs and explaining the roughly 124 `.agent-lock.old-*` /
+`.agent-lock.released-*` debris files already sitting untracked in this repo.
+This run did not attempt the `mcp__Windows-MCP__PowerShell` workaround those
+prior runs use for the equivalent step, since git operations succeeded
+without needing it (nothing was pushed that required credentials beyond the
+sandbox's already-working `git fetch`/`pull`/`push` access - see the commit
+step). The `.agent-lock` file this run wrote is left in place with its real
+timestamp; a future run's own step 1 will treat it as stale after 45 minutes
+and attempt the same cleanup, which will hit the same wall unless someone
+runs `allow_cowork_file_delete` interactively or the lock/cleanup convention
+is changed to write through a path this sandbox is actually permitted to
+delete.
