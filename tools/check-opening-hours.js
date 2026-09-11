@@ -32,6 +32,31 @@
  *   8. No switch page, service-family page, or hand-pasted public copy file
  *      carries a clock time at all, because none of them is built with an
  *      hours card to compare one to.
+ *   9. A real dispensing pharmacy (a branch with an odsCode) must carry an
+ *      openingHours block at all, landing page or not, unless it is a
+ *      documented exception in KNOWN_NO_HOURS. Rules 4 to 6 all read
+ *      openingHours and return immediately when it is absent, so a missing
+ *      block is not checked leniently, it is not checked at all.
+ *
+ * The gap that prompted rule 9 (found on the 6.3 quality pass, 2026-09-12,
+ * fourteenth pass on this item): rules 4, 5 and 6 open with "var oh =
+ * b.openingHours; if (!oh) return;", so a branch with no openingHours block
+ * at all skips every day-level check in this file with no failure, no
+ * warning and no note - not the lenient case rule 6 was written for (a day
+ * present in neither list), but the same gap one layer further out (no
+ * lists at all). Proved by injection: deleting gordonshorts_crosby's
+ * openingHours entirely left this checker reporting clean, and silently
+ * dropped it from the split-day note besides. check-gbp-packs.js happened
+ * to catch that specific injection, because that branch's GBP pack then
+ * disagreed with branches.json, but that is a different checker reading a
+ * different file for an unrelated reason, and it would not fire for a
+ * branch with no pack. Gated on odsCode so a branch that is not a real
+ * dispensing pharmacy (rbh_head_office_aintree, which carries none) is not
+ * expected to state hours at all. clearchemist_aintree is the one branch
+ * that is both odsCode-bearing and hours-less today; it is a documented,
+ * already-owned gap (gbp-packs/clear-aintree.md, and check-gbp-packs.js's
+ * own branch-without-hours rule), so it is recorded in KNOWN_NO_HOURS
+ * rather than re-raised as a fresh question.
  *
  * The defect that prompted rule 6 (found on the 6.3 quality pass, 2026-08-13):
  * rules 1 to 3 compare the page against branches.json, and expectedRow() reads
@@ -142,6 +167,40 @@ var seenKnownTime = {};
 // in one folder.
 var KNOWN_TIME_OUTSIDE_ESTATE = {};
 var seenKnownEstateTime = {};
+
+// Rule 9's exception list (found on the 6.3 quality pass, fourteenth,
+// 2026-09-12). Rules 4, 5 and 6 all start "var oh = b.openingHours; if
+// (!oh) return;", so a branch with no openingHours block at all is not
+// checked leniently, it is not checked at all: no failure, no warning, no
+// note, nothing in this file's own output distinguishes it from a branch
+// that was never asked about. That is invisible in exactly the way rule 6
+// was built to stop being invisible for a single missing DAY, one layer
+// further out, for the whole block. Proved by injection: deleting
+// gordonshorts_crosby's openingHours entirely left check-opening-hours.js
+// reporting "clean" (and silently dropped it from the split-day note),
+// while a real trading pharmacy's hours were left completely unstated.
+// tools/check-gbp-packs.js happened to catch that specific injection
+// because that branch carries a GBP pack whose hours line then disagreed
+// with branches.json, but that is a different checker reading a different
+// file for a different reason, not this one doing its own job, and it
+// would not have fired at all for a branch with no pack.
+//
+// A branch is only worth flagging here if it is a real dispensing
+// pharmacy: gated on odsCode, so rbh_head_office_aintree (no odsCode, not
+// patient-facing, correctly has no hours to state) needs no entry and
+// raises nothing. clearchemist_aintree is the one branch that is both
+// odsCode-bearing and hours-less today, and it is a documented gap, not a
+// fresh judgement call: gbp-packs/clear-aintree.md and check-gbp-packs.js's
+// own "branch without hours" rule already say the hours are not yet known
+// and must be confirmed with the branch before they are added here, not
+// guessed. Recorded below rather than re-raised as a new question. Same
+// stale-key-fails contract as every other KNOWN list in this repo: if the
+// branch gains real hours, or is disposed, or stops existing, the entry
+// must be removed or this file fails on its own account.
+var KNOWN_NO_HOURS = {
+  clearchemist_aintree: "real trading NHS pharmacy (odsCode FD553) with no openingHours block; hours are not yet known and must be confirmed with the branch before they are added, not guessed. Tracked in gbp-packs/clear-aintree.md and enforced there by check-gbp-packs.js's own branch-without-hours rule, not a fresh question for this file to raise"
+};
+var seenKnownNoHours = {};
 
 function fail(msg) { failures.push(msg); }
 
@@ -256,6 +315,29 @@ console.log("check-opening-hours");
   }
   notes.push("bank holidays (item 6.7): " + dates.length + " date(s) in bankHolidays.dates2026, tradingPolicy \"" + bh.tradingPolicy + "\". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.");
 })();
+
+// Rule 9. A missing openingHours block is not nothing to check, it is the
+// gap rule 6 was built for, one layer further out: silence is not a
+// closure, and an absent block reaches rules 4, 5 and 6 (and, for a branch
+// with a landing page, rules 1 to 3) not at all. Gated on odsCode so this
+// applies only to real dispensing pharmacies, not to rbh_head_office_aintree.
+branches.forEach(function (b) {
+  if (!b.openingHours && b.odsCode) {
+    if (KNOWN_NO_HOURS[b.id]) {
+      seenKnownNoHours[b.id] = true;
+      notes.push("opening hours (rule 9): " + b.id + " carries an odsCode but no openingHours block. Documented exception: " + KNOWN_NO_HOURS[b.id]);
+    } else {
+      fail(b.id + ": carries an odsCode (a real dispensing pharmacy) but has no openingHours block at all. Rules 4 to 6 read openingHours and return immediately when it is absent, so a branch in this state is invisible to every day-level check in this file, not merely checked leniently. State its hours, or if they are genuinely not yet known, add it to KNOWN_NO_HOURS with the reason and where the gap is tracked");
+    }
+  }
+});
+
+// Anti-rot for rule 9's exception list, same contract as rules 7 and 8's.
+Object.keys(KNOWN_NO_HOURS).forEach(function (id) {
+  if (!seenKnownNoHours[id]) {
+    fail('KNOWN_NO_HOURS carries "' + id + '" but that branch now has an openingHours block, is disposed, or no longer exists in branches.json. Remove the entry now the gap is resolved');
+  }
+});
 
 // Rules 4, 5 and 6 apply to the data itself, landing page or not. Rule 6 in
 // particular must not be scoped to branches with a landing page: an unstated

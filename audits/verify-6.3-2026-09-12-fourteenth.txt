@@ -1,0 +1,120 @@
+Item 6.3 quality pass (fourteenth), 2026-09-12 (unattended scheduled run,
+audit-backlog-worker, mcp__workspace__bash throughout for repo work,
+checker runs and injection).
+
+SUBJECT: tools/check-opening-hours.js, rule 9 (new). A branch with no
+openingHours block at all was invisible to rules 4, 5 and 6, which all
+begin "var oh = b.openingHours; if (!oh) return;". Not the lenient case
+rule 6 was built to catch (a single day present in neither closedDays nor
+specification), but the same gap one layer further out: no lists at all.
+
+BASELINE (before any change).
+  - All 36 tools/check-*.js exit 0.
+  - branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+    (the standing hash every recent pass has recorded).
+  - Combined sha256 of every .html/.js/.css file under modules/ and core/:
+    fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3
+    (matching the standing baseline).
+  - git status --porcelain -- modules core branches.json tools gbp-packs:
+    only the two pre-existing untracked stray files
+    (gbp-packs/.fuse_hidden0000000400000001,
+    modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+    both left untouched as on every recent pass.
+
+INJECTION 1 (proves the defect, unfixed checker).
+  branches.json backed up to _agentscratch/branches.json.bak-pre-6.3-fourteenth,
+  sha256 confirmed 904de09b...969e1e.
+  Deleted openingHours entirely from gordonshorts_crosby (a real trading
+  NHS pharmacy, odsCode FPD45, with no branch landing page - isolates the
+  data-level rules 4-6 guard from the page-level rules 1-3/7 guard).
+  Ran the UNFIXED tools/check-opening-hours.js: exit 0, "clean, every
+  visible and structured opening time matches branches.json." The branch
+  also silently dropped out of the split-day note
+  ("...colemanleigh_liverpool, tiffenbergs_longmoor" - gordonshorts_crosby
+  missing). Full 36-checker suite run on the same injected data: only
+  check-editor-snapshot.js (expected, fires on any branches.json edit) and
+  check-gbp-packs.js failed - the latter for an unrelated, coincidental
+  reason (gordon-short-crosby.md's pack states real hours, which now
+  disagreed with branches.json once it had none, tripping check-gbp-packs's
+  own "branch without hours must say so" rule). check-opening-hours.js -
+  the checker whose entire subject is this - stayed silent throughout.
+
+RESTORE. branches.json restored from the backup by byte copy; sha256
+reconfirmed 904de09b...969e1e; check-opening-hours.js, check-gbp-packs.js
+and check-editor-snapshot.js all re-run clean.
+
+FIX. Added rule 9 to tools/check-opening-hours.js: any non-disposed branch
+carrying an odsCode (a real dispensing pharmacy) must have a non-empty
+openingHours block, unless it is a documented exception in a new
+KNOWN_NO_HOURS map (same stale-key-fails anti-rot contract as
+KNOWN_TIME_OUTSIDE_CARD and KNOWN_TIME_OUTSIDE_ESTATE). Gated on odsCode
+so rbh_head_office_aintree (no odsCode, not a patient-facing pharmacy)
+needs no entry and raises nothing. clearchemist_aintree is the one branch
+that is both odsCode-bearing and hours-less today; it is a documented,
+already-owned gap - gbp-packs/clear-aintree.md and check-gbp-packs.js's
+own "branch without hours" rule already say its hours are unknown and
+must be confirmed with the branch before they are added, not guessed -
+so it went into KNOWN_NO_HOURS with that reason rather than being
+re-raised as a fresh question. Also updated the file's header doc comment
+with a rule 9 entry and a dated "gap that prompted it" paragraph, matching
+the convention every earlier rule in this file follows.
+
+INJECTION 2 (proves the fix, on the FIXED checker).
+  Real branches.json confirmed unchanged (sha256 904de09b...969e1e) before
+  starting. Fixed checker run against the REAL, unmodified data first:
+  exit 0, clean, with a new NOTE naming clearchemist_aintree and quoting
+  the KNOWN_NO_HOURS reason - the documented exception surfaces instead of
+  vanishing silently. Then re-ran the identical gordonshorts_crosby
+  deletion from injection 1: FIXED checker now exits 1 with exactly one
+  failure, "gordonshorts_crosby: carries an odsCode (a real dispensing
+  pharmacy) but has no openingHours block at all. Rules 4 to 6 read
+  openingHours and return immediately when it is absent...". branches.json
+  restored again from the same backup, sha256 reconfirmed 904de09b...969e1e.
+
+INJECTION 3 (anti-rot, scratch checker copy only, tracked file never
+touched). Copied tools/check-opening-hours.js to
+_agentscratch/check-opening-hours.scratch.js and added a fake
+KNOWN_NO_HOURS entry for gordonshorts_crosby (a branch that DOES carry
+openingHours) on the SCRATCH COPY only. Ran the scratch copy against the
+real, unmodified branches.json: exit 1, "KNOWN_NO_HOURS carries
+'gordonshorts_crosby' but that branch now has an openingHours block, is
+disposed, or no longer exists in branches.json. Remove the entry now the
+gap is resolved." Confirmed via diff that tools/check-opening-hours.js
+(the tracked file) differed from the scratch copy throughout, i.e. was
+never edited by this test.
+
+RESULT. All three tests behaved exactly as designed: the pre-fix checker
+missed a real gap, the fixed checker catches it with a specific message,
+and the fixed checker's own new exception list is itself held to the same
+anti-rot standard as the rest of the file. Full 36-checker suite re-run
+clean after landing the fix (36/36 exit 0). All six generators
+(build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages) rebuilt: combined sha256 of every file under
+modules/ and core/ identical before and after
+(fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3).
+git status --porcelain -- modules core branches.json gbp-packs empty
+throughout. Only tools/check-opening-hours.js changed. No page, generator,
+data field or patient-facing copy touched. No new question raised - this
+was a checker-coverage gap with an obvious, low-risk fix (an absence rule
+whose one real-world case was already a documented, owned exception), not
+a fresh judgement call for Rishi.
+
+LIVE HALF. Network egress confirmed directly from the sandbox (curl 200
+against google.com); Claude in Chrome not attempted, not needed for this
+route. tools/check-live-hours.js re-run across all 14 trading branches,
+evidence audits/live-hours-check-2026-09-11.json (the tool's own internal
+date read UTC, one day behind this run's BST wall-clock date; noted, not
+fixed, out of this pass's scope). Bank holiday note correctly flagged
+2026-08-31 as within the 14-day window. gordonshorts_crosby - this pass's
+own injection target - read live as a control and correctly still
+publishes "9:00am - 6:00pm (closed 1-2pm)" throughout, confirming the
+injected branch's real live copy is unaffected by the in-repo test.
+smartts_bootle remains the sole live mismatch: homepage hours card,
+contact page and footer widget all still publish straight-through
+"9:00am - 6:00pm" / "Mon-Fri 9am-6pm" with no lunch closure, unchanged
+since first found 2026-08-11, across all fourteen passes now. Q55
+(answered by Rishi 2026-09-02, option 1: edit the live Smartts pages)
+stands as answered-but-not-yet-actioned - the live Weebly edit is outside
+this worker's write scope (browser use stays read-only) - not re-raised.
+No new live finding, no new question.

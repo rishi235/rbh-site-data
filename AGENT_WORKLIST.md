@@ -25636,6 +25636,59 @@ rather than trust this note - as computed by this pass, the two remaining
       new question. Evidence:
       audits/opening-hours-disposed-filter-6.3-thirteenth-2026-09-10.txt,
       audits/live-hours-check-2026-09-10.json. Done 2026-09-10.
+      Quality pass (fourteenth), 2026-09-12 (unattended scheduled run,
+      Cowork sandbox mcp__workspace__bash throughout). ONE REAL DEFECT
+      FOUND AND FIXED, in the checker rather than any page or data field:
+      a branch with no openingHours block at all was invisible to rules 4,
+      5 and 6, which all open "var oh = b.openingHours; if (!oh) return;" -
+      not the lenient case rule 6 was built to catch (a day present in
+      neither list), the same gap one layer further out (no lists at all).
+      Proved by injection: deleting gordonshorts_crosby's openingHours
+      entirely (a real trading pharmacy, odsCode FPD45, no landing page)
+      left the checker reporting clean and silently dropped it from the
+      split-day note; check-gbp-packs.js happened to catch that specific
+      injection for an unrelated reason (its pack then disagreed with
+      branches.json), but check-opening-hours.js itself, whose entire
+      subject this is, stayed silent. FIXED with new rule 9: any
+      non-disposed branch carrying an odsCode must have a non-empty
+      openingHours block, unless listed in a new KNOWN_NO_HOURS map with
+      the same stale-key-fails anti-rot contract as the file's other
+      exception lists. Gated on odsCode so rbh_head_office_aintree (no
+      odsCode, not patient-facing) needs no entry. clearchemist_aintree is
+      the one branch that is both odsCode-bearing and hours-less today;
+      it is a documented, already-owned gap (gbp-packs/clear-aintree.md,
+      and check-gbp-packs.js's own branch-without-hours rule say its hours
+      are unknown and must be confirmed with the branch, not guessed), so
+      it went into KNOWN_NO_HOURS with that reason rather than being
+      re-raised as a fresh question. Re-proved the injection against the
+      fixed checker (now fails with a specific, named message), and proved
+      the anti-rot path on a scratch copy of the checker only (a fake
+      KNOWN_NO_HOURS entry for a branch that does have hours fails
+      correctly; tracked checker file confirmed untouched by that test via
+      diff throughout). All 36 checkers clean after the fix; all six
+      generators rebuilt, combined sha256 of every file under modules/ and
+      core/ identical before and after
+      (fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3);
+      branches.json restored and reconfirmed byte-identical
+      (904de09b...969e1e) after both injections; git status --porcelain on
+      modules, core, branches.json, gbp-packs empty throughout bar the two
+      pre-existing untracked stray files, both left untouched. No page,
+      generator, data field or patient-facing copy changed. No new
+      question - a checker-coverage gap with an obvious, low-risk fix
+      whose one real-world case was already a documented, owned exception.
+      LIVE HALF: network egress confirmed directly (no browser needed).
+      check-live-hours.js re-run across all 14 branches, evidence
+      audits/live-hours-check-2026-09-11.json (tool's internal date read
+      UTC, one day behind this run's BST date; noted, not fixed).
+      gordonshorts_crosby read live as a control, correctly still shows
+      its lunch closure, confirming the injected branch's real live copy
+      was unaffected by the in-repo test. smartts_bootle remains the sole
+      live mismatch, straight-through hours unchanged since 2026-08-11
+      across all fourteen passes. Q55 (answered 2026-09-02, option 1)
+      stands as answered-but-not-yet-actioned, live Weebly edit outside
+      this worker's write scope, not re-raised. No new question. Evidence:
+      audits/verify-6.3-2026-09-12-fourteenth.txt,
+      audits/live-hours-check-2026-09-11.json. Done 2026-09-12.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
