@@ -8479,6 +8479,121 @@ audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
       then 2.1 (00:44:07), 5.2 (01:13:02), 4.11 (01:42:56) - re-derive fresh
       rather than assume, since other runs may land in between. Done
       2026-09-10.
+
+      Quality pass (sixteenth), 2026-09-11 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). All 8 unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep (5.3, 5.4,
+      5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the
+      quality-pass fallback applied. Rotation pool re-derived fresh via a
+      Python pass over all 51 itemised `- [x]`/`- [ ]` blocks, taking the
+      latest 2026-MM-DD date string in each block's own text, excluding the
+      one-off pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the blocked items:
+      eight items tied at 2026-09-10 (3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2,
+      6.3), exactly matching the immediately preceding two runs' own forward
+      notes (3.8's and 3.6's, both dated today). Lowest-item-number
+      tiebreak: chosen 3.9 (Coleman and Leighs Pharmacy, Walton).
+
+      ANSWER PICKUP (step 3): mcp__claude-in-chrome__tabs_context_mcp
+      reported "Claude in Chrome is not connected" (one attempt, no retry,
+      standing Q59). QUESTIONS.json read directly: 101 entries, 48 open,
+      unchanged. No pickup.
+
+      AUTONOMOUS WINDOW CHECK (step 4): grepped AGENT_LOG.md for "^##
+      Standing authorisation" - the one match is dated 2026-08-09 to
+      2026-08-10 BST and is long expired. Not applicable.
+
+      TARGET: tools/check-weight-loss-copy.js, never proven by injection
+      directly against this branch's own weight-loss-clinic page in fifteen
+      prior passes (grepped this item's full AGENT_WORKLIST.md section for
+      "weight-loss-copy" and "weight loss copy" beforehand: zero hits naming
+      this checker, despite Coleman and Leighs carrying a weight-loss-clinic
+      page and a live weightLoss widget id). Well-chosen gap: this is the one
+      checker in the estate CLAUDE.md and the checker's own header both flag
+      as protecting the single most compliance-sensitive copy family RBH
+      publishes (POM advertising rules, ASA rulings on results claims), and
+      it had fifteen passes' worth of unclaimed exposure on this specific
+      branch.
+
+      Baseline: `git status --porcelain` clean on the target file and on
+      modules/core/tools/branches.json generally (two pre-existing untracked
+      artefacts this run did not create - gbp-packs/.fuse_hidden0000000400000001
+      and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak -
+      left alone). All 36 tools/check-*.js run individually, 36/36 exit 0.
+      sha256 of modules/service/pages/weight-loss-clinic-coleman-leigh-
+      walton.html recorded before any mutation
+      (87c630fb384147da7ad49c8b708f0955d599f3e1c1fc9f8dc58fda0bbf56409d).
+
+      New instrument, audits/verify-3.9-2026-09-11-sixteenth.js: shells out
+      to the real checker as a child process (never imported), refuses to
+      run if the checker is not already clean, mutates the branch's own
+      weight-loss-clinic page one way at a time from an in-memory original,
+      restores immediately after each run, sha256-verifies the restore
+      before the next injection.
+
+      NINE INJECTIONS against Coleman and Leighs' own page, each restored
+      byte-identical (sha256-reconfirmed) immediately after its catch, all
+      caught or passed on the first attempt: (1) RULE 4, a "free consultation
+      this month" phrase appended to the private-service sentence in the hero
+      - CAUGHT, 'offers something "free consultation"'; (2) RULE 5, every
+      occurrence of "pancreatitis" in the four-screened-conditions bullet
+      replaced with "tummy trouble" - CAUGHT, naming the screened-conditions
+      family; (3) RULE 6, one of the four no-guarantee sentences ("This is a
+      professional judgement, not a guarantee.") trimmed to drop its second
+      half - CAUGHT, "no-guarantee statement"; (4) RULE 7, "Special offer
+      this week." inserted before the indicative-pricing sentence - CAUGHT,
+      "price-led wording"; (5) RULE 8, the "Is this service right for you?"
+      subheading rewritten to "Is Mounjaro right for you?" - CAUGHT, names
+      "mounjaro" from tools/pom-names.js; (6) RULE 9, "How the Weight Loss
+      Clinic works" rewritten to "How the Weight Loss Clinic delivers
+      results" - CAUGHT, a claim-patterns.js efficacy match; (7) RULE 10, the
+      paste-comment governance phrase "signs off wording before publish"
+      changed to "reviews wording" - CAUGHT, the governance-note rule; (8)
+      RULE 2, the pinned sentence "Ongoing monitoring and follow-up built
+      into your plan" trimmed to drop "and follow-up" - CAUGHT, "missing
+      pinned service copy"; (9) CONTROL, a harmless HTML comment appended
+      after the page's closing JSON-LD `<script>` tag, changing the file's
+      sha256 with no content change - correctly PASSED, exit 0, confirming
+      the checker reads content rather than merely reacting to any diff.
+      Final restore sha256-reconfirmed identical to baseline; full
+      36-checker suite re-run clean (36/36 exit 0); `git status --porcelain`
+      on the tracked repo unchanged throughout and after (only the two new
+      audits/ files this run added, plus the two pre-existing untracked
+      artefacts noted above).
+
+      RESULT: no in-repo defect. tools/check-weight-loss-copy.js was already
+      correctly holding Coleman and Leighs Pharmacy's own weight-loss-clinic
+      page to all nine rule directions tested (private/free, eligibility
+      screening, no-guarantee, price discipline, no medicine named, no
+      efficacy claim, the governance promise, and pinned service copy), now
+      proven directly by injection against this branch for the first time.
+
+      LIVE HALF: Claude in Chrome unreachable (as above, standing Q59).
+      Fell back to plain read-only curl GET (mcp__workspace__bash), the
+      established fallback used by several prior passes when Chrome is
+      unavailable. Two URLs read, nothing clicked, typed or submitted:
+      the live homepage (HTTP 200) carries the correct phone (0151 525 3522)
+      and postcode (L4 6TH), matching branches.json exactly. The live
+      weight-loss-clinic page (HTTP 200) names no POM medicine anywhere in
+      its raw HTML (checked for mounjaro/wegovy/ozempic/saxenda/orlistat, 0
+      hits) - the compliant copy holds live as well as in the repo - but its
+      `<title>` still reads "Coleman & Leigh Pharmacy" rather than "Coleman
+      and Leighs Pharmacy", reconfirming the standing dual-spelling/ampersand
+      paste-lag finding recorded on prior passes of this item (Q1 trading
+      name, repaste still outstanding). No new live finding; not fixed here,
+      since it needs a Weebly session and this run's own target was a
+      repo-only checker.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full before
+      and after: 101 total, 48 open, unchanged.
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.9-2026-09-11-sixteenth.js and its
+      -output.txt (new).
+
+      Next stalest for whoever runs next: with 3.9 now touched today, the
+      remaining seven items tied at 2026-09-10 are 3.10, 3.12, 3.13, 4.11,
+      5.1, 6.2, 6.3 - re-derive fresh rather than assume, since other runs
+      may land in between. Done 2026-09-11.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

@@ -1,0 +1,31 @@
+BASELINE sha256: 87c630fb384147da7ad49c8b708f0955d599f3e1c1fc9f8dc58fda0bbf56409d
+PRE-INJECTION checker run: exit=0
+[rule4-free-offer] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "offers something \"free consultation\""
+    found: true
+[rule5-eligibility-pancreatitis] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "the four screened conditions"
+    found: true
+[rule6-guarantee-dropped] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "no-guarantee statement"
+    found: true
+[rule7-price-led] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "price-led wording"
+    found: true
+[rule8-medicine-named] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "names \"mounjaro\""
+    found: true
+[rule9-results-claim] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "makes"
+    found: true
+[rule10-governance-comment] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "governance note"
+    found: true
+[rule2-pinned-copy] exit=1 expectFail=true -> AS EXPECTED
+    looked for: "missing pinned service copy"
+    found: true
+[control-harmless-trailing-comment] exit=0 expectFail=false -> AS EXPECTED
+
+All injections complete. Final restore check:
+Final sha256: 87c630fb384147da7ad49c8b708f0955d599f3e1c1fc9f8dc58fda0bbf56409d (matches baseline: true)
+Final checker run after restore: exit=0
