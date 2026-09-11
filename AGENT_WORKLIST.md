@@ -4805,6 +4805,42 @@ audits/verify-3.5-2026-09-09-sixteenth.py and
 audits/verify-3.5-2026-09-09-sixteenth-output.txt. No in-repo defect found,
 no new question.
 
+Quality pass 2026-09-11 (seventeenth): NEW LEG, tools/check-seo-lengths.js,
+never before the deliberately targeted checker for this item (sixteen prior
+passes named it only in passing). Baseline: full 36-file checker suite
+clean on the tracked repo, check-seo-lengths.js itself reads 177 sheet
+entries clean and 24 cross-host H1 warnings (Q44), including the eight
+Hirshmans/Fishlocks Ainsdale pairs (contraception, earache, impetigo,
+insect-bite, shingles, sinusitis, sore-throat, UTI). Four injections on a
+scratch copy (tar --exclude='.git' to /sessions/.../mnt/outputs, tracked
+repo never opened for writing, restored and sha256-reconfirmed before each
+next): (1) RULE 3 duplicate title - Hirshmans' Impetigo sheet entry given
+Hirshmans' own Shingles title - CAUGHT first attempt, exactly one failure,
+correctly naming both entries; (2) RULE 4 same-branch H1 repeat -
+sinusitis-treatment-hirshmans-ainsdale.html's H1 overwritten with
+Hirshmans' own Shingles H1 - CAUGHT first attempt, exactly one failure,
+correctly naming hirshmans_ainsdale and both files; (3) RULE 4 missing H1 -
+uti-treatment-hirshmans-ainsdale.html's H1 removed entirely - CAUGHT first
+attempt, exactly one failure, "no H1 on the page, so rule 4 cannot read
+it", not silently skipped; (4) RULE 4 new cross-host collision must REPORT
+not FAIL - insect-bite-treatment-hirshmans-ainsdale.html's H1 changed to
+Riddings Timperley's own wording for the same condition (a town and host
+never previously paired) - correctly NOT failed (exit 0) and correctly
+REPORTED (warning count rose 24 to 25, naming both files under Q44). All
+four fired on their intended rule only, no cross-firing; full 36-file suite
+clean on the scratch copy after the final restore and again on the tracked
+repo afterwards; sha256 of every injection target confirmed unchanged
+throughout. LIVE HALF (read-only curl; Claude in Chrome not connected,
+Q59, following today's own item 3.2 pass rather than standing down as the
+fifteenth/sixteenth passes on this item did): both
+hirshmanspharmacy.co.uk/shingles-treatment-hirshmans-ainsdale.html and
+fishlockpharmacy.co.uk/shingles-treatment-fishlocks-ainsdale.html return
+200 with the identical live H1 "Shingles treatment in Ainsdale", confirming
+the Q44 collision is real and live today, not a repo-only artefact.
+Evidence in
+audits/hirshmans-item-3.5-quality-pass-2026-09-11-seventeenth.txt. No
+in-repo defect found, no new question. Q44 stands as previously recorded.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

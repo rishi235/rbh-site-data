@@ -1,0 +1,167 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - seventeenth quality pass
+Unattended scheduled run, 2026-09-11 (twentieth run of the day), Cowork
+sandbox mcp__workspace__bash. Claude in Chrome tried once for both step 3
+answer pickup and this pass's live half: "Claude in Chrome is not connected"
+(Q59), not retried by any other route, no login attempted. Live half done
+read-only via curl instead, following the precedent set by today's own
+sixteenth pass (item 3.2) rather than the fifteenth/sixteenth passes on this
+item, which stood down entirely when Chrome was unreachable.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Rotation pool re-derived independently
+rather than trusted from the nineteenth run's forward note (which itself
+warned against trusting any single prior note): a node pass over every
+itemised AGENT_WORKLIST.md line, taking the maximum date string inside each
+item's own text, bounded by the NEXT itemised line (checked, unchecked or
+blocked) so a blocked item's text is never folded into a checked neighbour's
+date range. Items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 excluded as the
+established one-off pool before ranking. Result matched the nineteenth run's
+forward note exactly: with 3.2 touched today (2026-09-11), the stalest
+untouched-today items were 3.5, 3.7, 4.1 and 4.4, all last touched
+2026-09-09 (day-level tie). Chosen: 3.5, the lowest item number, as a
+deterministic tiebreak.
+
+BASELINE
+Full 36-file tools/check-*.js suite run directly against the tracked repo
+before any work: 0 failures, all 36 exit 0 (this run did not exclude
+check-cdn-pins.js or check-live-hours.js, both completed cleanly and
+quickly, so no evidence either needs the exclusion some earlier passes on
+other items applied). sha256 of the files later used as injection targets
+recorded before any work:
+  tools/check-seo-lengths.js
+    4ca0f862890b1c95920f389b60acd8f62fc8c1b32879db27fe19aea88d48af8
+  modules/service/pages/SEO.md
+    9423d51ba5cea6d4909c8d4ffa61dc1bd52a7dba916aa771f64c186275180b1
+  modules/service/pages/sinusitis-treatment-hirshmans-ainsdale.html
+    62227e08125a1c7f4b47b17cb98869a6ef8c0f10575f672e36c80bb98c7ab20
+  modules/service/pages/uti-treatment-hirshmans-ainsdale.html
+    0e361de64860529b029747af63cef76c5e9fd3b810c57af089ce7b312c62783
+  modules/service/pages/insect-bite-treatment-hirshmans-ainsdale.html
+    142de455cf5a9940bd76b295eb9dd6b89543d7da4a961e540cab66c99c44c99
+
+FRESH ANGLE
+Sixteen prior passes had proved, against Hirshmans' own 12 pages by
+injection: check-pharmacy-first-eligibility.js, check-nap.js,
+check-gbp-packs.js, check-whatsapp-route.js, check-seo-pattern.js,
+check-postcodes.js, check-seo-sheets.js, check-contraception-copy.js,
+check-travel-clinic-copy.js, check-opening-hours.js, check-map-embeds.js,
+check-jsonld.js and check-seo-keywords.js. check-branch-links.js was
+cross-proven against this exact branch via item 1.2's own fourteenth pass
+(same branch, different worklist item), so not repeated here.
+check-seo-lengths.js had never been the deliberately targeted checker for
+this item - grep of the item's full text for "check-seo-lengths" returned
+nothing.
+
+This is a well-chosen gap, not an arbitrary one. Hirshmans Ainsdale is one
+of the three towns in the estate running two RBH pharmacies on different
+website hosts (the others being Bootle and Walton) - CLAUDE.md's own
+"heading nothing compared" section names this exact pair (Hirshmans
+Ainsdale / Fishlocks Ainsdale) as the reason check-seo-lengths.js rule 4
+exists: same-branch H1 repetition and same-host H1 collision both FAIL,
+cross-host collision (this pair's actual situation) REPORTS against Q44
+rather than failing, because whether the H1 should carry disambiguating
+wording is a search decision, not a defect. That three-way distinction had
+never been exercised against this item's own pages.
+
+BASELINE READ
+`node tools/check-seo-lengths.js` on the untouched tracked repo: 177 sheet
+entries clean (titles 36-65 chars, descriptions 129-164 chars, all unique),
+24 cross-host H1 WARNs (Q44), 0 failures. The eight Hirshmans/Fishlocks
+Ainsdale WARN pairs present exactly as CLAUDE.md and prior passes describe:
+contraception, earache, impetigo, insect-bite, shingles, sinusitis,
+sore-throat and UTI, each "NHS <topic> ... in Ainsdale" shared verbatim by
+both branches' pages.
+
+INJECTIONS
+Scratch copy made with `tar --exclude='.git' -cf -` piped to
+/sessions/.../mnt/outputs/scratch-3.5-pass17, entirely outside the tracked
+git working tree. sha256 of tools/check-seo-lengths.js confirmed
+byte-identical to the tracked copy immediately after the copy.
+`node tools/check-seo-lengths.js` run on the untouched scratch copy first:
+0 failures, 24 warnings, matching the tracked baseline exactly.
+
+Four injections, each on the scratch copy only, each restored from a
+pre-injection backup copy and sha256-reconfirmed identical to the tracked
+repo's own file before the next:
+
+(1) RULE 3, duplicate title - modules/service/pages/SEO.md, Hirshmans'
+    Impetigo entry's "Page Title" line changed from "Impetigo treatment in
+    Ainsdale - Hirshmans Chemist" to "Shingles treatment in Ainsdale -
+    Hirshmans Chemist" (i.e. copied from Hirshmans' own Shingles entry two
+    blocks below). CAUGHT, exit 1, exactly one failure: "duplicate title
+    shared by 2 pages: Hirshmans Chemist - Ainsdale - Impetigo
+    (modules/service/pages/SEO.md), Hirshmans Chemist - Ainsdale - Shingles
+    (modules/service/pages/SEO.md)". Restored; sha256 confirmed identical;
+    checker re-run clean (0 failures, 24 warnings).
+
+(2) RULE 4, same branch repeats an H1 on two of its own pages -
+    modules/service/pages/sinusitis-treatment-hirshmans-ainsdale.html, H1
+    changed from "Sinusitis treatment in Ainsdale" to Hirshmans' own
+    Shingles page's H1, "Shingles treatment in Ainsdale". CAUGHT, exit 1,
+    exactly one failure: "one branch uses the same H1 on two of its own
+    pages - hirshmans_ainsdale: shingles-treatment-hirshmans-ainsdale.html
+    and sinusitis-treatment-hirshmans-ainsdale.html". Restored; sha256
+    confirmed identical; checker re-run clean.
+
+(3) RULE 4, missing H1 fails rather than being skipped -
+    modules/service/pages/uti-treatment-hirshmans-ainsdale.html, the entire
+    <h1>UTI treatment in Ainsdale</h1> line removed. CAUGHT, exit 1, exactly
+    one failure: "uti-treatment-hirshmans-ainsdale.html
+    (modules/service/pages): no H1 on the page, so rule 4 cannot read it".
+    Restored; sha256 confirmed identical; checker re-run clean.
+
+(4) RULE 4, a NEW cross-host collision must be REPORTED, not silently
+    missed and not wrongly failed as if same-host -
+    modules/service/pages/insect-bite-treatment-hirshmans-ainsdale.html, H1
+    changed from "Infected insect bite treatment in Ainsdale" to "Infected
+    insect bite treatment in Timperley" (Riddings Pharmacy Timperley's own
+    wording for the same condition page - a town Hirshmans does not share
+    and a host Hirshmans has never collided with before). Correctly NOT
+    failed: exit 0, 0 failures. Correctly REPORTED: warning count rose from
+    24 to 25, with a new line "WARN H1 shared across pharmacies on
+    different hosts (Q44) - insect-bite-treatment-hirshmans-ainsdale.html
+    and insect-bite-treatment-riddings-timperley.html". Restored; sha256
+    confirmed identical; checker re-run clean (back to 24 warnings).
+
+All four fired on their intended rule only, first attempt, exactly one
+failure (or, for injection 4, exactly one new warning and no failure) each
+time, with no cross-firing onto any other rule, page or branch. Full
+36-file checker suite re-run on the scratch copy after the final restore:
+0 failures across all 36. Tracked repo confirmed untouched throughout:
+sha256 of tools/check-seo-lengths.js, modules/service/pages/SEO.md,
+modules/service/pages/sinusitis-treatment-hirshmans-ainsdale.html,
+modules/service/pages/uti-treatment-hirshmans-ainsdale.html and
+modules/service/pages/insect-bite-treatment-hirshmans-ainsdale.html
+identical before and after the whole exercise; full 36-file suite re-run
+directly on the tracked repo afterwards, 0 failures. No checker logic, data
+field, page or generator changed anywhere in the tracked repo. Scratch copy
+deleted with `rm -rf` after the final restore (this attempt succeeded; the
+sandbox's usual "Operation not permitted" unlink failure, standing
+Q87/Q96, did not occur here - noted, not investigated, since it is not
+this item's question).
+
+LIVE HALF (read-only, curl; Claude in Chrome not connected, Q59)
+- https://www.hirshmanspharmacy.co.uk/shingles-treatment-hirshmans-ainsdale.html:
+  200. Live H1 reads "Shingles treatment in Ainsdale", byte-for-byte the
+  same wording the tracked repo generates and the same wording this pass's
+  baseline read off check-seo-lengths.js.
+- https://www.fishlockpharmacy.co.uk/shingles-treatment-fishlocks-ainsdale.html:
+  200. Live H1 reads "Shingles treatment in Ainsdale" - identical to
+  Hirshmans' own live H1 above, confirming the Q44 cross-host collision
+  this checker WARNs about is a real, live condition today on both sites,
+  not a repo-only or stale artefact.
+- https://www.hirshmanspharmacy.co.uk/sitemap.xml: 200, reachable. Not
+  read further this pass (no new question turned on its content).
+
+No in-repo defect. No new question. Q44 stands exactly as previously
+recorded: a live, cross-host H1 collision between Hirshmans Ainsdale and
+Fishlocks Ainsdale, correctly classified as REPORT rather than FAIL by
+design, pending Rishi's decision on whether either page's H1 should carry
+disambiguating wording.
+
+Files changed this pass:
+audits/hirshmans-item-3.5-quality-pass-2026-09-11-seventeenth.txt (new),
+AGENT_WORKLIST.md (item 3.5 paragraph appended), AGENT_LOG.md (top entry).
+No changes to gbp-packs/, modules/, core/, tools/ or branches.json.
