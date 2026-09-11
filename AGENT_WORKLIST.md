@@ -11632,6 +11632,41 @@ Pharmacy First wording to the NHS service description.
       new question. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-09-sixteenth.txt.
       Done 2026-09-09
+      Quality pass 2026-09-11 (seventeenth, unattended run): baseline sha256
+      of gbp-packs/fishlocks-ainsdale.md unchanged since the twelfth pass
+      (7592bad3...); all 36 checkers pass at the start (0 failures, 17
+      pre-existing warnings, all already tracked). FRESH ANGLE: two rules
+      inside check-gbp-packs.js proven against sibling packs but never
+      against this pack's own copy in sixteen prior passes - "post buttons
+      point at this branch's own page" (lines 1993-2066) and "post button
+      LABELS" (lines 2068-2119, proven on scorah-hazel-grove.md on the item
+      4.5 pass 2026-08-13 but not here). Three injections on a full-repo
+      scratch copy (tar --exclude=.git, root filesystem at 93% full so /tmp
+      avoided), each restored and sha256-reconfirmed identical before the
+      next: (1) Post D's button URL changed to the sister branch's own
+      travel-clinic-fishlocks-eccleston.html (same shared domain) - CAUGHT
+      first attempt, exactly the "wrong leaf loads fine for the wrong
+      pharmacy" fault the rule's own comment names Fishlocks as an example
+      of. (2) Post C's button label changed from "Book" to "Buy now" -
+      CAUGHT first attempt as a transactional CTA on the weight loss post,
+      barred under the Regime 1 advertising rules. (3) CONTROL: Post B's
+      label changed from "Learn more" to "Book" - correctly PASSED (0
+      failures), confirming RECOGNISED_CTAS is not scoped by post letter and
+      only Posts C/D carry the transactional-CTA bar. All three fired or
+      passed on the intended rule, first attempt, no cross-firing. Tracked
+      repo confirmed sha256-unchanged and git status empty throughout; all
+      36 checkers re-run clean afterwards; no generator writes gbp-packs/, so
+      no regeneration needed. LIVE HALF: Claude in Chrome not connected
+      (Q59, tried once, not retried); fell back to the built-in browser pane
+      (read-only), which was reachable this run. Profile-website target
+      still 404 (Q35, answered but not yet applied). Post D's and Post C's
+      own target pages both load correctly with the right phone, address and
+      compliant wording (no medicine named on either). Site footer
+      reconfirms the standing Q91 misspelling ("Fishlock Pharmacy"/"Fishlock
+      Chemist") unchanged, still no repo-side fix available; footer hours
+      match branches.json exactly. No in-repo defect, no new question. See
+      audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-11-seventeenth.txt.
+      Done 2026-09-11
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

@@ -1,0 +1,138 @@
+Item 4.1 quality pass (seventeenth, unattended run, audit-backlog-worker)
+Date: 2026-09-11
+Branch: agents/audit-backlog
+Pack under test: gbp-packs/fishlocks-ainsdale.md
+
+SELECTION
+All 8 remaining unchecked AGENT_WORKLIST.md lines are [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied per step 5. Rotation pool re-derived by reading each itemised
+block's own last 2026-09-dated string, bounded by the next itemised line,
+excluding the one-off pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). After the
+sixteenth pass on this item and today's twenty-first run marking 3.7 done
+(2026-09-11), the stalest untouched-today items were 4.1 and 4.4, both last
+touched 2026-09-09. Tiebreak: lowest item number. Chosen: 4.1.
+
+BASELINE
+sha256 of gbp-packs/fishlocks-ainsdale.md: unchanged since the twelfth pass
+(7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30). All 36
+tools/check-*.js scripts run individually against the tracked repo before any
+work this pass: 0 non-zero exits. check-gbp-packs.js's own summary: 0
+failures, 17 warnings, all pre-existing and already tracked (Q72 clinic
+qualifiers on this pack and two siblings; Q64 address post-town divergence on
+this pack and four siblings; assorted unrelated WARNs on other packs).
+
+FRESH ANGLE
+The thirteenth pass (2026-09-06) closed out all ten genuine gbp-packs/-reading
+checker FILES by direct injection against this pack. The fourteenth, fifteenth
+and sixteenth passes moved to granular RULES inside check-gbp-packs.js itself
+(OUTCOME_PROMISE on Post D, the photo shot list, the two catchment-list
+rules). This pass continues that thread with two rules inside
+check-gbp-packs.js that had been proven against SIBLING packs but never
+against this pack's own copy across sixteen prior passes (confirmed by
+reading this item's full AGENT_WORKLIST.md history before starting - the only
+button-related finding recorded was the tenth pass's check-url-scheme.js
+injection on Post C, a different checker testing http vs https, not either
+rule below):
+
+  - "post buttons point at this branch's own page" (check-gbp-packs.js lines
+    1993-2066). The rule's own comment names exactly why this pack is a real
+    test of it: Fishlocks Ainsdale shares fishlockpharmacy.co.uk with
+    Fishlocks Eccleston, so a wrong leaf on this domain is not a 404, it is a
+    working page for the sister branch.
+  - "post button LABELS, not only their destinations" (lines 2068-2119),
+    proven by injection on scorah-hazel-grove.md on the item 4.5 pass
+    (2026-08-13) but never on this pack.
+
+METHOD
+All work done on a full-repo scratch copy at
+/sessions/vigilant-zen-ptolemy/mnt/outputs/scratch-41 (tar --exclude=.git
+--exclude=_agentscratch from the tracked repo; root filesystem was at 93%
+full so /tmp was avoided, same reasoning as the sixteenth pass). The tracked
+repo at /sessions/vigilant-zen-ptolemy/mnt/rbh-site-data was never opened for
+writing. A pristine copy of the pack was kept at
+/sessions/vigilant-zen-ptolemy/mnt/outputs/scratch-41-check/fishlocks-ainsdale.md.orig
+and restored after every injection, with sha256 (whole-file, matched against
+the 7592bad3... baseline) reconfirmed after each restore.
+
+INJECTIONS (three, each restored and sha256-reconfirmed before the next)
+
+1. Post D's button URL changed from travel-clinic-fishlocks-ainsdale.html to
+   travel-clinic-fishlocks-eccleston.html (the sister branch's own travel
+   clinic page, on the same shared domain).
+   CAUGHT, first attempt:
+   "Post D - Travel clinic button goes to
+   \"travel-clinic-fishlocks-eccleston.html\", but this branch's travel
+   clinic page is \"travel-clinic-fishlocks-ainsdale.html\", built as
+   <type>-<brandSlug>-<townSlug>.html from branches.json. On a shared domain
+   a wrong leaf is the sister branch's page, which loads fine and sends the
+   click to the wrong pharmacy"
+   This is exactly the silent fault class the rule's own comment describes,
+   proven for the first time against this specific pack.
+
+2. Post C's button label changed from "Book" to "Buy now" (link unchanged).
+   CAUGHT, first attempt:
+   "Post C - Weight loss clinic is the weight loss post and its button is
+   labelled \"Buy now\". A transactional call to action on a
+   prescription-only service is the \"Buy [product]\" control the house
+   standards bar, and a Google post sits in the advertising regime where
+   that prohibition is near-total
+   (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md). Use \"Book\" or
+   \"Learn more\""
+
+3. CONTROL: Post B's button label changed from "Learn more" to "Book" (link
+   unchanged). Correctly PASSED: 0 failures on the full 15-pack run,
+   confirming RECOGNISED_CTAS is not scoped by post letter (only the
+   transactional-CTA bar on Posts C/D is), matching the code read before the
+   injection was designed.
+
+All three fired or passed on the intended rule, first attempt, with no
+cross-firing on the untouched posts each time.
+
+POST-RESTORE VERIFICATION
+Scratch copy: full 15-pack check-gbp-packs.js run clean (0 failures, 17
+pre-existing warnings, byte-identical to the pre-injection baseline run).
+Tracked repo: git status --porcelain -- gbp-packs/fishlocks-ainsdale.md
+tools/check-gbp-packs.js empty; sha256 of the tracked pack file confirmed
+7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30, unchanged.
+All 36 tools/check-*.js scripts re-run individually against the tracked repo
+after the scratch-copy work: 0 non-zero exits. No generator writes
+gbp-packs/, so no regeneration was needed.
+
+RESULT: no in-repo defect. Both rules already correctly protect this pack;
+now proven directly by injection for the first time in seventeen passes.
+
+LIVE HALF
+Claude in Chrome: tried once (tabs_context_mcp), reported "Claude in Chrome
+is not connected". Not retried by any other route, no login attempted (per
+the task's standing rule; this is the same Q59 gap recorded on every prior
+run today). Fell back to the built-in browser pane
+(mcp__Claude_Browser__*), read-only, no click/type/submit/login, which was
+reachable this run:
+
+  - Profile-website target (pharmacy-fishlocks-ainsdale.html) still returns
+    404. Unchanged since the eighth pass (Q35, answered but not yet
+    applied).
+  - Post D's target (travel-clinic-fishlocks-ainsdale.html) loads correctly:
+    right phone (01704 575478), right address (17 Station Road, Ainsdale,
+    PR8 3HN), "private, paid service" and "subject to availability and
+    clinical suitability" wording both present, no medicine named.
+  - Post C's target (weight-loss-clinic-fishlocks-ainsdale.html) loads
+    correctly: right phone and address, no medicine named, "not right for
+    everyone", "supervised plan" and "private, paid" wording all present,
+    matches the inner-page (Regime 2) exemption shape described in
+    compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - no superlative, no
+    outcome slider, no medicine picker.
+  - Site footer on both pages reconfirms the standing Q91 finding, unchanged:
+    "Fishlock Pharmacy, Eccleston, Chorley" and "Fishlock Chemist (GPHC
+    no...)" both drop the "s" that item 1.1 standardised into every
+    generated page. Hand-built Weebly content outside anything this repo
+    generates or checks; no repo-side fix exists. Footer hours for Ainsdale
+    (Mon-Fri 8:45am-6:00pm, Sat/Sun closed) match branches.json exactly, no
+    drift.
+
+No new question raised; both live findings are standing (Q35, Q91),
+unchanged in substance from prior passes.
+
+FILES CHANGED THIS PASS: none in gbp-packs/ or tools/. Only
+AGENT_WORKLIST.md, AGENT_LOG.md and this audit file.
