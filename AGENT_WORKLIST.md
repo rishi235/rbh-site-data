@@ -3335,6 +3335,59 @@ audits/seo-pattern-fittitle-guard-3.1-sixteenth-2026-09-11.txt.
       Rd" abbreviation) reconfirmed present and unchanged on both branches -
       nothing new. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-09-fifteenth.txt.
+      Quality pass 2026-09-11 (sixteenth): no in-repo defect, but a
+      SIGNIFICANT LIVE FINDING. THE FRESH ANGLE: fifteen prior passes had
+      proved check-seo-pattern.js, check-seo-lengths.js (rule 4),
+      check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+      check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+      check-url-scheme.js, check-switch-copy.js (rule 11),
+      check-branch-identity.js, check-map-embeds.js and check-nap.js against
+      Fishlocks by injection, but tools/check-booking-routes.js - the
+      checker guarding the filename-to-Appointedd-diary chain - had never
+      been named in this item's own entry (zero hits grepping the full
+      history for "booking-routes"). Full repo exported via `git archive
+      HEAD` to a scratch copy; tracked repo never opened for writing;
+      baseline 33/33 checkers clean (cdn-pins and live-hours excluded,
+      standing convention), matching the tracked repo's own sha256 for
+      every injection target. Four injections on the scratch copy, each
+      restored by byte copy and sha256-reconfirmed before the next: (1)
+      data-branch on the Ainsdale UTI page swapped to "Fishlocks Chemist
+      Eccleston" - CAUGHT by BRANCHATTR, first attempt; (2) data-service on
+      the Eccleston shingles page cased differently from the other 13
+      shingles pages estate-wide - CAUGHT by SERVICEATTR; (3)
+      widgets.travelClinic removed from fishlocks_eccleston in branches.json
+      (travelClinic is a NO_FALLBACK service) - CAUGHT by WIDGET, "this
+      service must not fall back"; (4) the Ainsdale insect-bite page renamed
+      to break the routing regex - CAUGHT by ROUTE. All four fired first
+      attempt; all four restores sha256-confirmed byte-identical; full
+      33-checker suite re-run clean on the scratch copy and, separately, on
+      the tracked repo after all scratch work; `git status --porcelain`
+      against modules/, branches.json, tools/, core/ shows only the
+      pre-existing untracked .bak stray, unchanged. No in-repo defect:
+      check-booking-routes.js already correctly protects Fishlocks on all
+      four rules tested, proven by injection for the first time.
+      LIVE HALF: Claude in Chrome not connected (standing Q59), not
+      retried. Built-in Claude Browser MCP reachable this run. Read-only DOM
+      inspection on two live pages (travel-clinic-fishlocks-eccleston.html
+      and uti-treatment-fishlocks-ainsdale.html) found #rbhsv-root's
+      data-branch and the page's JSON-LD "name" both still reading the bare
+      shared brandLabel "Fishlocks Chemist" rather than the branch-specific
+      "Fishlocks Chemist Ainsdale"/"Fishlocks Chemist Eccleston" the repo has
+      generated since Q18 was answered and applied on 2026-08-30 (72 pages
+      across the three shared-brand pairs regenerated, repaste stated as
+      "now queued"). Twelve days on, the live site still carries the
+      pre-fix, ambiguous value on both machine-readable fields checked, on
+      both Fishlocks branches - exactly the enquiry-mislabelling and Google
+      entity-resolution ambiguity Q18 was raised to close. Not a new
+      decision (Q18 already decided this) and not a checker gap (the repo is
+      correct and already enforces it); this confirms the queued 72-page
+      repaste has not reached the live site. Not raised as a new question -
+      a note was added to Q18's own record instead, since the decision
+      stands and only the live rollout status is new information. Only the
+      Fishlocks pair (2 of the 72 pages) was checked this pass; whether
+      McCanns and Scorah, the other two shared-brand pairs Q18 names, are in
+      the same state was not checked this run. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-11-sixteenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

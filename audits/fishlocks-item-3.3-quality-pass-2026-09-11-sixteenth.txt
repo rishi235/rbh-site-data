@@ -1,0 +1,174 @@
+Item 3.3 quality pass (sixteenth) - Fishlocks Chemist (Ainsdale and Eccleston)
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-11
+
+ROTATION
+Rotation pool re-derived fresh: 43 [x] AGENT_WORKLIST.md items minus 7 standing
+out-of-rotation minus 12 touched earlier today per
+`git log --since="2026-09-11T00:00:00" --format="%aI %s" -- AGENT_WORKLIST.md`
+(3.1, 4.3, 4.6, 4.5, 1.3, 4.13, 4.8, 4.10, 4.9, 4.12, 4.15, 2.3). Put 3.3
+uniquely stalest at 2026-09-09T15:06:15+01:00, matching the sixteenth pass's
+own forward note exactly. All 8 unchecked AGENT_WORKLIST.md lines
+re-confirmed [BLOCKED] by direct grep before proceeding.
+
+BASELINE
+Full 33-checker sweep on the tracked repo (check-cdn-pins.js and
+check-live-hours.js excluded, standing convention - both need live
+resolution): 33/33 exit 0. sha256 of the five injection-target files recorded
+before any edit:
+  uti-treatment-fishlocks-ainsdale.html
+    4aa1d4bf31099c2231762d8c4b49b99d1c080394d9be0480544cde57f1e07e84
+  shingles-treatment-fishlocks-ainsdale.html
+    4583911dfb9445e529f560df43dd584908949e1de7f80733b9ac78dead300aa4
+  shingles-treatment-fishlocks-eccleston.html
+    f8a5dfd7022de0655f14d7ec350efa9413bdb7998c0759f738b3b552f085e379
+  travel-clinic-fishlocks-eccleston.html
+    f73bfea6442a01f244e848fade23a0ea818fcf03ff6f376428cc7286e684d96f
+  insect-bite-treatment-fishlocks-ainsdale.html
+    73372b29d5f0fcad3248ddcf0cbb3a2462189dbac617eb1791b89d8b9849d49e
+  branches.json
+    904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+  modules/service/service.js
+    eb9c47212719f7d5592b42faf4083c7ac233085303373d0da4397ba9a3930d6a
+
+FRESH ANGLE
+Fifteen prior passes had proved check-seo-pattern.js, check-seo-lengths.js
+(rule 4), check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+check-url-scheme.js, check-switch-copy.js (rule 11), check-branch-identity.js,
+check-map-embeds.js and check-nap.js (all sweeps, both branches) against
+Fishlocks' own pages by injection, but tools/check-booking-routes.js - the
+checker that guards the whole filename-to-Appointedd-diary chain - had never
+been named in this item's own entry, confirmed by grepping the item's full
+fifteen-pass history for "booking-routes": zero hits. Fishlocks Ainsdale and
+Eccleston are exactly the shared-brand-pair shape this checker's own header
+identifies as the highest-risk case (six pages once hard-coded the wrong
+widget id and sent bookings into another branch's diary, verified
+2026-07-17), and both branches carry a full widget set (bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic), so every rule
+genuinely applies.
+
+METHOD
+Full repo exported via `git archive HEAD` into
+/sessions/determined-happy-faraday/scratch/repo33 (with .git-independent tar
+extract); tracked repo never opened for writing. Baseline on the scratch copy
+matched the tracked repo's sha256 values exactly and check-booking-routes.js
+reported clean (156 booking mounts, 156 routed, 0 failures) before any
+injection.
+
+Four injections on the scratch copy, each restored by byte copy from a
+pre-injection backup and sha256-reconfirmed identical before the next:
+
+1. BRANCHATTR - uti-treatment-fishlocks-ainsdale.html's data-branch changed
+   from "Fishlocks Chemist Ainsdale" to "Fishlocks Chemist Eccleston" (the
+   realistic shared-brand-pair mix-up). CAUGHT, first attempt: "data-branch=
+   \"Fishlocks Chemist Eccleston\" but the URL resolves to fishlocks_ainsdale
+   (...), so an enquiry from this page is filed against the wrong pharmacy."
+
+2. SERVICEATTR - shingles-treatment-fishlocks-eccleston.html's data-service
+   changed from "Shingles treatment" to "Shingles Treatment" (a casing
+   divergence from the other 13 shingles pages estate-wide). CAUGHT, first
+   attempt: "service \"shingles-treatment\" is described 2 different ways in
+   data-service... \"Shingles treatment\" x13, \"Shingles Treatment\" x1."
+
+3. WIDGET (NO_FALLBACK) - widgets.travelClinic removed from fishlocks_
+   eccleston in branches.json (travelClinic is one of three
+   NO_FALLBACK_SERVICE_KEYS in service.js, alongside weightLoss and
+   contraception, so it must not silently fall back to the Pharmacy First
+   diary). CAUGHT, first attempt: "travel-clinic-fishlocks-eccleston.html
+   needs widgets.travelClinic on fishlocks_eccleston and there is none (this
+   service must not fall back), so the booking box renders empty."
+
+4. ROUTE - insect-bite-treatment-fishlocks-ainsdale.html renamed to
+   insectbite-treatment-fishlocks-ainsdale.html (removes the hyphen from the
+   service slug so it no longer matches service.js's own routing regex).
+   CAUGHT, first attempt: "insectbite-treatment-fishlocks-ainsdale.html
+   carries a booking mount but its filename does not parse under service.js's
+   routing regex, so the widget is never rendered and the page shows an empty
+   booking box."
+
+All four injections fired on their intended rule, first attempt. Rules 6
+(KEYUNIQUE), 7 (DIARY) and 8 (TABLES) are estate-wide checks not specific to
+one branch's own page content, so were not separately injected against
+Fishlocks this pass; they were already exercised by the checker's own
+baseline pass across all 16 branches.
+
+RESTORE AND RE-VERIFICATION
+All four restores sha256-confirmed byte-identical to baseline before the next
+injection. Full 33-checker suite re-run clean on the scratch copy after the
+final restore (0 nonzero exits). Tracked repo confirmed untouched throughout:
+sha256 of all seven recorded files re-checked against the tracked repo after
+the scratch-copy work finished - all seven identical to the pre-run baseline.
+`git status --porcelain -- modules/ branches.json tools/ core/` on the tracked
+repo shows only the pre-existing untracked stray
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, unchanged,
+out of scope (excluded from every checker's scan since it does not end
+.html). Full 33-checker suite re-run on the tracked repo after all scratch
+work: 33/33 exit 0.
+
+VERDICT
+No in-repo defect: check-booking-routes.js already correctly protects
+Fishlocks' own pages on the BRANCHATTR, SERVICEATTR, WIDGET/fallback and
+ROUTE rules, proven by injection against this branch pair for the first time.
+
+LIVE HALF - SIGNIFICANT FINDING
+Claude in Chrome MCP tried first (tabs_context_mcp) and reported "not
+connected", per standing Q59; not retried by any other route, no login
+attempted. The built-in Claude Browser MCP was reachable this run
+(preview_start on www.fishlockpharmacy.co.uk succeeded without an access
+prompt).
+
+Read-only DOM inspection (javascript_tool, no click, no submit, no login) on
+two live pages:
+
+  https://www.fishlockpharmacy.co.uk/travel-clinic-fishlocks-eccleston.html
+    #rbhsv-root data-branch = "Fishlocks Chemist"   (bare brandLabel)
+    #rbhsv-root data-service = "Travel Clinic"      (matches repo, fine)
+    #rbhsv-booking correctly rendered an Appointedd iframe (widget id
+      66b1f4ff9c1e2182b14fac37, the shared Fishlocks travel diary - expected,
+      Fishlocks runs one travel diary across the pair)
+
+  https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html
+    #rbhsv-root data-branch = "Fishlocks Chemist"   (bare brandLabel)
+    JSON-LD "name" = "Fishlocks Chemist"            (bare brandLabel)
+
+The repo's own generated source for these same two pages (unchanged this
+pass, confirmed by the sha256 checks above):
+
+  modules/service/pages/travel-clinic-fishlocks-eccleston.html line 14:
+    data-branch="Fishlocks Chemist Eccleston" data-service="Travel Clinic"
+  modules/service/pages/uti-treatment-fishlocks-ainsdale.html:
+    data-branch="Fishlocks Chemist Ainsdale"
+
+This is Q18's own fault, live and still present. Q18 (raised 2026-08-10, on
+the item 3.12 quality pass) asked exactly this question - whether shared-
+brand branches should carry data-branch and JSON-LD name as the specific
+branchName or the shared brandLabel - and was answered by Rishi on
+2026-08-30 (option 0, branchName). The fix was applied the same day: five
+generators rebuilt, 72 of 177 pages changed (the six shared-brand branches,
+12 pages each), all 36 checkers passing, and Q18's own answer text states
+"Repaste of the 72 changed pages is now queued for the next Weebly paste
+run."
+
+Twelve days later, on both Fishlocks pages read this pass, the live site
+still carries the PRE-FIX value on both machine-readable fields: the bare
+"Fishlocks Chemist", ambiguous between the Ainsdale and Eccleston shops on
+the same domain - exactly the enquiry-mislabelling and Google entity-
+resolution ambiguity Q18 was raised to close. This is not a new decision (Q18
+already decided this) and not a new checker gap (the repo generates the
+correct value and check-branch-identity.js/check-jsonld.js already enforce
+it) - it is confirmation that the queued repaste of these 72 pages has not
+reached the live site. Not raised as a new question, since Q18 already covers
+the decision and there is nothing further for Rishi to decide; this is an
+operational repaste that needs doing, not a judgement call. Only the
+Fishlocks pair was checked this pass (2 of the 72 pages, both sides of the
+one branch pair this item covers); whether McCanns (Aigburth/Sandringham)
+and Scorah (Bramhall/Hazel Grove) - the other two shared-brand pairs Q18
+names - are in the same stale state was not checked this run and is a
+candidate for whichever item's quality pass next reaches 3.2 (McCanns) or
+3.5-equivalent (Scorah)/4.x GBP-pack passes with live access.
+
+Note added to Q18 in QUESTIONS.json recording this finding (Q18 left in
+"answered" status - the decision is not reopened, only the live rollout
+status is recorded).
+
+No new question raised. QUESTIONS.json total unchanged at 101 entries.
