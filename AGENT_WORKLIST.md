@@ -18950,6 +18950,59 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-09-sixteenth.txt.
       Done 2026-09-09.
+      Seventeenth quality pass 2026-09-11 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout). Taken because all 8
+      unchecked worklist lines are still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+      and the three Q60/Q66 lines under 6.4/6.5/6.6); item-selection method
+      unchanged - the 36-item rotation pool re-derived fresh, 15 items
+      already touched today by earlier runs excluded (4.7, 4.2, 3.3, 2.3,
+      4.15, 4.12, 4.9, 4.10, 4.8, 4.13, 1.3, 4.5, 4.6, 4.3, 3.1), and 4.14
+      was the only candidate matching the sixteenth pass's own forward note
+      as stalest and untouched today. FRESH ANGLE: check-gbp-packs.js's "no
+      outcome promises" rule (OUTCOME_PROMISE) and its "promoting a POM
+      without naming it" rule (POM_CLASS self-scoping and in-context) had
+      never been proven by injection against this pack's own Post C (weight
+      loss) or Post D (travel clinic) in sixteen prior passes, despite being
+      proven against five sibling packs and, earlier this same day, against
+      Cherry Lane Walton on the item 4.2 eighteenth pass - the same gap
+      shape that pass closed for its own pack. Baseline: pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all sixteen prior passes exactly; full 34-checker suite
+      (check-cdn-pins.js and check-live-hours.js excluded, standing
+      convention) exit 0 before any change. Full repo byte-copied to
+      /tmp/scratch-414-outcome-pom; all injections against the scratch copy
+      only, each restored from a pristine backup and sha256-reconfirmed
+      before the next. Four rounds: (1) "We guarantee full protection for
+      every destination." appended to Post D - CAUGHT by OUTCOME_PROMISE,
+      guarantee wording; (2) CONTROL, "Wondering if a travel vaccine will
+      fully protect you before you fly? Ask the pharmacist at your
+      consultation." in place of the same sentence, a genuine question -
+      correctly PASSED, confirming the question exemption holds on this
+      pack's own copy; (3) Post C's "pharmacist-led weight loss clinic"
+      renamed to "the skinny jab clinic" - CAUGHT by POM_CLASS
+      self-scoping; (4) ", including a weekly injection for weight loss,"
+      inserted into a Post C sentence about the supervised plan - CAUGHT by
+      POM_CLASS in-context, naming the exact mutated sentence. All four
+      rounds fired or passed on the first attempt, each on its own intended
+      rule and detection path, no cross-firing. Full 34-checker suite
+      re-run clean after the final restore; pack sha256 and cmp both
+      reconfirmed identical to baseline; git status --porcelain on the
+      tracked repo empty throughout (aside from the two pre-existing,
+      unrelated untracked strays already documented on earlier passes).
+      Zero in-repo defect - both rule families now proven directly against
+      this pack for the first time in seventeen passes.
+      LIVE HALF: Claude in Chrome not connected (Q59, tried twice this
+      run). Fell back to read-only curl GET, status-only: all four
+      post-linked pages and sitemap.xml return 200; sitemap lastmod
+      unchanged at 2026-08-15T07:41:55+00:00 throughout, no republish since
+      the sixth pass; weight-loss-clinic-crosby.html (Q90) still present at
+      the same timestamp, not re-examined for content this pass, Q90 not
+      re-raised. Page body content (the naming STOP/PF_TARGET_HOLD, the
+      mojibake em dash, the footer en dashes) not re-read this pass, so
+      those standing findings are carried forward unchanged from the
+      sixteenth pass. No new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-11-seventeenth.txt.
+      Done 2026-09-11.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

@@ -1,0 +1,168 @@
+Item 4.14 quality pass (seventeenth, Gordon Short Chemist Crosby GBP pack)
+Date: 2026-09-11
+Run: unattended scheduled run, audit-backlog-worker, Cowork sandbox mcp__workspace__bash throughout for repo work, checker runs and scratch-copy injection
+
+SUBJECT
+Prove tools/check-gbp-packs.js's "no outcome promises" rule (OUTCOME_PROMISE,
+tools/outcome-promise-patterns.js) and its "promoting a POM without naming it"
+rule (POM_CLASS self-scoping and in-context detection paths,
+tools/pom-class-patterns.js) by direct injection against
+gbp-packs/gordon-short-crosby.md's own Post C (weight loss) and Post D (travel
+clinic) copy, for the first time in sixteen prior passes on this item. Both
+rule families had already been proven directly against five sibling packs
+(mccanns-sandringham.md, riddings-timperley.md, fishlocks-eccleston.md,
+smartts-bootle.md, tiffenbergs-aintree.md for OUTCOME_PROMISE; and
+riddings-timperley.md for POM_CLASS at the rule's introduction) and, earlier
+this same day, against gbp-packs/cherry-lane-walton.md on the item 4.2
+eighteenth pass - the sixth pack for OUTCOME_PROMISE and second for POM_CLASS.
+This item's own sixteen-pass history and eighteen prior audits/ files were
+searched for "outcome" and "pom-class"/"pom_class" before choosing: the only
+hit was an unrelated mention of "pom-class-patterns reads an unnamed medicine"
+inside the fifth pass's BODY_IMAGE discussion, not this rule being tested.
+Confirmed genuine gap; this pass mirrors the item 4.2 eighteenth pass's method
+exactly, on this pack, both a Regime 1 advertising surface under
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and carrying its own Post C and
+Post D throughout.
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Pool re-derived from first principles:
+grepped `^- \[x\]` headers in AGENT_WORKLIST.md for the 43 checked items,
+subtracted the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) to get the same 36-item pool prior runs use, then subtracted the 15
+items already touched today by earlier runs (`git log --since="2026-09-11T00:00:00" -- AGENT_WORKLIST.md`:
+4.7, 4.2, 3.3, 2.3, 4.15, 4.12, 4.9, 4.10, 4.8, 4.13, 1.3, 4.5, 4.6, 4.3, 3.1).
+Item 4.14 was the only remaining candidate confirmed stalest and untouched
+today, matching the seventeenth-pass forward note left by the run that
+completed item 4.7 earlier today ("next-stalest is 4.14, 2026-09-09T16:12:43+01:00").
+Independently reconfirmed by reading item 4.14's own block, whose most recent
+dated entry is "Done 2026-09-09" (sixteenth pass), with no entry for
+2026-09-10 or 2026-09-11 anywhere in its text. Chosen: 4.14 (Gordon Short
+Chemist Crosby GBP pack).
+
+BASELINE
+sha256 of gbp-packs/gordon-short-crosby.md before this pass:
+  49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+Matches the value recorded on every one of the fifteen prior passes since the
+fourteenth pass introduced the photo-shot-list proof, byte-stable across all
+seventeen. Full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, standing convention) run against the tracked repo before any work
+began: all 34 exit 0 (17 pre-existing human-judgement warnings across other
+packs, none naming this one beyond the standing "link target...not a page
+this repo generates" note on pharmacy-first-service-crosby.html).
+
+METHOD
+Full repo copied by byte copy (cp -r) to /tmp/scratch-414-outcome-pom. All
+injections and checker runs performed against the scratch copy only; the
+tracked repo's gbp-packs/gordon-short-crosby.md was never opened for writing.
+A pristine byte copy of the pack was kept outside the scratch tree
+(/tmp/logs414/baseline-gordon-short-crosby.md) and used to restore before each
+new round, with sha256 reconfirmed identical to the baseline after every
+restore. Full 34-checker suite run clean on the scratch copy before any edit.
+
+ROUND 1 - OUTCOME_PROMISE, guarantee wording in Post D
+Appended "We guarantee full protection for every destination." to the end of
+Post D's body, immediately before the button line. CAUGHT: check-gbp-packs.js
+exit 1, "line 101: outcome promise "guarantee" (uses guarantee wording)...No
+pack may promise protection or immunity as an outcome", naming Post D.
+Restored; sha256 reconfirmed identical; checker re-run clean.
+
+ROUND 2 - CONTROL, genuine question exemption
+Inserted "Wondering if a travel vaccine will fully protect you before you fly?
+Ask the pharmacist at your consultation." into Post D in place of the same
+guarantee sentence, the same wording proved as a legitimate question on five
+sibling packs. Correctly PASSED: exit 0, only the pre-existing "link
+target...not a page this repo generates" WARN, confirming the question
+exemption holds on this pack's own copy too. Restored; sha256 reconfirmed
+identical; checker re-run clean.
+
+ROUND 3 - POM_CLASS self-scoping, "skinny jab"
+Changed Post C's opening sentence from "The pharmacist-led weight loss clinic
+at Gordon Short Chemist in Crosby starts with a private consultation..." to
+name "The skinny jab clinic at Gordon Short Chemist in Crosby starts with a
+private consultation...", leaving the rest of Post C and the whole of the
+pack's five other posts and notes untouched. CAUGHT: exit 1, "this pack
+alludes to a prescription-only weight loss medicine without naming it, by the
+phrase "skinny jab"...a pack is pasted into a public Google profile, which is
+Regime 1...the advertising regime with the near-total prohibition." Restored;
+sha256 reconfirmed identical; checker re-run clean.
+
+ROUND 4 - POM_CLASS in-context, dosing schedule inside a weight-loss sentence
+Inserted ", including a weekly injection for weight loss," into the middle of
+Post C's sentence "We talk through your health history, your goals and the
+options available...and we support you at every step as part of a supervised
+plan alongside diet and lifestyle changes.", leaving "weekly"/"injection" out
+of every other sentence in the pack (this pack's only other candidate context,
+the NHS contraception service bullet, does not use either word, so no
+cross-firing risk was present to test against on this specific pack). CAUGHT:
+exit 1, "this pack describes a weekly injectable in a sentence about weight
+loss: "weekly injection"...a GBP pack is Regime 1 advertising", naming the
+exact mutated sentence and no other. Restored; sha256 reconfirmed identical;
+checker re-run clean.
+
+RESULT
+All four rounds fired or correctly passed on the first attempt, each on its
+intended rule and detection path only, with no side-effect failures anywhere
+else in the 34-checker suite. OUTCOME_PROMISE (both the fail case and the
+question exemption) and POM_CLASS (both self-scoping and in-context) were
+already correctly and independently enforced against this pack's own Post C
+and Post D copy. Zero in-repo defect - both rule families now proven directly
+against this pack for the first time in seventeen passes, closing the last
+gap in the OUTCOME_PROMISE/POM_CLASS coverage list alongside today's earlier
+item 4.2 pass on Cherry Lane Walton.
+
+FINAL VERIFICATION
+Full 34-checker suite re-run against the scratch copy after the final
+restore: all 34 exit 0 (0 failures). sha256 of gbp-packs/gordon-short-crosby.md
+on the scratch copy reconfirmed 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+identical to baseline; cmp against the pristine backup reported no
+differences. Tracked repo's own copy of the pack separately re-hashed after
+the pass: identical. git status --porcelain on the tracked repo shows no
+changes to gbp-packs/, tools/, modules/, core/ or branches.json from this
+pass (only the two pre-existing, unrelated untracked strays:
+gbp-packs/.fuse_hidden0000000400000001, a transient FUSE mount artefact, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, both
+already documented by prior passes). No generator rebuild performed: nothing
+in branches.json or any generator input was touched, and GBP packs are a
+separate governance channel from the six page generators (see CLAUDE.md), so
+a rebuild would prove nothing the file-level restore check had not already
+proven. Scratch directory deleted after the pass completed.
+
+LIVE HALF
+Claude in Chrome MCP tools were loaded via ToolSearch and tabs_context_mcp
+was called twice this run (once before item selection, once for this pass)
+and reported "Claude in Chrome is not connected" both times (standing Q59),
+not retried by any other route, no login attempted. Fell back to read-only
+HTTPS GET via curl from the sandbox shell, status-only, matching the
+fourteenth/fifteenth/sixteenth passes' convention within the time budget: all
+four post-linked pages return 200 (pharmacy-first-service-crosby.html,
+switch-prescriptions-gordon-short-crosby.html,
+weight-loss-clinic-gordon-short-crosby.html,
+travel-clinic-gordon-short-crosby.html), as does sitemap.xml. sitemap.xml
+lastmod for every gordon-short-crosby URL still reads
+2026-08-15T07:41:55+00:00, unchanged since the sixth pass, confirming no
+republish since any prior pass's own reading; the sitemap still separately
+lists weight-loss-clinic-crosby.html at the same timestamp, the second live
+weight loss URL outside this pack's four post targets first raised as Q90 -
+reconfirmed present, not re-examined for content this pass (status-code
+only), Q90 not re-raised per the standing instruction not to duplicate it.
+Page body content (the "Gordon Shorts Chemist" naming STOP and
+PF_TARGET_HOLD/Q32, the switch page's mojibake em dash, the footer en dashes,
+the sitewide mojibake close-button glyph) was not re-read this pass
+(status-only), so those standing findings are carried forward unchanged from
+the sixteenth pass rather than freshly reconfirmed - flagged here rather than
+silently implied, matching the sixteenth pass's own convention.
+
+QUESTIONS
+No new question raised this pass; both rule families govern GBP pack copy
+pasted into Google's public profile fields and this branch's own pack already
+passes every rule in both directions (fail case and exemption for
+OUTCOME_PROMISE; self-scoping and in-context for POM_CLASS), so there is no
+business, legal, pricing or regulatory judgement call for Rishi here.
+QUESTIONS.json: 101 total, 48 open at run start (unchanged from the run that
+completed item 4.7 earlier today). Answer pickup (step 3, run once at the
+start of this session before item selection): Claude in Chrome MCP reported
+"not connected"; per the task's own rule this was logged and not retried by
+any other route, and no login was attempted. 48 open questions unchanged, none
+actioned this run. No credential encountered in any file touched.
