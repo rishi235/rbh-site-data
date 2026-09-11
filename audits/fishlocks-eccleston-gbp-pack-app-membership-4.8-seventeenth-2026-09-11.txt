@@ -1,0 +1,141 @@
+Item 4.8 quality pass, seventeenth, 2026-09-11 (unattended run)
+Pack: gbp-packs/fishlocks-eccleston.md
+Branch: fishlocks_eccleston (Fishlocks Chemist Eccleston, hasApp: true)
+
+ROTATION POOL DERIVATION
+43 [x] AGENT_WORKLIST.md items, minus 7 standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), minus 6 items already touched earlier
+today 2026-09-11 per git log (3.1, 4.3, 4.6, 4.5, 1.3, 4.13) = 30 candidates.
+Per-item last-touch date via:
+  git log -1 --format=%aI --all --grep="Item N.N " -- AGENT_WORKLIST.md
+Full table (sorted, top 5 shown):
+  4.8   2026-09-09T11:09:27+01:00   <- stalest, chosen
+  4.10  2026-09-09T11:40:13+01:00
+  4.9   2026-09-09T12:11:51+01:00
+  4.12  2026-09-09T12:41:22+01:00
+  4.15  2026-09-09T13:11:59+01:00
+(full 30-row table generated and checked; 4.8 uniquely stalest, no tie)
+
+BASELINE
+git status --porcelain -- gbp-packs modules core branches.json tools status:
+empty (before this pass).
+sha256 gbp-packs/fishlocks-eccleston.md:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+(matches the sixteenth pass's own recorded hash - pack unchanged since).
+All 36 tools/check-*.js run individually beforehand: 36/36 exit 0.
+
+WHY THIS ANGLE
+Sixteen prior dedicated passes on this pack proved a long and varied list of
+check-gbp-packs.js rules (profile basics, foreign-town leak, CLINIC_QUALIFIERS,
+OUTCOME_PROMISE, brand/URL/UK spelling, hours days, PRICE/OFFER patterns,
+shared-domain website, photo shot list, catchment-list order and membership)
+by injection against this pack's own copy. None of them had ever opened
+tools/check-app-membership.js's Rule 8 against this pack specifically, despite
+that rule's own birth comment (item 4.5 quality pass, 2026-08-14) naming
+fishlocks-eccleston.md, by id, as one of exactly four app-member packs that
+"actively publish app copy into the business description and the posts" - and
+despite the comment's own worked proof testing only scorah-hazel-grove.md (a
+non-member) and smartts-bootle.md (a member), never the pack that comment uses
+as its own example.
+
+Confirmed before injecting: the pack carries three app mentions in published
+copy (business description line 27, services bullet line 45, Post B lines
+101-102) and one correct paster note (line 141, "App mentions are fine for
+this branch: branches.json has hasApp true").
+
+METHOD
+Four injections, direct on the tracked file (no scratch copy needed for this
+checker - it reads only gbp-packs/*.md and branches.json, both fast to
+restore). Each round: edit, run `node tools/check-app-membership.js`, restore
+from a pre-pass byte-for-byte backup, sha256-reconfirm identical before the
+next injection.
+
+INJECTION 1 - Rule 8e (member's pack has no app mention at all)
+Reworded all three published-copy app mentions to remove the word "app"
+entirely, paster note untouched:
+  "ordered through our app and collected when ready"
+    -> "ordered in branch and collected when ready"
+  "with repeat ordering through our app."
+    -> "with repeat ordering in branch."
+  "and an app for ordering repeats if you prefer."
+    -> "and repeat ordering in branch if you prefer."
+Result: FAIL (1), Rule 8e -
+  "branches.json has hasApp true for fishlocks_eccleston, but the copy pasted
+  into the public Google profile carries no app mention, so the profile would
+  omit a feature the branch actually offers"
+CAUGHT on first attempt, exactly one FAIL, expected message.
+Restored; sha256 reconfirmed identical.
+
+INJECTION 2 - Rule 8d (note claims no app mention, copy contradicts it)
+Line 141 changed from
+  "App mentions are fine for this branch: branches.json has hasApp true."
+to
+  "No app mention anywhere in this pack, deliberately kept out."
+Published copy (the genuine three app mentions) left untouched.
+Result: FAIL (1), Rule 8d -
+  "the paster note says there is no app mention anywhere in this pack, but
+  the pasted copy carries one"
+CAUGHT on first attempt, exactly one FAIL, expected message.
+Restored; sha256 reconfirmed identical.
+
+INJECTION 3 - Rule 8c, saysFalse-and-isMember branch
+Line 141 changed from "...hasApp true." to "...hasApp false."
+Result: FAIL (1), Rule 8c -
+  "the paster note tells the paster branches.json has hasApp false, but it
+  has true for fishlocks_eccleston, so the branch's own app would be kept off
+  its profile"
+CAUGHT on first attempt, exactly one FAIL, expected message.
+Restored; sha256 reconfirmed identical.
+
+INJECTION 4 - Rule 8c, saysTrue-and-saysFalse branch
+A second note line added directly under the correct one:
+  "- App mentions are fine for this branch: branches.json has hasApp true.
+   - Correction pending: an earlier draft of this pack said hasApp false."
+Result: FAIL (1), Rule 8c -
+  "the paster notes state both hasApp true and hasApp false for this branch"
+CAUGHT on first attempt, exactly one FAIL, expected message.
+Restored; sha256 reconfirmed identical.
+
+RULES NOT TESTED (BY DESIGN)
+Rules 8a and 8b only fire in the !isMember direction (a non-member's pack
+claiming an app in published copy or in the photo shot list). Since
+fishlocks_eccleston has hasApp true, neither rule can ever fire against this
+pack's content regardless of what it says, so testing them here would prove
+nothing. Both are already proven, correctly, against non-member packs by the
+rule's own birth-comment test (scorah-hazel-grove.md).
+
+FINAL STATE
+gbp-packs/fishlocks-eccleston.md restored to its pre-pass byte content;
+sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+confirmed identical to the pre-pass backup (diff empty).
+Full 36-checker suite re-run after the final restore: 36/36 exit 0.
+git status --porcelain -- gbp-packs modules core branches.json tools status:
+empty (no generator, page, pack or branches.json content changed by this
+pass; check-app-membership.js itself also unchanged - this was a pure proof,
+not a fix).
+
+LIVE HALF
+Claude in Chrome MCP: not connected (Q59), not retried, no person present in
+this unattended session to grant access.
+Read-only curl fallback (network reachable this run):
+  pharmacy-fishlocks-eccleston.html            404 (known queued-paste state, 5.3/5.4)
+  pharmacy-first-fishlocks-eccleston.html      200
+  switch-prescriptions-fishlocks-eccleston.html 200
+  weight-loss-clinic-fishlocks-eccleston.html   200
+  travel-clinic-fishlocks-eccleston.html        200
+All unchanged from every prior pass. Rule 8 governs pack copy pasted by a
+human into a Google Business Profile field, not a URL a read-only fetch can
+verify, so this live check is a general page-health sanity check, not a test
+of the app claim itself.
+
+QUESTIONS
+None raised. QUESTIONS.json: 101 total, 48 open, unchanged by this pass.
+
+FORWARD NOTE
+Rules 8a and 8b remain untested against this item specifically, and always
+will be while this branch stays an app member - that proof belongs to a
+non-member pack's own quality pass. Separately, the sixteenth pass's own
+forward note (catchment-list rules unproven against fishlocks-ainsdale.md,
+tiffenbergs-aintree.md, and any three-town McCanns/Scorah pack) remains open
+for those items' own future passes. Next stalest item in the rotation pool
+after this one: 4.10 (2026-09-09T11:40:13+01:00), then 4.9 (12:11:51).

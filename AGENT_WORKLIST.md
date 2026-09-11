@@ -14867,6 +14867,82 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       McCanns/Scorah pack whose services section lists three towns) - a
       candidate set for a future pass.
       See audits/fishlocks-eccleston-gbp-pack-catchment-order-membership-4.8-sixteenth-2026-09-09.txt.
+      Quality pass 2026-09-11 (seventeenth, unattended run): stalest item in the
+      30-item rotation pool, re-derived independently (git log -1 --format=%aI
+      --all --grep="Item N.N " -- AGENT_WORKLIST.md per candidate, pool being the
+      43 [x] items minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+      5.7, 6.7, 6.8) minus the 6 items already touched earlier today, 2026-09-11
+      (3.1, 4.3, 4.6, 4.5, 1.3, 4.13); 4.8 unique stalest at
+      2026-09-09T11:09:27+01:00, matching the sixth run's own forward note,
+      ahead of the runner-up 4.10 at 2026-09-09T11:40:13+01:00 by about 31
+      minutes). Baseline: git status clean, sha256 of the pack confirmed
+      unchanged against the sixteenth pass's own hash
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), all 36
+      checkers green beforehand. New angle: sixteen prior passes had proven a
+      long list of check-gbp-packs.js rules against this pack's own copy, but
+      check-app-membership.js's own Rule 8 documentation comment names this
+      pack, by id, as one of only four app-member packs that "actively publish
+      app copy into the business description and the posts" - yet its own
+      worked proof, quoted in that same comment, tested the rule only against
+      scorah-hazel-grove.md (a non-member) and smartts-bootle.md (a member),
+      never against fishlocks-eccleston.md itself, despite this pack being the
+      comment's own named example. Four injections direct on the tracked file,
+      each restored from the pre-injection byte copy (sha256
+      5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+      reconfirmed identical before the next): (1) all three app mentions in
+      published copy reworded to remove the word "app" entirely (business
+      description "ordered through our app" -> "ordered in branch", the
+      services bullet "repeat ordering through our app" -> "repeat ordering in
+      branch", Post B's "an app for ordering repeats" -> "repeat ordering in
+      branch"), paster note left untouched - CAUGHT by Rule 8e (the "missing
+      positive" branch, proven nowhere before against a genuinely on-topic
+      pack): "branches.json has hasApp true for fishlocks_eccleston, but the
+      copy pasted into the public Google profile carries no app mention"; (2)
+      the paster note's own "App mentions are fine for this branch: branches.json
+      has hasApp true" line replaced with "No app mention anywhere in this
+      pack, deliberately kept out", published copy left untouched and still
+      carrying its genuine app mentions - CAUGHT by Rule 8d, naming the
+      contradiction between the note and the pasted copy; (3) that same line
+      changed to assert "hasApp false" instead of "hasApp true" - CAUGHT by
+      Rule 8c's saysFalse-and-isMember branch, "the branch's own app would be
+      kept off its profile"; (4) a second note line added alongside the
+      correct "hasApp true" one, asserting an earlier draft said "hasApp
+      false" - CAUGHT by Rule 8c's saysTrue-and-saysFalse branch, "the paster
+      notes state both hasApp true and hasApp false for this branch". All four
+      behaved exactly as documented on the first attempt, each producing
+      exactly one FAIL with the expected message; Rules 8a and 8b (the
+      non-member-claims-app direction) cannot fire against this pack's content
+      at all, since it is a genuine member, so they were not tested here -
+      already proven on non-member packs by the rule's own birth comment.
+      File restored, sha256 reconfirmed identical after each round and at the
+      end (diff against the pre-pass backup empty); full 36-checker suite
+      re-run clean after the final restore (36/36 exit 0); git status
+      --porcelain -- gbp-packs modules core branches.json tools status empty
+      throughout and afterwards (this pack is not a generator input, so no
+      rebuild was needed). No checker gap found; no in-repo defect; the rule
+      already correctly protects this pack's own app claim in all four
+      directions it defines, now proven by injection against its own copy
+      rather than only against sister packs. LIVE: Claude in Chrome not
+      connected (Q59), not retried, no person present to grant access; a
+      read-only curl fallback confirmed the landing page
+      (pharmacy-fishlocks-eccleston.html) still 404s (known queued-paste
+      state, 5.3/5.4) and all four post targets (Pharmacy First, switch,
+      weight loss clinic, travel clinic) still 200, unchanged from every prior
+      pass - Rule 8 itself governs pack copy pasted by a human into a Google
+      Business Profile field, not a URL a read-only fetch can verify, so
+      nothing about the app claim itself was checked live. ANSWER PICKUP
+      (step 3, this run): Claude in Chrome MCP reported not connected; per
+      procedure logged as unavailable and not retried by any other route, no
+      login attempted. QUESTIONS: none raised; 101 total, 48 open, unchanged
+      by this pass. Forward note: Rules 8a and 8b remain untested by this
+      item specifically and always will be, since this branch is a genuine
+      app member - any future proof of those two directions belongs to a
+      non-member pack's own quality pass instead. Separately, the sixteenth
+      pass's own forward note (the two catchment-list rules unproven against
+      fishlocks-ainsdale.md, tiffenbergs-aintree.md and any three-town
+      McCanns/Scorah pack) remains open for whichever of those items' own
+      passes comes next.
+      See audits/fishlocks-eccleston-gbp-pack-app-membership-4.8-seventeenth-2026-09-11.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
