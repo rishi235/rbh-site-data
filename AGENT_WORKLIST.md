@@ -19189,6 +19189,38 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       read-only fetch could verify regardless; the fourteenth pass's live
       verdicts stand, not re-verified this pass. Evidence in
       audits/tiffenbergs-aintree-pharmacy-first-eligibility-4.15-fifteenth-2026-09-09.txt.
+      Quality pass 2026-09-11 (sixteenth re-verification, repo half only):
+      pack verified clean again, unchanged since the ninth pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b). All 36
+      checkers exit 0. Fresh angle: check-gbp-packs.js's "phone in PUBLISHED
+      copy" rule (born item 4.10 pass, 2026-08-13, proven so far only against
+      clear-aintree.md, coleman-leigh-walton.md, riddings-timperley.md and,
+      earlier today, mccanns-aigburth.md on item 4.6) had never been proven
+      against THIS pack's own copy across fifteen prior passes. The branch
+      phone (0151 525 3462) appears exactly once in the file, so, as with
+      mccanns-aigburth.md, the test had to ADD a number to published copy
+      rather than corrupt an existing digit. Full repo copied with .git to a
+      scratch directory; tracked pack never opened for writing, sha256
+      reconfirmed identical throughout. On the scratch copy, Post B - Switch
+      your prescriptions gained "Questions? Call us on 0151 203 6535." (Clear
+      Chemist Aintree's real number, a plausible real-world mix-up since both
+      branches serve Aintree). node tools/check-gbp-packs.js exited 1 with
+      exactly two FAILs, first attempt: the pre-existing sister-number rule
+      ("phone 0151 203 6535 belongs to Clear Chemist, not Tiffenbergs
+      Chemist") and the published-copy rule itself, naming Post B, the wrong
+      number, whose number it is and the correct number - the identical
+      two-FAIL shape the 4.6 pass recorded on mccanns-aigburth.md today. All
+      17 pre-existing WARNs unchanged. Restored by byte copy; sha256
+      reconfirmed identical to baseline; full 36-checker suite re-run clean.
+      `git status --porcelain` on gbp-packs/, modules/, core/, tools/,
+      branches.json and status/ shows no change from this pass. No checker
+      gap found; no in-repo defect; nothing fixed, this pass adds proof only.
+      Live half: Claude in Chrome not connected this run (standing Q59, not
+      retried); this rule governs text pasted into a GBP post field, not a
+      URL a read-only fetch could verify regardless. The ninth pass's live
+      verdicts (2026-09-03) stand, not re-verified this pass. No new question
+      raised. Evidence in
+      audits/tiffenbergs-aintree-phone-published-copy-4.15-sixteenth-2026-09-11.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

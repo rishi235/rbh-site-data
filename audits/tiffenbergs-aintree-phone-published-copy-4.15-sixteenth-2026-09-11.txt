@@ -1,0 +1,99 @@
+Item 4.15 quality pass (sixteenth), Tiffenbergs Chemist Aintree GBP pack
+Run: unattended, audit-backlog-worker, 2026-09-11 (eleventh scheduled run of the day)
+
+ROTATION POOL DERIVATION
+43 [x] AGENT_WORKLIST.md items minus 7 standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 10 items touched earlier today per
+`git log --since="2026-09-11T00:00:00" --format="%aI %s" -- AGENT_WORKLIST.md`
+(3.1, 4.3, 4.6, 4.5, 1.3, 4.13, 4.8, 4.10, 4.9, 4.12) = 26 candidates.
+`git log -1 --format=%aI --grep="Item N.N " -- AGENT_WORKLIST.md` computed for
+all 26. 4.15 uniquely stalest at 2026-09-09T13:11:59+01:00, ahead of the
+runner-up 2.3 (2026-09-09T14:54:13+01:00). Matches the fifteenth pass's own
+forward note exactly. All 8 unchecked AGENT_WORKLIST.md lines re-confirmed
+[BLOCKED] by direct grep before this derivation (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6).
+
+BASELINE
+sha256 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b,
+matching all fifteen prior passes exactly. Full repo copied (with .git) to
+/sessions/.../mnt/audit-scratch-4.15. Baseline sweep of all tools/check-*.js
+against the scratch copy: every checker exits 0.
+
+FRESH ANGLE
+Fifteen prior passes had proven, against this pack's own copy: the general
+TEMPLATE.md rules, MEDICINE_NAMES/EFFICACY/CLAIM_PATTERNS/BODY_IMAGE-style
+phrase matching (via the general suite, and the line-wrap fix landed on
+Scorah Hazel Grove applies estate-wide), OUTCOME_PROMISE (ninth pass),
+check-brand-spelling.js / check-url-scheme.js / check-uk-spelling.js (tenth),
+the hours day-presence rule (eleventh), check-gbp-pharmacy-first.js's four
+clinical rules (twelfth), the category/service allowlist (thirteenth), the
+photo shot list rule (fourteenth), and check-pharmacy-first-eligibility.js
+rules 9-11 (fifteenth). Never proven against this pack specifically: the
+"phone in PUBLISHED copy" rule in tools/check-gbp-packs.js, proven so far only
+against clear-aintree.md, coleman-leigh-walton.md, riddings-timperley.md
+(item 4.10 pass, 2026-08-13) and mccanns-aigburth.md (item 4.6, sixteenth
+pass, earlier today). Confirmed by grep across this item's full fifteen-pass
+history in AGENT_WORKLIST.md: zero mentions of "published copy" or
+"publishedPhone".
+
+This pack's own phone number, 0151 525 3462, appears exactly once in the
+file (the profile-basics line; confirmed via `grep -n "0151"
+gbp-packs/tiffenbergs-aintree.md`), never restated in the description,
+services section or any post body - the same shape as mccanns-aigburth.md
+earlier today, so the injection had to ADD a number to published copy rather
+than corrupt an existing digit.
+
+INJECTION
+On the scratch copy (tracked repo file backed up first to /tmp/tiffenbergs-
+backup.md, sha256 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b):
+Post B - Switch your prescriptions gained "Questions? Call us on
+0151 203 6535." (Clear Chemist Aintree's real number - chosen deliberately as
+a plausible real-world mistake, since both branches serve Aintree, rather
+than an arbitrary invented digit string).
+
+RESULT
+node tools/check-gbp-packs.js exited 1 with exactly two FAILs:
+  FAIL tiffenbergs-aintree.md: phone 0151 203 6535 belongs to Clear Chemist,
+  not Tiffenbergs Chemist
+  FAIL tiffenbergs-aintree.md: the Post B - Switch your prescriptions
+  publishes the phone number 0151 203 6535, which is Clear Chemist's number,
+  but branches.json holds 0151 525 3462 for Tiffenbergs Chemist. This copy is
+  pasted verbatim into the public Google profile, so it publishes a number
+  that is not this pharmacy's. The presence rule above does not see it,
+  because 0151 525 3462 still appears elsewhere in the pack, and the sister
+  rule only fails a number that belongs to another branch
+Both fired on the first attempt with the exact wording the rule's source
+comment predicts (pre-existing sister-number rule plus the published-copy
+rule itself, the same two-FAIL shape the 4.6 pass recorded on
+mccanns-aigburth.md today). All 17 pre-existing WARNs unchanged.
+
+RESTORE AND RE-VERIFY
+gbp-packs/tiffenbergs-aintree.md restored from the pre-injection byte copy;
+sha256 reconfirmed 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b,
+matching baseline exactly. Full tools/check-*.js suite re-run on the scratch
+copy after restore: every checker exits 0 again. Tracked repo's own copy
+confirmed sha256-identical throughout (never opened for writing):
+59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b.
+`git status --porcelain -- gbp-packs/ modules/ core/ tools/ branches.json
+status/` on the tracked repo shows no change from this pass (only the two
+pre-existing untracked strays already noted by earlier runs:
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, both
+untouched).
+
+CONCLUSION
+No checker gap found; no in-repo defect. gbp-packs/ is not a generator input,
+so no rebuild was needed; no generator, page or branches.json field changed.
+This pass adds proof only.
+
+LIVE HALF
+Claude in Chrome MCP: `tabs_context_mcp`/`navigate` returned "Claude in
+Chrome is not connected" (logged under step 3, same failure, not retried by
+any other route, no login attempted). The published-copy phone rule governs
+text pasted into a Google Business Profile post field, not a URL a read-only
+fetch could verify regardless. The ninth pass's live verdicts (2026-09-03,
+last full live read; all four post targets 200) stand, not re-verified this
+pass.
+
+QUESTIONS
+None raised. QUESTIONS.json unchanged by this item (48 open, unrelated).
