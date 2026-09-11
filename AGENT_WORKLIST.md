@@ -13754,6 +13754,49 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       open. No new in-repo defect, no new question; open question count
       unchanged at 47 of 100. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-09-fifteenth.txt.
+      Quality pass 2026-09-11 (unattended run, sixteenth pass): stalest item
+      in the rotation pool, re-derived mechanically (last touched
+      2026-09-09T07:40:35+01:00, next stalest 4.5 at 08:08:30, no tie).
+      Baseline: node tools/check-gbp-packs.js 0 failures, 17 known WARNs
+      unchanged; all 36 checkers individually 36/36 exit 0; sha256 of the
+      pack fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693,
+      unchanged since 2026-08-04. NEW ANGLE: of fifteen prior injection
+      angles proven against this pack, the "phone in PUBLISHED copy" rule
+      (proven item 4.10 pass, 2026-08-13, only against clear-aintree.md,
+      coleman-leigh-walton.md and riddings-timperley.md) had never been
+      proven against this pack, and this pack is a clean test of it because,
+      unlike those three, its own phone appears exactly once (the
+      profile-basics line) and is never restated in published copy - so the
+      injection had to ADD a number rather than corrupt an existing one.
+      INJECTION: on the tracked file (byte-backed up first, sha256
+      fdb1429d...693), Post B gained "Questions? Call us on 0151 727 3076."
+      - McCanns Chemist Sandringham's real number, chosen as a plausible
+      real mistake (copying the sister branch's number off a shared
+      template) rather than an arbitrary digit string. RESULT: exit 1, two
+      FAILs: the pre-existing sister-number rule (expected, since the
+      injected number happens to be a real sister's) and the phone-in-
+      published-copy rule itself, firing first attempt with the exact
+      wording its source comment describes, naming Post B, the wrong
+      number, whose it is, the correct number, and why the two weaker
+      rules miss it. All 17 pre-existing WARNs unchanged. RESTORED by byte
+      copy (not git checkout); sha256 reconfirmed identical
+      (fdb1429d...693); full 36-checker suite re-run clean, 36/36 exit 0.
+      git status on modules/core/branches.json/tools/gbp-packs showed only
+      two pre-existing untracked artifacts predating this run, neither
+      touched, neither investigated further. Nothing fixed - this pass adds
+      proof, not correction. gbp-packs is not a generator input, so no
+      generator rebuild was needed. LIVE HALF: Claude in Chrome not
+      connected; built-in Claude Browser redirected to Cloudflare Access
+      for the step 3 answer-pickup fetch, not retried (unattended, no
+      access request). This item's own live half used a direct read-only
+      HTTP GET instead (bash network reachable this run): profile-website
+      landing page still 404s awaiting the queued paste run, the other
+      three post targets (switch, weight loss clinic, travel clinic) all
+      200, unchanged from every prior pass. Status check only, not a full
+      text re-read. Q83 not re-raised, already open. No new in-repo defect,
+      no new question; open question count unchanged at 48 of 101.
+      Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-11-sixteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

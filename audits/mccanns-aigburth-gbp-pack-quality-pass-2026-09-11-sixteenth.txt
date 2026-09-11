@@ -1,0 +1,123 @@
+Item 4.6 quality pass (sixteenth), 2026-09-11 (unattended scheduled run,
+audit-backlog-worker)
+
+STALEST-ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), so this is the quality-pass
+fallback. Rotation pool re-derived fresh: 43 [x] items minus the 7 standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus 2 items
+touched earlier today (3.1 at 03:15:12+01:00, 4.3 at 03:40:20+01:00, per
+`git log --since="2026-09-11T00:00:00" -- AGENT_WORKLIST.md`) = 34
+candidates. `git log -1 --format=%aI --all --grep="Item N.N " --
+AGENT_WORKLIST.md` run per candidate: 4.6 uniquely stalest at
+2026-09-09T07:40:35+01:00, ahead of 4.5 (08:08:30) and 1.3 (09:12:46),
+confirming the fifteenth pass's own forward note exactly. Chosen: 4.6; its
+own block showed the prior pass was the fifteenth (2026-09-09), so this is
+the sixteenth.
+
+BASELINE
+sha256 of gbp-packs/mccanns-aigburth.md before this run:
+  fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+node tools/check-gbp-packs.js: 0 failures, 17 known WARNs (same set as every
+prior pass - Q72 qualifier gaps x3, Q64 post-town divergence x4, three
+live-only link-target WARNs, two phone-like-number-not-ours WARNs on
+clear-aintree.md and hirshmans-ainsdale.md).
+All 36 checkers run individually via a loop over tools/check-*.js: 36/36
+exit 0.
+gbp-packs is not a generator input, so no generator rebuild was needed
+(consistent with every prior pass on this item).
+
+FRESH ANGLE
+Of fifteen prior injection angles proven against this pack (branch-name-as-
+place/Q26, address-repeated-four-times, hours-in-four-places, time/day
+pairing, splitDay, sister-branch-in-prose, PRICE_PATTERNS lead pricing, GBP
+profile-website-on-shared-domain, check-pharmacy-first-eligibility.js rule 9
+age-cohort pinning, and the categories/services earned/not-earned
+allowlist+blocklist), the "phone in PUBLISHED copy" rule
+(tools/check-gbp-packs.js, section "--- the phone in PUBLISHED copy ---",
+proven on the item 4.10 pass, 2026-08-13, only against clear-aintree.md,
+coleman-leigh-walton.md and riddings-timperley.md) had never been proven
+against this pack. It was a clean target: unlike those three packs, this
+pack's own phone number (0151 727 3185) appears exactly once, in the
+profile-basics line, and is never restated in the description, services
+section or any post body - so the injection had to ADD a phone number to
+published copy rather than corrupt an existing digit.
+
+INJECTION
+Edited the tracked file directly (byte-copy backup taken first at
+/tmp/audit_work/mccanns-aigburth.md.orig, sha256-confirmed
+fdb1429d...693). Added the sentence "Questions? Call us on 0151 727 3076."
+to the end of Post B - Switch your prescriptions. 0151 727 3076 is McCanns
+Chemist Sandringham's real number (the sister branch on the same shared
+domain), chosen deliberately so the injection is a plausible real-world
+mistake (copying the wrong branch's number from a shared template) rather
+than an arbitrary invented digit string.
+
+RESULT
+node tools/check-gbp-packs.js exited 1 with exactly two FAILs, both naming
+this pack:
+  FAIL mccanns-aigburth.md: phone 0151 727 3076 belongs to McCanns Chemist
+  Sandringham, not McCanns Chemist Aigburth
+  FAIL mccanns-aigburth.md: the Post B - Switch your prescriptions publishes
+  the phone number 0151 727 3076, which is McCanns Chemist Sandringham's
+  number, but branches.json holds 0151 727 3185 for McCanns Chemist
+  Aigburth. This copy is pasted verbatim into the public Google profile, so
+  it publishes a number that is not this pharmacy's. The presence rule
+  above does not see it, because 0151 727 3185 still appears elsewhere in
+  the pack, and the sister rule only fails a number that belongs to another
+  branch.
+All 17 pre-existing WARNs unchanged. The first FAIL is the pre-existing
+sister-number rule (already proven on this pack on earlier passes) firing
+alongside the new one, which is expected and correct: an injected number
+that happens to belong to a real sister branch trips both rules
+simultaneously. The second FAIL is the "phone in PUBLISHED copy" rule
+itself, firing on the first attempt with the exact wording its own source
+comment describes (naming the scope "Post B - Switch your prescriptions",
+the wrong number, whose number it is, the correct number, and why the two
+weaker rules above miss it).
+
+RESTORE
+Restored gbp-packs/mccanns-aigburth.md by byte copy from
+/tmp/audit_work/mccanns-aigburth.md.orig (not git checkout). Post-restore
+sha256: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693,
+matching the pre-injection value exactly. Full 36-checker suite re-run
+clean: 36/36 exit 0, node tools/check-gbp-packs.js back to 0 failures / 17
+known WARNs. git status --porcelain -- modules core branches.json tools
+gbp-packs shows only two pre-existing untracked artifacts predating this
+run (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched by this pass and neither investigated further (same convention as
+the fifteenth pass).
+
+Nothing fixed this pass - it adds proof, not correction. No generator,
+page, branches.json field or checker was changed.
+
+LIVE HALF
+Claude in Chrome MCP: tabs_context_mcp reported "not connected", not
+retried by another route per procedure. Built-in Claude Browser MCP:
+navigated to https://data.rbhealth.co.uk/api/feedback for step 3's answer
+pickup, redirected to https://rbhealth.cloudflareaccess.com (Cloudflare
+Access login); request_access not called (unattended session, no person
+to approve). Logged as unavailable, no login attempted, no other route
+tried for step 3.
+
+For this item's own live half, fell back to a direct read-only HTTP GET
+via the bash sandbox (network reachable this run, unlike some recent runs):
+  https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html      404
+  https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-aigburth.html  200
+  https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html    200
+  https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html        200
+Status check only (HTTP codes, not a full text re-read), unchanged from
+every prior pass: the profile-website landing page still 404s awaiting the
+queued Weebly paste run, the other three post targets remain live. Q83
+(weight loss booking-block "from £39.99" ahead of the eligibility section)
+not re-raised, already open.
+
+QUESTIONS
+None raised. QUESTIONS.json unchanged (48 open, none actioned - answer
+pickup unavailable this run per the Cloudflare Access gate).
+
+FORWARD NOTE for the next unattended run: re-derive the rotation pool
+fresh; as computed by this run (excluding 3.1, 4.3 and 4.6 as touched
+today), 4.5 is next stalest (2026-09-09T08:08:30+01:00), then 1.3
+(09:12:46), then 4.13 (09:40:25).
