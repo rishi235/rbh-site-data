@@ -20523,6 +20523,43 @@ appended to the line. Do not move them; the status page reads them in place.
       No worklist item blocked or unblocked. Guard coverage for this item
       now extends to 17 of 35 checkers proven by direct injection. Evidence:
       audits/hirshmans-address-check-2026-09-09-sixteenth.txt. Done 2026-09-09
+      Seventeenth quality pass 2026-09-11 (unattended scheduled run, rotation
+      pool - item 1.2 confirmed stalest untouched-today, last touched
+      2026-09-09, ahead of 3.11, 4.4, 4.1, 3.2, 3.5). REPO HALF: FRESH ANGLE -
+      tools/check-booking-routes.js had never been pointed at this branch in
+      sixteen prior passes, despite Hirshmans carrying 11 generated pages
+      with a booking mount and full widget data in branches.json. Full repo
+      archived via git archive HEAD to a disposable scratch copy (tracked
+      repo never opened for writing this pass); branches.json sha256
+      matched the tracked repo exactly; full 34-checker suite clean before
+      any edit. Four injections on the scratch copy only, each restored by
+      byte copy and sha256/cmp-reconfirmed identical to baseline before the
+      next: (1) removed widgets.contraception (a NO_FALLBACK service) from
+      hirshmans_ainsdale - CAUGHT, rule "widget"; (2) data-branch on the
+      Pharmacy First page's #rbhsv-root changed to another branch's name -
+      CAUGHT, rule "branchattr"; (3) data-service on the weight-loss-clinic
+      page changed so it no longer matched its 14 sibling pages - CAUGHT,
+      rule "serviceattr"; (4) townSlug changed, breaking the routing key
+      all 11 of this branch's booking pages resolve against - CAUGHT, rule
+      "branch", correctly firing across all 11 Hirshmans pages and no
+      others. All four fired first attempt, each on its own intended rule,
+      no cross-firing. Full 34-checker suite re-run clean on the scratch
+      copy after the final restore; tracked repo's branches.json and page
+      files never opened for writing throughout. NOTE (not a new finding,
+      already covered by Q87/Q96): the tracked working directory carries a
+      large accumulation of untracked probe/test files from prior
+      lock-testing runs (this sandbox cannot unlink files) alongside the
+      two previously-documented strays, which is why file-scanning
+      checkers report different totals on the tracked tree versus a clean
+      git-archive copy; none of it is tracked, touched, or affects any
+      checker's verdict on tracked content. No in-repo defect found. Guard
+      coverage for this item now extends to 18 of 35 checkers proven by
+      direct injection. LIVE HALF: not re-verified this pass (address and
+      hours already reconfirmed clean on five prior passes; this pass's
+      fresh angle was entirely repo-side with no live copy implication). No
+      new question. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-11-seventeenth.txt.
+      Done 2026-09-11
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

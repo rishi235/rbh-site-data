@@ -1,0 +1,112 @@
+Item 1.2 quality pass (seventeenth), 2026-09-11
+Hirshmans Chemist Ainsdale (hirshmans_ainsdale)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Rotation pool re-derived: 16 items already
+touched today (2026-09-11) per `git log --since="2026-09-11T00:00:00" --
+AGENT_WORKLIST.md` (16 commits). Item 1.2's own paragraph text carries no
+2026-09-10 or 2026-09-11 date (checked by extracting the full item block,
+lines 19983-20525, and scanning for date strings - latest is 2026-09-09),
+matching the sixteenth pass's own forward note (1.2 next-stalest after 4.14,
+last touched 2026-09-08T17:15:35+01:00 as of the fifteenth pass, then
+confirmed sixteenth-pass-touched 2026-09-09). Chosen: 1.2.
+
+FRESH ANGLE
+Cross-referenced every checker name against this item's full history
+(sixteen prior passes): 17 of 35 checkers already proven by direct injection
+against this branch's own data. tools/check-booking-routes.js had never once
+been named in this item's history, despite Hirshmans carrying 11 generated
+pages with a booking mount (pharmacy-first, six Pharmacy First condition
+pages, contraception, weight-loss-clinic, travel-clinic) and full widget
+data in branches.json - exactly the shape this checker exists to guard.
+
+BASELINE
+Full repo archived via `git archive HEAD | tar -x` to
+/tmp/scratch-12-booking, entirely outside the tracked tree. branches.json
+sha256 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+matched the tracked repo exactly. Full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, standing convention) run on the TRACKED
+repo first: all 34 clean, matching every prior pass. check-booking-routes.js
+alone: "156 page(s) with a booking mount, 156 routed to a branch ... clean".
+
+INJECTIONS (all on the scratch copy only; tracked repo never opened for
+writing this pass; each restored by byte copy and re-verified via cmp/
+sha256 before the next)
+
+1. WIDGET - removed widgets.contraception from hirshmans_ainsdale in
+   branches.json (contraception is in NO_FALLBACK_SERVICE_KEYS, so no
+   fallback to pharmacyFirst is permitted). CAUGHT first attempt:
+   "contraception-hirshmans-ainsdale.html needs widgets.contraception on
+   hirshmans_ainsdale and there is none (this service must not fall back),
+   so the booking box renders empty". Restored, cmp confirmed byte-identical
+   to backup, re-run clean.
+
+2. BRANCHATTR - changed data-branch on pharmacy-first-hirshmans-ainsdale
+   .html's #rbhsv-root from "Hirshmans Chemist" to "Fishlocks Chemist".
+   CAUGHT first attempt: "data-branch=\"Fishlocks Chemist\" but the URL
+   resolves to hirshmans_ainsdale (\"Hirshmans Chemist\"), so an enquiry
+   from this page is filed against the wrong pharmacy". Restored, cmp
+   confirmed byte-identical, re-run clean.
+
+3. SERVICEATTR - changed data-service on weight-loss-clinic-hirshmans-
+   ainsdale.html's #rbhsv-root from "Weight Loss Clinic" to "Weight Loss
+   Consultation" (every sibling weight-loss-clinic page keeps "Weight Loss
+   Clinic"). CAUGHT first attempt: "service \"weight-loss-clinic\" is
+   described 2 different ways in data-service ... \"Weight Loss Clinic\"
+   x14, \"Weight Loss Consultation\" x1". Restored, cmp confirmed byte-
+   identical, re-run clean.
+
+4. BRANCH - changed hirshmans_ainsdale's townSlug in branches.json from
+   "ainsdale" to "ainsdale-south", breaking the brandSlug-townSlug routing
+   key "hirshmans-ainsdale" that all 11 of this branch's booking pages
+   resolve against. CAUGHT first attempt, fired correctly across all 11
+   Hirshmans booking-mount pages ("routes to branch key \"hirshmans-
+   ainsdale\", which matches no trading branch in branches.json, so no
+   widget is rendered" - contraception, earache, impetigo, insect-bite,
+   pharmacy-first, shingles, sinusitis, sore-throat, uti, travel-clinic,
+   weight-loss-clinic), none outside the Hirshmans set. Restored, sha256
+   confirmed byte-identical to the pristine backup (904de09b...), re-run
+   clean.
+
+All four fired first attempt, each on its own intended rule (widget,
+branchattr, serviceattr, branch), no cross-firing in either direction, and
+the branch-key injection correctly hit every one of this branch's 11
+booking pages and no others.
+
+RESTORE AND FULL SUITE
+Full 34-checker suite re-run clean on the scratch copy after the final
+restore. travel-clinic-hirshmans-ainsdale.html and contraception-
+hirshmans-ainsdale.html (backed up but never touched) reconfirmed byte-
+identical via cmp. Tracked repo's own copy of branches.json and every page
+file was never opened for writing this pass.
+
+TRACKED REPO STATE
+`git status --porcelain` on the tracked repo shows a large accumulation of
+untracked probe/test files from prior lock-testing runs (this sandbox mount
+cannot unlink files, "Operation not permitted", standing Q87/Q96) plus the
+two previously-documented strays (modules/service/pages/notarealservice-
+fishlocks-ainsdale.html.bak and gbp-packs/.fuse_hidden0000000400000001).
+None of these are tracked, none were touched this pass, and none affect any
+checker's PASS/FAIL verdict on tracked content (the file-count deltas seen
+between the tracked working directory and the clean git-archive scratch
+copy - e.g. check-postcodes.js scanning 887 files on the scratch copy
+against 986 on the tracked working directory - come entirely from this
+untracked cruft being scanned as narrative text, not from any tracked
+content difference). Not a new finding; already covered by Q87/Q96 as an
+infrastructure constraint, not re-raised.
+
+VERDICT
+No in-repo defect found. Guard coverage for item 1.2 now extends to 18 of
+35 checkers proven by direct injection against this branch's own data.
+
+LIVE HALF
+Not re-verified this pass (address and hours already reconfirmed clean on
+the sixth, thirteenth, fourteenth, fifteenth and sixteenth passes; this
+pass's fresh angle was entirely a repo-side data/routing check with no live
+copy implication). Claude in Chrome MCP and the Cloudflare-gated feedback
+API were not tried this pass since this pass raised no question needing
+answer pickup and needed no live read.
+
+No new question.
