@@ -13282,6 +13282,62 @@ landing page (pharmacy-scorah-hazel-grove.html) still 404s (Q35 class,
 unchanged since the seventh pass), all four Post A-D targets still 200.
 No in-repo defect, no new live finding, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-09-fifteenth.txt.
+Quality pass 2026-09-11 (sixteenth pass, unattended scheduled run): rotation
+pool re-derived fresh (43 [x] items minus 7 standing out-of-rotation minus
+3 touched earlier today per git log - 3.1, 4.3, 4.6); 4.5 came out uniquely
+stalest at 2026-09-09T08:08:30+01:00, matching the forward note left by the
+fifteenth pass and by today's earlier runs. Baseline: sha256
+64fd2ae6...b7a4038, matching every prior pass; 36/36 checkers 0 failures, 17
+pre-existing warnings. NEW ANGLE, and a REAL DEFECT FOUND AND FIXED, in the
+checker rather than the pack. Every phrase-matching rule in
+check-gbp-packs.js (MEDICINE_NAMES, EFFICACY_FAIL/WARN, CLAIM_PATTERNS,
+BODY_IMAGE_SELF, and the standalone OUTCOME_PROMISE loop) read the pack by
+splitting the raw file into lines and testing each line on its own. A pack's
+markdown source hard-wraps at roughly 76 columns for readability, and that
+wrap point has nothing to do with sentence or clause boundaries, so a banned
+multi-word phrase that happened to fall across one was invisible to every
+one of those rules - although the wrap is purely a source-file formatting
+artefact: a paster copies the whole paragraph into Google's plain-text post
+field, which does not preserve the source file's line breaks at all, so the
+checker's blind spot and the pack's actual published wording were never the
+same shape. Proved by injection into this pack's own Post C: "Feel confident
+in your body again." inserted so it wrapped as "...Feel confident in" /
+"your body again...", the same phrase family the item 4.14 pass proved this
+rule was needed for. All 36 checkers passed in complete silence - the rule
+existed and was correctly worded, and still missed a real hit purely because
+of where the source file's automatic wrap fell. BODY_IMAGE_CONTEXT, a
+neighbouring rule, was never vulnerable, because it already matches against
+postsOf()'s own p.body kept as one unsplit string rather than against raw
+lines - which is also why the item 4.14 pass's own estate-wide sweep ("swept
+across all 16 packs... ZERO matches") did not surface this: that sweep
+exercised BODY_IMAGE_CONTEXT and BODY_IMAGE_SELF alike, but only
+BODY_IMAGE_SELF read the file the vulnerable way. FIXED: added a
+paragraphsOf() helper to tools/check-gbp-packs.js that groups the file into
+blank-line-delimited paragraphs and joins each one's wrapped lines back into
+a single logical line before matching, reporting the paragraph's own first
+line rather than a mid-phrase fragment; findTerms(), findClaims() and the
+OUTCOME_PROMISE loop all now read paragraphs instead of raw lines. Re-ran
+the same injection after the fix: FAILED correctly, naming the exact phrase
+"confident in your body" and line 96. A second injection proved the
+OUTCOME_PROMISE code path specifically, since it is a separate loop rather
+than a call through findClaims: "The right vaccine will protect" / "you for
+years to come." inserted into this pack's own Post D, wrapped the same way -
+FAILED correctly, naming "will protect you" and line 107. Both injections
+restored by byte copy from a pre-mutation backup (sha256 64fd2ae6...b7a4038
+confirmed identical after each restore, diff empty). Full 36-checker suite
+re-run clean after the fix and the final restore (36/36, 0 failures, 17
+pre-existing warnings, unchanged); the TEMPLATE.md scan, which reuses the
+same findTerms/findClaims functions, also passed clean, confirming the fix
+does not disturb that surface. git status confirms only
+tools/check-gbp-packs.js changed; no page, generator or branches.json field
+touched, so no rebuild was needed. LIVE HALF: Claude in Chrome not connected
+this run (standing Q59); read-only curl fallback used - the landing page
+(pharmacy-scorah-hazel-grove.html) still 404s (Q35 class, unchanged since
+the seventh pass), all four Post A-D targets still 200. No new live finding.
+No new question: this was a mechanical fix to a checker's own text-reading
+shape, the same class of fix CLAUDE.md already documents repeatedly for this
+repo (map iframe, phone number, meta keywords), not a decision for Rishi.
+See audits/scorah-hazel-grove-pack-check-2026-09-11-sixteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

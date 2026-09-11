@@ -827,13 +827,65 @@ function buttonsOf(text) {
 }
 
 // Case-insensitive whole-word search that reports the line it was found on.
+// Groups the file into paragraphs - runs of consecutive non-blank lines,
+// broken at a blank line - and joins each paragraph's wrapped lines back into
+// one logical line with single spaces, the same collapse norm() already does
+// elsewhere. Added on the item 4.5 seventeenth quality pass, 2026-09-11: every
+// phrase-matching rule below this point (medicine names, EFFICACY_FAIL/WARN,
+// CLAIM_PATTERNS, BODY_IMAGE_SELF, and the standalone OUTCOME_PROMISE loop
+// further down) used to split the file into raw lines and test each one on
+// its own. A pack's markdown source hard-wraps at roughly 76 columns for
+// readability, and that wrap point has nothing to do with sentence or clause
+// boundaries, so a banned multi-word phrase that happened to fall across one
+// was invisible: "Confidential and judgement-free. Feel confident in" /
+// "your body again. Book your consultation today." across two lines never
+// matched \bconfiden(?:t|ce)\s+in\s+your\s+body\b, although the two fragments
+// read as one continuous sentence the moment a paster copies the paragraph
+// into Google's plain-text post field, which does not preserve the source
+// file's line breaks at all - so the checker's blind spot and the pack's
+// actual published wording were never the same shape. Proved by injecting
+// exactly that phrase into gbp-packs/scorah-hazel-grove.md's Post C, where it
+// happened to wrap across the line break: all 36 checkers passed in complete
+// silence before this fix, the same way the six body-image phrases first
+// proved the rule itself was needed on 2026-08-14. BODY_IMAGE_CONTEXT, a few
+// rules below, was never vulnerable to this because it already matches
+// against postsOf()'s own p.body (kept as one unsplit string per post) rather
+// than against raw lines, which is why the estate-wide sweep the rule's own
+// header describes ("swept across all 16 packs... ZERO matches") did not
+// surface this: that sweep exercised BODY_IMAGE_CONTEXT and BODY_IMAGE_SELF
+// alike, but only BODY_IMAGE_SELF read the file the vulnerable way.
+// Line numbers reported below are the paragraph's OWN first line, not
+// necessarily the exact line the match starts on, which is enough to locate
+// the paragraph a paster would recognise; the joined text is what decides
+// pass or fail, which is the part that has to be right.
+function paragraphsOf(text) {
+  const lines = text.split(/\r?\n/);
+  const out = [];
+  let buf = [];
+  let start = 0;
+  const flush = () => {
+    if (buf.length) out.push({ text: norm(buf.join(" ")), startLine: start + 1 });
+    buf = [];
+  };
+  lines.forEach((line, i) => {
+    if (line.trim() === "") {
+      flush();
+    } else {
+      if (buf.length === 0) start = i;
+      buf.push(line);
+    }
+  });
+  flush();
+  return out;
+}
+
 function findTerms(text, terms) {
   const hits = [];
-  const lines = text.split(/\r?\n/);
+  const paras = paragraphsOf(text);
   for (const term of terms) {
     const re = new RegExp(`(^|[^a-z])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([^a-z]|$)`, "i");
-    lines.forEach((line, i) => {
-      if (re.test(line)) hits.push({ term, line: i + 1, text: norm(line).slice(0, 90) });
+    paras.forEach((p) => {
+      if (re.test(p.text)) hits.push({ term, line: p.startLine, text: p.text.slice(0, 90) });
     });
   }
   return hits;
@@ -841,16 +893,18 @@ function findTerms(text, terms) {
 
 // The same shape as findTerms, for the shared CLAIM_PATTERNS, which are regular
 // expressions rather than substrings and so cannot go through findTerms' word
-// boundary wrapper. Reports the line number, the wording matched and the
-// plain-English reason the shared list gives, so a failure names the phrase
-// rather than the pattern.
+// boundary wrapper. Reports the paragraph's own first line, the wording matched
+// and the plain-English reason the shared list gives, so a failure names the
+// phrase rather than the pattern. Operates on paragraphsOf() rather than raw
+// lines for the reason given on paragraphsOf() itself: a banned phrase can
+// straddle the source file's own word-wrap.
 function findClaims(text, patterns) {
   const hits = [];
-  const lines = text.split(/\r?\n/);
+  const paras = paragraphsOf(text);
   for (const [re, reason] of patterns) {
-    lines.forEach((line, i) => {
-      const m = line.match(re);
-      if (m) hits.push({ term: norm(m[0]), reason, line: i + 1, text: norm(line).slice(0, 90) });
+    paras.forEach((p) => {
+      const m = p.text.match(re);
+      if (m) hits.push({ term: norm(m[0]), reason, line: p.startLine, text: p.text.slice(0, 90) });
     });
   }
   return hits;
@@ -1623,14 +1677,21 @@ for (const file of packFiles) {
   // (a genuine question) PASSED. No defect found; all 36 checkers and
   // byte-stable regeneration re-confirmed before and after.
   {
-    const packLines = text.split(/\r?\n/);
+    // Paragraph-joined, not raw lines, since the item 4.5 seventeenth quality
+    // pass, 2026-09-11: a raw-line scan missed an OUTCOME_PROMISE phrase that
+    // happened to straddle the source file's own word-wrap, the same gap
+    // paragraphsOf() was written to close for findTerms/findClaims above -
+    // see that function's comment for the proof. The sentence-splitting
+    // question exemption below is unaffected: it already worked on whatever
+    // string it was given, and a paragraph is simply a longer one.
+    const packParas = paragraphsOf(text);
     for (const [re, reason] of OUTCOME_PROMISE) {
-      packLines.forEach((line, i) => {
-        const m = line.match(re);
+      packParas.forEach((p) => {
+        const m = p.text.match(re);
         if (!m) return;
-        const sentence = (line.split(/(?<=[.!?])\s+/).find((s) => s.indexOf(m[0]) !== -1) || line).trim();
+        const sentence = (p.text.split(/(?<=[.!?])\s+/).find((s) => s.indexOf(m[0]) !== -1) || p.text).trim();
         if (/\?$/.test(sentence)) return; // a question is not a promise
-        fail(file, `line ${i + 1}: outcome promise "${norm(m[0])}" (${reason}), from the shared tools/outcome-promise-patterns.js that RULE 12 of check-travel-clinic-copy.js applies to the generated pages. No pack may promise protection or immunity as an outcome; the copy may only say what the service is and that suitability is decided at the consultation. Context: ${norm(line).slice(0, 90)}`);
+        fail(file, `line ${p.startLine}: outcome promise "${norm(m[0])}" (${reason}), from the shared tools/outcome-promise-patterns.js that RULE 12 of check-travel-clinic-copy.js applies to the generated pages. No pack may promise protection or immunity as an outcome; the copy may only say what the service is and that suitability is decided at the consultation. Context: ${p.text.slice(0, 90)}`);
       });
     }
   }

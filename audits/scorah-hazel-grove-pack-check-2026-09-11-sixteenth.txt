@@ -1,0 +1,130 @@
+Item 4.5 quality pass (sixteenth), 2026-09-11, unattended scheduled run
+gbp-packs/scorah-hazel-grove.md
+
+Purpose: rotation pool re-derived fresh (43 [x] AGENT_WORKLIST.md items minus
+7 standing out-of-rotation items minus 3 touched earlier the same day per
+git log - 3.1, 4.3, 4.6); 4.5 came out uniquely stalest at
+2026-09-09T08:08:30+01:00, matching the forward note left by the fifteenth
+pass and by today's earlier runs. All 8 unchecked AGENT_WORKLIST.md lines
+re-confirmed [BLOCKED] first, so the quality-pass fallback applied.
+
+Baseline
+- sha256 gbp-packs/scorah-hazel-grove.md: 64fd2ae61c8ae0ca7ac5565a9f6cc2ad
+  4485869a465b98a691093c8b2b7a4038 - matches every prior pass, no drift.
+- node tools/check-gbp-packs.js: 0 failures, 17 pre-existing estate-wide
+  warnings, before any change.
+
+NEW ANGLE, and a real defect found and fixed (in the checker, not the pack)
+
+Every phrase-matching rule in check-gbp-packs.js - MEDICINE_NAMES,
+EFFICACY_FAIL, EFFICACY_WARN, CLAIM_PATTERNS, BODY_IMAGE_SELF (all via the
+shared findTerms()/findClaims() helpers), and the standalone OUTCOME_PROMISE
+loop - read a pack by splitting the raw file into lines with
+text.split(/\r?\n/) and testing each line on its own. A pack's markdown
+source hard-wraps at roughly 76 columns purely for readability in this repo;
+that wrap point carries no sentence or clause meaning. A banned multi-word
+phrase that happened to fall across a wrap was therefore invisible to every
+one of those rules, although the wrap is not present in what actually
+reaches the public: a paster copies the whole post paragraph into Google's
+plain-text post field, which does not preserve the source file's line
+breaks at all. So the checker's blind spot and the pack's actual published
+wording were never the same shape - precisely the class of silent fault this
+repo's own history (CLAUDE.md: the map iframe, the phone number, the meta
+keywords line) keeps finding in different checkers.
+
+Proof, round 1 (findClaims / BODY_IMAGE_SELF):
+- Backed up gbp-packs/scorah-hazel-grove.md to
+  _agentscratch/scorah-hazel-grove.md.bak-pre-4.5-sixteenth (sha256 matches
+  baseline above).
+- Edited Post C on the tracked file: "Confidential and judgement-free. Book
+  your consultation today." became "Confidential and judgement-free. Feel
+  confident in your body again. Book your consultation today.", and the
+  markdown source's own line wrap happened to fall exactly inside the
+  injected phrase: "...Feel confident in" / "your body again...".
+- Before the fix: node tools/check-gbp-packs.js exited 0, 0 failures, 17
+  warnings unchanged - the injected phrase, which is squarely a
+  BODY_IMAGE_SELF match ("confident in your body"), passed in complete
+  silence. Confirmed the regex itself matches the phrase in isolation
+  (node -e test), so the miss was in how the file was read, not in the
+  pattern.
+- Fix applied (see below).
+- After the fix, same injected file: node tools/check-gbp-packs.js exited 1,
+  exactly one new FAIL - "line 96: this pack sells weight loss on body image
+  ... by a body-image appeal: 'confident in your body'." - all 17
+  pre-existing warnings unchanged.
+- Restored by byte copy from the pre-mutation backup; sha256 reconfirmed
+  identical to baseline (64fd2ae6...b7a4038), diff empty.
+
+Proof, round 2 (the standalone OUTCOME_PROMISE loop, a separate code path
+from findClaims and so not proved by round 1 alone):
+- Edited Post D on the tracked file: "Book your travel consultation today."
+  became "Book your travel consultation today. The right vaccine will
+  protect / you for years to come.", again engineered so the wrap fell
+  inside the banned phrase ("will protect" / "you for years to come").
+- With the fix already in place: node tools/check-gbp-packs.js exited 1,
+  exactly one new FAIL - "line 107: outcome promise 'will protect you'
+  (promises protection as an outcome)" - all 17 pre-existing warnings
+  unchanged.
+- Restored by byte copy; sha256 reconfirmed identical to baseline
+  (64fd2ae6...b7a4038), diff empty.
+
+Why BODY_IMAGE_CONTEXT was never vulnerable: it already matches against
+postsOf()'s own p.body, which postsOf() keeps as one unsplit string per post
+(embedded newlines and all), and its patterns use \s+ rather than being
+tested per split line - so a wrap inside a BODY_IMAGE_CONTEXT phrase was
+already invisible to the bug that hit BODY_IMAGE_SELF. This is also why the
+item 4.14 pass's own estate-wide sweep ("swept across all 16 packs, all 177
+generated pages ... ZERO matches anywhere") did not surface this gap: that
+sweep ran real copy through both BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT
+looking for existing false positives, not synthetic phrases engineered to
+straddle a wrap, and only BODY_IMAGE_SELF (and the sibling rules sharing its
+line-splitting shape) had the blind spot.
+
+The fix: tools/check-gbp-packs.js
+
+Added a paragraphsOf(text) helper that splits the file into paragraphs
+(runs of consecutive non-blank lines, broken at each blank line), joins each
+paragraph's wrapped lines back into one logical line with single spaces
+(norm()'s own whitespace collapse), and returns { text, startLine } per
+paragraph. findTerms() and findClaims() now iterate paragraphs instead of
+raw lines; the OUTCOME_PROMISE loop (which could not go through findClaims,
+since it also needs the question-exemption sentence-split) was rewritten
+the same way, iterating packParas instead of packLines, with the sentence
+question-exemption logic unchanged and applied to the joined paragraph text.
+Reported line numbers are now a paragraph's own first line rather than
+guaranteed to be the exact line a match starts on, which is enough to locate
+the paragraph a human would recognise; the joined text is what decides pass
+or fail, and that is the part that has to be right.
+
+Regression check after the fix
+- Full 36-checker suite (every tools/check-*.js) run individually against
+  the tracked, restored repo: 0 failures across the full set, no new
+  warnings.
+- The TEMPLATE.md scan inside check-gbp-packs.js reuses the same
+  findTerms()/findClaims() functions (it scans tplScannable for
+  MEDICINE_NAMES, CLAIM_PATTERNS and EFFICACY_FAIL); it also passed clean,
+  confirming the fix does not disturb that surface.
+- git status --porcelain -- gbp-packs/ tools/ modules/ core/ branches.json:
+  only tools/check-gbp-packs.js shows as modified. No page, generator or
+  branches.json field touched, and gbp-packs is not a generator input, so no
+  rebuild was needed or run.
+
+Live half (read-only HTTP status check; Claude in Chrome not connected this
+run per the standing Q59 finding, so the built-in browser and a curl
+fallback were used - the built-in browser was itself redirected to
+Cloudflare Access on the separate answer-pickup URL in step 3, unrelated to
+this pack's own live check)
+- pharmacy-scorah-hazel-grove.html (profile website / landing target): 404 -
+  unchanged, same Q35-class finding recorded on every pass since the
+  seventh.
+- pharmacy-first-service-hazel-grove-bramhall.html (Post A): 200.
+- switch-prescriptions-scorah-hazel-grove.html (Post B): 200.
+- weight-loss-clinic-scorah-hazel-grove.html (Post C): 200.
+- travel-clinic-scorah-hazel-grove.html (Post D): 200.
+No new live finding. Status code only, not a full text re-read this pass.
+
+Result: one real defect found and fixed, in check-gbp-packs.js rather than
+in the pack itself - a mechanical checker fix (how the file is read, not a
+content or policy decision), so no question raised for Rishi. The pack
+itself remains correct on the sixteenth consecutive verification (counting
+the original draft), byte-identical to every prior pass.
