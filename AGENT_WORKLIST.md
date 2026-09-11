@@ -7481,6 +7481,42 @@ audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
       (queued 5.3/5.4) reconfirmed unchanged. No new question raised.
       Evidence in
       audits/sk-bootle-item-3.8-quality-pass-2026-09-10-sixteenth.txt.
+      Quality pass 2026-09-11 (seventeenth, unattended scheduled run). FRESH
+      ANGLE: tools/check-gbp-packs.js proved by injection against SK
+      Chemists Bootle's own gbp-packs/sk-chemists-bootle.md for the first
+      time in this item's seventeen-pass history (sixteen prior passes had
+      covered thirteen other checkers on this branch but never this one).
+      BASELINE: 35/35 checkers clean, pristine sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da. SIX
+      INJECTIONS on the pack, each restored and sha256-reconfirmed before
+      the next: (1) primary category "Pharmacy" swapped to "Chemist" -
+      CAUGHT, two FAILs (not primary Pharmacy; "Chemist" not a recognised
+      category); (2) "Vaccination centre" dropped from the category
+      omission bullet despite the branch's own travel clinic - CAUGHT; (3)
+      hours line falsely opened on Saturday - CAUGHT ("sends patients to a
+      locked door"); (4) own phone swapped for Smartts Chemist Bootle's
+      real number, the CLAUDE.md-named adjacent-branch risk pair - CAUGHT,
+      two FAILs; (5) own postcode L20 5DW swapped for Smartts Bootle's real
+      L20 9HH - CAUGHT, two FAILs; (6) CONTROL, two NHS services bullets
+      reordered with no value changed - correctly PASSED. All six fired or
+      passed on their own intended rule, first attempt. NO IN-REPO DEFECT
+      FOUND. Final restore sha256-reconfirmed identical to baseline; full
+      35-checker suite re-run clean; tracked repo git status --porcelain
+      empty throughout (two pre-existing untracked artefacts this run did
+      not create left alone). LIVE HALF: built-in browser pane, read-only,
+      one page (skchemist.co.uk homepage) - address, phone, postcode and
+      hours all confirmed live matching branches.json and the pack, the
+      same facts just proven under injection. Two standing live issues
+      reconfirmed unchanged, not fixed here: the switch banner mojibake
+      close control (site-wide Header Code fault, tracked on other
+      branches), and the homepage Weight Loss Clinic tile's live
+      results/superlative wording plus its nav link to the legacy
+      weight-loss-clinic.html page (item 5.8, Q58, standing - live
+      patient-facing regulatory copy an unattended run may not decide; no
+      autonomous window active this run). Claude in Chrome tried once for
+      the separate step 3 answer pickup, not connected, not retried (Q59
+      standing). No new question raised; QUESTIONS.json unchanged (101
+      total, 48 open). Evidence in audits/verify-3.8-2026-09-11-seventeenth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

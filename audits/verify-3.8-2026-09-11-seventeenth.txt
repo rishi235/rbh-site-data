@@ -1,0 +1,107 @@
+ITEM 3.8 QUALITY PASS (SEVENTEENTH), SK CHEMISTS BOOTLE
+Run: 2026-09-11, unattended scheduled run (audit-backlog-worker), Cowork sandbox
+mcp__workspace__bash for all repo work.
+
+FRESH ANGLE
+Sixteen prior passes on this item had proven check-app-membership.js,
+check-booking-routes.js, check-branch-links.js, check-contraception-copy.js,
+check-jsonld.js, check-map-embeds.js, check-nap.js, check-postcodes.js,
+check-seo-keywords.js, check-seo-pattern.js, check-switch-copy.js,
+check-weight-loss-copy.js and check-whatsapp-route.js by injection against SK
+Chemists Bootle's own files (confirmed by grepping every "check-" mention in
+this item's AGENT_WORKLIST.md block). tools/check-gbp-packs.js had never been
+proven by injection against gbp-packs/sk-chemists-bootle.md across those
+sixteen passes, despite that file existing since the item's original build
+(2026-08-04) and carrying identity facts (name, address, phone, postcode,
+hours, categories) that reach a live, public Google Business Profile the
+moment somebody pastes it.
+
+BASELINE
+git status --porcelain clean on all tracked paths before starting (confirmed
+again at the end - two pre-existing untracked artefacts this run did not
+create: gbp-packs/.fuse_hidden0000000400000001 (dated 8 Sep) and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak (dated 9
+Sep), both left alone). All 35 tools/check-*.js run individually beforehand:
+35/35 exit 0. Pristine sha256 of gbp-packs/sk-chemists-bootle.md recorded and
+a byte-for-byte backup taken to /tmp/sk-backup/ before any mutation:
+  637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+
+METHOD
+Each injection mutated gbp-packs/sk-chemists-bootle.md directly (a single
+markdown file with no generator - GBP packs are hand-drafted, not built), ran
+`node tools/check-gbp-packs.js`, captured the output, then restored the file
+from the pristine backup and re-confirmed sha256 before the next injection.
+No other file was touched at any point.
+
+SIX INJECTIONS
+
+1. Primary category swap. "- Primary: Pharmacy" -> "- Primary: Chemist".
+   CAUGHT, two FAILs first attempt: "Categories section does not set
+   Pharmacy as the primary category" and "Categories section names
+   'Chemist', which is not a category any pack in this repo uses ... add it
+   to RECOGNISED_CATEGORIES ... deliberately".
+
+2. Category omission. Dropped ", Vaccination centre" from the "Add if not
+   present" bullet, leaving Travel clinic and Weight loss service only.
+   CAUGHT first attempt: "Categories section does not list 'Vaccination
+   centre', but the branch's travel clinic gives vaccinations per
+   branches.json (Build Pack v2 section 4.1)".
+
+3. Hours-days, false Saturday opening. "Monday to Friday 9:00am to 6:00pm,
+   Saturday and Sunday closed" -> "Monday to Saturday 9:00am to 6:00pm,
+   Sunday closed". CAUGHT first attempt: "the hours line states the branch
+   is open on Saturday, but branches.json opens it only on Monday, Tuesday,
+   Wednesday, Thursday, Friday. A profile that publishes a day the shop is
+   shut sends patients to a locked door".
+
+4. Phone swap. Own number 0151 944 1013 swapped for Smartts Chemist
+   Bootle's real number 0151 922 4984 (the CLAUDE.md-named adjacent-branch
+   risk pair, sharing a town). CAUGHT first attempt, two FAILs: "phone 0151
+   922 4984 belongs to Smartts Chemist, not SK Chemists" and "branch phone
+   0151 944 1013 does not appear anywhere in the pack".
+
+5. Postcode swap. Own postcode L20 5DW swapped for Smartts Bootle's real
+   postcode L20 9HH. CAUGHT first attempt, two FAILs: "branch postcode L20
+   5DW does not appear anywhere in the pack" and "postcode L209HH belongs to
+   Smartts Chemist, not SK Chemists".
+
+6. CONTROL. The NHS prescription dispensing and NHS Pharmacy First service
+   bullets reordered with no value added, removed or changed. Correctly
+   PASSED, exit 0, no SK Chemists Bootle line in the output.
+
+All six fired or passed on their own intended rule, first attempt, no
+unexpected cross-firing and no other branch's pack affected.
+
+RESULT
+Final restore sha256-reconfirmed identical to baseline
+(637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da). Full
+35-checker suite re-run clean after the final restore (35/35 exit 0). Tracked
+repo git status --porcelain empty throughout and after (only the two
+pre-existing untracked artefacts noted above). No generator writes
+gbp-packs/, so no regeneration was needed and none was attempted.
+NO IN-REPO DEFECT FOUND. check-gbp-packs.js already correctly protects five
+distinct rule directions on this branch's own pack; now proven directly by
+injection for the first time in seventeen passes.
+
+LIVE HALF
+Built-in browser pane (mcp__Claude_Browser__*) used read-only, one page:
+https://www.skchemist.co.uk/ homepage, get_page_text only, nothing clicked,
+typed or submitted. Confirmed live: address, phone, postcode and Mon-Fri
+9am-6pm / Sat-Sun closed hours all match branches.json and the pack exactly
+(the same facts just proven under injection in this pack). No new live
+finding. Two previously-recorded live issues for this branch reconfirmed
+unchanged: the switch banner's close control still renders as mojibake
+("Switch now" followed by a garbled glyph, matching the site-wide Header
+Code fault already tracked on other branches); and the homepage "Weight Loss
+Clinic" services tile still carries live results/superlative wording
+("Discover innovative solutions that deliver results. Tried the rest? Now
+try the best.") and the homepage top nav still links to the legacy
+weight-loss-clinic.html page - both are the same standing item 5.8 / Q58
+finding already recorded on the sixth (2026-08-30) and later passes, not
+fixed here as this is live patient-facing regulatory copy an unattended run
+may not decide, and no autonomous window was active this run. Claude in
+Chrome was tried once for the separate step 3 answer-pickup fetch and
+reported not connected (standing Q59); not retried, and not needed for this
+live spot check since the built-in browser pane covered it.
+
+No new question raised. QUESTIONS.json untouched (101 total, 48 open).
