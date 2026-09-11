@@ -423,7 +423,28 @@ const CLINIC_QUALIFIERS = [
   },
 ];
 
-const EM_DASH = /[Ã¢â‚¬â€Ã¢â‚¬â€œÃ¢â‚¬â€¢]/;
+// Codepoint-based, not a typed character class, the same discipline
+// check-em-dashes.js uses (EM_CODEPOINT = 0x2014) and for the same reason: a
+// literal character class is only as good as the bytes that made it into
+// this file, and this one had silently rotted into a mojibake character
+// class in place of an em dash, en dash and horizontal bar, that could
+// never match a real em dash typed normally. Found on the item 3.4 quality
+// pass (seventeenth), 2026-09-11, by injection: an em dash typed into
+// cherry-lane-walton.md's business description was NOT caught by this rule
+// at all (it only failed, coincidentally, because the description's own
+// self-reported character count drifted by the width of the injected
+// text). Not a live breach: check-em-dashes.js has scanned gbp-packs/ with
+// a correct codepoint match since 2026-08-13 (the item 4.3 pass) and still
+// catches it, proved separately the same run, so the estate-wide guarantee
+// held throughout on that safety net. But this checker's OWN "No em
+// dashes" rule (named in its file header as one of the checks it
+// performs) was dead code, silently - the exact "a rule that reads only
+// one spelling of a character is not a rule" shape the comment below
+// already warns about, one level further in: the second copy of the rule
+// was not reading the right BYTES at all. Matches U+2013 (en dash),
+// U+2014 (em dash) and U+2015 (horizontal bar), pairing with
+// ENTITY_DASH's own #8211/#8212/#8213 below.
+const EM_DASH = /[\u2013\u2014\u2015]/;
 // The entity spellings of the same characters. A pack is pasted into Google's
 // plain-text profile fields, so an entity does not render as a dash there: it
 // reaches the public profile as the literal characters "&mdash;". That is

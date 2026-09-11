@@ -1,0 +1,13 @@
+Baseline cherry-lane-walton.md sha256: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+Baseline check-gbp-packs.js: clean (0 failures, warnings only, as expected).
+
+PASS  1 sister-branch claim, no live sister exists (caught: the pack claims a sister or second branch, but no other live branch in...)
+PASS  2 phone belongs to another live branch (caught: belongs to...)
+PASS  3 postcode belongs to another live branch (caught: belongs to...)
+PASS  4 em dash in business description (caught: em dash...)
+PASS  5 Services section omits Pharmacy First despite the widget (caught: Services section does not list "Pharmacy First"...)
+PASS  6 CONTROL - reorder posts, no value changed (correctly clean)
+
+6 passed, 0 failed.
+Final cherry-lane-walton.md sha256: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 (matches baseline: true)
+git status --porcelain on target after run: clean

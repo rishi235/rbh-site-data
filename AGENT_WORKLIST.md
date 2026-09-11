@@ -4347,6 +4347,85 @@ touched in the tracked tree, reconfirmed immediately before commit.
 Next stalest by this run's own computation, for whoever runs the next
 unattended pass: 3.9 (2026-09-08T23:40:16+01:00), then 3.10, 2.1, 5.2 -
 re-derive rather than assume, since other runs may land in between.
+Quality pass 2026-09-11 (seventeenth): REPO HALF CLEAN AFTER ONE FIX. Stalest
+item re-derived fresh via the established last-2026-09-dated-string method
+over the 49-block rotation pool, one-off pool and blocked items excluded:
+eleven items tied at 2026-09-10 (2.1 had already moved to 2026-09-11 by an
+earlier run today), lowest item number taken as tiebreak per the sixteenth
+pass's own convention. Chosen: 3.4.
+THE GENUINELY UNTESTED ANGLE. tools/check-gbp-packs.js had never been proven
+by direct injection against gbp-packs/cherry-lane-walton.md across sixteen
+prior passes, confirmed by a normalised (whitespace- and hyphen-collapsed)
+grep of this item's entire section for "check-gbp-packs" returning zero
+hits, despite the pack being a real, currently clean file (item 4.2) with no
+KNOWN exceptions of its own. New instrument, no import from tools/ beyond
+invoking the real checker as a child process
+(audits/verify-3.4-2026-09-11-seventeenth.js): refuses to run on a dirty
+baseline, records the pack's sha256 before mutation, restores by direct
+fs.writeFileSync immediately after capturing the checker's output and before
+any assertion, sha256-reconfirms after every restore. Six injections, one at
+a time: (1) a false sister-branch claim ("Our sister branch is in Bootle")
+added to the business description - a genuinely different shape from every
+prior sister-branch injection in this repo (Scorah, McCanns), which all test
+a branch that DOES have a sister but names the wrong town; Cherry Lane's
+brandLabel is carried by no other live branch, so this proves the OTHER half
+of the rule, a standalone branch falsely claiming one at all - caught first
+attempt, "no other live branch in branches.json carries the brand Cherry
+Lane Pharmacy"; (2) the Profile basics phone swapped for Fishlocks
+Ainsdale's real number - caught, "belongs to"; (3) the Profile basics
+postcode swapped for Fishlocks Ainsdale's real postcode - caught, "belongs
+to"; (4) an em dash added to the business description - caught (see REAL
+DEFECT below); (5) the Pharmacy First line removed from the Services
+section despite the branch's own pharmacyFirst widget, the omission
+direction of SERVICE_RULES, untested for this item - caught, "Services
+section does not list \"Pharmacy First\""; (6) CONTROL, Post C and Post D
+reordered with no value changed - correctly passed. All six fired or passed
+on their own intended rule, first attempt. Target file confirmed
+git-diff-empty and sha256-identical to baseline throughout and after.
+REAL DEFECT FOUND AND FIXED, in the checker rather than in any pack.
+Injection 4 initially only failed by coincidence: check-gbp-packs.js's own
+EM_DASH constant (tools/check-gbp-packs.js, was line 426) was a mojibake
+character class - corrupted multi-byte sequences in place of an em dash, en
+dash and horizontal bar - that could never match a real em dash typed
+normally. The injected em dash was NOT caught by this rule at all; the run
+only failed because the business description's own self-reported character
+count ("this is 736") drifted by the width of the injected text, a
+coincidence of a different rule, not detection. Proved not a live breach
+before fixing anything: check-em-dashes.js has scanned gbp-packs/ with a
+correct codepoint match (0x2014) since the item 4.3 pass on 2026-08-13, and
+a standalone run against the same injected file caught it correctly ("line
+42 ... non-ASCII U+2014"), so the estate-wide guarantee held throughout on
+that safety net. But this checker's own "No em dashes" rule, named in its
+own file header as one of the checks it performs, was dead code, silently -
+the exact "a rule that reads only one spelling of a character is not a
+rule" shape its neighbouring ENTITY_DASH comment already warns about, one
+level further in: the second copy of the rule was not reading the right
+BYTES at all. Fixed to a codepoint-based /[–—―]/, matching
+the discipline check-em-dashes.js already uses, and re-verified against the
+same injection: now fails with its own dedicated "em dash, house style is
+standard hyphens only" message. Full 36-checker suite (34 check-*.js
+scripts) re-run individually before and after the fix: 34/34 exit 0 both
+times, including all 15 packs staying clean after the fix (no other pack in
+the estate had a genuine em or en dash this dead rule had been silently
+missing). No generator, page or data field touched; only
+tools/check-gbp-packs.js's own EM_DASH constant changed.
+LIVE HALF: not attempted. The built-in Claude Browser MCP requested access
+to google.com for a read-only spot check of Cherry Lane Pharmacy's public
+Google Business Profile listing (name, phone, hours) against the pack and
+branches.json; access was declined this run and the tool's own guidance is
+not to retry. No other browser was available. Nothing live read or claimed
+this pass, consistent with every prior pass's own convention when no
+browser was available.
+WORKLIST AND COMMIT. This paragraph. New evidence files this run:
+audits/verify-3.4-2026-09-11-seventeenth.js and its -output.txt. Files
+changed and committed: tools/check-gbp-packs.js (the EM_DASH fix),
+AGENT_WORKLIST.md, the two new audits/ files, and AGENT_LOG.md.
+QUESTIONS.json re-read (101 total, 48 open, unchanged); no new question
+raised - this was a checker-repair, not a decision.
+Next stalest by this run's own computation, for whoever runs the next
+unattended pass: 3.6, 3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3 remain
+tied at 2026-09-10 - re-derive rather than assume, since other runs may
+land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
