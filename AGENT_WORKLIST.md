@@ -5840,6 +5840,77 @@ Michael's" live, queued 5.7/Q15; both branch landing pages still 404, Q35; Q39
 footer set) stand unclaimed and unchanged.
 QUESTIONS: none raised this pass (48 open, unchanged). Evidence:
 audits/mccanns-booking-routes-3.6-sixteenth-2026-09-10.txt.
+Quality pass 2026-09-11 (seventeenth, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout). Selected as the least recently
+verified item in the standing rotation pool: all 8 unblocked AGENT_WORKLIST.md
+lines confirmed [BLOCKED] by direct grep, so the quality-pass fallback applied.
+Rotation pool re-derived fresh in Python over all 51 itemised blocks (36
+eligible after excluding the one-off pool and blocked items): ten items tied
+stalest at 2026-09-10 (3.6, 3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3),
+exactly matching the immediately preceding run's (item 3.4, seventeenth pass)
+forward note. Chosen: 3.6, lowest item number as tiebreak.
+BASELINE: all 35 tools/check-*.js re-run individually before any change,
+35/35 exit 0. All six generators rebuilt: combined sha256 of every file under
+modules/ and core/ identical before and after
+(9b5ac4df90fd91c95d08026b5d252c4bc5500ef459453c6fc5f538bd007658b8). git status
+--porcelain on modules/, core/, branches.json, gbp-packs/, tools/ empty aside
+from two pre-existing untracked artefacts this pass did not create.
+FRESH ANGLE: sixteen prior passes had proven fourteen checkers by injection
+against McCanns's own files but never tools/check-seo-lengths.js, despite its
+own file header naming McCanns as one of the three shared-domain pairs its
+rule 4 exists to protect. More significantly, rule 4b (two branches on the
+SAME website host sharing an H1, a FAIL) had never been proven by direct
+injection against ANY branch pair anywhere in this repo's audit history,
+including the sibling item 2.1's own seventeenth pass on Fishlocks Ainsdale
+earlier today, whose forward note explicitly flagged this exact gap.
+METHOD: full-repo scratch copy via `git archive HEAD | tar -x` to
+/tmp/scratch-3.6, tracked working tree never opened for writing during the
+injection round. Six injections on files untried by any prior pass on this
+item, each restored by byte copy from a pristine sha256-recorded backup and
+reconfirmed identical before the next: (1) RULE 1 title length - Aigburth's
+UTI title lengthened from 45 to 66 characters - CAUGHT first attempt. (2)
+RULE 2 description length - Sandringham's Sore throat description shortened
+to 41 characters - CAUGHT first attempt. (3) RULE 3 permalink uniqueness -
+Sandringham's own Earache permalink overwritten with Aigburth's own Earache
+permalink - CAUGHT first attempt. (4) RULE 4a same-branch H1 reuse -
+Aigburth's own Sore throat H1 overwritten with Aigburth's own UTI H1 -
+CAUGHT first attempt. (5) RULE 4b same-host cross-branch H1 collision, THE
+KEY INJECTION - Sandringham's own UTI H1 overwritten with Aigburth's own UTI
+H1, both on www.mccannspharmacy.co.uk - CAUGHT first attempt: "two branches
+on one website host share an H1, so they compete on one domain" - the first
+time this rule direction has been proven against a real branch pair anywhere
+in this repo's history. (6) CONTROL - the Aigburth UTI and Sore throat
+SEO.md blocks swapped in position, no value changed - correctly PASSED,
+confirming rules 3 and 4 are keyed on value, not position. All six fired or
+passed on their own intended rule, first attempt, no cross-firing. Final
+restore sha256-reconfirmed identical to baseline for all four touched files;
+full 35-checker suite re-run clean on the scratch copy (34/35, the same
+single .git-less check-cdn-pins.js artefact every prior scratch-copy pass has
+recorded, separately reconfirmed exit 0 against the tracked repo directly
+before and after). Tracked repo's SEO.md and the three touched pages
+confirmed untouched throughout via git status --porcelain (empty) and sha256
+(unchanged, 9423d51b...180b1d for the sheet).
+LIVE HALF: Claude in Chrome not connected (standing Q59, one attempt, no
+retry); mcp__workspace__web_fetch declined every URL this run ("URL not in
+provenance set", a route restriction not seen by name on prior passes, noted
+rather than retried); fell back to plain read-only curl GET, the established
+fallback class. Six URLs read: the Aigburth UTI and Sore throat pages are
+fully correct live (title and H1 both read "Aigburth", HTTP 200); the
+Sandringham UTI and Sore throat pages' titles and H1s still read
+"Sandringham" rather than "St Michael's" live, matching the repo's correct
+"St Michael's" only in the repo - the queued 5.7/Q15 repaste, unchanged since
+the fourth pass on 2026-08-14 and reconfirmed on every pass since; both
+branch landing pages still return HTTP 404 live (Q35, standing queued-paste
+state, unchanged). No new live finding.
+RESULT: zero in-repo defects found this pass. check-seo-lengths.js was
+already correctly protecting McCanns's own titles, descriptions, permalinks
+and H1s on all four rule directions tested; rule 4b in particular is now
+proven for the first time against a real shared-domain branch pair anywhere
+in this repo's audit history, not merely asserted correct by six generators'
+construction. No page, generator, pack, branches.json field or checker
+changed. No new question raised. QUESTIONS.json re-read: 101 total, 48 open,
+unchanged; none answered by pickup this run. Evidence:
+audits/mccanns-seo-lengths-3.6-seventeenth-2026-09-11.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
