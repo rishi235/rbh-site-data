@@ -1,0 +1,37 @@
+verify-6.2-2026-09-12-fourteenth
+scratch dir: /sessions/beautiful-sleepy-faraday/mnt/outputs/verify62-14th-H8YBqh
+
+-- BASELINE (fixed checker, unmutated scratch copy) --
+check-service-links.js exit=0 (expect 0)
+check-whatsapp-route.js exit=0 (expect 0)
+
+Reconstructed pre-fix checker written to tools/check-service-links.OLD.js for comparison only.
+
+-- Cherry Lane pharmacy-first replacement (live-pasted EXTRA_FILE) --
+  file: modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html
+  OLD (pre-fix) checker exit=0  <-- PASSED (the gap)
+  NEW (fixed) checker exit=1  <-- CAUGHT
+  check-whatsapp-route.js exit=0  <-- also did not catch it (RULE 5 is PAGE_DIRS-only)
+  restore sha256 match: true
+
+-- Generated Pharmacy First condition page (PAGE_DIRS) --
+  file: modules/service/pages/earache-treatment-cherry-lane-walton.html
+  OLD (pre-fix) checker exit=0  <-- PASSED (the gap)
+  NEW (fixed) checker exit=1  <-- CAUGHT
+  check-whatsapp-route.js exit=1
+  restore sha256 match: true
+
+-- CONTROL: DRAFT-*.html files, fixed checker, unmutated --
+check-service-links.js exit=0 (expect 0 - DRAFT files' own {{TOKEN}} hrefs still correctly skipped)
+
+-- FULL SUITE sweep (fixed checker in place, scratch has no .git so cdn-pins is skipped) --
+35 checker(s) run, 0 unexpected failure(s) (expect 0).
+
+== SUMMARY ==
+Old (pre-fix) check-service-links.js passed clean on every injection (the gap existed): true
+New (fixed) check-service-links.js caught every injection with rule 'unreplaced token': true
+EXTRA_FILES (Cherry Lane) injection was a TOTAL blind spot pre-fix (no checker caught it): true
+PAGE_DIRS injection had an independent backstop in check-whatsapp-route.js RULE 5 all along: true
+Full suite clean on fixed scratch copy: true
+
+ALL CHECKS PASSED

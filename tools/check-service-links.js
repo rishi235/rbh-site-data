@@ -100,11 +100,38 @@
   since both carry a real relative link this repo can and should verify; the
   other four files are store-agnostic (no single branch to resolve a relative
   href against) and carry no relative estate link today, only external CDN
-  links, same-page anchors, tel: links and unstamped {{TOKEN}} placeholders,
-  so RULE 1 skips a relative href on them only when it is a {{TOKEN}}
-  placeholder, and otherwise reports it as unattributable rather than
-  silently passing, the same "stop rather than quietly weaken the rule"
-  convention already used for a generated page with no matching branch host.
+  links, same-page anchors and tel: links, so RULE 1 reports a relative href
+  on them as unattributable rather than silently passing, the same "stop
+  rather than quietly weaken the rule" convention already used for a
+  generated page with no matching branch host. A {{TOKEN}} placeholder is
+  handled separately - see UNSTAMPED TOKENS below, added on the item 6.2
+  quality pass (fourteenth), 2026-09-12, which narrowed what used to be a
+  blanket skip.
+
+  UNSTAMPED TOKENS, added on the item 6.2 quality pass (fourteenth),
+  2026-09-12. Until this pass, a "{{" anywhere in a relative href was always
+  skipped, on every file RULE 1 reads, on the reasoning that it must be an
+  unstamped template placeholder rather than a real URL. That reasoning only
+  holds for the two DRAFT-*.html content specs (see TOKEN_TEMPLATE_FILES),
+  which are never pasted live. It does not hold for the 177 generated pages
+  or the other four EXTRA_FILES - the two shared Weebly templates and the
+  two Cherry Lane replacement blocks - which ARE live or near-live pasted
+  copy and should never carry an unstamped token at all: a "{{" surviving
+  there is a broken link a patient could click, not a placeholder. Nothing
+  else in the repo would have caught it either: check-whatsapp-route.js's
+  own RULE 5 scans PAGE_DIRS for exactly this "{{[A-Z0-9_]+}}" shape, but
+  never EXTRA_FILES, so the two Cherry Lane files and the two shared Weebly
+  templates sat outside both checkers' protection. Proved by injection: an
+  unstamped token written into a real relative href on
+  modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html
+  and into a generated Pharmacy First condition page both passed the old
+  blanket skip and both fail now, naming the file and the raw href; the same
+  injection on a DRAFT-*.html file's own existing {{TOKEN}} hrefs still
+  correctly passes, so TOKEN_TEMPLATE_FILES is not a regression there.
+  modules/switch/weebly.html and modules/emar/weebly carry no relative
+  estate link at all today (only external CDN links and same-page anchors on
+  emar/weebly), so the gap was latent on both, not a live breach - the same
+  shape every 6.2 finding before this one has taken.
 
   JS-INJECTED COPY, added on the item 6.2 quality pass (fifth), 2026-09-01.
   RULE 2 and RULE 3 read PAGE_DIRS and the six EXTRA_FILES, all of it static
@@ -169,6 +196,27 @@ const EXTRA_LINK_HOST_SLUG = {
   "modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html": "cherry-lane-walton",
   "modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html": "cherry-lane-walton"
 };
+
+// Files where an unstamped {{TOKEN}} in a relative href is a legitimate
+// template placeholder, not a broken link, and is skipped rather than
+// failed: the two DRAFT-*.html content specs, which are never pasted live
+// and exist only as the copy source build-weight-loss-pages.js and
+// build-travel-clinic-pages.js cite in their own headers - see "EXTRA
+// PUBLIC-COPY FILES" above. Every other file RULE 1 reads - the 177
+// generated pages, and the other four EXTRA_FILES, which ARE live or
+// near-live pasted copy (the two shared Weebly templates and the two Cherry
+// Lane replacement blocks) - should never carry an unstamped token in an
+// href, so a "{{" surviving there is a broken link, not a placeholder.
+// Added on the item 6.2 quality pass (fourteenth), 2026-09-12, after proving
+// by injection that an unstamped-token href on modules/switch/weebly.html
+// and on a Cherry Lane replacement file passed both this checker (RULE 1's
+// blanket {{ skip applied regardless of file) and check-whatsapp-route.js's
+// own RULE 5 (which scans PAGE_DIRS only, never EXTRA_FILES) - a live-pasted
+// broken link reachable by no rule anywhere in the repo.
+const TOKEN_TEMPLATE_FILES = new Set([
+  "modules/service/DRAFT-weight-loss-copy.html",
+  "modules/service/DRAFT-travel-clinic-copy.html"
+]);
 
 // JS files that inject patient-facing copy into a page's DOM at runtime,
 // rather than emitting it as static HTML - see "JS-INJECTED COPY" above.
@@ -414,7 +462,15 @@ function scanLinks(file, selfHost, visible) {
         // Relative href: resolves on the host of the page it sits on, which is
         // why selfHost, not the estate as a whole, is the right question to ask.
         // Same-page anchors and query strings are stripped first.
-        if (href.indexOf("{{") !== -1) continue; // unstamped template token, not a real URL
+        if (href.indexOf("{{") !== -1) {
+          if (TOKEN_TEMPLATE_FILES.has(rel(file))) continue; // legitimate template placeholder
+          failures.push({
+            file: rel(file),
+            rule: "unreplaced token",
+            text: "relative href \"" + href + "\" still carries an unstamped template placeholder"
+          });
+          continue;
+        }
         if (!selfHost) {
           failures.push({
             file: rel(file),

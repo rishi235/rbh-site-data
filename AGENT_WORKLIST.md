@@ -24893,6 +24893,86 @@ rather than trust this note - as computed by this pass, the two remaining
       6.2 finding before this one has taken. No new question raised.
       Evidence: audits/verify-6.2-2026-09-10-thirteenth.js and
       audits/verify-6.2-2026-09-10-thirteenth-output.txt.
+      Fourteenth quality pass, 2026-09-12 (unattended scheduled run, first
+      run today). ONE REAL DEFECT FOUND AND FIXED, in check-service-links.js's
+      own RULE 1, the first time a pass has found one there since the fourth
+      pass (2026-08-31) rather than in shared infrastructure (eleventh,
+      twelfth, thirteenth passes). Live half not attempted this pass
+      (repo-only work; no browser step needed for this angle). The four
+      2026-08-14 findings (Riddings switch permalink, Riddings
+      /clinic-prices, Tiffenbergs book-now.html) are not re-read and not
+      re-claimed; Q53/Q54 stay open unchanged.
+      FRESH ANGLE: RULE 1 skipped ANY relative href containing "{{",
+      unconditionally, on every file it reads, on the reasoning recorded in
+      the header that it "must be an unstamped template placeholder, not a
+      real URL." That reasoning is true for the two DRAFT-*.html content
+      specs (tools/build-weight-loss-pages.js and
+      build-travel-clinic-pages.js's own approved-copy source, never pasted
+      live) but was never actually checked against the OTHER four
+      EXTRA_FILES it also applied to: the two shared Weebly templates
+      (modules/switch/weebly.html, modules/emar/weebly) and the two Cherry
+      Lane "old page" replacement blocks, all four of which ARE live or
+      near-live pasted copy, not templates. Grepped this item's thirteen-pass
+      history for "TOKEN_TEMPLATE" and "unreplaced token" before starting:
+      zero matches; the {{ skip itself is only ever mentioned in the header
+      comment and the item 6.2 fourth-pass write-up (2026-08-31), and neither
+      asks whether the skip is scoped too broadly.
+      METHOD: audits/verify-6.2-2026-09-12-fourteenth.js (own script, no
+      import from tools/ beyond invoking each checker as a real child
+      process; builds its own scratch copy, no .git, in a temp directory
+      under the outputs mount). Confirmed live-content baseline first by
+      hand: none of the four "live" EXTRA_FILES carry any "{{" today, in an
+      href or anywhere else (grepped directly), so this is the same
+      "latent, not a live breach" shape as every prior 6.2 finding. Live
+      content check by hand also established that check-whatsapp-route.js's
+      own RULE 5 already scans PAGE_DIRS (the 177 generated pages) for the
+      same "{{[A-Z0-9_]+}}" shape - so an unstamped token on a GENERATED page
+      was never a total blind spot, it had an independent backstop in a
+      sibling checker all along, just not in this one. RULE 5 does not scan
+      EXTRA_FILES at all, so the four live-copy EXTRA_FILES had no backstop
+      anywhere. INJECTION, two cases, both against the scratch copy only,
+      each restored from an in-memory buffer and sha256-reconfirmed
+      byte-identical before any conclusion was drawn: (1) a real relative
+      href on modules/service/weebly-paste/cherry-lane-old-pharmacy-first-
+      replacement.html rewritten to carry an unstamped token - the
+      pre-fix checker (reconstructed inline in the verify script from the
+      description above, not read from git history) passed clean, and so did
+      check-whatsapp-route.js, confirming a TOTAL blind spot on this file
+      class; (2) the same shape on a generated Pharmacy First condition page
+      (earache-treatment-cherry-lane-walton.html) - the pre-fix checker also
+      passed clean, but check-whatsapp-route.js correctly failed it, so this
+      half was never a total gap, only a gap in THIS checker specifically.
+      Both cases correctly restored, sha256-confirmed. CONTROL: the two
+      DRAFT-*.html files' own existing, legitimate {{TOKEN}} hrefs re-run
+      unmodified against the fixed checker - still exit 0, no regression.
+      FIX: a new TOKEN_TEMPLATE_FILES allowlist (the two DRAFT-*.html paths
+      only) added beside EXTRA_LINK_HOST_SLUG; the {{ check now skips only a
+      file in that list, and for every other file (the 177 generated pages
+      and the other four EXTRA_FILES) it reports the href as rule
+      "unreplaced token" and fails the run, naming the file and the raw
+      href. Header comment updated in place (a new "UNSTAMPED TOKENS"
+      section) with the same dated, evidenced convention this file already
+      uses; the older paragraph describing the blanket skip corrected to
+      point at it rather than left stating the old behaviour.
+      VERIFICATION: full 36-checker suite run individually on the live repo
+      after the fix: 36/36 exit 0 (including check-cdn-pins.js, which the
+      scratch-copy sweep inside the verify script correctly excludes, since
+      that copy has no .git - confirmed as an artefact of the copy method,
+      not a repo defect, by running it against a second, unmutated scratch
+      copy earlier in this pass and getting the identical six failures on
+      both). git status --porcelain -- tools modules core branches.json
+      gbp-packs: only tools/check-service-links.js changed, plus the two
+      pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither created nor touched by this pass. No generator, page,
+      branches.json field or patient-facing copy changed; no regeneration
+      needed, since the fix touches only checker logic in tools/. Never
+      fires on the live tree today: none of the four "live" EXTRA_FILES
+      carry a "{{" anywhere, confirmed directly. Latent-gap closure, not a
+      live breach, the same shape every 6.2 finding before this one has
+      taken. No new question raised.
+      Evidence: audits/verify-6.2-2026-09-12-fourteenth.js and
+      audits/verify-6.2-2026-09-12-fourteenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
