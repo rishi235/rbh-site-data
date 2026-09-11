@@ -10739,6 +10739,68 @@ audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
       fifth/sixth passes (2026-09-02), not re-read this pass. No new
       question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
       pass-2026-09-10-thirteenth.txt. Done 2026-09-10 (thirteenth pass)
+      Quality pass 2026-09-11, FOURTEENTH PASS, FRESH ANGLE: tools/check-
+      travel-clinic-copy.js proven by injection against Tiffenbergs' own
+      travel-clinic-tiffenbergs-aintree.html for the first time in this
+      item's fourteen-pass history (thirteen prior passes exercised
+      check-nap.js, check-postcodes.js, check-em-dashes.js,
+      check-booking-routes.js, check-jsonld.js, check-gbp-packs.js,
+      check-branch-identity.js, check-map-embeds.js,
+      check-pharmacy-first-eligibility.js, check-weight-loss-copy.js,
+      check-branch-links.js and check-switch-copy.js against this branch,
+      but never the checker guarding the third private-paid service
+      description on this branch's own page). Baseline: all 36 checkers 0
+      failures, all six generators rebuilt first, combined sha256 of every
+      file under modules/ and core/ unchanged
+      (fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3).
+      Target file travel-clinic-tiffenbergs-aintree.html backed up by byte
+      copy, baseline sha256
+      4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3.
+      Three injections plus one control, each restored by byte copy and
+      sha256-reconfirmed identical immediately after: (1) RULE 6, "We
+      guarantee stock of all travel vaccines." appended to the "Can anyone
+      use the Travel Clinic?" FAQ answer - CAUGHT, three failures at once
+      (verbatim, since the answer sentence no longer matches the generator
+      word for word; RULE 6 stock, "guarantees stock"; and RULE 12 outcome,
+      the same word "guarantee" also tripping the outcome-promise pattern -
+      a genuine two-rule interaction on one inserted word, not previously
+      observed on this item); (2) RULE 7, one of the page's three "6 to 8
+      weeks" mentions (the hero bullet) changed to "4 to 6 weeks" - CAUGHT,
+      two failures at once (verbatim, and the leadtime internal-mismatch
+      rule naming both windows found on the one page); (3) RULE 9, the
+      "Children and infants may need a different pathway, please ask when
+      booking" bullet deleted outright - CAUGHT by verbatim only, since the
+      cohort rule 9 test is estate-wide OR-across-the-page ("children" or
+      "infants" appearing anywhere in visible copy) and the phrase
+      "travelling with young children" earlier in the FAQ, itself a
+      pinned generator sentence, keeps rule 9's own cohort check passing
+      even with the dedicated bullet removed - the verbatim rule alone
+      catches a deleted pinned sentence that the cohort rule's own
+      wording is too permissive to notice on its own, a genuine rule-
+      interaction finding worth carrying rather than a defect, since rule
+      3 (verbatim) and rule 9 (cohort) are deliberately different checks
+      reading the same page for different reasons; (4) CONTROL, the two
+      adjacent FAQ lines ("Is the Travel Clinic free on the NHS?" and "How
+      far in advance should I book?") swapped in file order with no
+      content added, removed or changed - correctly PASSED, exit 0. All
+      three injections caught on the first attempt with the expected
+      rule-specific message; the control passed clean; no unexpected
+      cross-firing beyond the two genuine rule interactions noted above,
+      and no other branch's page or pack affected. Final restore sha256-
+      reconfirmed identical to baseline; full 36-checker suite and all six
+      generators re-run/rebuilt clean after (36/36 exit 0, combined sha256
+      unchanged); tracked repo git status --porcelain empty throughout
+      aside from the same two pre-existing untracked artefacts every
+      recent pass has recorded. Zero in-repo defect - check-travel-clinic-
+      copy.js was already correctly holding Tiffenbergs' own page across
+      rules 3, 6, 7, 9 and 12. No page, generator, checker, pack or
+      branches.json byte changed. Live half not attempted: Claude in
+      Chrome reported "not connected" at answer pickup (standing Q59);
+      full 12-of-12 live coverage already stands from the fifth/sixth
+      passes (2026-09-02), not re-read this pass. No new question raised -
+      checker proof against data already known correct, not a live-facing
+      decision. Evidence: audits/verify-3.12-2026-09-11-fourteenth.js and
+      its -output.txt. Done 2026-09-11 (fourteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

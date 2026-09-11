@@ -1,0 +1,82 @@
+=== BASELINE ===
+target: /sessions/friendly-pensive-maxwell/mnt/rbh-site-data/modules/service/pages/travel-clinic-tiffenbergs-aintree.html
+baseline sha256: 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+baseline checker exit: 0
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+
+=== INJECTION 1 - RULE 6 stock guarantee ===
+exit: 1 (expected FAIL) -> AS EXPECTED
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+
+FAIL - 3 problem(s):
+  [verbatim] modules/service/pages/travel-clinic-tiffenbergs-aintree.html does not carry the generator line "Most adult travellers can. If you are pregnant or breastfeeding, have a medical condition, a weakened immune system, are travelling with young children, or are travelling at very short notice, the pharmacist will assess your individual situation before recommending anything.". Either the page is a stale build or it has been hand-edited.
+  [stock] modules/service/pages/travel-clinic-tiffenbergs-aintree.html guarantees stock ("guarantee stock"). The generator header says no vaccine is claimed to be guaranteed in stock, because availability varies and some vaccines are ordered in.
+  [outcome] modules/service/pages/travel-clinic-tiffenbergs-aintree.html uses guarantee wording ("guarantee"). No vaccine or consultation may be described as guaranteeing protection or immunity; the copy may only say what the service is and that suitability is decided at the consultation.
+
+  restored, sha256 confirmed 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+
+=== INJECTION 2 - RULE 7 lead-time internal mismatch ===
+exit: 1 (expected FAIL) -> AS EXPECTED
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+
+FAIL - 2 problem(s):
+  [verbatim] modules/service/pages/travel-clinic-tiffenbergs-aintree.html does not carry the generator line "Recommended booking 6 to 8 weeks before you travel". Either the page is a stale build or it has been hand-edited.
+  [leadtime] modules/service/pages/travel-clinic-tiffenbergs-aintree.html gives two different book-ahead windows on one page: 4 to 6 weeks and 6 to 8 weeks. A reader cannot tell which one to act on.
+
+  restored, sha256 confirmed 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+
+=== INJECTION 3 - RULE 9 cohort omission (children and infants) ===
+exit: 1 (expected FAIL) -> AS EXPECTED
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+
+FAIL - 1 problem(s):
+  [verbatim] modules/service/pages/travel-clinic-tiffenbergs-aintree.html does not carry the generator line "Children and infants may need a different pathway, please ask when booking". Either the page is a stale build or it has been hand-edited.
+
+  restored, sha256 confirmed 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+
+=== CONTROL - reorder FAQ entries, no content change ===
+exit: 0 (expected PASS) -> AS EXPECTED
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+  OK - no failures
+
+  restored, sha256 confirmed 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3
+
+=== FINAL RESTORE CHECK ===
+final sha256: 4dc692a1266a48d0c9bfaf686ccfc7ee96c07ab90676c74cdecd88a34542a1e3 (matches baseline: true)
+
+=== SUMMARY ===
+PASS-AS-EXPECTED  INJECTION 1 - RULE 6 stock guarantee  (exit 1)
+PASS-AS-EXPECTED  INJECTION 2 - RULE 7 lead-time internal mismatch  (exit 1)
+PASS-AS-EXPECTED  INJECTION 3 - RULE 9 cohort omission (children and infants)  (exit 1)
+PASS-AS-EXPECTED  CONTROL - reorder FAQ entries, no content change  (exit 0)
+
+ALL AS EXPECTED: true
