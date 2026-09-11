@@ -1685,6 +1685,56 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       instability; not re-raised. No new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-09-fifteenth.txt. Done
       2026-09-09.
+      Sixteenth quality pass 2026-09-11 (unattended scheduled run, Cowork
+      sandbox shell). Repo half clean again: six generators to a byte-
+      identical tree, all 35 checkers (check-cdn-pins.js excluded, needs live
+      git ref resolution) exit 0. FRESH ANGLE: tools/check-page-coverage.js,
+      the checker that answers whether the SET of generated pages matches
+      what branches.json earns and arguably the single most direct test of
+      this item's own "full 12-page set exists" claim, had never been proven
+      by injection against Cherry Lane specifically in fifteen prior passes.
+      Full repo exported via git archive to a scratch directory, tracked repo
+      never opened for writing. Four injections, each restored (byte copy, or
+      for the deleted page, regeneration from the untouched generator) and
+      SHA256-reconfirmed before the next and after the last: (1)
+      widgets.contraception removed from cherrylane_liverpool in
+      branches.json - caught, 2 failures (NOT_EARNED plus the correctly
+      cascading ORPHAN_PAGE on the now-unearned existing file); (2) the
+      cherrylane_liverpool entry removed from the EXTRAS object in
+      tools/build-switch-pages.js - caught, NOT_BUILT; (3)
+      weight-loss-clinic-cherry-lane-walton.html deleted from disk while
+      still earned - caught, PAGE_MISSING, restored by regenerating from the
+      untouched generator and SHA256-confirmed byte-identical; (4) an orphan
+      copy of the contraception page added under a different filename -
+      caught, ORPHAN_PAGE. All four caught first attempt, on their intended
+      rule, full 35-checker suite clean after final restore, tracked repo
+      confirmed untouched throughout (git status --porcelain empty for
+      modules/, branches.json, tools/). No checker gap found, no in-repo
+      defect, no rule or page byte changed.
+      LIVE HALF PERFORMED (Claude in Chrome not connected, standing Q59, not
+      retried by any other route, no login attempted; read-only curl GET from
+      the Cowork sandbox shell against two live pages, no click, no submit,
+      no login). SIGNIFICANT FINDING: Q95's fault is BACK live - five of the
+      seven Pharmacy First condition cards (sinusitis, earache, impetigo,
+      shingles, infected insect bite) again show "Page coming soon" inside an
+      <em> tag with no href, confirmed byte-level in the server-rendered
+      HTML; sore throat and UTI still render as real anchors. The repo's own
+      generated page remains correct and unchanged throughout. This is the
+      fourth time this exact oscillation has been observed (broken:
+      2026-08-04, 2026-09-04, 2026-09-05, now 2026-09-11; fixed: 2026-09-02,
+      2026-09-09) - evidence appended to Q95, status left open, not
+      re-raised as a new question. Two previously-logged live-only faults on
+      the switch page reconfirmed unchanged: the pre-Phase-3 SEO title
+      ("Switch Your Prescriptions - Cherry Lane Pharmacy Walton"), and the
+      "How switching to Cherry Lane Pharmacy works" paragraph's em dash still
+      rendering as mojibake, read this pass via curl+Python as "ÔÇö", the
+      same corrupted bytes independently confirmed by two earlier passes'
+      different read methods. The Q36 footer NHS mailbox typo was NOT
+      observed this pass (a full email-address sweep of the switch page
+      found only Cherry@rbhealth.co.uk), consistent with its already-logged
+      instability; not re-raised. No new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-11-sixteenth.txt. Done
+      2026-09-11.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
