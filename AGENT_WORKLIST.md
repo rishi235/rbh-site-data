@@ -11636,6 +11636,46 @@ audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
       audits/clear-aintree-item-3.13-thirteenth-pass-app-membership-2026-09-10.txt.
       LIVE HALF: not performed this pass either; live state remains
       unconfirmed since the last live read.
+      Quality pass 2026-09-11 (fourteenth): tools/check-booking-routes.js
+      proven by injection against Clear Chemist Aintree's own two booking
+      pages (weight-loss-clinic-clear-aintree.html,
+      travel-clinic-clear-aintree.html) for the first time in fourteen
+      passes, despite Clear carrying two live Appointedd mounts since this
+      item's original build. Clear is one of the few branches with no
+      Pharmacy First widget at all (pfBooking: false, no pharmacyFirst key),
+      which let this pass exercise rule 3's genuine "no fallback available"
+      path rather than the "falls back to the wrong diary" path most other
+      branches' passes test. BASELINE: git status clean on the three target
+      files; all 36 checkers exit 0; sha256 of both pages and branches.json
+      recorded before any mutation. FOUR INJECTIONS, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) data-branch swapped
+      to "Fishlocks Chemist" on the weight loss page - caught first attempt,
+      wrong-value branch of rule 4 (branchattr); (2) data-service emptied on
+      the travel clinic page - caught first attempt, rule 5 (serviceattr);
+      (3) widgets.travelClinic deleted from clearchemist_aintree in
+      branches.json - caught first attempt, rule 3 (widget), the no-fallback
+      path since travelClinic sits in NO_FALLBACK_SERVICE_KEYS and Clear has
+      no pharmacyFirst widget to fall back to regardless; (4) data-branch
+      attribute removed entirely from the weight loss page - caught first
+      attempt, the missing-attribute branch of rule 4, distinct from
+      injection 1's wrong-value branch. PLUS ONE CONTROL: data-service and
+      data-branch attributes reordered on the travel clinic page with no
+      value change - correctly passed, exit 0, confirming the checker reacts
+      to attribute presence/value rather than order. All three files
+      restored byte-identical (sha256-reconfirmed) after the final
+      injection; full 36-checker suite re-run clean (36/36 exit 0); git
+      status --porcelain empty aside from the same pre-existing untracked
+      debris every recent pass has recorded (gbp-packs/
+      .fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak).
+      Zero in-repo defect found; no checker, page, generator or data field
+      changed; no new question raised. Evidence:
+      audits/verify-3.13-2026-09-11-fourteenth.js and
+      audits/verify-3.13-2026-09-11-fourteenth-output.txt.
+      LIVE HALF: not attempted. mcp__claude-in-chrome__tabs_context_mcp
+      reported "Claude in Chrome is not connected" (standing Q59, one
+      attempt, no retry). Live state not re-confirmed this pass and should
+      not be assumed unchanged from the last live read.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section
@@ -17458,6 +17498,62 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Q58, Q80 and Q81 re-read from QUESTIONS.json, all still open,
       unchanged. No new defect, no new question raised this pass. Evidence
       in audits/sk-chemists-bootle-hours-days-4.11-fifteenth-2026-09-09.txt.
+      Seventeenth quality pass 2026-09-11 (unattended scheduled run via
+      Cowork, rotation-pool pick, re-derived fresh via a Python pass over
+      all 51 itemised worklist blocks' own last 2026-dated string,
+      excluding the one-off pool and the eight blocked items: four items
+      tied at 2026-09-10 (4.11, 5.1, 6.2, 6.3), matching the sixteenth
+      pass's own forward note exactly; lowest-item-number tiebreak, chosen
+      4.11). Baseline: pack sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      byte-stable across seventeen passes; all 36 checkers exit 0 on the
+      tracked repo before any work.
+      Fresh angle: sixteen prior passes had proven check-nap,
+      check-postcodes, check-em-dashes, check-jsonld, check-map-embeds,
+      check-branch-identity, check-pharmacy-first-eligibility,
+      check-gbp-packs.js (many rule families), check-app-membership.js
+      Rule 8 and check-brand-spelling.js against this pack's own copy by
+      direct injection, but tools/check-pharmacy-first-cost.js had never
+      once been named across this item's sixteen-pass history (confirmed
+      by grep, zero hits). branches.json confirms skchemists_bootle
+      carries both pfLink and a pharmacyFirst widget, so rules 4, 5 and 6
+      genuinely apply. Full repo copied by byte copy (with .git) to a
+      scratch directory; tracked pack never opened for writing, confirmed
+      sha256-unchanged throughout. THREE INJECTIONS plus one CONTROL, each
+      restored byte-identical before the next: (1) rule 6, "free" struck
+      from all three sentences naming Pharmacy First (business
+      description, Services section, Post A) - CAUGHT first attempt,
+      "advertises NHS Pharmacy First but never calls it free"; (2) rule 4,
+      "It is an affordable way to be seen quickly." appended to Post A -
+      CAUGHT first attempt, quoting "affordable"; (3) rule 5,
+      "Consultations from 5 pounds." appended to Post A on a freshly
+      restored copy - CAUGHT first attempt, quoting "5 pounds"; CONTROL,
+      "Great value consultations available." appended to Post C (the
+      weight loss post, private, no Pharmacy First wording) - correctly
+      PASSED, confirming the checker's private-service block-scoping
+      exclusion holds on this pack's own copy too. All three injections
+      caught on the first attempt with the expected rule-specific message;
+      the control passed clean; final restore sha256-reconfirmed identical
+      to baseline; full 36-checker suite re-run clean after (36/36); the
+      tracked repo's own copy of the pack confirmed sha256-unchanged and
+      `git status --porcelain` empty throughout. Zero in-repo defect found;
+      no checker, pack, page, generator or data field changed; no new
+      question raised. Evidence in
+      audits/verify-4.11-2026-09-11-seventeenth.js and
+      audits/verify-4.11-2026-09-11-seventeenth-output.txt.
+      LIVE HALF: not attempted. mcp__claude-in-chrome__tabs_context_mcp
+      reported "Claude in Chrome is not connected" (standing Q59), one
+      attempt at answer pickup, no retry. The sixteenth pass's own live
+      findings (Q34 answered and applied; weight-loss-clinic.html item
+      5.8/Q58 regulatory exposure, unchanged, not fixed here) stand
+      unverified for a further pass rather than re-claimed. Q58, Q80 and
+      Q81 re-read from QUESTIONS.json, all still open, unchanged.
+      GIT SYNC NOTE: this run inherited an already-orphaned
+      .git/index.lock (27 minutes old at step 1, under the task's own
+      1-hour force-clear threshold), left by an earlier run today (item
+      3.13, fourteenth pass) that also could not commit for the same
+      reason. Left in place rather than force-cleared; see this run's own
+      AGENT_LOG.md entry for the git sync/push disposition.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

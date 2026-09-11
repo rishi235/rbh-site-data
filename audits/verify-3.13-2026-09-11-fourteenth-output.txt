@@ -1,0 +1,109 @@
+Item 3.13 quality pass (fourteenth) - Clear Chemist (Liverpool/Aintree)
+Run date: 2026-09-11 (unattended scheduled run, audit-backlog-worker)
+Environment: Cowork sandbox, mcp__workspace__bash
+
+BASELINE
+--------
+$ git status --porcelain -- modules/service/pages/weight-loss-clinic-clear-aintree.html modules/service/pages/travel-clinic-clear-aintree.html branches.json
+(empty)
+
+$ for f in tools/check-*.js; do node "$f"; done
+36/36 exit 0
+
+$ sha256sum modules/service/pages/weight-loss-clinic-clear-aintree.html modules/service/pages/travel-clinic-clear-aintree.html
+bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa  modules/service/pages/weight-loss-clinic-clear-aintree.html
+a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796  modules/service/pages/travel-clinic-clear-aintree.html
+
+$ sha256sum branches.json
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e  branches.json
+
+INJECTION 1 (rule 4, branchattr, wrong value)
+----------------------------------------------
+data-branch="Clear Chemist" -> data-branch="Fishlocks Chemist" on
+weight-loss-clinic-clear-aintree.html
+
+$ node tools/check-booking-routes.js
+  FAIL  weight-loss-clinic-clear-aintree.html: data-branch="Fishlocks Chemist" but the URL resolves to clearchemist_aintree ("Clear Chemist"), so an enquiry from this page is filed against the wrong pharmacy
+check-booking-routes: 1 failure(s).
+EXIT: 1  -- CAUGHT, first attempt
+
+Restored from byte-copy backup. sha256 reconfirmed:
+bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa (matches baseline)
+
+INJECTION 2 (rule 5, serviceattr, missing)
+--------------------------------------------
+data-service="Travel Clinic" -> data-service="" on
+travel-clinic-clear-aintree.html
+
+$ node tools/check-booking-routes.js
+  FAIL  travel-clinic-clear-aintree.html has a booking mount but no data-service on #rbhsv-root, so the enquiry is labelled "Pharmacy service"
+check-booking-routes: 1 failure(s).
+EXIT: 1  -- CAUGHT, first attempt
+
+Restored from byte-copy backup. sha256 reconfirmed:
+a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796 (matches baseline)
+
+INJECTION 3 (rule 3, widget, no-fallback path)
+-------------------------------------------------
+branches.json: widgets.travelClinic deleted from clearchemist_aintree
+(travelClinic is in NO_FALLBACK_SERVICE_KEYS and Clear has no pharmacyFirst
+widget, so this is the genuine "no diary at all" path, not the "wrong
+fallback diary" path most other branches exercise)
+
+$ node tools/check-booking-routes.js
+  FAIL  travel-clinic-clear-aintree.html needs widgets.travelClinic on clearchemist_aintree and there is none (this service must not fall back), so the booking box renders empty
+check-booking-routes: 1 failure(s).
+EXIT: 1  -- CAUGHT, first attempt
+
+Restored from byte-copy backup. sha256 reconfirmed:
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e (matches baseline)
+
+INJECTION 4 (rule 4, branchattr, missing attribute)
+-------------------------------------------------------
+data-branch attribute removed entirely from #rbhsv-root on
+weight-loss-clinic-clear-aintree.html (distinct code path from injection 1)
+
+$ node tools/check-booking-routes.js
+  FAIL  weight-loss-clinic-clear-aintree.html has a booking mount but no data-branch on #rbhsv-root, so an enquiry from it is labelled "our pharmacy"
+check-booking-routes: 1 failure(s).
+EXIT: 1  -- CAUGHT, first attempt
+
+Restored from byte-copy backup. sha256 reconfirmed:
+bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa (matches baseline)
+
+CONTROL (attribute order swap, no content change)
+-----------------------------------------------------
+travel-clinic-clear-aintree.html: data-service and data-branch attributes
+swapped in order on #rbhsv-root, values unchanged
+
+$ node tools/check-booking-routes.js
+check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+EXIT: 0  -- correctly PASSED
+
+Restored from byte-copy backup. sha256 reconfirmed:
+a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796 (matches baseline)
+
+FINAL STATE
+-----------
+$ sha256sum modules/service/pages/weight-loss-clinic-clear-aintree.html modules/service/pages/travel-clinic-clear-aintree.html branches.json
+bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa  modules/service/pages/weight-loss-clinic-clear-aintree.html
+a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796  modules/service/pages/travel-clinic-clear-aintree.html
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e  branches.json
+(all three match baseline exactly)
+
+$ for f in tools/check-*.js; do node "$f"; done
+TOTAL: 36  FAILED: 0
+
+$ git status --porcelain
+(no tracked file listed; only pre-existing untracked debris predating this
+run: gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, and the
+long-standing .agent-lock.* / test-probe debris files from earlier runs)
+
+RESULT: no in-repo defect. All four injections caught first attempt on the
+expected rule and message; control passed clean. tools/check-booking-routes.js
+proven by injection against Clear Chemist Aintree's own pages for the first
+time in this item's fourteen-pass history.
+
+LIVE HALF: not attempted. mcp__claude-in-chrome__tabs_context_mcp reported
+"Claude in Chrome is not connected" (standing Q59). One attempt, no retry.

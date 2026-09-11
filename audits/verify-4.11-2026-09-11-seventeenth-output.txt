@@ -1,0 +1,117 @@
+Item 4.11 quality pass (seventeenth), SK Chemists Bootle GBP pack, 2026-09-11
+Full transcript. See audits/verify-4.11-2026-09-11-seventeenth.js for the
+narrative writeup.
+
+=== BASELINE ===
+$ sha256sum gbp-packs/sk-chemists-bootle.md
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da  gbp-packs/sk-chemists-bootle.md
+
+$ for f in tools/check-*.js; do node "$f" >... 2>&1; done
+(36/36 exit 0, no nonzero reported)
+
+$ node -e "branches.json lookup for sk-chemists-bootle"
+{
+  "pfLink": "https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html",
+  "widgets": {
+    "bloodPressure": "66b9d6088ed9220fea0a206d",
+    "contraception": "6a47976aa73ee8f2ca31fc0d",
+    "pharmacyFirst": "66b9d657d71f677c6d5e602b",
+    "weightLoss": "66c86584ba5faa183dc1c4a3",
+    "travelClinic": "6a5bf248918ea659155231e0"
+  },
+  "id": "skchemists_bootle"
+}
+=> rule 6 of check-pharmacy-first-cost.js genuinely applies to this pack.
+
+=== SCRATCH SETUP ===
+$ cp -a rbh-site-data /tmp/scratch-4.11
+$ cd /tmp/scratch-4.11 && sha256sum gbp-packs/sk-chemists-bootle.md
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da  (matches)
+
+$ node tools/check-pharmacy-first-cost.js
+check-pharmacy-first-cost
+  112 Pharmacy First page(s) checked for the free claim, the prescription-charge caveat, cost qualifiers and prices
+  16 GBP pack(s) checked for cost qualifiers, prices and the free claim
+  6 branch landing page(s) checked, 6 of them advertising Pharmacy First and held to the free claim, cost qualifiers and prices
+check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+exit=0
+
+=== INJECTION 1: rule 6, strip "free" from all three PF-naming sentences ===
+--- diff ---
+19c19
+< Pharmacy First, the free NHS service that lets a pharmacist assess and,
+---
+> Pharmacy First, the NHS service that lets a pharmacist assess and,
+37c37
+< - NHS Pharmacy First: free NHS assessment and, where appropriate,
+---
+> - NHS Pharmacy First: NHS assessment and, where appropriate,
+77c77
+< Chemists on Stanley Road in Bootle is a free NHS service. A pharmacist can
+---
+> Chemists on Stanley Road in Bootle is a NHS service. A pharmacist can
+
+--- node tools/check-pharmacy-first-cost.js ---
+  FAIL [free] gbp-packs/sk-chemists-bootle.md: advertises NHS Pharmacy First but never calls it free (rule 6). This pack is pasted into a Google Business Profile, which for most patients is the first and only page about the pharmacy they read, so the claim has to survive the trip off the website.
+check-pharmacy-first-cost: 1 failure(s).
+exit=1  -> CAUGHT first attempt.
+
+=== RESTORE ===
+$ cp /tmp/pristine-sk-pack.md gbp-packs/sk-chemists-bootle.md
+$ cmp pristine tracked -> RESTORE OK: byte-identical
+
+=== INJECTION 2: rule 4, cost qualifier into Post A ===
+--- diff ---
+82c82
+< the NHS apply to each condition.
+---
+> the NHS apply to each condition. It is an affordable way to be seen quickly.
+
+--- node tools/check-pharmacy-first-cost.js ---
+  FAIL [qualifier] gbp-packs/sk-chemists-bootle.md: describes NHS Pharmacy First as "affordable", which prices a service that is free at the point of use (rule 4). A patient who reads this and cannot afford a fee does not come, and never says why.
+         It is an affordable way to be seen quickly
+check-pharmacy-first-cost: 1 failure(s).
+exit=1  -> CAUGHT first attempt.
+
+=== RESTORE === (byte-identical, confirmed)
+
+=== INJECTION 3: rule 5, price into Post A ===
+--- diff ---
+82c82
+< the NHS apply to each condition.
+---
+> the NHS apply to each condition. Consultations from 5 pounds.
+
+--- node tools/check-pharmacy-first-cost.js ---
+  FAIL [price] gbp-packs/sk-chemists-bootle.md: states "5 pounds" on NHS Pharmacy First copy (rule 5). Either this page has taken private-service copy, most likely from the weight loss or travel clinic generator, or the service has stopped being free. Both are worth stopping for.
+         Consultations from 5 pounds
+check-pharmacy-first-cost: 1 failure(s).
+exit=1  -> CAUGHT first attempt.
+
+=== RESTORE === (byte-identical, confirmed)
+
+=== CONTROL: cost qualifier into Post C (weight loss, private, no PF words) ===
+--- diff ---
+100c100
+< everyone - the pharmacist will advise. Confidential and judgement-free.
+---
+> everyone - the pharmacist will advise. Confidential and judgement-free. Great value consultations available.
+
+--- node tools/check-pharmacy-first-cost.js ---
+check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+exit=0  -> correctly PASSED, confirming private-service block-scoping exclusion.
+
+=== FINAL RESTORE AND RE-VERIFY ===
+$ cp /tmp/pristine-sk-pack.md gbp-packs/sk-chemists-bootle.md
+$ sha256sum gbp-packs/sk-chemists-bootle.md
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da  -> FINAL RESTORE OK, matches baseline
+
+$ full 36-checker suite re-run on scratch copy: all exit codes checked, fail=0
+
+$ (back on tracked repo) sha256sum gbp-packs/sk-chemists-bootle.md
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da  (unchanged)
+$ git status --porcelain -- gbp-packs/sk-chemists-bootle.md tools/check-pharmacy-first-cost.js
+(empty - tracked repo untouched throughout)
+
+RESULT: no in-repo defect. Full detail and interpretation in
+audits/verify-4.11-2026-09-11-seventeenth.js.
