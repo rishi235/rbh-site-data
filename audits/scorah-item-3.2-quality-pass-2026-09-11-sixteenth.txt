@@ -1,0 +1,154 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - sixteenth quality pass
+Unattended scheduled run, 2026-09-11 (nineteenth run of the day), Cowork
+sandbox mcp__workspace__bash. Claude in Chrome tried once for both step 3
+answer pickup and this pass's live half: "Claude in Chrome is not connected"
+(Q59), not retried by any other route, no login attempted.
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied. Rotation pool re-derived independently
+rather than trusted from the eighteenth run's forward note: a python pass
+over every "- [x] N.N" block in AGENT_WORKLIST.md, taking the maximum date
+string inside each item's own text (bounded by the NEXT itemised line,
+checked or not, so a blocked item's text is never folded into its checked
+neighbour's date range). This surfaced a correction to method: items 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 are the established one-off pool (excluded
+from rotation per the 2026-08-30 note inside item 5.7's own text) and were
+excluded before ranking. Among the genuine rotation pool the stalest
+untouched-today items were 3.2, 3.5, 3.7, 4.1 and 4.4, all last touched
+2026-09-09 (day-level tie, no finer timestamp available across all five
+without further digging). Chosen: 3.2, the lowest item number, as a
+deterministic tiebreak; this matches the eighteenth run's own forward note
+apart from the addition of 3.7, which its note omitted.
+
+BASELINE
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+established convention) run directly against the tracked repo: 0 failures,
+all exit 0. sha256 of the two Scorah packs recorded before any work:
+  gbp-packs/scorah-bramhall.md
+    e592ab24164aeb093cd9b1bd58a2ee52ac809e01bd822678dafe95843ad1bb2c
+  gbp-packs/scorah-hazel-grove.md
+    64fd2ae61c8ae0ca7ac5565a9f6cc2ad4485869a465b98a691093c8b2b7a4038
+
+FRESH ANGLE
+Fifteen prior passes had proved check-seo-pattern.js, check-seo-lengths.js,
+check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+check-branch-links.js and check-booking-routes.js against Scorah's own
+pages/data by injection, plus collateral catches from check-nap.js,
+check-postcodes.js, check-map-embeds.js, check-page-coverage.js,
+check-editor-snapshot.js and check-widget-diaries.js. check-gbp-packs.js had
+been named twice in this item's own history, but never as the deliberately
+targeted checker: once as an "output unchanged" re-read with no injection,
+once as collateral from an unrelated check-booking-routes.js injection. A
+grep of the whole 3730-line checker file for "scorah" confirmed several of
+its specific rules (services-section scope, hours-days, sister-branch,
+postcode/post-town, road names) have each been proven against a Scorah pack
+under OTHER worklist items (4.4, 4.8, 4.10, 4.11), but two rules that exist
+specifically because Scorah is a shared-domain sister pair had never been
+proven against either Scorah pack by injection under any item:
+  - the "GBP profile website must point at the branch's own landing page,
+    not the shared homepage" rule (shared-domain branches, Master Plan v2
+    section 3)
+  - the "catchment list must lead with the branch's own seoTown" rule
+    (areaOrder)
+Both are exactly the class of rule this pair exists to test: Scorah runs two
+branches on one website (scorah-chemists.co.uk), which is the precondition
+both rules gate on.
+
+INJECTIONS
+Scratch copy made with `tar --exclude='.git' -cf -` piped to
+/sessions/.../mnt/outputs/scratch-3.2-20260911, entirely outside the tracked
+git working tree (root filesystem at 93% capacity, /sessions/.../mnt/outputs
+at 30%, so the scratch copy went there rather than /tmp). sha256 of
+branches.json and both Scorah packs confirmed byte-identical to the tracked
+copies immediately after the copy. check-gbp-packs.js run on the untouched
+scratch copy first: 0 failures, matching the tracked baseline.
+
+Four injections, each on the scratch copy only, each restored from the
+tracked repo's own untouched file and sha256-reconfirmed identical before
+the next:
+
+(1) gbp-packs/scorah-bramhall.md, "- Website for the profile:" line changed
+    from the branch landing page
+    (https://www.scorah-chemists.co.uk/pharmacy-scorah-bramhall.html) to
+    the bare shared homepage (https://www.scorah-chemists.co.uk) - CAUGHT,
+    1 failure, exactly the intended rule: "profile website does not point
+    at this branch's landing page pharmacy-scorah-bramhall.html.
+    www.scorah-chemists.co.uk carries 2 live branches, so pointing the
+    profile at the shared homepage gives both listings the same page
+    (Master Plan v2 section 3)". Restored; sha256 confirmed identical;
+    checker re-run clean.
+
+(2) gbp-packs/scorah-bramhall.md, the description's catchment sentence
+    reordered from "Patients come to us from Bramhall, Cheadle Hulme, Hazel
+    Grove, Handforth and Poynton" to "...from Cheadle Hulme, Bramhall,
+    Hazel Grove, Handforth and Poynton" - CAUGHT, 1 failure: "catchment
+    list leads with 'Cheadle Hulme', but this branch's seoTown in
+    branches.json is 'Bramhall'...". Restored; sha256 confirmed identical;
+    checker re-run clean.
+
+(3) gbp-packs/scorah-hazel-grove.md, the same Website-line injection
+    (landing page swapped for the bare shared homepage) - CAUGHT, 1
+    failure, same rule, correctly naming pharmacy-scorah-hazel-grove.html
+    and this branch's own id. Restored; sha256 confirmed identical; checker
+    re-run clean.
+
+(4) gbp-packs/scorah-hazel-grove.md, the description's catchment sentence
+    reordered from "Hazel Grove, Bramhall, Offerton, Great Moor and
+    Poynton" to "Bramhall, Hazel Grove, Offerton, Great Moor and Poynton" -
+    CAUGHT, 1 failure: "catchment list leads with 'Bramhall', but this
+    branch's seoTown in branches.json is 'Hazel Grove'...". Restored;
+    sha256 confirmed identical; checker re-run clean.
+
+All four fired on their intended rule only, first attempt, exactly one
+failure each time, no cross-firing and no collateral failures from any
+other rule in the file. Full 34-checker suite re-run on the scratch copy
+after the final restore: 0 failures. Tracked repo confirmed untouched
+throughout: `git status --porcelain -- gbp-packs/ branches.json` showed
+only the pre-existing, unrelated untracked mount artefact
+gbp-packs/.fuse_hidden0000000400000001 (present before this pass, not
+created by it); sha256 of both Scorah packs and branches.json on the
+tracked repo unchanged from the pre-pass baseline. No checker logic, data
+field, page, pack or generator changed anywhere in the repo.
+
+Scratch copy could not be deleted afterwards (this sandbox mount rejects
+unlink() with "Operation not permitted" on every file, confirmed across
+both the rbh-site-data mount and the outputs mount, the standing Q87/Q96
+mechanism); renamed instead to
+scratch-3.2-20260911.cleared-<epoch> per the established rename-not-delete
+convention.
+
+LIVE HALF (read-only, curl; Claude in Chrome not connected, Q59)
+- https://www.scorah-chemists.co.uk/pharmacy-scorah-bramhall.html: 404,
+  unchanged - the branch landing page repaste remains outstanding, as
+  recorded on every prior pass since 2026-08-11.
+- https://www.scorah-chemists.co.uk/sitemap.xml: 200. NOTE, not
+  investigated further this pass: lastmod for
+  contraception-scorah-bramhall.html now reads 2026-08-14T17:07:16+00:00,
+  where the 2026-08-12 pass recorded a single lastmod of 2026-07-18
+  throughout the sitemap. The site has evidently been republished at least
+  once since the 2026-08-12 reading, on at least this page, while the
+  landing page itself is still 404 - so whatever changed was not this
+  item's own outstanding repaste. Not raised as a new question: no content
+  defect follows from a later lastmod on its own, and re-reading every
+  sitemap entry to characterise the republish fully was judged out of scope
+  for a single pass; worth a look on a future pass if the 404 persists past
+  a republish that should have fixed it.
+- https://www.scorah-chemists.co.uk/contraception-scorah-bramhall.html:
+  200. <title> still reads "NHS contraception service in Bramhall - Scorah
+  Chemists - Scorah Chemists", the doubled-brand Weebly-default suffix
+  pattern already recorded on prior passes as evidence the SEO title field
+  was never pasted from modules/service/pages/SEO.md. Not re-read for
+  JSON-LD name this pass (a plain-text grep for a schema.org block did not
+  return one reliably over curl output dominated by Weebly's own inline
+  scripts); the 2026-09-06 pass's finding that six sampled live pages still
+  declare the bare shared brandLabel stands, not re-verified or
+  contradicted this pass.
+
+No in-repo defect. No new question.
+
+Files changed this pass: audits/scorah-item-3.2-quality-pass-2026-09-11-sixteenth.txt
+(new), AGENT_WORKLIST.md (item 3.2 paragraph appended), AGENT_LOG.md (top
+entry). No changes to gbp-packs/, modules/, core/, tools/ or branches.json.

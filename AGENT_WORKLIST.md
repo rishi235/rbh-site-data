@@ -2822,6 +2822,50 @@ audits/seo-pattern-fittitle-guard-3.1-sixteenth-2026-09-11.txt.
       shared brandLabel in JSON-LD name - not re-verified this pass. No
       in-repo defect, no new question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-09-fifteenth.txt.
+      Quality pass 2026-09-11 (sixteenth, unattended scheduled run via Cowork,
+      independently re-derived as stalest of the rotation pool after excluding
+      the established one-off pool - 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - per
+      the correction recorded inside item 5.7's own 2026-08-30 pass; 3.2 tied
+      with 3.5, 3.7, 4.1 and 4.4 at 2026-09-09, lowest item number chosen as
+      tiebreak). REPO HALF: check-gbp-packs.js had been named twice in this
+      item's history but never as the deliberately targeted checker - once as
+      an unchanged-output re-read, once as collateral from a
+      check-booking-routes.js injection. Two of its rules exist specifically
+      for a shared-domain sister pair like Scorah and had never been proven by
+      injection against either Scorah pack: the GBP profile website must point
+      at the branch's own landing page, not the shared homepage (Master Plan
+      v2 section 3), and the catchment list must lead with the branch's own
+      seoTown. Baseline: all 34 checkers (check-cdn-pins.js and
+      check-live-hours.js excluded, established convention) exit 0; sha256 of
+      both Scorah packs recorded. Four injections on a scratch copy
+      (tar --exclude='.git' to /sessions/.../mnt/outputs, tracked repo never
+      opened for writing), each restored and sha256-reconfirmed byte-identical
+      before the next: (1) scorah-bramhall.md's Website line swapped from the
+      branch landing page to the bare shared homepage - CAUGHT, exact intended
+      message naming pharmacy-scorah-bramhall.html and the 2-branch host; (2)
+      scorah-bramhall.md's catchment sentence reordered to lead with "Cheadle
+      Hulme" instead of "Bramhall" - CAUGHT, exact intended message; (3) the
+      same Website-line injection against scorah-hazel-grove.md - CAUGHT,
+      correctly naming pharmacy-scorah-hazel-grove.html; (4) the same
+      catchment-reorder injection against scorah-hazel-grove.md (led with
+      "Bramhall" instead of "Hazel Grove") - CAUGHT, exact intended message.
+      All four fired on their own intended rule only, first attempt, exactly
+      one failure each, no cross-firing. Full 34-checker suite clean on the
+      scratch copy after the final restore; tracked repo confirmed untouched
+      by git status and sha256 throughout. Scratch copy renamed rather than
+      deleted afterwards (this sandbox mount rejects unlink() estate-wide,
+      standing Q87/Q96), not a tracked-repo change. LIVE HALF, read-only
+      (curl; Chrome unavailable, Q59): the Bramhall landing page still 404s,
+      unchanged since 2026-08-11; sitemap.xml is reachable and one sampled
+      Scorah page's lastmod has moved to 2026-08-14T17:07:16+00:00 from the
+      single 2026-07-18 the 2026-08-12 pass recorded throughout, so the site
+      has been republished at least once somewhere since then while the
+      landing page repaste itself is still outstanding - not investigated
+      further, not a new question; the sampled content page's title still
+      carries the doubled Weebly-default brand suffix recorded on prior
+      passes as evidence the SEO title field was never pasted. No in-repo
+      defect, no new question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-11-sixteenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
