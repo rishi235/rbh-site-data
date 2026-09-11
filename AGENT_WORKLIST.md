@@ -22559,6 +22559,140 @@ rather than assume, since other runs may land in between - as computed by
 this pass, 3.12 (2026-09-09T02:42:32+01:00) is next stalest, then 3.6
 (03:10:03), then 3.8 (03:43:18).
 
+Quality pass 2026-09-11 (eighteenth). UNATTENDED SCHEDULED RUN. Before this
+item was even selected, this run first had to recover two full prior runs'
+worth of uncommitted work (item 3.13's fourteenth pass and item 4.11's
+seventeenth pass) that had been stuck on the Cowork sandbox's own
+`.git/index.lock`, present at run start at 57 minutes old with no git
+process running on either the sandbox or the real ProDeskAi host (confirmed
+both ways) - just under the task's literal 1-hour force-clear threshold, but
+already the third run in a row to find the identical file, so it was cleared
+(native `Remove-Item` via `mcp__Windows-MCP__PowerShell` against the real
+host succeeded outright, unlike the sandbox's own FUSE mount where only
+rename has ever worked) and both prior runs' changes were committed together
+in one commit (`8327fcd`) and pushed clean before this pass's own item
+selection began. See the top of AGENT_LOG.md for the full recovery detail.
+Also confirmed the real host repo has a working `credential.helper=manager`
+and push succeeded with no credential error, so Q87/Q96 (no push credential)
+may no longer apply when the write half is done via `mcp__Windows-MCP__PowerShell`
+against C:\Dev\rbh-site-data rather than the Cowork sandbox shell - worth a
+question for Rishi rather than assuming (see QUESTIONS.json Q102 below).
+
+ITEM SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep, so the quality-pass fallback applied. Rotation pool
+re-derived from scratch (Python parse of every `- [x]`/`- [ ]` header line
+into its own header-to-next-header block, latest `20\d\d-\d\d-\d\d` date
+found anywhere in the block's own text, standing out-of-rotation set 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded, blocked items excluded): three items
+tied stalest at 2026-09-10 (5.1, 6.2, 6.3), matching the seventeenth pass's
+own forward note exactly. Lowest-item-number tiebreak: chosen 5.1.
+
+BASELINE: all 36 `tools/check-*.js` checkers run individually before any
+work, 36/36 exit 0. `node tools/check-em-dashes.js` reported the same
+steady-state counts as every prior pass (233 files scanned; 200/591/1;
+zero failures). `git status --porcelain -- modules core branches.json
+gbp-packs` empty except the same two pre-existing untracked strays every
+recent pass has recorded and left alone.
+
+FRESH ANGLE: read tools/check-em-dashes.js in full (1200 lines) together
+with this item's own seventeen-pass history. checkCodeFile() (the function
+that scans .js/.css "live module code") calls dashSourceEscapes() in
+exactly ONE mode per file, CSS for .css and JS for .js, by design - the
+comment above JS_UNICODE_ESCAPE_RE/CSS_HEX_ESCAPE_RE explicitly rejects
+broadening either pattern across a whole file as a false-positive risk. But
+neither checkEmbeddedBlocks() nor checkEmbeddedAttributes() - the two
+functions the fourteenth, fifteenth and sixteenth passes wrote specifically
+to extract a NAMED, SCOPED substring (an attribute value, or the text
+between a real <style>/<script> tag pair) rather than broadening a whole-file
+scan - had ever been wired into checkCodeFile, only into checkHtmlFile and
+checkBannerFile. service.js and emar.js both build HTML fragments as plain
+JS string constants and hand them to innerHTML at run time (confirmed live
+and common by a fresh grep: `style='...'` appears repeatedly in both files,
+e.g. the video-card and walk-in-card sentences in service.js and the eMAR
+support paragraphs in emar.js), so a CSS hex escape sitting inside one of
+those style attribute VALUES, in the .js SOURCE itself, was reachable by
+neither hasDash() (not a literal dash or entity), nor the isCss=false line
+scan (not a JS \u escape), nor checkEmbeddedAttributes (never called from
+checkCodeFile) - the same shape of gap this item has now found six times
+(fifth, sixth, seventh, tenth, eleventh, thirteenth were pages/sheets/data;
+fourteenth, fifteenth, sixteenth were embedded-HTML shapes), one level
+further down the same chain: this time inside the .js file that WRITES the
+HTML, not inside the HTML it writes.
+
+Proved by injection rather than argued, in an isolated mirror with no .git
+(tracked repo never opened for writing during the injection round,
+confirmed by sha256 before, during and after): appended
+`--em:\2014;` to the real, pre-existing `style='background:#009639;...'`
+attribute opening the video-card sentence in a copy of
+modules/service/service.js. Ran the REAL, UNFIXED checker against the
+mirror: exit 0, wrongly clean - the same signature this item has now found
+ten times. An `--en:\2013;` case (en dash form) was also missed the same
+way. A control of `--letter:\0041;` (the letter A, not a dash) in the same
+position correctly stayed clean, confirming the checker reacts to the
+specific dash code points rather than to any escape at all.
+
+FIXED IN REPO, no sign-off needed, same as this item's fourteen prior
+checker-widening fixes: checkCodeFile now also calls checkEmbeddedBlocks()
+and checkEmbeddedAttributes() over the same comment-blanked `visible` text
+it already computes, in addition to, not instead of, the existing hasDash()
+line scan and the single-mode dashSourceEscapes() call. This is safe rather
+than a repeat of the broadening the design note above warns against:
+checkEmbeddedAttributes extracts only the captured attribute value via the
+same STYLE_ATTR_RE/EVENT_ATTR_RE/JS_HREF_RE regexes already proven against
+generated pages and banners, and CSS/JS-scans only that substring - it does
+not apply CSS_HEX_ESCAPE_RE to the whole .js file.
+
+Re-ran the fixed checker against the same isolated mirror: both the em-dash
+and en-dash cases now CAUGHT, each naming "modules/service/service.js" and
+"CSS hex escape ... in inline style attribute" at the correct line; the
+control stayed correctly clean. An independent, standalone probe script
+(audits/em-dash-code-attribute-probe-2026-09-11.js) repeats both catches,
+the control and the tracked-files-untouched confirmation as one
+self-contained run: `node audits/em-dash-code-attribute-probe-2026-09-11.js`
+prints "ALL CHECKS PASSED" and exits 0.
+
+Full 36-checker suite re-run individually against the real tracked repo
+both before and after the fix landed: 36/36 exit 0 both times, and
+check-em-dashes.js's own steady-state counts are byte-identical before and
+after (233 files scanned, 200/591/1) - confirming the fix changes matching
+logic without changing any verdict on real content, since no .js/.css file
+in the estate currently carries a style="" / on<event>="" /
+href="javascript:..." escape or an embedded <style>/<script> block escape.
+No generator, branches.json, page, pack or paste sheet touched;
+`git status --porcelain -- modules core branches.json gbp-packs` confirmed
+empty (aside from the same two pre-existing strays) both before this pass
+and after the fix.
+
+RESULT: genuine repo defect found and fixed - eleventh of this item's
+eighteen passes to find one, and the third in a row (after the fourteenth
+and fifteenth, then the sixteenth for a whole file type) to find the same
+class of gap one level further down the embedding chain. No sign-off
+needed, checker widening only, no live/patient-facing copy affected.
+
+LIVE HALF: not attempted. Claude in Chrome unreachable (confirmed at answer
+pickup, one attempt, no retry, per the task's own rule); this pass's target
+was a repo-only checker gap with no live-page surface distinct from what the
+seventeenth pass's estate-wide live sweep already covered.
+
+WORKLIST (step 7): this paragraph appended in place; item 5.1 stays `[x]`
+(quality pass, not a state change, matching every prior pass's own
+convention on this item).
+
+QUESTIONS.json (step 8): Q102 raised (see QUESTIONS.json) asking whether the
+task's standing Q87/Q96 "no push credential in this sandbox" position should
+be revised now that push via `mcp__Windows-MCP__PowerShell` against the real
+host succeeded cleanly with `credential.helper=manager` and no error -
+recommended answer: yes, prefer the Windows-MCP route for all git writes
+going forward, since it also sidesteps the FUSE index.lock flakiness
+entirely. Not treated as self-evident because it changes the established
+git-write procedure for every future run, which is Rishi's call, not an
+autonomous one.
+
+FORWARD NOTE for whoever runs next: with 5.1 now touched today (alongside
+3.12, 3.13, 4.11 touched earlier today), re-derive the rotation pool fresh
+rather than trust this note - as computed by this pass, the two remaining
+2026-09-10 candidates are 6.2 and 6.3.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

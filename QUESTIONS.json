@@ -1577,5 +1577,20 @@
     "status": "open",
     "answer": null,
     "note": "Cross-references Q41 (a different live footer element on this same Hirshmans page - the duplicate email address - already answered, does not mention dashes or this markup gap) and Q39 (the already-answered 'one supervised Weebly furniture sweep across all 14 sites' this finding should logically ride alongside rather than triggering its own separate visit). Full domain-by-domain sweep and verbatim quotes in audits/hirshmans-address-check-2026-09-09-sixteenth.txt."
+  },
+  {
+    "id": "Q102",
+    "date": "2026-09-11",
+    "item": "audit-backlog-worker infrastructure - git write route, not a worklist item",
+    "question": "For weeks the standing position (Q87/Q96) has been that the Cowork sandbox shell has no usable git push credential, so every run's commit/push/publish step is done via mcp__Windows-MCP__PowerShell against the real C:\\Dev\\rbh-site-data working copy on ProDeskAi instead. Today's run confirmed why the sandbox route fails (its own FUSE mount cannot delete .git/index.lock, only rename it, and a fresh lock keeps reappearing) and separately confirmed the real host route works end to end: git config on the host shows credential.helper=manager, and add/commit/push all succeeded cleanly with no credential prompt or error. Should the task's own procedure be updated to make the Windows-MCP PowerShell route the PRIMARY method for all git writes (add/commit/push) and the status-page publish, rather than something a run only reaches for after the sandbox route fails? This would also sidestep the recurring index.lock churn entirely, since the FUSE mount would only ever be read from, never written to by git.",
+    "options": [
+      "Yes, update the task's own instructions to route all git writes through mcp__Windows-MCP__PowerShell against C:\\Dev\\rbh-site-data by default, keeping the sandbox shell for read-only work (checker runs, injection proofs, file edits). Lowest ongoing friction, and matches what almost every recent run has already had to do manually.",
+      "No, keep the sandbox route as primary and Windows-MCP as the documented fallback, in case the real host is ever unavailable to an unattended run (machine off, RDP session locked, PowerShell MCP not connected) when the sandbox mount would still work for read-only status reporting even if it could not push.",
+      "Investigate first whether the sandbox's FUSE mount can be fixed or reconfigured to support git writes properly (delete semantics, a real credential) before committing to a permanent workaround - more work now, but removes the need for two different code paths long-term."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Not decided autonomously: this changes the standing operating procedure for every future unattended run, which is Rishi's call. In the meantime this run and recent prior runs have continued using the Windows-MCP route as the documented fallback, so nothing is blocked either way."
   }
 ]

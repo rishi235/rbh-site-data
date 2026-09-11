@@ -930,6 +930,38 @@ function checkCodeFile(file){
       });
     }
   });
+  // A .js module can build an HTML fragment as a plain string constant and
+  // hand it to innerHTML at run time (service.js and emar.js both do this
+  // for banner sentences, video/walk-in cards and the eMAR support
+  // paragraphs). The fragment's own style="" / on<event>="" /
+  // href="javascript:..." attribute values, and any inline <style>/<script>
+  // block text, sit in the .js SOURCE as literal characters the same way
+  // they sit in a generated .html page - checkHtmlFile and checkBannerFile
+  // already extract and CSS/JS-scan them there. checkCodeFile's own
+  // dashSourceEscapes() call above is deliberately locked to ONE mode per
+  // file (CSS for .css, JS for .js - see the "Source-level escape
+  // sequences" note near JS_UNICODE_ESCAPE_RE/CSS_HEX_ESCAPE_RE for why
+  // broadening that line-scan itself would risk false positives), so a bare
+  // CSS hex escape ("\2014") sitting inside a style='...' string constant
+  // in a .js file was reachable by neither: not a literal dash or entity
+  // for hasDash(), not a JS \u escape for the isCss=false line scan, and
+  // never reached by checkEmbeddedAttributes()/checkEmbeddedBlocks() either,
+  // because checkCodeFile never called them. Found and fixed on the item
+  // 5.1 quality pass (eighteenth), 2026-09-11. Proved by injection: a
+  // "--em:\2014;" declaration appended to the real style='' attribute
+  // opening the video-card sentence in modules/service/service.js passed
+  // the unfixed checker with exit 0 in an isolated mirror; a control
+  // ("--letter:\0041;", not a dash) correctly stayed clean against the
+  // fixed checker. Reusing checkEmbeddedAttributes() and
+  // checkEmbeddedBlocks() here is safe rather than a broadening of the
+  // line-scan the design note above warns against: both functions extract a
+  // NAMED, SCOPED substring (the captured attribute value, or the text
+  // between a real <style>/<script> tag pair) via the same regexes already
+  // proven against generated pages and banners, and CSS/JS-scan only that
+  // substring - they do not apply CSS_HEX_ESCAPE_RE to the whole file the
+  // way the rejected broadening would have.
+  checkEmbeddedBlocks(visible, file);
+  checkEmbeddedAttributes(visible, file);
 }
 
 // A data file is walked as parsed JSON rather than line by line, so a failure
