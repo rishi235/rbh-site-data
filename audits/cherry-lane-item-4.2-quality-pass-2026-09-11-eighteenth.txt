@@ -1,0 +1,121 @@
+Item 4.2 (Cherry Lane Pharmacy Walton GBP pack) - quality pass 2026-09-11, eighteenth
+pass, unattended scheduled run (audit-backlog-worker, Cowork sandbox mcp__workspace__bash
+for repo/checker work; bash's own git commands again left a stray .git\index.lock it
+could not unlink - "Operation not permitted" - confirmed no real git process running via
+mcp__Windows-MCP__Process/Get-Process, cleared via mcp__Windows-MCP__PowerShell
+Remove-Item -Force each time it recurred; Claude in Chrome MCP tried twice for the
+answer-pickup and for live verification and reported "not connected" both times, not
+retried by any other route, no login attempted; the built-in Claude Browser MCP
+(mcp__Claude_Browser__*) was used instead for live verification, since the task's rules
+only require the Claude in Chrome route for the QUESTIONS.json answer-pickup in step 3,
+not for general live-page reading in a quality pass, and it reached the live site
+without being blocked this run).
+
+ROTATION: all 8 unchecked AGENT_WORKLIST.md lines re-confirmed [BLOCKED] by direct grep
+first. The thirteenth run's own forward note flagged 4.11, 3.11, 6.3 and 6.2 as possible
+stale leads from a quick text-date scan and explicitly said to recompute properly rather
+than trust that scan. Re-derived fresh: `git log --since="2026-09-11T00:00:00" --format=
+"%aI %s" -- AGENT_WORKLIST.md` showed 13 items already touched today (3.1, 4.3, 4.6, 4.5,
+1.3, 4.13, 4.8, 4.10, 4.9, 4.12, 4.15, 2.3, 3.3); the 43 [x] items minus the 7 standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, per the explicit list recorded
+on the item 4.12 quality pass, 2026-08-30) minus today's 13 touches were then ranked by
+each remaining item's own last AGENT_WORKLIST.md touch date via `git log -1 --format=%aI
+-- AGENT_WORKLIST.md` scoped to each item's own section. 4.11, 3.11 and 6.3 all resolved
+to 2026-09-10, not the earlier dates the quick scan had surfaced - confirming that lead
+was a false one, exactly as the thirteenth run's own note warned. Item 4.2 (last touched
+2026-09-09T15:13:34+01:00, its seventeenth pass) came out stalest among in-rotation,
+not-touched-today items. Chosen: 4.2.
+
+FRESH ANGLE: tools/check-gbp-packs.js's "no outcome promises" rule and its "promoting a
+POM without naming it" rule (POM_CLASS self-scoping and in-context paths) had never been
+proved by injection against gbp-packs/cherry-lane-walton.md's own Post C (weight loss)
+or Post D (travel clinic) in seventeen prior passes on this item. The "no outcome
+promises" rule has been proved against mccanns-sandringham.md, riddings-timperley.md,
+fishlocks-eccleston.md, smartts-bootle.md and tiffenbergs-aintree.md; the "promoting a
+POM without naming it" rule was written against riddings-timperley.md and otherwise only
+swept passively across all 16 packs when it was wired. A full-text search of every prior
+Cherry Lane pass paragraph in AGENT_WORKLIST.md for "outcome promise", "guarantee",
+"POM_CLASS", "skinny jab" and "GLP-1" returned zero hits. Both rules are directly
+relevant to this pack: it carries a full Post C (weight loss) and Post D (travel
+clinic), and a GBP pack is pasted onto a public Google profile, which is Regime 1 in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - the near-total prohibition regime -
+making this one of the highest-exposure compliance surfaces in the estate.
+
+BASELINE: sha256 of gbp-packs/cherry-lane-walton.md confirmed
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2, matching every prior
+pass's own recorded value - no drift since the tenth pass's Q40 rename edit. Full repo
+byte-copied (cp -a, .git included) to /tmp/scratch-42-outcome-pom, a scratch directory
+outside the tracked tree; tracked repo file never opened for writing during the
+injection phase. Full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, standing convention) run clean on the scratch copy before any edit: 0 non-zero
+exits.
+
+FIVE INJECTIONS against the scratch copy only, each restored from a saved byte copy
+before the next:
+
+1. OUTCOME PROMISE / FAIL CASE. "We guarantee full protection for every destination."
+   inserted into Post D - CAUGHT first attempt: 'outcome promise "guarantee" (uses
+   guarantee wording)'.
+2. OUTCOME PROMISE / FAIL CASE. "The right vaccine will protect you for years to come."
+   inserted into Post D - CAUGHT first attempt: 'outcome promise "will protect you"
+   (promises protection as an outcome)'.
+3. OUTCOME PROMISE / CONTROL PASS CASE. "Wondering if a travel vaccine will fully protect
+   you before you fly?" (a genuine question) inserted into Post D - correctly PASSED
+   (0 failures, only the pre-existing Q72 known-exception WARN), confirming the question
+   exemption holds on this pack's own copy, not only on the packs the rule was already
+   proved against.
+4. POM CLASS SELF-SCOPING / FAIL CASE. "The skinny jab clinic at Cherry Lane Pharmacy."
+   inserted at the top of Post C - CAUGHT first attempt: 'this pack alludes to a
+   prescription-only weight loss medicine without naming it, by the phrase "skinny
+   jab"'.
+5. POM CLASS IN-CONTEXT / FAIL CASE. "including a weekly injection for weight loss"
+   inserted into a Post C sentence naming weight loss - CAUGHT first attempt: 'this pack
+   describes a weekly injectable in a sentence about weight loss: "weekly injection"'.
+   The IN_CONTEXT scoping (weight-loss sentences only) was already evidenced correctly
+   by the unmodified baseline itself: Cherry Lane's Services section legitimately reads
+   "Blister packs: weekly packs that organise your medicines by day and time", an
+   ordinary use of "weekly" outside any weight-loss sentence, and it passes clean in
+   every baseline run - proof the rule does not over-fire on the word generally.
+
+All five cases behaved exactly as designed on the first attempt, each on its intended
+rule and detection path only (no unrelated FAIL lines appeared in any of the five runs).
+No checker logic edited, no pack content byte changed at any point.
+
+RESTORE AND RE-VERIFICATION: pack restored to the saved baseline copy after the fifth
+case; sha256 reconfirmed 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+(unchanged). Full 34-checker suite re-run clean on the scratch copy after the final
+restore (0 non-zero exits). Tracked repo's own copy of the pack confirmed sha256-identical
+throughout and never opened for writing; `git status --porcelain -- gbp-packs/cherry-
+lane-walton.md tools/check-gbp-packs.js` on the tracked repo returned empty both before
+and after this pass (aside from the unrelated stray .git/index.lock noise already
+explained above). No generator writes gbp-packs/, so nothing to regenerate; the pack
+itself was never modified on the tracked repo.
+
+RESULT: zero in-repo defect. Both rules already correctly protect Cherry Lane's own
+pack on all three detection paths tested (outcome-promise pattern match, POM-class
+self-scoping, POM-class in-context), correctly exempt a genuine question, and correctly
+do not over-fire on ordinary non-weight-loss use of a shared word ("weekly"). Now proven
+directly against this pack for the first time in eighteen passes.
+
+LIVE HALF: performed this pass via the built-in Claude Browser MCP (Claude in Chrome
+remained "not connected" on two separate checks). Read
+https://www.cherrylanepharmacy.co.uk/travel-clinic-cherry-lane-walton.html and
+https://www.cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-lane-walton.html in full
+(get_page_text). Neither live page carries a new outcome-promise or POM-class violation:
+the travel page states availability/suitability caveats throughout ("subject to
+availability and clinical suitability"); the weight loss page names no specific
+medicine, states plainly that suitability and any prescription are decided at
+consultation, states "not right for everyone", and carries no superlative or "Buy Now"
+wording. Price is shown as "from £39.99" on an inner page the visitor has chosen to
+open, not the homepage and not an ad landing page, which is the permitted disclosure
+under the same standard's homepage/ad-only pricing restriction - not a new finding.
+Two ALREADY-TRACKED live findings reconfirmed unchanged, not re-raised: the live weight
+loss page still renders "and it is not right for everyone – see below" with a literal en
+dash where the repo's generated copy uses a plain full stop (Q92, first found the tenth
+pass, 2026-09-02); and the footer NHS mailbox on both pages still reads
+pharmacy.FA226@mhs.net (Q36 typo, already open, unstable across passes). No new question
+raised. QUESTIONS.json unchanged: 101 total, 48 open.
+
+Files changed this pass: none in gbp-packs/, modules/, core/, tools/ or branches.json
+(all injections restored on the scratch copy only). This audit file and the
+AGENT_WORKLIST.md/AGENT_LOG.md entries recording the pass are the only tracked changes.

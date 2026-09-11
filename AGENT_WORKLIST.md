@@ -11891,6 +11891,51 @@ Pharmacy First wording to the NHS service description.
       stand, not re-verified this pass.
       No new question raised; QUESTIONS.json unchanged at 100 total, 47 open.
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-09-seventeenth.txt.
+      Quality pass 2026-09-11 (eighteenth, unattended run): fresh angle - proved
+      tools/check-gbp-packs.js's "no outcome promises" rule and its "promoting a POM
+      without naming it" rule (POM_CLASS self-scoping and in-context paths) against
+      this pack's own Post C (weight loss) and Post D (travel clinic) for the first
+      time in eighteen passes. The outcome-promise rule had only ever been proved
+      against mccanns-sandringham.md, riddings-timperley.md, fishlocks-eccleston.md,
+      smartts-bootle.md and tiffenbergs-aintree.md; the POM-class rule was written
+      against riddings-timperley.md and otherwise only swept passively across all 16
+      packs when wired, never proved by injection against Cherry Lane. Baseline clean
+      (34/34 checkers; sha256 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014f
+      cef052ec2, matching every prior pass, no drift since the tenth pass's Q40 rename
+      edit). Full repo byte-copied with .git to /tmp/scratch-42-outcome-pom; tracked
+      repo never opened for writing during the injection phase.
+      Five injections against the scratch copy, each restored and sha256-reconfirmed
+      identical before the next: (1) "We guarantee full protection for every
+      destination." in Post D - CAUGHT (guarantee wording); (2) "The right vaccine
+      will protect you for years to come." in Post D - CAUGHT (declarative
+      protection promise); (3) "Wondering if a travel vaccine will fully protect you
+      before you fly?" in Post D, a genuine question - correctly PASSED, confirming
+      the question exemption holds on this pack's own copy; (4) "The skinny jab
+      clinic at Cherry Lane Pharmacy." at the top of Post C - CAUGHT by POM_CLASS
+      self-scoping; (5) "including a weekly injection for weight loss" inserted into
+      a Post C sentence about weight loss - CAUGHT by POM_CLASS in-context. The
+      in-context scoping was also evidenced by the unmodified baseline itself: the
+      pack's own "Blister packs: weekly packs..." bullet uses "weekly" outside any
+      weight-loss sentence and passes clean, proving the rule does not over-fire on
+      the word generally. All five cases fired or passed exactly as designed on the
+      first attempt, each on its intended path only. No checker logic edited, no pack
+      content byte changed. Full 34-checker suite re-run clean on the scratch copy
+      after the final restore; tracked repo confirmed sha256-unchanged and
+      git-status-clean throughout.
+      No in-repo defect found - both rules already correctly protect this pack on all
+      three detection paths tested, correctly exempt a genuine question, and do not
+      over-fire on ordinary non-weight-loss use of a shared word. Now proven directly
+      for the first time.
+      LIVE HALF: performed via the built-in Claude Browser MCP (Claude in Chrome
+      remained not connected on two checks this run). Read both the live travel
+      clinic and weight loss clinic pages in full: neither carries a new
+      outcome-promise or POM-class violation, both state suitability/availability
+      caveats and name no specific medicine. Two already-tracked live findings
+      reconfirmed unchanged, not re-raised: Q92 (live en dash on the weight loss page
+      where the repo copy uses a full stop) and Q36 (footer NHS mailbox typo
+      pharmacy.FA226@mhs.net). No new question; QUESTIONS.json unchanged at 101
+      total, 48 open.
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-11-eighteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
