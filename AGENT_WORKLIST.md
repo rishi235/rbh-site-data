@@ -21340,6 +21340,54 @@ appended to the line. Do not move them; the status page reads them in place.
       new question. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-11-seventeenth.txt.
       Done 2026-09-11
+      Eighteenth quality pass 2026-09-12 (unattended scheduled run, rotation
+      pool - all 34 non-out-of-rotation items other than 6.2/6.3 tied stalest
+      at 2026-09-11; 1.2 chosen on the lowest-item-number tiebreak). REPO
+      HALF: FRESH ANGLE - tools/check-page-coverage.js had never been pointed
+      at hirshmans_ainsdale by direct injection in seventeen prior passes.
+      Full repo archived via git archive HEAD to a disposable scratch copy
+      (tracked repo never opened for writing this pass); branches.json
+      sha256 matched the tracked repo exactly; full 36-checker suite clean
+      before any edit. Four injections on the scratch copy only, each
+      restored by byte copy and sha256-reconfirmed identical before the
+      next: (1) removed widgets.contraception from hirshmans_ainsdale -
+      CAUGHT on two rules at once, NOT_EARNED and ORPHAN_PAGE; (2) removed
+      hirshmans_ainsdale from build-contraception-pages.js's BUILD list
+      while leaving the widget set - CAUGHT, NOT_BUILT, naming the branch
+      and the exact consequence ("no page will ever be generated for it and
+      no other checker will notice"); (3) set hirshmans_ainsdale.disposed =
+      true without removing it from any generator list, the same shape as
+      the real Wilmslow disposal this repo already had to learn to handle -
+      CAUGHT, 17 failures (5 DISPOSED_LISTED, one per rule family, plus 12
+      ORPHAN_PAGE, one per Hirshmans page still on disk), confirming the
+      cascade is correct rule behaviour rather than double-counting, and
+      touching no other branch; (4) deleted the pharmacy-first page file
+      from disk with the data untouched - CAUGHT, PAGE_MISSING, naming the
+      file and the generator to re-run. All four fired first attempt, on
+      their intended rule(s) only, no cross-firing onto any other branch.
+      Final scratch state sha256-reconfirmed identical to pre-injection on
+      all three touched files; full 36-checker suite re-run on the scratch
+      copy: 35/36 exit 0, the one exception (check-cdn-pins.js) being a
+      scratch-copy artifact (it resolves refs via git against .git, which
+      `git archive` output does not carry, so it fails on any bare archive
+      regardless of content) rather than a defect - reconfirmed clean
+      against the tracked repo, which has .git. Tracked repo confirmed
+      untouched throughout: git status --porcelain -- branches.json tools
+      modules core gbp-packs empty bar the two pre-existing untracked
+      strays, branches.json sha256 unchanged
+      (904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e).
+      No in-repo defect found. LIVE HALF: Claude in Chrome not connected;
+      read-only curl instead. sitemap.xml lastmod unchanged at
+      2026-08-14T16:09:17+00:00 (no republish since the sixth pass); all
+      three of Hirshmans' page-coverage-relevant live pages (pharmacy-first,
+      contraception, switch) return 200, a light live corroboration of what
+      this checker's PAGE_MISSING/ORPHAN_PAGE rules protect. Address and
+      hours not re-read this pass (fresh angle was entirely repo-side). No
+      new question, no worklist item blocked or unblocked. Guard coverage
+      for this item now extends to 19 of 36 checkers proven by direct
+      injection. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-12-eighteenth.txt.
+      Done 2026-09-12
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

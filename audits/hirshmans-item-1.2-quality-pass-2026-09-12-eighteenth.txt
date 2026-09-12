@@ -1,0 +1,148 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale) - Eighteenth quality pass, 2026-09-12
+Unattended scheduled run (audit-backlog-worker), mcp__workspace__bash used throughout.
+
+SELECTION
+All eight remaining unchecked AGENT_WORKLIST.md items are [BLOCKED] (5.3, 5.4,
+5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the
+quality-pass fallback applied. Rotation pool re-derived fresh from
+AGENT_WORKLIST.md itself (header-to-next-header block parse, latest
+20YY-MM-DD date string per block), excluding the standing out-of-rotation set
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8): 36 eligible items. 34 of them (everything
+except 6.2 and 6.3, both touched earlier today) were last touched 2026-09-11,
+so all 34 tied. 6.2 and 6.3 excluded as already touched today. Lowest-item-
+number tiebreak among the tied 2026-09-11 items (the same tiebreak convention
+the thirteenth run of 2026-09-11 used for its own 6.2/6.3 tie): 1.2.
+
+BASELINE
+Full 36-checker suite run individually against the tracked repo before any
+work: 36/36 exit 0. branches.json sha256
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e, matching
+every prior pass's recorded value back to the fourteenth pass. check-page-
+coverage.js baseline: 16 branches, 16 trading, 0 disposed, 177 pages expected
+across 3 folders, clean.
+
+FRESH ANGLE
+tools/check-page-coverage.js had never been pointed at hirshmans_ainsdale by
+direct injection in seventeen prior passes on this item (confirmed by
+grepping the item's full history for check-*.js filenames: 18 distinct
+checkers named prior to this pass - check-address-region, check-app-
+membership, check-booking-routes, check-branch-identity, check-branch-links,
+check-brand-spelling, check-em-dashes, check-gbp-packs, check-gbp-pharmacy-
+first, check-jsonld, check-live-hours, check-map-embeds, check-nap, check-
+opening-hours, check-pharmacy-first-cost, check-postcodes, check-uk-spelling,
+check-url-scheme - none of them check-page-coverage). This checker answers a
+different question to all of those: whether the SET of pages a branch earns
+(from branches.json's widgets) matches both the generators' BUILD lists and
+the files actually on disk. Hirshmans qualifies for five of the six rule
+families (Pharmacy First, Contraception, Travel clinic, Weight loss, Switch;
+not Branch landing, since it does not share its website host with another
+trading branch), so it is a fully representative branch to test this checker
+against.
+
+METHOD
+Full repo archived via `git archive HEAD` to a disposable scratch copy at
+/tmp/scratch-1.2-pagecoverage (tracked repo never opened for writing this
+pass). branches.json sha256 in the scratch copy matched the tracked repo
+exactly before any injection. Four injections, each on the scratch copy only,
+each restored by byte copy from a pre-injection backup and sha256/diff-
+reconfirmed identical to the pre-injection value before the next:
+
+Injection 1 (ORPHAN_PAGE + NOT_EARNED): removed widgets.contraception from
+hirshmans_ainsdale in branches.json. CAUGHT, two failures at once:
+"NOT_EARNED: Contraception: tools/build-contraception-pages.js lists
+hirshmans_ainsdale, but branches.json does not earn it a page" and
+"ORPHAN_PAGE: modules/service/pages/contraception-hirshmans-ainsdale.html is
+on disk but branches.json earns no such page". Restored, sha256-confirmed
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+
+Injection 2 (NOT_BUILT): removed "hirshmans_ainsdale" from the BUILD array in
+tools/build-contraception-pages.js while leaving widgets.contraception set in
+branches.json. CAUGHT: "NOT_BUILT: Contraception: branch hirshmans_ainsdale
+earns pages (widgets.contraception is set) but is not in the BUILD list of
+tools/build-contraception-pages.js. No page will ever be generated for it and
+no other checker will notice." Restored, sha256-confirmed
+786968095b679d2e78b4c9f15c21914c9f4dc4817ab1f6c7035c8de709557eba.
+
+Injection 3 (DISPOSED_LISTED cascade, real-world shape): set
+hirshmans_ainsdale.disposed = true in branches.json without removing it from
+any generator's BUILD list - the same shape as the real Wilmslow disposal
+CLAUDE.md records (branch removed from the live set, generator lists not yet
+updated). CAUGHT: 17 failures, all correctly confined to Hirshmans - one
+DISPOSED_LISTED per rule family (Pharmacy First, Contraception, Travel
+clinic, Weight loss, Switch: 5) plus one ORPHAN_PAGE per one of Hirshmans' 11
+generated pages (8 Pharmacy First condition pages + Pharmacy First overview +
+Contraception + Travel clinic + Weight loss + Switch = 12, minus one already
+covered by injection 1's own contraception ORPHAN_PAGE not double-counted
+here since branches.json was restored between injections - the 17 total is
+5 DISPOSED_LISTED + 12 ORPHAN_PAGE). No other branch's pages or list entries
+were touched. Confirms the cascade is correct rule behaviour (a disposal
+should fail loudly on every list that still names the branch and every page
+still on disk for it), the same "cascade is a feature, not three bugs" shape
+the fourteenth pass found for check-branch-links.js's odsCode/nhsEmail/
+nhsReviewUrl trio. Restored, sha256-confirmed
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+
+Injection 4 (PAGE_MISSING): deleted modules/service/pages/pharmacy-first-
+hirshmans-ainsdale.html from the scratch copy's disk while branches.json and
+all generator lists were untouched. CAUGHT: "PAGE_MISSING: Pharmacy First:
+modules/service/pages/pharmacy-first-hirshmans-ainsdale.html is earned by
+hirshmans_ainsdale but is not on disk. Re-run tools/build-service-pages.js."
+Restored from a pre-deletion byte copy, sha256-confirmed
+0b6b326a47232b46fa1969c66af3267673200f2e95dbfb4ad7759723c999a58b identical to
+the pre-injection file.
+
+All four injections fired on their first attempt, on their intended rule(s)
+only, with no cross-firing onto any other branch.
+
+REGRESSION SWEEP
+Scratch copy final state: branches.json, tools/build-contraception-pages.js
+and the pharmacy-first page all sha256-reconfirmed identical to their
+pre-injection values. Full 36-checker suite re-run individually on the
+scratch copy after the final restore: 35/36 exit 0. The one exception,
+tools/check-cdn-pins.js, is a scratch-copy artifact rather than a defect: it
+resolves refs via `git` against the repo's own .git directory, which `git
+archive` does not include in its output, so every git-ref-resolution rule
+fails on ANY bare git-archive extraction regardless of content. Re-run
+directly against the tracked repo (which has .git): clean, exit 0, only the
+three pre-existing WARN/KNOWN entries already on record (Q45-related, not
+raised again here). Tracked repo confirmed untouched throughout: `git status
+--porcelain -- branches.json tools modules core gbp-packs` shows nothing
+(the two pre-existing untracked strays, gbp-packs/.fuse_hidden0000000400000001
+and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, both
+already on record from prior passes, left untouched); branches.json sha256
+unchanged throughout.
+
+LIVE HALF
+Claude in Chrome not connected this run (checked once via tabs_context_mcp).
+Fell back to read-only curl from the sandbox shell. sitemap.xml lastmod
+unchanged at 2026-08-14T16:09:17+00:00 (no republish since the sixth pass,
+consistent with every pass since). All three of Hirshmans' page-coverage-
+relevant live pages checked this pass return 200: pharmacy-first-hirshmans-
+ainsdale.html, contraception-hirshmans-ainsdale.html, switch-prescriptions-
+hirshmans-ainsdale.html - a light live corroboration of what check-page-
+coverage.js's PAGE_MISSING and ORPHAN_PAGE rules protect (every page the repo
+expects to exist for this branch does exist, live). Address and hours not
+re-read this pass (already reconfirmed clean on multiple prior passes; this
+pass's fresh angle was entirely repo-side with no live-copy implication for
+the address/hours fields).
+
+RESULT
+No in-repo defect found. No new question raised. No worklist item blocked or
+unblocked. Guard coverage for this item now extends to 19 of 36 checkers
+proven by direct injection against this branch's own copy.
+
+INFRASTRUCTURE NOTE (not this item's defect, logged for whoever runs next)
+At run start, .git/HEAD.lock was present (about 19 minutes old, no git
+process running per `ps aux`), which blocked `git checkout`/`git pull`
+outright. `rm` returned EPERM (the standing FUSE-mount unlink restriction);
+`mv` to a `.stale-<epoch>` name succeeded and the git operations then
+completed normally. `.git/index.lock` reappeared at zero age at least twice
+more during this run's own `git status` calls, cleared the same way each
+time - the same standing symptom many prior passes have recorded. Neither
+lock was ever found at a genuinely stale multi-hour age; both were cleared
+promptly. Did not sweep the very large accumulation of stray `.git/*.lock.*`
+and root-level scratch/probe files (many hundreds, from past lock-testing
+runs) - out of this item's scope, as essentially every recent run has also
+left them; this is now a long-standing, well-documented, purely-hygiene
+problem (untracked, does not affect what ships) that would benefit from a
+dedicated future worklist item.
