@@ -1,0 +1,186 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - seventeenth quality pass
+Run: 2026-09-12, unattended scheduled run (audit-backlog-worker, ninth run today),
+  Cowork sandbox shell for repo work and injection; Claude in Chrome not
+  connected (tabs_context_mcp reported "Claude in Chrome is not connected",
+  standing Q59) - no retry, no alternative route attempted via that extension;
+  the built-in Claude Browser MCP was reachable this run and used for the live
+  half instead.
+
+SELECTION
+All eight remaining unchecked worklist lines are [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied (step 5). Rotation pool re-derived independently with a
+Python header-block scan of AGENT_WORKLIST.md (36-item eligible pool excluding
+the standing out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8): eight items
+already touched today (1.2, 1.3, 2.1, 2.3, 3.1, 3.2, 6.2, 6.3) excluded, 28
+remaining, lowest item number 3.3, matching the eighth run's own forward note
+exactly.
+
+BASELINE
+Full repo copied by `tar --exclude='.git'` to a scratch directory under the
+outputs mount; tracked repo never opened for writing during the injection
+work. check-postcodes.js's own pre-existing residue was fixed BEFORE the
+baseline was taken (see HOUSEKEEPING below), so the baseline already reflects
+that fix. Baseline: all 36 checkers run individually on the scratch copy
+(check-cdn-pins.js and check-live-hours.js excluded, standing convention for a
+scratch copy and/or no network) - 34/34 exit 0. branches.json sha256 confirmed
+unchanged throughout at the standing regression anchor
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+
+HOUSEKEEPING (fixed, not part of item 3.3 itself)
+check-postcodes.js was failing on three UNKNOWN findings for postcode
+"L4 9SG" - a one-character-off variant of Cherry Lane Pharmacy Walton's own
+L4 8SG, injected by the 2.3 seventeenth pass earlier today into a scratch-only
+copy of uti-treatment-cherry-lane-walton.html's map iframe query to prove
+check-map-embeds.js's RULE 3/4 pair, then restored. The value was never
+applied to the tracked repo's pages, but AGENT_LOG.md, AGENT_WORKLIST.md and
+that pass's own audit file all quote it, which is exactly what
+NARRATIVE_POSTCODES exists to carry. The 3.2 and 3.1 runs earlier today both
+found this and correctly judged it out of their own item's scope, leaving it
+for whoever's pass it legitimately belonged to. It belongs to no single item,
+so it is fixed here rather than left a third time: a "L4 9SG" entry was added
+to NARRATIVE_POSTCODES in tools/check-postcodes.js, following the list's own
+established convention exactly (reason, originating pass, confirmation the
+page was restored, note of how many times this class of gap has recurred and
+which passes left it and fixed it). check-postcodes.js now exits 0 (0
+failures, 3 pre-existing unrelated WARN-only UNOWNED findings on
+gbp-packs/TEMPLATE.md and modules/branch/pages/INDEX.md|SEO.md, unchanged from
+every prior run). No page, generator or branches.json touched by this fix;
+only tools/check-postcodes.js's own exemption list changed.
+
+FRESH ANGLE
+Sixteen prior passes had proved check-seo-pattern.js, check-seo-lengths.js
+(rule 4), check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+check-url-scheme.js, check-switch-copy.js (rule 11), check-branch-identity.js,
+check-map-embeds.js, check-nap.js (NAME/STREET/EMAIL sweeps, both branches)
+and check-booking-routes.js against Fishlocks' own pages by injection, but
+tools/check-opening-hours.js had never been named once in this item's own
+entry (confirmed by grep before starting), despite both Fishlocks branches
+carrying a generated landing page with a visible hours card and a JSON-LD
+openingHoursSpecification block, and despite Eccleston specifically being one
+of only seven branches in the estate with a split-session day (Saturday
+09:00-12:00 layered on top of the Monday-Friday session), the exact shape that
+caused the original McCanns defect this checker exists to prevent.
+
+METHOD
+Two injections run against the scratch copy only, each restored by byte copy
+from the tracked repo and SHA256-reconfirmed before the next and after the
+last:
+
+(1) RULE 5 (JSON-LD must match branches.json exactly). Eccleston landing page
+    (modules/branch/pages/pharmacy-fishlocks-eccleston.html): removed the
+    Saturday 09:00-12:00 OpeningHoursSpecification object from the JSON-LD
+    block entirely, leaving the visible hours card's own Saturday row and
+    every other line on the page untouched.
+    CAUGHT, first attempt:
+      FAIL modules/branch/pages/pharmacy-fishlocks-eccleston.html: JSON-LD
+      opening hours do not match branches.json
+      FAIL    page: Friday 09:00-18:00, Monday 09:00-18:00, Thursday
+        09:00-18:00, Tuesday 09:00-18:00, Wednesday 09:00-18:00
+      FAIL    data: Friday 09:00-18:00, Monday 09:00-18:00, Saturday
+        09:00-12:00, Thursday 09:00-18:00, Tuesday 09:00-18:00, Wednesday
+        09:00-18:00
+    Exit 1. Restored by byte copy; SHA256 after restore
+    (1b681b43dc49dbbcc7967cf1aadc13e261fbd6cb14608cc66fc0a1495da09c05) matched
+    the pre-injection baseline exactly; checker re-run clean (exit 0).
+
+(2) RULES 1-3 (visible hours card must match branches.json). Ainsdale landing
+    page (modules/branch/pages/pharmacy-fishlocks-ainsdale.html): changed only
+    the visible Friday row from "8.45am to 6pm" to "8.45am to 5pm", leaving
+    branches.json, the JSON-LD block and every other visible day untouched.
+    CAUGHT, first attempt, exactly one failure:
+      FAIL modules/branch/pages/pharmacy-fishlocks-ainsdale.html: Friday reads
+      "8.45am to 5pm" but branches.json says "8.45am to 6pm"
+    Exit 1. Restored by byte copy; SHA256 after restore
+    (52adffe5358fa85cd7b3299e59e6105e6029216d74a7a3cb478f7b2117989209) matched
+    the pre-injection baseline exactly; checker re-run clean (exit 0).
+
+Both fired on their intended rule only, first attempt, no unexplained
+cross-firing. Full 34-checker suite (cdn-pins and live-hours excluded) re-run
+clean on the scratch copy after both restores. Tracked repo confirmed
+untouched by this injection work: `git status --porcelain -- modules core
+branches.json gbp-packs tools` shows only the intentional
+tools/check-postcodes.js edit (the housekeeping fix above) and the two
+pre-existing untracked strays already logged by prior passes
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+created by this pass.
+
+No in-repo defect found: check-opening-hours.js already correctly protects
+both Fishlocks landing pages on the JSON-LD-match rule and the visible-card
+rule, proven directly against this branch pair for the first time, including
+against Eccleston's genuine split-session day.
+
+Rules not tested this pass (residual for a future pass on this item): rule 6
+(silence is not a closure, an unstated day at the data level), rule 9 (a
+branch with an odsCode but no openingHours block at all), and the
+closedDays/specification clash rule - none of these have a natural injection
+point on Fishlocks specifically, since both branches already carry a complete
+openingHours block with no clash. Rule 7 (clock times confined to the hours
+card) and rule 8 (no clock time outside a hours-card page) were exercised only
+as passive sweeps (88 and 177 items respectively, both clean), not by
+injection, against Fishlocks pages specifically.
+
+LIVE HALF
+Built-in Claude Browser MCP reachable this run (Claude in Chrome was not).
+Read-only JavaScript inspection (no click, type or submit) on both live UTI
+pages on www.fishlockpharmacy.co.uk:
+
+  Ainsdale (uti-treatment-fishlocks-ainsdale.html):
+    data-branch: "Fishlocks Chemist"   (repo generates "Fishlocks Chemist
+      Ainsdale", confirmed by reading modules/service/pages/
+      uti-treatment-fishlocks-ainsdale.html directly: line 13 data-branch,
+      line 157 JSON-LD name, both "Fishlocks Chemist Ainsdale")
+    JSON-LD name: "Fishlocks Chemist"  (same mismatch)
+    title/H1: exact pattern, unchanged - "UTI treatment in Ainsdale -
+      Fishlocks Chemist" / "UTI treatment in Ainsdale"
+
+  Eccleston (uti-treatment-fishlocks-eccleston.html):
+    data-branch: "Fishlocks Chemist"   (repo generates "Fishlocks Chemist
+      Eccleston")
+    JSON-LD name: "Fishlocks Chemist"  (same mismatch)
+    title/H1: exact pattern, unchanged - "UTI treatment in Eccleston -
+      Fishlocks Chemist" / "UTI treatment in Eccleston"
+
+This reconfirms the sixteenth pass's significant live finding (2026-09-11):
+thirteen days after the Q18 fix was applied and committed (72 pages
+regenerated with branch-specific data-branch/JSON-LD name, 2026-08-30) and
+stated as "repaste now queued", both Fishlocks branches' live pages still
+serve the bare, ambiguous shared brandLabel "Fishlocks Chemist" on both
+machine-readable fields Q18 exists to fix - the enquiry-mislabelling and
+Google entity-resolution ambiguity problem is still live in production. Not a
+new decision (Q18 already decided this) and not a checker gap (the repo is
+correct); this is a rollout-status reconfirmation, not a fresh finding, so no
+new question is raised. A note recording this second confirmation should be
+added to Q18's own QUESTIONS.json record by whichever pass next has capacity
+to edit it (not done in this pass to keep scope to item 3.3's own
+verification plus the cross-item housekeeping fix above).
+
+Full page text read on the Eccleston UTI page (get_page_text, read-only):
+footer furniture reconfirmed unchanged from every prior pass - the standing
+Q37 set (singular "Fishlock Pharmacy"/"Fishlock Chemist" branding, "17
+Station Rd" abbreviated street name in the contact widget) is still present
+on both branch blocks in the shared site footer, and the footer's own opening
+hours text matches branches.json exactly on both branches (Eccleston
+Mon-Fri 9:00am-6:00pm, Sat 9:00am-12:00pm, Sun Closed; Ainsdale Mon-Fri
+8:45am-6:00pm, Sat/Sun Closed) - nothing new on either count.
+
+WORKLIST (step 7)
+Item 3.3's seventeenth-pass paragraph appended in place in AGENT_WORKLIST.md;
+item stays [x].
+
+QUESTIONS.json (step 8)
+Not touched this pass. The housekeeping fix closed a checker-residue gap
+rather than raising a decision; the live reconfirmation restates Q18's
+existing open finding rather than creating a new one.
+
+FORWARD NOTE for whoever runs next: 3.3 now touched today (2026-09-12)
+alongside 1.2, 1.3, 2.1, 2.3, 3.1, 3.2, 6.2 and 6.3; re-derive the rotation
+pool fresh. On item 3.3 itself: rule 6, rule 9 and the closedDays clash rule
+of check-opening-hours.js remain untested by injection against Fishlocks
+(noted above, no natural injection point on this branch pair's own data).
+check-whatsapp-route.js, check-address-region.js, check-service-links.js,
+check-page-coverage.js's ORPHAN_PAGE rule, check-editor-snapshot.js,
+check-branch-links.js, check-fragment-targets.js and check-cdn-pins.js have
+still never been named once for this item across seventeen passes.

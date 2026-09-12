@@ -3735,6 +3735,42 @@ audits/seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt.
       McCanns and Scorah, the other two shared-brand pairs Q18 names, are in
       the same state was not checked this run. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-11-sixteenth.txt.
+      Quality pass 2026-09-12 (seventeenth): no in-repo defect, plus a
+      housekeeping fix unrelated to this item and a live reconfirmation.
+      THE FRESH ANGLE: sixteen prior passes had proved thirteen other
+      checkers against Fishlocks' own pages by injection, but
+      tools/check-opening-hours.js had never been named once, despite
+      Eccleston being one of only seven branches estate-wide with a genuine
+      split-session day (Saturday layered on the weekday session), the exact
+      shape the checker's own history exists to protect. Two injections on a
+      scratch copy, each restored by byte copy and SHA256-reconfirmed before
+      the next and after the last: (1) the Saturday OpeningHoursSpecification
+      object removed whole from Eccleston's landing-page JSON-LD, visible
+      card untouched - CAUGHT by the JSON-LD-match rule, first attempt; (2)
+      Ainsdale's visible Friday row changed from "8.45am to 6pm" to
+      "8.45am to 5pm", data and JSON-LD untouched - CAUGHT by the
+      visible-card rule, first attempt. Both restores SHA256-confirmed
+      byte-identical; full 34-checker suite (cdn-pins and live-hours
+      excluded) clean after both. No in-repo defect: check-opening-hours.js
+      already correctly protects both Fishlocks landing pages on the
+      JSON-LD-match and visible-card rules, including Eccleston's own
+      split-session day, proven for the first time. HOUSEKEEPING: fixed
+      check-postcodes.js's pre-existing "L4 9SG" NARRATIVE_POSTCODES gap
+      (the 2.3 seventeenth pass's own restored injection value, quoted in
+      three places today without a list entry, left out of scope by both the
+      3.2 and 3.1 runs earlier today) - added the entry following the list's
+      own established convention; check-postcodes.js now exits 0. No page,
+      generator or branches.json touched by that fix. LIVE HALF: built-in
+      Claude Browser MCP reachable (Claude in Chrome was not). Read-only
+      inspection on both UTI pages reconfirms the sixteenth pass's finding:
+      thirteen days after the Q18 fix (2026-08-30), both Fishlocks branches'
+      live pages still serve the bare "Fishlocks Chemist" on data-branch and
+      JSON-LD name rather than the branch-specific value the repo generates -
+      the queued 72-page repaste still has not reached live. Not a new
+      question; the existing Q18 finding stands. Footer furniture (standing
+      Q37 set, opening hours text) reconfirmed unchanged and still correct
+      against branches.json. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-12-seventeenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
