@@ -3107,6 +3107,68 @@ audits/seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt.
       passes as evidence the SEO title field was never pasted. No in-repo
       defect, no new question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-11-sixteenth.txt.
+      Quality pass 2026-09-12 (seventeenth, unattended scheduled run via
+      Cowork, eighth run today, independently re-derived as stalest of the
+      36-item rotation pool after excluding the standing one-off set - 1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - via a header-block scan of this file for
+      "2026-09-12" co-occurring with "quality pass": items already touched
+      today were 1.2, 1.3, 2.1, 2.3, 3.1, 6.2, 6.3, leaving 3.2 as the lowest
+      remaining item number, matching the seventh run's own forward note).
+      REPO HALF ONLY (Claude in Chrome not connected this run; standing Q59,
+      no retry, no alternative route). Sixteen prior passes had proved
+      check-seo-pattern.js, check-seo-lengths.js, check-seo-sheets.js,
+      check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+      check-branch-links.js, check-booking-routes.js and check-gbp-packs.js
+      against Scorah's own 26 pages or its two GBP packs by injection;
+      check-app-membership.js had never been named once in this item's
+      history, despite both Scorah branches carrying hasApp false and both
+      having a generated switch page, landing page and GBP pack - all three
+      families this checker reads. Baseline: 35 of 36 checkers clean; the one
+      exception, check-postcodes.js failing on the narrative postcode
+      "L4 9SG", is the same pre-existing residue the seventh run today (item
+      3.1) recorded and left unfixed as out of scope, equally out of scope
+      here. branches.json sha256 confirmed unchanged throughout at the
+      standing regression anchor
+      904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e. Full
+      repo copied by tar (excluding .git) to a scratch directory under the
+      outputs mount, tracked repo never opened for writing. Six injections,
+      each restored by direct copy and sha256-reconfirmed byte-identical
+      before the next: (1) rule 2 - the full app-card block copied from
+      Fishlocks Ainsdale's switch page onto Scorah Bramhall's own switch page
+      (hasApp false) - CAUGHT, exactly one failure; (2) rule 3 - the "Manage
+      everything in the app" sentence appended to Scorah Hazel Grove's
+      landing page (hasApp false) - CAUGHT, exactly one failure; (3) rule 4 -
+      a stray app mention appended to Scorah Bramhall's own contraception
+      service page, a family that should never carry it - CAUGHT, exactly
+      one failure; (4) rule 8b - an app-related photo shot line added to
+      scorah-bramhall.md's shot list (hasApp false) - CAUGHT, exactly one
+      failure; (5) rule 8c - scorah-hazel-grove.md's paster note rewritten
+      from "hasApp false" to "hasApp true" (actually false) - CAUGHT, exactly
+      one failure; (6) rule 8d - an app sentence added to
+      scorah-hazel-grove.md's published business description while its note
+      still said "No app mention anywhere in this pack" - CAUGHT BOTH rules
+      8a and 8d together, exactly as the checker's own design intends since
+      they read different things (the field vs. the note-to-pack agreement).
+      All six fired on their intended rule(s) only, first attempt, no
+      unexplained cross-firing. Rules 1, 5, 6 and 7 judged not
+      branch-specific (schema presence, generator-wide app name/store URLs,
+      estate-wide paste-marker count) and rule 8e does not apply (neither
+      Scorah branch is a member; already proven elsewhere per the checker's
+      own header comment). Full 36-checker suite (cdn-pins excluded on the
+      scratch copy, established convention, no .git there) re-run clean
+      after all six restores bar the same pre-existing postcode finding;
+      tracked repo confirmed untouched by git status --porcelain (only the
+      two pre-existing untracked strays) and by sha256 on all six target
+      files, matching their pre-injection baseline exactly. No checker
+      logic, generator, branch data, page or pack content changed anywhere
+      in the tracked repo. LIVE HALF NOT PERFORMED (Chrome unreachable, see
+      above); the previously logged live-only findings (both landing pages
+      404; six sampled live pages declaring the bare shared brandLabel
+      "Scorah Chemists" in JSON-LD name rather than the branch-specific
+      name, first found 2026-09-06) were not re-checked this pass and should
+      not be assumed unchanged. No in-repo defect, no new question. Evidence
+      in audits/scorah-item-3.2-quality-pass-2026-09-12-seventeenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
