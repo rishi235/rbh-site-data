@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-11T06:10:09Z",
+  "generated_at": "2026-09-12T06:09:14Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 40,
+    "total": 34,
     "overdue": 16,
-    "due_next_7_days": 1,
-    "no_due_date": 20
+    "due_next_7_days": 0,
+    "no_due_date": 14
   },
   "tasks": [
     {
@@ -167,14 +167,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373771172802"
     },
     {
-      "gid": "1218344730184996",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-09-11",
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218344730184996"
-    },
-    {
       "gid": "1218234843096380",
       "name": "Security review: rbh-site-data GitHub repo is public",
       "due_on": "2026-09-21",
@@ -203,20 +195,14 @@
       "url": "https://app.asana.com/1/768589943956440/task/1214228582175827"
     },
     {
-      "gid": "1217797013377111",
-      "name": "",
-      "due_on": null,
+      "gid": "1218389054018316",
+      "name": "Look at fee's per item ratio for 28/56/84 cycle analysis instead of RWAPharmsmart - sort",
+      "due_on": "2026-10-11",
       "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797013377111"
-    },
-    {
-      "gid": "1217797013377108",
-      "name": "",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797013377108"
+      "projects": [
+        "Mission Control"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1218389054018316"
     },
     {
       "gid": "1217797013377103",
@@ -277,6 +263,14 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217550199023615"
     },
     {
+      "gid": "1218395053773629",
+      "name": "Pharmsmart",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1218395053773629"
+    },
+    {
       "gid": "1208715130577136",
       "name": "Phone records",
       "due_on": null,
@@ -325,52 +319,12 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1217052318049522"
     },
     {
-      "gid": "1217797048195481",
-      "name": "Review this content",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797048195481"
-    },
-    {
-      "gid": "1217797048628123",
-      "name": "Review this content",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797048628123"
-    },
-    {
-      "gid": "1217797233167385",
-      "name": "Review this content",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797233167385"
-    },
-    {
-      "gid": "1217797015583211",
-      "name": "Review this content",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1217797015583211"
-    },
-    {
-      "gid": "1218364251602984",
+      "gid": "1218388033267259",
       "name": "Set Up Claude Connector - RB Health",
       "due_on": null,
       "overdue": false,
       "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218364251602984"
-    },
-    {
-      "gid": "1218359539953783",
-      "name": "Set Up Claude Connector - RB Health",
-      "due_on": null,
-      "overdue": false,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218359539953783"
+      "url": "https://app.asana.com/1/768589943956440/task/1218388033267259"
     },
     {
       "gid": "1218359393603517",
