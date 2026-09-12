@@ -1,0 +1,105 @@
+=== Item 2.1 eighteenth quality pass: rule 4b same-host H1 collision ===
+Scratch root: /sessions/vigilant-compassionate-mccarthy/mnt/outputs/scratch-2.1-18
+
+--- Baseline full checker suite ---
+  FAIL  ref 'service-module-phase1' does not resolve in git - if it is gone from GitHub, 318 live page reference(s) lose modules/service/service.css
+  FAIL  ref 'service-module-phase1' does not resolve in git - if it is gone from GitHub, 318 live page reference(s) lose modules/service/service.js
+  FAIL  ref '6a275e1' does not resolve in git - if it is gone from GitHub, 30 live page reference(s) lose modules/switch/switch.css
+  FAIL  ref '6a275e1' does not resolve in git - if it is gone from GitHub, 30 live page reference(s) lose modules/switch/switch.js
+  FAIL  modules/service/service.js: fetches branches.json from ref 'main' at run time, and that ref does not resolve in git
+  FAIL  core/site-data.js: fetches branches.json from ref 'main' at run time, and that ref does not resolve in git
+check-cdn-pins: 6 failure(s), 0 warning(s), 6 known.
+36 checkers run, 1 non-zero exit.
+Non-clean checkers (recorded, expected only check-cdn-pins.js on a .git-less scratch copy):
+  check-cdn-pins.js
+
+Target file: /sessions/vigilant-compassionate-mccarthy/mnt/outputs/scratch-2.1-18/modules/service/pages/impetigo-treatment-fishlocks-eccleston.html
+Original sha256: e0727d794a04229e7b00389501dbfd1e50645ad7e8119a66290fc272ff4a5fa1
+Original H1: Impetigo treatment in Eccleston
+Ainsdale H1 to inject: Impetigo treatment in Ainsdale
+
+Injected. New sha256: faa101639dda355c21ee47bd5ccf1f0b792a2df2af6e2f439e0c9483de7e2612
+
+--- check-seo-lengths.js against injected state ---
+Exit code: 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 49 sharing an H1 with a page at another pharmacy
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-cherry-lane-walton.html and contraception-coleman-leigh-walton.html
+         NHS contraception service in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-fishlocks-ainsdale.html and contraception-hirshmans-ainsdale.html
+         NHS contraception service in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - contraception-sk-chemists-bootle.html and contraception-smartts-bootle.html
+         NHS contraception service in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-cherry-lane-walton.html and earache-treatment-coleman-leigh-walton.html
+         Earache treatment for children in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-fishlocks-ainsdale.html and earache-treatment-hirshmans-ainsdale.html
+         Earache treatment for children in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - earache-treatment-sk-chemists-bootle.html and earache-treatment-smartts-bootle.html
+         Earache treatment for children in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-cherry-lane-walton.html and impetigo-treatment-coleman-leigh-walton.html
+         Impetigo treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-fishlocks-ainsdale.html and impetigo-treatment-hirshmans-ainsdale.html; impetigo-treatment-fishlocks-eccleston.html and impetigo-treatment-hirshmans-ainsdale.html
+         Impetigo treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - impetigo-treatment-sk-chemists-bootle.html and impetigo-treatment-smartts-bootle.html
+         Impetigo treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-cherry-lane-walton.html and insect-bite-treatment-coleman-leigh-walton.html
+         Infected insect bite treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-fishlocks-ainsdale.html and insect-bite-treatment-hirshmans-ainsdale.html
+         Infected insect bite treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - insect-bite-treatment-sk-chemists-bootle.html and insect-bite-treatment-smartts-bootle.html
+         Infected insect bite treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-cherry-lane-walton.html and shingles-treatment-coleman-leigh-walton.html
+         Shingles treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-fishlocks-ainsdale.html and shingles-treatment-hirshmans-ainsdale.html
+         Shingles treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - shingles-treatment-sk-chemists-bootle.html and shingles-treatment-smartts-bootle.html
+         Shingles treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-cherry-lane-walton.html and sinusitis-treatment-coleman-leigh-walton.html
+         Sinusitis treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-fishlocks-ainsdale.html and sinusitis-treatment-hirshmans-ainsdale.html
+         Sinusitis treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - sinusitis-treatment-sk-chemists-bootle.html and sinusitis-treatment-smartts-bootle.html
+         Sinusitis treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-cherry-lane-walton.html and sore-throat-treatment-coleman-leigh-walton.html
+         Sore throat treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-fishlocks-ainsdale.html and sore-throat-treatment-hirshmans-ainsdale.html
+         Sore throat treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - sore-throat-treatment-sk-chemists-bootle.html and sore-throat-treatment-smartts-bootle.html
+         Sore throat treatment in Bootle
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-cherry-lane-walton.html and uti-treatment-coleman-leigh-walton.html
+         UTI treatment in Walton
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-fishlocks-ainsdale.html and uti-treatment-hirshmans-ainsdale.html
+         UTI treatment in Ainsdale
+  WARN H1 shared across pharmacies on different hosts (Q44) - uti-treatment-sk-chemists-bootle.html and uti-treatment-smartts-bootle.html
+         UTI treatment in Bootle
+
+  FAIL two branches on one website host share an H1, so they compete on one domain - www.fishlockpharmacy.co.uk: impetigo-treatment-fishlocks-ainsdale.html and impetigo-treatment-fishlocks-eccleston.html
+         Impetigo treatment in Ainsdale
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+
+Restored. sha256 after restore: e0727d794a04229e7b00389501dbfd1e50645ad7e8119a66290fc272ff4a5fa1
+Byte-identical restore: true
+
+--- Assertion ---
+Injection caught as rule 4b same-host FAIL naming fishlockpharmacy.co.uk: true
+
+--- Full checker suite after restore ---
+  FAIL  ref 'service-module-phase1' does not resolve in git - if it is gone from GitHub, 318 live page reference(s) lose modules/service/service.css
+  FAIL  ref 'service-module-phase1' does not resolve in git - if it is gone from GitHub, 318 live page reference(s) lose modules/service/service.js
+  FAIL  ref '6a275e1' does not resolve in git - if it is gone from GitHub, 30 live page reference(s) lose modules/switch/switch.css
+  FAIL  ref '6a275e1' does not resolve in git - if it is gone from GitHub, 30 live page reference(s) lose modules/switch/switch.js
+  FAIL  modules/service/service.js: fetches branches.json from ref 'main' at run time, and that ref does not resolve in git
+  FAIL  core/site-data.js: fetches branches.json from ref 'main' at run time, and that ref does not resolve in git
+check-cdn-pins: 6 failure(s), 0 warning(s), 6 known.
+36 checkers run, 1 non-zero exit.
+  check-cdn-pins.js
+After-restore failure set matches baseline failure set: true
+
+=== RESULT ===
+caught=true restoreOk=true afterMatchesBaseline=true
+PASS: rule 4b proven by injection, target file confirmed byte-identical after restore.

@@ -1028,6 +1028,90 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Ainsdale H1 onto Fishlocks Eccleston's own page rather than onto a
       same-branch page is the natural next angle for this item's
       eighteenth pass. Done 2026-09-11.
+      Quality pass 2026-09-12 (eighteenth pass): all 8 worklist items still
+      unchecked (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+      6.4/6.5/6.6) confirmed [BLOCKED] by direct grep, so the quality-pass
+      fallback applied. Rotation pool re-derived fresh via a Python
+      header-block parse of AGENT_WORKLIST.md's own "Done" dates (36-item
+      pool excluding the standing out-of-rotation set 1.1, 1.4, 2.2, 5.6,
+      5.7, 6.7, 6.8): 32 of the 36 tied at 2026-09-11, the other four
+      (1.2, 1.3, 6.2, 6.3) already touched earlier today. Lowest item
+      number tiebreak among the 32: 2.1, exactly matching the seventeenth
+      pass's own forward note.
+      FRESH ANGLE (the seventeenth pass's own forward note): rule 4b, two
+      branches on the SAME website host sharing an H1 (a FAIL), had been
+      proven for same-branch reuse (rule 4a) and cross-host overlap (rule
+      4c, a warning) but never for a same-host, cross-branch collision
+      specifically against Fishlocks Ainsdale.
+      New instrument, audits/verify-2.1-2026-09-12-eighteenth.js: refuses
+      to proceed past a clean baseline, captures original bytes and
+      sha256 before mutation, restores by direct fs.writeFileSync
+      immediately after capturing the checker's output and before any
+      assertion, sha256-reconfirms byte-identical restoration after the
+      injection and again at the end. Scratch copy via tar --exclude=
+      '.git' to a disposable directory under the outputs mount (root
+      filesystem at 75% full, avoided); tracked repo never opened for
+      writing.
+      Baseline: full 36-checker suite clean bar the documented .git-less
+      check-cdn-pins.js scratch-copy artefact (6 failures, all "ref does
+      not resolve in git" / "fetches branches.json from ref main", the
+      same shape recorded on every prior pass that has used this scratch
+      method).
+      Injection: Fishlocks Ainsdale's own impetigo-treatment H1
+      ("Impetigo treatment in Ainsdale") copied onto Fishlocks
+      Eccleston's own impetigo-treatment page, overwriting its native H1
+      ("Impetigo treatment in Eccleston") - the one service pairing on
+      this host neither the sixteenth nor seventeenth pass had touched.
+      CAUGHT first attempt: check-seo-lengths.js rule 4 failed with
+      "two branches on one website host share an H1, so they compete on
+      one domain - www.fishlockpharmacy.co.uk: impetigo-treatment-
+      fishlocks-ainsdale.html and impetigo-treatment-fishlocks-
+      eccleston.html", naming the shared host directly. Restored by
+      direct fs.writeFileSync; sha256 reconfirmed byte-identical before
+      and after (e0727d79...4a5fa1 both times). Full 36-checker suite
+      re-run after restore: identical failure set to baseline
+      (check-cdn-pins.js only, same six messages).
+      Tracked repo confirmed untouched throughout: git status --porcelain
+      -- modules core branches.json gbp-packs showed only the two
+      pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither created by this pass; branches.json sha256 unchanged at
+      904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e,
+      matching the standing regression anchor; a direct run of all 36
+      tools/check-*.js against the tracked repo (which has .git, so
+      check-cdn-pins resolves normally) was clean, 36/36 exit 0.
+      LIVE HALF (read-only curl; Claude in Chrome checked via
+      tabs_context_mcp, reported not connected, no retry or alternative
+      route per standing procedure). fishlockpharmacy.co.uk/sitemap.xml
+      still 200 with every lastmod fixed at 2026-08-14T17:32:10 (Q35's
+      underlying non-publish, now 29 days). The live impetigo-treatment
+      H1s at Ainsdale and Eccleston remain distinct today ("Impetigo
+      treatment in Ainsdale" / "...in Eccleston"), so the collision this
+      pass proved possible by injection is not today's live reality.
+      pharmacy-fishlocks-ainsdale.html still 404 (Q35, unchanged).
+      contact.html still names the business "Fishlock Pharmacy" (x4),
+      "Fishlock Chemist" (x1) and abbreviates "17 Station Rd" (x2)
+      alongside the correct "Fishlocks Chemist" (x5) (Q37, unchanged).
+      Q57's page, weight-loss-services-eccleston-ainsdale.html, still 200
+      and still carries "Real Results" plus all three POM names,
+      Mounjaro, Orlistat and Wegovy (unchanged). No new question raised;
+      all live findings are reconfirmation of existing standing state.
+      RESULT: zero in-repo defect. check-seo-lengths.js's rule 4b, the
+      shared-domain self-competition FAIL that CLAUDE.md and items 2.2/
+      3.2 exist to prevent, is now proven directly by injection against
+      this specific branch pair for the first time in eighteen passes.
+      No new question - Q37 and Q57 stand unchanged.
+      FORWARD NOTE: of check-seo-lengths.js's four H1 legs, only 4b and
+      4c are now proven against Fishlocks Ainsdale by direct injection
+      across the last two passes; 4a (same-branch reuse) was proven on
+      the sixteenth pass but against a different page pair each time is
+      worth re-confirming on a future pass rather than assumed durable.
+      Separately, no pass on this item has yet exercised
+      check-page-coverage.js's ORPHAN_PAGE rule (a page on disk that
+      resolves to no earned branch/service combination) specifically via
+      a Fishlocks Ainsdale page, only NOT_BUILT, PAGE_MISSING and
+      LANDING_NOT_BUILT (sixteenth pass) - a candidate fresh angle for a
+      future pass. Done 2026-09-12.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
