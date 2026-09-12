@@ -1,0 +1,83 @@
+Item 1.3 quality pass (eighteenth), 2026-09-12, unattended scheduled run.
+
+METHOD
+Seventeen prior passes tested whether PC_RE/PC_RE_LOOSE could read a
+postcode in some new typographic form, or re-proved rules 0/4/7 and the
+narrative staleness checks. This pass changed angle to rule 6's NAMING half
+for the first time since the seventeenth pass's case-insensitivity fix:
+aliasOf() drops the generic suffix ("Chemist"/"Chemists"/"Pharmacy") but
+still requires the town to be present, so a line naming a branch by the
+bare brand word ALONE - "Smartts", "Riddings" - matches neither branchName
+nor alias and is invisible to rule 6.
+
+PROOF (before fix)
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md line 174 already reads
+"Verified identical at Smartts, Riddings and SK Chemists" in exactly this
+bare style for two of its three branches. Injected an equivalent sentence
+on a scratch copy (git archive HEAD, outside the tracked tree):
+  "Smartts's own registered pharmacy address postcode is L23 3AT, confirmed
+  against the pack."
+L23 3AT is Gordon Short Chemist Crosby's real postcode, wrong for Smartts
+Chemist Bootle (own: L20 9HH). Unmodified check-postcodes.js: 917 files
+scanned, 0 failures, 3 warnings - identical to the pre-injection baseline.
+Restored by byte copy (git show HEAD:...) and sha256-reconfirmed identical
+(0525909b...295e8a03d) before and after.
+
+FIX
+1. bareStemOf(b): the brandLabel with the generic suffix stripped, offered
+   as a THIRD naming candidate alongside branchName and alias, matched at a
+   WORD BOUNDARY (not plain substring, unlike the other two) because a bare
+   stem this short risks being swallowed by or swallowing a longer word.
+   Gated on uniqueness among live branches (Scorah/McCanns/Fishlocks each
+   name two branches, so their bare stems stay genuinely ambiguous and
+   correctly unmatched) and a minimum length of 5 characters, which keeps
+   "SK" (skchemists_bootle's stem) out - a 2-letter token would turn "ask",
+   "task", "risk" and "SK7" itself into false MISATTRIB candidates.
+2. Repo-wide sweep (old branchName/alias-only vs new +bare-stem matching,
+   66,552 lines across every in-scope file) found clearchemist_aintree's
+   stem, "Clear", is also an ordinary English word: 52 lines of routine
+   prose ("it is clear the customer...", "CLEAR means...") would have been
+   wrongly attributed to Clear Chemist Aintree. No shape-based rule
+   distinguishes "Clear" from "Riddings"/"Smartts"/"Tiffenbergs"/etc, so it
+   is named explicitly in BARE_STEM_EXCLUDE with a reason, staleness-checked
+   like every other exemption list in this file.
+3. Re-swept with "Clear" excluded: 506 lines move from 0/ambiguous matches
+   to exactly 1 (new coverage, spot-checked across all 8 affected branches,
+   all genuine), and 6 lines move from 1 match to 2+ (all genuine
+   multi-branch sentences the old match had been under-attributing to one
+   branch by substring luck - the same "more correct, not a regression"
+   shape the twelfth and seventeenth passes already established). None of
+   the 506 or the 6 carries a postcode today.
+4. Running the fixed checker on the TRACKED repo (not the injection) found
+   one genuine false positive the sweep's line-count comparison couldn't
+   surface, since it wasn't a NEW single match but a coincidence: line 538
+   of the same compliance file reads "...unlike Hirshmans, no address error
+   was found on this instance" inside a paragraph that is entirely about
+   Tiffenbergs Chemist Aintree's own, correct address (L9 9DB). Bare-stem
+   matching now sees "Hirshmans" on that specific line (Tiffenbergs was
+   named several lines earlier in the same paragraph, out of rule 6's
+   per-line scope), and nothing on the line disambiguates a comparative
+   reference from a claim. Added MISATTRIB_KNOWN, keyed on file + wrongly-
+   named branch + the postcode actually present, staleness-checked (an
+   entry that does not fire this run fails the run).
+
+VERIFICATION
+- Original injection re-run against the fixed checker: now fails as
+  MISATTRIB, naming Smartts Chemist and gordonshorts_crosby. Restored,
+  sha256-reconfirmed identical.
+- BARE_STEM_EXCLUDE staleness negative test: renaming the "clear" key so it
+  matches no branch fires "STALE BARE_STEM_EXCLUDE names...". Restored.
+- MISATTRIB_KNOWN staleness negative test: changing the excused postcode so
+  the entry cannot fire produces "STALE MISATTRIB_KNOWN names...". Restored.
+- Full 36-checker suite on the tracked repo: 36/36 exit 0.
+- git diff --stat -- modules/ core/ branches.json gbp-packs/: empty. Only
+  tools/check-postcodes.js changed (142 insertions, 1 deletion). branches.json
+  sha256 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e,
+  matching the standing regression anchor.
+- check-postcodes.js standalone on the tracked repo: 1016 text files
+  scanned, 34 distinct postcodes, 0 failures, 3 warnings (the three standing
+  UNOWNED notices, unchanged).
+
+No live branch, page, pack or paste block carries a wrong postcode today.
+This closes a latent gap in rule 6's naming logic, not a live breach. No
+new question.

@@ -445,6 +445,122 @@ var aliasOf = (function () {
   };
 })();
 
+// Rule 6's second shorthand: the BARE brand word alone, with neither the
+// generic suffix nor the town. Found on the item 1.3 quality pass
+// (eighteenth), 2026-09-12. aliasOf() above drops the generic suffix but
+// still requires the town to be present, so a line that names a branch by
+// the brand word ON ITS OWN - "Smartts", "Riddings" - matches neither
+// branchName (which still carries the generic word) nor alias (which still
+// carries the town), and rule 6 never sees it at all. Not theoretical:
+// compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md line 174, a real, tracked,
+// non-narrative sentence, already reads "Verified identical at Smartts,
+// Riddings and SK Chemists" - bare style for two of its three branches.
+// Proved by injection on a scratch copy: an equivalent sentence ("Smartts's
+// own registered pharmacy address postcode is L23 3AT", Gordon Short
+// Crosby's real postcode, wrong for Smartts Chemist Bootle's own L20 9HH)
+// passed all 36 checkers in total silence.
+//
+// A bare single word needs two guards branchName and alias do not, both
+// gated the same way every other exemption in this file is: named, reasoned,
+// and checked for staleness rather than hand-picked once and forgotten.
+//
+// First, uniqueness among live branches. Scorah, McCanns and Fishlocks each
+// name two branches, so a bare "Scorah" or "McCanns" is genuinely ambiguous
+// - correctly unattributable to one branch, not a gap - and stemCounts below
+// keeps those three out.
+//
+// Second, a minimum length of five characters, which is what keeps "SK" out.
+// A two-letter stem would turn "ask", "task", "risk" and even "SK7" itself
+// into a MISATTRIB candidate on every line that happens to carry any other
+// branch's real postcode - the exact "cries wolf" failure the comment above
+// INTEREST already warns against, one rule further along.
+//
+// Length and uniqueness are not enough by themselves, though: a repo-wide
+// sweep comparing old (branchName/alias only) against new (plus the bare
+// stem) matching, the same method the twelfth and seventeenth passes used,
+// found clearchemist_aintree's bare stem, "Clear", is also an ordinary
+// English word - it turned 52 routine sentences ("it is clear the customer
+// is being offered...", "CLEAR means the reference permits it") into a false
+// single-branch attribution, none of which name the branch at all. There is
+// no shape-based rule that keeps "Clear" out while keeping "Riddings",
+// "Smartts", "Tiffenbergs", "Hirshmans", "Gordon Short", "Cherry Lane" and
+// "Coleman and Leighs" in - none of those seven are ordinary English words,
+// "Clear" is the one that is - so BARE_STEM_EXCLUDE names it explicitly,
+// with a reason, the same convention as NARRATIVE_POSTCODES and
+// DELIBERATE_SHARED_POSTCODES elsewhere in this file. The staleness check
+// below fails the run if the excluded key ever stops matching any live
+// branch's stem, so the exclusion cannot rot into excusing something else.
+//
+// Re-verified after excluding "Clear": the same repo-wide sweep found 506
+// lines moving from zero or ambiguous matches to exactly one, all of them
+// genuine single-branch mentions (spot-checked across all eight affected
+// branches), and 6 lines moving from one match to two or more - all six
+// genuine multi-branch sentences the old match had been under-attributing to
+// one branch by substring luck, the same "more correct, not a regression"
+// shape the twelfth pass's alias widening and the seventeenth pass's
+// case-insensitivity fix both already established. None of the 506 or the 6
+// carries a postcode today, so this closes a latent gap rather than a live
+// breach. Re-verified on the original injection: the Smartts sentence above
+// now fails as MISATTRIB; reverted by byte copy and sha256-reconfirmed
+// identical, then applied to the tracked checker and re-verified there too.
+var BARE_STEM_EXCLUDE = {
+  "clear": "clearchemist_aintree's bare stem is also an ordinary English word; " +
+    "word-boundary matching on it flags routine prose (\"it is clear that...\"), not a branch mention."
+};
+var bareStemOf = (function () {
+  var counts = {};
+  branches.forEach(function (b) {
+    var s = (b.brandLabel || "").replace(GENERIC_SUFFIX, "").trim().toLowerCase();
+    if (s) counts[s] = (counts[s] || 0) + 1;
+  });
+  var cache = {};
+  return function (b) {
+    if (Object.prototype.hasOwnProperty.call(cache, b.id)) return cache[b.id];
+    var stem = (b.brandLabel || "").replace(GENERIC_SUFFIX, "").trim();
+    var key = stem.toLowerCase();
+    var bare = (stem.length >= 5 && counts[key] === 1 && !BARE_STEM_EXCLUDE[key]) ? stem : null;
+    cache[b.id] = bare;
+    return bare;
+  };
+})();
+function bareStemHit(lineLower, phrase) {
+  if (!phrase) return false;
+  var esc = phrase.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp("\\b" + esc + "\\b").test(lineLower);
+}
+
+// Rule 6's own known-exception list. Found while proving the bare-stem
+// widening above on the tracked repo (not the scratch injection): rule 6
+// has no way to parse negation or comparison, only "one branch named, one
+// postcode present, they must match." A line can legitimately CONTRAST one
+// branch's fact against another's, naming the branch that is NOT being
+// described.
+// compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md:538 reads "The legacy
+// page's own footer address (388 Longmoor Lane, Aintree, Liverpool L9 9DB)
+// matches branches.json; unlike Hirshmans, no address error was found on
+// this instance." - inside a paragraph that is entirely about Tiffenbergs
+// Chemist Aintree's own, correct address (L9 9DB); "Hirshmans" is only a
+// backward reference to a DIFFERENT branch's earlier, separate finding
+// (Q85). Before the bare-stem widening this line matched zero branches and
+// was silently skipped, which is why seventeen prior passes never surfaced
+// it; the widening makes "Hirshmans" visible here for the first time and,
+// with nothing else on this specific line to disambiguate it, rule 6 reads
+// it as a misattribution. It is not one: no page, pack, paste block or
+// patient-facing copy is affected, this is prose in an internal compliance
+// file describing what a checker already correctly confirmed elsewhere.
+// Keyed on the file, the wrongly-named branch and the postcode actually on
+// the line, so this excuses only this exact combination - anything else
+// naming Hirshmans against a real foreign postcode anywhere else still
+// fails. The staleness check below fails the run if the sentence moves, is
+// removed, or the postcode changes, so the exemption cannot silently start
+// covering a different, real error.
+var MISATTRIB_KNOWN = {
+  "compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md::hirshmans_ainsdale::L9 9DB":
+    "Comparative reference (\"unlike Hirshmans\") inside a paragraph about " +
+    "Tiffenbergs Chemist Aintree's own, correct address; not a misattribution."
+};
+var misattribKnownUsed = {};
+
 var failures = [];
 var warnings = [];
 var seenPostcodes = {};      // postcode -> [every file carrying it]
@@ -627,7 +743,8 @@ function checkFile(p) {
       branches.forEach(function (b) {
         var alias = aliasOf(b);
         var hit = (b.branchName && lineLower.indexOf(b.branchName.toLowerCase()) !== -1) ||
-                  (alias && lineLower.indexOf(alias.toLowerCase()) !== -1);
+                  (alias && lineLower.indexOf(alias.toLowerCase()) !== -1) ||
+                  bareStemHit(lineLower, bareStemOf(b));
         if (hit && !namedIds[b.id]) { namedIds[b.id] = 1; named.push(b); }
       });
       if (named.length !== 1) return;
@@ -636,6 +753,8 @@ function checkFile(p) {
       if (!want) return;
       extract(line).forEach(function (pc) {
         if (pc !== want && byPostcode[pc]) {
+          var knownKey = r + "::" + b.id + "::" + pc;
+          if (MISATTRIB_KNOWN[knownKey]) { misattribKnownUsed[knownKey] = true; return; }
           fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + b.branchName +
                " (" + want + ") but carries " + pc + " (" + byPostcode[pc].id + ")");
         }
@@ -761,6 +880,28 @@ Object.keys(NARRATIVE_POSTCODES).forEach(function (pc) {
 NARRATIVE_FILES.forEach(function (f) {
   if (!fs.existsSync(path.join(ROOT, f))) {
     fail("STALE    NARRATIVE_FILES names " + f + ", which is not in the repo. Remove the entry or restore the file.");
+  }
+});
+
+// BARE_STEM_EXCLUDE staleness, same convention as the two checks above: an
+// excluded key that no longer matches any live branch's bare stem is
+// excusing nothing and must not sit here unnoticed, in case a future rename
+// lets it silently start excusing a different branch's word by coincidence.
+Object.keys(BARE_STEM_EXCLUDE).forEach(function (key) {
+  var stillMatches = branches.some(function (b) {
+    if (b.disposed) return false;
+    return (b.brandLabel || "").replace(GENERIC_SUFFIX, "").trim().toLowerCase() === key;
+  });
+  if (!stillMatches) {
+    fail("STALE    BARE_STEM_EXCLUDE names \"" + key + "\", which is no live branch's bare stem any more. Remove the entry.");
+  }
+});
+
+// MISATTRIB_KNOWN staleness, same convention: an entry that never fired this
+// run is excusing nothing and must not sit here unnoticed.
+Object.keys(MISATTRIB_KNOWN).forEach(function (key) {
+  if (!misattribKnownUsed[key]) {
+    fail("STALE    MISATTRIB_KNOWN names \"" + key + "\", which did not fire this run. Remove the entry.");
   }
 });
 

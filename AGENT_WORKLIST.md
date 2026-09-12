@@ -20760,6 +20760,59 @@ appended to the line. Do not move them; the status page reads them in place.
       4JP Sandringham), no CH49 1SX. No new question. Done 2026-09-11.
       Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-11-seventeenth.txt.
+      Quality pass 2026-09-12 (eighteenth pass, unattended scheduled run): a
+      real, previously-latent gap found and fixed in check-postcodes.js; no
+      in-repo data defect, no live branch affected. The seventeen prior passes
+      widened or re-proved what postcode PC_RE/PC_RE_LOOSE could read, or the
+      DISPOSED/DUPLICATE/MALFORMED rules; this pass changed angle to rule 6's
+      NAMING half for the first time since the seventeenth pass's case-
+      insensitivity fix. aliasOf() drops the generic suffix but still requires
+      the town, so a line naming a branch by the BARE brand word alone -
+      "Smartts", "Riddings" - matches neither branchName nor alias. Not
+      theoretical: compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md line 174
+      already reads "Verified identical at Smartts, Riddings and SK Chemists"
+      in exactly this bare style. Proved on a scratch copy (git archive HEAD,
+      outside the tracked tree): an equivalent sentence naming Smartts bare
+      and carrying Gordon Short Crosby's real postcode (L23 3AT, wrong for
+      Smartts' own L20 9HH) passed all 36 checkers in total silence, files-
+      scanned count unchanged. Fix: bareStemOf(), a third naming candidate
+      (brandLabel minus the generic suffix), matched at a WORD BOUNDARY,
+      gated on uniqueness among live branches (Scorah/McCanns/Fishlocks each
+      name two branches, so their bare stems stay correctly ambiguous) and a
+      minimum length of 5, which keeps "SK" out - a 2-letter stem would have
+      turned "ask", "task", "risk" and "SK7" itself into false MISATTRIB
+      candidates. A repo-wide sweep (66,552 lines, old vs new matching) found
+      clearchemist_aintree's stem, "Clear", is also an ordinary English word:
+      52 lines of routine prose would have been wrongly attributed to it, so
+      it is named in a new, staleness-checked BARE_STEM_EXCLUDE with a
+      reason, the same convention as every other exemption list in this file.
+      Re-swept with "Clear" excluded: 506 lines move from zero/ambiguous
+      matches to exactly one (spot-checked across all 8 affected branches,
+      all genuine), 6 lines move from one match to two or more (all genuine
+      multi-branch sentences the old match had under-attributed by substring
+      luck, the same "more correct, not a regression" shape as the twelfth
+      and seventeenth passes); none of either set carries a postcode today.
+      Running the fixed checker on the TRACKED repo (not the injection)
+      surfaced one genuine false positive the line-count sweep could not see:
+      line 538 of the same compliance file reads "...unlike Hirshmans, no
+      address error was found..." inside a paragraph entirely about
+      Tiffenbergs Chemist Aintree's own correct address (L9 9DB); bare-stem
+      matching now sees "Hirshmans" on that specific line (Tiffenbergs was
+      named several lines earlier, out of rule 6's per-line scope), with
+      nothing to tell a comparative reference from a claim. Added
+      MISATTRIB_KNOWN, keyed on file plus wrongly-named branch plus the
+      postcode actually present, staleness-checked like the others. Re-
+      verified: original injection now fails as MISATTRIB after the fix and
+      passed silently before it, restored by byte copy and sha256-
+      reconfirmed identical (0525909b...295e8a03d) both times; both new
+      staleness guards fire on a negative test and were reverted. Full
+      36-checker suite re-run clean on the tracked repo (36/36 exit 0); git
+      diff --stat -- modules/ core/ branches.json gbp-packs/ empty; only
+      tools/check-postcodes.js changed (142 insertions, 1 deletion);
+      branches.json sha256 904de09b...969e1e, matching the standing
+      regression anchor. No live branch, page, pack or paste block carries a
+      wrong postcode today. No new question. Done 2026-09-12. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-12-eighteenth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
