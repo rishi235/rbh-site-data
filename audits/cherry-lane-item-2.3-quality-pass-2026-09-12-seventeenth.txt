@@ -1,0 +1,157 @@
+Item 2.3 (Cherry Lane Pharmacy Walton) - seventeenth quality pass
+Run: 2026-09-12, unattended scheduled run (audit-backlog-worker), Cowork sandbox shell
+  for repo work and injection; Claude in Chrome not connected (tabs_context_mcp
+  reported "Claude in Chrome is not connected", standing Q59) - no retry, no
+  alternative route; live half done via read-only curl GET.
+
+SELECTION
+All eight remaining unchecked worklist lines are [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so the quality-pass
+fallback applied (step 5). Rotation pool re-derived: 36 eligible items minus the
+standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) minus the five
+items already touched today by this run-chain's predecessors (1.2, 1.3, 2.1,
+6.2, 6.3, confirmed by locating the nearest checkbox header before each
+2026-09-12 "quality pass" mention in AGENT_WORKLIST.md). Remaining 31 candidates
+tied at last-touched 2026-09-11 per the sixteenth pass's own forward note;
+lowest item number is 2.3. Confirmed directly: item 2.3's own text shows its
+sixteenth pass dated 2026-09-11, no 2.3 mention dated 2026-09-12 exists yet.
+
+BASELINE
+Full 35-checker suite run directly against the tracked repo (which has .git,
+so check-cdn-pins.js resolves normally): 35/35 exit 0.
+
+FRESH ANGLE
+tools/check-map-embeds.js had never been proven by injection against Cherry
+Lane's own pages in sixteen prior passes (checker name absent from item 2.3's
+own text beforehand, confirmed by grep). It is a well-scoped, high-value
+target per its own file header: the Google Maps iframe in the contact card is
+"the last piece of branch data that reaches a patient" and was, before its own
+introduction on the 3.9 pass, read by no checker at all - six generators
+compose the query the same way "by coincidence... not by rule".
+
+METHOD
+Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch-2.3-seventeenth
+(no .git in the scratch copy). Tracked repo never opened for writing at any
+point in this pass; confirmed at the end via `git status --porcelain -- modules
+core branches.json gbp-packs tools`, which showed only the two pre-existing
+untracked strays already logged by prior passes
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+created by this pass.
+
+Baseline scratch-copy suite: all 35 checkers (check-cdn-pins.js excluded, the
+scratch copy has no .git so it cannot resolve a live ref - the same documented
+limitation every prior pass using this method has recorded) exit 0.
+Baseline SHA256:
+  modules/service/pages/uti-treatment-cherry-lane-walton.html
+    a6971686f13c2a6d645754298943243570a9cfbd394825b8a81afb62d962789c
+  modules/switch/pages/switch-prescriptions-cherry-lane-walton.html
+    a0090a6c2fbecb4b45c5daeefc99119763bd95f92b1a626bb9547c665c1a38c6
+
+Three injections on the scratch copy, each restored by byte copy from the
+tracked repo and SHA256-reconfirmed before the next and after the last:
+
+(1) RULE 5 (encoding). UTI page: appended "&extra=1" after "&output=embed" in
+    the map iframe's src, breaking the checker's expected URL shape
+    (^https://www.google.com/maps\?q=([^&]*)&output=embed$) without touching
+    the query value itself.
+    CAUGHT, first attempt, exactly one failure:
+      FAIL [encoding] .../uti-treatment-cherry-lane-walton.html: map src is
+      not the shape https://www.google.com/maps?q=<encoded>&output=embed: ...
+    No other rule fired - a clean, isolated hit.
+
+(2) RULE 3 (the address) + RULE 4 (agreement). UTI page: changed only the map
+    iframe's encoded postcode from L4%208SG to L4%209SG, leaving the visible
+    contact-card address ("202 Cherry Lane, Liverpool, L4 8SG") untouched.
+    CAUGHT, first attempt, two failures, both expected and both correct:
+      FAIL [the address]: map points at "...L4 9SG" and branches.json gives
+      this branch "...L4 8SG"
+      FAIL [agreement]: contact card reads "...L4 8SG" and the map underneath
+      it points at "...L4 9SG"
+    This double-hit is the natural signature of the real-world fault the rule
+    pair exists to catch (a map query drifting from the branch record while
+    the visible words above it do not move with it), not a bug in the test -
+    isolating rule 3 alone would need the contact card changed to agree with
+    the wrong value too, which would just move the finding into a different,
+    already-guarded checker's territory (visible-copy address matching) rather
+    than testing this checker cleanly.
+
+(3) RULE 2 (coverage). Switch page: duplicated the entire map iframe element
+    verbatim immediately after itself, so the page carries two identical
+    embeds.
+    CAUGHT, first attempt, exactly one failure:
+      FAIL [coverage] .../switch-prescriptions-cherry-lane-walton.html:
+      carries 2 map embed(s), expected exactly 1
+
+All three fired on their intended rule with no unexpected cross-firing (aside
+from the deliberately-expected rule 3/4 pairing in injection 2). File restored
+and SHA256-reconfirmed identical to baseline after each injection and again
+after the last. Full 35-checker suite re-run clean on the scratch copy after
+final restore.
+
+SCOPE NOTE: RULE 6 (directions button) could not be exercised against Cherry
+Lane specifically - grep for "maps/dir" against both the UTI page and the
+switch page returns zero matches. The "Get directions" button only exists on
+the six branch landing pages (modules/branch/pages), and Cherry Lane has none
+(correctly - see the item's original build entry). This is a scope limit of
+the branch, not a gap in the checker or in this pass.
+
+LIVE HALF (read-only curl GET throughout; nothing clicked, typed, submitted or
+logged in anywhere)
+
+check-map-embeds' own subject matter, checked live: fetched
+uti-treatment-cherry-lane-walton.html, pharmacy-first-cherry-lane-walton.html
+and switch-prescriptions-cherry-lane-walton.html from cherrylanepharmacy.co.uk
+(all HTTP 200). All three carry exactly one map embed each, and on all three
+the decoded map query and the visible contact-card address both read "202
+Cherry Lane, Liverpool, L4 8SG" - matching branches.json and matching each
+other. No live map-embed defect found; the live site is clean on the exact
+subject this pass's injections targeted.
+
+Three previously-logged live-only findings reconfirmed, none in copy this repo
+owns:
+  - Q95's fault is BACK live (this is the fifth distinct observation of the
+    oscillation: broken 2026-08-04, 2026-09-04, 2026-09-05, 2026-09-11, now
+    2026-09-12; fixed 2026-09-02, 2026-09-09). Five of the seven Pharmacy
+    First condition cards on the overview page (sinusitis, earache, impetigo,
+    shingles, infected insect bite) again render "Page coming soon" inside an
+    <em> tag with no href, confirmed in the raw server-rendered HTML. Sore
+    throat and UTI still render correctly. The repo's own generated page
+    remains correct throughout. Evidence appended to Q95, status left open,
+    not re-raised as a new question.
+  - The switch page's SEO title is still the pre-Phase-3 string "Switch Your
+    Prescriptions - Cherry Lane Pharmacy Walton" (tracked under 3.1/5.1/Q3).
+  - The switch page body still renders the em dash in "How switching to
+    Cherry Lane Pharmacy works... it usually is not [em dash] we make the
+    first step quick and easy" as visible mojibake; raw bytes confirmed
+    \xc3\x94\xc3\x87\xc3\xb6 ("ÔÇö"), matching the exact byte sequence
+    independently recorded by the fifteenth and sixteenth passes.
+
+The Q36 footer NHS mailbox typo (pharmacy.FA226@mhs.net) was not observed on
+any of the three pages fetched this pass (no "pharmacy.*@" string of any kind
+present) - consistent with its already-logged instability; not re-raised.
+
+RESULT
+No in-repo defect found. No checker gap found. No page or rule byte changed.
+No new question raised. Q95 updated with a fifth oscillation observation
+(status left open, per precedent).
+
+FORWARD NOTE
+Item 2.3 now touched today (2026-09-12) alongside 1.2, 1.3, 2.1, 6.2 and 6.3;
+re-derive the rotation pool fresh next run. Remaining candidates tied at
+2026-09-11 (everything in the 36-item pool except 1.1, 1.2, 1.3, 1.4, 2.1, 2.2,
+2.3, 5.6, 5.7, 6.2, 6.3, 6.7, 6.8): 3.1-3.13, 4.1-4.15, 5.1, 5.2 - lowest is
+3.1. Checkers now proven against Cherry Lane's own pages across seventeen
+passes: check-pharmacy-first-eligibility (4th), check-switch-copy (9th),
+check-brand-spelling/check-uk-spelling/check-url-scheme (10th),
+check-booking-routes (11th), check-jsonld (12th), check-travel-clinic-copy
+(14th), check-seo-pattern (15th), check-page-coverage (16th), check-map-embeds
+(this pass). Still untested by injection against this branch specifically:
+check-address-region, check-app-membership, check-branch-links,
+check-contraception-copy, check-fragment-targets, check-gbp-packs,
+check-gbp-pharmacy-first, check-live-hours, check-opening-hours,
+check-pharmacy-first-cost, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-postcodes, check-seo-keywords,
+check-seo-lengths, check-seo-sheets, check-service-links,
+check-weight-loss-copy, check-whatsapp-route, check-widget-diaries - a wide
+field of candidates for whoever runs the item's eighteenth pass.

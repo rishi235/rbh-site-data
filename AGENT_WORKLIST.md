@@ -1882,6 +1882,60 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       instability; not re-raised. No new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-11-sixteenth.txt. Done
       2026-09-11.
+      Seventeenth quality pass 2026-09-12 (unattended scheduled run, Cowork
+      sandbox shell). Repo half clean again: baseline full 35-checker suite
+      exit 0 on the tracked repo. FRESH ANGLE: tools/check-map-embeds.js had
+      never been proven by injection against Cherry Lane's own pages in
+      sixteen prior passes. Full repo exported via git archive to a scratch
+      directory, tracked repo never opened for writing. Three injections,
+      each restored by byte copy and SHA256-reconfirmed before the next and
+      after the last: (1) the UTI page's map iframe src had "&extra=1"
+      appended after "&output=embed" - caught, rule 5 (encoding), one clean
+      isolated failure; (2) the UTI page's map query postcode changed from
+      L4%208SG to L4%209SG while the visible contact-card address was left
+      untouched - caught, rule 3 (the address, vs branches.json) and rule 4
+      (agreement, vs the contact card) both fired, the natural double-hit
+      this rule pair exists to produce for a map that drifts from the branch
+      record without the visible copy moving with it; (3) the switch page's
+      map iframe was duplicated verbatim - caught, rule 2 (coverage), "2 map
+      embed(s), expected exactly 1". All three caught first attempt, on
+      their intended rule, full 35-checker suite (check-cdn-pins.js
+      excluded, scratch copy has no .git) clean after final restore, tracked
+      repo confirmed untouched throughout (git status --porcelain showed
+      only the two pre-existing untracked strays). Rule 6 (directions
+      button) could not be exercised against Cherry Lane - it has no branch
+      landing page, the only family carrying that button - a scope limit of
+      the branch, not a gap. No checker gap found, no in-repo defect, no
+      rule or page byte changed.
+      LIVE HALF PERFORMED (Claude in Chrome not connected, standing Q59, not
+      retried by any other route, no login attempted; read-only curl GET
+      from the Cowork sandbox shell against three live pages, no click, no
+      submit, no login). check-map-embeds' own subject checked live: all
+      three pages fetched (UTI, Pharmacy First overview, switch) carry
+      exactly one map embed each, and on all three the decoded map query and
+      the visible contact-card address both read "202 Cherry Lane,
+      Liverpool, L4 8SG", matching branches.json and each other - the live
+      site is clean on the exact subject this pass's injections targeted.
+      SIGNIFICANT FINDING: Q95's fault is BACK live again - the fifth
+      distinct oscillation observation (broken: 2026-08-04, 2026-09-04,
+      2026-09-05, 2026-09-11, now 2026-09-12; fixed: 2026-09-02, 2026-09-09).
+      Five of the seven Pharmacy First condition cards (sinusitis, earache,
+      impetigo, shingles, infected insect bite) again show "Page coming
+      soon" inside an <em> tag with no href; sore throat and UTI still
+      render as real anchors. The repo's own generated page remains correct
+      and unchanged. Evidence appended to Q95, status left open, not
+      re-raised. Two previously-logged live-only faults on the switch page
+      reconfirmed unchanged: the pre-Phase-3 SEO title ("Switch Your
+      Prescriptions - Cherry Lane Pharmacy Walton"), and the "How switching
+      to Cherry Lane Pharmacy works" paragraph's em dash still rendering as
+      mojibake, raw bytes reconfirmed \xc3\x94\xc3\x87\xc3\xb6 ("ÔÇö"),
+      matching the fifteenth and sixteenth passes' independent reads. The
+      Q36 footer NHS mailbox typo was NOT observed on any of the three pages
+      fetched this pass (no "pharmacy.*@" string present at all), consistent
+      with its already-logged instability; not re-raised. No new question.
+      Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-12-seventeenth.txt.
+      Done 2026-09-12.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
