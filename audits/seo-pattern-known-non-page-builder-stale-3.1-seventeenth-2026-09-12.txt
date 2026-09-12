@@ -1,0 +1,137 @@
+seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt
+Quality pass on worklist item 3.1 (the canonical title/H1 pattern definition).
+Seventeenth pass on this item. Unattended scheduled run, audit-backlog-worker,
+Cowork sandbox mcp__workspace__bash used for all repo work and the injection
+proof.
+
+SELECTION. All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), so the quality-pass fallback applied. Rotation pool re-derived
+fresh via a Python header-block parse of AGENT_WORKLIST.md's own dated
+paragraphs (36-item eligible pool, excluding the standing out-of-rotation set
+1.1/1.4/2.2/5.6/5.7/6.7/6.8): six items already touched today (2.1, 2.3, 1.3,
+1.2, 6.2, 6.3) excluded, remaining 30 all tied at 2026-09-11 (3.1-3.13,
+4.1-4.15, 5.1, 5.2). Lowest item number: 3.1, matching the sixth run's own
+forward note exactly.
+
+BASELINE. node tools/check-seo-pattern.js: 177 pages checked, 0 untyped, 0
+failures, exit 0. All six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) re-run: 193 files
+under modules/ and core/ sha256-compared before and after, zero diff. Full
+36-checker suite: 35/36 clean; tools/check-postcodes.js FAILs with 3 UNKNOWN
+findings on the postcode "L4 9SG" in AGENT_LOG.md, AGENT_WORKLIST.md and
+audits/cherry-lane-item-2.3-quality-pass-2026-09-12-seventeenth.txt - this is
+a pre-existing residue from THIS RUN'S OWN PREDECESSOR (the sixth run today,
+item 2.3's seventeenth pass), which narrated an injected wrong postcode
+(L4 8SG changed to L4 9SG) in its own log and audit prose without adding it to
+check-postcodes.js's NARRATIVE_POSTCODES list. Not fixed here: it belongs to
+check-postcodes.js/item 1.3's domain, not item 3.1's, and this run's scope is
+the one selected item. Recorded here so it is not mistaken for a defect this
+pass introduced or missed; check-seo-pattern.js itself is unaffected and
+clean.
+
+FRESH ANGLE. Read the full 818-line checker and the full 390-line
+tools/seo-pattern.js afresh against all sixteen prior passes' own accounts
+(cross-checked against audits/seo-pattern-check-2026-08-13.txt directly,
+since several later passes cite "negative-tested eight ways" as its origin).
+Confirmed the PAGE_TYPES forward contract's five failure branches are now all
+proven (does-not-exist, does-not-require-seo-pattern, names-no-function,
+names-unexported-function, never-calls - the "names no function" branch was
+the one gap, filled by the thirteenth pass on 2026-09-06) and the reverse
+contract's "stale key, file no longer exists" branch is proven (test G in the
+original 2026-08-13 pass). One branch was never exercised by name anywhere in
+this item's sixteen-pass history, confirmed by grep across AGENT_LOG.md,
+AGENT_WORKLIST.md, QUESTIONS.json and every audits/*.txt for "now named by a
+PAGE_TYPES" (zero hits before this pass): the SECOND stale-key condition on
+KNOWN_NON_PAGE_BUILDER (tools/check-seo-pattern.js lines 684-688) - a listed
+excused file that has since been brought INTO the PAGE_TYPES contract, as
+opposed to a listed file that has gone entirely. Different code path, never
+distinguished by any prior test.
+
+METHOD. Scratch copy via `git archive HEAD | tar -x` to /tmp/scratch-3.1-
+seventeenth, outside the tracked working tree; the tracked repo was never
+opened for writing. Scratch baseline matched the tracked repo exactly
+(177/0/0) before any mutation.
+
+Round 1 (deliberately unclean, to see the natural cascade first): added one
+PAGE_TYPES entry naming build-audit-status.js - the sole KNOWN_NON_PAGE_BUILDER
+entry today - with working title/h1 expressions (brandTitle(x)/brandH1(x)).
+Result: exit 1, two failures - "does not require ./seo-pattern" (accurate:
+the real build-audit-status.js has no such require) AND the target "FAIL
+stale KNOWN_NON_PAGE_BUILDER key - build-audit-status.js is now named by a
+PAGE_TYPES entry. Remove it." Confirms contractBuilders[t.builder] is set
+unconditionally at the top of the forward-loop body (line 627), before any of
+that entry's own checks run, so the reverse stale-key rule fires even when
+the newly-contracted builder fails its own forward checks.
+
+Round 2 (isolating the target failure alone, matching this item's established
+practice of proving one assertion at a time where the code allows it): added
+a scratch-only, dead-code require and pair of calls to build-audit-status.js
+(`const pat = require('./seo-pattern'); if (false) { pat.brandTitle('x');
+pat.brandH1('x'); }`) so the injected PAGE_TYPES entry's own forward checks
+(require present, functions exported, functions called textually) all pass
+legitimately. Result: exit 1, exactly ONE failure - "FAIL stale
+KNOWN_NON_PAGE_BUILDER key - build-audit-status.js is now named by a
+PAGE_TYPES entry. Remove it." PAGE_TYPES contract count correctly rose from
+14 legs/6 generators to 16 legs/7 generators; all 177 pages still read 0
+mismatches, confirming the injection touched only the contract-membership
+logic, nothing page-facing.
+
+Round 3 (negative control): removed the injected PAGE_TYPES entry but left
+the dead-code require/calls in build-audit-status.js in place. Result: exit
+0, 177/0/0, unchanged from baseline - confirms the harmless dead-code
+addition alone triggers nothing, isolating the failure in round 2 to the
+PAGE_TYPES entry specifically, not to the build-audit-status.js edit.
+
+Scratch directory deleted entirely after round 3. Tracked repo confirmed
+untouched throughout and afterwards: sha256 of tools/seo-pattern.js
+(727fc93818e0df7f6efafce5c151c26dcb4656dc8f4b86ef8ee7911e058f9025) and
+tools/build-audit-status.js unchanged from their pre-pass values; branches.json
+sha256 unchanged at the standing regression anchor
+(904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e); `git
+status --porcelain -- modules core branches.json gbp-packs tools` shows only
+the two pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched by this pass. Full 36-checker suite re-run on the tracked repo after
+cleanup: 35/36 clean (the pre-existing check-postcodes.js finding described
+above, unrelated to this pass, unchanged).
+
+LIVE HALF. Claude in Chrome checked via tabs_context_mcp: "not connected".
+Per standing procedure (Q59), no retry, no alternative login route. Fell back
+to the established read-only HTTPS GET route (curl, GET only, -L to follow
+redirects; network egress confirmed via a 200 from google.com):
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html returned HTTP
+200, title "Pharmacy First at Fishlocks Chemist, Ainsdale" and H1 "Pharmacy
+First at Fishlocks Chemist in Ainsdale", both the pattern verbatim -
+unchanged from every prior pass's live sample.
+mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html (the pinned Q71 page)
+returned HTTP 404, consistent with Q35's outstanding landing-page paste
+backlog across all six branch landing pages, not a new or changed finding.
+
+RESULT. Zero in-repo defects found this pass. The last untested branch of
+check-seo-pattern.js's KNOWN_NON_PAGE_BUILDER stale-key contract - a listed
+excuse whose file has since been brought INTO the PAGE_TYPES contract, as
+distinct from a listed excuse whose file has gone entirely - now proven
+correct by injection, isolated to a single assertion by a legitimate
+supporting edit in round 2, and its independence from that supporting edit
+confirmed by the round 3 negative control. No checker, page, generator or
+branches.json entry changed. No new question raised.
+
+FORWARD NOTE. With this pass, every stated failure branch and every
+stale-key condition documented in check-seo-pattern.js's own comments across
+its four exemption/contract mechanisms (KNOWN_SISTER_TOWN, KNOWN_NON_PAGE,
+KNOWN_NON_PAGE_BUILDER's two stale conditions, and the PAGE_TYPES forward
+contract's five failure branches) has now been proven by direct injection at
+least once. A residual angle not yet tested by injection, noted but not
+pursued this pass for time: ownerOf()-style prefix collisions are a different
+checker's concern (check-postcodes.js), not this one; within this file the
+remaining genuinely-unexercised material is combinatorial (e.g. two
+DIFFERENT stale-key conditions firing in the same run) rather than a new code
+path, and lower value than the standing forward notes on other items. Whoever
+next lands on 3.1 may reasonably conclude the checker's individual rules are
+now exhaustively proven and shift the pass's fresh angle toward cross-checker
+interaction (e.g. what check-seo-pattern.js's PAGE_TYPES contract would miss
+if a SEVENTH generator both required seo-pattern AND called a wrong-family
+function, e.g. brandTitle where searchTitle was contracted) rather than
+single-rule injection.

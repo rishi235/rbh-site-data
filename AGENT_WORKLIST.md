@@ -2509,6 +2509,46 @@ fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html - HTTP 200,
 title and H1 both the pattern verbatim, unchanged from every prior pass. No
 new question. Evidence in
 audits/seo-pattern-fittitle-guard-3.1-sixteenth-2026-09-11.txt.
+Quality pass (seventeenth), 2026-09-12 (unattended scheduled run, Cowork
+sandbox). Baseline: check-seo-pattern.js 177/0/0 exit 0; all six generators
+byte-identical (193 files under modules/+core/, zero diff); 35/36 checkers
+clean, the sole exception (check-postcodes.js) a pre-existing residue left by
+this run's own predecessor (item 2.3's seventeenth pass narrating an injected
+postcode in AGENT_LOG.md/AGENT_WORKLIST.md without a NARRATIVE_POSTCODES
+entry) - unrelated to this checker or this pass, not fixed here as out of
+this item's scope. Re-read the full 818-line checker against all sixteen
+prior passes' own accounts and found the last untested branch of the
+KNOWN_NON_PAGE_BUILDER stale-key contract: a listed excused builder that has
+since been brought INTO the PAGE_TYPES contract (as opposed to one whose file
+has gone entirely, proven on 2026-08-13), confirmed genuinely untested by a
+grep for "now named by a PAGE_TYPES" across every log, worklist and audit
+file (zero hits before this pass). Proved on a git-archive scratch copy in
+three rounds, each restored/deleted before the next: (1) a PAGE_TYPES entry
+added naming build-audit-status.js, the sole KNOWN_NON_PAGE_BUILDER entry -
+caught, but cascaded with "does not require ./seo-pattern" since the real
+file has no such require; (2) the same entry with a scratch-only dead-code
+require and calls added to build-audit-status.js so its own forward checks
+pass legitimately - caught in isolation, exactly one failure, "FAIL stale
+KNOWN_NON_PAGE_BUILDER key - build-audit-status.js is now named by a
+PAGE_TYPES entry. Remove it," contract count correctly rising to 16 legs/7
+generators, all 177 pages still 0 mismatches; (3) negative control, PAGE_TYPES
+entry removed with the dead-code edit left in place - clean, 177/0/0,
+confirming the edit alone triggers nothing. Scratch deleted; tracked repo
+confirmed untouched throughout (tools/seo-pattern.js and
+tools/build-audit-status.js sha256 unchanged, branches.json sha256 unchanged
+at the standing anchor 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135
+101f0b969e1e, git status --porcelain showing only the two pre-existing
+untracked strays); full 36-checker suite re-run after cleanup, 35/36 clean
+(same pre-existing unrelated finding). RESULT: zero in-repo defect; every
+stated failure branch and stale-key condition across all four of this
+checker's exemption/contract mechanisms is now proven by direct injection at
+least once. No checker, page, generator or branches.json entry changed. LIVE
+HALF: Claude in Chrome not connected (standing Q59), no retry; fell back to
+read-only curl GET - fishlockpharmacy.co.uk/pharmacy-first-fishlocks-
+ainsdale.html HTTP 200, title and H1 both the pattern verbatim, unchanged;
+mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html (Q71) HTTP 404,
+unchanged. No new question. Evidence in
+audits/seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
