@@ -1,0 +1,133 @@
+Item 3.6 quality pass (eighteenth), 2026-09-14
+McCanns Chemist (Aigburth and Sandringham) - tools/check-opening-hours.js
+
+CONTEXT
+Seventeen prior passes on item 3.6 had proved fourteen other checkers by
+injection against McCanns's own files, but tools/check-opening-hours.js had
+never once been named for this item, despite its own file header stating in
+its first paragraph that it was written BECAUSE of a defect found on McCanns
+itself (item 3.6 quality pass, 2026-08-10): a generator wrote each session of
+a split day into the same slot, so the second overwrote the first, and both
+McCanns landing pages told patients the pharmacy opened at 2pm when it opens
+at 9am. This pass closes that gap: the checker written for this branch,
+proven against this branch, for the first time.
+
+Both McCanns branches carry a genuine split weekday (lunch closure, 13:00 to
+14:00), and Aigburth additionally carries a split Saturday - the exact shape
+of data that caused the original bug. branches.json confirmed directly:
+  mccanns_aigburth: closedDays ["Sunday"]; weekday 09:00-13:00 + 14:00-18:00,
+    Saturday 09:00-13:00 + 14:00-17:00
+  mccanns_sandringham: closedDays ["Saturday","Sunday"]; weekday
+    09:00-13:00 + 14:00-18:00
+
+BASELINE
+branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+(standing regression anchor, unchanged).
+Full 36-checker suite run individually against the tracked repo before any
+change: 36/36 exit 0.
+All six generators rebuilt; combined sha256 of every file under modules/ and
+core/ (find | sort | xargs sha256sum | sha256sum):
+  fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3
+identical before and after rebuild, and matching the value recorded by
+several other items' recent passes on the same date.
+git status --porcelain -- modules core branches.json gbp-packs tools: only
+the two standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak).
+
+METHOD
+Full-repo scratch copy via `git archive HEAD | tar -x` to
+/tmp/scratch-3.6-eighteenth; tracked working tree never opened for writing
+during the injection round. check-opening-hours.js confirmed clean on the
+scratch copy before injection (6 landing pages checked, 88 clock times swept
+by rule 7, 177 files swept by rule 8, both McCanns branches correctly named
+in the split-day note).
+
+SIX INJECTIONS, all caught first attempt, each restored by byte copy from a
+pre-injection backup and sha256-reconfirmed identical before the next:
+
+1. RULE 2 (visible row mismatch) - reproduced the ORIGINAL defect exactly:
+   Aigburth's Monday visible row changed from "9am to 1pm, 2pm to 6pm" to
+   "2pm to 6pm" (i.e. patients told the pharmacy opens at 2pm, the precise
+   historical fault). CAUGHT: "Monday reads '2pm to 6pm' but branches.json
+   says '9am to 1pm, 2pm to 6pm'". Exactly one failure. Restored, sha256
+   confirmed identical (0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841).
+
+2. RULE 3 (JSON-LD mismatch) - Sandringham's JSON-LD openingHoursSpecification
+   had its afternoon session (14:00-18:00) removed while the visible card was
+   left untouched. CAUGHT: "JSON-LD opening hours do not match branches.json",
+   page showing five morning-only sessions against data's ten. Exactly one
+   mismatch reported (plus the diagnostic page/data dump lines). Restored,
+   sha256 confirmed identical
+   (49cb571b4b7ad7b31c8d5bb522fe6e89f2b334fbbf9e98f3926bbc5adf2909b2).
+
+3. RULE 6 (day stated in neither list) - data-only injection: Wednesday
+   removed from mccanns_sandringham's specification without adding it to
+   closedDays. CAUGHT on its own rule: "Wednesday is in neither closedDays
+   nor specification. An unstated day is published as 'Closed'...". The
+   (unregenerated) page and JSON-LD then also disagreed with the edited data,
+   so rules 2 and 3 fired too, as expected for a data-only edit left
+   unregenerated - the intended rule (6) fired correctly and first. Restored,
+   sha256 confirmed identical to baseline branches.json.
+
+4. RULE 4 (closedDays/specification clash) - "Tuesday" added to
+   mccanns_aigburth's closedDays while its specification still carries
+   Tuesday sessions. CAUGHT on its own rule: "Tuesday is listed in closedDays
+   and also carries opening times", plus the expected cascading rule-2 page
+   mismatch. Restored, sha256 confirmed identical.
+
+5. RULE 7 (time outside the hours card) - one sentence added to Aigburth's
+   landing page below the contact block: "Repeat prescriptions can be
+   collected any time before 6pm on weekdays." CAUGHT: "'6pm' is printed
+   outside the opening hours card...". Exactly one failure. Restored, sha256
+   confirmed identical to baseline.
+
+6. RULE 9 (odsCode branch with no openingHours block at all) - Sandringham's
+   entire openingHours object deleted (branch carries odsCode FAP24, a real
+   dispensing pharmacy). CAUGHT on its own rule: "carries an odsCode (a real
+   dispensing pharmacy) but has no openingHours block at all...", plus the
+   expected cascading rule-2/rule-3 page mismatches since the stale page was
+   left unregenerated. This is the rule added on the item 6.3 fourteenth pass
+   (2026-09-12) specifically because rules 4-6 return immediately when
+   openingHours is absent; now proven against a McCanns branch for the first
+   time. Restored, sha256 confirmed identical.
+
+CONTROL: mccanns_aigburth's four specification session objects reversed in
+list order (no values changed). Correctly PASSED - confirms expectedRow()
+and dataSessions() are keyed on value via sorting, not on array position.
+
+RESTORE VERIFICATION
+Final scratch-copy state: branches.json, both McCanns landing pages
+sha256-identical to their pre-injection baseline. Full 36-checker suite
+re-run on the scratch copy: 35/35 pass excluding check-cdn-pins.js, which
+fails on any .git-less scratch copy by design (established convention, not a
+defect - confirmed separately against the tracked repo below).
+Tracked repo (/sessions/kind-cool-allen/mnt/rbh-site-data) confirmed
+untouched throughout: diff against scratch copy shows both McCanns landing
+pages and branches.json byte-identical; git status --porcelain unchanged
+(only the two pre-existing untracked strays); tracked check-cdn-pins.js
+re-run directly, exit 0.
+
+RESULT
+Zero in-repo defect found. check-opening-hours.js - the checker this item's
+own historical bug produced - is now proven correct against the exact branch
+pair whose defect prompted it, on rules 2, 3, 4, 6, 7 and 9, all six caught
+on first attempt with no unexplained cross-firing, plus one control
+confirming value-not-order keying. No page, generator, branches.json field
+or checker changed.
+
+LIVE HALF
+Claude in Chrome: tabs_context_mcp reported "not connected" (standing Q59,
+one attempt, no retry). Built-in browser (Claude Browser pane) attempted as
+a genuine read-only escalation, since this checker has a real live-page
+surface (the visible hours card on mccannspharmacy.co.uk); preview_start to
+https://mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html required
+request_access, which an unattended run cannot answer (no person present to
+approve) - not retried, matching the established pattern from this item's
+own sixteenth pass (2026-09-10) under the same circumstance. Live half not
+performed this run. Prior passes' live findings (Sandringham UTI page still
+"Sandringham" not "St Michael's" live, queued 5.7/Q15; both branch landing
+pages still HTTP 404 live, Q35; Q39 footer set) stand unclaimed and
+unchanged - not re-verified this pass.
+
+QUESTIONS: none raised this pass. No new decision surfaced for Rishi.

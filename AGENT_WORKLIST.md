@@ -6384,6 +6384,93 @@ construction. No page, generator, pack, branches.json field or checker
 changed. No new question raised. QUESTIONS.json re-read: 101 total, 48 open,
 unchanged; none answered by pickup this run. Evidence:
 audits/mccanns-seo-lengths-3.6-seventeenth-2026-09-11.txt.
+Quality pass 2026-09-14 (eighteenth, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout). Selected as the least recently
+verified item in the standing rotation pool: all 8 unblocked
+AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied. Rotation pool re-derived fresh: comm -23
+between the 36 tools/check-*.js filenames and every check-*.js name
+mentioned anywhere in item 3.6's own block gave eighteen checkers never
+named for this item; separately confirmed via the immediately preceding
+run's own forward note (item 3.5, eighteenth pass, same day) naming 3.6 as
+lowest among items tied stalest at 2026-09-11 or earlier.
+BASELINE: branches.json sha256 confirmed unchanged at the standing
+regression anchor 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+Full 36-checker suite run individually before any change: 36/36 exit 0. All
+six generators rebuilt; combined sha256 of every file under modules/ and
+core/ identical before and after
+(fec0ef2eaa82008691eea0f9d5e24b37161239d2ab8ff38b4c81049da2b31fa3). git
+status --porcelain on modules/, core/, branches.json, gbp-packs/, tools/
+empty aside from the two standing pre-existing untracked strays.
+FRESH ANGLE: seventeen prior passes had proven fourteen other checkers by
+injection against McCanns's own files but never tools/check-opening-hours.js
+- the one checker this item's own history produced. Its own file header
+states plainly it was written because of a defect found ON McCANNS, on this
+item's own quality pass, 2026-08-10: a split-day session (lunch closure)
+overwrote itself in the generator's output slot, so both McCanns landing
+pages told patients the pharmacy opened at 2pm when it opens at 9am. Both
+McCanns branches still carry that exact shape of data today (weekday lunch
+closure on both; Aigburth also splits Saturday), yet across seventeen prior
+passes this checker had never once been named for this item - the checker
+built from this branch's own bug had never been proven against this branch.
+METHOD: full-repo scratch copy via `git archive HEAD | tar -x` to
+/tmp/scratch-3.6-eighteenth, tracked working tree never opened for writing
+during the injection round. Six injections, each restored by byte copy from
+a pre-injection backup and sha256-reconfirmed identical before the next: (1)
+RULE 2, reproducing the ORIGINAL defect exactly - Aigburth's Monday visible
+row changed from "9am to 1pm, 2pm to 6pm" to "2pm to 6pm" - CAUGHT, "Monday
+reads '2pm to 6pm' but branches.json says '9am to 1pm, 2pm to 6pm'"; (2)
+RULE 3, Sandringham's JSON-LD afternoon session (14:00-18:00) removed with
+the visible card left untouched - CAUGHT, "JSON-LD opening hours do not
+match branches.json"; (3) RULE 6, data-only - Wednesday removed from
+mccanns_sandringham's specification without adding it to closedDays -
+CAUGHT on its own rule, "Wednesday is in neither closedDays nor
+specification", plus the expected cascading page/JSON-LD mismatches on the
+left-unregenerated page; (4) RULE 4 - "Tuesday" added to
+mccanns_aigburth's closedDays while its specification still carries Tuesday
+sessions - CAUGHT, "Tuesday is listed in closedDays and also carries opening
+times"; (5) RULE 7 - one sentence with a clock time added to Aigburth's
+landing page outside the hours card ("collected any time before 6pm on
+weekdays") - CAUGHT, "'6pm' is printed outside the opening hours card"; (6)
+RULE 9, the rule added on item 6.3's fourteenth pass for a branch with no
+openingHours block at all - Sandringham's entire openingHours object deleted
+(carries odsCode FAP24, a real dispensing pharmacy) - CAUGHT on its own
+rule, "carries an odsCode ... but has no openingHours block at all", plus
+the same expected cascading mismatches. All six fired on their intended
+rule(s) first attempt, no unexplained cross-firing. CONTROL: Aigburth's four
+specification session objects reversed in list order, no values changed -
+correctly PASSED, confirming the rules key on value via sorting, not array
+position.
+RESTORE: all six injections restored by byte copy, sha256-reconfirmed
+identical to baseline (branches.json:
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e; Aigburth
+landing page: 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822448c384841;
+Sandringham landing page:
+49cb571b4b7ad7b31c8d5bb522fe6e89f2b334fbbf9e98f3926bbc5adf2909b2). Full
+36-checker suite re-run on the scratch copy: 35/35 pass excluding
+check-cdn-pins.js, which fails on any .git-less scratch copy by design (not
+a defect, established convention); tracked check-cdn-pins.js re-run
+directly against the real repo, exit 0. Tracked repo confirmed untouched
+throughout: diff against the scratch copy shows both McCanns landing pages
+and branches.json byte-identical; `git status --porcelain -- modules core
+branches.json gbp-packs tools` unchanged (only the two pre-existing
+untracked strays).
+RESULT: zero in-repo defect found. check-opening-hours.js - the checker
+this item's own historical bug produced - is now proven correct against the
+exact branch pair whose defect prompted it, across rules 2, 3, 4, 6, 7 and
+9, closing the last major gap in this checker's coverage of the branch that
+built it. No page, generator, branches.json field or checker changed.
+LIVE HALF: Claude in Chrome not connected (standing Q59, one attempt, no
+retry). Built-in browser attempted as a genuine escalation, since this
+checker has a real live-page surface (the visible hours card); preview_start
+to mccannspharmacy.co.uk required request_access, which an unattended run
+cannot answer (no person present), matching this item's own sixteenth pass
+under the same circumstance - not retried. Live half not performed. Prior
+passes' live findings (Sandringham UTI page still "Sandringham" live, queued
+5.7/Q15; both branch landing pages still HTTP 404, Q35; Q39 footer set)
+stand unclaimed and unchanged, not re-verified this pass.
+QUESTIONS: none raised this pass (49 open, unchanged). Evidence:
+audits/mccanns-opening-hours-3.6-eighteenth-2026-09-14.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
