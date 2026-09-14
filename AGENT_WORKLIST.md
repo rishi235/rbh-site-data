@@ -25016,7 +25016,47 @@ rather than trust this note - as computed by this pass, the two remaining
       session). Coleman and Leighs and Gordon Short remain excluded
       (need a repaste before repoint, per the eighth and fourth states
       above). Item stays [BLOCKED] overall; not all eleven are clear.
-      Done 2026-09-14 (partial, sixth of eleven)
+      A seventh and an eighth branch moved free 2026-09-14, later the same
+      day (unattended run): Scorah Bramhall and Scorah Hazel Grove, the two
+      branches this entry's own forward note named as the next candidates.
+      Both share one old pfLink target,
+      pharmacy-first-service-hazel-grove-bramhall.html. Re-verified fresh
+      rather than trusted from any earlier pass: fetched
+      scorah-chemists.co.uk/sitemap.xml live and confirmed both
+      pharmacy-first-scorah-bramhall.html and
+      pharmacy-first-scorah-hazel-grove.html are listed (the old shared
+      page is also still listed, unlike the Hirshmans case, but Q34's bar
+      is about the replacement being live, in-sitemap, correctly named and
+      spelled, not about the old page being an orphan); fetched both
+      replacement pages in full and cross-checked every fact against
+      branches.json field by field for both branches: correct trading name
+      "Scorah Chemists" throughout on both, correct address, phone and
+      NHSmail (pharmacy.FL495@nhs.net Bramhall, pharmacy.FKD04@nhs.net
+      Hazel Grove), all seven Pharmacy First conditions present with the
+      correct pinned NHS age cohorts on both pages, footer hours matching
+      openingHours.specification exactly including Hazel Grove's ceased
+      Saturday trading, and each page's footer correctly cross-references
+      its sister branch. Exact match on every field checked, no drift, no
+      misspelling.
+      branches.json scorah_bramhall.pfLink and scorah_hazel.pfLink both
+      repointed to their own generated pages; gbp-packs/scorah-bramhall.md
+      and gbp-packs/scorah-hazel-grove.md Post A buttons repointed to
+      match, and each pack's paster note (which had said "swap once
+      confirmed") replaced with a plain confirmation that the swap is done
+      and needs no further check before posting. tools/branches-editor.html
+      embedded snapshot refreshed (check-editor-snapshot.js was flagging
+      the drift, now clean). No stale KNOWN entry existed in
+      check-branch-links.js for either branch. Full 36-checker suite run
+      before and after: 0 failures both times. pfLink is read by no
+      generator (confirmed by grep across tools/build-*.js), so no
+      regeneration was needed or attempted.
+      Eight of the eleven now need no Weebly paste at all (Riddings, SK,
+      both McCanns, Tiffenbergs, Hirshmans, both Scorah). Only Coleman and
+      Leighs, Gordon Short and Smartts Bootle remain, all three already
+      excluded for reasons above (repaste-before-repoint for the first two,
+      separate live hours/email defects for Smartts). Item stays [BLOCKED]
+      overall pending those three.
+      Done 2026-09-14 (partial, eighth of eleven)
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.
