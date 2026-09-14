@@ -992,3 +992,64 @@ still unread against the sitemap-sweep methodology: Gordon Short (Crosby),
 Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context only). Clear
 Chemist Aintree (Q104) still has twelve online-doctor/weight-loss
 branded-product sub-pages and seven az-health/obesity articles unread.
+
+## 2026-09-15 addition: Gordon Short Chemist (Crosby) - thirteenth instance
+
+Unattended scheduled run (first run today), continuing the sitemap-sweep
+methodology (sitemap listing and homepage link context, both required per
+the 2026-08-12 addendum) on the next unread branch in forward-note order.
+
+gordonshortchemist.co.uk/sitemap.xml lists 28 URLs, two weight-loss-shaped:
+weight-loss-clinic-gordon-short-crosby.html (this repo's own generated
+page, filename confirmed against build-weight-loss-pages.js's
+`weight-loss-clinic-<brandSlug>-<townSlug>.html` convention and present at
+modules/service/pages/weight-loss-clinic-gordon-short-crosby.html) and
+weight-loss-clinic-crosby.html, which matches no generator's naming
+convention and is the thirteenth live legacy page found.
+
+Link context, read from the live homepage DOM rather than visible menu text
+alone: weight-loss-clinic-crosby.html is linked from the desktop top nav,
+the mobile nav, and a homepage content image tile - three independent
+on-page slots, the same severity class as Hirshmans (Q85), McCanns (Q103),
+Coleman and Leighs and Riddings - alongside, not instead of, the correct
+generated page weight-loss-clinic-gordon-short-crosby.html ("Weight Loss
+Clinic Gordon Short Crosby"), which is linked from the desktop nav and
+mobile nav only (no content tile).
+
+weight-loss-clinic-crosby.html carries all six elements the 2026-08-10
+assessment tests for: named medicines (Wegovy, Mounjaro, Orlistat) under an
+"Explore treatments" picker; a superlative claim ("Mounjaro (tirzepatide)
+is one of the most effective weight loss treatments available"); a "Real
+Results with Mounjaro" heading citing "up to 22.5% of your body weight over
+72 weeks"; an interactive outcome slider (tested value 116kg starting
+weight returning "You could lose up to: 26kg (22.5% of your body weight)");
+and a lead price above the fold, "From £39.99 including your consultation."
+
+weight-loss-clinic-gordon-short-crosby.html (the correct generated page)
+was also read. It is clean of all six legacy elements and correctly framed
+as a private, non-NHS clinical service with an eligibility section, but its
+own booking block reads "Private consultation at Gordon Shorts Chemist,
+from £39.99. Choose a time that suits you." ahead of the "Is this service
+right for you?" eligibility section - a re-confirmation of the Q88
+lead-price pattern already on record since the 2026-09-05 Scorah addition,
+not a new finding.
+
+Separate and NOT a new finding: the live copy on this generated page reads
+"Gordon Shorts Chemist" (title, H1, body copy, contact block - four
+occurrences) where the repo's own current output for the same file, read
+directly from modules/service/pages/weight-loss-clinic-gordon-short-crosby.html,
+reads "Gordon Short Chemist" throughout with zero "Gordon Shorts" hits.
+This is the standing pre-item-1.1 paste-age drift already tracked under
+Q32 (raised 2026-08-10 against the live Pharmacy First and travel clinic
+pages on this same branch, and widened on later passes to the UTI, sore
+throat, impetigo and shingles pages) - reconfirmed here on a third distinct
+page rather than raised as a new question. The repo side is clean; the
+live Weebly paste for this branch remains outstanding.
+
+QUESTIONS.json Q103 extended with this evidence (same shared-template
+pattern as the ninth through twelfth instances it already tracks) rather
+than opened as a new question. Item 5.8 stays [BLOCKED]. Branches still
+unread against the sitemap-sweep methodology: Cherry Lane (Walton), and
+Tiffenbergs (Longmoor, link-context only). Clear Chemist Aintree (Q104)
+still has twelve online-doctor/weight-loss branded-product sub-pages and
+seven az-health/obesity articles unread.

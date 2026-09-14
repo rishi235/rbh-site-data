@@ -25671,6 +25671,38 @@ rather than trust this note - as computed by this pass, the two remaining
       unread), Tiffenbergs (link context only), and Clear Chemist Aintree's
       remaining twelve branded sub-pages and seven obesity articles. Item
       5.8 stays [BLOCKED].
+      2026-09-15 (unattended scheduled run, first run today): sweep
+      continued to Gordon Short Chemist (Crosby), the next unread branch in
+      forward-note order, following the same sitemap-and-link-context
+      methodology. A THIRTEENTH live legacy instance found,
+      weight-loss-clinic-crosby.html, linked from the homepage's desktop top
+      nav, mobile nav AND a content image tile (three independent slots),
+      alongside the correct generated page rather than instead of it - the
+      same severity class as Hirshmans (Q85), McCanns (Q103), Coleman and
+      Leighs and Riddings. All six known template elements present (named
+      Wegovy/Mounjaro/Orlistat under an "Explore treatments" picker,
+      superlative Mounjaro claim, "Real Results with Mounjaro" heading
+      citing "up to 22.5%... over 72 weeks", outcome slider tested at 116kg
+      returning "26kg (22.5%)", lead price "From £39.99 including your
+      consultation" above the fold). The correct generated page
+      (weight-loss-clinic-gordon-short-crosby.html) is clean of the six
+      legacy elements but re-confirms the existing Q88 lead-price pattern in
+      its own booking block. Separately, and NOT a new finding: the correct
+      generated page's live copy still reads "Gordon Shorts Chemist" (title,
+      H1, body, four times) against the repo's own current output, which
+      reads "Gordon Short Chemist" throughout when checked directly in
+      modules/service/pages/weight-loss-clinic-gordon-short-crosby.html -
+      this is the standing pre-1.1 paste-age drift already tracked under
+      Q32 (found 2026-08-10 on the Pharmacy First and travel clinic pages,
+      widened since to further pages on this branch), reconfirmed here on a
+      third page rather than raised again. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14
+      Gordon Short addition. QUESTIONS.json Q103 extended with this evidence
+      rather than opened as a new question, same shared-template pattern.
+      Sweep still owes: Cherry Lane (sitemap and link context unread),
+      Tiffenbergs (link context only), and Clear Chemist Aintree's
+      remaining twelve branded sub-pages and seven obesity articles. Item
+      5.8 stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
