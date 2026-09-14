@@ -82,7 +82,7 @@ in children, impetigo, shingles, infected insect bites and uncomplicated
 water infections in women aged 16 to 64. No GP appointment or referral
 needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
-Button: Learn more -> https://www.scorah-chemists.co.uk/pharmacy-first-service-hazel-grove-bramhall.html
+Button: Learn more -> https://www.scorah-chemists.co.uk/pharmacy-first-scorah-bramhall.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to Scorah Chemists in Bramhall takes about 30
@@ -125,11 +125,13 @@ Notes for the paster:
   website until this resolves.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- Post A uses the shared Hazel Grove / Bramhall Pharmacy First page from
-  branches.json (pfLink). A branch-specific page
-  (pharmacy-first-scorah-bramhall.html) exists in the repo, confirmed live
-  (200) again 2026-09-02; swap the link once it is confirmed pasted with
-  the correct trading name and NAP, not just reachable.
+- Post A repointed 2026-09-14 (unattended run) to the branch-specific page,
+  pharmacy-first-scorah-bramhall.html. Re-confirmed live via the branch's own
+  sitemap.xml, fetched and read in full: correct trading name (Scorah
+  Chemists) throughout, correct address, phone and NHSmail, all seven
+  Pharmacy First conditions present with the correct pinned NHS age cohorts,
+  and the Hazel Grove sister-branch footer block correct. No further swap
+  needed; this note can be posted as-is.
 - Check the Post B switch page URL resolves before posting; the switch pages
   were regenerated in Phase 3 and the live Weebly copy may lag the repo.
   Checked live 2026-09-02: the page resolves (200) and NAP (phone, address,
