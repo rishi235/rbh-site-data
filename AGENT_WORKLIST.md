@@ -25593,6 +25593,39 @@ rather than trust this note - as computed by this pass, the two remaining
       Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and
       link context unread), and Tiffenbergs (link context only). Item 5.8
       stays [BLOCKED].
+      2026-09-14 (later still, unattended scheduled run, same day): continued
+      the Clear Chemist Aintree sitemap sweep the previous entry left
+      unfinished, per that entry's own forward note. Read seven more of the
+      pages logged as unread there. weight-loss-clinic-switch.html is a
+      second Regime-1-shaped page one click from the homepage's own "Switch
+      Now" journey, carrying the same named GPhC-numbered prescriber (Dane,
+      GPhC 2072668) plus its own Mounjaro dose/price picker (2.5mg to 15mg,
+      £179 to £299) and the same "£35 off first pen" promotion. A previously
+      unknown standalone page, /wegovy (no .html), is a stale "COMING SOON IN
+      2023" placeholder still live in 2026, naming Wegovy with an efficacy
+      claim ("can be a very effective medicine to achieve sustained weight
+      loss") attached to a newsletter sign-up form; not homepage-linked, but
+      sitemap-indexed and untouched for three years.
+      online-doctor/weight-loss/prescription-medications.html is a fourth
+      live retail listing for a named POM, this time Orlistat/Xenical 120mg
+      capsules at displayed prices (£37.80 to £75.60), extending the
+      retail-sale pattern already found for Mounjaro and Wegovy to a third
+      medicine. Four other pages read this pass were low-risk
+      (weight-loss-medication.html, weight-loss-enquiry.html,
+      weight-loss-register-interest, pharmacy/weight-loss/slimming.html),
+      though weight-loss-register-interest's indexed page title references
+      Wegovy "benefits and effectiveness" while its body is only a
+      post-submission thank-you page, a data-hygiene mismatch worth a note
+      separate from the advertising question. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the second
+      2026-09-14 addition. QUESTIONS.json Q104 extended with this evidence
+      rather than opened as a new question, since it is the same platform and
+      the same underlying concern, not a qualitatively new decision. Still
+      unread on this domain: twelve online-doctor/weight-loss branded-product
+      sub-pages and seven az-health/obesity informational articles. Sweep
+      still owes: Coleman and Leighs, Riddings, Gordon Short, Cherry Lane
+      (sitemap and link context unread), and Tiffenbergs (link context
+      only). Item 5.8 stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

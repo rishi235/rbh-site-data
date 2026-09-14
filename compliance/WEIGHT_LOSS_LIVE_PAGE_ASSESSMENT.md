@@ -812,3 +812,86 @@ pricing and quantified personal-result testimonials. Item 5.8 stays
 [BLOCKED]. Branches still unread against the sitemap-sweep methodology:
 Coleman and Leighs (Walton), Riddings (Timperley), Gordon Short (Crosby),
 Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context only).
+
+2026-09-14 addition (unattended run, continuing the same day): read the
+remaining Clear Chemist Aintree sitemap URLs the entry above left unread,
+following the forward note that flagged this as higher priority than moving
+to the next Weebly domain, since any of them could extend the finding
+further. Re-fetched sitemap-1-2.xml directly (48 weight-shaped URLs by a
+wider regex than the earlier pass's 31, once "obes" and bare "wegovy" are
+included) rather than trusting the earlier count. Read seven of the
+remaining pages in full; twelve online-doctor/weight-loss branded-product
+sub-pages (celebrity-slim variants, xls, slim-fast, alli, lipotrim,
+biggest-loser, pharmanord, adios, sweeteners) and seven az-health/obesity
+informational articles remain unread, logged as unread rather than assumed
+clean.
+
+weight-loss-clinic-switch.html (the "Switch Now" destination) is a second
+Regime-1-shaped page carrying the same named, GPhC-numbered prescriber
+("Meet Dane, Our Weight Loss Service Pharmacist, GPhC Number 2072668") in
+first-person copy, plus its own direct price/dose picker for Mounjaro
+(2.5mg to 15mg, £179 to £299) with no fair-overview framing around it, and
+an FAQ referencing "Do I still get £35 off my first pen, no matter what
+strength I am on?" - the same discount promotion found on weight-loss-clinic.html.
+Not linked from the homepage nav (confirmed by a fresh DOM read of clearchemist.co.uk's
+anchors: only weight-loss-clinic.html and services/weight-loss-clinic.html
+appear), so it sits one click further from the homepage than the pages Q104
+already covers, but it is public, sitemap-indexed, and reachable from
+weight-loss-clinic.html's own "Switch Now" journey, which is itself
+homepage-linked - a patient following the homepage's own advertised path
+reaches this page in one more click.
+
+https://www.clearchemist.co.uk/wegovy (no .html extension) is a distinct,
+previously unknown page: a static "COMING SOON IN 2023" placeholder, still
+live in September 2026, naming Wegovy and stating it "can be a very
+effective medicine to achieve sustained weight loss" - an efficacy claim for
+a named POM - attached to a newsletter sign-up form collecting email, first
+and last name. Not linked from the homepage nav or found linked from any
+other page read this pass; reachable only via the sitemap or a direct URL.
+Its indexed age (a 2023 placeholder never updated or removed) is itself a
+finding independent of the compliance question: it is exactly the kind of
+long-abandoned page a platform-wide audit needs to catch, since nobody
+appears to have revisited it in three years.
+
+online-doctor/weight-loss/prescription-medications.html is a fourth live
+retail listing for a named POM: "Generic Orlistat (Xenical) 120mg Capsules"
+and "Xenical (Orlistat) 120mg Capsules" in two pack sizes each, individually
+priced (£37.80 to £75.60), in the same shop-grid shape as
+services/weight-loss-clinic.html's Mounjaro/Wegovy listing. Orlistat is
+prescription-only at this strength (unlike the 60mg OTC "Alli" brand, listed
+separately in the sitemap and not read this pass), so this is the same
+retail-sale-of-a-named-POM-with-displayed-pricing pattern extending to a
+third medicine beyond Mounjaro and Wegovy.
+
+Four pages read this pass are low-risk and did not extend the finding:
+weight-loss-medication.html is a routing hub with no medicine named and no
+claims ("If you already have a prescription..." / "...consult with an
+online Doctor"); weight-loss-enquiry.html is a plain callback-booking form
+with no medicine named; weight-loss-register-interest is a post-submission
+thank-you page ("You have been added to the waiting list") whose indexed
+title ("New Weight Loss Pill from Wegovy: Benefits, Effectiveness & What to
+Know | Clear Chemist") does not match its own body content, suggesting a
+template or title left over from different page content, a data-hygiene
+finding rather than an advertising-standards one; and
+pharmacy/weight-loss/slimming.html is an empty category page ("We can't
+find products matching the selection").
+
+Running total for Q104's domain: four separate live pages now confirmed
+carrying a named POM with retail-style pricing or an efficacy claim
+(weight-loss-clinic.html, services/weight-loss-clinic.html,
+weight-loss-clinic-switch.html via its Mounjaro picker, and
+online-doctor/weight-loss/prescription-medications.html for Orlistat), plus
+weight-loss-clinic-new.html's testimonials and named prescriber, plus the
+standalone /wegovy stale placeholder. Nothing found this pass changes Q104's
+recommended urgency; if anything the additional pages (a second prescriber
+page one click from the homepage journey, and a third POM added to the
+retail-sale pattern) support treating this domain as the more urgent finding
+Q104 already flagged. QUESTIONS.json Q104 extended with a summary of this
+addition rather than opened as a new question, since it is the same platform,
+same entity and same underlying concern Q104 already raises - not a
+qualitatively new finding requiring a fresh decision. Item 5.8 stays
+[BLOCKED]. Still unread on this domain: twelve online-doctor/weight-loss
+branded-product sub-pages and seven az-health/obesity informational
+articles. Branches still fully unread against the sitemap-sweep methodology:
+Coleman and Leighs (Walton), Riddings (Timperley), Gordon Short (Crosby),
+Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context only).
