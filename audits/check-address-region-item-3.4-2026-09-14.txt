@@ -1,0 +1,129 @@
+check-address-region.js proof against Cherry Lane Pharmacy (cherrylane_liverpool)
+Item 3.4 quality pass, 2026-09-14 (unattended run)
+
+WHY THIS CHECKER, THIS BRANCH
+Item 3.4 has had seventeen prior quality passes across fourteen other
+checkers. tools/check-address-region.js had never been named once, despite
+its own source comments (around line 140) naming Cherry Lane explicitly as
+the worked example for the lead-entry rule's warning-only branch:
+  "Ordinary ordering preferences stay a warning, because Cherry Lane leads
+  with Liverpool, which no branch owns, and that is a judgement call rather
+  than a fault."
+A checker naming a branch in its own comments is not proof the branch was
+ever exercised against it by injection. This file closes that gap.
+
+BASELINE
+$ sha256sum branches.json
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e  branches.json
+
+Cherry Lane's record (branches.json, id cherrylane_liverpool):
+  seoTown: "Walton"
+  serviceAreaList: ["Liverpool", "Walton", "Everton"]
+  townSlug: "walton"
+  addressRegion: "Merseyside"
+  addressLocality: "Liverpool"
+  website: "https://www.cherrylanepharmacy.co.uk"
+No other trading branch shares this domain, so the "sameDomain" branch of
+the lead-entry rule's failure message cannot be exercised against Cherry
+Lane specifically - confirmed structurally (single branch per domain) rather
+than assumed.
+
+Baseline run (scratch copy, see METHOD below):
+$ node tools/check-address-region.js
+check-address-region
+  16 trading branches checked against 4 permitted counties, their seoTown
+  against their own serviceAreaList, and the lead entry of that list
+  against every other branch's seoTown
+  1 accepted exception(s) checked against the values each one was granted
+  for, so an exception cannot widen to cover a value nobody approved
+  WARN  KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug
+  of seoTown "St Michael's" (would be "st-michaels"). Q15: ...
+  WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but
+  not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown,
+  so this is an ordering judgement rather than a fault, but the first
+  entry is the one the copy leads with.
+check-address-region: clean, every addressRegion is a county (2 warning(s)).
+exit=0
+
+METHOD
+Minimal two-file scratch copy outside the tracked tree: this checker reads
+only branches.json (relative to its own __dirname) and no generator or
+other module, so a full repo tar-copy was not needed.
+  mkdir -p /tmp/scratch34/tools
+  cp tools/check-address-region.js /tmp/scratch34/tools/
+  cp branches.json /tmp/scratch34/branches.json
+Each injection below edited /tmp/scratch34/branches.json only, via a small
+Python snippet targeting the cherrylane_liverpool record, then ran
+`node tools/check-address-region.js` from /tmp/scratch34. Before each new
+injection, branches.json was restored by a fresh copy from the tracked
+repo's own branches.json and its sha256 reconfirmed against the baseline
+anchor above. The tracked repo was never opened for writing at any point.
+
+INJECTION 1 - lead-entry FAIL, cross-branch-owner direction (never
+exercised for this item before)
+Change: serviceAreaList[0] "Liverpool" -> "Ainsdale" (leaving Walton and
+Everton in place). Ainsdale is the seoTown of fishlocks_ainsdale and
+hirshmans_ainsdale, both on domains other than cherrylanepharmacy.co.uk.
+Result: CAUGHT, exactly one failure, first attempt.
+  FAIL  cherrylane_liverpool: serviceAreaList leads with "Ainsdale", which
+  is the seoTown of fishlocks_ainsdale ("Fishlocks Chemist Ainsdale") and
+  hirshmans_ainsdale ("Hirshmans Chemist"), not of this branch ("Walton").
+  ... Put this branch's own town first, or drop the entry.
+check-address-region: 1 failure(s). Exit 1.
+
+INJECTION 2 - seoTownInList absence
+Change: "Walton" removed entirely from serviceAreaList, left as
+["Liverpool", "Everton"].
+Result: CAUGHT, exactly one failure, first attempt (the pre-existing
+"Liverpool leads, not first" warning also still fires, correctly, since
+Liverpool is still first and still unowned).
+  FAIL  cherrylane_liverpool: seoTown "Walton" does not appear in its own
+  serviceAreaList [Liverpool, Everton]. Every page for this branch claims
+  that word in its title, H1 and permalink, so either the word is wrong or
+  the service area list is.
+check-address-region: 1 failure(s). Exit 1.
+
+INJECTION 3 - townSlug mismatch
+Change: townSlug "walton" -> "liverpool" (seoTown left as "Walton").
+Result: CAUGHT, exactly one failure, first attempt.
+  FAIL  cherrylane_liverpool: townSlug "liverpool" is not the slug of
+  seoTown "Walton" (expected "walton"). Permalinks and titles would then
+  name different places.
+check-address-region: 1 failure(s). Exit 1.
+
+INJECTION 4 - addressRegion not a county
+Change: addressRegion "Merseyside" -> "Liverpool" (a district; also equal
+to addressLocality "Liverpool", though the county-list check returns before
+the equals-addressLocality check is reached, so only one rule fires).
+Result: CAUGHT, exactly one failure, first attempt.
+  FAIL  cherrylane_liverpool: addressRegion is "Liverpool", which is not
+  one of the counties this group trades in (Merseyside, Greater
+  Manchester, Lancashire, Cheshire). addressRegion must be the county, not
+  a borough, district or town. If it was meant as a search qualifier, put
+  it in seoRegion instead.
+check-address-region: 1 failure(s). Exit 1.
+
+CLEANUP AND CONFIRMATION
+$ sha256sum branches.json   (tracked repo)
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e  branches.json
+  (matches baseline anchor exactly - tracked file untouched throughout)
+$ git status --porcelain -- modules core branches.json gbp-packs tools
+  ?? gbp-packs/.fuse_hidden0000000400000001
+  ?? modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak
+  (two pre-existing untracked strays, noted by multiple prior passes,
+  neither touched by this pass)
+$ rm -rf /tmp/scratch34
+
+FULL SUITE RE-RUN (tracked repo, after cleanup)
+All 36 tools/check-*.js scripts run individually: 36/36 exit 0, no
+failures.
+
+CONCLUSION
+NO IN-REPO DEFECT FOUND. check-address-region.js's rules are sound against
+Cherry Lane's own data on all four legs tested: the lead-entry FAIL
+direction, the seoTownInList absence rule, the townSlug mismatch rule, and
+the addressRegion county-membership rule. The checker's own worked example
+naming Cherry Lane is now backed by proof rather than assertion alone. The
+"sameDomain" branch of the lead-entry failure message remains untested
+against Cherry Lane specifically because no other branch shares its domain
+- not a gap, a structural fact about this branch.

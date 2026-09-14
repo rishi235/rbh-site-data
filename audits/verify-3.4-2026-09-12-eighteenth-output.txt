@@ -1,0 +1,51 @@
+=== Pre-flight: tracked repo must be clean before touching anything ===
+Tracked repo clean (scoped dirs), aside from the two known pre-existing artefacts.
+
+=== Building scratch copy of the whole repo (tar, excluding .git) ===
+Scratch copy at: /sessions/adoring-keen-brown/tmp/rbh-3.4-18th-sGZ06D
+
+Baseline (scratch) branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+Baseline check-branch-links.js on scratch copy: clean.
+
+=== FULL SUITE, baseline (scratch copy, all check-*.js except check-cdn-pins.js) ===
+35 checkers run, 0 failing.
+All clean before any injection.
+
+=== DIAGNOSTIC (not a pass/fail assertion): which trading branches' pfLink
+    does branchFromPageName() fail to resolve today, and does that set match
+    the standing 5.3/Q8/Q34 backlog? Computed fresh from the scratch copy's
+    own branches.json, not hardcoded, so this cannot go stale silently. ===
+    Unresolved (owner=null) today: scorah_bramhall, scorah_hazel, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby
+    Matches the six branches item 5.3/Q8/Q34 already tracks (Scorah x2, Smartts,
+    Hirshmans, Coleman and Leighs, Gordon Short): true. cherrylane_liverpool
+    itself resolves cleanly today (its pfLink is already the migrated, canonical
+    page - Q8's own text: "Only Fishlocks (both branches) and Cherry Lane were
+    ever migrated"). This is a documented, deliberate scope exclusion in
+    tools/check-branch-links.js line 194, not an in-repo defect - recorded here
+    rather than "fixed" because this run has no authority to reopen an
+    already-answered question or repoint live pfLinks while 5.3 is [BLOCKED].
+
+=== Injections against cherrylane_liverpool, one at a time ===
+
+PASS  1 odsCode duplicate (Fishlocks Ainsdale's FK848) (caught: duplicate of fishlocks_ainsdale (FK848)...)
+PASS  2 nhsEmail wrong domain (caught: is "pharmacy.FA226@nhs.co.uk", expected "pharmacy.FA226@nhs.net"...)
+PASS  3 nhsReviewUrl truncated (missing /leave-a-review) (caught: Anything short of /leave-a-review lands the patient on the profile page instead ...)
+PASS  4 googleReviewUrl wrong domain (caught: expected https://g.page/r/<id>/review...)
+PASS  5 googleReviewUrl shared with Fishlocks Ainsdale (caught: is the same link as fishlocks_ainsdale...)
+PASS  6 website carries a path and a trailing slash (caught: Expected https, a bare host, no trailing slash and no path...)
+PASS  7 pfLink resolves to Riddings Timperley's page despite Cherry Lane's own host string (caught: a Pharmacy First page belonging to riddings_timperley ("Riddings Pharmacy"), not...)
+PASS  8 pfLink does not end .html (caught: does not end .html...)
+PASS  9 CONTROL - reorder shortCode/branchNumber, no value changed (correctly clean)
+
+9 passed, 0 failed (9 total: 8 rule injections + 1 control).
+
+=== FULL SUITE, after all injections/restores (scratch copy) ===
+35 checkers run, 0 failing.
+All clean after the round.
+
+Final scratch branches.json sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e (matches baseline: true)
+
+=== Post-flight: tracked repo must still be clean ===
+Tracked repo clean (scoped dirs), aside from the two known pre-existing artefacts. Untouched throughout.
+
+Scratch copy left at /sessions/adoring-keen-brown/tmp/rbh-3.4-18th-sGZ06D (outside the tracked repo; not committed, not cleaned up by this script).

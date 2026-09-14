@@ -4703,6 +4703,153 @@ unattended pass: 3.6, 3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3 remain
 tied at 2026-09-10 - re-derive rather than assume, since other runs may
 land in between.
 
+Quality pass 2026-09-12 (eighteenth, recovered and logged 2026-09-14 - the
+proof work itself was completed on 2026-09-12 but the run that did it never
+reached its own worklist/log/commit steps before stalling, leaving the
+evidence orphaned on disk as `audits/verify-3.4-2026-09-12-eighteenth.js`
+and its `-output.txt`; this is that pass's own record, written up now from
+its output rather than repeated, since the proof itself is still sound and
+re-running it would only re-prove the same thing). Checked whether it had
+already been recorded anywhere before writing this up: no trace of an
+"eighteenth" pass exists in AGENT_WORKLIST.md or AGENT_LOG.md before this
+entry, confirming it was genuinely never logged.
+WORK DONE: `tools/check-branch-links.js` had never been named once for item
+3.4 across the (then) seventeen prior passes, despite being the one checker
+that reads the link fields inside branches.json itself (odsCode, nhsEmail,
+nhsReviewUrl, googleReviewUrl, website, pfLink) rather than a generated
+page - exactly the data every Cherry Lane landing page and GBP pack copies
+from. Method: a full `tar`-based scratch copy of the repo (excluding
+`.git`) outside the tracked tree, baseline branches.json sha256 confirmed
+at 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e, full
+35-checker suite (check-cdn-pins.js excluded, standing convention for a
+scratch copy with no .git) clean before and after. Eight rule injections
+plus one reorder-only control against cherrylane_liverpool, each restored
+before the next: odsCode duplicated with Fishlocks Ainsdale's FK848 -
+CAUGHT; nhsEmail domain wrong (.nhs.co.uk not .nhs.net) - CAUGHT;
+nhsReviewUrl truncated short of /leave-a-review - CAUGHT; googleReviewUrl
+wrong domain - CAUGHT; googleReviewUrl shared with Fishlocks Ainsdale -
+CAUGHT; website carrying a path and trailing slash - CAUGHT; pfLink
+repointed at Riddings Timperley's own real page despite Cherry Lane's own
+host string - CAUGHT; pfLink not ending .html - CAUGHT; control (shortCode/
+branchNumber reordered, no value changed) - correctly clean. All nine fired
+or passed on their own intended outcome, first attempt.
+A first design for the pfLink injection (repointing at Gordon Short
+Crosby's own pfLink) was tried and found NOT to fail, for a documented
+reason rather than a checker gap: `branchFromPageName()` only resolves a
+filename ending `-<brandSlug>-<townSlug>`, and six trading branches'
+pfLinks (Scorah x2, Smartts, Hirshmans, Coleman and Leighs, Gordon Short)
+do not follow that convention and resolve to no owner by design - the exact
+set item 5.3/Q8/Q34 already tracks as the outstanding Weebly-paste backlog.
+Cherry Lane's own pfLink already resolves cleanly (it was one of only two
+branches, with Fishlocks, ever migrated to the canonical page per Q8). The
+injection was redesigned around Riddings Timperley instead, a branch pair
+whose own pfLink does follow the convention, which correctly exercised the
+ownership rule. Recorded as a diagnostic, not fixed or reopened: this pass
+had no authority to relitigate the already-answered, currently-[BLOCKED]
+item 5.3.
+Tracked repo confirmed clean (scoped to modules/, core/, branches.json,
+gbp-packs/, tools/, status/) before, during and after, aside from the two
+standing pre-existing untracked strays; final scratch branches.json sha256
+matched the baseline exactly.
+NO IN-REPO DEFECT FOUND. check-branch-links.js's six link-field rules are
+sound against Cherry Lane's own data on all rules genuinely exercisable for
+this branch.
+Evidence: audits/verify-3.4-2026-09-12-eighteenth.js and its
+-output.txt (both already on disk; committed alongside this write-up for
+the first time).
+QUESTIONS.json not touched by the original 2026-09-12 work (no new
+decision surfaced) and not touched by this 2026-09-14 recovery either.
+
+Quality pass 2026-09-14 (nineteenth, run after a two-day gap: the prior run's
+`.agent-lock` was left at 2026-09-12T04:04:09Z and every scheduled invocation
+since exited immediately under the lock check until this run found it 3280
+minutes old, well past the 45-minute threshold, and cleared it). Selected
+by re-deriving the rotation pool fresh, as every prior forward note
+instructs: all eight remaining `[ ]` worklist lines (5.3, 5.4, 5.5, 5.8, 6.1,
+and the three Q60/Q66 lines under 6.4/6.5/6.6) are still `[BLOCKED]` on
+Rishi's own decisions, so the quality-pass fallback applied. The 2026-09-12
+ninth run's own forward note named 3.4 as the lowest-numbered item among
+those tied oldest at 2026-09-11; confirmed independently here since no run
+landed in between.
+WORK DONE: this branch has now had eighteen prior quality passes across
+fifteen checkers (check-booking-routes.js, check-branch-links.js,
+check-em-dashes.js, check-gbp-packs.js, check-jsonld.js, check-map-embeds.js,
+check-nap.js, check-postcodes.js, check-seo-keywords.js, check-seo-pattern.js,
+check-seo-sheets.js, check-service-links.js, check-switch-copy.js,
+check-weight-loss-copy.js, check-whatsapp-route.js) but tools/check-address-
+region.js had never been named once for this item, despite that checker's
+own source comments naming Cherry Lane explicitly as its worked example for
+the lead-entry rule's warning-only branch ("Cherry Lane leads with
+Liverpool, which no branch owns, and that is a judgement call rather than a
+fault", check-address-region.js line ~140). A checker's own comments naming
+a branch is not proof the branch was ever tested against it by injection -
+the same gap this repo has found and closed repeatedly elsewhere - so this
+pass closed it here.
+Baseline: branches.json sha256 confirmed at the standing regression anchor
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e throughout.
+Cherry Lane's actual record: seoTown "Walton", serviceAreaList ["Liverpool",
+"Walton", "Everton"] (Walton second, not first - the documented warning
+case), townSlug "walton", addressRegion "Merseyside", addressLocality
+"Liverpool", website cherrylanepharmacy.co.uk (no other branch shares this
+domain, so the sameDomain branch of the lead-entry rule cannot be exercised
+against Cherry Lane specifically - confirmed structurally rather than
+assumed). Four injections, each against a minimal two-file scratch copy
+(tools/check-address-region.js plus branches.json only, since this checker
+reads no other input and needs no generator or full repo copy) outside the
+tracked tree, restored by direct copy from the tracked branches.json and
+sha256-reconfirmed byte-identical before the next: (1) serviceAreaList[0]
+changed from "Liverpool" to "Ainsdale" (owned by fishlocks_ainsdale and
+hirshmans_ainsdale as seoTown, both on different domains to Cherry Lane) -
+CAUGHT, exactly one failure, the lead-entry rule's cross-branch-owner FAIL
+direction, never exercised for this item before; (2) "Walton" removed
+entirely from serviceAreaList (left as ["Liverpool", "Everton"]) - CAUGHT,
+exactly one failure, "seoTown does not appear in its own serviceAreaList";
+(3) townSlug changed from "walton" to "liverpool" - CAUGHT, exactly one
+failure, "townSlug is not the slug of seoTown"; (4) addressRegion changed
+from "Merseyside" to "Liverpool" (a district, not a county, and also equal
+to addressLocality, though the county-list check fires first and returns
+before the equals-addressLocality check is reached) - CAUGHT, exactly one
+failure, "addressRegion is ... not one of the counties". All four fired on
+exactly their intended rule, first attempt, no unexplained cross-firing; the
+pre-existing "Liverpool leads, not first" warning correctly persisted
+through tests 1-3 since none of those edits touched the underlying ordering
+fact until the field it depends on was itself the target. Tracked
+branches.json confirmed sha256-identical to the baseline anchor after
+cleanup; `git status --porcelain -- modules core branches.json gbp-packs
+tools` showed only the two pre-existing untracked strays (gbp-packs/.fuse_
+hidden0000000400000001, modules/service/pages/notarealservice-fishlocks-
+ainsdale.html.bak), neither touched. Full 36-script check-*.js suite
+re-run individually against the tracked repo: 36/36 exit 0, no failures.
+NO IN-REPO DEFECT FOUND. check-address-region.js's rules are sound against
+Cherry Lane's own data on all four legs tested; the checker's own worked
+example in its source comments is now backed by proof rather than assertion
+alone.
+LIVE HALF: not attempted this pass - Claude in Chrome was not connected
+(checked via tabs_context_mcp per step 3, no retry per standing Q59
+procedure) and this pass's scope was a data-layer checker with no live-page
+counterpart to spot-check.
+Evidence file: audits/check-address-region-item-3.4-2026-09-14.txt (full
+commands and captured output for all four injections plus the baseline and
+post-cleanup verification).
+QUESTIONS.json re-read (102 total, 49 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data rather than surfacing a decision for Rishi.
+Next stalest by this run's own computation, for whoever runs next: 3.5,
+3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 4.1-4.15, 5.1, 5.2 remain tied at
+2026-09-11 or earlier (3.4 is the only item touched today, 2026-09-14) -
+lowest is 3.5. Re-derive rather than assume, since other runs may land in
+between. Separately worth flagging: this worker did not run at all on
+2026-09-13, and would not have run today either without the lock-staleness
+fix landing first - worth Rishi checking the scheduled-task trigger itself
+is still firing on its expected cadence, since a silent scheduling gap looks
+identical to a silently blocked run from the portal status page alone. Also
+worth Rishi's attention: this run recovered and logged an orphaned
+eighteenth pass on this same item (check-branch-links.js, see above) whose
+proof work had sat uncommitted on disk since 2026-09-12 - worth checking
+whether any OTHER item has similar orphaned evidence files from a run that
+stalled before reaching its own worklist/log/commit steps, since this
+worker's own procedure has no step that goes looking for that.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
