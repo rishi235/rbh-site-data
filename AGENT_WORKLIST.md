@@ -24977,6 +24977,46 @@ rather than trust this note - as computed by this pass, the two remaining
       any branch among the eleven not yet confirmed live in a pass. This
       item is not ticked done, only partially actioned this run. See
       AGENT_LOG.md for the full run record.
+      A sixth branch moved free 2026-09-14 (unattended run): Hirshmans
+      Ainsdale. The 4.3 item's own ninth/tenth/twelfth passes had already
+      established the exact Q34 bar was met here - old Post A target
+      (pharmacy-first-service-ainsdale.html) confirmed live but carrying a
+      non-dialling phone and old "Hirshmans Pharmacy" branding, the
+      generated replacement (pharmacy-first-hirshmans-ainsdale.html)
+      confirmed live and correct on 2026-09-04 - and gbp-packs/
+      hirshmans-ainsdale.md's own paster note already said as much
+      ("this is one of the item 5.3 links that needs no paste, only the
+      repoint decision"), so this run completed the repoint that evidence
+      had been sitting on rather than opening a new line of inquiry.
+      Re-verified fresh rather than trusted from old passes: sitemap.xml
+      fetched live and confirmed pharmacy-first-hirshmans-ainsdale.html is
+      listed and pharmacy-first-service-ainsdale.html is NOT (the old page
+      is now an orphan, not merely superseded); the new page fetched and
+      read in full, phone/address/branding/all seven conditions and ages
+      cross-checked against branches.json field by field, exact match.
+      branches.json hirshmans_ainsdale.pfLink repointed to the generated
+      page; gbp-packs/hirshmans-ainsdale.md Post A button repointed and
+      its HARD STOP note replaced with a plain "repointed, can now be
+      posted" note; tools/branches-editor.html's embedded snapshot
+      refreshed (check-editor-snapshot.js was flagging the drift, now
+      clean). No stale KNOWN entry existed in check-branch-links.js for
+      this branch, so none to remove. Full 36-checker suite run before
+      and after: 0 failures both times. pfLink is read by no generator, so
+      no regeneration was needed or attempted (confirmed by grep across
+      tools/build-*.js before relying on it). Six of the eleven now need
+      no Weebly paste (Riddings, SK, both McCanns, Tiffenbergs,
+      Hirshmans). Remaining candidates for the same free-repoint check on
+      a future pass: Scorah Bramhall and Scorah Hazel Grove (shared old
+      target, two separate generated replacements already exist at
+      pharmacy-first-scorah-bramhall.html and
+      pharmacy-first-scorah-hazel-grove.html, live state not yet
+      re-confirmed this run) and Smartts Bootle (blocked instead on its
+      own live hours/email defects documented under this item's earlier
+      evidence, not a candidate until those are fixed in a Weebly
+      session). Coleman and Leighs and Gordon Short remain excluded
+      (need a repaste before repoint, per the eighth and fourth states
+      above). Item stays [BLOCKED] overall; not all eleven are clear.
+      Done 2026-09-14 (partial, sixth of eleven)
 - [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.
