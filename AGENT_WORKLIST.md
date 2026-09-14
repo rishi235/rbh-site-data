@@ -8160,6 +8160,50 @@ Done 2026-09-14 (seventeenth pass).
       the separate step 3 answer pickup, not connected, not retried (Q59
       standing). No new question raised; QUESTIONS.json unchanged (101
       total, 48 open). Evidence in audits/verify-3.8-2026-09-11-seventeenth.txt.
+      Quality pass 2026-09-14 (eighteenth, unattended scheduled run). FRESH
+      ANGLE: tools/check-branch-identity.js proved by injection against SK
+      Chemists Bootle's own pages for the first time in this item's
+      eighteen-pass history (seventeen prior passes had covered fourteen
+      other checkers on this branch but never this one). SK Bootle is a
+      standalone-brand branch (brandLabel equals branchName, no shared host,
+      no sister branch), so this pass proves the checker's baseline rules
+      hold outside the three shared-brand pairs (Fishlocks, McCanns, Scorah)
+      already proven elsewhere. BASELINE: branches.json sha256 unchanged at
+      the standing regression anchor; full 36-checker suite clean on the
+      tracked repo before any work; scratch copy via git archive, five
+      target files sha256-confirmed matching the tracked repo, 34/34
+      checkers clean before injection (check-cdn-pins.js and check-live-
+      hours.js excluded from scratch runs by established convention). FIVE
+      INJECTIONS, each restored and sha256-reconfirmed before the next: (1)
+      RULE 2 OWNER, pharmacy-first-sk-chemists-bootle.html's data-branch
+      changed to another branch's name ("Riddings Pharmacy") - CAUGHT, 2
+      failures (the OWNER mismatch plus the expected collateral RULE 6
+      SPLIT firing across the branch's own 12 pages); (2) RULE 3 SCHEMANAME,
+      the same swap applied to the JSON-LD name on contraception-sk-
+      chemists-bootle.html - CAUGHT, 2 failures, same collateral pattern;
+      (3) RULE 7 DATA, branches.json's skchemists_bootle branchName changed
+      to "Bootle Chemists" (no longer starts with brandLabel "SK Chemists")
+      - CAUGHT, exactly 1 failure, no collateral; (4) RULE 8 OUTBOUND, the
+      Google review link on pharmacy-first-sk-chemists-bootle.html swapped
+      for riddings_timperley's real googleReviewUrl - CAUGHT, exactly 1
+      failure naming both branches and the unrecoverable-review risk; (5)
+      CONTROL, the printed phone number on the same page changed with no
+      identity field touched - correctly PASSED, 0 failures, confirming no
+      cross-firing on unrelated content. All five fired or passed on
+      exactly their intended rule(s), first attempt. Rules 5 (SITEUNIQUE)
+      and 9 (SISTERLINK) have no natural injection point on this branch (no
+      shared host, no sister branch) and were not exercised - a genuine
+      scope limit, not a gap left untested by choice. Final restore sha256-
+      reconfirmed identical to baseline for all three files touched; full
+      34-checker suite re-run clean on the scratch copy; tracked repo
+      confirmed untouched throughout via git status --porcelain (only the
+      two pre-existing untracked strays, unchanged) and a full 36-checker
+      re-run, 36/36 exit 0. NO IN-REPO DEFECT FOUND. LIVE HALF: not
+      attempted, Claude in Chrome not connected (standing Q59, one attempt,
+      no retry); this checker's surface (data-branch, JSON-LD name) is
+      invisible to a visual spot-check in any case. No new question raised;
+      QUESTIONS.json unchanged (102 total, 49 open). Evidence in
+      audits/sk-bootle-item-3.8-quality-pass-2026-09-14-eighteenth.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
