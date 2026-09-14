@@ -7262,6 +7262,89 @@ blocks byte-for-byte matching the repo, no drift. No in-repo defect, no
 regeneration needed, no new question. Full detail in
 audits/smartts-item-3.7-quality-pass-2026-09-11-sixteenth.txt. Rules 1, 2 and
 4 remain unproven against this branch specifically for a future pass.
+Quality pass 2026-09-14 (seventeenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash; Claude in Chrome checked
+once, not connected, no retry per standing Q59). Picked as the least
+recently verified rotation-pool item: all eight [ ] worklist lines still
+[BLOCKED] on Rishi's own decisions, so the quality-pass fallback applied;
+rotation pool re-derived fresh (36-item pool excluding the standing
+out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8), lowest date among the pool
+2026-09-11 shared by 3.7-3.13/4.1-4.15/5.1/5.2, lowest item number 3.7.
+FRESH ANGLE: tools/check-whatsapp-route.js, the checker guarding the third
+contact route on a page (after phone and callback form) and the field Q21
+moved out of seven hardcoded copies into branches.json's own whatsapp field,
+had never been named against Smartts once across sixteen prior passes,
+despite all 12 Smartts pages carrying a data-wa attribute. Re-deriving the
+never-named list fresh (rather than trusting the fifteenth pass's own list)
+surfaced a scan hazard worth recording: a plain substring or single-space-
+collapsed match against this item's own text wrongly reports
+check-pharmacy-first-safety-net.js as never-named, because the name is
+hard-wrapped mid-word across a line break; only stripping ALL whitespace
+before comparing found it correctly already covered (sixteenth pass,
+2026-09-11) and brought the true never-named count to 16, not 17 - the same
+"which lines did a scan actually match" fault this repo keeps finding in its
+checkers, caught here in the act of picking one to test.
+Baseline: all 36 checkers clean on the tracked repo; branches.json sha256
+confirmed at the standing regression anchor
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e. Full repo
+copied by tar (--exclude='.git') to the outputs mount; scratch copy's five
+target files sha256-confirmed matching the tracked repo before any
+injection; 35/36 checkers clean on the scratch copy (check-cdn-pins.js fails
+only on the documented .git-less-copy artefact, already confirmed clean
+against the tracked repo).
+Five injections against the scratch copy, each restored by direct copy from
+the tracked repo and sha256-reconfirmed before the next: (1) RULE 1, source
+agreement - smartts_bootle's branches.json whatsapp field changed to
+447999999999 - CAUGHT, 16 failures (the rule fails every branch once more
+than one distinct value exists, not only the minority value - worth noting
+as the rule's actual behaviour), smartts_bootle named explicitly with the
+wrong value against fifteen correct branches; (2) RULE 3, format -
+smartts_bootle's whatsapp changed to the UK-format "07521775631" (not
+E.164) - CAUGHT, naming smartts_bootle and the malformed value, alongside
+the expected RULE 1 collateral firing on every other branch; (3) RULE 4,
+page agreement - data-wa on switch-prescriptions-smartts-bootle.html's
+module root changed to 447111222333 - CAUGHT, exactly one failure naming
+the page and both values; (4) RULE 6, orphan button - data-wa removed from
+the same page's module root with the switch-wa/switch-wa-hero buttons left
+in place - CAUGHT, exactly one failure; (5) RULE 5, unreplaced token - a
+"{{WHATSAPP_NUMBER}}" placeholder appended to pharmacy-first-smartts-
+bootle.html (Smartts's generated pages are Weebly paste-block fragments
+with no </body> tag, so the first attempt's insertion point had to be
+corrected to an end-of-file append) - CAUGHT, exactly one failure naming
+the page and the token. All five caught on their intended rule only, first
+attempt after the one corrected injection point. CONTROL: an unrelated
+field (JSON-LD telephone on the same pharmacy-first page) changed and
+correctly produced no failure, confirming no cross-firing on unrelated
+content.
+ADDITIONAL FINDING (confirms an existing estate-wide note, not a new
+defect): pharmacy-first-smartts-bootle.html is confirmed by name, for the
+first time, as one of the checker's own reported 14 "Pharmacy First
+overview" inert pages under Q20 - it carries data-wa but no WhatsApp button
+and no callback form, so a visitor to this specific page can be booked but
+not contacted via WhatsApp.
+Full 36-checker suite re-run on the scratch copy after all five injections
+and restores: 35/36 exit 0 (same documented cdn-pins artefact). Tracked repo
+confirmed untouched throughout: git status --porcelain -- modules gbp-packs
+core branches.json tools status showed only the two pre-existing untracked
+strays, sha256 of all five target files matched the original baseline
+exactly at the end. No generator, checker, page or branches.json content
+changed; no regeneration needed.
+RULE 2 (module runtime default agreement, DEFAULT_WHATSAPP in service.js/
+switch.js) is estate-wide by construction with no branch-specific injection
+point, so it was noted rather than force-injected. Fifteen checkers remain
+never named against Smartts: check-address-region.js, check-branch-links.js,
+check-brand-spelling.js, check-editor-snapshot.js, check-live-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js, check-pharmacy-first-
+eligibility.js, check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+check-seo-lengths.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js; plus check-switch-copy.js's
+remaining 6/11 rules and check-seo-pattern.js's service-word/H1-exact-match
+rules, for a future pass.
+Live half not attempted (Claude in Chrome not connected; this pass's scope
+was a tracked-file injection proof, not a live comparison). No in-repo
+defect found, no copy changed anywhere in the repo, no new question.
+Evidence in audits/smartts-item-3.7-quality-pass-2026-09-14-seventeenth.txt.
+Done 2026-09-14 (seventeenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

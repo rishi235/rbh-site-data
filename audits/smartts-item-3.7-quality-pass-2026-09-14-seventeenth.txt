@@ -1,0 +1,201 @@
+ITEM 3.7 QUALITY PASS (SEVENTEENTH) - 2026-09-14
+Smartts Chemist (Bootle) - checker: tools/check-whatsapp-route.js
+Unattended scheduled run, audit-backlog-worker, mcp__workspace__bash throughout.
+
+SELECTION
+All eight [ ] worklist lines remain [BLOCKED] on Rishi's own open decisions
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6), so
+the quality-pass fallback applied (step 5). Rotation pool re-derived fresh by
+Python header-block parse of AGENT_WORKLIST.md (36-item eligible pool
+excluding the standing out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8),
+reading the LAST 2026-MM-DD date mentioned inside each completed item's own
+paragraph range: lowest date among the pool is 2026-09-11, shared by 3.7-3.13,
+4.1-4.15, 5.1, 5.2 (3.1-3.6, 1.2, 1.3, 2.1, 2.3, 6.2, 6.3 all touched
+2026-09-12 or 2026-09-14 by three earlier runs today). Lowest item number
+among that tied-stalest set: 3.7. This matches the eighteenth-pass forward
+note on item 3.6 today, which named 3.7's status as "not re-derived this
+pass" among the surviving stale candidates.
+
+FRESH ANGLE
+Sixteen prior passes on item 3.7 (2026-08-04 through 2026-09-11) had proven
+20 of the 36 tools/check-*.js checkers against Smartts's own pages, branches.
+json entry and paste sheets by direct injection. Re-derived the never-named
+list fresh rather than trusting the fifteenth pass's own list (which was
+itself already sixteen passes old): a whitespace-stripped substring search
+of the full item 3.7 text block against all 36 check-*.js basenames found 16
+never named, one fewer than the fifteenth pass's own count because the
+sixteenth pass (2026-09-11) had since covered check-pharmacy-first-safety-
+net.js - confirmed present in the text only after stripping ALL whitespace,
+because the checker's own name is hard-wrapped mid-word across a line break
+("check-pharmacy-first-\nsafety-net.js"), which a simple substring or even a
+single-space-collapsing scan would have missed and wrongly reported as
+never-named. Worth recording alongside this repo's own repeated "which lines
+did a scan actually match" lesson (CLAUDE.md, the SEO-keywords and
+em-dashes sections): a naive re-derivation of a "never named" list is exactly
+the shape of fault this repo keeps finding in its checkers, and it nearly
+recurred here in the act of choosing a checker to test one.
+
+tools/check-whatsapp-route.js was picked from the confirmed 16: the WhatsApp
+route is the third way a patient can reach a branch from a generated page
+(after phone and callback form), CLAUDE.md's own section on it records the
+number was hardcoded seven times before Q21 moved it into branches.json's
+whatsapp field, and every one of Smartts's 12 pages (11 service pages plus
+the switch page) carries a data-wa attribute - yet the checker had never
+once been proven against Smartts's own branches.json entry or pages by
+injection across sixteen passes.
+
+BASELINE
+All 36 tools/check-*.js run individually against the tracked repo before any
+work: 36/36 exit 0. branches.json sha256 confirmed at the standing regression
+anchor 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+Five target files hashed and recorded (branches.json, tools/check-whatsapp-
+route.js, and Smartts's switch-prescriptions, pharmacy-first and uti-
+treatment pages).
+
+Root filesystem noted at 71% used (2.8G free) - not yet the 99%-capacity
+state several recent passes flagged, but scratch work was still routed to
+the outputs mount (339G free) as those passes established, rather than /tmp.
+Full repo copied by tar (--exclude='.git', matching the convention several
+recent passes used for a .git-less copy, since this checker reads no git
+history) to /sessions/dreamy-happy-dirac/mnt/outputs/scratch-3.7-whatsapp;
+the five target files' sha256 reconfirmed matching the tracked repo exactly
+before any injection. Full 36-checker suite re-run on the scratch copy:
+35/36 exit 0, the sole exception tools/check-cdn-pins.js failing only on the
+documented .git-less-copy artefact (cannot resolve a pinned ref without git
+history) that every recent pass using this copy method has recorded -
+already independently confirmed clean (36/36) against the tracked repo
+above, so this is not a live finding.
+
+INJECTIONS (five, each restored by direct copy from the tracked repo and
+sha256-reconfirmed byte-identical before the next)
+
+1. RULE 1 (source agreement, data) - smartts_bootle's own whatsapp field in
+   the scratch branches.json changed from 447521775631 to 447999999999.
+   CAUGHT: 16 failures, one per trading branch (the rule fails EVERY entry
+   once more than one distinct value exists among them, not only the odd one
+   out - worth recording as the rule's actual behaviour, since a first read
+   of "two branches disagree" could be misread as flagging only the
+   minority value), with branches.json::smartts_bootle named explicitly
+   carrying whatsapp=447999999999 against fifteen other branches all
+   correctly showing 447521775631. First attempt, no unexpected rule firing.
+
+2. RULE 3 (format) - smartts_bootle's whatsapp field changed to
+   "07521775631" (a UK-format leading-zero number, not E.164). CAUGHT:
+   FAIL [format] branches.json::smartts_bootle: "07521775631 is not a UK
+   mobile in E.164 without the plus (447 plus nine digits)", alongside the
+   expected collateral RULE 1 disagreement failures across the other fifteen
+   branches (since the malformed value is also, incidentally, a different
+   value) - both the intended rule and its documented collateral fired
+   together, exactly as the other rule-1/rule-3 pairing worked on other
+   items' passes. First attempt.
+
+3. RULE 4 (page agreement) - the data-wa attribute on Smartts's own module
+   root in switch-prescriptions-smartts-bootle.html changed from
+   447521775631 to 447111222333. CAUGHT: exactly one failure - FAIL [page
+   agreement] modules/switch/pages/switch-prescriptions-smartts-bootle.html:
+   data-wa="447111222333" but branches.json agrees on 447521775631. No
+   collateral firing on any other branch's page. First attempt.
+
+4. RULE 6 (orphan button) - the data-wa attribute removed whole from
+   Smartts's switch-page module root while the switch-wa/switch-wa-hero
+   buttons were left in place (confirmed present, two button ids on the
+   page, before the edit). CAUGHT: exactly one failure - FAIL [orphan
+   button] modules/switch/pages/switch-prescriptions-smartts-bootle.html:
+   carries a WhatsApp button but no data-wa on its module root, so it would
+   fall back to the runtime default. First attempt.
+
+5. RULE 5 (unreplaced token) - a "{{WHATSAPP_NUMBER}}" placeholder appended
+   to the end of pharmacy-first-smartts-bootle.html. (First attempt at this
+   injection tried inserting before a "</body>" tag, as a prior pass's
+   convention assumed; Smartts's generated pages are Weebly paste-block
+   fragments with no <body> tag at all, so that insertion point does not
+   exist on this page family - corrected to an end-of-file append rather
+   than forcing the original approach, worth noting for whoever injects a
+   token on a service-family page next.) CAUGHT: exactly one failure - FAIL
+   [unreplaced token] modules/service/pages/pharmacy-first-smartts-
+   bootle.html: still carries the template placeholder {{WHATSAPP_NUMBER}}.
+   First attempt.
+
+CONTROL
+An unrelated field (the JSON-LD telephone on the same pharmacy-first-
+smartts-bootle.html page, changed from "0151 922 4984" to "0151 999 9999",
+nothing to do with WhatsApp) correctly produced NO failure - check-whatsapp-
+route exited 0, confirming the checker's rules key on the WhatsApp-specific
+fields only and do not cross-fire on unrelated page content.
+
+All five caught on their own intended rule only, first attempt (after the
+one corrected injection point noted above), no unexplained cross-firing
+beyond the single documented RULE 1/RULE 3 pairing in injection 2.
+
+ADDITIONAL FINDING (confirms, does not change, an estate-wide note already
+in the checker's own source comments): Smartts's own pharmacy-first-smartts-
+bootle.html is one of the checker's own reported "14 Pharmacy First
+overview" inert pages - confirmed directly against this branch for the
+first time: id="rbhsv-root" present, zero id="svc-wa" button matches, zero
+"Prefer us to call you"/"Request a callback" matches. The page carries
+data-wa but has no way to act on it; a visitor can be booked but not
+contacted via WhatsApp on this specific page. This is the existing Q20
+finding (REPORTED, not FAILED, by design), not a new defect, now confirmed
+by name against Smartts rather than only counted in the estate-wide total.
+
+RESTORE VERIFICATION
+All five touched files (branches.json, switch-prescriptions-smartts-
+bootle.html x2 distinct injections, pharmacy-first-smartts-bootle.html x2
+distinct injections) restored by direct copy from the tracked repo after
+each injection and sha256-reconfirmed identical to the pre-injection
+baseline before the next injection began. Final sha256 of all five target
+files (branches.json, tools/check-whatsapp-route.js, switch-prescriptions-
+smartts-bootle.html, pharmacy-first-smartts-bootle.html, uti-treatment-
+smartts-bootle.html) diffed byte-for-byte against the original baseline
+recording: identical.
+
+Full 36-checker suite re-run on the scratch copy after all five injections
+and restores: 35/36 exit 0 (check-cdn-pins.js the same documented .git-less
+artefact, not re-tested against the tracked repo a second time since nothing
+in the tracked repo changed).
+
+Tracked repo (`/sessions/dreamy-happy-dirac/mnt/rbh-site-data`) confirmed
+untouched throughout: git status --porcelain -- modules gbp-packs core
+branches.json tools status showed only the two pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+unchanged), plus the standing FUSE .git/index.lock unlink warning several
+prior passes have recorded (no git process behind it, not a blocker for a
+read-only run - git writes for this run are routed via the Windows-MCP
+PowerShell workaround per Q96/Q102 regardless). sha256 of all five target
+files on the tracked repo matched the original baseline exactly, both mid-
+run and at the end. No generator, checker, page or branches.json content
+changed anywhere in the tracked tree; no regeneration needed or performed.
+
+RESULT
+Zero in-repo defect. tools/check-whatsapp-route.js's rules 1, 3, 4, 5 and 6
+already correctly and independently protect Smartts Chemist Bootle's own
+branches.json entry and generated pages, now proven directly by injection
+for the first time in seventeen passes. No copy changed anywhere in the
+repo. No new question.
+
+NOT YET PROVEN BY INJECTION AGAINST SMARTTS, FOR A FUTURE PASS
+check-whatsapp-route.js's RULE 2 (module runtime default agreement,
+DEFAULT_WHATSAPP in modules/service/service.js and modules/switch/
+switch.js) is a generator/module-level rule with no natural Smartts-specific
+injection point - it is estate-wide by construction, not branch-scoped, so
+it was noted rather than force-injected against one branch (the same
+reasoning prior passes applied to other estate-wide rules on other
+checkers). Fifteen checkers remain never named against Smartts:
+check-address-region.js, check-branch-links.js, check-brand-spelling.js,
+check-editor-snapshot.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+check-seo-lengths.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js. check-switch-copy.js's
+remaining 6/11 rules and check-seo-pattern.js's service-word/H1-exact-match
+rules also remain untested against Smartts specifically (per the twelfth
+and fifteenth passes' own notes, not re-verified this pass).
+
+LIVE HALF
+Not attempted. This is a scheduled unattended run; per standing procedure
+the browser is read-only and used only for the answer-pickup fetch (step 3)
+and live verification during a quality pass when reachable. Live
+verification was out of scope for this pass's method (a data/page-layer
+checker proven by injection against tracked files, not a live-site
+comparison) and was not separately attempted.
