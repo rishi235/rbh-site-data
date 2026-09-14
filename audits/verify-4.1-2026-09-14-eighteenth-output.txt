@@ -1,0 +1,24 @@
+Baseline sha256: 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+
+=== INJECTION 1: bank holiday note removed from Notes for the paster ===
+exit: 1
+  FAIL  fishlocks-ainsdale.md: the "Notes for the paster:" block has no bank holiday special-hours instruction. All RB Healthcare stores close on bank holidays (branches.json bankHolidays.tradingPolicy "closed", Q79 answered 2026-08-27), and a GBP profile shows a bank holiday as Open unless special hours are set on the profile, so the paster must be told to mark every remaining date in branches.json bankHolidays.dates2026 as Closed while in the profile. The note must name bankHolidays.dates2026 rather than retype the dates (item 4.5 quality pass, 2026-08-30)
+Restored, sha ok: true
+
+=== INJECTION 2: lead price added to Post C ===
+exit: 1
+  FAIL  fishlocks-ainsdale.md: Post C - Weight loss clinic carries a price in the posted copy ("£9"). A Google post is advertising, not an inner page the customer chose to visit, and the house standards bar lead pricing that encourages entry on price, naming "treatments start from ..." as a ruled breach (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5). Keep price out of the post and let the consultation page carry it
+Restored, sha ok: true
+
+=== INJECTION 3: body-image pressure framing added to Post C ===
+exit: 1
+  FAIL  fishlocks-ainsdale.md: this pack uses pressure framing that treats the reader's body as the obstacle in its weight loss copy: "hold you back". A GBP pack is Regime 1 advertising under the house standards, where the appeal has to rest on the service and its qualifiers rather than on how the reader is invited to feel about their body (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 7). Context: Thinking about losing weight with proper support? Our pharmacist-led weight loss clinic at Fishlocks Chemist in Ainsdale
+Restored, sha ok: true
+
+=== CONTROL: harmless bullet reorder in Notes for the paster, no content change ===
+exit: 0 (expect 0)
+(no FAIL lines, as expected)
+Restored, sha ok: true
+
+=== FINAL STATE ===
+Final sha256: 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30 matches baseline: true

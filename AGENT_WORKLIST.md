@@ -13350,7 +13350,54 @@ Pharmacy First wording to the NHS service description.
       match branches.json exactly. No in-repo defect, no new question. See
       audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-09-11-seventeenth.txt.
       Done 2026-09-11
-- [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
+      Quality pass 2026-09-14 (eighteenth, unattended run): baseline sha256 of
+      gbp-packs/fishlocks-ainsdale.md unchanged since the twelfth pass
+      (7592bad3...); all 36 checkers pass at the start. FRESH ANGLE: three
+      check-gbp-packs.js rules never proven against this pack's own copy
+      across seventeen prior passes, confirmed by grep of the item's own
+      history before writing the instrument - the bank holiday special-hours
+      paster-note rule (added item 4.5 pass, 2026-08-30), the lead-pricing
+      rule and the body-image/pressure-framing rule (both derived from
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md sections 5 and 7). Every
+      genuine gbp-packs/ reader had already been closed out at the checker
+      level by the thirteenth pass; this is a sub-rule angle, the same shape
+      as passes fourteen to seventeen.
+      Four injections plus one control, each restored by byte copy from an
+      in-memory baseline and sha256-reconfirmed identical before the next,
+      run via the reproducible instrument
+      audits/verify-4.1-2026-09-14-eighteenth.js: (1) the bank holiday
+      special-hours bullet deleted from the "Notes for the paster:" block -
+      CAUGHT first attempt, "no bank holiday special-hours instruction". (2)
+      Post C given a lead price, "Weight loss from just £99 a month." - CAUGHT
+      first attempt, "carries a price in the posted copy". (3) Post C given
+      body-image pressure framing, "Don't let your weight hold you back any
+      longer." - CAUGHT first attempt, "pressure framing that treats the
+      reader's body as the obstacle". (4) CONTROL: the two adjacent "Post
+      buttons" and "Check the four category names" bullets in the paster
+      notes reordered, no content added, removed or changed - correctly
+      PASSED, exit 0, no new FAIL lines. All four fired or passed on their
+      intended rule, first attempt, no cross-firing. Full output in
+      audits/verify-4.1-2026-09-14-eighteenth-output.txt.
+      Final restore sha256-reconfirmed identical to baseline. Full
+      36-checker suite re-run clean after the final restore (0 failures, 17
+      pre-existing warnings unchanged). No generator writes gbp-packs/, so no
+      regeneration needed; git status scoped to modules/core/branches.json/
+      gbp-packs/tools shows only the two pre-existing untracked strays
+      (modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak and
+      a FUSE mount artefact under gbp-packs/), neither created by this pass.
+      RESULT: zero in-repo defect - all three rules were already correctly
+      holding this pack, now proven by injection for the first time.
+      LIVE HALF: Claude in Chrome connected this run (a change from most
+      recent passes). Answer-pickup fetch of
+      https://data.rbhealth.co.uk/api/feedback read directly (JSON, no
+      Cloudflare Access login page); newest entry still 2026-09-01T22:44:51Z
+      (Q52) - no answer has arrived since the last successful read.
+      pharmacy-fishlocks-ainsdale.html (the profile-website target) re-fetched
+      directly: still 404, unchanged from every prior pass (Q35, answered
+      2026-09-01, not yet applied - the answer says paste it as the next
+      Weebly job, which is Weebly-session work outside this unattended
+      worker's remit). No new question raised.
+      Done 2026-09-14
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
       Quality pass 2026-08-11: the pack verified fact by fact against
