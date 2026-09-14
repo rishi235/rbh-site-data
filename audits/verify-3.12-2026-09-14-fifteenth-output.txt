@@ -1,0 +1,47 @@
+Baseline sha256 of modules/service/pages/contraception-tiffenbergs-aintree.html: 9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0
+Baseline checker run: exit 0 (clean, as expected)
+
+=== Injection 1 - RULE 5 free: price stated ===
+Expected: FAIL (checker catches it)
+Actual exit code: 1
+Expected message contains: "[free"
+Message found: true
+RESULT: AS EXPECTED
+
+=== Injection 2 - RULE 6 consent: reversed ===
+Expected: FAIL (checker catches it)
+Actual exit code: 1
+Expected message contains: "[consent"
+Message found: true
+RESULT: AS EXPECTED
+
+=== Injection 3 - RULE 8 medicine: brand named ===
+Expected: FAIL (checker catches it)
+Actual exit code: 1
+Expected message contains: "[medicine"
+Message found: true
+RESULT: AS EXPECTED
+
+=== Injection 4 - RULE 7 long-acting: offered rather than signposted ===
+Expected: FAIL (checker catches it)
+Actual exit code: 1
+Expected message contains: "[larc"
+Message found: true
+RESULT: AS EXPECTED
+
+=== Control - FAQ line order swapped, no content change ===
+Expected: PASS (control, checker stays clean)
+Actual exit code: 0
+RESULT: AS EXPECTED
+
+Final restore sha256: 9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0 (matches baseline)
+Final checker run after restore: exit 0 (clean)
+
+=== SUMMARY ===
+PASS - Injection 1 - RULE 5 free: price stated
+PASS - Injection 2 - RULE 6 consent: reversed
+PASS - Injection 3 - RULE 8 medicine: brand named
+PASS - Injection 4 - RULE 7 long-acting: offered rather than signposted
+PASS - Control - FAQ line order swapped, no content change
+
+ALL EXPECTED BEHAVIOUR CONFIRMED

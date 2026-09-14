@@ -1,0 +1,94 @@
+Item 3.12 quality pass, fifteenth pass, 2026-09-14
+Branch: Tiffenbergs Chemist (id tiffenbergs_longmoor, seoTown Aintree)
+Fresh angle: tools/check-contraception-copy.js
+
+Context
+-------
+Fourteen prior passes (2026-08-04 through 2026-09-11) exercised, in order:
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js, check-pharmacy-first-eligibility.js,
+check-weight-loss-copy.js, check-branch-links.js, check-opening-hours.js,
+check-switch-copy.js and check-travel-clinic-copy.js against Tiffenbergs'
+own pages. check-contraception-copy.js had never been proven against this
+branch, despite Tiffenbergs holding its own contraception widget
+(widgets.contraception = "6a4793b74065a96ce45e4dc6" in branches.json) and
+therefore its own generated page,
+modules/service/pages/contraception-tiffenbergs-aintree.html.
+
+Baseline
+--------
+Full 36-checker suite (every tools/check-*.js) run individually before any
+change: 36/36 exit 0.
+All six generators rebuilt first (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages): combined sha256 of
+every file under modules/ and core/ unchanged before and after
+(9b5ac4df90fd91c95d08026b5d252c4bc5500ef459453c6fc5f538bd007658b8).
+Target file contraception-tiffenbergs-aintree.html backed up by byte copy
+before any injection, baseline sha256
+9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0.
+
+Injections
+----------
+Reproducible instrument: audits/verify-3.12-2026-09-14-fifteenth.js. Each
+injection restored by byte copy (not git checkout) and sha256-reconfirmed
+identical to baseline immediately after, before the next injection ran.
+
+(1) RULE 5, free: prepended "Yes, from £12." ahead of the existing
+    no-prescription-charge FAQ answer, so the free NHS service page states a
+    price - CAUGHT, "[free" failure fired on the price-pattern match.
+
+(2) RULE 6, consent: replaced "We will only tell your GP that you have used
+    the service if you give your consent." with "We will always tell your GP
+    that you have used the service." - CAUGHT, "[consent" failure fired, both
+    on the verbatim rule (the generator's exact sentence no longer present)
+    and on the dedicated reversed-consent phrase check.
+
+(3) RULE 8, no medicine names: changed "start you on the pill" to "start you
+    on Microgynon" in the FAQ answer - CAUGHT, "[medicine" failure fired
+    naming Microgynon as a prescription-only medicine in public copy.
+
+(4) RULE 7, long-acting methods: appended "We can fit the coil during the
+    same visit." to an FAQ answer - CAUGHT, "[larc" failure fired, this
+    service supplies oral contraception only and a coil must be signposted
+    elsewhere, not offered.
+
+Control: swapped the order of two adjacent FAQ <details> blocks ("Do I need
+to see my GP first?" and "Can I start the pill, or only continue it?") with
+no content added, removed or changed - correctly PASSED, exit 0.
+
+All four injections caught on the first attempt with the expected
+rule-specific failure tag; the control passed clean; no unexpected
+cross-firing.
+
+Restore and re-verification
+----------------------------
+Final restore sha256-reconfirmed identical to baseline
+(9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0).
+Full 36-checker suite re-run individually after cleanup: 36/36 exit 0.
+All six generators rebuilt again: combined sha256 of modules/ and core/
+unchanged (9b5ac4df90fd91c95d08026b5d252c4bc5500ef459453c6fc5f538bd007658b8).
+git status --porcelain on modules, core, branches.json, gbp-packs and tools:
+only the two pre-existing untracked strays present before this pass began
+(modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak and
+gbp-packs/.fuse_hidden0000000400000001, a FUSE mount artefact), neither
+created by this pass.
+
+Result
+------
+Zero in-repo defect. check-contraception-copy.js was already correctly
+holding Tiffenbergs' own contraception page across rules 5 (free/no price),
+6 (consent direction) 7 (no long-acting offer) and 8 (no medicine names). No
+page, generator, checker, pack or branches.json byte changed.
+
+Live half: not attempted. Claude in Chrome connected this run for the
+first time in several passes (see AGENT_LOG.md answer-pickup note for
+2026-09-14), but was used only for the standing QUESTIONS.json answer-pickup
+fetch against data.rbhealth.co.uk/api/feedback, which returned no new
+answers (the two open questions with portal replies, Q37 and Q43, both
+already carry a "not a decision" note recorded by a prior pass, unchanged).
+Full 12-of-12 live coverage already stands on this item from the
+fifth/sixth passes (2026-09-02); not re-read this pass. No new question
+raised - this pass proved a checker's rules sound against data already
+known correct, not a live-facing decision.

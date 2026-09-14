@@ -11809,6 +11809,59 @@ Done 2026-09-14 (seventeenth pass).
       checker proof against data already known correct, not a live-facing
       decision. Evidence: audits/verify-3.12-2026-09-11-fourteenth.js and
       its -output.txt. Done 2026-09-11 (fourteenth pass)
+      Quality pass 2026-09-14, FIFTEENTH PASS, FRESH ANGLE: tools/check-
+      contraception-copy.js proven by injection against Tiffenbergs' own
+      contraception-tiffenbergs-aintree.html for the first time in this
+      item's fifteen-pass history (fourteen prior passes exercised check-
+      nap.js, check-postcodes.js, check-em-dashes.js, check-booking-
+      routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-
+      identity.js, check-map-embeds.js, check-pharmacy-first-
+      eligibility.js, check-weight-loss-copy.js, check-branch-links.js,
+      check-opening-hours.js, check-switch-copy.js and check-travel-
+      clinic-copy.js against this branch, but never the checker guarding
+      the fourth private/NHS service description on this branch's own
+      page, the NHS Pharmacy Contraception Service, which Tiffenbergs
+      holds its own widget and generated page for). Baseline: all 36
+      checkers 0 failures, all six generators rebuilt first, combined
+      sha256 of every file under modules/ and core/ unchanged
+      (9b5ac4df90fd91c95d08026b5d252c4bc5500ef459453c6fc5f538bd007658b8).
+      Target file contraception-tiffenbergs-aintree.html backed up by byte
+      copy, baseline sha256
+      9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0.
+      Four injections plus one control, each restored by byte copy and
+      sha256-reconfirmed identical immediately after: (1) RULE 5 free, a
+      price ("Yes, from £12.") prepended to the no-prescription-charge FAQ
+      answer - CAUGHT; (2) RULE 6 consent, the consent sentence reversed
+      to "We will always tell your GP that you have used the service." -
+      CAUGHT, both on the verbatim rule and the dedicated reversed-consent
+      check; (3) RULE 8 no medicine names, "start you on the pill" changed
+      to "start you on Microgynon" - CAUGHT; (4) RULE 7 long-acting
+      methods, "We can fit the coil during the same visit." appended to an
+      FAQ answer - CAUGHT, this service supplies oral contraception only
+      and a coil must be signposted, not offered; CONTROL, two adjacent
+      FAQ blocks reordered with no content change - correctly PASSED, exit
+      0. All four injections caught on the first attempt with the expected
+      rule-specific failure tag; the control passed clean; no unexpected
+      cross-firing. Final restore sha256-reconfirmed identical to
+      baseline; full 36-checker suite and all six generators re-run/
+      rebuilt clean after (36/36 exit 0, combined sha256 unchanged);
+      tracked repo git status --porcelain on modules, core, branches.json,
+      gbp-packs and tools empty throughout aside from the same two
+      pre-existing untracked artefacts every recent pass has recorded.
+      Zero in-repo defect - check-contraception-copy.js was already
+      correctly holding Tiffenbergs' own contraception page across rules
+      5, 6, 7 and 8. No page, generator, checker, pack or branches.json
+      byte changed. Answer pickup this run: Claude in Chrome connected for
+      the first time in several passes and the feedback endpoint was read;
+      no new answers found (Q37 and Q43 both already carry a "not a
+      decision" note from a prior pass, unchanged; no entries postdate
+      2026-09-01). Live half not attempted beyond that: full 12-of-12 live
+      coverage already stands from the fifth/sixth passes (2026-09-02),
+      not re-read this pass. No new question raised - checker proof
+      against data already known correct, not a live-facing decision.
+      Evidence: audits/verify-3.12-2026-09-14-fifteenth.js, its
+      -output.txt, and audits/tiffenbergs-item-3.12-quality-pass-2026-09-
+      14-fifteenth.txt. Done 2026-09-14 (fifteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
