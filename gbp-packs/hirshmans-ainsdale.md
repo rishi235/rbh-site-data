@@ -88,7 +88,7 @@ in children, impetigo, shingles, infected insect bites and uncomplicated
 water infections in women aged 16 to 64. No GP appointment or referral
 needed - book or just walk in. Age ranges set by the NHS apply to each
 condition.
-Button: Learn more -> https://www.hirshmanspharmacy.co.uk/pharmacy-first-service-ainsdale.html
+Button: Learn more -> https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to Hirshmans Chemist takes about 30 seconds.
@@ -117,25 +117,17 @@ travel consultation today.
 Button: Book -> https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html
 
 Notes for the paster:
-- HARD STOP, Post A: do not post with the current button link. The old
-  hand-built page it points at (pharmacy-first-service-ainsdale.html)
-  publishes a phone number that does not dial (017014577376) and the old
-  "Hirshmans Pharmacy" branding, nine times against six correct "Hirshmans
-  Chemist" mentions on the same page (checked live 2026-08-12, reconfirmed
-  live 2026-09-04, both still present). The street address fault recorded
-  here on 2026-08-12 (64 Station Road instead of 56-62 Sherwood House) has
-  been silently corrected on the live page since then: reconfirmed live
-  2026-09-04, the page now reads "56-62 Sherwood House, Station Road,
-  Ainsdale, PR8 3HW" throughout, matching branches.json. Only two of the
-  three original faults still hold, but either one alone is enough to keep
-  this HARD STOP in force: a phone number that does not dial and branding
-  that names a brand this group renamed under item 1.1. The generated
-  replacement is already live and correct at
-  https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html
-  (phone, address and "Hirshmans Chemist" branding all reconfirmed exact
-  2026-09-04) so this is one of the item 5.3 links that needs no paste,
-  only the repoint decision (Q8/Q34). Until that lands, Post A stays
-  unposted.
+- Post A repointed 2026-09-14 (unattended run, item 5.3/Q8/Q34): the button
+  above now targets the generated replacement,
+  pharmacy-first-hirshmans-ainsdale.html, confirmed live in this branch's
+  own sitemap and re-read in full this run (correct phone 01704 577376,
+  correct address 56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW,
+  and "Hirshmans Chemist" branding throughout, all matching branches.json
+  exactly). The HARD STOP that previously applied to the old hand-built
+  page (pharmacy-first-service-ainsdale.html - wrong non-dialling phone
+  017014577376 and old "Hirshmans Pharmacy" branding) is lifted: that old
+  page is no longer the link and is not in the branch sitemap. Post A can
+  now be posted.
 - GBP hours need two time ranges on every open day to show the lunch
   closure: Monday to Friday 8:30am to 1:00pm and 2:00pm to 6:00pm,
   Saturday 9:00am to 1:00pm and 2:00pm to 5:30pm. Google offers one range
